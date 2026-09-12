@@ -433,11 +433,11 @@ class ImmichManager extends Manager {
       // albums but not read assets, or search them but not fetch their
       // previews (Immich's asset.view is a separate permission from
       // asset.download, issue #222), fails here at the button, not at 2am.
-      await _albums();
+      final picks = await _dropMissingAlbums(await _albums());
       final found = await _search(
         page: 1,
         size: _probeAssets,
-        albumId: _albumPicks.firstOrNull?.id,
+        albumId: picks.firstOrNull?.id,
       );
       final items = ((found['items'] as List?) ?? const []).cast<Map>();
       // Several assets, not one: the search answers newest first, and the
@@ -488,6 +488,38 @@ class ImmichManager extends Manager {
   /// How many assets the validation preview probe may try before giving up
   /// on finding one with a preview.
   static const _probeAssets = 5;
+
+  /// The album picks the server still lists, with the rest removed from
+  /// the setting. The search answers 400 for an album id the server does
+  /// not know (issue #514), and a server rebuilt from scratch knows none
+  /// of the old ids, so probing with a stale pick failed the Validate
+  /// button forever, and the button is what unlocks the row where the
+  /// pick could have been changed.
+  Future<List<ImmichNamed>> _dropMissingAlbums(
+    List<Map<String, Object?>> albums,
+  ) async {
+    final known = {for (final album in albums) '${album['id']}'};
+    final picks = _albumPicks;
+    final kept = [
+      for (final pick in picks)
+        if (known.contains(pick.id)) pick,
+    ];
+    if (kept.length == picks.length) return picks;
+    final gone = [
+      for (final pick in picks)
+        if (!known.contains(pick.id)) pick.name.isEmpty ? pick.id : pick.name,
+    ];
+    log.warn(
+      name,
+      'validate: dropped albums the server no longer lists: '
+      '${gone.join(', ')}',
+    );
+    await _settings.set(
+      defs.screensaverImmichAlbum,
+      jsonEncode([for (final pick in kept) pick.toJson()]),
+    );
+    return kept;
+  }
 
   /// [e] as a message a settings page or the screensaver can show. An HTTP
   /// rejection and an unreachable host are different problems (issue #222):

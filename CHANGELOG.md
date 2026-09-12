@@ -10,6 +10,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ### Fixed
 - **App launcher tiles answer the dpad when opened from the menu.** The first tile now takes focus even while the menu row that opened the wall still holds it, and the arrows stay on the wall instead of wandering to the dashboard underneath and closing it.
 - **Dpad presses in the menu and settings keep the screensaver away.** Driving either with a remote now restarts the idle clock like a touch does.
+- **Immich validation passes after the server is rebuilt.** Validate now drops album picks the server no longer lists before probing the search and logs their names. A rebuilt server knows none of the old album ids and refuses a search naming one, which failed the button forever while the Media source row that could fix it stayed hidden behind it.
 - **Zoom levels below 1x work on Android TV.** The viewport rewrite now states the layout width outright and follows rotation. A television WebView filled the missing width with its 980px default, which pinned the scale near 1x and left every level below it without effect on the NVIDIA Shield.
 
 ## v2026.9.43 - 2026-09-12

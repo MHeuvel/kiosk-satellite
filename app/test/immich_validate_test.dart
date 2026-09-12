@@ -32,6 +32,14 @@ void main() {
   var assetIds = <String>['asset-1'];
   var libraryEmpty = false;
 
+  /// The album ids the server knows. A search naming any other id is
+  /// refused the way Immich refuses it (issue #514).
+  var serverAlbums = <String>[];
+
+  /// The album ids each search asked for, so a test can assert which pick
+  /// the probe sent.
+  final searchedAlbums = <List<String>>[];
+
   /// Every thumbnail path the server was asked for, newest-first order
   /// preserved, so a test can assert the probe moved on.
   final probed = <String>[];
@@ -40,15 +48,35 @@ void main() {
     thumbnailStatuses = {'asset-1': 200};
     assetIds = ['asset-1'];
     libraryEmpty = false;
+    serverAlbums = [];
     probed.clear();
+    searchedAlbums.clear();
     server = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
-    server.listen((request) {
+    server.listen((request) async {
       final path = request.uri.path;
       final response = request.response;
       if (path == '/api/albums') {
         response.headers.contentType = ContentType.json;
-        response.write('[]');
+        response.write(
+          jsonEncode([
+            for (final id in serverAlbums)
+              {'id': id, 'albumName': 'Album $id', 'assetCount': 1},
+          ]),
+        );
       } else if (path == '/api/search/metadata') {
+        final body = jsonDecode(await utf8.decodeStream(request)) as Map;
+        final albumIds = ((body['albumIds'] as List?) ?? const [])
+            .cast<String>();
+        searchedAlbums.add(albumIds);
+        if (albumIds.any((id) => !serverAlbums.contains(id))) {
+          response.statusCode = 400;
+          response.headers.contentType = ContentType.json;
+          response.write(
+            jsonEncode({'message': 'Not found or no album.read access'}),
+          );
+          response.close();
+          return;
+        }
         response.headers.contentType = ContentType.json;
         response.write(
           jsonEncode({
@@ -165,6 +193,51 @@ void main() {
     final result = await commands.execute('immichValidate', const {});
     expect(result.ok, isFalse);
     expect(result.error, startsWith('Could not reach'));
+  });
+
+  test('an album the server no longer lists is dropped and validation '
+      'passes', () async {
+    // A server rebuilt from scratch (issue #514) knows none of the old
+    // album ids and refuses a search naming one with a 400. That used to
+    // fail the button forever, and the album row that could fix it sits
+    // behind the button.
+    serverAlbums = ['album-new'];
+    await settings.set(
+      defs.screensaverImmichAlbum,
+      jsonEncode([
+        {'id': 'album-old', 'name': 'Before the rebuild'},
+      ]),
+    );
+    final result = await commands.execute('immichValidate', const {});
+    expect(result.error, isNull);
+    expect(result.ok, isTrue);
+    expect(settings.get(defs.screensaverImmichValidated), isTrue);
+    expect(settings.get(defs.screensaverImmichAlbum), '[]');
+    expect(searchedAlbums, [<String>[]]);
+  });
+
+  test('album picks the server still lists are kept and probed', () async {
+    serverAlbums = ['album-a', 'album-b'];
+    await settings.set(
+      defs.screensaverImmichAlbum,
+      jsonEncode([
+        {'id': 'album-gone', 'name': 'Gone'},
+        {'id': 'album-a', 'name': 'A'},
+        {'id': 'album-b', 'name': 'B'},
+      ]),
+    );
+    final result = await commands.execute('immichValidate', const {});
+    expect(result.ok, isTrue);
+    expect(
+      settings.get(defs.screensaverImmichAlbum),
+      jsonEncode([
+        {'id': 'album-a', 'name': 'A'},
+        {'id': 'album-b', 'name': 'B'},
+      ]),
+    );
+    expect(searchedAlbums, [
+      ['album-a'],
+    ]);
   });
 
   test('a fetch error names the endpoint for the app log', () async {
