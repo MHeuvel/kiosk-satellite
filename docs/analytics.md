@@ -30,8 +30,6 @@ Each installation generates a random id when analytics first runs. It is not der
 
 Analytics are sent over HTTPS to `analytics.kiosksatellite.com`, a service run for Kiosk Satellite. The hostname sits behind Cloudflare, which terminates the connection at its edge like it does for any site it fronts. No other party receives the data and no analytics SDK is bundled with the app. Blocking that domain on your network stops all of it, with no effect on the app.
 
-The receiver looks up the country and city the connection came from and keeps those two names with the install. The address itself is not stored or logged.
-
 ## Fleet management
 
 The three switches sync with the Device category like any other setting, so a fleet decides once on the leader. Exclude the Device category from a profile to let each kiosk choose for itself.
