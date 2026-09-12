@@ -99,7 +99,7 @@ For voice control, install [Voice Satellite](https://github.com/jxlarrea/voice-s
 &bull; **Plugin Manager:** Install and create [community plugins](docs/plugins.md) for Kiosk Satellite.
 
 </details>
-
+ 
 ## Thank you for your support
 
 Thank you to everyone who supports my work through [Buy Me a Coffee](https://buymeacoffee.com/jxlarrea). I test everything on real hardware, which means buying devices to reproduce issues and check changes across different manufacturers and Android flavors. Your contributions help cover those purchases and make that testing possible.
