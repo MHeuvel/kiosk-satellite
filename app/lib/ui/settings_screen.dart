@@ -154,6 +154,14 @@ const _analyticsIntro =
 const _analyticsDocsUrl =
     'https://github.com/jxlarrea/kiosk-satellite/blob/main/docs/analytics.md';
 
+// The Updates page closes with a link to the custom repository guide: the
+// folder layout, the releases file and the APK names live in the docs, not
+// in a row description. Mirrored on the remote (renderUpdateSourceDocs in
+// device.js).
+const _updateDocsUrl =
+    'https://github.com/jxlarrea/kiosk-satellite/blob/main/docs/updates.md'
+    '#custom-repository';
+
 /// (defs category, page title, icon, subtitle)
 // The icon is a Material [IconData], or the path of an SVG asset for a
 // category named after a product with a mark of its own.
@@ -2996,6 +3004,38 @@ class _CategoryContentState extends State<_CategoryContent> {
           for (final def in _defsFor(widget.category))
             if (def.subpage == subpage) def,
         ]),
+      ];
+    }
+
+    if (widget.category == 'Device' && subpage == 'Updates') {
+      return [
+        ...sectioned([
+          for (final def in _defsFor(widget.category))
+            if (def.subpage == subpage) def,
+        ]),
+        // Last: how to host a repository of your own, for whoever picked
+        // Custom Repository above and wonders what goes in the folder.
+        SettingsCard(
+          children: [
+            SearchLandingTarget(
+              id: 'x:update_docs',
+              child: ListTile(
+                title: const Text('Custom repository guide'),
+                subtitle: const Text(
+                  'How to host the releases file and the APKs on your own '
+                  'network.',
+                ),
+                trailing: const Icon(Icons.open_in_new),
+                onTap: () {
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                  container.commands.execute('showLinkPage', {
+                    'url': _updateDocsUrl,
+                  });
+                },
+              ),
+            ),
+          ],
+        ),
       ];
     }
 

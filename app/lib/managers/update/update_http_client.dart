@@ -9,6 +9,14 @@ import 'package:http/io_client.dart';
 /// Keep the platform roots for GitHub's API and any other download hosts.
 http.Client createUpdateHttpClient() => createStrictHttpClient();
 
+/// The client for a custom update repository, a server on the user's own
+/// network: the app's usual certificate policy, so a self-signed
+/// certificate passes under the Ignore SSL errors setting exactly as the
+/// dashboard's does, and plain http works without any setting at all.
+/// The APK's own signing certificate is what Android checks at install,
+/// whichever way the bytes arrived.
+http.Client createLocalUpdateHttpClient() => IOClient(HttpClient());
+
 /// A client that always verifies certificates, the dashboard's Ignore SSL
 /// errors setting notwithstanding, with the Let's Encrypt root added for
 /// old trust stores. For every request that leaves the home network:

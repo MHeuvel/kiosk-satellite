@@ -91,6 +91,14 @@ const List<SettingsSearchEntry> handBuiltSearchEntries = [
   ),
   SettingsSearchEntry(
     category: "Device",
+    title: "Custom repository guide",
+    description:
+        "How to host the releases file and the APKs on your own network.",
+    subpage: "Updates",
+    anchorId: "x:update_docs",
+  ),
+  SettingsSearchEntry(
+    category: "Device",
     title: "Shizuku access",
     description: "Checking availability",
     subpage: "Shizuku",

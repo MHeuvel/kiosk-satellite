@@ -50,7 +50,7 @@ try:
         page.evaluate("""async () => {
           const core = await import('/static/core.js');
           core.showView('app');
-          core.state.settings = [{key:'shizuku.install_updates', type:'boolean', value:false, category:'Device', subpage:'Shizuku', section:'Updates', title:'Install updates through Shizuku', description:'Install Kiosk Satellite updates without on-device confirmation. Shizuku must be running and authorized.'}];
+          core.state.settings = [{key:'shizuku.install_updates', type:'boolean', value:false, category:'Device', subpage:'Shizuku', section:'Shizuku', title:'Install updates through Shizuku', description:'Install Kiosk Satellite updates without on-device confirmation. Shizuku must be running and authorized.'}];
           const panel = document.createElement('div');
           panel.className = 'subpage'; panel.dataset.subpage = 'Shizuku';
           document.querySelector('#tab-device').append(panel);

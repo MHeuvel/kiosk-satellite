@@ -157,6 +157,106 @@ void main() {
     expect(update.available.value?.version, tag);
   }
 
+  group('custom repository', () {
+    const folder = 'http://nas.local/kiosk-satellite';
+    late List<Uri> requested;
+    late List<Uri> strictRequested;
+
+    /// A mirror of [entries] under [folder]: the saved releases list and
+    /// the APK files under the names GitHub gave them, served by a client
+    /// that fails on anything else. GitHub itself is unreachable, as on
+    /// the network such a mirror is for.
+    void mirror(List<Map<String, Object?>> entries, List<int> apkBytes) {
+      requested = [];
+      strictRequested = [];
+      update.localClientFactory = () => MockClient((request) async {
+        requested.add(request.url);
+        if (request.url.toString() == '$folder/releases.json') {
+          return http.Response(releases(entries), 200);
+        }
+        if (request.url.path.endsWith('.apk')) {
+          return http.Response.bytes(apkBytes, 200);
+        }
+        return http.Response('not found', 404);
+      });
+      update.clientFactory = () => MockClient((request) async {
+        strictRequested.add(request.url);
+        throw const SocketException('no route to GitHub');
+      });
+    }
+
+    setUp(() {
+      update = UpdateManager(
+        EventBus(),
+        registry,
+        Logger(),
+        useShizuku: () => shizukuEnabled,
+        customSource: () => folder,
+      );
+    });
+
+    test('the check reads releases.json from the folder and roots the APK '
+        'there', () async {
+      final apkBytes = List<int>.generate(100, (i) => i);
+      mirror([entry('1.1.0', size: apkBytes.length)], apkBytes);
+      await update.init();
+      expect(await update.check(), isTrue);
+      expect(update.available.value?.version, '1.1.0');
+      expect(
+        update.available.value?.apkUrl,
+        '$folder/kiosk-satellite-1.1.0.apk',
+      );
+      expect(update.available.value?.apkSize, apkBytes.length);
+      expect(strictRequested, isEmpty);
+
+      expect(await update.downloadAndInstall(), isNull);
+      expect(installed, hasLength(1));
+      expect(await File(installed.single).readAsBytes(), apkBytes);
+      expect(requested.map((u) => u.toString()), [
+        '$folder/releases.json',
+        '$folder/releases.json',
+        '$folder/kiosk-satellite-1.1.0.apk',
+      ]);
+    });
+
+    test('a folder without the releases file leaves the notice down',
+        () async {
+      mirror([], const []);
+      update.localClientFactory = () => MockClient(
+          (request) async => http.Response('not found', 404));
+      await update.init();
+      expect(await update.check(), isFalse);
+      expect(update.available.value, isNull);
+    });
+
+    test('an older release in the folder is up to date', () async {
+      mirror([entry('0.9.0')], const []);
+      await update.init();
+      expect(await update.check(), isTrue);
+      expect(update.available.value, isNull);
+    });
+
+    test('the custom source without a URL never falls back to GitHub',
+        () async {
+      update = UpdateManager(
+        EventBus(),
+        registry,
+        Logger(),
+        customSource: () => '',
+      );
+      var asked = 0;
+      update.clientFactory = () => MockClient((request) async {
+        asked++;
+        return http.Response(release('2.0.0'), 200);
+      });
+      update.localClientFactory = update.clientFactory;
+      await update.init();
+      expect(await update.check(), isFalse);
+      expect(update.available.value, isNull);
+      expect(asked, 0);
+    });
+  });
+
   test('the install downloads the release cut after the notice', () async {
     await notice('1.1.0');
     final asked = <String>[];

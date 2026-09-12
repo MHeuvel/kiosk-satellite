@@ -57,10 +57,22 @@ class UpdateManager extends Manager {
     super.commands,
     super.log, {
     this.useShizuku = _shizukuDisabled,
+    this.customSource = _noCustomSource,
   });
 
   final bool Function() useShizuku;
   static bool _shizukuDisabled() => false;
+
+  /// The custom repository folder, or null while releases come from
+  /// GitHub. A folder on the user's own web server that holds a copy of
+  /// GitHub's releases list as `releases.json` and the APKs it names, for
+  /// kiosks on a network without internet access. Read on every check, so
+  /// a change in settings takes effect at the next one. An empty string is
+  /// the custom source picked with no URL entered yet: the check reports
+  /// that rather than quietly asking GitHub, which such a network cannot
+  /// reach anyway.
+  final String? Function() customSource;
+  static String? _noCustomSource() => null;
 
   /// The releases list rather than `/releases/latest`: one request either
   /// way, but the list also carries the bodies of releases the device
@@ -71,6 +83,36 @@ class UpdateManager extends Manager {
   static const _releasesUrl =
       'https://api.github.com/repos/jxlarrea/kiosk-satellite/'
       'releases?per_page=30';
+
+  /// The file a custom repository serves in place of the GitHub query:
+  /// that query's response, saved as is. Same parser, same ABI selection,
+  /// same notes; only the asset URLs are re-rooted at the folder.
+  static const releasesFileName = 'releases.json';
+
+  /// Where the next check asks: GitHub, or the custom folder's releases
+  /// file. Null when the custom source is picked without a URL.
+  Uri? _releasesUri(String? source) {
+    if (source == null) return Uri.parse(_releasesUrl);
+    if (source.isEmpty) return null;
+    return Uri.parse('$source/$releasesFileName');
+  }
+
+  /// The download URL of [apk] as the source serves it: GitHub's own for
+  /// GitHub, the asset's name under the custom folder otherwise. A mirror
+  /// holds the files under the names GitHub gave them, so the saved
+  /// releases list needs no editing.
+  String? _assetUrl(Map<String, dynamic> apk, String? source) {
+    if (source == null) return apk['browser_download_url'] as String?;
+    final name = apk['name'] as String?;
+    if (name == null || name.isEmpty) return null;
+    return '$source/${Uri.encodeComponent(name)}';
+  }
+
+  /// The client for [source]: strict verification for GitHub, the app's
+  /// own certificate policy (the Ignore SSL errors setting included) for a
+  /// server on the user's network, which is where a custom source lives.
+  http.Client _clientFor(String? source) =>
+      source == null ? clientFactory() : localClientFactory();
 
   /// App-scoped (see ApkInstaller). The Shizuku opt-in overrides installation.
   /// Otherwise native silent installation, the ADB helper and confirmation keep their order.
@@ -132,10 +174,14 @@ class UpdateManager extends Manager {
   @visibleForTesting
   List<String> supportedAbis = const [];
 
-  /// Builds the client for the release query and the APK download. Swapped
-  /// in tests; production always hands back a real one.
+  /// Builds the client for the release query and the APK download from
+  /// GitHub. Swapped in tests; production always hands back a real one.
   @visibleForTesting
   http.Client Function() clientFactory = createUpdateHttpClient;
+
+  /// The same for a custom repository, see [_clientFor].
+  @visibleForTesting
+  http.Client Function() localClientFactory = createLocalUpdateHttpClient;
 
   Timer? _firstCheck;
   Timer? _timer;
@@ -330,14 +376,26 @@ class UpdateManager extends Manager {
   /// is the case where the caller keeps what it already knew; `info` is null
   /// when GitHub answered and the running version is already the latest.
   Future<({bool reachable, UpdateInfo? info})> _fetchLatest() async {
-    final client = clientFactory();
+    final source = customSource();
+    final uri = _releasesUri(source);
+    if (uri == null) {
+      log.warn(
+        name,
+        'release check skipped: the custom update repository has no URL',
+      );
+      return (reachable: false, info: null);
+    }
+    final client = _clientFor(source);
     try {
       final res = await client.get(
-        Uri.parse(_releasesUrl),
+        uri,
         headers: const {'Accept': 'application/vnd.github+json'},
       );
       if (res.statusCode != 200) {
-        log.warn(name, 'release check failed: HTTP ${res.statusCode}');
+        log.warn(
+          name,
+          'release check failed: HTTP ${res.statusCode} from ${uri.host}',
+        );
         return (reachable: false, info: null);
       }
       String tagOf(Map<String, dynamic> r) =>
@@ -359,13 +417,14 @@ class UpdateManager extends Manager {
         log.warn(name, 'release $tag has no compatible APK');
         return (reachable: false, info: null);
       }
-      final url = apk['browser_download_url'] as String?;
+      final url = _assetUrl(apk, source);
       if (tag.isEmpty || url == null) return (reachable: false, info: null);
       final newer = _isNewer(tag, _currentVersion);
       if (newer) log.info(name, 'selected APK: ${apk['name']}');
       log.info(
         name,
-        'latest release $tag, running $_currentVersion: '
+        'latest release $tag on ${source == null ? 'GitHub' : uri.host}, '
+        'running $_currentVersion: '
         '${newer ? 'update available' : 'up to date'}',
       );
       return (
@@ -458,7 +517,7 @@ class UpdateManager extends Manager {
     _lastOutcome = null;
     _lastError = null;
     _cancelRequested = false;
-    final client = clientFactory();
+    final client = _clientFor(customSource());
     _downloadClient = client;
     try {
       if (useShizukuUpdates) await _needsConfirmation(shizuku: true);

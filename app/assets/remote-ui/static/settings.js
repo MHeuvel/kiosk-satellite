@@ -7,7 +7,7 @@ import {
 } from './audio.js';
 import { MIC_GROUP_NOTE, cameraAction, exportFileName } from './cameras.js';
 import { $, api, cmd, depSatisfied, state } from './core.js';
-import { readOnlyRow, renderAnalyticsIntro, renderUpdateHelper } from './device.js';
+import { readOnlyRow, renderAnalyticsIntro, renderUpdateHelper, renderUpdateSourceDocs } from './device.js';
 import { permissionSpecs } from './permissions.js';
 import { renderServicePage } from './service.js';
 import { renderShizukuPage } from './shizuku.js';
@@ -226,6 +226,7 @@ export async function loadSettings() {
         if (entry) analyticsRoot.appendChild(entry.closest('.card'));
       }
       renderAnalyticsIntro(panels.get('Kiosk Satellite Analytics'));
+      renderUpdateSourceDocs(panels.get('Updates'));
     }
     if (helperPage) renderUpdateHelper(panels.get('Optional update helper'), helperStatus);
   }

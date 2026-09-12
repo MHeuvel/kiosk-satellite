@@ -110,6 +110,9 @@ class AppContainer {
       commands,
       log,
       useShizuku: () => settings.get(shizukuInstallUpdates),
+      customSource: () => settings.get(updateSource) == 'custom'
+          ? settings.get(updateSourceUrl).trim()
+          : null,
     );
     // After homeAssistant: it reads states through it for the fallback.
     glance = GlanceManager(bus, commands, log, settings, homeAssistant);

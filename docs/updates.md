@@ -1,6 +1,6 @@
 # Updating Kiosk Satellite
 
-Kiosk Satellite manages its own updates directly from GitHub releases: it detects a new release, downloads it onto the device, and passes the file to the Android installer. How much of this process happens automatically depends on your Android version and whether the app is configured as the device owner.
+Kiosk Satellite manages its own updates directly from GitHub releases: it detects a new release, downloads it onto the device, and passes the file to the Android installer. How much of this process happens automatically depends on your Android version and whether the app is configured as the device owner. Kiosks on a network without internet access can read releases from a [custom repository](#custom-repository) on your own web server instead.
 
 ## How the App Finds an Update
 
@@ -27,6 +27,37 @@ The updater selects an APK using Android's supported architectures in preference
 APK selection happens before choosing an installer. Regular updates, the optional update helper and Shizuku all receive the same architecture-specific download. The helper does not select or download a separate APK.
 
 The universal filename remains `kiosk-satellite-<tag>.apk`. Architecture downloads use `kiosk-satellite-<tag>.<abi>.apk`. Older app versions continue to download universal because it remains the first APK asset. The release workflow preserves this order during reruns and checks it after uploading. Every APK in a release uses the same signing key and version code so an installed app can move between universal and architecture downloads.
+
+## Custom Repository
+
+Kiosks on a Wi-Fi network without internet access cannot reach GitHub. **Settings > Device > Updates** has an **Update source** picker. Pick **Custom Repository** and enter a **Repository URL**: a folder on any web server the kiosk can reach, such as a NAS. The kiosk then checks that folder instead of GitHub, on the same schedule, and downloads the APK from it. Everything after the download is unchanged: the installer, Shizuku, the update helper, the Home Assistant Update entity and fleet updates all work as before. The same page is available in the remote admin.
+
+The folder holds two kinds of files:
+
+| File | What it is |
+| --- | --- |
+| `releases.json` | GitHub's releases list for Kiosk Satellite, saved as is. The kiosk reads it exactly as it reads GitHub's answer: newest release, release notes, APK names and sizes. |
+| `kiosk-satellite-<version>.apk` and `kiosk-satellite-<version>.<abi>.apk` | The release APKs, kept under the names GitHub gives them. Only the ones your devices need are required. The kiosk picks the same file it would pick on GitHub. |
+
+To mirror the latest release from a computer with internet access, run this inside the folder the web server publishes:
+
+```sh
+curl -sL "https://api.github.com/repos/jxlarrea/kiosk-satellite/releases?per_page=30" -o releases.json
+TAG=$(grep -m1 '"tag_name"' releases.json | sed 's/.*: "\(.*\)".*/\1/')
+for FILE in "kiosk-satellite-$TAG.apk" "kiosk-satellite-$TAG.arm64-v8a.apk" "kiosk-satellite-$TAG.armeabi-v7a.apk" "kiosk-satellite-$TAG.x86_64.apk"; do
+  curl -sLO "https://github.com/jxlarrea/kiosk-satellite/releases/download/$TAG/$FILE"
+done
+```
+
+Repeat it for each new release. The kiosk notices at its next check, or right away when you tap the version line in the kiosk menu or the remote admin.
+
+How the custom source behaves:
+
+* Plain `http://` works. An `https://` server with a self-signed certificate needs **Ignore SSL errors** on the Home Assistant page, the same setting the dashboard uses. GitHub downloads always verify certificates and ignore that setting.
+* The URL may end in `/releases.json`. The kiosk keeps the folder.
+* While Custom Repository is picked, the kiosk never falls back to GitHub. An unreachable folder keeps whatever the kiosk last knew and the app log names the host and the HTTP status.
+* A folder holding only the running version, or an older one, reports up to date. Android verifies the signing certificate at install, so the folder can only ever serve a real Kiosk Satellite release.
+* Both settings sync with the fleet, so a leader points every follower at the same folder and **Update fleet** works unchanged. Each kiosk downloads its own APK from the folder.
 
 ## System Permission Requirements
 
@@ -162,6 +193,7 @@ Manual updates preserve all local settings, Home Assistant connections, and ESPH
 | The update completed but the app remained closed | The **Display over other apps** permission is missing. Launch the app manually and grant this permission so future updates can relaunch automatically. |
 | Nothing happens after the download completes on Android 11 or older | The system confirmation dialog could not be displayed. This usually indicates the OS lacks the "Install unknown apps" configuration screen. Grant the permission via `adb` or configure the app as the device owner. On Meta Portals, see the verifier fix above. On Fire tablets, see the Fire OS section above. |
 | The update download fails or stalls | The device cannot reach GitHub or the connection timed out. Check the app logs in the remote admin interface for detailed error messaging. |
+| A custom repository shows no update | `releases.json` is missing or stale, the APK it names is not in the folder, or the newest release is no newer than the running version. The app log names the host and the HTTP status of the check. |
 | An update on Android 12 or newer prompted for confirmation unexpectedly | An external tool (such as `adb`) was used to install an intermediate update, resetting the installer role. Confirming one in-app update restores silent updating for subsequent releases. |
 | Updates ask for confirmation after a reboot | The optional update helper stopped at reboot. Restore ADB access and rerun its startup command. |
 | The helper connection was lost after committing an update | Check the installed version and app logs before trying again. Kiosk Satellite does not automatically retry an installation whose outcome is uncertain. |

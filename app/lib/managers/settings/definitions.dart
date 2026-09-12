@@ -241,6 +241,7 @@ const Map<String, String> subpageHints = {
   'Kiosk Satellite Service':
       'Status, what keeps it running, required permissions',
   'Remote Administration': 'Manage this kiosk from a browser on your network',
+  'Updates': 'Where the app looks for new releases',
   'Shizuku': 'Connection, Android permissions and setup',
   'Optional update helper': 'Silent update status, ADB setup and instructions',
   'Kiosk Satellite Analytics':
@@ -290,6 +291,41 @@ String normalizeBaseUrl(String value) {
 /// [SettingDef.normalizer] adapter for [normalizeBaseUrl].
 Object normalizeBaseUrlSetting(Object value) =>
     value is String ? normalizeBaseUrl(value) : value;
+
+/// A custom update repository: the folder that holds `releases.json` and
+/// the release APKs, on any web server the kiosk can reach. Unlike a Home
+/// Assistant base URL a path is expected (the folder), so only the scheme,
+/// the host and a clean tail are checked.
+String? validateUpdateSourceUrl(Object? value) {
+  if (value is! String || value.trim().isEmpty) return null; // empty = unset
+  final uri = Uri.tryParse(value.trim());
+  if (uri == null ||
+      (uri.scheme != 'http' && uri.scheme != 'https') ||
+      uri.host.isEmpty) {
+    return 'Enter the folder URL, for example '
+        'http://nas.local/kiosk-satellite';
+  }
+  if (uri.hasQuery || uri.hasFragment) {
+    return 'Enter only the folder URL, without anything after the path. '
+        'Example: http://nas.local/kiosk-satellite';
+  }
+  return null;
+}
+
+/// Canonical stored form of the repository folder: no trailing slash (the
+/// updater appends `/releases.json` and `/<asset name>` itself) and, when
+/// the file itself was pasted, the folder it sits in.
+String normalizeUpdateSourceUrl(String value) {
+  var trimmed = value.trim();
+  if (trimmed.endsWith('/releases.json')) {
+    trimmed = trimmed.substring(0, trimmed.length - '/releases.json'.length);
+  }
+  return trimmed.replaceFirst(RegExp(r'/+$'), '');
+}
+
+/// [SettingDef.normalizer] adapter for [normalizeUpdateSourceUrl].
+Object normalizeUpdateSourceUrlSetting(Object value) =>
+    value is String ? normalizeUpdateSourceUrl(value) : value;
 
 /// The Immich album pick as the `[{id, name}]` list it is stored as. A
 /// bare album id is the shape the setting had while it held one album; it
@@ -6300,6 +6336,47 @@ const remoteFleetDiscovery = SettingDef<bool>(
   perDevice: true,
 );
 
+// ── Updates ────────────────────────────────────────────────────────────
+// Where releases come from. GitHub is the default and the only source
+// until now; a custom repository is a folder on the user's own web server
+// holding a copy of GitHub's releases.json and the APKs it names, for
+// kiosks on a network without internet access (docs/updates.md). Not
+// perDevice: a fleet points every kiosk at the same folder.
+
+const updateSource = SettingDef<String>(
+  key: 'update.source',
+  type: SettingType.select,
+  defaultValue: 'github',
+  options: ['github', 'custom'],
+  optionLabels: {
+    'github': 'GitHub Repository',
+    'custom': 'Custom Repository',
+  },
+  title: 'Update source',
+  description: 'Where the app looks for new releases.',
+  category: 'Device',
+  section: 'Updates',
+  subpage: 'Updates',
+);
+
+const updateSourceUrl = SettingDef<String>(
+  key: 'update.source_url',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Repository URL',
+  description:
+      'A folder on a web server the kiosk can reach, holding releases.json '
+      'and the release APKs.',
+  placeholder: 'http://nas.local/kiosk-satellite',
+  category: 'Device',
+  section: 'Updates',
+  subpage: 'Updates',
+  dependsOn: 'update.source',
+  dependsOnValue: 'custom',
+  validator: validateUpdateSourceUrl,
+  normalizer: normalizeUpdateSourceUrlSetting,
+);
+
 const shizukuInstallUpdates = SettingDef<bool>(
   key: 'shizuku.install_updates',
   type: SettingType.boolean,
@@ -6308,7 +6385,7 @@ const shizukuInstallUpdates = SettingDef<bool>(
   description:
       'Install Kiosk Satellite updates without on-device confirmation. Shizuku must be running and authorized.',
   category: 'Device',
-  section: 'Updates',
+  section: 'Shizuku',
   subpage: 'Shizuku',
   perDevice: true,
 );
@@ -7129,6 +7206,8 @@ const List<SettingDef<Object>> allSettings = [
   remotePort,
   remotePassword,
   remoteFleetDiscovery,
+  updateSource,
+  updateSourceUrl,
   shizukuInstallUpdates,
   // The Kiosk Satellite Analytics page is the last group on the Device
   // page, after Permissions Manager (settings_screen places its entry).

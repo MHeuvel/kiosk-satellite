@@ -111,6 +111,32 @@ export function renderAnalyticsIntro(panel) {
   panel.prepend(card);
 }
 
+/* ---- Updates ---- */
+// The page's closing row: where to read how a custom repository is laid
+// out, the same words the device puts there (_updateDocsUrl in
+// settings_screen.dart).
+export const UPDATE_DOCS_URL =
+  'https://github.com/jxlarrea/kiosk-satellite/blob/main/docs/updates.md#custom-repository';
+
+export function renderUpdateSourceDocs(panel) {
+  if (!panel) return;
+  const card = document.createElement('div');
+  card.className = 'card';
+  const docs = readOnlyRow('Custom repository guide',
+    'How to host the releases file and the APKs on your own network.', '');
+  docs.querySelector('span').remove();
+  docs.dataset.searchId = 'x:update_docs';
+  const link = document.createElement('a');
+  link.className = 'btn-ghost';
+  link.textContent = 'Open guide';
+  link.href = UPDATE_DOCS_URL;
+  link.target = '_blank';
+  link.rel = 'noreferrer';
+  docs.appendChild(link);
+  card.appendChild(docs);
+  panel.appendChild(card);
+}
+
 /* ---- Device Info ---- */
 // What this device is and what it is doing, read fresh each time the tab is
 // opened. Everything here comes from the device itself; nothing is inferred
