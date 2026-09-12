@@ -163,6 +163,7 @@ void main() {
       expect((basic['screen'] as Map)['width'], 1280);
       final usage = body['usage'] as Map;
       expect(usage['plugins'], 2);
+      expect(usage['plugin_ids'], ['a', 'b']);
       expect(usage['fleet_role'], 'none');
       expect(usage['wake_word_engine'], 'vsWakeWord');
       expect(usage['wake_word'], 'Ok Nova');
@@ -189,9 +190,20 @@ void main() {
     expect(raw, isNot(contains('192.168')));
     expect(raw, isNot(contains('Echo Show 8 Office')));
     expect(raw, isNot(contains('onyx')));
-    // Usage is flags and picks only.
+    // Usage is flags and picks only, plus one list of plugin ids: short
+    // plain names, the same rule the receiver enforces.
     final usage = bodyOf(sent.single)['usage'] as Map;
-    for (final v in usage.values) {
+    for (final entry in usage.entries) {
+      final v = entry.value;
+      if (entry.key == 'plugin_ids') {
+        expect(v, isA<List>());
+        for (final id in v as List) {
+          expect(id, isA<String>());
+          expect((id as String).length, lessThanOrEqualTo(64));
+          expect(id, isNot(contains('://')));
+        }
+        continue;
+      }
       expect(v is bool || v is num || v is String, isTrue, reason: '$v');
       if (v is String) expect(v, isNot(contains('://')));
     }

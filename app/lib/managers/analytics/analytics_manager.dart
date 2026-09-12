@@ -342,7 +342,11 @@ class AnalyticsManager extends Manager {
       if (raw is List) mappings = raw.length;
     } catch (_) {}
 
-    var plugins = 0;
+    // Which plugins are installed, by the id their manifest declares: a
+    // public name from the repository the plugin came from, never a
+    // setting or a value the plugin holds. Sorted, so two installs with
+    // the same plugins read the same.
+    var pluginIds = <String>[];
     var pluginsEnabled = false;
     try {
       final r = await commands.execute('getPluginState', const {});
@@ -350,7 +354,12 @@ class AnalyticsManager extends Manager {
       if (data is Map) {
         pluginsEnabled = data['enabled'] == true;
         final list = data['plugins'];
-        if (list is List) plugins = list.length;
+        if (list is List) {
+          pluginIds = [
+            for (final item in list)
+              if (item is Map && item['id'] is String) item['id'] as String,
+          ]..sort();
+        }
       }
     } catch (_) {}
 
@@ -426,7 +435,8 @@ class AnalyticsManager extends Manager {
       'remote_admin': s.get(defs.remoteEnabled),
       'fleet_role': fleetRole(),
       'plugins_enabled': pluginsEnabled,
-      'plugins': plugins,
+      'plugins': pluginIds.length,
+      'plugin_ids': pluginIds,
       'theme': s.get(defs.uiTheme),
     };
   }
