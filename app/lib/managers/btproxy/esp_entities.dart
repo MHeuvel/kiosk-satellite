@@ -38,6 +38,20 @@ import 'countdown_stamp.dart';
 /// no camera, so a fetch of either asks both and each answers on its own
 /// key; the frames are cheap enough that a screenshot fetch refreshing the
 /// camera preview alongside is no cost worth a second protocol.
+/// One settings-backed number entity: its range and the setting behind it.
+typedef _SettingNumber = ({
+  String name,
+  String icon,
+  defs.SettingDef<num> def,
+  bool fraction,
+  num min,
+  num max,
+  num step,
+  String unit,
+  String? deviceClass,
+  int mode,
+});
+
 class EspEntitySurface {
   EspEntitySurface(
     this.bus,
@@ -240,29 +254,62 @@ class EspEntitySurface {
         ),
       };
 
-  /// Settings-backed numbers shown as 0-100 percent sliders:
-  /// objectId -> (name, icon, definition, stored 0..1 instead of 0..100).
-  static final _settingNumbers =
-      <String, (String, String, defs.SettingDef<num>, bool)>{
-        'screensaver_brightness_level': (
-          'Screensaver brightness level',
-          'mdi:brightness-6',
-          defs.screensaverBrightnessLevel,
-          true,
-        ),
-        'assistant_volume': (
-          'Assistant volume',
-          'mdi:account-voice',
-          defs.assistantVolume,
-          false,
-        ),
-        'media_volume': (
-          'Media volume',
-          'mdi:music-note',
-          defs.mediaVolume,
-          false,
-        ),
-      };
+  /// Settings-backed numbers: objectId -> the entity's range and the
+  /// setting behind it. `fraction` marks a setting stored 0..1 behind a
+  /// 0-100 slider.
+  static final _settingNumbers = <String, _SettingNumber>{
+    'screensaver_brightness_level': _percent(
+      'Screensaver brightness level',
+      'mdi:brightness-6',
+      defs.screensaverBrightnessLevel,
+      fraction: true,
+    ),
+    // The idle timeout in seconds (issue #516): an automation can cut it
+    // short at night and stretch it back by day. A box rather than a
+    // slider: the range is wide and a second matters at the low end. 0
+    // keeps the idle clock off, the same as on the settings page.
+    'screensaver_timeout': (
+      name: 'Screensaver timeout',
+      icon: 'mdi:timer-outline',
+      def: defs.screensaverTimeoutSeconds,
+      fraction: false,
+      min: 0,
+      max: 86400,
+      step: 1,
+      unit: 's',
+      deviceClass: 'duration',
+      mode: 1,
+    ),
+    'assistant_volume': _percent(
+      'Assistant volume',
+      'mdi:account-voice',
+      defs.assistantVolume,
+    ),
+    'media_volume': _percent(
+      'Media volume',
+      'mdi:music-note',
+      defs.mediaVolume,
+    ),
+  };
+
+  /// A 0-100 percent slider in 5% steps.
+  static _SettingNumber _percent(
+    String name,
+    String icon,
+    defs.SettingDef<num> def, {
+    bool fraction = false,
+  }) => (
+    name: name,
+    icon: icon,
+    def: def,
+    fraction: fraction,
+    min: 0,
+    max: 100,
+    step: 5,
+    unit: '%',
+    deviceClass: null,
+    mode: 2,
+  );
 
   /// Probes the hardware and Home Assistant, then lays out the catalog.
   /// The set is fixed for one server run; the manager restarts the server
@@ -662,13 +709,14 @@ class EspEntitySurface {
         {
           'type': 'number',
           'objectId': e.key,
-          'name': e.value.$1,
-          'icon': e.value.$2,
-          'min': 0,
-          'max': 100,
-          'step': 5,
-          'unit': '%',
-          'mode': 2,
+          'name': e.value.name,
+          'icon': e.value.icon,
+          if (e.value.deviceClass != null) 'deviceClass': e.value.deviceClass,
+          'min': e.value.min,
+          'max': e.value.max,
+          'step': e.value.step,
+          'unit': e.value.unit,
+          'mode': e.value.mode,
           'category': 1,
         },
       {
@@ -1343,10 +1391,13 @@ class EspEntitySurface {
     }
     final settingNumber = _settingNumbers[objectId];
     if (settingNumber != null) {
-      final percent = ((value as num?) ?? 0).clamp(0, 100);
+      final clamped = ((value as num?) ?? 0).clamp(
+        settingNumber.min,
+        settingNumber.max,
+      );
       await _settings.set(
-        settingNumber.$3,
-        settingNumber.$4 ? percent / 100.0 : percent,
+        settingNumber.def,
+        settingNumber.fraction ? clamped / 100.0 : clamped,
         source: 'esphome',
       );
       return;
@@ -1560,9 +1611,12 @@ class EspEntitySurface {
       }
     }
     for (final entry in _settingNumbers.entries) {
-      if (entry.value.$3.key == e.key) {
+      if (entry.value.def.key == e.key) {
         final raw = (e.value as num?) ?? 0;
-        _send(entry.key, (entry.value.$4 ? raw.toDouble() * 100 : raw).round());
+        _send(
+          entry.key,
+          (entry.value.fraction ? raw.toDouble() * 100 : raw).round(),
+        );
         return;
       }
     }
@@ -1654,10 +1708,10 @@ class EspEntitySurface {
       await _send(entry.key, def.optionLabels?[stored] ?? stored);
     }
     for (final entry in _settingNumbers.entries) {
-      final raw = _settings.get(entry.value.$3);
+      final raw = _settings.get(entry.value.def);
       await _send(
         entry.key,
-        (entry.value.$4 ? raw.toDouble() * 100 : raw).round(),
+        (entry.value.fraction ? raw.toDouble() * 100 : raw).round(),
       );
     }
     await _send(

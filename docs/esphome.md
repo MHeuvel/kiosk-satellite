@@ -85,6 +85,7 @@ Every item in this list corresponds directly to a kiosk setting. They are fully 
 | Entity | Type | Notes |
 |---|---|---|
 | **Screensaver brightness level**, **Assistant volume**, **Media volume** | number | Values in percentage. |
+| **Screensaver timeout** | number | The idle timeout in seconds, the same value as **Idle timeout** on the Screensaver page. A write restarts the idle clock at the new value right away, so an automation can shorten it at night and stretch it back in the morning. `0` turns the idle clock off, so the screensaver only starts from the switch, a schedule or a gesture. |
 | **Clock background** | text | The Clock screensaver's background photo: a path to an image on the device or an image URL the device fetches. Every write reloads the image, an unchanged value included. |
 | **Kiosk mode**, **Lockdown mode**, **HA kiosk mode**, **Keep screen on**, **Remote management**, **Screensaver brightness**, **Screensaver**, **Hold mode** | switch | Standard toggle switches. |
 | **Adaptive brightness** | switch | Requires a physical light sensor. |

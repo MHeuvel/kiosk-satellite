@@ -5,6 +5,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ## Unreleased
 
 ### Added
+- **Screensaver timeout ESPHome entity.** A new configuration number holds the screensaver idle timeout in seconds, the same value as Idle timeout on the Screensaver page. Writing it from Home Assistant restarts the idle clock at the new value, so an automation can cut the timeout short at night on a bedside panel and stretch it back by day. 0 turns the idle clock off.
 - **Kiosk Satellite Analytics.** A new page, last on the Device page, holds three switches, on by default: Basic analytics (device model, Android version, app version, CPU architecture, screen size, language), Usage (which features are turned on) and Diagnostics (crash reports). While Basic analytics or Usage is on, the app sends one snapshot a day to `analytics.kiosksatellite.com` over HTTPS with certificates always verified. While Diagnostics is on, each crash the app recorded is reported once on the next start, with URLs, addresses, paths and entity ids stripped. Frame watchdog restarts are reported the same way and requested restarts are not. Usage includes the Voice Satellite wake word engine, wake word names and skin. Every switch off removes the random install id, so a later opt-in starts unlinked. The page opens with a short intro and a link to the new [analytics guide](docs/analytics.md), which lists what each switch sends and what is never sent. Both interfaces show the page and both settings searches find it.
 
 ### Fixed

@@ -588,6 +588,7 @@ void main() {
         'last_interaction',
         'next_screensaver',
         'screensaver_brightness_level',
+        'screensaver_timeout',
         'assistant_volume',
         'media_volume',
         'clock_background',
@@ -1062,12 +1063,44 @@ void main() {
     expect(settings.get(defs.assistantVolume), 60);
     await surface.handleCommand('screensaver_brightness_level', 30.0);
     expect(settings.get(defs.screensaverBrightnessLevel), closeTo(0.3, 1e-9));
+    // The timeout is seconds, not a percentage: 600 lands as 600.
+    await surface.handleCommand('screensaver_timeout', 600.0);
+    expect(settings.get(defs.screensaverTimeoutSeconds), 600);
     await Future<void>.delayed(const Duration(milliseconds: 20));
     // The SettingChanged events echoed the new states back to HA.
     expect(pushed, contains(('kiosk', true)));
     expect(pushed, contains(('assistant_volume', 60)));
     expect(pushed, contains(('screensaver_brightness_level', 30)));
+    expect(pushed, contains(('screensaver_timeout', 600)));
   });
+
+  test(
+    'screensaver timeout is a seconds box clamped to its own range',
+    () async {
+      final catalog = await surface.build();
+      final timeout = catalog.firstWhere(
+        (e) => e['objectId'] == 'screensaver_timeout',
+      );
+      expect(timeout['type'], 'number');
+      expect(timeout['unit'], 's');
+      expect(timeout['deviceClass'], 'duration');
+      expect(timeout['mode'], 1);
+      expect(timeout['min'], 0);
+      expect(timeout['max'], 86400);
+      expect(timeout['step'], 1);
+      expect(timeout['category'], 1);
+      // The percent sliders keep their own range and no device class.
+      final volume = catalog.firstWhere((e) => e['objectId'] == 'media_volume');
+      expect(volume['max'], 100);
+      expect(volume['unit'], '%');
+      expect(volume.containsKey('deviceClass'), isFalse);
+      await attach();
+      await surface.handleCommand('screensaver_timeout', 90000.0);
+      expect(settings.get(defs.screensaverTimeoutSeconds), 86400);
+      await surface.handleCommand('screensaver_timeout', -5.0);
+      expect(settings.get(defs.screensaverTimeoutSeconds), 0);
+    },
+  );
 
   test(
     'RTSP configuration switch syncs both ways without changing the catalog',
