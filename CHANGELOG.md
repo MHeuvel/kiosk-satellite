@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## v2026.9.44 - 2026-09-12
+## v2026.9.44 - 2026-09-12 
 
 ### Added
 - **Custom update repository.** A new Updates page on the Device page holds an Update source picker: GitHub Repository, the behavior until now, or Custom Repository with the URL of a folder on your own web server. The kiosk then reads `releases.json` and the APKs from that folder instead of GitHub, on the same schedule, so wall tablets on a network without internet access still get updates. Everything after the download is unchanged. Both settings sync with the fleet, so a leader points every follower at the same folder. The page ends with a link to the new [custom repository](docs/updates.md#custom-repository) section of the updates guide, which lists the folder layout and the commands that mirror a release. Both interfaces show the page and both settings searches find it.
