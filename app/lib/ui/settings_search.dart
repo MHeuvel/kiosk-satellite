@@ -83,6 +83,14 @@ const List<SettingsSearchEntry> handBuiltSearchEntries = [
   ),
   SettingsSearchEntry(
     category: "Device",
+    title: "Learn how we process your data",
+    description:
+        "What Kiosk Satellite Analytics sends and what it never sends.",
+    subpage: "Kiosk Satellite Analytics",
+    anchorId: "x:analytics_docs",
+  ),
+  SettingsSearchEntry(
+    category: "Device",
     title: "Shizuku access",
     description: "Checking availability",
     subpage: "Shizuku",

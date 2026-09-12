@@ -269,6 +269,45 @@ void main() {
     expect(defs.subpageHints, contains('GPS Sensor'));
   });
 
+  test(
+    'the Device Kiosk Satellite Analytics page holds the three switches',
+    () {
+      final moved = [
+        for (final d in defs.allSettings)
+          if (d.subpage == 'Kiosk Satellite Analytics') d.key,
+      ];
+      expect(moved, [
+        defs.analyticsBasic.key,
+        defs.analyticsUsage.key,
+        defs.analyticsDiagnostics.key,
+      ]);
+      // On by default, and not per device: a fleet decides once.
+      for (final d in [
+        defs.analyticsBasic,
+        defs.analyticsUsage,
+        defs.analyticsDiagnostics,
+      ]) {
+        expect(d.defaultValue, isTrue, reason: d.key);
+        expect(d.perDevice, isFalse, reason: d.key);
+        expect(d.category, 'Device', reason: d.key);
+        // The one section is named after the page, so the page shows no
+        // heading above the card.
+        expect(d.section, 'Kiosk Satellite Analytics', reason: d.key);
+      }
+      // The last Device group: after the Shizuku page, before Fleet.
+      final keys = defs.allSettings.map((d) => d.key).toList();
+      expect(
+        keys.indexOf(defs.analyticsBasic.key),
+        greaterThan(keys.indexOf(defs.shizukuInstallUpdates.key)),
+      );
+      final lastDevice = defs.allSettings.lastWhere(
+        (d) => d.category == 'Device',
+      );
+      expect(lastDevice.key, defs.analyticsDiagnostics.key);
+      expect(defs.subpageHints, contains('Kiosk Satellite Analytics'));
+    },
+  );
+
   test('the ESPHome Bluetooth half is one page', () {
     final moved = [
       for (final d in defs.allSettings)

@@ -243,6 +243,8 @@ const Map<String, String> subpageHints = {
   'Remote Administration': 'Manage this kiosk from a browser on your network',
   'Shizuku': 'Connection, Android permissions and setup',
   'Optional update helper': 'Silent update status, ADB setup and instructions',
+  'Kiosk Satellite Analytics':
+      'Share anonymized information to help improve Kiosk Satellite',
   // Read-only reports the remote admin shows about the tablet; the
   // device's own settings page has no equivalent.
   'Hardware': 'Model, Android version, addresses, memory, uptime',
@@ -6311,6 +6313,46 @@ const shizukuInstallUpdates = SettingDef<bool>(
   perDevice: true,
 );
 
+// ── Kiosk Satellite Analytics ──────────────────────────────────────────
+// Three switches, on by default, each naming what leaves the device when it
+// is on. The page's intro and docs/analytics.md say where it goes and what
+// is never sent. Not perDevice: a fleet decides once.
+
+const analyticsBasic = SettingDef<bool>(
+  key: 'analytics.basic',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Basic analytics',
+  description:
+      'Information about your device, such as model, Android version, app '
+      'version, screen size and language.',
+  category: 'Device',
+  section: 'Kiosk Satellite Analytics',
+  subpage: 'Kiosk Satellite Analytics',
+);
+
+const analyticsUsage = SettingDef<bool>(
+  key: 'analytics.usage',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Usage',
+  description: 'Details of what you use with Kiosk Satellite.',
+  category: 'Device',
+  section: 'Kiosk Satellite Analytics',
+  subpage: 'Kiosk Satellite Analytics',
+);
+
+const analyticsDiagnostics = SettingDef<bool>(
+  key: 'analytics.diagnostics',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Diagnostics',
+  description: 'Share crash reports when unexpected errors occur.',
+  category: 'Device',
+  section: 'Kiosk Satellite Analytics',
+  subpage: 'Kiosk Satellite Analytics',
+);
+
 // ── Fleet Management ───────────────────────────────────────────────────
 
 /// The categories a fleet leader can push, in the sidebar's order: the
@@ -7088,6 +7130,11 @@ const List<SettingDef<Object>> allSettings = [
   remotePassword,
   remoteFleetDiscovery,
   shizukuInstallUpdates,
+  // The Kiosk Satellite Analytics page is the last group on the Device
+  // page, after Permissions Manager (settings_screen places its entry).
+  analyticsBasic,
+  analyticsUsage,
+  analyticsDiagnostics,
   fleetLeader,
   fleetAutoUpdate,
   fleetProfiles,

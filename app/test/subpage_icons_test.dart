@@ -44,7 +44,12 @@ void main() {
     final tabs = File('assets/remote-ui/static/tabs.js').readAsStringSync();
     expect(tabs, contains("import { subpageIcon } from './icons.js'"));
     expect(tabs, contains('row.append(icon, info, chev)'));
-    expect(tabs, contains('titleEl.prepend(back, subpageIcon(sub))'));
+    expect(
+      tabs,
+      contains(
+        "titleEl.prepend(back, subpageIcon(tab === 'plugins' ? 'Plugins' : sub))",
+      ),
+    );
   });
 
   test('an unknown page still gets a glyph', () {

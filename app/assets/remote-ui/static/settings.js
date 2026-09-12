@@ -7,7 +7,7 @@ import {
 } from './audio.js';
 import { MIC_GROUP_NOTE, cameraAction, exportFileName } from './cameras.js';
 import { $, api, cmd, depSatisfied, state } from './core.js';
-import { readOnlyRow, renderUpdateHelper } from './device.js';
+import { readOnlyRow, renderAnalyticsIntro, renderUpdateHelper } from './device.js';
 import { permissionSpecs } from './permissions.js';
 import { renderServicePage } from './service.js';
 import { renderShizukuPage } from './shizuku.js';
@@ -215,6 +215,17 @@ export async function loadSettings() {
       tabId === 'device-settings' ? { ...opts, handBuilt: ['Shizuku'], extra: [...(helperPage ? ['Optional update helper'] : []), ...(opts?.extra || [])] } : opts);
     if (tabId === 'device-settings') {
       renderShizukuPage(panels.get('Shizuku'));
+      // Kiosk Satellite Analytics closes the Device page, after the grants,
+      // as on the device: its entry row moves out of the gathered pages
+      // into its own container, and its page opens with the intro.
+      const analyticsRoot = document.getElementById('device-analytics');
+      if (analyticsRoot) {
+        analyticsRoot.innerHTML = '';
+        const entry = document.querySelector(
+          '#device-pages [data-subpage-entry="Kiosk Satellite Analytics"]');
+        if (entry) analyticsRoot.appendChild(entry.closest('.card'));
+      }
+      renderAnalyticsIntro(panels.get('Kiosk Satellite Analytics'));
     }
     if (helperPage) renderUpdateHelper(panels.get('Optional update helper'), helperStatus);
   }

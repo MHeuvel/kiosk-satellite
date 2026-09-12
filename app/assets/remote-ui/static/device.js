@@ -82,6 +82,35 @@ export function renderUpdateHelper(root, initialStatus) {
   paint();
 }
 
+/* ---- Kiosk Satellite Analytics ---- */
+// The page's intro and docs link, above its three switches: the same words
+// the device puts there (_analyticsIntro in settings_screen.dart).
+export const ANALYTICS_DOCS_URL =
+  'https://github.com/jxlarrea/kiosk-satellite/blob/main/docs/analytics.md';
+
+export function renderAnalyticsIntro(panel) {
+  if (!panel) return;
+  const card = document.createElement('div');
+  card.className = 'card';
+  const intro = document.createElement('div');
+  intro.className = 'row desc';
+  intro.textContent = 'Share anonymized information from your installation to help make '
+    + 'Kiosk Satellite better and guide which devices and features get attention.';
+  card.appendChild(intro);
+  const docs = readOnlyRow('Learn how we process your data',
+    'What Kiosk Satellite Analytics sends and what it never sends.', '');
+  docs.querySelector('span').remove();
+  const link = document.createElement('a');
+  link.className = 'btn-ghost';
+  link.textContent = 'Open guide';
+  link.href = ANALYTICS_DOCS_URL;
+  link.target = '_blank';
+  link.rel = 'noreferrer';
+  docs.appendChild(link);
+  card.appendChild(docs);
+  panel.prepend(card);
+}
+
 /* ---- Device Info ---- */
 // What this device is and what it is doing, read fresh each time the tab is
 // opened. Everything here comes from the device itself; nothing is inferred

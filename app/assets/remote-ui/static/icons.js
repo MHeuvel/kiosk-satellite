@@ -131,6 +131,8 @@ export const SUBPAGE_ICONS = {
   'Shizuku': svg('<path d="M12 3 4 6v6c0 5 8 9 8 9s8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/>'),
   'Optional update helper': svg('<rect x="5" y="2" width="14" height="20" rx="2"/>'
     + '<path d="M12 5v10m-4-4 4 4 4-4M10 19h4"/>'),
+  'Kiosk Satellite Analytics': svg('<path d="M3 20h18"/><path d="M6 20v-6"/><path d="M11 20V9"/>'
+    + '<path d="M16 20v-9"/><path d="M21 20V4"/>'),
   // The read-only reports the remote shows about the tablet; the device
   // has no page for them, so only this side names a glyph.
   'Hardware': svg('<rect x="5" y="5" width="14" height="14" rx="2"/>'

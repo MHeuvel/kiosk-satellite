@@ -24,6 +24,7 @@ import 'managers/motion/motion_manager.dart';
 import 'managers/notifications/notification_manager.dart';
 import 'managers/fleet/fleet_manager.dart';
 import 'managers/fleet/fleet_sync_manager.dart';
+import 'managers/analytics/analytics_manager.dart';
 import 'managers/location/location_manager.dart';
 import 'managers/person/person_sensor_manager.dart';
 import 'managers/proximity/proximity_manager.dart';
@@ -72,6 +73,7 @@ class AppContainer {
     motion = MotionManager(bus, commands, log, settings);
     proximity = ProximityManager(bus, commands, log, settings);
     location = LocationManager(bus, commands, log, settings);
+    analytics = AnalyticsManager(bus, commands, log, settings);
     personSensor = PersonSensorManager(bus, commands, log, settings);
     // Before wakeWord: its init seeds the mic selector the engine reads at
     // start, and its SettingChanged subscription must run before wakeWord's
@@ -142,6 +144,7 @@ class AppContainer {
   late final MotionManager motion;
   late final ProximityManager proximity;
   late final LocationManager location;
+  late final AnalyticsManager analytics;
   late final PersonSensorManager personSensor;
   late final HomeAssistantManager homeAssistant;
   late final AudioRoutingManager audio;
@@ -186,6 +189,9 @@ class AppContainer {
     motion,
     proximity,
     location,
+    // After device (its info feeds every report) and settings; its first
+    // report waits minutes anyway.
+    analytics,
     personSensor,
     homeAssistant,
     audio,

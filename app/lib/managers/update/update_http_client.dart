@@ -7,12 +7,18 @@ import 'package:http/io_client.dart';
 /// Adds the root used by GitHub release assets on Android versions whose
 /// system trust store predates ISRG Root X1 (Android 7.0 and older, #456).
 /// Keep the platform roots for GitHub's API and any other download hosts.
-http.Client createUpdateHttpClient() {
+http.Client createUpdateHttpClient() => createStrictHttpClient();
+
+/// A client that always verifies certificates, the dashboard's Ignore SSL
+/// errors setting notwithstanding, with the Let's Encrypt root added for
+/// old trust stores. For every request that leaves the home network:
+/// updates from GitHub, analytics to kiosksatellite.com.
+http.Client createStrictHttpClient() {
   final context = SecurityContext(withTrustedRoots: true)
     ..setTrustedCertificatesBytes(utf8.encode(_isrgRootX1));
   final client = HttpClient(context: context);
-  // Updates always verify certificates, including after redirects. The
-  // dashboard's Ignore SSL errors setting must not bypass this check.
+  // Always verify certificates, including after redirects. The dashboard's
+  // Ignore SSL errors setting must not bypass this check.
   client.badCertificateCallback = null;
   return IOClient(client);
 }

@@ -144,6 +144,16 @@ const _mediaPlayerIntro =
     'player has a track playing or a queue loaded. With nothing playing '
     'or queued, neither appears.';
 
+// The Kiosk Satellite Analytics page opens with this, above its three
+// switches, and the docs link says the rest. Mirrored word for word on the
+// remote (renderAnalyticsIntro in device.js).
+const _analyticsIntro =
+    'Share anonymized information from your installation to help make '
+    'Kiosk Satellite better and guide which devices and features get '
+    'attention.';
+const _analyticsDocsUrl =
+    'https://github.com/jxlarrea/kiosk-satellite/blob/main/docs/analytics.md';
+
 /// (defs category, page title, icon, subtitle)
 // The icon is a Material [IconData], or the path of an SVG asset for a
 // category named after a product with a mark of its own.
@@ -252,6 +262,15 @@ List<SettingDef<Object>> _defsFor(String category) => [
         !def.hidden &&
         !deviceHiddenKeys.contains(def.key))
       def,
+];
+
+/// The definitions the category page renders in place. The Device page
+/// keeps its Kiosk Satellite Analytics entry out of the run: that page is
+/// the last group on the page, after Permissions Manager, so its entry row
+/// is placed by hand there rather than where its first setting sits.
+List<SettingDef<Object>> _inlineDefsFor(String category) => [
+  for (final def in _defsFor(category))
+    if (category != 'Device' || def.subpage != 'Kiosk Satellite Analytics') def,
 ];
 
 /// A category icon the way One UI paints them: a solid color disc with a
@@ -2080,7 +2099,7 @@ class _CategoryContentState extends State<_CategoryContent> {
               widget.category == 'Camera' &&
                       container.deviceCamera.cameraKnownAbsent
                   ? const [cameraEnabled]
-                  : _defsFor(widget.category),
+                  : _inlineDefsFor(widget.category),
               () => setState(() {}),
               replace: _rowReplacements(container),
               after: _rowExtras(container),
@@ -2182,6 +2201,10 @@ class _CategoryContentState extends State<_CategoryContent> {
               ],
             ),
           ),
+          // Last on the page: what the app shares about itself, after the
+          // grants that say what it may use. The remote keeps the same
+          // order (#device-analytics).
+          _subpageEntryCard(container, 'Device', 'Kiosk Satellite Analytics'),
         ],
         if (widget.category == 'Home Assistant')
           ValueListenableBuilder<bool>(
@@ -2941,6 +2964,39 @@ class _CategoryContentState extends State<_CategoryContent> {
 
     if (widget.category == 'Device' && subpage == 'Optional update helper') {
       return [UpdateHelperSettings(container: container)];
+    }
+
+    if (widget.category == 'Device' && subpage == 'Kiosk Satellite Analytics') {
+      return [
+        // Why, and where to read the details, above the switches that
+        // decide what leaves the device.
+        SettingsCard(
+          children: [
+            const HintRow(_analyticsIntro),
+            SearchLandingTarget(
+              id: 'x:analytics_docs',
+              child: ListTile(
+                title: const Text('Learn how we process your data'),
+                subtitle: const Text(
+                  'What Kiosk Satellite Analytics sends and what it never '
+                  'sends.',
+                ),
+                trailing: const Icon(Icons.open_in_new),
+                onTap: () {
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                  container.commands.execute('showLinkPage', {
+                    'url': _analyticsDocsUrl,
+                  });
+                },
+              ),
+            ),
+          ],
+        ),
+        ...sectioned([
+          for (final def in _defsFor(widget.category))
+            if (def.subpage == subpage) def,
+        ]),
+      ];
     }
 
     if (widget.category == 'Device' && subpage == 'Remote Administration') {
