@@ -52,9 +52,17 @@ class CrashEntry {
   /// nobody else did, so it is reported, apart from crashes.
   bool get watchdog => deliberate && headline.contains('frame watchdog');
 
+  /// A shell user ran `am crash` against the app (adb, or a tool with
+  /// shell rights): Android delivers that as an uncaught exception on the
+  /// main thread, so the journal sees it like any crash. Nothing in the
+  /// app failed, and every such trace reads the same.
+  bool get shellInduced => headline.contains('CrashedByAdbException');
+
   /// What Diagnostics reports: exceptions, and watchdog restarts. Not the
-  /// restarts a person or an automation asked for.
-  bool get reportable => !deliberate || watchdog;
+  /// restarts a person or an automation asked for, and not a kill a shell
+  /// asked for, which the journal still notes so the Logs screen can say
+  /// why the app died.
+  bool get reportable => (!deliberate || watchdog) && !shellInduced;
 
   /// The reason behind a deliberate restart, without the marker.
   String get reason {

@@ -15,6 +15,9 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 - **Immich validation passes after the server is rebuilt.** Validate now drops album picks the server no longer lists before probing the search and logs their names. A rebuilt server knows none of the old album ids and refuses a search naming one, which failed the button forever while the Media source row that could fix it stayed hidden behind it.
 - **Zoom levels below 1x work on Android TV.** The viewport rewrite now states the layout width outright and follows rotation. A television WebView filled the missing width with its 980px default, which pinned the scale near 1x and left every level below it without effect on the NVIDIA Shield.
 
+### Changed
+- **Crashes a shell asked for are not reported.** Diagnostics no longer sends a crash report when the app was killed with `am crash` over adb or by a tool with shell rights. Nothing in the app failed in that case. The Logs screen still shows the entry so the death has an explanation.
+
 ## v2026.9.43 - 2026-09-12
 
 ### Added

@@ -57,6 +57,28 @@ java.lang.IllegalStateException: WebView gone
     );
   });
 
+  test('a crash a shell asked for is journaled but not reported', () {
+    final adb = parseCrashJournal(
+      '=== crash at 2026-09-12 17:58:00 (app 2026.9.44, thread main) ===\n'
+      'android.app.RemoteServiceException\$CrashedByAdbException: '
+      'shell-induced crash\n'
+      '\tat android.app.ActivityThread.throwRemoteServiceException'
+      '(ActivityThread.java:2107)\n',
+    ).single;
+    expect(adb.deliberate, isFalse);
+    expect(adb.shellInduced, isTrue);
+    expect(adb.reportable, isFalse);
+    // The other RemoteServiceException kinds are app faults and stay.
+    final fgs = parseCrashJournal(
+      '=== crash at 2026-09-12 17:59:00 (app 2026.9.44, thread main) ===\n'
+      'android.app.RemoteServiceException\$ForegroundServiceDidNotStart'
+      'InTimeException: Context.startForegroundService() did not then call '
+      'Service.startForeground()\n',
+    ).single;
+    expect(fgs.shellInduced, isFalse);
+    expect(fgs.reportable, isTrue);
+  });
+
   test('text without a header is one entry', () {
     final entries = parseCrashJournal('FATAL EXCEPTION: main\njava.lang.X: y');
     expect(entries, hasLength(1));
