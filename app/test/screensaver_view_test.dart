@@ -374,6 +374,11 @@ void main() {
       expect(js, contains('var z = 0.8;'));
       expect(js, contains("'user-scalable=no'"));
       expect(js, contains('if (false) {'));
+      // The layout width is written out, never left to extend-to-zoom: a
+      // television WebView fills a missing width with 980px and pins the
+      // scale near 1, so nothing below 1x took effect on the NVIDIA Shield.
+      expect(js, contains("'width=' + w"));
+      expect(js, contains("addEventListener('resize'"));
     });
 
     test('pinch to zoom relaxes the clamp a frame later', () {

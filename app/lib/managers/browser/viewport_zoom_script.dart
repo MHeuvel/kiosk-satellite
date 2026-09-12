@@ -6,10 +6,14 @@
 /// write them back as px that the zoomed root scales AGAIN — landing every
 /// dropdown at anchor-times-zoom, off screen at 1.35x on a small tablet.
 ///
-/// A viewport scale has no such mismatch: with `initial-scale=z` and no
-/// `width`, the layout viewport becomes visible-width/z (the spec's
-/// extend-to-zoom width), rendered scaled to fill the screen — one
-/// consistent CSS px space, recomputed by Chromium on rotation. Chromium
+/// A viewport scale has no such mismatch: with `initial-scale=z` and
+/// `width` set to visible-width/z, the layout viewport is exactly that
+/// wide and is rendered scaled to fill the screen — one consistent CSS px
+/// space. The width is written out rather than left to the spec's
+/// extend-to-zoom rule: a WebView on Android TV fills a missing width with
+/// its 980px television default, which pins the scale near 1 and leaves
+/// every level below 1x with no effect (the NVIDIA Shield). Rotation
+/// changes the visible width, so a resize listener rewrites it. Chromium
 /// only honors initial-scale at navigation though; a live change applies
 /// through the min/max clamp, so both are pinned to z. With pinch to zoom
 /// enabled the clamp is relaxed a frame later — the forced scale sticks,
@@ -35,6 +39,7 @@ String viewportZoomJs({required num zoom, required bool pinch}) {
       var ms = document.querySelectorAll('meta[name=viewport]');
       var m = ms.length ? ms[ms.length - 1] : null;
       if (z === 1 && !$pinch) {
+        window.__ksZoomApply = null;
         if (m && m.hasAttribute('data-ks-zoom')) {
           var orig = m.getAttribute('data-ks-orig');
           if (orig === null) { m.remove(); return; }
@@ -64,15 +69,34 @@ String viewportZoomJs({required num zoom, required bool pinch}) {
           if (k && scaleKeys.indexOf(k) < 0) keep.push(part.trim());
         },
       );
-      var base = keep.concat(['initial-scale=' + z]);
-      m.setAttribute('content', base.concat(
-        ['minimum-scale=' + z, 'maximum-scale=' + z, 'user-scalable=no'],
-      ).join(', '));
-      if ($pinch) {
-        requestAnimationFrame(function () {
-          m.setAttribute('content', base.concat(
-            ['minimum-scale=0.25', 'maximum-scale=5', 'user-scalable=yes'],
-          ).join(', '));
+      // The visible width at scale 1, whatever scale the page sits at
+      // right now (visualViewport.width shrinks as the scale grows).
+      var visible = function () {
+        var v = window.visualViewport;
+        return v ? v.width * v.scale : window.innerWidth;
+      };
+      var apply = function () {
+        var w = Math.round(visible() / z);
+        var base = keep.concat(['width=' + w, 'initial-scale=' + z]);
+        m.setAttribute('content', base.concat(
+          ['minimum-scale=' + z, 'maximum-scale=' + z, 'user-scalable=no'],
+        ).join(', '));
+        if ($pinch) {
+          requestAnimationFrame(function () {
+            m.setAttribute('content', base.concat(
+              ['minimum-scale=0.25', 'maximum-scale=5', 'user-scalable=yes'],
+            ).join(', '));
+          });
+        }
+      };
+      apply();
+      // Rotation: the visible width changes, so the layout width must
+      // follow. One listener per document, re-pointed at the latest run.
+      window.__ksZoomApply = apply;
+      if (!window.__ksZoomResize) {
+        window.__ksZoomResize = true;
+        window.addEventListener('resize', function () {
+          if (window.__ksZoomApply) window.__ksZoomApply();
         });
       }
     })();
