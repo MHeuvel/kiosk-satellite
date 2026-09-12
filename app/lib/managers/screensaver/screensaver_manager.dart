@@ -910,6 +910,16 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     }
   }
 
+  /// A key press that is driving the menu or the settings: the idle clock
+  /// restarts, nothing else. It skips [notifyActivity] on purpose: there is
+  /// nothing showing to dismiss, and the press may be the very one that
+  /// starts the screensaver, whose dismissal riding along would race the
+  /// start it commanded. A session already up keeps its own clock.
+  void extendIdle() {
+    if (_active) return;
+    _resetIdleTimer();
+  }
+
   void _resetIdleTimer() {
     _idleTimer?.cancel();
     if (_cameraViewActive || _behindAnotherApp) return _setIdleDue(null);

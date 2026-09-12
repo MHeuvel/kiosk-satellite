@@ -71,10 +71,33 @@ class _LauncherScreen extends StatefulWidget {
 class _LauncherScreenState extends State<_LauncherScreen> {
   AppContainer get container => widget.container;
 
+  /// The wall's own focus scope: a directional search from a tile with
+  /// nothing beside it must stop at the wall's edge, not wander out to
+  /// the menu's rows or the dashboard's platform view underneath (which
+  /// would pull the WebView's native focus and close the wall).
+  final _scope = FocusScopeNode(debugLabel: 'app launcher');
+
+  /// The first tile, focused by request rather than autofocus: opening
+  /// the wall from the menu with the dpad leaves the menu row focused
+  /// through the wall's first frame, and autofocus yields to it. Once the
+  /// menu finishes closing that row goes unfocusable, focus falls back to
+  /// the route and no tile answers the arrows at all.
+  final _firstTile = FocusNode(debugLabel: 'app launcher first tile');
+
   @override
   void initState() {
     super.initState();
     _keysDriving.value = false;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) _firstTile.requestFocus();
+    });
+  }
+
+  @override
+  void dispose() {
+    _firstTile.dispose();
+    _scope.dispose();
+    super.dispose();
   }
 
   void _close() => container.launcher.visible.value = false;
@@ -108,72 +131,75 @@ class _LauncherScreenState extends State<_LauncherScreen> {
         _keysDriving.value = true;
         return KeyEventResult.ignored;
       },
-      child: Listener(
-        onPointerDown: (_) => _keysDriving.value = false,
-        child: GestureDetector(
-          // The empty ground dismisses, same as the old modal's scrim; the
-          // tiles swallow their own taps.
-          behavior: HitTestBehavior.opaque,
-          onTap: _close,
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              gradient: _groundGradient(
-                theme.colorScheme.surface,
-                theme.brightness,
+      child: FocusScope(
+        node: _scope,
+        child: Listener(
+          onPointerDown: (_) => _keysDriving.value = false,
+          child: GestureDetector(
+            // The empty ground dismisses, same as the old modal's scrim; the
+            // tiles swallow their own taps.
+            behavior: HitTestBehavior.opaque,
+            onTap: _close,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: _groundGradient(
+                  theme.colorScheme.surface,
+                  theme.brightness,
+                ),
               ),
-            ),
-            child: SafeArea(
-              child: Stack(
-                children: [
-                  // Centered both ways while the wall fits, an ordinary
-                  // vertical scroll once it does not.
-                  Positioned.fill(
-                    child: LayoutBuilder(
-                      builder: (context, constraints) => SingleChildScrollView(
-                        child: ConstrainedBox(
-                          constraints: BoxConstraints(
-                            minHeight: constraints.maxHeight,
-                          ),
-                          child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 48,
-                                vertical: 56,
-                              ),
-                              child: Wrap(
-                                alignment: WrapAlignment.center,
-                                runAlignment: WrapAlignment.center,
-                                spacing: 32,
-                                runSpacing: 36,
-                                children: [
-                                  for (var i = 0; i < apps.length; i++)
-                                    _AppTile(
-                                      container: container,
-                                      app: apps[i],
-                                      // Dpad and keyboard land somewhere useful
-                                      // the moment the wall opens (issue #377).
-                                      autofocus: i == 0,
-                                      onTap: () => _open(context, apps[i]),
-                                    ),
-                                ],
+              child: SafeArea(
+                child: Stack(
+                  children: [
+                    // Centered both ways while the wall fits, an ordinary
+                    // vertical scroll once it does not.
+                    Positioned.fill(
+                      child: LayoutBuilder(
+                        builder: (context, constraints) => SingleChildScrollView(
+                          child: ConstrainedBox(
+                            constraints: BoxConstraints(
+                              minHeight: constraints.maxHeight,
+                            ),
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 48,
+                                  vertical: 56,
+                                ),
+                                child: Wrap(
+                                  alignment: WrapAlignment.center,
+                                  runAlignment: WrapAlignment.center,
+                                  spacing: 32,
+                                  runSpacing: 36,
+                                  children: [
+                                    for (var i = 0; i < apps.length; i++)
+                                      _AppTile(
+                                        container: container,
+                                        app: apps[i],
+                                        // Dpad and keyboard land somewhere useful
+                                        // the moment the wall opens (issue #377).
+                                        focusNode: i == 0 ? _firstTile : null,
+                                        onTap: () => _open(context, apps[i]),
+                                      ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  Positioned(
-                    top: 8,
-                    right: 8,
-                    child: IconButton(
-                      icon: const Icon(Icons.close),
-                      iconSize: 28,
-                      color: theme.colorScheme.onSurfaceVariant,
-                      onPressed: _close,
+                    Positioned(
+                      top: 8,
+                      right: 8,
+                      child: IconButton(
+                        icon: const Icon(Icons.close),
+                        iconSize: 28,
+                        color: theme.colorScheme.onSurfaceVariant,
+                        onPressed: _close,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -188,13 +214,13 @@ class _AppTile extends StatefulWidget {
   const _AppTile({
     required this.container,
     required this.app,
-    required this.autofocus,
+    required this.focusNode,
     required this.onTap,
   });
 
   final AppContainer container;
   final LauncherApp app;
-  final bool autofocus;
+  final FocusNode? focusNode;
   final VoidCallback onTap;
 
   static const double side = 150;
@@ -310,7 +336,7 @@ class _AppTileState extends State<_AppTile> {
         clipBehavior: Clip.antiAlias,
         child: InkWell(
           onTap: widget.onTap,
-          autofocus: widget.autofocus,
+          focusNode: widget.focusNode,
           onFocusChange: (f) => setState(() => _focused = f),
           child: Center(
             child: loading

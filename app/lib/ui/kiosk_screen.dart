@@ -1090,16 +1090,21 @@ class _KioskScreenState extends State<KioskScreen>
     // A key press is activity like a touch is: it resets the idle clock
     // and dismisses a showing screensaver. Repeats from a held key are not
     // new activity, and volume stays out — nudging the volume during a
-    // night screensaver should not light the room. Neither is a press
-    // that is driving the menu or the settings: its ping is delivered on
-    // the event bus a beat after the press acts, so the very key that
-    // activates "Start Screensaver" would race the start it commanded and
-    // dismiss it mid-flight. A screensaver already showing takes the ping
-    // whatever sits open under it — dismissal is the point then.
+    // night screensaver should not light the room. A press that is
+    // driving the menu or the settings restarts the idle clock but sends
+    // no ping: the ping is delivered on the event bus a beat after the
+    // press acts, so the very key that activates "Start Screensaver"
+    // would race the start it commanded and dismiss it mid-flight. A
+    // screensaver already showing takes the ping whatever sits open under
+    // it — dismissal is the point then.
     final drivingUi =
         (_settingsOpen || _drawer.value > 0) && !c.screensaver.isActive;
-    if (event is KeyDownEvent && !_volumeKeys.contains(key) && !drivingUi) {
-      c.bus.publish(const ActivityDetected(source: 'key'));
+    if (event is KeyDownEvent && !_volumeKeys.contains(key)) {
+      if (drivingUi) {
+        c.screensaver.extendIdle();
+      } else {
+        c.bus.publish(const ActivityDetected(source: 'key'));
+      }
     }
     if (!nav) return false;
     // A focused slider answers to every arrow, vertical included, so up

@@ -2,6 +2,12 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Fixed
+- **App launcher tiles answer the dpad when opened from the menu.** The first tile now takes focus even while the menu row that opened the wall still holds it, and the arrows stay on the wall instead of wandering to the dashboard underneath and closing it.
+- **Dpad presses in the menu and settings keep the screensaver away.** Driving either with a remote now restarts the idle clock like a touch does.
+
 ## v2026.9.43 - 2026-09-12
 
 ### Added
