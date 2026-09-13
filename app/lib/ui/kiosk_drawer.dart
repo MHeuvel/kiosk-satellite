@@ -390,11 +390,43 @@ class KioskDrawer extends StatelessWidget {
                               // never deliver what it promises (issue
                               // #219). Turn the Home Launcher off first;
                               // Restart stays, it comes back by design.
-                              if (!restricted && !c.homeLauncher.roleHeld.value)
+                              if (!restricted &&
+                                  (c.kiosk.rebootSupported.value ||
+                                      !c.homeLauncher.roleHeld.value))
                                 const Divider(height: 1, thickness: 1),
-                              if (!restricted && !c.homeLauncher.roleHeld.value)
+                              // Restart Device (issue #528): only where the
+                              // restart can land, as device owner or over a
+                              // granted Shizuku connection. The kiosk
+                              // manager keeps the answer current, and the
+                              // gate sits inside the builder like Hold's.
+                              if (!restricted && c.kiosk.rebootSupported.value)
                                 _item(
                                   divided: false,
+                                  context,
+                                  Icons.restart_alt_outlined,
+                                  'Restart Device',
+                                  () async {
+                                    onClose();
+                                    if (context.mounted &&
+                                        await showConfirmDialog(
+                                          context,
+                                          title: 'Restart Device',
+                                          message:
+                                              'Restart this device? Kiosk '
+                                              'Satellite comes back when it '
+                                              'boots.',
+                                          confirmLabel: 'Restart',
+                                        )) {
+                                      await c.commands.execute(
+                                        'rebootDevice',
+                                        const {},
+                                      );
+                                    }
+                                  },
+                                ),
+                              if (!restricted && !c.homeLauncher.roleHeld.value)
+                                _item(
+                                  divided: c.kiosk.rebootSupported.value,
                                   context,
                                   Icons.power_settings_new_outlined,
                                   'Exit Application',

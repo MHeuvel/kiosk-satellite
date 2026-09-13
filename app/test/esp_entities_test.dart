@@ -33,9 +33,13 @@ void main() {
   var dashboardsUnreachable = false;
   var catalogChanges = 0;
   var updateStatus = <String, Object?>{};
+  // The restart support ask (issue #528): null answers like a kiosk with
+  // no owner and no Shizuku, where the command exists but says no.
+  Map<String, Object?>? rebootSupport;
 
   setUp(() async {
     cameraPresent = true;
+    rebootSupport = null;
     updateStatus = {
       'currentVersion': '2026.8.52',
       'availableVersion': '2026.8.53',
@@ -132,6 +136,15 @@ void main() {
           'cpu': 12.4,
           'temp': 41,
         }),
+      ),
+    );
+    commands.register(
+      Command(
+        name: 'getDeviceRebootSupport',
+        description: 'stub',
+        handler: (_) async => CommandResult.ok(
+          rebootSupport ?? const {'supported': false, 'route': null},
+        ),
       ),
     );
     stub('cameraGetConfig', {
@@ -232,6 +245,7 @@ void main() {
       'loadStartUrl',
       'clearWebCache',
       'restartApp',
+      'rebootDevice',
       'bringToFront',
       'showAppLauncher',
       'showMusicAssistant',
@@ -865,6 +879,27 @@ void main() {
     executed.clear();
     await surface.handleCommand('show_music_assistant', null);
     expect(executed.map((e) => e.$1).toList(), ['showMusicAssistant']);
+  });
+
+  test('the Restart device button follows the restart support ask', () async {
+    // No owner, no Shizuku: no button, the app restart stays.
+    var ids = [for (final d in await surface.build()) '${d['objectId']}'];
+    expect(ids, contains('restart'));
+    expect(ids, isNot(contains('restart_device')));
+    expect(surface.rebootButtonListed, false);
+
+    rebootSupport = {'supported': true, 'route': 'device_owner'};
+    final catalog = await surface.build();
+    ids = [for (final d in catalog) '${d['objectId']}'];
+    expect(ids, contains('restart_device'));
+    expect(surface.rebootButtonListed, true);
+    final entity = catalog.firstWhere((d) => d['objectId'] == 'restart_device');
+    expect(entity['type'], 'button');
+    expect(entity['name'], 'Restart device');
+
+    executed.clear();
+    await surface.handleCommand('restart_device', null);
+    expect(executed.map((e) => e.$1).toList(), ['rebootDevice']);
   });
 
   test('IPv6 leads with the routable address, without its scope id', () async {

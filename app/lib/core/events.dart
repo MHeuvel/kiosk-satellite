@@ -825,3 +825,12 @@ class PluginHaStateChanged extends AppEvent {
   final String entityId;
   final Map<String, Object?> data;
 }
+
+/// The Shizuku connection reported a new state (issue #528). [granted] is
+/// whether Kiosk Satellite may run commands through it right now; the
+/// Restart device entry, tile and ESPHome button follow it on a device
+/// that is not the owner.
+class ShizukuStateChanged extends AppEvent {
+  const ShizukuStateChanged({required this.granted});
+  final bool granted;
+}

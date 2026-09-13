@@ -137,6 +137,11 @@ class EspEntitySurface {
   /// push never names an entity Home Assistant was never told about.
   bool _voiceSatellite = false;
 
+  /// Whether the catalog served lists the Restart device button (issue
+  /// #528); the manager compares later Shizuku reports against it.
+  bool get rebootButtonListed => _rebootListed;
+  bool _rebootListed = false;
+
   /// Coalesces the burst of wake-word state changes one voice turn makes
   /// into a single read of the page's engine state.
   Timer? _vsNudge;
@@ -394,6 +399,15 @@ class EspEntitySurface {
     // page instead would make the catalog depend on what was on screen the
     // moment the server started.
     _voiceSatellite = _settings.get(defs.haSatelliteEntity).trim().isNotEmpty;
+    // The Restart device button exists only where a restart can land
+    // (issue #528): device owner, or a granted Shizuku connection. Asked at
+    // build like the hardware probes; the manager restarts the server when
+    // a later Shizuku report changes the answer.
+    final reboot = await commands.execute('getDeviceRebootSupport', const {});
+    _rebootListed =
+        reboot.ok &&
+        reboot.data is Map &&
+        (reboot.data as Map)['supported'] == true;
     await _refreshCameraViews();
     await _refreshDashboardViews();
 
@@ -498,6 +512,8 @@ class EspEntitySurface {
       button('load_start_url', 'Go to dashboard', 'mdi:view-dashboard'),
       button('clear_cache', 'Clear cache', 'mdi:broom'),
       button('restart', 'Restart app', '', deviceClass: 'restart'),
+      if (_rebootListed)
+        button('restart_device', 'Restart device', 'mdi:power-cycle'),
       button('bring_to_front', 'Bring to front', 'mdi:flip-to-front'),
       if (_settings.get(defs.launcherEnabled))
         button('open_launcher', 'Open app launcher', 'mdi:apps'),
@@ -1464,6 +1480,8 @@ class EspEntitySurface {
         await commands.execute('clearWebCache', const {});
       case 'restart':
         await commands.execute('restartApp', const {});
+      case 'restart_device':
+        await commands.execute('rebootDevice', const {});
       case 'bring_to_front':
         await commands.execute('bringToFront', const {});
       case 'open_launcher':

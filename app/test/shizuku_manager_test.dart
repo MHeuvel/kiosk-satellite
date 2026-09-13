@@ -9,6 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:kiosk_satellite/core/command_registry.dart';
 import 'package:kiosk_satellite/core/event_bus.dart';
+import 'package:kiosk_satellite/core/events.dart';
 import 'package:kiosk_satellite/core/logging.dart';
 import 'package:kiosk_satellite/managers/settings/settings_manager.dart';
 import 'package:kiosk_satellite/managers/shizuku/shizuku_manager.dart';
@@ -94,6 +95,59 @@ void main() {
       }
     },
   );
+  test('reboot runs the fixed command and reports a refusal', () async {
+    SharedPreferences.setMockInitialValues({});
+    final log = Logger(), bus = EventBus();
+    final commands = CommandRegistry(log);
+    final manager = ShizukuManager(bus, commands, log);
+    final calls = <MethodCall>[];
+    final flips = <bool>[];
+    bus.on<ShizukuStateChanged>().listen((e) => flips.add(e.granted));
+    var exitCode = 0;
+    final messenger =
+        TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+    messenger.setMockMethodCallHandler(ShizukuManager.channel, (call) async {
+      calls.add(call);
+      if (call.method != 'runAction') {
+        return {'status': 'ready', 'granted': true, 'uid': 2000};
+      }
+      return {
+        'exitCode': exitCode,
+        'stdout': '',
+        'stderr': exitCode == 0 ? '' : 'reboot: Permission denied',
+        'timedOut': false,
+        'truncated': false,
+      };
+    });
+    try {
+      await manager.init();
+      // The grant flip reaches the bus once, not on every read.
+      await commands.execute('getShizukuState', {});
+      await commands.execute('getShizukuState', {});
+      await Future<void>.delayed(Duration.zero);
+      expect(flips, [true]);
+
+      // No permission read around a reboot: one channel call, no
+      // getSystemPermissions fixture needed.
+      final ok = await commands.execute('runShizukuAction', {
+        'action': 'reboot',
+      });
+      expect(ok.ok, true);
+      expect(calls.last.method, 'runAction');
+      expect(calls.last.arguments, {'action': 'reboot'});
+
+      exitCode = 1;
+      final refused = await commands.execute('runShizukuAction', {
+        'action': 'reboot',
+      });
+      expect(refused.ok, false);
+      expect(refused.error, contains('Permission denied'));
+    } finally {
+      await manager.dispose();
+      await bus.dispose();
+      messenger.setMockMethodCallHandler(ShizukuManager.channel, null);
+    }
+  });
   testWidgets(
     'update opt-in saves immediately below Connection and remains local',
     (tester) async {

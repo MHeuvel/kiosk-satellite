@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Added
+- **Restart device.** A Restart Device entry in the kiosk drawer, a matching tile on the remote admin overview and a Restart device ESPHome button reboot the whole device, not just the app. Android lets no ordinary app do that, so all three appear only where the restart can land: on a kiosk provisioned as the device owner, or with a granted Shizuku connection. The drawer entry and the tile ask for confirmation first. The ESPHome button follows the Shizuku connection, so a grant made later lists it and a Shizuku that stopped removes it. A Shizuku started over ADB does not survive the reboot. The remote API gains `rebootDevice` and `getDeviceRebootSupport`. The [ESPHome](docs/esphome.md), [Shizuku](docs/shizuku.md) and [kiosk](docs/kiosk.md#going-further-device-ownership) guides describe the routes.
+
 ## v2026.9.45 - 2026-09-12
 
 ### Changed

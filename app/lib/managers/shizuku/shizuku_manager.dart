@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 import '../../core/command_registry.dart';
+import '../../core/events.dart';
 import '../../core/manager.dart';
 import '../wake_word/permission_descriptions.dart';
 
@@ -18,7 +19,7 @@ class ShizukuManager extends Manager {
   Future<void> init() async {
     channel.setMethodCallHandler((call) async {
       if (!_disposed && call.method == 'state') {
-        state.value = Map<String, Object?>.from(call.arguments as Map);
+        _setState(Map<String, Object?>.from(call.arguments as Map));
       }
     });
     for (final name in [
@@ -39,7 +40,7 @@ class ShizukuManager extends Manager {
           params: name == 'runShizukuAction'
               ? const {
                   'action':
-                      'grantAll, identity, microphone, batteryUnrestricted, camera, bluetooth, notification, displayOverOtherApps, writeSettings, uiGuard, deviceAdmin, allFiles, usageAccess or location',
+                      'grantAll, identity, reboot, microphone, batteryUnrestricted, camera, bluetooth, notification, displayOverOtherApps, writeSettings, uiGuard, deviceAdmin, allFiles, usageAccess or location',
                 }
               : const {},
           handler: (args) async {
@@ -67,21 +68,51 @@ class ShizukuManager extends Manager {
         )
         .timeout(const Duration(seconds: 10));
     final value = result ?? const <String, Object?>{'status': 'unavailable'};
-    if (!_disposed) state.value = value;
+    _setState(value);
     return value;
+  }
+
+  /// One place every state read lands, so the bus hears the grant flip
+  /// (issue #528): whoever gates on it re-asks rather than caching the
+  /// answer from startup. Flips only: the listeners read the state back
+  /// through getShizukuState, and a publish on every read would loop.
+  void _setState(Map<String, Object?> value) {
+    if (_disposed) return;
+    final was = state.value['granted'] == true;
+    state.value = value;
+    final granted = value['granted'] == true;
+    if (granted != was) bus.publish(ShizukuStateChanged(granted: granted));
   }
 
   Future<Map<String, Object?>> run(String action) async {
     if (action != 'grantAll' &&
         action != 'identity' &&
+        action != 'reboot' &&
         !devicePermissionDescriptions.containsKey(action)) {
       throw ArgumentError('Unknown Shizuku action');
     }
-    if (action == 'identity') {
-      return await channel
+    // identity and reboot run one fixed command and answer with its
+    // outcome; there is no permission to read back afterwards. A reboot
+    // that Android refused says so here, since the device visibly not
+    // restarting is the only other signal (issue #528).
+    if (action == 'identity' || action == 'reboot') {
+      final result =
+          await channel
               .invokeMapMethod<String, Object?>('runAction', {'action': action})
               .timeout(const Duration(seconds: 15)) ??
           const {};
+      if (action == 'reboot' &&
+          (result['exitCode'] != 0 || result['timedOut'] == true)) {
+        final stderr = '${result['stderr'] ?? ''}'.trim();
+        throw StateError(
+          result['timedOut'] == true
+              ? 'The restart command timed out'
+              : stderr.isEmpty
+              ? 'Android refused the restart'
+              : stderr,
+        );
+      }
+      return result;
     }
     Future<Map> readPermissions() async {
       final grants = await commands.execute('getSystemPermissions', const {});

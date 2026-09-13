@@ -31,7 +31,7 @@ internal class ShizukuDeviceBridge(private val context: Context, messenger: Bina
                             val raw = args["permissions"] as? List<*> ?: error("Missing permissions")
                             require(raw.size <= 12 && raw.all { it is String })
                             raw.filterIsInstance<String>().distinct()
-                        } else if (action == "identity") emptyList() else listOf(action)
+                        } else if (action == "identity" || action == "reboot") emptyList() else listOf(action)
                         val plan = permissions.associateWith { ShizukuPermissionPlan.commands(it, Build.VERSION.SDK_INT, context.packageName) }
                         check(busy.compareAndSet(false, true)) { "A Shizuku device action is already running" }
                         worker.execute {
@@ -48,7 +48,19 @@ internal class ShizukuDeviceBridge(private val context: Context, messenger: Bina
                                     Thread.sleep(260)
                                     return value
                                 }
-                                val response = if (action == "identity") execute(arrayOf("/system/bin/id")) else {
+                                val response = if (action == "identity") execute(arrayOf("/system/bin/id"))
+                                // Device restart (issue #528). The shell user
+                                // may set sys.powerctl, which is all the
+                                // reboot binary does; svc power reboot goes
+                                // through PowerManager instead and is the
+                                // fallback for a build that denies the first.
+                                // No package name, no caller input: fixed
+                                // commands like the permission plan.
+                                else if (action == "reboot") {
+                                    val direct = execute(arrayOf("/system/bin/reboot"))
+                                    if (direct["exitCode"] == 0 && direct["timedOut"] != true) direct
+                                    else execute(arrayOf("/system/bin/svc", "power", "reboot"))
+                                } else {
                                     val results = plan.map { (key, commands) ->
                                         var error: String? = null
                                         try {

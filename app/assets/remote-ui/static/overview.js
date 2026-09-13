@@ -489,6 +489,26 @@ document.addEventListener('ks-wakeword', () => {
 });
 
 /* ---- Quick controls ---- */
+// Restart device: only where a restart can land (device owner, or a granted
+// Shizuku connection), so the tile never promises what the device refuses.
+// Confirmed first like the drawer's entry: a reboot has no Retry.
+async function paintRestartDeviceTile() {
+  const res = await cmd('getDeviceRebootSupport').catch(() => null);
+  const supported = !!(res && res.ok !== false && res.data && res.data.supported === true);
+  $('#tileRestartDevice').classList.toggle('hidden', !supported);
+}
+$('#tileRestartDevice').addEventListener('click', async () => {
+  const choice = await messageBox({
+    title: 'Restart device',
+    message: 'Restart this device? Kiosk Satellite comes back when it boots.',
+    buttons: ['Cancel', 'Restart'],
+  });
+  if (choice !== 'Restart') return;
+  const res = await cmd('rebootDevice').catch(() => null);
+  if (res && res.ok !== false) showToast({ title: 'Restart device', kind: 'success' });
+  else showToast({ title: 'Restart device', message: (res && res.error) || 'The device did not answer.', kind: 'error' });
+});
+
 function paintSnapshotTile() {
   const tile = $('#tileSnapshot');
   tile.classList.toggle('hidden', !settingOn('camera.enabled') || state.cameraPresent === false);
@@ -559,6 +579,7 @@ export function overviewShown() {
   refreshVolume();
   paintShotBadge();
   paintSnapshotTile();
+  paintRestartDeviceTile();
   paintTaken();
   if (live && (!state.screenshotAt || Date.now() - state.screenshotAt > TICK_MS)) loadScreenshot();
 }
@@ -571,5 +592,5 @@ export async function initOverview() {
   paintShotMode();
   paintShotBadge();
   paintSnapshotTile();
-  await Promise.all([refreshHealth(), refreshVolume()]);
+  await Promise.all([refreshHealth(), refreshVolume(), paintRestartDeviceTile()]);
 }

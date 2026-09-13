@@ -40,6 +40,12 @@ class KioskManager extends Manager with WidgetsBindingObserver {
   /// the kiosk-mode reclaim must not yank the owner out of them.
   bool menuBusy = false;
 
+  /// Whether the device itself can be restarted from here (issue #528): as
+  /// device owner through the device policy, or through a granted Shizuku
+  /// connection. Read by the drawer's Restart Device entry; refreshed by
+  /// every support ask and whenever the Shizuku connection changes.
+  final rebootSupported = ValueNotifier<bool>(false);
+
   /// The last sanctioned app launch (launcher, gesture, ESPHome). A pause
   /// right after one is the launched app coming up — the launcher's
   /// auto-return owns the way back, not the reclaim.
@@ -129,6 +135,43 @@ class KioskManager extends Manager with WidgetsBindingObserver {
   Future<void> setNavCapture(bool capture) {
     _navCapture = capture;
     return _invoke<void>('navCapture', capture);
+  }
+
+  /// Which route, if any, a device restart has here (issue #528):
+  /// `{supported, route, reason}` with route `device_owner` or `shizuku`.
+  /// Owner first, since it needs nothing running; a device owner keeps the
+  /// entry whatever Shizuku does. Also refreshes [rebootSupported].
+  Future<Map<String, Object?>> rebootSupport() async {
+    var owner = false;
+    try {
+      owner =
+          await _backgroundChannel.invokeMethod<bool>('isDeviceOwner') ?? false;
+    } on PlatformException catch (_) {
+      // Not owner is the safe reading of a bridge that cannot say.
+    } on MissingPluginException catch (_) {
+      // Tests and non-Android hosts.
+    }
+    Map<String, Object?> answer;
+    if (owner) {
+      answer = const {'supported': true, 'route': 'device_owner'};
+    } else {
+      final shizuku = await commands.execute('getShizukuState', const {});
+      final granted =
+          shizuku.ok &&
+          shizuku.data is Map &&
+          (shizuku.data as Map)['granted'] == true;
+      answer = granted
+          ? const {'supported': true, 'route': 'shizuku'}
+          : const {
+              'supported': false,
+              'route': null,
+              'reason':
+                  'Restarting the device needs Kiosk Satellite provisioned '
+                  'as the device owner or a granted Shizuku connection.',
+            };
+    }
+    rebootSupported.value = answer['supported'] == true;
+    return answer;
   }
 
   @override
@@ -266,6 +309,63 @@ class KioskManager extends Manager with WidgetsBindingObserver {
             await SystemNavigator.pop();
           }
           return const CommandResult.ok();
+        },
+      ),
+    );
+
+    // A device restart, as opposed to the app restart below (issue #528).
+    // Android lets no ordinary app reboot: the device owner may through
+    // the device policy, and the shell user Shizuku runs as may set the
+    // power control property. Neither is assumed; the support ask decides
+    // and the drawer, the remote tile and the ESPHome button all read it,
+    // so a button that could only fail never shows.
+    commands.register(
+      Command(
+        name: 'getDeviceRebootSupport',
+        description:
+            'Whether the whole device can be restarted from here: as device '
+            'owner, or through a granted Shizuku connection. Answers '
+            '{supported, route, reason}.',
+        quiet: true,
+        handler: (_) async => CommandResult.ok(await rebootSupport()),
+      ),
+    );
+
+    commands.register(
+      Command(
+        name: 'rebootDevice',
+        description:
+            'Restart the whole device, not just the app. Device owner or '
+            'Shizuku only; restartApp covers every other kiosk.',
+        handler: (_) async {
+          final support = await rebootSupport();
+          if (support['supported'] != true) {
+            return CommandResult.fail('${support['reason']}');
+          }
+          final route = support['route'];
+          log.info(name, 'restarting device ($route)');
+          if (route == 'device_owner') {
+            try {
+              final answer = await _backgroundChannel
+                  .invokeMapMethod<String, Object?>('rebootDevice');
+              if (answer?['ok'] == true) return const CommandResult.ok();
+              return CommandResult.fail(
+                '${answer?['error'] ?? 'Android refused the restart'}',
+              );
+            } on PlatformException catch (e) {
+              return CommandResult.fail('restart failed: $e');
+            } on MissingPluginException {
+              return const CommandResult.fail('restart is Android-only');
+            }
+          }
+          final result = await commands.execute('runShizukuAction', {
+            'action': 'reboot',
+          });
+          return result.ok
+              ? const CommandResult.ok()
+              : CommandResult.fail(
+                  result.error ?? 'Shizuku refused the restart',
+                );
         },
       ),
     );
@@ -518,6 +618,15 @@ class KioskManager extends Manager with WidgetsBindingObserver {
     );
 
     bus.on<AppLaunched>().listen((_) => _appLaunchedAt = DateTime.now());
+
+    // The drawer reads rebootSupported synchronously, so the answer is
+    // kept warm: once the managers are up (Shizuku registers its commands
+    // after this one) and again on every Shizuku state report, which is
+    // how a grant made from the Device page reaches the drawer.
+    bus.on<ShizukuStateChanged>().listen((_) => unawaited(rebootSupport()));
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => unawaited(rebootSupport()),
+    );
 
     // The reclaim stands down while the panel is dark (issue #291); a
     // screen coming back on with the app still paused is where the watch

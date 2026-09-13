@@ -382,6 +382,13 @@ class BackgroundBridge(
                     result.success(null)
                 }
                 "canBringToFront" -> result.success(canDrawOverlays())
+                // Device restart (issue #528): DevicePolicyManager.reboot is
+                // the one reboot an app can ask for without root, and only
+                // as device owner. The Dart side asks the owner question
+                // first and falls back to Shizuku (ShizukuDeviceBridge) when
+                // the answer is no.
+                "isDeviceOwner" -> result.success(HomeRole.isDeviceOwner(context))
+                "rebootDevice" -> result.success(rebootDevice())
                 // Whether the on-device vision runtimes (face detection,
                 // hand gestures) can load here at all (issue #331).
                 "visionSupport" -> result.success(VisionRuntime.describe())
@@ -1046,6 +1053,29 @@ class BackgroundBridge(
         } catch (e: Exception) {
             android.util.Log.w("kiosk_satellite", "nextAlarm read failed", e)
             null
+        }
+    }
+
+    /**
+     * Reboot through the device-owner policy (API 24+, which is minSdk).
+     * A map rather than a bare boolean so the refusal reason reaches the
+     * caller: not owner, or Android's own refusal (it throws when a phone
+     * call is in progress). The process dies with the device, so a note in
+     * the crash journal says why the next start finds no clean exit.
+     */
+    private fun rebootDevice(): Map<String, Any?> {
+        val dpm = context.getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
+        if (!dpm.isDeviceOwnerApp(context.packageName)) {
+            return mapOf("ok" to false, "error" to "Kiosk Satellite is not the device owner")
+        }
+        return try {
+            CrashJournal.note(context, "device restart requested")
+            dpm.reboot(ComponentName(context, KioskAdminReceiver::class.java))
+            mapOf("ok" to true)
+        } catch (e: IllegalStateException) {
+            mapOf("ok" to false, "error" to "Android refused the restart while a call is in progress")
+        } catch (e: Exception) {
+            mapOf("ok" to false, "error" to (e.message ?: "Android refused the restart"))
         }
     }
 

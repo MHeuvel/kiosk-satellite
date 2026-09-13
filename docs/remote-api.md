@@ -141,7 +141,10 @@ screensaver first), `nextScreensaverSlide` / `previousScreensaverSlide`
 result says whether anything stepped),
 `setWakeWordActive {active}`, `showCameraView {viewId}`,
 `hideCameraView`, `getCameraViewState` (`{active, viewId, viewName,
-focusedCameraId}`), `cameraGetConfig`, `restartApp`, `tts {text}`,
+focusedCameraId}`), `cameraGetConfig`, `restartApp`, `rebootDevice`
+(restart the whole device; only as device owner or through a granted
+Shizuku connection, which `getDeviceRebootSupport` reports as
+`{supported, route, reason}`), `tts {text}`,
 `launchApp {package}` (open another Android app over the kiosk),
 `bringToFront` (come back in front of it), `installedApps` (every
 launchable app as `[{package, label}]`), `immichAlbums`,

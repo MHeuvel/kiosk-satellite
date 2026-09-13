@@ -58,6 +58,7 @@ class BtProxyManager extends Manager {
   static const _channel = MethodChannel('kiosk_satellite/bluetooth_proxy');
 
   StreamSubscription<SettingChanged>? _settingsSub;
+  StreamSubscription<ShizukuStateChanged>? _shizukuSub;
   Timer? _restartDebounce;
   Future<void> _transition = Future.value();
   String _appVersion = '0';
@@ -182,6 +183,25 @@ class BtProxyManager extends Manager {
     // The remote admin server's settings, which decide the web page port
     // reported to Home Assistant (the device page's Visit link).
     const remoteKeys = {'remote.enabled', 'remote.port', 'remote.password'};
+    // The Restart device button follows the Shizuku connection on a kiosk
+    // that is not the device owner (issue #528): a grant made after the
+    // catalog was served, or a Shizuku that stopped, changes what exists,
+    // and only a restart re-lists it. Asked rather than assumed, so a
+    // device owner's catalog never restarts over Shizuku.
+    _shizukuSub = bus.on<ShizukuStateChanged>().listen((_) async {
+      if (!_running) return;
+      final support = await commands.execute(
+        'getDeviceRebootSupport',
+        const {},
+      );
+      final listed =
+          support.ok &&
+          support.data is Map &&
+          (support.data as Map)['supported'] == true;
+      if (_running && listed != _entities.rebootButtonListed) {
+        _scheduleRestart();
+      }
+    });
     _settingsSub = bus.on<SettingChanged>().listen((e) {
       // The switch turned on where scanning cannot work (the settings
       // page never offers it, but the remote API and a settings import
@@ -407,6 +427,8 @@ class BtProxyManager extends Manager {
     _ouiTimer = null;
     await _settingsSub?.cancel();
     _settingsSub = null;
+    await _shizukuSub?.cancel();
+    _shizukuSub = null;
     await _stop();
   }
 
