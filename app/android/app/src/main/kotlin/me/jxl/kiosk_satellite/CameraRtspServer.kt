@@ -245,9 +245,12 @@ class CameraRtspServer(
         }
 
         fun readRequests() {
-            socket.tcpNoDelay = true
-            socket.soTimeout = 15_000
+            // Inside the try: a server close() between accept() and this
+            // thread's first line closes the socket, and the option setters
+            // throw on a closed socket. Uncaught here, that took the process.
             try {
+                socket.tcpNoDelay = true
+                socket.soTimeout = 15_000
                 while (open) {
                     val request = line() ?: break
                     if (request.isBlank()) continue

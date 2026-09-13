@@ -26,6 +26,25 @@ class CameraRtspServerTest {
         } finally { server.close() }
     }
 
+    @Test fun clientClosedBeforeItsThreadRunsIsDroppedQuietly() {
+        // A server close() between accept() and the client thread's first
+        // line leaves that thread a closed socket. Its setup used to throw
+        // there, on a thread with no handler, and take the process down.
+        val server = server(LinkedBlockingQueue())
+        try {
+            val listener = java.net.ServerSocket(0)
+            val peer = Socket("127.0.0.1", listener.localPort)
+            val accepted = listener.accept()
+            val clientClass = CameraRtspServer::class.java.declaredClasses.first { it.simpleName == "Client" }
+            val client = clientClass.getDeclaredConstructor(CameraRtspServer::class.java, Socket::class.java)
+                .apply { isAccessible = true }.newInstance(server, accepted)
+            accepted.close()
+            clientClass.getDeclaredMethod("readRequests").apply { isAccessible = true }.invoke(client)
+            assertEquals(0, server.clientDetails.size)
+            peer.close(); listener.close()
+        } finally { server.close() }
+    }
+
     @Test fun encoderCannotHideAStoppedListener() {
         val server = server(LinkedBlockingQueue())
         try {

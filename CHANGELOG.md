@@ -2,6 +2,13 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Fixed
+- **Late hand tracker result no longer crashes the app.** The Show fingers gesture's tracker delivers its last result on a thread of its own. When it arrived after the camera session had been torn down with the Activity, the process died with a RejectedExecutionException. The result is dropped instead.
+- **RTSP client that drops during a server stop no longer crashes the app.** Turning RTSP streaming off while a client was connecting could close that client's socket before its thread had set it up. The setup then threw on a daemon thread. The setup now sits inside the client's error handling.
+- **Sendspin discovery no longer trips "MulticastLock under-locked".** The multicast lock was released from the discovery callback thread and the main thread with nothing between them. Two releases in a row crashed the app. Both paths now share one lock and a release that has already happened is skipped.
+
 ## v2026.9.44 - 2026-09-12 
  
 ### Added

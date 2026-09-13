@@ -407,25 +407,41 @@ class NsdDiscoveryManager(
      * Why needed: Android filters multicast packets by default to save battery.
      * mDNS requires receiving multicast packets on 224.0.0.251.
      */
+    // Acquire and release run from the NSD callback thread (discovery
+    // stopped, start failed) and from the main thread (stop errors, the
+    // link-change refresh). Two releases that both pass an isHeld check
+    // release once too often, and Android throws "MulticastLock
+    // under-locked" for that, so both paths take one lock and the release
+    // takes the reference before it touches it.
+    private val multicastLockGuard = Any()
+
     private fun acquireMulticastLock() {
-        if (multicastLock == null) {
-            val wifiManager = context.applicationContext
-                .getSystemService(Context.WIFI_SERVICE) as WifiManager
-            multicastLock = wifiManager.createMulticastLock("KioskSatellite_NSD").apply {
-                setReferenceCounted(true)
-                acquire()
+        synchronized(multicastLockGuard) {
+            if (multicastLock == null) {
+                val wifiManager = context.applicationContext
+                    .getSystemService(Context.WIFI_SERVICE) as WifiManager
+                multicastLock = wifiManager.createMulticastLock("KioskSatellite_NSD").apply {
+                    setReferenceCounted(true)
+                    acquire()
+                }
+                Log.d(TAG, "Multicast lock acquired")
             }
-            Log.d(TAG, "Multicast lock acquired")
         }
     }
 
     private fun releaseMulticastLock() {
-        multicastLock?.let {
-            if (it.isHeld) {
-                it.release()
-                Log.d(TAG, "Multicast lock released")
-            }
+        synchronized(multicastLockGuard) {
+            val lock = multicastLock ?: return
             multicastLock = null
+            try {
+                if (lock.isHeld) {
+                    lock.release()
+                    Log.d(TAG, "Multicast lock released")
+                }
+            } catch (e: RuntimeException) {
+                // Already released underneath us; nothing is held either way.
+                Log.w(TAG, "Multicast lock release skipped: ${e.message}")
+            }
         }
     }
 

@@ -32,6 +32,7 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import java.io.ByteArrayOutputStream
 import java.util.concurrent.Executors
+import java.util.concurrent.RejectedExecutionException
 import kotlin.math.abs
 import kotlin.math.ceil
 import kotlin.math.max
@@ -364,6 +365,21 @@ class CameraMotion(
     private var provider: ProcessCameraProvider? = null
     private var analysis: ImageAnalysis? = null
     private val analysisExecutor = Executors.newSingleThreadExecutor()
+
+    /**
+     * Runs [block] on the analyzer thread, or drops it once [dispose] has
+     * shut that thread down. MediaPipe delivers a hand result on a thread
+     * of its own a little after the frame went in, and the last result
+     * can land after the shutdown; an executor rejection there is
+     * uncaught and takes the process down.
+     */
+    private fun onAnalysis(block: () -> Unit) {
+        try {
+            analysisExecutor.execute(block)
+        } catch (e: RejectedExecutionException) {
+            Log.d(TAG, "analysis work dropped after dispose")
+        }
+    }
     private var lifecycle: CameraLifecycle? = null
 
     /** Guards the async camera-ready callback: bumped by every listen and
@@ -685,7 +701,7 @@ class CameraMotion(
         if (paused == on) return
         paused = on
         Log.i(TAG, if (on) "paused (voice interaction)" else "resumed")
-        if (on) analysisExecutor.execute { clearPresence() }
+        if (on) onAnalysis { clearPresence() }
     }
 
     /** Forget the tracked hand and the recent-activity gate. Analyzer thread. */
@@ -733,8 +749,8 @@ class CameraMotion(
         // command cannot be overwritten by queued analyzer configuration.
         paused = args?.get("paused") == true
         previewUntilNs = 0L
-        analysisExecutor.execute {
-            if (listenGeneration != myListen) return@execute
+        onAnalysis {
+            if (listenGeneration != myListen) return@onAnalysis
             motionWanted = args?.get("motion") != false
             facesWanted = args?.get("faces") == true
             fingersWanted = args?.get("fingers") == true
@@ -1081,7 +1097,7 @@ class CameraMotion(
                     analysisExecutor.execute {
                         try {
                             val tracker = handTracker ?: HandTracker(context) { hands, fingers, tilt, detail, atNs ->
-                                analysisExecutor.execute { onHandResult(hands, fingers, tilt, detail, atNs) }
+                                onAnalysis { onHandResult(hands, fingers, tilt, detail, atNs) }
                             }.also { handTracker = it }
                             Log.i(TAG, "hand tracker ready: ${tracker.warmUp()}")
                         } catch (e: Throwable) {
@@ -1485,7 +1501,7 @@ class CameraMotion(
     private fun feedHands(image: ImageProxy, now: Long): Boolean {
         try {
             val tracker = handTracker ?: HandTracker(context) { hands, fingers, tilt, detail, atNs ->
-                analysisExecutor.execute { onHandResult(hands, fingers, tilt, detail, atNs) }
+                onAnalysis { onHandResult(hands, fingers, tilt, detail, atNs) }
             }.also {
                 handTracker = it
                 Log.i(TAG, "hand tracker created")
