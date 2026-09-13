@@ -3,7 +3,7 @@
 Kiosk Satellite can share anonymized information about your installation. It helps decide which devices to test on, which features to keep working on and which crashes to fix first.
 
 Everything on this page is optional. Open **Settings > Device > Kiosk Satellite Analytics** on the device or **Device > Kiosk Satellite Analytics** in the remote admin to turn any part of it off.
-
+ 
 ## What each switch shares
 
 | Switch | What is sent | Why |
