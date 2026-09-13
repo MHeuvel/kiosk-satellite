@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 
 import 'app_container.dart';
 import 'core/app_identity.dart';
+import 'core/error_log.dart';
 import 'core/events.dart';
 import 'core/frame_watchdog.dart';
 import 'core/ha_http_overrides.dart';
@@ -33,6 +34,9 @@ Future<void> main() async {
 
   final container = AppContainer();
   await container.init();
+  // Framework and uncaught Dart errors into the app log, where reports
+  // and the watchdog's restart note can see them.
+  installErrorLog(container.log);
 
   // The app names itself on the wire from here on: the device manager has
   // resolved the version and the OS by now, and the overrides below hand

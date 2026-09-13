@@ -1,0 +1,39 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:kiosk_satellite/core/error_log.dart';
+import 'package:kiosk_satellite/core/logging.dart';
+
+/// Framework errors land in the app log, deduplicated and capped.
+void main() {
+  test('a framework error is logged once per distinct message, capped', () {
+    final log = Logger();
+    final before = FlutterError.onError;
+    installErrorLog(log, perMinute: 3);
+    try {
+      // Reporting goes to the previous handler too; flutter_test's own
+      // handler would fail the test, so stand in for it.
+      final seen = <String>[];
+      FlutterError.onError = (details) => seen.add(details.exceptionAsString());
+      installErrorLog(log, perMinute: 3);
+      void report(String msg) => FlutterError.reportError(
+        FlutterErrorDetails(exception: StateError(msg), library: 'webview'),
+      );
+      report('no WebView installed');
+      report('no WebView installed');
+      report('second');
+      report('third');
+      report('fourth');
+      final lines = log.recent.where((e) => e.tag == 'flutter').toList();
+      expect(lines.map((e) => e.message.split(' (').first), [
+        'Bad state: no WebView installed',
+        'Bad state: second',
+        'Bad state: third',
+      ]);
+      expect(lines.first.message, contains('(webview)'));
+      expect(lines.first.level, LogLevel.error);
+      expect(seen, hasLength(5));
+    } finally {
+      FlutterError.onError = before;
+    }
+  });
+}

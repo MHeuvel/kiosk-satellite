@@ -250,7 +250,9 @@ class AnalyticsManager extends Manager {
         'cause': e.watchdog ? 'watchdog' : 'exception',
         'crash': clipDiagnostics(scrubDiagnostics(e.text)),
       };
-      if (!await _post(body)) break;
+      if (!await _post(body)) {
+        break;
+      }
       any = true;
       sent.add(fp);
       await _settings.setInternal(
@@ -379,8 +381,9 @@ class AnalyticsManager extends Manager {
           if (m is! Map) continue;
           final t = m['trigger'];
           final a = m['action'];
-          if (t is Map && t['type'] is String)
+          if (t is Map && t['type'] is String) {
             triggers.add(t['type'] as String);
+          }
           if (a is Map && a['type'] is String) actions.add(a['type'] as String);
         }
       }
