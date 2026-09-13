@@ -227,3 +227,20 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:2.3.20")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
 }
+
+// The remote admin UI ships minified. tool/build_remote_ui.mjs turns
+// remote-ui/ (the tracked sources) into assets/remote-ui/ (gitignored),
+// and Flutter bundles the result. It runs before Flutter's own compile
+// step so a plain `flutter build apk` never ships stale or readable modules.
+val buildRemoteUi = tasks.register<Exec>("buildRemoteUi") {
+    val app = rootProject.projectDir.parentFile
+    workingDir = app
+    commandLine("node", "tool/build_remote_ui.mjs")
+    inputs.dir(app.resolve("remote-ui"))
+    inputs.file(app.resolve("package.json"))
+    inputs.file(app.resolve("tool/build_remote_ui.mjs"))
+    outputs.dir(app.resolve("assets/remote-ui"))
+}
+tasks.matching { it.name.startsWith("compileFlutterBuild") }.configureEach {
+    dependsOn(buildRemoteUi)
+}

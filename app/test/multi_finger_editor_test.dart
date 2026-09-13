@@ -10,7 +10,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   test('the remote admin saves the touch gesture from its own dropdown', () {
     final source = File(
-      'assets/remote-ui/static/gestures.js',
+      'remote-ui/static/gestures.js',
     ).readAsStringSync();
     final touch = RegExp(
       r"if \(type === 'finger_taps' \|\| type === 'finger_hold'\) \{\s*"

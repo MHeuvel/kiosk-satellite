@@ -234,13 +234,13 @@ void main() {
   });
 
   test('the admin page has one relabelled tile per state', () {
-    final html = File('assets/remote-ui/index.html').readAsStringSync();
+    final html = File('remote-ui/index.html').readAsStringSync();
     for (final id in ['tileScreen', 'tileScreensaver', 'tileCameraView']) {
       expect(html, contains('id="$id"'), reason: id);
     }
     // Two tiles for one screen would be the pair this replaced.
     expect(html, isNot(contains('data-cmd="screenOn"')));
-    final panels = File('assets/remote-ui/static/panels.js').readAsStringSync();
+    final panels = File('remote-ui/static/panels.js').readAsStringSync();
     for (final event in [
       'screenon',
       'screenoff',

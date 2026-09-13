@@ -1,0 +1,11 @@
+{
+  "name": "kiosk-satellite-remote-ui",
+  "private": true,
+  "description": "Minifies the remote admin UI in remote-ui/ into assets/remote-ui/ before Flutter bundles it.",
+  "scripts": {
+    "build": "node tool/build_remote_ui.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  }
+}

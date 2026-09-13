@@ -182,7 +182,9 @@ void main() {
         final response = await get('/static/$name?v=$version');
         expect(response.statusCode, 200, reason: name);
         final source = await body(response);
-        for (final m in RegExp(r"from\s+'\./([^']+)'").allMatches(source)) {
+        for (final m in RegExp(
+          r"""from\s*['"]\./([^'"]+)['"]""",
+        ).allMatches(source)) {
           final spec = m.group(1)!;
           expect(
             spec,

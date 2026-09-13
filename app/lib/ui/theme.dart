@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 /// Kiosk Satellite visual identity: modern flat, light + dark, built from the
 /// shared brand palette (the remote admin UI's CSS carries the same values —
-/// see assets/remote-ui/static/app.css):
+/// see remote-ui/static/app.css):
 ///
 ///   teal        #488284  primary (the mark's keyline, deepened a step)
 ///   teal        #558387  secondary accent

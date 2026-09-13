@@ -43,3 +43,8 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Remote admin UI: tool/build_remote_ui.mjs minifies remote-ui/ into
+# assets/remote-ui/ on every build. Sources live in remote-ui/.
+/assets/remote-ui/
+/node_modules/

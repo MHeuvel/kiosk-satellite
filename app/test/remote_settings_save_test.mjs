@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import test from 'node:test';
 import vm from 'node:vm';
 
-const source = readFileSync(new URL('../assets/remote-ui/static/rows.js', import.meta.url), 'utf8');
+const source = readFileSync(new URL('../remote-ui/static/rows.js', import.meta.url), 'utf8');
 const errors = source.slice(source.indexOf('function showRowError('), source.indexOf('function albumArtCacheRow('));
 const start = source.indexOf('  const save = async (value) => {');
 const save = source.slice(start, source.indexOf('\n  };', start) + '\n  };'.length);

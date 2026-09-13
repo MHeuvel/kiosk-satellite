@@ -12,7 +12,7 @@ from threading import Thread
 
 from playwright.sync_api import sync_playwright, expect
 
-ROOT = Path(__file__).resolve().parents[1] / 'assets/remote-ui'
+ROOT = Path(__file__).resolve().parents[1] / 'remote-ui'
 
 
 class Handler(SimpleHTTPRequestHandler):

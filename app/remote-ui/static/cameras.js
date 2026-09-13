@@ -96,7 +96,6 @@ export const CAMERA_ICONS = {
     + '<path d="M14 11a4 4 0 0 0-5.7-.3l-2 2a4 4 0 0 0 5.7 5.6l1.1-1.1"/>',
   android: '<path d="M5 15.5a7 7 0 0 1 14 0z"/>'
     + '<path d="M8 10 6.5 7.5M16 10l1.5-2.5M9.5 13h.01M14.5 13h.01"/>',
-  home: '<path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10.5V20h13v-9.5"/>',
   doc: '<path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/>',
   playCircle: '<circle cx="12" cy="12" r="9"/>'
     + '<path d="m10 8.5 5.5 3.5-5.5 3.5z"/>',

@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import test from 'node:test';
 import vm from 'node:vm';
 
-const source = readFileSync(new URL('../assets/remote-ui/static/core.js', import.meta.url), 'utf8');
+const source = readFileSync(new URL('../remote-ui/static/core.js', import.meta.url), 'utf8');
 const command = source.slice(source.indexOf('export async function cmd('), source.indexOf('/* ---- Views ---- */'))
   .replace('export ', '');
 

@@ -231,13 +231,18 @@ JSON messages, `{type, ...}`:
 
 ## Remote UI
 
-The admin UI is a vanilla-JS single-page app with no build step: the page
-at [app/assets/remote-ui/index.html](../app/assets/remote-ui/index.html)
+The admin UI is a vanilla-JS single-page app: the page
+at [app/remote-ui/index.html](../app/remote-ui/index.html)
 holds the markup, and the stylesheet plus ES modules live under
-[app/assets/remote-ui/static/](../app/assets/remote-ui/static/), bundled as
-Flutter assets. The server serves the page at `/` and the files at
-`/static/<name>`, discovered from the asset manifest, so adding a module is
-just adding the file. Tabs: Overview (a Needs attention card for an update
+[app/remote-ui/static/](../app/remote-ui/static/). Before Flutter
+bundles them, `app/tool/build_remote_ui.mjs` minifies each file on its own
+into `app/assets/remote-ui/`, which is generated and not tracked. Gradle
+runs the script on every APK build and installs its one dependency,
+esbuild, on the first run. Run `npm run build` from `app/` by hand before
+`flutter test`, since the tests that serve the admin read the bundle. The
+server serves the page at `/` and the files at `/static/<name>`, gzipped
+for browsers that accept it and discovered from the asset manifest, so
+adding a module is just adding the file. Tabs: Overview (a Needs attention card for an update
 to install, a missing grant a switched-on feature needs, a lost Home
 Assistant connection or a stopped wake word engine, hidden while there is
 nothing; the screenshot with a badge while the panel is dark, on the

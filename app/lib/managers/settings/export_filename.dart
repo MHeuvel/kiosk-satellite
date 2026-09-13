@@ -9,7 +9,7 @@
 /// Underscores separate the parts, which is why the device name keeps dashes
 /// inside it — the two never run together.
 ///
-/// Mirrored in the remote admin (assets/remote-ui/static/cameras.js,
+/// Mirrored in the remote admin (remote-ui/static/cameras.js,
 /// exportFileName)
 /// so a download from either surface lands under the same name.
 String exportFileName(String deviceName, DateTime at) {

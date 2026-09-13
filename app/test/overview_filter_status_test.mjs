@@ -3,9 +3,9 @@ import { readFileSync } from 'node:fs';
 import test from 'node:test';
 import vm from 'node:vm';
 
-const module = readFileSync(new URL('../assets/remote-ui/static/filter_status.js', import.meta.url), 'utf8')
+const module = readFileSync(new URL('../remote-ui/static/filter_status.js', import.meta.url), 'utf8')
   .replace(/^import .*;$/m, '').replace(/export /g, '');
-const overview = readFileSync(new URL('../assets/remote-ui/static/overview.js', import.meta.url), 'utf8');
+const overview = readFileSync(new URL('../remote-ui/static/overview.js', import.meta.url), 'utf8');
 const paint = overview.slice(overview.indexOf('let haStatusRevision'), overview.indexOf('export function refreshHealth'));
 
 function client(read) {

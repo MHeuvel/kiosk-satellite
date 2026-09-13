@@ -5,7 +5,7 @@ from pathlib import Path
 from threading import Thread
 from playwright.sync_api import sync_playwright, expect
 
-ROOT = Path(__file__).resolve().parents[1] / 'assets/remote-ui'
+ROOT = Path(__file__).resolve().parents[1] / 'remote-ui'
 class Handler(SimpleHTTPRequestHandler):
     def log_message(self, *_): pass
 server = ThreadingHTTPServer(('127.0.0.1', 0), partial(Handler, directory=str(ROOT)))

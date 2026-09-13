@@ -939,8 +939,10 @@ class RemoteManager extends Manager {
       // The page pins main.js by hash, but the imports inside the modules
       // would fetch bare './x.js' URLs that the immutable cache header
       // then keeps forever. Stamp the hash into every import specifier so
-      // one changed file re-fetches the whole graph.
-      final import$ = RegExp(r"(from\s+'\./[A-Za-z0-9._-]+\.js)(')");
+      // one changed file re-fetches the whole graph. The bundle is
+      // minified (tool/build_remote_ui.mjs), so the specifier is
+      // double-quoted with no space after `from`.
+      final import$ = RegExp(r"""(from\s*['"]\./[A-Za-z0-9._-]+\.js)(['"])""");
       for (final entry in files.entries.toList()) {
         if (!entry.key.endsWith('.js')) continue;
         files[entry.key] = utf8.encode(

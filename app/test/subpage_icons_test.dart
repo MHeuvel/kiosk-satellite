@@ -36,12 +36,12 @@ void main() {
   });
 
   test('the remote icons module covers every subpage', () {
-    final source = File('assets/remote-ui/static/icons.js').readAsStringSync();
+    final source = File('remote-ui/static/icons.js').readAsStringSync();
     final missing = pages.where((p) => !source.contains("'$p':")).toList();
     expect(missing, isEmpty, reason: 'add these to SUBPAGE_ICONS');
     // The remote draws the same glyphs from its own map: the entry row and
     // the page title both go through subpageIcon.
-    final tabs = File('assets/remote-ui/static/tabs.js').readAsStringSync();
+    final tabs = File('remote-ui/static/tabs.js').readAsStringSync();
     expect(tabs, contains("import { subpageIcon } from './icons.js'"));
     expect(tabs, contains('row.append(icon, info, chev)'));
     expect(
