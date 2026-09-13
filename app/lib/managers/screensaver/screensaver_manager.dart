@@ -1117,7 +1117,19 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
   }
 
   Future<void> start() async {
-    if (_active || _paused || _voiceTurn || _cameraViewActive) return;
+    if (_active) return;
+    // Say why a start goes nowhere: a page hold that never gets released
+    // (a leaked "interaction running" from the dashboard) otherwise reads
+    // as "Now Playing launched" followed by nothing at all.
+    if (_paused || _voiceTurn || _cameraViewActive) {
+      final why = <String>[
+        if (_paused) 'interaction held (${_interactions.held.join(', ')})',
+        if (_voiceTurn) 'voice turn',
+        if (_cameraViewActive) 'camera view',
+      ];
+      log.info(name, 'start refused: ${why.join(', ')}');
+      return;
+    }
     // Another app owns the screen; a dim now would dim it (the brightness
     // is the device's), and the idle clock is on hold for the same reason.
     if (_behindAnotherApp) {

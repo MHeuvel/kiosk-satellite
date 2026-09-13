@@ -16,4 +16,11 @@ class ActiveInteractions {
     }
     return _active.isNotEmpty;
   }
+
+  /// The holds still open, as `source:reason` (`source:legacy` for a
+  /// reasonless pause), for the log line that says why the screensaver
+  /// stood down.
+  Iterable<String> get held => _active.map(
+    (entry) => '${entry.$1.name}:${entry.$2.isEmpty ? 'legacy' : entry.$2}',
+  );
 }
