@@ -243,6 +243,59 @@ void main() {
     },
   );
 
+  test('status tiles are session scoped and list the owning plugin', () async {
+    var settingsUpdates = 0;
+    plugins.installed.addListener(() => settingsUpdates++);
+    await native('hostSession', {
+      'id': 'hello-world',
+      'session': 'first',
+      'capabilities': [],
+    });
+    final tile = {
+      'key': 'webview',
+      'title': 'WebView responsiveness',
+      'level': 'on',
+      'text': 'smooth',
+    };
+    await native('statusTiles', {
+      'id': 'hello-world',
+      'session': 'first',
+      'statusTiles': [tile],
+    });
+    expect(plugins.statusTiles.value['hello-world'], [tile]);
+    expect(settingsUpdates, 0);
+    final response = await commands.execute('getPluginStatusTiles', {});
+    expect(response.data, [
+      {...tile, 'pluginId': 'hello-world', 'pluginName': 'Hello World'},
+    ]);
+    await native('statusTiles', {
+      'id': 'hello-world',
+      'session': 'stale',
+      'statusTiles': [tile],
+    });
+    expect(plugins.statusTiles.value['hello-world'], [tile]);
+    await native('hostSessionClosed', {
+      'id': 'hello-world',
+      'session': 'first',
+    });
+    expect(plugins.statusTiles.value, isEmpty);
+    expect((await commands.execute('getPluginStatusTiles', {})).data, []);
+    await native('hostSession', {
+      'id': 'hello-world',
+      'session': 'second',
+      'capabilities': [],
+    });
+    await native('statusTiles', {
+      'id': 'hello-world',
+      'session': 'second',
+      'statusTiles': [tile],
+    });
+    expect(plugins.statusTiles.value['hello-world'], [tile]);
+    await plugins.setEnabled(false);
+    expect(plugins.statusTiles.value, isEmpty);
+    expect(plugins.installed.value.first.containsKey('statusTiles'), false);
+  });
+
   test(
     'charts are session scoped and do not notify setting listeners',
     () async {

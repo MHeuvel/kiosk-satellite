@@ -89,6 +89,9 @@ def api(route):
             return
     elif name == 'getPluginCharts':
         result = charts
+    elif name == 'getPluginStatusTiles':
+        result = [{'key': 'webview', 'title': 'WebView responsiveness', 'level': 'on', 'text': 'smooth',
+                   'pluginId': 'hello-world', 'pluginName': 'Hello World'}] if plugins_enabled and installed and installed[0]['running'] else []
     elif name == 'getPluginReadings':
         result = readings
     elif name == 'haSearchEntities':
@@ -173,6 +176,23 @@ try:
         page.screenshot(path='/tmp/kiosk-plugin-grouped-demo.png', full_page=True)
         expect(root.locator('.plugin-readings[data-plugin-group="Home Assistant demo"]')).not_to_contain_text('Wave reading')
         expect(root.locator('.plugin-charts[data-plugin-group="Chart demo"] .card-title')).to_have_count(0)
+        # A running plugin's status tile sits on the Overview after the built-in six, names its plugin and opens its page.
+        page.evaluate("async () => { const o = await import('/static/overview.js'); await o.initOverview(); (await import('/static/tabs.js')).showTab('dashboard', {refresh:false}); }")
+        tile = page.locator('#statusGrid .status.plugin')
+        expect(tile).to_have_count(1)
+        expect(tile.locator('.s-name')).to_have_text('WebView responsiveness')
+        expect(tile.locator('.s-sub')).to_have_text('smooth')
+        expect(tile.locator('.s-from')).to_have_text('Hello World plugin')
+        expect(tile.locator('.dot')).to_have_class('dot on')
+        assert page.locator('#statusGrid .status').count() == 7
+        assert tile.bounding_box()['y'] >= page.locator('#statusGrid [data-status="update"]').bounding_box()['y']
+        tile.click()
+        expect(page.locator('#pageTitle')).to_contain_text('Hello World')
+        installed[0]['running'] = False
+        page.evaluate("async () => { const o = await import('/static/overview.js'); await o.refreshHealth(); }")
+        expect(page.locator('#statusGrid .status.plugin')).to_have_count(0)
+        installed[0]['running'] = True
+        page.evaluate("async () => (await import('/static/tabs.js')).showTab('plugins/hello-world', {refresh:false})")
         root.get_by_role('button', name='Choose Home Assistant entity').click()
         modal = page.locator('.modal-card')
         modal.get_by_placeholder('Search by name or entity id').fill('room')

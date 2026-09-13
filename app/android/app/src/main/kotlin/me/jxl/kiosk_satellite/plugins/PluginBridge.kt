@@ -87,6 +87,16 @@ class PluginBridge(private val context: Context, messenger: BinaryMessenger) {
             if (chartPending.compareAndSet(false, true)) main.postDelayed(chartUpdate, 1000)
         }
         fun closeCharts() { charts.close(); main.removeCallbacks(chartUpdate) }
+        val statusTiles = PluginStatusTiles()
+        private val statusTilePending = AtomicBoolean(false)
+        private val statusTileUpdate = Runnable {
+            statusTilePending.set(false)
+            if (alive.get()) emit("statusTiles", mapOf("id" to id, "session" to token, "statusTiles" to statusTiles.snapshot()), alive)
+        }
+        fun notifyStatusTiles() {
+            if (statusTilePending.compareAndSet(false, true)) main.postDelayed(statusTileUpdate, 250)
+        }
+        fun closeStatusTiles() { statusTiles.close(); main.removeCallbacks(statusTileUpdate) }
         var status = ""
         var statusError = false
         val lights = linkedMapOf<String, Map<String, Any?>>()
@@ -199,6 +209,14 @@ class PluginBridge(private val context: Context, messenger: BinaryMessenger) {
             override fun removeSeries(key: String) {
                 charts.remove(key)
                 notifyCharts()
+            }
+            override fun publishStatusTile(key: String, title: String, level: String, text: String) {
+                statusTiles.publish(key, title, level, text)
+                notifyStatusTiles()
+            }
+            override fun removeStatusTile(key: String) {
+                statusTiles.remove(key)
+                notifyStatusTiles()
             }
             override fun showWindow(title: String, message: String, buttonLabel: String) {
                 require("overlay" in manifest.capabilities) { "Plugin did not declare overlay access" }
@@ -397,6 +415,7 @@ class PluginBridge(private val context: Context, messenger: BinaryMessenger) {
                 .put("entities", org.json.JSONArray(sessions[id]?.entities?.snapshot() ?: emptyList<Any>()))
                 .put("screensavers", org.json.JSONArray(sessions[id]?.screensaverSnapshot() ?: emptyList<Any>()))
                 .put("charts", org.json.JSONArray(sessions[id]?.charts?.snapshot() ?: emptyList<Any>()))
+                .put("statusTiles", org.json.JSONArray(sessions[id]?.statusTiles?.snapshot() ?: emptyList<Any>()))
                 .put("lights", org.json.JSONArray(sessions[id]?.lights?.values?.toList() ?: emptyList<Any>()))
                 .put("values", record.optJSONObject("config") ?: JSONObject())
                 .put("actionOptions", record.optJSONObject("actionOptions") ?: JSONObject())
@@ -462,7 +481,7 @@ class PluginBridge(private val context: Context, messenger: BinaryMessenger) {
             // Revoke every host before waiting for stop callbacks from individual plugins.
             sessions.forEach { (id, session) ->
                 session.alive.set(false)
-                session.closeShizuku(); session.closeCharts(); session.closeEntities(); session.closeScreensavers()
+                session.closeShizuku(); session.closeCharts(); session.closeStatusTiles(); session.closeEntities(); session.closeScreensavers()
                 emit("hideWindow", mapOf("id" to id))
             }
             for (id in sessions.keys.toList()) {
@@ -627,7 +646,7 @@ class PluginBridge(private val context: Context, messenger: BinaryMessenger) {
     private fun stopSession(id: String) {
         val session = sessions.remove(id) ?: return
         session.alive.set(false)
-        session.closeShizuku(); session.closeCharts(); session.closeEntities(); session.closeScreensavers()
+        session.closeShizuku(); session.closeCharts(); session.closeStatusTiles(); session.closeEntities(); session.closeScreensavers()
         session.subscriptions.clear()
         emit("hostSessionClosed", mapOf("id" to id, "session" to session.token))
         emit("hideWindow", mapOf("id" to id))

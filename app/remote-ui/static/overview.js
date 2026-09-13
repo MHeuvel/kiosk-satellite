@@ -4,6 +4,7 @@ import { readFilterStatus } from './filter_status.js';
 import { agoLabel } from './notices.js';
 import { loadScreenshot, quick } from './panels.js';
 import { permissionSpecs } from './permissions.js';
+import { loadPlugins } from './plugins.js';
 import { showTab } from './tabs.js';
 import { attachSlider, messageBox, modalShell, showToast } from './widgets.js';
 
@@ -74,6 +75,44 @@ function paintTile(id, level, text) {
   b.classList.toggle('warn', level === 'warn');
   b.classList.toggle('error', level === 'off');
   b.querySelector('.s-sub').textContent = text;
+}
+const LEVELS = new Set(['', 'on', 'warn', 'off']);
+
+/* ---- Plugin tiles ----
+   Tiles a running plugin publishes through the SDK. They sit after the
+   built-in six and name their plugin, so a plugin's tile never reads as a
+   claim the kiosk itself is making. Each opens the plugin's page. A tile
+   goes when its plugin stops, is disabled or Plugin Manager is off: the
+   read simply stops listing it. */
+function paintPluginTiles(tiles) {
+  const grid = $('#statusGrid');
+  const keep = new Set();
+  for (const t of Array.isArray(tiles) ? tiles : []) {
+    if (!t || typeof t.pluginId !== 'string' || typeof t.key !== 'string') continue;
+    const id = `plugin:${t.pluginId}:${t.key}`;
+    keep.add(id);
+    let b = grid.querySelector(`[data-status="${id}"]`);
+    if (!b) {
+      b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'status plugin';
+      b.dataset.status = id;
+      b.innerHTML = '<span class="dot"></span><span class="s-text">'
+        + '<span class="s-name"></span><span class="s-sub"></span><span class="s-from"></span></span>';
+      // The plugin pages are built on first visit: build them before opening one.
+      b.addEventListener('click', async () => {
+        await loadPlugins();
+        showTab(`plugins/${t.pluginId}`, { refresh: false });
+      });
+      grid.appendChild(b);
+    }
+    b.querySelector('.s-name').textContent = t.title || t.key;
+    b.querySelector('.s-from').textContent = `${t.pluginName || t.pluginId} plugin`;
+    paintTile(id, LEVELS.has(t.level) ? t.level : '', t.text || '');
+  }
+  for (const b of grid.querySelectorAll('.status.plugin')) {
+    if (!keep.has(b.dataset.status)) b.remove();
+  }
 }
 // "Music Assistant (d5369777-music-assistant)" reads as Music Assistant.
 const serverLabel = (name) => (name || '').replace(/\s*\(.*\)\s*$/, '').trim();
@@ -174,10 +213,10 @@ export function refreshHealth() {
   return healthInFlight;
 }
 async function readHealth() {
-  const [ha, wake, esp, media, svc, upd, perms, guard, fleet] = await Promise.all([
+  const [ha, wake, esp, media, svc, upd, perms, guard, fleet, tiles] = await Promise.all([
     'haStatus', 'getWakeWordState', 'esphomeStatus', 'sendspinStatus',
     'getServiceStatus', 'getUpdateStatus', 'getSystemPermissions', 'hasUiGuard',
-    'fleetStatus',
+    'fleetStatus', 'getPluginStatusTiles',
   ].map((c) => ask(c)));
 
   void paintHaStatus(ha);
@@ -231,6 +270,8 @@ async function readHealth() {
     paintTile('update', 'warn', `Downloading: ${upd.availableVersion || ''}`.trim());
   } else if (upd.availableVersion) paintTile('update', 'warn', `New version: ${upd.availableVersion}`);
   else paintTile('update', 'on', upd.currentVersion ? `Up to date: ${upd.currentVersion}` : 'Up to date');
+
+  paintPluginTiles(tiles);
 
   const items = [];
   // A fleet invitation waits on the kiosk screen: nothing here can answer
