@@ -179,35 +179,31 @@ const _categories = <(String, String, Object, String)>[
     'Wake word, background listening',
   ),
   (
+    'ESPHome',
+    'ESPHome',
+    // Another product-named category (like Music Assistant): it wears the
+    // ESPHome mark, not a Material glyph.
+    'assets/svg/esphome.svg',
+    'Native entities and Bluetooth proxy',
+  ),
+  (
     'Screen & Audio',
     'Screen & Audio',
     Icons.brightness_6_outlined,
     'Brightness, volume, microphone',
   ),
-  ('Browser', 'Web Browsing', Icons.public, 'Cache, SSL, Zoom level'),
   (
     'Screensaver',
     'Screensaver',
     Icons.dark_mode_outlined,
     'Idle timeout, modes, motion wake',
   ),
-  (
-    'Camera',
-    'Camera',
-    Icons.photo_camera_outlined,
-    'Device camera, motion, RTSP stream',
-  ),
+  ('Browser', 'Web Browsing', Icons.public, 'Cache, SSL, Zoom level'),
   (
     'Sendspin',
     'Media Player',
     Icons.play_circle_outline,
     'Music Assistant, Sendspin, Sonos',
-  ),
-  (
-    'Cameras',
-    'Camera Streams',
-    Icons.videocam_outlined,
-    'Go2RTC and Home Assistant cameras',
   ),
   (
     'DLNA',
@@ -216,12 +212,16 @@ const _categories = <(String, String, Object, String)>[
     'Play images, videos and audio remotely',
   ),
   (
-    'ESPHome',
-    'ESPHome',
-    // Another product-named category (like Music Assistant): it wears the
-    // ESPHome mark, not a Material glyph.
-    'assets/svg/esphome.svg',
-    'Native entities and Bluetooth proxy',
+    'Camera',
+    'Camera',
+    Icons.photo_camera_outlined,
+    'Device camera, motion, RTSP stream',
+  ),
+  (
+    'Cameras',
+    'Camera Streams',
+    Icons.videocam_outlined,
+    'Go2RTC and Home Assistant cameras',
   ),
   (
     'Kiosk',
@@ -260,9 +260,21 @@ const _categories = <(String, String, Object, String)>[
     Icons.extension_rounded,
     'Install and manage plugins',
   ),
-  ('About', 'About', Icons.info_outline, 'Version, author, license'),
   ('Logs', 'Logs', Icons.article_outlined, 'App log and web console'),
+  ('About', 'About', Icons.info_outline, 'Version, author, license'),
 ];
+
+/// The rail's headings, keyed by the category that opens each group. The
+/// groups and their order match the remote admin sidebar: pick a heading,
+/// then choose among a few pages, instead of reading the whole list. The
+/// icon colors keep cycling across groups, so neighbors never share one.
+const _railGroups = <String, String>{
+  'Home Assistant': 'Home Assistant',
+  'Screen & Audio': 'Display',
+  'Sendspin': 'Media & Cameras',
+  'Kiosk': 'Kiosk',
+  'Device': 'System',
+};
 
 List<SettingDef<Object>> _defsFor(String category) => [
   for (final def in allSettings)
@@ -329,6 +341,34 @@ class _CategoryIcon extends StatelessWidget {
                 ),
               ),
             ),
+    );
+  }
+}
+
+/// A group heading over the category tiles, the remote admin sidebar's:
+/// a small uppercase label, letter-spaced, in the muted ink the subtitles
+/// use, set on the tile's inset so it sits over the discs. Every group but
+/// the first opens with room above it, so the heading reads as a break
+/// between groups rather than as the previous tile's caption.
+class _RailHeading extends StatelessWidget {
+  const _RailHeading(this.text, {required this.first});
+
+  final String text;
+  final bool first;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Padding(
+      padding: EdgeInsets.fromLTRB(16, first ? 4 : 18, 16, 6),
+      child: Text(
+        text.toUpperCase(),
+        style: theme.textTheme.bodySmall?.copyWith(
+          color: theme.colorScheme.onSurfaceVariant,
+          fontWeight: FontWeight.w600,
+          letterSpacing: 1,
+        ),
+      ),
     );
   }
 }
@@ -721,9 +761,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         child: ListView(
                           padding: const EdgeInsets.fromLTRB(12, 8, 12, 20),
                           children: [
-                            for (final (index, (_, title, icon, subtitle))
-                                in _categories.indexed)
+                            for (final (
+                                  index,
+                                  (category, title, icon, subtitle),
+                                )
+                                in _categories.indexed) ...[
+                              if (_railGroups[category] case final heading?)
+                                _RailHeading(heading, first: index == 0),
                               _railTile(context, index, title, icon, subtitle),
+                            ],
                           ],
                         ),
                       ),
@@ -941,6 +987,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
   /// Narrow screens: the classic hub page; categories push on top of it.
   /// The search field sits under the title; typing swaps the category list
   /// for results, and results push their pane like a category tap does.
+  /// The categories in their rail groups, each entry keeping its place in
+  /// [_categories] so the icon color cycle runs on across group edges.
+  static List<(String, List<(int, (String, String, Object, String))>)>
+  get _hubGroups {
+    final groups = <(String, List<(int, (String, String, Object, String))>)>[];
+    for (final entry in _categories.indexed) {
+      final heading = _railGroups[entry.$2.$1];
+      if (heading != null) groups.add((heading, []));
+      groups.last.$2.add(entry);
+    }
+    return groups;
+  }
+
   Widget _hub(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Settings')),
@@ -958,33 +1017,37 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       child: ListView(
                         padding: Ks.pagePadding,
                         children: [
-                          SettingsCard(
-                            children: [
-                              for (final (
-                                    index,
-                                    (category, title, icon, subtitle),
-                                  )
-                                  in _categories.indexed)
-                                ListTile(
-                                  leading: _CategoryIcon(
-                                    index: index,
-                                    icon: icon,
-                                  ),
-                                  title: Text(title),
-                                  subtitle: Text(subtitle),
-                                  trailing: const Icon(Icons.chevron_right),
-                                  onTap: () => Navigator.of(context).push(
-                                    MaterialPageRoute<void>(
-                                      builder: (_) => CategorySettingsScreen(
-                                        container: widget.container,
-                                        title: title,
-                                        category: category,
+                          for (final (index, (heading, entries))
+                              in _hubGroups.indexed) ...[
+                            _RailHeading(heading, first: index == 0),
+                            SettingsCard(
+                              children: [
+                                for (final (
+                                      index,
+                                      (category, title, icon, subtitle),
+                                    )
+                                    in entries)
+                                  ListTile(
+                                    leading: _CategoryIcon(
+                                      index: index,
+                                      icon: icon,
+                                    ),
+                                    title: Text(title),
+                                    subtitle: Text(subtitle),
+                                    trailing: const Icon(Icons.chevron_right),
+                                    onTap: () => Navigator.of(context).push(
+                                      MaterialPageRoute<void>(
+                                        builder: (_) => CategorySettingsScreen(
+                                          container: widget.container,
+                                          title: title,
+                                          category: category,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                            ],
-                          ),
+                              ],
+                            ),
+                          ],
                         ],
                       ),
                     ),

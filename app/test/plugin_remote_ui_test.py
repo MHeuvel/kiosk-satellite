@@ -142,7 +142,7 @@ try:
         assert warning.bounding_box()['y'] > root.get_by_role('button', name='Add plugin', exact=True).bounding_box()['y']
         expect(page.locator('#pageTitle')).to_contain_text('Plugin Manager')
         expect(page.locator('#tabs button[data-tab=plugins] .nav-title')).to_have_text('Plugin Manager')
-        colors = [page.locator(f'#tabs button[data-tab={tab}] .disc').evaluate('(el) => getComputedStyle(el).backgroundColor') for tab in ['fleet', 'files', 'plugins', 'about', 'logs']]
+        colors = [page.locator(f'#tabs button[data-tab={tab}] .disc').evaluate('(el) => getComputedStyle(el).backgroundColor') for tab in ['fleet', 'files', 'plugins', 'logs', 'about']]
         assert all(a != b for a, b in zip(colors, colors[1:])), 'Adjacent menu icons repeat a color'
         assert colors[0] == colors[4], 'Menu colors should continue the four-color cycle'
         before_master = root.locator('.plugin-master-switch').bounding_box()

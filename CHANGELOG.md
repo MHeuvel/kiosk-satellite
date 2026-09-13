@@ -4,6 +4,9 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ## Unreleased
 
+### Changed
+- **Settings are grouped under headings, on the device and in the remote admin.** The pages used to run as one flat list in an order that split related pages apart, with Camera and Camera Streams on either side of Media Player and ESPHome nine rows from the other Home Assistant pages. The device settings rail and the remote admin sidebar now share the same five groups: Home Assistant, Display, Media & Cameras, Kiosk and System, with Overview standing alone at the top of the remote admin. On a phone the device settings hub shows one card per group. Nothing is renamed, merged or moved to another page, and search still finds every page and setting as before.
+
 ### Fixed
 - **The setup wizard no longer crashes on old tablets after a failed QR scan.** On Android 9 and older, a camera that could not be started left the scanner holding a preview surface that was never created, and closing the app afterwards threw from inside Activity teardown, seen on a Nexus 7, a Lenovo Tab E10 and a Lenovo StarView. The scanner plugin now runs behind a guard that ignores that failure while the Activity is going away.
 

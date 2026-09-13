@@ -390,6 +390,14 @@
     background: transparent; color: var(--text); text-align: left; }
   nav#tabs button:hover { background: var(--surface); }
   nav#tabs button.active { background: var(--surface-2); }
+  /* Six headed groups under the lone Overview row: pick a heading, then
+     choose among three to six pages, instead of reading all 22. The
+     heading is a small uppercase label in the muted ink, set in from the
+     row edge to sit over the text column rather than the disc. */
+  .nav-group { display: flex; flex-direction: column; gap: 4px; }
+  .nav-head { margin: 16px 0 4px; padding: 0 16px; font-size: 12.5px;
+    font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--muted); }
   .disc { flex: none; width: 38px; height: 38px; border-radius: 50%;
     display: grid; place-items: center; color: #fff; }
   .disc svg { width: 19px; height: 19px; }
