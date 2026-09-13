@@ -23,8 +23,11 @@ import io.flutter.plugin.common.MethodChannel
  * reading of a burst sent when the window closes; the first reading always
  * passes so the entity is never blank. The 1 lx floor is what adaptive
  * brightness needs at the dark end of its curve, where 1 lx and 4 lx are
- * different rooms. Coarser rate limiting for the HA recorder lives on the
- * Dart side.
+ * different rooms. The Ambient light entity is limited again on the Dart
+ * side (LuxLimiter, issue #521): a token bucket that passes a real
+ * transition untouched and collapses a driver flapping between two values,
+ * which clears the deadband every time, to one recorder row per half
+ * minute. Adaptive brightness reads this stream, not the entity.
  *
  * TYPE_LIGHT needs no permission on any Android version. Devices without the
  * sensor (several Fire tablets) answer hasSensor=false and never get a

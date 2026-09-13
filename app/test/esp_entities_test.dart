@@ -1716,4 +1716,67 @@ void main() {
       expect(pushed.any((p) => p.$1 == 'voice_satellite'), isFalse);
     });
   });
+
+  group('the Ambient light limiter (issue #521)', () {
+    List<Object?> lux() => [
+      for (final p in pushed)
+        if (p.$1 == 'illuminance') p.$2,
+    ];
+
+    test('a real transition reaches the entity at once, a driver flapping '
+        'between two values is held to one row per half minute', () {
+      fakeAsync((async) {
+        surface.build();
+        async.flushMicrotasks();
+        surface.attach(
+          (objectId, value) async => pushed.add((objectId, value)),
+          (objectId, jpeg) async => images.add((objectId, jpeg)),
+        );
+        async.elapse(const Duration(minutes: 5));
+        pushed.clear();
+        // Lights go out: the damper's leading reading and its settled
+        // trailing value both land.
+        bus.publish(const LightLevelChanged(lux: 43));
+        async.elapse(const Duration(seconds: 2));
+        bus.publish(const LightLevelChanged(lux: 2.4));
+        async.flushMicrotasks();
+        expect(lux(), [43, 2]);
+
+        async.elapse(const Duration(minutes: 5));
+        pushed.clear();
+        // The Rockchip square wave: 10 and 160 every 2 seconds for 10
+        // minutes, 300 readings.
+        for (var i = 0; i < 300; i++) {
+          bus.publish(LightLevelChanged(lux: i.isEven ? 10 : 160));
+          async.elapse(const Duration(seconds: 2));
+        }
+        expect(lux().length, lessThanOrEqualTo(4 + 20));
+        expect(lux().toSet().difference({10, 160}), isEmpty);
+        surface.detach();
+      });
+    });
+
+    test('a detach forgets the wire so the next registration seeds the '
+        'entity at once', () {
+      fakeAsync((async) {
+        surface.build();
+        async.flushMicrotasks();
+        surface.attach(
+          (objectId, value) async => pushed.add((objectId, value)),
+          (objectId, jpeg) async => images.add((objectId, jpeg)),
+        );
+        async.elapse(const Duration(seconds: 1));
+        expect(lux(), [42]);
+        surface.detach();
+        pushed.clear();
+        surface.attach(
+          (objectId, value) async => pushed.add((objectId, value)),
+          (objectId, jpeg) async => images.add((objectId, jpeg)),
+        );
+        async.elapse(const Duration(seconds: 1));
+        expect(lux(), [42]);
+        surface.detach();
+      });
+    });
+  });
 }

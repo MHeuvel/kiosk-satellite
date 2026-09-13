@@ -66,7 +66,7 @@ Use **Settings > ESPHome > Excluded entities** to pick entities that should stay
 | **Camera** | camera | Requires physical camera hardware. Because the ESPHome image request protocol does not specify a named camera, fetching either camera triggers a request to both, and each answers on its own specific entity. This strictly follows the physical hardware, not the Camera enabled switch; if the camera is disabled in settings, it will display a "Camera off" frame rather than forcing the device to re register. |
 | **Take camera snapshot** | button | Requires physical camera hardware. |
 | **Last camera snapshot** | timestamp | Requires physical camera hardware. The value is saved across restarts. |
-| **Ambient light** | sensor | Reports light levels in Lux. Requires a physical light sensor. |
+| **Ambient light** | sensor | Reports light levels in Lux. Requires a physical light sensor. A real change reaches Home Assistant at once. A sensor that keeps flapping between values is held to one update every 30 seconds so it cannot flood the recorder. |
 | **GPS latitude**, **GPS longitude** | sensor | Reports coordinates in degrees, precise to six decimals. Requires **Report location** to be on and a physical GPS receiver. See the [GPS Sensor](#gps-sensor) section. |
 | **GPS accuracy**, **Altitude** | sensor | Reports accuracy and altitude in meters. Requires **Report location** to be on and a physical GPS receiver. |
 | **Speed** | sensor | Reports speed in meters per second (Home Assistant will automatically convert this to your preferred unit system). Requires **Report location** to be on and a physical GPS receiver. |

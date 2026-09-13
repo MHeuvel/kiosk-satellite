@@ -19,6 +19,7 @@ import '../settings/definitions.dart' as defs;
 import '../sendspin/sendspin_manager.dart' show SendspinManager;
 import '../settings/settings_manager.dart';
 import 'countdown_stamp.dart';
+import 'lux_limiter.dart';
 
 /// The kiosk entities served over the ESPHome native API. This is the
 /// Dart half of the pair with the native EntityHub: it owns WHAT exists,
@@ -167,6 +168,12 @@ class EspEntitySurface {
     (due) => _send('next_screensaver', due?.toUtc().toIso8601String()),
   );
   DateTime? _idleDue;
+
+  /// The Ambient light sensor (issue #521). The native damper already
+  /// holds readings to one every 2 seconds; this bucket lets a real
+  /// transition through untouched and collapses a driver flapping between
+  /// two values to one recorder row per half minute.
+  late final _lux = LuxLimiter((lux) => _send('illuminance', lux));
 
   /// Unknown while the screensaver shows: a clock still running under a
   /// commanded session is not a moment anyone wants to trigger on.
@@ -1264,9 +1271,7 @@ class EspEntitySurface {
       // seeds getLightLevel from it after a restart, so a driver that
       // emits nothing at registration (the Echo Show's) leaves the entity
       // on the last known value rather than unknown.
-      bus.on<LightLevelChanged>().listen((e) {
-        _send('illuminance', e.lux.round());
-      }),
+      bus.on<LightLevelChanged>().listen((e) => _lux.offer(e.lux.round())),
     );
     _subs.add(bus.on<LocationChanged>().listen(_sendLocation));
     _subs.add(
@@ -1366,6 +1371,7 @@ class EspEntitySurface {
     _viewsNudge = null;
     _interaction.dispose();
     _countdown.dispose();
+    _lux.reset();
   }
 
   /// A command from Home Assistant landed (via the native hub). State
@@ -2185,7 +2191,7 @@ class EspEntitySurface {
     // to send. The device manager already answers with the last known
     // value where there is one.
     lux ??= int.tryParse(_settings.internal('esphome_last_lux'));
-    if (lux != null) await _send('illuminance', lux.round());
+    if (lux != null) _lux.offer(lux.round());
     await _sendIpAddresses();
     final foreground = await commands.execute('foregroundApp', const {});
     if (foreground.ok && foreground.data is Map) {
