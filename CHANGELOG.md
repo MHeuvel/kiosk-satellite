@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Fixed
+- **The setup wizard no longer crashes on old tablets after a failed QR scan.** On Android 9 and older, a camera that could not be started left the scanner holding a preview surface that was never created, and closing the app afterwards threw from inside Activity teardown, seen on a Nexus 7, a Lenovo Tab E10 and a Lenovo StarView. The scanner plugin now runs behind a guard that ignores that failure while the Activity is going away.
+
 ## v2026.9.46 - 2026-09-13
 
 ### Added

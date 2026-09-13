@@ -112,6 +112,9 @@ class KioskApplication : Application(), CameraXConfig.Provider {
         // reads shared_preferences immediately, so shared_preferences,
         // path_provider et al. must already be registered when it runs.
         GeneratedPluginRegistrant.registerWith(engine)
+        // The QR scanner's detach can throw on old camera HALs and would take
+        // the process down from Activity.onDestroy (ScannerPluginShield).
+        ScannerPluginShield.install(engine)
         engine.dartExecutor.executeDartEntrypoint(
             DartExecutor.DartEntrypoint.createDefault(),
         )
