@@ -69,7 +69,9 @@ void main() {
     expect(snap['artist'], 'The Dave Brubeck Quartet');
     expect(snap['album'], 'Time Out');
     expect(snap['artworkUrl'], 'https://example.com/track.jpg');
-    expect(snap['durationMs'], 324000);
+    // The song's duration stays out: the queue's elapsed time is the
+    // station's, so there is no position to set against it.
+    expect(snap.containsKey('durationMs'), isFalse);
     expect(snap['mediaType'], 'radio');
     expect(snap['mediaUri'], 'library://radio/26');
     expect(snap['queueItemId'], 'radio-item');

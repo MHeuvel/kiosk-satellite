@@ -178,6 +178,39 @@ void main() {
       );
     });
 
+    test('a radio item carries the song but no duration', () {
+      // The queue's elapsed time counts from tuning in; the stream
+      // metadata names the song and, when the server recognized it, its
+      // duration. Together they put a full bar under every song.
+      final queue = _queue(elapsed: 1500);
+      (queue['current_item'] as Map)['media_item'] = {
+        'name': 'Radio Paradise',
+        'media_type': 'radio',
+        'uri': 'library://radio/28',
+      };
+      (queue['current_item'] as Map)['streamdetails'] = {
+        'stream_metadata': {
+          'title': "Life's Been Good",
+          'artist': 'Joe Walsh',
+          'duration': 279,
+        },
+      };
+      final snap = queueTrackSnapshot(queue);
+      expect(snap!['title'], "Life's Been Good");
+      expect(snap['artist'], 'Joe Walsh');
+      expect(snap['mediaType'], 'radio');
+      expect(snap.containsKey('durationMs'), isFalse);
+      expect(snap['positionMs'], 1500000);
+      // The player's media as the fallback says the same.
+      (queue['current_item'] as Map).remove('streamdetails');
+      final fromPlayer = queueTrackSnapshot(
+        queue,
+        currentMedia: {'title': 'Teardrop', 'duration': 330},
+      );
+      expect(fromPlayer!['title'], 'Teardrop');
+      expect(fromPlayer.containsKey('durationMs'), isFalse);
+    });
+
     test('no queue, no item, or no name is no snapshot', () {
       expect(queueTrackSnapshot(null), isNull);
       expect(queueTrackSnapshot({'state': 'playing'}), isNull);
@@ -280,6 +313,40 @@ void main() {
     test('a paused queue shows paused without prior playback', () {
       remote.publishQueue(_queue(state: 'paused'));
       expect(emitted.single!['playing'], isFalse);
+    });
+
+    test('a radio stream played outside a queue shows no duration', () {
+      // No queue to read: the player's own media carries the station's
+      // song, its elapsed time counting from tuning in.
+      remote.handleEvent('player_updated', 'p1', {
+        'player_id': 'p1',
+        'available': true,
+        'playback_state': 'playing',
+        'elapsed_time': 900,
+        'elapsed_time_last_updated': 1700000000,
+        'current_media': {
+          'media_type': 'radio',
+          'title': 'Teardrop',
+          'artist': 'Massive Attack',
+          'duration': 330,
+        },
+      });
+      final snap = emitted.last!;
+      expect(snap['title'], 'Teardrop');
+      expect(snap['playing'], isTrue);
+      expect(snap['durationMs'], 0);
+      // A track played the same way keeps its duration.
+      remote.handleEvent('player_updated', 'p1', {
+        'player_id': 'p1',
+        'available': true,
+        'playback_state': 'playing',
+        'current_media': {
+          'media_type': 'track',
+          'title': 'Angel',
+          'duration': 379,
+        },
+      });
+      expect(emitted.last!['durationMs'], 379000);
     });
 
     test('queue events route by the followed queue id', () {

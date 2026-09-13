@@ -361,6 +361,21 @@ class HaRemotePlayer implements RemotePlayer {
         if (elapsed > 0) position += elapsed;
       }
     }
+    // A live stream has no track position, and a duration beside one
+    // (a song the station recognized, a program length) would put a full
+    // bar under every song. Home Assistant's own word for a live stream
+    // is the 'channel' content type and Music Assistant names the media
+    // type in its item URIs ('library://radio/28'). An integration that
+    // stopped tracking the position leaves the last report under a stale
+    // stamp, so the extrapolation runs on past the end of the track it
+    // claims to describe: the same tell, a few seconds late.
+    final live =
+        attributes['media_content_type'] == 'channel' ||
+        isRadioUri('${attributes['media_content_id'] ?? ''}') ||
+        (playing &&
+            duration != null &&
+            duration > 0 &&
+            position > duration + 5);
     if (duration != null && duration > 0 && position > duration) {
       position = duration;
     }
@@ -372,7 +387,7 @@ class HaRemotePlayer implements RemotePlayer {
       'title': title,
       if (artist.isNotEmpty) 'artist': artist,
       if (album.isNotEmpty) 'album': album,
-      if (duration != null && duration > 0)
+      if (duration != null && duration > 0 && !live)
         'durationMs': (duration * 1000).round(),
       'positionMs': (position * 1000).round(),
       'receivedAt': now,
@@ -389,6 +404,13 @@ class HaRemotePlayer implements RemotePlayer {
             : '$baseUrl${picture.startsWith('/') ? '' : '/'}$picture',
     };
   }
+
+  /// Whether a media_content_id is a Music Assistant radio item:
+  /// `provider://radio/id`, whatever the provider.
+  @visibleForTesting
+  static bool isRadioUri(String uri) => _radioUri.hasMatch(uri);
+
+  static final _radioUri = RegExp(r'^[a-z0-9_\-]+://radio/');
 
   void _onDone() {
     if (_stopped) return;

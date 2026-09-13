@@ -723,6 +723,53 @@ void main() {
       },
     );
 
+    test('a radio station on the local player shows no duration', () async {
+      // The engine's progress for a station counts from tuning in and
+      // the duration Music Assistant sends is the recognized song's.
+      // The queue knows the item is a station: no duration, no bar.
+      await build(
+        extra: {
+          'ks.sendspin.player': '',
+          'ks.sendspin.player_source': '',
+          'ks.sendspin.enabled': true,
+          'ks.sendspin.client_id': 'abc123',
+        },
+      );
+      await Future<void>.delayed(const Duration(milliseconds: 20));
+      final messenger =
+          TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+      Future<void> native(String method, Map<String, Object?> args) =>
+          messenger.handlePlatformMessage(
+            channel.name,
+            const StandardMethodCodec().encodeMethodCall(
+              MethodCall(method, args),
+            ),
+            (_) {},
+          );
+      fake!.onSnapshot({
+        'title': "Life's Been Good",
+        'mediaType': 'radio',
+        'mediaUri': 'library://radio/28',
+      });
+      await native('metadataChanged', {
+        'title': "Life's Been Good",
+        'durationMs': 279000,
+        'positionMs': 1500000,
+      });
+      await native('playingChanged', {'playing': true});
+      expect(sendspin.nowPlaying.value?['title'], "Life's Been Good");
+      expect(sendspin.nowPlaying.value?['mediaType'], 'radio');
+      expect(sendspin.nowPlaying.value?.containsKey('durationMs'), isFalse);
+      // The next track is a track again, duration and all.
+      fake!.onSnapshot({
+        'title': 'Angel',
+        'mediaType': 'track',
+        'mediaUri': 'library://track/1',
+      });
+      await native('metadataChanged', {'title': 'Angel', 'durationMs': 379000});
+      expect(sendspin.nowPlaying.value?['durationMs'], 379000);
+    });
+
     test('pausing after a seek keeps the absolute queue position', () async {
       await build(
         extra: {

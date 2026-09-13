@@ -144,6 +144,80 @@ void main() {
         isNull,
       );
     });
+
+    test('a Music Assistant radio item shows no duration', () {
+      // The entity as Music Assistant reports a station: the recognized
+      // song's duration, a position of zero stamped when the station was
+      // tuned in. Extrapolated, that is a full bar under every song.
+      final snap = HaRemotePlayer.snapshotFrom(
+        state: 'playing',
+        attributes: {
+          'media_content_id': 'library://radio/28',
+          'media_content_type': 'music',
+          'media_duration': 279,
+          'media_position': 0,
+          'media_position_updated_at': DateTime.now()
+              .toUtc()
+              .subtract(const Duration(minutes: 40))
+              .toIso8601String(),
+          'media_title': "Life's Been Good",
+          'media_artist': 'Joe Walsh',
+          'supported_features': 8320959,
+        },
+        baseUrl: base,
+      );
+      expect(snap!['title'], "Life's Been Good");
+      expect(snap.containsKey('durationMs'), isFalse);
+      expect(HaRemotePlayer.isRadioUri('builtin://radio/https://x/y'), isTrue);
+      expect(HaRemotePlayer.isRadioUri('library://track/84'), isFalse);
+      expect(HaRemotePlayer.isRadioUri('spotify://radio'), isFalse);
+    });
+
+    test('a live channel shows no duration', () {
+      final snap = HaRemotePlayer.snapshotFrom(
+        state: 'playing',
+        attributes: {
+          'media_content_type': 'channel',
+          'media_duration': 1800,
+          'media_position': 10,
+          'media_title': 'Morning Show',
+          'supported_features': 1,
+        },
+        baseUrl: base,
+      );
+      expect(snap!.containsKey('durationMs'), isFalse);
+    });
+
+    test('a position run past the track it describes drops the bar', () {
+      // A player that stopped tracking the position leaves the last
+      // report under a stale stamp. The clamp used to hide that as a
+      // full bar; a run of more than a few seconds past the end is the
+      // stream's, not the track's.
+      Map<String, Object?>? at(int secondsAgo, {String state = 'playing'}) =>
+          HaRemotePlayer.snapshotFrom(
+            state: state,
+            attributes: {
+              'media_title': 'Song',
+              'media_duration': 200,
+              'media_position': 190,
+              'media_position_updated_at': DateTime.now()
+                  .toUtc()
+                  .subtract(Duration(seconds: secondsAgo))
+                  .toIso8601String(),
+              'supported_features': 1,
+            },
+            baseUrl: base,
+          );
+      // Within the track, and a moment past its end (the next track's
+      // state is still on its way): the bar stays, clamped to the end.
+      expect(at(5)!['durationMs'], 200000);
+      expect(at(12)!['durationMs'], 200000);
+      expect(at(12)!['positionMs'], 200000);
+      // Well past the end while playing: not a track position any more.
+      expect(at(30)!.containsKey('durationMs'), isFalse);
+      // Paused, the position does not move, so nothing runs past.
+      expect(at(30, state: 'paused')!['durationMs'], 200000);
+    });
   });
 
   group('HaRemotePlayer entity events', () {

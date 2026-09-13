@@ -579,7 +579,9 @@ class MaRemotePlayer implements RemotePlayer {
     if (playing && elapsed != null && measuredAt is num) {
       position += max(0, now - (measuredAt * 1000).round());
     }
-    final duration = media['duration'];
+    // A radio stream's elapsed time is the station's, not the song's
+    // (see queueTrackSnapshot): no duration, so no bar.
+    final duration = media['media_type'] == 'radio' ? null : media['duration'];
     final durationMs = duration is num ? (duration * 1000).round() : 0;
     position = max(0, durationMs > 0 ? min(position, durationMs) : position);
     Map? source;

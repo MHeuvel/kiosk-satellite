@@ -157,7 +157,7 @@ In Kiosk Mode, access to this shortcut is controlled via the **Allowed Actions**
 
 ## The Floating Player
 
-The floating card displays album artwork, track title, artist name (with scrolling text for long titles), and a live progress line. The card can be dragged anywhere on screen, and its position is saved across sessions.
+The floating card displays album artwork, track title, artist name (with scrolling text for long titles), and a live progress line. A radio station shows no progress line or times: the stream only reports how long the station has been playing, not where the current song is. The card can be dragged anywhere on screen, and its position is saved across sessions.
 
 The Large card format adds touch-friendly previous, play/pause, and next controls that operate across the entire playback group.
 
@@ -193,7 +193,7 @@ When **Launch Now Playing when music starts playing** is enabled, the view opens
 
 When **Show media controls** is enabled, transport buttons, a progress bar, and secondary toggles appear over the artwork:
 
-* **Transport & Progress**: Displays previous, play/pause, and next buttons alongside elapsed and total track time. On supported players, dragging the progress bar thumb seeks within the track.
+* **Transport & Progress**: Displays previous, play/pause, and next buttons alongside elapsed and total track time. On supported players, dragging the progress bar thumb seeks within the track. A radio station shows the buttons alone, since a live stream has no track position.
 * **Left Toggles**: Volume, favorite and shuffle. Toggling volume replaces the progress bar with a volume slider and a mute button. On Sonos devices, adjusting volume updates the entire group volume when group volume adjustment is enabled. The heart marks the playing track as a favorite, filled while it is one: in Music Assistant's library for this device's own player and a followed Music Assistant player, and in the household's My Sonos for a Sonos followed directly, where a station or a track is added the way the Sonos app's own heart adds it. A Home Assistant player shows no heart.
 * **Right Toggles**: Repeat, synchronized lyrics and the queue panel. Repeat cycles off, all and one on every source that reports it, lit while on and wearing the numbered glyph on one. Side-by-side or stacked layouts adapt dynamically based on screen orientation. The queue panel displays past tracks, the current track, and upcoming items, each with its cover while **Show album art in the queue** is on, allowing direct track jumping by tapping any row.
 * **Dismissal**: On the standalone Now Playing view with media controls enabled, tapping the background does not dismiss the view; users must tap the top-right close button, use a double tap gesture (if **Double tap to dismiss** is on), or press the physical back button.

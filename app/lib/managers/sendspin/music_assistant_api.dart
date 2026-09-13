@@ -519,6 +519,13 @@ Map<String, Object?>? queueTrackSnapshot(
       : (item['duration'] as num?) ?? (media['duration'] as num?);
   final elapsed = queue['elapsed_time'] as num?;
   final measuredAt = queue['elapsed_time_last_updated'] as num?;
+  // A radio queue's elapsed time counts from the moment the station was
+  // tuned in, not from the start of the song the stream metadata names,
+  // and nothing in the queue says where that song is. A duration beside
+  // it (a metadata lookup's, or a program length) would put a full bar
+  // under every song: a station shows no duration, so the surfaces show
+  // no progress.
+  final radio = media['media_type'] == 'radio';
   return {
     'state': '${queue['state'] ?? ''}',
     'title': title,
@@ -529,7 +536,7 @@ Map<String, Object?>? queueTrackSnapshot(
         : null,
     if (artist.isNotEmpty) 'artist': artist,
     if (album.isNotEmpty) 'album': album,
-    if (duration != null) 'durationMs': (duration * 1000).round(),
+    if (duration != null && !radio) 'durationMs': (duration * 1000).round(),
     'positionMs': ((elapsed ?? 0) * 1000).round(),
     if (measuredAt != null) 'positionAtMs': (measuredAt * 1000).round(),
     'shuffle': queue['shuffle_enabled'] == true,

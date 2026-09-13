@@ -535,8 +535,14 @@ class SendspinManager extends Manager {
       // chapter metadata survives progress deltas and leaves with the book.
       final queue = _localQueueSnapshot;
       final matches = queue != null && queue['title'] == value['title'];
+      // The engine's progress for a radio station counts from the moment
+      // it was tuned in, while the duration Music Assistant sends with a
+      // recognized song is that song's: a bar that sits full under every
+      // song. The queue knows the item is a station; no duration, no bar.
+      final radio = matches && queue['mediaType'] == 'radio';
       value = {
-        ...value,
+        for (final e in value.entries)
+          if (e.key != 'durationMs' || !radio) e.key: e.value,
         'mediaType': matches ? queue['mediaType'] : null,
         'mediaUri': matches ? queue['mediaUri'] : null,
         'chapters': matches ? queue['chapters'] : null,
