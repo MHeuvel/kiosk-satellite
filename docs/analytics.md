@@ -8,7 +8,7 @@ Everything on this page is optional. Open **Settings > Device > Kiosk Satellite 
 
 | Switch | What is sent | Why |
 |---|---|---|
-| **Basic analytics** | Device model and manufacturer, Android version, app version, CPU architecture, screen size and density, system language and time zone. | Tells us which devices and Android releases to test on. |
+| **Basic analytics** | Device model and manufacturer, Android version, app version, CPU architecture, memory size, screen size and density, system language and time zone. | Tells us which devices and Android releases to test on. |
 | **Usage** | Which features are turned on, as switches and picks only: screensaver mode and wake triggers, Voice Satellite with its wake word engine, wake word names and skin, ESPHome, Bluetooth proxy and GPS sensor, media player source, device camera, gesture count, kiosk and lockdown mode, launchers, dashboard carousel and rotation, adaptive brightness, remote admin, fleet role, theme and the ids of installed plugins. | Shows which features people use so work goes where it matters. |
 | **Diagnostics** | A crash report when the app stops unexpectedly: the stack trace and the app and Android versions. Restarts the app's own frame watchdog forced after the screen stopped drawing are reported the same way. Restarts you asked for are not. Each report goes out once, on the next start. | Lets us fix crashes nobody reported. |
 

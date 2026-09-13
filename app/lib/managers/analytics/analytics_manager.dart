@@ -281,6 +281,22 @@ class AnalyticsManager extends Manager {
     };
   }
 
+  /// The device's memory as the box would print it: Android reports what
+  /// is left after the kernel and reserved regions take their share, so an
+  /// 8 GB tablet says 7.6 GiB and a 12 GB one 11.4. Rounding up to the
+  /// next size devices are sold with gives the nominal figure back
+  /// without inventing one; past the ladder, the next whole gigabyte.
+  /// Null when unknown.
+  static double? nominalRamGb(Object? totalBytes) {
+    if (totalBytes is! num || totalBytes <= 0) return null;
+    final gib = totalBytes / (1024 * 1024 * 1024);
+    const ladder = [0.5, 1, 1.5, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64];
+    for (final size in ladder) {
+      if (gib <= size) return size.toDouble();
+    }
+    return gib.ceilToDouble();
+  }
+
   Future<Map<String, Object?>> _deviceInfo() async {
     try {
       final r = await commands.execute('getDeviceInfo', const {});
@@ -323,6 +339,7 @@ class AnalyticsManager extends Manager {
       'locale': Platform.localeName,
       'timezone': now.timeZoneName,
       'utc_offset_minutes': now.timeZoneOffset.inMinutes,
+      'ram_gb': nominalRamGb(d['ramTotal']),
     };
   }
 

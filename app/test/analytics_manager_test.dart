@@ -28,6 +28,7 @@ void main() {
     'osVersion': 'Android 11',
     'sdkInt': 30,
     'screenWidth': 1280,
+    'ramTotal': 7 * 1024 * 1024 * 1024 + 600 * 1024 * 1024, // 7.6 GiB
     'screenHeight': 800,
     'screenDensity': 1.5,
     'appVersion': '2026.9.43',
@@ -161,6 +162,7 @@ void main() {
       expect(basic['model'], 'Amazon KFONWI');
       expect(basic['android'], 'Android 11');
       expect((basic['screen'] as Map)['width'], 1280);
+      expect(basic['ram_gb'], 8.0);
       final usage = body['usage'] as Map;
       expect(usage['plugins'], 2);
       expect(usage['plugin_ids'], ['a', 'b']);
@@ -177,6 +179,17 @@ void main() {
       expect(sent, hasLength(2));
     },
   );
+
+  test('memory rounds up to the nominal size in half gigabytes', () {
+    const gib = 1024 * 1024 * 1024;
+    expect(AnalyticsManager.nominalRamGb((1.4 * gib).round()), 1.5);
+    expect(AnalyticsManager.nominalRamGb((1.9 * gib).round()), 2.0);
+    expect(AnalyticsManager.nominalRamGb((3.6 * gib).round()), 4.0);
+    expect(AnalyticsManager.nominalRamGb((5.6 * gib).round()), 6.0);
+    expect(AnalyticsManager.nominalRamGb((11.4 * gib).round()), 12.0);
+    expect(AnalyticsManager.nominalRamGb(0), isNull);
+    expect(AnalyticsManager.nominalRamGb(null), isNull);
+  });
 
   test('nothing in a report names the device, its network or its HA', () async {
     await build({
