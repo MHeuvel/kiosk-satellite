@@ -60,14 +60,14 @@ test('disabled optimization, hidden Overview and disconnected HA make no dashboa
   const c = client(() => { throw Error('unexpected request'); });
   c.setEnabled(false);
   await c.paint(connected);
-  assert.equal(c.tiles.at(-1)[2], 'Connected');
+  assert.equal(c.tiles.at(-1)[2], 'Validated');
   assert.equal(c.tiles.at(-1)[1], 'on');
   c.setEnabled(true);
   c.setVisible(false);
   await c.paint(connected);
   c.setVisible(true);
   await c.paint({ configured: true, connected: false });
-  assert.equal(c.tiles.at(-1)[2], 'Disconnected');
+  assert.equal(c.tiles.at(-1)[2], 'Not validated');
   await c.paint({ configured: false, connected: false });
   assert.equal(c.tiles.at(-1)[2], 'Not set up');
   assert.equal(c.calls.length, 0);
@@ -104,7 +104,7 @@ test('a late response cannot restore the count after filtering is disabled or HA
     await c.paint(disable ? connected : { configured: true, connected: false });
     resolve(response({ enabled: true, built: true, allow: 9 }));
     await first;
-    assert.equal(c.tiles.at(-1)[2], disable ? 'Connected' : 'Disconnected');
+    assert.equal(c.tiles.at(-1)[2], disable ? 'Validated' : 'Not validated');
   }
 });
 

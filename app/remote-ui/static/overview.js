@@ -152,8 +152,10 @@ async function paintHaStatus(ha) {
   const filtering = settingOn('browser.ws_filter');
   if (!ha) paintTile('ha', '', 'Status unavailable');
   else if (!ha.configured) paintTile('ha', 'warn', 'Not set up');
-  else if (!ha.connected) paintTile('ha', 'off', 'Disconnected');
-  else paintTile('ha', 'on', filtering ? 'Checking filter...' : 'Connected');
+  // "connected" is this run's validation verdict, not a live probe: it never
+  // drops when the server goes away, so the tile says Validated, not Connected.
+  else if (!ha.connected) paintTile('ha', 'off', 'Not validated');
+  else paintTile('ha', 'on', filtering ? 'Checking filter...' : 'Validated');
   // Keep the rest of Overview responsive if the dashboard cannot answer.
   // Disabled or disconnected panels do not get a JavaScript request.
   if (!onOverview()) return;
@@ -162,7 +164,7 @@ async function paintHaStatus(ha) {
   const enabled = settingOn('browser.ws_filter');
   const current = enabled ? filter : null;
   paintTile('ha', current?.unfiltered ? 'warn' : 'on',
-    enabled ? current?.label || 'Filter status unavailable' : 'Connected');
+    enabled ? current?.label || 'Filter status unavailable' : 'Validated');
 }
 
 export function refreshHealth() {
@@ -278,8 +280,8 @@ async function readHealth() {
   } else if (ha && !ha.connected) {
     items.push({
       key: 'ha',
-      name: 'Home Assistant disconnected',
-      desc: 'The dashboard session and the Voice Satellite are offline until the connection is back.',
+      name: 'Home Assistant not validated',
+      desc: 'The URL and token have not passed a connection check this run. The kiosk retries every 30 seconds.',
       action: (btn) => openButton(btn, 'Open setup', 'homeassistant'),
     });
   }
