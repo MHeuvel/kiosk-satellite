@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.9.47 - 2026-09-13
 
 ### Changed
 - **Settings are grouped under headings, on the device and in the remote admin.** The pages used to run as one flat list in an order that split related pages apart, with Camera and Camera Streams on either side of Media Player and ESPHome nine rows from the other Home Assistant pages. The device settings rail and the remote admin sidebar now share the same five groups: Home Assistant, Display, Media & Cameras, Kiosk and System, with Overview standing alone at the top of the remote admin. On a phone the device settings hub shows one card per group. Nothing is renamed, merged or moved to another page, and search still finds every page and setting as before.
