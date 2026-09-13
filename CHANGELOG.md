@@ -5,6 +5,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ## v2026.9.45 - 2026-09-12
 
 ### Changed
+- **Basic analytics report the device's memory size.** The snapshot carries the installed RAM rounded to the nominal size in half gigabytes, so an Echo Show 8 reads 2 GB and a Tab S8 reads 8 GB. The 2026.9.44 notes listed it, but the field left after that build was tagged.
 - **Usage analytics say what is really in use.** Voice Satellite now reports whether the integration is installed and whether its engine is running, read from the page rather than from the wake word switch, so a kiosk that never met Voice Satellite reads as such. The snapshot also carries the kinds of screensaver widgets, the kinds of gesture triggers and actions with the mapping count, how many Camera Streams servers, sources and views are configured, RTSP streaming, the secure context proxy, the Optimizations switches, who installs updates (Android on a device owner, the update helper, Shizuku or the on-screen prompt) with Shizuku's state and the system WebView package and version under Basic analytics. Kinds and counts only: nothing a widget, gesture or camera points at leaves the device. The [analytics guide](docs/analytics.md) lists the additions.
 
 ### Fixed
