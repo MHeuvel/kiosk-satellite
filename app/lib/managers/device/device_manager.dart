@@ -745,6 +745,8 @@ class DeviceManager extends Manager {
       'buildNumber': buildNumber,
       'buildMode': buildMode,
       'package': packageName,
+      'webviewPackage': details.webviewPackage,
+      'webviewVersion': details.webviewVersion,
     };
   }
 }

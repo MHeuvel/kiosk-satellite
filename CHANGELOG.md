@@ -4,6 +4,9 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ## Unreleased
 
+### Changed
+- **Usage analytics say what is really in use.** Voice Satellite now reports whether the integration is installed and whether its engine is running, read from the page rather than from the wake word switch, so a kiosk that never met Voice Satellite reads as such. The snapshot also carries the kinds of screensaver widgets, the kinds of gesture triggers and actions with the mapping count, how many Camera Streams servers, sources and views are configured, RTSP streaming, the secure context proxy, the Optimizations switches, who installs updates (Android on a device owner, the update helper, Shizuku or the on-screen prompt) with Shizuku's state and the system WebView package and version under Basic analytics. Kinds and counts only: nothing a widget, gesture or camera points at leaves the device. The [analytics guide](docs/analytics.md) lists the additions.
+
 ### Fixed
 - **Late hand tracker result no longer crashes the app.** The Show fingers gesture's tracker delivers its last result on a thread of its own. When it arrived after the camera session had been torn down with the Activity, the process died with a RejectedExecutionException. The result is dropped instead.
 - **RTSP client that drops during a server stop no longer crashes the app.** Turning RTSP streaming off while a client was connecting could close that client's socket before its thread had set it up. The setup then threw on a daemon thread. The setup now sits inside the client's error handling.

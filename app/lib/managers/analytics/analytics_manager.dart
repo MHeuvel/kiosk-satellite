@@ -52,6 +52,11 @@ class AnalyticsManager extends Manager {
   static const _installIdKey = 'analytics_install_id';
   static const _lastSnapshotKey = 'analytics_last_snapshot';
   static const _sentCrashesKey = 'analytics_sent_crashes';
+  static const _vsSeenKey = 'analytics_vs_seen';
+
+  /// How long a Voice Satellite sighting keeps an install reading
+  /// 'installed' while the page hook is not answering.
+  static const vsMemory = Duration(days: 7);
 
   /// How many crashes one tick reports at most: a journal that holds a
   /// history of them trickles out rather than bursting.
@@ -165,6 +170,7 @@ class AnalyticsManager extends Manager {
     await _settings.setInternal(_installIdKey, '');
     await _settings.setInternal(_lastSnapshotKey, '');
     await _settings.setInternal(_sentCrashesKey, '');
+    await _settings.setInternal(_vsSeenKey, '');
   }
 
   Future<String> _ensureInstallId() async {
@@ -340,11 +346,17 @@ class AnalyticsManager extends Manager {
       'timezone': now.timeZoneName,
       'utc_offset_minutes': now.timeZoneOffset.inMinutes,
       'ram_gb': nominalRamGb(d['ramTotal']),
+      // The system WebView the dashboard runs in: a component that
+      // updates on its own, so the version says which Chromium the
+      // Home Assistant frontend meets on this device.
+      'webview': d['webviewPackage'] ?? '',
+      'webview_version': d['webviewVersion'] ?? '',
     };
   }
 
-  /// Usage: which features are on. Booleans and picks only, never the
-  /// values behind them (no URLs, names, entities or credentials).
+  /// Usage: which features are on. Booleans, picks, counts and short
+  /// catalog names only, never the values behind them (no URLs, names,
+  /// entities or credentials).
   Future<Map<String, Object?>> _usage() async {
     final s = _settings;
     String fleetRole() {
@@ -353,10 +365,53 @@ class AnalyticsManager extends Manager {
       return 'none';
     }
 
+    // Gestures: how many mappings, and which trigger and action kinds
+    // they use. The kinds are the editor's own vocabulary ('claps',
+    // 'screensaver'), never what a mapping points at.
     var mappings = 0;
+    final triggers = <String>{};
+    final actions = <String>{};
     try {
       final raw = jsonDecode(s.get(defs.gestureMappings));
-      if (raw is List) mappings = raw.length;
+      if (raw is List) {
+        mappings = raw.length;
+        for (final m in raw) {
+          if (m is! Map) continue;
+          final t = m['trigger'];
+          final a = m['action'];
+          if (t is Map && t['type'] is String)
+            triggers.add(t['type'] as String);
+          if (a is Map && a['type'] is String) actions.add(a['type'] as String);
+        }
+      }
+    } catch (_) {}
+
+    // Screensaver widgets: which kinds sit in the corners.
+    var widgetCount = 0;
+    final widgets = <String>{};
+    try {
+      final raw = jsonDecode(s.get(defs.screensaverWidgets));
+      if (raw is List) {
+        widgetCount = raw.length;
+        for (final w in raw) {
+          if (w is Map && w['type'] is String) widgets.add(w['type'] as String);
+        }
+      }
+    } catch (_) {}
+
+    // Camera Streams: how much is configured, as counts. The servers,
+    // sources and views themselves carry addresses and names.
+    var cameraServers = 0;
+    var cameraSources = 0;
+    var cameraViews = 0;
+    try {
+      final raw = jsonDecode(s.get(defs.cameraConfig));
+      if (raw is Map) {
+        int count(String k) => raw[k] is List ? (raw[k] as List).length : 0;
+        cameraServers = count('servers');
+        cameraSources = count('cameras');
+        cameraViews = count('views');
+      }
     } catch (_) {}
 
     // Which plugins are installed, by the id their manifest declares: a
@@ -380,9 +435,9 @@ class AnalyticsManager extends Manager {
       }
     } catch (_) {}
 
-    // What Voice Satellite is listening for and with, and how it looks:
-    // the wake word manager's state and the page's settings hook. Names
-    // only; a model name is a catalog label, not the user's audio.
+    // What Voice Satellite is listening for and with: the wake word
+    // manager's state. Names only; a model name is a catalog label, not
+    // the user's audio.
     var wakeEngine = '';
     var wakeWord = '';
     var wakeWord2 = '';
@@ -403,12 +458,33 @@ class AnalyticsManager extends Manager {
         }
       }
     } catch (_) {}
-    var skin = '';
+    final vs = await _voiceSatellite(configPushed: wakeEngine.isNotEmpty);
+
+    // Who installs updates: Android itself for a device owner, the ADB
+    // update helper, Shizuku, or the on-screen confirmation. Shizuku's own
+    // state comes along: installed and authorized, installed and waiting,
+    // or absent.
+    var shizuku = '';
     try {
-      final r = await commands.execute('vsEngineState', const {});
+      final r = await commands.execute('getShizukuState', const {});
       final data = r.data;
-      if (data is Map && data['config'] is Map) {
-        skin = '${(data['config'] as Map)['skin'] ?? ''}';
+      if (data is Map) shizuku = '${data['status'] ?? ''}';
+    } catch (_) {}
+    var installer = 'confirm';
+    var helper = false;
+    try {
+      final r = await commands.execute('getUpdateInstallerStatus', const {});
+      final data = r.data;
+      if (data is Map) {
+        helper = data['helper'] == 'ready' || data['helper'] == 'busy';
+        if (data['nativeSilent'] == true) {
+          installer = 'device_owner';
+        } else if (helper) {
+          installer = 'helper';
+        } else if (data['shizukuEnabled'] == true &&
+            data['shizukuReady'] == true) {
+          installer = 'shizuku';
+        }
       }
     } catch (_) {}
 
@@ -418,16 +494,18 @@ class AnalyticsManager extends Manager {
           : 'off',
       'screensaver_schedule': s.get(defs.screensaverScheduleEnabled),
       'glance': s.get(defs.screensaverGlanceEnabled),
+      'widgets': widgets.toList()..sort(),
+      'widget_count': widgetCount,
       'wake_on_motion': s.get(defs.screensaverDismissOnMotion),
       'wake_on_face': s.get(defs.screensaverDismissOnFace),
       'wake_on_person': s.get(defs.screensaverDismissOnPerson),
       'wake_on_proximity': s.get(defs.screensaverDismissOnProximity),
-      'voice_satellite': s.get(defs.wakeWordEnabled),
+      'voice_satellite': vs.state,
       'native_pipeline': s.get(defs.vsNativePipeline),
       'wake_word_engine': wakeEngine,
       'wake_word': wakeWord,
       'wake_word_2': wakeWord2,
-      'vs_skin': skin,
+      'vs_skin': vs.skin,
       'esphome': s.get(defs.esphomeEnabled),
       'bluetooth_proxy': s.get(defs.btproxyEnabled),
       'gps_sensor': s.get(defs.locationEnabled),
@@ -440,7 +518,14 @@ class AnalyticsManager extends Manager {
       'lyrics': s.get(defs.sendspinLyricsEnabled),
       'dlna': s.get(defs.dlnaEnabled),
       'device_camera': s.get(defs.cameraEnabled),
+      'rtsp_stream': s.get(defs.cameraEnabled) && s.get(defs.cameraRtspEnabled),
+      'camera_streams': cameraViews > 0,
+      'camera_servers': cameraServers,
+      'camera_sources': cameraSources,
+      'camera_views': cameraViews,
       'gesture_mappings': mappings,
+      'gesture_triggers': triggers.toList()..sort(),
+      'gesture_actions': actions.toList()..sort(),
       'kiosk_mode': s.get(defs.kioskEnabled),
       'lockdown': s.get(defs.lockdownEnabled),
       'app_launcher': s.get(defs.launcherEnabled),
@@ -448,14 +533,64 @@ class AnalyticsManager extends Manager {
       'ha_kiosk_mode': s.get(defs.haKioskMode),
       'dashboard_carousel': s.get(defs.haDashboardCarousel),
       'dashboard_rotation': s.get(defs.haRotationEnabled),
+      'secure_proxy': s.get(defs.secureProxy),
+      'opt_disable_suspend': s.get(defs.disableSuspend),
+      'opt_freeze_on_screensaver': s.get(defs.freezeOnScreensaver),
+      'opt_ws_filter': s.get(defs.wsFilter),
+      'opt_pause_dashboard_cameras': s.get(defs.pauseDashboardCameras),
+      'opt_auto_reload': s.get(defs.autoReloadOnError),
       'adaptive_brightness': s.get(defs.adaptiveBrightness),
       'remote_admin': s.get(defs.remoteEnabled),
       'fleet_role': fleetRole(),
+      'shizuku': shizuku,
+      'shizuku_updates': s.get(defs.shizukuInstallUpdates),
+      'update_installer': installer,
+      'update_helper': helper,
       'plugins_enabled': pluginsEnabled,
       'plugins': pluginIds.length,
       'plugin_ids': pluginIds,
       'theme': s.get(defs.uiTheme),
     };
+  }
+
+  /// Voice Satellite as the page reports it. The hook the integration
+  /// puts on every Home Assistant page answers only where it is
+  /// installed, so an answer settles both questions: 'running' or
+  /// 'stopped', by the engine. No answer, while the page is mid-load or
+  /// showing something else, says nothing on its own, so an install that
+  /// received a wake word config this session or heard the hook within
+  /// the last week reads 'installed', and anything else 'not_installed'.
+  /// The skin rides along from the same answer.
+  Future<({String state, String skin})> _voiceSatellite({
+    required bool configPushed,
+  }) async {
+    Map? page;
+    try {
+      final r = await commands.execute('vsEngineState', const {});
+      if (r.ok && r.data is Map) page = r.data as Map;
+    } catch (_) {}
+    var skin = '';
+    final stamp = '${_now().toUtc().millisecondsSinceEpoch}';
+    if (page != null) {
+      final config = page['config'];
+      if (config is Map) skin = '${config['skin'] ?? ''}';
+      await _settings.setInternal(_vsSeenKey, stamp);
+      final engine = page['engine'];
+      final running = engine is Map && engine['running'] == true;
+      return (state: running ? 'running' : 'stopped', skin: skin);
+    }
+    if (configPushed) {
+      await _settings.setInternal(_vsSeenKey, stamp);
+      return (state: 'installed', skin: skin);
+    }
+    final seen = int.tryParse(_settings.internal(_vsSeenKey));
+    if (seen != null) {
+      final at = DateTime.fromMillisecondsSinceEpoch(seen, isUtc: true);
+      if (_now().toUtc().difference(at) <= vsMemory) {
+        return (state: 'installed', skin: skin);
+      }
+    }
+    return (state: 'not_installed', skin: skin);
   }
 
   /// The native journal's text, or nothing where there is no journal (a

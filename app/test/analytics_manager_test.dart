@@ -36,6 +36,8 @@ void main() {
     'buildMode': 'release',
     'name': 'KS Echo Show 8 Office',
     'ip': '192.168.1.70',
+    'webviewPackage': 'com.google.android.webview',
+    'webviewVersion': '140.0.7339.51',
   };
 
   String crash = '';
@@ -55,6 +57,12 @@ void main() {
   late List<http.Request> sent;
   late int status;
   late DateTime now;
+  // What the stubbed page and native side answer; a test changes them
+  // between snapshots.
+  Map<String, Object?>? vsPage;
+  late Map<String, Object?> wakeState;
+  late Map<String, Object?> installerState;
+  late Map<String, Object?> shizukuState;
 
   Future<void> build(
     Map<String, Object> initial, {
@@ -87,28 +95,57 @@ void main() {
         }),
       ),
     );
+    wakeState = {
+      'engine': 'vsWakeWord',
+      'engineLabel': 'vsWakeWord',
+      'released': false,
+      'models': [
+        {'id': 'ok_nova', 'wakeWord': 'Ok Nova'},
+      ],
+    };
+    vsPage = {
+      'config': {'skin': 'kiosk-satellite', 'theme_mode': 'auto'},
+      'satellite': 'assist_satellite.office',
+      'engine': {'running': false},
+    };
+    installerState = {
+      'nativeSilent': false,
+      'shizukuReady': false,
+      'helper': 'unavailable',
+      'shizukuEnabled': false,
+    };
+    shizukuState = {'status': 'unavailable'};
     commands.register(
       Command(
         name: 'getWakeWordState',
         description: 'stub',
-        handler: (_) async => const CommandResult.ok({
-          'engine': 'vsWakeWord',
-          'engineLabel': 'vsWakeWord',
-          'released': false,
-          'models': [
-            {'id': 'ok_nova', 'wakeWord': 'Ok Nova'},
-          ],
-        }),
+        handler: (_) async => CommandResult.ok(wakeState),
       ),
     );
     commands.register(
       Command(
         name: 'vsEngineState',
         description: 'stub',
-        handler: (_) async => const CommandResult.ok({
-          'config': {'skin': 'kiosk-satellite', 'theme_mode': 'auto'},
-          'satellite': 'assist_satellite.office',
-        }),
+        handler: (_) async {
+          final page = vsPage;
+          return page == null
+              ? const CommandResult.fail('the page has no hook')
+              : CommandResult.ok(page);
+        },
+      ),
+    );
+    commands.register(
+      Command(
+        name: 'getUpdateInstallerStatus',
+        description: 'stub',
+        handler: (_) async => CommandResult.ok(installerState),
+      ),
+    );
+    commands.register(
+      Command(
+        name: 'getShizukuState',
+        description: 'stub',
+        handler: (_) async => CommandResult.ok(shizukuState),
       ),
     );
     sent = [];
@@ -171,12 +208,144 @@ void main() {
       expect(usage['wake_word'], 'Ok Nova');
       expect(usage['wake_word_2'], '');
       expect(usage['vs_skin'], 'kiosk-satellite');
+      // The hook answered with a stopped engine: installed, not running.
+      expect(usage['voice_satellite'], 'stopped');
+      expect(usage['widgets'], isEmpty);
+      expect(usage['widget_count'], 0);
+      expect(usage['gesture_triggers'], isEmpty);
+      expect(usage['camera_streams'], isFalse);
+      expect(usage['update_installer'], 'confirm');
+      expect(usage['shizuku'], 'unavailable');
+      expect(basic['webview'], 'com.google.android.webview');
+      expect(basic['webview_version'], '140.0.7339.51');
       expect(analytics.lastSnapshot, now);
       // Not due again until a day has passed.
       expect(await analytics.sendSnapshot(), isFalse);
       now = now.add(const Duration(hours: 25));
       expect(await analytics.sendSnapshot(), isTrue);
       expect(sent, hasLength(2));
+    },
+  );
+
+  test(
+    'Voice Satellite reads by the page hook, then by memory of it',
+    () async {
+      await build({}, firstDelay: const Duration(days: 1));
+      Future<Map> usage() async {
+        sent.clear();
+        expect(await analytics.sendSnapshot(force: true), isTrue);
+        return bodyOf(sent.single)['usage'] as Map;
+      }
+
+      // The hook answers: the engine decides.
+      expect((await usage())['voice_satellite'], 'stopped');
+      vsPage = {
+        'config': {'skin': 'waveform'},
+        'engine': {'running': true},
+      };
+      var u = await usage();
+      expect(u['voice_satellite'], 'running');
+      expect(u['vs_skin'], 'waveform');
+      // No hook (the page is elsewhere), but Voice Satellite pushed the
+      // wake word config this session.
+      vsPage = null;
+      u = await usage();
+      expect(u['voice_satellite'], 'installed');
+      expect(u['vs_skin'], '');
+      // No hook and no config either: the sighting holds for a week.
+      wakeState = {'released': false, 'models': <Object?>[]};
+      now = now.add(const Duration(days: 6));
+      expect((await usage())['voice_satellite'], 'installed');
+      now = now.add(const Duration(days: 2));
+      expect((await usage())['voice_satellite'], 'not_installed');
+    },
+  );
+
+  test('a kiosk that never met Voice Satellite reads not_installed', () async {
+    await build({}, firstDelay: const Duration(days: 1));
+    vsPage = null;
+    wakeState = {'released': false, 'models': <Object?>[]};
+    expect(await analytics.sendSnapshot(force: true), isTrue);
+    final usage = bodyOf(sent.single)['usage'] as Map;
+    expect(usage['voice_satellite'], 'not_installed');
+    expect(usage['wake_word_engine'], '');
+    expect(usage['wake_word'], '');
+  });
+
+  test('widgets, gestures, cameras and the installer read as kinds and '
+      'counts, never as what they point at', () async {
+    await build({
+      'ks.screensaver.widgets':
+          '[{"position":"top_left","type":"clock","config":{}},'
+          '{"position":"top_right","type":"battery","config":{}},'
+          '{"position":"bottom_left","type":"clock","config":{}}]',
+      'ks.gestures.mappings':
+          '[{"id":"g1","trigger":{"type":"claps","claps":3},'
+          '"action":{"type":"camera_view","viewId":"front","viewName":"Front door"}},'
+          '{"id":"g2","trigger":{"type":"fingers","fingers":5},'
+          '"action":{"type":"screensaver"}}]',
+      'ks.camera.config':
+          '{"version":1,"servers":[{"url":"http://192.168.1.9:1984"}],'
+          '"cameras":[{"name":"Front door"},{"name":"Garage"}],'
+          '"views":[{"id":"front","name":"Front door"}]}',
+      'ks.camera.enabled': true,
+      'ks.camera.rtsp.enabled': true,
+      'ks.browser.secure_proxy': true,
+    }, firstDelay: const Duration(days: 1));
+    installerState = {
+      'nativeSilent': false,
+      'shizukuReady': true,
+      'helper': 'ready',
+      'shizukuEnabled': true,
+    };
+    shizukuState = {'status': 'ready'};
+    expect(await analytics.sendSnapshot(force: true), isTrue);
+    final raw = sent.single.body;
+    final usage = bodyOf(sent.single)['usage'] as Map;
+    expect(usage['widgets'], ['battery', 'clock']);
+    expect(usage['widget_count'], 3);
+    expect(usage['gesture_mappings'], 2);
+    expect(usage['gesture_triggers'], ['claps', 'fingers']);
+    expect(usage['gesture_actions'], ['camera_view', 'screensaver']);
+    expect(usage['camera_streams'], isTrue);
+    expect(usage['camera_servers'], 1);
+    expect(usage['camera_sources'], 2);
+    expect(usage['camera_views'], 1);
+    expect(usage['rtsp_stream'], isTrue);
+    expect(usage['secure_proxy'], isTrue);
+    // The helper outranks Shizuku when both could install.
+    expect(usage['update_installer'], 'helper');
+    expect(usage['update_helper'], isTrue);
+    expect(usage['shizuku'], 'ready');
+    expect(raw, isNot(contains('Front door')));
+    expect(raw, isNot(contains('Garage')));
+    expect(raw, isNot(contains('192.168.1.9')));
+  });
+
+  test(
+    'a device owner installs updates itself; Shizuku only when armed',
+    () async {
+      await build({}, firstDelay: const Duration(days: 1));
+      installerState = {
+        'nativeSilent': true,
+        'shizukuReady': true,
+        'helper': 'unavailable',
+        'shizukuEnabled': true,
+      };
+      expect(await analytics.sendSnapshot(force: true), isTrue);
+      var usage = bodyOf(sent.single)['usage'] as Map;
+      expect(usage['update_installer'], 'device_owner');
+      expect(usage['update_helper'], isFalse);
+      sent.clear();
+      installerState = {
+        'nativeSilent': false,
+        'shizukuReady': true,
+        'helper': 'unavailable',
+        'shizukuEnabled': true,
+      };
+      expect(await analytics.sendSnapshot(force: true), isTrue);
+      usage = bodyOf(sent.single)['usage'] as Map;
+      expect(usage['update_installer'], 'shizuku');
     },
   );
 
@@ -208,7 +377,12 @@ void main() {
     final usage = bodyOf(sent.single)['usage'] as Map;
     for (final entry in usage.entries) {
       final v = entry.value;
-      if (entry.key == 'plugin_ids') {
+      if (const {
+        'plugin_ids',
+        'widgets',
+        'gesture_triggers',
+        'gesture_actions',
+      }.contains(entry.key)) {
         expect(v, isA<List>());
         for (final id in v as List) {
           expect(id, isA<String>());
