@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.9.46 - 2026-09-13
 
 ### Added
 - **Plugins can publish status tiles to the remote admin Overview.** SDK 1 gains `publishStatusTile` and `removeStatusTile`, so a plugin that knows something about the kiosk's health can say it where people look for it, next to Home Assistant, Voice Satellite, ESPHome, Media Player, Service and App Version. A tile is a title, a one-line state and a dot in the same green, amber, red and muted vocabulary the built-in tiles use. Plugin tiles follow the built-in six, carry the plugin's name under the state line so they never read as a claim the kiosk makes and open the plugin's own page. Each plugin may hold two tiles and eight changes a second. Tiles leave with their plugin: disabling or uninstalling it, or turning Plugin Manager off, removes them. The remote API gains `getPluginStatusTiles`. Hello World demonstrates it with a Status tile demo group.
