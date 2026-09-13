@@ -208,6 +208,59 @@ void main() {
     expect(css, contains('.wizard-pane'));
   });
 
+  test(
+    'page and static files are gzipped for clients that accept it',
+    () async {
+      // The Dart client inflates gzip itself and asks for it by default.
+      // Turn both off so the wire form is what the test sees.
+      client.autoUncompress = false;
+      Future<HttpClientResponse> getWith(String path, String? encoding) async {
+        final request = await client.getUrl(
+          Uri.parse('http://127.0.0.1:$port$path'),
+        );
+        request.headers.removeAll('accept-encoding');
+        if (encoding != null) request.headers.set('accept-encoding', encoding);
+        return request.close();
+      }
+
+      for (final path in [
+        '/',
+        '/static/main.js',
+        '/static/settings.js',
+        '/static/app.css',
+      ]) {
+        final raw = await getWith(path, null);
+        expect(raw.headers.value('content-encoding'), isNull, reason: path);
+        expect(raw.headers.value('vary'), 'accept-encoding', reason: path);
+        final identity = await raw.fold<List<int>>([], (a, b) => a..addAll(b));
+
+        final packed = await getWith(path, 'gzip, deflate, br, zstd');
+        expect(packed.statusCode, 200, reason: path);
+        expect(packed.headers.value('content-encoding'), 'gzip', reason: path);
+        expect(packed.headers.value('vary'), 'accept-encoding', reason: path);
+        expect(
+          packed.headers.value('cache-control'),
+          raw.headers.value('cache-control'),
+          reason: '$path keeps its caching policy',
+        );
+        final body = await packed.fold<List<int>>([], (a, b) => a..addAll(b));
+        expect(body.length, lessThan(identity.length), reason: path);
+        expect(gzip.decode(body), identity, reason: path);
+      }
+
+      // gzip named but weighted out, or only other codings offered.
+      for (final encoding in ['gzip;q=0, br', 'br, zstd', 'identity']) {
+        final response = await getWith('/static/main.js', encoding);
+        expect(
+          response.headers.value('content-encoding'),
+          isNull,
+          reason: encoding,
+        );
+        await response.drain<void>();
+      }
+    },
+  );
+
   test('unknown static paths 404 without touching the api gate', () async {
     final response = await get('/static/nope.js');
     expect(response.statusCode, 404);

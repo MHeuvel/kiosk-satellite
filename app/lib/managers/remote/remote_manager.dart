@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:isolate' show Isolate;
 import 'dart:math' show Random;
 import 'dart:typed_data';
 
@@ -60,12 +61,19 @@ class RemoteManager extends Manager {
   String _currentUrl = '';
   final _wsClients = <WebSocketChannel>{};
   String? _indexHtml;
+  Uint8List? _indexGzip;
   Future<void>? _adminBundle;
 
   /// The SPA's stylesheet and ES modules, keyed by file name under
   /// `assets/remote-ui/static/`, discovered from the asset manifest so a
   /// new module only needs to exist to be served.
   final _staticFiles = <String, Uint8List>{};
+
+  /// Gzip of each static file that shrinks by it, made once with the
+  /// bundle. The panel compresses a megabyte of source one time per app
+  /// life instead of on every cold load, and a client that sends
+  /// `Accept-Encoding: gzip` gets about a third of the bytes.
+  final _staticGzip = <String, Uint8List>{};
 
   /// The newest device-camera frame, for the admin's snapshot preview.
   /// Mirrored off the bus rather than fetched on request: serving a cached
@@ -297,11 +305,11 @@ class RemoteManager extends Manager {
 
     if (path.isEmpty || path == 'index.html') {
       await _ensureAdminBundle();
-      return _index();
+      return _index(request);
     }
     if (path.startsWith('static/')) {
       await _ensureAdminBundle();
-      return _staticFile(path.substring('static/'.length));
+      return _staticFile(request, path.substring('static/'.length));
     }
     if (path == 'api/login') return _login(request);
     if (path == 'api/ws') return _ws(request);
@@ -941,32 +949,95 @@ class RemoteManager extends Manager {
               .replaceAllMapped(import$, (m) => "${m[1]}?v=$version${m[2]}"),
         );
       }
+      final page = index.replaceAll('__KSV__', version);
+      // Off the UI isolate: deflating the bundle takes a noticeable slice
+      // of a low-end panel's core, and the kiosk keeps drawing meanwhile.
+      final gzipped = await Isolate.run(
+        () => _gzipAll({...files, _indexKey: utf8.encode(page)}),
+      );
       // Publish only the complete bundle so a failed load exposes no partial files.
       _staticFiles.addAll(files);
-      _indexHtml = index.replaceAll('__KSV__', version);
+      _indexHtml = page;
+      _indexGzip = gzipped.remove(_indexKey);
+      _staticGzip.addAll(gzipped);
       log.debug(
         name,
-        'remote-ui bundle loaded (${files.length} files, ${watch.elapsedMilliseconds}ms)',
+        'remote-ui bundle loaded (${files.length} files, '
+        '${gzipped.length} gzipped, ${watch.elapsedMilliseconds}ms)',
       );
     } catch (e) {
       log.warn(name, 'remote-ui asset missing: $e');
     }
   }
 
-  Response _index() => Response.ok(
-    _indexHtml ?? _placeholderHtml,
-    headers: {
-      'content-type': 'text/html; charset=utf-8',
-      // The page pins its static files by content hash (?v=), so it must
-      // never be cached itself: a stale page would pin stale modules.
-      'cache-control': 'no-store',
-    },
-  );
+  /// Key the page travels under through the one-shot gzip pass. A slash
+  /// keeps it clear of any static file name.
+  static const _indexKey = '/index.html';
+
+  /// Gzips every file, keeping only the results that pay for the header:
+  /// fonts and images are already compressed and would only grow.
+  static Map<String, Uint8List> _gzipAll(Map<String, Uint8List> files) {
+    final codec = GZipCodec(level: 9);
+    final out = <String, Uint8List>{};
+    for (final entry in files.entries) {
+      final packed = codec.encode(entry.value);
+      if (packed.length * 10 < entry.value.length * 9) {
+        out[entry.key] = Uint8List.fromList(packed);
+      }
+    }
+    return out;
+  }
+
+  /// Whether the client lists gzip in Accept-Encoding with a nonzero
+  /// weight. Every browser does; the check exists for curl -H '' and
+  /// clients that name only br or zstd.
+  static bool _acceptsGzip(Request request) {
+    final header = request.headers['accept-encoding'];
+    if (header == null) return false;
+    for (final part in header.split(',')) {
+      final params = part.split(';').map((s) => s.trim().toLowerCase());
+      final coding = params.first;
+      if (coding != 'gzip' && coding != '*') continue;
+      final q = params
+          .skip(1)
+          .firstWhere((p) => p.startsWith('q='), orElse: () => 'q=1');
+      if ((double.tryParse(q.substring(2)) ?? 0) > 0) return true;
+    }
+    return false;
+  }
+
+  /// One response body for [request]: the gzip when it exists and the
+  /// client takes it, the raw bytes otherwise. Both carry `Vary` so a
+  /// shared cache keeps the two apart.
+  static Response _encoded(
+    Request request,
+    Object identity,
+    Uint8List? gzipped,
+    Map<String, String> headers,
+  ) {
+    final packed = gzipped != null && _acceptsGzip(request);
+    return Response.ok(
+      packed ? gzipped : identity,
+      headers: {
+        ...headers,
+        'vary': 'accept-encoding',
+        if (packed) 'content-encoding': 'gzip',
+      },
+    );
+  }
+
+  Response _index(Request request) =>
+      _encoded(request, _indexHtml ?? _placeholderHtml, _indexGzip, const {
+        'content-type': 'text/html; charset=utf-8',
+        // The page pins its static files by content hash (?v=), so it must
+        // never be cached itself: a stale page would pin stale modules.
+        'cache-control': 'no-store',
+      });
 
   /// Static files are public like the page itself (the login gate lives in
   /// the page, not around it) and content-addressed via the ?v= hash, so
   /// far-future caching is safe: any change serves under a new URL.
-  Response _staticFile(String name) {
+  Response _staticFile(Request request, String name) {
     final bytes = _staticFiles[name];
     if (bytes == null) return Response.notFound('not found');
     const types = {
@@ -977,13 +1048,10 @@ class RemoteManager extends Manager {
       'woff2': 'font/woff2',
     };
     final ext = name.split('.').last;
-    return Response.ok(
-      bytes,
-      headers: {
-        'content-type': types[ext] ?? 'application/octet-stream',
-        'cache-control': 'public, max-age=31536000, immutable',
-      },
-    );
+    return _encoded(request, bytes, _staticGzip[name], {
+      'content-type': types[ext] ?? 'application/octet-stream',
+      'cache-control': 'public, max-age=31536000, immutable',
+    });
   }
 
   static String? _bearerToken(Request request) {
