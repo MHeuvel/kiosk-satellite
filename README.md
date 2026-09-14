@@ -1,4 +1,3 @@
-<a href="https://kiosksatellite.com">
 <h1 align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/banners/ks_banner_dark.svg" />
@@ -6,7 +5,6 @@
     <img alt="Kiosk Satellite for Home Assistant" src="assets/banners/ks_banner_default.svg" width="650" />
   </picture>
 </h1>
-</a>
 
 <p align="center">
 <img src="https://img.shields.io/github/stars/jxlarrea/kiosk-satellite?style=for-the-badge&label=Stars&color=d6a102" alt="Stars">
