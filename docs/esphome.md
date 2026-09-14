@@ -356,7 +356,7 @@ The **Announcements** page under Settings, ESPHome holds:
     repeat_pause: 0
 ```
 
-Leave `url` empty to speak the message, or leave `message` empty and give a `url` to play a file. `volume` is a share of the master volume from 0 to 1 for this one announcement; 0 keeps the media volume. `repeat` plays it that many times, up to ten; 0 is once. `repeat_pause` is the silence between plays in seconds, up to 30; 0 is 0.6. The chime plays once, before the first. The action answers with the clip's length in milliseconds through `response_variable`, and reports an error when announcements are off, the kiosk is in an intercom call, or Home Assistant could not speak the message. A message needs the kiosk's Home Assistant connection.
+Leave `url` empty to speak the message, or leave `message` empty and give a `url` to play a file. `volume` is a share of the master volume from 0 to 1 for this one announcement; 0 keeps the media volume. `repeat` plays it that many times, up to ten; 0 is once. `repeat_pause` is the silence between plays in seconds, up to 30; 0 is 0.6. The chime plays once, before the first. The action answers with the clip's length in milliseconds through `response_variable`, and reports an error when announcements are off, the kiosk is in an intercom call, or Home Assistant could not speak the message. A message needs the kiosk's Home Assistant connection. On the [remote API](remote-api.md), the equivalent command is `announce` with the same arguments.
 
 ## GPS Sensor
 
