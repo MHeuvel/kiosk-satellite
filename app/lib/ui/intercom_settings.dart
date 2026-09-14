@@ -543,6 +543,12 @@ class _IntercomSheetState extends State<_IntercomSheet> {
             trailing: Icon(Icons.campaign_outlined, color: scheme.primary),
             onTap: () => widget.onPick('intercomBroadcast', const {}),
           ),
+          // The kiosks apart from the announcement: a hairline, the
+          // card's own.
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 4),
+            child: Divider(height: 1, indent: Ks.inset, endIndent: Ks.inset),
+          ),
           for (final k in ready)
             ListTile(
               title: Text('${k['name']}'),
