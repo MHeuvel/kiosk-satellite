@@ -6695,12 +6695,12 @@ const intercomTtsEngine = SettingDef<String>(
   defaultValue: '',
   title: 'Text to speech engine',
   description:
-      'The Home Assistant TTS entity that speaks announcements sent from '
-      'Home Assistant. Empty picks the first one.',
+      'The Home Assistant text to speech entity that speaks announcements '
+      'sent from Home Assistant.',
   category: 'Intercom',
   section: 'Answer',
   dependsOn: 'intercom.enabled',
-  placeholder: 'tts.google_translate_en_com',
+  placeholder: 'First available',
 );
 
 const intercomTalkMode = SettingDef<String>(

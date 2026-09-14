@@ -2669,6 +2669,10 @@ class _CategoryContentState extends State<_CategoryContent> {
           onChanged: null,
         ),
       ),
+    // The text to speech engine is picked from Home Assistant's list, not
+    // typed. Mirrored on the remote (intercom.js).
+    if (widget.category == 'Intercom')
+      intercomTtsEngine.key: IntercomTtsEngineRow(container: container),
     // No echo canceller on this platform: hands free would howl, so the
     // manager forces push to talk and the row says why. Mirrored on the
     // remote (intercom.js).

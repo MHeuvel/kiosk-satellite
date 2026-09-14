@@ -68,7 +68,7 @@ With the intercom on, the [ESPHome](esphome.md) device offers `esphome.<node nam
 | Argument | Meaning |
 | --- | --- |
 | `target` | A kiosk's IP address (the one under its Kiosks row), or `all` for every kiosk on the intercom, this one included. This kiosk's own address announces on it alone. |
-| `message` | What to say. Spoken with the **Text to speech engine** under Answer, or the first TTS entity Home Assistant has when that is empty. |
+| `message` | What to say. Spoken with the **Text to speech engine** under Answer, picked from the text to speech entities Home Assistant has, or the first one when that is left at First available. |
 | `url` | An audio file to play instead of a message, MP3, WAV, OGG or AAC. Leave it empty to use the message. |
 | `override` | `true` plays the announcement on kiosks set to Do not disturb. Accept announcements off still refuses it, and so does Lockdown Mode. |
 

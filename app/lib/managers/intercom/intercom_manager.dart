@@ -749,6 +749,21 @@ class IntercomManager extends Manager {
       )
       ..register(
         Command(
+          name: 'intercomTtsEngines',
+          description:
+              "Home Assistant's text to speech entities, for the engine "
+              'picker: id and name each.',
+          quiet: true,
+          handler: (_) async {
+            final engines = await _ttsEngines();
+            return engines == null
+                ? const CommandResult.fail('could not reach Home Assistant')
+                : CommandResult.ok(engines);
+          },
+        ),
+      )
+      ..register(
+        Command(
           name: 'intercomAnnounce',
           description:
               'Play a one way announcement on a kiosk or on all of them: a '
@@ -1118,7 +1133,7 @@ class IntercomManager extends Manager {
       peer: const {'id': 'home-assistant', 'name': 'Home Assistant'},
     )..automated = true;
     _call = c;
-    await commands.execute('screenOn', const {});
+    await _comeForward();
     _setState('listening');
     unawaited(_ring(short: true));
     await _startPlayback();
@@ -1131,6 +1146,36 @@ class IntercomManager extends Manager {
     return CommandResult.ok({'self': true, 'ms': pcm.length ~/ 32});
   }
 
+  /// Home Assistant's `tts.*` entities as `{entity_id, name}`, or null
+  /// when it cannot be reached.
+  Future<List<Map<String, String>>?> _ttsEngines() async {
+    final base = _haBase;
+    final token = _settings.get(defs.haToken);
+    if (base.isEmpty || token.isEmpty) return null;
+    final states = await _get('$base/api/states', token: token);
+    if (states == null || states.statusCode != 200) return null;
+    Object? list;
+    try {
+      list = jsonDecode(states.body);
+    } catch (_) {
+      return null;
+    }
+    if (list is! List) return null;
+    final out = <Map<String, String>>[];
+    for (final e in list) {
+      if (e is! Map) continue;
+      final id = '${e['entity_id']}';
+      if (!id.startsWith('tts.')) continue;
+      final attrs = e['attributes'];
+      final friendly = attrs is Map ? '${attrs['friendly_name'] ?? ''}' : '';
+      out.add({'entity_id': id, 'name': friendly.isEmpty ? id : friendly});
+    }
+    out.sort(
+      (a, b) => a['name']!.toLowerCase().compareTo(b['name']!.toLowerCase()),
+    );
+    return out;
+  }
+
   /// Asks Home Assistant to speak [message] and answers the audio URL.
   Future<String?> _ttsUrl(String message) async {
     final base = _haBase;
@@ -1138,19 +1183,10 @@ class IntercomManager extends Manager {
     if (base.isEmpty || token.isEmpty) return null;
     var engine = _settings.get(defs.intercomTtsEngine).trim();
     if (engine.isEmpty) {
-      final states = await _get('$base/api/states', token: token);
-      Object? list;
-      try {
-        list = states == null ? null : jsonDecode(states.body);
-      } catch (_) {}
-      if (list is List) {
-        for (final e in list) {
-          if (e is Map && '${e['entity_id']}'.startsWith('tts.')) {
-            engine = '${e['entity_id']}';
-            break;
-          }
-        }
-      }
+      final engines = await _ttsEngines();
+      engine = engines == null || engines.isEmpty
+          ? ''
+          : engines.first['entity_id']!;
       if (engine.isEmpty) {
         log.warn(name, 'Home Assistant has no text to speech entity');
         return null;
@@ -1293,7 +1329,7 @@ class IntercomManager extends Manager {
       peer: peer,
     );
     _call = c;
-    await commands.execute('screenOn', const {});
+    await _comeForward();
     if (c.kind == 'broadcast') {
       _setState('listening');
       log.info(name, '${peer['name']} is announcing');
@@ -1321,6 +1357,16 @@ class IntercomManager extends Manager {
     }
     _changed();
     return CommandResult.ok({'status': auto ? 'auto' : 'ringing'});
+  }
+
+  /// A call or an announcement coming in wakes a dark screen and brings
+  /// the kiosk in front of whatever app covers it, the way a wake word
+  /// does: bringToFront wakes the display first, then switches tasks,
+  /// which needs the Display over other apps grant and is logged without
+  /// it. screenOn is the fallback where the command is missing (tests).
+  Future<void> _comeForward() async {
+    final r = await commands.execute('bringToFront', const {});
+    if (!r.ok) await commands.execute('screenOn', const {});
   }
 
   Future<CommandResult> _answer() async {

@@ -354,6 +354,117 @@ Future<bool> showIntercomKeyDialog(
 
 // ── The sheet ──────────────────────────────────────────────────────────
 
+/// The Text to speech engine row: the picked entity's name in a control
+/// box, and a tap opens the radio picker over every text to speech entity
+/// Home Assistant has, First available on top. Mirrored on the remote.
+class IntercomTtsEngineRow extends StatefulWidget {
+  const IntercomTtsEngineRow({super.key, required this.container});
+
+  final AppContainer container;
+
+  @override
+  State<IntercomTtsEngineRow> createState() => _IntercomTtsEngineRowState();
+}
+
+class _IntercomTtsEngineRowState extends State<IntercomTtsEngineRow> {
+  StreamSubscription<SettingChanged>? _sub;
+  List<Map<String, String>> _engines = const [];
+
+  AppContainer get c => widget.container;
+
+  @override
+  void initState() {
+    super.initState();
+    _sub = c.bus.on<SettingChanged>().listen((e) {
+      if (e.key == defs.intercomTtsEngine.key && mounted) setState(() {});
+    });
+    unawaited(_load());
+  }
+
+  @override
+  void dispose() {
+    _sub?.cancel();
+    super.dispose();
+  }
+
+  Future<bool> _load() async {
+    final r = await c.commands.execute('intercomTtsEngines', const {});
+    if (!mounted || !r.ok || r.data is! List) return false;
+    setState(() {
+      _engines = [
+        for (final e in r.data as List)
+          if (e is Map)
+            {'entity_id': '${e['entity_id']}', 'name': '${e['name']}'},
+      ];
+    });
+    return true;
+  }
+
+  String _labelOf(String id) {
+    if (id.isEmpty) return 'First available';
+    for (final e in _engines) {
+      if (e['entity_id'] == id) return e['name']!;
+    }
+    return id;
+  }
+
+  Future<void> _pick() async {
+    final ok = await _load();
+    if (!mounted) return;
+    if (!ok) {
+      showToast(
+        context,
+        title: 'Could not reach Home Assistant',
+        kind: ToastKind.error,
+      );
+      return;
+    }
+    final current = c.settings.get(defs.intercomTtsEngine).trim();
+    final picked = await showRadioPicker<String>(
+      context,
+      title: 'Text to speech engine',
+      options: [
+        const PickerOption('', 'First available'),
+        for (final e in _engines)
+          PickerOption(e['entity_id']!, e['name']!, detail: e['entity_id']),
+      ],
+      selected: current,
+    );
+    if (picked == null) return;
+    await c.settings.set(defs.intercomTtsEngine, picked);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final current = c.settings.get(defs.intercomTtsEngine).trim();
+    return SearchLandingTarget(
+      id: defs.intercomTtsEngine.key,
+      child: SettingsRow(
+        title: Text(defs.intercomTtsEngine.title),
+        subtitle: Text(defs.intercomTtsEngine.description),
+        trailing: ControlBox(
+          onTap: _pick,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 220),
+                child: Text(
+                  _labelOf(current),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              const SizedBox(width: 6),
+              const Icon(Icons.expand_more, size: 20),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 /// The sheet the kiosk menu, a gesture or `intercomOpen` opens: Announce
 /// to all first, then every kiosk that is ready, by name. A tap calls and
 /// closes.

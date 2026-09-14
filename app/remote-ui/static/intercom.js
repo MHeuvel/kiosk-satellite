@@ -1,5 +1,6 @@
-import { cmd, state } from './core.js';
+import { api, cmd, state } from './core.js';
 import { attachSoundSelect } from './settings.js';
+import { gestureListModal } from './gestures.js';
 import { currentPath, showTab } from './tabs.js';
 import { copyBox, hintRow, modalShell, showToast } from './widgets.js';
 
@@ -182,6 +183,52 @@ function decorateRows(tab) {
   const soundDef = byKey('intercom.ring_sound');
   if (soundRow && soundDef && !soundRow.querySelector('select')) {
     attachSoundSelect(soundRow, soundDef);
+  }
+
+  // The text to speech engine: a box with the picked entity's name that
+  // opens the list of every tts entity Home Assistant has, First
+  // available on top. Mirrors the device row.
+  const ttsRow = tab.querySelector('[data-key="intercom.tts_engine"]');
+  const ttsDef = byKey('intercom.tts_engine');
+  if (ttsRow && ttsDef && !ttsRow.querySelector('.tts-pick')) {
+    ttsRow.querySelector('input')?.remove();
+    const box = document.createElement('button');
+    box.type = 'button';
+    box.className = 'btn-ghost tts-pick';
+    const label = () => `${ttsDef.value || ''}`.trim() || 'First available';
+    box.textContent = label();
+    // The friendly name once Home Assistant answers; the id until then.
+    if (`${ttsDef.value || ''}`.trim()) {
+      cmd('intercomTtsEngines').then((r) => {
+        const hit = r.ok && (r.data || []).find((e) => e.entity_id === `${ttsDef.value || ''}`.trim());
+        if (hit) box.textContent = hit.name;
+      }).catch(() => {});
+    }
+    box.addEventListener('click', async () => {
+      let engines = [];
+      try {
+        const r = await cmd('intercomTtsEngines');
+        if (r.ok) engines = r.data || [];
+        else throw new Error(r.error || 'unreachable');
+      } catch (_) {
+        showToast({ title: 'Could not reach Home Assistant', kind: 'error' });
+        return;
+      }
+      const current = `${ttsDef.value || ''}`.trim();
+      const picked = await gestureListModal('Text to speech engine', [
+        { name: 'First available', desc: '', value: '', selected: !current },
+        ...engines.map((e) => ({ name: e.name, desc: e.entity_id, value: e.entity_id, selected: e.entity_id === current })),
+      ]);
+      if (picked === null) return;
+      const res = await api('/api/settings', {
+        method: 'PATCH',
+        body: JSON.stringify({ 'intercom.tts_engine': picked }),
+      });
+      if (!res.ok) { showToast({ title: 'Not saved', kind: 'error' }); return; }
+      ttsDef.value = picked;
+      box.textContent = engines.find((e) => e.entity_id === picked)?.name || label();
+    });
+    ttsRow.appendChild(box);
   }
 
   const talkRow = tab.querySelector('[data-key="intercom.talk_mode"]');
