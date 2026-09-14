@@ -275,6 +275,7 @@ class IntercomManager extends Manager {
   Timer? _holdTimer;
   Timer? _connectTimer;
   Timer? _missedTimer;
+  Timer? _injectTimer;
   DateTime _lastLevel = DateTime.fromMillisecondsSinceEpoch(0);
   double _farLevel = 0;
   double _nearLevel = 0;
@@ -733,6 +734,58 @@ class IntercomManager extends Manager {
             _seenTokens.clear();
             unawaited(_probeAll(force: true));
             return CommandResult.ok({'key': next});
+          },
+        ),
+      )
+      // A test hook, like injectWakeAudio: a 16 kHz mono PCM16 WAV sent
+      // over the live call's socket in 80 ms chunks as if this kiosk's
+      // microphone had heard it, whatever the talk mode says. How a
+      // conversation is simulated when one person tests both ends.
+      ..register(
+        Command(
+          name: 'intercomInjectAudio',
+          description:
+              'Send a WAV (16 kHz mono PCM16, base64) into the live call as '
+              'this kiosk\'s voice, for testing.',
+          params: const {'wavBase64': 'WAV file (16 kHz mono PCM16), base64'},
+          quiet: true,
+          handler: (p) async {
+            if (!_active || _links.isEmpty) {
+              return const CommandResult.fail('no live call');
+            }
+            final wav = p['wavBase64'];
+            if (wav is! String || wav.isEmpty) {
+              return const CommandResult.fail('wavBase64 required');
+            }
+            final pcm = _wavPcm16k(base64Decode(wav));
+            if (pcm == null) {
+              return const CommandResult.fail('not a 16 kHz mono PCM16 WAV');
+            }
+            _injectTimer?.cancel();
+            var offset = 0;
+            const chunk = 2560;
+            final done = Completer<void>();
+            _injectTimer = Timer.periodic(const Duration(milliseconds: 80), (
+              t,
+            ) {
+              if (!_active || _links.isEmpty || offset >= pcm.length) {
+                t.cancel();
+                _injectTimer = null;
+                if (!done.isCompleted) done.complete();
+                return;
+              }
+              final end = (offset + chunk).clamp(0, pcm.length);
+              final piece = Uint8List.fromList(pcm.sublist(offset, end));
+              offset = end;
+              _call?.sent++;
+              for (final l in _links.values) {
+                l.sendBytes(piece);
+              }
+              _nearLevel = _level(piece);
+              _publishLevel();
+            });
+            await done.future;
+            return CommandResult.ok({'ms': pcm.length ~/ 32});
           },
         ),
       )
@@ -1316,6 +1369,8 @@ class IntercomManager extends Manager {
     final c = _call;
     _cancelTimers();
     _connectTimer?.cancel();
+    _injectTimer?.cancel();
+    _injectTimer = null;
     await audio.stopRing();
     for (final l in _links.values.toList()) {
       await l.close();
@@ -1501,4 +1556,35 @@ class IntercomManager extends Manager {
       return null;
     }
   }
+}
+
+/// PCM16 payload of a 16 kHz mono WAV, or null when it is anything else.
+/// The wake word harness has the same reader.
+Uint8List? _wavPcm16k(Uint8List wav) {
+  if (wav.length < 12) return null;
+  final bd = ByteData.sublistView(wav);
+  if (String.fromCharCodes(wav.sublist(0, 4)) != 'RIFF' ||
+      String.fromCharCodes(wav.sublist(8, 12)) != 'WAVE') {
+    return null;
+  }
+  var off = 12;
+  var ok = false;
+  while (off + 8 <= wav.length) {
+    final id = String.fromCharCodes(wav.sublist(off, off + 4));
+    final size = bd.getUint32(off + 4, Endian.little);
+    final body = off + 8;
+    if (id == 'fmt ' && body + 16 <= wav.length) {
+      final format = bd.getUint16(body, Endian.little);
+      final channels = bd.getUint16(body + 2, Endian.little);
+      final rate = bd.getUint32(body + 4, Endian.little);
+      final bits = bd.getUint16(body + 14, Endian.little);
+      ok = format == 1 && channels == 1 && rate == 16000 && bits == 16;
+    } else if (id == 'data') {
+      if (!ok) return null;
+      final end = body + size > wav.length ? wav.length : body + size;
+      return Uint8List.sublistView(wav, body, end & ~1);
+    }
+    off = body + size + (size & 1);
+  }
+  return null;
 }
