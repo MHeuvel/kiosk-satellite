@@ -1116,8 +1116,8 @@ class EspEntitySurface {
         {'name': 'package_name', 'type': 'string'},
       ],
     },
-    // A one way intercom announcement: a kiosk by its Home Assistant
-    // name or address, or all of them; a message Home Assistant speaks,
+    // A one way intercom announcement: a kiosk by its IP address, or all
+    // of them; a message Home Assistant speaks,
     // or an audio URL; whether Do not disturb is overridden on the
     // receivers. Answers with what each kiosk did.
     {

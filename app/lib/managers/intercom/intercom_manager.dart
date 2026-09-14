@@ -754,9 +754,7 @@ class IntercomManager extends Manager {
               'Play a one way announcement on a kiosk or on all of them: a '
               'message Home Assistant speaks, or an audio URL.',
           params: const {
-            'target':
-                "A kiosk's name in Home Assistant, its address, or all "
-                '(empty means all)',
+            'target': "A kiosk's IP address, or all (empty means all)",
             'message': 'What to say, through Home Assistant text to speech',
             'url': 'An audio file to play instead of a message',
             'override': 'true to play on kiosks set to Do not disturb',
@@ -1047,9 +1045,9 @@ class IntercomManager extends Manager {
 
   // ── Announcements from Home Assistant ──────────────────────────────
 
-  /// The action: a kiosk by its Home Assistant name or address, or
-  /// `all`, a message for Home Assistant's text to speech or an audio URL,
-  /// and whether Do not disturb is overridden on the receivers.
+  /// The action: a kiosk by its address (its device name is taken too),
+  /// or `all`, a message for Home Assistant's text to speech or an audio
+  /// URL, and whether Do not disturb is overridden on the receivers.
   Future<CommandResult> _announce(Map<String, Object?> p) async {
     if (!enabled) return const CommandResult.fail('intercom is off');
     if (!available) return const CommandResult.fail('needs the remote admin');

@@ -63,11 +63,11 @@ On the receiving kiosks the card says who is announcing. The ring plays once bef
 
 ## Announcements from Home Assistant
 
-With the intercom on, the [ESPHome](esphome.md) device offers `esphome.<node name>_intercom_announce`. It speaks a message through Home Assistant's text to speech, or plays an audio URL, on one kiosk or on all of them, through the same one way path as Announce to all. The kiosk that receives the action does the work: it asks Home Assistant for the audio, decodes it and plays it to the targets, itself included when the target is all or its own name.
+With the intercom on, the [ESPHome](esphome.md) device offers `esphome.<node name>_intercom_announce`. It speaks a message through Home Assistant's text to speech, or plays an audio URL, on one kiosk or on all of them, through the same one way path as Announce to all. The kiosk that receives the action does the work: it asks Home Assistant for the audio, decodes it and plays it to the targets, itself included when the target is all or its own address.
 
 | Argument | Meaning |
 | --- | --- |
-| `target` | A kiosk's device name as Home Assistant shows it, its address, or `all` for every kiosk on the intercom, this one included. |
+| `target` | A kiosk's IP address (the one under its Kiosks row), or `all` for every kiosk on the intercom, this one included. This kiosk's own address announces on it alone. |
 | `message` | What to say. Spoken with the **Text to speech engine** under Answer, or the first TTS entity Home Assistant has when that is empty. |
 | `url` | An audio file to play instead of a message, MP3, WAV, OGG or AAC. Leave it empty to use the message. |
 | `override` | `true` plays the announcement on kiosks set to Do not disturb. Accept announcements off still refuses it, and so does Lockdown Mode. |
@@ -79,6 +79,12 @@ With the intercom on, the [ESPHome](esphome.md) device offers `esphome.<node nam
     message: Dinner is ready
     url: ""
     override: true
+- action: esphome.kitchen_tablet_intercom_announce
+  data:
+    target: 192.168.1.71
+    message: The laundry is done
+    url: ""
+    override: false
 ```
 
 The action answers, through `response_variable`, with each target and what it did: `listening`, `busy`, `dnd`, `refused` (Accept announcements off), `off` or `unreachable`. A message needs the kiosk's Home Assistant connection, since the kiosk asks Home Assistant to speak it.

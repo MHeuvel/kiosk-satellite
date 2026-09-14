@@ -334,7 +334,7 @@ A name that two players share goes to the available one. On the [remote API](rem
 
 ## Intercom announcements
 
-`esphome.<node name>_intercom_announce` plays a one way announcement through the [intercom](intercom.md#announcements-from-home-assistant) on one kiosk or on all of them: a `message` Home Assistant speaks, or an audio `url`; `target` is a kiosk's device name, its address or `all`; `override` plays it on kiosks set to Do not disturb. Listed while the intercom is on. The kiosk answers with what each target did.
+`esphome.<node name>_intercom_announce` plays a one way announcement through the [intercom](intercom.md#announcements-from-home-assistant) on one kiosk or on all of them: a `message` Home Assistant speaks, or an audio `url`; `target` is a kiosk's IP address or `all`; `override` plays it on kiosks set to Do not disturb. Listed while the intercom is on. The kiosk answers with what each target did.
 
 ```yaml
 - action: esphome.kitchen_tablet_intercom_announce
