@@ -1532,6 +1532,39 @@ const screensaverWidgetScale = SettingDef<num>(
   unit: '%',
 );
 
+// The typeface and weight every widget is drawn in unless its own Font
+// family or Font weight (its config's font and font_weight keys, Default
+// by default) says otherwise: the clock screensaver's vocabulary, so a
+// clock face and its corner widgets can wear the same font.
+const screensaverWidgetFont = SettingDef<String>(
+  key: 'screensaver.widget_font',
+  type: SettingType.select,
+  defaultValue: 'rubik',
+  title: 'Global font family',
+  description:
+      'The typeface every widget is drawn in. A widget can pick its own.',
+  category: 'Screensaver',
+  section: 'Widgets',
+  subpage: 'Widgets',
+  options: fontFamilyOptions,
+  optionLabels: fontFamilyLabels,
+);
+
+const screensaverWidgetFontWeight = SettingDef<String>(
+  key: 'screensaver.widget_font_weight',
+  type: SettingType.select,
+  defaultValue: 'default',
+  title: 'Global font weight',
+  description:
+      "How heavy every widget's text is drawn. Default is each line's own "
+      'weight. A widget can pick its own.',
+  category: 'Screensaver',
+  section: 'Widgets',
+  subpage: 'Widgets',
+  options: fontWeightOptions,
+  optionLabels: fontWeightLabels,
+);
+
 const screensaverWidgetTextShadow = SettingDef<bool>(
   key: 'screensaver.widget_text_shadow',
   type: SettingType.boolean,
@@ -1726,6 +1759,54 @@ const screensaverClockStyle = SettingDef<String>(
 // Apple StandBy face the issue's screenshot shows) and LCD, DSEG14
 // (28 KB), the LED alarm clock. clockFontFamily (clock_faces.dart) maps
 // the stored value to the family name.
+/// The font family vocabulary, shared by the clock and the widgets: the
+/// stored values and their picker labels.
+const fontFamilyOptions = [
+  'rubik',
+  'nunito',
+  'inter',
+  'system',
+  'serif',
+  'condensed',
+  'monospace',
+  'casual',
+  'cursive',
+  'lcd',
+];
+
+const fontFamilyLabels = {
+  'rubik': 'Rubik',
+  'nunito': 'Nunito',
+  'inter': 'Inter',
+  'system': 'System',
+  'serif': 'Serif',
+  'condensed': 'Condensed',
+  'monospace': 'Monospace',
+  'casual': 'Casual',
+  'cursive': 'Cursive',
+  'lcd': 'LCD',
+};
+
+/// The font weight vocabulary, shared the same way. Default leaves the
+/// weight to whatever is drawn.
+const fontWeightOptions = [
+  'default',
+  'light',
+  'regular',
+  'medium',
+  'bold',
+  'black',
+];
+
+const fontWeightLabels = {
+  'default': 'Default',
+  'light': 'Light',
+  'regular': 'Regular',
+  'medium': 'Medium',
+  'bold': 'Bold',
+  'black': 'Black',
+};
+
 const screensaverClockFont = SettingDef<String>(
   key: 'screensaver.clock_font',
   type: SettingType.select,
@@ -1735,30 +1816,8 @@ const screensaverClockFont = SettingDef<String>(
   category: 'Screensaver',
   section: 'Clock screensaver',
   subpage: 'Clock screensaver',
-  options: [
-    'rubik',
-    'nunito',
-    'inter',
-    'system',
-    'serif',
-    'condensed',
-    'monospace',
-    'casual',
-    'cursive',
-    'lcd',
-  ],
-  optionLabels: {
-    'rubik': 'Rubik',
-    'nunito': 'Nunito',
-    'inter': 'Inter',
-    'system': 'System',
-    'serif': 'Serif',
-    'condensed': 'Condensed',
-    'monospace': 'Monospace',
-    'casual': 'Casual',
-    'cursive': 'Cursive',
-    'lcd': 'LCD',
-  },
+  options: fontFamilyOptions,
+  optionLabels: fontFamilyLabels,
   dependsOn: 'screensaver.mode',
   dependsOnValue: 'clock',
 );
@@ -1779,15 +1838,8 @@ const screensaverClockFontWeight = SettingDef<String>(
   category: 'Screensaver',
   section: 'Clock screensaver',
   subpage: 'Clock screensaver',
-  options: ['default', 'light', 'regular', 'medium', 'bold', 'black'],
-  optionLabels: {
-    'default': 'Default',
-    'light': 'Light',
-    'regular': 'Regular',
-    'medium': 'Medium',
-    'bold': 'Bold',
-    'black': 'Black',
-  },
+  options: fontWeightOptions,
+  optionLabels: fontWeightLabels,
   dependsOn: 'screensaver.mode',
   dependsOnValue: 'clock',
 );
@@ -7117,6 +7169,8 @@ const List<SettingDef<Object>> allSettings = [
   // so it sits between them and the other overlay group, At a Glance.
   screensaverWidgets,
   screensaverWidgetScale,
+  screensaverWidgetFont,
+  screensaverWidgetFontWeight,
   screensaverWidgetTextShadow,
   screensaverVignetteStrength,
   // The behavior rows first, then the Appearance group under its own

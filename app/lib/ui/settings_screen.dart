@@ -4631,6 +4631,55 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
               ),
             ],
           );
+          // Every type also picks its typeface and weight: Default follows
+          // the Global font family and Global font weight rows outside.
+          Widget fontRow() => LabeledField(
+            label: 'Font family',
+            child: DropdownButtonFormField<String>(
+              initialValue:
+                  screensaverWidgetFontOptions.contains(config['font'])
+                  ? '${config['font']}'
+                  : screensaverWidgetFontDefault,
+              decoration: const InputDecoration(),
+              items: [
+                for (final f in screensaverWidgetFontOptions)
+                  DropdownMenuItem(
+                    value: f,
+                    child: Text(
+                      f == screensaverWidgetFontDefault
+                          ? 'Default'
+                          : fontFamilyLabels[f] ?? f,
+                    ),
+                  ),
+              ],
+              onChanged: (value) => setDialogState(
+                () => config['font'] = value ?? screensaverWidgetFontDefault,
+              ),
+            ),
+          );
+          Widget fontWeightRow() => LabeledField(
+            label: 'Font weight',
+            child: DropdownButtonFormField<String>(
+              initialValue:
+                  screensaverWidgetFontWeightOptions.contains(
+                    config['font_weight'],
+                  )
+                  ? '${config['font_weight']}'
+                  : screensaverWidgetFontDefault,
+              decoration: const InputDecoration(),
+              items: [
+                for (final w in screensaverWidgetFontWeightOptions)
+                  DropdownMenuItem(
+                    value: w,
+                    child: Text(fontWeightLabels[w] ?? w),
+                  ),
+              ],
+              onChanged: (value) => setDialogState(
+                () => config['font_weight'] =
+                    value ?? screensaverWidgetFontDefault,
+              ),
+            ),
+          );
           // The weather and entity widgets both read one entity, cached
           // with its friendly name under the same keys.
           final weatherEntity = '${config['entity'] ?? ''}';
@@ -4695,6 +4744,8 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
                     if (type == 'clock') ...[
                       colorRow(),
                       scaleRow(),
+                      fontRow(),
+                      fontWeightRow(),
                       toggle('24-hour clock', 'h24'),
                       toggle('Show date', 'date'),
                     ],
@@ -4743,6 +4794,8 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
                       ),
                       colorRow(),
                       scaleRow(),
+                      fontRow(),
+                      fontWeightRow(),
                       // The temperature always shows; each other line also
                       // needs the entity to carry the reading. Feels like
                       // rides the temperature line, so it sits where the
@@ -4758,6 +4811,8 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
                     if (type == 'battery') ...[
                       colorRow(),
                       scaleRow(),
+                      fontRow(),
+                      fontWeightRow(),
                       toggle('Show percentage', 'percent'),
                       toggle('Only when low', 'low'),
                     ],
@@ -4840,6 +4895,8 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
                       ),
                       colorRow(),
                       scaleRow(),
+                      fontRow(),
+                      fontWeightRow(),
                       toggle('Show name', 'show_name'),
                     ],
                   ],

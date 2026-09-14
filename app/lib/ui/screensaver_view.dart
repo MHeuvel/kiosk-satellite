@@ -118,6 +118,8 @@ class _ScreensaverOverlayState extends State<ScreensaverOverlay> {
     final live = {
       defs.screensaverWidgets.key,
       defs.screensaverWidgetScale.key,
+      defs.screensaverWidgetFont.key,
+      defs.screensaverWidgetFontWeight.key,
       defs.screensaverWidgetTextShadow.key,
       defs.screensaverImmichMetadataTextShadow.key,
       defs.screensaverVignetteStrength.key,
@@ -1389,6 +1391,7 @@ class _ClockWidgetOverlayState extends State<ClockWidgetOverlay> {
     // clock. The scale sliders then correct for the screen.
     final scale = _widgetScale(widget.container, widget.spec);
     final clockSize = max(min(size.width, size.height) * 0.063, 44.0) * scale;
+    final font = _widgetFont(widget.container, widget.spec);
     // Readable over a bright photo without boxing the text in.
     final shadows = _overlayTextShadows(widget.container);
     return IgnorePointer(
@@ -1411,17 +1414,20 @@ class _ClockWidgetOverlayState extends State<ClockWidgetOverlay> {
                     Text(
                       _time(),
                       style: TextStyle(
-                        // Always the bundled Rubik, not the big clock's
-                        // system-font preference: the small overlays should
-                        // render identically on every device. Proportional
-                        // figures, not tabular: the block hugs its corner
-                        // (the outer edge cannot jitter), and a leading 1's
-                        // tabular side-bearing left the time visibly
-                        // indented against its own date line.
-                        fontFamily: 'Rubik',
+                        // The widget's font, Rubik unless a Font family
+                        // says otherwise. Proportional figures, not
+                        // tabular: the block hugs its corner (the outer
+                        // edge cannot jitter), and a leading 1's tabular
+                        // side-bearing left the time visibly indented
+                        // against its own date line.
+                        fontFamily: font.family,
                         color: color,
                         fontSize: clockSize,
-                        fontWeight: FontWeight.w400,
+                        fontWeight: font.weight ?? FontWeight.w400,
+                        fontVariations: clockFontVariations(
+                          font.opticalSize,
+                          font.weight ?? FontWeight.w400,
+                        ),
                         height: 1.0,
                         shadows: shadows,
                       ),
@@ -1432,10 +1438,10 @@ class _ClockWidgetOverlayState extends State<ClockWidgetOverlay> {
                         child: Text(
                           _date(),
                           style: TextStyle(
-                            fontFamily: 'Rubik',
+                            fontFamily: font.family,
                             color: color.withValues(alpha: 0.75),
                             fontSize: clockSize * 0.42,
-                            fontWeight: FontWeight.w400,
+                            fontWeight: font.weight ?? FontWeight.w400,
                             shadows: shadows,
                           ),
                         ),
@@ -1549,6 +1555,7 @@ class _BatteryWidgetOverlayState extends State<BatteryWidgetOverlay> {
     // corner of the photo given over to a battery.
     final scale = _widgetScale(widget.container, widget.spec);
     final textSize = max(min(size.width, size.height) * 0.042, 30.0) * scale;
+    final font = _widgetFont(widget.container, widget.spec);
     final shadows = _overlayTextShadows(widget.container);
     final glyph = Icon(
       _batteryIcon(level, charging: _charging),
@@ -1560,10 +1567,14 @@ class _BatteryWidgetOverlayState extends State<BatteryWidgetOverlay> {
         ? Text(
             '$level%',
             style: TextStyle(
-              fontFamily: 'Rubik',
+              fontFamily: font.family,
               color: color,
               fontSize: textSize,
-              fontWeight: FontWeight.w400,
+              fontWeight: font.weight ?? FontWeight.w400,
+              fontVariations: clockFontVariations(
+                font.opticalSize,
+                font.weight ?? FontWeight.w400,
+              ),
               height: 1.0,
               shadows: shadows,
             ),
@@ -1639,6 +1650,34 @@ IconData _batteryIcon(int? level, {required bool charging}) {
 }
 
 /// A widget's "r,g,b" color, falling back to the overlays' near-white.
+/// A corner widget's typography: the family it draws in and the weight
+/// its lines take when the widget or the Global font weight names one
+/// (null leaves each line its own), plus the optical size a family with
+/// that axis wants for its large line. The family is the widget's own
+/// Font family unless left at Default, then the Global font family; the
+/// weight resolves the same way.
+typedef _WidgetFont = ({
+  String? family,
+  FontWeight? weight,
+  double? opticalSize,
+});
+
+_WidgetFont _widgetFont(AppContainer container, ScreensaverWidget spec) {
+  final font = screensaverWidgetFontValue(
+    spec.config,
+    container.settings.get(defs.screensaverWidgetFont),
+  );
+  final weight = screensaverWidgetFontWeightValue(
+    spec.config,
+    container.settings.get(defs.screensaverWidgetFontWeight),
+  );
+  return (
+    family: clockFontFamily(font),
+    weight: clockWeightOverride(weight),
+    opticalSize: clockOpticalSize(font),
+  );
+}
+
 /// A corner widget's size factor: the Global widget scaling slider, which
 /// scales every widget together for the panel, times the widget's own
 /// Scale slider, which sets its size relative to the others. Both at their
@@ -1836,6 +1875,7 @@ class _EntityWidgetOverlayState extends State<EntityWidgetOverlay> {
     // family. The scale sliders then correct everything for the screen.
     final scale = _widgetScale(widget.container, widget.spec);
     final textSize = max(min(size.width, size.height) * 0.042, 30.0) * scale;
+    final font = _widgetFont(widget.container, widget.spec);
     final shadows = _overlayTextShadows(widget.container);
     final glyph = GlanceIcon(
       entity: _entity,
@@ -1847,10 +1887,14 @@ class _EntityWidgetOverlayState extends State<EntityWidgetOverlay> {
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
       style: TextStyle(
-        fontFamily: 'Rubik',
+        fontFamily: font.family,
         color: color,
         fontSize: textSize,
-        fontWeight: FontWeight.w400,
+        fontWeight: font.weight ?? FontWeight.w400,
+        fontVariations: clockFontVariations(
+          font.opticalSize,
+          font.weight ?? FontWeight.w400,
+        ),
         height: 1.0,
         shadows: shadows,
       ),
@@ -1860,10 +1904,10 @@ class _EntityWidgetOverlayState extends State<EntityWidgetOverlay> {
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
       style: TextStyle(
-        fontFamily: 'Rubik',
+        fontFamily: font.family,
         color: color.withValues(alpha: 0.9),
         fontSize: 16 * scale,
-        fontWeight: FontWeight.w400,
+        fontWeight: font.weight ?? FontWeight.w400,
         height: 1.35,
         shadows: shadows,
       ),
@@ -2127,17 +2171,20 @@ class _WeatherWidgetOverlayState extends State<WeatherWidgetOverlay> {
     // correct everything for the screen.
     final scale = _widgetScale(widget.container, widget.spec);
     final tempSize = max(min(size.width, size.height) * 0.063, 44.0) * scale;
+    final font = _widgetFont(widget.container, widget.spec);
     final shadows = _overlayTextShadows(widget.container);
 
+    // A picked weight wins over the line's own: the location line is
+    // semibold by design, and Default keeps it so.
     TextStyle line({
       double size = 16,
       FontWeight? weight,
       double alpha = 0.9,
     }) => TextStyle(
-      fontFamily: 'Rubik',
+      fontFamily: font.family,
       color: color.withValues(alpha: alpha),
       fontSize: size * scale,
-      fontWeight: weight ?? FontWeight.w400,
+      fontWeight: font.weight ?? weight ?? FontWeight.w400,
       shadows: shadows,
       // The Immich metadata panel's line height: the two blocks share a
       // corner vocabulary, and the tighter 1.2 read as cramped beside it.
@@ -2232,10 +2279,14 @@ class _WeatherWidgetOverlayState extends State<WeatherWidgetOverlay> {
           // so a leading 1's tabular side-bearing would only read as the
           // number sitting off the lines around it.
           style: TextStyle(
-            fontFamily: 'Rubik',
+            fontFamily: font.family,
             color: color,
             fontSize: tempSize,
-            fontWeight: FontWeight.w400,
+            fontWeight: font.weight ?? FontWeight.w400,
+            fontVariations: clockFontVariations(
+              font.opticalSize,
+              font.weight ?? FontWeight.w400,
+            ),
             height: 1.0,
             shadows: shadows,
           ),

@@ -326,6 +326,68 @@ void main() {
     });
   });
 
+  group('per-widget font', () {
+    test('every type defaults both keys to Default', () {
+      for (final type in screensaverWidgetTypes) {
+        final d = screensaverWidgetDefaults(type);
+        expect(d['font'], screensaverWidgetFontDefault, reason: type);
+        expect(d['font_weight'], screensaverWidgetFontDefault, reason: type);
+      }
+    });
+
+    test('the pickers offer Default plus the clock vocabulary', () {
+      expect(screensaverWidgetFontOptions.first, 'default');
+      expect(
+        screensaverWidgetFontOptions.skip(1),
+        defs.screensaverClockFont.options,
+      );
+      expect(
+        screensaverWidgetFontWeightOptions,
+        defs.screensaverClockFontWeight.options,
+      );
+      expect(screensaverWidgetFontWeightOptions.first, 'default');
+    });
+
+    test('Default follows the global, a pick of its own wins', () {
+      expect(screensaverWidgetFontValue({}, 'rubik'), 'rubik');
+      expect(screensaverWidgetFontValue({'font': 'default'}, 'inter'), 'inter');
+      expect(screensaverWidgetFontValue({'font': 'lcd'}, 'inter'), 'lcd');
+      // A family nobody mapped falls to the global rather than to the
+      // platform default.
+      expect(screensaverWidgetFontValue({'font': 'comic'}, 'nunito'), 'nunito');
+      expect(screensaverWidgetFontWeightValue({}, 'bold'), 'bold');
+      expect(
+        screensaverWidgetFontWeightValue({'font_weight': 'default'}, 'light'),
+        'light',
+      );
+      expect(
+        screensaverWidgetFontWeightValue({'font_weight': 'black'}, 'light'),
+        'black',
+      );
+      expect(
+        screensaverWidgetFontWeightValue({'font_weight': 'heavy'}, 'default'),
+        'default',
+      );
+    });
+
+    test('the global rows share the clock vocabulary and sit with Widgets', () {
+      final font = defs.screensaverWidgetFont;
+      final weight = defs.screensaverWidgetFontWeight;
+      expect(defs.allSettings, containsAll([font, weight]));
+      expect(font.defaultValue, 'rubik');
+      expect(font.options, defs.screensaverClockFont.options);
+      expect(font.optionLabels, defs.screensaverClockFont.optionLabels);
+      expect(weight.defaultValue, 'default');
+      expect(weight.options, defs.screensaverClockFontWeight.options);
+      expect(weight.optionLabels, defs.screensaverClockFontWeight.optionLabels);
+      for (final def in [font, weight]) {
+        expect(def.subpage, defs.screensaverWidgetScale.subpage);
+        expect(def.section, defs.screensaverWidgetScale.section);
+        expect(def.dependsOn, isNull);
+      }
+    });
+  });
+
   group('vignette strength', () {
     test('is a Widgets group slider defaulting to 40 percent', () {
       final def = defs.screensaverVignetteStrength;

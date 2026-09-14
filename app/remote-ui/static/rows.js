@@ -766,14 +766,31 @@ export function settingRow(s) {
     const TYPES = [['clock', 'Small clock'], ['weather', 'Weather'],
       ['battery', 'Battery'], ['entity', 'Entity']];
     const DEFAULTS = {
-      clock: { color: '250,250,250', scale: 0, h24: false, date: false },
+      clock: { color: '250,250,250', scale: 0, font: 'default',
+        font_weight: 'default', h24: false, date: false },
       weather: { entity: '', name: '', label: '', color: '250,250,250',
-        scale: 0, feels_like: false, feels_like_only: false, location: true,
+        scale: 0, font: 'default', font_weight: 'default',
+        feels_like: false, feels_like_only: false, location: true,
         forecast: true, humidity: true, wind: true, visibility: true },
-      battery: { color: '250,250,250', scale: 0, percent: true, low: false },
+      battery: { color: '250,250,250', scale: 0, font: 'default',
+        font_weight: 'default', percent: true, low: false },
       entity: { entity: '', name: '', label: '', attribute: '',
-        show_name: true, color: '250,250,250', scale: 0 },
+        show_name: true, color: '250,250,250', scale: 0, font: 'default',
+        font_weight: 'default' },
     };
+    // The typeface and weight pickers, the clock screensaver's vocabulary
+    // (kept with definitions.dart) behind a Default that follows the
+    // Global font family and Global font weight rows outside the modal.
+    const FONTS = [['default', 'Default'], ['rubik', 'Rubik'],
+      ['nunito', 'Nunito'], ['inter', 'Inter'], ['system', 'System'],
+      ['serif', 'Serif'], ['condensed', 'Condensed'],
+      ['monospace', 'Monospace'], ['casual', 'Casual'],
+      ['cursive', 'Cursive'], ['lcd', 'LCD']];
+    const WEIGHTS = [['default', 'Default'], ['light', 'Light'],
+      ['regular', 'Regular'], ['medium', 'Medium'], ['bold', 'Bold'],
+      ['black', 'Black']];
+    const pickOf = (list, value) =>
+      list.some(([v]) => v === value) ? value : 'default';
     // The per-widget scale, a percent offset from the size the Global
     // widget scaling slider gives it: -50 halves the widget, 50 grows it
     // half again. Kept with screensaver_widgets.dart.
@@ -885,14 +902,20 @@ export function settingRow(s) {
       const renderTypeBlock = () => {
         note.textContent = noteFor(type);
         typeBlock.innerHTML = '';
-        refs = { color: colorField(), scale: scaleField() };
+        refs = { color: colorField(), scale: scaleField(),
+          font: cameraSelectField('Font family',
+            FONTS.map(([value, label]) => ({ value, label })),
+            pickOf(FONTS, config.font)),
+          weight: cameraSelectField('Font weight',
+            WEIGHTS.map(([value, label]) => ({ value, label })),
+            pickOf(WEIGHTS, config.font_weight)) };
         if (type === 'clock') {
           refs.h24 = cameraToggle('24-hour clock',
             config.h24 === true, 'Show a 24-hour time instead of AM/PM.');
           refs.date = cameraToggle('Show date',
             config.date === true, 'Add a short date under the clock.');
-          typeBlock.append(refs.color.wrap, refs.scale.wrap, refs.h24.wrap,
-            refs.date.wrap);
+          typeBlock.append(refs.color.wrap, refs.scale.wrap, refs.font.wrap,
+            refs.weight.wrap, refs.h24.wrap, refs.date.wrap);
           return;
         }
         if (type === 'battery') {
@@ -901,8 +924,8 @@ export function settingRow(s) {
           refs.low = cameraToggle('Only when low',
             config.low === true,
             'Stay hidden until the charge drops to 20 percent.');
-          typeBlock.append(refs.color.wrap, refs.scale.wrap, refs.percent.wrap,
-            refs.low.wrap);
+          typeBlock.append(refs.color.wrap, refs.scale.wrap, refs.font.wrap,
+            refs.weight.wrap, refs.percent.wrap, refs.low.wrap);
           return;
         }
         if (type === 'entity') {
@@ -994,7 +1017,7 @@ export function settingRow(s) {
             config.show_name !== false, 'The name under the value.');
           typeBlock.append(refs.entity.wrap, refs.label.wrap,
             refs.attribute.wrap, refs.color.wrap, refs.scale.wrap,
-            refs.showName.wrap);
+            refs.font.wrap, refs.weight.wrap, refs.showName.wrap);
           loadAttributes();
           return;
         }
@@ -1059,7 +1082,7 @@ export function settingRow(s) {
         refs.wind = cameraToggle('Wind speed', config.wind === true);
         refs.visibility = cameraToggle('Visibility', config.visibility === true);
         typeBlock.append(refs.entity.wrap, refs.label.wrap, refs.color.wrap,
-          refs.scale.wrap,
+          refs.scale.wrap, refs.font.wrap, refs.weight.wrap,
           refs.location.wrap, refs.feelsLike.wrap, refs.feelsLikeOnly.wrap,
           refs.forecast.wrap, refs.humidity.wrap, refs.wind.wrap,
           refs.visibility.wrap);
@@ -1085,12 +1108,14 @@ export function settingRow(s) {
           const position = cornerSel.select.value;
           const color = refs.color.input.rgb;
           const scale = scaleOf({ scale: refs.scale.input.value });
+          const font = pickOf(FONTS, refs.font.select.value);
+          const font_weight = pickOf(WEIGHTS, refs.weight.select.value);
           let entryConfig;
           if (type === 'clock') {
-            entryConfig = { color, scale,
+            entryConfig = { color, scale, font, font_weight,
               h24: refs.h24.input.checked, date: refs.date.input.checked };
           } else if (type === 'battery') {
-            entryConfig = { color, scale,
+            entryConfig = { color, scale, font, font_weight,
               percent: refs.percent.input.checked,
               low: refs.low.input.checked };
           } else if (type === 'entity') {
@@ -1099,14 +1124,16 @@ export function settingRow(s) {
               name: config.name || config.entity,
               label: refs.label.input.value.trim(),
               attribute: refs.attribute.select.value,
-              show_name: refs.showName.input.checked, color, scale };
+              show_name: refs.showName.input.checked, color, scale, font,
+              font_weight };
           } else {
             const entity = refs.entity.select.value;
             if (!entity) return { ok: false, error: 'Pick a weather entity.' };
             const option = refs.entity.select.selectedOptions[0];
             entryConfig = { entity,
               name: option ? option.textContent : entity,
-              label: refs.label.input.value.trim(), color, scale,
+              label: refs.label.input.value.trim(), color, scale, font,
+              font_weight,
               feels_like: refs.feelsLike.input.checked,
               feels_like_only: refs.feelsLikeOnly.input.checked,
               location: refs.location.input.checked,
