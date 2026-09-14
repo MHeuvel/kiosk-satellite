@@ -36,6 +36,7 @@ import {
   updateMaValidateRow,
 } from './panels.js';
 import { renderFleetPage } from './fleetsync.js';
+import { renderIntercomPage } from './intercom.js';
 import { askImportOptions } from './pickers.js';
 import { settingRow } from './rows.js';
 import { applySubpageView, currentPath, setCurrentPath, subpageEntry } from './tabs.js';
@@ -49,6 +50,54 @@ import {
 } from './views.js';
 import { loadVsPermissions, renderVsControls } from './vs.js';
 import { banner, copyBox, messageBox, showToast } from './widgets.js';
+
+// A sound setting's row as a dropdown over the device's sounds folder,
+// filled from the device's own listing so this page and the tablet always
+// offer the same files: the notification chime and the intercom ring. The
+// stored name stays on the list when its file has gone, marked, rather
+// than silently reading as the built-in chime. Returns the refresh and
+// the write, for a row that uploads into the same folder.
+export function attachSoundSelect(row, setting) {
+  row.querySelector('input')?.remove();
+  const sel = document.createElement('select');
+  const fill = (sounds) => {
+    sel.innerHTML = '';
+    const current = `${setting.value || ''}`;
+    const names = [...sounds];
+    if (current && !names.includes(current)) names.push(current);
+    [['', 'Built-in chime'], ...names.map((n) => [n, n === current && !sounds.includes(n) ? `${n} (missing)` : n])]
+      .forEach(([value, label]) => {
+        const opt = document.createElement('option');
+        opt.value = value; opt.textContent = label;
+        opt.selected = value === current;
+        sel.appendChild(opt);
+      });
+  };
+  const refresh = async () => {
+    let sounds = [];
+    try { sounds = ((await cmd('listNotificationSounds')).data || {}).sounds || []; }
+    catch (_) {}
+    fill(sounds);
+  };
+  const write = async (name) => {
+    const res = await api('/api/settings', {
+      method: 'PATCH', body: JSON.stringify({ [setting.key]: name }),
+    });
+    const out = await res.json().catch(() => ({}));
+    if (!res.ok || out.rejected?.includes(setting.key)) {
+      throw new Error(out.errors?.[setting.key] || `HTTP ${res.status}`);
+    }
+    setting.value = name;
+  };
+  sel.addEventListener('change', async () => {
+    try { await write(sel.value); }
+    catch (e) { alert('Not saved: ' + (e.message || e)); await refresh(); }
+  });
+  fill([]);
+  row.appendChild(sel);
+  refresh();
+  return { sel, refresh, write };
+}
 
 export async function loadSettings() {
   // A re-render rebuilds every row; without restoring scroll, flipping a
@@ -561,48 +610,7 @@ export async function loadSettings() {
       const fileRow = panel.querySelector('[data-key="notifications.chime_file"]');
       const setting = byKey['notifications.chime_file'];
       if (fileRow && setting) {
-        // The dropdown over the sounds folder, filled from the device's own
-        // listing so this page and the tablet always offer the same files.
-        fileRow.querySelector('input')?.remove();
-        const sel = document.createElement('select');
-        const fill = (sounds) => {
-          sel.innerHTML = '';
-          const current = `${setting.value || ''}`;
-          const names = [...sounds];
-          // A stored name whose file has gone stays visible, marked, rather
-          // than silently reading as the built-in chime.
-          if (current && !names.includes(current)) names.push(current);
-          [['', 'Built-in chime'], ...names.map((n) => [n, n === current && !sounds.includes(n) ? `${n} (missing)` : n])]
-            .forEach(([value, label]) => {
-              const opt = document.createElement('option');
-              opt.value = value; opt.textContent = label;
-              opt.selected = value === current;
-              sel.appendChild(opt);
-            });
-        };
-        const refresh = async () => {
-          let sounds = [];
-          try { sounds = ((await cmd('listNotificationSounds')).data || {}).sounds || []; }
-          catch (_) {}
-          fill(sounds);
-        };
-        const write = async (name) => {
-          const res = await api('/api/settings', {
-            method: 'PATCH', body: JSON.stringify({ 'notifications.chime_file': name }),
-          });
-          const out = await res.json().catch(() => ({}));
-          if (!res.ok || out.rejected?.includes('notifications.chime_file')) {
-            throw new Error(out.errors?.['notifications.chime_file'] || `HTTP ${res.status}`);
-          }
-          setting.value = name;
-        };
-        sel.addEventListener('change', async () => {
-          try { await write(sel.value); }
-          catch (e) { alert('Not saved: ' + (e.message || e)); await refresh(); }
-        });
-        fill([]);
-        fileRow.appendChild(sel);
-        refresh();
+        const { refresh, write } = attachSoundSelect(fileRow, setting);
 
         // The row under it puts a file from this computer into the folder,
         // the remote's twin of the device's Browse. Same allowlist as
@@ -1236,6 +1244,10 @@ export async function loadSettings() {
   // The Fleet Management tab, hand-built from the fleetStatus command, and
   // the banner a follower's synced categories wear.
   await renderFleetPage();
+  // The Intercom tab: the definition rows the generic renderer drew,
+  // decorated from the intercomStatus command (the key box, the ring
+  // sound picker, the live call and the roster).
+  await renderIntercomPage();
 
   // Mirror of the device's Access card, under the Remote Administration
   // group on the Device tab. Here the address is simply where this page

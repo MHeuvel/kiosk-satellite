@@ -552,6 +552,40 @@ $('#tileRestartDevice').addEventListener('click', async () => {
   else showToast({ title: 'Restart device', message: (res && res.error) || 'The device did not answer.', kind: 'error' });
 });
 
+// Do not disturb: only with the intercom on and the remote admin there to
+// carry it. The tile reads on while Answer mode is Do not disturb and
+// flips it back to what it was before. Painted from the same status the
+// Intercom page draws, and from the intercom event the device pushes.
+let dnd = false;
+function paintDndTile(s) {
+  const tile = $('#tileDnd');
+  const shown = !!(s && s.enabled === true && s.available !== false);
+  tile.classList.toggle('hidden', !shown);
+  if (!shown) return;
+  dnd = s.dnd === true;
+  tile.classList.toggle('active', dnd);
+  tile.querySelector('.disc + span').textContent = dnd ? 'Do not disturb on' : 'Do not disturb';
+}
+async function refreshDndTile() {
+  paintDndTile(await ask('intercomStatus'));
+}
+$('#tileDnd').addEventListener('click', async () => {
+  const tile = $('#tileDnd');
+  tile.disabled = true;
+  try {
+    const res = await cmd('intercomSetDnd', { on: !dnd }).catch(() => null);
+    if (!res || res.ok === false) {
+      showToast({ title: 'Do not disturb',
+        message: (res && res.error) || 'The device did not answer.', kind: 'error' });
+    }
+    await refreshDndTile();
+  } finally { tile.disabled = false; }
+});
+document.addEventListener('ks-event', (e) => {
+  if (e.detail?.event !== 'intercom') return;
+  if (e.detail.data && typeof e.detail.data === 'object') paintDndTile(e.detail.data);
+});
+
 function paintSnapshotTile() {
   const tile = $('#tileSnapshot');
   tile.classList.toggle('hidden', !settingOn('camera.enabled') || state.cameraPresent === false);
@@ -623,6 +657,7 @@ export function overviewShown() {
   paintShotBadge();
   paintSnapshotTile();
   paintRestartDeviceTile();
+  refreshDndTile();
   paintTaken();
   if (live && (!state.screenshotAt || Date.now() - state.screenshotAt > TICK_MS)) loadScreenshot();
 }
@@ -635,5 +670,5 @@ export async function initOverview() {
   paintShotMode();
   paintShotBadge();
   paintSnapshotTile();
-  await Promise.all([refreshHealth(), refreshVolume(), paintRestartDeviceTile()]);
+  await Promise.all([refreshHealth(), refreshVolume(), paintRestartDeviceTile(), refreshDndTile()]);
 }

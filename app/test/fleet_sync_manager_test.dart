@@ -485,16 +485,18 @@ void main() {
         expect(withCreds.keys, isNot(contains('sendspin.ma_token')));
         expect(withCreds.keys, isNot(contains('screensaver.immich_api_key')));
         // A new follower shares the household credentials, not the user.
+        // The intercom key is the household's too.
         expect(SyncProfile.initial.credentials, {
           'sendspin.ma_token',
           'screensaver.immich_api_key',
+          'intercom.key',
         });
         expect(
           SyncProfile.parse({
             'categories': [],
             'credentials': ['ha.token', 'bogus'],
           })!.describe(),
-          'Categories: 0 of 16. Credentials: 1 of 3. Excluded: 30.',
+          'Categories: 0 of 17. Credentials: 1 of 4. Excluded: 31.',
         );
         expect(
           withCreds['browser.start_url'],
@@ -1332,13 +1334,11 @@ void main() {
       expect(former.containsAll(previous), isTrue);
       previous = former;
     }
-    // The Immich metadata text scaling joined last: the newest former
-    // list is the current one without it.
+    // The intercom volume joined last: the newest former list is the
+    // current one without it.
     expect(
       defs.fleetFormerDefaultExcluded.last,
-      defs.fleetDefaultExcluded.difference({
-        'screensaver.immich_metadata_scale',
-      }),
+      defs.fleetDefaultExcluded.difference({'intercom.volume'}),
     );
   });
 

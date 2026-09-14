@@ -179,6 +179,8 @@ class BtProxyManager extends Manager {
       // The Person sensor exists only while Dismiss on person is on, the
       // same way (discussion #353).
       'screensaver.dismiss_on_person',
+      // The intercom entities exist only while the intercom is on.
+      'intercom.enabled',
     };
     // The remote admin server's settings, which decide the web page port
     // reported to Home Assistant (the device page's Visit link).

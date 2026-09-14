@@ -430,6 +430,66 @@ class RemoteManager extends Manager {
       return _json(200, (r.data as Map?)?.cast<String, Object?>() ?? {});
     }
 
+    // The intercom's wire: who this kiosk is to another (public, so the
+    // roster can say Ready or Different key), a call or broadcast coming
+    // in, the answer going back and the audio socket. The intercom manager
+    // checks the token every one of them carries, signed with the shared
+    // intercom key, so none of these needs an admin token.
+    if (path == 'api/intercom/identity' && request.method == 'GET') {
+      final ip = _clientIp(request);
+      final last = _identityAt[ip];
+      final now = DateTime.now();
+      if (last != null && now.difference(last) < const Duration(seconds: 1)) {
+        return _json(429, {'error': 'too many probes'});
+      }
+      _identityAt[ip] = now;
+      final r = await commands.execute('intercomIdentity', const {});
+      return r.ok
+          ? _json(200, (r.data as Map).cast<String, Object?>())
+          : _json(503, {'error': r.error});
+    }
+    if (path == 'api/intercom/call' && request.method == 'POST') {
+      final body = await _body(request);
+      if (body == null) return _json(400, {'error': 'invalid JSON'});
+      final r = await commands.execute('intercomIncoming', {
+        ...body,
+        'token': _bearerToken(request),
+        'address': _clientIp(request),
+      });
+      if (!r.ok) return _json(400, r.toJson());
+      final data = (r.data as Map?)?.cast<String, Object?>() ?? const {};
+      final code = data['code'];
+      return _json(code is int ? code : 200, data);
+    }
+    if (path.startsWith('api/intercom/call/') && request.method == 'POST') {
+      final body = await _body(request);
+      if (body == null) return _json(400, {'error': 'invalid JSON'});
+      final r = await commands.execute('intercomSignal', {
+        ...body,
+        'call': path.substring('api/intercom/call/'.length),
+        'token': _bearerToken(request),
+        'address': _clientIp(request),
+      });
+      return _json(r.ok ? 200 : 403, r.toJson());
+    }
+    if (path.startsWith('api/intercom/audio/')) {
+      final callId = path.substring('api/intercom/audio/'.length);
+      final verified = await commands.execute('intercomVerify', {
+        'call': callId,
+        'token': request.url.queryParameters['token'],
+      });
+      if (!verified.ok) return _json(403, {'error': 'refused'});
+      return webSocketHandler((WebSocketChannel channel, String? protocol) {
+        // Handed over whole: the manager reads and writes the frames,
+        // binary voice and text control alike. In-process, so an object
+        // rides the command's parameters where the wire never sees it.
+        commands.execute('intercomAttachSocket', {
+          'call': callId,
+          'channel': channel,
+        });
+      })(request);
+    }
+
     if (!path.startsWith('api/')) return Response.notFound('not found');
 
     // Everything else under /api/ requires a bearer token.
@@ -713,8 +773,14 @@ class RemoteManager extends Manager {
   }
 
   /// Commands that only the kiosk's own screen may run: accepting a fleet
-  /// invitation is the one confirmation the remote admin must not give.
-  static const _deviceOnly = {'fleetAccept', 'fleetDecline'};
+  /// invitation and answering an intercom call are confirmations the
+  /// remote admin must not give.
+  static const _deviceOnly = {
+    'fleetAccept',
+    'fleetDecline',
+    'intercomAnswer',
+    'intercomDecline',
+  };
 
   /// What a fleet token opens: the follower's side of the fleet wire and
   /// the update commands the leader drives.
@@ -729,6 +795,9 @@ class RemoteManager extends Manager {
 
   /// One invitation per client every few seconds: the endpoint is public.
   final _inviteAt = <String, DateTime>{};
+
+  /// One intercom identity probe per client a second, same reason.
+  final _identityAt = <String, DateTime>{};
 
   /// The id of the leader this kiosk follows or null.
   String? get _followedLeaderId {

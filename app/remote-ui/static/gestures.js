@@ -41,6 +41,7 @@ export const GESTURE_ACTION_GROUPS = [
     ['now_playing', 'Show Now Playing', 'playCircle'],
     ['music_assistant', 'Open Music Assistant', 'music'],
     ['app_launcher', 'Open the app launcher', 'apps'],
+    ['intercom_open', 'Open the intercom', 'speaker'],
     ['screensaver', 'Start the screensaver', 'moon'],
     ['screensaver_stop', 'Stop the screensaver', 'sun'],
     ['hold_mode', 'Toggle hold mode', 'pauseCircle'],
@@ -101,6 +102,7 @@ export function describeGestureAction(a) {
     case 'now_playing': return 'Show Now Playing';
     case 'music_assistant': return 'Open Music Assistant';
     case 'app_launcher': return 'Open the app launcher';
+    case 'intercom_open': return 'Open the intercom';
     case 'screensaver': return 'Start the screensaver';
     case 'screensaver_stop': return 'Stop the screensaver';
     case 'hold_mode': return 'Toggle hold mode';
@@ -446,6 +448,7 @@ export async function pickGestureAction(current) {
     case 'android_settings': case 'sendspin_player': case 'app_launcher':
     case 'screensaver': case 'screensaver_stop': case 'hold_mode':
     case 'ha_kiosk': case 'now_playing': case 'music_assistant':
+    case 'intercom_open':
       return { type };
     case 'navigate': return configureGestureNavigate(carried);
     case 'url': return configureGestureText(carried, {
@@ -777,6 +780,7 @@ export const CATEGORY_TABS = [
   ['tab-homeassistant', ['Home Assistant']],
   ['tab-sendspin', ['Sendspin']],
   ['tab-dlna', ['DLNA']],
+  ['tab-intercom', ['Intercom']],
   ['tab-esphome', ['ESPHome']],
   ['device-settings', ['Device'],
     // Read-only reports, filled by loadDeviceInfo: no setting declares

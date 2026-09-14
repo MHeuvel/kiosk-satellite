@@ -4,6 +4,7 @@ import { $, state } from './core.js';
 import { loadAboutInfo, loadDeviceInfo } from './device.js';
 import { loadFiles } from './files.js';
 import { fleetShown } from './fleetsync.js';
+import { intercomShown } from './intercom.js';
 import { loadGestures } from './gestures.js';
 import { subpageIcon } from './icons.js';
 import { loadLogs } from './logs.js';
@@ -21,7 +22,7 @@ import { clearSearchReturnTab, searchReturnTab } from './search.js';
 // and #settings can be bookmarked or handed to someone. Everything is served
 // from one root, so without this a reload always dumped you on the dashboard.
 export const TABS = ['dashboard', 'homeassistant', 'voicesatellite', 'browser', 'kiosk', 'lockdown', 'home', 'launcher', 'screenaudio', 'screensaver',
-  'camera', 'sendspin', 'cameras', 'dlna', 'esphome', 'files', 'gestures', 'device', 'fleet', 'plugins', 'about', 'logs'];
+  'camera', 'sendspin', 'cameras', 'dlna', 'intercom', 'esphome', 'files', 'gestures', 'device', 'fleet', 'plugins', 'about', 'logs'];
 // Old bookmarks from before the tabs were consolidated keep landing
 // somewhere sensible.
 export const LEGACY_TABS = { screen: 'screenaudio', audio: 'screenaudio', remote: 'device', console: 'logs', btproxy: 'esphome', mqtt: 'esphome' };
@@ -33,7 +34,7 @@ export const TAB_TITLES = {
   voicesatellite: 'Voice Satellite',
   cameras: 'Camera Streams',
   sendspin: 'Media Player',
-  dlna: 'DLNA Renderer', esphome: 'ESPHome',
+  dlna: 'DLNA Renderer', intercom: 'Intercom', esphome: 'ESPHome',
   files: 'File Manager', gestures: 'Gestures',
   device: 'Device', fleet: 'Fleet Management', plugins: 'Plugin Manager', about: 'About', logs: 'Logs',
 };
@@ -181,6 +182,8 @@ export function showTab(name, { push = true, refresh = true } = {}) {
   // The fleet is other kiosks' state: re-read on every visit and polled
   // while the page stays open.
   if (tab === 'fleet') fleetShown();
+  // The roster is other kiosks' state too: same treatment.
+  if (tab === 'intercom') intercomShown();
   if (tab === 'plugins' && refresh && !sameTab) loadPlugins();
   if (tab === 'screensaver' && refresh && !sameTab) loadSettings();
   if (tab === 'about') loadAboutInfo();

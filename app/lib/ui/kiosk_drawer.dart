@@ -247,6 +247,30 @@ class KioskDrawer extends StatelessWidget {
                                       c.camera.showView(view.id);
                                     },
                                   ),
+                              // The intercom's sheet: Everyone, then the
+                              // kiosks that are ready. Only while the
+                              // intercom is on and the remote admin it
+                              // rides is serving, since the entry can do
+                              // nothing without them. Kiosk Mode's Allowed
+                              // Actions gates it in the restricted menu.
+                              if (c.intercom.enabled &&
+                                  c.intercom.available &&
+                                  c.settings.get(defs.intercomMenu))
+                                if (!restricted ||
+                                    c.settings.get(defs.kioskAllowIntercom))
+                                  _item(
+                                    divided: sep(),
+                                    context,
+                                    Icons.speaker_phone_outlined,
+                                    'Intercom',
+                                    () {
+                                      onClose();
+                                      c.commands.execute(
+                                        'intercomOpen',
+                                        const {},
+                                      );
+                                    },
+                                  ),
                               // Music Assistant's own web interface, over
                               // the dashboard on the same surface a tapped
                               // link gets — browsing, queueing and

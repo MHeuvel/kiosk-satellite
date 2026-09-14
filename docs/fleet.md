@@ -34,7 +34,7 @@ A profile consists of:
 | Component | Description |
 | --- | --- |
 | Categories | Checkboxes for each sidebar category, indicating which internal settings are excluded. |
-| Credentials | Toggles that allow a kiosk to keep its local Home Assistant user while still sharing Music Assistant and Immich accounts. |
+| Credentials | Toggles that allow a kiosk to keep its local Home Assistant user while still sharing the Music Assistant and Immich accounts and the [intercom key](intercom.md). |
 | Dashboard | Toggles whether the start page and default dashboard are synced. |
 | Excluded settings | Specific settings omitted from the sync, with options to re-add them or pick new ones to exclude. |
 
@@ -75,6 +75,7 @@ Settings that scale the UI, control screen brightness, or manage volume often de
 | `camera.snapshot_resolution` | Camera |
 | `browser.cutout_mode` Display cutout | Screen & Audio |
 | `screen.orientation` Screen orientation | Screen & Audio |
+| `intercom.volume` Intercom volume | Intercom |
 
 ## How the Sync Runs
 

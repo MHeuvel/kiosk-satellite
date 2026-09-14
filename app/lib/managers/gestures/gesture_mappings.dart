@@ -37,6 +37,7 @@
 ///  - now_playing:      show the full-screen Now Playing view
 ///  - music_assistant:  open the Music Assistant web interface
 ///  - app_launcher:     open the app launcher overlay (issue #318)
+///  - intercom_open:    open the intercom's sheet of kiosks to call
 ///  - screensaver:      start the screensaver
 ///  - screensaver_stop: stop it (redundant for touch, made for claps)
 ///  - hold_mode:        toggle hold mode (pin the current view, issue #266)
@@ -204,6 +205,8 @@ String describeGestureAction(Map<String, Object?> action) {
       return 'Open Music Assistant';
     case 'app_launcher':
       return 'Open the app launcher';
+    case 'intercom_open':
+      return 'Open the intercom';
     case 'screensaver':
       return 'Start the screensaver';
     case 'screensaver_stop':

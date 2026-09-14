@@ -941,6 +941,18 @@ const kioskAllowCamera = SettingDef<bool>(
   dependsOn: 'kiosk.allow_drawer',
 );
 
+const kioskAllowIntercom = SettingDef<bool>(
+  key: 'kiosk.allow_intercom',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Intercom',
+  description: 'Call other kiosks from the kiosk menu.',
+  category: 'Kiosk',
+  section: 'Allowed Actions',
+  subpage: 'Allowed Actions',
+  dependsOn: 'kiosk.allow_drawer',
+);
+
 const kioskAllowMusic = SettingDef<bool>(
   key: 'kiosk.allow_music',
   type: SettingType.boolean,
@@ -6567,6 +6579,129 @@ const analyticsDiagnostics = SettingDef<bool>(
 
 // ── Fleet Management ───────────────────────────────────────────────────
 
+// Kiosks on the same network talk to each other over the remote admin
+// port: a call rings on the kiosk picked from the kiosk menu, or one kiosk
+// talks to every other at once. The shared key is the trust between them.
+
+const intercomEnabled = SettingDef<bool>(
+  key: 'intercom.enabled',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Enable intercom',
+  description: 'Call the other kiosks on this network and take their calls.',
+  category: 'Intercom',
+);
+
+/// The shared secret every kiosk on the intercom holds: made on the first
+/// enable, copied or pasted between kiosks, synced by Fleet Management as
+/// a credential. A call from a kiosk with a different key is refused.
+const intercomKey = SettingDef<String>(
+  key: 'intercom.key',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Intercom key',
+  description:
+      'Kiosks with the same key can call each other. Fleet Management can '
+      'sync it.',
+  category: 'Intercom',
+  dependsOn: 'intercom.enabled',
+  placeholder: 'Made when the intercom is enabled',
+);
+
+/// The kiosk menu entry, like the screensaver's and HA kiosk mode's own
+/// opt-outs (issue #473). Kiosk Mode's Allowed Actions still gates it in
+/// the restricted menu.
+const intercomMenu = SettingDef<bool>(
+  key: 'intercom.menu',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Show in the kiosk menu',
+  description: 'Add an Intercom entry to the kiosk menu.',
+  category: 'Intercom',
+  dependsOn: 'intercom.enabled',
+);
+
+const intercomAnswerMode = SettingDef<String>(
+  key: 'intercom.answer_mode',
+  type: SettingType.select,
+  defaultValue: 'ring',
+  title: 'Answer mode',
+  description:
+      'Ring asks on the screen. Answer automatically opens the call after '
+      'a chime.',
+  category: 'Intercom',
+  section: 'Answer',
+  options: ['ring', 'auto', 'dnd'],
+  optionLabels: {
+    'ring': 'Ring',
+    'auto': 'Answer automatically',
+    'dnd': 'Do not disturb',
+  },
+  dependsOn: 'intercom.enabled',
+);
+
+const intercomRingSeconds = SettingDef<String>(
+  key: 'intercom.ring_seconds',
+  type: SettingType.select,
+  defaultValue: '30',
+  title: 'Ring for',
+  description: 'How long a call rings before it counts as missed.',
+  category: 'Intercom',
+  section: 'Answer',
+  options: ['15', '30', '45', '60'],
+  optionLabels: {
+    '15': '15 seconds',
+    '30': '30 seconds',
+    '45': '45 seconds',
+    '60': '60 seconds',
+  },
+  dependsOn: 'intercom.enabled',
+);
+
+/// A file in the sounds folder like the notification sound, or empty for
+/// the bundled chime. Plays at the notification volume.
+const intercomRingSound = SettingDef<String>(
+  key: 'intercom.ring_sound',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Ring sound',
+  description: 'Plays at the notification volume.',
+  category: 'Intercom',
+  section: 'Answer',
+  dependsOn: 'intercom.enabled',
+  validator: validateNotificationSound,
+);
+
+const intercomTalkMode = SettingDef<String>(
+  key: 'intercom.talk_mode',
+  type: SettingType.select,
+  defaultValue: 'ptt',
+  title: 'Talk mode',
+  description:
+      'Push to talk sends while the button is held. Hands free keeps the '
+      'microphone open for the whole call.',
+  category: 'Intercom',
+  section: 'Talk',
+  options: ['ptt', 'handsfree'],
+  optionLabels: {'ptt': 'Push to talk', 'handsfree': 'Hands free'},
+  dependsOn: 'intercom.enabled',
+);
+
+const intercomVolume = SettingDef<num>(
+  key: 'intercom.volume',
+  type: SettingType.number,
+  defaultValue: 80,
+  title: 'Intercom volume',
+  description: "The other kiosk's voice on this one.",
+  category: 'Intercom',
+  section: 'Talk',
+  min: 0,
+  max: 100,
+  step: 5,
+  unit: '%',
+  dependsOn: 'intercom.enabled',
+);
+
 /// The categories a fleet leader can push, in the sidebar's order: the
 /// definitions category, the name both UIs show for it and what stays per
 /// kiosk inside it (the [SettingDef.perDevice] keys it holds, in words).
@@ -6596,6 +6731,7 @@ const fleetSyncCategories = <(String, String, String)>[
   ('Home', 'Home Launcher', ''),
   ('Launcher', 'App Launcher', ''),
   ('Gestures', 'Gestures', ''),
+  ('Intercom', 'Intercom', 'the key, unless synced as a credential'),
   (
     'Device',
     'Device',
@@ -6618,12 +6754,14 @@ const fleetCredentials = <(String, String)>[
   ('ha.token', 'Home Assistant token'),
   ('sendspin.ma_token', 'Music Assistant token'),
   ('screensaver.immich_api_key', 'Immich API key'),
+  ('intercom.key', 'Intercom key'),
 ];
 
 const fleetCredentialKeys = {
   'ha.token',
   'sendspin.ma_token',
   'screensaver.immich_api_key',
+  'intercom.key',
 };
 
 /// The dashboard: synced only when the leader was told to include it.
@@ -6635,6 +6773,8 @@ const fleetDashboardKeys = {'browser.start_url'};
 const fleetDefaultCredentials = {
   'sendspin.ma_token',
   'screensaver.immich_api_key',
+  // The intercom is one household: a fleet shares one key.
+  'intercom.key',
 };
 
 /// Excluded from every new profile: what scales the UI, drives the
@@ -6679,6 +6819,8 @@ const fleetDefaultExcluded = {
   'browser.cutout_mode',
   // Which way the panel is mounted.
   'screen.orientation',
+  // The intercom volume: every speaker is its own, like the other volumes.
+  'intercom.volume',
 };
 
 /// What [fleetDefaultExcluded] used to be, oldest first: a profile still on
@@ -6722,6 +6864,39 @@ const fleetFormerDefaultExcluded = <Set<String>>[
     'screensaver.website_zoom',
     'screensaver.clock_scale',
     'screensaver.widget_scale',
+    'screensaver.glance_scale',
+    'face.preview_scale',
+    'sendspin.player_size',
+    'screen.default_brightness',
+    'screen.adaptive_min_brightness',
+    'screen.adaptive_max_brightness',
+    'screen.adaptive_dark_lux',
+    'screen.adaptive_bright_lux',
+    'screensaver.brightness_level',
+    'screensaver.dim_level',
+    'audio.media_volume',
+    'audio.assistant_volume',
+    'notifications.volume',
+    'ha.tap_sound_volume',
+    'screensaver.gallery_items',
+    'screensaver.local_folder',
+    'screensaver.clock_background',
+    'notifications.chime_file',
+    'launcher.apps',
+    'motion.sensitivity',
+    'motion.fps',
+    'face.sensitivity',
+    'camera.snapshot_resolution',
+    'browser.cutout_mode',
+    'screen.orientation',
+  },
+  // Before the intercom volume joined (2026.9.50).
+  {
+    'browser.zoom',
+    'screensaver.website_zoom',
+    'screensaver.clock_scale',
+    'screensaver.widget_scale',
+    'screensaver.immich_metadata_scale',
     'screensaver.glance_scale',
     'face.preview_scale',
     'sendspin.player_size',
@@ -7065,6 +7240,7 @@ const List<SettingDef<Object>> allSettings = [
   kioskAllowDashboard,
   kioskAllowHaKiosk,
   kioskAllowCamera,
+  kioskAllowIntercom,
   kioskAllowMusic,
   kioskAllowSendspinPlayer,
   kioskAllowScreensaver,
@@ -7429,4 +7605,12 @@ const List<SettingDef<Object>> allSettings = [
   fleetAppliedRevision,
   fleetSyncedKeys,
   fleetLastSyncAt,
+  intercomEnabled,
+  intercomKey,
+  intercomMenu,
+  intercomAnswerMode,
+  intercomRingSeconds,
+  intercomRingSound,
+  intercomTalkMode,
+  intercomVolume,
 ];

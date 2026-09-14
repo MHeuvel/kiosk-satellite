@@ -147,6 +147,14 @@ const List<SettingsSearchEntry> handBuiltSearchEntries = [
     description: 'Install the release offered to each follower, then here.',
     anchorId: 'x:fleet_update',
   ),
+  // Intercom: the hand-built roster card.
+  SettingsSearchEntry(
+    category: 'Intercom',
+    title: 'Kiosks',
+    description:
+        'The kiosks heard on this network and whether each can take a call.',
+    anchorId: 'x:intercom_kiosks',
+  ),
   SettingsSearchEntry(
     category: 'Home Assistant',
     title: 'Validate connection',

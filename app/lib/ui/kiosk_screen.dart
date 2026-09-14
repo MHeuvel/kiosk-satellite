@@ -44,6 +44,7 @@ import 'dlna_media_overlay.dart';
 import 'camera_view_overlay.dart';
 import 'face_preview_overlay.dart';
 import 'fleet_settings.dart';
+import 'intercom_settings.dart';
 import 'back_nav.dart';
 import 'key_nav.dart';
 import 'kiosk_drawer.dart';
@@ -111,6 +112,7 @@ class _KioskScreenState extends State<KioskScreen>
   StreamSubscription<CameraViewStateChanged>? _cameraSub;
   StreamSubscription<ScreensaverStateChanged>? _saverSub;
   StreamSubscription<WebViewRebuildRequested>? _rebuildSub;
+  StreamSubscription<IntercomOpenRequested>? _intercomSub;
 
   /// Whether the Activity has attached to the process-wide engine. The
   /// dashboard WebView build waits for this: the Dart isolate boots in
@@ -544,7 +546,12 @@ class _KioskScreenState extends State<KioskScreen>
         e.key == defs.sendspinMaUrl.key ||
         e.key == defs.haKioskMenu.key ||
         e.key == defs.screensaverMenu.key ||
-        e.key == defs.lockdownMenu.key) {
+        e.key == defs.lockdownMenu.key ||
+        e.key == defs.intercomEnabled.key ||
+        e.key == defs.intercomMenu.key ||
+        e.key == defs.kioskAllowIntercom.key ||
+        e.key == defs.remoteEnabled.key ||
+        e.key == defs.remoteFleetDiscovery.key) {
       setState(() {});
       return;
     }
@@ -666,6 +673,11 @@ class _KioskScreenState extends State<KioskScreen>
     _backSub = c.bus.on<KioskBackPressed>().listen((_) {
       if (!mounted || _settingsOpen) return;
       _handleBack();
+    });
+    // The kiosk menu entry, a gesture or the intercomOpen command asked
+    // for the sheet of kiosks to call.
+    _intercomSub = c.bus.on<IntercomOpenRequested>().listen((_) {
+      if (mounted) unawaited(showIntercomSheet(context, c));
     });
     // A HOME press with the kiosk as the device's home screen and already in
     // front (issue #219): what every launcher's HOME means, close what is
@@ -1319,6 +1331,7 @@ class _KioskScreenState extends State<KioskScreen>
     _rebuildSub?.cancel();
     _backSub?.cancel();
     _homeSub?.cancel();
+    _intercomSub?.cancel();
     _wakeSub?.cancel();
     kioskRouteObserver.unsubscribe(this);
     _cameraSub?.cancel();
@@ -1536,6 +1549,11 @@ class _KioskScreenState extends State<KioskScreen>
                   // thing whose whole job is that nothing here answers
                   // a touch.
                   NotificationOverlay(notifications: c.notifications),
+                  // The intercom's call card: over the screensaver and a
+                  // camera wall like a notification, since a call coming
+                  // in wakes the screen for exactly this, and under the
+                  // lockdown shield, whose kiosk answers as Do not disturb.
+                  IntercomCallOverlay(container: c),
                   // Lockdown Mode's touch shield: topmost, above every
                   // overlay, so nothing on screen is tappable while it
                   // holds. Transparent by default — the dashboard stays

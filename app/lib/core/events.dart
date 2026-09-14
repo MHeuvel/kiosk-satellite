@@ -367,6 +367,38 @@ class VoiceInteractionChanged extends AppEvent {
   final String reason;
 }
 
+// ── Intercom ───────────────────────────────────────────────────────────
+
+/// The intercom's state changed: a call placed, ringing, answered, ended,
+/// a broadcast coming in, the roster of kiosks moved. Carries the whole
+/// `intercomStatus` shape so the remote admin redraws from the event
+/// alone; both UIs draw the same thing.
+class IntercomStateChanged extends AppEvent {
+  const IntercomStateChanged(this.status);
+  final Map<String, Object?> status;
+
+  @override
+  String get wireName => 'intercom';
+
+  @override
+  Map<String, Object?> toJson() => status;
+}
+
+/// Voice levels during a call, for the card's meter: this kiosk's
+/// microphone and the other side's voice, 0..1. At most fifteen a second
+/// and never on the admin socket (no wireName), like the mic level.
+class IntercomLevel extends AppEvent {
+  const IntercomLevel({required this.near, required this.far});
+  final double near;
+  final double far;
+}
+
+/// The kiosk menu entry, a gesture or the `intercomOpen` command asked for
+/// the sheet of kiosks to call. The kiosk screen shows it.
+class IntercomOpenRequested extends AppEvent {
+  const IntercomOpenRequested();
+}
+
 // ── Motion ─────────────────────────────────────────────────────────────
 
 class MotionDetected extends AppEvent {

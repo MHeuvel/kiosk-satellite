@@ -264,6 +264,12 @@ class EspEntitySurface {
           'mdi:camera-flip-outline',
           defs.cameraDevice,
         ),
+        // Catalog-gated below on the intercom being on, like its sensors.
+        'intercom_answer_mode': (
+          'Intercom answer mode',
+          'mdi:phone-ring-outline',
+          defs.intercomAnswerMode,
+        ),
       };
 
   /// Settings-backed numbers: objectId -> the entity's range and the
@@ -449,6 +455,7 @@ class EspEntitySurface {
       'category': 2,
     };
 
+    final intercomOn = _settings.get(defs.intercomEnabled);
     final catalog = <Map<String, Object?>>[
       // ── Controls ─────────────────────────────────────────────────────
       {
@@ -772,8 +779,34 @@ class EspEntitySurface {
           'icon': 'mdi:play-circle-outline',
           'category': 1,
         },
+      // The intercom: its state, the other kiosk's name, Do not disturb as
+      // a switch (the answer mode's third choice) and the answer mode as a
+      // select below. The emulation has no event entity, so the state
+      // sensor carries the story, missed included, for a minute.
+      if (intercomOn) ...[
+        {
+          'type': 'text_sensor',
+          'objectId': 'intercom',
+          'name': 'Intercom',
+          'icon': 'mdi:phone-in-talk-outline',
+        },
+        {
+          'type': 'text_sensor',
+          'objectId': 'intercom_kiosk',
+          'name': 'Intercom kiosk',
+          'icon': 'mdi:tablet',
+        },
+        {
+          'type': 'switch',
+          'objectId': 'intercom_do_not_disturb',
+          'name': 'Intercom do not disturb',
+          'icon': 'mdi:bell-off-outline',
+          'category': 1,
+        },
+      ],
       for (final e in _settingSelects.entries)
-        if (e.key != 'camera_device' || (cameraPresent && bothFacings))
+        if ((e.key != 'camera_device' || (cameraPresent && bothFacings)) &&
+            (e.key != 'intercom_answer_mode' || intercomOn))
           {
             'type': 'select',
             'objectId': e.key,
@@ -1347,9 +1380,25 @@ class EspEntitySurface {
         if (e.on && e.source == 'system') _interaction.mark();
       }),
     );
+    _subs.add(
+      bus.on<IntercomStateChanged>().listen((e) => _sendIntercom(e.status)),
+    );
     _subs.add(bus.on<SettingChanged>().listen(_onSettingChanged));
     _poll = Timer.periodic(_pollInterval, (_) => _refresh());
     _sendInitial();
+  }
+
+  /// The intercom's three sensors from one status shape: the state word,
+  /// the other kiosk (the caller after a missed call, else nobody) and
+  /// whether Do not disturb holds.
+  Future<void> _sendIntercom(Map<String, Object?> status) async {
+    if (!_settings.get(defs.intercomEnabled)) return;
+    final call = status['call'];
+    final peer = call is Map ? call['peer'] : null;
+    final peerName = peer is Map ? '${peer['name'] ?? ''}' : '';
+    await _send('intercom', '${status['state'] ?? 'idle'}');
+    await _send('intercom_kiosk', peerName);
+    await _send('intercom_do_not_disturb', status['dnd'] == true);
   }
 
   void detach() {
@@ -1468,6 +1517,8 @@ class EspEntitySurface {
           'settings': {'auto_start': value == true},
         });
         await _sendVoiceSatellite();
+      case 'intercom_do_not_disturb':
+        await commands.execute('intercomSetDnd', {'on': value == true});
       case 'postpone_screensaver':
         await commands.execute('postponeScreensaver', const {});
       // A slideshow mode steps its deck; every other mode, and no
@@ -1742,6 +1793,12 @@ class EspEntitySurface {
       'clock_background',
       _settings.get(defs.screensaverClockBackground),
     );
+    if (_settings.get(defs.intercomEnabled)) {
+      final intercom = await commands.execute('intercomStatus', const {});
+      if (intercom.ok && intercom.data is Map) {
+        await _sendIntercom((intercom.data as Map).cast<String, Object?>());
+      }
+    }
     // A broker would have retained these; here they need an
     // explicit first value or the selects sit on "unknown" until the
     // first change. No camera view is open at server start, and the

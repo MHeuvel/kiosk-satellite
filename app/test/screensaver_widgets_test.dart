@@ -413,10 +413,15 @@ void main() {
       // A panel correction, so it stays out of new profiles like the
       // other scales, and the profiles created before it get migrated.
       expect(defs.fleetDefaultExcluded, contains(def.key));
-      expect(defs.fleetFormerDefaultExcluded.last, isNot(contains(def.key)));
+      // One recorded former default lacks it and the next one has it:
+      // the migration step it joined by.
+      final joinedAt = defs.fleetFormerDefaultExcluded.indexWhere(
+        (former) => former.contains(def.key),
+      );
+      expect(joinedAt, greaterThan(0));
       expect(
-        defs.fleetDefaultExcluded.difference(
-          defs.fleetFormerDefaultExcluded.last,
+        defs.fleetFormerDefaultExcluded[joinedAt].difference(
+          defs.fleetFormerDefaultExcluded[joinedAt - 1],
         ),
         {def.key},
       );

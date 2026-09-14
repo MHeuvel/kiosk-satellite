@@ -46,6 +46,7 @@ import 'camera_settings.dart';
 import 'fleet_settings.dart';
 import 'camera_views_picker.dart';
 import 'import_options_dialog.dart';
+import 'intercom_settings.dart';
 import 'kit.dart';
 import 'time_picker.dart';
 import 'media_picker.dart';
@@ -210,6 +211,7 @@ const _categories = <(String, String, Object, String)>[
     Icons.cast_outlined,
     'Play images, videos and audio remotely',
   ),
+  ('Intercom', 'Intercom', Icons.speaker_phone_outlined, 'Talk between kiosks'),
   (
     'Camera',
     'Camera',
@@ -1501,6 +1503,14 @@ class _CategoryContentState extends State<_CategoryContent> {
         if (e.key == btproxyKey.key && mounted) setState(() {});
       });
     }
+    // The intercom key is made by the manager right after Enable intercom
+    // goes on, and changed by the dialog or a fleet sync: the copy box
+    // follows the setting, not the tap.
+    if (widget.category == 'Intercom') {
+      _keyEcho = widget.container.bus.on<SettingChanged>().listen((e) {
+        if (e.key == intercomKey.key && mounted) setState(() {});
+      });
+    }
     // Adaptive brightness (issue #343) is switched on its own page and on
     // the remote admin, and the Default brightness row standing down and
     // the screensaver's bright-room hints answer for it: this page must
@@ -2083,6 +2093,21 @@ class _CategoryContentState extends State<_CategoryContent> {
           CameraSettingsPanel(container: container)
         else if (widget.category == 'Gestures')
           GestureSettingsPanel(container: container)
+        else if (widget.category == 'Intercom')
+          // The definition rows through the generic renderer (the key's
+          // copy box, the Change key row, the ring sound picker and the
+          // Talk mode stand-in ride the replacements and extras), wrapped
+          // by the panel that adds the setup card and the Kiosks card.
+          IntercomSettingsPanel(
+            container: container,
+            cards: _sectionedCards(
+              container,
+              _inlineDefsFor('Intercom'),
+              () => setState(() {}),
+              replace: _rowReplacements(container),
+              after: _rowExtras(container),
+            ),
+          )
         else if (widget.category == 'Screen & Audio') ...[
           // Through the generic renderer, heading included, so the row
           // replacements and extras reach this card like any other: the
@@ -2644,6 +2669,25 @@ class _CategoryContentState extends State<_CategoryContent> {
           onChanged: null,
         ),
       ),
+    // No echo canceller on this platform: hands free would howl, so the
+    // manager forces push to talk and the row says why. Mirrored on the
+    // remote (intercom.js).
+    if (widget.category == 'Intercom' &&
+        container.intercom.status()['aec'] == false)
+      intercomTalkMode.key: SearchLandingTarget(
+        id: intercomTalkMode.key,
+        child: SettingsRow(
+          enabled: false,
+          title: Text(intercomTalkMode.title),
+          subtitle: const Text(
+            'Push to talk only: this device has no echo canceller.',
+          ),
+          trailing: Text(
+            container.settings.optionLabel(intercomTalkMode, 'ptt') ??
+                'Push to talk',
+          ),
+        ),
+      ),
     // The Clock screensaver's Night mode (issue #391) has nothing to
     // watch without the sensor either: same disabled switch, same reason.
     // Mirrored on the remote (notices.js, updateClockNightRows).
@@ -2697,6 +2741,15 @@ class _CategoryContentState extends State<_CategoryContent> {
   Map<String, Widget> _rowExtras(AppContainer container) => {
     if (widget.category == 'Sendspin')
       sendspinDuckPercent.key: AlbumArtCacheRow(container: container),
+    // Under the key's copy box: paste one from another kiosk or make a
+    // new one. Mirrored on the remote (intercom.js).
+    if (widget.category == 'Intercom')
+      intercomKey.key: IntercomChangeKeyRow(
+        container: container,
+        onChanged: () {
+          if (mounted) setState(() {});
+        },
+      ),
     if (widget.category == 'Browser' &&
         container.settings.get(autoReloadOnError))
       autoReloadOnError.key: _OverlayGrantRow(key: UniqueKey()),
@@ -9283,10 +9336,12 @@ class SettingTile extends StatelessWidget {
           );
         }
         // The notification sound (issue #320): a dropdown over the sounds
-        // folder, and a row to put a file of this device's into it.
-        if (def.key == notificationsChimeFile.key) {
+        // folder, and a row to put a file of this device's into it. The
+        // intercom's ring sound is picked from the same folder.
+        if (def.key == notificationsChimeFile.key ||
+            def.key == intercomRingSound.key) {
           return _NotificationSoundTile(
-            key: const ValueKey('notification-sound'),
+            key: ValueKey('sound-${def.key}'),
             container: c,
             def: def,
             onChanged: onChanged,
@@ -9477,8 +9532,9 @@ class SettingTile extends StatelessWidget {
         // The ESPHome encryption key is read back and pasted into Home
         // Assistant, never typed: a read-only copy box, mirrored on the
         // remote. The tap copies the whole key, which a text selection
-        // never reliably did.
-        if (def.key == btproxyKey.key) {
+        // never reliably did. The intercom key is the same shape, with
+        // its Change row underneath for the paste.
+        if (def.key == btproxyKey.key || def.key == intercomKey.key) {
           return SettingsRow(
             stack: true,
             title: Text(def.title),

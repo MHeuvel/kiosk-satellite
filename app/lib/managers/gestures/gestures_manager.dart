@@ -324,6 +324,13 @@ class GesturesManager extends Manager {
         // an empty grid; the drawer entry's Allowed Action is deliberately
         // NOT consulted, which is what makes a secret gesture possible.
         await _run('showAppLauncher', const {});
+      case 'intercom_open':
+        // Open only: the sheet closes on its own. The command carries the
+        // intercom's gates (off, or no remote admin), so a mapping left
+        // behind logs instead of showing an empty sheet; the kiosk menu's
+        // Allowed Action is not consulted, which makes a secret gesture
+        // possible.
+        await _run('intercomOpen', const {});
       case 'screensaver':
         await _run('startScreensaver', const {});
       case 'screensaver_stop':

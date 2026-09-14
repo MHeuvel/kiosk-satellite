@@ -550,6 +550,8 @@
   .action.tile .disc { width: 28px; height: 28px; transition: transform .12s; }
   .action.tile .disc svg { width: 15px; height: 15px; }
   .action.tile:active .disc { transform: scale(.92); }
+  /* A tile that is a state (Do not disturb) reads on with the soft tint. */
+  .action.tile.active { background: var(--primary-soft); color: var(--primary); }
   /* Dashboard control rows: the label keeps its natural width and the
      control takes the rest, instead of the two splitting the row and
      leaving a dead gap in the middle. */

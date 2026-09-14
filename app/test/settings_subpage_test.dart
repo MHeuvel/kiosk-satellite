@@ -337,7 +337,7 @@ void main() {
     ];
     // The menu's own switch leads, then the action it gates, one per row.
     expect(moved.first, defs.kioskAllowDrawer.key);
-    expect(moved, hasLength(11));
+    expect(moved, hasLength(12));
     // The protections stay on the page above: they are what kiosk mode is.
     expect(defs.kioskExitGesture.subpage, isNull);
     expect(defs.kioskDisableStatusBar.subpage, isNull);

@@ -114,6 +114,7 @@ is administrable here by construction.
 | `/api/files/upload` | POST | Write the raw request body to a device file, same `root`/`path` query params. Parent folders are created |
 | `/api/fleet/identity`, `/api/fleet/invite`, `/api/fleet/invite/<nonce>` | GET, POST, GET | Fleet Management's public face, for a kiosk with no token here: who this kiosk is, an invitation to follow (answered on the kiosk screen, never here) and what became of one. See [Fleet Management](fleet.md) |
 | `/api/fleet/status`, `/api/fleet/apply`, `/api/fleet/leave` | GET, POST, POST | The follower's side of the fleet: opened by the fleet token a follower mints on accepting, which is good for these, `getUpdateStatus`, `checkUpdateNow` and `installUpdate` and nothing else, only while it names this kiosk's leader |
+| `/api/intercom/identity`, `/api/intercom/call`, `/api/intercom/call/<id>`, `/api/intercom/audio/<id>` | GET, POST, POST, WebSocket | The [intercom's](intercom.md#remote-api) wire between kiosks: who this kiosk is (public), a call or broadcast coming in, the answer going back and the voice socket. All but the identity carry a token signed with the shared intercom key, never an admin token |
 | `/api/logs` | GET | Recent app log ring buffer |
 | `/api/console` | GET | Current WebView JS console buffer |
 

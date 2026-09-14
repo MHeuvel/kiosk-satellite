@@ -58,6 +58,7 @@ Use **Settings > ESPHome > Excluded entities** to pick entities that should stay
 | **Camera view** | select | Includes a "Closed" option, plus one option for every camera view containing cameras. Requires camera views to be configured. The option list is built when the server starts; if you add new views, simply toggle ESPHome off and on, or restart the app to refresh the list. |
 | **Show <view>** (one per camera view), **Close camera view** | button | Opens a specific named view or closes whichever view is currently open. |
 | **Active camera view** | text sensor | Displays the name of the view currently on screen, or reads `none` when closed. |
+| **Intercom**, **Intercom kiosk** | text sensor | The [intercom's](intercom.md#home-assistant) state (`idle`, `calling`, `ringing`, `in_call`, `broadcasting`, `listening`, `missed` for a minute after a call nobody answered) and the other kiosk's name. Listed while the intercom is on. |
 | **Dashboard view** | select | Provides one option per dashboard view (`dashboard/view`). This list re reads when Home Assistant reports that a dashboard was created, deleted, or edited, and when the dashboard connection returns after an outage (it never re reads on a timer). The last read list is saved across restarts, so the selector is available immediately upon the first connection even if Home Assistant is temporarily down. |
 | **Update** | update | Displays the latest release and its release notes, which you can install directly from Home Assistant (see [updates.md](updates.md)). |
 | **Screenshot** | camera | Exposes the display as a still camera on every kiosk. It is fed by the Take screenshot button or by fetching the entity itself. |
@@ -98,6 +99,8 @@ Every item in this list corresponds directly to a kiosk setting. They are fully 
 | **Screensaver mode**, **Clock style** | select | Provides the exact same options found on the device settings pages. |
 | **Default dashboard** | select | The dashboard the kiosk starts on, returns to with the Go to dashboard button and reloads after a crash or restart. Same `dashboard/view` options as the Dashboard view select. Changing it rewrites the start URL but leaves the page where it is, so an automation can make a night dashboard the one the kiosk always comes back to and use the Dashboard view select when it should show right away. |
 | **Camera facing** | select | Requires both a front and back physical camera. |
+| **Intercom do not disturb** | switch | The [intercom's](intercom.md) answer mode as Do not disturb, on or off. Listed while the intercom is on. |
+| **Intercom answer mode** | select | Ring, Answer automatically or Do not disturb. Listed while the intercom is on. |
 
 ### Diagnostics
 
