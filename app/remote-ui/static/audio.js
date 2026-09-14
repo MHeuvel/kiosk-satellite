@@ -126,7 +126,7 @@ export async function prependMasterVolumeRow() {
   info.innerHTML = '<div class="name"></div><div class="desc"></div>';
   info.querySelector('.name').textContent = 'Master volume';
   info.querySelector('.desc').textContent =
-    'The device volume. Media and assistant volume scale under it.';
+    'The device volume. Media, intercom and assistant volumes scale under it.';
   row.appendChild(info);
   attachSlider(row, { min: 0, max: 100, step: 5, value: Math.round(percent),
     label: (v) => `${v}%`,

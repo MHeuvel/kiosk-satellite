@@ -75,7 +75,7 @@ Settings that scale the UI, control screen brightness, or manage volume often de
 | `camera.snapshot_resolution` | Camera |
 | `browser.cutout_mode` Display cutout | Screen & Audio |
 | `screen.orientation` Screen orientation | Screen & Audio |
-| `intercom.volume` Intercom volume | Intercom |
+| `intercom.volume` Intercom volume | Screen & Audio |
 
 ## How the Sync Runs
 

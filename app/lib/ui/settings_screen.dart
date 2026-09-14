@@ -8927,7 +8927,7 @@ class _MasterVolumeTileState extends State<_MasterVolumeTile> {
         ListTile(
           title: const Text('Master volume'),
           subtitle: const Text(
-            'The device volume. Media and assistant volume scale under it.',
+            'The device volume. Media, intercom and assistant volumes scale under it.',
           ),
           trailing: Text(
             '${value.round()}%',

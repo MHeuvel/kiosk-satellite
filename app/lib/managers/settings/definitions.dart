@@ -6718,14 +6718,18 @@ const intercomTalkMode = SettingDef<String>(
   dependsOn: 'intercom.enabled',
 );
 
+/// Beside the media and assistant faders: the intercom's own share of the
+/// master volume, the third voice the kiosk plays.
 const intercomVolume = SettingDef<num>(
   key: 'intercom.volume',
   type: SettingType.number,
   defaultValue: 80,
   title: 'Intercom volume',
-  description: "The other kiosk's voice on this one.",
-  category: 'Intercom',
-  section: 'Talk',
+  description:
+      "The other kiosk's voice and announcements play at this share of "
+      'the master volume.',
+  category: 'Screen & Audio',
+  section: 'Audio Volume',
   min: 0,
   max: 100,
   step: 5,
@@ -7307,6 +7311,7 @@ const List<SettingDef<Object>> allSettings = [
   adaptiveDarkLux,
   adaptiveBrightLux,
   mediaVolume,
+  intercomVolume,
   assistantVolume,
   assistantFullVolumeRange,
   audioMicDevice,
@@ -7645,5 +7650,4 @@ const List<SettingDef<Object>> allSettings = [
   intercomAcceptAnnouncements,
   intercomTtsEngine,
   intercomTalkMode,
-  intercomVolume,
 ];
