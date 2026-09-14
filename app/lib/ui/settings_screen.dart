@@ -1994,6 +1994,11 @@ class _CategoryContentState extends State<_CategoryContent> {
             'Xavier Larrea',
             onTap: () => _openLink('https://github.com/jxlarrea'),
           ),
+          row(
+            'Website',
+            'kiosksatellite.com',
+            onTap: () => _openLink('https://kiosksatellite.com'),
+          ),
           ListTile(
             title: const Text('Source code'),
             trailing: Row(

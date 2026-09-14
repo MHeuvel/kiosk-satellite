@@ -548,6 +548,7 @@ export async function loadAboutInfo() {
 
   card('Attribution', [
     ['Author', link('Xavier Larrea', 'https://github.com/jxlarrea')],
+    ['Website', link('kiosksatellite.com', 'https://kiosksatellite.com')],
     ['Source code', repo],
     ['License', link('CC BY-NC-ND 4.0',
       'https://github.com/jxlarrea/kiosk-satellite/blob/main/LICENSE')],
