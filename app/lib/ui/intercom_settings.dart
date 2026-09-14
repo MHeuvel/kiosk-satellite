@@ -531,14 +531,13 @@ class _IntercomSheetState extends State<_IntercomSheet> {
         if (k is Map && k['status'] == 'ready') k.cast<String, Object?>(),
     ];
     return SimpleDialog(
-      title: const Text('Intercom'),
+      title: const Text('Call a kiosk'),
       contentPadding: const EdgeInsets.fromLTRB(0, 12, 0, 16),
       children: [
         if (ready.isEmpty)
           const ListTile(title: Text('No kiosk is ready.'))
         else ...[
           ListTile(
-            leading: const Icon(Icons.campaign_outlined),
             title: const Text('Announce to all'),
             subtitle: const Text('Talk to every kiosk. One way only.'),
             trailing: Icon(Icons.campaign_outlined, color: scheme.primary),
@@ -546,7 +545,6 @@ class _IntercomSheetState extends State<_IntercomSheet> {
           ),
           for (final k in ready)
             ListTile(
-              leading: const Icon(Icons.tablet_android_outlined),
               title: Text('${k['name']}'),
               trailing: Icon(Icons.phone_outlined, color: scheme.primary),
               onTap: () => widget.onPick('intercomCall', {'id': '${k['id']}'}),

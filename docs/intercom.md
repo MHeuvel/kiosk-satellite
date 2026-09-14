@@ -22,7 +22,7 @@ Configure it under **Settings, Intercom** on the kiosk, or the **Intercom** tab 
 
 ## Placing a call
 
-The **Intercom** entry in the kiosk menu opens a sheet: **Announce to all** first, then the kiosks that are Ready. A tap calls. Kiosks with the intercom off, another key or offline are not listed. The settings page is where they show up with a reason.
+The **Intercom** entry in the kiosk menu opens the **Call a kiosk** sheet: **Announce to all** first, then the kiosks that are Ready. A tap calls. Kiosks with the intercom off, another key or offline are not listed. The settings page is where they show up with a reason.
 
 The card names the kiosk, says Calling and offers Cancel. Nothing plays until the other side answers. Busy, Do not disturb, no answer and a different key end the call with one line on the card.
 
