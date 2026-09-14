@@ -240,16 +240,23 @@ class IntercomAudio(context: Context, messenger: BinaryMessenger) {
             Log.w(TAG, "ring track failed: ${e.message}")
             return
         }
-        if (track.state != AudioTrack.STATE_INITIALIZED) {
+        // A static track reads STATE_NO_STATIC_DATA until its buffer is
+        // written, and STATE_INITIALIZED only after; only uninitialized
+        // means it failed.
+        if (track.state == AudioTrack.STATE_UNINITIALIZED) {
+            Log.w(TAG, "ring track init failed")
             runCatching { track.release() }
             return
         }
         val out = AudioRouting.currentOutput()
         if (Build.VERSION.SDK_INT >= 28 && out != null) runCatching { track.preferredDevice = out }
-        if (track.write(pcm, 0, pcm.size) != pcm.size) {
+        val written = track.write(pcm, 0, pcm.size)
+        if (written != pcm.size || track.state != AudioTrack.STATE_INITIALIZED) {
+            Log.w(TAG, "ring track took $written of ${pcm.size} samples (state=${track.state})")
             runCatching { track.release() }
             return
         }
+        Log.i(TAG, "ring ${if (short) "short" else "double"} at ${"%.2f".format(volume)}")
         runCatching { track.setVolume(volume * VolumeController.assistGain.coerceAtLeast(0f).let { if (VolumeController.isFixed) it else 1f }) }
         ringTrack = track
         track.play()

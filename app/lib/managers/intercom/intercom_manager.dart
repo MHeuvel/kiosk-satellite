@@ -1266,7 +1266,12 @@ class IntercomManager extends Manager {
       await commands.execute('playChime', {'source': path, 'volume': volume});
       return;
     }
-    await audio.ring(volume: volume, short: short);
+    final err = await audio.ring(volume: volume, short: short);
+    if (err != null) {
+      log.warn(name, 'ring failed: $err');
+    } else {
+      log.debug(name, 'ring${short ? ' (short)' : ''} at $volume');
+    }
   }
 
   static double _level(Uint8List pcm) {

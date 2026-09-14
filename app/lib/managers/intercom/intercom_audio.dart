@@ -64,10 +64,13 @@ class IntercomAudio {
   /// The built-in ring, synthesized natively: a double burst of the
   /// classic 440 and 480 Hz telephone ring, or one short burst. [volume]
   /// is the notification volume, 0..1, applied as is like the chime.
-  Future<void> ring({required double volume, bool short = false}) async {
+  Future<String?> ring({required double volume, bool short = false}) async {
     try {
       await invoker('ring', {'volume': volume, 'short': short});
-    } catch (_) {}
+      return null;
+    } catch (e) {
+      return '$e';
+    }
   }
 
   Future<void> stopRing() async {
