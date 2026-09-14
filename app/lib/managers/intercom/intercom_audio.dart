@@ -61,6 +61,21 @@ class IntercomAudio {
     } catch (_) {}
   }
 
+  /// The built-in ring, synthesized natively: a double burst of the
+  /// classic 440 and 480 Hz telephone ring, or one short burst. [volume]
+  /// is the notification volume, 0..1, applied as is like the chime.
+  Future<void> ring({required double volume, bool short = false}) async {
+    try {
+      await invoker('ring', {'volume': volume, 'short': short});
+    } catch (_) {}
+  }
+
+  Future<void> stopRing() async {
+    try {
+      await invoker('stopRing');
+    } catch (_) {}
+  }
+
   /// Whether the platform has an echo canceller for the microphone route.
   /// Without one a hands free call feeds the far voice straight back, so
   /// the manager forces push to talk.

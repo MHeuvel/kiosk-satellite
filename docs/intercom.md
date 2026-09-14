@@ -38,7 +38,7 @@ The **Open the intercom** [gesture action](gestures.md) opens the same sheet. **
 
 A kiosk in [Lockdown Mode](kiosk.md#lockdown-mode) answers as Do not disturb. A kiosk already in a call answers Busy. A call wakes a dark screen and draws over the screensaver, which picks up where it was once the call ends.
 
-The **Ring sound** is a file from the same sounds folder as the [notification sound](esphome.md#sounds) and plays at the notification volume.
+The **Ring sound** is a built-in telephone ring by default, or a file from the same sounds folder as the [notification sound](esphome.md#sounds). Either plays at the notification volume.
 
 ## In a call
 
@@ -55,7 +55,7 @@ Voice is raw 16 kHz audio over one WebSocket per call, about 256 kbit/s each way
 
 ## Everyone
 
-**Everyone** is one way and always push to talk: hold, speak, let go, Done. Every Ready kiosk gets it at once whatever its talk mode. Kiosks on Do not disturb or in a call are skipped and the card names who is getting it.
+**Everyone** is one way: every Ready kiosk gets it at once whatever its own talk mode. With push to talk you hold, speak and let go. With hands free the microphone stays open, with Mute, until Done. Kiosks on Do not disturb or in a call are skipped and the card names who is getting it.
 
 On the receiving kiosks the card says who is talking to every kiosk. The ring sound plays once before the voice. **Reply** calls the sender back as a normal call, **Dismiss** closes the card, which also closes on its own a few seconds after the sender is done. Answer mode does not apply to Everyone: a broadcast is an announcement, not a conversation. Do not disturb is the one setting that keeps it out.
 

@@ -5371,7 +5371,10 @@ class _NotificationSoundTileState extends State<_NotificationSoundTile> {
     // A stored name whose file has gone stays visible, marked, rather than
     // silently reading as the built-in chime the row would fall back to.
     final options = [
-      ('', 'Built-in chime'),
+      (
+        '',
+        def.key == intercomRingSound.key ? 'Built-in ring' : 'Built-in chime',
+      ),
       for (final sound in _sounds) (sound, sound),
       if (current.isNotEmpty && !_sounds.contains(current))
         (current, '$current (missing)'),

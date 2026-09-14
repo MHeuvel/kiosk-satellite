@@ -65,7 +65,7 @@ export function attachSoundSelect(row, setting) {
     const current = `${setting.value || ''}`;
     const names = [...sounds];
     if (current && !names.includes(current)) names.push(current);
-    [['', 'Built-in chime'], ...names.map((n) => [n, n === current && !sounds.includes(n) ? `${n} (missing)` : n])]
+    [['', setting.key === 'intercom.ring_sound' ? 'Built-in ring' : 'Built-in chime'], ...names.map((n) => [n, n === current && !sounds.includes(n) ? `${n} (missing)` : n])]
       .forEach(([value, label]) => {
         const opt = document.createElement('option');
         opt.value = value; opt.textContent = label;

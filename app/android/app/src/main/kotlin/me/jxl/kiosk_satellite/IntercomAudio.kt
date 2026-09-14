@@ -81,6 +81,14 @@ class IntercomAudio(context: Context, messenger: BinaryMessenger) {
                     result.success(null)
                 }
                 "stop" -> { stop(); result.success(null) }
+                "ring" -> {
+                    ring(
+                        (call.argument<Double>("volume") ?: 1.0).toFloat().coerceIn(0f, 1f),
+                        call.argument<Boolean>("short") ?: false,
+                    )
+                    result.success(null)
+                }
+                "stopRing" -> { stopRing(); result.success(null) }
                 "aecAvailable" -> result.success(AcousticEchoCanceler.isAvailable())
                 else -> result.notImplemented()
             }
@@ -175,6 +183,86 @@ class IntercomAudio(context: Context, messenger: BinaryMessenger) {
                 queued.decrementAndGet()
             }
         }
+    }
+
+    // ── The ring ────────────────────────────────────────────────────
+
+    @Volatile private var ringTrack: AudioTrack? = null
+
+    /**
+     * The built-in ring, made here rather than shipped: the classic
+     * telephone ring, 440 and 480 Hz together, as two bursts of 0.4 s with
+     * a 0.2 s gap, or one burst of 0.35 s for the short form. Played on the
+     * media route at the notification volume, like the chime.
+     */
+    private fun ring(volume: Float, short: Boolean) {
+        stopRing()
+        val sr = 16000
+        val burst = if (short) (sr * 0.35).toInt() else (sr * 0.4).toInt()
+        val gap = (sr * 0.2).toInt()
+        val total = if (short) burst else burst * 2 + gap
+        val pcm = ShortArray(total)
+        val fade = sr / 100
+        fun fill(start: Int, length: Int) {
+            for (i in 0 until length) {
+                val t = i.toDouble() / sr
+                var a = 0.5 * Math.sin(2 * Math.PI * 440 * t) + 0.5 * Math.sin(2 * Math.PI * 480 * t)
+                val env = when {
+                    i < fade -> i.toDouble() / fade
+                    i > length - fade -> (length - i).toDouble() / fade
+                    else -> 1.0
+                }
+                a *= env * 0.6
+                pcm[start + i] = (a * Short.MAX_VALUE).toInt().coerceIn(-32768, 32767).toShort()
+            }
+        }
+        fill(0, burst)
+        if (!short) fill(burst + gap, burst)
+        val track = try {
+            AudioTrack.Builder()
+                .setAudioAttributes(
+                    AudioAttributes.Builder()
+                        .setUsage(AudioAttributes.USAGE_MEDIA)
+                        .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                        .build(),
+                )
+                .setAudioFormat(
+                    AudioFormat.Builder()
+                        .setSampleRate(sr)
+                        .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
+                        .setChannelMask(AudioFormat.CHANNEL_OUT_MONO)
+                        .build(),
+                )
+                .setTransferMode(AudioTrack.MODE_STATIC)
+                .setBufferSizeInBytes(pcm.size * 2)
+                .build()
+        } catch (e: Exception) {
+            Log.w(TAG, "ring track failed: ${e.message}")
+            return
+        }
+        if (track.state != AudioTrack.STATE_INITIALIZED) {
+            runCatching { track.release() }
+            return
+        }
+        val out = AudioRouting.currentOutput()
+        if (Build.VERSION.SDK_INT >= 28 && out != null) runCatching { track.preferredDevice = out }
+        if (track.write(pcm, 0, pcm.size) != pcm.size) {
+            runCatching { track.release() }
+            return
+        }
+        runCatching { track.setVolume(volume * VolumeController.assistGain.coerceAtLeast(0f).let { if (VolumeController.isFixed) it else 1f }) }
+        ringTrack = track
+        track.play()
+        // Release once it has played out, unless stopped first.
+        val ms = total * 1000L / sr + 200
+        workerHandler.postDelayed({ if (ringTrack === track) stopRing() }, ms)
+    }
+
+    private fun stopRing() {
+        val t = ringTrack ?: return
+        ringTrack = null
+        runCatching { t.stop() }
+        runCatching { t.release() }
     }
 
     private fun applyVolume() {

@@ -649,7 +649,9 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
     // The name and the line under it.
     var name = peerName;
     String? sub;
-    if (broadcast && outgoing) {
+    if (broadcast && outgoing && state == 'ended') {
+      name = 'Everyone';
+    } else if (broadcast && outgoing) {
       final listening = [
         for (final t in (call['targets'] as List? ?? const []))
           if (t is Map && t['status'] == 'listening') '${t['name']}',
@@ -688,7 +690,9 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
       case 'ended':
         final duration = (call['duration'] as num?)?.toInt() ?? 0;
         stateLine = reason == 'ended' || reason.isEmpty
-            ? 'Call ended, ${_mmss(duration)}'
+            ? broadcast && outgoing
+                  ? 'Done, ${_mmss(duration)}'
+                  : 'Call ended, ${_mmss(duration)}'
             : _reasonText(reason);
       default:
         stateLine = '';
@@ -696,8 +700,8 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
 
     // Whether this kiosk's own voice is what the meter should show.
     final sending = switch (state) {
-      'in_call' => talkMode == 'handsfree' ? call['muted'] != true : _held,
-      'broadcasting' => _held,
+      'in_call' ||
+      'broadcasting' => talkMode == 'handsfree' ? call['muted'] != true : _held,
       _ => false,
     };
     final live =
@@ -735,7 +739,8 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
             onTap: () => _run('intercomAnswer'),
           ),
         ]);
-      case 'in_call':
+      case 'in_call' || 'broadcasting':
+        final hears = state == 'broadcasting' ? 'Everyone' : peerName;
         if (talkMode == 'ptt') {
           controls.add(
             Column(
@@ -749,9 +754,7 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  _held
-                      ? '$peerName hears you'
-                      : 'Hold to talk, let go to listen',
+                  _held ? '$hears hears you' : 'Hold to talk, let go to listen',
                   style: TextStyle(
                     fontSize: 13,
                     color: scheme.onSurfaceVariant,
@@ -772,28 +775,20 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
           );
         }
         controls.add(
-          _Disc(
-            icon: Icons.call_end,
-            label: 'End',
-            kind: _DiscKind.end,
-            onTap: () => _run('intercomHangup'),
-          ),
+          state == 'broadcasting'
+              ? _Disc(
+                  icon: Icons.close,
+                  label: 'Done',
+                  kind: _DiscKind.plain,
+                  onTap: () => _run('intercomHangup'),
+                )
+              : _Disc(
+                  icon: Icons.call_end,
+                  label: 'End',
+                  kind: _DiscKind.end,
+                  onTap: () => _run('intercomHangup'),
+                ),
         );
-      case 'broadcasting':
-        controls.addAll([
-          _TalkPill(
-            held: _held,
-            width: pillWidth,
-            onDown: () => _talk(true),
-            onUp: () => _talk(false),
-          ),
-          _Disc(
-            icon: Icons.close,
-            label: 'Done',
-            kind: _DiscKind.plain,
-            onTap: () => _run('intercomHangup'),
-          ),
-        ]);
       case 'listening':
         controls.addAll([
           _Disc(

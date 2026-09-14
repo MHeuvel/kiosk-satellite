@@ -304,10 +304,8 @@ void main() {
         expect(intercom.state, 'ringing');
         expect(intercom.call?.peer['name'], 'Kitchen');
         expect(intercom.call?.peer['address'], '192.168.1.70');
-        expect(
-          executed.map((e) => e.$1),
-          containsAll(['screenOn', 'playChime']),
-        );
+        expect(executed.map((e) => e.$1), contains('screenOn'));
+        expect(audioCalls, contains('ring'));
         await settle(10);
         expect(holds, [true]);
         // Nobody answers: missed, the caller told, then idle after the hold.
@@ -490,7 +488,7 @@ void main() {
       });
       expect((r.data as Map)['status'], 'listening');
       expect(intercom.state, 'listening');
-      expect(executed.map((e) => e.$1), contains('playChime'));
+      expect(audioCalls, contains('ring'));
       // The sender opens the socket: hand one over the way the server does.
       final server = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
       final attached = Completer<void>();

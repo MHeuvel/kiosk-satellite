@@ -984,7 +984,7 @@ class IntercomManager extends Manager {
     if (c.kind == 'broadcast') {
       _setState('listening');
       log.info(name, '${peer['name']} is talking to every kiosk');
-      unawaited(_chime());
+      unawaited(_ring(short: true));
       unawaited(_startPlayback());
       _armConnectTimeout();
       return CommandResult.ok({'status': 'listening'});
@@ -992,14 +992,14 @@ class IntercomManager extends Manager {
     final auto = _settings.get(defs.intercomAnswerMode) == 'auto';
     _setState('ringing');
     log.info(name, '${peer['name']} is calling');
-    unawaited(_chime());
+    unawaited(_ring(short: auto));
     if (auto) {
       c.autoAnswerAt = DateTime.now().add(autoAnswerDelay);
       _autoTimer = Timer(autoAnswerDelay, () {
         if (_call == c && _state == 'ringing') unawaited(_answer());
       });
     } else {
-      _chimeTimer = Timer.periodic(ringCadence, (_) => _chime());
+      _chimeTimer = Timer.periodic(ringCadence, (_) => _ring());
       _ringTimer = Timer(_ringFor, () async {
         if (_call != c || _state != 'ringing') return;
         await _signalPeer('missed');
@@ -1016,6 +1016,7 @@ class IntercomManager extends Manager {
       return const CommandResult.fail('nothing is ringing');
     }
     _cancelTimers();
+    await audio.stopRing();
     if (!await _openMic()) {
       // Answer anyway: listening is still worth it, the card says why
       // nothing goes out.
@@ -1202,7 +1203,7 @@ class IntercomManager extends Manager {
   bool get _sending {
     final c = _call;
     if (c == null || !_active || _mic == null) return false;
-    if (c.kind == 'broadcast') return c.outgoing && c.localTalking;
+    if (c.kind == 'broadcast' && !c.outgoing) return false;
     if (talkMode == 'ptt') return c.localTalking;
     return !c.muted;
   }
@@ -1251,13 +1252,21 @@ class IntercomManager extends Manager {
     return f * f;
   }
 
-  Future<void> _chime() async {
+  /// The ring: the picked sound file through the chime player, else the
+  /// built-in telephone ring the native sink synthesizes (no asset). A
+  /// short ring is one burst: Answer automatically and a broadcast.
+  Future<void> _ring({bool short = false}) async {
+    final volume = _settings
+        .get(defs.notificationsVolume)
+        .toDouble()
+        .clamp(0.0, 1.0);
     final sound = _settings.get(defs.intercomRingSound).trim();
     final path = sound.isEmpty ? null : await NotificationSounds.resolve(sound);
-    await commands.execute('playChime', {
-      'source': path ?? '',
-      'volume': _settings.get(defs.notificationsVolume).toDouble().clamp(0, 1),
-    });
+    if (path != null) {
+      await commands.execute('playChime', {'source': path, 'volume': volume});
+      return;
+    }
+    await audio.ring(volume: volume, short: short);
   }
 
   static double _level(Uint8List pcm) {
@@ -1302,6 +1311,7 @@ class IntercomManager extends Manager {
     final c = _call;
     _cancelTimers();
     _connectTimer?.cancel();
+    await audio.stopRing();
     for (final l in _links.values.toList()) {
       await l.close();
     }
