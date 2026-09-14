@@ -224,6 +224,14 @@ object VolumeController {
     val assistGain: Float
         get() = masterSoftGain() * curve(assistPct)
 
+    /**
+     * The master alone, for a sink with a fader of its own (the intercom):
+     * 1.0 where the stream applies master in hardware, the software
+     * master on fixed-volume devices.
+     */
+    val masterGain: Float
+        get() = masterSoftGain()
+
     /** Keep communication sounds under the same master as media playback. */
     fun communicationGain(deviceType: Int): Float {
         if (isFixed) return 1f // assistGain already includes the software master.

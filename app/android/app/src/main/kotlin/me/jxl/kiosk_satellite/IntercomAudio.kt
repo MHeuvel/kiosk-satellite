@@ -385,12 +385,19 @@ class IntercomAudio(context: Context, messenger: BinaryMessenger) {
         runCatching { t.release() }
     }
 
+    /**
+     * The intercom fader over the device's master and nothing else: not
+     * the assistant fader, which is Voice Satellite's, and not the media
+     * one. On the communication route the master is the call stream's
+     * compensation; on the media route the hardware applies it, except
+     * on fixed-volume devices where it is software.
+     */
     private fun applyVolume() {
         val t = track ?: return
         val master = if (lease != null) {
             VolumeController.communicationGain(output?.type ?: AudioDeviceInfo.TYPE_BUILTIN_SPEAKER)
         } else {
-            VolumeController.assistGain
+            VolumeController.masterGain
         }
         val level = PlaybackVolume.level(baseVolume, 1f, master)
         runCatching { t.setVolume(level) }
