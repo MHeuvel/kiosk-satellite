@@ -137,7 +137,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(
       opened,
-      'https://github.com/jxlarrea/kiosk-satellite/blob/main/docs/updates.md#optional-update-helper',
+      'https://kiosksatellite.com/docs/updates/#optional-update-helper',
     );
   });
 

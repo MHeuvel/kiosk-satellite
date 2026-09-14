@@ -12,7 +12,7 @@ import { banner, hintRow, messageBox, modalShell, showToast } from './widgets.js
    socket. The one thing this page cannot do is accept an invitation: that
    is answered on the kiosk screen. */
 
-const DOCS_URL = 'https://github.com/jxlarrea/kiosk-satellite/blob/main/docs/fleet.md';
+const DOCS_URL = 'https://kiosksatellite.com/docs/fleet/';
 
 let status = null;
 let pollTimer = null;

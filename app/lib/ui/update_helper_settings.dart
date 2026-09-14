@@ -151,7 +151,7 @@ class _UpdateHelperSettingsState extends State<UpdateHelperSettings>
                 Navigator.of(context).popUntil((route) => route.isFirst);
                 widget.container.commands.execute('showLinkPage', {
                   'url':
-                      'https://github.com/jxlarrea/kiosk-satellite/blob/main/docs/updates.md#optional-update-helper',
+                      'https://kiosksatellite.com/docs/updates/#optional-update-helper',
                 });
               },
             ),

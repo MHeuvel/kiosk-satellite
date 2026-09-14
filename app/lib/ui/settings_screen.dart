@@ -152,14 +152,14 @@ const _analyticsIntro =
     'Kiosk Satellite better and guide which devices and features get '
     'attention.';
 const _analyticsDocsUrl =
-    'https://github.com/jxlarrea/kiosk-satellite/blob/main/docs/analytics.md';
+    'https://kiosksatellite.com/docs/analytics/';
 
 // The Updates page closes with a link to the custom repository guide: the
 // folder layout, the releases file and the APK names live in the docs, not
 // in a row description. Mirrored on the remote (renderUpdateSourceDocs in
 // device.js).
 const _updateDocsUrl =
-    'https://github.com/jxlarrea/kiosk-satellite/blob/main/docs/updates.md'
+    'https://kiosksatellite.com/docs/updates/'
     '#custom-repository';
 
 /// (defs category, page title, icon, subtitle)
