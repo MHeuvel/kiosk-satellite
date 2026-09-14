@@ -55,6 +55,7 @@ const Map<String, Object> subpageIcons = {
   'Lyrics': Icons.lyrics_outlined,
   // ESPHome.
   'Notifications': Icons.notifications_outlined,
+  'Announcements': Icons.campaign_outlined,
   'Bluetooth Proxy': Icons.bluetooth,
   'GPS Sensor': Icons.location_on_outlined,
   'Advanced settings': Icons.tune_outlined,

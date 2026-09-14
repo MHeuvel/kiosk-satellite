@@ -36,7 +36,7 @@ import {
   updateMaValidateRow,
 } from './panels.js';
 import { renderFleetPage } from './fleetsync.js';
-import { renderIntercomPage } from './intercom.js';
+import { decorateAnnouncementsPage, renderIntercomPage } from './intercom.js';
 import { askImportOptions } from './pickers.js';
 import { settingRow } from './rows.js';
 import { applySubpageView, currentPath, setCurrentPath, subpageEntry } from './tabs.js';
@@ -1248,6 +1248,7 @@ export async function loadSettings() {
   // decorated from the intercomStatus command (the key box, the ring
   // sound picker, the live call and the roster).
   await renderIntercomPage();
+  decorateAnnouncementsPage();
 
   // Mirror of the device's Access card, under the Remote Administration
   // group on the Device tab. Here the address is simply where this page

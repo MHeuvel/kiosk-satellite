@@ -332,18 +332,27 @@ Two actions follow a player from an automation, the way the Media Player page's 
 
 A name that two players share goes to the available one. On the [remote API](remote-api.md) the same two are the `mediaPlayers` and `mediaPlayerSet` commands.
 
-## Intercom announcements
+## Announcements
 
-`esphome.<node name>_intercom_announce` plays a one way announcement through the [intercom](intercom.md#announcements-from-home-assistant) on one kiosk or on all of them: a `message` Home Assistant speaks, or an audio `url`; `target` is a kiosk's IP address or `all`; `override` plays it on kiosks set to Do not disturb. Listed while the intercom is on. The kiosk answers with what each target did.
+Home Assistant can speak on the kiosk. `esphome.<node name>_announce` plays a `message` through Home Assistant's text to speech, or an audio `url` (MP3, WAV, OGG or AAC), on this kiosk with a chime first. Each kiosk is addressed through its own ESPHome device, so an announcement to several kiosks is one action per kiosk, and no other kiosk is involved. The kiosk asks Home Assistant for the audio, decodes it and plays it at the assistant volume, holding the screensaver and ducking the music the way a voice turn does, with a card that names Home Assistant while it plays. Listed with **Expose kiosk entities**.
+
+The **Announcements** page under Settings, ESPHome holds:
+
+| Setting | What it does |
+| --- | --- |
+| Enable announcements | On by default. Off, the action is refused. |
+| Text to speech engine | Picked from the text to speech entities Home Assistant has. First available, the default, uses the first one. |
+| Chime first | Plays a chime before the words, on by default. |
+| Chime sound | The built-in two note chime, or a file from the sounds folder like the [notification sound](#sounds). Plays at the notification volume. |
 
 ```yaml
-- action: esphome.kitchen_tablet_intercom_announce
+- action: esphome.kitchen_tablet_announce
   data:
-    target: all
     message: Dinner is ready
     url: ""
-    override: false
 ```
+
+Leave `url` empty to speak the message, or leave `message` empty and give a `url` to play a file. The action answers with the clip's length in milliseconds through `response_variable`, and reports an error when announcements are off, the kiosk is in an intercom call, or Home Assistant could not speak the message. A message needs the kiosk's Home Assistant connection.
 
 ## GPS Sensor
 

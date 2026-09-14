@@ -116,9 +116,6 @@ class IntercomCall {
   /// clip, not the microphone, and the card offers Stop alone.
   bool automated = false;
 
-  /// Whether the receivers were asked to play it even on Do not disturb.
-  bool override = false;
-
   /// The broadcast's recipients, by kiosk id: `listening`, `busy`, `dnd`,
   /// `off`, `unreachable`, `key`.
   final targets = <String, Map<String, Object?>>{};
@@ -749,7 +746,7 @@ class IntercomManager extends Manager {
       )
       ..register(
         Command(
-          name: 'intercomTtsEngines',
+          name: 'announcementTtsEngines',
           description:
               "Home Assistant's text to speech entities, for the engine "
               'picker: id and name each.',
@@ -764,15 +761,13 @@ class IntercomManager extends Manager {
       )
       ..register(
         Command(
-          name: 'intercomAnnounce',
+          name: 'announce',
           description:
-              'Play a one way announcement on a kiosk or on all of them: a '
-              'message Home Assistant speaks, or an audio URL.',
+              'Play an announcement on this kiosk: a message Home Assistant '
+              'speaks, or an audio URL, with a chime first.',
           params: const {
-            'target': "A kiosk's IP address, or all (empty means all)",
             'message': 'What to say, through Home Assistant text to speech',
             'url': 'An audio file to play instead of a message',
-            'override': 'true to play on kiosks set to Do not disturb',
           },
           handler: (p) async => _announce(p),
         ),
@@ -958,24 +953,20 @@ class IntercomManager extends Manager {
   /// microphone, and the announcement ends when the clip does.
   Future<CommandResult> _startBroadcast(
     List<IntercomKiosk> targets, {
-    bool override = false,
     Uint8List? audio,
     bool playLocally = false,
   }) async {
     _holdTimer?.cancel();
     _missedTimer?.cancel();
     final id = _callId();
-    final c =
-        IntercomCall(
-            id: id,
-            kind: 'broadcast',
-            outgoing: true,
-            peer: targets.isEmpty
-                ? {'id': _selfId, 'name': _selfName, 'address': _selfAddress}
-                : _peerOf(targets.first),
-          )
-          ..automated = audio != null
-          ..override = override;
+    final c = IntercomCall(
+      id: id,
+      kind: 'broadcast',
+      outgoing: true,
+      peer: targets.isEmpty
+          ? {'id': _selfId, 'name': _selfName, 'address': _selfAddress}
+          : _peerOf(targets.first),
+    )..automated = audio != null;
     for (final k in targets) {
       c.targets[k.id] = {'id': k.id, 'name': k.name, 'status': 'calling'};
     }
@@ -1060,45 +1051,20 @@ class IntercomManager extends Manager {
 
   // ── Announcements from Home Assistant ──────────────────────────────
 
-  /// The action: a kiosk by its address (its device name is taken too),
-  /// or `all`, a message for Home Assistant's text to speech or an audio
-  /// URL, and whether Do not disturb is overridden on the receivers.
+  /// The `announce` action: a message for Home Assistant's text to speech
+  /// or an audio URL, played on this kiosk alone with a chime first. Its
+  /// own feature under ESPHome, Announcements; the intercom only lends
+  /// it the playback sink and the card.
   Future<CommandResult> _announce(Map<String, Object?> p) async {
-    if (!enabled) return const CommandResult.fail('intercom is off');
-    if (!available) return const CommandResult.fail('needs the remote admin');
-    if (_busy) return const CommandResult.fail('already in a call');
-    final target = '${p['target'] ?? ''}'.trim();
+    if (!_settings.get(defs.announcementsEnabled)) {
+      return const CommandResult.fail('announcements are off');
+    }
+    if (_busy) return const CommandResult.fail('in a call');
     final message = '${p['message'] ?? ''}'.trim();
     final url = '${p['url'] ?? ''}'.trim();
-    final override = p['override'] == true;
     if (message.isEmpty && url.isEmpty) {
       return const CommandResult.fail('message or url required');
     }
-    await _readFleet();
-    await _probeAll();
-    // Who gets it.
-    var self = false;
-    final targets = <IntercomKiosk>[];
-    final lower = target.toLowerCase();
-    if (target.isEmpty || lower == 'all') {
-      self = true;
-      for (final k in _kiosks.values) {
-        final st = k.status(keyFingerprint);
-        if (st == 'ready' || (override && st == 'dnd')) targets.add(k);
-      }
-    } else if (lower == _selfName.toLowerCase() ||
-        target == _selfAddress ||
-        lower == 'this' ||
-        lower == 'self') {
-      self = true;
-    } else {
-      final k = _kiosks.values
-          .where((k) => k.name.toLowerCase() == lower || k.address == target)
-          .firstOrNull;
-      if (k == null) return CommandResult.fail('no kiosk named $target');
-      targets.add(k);
-    }
-    // The audio.
     final source = url.isNotEmpty ? url : await _ttsUrl(message);
     if (source == null) {
       return const CommandResult.fail('Home Assistant could not speak it');
@@ -1109,21 +1075,7 @@ class IntercomManager extends Manager {
     if (pcm == null || pcm.isEmpty) {
       return const CommandResult.fail('could not decode the audio');
     }
-    if (targets.isEmpty) return _playHere(pcm);
-    return _startBroadcast(
-      targets,
-      override: override,
-      audio: pcm,
-      playLocally: self,
-    );
-  }
-
-  /// An announcement for this kiosk alone: the card says Home Assistant
-  /// is announcing, the clip plays, the card closes.
-  Future<CommandResult> _playHere(Uint8List pcm) async {
-    if (!_settings.get(defs.intercomAcceptAnnouncements)) {
-      return const CommandResult.fail('announcements are off here');
-    }
+    if (_busy) return const CommandResult.fail('in a call');
     _holdTimer?.cancel();
     _missedTimer?.cancel();
     final c = IntercomCall(
@@ -1135,15 +1087,40 @@ class IntercomManager extends Manager {
     _call = c;
     await _comeForward();
     _setState('listening');
-    unawaited(_ring(short: true));
-    await _startPlayback();
+    if (_settings.get(defs.announcementsChime)) {
+      await _announcementChime();
+    }
+    // The assistant fader: an announcement is speech from Home Assistant,
+    // like Voice Satellite's, not the other kiosk's voice.
+    final pct = _settings.get(defs.assistantVolume).toDouble().clamp(0, 100);
+    await _startPlayback(volume: (pct / 100) * (pct / 100));
     c.since = DateTime.now();
+    log.info(name, 'announcement from Home Assistant, ${pcm.length ~/ 32} ms');
     unawaited(
       _streamClip(c, pcm, local: true).then((_) {
         if (_call == c && _state == 'listening') _finish('broadcast_over');
       }),
     );
-    return CommandResult.ok({'self': true, 'ms': pcm.length ~/ 32});
+    return CommandResult.ok({'ms': pcm.length ~/ 32});
+  }
+
+  /// The chime before an announcement: the picked sound file through the
+  /// chime player, else the built-in two note chime the native sink
+  /// synthesizes. Waits for it, so the words start after it.
+  Future<void> _announcementChime() async {
+    final volume = _settings
+        .get(defs.notificationsVolume)
+        .toDouble()
+        .clamp(0.0, 1.0);
+    final sound = _settings.get(defs.announcementsChimeFile).trim();
+    final path = sound.isEmpty ? null : await NotificationSounds.resolve(sound);
+    if (path != null) {
+      await commands.execute('playChime', {'source': path, 'volume': volume});
+      await Future<void>.delayed(const Duration(milliseconds: 900));
+      return;
+    }
+    await audio.chime(volume: volume);
+    await Future<void>.delayed(const Duration(milliseconds: 1100));
   }
 
   /// Home Assistant's `tts.*` entities as `{entity_id, name}`, or null
@@ -1181,7 +1158,7 @@ class IntercomManager extends Manager {
     final base = _haBase;
     final token = _settings.get(defs.haToken);
     if (base.isEmpty || token.isEmpty) return null;
-    var engine = _settings.get(defs.intercomTtsEngine).trim();
+    var engine = _settings.get(defs.announcementsTtsEngine).trim();
     if (engine.isEmpty) {
       final engines = await _ttsEngines();
       engine = engines == null || engines.isEmpty
@@ -1238,12 +1215,7 @@ class IntercomManager extends Manager {
   Future<void> _inviteBroadcast(IntercomCall c, IntercomKiosk k) async {
     final res = await _post(
       '${k.url}/api/intercom/call',
-      {
-        'call': c.id,
-        'kind': 'broadcast',
-        'from': _selfInfo(),
-        'override': c.override,
-      },
+      {'call': c.id, 'kind': 'broadcast', 'from': _selfInfo()},
       token: _tokens.issueToken(
         ttl: const Duration(seconds: 60),
         claims: {'intercom': c.id, 'from': _selfId, 'n': _nonce()},
@@ -1296,21 +1268,13 @@ class IntercomManager extends Manager {
     if (!_verifyToken('${p['token'] ?? ''}', callId)) {
       return CommandResult.ok({'status': 'key', 'code': 403});
     }
-    final announcement = kind == 'broadcast';
-    final override = p['override'] == true;
-    // Accept announcements off refuses every one way announcement, the
-    // action's override included. Lockdown Mode refuses everything. Do
-    // not disturb refuses unless an announcement carries the override.
-    if (announcement && !_settings.get(defs.intercomAcceptAnnouncements)) {
+    // Accept announcements off refuses Announce to all. Lockdown Mode
+    // and Do not disturb refuse everything.
+    if (kind == 'broadcast' &&
+        !_settings.get(defs.intercomAcceptAnnouncements)) {
       return CommandResult.ok({'status': 'refused'});
     }
-    if (_settings.get(defs.lockdownEnabled)) {
-      return CommandResult.ok({'status': 'dnd'});
-    }
-    if (_settings.get(defs.intercomAnswerMode) == 'dnd' &&
-        !(announcement && override)) {
-      return CommandResult.ok({'status': 'dnd'});
-    }
+    if (dnd) return CommandResult.ok({'status': 'dnd'});
     if (_busy) return CommandResult.ok({'status': 'busy'});
     final peer = {
       'id': '${from['id']}',
@@ -1599,9 +1563,9 @@ class IntercomManager extends Manager {
     await sub?.cancel();
   }
 
-  Future<void> _startPlayback() async {
+  Future<void> _startPlayback({double? volume}) async {
     if (audio.open) return;
-    final ok = await audio.start(volume: _playbackGain());
+    final ok = await audio.start(volume: volume ?? _playbackGain());
     if (!ok) log.warn(name, 'playback could not open');
   }
 

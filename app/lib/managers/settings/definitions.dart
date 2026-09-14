@@ -232,6 +232,7 @@ const Map<String, String> subpageHints = {
   'Lyrics': 'Synchronized lyrics, their source and timing',
   // ESPHome.
   'Notifications': 'Transparency, blur, notification sound, test notification',
+  'Announcements': 'Spoken announcements from Home Assistant',
   'Bluetooth Proxy': 'Relay nearby Bluetooth devices to Home Assistant',
   'GPS Sensor': 'Expose GPS sensor data to Home Assistant',
   'Advanced settings': 'Real or spoofed Wi-Fi MAC address',
@@ -6189,6 +6190,67 @@ String? validateNotificationSound(Object? value) {
   return 'Pick an MP3, OGG, WAV, FLAC, M4A or AAC file.';
 }
 
+// ── Announcements (subpage under ESPHome) ──
+// Home Assistant speaks on this kiosk through the `announce` ESPHome
+// action: a message its text to speech turns into audio, or an audio
+// URL, decoded and played here, with a chime first. No other kiosk is
+// involved, unlike the intercom's Announce to all.
+
+const announcementsEnabled = SettingDef<bool>(
+  key: 'announcements.enabled',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Enable announcements',
+  description:
+      'Play the announcements Home Assistant sends with the announce action.',
+  category: 'ESPHome',
+  subpage: 'Announcements',
+  dependsOn: 'esphome.enabled',
+);
+
+/// The Home Assistant text to speech entity the announce action speaks
+/// with; empty picks the first one Home Assistant has. Picked from the
+/// list, never typed.
+const announcementsTtsEngine = SettingDef<String>(
+  key: 'announcements.tts_engine',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Text to speech engine',
+  description:
+      'The Home Assistant text to speech entity that speaks announcements.',
+  category: 'ESPHome',
+  subpage: 'Announcements',
+  dependsOn: 'announcements.enabled',
+  placeholder: 'First available',
+);
+
+const announcementsChime = SettingDef<bool>(
+  key: 'announcements.chime',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Chime first',
+  description: 'Play a chime before the announcement.',
+  category: 'ESPHome',
+  section: 'Chime',
+  subpage: 'Announcements',
+  dependsOn: 'announcements.enabled',
+);
+
+/// A file in the sounds folder like the notification sound, or empty for
+/// the built-in announcement chime. Plays at the notification volume.
+const announcementsChimeFile = SettingDef<String>(
+  key: 'announcements.chime_file',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Chime sound',
+  description: 'Plays at the notification volume.',
+  category: 'ESPHome',
+  section: 'Chime',
+  subpage: 'Announcements',
+  dependsOn: 'announcements.chime',
+  validator: validateNotificationSound,
+);
+
 /// Independent of the mixer's faders on purpose: a notification is not
 /// assistant speech and not media, and its loudness should not move when
 /// either of those sliders does. Only the device's own master volume
@@ -6672,35 +6734,16 @@ const intercomRingSound = SettingDef<String>(
   validator: validateNotificationSound,
 );
 
-/// Off, the kiosk refuses every one way announcement: from another kiosk's
-/// Announce to all and from Home Assistant's action alike, override or
-/// not. The one switch that beats the action.
+/// Off, the kiosk refuses Announce to all from the other kiosks.
 const intercomAcceptAnnouncements = SettingDef<bool>(
   key: 'intercom.accept_announcements',
   type: SettingType.boolean,
   defaultValue: true,
   title: 'Accept announcements',
-  description:
-      'Play one way announcements from other kiosks and Home Assistant.',
+  description: 'Play Announce to all from the other kiosks.',
   category: 'Intercom',
   section: 'Answer',
   dependsOn: 'intercom.enabled',
-);
-
-/// The Home Assistant text to speech entity the announce action speaks
-/// with; empty picks the first one Home Assistant has.
-const intercomTtsEngine = SettingDef<String>(
-  key: 'intercom.tts_engine',
-  type: SettingType.string,
-  defaultValue: '',
-  title: 'Text to speech engine',
-  description:
-      'The Home Assistant text to speech entity that speaks announcements '
-      'sent from Home Assistant.',
-  category: 'Intercom',
-  section: 'Answer',
-  dependsOn: 'intercom.enabled',
-  placeholder: 'First available',
 );
 
 const intercomTalkMode = SettingDef<String>(
@@ -7599,6 +7642,10 @@ const List<SettingDef<Object>> allSettings = [
   notificationsBlur,
   notificationsChimeFile,
   notificationsVolume,
+  announcementsEnabled,
+  announcementsTtsEngine,
+  announcementsChime,
+  announcementsChimeFile,
   btproxyEnabled,
   btproxyScanDuty,
   btproxyConnections,
@@ -7648,6 +7695,5 @@ const List<SettingDef<Object>> allSettings = [
   intercomRingSeconds,
   intercomRingSound,
   intercomAcceptAnnouncements,
-  intercomTtsEngine,
   intercomTalkMode,
 ];

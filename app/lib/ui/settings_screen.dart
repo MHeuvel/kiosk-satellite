@@ -2669,10 +2669,12 @@ class _CategoryContentState extends State<_CategoryContent> {
           onChanged: null,
         ),
       ),
-    // The text to speech engine is picked from Home Assistant's list, not
-    // typed. Mirrored on the remote (intercom.js).
-    if (widget.category == 'Intercom')
-      intercomTtsEngine.key: IntercomTtsEngineRow(container: container),
+    // The announcements' text to speech engine is picked from Home
+    // Assistant's list, not typed. Mirrored on the remote (intercom.js).
+    if (widget.category == 'ESPHome')
+      announcementsTtsEngine.key: AnnouncementTtsEngineRow(
+        container: container,
+      ),
     // No echo canceller on this platform: hands free would howl, so the
     // manager forces push to talk and the row says why. Mirrored on the
     // remote (intercom.js).
@@ -9346,7 +9348,8 @@ class SettingTile extends StatelessWidget {
         // folder, and a row to put a file of this device's into it. The
         // intercom's ring sound is picked from the same folder.
         if (def.key == notificationsChimeFile.key ||
-            def.key == intercomRingSound.key) {
+            def.key == intercomRingSound.key ||
+            def.key == announcementsChimeFile.key) {
           return _NotificationSoundTile(
             key: ValueKey('sound-${def.key}'),
             container: c,

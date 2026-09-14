@@ -1116,18 +1116,15 @@ class EspEntitySurface {
         {'name': 'package_name', 'type': 'string'},
       ],
     },
-    // A one way intercom announcement: a kiosk by its IP address, or all
-    // of them; a message Home Assistant speaks,
-    // or an audio URL; whether Do not disturb is overridden on the
-    // receivers. Answers with what each kiosk did.
+    // An announcement on this kiosk: a message Home Assistant speaks or
+    // an audio URL, with a chime first (the Announcements page under
+    // ESPHome). Each kiosk is addressed through its own device.
     {
-      'name': 'intercom_announce',
+      'name': 'announce',
       'supportsResponse': true,
       'args': [
-        {'name': 'target', 'type': 'string'},
         {'name': 'message', 'type': 'string'},
         {'name': 'url', 'type': 'string'},
-        {'name': 'override', 'type': 'bool'},
       ],
     },
   ];
@@ -1207,12 +1204,10 @@ class EspEntitySurface {
         });
         if (!result.ok) throw StateError(result.error ?? 'refused');
         return const {};
-      case 'intercom_announce':
-        final result = await commands.execute('intercomAnnounce', {
-          'target': '${args['target'] ?? ''}',
+      case 'announce':
+        final result = await commands.execute('announce', {
           'message': '${args['message'] ?? ''}',
           'url': '${args['url'] ?? ''}',
-          'override': args['override'] == true,
         });
         if (!result.ok) throw StateError(result.error ?? 'refused');
         final data = result.data;

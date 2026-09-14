@@ -89,6 +89,10 @@ class IntercomAudio(context: Context, messenger: BinaryMessenger) {
                     result.success(null)
                 }
                 "stopRing" -> { stopRing(); result.success(null) }
+                "chime" -> {
+                    chime((call.argument<Double>("volume") ?: 1.0).toFloat().coerceIn(0f, 1f))
+                    result.success(null)
+                }
                 "decode" -> {
                     val bytes = call.arguments as? ByteArray
                     if (bytes == null) { result.success(null) }
@@ -375,6 +379,78 @@ class IntercomAudio(context: Context, messenger: BinaryMessenger) {
         track.play()
         // Release once it has played out, unless stopped first.
         val ms = total * 1000L / sr + 200
+        workerHandler.postDelayed({ if (ringTrack === track) stopRing() }, ms)
+    }
+
+    /**
+     * The built-in announcement chime: two soft bell notes, E6 then C6,
+     * each a sine with a quick attack and an exponential decay, the
+     * second starting under the first's tail. About a second.
+     */
+    private fun chime(volume: Float) {
+        stopRing()
+        val sr = 16000
+        val total = (sr * 1.1).toInt()
+        val pcm = ShortArray(total)
+        fun note(freq: Double, start: Int, length: Int, gain: Double) {
+            for (i in 0 until length) {
+                val idx = start + i
+                if (idx >= total) break
+                val t = i.toDouble() / sr
+                val attack = (i / (sr * 0.008)).coerceAtMost(1.0)
+                val env = attack * Math.exp(-t * 4.5)
+                val a = (Math.sin(2 * Math.PI * freq * t) + 0.25 * Math.sin(2 * Math.PI * freq * 2 * t)) * env * gain
+                val v = pcm[idx] + (a * Short.MAX_VALUE * 0.45).toInt()
+                pcm[idx] = v.coerceIn(-32768, 32767).toShort()
+            }
+        }
+        note(1318.5, 0, (sr * 0.9).toInt(), 1.0)
+        note(1046.5, (sr * 0.22).toInt(), (sr * 0.88).toInt(), 0.9)
+        playStatic(pcm, sr, volume, "chime")
+    }
+
+    /** Plays a synthesized clip on the media route at [volume], releasing it when done. */
+    private fun playStatic(pcm: ShortArray, sr: Int, volume: Float, what: String) {
+        val track = try {
+            AudioTrack.Builder()
+                .setAudioAttributes(
+                    AudioAttributes.Builder()
+                        .setUsage(AudioAttributes.USAGE_MEDIA)
+                        .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                        .build(),
+                )
+                .setAudioFormat(
+                    AudioFormat.Builder()
+                        .setSampleRate(sr)
+                        .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
+                        .setChannelMask(AudioFormat.CHANNEL_OUT_MONO)
+                        .build(),
+                )
+                .setTransferMode(AudioTrack.MODE_STATIC)
+                .setBufferSizeInBytes(pcm.size * 2)
+                .build()
+        } catch (e: Exception) {
+            Log.w(TAG, "$what track failed: ${e.message}")
+            return
+        }
+        if (track.state == AudioTrack.STATE_UNINITIALIZED) {
+            Log.w(TAG, "$what track init failed")
+            runCatching { track.release() }
+            return
+        }
+        val out = AudioRouting.currentOutput()
+        if (Build.VERSION.SDK_INT >= 28 && out != null) runCatching { track.preferredDevice = out }
+        val written = track.write(pcm, 0, pcm.size)
+        if (written != pcm.size || track.state != AudioTrack.STATE_INITIALIZED) {
+            Log.w(TAG, "$what track took $written of ${pcm.size} samples (state=${track.state})")
+            runCatching { track.release() }
+            return
+        }
+        Log.i(TAG, "$what at ${"%.2f".format(volume)}")
+        runCatching { track.setVolume(volume) }
+        ringTrack = track
+        track.play()
+        val ms = pcm.size * 1000L / sr + 200
         workerHandler.postDelayed({ if (ringTrack === track) stopRing() }, ms)
     }
 

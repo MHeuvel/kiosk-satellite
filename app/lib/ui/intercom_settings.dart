@@ -354,19 +354,21 @@ Future<bool> showIntercomKeyDialog(
 
 // ── The sheet ──────────────────────────────────────────────────────────
 
-/// The Text to speech engine row: the picked entity's name in a control
-/// box, and a tap opens the radio picker over every text to speech entity
-/// Home Assistant has, First available on top. Mirrored on the remote.
-class IntercomTtsEngineRow extends StatefulWidget {
-  const IntercomTtsEngineRow({super.key, required this.container});
+/// The Announcements page's Text to speech engine row: the picked
+/// entity's name in a control box, and a tap opens the radio picker over
+/// every text to speech entity Home Assistant has, First available on
+/// top. Mirrored on the remote.
+class AnnouncementTtsEngineRow extends StatefulWidget {
+  const AnnouncementTtsEngineRow({super.key, required this.container});
 
   final AppContainer container;
 
   @override
-  State<IntercomTtsEngineRow> createState() => _IntercomTtsEngineRowState();
+  State<AnnouncementTtsEngineRow> createState() =>
+      _AnnouncementTtsEngineRowState();
 }
 
-class _IntercomTtsEngineRowState extends State<IntercomTtsEngineRow> {
+class _AnnouncementTtsEngineRowState extends State<AnnouncementTtsEngineRow> {
   StreamSubscription<SettingChanged>? _sub;
   List<Map<String, String>> _engines = const [];
 
@@ -376,7 +378,7 @@ class _IntercomTtsEngineRowState extends State<IntercomTtsEngineRow> {
   void initState() {
     super.initState();
     _sub = c.bus.on<SettingChanged>().listen((e) {
-      if (e.key == defs.intercomTtsEngine.key && mounted) setState(() {});
+      if (e.key == defs.announcementsTtsEngine.key && mounted) setState(() {});
     });
     unawaited(_load());
   }
@@ -388,7 +390,7 @@ class _IntercomTtsEngineRowState extends State<IntercomTtsEngineRow> {
   }
 
   Future<bool> _load() async {
-    final r = await c.commands.execute('intercomTtsEngines', const {});
+    final r = await c.commands.execute('announcementTtsEngines', const {});
     if (!mounted || !r.ok || r.data is! List) return false;
     setState(() {
       _engines = [
@@ -419,7 +421,7 @@ class _IntercomTtsEngineRowState extends State<IntercomTtsEngineRow> {
       );
       return;
     }
-    final current = c.settings.get(defs.intercomTtsEngine).trim();
+    final current = c.settings.get(defs.announcementsTtsEngine).trim();
     final picked = await showRadioPicker<String>(
       context,
       title: 'Text to speech engine',
@@ -431,17 +433,17 @@ class _IntercomTtsEngineRowState extends State<IntercomTtsEngineRow> {
       selected: current,
     );
     if (picked == null) return;
-    await c.settings.set(defs.intercomTtsEngine, picked);
+    await c.settings.set(defs.announcementsTtsEngine, picked);
   }
 
   @override
   Widget build(BuildContext context) {
-    final current = c.settings.get(defs.intercomTtsEngine).trim();
+    final current = c.settings.get(defs.announcementsTtsEngine).trim();
     return SearchLandingTarget(
-      id: defs.intercomTtsEngine.key,
+      id: defs.announcementsTtsEngine.key,
       child: SettingsRow(
-        title: Text(defs.intercomTtsEngine.title),
-        subtitle: Text(defs.intercomTtsEngine.description),
+        title: Text(defs.announcementsTtsEngine.title),
+        subtitle: Text(defs.announcementsTtsEngine.description),
         trailing: ControlBox(
           onTap: _pick,
           child: Row(

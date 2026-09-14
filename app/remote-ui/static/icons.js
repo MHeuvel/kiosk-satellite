@@ -115,6 +115,8 @@ export const SUBPAGE_ICONS = {
   // ESPHome.
   'Notifications': svg('<path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15z"/>'
     + '<path d="M10 20a2 2 0 0 0 4 0"/>'),
+  'Announcements': svg('<path d="M3 10v4a1 1 0 0 0 1 1h3l8 4V5L7 9H4a1 1 0 0 0-1 1z"/>'
+    + '<path d="M18 9.5a3.5 3.5 0 0 1 0 5"/><path d="M7 15v4a1 1 0 0 0 1 1h1"/>'),
   'Bluetooth Proxy': svg('<path d="m6.5 7 11 10-5.5 5V2l5.5 5-11 10"/>'),
   'GPS Sensor': svg('<path d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11z"/>'
     + '<circle cx="12" cy="10" r="2.5"/>'),
