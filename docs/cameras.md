@@ -109,15 +109,17 @@ The countdown timer automatically resets if you tap to focus a camera, as that i
 
 When requesting a stream, Kiosk Satellite specifically asks for H.264, VP8, VP9, or AV1, deliberately excluding H.265. This is because Android WebViews often claim to support H.265 even when the physical hardware cannot decode it. When this happens, the stream connects and receives data, but fails to render a single frame. This results in a permanently blank screen with no errors in the logs to explain why.
 
-By purposefully blocking H.265, a Go2RTC server equipped with `ffmpeg` will automatically transcode the feed to H.264 so it plays properly. If the server lacks `ffmpeg`, it will throw a clear error that Kiosk Satellite records in the App Logs. Alternatively, you can often fix this at the source by switching your camera's output to H.264, or by tapping into a dedicated H.264 substream.
+By purposefully blocking H.265, a Go2RTC server that has an H.264 version of the stream will send that one. Go2RTC does not transcode on its own, so give the stream a second source that does it, like `ffmpeg:my_camera#video=h264` under the same stream name. Without one, Go2RTC answers `codecs not matched`, which Kiosk Satellite records in the App Logs. Alternatively, you can often fix this at the source by switching your camera's output to H.264, or by tapping into a dedicated H.264 substream.
 
 If you are running the app on a newer, high end device that legitimately supports H.265 decoding, you can toggle **Allow H.265 streams** (found under **Settings** > **Camera Streams** > **Playback**). Just be aware that if your device cannot actually handle it, you will get a blank image.
 
-Regardless of your settings, if a stream connects but fails to decode any frames, the app will display a warning directly on the camera tile and write a detailed log entry naming the problematic codec. This makes diagnosing blank cameras incredibly straightforward.
+Regardless of your settings, if a stream connects but fails to decode any frames, over WebRTC or MSE, the app will display a warning directly on the camera tile and write a detailed log entry naming the problematic codec. When a Go2RTC camera has both transports and neither one decodes the same codec, the tile stops switching between them and shows the warning. This makes diagnosing blank cameras incredibly straightforward.
 
 ## WebRTC and MSE
 
 Go2RTC cameras always attempt to stream over WebRTC first to take advantage of its near realtime latency. If WebRTC fails, they automatically fall back to MSE. A failure could mean a stream that connects but decodes nothing, a device that lacks WebRTC support entirely (like Amazon Fire tablets), or just repeated connection drops. When the app switches to MSE, it notes the change in the App Logs. MSE plays the video stream using standard buffering, which works on virtually every device, though it does introduce a second or two of delay.
+
+A WebRTC answer from Go2RTC includes any addresses listed under `candidates:` in its configuration. Go2RTC copies those entries into the answer without checking them, so an entry written like a TURN URL, such as `192.168.1.10:8555?transport=tcp`, produces a candidate with an invalid port that the WebView refuses along with the whole answer. Kiosk Satellite drops such candidates before using the answer and writes a warning to the App Logs naming the line. Keep those entries as `host:port`, with an optional `/tcp` or `/udp` suffix.
 
 If you are using a device you know struggles with WebRTC, you can enable **Prefer MSE over WebRTC** (**Settings** > **Camera Streams** > **Playback**). This reverses the priority, making MSE the default and WebRTC the fallback. It is also a great tool for testing. Note that this setting does not affect WHEP cameras (which are strictly WebRTC) or Home Assistant cameras (which use [their own fallback method](#home-assistant-cameras-and-hls)).
 

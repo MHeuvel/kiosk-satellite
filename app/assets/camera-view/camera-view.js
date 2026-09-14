@@ -107,6 +107,34 @@ function mseCodecLabel(mimeType) {
   return codec || 'this stream';
 }
 
+// Go2RTC copies its `candidates:` config into the answer's a=candidate
+// lines without checking the port, so an entry written the way a TURN url
+// is ("host:8555?transport=tcp") reaches the WebView as a port it refuses,
+// and setRemoteDescription throws the whole answer away over that one
+// line. Home Assistant's own player never sees this: Go2RTC's socket API
+// trickles those candidates one by one and a bad one fails alone. Drop
+// what the parser would refuse and say so (issue #543).
+function sanitizeAnswer(sdp, cameraId) {
+  return String(sdp || '').split(/\r?\n/).filter((line) => {
+    if (!/^a=candidate:/.test(line)) return true;
+    const port = line.split(' ')[5];
+    if (/^\d{1,5}$/.test(port) && Number(port) <= 65535) return true;
+    log(`${cameraId}: dropped an ICE candidate with port "${port}" from `
+      + 'the answer; check the candidates list in the Go2RTC config '
+      + `(${line})`, 'warn');
+    return false;
+  }).join('\r\n');
+}
+
+// What to do about a device that took H.265 and decoded none of it: the
+// setting that let H.265 through is the fix (issue #543).
+function decodeHint(label) {
+  return ALLOW_H265 && label === 'H.265'
+    ? '; turn off Allow H.265 streams under Camera Streams so the server '
+      + 'is asked for H.264'
+    : '';
+}
+
 function orientation() {
   return innerWidth >= innerHeight ? 'landscape' : 'portrait';
 }
@@ -288,7 +316,7 @@ async function start(cameraId, fullscreen) {
     wanted: true, pc: null, ws: null, hls: null, mediaSource: null,
     sourceBuffer: null, queue: [], video: null, img: null, retry: null,
     grace: null, decode: null, stallWatch: null, attempt: 0, modes,
-    modeIndex: 0, modeFailures: 0, fullscreen: !!fullscreen,
+    modeIndex: 0, modeFailures: 0, undecoded: null, fullscreen: !!fullscreen,
     audio: audioFor(cameraId),
   };
   sessions.set(cameraId, session);
@@ -358,6 +386,7 @@ async function start(cameraId, fullscreen) {
       try { session.hls.destroy(); } catch (_) {}
       session.hls = null;
     }
+    if (session.video) session.video.onerror = null;
     if (session.pc) {
       discard(session.pc);
       session.pc = null;
@@ -407,6 +436,7 @@ async function start(cameraId, fullscreen) {
       if (inbound.framesDecoded > 0) {
         clearInterval(session.decode);
         session.decode = null;
+        session.undecoded = null;
         // A session carrying sound says what its microphone track is doing:
         // "no audio received" is the answer to the first question a silent
         // baby monitor raises (issue #235).
@@ -425,16 +455,26 @@ async function start(cameraId, fullscreen) {
       session.decode = null;
       log(`${cameraId}: ${codec} stream connected `
         + `(${inbound.packetsReceived} packets, ${inbound.framesReceived} `
-        + 'frames) but decoded 0 frames; this device cannot play it', 'warn');
-      // The one failure that names WebRTC itself: connected, fed, decoding
-      // nothing. Where the camera has another transport, switch instead of
-      // parking an error on the tile (issue #160).
-      if (session.modes.length > 1) {
-        retry(`Trying ${nextModeLabel()}...`, true);
-      } else {
-        setStatus(cameraId, `This device cannot decode ${codec}`);
-      }
+        + 'frames) but decoded 0 frames; this device cannot play it'
+        + decodeHint(codec), 'warn');
+      undecodable(codec);
     }, DECODE_POLL_MS);
+  };
+
+  // The one failure that names the transport itself: connected, fed,
+  // decoding nothing. Where the camera has another transport, switch
+  // instead of parking an error on the tile (issue #160). A codec the other
+  // transport already delivered undecoded is not going to decode on this
+  // one either, so the second strike parks the answer rather than looping
+  // between the two every ten seconds (issue #543).
+  const undecodable = (label) => {
+    if (session.modes.length > 1 && session.undecoded !== label) {
+      session.undecoded = label;
+      retry(`Trying ${nextModeLabel()}...`, true);
+    } else {
+      releaseTransport();
+      setStatus(cameraId, `This device cannot decode ${label}`);
+    }
   };
 
   const modeName = () => session.modes[session.modeIndex];
@@ -587,8 +627,80 @@ async function start(cameraId, fullscreen) {
     const stale = () => !session.wanted || session.ws !== ws;
     let mime = null;
     let opened = false;
-    let playingLogged = false;
+    let watching = false;
     let lastDataAt = performance.now();
+
+    // MSE's twin of watchDecode: the source buffer takes every segment
+    // whether or not the device has a decoder for them, so an H.265 stream
+    // on a device that advertises H.265 and cannot play it sat black behind
+    // a "playing" log line, with nothing else to read (issue #543).
+    const watchMseDecode = () => {
+      clearInterval(session.decode);
+      let waited = 0;
+      session.decode = setInterval(() => {
+        if (stale()) {
+          clearInterval(session.decode);
+          session.decode = null;
+          return;
+        }
+        waited += DECODE_POLL_MS;
+        const quality = video.getVideoPlaybackQuality
+          ? video.getVideoPlaybackQuality() : null;
+        const decoding = quality
+          ? quality.totalVideoFrames > 0
+          : video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA;
+        if (decoding) {
+          clearInterval(session.decode);
+          session.decode = null;
+          session.undecoded = null;
+          session.attempt = 0;
+          session.modeFailures = 0;
+          log(`${cameraId}: playing over MSE (${mime}`
+            + (video.videoWidth ? `, ${video.videoWidth}x${video.videoHeight}` : '')
+            + ')');
+          bridge('cameraPlaying', cameraId);
+          return;
+        }
+        if (waited < DECODE_GRACE_MS) return;
+        clearInterval(session.decode);
+        session.decode = null;
+        failedToDecode('decoded 0 frames');
+      }, DECODE_POLL_MS);
+    };
+
+    // The decoder refusing what the source buffer accepted surfaces as a
+    // media element error, not as anything on the socket, and every append
+    // after it throws because the element is already in error. Either way
+    // the failure names the codec, not the network, and used to read as
+    // "playing" followed by "Reconnecting..." every two seconds for as
+    // long as the view stayed up (issue #543).
+    const failedToDecode = (detail) => {
+      const label = mseCodecLabel(mime);
+      log(`${cameraId}: ${label} stream over MSE ${detail}; this device `
+        + `cannot play it${decodeHint(label)}`, 'warn');
+      undecodable(label);
+    };
+    const decodeError = () => {
+      const error = video.error;
+      if (!error) return '';
+      const named = error.code === MediaError.MEDIA_ERR_DECODE ||
+        error.code === MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED;
+      return named
+        ? `failed to decode (media error ${error.code}`
+          + (error.message ? `: ${error.message})` : ')')
+        : '';
+    };
+    video.onerror = () => {
+      if (stale()) return;
+      const detail = decodeError();
+      if (detail) {
+        failedToDecode(detail);
+      } else {
+        log(`${cameraId}: MSE media error `
+          + `${video.error ? video.error.code : '?'}`, 'warn');
+        retry(() => 'Reconnecting...');
+      }
+    };
 
     // Appends run strictly one at a time; everything else queues. When the
     // queue is idle, trim the back buffer so an all-day view never grows an
@@ -603,8 +715,13 @@ async function start(cameraId, fullscreen) {
         try {
           buffer.appendBuffer(session.queue.shift());
         } catch (error) {
-          log(`${cameraId}: MSE append failed: ${error}`, 'warn');
-          retry(() => 'Reconnecting...');
+          const detail = decodeError();
+          if (detail) {
+            failedToDecode(detail);
+          } else {
+            log(`${cameraId}: MSE append failed: ${error}`, 'warn');
+            retry(() => 'Reconnecting...');
+          }
         }
         return;
       }
@@ -667,13 +784,10 @@ async function start(cameraId, fullscreen) {
       }
       lastDataAt = performance.now();
       session.queue.push(event.data);
-      if (!playingLogged && session.sourceBuffer) {
-        playingLogged = true;
-        session.attempt = 0;
-        session.modeFailures = 0;
+      if (!watching && session.sourceBuffer) {
+        watching = true;
         setStatus(cameraId, '');
-        log(`${cameraId}: playing over MSE (${mime})`);
-        bridge('cameraPlaying', cameraId);
+        watchMseDecode();
       }
       pump();
     };
@@ -915,7 +1029,10 @@ async function start(cameraId, fullscreen) {
       if (!signaling || signaling.ok !== true) {
         throw new Error(signaling && signaling.error || 'signaling failed');
       }
-      await pc.setRemoteDescription({ type: 'answer', sdp: signaling.answer });
+      await pc.setRemoteDescription({
+        type: 'answer',
+        sdp: sanitizeAnswer(signaling.answer, cameraId),
+      });
     } catch (error) {
       log(`connect ${cameraId}: ${error}`);
       const headline = signalingFailure(signaling);
