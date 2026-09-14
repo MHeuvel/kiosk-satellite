@@ -20,7 +20,7 @@ A core rule applies to all media sources: both the floating player card and the 
 | --- | --- | --- |
 | Player source | This device | Selects what the floating player and Now Playing view display and control: the native Sendspin player, or an external player from Home Assistant, Music Assistant, or a Sonos household. Selecting an external source takes the local Sendspin player offline. |
 | Player | Sendspin Player | When "This device" is selected, it defaults to the native Sendspin player. For external sources, this dropdown populates with players available from that specific provider. |
-| Duck volume during voice interactions | 10% | Lowers the selected player to this percentage of its current volume during voice interactions, then restores its previous volume. Applies to every source with volume control. Sonos groups restore each room to its own previous level. The maximum is 25%. |
+| Duck volume during voice interactions | 10% | Lowers the selected player to this percentage of its current volume during voice interactions and intercom calls, then restores its previous volume. Applies to every source with volume control. Capped at 25% so the microphone still hears you. |
 | Volume buttons control the player | Off | Routes the device's hardware volume buttons to the followed player in 5% steps, either only while the Now Playing view is on screen or whenever the player is playing. Shown for an external player source only. With "This device" as the source the buttons keep changing the device's own volume. The mute button mutes the player. While the Now Playing view is up, a press shows its volume slider for a moment. Lockdown and "Disable volume buttons" under Kiosk still leave the buttons dead. |
 | Album art cache | Automatic | Shows the disk space used by queue thumbnails and offers a Clear button. Covers are resized to at most 256 pixels and stored across app restarts, with a 100 MB limit. Older entries are evicted automatically. Clearing also removes thumbnails from memory. |
 
@@ -222,7 +222,7 @@ The **Lyrics timing** setting applies a global offset (defaulting to +0.3 second
 
 The selected media player works with the voice assistant:
 
-* **Audio Ducking**: Music drops to the configured percentage during voice turns, announcements, questions and timers. It returns to its previous volume after the last interaction ends. Local Sendspin playback uses audio gain without changing the system volume. Music Assistant, Home Assistant and Sonos use temporary volume commands to the selected player. Changing players restores the previous player before closing its connection.
+* **Audio Ducking**: Music drops to the configured percentage during voice turns, announcements, questions, timers and intercom calls. It returns to its previous volume after the last interaction ends. Local Sendspin playback uses audio gain without changing the system volume. Music Assistant, Home Assistant and Sonos use temporary volume commands to the selected player. Changing players restores the previous player before closing its connection.
 * **Stop Command**: Saying the wake word followed by "stop" silences active music or alerts.
 * **Screensaver Management**: Active audio playback suppresses standard screensavers. Dashboard view rotation and home return timers continue operating in the background unless Hold Mode is engaged.
 

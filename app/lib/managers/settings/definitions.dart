@@ -5061,10 +5061,8 @@ const sendspinDuckPercent = SettingDef<num>(
   defaultValue: 10,
   title: 'Duck volume during voice interactions',
   description:
-      'While the assistant listens or speaks, music drops to this '
-      'fraction of its volume so the microphone hears you. Capped at '
-      '25% to keep detection reliable. Applies to every player source '
-      'with volume control and restores the previous volume afterward.',
+      'Music drops to this share of its volume during voice interactions '
+      'and intercom calls, then comes back.',
   category: 'Sendspin',
   min: 0,
   max: 25,
