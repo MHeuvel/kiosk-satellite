@@ -10,6 +10,7 @@ import 'no_cache_script.dart';
 import 'dashboard_camera_script.dart';
 import 'dashboard_state.dart';
 import 'visibility_mask_script.dart';
+import 'webview_snapshot_width.dart';
 
 import '../../core/command_registry.dart';
 import '../../core/events.dart';
@@ -624,11 +625,17 @@ class BrowserManager extends Manager with WidgetsBindingObserver {
               // works.
               controller = _controller;
               if (controller != null) {
+                final view =
+                    WidgetsBinding.instance.platformDispatcher.implicitView;
                 final bytes = await controller.takeScreenshot(
                   screenshotConfiguration: ScreenshotConfiguration(
                     compressFormat: CompressFormat.JPEG,
                     quality: quality,
-                    snapshotWidth: width > 0 ? width.toDouble() : null,
+                    snapshotWidth: webViewSnapshotWidth(
+                      width: width,
+                      physicalWidth: view?.physicalSize.width ?? 0,
+                      devicePixelRatio: view?.devicePixelRatio ?? 0,
+                    ),
                   ),
                 );
                 if (bytes != null) {

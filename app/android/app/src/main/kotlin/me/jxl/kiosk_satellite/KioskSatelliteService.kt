@@ -122,10 +122,30 @@ class KioskSatelliteService : Service() {
          * [status], not thrown.
          */
         fun ensureRunning(context: Context) {
+            // Already up and in the foreground: nothing to start, and no
+            // deadline to arm. Every resume of the Activity lands here.
+            if (instance != null && isForeground) return
+            val intent = Intent(context, KioskSatelliteService::class.java)
             try {
-                ContextCompat.startForegroundService(
-                    context, Intent(context, KioskSatelliteService::class.java),
-                )
+                // From a resumed Activity the app is in the foreground, so a
+                // plain start is allowed and startForeground still follows
+                // in onCreate. startForegroundService is only for the
+                // background, where it buys the start; its price is a ten
+                // second deadline for startForeground, and a resume that
+                // stalls the main thread (a slow tablet rebuilding the
+                // dashboard, the Dart UI thread being the main thread) made
+                // Android kill the app over the deadline from onResume.
+                // Without it, a stall simply delays the foreground call.
+                if (ActivityState.resumed) {
+                    context.startService(intent)
+                    return
+                }
+            } catch (e: Exception) {
+                // Not in the foreground after all: the exempted path below.
+                Log.w(TAG, "plain start refused, going foreground: $e")
+            }
+            try {
+                ContextCompat.startForegroundService(context, intent)
             } catch (e: Exception) {
                 Log.w(TAG, "start refused: $e")
                 context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit()
@@ -231,9 +251,13 @@ class KioskSatelliteService : Service() {
      * is refused as a while-in-use violation, and that must not cost the
      * exemption itself. If even the base type is refused (a background
      * start without any of the grants that permit one), the service stops
-     * itself at once: a started service that never reaches the foreground
-     * is a crash on Android 8+ five seconds later, and the next resume of
-     * the Activity starts it again from a context that is always allowed.
+     * itself at once, and the next resume of the Activity starts it again
+     * from a context that is always allowed. A service started with
+     * startForegroundService owes Android a startForeground call either
+     * way: stopping it first is the same "did not then call
+     * startForeground" kill as the deadline, so a refusal there is a crash
+     * whatever the service does. A plain start (see [ensureRunning]) owes
+     * nothing and stops quietly.
      */
     private fun refresh() {
         val prefs = getSharedPreferences(PREFS, Context.MODE_PRIVATE)
