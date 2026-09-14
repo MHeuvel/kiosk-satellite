@@ -826,6 +826,19 @@ void main() {
       expect(states.any((s) => s['state'] == 'ended'), isTrue);
     });
 
+    test('repeat plays the clip that many times with a pause', () async {
+      await build(prefs: {'ks.announcements.chime': false});
+      answers['GET /a.mp3'] = (_) => http.Response.bytes([9], 200);
+      final r = await commands.execute('announce', {
+        'url': 'http://sounds.local/a.mp3',
+        'repeat': 3,
+      });
+      expect(r.ok, isTrue, reason: r.error);
+      // Three seconds of clip and two pauses of 600 ms.
+      expect((r.data as Map)['ms'], 3000 + 1200);
+      await commands.execute('intercomHangup', const {});
+    });
+
     test('Enable announcements off refuses the action', () async {
       await build(prefs: {'ks.announcements.enabled': false});
       final r = await commands.execute('announce', {'message': 'Hello'});

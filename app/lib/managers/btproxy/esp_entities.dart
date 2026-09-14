@@ -1135,6 +1135,8 @@ class EspEntitySurface {
         // A share of the master volume for this one announcement; 0 keeps
         // the media volume (the action cannot leave a number out).
         {'name': 'volume', 'type': 'float'},
+        // Plays it that many times, a short pause between; 0 is once.
+        {'name': 'repeat', 'type': 'int'},
       ],
     },
   ];
@@ -1219,6 +1221,7 @@ class EspEntitySurface {
           'message': '${args['message'] ?? ''}',
           'url': '${args['url'] ?? ''}',
           'volume': args['volume'] ?? 0,
+          'repeat': args['repeat'] ?? 0,
         });
         if (!result.ok) throw StateError(result.error ?? 'refused');
         final data = result.data;

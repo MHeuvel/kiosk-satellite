@@ -775,6 +775,8 @@ class IntercomManager extends Manager {
             'volume':
                 'A share of the master volume, 0..1, instead of the media '
                 'volume; 0 or missing keeps the media volume',
+            'repeat':
+                'How many times to play it, 1 to 10; 0 or missing is once',
           },
           handler: (p) async => _announce(p),
         ),
@@ -1078,10 +1080,16 @@ class IntercomManager extends Manager {
     }
     final bytes = await _fetchAudio(source);
     if (bytes == null) return CommandResult.fail('could not fetch $source');
-    final pcm = await audio.decode(bytes);
-    if (pcm == null || pcm.isEmpty) {
+    final decoded = await audio.decode(bytes);
+    if (decoded == null || decoded.isEmpty) {
       return const CommandResult.fail('could not decode the audio');
     }
+    // Repeat: the clip that many times with a short pause between, the
+    // chime once before. Ten at most, the action's 0 means once.
+    final asked = p['repeat'];
+    final repeat = (asked is num ? asked.toInt() : int.tryParse('$asked') ?? 1)
+        .clamp(1, 10);
+    final pcm = repeat == 1 ? decoded : _repeated(decoded, repeat);
     if (_busy) return const CommandResult.fail('in a call');
     _holdTimer?.cancel();
     _missedTimer?.cancel();
@@ -1104,10 +1112,10 @@ class IntercomManager extends Manager {
     // share of the master, 0..1, on the same squared taper the faders
     // use. 0 or less (the action cannot leave a number out) means the
     // fader.
-    final asked = p['volume'];
-    final askedVolume = asked is num
-        ? asked.toDouble()
-        : double.tryParse('$asked') ?? 0;
+    final askedVolumeRaw = p['volume'];
+    final askedVolume = askedVolumeRaw is num
+        ? askedVolumeRaw.toDouble()
+        : double.tryParse('$askedVolumeRaw') ?? 0;
     final share = askedVolume > 0
         ? askedVolume.clamp(0.0, 1.0)
         : _settings.get(defs.mediaVolume).toDouble().clamp(0, 100) / 100;
@@ -1120,6 +1128,18 @@ class IntercomManager extends Manager {
       }),
     );
     return CommandResult.ok({'ms': pcm.length ~/ 32});
+  }
+
+  /// [clip] [times] over with 600 ms of silence between, for repeat.
+  static Uint8List _repeated(Uint8List clip, int times) {
+    const gap = 16000 * 2 * 600 ~/ 1000;
+    final out = Uint8List(clip.length * times + gap * (times - 1));
+    var at = 0;
+    for (var i = 0; i < times; i++) {
+      out.setRange(at, at + clip.length, clip);
+      at += clip.length + gap;
+    }
+    return out;
   }
 
   /// The chime before an announcement: the picked sound file through the
