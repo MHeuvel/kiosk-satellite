@@ -4,6 +4,9 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ## Unreleased
 
+### Fixed
+- **The wake word self-heal no longer cuts a voice turn short.** After a wake word the app waits for Voice Satellite to hand the microphone back, and re-arms itself when the page never does. That timer counted from the wake word alone, so a "Resume timeout" set below the length of a turn ended every turn before any speech reached Home Assistant, and even the default of sixty seconds could cut off a long conversation. The self-heal now waits while the turn's audio stream is open and checks again once it closes, so a page that vanishes after its turn is still recovered, and a stream left open by a page lost mid-turn is closed after ten minutes.
+
 ### Changed
 - **The About page links to kiosksatellite.com.** A Website row sits under Author on the device and in the remote admin.
 - **The app and the remote admin link to the documentation on kiosksatellite.com.** The Analytics, Updates, update helper and Fleet management pages used to open the raw Markdown on GitHub; they now open the rendered guides on the website.

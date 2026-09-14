@@ -4181,7 +4181,8 @@ const wakeWordResumeTimeoutSeconds = SettingDef<num>(
   title: 'Resume timeout (seconds)',
   description:
       'Self-heal: resume listening if the page never calls '
-      'setWakeWordActive(true) after a handoff.',
+      'setWakeWordActive(true) after a handoff. Waits while a voice turn is '
+      'still streaming audio, so a long turn is never cut short.',
   category: 'Voice Satellite',
   subpage: 'Wake Word',
   dependsOn: 'wake_word.enabled',

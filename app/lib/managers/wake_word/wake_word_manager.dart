@@ -43,7 +43,12 @@ import 'vsww/vsww_engine.dart';
 /// WakeWordDetected is published, so the page may open getUserMedia the
 /// moment its event listener fires.
 class WakeWordManager extends Manager implements NativeAudioSource {
-  WakeWordManager(super.bus, super.commands, super.log, this._settings);
+  /// [engines] pre-seeds the per-runner engine map: a test hands in a fake
+  /// that runs without models or a microphone. Production leaves it empty
+  /// and the real engines are created lazily below.
+  WakeWordManager(super.bus, super.commands, super.log, this._settings,
+      {@visibleForTesting Map<WakeWordEngineType, WakeWordEngine>? engines})
+      : _engines = {...?engines};
 
   final SettingsManager _settings;
 
@@ -52,7 +57,7 @@ class WakeWordManager extends Manager implements NativeAudioSource {
 
   // One engine per runner, created lazily and kept: switching wake word
   // engines should not re-download models the other one already has.
-  final Map<WakeWordEngineType, WakeWordEngine> _engines = {};
+  final Map<WakeWordEngineType, WakeWordEngine> _engines;
 
   WakeWordEngine? _engineFor(WakeWordEngineType type) => switch (type) {
         WakeWordEngineType.vsWakeWord => _engines.putIfAbsent(
@@ -1218,24 +1223,61 @@ class WakeWordManager extends Manager implements NativeAudioSource {
     bus.publish(WakeWordDetected(model: model.id, phrase: model.wakeWord));
 
     // Self-heal: if the page never resumes us (crash, navigation), re-arm.
+    _armResumeTimer();
+  }
+
+  /// Whether a voice turn is running on the mic right now: the page (or the
+  /// native pipeline on its behalf) opened the audio stream after the
+  /// handoff and has not closed it. Proof that the page is alive and busy.
+  bool get _turnStreamOpen => _pageAudioActive || _nativeAudioSink != null;
+
+  /// How long an open turn stream keeps the self-heal waiting, in total.
+  /// No voice turn lasts this long, so a stream still open at this point
+  /// belongs to a page that died mid-turn without reloading, and the mic
+  /// chunks it keeps receiving go nowhere. Healing then costs no one a turn.
+  static const _turnCeilingSeconds = 600;
+
+  /// Arm the self-heal for the handoff that just happened.
+  ///
+  /// The page is expected to call setWakeWordActive(true) when its turn ends.
+  /// A page that crashed or navigated away never will, and without this the
+  /// wake word stays suspended for good. The timeout counts from the handoff
+  /// and is measured against the page's silence, not the turn's length: while
+  /// the turn's audio stream is open the page is demonstrably alive, so a
+  /// fire during the turn re-arms for another period instead of healing.
+  /// Healing then would stop a stream that is still feeding STT, which is
+  /// exactly a turn cut off mid-sentence, and a short timeout (the setting
+  /// has no floor) made that happen on every wake. The check lands within one
+  /// period of the stream closing, so a page lost after its turn is still
+  /// caught, and [_turnCeilingSeconds] bounds the wait for one lost mid-turn.
+  void _armResumeTimer({int deferred = 0}) {
     _resumeTimer?.cancel();
     final timeout =
         _settings.get(defs.wakeWordResumeTimeoutSeconds).toInt();
-    if (timeout > 0) {
-      _resumeTimer = Timer(Duration(seconds: timeout), () async {
-        if (!_active) {
-          log.warn(name, 'page never resumed listening; self-healing');
-          // The page that opened the audio stream is gone with the turn;
-          // without closing it every mic chunk keeps being base64-encoded
-          // and published to a listener that no longer exists. The native
-          // pipeline's stream dies with the same lost page.
-          _pageAudioActive = false;
-          _nativeAudioSink = null;
-          await _engine.stopAudioStream();
-          setActive(true);
-        }
-      });
-    }
+    if (timeout <= 0) return;
+    _resumeTimer = Timer(Duration(seconds: timeout), () async {
+      if (_active) return;
+      final waited = (deferred + 1) * timeout;
+      if (_turnStreamOpen && waited < _turnCeilingSeconds) {
+        log.debug(name,
+            'turn still streaming audio after ${waited}s; self-heal waits');
+        _armResumeTimer(deferred: deferred + 1);
+        return;
+      }
+      log.warn(
+          name,
+          _turnStreamOpen
+              ? 'turn still streaming audio after ${waited}s with the page '
+                  'silent; self-healing'
+              : 'page never resumed listening; self-healing');
+      // A stream left open by a page that is gone keeps every mic chunk
+      // flowing (base64 to a listener that no longer exists on the page
+      // path, into the pipeline buffer on the native one). Close it.
+      _pageAudioActive = false;
+      _nativeAudioSink = null;
+      await _engine.stopAudioStream();
+      setActive(true);
+    });
   }
 
   @override

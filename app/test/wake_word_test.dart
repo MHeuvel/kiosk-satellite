@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:fake_async/fake_async.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kiosk_satellite/core/command_registry.dart';
@@ -8,6 +9,7 @@ import 'package:kiosk_satellite/core/events.dart';
 import 'package:kiosk_satellite/core/logging.dart';
 import 'package:kiosk_satellite/managers/settings/definitions.dart' as defs;
 import 'package:kiosk_satellite/managers/settings/settings_manager.dart';
+import 'package:kiosk_satellite/managers/wake_word/engine.dart';
 import 'package:kiosk_satellite/managers/wake_word/model_cache.dart';
 import 'package:kiosk_satellite/managers/wake_word/vsww/model_store.dart';
 import 'package:kiosk_satellite/managers/wake_word/wake_word_manager.dart';
@@ -16,6 +18,46 @@ import 'package:shared_preferences/shared_preferences.dart';
 // permission_handler's PermissionStatus, over the wire.
 const _denied = 0;
 const _granted = 1;
+
+/// A microWakeWord runner that comes up without models or a microphone and
+/// records whether a turn's audio stream is open on it.
+class _FakeEngine extends WakeWordEngine {
+  bool _running = false;
+  bool streamOpen = false;
+
+  @override
+  Set<WakeWordEngineType> get supportedEngines =>
+      const {WakeWordEngineType.microWakeWord};
+
+  @override
+  bool get running => _running;
+
+  @override
+  Future<void> start({
+    required WakeWordConfig config,
+    required DetectionCallback onDetection,
+    StopDetectionCallback? onStopDetection,
+    EngineFailureCallback? onFailure,
+  }) async {
+    _running = true;
+  }
+
+  @override
+  Future<void> stop() async {
+    _running = false;
+  }
+
+  @override
+  Future<void> startAudioStream(
+      void Function(Uint8List pcm, bool preRoll) onChunk) async {
+    streamOpen = true;
+  }
+
+  @override
+  Future<void> stopAudioStream() async {
+    streamOpen = false;
+  }
+}
 
 /// The wake-word contract (docs/js-api.md): config is pushed by the Voice
 /// Satellite card (setWakeWordConfig), detection releases the mic before the
@@ -28,6 +70,7 @@ void main() {
   late CommandRegistry commands;
   late WakeWordManager wakeWord;
   late SettingsManager settings;
+  late Logger log;
 
   const vsConfig = {
     'engine': 'microWakeWord',
@@ -58,7 +101,7 @@ void main() {
     );
 
     bus = EventBus();
-    final log = Logger();
+    log = Logger();
     commands = CommandRegistry(log);
     settings = SettingsManager(bus, commands, log);
     await settings.init();
@@ -169,6 +212,138 @@ void main() {
     await commands.execute('setWakeWordActive', const {'active': true});
     state = await commands.execute('getWakeWordState', const {});
     expect((state.data as Map)['active'], isTrue);
+  });
+
+  group('the self-heal after a handoff', () {
+    // The page must call setWakeWordActive(true) when its turn ends. When it
+    // never does (crash, navigation) the timer re-arms detection. It must not
+    // fire while the turn is still running: the stream it would close is the
+    // one feeding STT, and a short timeout then aborts every wake mid-word.
+    late _FakeEngine engine;
+
+    setUp(() async {
+      // Rebuilt from scratch: the outer setUp's manager already registered
+      // its commands on that registry, and the fake engine has to be in
+      // place before init.
+      await wakeWord.dispose();
+      await bus.dispose();
+      bus = EventBus();
+      commands = CommandRegistry(log);
+      settings = SettingsManager(bus, commands, log);
+      await settings.init();
+      engine = _FakeEngine();
+      wakeWord = WakeWordManager(bus, commands, log, settings,
+          engines: {WakeWordEngineType.microWakeWord: engine});
+      await wakeWord.init();
+      await settings.set(defs.wakeWordResumeTimeoutSeconds, 1);
+      await commands.execute('setWakeWordConfig', vsConfig);
+      expect(wakeWord.listening, isTrue);
+      // A detection asks the platform to bring the app forward. Answered
+      // here so the call completes inside fakeAsync, where an unmocked
+      // channel never returns and the handoff would never reach its timer.
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(
+        const MethodChannel('kiosk_satellite/background'),
+        (call) async => call.method == 'bringToFront' ? true : null,
+      );
+    });
+
+    tearDown(() {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(
+              const MethodChannel('kiosk_satellite/background'), null);
+    });
+
+    Future<bool> active() async {
+      final state = await commands.execute('getWakeWordState', const {});
+      return (state.data as Map)['active'] as bool;
+    }
+
+    test('a page that never answers the handoff is healed', () {
+      fakeAsync((async) {
+        commands.execute('simulateWakeWord', const {});
+        async.flushMicrotasks();
+        var isActive = true;
+        active().then((v) => isActive = v);
+        async.flushMicrotasks();
+        expect(isActive, isFalse);
+
+        async.elapse(const Duration(seconds: 1));
+        active().then((v) => isActive = v);
+        async.flushMicrotasks();
+        expect(isActive, isTrue, reason: 'nothing was streaming: heal');
+      });
+    });
+
+    test('a turn streaming to the page is left alone until it ends', () {
+      fakeAsync((async) {
+        commands.execute('simulateWakeWord', const {});
+        async.flushMicrotasks();
+        commands.execute('startAudioStream', const {});
+        async.flushMicrotasks();
+        expect(engine.streamOpen, isTrue);
+
+        // Far past the timeout: the page is alive and mid-turn.
+        async.elapse(const Duration(seconds: 30));
+        var isActive = true;
+        active().then((v) => isActive = v);
+        async.flushMicrotasks();
+        expect(isActive, isFalse, reason: 'the turn is still running');
+        expect(engine.streamOpen, isTrue, reason: 'STT still fed');
+
+        // The turn ends and the page dies before resuming us.
+        commands.execute('stopAudioStream', const {});
+        async.flushMicrotasks();
+        async.elapse(const Duration(seconds: 1));
+        active().then((v) => isActive = v);
+        async.flushMicrotasks();
+        expect(isActive, isTrue, reason: 'healed within one period');
+      });
+    });
+
+    test('a turn on the native pipeline transport counts the same', () {
+      fakeAsync((async) {
+        commands.execute('simulateWakeWord', const {});
+        async.flushMicrotasks();
+        wakeWord.openNativeAudioStream((_, _) {});
+        async.flushMicrotasks();
+        expect(engine.streamOpen, isTrue);
+
+        async.elapse(const Duration(seconds: 30));
+        var isActive = true;
+        active().then((v) => isActive = v);
+        async.flushMicrotasks();
+        expect(isActive, isFalse);
+        expect(engine.streamOpen, isTrue);
+
+        // The page resumes us the normal way, mid-stream: the timer is done.
+        commands.execute('setWakeWordActive', const {'active': true});
+        async.flushMicrotasks();
+        active().then((v) => isActive = v);
+        async.flushMicrotasks();
+        expect(isActive, isTrue);
+        expect(engine.streamOpen, isTrue, reason: 'resuming never closes it');
+      });
+    });
+
+    test('a stream held open by a page lost mid-turn is closed eventually',
+        () {
+      fakeAsync((async) {
+        commands.execute('simulateWakeWord', const {});
+        async.flushMicrotasks();
+        commands.execute('startAudioStream', const {});
+        async.flushMicrotasks();
+
+        async.elapse(const Duration(minutes: 9));
+        expect(engine.streamOpen, isTrue);
+        async.elapse(const Duration(minutes: 2));
+        var isActive = false;
+        active().then((v) => isActive = v);
+        async.flushMicrotasks();
+        expect(isActive, isTrue);
+        expect(engine.streamOpen, isFalse, reason: 'the orphan is closed');
+      });
+    });
   });
 
   group('the two settings UIs must say the same thing', () {
