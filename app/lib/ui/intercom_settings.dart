@@ -543,18 +543,16 @@ class _IntercomSheetState extends State<_IntercomSheet> {
             trailing: Icon(Icons.campaign_outlined, color: scheme.primary),
             onTap: () => widget.onPick('intercomBroadcast', const {}),
           ),
-          // The kiosks apart from the announcement: a hairline, the
-          // card's own.
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 4),
-            child: Divider(height: 1, indent: Ks.inset, endIndent: Ks.inset),
-          ),
-          for (final k in ready)
+          // Hairlines between the rows, the settings card's own.
+          for (final (i, k) in ready.indexed) ...[
+            const Divider(height: 1, indent: Ks.inset, endIndent: Ks.inset),
             ListTile(
               title: Text('${k['name']}'),
               trailing: Icon(Icons.phone_outlined, color: scheme.primary),
               onTap: () => widget.onPick('intercomCall', {'id': '${k['id']}'}),
+              key: ValueKey('kiosk-$i'),
             ),
+          ],
         ],
       ],
     );
