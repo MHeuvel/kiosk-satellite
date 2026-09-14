@@ -43,7 +43,10 @@
 ///      show_name (the name line under the value) and color ("r,g,b" icon
 ///      and text color).
 /// - config: the type's own settings; missing keys read as the type's
-///   defaults, so entries survive new keys being added.
+///   defaults, so entries survive new keys being added. Every type also
+///   carries scale, this widget's own size correction in percent from
+///   -50 to 50 (0 by default), applied on top of the Global widget
+///   scaling slider: see [screensaverWidgetScaleFactor].
 ///
 /// The remote admin UI carries its own copy of the type and corner labels;
 /// keep the two word-for-word (see the gestures precedent).
@@ -64,8 +67,11 @@ class ScreensaverWidget {
   final String type;
   final Map<String, Object?> config;
 
-  Map<String, Object?> toJson() =>
-      {'position': position, 'type': type, 'config': config};
+  Map<String, Object?> toJson() => {
+    'position': position,
+    'type': type,
+    'config': config,
+  };
 }
 
 /// Every widget type, in the order the pickers offer them.
@@ -81,12 +87,18 @@ String describeScreensaverWidgetType(String type) => switch (type) {
 
 /// A fresh entry's config, also the fallback for keys an entry is missing.
 Map<String, Object?> screensaverWidgetDefaults(String type) => switch (type) {
-  'clock' => {'color': '250,250,250', 'h24': false, 'date': false},
+  'clock' => {
+    'color': '250,250,250',
+    'scale': screensaverWidgetScaleDefault,
+    'h24': false,
+    'date': false,
+  },
   'weather' => {
     'entity': '',
     'name': '',
     'label': '',
     'color': '250,250,250',
+    'scale': screensaverWidgetScaleDefault,
     'feels_like': false,
     'feels_like_only': false,
     'location': true,
@@ -95,7 +107,12 @@ Map<String, Object?> screensaverWidgetDefaults(String type) => switch (type) {
     'wind': true,
     'visibility': true,
   },
-  'battery' => {'color': '250,250,250', 'percent': true, 'low': false},
+  'battery' => {
+    'color': '250,250,250',
+    'scale': screensaverWidgetScaleDefault,
+    'percent': true,
+    'low': false,
+  },
   'entity' => {
     'entity': '',
     'name': '',
@@ -103,19 +120,43 @@ Map<String, Object?> screensaverWidgetDefaults(String type) => switch (type) {
     'attribute': '',
     'show_name': true,
     'color': '250,250,250',
+    'scale': screensaverWidgetScaleDefault,
   },
   _ => const {},
 };
+
+/// The per-widget scale slider's range, in percent: a widget can shrink to
+/// half its size or grow half again, and the Global widget scaling slider
+/// then scales all of them together from there.
+const screensaverWidgetScaleMin = -50;
+const screensaverWidgetScaleMax = 50;
+const screensaverWidgetScaleDefault = 0;
+
+/// The widget's own scale as a factor: 1.0 for the default, 0.5 at -50
+/// and 1.5 at 50. A missing or unreadable value is the default, and one
+/// outside the slider's range is clamped to it, so a hand-edited backup
+/// cannot blow a widget up past the screen.
+double screensaverWidgetScaleFactor(Map<String, Object?> config) {
+  final raw = config['scale'];
+  final percent = switch (raw) {
+    num n => n,
+    String s => num.tryParse(s) ?? screensaverWidgetScaleDefault,
+    _ => screensaverWidgetScaleDefault,
+  };
+  final clamped = percent
+      .clamp(screensaverWidgetScaleMin, screensaverWidgetScaleMax)
+      .toDouble();
+  return 1 + clamped / 100;
+}
 
 /// Whether [type] renders over the [mode] screensaver. Everything stays
 /// off the camera grid, where an overlay sits in the way of a live feed;
 /// the clock widget also stays off the Clock mode, which is one already —
 /// the weather widget is exactly what a clock face wants next to it.
-bool screensaverWidgetAllowedOnMode(String type, String mode) =>
-    switch (type) {
-      'clock' => mode != 'clock' && mode != 'camera',
-      _ => mode != 'camera',
-    };
+bool screensaverWidgetAllowedOnMode(String type, String mode) => switch (type) {
+  'clock' => mode != 'clock' && mode != 'camera',
+  _ => mode != 'camera',
+};
 
 /// Decode the screensaver.widgets JSON, dropping anything malformed rather
 /// than failing the lot: one bad import line should not blank the rest.
@@ -152,10 +193,11 @@ List<ScreensaverWidget> decodeScreensaverWidgets(String json) {
 /// Encode for storage, in corner order so the stored list (and every list
 /// rendered from it) reads top-left to bottom-right.
 String encodeScreensaverWidgets(List<ScreensaverWidget> widgets) {
-  final sorted = [...widgets]..sort(
-    (a, b) => cornerOptions
-        .indexOf(a.position)
-        .compareTo(cornerOptions.indexOf(b.position)),
-  );
+  final sorted = [...widgets]
+    ..sort(
+      (a, b) => cornerOptions
+          .indexOf(a.position)
+          .compareTo(cornerOptions.indexOf(b.position)),
+    );
   return jsonEncode([for (final w in sorted) w.toJson()]);
 }

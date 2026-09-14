@@ -1511,14 +1511,18 @@ const screensaverWidgets = SettingDef<String>(
   subpage: 'Widgets',
 );
 
-// One knob for every widget rather than per-entry sizes: the corners all
-// sit on the same panel, so they want the same correction.
+// One knob over every widget, for the panel: the corners all sit on the
+// same screen, so they want the same correction. Each widget's own Scale
+// slider (its config's scale key) then sets its size relative to the
+// others, and this slider multiplies the lot.
 const screensaverWidgetScale = SettingDef<num>(
   key: 'screensaver.widget_scale',
   type: SettingType.number,
   defaultValue: 100,
-  title: 'Widget scaling',
-  description: 'Scale all widgets to better fit your screen size.',
+  title: 'Global widget scaling',
+  description:
+      'Scale all widgets together to better fit your screen size. '
+      'Each widget keeps its own scale relative to the others.',
   category: 'Screensaver',
   section: 'Widgets',
   subpage: 'Widgets',

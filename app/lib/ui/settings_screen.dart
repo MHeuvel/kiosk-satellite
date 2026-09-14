@@ -151,8 +151,7 @@ const _analyticsIntro =
     'Share anonymized information from your installation to help make '
     'Kiosk Satellite better and guide which devices and features get '
     'attention.';
-const _analyticsDocsUrl =
-    'https://kiosksatellite.com/docs/analytics/';
+const _analyticsDocsUrl = 'https://kiosksatellite.com/docs/analytics/';
 
 // The Updates page closes with a link to the custom repository guide: the
 // folder layout, the releases file and the APK names live in the docs, not
@@ -4601,6 +4600,37 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
             value: config[key] == true,
             onChanged: (v) => setDialogState(() => config[key] = v),
           );
+          // Every type carries its own scale, a percent offset from the
+          // size the Global widget scaling slider gives it: -50 halves
+          // this widget, 50 grows it half again, 0 leaves it as is.
+          final scalePercent =
+              ((screensaverWidgetScaleFactor(config) - 1) * 100).round();
+          Widget scaleRow() => Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                title: const Text('Scale'),
+                subtitle: const Text(
+                  'Scale this widget size to better fit your screen.',
+                ),
+                trailing: Text(
+                  scalePercent > 0 ? '+$scalePercent%' : '$scalePercent%',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ),
+              Slider(
+                value: scalePercent.toDouble(),
+                min: screensaverWidgetScaleMin.toDouble(),
+                max: screensaverWidgetScaleMax.toDouble(),
+                divisions:
+                    (screensaverWidgetScaleMax - screensaverWidgetScaleMin) ~/
+                    5,
+                onChanged: (v) =>
+                    setDialogState(() => config['scale'] = v.round()),
+              ),
+            ],
+          );
           // The weather and entity widgets both read one entity, cached
           // with its friendly name under the same keys.
           final weatherEntity = '${config['entity'] ?? ''}';
@@ -4664,6 +4694,7 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
                     ),
                     if (type == 'clock') ...[
                       colorRow(),
+                      scaleRow(),
                       toggle('24-hour clock', 'h24'),
                       toggle('Show date', 'date'),
                     ],
@@ -4711,6 +4742,7 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
                         ),
                       ),
                       colorRow(),
+                      scaleRow(),
                       // The temperature always shows; each other line also
                       // needs the entity to carry the reading. Feels like
                       // rides the temperature line, so it sits where the
@@ -4725,6 +4757,7 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
                     ],
                     if (type == 'battery') ...[
                       colorRow(),
+                      scaleRow(),
                       toggle('Show percentage', 'percent'),
                       toggle('Only when low', 'low'),
                     ],
@@ -4806,6 +4839,7 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
                         ),
                       ),
                       colorRow(),
+                      scaleRow(),
                       toggle('Show name', 'show_name'),
                     ],
                   ],

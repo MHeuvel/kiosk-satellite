@@ -766,13 +766,23 @@ export function settingRow(s) {
     const TYPES = [['clock', 'Small clock'], ['weather', 'Weather'],
       ['battery', 'Battery'], ['entity', 'Entity']];
     const DEFAULTS = {
-      clock: { color: '250,250,250', h24: false, date: false },
+      clock: { color: '250,250,250', scale: 0, h24: false, date: false },
       weather: { entity: '', name: '', label: '', color: '250,250,250',
-        feels_like: false, feels_like_only: false, location: true,
+        scale: 0, feels_like: false, feels_like_only: false, location: true,
         forecast: true, humidity: true, wind: true, visibility: true },
-      battery: { color: '250,250,250', percent: true, low: false },
+      battery: { color: '250,250,250', scale: 0, percent: true, low: false },
       entity: { entity: '', name: '', label: '', attribute: '',
-        show_name: true, color: '250,250,250' },
+        show_name: true, color: '250,250,250', scale: 0 },
+    };
+    // The per-widget scale, a percent offset from the size the Global
+    // widget scaling slider gives it: -50 halves the widget, 50 grows it
+    // half again. Kept with screensaver_widgets.dart.
+    const SCALE_MIN = -50;
+    const SCALE_MAX = 50;
+    const scaleOf = (config) => {
+      const n = Number(config.scale);
+      if (!Number.isFinite(n)) return 0;
+      return Math.min(Math.max(Math.round(n), SCALE_MIN), SCALE_MAX);
     };
     const order = CORNERS.map(([v]) => v);
     const cornerLabel = (v) => (CORNERS.find(([c]) => c === v) || [, v])[1];
@@ -840,16 +850,49 @@ export function settingRow(s) {
         wrap.append(title, input);
         return { wrap, input };
       };
+      // Every type carries its own scale, under the color the way the
+      // device dialog orders them.
+      const scaleField = () => {
+        const wrap = document.createElement('label');
+        wrap.className = 'form-field';
+        const title = document.createElement('span');
+        title.className = 'desc';
+        title.textContent = 'Scale';
+        const hint = document.createElement('span');
+        hint.className = 'desc';
+        hint.textContent = 'Scale this widget size to better fit your screen.';
+        const line = document.createElement('div');
+        line.style.cssText = 'display:flex; align-items:center; gap:10px;';
+        const input = document.createElement('input');
+        input.type = 'range'; input.className = 'range';
+        input.min = String(SCALE_MIN); input.max = String(SCALE_MAX);
+        input.step = '5';
+        input.value = String(scaleOf(config));
+        input.style.cssText = 'flex:1;';
+        const pct = document.createElement('span');
+        pct.className = 'device';
+        pct.style.cssText = 'width:48px; text-align:right; flex-shrink:0;';
+        const paint = () => {
+          const v = Number(input.value);
+          pct.textContent = (v > 0 ? '+' : '') + v + '%';
+        };
+        input.addEventListener('input', paint);
+        paint();
+        line.append(input, pct);
+        wrap.append(title, line, hint);
+        return { wrap, input };
+      };
       const renderTypeBlock = () => {
         note.textContent = noteFor(type);
         typeBlock.innerHTML = '';
-        refs = { color: colorField() };
+        refs = { color: colorField(), scale: scaleField() };
         if (type === 'clock') {
           refs.h24 = cameraToggle('24-hour clock',
             config.h24 === true, 'Show a 24-hour time instead of AM/PM.');
           refs.date = cameraToggle('Show date',
             config.date === true, 'Add a short date under the clock.');
-          typeBlock.append(refs.color.wrap, refs.h24.wrap, refs.date.wrap);
+          typeBlock.append(refs.color.wrap, refs.scale.wrap, refs.h24.wrap,
+            refs.date.wrap);
           return;
         }
         if (type === 'battery') {
@@ -858,7 +901,8 @@ export function settingRow(s) {
           refs.low = cameraToggle('Only when low',
             config.low === true,
             'Stay hidden until the charge drops to 20 percent.');
-          typeBlock.append(refs.color.wrap, refs.percent.wrap, refs.low.wrap);
+          typeBlock.append(refs.color.wrap, refs.scale.wrap, refs.percent.wrap,
+            refs.low.wrap);
           return;
         }
         if (type === 'entity') {
@@ -949,7 +993,8 @@ export function settingRow(s) {
           refs.showName = cameraToggle('Show name',
             config.show_name !== false, 'The name under the value.');
           typeBlock.append(refs.entity.wrap, refs.label.wrap,
-            refs.attribute.wrap, refs.color.wrap, refs.showName.wrap);
+            refs.attribute.wrap, refs.color.wrap, refs.scale.wrap,
+            refs.showName.wrap);
           loadAttributes();
           return;
         }
@@ -1014,6 +1059,7 @@ export function settingRow(s) {
         refs.wind = cameraToggle('Wind speed', config.wind === true);
         refs.visibility = cameraToggle('Visibility', config.visibility === true);
         typeBlock.append(refs.entity.wrap, refs.label.wrap, refs.color.wrap,
+          refs.scale.wrap,
           refs.location.wrap, refs.feelsLike.wrap, refs.feelsLikeOnly.wrap,
           refs.forecast.wrap, refs.humidity.wrap, refs.wind.wrap,
           refs.visibility.wrap);
@@ -1038,12 +1084,13 @@ export function settingRow(s) {
         save: async () => {
           const position = cornerSel.select.value;
           const color = refs.color.input.rgb;
+          const scale = scaleOf({ scale: refs.scale.input.value });
           let entryConfig;
           if (type === 'clock') {
-            entryConfig = { color,
+            entryConfig = { color, scale,
               h24: refs.h24.input.checked, date: refs.date.input.checked };
           } else if (type === 'battery') {
-            entryConfig = { color,
+            entryConfig = { color, scale,
               percent: refs.percent.input.checked,
               low: refs.low.input.checked };
           } else if (type === 'entity') {
@@ -1052,14 +1099,14 @@ export function settingRow(s) {
               name: config.name || config.entity,
               label: refs.label.input.value.trim(),
               attribute: refs.attribute.select.value,
-              show_name: refs.showName.input.checked, color };
+              show_name: refs.showName.input.checked, color, scale };
           } else {
             const entity = refs.entity.select.value;
             if (!entity) return { ok: false, error: 'Pick a weather entity.' };
             const option = refs.entity.select.selectedOptions[0];
             entryConfig = { entity,
               name: option ? option.textContent : entity,
-              label: refs.label.input.value.trim(), color,
+              label: refs.label.input.value.trim(), color, scale,
               feels_like: refs.feelsLike.input.checked,
               feels_like_only: refs.feelsLikeOnly.input.checked,
               location: refs.location.input.checked,

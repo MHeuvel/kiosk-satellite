@@ -54,7 +54,7 @@ Settings that scale the UI, control screen brightness, or manage volume often de
 | `browser.zoom` Zoom level | Web Browsing |
 | `screensaver.website_zoom` Zoom level | Screensaver, Website mode |
 | `screensaver.clock_scale` Clock size | Clock screensaver |
-| `screensaver.widget_scale` Widget scaling | Widgets |
+| `screensaver.widget_scale` Global widget scaling | Widgets |
 | `screensaver.glance_scale` Row scaling | At a Glance |
 | `face.preview_scale` Preview scaling | Face Detection |
 | `sendspin.player_size` Player size | Floating Player |

@@ -276,6 +276,56 @@ void main() {
     });
   });
 
+  group('per-widget scale', () {
+    test('every type defaults to 0, the slider spanning -50 to 50', () {
+      for (final type in screensaverWidgetTypes) {
+        expect(screensaverWidgetDefaults(type)['scale'], 0, reason: type);
+      }
+      expect(screensaverWidgetScaleMin, -50);
+      expect(screensaverWidgetScaleMax, 50);
+      expect(screensaverWidgetScaleDefault, 0);
+    });
+
+    test('reads as a factor around 1', () {
+      expect(screensaverWidgetScaleFactor({'scale': 0}), 1.0);
+      expect(screensaverWidgetScaleFactor({'scale': 50}), 1.5);
+      expect(screensaverWidgetScaleFactor({'scale': -50}), 0.5);
+      expect(screensaverWidgetScaleFactor({'scale': 25}), 1.25);
+      // A backup written by hand, or an entry saved before the key
+      // existed, reads as the default rather than failing the widget.
+      expect(screensaverWidgetScaleFactor({}), 1.0);
+      expect(screensaverWidgetScaleFactor({'scale': null}), 1.0);
+      expect(screensaverWidgetScaleFactor({'scale': 'huge'}), 1.0);
+      expect(screensaverWidgetScaleFactor({'scale': '20'}), 1.2);
+    });
+
+    test('clamps to the slider range', () {
+      expect(screensaverWidgetScaleFactor({'scale': 400}), 1.5);
+      expect(screensaverWidgetScaleFactor({'scale': -90}), 0.5);
+    });
+
+    test('survives the round trip through storage', () {
+      final json = encodeScreensaverWidgets([
+        const ScreensaverWidget(
+          position: 'top_left',
+          type: 'clock',
+          config: {'color': '250,250,250', 'scale': -20},
+        ),
+      ]);
+      final back = decodeScreensaverWidgets(json);
+      expect(back.single.config['scale'], -20);
+      expect(screensaverWidgetScaleFactor(back.single.config), 0.8);
+    });
+
+    test('the global slider scales all widgets together', () {
+      final def = defs.screensaverWidgetScale;
+      expect(def.title, 'Global widget scaling');
+      expect(def.defaultValue, 100);
+      expect(def.min, 50);
+      expect(def.max, 200);
+    });
+  });
+
   group('vignette strength', () {
     test('is a Widgets group slider defaulting to 40 percent', () {
       final def = defs.screensaverVignetteStrength;

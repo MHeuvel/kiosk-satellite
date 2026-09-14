@@ -1386,10 +1386,8 @@ class _ClockWidgetOverlayState extends State<ClockWidgetOverlay> {
     // Proportional to the panel, but floored: on a small low-density screen
     // (the Echo Show 5's 480 logical pixels) the proportional size lands
     // near the metadata's fixed-pixel text and reads absurdly small for a
-    // clock. The Widget scaling slider then corrects for the screen.
-    final scale =
-        widget.container.settings.get(defs.screensaverWidgetScale).toDouble() /
-        100;
+    // clock. The scale sliders then correct for the screen.
+    final scale = _widgetScale(widget.container, widget.spec);
     final clockSize = max(min(size.width, size.height) * 0.063, 44.0) * scale;
     // Readable over a bright photo without boxing the text in.
     final shadows = _overlayTextShadows(widget.container);
@@ -1549,9 +1547,7 @@ class _BatteryWidgetOverlayState extends State<BatteryWidgetOverlay> {
     final size = MediaQuery.of(context).size;
     // Two thirds of the small clock: readable across a room, without a
     // corner of the photo given over to a battery.
-    final scale =
-        widget.container.settings.get(defs.screensaverWidgetScale).toDouble() /
-        100;
+    final scale = _widgetScale(widget.container, widget.spec);
     final textSize = max(min(size.width, size.height) * 0.042, 30.0) * scale;
     final shadows = _overlayTextShadows(widget.container);
     final glyph = Icon(
@@ -1643,6 +1639,15 @@ IconData _batteryIcon(int? level, {required bool charging}) {
 }
 
 /// A widget's "r,g,b" color, falling back to the overlays' near-white.
+/// A corner widget's size factor: the Global widget scaling slider, which
+/// scales every widget together for the panel, times the widget's own
+/// Scale slider, which sets its size relative to the others. Both at their
+/// defaults is 1.
+double _widgetScale(AppContainer container, ScreensaverWidget spec) =>
+    container.settings.get(defs.screensaverWidgetScale).toDouble() /
+    100 *
+    screensaverWidgetScaleFactor(spec.config);
+
 Color _widgetRgb(Object? raw) => _rgbOr('$raw', const Color(0xFFFAFAFA));
 
 /// An "r,g,b" setting value as a color, or [orElse] for anything else.
@@ -1828,11 +1833,8 @@ class _EntityWidgetOverlayState extends State<EntityWidgetOverlay> {
     final size = MediaQuery.of(context).size;
     // The value is the battery widget's size, the name the weather
     // widget's detail line, so the corner overlays all read as one
-    // family. The Widget scaling slider then corrects everything for the
-    // screen.
-    final scale =
-        widget.container.settings.get(defs.screensaverWidgetScale).toDouble() /
-        100;
+    // family. The scale sliders then correct everything for the screen.
+    final scale = _widgetScale(widget.container, widget.spec);
     final textSize = max(min(size.width, size.height) * 0.042, 30.0) * scale;
     final shadows = _overlayTextShadows(widget.container);
     final glyph = GlanceIcon(
@@ -2121,11 +2123,9 @@ class _WeatherWidgetOverlayState extends State<WeatherWidgetOverlay> {
     final size = MediaQuery.of(context).size;
     // The temperature is exactly the small clock's size, and the location
     // and detail lines take the Immich metadata panel's fixed sizes, so
-    // the corner overlays all read as one family. The Widget scaling
-    // slider then corrects everything for the screen.
-    final scale =
-        widget.container.settings.get(defs.screensaverWidgetScale).toDouble() /
-        100;
+    // the corner overlays all read as one family. The scale sliders then
+    // correct everything for the screen.
+    final scale = _widgetScale(widget.container, widget.spec);
     final tempSize = max(min(size.width, size.height) * 0.063, 44.0) * scale;
     final shadows = _overlayTextShadows(widget.container);
 
