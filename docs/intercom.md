@@ -67,7 +67,7 @@ The Intercom tab carries the same settings and the Kiosks card, without Call but
 
 ## Home Assistant
 
-With the intercom on, the [ESPHome](esphome.md) device gains four entities.
+The [ESPHome](esphome.md) device carries an **Intercom enabled** switch, and with the intercom on four more entities.
 
 | Entity | Type | Values |
 | --- | --- | --- |

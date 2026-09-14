@@ -213,7 +213,7 @@ function liveCard() {
     ringing: `${name} is calling`,
     in_call: `In a call with ${name}`,
     broadcasting: `Announcing to ${heard} kiosk${heard === 1 ? '' : 's'}`,
-    listening: `${name} is announcing`,
+    listening: call.automated && call.message ? `Home Assistant: ${call.message}` : `${name} is announcing`,
   }[status.state];
   const card = document.createElement('div');
   card.className = 'card intercom-built';

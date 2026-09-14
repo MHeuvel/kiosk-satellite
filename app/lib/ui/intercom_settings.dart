@@ -725,6 +725,10 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
   Widget build(BuildContext context) {
     final state = _state;
     if (!_shown.contains(state)) return const SizedBox.shrink();
+    // An announcement from Home Assistant has a card of its own.
+    if (_call['automated'] == true && _call['outgoing'] != true) {
+      return const SizedBox.shrink();
+    }
     final scheme = Theme.of(context).colorScheme;
     return Stack(
       fit: StackFit.expand,
@@ -1210,6 +1214,137 @@ class _TalkPill extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+/// The card an announcement from Home Assistant shows while it plays: who
+/// it is from, the spoken text large enough to read across the room (or
+/// the clip's name when it was a file) and Dismiss. Its own overlay,
+/// apart from the intercom's call card: no meter, no one to call back.
+class AnnouncementOverlay extends StatefulWidget {
+  const AnnouncementOverlay({super.key, required this.container});
+
+  final AppContainer container;
+
+  @override
+  State<AnnouncementOverlay> createState() => _AnnouncementOverlayState();
+}
+
+class _AnnouncementOverlayState extends State<AnnouncementOverlay> {
+  late Map<String, Object?> _status = widget.container.intercom.status();
+  StreamSubscription<IntercomStateChanged>? _sub;
+
+  @override
+  void initState() {
+    super.initState();
+    _sub = widget.container.bus.on<IntercomStateChanged>().listen((e) {
+      if (mounted) setState(() => _status = e.status);
+    });
+  }
+
+  @override
+  void dispose() {
+    _sub?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final state = '${_status['state']}';
+    final call = (_status['call'] as Map?)?.cast<String, Object?>();
+    if (call == null ||
+        call['automated'] != true ||
+        call['outgoing'] == true ||
+        (state != 'listening' && state != 'ended')) {
+      return const SizedBox.shrink();
+    }
+    final scheme = Theme.of(context).colorScheme;
+    final message = '${call['message'] ?? ''}'.trim();
+    final playing = state == 'listening';
+    final tight = MediaQuery.sizeOf(context).width < 480;
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        const ModalBarrier(color: Colors.black54, dismissible: false),
+        Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 640),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Material(
+                color: scheme.surfaceContainer,
+                borderRadius: BorderRadius.circular(Ks.radiusCard),
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(
+                    tight ? 20 : 32,
+                    24,
+                    tight ? 20 : 32,
+                    20,
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.campaign_outlined,
+                            size: 18,
+                            color: scheme.primary,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            'HOME ASSISTANT',
+                            style: TextStyle(
+                              fontSize: 12.5,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: .8,
+                              color: scheme.primary,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 14),
+                      Text(
+                        message.isEmpty ? 'Announcement' : message,
+                        textAlign: TextAlign.center,
+                        maxLines: 8,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: tight ? 22 : 26,
+                          fontWeight: FontWeight.w500,
+                          height: 1.3,
+                          color: scheme.onSurface,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        playing ? 'Playing' : 'Done',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: scheme.onSurfaceVariant,
+                        ),
+                      ),
+                      const SizedBox(height: 18),
+                      _Disc(
+                        icon: Icons.close,
+                        label: 'Dismiss',
+                        kind: _DiscKind.plain,
+                        onTap: () => widget.container.commands.execute(
+                          playing ? 'intercomHangup' : 'intercomDismiss',
+                          const {},
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

@@ -101,6 +101,9 @@ class IntercomCall {
   DateTime? since;
   DateTime? endedAt;
   String reason = '';
+
+  /// An announcement's spoken text, for its card. Empty for a clip.
+  String message = '';
   bool farTalking = false;
   bool localTalking = false;
   bool muted = false;
@@ -141,6 +144,7 @@ class IntercomCall {
     'sent': sent,
     'received': received,
     'automated': automated,
+    'message': message,
     if (kind == 'broadcast') 'targets': targets.values.toList(),
   };
 }
@@ -768,6 +772,9 @@ class IntercomManager extends Manager {
           params: const {
             'message': 'What to say, through Home Assistant text to speech',
             'url': 'An audio file to play instead of a message',
+            'volume':
+                'A share of the master volume, 0..1, instead of the media '
+                'volume; 0 or missing keeps the media volume',
           },
           handler: (p) async => _announce(p),
         ),
@@ -1078,22 +1085,33 @@ class IntercomManager extends Manager {
     if (_busy) return const CommandResult.fail('in a call');
     _holdTimer?.cancel();
     _missedTimer?.cancel();
-    final c = IntercomCall(
-      id: _callId(),
-      kind: 'broadcast',
-      outgoing: false,
-      peer: const {'id': 'home-assistant', 'name': 'Home Assistant'},
-    )..automated = true;
+    final c =
+        IntercomCall(
+            id: _callId(),
+            kind: 'broadcast',
+            outgoing: false,
+            peer: const {'id': 'home-assistant', 'name': 'Home Assistant'},
+          )
+          ..automated = true
+          ..message = message;
     _call = c;
     await _comeForward();
     _setState('listening');
     if (_settings.get(defs.announcementsChime)) {
       await _announcementChime();
     }
-    // The assistant fader: an announcement is speech from Home Assistant,
-    // like Voice Satellite's, not the other kiosk's voice.
-    final pct = _settings.get(defs.assistantVolume).toDouble().clamp(0, 100);
-    await _startPlayback(volume: (pct / 100) * (pct / 100));
+    // The media fader, unless the action names a volume of its own: a
+    // share of the master, 0..1, on the same squared taper the faders
+    // use. 0 or less (the action cannot leave a number out) means the
+    // fader.
+    final asked = p['volume'];
+    final askedVolume = asked is num
+        ? asked.toDouble()
+        : double.tryParse('$asked') ?? 0;
+    final share = askedVolume > 0
+        ? askedVolume.clamp(0.0, 1.0)
+        : _settings.get(defs.mediaVolume).toDouble().clamp(0, 100) / 100;
+    await _startPlayback(volume: share * share);
     c.since = DateTime.now();
     log.info(name, 'announcement from Home Assistant, ${pcm.length ~/ 32} ms');
     unawaited(

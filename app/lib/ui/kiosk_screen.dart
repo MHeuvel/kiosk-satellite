@@ -1554,6 +1554,9 @@ class _KioskScreenState extends State<KioskScreen>
                   // in wakes the screen for exactly this, and under the
                   // lockdown shield, whose kiosk answers as Do not disturb.
                   IntercomCallOverlay(container: c),
+                  // An announcement from Home Assistant: its own card, with
+                  // the spoken text, in the same slot.
+                  AnnouncementOverlay(container: c),
                   // Lockdown Mode's touch shield: topmost, above every
                   // overlay, so nothing on screen is tappable while it
                   // holds. Transparent by default — the dashboard stays

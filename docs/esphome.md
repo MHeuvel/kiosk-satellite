@@ -94,6 +94,7 @@ Every item in this list corresponds directly to a kiosk setting. They are fully 
 | **Camera enabled**, **Screensaver motion detection**, **Screensaver face detection** | switch | Requires physical camera hardware. The Camera enabled switch can be safely toggled throughout the day; the camera entities will remain listed. |
 | **RTSP Streaming** | switch | Enables or disables the RTSP server using the saved stream settings. Requires physical camera hardware. Camera enabled and Android camera permission must also be on. Changes sync with the local and remote settings pages without reconnecting ESPHome. |
 | **Screensaver proximity detection** | switch | Requires a physical proximity sensor. |
+| **Intercom enabled** | switch | The [intercom's](intercom.md) master switch. Its state sensors and the answer mode appear while it is on. |
 | **Voice Satellite auto start** | switch | Controls whether the voice engine starts automatically with the dashboard. This allows an automation to delay voice services on slower devices that need all their processing power for the initial dashboard load. Requires a bound satellite. |
 | **Theme** | select | Options are Auto, Light, or Dark. Selecting Light or Dark forcibly pins the dashboard theme, overriding both the on device schedule and the app theme sync for as long as it is active. If theme sync is enabled, pinning the theme will flip the app's internal screens as well. |
 | **Screensaver mode**, **Clock style** | select | Provides the exact same options found on the device settings pages. |
@@ -334,7 +335,7 @@ A name that two players share goes to the available one. On the [remote API](rem
 
 ## Announcements
 
-Home Assistant can speak on the kiosk. `esphome.<node name>_announce` plays a `message` through Home Assistant's text to speech, or an audio `url` (MP3, WAV, OGG or AAC), on this kiosk with a chime first. Each kiosk is addressed through its own ESPHome device, so an announcement to several kiosks is one action per kiosk, and no other kiosk is involved. The kiosk asks Home Assistant for the audio, decodes it and plays it at the assistant volume, holding the screensaver and ducking the music the way a voice turn does, with a card that names Home Assistant while it plays. Listed with **Expose kiosk entities**.
+Home Assistant can speak on the kiosk. `esphome.<node name>_announce` plays a `message` through Home Assistant's text to speech, or an audio `url` (MP3, WAV, OGG or AAC), on this kiosk with a chime first. Each kiosk is addressed through its own ESPHome device, so an announcement to several kiosks is one action per kiosk, and no other kiosk is involved. The kiosk asks Home Assistant for the audio, decodes it and plays it at the media volume, or at the `volume` the action names, holding the screensaver and ducking the music the way a voice turn does, with a card that shows the spoken text while it plays. Listed with **Expose kiosk entities**.
 
 The **Announcements** page under Settings, ESPHome holds:
 
@@ -350,9 +351,10 @@ The **Announcements** page under Settings, ESPHome holds:
   data:
     message: Dinner is ready
     url: ""
+    volume: 0
 ```
 
-Leave `url` empty to speak the message, or leave `message` empty and give a `url` to play a file. The action answers with the clip's length in milliseconds through `response_variable`, and reports an error when announcements are off, the kiosk is in an intercom call, or Home Assistant could not speak the message. A message needs the kiosk's Home Assistant connection.
+Leave `url` empty to speak the message, or leave `message` empty and give a `url` to play a file. `volume` is a share of the master volume from 0 to 1 for this one announcement; 0 keeps the media volume. The action answers with the clip's length in milliseconds through `response_variable`, and reports an error when announcements are off, the kiosk is in an intercom call, or Home Assistant could not speak the message. A message needs the kiosk's Home Assistant connection.
 
 ## GPS Sensor
 

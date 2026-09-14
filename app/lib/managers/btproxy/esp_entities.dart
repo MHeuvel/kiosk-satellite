@@ -235,6 +235,13 @@ class EspEntitySurface {
           'mdi:radar',
           defs.screensaverDismissOnProximity,
         ),
+        // The intercom's master switch; its state sensors and the answer
+        // mode exist only while it is on.
+        'intercom_enabled': (
+          'Intercom enabled',
+          'mdi:phone-in-talk-outline',
+          defs.intercomEnabled,
+        ),
       };
 
   /// Settings-backed selects: objectId -> (name, icon, definition). The
@@ -1125,6 +1132,9 @@ class EspEntitySurface {
       'args': [
         {'name': 'message', 'type': 'string'},
         {'name': 'url', 'type': 'string'},
+        // A share of the master volume for this one announcement; 0 keeps
+        // the media volume (the action cannot leave a number out).
+        {'name': 'volume', 'type': 'float'},
       ],
     },
   ];
@@ -1208,6 +1218,7 @@ class EspEntitySurface {
         final result = await commands.execute('announce', {
           'message': '${args['message'] ?? ''}',
           'url': '${args['url'] ?? ''}',
+          'volume': args['volume'] ?? 0,
         });
         if (!result.ok) throw StateError(result.error ?? 'refused');
         final data = result.data;
