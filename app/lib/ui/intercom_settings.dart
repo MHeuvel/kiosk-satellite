@@ -532,7 +532,7 @@ class _IntercomSheetState extends State<_IntercomSheet> {
     ];
     return SimpleDialog(
       title: const Text('Call a kiosk'),
-      contentPadding: const EdgeInsets.fromLTRB(0, 12, 0, 16),
+      contentPadding: const EdgeInsets.fromLTRB(0, 12, 0, 8),
       children: [
         if (ready.isEmpty)
           const ListTile(title: Text('No kiosk is ready.'))
@@ -554,6 +554,18 @@ class _IntercomSheetState extends State<_IntercomSheet> {
             ),
           ],
         ],
+        // A way out that is not a tap outside: the quiet text button the
+        // kit's dialogs use.
+        Padding(
+          padding: const EdgeInsets.fromLTRB(24, 8, 16, 4),
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Cancel'),
+            ),
+          ),
+        ),
       ],
     );
   }
