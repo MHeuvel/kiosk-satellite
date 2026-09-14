@@ -84,6 +84,9 @@ class _IntercomSettingsPanelState extends State<IntercomSettingsPanel> {
   @override
   Widget build(BuildContext context) {
     final available = _status['available'] == true;
+    // The roster is worth nothing with the intercom off: the switch is
+    // the whole page then.
+    final enabled = _status['enabled'] == true;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -104,19 +107,21 @@ class _IntercomSettingsPanelState extends State<IntercomSettingsPanel> {
           const SizedBox(height: Ks.cardGap),
         ],
         ...widget.cards,
-        const SectionHeading('Kiosks'),
-        SearchLandingTarget(
-          id: 'x:intercom_kiosks',
-          child: SettingsCard(
-            children: [
-              ..._kioskRows(context),
-              const HintRow(
-                'Kiosks discovered on this network. A kiosk is ready once '
-                'its intercom is on with the same key.',
-              ),
-            ],
+        if (enabled) ...[
+          const SectionHeading('Kiosks'),
+          SearchLandingTarget(
+            id: 'x:intercom_kiosks',
+            child: SettingsCard(
+              children: [
+                ..._kioskRows(context),
+                const HintRow(
+                  'Kiosks discovered on this network. A kiosk is ready once '
+                  'its intercom is on with the same key.',
+                ),
+              ],
+            ),
           ),
-        ),
+        ],
       ],
     );
   }

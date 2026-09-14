@@ -272,7 +272,8 @@ export async function renderIntercomPage({ fetch = true } = {}) {
   if (LIVE.has(status.state)) top.push(liveCard());
   if (top.length) putTop(tab, top);
 
-  if (status.available !== false) {
+  // The roster is worth nothing with the intercom off.
+  if (status.available !== false && status.enabled) {
     const [h, card] = titled('Kiosks');
     const kiosks = status.kiosks || [];
     if (!kiosks.length) {
