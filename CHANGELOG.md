@@ -5,6 +5,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ## Unreleased
 
 ### Changed
+- **The README links to the documentation on kiosksatellite.com.** The guides are still written in this repository and published there with every release, so the forty links in the README now open the rendered pages instead of the raw Markdown files.
 - **The log now says why a screensaver start went nowhere.** A start refused because the dashboard still holds an "interaction running" flag, a voice turn is open or a camera view is up used to return without a word, so a Now Playing launch read as "launched by playback" followed by nothing. The screensaver log line now names the reason, including which page interaction is still held. Found while tracing a Voice Satellite media panel dismissed by double tap, which left such a hold behind and kept both the player card and the Now Playing view off the screen until the page reloaded; the release is fixed on the Voice Satellite side.
 
 ## v2026.9.47 - 2026-09-13

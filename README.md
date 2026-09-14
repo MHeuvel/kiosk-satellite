@@ -38,28 +38,28 @@
   <img src="assets/vs-demo.gif" alt="Hands-free voice control with Voice Satellite" width="650" />
 </p>
 
-&bull; **Dashboard performance:** Optional [optimizations](docs/optimizations.md) reduce unnecessary dashboard updates and pause rendering during screensavers to lower CPU and GPU usage on older devices. Voice and the Home Assistant connection stay active.
+&bull; **Dashboard performance:** Optional [optimizations](https://kiosksatellite.com/docs/optimizations/) reduce unnecessary dashboard updates and pause rendering during screensavers to lower CPU and GPU usage on older devices. Voice and the Home Assistant connection stay active.
 
-&bull; **[Music playback](docs/sendspin.md):** Synchronized Music Assistant audio through Sendspin, with the option to follow a Home Assistant or Sonos player. The full-screen Now Playing view shows album art, playback controls and supported lyrics.
+&bull; **[Music playback](https://kiosksatellite.com/docs/sendspin/):** Synchronized Music Assistant audio through Sendspin, with the option to follow a Home Assistant or Sonos player. The full-screen Now Playing view shows album art, playback controls and supported lyrics.
 
 <p align="center">
   <a href="assets/screenshots/screensaver-np.png"><img src="assets/screenshots/screensaver-np.png" alt="Settings in Kiosk Satellite" width="650" /></a>
 </p>
 
-&bull; **Screensavers:** [Immich albums](docs/immich.md), local photos and clocks, with motion, face or presence detection to wake the kiosk.
+&bull; **Screensavers:** [Immich albums](https://kiosksatellite.com/docs/immich/), local photos and clocks, with motion, face or presence detection to wake the kiosk.
 
-&bull; **Home Assistant integration:** The built-in [ESPHome connection](docs/esphome.md) exposes screen controls, volume and device sensors. An optional Bluetooth proxy relays nearby Bluetooth devices to Home Assistant.
+&bull; **Home Assistant integration:** The built-in [ESPHome connection](https://kiosksatellite.com/docs/esphome/) exposes screen controls, volume and device sensors. An optional Bluetooth proxy relays nearby Bluetooth devices to Home Assistant.
 
-&bull; **Remote administration:** Configure the app, view live screenshots, read logs and back up settings from a browser. [Fleet management](docs/fleet.md) shares configuration profiles and coordinates updates across multiple kiosks.
+&bull; **Remote administration:** Configure the app, view live screenshots, read logs and back up settings from a browser. [Fleet management](https://kiosksatellite.com/docs/fleet/) shares configuration profiles and coordinates updates across multiple kiosks.
 
 <p align="center">
   <a href="assets/screenshots/remote.png"><img src="assets/screenshots/remote.png" alt="Remote Administration in Kiosk Satellite" width="650" /></a>
 </p>
 
 
-&bull; **Kiosk conveniences:** Use [hand gestures](docs/gestures.md#show-fingers) to run Home Assistant actions or open a camera view by holding up fingers to the device camera. Set Kiosk Satellite as the [home launcher](docs/home-launcher.md) on supported devices so the Home button returns to your dashboard. Arrange up to twelve live feeds in [camera views](docs/cameras.md), with camera imports from Home Assistant or Go2RTC.
+&bull; **Kiosk conveniences:** Use [hand gestures](https://kiosksatellite.com/docs/gestures/#show-fingers) to run Home Assistant actions or open a camera view by holding up fingers to the device camera. Set Kiosk Satellite as the [home launcher](https://kiosksatellite.com/docs/home-launcher/) on supported devices so the Home button returns to your dashboard. Arrange up to twelve live feeds in [camera views](https://kiosksatellite.com/docs/cameras/), with camera imports from Home Assistant or Go2RTC.
 
-Also built in: [PIN-protected kiosk mode](docs/kiosk.md), [touch and clap gestures](docs/gestures.md), [DLNA media playback](docs/dlna.md), [RTSP streaming](docs/camera.md#rtsp-streaming), [Shizuku support](docs/shizuku.md) and more!
+Also built in: [PIN-protected kiosk mode](https://kiosksatellite.com/docs/kiosk/), [touch and clap gestures](https://kiosksatellite.com/docs/gestures/), [DLNA media playback](https://kiosksatellite.com/docs/dlna/), [RTSP streaming](https://kiosksatellite.com/docs/camera/#rtsp-streaming), [Shizuku support](https://kiosksatellite.com/docs/shizuku/) and more!
 
 <p align="center">
   <a href="assets/screenshots/now-playing.png"><img src="assets/screenshots/now-playing.png" alt="Now Playing with album artwork and music controls" width="320" /></a>
@@ -80,23 +80,23 @@ For voice control, install [Voice Satellite](https://github.com/jxlarrea/voice-s
 
 ## Documentation
 
-[Voice Satellite](https://github.com/jxlarrea/voice-satellite-card-integration) · [Screensavers](docs/screensavers.md) · [Music](docs/sendspin.md) · [ESPHome & Bluetooth](docs/esphome.md) · [Fleet management](docs/fleet.md)
+[Voice Satellite](https://github.com/jxlarrea/voice-satellite-card-integration) · [Screensavers](https://kiosksatellite.com/docs/screensavers/) · [Music](https://kiosksatellite.com/docs/sendspin/) · [ESPHome & Bluetooth](https://kiosksatellite.com/docs/esphome/) · [Fleet management](https://kiosksatellite.com/docs/fleet/)
 
 <details>
 <summary><strong>All guides and API references</strong></summary>
 <p></p>
   
-&bull; **Display:** [Screen settings](docs/screen.md), [screensavers](docs/screensavers.md), [Immich](docs/immich.md) and [At a Glance widgets](docs/at-a-glance.md).
+&bull; **Display:** [Screen settings](https://kiosksatellite.com/docs/screen/), [screensavers](https://kiosksatellite.com/docs/screensavers/), [Immich](https://kiosksatellite.com/docs/immich/) and [At a Glance widgets](https://kiosksatellite.com/docs/at-a-glance/).
 
-&bull; **Voice and media:** [Voice Satellite](https://github.com/jxlarrea/voice-satellite-card-integration), [microphone](docs/microphone.md), [media player](docs/sendspin.md), [camera views](docs/cameras.md), [device camera](docs/camera.md) and [DLNA](docs/dlna.md).
+&bull; **Voice and media:** [Voice Satellite](https://github.com/jxlarrea/voice-satellite-card-integration), [microphone](https://kiosksatellite.com/docs/microphone/), [media player](https://kiosksatellite.com/docs/sendspin/), [camera views](https://kiosksatellite.com/docs/cameras/), [device camera](https://kiosksatellite.com/docs/camera/) and [DLNA](https://kiosksatellite.com/docs/dlna/).
 
-&bull; **Kiosk setup:** [Lockdown](docs/kiosk.md), [home launcher](docs/home-launcher.md), [gestures](docs/gestures.md), [optimizations](docs/optimizations.md), [permissions](docs/permissions.md), [Shizuku](docs/shizuku.md) and [updates](docs/updates.md).
+&bull; **Kiosk setup:** [Lockdown](https://kiosksatellite.com/docs/kiosk/), [home launcher](https://kiosksatellite.com/docs/home-launcher/), [gestures](https://kiosksatellite.com/docs/gestures/), [optimizations](https://kiosksatellite.com/docs/optimizations/), [permissions](https://kiosksatellite.com/docs/permissions/), [Shizuku](https://kiosksatellite.com/docs/shizuku/) and [updates](https://kiosksatellite.com/docs/updates/).
 
-&bull; **Automation and management:** [ESPHome](docs/esphome.md), [fleet management](docs/fleet.md), [Remote API](docs/remote-api.md) and [JavaScript API](docs/js-api.md).
+&bull; **Automation and management:** [ESPHome](https://kiosksatellite.com/docs/esphome/), [fleet management](https://kiosksatellite.com/docs/fleet/), [Remote API](https://kiosksatellite.com/docs/remote-api/) and [JavaScript API](https://kiosksatellite.com/docs/js-api/).
 
-&bull; **Device guides:** [Amazon Fire tablets](docs/fire.md) and [Meta Portal](docs/portal.md).
+&bull; **Device guides:** [Amazon Fire tablets](https://kiosksatellite.com/docs/fire/) and [Meta Portal](https://kiosksatellite.com/docs/portal/).
 
-&bull; **Plugin Manager:** Install and create [community plugins](docs/plugins.md) for Kiosk Satellite.
+&bull; **Plugin Manager:** Install and create [community plugins](https://kiosksatellite.com/docs/plugins/) for Kiosk Satellite.
 
 </details>
  
@@ -104,7 +104,6 @@ For voice control, install [Voice Satellite](https://github.com/jxlarrea/voice-s
 
 Thank you to everyone who supports my work through [Buy Me a Coffee](https://buymeacoffee.com/jxlarrea). I test everything on real hardware, which means buying devices to reproduce issues and check changes across different manufacturers and Android flavors. Your contributions help cover those purchases and make that testing possible.
 
-Plugin development and installation: [Plugins](docs/plugins.md).
 
 ## License and credits
 
