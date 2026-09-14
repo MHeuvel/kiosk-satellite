@@ -38,7 +38,7 @@ The **Open the intercom** [gesture action](gestures.md) opens the same sheet. **
 
 A kiosk in [Lockdown Mode](kiosk.md#lockdown-mode) answers as Do not disturb. A kiosk already in a call answers Busy. A call wakes a dark screen and draws over the screensaver, which picks up where it was once the call ends.
 
-The **Ring sound** is a built-in telephone ring by default, or a file from the same sounds folder as the [notification sound](esphome.md#sounds). Either plays at the notification volume.
+The **Ring sound** is a built-in telephone ring by default, or a file from the same sounds folder as the [notification sound](esphome.md#sounds), put there with the Add a sound row on the device or the remote admin. Either plays at the notification volume.
 
 ## In a call
 

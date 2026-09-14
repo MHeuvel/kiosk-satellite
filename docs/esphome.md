@@ -344,7 +344,7 @@ The **Announcements** page under Settings, ESPHome holds:
 | Enable announcements | On by default. Off, the action is refused. |
 | Text to speech engine | Picked from the text to speech entities Home Assistant has. First available, the default, uses the first one. |
 | Chime first | Plays a chime before the words, on by default. |
-| Chime sound | The built-in two note chime, or a file from the sounds folder like the [notification sound](#sounds). Plays at the notification volume. |
+| Chime sound | The built-in two note chime, or a file from the sounds folder like the [notification sound](#sounds), put there with the Add a sound row. Plays at the notification volume. |
 
 ```yaml
 - action: esphome.kitchen_tablet_announce

@@ -1,5 +1,5 @@
 import { api, cmd, state } from './core.js';
-import { attachSoundSelect } from './settings.js';
+import { attachSoundSelect, attachSoundUpload } from './settings.js';
 import { gestureListModal } from './gestures.js';
 import { currentPath, showTab } from './tabs.js';
 import { copyBox, hintRow, modalShell, showToast } from './widgets.js';
@@ -182,7 +182,7 @@ function decorateRows(tab) {
   const soundRow = tab.querySelector('[data-key="intercom.ring_sound"]');
   const soundDef = byKey('intercom.ring_sound');
   if (soundRow && soundDef && !soundRow.querySelector('select')) {
-    attachSoundSelect(soundRow, soundDef);
+    attachSoundUpload(soundRow, attachSoundSelect(soundRow, soundDef));
   }
 
   const talkRow = tab.querySelector('[data-key="intercom.talk_mode"]');
@@ -368,6 +368,6 @@ export function decorateAnnouncementsPage() {
   const chimeRow = document.querySelector('[data-key="announcements.chime_file"]');
   const chimeDef = byKey('announcements.chime_file');
   if (chimeRow && chimeDef && !chimeRow.querySelector('select')) {
-    attachSoundSelect(chimeRow, chimeDef);
+    attachSoundUpload(chimeRow, attachSoundSelect(chimeRow, chimeDef));
   }
 }

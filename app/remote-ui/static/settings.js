@@ -57,6 +57,50 @@ import { banner, copyBox, messageBox, showToast } from './widgets.js';
 // stored name stays on the list when its file has gone, marked, rather
 // than silently reading as the built-in chime. Returns the refresh and
 // the write, for a row that uploads into the same folder.
+// The row under a sound select that puts a file from this computer into
+// the folder, the remote's twin of the device's Add a sound. Same
+// allowlist as notificationSoundExtensions in definitions.dart: what every
+// supported Android decodes natively, no video containers. The accept list
+// steers the chooser; the check here and the device's validator are what
+// actually hold. The upload becomes the pick, as it does on the device.
+export function attachSoundUpload(fileRow, { refresh, write }) {
+  const SOUND_EXTENSIONS = ['mp3', 'ogg', 'oga', 'wav', 'flac', 'm4a', 'aac'];
+  const addRow = readOnlyRow('Add a sound',
+    'Upload a sound file from this computer into the sounds folder.', '');
+  const upload = document.createElement('button');
+  upload.className = 'btn-ghost';
+  upload.textContent = 'Upload';
+  upload.style.cssText = 'flex-shrink:0;';
+  const picker = document.createElement('input');
+  picker.type = 'file'; picker.hidden = true;
+  picker.accept = SOUND_EXTENSIONS.map((e) => `.${e}`).join(',');
+  picker.addEventListener('change', async () => {
+    const file = picker.files && picker.files[0];
+    if (!file) return;
+    const ext = (file.name.match(/\.([^.]+)$/) || [, ''])[1].toLowerCase();
+    if (!SOUND_EXTENSIONS.includes(ext)) {
+      picker.value = '';
+      alert('Not a supported sound: pick an MP3, OGG, WAV, FLAC, M4A or AAC file.');
+      return;
+    }
+    upload.disabled = true; upload.textContent = 'Uploading…';
+    try {
+      const q = `root=app&path=${encodeURIComponent(`sounds/${file.name}`)}`;
+      const res = await api(`/api/files/upload?${q}`, { method: 'POST', body: file });
+      const out = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(out.error || `HTTP ${res.status}`);
+      await write(file.name);
+      await refresh();
+    } catch (e) { alert('Upload failed: ' + (e.message || e)); }
+    picker.value = '';
+    upload.disabled = false; upload.textContent = 'Upload';
+  });
+  upload.addEventListener('click', () => picker.click());
+  addRow.append(upload, picker);
+  fileRow.insertAdjacentElement('afterend', addRow);
+  return addRow;
+}
+
 export function attachSoundSelect(row, setting) {
   row.querySelector('input')?.remove();
   const sel = document.createElement('select');
@@ -612,47 +656,7 @@ export async function loadSettings() {
       if (fileRow && setting) {
         const { refresh, write } = attachSoundSelect(fileRow, setting);
 
-        // The row under it puts a file from this computer into the folder,
-        // the remote's twin of the device's Browse. Same allowlist as
-        // notificationSoundExtensions in definitions.dart: what every
-        // supported Android decodes natively, no video containers. The
-        // accept list steers the chooser; the check here and the device's
-        // validator are what actually hold.
-        const SOUND_EXTENSIONS = ['mp3', 'ogg', 'oga', 'wav', 'flac', 'm4a', 'aac'];
-        const addRow = readOnlyRow('Add a sound',
-          'Upload a sound file from this computer into the sounds folder.', '');
-        const upload = document.createElement('button');
-        upload.className = 'btn-ghost';
-        upload.textContent = 'Upload';
-        upload.style.cssText = 'flex-shrink:0;';
-        const picker = document.createElement('input');
-        picker.type = 'file'; picker.hidden = true;
-        picker.accept = SOUND_EXTENSIONS.map((e) => `.${e}`).join(',');
-        picker.addEventListener('change', async () => {
-          const file = picker.files && picker.files[0];
-          if (!file) return;
-          const ext = (file.name.match(/\.([^.]+)$/) || [, ''])[1].toLowerCase();
-          if (!SOUND_EXTENSIONS.includes(ext)) {
-            picker.value = '';
-            alert('Not a supported sound: pick an MP3, OGG, WAV, FLAC, M4A or AAC file.');
-            return;
-          }
-          upload.disabled = true; upload.textContent = 'Uploading…';
-          try {
-            const q = `root=app&path=${encodeURIComponent(`sounds/${file.name}`)}`;
-            const res = await api(`/api/files/upload?${q}`, { method: 'POST', body: file });
-            const out = await res.json().catch(() => ({}));
-            if (!res.ok) throw new Error(out.error || `HTTP ${res.status}`);
-            // The upload becomes the pick, as it does on the device.
-            await write(file.name);
-            await refresh();
-          } catch (e) { alert('Upload failed: ' + (e.message || e)); }
-          picker.value = '';
-          upload.disabled = false; upload.textContent = 'Upload';
-        });
-        upload.addEventListener('click', () => picker.click());
-        addRow.append(upload, picker);
-        fileRow.insertAdjacentElement('afterend', addRow);
+        attachSoundUpload(fileRow, { refresh, write });
       }
     }
   }
