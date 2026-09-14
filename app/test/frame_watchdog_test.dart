@@ -6,6 +6,7 @@ import 'package:kiosk_satellite/core/logging.dart';
 /// crash dashboard groups on, then the facts that separate a dead engine
 /// from a platform view that never came.
 void main() {
+  pacedStrikeTests();
   LogEntry entry(String tag, String message, {int second = 0}) => LogEntry(
     DateTime.utc(2026, 9, 13, 12, 0, second),
     LogLevel.info,
@@ -77,5 +78,61 @@ void main() {
     // A long line is cut, never dropped.
     expect(tail.last, contains('kiosk: ${'x' * 160}'));
     expect(tail.last.length, lessThan(200));
+  });
+}
+
+/// Strikes are paced by the clock: a burst of probes answered together
+/// after a platform stall must not count as thirty seconds of no WebView.
+void pacedStrikeTests() {
+  const five = Duration(seconds: 5);
+
+  test('one strike per interval, whatever the probe count', () {
+    expect(
+      pacedStrike(
+        strikes: 6,
+        sinceFirst: const Duration(seconds: 2),
+        interval: five,
+      ),
+      1,
+    );
+    expect(
+      pacedStrike(
+        strikes: 6,
+        sinceFirst: const Duration(seconds: 16),
+        interval: five,
+      ),
+      4,
+    );
+  });
+
+  test('a steady cadence counts every probe', () {
+    for (var n = 1; n <= 6; n++) {
+      expect(
+        pacedStrike(strikes: n, sinceFirst: five * (n - 1), interval: five),
+        n,
+      );
+    }
+  });
+
+  test('a tick a few milliseconds early still counts', () {
+    expect(
+      pacedStrike(
+        strikes: 2,
+        sinceFirst: const Duration(milliseconds: 4998),
+        interval: five,
+      ),
+      2,
+    );
+  });
+
+  test('a late probe never counts more than once', () {
+    expect(
+      pacedStrike(
+        strikes: 2,
+        sinceFirst: const Duration(seconds: 40),
+        interval: five,
+      ),
+      2,
+    );
   });
 }

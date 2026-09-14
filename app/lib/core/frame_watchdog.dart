@@ -54,6 +54,8 @@ class FrameWatchdog {
   final AppContainer _container;
   Timer? _timer;
   int _strikes = 0;
+  DateTime? _firstStrikeAt;
+  bool _checking = false;
   bool _tripped = false;
 
   /// Dart frames drawn since the watchdog armed. Whether this moves while
@@ -78,10 +80,32 @@ class FrameWatchdog {
     _timer?.cancel();
   }
 
+  /// One probe at a time, and strikes paced by the clock rather than the
+  /// count. The resume probe is a platform call, and the wedge it looks
+  /// for tends to stall the platform thread: analytics showed a Lenovo
+  /// tablet whose six probes were all answered in the same two seconds
+  /// once the thread came back, so the counter hit six and restarted the
+  /// process two seconds after asking for the rebuild it was supposed to
+  /// give thirty. A probe still in flight now skips the tick, and a strike
+  /// only counts once the interval has really passed since the first.
   Future<void> _check() async {
-    if (_tripped) return;
+    if (_tripped || _checking) return;
+    _checking = true;
+    try {
+      await _checkOnce();
+    } finally {
+      _checking = false;
+    }
+  }
+
+  void _clear() {
+    _strikes = 0;
+    _firstStrikeAt = null;
+  }
+
+  Future<void> _checkOnce() async {
     if (_container.settings.get(defs.startUrl).isEmpty) {
-      _strikes = 0;
+      _clear();
       return;
     }
     bool resumed;
@@ -92,16 +116,23 @@ class FrameWatchdog {
       return;
     }
     if (!resumed || _container.browser.hasWebView) {
-      _strikes = 0;
+      _clear();
       return;
     }
+    final now = DateTime.now();
+    final first = _firstStrikeAt ??= now;
     _strikes++;
     if (_strikes == 1) _framesAtFirstStrike = _frames;
+    final strike = pacedStrike(
+      strikes: _strikes,
+      sinceFirst: now.difference(first),
+      interval: _interval,
+    );
     _container.log.warn(
       'watchdog',
-      'strike $_strikes/$_strikesToTrip: resumed with no WebView',
+      'strike $strike/$_strikesToTrip: resumed with no WebView',
     );
-    if (_strikes == _strikesToRebuild) {
+    if (strike >= _strikesToRebuild && !_rebuildRequested) {
       _container.log.warn(
         'watchdog',
         'requesting a WebView rebuild before restarting',
@@ -110,7 +141,7 @@ class FrameWatchdog {
       _container.bus.publish(const WebViewRebuildRequested());
       return;
     }
-    if (_strikes < _strikesToTrip) return;
+    if (strike < _strikesToTrip) return;
     _tripped = true;
     _container.log.error(
       'watchdog',
@@ -138,7 +169,7 @@ class FrameWatchdog {
     try {
       final r = await _container.commands
           .execute('getDeviceInfo', const {})
-          .timeout(const Duration(seconds: 2));
+          .timeout(const Duration(seconds: 5));
       if (r.data is Map) device = Map<String, Object?>.from(r.data as Map);
     } catch (_) {}
     return describeWatchdogTrip(
@@ -151,6 +182,20 @@ class FrameWatchdog {
       recentLog: _container.log.recent,
     );
   }
+}
+
+/// The strike a probe really counts as: never more than one per interval
+/// since the first strike, however many probes were answered in a burst.
+/// Rounded to the nearest interval, so a tick a few milliseconds early
+/// still counts and only a real burst is held back.
+int pacedStrike({
+  required int strikes,
+  required Duration sinceFirst,
+  required Duration interval,
+}) {
+  final ms = interval.inMilliseconds;
+  final byClock = 1 + (sinceFirst.inMilliseconds + ms ~/ 2) ~/ ms;
+  return strikes < byClock ? strikes : byClock;
 }
 
 /// The tags whose recent lines say what the WebView was doing when the
