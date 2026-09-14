@@ -122,6 +122,15 @@
         android:banner="@drawable/tv_banner"
         android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true">
+        <!-- Android 16 ignores an app's orientation request on any display
+             of sw600dp or more once the app targets API 36, so a Screen
+             orientation choice (screen.orientation, issue #541) would do
+             nothing on a tablet, the device it exists for. This property
+             is the sanctioned opt-out; the platform removes it at API 37
+             along with app-requested orientation on large screens. -->
+        <property
+            android:name="android.window.PROPERTY_COMPAT_ALLOW_RESTRICTED_RESIZABILITY"
+            android:value="true" />
         <provider
             android:name="rikka.shizuku.ShizukuProvider"
             android:authorities="${applicationId}.shizuku"

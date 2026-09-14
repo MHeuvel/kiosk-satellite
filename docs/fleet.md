@@ -73,6 +73,7 @@ Settings that scale the UI, control screen brightness, or manage volume often de
 | `face.sensitivity` | Face Detection |
 | `camera.snapshot_resolution` | Camera |
 | `browser.cutout_mode` Display cutout | Screen & Audio |
+| `screen.orientation` Screen orientation | Screen & Audio |
 
 ## How the Sync Runs
 

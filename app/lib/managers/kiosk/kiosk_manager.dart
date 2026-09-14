@@ -677,7 +677,8 @@ class KioskManager extends Manager with WidgetsBindingObserver {
           !e.key.startsWith('gestures.') &&
           !e.key.startsWith('lockdown.') &&
           !e.key.startsWith('home.') &&
-          e.key != defs.browserCutoutMode.key) {
+          e.key != defs.browserCutoutMode.key &&
+          e.key != defs.screenOrientation.key) {
         return;
       }
       // Lockdown flips on: reclaim the foreground first, so an app opened
@@ -935,6 +936,7 @@ class KioskManager extends Manager with WidgetsBindingObserver {
       // Window layout, not lockdown: applied whatever the kiosk switch says,
       // including the force=false bundle on exit (the window keeps its shape).
       'cutout': _settings.get(defs.browserCutoutMode),
+      'orientation': _settings.get(defs.screenOrientation),
     });
   }
 

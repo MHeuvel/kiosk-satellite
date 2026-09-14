@@ -4,6 +4,9 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ## Unreleased
 
+### Added
+- **Screen orientation setting under Screen & Audio.** A device without a rotation sensor keeps whatever orientation Android picked at boot, and one mounted in a frame can be read wrong by the sensor it has. The new Screen orientation row below Display cutout forces the screen into Landscape, Portrait or either of them reversed, applied the moment it changes and from the first frame after a restart. Automatic, the default, leaves the choice to the system as before. The setting stays out of fleet sync by default, since it describes how each panel is mounted. Android 16 ignores an app's orientation request on tablets unless the app opts out of that rule, so the app now does.
+
 ### Fixed
 - **A follower's remote admin keeps the "leads these settings" banner on the Gestures and Cameras pages.** Those two pages draw themselves from scratch every time they open, and again after every change made on them, which threw away the banner the other pages keep, so a follower showed it on App Launcher but not on Gestures even with Gestures listed under "Synced from the leader". Both pages now put the banner back each time they redraw.
 

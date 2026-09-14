@@ -96,9 +96,16 @@ class MainActivity : FlutterActivity() {
         // Activity, but that lands a beat after the first frame; reading the
         // shared_preferences mirror here means the window never flashes the
         // wrong shape.
-        val mode = getSharedPreferences("FlutterSharedPreferences", Context.MODE_PRIVATE)
-            .getString("flutter.ks.browser.cutout_mode", null) ?: "always"
+        val prefs = getSharedPreferences("FlutterSharedPreferences", Context.MODE_PRIVATE)
+        val mode = prefs.getString("flutter.ks.browser.cutout_mode", null) ?: "always"
         CutoutLayout.apply(this, mode)
+        // Same story for the forced orientation (screen.orientation): a
+        // device without a rotation sensor would otherwise draw its first
+        // frame the way Android booted, then turn (issue #541).
+        ScreenOrientation.apply(
+            this,
+            prefs.getString("flutter.ks.screen.orientation", null) ?: "auto",
+        )
         // One transparent pixel that can hold native focus; see
         // dispatchKeyEvent. Not clickable, so the touch at that pixel
         // falls through to the app.

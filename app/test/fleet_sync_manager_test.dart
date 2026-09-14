@@ -494,7 +494,7 @@ void main() {
             'categories': [],
             'credentials': ['ha.token', 'bogus'],
           })!.describe(),
-          'Categories: 0 of 16. Credentials: 1 of 3. Excluded: 28.',
+          'Categories: 0 of 16. Credentials: 1 of 3. Excluded: 29.',
         );
         expect(
           withCreds['browser.start_url'],
@@ -1318,6 +1318,25 @@ void main() {
     expect(
       ((stored.first as Map)['excluded'] as List).toSet(),
       defs.fleetDefaultExcluded,
+    );
+  });
+
+  test('the recorded former default exclusions lead to the current one', () {
+    // Each former list is a real past default: a strict subset of the
+    // current one, never equal to it (or every fresh profile would be
+    // rewritten at load) and growing across the history.
+    var previous = <String>{};
+    for (final former in defs.fleetFormerDefaultExcluded) {
+      expect(former, isNot(equals(defs.fleetDefaultExcluded)));
+      expect(defs.fleetDefaultExcluded.containsAll(former), isTrue);
+      expect(former.containsAll(previous), isTrue);
+      previous = former;
+    }
+    // The orientation joined last: the newest former list is the current
+    // one without it.
+    expect(
+      defs.fleetFormerDefaultExcluded.last,
+      defs.fleetDefaultExcluded.difference({'screen.orientation'}),
     );
   });
 

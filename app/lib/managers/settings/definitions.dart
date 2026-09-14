@@ -527,6 +527,38 @@ const browserCutoutMode = SettingDef<String>(
   },
 );
 
+/// Which way the screen faces. Devices without a rotation sensor, or ones
+/// mounted in a frame that the sensor misreads, keep whatever orientation
+/// Android picked at boot; forcing one here rotates the window regardless
+/// (issue #541). Applied live through the kiosk_lock channel, and read
+/// natively from SharedPreferences at Activity creation so the window is
+/// right from the first frame.
+const screenOrientation = SettingDef<String>(
+  key: 'screen.orientation',
+  type: SettingType.select,
+  defaultValue: 'auto',
+  title: 'Screen orientation',
+  description:
+      'Force the screen into one orientation. Use this on a device without '
+      'a rotation sensor, or one mounted a way the sensor gets wrong.',
+  category: 'Screen & Audio',
+  section: 'Screen',
+  options: [
+    'auto',
+    'landscape',
+    'reverse_landscape',
+    'portrait',
+    'reverse_portrait',
+  ],
+  optionLabels: {
+    'auto': 'Automatic',
+    'landscape': 'Landscape',
+    'reverse_landscape': 'Reverse landscape',
+    'portrait': 'Portrait',
+    'reverse_portrait': 'Reverse portrait',
+  },
+);
+
 const pinchToZoom = SettingDef<bool>(
   key: 'browser.pinch_to_zoom',
   type: SettingType.boolean,
@@ -6349,10 +6381,7 @@ const updateSource = SettingDef<String>(
   type: SettingType.select,
   defaultValue: 'github',
   options: ['github', 'custom'],
-  optionLabels: {
-    'github': 'GitHub Repository',
-    'custom': 'Custom Repository',
-  },
+  optionLabels: {'github': 'GitHub Repository', 'custom': 'Custom Repository'},
   title: 'Update source',
   description: 'Where the app looks for new releases.',
   category: 'Device',
@@ -6542,13 +6571,46 @@ const fleetDefaultExcluded = {
   'camera.snapshot_resolution',
   // The notch handling: a panel thing, but harmless to bring back.
   'browser.cutout_mode',
+  // Which way the panel is mounted.
+  'screen.orientation',
 };
 
 /// What [fleetDefaultExcluded] used to be, oldest first: a profile still on
 /// exactly one of these lists never had its exclusions touched and moves
-/// to the current default at load. Empty until the list first grows after
-/// a release.
-const fleetFormerDefaultExcluded = <Set<String>>[];
+/// to the current default at load.
+const fleetFormerDefaultExcluded = <Set<String>>[
+  // Before the screen orientation joined (2026.9.49).
+  {
+    'browser.zoom',
+    'screensaver.website_zoom',
+    'screensaver.clock_scale',
+    'screensaver.widget_scale',
+    'screensaver.glance_scale',
+    'face.preview_scale',
+    'sendspin.player_size',
+    'screen.default_brightness',
+    'screen.adaptive_min_brightness',
+    'screen.adaptive_max_brightness',
+    'screen.adaptive_dark_lux',
+    'screen.adaptive_bright_lux',
+    'screensaver.brightness_level',
+    'screensaver.dim_level',
+    'audio.media_volume',
+    'audio.assistant_volume',
+    'notifications.volume',
+    'ha.tap_sound_volume',
+    'screensaver.gallery_items',
+    'screensaver.local_folder',
+    'screensaver.clock_background',
+    'notifications.chime_file',
+    'launcher.apps',
+    'motion.sensitivity',
+    'motion.fps',
+    'face.sensitivity',
+    'camera.snapshot_resolution',
+    'browser.cutout_mode',
+  },
+];
 
 /// What a new follower gets unless the leader says otherwise.
 const fleetDefaultCategories = {
@@ -6890,6 +6952,7 @@ const List<SettingDef<Object>> allSettings = [
   setBrightnessOnLaunch,
   defaultBrightness,
   browserCutoutMode,
+  screenOrientation,
   // After the whole Screen group: the remote places a page's entry row
   // where its first definition sits, and the device puts the entry card
   // under the Screen card.
