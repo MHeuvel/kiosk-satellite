@@ -112,6 +112,13 @@ class IntercomCall {
   int sent = 0;
   int received = 0;
 
+  /// An announcement Home Assistant asked for: the audio is a decoded
+  /// clip, not the microphone, and the card offers Stop alone.
+  bool automated = false;
+
+  /// Whether the receivers were asked to play it even on Do not disturb.
+  bool override = false;
+
   /// The broadcast's recipients, by kiosk id: `listening`, `busy`, `dnd`,
   /// `off`, `unreachable`, `key`.
   final targets = <String, Map<String, Object?>>{};
@@ -136,6 +143,7 @@ class IntercomCall {
     'autoAnswerAt': autoAnswerAt?.millisecondsSinceEpoch,
     'sent': sent,
     'received': received,
+    'automated': automated,
     if (kind == 'broadcast') 'targets': targets.values.toList(),
   };
 }
@@ -171,7 +179,9 @@ class _Link {
 /// Kiosks on the same network talk to each other.
 ///
 /// A call is placed from the kiosk menu's sheet (or a gesture) and rings
-/// on the kiosk picked; Everyone talks to every ready kiosk at once. Both
+/// on the kiosk picked; Announce to all talks to every ready kiosk at once,
+/// one way, and Home Assistant's announce action does the same with a
+/// spoken message. Both
 /// signaling and voice ride the other kiosk's remote admin port: three
 /// REST routes before the bearer gate, verified with a token signed by the
 /// shared intercom key, and one WebSocket per call carrying raw 16 kHz
@@ -737,6 +747,23 @@ class IntercomManager extends Manager {
           },
         ),
       )
+      ..register(
+        Command(
+          name: 'intercomAnnounce',
+          description:
+              'Play a one way announcement on a kiosk or on all of them: a '
+              'message Home Assistant speaks, or an audio URL.',
+          params: const {
+            'target':
+                "A kiosk's name in Home Assistant, its address, or all "
+                '(empty means all)',
+            'message': 'What to say, through Home Assistant text to speech',
+            'url': 'An audio file to play instead of a message',
+            'override': 'true to play on kiosks set to Do not disturb',
+          },
+          handler: (p) async => _announce(p),
+        ),
+      )
       // A test hook, like injectWakeAudio: a 16 kHz mono PCM16 WAV sent
       // over the live call's socket in 80 ms chunks as if this kiosk's
       // microphone had heard it, whatever the talk mode says. How a
@@ -761,30 +788,7 @@ class IntercomManager extends Manager {
             if (pcm == null) {
               return const CommandResult.fail('not a 16 kHz mono PCM16 WAV');
             }
-            _injectTimer?.cancel();
-            var offset = 0;
-            const chunk = 2560;
-            final done = Completer<void>();
-            _injectTimer = Timer.periodic(const Duration(milliseconds: 80), (
-              t,
-            ) {
-              if (!_active || _links.isEmpty || offset >= pcm.length) {
-                t.cancel();
-                _injectTimer = null;
-                if (!done.isCompleted) done.complete();
-                return;
-              }
-              final end = (offset + chunk).clamp(0, pcm.length);
-              final piece = Uint8List.fromList(pcm.sublist(offset, end));
-              offset = end;
-              _call?.sent++;
-              for (final l in _links.values) {
-                l.sendBytes(piece);
-              }
-              _nearLevel = _level(piece);
-              _publishLevel();
-            });
-            await done.future;
+            await _streamClip(_call!, pcm);
             return CommandResult.ok({'ms': pcm.length ~/ 32});
           },
         ),
@@ -925,8 +929,6 @@ class IntercomManager extends Manager {
     if (!enabled) return const CommandResult.fail('intercom is off');
     if (!available) return const CommandResult.fail('needs the remote admin');
     if (_busy) return const CommandResult.fail('already in a call');
-    _holdTimer?.cancel();
-    _missedTimer?.cancel();
     await _readFleet();
     await _probeAll();
     final targets = _ready;
@@ -934,34 +936,280 @@ class IntercomManager extends Manager {
     if (!await _openMic()) {
       return const CommandResult.fail('microphone not granted');
     }
+    return _startBroadcast(targets);
+  }
+
+  /// Fans an announcement out: one socket per kiosk that takes it. With
+  /// [audio] (an announcement from Home Assistant) the clip plays into
+  /// every socket, and here too when [playLocally], instead of the
+  /// microphone, and the announcement ends when the clip does.
+  Future<CommandResult> _startBroadcast(
+    List<IntercomKiosk> targets, {
+    bool override = false,
+    Uint8List? audio,
+    bool playLocally = false,
+  }) async {
+    _holdTimer?.cancel();
+    _missedTimer?.cancel();
     final id = _callId();
-    final c = IntercomCall(
-      id: id,
-      kind: 'broadcast',
-      outgoing: true,
-      peer: _peerOf(targets.first),
-    );
+    final c =
+        IntercomCall(
+            id: id,
+            kind: 'broadcast',
+            outgoing: true,
+            peer: targets.isEmpty
+                ? {'id': _selfId, 'name': _selfName, 'address': _selfAddress}
+                : _peerOf(targets.first),
+          )
+          ..automated = audio != null
+          ..override = override;
     for (final k in targets) {
       c.targets[k.id] = {'id': k.id, 'name': k.name, 'status': 'calling'};
     }
     _call = c;
     _setState('broadcasting');
-    log.info(name, 'broadcasting to ${targets.length} kiosks');
+    log.info(
+      name,
+      '${audio == null ? 'announcing' : 'playing an announcement'} to '
+      '${targets.length} kiosks${playLocally ? ' and here' : ''}',
+    );
     await Future.wait([for (final k in targets) _inviteBroadcast(c, k)]);
     if (_call != c) return const CommandResult.ok();
-    if (_links.isEmpty) {
+    if (_links.isEmpty && !playLocally) {
       await _finish('no_targets');
-      return const CommandResult.fail('nobody could take it');
+      return CommandResult.fail(_targetsSummary(c));
     }
     c.since = DateTime.now();
+    if (audio != null) {
+      if (playLocally) await _startPlayback();
+      unawaited(
+        _streamClip(c, audio, local: playLocally).then((_) {
+          if (_call == c && _state == 'broadcasting') _finish('ended');
+        }),
+      );
+    }
     _changed();
-    return const CommandResult.ok();
+    return CommandResult.ok({
+      'targets': c.targets.values.toList(),
+      'self': playLocally,
+      if (audio != null) 'ms': audio.length ~/ 32,
+    });
+  }
+
+  static String _targetsSummary(IntercomCall c) => c.targets.values
+      .map((t) => '${t['name']}: ${_targetText('${t['status']}')}')
+      .join(', ');
+
+  static String _targetText(String status) => switch (status) {
+    'listening' => 'listening',
+    'busy' => 'busy',
+    'dnd' => 'do not disturb',
+    'off' => 'intercom off',
+    'refused' => 'announcements off',
+    'key' => 'a different key',
+    'unreachable' => 'unreachable',
+    'left' => 'done',
+    _ => status,
+  };
+
+  /// Sends [pcm] (16 kHz mono PCM16) in 80 ms chunks to every link, and
+  /// to this kiosk's own speaker when [local], on the clock a microphone
+  /// would keep. Resolves when the clip ran out or the call ended.
+  Future<void> _streamClip(
+    IntercomCall c,
+    Uint8List pcm, {
+    bool local = false,
+  }) {
+    _injectTimer?.cancel();
+    var offset = 0;
+    const chunk = 2560;
+    final done = Completer<void>();
+    _injectTimer = Timer.periodic(const Duration(milliseconds: 80), (t) {
+      if (_call != c || !_active || offset >= pcm.length) {
+        t.cancel();
+        if (_injectTimer == t) _injectTimer = null;
+        if (!done.isCompleted) done.complete();
+        return;
+      }
+      final end = (offset + chunk).clamp(0, pcm.length);
+      final piece = Uint8List.fromList(pcm.sublist(offset, end));
+      offset = end;
+      c.sent++;
+      for (final l in _links.values) {
+        l.sendBytes(piece);
+      }
+      if (local) audio.write(piece);
+      _nearLevel = _level(piece);
+      _publishLevel();
+    });
+    return done.future;
+  }
+
+  // ── Announcements from Home Assistant ──────────────────────────────
+
+  /// The action: a kiosk by its Home Assistant name or address, or
+  /// `all`, a message for Home Assistant's text to speech or an audio URL,
+  /// and whether Do not disturb is overridden on the receivers.
+  Future<CommandResult> _announce(Map<String, Object?> p) async {
+    if (!enabled) return const CommandResult.fail('intercom is off');
+    if (!available) return const CommandResult.fail('needs the remote admin');
+    if (_busy) return const CommandResult.fail('already in a call');
+    final target = '${p['target'] ?? ''}'.trim();
+    final message = '${p['message'] ?? ''}'.trim();
+    final url = '${p['url'] ?? ''}'.trim();
+    final override = p['override'] == true;
+    if (message.isEmpty && url.isEmpty) {
+      return const CommandResult.fail('message or url required');
+    }
+    await _readFleet();
+    await _probeAll();
+    // Who gets it.
+    var self = false;
+    final targets = <IntercomKiosk>[];
+    final lower = target.toLowerCase();
+    if (target.isEmpty || lower == 'all') {
+      self = true;
+      for (final k in _kiosks.values) {
+        final st = k.status(keyFingerprint);
+        if (st == 'ready' || (override && st == 'dnd')) targets.add(k);
+      }
+    } else if (lower == _selfName.toLowerCase() ||
+        target == _selfAddress ||
+        lower == 'this' ||
+        lower == 'self') {
+      self = true;
+    } else {
+      final k = _kiosks.values
+          .where((k) => k.name.toLowerCase() == lower || k.address == target)
+          .firstOrNull;
+      if (k == null) return CommandResult.fail('no kiosk named $target');
+      targets.add(k);
+    }
+    // The audio.
+    final source = url.isNotEmpty ? url : await _ttsUrl(message);
+    if (source == null) {
+      return const CommandResult.fail('Home Assistant could not speak it');
+    }
+    final bytes = await _fetchAudio(source);
+    if (bytes == null) return CommandResult.fail('could not fetch $source');
+    final pcm = await audio.decode(bytes);
+    if (pcm == null || pcm.isEmpty) {
+      return const CommandResult.fail('could not decode the audio');
+    }
+    if (targets.isEmpty) return _playHere(pcm);
+    return _startBroadcast(
+      targets,
+      override: override,
+      audio: pcm,
+      playLocally: self,
+    );
+  }
+
+  /// An announcement for this kiosk alone: the card says Home Assistant
+  /// is announcing, the clip plays, the card closes.
+  Future<CommandResult> _playHere(Uint8List pcm) async {
+    if (!_settings.get(defs.intercomAcceptAnnouncements)) {
+      return const CommandResult.fail('announcements are off here');
+    }
+    _holdTimer?.cancel();
+    _missedTimer?.cancel();
+    final c = IntercomCall(
+      id: _callId(),
+      kind: 'broadcast',
+      outgoing: false,
+      peer: const {'id': 'home-assistant', 'name': 'Home Assistant'},
+    )..automated = true;
+    _call = c;
+    await commands.execute('screenOn', const {});
+    _setState('listening');
+    unawaited(_ring(short: true));
+    await _startPlayback();
+    c.since = DateTime.now();
+    unawaited(
+      _streamClip(c, pcm, local: true).then((_) {
+        if (_call == c && _state == 'listening') _finish('broadcast_over');
+      }),
+    );
+    return CommandResult.ok({'self': true, 'ms': pcm.length ~/ 32});
+  }
+
+  /// Asks Home Assistant to speak [message] and answers the audio URL.
+  Future<String?> _ttsUrl(String message) async {
+    final base = _haBase;
+    final token = _settings.get(defs.haToken);
+    if (base.isEmpty || token.isEmpty) return null;
+    var engine = _settings.get(defs.intercomTtsEngine).trim();
+    if (engine.isEmpty) {
+      final states = await _get('$base/api/states', token: token);
+      Object? list;
+      try {
+        list = states == null ? null : jsonDecode(states.body);
+      } catch (_) {}
+      if (list is List) {
+        for (final e in list) {
+          if (e is Map && '${e['entity_id']}'.startsWith('tts.')) {
+            engine = '${e['entity_id']}';
+            break;
+          }
+        }
+      }
+      if (engine.isEmpty) {
+        log.warn(name, 'Home Assistant has no text to speech entity');
+        return null;
+      }
+    }
+    final res = await _post('$base/api/tts_get_url', {
+      'engine_id': engine,
+      'message': message,
+    }, token: token);
+    final data = _jsonOf(res);
+    final url = data?['url'];
+    if (res == null || res.statusCode != 200 || url is! String) {
+      log.warn(
+        name,
+        'tts_get_url with $engine: ${res?.statusCode} ${res?.body}',
+      );
+      return null;
+    }
+    return url;
+  }
+
+  String get _haBase =>
+      _settings.get(defs.haUrl).trim().replaceAll(RegExp(r'/+$'), '');
+
+  Future<Uint8List?> _fetchAudio(String url) async {
+    final base = _haBase;
+    final onHa = base.isNotEmpty && url.startsWith(base);
+    final client = clientFactory();
+    try {
+      final res = await client
+          .get(
+            Uri.parse(url),
+            headers: {
+              if (onHa)
+                'Authorization': 'Bearer ${_settings.get(defs.haToken)}',
+            },
+          )
+          .timeout(const Duration(seconds: 20));
+      if (res.statusCode != 200) return null;
+      return res.bodyBytes;
+    } catch (e) {
+      log.debug(name, 'GET $url: $e');
+      return null;
+    } finally {
+      client.close();
+    }
   }
 
   Future<void> _inviteBroadcast(IntercomCall c, IntercomKiosk k) async {
     final res = await _post(
       '${k.url}/api/intercom/call',
-      {'call': c.id, 'kind': 'broadcast', 'from': _selfInfo()},
+      {
+        'call': c.id,
+        'kind': 'broadcast',
+        'from': _selfInfo(),
+        'override': c.override,
+      },
       token: _tokens.issueToken(
         ttl: const Duration(seconds: 60),
         claims: {'intercom': c.id, 'from': _selfId, 'n': _nonce()},
@@ -1014,7 +1262,21 @@ class IntercomManager extends Manager {
     if (!_verifyToken('${p['token'] ?? ''}', callId)) {
       return CommandResult.ok({'status': 'key', 'code': 403});
     }
-    if (dnd) return CommandResult.ok({'status': 'dnd'});
+    final announcement = kind == 'broadcast';
+    final override = p['override'] == true;
+    // Accept announcements off refuses every one way announcement, the
+    // action's override included. Lockdown Mode refuses everything. Do
+    // not disturb refuses unless an announcement carries the override.
+    if (announcement && !_settings.get(defs.intercomAcceptAnnouncements)) {
+      return CommandResult.ok({'status': 'refused'});
+    }
+    if (_settings.get(defs.lockdownEnabled)) {
+      return CommandResult.ok({'status': 'dnd'});
+    }
+    if (_settings.get(defs.intercomAnswerMode) == 'dnd' &&
+        !(announcement && override)) {
+      return CommandResult.ok({'status': 'dnd'});
+    }
     if (_busy) return CommandResult.ok({'status': 'busy'});
     final peer = {
       'id': '${from['id']}',
@@ -1036,7 +1298,7 @@ class IntercomManager extends Manager {
     await commands.execute('screenOn', const {});
     if (c.kind == 'broadcast') {
       _setState('listening');
-      log.info(name, '${peer['name']} is talking to every kiosk');
+      log.info(name, '${peer['name']} is announcing');
       unawaited(_ring(short: true));
       unawaited(_startPlayback());
       _armConnectTimeout();
@@ -1257,6 +1519,7 @@ class IntercomManager extends Manager {
     final c = _call;
     if (c == null || !_active || _mic == null) return false;
     if (c.kind == 'broadcast' && !c.outgoing) return false;
+    if (c.automated) return false;
     if (talkMode == 'ptt') return c.localTalking;
     return !c.muted;
   }
@@ -1508,11 +1771,18 @@ class IntercomManager extends Manager {
 
   // ── HTTP ───────────────────────────────────────────────────────────
 
-  Future<http.Response?> _get(String url, {Duration? timeout}) async {
+  Future<http.Response?> _get(
+    String url, {
+    Duration? timeout,
+    String? token,
+  }) async {
     final client = clientFactory();
     try {
       return await client
-          .get(Uri.parse(url))
+          .get(
+            Uri.parse(url),
+            headers: {if (token != null) 'Authorization': 'Bearer $token'},
+          )
           .timeout(timeout ?? requestTimeout);
     } catch (e) {
       log.debug(name, 'GET $url: $e');

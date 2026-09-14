@@ -1,6 +1,6 @@
 # Intercom
 
-Kiosks on the same network can talk to each other. Pick a kiosk from the kiosk menu and it rings there, or talk to every kiosk at once. Each kiosk decides how it answers: ring, answer on its own after a chime, or not at all. Voice travels straight between the two kiosks over the remote admin port. No server and no Home Assistant sit in the path, and Home Assistant sees the state through ESPHome.
+Kiosks on the same network can talk to each other. Pick a kiosk from the kiosk menu and it rings there, or announce to every kiosk at once. Each kiosk decides how it answers: ring, answer on its own after a chime, or not at all. Voice travels straight between the two kiosks over the remote admin port. No server and no Home Assistant sit in the path, and Home Assistant sees the state through ESPHome.
 
 Configure it under **Settings, Intercom** on the kiosk, or the **Intercom** tab in the remote admin. Every kiosk on the intercom needs **Remote management** and **Find other kiosks** on (under Settings, Device, Remote Administration). Kiosks find and reach each other through the remote admin, the same way [Fleet Management](fleet.md) does.
 
@@ -22,7 +22,7 @@ Configure it under **Settings, Intercom** on the kiosk, or the **Intercom** tab 
 
 ## Placing a call
 
-The **Intercom** entry in the kiosk menu opens a sheet: **Everyone** first, then the kiosks that are Ready. A tap calls. Kiosks with the intercom off, another key or offline are not listed. The settings page is where they show up with a reason.
+The **Intercom** entry in the kiosk menu opens a sheet: **Announce to all** first, then the kiosks that are Ready. A tap calls. Kiosks with the intercom off, another key or offline are not listed. The settings page is where they show up with a reason.
 
 The card names the kiosk, says Calling and offers Cancel. Nothing plays until the other side answers. Busy, Do not disturb, no answer and a different key end the call with one line on the card.
 
@@ -53,11 +53,35 @@ During a call the kiosk holds the screensaver, the dashboard rotation and the re
 
 Voice is raw 16 kHz audio over one WebSocket per call, about 256 kbit/s each way on the local network, and reaches the other kiosk in roughly a quarter of a second.
 
-## Everyone
+## Announce to all
 
-**Everyone** is one way: every Ready kiosk gets it at once whatever its own talk mode. With push to talk you hold, speak and let go. With hands free the microphone stays open, with Mute, until Done. Kiosks on Do not disturb or in a call are skipped and the card names who is getting it.
+**Announce to all** is one way: every Ready kiosk gets your voice at once, whatever its own talk mode, and nothing comes back. With push to talk you hold, speak and let go. With hands free the microphone stays open, with Mute, until Done. Kiosks on Do not disturb, with Accept announcements off or in a call are skipped and the card names who is getting it.
 
-On the receiving kiosks the card says who is talking to every kiosk. The ring sound plays once before the voice. **Reply** calls the sender back as a normal call, **Dismiss** closes the card, which also closes on its own a few seconds after the sender is done. Answer mode does not apply to Everyone: a broadcast is an announcement, not a conversation. Do not disturb is the one setting that keeps it out.
+On the receiving kiosks the card says who is announcing. The ring plays once before the voice. **Reply** calls the sender back as a normal call, **Dismiss** closes the card, which also closes on its own a few seconds after the sender is done. Receivers do not hear each other: an announcement is not a group call.
+
+**Accept announcements** under Answer, on by default, is the receiver's switch. Off, the kiosk refuses every announcement, from another kiosk and from Home Assistant alike, whatever the sender asks.
+
+## Announcements from Home Assistant
+
+With the intercom on, the [ESPHome](esphome.md) device offers `esphome.<node name>_intercom_announce`. It speaks a message through Home Assistant's text to speech, or plays an audio URL, on one kiosk or on all of them, through the same one way path as Announce to all. The kiosk that receives the action does the work: it asks Home Assistant for the audio, decodes it and plays it to the targets, itself included when the target is all or its own name.
+
+| Argument | Meaning |
+| --- | --- |
+| `target` | A kiosk's device name as Home Assistant shows it, its address, or `all` for every kiosk on the intercom, this one included. |
+| `message` | What to say. Spoken with the **Text to speech engine** under Answer, or the first TTS entity Home Assistant has when that is empty. |
+| `url` | An audio file to play instead of a message, MP3, WAV, OGG or AAC. Leave it empty to use the message. |
+| `override` | `true` plays the announcement on kiosks set to Do not disturb. Accept announcements off still refuses it, and so does Lockdown Mode. |
+
+```yaml
+- action: esphome.kitchen_tablet_intercom_announce
+  data:
+    target: all
+    message: Dinner is ready
+    url: ""
+    override: true
+```
+
+The action answers, through `response_variable`, with each target and what it did: `listening`, `busy`, `dnd`, `refused` (Accept announcements off), `off` or `unreachable`. A message needs the kiosk's Home Assistant connection, since the kiosk asks Home Assistant to speak it.
 
 ## The remote admin
 

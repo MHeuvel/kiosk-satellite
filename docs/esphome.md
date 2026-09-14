@@ -332,6 +332,19 @@ Two actions follow a player from an automation, the way the Media Player page's 
 
 A name that two players share goes to the available one. On the [remote API](remote-api.md) the same two are the `mediaPlayers` and `mediaPlayerSet` commands.
 
+## Intercom announcements
+
+`esphome.<node name>_intercom_announce` plays a one way announcement through the [intercom](intercom.md#announcements-from-home-assistant) on one kiosk or on all of them: a `message` Home Assistant speaks, or an audio `url`; `target` is a kiosk's device name, its address or `all`; `override` plays it on kiosks set to Do not disturb. Listed while the intercom is on. The kiosk answers with what each target did.
+
+```yaml
+- action: esphome.kitchen_tablet_intercom_announce
+  data:
+    target: all
+    message: Dinner is ready
+    url: ""
+    override: false
+```
+
 ## GPS Sensor
 
 If your device travels (like a tablet mounted in an RV), it can transmit its exact location to Home Assistant using its built in GPS receiver. You must explicitly opt in via **Settings > ESPHome > GPS Sensor**.

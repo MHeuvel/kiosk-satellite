@@ -6672,6 +6672,37 @@ const intercomRingSound = SettingDef<String>(
   validator: validateNotificationSound,
 );
 
+/// Off, the kiosk refuses every one way announcement: from another kiosk's
+/// Announce to all and from Home Assistant's action alike, override or
+/// not. The one switch that beats the action.
+const intercomAcceptAnnouncements = SettingDef<bool>(
+  key: 'intercom.accept_announcements',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Accept announcements',
+  description:
+      'Play one way announcements from other kiosks and Home Assistant.',
+  category: 'Intercom',
+  section: 'Answer',
+  dependsOn: 'intercom.enabled',
+);
+
+/// The Home Assistant text to speech entity the announce action speaks
+/// with; empty picks the first one Home Assistant has.
+const intercomTtsEngine = SettingDef<String>(
+  key: 'intercom.tts_engine',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Text to speech engine',
+  description:
+      'The Home Assistant TTS entity that speaks announcements sent from '
+      'Home Assistant. Empty picks the first one.',
+  category: 'Intercom',
+  section: 'Answer',
+  dependsOn: 'intercom.enabled',
+  placeholder: 'tts.google_translate_en_com',
+);
+
 const intercomTalkMode = SettingDef<String>(
   key: 'intercom.talk_mode',
   type: SettingType.select,
@@ -7611,6 +7642,8 @@ const List<SettingDef<Object>> allSettings = [
   intercomAnswerMode,
   intercomRingSeconds,
   intercomRingSound,
+  intercomAcceptAnnouncements,
+  intercomTtsEngine,
   intercomTalkMode,
   intercomVolume,
 ];

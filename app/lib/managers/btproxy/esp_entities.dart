@@ -1116,6 +1116,20 @@ class EspEntitySurface {
         {'name': 'package_name', 'type': 'string'},
       ],
     },
+    // A one way intercom announcement: a kiosk by its Home Assistant
+    // name or address, or all of them; a message Home Assistant speaks,
+    // or an audio URL; whether Do not disturb is overridden on the
+    // receivers. Answers with what each kiosk did.
+    {
+      'name': 'intercom_announce',
+      'supportsResponse': true,
+      'args': [
+        {'name': 'target', 'type': 'string'},
+        {'name': 'message', 'type': 'string'},
+        {'name': 'url', 'type': 'string'},
+        {'name': 'override', 'type': 'bool'},
+      ],
+    },
   ];
 
   /// An action call from Home Assistant landed (via the native hub). The
@@ -1193,6 +1207,16 @@ class EspEntitySurface {
         });
         if (!result.ok) throw StateError(result.error ?? 'refused');
         return const {};
+      case 'intercom_announce':
+        final result = await commands.execute('intercomAnnounce', {
+          'target': '${args['target'] ?? ''}',
+          'message': '${args['message'] ?? ''}',
+          'url': '${args['url'] ?? ''}',
+          'override': args['override'] == true,
+        });
+        if (!result.ok) throw StateError(result.error ?? 'refused');
+        final data = result.data;
+        return data is Map ? data.cast<String, Object?>() : const {};
       default:
         log.warn('esphome', 'unknown action $name');
         return null;

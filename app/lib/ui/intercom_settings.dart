@@ -354,8 +354,9 @@ Future<bool> showIntercomKeyDialog(
 
 // ── The sheet ──────────────────────────────────────────────────────────
 
-/// The sheet the kiosk menu, a gesture or `intercomOpen` opens: Everyone
-/// first, then every kiosk that is ready, by name. A tap calls and closes.
+/// The sheet the kiosk menu, a gesture or `intercomOpen` opens: Announce
+/// to all first, then every kiosk that is ready, by name. A tap calls and
+/// closes.
 Future<void> showIntercomSheet(BuildContext context, AppContainer c) async {
   final overlay = Overlay.of(context, rootOverlay: true);
   await showDialog<void>(
@@ -425,8 +426,8 @@ class _IntercomSheetState extends State<_IntercomSheet> {
         else ...[
           ListTile(
             leading: const Icon(Icons.campaign_outlined),
-            title: const Text('Everyone'),
-            subtitle: const Text('Talk to every kiosk at once'),
+            title: const Text('Announce to all'),
+            subtitle: const Text('Talk to every kiosk. One way only.'),
             trailing: Icon(Icons.campaign_outlined, color: scheme.primary),
             onTap: () => widget.onPick('intercomBroadcast', const {}),
           ),
@@ -654,22 +655,23 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
     // The name and the line under it.
     var name = peerName;
     String? sub;
+    final automated = call['automated'] == true;
     if (broadcast && outgoing && state == 'ended') {
-      name = 'Everyone';
+      name = 'Announcement';
     } else if (broadcast && outgoing) {
       final listening = [
         for (final t in (call['targets'] as List? ?? const []))
           if (t is Map && t['status'] == 'listening') '${t['name']}',
       ];
       name = listening.isEmpty
-          ? 'Everyone'
-          : 'Talking to ${listening.length} '
+          ? 'Announcement'
+          : 'Announcing to ${listening.length} '
                 '${listening.length == 1 ? 'kiosk' : 'kiosks'}';
       sub = listening.join(', ');
     } else if (state == 'ringing') {
       sub = 'is calling';
     } else if (state == 'listening') {
-      sub = 'is talking to every kiosk';
+      sub = 'is announcing';
     }
 
     // The state line.
@@ -745,7 +747,19 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
           ),
         ]);
       case 'in_call' || 'broadcasting':
-        final hears = state == 'broadcasting' ? 'Everyone' : peerName;
+        final hears = state == 'broadcasting' ? 'Every kiosk' : peerName;
+        if (automated) {
+          // A clip from Home Assistant plays: nothing to hold or mute.
+          controls.add(
+            _Disc(
+              icon: Icons.stop,
+              label: 'Stop',
+              kind: _DiscKind.plain,
+              onTap: () => _run('intercomHangup'),
+            ),
+          );
+          break;
+        }
         if (talkMode == 'ptt') {
           controls.add(
             Column(
@@ -841,7 +855,7 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
               Icon(Icons.campaign_outlined, size: 16, color: scheme.primary),
               const SizedBox(width: 8),
               Text(
-                'EVERYONE',
+                'ANNOUNCEMENT',
                 style: TextStyle(
                   fontSize: 12.5,
                   fontWeight: FontWeight.w600,

@@ -211,8 +211,8 @@ function liveCard() {
     calling: `Calling ${name}`,
     ringing: `${name} is calling`,
     in_call: `In a call with ${name}`,
-    broadcasting: `Talking to ${heard} kiosk${heard === 1 ? '' : 's'}`,
-    listening: `${name} is talking to every kiosk`,
+    broadcasting: `Announcing to ${heard} kiosk${heard === 1 ? '' : 's'}`,
+    listening: `${name} is announcing`,
   }[status.state];
   const card = document.createElement('div');
   card.className = 'card intercom-built';

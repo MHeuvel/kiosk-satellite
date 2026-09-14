@@ -79,6 +79,18 @@ class IntercomAudio {
     } catch (_) {}
   }
 
+  /// Decodes an audio file (MP3, WAV, OGG, whatever the platform decodes)
+  /// to 16 kHz mono PCM16, for an announcement from Home Assistant. Null
+  /// when the platform could not.
+  Future<Uint8List?> decode(Uint8List bytes) async {
+    try {
+      final out = await invoker('decode', bytes);
+      return out is Uint8List ? out : null;
+    } catch (_) {
+      return null;
+    }
+  }
+
   /// Whether the platform has an echo canceller for the microphone route.
   /// Without one a hands free call feeds the far voice straight back, so
   /// the manager forces push to talk.

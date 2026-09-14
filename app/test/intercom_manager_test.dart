@@ -151,6 +151,7 @@ void main() {
         if (method == 'write') audioWritten.add(args as Uint8List);
         if (method == 'aecAvailable') return true;
         if (method == 'start') return true;
+        if (method == 'decode') return Uint8List(32000);
         return null;
       };
     await intercom.init();
@@ -734,6 +735,177 @@ void main() {
           await s.close();
         }
         await server.close(force: true);
+      },
+    );
+  });
+
+  group('announcements', () {
+    test(
+      'Accept announcements off refuses every one, override or not',
+      () async {
+        await build(prefs: {'ks.intercom.accept_announcements': false});
+        final r = await commands.execute('intercomIncoming', {
+          'call': 'b1',
+          'kind': 'broadcast',
+          'override': true,
+          'from': {'id': 'kitchen', 'name': 'Kitchen', 'port': 2324},
+          'address': '192.168.1.70',
+          'token': tokenFor('b1'),
+        });
+        expect((r.data as Map)['status'], 'refused');
+        expect(intercom.state, 'idle');
+        // A call still rings.
+        final c = await commands.execute('intercomIncoming', {
+          'call': 'c1',
+          'kind': 'call',
+          'from': {'id': 'kitchen', 'name': 'Kitchen', 'port': 2324},
+          'address': '192.168.1.70',
+          'token': tokenFor('c1'),
+        });
+        expect((c.data as Map)['status'], 'ringing');
+      },
+    );
+
+    test('the override beats Do not disturb, not Lockdown Mode', () async {
+      await build(prefs: {'ks.intercom.answer_mode': 'dnd'});
+      final plain = await commands.execute('intercomIncoming', {
+        'call': 'b1',
+        'kind': 'broadcast',
+        'from': {'id': 'kitchen', 'name': 'Kitchen', 'port': 2324},
+        'address': '192.168.1.70',
+        'token': tokenFor('b1'),
+      });
+      expect((plain.data as Map)['status'], 'dnd');
+      final forced = await commands.execute('intercomIncoming', {
+        'call': 'b2',
+        'kind': 'broadcast',
+        'override': true,
+        'from': {'id': 'kitchen', 'name': 'Kitchen', 'port': 2324},
+        'address': '192.168.1.70',
+        'token': tokenFor('b2'),
+      });
+      expect((forced.data as Map)['status'], 'listening');
+      await commands.execute('intercomHangup', const {});
+      await settle(50);
+      await settings.set(defs.lockdownEnabled, true);
+      final locked = await commands.execute('intercomIncoming', {
+        'call': 'b3',
+        'kind': 'broadcast',
+        'override': true,
+        'from': {'id': 'kitchen', 'name': 'Kitchen', 'port': 2324},
+        'address': '192.168.1.70',
+        'token': tokenFor('b3'),
+      });
+      expect((locked.data as Map)['status'], 'dnd');
+      await settings.set(defs.lockdownEnabled, false);
+    });
+
+    test(
+      'the announce action speaks through Home Assistant and fans the clip out',
+      () async {
+        await build(
+          prefs: {
+            'ks.ha.url': 'http://ha.local:8123',
+            'ks.ha.token': 'tkn',
+            'ks.intercom.tts_engine': 'tts.piper',
+          },
+        );
+        await settle();
+        final server = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
+        final received = <Object?>[];
+        server.listen((req) async {
+          final ws = await WebSocketTransformer.upgrade(req);
+          ws.listen(received.add);
+        });
+        peers[0] = {...peers[0], 'address': '127.0.0.1', 'port': server.port};
+        bus.publish(const FleetChanged(devices: []));
+        await settle();
+        answers['POST /api/tts_get_url'] = (req) {
+          expect(req.headers['Authorization'], 'Bearer tkn');
+          expect(jsonDecode(req.body), {
+            'engine_id': 'tts.piper',
+            'message': 'Dinner is ready',
+          });
+          return {'url': 'http://ha.local:8123/api/tts_proxy/x.mp3'};
+        };
+        answers['GET /api/tts_proxy/x.mp3'] = (req) {
+          expect(req.headers['Authorization'], 'Bearer tkn');
+          return http.Response.bytes([1, 2, 3], 200);
+        };
+        answers['POST /api/intercom/call'] = (req) {
+          expect(jsonDecode(req.body)['override'], isTrue);
+          return {'status': 'listening'};
+        };
+        final r = await commands.execute('intercomAnnounce', {
+          'target': 'Kitchen',
+          'message': 'Dinner is ready',
+          'override': true,
+        });
+        expect(r.ok, isTrue, reason: r.error);
+        expect(intercom.state, 'broadcasting');
+        expect(intercom.call?.automated, isTrue);
+        expect(audioCalls, contains('decode'));
+        // One second of clip = 12 or 13 chunks, then the announcement ends.
+        await settle(1400);
+        expect(received.whereType<List<int>>().length, greaterThan(10));
+        expect(states.any((s) => s['state'] == 'ended'), isTrue);
+        await server.close(force: true);
+      },
+    );
+
+    test(
+      'a target of all plays here too, an unknown name is refused',
+      () async {
+        await build(
+          prefs: {'ks.ha.url': 'http://ha.local:8123', 'ks.ha.token': 'tkn'},
+        );
+        await settle();
+        final none = await commands.execute('intercomAnnounce', {
+          'target': 'Garage',
+          'url': 'http://sounds.local/a.mp3',
+        });
+        expect(none.ok, isFalse);
+        expect(none.error, contains('Garage'));
+        answers['GET /a.mp3'] = (_) => http.Response.bytes([9], 200);
+        answers['POST /api/intercom/call'] = (_) => {'status': 'dnd'};
+        final r = await commands.execute('intercomAnnounce', {
+          'target': 'all',
+          'url': 'http://sounds.local/a.mp3',
+        });
+        // Both kiosks refused, but this kiosk still plays it.
+        expect(r.ok, isTrue, reason: r.error);
+        expect((r.data as Map)['self'], isTrue);
+        expect(audioCalls, contains('start'));
+        await settle(1400);
+        expect(audioCalls.where((c) => c == 'write').length, greaterThan(10));
+        expect(states.any((s) => s['state'] == 'ended'), isTrue);
+      },
+    );
+
+    test(
+      'a target of this kiosk alone plays the clip as Home Assistant',
+      () async {
+        await build(
+          prefs: {'ks.ha.url': 'http://ha.local:8123', 'ks.ha.token': 'tkn'},
+        );
+        answers['GET /a.mp3'] = (_) => http.Response.bytes([9], 200);
+        final r = await commands.execute('intercomAnnounce', {
+          'target': 'Living Room',
+          'url': 'http://sounds.local/a.mp3',
+        });
+        expect(r.ok, isTrue, reason: r.error);
+        expect(intercom.state, 'listening');
+        expect(intercom.call?.peer['name'], 'Home Assistant');
+        expect(audioCalls, contains('ring'));
+        await settle(1400);
+        expect(
+          states.any(
+            (s) =>
+                s['state'] == 'ended' &&
+                (s['call'] as Map?)?['reason'] == 'broadcast_over',
+          ),
+          isTrue,
+        );
       },
     );
   });

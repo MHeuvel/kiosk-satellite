@@ -89,6 +89,16 @@ class IntercomAudio(context: Context, messenger: BinaryMessenger) {
                     result.success(null)
                 }
                 "stopRing" -> { stopRing(); result.success(null) }
+                "decode" -> {
+                    val bytes = call.arguments as? ByteArray
+                    if (bytes == null) { result.success(null) }
+                    else workerHandler.post {
+                        val out = try { decodeTo16k(bytes) } catch (e: Exception) {
+                            Log.w(TAG, "decode failed: ${e.message}"); null
+                        }
+                        mainHandler.post { result.success(out) }
+                    }
+                }
                 "aecAvailable" -> result.success(AcousticEchoCanceler.isAvailable())
                 else -> result.notImplemented()
             }
@@ -182,6 +192,109 @@ class IntercomAudio(context: Context, messenger: BinaryMessenger) {
             } finally {
                 queued.decrementAndGet()
             }
+        }
+    }
+
+    // ── Decoding an announcement ─────────────────────────────────────
+
+    /**
+     * Decodes a whole audio file (whatever the platform's codecs read:
+     * MP3, AAC, OGG, WAV) to 16 kHz mono PCM16, the intercom's own
+     * format, so a clip from Home Assistant's text to speech rides the
+     * same frames a microphone would. Runs on the worker.
+     */
+    private fun decodeTo16k(bytes: ByteArray): ByteArray? {
+        val file = java.io.File.createTempFile("ks-announce", ".bin", appContext.cacheDir)
+        try {
+            file.writeBytes(bytes)
+            val extractor = android.media.MediaExtractor()
+            extractor.setDataSource(file.path)
+            var trackIndex = -1
+            var format: android.media.MediaFormat? = null
+            for (i in 0 until extractor.trackCount) {
+                val f = extractor.getTrackFormat(i)
+                val mime = f.getString(android.media.MediaFormat.KEY_MIME) ?: ""
+                if (mime.startsWith("audio/")) { trackIndex = i; format = f; break }
+            }
+            if (trackIndex < 0 || format == null) { extractor.release(); return null }
+            extractor.selectTrack(trackIndex)
+            val mime = format.getString(android.media.MediaFormat.KEY_MIME)!!
+            var rate = format.getInteger(android.media.MediaFormat.KEY_SAMPLE_RATE)
+            var channels = format.getInteger(android.media.MediaFormat.KEY_CHANNEL_COUNT)
+            val codec = android.media.MediaCodec.createDecoderByType(mime)
+            codec.configure(format, null, null, 0)
+            codec.start()
+            val samples = java.io.ByteArrayOutputStream()
+            val info = android.media.MediaCodec.BufferInfo()
+            var inputDone = false
+            var outputDone = false
+            var floatPcm = false
+            while (!outputDone) {
+                if (!inputDone) {
+                    val inIndex = codec.dequeueInputBuffer(10_000)
+                    if (inIndex >= 0) {
+                        val buf = codec.getInputBuffer(inIndex)!!
+                        val n = extractor.readSampleData(buf, 0)
+                        if (n < 0) {
+                            codec.queueInputBuffer(inIndex, 0, 0, 0, android.media.MediaCodec.BUFFER_FLAG_END_OF_STREAM)
+                            inputDone = true
+                        } else {
+                            codec.queueInputBuffer(inIndex, 0, n, extractor.sampleTime, 0)
+                            extractor.advance()
+                        }
+                    }
+                }
+                val outIndex = codec.dequeueOutputBuffer(info, 10_000)
+                when {
+                    outIndex == android.media.MediaCodec.INFO_OUTPUT_FORMAT_CHANGED -> {
+                        val f = codec.outputFormat
+                        rate = f.getInteger(android.media.MediaFormat.KEY_SAMPLE_RATE)
+                        channels = f.getInteger(android.media.MediaFormat.KEY_CHANNEL_COUNT)
+                        floatPcm = Build.VERSION.SDK_INT >= 24 &&
+                            f.containsKey(android.media.MediaFormat.KEY_PCM_ENCODING) &&
+                            f.getInteger(android.media.MediaFormat.KEY_PCM_ENCODING) == AudioFormat.ENCODING_PCM_FLOAT
+                    }
+                    outIndex >= 0 -> {
+                        val buf = codec.getOutputBuffer(outIndex)!!
+                        buf.position(info.offset)
+                        buf.limit(info.offset + info.size)
+                        val chunk = ByteArray(info.size)
+                        buf.get(chunk)
+                        samples.write(chunk)
+                        codec.releaseOutputBuffer(outIndex, false)
+                        if (info.flags and android.media.MediaCodec.BUFFER_FLAG_END_OF_STREAM != 0) outputDone = true
+                    }
+                }
+            }
+            codec.stop(); codec.release(); extractor.release()
+            val raw = samples.toByteArray()
+            // To mono 16-bit at the decoder's rate.
+            val bb = java.nio.ByteBuffer.wrap(raw).order(java.nio.ByteOrder.LITTLE_ENDIAN)
+            val frames = if (floatPcm) raw.size / 4 / channels else raw.size / 2 / channels
+            val mono = FloatArray(frames)
+            for (i in 0 until frames) {
+                var acc = 0f
+                for (c in 0 until channels) {
+                    acc += if (floatPcm) bb.float else bb.short / 32768f
+                }
+                mono[i] = acc / channels
+            }
+            // Linear resample to 16 kHz.
+            val outFrames = (frames.toLong() * SAMPLE_RATE / rate).toInt()
+            val out = java.nio.ByteBuffer.allocate(outFrames * 2).order(java.nio.ByteOrder.LITTLE_ENDIAN)
+            val step = rate.toDouble() / SAMPLE_RATE
+            for (i in 0 until outFrames) {
+                val pos = i * step
+                val j = pos.toInt().coerceAtMost(frames - 1)
+                val k = (j + 1).coerceAtMost(frames - 1)
+                val frac = (pos - j).toFloat()
+                val v = mono[j] + (mono[k] - mono[j]) * frac
+                out.putShort((v * 32767f).toInt().coerceIn(-32768, 32767).toShort())
+            }
+            Log.i(TAG, "decoded ${raw.size} bytes ($mime, $rate Hz, $channels ch) to ${outFrames * 1000L / SAMPLE_RATE} ms")
+            return out.array()
+        } finally {
+            runCatching { file.delete() }
         }
     }
 
