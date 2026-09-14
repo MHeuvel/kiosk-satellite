@@ -777,6 +777,9 @@ class IntercomManager extends Manager {
                 'volume; 0 or missing keeps the media volume',
             'repeat':
                 'How many times to play it, 1 to 10; 0 or missing is once',
+            'repeat_pause':
+                'Seconds of silence between plays, up to 30; 0 or missing '
+                'is 0.6',
           },
           handler: (p) async => _announce(p),
         ),
@@ -1089,7 +1092,15 @@ class IntercomManager extends Manager {
     final asked = p['repeat'];
     final repeat = (asked is num ? asked.toInt() : int.tryParse('$asked') ?? 1)
         .clamp(1, 10);
-    final pcm = repeat == 1 ? decoded : _repeated(decoded, repeat);
+    // The pause between plays, seconds; 0 or less means the 0.6 s default.
+    final pauseRaw = p['repeat_pause'];
+    final pauseAsked = pauseRaw is num
+        ? pauseRaw.toDouble()
+        : double.tryParse('$pauseRaw') ?? 0;
+    final pauseMs = pauseAsked > 0
+        ? (pauseAsked.clamp(0, 30) * 1000).round()
+        : 600;
+    final pcm = repeat == 1 ? decoded : _repeated(decoded, repeat, pauseMs);
     if (_busy) return const CommandResult.fail('in a call');
     _holdTimer?.cancel();
     _missedTimer?.cancel();
@@ -1130,9 +1141,9 @@ class IntercomManager extends Manager {
     return CommandResult.ok({'ms': pcm.length ~/ 32});
   }
 
-  /// [clip] [times] over with 600 ms of silence between, for repeat.
-  static Uint8List _repeated(Uint8List clip, int times) {
-    const gap = 16000 * 2 * 600 ~/ 1000;
+  /// [clip] [times] over with [pauseMs] of silence between, for repeat.
+  static Uint8List _repeated(Uint8List clip, int times, int pauseMs) {
+    final gap = (16000 * 2 * pauseMs ~/ 1000) & ~1;
     final out = Uint8List(clip.length * times + gap * (times - 1));
     var at = 0;
     for (var i = 0; i < times; i++) {

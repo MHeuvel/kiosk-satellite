@@ -837,6 +837,15 @@ void main() {
       // Three seconds of clip and two pauses of 600 ms.
       expect((r.data as Map)['ms'], 3000 + 1200);
       await commands.execute('intercomHangup', const {});
+      await commands.execute('intercomDismiss', const {});
+      final paced = await commands.execute('announce', {
+        'url': 'http://sounds.local/a.mp3',
+        'repeat': 2,
+        'repeat_pause': 2.5,
+      });
+      expect(paced.ok, isTrue, reason: paced.error);
+      expect((paced.data as Map)['ms'], 2000 + 2500);
+      await commands.execute('intercomHangup', const {});
     });
 
     test('Enable announcements off refuses the action', () async {
