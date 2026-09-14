@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.9.48 - 2026-09-13
 
 ### Fixed
 - **Screenshots no longer run an Android 7 phone out of memory.** On Android 7, or while the app is in the background, the screenshot camera and the remote admin preview fall back to the WebView's own page capture. That capture counts its width in logical pixels and applies the screen density itself, so the physical width the app handed it scaled a 1080-pixel page up three times over and a Galaxy A5 died allocating a hundred megabytes for the result, nine times in one evening. The width is now converted and never exceeds the screen.
