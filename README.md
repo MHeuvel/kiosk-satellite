@@ -1,10 +1,12 @@
-<a href="https://kiosksatellite.com"><h1 align="center">
+<a href="https://kiosksatellite.com">
+<h1 align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/banners/ks_banner_dark.svg" />
     <source media="(prefers-color-scheme: light)" srcset="assets/banners/ks_banner_light.svg" />
     <img alt="Kiosk Satellite for Home Assistant" src="assets/banners/ks_banner_default.svg" width="650" />
   </picture>
-</h1></a>
+</h1>
+</a>
 
 <p align="center">
 <img src="https://img.shields.io/github/stars/jxlarrea/kiosk-satellite?style=for-the-badge&label=Stars&color=d6a102" alt="Stars">
@@ -70,7 +72,7 @@ Also built in: [PIN-protected kiosk mode](https://kiosksatellite.com/docs/kiosk/
 
 You need **Android 7.0 or newer**, a reachable Home Assistant instance and a long-lived access token from **Home Assistant Profile → Security → Long-lived access tokens**.
 
-1. [Download the latest APK](https://github.com/jxlarrea/kiosk-satellite/releases/latest) on your Android device.
+1. [Download the latest APK](https://kiosksatellite.com/download) on your Android device.
 2. Open it to install. Allow installation from this source if Android asks.
 3. Launch Kiosk Satellite and follow the setup wizard to connect Home Assistant and choose your dashboard.
 
