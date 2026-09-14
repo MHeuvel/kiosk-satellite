@@ -2123,6 +2123,14 @@ class _NowPlayingControlsState extends State<_NowPlayingControls> {
     }
   }
 
+  /// A hardware volume key moved the player (issue #544): show the
+  /// slider for a moment, the way the system shows its own volume.
+  void _onVolumeNudge() {
+    if (!mounted || !c.sendspin.volumeAvailable) return;
+    if (!_volumeOpen) setState(() => _volumeOpen = true);
+    _armVolumeClose();
+  }
+
   Future<void> _setVolume(double level) async {
     _armVolumeClose();
     _volumeHold?.cancel();
@@ -2142,6 +2150,7 @@ class _NowPlayingControlsState extends State<_NowPlayingControls> {
     super.initState();
     c.sendspin.nowPlaying.addListener(_onNowPlaying);
     c.sendspin.favorite.addListener(_rebuild);
+    c.sendspin.volumeNudge.addListener(_onVolumeNudge);
     // Nothing else on the view takes focus, so without this a dpad had
     // nothing to walk from.
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -2160,6 +2169,7 @@ class _NowPlayingControlsState extends State<_NowPlayingControls> {
   void dispose() {
     c.sendspin.nowPlaying.removeListener(_onNowPlaying);
     c.sendspin.favorite.removeListener(_rebuild);
+    c.sendspin.volumeNudge.removeListener(_onVolumeNudge);
     _settingsSub?.cancel();
     _volumeClose?.cancel();
     _volumeHold?.cancel();

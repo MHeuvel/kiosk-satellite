@@ -730,6 +730,14 @@ class HomeKeyPressed extends AppEvent {
   const HomeKeyPressed();
 }
 
+/// A hardware volume key pressed while the native side routes them to
+/// the followed media player (issue #544): [direction] is 'up', 'down'
+/// or 'mute'. Held keys repeat.
+class VolumeKeyPressed extends AppEvent {
+  const VolumeKeyPressed({required this.direction});
+  final String direction;
+}
+
 // ── Gestures (issue #99) ───────────────────────────────────────────────
 
 /// A configured hidden gesture was detected natively. [id] is the mapping

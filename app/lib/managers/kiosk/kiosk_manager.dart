@@ -137,6 +137,21 @@ class KioskManager extends Manager with WidgetsBindingObserver {
     return _invoke<void>('navCapture', capture);
   }
 
+  bool _volumeKeys = false;
+
+  /// Tell the native side whether the hardware volume keys steer the
+  /// followed media player (issue #544): the kiosk screen decides from
+  /// the setting, the player and what is on screen; lockdown overrides
+  /// it here, since under lockdown no key does anything. Kept and
+  /// re-pushed on each new Activity and on a lockdown flip.
+  Future<void> setVolumeKeys(bool active) {
+    _volumeKeys = active;
+    return _pushVolumeKeys();
+  }
+
+  Future<void> _pushVolumeKeys() =>
+      _invoke<void>('volumeKeys', _volumeKeys && !lockdownActive);
+
   /// Which route, if any, a device restart has here (issue #528):
   /// `{supported, route, reason}` with route `device_owner` or `shizuku`.
   /// Owner first, since it needs nothing running; a device owner keeps the
@@ -651,6 +666,7 @@ class KioskManager extends Manager with WidgetsBindingObserver {
           // A fresh Activity starts unarmed; re-push the flags.
           await _apply();
           if (_navCapture) await _invoke<void>('navCapture', true);
+          if (_volumeKeys) await _pushVolumeKeys();
         case 'exitGesture':
           log.info(name, 'exit gesture detected');
           bus.publish(const KioskExitGesture());
@@ -668,6 +684,8 @@ class KioskManager extends Manager with WidgetsBindingObserver {
           bus.publish(HomeRoleChanged(held: call.arguments == true));
         case 'homePressed':
           bus.publish(const HomeKeyPressed());
+        case 'volumeKey':
+          bus.publish(VolumeKeyPressed(direction: '${call.arguments}'));
       }
       return null;
     });
@@ -685,6 +703,10 @@ class KioskManager extends Manager with WidgetsBindingObserver {
       // via the launcher or launchApp cannot sit above the shield.
       if (e.key == defs.lockdownEnabled.key && e.value == true) {
         unawaited(commands.execute('bringToFront', const {}));
+      }
+      // The volume key routing follows the lockdown flag.
+      if (e.key == defs.lockdownEnabled.key && _volumeKeys) {
+        await _pushVolumeKeys();
       }
       // Enabling the shield needs the draw-over-apps grant; fire the system
       // settings page the first time so the person is standing in front of

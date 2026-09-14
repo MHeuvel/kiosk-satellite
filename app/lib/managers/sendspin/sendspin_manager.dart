@@ -437,11 +437,86 @@ class SendspinManager extends Manager {
           false);
 
   /// The volume the view's slider shows, 0 to 100: the media volume
-  /// setting locally, the followed player's last report otherwise. Null
-  /// while unknown.
-  int? get volumeLevel => _remote == null
-      ? _settings.get(defs.mediaVolume).toInt()
-      : (nowPlaying.value?['volume'] as num?)?.toInt();
+  /// setting locally, the followed player's last report otherwise, or
+  /// the level the volume keys just asked for while the player has yet
+  /// to report it back. Null while unknown.
+  int? get volumeLevel =>
+      _volumeTarget ??
+      (_remote == null
+          ? _settings.get(defs.mediaVolume).toInt()
+          : (nowPlaying.value?['volume'] as num?)?.toInt());
+
+  /// Whether the hardware volume keys should steer the followed player
+  /// (issue #544), given whether the Now Playing view is on screen: the
+  /// setting's mode, for a player elsewhere that takes a volume. The
+  /// kiosk screen, which knows what is on screen, pushes the answer to
+  /// the native side.
+  bool volumeKeysWanted({required bool viewShown}) {
+    if (_remote == null || !volumeAvailable) return false;
+    return switch (_settings.get(defs.sendspinVolumeKeys)) {
+      'now_playing' => viewShown,
+      'playing' => viewShown || nowPlaying.value?['playing'] == true,
+      _ => false,
+    };
+  }
+
+  /// Bumped on every volume key press the player took, so the Now
+  /// Playing view can show its slider for a moment as the level moves.
+  final volumeNudge = ValueNotifier<int>(0);
+
+  /// The level the last key press asked for, standing in for the
+  /// player's report until it arrives (or for three seconds): presses
+  /// stack on each other instead of on a stale report.
+  int? _volumeTarget;
+  Timer? _volumeTargetHold;
+  bool _volumeSending = false;
+  bool _volumeDirty = false;
+
+  /// A volume key press (issue #544): move the followed player's volume
+  /// by [delta] percent. Presses arriving while a command is out are
+  /// folded into one trailing command at the latest target, so a held
+  /// key, which repeats many times a second, sends the player one
+  /// request at a time rather than a flood.
+  Future<void> nudgeVolume(int delta) async {
+    if (_remote == null || !volumeAvailable) return;
+    final base = volumeLevel;
+    if (base == null) return;
+    _volumeTarget = (base + delta).clamp(0, 100);
+    _volumeTargetHold?.cancel();
+    _volumeTargetHold = Timer(const Duration(seconds: 3), () {
+      _volumeTargetHold = null;
+      _volumeTarget = null;
+    });
+    volumeNudge.value++;
+    if (_volumeSending) {
+      _volumeDirty = true;
+      return;
+    }
+    _volumeSending = true;
+    try {
+      do {
+        _volumeDirty = false;
+        final target = _volumeTarget;
+        if (target == null) break;
+        await setVolume(target);
+      } while (_volumeDirty);
+    } finally {
+      _volumeSending = false;
+    }
+  }
+
+  void _onVolumeKey(String direction) {
+    switch (direction) {
+      case 'up':
+        unawaited(nudgeVolume(defs.sendspinVolumeKeyStep));
+      case 'down':
+        unawaited(nudgeVolume(-defs.sendspinVolumeKeyStep));
+      case 'mute':
+        if (_remote == null || !volumeAvailable) return;
+        volumeNudge.value++;
+        unawaited(toggleMute());
+    }
+  }
 
   /// What [_syncRemote] last built a follower for, so an unrelated
   /// settings burst does not tear a healthy connection down.
@@ -824,6 +899,9 @@ class SendspinManager extends Manager {
         _publishShowing();
       }
     });
+    // The hardware volume keys, while the native side routes them here
+    // (issue #544).
+    bus.on<VolumeKeyPressed>().listen((e) => _onVolumeKey(e.direction));
     bus.on<VoiceInteractionChanged>().listen((e) {
       if (e.reason == 'media') return;
       if (e.active) {

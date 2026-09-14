@@ -999,6 +999,11 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
   /// routing reads it).
   bool get nowPlayingControlsUp => _nowPlayingHoldsTouch;
 
+  /// Whether the Now Playing view is on screen at all, controls or not:
+  /// the volume key routing reads it (issue #544).
+  bool get nowPlayingShowing =>
+      _active && activeView.value != null && _nowPlayingTakeover;
+
   bool get _nowPlayingHoldsTouch =>
       _active &&
       activeView.value != null &&

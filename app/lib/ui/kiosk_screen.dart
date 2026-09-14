@@ -680,6 +680,10 @@ class _KioskScreenState extends State<KioskScreen>
       if (c.camera.activeViewId.value != null) c.camera.hideView();
       unawaited(c.commands.execute('stopScreensaver', const {}));
     });
+    // The volume key routing follows the player and the screensaver
+    // slot (issue #544); the setting rides _onSettingChanged.
+    c.sendspin.nowPlaying.addListener(_syncVolumeKeys);
+    c.screensaver.activeView.addListener(_syncVolumeKeys);
     // The build and the native key routing both follow these surfaces.
     c.browser.overlayUrl.addListener(_onOverlayChanged);
     c.launcher.visible.addListener(_onOverlayChanged);
@@ -1027,6 +1031,8 @@ class _KioskScreenState extends State<KioskScreen>
   /// Diffed — every caller is a state listener that fires often.
   bool? _lastNavCapture;
   void _syncNavCapture() {
+    // The volume key routing rides the same state changes.
+    _syncVolumeKeys();
     final capture =
         _settingsOpen ||
         !(ModalRoute.of(context)?.isCurrent ?? true) ||
@@ -1039,6 +1045,19 @@ class _KioskScreenState extends State<KioskScreen>
     if (capture == _lastNavCapture) return;
     _lastNavCapture = capture;
     unawaited(c.kiosk.setNavCapture(capture));
+  }
+
+  /// Push whether the hardware volume keys steer the followed media
+  /// player right now (issue #544): the setting's mode against what is
+  /// on screen and playing. Diffed like the nav capture.
+  bool? _lastVolumeKeys;
+  void _syncVolumeKeys() {
+    final active = c.sendspin.volumeKeysWanted(
+      viewShown: c.screensaver.nowPlayingShowing,
+    );
+    if (active == _lastVolumeKeys) return;
+    _lastVolumeKeys = active;
+    unawaited(c.kiosk.setVolumeKeys(active));
   }
 
   /// The dpad, arrow and select keys MainActivity routes into Flutter
@@ -1304,6 +1323,8 @@ class _KioskScreenState extends State<KioskScreen>
     kioskRouteObserver.unsubscribe(this);
     _cameraSub?.cancel();
     _saverSub?.cancel();
+    c.sendspin.nowPlaying.removeListener(_syncVolumeKeys);
+    c.screensaver.activeView.removeListener(_syncVolumeKeys);
     c.browser.overlayUrl.removeListener(_onOverlayChanged);
     c.launcher.visible.removeListener(_onOverlayChanged);
     c.plugins.windows.removeListener(_onOverlayChanged);

@@ -4984,6 +4984,37 @@ const sendspinDuckPercent = SettingDef<num>(
   unit: '%',
 );
 
+/// The device's hardware volume keys steer the followed player instead
+/// of the tablet's own volume (issue #544): a kiosk that only shows and
+/// remotes a speaker elsewhere has nothing of its own to make louder,
+/// and the buttons are the one control that needs no look at the
+/// screen. Only for a player elsewhere; with this device as the source
+/// the keys keep their Android meaning, since the music comes out of
+/// this device and the master volume is the right thing to move.
+const sendspinVolumeKeys = SettingDef<String>(
+  key: 'sendspin.volume_keys',
+  type: SettingType.select,
+  defaultValue: 'off',
+  title: 'Volume buttons control the player',
+  description:
+      "This device's volume buttons change the followed player's volume "
+      'instead of its own, in steps of 5%. Only while the Now Playing view '
+      'is on screen, or whenever the player is playing.',
+  category: 'Sendspin',
+  options: ['off', 'now_playing', 'playing'],
+  optionLabels: {
+    'off': 'Off',
+    'now_playing': 'While Now Playing is shown',
+    'playing': 'While the player is playing',
+  },
+  dependsOn: 'sendspin.player_source',
+  dependsOnValue: ['ha', 'ma', 'sonos'],
+  perDevice: true,
+);
+
+/// How far one volume key press moves the followed player, in percent.
+const sendspinVolumeKeyStep = 5;
+
 /// The picked player's display name: what the settings rows show and what
 /// the Now Playing view's chip says. Stored beside the id so neither
 /// surface needs the player's system just to say what is selected.
@@ -7188,6 +7219,7 @@ const List<SettingDef<Object>> allSettings = [
   sendspinPlayerSource,
   sendspinPlayer,
   sendspinDuckPercent,
+  sendspinVolumeKeys,
   sendspinPlayerName,
   sendspinEnabled,
   sendspinServer,

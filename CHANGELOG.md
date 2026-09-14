@@ -5,6 +5,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ## Unreleased
 
 ### Added
+- **The hardware volume buttons can control the followed media player.** A kiosk that follows a Music Assistant, Home Assistant or Sonos player used to change its own volume when its buttons were pressed, which did nothing to the music. A new Volume buttons control the player setting under Media Player routes the buttons to the followed player in 5% steps, either only while the Now Playing view is on screen or whenever the player is playing. The mute button mutes the player, a held button keeps stepping and the Now Playing view shows its volume slider for a moment on every press. With this device as the player source the buttons keep their normal meaning, and lockdown or Disable volume buttons under Kiosk still leave them dead.
 - **Screen orientation setting under Screen & Audio.** A device without a rotation sensor keeps whatever orientation Android picked at boot, and one mounted in a frame can be read wrong by the sensor it has. The new Screen orientation row below Display cutout forces the screen into Landscape, Portrait or either of them reversed, applied the moment it changes and from the first frame after a restart. Automatic, the default, leaves the choice to the system as before. The setting stays out of fleet sync by default, since it describes how each panel is mounted. Android 16 ignores an app's orientation request on tablets unless the app opts out of that rule, so the app now does.
 
 ### Fixed
