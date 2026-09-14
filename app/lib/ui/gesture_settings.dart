@@ -37,7 +37,8 @@ const _actionGroups = <(String, List<(String, String, IconData)>)>[
       ('now_playing', 'Show Now Playing', Icons.play_circle_outline),
       ('music_assistant', 'Open Music Assistant', Icons.library_music_outlined),
       ('app_launcher', 'Open the app launcher', Icons.apps_outlined),
-      ('intercom_open', 'Open the intercom', Icons.speaker_phone_outlined),
+      ('intercom_open', 'Open Call a kiosk', Icons.speaker_phone_outlined),
+      ('intercom_call', 'Call a kiosk', Icons.phone_outlined),
       ('screensaver', 'Start the screensaver', Icons.nightlight_outlined),
       ('screensaver_stop', 'Stop the screensaver', Icons.light_mode_outlined),
       ('hold_mode', 'Toggle hold mode', Icons.pause_circle_outline),
@@ -623,6 +624,7 @@ class _GestureSettingsPanelState extends State<GestureSettingsPanel> {
         },
       ),
       'camera_view' => _configureCameraView(carried),
+      'intercom_call' => _configureIntercomCall(carried),
       'launch_app' => _configureText(
         carried,
         type: 'launch_app',
@@ -932,6 +934,49 @@ class _GestureSettingsPanelState extends State<GestureSettingsPanel> {
               title: Text(label),
               onTap: () =>
                   Navigator.pop(context, {'type': 'navigate', 'path': path}),
+            ),
+        ],
+      ),
+    );
+  }
+
+  /// The kiosk a Call a kiosk gesture rings: every kiosk the intercom
+  /// has heard, whatever its state today, since a mapping outlives a
+  /// kiosk being off for the afternoon.
+  Future<Map<String, Object?>?> _configureIntercomCall(
+    Map<String, Object?>? current,
+  ) async {
+    final r = await c.commands.execute('intercomStatus', const {});
+    final kiosks = [
+      for (final k in ((r.data as Map?)?['kiosks'] as List? ?? const []))
+        if (k is Map) k.cast<String, Object?>(),
+    ];
+    if (!mounted) return null;
+    final currentId = '${current?['kioskId'] ?? ''}';
+    return showDialog<Map<String, Object?>>(
+      context: context,
+      builder: (context) => SimpleDialog(
+        title: const Text('Call a kiosk'),
+        children: [
+          for (final k in kiosks)
+            ListTile(
+              leading: Icon(
+                currentId == '${k['id']}'
+                    ? Icons.radio_button_checked
+                    : Icons.radio_button_off,
+              ),
+              title: Text('${k['name']}'),
+              subtitle: Text('${k['address']}'),
+              onTap: () => Navigator.pop(context, {
+                'type': 'intercom_call',
+                'kioskId': '${k['id']}',
+                'kioskName': '${k['name']}',
+              }),
+            ),
+          if (kiosks.isEmpty)
+            const Padding(
+              padding: EdgeInsets.fromLTRB(24, 8, 24, 8),
+              child: Text('No kiosk found on the network yet.'),
             ),
         ],
       ),

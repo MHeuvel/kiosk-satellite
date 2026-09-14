@@ -26,7 +26,7 @@ The **Intercom** entry in the kiosk menu opens the **Call a kiosk** sheet: **Ann
 
 The card names the kiosk, says Calling and offers Cancel. Nothing plays until the other side answers. Busy, Do not disturb, no answer and a different key end the call with one line on the card.
 
-The **Open the intercom** [gesture action](gestures.md) opens the same sheet. **Show in the kiosk menu** on the Intercom page takes the entry out of the menu altogether, and the restricted menu has its own Intercom switch under **Kiosk Mode, Allowed Actions**, so a wall panel can keep the entry off while a gesture still opens the sheet.
+The **Open Call a kiosk** [gesture action](gestures.md) opens the same sheet, and **Call a kiosk** rings one kiosk picked when the gesture was set up. **Show in the kiosk menu** on the Intercom page takes the entry out of the menu altogether, and the restricted menu has its own Intercom switch under **Kiosk Mode, Allowed Actions**, so a wall panel can keep the entry off while a gesture still opens the sheet.
 
 ## A call coming in
 

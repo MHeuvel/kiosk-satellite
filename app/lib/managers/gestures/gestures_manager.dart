@@ -324,6 +324,11 @@ class GesturesManager extends Manager {
         // an empty grid; the drawer entry's Allowed Action is deliberately
         // NOT consulted, which is what makes a secret gesture possible.
         await _run('showAppLauncher', const {});
+      case 'intercom_call':
+        // Rings the kiosk picked when the gesture was set up. The command
+        // carries the intercom's gates, and a kiosk that is off or on
+        // Do not disturb ends the call with the reason on the card.
+        await _run('intercomCall', {'id': a['kioskId'] ?? ''});
       case 'intercom_open':
         // Open only: the sheet closes on its own. The command carries the
         // intercom's gates (off, or no remote admin), so a mapping left

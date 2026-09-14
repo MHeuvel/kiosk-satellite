@@ -41,7 +41,8 @@ export const GESTURE_ACTION_GROUPS = [
     ['now_playing', 'Show Now Playing', 'playCircle'],
     ['music_assistant', 'Open Music Assistant', 'music'],
     ['app_launcher', 'Open the app launcher', 'apps'],
-    ['intercom_open', 'Open the intercom', 'speaker'],
+    ['intercom_open', 'Open Call a kiosk', 'speaker'],
+    ['intercom_call', 'Call a kiosk', 'speaker'],
     ['screensaver', 'Start the screensaver', 'moon'],
     ['screensaver_stop', 'Stop the screensaver', 'sun'],
     ['hold_mode', 'Toggle hold mode', 'pauseCircle'],
@@ -102,7 +103,8 @@ export function describeGestureAction(a) {
     case 'now_playing': return 'Show Now Playing';
     case 'music_assistant': return 'Open Music Assistant';
     case 'app_launcher': return 'Open the app launcher';
-    case 'intercom_open': return 'Open the intercom';
+    case 'intercom_open': return 'Open Call a kiosk';
+    case 'intercom_call': return `Call ${a.kioskName || a.kioskId}`;
     case 'screensaver': return 'Start the screensaver';
     case 'screensaver_stop': return 'Stop the screensaver';
     case 'hold_mode': return 'Toggle hold mode';
@@ -341,6 +343,22 @@ export async function configureGestureCameraView(current) {
   };
 }
 
+// The kiosk a Call a kiosk gesture rings: every kiosk the intercom has
+// heard, whatever its state today.
+export async function configureGestureIntercomCall(current) {
+  const result = await cmd('intercomStatus').catch(() => null);
+  const kiosks = result?.ok ? (result.data.kiosks || []) : [];
+  const items = kiosks.map((k) => ({
+    name: k.name, desc: k.address,
+    selected: current?.kioskId === k.id,
+    value: k,
+  }));
+  if (!items.length) items.push({ name: 'No kiosk found on the network yet.', desc: '', value: null });
+  const picked = await gestureListModal('Call a kiosk', items);
+  if (!picked) return null;
+  return { type: 'intercom_call', kioskId: picked.id, kioskName: picked.name };
+}
+
 // data must parse as a JSON object when present; shared by the two HA
 // dialogs.
 export function parseGestureData(text) {
@@ -464,6 +482,7 @@ export async function pickGestureAction(current) {
       },
     });
     case 'camera_view': return configureGestureCameraView(carried);
+    case 'intercom_call': return configureGestureIntercomCall(carried);
     case 'launch_app': return configureGestureText(carried, {
       type: 'launch_app', title: 'Open another app', field: 'package',
       label: 'Package name', placeholder: 'com.android.deskclock',

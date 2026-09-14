@@ -37,7 +37,8 @@
 ///  - now_playing:      show the full-screen Now Playing view
 ///  - music_assistant:  open the Music Assistant web interface
 ///  - app_launcher:     open the app launcher overlay (issue #318)
-///  - intercom_open:    open the intercom's sheet of kiosks to call
+///  - intercom_open:    open the intercom's Call a kiosk sheet
+///  - intercom_call:    kioskId, kioskName: call that kiosk straight away
 ///  - screensaver:      start the screensaver
 ///  - screensaver_stop: stop it (redundant for touch, made for claps)
 ///  - hold_mode:        toggle hold mode (pin the current view, issue #266)
@@ -206,7 +207,9 @@ String describeGestureAction(Map<String, Object?> action) {
     case 'app_launcher':
       return 'Open the app launcher';
     case 'intercom_open':
-      return 'Open the intercom';
+      return 'Open Call a kiosk';
+    case 'intercom_call':
+      return 'Call ${action['kioskName'] ?? action['kioskId']}';
     case 'screensaver':
       return 'Start the screensaver';
     case 'screensaver_stop':
