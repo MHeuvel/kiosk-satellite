@@ -27,6 +27,7 @@ The settings page is organized into five main sections: Server Connection, Media
 | Metadata | Show metadata | off | Displays photo details in a designated corner of the screen. |
 | Metadata | Album name, Date taken, Camera details, Location | on | Toggles individual metadata lines. |
 | Metadata | Metadata position | Bottom left | Specifies which corner holds the photo details. |
+| Metadata | Text scaling | 100% | Scales the details text, icons and spacing from 50% to 200% for the screen. |
 | Filters | People | Anyone | Filter by specific recognized individuals. |
 | Filters | Exclude people | No one | Exclude media containing specific individuals. |
 | Filters | Tags | Any | Filter by specific Immich tags. |
@@ -90,7 +91,7 @@ Each metadata line has its own toggle switch. If you point your screensaver at a
 
 When placed in a right hand corner, text and icons align to the right, mirroring the layout of right aligned widgets.
 
-**Text drop shadow** is enabled by default and adds a defined shadow beneath metadata text. It is independent of the widget text shadow toggle and updates live. The overlay rests on a subtle dark vignette to keep text readable against bright photos. You can adjust the **Vignette strength** slider from 0 to 100 percent (40 percent by default). Setting it to 0 removes the vignette entirely, leaving clean text over the photo.
+The **Text scaling** slider (50% to 200%) sizes the details text, icons and spacing for the screen and previews live while the screensaver is running. It stays out of [fleet](fleet.md) sync by default like the other scale settings, since it corrects for one panel. **Text drop shadow** is enabled by default and adds a defined shadow beneath metadata text. It is independent of the widget text shadow toggle and updates live. The overlay rests on a subtle dark vignette to keep text readable against bright photos. You can adjust the **Vignette strength** slider from 0 to 100 percent (40 percent by default). Setting it to 0 removes the vignette entirely, leaving clean text over the photo.
 
 When a pair of portrait photos is on screen, the overlay overrides your corner selection and uses both bottom corners so each photo's metadata sits directly underneath it.
 

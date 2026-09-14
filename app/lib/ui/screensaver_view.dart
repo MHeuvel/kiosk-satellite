@@ -122,6 +122,7 @@ class _ScreensaverOverlayState extends State<ScreensaverOverlay> {
       defs.screensaverWidgetFontWeight.key,
       defs.screensaverWidgetTextShadow.key,
       defs.screensaverImmichMetadataTextShadow.key,
+      defs.screensaverImmichMetadataScale.key,
       defs.screensaverVignetteStrength.key,
       defs.screensaverImmichVignetteStrength.key,
       defs.screensaverImmichMetadata.key,
@@ -4257,11 +4258,18 @@ class _ImmichMetadataState extends State<_ImmichMetadata> {
       widget.container,
       setting: defs.screensaverImmichMetadataTextShadow,
     );
+    // Fixed pixel sizes, then the Text scaling slider over every one of
+    // them (text, icons and the gap between), the widgets' rule.
+    final scale =
+        widget.container.settings
+            .get(defs.screensaverImmichMetadataScale)
+            .toDouble() /
+        100;
     TextStyle style({double size = 16, FontWeight? weight, double alpha = 1}) =>
         TextStyle(
           fontFamily: 'Rubik',
           color: Colors.white.withValues(alpha: alpha),
-          fontSize: size,
+          fontSize: size * scale,
           fontWeight: weight ?? FontWeight.w400,
           shadows: shadows,
           height: 1.35,
@@ -4276,14 +4284,14 @@ class _ImmichMetadataState extends State<_ImmichMetadata> {
     Widget row(String icon, List<Widget> texts) {
       final glyph = SvgPicture.asset(
         'assets/svg/$icon.svg',
-        width: 15,
-        height: 15,
+        width: 15 * scale,
+        height: 15 * scale,
         colorFilter: ColorFilter.mode(
           Colors.white.withValues(alpha: 0.85),
           BlendMode.srcIn,
         ),
       );
-      const gap = SizedBox(width: 9);
+      final gap = SizedBox(width: 9 * scale);
       final text = Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: right

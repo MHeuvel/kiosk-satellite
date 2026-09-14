@@ -2885,6 +2885,25 @@ const screensaverImmichMetadataTextShadow = SettingDef<bool>(
   dependsOn: 'screensaver.immich_metadata',
 );
 
+// The metadata overlay's own text size, the Global widget scaling
+// slider's twin: the panel's fixed pixel sizes read right on a tablet and
+// too small on a wall display, and this corrects them for the panel.
+const screensaverImmichMetadataScale = SettingDef<num>(
+  key: 'screensaver.immich_metadata_scale',
+  type: SettingType.number,
+  defaultValue: 100,
+  title: 'Text scaling',
+  description: 'Scale the photo details to better fit your screen size.',
+  category: 'Screensaver',
+  section: 'Metadata',
+  subpage: 'Immich Media screensaver',
+  min: 50,
+  max: 200,
+  step: 5,
+  unit: '%',
+  dependsOn: 'screensaver.immich_metadata',
+);
+
 // The metadata overlay's own vignette, the widgets' slider's twin (same
 // range, same default, same meaning) so the two can be set apart.
 const screensaverImmichVignetteStrength = SettingDef<num>(
@@ -6630,6 +6649,7 @@ const fleetDefaultExcluded = {
   'screensaver.website_zoom',
   'screensaver.clock_scale',
   'screensaver.widget_scale',
+  'screensaver.immich_metadata_scale',
   'screensaver.glance_scale',
   'face.preview_scale',
   'sendspin.player_size',
@@ -6696,6 +6716,38 @@ const fleetFormerDefaultExcluded = <Set<String>>[
     'face.sensitivity',
     'camera.snapshot_resolution',
     'browser.cutout_mode',
+  },
+  // Before the Immich metadata text scaling joined (2026.9.49).
+  {
+    'browser.zoom',
+    'screensaver.website_zoom',
+    'screensaver.clock_scale',
+    'screensaver.widget_scale',
+    'screensaver.glance_scale',
+    'face.preview_scale',
+    'sendspin.player_size',
+    'screen.default_brightness',
+    'screen.adaptive_min_brightness',
+    'screen.adaptive_max_brightness',
+    'screen.adaptive_dark_lux',
+    'screen.adaptive_bright_lux',
+    'screensaver.brightness_level',
+    'screensaver.dim_level',
+    'audio.media_volume',
+    'audio.assistant_volume',
+    'notifications.volume',
+    'ha.tap_sound_volume',
+    'screensaver.gallery_items',
+    'screensaver.local_folder',
+    'screensaver.clock_background',
+    'notifications.chime_file',
+    'launcher.apps',
+    'motion.sensitivity',
+    'motion.fps',
+    'face.sensitivity',
+    'camera.snapshot_resolution',
+    'browser.cutout_mode',
+    'screen.orientation',
   },
 ];
 
@@ -7149,6 +7201,7 @@ const List<SettingDef<Object>> allSettings = [
   screensaverImmichMetadataLocation,
   screensaverImmichMetadataPosition,
   screensaverImmichMetadataTextShadow,
+  screensaverImmichMetadataScale,
   screensaverImmichVignetteStrength,
   screensaverImmichPeople,
   screensaverImmichExcludePeople,

@@ -494,7 +494,7 @@ void main() {
             'categories': [],
             'credentials': ['ha.token', 'bogus'],
           })!.describe(),
-          'Categories: 0 of 16. Credentials: 1 of 3. Excluded: 29.',
+          'Categories: 0 of 16. Credentials: 1 of 3. Excluded: 30.',
         );
         expect(
           withCreds['browser.start_url'],
@@ -1332,11 +1332,13 @@ void main() {
       expect(former.containsAll(previous), isTrue);
       previous = former;
     }
-    // The orientation joined last: the newest former list is the current
-    // one without it.
+    // The Immich metadata text scaling joined last: the newest former
+    // list is the current one without it.
     expect(
       defs.fleetFormerDefaultExcluded.last,
-      defs.fleetDefaultExcluded.difference({'screen.orientation'}),
+      defs.fleetDefaultExcluded.difference({
+        'screensaver.immich_metadata_scale',
+      }),
     );
   });
 

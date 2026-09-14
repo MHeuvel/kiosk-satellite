@@ -399,6 +399,29 @@ void main() {
       expect(def.section, defs.screensaverWidgetScale.section);
     });
 
+    test('the Immich metadata overlay has a text scaling slider of its '
+        'own, the global widget scaling twin', () {
+      final def = defs.screensaverImmichMetadataScale;
+      expect(defs.allSettings, contains(def));
+      expect(def.defaultValue, 100);
+      expect(def.min, defs.screensaverWidgetScale.min);
+      expect(def.max, defs.screensaverWidgetScale.max);
+      expect(def.step, defs.screensaverWidgetScale.step);
+      expect(def.subpage, defs.screensaverImmichMetadataPosition.subpage);
+      expect(def.section, defs.screensaverImmichMetadataPosition.section);
+      expect(def.dependsOn, defs.screensaverImmichMetadata.key);
+      // A panel correction, so it stays out of new profiles like the
+      // other scales, and the profiles created before it get migrated.
+      expect(defs.fleetDefaultExcluded, contains(def.key));
+      expect(defs.fleetFormerDefaultExcluded.last, isNot(contains(def.key)));
+      expect(
+        defs.fleetDefaultExcluded.difference(
+          defs.fleetFormerDefaultExcluded.last,
+        ),
+        {def.key},
+      );
+    });
+
     test('the Immich metadata overlay has a twin slider of its own', () {
       final def = defs.screensaverImmichVignetteStrength;
       expect(defs.allSettings, contains(def));
