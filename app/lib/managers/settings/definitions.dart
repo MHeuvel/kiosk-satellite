@@ -5084,7 +5084,6 @@ const sendspinVolumeKeys = SettingDef<String>(
   },
   dependsOn: 'sendspin.player_source',
   dependsOnValue: ['ha', 'ma', 'sonos'],
-  perDevice: true,
 );
 
 /// How far one volume key press moves the followed player, in percent.

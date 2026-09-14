@@ -18,7 +18,6 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 - **A follower's remote admin keeps the "leads these settings" banner on the Gestures and Cameras pages.** Those two pages draw themselves from scratch every time they open, and again after every change made on them, which threw away the banner the other pages keep, so a follower showed it on App Launcher but not on Gestures even with Gestures listed under "Synced from the leader". Both pages now put the banner back each time they redraw.
 
 ### Changed
-- **The fleet documentation lists Volume buttons control the player among the settings that never sync.** The setting is per device, and the Never Synced table had missed it.
 - **The camera documentation no longer claims Go2RTC transcodes H.265 by itself.** A Go2RTC with ffmpeg answers `codecs not matched` for an H.265 source when the app asks for H.264; the stream needs an `ffmpeg:` source with `#video=h264` for that, and the Stream Codecs section now says so.
 
 ## v2026.9.48 - 2026-09-13
