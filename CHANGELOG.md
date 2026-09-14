@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Fixed
+- **A follower's remote admin keeps the "leads these settings" banner on the Gestures and Cameras pages.** Those two pages draw themselves from scratch every time they open, and again after every change made on them, which threw away the banner the other pages keep, so a follower showed it on App Launcher but not on Gestures even with Gestures listed under "Synced from the leader". Both pages now put the banner back each time they redraw.
+
 ## v2026.9.48 - 2026-09-13
 
 ### Fixed

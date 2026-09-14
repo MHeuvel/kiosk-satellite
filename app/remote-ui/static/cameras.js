@@ -1,4 +1,5 @@
 import { api, cmd, state } from './core.js';
+import { applyManagedBanners } from './fleetsync.js';
 import { settingRow } from './rows.js';
 import { messageBox, modalShell } from './widgets.js';
 
@@ -1022,6 +1023,9 @@ export async function loadCameras() {
     state.settings = settings;
   } catch (_) {}
   root.innerHTML = '';
+  // Rebuilt from scratch on every visit, so the follower banner goes back on
+  // first (see applyManagedBanners).
+  applyManagedBanners();
 
   const heading = (text) => {
     const h = document.createElement('h2');

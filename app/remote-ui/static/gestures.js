@@ -7,6 +7,7 @@ import {
   cameraSelectField,
 } from './cameras.js';
 import { api, cmd, state } from './core.js';
+import { applyManagedBanners } from './fleetsync.js';
 import { settingRow } from './rows.js';
 import { fetchViews, radioRow } from './views.js';
 import { messageBox, modalShell } from './widgets.js';
@@ -664,9 +665,14 @@ export async function loadGestures() {
   } catch (_) {
     root.innerHTML =
       '<div class="card"><div class="desc">Could not read the settings.</div></div>';
+    applyManagedBanners();
     return;
   }
   root.innerHTML = '';
+  // Rebuilt from scratch on every visit, so the banner a follower's synced
+  // category wears goes back on first; the generic tabs keep theirs because
+  // nothing redraws them between settings loads.
+  applyManagedBanners();
   const value = (key) =>
     (state.settings || []).find((s) => s.key === key)?.value;
   const refresh = () => loadGestures();
