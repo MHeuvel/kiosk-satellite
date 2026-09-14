@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.9.49 - 2026-09-14
 
 ### Added
 - **Each screensaver widget has its own Scale slider.** The Widgets group scaled every corner overlay by one slider, so a small clock that read right left the weather widget too large in the next corner. Every widget's editor now carries a Scale slider from -50% to +50% that sizes that widget alone, on the device and in the remote admin. The group's slider, now named Global widget scaling, still scales all of them together for the screen and keeps their relative sizes.
