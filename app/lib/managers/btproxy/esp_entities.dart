@@ -1164,6 +1164,9 @@ class EspEntitySurface {
       'supportsResponse': true,
       'args': [
         {'name': 'url', 'type': 'string'},
+        // Hold mode for the page's stay: on with the page, off when it
+        // goes, whichever way it goes. A hold already on is left alone.
+        {'name': 'hold_mode', 'type': 'bool'},
       ],
     },
     // Drops that page, whoever put it up; nothing up is not an error.
@@ -1282,7 +1285,10 @@ class EspEntitySurface {
         // the page the moment it does.
         await commands.execute('stopScreensaver', const {});
         await commands.execute('screenOn', const {});
-        final result = await commands.execute('showLinkPage', {'url': url});
+        final result = await commands.execute('showLinkPage', {
+          'url': url,
+          'hold': args['hold_mode'] == true,
+        });
         if (!result.ok) throw StateError(result.error ?? 'refused');
         return const {};
       case 'close_url':

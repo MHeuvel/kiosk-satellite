@@ -5,7 +5,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ## Unreleased
 
 ### Added
-- **An automation can put a web page on the kiosk.** Two ESPHome actions, `open_url` and `close_url`, show a page over the dashboard and take it down again, on the same surface a tapped dashboard link or the Music Assistant menu entry gets: the page slides up with a close button, the dashboard stays loaded underneath and the wake word keeps listening. The kiosk stops a running screensaver and wakes the screen first so the page is seen. Both are listed with Expose kiosk entities and the docs show how to pair the action with hold mode for a page that should stay up until it is read. The `showLinkPage` and `hideOverlayPage` remote API commands are the same two and are now documented.
+- **An automation can put a web page on the kiosk.** Two ESPHome actions, `open_url` and `close_url`, show a page over the dashboard and take it down again, on the same surface a tapped dashboard link or the Music Assistant menu entry gets: the page slides up with a close button, the dashboard stays loaded underneath and the wake word keeps listening. The kiosk stops a running screensaver and wakes the screen first so the page is seen. A `hold_mode` argument turns hold mode on with the page and off again when the page goes, whichever way it goes, so a recipe stays up until it is read; a hold already on is left alone. Both are listed with Expose kiosk entities. The `showLinkPage` and `hideOverlayPage` remote API commands are the same two and are now documented.
 
 ## v2026.9.55 - 2026-09-15
 

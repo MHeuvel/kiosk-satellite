@@ -372,18 +372,16 @@ Two actions run the [intercom](intercom.md#home-assistant) from an automation or
 
 `esphome.<node name>_open_url` shows a web page over the dashboard from an automation or script, on the same surface a tapped dashboard link or the Music Assistant menu entry gets: a page with a close button that slides up over the dashboard, which stays loaded underneath with its wake word listening. The `url` must be an http or https address. Before the page shows, the kiosk stops a running screensaver and wakes the screen, so the page is seen rather than loaded behind a black screen. `esphome.<node name>_close_url` takes no arguments and drops the page again. Both are listed with **Expose kiosk entities**.
 
-The page has the same footing as any other link the kiosk opens: it follows the **Ignore SSL errors** switch, it runs the **Inject JavaScript on external pages** script and a page on your Home Assistant origin signs in with the dashboard's session. A page open this way counts as activity while it is being touched, but the idle clock keeps running under it, so on a quiet kiosk the screensaver returns after the usual idle time and covers the page. To keep a page up for as long as it takes to read it, turn on [hold mode](screensavers.md#starting-and-dismissing) for the visit and release it when done:
+The page has the same footing as any other link the kiosk opens: it follows the **Ignore SSL errors** switch, it runs the **Inject JavaScript on external pages** script and a page on your Home Assistant origin signs in with the dashboard's session. A page open this way counts as activity while it is being touched, but the idle clock keeps running under it, so on a quiet kiosk the screensaver returns after the usual idle time and covers the page. For a page that should stay up for as long as it takes to read it, set `hold_mode` to true: the kiosk turns [hold mode](screensavers.md#starting-and-dismissing) on with the page and off again when the page goes, whether through `close_url`, the close button, the back button or the HOME key. A hold you already had on is left alone and stays after the page. The hold's own auto release timer still applies, so a page left up on a busy kitchen counter does not pin the kiosk forever.
 
 ```yaml
-- action: switch.turn_on
-  target:
-    entity_id: switch.kitchen_tablet_hold_mode
 - action: esphome.kitchen_tablet_open_url
   data:
     url: https://www.example.com/recipes/chocolate-chip-cookies
+    hold_mode: true
 ```
 
-A later `close_url` and a `switch.turn_off` on the same hold mode switch put the kiosk back on its dashboard with the idle clock running. On the [remote API](remote-api.md) the same two are the `showLinkPage` and `hideOverlayPage` commands.
+On the [remote API](remote-api.md) the same two are the `showLinkPage` and `hideOverlayPage` commands, `showLinkPage` with the same `hold` flag.
 
 ## GPS Sensor
 

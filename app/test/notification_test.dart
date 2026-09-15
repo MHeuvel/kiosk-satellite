@@ -761,6 +761,7 @@ void main() {
       expect(open['supportsResponse'], isTrue);
       expect(open['args'], [
         {'name': 'url', 'type': 'string'},
+        {'name': 'hold_mode', 'type': 'bool'},
       ]);
       final close = services.singleWhere((s) => s['name'] == 'close_url');
       expect(close['supportsResponse'], isTrue);
@@ -780,7 +781,22 @@ void main() {
         'screenOn',
         'showLinkPage',
       ]);
-      expect(calls.last.$2, {'url': 'https://example.com/recipe'});
+      expect(calls.last.$2, {
+        'url': 'https://example.com/recipe',
+        'hold': false,
+      });
+    });
+
+    test('open_url passes hold_mode through to the link page', () async {
+      final surface = EspEntitySurface(bus, commands, Logger(), settings);
+      await surface.handleService('open_url', {
+        'url': 'https://example.com/recipe',
+        'hold_mode': true,
+      });
+      expect(calls.last.$2, {
+        'url': 'https://example.com/recipe',
+        'hold': true,
+      });
     });
 
     test('open_url refuses anything but a web address', () async {

@@ -147,8 +147,9 @@ focusedCameraId}`), `cameraGetConfig`, `restartApp`, `rebootDevice`
 Shizuku connection, which `getDeviceRebootSupport` reports as
 `{supported, route, reason}`), `tts {text}`,
 `launchApp {package}` (open another Android app over the kiosk),
-`showLinkPage {url}` / `hideOverlayPage` (a web page with a close button
-over the dashboard, the surface a tapped dashboard link gets; the
+`showLinkPage {url, hold}` / `hideOverlayPage` (a web page with a close
+button over the dashboard, the surface a tapped dashboard link gets;
+`hold: true` turns hold mode on with the page and off when it goes; the
 `open_url` and `close_url` [ESPHome actions](esphome.md#open-a-web-page)
 call the same two),
 `bringToFront` (come back in front of it), `installedApps` (every

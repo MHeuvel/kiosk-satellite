@@ -111,11 +111,21 @@ class BrowserManager extends Manager with WidgetsBindingObserver {
   /// session tears down, the wake word dies with it, and the entities drop
   /// unavailable. The overlay gives the tap the same fullscreen page while
   /// the dashboard — and everything living in it — stays loaded underneath.
-  void showLinkOverlay(String url) {
+  void showLinkOverlay(String url, {bool hold = false}) {
     log.info(name, 'link opens over the dashboard: $url');
+    // Hold mode for the page's stay (the open_url action's hold_mode):
+    // engaged here, released when the page goes, whichever way it goes.
+    // A hold the user already had on is theirs and stays.
+    if (hold && !_settings.get(defs.haHoldMode)) {
+      _overlayHold = true;
+      unawaited(_settings.set(defs.haHoldMode, true));
+    }
     overlayDismissible.value = true;
     overlayUrl.value = url;
   }
+
+  /// Whether the overlay up now turned hold mode on for its stay.
+  bool _overlayHold = false;
 
   /// Drop the overlay, whoever put it up.
   void dismissOverlay() {
@@ -249,6 +259,22 @@ class BrowserManager extends Manager with WidgetsBindingObserver {
         'overlay page',
         covered: uri != null && uri.hasScheme && !isDashboardOrigin(uri),
       );
+      // The page that engaged hold mode is gone: let the hold go with it,
+      // unless something released it in the meantime.
+      if (url == null && _overlayHold) {
+        _overlayHold = false;
+        if (_settings.get(defs.haHoldMode)) {
+          log.info(name, 'the page is gone; hold mode released with it');
+          unawaited(_settings.set(defs.haHoldMode, false));
+        }
+      }
+    });
+    // A hold released by anyone else (the switch, the drawer notice, the
+    // auto-release timer) is no longer the page's to release.
+    bus.on<SettingChanged>().listen((e) {
+      if (e.key == defs.haHoldMode.key && e.value == false) {
+        _overlayHold = false;
+      }
     });
     // The network came back from an outage: check what the page actually is
     // and repair it now, instead of leaving it to timers that may sit for
@@ -329,13 +355,18 @@ class BrowserManager extends Manager with WidgetsBindingObserver {
               'Show an external page in the overlay WebView with its close '
               'button, the same surface a tapped dashboard link gets (used '
               'by gesture actions, issue #99)',
-          params: const {'url': 'Absolute URL to show'},
+          params: const {
+            'url': 'Absolute URL to show',
+            'hold':
+                'true turns hold mode on for the page and off again when '
+                'the page goes; a hold already on is left alone',
+          },
           handler: (p) async {
             final url = p['url'] as String?;
             if (url == null || url.isEmpty) {
               return const CommandResult.fail('url required');
             }
-            showLinkOverlay(url);
+            showLinkOverlay(url, hold: p['hold'] == true);
             return const CommandResult.ok();
           },
         ),

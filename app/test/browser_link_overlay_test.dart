@@ -3,6 +3,7 @@ import 'package:kiosk_satellite/core/command_registry.dart';
 import 'package:kiosk_satellite/core/event_bus.dart';
 import 'package:kiosk_satellite/core/logging.dart';
 import 'package:kiosk_satellite/managers/browser/browser_manager.dart';
+import 'package:kiosk_satellite/managers/settings/definitions.dart' as defs;
 import 'package:kiosk_satellite/managers/settings/settings_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,6 +15,7 @@ void main() {
 
   late CommandRegistry commands;
   late BrowserManager browser;
+  late SettingsManager settings;
 
   Future<void> build({Map<String, Object> extra = const {}}) async {
     SharedPreferences.setMockInitialValues({
@@ -23,7 +25,7 @@ void main() {
     final bus = EventBus();
     final log = Logger();
     commands = CommandRegistry(log);
-    final settings = SettingsManager(bus, commands, log);
+    settings = SettingsManager(bus, commands, log);
     await settings.init();
     browser = BrowserManager(bus, commands, log, settings);
     await browser.init();
@@ -40,8 +42,7 @@ void main() {
       );
     });
 
-    test('the loaded page origin counts too (secure context proxy)',
-        () async {
+    test('the loaded page origin counts too (secure context proxy)', () async {
       await build();
       browser.onPageLoaded('http://127.0.0.1:18123/lovelace/home');
       expect(
@@ -55,34 +56,36 @@ void main() {
       );
     });
 
-    test('other hosts, and the same host on another port, are external',
-        () async {
-      await build();
-      expect(
-        browser.isDashboardOrigin(Uri.parse('https://example.com/page')),
-        isFalse,
-      );
-      expect(
-        browser.isDashboardOrigin(Uri.parse('http://192.168.1.10:2323/')),
-        isFalse,
-      );
-      expect(
-        browser.isDashboardOrigin(Uri.parse('https://192.168.1.10:8123/')),
-        isFalse,
-      );
-    });
+    test(
+      'other hosts, and the same host on another port, are external',
+      () async {
+        await build();
+        expect(
+          browser.isDashboardOrigin(Uri.parse('https://example.com/page')),
+          isFalse,
+        );
+        expect(
+          browser.isDashboardOrigin(Uri.parse('http://192.168.1.10:2323/')),
+          isFalse,
+        );
+        expect(
+          browser.isDashboardOrigin(Uri.parse('https://192.168.1.10:8123/')),
+          isFalse,
+        );
+      },
+    );
   });
 
   group('overlay state', () {
-    test('a link overlay is dismissible, a rotation overlay is not',
-        () async {
+    test('a link overlay is dismissible, a rotation overlay is not', () async {
       await build();
       browser.showLinkOverlay('https://example.com/doorbell');
       expect(browser.overlayUrl.value, 'https://example.com/doorbell');
       expect(browser.overlayDismissible.value, isTrue);
 
-      await commands
-          .execute('showOverlayPage', {'url': 'https://example.com/weather'});
+      await commands.execute('showOverlayPage', {
+        'url': 'https://example.com/weather',
+      });
       expect(browser.overlayUrl.value, 'https://example.com/weather');
       expect(browser.overlayDismissible.value, isFalse);
     });
@@ -94,28 +97,32 @@ void main() {
       expect(browser.overlayUrl.value, isNull);
     });
 
-    test('showMusicAssistant wakes the device and opens the web interface',
-        () async {
-      await build(extra: {'ks.sendspin.ma_url': '192.168.1.10:8095'});
-      final woke = <String>[];
-      for (final name in ['screenOn', 'bringToFront', 'stopScreensaver']) {
-        commands.register(Command(
-          name: name,
-          description: name,
-          handler: (_) async {
-            woke.add(name);
-            return const CommandResult.ok();
-          },
-        ));
-      }
-      final result = await commands.execute('showMusicAssistant', const {});
-      expect(result.ok, isTrue);
-      expect(woke, ['screenOn', 'bringToFront', 'stopScreensaver']);
-      // The bare address gets the https scheme, the same URL the kiosk
-      // menu entry opens, on the dismissible overlay a tapped link gets.
-      expect(browser.overlayUrl.value, 'https://192.168.1.10:8095');
-      expect(browser.overlayDismissible.value, isTrue);
-    });
+    test(
+      'showMusicAssistant wakes the device and opens the web interface',
+      () async {
+        await build(extra: {'ks.sendspin.ma_url': '192.168.1.10:8095'});
+        final woke = <String>[];
+        for (final name in ['screenOn', 'bringToFront', 'stopScreensaver']) {
+          commands.register(
+            Command(
+              name: name,
+              description: name,
+              handler: (_) async {
+                woke.add(name);
+                return const CommandResult.ok();
+              },
+            ),
+          );
+        }
+        final result = await commands.execute('showMusicAssistant', const {});
+        expect(result.ok, isTrue);
+        expect(woke, ['screenOn', 'bringToFront', 'stopScreensaver']);
+        // The bare address gets the https scheme, the same URL the kiosk
+        // menu entry opens, on the dismissible overlay a tapped link gets.
+        expect(browser.overlayUrl.value, 'https://192.168.1.10:8095');
+        expect(browser.overlayDismissible.value, isTrue);
+      },
+    );
 
     for (final fullscreen in [false, true]) {
       test(
@@ -172,6 +179,65 @@ void main() {
       await commands.execute('hideOverlayPage', const {});
       expect(browser.overlayUrl.value, isNull);
       expect(browser.overlayDismissible.value, isFalse);
+    });
+  });
+
+  group('hold mode for the page', () {
+    test('engaged with the page and released when it goes', () async {
+      await build();
+      await commands.execute('showLinkPage', {
+        'url': 'https://example.com/recipe',
+        'hold': true,
+      });
+      await pumpEventQueue();
+      expect(settings.get(defs.haHoldMode), isTrue);
+
+      await commands.execute('hideOverlayPage', const {});
+      await pumpEventQueue();
+      expect(settings.get(defs.haHoldMode), isFalse);
+    });
+
+    test('the close button path releases it too', () async {
+      await build();
+      browser.showLinkOverlay('https://example.com/recipe', hold: true);
+      await pumpEventQueue();
+      expect(settings.get(defs.haHoldMode), isTrue);
+      browser.dismissOverlay();
+      await pumpEventQueue();
+      expect(settings.get(defs.haHoldMode), isFalse);
+    });
+
+    test('a hold the user already had on stays on', () async {
+      await build(extra: {'ks.ha.hold_mode': true});
+      browser.showLinkOverlay('https://example.com/recipe', hold: true);
+      await pumpEventQueue();
+      browser.dismissOverlay();
+      await pumpEventQueue();
+      expect(settings.get(defs.haHoldMode), isTrue);
+    });
+
+    test(
+      'a hold released while the page is up is not released again',
+      () async {
+        await build();
+        browser.showLinkOverlay('https://example.com/recipe', hold: true);
+        await pumpEventQueue();
+        // The switch, the drawer notice or the auto-release timer.
+        await settings.set(defs.haHoldMode, false);
+        await pumpEventQueue();
+        await settings.set(defs.haHoldMode, true);
+        await pumpEventQueue();
+        browser.dismissOverlay();
+        await pumpEventQueue();
+        expect(settings.get(defs.haHoldMode), isTrue);
+      },
+    );
+
+    test('without the flag the page leaves hold mode alone', () async {
+      await build();
+      browser.showLinkOverlay('https://example.com/recipe');
+      await pumpEventQueue();
+      expect(settings.get(defs.haHoldMode), isFalse);
     });
   });
 }
