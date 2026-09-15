@@ -147,6 +147,10 @@ focusedCameraId}`), `cameraGetConfig`, `restartApp`, `rebootDevice`
 Shizuku connection, which `getDeviceRebootSupport` reports as
 `{supported, route, reason}`), `tts {text}`,
 `launchApp {package}` (open another Android app over the kiosk),
+`showLinkPage {url}` / `hideOverlayPage` (a web page with a close button
+over the dashboard, the surface a tapped dashboard link gets; the
+`open_url` and `close_url` [ESPHome actions](esphome.md#open-a-web-page)
+call the same two),
 `bringToFront` (come back in front of it), `installedApps` (every
 launchable app as `[{package, label}]`), `immichAlbums`,
 `immichPeople` and `immichTags` (the Immich screensaver's albums, named

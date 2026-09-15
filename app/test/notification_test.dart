@@ -724,4 +724,81 @@ void main() {
       expect(find.text('Front door opened'), findsNothing);
     },
   );
+
+  group('ESPHome open_url and close_url', () {
+    late List<(String, Map<String, Object?>)> calls;
+
+    setUp(() {
+      calls = [];
+      for (final name in ['stopScreensaver', 'screenOn', 'showLinkPage']) {
+        commands.register(
+          Command(
+            name: name,
+            description: 'stub',
+            handler: (p) async {
+              calls.add((name, p));
+              return const CommandResult.ok();
+            },
+          ),
+        );
+      }
+      commands.register(
+        Command(
+          name: 'hideOverlayPage',
+          description: 'stub',
+          handler: (p) async {
+            calls.add(('hideOverlayPage', p));
+            return const CommandResult.ok();
+          },
+        ),
+      );
+    });
+
+    test('both actions are listed and answer', () {
+      final surface = EspEntitySurface(bus, commands, Logger(), settings);
+      final services = surface.buildServices();
+      final open = services.singleWhere((s) => s['name'] == 'open_url');
+      expect(open['supportsResponse'], isTrue);
+      expect(open['args'], [
+        {'name': 'url', 'type': 'string'},
+      ]);
+      final close = services.singleWhere((s) => s['name'] == 'close_url');
+      expect(close['supportsResponse'], isTrue);
+      expect(close['args'], isEmpty);
+    });
+
+    test('open_url wakes the kiosk and shows the link page', () async {
+      final surface = EspEntitySurface(bus, commands, Logger(), settings);
+      expect(
+        await surface.handleService('open_url', {
+          'url': ' https://example.com/recipe ',
+        }),
+        isEmpty,
+      );
+      expect(calls.map((c) => c.$1), [
+        'stopScreensaver',
+        'screenOn',
+        'showLinkPage',
+      ]);
+      expect(calls.last.$2, {'url': 'https://example.com/recipe'});
+    });
+
+    test('open_url refuses anything but a web address', () async {
+      final surface = EspEntitySurface(bus, commands, Logger(), settings);
+      for (final url in ['', '   ', 'example.com', 'ftp://x/y', 'http://']) {
+        await expectLater(
+          surface.handleService('open_url', {'url': url}),
+          throwsA(isA<StateError>()),
+          reason: url,
+        );
+      }
+      expect(calls, isEmpty);
+    });
+
+    test('close_url drops the overlay', () async {
+      final surface = EspEntitySurface(bus, commands, Logger(), settings);
+      expect(await surface.handleService('close_url', const {}), isEmpty);
+      expect(calls.map((c) => c.$1), ['hideOverlayPage']);
+    });
+  });
 }

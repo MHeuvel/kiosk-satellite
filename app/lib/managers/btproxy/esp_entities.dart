@@ -1155,6 +1155,19 @@ class EspEntitySurface {
     // Ends the call, cancels one still ringing or closes an announcement.
     // Answers so "no call" reaches the automation as an error.
     {'name': 'intercom_hangup', 'supportsResponse': true, 'args': []},
+    // A web page over the dashboard, the surface a tapped dashboard link
+    // or the Music Assistant entry gets: the dashboard stays alive under
+    // it and the wake word keeps listening. Answers so a bad URL reaches
+    // the automation as an error.
+    {
+      'name': 'open_url',
+      'supportsResponse': true,
+      'args': [
+        {'name': 'url', 'type': 'string'},
+      ],
+    },
+    // Drops that page, whoever put it up; nothing up is not an error.
+    {'name': 'close_url', 'supportsResponse': true, 'args': []},
   ];
 
   /// An action call from Home Assistant landed (via the native hub). The
@@ -1252,6 +1265,28 @@ class EspEntitySurface {
         return data is Map ? data.cast<String, Object?>() : const {};
       case 'intercom_hangup':
         final result = await commands.execute('intercomHangup', const {});
+        if (!result.ok) throw StateError(result.error ?? 'refused');
+        return const {};
+      case 'open_url':
+        final url = '${args['url'] ?? ''}'.trim();
+        final uri = Uri.tryParse(url);
+        if (url.isEmpty ||
+            uri == null ||
+            !(uri.scheme == 'http' || uri.scheme == 'https') ||
+            uri.host.isEmpty) {
+          throw StateError('url must be an http or https address');
+        }
+        // The page is meant to be seen: a kiosk asleep or on its
+        // screensaver would load it behind a black screen. Both are
+        // best effort, since a panel that refuses to wake still shows
+        // the page the moment it does.
+        await commands.execute('stopScreensaver', const {});
+        await commands.execute('screenOn', const {});
+        final result = await commands.execute('showLinkPage', {'url': url});
+        if (!result.ok) throw StateError(result.error ?? 'refused');
+        return const {};
+      case 'close_url':
+        final result = await commands.execute('hideOverlayPage', const {});
         if (!result.ok) throw StateError(result.error ?? 'refused');
         return const {};
       default:

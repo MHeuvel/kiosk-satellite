@@ -368,6 +368,23 @@ Two actions run the [intercom](intercom.md#home-assistant) from an automation or
     kiosk: Bedroom
 ```
 
+## Open a web page
+
+`esphome.<node name>_open_url` shows a web page over the dashboard from an automation or script, on the same surface a tapped dashboard link or the Music Assistant menu entry gets: a page with a close button that slides up over the dashboard, which stays loaded underneath with its wake word listening. The `url` must be an http or https address. Before the page shows, the kiosk stops a running screensaver and wakes the screen, so the page is seen rather than loaded behind a black screen. `esphome.<node name>_close_url` takes no arguments and drops the page again. Both are listed with **Expose kiosk entities**.
+
+The page has the same footing as any other link the kiosk opens: it follows the **Ignore SSL errors** switch, it runs the **Inject JavaScript on external pages** script and a page on your Home Assistant origin signs in with the dashboard's session. A page open this way counts as activity while it is being touched, but the idle clock keeps running under it, so on a quiet kiosk the screensaver returns after the usual idle time and covers the page. To keep a page up for as long as it takes to read it, turn on [hold mode](screensavers.md#starting-and-dismissing) for the visit and release it when done:
+
+```yaml
+- action: switch.turn_on
+  target:
+    entity_id: switch.kitchen_tablet_hold_mode
+- action: esphome.kitchen_tablet_open_url
+  data:
+    url: https://www.example.com/recipes/chocolate-chip-cookies
+```
+
+A later `close_url` and a `switch.turn_off` on the same hold mode switch put the kiosk back on its dashboard with the idle clock running. On the [remote API](remote-api.md) the same two are the `showLinkPage` and `hideOverlayPage` commands.
+
 ## GPS Sensor
 
 If your device travels (like a tablet mounted in an RV), it can transmit its exact location to Home Assistant using its built in GPS receiver. You must explicitly opt in via **Settings > ESPHome > GPS Sensor**.
