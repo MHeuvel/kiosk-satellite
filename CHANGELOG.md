@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.9.55 - 2026-09-15
 
 ### Added
 - **Echo cancellation has a switch.** Microphone settings gains an Echo cancellation row, on by default, which is what every capture has always done. Off is for the devices where the canceller does harm: on some MediaTek tablets a canceller attached to a Voice recognition or Raw microphone capture attenuates the whole signal to a whisper that no gain brings back, while a recorder app on the same source sounds fine. With it off the stop word can hear the kiosk's own responses.
