@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Changed
+- **Analytics counts the intercom and announcements.** The Usage part of the daily snapshot now says whether the intercom is on, its answer and talk modes, whether it accepts announcements, and whether Home Assistant announcements and their chime are on, so the new features can be weighed like the rest. The analytics guide lists them.
+
 ## v2026.9.50 - 2026-09-14
 
 ### Added

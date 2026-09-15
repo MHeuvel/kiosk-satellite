@@ -208,6 +208,10 @@ void main() {
       expect(usage['wake_word'], 'Ok Nova');
       expect(usage['wake_word_2'], '');
       expect(usage['vs_skin'], 'kiosk-satellite');
+      expect(usage['intercom'], false);
+      expect(usage['intercom_answer_mode'], 'ring');
+      expect(usage['intercom_talk_mode'], 'ptt');
+      expect(usage['announcements'], true);
       // The hook answered with a stopped engine: installed, not running.
       expect(usage['voice_satellite'], 'stopped');
       expect(usage['widgets'], isEmpty);
