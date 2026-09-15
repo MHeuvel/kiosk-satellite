@@ -116,6 +116,35 @@ void main() {
       expect(reclaims, 1);
     });
 
+    test('a return without the input focus stands the reclaim down', () async {
+      await build({'ks.lockdown.enabled': true});
+      kiosk.didChangeAppLifecycleState(AppLifecycleState.paused);
+      // Android reports an Activity resumed under a focus-holding window
+      // as inactive, never resumed (issue #560). Pulling an app forward
+      // that is already on screen would relaunch its Activity for nothing.
+      WidgetsBinding.instance.handleAppLifecycleStateChanged(
+        AppLifecycleState.inactive,
+      );
+      kiosk.didChangeAppLifecycleState(AppLifecycleState.inactive);
+      await Future<void>.delayed(const Duration(milliseconds: 1300));
+      expect(reclaims, 0);
+    });
+
+    test(
+      'a reclaim that fires on an app back without focus does nothing',
+      () async {
+        await build({'ks.lockdown.enabled': true});
+        kiosk.didChangeAppLifecycleState(AppLifecycleState.paused);
+        // The timer's own recheck, with no lifecycle event reaching this
+        // observer in between.
+        WidgetsBinding.instance.handleAppLifecycleStateChanged(
+          AppLifecycleState.inactive,
+        );
+        await Future<void>.delayed(const Duration(milliseconds: 1300));
+        expect(reclaims, 0);
+      },
+    );
+
     test('a pause without lockdown or kiosk is left alone', () async {
       await build({});
       kiosk.didChangeAppLifecycleState(AppLifecycleState.paused);

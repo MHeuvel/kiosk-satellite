@@ -12,6 +12,7 @@ import '../files/files_manager.dart' show legacyStorage;
 import '../gestures/gesture_mappings.dart';
 import '../settings/definitions.dart' as defs;
 import '../settings/settings_manager.dart';
+import 'package:kiosk_satellite/core/lifecycle.dart';
 import '../wake_word/system_permissions.dart' show SystemPermissions;
 
 /// Lockdown: keeping the device in the app and the app on the device.
@@ -655,9 +656,7 @@ class KioskManager extends Manager with WidgetsBindingObserver {
     bus.on<ScreenStateChanged>().listen((e) {
       _screenOn = e.on;
       if (!e.on) return;
-      if (WidgetsBinding.instance.lifecycleState == AppLifecycleState.resumed) {
-        return;
-      }
+      if (Lifecycle.onScreen) return;
       _armReclaim();
     });
 
@@ -776,11 +775,14 @@ class KioskManager extends Manager with WidgetsBindingObserver {
   /// bringToFront the launcher's auto-return rides on, so it needs the
   /// same draw-over-apps grant, and it keeps retrying until it lands or
   /// the mode ends.
+  final _returned = ReturnWatch();
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+    final returned = _returned.returned(state);
     if (state == AppLifecycleState.paused) {
       _armReclaim();
-    } else if (state == AppLifecycleState.resumed) {
+    } else if (returned) {
       _reclaimTimer?.cancel();
       _reclaimTimer = null;
       _repinOnResume();
@@ -827,9 +829,7 @@ class KioskManager extends Manager with WidgetsBindingObserver {
     // Armed before the install pause began (the timer rechecks): stand
     // down rather than cover the install confirmation.
     if (_installPause) return;
-    if (WidgetsBinding.instance.lifecycleState == AppLifecycleState.resumed) {
-      return;
-    }
+    if (Lifecycle.onScreen) return;
     if (!lockdownActive) {
       if (!_kioskHomeGuard || menuBusy) return;
       // Pinned means Home is already dead system-wide: whatever paused

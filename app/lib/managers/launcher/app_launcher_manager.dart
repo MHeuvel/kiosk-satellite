@@ -11,6 +11,7 @@ import '../../core/manager.dart';
 import '../settings/definitions.dart' as defs;
 import '../settings/settings_manager.dart';
 import '../wake_word/background_listening.dart';
+import 'package:kiosk_satellite/core/lifecycle.dart';
 
 /// One entry in the launcher whitelist: the package to open and the label
 /// cached at pick time, so both UIs can name it without asking the device.
@@ -144,9 +145,7 @@ class AppLauncherManager extends Manager with WidgetsBindingObserver {
           }
           // No grant (or no usage event yet): the one app we can still
           // vouch for is ourselves, while resumed.
-          final resumed =
-              WidgetsBinding.instance.lifecycleState ==
-              AppLifecycleState.resumed;
+          final resumed = Lifecycle.onScreen;
           return CommandResult.ok({
             'package': resumed ? 'me.jxl.kiosk_satellite' : null,
             'label': resumed ? 'Kiosk Satellite' : null,
@@ -246,8 +245,11 @@ class AppLauncherManager extends Manager with WidgetsBindingObserver {
     if (_settings.get(defs.launcherEnabled)) warmIcons();
   }
 
+  final _returned = ReturnWatch();
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+    final returned = _returned.returned(state);
     if (state == AppLifecycleState.paused) {
       final launched = _launchedAt;
       // Both flags at runtime: the stored auto-return switch survives the
@@ -262,7 +264,7 @@ class AppLauncherManager extends Manager with WidgetsBindingObserver {
       log.info(name, 'auto-return armed: ${seconds}s idle');
       _startClock(seconds);
       unawaited(_watchTouches(true));
-    } else if (state == AppLifecycleState.resumed) {
+    } else if (returned) {
       _disarm();
       _launchedAt = null;
     }
@@ -278,9 +280,7 @@ class AppLauncherManager extends Manager with WidgetsBindingObserver {
       unawaited(_watchTouches(false));
       // The state may have moved since the timer was set; only pull the
       // kiosk forward if it is genuinely still behind the other app.
-      if (WidgetsBinding.instance.lifecycleState == AppLifecycleState.resumed) {
-        return;
-      }
+      if (Lifecycle.onScreen) return;
       log.info(name, 'auto-return: bringing the kiosk back');
       final result = await commands.execute('bringToFront', const {});
       if (result.data == false) {

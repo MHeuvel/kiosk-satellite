@@ -18,6 +18,7 @@ import 'ui/kiosk_screen.dart';
 import 'ui/ui_scale.dart';
 import 'ui/setup_screen.dart';
 import 'ui/theme.dart';
+import 'package:kiosk_satellite/core/lifecycle.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -170,8 +171,11 @@ class _KioskSatelliteAppState extends State<KioskSatelliteApp>
     });
   }
 
+  final _returned = ReturnWatch();
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+    final returned = _returned.returned(state);
     if (state == AppLifecycleState.paused) {
       _backgroundedAt = DateTime.now();
       _nudgeTimer?.cancel();
@@ -183,7 +187,7 @@ class _KioskSatelliteAppState extends State<KioskSatelliteApp>
       );
       return;
     }
-    if (state == AppLifecycleState.resumed) {
+    if (returned) {
       // Coming back from an OS screen (permission grants, app settings) is
       // another way the window returns without its immersive flags.
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);

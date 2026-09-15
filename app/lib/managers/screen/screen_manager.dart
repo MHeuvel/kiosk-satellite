@@ -13,6 +13,7 @@ import '../settings/definitions.dart' as defs;
 import '../settings/settings_manager.dart';
 import '../wake_word/background_listening.dart';
 import 'adaptive_brightness.dart';
+import 'package:kiosk_satellite/core/lifecycle.dart';
 
 /// Brightness, keep-awake, and screen power.
 ///
@@ -372,9 +373,11 @@ class ScreenManager extends Manager with WidgetsBindingObserver {
   /// foreground Activity, which is exactly what a failed or lost wakelock
   /// apply was missing. Enable and disable both just set or clear a window
   /// flag, so reapplying on every resume is harmless when nothing changed.
+  final _returned = ReturnWatch();
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state != AppLifecycleState.resumed) return;
+    if (!_returned.returned(state)) return;
     unawaited(_applyWakelock());
   }
 

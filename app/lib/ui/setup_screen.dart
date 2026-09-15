@@ -20,6 +20,7 @@ import 'kit.dart' show LabeledField, NoticeBanner, NoticeKind, SectionHeading;
 import 'theme.dart';
 import 'toast.dart';
 import 'token_qr_scanner.dart';
+import 'package:kiosk_satellite/core/lifecycle.dart';
 
 /// First-run onboarding: a five-step wizard, Home Assistant-oriented from
 /// the first screen, in the app's One UI split layout — the step list on a
@@ -1241,10 +1242,12 @@ class _ServiceSetupCardState extends State<_ServiceSetupCard>
     super.dispose();
   }
 
+  final _returned = ReturnWatch();
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     // The grants are given on OS screens that report nothing back.
-    if (state == AppLifecycleState.resumed) _refresh();
+    if (_returned.returned(state)) _refresh();
   }
 
   Future<void> _refresh() async {

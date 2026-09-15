@@ -7,6 +7,7 @@ import 'kit.dart';
 import 'plugin_shizuku.dart';
 import 'toast.dart';
 import 'settings_search.dart';
+import 'package:kiosk_satellite/core/lifecycle.dart';
 
 class ShizukuSettingsPanel extends StatefulWidget {
   const ShizukuSettingsPanel({
@@ -36,9 +37,11 @@ class _ShizukuSettingsPanelState extends State<ShizukuSettingsPanel>
     super.dispose();
   }
 
+  final _returned = ReturnWatch();
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) _refresh();
+    if (_returned.returned(state)) _refresh();
   }
 
   Future<void> _refresh() async {

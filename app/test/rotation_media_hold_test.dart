@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:fake_async/fake_async.dart';
+import 'package:flutter/widgets.dart' show AppLifecycleState;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kiosk_satellite/core/command_registry.dart';
 import 'package:kiosk_satellite/core/event_bus.dart';
@@ -73,6 +74,24 @@ void main() {
       );
       async.flushMicrotasks();
       expect(rotationLog(), isNot(contains('rotation resumed')));
+    });
+  });
+
+  test('a return without the input focus keeps the ring turning', () {
+    final binding = TestWidgetsFlutterBinding.instance;
+    fakeAsync((async) {
+      unawaited(build());
+      async.flushMicrotasks();
+      // Off screen: the ring freezes in place.
+      binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
+      async.elapse(const Duration(seconds: 6));
+      expect(evalCalls, isEmpty);
+      // Android reports an Activity resumed under a focus-holding window
+      // as inactive, never resumed (issue #560): on screen, so it turns.
+      binding.handleAppLifecycleStateChanged(AppLifecycleState.inactive);
+      async.elapse(const Duration(seconds: 6));
+      expect(evalCalls, hasLength(1));
+      binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
     });
   });
 

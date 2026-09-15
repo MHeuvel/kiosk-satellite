@@ -7,6 +7,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 import '../app_container.dart';
 import '../core/events.dart';
+import 'package:kiosk_satellite/core/lifecycle.dart';
 import '../managers/settings/definitions.dart' as defs;
 
 /// An isolated rendering document. All input and screensaver policy stays in KS.
@@ -73,9 +74,7 @@ class _DocumentState extends State<_Document> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    _foreground =
-        WidgetsBinding.instance.lifecycleState == null ||
-        WidgetsBinding.instance.lifecycleState == AppLifecycleState.resumed;
+    _foreground = Lifecycle.onScreen;
     _screen = widget.container.bus.on<ScreenStateChanged>().listen((e) {
       _screenOn = e.on;
       unawaited(_activity());
@@ -107,7 +106,7 @@ class _DocumentState extends State<_Document> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    _foreground = state == AppLifecycleState.resumed;
+    _foreground = !Lifecycle.offScreen(state);
     unawaited(_activity());
   }
 

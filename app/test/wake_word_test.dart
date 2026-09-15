@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:fake_async/fake_async.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart' show AppLifecycleState;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kiosk_satellite/core/command_registry.dart';
 import 'package:kiosk_satellite/core/event_bus.dart';
@@ -26,8 +27,9 @@ class _FakeEngine extends WakeWordEngine {
   bool streamOpen = false;
 
   @override
-  Set<WakeWordEngineType> get supportedEngines =>
-      const {WakeWordEngineType.microWakeWord};
+  Set<WakeWordEngineType> get supportedEngines => const {
+    WakeWordEngineType.microWakeWord,
+  };
 
   @override
   bool get running => _running;
@@ -49,7 +51,8 @@ class _FakeEngine extends WakeWordEngine {
 
   @override
   Future<void> startAudioStream(
-      void Function(Uint8List pcm, bool preRoll) onChunk) async {
+    void Function(Uint8List pcm, bool preRoll) onChunk,
+  ) async {
     streamOpen = true;
   }
 
@@ -78,7 +81,8 @@ void main() {
       {
         'id': 'okay_nabu',
         'wakeWord': 'Okay Nabu',
-        'manifestUrl': 'http://ha.local:8123/voice_satellite/models/okay_nabu.json',
+        'manifestUrl':
+            'http://ha.local:8123/voice_satellite/models/okay_nabu.json',
       },
     ],
   };
@@ -92,13 +96,13 @@ void main() {
     // against the engine directly, in isolate_engine_test.dart.
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(
-      const MethodChannel('flutter.baseflow.com/permissions/methods'),
-      (call) async => switch (call.method) {
-        'checkPermissionStatus' => _granted,
-        'requestPermissions' => {call.arguments.first: _granted},
-        _ => null,
-      },
-    );
+          const MethodChannel('flutter.baseflow.com/permissions/methods'),
+          (call) async => switch (call.method) {
+            'checkPermissionStatus' => _granted,
+            'requestPermissions' => {call.arguments.first: _granted},
+            _ => null,
+          },
+        );
 
     bus = EventBus();
     log = Logger();
@@ -112,8 +116,9 @@ void main() {
   tearDown(() async {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(
-            const MethodChannel('flutter.baseflow.com/permissions/methods'),
-            null);
+          const MethodChannel('flutter.baseflow.com/permissions/methods'),
+          null,
+        );
     await wakeWord.dispose();
     await bus.dispose();
   });
@@ -125,8 +130,10 @@ void main() {
   });
 
   test('rejects malformed configs', () async {
-    final result = await commands
-        .execute('setWakeWordConfig', const {'engine': 'bogus', 'models': []});
+    final result = await commands.execute('setWakeWordConfig', const {
+      'engine': 'bogus',
+      'models': [],
+    });
     expect(result.ok, isFalse);
   });
 
@@ -140,79 +147,96 @@ void main() {
     expect((data['models'] as List), hasLength(1));
   });
 
-  test('having a runner for an engine is not the same as being able to run it',
-      () async {
-    // `available` is not a claim about which engines we support, it is a
-    // promise to Voice Satellite that we are listening *now* — the card stops
-    // its own browser detection on the strength of it. We do have a native
-    // microWakeWord runner, but here every model download fails (the test
-    // binding stubs HTTP to 400), so the promise cannot honestly be made.
-    final result = await commands.execute('setWakeWordConfig', vsConfig);
-    expect(result.ok, isTrue, reason: 'the config is understood and kept');
-    expect((result.data as Map)['available'], isFalse,
-        reason: 'nothing came up, so nothing is covered');
-    expect(wakeWord.describeState()['engine'], 'microWakeWord',
-        reason: 'we still know what was asked for');
-  });
+  test(
+    'having a runner for an engine is not the same as being able to run it',
+    () async {
+      // `available` is not a claim about which engines we support, it is a
+      // promise to Voice Satellite that we are listening *now* — the card stops
+      // its own browser detection on the strength of it. We do have a native
+      // microWakeWord runner, but here every model download fails (the test
+      // binding stubs HTTP to 400), so the promise cannot honestly be made.
+      final result = await commands.execute('setWakeWordConfig', vsConfig);
+      expect(result.ok, isTrue, reason: 'the config is understood and kept');
+      expect(
+        (result.data as Map)['available'],
+        isFalse,
+        reason: 'nothing came up, so nothing is covered',
+      );
+      expect(
+        wakeWord.describeState()['engine'],
+        'microWakeWord',
+        reason: 'we still know what was asked for',
+      );
+    },
+  );
 
-  test('a detection lights a dark panel before the page hears about it',
-      () async {
-    await commands.execute('setWakeWordConfig', vsConfig);
+  test(
+    'a detection lights a dark panel before the page hears about it',
+    () async {
+      await commands.execute('setWakeWordConfig', vsConfig);
 
-    // The screen manager is absent here; record its command instead. A
-    // detection must poke the panel on (screensaver screen-off timer, OS
-    // timeout, app behind another app — all the dark cases) and must do so
-    // before WakeWordDetected, so the turn's UI lands on a lit screen.
-    var screenPokes = 0;
-    commands.register(Command(
-      name: 'screenOn',
-      description: 'recorder',
-      handler: (_) async {
-        screenPokes++;
-        return const CommandResult.ok();
-      },
-    ));
-    var pokedBeforeEvent = false;
-    bus.on<WakeWordDetected>().listen((_) {
-      pokedBeforeEvent = screenPokes > 0;
-    });
+      // The screen manager is absent here; record its command instead. A
+      // detection must poke the panel on (screensaver screen-off timer, OS
+      // timeout, app behind another app — all the dark cases) and must do so
+      // before WakeWordDetected, so the turn's UI lands on a lit screen.
+      var screenPokes = 0;
+      commands.register(
+        Command(
+          name: 'screenOn',
+          description: 'recorder',
+          handler: (_) async {
+            screenPokes++;
+            return const CommandResult.ok();
+          },
+        ),
+      );
+      var pokedBeforeEvent = false;
+      bus.on<WakeWordDetected>().listen((_) {
+        pokedBeforeEvent = screenPokes > 0;
+      });
 
-    await commands.execute('simulateWakeWord', const {});
-    await Future<void>.delayed(Duration.zero);
-    expect(screenPokes, greaterThan(0));
-    expect(pokedBeforeEvent, isTrue,
-        reason: 'the panel wakes before the turn starts');
-  });
+      await commands.execute('simulateWakeWord', const {});
+      await Future<void>.delayed(Duration.zero);
+      expect(screenPokes, greaterThan(0));
+      expect(
+        pokedBeforeEvent,
+        isTrue,
+        reason: 'the panel wakes before the turn starts',
+      );
+    },
+  );
 
-  test('detection releases the mic before publishing, page resume re-arms',
-      () async {
-    await commands.execute('setWakeWordConfig', vsConfig);
+  test(
+    'detection releases the mic before publishing, page resume re-arms',
+    () async {
+      await commands.execute('setWakeWordConfig', vsConfig);
 
-    final detections = <WakeWordDetected>[];
-    var listeningAtDetection = true;
-    bus.on<WakeWordDetected>().listen((e) {
-      detections.add(e);
-      listeningAtDetection = wakeWord.listening;
-    });
+      final detections = <WakeWordDetected>[];
+      var listeningAtDetection = true;
+      bus.on<WakeWordDetected>().listen((e) {
+        detections.add(e);
+        listeningAtDetection = wakeWord.listening;
+      });
 
-    final result = await commands.execute('simulateWakeWord', const {});
-    expect(result.ok, isTrue);
-    await Future<void>.delayed(Duration.zero);
+      final result = await commands.execute('simulateWakeWord', const {});
+      expect(result.ok, isTrue);
+      await Future<void>.delayed(Duration.zero);
 
-    expect(detections, hasLength(1));
-    expect(detections.single.model, 'okay_nabu');
-    expect(detections.single.phrase, 'Okay Nabu');
-    // Mic released before the page hears about the detection.
-    expect(listeningAtDetection, isFalse);
+      expect(detections, hasLength(1));
+      expect(detections.single.model, 'okay_nabu');
+      expect(detections.single.phrase, 'Okay Nabu');
+      // Mic released before the page hears about the detection.
+      expect(listeningAtDetection, isFalse);
 
-    // Detection suspends listening until the page resumes us.
-    var state = await commands.execute('getWakeWordState', const {});
-    expect((state.data as Map)['active'], isFalse);
+      // Detection suspends listening until the page resumes us.
+      var state = await commands.execute('getWakeWordState', const {});
+      expect((state.data as Map)['active'], isFalse);
 
-    await commands.execute('setWakeWordActive', const {'active': true});
-    state = await commands.execute('getWakeWordState', const {});
-    expect((state.data as Map)['active'], isTrue);
-  });
+      await commands.execute('setWakeWordActive', const {'active': true});
+      state = await commands.execute('getWakeWordState', const {});
+      expect((state.data as Map)['active'], isTrue);
+    },
+  );
 
   group('the self-heal after a handoff', () {
     // The page must call setWakeWordActive(true) when its turn ends. When it
@@ -232,8 +256,13 @@ void main() {
       settings = SettingsManager(bus, commands, log);
       await settings.init();
       engine = _FakeEngine();
-      wakeWord = WakeWordManager(bus, commands, log, settings,
-          engines: {WakeWordEngineType.microWakeWord: engine});
+      wakeWord = WakeWordManager(
+        bus,
+        commands,
+        log,
+        settings,
+        engines: {WakeWordEngineType.microWakeWord: engine},
+      );
       await wakeWord.init();
       await settings.set(defs.wakeWordResumeTimeoutSeconds, 1);
       await commands.execute('setWakeWordConfig', vsConfig);
@@ -243,21 +272,59 @@ void main() {
       // channel never returns and the handoff would never reach its timer.
       TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
           .setMockMethodCallHandler(
-        const MethodChannel('kiosk_satellite/background'),
-        (call) async => call.method == 'bringToFront' ? true : null,
-      );
+            const MethodChannel('kiosk_satellite/background'),
+            (call) async => call.method == 'bringToFront' ? true : null,
+          );
     });
 
     tearDown(() {
       TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
           .setMockMethodCallHandler(
-              const MethodChannel('kiosk_satellite/background'), null);
+            const MethodChannel('kiosk_satellite/background'),
+            null,
+          );
     });
 
     Future<bool> active() async {
       final state = await commands.execute('getWakeWordState', const {});
       return (state.data as Map)['active'] as bool;
     }
+
+    test('an app on screen without the input focus is not fronted', () {
+      // Android reports an Activity resumed under a focus-holding window
+      // as inactive, never resumed (issue #560). Fronting it anyway would
+      // relaunch the Activity and reload the page mid-interaction.
+      var fronted = 0;
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(
+            const MethodChannel('kiosk_satellite/background'),
+            (call) async {
+              if (call.method == 'bringToFront') fronted++;
+              return true;
+            },
+          );
+      final binding = TestWidgetsFlutterBinding.instance;
+      fakeAsync((async) {
+        binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
+        binding.handleAppLifecycleStateChanged(AppLifecycleState.inactive);
+        commands.execute('bringToFront', const {});
+        async.flushMicrotasks();
+        expect(fronted, 0);
+        commands.execute('simulateWakeWord', const {});
+        async.flushMicrotasks();
+        expect(fronted, 0);
+        // Genuinely behind: both routes come forward.
+        async.elapse(const Duration(seconds: 2));
+        binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
+        commands.execute('bringToFront', const {});
+        async.flushMicrotasks();
+        expect(fronted, 1);
+        commands.execute('simulateWakeWord', const {});
+        async.flushMicrotasks();
+        expect(fronted, 2);
+        binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+      });
+    });
 
     test('a page that never answers the handoff is healed', () {
       fakeAsync((async) {
@@ -326,8 +393,7 @@ void main() {
       });
     });
 
-    test('a stream held open by a page lost mid-turn is closed eventually',
-        () {
+    test('a stream held open by a page lost mid-turn is closed eventually', () {
       fakeAsync((async) {
         commands.execute('simulateWakeWord', const {});
         async.flushMicrotasks();
@@ -353,10 +419,12 @@ void main() {
     // only render what getWakeWordState hands it.
     test('the state carries the status sentence, not just the flags', () async {
       var state = wakeWord.describeState();
-      expect(state['status'], 'waiting',
-          reason: 'no config pushed yet');
-      expect(state['statusLabel'], contains('Waiting for Voice Satellite'),
-          reason: 'the wording is derived once, here');
+      expect(state['status'], 'waiting', reason: 'no config pushed yet');
+      expect(
+        state['statusLabel'],
+        contains('Waiting for Voice Satellite'),
+        reason: 'the wording is derived once, here',
+      );
 
       await commands.execute('setWakeWordConfig', vsConfig);
       state = wakeWord.describeState();
@@ -387,9 +455,15 @@ void main() {
       ]) {
         expect(state, contains(key), reason: 'the web admin reads "$key"');
       }
-      expect(state['engineLabel'], 'microWakeWord',
-          reason: "VS's name for it, not the Dart enum's");
-      expect((state['models'] as List).single, containsPair('wakeWord', 'Okay Nabu'));
+      expect(
+        state['engineLabel'],
+        'microWakeWord',
+        reason: "VS's name for it, not the Dart enum's",
+      );
+      expect(
+        (state['models'] as List).single,
+        containsPair('wakeWord', 'Okay Nabu'),
+      );
     });
 
     test('the retired master switch cannot be turned off', () async {
@@ -409,15 +483,15 @@ void main() {
         'stopModel': {
           'id': 'stop',
           'wakeWord': 'Stop',
-          'manifestUrl': 'http://ha.local:8123/voice_satellite/models/stop.json',
+          'manifestUrl':
+              'http://ha.local:8123/voice_satellite/models/stop.json',
         },
       });
       expect(wakeWord.describeState()['stopWord'], 'Stop');
     });
   });
 
-  test('an engine that cannot start reports unavailable, not silence',
-      () async {
+  test('an engine that cannot start reports unavailable, not silence', () async {
     // Voice Satellite reads `available` as "Kiosk Satellite has this covered"
     // and stops its own browser detection on the strength of it. So a runner
     // that failed to come up — models 404, microphone permission revoked — must
@@ -428,26 +502,34 @@ void main() {
     // which is exactly the shape of that failure.
     final result = await commands.execute('setWakeWordConfig', vsConfig);
     expect(result.ok, isTrue, reason: 'the config itself was fine');
-    expect((result.data as Map)['available'], isFalse,
-        reason: 'nothing is listening, so do not claim otherwise');
-    expect(wakeWord.describeState()['status'], 'modelsUnavailable',
-        reason: 'and it says which of the ways it failed');
+    expect(
+      (result.data as Map)['available'],
+      isFalse,
+      reason: 'nothing is listening, so do not claim otherwise',
+    );
+    expect(
+      wakeWord.describeState()['status'],
+      'modelsUnavailable',
+      reason: 'and it says which of the ways it failed',
+    );
   });
 
-  test('a failed engine retries when the card pushes the same config again',
-      () async {
-    // The only retry there is: whatever broke may be fixed by now (the user
-    // granted the mic back, the model was re-published). An unchanged config
-    // normally does not restart the engine, and must here.
-    await commands.execute('setWakeWordConfig', vsConfig);
-    expect(wakeWord.available, isFalse);
+  test(
+    'a failed engine retries when the card pushes the same config again',
+    () async {
+      // The only retry there is: whatever broke may be fixed by now (the user
+      // granted the mic back, the model was re-published). An unchanged config
+      // normally does not restart the engine, and must here.
+      await commands.execute('setWakeWordConfig', vsConfig);
+      expect(wakeWord.available, isFalse);
 
-    final again = await commands.execute('setWakeWordConfig', vsConfig);
-    expect(again.ok, isTrue);
-    // Still failing (HTTP is still stubbed), but it did try: the point is that
-    // the failure is not latched forever.
-    expect(wakeWord.describeState()['status'], 'modelsUnavailable');
-  });
+      final again = await commands.execute('setWakeWordConfig', vsConfig);
+      expect(again.ok, isTrue);
+      // Still failing (HTTP is still stubbed), but it did try: the point is that
+      // the failure is not latched forever.
+      expect(wakeWord.describeState()['status'], 'modelsUnavailable');
+    },
+  );
 
   group('releasing the mic explains itself', () {
     // Muting the satellite and "the browser is taking detection back" are the
@@ -463,8 +545,11 @@ void main() {
       expect(state['statusLabel'], contains('Muted in Voice Satellite'));
       expect(state['available'], isFalse, reason: 'the mic really is closed');
       expect(state['statusLabel'], isNot(contains('No native runner')));
-      expect(state['canRetry'], isFalse,
-          reason: 'nothing failed; unmuting is the fix, not retrying');
+      expect(
+        state['canRetry'],
+        isFalse,
+        reason: 'nothing failed; unmuting is the fix, not retrying',
+      );
     });
 
     test('detection going back to the browser says that instead', () async {
@@ -482,31 +567,39 @@ void main() {
       expect(state['statusLabel'], isNot(contains('No native runner')));
     });
 
-    test('unmuting clears it: a fresh config push takes the mic back',
-        () async {
-      await commands.execute('setWakeWordConfig', vsConfig);
-      await commands.execute('releaseWakeWord', const {'reason': 'muted'});
-      expect(wakeWord.describeState()['status'], 'muted');
+    test(
+      'unmuting clears it: a fresh config push takes the mic back',
+      () async {
+        await commands.execute('setWakeWordConfig', vsConfig);
+        await commands.execute('releaseWakeWord', const {'reason': 'muted'});
+        expect(wakeWord.describeState()['status'], 'muted');
 
-      await commands.execute('setWakeWordConfig', vsConfig);
-      expect(wakeWord.describeState()['status'], isNot('muted'));
-      expect(wakeWord.describeState()['releaseReason'], isNull);
-    });
+        await commands.execute('setWakeWordConfig', vsConfig);
+        expect(wakeWord.describeState()['status'], isNot('muted'));
+        expect(wakeWord.describeState()['releaseReason'], isNull);
+      },
+    );
 
-    test('"no native runner" is kept for the case that really is that',
-        () async {
-      // The catch-all became a lie because it was a catch-all. It still has to
-      // be right about its own case: an engine with no native runner here.
-      await commands.execute('setWakeWordConfig', const {
-        'engine': 'vsWakeWord',
-        'models': [
-          {'id': 'ok_luna', 'wakeWord': 'Ok Luna', 'manifestUrl': 'http://x/m.json'},
-        ],
-      });
-      // vsWakeWord *does* have a runner, so this must not claim otherwise —
-      // it fails on the model download instead.
-      expect(wakeWord.describeState()['status'], 'modelsUnavailable');
-    });
+    test(
+      '"no native runner" is kept for the case that really is that',
+      () async {
+        // The catch-all became a lie because it was a catch-all. It still has to
+        // be right about its own case: an engine with no native runner here.
+        await commands.execute('setWakeWordConfig', const {
+          'engine': 'vsWakeWord',
+          'models': [
+            {
+              'id': 'ok_luna',
+              'wakeWord': 'Ok Luna',
+              'manifestUrl': 'http://x/m.json',
+            },
+          ],
+        });
+        // vsWakeWord *does* have a runner, so this must not claim otherwise —
+        // it fails on the model download instead.
+        expect(wakeWord.describeState()['status'], 'modelsUnavailable');
+      },
+    );
   });
 
   group('a refused microphone is recoverable', () {
@@ -519,14 +612,14 @@ void main() {
     void answerMic(int status, {bool rationale = false}) {
       TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
           .setMockMethodCallHandler(
-        const MethodChannel('flutter.baseflow.com/permissions/methods'),
-        (call) async => switch (call.method) {
-          'checkPermissionStatus' => status,
-          'requestPermissions' => {call.arguments.first: status},
-          'shouldShowRequestPermissionRationale' => rationale,
-          _ => null,
-        },
-      );
+            const MethodChannel('flutter.baseflow.com/permissions/methods'),
+            (call) async => switch (call.method) {
+              'checkPermissionStatus' => status,
+              'requestPermissions' => {call.arguments.first: status},
+              'shouldShowRequestPermissionRationale' => rationale,
+              _ => null,
+            },
+          );
     }
 
     test('a blocked mic says so, and does not blame the engine', () async {
@@ -554,8 +647,11 @@ void main() {
       final state = wakeWord.describeState();
       expect(state['status'], 'micDeclined');
       expect(state['canRetry'], isTrue);
-      expect(state['needsAppSettings'], isFalse,
-          reason: 'Android will still ask, so settings is the wrong advice');
+      expect(
+        state['needsAppSettings'],
+        isFalse,
+        reason: 'Android will still ask, so settings is the wrong advice',
+      );
     });
 
     test('retrying after the user relents starts the engine', () async {
@@ -573,15 +669,17 @@ void main() {
       expect(wakeWord.describeState()['status'], isNot('micDeclined'));
     });
 
-    test('the model download failure is not mistaken for a mic problem',
-        () async {
-      answerMic(_granted);
-      await commands.execute('setWakeWordConfig', vsConfig);
-      final state = wakeWord.describeState();
-      expect(state['status'], 'modelsUnavailable');
-      expect(state['needsAppSettings'], isFalse);
-      expect(state['statusLabel'], contains('Home Assistant'));
-    });
+    test(
+      'the model download failure is not mistaken for a mic problem',
+      () async {
+        answerMic(_granted);
+        await commands.execute('setWakeWordConfig', vsConfig);
+        final state = wakeWord.describeState();
+        expect(state['status'], 'modelsUnavailable');
+        expect(state['needsAppSettings'], isFalse);
+        expect(state['statusLabel'], contains('Home Assistant'));
+      },
+    );
   });
 
   group('the model cache', () {
@@ -595,17 +693,19 @@ void main() {
       support = await Directory.systemTemp.createTemp('ks_cache_test');
       TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
           .setMockMethodCallHandler(
-        const MethodChannel('plugins.flutter.io/path_provider'),
-        (call) async => call.method == 'getApplicationSupportDirectory'
-            ? support.path
-            : null,
-      );
+            const MethodChannel('plugins.flutter.io/path_provider'),
+            (call) async => call.method == 'getApplicationSupportDirectory'
+                ? support.path
+                : null,
+          );
     });
 
     tearDown(() async {
       TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
           .setMockMethodCallHandler(
-              const MethodChannel('plugins.flutter.io/path_provider'), null);
+            const MethodChannel('plugins.flutter.io/path_provider'),
+            null,
+          );
       if (await support.exists()) await support.delete(recursive: true);
     });
 
@@ -674,11 +774,11 @@ void main() {
       support = await Directory.systemTemp.createTemp('ks_int8_test');
       TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
           .setMockMethodCallHandler(
-        const MethodChannel('plugins.flutter.io/path_provider'),
-        (call) async => call.method == 'getApplicationSupportDirectory'
-            ? support.path
-            : null,
-      );
+            const MethodChannel('plugins.flutter.io/path_provider'),
+            (call) async => call.method == 'getApplicationSupportDirectory'
+                ? support.path
+                : null,
+          );
       requestedPaths = [];
       present = {'/m/ok_test.json', '/m/ok_test.onnx', '/m/int8/ok_test.onnx'};
       server = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
@@ -694,7 +794,8 @@ void main() {
         } else {
           // Distinguishable bodies, so the test can tell which file loaded.
           req.response.add(
-              req.uri.path.contains('/int8/') ? [8, 8, 8] : [32, 32, 32, 32]);
+            req.uri.path.contains('/int8/') ? [8, 8, 8] : [32, 32, 32, 32],
+          );
         }
         req.response.close();
       });
@@ -704,19 +805,21 @@ void main() {
       await server.close(force: true);
       TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
           .setMockMethodCallHandler(
-              const MethodChannel('plugins.flutter.io/path_provider'), null);
+            const MethodChannel('plugins.flutter.io/path_provider'),
+            null,
+          );
       if (await support.exists()) await support.delete(recursive: true);
     });
 
-    String url(String q) =>
-        'http://127.0.0.1:${server.port}/m/ok_test.json$q';
+    String url(String q) => 'http://127.0.0.1:${server.port}/m/ok_test.json$q';
 
     // flutter_test blocks network with a 400-everything HttpClient; the
     // base HttpOverrides restores the real one for the loopback server.
     Future<VswwModel> fetch(String u, {required bool preferInt8}) =>
         HttpOverrides.runWithHttpOverrides(
-            () => VswwModelStore().fetch(u, preferInt8: preferInt8),
-            _RealHttpOverrides());
+          () => VswwModelStore().fetch(u, preferInt8: preferInt8),
+          _RealHttpOverrides(),
+        );
 
     test('prefers the int8 sibling and says so', () async {
       final model = await fetch(url(''), preferInt8: true);
@@ -742,8 +845,9 @@ void main() {
 
     test('the cache-busting query rides along to the int8 URL', () async {
       await fetch(url('?v=2026.8.8'), preferInt8: true);
-      final onnxReq = requestedPaths
-          .firstWhere((p) => p.contains('/int8/ok_test.onnx'));
+      final onnxReq = requestedPaths.firstWhere(
+        (p) => p.contains('/int8/ok_test.onnx'),
+      );
       expect(onnxReq, '/m/int8/ok_test.onnx');
     });
 

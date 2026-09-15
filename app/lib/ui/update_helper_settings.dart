@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import '../app_container.dart';
 import 'kit.dart';
+import 'package:kiosk_satellite/core/lifecycle.dart';
 
 /// The helper is activated by ADB. Its current process decides availability.
 class UpdateHelperSettings extends StatefulWidget {
@@ -38,9 +39,11 @@ class _UpdateHelperSettingsState extends State<UpdateHelperSettings>
     super.dispose();
   }
 
+  final _returned = ReturnWatch();
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) _refresh();
+    if (_returned.returned(state)) _refresh();
   }
 
   Future<void> _refresh() async {

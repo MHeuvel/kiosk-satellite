@@ -22,6 +22,7 @@ import 'oww/oww_probe.dart';
 import 'vsww/benchmark.dart';
 import 'vsww/model_store.dart';
 import 'vsww/vsww_engine.dart';
+import 'package:kiosk_satellite/core/lifecycle.dart';
 
 /// Native wake-word detection and the mic-ownership handoff with the
 /// Voice Satellite card (docs/js-api.md, "Wake-word handoff protocol").
@@ -729,10 +730,7 @@ class WakeWordManager extends Manager implements NativeAudioSource {
             // dropping the card session in the middle of the very interaction
             // this was meant to reveal. Only come forward when actually behind
             // something (same guard as the native wake path).
-            if (WidgetsBinding.instance.lifecycleState ==
-                AppLifecycleState.resumed) {
-              return const CommandResult.ok(true);
-            }
+            if (Lifecycle.onScreen) return const CommandResult.ok(true);
             return CommandResult.ok(await BackgroundListening.bringToFront());
           },
         ),
@@ -1302,9 +1300,7 @@ class WakeWordManager extends Manager implements NativeAudioSource {
     // panel needs no grant and no setting, so the attempt is made
     // unconditionally — bringToFront wakes the display first and only
     // then needs the overlay grant to actually switch tasks.
-    if (WidgetsBinding.instance.lifecycleState == AppLifecycleState.resumed) {
-      return;
-    }
+    if (Lifecycle.onScreen) return;
     try {
       if (await BackgroundListening.bringToFront()) {
         log.info(name, 'woke the screen / brought the app forward');

@@ -22,6 +22,7 @@ import '../device/webview_recovery.dart';
 import '../sendspin/music_assistant_api.dart';
 import '../settings/definitions.dart' as defs;
 import '../settings/settings_manager.dart';
+import 'package:kiosk_satellite/core/lifecycle.dart';
 
 /// One line of the page's JavaScript console.
 class ConsoleEntry {
@@ -895,9 +896,11 @@ class BrowserManager extends Manager with WidgetsBindingObserver {
   /// screensaver.
   bool get renderingFrozen => _frozen;
 
+  final _returned = ReturnWatch();
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) unawaited(_reassertFreeze());
+    if (_returned.returned(state)) unawaited(_reassertFreeze());
   }
 
   /// Re-applies the wanted freeze state after every resume, retrying until

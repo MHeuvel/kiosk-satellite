@@ -119,6 +119,27 @@ void main() {
     expect(saver.isActive, isTrue);
   });
 
+  test('a return without the input focus is still a return', () async {
+    await build(dimOneSecond);
+    saver.didChangeAppLifecycleState(AppLifecycleState.paused);
+    await settle();
+    // Android reports an Activity resumed without the input focus as
+    // inactive, and with a focus-holding window over the kiosk it never
+    // reaches resumed (issue #560).
+    saver.didChangeAppLifecycleState(AppLifecycleState.inactive);
+    await Future<void>.delayed(const Duration(milliseconds: 1200));
+    expect(saver.isActive, isTrue);
+  });
+
+  test('an inactive on the way out is not a return', () async {
+    await build(dimOneSecond);
+    saver.didChangeAppLifecycleState(AppLifecycleState.inactive);
+    saver.didChangeAppLifecycleState(AppLifecycleState.paused);
+    await settle();
+    await Future<void>.delayed(const Duration(milliseconds: 1200));
+    expect(saver.isActive, isFalse);
+  });
+
   test('a dark panel is not another app: the session stays', () async {
     await build(dimOneSecond);
     await saver.start();

@@ -898,7 +898,15 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
           log.debug(name, 'another app is in front; idle clock on hold');
         }
       });
-    } else if (state == AppLifecycleState.resumed) {
+    } else if (state == AppLifecycleState.resumed ||
+        (state == AppLifecycleState.inactive && _lifecyclePaused)) {
+      // A resume, or an inactive after a pause: either way the Activity
+      // is back on screen. Android reports resumed only once the window
+      // also holds the input focus, and a device with a focus-holding
+      // window over the kiosk (a firmware overlay, a system window) comes
+      // back as inactive and stays there. Waiting for resumed alone left
+      // this flag set with the kiosk in plain view: no idle screensaver
+      // and no Now Playing on play until a restart (issue #560).
       _lifecyclePaused = false;
       _pauseProbe?.cancel();
       _pauseProbe = null;

@@ -160,6 +160,27 @@ void main() {
       expect(browser.renderingFrozen, isTrue);
     });
 
+    test('a return without the input focus re-asserts too', () async {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, (call) async {
+            calls.add(call);
+            return 1;
+          });
+      await build({'ks.browser.freeze_on_screensaver': true});
+      browser.onPageLoaded('http://ha.local:8123/lovelace/0');
+      calls.clear();
+      browser.didChangeAppLifecycleState(AppLifecycleState.paused);
+      await Future<void>.delayed(const Duration(milliseconds: 100));
+      expect(calls.where((c) => c.method == 'setHidden'), isEmpty);
+      // Android reports an Activity resumed under a focus-holding window
+      // as inactive, never resumed (issue #560): the view is re-revealed
+      // on that return like on any other.
+      browser.didChangeAppLifecycleState(AppLifecycleState.inactive);
+      await Future<void>.delayed(const Duration(milliseconds: 100));
+      expect(calls.where((c) => c.method == 'setHidden'), hasLength(1));
+      expect(calls.last.arguments['hidden'], isFalse);
+    });
+
     test(
       'a thaw edge reveals even when the freeze never took by our books',
       () async {

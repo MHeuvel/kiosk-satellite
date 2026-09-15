@@ -5,7 +5,7 @@ import 'dart:ui' show Brightness;
 
 import 'package:flutter/foundation.dart' show ValueNotifier;
 import 'package:flutter/widgets.dart'
-    show AppLifecycleState, WidgetsBinding, WidgetsBindingObserver;
+    show WidgetsBinding, WidgetsBindingObserver;
 
 import 'package:http/http.dart' as http;
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -19,6 +19,7 @@ import '../settings/definitions.dart' as defs;
 import '../settings/settings_manager.dart';
 import 'dashboard_list.dart';
 import 'plugin_entities.dart';
+import 'package:kiosk_satellite/core/lifecycle.dart';
 
 /// Home Assistant connection: long-lived-token auth, connection validation,
 /// and the dashboard list used by the dashboard picker.
@@ -118,7 +119,8 @@ class HomeAssistantManager extends Manager {
         description: 'Observe a selected HA entity for a plugin session.',
         quiet: true,
         handler: (p) async {
-          if (p['owner'] is! String || !HaPluginEntities.validId(p['entityId'])) {
+          if (p['owner'] is! String ||
+              !HaPluginEntities.validId(p['entityId'])) {
             return const CommandResult.fail('Invalid entity subscription');
           }
           _pluginEntities.watch(p['owner'] as String, p['entityId'] as String);
@@ -925,14 +927,10 @@ class HomeAssistantManager extends Manager {
     // Nobody is looking: the screensaver is up, or the app is not on
     // screen. Skip WITHOUT advancing, so the ring freezes in place (and a
     // strategy view's hard load never churns the page while it is hidden).
-    // lifecycleState is NULL until Android delivers the first transition
-    // (i.e. for the whole first foreground session) — null means resumed.
-    final lifecycle = WidgetsBinding.instance.lifecycleState;
-    if (_screensaverActive ||
-        _holdActive ||
-        (lifecycle != null && lifecycle != AppLifecycleState.resumed)) {
-      return;
-    }
+    // Off screen by the lifecycle, which is null for the whole first
+    // foreground session and inactive on a return without the input
+    // focus: both count as on screen (see Lifecycle).
+    if (_screensaverActive || _holdActive || !Lifecycle.onScreen) return;
     final slots = _rotationSlots();
     if (slots.isEmpty || baseUrl.isEmpty) return;
     // The crossfade needs the outgoing view visible: after an external

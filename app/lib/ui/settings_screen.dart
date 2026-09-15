@@ -60,6 +60,7 @@ import '../managers/wake_word/permission_descriptions.dart';
 import 'wake_word_tester.dart';
 import 'update_helper_settings.dart';
 import 'plugin_settings.dart';
+import 'package:kiosk_satellite/core/lifecycle.dart';
 
 /// Render a category's settings as cards: consecutive settings sharing a
 /// `section` become one card under one [SectionHeading]; unsectioned runs
@@ -3557,11 +3558,13 @@ class _KioskPermissionsTileState extends State<_KioskPermissionsTile>
     super.dispose();
   }
 
+  final _returned = ReturnWatch();
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     // Both are given on OS screens that report nothing back, so re-read
     // them when the user returns from one.
-    if (state == AppLifecycleState.resumed) _refresh();
+    if (_returned.returned(state)) _refresh();
   }
 
   Future<void> _refresh() async {
@@ -3683,11 +3686,13 @@ class _HomeRoleTileState extends State<_HomeRoleTile>
     super.dispose();
   }
 
+  final _returned = ReturnWatch();
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     // The role dialog and the system home settings both report nothing
     // back; coming home from them is the refresh signal.
-    if (state == AppLifecycleState.resumed) _refresh();
+    if (_returned.returned(state)) _refresh();
   }
 
   Future<void> _refresh() async {
@@ -3814,10 +3819,12 @@ class _LauncherPermissionsTileState extends State<_LauncherPermissionsTile>
     super.dispose();
   }
 
+  final _returned = ReturnWatch();
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     // Both grants are given on OS screens that report nothing back.
-    if (state == AppLifecycleState.resumed) _refresh();
+    if (_returned.returned(state)) _refresh();
   }
 
   Future<void> _refresh() async {
@@ -4000,11 +4007,13 @@ class _ScreenOffAdminRowState extends State<_ScreenOffAdminRow>
     super.dispose();
   }
 
+  final _returned = ReturnWatch();
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     // The grant is given on Android's own screen, which reports nothing on
     // the way back; returning here is the moment to look again.
-    if (state == AppLifecycleState.resumed) _refresh();
+    if (_returned.returned(state)) _refresh();
   }
 
   Future<void> _refresh() async {
@@ -7666,9 +7675,11 @@ class _ServicePermissionsTileState extends State<_ServicePermissionsTile>
     super.dispose();
   }
 
+  final _returned = ReturnWatch();
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) _refresh();
+    if (_returned.returned(state)) _refresh();
   }
 
   Future<void> _refresh() async {
@@ -7855,9 +7866,11 @@ class _DevicePermissionsTileState extends State<_DevicePermissionsTile>
     super.dispose();
   }
 
+  final _returned = ReturnWatch();
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) _refresh();
+    if (_returned.returned(state)) _refresh();
   }
 
   Future<void> _refresh() async {
@@ -8183,11 +8196,13 @@ class _SystemPermissionsTileState extends State<SystemPermissionsTile>
     super.dispose();
   }
 
+  final _returned = ReturnWatch();
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     // Every one of these is given on an OS screen that tells us nothing on the
     // way back, so re-read them when the user returns from one.
-    if (state == AppLifecycleState.resumed) _refresh();
+    if (_returned.returned(state)) _refresh();
   }
 
   Future<void> _refresh() async {
@@ -8439,10 +8454,12 @@ class _LocationPermissionsTileState extends State<_LocationPermissionsTile>
     super.dispose();
   }
 
+  final _returned = ReturnWatch();
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     // The dialog reports nothing on the way back; re-read on return.
-    if (state == AppLifecycleState.resumed) _refresh();
+    if (_returned.returned(state)) _refresh();
   }
 
   Future<void> _refresh() async {
@@ -8604,9 +8621,11 @@ class _PersonSensorLogAccessTileState extends State<_PersonSensorLogAccessTile>
     super.dispose();
   }
 
+  final _returned = ReturnWatch();
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) _refresh();
+    if (_returned.returned(state)) _refresh();
   }
 
   Future<void> _refresh() async {
@@ -8742,10 +8761,12 @@ class _BtProxyPermissionsTileState extends State<_BtProxyPermissionsTile>
     super.dispose();
   }
 
+  final _returned = ReturnWatch();
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     // The dialog reports nothing on the way back; re-read on return.
-    if (state == AppLifecycleState.resumed) _refresh();
+    if (_returned.returned(state)) _refresh();
   }
 
   Future<void> _refresh() async {

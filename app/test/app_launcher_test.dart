@@ -172,12 +172,22 @@ void main() {
           .setMockMethodCallHandler(channel, null);
     });
 
-    Future<void> armed() => build({
-      'ks.launcher.enabled': true,
-      'ks.launcher.apps': twoApps,
-      'ks.launcher.auto_return': true,
-      'ks.launcher.auto_return_seconds': 30,
-    });
+    Future<void> armed() async {
+      await build({
+        'ks.launcher.enabled': true,
+        'ks.launcher.apps': twoApps,
+        'ks.launcher.auto_return': true,
+        'ks.launcher.auto_return_seconds': 30,
+      });
+      // The other app is up: the binding says so, as the clock rechecks
+      // it before pulling the kiosk forward. (A binding that has reported
+      // nothing yet counts as on screen, see Lifecycle.)
+      final binding = TestWidgetsFlutterBinding.instance;
+      binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
+      addTearDown(
+        () => binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed),
+      );
+    }
 
     test('returns after the idle time, watching touches meanwhile', () async {
       await armed();
@@ -219,6 +229,25 @@ void main() {
         async.elapse(const Duration(seconds: 2));
         async.flushMicrotasks();
         expect(executed, ['bringToFront']);
+      });
+    });
+
+    test('a return without the input focus disarms too', () async {
+      await armed();
+      fakeAsync((async) {
+        bus.publish(const AppLaunched(package: 'com.a'));
+        async.flushMicrotasks();
+        launcher.didChangeAppLifecycleState(AppLifecycleState.paused);
+        async.flushMicrotasks();
+        async.elapse(const Duration(seconds: 10));
+        // Android reports an Activity resumed under a focus-holding window
+        // as inactive, never resumed (issue #560): back all the same.
+        launcher.didChangeAppLifecycleState(AppLifecycleState.inactive);
+        async.flushMicrotasks();
+        expect(watchCalls.last, {'on': false});
+        expect(launcher.watchingTouches, isFalse);
+        async.elapse(const Duration(seconds: 60));
+        expect(executed, isEmpty);
       });
     });
 
