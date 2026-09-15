@@ -5084,8 +5084,8 @@ const sendspinVolumeKeys = SettingDef<String>(
   title: 'Volume buttons control the player',
   description:
       "This device's volume buttons change the followed player's volume "
-      'instead of its own, in steps of 5%. Only while the Now Playing view '
-      'is on screen, or whenever the player is playing.',
+      'instead of its own. Only while the Now Playing view is on screen, '
+      'or whenever the player is playing.',
   category: 'Sendspin',
   options: ['off', 'now_playing', 'playing'],
   optionLabels: {
@@ -5097,8 +5097,24 @@ const sendspinVolumeKeys = SettingDef<String>(
   dependsOnValue: ['ha', 'ma', 'sonos'],
 );
 
-/// How far one volume key press moves the followed player, in percent.
-const sendspinVolumeKeyStep = 5;
+/// How far one volume key press moves the followed player, in percent
+/// (issue #548). Five suits most speakers, but a sensitive amplifier or
+/// a bedroom at night wants finer steps, so the size is a slider down to
+/// one percent. Shown only while the buttons are routed to the player.
+const sendspinVolumeKeyStep = SettingDef<int>(
+  key: 'sendspin.volume_key_step',
+  type: SettingType.number,
+  defaultValue: 5,
+  title: 'Volume button step',
+  description: 'How far one press of a volume button moves the player.',
+  category: 'Sendspin',
+  min: 1,
+  max: 10,
+  step: 1,
+  unit: '%',
+  dependsOn: 'sendspin.volume_keys',
+  dependsOnValue: ['now_playing', 'playing'],
+);
 
 /// The picked player's display name: what the settings rows show and what
 /// the Now Playing view's chip says. Stored beside the id so neither
@@ -7583,6 +7599,7 @@ const List<SettingDef<Object>> allSettings = [
   sendspinPlayer,
   sendspinDuckPercent,
   sendspinVolumeKeys,
+  sendspinVolumeKeyStep,
   sendspinPlayerName,
   sendspinEnabled,
   sendspinServer,

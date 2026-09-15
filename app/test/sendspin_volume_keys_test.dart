@@ -243,6 +243,19 @@ void main() {
       expect(remote.writes, isEmpty);
     });
 
+    test('the step follows its slider (issue #548)', () async {
+      await boot('ma');
+      final remote = remotes.single;
+      await settings.set(defs.sendspinVolumeKeyStep, 2);
+      await press('up');
+      await press('up');
+      await press('down');
+      expect(remote.writes, [42, 44, 42]);
+      await settings.set(defs.sendspinVolumeKeyStep, 10);
+      await press('up');
+      expect(remote.writes, [42, 44, 42, 52]);
+    });
+
     test('this device ignores a stray press', () async {
       await boot('');
       final before = settings.get(defs.mediaVolume);

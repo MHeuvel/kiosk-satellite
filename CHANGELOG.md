@@ -4,6 +4,9 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ## Unreleased
 
+### Added
+- **The volume button step is a slider.** The hardware volume buttons moved the followed player by a fixed 5% per press, too coarse for a sensitive amplifier or a bedroom at night. A new Volume button step slider under Media Player, shown while the buttons are routed to the player, sets the step from 1% to 10% on the device and in the remote admin. Five stays the default.
+
 ### Changed
 - **Analytics counts the intercom and announcements.** The Usage part of the daily snapshot now says whether the intercom is on, its answer and talk modes, whether it accepts announcements, and whether Home Assistant announcements and their chime are on, so the new features can be weighed like the rest. The analytics guide lists them.
 

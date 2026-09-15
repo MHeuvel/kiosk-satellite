@@ -508,9 +508,9 @@ class SendspinManager extends Manager {
   void _onVolumeKey(String direction) {
     switch (direction) {
       case 'up':
-        unawaited(nudgeVolume(defs.sendspinVolumeKeyStep));
+        unawaited(nudgeVolume(_settings.get(defs.sendspinVolumeKeyStep)));
       case 'down':
-        unawaited(nudgeVolume(-defs.sendspinVolumeKeyStep));
+        unawaited(nudgeVolume(-_settings.get(defs.sendspinVolumeKeyStep)));
       case 'mute':
         if (_remote == null || !volumeAvailable) return;
         volumeNudge.value++;
@@ -1028,6 +1028,10 @@ class SendspinManager extends Manager {
         'sendspin.ma_auto_close',
         'sendspin.ma_hide_close',
         'sendspin.player_shortcut',
+        // Where the hardware volume keys go and how far they step: read
+        // per press, nothing the audio client holds.
+        'sendspin.volume_keys',
+        'sendspin.volume_key_step',
         // The follower's display name and the bookkeeping flag: neither
         // touches the audio client. The pick itself (sendspin.player)
         // is deliberately NOT here — it decides whether the local player
