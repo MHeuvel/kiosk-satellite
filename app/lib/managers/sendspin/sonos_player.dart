@@ -158,11 +158,8 @@ class SonosPlayer implements RemotePlayer {
       // the track metadata of a radio stream names the song (or the
       // stream file) and carries no art, while the media the speaker was
       // given (GetMediaInfo) is the station item with both. Read once
-      // per stream, when the track brings no art of its own.
+      // per stream.
       final trackUri = (position['TrackURI'] ?? '').trim();
-      final trackArt = SonosClient.parseDidlItems(
-        position['TrackMetaData'] ?? '',
-      ).firstOrNull?['art'];
       // The media the speaker was given, read once per track: whether it
       // plays from its queue (a station or a line-in does not, and then
       // there is nothing to skip to, whatever the track metadata says)
@@ -176,7 +173,10 @@ class SonosPlayer implements RemotePlayer {
           final currentUri = (media['CurrentURI'] ?? '').trim();
           _inQueue = currentUri.startsWith('x-rincon-queue:');
           _appSession = appSession(currentUri);
-          if (trackArt == null) _station = stationFrom(media, co.host);
+          // The station is read whatever the track carries: its logo
+          // yields to the track's own art, its name stands in for a
+          // track named after the stream file (issue #560).
+          _station = stationFrom(media, co.host);
           // The item My Sonos would hold: the station the speaker was
           // given, or the track itself when it plays from the queue. An
           // app's session is the app's, and My Sonos cannot keep it.
@@ -197,7 +197,6 @@ class SonosPlayer implements RemotePlayer {
           _mediaFor = '';
         }
       }
-      if (trackArt != null) _station = null;
       // The play mode and the volume change rarely and cost a call each:
       // read them at the start, then every few ticks.
       if (_ticks % 5 == 0) {
@@ -455,6 +454,15 @@ class SonosPlayer implements RemotePlayer {
     };
   }
 
+  /// A metadata field as it may be shown: trimmed, and empty when it is
+  /// the stream's plumbing rather than words (a stream file name with its
+  /// query string, an ad tag, a ZPSTR placeholder).
+  @visibleForTesting
+  static String displayText(String? raw) {
+    final text = (raw ?? '').trim();
+    return text.isEmpty || _streamPlumbing(text) ? '' : text;
+  }
+
   /// The station in a GetMediaInfo answer: the name and logo of the item
   /// the speaker was given to play, the logo made absolute on the
   /// speaker when it is a path. Null when the item carries neither.
@@ -649,30 +657,32 @@ class SonosPlayer implements RemotePlayer {
     final items = SonosClient.parseDidlItems(position['TrackMetaData'] ?? '');
     final item = items.isEmpty ? const <String, String>{} : items.first;
     // A radio stream names the station in the title and the song, when
-    // the station sends one, in its own field.
-    final stream = item['streamContent'];
+    // the station sends one, in its own field. Any of them can carry the
+    // stream's plumbing instead of words, and that is not shown.
+    final stream = displayText(item['streamContent']);
     final isStream =
         (item['class'] ?? '').contains('audioBroadcast') ||
         (position['TrackDuration'] ?? '') == 'NOT_IMPLEMENTED';
-    var title = item['title'] ?? '';
-    var artist = item['artist'] ?? '';
-    var album = item['album'] ?? '';
+    var title = displayText(item['title']);
+    var artist = displayText(item['artist']);
+    var album = displayText(item['album']);
     // The station's own name, over a track title that is the stream's
-    // file name or nothing at all.
-    final stationName = station?.name ?? '';
-    if (stationName.isNotEmpty && (title.isEmpty || _looksLikeFile(title))) {
-      title = stationName;
+    // file name or nothing at all; failing that, the service the stream
+    // plays from, so a station with no words at all still shows.
+    if (title.isEmpty) title = (station?.name ?? '').trim();
+    if (title.isEmpty && isStream) {
+      final service = serviceName(position['TrackURI'] ?? '');
+      title = service.isEmpty ? 'Radio' : service;
     }
-    if (stream != null && stream.isNotEmpty) {
+    if (stream.isNotEmpty) {
       // "Artist - Title" is the common shape; anything else is the title.
       final dash = stream.indexOf(' - ');
-      if (dash > 0) {
-        album = title;
-        artist = stream.substring(0, dash).trim();
-        title = stream.substring(dash + 3).trim();
-      } else {
-        album = title;
-        title = stream;
+      final song = dash > 0 ? displayText(stream.substring(dash + 3)) : stream;
+      if (song.isNotEmpty) {
+        // A station that idents itself between songs is named once.
+        album = song == title ? '' : title;
+        artist = dash > 0 ? displayText(stream.substring(0, dash)) : '';
+        title = song;
       }
     }
     if (title.isEmpty) return null;
@@ -970,12 +980,25 @@ class SonosPlayer implements RemotePlayer {
   }
 }
 
-/// A stream's file name standing in for a title: no spaces, an extension
-/// or a scheme, the way a speaker names a stream it was handed with no
-/// metadata of its own.
-bool _looksLikeFile(String title) =>
-    !title.contains(' ') &&
-    (title.contains('://') || RegExp(r'\.[A-Za-z0-9]{2,4}$').hasMatch(title));
+/// Whether a metadata field is the stream's plumbing rather than words
+/// for a person (issue #560): a URL, the file the station serves with its
+/// query string and all ("LOS40.mp3?DIST=TuneIn&TGT=TuneIn..."), an ad
+/// insertion session tag sent as the song ("...aw_0_1st.playerid=tunein&
+/// amsparams=playerid:tunein;skey:..."), or the speaker's own placeholder
+/// (ZPSTR_CONNECTING, ZPSTR_BUFFERING) while a stream starts.
+bool _streamPlumbing(String text) {
+  if (text.startsWith('ZPSTR_') || text.contains('://')) return true;
+  final lower = text.toLowerCase();
+  if (_adTags.any(lower.contains)) return true;
+  // Words have spaces. Without any, a file extension (followed by a query
+  // string or nothing) or a query string's own "a=b&c=d" shape is a name
+  // no station meant anyone to read. A lone "=" stays: E=MC2 is a song.
+  if (text.contains(RegExp(r'\s'))) return false;
+  if (RegExp(r'\.[A-Za-z0-9]{2,4}(\?|$)').hasMatch(text)) return true;
+  return text.contains('=') && (text.contains('&') || text.contains('?'));
+}
+
+const _adTags = ['playerid=', 'amsparams=', 'samparams=', 'aw_0_1st', 'skey:'];
 
 /// The station a Sonos was given to play: its name and its logo, from the
 /// speaker's media info.

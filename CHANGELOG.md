@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Fixed
+- **Sonos radio shows the station, not the stream's plumbing.** A TuneIn station played through the direct Sonos player put the stream's file name and query string on the station line under the song, and between songs the song line itself could read as an ad insertion tag or the speaker's ZPSTR_CONNECTING placeholder. The speaker names a radio track after the file the station serves, and the fix took that for a title unless it ended in a file extension. Those fields are now read for words: a URL, a file name with its query string, an ad tag or a speaker placeholder is dropped, the station named by the speaker's media info takes its place on the title or the station line, and a station with no name at all is called after its service. The station's name is also kept for a track that carries its own artwork, which used to lose it.
+
 ## v2026.9.53 - 2026-09-15
 
 ### Changed

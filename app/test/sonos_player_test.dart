@@ -311,7 +311,92 @@ void main() {
     });
   });
 
+  group('SonosPlayer.displayText', () {
+    test('the stream plumbing TuneIn sends as words is not shown', () {
+      // Issue #560: the track title is the stream file with its query
+      // string, the song field an ad insertion tag, or the speaker's
+      // placeholder while the stream starts.
+      const plumbing = [
+        'LOS40.mp3?DIST=TuneIn&TGT=TuneIn&maxServers=2&gdpr=1&partnertok=eyJhbGciOiJIUzI1NiIsImtpZCI6',
+        'rtlb-greatesthits-aacplus-64-2317242?sABC=6nn96qnn#0#n901rop81r9n31002np4np3nqn004s0s#&aw_0_1st.playerid=&amsparams=playerid:;skey:1789488554',
+        '_1st.playerid=tunein&samparams=playerid:tunein;skey:1789488554',
+        'bbc_radio_one.m3u8',
+        'http://stream.example/live.aac',
+        'ZPSTR_CONNECTING',
+        'ZPSTR_BUFFERING',
+        '  ',
+      ];
+      for (final text in plumbing) {
+        expect(SonosPlayer.displayText(text), '', reason: text);
+      }
+      // Words, odd ones included, stay.
+      const words = [
+        'Belong together',
+        'E=MC2',
+        'Why?',
+        'Mr. Brightside',
+        'JAM FM Pride',
+        'Rock&Roll',
+        '1LIVE',
+      ];
+      for (final text in words) {
+        expect(SonosPlayer.displayText(' $text '), text, reason: text);
+      }
+    });
+  });
+
   group('SonosPlayer.snapshotFrom', () {
+    test('a TuneIn stream shows the station, not its file name', () {
+      // Issue #560: LOS40 over TuneIn names its track after the stream
+      // file, query string and all, and the song comes in the stream
+      // text. The station line must be the station.
+      const station = SonosStation(name: 'LOS40', art: 'https://cdn/los40.png');
+      const meta =
+          '<DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/" xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/">'
+          '<item id="-1" parentID="-1"><dc:title>LOS40.mp3?DIST=TuneIn&amp;TGT=TuneIn&amp;maxServers=2&amp;gdpr=1&amp;partnertok=eyJhbGciOiJIUzI1NiIsImtpZCI6</dc:title>'
+          '<upnp:class>object.item</upnp:class><r:streamContent>STREAM</r:streamContent></item></DIDL-Lite>';
+      Map<String, Object?>? snap(String stream, {SonosStation? station}) =>
+          SonosPlayer.snapshotFrom(
+            transport: {'CurrentTransportState': 'PLAYING'},
+            position: {
+              'Track': '1',
+              'TrackDuration': 'NOT_IMPLEMENTED',
+              'TrackURI': 'x-sonosapi-stream:s1234?sid=254&flags=8224&sn=0',
+              'TrackMetaData': meta.replaceFirst('STREAM', stream),
+              'RelTime': '0:00:10',
+            },
+            host: 'h',
+            station: station,
+          );
+      final sung = snap('Mark Ambor - Belong together', station: station)!;
+      expect(sung['title'], 'Belong together');
+      expect(sung['artist'], 'Mark Ambor');
+      expect(sung['album'], 'LOS40');
+      // The speaker's placeholders while the stream starts are not words.
+      final connecting = snap('ZPSTR_CONNECTING', station: station)!;
+      expect(connecting['title'], 'LOS40');
+      expect(connecting['artist'], isNull);
+      expect(connecting['album'], isNull);
+      // An ad insertion tag sent as the song is not one either.
+      final tagged = snap(
+        'rtlb-greatesthits-aacplus-64-2317242?sABC=6nn96qnn#0#n901rop81r9n31002np4np3nqn004s0s#&aw_0_1st.playerid=&amsparams=playerid:;skey:1789488554',
+        station: station,
+      )!;
+      expect(tagged['title'], 'LOS40');
+      expect(tagged['album'], isNull);
+      // A station that idents itself between songs is named once.
+      final ident = snap('LOS40', station: station)!;
+      expect(ident['title'], 'LOS40');
+      expect(ident['album'], isNull);
+      // No station known: the service names the stream rather than the
+      // file, and a song still shows over it.
+      final bare = snap('', station: null)!;
+      expect(bare['title'], 'TuneIn');
+      final bareSung = snap('Mark Ambor - Belong together', station: null)!;
+      expect(bareSung['title'], 'Belong together');
+      expect(bareSung['album'], 'TuneIn');
+    });
+
     test('a playing station track: no duration, no seek, absolute art', () {
       final snap = SonosPlayer.snapshotFrom(
         transport: {'CurrentTransportState': 'PLAYING'},
