@@ -183,6 +183,11 @@ class DeviceDetails(
                 // The real Wi-Fi hardware address, or null where Android
                 // hides it (issue #252). See WifiMac for the doors tried.
                 "wifiMac" -> result.success(WifiMac.read(context))
+                // The most the Java heap may grow to in this process: 80 MB
+                // on an Echo Show, 512 MB on a phone. What ExoPlayer's
+                // sample buffers count against, so the screensaver can
+                // tell which videos it can afford to play.
+                "javaHeapMax" -> result.success(Runtime.getRuntime().maxMemory())
                 // Dozens of sysfs reads, polled every few seconds while an
                 // admin tab is open — off the main thread, so a stats tick
                 // can never cost the UI a frame.

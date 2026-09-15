@@ -39,6 +39,17 @@ class DeviceDetails {
   /// Read on demand and never displayed as a row: it exists to be adopted as
   /// the ESPHome identity so Home Assistant links this kiosk with the same
   /// device from router integrations (issue #252).
+  /// The Java heap's ceiling in bytes, or null where the platform cannot
+  /// say. ExoPlayer buffers media into Java byte arrays, so this is the
+  /// budget a video's buffering must fit in.
+  static Future<int?> javaHeapMax() async {
+    try {
+      return await _channel.invokeMethod<int>('javaHeapMax');
+    } catch (_) {
+      return null;
+    }
+  }
+
   static Future<String?> wifiMac() async {
     try {
       return await _channel.invokeMethod<String>('wifiMac');

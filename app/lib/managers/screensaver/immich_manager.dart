@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:flutter/foundation.dart' show visibleForTesting;
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 
@@ -10,16 +11,27 @@ import '../../core/command_registry.dart';
 import '../../core/events.dart';
 import '../../core/locale_dates.dart';
 import '../../core/manager.dart';
+import '../device/device_details.dart';
 import '../settings/definitions.dart' as defs;
 import '../settings/settings_manager.dart';
 import 'screensaver_widgets.dart';
 
 /// One entry of the Immich screensaver playlist.
 class ImmichAsset {
-  const ImmichAsset({required this.id, required this.isVideo, this.aspect});
+  const ImmichAsset({
+    required this.id,
+    required this.isVideo,
+    this.aspect,
+    this.durationSeconds,
+  });
 
   final String id;
   final bool isVideo;
+
+  /// A video's length from the listing, or null for a photo or when the
+  /// server did not say. With the stream's size it says how much of the
+  /// video the player would buffer at once.
+  final double? durationSeconds;
 
   /// Width over height as the photo will appear, from the server's EXIF,
   /// or null when the server did not say. Known up front, it lets the
@@ -773,6 +785,9 @@ class ImmichManager extends Manager {
                   id: id,
                   isVideo: isVideo,
                   aspect: isVideo ? null : exifAspect(item['exifInfo']),
+                  durationSeconds: isVideo
+                      ? immichDurationSeconds(item['duration'])
+                      : null,
                 ),
               );
             }
@@ -807,6 +822,62 @@ class ImmichManager extends Manager {
   /// straight to the player, disk never involved.
   Uri videoUri(ImmichAsset asset) =>
       Uri.parse('$_base/api/assets/${asset.id}/video/playback');
+
+  /// The Java heap ceiling to judge videos against; a test sets it.
+  @visibleForTesting
+  int? javaHeapMaxOverride;
+  Future<int?>? _javaHeapMax;
+
+  final _videoFits = <String, bool>{};
+
+  /// Whether this device can afford to play [asset]. The video player
+  /// buffers up to fifty seconds of the stream into Java byte arrays, and
+  /// on an Echo Show the whole Java heap is 80 MB: one long phone video
+  /// ran the heap into the wall and killed the app, for every Immich user
+  /// who ever hit one (the crash landed on whatever thread allocated
+  /// next, the microphone reader most often). A HEAD on the playback
+  /// stream gives its exact size, the listing gave its length, and a
+  /// video whose first fifty seconds would not fit the budget is skipped
+  /// rather than played. Answered once per video per session; a server
+  /// that states no size, or a platform with no heap figure, gets the
+  /// benefit of the doubt.
+  Future<int?> _videoBytes(ImmichAsset asset) async {
+    try {
+      return await _videoBytesOf(videoUri(asset), _headers);
+    } catch (e) {
+      log.warn(name, 'video size unknown for ${asset.id}: $e');
+      return null;
+    }
+  }
+
+  Future<bool> videoFits(ImmichAsset asset) async {
+    final known = _videoFits[asset.id];
+    if (known != null) return known;
+    final heapMax =
+        javaHeapMaxOverride ??
+        await (_javaHeapMax ??= DeviceDetails.javaHeapMax());
+    if (heapMax == null || heapMax <= 0) return true;
+    final bytes = await _videoBytes(asset);
+    if (bytes == null) return true;
+    final fits = immichVideoFits(
+      bytes: bytes,
+      durationSeconds: asset.durationSeconds,
+      heapMax: heapMax,
+    );
+    _videoFits[asset.id] = fits;
+    final mb =
+        (immichVideoBufferBytes(bytes, asset.durationSeconds) / (1024 * 1024))
+            .round();
+    final budgetMb = (immichVideoBudget(heapMax) / (1024 * 1024)).round();
+    log.info(
+      name,
+      fits
+          ? 'video ${asset.id}: ~$mb MB buffered of a $budgetMb MB budget'
+          : 'video ${asset.id} skipped: ~$mb MB of buffering would not fit '
+                'the $budgetMb MB budget this device\'s Java heap allows',
+    );
+    return fits;
+  }
 
   Map<String, String> get videoHeaders => _headers;
 
@@ -1057,3 +1128,89 @@ class _ApiException implements Exception {
   String toString() =>
       'HTTP $status${path == null ? '' : ' on $path'}: $message';
 }
+
+/// The stream's total size in bytes. Asked with a one byte range: the
+/// 206 answer's Content-Range carries the total and costs one byte,
+/// where a HEAD comes back through the Dart HTTP client with its length
+/// zeroed. A server that ignores the range answers 200 with the length
+/// in Content-Length, and the body is dropped unread either way. Null
+/// when the server did not say.
+Future<int?> _videoBytesOf(Uri uri, Map<String, String> headers) async {
+  final client = http.Client();
+  try {
+    final request = http.Request('GET', uri)
+      ..headers.addAll(headers)
+      ..headers['range'] = 'bytes=0-0';
+    final response = await client
+        .send(request)
+        .timeout(const Duration(seconds: 10));
+    final total = immichContentRangeTotal(response.headers['content-range']);
+    if (total != null) return total;
+    if (response.statusCode == 200) {
+      final length = int.tryParse(response.headers['content-length'] ?? '');
+      if (length != null && length > 0) return length;
+    }
+    return null;
+  } finally {
+    client.close();
+  }
+}
+
+/// The total behind a Content-Range header ("bytes 0-0/7567107"), or null
+/// when absent, unknown ("*") or not a positive number.
+int? immichContentRangeTotal(String? header) {
+  if (header == null) return null;
+  final slash = header.lastIndexOf('/');
+  if (slash < 0) return null;
+  final total = int.tryParse(header.substring(slash + 1).trim());
+  return total != null && total > 0 ? total : null;
+}
+
+/// The window the video player buffers ahead: ExoPlayer's default of fifty
+/// seconds, which it fills as fast as the network delivers.
+const immichVideoBufferWindowSeconds = 50;
+
+/// The share of the Java heap a video's buffering may take. The rest is
+/// the app's own Java side, and the headroom the crash reports showed it
+/// needs.
+const immichVideoHeapShare = 0.4;
+
+/// A video's length in seconds from Immich's listing: a count of
+/// milliseconds from Immich 3, hours:minutes:seconds.fraction from the
+/// releases before it; null when absent or unreadable.
+double? immichDurationSeconds(Object? raw) {
+  if (raw is num) return raw > 0 ? raw / 1000 : null;
+  if (raw is! String || raw.isEmpty) return null;
+  final parts = raw.split(':');
+  if (parts.length < 2 || parts.length > 3) return null;
+  var seconds = 0.0;
+  for (final part in parts) {
+    final value = double.tryParse(part.trim());
+    if (value == null) return null;
+    seconds = seconds * 60 + value;
+  }
+  return seconds > 0 ? seconds : null;
+}
+
+/// How many bytes of a [bytes]-long stream the player buffers at once: the
+/// whole stream when it is shorter than the window, else the window's
+/// share of it, assuming a steady bitrate. No length known means the
+/// whole stream, the cautious reading.
+double immichVideoBufferBytes(int bytes, double? durationSeconds) {
+  if (durationSeconds == null ||
+      durationSeconds <= immichVideoBufferWindowSeconds) {
+    return bytes.toDouble();
+  }
+  return bytes * immichVideoBufferWindowSeconds / durationSeconds;
+}
+
+double immichVideoBudget(int heapMax) => heapMax * immichVideoHeapShare;
+
+/// Whether a video's buffering fits the heap budget.
+bool immichVideoFits({
+  required int bytes,
+  required double? durationSeconds,
+  required int heapMax,
+}) =>
+    immichVideoBufferBytes(bytes, durationSeconds) <=
+    immichVideoBudget(heapMax);

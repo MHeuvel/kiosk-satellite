@@ -3638,6 +3638,29 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
     final next = index % _assets.length;
     final asset = _assets[next];
     if (asset.isVideo) {
+      // A video the device cannot afford to buffer is passed over, and
+      // remembered so a lap of the playlist asks the server only once. A
+      // playlist that is nothing but such videos says so instead of
+      // spinning through them forever.
+      if (!await c.immich.videoFits(asset)) {
+        _skippedVideos.add(asset.id);
+        if (!mounted) {
+          await old?.dispose();
+          return;
+        }
+        if (_skippedVideos.length >= _assets.length) {
+          setState(
+            () => _problem =
+                'Every video in this playlist is too large for this '
+                'device to play.',
+          );
+          await old?.dispose();
+          return;
+        }
+        await _show(next + 1);
+        await old?.dispose();
+        return;
+      }
       // Streamed, never cached; the previous slide holds until frames exist.
       // Held apart from `video` so the catch can dispose an attempt that
       // got as far as opening; openVideo disposes the ones that did not.
@@ -3921,6 +3944,10 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
 
   final _retiring = <VideoPlayerController>[];
   final _retireTimers = <Timer>[];
+
+  /// The videos this device could not afford to buffer; see
+  /// ImmichManager.videoFits.
+  final _skippedVideos = <String>{};
 
   void _retire(VideoPlayerController? old) {
     if (old == null) return;

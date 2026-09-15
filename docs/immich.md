@@ -15,7 +15,7 @@ The settings page is organized into five main sections: Server Connection, Media
 | Group | Setting | Default | Notes |
 | --- | --- | --- | --- |
 | Media | Media source | All media | Displays your whole library or specific albums you select from the server list, including shared albums. Photos appearing in multiple selected albums are only shown once. |
-| Media | Photos only | off | Skips video assets during the slideshow. |
+| Media | Photos only | off | Skips video assets during the slideshow. With videos on, a video whose buffering would not fit the device's memory is skipped on its own (the log says which), so a long phone video cannot crash a small kiosk. |
 | Media | Cache media locally | on | Stores previews on the device for faster loading. |
 | Media | Cache size (items) | 500 | Automatically purges the oldest cached files when full. Current usage displays beneath this field. |
 | Slideshow | Seconds per image | 10 | Sets photo display duration. Videos ignore this setting and play through to completion. |
