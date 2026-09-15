@@ -26,6 +26,11 @@ class NativeMic {
   /// platform downmix (which averages every channel together).
   static num channel = 0;
 
+  /// 'auto' asks for 16 kHz mono and lets the platform convert; 'hardware'
+  /// opens 48 kHz stereo, the only format some sound cards record in, and
+  /// the native side converts. Either way this stream is 16 kHz mono.
+  static String captureFormat = 'auto';
+
   Stream<Uint8List> stream() => _channel
       .receiveBroadcastStream({
         if (deviceSelector.isNotEmpty) 'device': deviceSelector,
@@ -34,6 +39,7 @@ class NativeMic {
         'agc': agc,
         'noiseSuppression': noiseSuppression,
         'channel': channel,
+        'format': captureFormat,
       })
       .map((e) => e as Uint8List);
 }

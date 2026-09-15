@@ -59,6 +59,18 @@ import kotlin.math.max
  * processed one. A `channel` argument of 1..N opens capture with a channel
  * index mask wide enough to include it and forwards only that channel; 0 (the
  * default) is the platform's mono downmix, the app's historical behavior.
+ *
+ * Capture format: the engines want 16 kHz mono and that is what capture
+ * asks for, leaving the platform to convert from whatever the microphone
+ * does. Some sound cards record at 48 kHz stereo and nothing else, and an
+ * audio HAL that hands the app's format straight to ALSA then refuses the
+ * open, reads nothing but errors or delivers the card's frames misread as
+ * 16 kHz mono. Capture therefore walks a ladder of shapes ([captureLadder])
+ * and steps down it when an open is refused, when reads return only errors
+ * or zeros for two seconds, or when the delivered frame rate does not match
+ * the rate opened (the format under the label is not the one asked for).
+ * Anything but 16 kHz mono is converted here ([CaptureConvert]). A `format`
+ * argument of "hardware" starts the ladder at the card's 48 kHz stereo.
  */
 class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.StreamHandler {
     companion object {
@@ -71,14 +83,35 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         private const val CHUNK_BYTES = 1280 * 2 // 80 ms of 16-bit mono
 
         /**
-         * Deafness guard: a capture stuck on all-zero frames (a wedged
-         * AudioRecord after an audioserver death, or a ROM whose direct
-         * 16 kHz record path is broken) cannot be fixed in place, so it is
-         * reopened once at this rate - the mismatch against the usual
-         * 16 kHz device forces AudioFlinger's record converter path and a
-         * fresh server-side track - and decimated back to 16 kHz here.
+         * The sound card's own format on the devices that cannot do 16 kHz
+         * mono: 48 kHz, two channels. Also the deafness guard's second try:
+         * a capture stuck on all-zero frames or read errors (a wedged
+         * AudioRecord after an audioserver death, a ROM whose direct 16 kHz
+         * record path is broken, a HAL that could not open the card at
+         * 16 kHz mono) cannot be fixed in place, so it is reopened once at
+         * this format - the mismatch against a 16 kHz device forces
+         * AudioFlinger's record converter path and a fresh server-side
+         * track, and a 48 kHz card gets the format it wanted - and
+         * converted back to 16 kHz mono here.
          */
-        private const val FALLBACK_RATE = 48000
+        private const val HARDWARE_RATE = 48000
+        private const val HARDWARE_CHANNELS = 2
+
+        /**
+         * Delivered-rate check: a blocking read paces at the real rate, so
+         * frames per wall second should match the rate the capture was
+         * opened at. An old HAL asked for 48 kHz stereo can hand over mono
+         * under the stereo label (half the frames, pitch doubled), and a
+         * card's 48 kHz stereo misread as 16 kHz mono arrives six times
+         * too fast. Two seconds from the first read is long enough for
+         * read granularity not to matter, and the bounds are wide enough
+         * that no healthy device trips them.
+         */
+        private const val RATE_CHECK_NS = 2_000_000_000L
+        private const val RATE_RATIO_MIN = 0.6
+        private const val RATE_RATIO_MAX = 1.6
+        private const val RATE_BLOCKED_READ_NS = 20_000_000L
+        private const val RATE_WINDOW_AFTER_READS = 8
 
         /**
          * How much all-zero audio after open before concluding the capture
@@ -121,6 +154,7 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         val selector = args?.get("device") as? String
         inputSelector = selector
         val wantChannel = (args?.get("channel") as? Number)?.toInt() ?: 0
+        val hardwareFormat = args?.get("format") == "hardware"
         // The mask must reach the chosen channel even when the device cannot
         // be resolved right now (it may still appear by open time), and must
         // cover the whole device when it can, so a 4-channel array does not
@@ -132,25 +166,24 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         } else {
             1
         }
-        var rec = try {
-            openRecord(source, SAMPLE_RATE, chans)
+        // A channel pick is an index mask over the array's wire order; the
+        // plain stereo open is positional, the shape every input profile
+        // lists, so a HAL that matches by mask finds it.
+        val indexed = wantChannel >= 1
+        val ladder = captureLadder(hardwareFormat, chans, indexed)
+        var step = 0
+        var rec: AudioRecord? = null
+        try {
+            while (step < ladder.size) {
+                rec = openRecord(source, ladder[step], indexed)
+                if (rec != null) break
+                Log.w(TAG, "${ladder[step]} capture refused" +
+                    (if (step + 1 < ladder.size) "; trying ${ladder[step + 1]}" else ""))
+                step++
+            }
         } catch (e: SecurityException) {
             mainHandler.post { sink.error("permission", "RECORD_AUDIO not granted", null) }
             return
-        }
-        // A channel selection the device cannot satisfy (mic swapped for a
-        // mono one, a ROM that refuses index masks): capture beats silence,
-        // so fall back to the plain mono open rather than erroring out.
-        var openChans = chans
-        if (rec == null && chans > 1) {
-            Log.w(TAG, "$chans-channel capture failed to open; falling back to mono downmix")
-            openChans = 1
-            rec = try {
-                openRecord(source, SAMPLE_RATE, 1)
-            } catch (e: SecurityException) {
-                mainHandler.post { sink.error("permission", "RECORD_AUDIO not granted", null) }
-                return
-            }
         }
         val opened = rec ?: run {
             mainHandler.post { sink.error("init", "AudioRecord init failed", null) }
@@ -162,7 +195,9 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
             "capture opening (device=${selector ?: "automatic"} " +
                 "source=${sourceName(source)} gain=${"%.1f".format(gainDbOf(gain))}dB " +
                 "agc=$wantAgc ns=$wantNs" +
-                (if (openChans > 1) " channel=$wantChannel/$openChans" else "") + ")",
+                (if (wantChannel >= 1) " channel=$wantChannel/${ladder[step].channels}" else "") +
+                " format=${ladder[step]}" +
+                (if (hardwareFormat) " hardware-format" else "") + ")",
         )
         applyPreferredDevice(opened, selector)
         applyDsp(opened.audioSessionId, wantAgc, wantNs)
@@ -172,72 +207,137 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         val channelIdx = wantChannel - 1
         worker = thread(name = "vsww-mic") {
             var cur = opened
-            var chansNow = openChans
-            var decimate = false
-            var fellBack = false
-            var announcedFallbackAudio = false
+            var shape = ladder[step]
+            var decimator = if (shape.rateHz == HARDWARE_RATE) CaptureConvert.Decimator3() else null
+            var announcedAudio = false
             // Rolling, not since-open: a capture can emit a startup
             // transient before going silent, so any single nonzero frame
             // must not disarm the watchdog for good.
             var zeroRun = 0L
-            var buf = ByteArray(CHUNK_BYTES * chansNow)
+            // Delivered-rate check, once per open: frames read against the
+            // wall clock. The window opens at the first read that blocked
+            // (the backlog since startRecording has drained) or after a
+            // few reads regardless (a stream arriving several times too
+            // fast never blocks), so neither the open latency nor the
+            // backlog counts.
+            var windowNs = 0L
+            var framesRead = 0L
+            var reads = 0
+            var rateChecked = false
+            var buf = ByteArray(shape.chunkBytes)
+
+            // The next rung of the ladder that opens, or nothing when it is
+            // exhausted: the capture in hand then stays, whatever it is.
+            fun advance(why: String) {
+                var next: AudioRecord? = null
+                while (next == null && step + 1 < ladder.size) {
+                    step++
+                    next = try {
+                        openRecord(source, ladder[step], indexed)
+                    } catch (_: SecurityException) {
+                        null
+                    }
+                    if (next == null) Log.w(TAG, "$why; ${ladder[step]} refused")
+                }
+                if (next == null) {
+                    Log.w(TAG, "$why and no other capture format is left; keeping $shape")
+                    rateChecked = true
+                    return
+                }
+                Log.w(TAG, "$why - reopening at ${ladder[step]}")
+                aec?.release()
+                ns?.release()
+                agc?.release()
+                aec = null
+                ns = null
+                agc = null
+                try { cur.stop() } catch (_: IllegalStateException) {}
+                cur.release()
+                applyPreferredDevice(next, selector)
+                applyDsp(next.audioSessionId, wantAgc, wantNs)
+                next.startRecording()
+                cur = next
+                record = next
+                shape = ladder[step]
+                decimator = if (shape.rateHz == HARDWARE_RATE) CaptureConvert.Decimator3() else null
+                zeroRun = 0
+                windowNs = 0
+                framesRead = 0
+                reads = 0
+                rateChecked = false
+                announcedAudio = false
+                buf = ByteArray(shape.chunkBytes)
+            }
+
             while (recording) {
+                val readStartNs = System.nanoTime()
                 val read = cur.read(buf, 0, buf.size)
-                if (read <= 0) continue
+                if (read == 0) continue
+                if (read < 0) {
+                    // ERROR_DEAD_OBJECT and friends come back on every call:
+                    // a track the server side gave up on. Pace the loop and
+                    // let the watchdog treat the wait as silence.
+                    if (!recording) break
+                    Thread.sleep(20)
+                    zeroRun += SAMPLE_RATE * 2 / 50
+                    if (zeroRun >= SILENT_FALLBACK_BYTES) {
+                        zeroRun = 0
+                        advance("capture read only errors for 2s ($read)")
+                    }
+                    continue
+                }
+                if (windowNs == 0L) {
+                    reads++
+                    val blocked = System.nanoTime() - readStartNs >= RATE_BLOCKED_READ_NS
+                    if (blocked || reads >= RATE_WINDOW_AFTER_READS) windowNs = System.nanoTime()
+                } else {
+                    framesRead += read / (2 * shape.channels)
+                }
+                if (!rateChecked && windowNs != 0L) {
+                    val elapsedNs = System.nanoTime() - windowNs
+                    if (elapsedNs >= RATE_CHECK_NS) {
+                        rateChecked = true
+                        val ratio = framesRead * 1e9 / elapsedNs / shape.rateHz
+                        Log.i(TAG, "capture delivers ${(ratio * 100).toInt()}% of ${shape.rateHz} Hz")
+                        if (ratio < RATE_RATIO_MIN || ratio > RATE_RATIO_MAX) {
+                            advance(
+                                "capture delivers ${(ratio * 100).toInt()}% of the " +
+                                    "${shape.rateHz} Hz it was opened at (wrong format under the label)",
+                            )
+                            continue
+                        }
+                    }
+                }
                 // Everything downstream - the watchdog included - listens to
                 // the selected channel: the array's other channels carrying
                 // audio is no consolation when the chosen one is dead.
-                val mono = if (chansNow > 1) extractChannel(buf, read, chansNow, channelIdx) else null
+                val mono = when {
+                    shape.channels == 1 -> null
+                    channelIdx >= 0 -> extractChannel(buf, read, shape.channels, channelIdx)
+                    else -> CaptureConvert.downmix(buf, read, shape.channels)
+                }
                 val monoLen = mono?.size ?: read
                 val silent = allZero(mono ?: buf, monoLen)
                 if (silent && !CommunicationPlayback.maySuppressCapture()) {
-                    zeroRun += monoLen
-                    if (!fellBack && zeroRun >= SILENT_FALLBACK_BYTES) {
-                        fellBack = true
-                        val next = try {
-                            openRecord(source, FALLBACK_RATE, chansNow)
-                        } catch (_: SecurityException) {
-                            null
-                        }
-                        if (next != null) {
-                            Log.w(
-                                TAG,
-                                "capture read only zeros for 2s - reopening at " +
-                                    "$FALLBACK_RATE Hz for a fresh track through " +
-                                    "the record converter path",
-                            )
-                            aec?.release()
-                            ns?.release()
-                            agc?.release()
-                            aec = null
-                            ns = null
-                            agc = null
-                            try { cur.stop() } catch (_: IllegalStateException) {}
-                            cur.release()
-                            applyPreferredDevice(next, selector)
-                            applyDsp(next.audioSessionId, wantAgc, wantNs)
-                            next.startRecording()
-                            cur = next
-                            record = next
-                            decimate = true
-                            zeroRun = 0
-                            buf = ByteArray(CHUNK_BYTES * 3 * chansNow)
-                            continue
-                        }
-                        Log.w(TAG, "silent capture and the $FALLBACK_RATE Hz fallback failed to open; keeping the silent capture")
+                    zeroRun += monoLen * SAMPLE_RATE / shape.rateHz
+                    if (zeroRun >= SILENT_FALLBACK_BYTES) {
+                        zeroRun = 0
+                        advance("capture read only zeros for 2s")
+                        continue
                     }
                 } else {
                     zeroRun = 0
-                    if (!silent && decimate && !announcedFallbackAudio) {
-                        announcedFallbackAudio = true
-                        Log.i(TAG, "$FALLBACK_RATE Hz fallback capture is delivering audio")
+                    if (!silent && step > 0 && !announcedAudio) {
+                        announcedAudio = true
+                        Log.i(TAG, "$shape capture is delivering audio")
                     }
                 }
                 val chunk = when {
-                    decimate -> decimate3(mono ?: buf, monoLen)
+                    decimator != null -> decimator!!.process(mono ?: buf, monoLen)
                     mono != null -> mono
                     else -> buf.copyOf(read)
                 }
+                if (chunk.isEmpty()) continue
                 if (gain != 1.0) amplify(chunk, chunk.size, gain)
                 rtspAudioTap?.invoke(chunk, System.nanoTime() / 1000 - chunk.size * 1_000_000L / 32000)
                 mainHandler.post {
@@ -247,13 +347,46 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         }
     }
 
+    /** A capture shape: rate and channel count, as a log-friendly string. */
+    data class Shape(val rateHz: Int, val channels: Int) {
+        /** 80 ms of interleaved PCM16 at this shape. */
+        val chunkBytes: Int get() = CHUNK_BYTES * (rateHz / SAMPLE_RATE) * channels
+        override fun toString() = "${rateHz}Hz x$channels"
+    }
+
+    /**
+     * The shapes to try, in order. The engines' 16 kHz mono first, then
+     * the sound card's 48 kHz stereo, then 48 kHz mono for a HAL that gets
+     * stereo wrong; the hardware format starts at the card and keeps 16 kHz
+     * mono as its last resort. A channel pick fixes the channel count (the
+     * array's own), so only the rate varies, with the plain mono open as
+     * the last rung for a device that cannot satisfy the pick (mic swapped
+     * for a mono one, a ROM that refuses index masks): capture beats
+     * silence.
+     */
+    private fun captureLadder(hardwareFormat: Boolean, chans: Int, indexed: Boolean): List<Shape> {
+        val usual = Shape(SAMPLE_RATE, chans)
+        val card = if (indexed) {
+            listOf(Shape(HARDWARE_RATE, chans))
+        } else {
+            listOf(Shape(HARDWARE_RATE, HARDWARE_CHANNELS), Shape(HARDWARE_RATE, 1))
+        }
+        val ladder = if (hardwareFormat) card + usual else listOf(usual) + card
+        return if (indexed) ladder + Shape(SAMPLE_RATE, 1) else ladder
+    }
+
     /**
      * Open a capture at the given rate and channel count, or null when it
-     * cannot be had. Multichannel opens use a channel index mask (channels in
-     * wire order, no positional meaning) because that is what USB arrays
-     * are: numbered outputs, not a left and a right.
+     * cannot be had. A channel pick opens with a channel index mask
+     * (channels in wire order, no positional meaning) because that is what
+     * USB arrays are: numbered outputs, not a left and a right. The plain
+     * stereo open of the hardware format is positional, and wider opens
+     * without a pick fall back to the index mask, the only mask there is
+     * past two channels.
      */
-    private fun openRecord(source: Int, rateHz: Int, channels: Int): AudioRecord? {
+    private fun openRecord(source: Int, shape: Shape, indexed: Boolean): AudioRecord? {
+        val rateHz = shape.rateHz
+        val channels = shape.channels
         val minBuf = AudioRecord.getMinBufferSize(
             rateHz,
             AudioFormat.CHANNEL_IN_MONO,
@@ -264,7 +397,9 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
             .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
             .setSampleRate(rateHz)
             .apply {
-                if (channels > 1) {
+                if (channels == 2 && !indexed) {
+                    setChannelMask(AudioFormat.CHANNEL_IN_STEREO)
+                } else if (channels > 1) {
                     setChannelIndexMask((1 shl channels) - 1)
                 } else {
                     setChannelMask(AudioFormat.CHANNEL_IN_MONO)
@@ -321,31 +456,6 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
             if (buf[i] != 0.toByte()) return false
         }
         return true
-    }
-
-    /**
-     * 48 kHz mono PCM16 to 16 kHz by averaging sample triplets. The fallback
-     * stream is AudioFlinger's 3x upsample of a 16 kHz device, so the average
-     * is near-transparent; on a genuinely 48 kHz device it doubles as a mild
-     * anti-alias filter.
-     */
-    private fun decimate3(buf: ByteArray, length: Int): ByteArray {
-        val outSamples = length / 2 / 3
-        val out = ByteArray(outSamples * 2)
-        var si = 0
-        var oi = 0
-        repeat(outSamples) {
-            var acc = 0
-            repeat(3) {
-                acc += ((buf[si + 1].toInt() shl 8) or (buf[si].toInt() and 0xFF)).toShort().toInt()
-                si += 2
-            }
-            val v = acc / 3
-            out[oi] = (v and 0xFF).toByte()
-            out[oi + 1] = ((v shr 8) and 0xFF).toByte()
-            oi += 2
-        }
-        return out
     }
 
     /**

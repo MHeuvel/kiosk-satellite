@@ -52,6 +52,17 @@ To calibrate this, keep the wake word tester open and adjust the gain until norm
 
 This amplification does not improve the signal to noise ratio, nor is it designed to: background room noise is amplified equally alongside speech. However, it is effective because two of the three supported wake word engines perform no internal level normalization. If audio arrives significantly below the levels used during model training, detection will fail regardless of how clean the audio is. Avoid applying excessive gain, as clipped speech creates severe distortion that breaks recognition.
 
+## Capture Format
+
+The app consumes 16 kHz mono audio and by default asks Android for exactly that, leaving the platform to convert from whatever the microphone records. Some sound cards record at 48 kHz stereo and nothing else, among them the I2S codecs used by Raspberry Pi audio HATs and most USB audio interfaces. Android normally converts in between. A custom ROM whose audio HAL hands the requested format straight to the sound card cannot, and the capture then fails in one of three ways: the open is refused, the reads return nothing, or the card's frames arrive misread as 16 kHz mono, which sounds like noise or crackle and shows on the level meter as a signal that never becomes a detection.
+
+Capture therefore walks a short ladder of formats: 16 kHz mono, then 48 kHz stereo, then 48 kHz mono. It steps to the next one when an open is refused, when the capture reads nothing but zeros or errors for two seconds, or when the delivered frame rate does not match the rate it was opened at. That last check is what catches a format lie: a capture opened at 16 kHz mono that is really fed 48 kHz stereo arrives six times too fast, and an old HAL that hands over mono under a stereo label arrives at half speed with the pitch doubled. Each step is logged with the rate it delivers, so the log says which format the device ended on and why.
+
+* **Automatic** (Default): Starts at 16 kHz mono. Most devices never leave it.
+* **48 kHz stereo**: Starts at 48 kHz stereo, the sound card's own format, and keeps 16 kHz mono as the last resort. Pick this when the microphone works in other apps but the wake word tester shows nothing, or a level that never becomes a detection.
+
+Anything but 16 kHz mono is converted in the app with a proper low-pass filter ahead of the rate change, so a microphone that really records at 48 kHz loses only what it hears above 8 kHz. A microphone channel selection still applies: the capture opens wide enough to include the chosen channel and forwards that channel alone. Bluetooth and 16 kHz microphones work in either setting, the platform simply converts the other way, so the setting costs nothing on a device that does not need it, but it also gains nothing there.
+
 ## Microphone Channel
 
 This row only appears when the microphone selected under Audio Devices explicitly reports more than one physical audio channel. Most built in tablet microphones are single channel, so most devices will never see this option.

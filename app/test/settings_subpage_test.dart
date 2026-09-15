@@ -168,6 +168,7 @@ void main() {
       defs.micAgc.key,
       defs.micNoiseSuppression.key,
       defs.micGainDb.key,
+      defs.micCaptureFormat.key,
       // Hidden and hand-built (its options run to the mic's channel count),
       // but it belongs to that page too.
       defs.micChannel.key,

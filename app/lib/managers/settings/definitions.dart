@@ -4275,6 +4275,35 @@ const micGainDb = SettingDef<num>(
   perDevice: true,
 );
 
+// The rate and channel count capture asks the platform for. 16 kHz mono is
+// what the engines consume and what the app has always requested, leaving
+// Android to convert from whatever the microphone does. Some sound cards
+// record at 48 kHz stereo and nothing else (an I2S codec on a Raspberry
+// Pi, most USB interfaces), and a ROM whose audio HAL hands the requested
+// format straight to the card then refuses the open, reads nothing, or
+// delivers the card's frames misread as 16 kHz mono, which sounds like
+// crackle. Capture walks a ladder (16 kHz mono, 48 kHz stereo, 48 kHz
+// mono) and steps down it on a refused open, two seconds of zeros or
+// errors, or a delivered frame rate that does not match the one opened;
+// this starts the ladder at the card's format. The app converts to 16 kHz
+// mono itself.
+const micCaptureFormat = SettingDef<String>(
+  key: 'audio.mic_capture_format',
+  type: SettingType.select,
+  defaultValue: 'auto',
+  options: ['auto', 'hardware'],
+  optionLabels: {'auto': 'Automatic (default)', 'hardware': '48 kHz stereo'},
+  title: 'Capture format',
+  description:
+      'Pick 48 kHz stereo when the microphone works in other apps but '
+      'not here: some sound cards record in that format only and the app '
+      'converts it itself.',
+  category: 'Screen & Audio',
+  section: 'Microphone settings',
+  subpage: 'Microphone settings',
+  perDevice: true,
+);
+
 // ── Wake word ──────────────────────────────────────────────────────────
 
 /// [SettingDef.normalizer] for the retired master switch: any write lands
@@ -7411,6 +7440,7 @@ const List<SettingDef<Object>> allSettings = [
   micAgc,
   micNoiseSuppression,
   micGainDb,
+  micCaptureFormat,
   // Hand-built row: renders after the gain in both UIs, and only when the
   // selected microphone reports more than one channel.
   micChannel,

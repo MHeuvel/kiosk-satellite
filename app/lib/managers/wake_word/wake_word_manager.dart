@@ -568,7 +568,8 @@ class WakeWordManager extends Manager implements NativeAudioSource {
           e.key == defs.micGainDb.key ||
           e.key == defs.micAgc.key ||
           e.key == defs.micNoiseSuppression.key ||
-          e.key == defs.micChannel.key) {
+          e.key == defs.micChannel.key ||
+          e.key == defs.micCaptureFormat.key) {
         // Capture tuning and effects are fixed when the
         // capture session opens, so they land the same way the device
         // selection does.
