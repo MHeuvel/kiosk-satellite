@@ -28,6 +28,7 @@ import '../managers/browser/viewport_zoom_script.dart';
 import '../managers/browser/visibility_mask_script.dart';
 import '../managers/browser/ws_filter_script.dart';
 import '../managers/kiosk/app_link.dart';
+import '../managers/kiosk/kiosk_link.dart';
 import '../managers/wake_word/background_listening.dart';
 import '../managers/proxy/media_rewrite_script.dart';
 import '../managers/sendspin/music_assistant_api.dart';
@@ -1688,9 +1689,11 @@ class _KioskScreenState extends State<KioskScreen>
     },
     // A dashboard button can open another Android app by navigating to
     // app://<package> (issue #44): the clock app to set an alarm, a music
-    // app, whatever is installed. Everything else loads as usual.
+    // app, whatever is installed. ks://<action> reaches the kiosk's own
+    // features the same way: the app launcher, Now Playing, a camera view,
+    // the screensaver (kiosk_link.dart). Everything else loads as usual.
     //
-    // Only this app's own scheme is claimed. Chromium's intent:// URLs are
+    // Only this app's own schemes are claimed. Chromium's intent:// URLs are
     // deliberately not honoured: they can carry an arbitrary component and
     // extras, and a kiosk pointed at a page is not the place to hand a web
     // document that much reach.
@@ -1707,6 +1710,33 @@ class _KioskScreenState extends State<KioskScreen>
           action.isForMainFrame &&
           !c.browser.isDashboardOrigin(url)) {
         c.browser.showLinkOverlay(url.toString());
+        return NavigationActionPolicy.CANCEL;
+      }
+      if (url.scheme == 'ks') {
+        // Cancel whatever it names: a link that is ours by scheme must never
+        // reach Chromium, which would put its error page over the dashboard.
+        final action = kioskLinkAction(url.toString());
+        if (action == null) {
+          c.log.warn('kiosk', 'unknown kiosk link: $url');
+          if (mounted) {
+            showToast(
+              context,
+              title: 'Unknown kiosk link',
+              message: url.toString(),
+              kind: ToastKind.error,
+            );
+          }
+          return NavigationActionPolicy.CANCEL;
+        }
+        final result = await c.gestures.runGestureAction(action);
+        if (!result.ok && mounted) {
+          showToast(
+            context,
+            title: describeGestureAction(action),
+            message: result.error ?? 'Failed',
+            kind: ToastKind.error,
+          );
+        }
         return NavigationActionPolicy.CANCEL;
       }
       if (url.scheme != 'app') {

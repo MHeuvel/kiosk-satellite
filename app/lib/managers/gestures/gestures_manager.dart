@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../core/command_registry.dart';
 import '../../core/events.dart';
 import '../../core/manager.dart';
 import '../../core/permissions.dart';
@@ -282,25 +283,25 @@ class GesturesManager extends Manager {
 
   /// Run one action object. Public so the editors' "Try it" affordances
   /// (device and remote) can exercise an action without a gesture.
-  Future<void> runGestureAction(Map<String, Object?> action) async {
+  Future<CommandResult> runGestureAction(Map<String, Object?> action) async {
     final a = action;
     switch ('${a['type']}') {
       case 'plugin_action':
-        await _runHa(a, 'runPluginCommand', {
+        return _runHa(a, 'runPluginCommand', {
           'id': a['pluginId'],
           'command': a['command'],
         });
       case 'navigate':
-        await _run('haNavigate', {'path': a['path']});
+        return _run('haNavigate', {'path': a['path']});
       case 'url':
-        await _run('showLinkPage', {'url': a['url']});
+        return _run('showLinkPage', {'url': a['url']});
       case 'camera_view':
         if (a['mode'] == 'hide') {
-          await _run('hideCameraView', const {});
+          return _run('hideCameraView', const {});
         } else {
           // toggle: the same gesture performed again closes the view it
           // opened, which is what a repeated clap sequence should mean.
-          await _run('showCameraView', {
+          return _run('showCameraView', {
             'viewId': a['viewId'] ?? '',
             'toggle': true,
           });
@@ -312,10 +313,11 @@ class GesturesManager extends Manager {
         // reveals the card while sendspin.show_player is off (the card
         // override), so the setting itself stays untouched.
         bus.publish(const SendspinShowPlayerRequested());
+        return const CommandResult.ok();
       case 'now_playing':
-        await _run('showNowPlaying', const {});
+        return _run('showNowPlaying', const {});
       case 'music_assistant':
-        await _run('showMusicAssistant', const {});
+        return _run('showMusicAssistant', const {});
       case 'app_launcher':
         // Open only: the overlay's close button and its scrim already close
         // it. The command carries the launcher's own gates (master switch
@@ -323,30 +325,31 @@ class GesturesManager extends Manager {
         // behind after the launcher is turned off logs instead of showing
         // an empty grid; the drawer entry's Allowed Action is deliberately
         // NOT consulted, which is what makes a secret gesture possible.
-        await _run('showAppLauncher', const {});
+        return _run('showAppLauncher', const {});
       case 'intercom_call':
         // Rings the kiosk picked when the gesture was set up. The command
         // carries the intercom's gates, and a kiosk that is off or on
         // Do not disturb ends the call with the reason on the card.
-        await _run('intercomCall', {'id': a['kioskId'] ?? ''});
+        return _run('intercomCall', {'id': a['kioskId'] ?? ''});
       case 'intercom_open':
         // Open only: the sheet closes on its own. The command carries the
         // intercom's gates (off, or no remote admin), so a mapping left
         // behind logs instead of showing an empty sheet; the kiosk menu's
         // Allowed Action is not consulted, which makes a secret gesture
         // possible.
-        await _run('intercomOpen', const {});
+        return _run('intercomOpen', const {});
       case 'screensaver':
-        await _run('startScreensaver', const {});
+        return _run('startScreensaver', const {});
       case 'screensaver_stop':
         // Redundant for touch (any tap dismisses), real for claps: hands
         // full across the room, the screen comes back without walking over.
-        await _run('stopScreensaver', const {});
+        return _run('stopScreensaver', const {});
       case 'hold_mode':
         // Toggle, not set: the same gesture pins the recipe and, performed
         // again, releases it (issue #266). The setting IS the state, so
         // every other surface follows.
         await _settings.set(defs.haHoldMode, !_settings.get(defs.haHoldMode));
+        return const CommandResult.ok();
       case 'ha_kiosk':
         // The same toggle as the drawer row (issue #422): the setting is
         // the state, the kiosk screen restyles the page as it changes.
@@ -354,50 +357,56 @@ class GesturesManager extends Manager {
         // header can come back on a secret gesture while the menu row
         // stays hidden.
         await _settings.set(defs.haKioskMode, !_settings.get(defs.haKioskMode));
+        return const CommandResult.ok();
       case 'launch_app':
-        await _run('launchApp', {'package': a['package']});
+        return _run('launchApp', {'package': a['package']});
       case 'open_uri':
-        await _run('openUri', {'uri': a['uri']});
+        return _run('openUri', {'uri': a['uri']});
       case 'android_settings':
-        await _run('openSystemSettings', const {});
+        return _run('openSystemSettings', const {});
       case 'ha_script':
-        await _runHa(a, 'haCallService', {
+        return _runHa(a, 'haCallService', {
           'domain': 'script',
           'service': 'turn_on',
           'entity_id': a['entityId'],
         });
       case 'ha_automation':
-        await _runHa(a, 'haCallService', {
+        return _runHa(a, 'haCallService', {
           'domain': 'automation',
           'service': 'trigger',
           'entity_id': a['entityId'],
         });
       case 'ha_service':
-        await _runHa(a, 'haCallService', {
+        return _runHa(a, 'haCallService', {
           'domain': a['domain'],
           'service': a['service'],
           if ('${a['entityId'] ?? ''}'.isNotEmpty) 'entity_id': a['entityId'],
           if (a['data'] is Map) 'data': a['data'],
         });
       case 'ha_event':
-        await _runHa(a, 'haFireEvent', {
+        return _runHa(a, 'haFireEvent', {
           'event': a['event'],
           if (a['data'] is Map) 'data': a['data'],
         });
       default:
         log.warn(name, 'unknown gesture action: ${a['type']}');
+        return CommandResult.fail('unknown action ${a['type']}');
     }
   }
 
-  Future<void> _run(String command, Map<String, Object?> params) async {
+  Future<CommandResult> _run(
+    String command,
+    Map<String, Object?> params,
+  ) async {
     final result = await commands.execute(command, params);
     if (!result.ok) log.warn(name, '$command failed: ${result.error}');
+    return result;
   }
 
   /// [_run] for the Home Assistant actions, which show nothing on screen
   /// by themselves: the outcome goes out on the bus for the kiosk screen
   /// to confirm with a toast, or to say why the call failed.
-  Future<void> _runHa(
+  Future<CommandResult> _runHa(
     Map<String, Object?> action,
     String command,
     Map<String, Object?> params,
@@ -411,5 +420,6 @@ class GesturesManager extends Manager {
         error: result.error,
       ),
     );
+    return result;
   }
 }

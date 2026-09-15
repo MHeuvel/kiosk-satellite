@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Added
+- **Dashboard buttons open the kiosk's own features with a ks:// link.** A button, tile, icon or markdown link whose tap action points at `ks://apps`, `ks://now-playing`, `ks://player`, `ks://music-assistant`, `ks://camera`, `ks://camera/<view id>`, `ks://intercom`, `ks://intercom/<kiosk id>`, `ks://screensaver`, `ks://screensaver/stop`, `ks://hold`, `ks://ha-kiosk` or `ks://android-settings` runs that action in place, the same way a gesture would and with the same gates, so the page stays put and a launcher that is off or an intercom that is off says so in a toast. Exit, restart and the settings pages are left out on purpose. The `app://<package>` link for other Android apps is unchanged and both are now written up on a Dashboard Links docs page.
+
 ## v2026.9.54 - 2026-09-15
 
 ### Fixed
