@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.9.50 - 2026-09-14
 
 ### Added
 - **Home Assistant can speak on a kiosk.** A new Announcements page under ESPHome and an announce ESPHome action per kiosk: a message Home Assistant's text to speech speaks, or an audio URL, decoded on the kiosk and played at the media volume, or at a volume the action names, as many times as it asks, after a chime, with a card showing the spoken text while it plays. The page picks the text to speech engine from Home Assistant's own list, switches the chime and picks its sound, the built-in two note chime or a file from the sounds folder. The action answers with the clip's length and reports an error when announcements are off or Home Assistant could not speak the message.
