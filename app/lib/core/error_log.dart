@@ -11,13 +11,23 @@ import 'logging.dart';
 /// Capped at [perMinute] entries a minute and never the same message twice
 /// in a row, so a build loop cannot flood the 500-line ring buffer and push
 /// out the lines that matter.
-void installErrorLog(Logger log, {int perMinute = 20}) {
+/// [onMissingWebView] fires when an error says the platform has no WebView
+/// provider (Android's MissingWebViewPackageException), the one failure
+/// that surfaces only as an uncaught platform-view error.
+void installErrorLog(
+  Logger log, {
+  int perMinute = 20,
+  void Function()? onMissingWebView,
+}) {
   final previous = FlutterError.onError;
   var minute = -1;
   var count = 0;
   String? last;
 
   void note(String tag, String message) {
+    if (message.contains('MissingWebViewPackageException')) {
+      onMissingWebView?.call();
+    }
     final now = DateTime.now().millisecondsSinceEpoch ~/ 60000;
     if (now != minute) {
       minute = now;

@@ -812,9 +812,12 @@ class DeviceDetails(
             } else {
                 null
             }
-            mapOf("package" to pkg?.packageName, "version" to pkg?.versionName)
+            // "available" is a verdict only where the platform can give one
+            // (API 26+): null below that means unknown, not missing.
+            val available = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) pkg != null else null
+            mapOf("package" to pkg?.packageName, "version" to pkg?.versionName, "available" to available)
         } catch (e: Exception) {
-            mapOf("package" to null, "version" to null)
+            mapOf("package" to null, "version" to null, "available" to null)
         }
     }
 }

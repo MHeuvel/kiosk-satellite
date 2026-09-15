@@ -57,6 +57,7 @@ class FrameWatchdog {
   DateTime? _firstStrikeAt;
   bool _checking = false;
   bool _tripped = false;
+  bool _stoodDown = false;
 
   /// Dart frames drawn since the watchdog armed. Whether this moves while
   /// the strikes pile up is the one fact that tells a dead engine (nothing
@@ -105,6 +106,20 @@ class FrameWatchdog {
 
   Future<void> _checkOnce() async {
     if (_container.settings.get(defs.startUrl).isEmpty) {
+      _clear();
+      return;
+    }
+    // No provider at all: the WebView is never coming, and a restart only
+    // starts the same wait over. The browser has logged it and the kiosk
+    // screen says so; the watchdog stands down.
+    if (_container.browser.webViewMissing) {
+      if (!_stoodDown) {
+        _stoodDown = true;
+        _container.log.warn(
+          'watchdog',
+          'no WebView provider is installed; standing down',
+        );
+      }
       _clear();
       return;
     }

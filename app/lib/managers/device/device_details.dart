@@ -164,6 +164,10 @@ class DeviceDetails {
   String? get webviewPackage => _map('webview')?['package'] as String?;
   String? get webviewVersion => _map('webview')?['version'] as String?;
 
+  /// False when Android reports no WebView provider at all (API 26+); null
+  /// where the platform cannot say.
+  bool? get webviewAvailable => _map('webview')?['available'] as bool?;
+
   Map<String, Object?> toJson() => {
     'brand': brand,
     'manufacturer': manufacturer,

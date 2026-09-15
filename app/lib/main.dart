@@ -36,7 +36,12 @@ Future<void> main() async {
   await container.init();
   // Framework and uncaught Dart errors into the app log, where reports
   // and the watchdog's restart note can see them.
-  installErrorLog(container.log);
+  installErrorLog(
+    container.log,
+    onMissingWebView: () => container.browser.markWebViewMissing(
+      'the WebView creation threw MissingWebViewPackageException',
+    ),
+  );
 
   // The app names itself on the wire from here on: the device manager has
   // resolved the version and the OS by now, and the overrides below hand

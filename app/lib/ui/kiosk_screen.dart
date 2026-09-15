@@ -112,6 +112,7 @@ class _KioskScreenState extends State<KioskScreen>
   StreamSubscription<CameraViewStateChanged>? _cameraSub;
   StreamSubscription<ScreensaverStateChanged>? _saverSub;
   StreamSubscription<WebViewRebuildRequested>? _rebuildSub;
+  StreamSubscription<WebViewMissing>? _missingSub;
   StreamSubscription<IntercomOpenRequested>? _intercomSub;
 
   /// Whether the Activity has attached to the process-wide engine. The
@@ -621,6 +622,9 @@ class _KioskScreenState extends State<KioskScreen>
         c.jsApi.detach();
         setState(() => _webViewEpoch++);
       }
+    });
+    _missingSub = c.bus.on<WebViewMissing>().listen((_) {
+      if (mounted) setState(() {});
     });
     _settingsSub = c.bus.on<SettingChanged>().listen(_onSettingChanged);
     _gestureSub = c.bus.on<KioskExitGesture>().listen(_onExitGesture);
@@ -1329,6 +1333,7 @@ class _KioskScreenState extends State<KioskScreen>
     _gestureResultSub?.cancel();
     _consoleReqSub?.cancel();
     _rebuildSub?.cancel();
+    _missingSub?.cancel();
     _backSub?.cancel();
     _homeSub?.cancel();
     _intercomSub?.cancel();
@@ -1380,11 +1385,15 @@ class _KioskScreenState extends State<KioskScreen>
         // exactly what the splash was showing); see _waitForActivityAttach.
         // Exempt from the Scale UI factor: the dashboard has its own zoom
         // setting, and scaling the platform view would reflow and blur it.
-        if (_activityAttached) UiScaleExempt(child: _webView()),
+        if (_activityAttached && !c.browser.webViewMissing)
+          UiScaleExempt(child: _webView()),
         // Directly over the dashboard: it hides Chromium's error page, and
         // everything below in this list (an overlay page, the player) is
         // content that belongs on top of the dashboard, error or not.
         OfflineNotice(container: c),
+        // Over the offline cover too: with no WebView provider there is no
+        // page to wait for, and the cover would hide the only explanation.
+        if (c.browser.webViewMissing) const _WebViewMissingNotice(),
         // The rotation's external pages, shown OVER the dashboard so the
         // dashboard (and the Voice Satellite session with it) never
         // unloads. A wake detection hides this instantly, revealing the
@@ -2410,6 +2419,45 @@ class _OverlayWebViewState extends State<_OverlayWebView> {
         },
         onRenderProcessGone: (controller, detail) =>
             widget.onRenderGone?.call(),
+      ),
+    );
+  }
+}
+
+/// What the dashboard slot shows on a device with no WebView provider:
+/// the one case where waiting, rebuilding and restarting all change
+/// nothing, so the screen says what is missing instead of staying black.
+class _WebViewMissingNotice extends StatelessWidget {
+  const _WebViewMissingNotice();
+
+  @override
+  Widget build(BuildContext context) {
+    return const ColoredBox(
+      color: Colors.black,
+      child: Center(
+        child: Padding(
+          padding: EdgeInsets.all(32),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.web_asset_off, color: Colors.white54, size: 48),
+              SizedBox(height: 16),
+              Text(
+                'Android System WebView is not installed',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              SizedBox(height: 8),
+              Text(
+                'This device has no WebView provider, so Home Assistant '
+                'cannot be shown. Install Android System WebView or Chrome, '
+                'then restart Kiosk Satellite.',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white54, fontSize: 16),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

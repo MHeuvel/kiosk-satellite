@@ -15,6 +15,7 @@ import 'webview_snapshot_width.dart';
 import '../../core/command_registry.dart';
 import '../../core/events.dart';
 import '../../core/manager.dart';
+import '../device/device_details.dart';
 import '../device/screen_capture.dart';
 import '../device/webview_freeze.dart';
 import '../device/webview_recovery.dart';
@@ -55,6 +56,34 @@ class BrowserManager extends Manager with WidgetsBindingObserver {
   /// always has one; the frame watchdog treats its prolonged absence as
   /// the wedged-renderer signal.
   bool get hasWebView => _controller != null;
+
+  /// Whether this device has no WebView provider at all. A ROM without
+  /// Android System WebView (a repurposed smart display, a stripped
+  /// tablet) can never show a dashboard, and the frame watchdog's answer
+  /// to "no WebView while in front" is a process restart: one such device
+  /// restarted every 37 seconds for hours, straight through an update.
+  /// Learned from the platform where it can say (API 26+), or from the
+  /// MissingWebViewPackageException the platform view creation throws.
+  bool get webViewMissing => _webViewMissing;
+  bool _webViewMissing = false;
+
+  void markWebViewMissing(String why) {
+    if (_webViewMissing) return;
+    _webViewMissing = true;
+    log.error(
+      name,
+      'no WebView provider is installed ($why): the dashboard cannot be '
+      'shown and restarts would not help',
+    );
+    bus.publish(const WebViewMissing());
+  }
+
+  Future<void> _probeWebView() async {
+    final details = await DeviceDetails.read();
+    if (details.webviewAvailable == false) {
+      markWebViewMissing('Android reports no WebView package');
+    }
+  }
 
   /// JavaScript console ring buffer for the Web Console panel. Bumping
   /// [consoleRevision] notifies listeners of new entries.
@@ -149,6 +178,7 @@ class BrowserManager extends Manager with WidgetsBindingObserver {
 
   @override
   Future<void> init() async {
+    unawaited(_probeWebView());
     // The freeze state rides the Activity: see _reassertFreeze.
     WidgetsBinding.instance.addObserver(this);
     // Rendering freeze (browser.freeze_on_screensaver): while the screensaver

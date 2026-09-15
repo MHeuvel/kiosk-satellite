@@ -5,6 +5,7 @@ import 'package:kiosk_satellite/core/logging.dart';
 
 /// Framework errors land in the app log, deduplicated and capped.
 void main() {
+  missingWebViewTests();
   test('a framework error is logged once per distinct message, capped', () {
     final log = Logger();
     final before = FlutterError.onError;
@@ -32,6 +33,35 @@ void main() {
       expect(lines.first.message, contains('(webview)'));
       expect(lines.first.level, LogLevel.error);
       expect(seen, hasLength(5));
+    } finally {
+      FlutterError.onError = before;
+    }
+  });
+}
+
+/// A missing WebView provider surfaces only as an uncaught platform error;
+/// the hook hands it to whoever can act on it.
+void missingWebViewTests() {
+  test('a MissingWebViewPackageException error fires the callback once', () {
+    final log = Logger();
+    final before = FlutterError.onError;
+    var fired = 0;
+    try {
+      FlutterError.onError = (_) {};
+      installErrorLog(log, onMissingWebView: () => fired++);
+      FlutterError.reportError(
+        FlutterErrorDetails(
+          exception: StateError(
+            'PlatformException(error, android.webkit.WebViewFactory'
+            r'$MissingWebViewPackageException: Failed to load WebView '
+            'provider: No WebView installed, null, null)',
+          ),
+        ),
+      );
+      FlutterError.reportError(
+        FlutterErrorDetails(exception: StateError('something else')),
+      );
+      expect(fired, 1);
     } finally {
       FlutterError.onError = before;
     }

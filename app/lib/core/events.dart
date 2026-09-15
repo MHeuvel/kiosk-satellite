@@ -874,3 +874,11 @@ class ShizukuStateChanged extends AppEvent {
   const ShizukuStateChanged({required this.granted});
   final bool granted;
 }
+
+/// The device has no WebView provider at all, so no dashboard can ever
+/// come up: the kiosk screen swaps the WebView slot for a notice and the
+/// frame watchdog stands down instead of restarting the process forever.
+/// Internal.
+class WebViewMissing extends AppEvent {
+  const WebViewMissing();
+}
