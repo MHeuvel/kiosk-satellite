@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.9.53 - 2026-09-15
 
 ### Changed
 - **The microphone hint names the intercom.** The Permissions Manager, the Service page, the onboarding permissions step and the remote admin said the microphone was for wake word detection and speech to text. They now say intercom calls too.
