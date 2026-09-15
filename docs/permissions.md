@@ -24,7 +24,7 @@ The only update-related permission that requires manual user intervention is **I
 
 | Grant | Purpose |
 | --- | --- |
-| Microphone | Powers wake word detection and speech to text capabilities, as well as any dashboard pages requesting microphone access. |
+| Microphone | Powers wake word detection, speech to text and intercom calls, as well as any dashboard pages requesting microphone access. |
 | Camera | Powers camera motion detection, image snapshots, and dashboard pages requesting camera access. |
 | Notifications | Displays the ongoing status notification for the Kiosk Satellite Service. This is a runtime prompt on Android 13 and newer; older versions allow it automatically. The background service functions fine without it, but its status notification will remain hidden. |
 | Unrestricted battery | Essential for every installation (voice enabled or not). It prevents Android from killing Home Assistant and ESPHome background connections when the screen is off. |

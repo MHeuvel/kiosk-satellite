@@ -617,7 +617,7 @@ export function wizardSteps() {
         list.appendChild(row);
       };
       addRow('microphone', 'Microphone',
-        'Voice Satellite requires microphone access');
+        'Voice Satellite and the intercom need microphone access');
       // The Kiosk Satellite Service's two, on every install: its
       // notification, and the exemption that keeps it running.
       addRow('notification', 'Notifications',

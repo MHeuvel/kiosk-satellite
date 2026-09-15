@@ -24,7 +24,7 @@ Each action runs only when tapped and targets Kiosk Satellite's own package. Ope
 | Action | Purpose |
 | --- | --- |
 | Grant all permissions | Grant every missing permission listed in Permissions Manager, including permissions for features that are currently off. Existing grants are skipped. |
-| Microphone | Allow microphone usage for wake word detection and speech to text. |
+| Microphone | Allow microphone usage for wake word detection, speech to text and intercom calls. |
 | Unrestricted battery | Let the process run in the background without being paused or killed. |
 | Camera | Let motion detection and snapshots use the camera. |
 | Nearby devices | Allow Bluetooth scanning and connections. |

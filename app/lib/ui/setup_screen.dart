@@ -1055,7 +1055,9 @@ class _SetupScreenState extends State<SetupScreen> {
             const ListTile(
               leading: Icon(Icons.mic_none),
               title: Text('Microphone'),
-              subtitle: Text('Voice Satellite requires microphone access'),
+              subtitle: Text(
+                'Voice Satellite and the intercom need microphone access',
+              ),
             ),
             // The Kiosk Satellite Service's two, on every install: its
             // notification, and the exemption that keeps it running.

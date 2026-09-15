@@ -3,7 +3,7 @@ const devicePermissionDescriptions = <String, ({String title, String description
   'microphone': (
     title: 'Microphone',
     description:
-        'Allows microphone usage for wake word detection and speech to text.',
+        'Allows microphone usage for wake word detection, speech to text and intercom calls.',
   ),
   'batteryUnrestricted': (
     title: 'Unrestricted battery',

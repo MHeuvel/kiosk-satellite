@@ -158,7 +158,7 @@ export function renderServicePage(panel) {
       "Needed to show the Kiosk Satellite Service's ongoing notification.",
       '', ['notifications']),
     microphone: permRow('Microphone',
-      'Allows microphone usage for wake word detection and speech to text.',
+      'Allows microphone usage for wake word detection, speech to text and intercom calls.',
       'Background listening is on and nothing is listening.',
       'Needed by background listening.', ['microphone']),
     camera: permRow('Camera',

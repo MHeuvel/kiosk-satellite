@@ -9,9 +9,9 @@ export function permissionSpecs(on) {
   return [
     { key: 'microphone', name: 'Microphone', ask: 'microphone',
       needed: on('wake_word.enabled'),
-      held: 'Allows microphone usage for wake word detection and speech to text.',
+      held: 'Allows microphone usage for wake word detection, speech to text and intercom calls.',
       missing: 'Wake word detection is on and nothing is listening.',
-      idle: 'Needed by wake word detection and by pages that ask for the microphone.' },
+      idle: 'Needed by wake word detection, the intercom and pages that ask for the microphone.' },
     // Always needed: the app holds the Home Assistant and ESPHome
     // connections open while the screen is off, and Doze is what stops
     // them. Nothing has to be switched on for this one to matter.

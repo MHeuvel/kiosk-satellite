@@ -7781,7 +7781,7 @@ class _ServicePermissionsTileState extends State<_ServicePermissionsTile>
             missingIcon: Icons.mic_off_outlined,
             title: 'Microphone',
             held:
-                'Allows microphone usage for wake word detection and speech to text.',
+                'Allows microphone usage for wake word detection, speech to text and intercom calls.',
             missing: micBlocked
                 ? 'Blocked. Android will not ask again, so allow it in the '
                       'app settings.'
@@ -7949,8 +7949,8 @@ class _DevicePermissionsTileState extends State<_DevicePermissionsTile>
                     'app settings.'
               : 'Wake word detection is on and nothing is listening.',
           idle:
-              'Needed by wake word detection and by pages that ask for '
-              'the microphone.',
+              'Needed by wake word detection, the intercom and pages that '
+              'ask for the microphone.',
           action: micBlocked ? 'App settings' : 'Grant',
           onGrant: () async {
             if (micBlocked) {
