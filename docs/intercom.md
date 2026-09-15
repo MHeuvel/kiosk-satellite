@@ -16,6 +16,7 @@ Configure it under **Settings, Intercom** on the kiosk, or the **Intercom** tab 
 | Intercom off | The kiosk is on the network but its intercom is off, or it runs a version without one. |
 | Different key | Its intercom is on with another key. Paste this kiosk's key there, or the other way around. |
 | Do not disturb | It is on the intercom but refuses calls right now. |
+| Unreachable | It announces itself, but its admin port does not answer from here. Behind an mDNS reflector this is a VLAN the firewall does not route into. |
 | Offline | It was heard before and has gone quiet for over a minute and a half. |
 
 **Change key** opens a dialog to paste a key from another kiosk or **Regenerate** a fresh one. A new key cuts this kiosk off from the others until they get it too.

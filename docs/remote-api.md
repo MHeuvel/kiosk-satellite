@@ -60,7 +60,7 @@ own login card shows first if its password differs.
 | | |
 | --- | --- |
 | How they find each other | Each kiosk announces `ks-<id>._kiosk-satellite._tcp.local` over mDNS with its name, version and admin port, every 30 seconds and on a query, and listens for the others. Raw multicast packets, not NsdManager, which never calls back on Fire OS and some LineageOS builds. |
-| What is listed | Kiosks with **Remote management** on, a password set and **Find other kiosks** on, on the same network segment. Multicast does not cross VLANs. |
+| What is listed | Kiosks with **Remote management** on, a password set and **Find other kiosks** on, on the same network segment. Multicast does not cross VLANs by itself. Through an mDNS reflector on the router it does, and each kiosk is listed under the address its own announcement carries, not the router's, so calls and the switcher reach it as long as the VLANs route to each other. |
 | Switch | **Find other kiosks** under Settings → Device → Remote Administration, on by default. Off, the kiosk neither announces nor listens, and the dropdown stays plain text. |
 | Command | `fleet` answers the same list: `{enabled, devices: [{id, name, version, address, port, url, self}]}`. The WebSocket carries a `fleet` event on every change. |
 | Port 5353 | Hearing the others needs the mDNS port. Where something on the device holds it exclusively the kiosk still announces, and the log says the others will not be heard. |

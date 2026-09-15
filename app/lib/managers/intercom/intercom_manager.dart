@@ -46,10 +46,13 @@ class IntercomKiosk {
 
   String get url => 'http://$address:$port';
 
-  /// ready, off, key, dnd, offline, unknown.
+  /// ready, off, key, dnd, unreachable, offline, unknown. Unreachable is
+  /// a kiosk heard over mDNS whose admin port does not answer: a
+  /// reflector carried its announcement across a VLAN the firewall does
+  /// not route into.
   String status(String ourFingerprint) {
     if (!heard) return 'offline';
-    if (enabled == null) return probeFailed ? 'offline' : 'unknown';
+    if (enabled == null) return probeFailed ? 'unreachable' : 'unknown';
     if (enabled == false) return 'off';
     if (keyFingerprint != ourFingerprint) return 'key';
     if (dnd) return 'dnd';
@@ -70,6 +73,7 @@ class IntercomKiosk {
         'off' => 'Intercom off',
         'key' => 'Different key',
         'dnd' => 'Do not disturb',
+        'unreachable' => 'Unreachable',
         'offline' => 'Offline',
         _ => 'Checking…',
       },

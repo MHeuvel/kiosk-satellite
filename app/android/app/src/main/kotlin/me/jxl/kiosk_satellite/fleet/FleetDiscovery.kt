@@ -54,11 +54,13 @@ import me.jxl.kiosk_satellite.fleet.MdnsPackets.u32
  *
  * Peers are keyed by the announcing kiosk's id, dropped when their
  * goodbye arrives or when three announcements in a row went missing. The
- * sender's address is what the peer is listed under: it is the address
- * the packet actually came from, which on a device with several
- * interfaces is the one that reaches back. A peer announcing the same
- * hostname as this kiosk is reported in the snapshot: both answer, and a
- * browser lands on either.
+ * address a peer is listed under is the one its announcement carries in
+ * its A record, the kiosk's own admin address, and only without one the
+ * address the packet came from. An mDNS reflector between VLANs re-sends
+ * every announcement from the router's own address, which listed every
+ * kiosk behind it as the router. A peer announcing the same hostname as
+ * this kiosk is reported in the snapshot: both answer, and a browser
+ * lands on either.
  *
  * A Wi-Fi MulticastLock is held while running: without it most Android
  * Wi-Fi drivers drop multicast frames with the screen off, which would
@@ -385,8 +387,12 @@ class FleetDiscovery(
                 if (ttl == 0) {
                     if (peers.remove(peerId) != null) changed = true
                 } else {
+                    // The announcement's own address first: through a
+                    // reflector the sender is the router.
+                    val announced = addresses[record.second]
+                        ?.takeIf { it != "0.0.0.0" && !it.startsWith("127.") && !it.startsWith("169.254.") }
                     val sender = (packet.address as? Inet4Address)?.hostAddress
-                    val address = sender ?: addresses[record.second] ?: return
+                    val address = announced ?: sender ?: return
                     val peer = Peer(
                         id = peerId,
                         name = entries["name"] ?: inst.removeSuffix(suffix),

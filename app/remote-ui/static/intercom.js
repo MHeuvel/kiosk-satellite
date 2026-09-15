@@ -283,7 +283,7 @@ export async function renderIntercomPage({ fetch = true } = {}) {
     for (const k of kiosks) {
       const row = kioskRow({ name: k.name, address: k.address, version: k.version, dim: k.status === 'offline' });
       const st = document.createElement('span');
-      st.className = 'fleet-status' + (k.status === 'ready' ? ' ok' : k.status === 'key' ? ' warn' : '');
+      st.className = 'fleet-status' + (k.status === 'ready' ? ' ok' : k.status === 'key' || k.status === 'unreachable' ? ' warn' : '');
       st.textContent = k.statusText || '';
       row.appendChild(st);
       card.appendChild(row);

@@ -196,7 +196,7 @@ Color intercomStatusColor(BuildContext context, String status) {
   final theme = Theme.of(context);
   return switch (status) {
     'ready' => theme.brightness == Brightness.dark ? ksSage : ksSageOnLight,
-    'key' => theme.colorScheme.tertiary,
+    'key' || 'unreachable' => theme.colorScheme.tertiary,
     _ => theme.colorScheme.onSurfaceVariant,
   };
 }
