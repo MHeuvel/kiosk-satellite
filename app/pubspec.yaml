@@ -10,6 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   cupertino_icons: ^1.0.8
 
   # WebView + JS bridge. Beta needed: 6.1.x's Android gradle file is
@@ -54,7 +56,8 @@ dependencies:
   ffi: ^2.1.0
   path_provider: ^2.1.5
   tflite_flutter: ^0.12.1
-  intl: ^0.20.3
+  # flutter_localizations pins intl, so this floor has to stay at or below its pin.
+  intl: ^0.20.2
   mobile_scanner: ^7.4.0
   flutter_markdown_plus: ^1.0.12
   url_launcher: ^6.3.2

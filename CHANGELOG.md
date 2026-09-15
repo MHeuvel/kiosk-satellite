@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Fixed
+- **CJK text follows the device locale.** The app's font has no Chinese, Japanese or Korean glyphs, so those characters come from the system fonts, and the system picks the regional shape by the locale the app resolved. The app resolved every device to English, so a Japanese, Korean or Chinese kiosk could draw its screensaver clock, track titles and lyrics with the wrong regional glyphs. The app now opts into Flutter's localization setup and lists the CJK locales, so the device locale wins and the glyphs match it. The Home Assistant dashboard renders in the WebView and was already right.
+
 ## v2026.9.51 - 2026-09-14
 
 ### Added

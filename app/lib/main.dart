@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 
 import 'app_container.dart';
 import 'core/app_identity.dart';
+import 'core/app_locales.dart';
 import 'core/error_log.dart';
 import 'core/events.dart';
 import 'core/frame_watchdog.dart';
@@ -236,6 +237,8 @@ class _KioskSatelliteAppState extends State<KioskSatelliteApp>
     return MaterialApp(
       title: 'Kiosk Satellite',
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: appLocalizationsDelegates,
+      supportedLocales: appSupportedLocales,
       theme: buildTheme(Brightness.light),
       darkTheme: buildTheme(Brightness.dark),
       themeMode: switch (container.settings.get(defs.uiTheme)) {
