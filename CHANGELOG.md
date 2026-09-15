@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.9.54 - 2026-09-15
 
 ### Fixed
 - **An Immich video too big for the device no longer crashes the app.** The video player buffers up to fifty seconds of a stream into the Java heap, which on an Echo Show is 80 MB in all, so one long phone video ran the heap into the wall and killed the app on whatever thread allocated next, the microphone reader most often. Every Java heap crash in the analytics came from an Immich user playing videos. Before playing a video the slideshow now asks the server for the stream's size, works out what fifty seconds of it would take, and skips the video when that would not fit the share of the heap this device can spare, with a log line saying so. Short clips and phones with large heaps play as before. A playlist made only of such videos says so on screen instead of spinning through them.
