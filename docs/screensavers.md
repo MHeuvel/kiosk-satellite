@@ -38,7 +38,7 @@ Renders a full screen clock with three selectable styles via **Style**: **Digita
 
 | Setting | Notes |
 | --- | --- |
-| Font Family | Available across all faces. Options include Rubik (default app font), Nunito (rounded style similar to Apple StandBy), Inter (clean grotesque style), system font families (System, Serif, Condensed, Monospace, Casual, Cursive), or LCD (segmented LED alarm clock font covering digits, date, and AM/PM). |
+| Font Family | Available across all faces. Options include Rubik (default app font), Nunito (rounded style similar to Apple StandBy), Inter (clean grotesque style), Oswald (tall condensed digits, the wall clock look), Roboto Slab (a warm slab serif), system font families (System, Serif, Condensed, Monospace, Casual, Cursive), or LCD (segmented LED alarm clock font covering digits, date, and AM/PM). |
 | Font weight | Available across all faces. Default matches the face's native style. Options include Light, Regular, Medium, Bold, or Black. The LCD font uses a single fixed weight. |
 | 24-hour clock | Applies to all clock faces. |
 | Show seconds | Digital face only. |

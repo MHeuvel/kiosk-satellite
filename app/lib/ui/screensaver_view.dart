@@ -132,6 +132,8 @@ class _ScreensaverOverlayState extends State<ScreensaverOverlay> {
       defs.screensaverGlanceBwIcons.key,
       defs.screensaverGlanceHideNames.key,
       defs.screensaverGlanceScale.key,
+      defs.screensaverGlanceFont.key,
+      defs.screensaverGlanceFontWeight.key,
       // The Now Playing transport, read at build by the full-screen view.
       defs.sendspinFullscreenControls.key,
       defs.sendspinFullscreenSplit.key,

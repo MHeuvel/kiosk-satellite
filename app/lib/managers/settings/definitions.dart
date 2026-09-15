@@ -1778,6 +1778,8 @@ const fontFamilyOptions = [
   'rubik',
   'nunito',
   'inter',
+  'oswald',
+  'roboto_slab',
   'system',
   'serif',
   'condensed',
@@ -1791,6 +1793,8 @@ const fontFamilyLabels = {
   'rubik': 'Rubik',
   'nunito': 'Nunito',
   'inter': 'Inter',
+  'oswald': 'Oswald',
+  'roboto_slab': 'Roboto Slab',
   'system': 'System',
   'serif': 'Serif',
   'condensed': 'Condensed',
@@ -3357,6 +3361,36 @@ const screensaverGlanceScale = SettingDef<num>(
 // already names a temperature or a humidity. Without the name the value
 // grows into the room the name took, so the reading gets bigger, not the
 // chip smaller. The custom names are kept, only not drawn.
+const screensaverGlanceFont = SettingDef<String>(
+  key: 'screensaver.glance_font',
+  type: SettingType.select,
+  defaultValue: 'rubik',
+  title: 'Font family',
+  description: 'The typeface the row is drawn in.',
+  category: 'Screensaver',
+  section: 'Appearance',
+  subpage: 'At a Glance',
+  dependsOn: 'screensaver.glance_enabled',
+  options: fontFamilyOptions,
+  optionLabels: fontFamilyLabels,
+);
+
+const screensaverGlanceFontWeight = SettingDef<String>(
+  key: 'screensaver.glance_font_weight',
+  type: SettingType.select,
+  defaultValue: 'default',
+  title: 'Font weight',
+  description:
+      "How heavy the row's text is drawn. Default is each line's own "
+      'weight: regular names, semibold values.',
+  category: 'Screensaver',
+  section: 'Appearance',
+  subpage: 'At a Glance',
+  dependsOn: 'screensaver.glance_enabled',
+  options: fontWeightOptions,
+  optionLabels: fontWeightLabels,
+);
+
 const screensaverGlanceHideNames = SettingDef<bool>(
   key: 'screensaver.glance_hide_names',
   type: SettingType.boolean,
@@ -7500,6 +7534,8 @@ const List<SettingDef<Object>> allSettings = [
   screensaverGlanceEntities,
   screensaverGlanceNowPlaying,
   screensaverGlanceScale,
+  screensaverGlanceFont,
+  screensaverGlanceFontWeight,
   screensaverGlanceHideNames,
   screensaverGlanceBwIcons,
   screensaverGlanceTextOnly,

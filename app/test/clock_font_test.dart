@@ -6,6 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:kiosk_satellite/app_container.dart';
 import 'package:kiosk_satellite/managers/settings/definitions.dart' as defs;
 import 'package:kiosk_satellite/ui/clock_faces.dart';
+import 'package:kiosk_satellite/ui/glance_row.dart';
 import 'package:kiosk_satellite/ui/screensaver_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,11 +15,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// to all three clock styles. Nothing new ships in the APK.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  glanceFontTests();
 
   const families = {
     'rubik': 'Rubik',
     'nunito': 'Nunito',
     'inter': 'Inter',
+    'oswald': 'Oswald',
+    'roboto_slab': 'RobotoSlab',
     'system': null,
     'serif': 'serif',
     'condensed': 'sans-serif-condensed',
@@ -90,14 +94,21 @@ void main() {
     expect(defs.screensaverClockFont.dependsOnValue, 'clock');
   });
 
-  test('the LCD and Nunito faces are bundled: neither look exists in any '
-      'system font', () {
+  test('the LCD, Nunito, Inter, Oswald and Roboto Slab faces are bundled '
+      'with their licenses: none of those looks exists in any system font', () {
     final pubspec = File('pubspec.yaml').readAsStringSync();
-    for (final family in ['DSEG14', 'Nunito', 'Inter']) {
-      expect(pubspec.contains('- family: $family'), isTrue);
+    const licenses = {
+      'DSEG14': 'OFL',
+      'Nunito': 'OFL',
+      'Inter': 'OFL',
+      'Oswald': 'OFL',
+      'RobotoSlab': 'Apache',
+    };
+    licenses.forEach((family, license) {
+      expect(pubspec.contains('- family: $family'), isTrue, reason: family);
       expect(File('assets/fonts/$family.ttf').existsSync(), isTrue);
-      expect(File('assets/fonts/$family-OFL.txt').existsSync(), isTrue);
-    }
+      expect(File('assets/fonts/$family-$license.txt').existsSync(), isTrue);
+    });
   });
 
   group('the faces draw in the picked font', () {
@@ -240,5 +251,51 @@ void main() {
       expect(faceFont(tester, ':'), 'Rubik');
       await tester.pumpWidget(const SizedBox());
     });
+  });
+}
+
+/// The At a Glance row's Font family and Font weight rows share the clock
+/// vocabulary and sit in its Appearance section behind the row's switch.
+void glanceFontTests() {
+  test('At a Glance offers the same fonts and weights as the clock', () {
+    expect(defs.screensaverGlanceFont.defaultValue, 'rubik');
+    expect(defs.screensaverGlanceFont.options, defs.fontFamilyOptions);
+    expect(defs.screensaverGlanceFont.optionLabels, defs.fontFamilyLabels);
+    expect(defs.screensaverGlanceFont.section, 'Appearance');
+    expect(defs.screensaverGlanceFont.subpage, 'At a Glance');
+    expect(defs.screensaverGlanceFont.dependsOn, 'screensaver.glance_enabled');
+    expect(defs.screensaverGlanceFontWeight.defaultValue, 'default');
+    expect(defs.screensaverGlanceFontWeight.options, defs.fontWeightOptions);
+    expect(defs.screensaverGlanceFontWeight.subpage, 'At a Glance');
+    expect(
+      defs.screensaverGlanceFontWeight.dependsOn,
+      'screensaver.glance_enabled',
+    );
+    final order = defs.allSettings.map((d) => d.key).toList();
+    expect(
+      order.indexOf(defs.screensaverGlanceFont.key),
+      order.indexOf(defs.screensaverGlanceScale.key) + 1,
+    );
+  });
+
+  test('a glance line keeps its own weight until the override says', () {
+    const own = GlanceFont(family: 'Oswald');
+    expect(
+      own.style(fontSize: 10, weight: FontWeight.w600).fontWeight,
+      FontWeight.w600,
+    );
+    expect(own.style(fontSize: 10).fontWeight, FontWeight.w400);
+    expect(own.style(fontSize: 10).fontFamily, 'Oswald');
+    const bold = GlanceFont(
+      family: 'Inter',
+      weight: FontWeight.w700,
+      opticalSize: 32,
+    );
+    final style = bold.style(fontSize: 10, weight: FontWeight.w600);
+    expect(style.fontWeight, FontWeight.w700);
+    expect(style.fontVariations, [
+      const FontVariation('opsz', 32),
+      const FontVariation('wght', 700),
+    ]);
   });
 }

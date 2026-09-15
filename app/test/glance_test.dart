@@ -347,7 +347,7 @@ void main() {
         'At a Glance',
         'At a Glance',
         'At a Glance',
-        ...List.filled(4, 'Appearance'),
+        ...List.filled(6, 'Appearance'),
       ],
     );
     expect(glancePage.last.section, 'Appearance');

@@ -17,6 +17,8 @@ Under the **Appearance** section:
 | Setting | Notes |
 | --- | --- |
 | Row scaling | Scales the entire row, similar to Global widget scaling. |
+| Font family | The typeface the row is drawn in, with the same choices as the Clock screensaver and the widgets. |
+| Font weight | How heavy the row's text is drawn. Default keeps regular names and semibold values. |
 | Hide names | Displays only the icon and the value (with the value drawn larger). |
 | Monochromatic icons | Keeps all icons a neutral grey instead of their state-based color. |
 | Floating text style | Uses floating text instead of chips (the row's original style). |

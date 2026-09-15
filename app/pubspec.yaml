@@ -134,6 +134,12 @@ flutter:
     # and punctuation exist too, so the date and AM/PM stay in character
     # instead of falling back to the platform font. Single weight; the
     # clock's light and heavy weights all land on it.
+    - family: Oswald
+      fonts:
+        - asset: assets/fonts/Oswald.ttf
+    - family: RobotoSlab
+      fonts:
+        - asset: assets/fonts/RobotoSlab.ttf
     - family: DSEG14
       fonts:
         - asset: assets/fonts/DSEG14.ttf

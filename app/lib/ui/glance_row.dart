@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../app_container.dart';
 import '../managers/glance/glance_manager.dart';
 import '../managers/settings/definitions.dart' as defs;
+import 'clock_faces.dart';
 import 'mdi_icon.dart';
 
 /// The screensaver's At a Glance row: a few entity states (issue #37).
@@ -98,6 +99,9 @@ class GlanceRow extends StatelessWidget {
       // name's room. Read once here so the chip measurement and the
       // chips agree on the line they are sizing to.
       final hideNames = container.settings.get(defs.screensaverGlanceHideNames);
+      // The Font family and Font weight rows, the widgets' vocabulary:
+      // resolved once so the chip measurement and the chips agree.
+      final font = glanceFont(container);
       // The Row scaling slider, on top of the caller's own computed
       // scale, so every placement of the row follows it alike (the
       // Widget scaling precedent). Shadowing the field keeps the whole
@@ -124,7 +128,7 @@ class GlanceRow extends StatelessWidget {
             // the grid's edges line up instead of reading as rags.
             final widths = [
               for (final entity in entities)
-                _chipWidth(entity, scale, hideNames: hideNames),
+                _chipWidth(entity, scale, font, hideNames: hideNames),
             ];
             final total =
                 widths.fold(0.0, (a, b) => a + b) +
@@ -147,6 +151,7 @@ class GlanceRow extends StatelessWidget {
                         bw: bw,
                         hideName: hideNames,
                         night: night,
+                        font: font,
                       ),
                     ],
                   ],
@@ -183,6 +188,7 @@ class GlanceRow extends StatelessWidget {
                             bw: bw,
                             hideName: hideNames,
                             night: night,
+                            font: font,
                           ),
                         ),
                       ],
@@ -242,6 +248,7 @@ class GlanceRow extends StatelessWidget {
                             scale: scale * fit,
                             tint: night ?? tint,
                             hideName: hideNames,
+                            font: font,
                           ),
                         ),
                       ),
@@ -264,18 +271,15 @@ class GlanceRow extends StatelessWidget {
 /// in lockstep with _GlanceCard's.
 double _chipWidth(
   GlanceEntity entity,
-  double scale, {
+  double scale,
+  GlanceFont font, {
   required bool hideNames,
 }) {
   double line(String text, double size, FontWeight weight) {
     final painter = TextPainter(
       text: TextSpan(
         text: text,
-        style: TextStyle(
-          fontSize: size,
-          fontWeight: weight,
-          fontFamily: 'Rubik',
-        ),
+        style: font.style(fontSize: size, weight: weight),
       ),
       maxLines: 1,
       textDirection: TextDirection.ltr,
@@ -386,11 +390,13 @@ class _GlanceCard extends StatelessWidget {
     required this.scale,
     required this.bw,
     required this.hideName,
+    required this.font,
     this.night,
   });
 
   final GlanceEntity entity;
   final double scale;
+  final GlanceFont font;
 
   /// The Clock screensaver's night color while its Night mode holds.
   final Color? night;
@@ -484,23 +490,21 @@ class _GlanceCard extends StatelessWidget {
                     entity.displayName,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
+                    style: font.style(
                       color: label,
                       fontSize: 13 * scale,
                       height: 1.15,
-                      fontFamily: 'Rubik',
                     ),
                   ),
                 Text(
                   glanceStateText(entity),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
+                  style: font.style(
                     color: value,
                     fontSize: (hideName ? valueAloneSize : 17) * scale,
                     height: 1.2,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: 'Rubik',
+                    weight: FontWeight.w600,
                   ),
                 ),
               ],
@@ -517,11 +521,13 @@ class _GlanceItem extends StatelessWidget {
     required this.entity,
     required this.scale,
     required this.hideName,
+    required this.font,
     this.tint,
   });
 
   final GlanceEntity entity;
   final double scale;
+  final GlanceFont font;
   final Color? tint;
 
   /// Hide names: the value alone beside the icon, grown to the height
@@ -550,23 +556,21 @@ class _GlanceItem extends StatelessWidget {
                   entity.displayName,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
+                  style: font.style(
                     color: label,
                     fontSize: 15 * scale,
                     height: 1.15,
-                    fontFamily: 'Rubik',
                   ),
                 ),
               Text(
                 glanceStateText(entity),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(
+                style: font.style(
                   color: value,
                   fontSize: (hideName ? 26 : 19) * scale,
                   height: 1.2,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: 'Rubik',
+                  weight: FontWeight.w600,
                 ),
               ),
             ],
@@ -708,4 +712,45 @@ IconData glanceIcon(GlanceEntity entity) {
     },
     _ => Icons.sensors,
   };
+}
+
+/// The At a Glance row's font: the Font family and Font weight rows
+/// resolved through the clock's vocabulary, so the row can wear the same
+/// face as the clock or the widgets. A weight override replaces every
+/// line's own weight; Default keeps regular names and semibold values.
+class GlanceFont {
+  const GlanceFont({this.family, this.weight, this.opticalSize});
+
+  final String? family;
+  final FontWeight? weight;
+  final double? opticalSize;
+
+  /// A line's style: [weight] is the line's own, which the override beats.
+  TextStyle style({
+    Color? color,
+    required double fontSize,
+    double? height,
+    FontWeight? weight,
+  }) {
+    final w = this.weight ?? weight ?? FontWeight.w400;
+    return TextStyle(
+      color: color,
+      fontSize: fontSize,
+      height: height,
+      fontWeight: w,
+      fontFamily: family,
+      fontVariations: clockFontVariations(opticalSize, w),
+    );
+  }
+}
+
+GlanceFont glanceFont(AppContainer container) {
+  final font = container.settings.get(defs.screensaverGlanceFont);
+  return GlanceFont(
+    family: clockFontFamily(font),
+    weight: clockWeightOverride(
+      container.settings.get(defs.screensaverGlanceFontWeight),
+    ),
+    opticalSize: clockOpticalSize(font),
+  );
 }
