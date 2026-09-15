@@ -276,6 +276,17 @@ class IntercomManager extends Manager {
   bool _aec = true;
   bool _micGranted = true;
 
+  /// The page kept the microphone through [pageMicWait]: a page that does
+  /// not answer [IntercomMicHold], and the call is listen only.
+  bool _micBusy = false;
+
+  /// Whether the page has been asked to let go of the microphone.
+  bool _pageMicHeld = false;
+
+  /// How long a page gets to let go of the microphone after
+  /// [IntercomMicHold] before the call goes on without it.
+  Duration pageMicWait = const Duration(seconds: 2);
+
   /// The tokens verified so far, by their expiry, so one cannot be replayed.
   final _seenTokens = <String, int>{};
 
@@ -550,6 +561,7 @@ class IntercomManager extends Manager {
     'lockdown': _settings.get(defs.lockdownEnabled),
     'aec': _aec,
     'micGranted': _micGranted,
+    'micBusy': _micBusy,
     'self': {'id': _selfId, 'name': _selfName},
     'call': _call?.toJson(),
     'kiosks':
@@ -988,9 +1000,7 @@ class IntercomManager extends Manager {
     await _probeAll();
     final targets = _ready;
     if (targets.isEmpty) return const CommandResult.fail('no kiosk is ready');
-    if (!await _openMic()) {
-      return const CommandResult.fail('microphone not granted');
-    }
+    if (!await _openMic()) return CommandResult.fail(_micReason);
     return _startBroadcast(targets);
   }
 
@@ -1427,7 +1437,7 @@ class IntercomManager extends Manager {
     if (!await _openMic()) {
       // Answer anyway: listening is still worth it, the card says why
       // nothing goes out.
-      log.warn(name, 'microphone not granted, the call is listen only');
+      log.warn(name, '$_micReason, the call is listen only');
     }
     _setState('in_call');
     await _startPlayback();
@@ -1471,7 +1481,7 @@ class IntercomManager extends Manager {
           return const CommandResult.fail('unknown kiosk');
         }
         if (!await _openMic()) {
-          log.warn(name, 'microphone not granted, the call is listen only');
+          log.warn(name, '$_micReason, the call is listen only');
         }
         _setState('in_call');
         await _startPlayback();
@@ -1616,11 +1626,33 @@ class IntercomManager extends Manager {
     return !c.muted;
   }
 
+  /// Why nothing goes out, for the log and the card.
+  String get _micReason =>
+      _micBusy ? 'the page holds the microphone' : 'microphone not granted';
+
   Future<bool> _openMic() async {
     if (_mic != null) return true;
-    if (micHub.browserCapturing.value) return false;
+    final c = _call;
+    if (micHub.browserCapturing.value) {
+      // The page holds the microphone: Voice Satellite streaming to Home
+      // Assistant for its wake word, or a browser engine. The call comes
+      // first, so ask it to let go and wait. A page that does not know
+      // the event keeps it and the call is listen only.
+      _holdPageMic(true);
+      final freed = await _waitPageMic();
+      // The call ended while the page was letting go.
+      if (c != null && !_busy) return false;
+      if (!freed) {
+        _micBusy = true;
+        if (_call == null) _holdPageMic(false);
+        _changed();
+        return false;
+      }
+    }
+    _micBusy = false;
     _micGranted = await micPermission();
     if (!_micGranted) {
+      if (_call == null) _holdPageMic(false);
       _changed();
       return false;
     }
@@ -1645,6 +1677,37 @@ class IntercomManager extends Manager {
     final sub = _mic;
     _mic = null;
     await sub?.cancel();
+  }
+
+  /// Tells the page the intercom wants the microphone it holds, or that
+  /// the call is over and the page may take it back. Once per change.
+  void _holdPageMic(bool hold) {
+    if (_pageMicHeld == hold) return;
+    _pageMicHeld = hold;
+    bus.publish(IntercomMicHold(hold: hold));
+  }
+
+  /// True once the page has let go of the microphone, false when it has
+  /// not within [pageMicWait].
+  Future<bool> _waitPageMic() async {
+    if (!micHub.browserCapturing.value) return true;
+    final freed = Completer<bool>();
+    void onChange() {
+      if (!micHub.browserCapturing.value && !freed.isCompleted) {
+        freed.complete(true);
+      }
+    }
+
+    micHub.browserCapturing.addListener(onChange);
+    final timeout = Timer(pageMicWait, () {
+      if (!freed.isCompleted) freed.complete(false);
+    });
+    try {
+      return await freed.future;
+    } finally {
+      timeout.cancel();
+      micHub.browserCapturing.removeListener(onChange);
+    }
   }
 
   Future<void> _startPlayback({double? volume}) async {
@@ -1732,6 +1795,8 @@ class IntercomManager extends Manager {
     }
     _links.clear();
     await _closeMic();
+    _holdPageMic(false);
+    _micBusy = false;
     await audio.stop();
     if (c == null) {
       if (_state != 'idle' && _state != 'ended' && _state != 'missed') {

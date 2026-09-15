@@ -108,5 +108,5 @@ Both pages use the commands `intercomStatus`, `intercomKiosks`, `intercomCall {i
 
 - One call at a time per kiosk. A second caller gets Busy. A broadcast reaching a kiosk in a call skips that kiosk.
 - Without the microphone permission a kiosk still takes calls and hears the other side. The card says it is listening only.
-- A page that takes the microphone itself, such as a browser voice turn, ends the call.
+- A dashboard that holds the microphone itself, such as Voice Satellite streaming to Home Assistant for its wake word, is asked to let go for the call and gets it back when the call ends. Voice Satellite 2026.9.7 and later do that. An older one keeps it and the call is listen only, which the card says. A page that takes the microphone during a call ends the call.
 - Voice is not compressed in this version. That keeps every Android the app runs on, Android 7 included, on the same footing.

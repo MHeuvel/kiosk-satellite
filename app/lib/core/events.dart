@@ -384,6 +384,21 @@ class IntercomStateChanged extends AppEvent {
   Map<String, Object?> toJson() => status;
 }
 
+/// The intercom wants the microphone the page holds, or is done with it.
+/// A page that captures the microphone itself, such as Voice Satellite
+/// streaming to Home Assistant for its wake word, lets go for the call
+/// and brings its capture back after.
+class IntercomMicHold extends AppEvent {
+  const IntercomMicHold({required this.hold});
+  final bool hold;
+
+  @override
+  String get wireName => 'intercom-mic';
+
+  @override
+  Map<String, Object?> toJson() => {'hold': hold};
+}
+
 /// Voice levels during a call, for the card's meter: this kiosk's
 /// microphone and the other side's voice, 0..1. At most fifteen a second
 /// and never on the admin socket (no wireName), like the mic level.

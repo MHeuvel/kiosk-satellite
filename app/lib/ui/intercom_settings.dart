@@ -846,8 +846,9 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
         state == 'in_call' || state == 'broadcasting' || state == 'listening';
     final level = !live ? 0.0 : (sending ? _near : _far);
 
+    final micBusy = _status['micBusy'] == true;
     final micDenied =
-        _status['micGranted'] == false &&
+        (_status['micGranted'] == false || micBusy) &&
         (state == 'in_call' || state == 'broadcasting');
 
     final pillWidth = tight ? 240.0 : 320.0;
@@ -1048,7 +1049,9 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
         if (micDenied) ...[
           const SizedBox(height: 12),
           Text(
-            'Microphone not granted, listening only.',
+            micBusy
+                ? 'The dashboard holds the microphone, listening only.'
+                : 'Microphone not granted, listening only.',
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 13, color: scheme.onSurfaceVariant),
           ),

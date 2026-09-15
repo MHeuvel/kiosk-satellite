@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Fixed
+- **The intercom takes the microphone from the dashboard for a call.** With Voice Satellite's wake word detection set to Home Assistant, or on any dashboard that keeps the browser microphone open, a call connected with no voice going out and the log blamed a missing microphone permission that was in fact granted. The dashboard held the microphone and the intercom gave up on it. The intercom now asks the page to let go for the call and takes the microphone the moment it does, and gives it back when the call ends. Voice Satellite 2026.9.7 and later answer that. An older one keeps the microphone and the card now says that the dashboard holds it instead of blaming the permission.
+
 ## v2026.9.52 - 2026-09-15
 
 ### Added

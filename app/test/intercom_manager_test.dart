@@ -192,6 +192,7 @@ void main() {
   });
 
   tearDown(() async {
+    await MicHub.instance.setBrowserCapturing(false);
     if (!built) return;
     built = false;
     await intercom.dispose();
@@ -930,6 +931,81 @@ void main() {
       expect(r.error, contains('off'));
       final none = await commands.execute('announce', const {});
       expect(none.ok, isFalse);
+    });
+  });
+
+  group('the page and the microphone', () {
+    Future<void> incoming() => commands.execute('intercomIncoming', {
+      'call': 'c1',
+      'kind': 'call',
+      'from': {'id': 'kitchen', 'name': 'Kitchen', 'port': 2324},
+      'address': '192.168.1.70',
+      'token': tokenFor('c1'),
+    });
+
+    test(
+      'the page is asked to let go of the microphone for the call',
+      () async {
+        await build();
+        final hub = MicHub.instance;
+        await hub.setBrowserCapturing(true);
+        final holds = <bool>[];
+        bus.on<IntercomMicHold>().listen((e) {
+          holds.add(e.hold);
+          // Voice Satellite stops its capture on the hold.
+          if (e.hold) unawaited(hub.setBrowserCapturing(false));
+        });
+        answers['POST /api/intercom/call/c1'] = (_) => {'ok': true};
+        await incoming();
+        final r = await commands.execute('intercomAnswer', const {});
+        expect(r.ok, isTrue, reason: r.error);
+        expect(intercom.state, 'in_call');
+        expect(holds, [true]);
+        expect(hub.capturing, isTrue);
+        expect(intercom.status()['micBusy'], isFalse);
+        await intercom.hangup();
+        expect(holds, [true, false]);
+        expect(hub.capturing, isFalse);
+      },
+    );
+
+    test(
+      'a page that keeps the microphone leaves the call listen only',
+      () async {
+        await build();
+        intercom.pageMicWait = const Duration(milliseconds: 50);
+        final hub = MicHub.instance;
+        await hub.setBrowserCapturing(true);
+        final holds = <bool>[];
+        bus.on<IntercomMicHold>().listen((e) => holds.add(e.hold));
+        answers['POST /api/intercom/call/c1'] = (_) => {'ok': true};
+        await incoming();
+        final r = await commands.execute('intercomAnswer', const {});
+        expect(r.ok, isTrue, reason: r.error);
+        expect(intercom.state, 'in_call');
+        expect(holds, [true]);
+        expect(hub.capturing, isFalse);
+        expect(intercom.status()['micBusy'], isTrue);
+        await intercom.hangup();
+        expect(holds, [true, false]);
+        expect(intercom.status()['micBusy'], isFalse);
+      },
+    );
+
+    test('a broadcast nobody lets the microphone go for is refused', () async {
+      await build();
+      await settle();
+      intercom.pageMicWait = const Duration(milliseconds: 50);
+      await MicHub.instance.setBrowserCapturing(true);
+      final holds = <bool>[];
+      bus.on<IntercomMicHold>().listen((e) => holds.add(e.hold));
+      final r = await commands.execute('intercomBroadcast', const {});
+      expect(r.ok, isFalse);
+      expect(r.error, 'the page holds the microphone');
+      expect(intercom.state, 'idle');
+      // Nothing is live, so the page gets its microphone back at once.
+      await settle(10);
+      expect(holds, [true, false]);
     });
   });
 
