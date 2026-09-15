@@ -284,6 +284,19 @@ void main() {
         ['id'],
       );
       expect(dismiss['supportsResponse'], isNot(isTrue));
+      // The intercom pair (issue #549): a call by the kiosk's name or
+      // address, answered with the kiosk it rang, and the hangup.
+      final call = services.singleWhere((s) => s['name'] == 'intercom_call');
+      expect(call['supportsResponse'], isTrue);
+      expect(
+        [for (final arg in call['args']! as List) (arg as Map)['name']],
+        ['kiosk'],
+      );
+      final hangup = services.singleWhere(
+        (s) => s['name'] == 'intercom_hangup',
+      );
+      expect(hangup['args'], isEmpty);
+      expect(hangup['supportsResponse'], isTrue);
 
       final response = await surface.handleService('notification', {
         'message': 'Dinner is ready',

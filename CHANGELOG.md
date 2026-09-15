@@ -5,6 +5,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ## Unreleased
 
 ### Added
+- **Home Assistant can start an intercom call.** Two ESPHome actions per kiosk, intercom_call and intercom_hangup, ring another kiosk from this one by its name or address and end the call, so a dashboard button or an automation can put a call through. The call runs the way one from the kiosk menu does and the Intercom sensor follows it. The action answers with the kiosk it rang and reports an error when the intercom is off, the kiosk is unknown, this kiosk is already in a call or the other kiosk refused.
 - **The volume button step is a slider.** The hardware volume buttons moved the followed player by a fixed 5% per press, too coarse for a sensitive amplifier or a bedroom at night. A new Volume button step slider under Media Player, shown while the buttons are routed to the player, sets the step from 1% to 10% on the device and in the remote admin. Five stays the default.
 
 ### Changed

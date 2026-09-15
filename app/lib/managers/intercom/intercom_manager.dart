@@ -511,6 +511,28 @@ class IntercomManager extends Manager {
 
   IntercomKiosk? _kioskById(String id) => _kiosks[id];
 
+  /// A kiosk by its name, any case, or its address: how an automation
+  /// names one, since a kiosk's id is nothing Home Assistant sees. The
+  /// roster is read again when the name is unknown, so a kiosk that
+  /// appeared since the last look is found too.
+  Future<IntercomKiosk?> _kioskNamed(String target) async {
+    final t = target.trim();
+    if (t.isEmpty) return null;
+    var k = _matchKiosk(t);
+    if (k == null) {
+      await _readFleet();
+      k = _matchKiosk(t);
+    }
+    return k;
+  }
+
+  IntercomKiosk? _matchKiosk(String t) {
+    final lower = t.toLowerCase();
+    return _kiosks.values
+        .where((k) => k.name.toLowerCase() == lower || k.address == t)
+        .firstOrNull;
+  }
+
   List<IntercomKiosk> get _ready => [
     for (final k in _kiosks.values)
       if (k.status(keyFingerprint) == 'ready') k,
@@ -583,12 +605,21 @@ class IntercomManager extends Manager {
       ..register(
         Command(
           name: 'intercomCall',
-          description: 'Call another kiosk by its id.',
-          params: const {'id': "The kiosk's id from intercomStatus"},
+          description:
+              'Call another kiosk by its id, or by its name or address.',
+          params: const {
+            'id': "The kiosk's id from intercomStatus",
+            'kiosk': "The kiosk's name (any case) or address, without an id",
+          },
           handler: (p) async {
-            final k = _kioskById('${p['id'] ?? ''}');
+            final id = '${p['id'] ?? ''}';
+            final k = id.isNotEmpty
+                ? _kioskById(id)
+                : await _kioskNamed('${p['kiosk'] ?? ''}');
             if (k == null) return const CommandResult.fail('unknown kiosk');
-            return _place(k);
+            final r = await _place(k);
+            if (!r.ok) return r;
+            return CommandResult.ok({'id': k.id, 'kiosk': k.name});
           },
         ),
       )

@@ -358,6 +358,16 @@ The **Announcements** page under Settings, ESPHome holds:
 
 Leave `url` empty to speak the message, or leave `message` empty and give a `url` to play a file. `volume` is a share of the master volume from 0 to 1 for this one announcement; 0 keeps the media volume. `repeat` plays it that many times, up to ten; 0 is once. `repeat_pause` is the silence between plays in seconds, up to 30; 0 is 0.6. The chime plays once, before the first. The action answers with the clip's length in milliseconds through `response_variable`, and reports an error when announcements are off, the kiosk is in an intercom call, or Home Assistant could not speak the message. A message needs the kiosk's Home Assistant connection. On the [remote API](remote-api.md), the equivalent command is `announce` with the same arguments.
 
+## Intercom actions
+
+Two actions run the [intercom](intercom.md#home-assistant) from an automation or a dashboard button, listed with **Expose kiosk entities**. `esphome.<node name>_intercom_call` rings another kiosk from this one, its `kiosk` argument the other kiosk's name, any case, or its IP address, and answers with the `id` and `kiosk` it rang. `esphome.<node name>_intercom_hangup` takes no arguments and ends the call, cancels one still ringing or closes an announcement. Both report an error when the intercom is off, the kiosk is unknown, this kiosk is already in a call, the other kiosk refused or there is no call to end.
+
+```yaml
+- action: esphome.kitchen_tablet_intercom_call
+  data:
+    kiosk: Bedroom
+```
+
 ## GPS Sensor
 
 If your device travels (like a tablet mounted in an RV), it can transmit its exact location to Home Assistant using its built in GPS receiver. You must explicitly opt in via **Settings > ESPHome > GPS Sensor**.

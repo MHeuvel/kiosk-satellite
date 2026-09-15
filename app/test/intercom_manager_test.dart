@@ -12,6 +12,7 @@ import 'package:kiosk_satellite/core/events.dart';
 import 'package:kiosk_satellite/core/logging.dart';
 import 'package:kiosk_satellite/managers/audio/mic_hub.dart';
 import 'package:kiosk_satellite/managers/intercom/intercom_audio.dart';
+import 'package:kiosk_satellite/managers/btproxy/esp_entities.dart';
 import 'package:kiosk_satellite/managers/intercom/intercom_manager.dart';
 import 'package:kiosk_satellite/managers/remote/auth.dart';
 import 'package:kiosk_satellite/managers/settings/definitions.dart' as defs;
@@ -91,8 +92,16 @@ void main() {
     answers = {
       // Every peer answers as a ready kiosk unless a test says otherwise.
       'GET /api/intercom/identity': (req) => {
-        'id': req.url.host == '192.168.1.70' ? 'kitchen' : 'bedroom',
-        'name': req.url.host == '192.168.1.70' ? 'Kitchen' : 'Bedroom',
+        'id':
+            peers
+                .where((p) => p['address'] == req.url.host)
+                .firstOrNull?['id'] ??
+            'bedroom',
+        'name':
+            peers
+                .where((p) => p['address'] == req.url.host)
+                .firstOrNull?['name'] ??
+            'Bedroom',
         'enabled': true,
         'key': IntercomManager.fingerprintOf(key),
         'dnd': false,
@@ -582,6 +591,72 @@ void main() {
       expect(intercom.state, 'ended');
       expect(intercom.call?.reason, 'no_answer');
     });
+
+    test(
+      'an automation names the kiosk, any case, or gives its address',
+      () async {
+        await build();
+        await settle();
+        answers['POST /api/intercom/call'] = (_) => {'status': 'ringing'};
+        // The ESPHome action (issue #549) knows no ids.
+        var r = await commands.execute('intercomCall', {'kiosk': 'bedroom'});
+        expect(r.ok, isTrue, reason: r.error);
+        expect(r.data, {'id': 'bedroom', 'kiosk': 'Bedroom'});
+        expect(intercom.state, 'calling');
+        var req = sent.lastWhere((r) => r.url.path == '/api/intercom/call');
+        expect(req.url.host, '192.168.1.71');
+        await commands.execute('intercomHangup', const {});
+        await commands.execute('intercomDismiss', const {});
+
+        r = await commands.execute('intercomCall', {'kiosk': '192.168.1.70'});
+        expect(r.ok, isTrue, reason: r.error);
+        expect(r.data, {'id': 'kitchen', 'kiosk': 'Kitchen'});
+        req = sent.lastWhere((r) => r.url.path == '/api/intercom/call');
+        expect(req.url.host, '192.168.1.70');
+        await commands.execute('intercomHangup', const {});
+        await commands.execute('intercomDismiss', const {});
+
+        // A kiosk that appeared since the last look is read afresh.
+        peers.add({
+          'id': 'office',
+          'name': 'Office',
+          'version': '2026.9.50',
+          'address': '192.168.1.72',
+          'port': 2324,
+          'self': false,
+        });
+        r = await commands.execute('intercomCall', {'kiosk': ' OFFICE '});
+        expect(r.ok, isTrue, reason: r.error);
+        expect(r.data, {'id': 'office', 'kiosk': 'Office'});
+        await commands.execute('intercomHangup', const {});
+        await commands.execute('intercomDismiss', const {});
+
+        for (final bad in ['', 'Garage']) {
+          r = await commands.execute('intercomCall', {'kiosk': bad});
+          expect(r.ok, isFalse);
+          expect(r.error, 'unknown kiosk');
+          expect(intercom.state, 'idle');
+        }
+
+        // The ESPHome actions ride the same command and answer the same.
+        final surface = EspEntitySurface(bus, commands, log, settings);
+        expect(
+          await surface.handleService('intercom_call', {'kiosk': 'Kitchen'}),
+          {'id': 'kitchen', 'kiosk': 'Kitchen'},
+        );
+        expect(intercom.state, 'calling');
+        expect(await surface.handleService('intercom_hangup', const {}), {});
+        expect(intercom.state, 'ended');
+        await expectLater(
+          surface.handleService('intercom_call', {'kiosk': 'Garage'}),
+          throwsStateError,
+        );
+        await expectLater(
+          surface.handleService('intercom_hangup', const {}),
+          throwsStateError,
+        );
+      },
+    );
 
     test(
       'the answer opens the voice socket and the held button sends the microphone',

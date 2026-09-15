@@ -1141,6 +1141,20 @@ class EspEntitySurface {
         {'name': 'repeat_pause', 'type': 'float'},
       ],
     },
+    // Rings another kiosk from this one, the way the kiosk menu's Call a
+    // kiosk sheet does, so a dashboard button or an automation can put a
+    // call through (issue #549). The kiosk goes by its name or address:
+    // its id is nothing Home Assistant sees.
+    {
+      'name': 'intercom_call',
+      'supportsResponse': true,
+      'args': [
+        {'name': 'kiosk', 'type': 'string'},
+      ],
+    },
+    // Ends the call, cancels one still ringing or closes an announcement.
+    // Answers so "no call" reaches the automation as an error.
+    {'name': 'intercom_hangup', 'supportsResponse': true, 'args': []},
   ];
 
   /// An action call from Home Assistant landed (via the native hub). The
@@ -1229,6 +1243,17 @@ class EspEntitySurface {
         if (!result.ok) throw StateError(result.error ?? 'refused');
         final data = result.data;
         return data is Map ? data.cast<String, Object?>() : const {};
+      case 'intercom_call':
+        final result = await commands.execute('intercomCall', {
+          'kiosk': '${args['kiosk'] ?? ''}',
+        });
+        if (!result.ok) throw StateError(result.error ?? 'refused');
+        final data = result.data;
+        return data is Map ? data.cast<String, Object?>() : const {};
+      case 'intercom_hangup':
+        final result = await commands.execute('intercomHangup', const {});
+        if (!result.ok) throw StateError(result.error ?? 'refused');
+        return const {};
       default:
         log.warn('esphome', 'unknown action $name');
         return null;

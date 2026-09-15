@@ -77,7 +77,15 @@ The [ESPHome](esphome.md) device carries an **Intercom enabled** switch, and wit
 | **Intercom do not disturb** | switch | The answer mode's Do not disturb as a switch. |
 | **Intercom answer mode** | select | Ring, Answer automatically, Do not disturb. |
 
-Home Assistant cannot start a call: the kiosks hold the microphones. To speak on a kiosk from Home Assistant, use the [announce action](esphome.md#announcements) under ESPHome.
+Two ESPHome actions put a call through from an automation or a dashboard button. `esphome.<node name>_intercom_call` rings another kiosk from this one, named by its `kiosk` argument, the kiosk's name as the Kiosks card lists it, any case, or its IP address. The call then runs the way one placed from the kiosk menu does: this kiosk's Talk mode, the other kiosk's Answer mode, and the Intercom sensor follows it. The action answers with the `id` and `kiosk` it rang through `response_variable`, and reports an error when the intercom is off here, no kiosk goes by that name, this kiosk is already in a call or the other kiosk refused with its reason (off, on another key, Do not disturb or busy). `esphome.<node name>_intercom_hangup` ends the call, cancels one still ringing or closes an announcement, and reports an error when there is none.
+
+```yaml
+- action: esphome.kitchen_tablet_intercom_call
+  data:
+    kiosk: Bedroom
+```
+
+Home Assistant cannot talk on a call: the kiosks hold the microphones. To speak on a kiosk from Home Assistant, use the [announce action](esphome.md#announcements) under ESPHome. On the [remote API](remote-api.md) the same two are `intercomCall {kiosk}` and `intercomHangup`.
 
 ## Fleet Management
 
@@ -94,7 +102,7 @@ The intercom's routes sit in front of the admin login. Every one of them except 
 | `/api/intercom/call/<id>` | POST | `{action}`: `answer`, `decline`, `missed` from the callee, `cancel` and `hangup` from the caller. |
 | `/api/intercom/audio/<id>` | WebSocket | `?token=` as above. Binary frames are 80 ms of PCM16 mono 16 kHz from the sender's microphone. Text frames: `{"type": "talk", "on": true}` and `{"type": "end"}`. |
 
-Both pages use the commands `intercomStatus`, `intercomKiosks`, `intercomCall {id}`, `intercomBroadcast`, `intercomHangup`, `intercomTalk {on}`, `intercomMute {on}`, `intercomOpen`, `intercomSetDnd {on}`, `intercomSetKey {key}` or `{regenerate: true}` and `intercomDismiss`. `intercomAnswer` and `intercomDecline` are refused over the remote API: only the kiosk screen answers. The WebSocket feed carries an `intercom` event with the whole status on every change.
+Both pages use the commands `intercomStatus`, `intercomKiosks`, `intercomCall {id}` or `{kiosk}` (a name or address), `intercomBroadcast`, `intercomHangup`, `intercomTalk {on}`, `intercomMute {on}`, `intercomOpen`, `intercomSetDnd {on}`, `intercomSetKey {key}` or `{regenerate: true}` and `intercomDismiss`. `intercomAnswer` and `intercomDecline` are refused over the remote API: only the kiosk screen answers. The WebSocket feed carries an `intercom` event with the whole status on every change.
 
 ## Notes
 
