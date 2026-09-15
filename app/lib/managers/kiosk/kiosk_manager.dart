@@ -67,6 +67,10 @@ class KioskManager extends Manager with WidgetsBindingObserver {
   bool _installPause = false;
   Timer? _installPauseTimer;
 
+  /// The panel's logical state, mirrored from the screen manager's
+  /// announcements, for the HOME press gate in [onHomePressed].
+  bool _screenOn = true;
+
   /// A confirmation nobody answers must not leave the kiosk down forever:
   /// after this long the protections re-arm on their own.
   static const _installPauseLimit = Duration(minutes: 10);
@@ -649,6 +653,7 @@ class KioskManager extends Manager with WidgetsBindingObserver {
     // foreground while the screen was off gets no lifecycle event when
     // the panel relights.
     bus.on<ScreenStateChanged>().listen((e) {
+      _screenOn = e.on;
       if (!e.on) return;
       if (WidgetsBinding.instance.lifecycleState == AppLifecycleState.resumed) {
         return;
@@ -683,7 +688,7 @@ class KioskManager extends Manager with WidgetsBindingObserver {
         case 'homeRoleResult':
           bus.publish(HomeRoleChanged(held: call.arguments == true));
         case 'homePressed':
-          bus.publish(const HomeKeyPressed());
+          onHomePressed();
         case 'volumeKey':
           bus.publish(VolumeKeyPressed(direction: '${call.arguments}'));
       }
@@ -846,6 +851,24 @@ class KioskManager extends Manager with WidgetsBindingObserver {
       log.warn(name, 'foreground reclaim needs the draw-over-apps grant');
     }
     _reclaimTimer = Timer(const Duration(seconds: 5), _reclaimForeground);
+  }
+
+  /// A HOME intent landed on the already-front kiosk (the kiosk holds the
+  /// HOME role, issue #219). Published as [HomeKeyPressed] so the kiosk
+  /// screen closes what is open and returns to the dashboard, unless the
+  /// screen is off: nobody presses Home on a dark panel (the press that
+  /// wakes a device is consumed by the wake), so a HOME intent then is the
+  /// system's, not a person's. A Meta Portal starts its stock dream on
+  /// every sleep and that dream launches HOME, which with the kiosk as the
+  /// home app arrived here a second after the kiosk's own screenOff; the
+  /// screensaver dismissal it triggered lit the panel again, so an
+  /// explicit screen off never held (issue #553).
+  void onHomePressed() {
+    if (!_screenOn) {
+      log.info(name, 'HOME while the screen is off: ignored');
+      return;
+    }
+    bus.publish(const HomeKeyPressed());
   }
 
   @override

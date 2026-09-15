@@ -5,6 +5,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ## Unreleased
 
 ### Fixed
+- **A screen off holds on a Meta Portal.** With the Home Launcher on, turning the screen off from Home Assistant or the screensaver timer lit it again about a second later. The Portal starts its stock dream on every sleep and that dream launches the home app, which with the kiosk as the home app arrived as a Home press, dismissed the screensaver and woke the panel. A Home press while the screen is off is the system's, not a person's, and is ignored now.
 - **CJK text follows the device locale.** The app's font has no Chinese, Japanese or Korean glyphs, so those characters come from the system fonts, and the system picks the regional shape by the locale the app resolved. The app resolved every device to English, so a Japanese, Korean or Chinese kiosk could draw its screensaver clock, track titles and lyrics with the wrong regional glyphs. The app now opts into Flutter's localization setup and lists the CJK locales, so the device locale wins and the glyphs match it. The Home Assistant dashboard renders in the WebView and was already right.
 
 ## v2026.9.51 - 2026-09-14
