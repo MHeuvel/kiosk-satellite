@@ -73,6 +73,7 @@ class AudioRoutingManager extends Manager {
         // session; the hub reopens it with the values just pushed.
         await MicHub.instance.bounce();
       } else if (e.key == defs.micAudioSource.key ||
+          e.key == defs.micEchoCancellation.key ||
           e.key == defs.micGainDb.key ||
           e.key == defs.micAgc.key ||
           e.key == defs.micNoiseSuppression.key ||
@@ -166,6 +167,7 @@ class AudioRoutingManager extends Manager {
   /// the source, the gain and the effect chain when the session is created.
   void _pushCaptureTuning() {
     NativeMic.source = _settings.get(defs.micAudioSource);
+    NativeMic.echoCancellation = _settings.get(defs.micEchoCancellation);
     NativeMic.agc = _settings.get(defs.micAgc);
     NativeMic.noiseSuppression = _settings.get(defs.micNoiseSuppression);
     // A gain under an adaptive AGC is two controls on one number; the setting

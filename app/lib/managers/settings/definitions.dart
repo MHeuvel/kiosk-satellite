@@ -4199,6 +4199,27 @@ const micAudioSource = SettingDef<String>(
   perDevice: true,
 );
 
+// On for every capture session the app has ever opened: the stop word
+// listens while TTS plays out of this same device, and without the
+// canceller the microphone hears that speech and scores it. Off exists for
+// devices where the effect does harm: a canceller attached to a
+// non-communication source on some MediaTek tablets attenuates the whole
+// capture to a whisper.
+const micEchoCancellation = SettingDef<bool>(
+  key: 'audio.mic_echo_cancellation',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Echo cancellation',
+  description:
+      'Keeps the kiosk\'s own speaker out of the microphone so the stop '
+      'word works during playback. Turn it off only if the microphone '
+      'reads far quieter here than in a recorder app.',
+  category: 'Screen & Audio',
+  section: 'Microphone settings',
+  subpage: 'Microphone settings',
+  perDevice: true,
+);
+
 // Hidden: rendered as a hand-built dropdown (device settings screen and the
 // remote UI both) because its options depend on live hardware - the row only
 // exists when the selected microphone reports more than one channel, and the
@@ -7437,6 +7458,7 @@ const List<SettingDef<Object>> allSettings = [
   audioMicDevice,
   audioSpeakerDevice,
   micAudioSource,
+  micEchoCancellation,
   micAgc,
   micNoiseSuppression,
   micGainDb,

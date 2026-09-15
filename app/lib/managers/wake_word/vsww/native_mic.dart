@@ -18,6 +18,7 @@ class NativeMic {
   /// [deviceSelector] and read at the same moment: the platform applies all
   /// of it when the session opens, so changing any of them needs a restart.
   static String source = 'voice_communication';
+  static bool echoCancellation = true;
   static num gainDb = 0;
   static bool agc = false;
   static bool noiseSuppression = false;
@@ -35,6 +36,7 @@ class NativeMic {
       .receiveBroadcastStream({
         if (deviceSelector.isNotEmpty) 'device': deviceSelector,
         'source': source,
+        'aec': echoCancellation,
         'gainDb': gainDb,
         'agc': agc,
         'noiseSuppression': noiseSuppression,

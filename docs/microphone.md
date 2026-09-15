@@ -36,6 +36,12 @@ While native capture uses the built-in microphone and speaker, the app keeps its
 
 Android can briefly mute other media when native capture first establishes its route or releases it. Native voice interactions reuse the established route. Browser microphone handoff and device changes can still require a transition. This routing behavior is separate from the app's voice-interaction ducking setting.
 
+## Echo Cancellation
+
+On by default, and on for every capture the app has ever opened: the stop word listens while the kiosk's own speaker plays a response, and without the canceller the microphone hears that speech and scores it. The canceller only gets a playback reference on the Voice communication capture mode. On the other two modes the effect still attaches and what it does then is up to the device.
+
+Turn it off only when it does harm. On some MediaTek tablets a canceller attached to a Voice recognition or Raw microphone capture attenuates the whole signal to a whisper, a level the gain slider cannot bring back, while a recorder app on the same source sounds fine. With it off, expect the stop word to hear the kiosk's own responses.
+
 ## Automatic Gain Control
 
 Enabling Automatic Gain Control delegates volume levelling to Android rather than applying a fixed gain boost, ensuring both quiet and loud speech arrive at a usable level.

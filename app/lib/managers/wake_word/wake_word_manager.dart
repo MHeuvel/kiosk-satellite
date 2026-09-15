@@ -565,6 +565,7 @@ class WakeWordManager extends Manager implements NativeAudioSource {
         // and so subscribes, before this manager).
         _restartForMicChange('microphone selection changed');
       } else if (e.key == defs.micAudioSource.key ||
+          e.key == defs.micEchoCancellation.key ||
           e.key == defs.micGainDb.key ||
           e.key == defs.micAgc.key ||
           e.key == defs.micNoiseSuppression.key ||

@@ -165,6 +165,7 @@ void main() {
     ];
     expect(moved, [
       defs.micAudioSource.key,
+      defs.micEchoCancellation.key,
       defs.micAgc.key,
       defs.micNoiseSuppression.key,
       defs.micGainDb.key,

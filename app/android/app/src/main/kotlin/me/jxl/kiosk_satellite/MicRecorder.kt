@@ -26,7 +26,7 @@ import kotlin.math.max
  * capture; onCancel (Dart cancelling the subscription) stops it and releases
  * the mic — which is what frees it for the WebView's getUserMedia during STT.
  *
- * Capture DSP: echo cancellation on, with optional noise suppression and AGC.
+ * Capture DSP: echo cancellation on by default, with optional noise suppression and AGC.
  * We share capture settings across wake word inference, the stop word, STT
  * and RTSP audio:
  *
@@ -146,6 +146,7 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         if (sink == null || recording) return
         val args = arguments as? Map<*, *>
         val source = audioSource(args?.get("source") as? String)
+        val wantAec = args?.get("aec") != false
         val wantAgc = args?.get("agc") == true
         val wantNs = args?.get("noiseSuppression") == true
         // A gain of 0 dB is the overwhelmingly common case, and a factor of
@@ -194,13 +195,13 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
             TAG,
             "capture opening (device=${selector ?: "automatic"} " +
                 "source=${sourceName(source)} gain=${"%.1f".format(gainDbOf(gain))}dB " +
-                "agc=$wantAgc ns=$wantNs" +
+                "aec=$wantAec agc=$wantAgc ns=$wantNs" +
                 (if (wantChannel >= 1) " channel=$wantChannel/${ladder[step].channels}" else "") +
                 " format=${ladder[step]}" +
                 (if (hardwareFormat) " hardware-format" else "") + ")",
         )
         applyPreferredDevice(opened, selector)
-        applyDsp(opened.audioSessionId, wantAgc, wantNs)
+        applyDsp(opened.audioSessionId, wantAec, wantAgc, wantNs)
         recording = true
         opened.startRecording()
         CommunicationPlayback.get(appContext).captureStarted()
@@ -254,7 +255,7 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
                 try { cur.stop() } catch (_: IllegalStateException) {}
                 cur.release()
                 applyPreferredDevice(next, selector)
-                applyDsp(next.audioSessionId, wantAgc, wantNs)
+                applyDsp(next.audioSessionId, wantAec, wantAgc, wantNs)
                 next.startRecording()
                 cur = next
                 record = next
@@ -564,17 +565,19 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
     }
 
     /**
-     * Echo cancellation on, noise suppression and AGC as configured, on this capture
-     * session. Each effect is device-optional, so every step is best-effort:
+     * Echo cancellation, noise suppression and AGC as configured, on this
+     * capture session. The canceller is created even when off so the
+     * platform's own default (on for a communication source) is overridden
+     * rather than left to chance. Each effect is device-optional, so every step is best-effort:
      * a tablet without an AEC implementation still captures fine, it just does
      * not cancel. The resulting state is logged rather than assumed, since
      * "created the effect" and "the effect is actually running" are different
      * things on Android and vary by OEM.
      */
-    private fun applyDsp(sessionId: Int, wantAgc: Boolean, wantNs: Boolean) {
+    private fun applyDsp(sessionId: Int, wantAec: Boolean, wantAgc: Boolean, wantNs: Boolean) {
         if (AcousticEchoCanceler.isAvailable()) {
             aec = try {
-                AcousticEchoCanceler.create(sessionId)?.also { it.setEnabled(true) }
+                AcousticEchoCanceler.create(sessionId)?.also { it.setEnabled(wantAec) }
             } catch (e: RuntimeException) {
                 Log.w(TAG, "AEC unavailable on this session: ${e.message}")
                 null
