@@ -315,14 +315,53 @@ class ProxyManager extends Manager {
       status == HttpStatus.notModified;
 
   Future<void> _bridgeWebSocket(HttpRequest req, Uri t) async {
-    final page = await WebSocketTransformer.upgrade(req);
-    WebSocket upstream;
+    // The page's request headers ride along, the cookie above all: an
+    // add-on's ingress socket (Music Assistant's web UI, Node-RED's
+    // editor) is admitted on the ingress_session cookie the frontend
+    // set, and a bare upgrade gets the socket accepted and then dropped
+    // with a protocol error, which the add-on's client reads as an
+    // endless connect/disconnect flap. Host and the hop-by-hop set stay
+    // out, and so does every Sec-WebSocket-* field: the key, version and
+    // the compression offer are this leg's own handshake, and the
+    // subprotocol goes through the client API so the reply is checked.
+    final headers = <String, List<String>>{};
+    req.headers.forEach((k, values) {
+      final lk = k.toLowerCase();
+      if (_hopByHop.contains(lk) ||
+          lk == 'host' ||
+          lk.startsWith('sec-websocket-')) {
+        return;
+      }
+      headers[k] = values;
+    });
+    final protocols = _requestedProtocols(req);
+    // Upstream first: the page's upgrade has to echo the subprotocol the
+    // upstream settled on, and an upstream that refuses the handshake is
+    // answered with a plain 502 (the caller's catch) instead of a socket
+    // that opens and closes at once.
+    final upstream = await WebSocket.connect(
+      'ws://${t.host}:${t.port}${req.uri}',
+      protocols: protocols.isEmpty ? null : protocols,
+      headers: headers,
+    );
+    final WebSocket page;
     try {
-      upstream = await WebSocket.connect(
-        'ws://${t.host}:${t.port}${req.uri}',
+      page = await WebSocketTransformer.upgrade(
+        req,
+        // Only consulted when the page offered protocols, and the answer
+        // must be one of them or Dart refuses the upgrade. Home Assistant
+        // itself echoes the first offered protocol on an ingress socket
+        // whatever the add-on picked, so an upstream that named none is
+        // treated the same way.
+        protocolSelector: (offered) {
+          final chosen = upstream.protocol;
+          return chosen != null && offered.contains(chosen)
+              ? chosen
+              : offered.first;
+        },
       );
-    } catch (e) {
-      await page.close(WebSocketStatus.internalServerError, 'upstream');
+    } catch (_) {
+      await upstream.close(WebSocketStatus.goingAway);
       rethrow;
     }
     // The page's socket lives on loopback, so the page can never see an
@@ -340,6 +379,14 @@ class ProxyManager extends Manager {
     unawaited(_pump(page, upstream));
     unawaited(_pump(upstream, page));
   }
+
+  /// The subprotocols the page offered, in order, from however many
+  /// Sec-WebSocket-Protocol lines it sent.
+  static List<String> _requestedProtocols(HttpRequest req) => [
+    for (final line in req.headers['sec-websocket-protocol'] ?? const [])
+      for (final p in line.split(','))
+        if (p.trim().isNotEmpty) p.trim(),
+  ];
 
   Future<void> _pump(WebSocket from, WebSocket to) async {
     try {
