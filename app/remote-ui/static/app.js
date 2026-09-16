@@ -9,7 +9,7 @@ import { loadScreenshot, loadViewJump } from './panels.js';
 import { loadSettings } from './settings.js';
 import { currentPath, showTab } from './tabs.js';
 import { showImportPending, startWizard } from './wizard.js';
-import { applyInfo, connectWs } from './ws.js';
+import { applyInfo, connectWs, socketSettled } from './ws.js';
 
 /* ---- Boot ---- */
 export async function start() {
@@ -27,6 +27,14 @@ export async function start() {
     startWizard({ needPassword: false });
     return;
   }
+  // The socket first, and the reads behind the splash through it: with
+  // the socket opened last, every panel read its state over HTTP while
+  // rendering and then again when the connection's handshake re-entered
+  // it, which looked like polling on every load. A socket that cannot
+  // open within a moment leaves the HTTP path in place for this boot; the
+  // reconnect loop keeps trying behind the page.
+  connectWs();
+  await socketSettled();
   // Build the whole app behind the splash and reveal it ready: quick-control
   // tiles, brightness, settings and panels all populated. Showing it earlier
   // put a page of dead buttons and a parked slider on screen first.
@@ -58,7 +66,6 @@ export async function start() {
   // the device forever. One shot on load plus Refresh is the deal, which
   // is also why the capture can afford to be high-quality. Live is the
   // Overview's explicit opt-in, and only while the page is in view.
-  connectWs();
 }
 /* ---- Onboarding wizard ----------------------------------------------
    The remote twin of the device's five-step setup. An unconfigured device

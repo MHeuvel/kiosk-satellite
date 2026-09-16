@@ -45,15 +45,30 @@ void main() {
       final commands = CommandRegistry(log);
       final settings = SettingsManager(bus, commands, log);
       await settings.init();
+      var appVersion = '2026.9.58';
       commands.register(
         Command(
           name: 'getDeviceInfo',
           description: '',
-          handler: (_) async => const CommandResult.ok({
+          handler: (_) async => CommandResult.ok({
             'name': 'Test kiosk',
             'model': 'Test device',
             'battery': 90,
+            'appVersion': appVersion,
+            'buildNumber': 259,
           }),
+        ),
+      );
+      // Stands in for the app restarting on a new build: the next state
+      // snapshot names a version the page was not loaded against.
+      commands.register(
+        Command(
+          name: 'testSetVersion',
+          description: '',
+          handler: (p) async {
+            appVersion = p['version'] as String;
+            return const CommandResult.ok();
+          },
         ),
       );
       commands.register(

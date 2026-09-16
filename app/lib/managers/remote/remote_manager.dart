@@ -570,12 +570,7 @@ class RemoteManager extends Manager {
       case ('GET', 'api/info'):
         return _info();
       case ('GET', 'api/settings'):
-        return _json(200, {
-          'settings': _settings.describe(),
-          // Named second-level pages, so the remote can label an entry
-          // row for a page that has no settings of its own.
-          'subpageHints': subpageHints,
-        });
+        return _json(200, _settingsPayload());
       case ('PATCH', 'api/settings'):
         return _patchSettings(request);
       case ('GET', 'api/settings/export'):
@@ -616,12 +611,9 @@ class RemoteManager extends Manager {
           ],
         });
       case ('GET', 'api/logs'):
-        return _json(200, {
-          'logs': [for (final e in log.recent) e.toJson()],
-        });
+        return _json(200, (await _read('logs'))!);
       case ('GET', 'api/console'):
-        final console = await commands.execute('getConsole', const {});
-        return _json(200, {'console': console.data});
+        return _json(200, (await _read('console'))!);
       case ('GET', 'api/screenshot'):
         return _screenshot();
       case ('GET', 'api/media/artwork'):
@@ -775,6 +767,33 @@ class RemoteManager extends Manager {
       'cameraView': cameraView.ok ? cameraView.data : null,
       'currentUrl': _currentUrl,
     };
+  }
+
+  Map<String, Object?> _settingsPayload() => {
+    'settings': _settings.describe(),
+    // Named second-level pages, so the remote can label an entry
+    // row for a page that has no settings of its own.
+    'subpageHints': subpageHints,
+  };
+
+  /// The reads the admin page makes at boot, one shape whether they come
+  /// over HTTP or as a `get` request on the socket, so a connected page
+  /// never has to fall back to polling HTTP for them.
+  Future<Map<String, Object?>?> _read(String name) async {
+    switch (name) {
+      case 'info':
+        return _deviceState();
+      case 'settings':
+        return _settingsPayload();
+      case 'logs':
+        return {
+          'logs': [for (final e in log.recent) e.toJson()],
+        };
+      case 'console':
+        final console = await commands.execute('getConsole', const {});
+        return {'console': console.data};
+    }
+    return null;
   }
 
   Future<Response> _patchSettings(Request request) async {
@@ -1034,7 +1053,7 @@ class RemoteManager extends Manager {
                 _send(channel, {
                   'type': 'settings',
                   'snapshot': true,
-                  'settings': _settings.describe(),
+                  ..._settingsPayload(),
                 });
               }
               _send(channel, {'type': 'result', 'id': id, 'ok': true});
@@ -1045,6 +1064,17 @@ class RemoteManager extends Manager {
                 (msg['values'] as Map).cast<String, dynamic>(),
               );
               _send(channel, {'type': 'result', 'id': id, ...result});
+              return;
+            }
+            if (msg['type'] == 'get') {
+              final data = await _read('${msg['name']}');
+              _send(channel, {
+                'type': 'result',
+                'id': id,
+                'ok': data != null,
+                'data': ?data,
+                if (data == null) 'error': 'Unsupported request',
+              });
               return;
             }
             if (msg['type'] != 'command' ||
@@ -1107,9 +1137,14 @@ class RemoteManager extends Manager {
       _ => message['type'] as String,
     };
     String? encoded;
-    for (final client in _wsClients) {
+    for (final client in _wsClients.toList()) {
       if (_wsTopics[client]?.contains(topic) != true) continue;
-      client.sink.add(encoded ??= jsonEncode(message));
+      // A peer that closed underneath us is removed when its stream ends;
+      // until then its sink refuses writes, which must not cut the other
+      // clients out of this message.
+      try {
+        client.sink.add(encoded ??= jsonEncode(message));
+      } catch (_) {}
     }
   }
 
@@ -1134,8 +1169,17 @@ class RemoteManager extends Manager {
       SettingChanged(:final key) => {
         'settings',
         'health',
-        'voice',
         'service',
+        // The Voice Satellite cards re-read the controlled entities on
+        // this, a full snapshot on the device, so only the settings that
+        // feed that snapshot (the HA link, the wake word, the microphone)
+        // ask for it, not a screensaver color.
+        if (key.startsWith('ha.') ||
+            key.startsWith('wake_word.') ||
+            key.startsWith('audio.') ||
+            key.startsWith('web.') ||
+            key.startsWith('vs.'))
+          'voice',
         if (key == 'camera.config') 'cameras',
         if (key == 'gestures.mappings') 'gestures',
         if (key == 'sendspin.sonos_hosts') 'sonos',

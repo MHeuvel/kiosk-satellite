@@ -88,18 +88,29 @@ class RemoteObservations {
     }
   }
 
+  /// Fields that move on every sample without anything having changed:
+  /// clocks, and the Bluetooth proxy's advertisement counters and log
+  /// lines. Left out of the signature, or a proxy relaying beacons would
+  /// push an "update" every five seconds and the Overview would re-read
+  /// its whole health row each time. The emitted results still carry
+  /// them.
+  static const _volatile = {
+    'uptimeMs',
+    'connectedSeconds',
+    'age',
+    'ageMs',
+    'lastSeen',
+    'received',
+    'forwarded',
+    'lastAdvertisementAt',
+    'log',
+  };
+
   Object? _stable(Object? value) {
     if (value is Map) {
       return {
         for (final entry in value.entries)
-          if (!{
-            'uptimeMs',
-            'connectedSeconds',
-            'age',
-            'ageMs',
-            'lastSeen',
-          }.contains(entry.key))
-            entry.key: _stable(entry.value),
+          if (!_volatile.contains(entry.key)) entry.key: _stable(entry.value),
       };
     }
     if (value is List) return value.map(_stable).toList();

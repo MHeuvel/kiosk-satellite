@@ -55,4 +55,55 @@ void main() {
       await log.dispose();
     },
   );
+
+  testWidgets('advertisement counters and log lines are not a change', (
+    tester,
+  ) async {
+    final log = Logger();
+    final commands = CommandRegistry(log);
+    var received = 100;
+    var running = true;
+    commands.register(
+      Command(
+        name: 'bluetoothAdapterOn',
+        description: '',
+        handler: (_) async => const CommandResult.ok({'on': true}),
+      ),
+    );
+    commands.register(
+      Command(
+        name: 'esphomeStatus',
+        description: '',
+        handler: (_) async {
+          received += 50;
+          return CommandResult.ok({
+            'running': running,
+            'received': received,
+            'forwarded': received ~/ 2,
+            'lastAdvertisementAt': received * 1000,
+            'log': ['line $received'],
+          });
+        },
+      ),
+    );
+    final updates = <Map<String, Object?>>[];
+    final observations = RemoteObservations(
+      commands,
+      (_, results) => updates.add(results),
+    );
+    observations.observe({'bluetooth'});
+    await tester.pump();
+    expect(updates.length, 1);
+    await tester.pump(const Duration(seconds: 5));
+    await tester.pump(const Duration(seconds: 5));
+    expect(updates.length, 1, reason: 'beacons flowing is not a change');
+    running = false;
+    await tester.pump(const Duration(seconds: 5));
+    expect(updates.length, 2);
+    // The results still carry the counters for whoever shows them.
+    final esp = (updates.last['esphomeStatus'] as Map)['data'] as Map;
+    expect(esp['received'], greaterThan(100));
+    observations.dispose();
+    await log.dispose();
+  });
 }

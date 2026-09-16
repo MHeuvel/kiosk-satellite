@@ -15,8 +15,18 @@ with sync_playwright() as playwright:
     page.on('pageerror', lambda error: errors.append(str(error)))
     frames = []
     page.on('websocket', lambda socket: socket.on('framesent', lambda frame: frames.append(json.loads(frame))))
+    boot_requests = []
+    page.on('request', lambda request: boot_requests.append(request.url))
     page.goto(base + '/#camera/RTSP%20&%20ONVIF%20Streaming')
     expect(page.locator('#app')).to_be_visible(timeout=30000)
+    # The boot reads everything through the socket: the only HTTP calls
+    # are the public setup probe, the page and its static files and the
+    # one-shot screenshot.
+    polled = [url for url in boot_requests if any(part in url for part in
+        ('/api/info', '/api/settings', '/api/commands/', '/api/console', '/api/logs'))]
+    assert not polled, polled
+    assert [frame for frame in frames if frame.get('type') == 'get' and frame.get('name') == 'info'], frames
+    assert not [frame for frame in frames if frame.get('type') == 'get' and frame.get('name') == 'settings'], frames
     expect(page).to_have_url(base + '/#camera/rtsp-onvif-streaming')
     expect(page.locator('#pageTitle')).to_have_text('RTSP & ONVIF Streaming')
     expect(page.locator('#connDot')).to_have_class('dot on')
@@ -189,6 +199,28 @@ with sync_playwright() as playwright:
     page.wait_for_timeout(6000)
     assert not [frame for frame in frames if frame.get('type') in ('command', 'settings')], frames
     assert not [url for url in requests if '/api/commands/' in url or '/api/settings' in url], requests
+
+    # The app restarted on a new build: the reconnect's snapshot names it,
+    # the page says so and reloads itself onto the new bundle.
+    context.request.post(base + '/api/commands/testSetVersion',
+        headers={'Authorization': 'Bearer ' + token}, data=json.dumps({'version': '2026.9.59'}))
+    page.evaluate("""async () => {
+      const url = performance.getEntriesByType('resource')
+        .find(entry => new URL(entry.name).pathname === '/static/core.js').name;
+      (await import(url)).state.ws.close();
+    }""")
+    notice = page.locator('.modal-card')
+    expect(notice).to_contain_text('2026.9.59', timeout=15000)
+    expect(notice).to_contain_text('reload in')
+    expect(notice).to_have_count(0, timeout=15000)
+    expect(page.locator('#app')).to_be_visible(timeout=30000)
+    page.wait_for_timeout(2500)
+    expect(page.locator('.modal-card')).to_have_count(0)
+    assert page.evaluate("""async () => {
+      const url = performance.getEntriesByType('resource')
+        .find(entry => new URL(entry.name).pathname === '/static/core.js').name;
+      return (await import(url)).state.appVersion;
+    }""") == '2026.9.59+259'
     assert not errors, errors
     browser.close()
     print('Live settings across Media Player and other sections, peer writes, audio events, drafts, reconnects and idle traffic passed')

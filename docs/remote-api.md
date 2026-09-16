@@ -234,18 +234,23 @@ that never subscribe retain the original event and log feed.
 {"type":"subscribe","id":1,"topics":["settings","events","stats"]}
 {"type":"command","id":2,"name":"getVolume","params":{}}
 {"type":"settings","id":3,"values":{"screensaver.mode":"clock"}}
+{"type":"get","id":4,"name":"info"}
 ```
 
 Commands and settings writes return `{"type":"result","id":...}` with
 `ok` and the command's `data` or `error`. Settings writes use the same
 validation as `PATCH /api/settings` and return `rejected` and `errors`.
+A `get` request answers with the same `data` the matching HTTP read
+returns: `info` (`GET /api/info`), `settings` (`GET /api/settings`),
+`console` (`GET /api/console`) and `logs` (`GET /api/logs`), so a
+connected client needs no HTTP requests beyond the binary endpoints.
 Replies may arrive out of order. Match them by `id`. A disconnected request
 has an unknown outcome, so clients should read current state after
 reconnecting instead of replaying writes.
 
 | Topic | Server message |
 | --- | --- |
-| `settings` | `settings {snapshot, settings}`. The first subscription sends the current schema and values with `snapshot: true`. Later messages contain changed definitions only. Secrets stay masked as `__set__` or an empty string |
+| `settings` | `settings {snapshot, settings, subpageHints}`. The first subscription sends the current schema and values with `snapshot: true` and the second-level page hints. Later messages contain changed definitions only. Secrets stay masked as `__set__` or an empty string |
 | `events` | `event {event, data}` for screen, screensaver, camera view, fleet and other public device events |
 | `stats` | `stats {battery, charging, cpu, temp}` while subscribed |
 | `logs` | `log {entry}` for app log entries |
@@ -260,10 +265,14 @@ callbacks share one observer across all viewers and stop when the last
 viewer unsubscribes. Unchanged diagnostic samples are not transmitted.
 Binary camera and screenshot data stay on their existing HTTP endpoints.
 
-The admin subscribes to visible panels, releases their observers when the
-page is hidden and reads fresh state when the page returns. Settings
-updates continue into a bounded queue while hidden and render on return.
-A reconnect subscribes again to recover changes missed during the outage.
+The admin opens the socket first and reads everything it needs to build
+the page through it. It subscribes to visible panels, releases their
+observers when the page is hidden and reads fresh state when the page
+returns. Settings updates continue into a bounded queue while hidden and
+render on return. A reconnect subscribes again to recover changes missed
+during the outage, and a `state` snapshot that reports a different
+`appVersion` or `buildNumber` than the page was loaded against (the app
+restarted on an update) shows a notice and reloads the page.
 `{"type":"ping"}` receives `{"type":"pong"}` for connection health checks.
 
 ## Remote UI

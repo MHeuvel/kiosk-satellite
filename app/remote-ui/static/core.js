@@ -51,6 +51,12 @@ $('#themeBtn').addEventListener('click', () => {
 themeMedia.addEventListener('change', applyTheme);
 applyTheme();
 
+const SOCKET_READS = {
+  '/api/info': 'info',
+  '/api/settings': 'settings',
+  '/api/console': 'console',
+  '/api/logs': 'logs',
+};
 export async function api(path, opts = {}) {
   if (socketReady() && opts.method === 'POST' && path.startsWith('/api/commands/')) {
     const result = await socketRequest({ type: 'command',
@@ -60,6 +66,14 @@ export async function api(path, opts = {}) {
   if (socketReady() && opts.method === 'PATCH' && path === '/api/settings') {
     const result = await socketRequest({ type: 'settings', values: JSON.parse(opts.body || '{}') }, opts);
     return new Response(JSON.stringify(result), { headers: { 'content-type': 'application/json' } });
+  }
+  // The reads the page makes at boot and on a tab visit ride the socket
+  // too, so a connected page never opens an HTTP request for them.
+  const read = SOCKET_READS[path];
+  if (socketReady() && read && !opts.method) {
+    const result = await socketRequest({ type: 'get', name: read }, opts);
+    if (!result.ok) throw new Error(result.error || 'Device read failed');
+    return new Response(JSON.stringify(result.data), { headers: { 'content-type': 'application/json' } });
   }
   const res = await fetch(path, {
     ...opts,

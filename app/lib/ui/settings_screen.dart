@@ -5912,15 +5912,24 @@ class _SonosSpeakersCardState extends State<_SonosSpeakersCard> {
   List<Map<String, Object?>>? _speakers;
   bool _busy = false;
   final _host = TextEditingController();
+  StreamSubscription<SettingChanged>? _hosts;
 
   @override
   void initState() {
     super.initState();
     unawaited(_load());
+    // The list is the hosts setting: a speaker added or forgotten from
+    // the remote admin, or pushed by a fleet leader, lands here too.
+    _hosts = widget.container.bus.on<SettingChanged>().listen((e) {
+      if (e.key == sendspinSonosHosts.key && mounted && !_busy) {
+        unawaited(_load());
+      }
+    });
   }
 
   @override
   void dispose() {
+    _hosts?.cancel();
     _host.dispose();
     super.dispose();
   }

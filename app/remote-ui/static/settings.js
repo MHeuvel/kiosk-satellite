@@ -166,7 +166,13 @@ document.addEventListener('visibilitychange', () => {
   if (!document.hidden) flushSettingsUpdates();
 });
 
+// The snapshot the subscription answered with before the first render:
+// the boot renders from it instead of reading the same schema again.
+let pendingSnapshot = null;
 export function applySettingsUpdate(message) {
+  if (message.snapshot && message.subpageHints && !state.settings) {
+    pendingSnapshot = { settings: message.settings, subpageHints: message.subpageHints };
+  }
   for (const setting of message.settings || []) liveSettings.set(setting.key, setting);
   clearTimeout(liveSettingsTimer);
   liveSettingsTimer = setTimeout(flushSettingsUpdates, 0);
@@ -232,9 +238,11 @@ async function renderSettings({ cached = false } = {}) {
   // mid-page toggle that reveals dependants yanks the view back to the top.
   const scroller = document.scrollingElement || document.documentElement;
   const keepScroll = scroller.scrollTop;
+  const snapshot = pendingSnapshot;
+  pendingSnapshot = null;
   let [{ settings, subpageHints }, installerResult] = await Promise.all([
     cached ? { settings: state.settings, subpageHints: state.subpageHints }
-      : api('/api/settings').then((r) => r.json()),
+      : snapshot || api('/api/settings').then((r) => r.json()),
     cached ? state.installerResult : cmd('getUpdateInstallerStatus').catch(() => null),
   ]);
   state.installerResult = installerResult;
@@ -1181,14 +1189,17 @@ async function renderSettings({ cached = false } = {}) {
       if (firstCard) firstCard.insertAdjacentElement('afterend', row);
       else root.appendChild(row);
     };
-    const pollError = () => api('/api/commands/esphomeStatus',
-      { method: 'POST', body: '{}' }).then((r) => r.json())
+    // A pushed update carries both reads; only the first paint asks.
+    const pollError = (results) => (results?.esphomeStatus
+      ? Promise.resolve(results.esphomeStatus)
+      : api('/api/commands/esphomeStatus', { method: 'POST', body: '{}' }).then((r) => r.json()))
       .then((res) => paintError(res.data?.startError || null))
       .catch(() => {});
     pollError();
 
-    const poll = () => api('/api/commands/bluetoothAdapterOn',
-      { method: 'POST', body: '{}' }).then((r) => r.json())
+    const poll = (results) => (results?.bluetoothAdapterOn
+      ? Promise.resolve(results.bluetoothAdapterOn)
+      : api('/api/commands/bluetoothAdapterOn', { method: 'POST', body: '{}' }).then((r) => r.json()))
       .then((res) => {
         if (res && res.data && typeof res.data.on === 'boolean') {
           paint(res.data.on);
@@ -1197,7 +1208,7 @@ async function renderSettings({ cached = false } = {}) {
       .catch(() => {});
     const startAdapterPoll = () => {
       if (window.__btAdapterTimer) clearInterval(window.__btAdapterTimer);
-      watchUpdates(['bluetooth'], () => Promise.all([poll(), pollError()]), { owner: root.querySelector('[data-key="btproxy.enabled"]') });
+      watchUpdates(['bluetooth'], (results) => Promise.all([poll(results), pollError(results)]), { owner: root.querySelector('[data-key="btproxy.enabled"]') });
       poll();
     };
     // Scanning cannot work at all on this build (a Facebook Portal on

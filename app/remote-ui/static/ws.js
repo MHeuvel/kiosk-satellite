@@ -8,23 +8,32 @@ import { appendLine, logView, updateConsoleMeta } from './logs.js';
 import { showLightLevel } from './notices.js';
 import { applyQuickEvent, applyQuickState, loadScreenshot, quickStateOf } from './panels.js';
 import { loadVsPermissions, renderVsControls } from './vs.js';
-import { paintRange } from './widgets.js';
+import { modalShell, paintRange } from './widgets.js';
 
 /* ---- Live state (WebSocket) ---- */
 let reconnectTimer = null;
 let retryDelay = 1000;
 let heartbeat = null;
 let lastMessage = 0;
+// Resolved when the connection attempt in flight opens or gives up, so
+// the boot can wait for the socket and read everything through it.
+let settled = null;
+let settle = () => {};
 document.addEventListener('ks-logout', () => {
   clearTimeout(reconnectTimer);
   clearInterval(heartbeat);
 });
+export function socketSettled(timeoutMs = 3000) {
+  if (state.ws?.readyState === WebSocket.OPEN || !settled) return Promise.resolve();
+  return Promise.race([settled, new Promise((r) => setTimeout(r, timeoutMs))]);
+}
 export function connectWs() {
   clearTimeout(reconnectTimer);
   if (!state.token || (state.ws && state.ws.readyState < 2)) return;
   const proto = location.protocol === 'https:' ? 'wss' : 'ws';
   const ws = new WebSocket(`${proto}://${location.host}/api/ws?token=${state.token}`);
   state.ws = ws;
+  settled = new Promise((r) => { settle = r; });
   // The connect-time `state` snapshot is read across several awaits on the
   // device while the event feed already flows to this socket, so a change
   // landing inside that window arrives as its event first and then as a
@@ -37,6 +46,7 @@ export function connectWs() {
     attachSocket(ws);
     retryDelay = 1000;
     lastMessage = Date.now();
+    settle();
     setConn('on');
     syncSubscriptions({ reconnect: true });
     document.dispatchEvent(new CustomEvent('ks-connected'));
@@ -51,6 +61,7 @@ export function connectWs() {
     clearInterval(heartbeat);
     detachSocket(ws);
     state.ws = null;
+    settle();
     setConn('off');
     if (event.code === 1008) { logout(); return; }
     // Upgrade failures hide their HTTP status from browser JavaScript.
@@ -75,6 +86,12 @@ export function connectWs() {
     if (msg.type === 'state') {
       applyInfo(msg.device, msg.currentUrl, snapshotSeen ? {} : movedFirst);
       snapshotSeen = true;
+      // The snapshot carries the build the device is running: after an
+      // update the app restarts, this socket comes back, and the page
+      // still holding the old admin bundle is the one that has to go.
+      if (state.appVersion && versionOf(msg.device) && versionOf(msg.device) !== state.appVersion) {
+        showVersionMismatch(msg.device);
+      }
     }
     else if (msg.type === 'stats') renderStats(msg);
     else if (msg.type === 'console') { appendLine($('#consoleOut'), msg.level, msg.message, msg.time); updateConsoleMeta(); }
@@ -156,8 +173,44 @@ document.addEventListener('visibilitychange', () => {
 });
 
 export function setConn(s) { $('#connDot').className = `dot ${s}`; }
+function versionOf(device) {
+  if (!device?.appVersion) return '';
+  return `${device.appVersion}+${device.buildNumber ?? ''}`;
+}
+/* The device came back on a different build than this page was loaded
+   against. Everything here (the settings schema, the panels, the static
+   bundle) belongs to the old one, so say so and reload; a countdown
+   rather than an instant reload, so a person watching an update land
+   sees why the page went away. */
+let versionModal = null;
+export function showVersionMismatch(device) {
+  if (versionModal) return;
+  const { back, body, foot } = modalShell({ title: 'Kiosk Satellite was updated' });
+  versionModal = back;
+  const p = document.createElement('p');
+  p.style.cssText = 'margin:0; color:var(--muted); font-size:15px; line-height:1.5;';
+  const seconds = document.createElement('span');
+  const build = device.buildNumber ? ` (build ${device.buildNumber})` : '';
+  p.append(`The device is now running version ${device.appVersion}${build}. `
+    + 'This page belongs to the previous version and will reload in ', seconds, '.');
+  body.appendChild(p);
+  const now = document.createElement('button');
+  now.className = 'btn-primary';
+  now.textContent = 'Reload now';
+  now.addEventListener('click', () => location.reload());
+  foot.appendChild(now);
+  let left = 5;
+  const tick = () => {
+    seconds.textContent = `${left} second${left === 1 ? '' : 's'}`;
+    if (left-- <= 0) { location.reload(); return; }
+    setTimeout(tick, 1000);
+  };
+  tick();
+}
 export function applyInfo(device, currentUrl, keepQuick = {}) {
   if (!device) return;
+  // The build this page was loaded against: the first snapshot's.
+  state.appVersion ||= versionOf(device);
   const name = device.name || device.model || '';
   setDeviceName(name);
   // The tab's name is the device's name: with several kiosks administered

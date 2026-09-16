@@ -125,6 +125,71 @@ void main() {
     },
   );
 
+  test(
+    'get requests answer the boot reads and the snapshot names pages',
+    () async {
+      commands.register(
+        Command(
+          name: 'getDeviceInfo',
+          description: '',
+          handler: (_) async => const CommandResult.ok({
+            'name': 'Test kiosk',
+            'appVersion': '2026.9.59',
+            'buildNumber': 260,
+          }),
+        ),
+      );
+      final client = await connect();
+      final snapshot = matching(
+        client.messages,
+        (m) => m['type'] == 'settings',
+      );
+      await subscribe(client, ['settings']);
+      expect((await snapshot)['subpageHints'], isA<Map>());
+      final info = matching(client.messages, (m) => m['id'] == 'info');
+      client.socket.add(
+        jsonEncode({'type': 'get', 'id': 'info', 'name': 'info'}),
+      );
+      final device = (await info)['data'] as Map;
+      expect(device['appVersion'], '2026.9.59');
+      expect(device['buildNumber'], 260);
+      expect(device.containsKey('currentUrl'), isTrue);
+      final read = matching(client.messages, (m) => m['id'] == 'settings');
+      client.socket.add(
+        jsonEncode({'type': 'get', 'id': 'settings', 'name': 'settings'}),
+      );
+      final payload = (await read)['data'] as Map;
+      expect(payload['settings'], isA<List>());
+      expect(payload['subpageHints'], isA<Map>());
+      final logs = matching(client.messages, (m) => m['id'] == 'logs');
+      client.socket.add(
+        jsonEncode({'type': 'get', 'id': 'logs', 'name': 'logs'}),
+      );
+      expect(((await logs)['data'] as Map)['logs'], isA<List>());
+      final refused = matching(client.messages, (m) => m['id'] == 'nope');
+      client.socket.add(
+        jsonEncode({'type': 'get', 'id': 'nope', 'name': 'secrets'}),
+      );
+      expect((await refused)['ok'], false);
+    },
+  );
+
+  test('only voice-related settings ask the voice cards to re-read', () async {
+    final client = await connect();
+    await subscribe(client, ['voice']);
+    final received = <Map>[];
+    client.messages.listen(received.add);
+    await settings.set(defs.screensaverMode, 'black');
+    await Future<void>.delayed(const Duration(milliseconds: 200));
+    expect(received.where((m) => m['type'] == 'update'), isEmpty);
+    final voice = matching(
+      client.messages,
+      (m) => m['type'] == 'update' && m['topic'] == 'voice',
+    );
+    await settings.set(defs.haSatelliteEntity, 'assist_satellite.kiosk');
+    await voice;
+  });
+
   test('subscriptions filter events and can be replaced', () async {
     final client = await connect();
     await subscribe(client, []);
