@@ -1629,9 +1629,12 @@ class _CategoryContentState extends State<_CategoryContent> {
   }
 
   /// Leave the settings stack and show [url] in the kiosk browser.
+  /// Opens a page in the link overlay above the dashboard, the surface a
+  /// tapped dashboard link gets. Loading it into the kiosk view itself
+  /// replaced the dashboard and took the Voice Satellite session with it.
   void _openLink(String url) {
     Navigator.of(context).popUntil((route) => route.isFirst);
-    widget.container.commands.execute('loadUrl', {'url': url});
+    widget.container.browser.showLinkOverlay(url);
   }
 
   /// The app log, mirroring the remote UI's Logs tab: the same buffer the
@@ -3410,10 +3413,9 @@ class _CategoryContentState extends State<_CategoryContent> {
                         Navigator.of(
                           context,
                         ).popUntil((route) => route.isFirst);
-                        container.commands.execute('loadUrl', {
-                          'url':
-                              'https://github.com/jxlarrea/voice-satellite-card-integration',
-                        });
+                        container.browser.showLinkOverlay(
+                          'https://github.com/jxlarrea/voice-satellite-card-integration',
+                        );
                       },
                       child: Text.rich(
                         TextSpan(
