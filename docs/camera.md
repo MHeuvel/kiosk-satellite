@@ -88,15 +88,16 @@ Detection is engineered to be CPU efficient and to work effectively in the dark.
 
 Two related switches are located elsewhere: with **Allow screensaver** turned on under [Lockdown Mode](kiosk.md), Dismiss on motion remains deactivated until the lock lifts. Additionally, the Sendspin player's full screen view only reacts to motion if its own **Dismiss "Now Playing" on motion** setting is enabled.
 
-## RTSP Streaming
+## RTSP & ONVIF Streaming
 
-Open **Settings -> Camera -> RTSP Streaming**, after **Motion Sensor**, then turn on **Enable RTSP Streaming**. The page reveals the stream settings and its URL. The Camera master switch and Android camera permission must also be enabled.
+Open **Settings -> Camera -> RTSP & ONVIF Streaming**, after **Motion Sensor**, then turn on **Enable camera streaming**. The page reveals the stream settings and its URL. The Camera master switch and Android camera permission must also be enabled.
 
-Tap the **Stream URL** field below **Port** to copy it. **Stream Status** shows a green icon while streaming and a gray icon while idle. **Connected Clients** lists each viewer's IP address, player name when available, connection port, transport and connection duration. The status and client list refresh every two seconds.
+Tap the **Stream URL** or **ONVIF URL** field below **Port** to copy it. Only the URL for the selected protocol appears. **Stream Status** shows a green icon while streaming and a gray icon while idle. **Connected Clients** lists each viewer's IP address, player name when available, connection port, transport and connection duration. The status and client list refresh every two seconds.
 
 | Setting | Default | Notes |
 | --- | --- | --- |
-| Port | 8554 | Connect to `rtsp://DEVICE_IP:8554/camera`. Choose a free port from 1024 to 65535. |
+| Streaming protocol | RTSP | Choose RTSP or ONVIF. Each protocol remembers its own port. Video, audio and authentication settings are shared. |
+| Port | RTSP: 8554, ONVIF: 8080 | The port for the selected protocol. Choose a free port from 1024 to 65535. Switching protocols restores its saved port. |
 | Resolution | 480p | 480p, 720p or 1080p. Android picks the closest supported size. Video uses the camera sensor's orientation. |
 | Frame rate | 10 fps | Target rate from 5 to 30 fps. Actual delivery depends on the hardware and lighting. |
 | Bitrate | 500 kbps | Target H.264 bitrate from 100 to 8000 kbps. |
@@ -104,6 +105,8 @@ Tap the **Stream URL** field below **Port** to copy it. **Stream Status** shows 
 | Require authentication | off | Reveals Username and Password. Both must be set before an authenticated listener starts. |
 
 Use RTSP over TCP in your viewer. The stream contains H.264 video and optional AAC microphone audio. For go2rtc, add the URL as a stream source. Frigate can record the H.264 stream without transcoding it. Authentication uses RTSP Digest. Enter the credentials in your client or use `rtsp://USERNAME:PASSWORD@DEVICE_IP:8554/camera`, with URL encoding for special characters.
+
+Choose **ONVIF** to let compatible clients discover the camera on your local network. The page shows the **ONVIF URL**, `http://DEVICE_IP:8080/onvif/device_service`. Use the selected port if you changed it. ONVIF exposes device information and a read-only media profile that points to the same RTSP stream. Configure video and audio in Kiosk Satellite settings. ONVIF requests use WS-Security UsernameToken authentication with the same credentials when authentication is enabled. Discovery uses WS-Discovery on multicast UDP port 3702. The camera announces when streaming starts and withdraws when it stops. ONVIF device information, discovery and stream profiles use the configured **Device name**. In Home Assistant, add the ONVIF integration and enable its automatic device search. This search uses WS-Discovery while the kiosk's `.local` name uses mDNS. Automatic discovery requires the client and camera to share a subnet or a WS-Discovery relay between their VLANs. An mDNS relay does not forward WS-Discovery traffic. If multicast discovery is unavailable, connect with the ONVIF URL. PTZ, ONVIF events and ONVIF snapshots are not provided.
 
 One H.264 encoder serves up to four connected viewers. Hardware encoding is preferred. If no compatible hardware encoder can start, the app tries software encoding, which can use more CPU. It starts when the first authenticated viewer requests video and stops shortly after the last viewer disconnects. Enabling the listener alone does not open the camera or encode video. A recorder that stays connected keeps the encoder running. Slow viewers are disconnected instead of blocking the camera or growing an unlimited queue.
 

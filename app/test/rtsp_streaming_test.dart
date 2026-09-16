@@ -108,6 +108,48 @@ void main() {
     await bus.dispose();
   });
 
+  test(
+    'protocols keep separate ports while sharing the other stream settings',
+    () async {
+      expect(configurations.last['protocol'], 'rtsp');
+      expect(configurations.last['port'], 8554);
+      expect(settings.visible(defs.cameraRtspPort), true);
+      expect(settings.visible(defs.cameraOnvifPort), false);
+      await settings.set(defs.cameraRtspPort, 9554);
+      await settings.set(defs.cameraRtspAudio, true);
+      await settings.set(defs.cameraStreamingProtocol, 'onvif');
+      await settle();
+      expect(configurations.last['protocol'], 'onvif');
+      expect(configurations.last['port'], 8080);
+      await settings.set(defs.deviceName, 'Kitchen tablet');
+      await settle();
+      expect(configurations.last['name'], 'Kitchen tablet');
+      expect(configurations.last['port'], 8080);
+      expect(settings.visible(defs.cameraRtspPort), false);
+      expect(settings.visible(defs.cameraOnvifPort), true);
+      await settings.set(defs.cameraOnvifPort, 9080);
+      await settle();
+      expect(configurations.last['port'], 9080);
+      expect(configurations.last['audio'], true);
+      await demand(true);
+      expect(stream?['rtsp'], true);
+      await settings.set(defs.cameraStreamingProtocol, 'rtsp');
+      await settle();
+      expect(configurations.last['protocol'], 'rtsp');
+      expect(configurations.last['port'], 9554);
+      expect(configurations.last['audio'], true);
+      await settings.set(defs.cameraStreamingProtocol, 'onvif');
+      await settle();
+      expect(configurations.last['port'], 9080);
+      await settings.set(defs.cameraRtspEnabled, false);
+      expect(settings.visible(defs.cameraStreamingProtocol), false);
+      expect(settings.visible(defs.cameraRtspPort), false);
+      expect(settings.visible(defs.cameraOnvifPort), false);
+      await settle();
+      expect(configurations.last['enabled'], false);
+    },
+  );
+
   Future<void> detectors(int mask) async {
     await settings.set(defs.screensaverEnabled, true);
     await settings.set(defs.motionSensor, mask & 1 != 0);

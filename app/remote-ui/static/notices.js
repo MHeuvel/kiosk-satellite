@@ -33,7 +33,7 @@ export async function updateNoCameraNotice() {
     'motion.start_delay']) {
     tab.querySelector(`[data-key="${key}"]`)?.remove();
   }
-  tab.querySelectorAll('[data-key^="camera.rtsp."], .subpage[data-subpage="RTSP Streaming"], .subpage-entry[data-subpage-entry="RTSP Streaming"], .subpage[data-subpage="Motion Sensor"], .subpage-entry[data-subpage-entry="Motion Sensor"]')
+  tab.querySelectorAll('[data-key^="camera.rtsp."], [data-key^="camera.onvif."], .subpage[data-subpage="RTSP & ONVIF Streaming"], .subpage-entry[data-subpage-entry="RTSP & ONVIF Streaming"], .subpage[data-subpage="Motion Sensor"], .subpage-entry[data-subpage-entry="Motion Sensor"]')
     .forEach((row) => row.remove());
   // Remove empty cards and their headings too.
   for (const card of [...tab.querySelectorAll('.card')]) {

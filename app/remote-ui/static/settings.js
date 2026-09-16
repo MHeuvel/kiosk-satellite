@@ -2381,9 +2381,11 @@ export function updatePersonSensorRows() {
 
 export function updateRtspRows() {
   clearInterval(window.__rtspTimer);
-  const panel = document.querySelector('#tab-camera .subpage[data-subpage="RTSP Streaming"]');
+  const panel = document.querySelector('#tab-camera .subpage[data-subpage="RTSP & ONVIF Streaming"]');
   panel?.querySelectorAll('.rtsp-status').forEach((row) => row.remove());
-  const port = panel?.querySelector('[data-key="camera.rtsp.port"]');
+  const protocol = state.settings.find((s) => s.key === 'camera.rtsp.protocol')?.value || 'rtsp';
+  const onvif = protocol === 'onvif';
+  const port = panel?.querySelector(`[data-key="${onvif ? 'camera.onvif.port' : 'camera.rtsp.port'}"]`);
   if (!port || !state.settings.find((s) => s.key === 'camera.rtsp.enabled')?.value) return;
   const urls = document.createElement('div');
   urls.className = 'rtsp-status rtsp-urls';
@@ -2427,12 +2429,18 @@ export function updateRtspRows() {
         : st.audioSuspended ? ' Audio paused while the browser uses the microphone.'
         : st.audioEncoding ? ' Microphone audio streaming.' : ' Microphone audio idle.';
     }
-    const addresses = st?.urls?.length ? st.urls : [''];
+    if (st?.onvifDiscoveryError) {
+      status.querySelector('.desc').textContent += ` ONVIF discovery: ${st.onvifDiscoveryError}`;
+    }
+    const selectedUrls = (st?.protocol || 'rtsp') === protocol
+      ? st?.[onvif ? 'onvifUrls' : 'urls'] : [];
+    const addresses = (selectedUrls?.length ? selectedUrls : [''])
+      .map((url) => [onvif ? 'ONVIF URL' : 'Stream URL', url]);
     const signature = JSON.stringify(addresses);
     if (signature !== lastUrls) {
       lastUrls = signature;
-      urls.replaceChildren(...addresses.map((address) => {
-        const row = readOnlyRow('Stream URL', '', '');
+      urls.replaceChildren(...addresses.map(([label, address]) => {
+        const row = readOnlyRow(label, '', '');
         row.lastElementChild.replaceWith(copyBox(address, {
           placeholder: 'Waiting for a network address',
         }).el);

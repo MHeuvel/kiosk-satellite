@@ -5,6 +5,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ## v2026.9.58 - 2026-09-16
 
 ### Added
+- **Camera streaming supports ONVIF.** The Camera settings page is now RTSP & ONVIF Streaming with an Enable camera streaming switch and a Streaming protocol selector. The camera uses the configured device name in ONVIF device information, discovery and stream profiles. It announces itself through WS-Discovery and answers Home Assistant's automatic device search on the same subnet. Discovery across VLANs requires a WS-Discovery relay. ONVIF clients can request its stream using the same video settings, audio settings and credentials as RTSP. Each protocol saves its own port, with defaults of 8554 for RTSP and 8080 for ONVIF. Both the device and remote settings pages show only the selected protocol's connection URL. ONVIF setup reports the active network interface and lets clients use the persistent camera serial number when Android hides its hardware address.
 - **BREAKING CHANGE: Announcements accept options for each call.** The ESPHome announce action now takes `chime`, `chime_file`, `tts_engine` and `audio_only`. Each announcement can choose its chime and text to speech engine without changing the kiosk's settings. An empty engine uses the UI selection. Audio only plays without the on-device modal (#578).
 
 ### Fixed

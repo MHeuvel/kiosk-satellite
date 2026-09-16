@@ -25,7 +25,10 @@ class CameraRtspServer(
     private val onDiagnostic: (String, String, Throwable?) -> Unit = { _, _, _ -> },
     private val audioEnabled: Boolean = false,
     private val onAudioDemand: (Boolean) -> Unit = {},
+    private val onvif: CameraOnvifService? = null,
+    streamName: String = "Kiosk Satellite camera",
 ) {
+    private val sessionName = streamName.replace('\r', ' ').replace('\n', ' ')
     @Volatile private var running = true
     @Volatile private var sps: ByteArray? = null
     @Volatile private var pps: ByteArray? = null
@@ -49,7 +52,7 @@ class CameraRtspServer(
     }
     val localPort: Int get() = server.localPort
     val clientCount: Int get() = clients.count { it.playing }
-    val clientDetails: List<Map<String, Any>> get() = clients.map { it.details() }
+    val clientDetails: List<Map<String, Any>> get() = clients.filter { !it.http }.map { it.details() }
 
     init {
         thread(name = "camera-rtsp-listener", isDaemon = true) {
@@ -58,7 +61,7 @@ class CameraRtspServer(
                     val socket = server.accept()
                     socket.reuseAddress = true
                     val client = synchronized(this) {
-                        if (!running || clients.size >= 4) null
+                        if (!running || clients.size >= (if (onvif == null) 4 else 12)) null
                         else Client(socket).also { clients.add(it) }
                     }
                     if (client == null) { socket.close(); continue }
@@ -142,7 +145,7 @@ class CameraRtspServer(
 
     fun resetVideo(keepPendingClients: Boolean = false) {
         synchronized(formatReady) { sps = null; pps = null }
-        clients.filter { !keepPendingClients || it.playing }.forEach { it.close() }
+        clients.filter { !it.http && (!keepPendingClients || it.playing) }.forEach { it.close() }
     }
 
     @Synchronized fun close() {
@@ -176,6 +179,9 @@ class CameraRtspServer(
     private data class Frame(val units: List<ByteArray>, val timestamp: Long, val key: Boolean, val audio: Boolean = false)
 
     private inner class Client(private val socket: Socket) {
+        @Volatile var http = false
+            private set
+        private var identified = false
         private val connectedNs = System.nanoTime()
         @Volatile private var userAgent = ""
         @Volatile var playing = false
@@ -255,7 +261,18 @@ class CameraRtspServer(
                     val request = line() ?: break
                     if (request.isBlank()) continue
                     val parts = request.split(' ')
-                    if (parts.size != 3 || parts[2] != "RTSP/1.0") break
+                    if (parts.size != 3) break
+                    if (!identified && onvif == null) {
+                        http = parts[2] in listOf("HTTP/1.0", "HTTP/1.1")
+                        identified = true
+                    } else if (!identified) {
+                        synchronized(this@CameraRtspServer) {
+                            http = parts[2] in listOf("HTTP/1.0", "HTTP/1.1")
+                            identified = true
+                            if (!http && clients.count { it.identified && !it.http } > 4) close()
+                        }
+                    }
+                    if (!open || (parts[2] != "RTSP/1.0" && !http)) break
                     val method = parts[0]
                     val uri = parts[1]
                     val headers = mutableMapOf<String, String>()
@@ -272,7 +289,29 @@ class CameraRtspServer(
                         userAgent = value.filter { !it.isISOControl() }.take(160)
                     }
                     val length = headers["content-length"]?.let { it.toIntOrNull() ?: -1 } ?: 0
-                    check(length in 0..8192)
+                    check(length in 0..(if (http) 65536 else 8192))
+                    if (http) {
+                        if (headers.containsKey("transfer-encoding")) {
+                            httpReply(CameraOnvifService.Response("400 Bad Request", "")); break
+                        }
+                        if (headers["expect"]?.equals("100-continue", ignoreCase = true) == true) {
+                            output.write("HTTP/1.1 100 Continue\r\n\r\n".toByteArray()); output.flush()
+                        }
+                        val body = ByteArray(length)
+                        var offset = 0
+                        while (offset < length) {
+                            val count = input.read(body, offset, length - offset)
+                            check(count > 0)
+                            offset += count
+                        }
+                        val response = when {
+                            onvif == null -> CameraOnvifService.Response("404 Not Found", "")
+                            method != "POST" -> CameraOnvifService.Response("405 Method Not Allowed", "")
+                            else -> onvif.respond(uri, body, socket.localAddress.hostAddress ?: "127.0.0.1", localPort)
+                        }
+                        httpReply(response)
+                        break
+                    }
                     repeat(length) { check(input.read() >= 0) }
                     val cseq = headers["cseq"]?.takeIf { it.matches(Regex("[0-9]{1,10}")) } ?: break
                     if (method != "OPTIONS" && !authorized(headers["authorization"], method, uri, nonce)) {
@@ -302,7 +341,7 @@ class CameraRtspServer(
                             val a = sps; val b = pps
                             if (a == null || b == null) { reply(cseq, code = "503 Service Unavailable"); break }
                             val profile = a.drop(1).take(3).joinToString("") { "%02x".format(it.toInt() and 255) }
-                            val body = "v=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=Kiosk Satellite camera\r\nt=0 0\r\n" +
+                            val body = "v=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=$sessionName\r\nt=0 0\r\n" +
                                 "a=control:*\r\nm=video 0 RTP/AVP 96\r\nc=IN IP4 0.0.0.0\r\n" +
                                 "a=rtpmap:96 H264/90000\r\na=fmtp:96 packetization-mode=1;profile-level-id=$profile;" +
                                 "sprop-parameter-sets=${base64(a)},${base64(b)}\r\n" +
@@ -348,6 +387,16 @@ class CameraRtspServer(
                     }
                 }
             } catch (_: Exception) { } finally { close() }
+        }
+
+        private fun httpReply(response: CameraOnvifService.Response) {
+            val bytes = response.body.toByteArray(Charsets.UTF_8)
+            writeStartedNs = System.nanoTime()
+            output.write(("HTTP/1.1 ${response.status}\r\nContent-Type: application/soap+xml; charset=utf-8\r\n" +
+                "Content-Length: ${bytes.size}\r\nConnection: close\r\n\r\n").toByteArray())
+            output.write(bytes)
+            output.flush()
+            writeStartedNs = 0L
         }
 
         private fun reply(cseq: String, headers: String = "", body: String = "", code: String = "200 OK") {
@@ -469,7 +518,7 @@ class CameraRtspServer(
             try { socket.close() } catch (_: Exception) { }
             if (!clients.remove(this)) return
             queue.clear()
-            updateDemand()
+            if (!http) updateDemand()
         }
     }
 

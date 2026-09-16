@@ -103,8 +103,16 @@ class MotionManager extends Manager {
     );
     final config = <String, Object>{
       'enabled': _rtspEnabled,
+      'protocol': _settings.get(defs.cameraStreamingProtocol),
+      'name': _settings.get(defs.deviceName),
       'audio': _settings.get(defs.cameraRtspAudio),
-      'port': _settings.get(defs.cameraRtspPort).toInt(),
+      'port': _settings
+          .get(
+            _settings.get(defs.cameraStreamingProtocol) == 'onvif'
+                ? defs.cameraOnvifPort
+                : defs.cameraRtspPort,
+          )
+          .toInt(),
       'width': width,
       'height': height,
       'fps': _settings.get(defs.cameraRtspFps).toInt().clamp(5, 30),
@@ -473,7 +481,10 @@ class MotionManager extends Manager {
     // turning the feature on prompts for the camera up front so the first dim
     // can start it without a pause.
     bus.on<SettingChanged>().listen((e) {
-      if (e.key.startsWith('camera.rtsp.') || e.key == defs.cameraEnabled.key) {
+      if (e.key.startsWith('camera.rtsp.') ||
+          e.key == defs.cameraOnvifPort.key ||
+          e.key == defs.deviceName.key ||
+          e.key == defs.cameraEnabled.key) {
         _configureRtsp();
       }
       final isGate =

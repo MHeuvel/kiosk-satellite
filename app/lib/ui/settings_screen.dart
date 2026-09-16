@@ -217,7 +217,7 @@ const _categories = <(String, String, Object, String)>[
     'Camera',
     'Camera',
     Icons.photo_camera_outlined,
-    'Device camera, motion, RTSP stream',
+    'Device camera, motion, streaming',
   ),
   (
     'Cameras',
@@ -2943,7 +2943,7 @@ class _CategoryContentState extends State<_CategoryContent> {
     );
 
     if (widget.category == 'Camera' &&
-        subpage == 'RTSP Streaming' &&
+        subpage == 'RTSP & ONVIF Streaming' &&
         container.settings.get(cameraRtspEnabled) &&
         container.settings.get(cameraEnabled)) {
       return [
@@ -2954,7 +2954,12 @@ class _CategoryContentState extends State<_CategoryContent> {
               for (final def in _defsFor(widget.category))
                 if (def.subpage == subpage) def,
             ],
-            after: {cameraRtspPort.key: url},
+            after: {
+              (container.settings.get(cameraStreamingProtocol) == 'onvif'
+                      ? cameraOnvifPort.key
+                      : cameraRtspPort.key):
+                  url,
+            },
           ),
         ),
       ];
@@ -10710,7 +10715,12 @@ class _RtspPageState extends State<_RtspPage> {
         : st?['audioEncoding'] == true
         ? ' Microphone audio streaming.'
         : ' Microphone audio idle.';
-    final urls = (st?['urls'] as List?)?.cast<String>() ?? const <String>[];
+    final protocol = widget.container.settings.get(cameraStreamingProtocol);
+    final onvif = protocol == 'onvif';
+    final urls = (st?['protocol'] ?? 'rtsp') == protocol
+        ? (st?[onvif ? 'onvifUrls' : 'urls'] as List?)?.cast<String>() ??
+              const <String>[]
+        : const <String>[];
     final clients = (st?['clientDetails'] as List?) ?? const [];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -10721,7 +10731,7 @@ class _RtspPageState extends State<_RtspPage> {
               for (final url in urls.isEmpty ? [''] : urls)
                 SettingsRow(
                   stack: true,
-                  title: const Text('Stream URL'),
+                  title: Text(onvif ? 'ONVIF URL' : 'Stream URL'),
                   trailing: CopyBox(
                     value: url,
                     placeholder: 'Waiting for a network address',
@@ -10740,7 +10750,13 @@ class _RtspPageState extends State<_RtspPage> {
                 color: active ? Colors.green : Colors.grey,
               ),
               title: Text(label),
-              subtitle: Text(text + audioText),
+              subtitle: Text(
+                text +
+                    audioText +
+                    (st?['onvifDiscoveryError'] == null
+                        ? ''
+                        : ' ONVIF discovery: ${st!["onvifDiscoveryError"]}'),
+              ),
             ),
           ],
         ),

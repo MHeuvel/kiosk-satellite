@@ -334,6 +334,9 @@ class CameraMotion(
 
     private val rtspChannel = MethodChannel(messenger, "kiosk_satellite/camera/rtsp")
     private var rtsp: CameraRtspServer? = null
+    private var onvifDiscovery: CameraOnvifDiscovery? = null
+    private var onvifMulticastLock: android.net.wifi.WifiManager.MulticastLock? = null
+    private var onvifDiscoveryError: String? = null
     private var rtspAudio: RtspAudioEncoder? = null
     private var rtspEncoder: CameraRtspEncoder? = null
     private var rtspConfig: Map<*, *> = emptyMap<Any, Any>()
@@ -571,6 +574,7 @@ class CameraMotion(
         CameraDiagnostics.record(listenerId, "configure", "enabled=${config["enabled"]}, port=${config["port"]}, " +
             "video=${config["width"]}x${config["height"]}, fps=${config["fps"]}, bitrate=${config["bitrate"]}, " +
             "authentication=${config["auth"]}")
+        stopOnvifDiscovery()
         rtsp?.close()
         rtsp = null
         if (config != rtspConfig) capturePolicy.reset()
@@ -584,7 +588,7 @@ class CameraMotion(
         val user = config["username"] as? String ?: ""
         val password = config["password"] as? String ?: ""
         if (auth && (user.isBlank() || password.isEmpty())) {
-            rtspError = "Set an RTSP username and password to enable authentication."
+            rtspError = "Set a streaming username and password to enable authentication."
             result.success(rtspStatus())
             return
         }
@@ -594,6 +598,22 @@ class CameraMotion(
                 return
             }
             try {
+                val preferences = context.getSharedPreferences("camera_onvif", android.content.Context.MODE_PRIVATE)
+                val deviceId = preferences.getString("device_id", null) ?: java.util.UUID.randomUUID().toString().also {
+                    preferences.edit().putString("device_id", it).apply()
+                }
+                val deviceName = (config["name"] as? String)?.trim()?.takeIf { it.isNotEmpty() } ?: android.os.Build.MODEL
+                val onvif = if (config["protocol"] == "onvif") CameraOnvifService(
+                    (config["width"] as? Number)?.toInt() ?: 640,
+                    (config["height"] as? Number)?.toInt() ?: 480,
+                    (config["fps"] as? Number)?.toInt()?.coerceIn(5, 30) ?: 10,
+                    (config["bitrate"] as? Number)?.toInt()?.coerceIn(100_000, 8_000_000) ?: 500_000,
+                    config["audio"] == true, if (auth) user else null, password,
+                    { android.util.Base64.encodeToString(it, android.util.Base64.NO_WRAP) },
+                    { android.util.Base64.decode(it, android.util.Base64.DEFAULT) },
+                    deviceId, context.packageManager.getPackageInfo(context.packageName, 0).versionName ?: "",
+                    deviceName = deviceName,
+                ) else null
                 rtsp = CameraRtspServer(
                     (config["port"] as? Number)?.toInt()?.coerceIn(1024, 65535) ?: 8554,
                     if (auth) user else null, password,
@@ -604,6 +624,8 @@ class CameraMotion(
                     { rtspEncoder?.keyFrame() },
                     { event, message, cause -> CameraDiagnostics.record(listenerId, event, message,
                         failure = cause != null, cause = cause) },
+                    onvif = onvif,
+                    streamName = deviceName,
                     audioEnabled = config["audio"] == true,
                     onAudioDemand = { wanted -> mainHandler.post {
                         if (!disposed && rtspGeneration == generation) {
@@ -612,6 +634,7 @@ class CameraMotion(
                         }
                     } },
                 )
+                if (onvif != null) startOnvifDiscovery(deviceId, rtsp!!.localPort, deviceName)
                 rtspError = null
                 CameraDiagnostics.record(listenerId, "listening", "port=${rtsp?.localPort}")
             } catch (e: Exception) {
@@ -631,6 +654,30 @@ class CameraMotion(
             result.success(rtspStatus())
         }
         bind(0)
+    }
+
+    private fun startOnvifDiscovery(deviceId: String, port: Int, deviceName: String) {
+        try {
+            val wifi = context.applicationContext.getSystemService(android.content.Context.WIFI_SERVICE) as? android.net.wifi.WifiManager
+            onvifMulticastLock = wifi?.createMulticastLock("camera-onvif")?.apply { setReferenceCounted(false); acquire() }
+            onvifDiscovery = CameraOnvifDiscovery(deviceId, port, deviceName).also { it.start() }
+            onvifDiscoveryError = onvifDiscovery?.error
+            if (onvifDiscoveryError != null) {
+                onvifMulticastLock?.let { if (it.isHeld) it.release() }
+                onvifMulticastLock = null
+            }
+        } catch (e: Exception) {
+            stopOnvifDiscovery()
+            onvifDiscoveryError = e.message ?: "Discovery unavailable. Connect using the ONVIF URL."
+        }
+    }
+
+    private fun stopOnvifDiscovery() {
+        onvifDiscovery?.close()
+        onvifDiscovery = null
+        onvifMulticastLock?.let { if (it.isHeld) it.release() }
+        onvifMulticastLock = null
+        onvifDiscoveryError = null
     }
 
     private fun setRtspAudio(enabled: Boolean) {
@@ -663,6 +710,11 @@ class CameraMotion(
         "resolution" to rtspEncoder?.actualSize, "softwareEncoder" to rtspEncoder?.software,
         "cameraInput" to if (rtspEncoder != null) "SurfaceTexture" else null, "error" to (rtspError ?: rtsp?.error),
         "port" to (rtspConfig["port"] ?: 8554),
+        "protocol" to (rtspConfig["protocol"] ?: "rtsp"),
+        "onvifDiscoveryError" to (onvifDiscoveryError ?: onvifDiscovery?.error),
+        "onvifUrls" to if (rtspConfig["protocol"] == "onvif" && rtsp?.listening == true)
+            CameraOnvifDiscovery.localAddresses().map { "http://$it:${rtsp?.localPort}/onvif/device_service" }
+            else emptyList<String>(),
         "urls" to try {
             java.util.Collections.list(java.net.NetworkInterface.getNetworkInterfaces())
                 .flatMap { java.util.Collections.list(it.inetAddresses) }
@@ -1946,6 +1998,7 @@ class CameraMotion(
         listenGeneration++
         setRtspAudio(false)
         rtspChannel.setMethodCallHandler(null)
+        stopOnvifDiscovery()
         rtsp?.close()
         rtsp = null
         cancelPending?.let { mainHandler.removeCallbacks(it) }

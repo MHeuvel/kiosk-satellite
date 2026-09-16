@@ -213,7 +213,7 @@ const Map<String, String> subpageHints = {
   'Camera Streams screensaver': 'Views to show, seconds per view, sound',
   'Widgets': 'Corner overlays and their scale',
   'At a Glance': 'Entities shown over the screensaver',
-  'RTSP Streaming': 'Share the device camera via RTSP',
+  'RTSP & ONVIF Streaming': 'Share the device camera via RTSP or ONVIF',
   'Motion Sensor': 'Home Assistant motion sensor and shared detection settings',
   'Motion Detection': 'Dismiss or postpone the screensaver on motion',
   'Face Detection': 'Dismiss the screensaver when someone looks at it',
@@ -4010,13 +4010,28 @@ const cameraRtspEnabled = SettingDef<bool>(
   key: 'camera.rtsp.enabled',
   type: SettingType.boolean,
   defaultValue: false,
-  title: 'Enable RTSP Streaming',
+  title: 'Enable camera streaming',
   description:
-      'Stream H.264 video over RTSP/TCP. Video encoding runs only while a viewer is connected. Hardware encoding is preferred with software fallback when needed. Uses the camera selected in Camera settings.',
+      'Share H.264 video with RTSP or ONVIF clients. Video encoding runs only while a viewer is connected. Hardware encoding is preferred with software fallback when needed. Uses the camera selected in Camera settings.',
   category: 'Camera',
-  section: 'RTSP Streaming',
-  subpage: 'RTSP Streaming',
+  section: 'RTSP & ONVIF Streaming',
+  subpage: 'RTSP & ONVIF Streaming',
   dependsOn: 'camera.enabled',
+);
+
+const cameraStreamingProtocol = SettingDef<String>(
+  key: 'camera.rtsp.protocol',
+  type: SettingType.select,
+  defaultValue: 'rtsp',
+  title: 'Streaming protocol',
+  description:
+      'ONVIF lets compatible clients discover the camera and connect to its stream.',
+  category: 'Camera',
+  section: 'RTSP & ONVIF Streaming',
+  subpage: 'RTSP & ONVIF Streaming',
+  dependsOn: 'camera.rtsp.enabled',
+  options: ['rtsp', 'onvif'],
+  optionLabels: {'rtsp': 'RTSP', 'onvif': 'ONVIF'},
 );
 
 const cameraRtspPort = SettingDef<num>(
@@ -4024,11 +4039,26 @@ const cameraRtspPort = SettingDef<num>(
   type: SettingType.number,
   defaultValue: 8554,
   title: 'Port',
-  description: 'RTSP server port. Connect to rtsp://DEVICE_IP:PORT/camera.',
+  description: 'RTSP server port. Saved separately from the ONVIF port.',
   category: 'Camera',
-  section: 'RTSP Streaming',
-  subpage: 'RTSP Streaming',
-  dependsOn: 'camera.rtsp.enabled',
+  section: 'RTSP & ONVIF Streaming',
+  subpage: 'RTSP & ONVIF Streaming',
+  dependsOn: 'camera.rtsp.protocol',
+  dependsOnValue: 'rtsp',
+  validator: validateRtspPort,
+);
+
+const cameraOnvifPort = SettingDef<num>(
+  key: 'camera.onvif.port',
+  type: SettingType.number,
+  defaultValue: 8080,
+  title: 'Port',
+  description: 'ONVIF server port. Saved separately from the RTSP port.',
+  category: 'Camera',
+  section: 'RTSP & ONVIF Streaming',
+  subpage: 'RTSP & ONVIF Streaming',
+  dependsOn: 'camera.rtsp.protocol',
+  dependsOnValue: 'onvif',
   validator: validateRtspPort,
 );
 
@@ -4040,8 +4070,8 @@ const cameraRtspResolution = SettingDef<String>(
   description:
       'Video follows the device orientation. Android selects the closest supported size.',
   category: 'Camera',
-  section: 'RTSP Streaming',
-  subpage: 'RTSP Streaming',
+  section: 'RTSP & ONVIF Streaming',
+  subpage: 'RTSP & ONVIF Streaming',
   dependsOn: 'camera.rtsp.enabled',
   options: ['480', '720', '1080'],
   optionLabels: {'480': '480p', '720': '720p', '1080': '1080p'},
@@ -4055,8 +4085,8 @@ const cameraRtspFps = SettingDef<num>(
   description:
       'Target video frames per second. Motion keeps its separate analysis rate. Actual delivery depends on the camera.',
   category: 'Camera',
-  section: 'RTSP Streaming',
-  subpage: 'RTSP Streaming',
+  section: 'RTSP & ONVIF Streaming',
+  subpage: 'RTSP & ONVIF Streaming',
   dependsOn: 'camera.rtsp.enabled',
   min: 5,
   max: 30,
@@ -4072,8 +4102,8 @@ const cameraRtspBitrate = SettingDef<num>(
   description:
       'Target video bitrate. Higher improves detail and uses more network bandwidth.',
   category: 'Camera',
-  section: 'RTSP Streaming',
-  subpage: 'RTSP Streaming',
+  section: 'RTSP & ONVIF Streaming',
+  subpage: 'RTSP & ONVIF Streaming',
   dependsOn: 'camera.rtsp.enabled',
   min: 100,
   max: 8000,
@@ -4087,10 +4117,10 @@ const cameraRtspAudio = SettingDef<bool>(
   defaultValue: false,
   title: 'Include microphone audio',
   description:
-      'Encode microphone audio in the RTSP stream. Shares your microphone settings. WARNING: Increased CPU usage.',
+      'Include microphone audio in the camera stream. Shares your microphone settings. WARNING: Increased CPU usage.',
   category: 'Camera',
-  section: 'RTSP Streaming',
-  subpage: 'RTSP Streaming',
+  section: 'RTSP & ONVIF Streaming',
+  subpage: 'RTSP & ONVIF Streaming',
   dependsOn: 'camera.rtsp.enabled',
 );
 
@@ -4100,10 +4130,10 @@ const cameraRtspAuth = SettingDef<bool>(
   defaultValue: false,
   title: 'Require authentication',
   description:
-      'Require a username and password to view the stream. RTSP traffic is not encrypted.',
+      'Require a username and password to view the stream. Streaming traffic is not encrypted.',
   category: 'Camera',
-  section: 'RTSP Streaming',
-  subpage: 'RTSP Streaming',
+  section: 'RTSP & ONVIF Streaming',
+  subpage: 'RTSP & ONVIF Streaming',
   dependsOn: 'camera.rtsp.enabled',
 );
 
@@ -4112,10 +4142,10 @@ const cameraRtspUsername = SettingDef<String>(
   type: SettingType.string,
   defaultValue: 'kiosk',
   title: 'Username',
-  description: 'Username for RTSP viewers.',
+  description: 'Username for streaming clients.',
   category: 'Camera',
-  section: 'RTSP Streaming',
-  subpage: 'RTSP Streaming',
+  section: 'RTSP & ONVIF Streaming',
+  subpage: 'RTSP & ONVIF Streaming',
   dependsOn: 'camera.rtsp.auth',
   validator: validateRtspUsername,
 );
@@ -4127,8 +4157,8 @@ const cameraRtspPassword = SettingDef<String>(
   title: 'Password',
   description: 'Set a password to start the authenticated stream.',
   category: 'Camera',
-  section: 'RTSP Streaming',
-  subpage: 'RTSP Streaming',
+  section: 'RTSP & ONVIF Streaming',
+  subpage: 'RTSP & ONVIF Streaming',
   dependsOn: 'camera.rtsp.auth',
   secret: true,
 );
@@ -7642,7 +7672,9 @@ const List<SettingDef<Object>> allSettings = [
   motionSensitivity,
   motionStartDelay,
   cameraRtspEnabled,
+  cameraStreamingProtocol,
   cameraRtspPort,
+  cameraOnvifPort,
   cameraRtspResolution,
   cameraRtspFps,
   cameraRtspBitrate,
