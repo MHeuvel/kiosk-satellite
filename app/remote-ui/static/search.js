@@ -35,6 +35,8 @@ export const SEARCH_EXTRAS = [
     desc: 'Learn how to create plugins with the Hello World template and documentation.', anchor: 'x:plugins:create' },
   { tab: 'device', title: 'Learn how we process your data',
     desc: 'What Kiosk Satellite Analytics sends and what it never sends.', sub: 'Kiosk Satellite Analytics', anchor: 'x:analytics_docs' },
+  { tab: 'device', title: 'Install from file',
+    desc: 'Upload a Kiosk Satellite APK through the remote admin and install it.', sub: 'Updates', anchor: 'x:update_upload' },
   { tab: 'device', title: 'Custom repository guide',
     desc: 'How to host the releases file and the APKs on your own network.', sub: 'Updates', anchor: 'x:update_docs' },
   { tab: 'device', title: 'Shizuku access',

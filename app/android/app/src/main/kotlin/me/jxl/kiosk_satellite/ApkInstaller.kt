@@ -11,6 +11,7 @@ import android.content.pm.PackageInstaller
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import android.os.StatFs
 import android.util.Log
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodChannel
@@ -154,9 +155,28 @@ class ApkInstaller(private val context: Context, messenger: BinaryMessenger) {
                     )
                 }
                 "stopUpdateHelper" -> work(result) { helper.stop() }
+                // An uploaded APK (issue #566) is read before it is offered
+                // for install: package, version name and version code, or
+                // null when Android cannot parse the file as an APK.
+                "inspectApk" -> work(result) {
+                    inspect(File(requireNotNull(call.argument<String>("path"))))
+                }
+                // Free bytes on the cache volume, for the upload's space check.
+                "freeSpace" -> work(result) { StatFs(context.cacheDir.path).availableBytes }
                 else -> result.notImplemented()
             }
         }
+    }
+
+    private fun inspect(apk: File): Map<String, Any>? {
+        val info = context.packageManager.getPackageArchiveInfo(apk.path, 0) ?: return null
+        val code = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) info.longVersionCode
+            else @Suppress("DEPRECATION") info.versionCode.toLong()
+        return mapOf(
+            "packageName" to info.packageName,
+            "versionName" to (info.versionName ?: ""),
+            "versionCode" to code,
+        )
     }
 
     /** Whether this install can complete with no confirmation on screen. */

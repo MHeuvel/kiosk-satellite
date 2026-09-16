@@ -1,5 +1,5 @@
-import { $, api, cmd } from './core.js';
-import { copyBox, hintRow, messageBox, modalShell } from './widgets.js';
+import { $, api, cmd, state } from './core.js';
+import { copyBox, hintRow, messageBox, modalShell, showToast } from './widgets.js';
 
 // The helper group belongs only on devices without native silent installation.
 export function renderUpdateHelper(root, initialStatus) {
@@ -120,6 +120,7 @@ export const UPDATE_DOCS_URL =
 
 export function renderUpdateSourceDocs(panel) {
   if (!panel) return;
+  renderUploadInstall(panel);
   const card = document.createElement('div');
   card.className = 'card';
   const docs = readOnlyRow('Custom repository guide',
@@ -135,6 +136,51 @@ export function renderUpdateSourceDocs(panel) {
   docs.appendChild(link);
   card.appendChild(docs);
   panel.appendChild(card);
+}
+
+/* An APK from this computer, whatever GitHub says (#566): its own card on
+   the Updates page, above the custom repository guide. An upload already
+   waiting on the device (an earlier session, or a leader that pushed it)
+   gets an Install row first, and an install in flight is ridden the
+   moment the page renders. */
+function renderUploadInstall(panel) {
+  const card = document.createElement('div');
+  card.className = 'card';
+  const pick = readOnlyRow('Install from file',
+    'Upload a Kiosk Satellite APK from this computer and install it. For a kiosk that cannot reach GitHub or a custom repository.', '');
+  pick.querySelector('span').remove();
+  pick.dataset.searchId = 'x:update_upload';
+  const btn = document.createElement('button');
+  btn.className = 'btn-ghost';
+  btn.textContent = 'Install from file';
+  attachUploadInstall(btn);
+  pick.appendChild(btn);
+  card.appendChild(pick);
+  panel.appendChild(card);
+  cmd('getUpdateStatus').then((r) => {
+    const up = r?.data?.uploaded;
+    if (!up) return;
+    const row = readOnlyRow('Uploaded APK',
+      `Version ${up.version} (build ${up.buildNumber}, ${(up.size / 1048576).toFixed(1)} MB) is on the device, waiting to be installed.`, '');
+    row.querySelector('span').remove();
+    const inst = document.createElement('button');
+    inst.className = 'btn-ghost';
+    const idle = `Install version ${up.version}`;
+    inst.textContent = idle;
+    inst.onclick = async () => {
+      inst.disabled = true;
+      const out = await cmd('installUploadedApk').catch(() => null);
+      if (!out?.ok) {
+        inst.disabled = false;
+        await messageBox({ title: 'Uploaded APK', message: out?.error || 'The device did not answer.' });
+        return;
+      }
+      await rideUploadedInstall(inst, idle);
+    };
+    row.appendChild(inst);
+    card.insertBefore(row, pick);
+    if (r.data.installing) rideUploadedInstall(inst, idle);
+  }).catch(() => {});
 }
 
 /* ---- Device Info ---- */
@@ -282,6 +328,147 @@ export async function loadDeviceInfo() {
 /* ---- About ---- */
 // The same rows the device's own About page shows: app identity plus
 // attribution and the license in one sentence.
+/* The button's final word once the device has handed an APK to the
+   installer (or failed to): shared by the download and the upload flows. */
+function settleInstall(btn, st, idleLabel) {
+  if (st?.lastOutcome === 'cancelled') {
+    btn.disabled = false;
+    btn.textContent = idleLabel;
+    return;
+  }
+  if (st?.lastOutcome === 'failed') {
+    btn.disabled = false;
+    btn.textContent = idleLabel;
+    alert(st.lastError || 'Update failed. Check the device logs.');
+    return;
+  }
+  if (st?.lastOutcome === 'silent') {
+    btn.textContent = 'Installing…';
+    return;
+  }
+  btn.textContent = 'Confirm on the tablet screen';
+}
+
+/* An APK from this computer, for a kiosk that can reach neither GitHub
+   nor a file server (#566). XHR rather than fetch: an APK is close to
+   200 MB and only XHR reports upload progress. Resolves to the endpoint's
+   JSON, or an error shaped like one. */
+function uploadApk(file, onProgress) {
+  return new Promise((resolve) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/api/update/upload');
+    xhr.setRequestHeader('Authorization', `Bearer ${state.token}`);
+    xhr.upload.onprogress = (e) => {
+      if (e.lengthComputable) onProgress(e.loaded / e.total);
+    };
+    xhr.onload = () => {
+      try { resolve(JSON.parse(xhr.responseText)); }
+      catch (_) { resolve({ ok: false, error: `The device answered HTTP ${xhr.status}.` }); }
+    };
+    xhr.onerror = () => resolve({ ok: false, error: 'The device did not answer.' });
+    xhr.send(file);
+  });
+}
+
+/* Rides an uploaded APK's install: no download to watch, only the hand-off
+   to the installer, which ends with installing=false and lastOutcome set. */
+async function rideUploadedInstall(btn, idleLabel) {
+  let st;
+  let misses = 0;
+  btn.disabled = true;
+  btn.textContent = 'Installing…';
+  for (;;) {
+    await new Promise((r) => setTimeout(r, 1000));
+    const cur = (await cmd('getUpdateStatus').catch(() => null))?.data;
+    if (!cur) { if (++misses >= 5) break; continue; }
+    misses = 0;
+    st = cur;
+    if (!st.installing) break;
+  }
+  settleInstall(btn, st, idleLabel);
+}
+
+/* The Install from file button: pick an APK, upload it, then confirm what
+   arrived (version and build, as the device read them) before installing.
+   A leader with followers gets a second choice, the whole fleet. */
+export function attachUploadInstall(btn) {
+  const idleLabel = btn.textContent;
+  const picker = document.createElement('input');
+  picker.type = 'file';
+  picker.accept = '.apk,application/vnd.android.package-archive';
+  picker.hidden = true;
+  btn.after(picker);
+  btn.onclick = () => picker.click();
+  picker.addEventListener('change', async () => {
+    const file = picker.files?.[0];
+    picker.value = '';
+    if (!file) return;
+    btn.disabled = true;
+    btn.textContent = 'Uploading… 0%';
+    const res = await uploadApk(file, (f) => {
+      btn.textContent = `Uploading… ${Math.round(f * 100)}%`;
+    });
+    if (!res?.ok) {
+      btn.disabled = false;
+      btn.textContent = idleLabel;
+      await messageBox({ title: 'Install from file',
+        message: res?.error || 'The upload failed.' });
+      return;
+    }
+    const d = res.data || {};
+    const mb = (d.size / 1048576).toFixed(1);
+    const same = d.buildNumber === d.currentBuild;
+    const fleet = (await cmd('fleetStatus').catch(() => null))?.data;
+    const leads = !!fleet?.leader && (fleet.followers || []).some((f) => f.online);
+    const buttons = ['Cancel', ...(leads ? ['Install on the fleet'] : []), 'Install'];
+    const choice = await messageBox({
+      title: `Install version ${d.version}`,
+      message: `The uploaded APK is version ${d.version} (build ${d.buildNumber}, ${mb} MB). `
+        + (same ? 'The kiosk already runs this build.'
+          : `The kiosk runs ${d.currentVersion} (build ${d.currentBuild}).`)
+        + '\nThe install must be confirmed on the tablet screen unless the kiosk installs silently.',
+      buttons,
+    });
+    if (choice === 'Cancel') {
+      btn.disabled = false;
+      btn.textContent = idleLabel;
+      return;
+    }
+    if (choice === 'Install on the fleet') {
+      const out = await cmd('fleetInstallUploaded').catch(() => null);
+      if (!out?.ok) {
+        btn.disabled = false;
+        btn.textContent = idleLabel;
+        await messageBox({ title: 'Install on the fleet',
+          message: out?.error || 'The device did not answer.' });
+        return;
+      }
+      const data = out.data || {};
+      const parts = [];
+      if ((data.started || []).length) parts.push(`${data.started.join(', ')} installing.`);
+      if (data.self) parts.push('This kiosk installs last.');
+      for (const [k, v] of Object.entries(data.skipped || {})) parts.push(`${k}: ${v}.`);
+      showToast({ title: 'Updating the fleet', message: parts.join(' '),
+        kind: data.started?.length || data.self ? 'success' : 'info' });
+      if (!data.self) {
+        btn.disabled = false;
+        btn.textContent = idleLabel;
+        return;
+      }
+    } else {
+      const out = await cmd('installUploadedApk').catch(() => null);
+      if (!out?.ok) {
+        btn.disabled = false;
+        btn.textContent = idleLabel;
+        await messageBox({ title: 'Install from file',
+          message: out?.error || 'The device did not answer.' });
+        return;
+      }
+    }
+    await rideUploadedInstall(btn, idleLabel);
+  });
+}
+
 /* The Install button's whole life, shared by the About page and the
    Overview's Needs attention row: release notes, then the download on the
    tablet, ridden by polling until the installer has it. `btn` carries its
@@ -338,22 +525,7 @@ export function attachUpdateInstall(btn, upd) {
       btn.textContent = 'Already up to date';
       return;
     }
-    if (st?.lastOutcome === 'cancelled') {
-      btn.disabled = false;
-      btn.textContent = idleLabel;
-      return;
-    }
-    if (st?.lastOutcome === 'failed') {
-      btn.disabled = false;
-      btn.textContent = idleLabel;
-      alert(st.lastError || 'Update failed. Check the device logs.');
-      return;
-    }
-    if (st?.lastOutcome === 'silent') {
-      btn.textContent = 'Installing…';
-      return;
-    }
-    btn.textContent = 'Confirm on the tablet screen';
+    settleInstall(btn, st, idleLabel);
   };
   // Release notes first, then the download: the same flow as the
   // drawer's dialog on the device.

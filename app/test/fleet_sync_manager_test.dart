@@ -50,6 +50,9 @@ void main() {
     ],
   };
 
+  // What getUpdateStatus reports as the uploaded APK, when a test set one.
+  Map<String, Object?>? uploaded;
+
   Future<void> build({Map<String, Object> prefs = const {}}) async {
     SharedPreferences.setMockInitialValues({
       'ks.browser.start_url': 'http://ha.local:8123/lovelace/0',
@@ -89,6 +92,7 @@ void main() {
         handler: (p) async => CommandResult.ok('tok-${p['leader']}'),
       ),
     );
+    uploaded = null;
     commands.register(
       Command(
         name: 'getUpdateStatus',
@@ -97,6 +101,7 @@ void main() {
           'currentVersion': '2026.9.19',
           'availableVersion': null,
           'progress': null,
+          'uploaded': uploaded,
         }),
       ),
     );
@@ -1056,9 +1061,10 @@ void main() {
       final profiles = fleet.status()['profiles'] as List;
       expect(profiles.map((p) => (p as Map)['name']), [
         'Default',
+        'Updates only',
         'Kiosk only',
       ]);
-      expect((profiles[1] as Map)['kiosks'], 1);
+      expect((profiles[2] as Map)['kiosks'], 1);
       // Back to the Default.
       await commands.execute('fleetAssignProfile', {'id': 'bed'});
       await commands.execute('fleetSyncNow', const {});
@@ -1234,6 +1240,99 @@ void main() {
       },
     );
 
+    test('the uploaded APK is streamed to each follower and installed there, '
+        'then here', () async {
+      await build(
+        prefs: {
+          'ks.fleet.leader': true,
+          'ks.fleet.followers': jsonEncode([
+            {
+              'id': 'bed',
+              'name': 'Bedroom',
+              'address': '192.168.1.71',
+              'port': 2324,
+              'token': 't',
+            },
+          ]),
+        },
+      );
+      final apk = await File(
+        '${Directory.systemTemp.path}/ks_fleet_upload_test.apk',
+      ).writeAsBytes(List<int>.generate(300, (i) => i % 251));
+      addTearDown(() => apk.delete());
+      // What the update manager reports once the admin uploaded a file.
+      uploaded = {
+        'version': '2026.9.20',
+        'buildNumber': 21,
+        'size': 300,
+        'path': apk.path,
+      };
+      var selfInstalls = 0;
+      commands.register(
+        Command(
+          name: 'installUploadedApk',
+          description: 'install stub',
+          handler: (_) async {
+            selfInstalls++;
+            return const CommandResult.ok(true);
+          },
+        ),
+      );
+      answers['GET /api/fleet/status'] = (_) => {
+        'id': 'bed',
+        'version': '2026.9.19',
+        'leaderId': 'me',
+      };
+      answers['POST /api/update/upload'] = (_) => {
+        'ok': true,
+        'data': {'version': '2026.9.20', 'buildNumber': 21, 'currentBuild': 20},
+      };
+      answers['POST /api/commands/installUploadedApk'] = (_) => {
+        'ok': true,
+        'data': true,
+      };
+      await commands.execute('fleetSyncNow', const {});
+      final r = await commands.execute('fleetInstallUploaded', const {});
+      expect(r.ok, isTrue);
+      final data = r.data as Map;
+      expect(data['started'], ['Bedroom']);
+      expect(data['self'], isTrue);
+      expect(selfInstalls, 1);
+      final upload = sent.singleWhere(
+        (q) => q.url.path == '/api/update/upload',
+      );
+      expect(upload.headers['Authorization'], 'Bearer t');
+      expect(upload.bodyBytes, await apk.readAsBytes());
+      expect(
+        sent.where((q) => q.url.path == '/api/commands/installUploadedApk'),
+        hasLength(1),
+      );
+
+      // A follower already on that build is skipped.
+      sent.clear();
+      answers['POST /api/update/upload'] = (_) => {
+        'ok': true,
+        'data': {'version': '2026.9.20', 'buildNumber': 21, 'currentBuild': 21},
+      };
+      final again = await commands.execute('fleetInstallUploaded', {
+        'id': 'bed',
+      });
+      expect((again.data as Map)['skipped'], {
+        'Bedroom': 'already on 2026.9.20',
+      });
+      expect(
+        sent.where((q) => q.url.path == '/api/commands/installUploadedApk'),
+        isEmpty,
+      );
+    });
+
+    test('with nothing uploaded the fleet install says so', () async {
+      await build(prefs: {'ks.fleet.leader': true});
+      final r = await commands.execute('fleetInstallUploaded', const {});
+      expect(r.ok, isFalse);
+      expect(r.error, contains('No uploaded APK'));
+    });
+
     test(
       'candidates are the kiosks heard, minus the followers, with whom they follow',
       () async {
@@ -1379,5 +1478,97 @@ void main() {
     f.version = '2026.9.19+118';
     f.online = false;
     expect(FleetSyncManager.phaseOf(f, '2026.9.19', '3', now)['tone'], 'muted');
+  });
+
+  group('the Updates only profile', () {
+    test('ships built in after the Default, syncs nothing and stays', () async {
+      await build(
+        prefs: {
+          'ks.fleet.leader': true,
+          'ks.fleet.profiles': jsonEncode([
+            {
+              'id': 'own',
+              'name': 'Own',
+              'categories': ['Gestures'],
+              'credentials': [],
+              'dashboard': false,
+              'excluded': [],
+            },
+            // A stored copy (an edit that somehow landed) is dropped.
+            {
+              'id': 'updates-only',
+              'name': 'Edited',
+              'categories': ['Gestures'],
+              'credentials': [],
+              'dashboard': false,
+              'excluded': [],
+            },
+          ]),
+        },
+      );
+      expect(fleet.profiles.map((p) => p.id), [
+        'default',
+        'updates-only',
+        'own',
+      ]);
+      final p = fleet.profiles[1];
+      expect(p.name, 'Updates only');
+      expect(p.isBuiltIn, isTrue);
+      expect(p.describe(), 'Nothing syncs. Only updates are pushed.');
+      expect(fleet.profileSettings(p), isEmpty);
+      // Never stored.
+      final stored = jsonDecode(settings.get(defs.fleetProfiles)) as List;
+      expect(stored.map((e) => (e as Map)['id']), ['default', 'own']);
+
+      final edit = await commands.execute('fleetSetProfile', {
+        'profile': {
+          ...p.toJson(),
+          'categories': ['Gestures'],
+        },
+      });
+      expect(edit.ok, isFalse);
+      expect(edit.error, contains('cannot be changed'));
+      final del = await commands.execute('fleetDeleteProfile', {
+        'id': 'updates-only',
+      });
+      expect(del.ok, isFalse);
+      expect(del.error, contains('stays'));
+      final dup = await commands.execute('fleetSetProfile', {
+        'profile': {...p.toJson(), 'id': '', 'name': 'Some settings'},
+      });
+      expect(dup.ok, isTrue);
+      expect(fleet.profiles.last.name, 'Some settings');
+      expect(fleet.profiles.last.categories, isEmpty);
+    });
+
+    test('a follower can be put on it and then gets no settings', () async {
+      await build(
+        prefs: {
+          'ks.fleet.leader': true,
+          'ks.fleet.followers': jsonEncode([
+            {
+              'id': 'bed',
+              'name': 'Bedroom',
+              'address': '192.168.1.71',
+              'port': 2324,
+              'token': 't',
+            },
+          ]),
+        },
+      );
+      final r = await commands.execute('fleetAssignProfile', {
+        'id': 'bed',
+        'profile': 'updates-only',
+      });
+      expect(r.ok, isTrue);
+      final status =
+          (await commands.execute('fleetStatus', const {})).data as Map;
+      final f = (status['followers'] as List).single as Map;
+      expect(f['profile'], 'updates-only');
+      expect(
+        fleet.profileSettings(fleet.profileFor(fleet.followers.single)),
+        isEmpty,
+      );
+    });
   });
 }

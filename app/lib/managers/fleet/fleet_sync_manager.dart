@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
+import 'dart:io' show File;
 import 'dart:math' show Random;
 
 import 'package:crypto/crypto.dart' show md5;
@@ -35,6 +36,18 @@ class SyncProfile {
   static const initial = SyncProfile(
     categories: defs.fleetDefaultCategories,
     credentials: defs.fleetDefaultCredentials,
+  );
+
+  /// The built-in Updates only: no category, no credential, no dashboard,
+  /// so a kiosk on it keeps every setting of its own and the leader only
+  /// pushes updates to it. Never stored, never edited, never deleted.
+  static const updatesOnlyId = 'updates-only';
+  static const updatesOnly = SyncProfile(
+    id: updatesOnlyId,
+    name: 'Updates only',
+    categories: {},
+    credentials: {},
+    excluded: {},
   );
 
   final String id;
@@ -112,13 +125,19 @@ class SyncProfile {
   );
 
   bool get isDefault => id == defaultId;
+  bool get isUpdatesOnly => id == updatesOnlyId;
+
+  /// The two that ship with the app: neither can be deleted, and Updates
+  /// only cannot be changed either.
+  bool get isBuiltIn => isDefault || isUpdatesOnly;
 
   /// One line for a row: "Categories: 9 of 16. Credentials: 2 of 3.
   /// Excluded: 14."
-  String describe() =>
-      'Categories: ${categories.length} of ${defs.fleetSyncCategories.length}. '
-      'Credentials: ${credentials.length} of ${defs.fleetCredentialKeys.length}. '
-      'Excluded: ${excluded.length}.';
+  String describe() => isUpdatesOnly
+      ? 'Nothing syncs. Only updates are pushed.'
+      : 'Categories: ${categories.length} of ${defs.fleetSyncCategories.length}. '
+            'Credentials: ${credentials.length} of ${defs.fleetCredentialKeys.length}. '
+            'Excluded: ${excluded.length}.';
 
   @override
   bool operator ==(Object other) =>
@@ -428,7 +447,7 @@ class FleetSyncManager extends Manager {
         if (list is List) {
           for (final item in list) {
             var p = SyncProfile.parse(item);
-            if (p == null || p.id.isEmpty) continue;
+            if (p == null || p.id.isEmpty || p.isUpdatesOnly) continue;
             // An exclusion list nobody touched follows the default as it
             // grows (the volumes joined it after the first profiles).
             final excluded = p.excluded;
@@ -449,12 +468,19 @@ class FleetSyncManager extends Manager {
       _profiles.insert(0, SyncProfile.initial);
       changed = true;
     }
+    // Right after the Default, in code only: the setting never carries it,
+    // so an edit cannot stick and an older version that reads the setting
+    // does not meet a profile it would let the leader change.
+    _profiles.insert(1, SyncProfile.updatesOnly);
     if (changed) await _saveProfiles();
   }
 
   Future<void> _saveProfiles() => _settings.set(
     defs.fleetProfiles,
-    jsonEncode([for (final p in _profiles) p.toJson()]),
+    jsonEncode([
+      for (final p in _profiles)
+        if (!p.isUpdatesOnly) p.toJson(),
+    ]),
   );
 
   Future<void> _saveFollowers() => _settings.set(
@@ -1045,6 +1071,23 @@ class FleetSyncManager extends Manager {
       )
       ..register(
         Command(
+          name: 'fleetInstallUploaded',
+          description:
+              'Push the APK uploaded to this kiosk (POST /api/update/upload) '
+              'to each follower and install it there, then install it here. '
+              'Followers first so this one stays up to drive it',
+          params: const {'id': 'One follower or omitted for the fleet'},
+          handler: (p) async {
+            final out = await installUploadedOnFleet('${p['id'] ?? ''}');
+            final error = out['error'];
+            return error is String
+                ? CommandResult.fail(error)
+                : CommandResult.ok(out);
+          },
+        ),
+      )
+      ..register(
+        Command(
           name: 'fleetAccept',
           description:
               'Accept the invitation waiting on this kiosk. Answered on '
@@ -1305,6 +1348,9 @@ class FleetSyncManager extends Manager {
       if (trimmedName.isEmpty) return ('A profile needs a name', null);
       profile = profile.copyWith(id: _nonce().substring(0, 12));
     }
+    if (profile.isUpdatesOnly) {
+      return ('The Updates only profile cannot be changed', null);
+    }
     if (profile.isDefault) {
       profile = profile.copyWith(name: 'Default');
     } else if (trimmedName.isEmpty) {
@@ -1333,6 +1379,9 @@ class FleetSyncManager extends Manager {
 
   Future<String?> deleteProfile(String id) async {
     if (id == SyncProfile.defaultId) return 'The Default profile stays';
+    if (id == SyncProfile.updatesOnlyId) {
+      return 'The Updates only profile stays';
+    }
     final at = _profiles.indexWhere((p) => p.id == id);
     if (at < 0) return 'No such profile';
     _profiles.removeAt(at);
@@ -1451,6 +1500,85 @@ class FleetSyncManager extends Manager {
       name,
       'update the fleet: ${started.length} follower(s) installing'
       '${self ? ', then this kiosk' : ''}',
+    );
+    _publish();
+    return {'started': started, 'skipped': skipped, 'self': self};
+  }
+
+  /// How long one APK upload to a follower may take. A release APK is
+  /// under 200 MB and a wall tablet's Wi-Fi moves that in a minute or two;
+  /// the ceiling is for one that stalls.
+  @visibleForTesting
+  Duration uploadTimeout = const Duration(minutes: 15);
+
+  /// Install the APK uploaded to this kiosk on the fleet (issue #566): the
+  /// file is streamed to each follower's own upload endpoint, which
+  /// inspects it under the same rules (a newer Kiosk Satellite build) and
+  /// installs it, then this kiosk installs its own copy. Followers first
+  /// so this one stays up to drive it. Answers who was told and who was
+  /// skipped, with the reason, or `error` when nothing is uploaded here.
+  Future<Map<String, Object?>> installUploadedOnFleet(String id) async {
+    final status = await commands.execute('getUpdateStatus', const {});
+    final data = status.data;
+    final up = data is Map ? data['uploaded'] : null;
+    if (up is! Map) return {'error': 'No uploaded APK is waiting.'};
+    final file = File('${up['path']}');
+    if (!await file.exists()) {
+      return {'error': 'The uploaded APK is gone. Upload it again.'};
+    }
+    final version = '${up['version']}';
+    final build = (up['buildNumber'] as num?)?.toInt() ?? 0;
+    final started = <String>[];
+    final skipped = <String, String>{};
+    for (final f in _followers) {
+      if (id.isNotEmpty && f.id != id) continue;
+      if (f.token == null) {
+        skipped[f.name] = 'not a follower yet';
+        continue;
+      }
+      if (!f.online) {
+        skipped[f.name] = 'offline';
+        continue;
+      }
+      log.info(name, 'sending v$version to ${f.name}');
+      final sent = _jsonOf(
+        await _upload('${f.url}/api/update/upload', file, token: f.token),
+      );
+      if (sent?['ok'] != true) {
+        skipped[f.name] = '${sent?['error'] ?? 'did not take the upload'}';
+        continue;
+      }
+      final accepted = sent!['data'];
+      if (accepted is Map && accepted['currentBuild'] == build) {
+        skipped[f.name] = 'already on $version';
+        continue;
+      }
+      final res = _jsonOf(
+        await _post(
+          '${f.url}/api/commands/installUploadedApk',
+          {},
+          token: f.token,
+        ),
+      );
+      if (res?['ok'] == true) {
+        started.add(f.name);
+        f.update = {...?f.update, 'installing': true};
+      } else {
+        skipped[f.name] = '${res?['error'] ?? 'did not answer'}';
+      }
+    }
+    var self = false;
+    if (id.isEmpty) {
+      final r = await commands.execute('installUploadedApk', const {});
+      self = r.ok;
+      if (!r.ok) {
+        skipped[_selfName.isEmpty ? 'this kiosk' : _selfName] = '${r.error}';
+      }
+    }
+    log.info(
+      name,
+      'install the uploaded v$version on the fleet: ${started.length} '
+      'follower(s) installing${self ? ', then this kiosk' : ''}',
     );
     _publish();
     return {'started': started, 'skipped': skipped, 'self': self};
@@ -1813,6 +1941,9 @@ class FleetSyncManager extends Manager {
         'tone': 'muted',
       };
     }
+    if (f.update?['installing'] == true) {
+      return {'phase': 'updating', 'status': 'Installing', 'tone': 'muted'};
+    }
     if (!f.dirty && f.appliedRevision == revision && f.lastSyncAt > 0) {
       return {
         'phase': 'synced',
@@ -1891,6 +2022,33 @@ class FleetSyncManager extends Manager {
             body: jsonEncode(body),
           )
           .timeout(requestTimeout);
+    } catch (e) {
+      log.debug(name, 'POST $url: $e');
+      return null;
+    } finally {
+      client.close();
+    }
+  }
+
+  /// Streams [file] as the raw body of a POST, the way the update upload
+  /// endpoint takes an APK. The response comes once the whole file is
+  /// across, so this waits [uploadTimeout], not [requestTimeout].
+  Future<http.Response?> _upload(String url, File file, {String? token}) async {
+    final client = clientFactory();
+    try {
+      final request = http.StreamedRequest('POST', Uri.parse(url))
+        ..contentLength = await file.length()
+        ..headers['Content-Type'] = 'application/vnd.android.package-archive';
+      if (token != null) request.headers['Authorization'] = 'Bearer $token';
+      // pipe closes the sink after the last chunk, which is what ends the
+      // request; a read error ends it too and surfaces from send.
+      unawaited(
+        file.openRead().pipe(request.sink).catchError((Object e) {
+          log.debug(name, 'upload $url: $e');
+        }),
+      );
+      final streamed = await client.send(request).timeout(uploadTimeout);
+      return await http.Response.fromStream(streamed).timeout(requestTimeout);
     } catch (e) {
       log.debug(name, 'POST $url: $e');
       return null;

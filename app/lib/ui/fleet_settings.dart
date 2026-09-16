@@ -15,8 +15,7 @@ import 'subpage_icons.dart';
 import 'toast.dart';
 
 /// Where the full list of what syncs and what never does lives.
-const fleetDocsUrl =
-    'https://kiosksatellite.com/docs/fleet/';
+const fleetDocsUrl = 'https://kiosksatellite.com/docs/fleet/';
 
 /// The Fleet Management page: one kiosk leads, the others follow. The
 /// remote admin draws the same cards from the same `fleetStatus` command.
@@ -815,7 +814,7 @@ class _FleetProfilePageState extends State<FleetProfilePage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        if (!p.isDefault)
+        if (!p.isBuiltIn)
           SettingsCard(
             children: [
               SettingsRow(
@@ -841,83 +840,98 @@ class _FleetProfilePageState extends State<FleetProfilePage> {
               ),
             ],
           ),
-        if (!p.isDefault) const SizedBox(height: 16),
+        if (!p.isBuiltIn) const SizedBox(height: 16),
         const SectionHeading('What it syncs'),
-        SettingsCard(
-          children: [
-            ListTile(
-              title: const Text('Categories'),
-              subtitle: Text(
-                catNames.isEmpty
-                    ? 'None'
-                    : '${catNames.length} of ${categories.length}: '
-                          '${catNames.join(', ')}',
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
+        if (p.isUpdatesOnly)
+          const SettingsCard(
+            children: [
+              SettingsRow(
+                title: Text('Nothing'),
+                subtitle: Text(
+                  'Kiosks on this profile keep every setting of their own. '
+                  'The leader only pushes updates to them.',
+                ),
               ),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: _busy
-                  ? null
-                  : () async {
-                      final picked = await showCategoriesDialog(
-                        context,
-                        categories: categories,
-                        picked: p.categories,
-                      );
-                      if (picked == null) return;
-                      await _save(p.copyWith(categories: picked));
-                    },
-            ),
-            ListTile(
-              title: const Text('Credentials'),
-              subtitle: Text(
-                credNames.isEmpty ? 'None travel' : credNames.join(', '),
-              ),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: _busy
-                  ? null
-                  : () async {
-                      final picked = await showCredentialsDialog(
-                        context,
-                        credentials: credentials,
-                        picked: p.credentials,
-                      );
-                      if (picked == null) return;
-                      await _save(p.copyWith(credentials: picked));
-                    },
-            ),
-            SettingsRow(
-              title: const Text('Include the dashboard'),
-              subtitle: const Text('The start page and the default dashboard.'),
-              trailing: Switch(
-                value: p.dashboard,
-                onChanged: _busy
+            ],
+          )
+        else
+          SettingsCard(
+            children: [
+              ListTile(
+                title: const Text('Categories'),
+                subtitle: Text(
+                  catNames.isEmpty
+                      ? 'None'
+                      : '${catNames.length} of ${categories.length}: '
+                            '${catNames.join(', ')}',
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: _busy
                     ? null
-                    : (v) => _save(p.copyWith(dashboard: v)),
+                    : () async {
+                        final picked = await showCategoriesDialog(
+                          context,
+                          categories: categories,
+                          picked: p.categories,
+                        );
+                        if (picked == null) return;
+                        await _save(p.copyWith(categories: picked));
+                      },
               ),
-            ),
-            ListTile(
-              title: const Text('Excluded settings'),
-              subtitle: Text(switch (p.excluded.length) {
-                0 => 'None',
-                1 => 'One setting left out',
-                final n => '$n settings left out',
-              }),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: _busy
-                  ? null
-                  : () async {
-                      final picked = await showExcludedDialog(
-                        context,
-                        container: c,
-                        excluded: p.excluded,
-                      );
-                      if (picked == null) return;
-                      await _save(p.copyWith(excluded: picked));
-                    },
-            ),
-          ],
-        ),
+              ListTile(
+                title: const Text('Credentials'),
+                subtitle: Text(
+                  credNames.isEmpty ? 'None travel' : credNames.join(', '),
+                ),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: _busy
+                    ? null
+                    : () async {
+                        final picked = await showCredentialsDialog(
+                          context,
+                          credentials: credentials,
+                          picked: p.credentials,
+                        );
+                        if (picked == null) return;
+                        await _save(p.copyWith(credentials: picked));
+                      },
+              ),
+              SettingsRow(
+                title: const Text('Include the dashboard'),
+                subtitle: const Text(
+                  'The start page and the default dashboard.',
+                ),
+                trailing: Switch(
+                  value: p.dashboard,
+                  onChanged: _busy
+                      ? null
+                      : (v) => _save(p.copyWith(dashboard: v)),
+                ),
+              ),
+              ListTile(
+                title: const Text('Excluded settings'),
+                subtitle: Text(switch (p.excluded.length) {
+                  0 => 'None',
+                  1 => 'One setting left out',
+                  final n => '$n settings left out',
+                }),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: _busy
+                    ? null
+                    : () async {
+                        final picked = await showExcludedDialog(
+                          context,
+                          container: c,
+                          excluded: p.excluded,
+                        );
+                        if (picked == null) return;
+                        await _save(p.copyWith(excluded: picked));
+                      },
+              ),
+            ],
+          ),
         const SectionHeading('Kiosks'),
         SettingsCard(
           children: [
@@ -958,7 +972,7 @@ class _FleetProfilePageState extends State<FleetProfilePage> {
                 child: const Text('Duplicate'),
               ),
             ),
-            if (!p.isDefault)
+            if (!p.isBuiltIn)
               SettingsRow(
                 title: const Text('Delete profile'),
                 subtitle: Text(

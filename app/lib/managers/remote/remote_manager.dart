@@ -599,6 +599,16 @@ class RemoteManager extends Manager {
         return _fileDownload(request);
       case ('POST', 'api/files/upload'):
         return _fileUpload(request);
+      // The APK is the raw body, streamed to the update manager, which
+      // keeps it only when it is a newer Kiosk Satellite build (#566).
+      // The install is a second call, installUploadedApk, so what was
+      // uploaded can be checked before anything happens on the device.
+      case ('POST', 'api/update/upload'):
+        final r = await commands.execute('receiveUploadedUpdate', {
+          'stream': request.read(),
+          'length': request.contentLength,
+        });
+        return _json(r.ok ? 200 : 400, r.toJson());
     }
 
     // POST /api/commands/<name>
@@ -791,6 +801,8 @@ class RemoteManager extends Manager {
     'api/commands/getUpdateStatus',
     'api/commands/checkUpdateNow',
     'api/commands/installUpdate',
+    'api/update/upload',
+    'api/commands/installUploadedApk',
   };
 
   /// One invitation per client every few seconds: the endpoint is public.

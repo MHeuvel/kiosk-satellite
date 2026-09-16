@@ -25,7 +25,7 @@ Accepting an invitation grants the leader a token valid only for fleet endpoints
 
 ## Profiles
 
-Profiles determine exactly what a follower receives. The built-in **Default** profile can be customized, and the leader can create and assign new ones under **Profiles**. You can assign a profile when adding a kiosk or later from the device row's overflow menu. If a device uses a custom profile, its name appears as a tag on the row. 
+Profiles determine exactly what a follower receives. Two ship with the app. The **Default** profile can be customized. The **Updates only** profile syncs nothing: a kiosk on it keeps every setting of its own and only gets updates pushed by the leader, which is the profile for a fleet you only want to keep on one version. It cannot be changed or deleted, but it can be duplicated as a starting point. The leader can create and assign new ones under **Profiles**. You can assign a profile when adding a kiosk or later from the device row's overflow menu. If a device uses a custom profile, its name appears as a tag on the row. 
 
 Each profile has its own settings page where you can manage categories, credentials, dashboard inclusion, and excluded settings. Deleting a custom profile simply reverts its assigned kiosks back to the Default profile. Profile names must be unique to the leader.
 
@@ -122,4 +122,4 @@ Files referenced by settings (like notification chimes, gallery photos, or local
 | `/api/fleet/apply` | POST | fleet | `{revision, version, settings}`. Held in queue if versions differ. |
 | `/api/fleet/leave` | POST | fleet | Notifies the kiosk that the leader removed it from the fleet. |
 
-A fleet token also grants access to `getUpdateStatus`, `checkUpdateNow`, and `installUpdate` under `/api/commands/`, but nothing else. Both pages utilize commands like: `fleetStatus`, `fleetCandidates`, `fleetInvite`, `fleetSetProfile`, `fleetDeleteProfile`, `fleetAssignProfile`, `fleetSyncable`, `fleetRemove`, `fleetSyncNow`, `fleetUpdate`, and `fleetLeave`. Note that `fleetAccept` and `fleetDecline` are rejected if sent over the remote API. The WebSocket broadcast includes a `fleetsync` event upon any change.
+A fleet token also grants access to `getUpdateStatus`, `checkUpdateNow`, `installUpdate` and `installUploadedApk` under `/api/commands/` and to `POST /api/update/upload`, but nothing else. Both pages utilize commands like: `fleetStatus`, `fleetCandidates`, `fleetInvite`, `fleetSetProfile`, `fleetDeleteProfile`, `fleetAssignProfile`, `fleetSyncable`, `fleetRemove`, `fleetSyncNow`, `fleetUpdate`, `fleetInstallUploaded`, and `fleetLeave`. Note that `fleetAccept` and `fleetDecline` are rejected if sent over the remote API. The WebSocket broadcast includes a `fleetsync` event upon any change.

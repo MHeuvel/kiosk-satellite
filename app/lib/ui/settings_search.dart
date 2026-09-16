@@ -91,6 +91,14 @@ const List<SettingsSearchEntry> handBuiltSearchEntries = [
   ),
   SettingsSearchEntry(
     category: "Device",
+    title: "Install from file",
+    description:
+        "Upload a Kiosk Satellite APK through the remote admin and install it.",
+    subpage: "Updates",
+    anchorId: "x:update_upload",
+  ),
+  SettingsSearchEntry(
+    category: "Device",
     title: "Custom repository guide",
     description:
         "How to host the releases file and the APKs on your own network.",

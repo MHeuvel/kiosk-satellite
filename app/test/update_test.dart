@@ -36,25 +36,32 @@ void main() {
   final installArguments = <Map>[];
   var helperFallback = false;
   var helperCommitFailure = false;
+  // What the native side reads out of an uploaded APK, and the free bytes
+  // it reports for the space check (#566).
+  Map<String, Object?>? inspected;
+  int? freeSpace;
 
   /// One GitHub release object, as the releases list carries them.
-  Map<String, Object?> entry(String tag,
-          {bool prerelease = false, int? size}) =>
+  Map<String, Object?> entry(
+    String tag, {
+    bool prerelease = false,
+    int? size,
+  }) => {
+    'tag_name': 'v$tag',
+    'html_url':
+        'https://github.com/jxlarrea/kiosk-satellite/'
+        'releases/tag/v$tag',
+    'body': 'Notes for $tag',
+    'prerelease': prerelease,
+    'draft': false,
+    'assets': [
       {
-        'tag_name': 'v$tag',
-        'html_url': 'https://github.com/jxlarrea/kiosk-satellite/'
-            'releases/tag/v$tag',
-        'body': 'Notes for $tag',
-        'prerelease': prerelease,
-        'draft': false,
-        'assets': [
-          {
-            'name': 'kiosk-satellite-$tag.apk',
-            'browser_download_url': 'https://example.invalid/$tag.apk',
-            'size': ?size,
-          },
-        ],
-      };
+        'name': 'kiosk-satellite-$tag.apk',
+        'browser_download_url': 'https://example.invalid/$tag.apk',
+        'size': ?size,
+      },
+    ],
+  };
 
   /// The releases-list payload, newest first, as the check fetches it.
   String releases(List<Map<String, Object?>> entries) => jsonEncode(entries);
@@ -78,8 +85,16 @@ void main() {
     installArguments.clear();
     helperFallback = false;
     helperCommitFailure = false;
+    inspected = {
+      'packageName': 'me.jxl.kiosk_satellite',
+      'versionName': '1.2.0',
+      'versionCode': 5,
+    };
+    freeSpace = null;
     kioskCalls = [];
     messenger.setMockMethodCallHandler(installer, (call) async {
+      if (call.method == 'inspectApk') return inspected;
+      if (call.method == 'freeSpace') return freeSpace;
       if (call.method == 'needsConfirmation') {
         if ((call.arguments as Map?)?['useShizuku'] == true) {
           if (!shizukuReady) {
@@ -120,24 +135,31 @@ void main() {
     registry = CommandRegistry(log);
     // Stand-ins for the kiosk manager's install pause (issue #170); the
     // update manager only ever executes them by name.
-    registry.register(Command(
-      name: 'pauseKioskForInstall',
-      description: '',
-      handler: (_) async {
-        kioskCalls.add('pause');
-        return const CommandResult.ok();
-      },
-    ));
-    registry.register(Command(
-      name: 'resumeKioskAfterInstall',
-      description: '',
-      handler: (_) async {
-        kioskCalls.add('resume');
-        return const CommandResult.ok();
-      },
-    ));
+    registry.register(
+      Command(
+        name: 'pauseKioskForInstall',
+        description: '',
+        handler: (_) async {
+          kioskCalls.add('pause');
+          return const CommandResult.ok();
+        },
+      ),
+    );
+    registry.register(
+      Command(
+        name: 'resumeKioskAfterInstall',
+        description: '',
+        handler: (_) async {
+          kioskCalls.add('resume');
+          return const CommandResult.ok();
+        },
+      ),
+    );
     update = UpdateManager(
-      EventBus(), registry, log, useShizuku: () => shizukuEnabled,
+      EventBus(),
+      registry,
+      log,
+      useShizuku: () => shizukuEnabled,
     );
   });
 
@@ -150,8 +172,8 @@ void main() {
 
   /// Runs the check that raises the notice, with GitHub offering [tag].
   Future<void> notice(String tag) async {
-    update.clientFactory = () => MockClient(
-        (request) async => http.Response(release(tag), 200));
+    update.clientFactory = () =>
+        MockClient((request) async => http.Response(release(tag), 200));
     await update.init();
     expect(await update.check(), isTrue);
     expect(update.available.value?.version, tag);
@@ -219,11 +241,10 @@ void main() {
       ]);
     });
 
-    test('a folder without the releases file leaves the notice down',
-        () async {
+    test('a folder without the releases file leaves the notice down', () async {
       mirror([], const []);
-      update.localClientFactory = () => MockClient(
-          (request) async => http.Response('not found', 404));
+      update.localClientFactory = () =>
+          MockClient((request) async => http.Response('not found', 404));
       await update.init();
       expect(await update.check(), isFalse);
       expect(update.available.value, isNull);
@@ -236,36 +257,38 @@ void main() {
       expect(update.available.value, isNull);
     });
 
-    test('the custom source without a URL never falls back to GitHub',
-        () async {
-      update = UpdateManager(
-        EventBus(),
-        registry,
-        Logger(),
-        customSource: () => '',
-      );
-      var asked = 0;
-      update.clientFactory = () => MockClient((request) async {
-        asked++;
-        return http.Response(release('2.0.0'), 200);
-      });
-      update.localClientFactory = update.clientFactory;
-      await update.init();
-      expect(await update.check(), isFalse);
-      expect(update.available.value, isNull);
-      expect(asked, 0);
-    });
+    test(
+      'the custom source without a URL never falls back to GitHub',
+      () async {
+        update = UpdateManager(
+          EventBus(),
+          registry,
+          Logger(),
+          customSource: () => '',
+        );
+        var asked = 0;
+        update.clientFactory = () => MockClient((request) async {
+          asked++;
+          return http.Response(release('2.0.0'), 200);
+        });
+        update.localClientFactory = update.clientFactory;
+        await update.init();
+        expect(await update.check(), isFalse);
+        expect(update.available.value, isNull);
+        expect(asked, 0);
+      },
+    );
   });
 
   test('the install downloads the release cut after the notice', () async {
     await notice('1.1.0');
     final asked = <String>[];
     update.clientFactory = () => MockClient((request) async {
-          asked.add(request.url.toString());
-          return isReleaseQuery(request)
-              ? http.Response(release('1.2.0'), 200)
-              : http.Response.bytes(List.filled(2048, 7), 200);
-        });
+      asked.add(request.url.toString());
+      return isReleaseQuery(request)
+          ? http.Response(release('1.2.0'), 200)
+          : http.Response.bytes(List.filled(2048, 7), 200);
+    });
 
     expect(await update.downloadAndInstall(), isNull);
 
@@ -284,11 +307,11 @@ void main() {
     await notice('1.1.0');
     final asked = <String>[];
     update.clientFactory = () => MockClient((request) async {
-          asked.add(request.url.toString());
-          return isReleaseQuery(request)
-              ? http.Response('rate limited', 403)
-              : http.Response.bytes(List.filled(64, 7), 200);
-        });
+      asked.add(request.url.toString());
+      return isReleaseQuery(request)
+          ? http.Response('rate limited', 403)
+          : http.Response.bytes(List.filled(64, 7), 200);
+    });
 
     expect(await update.downloadAndInstall(), isNull);
 
@@ -301,11 +324,11 @@ void main() {
     await notice('1.1.0');
     final asked = <String>[];
     update.clientFactory = () => MockClient((request) async {
-          asked.add(request.url.toString());
-          return isReleaseQuery(request)
-              ? http.Response(release('1.0.0'), 200)
-              : http.Response.bytes(List.filled(64, 7), 200);
-        });
+      asked.add(request.url.toString());
+      return isReleaseQuery(request)
+          ? http.Response(release('1.0.0'), 200)
+          : http.Response.bytes(List.filled(64, 7), 200);
+    });
 
     expect(await update.downloadAndInstall(), contains('Already up to date'));
 
@@ -317,16 +340,22 @@ void main() {
   });
 
   test('one release behind shows that body alone, untouched', () async {
-    update.clientFactory = () => MockClient((request) async =>
-        http.Response(releases([entry('1.1.0'), entry('1.0.0')]), 200));
+    update.clientFactory = () => MockClient(
+      (request) async =>
+          http.Response(releases([entry('1.1.0'), entry('1.0.0')]), 200),
+    );
     await update.init();
     expect(await update.check(), isTrue);
     expect(update.available.value?.notes, 'Notes for 1.1.0');
   });
 
   test('skipped releases stack their notes newest first', () async {
-    update.clientFactory = () => MockClient((request) async => http.Response(
-        releases([entry('1.3.0'), entry('1.2.0'), entry('1.0.0')]), 200));
+    update.clientFactory = () => MockClient(
+      (request) async => http.Response(
+        releases([entry('1.3.0'), entry('1.2.0'), entry('1.0.0')]),
+        200,
+      ),
+    );
     await update.init();
     expect(await update.check(), isTrue);
     expect(update.available.value?.version, '1.3.0');
@@ -344,16 +373,22 @@ void main() {
   });
 
   test('a gap beyond the fetch window points at the history', () async {
-    update.clientFactory = () => MockClient((request) async =>
-        http.Response(releases([entry('1.3.0'), entry('1.2.0')]), 200));
+    update.clientFactory = () => MockClient(
+      (request) async =>
+          http.Response(releases([entry('1.3.0'), entry('1.2.0')]), 200),
+    );
     await update.init();
     expect(await update.check(), isTrue);
     expect(update.available.value?.notes, contains('releases page'));
   });
 
   test('prereleases never count as the latest release', () async {
-    update.clientFactory = () => MockClient((request) async => http.Response(
-        releases([entry('1.2.0', prerelease: true), entry('1.1.0')]), 200));
+    update.clientFactory = () => MockClient(
+      (request) async => http.Response(
+        releases([entry('1.2.0', prerelease: true), entry('1.1.0')]),
+        200,
+      ),
+    );
     await update.init();
     expect(await update.check(), isTrue);
     expect(update.available.value?.version, '1.1.0');
@@ -374,11 +409,11 @@ void main() {
     await notice('1.1.0');
     final asked = <String>[];
     update.clientFactory = () => MockClient((request) async {
-          asked.add(request.url.toString());
-          return isReleaseQuery(request)
-              ? http.Response(releases([entry('1.1.0', size: 2048)]), 200)
-              : http.Response.bytes(List.filled(2048, 7), 200);
-        });
+      asked.add(request.url.toString());
+      return isReleaseQuery(request)
+          ? http.Response(releases([entry('1.1.0', size: 2048)]), 200)
+          : http.Response.bytes(List.filled(2048, 7), 200);
+    });
 
     expect(await update.downloadAndInstall(), isNull);
     expect(asked, contains('https://example.invalid/1.1.0.apk'));
@@ -406,11 +441,11 @@ void main() {
     await stale.writeAsBytes(List.filled(2048, 9)); // old release, same size
     final asked = <String>[];
     update.clientFactory = () => MockClient((request) async {
-          asked.add(request.url.toString());
-          return isReleaseQuery(request)
-              ? http.Response(releases([entry('1.1.0', size: 2048)]), 200)
-              : http.Response.bytes(List.filled(2048, 7), 200);
-        });
+      asked.add(request.url.toString());
+      return isReleaseQuery(request)
+          ? http.Response(releases([entry('1.1.0', size: 2048)]), 200)
+          : http.Response.bytes(List.filled(2048, 7), 200);
+    });
 
     expect(await update.downloadAndInstall(), isNull);
 
@@ -423,73 +458,79 @@ void main() {
     expect(await stale.exists(), isFalse); // swept, not left to linger
   });
 
-  test('a mismatched leftover file is downloaded fresh, not installed',
-      () async {
-    await notice('1.1.0');
-    final asked = <String>[];
-    update.clientFactory = () => MockClient((request) async {
-          asked.add(request.url.toString());
-          return isReleaseQuery(request)
-              ? http.Response(releases([entry('1.1.0', size: 2048)]), 200)
-              : http.Response.bytes(List.filled(2048, 7), 200);
-        });
+  test(
+    'a mismatched leftover file is downloaded fresh, not installed',
+    () async {
+      await notice('1.1.0');
+      final asked = <String>[];
+      update.clientFactory = () => MockClient((request) async {
+        asked.add(request.url.toString());
+        return isReleaseQuery(request)
+            ? http.Response(releases([entry('1.1.0', size: 2048)]), 200)
+            : http.Response.bytes(List.filled(2048, 7), 200);
+      });
 
-    expect(await update.downloadAndInstall(), isNull);
-    await File(installed.single).writeAsBytes(List.filled(100, 1));
-    installed.clear();
-    asked.clear();
-    await installerEvent('installDeclined');
-    expect(await update.downloadAndInstall(), isNull);
+      expect(await update.downloadAndInstall(), isNull);
+      await File(installed.single).writeAsBytes(List.filled(100, 1));
+      installed.clear();
+      asked.clear();
+      await installerEvent('installDeclined');
+      expect(await update.downloadAndInstall(), isNull);
 
-    expect(asked, contains('https://example.invalid/1.1.0.apk'));
-    expect(await File(installed.single).length(), 2048);
-  });
+      expect(asked, contains('https://example.invalid/1.1.0.apk'));
+      expect(await File(installed.single).length(), 2048);
+    },
+  );
 
-  test('refresh switches a cached universal APK to the matching split', () async {
-    await update.init();
-    update.supportedAbis = ['armeabi-v7a', 'armeabi'];
-    var splitReady = false;
-    final downloads = <String>[];
-    update.clientFactory = () => MockClient((request) async {
-      if (isReleaseQuery(request)) {
-        final latest = entry('1.1.0', size: 64);
-        if (splitReady) {
-          (latest['assets'] as List).insert(0, {
-            'name': 'kiosk-satellite-v1.1.0.armeabi-v7a.apk',
-            'browser_download_url': 'https://example.invalid/arm.apk',
-            'size': 64,
-          });
+  test(
+    'refresh switches a cached universal APK to the matching split',
+    () async {
+      await update.init();
+      update.supportedAbis = ['armeabi-v7a', 'armeabi'];
+      var splitReady = false;
+      final downloads = <String>[];
+      update.clientFactory = () => MockClient((request) async {
+        if (isReleaseQuery(request)) {
+          final latest = entry('1.1.0', size: 64);
+          if (splitReady) {
+            (latest['assets'] as List).insert(0, {
+              'name': 'kiosk-satellite-v1.1.0.armeabi-v7a.apk',
+              'browser_download_url': 'https://example.invalid/arm.apk',
+              'size': 64,
+            });
+          }
+          return http.Response(releases([latest]), 200);
         }
-        return http.Response(releases([latest]), 200);
-      }
-      downloads.add(request.url.toString());
-      return http.Response.bytes(List.filled(64, splitReady ? 2 : 1), 200);
-    });
-    expect(await update.check(), true);
-    expect(await update.downloadAndInstall(), isNull);
-    final universalFile = File(installed.single);
-    await installerEvent('installDeclined');
-    splitReady = true;
-    expect(await update.downloadAndInstall(), isNull);
-    expect(update.available.value!.apkUrl, 'https://example.invalid/arm.apk');
-    expect(update.available.value!.apkSize, 64);
-    expect(downloads, [
-      'https://example.invalid/1.1.0.apk',
-      'https://example.invalid/arm.apk',
-    ]);
-    expect(installed.last, isNot(installed.first));
-    expect(await universalFile.exists(), false);
-    expect((await File(installed.last).readAsBytes()).first, 2);
-  });
+        downloads.add(request.url.toString());
+        return http.Response.bytes(List.filled(64, splitReady ? 2 : 1), 200);
+      });
+      expect(await update.check(), true);
+      expect(await update.downloadAndInstall(), isNull);
+      final universalFile = File(installed.single);
+      await installerEvent('installDeclined');
+      splitReady = true;
+      expect(await update.downloadAndInstall(), isNull);
+      expect(update.available.value!.apkUrl, 'https://example.invalid/arm.apk');
+      expect(update.available.value!.apkSize, 64);
+      expect(downloads, [
+        'https://example.invalid/1.1.0.apk',
+        'https://example.invalid/arm.apk',
+      ]);
+      expect(installed.last, isNot(installed.first));
+      expect(await universalFile.exists(), false);
+      expect((await File(installed.last).readAsBytes()).first, 2);
+    },
+  );
 
   test('an install that needs confirming stands the kiosk down first and '
       're-arms it when declined', () async {
     needsConfirm = true;
     await notice('1.1.0');
-    update.clientFactory = () => MockClient((request) async =>
-        isReleaseQuery(request)
-            ? http.Response(release('1.1.0'), 200)
-            : http.Response.bytes(List.filled(64, 7), 200));
+    update.clientFactory = () => MockClient(
+      (request) async => isReleaseQuery(request)
+          ? http.Response(release('1.1.0'), 200)
+          : http.Response.bytes(List.filled(64, 7), 200),
+    );
 
     expect(await update.downloadAndInstall(), isNull);
 
@@ -613,10 +654,11 @@ void main() {
 
   test('an early native failure survives the install method reply', () async {
     await notice('1.1.0');
-    update.clientFactory = () => MockClient((request) async =>
-        isReleaseQuery(request)
-            ? http.Response(release('1.1.0'), 200)
-            : http.Response.bytes(List.filled(64, 7), 200));
+    update.clientFactory = () => MockClient(
+      (request) async => isReleaseQuery(request)
+          ? http.Response(release('1.1.0'), 200)
+          : http.Response.bytes(List.filled(64, 7), 200),
+    );
     messenger.setMockMethodCallHandler(installer, (call) async {
       if (call.method == 'needsConfirmation') return true;
       if (call.method == 'installApk') {
@@ -640,46 +682,50 @@ void main() {
     int contentLength = 4096,
   }) =>
       () => MockClient.streaming((request, _) async {
-            if (isReleaseQuery(request)) {
-              return http.StreamedResponse(
-                Stream.value(utf8.encode(release('1.1.0'))),
-                200,
-              );
-            }
-            return http.StreamedResponse(
-              apkBytes.stream,
-              200,
-              contentLength: contentLength,
-            );
-          });
+        if (isReleaseQuery(request)) {
+          return http.StreamedResponse(
+            Stream.value(utf8.encode(release('1.1.0'))),
+            200,
+          );
+        }
+        return http.StreamedResponse(
+          apkBytes.stream,
+          200,
+          contentLength: contentLength,
+        );
+      });
 
-  test('cancelUpdateDownload aborts a running download and keeps the notice',
-      () async {
-    await notice('1.1.0');
-    final apkBytes = StreamController<List<int>>();
-    update.clientFactory = streamingClient(apkBytes);
+  test(
+    'cancelUpdateDownload aborts a running download and keeps the notice',
+    () async {
+      await notice('1.1.0');
+      final apkBytes = StreamController<List<int>>();
+      update.clientFactory = streamingClient(apkBytes);
 
-    final result = update.downloadAndInstall();
-    apkBytes.add(List.filled(1024, 7)); // 25%: mid-download, held open
-    while ((update.progress.value ?? 0) == 0) {
-      await Future<void>.delayed(const Duration(milliseconds: 5));
-    }
+      final result = update.downloadAndInstall();
+      apkBytes.add(List.filled(1024, 7)); // 25%: mid-download, held open
+      while ((update.progress.value ?? 0) == 0) {
+        await Future<void>.delayed(const Duration(milliseconds: 5));
+      }
 
-    final cancel = await registry.execute('cancelUpdateDownload', const {});
-    expect(cancel.ok, isTrue);
-    expect(await result, isNull);
+      final cancel = await registry.execute('cancelUpdateDownload', const {});
+      expect(cancel.ok, isTrue);
+      expect(await result, isNull);
 
-    expect(installed, isEmpty);
-    // The notice stays up, so the download can simply be started again.
-    expect(update.available.value?.version, '1.1.0');
-    expect(update.progress.value, isNull);
-    final status = await registry.execute('getUpdateStatus', const {});
-    expect((status.data as Map)['lastOutcome'], 'cancelled');
-    // A second cancel with nothing running is refused, not a crash.
-    expect((await registry.execute('cancelUpdateDownload', const {})).ok,
-        isFalse);
-    await apkBytes.close();
-  });
+      expect(installed, isEmpty);
+      // The notice stays up, so the download can simply be started again.
+      expect(update.available.value?.version, '1.1.0');
+      expect(update.progress.value, isNull);
+      final status = await registry.execute('getUpdateStatus', const {});
+      expect((status.data as Map)['lastOutcome'], 'cancelled');
+      // A second cancel with nothing running is refused, not a crash.
+      expect(
+        (await registry.execute('cancelUpdateDownload', const {})).ok,
+        isFalse,
+      );
+      await apkBytes.close();
+    },
+  );
 
   test('a stalled download fails instead of running forever', () async {
     await notice('1.1.0');
@@ -706,8 +752,7 @@ void main() {
     var progressSets = 0;
     update.progress.addListener(() => progressSets++);
     var busEvents = 0;
-    final sub =
-        update.bus.on<UpdateStateChanged>().listen((_) => busEvents++);
+    final sub = update.bus.on<UpdateStateChanged>().listen((_) => busEvents++);
 
     final result = update.downloadAndInstall();
     // 50 chunks all inside the first whole percent, then one that crosses
@@ -733,14 +778,207 @@ void main() {
 
   test('a silent install never touches the kiosk', () async {
     await notice('1.1.0');
-    update.clientFactory = () => MockClient((request) async =>
-        isReleaseQuery(request)
-            ? http.Response(release('1.1.0'), 200)
-            : http.Response.bytes(List.filled(64, 7), 200));
+    update.clientFactory = () => MockClient(
+      (request) async => isReleaseQuery(request)
+          ? http.Response(release('1.1.0'), 200)
+          : http.Response.bytes(List.filled(64, 7), 200),
+    );
 
     expect(await update.downloadAndInstall(), isNull);
 
     expect(kioskCalls, isEmpty);
     expect(installed, hasLength(1));
+  });
+
+  group('uploaded APK (#566)', () {
+    Stream<List<int>> bytes(List<int> data, {int chunk = 7}) async* {
+      for (var i = 0; i < data.length; i += chunk) {
+        yield data.sublist(
+          i,
+          i + chunk > data.length ? data.length : i + chunk,
+        );
+      }
+    }
+
+    Future<Map<String, Object?>> status() async =>
+        ((await registry.execute('getUpdateStatus', const {})).data as Map)
+            .cast<String, Object?>();
+
+    test(
+      'an upload is inspected, kept under its version and installed',
+      () async {
+        await update.init();
+        final apk = List<int>.generate(50, (i) => i);
+        final got = await update.receiveUpload(bytes(apk), length: apk.length);
+        expect(got['version'], '1.2.0');
+        expect(got['buildNumber'], 5);
+        expect(got['size'], 50);
+        expect(got['currentBuild'], 1);
+        final file = File('${got['path']}');
+        expect(
+          file.path,
+          endsWith('/updates/kiosk-satellite-update-1.2.0-upload.apk'),
+        );
+        expect(await file.readAsBytes(), apk);
+        expect((await status())['uploaded'], containsPair('version', '1.2.0'));
+
+        final r = await registry.execute('installUploadedApk', const {});
+        expect(r.ok, isTrue);
+        await Future<void>.delayed(const Duration(milliseconds: 50));
+        expect(installed, [file.path]);
+        final st = await status();
+        expect(st['installing'], isFalse);
+        expect(st['lastOutcome'], 'silent');
+        // The file stays for a retry after a declined confirmation.
+        expect(await file.exists(), isTrue);
+      },
+    );
+
+    test('the command refuses what is not on the wire', () async {
+      await update.init();
+      final r = await registry.execute('receiveUploadedUpdate', {'length': 3});
+      expect(r.ok, isFalse);
+      expect(r.error, contains('raw body'));
+      final none = await registry.execute('installUploadedApk', const {});
+      expect(none.ok, isFalse);
+      expect(none.error, contains('no uploaded APK'));
+    });
+
+    test('another package, a downgrade, a short upload and a non-APK are '
+        'refused and leave nothing behind', () async {
+      await update.init();
+      final apk = List<int>.generate(20, (i) => i);
+      Future<String> refused({int? length}) async {
+        try {
+          await update.receiveUpload(bytes(apk), length: length ?? apk.length);
+        } on StateError catch (e) {
+          return e.message;
+        }
+        fail('accepted');
+      }
+
+      inspected = {
+        'packageName': 'com.example.other',
+        'versionName': '9.0',
+        'versionCode': 99,
+      };
+      expect(await refused(), contains('com.example.other'));
+      PackageInfo.setMockInitialValues(
+        appName: 'Kiosk Satellite',
+        packageName: 'me.jxl.kiosk_satellite',
+        version: '1.0.0',
+        buildNumber: '1',
+        buildSignature: '',
+      );
+      inspected = {
+        'packageName': 'me.jxl.kiosk_satellite',
+        'versionName': '0.9.0',
+        'versionCode': 0,
+      };
+      expect(await refused(), contains('Downgrades are refused'));
+      inspected = null;
+      expect(await refused(), contains('not an Android APK'));
+      inspected = {
+        'packageName': 'me.jxl.kiosk_satellite',
+        'versionName': '1.2.0',
+        'versionCode': 5,
+      };
+      expect(await refused(length: apk.length + 5), contains('ended early'));
+      final dir = Directory('${cache.path}/updates');
+      expect(await dir.list().toList(), isEmpty);
+      expect((await status())['uploaded'], isNull);
+      expect(installed, isEmpty);
+    });
+
+    test(
+      'the space check refuses an APK the cache cannot hold twice',
+      () async {
+        await update.init();
+        freeSpace = 100;
+        final apk = List<int>.generate(60, (i) => i);
+        var read = false;
+        try {
+          await update.receiveUpload(
+            bytes(apk).map((c) {
+              read = true;
+              return c;
+            }),
+            length: apk.length,
+          );
+          fail('accepted');
+        } on StateError catch (e) {
+          expect(e.message, contains('Not enough free space'));
+        }
+        expect(read, isFalse);
+        expect(
+          await Directory('${cache.path}/updates').list().toList(),
+          isEmpty,
+        );
+      },
+    );
+
+    test('an upload cut off mid-transfer is refused and cleaned up', () async {
+      await update.init();
+      Stream<List<int>> dropped() async* {
+        yield List<int>.filled(4000, 1);
+        yield List<int>.filled(4000, 2);
+        throw const SocketException('connection reset');
+      }
+
+      try {
+        await update.receiveUpload(dropped(), length: 20000);
+        fail('accepted');
+      } on StateError catch (e) {
+        expect(e.message, contains('interrupted'));
+      }
+      expect(await Directory('${cache.path}/updates').list().toList(), isEmpty);
+      expect((await status())['uploaded'], isNull);
+      // The folder is usable again right away.
+      final apk = List<int>.generate(10, (i) => i);
+      final got = await update.receiveUpload(bytes(apk), length: apk.length);
+      expect(got['size'], 10);
+    });
+
+    test('a same-build upload is accepted and says so', () async {
+      await update.init();
+      inspected = {
+        'packageName': 'me.jxl.kiosk_satellite',
+        'versionName': '1.0.0',
+        'versionCode': 1,
+      };
+      final apk = List<int>.generate(10, (i) => i);
+      final got = await update.receiveUpload(bytes(apk), length: apk.length);
+      expect(got['buildNumber'], got['currentBuild']);
+    });
+
+    test('a download sweeps the waiting upload', () async {
+      await notice('1.1.0');
+      final apk = List<int>.generate(10, (i) => i);
+      await update.receiveUpload(bytes(apk), length: apk.length);
+      update.clientFactory = () => MockClient(
+        (request) async => isReleaseQuery(request)
+            ? http.Response(release('1.1.0'), 200)
+            : http.Response.bytes(apk, 200),
+      );
+      expect(await update.downloadAndInstall(), isNull);
+      expect((await status())['uploaded'], isNull);
+    });
+
+    test('a failed install of the upload records the outcome and re-arms '
+        'the kiosk', () async {
+      await update.init();
+      needsConfirm = true;
+      helperCommitFailure = true;
+      final apk = List<int>.generate(10, (i) => i);
+      await update.receiveUpload(bytes(apk), length: apk.length);
+      final r = await registry.execute('installUploadedApk', const {});
+      expect(r.ok, isTrue);
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+      final st = await status();
+      expect(st['installing'], isFalse);
+      expect(st['lastOutcome'], 'failed');
+      expect('${st['lastError']}', contains('Lost contact'));
+      expect(kioskCalls, ['pause', 'resume']);
+    });
   });
 }

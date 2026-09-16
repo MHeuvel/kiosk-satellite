@@ -3140,6 +3140,17 @@ class _CategoryContentState extends State<_CategoryContent> {
           for (final def in _defsFor(widget.category))
             if (def.subpage == subpage) def,
         ]),
+        // An APK uploaded through the remote admin (issue #566): the
+        // upload itself happens in a browser, the install can be started
+        // from either side.
+        SettingsCard(
+          children: [
+            SearchLandingTarget(
+              id: 'x:update_upload',
+              child: _UploadedApkRow(container: container),
+            ),
+          ],
+        ),
         // Last: how to host a repository of your own, for whoever picked
         // Custom Repository above and wonders what goes in the folder.
         SettingsCard(
@@ -10766,5 +10777,80 @@ class _RtspPageState extends State<_RtspPage> {
     if (s < 60) return '${s}s';
     if (s < 3600) return '${s ~/ 60}m ${s % 60}s';
     return '${s ~/ 3600}h ${(s % 3600) ~/ 60}m';
+  }
+}
+
+/// The Install from file row of Settings > Device > Updates: what the
+/// remote admin uploaded, if anything, and an Install button for it. The
+/// upload can only come from a browser, so with nothing waiting the row
+/// says where to do it.
+class _UploadedApkRow extends StatefulWidget {
+  const _UploadedApkRow({required this.container});
+
+  final AppContainer container;
+
+  @override
+  State<_UploadedApkRow> createState() => _UploadedApkRowState();
+}
+
+class _UploadedApkRowState extends State<_UploadedApkRow> {
+  StreamSubscription<UpdateStateChanged>? _changes;
+  bool _busy = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _changes = widget.container.bus.on<UpdateStateChanged>().listen((_) {
+      if (mounted) setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    _changes?.cancel();
+    super.dispose();
+  }
+
+  Future<void> _install() async {
+    setState(() => _busy = true);
+    final r = await widget.container.commands.execute(
+      'installUploadedApk',
+      const {},
+    );
+    if (!mounted) return;
+    setState(() => _busy = false);
+    if (!r.ok) {
+      showToast(
+        context,
+        title: 'Install from file',
+        message: r.error,
+        kind: ToastKind.error,
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final update = widget.container.update;
+    final up = update.uploaded;
+    final installing = update.installing;
+    return SettingsRow(
+      title: const Text('Install from file'),
+      subtitle: Text(
+        up == null
+            ? 'Upload a Kiosk Satellite APK from a computer through the '
+                  'remote admin, on this same page. For a kiosk that cannot '
+                  'reach GitHub or a custom repository.'
+            : 'Version ${up.version} (build ${up.buildNumber}, '
+                  '${(up.size / 1048576).toStringAsFixed(1)} MB) is on the '
+                  'device, waiting to be installed.',
+      ),
+      trailing: up == null
+          ? null
+          : OutlinedButton(
+              onPressed: _busy || installing ? null : _install,
+              child: Text(installing ? 'Installing…' : 'Install'),
+            ),
+    );
   }
 }

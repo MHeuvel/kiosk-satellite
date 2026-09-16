@@ -51,6 +51,7 @@ void main() {
       'fleetAccept',
       'fleetDecline',
       'getUpdateStatus',
+      'installUploadedApk',
       'getDeviceInfo',
       'getBrightness',
       'isScreenOn',
@@ -68,6 +69,26 @@ void main() {
         ),
       );
     }
+    // The upload endpoint hands the body over as a stream; the stub
+    // counts the bytes, which is what the JSON answer can carry.
+    commands.register(
+      Command(
+        name: 'receiveUploadedUpdate',
+        description: 'stub',
+        handler: (p) async {
+          final stream = p['stream'];
+          if (stream is! Stream<List<int>>) {
+            return CommandResult.fail('no stream');
+          }
+          var size = 0;
+          await for (final chunk in stream) {
+            size += chunk.length;
+          }
+          executed.add(('receiveUploadedUpdate', {'length': p['length']}));
+          return CommandResult.ok({'size': size, 'length': p['length']});
+        },
+      ),
+    );
     settings = SettingsManager(bus, commands, log);
     await settings.init();
     remote = RemoteManager(bus, commands, log, settings);
@@ -87,6 +108,7 @@ void main() {
     String method,
     String path, {
     Map<String, Object?>? body,
+    List<int>? raw,
     String? token,
   }) async {
     final client = HttpClient();
@@ -99,6 +121,10 @@ void main() {
       if (body != null) {
         req.headers.contentType = ContentType.json;
         req.write(jsonEncode(body));
+      }
+      if (raw != null) {
+        req.headers.contentLength = raw.length;
+        req.add(raw);
       }
       final res = await req.close();
       final text = await res.transform(utf8.decoder).join();
@@ -292,6 +318,47 @@ void main() {
         expect(b['error'], contains('kiosk'));
       }
       expect(executed.where((e) => e.$1 == 'fleetAccept'), isEmpty);
+    },
+  );
+
+  test(
+    'the APK upload streams the raw body and a fleet token opens it',
+    () async {
+      final admin = await login();
+      final apk = List<int>.generate(5000, (i) => i % 256);
+      final (s1, b1) = await call(
+        'POST',
+        '/api/update/upload',
+        raw: apk,
+        token: admin,
+      );
+      expect(s1, 200);
+      expect(b1['ok'], isTrue);
+      expect((b1['data'] as Map)['size'], 5000);
+      expect((b1['data'] as Map)['length'], 5000);
+      expect((await call('POST', '/api/update/upload', raw: apk)).$1, 401);
+
+      await settings.set(
+        defs.fleetLeaderInfo,
+        jsonEncode({'id': 'lead', 'name': 'Living Room'}),
+      );
+      final token = await fleetToken('lead');
+      final (s2, _) = await call(
+        'POST',
+        '/api/update/upload',
+        raw: apk,
+        token: token,
+      );
+      expect(s2, 200);
+      final (s3, b3) = await call(
+        'POST',
+        '/api/commands/installUploadedApk',
+        body: {},
+        token: token,
+      );
+      expect(s3, 200);
+      expect((b3['data'] as Map)['from'], 'installUploadedApk');
+      expect((await call('GET', '/api/settings', token: token)).$1, 403);
     },
   );
 }

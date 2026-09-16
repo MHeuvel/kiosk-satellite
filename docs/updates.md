@@ -59,6 +59,24 @@ How the custom source behaves:
 * A folder holding only the running version, or an older one, reports up to date. Android verifies the signing certificate at install, so the folder can only ever serve a real Kiosk Satellite release.
 * Both settings sync with the fleet, so a leader points every follower at the same folder and **Update fleet** works unchanged. Each kiosk downloads its own APK from the folder.
 
+## Installing an Uploaded APK
+
+A kiosk that can reach neither GitHub nor a web server of your own can still be updated from the remote admin. **Settings > Device > Updates** has an **Install from file** row in the remote admin. Pick a Kiosk Satellite APK on your computer and the browser uploads it to the kiosk, which reads the package name, version and build out of it before anything happens. A confirmation then names what arrived and what the kiosk runs, and **Install** hands the file to the same installer the GitHub download uses: silent where the kiosk installs silently, confirmed on the kiosk screen otherwise.
+
+What the kiosk refuses, with the reason shown in the browser:
+
+* A file that is not an APK, or an APK of another app. Android also verifies the signing certificate at install, so only a real Kiosk Satellite build ever goes in.
+* An older build than the one running. Downgrades are refused before the upload is kept, since Android would not install one either.
+* An APK the cache cannot hold twice. The installer copies the file into its session, so the kiosk needs about twice the APK's size free, and says how much it has.
+
+The universal APK from the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases) works on every device. An architecture APK only installs on a device of that architecture.
+
+A leader of a [fleet](fleet.md) gets a second choice on the confirmation, **Install on the fleet**: the leader streams the uploaded APK to each online follower, which checks it under the same rules and installs it, and then installs its own copy last so it stays up to drive the others. A follower already on that build is skipped. Kiosks on the built-in **Updates only** profile take part like any other follower.
+
+The same page on the kiosk shows what was uploaded and can start the install from the device.
+
+The endpoint behind the button is `POST /api/update/upload` with the APK as the raw request body, followed by the `installUploadedApk` command, see the [remote API](remote-api.md).
+
 ## System Permission Requirements
 
 Here is how Android handles installation prompts based on your system version:

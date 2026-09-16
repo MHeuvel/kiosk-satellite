@@ -135,10 +135,16 @@ const MORE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-
 
 /* ---- profiles: the picker, the editor, the exclusion picker ---- */
 
-const describe = (p) =>
-  `Categories: ${(p.categories || []).length} of ${(status?.categories || []).length}. `
+// The built-in Updates only profile syncs nothing: a kiosk on it keeps
+// its settings and only gets updates pushed. Not editable, not deletable.
+const UPDATES_ONLY = 'updates-only';
+const builtIn = (p) => p.id === 'default' || p.id === UPDATES_ONLY;
+
+const describe = (p) => (p.id === UPDATES_ONLY
+  ? 'Nothing syncs. Only updates are pushed.'
+  : `Categories: ${(p.categories || []).length} of ${(status?.categories || []).length}. `
   + `Credentials: ${(p.credentials || []).length} of ${(status?.credentials || []).length}. `
-  + `Excluded: ${(p.excluded || []).length}.`;
+  + `Excluded: ${(p.excluded || []).length}.`);
 
 // The glyph a profile's entry row and its page title share: registered by
 // name, since the pages are made at runtime.
@@ -428,12 +434,12 @@ function profilePanel(p) {
   const panel = document.createElement('div');
   panel.className = 'subpage';
   panel.dataset.subpage = p.name;
-  const isDefault = p.id === 'default';
+  const fixed = builtIn(p);
   const cats = status?.categories || [];
   const creds = status?.credentials || [];
   const catNames = cats.filter((c) => (p.categories || []).includes(c.id)).map((c) => c.title);
   const credNames = creds.filter((c) => (p.credentials || []).includes(c.key)).map((c) => c.title);
-  if (!isDefault) {
+  if (!fixed) {
     const card = document.createElement('div');
     card.className = 'card';
     const row = infoRow('Name', p.name);
@@ -447,26 +453,31 @@ function profilePanel(p) {
     panel.appendChild(card);
   }
   const [h1, card1] = titled('What it syncs');
-  card1.appendChild(openerRow('Categories',
-    catNames.length ? `${catNames.length} of ${cats.length}: ${catNames.join(', ')}` : 'None',
-    async () => {
-      const picked = await openCategoriesModal(p.categories || []);
-      if (picked) await saveProfile({ ...p, categories: picked });
-    }));
-  card1.appendChild(openerRow('Credentials', credNames.length ? credNames.join(', ') : 'None travel',
-    async () => {
-      const picked = await openCredentialsModal(p.credentials || []);
-      if (picked) await saveProfile({ ...p, credentials: picked });
-    }));
-  card1.appendChild(switchRow('Include the dashboard', 'The start page and the default dashboard.',
-    !!p.dashboard, (v) => saveProfile({ ...p, dashboard: v })));
-  const x = (p.excluded || []).length;
-  card1.appendChild(openerRow('Excluded settings',
-    x === 0 ? 'None' : x === 1 ? 'One setting left out' : `${x} settings left out`,
-    async () => {
-      const picked = await openExcludedModal(p.excluded || []);
-      if (picked) await saveProfile({ ...p, excluded: picked });
-    }));
+  if (p.id === UPDATES_ONLY) {
+    card1.appendChild(infoRow('Nothing',
+      'Kiosks on this profile keep every setting of their own. The leader only pushes updates to them.'));
+  } else {
+    card1.appendChild(openerRow('Categories',
+      catNames.length ? `${catNames.length} of ${cats.length}: ${catNames.join(', ')}` : 'None',
+      async () => {
+        const picked = await openCategoriesModal(p.categories || []);
+        if (picked) await saveProfile({ ...p, categories: picked });
+      }));
+    card1.appendChild(openerRow('Credentials', credNames.length ? credNames.join(', ') : 'None travel',
+      async () => {
+        const picked = await openCredentialsModal(p.credentials || []);
+        if (picked) await saveProfile({ ...p, credentials: picked });
+      }));
+    card1.appendChild(switchRow('Include the dashboard', 'The start page and the default dashboard.',
+      !!p.dashboard, (v) => saveProfile({ ...p, dashboard: v })));
+    const x = (p.excluded || []).length;
+    card1.appendChild(openerRow('Excluded settings',
+      x === 0 ? 'None' : x === 1 ? 'One setting left out' : `${x} settings left out`,
+      async () => {
+        const picked = await openExcludedModal(p.excluded || []);
+        if (picked) await saveProfile({ ...p, excluded: picked });
+      }));
+  }
   panel.append(h1, card1);
   const [h2, card2] = titled('Kiosks');
   const names = (status?.followers || []).filter((f) => f.profile === p.id).map((f) => f.name);
@@ -487,7 +498,7 @@ function profilePanel(p) {
     if (out?.ok) showTab(`fleet/${name}`);
   }));
   card3.appendChild(dup);
-  if (!isDefault) {
+  if (!fixed) {
     const del = infoRow('Delete profile', names.length ? 'Kiosks on it get the Default profile.' : 'No kiosk is on it.');
     const b = button('Delete', 'btn-ghost', async () => {
       const pick = await messageBox({ title: `Delete ${p.name}?`,
