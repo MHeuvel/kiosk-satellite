@@ -530,45 +530,232 @@ class _IntercomSheetState extends State<_IntercomSheet> {
       for (final k in (_status['kiosks'] as List? ?? const []))
         if (k is Map && k['status'] == 'ready') k.cast<String, Object?>(),
     ];
-    return SimpleDialog(
-      title: const Text('Call a kiosk'),
-      contentPadding: const EdgeInsets.fromLTRB(0, 12, 0, 8),
-      children: [
-        if (ready.isEmpty)
-          const ListTile(title: Text('No kiosk is ready.'))
-        else ...[
-          ListTile(
-            title: const Text('Announce to all'),
-            subtitle: const Text('Talk to every kiosk. One way only.'),
-            trailing: Icon(Icons.campaign_outlined, color: scheme.primary),
-            onTap: () => widget.onPick('intercomBroadcast', const {}),
-          ),
-          // Hairlines between the rows, the settings card's own.
-          for (final (i, k) in ready.indexed) ...[
-            const Divider(height: 1, indent: Ks.inset, endIndent: Ks.inset),
-            ListTile(
-              title: Text('${k['name']}'),
-              trailing: Icon(Icons.phone_outlined, color: scheme.primary),
-              onTap: () => widget.onPick('intercomCall', {'id': '${k['id']}'}),
-              key: ValueKey('kiosk-$i'),
+    final count = ready.length;
+    final line = switch (count) {
+      0 => 'No kiosk is ready.',
+      1 => '1 kiosk is ready.',
+      _ => '$count kiosks are ready.',
+    };
+    return Dialog(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 480),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // The title and the count stay put, the list scrolls.
+            Padding(
+              padding: const EdgeInsets.fromLTRB(24, 24, 24, 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Call a kiosk',
+                    style: Theme.of(context).dialogTheme.titleTextStyle,
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    line,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: scheme.onSurfaceVariant,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            if (count > 0)
+              Flexible(
+                child: EdgeFade(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        _AnnounceTile(
+                          onTap: () =>
+                              widget.onPick('intercomBroadcast', const {}),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(4, 20, 4, 8),
+                          child: Text(
+                            'KIOSKS',
+                            style: TextStyle(
+                              fontSize: 12.5,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: .8,
+                              color: scheme.onSurfaceVariant,
+                            ),
+                          ),
+                        ),
+                        Material(
+                          color: scheme.surfaceContainerHigh,
+                          borderRadius: BorderRadius.circular(Ks.radiusRow),
+                          clipBehavior: Clip.antiAlias,
+                          child: Column(
+                            children: [
+                              for (final (i, k) in ready.indexed) ...[
+                                if (i > 0)
+                                  const Divider(
+                                    height: 1,
+                                    indent: 16,
+                                    endIndent: 16,
+                                  ),
+                                _KioskRow(
+                                  key: ValueKey('kiosk-$i'),
+                                  name: '${k['name']}',
+                                  onTap: () => widget.onPick('intercomCall', {
+                                    'id': '${k['id']}',
+                                  }),
+                                ),
+                              ],
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            // A way out that is not a tap outside: the quiet text button the
+            // kit's dialogs use.
+            Padding(
+              padding: const EdgeInsets.fromLTRB(24, 8, 16, 12),
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('Cancel'),
+                ),
+              ),
             ),
           ],
-        ],
-        // A way out that is not a tap outside: the quiet text button the
-        // kit's dialogs use.
-        Padding(
-          padding: const EdgeInsets.fromLTRB(24, 8, 16, 4),
-          child: Align(
-            alignment: Alignment.centerRight,
-            child: TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Cancel'),
-            ),
-          ),
         ),
-      ],
+      ),
     );
   }
+}
+
+/// The one way broadcast, its own card above the kiosk list with the
+/// campaign disc on the right.
+class _AnnounceTile extends StatelessWidget {
+  const _AnnounceTile({required this.onTap});
+
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return Material(
+      color: scheme.surfaceContainerHigh,
+      borderRadius: BorderRadius.circular(Ks.radiusRow),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 14, 12, 14),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Announce to all',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: scheme.onSurface,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      'Talk to every kiosk. One way only.',
+                      style: TextStyle(
+                        fontSize: 13.5,
+                        height: 1.3,
+                        color: scheme.onSurfaceVariant,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 12),
+              _ActionDisc(
+                icon: Icons.campaign_outlined,
+                background: scheme.primary,
+                foreground: scheme.onPrimary,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// One ready kiosk: its name and a call disc, the whole row tappable.
+class _KioskRow extends StatelessWidget {
+  const _KioskRow({super.key, required this.name, required this.onTap});
+
+  final String name;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 10, 12, 10),
+        child: Row(
+          children: [
+            Expanded(
+              child: Text(
+                name,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: scheme.onSurface,
+                ),
+              ),
+            ),
+            const SizedBox(width: 12),
+            _ActionDisc(
+              icon: Icons.phone_outlined,
+              background: scheme.primary,
+              foreground: scheme.onPrimary,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// The 40 disc at the end of a sheet row. Not a button of its own, the row
+/// around it takes the tap.
+class _ActionDisc extends StatelessWidget {
+  const _ActionDisc({
+    required this.icon,
+    required this.background,
+    required this.foreground,
+  });
+
+  final IconData icon;
+  final Color background;
+  final Color foreground;
+
+  @override
+  Widget build(BuildContext context) => Container(
+    width: 40,
+    height: 40,
+    decoration: BoxDecoration(color: background, shape: BoxShape.circle),
+    child: Icon(icon, size: 20, color: foreground),
+  );
 }
 
 // ── The call overlay ───────────────────────────────────────────────────
