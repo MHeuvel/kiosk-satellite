@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.9.58 - 2026-09-16
 
 ### Added
 - **BREAKING CHANGE: Announcements accept options for each call.** The ESPHome announce action now takes `chime`, `chime_file`, `tts_engine` and `audio_only`. Each announcement can choose its chime and text to speech engine without changing the kiosk's settings. An empty engine uses the UI selection. Audio only plays without the on-device modal (#578).
