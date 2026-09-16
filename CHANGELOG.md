@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.9.56 - 2026-09-15
 
 ### Fixed
 - **The fleet listener no longer burns a core on a busy network.** Every mDNS response on the network, from every ESPHome node, speaker, printer and Chromecast, had the kiosk walk its network interfaces and parse the whole packet twice before it looked at whether the packet had anything to do with a kiosk, and it did the same work with Find other kiosks off. On a wall panel among a few dozen such devices the receive thread was the largest single CPU consumer in the app, a full core that scaled with how noisy the network was rather than with anything the kiosk was doing. A response is now checked on its raw bytes for the kiosk service label and the kiosk's own hostname before anything is parsed, and a packet that spells out neither is dropped on the spot, which is nearly all of them. A DNS name is spelled out in full at least once in any message that carries it, so peer discovery and the hostname clash check see exactly the packets they always did.
