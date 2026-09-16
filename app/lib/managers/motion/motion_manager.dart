@@ -268,7 +268,18 @@ class MotionManager extends Manager {
   /// the way the session's end would have.
   Timer? _previewHold;
   bool get _previewHolding => _previewHold != null;
-  bool get _wantPalms => palmEnabled && _screenOn;
+
+  /// The hand gesture tester (Settings > Gestures): while it is open the
+  /// hand leg runs whether or not a fingers mapping exists, behind the
+  /// same camera switch and runtime check, and every report lands on
+  /// [handTest] instead of the gestures manager, so trying counts fires
+  /// nothing. Null between hands and while the tester is closed.
+  final handTest = ValueNotifier<HandTestReading?>(null);
+  bool _handTesting = false;
+  bool get handTesting => _handTesting;
+  bool get _handTestWanted =>
+      _handTesting && _vision.hands && _settings.get(defs.cameraEnabled);
+  bool get _wantPalms => (palmEnabled || _handTestWanted) && _screenOn;
 
   StreamSubscription<void>? _camera;
   bool _screensaverActive = false;
@@ -754,8 +765,22 @@ class MotionManager extends Manager {
                     '${tick.fingers ?? '?'} finger(s)',
                   );
                 }
+                if (_handTesting) {
+                  handTest.value = tick.palms! > 0
+                      ? HandTestReading(
+                          hands: tick.palms!,
+                          fingers: tick.fingers,
+                          fingersUp: tick.fingersUp,
+                        )
+                      : null;
+                  return;
+                }
                 bus.publish(
-                  PalmDetected(hands: tick.palms!, fingers: tick.fingers),
+                  PalmDetected(
+                    hands: tick.palms!,
+                    fingers: tick.fingers,
+                    fingersUp: tick.fingersUp,
+                  ),
                 );
                 return;
               }
@@ -822,8 +847,10 @@ class MotionManager extends Manager {
     _retryDelay = _retryFloor;
     _boundBlind = false;
     // A session torn down under a preview (the camera switched off, a
-    // tuning change) takes the preview with it: its frames are gone.
+    // tuning change) takes the preview with it: its frames are gone. So
+    // does the tester's reading: the hand it described is unseen now.
     _endPreview();
+    handTest.value = null;
     if (_camera == null) return;
     _camera!.cancel();
     _camera = null;
@@ -865,6 +892,25 @@ class MotionManager extends Manager {
     facePreview.value = null;
   }
 
+  /// Open the hand gesture tester: see [handTest]. A session already up
+  /// without hands restarts with them, the way a first mapping does.
+  void startHandTest() {
+    if (_handTesting) return;
+    _handTesting = true;
+    log.info(name, 'hand gesture tester open');
+    _sync();
+  }
+
+  /// Close it: reports go back to the gestures manager, and a session
+  /// that only the tester wanted ends.
+  void stopHandTest() {
+    if (!_handTesting) return;
+    _handTesting = false;
+    handTest.value = null;
+    log.info(name, 'hand gesture tester closed');
+    _sync();
+  }
+
   Future<bool> _ensurePermission() async {
     if (await Permission.camera.isGranted) return true;
     return await ensureOsPermission(Permission.camera);
@@ -883,5 +929,16 @@ class MotionManager extends Manager {
     _pauseTimer?.cancel();
     _stop();
     facePreview.dispose();
+    handTest.dispose();
   }
+}
+
+/// One reading for the hand gesture tester: hands in view and, for the
+/// largest, the count and which digits are up (thumb, index, middle,
+/// ring, pinky; the thumb only when it counts, on an open hand).
+class HandTestReading {
+  const HandTestReading({required this.hands, this.fingers, this.fingersUp});
+  final int hands;
+  final int? fingers;
+  final List<bool>? fingersUp;
 }

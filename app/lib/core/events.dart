@@ -503,9 +503,12 @@ class ProximityDetected extends AppEvent {
 /// one; [hands] is 0 once the hand has gone. Internal only: the gestures
 /// manager turns it into a [GestureDetected].
 class PalmDetected extends AppEvent {
-  const PalmDetected({required this.hands, this.fingers});
+  const PalmDetected({required this.hands, this.fingers, this.fingersUp});
   final int hands;
   final int? fingers;
+
+  /// Which digits are up, thumb first then index to pinky, when judged.
+  final List<bool>? fingersUp;
 }
 
 // ── Device camera ──────────────────────────────────────────────────────

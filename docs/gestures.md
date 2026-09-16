@@ -78,7 +78,9 @@ Microphone behavior for claps:
 
 You can trigger up to five distinct actions using a single hand by displaying one to four fingers, or a fully open hand. The device camera watches the scene, locates a hand, tracks it frame by frame, and analyzes its 21 physical joints locally to count the raised fingers. 
 
-A finger is considered "up" when its tip is further from the wrist than its middle knuckle. The thumb is explicitly ignored in this count. Therefore, the available counts are 1, 2, 3, or 4 fingers, and an open hand registers as all four. A thumb resting to the side of two raised fingers will not alter the count. 
+A finger is considered "up" when its tip is further from the wrist than its middle knuckle. The thumb only counts once all four fingers are up, and only when it is spread out from the palm rather than tucked across it. An open hand therefore reads as five, and four fingers with the thumb folded across the palm read as four. A thumb resting to the side of one, two or three raised fingers will not alter the count.
+
+The Hand Gesture Tester at the bottom of Settings > Gestures on the device shows what the camera reads as you hold your hand up: each finger lights up as the tracker sees it raised, with the count and the gesture that count would trigger. Gestures do not fire while the tester is open, so you can try every count without toggling anything. The tester runs the camera on its own, so it works before you have mapped a hand gesture.
 
 This detection runs on the exact same frames that the motion analyzer already samples, and it only activates when something in the frame moves or a hand is actively in view. Crucially, this is detection, not recognition: the system identifies nothing specific about the person, stores absolutely no data, compares nothing against a database, and ensures no frame ever leaves the device.
 

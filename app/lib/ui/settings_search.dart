@@ -343,6 +343,12 @@ const List<SettingsSearchEntry> handBuiltSearchEntries = [
     anchorId: 'x:wake_word_tester',
   ),
   SettingsSearchEntry(
+    category: 'Gestures',
+    title: 'Hand Gesture Tester',
+    description: 'A live look at the fingers the camera reads.',
+    anchorId: 'x:hand_gesture_tester',
+  ),
+  SettingsSearchEntry(
     category: 'Voice Satellite',
     title: 'Required system permissions',
     description: 'Microphone and the other grants wake word detection needs.',

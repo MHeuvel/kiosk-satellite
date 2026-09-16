@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../app_container.dart';
 import '../managers/gestures/gesture_mappings.dart';
 import '../managers/settings/definitions.dart' as defs;
+import 'hand_gesture_tester.dart';
 import 'kit.dart';
 import 'toast.dart';
 import 'settings_search.dart';
@@ -173,6 +174,13 @@ class _GestureSettingsPanelState extends State<GestureSettingsPanel> {
               ),
             ),
           ],
+        ),
+        // The tester: a live look at the fingers the camera reads, for
+        // learning how to hold a hand before (or after) mapping one.
+        const SectionHeading('Hand Gesture Tester'),
+        SearchLandingTarget(
+          id: 'x:hand_gesture_tester',
+          child: SettingsCard(children: [HandGestureTesterTile(container: c)]),
         ),
       ],
     );

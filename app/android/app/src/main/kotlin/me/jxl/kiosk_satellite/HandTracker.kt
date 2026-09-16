@@ -24,29 +24,23 @@ import kotlin.math.sqrt
  * result listener counts the raised fingers of the largest hand with
  * the one rule every landmark demo uses: a finger is up when its tip is
  * farther from the wrist than its middle knuckle (a curled finger's tip
- * comes back toward the wrist). The thumb is not counted: it has no such
- * joint to read, and a thumb resting slightly out beside two shown
- * fingers read as a third every other look. So the counts are the four
- * fingers, an open hand being all four. No angle thresholds and no
- * margins: on these landmarks they only ever cost real shows. The rule
- * is orientation and handedness invariant. Detection is not recognition:
- * nothing is identified, stored or compared.
+ * comes back toward the wrist). The thumb has no such joint to read, and
+ * a thumb resting slightly out beside two shown fingers read as a third
+ * every other look, so it only counts once all four fingers are up: an
+ * open hand is five when the thumb leads out from the palm (its tip
+ * farther from the pinky knuckle than its own joint), four when it is
+ * tucked across the palm, the way a hand shows four. No angle thresholds
+ * and no margins: on these landmarks they only ever cost real shows. The
+ * rule is orientation and handedness invariant. Detection is not
+ * recognition: nothing is identified, stored or compared.
  */
 class HandTracker(
     private val context: Context,
-    private val onResult: (hands: Int, fingers: Int, tilt: Float, detail: String, atNs: Long) -> Unit,
+    private val onResult: (hands: Int, read: HandRead?, atNs: Long) -> Unit,
 ) {
     companion object {
         private const val TAG = "HandTracker"
         private const val MODEL = "hand_landmarker.task"
-        private const val WRIST = 0
-        private const val THUMB_IP = 3
-        private const val THUMB_TIP = 4
-        private const val MIDDLE_MCP = 9
-        private const val PINKY_MCP = 17
-        private val FINGERS = arrayOf(
-            intArrayOf(5, 6, 8), intArrayOf(9, 10, 12), intArrayOf(13, 14, 16), intArrayOf(17, 18, 20),
-        )
         private const val TRACE_EVERY = 100
     }
 
@@ -127,7 +121,7 @@ class HandTracker(
         if (hands.isEmpty()) {
             empties++
             if (empties % 8 == 1) Log.d(TAG, "no hand in $empties looks")
-            onResult(0, -1, 0f, "", atNs)
+            onResult(0, null, atNs)
             return
         }
         empties = 0
@@ -135,33 +129,12 @@ class HandTracker(
         var best = 0
         var bestSpan = -1f
         for ((i, h) in hands.withIndex()) {
-            val span = dist(h[WRIST].x(), h[WRIST].y(), h[MIDDLE_MCP].x(), h[MIDDLE_MCP].y())
+            val span = landmarkDist(h[WRIST].x(), h[WRIST].y(), h[MIDDLE_MCP].x(), h[MIDDLE_MCP].y())
             if (span > bestSpan) { bestSpan = span; best = i }
         }
         val h = hands[best]
-        fun px(i: Int) = h[i].x()
-        fun py(i: Int) = h[i].y() * aspect // square units: y is a fraction of the height
-        fun d(a: Int, b: Int) = dist(px(a), py(a), px(b), py(b))
-        val palm = max(d(WRIST, MIDDLE_MCP), 1e-3f)
-        var n = 0
-        val detail = StringBuilder()
-        for (f in FINGERS) {
-            val lead = (d(WRIST, f[2]) - d(WRIST, f[1])) / palm
-            if (lead > 0f) n++
-            detail.append("%+.2f ".format(lead))
-        }
-        val thumb = (d(THUMB_TIP, PINKY_MCP) - d(THUMB_IP, PINKY_MCP)) / palm
-        detail.append("thumb %+.2f (not counted)".format(thumb))
-        // Tilt off fingers-up, degrees, from the wrist-to-middle-knuckle line.
-        val tilt = Math.toDegrees(
-            atan2((px(MIDDLE_MCP) - px(WRIST)).toDouble(), -(py(MIDDLE_MCP) - py(WRIST)).toDouble())
-        ).toFloat()
-        onResult(hands.size, n, tilt, detail.toString(), atNs)
-    }
-
-    private fun dist(x0: Float, y0: Float, x1: Float, y1: Float): Float {
-        val dx = x1 - x0; val dy = y1 - y0
-        return sqrt(dx * dx + dy * dy)
+        // Square units: y is a fraction of the height.
+        onResult(hands.size, readHand({ i -> h[i].x() }, { i -> h[i].y() * aspect }), atNs)
     }
 
     private fun load(): HandLandmarker? {
@@ -193,4 +166,55 @@ class HandTracker(
         try { landmarker?.close() } catch (_: Exception) {}
         landmarker = null
     }
+}
+
+/**
+ * What one hand's landmarks show: the finger count, which digits are up
+ * (thumb, index, middle, ring, pinky, the thumb only when it counts), the
+ * tilt and the leads behind the count.
+ */
+class HandRead(val fingers: Int, val up: List<Boolean>, val tilt: Float, val detail: String)
+
+private const val WRIST = 0
+private const val THUMB_IP = 3
+private const val THUMB_TIP = 4
+private const val MIDDLE_MCP = 9
+private const val PINKY_MCP = 17
+private val FINGERS = arrayOf(
+    intArrayOf(5, 6, 8), intArrayOf(9, 10, 12), intArrayOf(13, 14, 16), intArrayOf(17, 18, 20),
+)
+
+/**
+ * Counts the fingers a hand shows from its 21 MediaPipe landmarks, given
+ * in square units (the same scale on both axes). A finger is up when its
+ * tip leads its middle knuckle away from the wrist. The thumb counts only
+ * on a hand with all four fingers up, when its tip leads its joint away
+ * from the pinky knuckle: an open hand reads five, four fingers with the
+ * thumb tucked across the palm read four. Zero margins throughout. The
+ * tilt is degrees off fingers-up, from the wrist-to-middle-knuckle line.
+ */
+fun readHand(px: (Int) -> Float, py: (Int) -> Float): HandRead {
+    fun d(a: Int, b: Int) = landmarkDist(px(a), py(a), px(b), py(b))
+    val palm = max(d(WRIST, MIDDLE_MCP), 1e-3f)
+    val fingersUp = ArrayList<Boolean>(5)
+    val detail = StringBuilder()
+    for (f in FINGERS) {
+        val lead = (d(WRIST, f[2]) - d(WRIST, f[1])) / palm
+        fingersUp.add(lead > 0f)
+        detail.append("%+.2f ".format(lead))
+    }
+    var n = fingersUp.count { it }
+    val thumb = (d(THUMB_TIP, PINKY_MCP) - d(THUMB_IP, PINKY_MCP)) / palm
+    val thumbCounts = n == 4 && thumb > 0f
+    if (thumbCounts) n++
+    detail.append("thumb %+.2f (%s)".format(thumb, if (thumbCounts) "counted" else "not counted"))
+    val tilt = Math.toDegrees(
+        atan2((px(MIDDLE_MCP) - px(WRIST)).toDouble(), -(py(MIDDLE_MCP) - py(WRIST)).toDouble())
+    ).toFloat()
+    return HandRead(n, listOf(thumbCounts) + fingersUp, tilt, detail.toString())
+}
+
+internal fun landmarkDist(x0: Float, y0: Float, x1: Float, y1: Float): Float {
+    val dx = x1 - x0; val dy = y1 - y0
+    return sqrt(dx * dx + dy * dy)
 }

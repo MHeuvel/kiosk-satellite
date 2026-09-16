@@ -1148,8 +1148,8 @@ class CameraMotion(
                 if (fingersWanted) {
                     analysisExecutor.execute {
                         try {
-                            val tracker = handTracker ?: HandTracker(context) { hands, fingers, tilt, detail, atNs ->
-                                onAnalysis { onHandResult(hands, fingers, tilt, detail, atNs) }
+                            val tracker = handTracker ?: HandTracker(context) { hands, read, atNs ->
+                                onAnalysis { onHandResult(hands, read, atNs) }
                             }.also { handTracker = it }
                             Log.i(TAG, "hand tracker ready: ${tracker.warmUp()}")
                         } catch (e: Throwable) {
@@ -1552,8 +1552,8 @@ class CameraMotion(
      */
     private fun feedHands(image: ImageProxy, now: Long): Boolean {
         try {
-            val tracker = handTracker ?: HandTracker(context) { hands, fingers, tilt, detail, atNs ->
-                onAnalysis { onHandResult(hands, fingers, tilt, detail, atNs) }
+            val tracker = handTracker ?: HandTracker(context) { hands, read, atNs ->
+                onAnalysis { onHandResult(hands, read, atNs) }
             }.also {
                 handTracker = it
                 Log.i(TAG, "hand tracker created")
@@ -1591,23 +1591,24 @@ class CameraMotion(
 
     /**
      * One result off the hand tracker, on the analyzer thread: [hands]
-     * seen (0 when none), the largest one showing [fingersRaw] fingers
-     * at [tilt] degrees off fingers-up. A count is read only from a hand
-     * held with the fingers up; a hand at the mouth (a vape, a cup) or on
-     * a desk lies sideways or flat and shows nothing. Reports
-     * {"palms": n, "fingers": f} per result and {"palms": 0} once when the
-     * hand has gone, so the Dart side re-arms.
+     * seen (0 when none) and the largest one's [read]: its finger count,
+     * which digits are up and its tilt off fingers-up. A count is read
+     * only from a hand held with the fingers up; a hand at the mouth (a
+     * vape, a cup) or on a desk lies sideways or flat and shows nothing.
+     * Reports {"palms": n, "fingers": f, "up": [thumb, index, middle,
+     * ring, pinky]} per result and {"palms": 0} once when the hand has
+     * gone, so the Dart side re-arms.
      */
-    private fun onHandResult(hands: Int, fingersRaw: Int, tilt: Float, detail: String, atNs: Long) {
+    private fun onHandResult(hands: Int, read: HandRead?, atNs: Long) {
         val sink = activeSink ?: return
         // A result the tracker still had in flight at the pause would
         // resurrect the presence clearPresence just forgot.
         if (paused) return
         val now = System.nanoTime()
         var fingers = -1
-        if (hands > 0) {
-            fingers = fingersRaw
-            Log.d(TAG, "hand: fingers=$fingers tilt=${"%.0f".format(tilt)} $detail")
+        if (hands > 0 && read != null) {
+            fingers = read.fingers
+            Log.d(TAG, "hand: fingers=$fingers tilt=${"%.0f".format(read.tilt)} ${read.detail}")
         }
         val raised = hands
         if (raised > 0) {
@@ -1636,8 +1637,9 @@ class CameraMotion(
             lastPalmSeenNs = now
             val count = palmCount
             val fingerCount = fingers
+            val up = read?.up
             mainHandler.post {
-                sink.success(mapOf("palms" to count, "fingers" to fingerCount))
+                sink.success(mapOf("palms" to count, "fingers" to fingerCount, "up" to up))
             }
         } else if (palmCount > 0 && now - lastPalmSeenNs > PALM_GRACE_NS) {
             palmCount = 0

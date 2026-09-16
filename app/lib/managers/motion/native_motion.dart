@@ -93,12 +93,18 @@ class NativeMotionTick {
     this.faceWidth,
     this.palms,
     this.fingers, {
+    this.fingersUp,
     this.preview,
   });
 
   /// Extended fingers on the largest hand, when the landmark stage judged
   /// it (null otherwise).
   final int? fingers;
+
+  /// Which digits of that hand are up, thumb first then index to pinky,
+  /// when judged (null otherwise). The thumb is up only when it counts,
+  /// on an open hand.
+  final List<bool>? fingersUp;
 
   final double? faceWidth;
   final int? palms;
@@ -122,10 +128,14 @@ class NativeMotionTick {
       final palms = raw['palms'];
       if (palms is num) {
         final fingers = raw['fingers'];
+        final up = raw['up'];
         return NativeMotionTick._(
           null,
           palms.toInt(),
           fingers is num && fingers >= 0 ? fingers.toInt() : null,
+          fingersUp: up is List && up.length == 5 && up.every((b) => b is bool)
+              ? up.cast<bool>()
+              : null,
         );
       }
       final preview = raw['preview'];
