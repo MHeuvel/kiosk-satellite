@@ -3280,6 +3280,25 @@ const screensaverScreenOffMinutes = SettingDef<num>(
   category: 'Screensaver',
 );
 
+// Every detection wake from a dark panel lands on the dashboard, which is
+// wrong for a photo frame: someone walking into the room wants the photos
+// back, and a touch is what asks for the dashboard. On, a detection under a
+// dark panel only powers the screen on, the way the ESPHome Screen light
+// does, so the session stays up and the screen-off countdown starts over.
+// Touch, the wake word and the ESPHome dismiss still land on the dashboard.
+const screensaverScreenOffWakeToScreensaver = SettingDef<bool>(
+  key: 'screensaver.screen_off_wake_to_screensaver',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Wake to screensaver',
+  description:
+      'Motion, face, proximity or person detection after the screen has '
+      'turned off brings the screensaver back instead of the dashboard, '
+      'with a fresh Turn screen off after countdown. Touch still opens the '
+      'dashboard.',
+  category: 'Screensaver',
+);
+
 /// The brightness to restore when the screensaver ends, persisted so a
 /// process death mid-screensaver cannot turn the dim level into the new
 /// normal. -1 means no restore pending.
@@ -7474,6 +7493,7 @@ const List<SettingDef<Object>> allSettings = [
   screensaverBrightnessLevel,
   screensaverNotificationBrightness,
   screensaverScreenOffMinutes,
+  screensaverScreenOffWakeToScreensaver,
   // Pixel shift sits with the general controls: it applies to every mode.
   screensaverPixelShift,
   screensaverMenu,

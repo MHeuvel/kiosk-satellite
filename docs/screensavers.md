@@ -16,6 +16,7 @@ Navigate to **Settings > Screensaver** (available in the on device settings and 
 | Brightness level | 20% | Defines the screensaver brightness level across all modes except Dim and Black. |
 | Brighten for notifications | on | Automatically restores full display brightness while an incoming notification is visible. Appears when Screensaver brightness is enabled. |
 | Turn screen off after | 0 (never) | Powers off the physical display panel after the screensaver has been running for the specified duration. |
+| Wake to screensaver | off | Motion, face, proximity or person detection after the screen has turned off brings the screensaver back instead of the dashboard, with a fresh **Turn screen off after** countdown. Touch still opens the dashboard. |
 | Pixel shift | off | Periodically shifts on screen elements every minute to prevent image retention on OLED displays. Not applicable to Black mode. |
 | Show in the kiosk menu | on | Keeps the **Start Screensaver** entry in the kiosk menu. Turn it off to shorten the menu on a device that never starts the screensaver by hand. The idle timeout, gestures, the ESPHome switch and the API commands still start it. |
 | Screensaver mode | Black | Selects the active screensaver display mode. Options for the chosen mode appear directly below this selector. |
@@ -202,7 +203,9 @@ The screensaver session remains active behind a dark panel, ensuring symmetrical
 
 The single wake event that preserves screensaver state is toggling display power via the ESPHome **Screen** light entity. Turning the Screen light entity on in the morning restores the active screensaver with a fresh power-off countdown, allowing an automation to subsequently turn off **Screensaver active** when it is time to display the dashboard.
 
-Example configuration workflow: Display photo slideshows during the day, transition to Black mode in the evening via the [schedule](#schedule), and set **Turn screen off after** to 10 minutes. The display turns off completely overnight after the room empties, and the first morning wake event (motion or wake word) restores the dashboard immediately.
+**Wake to screensaver** gives motion, face, proximity and person detection that same behavior. With it on, a detection after the panel has powered off only turns the screen back on: the screensaver is still up, the **Turn screen off after** countdown starts over and a quiet room lets the panel go dark again. A touch is what opens the dashboard. This is the photo frame pattern: someone walking into the room brings the photos back and nobody sees the dashboard until they ask for it. The switch sits under the **Turn screen off after** slider and does nothing while that slider is at 0. Detection on a lit screensaver keeps its normal rules, so pair it with **Only when screen is off** on each detection type you use if the visible slideshow should survive people moving about. The wake word, the ESPHome **Screensaver active** switch and `stopScreensaver` still dismiss to the dashboard, and each detection type still needs its own Dismiss switch (or a schedule override) to wake the panel at all.
+
+Example configuration workflow: Display photo slideshows during the day, transition to Black mode in the evening via the [schedule](#schedule), and set **Turn screen off after** to 10 minutes. The display turns off completely overnight after the room empties, and the first morning wake event (motion or wake word) restores the dashboard immediately. Add **Wake to screensaver** and the morning motion brings the photos back instead, with the dashboard a touch away.
 
 ## Schedule
 
@@ -291,6 +294,8 @@ On Meta Portal hardware, this feature utilizes the Smart Camera background track
 Each detection page has its own **Only when screen is off** toggle in the app and Remote Admin. These toggles default to off. Enable them for each detection type you use to enjoy a photo slideshow without nearby activity dismissing it. Set **Turn screen off after** to the desired viewing time. Detection during that time leaves the countdown alone and touch still dismisses the screensaver. Black mode and zero brightness do not count as screen-off. The display must actually power off.
 
 The toggles restrict dismissal, so the camera and sensors keep monitoring while the screensaver is visible and after the display turns off. Postpone settings still control activity before the screensaver starts. Schedule detection overrides still decide whether a detection type is enabled and **Only when screen is off** also applies when a schedule enables it. Motion retains priority over face detection.
+
+What a detection does once the display has turned off is decided by **Wake to screensaver** (see [Turning the Screen Off](#turning-the-screen-off)). Off, the detection wakes the dashboard. On, it only lights the panel and the screensaver carries on.
 
 The standard method for launching the screensaver is the idle timeout clock. Manual launch options include selecting **Start Screensaver** in the kiosk menu, triggering a mapped [gesture](gestures.md), toggling the ESPHome **Screensaver active** switch, or sending the `startScreensaver` command via the [remote API](remote-api.md) or [JavaScript API](js-api.md).
 

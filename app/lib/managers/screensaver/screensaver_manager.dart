@@ -467,6 +467,7 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
           !_settings.get(defs.sendspinFullscreenMotion)) {
         return;
       }
+      if (_wakeToScreensaver('motion')) return;
       notifyActivity('motion');
     });
     bus.on<FaceDetected>().listen((_) {
@@ -504,6 +505,8 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
           !_settings.get(defs.sendspinFullscreenMotion)) {
         return;
       }
+      // A wake to the screensaver dismisses nothing, so no camera preview.
+      if (_wakeToScreensaver('face')) return;
       // Before the stop, so the camera preview's hold (MotionManager) is
       // armed by the time the session's end reaches it.
       bus.publish(const FaceDismissedScreensaver());
@@ -545,6 +548,7 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
           !_settings.get(defs.sendspinFullscreenMotion)) {
         return;
       }
+      if (_wakeToScreensaver('person')) return;
       notifyActivity('person');
     });
     bus.on<ProximityDetected>().listen((e) {
@@ -581,6 +585,7 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
           !_settings.get(defs.sendspinFullscreenMotion)) {
         return;
       }
+      if (_wakeToScreensaver('proximity')) return;
       notifyActivity('proximity');
     });
     bus.on<SettingChanged>().listen((e) {
@@ -815,6 +820,22 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
   /// A slideshow view swapped to its next slide: the room is about to be
   /// relit by the app's own display (see [ScreensaverSlideChanged]).
   void notifySlideChanged() => bus.publish(const ScreensaverSlideChanged());
+
+  /// "Wake to screensaver": a detection under a dark panel powers the
+  /// screen back on and nothing more. The app's own wake reaches the
+  /// ScreenStateChanged listener as source app, which keeps the session
+  /// and arms a fresh screen-off countdown, the same path the ESPHome
+  /// Screen light takes. Returns whether it took the event; a lit panel
+  /// or the switch off leaves the dismiss to the caller.
+  bool _wakeToScreensaver(String source) {
+    if (!_panelDark ||
+        !_settings.get(defs.screensaverScreenOffWakeToScreensaver)) {
+      return false;
+    }
+    log.info(name, 'woken by $source; screen on, screensaver stays');
+    unawaited(commands.execute('screenOn', const {}));
+    return true;
+  }
 
   void notifyActivity(String source) {
     // Shared layouts dismiss through the screensaver panel. Generic touch
