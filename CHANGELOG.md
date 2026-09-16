@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Changed
+- **Native sound failures include the details behind the error code.** TTS playback could report only `ERROR_CODE_TIMEOUT`, hiding whether the player stopped making progress, failed to finish or timed out while buffering. The diagnostic log now includes the underlying exception, playback position, buffered position and duration. Android's log also records the communication route context and full stack trace to help investigate intermittent failures such as #575.
+
 ## v2026.9.57 - 2026-09-16
 
 ### Changed

@@ -493,6 +493,21 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
 
                 override fun onPlayerError(error: PlaybackException) {
                     if (exoPlayers[id] !== player) return
+                    // The same timeout code covers stalled playback, buffering
+                    // and teardown. Keep the cause in the page's diagnostic log.
+                    val causes = generateSequence(error.cause) { it.cause }
+                        .take(4)
+                        .joinToString(" <- ") { "${it.javaClass.simpleName}: ${it.message}" }
+                    val description = if (causes.isEmpty()) error.errorCodeName
+                        else "${error.errorCodeName}: $causes"
+                    val progress = "position=${player.currentPosition}ms " +
+                        "buffered=${player.bufferedPosition}ms duration=${player.duration}ms"
+                    Log.w(
+                        TAG,
+                        "sound $id failed: $description ($progress " +
+                            "communication=${communicationSound(id)} output=${target?.type})",
+                        error,
+                    )
                     // A vendor codec service can be crashed outright (issue
                     // #234's MediaTek HAL: every hardware MP3 decode dies
                     // with DEAD_OBJECT). Software decoders run in-process
@@ -512,7 +527,7 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
                         )
                         return
                     }
-                    finish(id, error.errorCodeName)
+                    finish(id, "$description ($progress)")
                 }
             })
             player.setMediaItem(MediaItem.fromUri(source))
