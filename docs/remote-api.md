@@ -256,14 +256,22 @@ reconnecting instead of replaying writes.
 | `logs` | `log {entry}` for app log entries |
 | `console` | `console {level, message, time}` for the dashboard's JavaScript console |
 | `brightness`, `lightlevel`, `micLevel`, `wakeword-state` | The matching message type. A `micLevel` subscription holds the microphone meter until it is removed or the connection closes |
-| `health`, `voice`, `media`, `media-players`, `sonos`, `plugins`, `plugin-settings`, `fleet`, `fleetsync`, `intercom`, `location`, `person`, `volume`, `audio`, `update`, `camera-snapshot`, `cameras`, `gestures` | `update {topic}` when the underlying state changes. Refresh the relevant status command |
+| `ha`, `voice`, `media`, `media-players`, `sonos`, `plugins`, `plugin-tiles`, `plugin-settings`, `fleet`, `fleetsync`, `intercom`, `location`, `person`, `volume`, `audio`, `update`, `camera-snapshot`, `cameras`, `gestures` | `update {topic}` when the manager behind it reports a change. Refresh the relevant status command |
 | `rtsp`, `bluetooth`, `bluetooth-nearby`, `service`, `home-role`, `artwork-cache`, `filter` | `update {topic, results}` when diagnostic values change. `results` contains status command responses keyed by command name |
 
 Settings changes are batched for 100 milliseconds. Events with no
-subscribers do no serialization. Native diagnostics without change
-callbacks share one observer across all viewers and stop when the last
-viewer unsubscribes. Unchanged diagnostic samples are not transmitted.
-Binary camera and screenshot data stay on their existing HTTP endpoints.
+subscribers do no serialization. A settings write is not a status
+change: each manager announces its own status when it moves (the
+service when its reasons change, Home Assistant when its connection
+does, the player when it starts, stops or connects), and the few
+settings a status command reads straight from the store (`ha.url`,
+`ha.token`, `sendspin.*`) map to that command's topic. Native
+diagnostics without change callbacks share one observer across all
+viewers and stop when the last viewer unsubscribes. A manager's
+announcement re-samples them at once, and unchanged samples are not
+transmitted, so a `bluetooth` or `service` update always carries the
+results that moved. Binary camera and screenshot data stay on their
+existing HTTP endpoints.
 
 The admin opens the socket first and reads everything it needs to build
 the page through it. It subscribes to visible panels, releases their
@@ -273,6 +281,8 @@ render on return. A reconnect subscribes again to recover changes missed
 during the outage, and a `state` snapshot that reports a different
 `appVersion` or `buildNumber` than the page was loaded against (the app
 restarted on an update) shows a notice and reloads the page.
+While an established connection is away the page is covered by a
+"Reconnecting" notice and resumes on its own when the socket returns.
 `{"type":"ping"}` receives `{"type":"pong"}` for connection health checks.
 
 ## Remote UI

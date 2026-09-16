@@ -25,6 +25,18 @@ class RemoteObservations {
     'filter': ['evalJs'],
   };
 
+  /// Whether [topic] is one of the diagnostics this observer samples.
+  static bool covers(String topic) => _sources.containsKey(topic);
+
+  /// A manager said the state behind [topic] moved: sample it now rather
+  /// than at the next tick, so viewers get the new results at once and
+  /// nothing at all when the sample turns out unchanged.
+  void poke(String topic) {
+    if (!_active.contains(topic)) return;
+    _timers.remove(topic)?.cancel();
+    unawaited(_read(topic));
+  }
+
   void observe(Set<String> topics) {
     _active = topics.intersection(_sources.keys.toSet());
     for (final topic in _timers.keys.toList()) {

@@ -22,7 +22,43 @@ let settle = () => {};
 document.addEventListener('ks-logout', () => {
   clearTimeout(reconnectTimer);
   clearInterval(heartbeat);
+  hideReconnecting();
 });
+/* A connection that was up and went away: the page is a mirror of the
+   device and every control on it would now write into the void, so it is
+   covered until the socket is back. Not for an attempt that never opened
+   (the boot falls back to HTTP for that), and not for a logout. After a
+   while the cover offers a reload, for a kiosk that is not coming back. */
+let reconnectOverlay = null;
+let reconnectSince = 0;
+function showReconnecting() {
+  if (reconnectOverlay) return;
+  reconnectSince = Date.now();
+  const back = document.createElement('div');
+  back.className = 'modal-back reconnect-back';
+  back.innerHTML = '<div class="card modal-card reconnect-card">'
+    + '<span class="splash-spinner"></span>'
+    + '<h3 class="modal-title">Reconnecting…</h3>'
+    + '<p class="reconnect-text"></p>'
+    + '<button type="button" class="btn-ghost hidden">Reload page</button></div>';
+  const text = back.querySelector('.reconnect-text');
+  const name = state.device?.name || state.device?.model || 'the kiosk';
+  text.textContent = `The connection to ${name} was lost. This page resumes on its own when it is back.`;
+  const reload = back.querySelector('button');
+  reload.addEventListener('click', () => location.reload());
+  document.body.appendChild(back);
+  reconnectOverlay = back;
+  const tick = () => {
+    if (reconnectOverlay !== back) return;
+    if (Date.now() - reconnectSince > 20000) reload.classList.remove('hidden');
+    setTimeout(tick, 1000);
+  };
+  tick();
+}
+function hideReconnecting() {
+  reconnectOverlay?.remove();
+  reconnectOverlay = null;
+}
 export function socketSettled(timeoutMs = 3000) {
   if (state.ws?.readyState === WebSocket.OPEN || !settled) return Promise.resolve();
   return Promise.race([settled, new Promise((r) => setTimeout(r, timeoutMs))]);
@@ -41,12 +77,15 @@ export function connectWs() {
   // event moved before the snapshot landed keeps the event's value.
   let snapshotSeen = false;
   const movedFirst = {};
+  let opened = false;
   ws.onopen = () => {
     if (state.ws !== ws) { ws.close(); return; }
+    opened = true;
     attachSocket(ws);
     retryDelay = 1000;
     lastMessage = Date.now();
     settle();
+    hideReconnecting();
     setConn('on');
     syncSubscriptions({ reconnect: true });
     document.dispatchEvent(new CustomEvent('ks-connected'));
@@ -64,6 +103,7 @@ export function connectWs() {
     settle();
     setConn('off');
     if (event.code === 1008) { logout(); return; }
+    if (opened && state.token) showReconnecting();
     // Upgrade failures hide their HTTP status from browser JavaScript.
     // A single authenticated read distinguishes expiry from an outage.
     const check = new AbortController();

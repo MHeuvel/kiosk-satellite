@@ -785,6 +785,7 @@ class SendspinManager extends Manager {
       switch (call.method) {
         case 'stateChanged':
           _status = {..._status, ...map};
+          _remoteMediaChanged();
           log.info(
             name,
             'state: connected=${map['connected']} '
@@ -2519,6 +2520,7 @@ class SendspinManager extends Manager {
       _running = true;
       log.info(name, 'player started as "$playerName"');
       _syncWatcher();
+      _remoteMediaChanged();
     } catch (e) {
       log.warn(name, 'start failed: $e');
     }
@@ -2528,6 +2530,7 @@ class SendspinManager extends Manager {
     if (!_running) return;
     _running = false;
     _syncWatcher();
+    _remoteMediaChanged();
     try {
       await _channel.invokeMethod('stop');
     } catch (e) {

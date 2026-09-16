@@ -181,6 +181,10 @@ with sync_playwright() as playwright:
       (await import(url)).state.ws.close();
     }""")
     expect(page.locator('#connDot')).to_have_class('dot off')
+    # A dropped connection covers the page until the socket is back.
+    expect(page.locator('.reconnect-back')).to_be_visible()
+    expect(page.locator('.reconnect-back')).to_contain_text('Reconnecting')
+    expect(page.locator('.reconnect-back')).to_contain_text('Test kiosk')
     # Browser contexts also take their request client offline, so use a
     # separate client while this one has no network.
     import urllib.request
@@ -191,6 +195,7 @@ with sync_playwright() as playwright:
         assert json.load(response)['ok']
     context.set_offline(False)
     expect(page.locator('#connDot')).to_have_class('dot on', timeout=30000)
+    expect(page.locator('.reconnect-back')).to_have_count(0)
     page.locator('#tabs button[data-tab="screensaver"]').click()
     expect(page.locator('[data-key="screensaver.mode"] select')).to_have_value('clock')
     page.wait_for_timeout(1000)
@@ -199,6 +204,21 @@ with sync_playwright() as playwright:
     page.wait_for_timeout(6000)
     assert not [frame for frame in frames if frame.get('type') in ('command', 'settings')], frames
     assert not [url for url in requests if '/api/commands/' in url or '/api/settings' in url], requests
+
+    # A settings flip repaints the Overview's tiles from the cache. Only a
+    # setting a status command reads (the HA link) re-reads, and only that
+    # one source.
+    page.locator('#tabs button[data-tab="dashboard"]').click()
+    expect(page.locator('#statusGrid [data-status="ha"]')).to_be_visible()
+    page.wait_for_timeout(1500)
+    frames.clear()
+    change('screen.keep_on', True)
+    change('browser.zoom', 1.1)
+    page.wait_for_timeout(1500)
+    assert not [f for f in frames if f.get('type') == 'command'], frames
+    change('ha.url', 'http://ha.example/')
+    page.wait_for_timeout(1500)
+    assert [f.get('name') for f in frames if f.get('type') == 'command'] == ['haStatus'], frames
 
     # The app restarted on a new build: the reconnect's snapshot names it,
     # the page says so and reloads itself onto the new bundle.

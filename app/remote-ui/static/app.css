@@ -1191,3 +1191,11 @@
 .plugin-reading-unit { font-size: inherit; font-weight: inherit; color: var(--muted); }
 .plugin-reading.multiline { grid-template-columns: minmax(0, 1fr); }
 .plugin-reading.multiline dd { text-align: left; }
+
+  /* The cover while the socket is away (ws.js showReconnecting). */
+  .reconnect-back { z-index: 1000; }
+  .reconnect-card { max-width: 380px; text-align: center; display: grid;
+    justify-items: center; gap: 12px; }
+  .reconnect-card .modal-title { margin: 0; }
+  .reconnect-card .reconnect-text { margin: 0; color: var(--muted);
+    font-size: 14.5px; line-height: 1.5; }

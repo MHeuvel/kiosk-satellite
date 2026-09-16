@@ -1165,11 +1165,15 @@ class RemoteManager extends Manager {
   // frames never enter this feed, and unused topics do no serialization.
   void _queueTopics(AppEvent event) {
     if (_wsClients.isEmpty) return;
+    // A settings change is not a status change. The Overview's tiles read
+    // status commands whose answers a manager owns, and each manager says
+    // so itself (RemoteStatusChanged) when its status moves: the service
+    // when its reasons change, Home Assistant when the connection does,
+    // the player when it starts or stops. The few settings a status
+    // command reads straight from the store are named here.
     final topics = switch (event) {
       SettingChanged(:final key) => {
         'settings',
-        'health',
-        'service',
         // The Voice Satellite cards re-read the controlled entities on
         // this, a full snapshot on the device, so only the settings that
         // feed that snapshot (the HA link, the wake word, the microphone)
@@ -1180,6 +1184,11 @@ class RemoteManager extends Manager {
             key.startsWith('web.') ||
             key.startsWith('vs.'))
           'voice',
+        // haStatus reports whether a URL and token are configured.
+        if (key == 'ha.url' || key == 'ha.token') 'ha',
+        // sendspinStatus reports the enabled switch and the followed
+        // player's name.
+        if (key.startsWith('sendspin.')) 'media',
         if (key == 'camera.config') 'cameras',
         if (key == 'gestures.mappings') 'gestures',
         if (key == 'sendspin.sonos_hosts') 'sonos',
@@ -1196,7 +1205,7 @@ class RemoteManager extends Manager {
           'audio',
       },
       RemoteStatusChanged(:final topic) => {topic},
-      ShizukuStateChanged() => {'shizuku', 'service', 'health', 'plugins'},
+      ShizukuStateChanged() => {'shizuku', 'service', 'plugins'},
       LocationChanged() => {'location'},
       VolumeChanged() => {'volume'},
       CameraSnapshotTaken() => {'camera-snapshot'},
@@ -1208,12 +1217,11 @@ class RemoteManager extends Manager {
       FleetChanged() => {'fleet'},
       FleetSyncChanged() => {'fleetsync'},
       IntercomStateChanged() => {'intercom'},
-      UpdateStateChanged() => {'health', 'update'},
+      UpdateStateChanged() => {'update'},
       BluetoothLinksChanged() => {'bluetooth'},
       AudioDevicesChanged() => {'audio'},
-      NetworkStateChanged() || PowerChanged() => {'health'},
-      ActivityAttached() || AmbientDisplayChanged() => {'service', 'health'},
-      PageChanged() || UrlChanged() => {'health', 'filter'},
+      ActivityAttached() || AmbientDisplayChanged() => {'service'},
+      PageChanged() || UrlChanged() => {'filter'},
       _ => const <String>{},
     };
     _pendingTopics.addAll(topics.where(_hasTopic));
@@ -1231,7 +1239,12 @@ class RemoteManager extends Manager {
         _pendingSettings.clear();
       }
       for (final topic in _pendingTopics) {
-        if (topic != 'settings') {
+        if (topic == 'settings') continue;
+        // A sampled diagnostic answers with its results, and only when
+        // they moved: viewers paint from the push instead of re-reading.
+        if (RemoteObservations.covers(topic)) {
+          _observations.poke(topic);
+        } else {
           _broadcast({'type': 'update', 'topic': topic}, topic: topic);
         }
       }

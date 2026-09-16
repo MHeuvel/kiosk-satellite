@@ -116,6 +116,15 @@ class PluginManager extends Manager {
 
     installed.addListener(publishSettings);
     enabled.addListener(publishSettings);
+    // The Overview's plugin tiles, apart from the readings and charts a
+    // plugin page follows: those move often, the tiles rarely.
+    void publishTiles() {
+      if (!_disposed) bus.publish(const RemoteStatusChanged('plugin-tiles'));
+    }
+
+    statusTiles.addListener(publishTiles);
+    installed.addListener(publishTiles);
+    enabled.addListener(publishTiles);
     _hostReads = PluginHostApi(
       commands,
       bus,

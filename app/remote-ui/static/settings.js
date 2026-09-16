@@ -211,6 +211,9 @@ async function flushSettingsUpdates() {
     document.dispatchEvent(new CustomEvent('ks-device-name', {
       detail: changed.find(s => s.key === 'device.name').value }));
   }
+  // Pages that paint from the settings cache (the Overview's tiles)
+  // repaint off this instead of re-reading the device.
+  document.dispatchEvent(new CustomEvent('ks-settings', { detail: changed.map(s => s.key) }));
   if (!rebuild) return;
   liveSettingsRendering = true;
   const restoreDraft = preserveDraft();

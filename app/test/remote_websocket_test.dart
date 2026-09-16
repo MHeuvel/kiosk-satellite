@@ -190,6 +190,80 @@ void main() {
     await voice;
   });
 
+  test('a settings write is not a status change', () async {
+    var reasons = ['wake_word'];
+    commands.register(
+      Command(
+        name: 'getServiceStatus',
+        description: '',
+        handler: (_) async =>
+            CommandResult.ok({'running': true, 'reasons': reasons}),
+      ),
+    );
+    commands.register(
+      Command(
+        name: 'getSystemPermissions',
+        description: '',
+        handler: (_) async => const CommandResult.ok({'microphone': true}),
+      ),
+    );
+    commands.register(
+      Command(
+        name: 'hasUiGuard',
+        description: '',
+        handler: (_) async => const CommandResult.ok(false),
+      ),
+    );
+    final client = await connect();
+    final topics = ['ha', 'media', 'service', 'update', 'plugin-tiles'];
+    final first = matching(
+      client.messages,
+      (m) => m['type'] == 'update' && m['topic'] == 'service',
+    );
+    await subscribe(client, topics);
+    // The service sample arrives once, with its results attached.
+    expect(((await first)['results'] as Map)['getServiceStatus'], isNotNull);
+    final received = <Map>[];
+    client.messages.listen(received.add);
+    await settings.set(defs.keepScreenOn, !settings.get(defs.keepScreenOn));
+    await settings.set(defs.screensaverMode, 'black');
+    await Future<void>.delayed(const Duration(milliseconds: 300));
+    expect(received.where((m) => m['type'] == 'update'), isEmpty);
+    // A manager announcing an unchanged sample sends nothing either.
+    bus.publish(const RemoteStatusChanged('service'));
+    await Future<void>.delayed(const Duration(milliseconds: 300));
+    expect(received.where((m) => m['type'] == 'update'), isEmpty);
+    // A changed one carries the new results, so the page paints from
+    // the push without a command of its own.
+    reasons = ['wake_word', 'camera'];
+    final moved = matching(
+      client.messages,
+      (m) => m['type'] == 'update' && m['topic'] == 'service',
+    );
+    bus.publish(const RemoteStatusChanged('service'));
+    final results = (await moved)['results'] as Map;
+    expect((results['getServiceStatus'] as Map)['data']['reasons'], [
+      'wake_word',
+      'camera',
+    ]);
+    // The settings a status command reads straight from the store.
+    final ha = matching(
+      client.messages,
+      (m) => m['type'] == 'update' && m['topic'] == 'ha',
+    );
+    await settings.set(defs.haUrl, 'http://ha.example');
+    await ha;
+    final media = matching(
+      client.messages,
+      (m) => m['type'] == 'update' && m['topic'] == 'media',
+    );
+    await settings.set(
+      defs.sendspinEnabled,
+      !settings.get(defs.sendspinEnabled),
+    );
+    await media;
+  });
+
   test('subscriptions filter events and can be replaced', () async {
     final client = await connect();
     await subscribe(client, []);

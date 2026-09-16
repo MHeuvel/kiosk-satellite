@@ -115,7 +115,7 @@ class HomeAssistantManager extends Manager {
       }
     });
     connectionOk.addListener(
-      () => bus.publish(const RemoteStatusChanged('health')),
+      () => bus.publish(const RemoteStatusChanged('ha')),
     );
     commands.register(
       Command(

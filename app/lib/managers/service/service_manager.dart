@@ -140,7 +140,8 @@ class ServiceManager extends Manager {
               'other apps.',
         ),
       if (s.get(defs.cameraEnabled) &&
-          s.get(defs.cameraRtspEnabled) && s.get(defs.cameraRtspAudio))
+          s.get(defs.cameraRtspEnabled) &&
+          s.get(defs.cameraRtspAudio))
         const ServiceReason(
           'rtsp_audio',
           'RTSP microphone audio',
@@ -227,6 +228,9 @@ class ServiceManager extends Manager {
     final ids = [for (final r in next) r.id];
     final changed = ids.join(',') != [for (final r in _reasons) r.id].join(',');
     _reasons = next;
+    // The remote admin's Service tile and page draw the reasons: tell
+    // them when the list moved, not on every settings write.
+    if (changed) bus.publish(const RemoteStatusChanged('service'));
     try {
       await _channel
           .invokeMethod('setServiceReasons', {

@@ -168,7 +168,7 @@ function grantButton(btn, spec) {
       else await cmd('requestOsPermissions', { which: [].concat(spec.ask) });
     } catch (_) {}
     btn.disabled = false;
-    refreshHealth();
+    readSource('service').then(() => paintHealth({ filter: false }));
   };
 }
 function openButton(btn, label, tab) {
@@ -176,9 +176,71 @@ function openButton(btn, label, tab) {
   btn.onclick = () => showTab(tab);
 }
 
-let healthInFlight = null;
+/* ---- Health ----
+   One cache slot per status source. Each source has its own topic and
+   reader: an update for that topic re-reads (or paints from the pushed
+   results) that one source, and the tiles and the attention list are
+   painted whole from the cache. A settings change repaints from the
+   cache without a single command. */
+const health = { ha: null, wake: null, esp: null, media: null, svc: null,
+  upd: null, perms: null, guard: null, fleet: null, tiles: null };
+const SOURCES = {
+  ha: { topics: ['ha'], read: async () => { health.ha = await ask('haStatus'); } },
+  // Wake word pushes arrive as their own message (ks-wakeword below).
+  wake: { topics: [], read: async () => { health.wake = await ask('getWakeWordState'); } },
+  // Sampled on the device, pushed only when something other than the
+  // beacon counters moved, with the sample attached.
+  esp: { topics: ['bluetooth'], read: async (results) => {
+    health.esp = results?.esphomeStatus ? dataOf(results.esphomeStatus) : await ask('esphomeStatus');
+  } },
+  media: { topics: ['media'], intervalMs: 1000, read: async () => { health.media = await ask('sendspinStatus'); } },
+  service: { topics: ['service'], read: async (results) => {
+    if (results?.getServiceStatus) {
+      health.svc = dataOf(results.getServiceStatus);
+      health.perms = dataOf(results.getSystemPermissions);
+      health.guard = dataOf(results.hasUiGuard);
+      return;
+    }
+    [health.svc, health.perms, health.guard] = await Promise.all(
+      ['getServiceStatus', 'getSystemPermissions', 'hasUiGuard'].map((c) => ask(c)));
+  } },
+  update: { topics: ['update'], read: async () => { health.upd = await ask('getUpdateStatus'); } },
+  fleet: { topics: ['fleetsync'], read: async () => { health.fleet = await ask('fleetStatus'); } },
+  tiles: { topics: ['plugin-tiles'], read: async () => { health.tiles = await ask('getPluginStatusTiles'); } },
+};
+const dataOf = (r) => (r && r.ok !== false && r.data !== undefined ? r.data : null);
+// One read per source at a time: a tab shown during a read joins it.
+function readSource(name, results) {
+  const source = SOURCES[name];
+  if (source.pending) return source.pending;
+  source.pending = Promise.resolve(source.read(results)).catch(() => {})
+    .finally(() => { source.pending = null; source.readAt = Date.now(); });
+  return source.pending;
+}
+export async function refreshHealth() {
+  await Promise.all(Object.keys(SOURCES).map((name) => readSource(name)));
+  paintHealth();
+}
+for (const [name, source] of Object.entries(SOURCES)) {
+  if (!source.topics.length) continue;
+  watchUpdates(source.topics, async (results) => {
+    // Entering the page (no results at all, as opposed to a push with
+    // none) right after the boot read it is not worth a second read.
+    if (results === undefined && Date.now() - (source.readAt || 0) < 5000) { paintHealth(); return; }
+    await readSource(name, results);
+    paintHealth();
+  }, { visible: onOverview, intervalMs: source.intervalMs || 0 });
+}
+// The settings the tiles and the attention list read straight from the
+// cache: a flip repaints, and only the filter label asks the device.
+document.addEventListener('ks-settings', (e) => {
+  if (!onOverview()) return;
+  paintHealth({ filter: (e.detail || []).includes('browser.ws_filter') });
+  paintSnapshotTile();
+});
+
 let haStatusRevision = 0;
-async function paintHaStatus(ha) {
+async function paintHaStatus(ha, { filter = true } = {}) {
   const revision = ++haStatusRevision;
   const filtering = settingOn('browser.ws_filter');
   if (!ha) paintTile('ha', '', 'Status unavailable');
@@ -189,29 +251,18 @@ async function paintHaStatus(ha) {
   else paintTile('ha', 'on', filtering ? 'Checking filter...' : 'Validated');
   // Keep the rest of Overview responsive if the dashboard cannot answer.
   // Disabled or disconnected panels do not get a JavaScript request.
-  if (!onOverview()) return;
-  const filter = await readFilterStatus(filtering && !!ha?.configured && !!ha?.connected);
+  if (!filter || !onOverview()) return;
+  const status = await readFilterStatus(filtering && !!ha?.configured && !!ha?.connected);
   if (revision !== haStatusRevision || !onOverview() || !ha?.configured || !ha?.connected) return;
   const enabled = settingOn('browser.ws_filter');
-  const current = enabled ? filter : null;
+  const current = enabled ? status : null;
   paintTile('ha', current?.unfiltered ? 'warn' : 'on',
     enabled ? current?.label || 'Filter status unavailable' : 'Validated');
 }
 
-export function refreshHealth() {
-  // One read at a time: a tab shown during a read joins it.
-  if (healthInFlight) return healthInFlight;
-  healthInFlight = readHealth().finally(() => { healthInFlight = null; });
-  return healthInFlight;
-}
-async function readHealth() {
-  const [ha, wake, esp, media, svc, upd, perms, guard, fleet, tiles] = await Promise.all([
-    'haStatus', 'getWakeWordState', 'esphomeStatus', 'sendspinStatus',
-    'getServiceStatus', 'getUpdateStatus', 'getSystemPermissions', 'hasUiGuard',
-    'fleetStatus', 'getPluginStatusTiles',
-  ].map((c) => ask(c)));
-
-  void paintHaStatus(ha);
+function paintHealth({ filter = true } = {}) {
+  const { ha, wake, esp, media, svc, upd, perms, guard, fleet, tiles } = health;
+  void paintHaStatus(ha, { filter });
 
   if (!settingOn('wake_word.enabled')) paintTile('voice', '', 'Wake word detection off');
   else if (!wake) paintTile('voice', '', 'Status unavailable');
@@ -329,7 +380,7 @@ async function readHealth() {
         btn.onclick = async () => {
           btn.disabled = true;
           await cmd('retryWakeWord').catch(() => null);
-          setTimeout(refreshHealth, 1500);
+          setTimeout(refreshWake, 1500);
         };
       },
     });
@@ -363,6 +414,13 @@ async function readHealth() {
   }
   renderAttention(items);
   paintNowPlaying(media);
+}
+// The wake word engine and the Voice Satellite tile. A microphone grant
+// it may have lost shows up through the service sample, which the device
+// pushes on its own.
+async function refreshWake() {
+  await readSource('wake');
+  paintHealth({ filter: false });
 }
 
 /* ---- Screen ---- */
@@ -477,7 +535,8 @@ async function loadArtwork(img, url) {
   }
 }
 async function refreshNowPlaying() {
-  paintNowPlaying(await ask('sendspinStatus'));
+  await readSource('media');
+  paintNowPlaying(health.media);
 }
 $('#npArt img').addEventListener('error', function () { this.hidden = true; });
 document.querySelectorAll('#npCard [data-np]').forEach((b) =>
@@ -520,7 +579,7 @@ let healthTimer = null;
 document.addEventListener('ks-wakeword', () => {
   if (!onOverview()) return;
   clearTimeout(healthTimer);
-  healthTimer = setTimeout(refreshHealth, 2000);
+  healthTimer = setTimeout(refreshWake, 2000);
 });
 
 /* ---- Quick controls ---- */
@@ -617,7 +676,8 @@ $('#tileCheckUpdate').addEventListener('click', async () => {
   try {
     const res = await ask('checkUpdateNow');
     refreshUpdateBadge();
-    await refreshHealth();
+    await readSource('update');
+    paintHealth({ filter: false });
     if (!res?.reachable) {
       await messageBox({ title: 'Check for updates',
         message: 'Update check failed. Can the device reach GitHub?' });
@@ -641,7 +701,9 @@ setInterval(() => { if (onOverview() && !live) paintTaken(); }, 1000);
 // The page came back into view: a tab switch here, or the browser tab
 // returning. Fresh reads, and a Live capture if the last one is stale.
 export function overviewShown() {
-  refreshHealth();
+  // The source watches re-read on entry (live.js); the wake word has no
+  // topic of its own, so it is read here.
+  readSource('wake').then(() => paintHealth({ filter: false }));
   refreshVolume();
   paintShotBadge();
   paintSnapshotTile();
@@ -662,5 +724,3 @@ export async function initOverview() {
   await Promise.all([refreshHealth(), refreshVolume(), paintRestartDeviceTile(), refreshDndTile()]);
 }
 
-watchUpdates(['health', 'service', 'bluetooth', 'plugins', 'fleetsync'], refreshHealth, { visible: onOverview });
-watchUpdates(['media'], refreshNowPlaying, { visible: onOverview, intervalMs: 1000 });
