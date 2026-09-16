@@ -1,3 +1,4 @@
+import { watchUpdates } from './live.js';
 import { hintRow } from './widgets.js';
 import { api, state } from './core.js';
 import { readOnlyRow } from './device.js';
@@ -183,13 +184,11 @@ export async function updateCameraSnapshotPanel() {
   card.appendChild(row);
   tab.append(heading, card);
   try { await refresh(); } catch (_) {}
-  let ticks = 0;
+  watchUpdates(['camera-snapshot'], refresh, { owner: row });
   cameraSnapshotTimer = setInterval(async () => {
     if (!row.isConnected) { clearInterval(cameraSnapshotTimer); return; }
     if (!tab.classList.contains('active')) return;
     if (at) desc.textContent = agoLabel(at);
-    if (++ticks % 3 !== 0) return; // re-fetch the frame every third tick
-    try { await refresh(); } catch (_) {}
   }, 5000);
 }
 

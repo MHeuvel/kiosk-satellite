@@ -1,3 +1,4 @@
+import { watchUpdates } from './live.js';
 import { settingRow } from './rows.js';
 import { cmd, state as appState } from './core.js';
 import { permissionSpecs } from './permissions.js';
@@ -89,4 +90,4 @@ export function renderShizukuPage(container) {
   container.append(help); paint();
   if (currentPath === 'device/Shizuku') refresh();
 }
-setInterval(() => { if (currentPath === 'device/Shizuku' && !document.hidden) refresh(); }, 1500);
+watchUpdates(['shizuku'], refresh, { visible: () => currentPath === 'device/Shizuku' });

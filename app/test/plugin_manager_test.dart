@@ -676,6 +676,30 @@ void main() {
   });
 
   test(
+    'remote plugin settings notify changes without a read feedback loop',
+    () async {
+      await Future<void>.delayed(Duration.zero);
+      final topics = <String>[];
+      final sub = bus.on<RemoteStatusChanged>().listen(
+        (event) => topics.add(event.topic),
+      );
+      await plugins.getState();
+      await Future<void>.delayed(Duration.zero);
+      expect(topics.where((topic) => topic == 'plugin-settings'), isEmpty);
+      await plugins.update('configure', {
+        'id': 'hello-world',
+        'values': {'message': 'Changed on device'},
+      });
+      await Future<void>.delayed(Duration.zero);
+      expect(topics.where((topic) => topic == 'plugin-settings'), hasLength(1));
+      await plugins.getState();
+      await Future<void>.delayed(Duration.zero);
+      expect(topics.where((topic) => topic == 'plugin-settings'), hasLength(1));
+      await sub.cancel();
+    },
+  );
+
+  test(
     'master switch preserves selections, hides windows and exposes state through the command API',
     () async {
       await window();

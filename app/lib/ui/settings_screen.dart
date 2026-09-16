@@ -1495,46 +1495,16 @@ class _CategoryContentState extends State<_CategoryContent> {
         const Duration(seconds: 5),
         (_) => _pollBtAdapter(),
       );
-      // The encryption key is written by the manager ~500ms after Enable
-      // ESPHome is switched on (behind the restart debounce), which is
-      // AFTER the toggle's own rebuild. Without this, the key row keeps
-      // its placeholder until the next unrelated tap and the page reads
-      // as if enabling did nothing.
-      _keyEcho = widget.container.bus.on<SettingChanged>().listen((e) {
-        if (e.key == btproxyKey.key && mounted) setState(() {});
-      });
     }
-    // The intercom key is made by the manager right after Enable intercom
-    // goes on, and changed by the dialog or a fleet sync: the copy box
-    // follows the setting, not the tap.
-    if (widget.category == 'Intercom') {
-      _keyEcho = widget.container.bus.on<SettingChanged>().listen((e) {
-        if (e.key == intercomKey.key && mounted) setState(() {});
-      });
-    }
-    // Adaptive brightness (issue #343) is switched on its own page and on
-    // the remote admin, and the Default brightness row standing down and
-    // the screensaver's bright-room hints answer for it: this page must
-    // hear the flip, not wait for its next tap.
-    if (widget.category == 'Screen & Audio' ||
-        widget.category == 'Screensaver') {
-      _keyEcho = widget.container.bus.on<SettingChanged>().listen((e) {
-        if (e.key == adaptiveBrightness.key && mounted) setState(() {});
-      });
-    }
-    // The launcher's permissions group follows Return automatically; a
-    // flip from the remote admin must show or hide it here too.
-    if (widget.category == 'Launcher') {
-      _keyEcho = widget.container.bus.on<SettingChanged>().listen((e) {
-        if ((e.key == launcherAutoReturn.key || e.key == launcherEnabled.key) &&
-            mounted) {
-          setState(() {});
-        }
-      });
-    }
+    // Remote saves, fleet updates and manager writes use the same event.
+    // Listen while this pane is open, including cross-category dependencies.
+    // Flutter combines events in the same frame into one rebuild.
+    _settingsEcho = widget.container.bus.on<SettingChanged>().listen((_) {
+      if (mounted) setState(() {});
+    });
   }
 
-  StreamSubscription<SettingChanged>? _keyEcho;
+  StreamSubscription<SettingChanged>? _settingsEcho;
 
   @override
   void dispose() {
@@ -1543,7 +1513,7 @@ class _CategoryContentState extends State<_CategoryContent> {
     );
     _btAdapterTimer?.cancel();
     _fleetEcho?.cancel();
-    _keyEcho?.cancel();
+    _settingsEcho?.cancel();
     super.dispose();
   }
 

@@ -209,6 +209,11 @@ class JsApiManager extends Manager {
         ? (args[1] as Map).cast<String, Object?>()
         : <String, Object?>{};
 
+    if (method == 'remoteSettingsChanged') {
+      bus.publish(const RemoteStatusChanged('voice'));
+      return true;
+    }
+
     if (method == 'browserMicrophone') {
       final id = params['id'];
       if (id is! String || id.length > 64) return false;

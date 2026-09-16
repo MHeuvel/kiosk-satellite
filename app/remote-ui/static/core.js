@@ -1,3 +1,4 @@
+import { detachSocket, socketReady, socketRequest } from './transport.js';
 import { start } from './app.js';
 import { startWizard } from './wizard.js';
 
@@ -6,6 +7,18 @@ import { startWizard } from './wizard.js';
 // bindings are initialized before evaluation starts.
 export function $(s) { return document.querySelector(s); }
 export const state = { token: localStorage.getItem('ks_token'), ws: null };
+
+// Controls retain their setting definitions between renders. Refresh their
+// values in place so a page visit cannot leave other pages on old objects.
+export function cacheSettings(definitions) {
+  const existing = new Map((state.settings || []).map(setting => [setting.key, setting]));
+  state.settings = definitions.map(setting => {
+    const cached = existing.get(setting.key);
+    return cached ? Object.assign(cached, setting) : setting;
+  });
+  return state.settings;
+}
+
 
 /* ---- Theme ---- */
 // Follows the OS by default; the header button cycles auto → dark → light and
@@ -39,6 +52,15 @@ themeMedia.addEventListener('change', applyTheme);
 applyTheme();
 
 export async function api(path, opts = {}) {
+  if (socketReady() && opts.method === 'POST' && path.startsWith('/api/commands/')) {
+    const result = await socketRequest({ type: 'command',
+      name: path.slice('/api/commands/'.length), params: JSON.parse(opts.body || '{}') }, opts);
+    return new Response(JSON.stringify(result), { headers: { 'content-type': 'application/json' } });
+  }
+  if (socketReady() && opts.method === 'PATCH' && path === '/api/settings') {
+    const result = await socketRequest({ type: 'settings', values: JSON.parse(opts.body || '{}') }, opts);
+    return new Response(JSON.stringify(result), { headers: { 'content-type': 'application/json' } });
+  }
   const res = await fetch(path, {
     ...opts,
     headers: { ...(opts.headers || {}), Authorization: `Bearer ${state.token}` },
@@ -128,6 +150,8 @@ export async function login() {
 }
 export function logout() {
   state.token = null; localStorage.removeItem('ks_token');
+  detachSocket();
+  document.dispatchEvent(new CustomEvent('ks-logout'));
   if (state.ws) { state.ws.onclose = null; state.ws.close(); state.ws = null; }
   showView('login');
   // A wiped or factory-fresh device has no password to log in with - its

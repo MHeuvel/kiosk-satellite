@@ -75,12 +75,14 @@ try:
         for name in ['Microphone', 'Camera', 'Nearby devices', 'Notifications', 'System UI guard', 'Device admin', 'Location']:
             expect(root.get_by_text(name, exact=True)).to_have_count(1)
         state = dict(status='permission_required', available=True, granted=False)
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('shizuku')")
         grant = root.locator('[data-shizuku-action="permission"]')
         expect(grant).to_be_enabled()
         grant.click()
         expect(root.locator('[data-connection] .desc')).to_contain_text('Grant access')
         assert requests == [('requestShizukuPermission', {})]
         state = dict(status='ready', available=True, granted=True, uid=2000)
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('shizuku')")
         expect(root.locator('[data-connection] .desc')).to_have_text('Connected with shell access')
         expect(grant).to_be_hidden()
         root.get_by_role('button', name='Test', exact=True).click()
@@ -99,6 +101,7 @@ try:
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
             page.screenshot(path=f'/tmp/kiosk-shizuku-device-{theme}.png', full_page=True)
         state = dict(status='unavailable', available=False, granted=False)
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('shizuku')")
         expect(root.get_by_role('button', name='Test', exact=True)).to_be_disabled()
         page.evaluate("async () => (await import('/static/tabs.js')).showTab('device', {refresh:false})")
         page.wait_for_timeout(300)
@@ -107,6 +110,6 @@ try:
         assert polls == before
         assert errors == [], errors
         browser.close()
-        print('Shizuku Device UI: connection, explicit actions, failures, layouts and polling passed')
+        print('Shizuku Device UI: connection, explicit actions, failures, layouts and subscriptions passed')
 finally:
     server.shutdown()

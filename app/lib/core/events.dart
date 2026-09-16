@@ -897,3 +897,16 @@ class ShizukuStateChanged extends AppEvent {
 class WebViewMissing extends AppEvent {
   const WebViewMissing();
 }
+
+/// A manager has new diagnostic state for subscribed remote viewers.
+/// The topic contains no settings or sensor payload.
+class RemoteStatusChanged extends AppEvent {
+  const RemoteStatusChanged(this.topic);
+  final String topic;
+}
+
+/// The union of topics currently requested by remote viewers.
+class RemoteObserversChanged extends AppEvent {
+  const RemoteObserversChanged(this.topics);
+  final Set<String> topics;
+}

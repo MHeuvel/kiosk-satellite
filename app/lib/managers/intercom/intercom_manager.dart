@@ -299,6 +299,7 @@ class IntercomManager extends Manager {
 
   StreamSubscription<Uint8List>? _mic;
   final _subs = <StreamSubscription<Object?>>[];
+  Timer? _remoteRosterTimer;
   Timer? _ringTimer;
   Timer? _chimeTimer;
   Timer? _autoTimer;
@@ -351,6 +352,20 @@ class IntercomManager extends Manager {
   @override
   Future<void> init() async {
     _registerCommands();
+    _subs.add(
+      bus.on<RemoteObserversChanged>().listen((event) {
+        if (!event.topics.contains('intercom')) {
+          _remoteRosterTimer?.cancel();
+          _remoteRosterTimer = null;
+        } else {
+          _remoteRosterTimer ??= Timer.periodic(const Duration(seconds: 30), (
+            _,
+          ) {
+            if (enabled) unawaited(_probeAll());
+          });
+        }
+      }),
+    );
     _subs.add(bus.on<FleetChanged>().listen((_) => _readFleet()));
     _subs.add(
       bus.on<SettingChanged>().listen((e) {
@@ -380,6 +395,7 @@ class IntercomManager extends Manager {
 
   @override
   Future<void> dispose() async {
+    _remoteRosterTimer?.cancel();
     micHub.browserCapturing.removeListener(_onBrowserCapture);
     for (final s in _subs) {
       await s.cancel();

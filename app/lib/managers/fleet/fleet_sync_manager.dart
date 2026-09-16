@@ -294,6 +294,7 @@ class FleetSyncManager extends Manager {
   Timer? _bump;
   int _ticks = 0;
   bool _ticking = false;
+  bool _remoteObserved = false;
   DateTime _watchedUntil = DateTime.fromMillisecondsSinceEpoch(0);
   final _subs = <StreamSubscription<Object?>>[];
 
@@ -377,6 +378,11 @@ class FleetSyncManager extends Manager {
 
   @override
   Future<void> init() async {
+    _subs.add(
+      bus.on<RemoteObserversChanged>().listen((event) {
+        _remoteObserved = event.topics.contains('fleetsync');
+      }),
+    );
     _loadFollowers();
     await _loadProfiles();
     _register();
@@ -598,7 +604,7 @@ class FleetSyncManager extends Manager {
   void _onTimer() {
     _ticks++;
     if (!leading) return;
-    final watched = DateTime.now().isBefore(_watchedUntil);
+    final watched = _remoteObserved || DateTime.now().isBefore(_watchedUntil);
     if (watched || _ticks % 10 == 0) unawaited(_tick());
   }
 

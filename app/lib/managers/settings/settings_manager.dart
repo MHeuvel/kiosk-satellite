@@ -503,8 +503,10 @@ class SettingsManager extends Manager {
     return satisfied(get(dep)) && visible(dep);
   }
 
-  List<Map<String, Object?>> describe() => [
-    for (final def in allSettings)
+  List<Map<String, Object?>> describe({Set<String>? keys}) => [
+    for (final def in allSettings.where(
+      (def) => keys == null || keys.contains(def.key),
+    ))
       {
         'key': def.key,
         'type': def.type.name,

@@ -1,3 +1,4 @@
+import { readRoute, routeHash } from './routes.js';
 import { loadPlugins } from './plugins.js';
 import { api, showView } from './core.js';
 import { refreshUpdateBadge } from './device.js';
@@ -37,14 +38,14 @@ export async function start() {
   await initOverview();
   loadViewJump();
   // Whatever the URL asked for, now that the panels it needs exist.
-  const asked = decodeURIComponent(location.hash.slice(1));
+  const asked = readRoute();
   if (asked?.split('/')[0] === 'plugins') await loadPlugins();
   showTab(asked || 'dashboard', { push: false, refresh: false });
   // A second-level page this device does not have (gated away, or another
   // kiosk's URL brought here by the switcher) landed on its tab: the
   // address says so too, or a reload would repeat the fallback.
   if (asked && asked !== currentPath) {
-    history.replaceState(null, '', '#' + currentPath);
+    history.replaceState(null, '', '#' + routeHash(currentPath));
   }
   showView('app');
   initFleet();

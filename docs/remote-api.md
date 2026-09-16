@@ -221,22 +221,56 @@ carries a **Bring to front** button entity.
 
 ## WebSocket
 
-JSON messages, `{type, ...}`:
+Connect to `/api/ws?token=<admin-token>`. Messages are JSON objects with a
+`type`. Fleet tokens cannot use this endpoint. The server sends a `state`
+snapshot on connection with device identity, battery, brightness,
+`screenOn`, `screensaverActive`, `cameraView` and `currentUrl`.
 
-- Server → client: `state` (full snapshot on connect: device identity,
-  battery, brightness, plus `screenOn`, `screensaverActive` and
-  `cameraView {active, viewId, viewName}`, the same shape `GET /api/info`
-  returns), `event` (bus events: motion, face, wake word, screen,
-  screensaver, camera view, navigation; `screenon` / `screenoff`, `screensaverstart` /
-  `screensaverstop` and `cameraview` are the diffs to the snapshot's three
-  states), `log` (app log lines),
-  `console` (`{type: 'console', level, message, time}`, the WebView's
-  JavaScript console, streamed live so you can watch a wall-mounted kiosk's
-  page logs remotely; fetch history first from `GET /api/console`).
-- Client → server: `subscribe {topics: ['state','events','logs']}`,
-  `command {name, params}` (same registry as REST).
+Subscribe to the data this client needs. Each `subscribe` replaces the
+previous topic set. An empty list unsubscribes from all live data. Clients
+that never subscribe retain the original event and log feed.
+
+```json
+{"type":"subscribe","id":1,"topics":["settings","events","stats"]}
+{"type":"command","id":2,"name":"getVolume","params":{}}
+{"type":"settings","id":3,"values":{"screensaver.mode":"clock"}}
+```
+
+Commands and settings writes return `{"type":"result","id":...}` with
+`ok` and the command's `data` or `error`. Settings writes use the same
+validation as `PATCH /api/settings` and return `rejected` and `errors`.
+Replies may arrive out of order. Match them by `id`. A disconnected request
+has an unknown outcome, so clients should read current state after
+reconnecting instead of replaying writes.
+
+| Topic | Server message |
+| --- | --- |
+| `settings` | `settings {snapshot, settings}`. The first subscription sends the current schema and values with `snapshot: true`. Later messages contain changed definitions only. Secrets stay masked as `__set__` or an empty string |
+| `events` | `event {event, data}` for screen, screensaver, camera view, fleet and other public device events |
+| `stats` | `stats {battery, charging, cpu, temp}` while subscribed |
+| `logs` | `log {entry}` for app log entries |
+| `console` | `console {level, message, time}` for the dashboard's JavaScript console |
+| `brightness`, `lightlevel`, `micLevel`, `wakeword-state` | The matching message type. A `micLevel` subscription holds the microphone meter until it is removed or the connection closes |
+| `health`, `voice`, `media`, `media-players`, `sonos`, `plugins`, `plugin-settings`, `fleet`, `fleetsync`, `intercom`, `location`, `person`, `volume`, `audio`, `update`, `camera-snapshot`, `cameras`, `gestures` | `update {topic}` when the underlying state changes. Refresh the relevant status command |
+| `rtsp`, `bluetooth`, `bluetooth-nearby`, `service`, `home-role`, `artwork-cache`, `filter` | `update {topic, results}` when diagnostic values change. `results` contains status command responses keyed by command name |
+
+Settings changes are batched for 100 milliseconds. Events with no
+subscribers do no serialization. Native diagnostics without change
+callbacks share one observer across all viewers and stop when the last
+viewer unsubscribes. Unchanged diagnostic samples are not transmitted.
+Binary camera and screenshot data stay on their existing HTTP endpoints.
+
+The admin subscribes to visible panels, releases their observers when the
+page is hidden and reads fresh state when the page returns. Settings
+updates continue into a bounded queue while hidden and render on return.
+A reconnect subscribes again to recover changes missed during the outage.
+`{"type":"ping"}` receives `{"type":"pong"}` for connection health checks.
 
 ## Remote UI
+
+Routes use readable slugs such as `#camera/rtsp-onvif-streaming`. Older
+bookmarks containing section titles still open and are replaced with the
+canonical route. Plugin routes retain their unique plugin IDs.
 
 The admin UI is a vanilla-JS single-page app: the page
 at [app/remote-ui/index.html](../app/remote-ui/index.html)

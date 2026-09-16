@@ -1,3 +1,4 @@
+import { watchUpdates } from './live.js';
 import { cmd, state } from './core.js';
 import { settingRow } from './rows.js';
 import { SEARCH_CATEGORY_TABS } from './search.js';
@@ -15,7 +16,6 @@ import { banner, hintRow, messageBox, modalShell, showToast } from './widgets.js
 const DOCS_URL = 'https://kiosksatellite.com/docs/fleet/';
 
 let status = null;
-let pollTimer = null;
 let busy = false;
 
 const byKey = (key) => (state.settings || []).find((s) => s.key === key);
@@ -790,14 +790,6 @@ export function applyManagedBanners() {
 
 export function fleetShown() {
   renderFleetPage();
-  if (pollTimer) clearInterval(pollTimer);
-  // While the tab stays open: the device polls its followers at the fast
-  // cadence for as long as something asks and the rows follow.
-  pollTimer = setInterval(() => {
-    if (currentPath.split('/')[0] !== 'fleet') { clearInterval(pollTimer); pollTimer = null; return; }
-    if (document.hidden || document.querySelector('.modal-back')) return;
-    renderFleetPage();
-  }, 30000);
 }
 
 document.addEventListener('ks-event', (e) => {
@@ -808,3 +800,7 @@ document.addEventListener('ks-event', (e) => {
     renderFleetPage({ fetch: false });
   });
 });
+
+watchUpdates(['fleetsync'], (results) => {
+  if (!document.querySelector('.modal-back')) return renderFleetPage({ fetch: !results });
+}, { visible: () => currentPath.split('/')[0] === 'fleet' });

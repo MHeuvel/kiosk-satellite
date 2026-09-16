@@ -1,3 +1,4 @@
+import { watchUpdates } from './live.js';
 import { api, cmd, state } from './core.js';
 import { attachSoundSelect, attachSoundUpload } from './settings.js';
 import { gestureListModal } from './gestures.js';
@@ -15,7 +16,6 @@ import { copyBox, hintRow, modalShell, showToast } from './widgets.js';
    one thing it can do to a call is end it. */
 
 let status = null;
-let pollTimer = null;
 let tickTimer = null;
 let busy = false;
 // The copy box on the key row, updated in place when the key changes.
@@ -297,14 +297,6 @@ export async function renderIntercomPage({ fetch = true } = {}) {
 
 export function intercomShown() {
   renderIntercomPage();
-  if (pollTimer) clearInterval(pollTimer);
-  // While the tab stays open: the device probes the other kiosks at the
-  // fast cadence for as long as something asks and the rows follow.
-  pollTimer = setInterval(() => {
-    if (currentPath.split('/')[0] !== 'intercom') { clearInterval(pollTimer); pollTimer = null; return; }
-    if (document.hidden || document.querySelector('.modal-back')) return;
-    renderIntercomPage();
-  }, 30000);
 }
 
 document.addEventListener('ks-event', (e) => {
@@ -371,3 +363,7 @@ export function decorateAnnouncementsPage() {
     attachSoundUpload(chimeRow, attachSoundSelect(chimeRow, chimeDef));
   }
 }
+
+watchUpdates(['intercom'], (results) => {
+  if (!document.querySelector('.modal-back')) return renderIntercomPage({ fetch: !results });
+}, { visible: () => currentPath.split('/')[0] === 'intercom' });

@@ -1,3 +1,4 @@
+import { watchUpdates } from './live.js';
 import { api, cmd, state } from './core.js';
 import { readOnlyRow } from './device.js';
 import { attachSlider } from './widgets.js';
@@ -52,6 +53,7 @@ export function micLevelRow() {
   micMeterEl = bar;
   micMeterLabelEl = label;
   row.appendChild(wrap);
+  watchUpdates(['micLevel'], () => {}, { owner: row });
   return row;
 }
 
@@ -69,15 +71,6 @@ export function renderMicLevel(rms) {
       : '';
   }
 }
-
-// Keepalive: re-arm the device-side watch while the meter is visible.
-setInterval(() => {
-  if (!micMeterEl || !micMeterEl.isConnected || !micMeterEl.offsetParent) return;
-  if (Date.now() - micMeterLastArm < 6000) return;
-  micMeterLastArm = Date.now();
-  api('/api/commands/watchMicLevel', { method: 'POST', body: '{}' })
-    .catch(() => {});
-}, 1000);
 
 // Telemetry stops when detection pauses (a voice turn) or the watch
 // lapses; decay to dark instead of freezing on the last value.
@@ -132,6 +125,14 @@ export async function prependMasterVolumeRow() {
     label: (v) => `${v}%`,
     onChange: (v) => cmd('setVolume', { percent: v }) });
   card.prepend(row);
+  watchUpdates(['volume'], async () => {
+    const result = await cmd('getVolume');
+    const input = row.querySelector('input[type="range"]');
+    if (result.ok && input && document.activeElement !== input) {
+      input.value = Math.round(result.data);
+      input.dispatchEvent(new Event('input'));
+    }
+  }, { owner: row });
 }
 
 // The microphone / speaker pickers on the Screen & Audio page, mirroring the
@@ -140,13 +141,14 @@ export async function prependMasterVolumeRow() {
 // selectors; empty means automatic. A configured device that is currently
 // absent stays choosable under the name embedded in its selector. The mic row
 // only while detection is on (with it off this app never opens the mic).
-export async function appendAudioDeviceRows(card, wakeWordOn) {
+export async function appendAudioDeviceRows(card, wakeWordOn, watching = false) {
   let data = null;
   try {
     const r = await cmd('getAudioDevices');
     if (r.ok) data = r.data;
   } catch (_) {}
   if (!data) return;
+  card.querySelectorAll('.audio-device-row').forEach(row => row.remove());
   const rows = [];
   if (wakeWordOn) {
     rows.push({
@@ -166,6 +168,8 @@ export async function appendAudioDeviceRows(card, wakeWordOn) {
   });
   for (const spec of rows) {
     const row = readOnlyRow(spec.title, spec.desc, '');
+    row.classList.add('audio-device-row');
+    row.dataset.key = spec.key;
     row.querySelector('span').remove();
     const sel = document.createElement('select');
     const opts = [{ selector: '', label: 'Automatic' }, ...spec.list];
@@ -191,6 +195,10 @@ export async function appendAudioDeviceRows(card, wakeWordOn) {
     row.appendChild(sel);
     card.appendChild(row);
   }
+  if (!watching) watchUpdates(['audio'], async () => {
+    await appendAudioDeviceRows(card, wakeWordOn, true);
+    if (wakeWordOn) await updateMicChannelRow();
+  }, { owner: card, intervalMs: 500 });
 }
 
 // The capture channel of a multichannel microphone, mirroring the device's

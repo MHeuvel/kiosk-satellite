@@ -94,6 +94,28 @@ class PluginManager extends Manager {
 
   @override
   Future<void> init() async {
+    for (final listenable in [
+      installed,
+      readings,
+      charts,
+      statusTiles,
+      shizuku,
+    ]) {
+      listenable.addListener(() {
+        if (!_disposed) bus.publish(const RemoteStatusChanged('plugins'));
+      });
+    }
+    var remoteSettings = jsonEncode(_state);
+    void publishSettings() {
+      final next = jsonEncode(_state);
+      if (!_disposed && next != remoteSettings) {
+        remoteSettings = next;
+        bus.publish(const RemoteStatusChanged('plugin-settings'));
+      }
+    }
+
+    installed.addListener(publishSettings);
+    enabled.addListener(publishSettings);
     _hostReads = PluginHostApi(
       commands,
       bus,

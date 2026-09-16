@@ -68,7 +68,14 @@ try:
         field = root.get_by_role('textbox', name='Greeting')
         field.fill('Draft while readings update')
         readings[0]['state'] = 67.891
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
         expect(panel.locator('dd').first).to_have_text('67.89 %')
+        expect(field).to_have_value('Draft while readings update'); expect(field).to_be_focused()
+        assert writes == 0
+        plugin['values']['message'] = 'Changed on device'
+        plugin['status'] = 'Settings changed on device'
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugin-settings')")
+        expect(root.locator('.plugin-runtime-status')).to_have_text('Settings changed on device')
         expect(field).to_have_value('Draft while readings update'); expect(field).to_be_focused()
         assert writes == 0
         for width, theme in [(1100, 'light'), (390, 'dark')]:
@@ -79,11 +86,15 @@ try:
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
             page.screenshot(path=f'/tmp/kiosk-plugin-readings-{theme}.png', full_page=True)
         readings[0]['state'] = None
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
         readings[1]['state'] = ''
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
         expect(panel.locator('dd').first).to_have_text('No data')
         expect(panel.locator('dd').nth(1)).to_have_text('Empty')
         readings[0]['state'] = 0
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
         readings[1]['state'] = '<img src=x onerror=alert(1)>\n' + 'x' * 480
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
         expect(panel.locator('dd').first).to_have_text('0.00 %')
         expect(panel.locator('dd').nth(1)).to_have_text(readings[1]['state'])
         expect(panel.locator('img')).to_have_count(0)
@@ -92,10 +103,13 @@ try:
         for row in panel.locator('.plugin-reading').all():
             assert row.evaluate('el => el.scrollWidth <= el.clientWidth')
         readings.pop(2)
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
         expect(panel.locator('dd')).to_have_count(6)
         readings = []
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
         expect(panel).to_be_hidden()
         readings = [dict(type='sensor', key='new', name='New reading', state=1e12, accuracyDecimals=2)]
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
         expect(panel.locator('dd')).to_have_text('1.00e+12')
         page.evaluate("async () => (await import('/static/tabs.js')).showTab('plugins', {refresh:false})")
         baseline = polls; page.wait_for_timeout(1200); assert polls == baseline
@@ -109,14 +123,16 @@ try:
         page.wait_for_function("document.querySelector('#tab-plugins').getAttribute('aria-busy') !== 'true'")
         assert permission_requests == 1
         shizuku_state = dict(status='ready', available=True, granted=True, uid=2000)
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
         expect(access.get_by_text('Connected with shell access')).to_be_visible()
         expect(access.locator('button')).to_be_hidden()
         shizuku_state = dict(status='unavailable', available=False, granted=False)
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
         expect(access.get_by_text('Start Shizuku on this device.')).to_be_visible()
         expect(access.get_by_role('button', name='Set up')).to_be_visible()
         assert permission_requests == 1
         assert not errors, errors
         browser.close()
-        print('PASS: live readings, precision, missing states, removal, multiline text, safe rendering, narrow layouts, settings focus and scoped polling.')
+        print('PASS: live readings, precision, missing states, removal, multiline text, safe rendering, narrow layouts, settings focus and scoped subscriptions.')
 finally:
     server.shutdown(); server.server_close()

@@ -20,6 +20,7 @@ import '../../core/manager.dart';
 import '../settings/definitions.dart' as defs;
 import '../settings/settings_manager.dart';
 import 'auth.dart';
+import 'observations.dart';
 
 /// Embedded remote-management server (docs/remote-api.md).
 ///
@@ -60,6 +61,21 @@ class RemoteManager extends Manager {
 
   String _currentUrl = '';
   final _wsClients = <WebSocketChannel>{};
+  final _wsTopics = <WebSocketChannel, Set<String>>{};
+  final _subscribedClients = <WebSocketChannel>{};
+  final _pendingSettings = <String>{};
+  final _pendingTopics = <String>{};
+  Timer? _updatesTimer;
+  bool _statsReading = false;
+  Set<String> _observedTopics = {};
+  late final _observations = RemoteObservations(commands, (topic, results) {
+    _broadcast({
+      'type': 'update',
+      'topic': topic,
+      'results': results,
+    }, topic: topic);
+  });
+  final _subscriptions = <StreamSubscription<Object?>>[];
   String? _indexHtml;
   Uint8List? _indexGzip;
   Future<void>? _adminBundle;
@@ -116,59 +132,82 @@ class RemoteManager extends Manager {
       ),
     );
 
-    bus.on<PageChanged>().listen((e) => _currentUrl = e.url);
-    bus.on<UrlChanged>().listen((e) => _currentUrl = e.url);
-    bus.on<CameraSnapshotTaken>().listen((e) {
-      _lastSnapshot = e.jpeg;
-      _lastSnapshotAt = DateTime.now();
-    });
+    _subscriptions.add(
+      bus.on<PageChanged>().listen((e) => _currentUrl = e.url),
+    );
+    _subscriptions.add(bus.on<UrlChanged>().listen((e) => _currentUrl = e.url));
+    _subscriptions.add(
+      bus.on<CameraSnapshotTaken>().listen((e) {
+        _lastSnapshot = e.jpeg;
+        _lastSnapshotAt = DateTime.now();
+      }),
+    );
 
     // Live event feed for connected WS clients. sound-level is excluded:
     // it fires at up to 20 Hz for the page's reactive bar and the admin
     // UI has no use for it.
-    bus.stream.listen((event) {
-      final wireName = event.wireName;
-      if (wireName == null || wireName == 'sound-level' || _wsClients.isEmpty) {
-        return;
-      }
-      _broadcast({'type': 'event', 'event': wireName, 'data': event.toJson()});
-    });
-    log.stream.listen((entry) {
-      if (_wsClients.isEmpty) return;
-      _broadcast({'type': 'log', 'entry': entry.toJson()});
-    });
+    _subscriptions.add(
+      bus.stream.listen((event) {
+        _queueTopics(event);
+        final wireName = event.wireName;
+        if (wireName == null ||
+            wireName == 'sound-level' ||
+            _wsClients.isEmpty) {
+          return;
+        }
+        _broadcast({
+          'type': 'event',
+          'event': wireName,
+          'data': event.toJson(),
+        });
+      }),
+    );
+    _subscriptions.add(
+      log.stream.listen((entry) {
+        if (_wsClients.isEmpty) return;
+        _broadcast({'type': 'log', 'entry': entry.toJson()});
+      }),
+    );
 
     // Relay the page's JS console to admin clients (ConsoleMessage has no
     // wireName, so it is not covered by the generic event feed above).
-    bus.on<ConsoleLine>().listen((event) {
-      if (_wsClients.isEmpty) return;
-      _broadcast({'type': 'console', ...event.toJson()});
-    });
+    _subscriptions.add(
+      bus.on<ConsoleLine>().listen((event) {
+        if (_wsClients.isEmpty) return;
+        _broadcast({'type': 'console', ...event.toJson()});
+      }),
+    );
 
     // Brightness, which the screensaver and the Voice Satellite card both
     // change behind the admin's back. No wireName either, so the generic feed
     // skips it and the dashboard's slider sat at whatever it was born with.
-    bus.on<BrightnessChanged>().listen((e) {
-      if (_wsClients.isEmpty) return;
-      _broadcast({'type': 'brightness', 'level': e.panel});
-    });
+    _subscriptions.add(
+      bus.on<BrightnessChanged>().listen((e) {
+        if (_wsClients.isEmpty) return;
+        _broadcast({'type': 'brightness', 'level': e.panel});
+      }),
+    );
 
     // The ambient light reading, for the live row on the Adaptive
     // brightness page: the curve's ends are typed against it. No wireName
     // (the page has no use for it), and damped at the sensor to a few a
     // minute at most.
-    bus.on<LightLevelChanged>().listen((e) {
-      if (_wsClients.isEmpty) return;
-      _broadcast({'type': 'lightlevel', 'lux': e.lux});
-    });
+    _subscriptions.add(
+      bus.on<LightLevelChanged>().listen((e) {
+        if (_wsClients.isEmpty) return;
+        _broadcast({'type': 'lightlevel', 'lux': e.lux});
+      }),
+    );
 
     // Mic level samples for the admin settings meter. No wireName (the page
     // computes its own levels), and they only flow while a client holds a
     // mic-level watch, so this is not a standing 10 Hz feed.
-    bus.on<MicLevelSample>().listen((e) {
-      if (_wsClients.isEmpty) return;
-      _broadcast({'type': 'micLevel', 'rms': e.rms});
-    });
+    _subscriptions.add(
+      bus.on<MicLevelSample>().listen((e) {
+        if (_wsClients.isEmpty) return;
+        _broadcast({'type': 'micLevel', 'rms': e.rms});
+      }),
+    );
 
     // Wake-word state, likewise: no wireName, so the generic feed skips it.
     //
@@ -178,29 +217,33 @@ class RemoteManager extends Manager {
     // status, engine and wake words all kept describing the state before the
     // toggle until someone reloaded the page. Two views of one device that
     // disagree are worse than one view.
-    bus.on<WakeWordStateChanged>().listen((_) {
-      if (_wsClients.isEmpty) return;
-      _broadcast({'type': 'wakeword-state'});
-    });
+    _subscriptions.add(
+      bus.on<WakeWordStateChanged>().listen((_) {
+        if (_wsClients.isEmpty) return;
+        _broadcast({'type': 'wakeword-state'});
+      }),
+    );
 
-    bus.on<SettingChanged>().listen((e) {
-      // Losing remote access is the one settings change nobody can diagnose
-      // afterwards from here, because the log this writes to is served by
-      // the very server it just switched off. At warn so it also reaches
-      // the platform log, where `adb logcat` can still find it.
-      if (e.key == defs.remoteEnabled.key &&
-          !_settings.get(defs.remoteEnabled)) {
-        log.warn(name, 'remote management switched off');
-      }
-      if (e.key == defs.remoteEnabled.key ||
-          e.key == defs.remotePort.key ||
-          e.key == defs.remotePassword.key ||
-          // Setup completing (start URL set) may mean the server should
-          // stop — the wizard ran on the setup-mode allowance alone.
-          e.key == defs.startUrl.key) {
-        _sync();
-      }
-    });
+    _subscriptions.add(
+      bus.on<SettingChanged>().listen((e) {
+        // Losing remote access is the one settings change nobody can diagnose
+        // afterwards from here, because the log this writes to is served by
+        // the very server it just switched off. At warn so it also reaches
+        // the platform log, where `adb logcat` can still find it.
+        if (e.key == defs.remoteEnabled.key &&
+            !_settings.get(defs.remoteEnabled)) {
+          log.warn(name, 'remote management switched off');
+        }
+        if (e.key == defs.remoteEnabled.key ||
+            e.key == defs.remotePort.key ||
+            e.key == defs.remotePassword.key ||
+            // Setup completing (start URL set) may mean the server should
+            // stop — the wizard ran on the setup-mode allowance alone.
+            e.key == defs.startUrl.key) {
+          _sync();
+        }
+      }),
+    );
 
     // Live header stats. Battery, CPU load and temperature change on their own,
     // so push them on a cadence rather than only at connect. Cheap while nobody
@@ -208,19 +251,24 @@ class RemoteManager extends Manager {
     // lean message, not a full state re-push, so it never disturbs the
     // brightness slider or url the admin might be interacting with.
     _statsTimer = Timer.periodic(const Duration(seconds: 4), (_) async {
-      if (_wsClients.isEmpty) return;
-      // getStats, not getDeviceInfo: the full read walks every network
-      // interface to answer questions this tick never asks.
-      final info = await commands.execute('getStats', const {});
-      final data = info.data;
-      if (data is! Map) return;
-      _broadcast({
-        'type': 'stats',
-        'battery': data['battery'],
-        'charging': data['charging'],
-        'cpu': data['cpu'],
-        'temp': data['temp'],
-      });
+      if (!_hasTopic('stats') || _statsReading) return;
+      _statsReading = true;
+      try {
+        // getStats, not getDeviceInfo: the full read walks every network
+        // interface to answer questions this tick never asks.
+        final info = await commands.execute('getStats', const {});
+        final data = info.data;
+        if (data is! Map) return;
+        _broadcast({
+          'type': 'stats',
+          'battery': data['battery'],
+          'charging': data['charging'],
+          'cpu': data['cpu'],
+          'temp': data['temp'],
+        });
+      } finally {
+        _statsReading = false;
+      }
     });
 
     await _sync();
@@ -286,6 +334,13 @@ class RemoteManager extends Manager {
       unawaited(client.sink.close());
     }
     _wsClients.clear();
+    _wsTopics.clear();
+    _subscribedClients.clear();
+    _syncObservers();
+    _updatesTimer?.cancel();
+    _updatesTimer = null;
+    _pendingSettings.clear();
+    _pendingTopics.clear();
     // Released before the close, and forced: turning remote management off
     // from the remote admin closes the very connection serving that request,
     // and a graceful close waits for it forever. That left _server non-null,
@@ -725,6 +780,10 @@ class RemoteManager extends Manager {
   Future<Response> _patchSettings(Request request) async {
     final body = await _body(request);
     if (body == null) return _json(400, {'error': 'invalid JSON'});
+    return _json(200, await _applySettings(body));
+  }
+
+  Future<Map<String, Object?>> _applySettings(Map<String, dynamic> body) async {
     final rejected = <String>[];
     // The validator's own words per rejected key, where a definition has
     // one, so the page can say what was wrong with the value instead of
@@ -745,11 +804,7 @@ class RemoteManager extends Manager {
         if (message != null) errors[entry.key] = message;
       }
     }
-    return _json(200, {
-      'ok': rejected.isEmpty,
-      'rejected': rejected,
-      'errors': errors,
-    });
+    return {'ok': rejected.isEmpty, 'rejected': rejected, 'errors': errors};
   }
 
   Future<Response> _import(Request request) async {
@@ -924,65 +979,220 @@ class RemoteManager extends Manager {
   }
 
   FutureOr<Response> _ws(Request request) {
-    if (!_auth.validate(request.url.queryParameters['token'])) {
+    final token = request.url.queryParameters['token'];
+    final claims = _auth.claimsOf(token);
+    if (claims == null || claims.containsKey('fleet')) {
       return _json(401, {'error': 'unauthorized'});
     }
-    return webSocketHandler(
-      // Pings reap silently-vanished peers (phone left wifi, laptop lid
-      // closed). Without them the channel never errors, the client stays
-      // in _wsClients, and every broadcast queues into a socket nobody
-      // reads — an unbounded buffer on exactly the feed that carries the
-      // page's whole console output.
-      pingInterval: const Duration(seconds: 30),
-      (WebSocketChannel channel, String? protocol) {
-        _wsClients.add(channel);
-        _sendState(channel);
-        channel.stream.listen(
-          (raw) async {
-            try {
-              final msg = jsonDecode(raw as String) as Map<String, dynamic>;
-              if (msg['type'] == 'command' &&
-                  msg['name'] is String &&
-                  !_deviceOnly.contains(msg['name'])) {
-                final result = await commands.execute(
-                  msg['name'] as String,
-                  (msg['params'] as Map?)?.cast<String, Object?>() ?? const {},
-                );
-                channel.sink.add(
-                  jsonEncode({
-                    'type': 'result',
-                    'name': msg['name'],
-                    ...result.toJson(),
-                  }),
-                );
-              }
-            } catch (e) {
-              log.debug(name, 'bad ws message: $e');
+    return webSocketHandler(pingInterval: const Duration(seconds: 30), (
+      WebSocketChannel channel,
+      String? protocol,
+    ) {
+      _wsClients.add(channel);
+      // Preserve the original feed for API clients until they subscribe.
+      _wsTopics[channel] = {
+        'state',
+        'events',
+        'stats',
+        'console',
+        'logs',
+        'brightness',
+        'lightlevel',
+        'micLevel',
+        'wakeword-state',
+      };
+      _sendState(channel);
+      void remove() {
+        _wsClients.remove(channel);
+        _wsTopics.remove(channel);
+        _subscribedClients.remove(channel);
+        _syncObservers();
+      }
+
+      channel.stream.listen(
+        (raw) async {
+          Object? id;
+          try {
+            if (!_auth.validate(token)) {
+              await channel.sink.close(1008, 'Session expired');
+              return;
             }
-          },
-          onDone: () => _wsClients.remove(channel),
-          onError: (_) => _wsClients.remove(channel),
-        );
-      },
-    )(request);
+            final msg = jsonDecode(raw as String) as Map<String, dynamic>;
+            id = msg['id'];
+            if (msg['type'] == 'ping') {
+              _send(channel, {'type': 'pong'});
+              return;
+            }
+            if (msg['type'] == 'subscribe') {
+              final topics = (msg['topics'] as List).cast<String>().toSet();
+              final previous = _wsTopics[channel] ?? const <String>{};
+              _wsTopics[channel] = topics;
+              _subscribedClients.add(channel);
+              _syncObservers();
+              if (topics.contains('settings') &&
+                  !previous.contains('settings')) {
+                _send(channel, {
+                  'type': 'settings',
+                  'snapshot': true,
+                  'settings': _settings.describe(),
+                });
+              }
+              _send(channel, {'type': 'result', 'id': id, 'ok': true});
+              return;
+            }
+            if (msg['type'] == 'settings') {
+              final result = await _applySettings(
+                (msg['values'] as Map).cast<String, dynamic>(),
+              );
+              _send(channel, {'type': 'result', 'id': id, ...result});
+              return;
+            }
+            if (msg['type'] != 'command' ||
+                msg['name'] is! String ||
+                _deviceOnly.contains(msg['name'])) {
+              _send(channel, {
+                'type': 'result',
+                'id': id,
+                'ok': false,
+                'error': 'Unsupported request',
+              });
+              return;
+            }
+            final result = await commands.execute(
+              msg['name'] as String,
+              (msg['params'] as Map?)?.cast<String, Object?>() ?? const {},
+            );
+            _send(channel, {
+              'type': 'result',
+              'id': id,
+              'name': msg['name'],
+              ...result.toJson(),
+            });
+          } catch (e) {
+            _send(channel, {
+              'type': 'result',
+              'id': id,
+              'ok': false,
+              'error': 'Invalid request',
+            });
+            log.debug(name, 'bad ws message: $e');
+          }
+        },
+        onDone: remove,
+        onError: (_) => remove(),
+      );
+    })(request);
   }
 
   Future<void> _sendState(WebSocketChannel channel) async {
     final state = await _deviceState();
-    channel.sink.add(
-      jsonEncode({
-        'type': 'state',
-        'device': state,
-        'currentUrl': state['currentUrl'],
-      }),
-    );
+    _send(channel, {
+      'type': 'state',
+      'device': state,
+      'currentUrl': state['currentUrl'],
+    });
   }
 
-  void _broadcast(Map<String, Object?> message) {
-    final encoded = jsonEncode(message);
+  void _send(WebSocketChannel channel, Map<String, Object?> message) {
+    if (_wsClients.contains(channel)) channel.sink.add(jsonEncode(message));
+  }
+
+  bool _hasTopic(String topic) =>
+      _wsTopics.values.any((topics) => topics.contains(topic));
+
+  void _broadcast(Map<String, Object?> message, {String? topic}) {
+    topic ??= switch (message['type']) {
+      'event' => 'events',
+      'log' => 'logs',
+      _ => message['type'] as String,
+    };
+    String? encoded;
     for (final client in _wsClients) {
-      client.sink.add(encoded);
+      if (_wsTopics[client]?.contains(topic) != true) continue;
+      client.sink.add(encoded ??= jsonEncode(message));
     }
+  }
+
+  void _syncObservers() {
+    final topics = _subscribedClients
+        .expand((client) => _wsTopics[client] ?? const <String>{})
+        .toSet();
+    if (topics.length == _observedTopics.length &&
+        topics.containsAll(_observedTopics)) {
+      return;
+    }
+    _observedTopics = topics;
+    _observations.observe(topics);
+    bus.publish(RemoteObserversChanged(Set.unmodifiable(topics)));
+  }
+
+  // Collapse event bursts once for all viewers. Binary audio and camera
+  // frames never enter this feed, and unused topics do no serialization.
+  void _queueTopics(AppEvent event) {
+    if (_wsClients.isEmpty) return;
+    final topics = switch (event) {
+      SettingChanged(:final key) => {
+        'settings',
+        'health',
+        'voice',
+        'service',
+        if (key == 'camera.config') 'cameras',
+        if (key == 'gestures.mappings') 'gestures',
+        if (key == 'sendspin.sonos_hosts') 'sonos',
+        if (key == 'sendspin.sonos_hosts' ||
+            key == 'sendspin.player_source' ||
+            key == 'sendspin.ma_url' ||
+            key == 'sendspin.ma_token' ||
+            key == 'ha.url' ||
+            key == 'ha.token')
+          'media-players',
+        if (key == 'audio.mic_device' ||
+            key == 'audio.speaker_device' ||
+            key == 'audio.mic_channel')
+          'audio',
+      },
+      RemoteStatusChanged(:final topic) => {topic},
+      ShizukuStateChanged() => {'shizuku', 'service', 'health', 'plugins'},
+      LocationChanged() => {'location'},
+      VolumeChanged() => {'volume'},
+      CameraSnapshotTaken() => {'camera-snapshot'},
+      PersonSensorChanged() => {'person'},
+      SendspinNowPlayingChanged() => {'media'},
+      PluginEntityStateChanged() || PluginEntityCatalogChanged() => {'plugins'},
+      PluginHaStateChanged() => {'plugins'},
+      WakeWordStateChanged() => const <String>{},
+      FleetChanged() => {'fleet'},
+      FleetSyncChanged() => {'fleetsync'},
+      IntercomStateChanged() => {'intercom'},
+      UpdateStateChanged() => {'health', 'update'},
+      BluetoothLinksChanged() => {'bluetooth'},
+      AudioDevicesChanged() => {'audio'},
+      NetworkStateChanged() || PowerChanged() => {'health'},
+      ActivityAttached() || AmbientDisplayChanged() => {'service', 'health'},
+      PageChanged() || UrlChanged() => {'health', 'filter'},
+      _ => const <String>{},
+    };
+    _pendingTopics.addAll(topics.where(_hasTopic));
+    if (event is SettingChanged && _hasTopic('settings')) {
+      _pendingSettings.add(event.key);
+    }
+    if (_pendingTopics.isEmpty || _updatesTimer != null) return;
+    _updatesTimer = Timer(const Duration(milliseconds: 100), () {
+      _updatesTimer = null;
+      if (_pendingSettings.isNotEmpty) {
+        _broadcast({
+          'type': 'settings',
+          'settings': _settings.describe(keys: _pendingSettings),
+        });
+        _pendingSettings.clear();
+      }
+      for (final topic in _pendingTopics) {
+        if (topic != 'settings') {
+          _broadcast({'type': 'update', 'topic': topic}, topic: topic);
+        }
+      }
+      _pendingTopics.clear();
+    });
   }
 
   // ── Helpers ──────────────────────────────────────────────────────────
@@ -1162,6 +1372,11 @@ class RemoteManager extends Manager {
   @override
   Future<void> dispose() {
     _statsTimer?.cancel();
+    _observations.dispose();
+    for (final subscription in _subscriptions) {
+      unawaited(subscription.cancel());
+    }
+    _subscriptions.clear();
     return _stop();
   }
 }

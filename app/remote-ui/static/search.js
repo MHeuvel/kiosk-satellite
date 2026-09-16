@@ -1,3 +1,4 @@
+import { readRoute } from './routes.js';
 import { $, depSatisfied, state } from './core.js';
 import { permissionSpecs } from './permissions.js';
 import { loadPlugins, pluginSearchState, refreshPluginSearchState } from './plugins.js';
@@ -410,4 +411,4 @@ document.querySelectorAll('[data-home]').forEach((el) =>
 
 // Back/forward, and an address typed by hand.
 window.addEventListener('hashchange', () =>
-  showTab(decodeURIComponent(location.hash.slice(1)), { push: false }));
+  showTab(readRoute(), { push: false }));

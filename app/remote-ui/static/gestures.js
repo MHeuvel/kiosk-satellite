@@ -1,3 +1,4 @@
+import { watchUpdates } from './live.js';
 import {
   cameraAction,
   cameraEditor,
@@ -6,7 +7,7 @@ import {
   cameraListRow,
   cameraSelectField,
 } from './cameras.js';
-import { api, cmd, state } from './core.js';
+import { api, cacheSettings, cmd, state } from './core.js';
 import { applyManagedBanners } from './fleetsync.js';
 import { settingRow } from './rows.js';
 import { fetchViews, radioRow } from './views.js';
@@ -683,7 +684,7 @@ export async function loadGestures() {
   root.innerHTML = '<div class="card"><div class="desc">Reading…</div></div>';
   try {
     const r = await (await api('/api/settings')).json();
-    state.settings = r.settings || [];
+    cacheSettings(r.settings || []);
   } catch (_) {
     root.innerHTML =
       '<div class="card"><div class="desc">Could not read the settings.</div></div>';
@@ -807,3 +808,5 @@ export const CATEGORY_TABS = [
     { extra: ['Hardware', 'Home Assistant', 'WebView'],
       entryRoot: 'device-pages' }],
 ];
+
+watchUpdates(['gestures'], loadGestures, { visible: () => !!document.querySelector('#tab-gestures.active') });

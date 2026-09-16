@@ -1,3 +1,5 @@
+import { preserveDraft } from './drafts.js';
+import { beginLiveRender, endLiveRender, watchUpdates } from './live.js';
 import {
   appendAudioDeviceRows,
   micLevelRow,
@@ -6,7 +8,7 @@ import {
   updateMicChannelRow,
 } from './audio.js';
 import { MIC_GROUP_NOTE, cameraAction, exportFileName } from './cameras.js';
-import { $, api, cmd, depSatisfied, state } from './core.js';
+import { $, api, cacheSettings, cmd, depSatisfied, state } from './core.js';
 import { readOnlyRow, renderAnalyticsIntro, renderUpdateHelper, renderUpdateSourceDocs } from './device.js';
 import { permissionSpecs } from './permissions.js';
 import { renderServicePage } from './service.js';
@@ -143,17 +145,107 @@ export function attachSoundSelect(row, setting) {
   return { sel, refresh, write };
 }
 
-export async function loadSettings() {
+const liveSettings = new Map();
+// Save handlers sometimes update the cache before the WebSocket echo.
+// Compare with what was rendered so those echoes still update other rows.
+const renderedSettings = new Map();
+const layoutSettings = new Set([
+  'audio.mic_agc', 'launcher.auto_return', 'home.enabled',
+  'browser.auto_reload_on_error', 'screensaver.dismiss_on_motion',
+  'screensaver.dismiss_on_face', 'screensaver.dismiss_on_person',
+  'screen.adaptive_brightness', 'screensaver.clock_night',
+  'camera.rtsp.enabled', 'camera.rtsp.protocol', 'camera.onvif.port',
+  'camera.rtsp.port', 'btproxy.nearby_sort', 'esphome.real_mac',
+  'esphome.mac_override', 'ha.rotation_enabled', 'esphome.node_name',
+  'btproxy.connections', 'home.keep_pinning', 'browser.start_url',
+]);
+let liveSettingsTimer = null;
+let liveSettingsRendering = false;
+let settingsRenders = 0;
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) flushSettingsUpdates();
+});
+
+export function applySettingsUpdate(message) {
+  for (const setting of message.settings || []) liveSettings.set(setting.key, setting);
+  clearTimeout(liveSettingsTimer);
+  liveSettingsTimer = setTimeout(flushSettingsUpdates, 0);
+}
+async function flushSettingsUpdates() {
+  if (document.hidden || liveSettingsRendering || settingsRenders || !state.settings) return;
+  const changed = [];
+  for (const setting of state.settings) {
+    const update = liveSettings.get(setting.key);
+    if (update && JSON.stringify(update) !== renderedSettings.get(setting.key)) {
+      Object.assign(setting, update);
+      changed.push(setting);
+    }
+  }
+  liveSettings.clear();
+  if (!changed.length) return;
+  let rebuild = false;
+  for (const setting of changed) {
+    const rows = [...document.querySelectorAll(`[data-key="${setting.key}"]`)];
+    const previous = JSON.parse(renderedSettings.get(setting.key) || '{}');
+    renderedSettings.set(setting.key, JSON.stringify(setting));
+    const shapeChanged = JSON.stringify({ ...previous, value: null })
+      !== JSON.stringify({ ...setting, value: null });
+    const hasDependants = state.settings.some(s => s.dependsOn === setting.key || s.alsoDependsOn === setting.key);
+    // Custom renderers own their controls and any stored picker state.
+    // A replaced generic input cannot stand in for a custom picker.
+    if (shapeChanged || hasDependants || layoutSettings.has(setting.key)) {
+      rebuild = true;
+    } else if (['sendspin.player', 'sendspin.player_name'].includes(setting.key)) {
+      updatePlayerRow();
+    } else if (!rows.length || rows.some(row => !row.updateSetting?.())) {
+      rebuild = true;
+    }
+  }
+  if (changed.some(s => s.key === 'device.name')) {
+    document.dispatchEvent(new CustomEvent('ks-device-name', {
+      detail: changed.find(s => s.key === 'device.name').value }));
+  }
+  if (!rebuild) return;
+  liveSettingsRendering = true;
+  const restoreDraft = preserveDraft();
+  try {
+    await loadSettings({ cached: true });
+  } finally {
+    restoreDraft();
+    liveSettingsRendering = false;
+    if (liveSettings.size) flushSettingsUpdates();
+  }
+}
+
+export async function loadSettings(options = {}) {
+  settingsRenders++;
+  beginLiveRender();
+  try { await renderSettings(options); }
+  finally {
+    settingsRenders--;
+    endLiveRender();
+    if (!settingsRenders && liveSettings.size) flushSettingsUpdates();
+  }
+}
+async function renderSettings({ cached = false } = {}) {
   // A re-render rebuilds every row; without restoring scroll, flipping a
   // mid-page toggle that reveals dependants yanks the view back to the top.
   const scroller = document.scrollingElement || document.documentElement;
   const keepScroll = scroller.scrollTop;
-  const [{ settings, subpageHints }, installerResult] = await Promise.all([
-    api('/api/settings').then((r) => r.json()),
-    cmd('getUpdateInstallerStatus').catch(() => null),
+  let [{ settings, subpageHints }, installerResult] = await Promise.all([
+    cached ? { settings: state.settings, subpageHints: state.subpageHints }
+      : api('/api/settings').then((r) => r.json()),
+    cached ? state.installerResult : cmd('getUpdateInstallerStatus').catch(() => null),
   ]);
+  state.installerResult = installerResult;
+  for (const setting of settings) {
+    const update = liveSettings.get(setting.key);
+    if (update) Object.assign(setting, update);
+  }
   const helperStatus = installerResult?.ok ? installerResult.data : null;
-  state.settings = settings; // kept so a saved row can tell if it changes layout
+  renderedSettings.clear();
+  for (const setting of settings) renderedSettings.set(setting.key, JSON.stringify(setting));
+  settings = cacheSettings(settings);
   // Named once for every second-level page, including the ones with no
   // settings of their own (Voice Satellite's are live entity rows).
   state.subpageHints = subpageHints || {};
@@ -372,20 +464,12 @@ export async function loadSettings() {
         btn.addEventListener('click', async () => {
           btn.disabled = true;
           try { await onClick(); } catch (_) { }
-          // The grant happens on the tablet; keep re-reading until it
-          // lands so the row flips by itself.
-          let tries = 30;
-          const tick = setInterval(async () => {
-            const now = await poll();
-            if (now === true || --tries <= 0) {
-              clearInterval(tick);
-              render(now);
-            }
-          }, 2000);
+          render(await poll());
         });
         row.appendChild(btn);
       };
       poll().then(render);
+      watchUpdates(['service'], () => poll().then(render), { owner: row });
       return row;
     };
     const group = (tabId, rows) => {
@@ -545,18 +629,12 @@ export async function loadSettings() {
           } catch (_) { }
           // The confirmation happens on the tablet; keep re-reading until
           // the role lands so the row flips by itself.
-          let tries = 30;
-          const tick = setInterval(async () => {
-            const now = await status();
-            if ((now && now.held === true) || --tries <= 0) {
-              clearInterval(tick);
-              render(now);
-            }
-          }, 2000);
+          render(await status());
         });
         row.appendChild(btn);
       };
       status().then(render);
+      watchUpdates(['home-role'], () => status().then(render), { owner: row });
       // The toggle flips the role machinery on the device; re-read once
       // it has had a beat to act. Delegated for the same reason as the
       // launcher group above.
@@ -709,7 +787,7 @@ export async function loadSettings() {
         status.lastElementChild.textContent = value;
       };
       if (window.__locationTimer) clearInterval(window.__locationTimer);
-      window.__locationTimer = setInterval(paintFix, 5000);
+      watchUpdates(['location'], paintFix, { owner: status });
       paintFix();
 
       cmd('getLocationSupport')
@@ -919,7 +997,9 @@ export async function loadSettings() {
         card.appendChild(more);
       }
     };
-    const pollNearby = () => api('/api/commands/btProxyNearby',
+    const pollNearby = (results) => results?.btProxyNearby
+      ? renderNearby(results.btProxyNearby.data?.devices || [])
+      : api('/api/commands/btProxyNearby',
       { method: 'POST', body: '{}' }).then((r) => r.json())
       .then((res) => { if (document.getElementById('btproxy-nearby-card'))
         renderNearby(res.data?.devices || []); })
@@ -954,7 +1034,7 @@ export async function loadSettings() {
         .catch(() => {});
     }
     if (window.__btNearbyTimer) clearInterval(window.__btNearbyTimer);
-    window.__btNearbyTimer = setInterval(pollNearby, 15000);
+    watchUpdates(['bluetooth-nearby'], pollNearby, { owner: document.getElementById('btproxy-nearby-card') });
     // Flipping the sort re-orders the list now, not at the next poll.
     document.querySelector('[data-key="btproxy.nearby_sort"] select')
       ?.addEventListener('change', () => setTimeout(pollNearby, 50));
@@ -1117,7 +1197,7 @@ export async function loadSettings() {
       .catch(() => {});
     const startAdapterPoll = () => {
       if (window.__btAdapterTimer) clearInterval(window.__btAdapterTimer);
-      window.__btAdapterTimer = setInterval(() => { poll(); pollError(); }, 5000);
+      watchUpdates(['bluetooth'], () => Promise.all([poll(), pollError()]), { owner: root.querySelector('[data-key="btproxy.enabled"]') });
       poll();
     };
     // Scanning cannot work at all on this build (a Facebook Portal on
@@ -1144,7 +1224,7 @@ export async function loadSettings() {
           row.insertAdjacentElement('afterend', div);
         }
         if (window.__btAdapterTimer) clearInterval(window.__btAdapterTimer);
-        window.__btAdapterTimer = setInterval(pollError, 5000);
+        watchUpdates(['bluetooth'], pollError, { owner: root.querySelector('[data-key="esphome.enabled"]') });
       })
       .catch(startAdapterPoll);
   }
@@ -1395,19 +1475,13 @@ export async function loadSettings() {
           } catch (_) {}
           // The grant happens on the tablet; keep re-reading until it lands
           // so the row flips by itself.
-          let tries = 30;
-          const tick = setInterval(async () => {
-            const now = await readAll();
-            if (now[spec.key] === true || --tries <= 0) {
-              clearInterval(tick);
-              paint(now);
-            }
-          }, 2000);
+          paint(await readAll());
         });
         row.appendChild(btn);
       }
     };
     readAll().then(paint);
+    watchUpdates(['service'], () => readAll().then(paint), { owner: card });
   }
 
   // ── Voice Satellite ───────────────────────────────────────────────────
@@ -2047,10 +2121,10 @@ export async function loadSettings() {
               // last minute: the raw counters run since page load, and a
               // lifetime total ("206980 of 206980") reads as a bug.
               const hist = [];
-              const poll = async () => {
+              const poll = async (results) => {
                 if (!document.getElementById('tab-homeassistant').classList.contains('active')) return;
                 try {
-                  const r = await (await api('/api/commands/evalJs', { method: 'POST',
+                  const r = results?.evalJs || await (await api('/api/commands/evalJs', { method: 'POST',
                     body: JSON.stringify({ code: 'JSON.stringify(window.__ksWs ? window.__ksWs.stats() : null)' }) })).json();
                   let st = null;
                   try { st = JSON.parse(r.data); if (typeof st === 'string') st = JSON.parse(st); } catch (_) {}
@@ -2112,7 +2186,7 @@ export async function loadSettings() {
                 } catch (_) {}
               };
               poll();
-              state.optTimer = setInterval(poll, 2000);
+              watchUpdates(['filter'], poll, { owner: t });
             }
           };
           renderOpt();
@@ -2374,7 +2448,7 @@ export function updatePersonSensorRows() {
     paintPerm(st);
   };
   if (window.__personSensorTimer) clearInterval(window.__personSensorTimer);
-  window.__personSensorTimer = setInterval(paint, 5000);
+  watchUpdates(['person', 'service'], paint, { owner: status });
   paint();
 }
 
@@ -2476,16 +2550,16 @@ export function updateRtspRows() {
     }
   };
   let reading = false;
-  const paint = async () => {
+  const paint = async (results) => {
     if (!status.isConnected || reading) return;
     reading = true;
     try {
-      const result = await cmd('getRtspStatus');
+      const result = results?.getRtspStatus || await cmd('getRtspStatus');
       if (status.isConnected) render(result.ok ? result.data : null);
     } catch (_) {
       if (status.isConnected) render(null);
     } finally { reading = false; }
   };
   paint();
-  window.__rtspTimer = setInterval(paint, 2000);
+  watchUpdates(['rtsp'], paint, { owner: status });
 }

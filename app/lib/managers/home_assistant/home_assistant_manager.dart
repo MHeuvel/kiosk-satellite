@@ -36,8 +36,11 @@ class HomeAssistantManager extends Manager {
   late final _pluginEntities = HaPluginEntities(
     baseUrl: () => baseUrl,
     token: () => _settings.get(defs.haToken),
-    emit: (owner, id, state) =>
-        bus.publish(PluginHaStateChanged(owner, id, state)),
+    emit: (owner, id, state) => bus.publish(
+      owner == '__remote_voice'
+          ? const RemoteStatusChanged('voice')
+          : PluginHaStateChanged(owner, id, state),
+    ),
   );
 
   /// One "minute" of the hold auto-release clock; injectable so tests can
@@ -96,8 +99,24 @@ class HomeAssistantManager extends Manager {
     return error;
   }
 
+  bool _remoteVoiceObserved = false;
+  Set<String> _remoteVoiceIds = {};
+  StreamSubscription<RemoteObserversChanged>? _remoteObservers;
+
   @override
   Future<void> init() async {
+    _remoteObservers = bus.on<RemoteObserversChanged>().listen((event) {
+      _remoteVoiceObserved = event.topics.contains('voice');
+      if (!_remoteVoiceObserved) {
+        _pluginEntities.unwatch('__remote_voice', null);
+        _remoteVoiceIds.clear();
+      } else {
+        _watchRemoteVoice();
+      }
+    });
+    connectionOk.addListener(
+      () => bus.publish(const RemoteStatusChanged('health')),
+    );
     commands.register(
       Command(
         name: 'haPluginReadEntity',
@@ -1633,6 +1652,20 @@ class HomeAssistantManager extends Manager {
   })?
   _vsControlsCache;
 
+  void _watchRemoteVoice() {
+    if (!_remoteVoiceObserved) return;
+    final cache = _vsControlsCache;
+    if (cache == null) return;
+    final ids = {...cache.wanted.values};
+    for (final id in _remoteVoiceIds.difference(ids)) {
+      _pluginEntities.unwatch('__remote_voice', id);
+    }
+    for (final id in ids.difference(_remoteVoiceIds)) {
+      _pluginEntities.watch('__remote_voice', id);
+    }
+    _remoteVoiceIds = ids;
+  }
+
   Future<Map<String, Object?>> vsControlsSnapshot() async {
     // The page's own binding wins (localStorage, changeable in the Voice
     // Satellite panel); the wizard's stored pick is the fallback.
@@ -1731,6 +1764,8 @@ class HomeAssistantManager extends Manager {
         log.warn(name, 'vsControls sibling lookup failed: $e');
       }
     }
+
+    _watchRemoteVoice();
 
     // Fresh states for just the sibling entities plus the satellite itself
     // (its attributes carry the integration version): a dozen one-kilobyte
@@ -2298,6 +2333,7 @@ class HomeAssistantManager extends Manager {
 
   @override
   Future<void> dispose() async {
+    await _remoteObservers?.cancel();
     _pluginEntities.dispose();
     _themeTimer?.cancel();
     _revalidateTimer?.cancel();

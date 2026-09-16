@@ -1,3 +1,4 @@
+import { watchUpdates } from './live.js';
 import { toggleRow } from './audio.js';
 import { cmd, state } from './core.js';
 import { loadPermissions, readOnlyRow } from './device.js';
@@ -351,7 +352,7 @@ export async function renderVsControls(root, { auto = false } = {}) {
 // External changes (the HA UI, the Voice Satellite panel, a voice command)
 // move the controlled entities without touching this page; while the cards
 // are on screen, follow along. Unchanged reads render nothing.
-setInterval(() => {
+watchUpdates(['voice'], () => {
   // Any of the three: General sits on the Voice Satellite page, Wake Word
   // and Appearance on their own, and only the visible one needs following.
   const card = ['vsGeneralCard', 'vsWakeCard', 'vsAppearanceCard']
@@ -359,7 +360,7 @@ setInterval(() => {
     .find((el) => el && el.offsetParent);
   if (!card) return;
   renderVsControls(document.getElementById('tab-voicesatellite'), { auto: true });
-}, 10000);
+}, { visible: () => !!document.querySelector('#tab-voicesatellite.active') });
 
 /* ---- Voice Satellite permissions ---- */
 // The Voice Satellite status card used to build here; the Wake Word card

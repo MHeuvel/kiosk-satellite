@@ -1,3 +1,4 @@
+import { watchUpdates } from './live.js';
 import { api, cmd } from './core.js';
 import { readOnlyRow } from './device.js';
 
@@ -8,7 +9,7 @@ import { readOnlyRow } from './device.js';
 // CPU wake lock) is rendered by the schema like any other row; this wraps
 // it with the live cards above and below.
 
-let pollTimer = null;
+let stopWatching = null;
 
 const fmtUptime = (ms) => {
   if (ms == null) return null;
@@ -33,7 +34,7 @@ const titled = (title) => {
 };
 
 export function renderServicePage(panel) {
-  if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
+  stopWatching?.();
   // Above the schema's own card: the status and the reasons.
   const [statusHead, statusCard] = titled('Status');
   const [whyHead, whyCard] = titled('Keeping it running');
@@ -129,13 +130,7 @@ export function renderServicePage(panel) {
           await api('/api/commands/requestOsPermissions', {
             method: 'POST', body: JSON.stringify({ which: ask }) });
         } catch (_) { }
-        // The grant happens on the tablet; keep re-reading until it lands
-        // so the row flips by itself.
-        let tries = 30;
-        const tick = setInterval(async () => {
-          const now = await refreshPerms();
-          if (now === true || --tries <= 0) clearInterval(tick);
-        }, 2000);
+        await refreshPerms();
       });
       row.appendChild(btn);
     };
@@ -193,8 +188,8 @@ export function renderServicePage(panel) {
   };
 
   // Returns whether every row now reads granted, for the button polls.
-  const refreshPerms = async () => {
-    const p = await get('getSystemPermissions');
+  const refreshPerms = async (results) => {
+    const p = results?.getSystemPermissions?.data || await get('getSystemPermissions');
     if (!p) {
       for (const row of Object.values(ROWS)) row._render(null, false);
       return null;
@@ -209,22 +204,15 @@ export function renderServicePage(panel) {
     return all;
   };
 
-  const refresh = async () => {
-    const st = await get('getServiceStatus');
+  const refresh = async (results) => {
+    const st = results?.getServiceStatus?.data || await get('getServiceStatus');
     renderStatus(st);
     grants = st?.grants || {};
     reasonIds = new Set((st?.reasons || []).map((r) => r.id));
     placeRows();
-    await refreshPerms();
+    await refreshPerms(results);
   };
 
   refresh();
-  // Live while the page is open; the next render() replaces the panel and
-  // this timer with it. Every command the page sends is a line in the
-  // device's log, so this stays slow enough not to drown it.
-  pollTimer = setInterval(() => {
-    if (!panel.isConnected) { clearInterval(pollTimer); pollTimer = null; return; }
-    if (!panel.classList.contains('open')) return;
-    refresh();
-  }, 10000);
+  stopWatching = watchUpdates(['service'], refresh, { owner: panel });
 }

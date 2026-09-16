@@ -1,11 +1,15 @@
 import 'browser_microphone_script.dart';
+import 'remote_settings_script.dart';
 
 /// The `window.kioskSatellite` facade injected into every page at document
 /// start. Pages never touch the flutter_inappwebview transport directly.
 ///
 /// Contract: docs/js-api.md. All methods return promises; queries resolve
 /// null on failure, commands resolve false — never reject.
-String buildKioskSatelliteScript({required String version, required String os}) =>
+String buildKioskSatelliteScript({
+  required String version,
+  required String os,
+}) =>
     '''
 (function () {
   if (window.kioskSatellite) return;
@@ -21,6 +25,7 @@ String buildKioskSatelliteScript({required String version, required String os}) 
   }
 
   $browserMicrophoneScript
+  $remoteSettingsScript
 
   window.kioskSatellite = {
     platform: 'kiosksatellite',

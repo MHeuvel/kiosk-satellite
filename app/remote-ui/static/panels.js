@@ -1,3 +1,4 @@
+import { receiveUpdate, watchUpdates } from './live.js';
 import { $, api, cmd, state } from './core.js';
 import { readOnlyRow } from './device.js';
 import { hintRow, showToast } from './widgets.js';
@@ -133,108 +134,90 @@ export async function updatePlayerRow() {
   const byKey = Object.fromEntries(
     (state.settings || []).map((s) => [s.key, s]));
   const source = byKey['sendspin.player_source']?.value || '';
-  const currentId = byKey['sendspin.player']?.value || '';
-  const currentName = byKey['sendspin.player_name']?.value || '';
-  // A source change that reaches the local player's page entry re-renders
-  // the page through the generic save; one that stays in the card leaves
-  // the player select on the old source, so it is rebuilt in place then.
-  const sourceSel = tab.querySelector('[data-key="sendspin.player_source"] select');
-  if (sourceSel && !sourceSel.dataset.playerHook) {
-    sourceSel.dataset.playerHook = '1';
-    sourceSel.addEventListener('change', () => setTimeout(async () => {
-      const stale = tab.querySelector('[data-key="sendspin.player"] select');
-      if (!stale || stale.dataset.source === sourceSel.value) return;
-      // The device drops a pick that belongs to another source: read the
-      // settings back so the select is built from what it now holds,
-      // without a re-render.
-      try {
-        const { settings } = await (await api('/api/settings')).json();
-        if (Array.isArray(settings)) state.settings = settings;
-      } catch (_) {}
-      stale.remove();
-      updatePlayerRow();
-    }, 600));
-  }
   const row = tab.querySelector('[data-key="sendspin.player"]');
-  // What the pick did to this device, under the row that holds it.
-  tab.querySelector('.player-warn')?.remove();
-  if (row && source) {
-    const note = hintRow(`This device's own Sendspin player stays offline `
-      + `while ${currentName || 'another player'} is controlled.`, { warn: true });
-    note.classList.add('player-warn', 'divided');
-    row.insertAdjacentElement('afterend', note);
+  if (!row) return;
+  if (row.playerSource === source && row.refreshPlayer) {
+    row.refreshPlayer();
+    return;
   }
-  if (!row || row.querySelector('select')) return;
-  row.querySelectorAll('input, select').forEach((el) => el.remove());
+  row.stopPlayerWatch?.();
+  row.playerSource = source;
+  row.querySelectorAll('input, select').forEach(el => el.remove());
   const sel = document.createElement('select');
   sel.className = 'field';
   sel.dataset.source = source;
-  if (!source) {
-    // This device as the source: the one player there is, nothing to
-    // pick, so the row stays put and reads its name.
-    sel.style.cssText = 'flex-shrink:0; max-width:240px;';
-    const only = document.createElement('option');
-    only.value = ''; only.textContent = 'Sendspin Player'; only.selected = true;
-    sel.appendChild(only);
-    sel.disabled = true;
-    row.appendChild(sel);
-    return;
-  }
   sel.style.cssText = 'flex-shrink:0; max-width:240px;';
-  const add = (value, label) => {
-    const option = document.createElement('option');
-    option.value = value; option.textContent = label;
-    option.selected = value === currentId;
-    sel.appendChild(option);
-    return option;
-  };
-  add('', 'Pick a player');
-  if (currentId) add(currentId, currentName || currentId);
+  sel.disabled = !source;
   row.appendChild(sel);
-  let res;
-  try {
-    res = await (await api('/api/commands/mediaPlayers', {
-      method: 'POST', body: JSON.stringify({ source }) })).json();
-  } catch (_) { res = { ok: false }; }
-  const players = res.ok && Array.isArray(res.data?.players)
-    ? res.data.players.filter((p) => p.group === source) : null;
-  if (players) {
-    // Rebuild from the live list, keeping the selection.
-    sel.textContent = '';
-    add('', 'Pick a player');
-    const note = (res.data.notes || {})[source];
-    if (note && !players.length) add(`note:${source}`, note).disabled = true;
-    let seen = false;
-    // Two players with one name (a speaker two integrations both know)
-    // tell apart by their id.
-    const names = {};
-    for (const p of players) names[p.name] = (names[p.name] || 0) + 1;
-    for (const p of players) {
-      if (p.id === currentId) seen = true;
-      const label = names[p.name] > 1 && p.sub ? `${p.name} (${p.sub})` : p.name;
-      add(p.id, p.available === false ? `${label} (offline)` : label);
+  let players = [];
+  let note = '';
+  const paint = () => {
+    if (!row.contains(sel)) return;
+    const settings = Object.fromEntries((state.settings || []).map(s => [s.key, s.value]));
+    const id = settings['sendspin.player'] || '';
+    const name = settings['sendspin.player_name'] || '';
+    const add = (value, label) => {
+      const option = document.createElement('option');
+      option.value = value;
+      option.textContent = label;
+      sel.appendChild(option);
+      return option;
+    };
+    sel.replaceChildren();
+    add('', source ? 'Pick a player' : 'Sendspin Player');
+    if (source) {
+      if (note && !players.length) add(`note:${source}`, note).disabled = true;
+      const names = {};
+      for (const p of players) names[p.name] = (names[p.name] || 0) + 1;
+      for (const p of players) {
+        const label = p.id === id && name ? name
+          : names[p.name] > 1 && p.sub ? `${p.name} (${p.sub})` : p.name;
+        add(p.id, p.available === false ? `${label} (offline)` : label);
+      }
+      if (id && !players.some(p => p.id === id)) add(id, name || id);
     }
-    if (currentId && !seen) add(currentId, currentName || currentId);
-  }
+    sel.value = source ? id : '';
+    tab.querySelector('.player-warn')?.remove();
+    if (source) {
+      const warning = hintRow(`This device's own Sendspin player stays offline `
+        + `while ${name || 'another player'} is controlled.`, { warn: true });
+      warning.classList.add('player-warn', 'divided');
+      row.insertAdjacentElement('afterend', warning);
+    }
+  };
+  row.refreshPlayer = paint;
+  row.updateSetting = () => { paint(); return true; };
+  paint();
+  row.stopPlayerWatch = watchUpdates(['media-players'], async () => {
+    if (!source) return;
+    const result = await cmd('mediaPlayers', { source });
+    if (!row.contains(sel) || !result.ok || !Array.isArray(result.data?.players)) return;
+    players = result.data.players.filter(p => p.group === source);
+    note = result.data.notes?.[source] || '';
+    // Read the current selection after the request. A device update may
+    // have arrived while the source was listing its players.
+    paint();
+  }, { owner: row, intervalMs: 1000 });
   sel.addEventListener('change', async () => {
     const name = sel.value
-      ? ((players || []).find((p) => p.id === sel.value) || {}).name
-        || sel.options[sel.selectedIndex].textContent
-      : '';
-    await api('/api/settings', { method: 'PATCH', body: JSON.stringify({
+      ? players.find(p => p.id === sel.value)?.name
+        || sel.options[sel.selectedIndex].textContent : '';
+    const values = {
       'sendspin.player': sel.value,
       'sendspin.player_name': name,
       'sendspin.player_active': true,
-    }) });
-    // Nothing else on the page hangs on the pick, so the page stays put:
-    // the settings are read back and the row's warning reworded in place
-    // rather than the whole page re-rendered around a select that is
-    // already right.
+    };
     try {
-      const { settings } = await (await api('/api/settings')).json();
-      if (Array.isArray(settings)) state.settings = settings;
-    } catch (_) {}
-    updatePlayerRow();
+      const response = await api('/api/settings', { method: 'PATCH', body: JSON.stringify(values) });
+      const result = await response.json();
+      if (!response.ok || !result.ok) throw new Error(result.error || 'Could not save the player.');
+      for (const setting of state.settings || []) {
+        if (setting.key in values) setting.value = values[setting.key];
+      }
+    } catch (error) {
+      showToast({ title: 'Could not select player', message: error.message, kind: 'error' });
+    }
+    paint();
   });
 }
 
@@ -256,18 +239,7 @@ export async function updateSonosPage() {
   // The parent page's Player select was built from the speakers known
   // when the page rendered: a change to the list here rebuilds it, so a
   // speaker just added can be picked without a reload.
-  const refreshPick = async () => {
-    const sel = document.querySelector('#tab-sendspin [data-key="sendspin.player"] select');
-    if (!sel || sel.dataset.source !== 'sonos') return;
-    // A forgotten room that was the pick clears the pick on the device:
-    // read the settings back so the select is built from what it holds.
-    try {
-      const { settings } = await (await api('/api/settings')).json();
-      if (Array.isArray(settings)) state.settings = settings;
-    } catch (_) {}
-    sel.remove();
-    updatePlayerRow();
-  };
+  const refreshPick = () => receiveUpdate('media-players');
   const render = (speakers) => {
     list.textContent = '';
     if (!speakers.length) {
@@ -365,7 +337,7 @@ export async function updateSonosPage() {
   });
   addRow.appendChild(addBtn);
   card.appendChild(addRow);
-  await load(false);
+  watchUpdates(['sonos'], () => load(false), { owner: card, intervalMs: 1000 });
 }
 
 /* Both notices land between the Screen card and the Audio Volume heading,

@@ -771,8 +771,11 @@ class SendspinManager extends Manager {
     });
   }
 
+  void _remoteMediaChanged() => bus.publish(const RemoteStatusChanged('media'));
+
   @override
   Future<void> init() async {
+    nowPlaying.addListener(_remoteMediaChanged);
     nowPlaying.addListener(_onTrackChanged);
     _channel.setMethodCallHandler((call) async {
       final args = call.arguments;
@@ -1876,6 +1879,7 @@ class SendspinManager extends Manager {
 
   @override
   Future<void> dispose() async {
+    nowPlaying.removeListener(_remoteMediaChanged);
     _restartDebounce?.cancel();
     _pausedHoldTimer?.cancel();
     _queuePoll?.cancel();

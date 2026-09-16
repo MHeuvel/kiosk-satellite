@@ -1,3 +1,4 @@
+import { watchUpdates } from './live.js';
 import {
   GLANCE_MAX,
   cameraAction,
@@ -182,13 +183,8 @@ function albumArtCacheRow() {
     catch (_) { note.textContent = 'Could not clear the cache.'; }
     finally { button.disabled = false; button.textContent = 'Clear'; }
   });
-  const refresh = async () => {
-    if (!row.isConnected) return;
-    if (!button.disabled && !document.hidden && row.getClientRects().length) await read();
-    setTimeout(refresh, 5000);
-  };
   read();
-  setTimeout(refresh, 5000);
+  watchUpdates(['artwork-cache'], read, { owner: row });
   return row;
 }
 
@@ -196,6 +192,22 @@ export function settingRow(s) {
   const row = document.createElement('div'); row.className = 'row';
   // Lets a saved row find another row without a re-render (see save()).
   row.dataset.key = s.key;
+  // Only the control that rendered this value knows how to update it.
+  // Decorators can replace that control with a picker of their own.
+  const bindUpdate = (control, paint) => {
+    let displayed = control.value;
+    row.updateSetting = () => {
+      if (!row.contains(control)) return false;
+      const editing = document.activeElement === control
+        && (control.tagName === 'TEXTAREA'
+          || (control.tagName === 'INPUT' && !['checkbox', 'range'].includes(control.type)));
+      if (!editing || control.value === displayed) {
+        paint();
+        displayed = control.value;
+      }
+      return true;
+    };
+  };
   const info = document.createElement('div'); info.className = 'info';
   info.innerHTML = `<div class="name"></div><div class="desc"></div>`;
   info.querySelector('.name').textContent = s.title;
@@ -300,7 +312,14 @@ export function settingRow(s) {
   // dialog the device draws. Every "r,g,b" setting ends in _color by
   // convention; the device UI keys off the same suffix.
   if (s.key.endsWith('_color')) {
-    row.appendChild(swatch(s.value || '250,250,250', s.title, (rgb) => save(rgb)));
+    let button = swatch(s.value || '250,250,250', s.title, rgb => save(rgb));
+    row.appendChild(button);
+    row.updateSetting = () => {
+      const next = swatch(s.value || '250,250,250', s.title, rgb => save(rgb));
+      button.replaceWith(next);
+      button = next;
+      return true;
+    };
     return row;
   }
 
@@ -1376,8 +1395,9 @@ export function settingRow(s) {
   // A time of day is picked, not typed: the control box shows the value
   // and opens the time picker dialog, the same one the device draws.
   if (s.key === 'ha.theme_dark_at' || s.key === 'ha.theme_light_at') {
-    row.appendChild(timeBox({ title: s.title, value: s.value || '',
-      onPick: (v) => save(v) }).el);
+    const box = timeBox({ title: s.title, value: s.value || '', onPick: v => save(v) });
+    row.appendChild(box.el);
+    bindUpdate(box.el, () => box.set(s.value));
     return row;
   }
 
@@ -1386,8 +1406,10 @@ export function settingRow(s) {
   // draws. Empty is the open end the placeholder names (issue #383).
   if (s.key === 'screensaver.immich_taken_from'
     || s.key === 'screensaver.immich_taken_to') {
-    row.appendChild(dateBox({ title: s.title, value: s.value || '',
-      placeholder: s.placeholder || 'Not set', onPick: (v) => save(v) }).el);
+    const box = dateBox({ title: s.title, value: s.value || '',
+      placeholder: s.placeholder || 'Not set', onPick: v => save(v) });
+    row.appendChild(box.el);
+    bindUpdate(box.el, () => box.set(s.value));
     return row;
   }
 
@@ -1434,6 +1456,7 @@ export function settingRow(s) {
       // it here first made a refused value snap "back" to itself.
       save(next);
     });
+    bindUpdate(slider.input, () => slider.set(s.value));
     if (s.key === 'sendspin.duck_percent') {
       const fragment = document.createDocumentFragment();
       fragment.append(row, albumArtCacheRow());
@@ -1462,6 +1485,7 @@ export function settingRow(s) {
     });
     const sl = document.createElement('span'); sl.className = 'slider';
     lbl.append(cb, sl); row.appendChild(lbl);
+    bindUpdate(cb, () => { cb.checked = !!s.value; });
   } else if (s.type === 'select') {
     const sel = document.createElement('select');
     let opts = s.options || [];
@@ -1478,6 +1502,7 @@ export function settingRow(s) {
     });
     sel.addEventListener('change', () => save(sel.value));
     row.appendChild(sel);
+    bindUpdate(sel, () => { sel.value = s.value ?? ''; });
   } else if (s.multiline) {
     // Pasted code gets a real editor, not a one-line field.
     const ta = document.createElement('textarea');
@@ -1491,6 +1516,7 @@ export function settingRow(s) {
       + 'font-size:12.5px; resize:vertical';
     ta.addEventListener('change', () => save(ta.value));
     row.appendChild(ta);
+    bindUpdate(ta, () => { ta.value = s.value ?? ''; });
   } else {
     const inp = document.createElement('input');
     inp.type = s.type === 'password' ? 'password' : s.type === 'number' ? 'number' : 'text';
@@ -1506,6 +1532,10 @@ export function settingRow(s) {
     inp.addEventListener('change', () =>
       save(s.type === 'number' ? Number(inp.value) : inp.value));
     row.appendChild(inp);
+    bindUpdate(inp, () => {
+      inp.value = s.type === 'password' ? '' : s.value ?? '';
+      if (s.type === 'password') inp.placeholder = s.value === '__set__' ? '•••••• (set)' : 'Not set';
+    });
   }
   return row;
 }

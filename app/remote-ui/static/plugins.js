@@ -1,3 +1,5 @@
+import { preserveDraft } from './drafts.js';
+import { watchUpdates } from './live.js';
 import { entitySearchPicker } from './cameras.js';
 import { cmd } from './core.js';
 import { updatePluginCharts } from './plugin-charts.js';
@@ -163,7 +165,9 @@ function actionOptionsDialog(action, options) {
   });
 }
 
+let renderedState = '';
 function render(root, state) {
+  renderedState = JSON.stringify(state);
   pluginSearchState = state;
   const plugins = state.plugins || [];
   const pluginsEnabled = state.enabled === true;
@@ -472,7 +476,7 @@ function updateGroupedPluginOutput(page, kind, items) {
 }
 
 let runtimeLoading = false;
-setInterval(async () => {
+watchUpdates(['plugins'], async () => {
   const [tab, id] = currentPath.split('/');
   if (tab !== 'plugins' || !id || document.hidden || runtimeLoading || busy) return;
   const page = [...document.querySelectorAll('#tab-plugins > .subpage')].find(el => el.dataset.subpage === id);
@@ -488,6 +492,17 @@ setInterval(async () => {
       const result = await cmd(command, { id }, { timeoutMs: 5000 });
       if (target?.isConnected && currentPath === `plugins/${id}` && result.ok) update(target, result.data);
     }));
-  } catch (_) { /* The next poll retries when the connection returns. */ }
+  } catch (_) { /* Reconnect reads the latest plugin output. */ }
   finally { runtimeLoading = false; }
-}, 1000);
+}, { visible: () => currentPath.startsWith('plugins/'), intervalMs: 1000 });
+
+// Settings and installation changes are separate from frequent readings.
+watchUpdates(['plugin-settings'], async () => {
+  if (busy) return;
+  const next = await refreshPluginSearchState();
+  if (busy || JSON.stringify(next) === renderedState) return;
+  const root = document.getElementById('tab-plugins');
+  const restoreDraft = preserveDraft(root, 'data-search-id');
+  try { render(root, next); }
+  finally { restoreDraft(); }
+}, { visible: () => currentPath === 'plugins' || currentPath.startsWith('plugins/'), intervalMs: 500 });

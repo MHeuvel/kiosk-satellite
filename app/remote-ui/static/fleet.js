@@ -1,3 +1,5 @@
+import { routeHash } from './routes.js';
+import { watchUpdates } from './live.js';
 import { $, cmd, state } from './core.js';
 import { currentPath } from './tabs.js';
 import { hintRow, modalShell } from './widgets.js';
@@ -83,7 +85,7 @@ function deviceRow(d) {
 // shows first if its password differs.
 function switchTo(d) {
   const base = d.url || `http://${d.address}:${d.port}`;
-  location.href = `${base}/#${currentPath}`;
+  location.href = `${base}/#${routeHash(currentPath)}`;
 }
 
 export function openFleetPicker() {
@@ -99,11 +101,9 @@ export function openFleetPicker() {
   cancel.addEventListener('click', close);
   shell.foot.appendChild(cancel);
   let lookTimer = null;
-  let poll = null;
 
   function close() {
     clearTimeout(lookTimer);
-    clearInterval(poll);
     shell.close();
     picker = null;
   }
@@ -134,8 +134,7 @@ export function openFleetPicker() {
   picker = { render };
   render();
   refreshFleet();
-  // The socket carries changes; the poll covers a socket that is down.
-  poll = setInterval(refreshFleet, 5000);
+
 }
 
 export function initFleet() {
@@ -156,3 +155,5 @@ export function setDeviceName(name) {
   const rail = $('#deviceName');
   if (rail) rail.title = name;
 }
+
+watchUpdates(['fleet'], refreshFleet);

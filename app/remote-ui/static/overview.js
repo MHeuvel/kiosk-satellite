@@ -1,3 +1,4 @@
+import { watchUpdates } from './live.js';
 import { $, api, cmd, state } from './core.js';
 import { attachUpdateInstall, refreshUpdateBadge } from './device.js';
 import { readFilterStatus } from './filter_status.js';
@@ -13,12 +14,11 @@ import { attachSlider, messageBox, modalShell, showToast } from './widgets.js';
    from a person, what its screen shows, how each part of it is doing.
    Everything here reads the device's own status commands, nothing is a
    setting, so the page is rebuilt from a fresh read every time it is
-   looked at and every half minute while it stays in view. Never from a
+   looked at and when its subscribed state changes. Never from a
    hidden tab or another page: each read is work on the tablet. */
 
 const TICK_MS = 5000;
-// Ticks between full status reads: every 30 seconds.
-const HEALTH_EVERY = 6;
+
 
 function onOverview() {
   return !document.hidden
@@ -53,8 +53,8 @@ const TILES = [
 ];
 function buildTiles() {
   const grid = $('#statusGrid');
-  if (grid.childElementCount) return;
   for (const [id, name, tab] of TILES) {
+    if (grid.querySelector(`[data-status="${id}"]`)) continue;
     const b = document.createElement('button');
     b.type = 'button';
     b.className = 'status';
@@ -63,7 +63,7 @@ function buildTiles() {
       + '<span class="s-name"></span><span class="s-sub">Checking…</span></span>';
     b.querySelector('.s-name').textContent = name;
     b.addEventListener('click', () => showTab(tab));
-    grid.appendChild(b);
+    grid.insertBefore(b, grid.querySelector('.status.plugin'));
   }
 }
 // level: on (green), warn (amber), off (red), '' (muted: switched off or
@@ -167,16 +167,8 @@ function grantButton(btn, spec) {
       if (spec.guard) await cmd('openUiGuardSettings');
       else await cmd('requestOsPermissions', { which: [].concat(spec.ask) });
     } catch (_) {}
-    let tries = 30;
-    const tick = setInterval(async () => {
-      const now = (await ask('getSystemPermissions')) || {};
-      if (spec.guard) now.uiGuard = (await ask('hasUiGuard')) === true;
-      if (now[spec.key] === true || --tries <= 0) {
-        clearInterval(tick);
-        btn.disabled = false;
-        refreshHealth();
-      }
-    }, 2000);
+    btn.disabled = false;
+    refreshHealth();
   };
 }
 function openButton(btn, label, tab) {
@@ -639,13 +631,10 @@ $('#tileCheckUpdate').addEventListener('click', async () => {
 });
 
 /* ---- Lifecycle ---- */
-let ticks = 0;
 setInterval(() => {
   if (!onOverview()) return;
-  ticks++;
   if (live) loadScreenshot();
-  if (ticks % HEALTH_EVERY === 0) refreshHealth();
-  else if (npVisible) refreshNowPlaying();
+
 }, TICK_MS);
 setInterval(() => { if (onOverview() && !live) paintTaken(); }, 1000);
 
@@ -672,3 +661,6 @@ export async function initOverview() {
   paintSnapshotTile();
   await Promise.all([refreshHealth(), refreshVolume(), paintRestartDeviceTile(), refreshDndTile()]);
 }
+
+watchUpdates(['health', 'service', 'bluetooth', 'plugins', 'fleetsync'], refreshHealth, { visible: onOverview });
+watchUpdates(['media'], refreshNowPlaying, { visible: onOverview, intervalMs: 1000 });

@@ -155,12 +155,16 @@ class WakeWordManager extends Manager implements NativeAudioSource {
   // watch self-expires - a browser that vanishes mid-watch can never leave
   // telemetry running.
   Timer? _micLevelExpiry;
+  bool _remoteMicObserved = false;
+  StreamSubscription<RemoteObserversChanged>? _remoteObservers;
   StreamSubscription<Map<String, Object?>>? _micLevelSub;
   int _lastMicLevelPushMs = 0;
 
   void _watchMicLevel() {
     _micLevelExpiry?.cancel();
-    _micLevelExpiry = Timer(const Duration(seconds: 15), _stopMicLevelWatch);
+    if (!_remoteMicObserved) {
+      _micLevelExpiry = Timer(const Duration(seconds: 15), _stopMicLevelWatch);
+    }
     if (_micLevelSub != null) return;
     startMeter();
     _micLevelSub = telemetry.listen((m) {
@@ -542,6 +546,16 @@ class WakeWordManager extends Manager implements NativeAudioSource {
 
   @override
   Future<void> init() async {
+    _remoteObservers = bus.on<RemoteObserversChanged>().listen((event) {
+      final observed = event.topics.contains('micLevel');
+      if (observed == _remoteMicObserved) return;
+      _remoteMicObserved = observed;
+      if (observed) {
+        _watchMicLevel();
+      } else {
+        _stopMicLevelWatch();
+      }
+    });
     bus.on<VoiceInteractionChanged>().listen((e) {
       if (e.reason != 'intercom' || e.active == _intercomHold) return;
       _intercomHold = e.active;
@@ -1405,6 +1419,8 @@ class WakeWordManager extends Manager implements NativeAudioSource {
 
   @override
   Future<void> dispose() async {
+    await _remoteObservers?.cancel();
+    _stopMicLevelWatch();
     _resumeTimer?.cancel();
     await _engine.stop();
   }

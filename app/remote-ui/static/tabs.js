@@ -1,3 +1,4 @@
+import { readRoute, routeHash, routeSlug } from './routes.js';
 import { loadSettings } from './settings.js';
 import { loadCameras } from './cameras.js';
 import { $, state } from './core.js';
@@ -79,9 +80,9 @@ export function applySubpageView(tab, sub) {
   const panels = tabEl.querySelectorAll(':scope > .subpage');
   let shown = '';
   panels.forEach((p) => {
-    const open = !!sub && p.dataset.subpage === sub;
+    const open = !!sub && (p.dataset.subpage === sub || routeSlug(p.dataset.subpage) === sub);
     p.classList.toggle('open', open);
-    if (open) shown = sub;
+    if (open) shown = p.dataset.subpage;
   });
   tabEl.classList.toggle('sub-open', !!shown);
   return shown;
@@ -169,9 +170,12 @@ export function showTab(name, { push = true, refresh = true } = {}) {
     const glyph = document.querySelector(`#tabs button[data-tab="${tab}"] svg`);
     if (glyph) titleEl.prepend(glyph.cloneNode(true));
   }
-  if (push && decodeURIComponent(location.hash.slice(1)) !== currentPath) {
-    location.hash = currentPath;
+  const canonical = routeHash(currentPath);
+  if (readRoute() !== canonical) {
+    if (push) location.hash = canonical;
+    else history.replaceState(null, '', '#' + canonical);
   }
+  document.dispatchEvent(new CustomEvent('ks-route'));
   // Nothing on the Overview is a setting: it is re-read on every visit.
   if (tab === 'dashboard' && !sameTab) overviewShown();
   if (tab === 'logs') loadLogs();
@@ -185,7 +189,7 @@ export function showTab(name, { push = true, refresh = true } = {}) {
   // The roster is other kiosks' state too: same treatment.
   if (tab === 'intercom') intercomShown();
   if (tab === 'plugins' && refresh && !sameTab) loadPlugins();
-  if (tab === 'screensaver' && refresh && !sameTab) loadSettings();
+
   if (tab === 'about') loadAboutInfo();
   // Both notices track something changed on the tablet in Android's own
   // settings, so opening the tab is the moment to re-ask rather than

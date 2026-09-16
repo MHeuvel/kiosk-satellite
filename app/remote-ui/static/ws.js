@@ -1,6 +1,9 @@
+import { attachSocket, detachSocket, receiveResult } from './transport.js';
+import { receiveUpdate, syncSubscriptions } from './live.js';
+import { applySettingsUpdate } from './settings.js';
 import { setDeviceName } from './fleet.js';
 import { renderMicLevel } from './audio.js';
-import { $, state } from './core.js';
+import { $, api, logout, state } from './core.js';
 import { appendLine, logView, updateConsoleMeta } from './logs.js';
 import { showLightLevel } from './notices.js';
 import { applyQuickEvent, applyQuickState, loadScreenshot, quickStateOf } from './panels.js';
@@ -8,7 +11,17 @@ import { loadVsPermissions, renderVsControls } from './vs.js';
 import { paintRange } from './widgets.js';
 
 /* ---- Live state (WebSocket) ---- */
+let reconnectTimer = null;
+let retryDelay = 1000;
+let heartbeat = null;
+let lastMessage = 0;
+document.addEventListener('ks-logout', () => {
+  clearTimeout(reconnectTimer);
+  clearInterval(heartbeat);
+});
 export function connectWs() {
+  clearTimeout(reconnectTimer);
+  if (!state.token || (state.ws && state.ws.readyState < 2)) return;
   const proto = location.protocol === 'https:' ? 'wss' : 'ws';
   const ws = new WebSocket(`${proto}://${location.host}/api/ws?token=${state.token}`);
   state.ws = ws;
@@ -20,12 +33,45 @@ export function connectWs() {
   let snapshotSeen = false;
   const movedFirst = {};
   ws.onopen = () => {
+    if (state.ws !== ws) { ws.close(); return; }
+    attachSocket(ws);
+    retryDelay = 1000;
+    lastMessage = Date.now();
     setConn('on');
-    ws.send(JSON.stringify({ type: 'subscribe', topics: ['state', 'events', 'console', 'logs'] }));
+    syncSubscriptions({ reconnect: true });
+    document.dispatchEvent(new CustomEvent('ks-connected'));
+    clearInterval(heartbeat);
+    heartbeat = setInterval(() => {
+      if (Date.now() - lastMessage > 65000) { ws.close(); return; }
+      if (ws.readyState === WebSocket.OPEN) ws.send(JSON.stringify({ type: 'ping' }));
+    }, 25000);
   };
-  ws.onclose = () => { setConn('off'); if (state.token) setTimeout(connectWs, 3000); };
+  ws.onclose = async (event) => {
+    if (state.ws !== ws) return;
+    clearInterval(heartbeat);
+    detachSocket(ws);
+    state.ws = null;
+    setConn('off');
+    if (event.code === 1008) { logout(); return; }
+    // Upgrade failures hide their HTTP status from browser JavaScript.
+    // A single authenticated read distinguishes expiry from an outage.
+    const check = new AbortController();
+    const deadline = setTimeout(() => check.abort(), 3000);
+    try { await api('/api/commands', { method: 'HEAD', signal: check.signal }); } catch (_) {}
+    finally { clearTimeout(deadline); }
+    if (state.token) {
+      reconnectTimer = setTimeout(connectWs, retryDelay + Math.random() * 500);
+      retryDelay = Math.min(30000, retryDelay * 2);
+    }
+  };
   ws.onmessage = (ev) => {
-    const msg = JSON.parse(ev.data);
+    if (state.ws !== ws) return;
+    lastMessage = Date.now();
+    let msg;
+    try { msg = JSON.parse(ev.data); } catch (_) { return; }
+    if (receiveResult(msg) || msg.type === 'pong') return;
+    if (msg.type === 'settings') { applySettingsUpdate(msg); return; }
+    if (msg.type === 'update') { receiveUpdate(msg.topic, msg.results); return; }
     if (msg.type === 'state') {
       applyInfo(msg.device, msg.currentUrl, snapshotSeen ? {} : movedFirst);
       snapshotSeen = true;
@@ -95,9 +141,9 @@ export function queueVsControlsRefresh() {
     // A wake state change can move the permissions story (a lost
     // microphone) and the controlled entities (an engine or wake word
     // change re-negotiates); follow along.
-    loadVsPermissions();
     const vsRoot = document.getElementById('tab-voicesatellite');
-    if (vsRoot && document.getElementById('vsGeneralCard')) {
+    if (vsRoot?.classList.contains('active') && document.getElementById('vsGeneralCard')) {
+      loadVsPermissions();
       renderVsControls(vsRoot, { auto: true });
     }
   }, 2000);
@@ -167,3 +213,8 @@ export function showBrightness(level) {
   paintRange($('#brightness'));
   $('#brightnessValue').textContent = `${pct}%`;
 }
+
+document.addEventListener('ks-device-name', (e) => {
+  setDeviceName(e.detail);
+  document.title = e.detail + ' - Kiosk Satellite Remote';
+});

@@ -1,4 +1,5 @@
-import { api, cmd, state } from './core.js';
+import { watchUpdates } from './live.js';
+import { api, cacheSettings, cmd, state } from './core.js';
 import { applyManagedBanners } from './fleetsync.js';
 import { settingRow } from './rows.js';
 import { messageBox, modalShell } from './widgets.js';
@@ -1019,8 +1020,7 @@ export async function loadCameras() {
   let settings = [];
   try {
     const read = await (await api('/api/settings')).json();
-    settings = read.settings || [];
-    state.settings = settings;
+    settings = cacheSettings(read.settings || []);
   } catch (_) {}
   root.innerHTML = '';
   // Rebuilt from scratch on every visit, so the follower banner goes back on
@@ -1243,3 +1243,5 @@ export async function loadCameras() {
     for (const setting of playback) playbackCard.appendChild(settingRow(setting));
   }
 }
+
+watchUpdates(['cameras'], loadCameras, { visible: () => !!document.querySelector('#tab-cameras.active') });
