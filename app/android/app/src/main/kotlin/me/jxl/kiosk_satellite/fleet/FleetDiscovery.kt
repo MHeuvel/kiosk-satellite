@@ -11,6 +11,7 @@ import java.io.ByteArrayOutputStream
 import java.net.DatagramPacket
 import java.net.Inet4Address
 import java.net.InetAddress
+import java.net.InetSocketAddress
 import java.net.NetworkInterface
 import me.jxl.kiosk_satellite.fleet.MdnsPackets.DnsReader
 import me.jxl.kiosk_satellite.fleet.MdnsPackets.buildHostAnswer
@@ -65,6 +66,13 @@ import me.jxl.kiosk_satellite.fleet.MdnsPackets.u32
  * A Wi-Fi MulticastLock is held while running: without it most Android
  * Wi-Fi drivers drop multicast frames with the screen off, which would
  * make a dark kiosk deaf to the others and invisible to them.
+ *
+ * The group is joined per interface, and joined again on every network
+ * change and announcement tick (see [joinGroups]). A kiosk that starts
+ * before its Wi-Fi is up, a Portal after a reboot for one (issue #582),
+ * has only the loopback interface then; a join left to the kernel's
+ * choice lands there and the socket hears nobody until the app is
+ * restarted, whatever it announces once the network is up.
  *
  * The listener hears every mDNS response on the network, and a house
  * full of ESPHome nodes, speakers and printers sends a few hundred a
@@ -175,9 +183,19 @@ class FleetDiscovery(
     private val host get() = "ks-$id.local"
     private val userHost get() = if (hostname.isEmpty()) "" else "$hostname.local"
 
+    /**
+     * The interfaces the group is joined on, as `name#index`: one that
+     * comes back under a new index is a new interface to the kernel and
+     * needs joining again.
+     */
+    private val joined = HashSet<String>()
+    /** Said once per stretch with nothing to listen on. */
+    private var warnedNoInterface = false
+
     private val announcer = object : Runnable {
         override fun run() {
             if (!running) return
+            joinGroups()
             sendAnnouncement(RECORD_TTL, HOST_TTL)
             if (expire()) publish()
             handler.postDelayed(this, ANNOUNCE_INTERVAL_MS)
@@ -233,9 +251,8 @@ class FleetDiscovery(
             runCatching { s.timeToLive = 255 }
             runCatching { s.setUnicastTtl() }
                 .onFailure { Log.w(TAG, "unicast TTL not set: $it") }
-            runCatching { @Suppress("DEPRECATION") s.joinGroup(GROUP) }
-                .onFailure { Log.w(TAG, "joinGroup failed: $it") }
             socket = s
+            joinGroups()
             if (listening) Thread(::receiveLoop, "fleet-mdns-rx").start()
             handler.post(announcer)
             // The burst of three a second apart per RFC 6762, and a query
@@ -257,6 +274,7 @@ class FleetDiscovery(
         handler.postDelayed({
             runCatching { socket?.close() }
             socket = null
+            synchronized(joined) { joined.clear() }
         }, 300)
         multicastLock?.let { runCatching { if (it.isHeld) it.release() } }
         multicastLock = null
@@ -268,9 +286,60 @@ class FleetDiscovery(
     /** Re-announce and ask again, e.g. after a network change. */
     fun nudge() {
         if (!running) return
+        joinGroups()
         sendAnnouncement(RECORD_TTL, HOST_TTL)
         if (fleet) sendQuery()
     }
+
+    /**
+     * Joins the mDNS group on every interface that can carry it and is not
+     * joined yet, and forgets the ones that went away so they are joined
+     * again when they return. Idempotent and cheap (one interface walk),
+     * so it runs at start, on every network change and at every
+     * announcement tick: the tick covers a network that came up without
+     * a nudge reaching here.
+     */
+    private fun joinGroups() {
+        val s = socket ?: return
+        if (s.isClosed) return
+        val nics = localInterfaces()
+        val present = nics.map { "${it.name}#${it.index}" }.toSet()
+        synchronized(joined) {
+            joined.retainAll(present)
+            for (nic in nics) {
+                val key = "${nic.name}#${nic.index}"
+                if (key in joined) continue
+                try {
+                    s.joinGroup(InetSocketAddress(GROUP, MDNS_PORT), nic)
+                    joined.add(key)
+                    Log.i(TAG, "listening on ${nic.name}")
+                } catch (e: Exception) {
+                    // The kernel kept an earlier membership across the
+                    // interface going down and up: as good as a new join.
+                    val msg = e.message ?: ""
+                    if (msg.contains("EADDRINUSE") || msg.contains("already", ignoreCase = true)) {
+                        joined.add(key)
+                    } else {
+                        Log.w(TAG, "joinGroup on ${nic.name} failed: $e")
+                    }
+                }
+            }
+            if (joined.isEmpty()) {
+                if (!warnedNoInterface) Log.w(TAG, "no interface to listen on yet")
+                warnedNoInterface = true
+            } else {
+                warnedNoInterface = false
+            }
+        }
+    }
+
+    /** The interfaces that can carry multicast and have an IPv4 address. */
+    private fun localInterfaces(): List<NetworkInterface> = runCatching {
+        NetworkInterface.getNetworkInterfaces().toList().filter { nic ->
+            nic.isUp && !nic.isLoopback && nic.supportsMulticast() &&
+                nic.inetAddresses.toList().any { it is Inet4Address }
+        }
+    }.getOrDefault(emptyList())
 
     fun snapshot(): Snapshot {
         val list = synchronized(peers) { peers.values.toList() }
