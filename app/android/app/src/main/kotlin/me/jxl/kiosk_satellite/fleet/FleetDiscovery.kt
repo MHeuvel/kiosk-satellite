@@ -65,6 +65,14 @@ import me.jxl.kiosk_satellite.fleet.MdnsPackets.u32
  * A Wi-Fi MulticastLock is held while running: without it most Android
  * Wi-Fi drivers drop multicast frames with the screen off, which would
  * make a dark kiosk deaf to the others and invisible to them.
+ *
+ * The listener hears every mDNS response on the network, and a house
+ * full of ESPHome nodes, speakers and printers sends a few hundred a
+ * second. A response is looked at on its raw bytes first
+ * (MdnsPackets.mentions): one that spells out neither the service label
+ * nor this kiosk's hostname is dropped before any parsing, which is
+ * nearly all of them. Parsing every one, and walking the network
+ * interfaces for each, cost a full core on a busy network (issue #567).
  */
 class FleetDiscovery(
     private val context: Context,
@@ -158,6 +166,11 @@ class FleetDiscovery(
     private var lastAnsweredAt = 0L
     private var lastHostAnsweredAt = 0L
 
+    /** The service's first label as it travels, for the raw-bytes check. */
+    private val serviceNeedle = MdnsPackets.labelNeedle(SERVICE.substringBefore('.'))
+    /** The hostname's label the same way; empty for no hostname. */
+    @Volatile private var hostNeedle = ByteArray(0)
+
     private val instance get() = "ks-$id.$SERVICE"
     private val host get() = "ks-$id.local"
     private val userHost get() = if (hostname.isEmpty()) "" else "$hostname.local"
@@ -176,6 +189,8 @@ class FleetDiscovery(
         this.port = port
         if (this.hostname != hostname) hostClash = ""
         this.hostname = hostname.lowercase()
+        hostNeedle = if (this.hostname.isEmpty()) ByteArray(0)
+            else MdnsPackets.labelNeedle(this.hostname.substringBefore('.'))
         val fleetWas = this.fleet
         this.fleet = fleet
         if (running) {
@@ -318,7 +333,12 @@ class FleetDiscovery(
             return
         }
         val mine = userHost
-        if (mine.isNotEmpty() && hostClash != hostname) {
+        // The interface walk and the record parse only for a packet that
+        // spells out the hostname: this kiosk's own looped-back
+        // announcement every 30 seconds, and a real clash. The address
+        // list is read fresh each time on purpose: a cached one would flag
+        // this kiosk's own announcement right after an address change.
+        if (mine.isNotEmpty() && hostClash != hostname && MdnsPackets.mentions(packet, hostNeedle)) {
             val localAddresses = localIpv4Addresses().mapNotNull { it.hostAddress }.toSet()
             val conflict = MdnsPackets.conflictingHostAddress(packet, mine, localAddresses)
             if (conflict != null) {
@@ -328,6 +348,8 @@ class FleetDiscovery(
             }
         }
         if (!fleet) return
+        // A kiosk's records all carry the service label; no label, no walk.
+        if (!MdnsPackets.mentions(packet, serviceNeedle)) return
         repeat(qd) { r.name(); r.u16(); r.u16() }
         // One packet, every record it carries; a kiosk's announcement holds
         // its PTR, SRV, TXT and A together, so a single pass finds the set.

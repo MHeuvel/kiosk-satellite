@@ -39,6 +39,50 @@ internal object MdnsPackets {
         return conflict
     }
 
+    /**
+     * One DNS label as it travels: its length byte and its bytes, letters
+     * lowercased. The needle for [mentions].
+     */
+    fun labelNeedle(label: String): ByteArray {
+        val bytes = label.lowercase().toByteArray(Charsets.UTF_8)
+        return byteArrayOf((bytes.size and 0xFF).toByte()) + bytes
+    }
+
+    /**
+     * Whether the message spells out the label [needle] anywhere, checked
+     * on the raw bytes before anything is parsed. A name travels as
+     * length-prefixed labels, and a compression pointer can only refer to
+     * labels spelled out earlier in the same message, so every label of
+     * every name a message carries appears in it verbatim at least once:
+     * a miss is certain, a hit is a reason to parse. Letters compare
+     * case-insensitively, as DNS names do. Cheap enough to run on every
+     * packet a busy network delivers, which is what it is for: without it
+     * the receiver walked the network interfaces and parsed every record
+     * of every response on the network, a full core on a wall panel among
+     * a few dozen ESPHome nodes, speakers and printers (issue #567).
+     */
+    fun mentions(packet: DatagramPacket, needle: ByteArray): Boolean =
+        mentions(packet.data, packet.offset, packet.length, needle)
+
+    fun mentions(buf: ByteArray, offset: Int, length: Int, needle: ByteArray): Boolean {
+        if (needle.isEmpty()) return false
+        val last = offset + length - needle.size
+        var i = offset
+        outer@ while (i <= last) {
+            if (buf[i] != needle[0]) { i++; continue }
+            for (k in 1 until needle.size) {
+                var b = buf[i + k].toInt()
+                if (b in 0x41..0x5A) b = b or 0x20
+                if (b.toByte() != needle[k]) { i++; continue@outer }
+            }
+            return true
+        }
+        return false
+    }
+
+    fun mentionsLabel(packet: DatagramPacket, label: String): Boolean =
+        mentions(packet, labelNeedle(label))
+
     /** A cursor over one DNS message, with name decompression. */
     internal class DnsReader(private val buf: ByteArray, private val start: Int, length: Int) {
         var pos = start

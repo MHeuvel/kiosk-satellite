@@ -10,6 +10,7 @@ import java.net.InetAddress
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertFailsWith
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
@@ -147,6 +148,53 @@ class MdnsPacketsTest {
             announcement(response = false),
         ).forEach { assertNull(MdnsPackets.conflictingHostAddress(it, host, local)) }
         assertNull(MdnsPackets.conflictingHostAddress(announcement(), "", local))
+    }
+
+    @Test
+    fun mentionsFindsALabelWhateverItsCase() {
+        // The announcement spells the name in upper case; the needle is lower.
+        val packet = announcement()
+        assertTrue(MdnsPackets.mentionsLabel(packet, "ks-kitchen"))
+        assertTrue(MdnsPackets.mentionsLabel(packet, "KS-KITCHEN"))
+        assertTrue(MdnsPackets.mentionsLabel(packet, "local"))
+        assertTrue(MdnsPackets.mentionsLabel(announcement(name = "ks-kitchen.local"), "Ks-Kitchen"))
+    }
+
+    @Test
+    fun mentionsWantsAWholeLabelNotASubstring() {
+        // "kitchen" sits inside "ks-kitchen" but no label of that length precedes it.
+        val packet = announcement()
+        assertFalse(MdnsPackets.mentionsLabel(packet, "kitchen"))
+        assertFalse(MdnsPackets.mentionsLabel(packet, "ks-kitchen.local"))
+        assertFalse(MdnsPackets.mentionsLabel(packet, "another"))
+        assertFalse(MdnsPackets.mentions(packet, ByteArray(0)))
+    }
+
+    @Test
+    fun mentionsStaysInsideThePacketsSlice() {
+        // The needle spelled out past the datagram's end is not in the packet.
+        val packet = announcement()
+        val extra = MdnsPackets.labelNeedle("extra")
+        val data = packet.data.copyOf(packet.offset + packet.length + extra.size)
+        extra.copyInto(data, packet.offset + packet.length)
+        assertFalse(MdnsPackets.mentions(DatagramPacket(data, packet.offset, packet.length), extra))
+        assertTrue(MdnsPackets.mentions(DatagramPacket(data, packet.offset, packet.length + extra.size), extra))
+        // Nor is one spelled out before its start.
+        val lead = MdnsPackets.labelNeedle("lead")
+        val front = lead + data
+        assertFalse(MdnsPackets.mentions(DatagramPacket(front, lead.size + packet.offset, packet.length), lead))
+    }
+
+    @Test
+    fun everyLabelOfACompressedNameIsSpelledOutSomewhere() {
+        // A response whose answer name is only a pointer still carries the
+        // labels verbatim in the question, which is what the check relies on.
+        val packet = announcement(section = 2)
+        val r = MdnsPackets.DnsReader(packet.data, packet.offset, packet.length)
+        repeat(6) { r.u16() }
+        r.name(); r.u16(); r.u16()
+        assertEquals(host, r.name().lowercase())
+        assertTrue(MdnsPackets.mentionsLabel(packet, "ks-kitchen"))
     }
 
     @Test
