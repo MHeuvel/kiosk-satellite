@@ -17,8 +17,19 @@ import 'package:kiosk_satellite/managers/intercom/intercom_manager.dart';
 import 'package:kiosk_satellite/managers/remote/auth.dart';
 import 'package:kiosk_satellite/managers/settings/definitions.dart' as defs;
 import 'package:kiosk_satellite/managers/settings/settings_manager.dart';
+// ignore: depend_on_referenced_packages
+import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web_socket_channel/io.dart';
+
+class _AnnouncementPaths extends PathProviderPlatform {
+  _AnnouncementPaths(this.root);
+
+  final String root;
+
+  @override
+  Future<String?> getExternalStoragePath() async => root;
+}
 
 /// The intercom manager: the roster and its status words, a call coming
 /// in (ring, auto answer, decline, missed, do not disturb, a wrong key), a
@@ -901,6 +912,150 @@ void main() {
       await settle(1400);
       expect(states.any((s) => s['state'] == 'ended'), isTrue);
     });
+
+    test(
+      'ESPHome forwards announcement overrides without changing settings',
+      () async {
+        await build(
+          prefs: {
+            'ks.ha.url': 'http://ha.local:8123',
+            'ks.ha.token': 'tkn',
+            'ks.announcements.tts_engine': 'tts.piper',
+          },
+        );
+        final surface = EspEntitySurface(bus, commands, log, settings);
+        final service = surface.buildServices().singleWhere(
+          (s) => s['name'] == 'announce',
+        );
+        expect(
+          service['args'],
+          containsAll([
+            {'name': 'chime', 'type': 'bool'},
+            {'name': 'chime_file', 'type': 'string'},
+            {'name': 'tts_engine', 'type': 'string'},
+            {'name': 'audio_only', 'type': 'bool'},
+          ]),
+        );
+        answers['POST /api/tts_get_url'] = (req) {
+          expect(jsonDecode(req.body)['engine_id'], 'tts.cloud');
+          return {'url': 'http://ha.local:8123/a.mp3'};
+        };
+        answers['GET /a.mp3'] = (_) => http.Response.bytes([9], 200);
+        final interactions = <bool>[];
+        bus.on<VoiceInteractionChanged>().listen(
+          (e) => interactions.add(e.active),
+        );
+        expect(
+          await surface.handleService('announce', {
+            'message': 'Dinner is ready',
+            'tts_engine': ' tts.cloud ',
+            'chime': false,
+            'chime_file': 'unused.mp3',
+            'audio_only': true,
+          }),
+          {'ms': 1000},
+        );
+        expect(intercom.state, 'listening');
+        expect(intercom.call?.toJson()['audioOnly'], isTrue);
+        expect(executed, isEmpty);
+        expect(audioCalls, isNot(contains('chime')));
+        expect(settings.get(defs.announcementsTtsEngine), 'tts.piper');
+        expect(settings.get(defs.announcementsChime), isTrue);
+        await settle(1500);
+        expect(audioWritten, isNotEmpty);
+        expect(audioCalls, contains('stop'));
+        expect(intercom.state, 'idle');
+        expect(interactions, [true, false]);
+      },
+    );
+
+    for (final engine in ['tts.piper', '']) {
+      test(
+        'an empty TTS override falls back with UI engine "$engine"',
+        () async {
+          await build(
+            prefs: {
+              'ks.ha.url': 'http://ha.local:8123',
+              'ks.ha.token': 'tkn',
+              'ks.announcements.tts_engine': engine,
+              'ks.announcements.chime': false,
+            },
+          );
+          answers['GET /api/states'] = (_) => [
+            {
+              'entity_id': 'tts.piper',
+              'attributes': {'friendly_name': 'Piper'},
+            },
+          ];
+          answers['POST /api/tts_get_url'] = (req) {
+            expect(jsonDecode(req.body)['engine_id'], 'tts.piper');
+            return {'url': 'http://ha.local:8123/a.mp3'};
+          };
+          answers['GET /a.mp3'] = (_) => http.Response.bytes([9], 200);
+          final result = await commands.execute('announce', {
+            'message': 'Hello',
+            'tts_engine': ' ',
+          });
+          expect(result.ok, isTrue, reason: result.error);
+          expect(intercom.call?.audioOnly, isFalse);
+          expect(executed.map((e) => e.$1), contains('screenOn'));
+          expect(sent.any((r) => r.url.path == '/api/states'), engine.isEmpty);
+        },
+      );
+    }
+
+    test(
+      'ESPHome chime overrides use local files and fall back to the UI sound',
+      () async {
+        await build(
+          prefs: {
+            'ks.announcements.chime': false,
+            'ks.announcements.chime_file': 'default.mp3',
+          },
+        );
+        final root = await Directory.systemTemp.createTemp('announce-sounds-');
+        final sounds = await Directory('${root.path}/sounds').create();
+        for (final name in ['default.mp3', 'custom.wav']) {
+          await File('${sounds.path}/$name').writeAsBytes([1]);
+        }
+        final originalPaths = PathProviderPlatform.instance;
+        PathProviderPlatform.instance = _AnnouncementPaths(root.path);
+        addTearDown(() async {
+          PathProviderPlatform.instance = originalPaths;
+          await root.delete(recursive: true);
+        });
+        answers['GET /a.mp3'] = (_) => http.Response.bytes([9], 200);
+        final surface = EspEntitySurface(bus, commands, log, settings);
+        for (final sound in [
+          ' custom.wav ',
+          '',
+          'missing.mp3',
+          '../custom.wav',
+        ]) {
+          await surface.handleService('announce', {
+            'url': 'http://sounds.local/a.mp3',
+            'chime': true,
+            'chime_file': sound,
+          });
+          final chime = executed.lastWhere((e) => e.$1 == 'playChime').$2;
+          expect(
+            chime['source'],
+            '${sounds.path}/${sound.trim() == 'custom.wav' ? 'custom.wav' : 'default.mp3'}',
+          );
+          expect(audioCalls, isNot(contains('chime')));
+          await commands.execute('intercomHangup', const {});
+          await commands.execute('intercomDismiss', const {});
+        }
+        await settings.set(defs.announcementsChimeFile, 'missing.mp3');
+        await surface.handleService('announce', {
+          'url': 'http://sounds.local/a.mp3',
+          'chime': true,
+          'chime_file': '',
+        });
+        expect(audioCalls, contains('chime'));
+        expect(settings.get(defs.announcementsChime), isFalse);
+      },
+    );
 
     test('repeat plays the clip that many times with a pause', () async {
       await build(prefs: {'ks.announcements.chime': false});

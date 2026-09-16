@@ -354,9 +354,22 @@ The **Announcements** page under Settings, ESPHome holds:
     volume: 0
     repeat: 0
     repeat_pause: 0
+    chime: true
+    chime_file: ""
+    tts_engine: ""
+    audio_only: false
 ```
 
 Leave `url` empty to speak the message, or leave `message` empty and give a `url` to play a file. `volume` is a share of the master volume from 0 to 1 for this one announcement; 0 keeps the media volume. `repeat` plays it that many times, up to ten; 0 is once. `repeat_pause` is the silence between plays in seconds, up to 30; 0 is 0.6. The chime plays once, before the first. The action answers with the clip's length in milliseconds through `response_variable`, and reports an error when announcements are off, the kiosk is in an intercom call, or Home Assistant could not speak the message. A message needs the kiosk's Home Assistant connection. On the [remote API](remote-api.md), the equivalent command is `announce` with the same arguments.
+
+Each announcement can override these options without changing the kiosk's settings:
+
+| Parameter | What it does |
+| --- | --- |
+| `chime` | `true` plays a chime before the first play. `false` skips it. Overrides **Chime first** for this announcement. If omitted through the remote API, the setting applies. |
+| `chime_file` | A file name in the kiosk's sounds folder, such as `dinner.mp3`. Empty uses **Chime sound**. A missing or invalid file falls back to that sound, then to the built-in chime. Ignored when `chime` is `false`. |
+| `tts_engine` | A Home Assistant text to speech entity, such as `tts.piper`. Empty uses **Text to speech engine** from the UI. Ignored when playing a `url`. |
+| `audio_only` | `true` plays the audio without the on-device announcement modal or bringing the kiosk to the front. `false` shows the modal as usual. The chime still follows `chime`, so set it to `false` to hear only the speech. |
 
 ## Intercom actions
 

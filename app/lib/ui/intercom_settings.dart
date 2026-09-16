@@ -1459,6 +1459,7 @@ class _AnnouncementOverlayState extends State<AnnouncementOverlay> {
     final call = (_status['call'] as Map?)?.cast<String, Object?>();
     if (call == null ||
         call['automated'] != true ||
+        call['audioOnly'] == true ||
         call['outgoing'] == true ||
         (state != 'listening' && state != 'ended')) {
       return const SizedBox.shrink();

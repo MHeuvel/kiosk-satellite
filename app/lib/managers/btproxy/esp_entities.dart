@@ -1139,6 +1139,10 @@ class EspEntitySurface {
         {'name': 'repeat', 'type': 'int'},
         // Seconds between plays; 0 is the default 0.6.
         {'name': 'repeat_pause', 'type': 'float'},
+        {'name': 'chime', 'type': 'bool'},
+        {'name': 'chime_file', 'type': 'string'},
+        {'name': 'tts_engine', 'type': 'string'},
+        {'name': 'audio_only', 'type': 'bool'},
       ],
     },
     // Rings another kiosk from this one, the way the kiosk menu's Call a
@@ -1255,6 +1259,10 @@ class EspEntitySurface {
           'volume': args['volume'] ?? 0,
           'repeat': args['repeat'] ?? 0,
           'repeat_pause': args['repeat_pause'] ?? 0,
+          if (args['chime'] != null) 'chime': args['chime'],
+          'chime_file': '${args['chime_file'] ?? ''}',
+          'tts_engine': '${args['tts_engine'] ?? ''}',
+          'audio_only': args['audio_only'] ?? false,
         });
         if (!result.ok) throw StateError(result.error ?? 'refused');
         final data = result.data;

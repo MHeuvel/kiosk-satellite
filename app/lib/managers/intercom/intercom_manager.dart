@@ -123,6 +123,9 @@ class IntercomCall {
   /// clip, not the microphone, and the card offers Stop alone.
   bool automated = false;
 
+  /// Plays an announcement without its on-device modal or screen wake.
+  bool audioOnly = false;
+
   /// The broadcast's recipients, by kiosk id: `listening`, `busy`, `dnd`,
   /// `off`, `unreachable`, `key`.
   final targets = <String, Map<String, Object?>>{};
@@ -148,6 +151,7 @@ class IntercomCall {
     'sent': sent,
     'received': received,
     'automated': automated,
+    'audioOnly': audioOnly,
     'message': message,
     if (kind == 'broadcast') 'targets': targets.values.toList(),
   };
@@ -819,6 +823,11 @@ class IntercomManager extends Manager {
           params: const {
             'message': 'What to say, through Home Assistant text to speech',
             'url': 'An audio file to play instead of a message',
+            'chime': 'Play a chime first, or use the setting when omitted',
+            'chime_file':
+                'A file name in the sounds folder, empty uses the setting',
+            'tts_engine': 'A Home Assistant tts entity, empty uses the setting',
+            'audio_only': 'Play without showing the announcement modal',
             'volume':
                 'A share of the master volume, 0..1, instead of the media '
                 'volume; 0 or missing keeps the media volume',
@@ -1122,7 +1131,9 @@ class IntercomManager extends Manager {
     if (message.isEmpty && url.isEmpty) {
       return const CommandResult.fail('message or url required');
     }
-    final source = url.isNotEmpty ? url : await _ttsUrl(message);
+    final source = url.isNotEmpty
+        ? url
+        : await _ttsUrl(message, engine: '${p['tts_engine'] ?? ''}'.trim());
     if (source == null) {
       return const CommandResult.fail('Home Assistant could not speak it');
     }
@@ -1157,12 +1168,16 @@ class IntercomManager extends Manager {
             peer: const {'id': 'home-assistant', 'name': 'Home Assistant'},
           )
           ..automated = true
+          ..audioOnly = p['audio_only'] == true
           ..message = message;
     _call = c;
-    await _comeForward();
+    if (!c.audioOnly) await _comeForward();
     _setState('listening');
-    if (_settings.get(defs.announcementsChime)) {
-      await _announcementChime();
+    final chime = p['chime'] is bool
+        ? p['chime'] as bool
+        : _settings.get(defs.announcementsChime);
+    if (chime) {
+      await _announcementChime('${p['chime_file'] ?? ''}'.trim());
     }
     // The media fader, unless the action names a volume of its own: a
     // share of the master, 0..1, on the same squared taper the faders
@@ -1201,13 +1216,23 @@ class IntercomManager extends Manager {
   /// The chime before an announcement: the picked sound file through the
   /// chime player, else the built-in two note chime the native sink
   /// synthesizes. Waits for it, so the words start after it.
-  Future<void> _announcementChime() async {
+  Future<void> _announcementChime(String asked) async {
     final volume = _settings
         .get(defs.notificationsVolume)
         .toDouble()
         .clamp(0.0, 1.0);
-    final sound = _settings.get(defs.announcementsChimeFile).trim();
-    final path = sound.isEmpty ? null : await NotificationSounds.resolve(sound);
+    var path = asked.isEmpty ? null : await NotificationSounds.resolve(asked);
+    if (asked.isNotEmpty && path == null) {
+      log.warn(
+        name,
+        'sound "$asked" is not in ${NotificationSounds.displayPath}, '
+        'falling back to the announcement sound',
+      );
+    }
+    if (path == null) {
+      final sound = _settings.get(defs.announcementsChimeFile).trim();
+      path = sound.isEmpty ? null : await NotificationSounds.resolve(sound);
+    }
     if (path != null) {
       await commands.execute('playChime', {'source': path, 'volume': volume});
       await Future<void>.delayed(const Duration(milliseconds: 900));
@@ -1248,11 +1273,13 @@ class IntercomManager extends Manager {
   }
 
   /// Asks Home Assistant to speak [message] and answers the audio URL.
-  Future<String?> _ttsUrl(String message) async {
+  Future<String?> _ttsUrl(String message, {String engine = ''}) async {
     final base = _haBase;
     final token = _settings.get(defs.haToken);
     if (base.isEmpty || token.isEmpty) return null;
-    var engine = _settings.get(defs.announcementsTtsEngine).trim();
+    if (engine.isEmpty) {
+      engine = _settings.get(defs.announcementsTtsEngine).trim();
+    }
     if (engine.isEmpty) {
       final engines = await _ttsEngines();
       engine = engines == null || engines.isEmpty

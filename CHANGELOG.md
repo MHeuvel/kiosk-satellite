@@ -4,6 +4,9 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ## Unreleased
 
+### Added
+- **BREAKING CHANGE: Announcements accept options for each call.** The ESPHome announce action now takes `chime`, `chime_file`, `tts_engine` and `audio_only`. Each announcement can choose its chime and text to speech engine without changing the kiosk's settings. An empty engine uses the UI selection. Audio only plays without the on-device modal (#578).
+
 ### Fixed
 - **Proximity detection works on panels that report near and far as flags.** A px30 panel reports 0 for near and 1 for far but advertises a maximum range of 9, so both readings were treated as near and a wave never dismissed the screensaver. Sensors whose resolution spans their whole range now use a near-zero threshold while sensors with finer resolution keep their distance-based behavior. The `getProximitySupport` command also includes the advertised maximum range and resolution for diagnostics (#579).
 
