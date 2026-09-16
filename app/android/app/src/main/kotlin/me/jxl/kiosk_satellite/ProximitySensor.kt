@@ -22,8 +22,10 @@ import io.flutter.plugin.common.MethodChannel
  * show the name next to the switch so a person can tell the two apart.
  *
  * Android reports proximity as a distance in cm, but nearly every sensor
- * is binary: 0 for near, its maximum range for far. Near is any reading
- * below the maximum range, the reading Android's own call screen uses.
+ * is binary: 0 for near and a positive value for far. Some drivers report
+ * 1 for far even though their advertised maximum range is larger. When
+ * the resolution spans the whole range, treat the readings as flags.
+ * Sensors with finer resolution keep their distance-based near test.
  * The first sample after registering is the resting state (flagged
  * `initial`), not an approach: something resting on the sensor must not
  * wake the screensaver every time it starts.
@@ -54,6 +56,8 @@ class ProximitySensor(context: Context, messenger: BinaryMessenger) {
             "supported" to true,
             "name" to s.name,
             "vendor" to s.vendor,
+            "maximumRange" to s.maximumRange,
+            "resolution" to s.resolution,
         )
     }
 
@@ -72,12 +76,12 @@ class ProximitySensor(context: Context, messenger: BinaryMessenger) {
                     return
                 }
                 detach()
-                val max = s.maximumRange
+                val nearBelow = proximityNearThreshold(s.maximumRange, s.resolution)
                 var last: Boolean? = null
                 val l = object : SensorEventListener {
                     override fun onSensorChanged(event: SensorEvent) {
                         val distance = event.values.firstOrNull() ?: return
-                        val near = if (max > 0f) distance < max else distance <= 0f
+                        val near = distance < nearBelow
                         val initial = last == null
                         if (!initial && near == last) return
                         last = near
@@ -104,4 +108,11 @@ class ProximitySensor(context: Context, messenger: BinaryMessenger) {
         methods.setMethodCallHandler(null)
         events.setStreamHandler(null)
     }
+}
+
+internal fun proximityNearThreshold(maximumRange: Float, resolution: Float): Float = when {
+    maximumRange <= 0f -> 0.5f
+    // A binary driver's far flag need not match its advertised range (#579).
+    resolution >= maximumRange -> minOf(maximumRange, 1f) / 2f
+    else -> maximumRange
 }

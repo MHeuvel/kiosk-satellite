@@ -21,6 +21,8 @@ class ProximitySupport {
     required this.supported,
     this.name,
     this.vendor,
+    this.maximumRange,
+    this.resolution,
     this.hint,
   });
 
@@ -35,6 +37,11 @@ class ProximitySupport {
   /// The sensor's maker, null while unknown.
   final String? vendor;
 
+  /// The maximum range and resolution advertised by the Android driver.
+  /// These are nominally centimeters but binary drivers may report flags.
+  final double? maximumRange;
+  final double? resolution;
+
   /// Why [supported] is false, in a sentence fit for a settings row.
   final String? hint;
 
@@ -42,6 +49,8 @@ class ProximitySupport {
     'supported': supported,
     if (name != null) 'name': name,
     if (vendor != null) 'vendor': vendor,
+    if (maximumRange != null) 'maximumRange': maximumRange,
+    if (resolution != null) 'resolution': resolution,
     if (hint != null) 'hint': hint,
   };
 }
@@ -173,8 +182,8 @@ class ProximityManager extends Manager {
       Command(
         name: 'getProximitySupport',
         description:
-            'Whether the device has a proximity sensor, its name and maker, '
-            'and why not when it has none',
+            'Whether the device has a proximity sensor, its name, maker, '
+            'range and resolution or why it has none',
         handler: (_) async =>
             CommandResult.ok((await proximitySupport()).toJson()),
       ),
@@ -209,6 +218,8 @@ class ProximityManager extends Manager {
         supported: raw['supported'] != false,
         name: raw['name'] as String?,
         vendor: raw['vendor'] as String?,
+        maximumRange: (raw['maximumRange'] as num?)?.toDouble(),
+        resolution: (raw['resolution'] as num?)?.toDouble(),
         hint: raw['hint'] as String?,
       );
     } catch (_) {

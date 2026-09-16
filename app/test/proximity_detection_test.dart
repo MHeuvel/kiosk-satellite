@@ -144,6 +144,17 @@ void main() {
     expect(on.data, isTrue);
   });
 
+  test('sensor range and resolution reach the diagnostic command', () async {
+    nativeAnswer = {...irSensor, 'maximumRange': 9, 'resolution': 9.0};
+    await build({});
+    final support = await proximity.proximitySupport();
+    expect(support.maximumRange, 9.0);
+    expect(support.resolution, 9.0);
+    final res = await commands.execute('getProximitySupport', const {});
+    expect(res.ok, isTrue);
+    expect(res.data, {...irSensor, 'maximumRange': 9.0, 'resolution': 9.0});
+  });
+
   test('no native answer counts as supported, never switching the feature '
       'off on a guess', () async {
     nativeAnswer = null;

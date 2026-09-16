@@ -4,6 +4,9 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ## Unreleased
 
+### Fixed
+- **Proximity detection works on panels that report near and far as flags.** A px30 panel reports 0 for near and 1 for far but advertises a maximum range of 9, so both readings were treated as near and a wave never dismissed the screensaver. Sensors whose resolution spans their whole range now use a near-zero threshold while sensors with finer resolution keep their distance-based behavior. The `getProximitySupport` command also includes the advertised maximum range and resolution for diagnostics (#579).
+
 ### Changed
 - **Native sound failures include the details behind the error code.** TTS playback could report only `ERROR_CODE_TIMEOUT`, hiding whether the player stopped making progress, failed to finish or timed out while buffering. The diagnostic log now includes the underlying exception, playback position, buffered position and duration. Android's log also records the communication route context and full stack trace to help investigate intermittent failures such as #575.
 
