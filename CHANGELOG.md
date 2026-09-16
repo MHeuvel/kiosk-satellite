@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.9.59 - 2026-09-16
 
 ### Added
 - **Camera streaming supports ONVIF.** The Camera settings page is now RTSP & ONVIF Streaming with an Enable camera streaming switch and a Streaming protocol selector. The camera uses the configured device name in ONVIF device information, discovery and stream profiles. It announces itself through WS-Discovery and answers Home Assistant's automatic device search on the same subnet. Discovery across VLANs requires a WS-Discovery relay. ONVIF clients can request its stream using the same video settings, audio settings and credentials as RTSP. Each protocol saves its own port, with defaults of 8554 for RTSP and 8080 for ONVIF. Both the device and remote settings pages show only the selected protocol's connection URL. ONVIF setup reports the active network interface and lets clients use the persistent camera serial number when Android hides its hardware address.
