@@ -170,6 +170,45 @@ test('starts filtering a view whose only entity ids are calculated at runtime', 
   assert.equal(p.api.allow.has('media_player.dynamic'), true);
 });
 
+test('stands down for a view that reads most of the instance (issue #570)', async () => {
+  const p = await page({ config: { views: [{ path: 'home', cards: [
+    { type: 'area', area: 'kitchen', features: [{ type: 'area-controls' }] },
+  ] }] } });
+  const a = {};
+  for (let i = 0; i < 200; i++) a[`sensor.s${i}`] = { s: String(i) };
+  p.emit({ a });
+  await p.drain();
+  // 40 of 203: an ordinary view, filtering as before.
+  for (let i = 0; i < 40; i++) void p.root.hass.states[`sensor.s${i}`];
+  await p.drain();
+  assert.equal(p.api.stats().mode, 'filtering');
+  assert.equal(p.api.allow.size, 40);
+  assert.equal(p.api.stats().standDown, null);
+  // 125 of 203: most of the instance, nothing left to filter.
+  for (let i = 40; i < 125; i++) void p.root.hass.states[`sensor.s${i}`];
+  await p.drain();
+  const st = p.api.stats();
+  assert.equal(st.mode, 'passthrough');
+  assert.equal(st.runtimeAll, true);
+  assert.equal(JSON.stringify(st.standDown), JSON.stringify({ reads: 125, total: 203 }));
+  assert.equal(p.api.allow, null);
+  assert.equal(p.api.standDown.total, 203);
+  // No scan happened: no trace, no console warning.
+  assert.equal(p.api.scanDiagnostic(), null);
+  assert.equal(p.warnings.length, 0);
+  // The components get the plain hass back: further reads are not tracked.
+  for (let i = 125; i < 175; i++) void p.root.hass.states[`sensor.s${i}`];
+  assert.equal(p.api.stats().runtimeEntities, 125);
+  // Updates flow through untouched.
+  p.emit({ c: { 'sensor.s190': { '+': { s: 'x' } } } });
+  assert.equal(p.host.hass.states['sensor.s190'].state, 'x');
+  // Another view starts over.
+  p.navigate('/lovelace/other');
+  await p.drain();
+  assert.equal(p.api.stats().standDown, null);
+  assert.equal(p.api.standDown, null);
+});
+
 test('full scans lift filtering and refresh candidates before future state changes', async () => {
   const p = await page();
   p.emit({ c: { 'media_player.dynamic': { '+': { s: 'playing' } } } });

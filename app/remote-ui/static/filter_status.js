@@ -4,7 +4,7 @@ import { cmd } from './core.js';
 // store, which is unnecessary for the Overview label on a slow panel.
 export const filterStatusScript = '(function(){var S=window.__ksWs;'
   + 'return JSON.stringify(S?{enabled:S.enabled,built:S.built,'
-  + 'allow:S.allow?S.allow.size:null}:null);})()';
+  + 'allow:S.allow?S.allow.size:null,standDown:S.standDown||null}:null);})()';
 
 let status = null, sampledAt = -Infinity, pending = null, revision = 0;
 
@@ -31,8 +31,16 @@ export async function readFilterStatus(enabled) {
         return { unfiltered: false,
           label: `Watching ${value.allow} ${value.allow === 1 ? 'entity' : 'entities'}` };
       }
-      return value.built && value.allow === null
-        ? { unfiltered: true, label: 'Updates unfiltered' } : null;
+      if (!value.built || value.allow !== null) return null;
+      // The filter stood down for a view that reads most of the instance
+      // (issue #570): unfiltered by its own decision, and worth a look at
+      // the dashboard rather than at the setting.
+      const down = value.standDown;
+      if (down && Number.isInteger(down.reads) && Number.isInteger(down.total)) {
+        return { unfiltered: true,
+          label: `Filtering disabled, view uses ${down.reads} entities` };
+      }
+      return { unfiltered: true, label: 'Updates unfiltered' };
     })
     .catch(() => null)
     .then((value) => {

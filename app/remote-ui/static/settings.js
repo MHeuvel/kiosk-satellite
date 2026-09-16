@@ -2068,6 +2068,13 @@ export async function loadSettings() {
                   }
                   if (st.mode === 'passthrough') {
                     hist.length = 0;
+                    const down = st.standDown;
+                    if (down && down.reads != null && down.total != null) {
+                      // Stood down on its own (issue #570): the dashboard,
+                      // not the setting, is what decides here.
+                      t.textContent = `This view uses ${down.reads} entities, which crosses the filtering threshold. Filtering is disabled.` + raw;
+                      return;
+                    }
                     t.textContent = (st.runtimeAll
                       ? 'This view reads all entity states, so its updates are not filtered.'
                       : "This view's entities can't be determined, so its updates are not filtered.") + raw;

@@ -65,6 +65,7 @@ const wsFilterScript = r'''
     return { enabled: S.enabled, allow: S.allow ? S.allow.size : null,
       runtimeTracking: R.attached && !R.failed, runtimeEntities: R.ids.size,
       runtimeAll: R.all, runtimeFailure: R.failure || null,
+      standDown: R.standDown,
       subs: subs, stateChangedSubs: fire,
       mode: mode, subId: S.subId, shadow: Object.keys(S.shadow).length,
       cTotal: S.cTotal, cFwd: S.cFwd, evSeen: S.evSeen, evDropped: S.evDropped,
@@ -174,7 +175,7 @@ const wsFilterScript = r'''
   // global store would count HA's own immutable state copies as dashboard
   // reads and allow every entity on every view.
   var R = { ids: new Set(), all: false, attached: false, failed: false,
-    path: null, epoch: 0, scanDiagnostic: null };
+    path: null, epoch: 0, scanDiagnostic: null, standDown: null };
   // Fetch only when requested. Keep the trace out of the regular stats poll.
   S.scanDiagnostic = function () { return R.scanDiagnostic; };
   var runtimeScopes = new WeakMap();
@@ -216,6 +217,8 @@ const wsFilterScript = r'''
     R.ids = new Set();
     R.all = false;
     R.scanDiagnostic = null;
+    R.standDown = null;
+    S.standDown = null;
     R.attached = false;
     runtimeScopes = new WeakMap();
     // A pending refresh might contain states withheld on the previous view.
@@ -227,6 +230,7 @@ const wsFilterScript = r'''
     if (!runtimeCurrent(scope) || R.all || R.failed || typeof id !== 'string' ||
         !/^[a-z_0-9]+\.[a-z0-9_]+$/.test(id) || R.ids.has(id)) return;
     R.ids.add(id);
+    if (runtimeMost()) return;
     if (S.allow && !S.allow.has(id)) {
       S.allow.add(id);
       runtimeReplay(false, id);
@@ -243,6 +247,28 @@ const wsFilterScript = r'''
       runtimeBuildTimer = null;
       if (S.enabled) recompute();
     }, 0);
+  }
+
+  // A view that reads most of the instance is one this filter cannot help:
+  // nearly every update is forwarded anyway, and the tracking that found
+  // that out charges every state read a Proxy trap, which on a wall of area
+  // cards re-rendering a dozen times a second costs more than the filter
+  // ever saves (issue #570). Stand down for the view: pass the updates
+  // through, hand the components the plain hass again, and say why. The
+  // count is checked every 25 reads once it could matter; the shadow is
+  // the instance, and counting it on every read would be its own cost.
+  var MOST_MIN = 100, MOST_SHARE = 0.5;
+  function runtimeMost() {
+    var n = R.ids.size;
+    if (n < MOST_MIN || n % 25 !== 0) return false;
+    var total = 0;
+    for (var k in S.shadow) total++;
+    if (total < MOST_MIN || n < total * MOST_SHARE) return false;
+    R.all = true;
+    R.standDown = { reads: n, total: total };
+    S.standDown = R.standDown;
+    runtimeLift();
+    return true;
   }
 
   function runtimeScan(scope) {

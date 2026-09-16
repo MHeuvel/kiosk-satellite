@@ -35,9 +35,11 @@ test('the Overview query reads the existing allowlist size without enumerating s
   const filter = { enabled: true, built: true, allow: new Set(['sensor.one', 'sensor.two']),
     shadow: forbidden, stats() { throw Error('full stats'); }, scanDiagnostic() { throw Error('trace'); } };
   const context = vm.createContext({ window: { __ksWs: filter } });
-  assert.deepEqual(JSON.parse(vm.runInContext(query, context)), { enabled: true, built: true, allow: 2 });
+  assert.deepEqual(JSON.parse(vm.runInContext(query, context)), { enabled: true, built: true, allow: 2, standDown: null });
   filter.allow = null;
-  assert.deepEqual(JSON.parse(vm.runInContext(query, context)), { enabled: true, built: true, allow: null });
+  filter.standDown = { reads: 3902, total: 3902 };
+  assert.deepEqual(JSON.parse(vm.runInContext(query, context)),
+    { enabled: true, built: true, allow: null, standDown: { reads: 3902, total: 3902 } });
 });
 
 test('shows filtered and unfiltered counts while preserving connection-only states', async () => {
@@ -45,6 +47,8 @@ test('shows filtered and unfiltered counts while preserving connection-only stat
     [{ enabled: true, built: true, allow: 42 }, 'Watching 42 entities', 'on'],
     [{ enabled: true, built: true, allow: 1 }, 'Watching 1 entity', 'on'],
     [{ enabled: true, built: true, allow: null }, 'Updates unfiltered', 'warn'],
+    [{ enabled: true, built: true, allow: null, standDown: { reads: 3902, total: 3902 } },
+      'Filtering disabled, view uses 3902 entities', 'warn'],
     [{ enabled: false, built: true, allow: 42 }, 'Filter status unavailable', 'on'],
     [{ enabled: true, built: false, allow: null }, 'Filter status unavailable', 'on'],
     [null, 'Filter status unavailable', 'on'],
