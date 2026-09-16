@@ -257,6 +257,29 @@ void main() {
     expect(writes.last, closeTo(0.2, 0.001));
   });
 
+  test('a screensaver that dims before announcing itself owns the panel '
+      '(issue #569)', () async {
+    // start() applies the visuals, then publishes: the black mode's dim
+    // reaches the screen manager before ScreensaverStateChanged does.
+    await build({});
+    await commands.execute('setBrightness', {'level': 0.0, 'ceiling': true});
+    await settle();
+    expect(writes.last, 0.0);
+    bus.publish(const ScreensaverStateChanged(active: true));
+    await settle();
+    // The slider moved from the remote admin while the screensaver shows.
+    await commands.execute('setBrightness', {'level': 0.5});
+    await settle();
+    expect(settings.get(defs.defaultBrightness), 0.5);
+    expect(writes.last, 0.0, reason: 'a black screensaver stays dark');
+    // Dismissal: the screensaver restores what it saved, then the knob
+    // lands instead of being lost to that restore.
+    await commands.execute('setBrightness', {'level': 0.8, 'ceiling': true});
+    bus.publish(const ScreensaverStateChanged(active: false));
+    await Future<void>.delayed(const Duration(milliseconds: 400));
+    expect(writes.last, closeTo(0.5, 0.001));
+  });
+
   test('Maximum brightness moving re-anchors the ceiling at once', () async {
     await build(on);
     await settings.set(defs.adaptiveMaxBrightness, 0.4);

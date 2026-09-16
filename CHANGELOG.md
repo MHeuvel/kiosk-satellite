@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Fixed
+- **A brightness change made while a Black or Dim screensaver shows is no longer lost.** The screensaver dims the panel before it announces that it is showing, so the screen manager took that first dim for an ordinary write and never noted that the screensaver had the panel. A slider moved from the remote admin or Home Assistant while the screensaver was up then went straight to the panel, lighting the black screensaver, and the restore at dismissal put the old level back and threw the new one away. Once a low level had been saved that way, every dismissal dragged the panel back down to it and brightness looked broken from the app while the OS slider worked. The dim is now recognized as the screensaver taking the panel whichever order the two arrive in, so a change made under it waits, the screensaver stays dark, and the new level lands right after the dismissal restore as it was meant to.
+
 ## v2026.9.56 - 2026-09-15
 
 ### Fixed

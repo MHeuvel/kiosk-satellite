@@ -473,6 +473,16 @@ class ScreenManager extends Manager with WidgetsBindingObserver {
   bool _screensaverOwnsPanel = false;
   bool _knobPending = false;
 
+  /// When a ceiling write last landed with no screensaver announced. The
+  /// screensaver dims before it says it is showing (start applies its
+  /// visuals, then publishes), so its first write reaches this manager a
+  /// beat ahead of the event; a write that recent is the session taking
+  /// the panel, not a stale one. Without it a knob turned under a black
+  /// screensaver went straight to the panel and the restore at dismissal
+  /// undid it, so the slider never seemed to work (issue #569).
+  DateTime? _ceilingWrittenAt;
+  static const _ownershipWindow = Duration(seconds: 3);
+
   /// Why the last knob write was refused (the range validation), for the
   /// command's answer.
   String? _lastRefusal;
@@ -507,8 +517,14 @@ class ScreenManager extends Manager with WidgetsBindingObserver {
 
   Future<void> _onScreensaver(bool active) async {
     _screensaverActive = active;
+    if (active) {
+      final at = _ceilingWrittenAt;
+      _ceilingWrittenAt = null;
+      _screensaverOwnsPanel =
+          at != null && DateTime.now().difference(at) < _ownershipWindow;
+      return;
+    }
     _screensaverOwnsPanel = false;
-    if (active) return;
     // The screensaver restored the ceiling it saved when it started; a
     // knob turned meanwhile, or Maximum brightness as the dashboard's
     // level under adaptive brightness, lands now.
@@ -722,8 +738,13 @@ class ScreenManager extends Manager with WidgetsBindingObserver {
     final clamped = level.clamp(0.0, 1.0);
     if (ceiling) {
       // Only the screensaver asks for a ceiling from outside; while it
-      // shows, that is it taking the panel.
-      if (_screensaverActive) _screensaverOwnsPanel = true;
+      // shows, that is it taking the panel. Before it has said so, remember
+      // when: the announcement follows the write.
+      if (_screensaverActive) {
+        _screensaverOwnsPanel = true;
+      } else {
+        _ceilingWrittenAt = DateTime.now();
+      }
       return _setCeiling(clamped);
     }
     {
