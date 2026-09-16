@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.9.57 - 2026-09-16
 
 ### Changed
 - **The Call a kiosk sheet has a proper layout.** It sized itself to its content, so it came up as a narrow column where longer kiosk names wrapped and the call icons hung off the edge. It is now a fixed width dialog that says how many kiosks are ready, puts Announce to all in its own card above the kiosks, groups the kiosks in one card with a call disc on every row and keeps the title and Cancel in place while a long list scrolls.
