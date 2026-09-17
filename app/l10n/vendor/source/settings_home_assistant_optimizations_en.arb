@@ -1,0 +1,347 @@
+{
+  "@@locale": "en",
+  "settingDisableSuspendTitle": "Keep connected in the background",
+  "@settingDisableSuspendTitle": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "settingDisableSuspendDescription": "Turns off Home Assistant's \"Suspend background connections\" setting, which would otherwise drop the connection a few minutes after the screen goes off.",
+  "@settingDisableSuspendDescription": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "settingFreezeOnScreensaverTitle": "Pause dashboard during screensaver",
+  "@settingFreezeOnScreensaverTitle": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "settingFreezeOnScreensaverDescription": "Stops drawing the dashboard while the screensaver covers it, cutting CPU and GPU use; the connection stays live. Not for the Dim screensaver.",
+  "@settingFreezeOnScreensaverDescription": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "settingWsFilterTitle": "Filter dashboard updates",
+  "@settingWsFilterTitle": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "settingWsFilterDescription": "Only process updates for entities on the current view, cutting stutter on low-powered tablets. Views that cannot be resolved stay unfiltered.",
+  "@settingWsFilterDescription": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "settingPauseDashboardCamerasTitle": "Pause HA dashboard camera streams during screensaver",
+  "@settingPauseDashboardCamerasTitle": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "settingPauseDashboardCamerasDescription": "Pauses supported muted camera streams on the Home Assistant dashboard while the screensaver covers it. Streams reconnect when it closes. Does not affect the device camera or the Camera Streams feature.",
+  "@settingPauseDashboardCamerasDescription": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "haOptimizations": "Optimizations",
+  "@haOptimizations": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "haOptimizationsHint": "Background connection, dashboard and camera pause, update filter",
+  "@haOptimizationsHint": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "haScanUnavailable": "Scan details are not available for the current view.",
+  "@haScanUnavailable": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "haScanDetails": "Dashboard scan details",
+  "@haScanDetails": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "haWatchedTitle": "Watched entities ({count})",
+  "@haWatchedTitle": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Number of entities."
+      }
+    }
+  },
+  "haWatched": "Watched entities",
+  "@haWatched": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "haEntityListUnavailable": "The entity list is not available right now.",
+  "@haEntityListUnavailable": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "haWatching": "Watching {count} entities on this view.",
+  "@haWatching": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Number of entities."
+      }
+    }
+  },
+  "haNoUpdates": "No updates in the last minute.",
+  "@haNoUpdates": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "haFiltered": "Filtered {percent}% of updates in the last minute ({dropped} of {total}).",
+  "@haFiltered": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    },
+    "placeholders": {
+      "percent": {
+        "type": "String",
+        "description": "Percentage of updates filtered."
+      },
+      "dropped": {
+        "type": "String",
+        "description": "Number of updates filtered."
+      },
+      "total": {
+        "type": "String",
+        "description": "Total number of updates."
+      }
+    }
+  },
+  "haRawUpdates": "Something on this page receives every entity update anyway, so filtering saves less here.",
+  "@haRawUpdates": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "haAllStates": "This view reads all entity states, so its updates are not filtered.",
+  "@haAllStates": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "haUnknownEntities": "This view's entities can't be determined, so its updates are not filtered.",
+  "@haUnknownEntities": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "haWaiting": "Waiting for the dashboard to load…",
+  "@haWaiting": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "haShowScan": "Show scan details.",
+  "@haShowScan": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "haThreshold": "This view uses {count} entities, which crosses the filtering threshold. Filtering is disabled.",
+  "@haThreshold": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Number of entities."
+      }
+    }
+  }
+}

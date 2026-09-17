@@ -30,7 +30,7 @@
   "deviceHidden": "Oculta",
   "deviceShown": "Visible",
   "deviceReasonHa": "Conexión con Home Assistant",
-  "deviceReasonHaHelp": "Mantiene abiertas la sesión del panel y su conexión WebSocket con la pantalla apagada.",
+  "deviceReasonHaHelp": "Mantiene abiertas la sesión del panel de control y su conexión WebSocket con la pantalla apagada.",
   "deviceReasonListening": "Escucha en segundo plano",
   "deviceReasonListeningHelp": "Mantiene activos el motor de palabras de activación y su micrófono mientras se usan otras aplicaciones.",
   "deviceReasonRtsp": "Audio del micrófono por RTSP",

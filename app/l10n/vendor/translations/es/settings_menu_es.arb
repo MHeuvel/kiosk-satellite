@@ -1,7 +1,7 @@
 {
   "@@locale": "es",
   "settingsMenuHomeAssistant": "Configuración de Home Assistant",
-  "settingsMenuHomeAssistantSummary": "Conexión, panel, modo kiosko",
+  "settingsMenuHomeAssistantSummary": "Conexión, panel de control, modo kiosko",
   "settingsMenuVoiceSatellite": "Voice Satellite",
   "settingsMenuVoiceSatelliteSummary": "Palabra de activación, escucha en segundo plano",
   "settingsMenuEsphome": "ESPHome",

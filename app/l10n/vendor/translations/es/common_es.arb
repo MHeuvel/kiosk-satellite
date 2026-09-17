@@ -15,5 +15,8 @@
   "commonInstall": "Instalar",
   "commonSave": "Guardar",
   "commonRetry": "Reintentar",
-  "commonCopy": "Copiar"
+  "commonCopy": "Copiar",
+  "commonAdd": "Añadir",
+  "commonRemove": "Eliminar",
+  "commonClose": "Cerrar"
 }

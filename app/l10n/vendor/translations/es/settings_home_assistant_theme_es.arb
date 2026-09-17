@@ -1,0 +1,17 @@
+{
+  "@@locale": "es",
+  "settingHaThemeTitle": "Tema",
+  "settingHaThemeDescription": "Tema claro u oscuro para el panel de control de Home Assistant. También se puede elegir desde la entidad Tema de Home Assistant. Automático sigue las opciones de abajo.",
+  "settingThemeMatchAppTitle": "Sincronizar el tema de Home Assistant con Kiosk Satellite",
+  "settingThemeMatchAppDescription": "Adapta automáticamente el tema de Home Assistant al de la interfaz de Kiosk Satellite.",
+  "settingThemeAutoTitle": "Cambiar el tema según la hora",
+  "settingThemeAutoDescription": "Cambia Home Assistant entre claro y oscuro según un horario. Conserva el tema seleccionado y cambia solo su variante clara u oscura.",
+  "settingThemeDarkAtTitle": "Tema oscuro a las",
+  "settingThemeDarkAtDescription": "Hora local para cambiar al tema oscuro.",
+  "settingThemeLightAtTitle": "Tema claro a las",
+  "settingThemeLightAtDescription": "Hora local para volver al tema claro.",
+  "settingThemeAutoAppTitle": "Cambiar también el tema de la aplicación",
+  "settingThemeAutoAppDescription": "Cambia el tema de Kiosk Satellite (menú y configuración) junto con el cambio programado de Home Assistant.",
+  "haThemeHint": "Sincroniza con la aplicación o cambia entre claro y oscuro según un horario",
+  "haThemeAuto": "Automático"
+}

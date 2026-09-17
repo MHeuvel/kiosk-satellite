@@ -1,0 +1,19 @@
+{
+  "@@locale": "es",
+  "settingHaRotationEnabledTitle": "Activar la rotación de vistas del panel de control",
+  "settingHaRotationEnabledDescription": "Recorre las vistas seleccionadas del panel de control en un ciclo continuo y muestra cada una durante el número de segundos elegido.",
+  "settingHaRotationSecondsTitle": "Segundos por vista",
+  "settingHaRotationSecondsDescription": "Cuánto tiempo permanece cada vista en pantalla.",
+  "settingHaRotationPauseSecondsTitle": "Pausa de la rotación al interactuar (segundos)",
+  "settingHaRotationPauseSecondsDescription": "Tocar la pantalla pausa la rotación durante este tiempo y cada toque reinicia la cuenta. Las interacciones de voz la pausan hasta que terminan. Con 0, los toques no pausan la rotación.",
+  "settingHaRotationCrossfadeTitle": "Fundido entre vistas",
+  "settingHaRotationCrossfadeDescription": "Se desvanece hasta el fondo y luego aparece la siguiente vista en lugar de cambiar al instante. Los cambios a otro panel de control o a una página externa siguen siendo instantáneos.",
+  "settingHaRotationFadeSecondsTitle": "Duración del fundido (segundos)",
+  "settingHaRotationFadeSecondsDescription": "Tiempo total de desaparición y aparición. Cargar la siguiente vista puede añadir tiempo, sobre todo al abrirla por primera vez.",
+  "haRotation": "Rotación de vistas del panel de control",
+  "haRotationHint": "Recorre las vistas, duración de cada vista y fundido",
+  "haDefaultView": "Vista predeterminada",
+  "haExternalPages": "Páginas externas",
+  "haFadeError": "Elige una duración de fundido entre 0.2 y 5 segundos.",
+  "haPauseRemoteHelp": "Tocar la pantalla pausa la rotación durante este tiempo y cada toque reinicia la cuenta. Las interacciones de voz la pausan hasta que terminan. Con 0, los toques no pausan la rotación."
+}

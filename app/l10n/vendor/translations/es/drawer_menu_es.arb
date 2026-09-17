@@ -3,7 +3,7 @@
   "drawerPluginAction": "{pluginName}: {actionTitle}",
   "drawerPluginActionErrorTitle": "Acción del plugin",
   "drawerPluginActionError": "No se pudo ejecutar esta acción.",
-  "drawerDashboard": "Panel",
+  "drawerDashboard": "Panel de control",
   "drawerHaKiosk": "Modo kiosko de HA",
   "drawerCameraView": "Vista de cámaras",
   "drawerIntercom": "Intercomunicador",

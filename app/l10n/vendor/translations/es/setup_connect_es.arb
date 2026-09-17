@@ -22,6 +22,6 @@
   "setupValidateContinue": "Validar y continuar",
   "setupUnexpectedResponse": "Respuesta inesperada ({error})",
   "baseUrlInvalid": "Introduce una URL válida, por ejemplo https://homeassistant.local:8123",
-  "baseUrlPath": "Introduce solo la URL base, sin la ruta de un panel. Ejemplo: https://homeassistant.local:8123",
+  "baseUrlPath": "Introduce solo la URL base, sin la ruta de un panel de control. Ejemplo: https://homeassistant.local:8123",
   "baseUrlQuery": "Introduce solo la URL base, sin nada después del puerto. Ejemplo: https://homeassistant.local:8123"
 }

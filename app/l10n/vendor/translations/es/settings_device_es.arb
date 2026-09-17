@@ -7,7 +7,7 @@
   "settingDisableImpellerTitle": "Renderizador antiguo",
   "settingDisableImpellerDescription": "Usa el renderizador Skia para GPU antiguas que fallan al iniciar. Se activa automáticamente después de dos fallos de este tipo. Se aplica la próxima vez que se inicia la aplicación.",
   "settingLegacyWebViewTitle": "Renderizador WebView antiguo",
-  "settingLegacyWebViewDescription": "Dibuja el panel en una textura para GPU antiguas que fallan cuando aparece. Se activa automáticamente cuando el dispositivo lo necesita. Se aplica la próxima vez que se inicia la aplicación.",
+  "settingLegacyWebViewDescription": "Dibuja el panel de control en una textura para GPU antiguas que fallan cuando aparece. Se activa automáticamente cuando el dispositivo lo necesita. Se aplica la próxima vez que se inicia la aplicación.",
   "deviceHostnamePlaceholder": "Se toma del nombre del dispositivo",
   "deviceConfiguration": "Configuración",
   "devicePermissionsManager": "Gestor de permisos",

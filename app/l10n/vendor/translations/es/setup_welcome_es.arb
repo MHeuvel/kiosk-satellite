@@ -10,7 +10,7 @@
   "setupRemotePassword": "Contraseña de administración remota",
   "setupRestoreHeading": "Restaurar copia de seguridad",
   "setupRestore": "Restaurar desde un archivo de configuración",
-  "setupRestoreHelp": "Importa una configuración exportada desde Kiosk Satellite y omite el resto de este asistente. Se incluyen la configuración, el panel y los datos de inicio de sesión.",
+  "setupRestoreHelp": "Importa una configuración exportada desde Kiosk Satellite y omite el resto de este asistente. Se incluyen la configuración, el panel de control y los datos de inicio de sesión.",
   "setupServicePermissions": "Permisos recomendados para el servicio",
   "setupPasswordShort": "La contraseña es demasiado corta",
   "setupPasswordMinimum": "Usa al menos 4 caracteres.",

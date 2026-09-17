@@ -80,17 +80,17 @@
     "context": "Common:Actions",
     "description": "Button to copy a value to the clipboard."
   },
-  "commonAdd": "Add",
+  "commonAdd": "Añadir",
   "@commonAdd": {
     "context": "Common:Actions",
     "description": "Add action button."
   },
-  "commonRemove": "Remove",
+  "commonRemove": "Eliminar",
   "@commonRemove": {
     "context": "Common:Actions",
     "description": "Remove action button."
   },
-  "commonClose": "Close",
+  "commonClose": "Cerrar",
   "@commonClose": {
     "context": "Common:Actions",
     "description": "Close action button."
@@ -135,7 +135,7 @@
       ]
     }
   },
-  "drawerDashboard": "Panel",
+  "drawerDashboard": "Panel de control",
   "@drawerDashboard": {
     "context": "Device:Drawer",
     "description": "Opens the configured Home Assistant dashboard.",
@@ -1112,7 +1112,7 @@
       ]
     }
   },
-  "settingLegacyWebViewDescription": "Dibuja el panel en una textura para GPU antiguas que fallan cuando aparece. Se activa automáticamente cuando el dispositivo lo necesita. Se aplica la próxima vez que se inicia la aplicación.",
+  "settingLegacyWebViewDescription": "Dibuja el panel de control en una textura para GPU antiguas que fallan cuando aparece. Se activa automáticamente cuando el dispositivo lo necesita. Se aplica la próxima vez que se inicia la aplicación.",
   "@settingLegacyWebViewDescription": {
     "context": "Settings:Device",
     "description": "Help below the setting.",
@@ -3218,7 +3218,7 @@
       ]
     }
   },
-  "deviceReasonHaHelp": "Mantiene abiertas la sesión del panel y su conexión WebSocket con la pantalla apagada.",
+  "deviceReasonHaHelp": "Mantiene abiertas la sesión del panel de control y su conexión WebSocket con la pantalla apagada.",
   "@deviceReasonHaHelp": {
     "context": "Settings:Device:Kiosk Satellite Service",
     "description": "Label or explanation on this Device settings page.",
@@ -4653,7 +4653,7 @@
       ]
     }
   },
-  "settingHaHoldModeTitle": "Hold mode",
+  "settingHaHoldModeTitle": "Modo de pausa",
   "@settingHaHoldModeTitle": {
     "context": "Settings:Home Assistant Setup:Hold mode",
     "description": "Setting label.",
@@ -4666,7 +4666,7 @@
       ]
     }
   },
-  "settingHaHoldModeDescription": "Keep the current view on screen: the screensaver, dashboard view rotation and the return to home timer are paused until turned off.",
+  "settingHaHoldModeDescription": "Mantiene la vista actual en pantalla. El protector de pantalla, la rotación de vistas y el temporizador de regreso al inicio quedan en pausa hasta desactivarlo.",
   "@settingHaHoldModeDescription": {
     "context": "Settings:Home Assistant Setup:Hold mode",
     "description": "Help below the setting.",
@@ -4679,7 +4679,7 @@
       ]
     }
   },
-  "settingHaHoldReleaseMinutesTitle": "End hold automatically after",
+  "settingHaHoldReleaseMinutesTitle": "Terminar la pausa automáticamente después de",
   "@settingHaHoldReleaseMinutesTitle": {
     "context": "Settings:Home Assistant Setup:Hold mode",
     "description": "Setting label.",
@@ -4692,7 +4692,7 @@
       ]
     }
   },
-  "settingHaHoldReleaseMinutesDescription": "Turns hold mode off by itself after the set time. Set to 0 to hold until turned off manually.",
+  "settingHaHoldReleaseMinutesDescription": "Desactiva el modo de pausa al cumplirse el tiempo indicado. Con 0, continúa hasta desactivarlo manualmente.",
   "@settingHaHoldReleaseMinutesDescription": {
     "context": "Settings:Home Assistant Setup:Hold mode",
     "description": "Help below the setting.",
@@ -4705,7 +4705,7 @@
       ]
     }
   },
-  "settingHaHoldMenuTitle": "Show in the kiosk menu",
+  "settingHaHoldMenuTitle": "Mostrar en el menú del kiosko",
   "@settingHaHoldMenuTitle": {
     "context": "Settings:Home Assistant Setup:Hold mode",
     "description": "Setting label.",
@@ -4718,7 +4718,7 @@
       ]
     }
   },
-  "settingHaHoldMenuDescription": "Adds a menu entry that turns hold mode on and off.",
+  "settingHaHoldMenuDescription": "Añade una opción al menú para activar y desactivar el modo de pausa.",
   "@settingHaHoldMenuDescription": {
     "context": "Settings:Home Assistant Setup:Hold mode",
     "description": "Help below the setting.",
@@ -4731,7 +4731,7 @@
       ]
     }
   },
-  "haHoldHint": "Pin the current view, automatic release, menu entry",
+  "haHoldHint": "Mantiene la vista actual, finalización automática y opción de menú",
   "@haHoldHint": {
     "context": "Settings:Home Assistant Setup:Hold mode",
     "description": "Hold subpage summary or duration displayed beside the automatic release slider.",
@@ -4744,7 +4744,7 @@
       ]
     }
   },
-  "haNever": "Never",
+  "haNever": "Nunca",
   "@haNever": {
     "context": "Settings:Home Assistant Setup:Hold mode",
     "description": "Hold subpage summary or duration displayed beside the automatic release slider.",
@@ -4818,7 +4818,7 @@
       }
     }
   },
-  "settingDisableSuspendTitle": "Keep connected in the background",
+  "settingDisableSuspendTitle": "Mantener la conexión en segundo plano",
   "@settingDisableSuspendTitle": {
     "context": "Settings:Home Assistant Setup:Optimizations",
     "description": "Setting label.",
@@ -4831,7 +4831,7 @@
       ]
     }
   },
-  "settingDisableSuspendDescription": "Turns off Home Assistant's \"Suspend background connections\" setting, which would otherwise drop the connection a few minutes after the screen goes off.",
+  "settingDisableSuspendDescription": "Desactiva la opción «Suspender conexiones en segundo plano» de Home Assistant, que de otro modo cerraría la conexión unos minutos después de apagarse la pantalla.",
   "@settingDisableSuspendDescription": {
     "context": "Settings:Home Assistant Setup:Optimizations",
     "description": "Help below the setting.",
@@ -4844,7 +4844,7 @@
       ]
     }
   },
-  "settingFreezeOnScreensaverTitle": "Pause dashboard during screensaver",
+  "settingFreezeOnScreensaverTitle": "Pausar el panel de control durante el protector de pantalla",
   "@settingFreezeOnScreensaverTitle": {
     "context": "Settings:Home Assistant Setup:Optimizations",
     "description": "Setting label.",
@@ -4857,7 +4857,7 @@
       ]
     }
   },
-  "settingFreezeOnScreensaverDescription": "Stops drawing the dashboard while the screensaver covers it, cutting CPU and GPU use; the connection stays live. Not for the Dim screensaver.",
+  "settingFreezeOnScreensaverDescription": "Deja de dibujar el panel de control mientras lo cubre el protector de pantalla para reducir el uso de CPU y GPU. La conexión sigue activa. No se aplica al modo Atenuar.",
   "@settingFreezeOnScreensaverDescription": {
     "context": "Settings:Home Assistant Setup:Optimizations",
     "description": "Help below the setting.",
@@ -4870,7 +4870,7 @@
       ]
     }
   },
-  "settingWsFilterTitle": "Filter dashboard updates",
+  "settingWsFilterTitle": "Filtrar las actualizaciones del panel de control",
   "@settingWsFilterTitle": {
     "context": "Settings:Home Assistant Setup:Optimizations",
     "description": "Setting label.",
@@ -4883,7 +4883,7 @@
       ]
     }
   },
-  "settingWsFilterDescription": "Only process updates for entities on the current view, cutting stutter on low-powered tablets. Views that cannot be resolved stay unfiltered.",
+  "settingWsFilterDescription": "Procesa solo las actualizaciones de las entidades de la vista actual para reducir las interrupciones en tabletas poco potentes. Las vistas cuyas entidades no se puedan determinar quedan sin filtrar.",
   "@settingWsFilterDescription": {
     "context": "Settings:Home Assistant Setup:Optimizations",
     "description": "Help below the setting.",
@@ -4896,7 +4896,7 @@
       ]
     }
   },
-  "settingPauseDashboardCamerasTitle": "Pause HA dashboard camera streams during screensaver",
+  "settingPauseDashboardCamerasTitle": "Pausar las cámaras del panel de control durante el protector de pantalla",
   "@settingPauseDashboardCamerasTitle": {
     "context": "Settings:Home Assistant Setup:Optimizations",
     "description": "Setting label.",
@@ -4909,7 +4909,7 @@
       ]
     }
   },
-  "settingPauseDashboardCamerasDescription": "Pauses supported muted camera streams on the Home Assistant dashboard while the screensaver covers it. Streams reconnect when it closes. Does not affect the device camera or the Camera Streams feature.",
+  "settingPauseDashboardCamerasDescription": "Pausa las transmisiones de cámara compatibles y silenciadas del panel de control de Home Assistant mientras lo cubre el protector de pantalla. Se reconectan al cerrarlo. No afecta a la cámara del dispositivo ni a la función Transmisiones de cámara.",
   "@settingPauseDashboardCamerasDescription": {
     "context": "Settings:Home Assistant Setup:Optimizations",
     "description": "Help below the setting.",
@@ -4922,7 +4922,7 @@
       ]
     }
   },
-  "haOptimizations": "Optimizations",
+  "haOptimizations": "Optimizaciones",
   "@haOptimizations": {
     "context": "Settings:Home Assistant Setup:Optimizations",
     "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
@@ -4935,7 +4935,7 @@
       ]
     }
   },
-  "haOptimizationsHint": "Background connection, dashboard and camera pause, update filter",
+  "haOptimizationsHint": "Conexión en segundo plano, pausa del panel de control y las cámaras, filtro de actualizaciones",
   "@haOptimizationsHint": {
     "context": "Settings:Home Assistant Setup:Optimizations",
     "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
@@ -4948,7 +4948,7 @@
       ]
     }
   },
-  "haScanUnavailable": "Scan details are not available for the current view.",
+  "haScanUnavailable": "Los detalles del análisis no están disponibles para la vista actual.",
   "@haScanUnavailable": {
     "context": "Settings:Home Assistant Setup:Optimizations",
     "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
@@ -4961,7 +4961,7 @@
       ]
     }
   },
-  "haScanDetails": "Dashboard scan details",
+  "haScanDetails": "Detalles del análisis del panel de control",
   "@haScanDetails": {
     "context": "Settings:Home Assistant Setup:Optimizations",
     "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
@@ -4974,7 +4974,7 @@
       ]
     }
   },
-  "haWatchedTitle": "Watched entities ({count})",
+  "haWatchedTitle": "Entidades supervisadas ({count})",
   "@haWatchedTitle": {
     "context": "Settings:Home Assistant Setup:Optimizations",
     "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
@@ -4993,7 +4993,7 @@
       }
     }
   },
-  "haWatched": "Watched entities",
+  "haWatched": "Entidades supervisadas",
   "@haWatched": {
     "context": "Settings:Home Assistant Setup:Optimizations",
     "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
@@ -5006,7 +5006,7 @@
       ]
     }
   },
-  "haEntityListUnavailable": "The entity list is not available right now.",
+  "haEntityListUnavailable": "La lista de entidades no está disponible en este momento.",
   "@haEntityListUnavailable": {
     "context": "Settings:Home Assistant Setup:Optimizations",
     "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
@@ -5019,7 +5019,7 @@
       ]
     }
   },
-  "haWatching": "Watching {count} entities on this view.",
+  "haWatching": "Se supervisan {count} entidades en esta vista.",
   "@haWatching": {
     "context": "Settings:Home Assistant Setup:Optimizations",
     "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
@@ -5038,7 +5038,7 @@
       }
     }
   },
-  "haNoUpdates": "No updates in the last minute.",
+  "haNoUpdates": "No hubo actualizaciones en el último minuto.",
   "@haNoUpdates": {
     "context": "Settings:Home Assistant Setup:Optimizations",
     "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
@@ -5051,7 +5051,7 @@
       ]
     }
   },
-  "haFiltered": "Filtered {percent}% of updates in the last minute ({dropped} of {total}).",
+  "haFiltered": "Se filtró el {percent}% de las actualizaciones del último minuto ({dropped} de {total}).",
   "@haFiltered": {
     "context": "Settings:Home Assistant Setup:Optimizations",
     "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
@@ -5078,7 +5078,7 @@
       }
     }
   },
-  "haRawUpdates": "Something on this page receives every entity update anyway, so filtering saves less here.",
+  "haRawUpdates": "Un elemento de esta página recibe todas las actualizaciones de entidades de todas formas, por lo que el filtrado ahorra menos aquí.",
   "@haRawUpdates": {
     "context": "Settings:Home Assistant Setup:Optimizations",
     "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
@@ -5091,7 +5091,7 @@
       ]
     }
   },
-  "haAllStates": "This view reads all entity states, so its updates are not filtered.",
+  "haAllStates": "Esta vista lee los estados de todas las entidades, por lo que sus actualizaciones no se filtran.",
   "@haAllStates": {
     "context": "Settings:Home Assistant Setup:Optimizations",
     "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
@@ -5104,7 +5104,7 @@
       ]
     }
   },
-  "haUnknownEntities": "This view's entities can't be determined, so its updates are not filtered.",
+  "haUnknownEntities": "No se pueden determinar las entidades de esta vista, por lo que sus actualizaciones no se filtran.",
   "@haUnknownEntities": {
     "context": "Settings:Home Assistant Setup:Optimizations",
     "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
@@ -5117,7 +5117,7 @@
       ]
     }
   },
-  "haWaiting": "Waiting for the dashboard to load…",
+  "haWaiting": "Esperando a que se cargue el panel de control…",
   "@haWaiting": {
     "context": "Settings:Home Assistant Setup:Optimizations",
     "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
@@ -5130,7 +5130,7 @@
       ]
     }
   },
-  "haShowScan": "Show scan details.",
+  "haShowScan": "Mostrar detalles del análisis.",
   "@haShowScan": {
     "context": "Settings:Home Assistant Setup:Optimizations",
     "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
@@ -5143,7 +5143,7 @@
       ]
     }
   },
-  "haThreshold": "This view uses {count} entities, which crosses the filtering threshold. Filtering is disabled.",
+  "haThreshold": "Esta vista usa {count} entidades, lo que supera el umbral del filtro. El filtrado está desactivado.",
   "@haThreshold": {
     "context": "Settings:Home Assistant Setup:Optimizations",
     "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
@@ -5162,7 +5162,7 @@
       }
     }
   },
-  "settingHaReturnHomeEnabledTitle": "Return to home dashboard view",
+  "settingHaReturnHomeEnabledTitle": "Volver a la vista de inicio del panel de control",
   "@settingHaReturnHomeEnabledTitle": {
     "context": "Settings:Home Assistant Setup:Return to home dashboard view",
     "description": "Setting label.",
@@ -5175,7 +5175,7 @@
       ]
     }
   },
-  "settingHaReturnHomeEnabledDescription": "Go back to the dashboard configured above after a period of inactivity.",
+  "settingHaReturnHomeEnabledDescription": "Vuelve al panel de control configurado arriba después de un periodo de inactividad.",
   "@settingHaReturnHomeEnabledDescription": {
     "context": "Settings:Home Assistant Setup:Return to home dashboard view",
     "description": "Help below the setting.",
@@ -5188,7 +5188,7 @@
       ]
     }
   },
-  "settingHaReturnHomeSecondsTitle": "Return after (seconds)",
+  "settingHaReturnHomeSecondsTitle": "Volver después de (segundos)",
   "@settingHaReturnHomeSecondsTitle": {
     "context": "Settings:Home Assistant Setup:Return to home dashboard view",
     "description": "Setting label.",
@@ -5201,7 +5201,7 @@
       ]
     }
   },
-  "settingHaReturnHomeSecondsDescription": "Inactivity period before the kiosk goes back.",
+  "settingHaReturnHomeSecondsDescription": "Periodo de inactividad antes de que el kiosko vuelva.",
   "@settingHaReturnHomeSecondsDescription": {
     "context": "Settings:Home Assistant Setup:Return to home dashboard view",
     "description": "Help below the setting.",
@@ -5214,7 +5214,7 @@
       ]
     }
   },
-  "haReturnHint": "Go back to the home view when left idle",
+  "haReturnHint": "Vuelve a la vista de inicio tras un periodo de inactividad",
   "@haReturnHint": {
     "context": "Settings:Home Assistant Setup:Return to home dashboard view",
     "description": "Return-to-home subpage summary, disabled reason or destination.",
@@ -5227,7 +5227,7 @@
       ]
     }
   },
-  "haReturnDisabled": "Turned off while Dashboard view rotation is on.",
+  "haReturnDisabled": "Se desactiva mientras está activa la rotación de vistas del panel de control.",
   "@haReturnDisabled": {
     "context": "Settings:Home Assistant Setup:Return to home dashboard view",
     "description": "Return-to-home subpage summary, disabled reason or destination.",
@@ -5240,7 +5240,7 @@
       ]
     }
   },
-  "haReturnNoPath": "The configured dashboard has no view path to return to.",
+  "haReturnNoPath": "El panel de control configurado no tiene una ruta de vista a la que volver.",
   "@haReturnNoPath": {
     "context": "Settings:Home Assistant Setup:Return to home dashboard view",
     "description": "Return-to-home subpage summary, disabled reason or destination.",
@@ -5253,7 +5253,7 @@
       ]
     }
   },
-  "haReturnPath": "Returns to \"{path}\" after the timeout.",
+  "haReturnPath": "Vuelve a \"{path}\" al cumplirse el tiempo de espera.",
   "@haReturnPath": {
     "context": "Settings:Home Assistant Setup:Return to home dashboard view",
     "description": "Return-to-home subpage summary, disabled reason or destination.",
@@ -5272,7 +5272,7 @@
       }
     }
   },
-  "settingHaRotationEnabledTitle": "Enable dashboard view rotation",
+  "settingHaRotationEnabledTitle": "Activar la rotación de vistas del panel de control",
   "@settingHaRotationEnabledTitle": {
     "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
     "description": "Setting label.",
@@ -5285,7 +5285,7 @@
       ]
     }
   },
-  "settingHaRotationEnabledDescription": "Cycle through the selected dashboard views in an endless loop, showing each one for the chosen number of seconds.",
+  "settingHaRotationEnabledDescription": "Recorre las vistas seleccionadas del panel de control en un ciclo continuo y muestra cada una durante el número de segundos elegido.",
   "@settingHaRotationEnabledDescription": {
     "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
     "description": "Help below the setting.",
@@ -5298,7 +5298,7 @@
       ]
     }
   },
-  "settingHaRotationSecondsTitle": "Seconds per view",
+  "settingHaRotationSecondsTitle": "Segundos por vista",
   "@settingHaRotationSecondsTitle": {
     "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
     "description": "Setting label.",
@@ -5311,7 +5311,7 @@
       ]
     }
   },
-  "settingHaRotationSecondsDescription": "How long each view stays on screen.",
+  "settingHaRotationSecondsDescription": "Cuánto tiempo permanece cada vista en pantalla.",
   "@settingHaRotationSecondsDescription": {
     "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
     "description": "Help below the setting.",
@@ -5324,7 +5324,7 @@
       ]
     }
   },
-  "settingHaRotationPauseSecondsTitle": "Pause rotation on interaction (seconds)",
+  "settingHaRotationPauseSecondsTitle": "Pausa de la rotación al interactuar (segundos)",
   "@settingHaRotationPauseSecondsTitle": {
     "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
     "description": "Setting label.",
@@ -5337,7 +5337,7 @@
       ]
     }
   },
-  "settingHaRotationPauseSecondsDescription": "Touching the screen pauses rotation for this long, and each touch restarts the countdown. Voice interactions pause until they end. 0 keeps rotating through touches.",
+  "settingHaRotationPauseSecondsDescription": "Tocar la pantalla pausa la rotación durante este tiempo y cada toque reinicia la cuenta. Las interacciones de voz la pausan hasta que terminan. Con 0, los toques no pausan la rotación.",
   "@settingHaRotationPauseSecondsDescription": {
     "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
     "description": "Help below the setting.",
@@ -5350,7 +5350,7 @@
       ]
     }
   },
-  "settingHaRotationCrossfadeTitle": "Fade between views",
+  "settingHaRotationCrossfadeTitle": "Fundido entre vistas",
   "@settingHaRotationCrossfadeTitle": {
     "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
     "description": "Setting label.",
@@ -5363,7 +5363,7 @@
       ]
     }
   },
-  "settingHaRotationCrossfadeDescription": "Fade out to the background and into the next view instead of switching instantly. Moving to a different dashboard or an external page still switches instantly.",
+  "settingHaRotationCrossfadeDescription": "Se desvanece hasta el fondo y luego aparece la siguiente vista en lugar de cambiar al instante. Los cambios a otro panel de control o a una página externa siguen siendo instantáneos.",
   "@settingHaRotationCrossfadeDescription": {
     "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
     "description": "Help below the setting.",
@@ -5376,7 +5376,7 @@
       ]
     }
   },
-  "settingHaRotationFadeSecondsTitle": "Fade duration (seconds)",
+  "settingHaRotationFadeSecondsTitle": "Duración del fundido (segundos)",
   "@settingHaRotationFadeSecondsTitle": {
     "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
     "description": "Setting label.",
@@ -5389,7 +5389,7 @@
       ]
     }
   },
-  "settingHaRotationFadeSecondsDescription": "Combined fade-out and fade-in time. Loading the next view can add time, especially on its first visit.",
+  "settingHaRotationFadeSecondsDescription": "Tiempo total de desaparición y aparición. Cargar la siguiente vista puede añadir tiempo, sobre todo al abrirla por primera vez.",
   "@settingHaRotationFadeSecondsDescription": {
     "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
     "description": "Help below the setting.",
@@ -5402,7 +5402,7 @@
       ]
     }
   },
-  "haRotation": "Dashboard View Rotation",
+  "haRotation": "Rotación de vistas del panel de control",
   "@haRotation": {
     "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
     "description": "Rotation subpage label, guidance or validation error.",
@@ -5415,7 +5415,7 @@
       ]
     }
   },
-  "haRotationHint": "Cycle through views, dwell time, fade",
+  "haRotationHint": "Recorre las vistas, duración de cada vista y fundido",
   "@haRotationHint": {
     "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
     "description": "Rotation subpage label, guidance or validation error.",
@@ -5428,7 +5428,7 @@
       ]
     }
   },
-  "haDefaultView": "Default view",
+  "haDefaultView": "Vista predeterminada",
   "@haDefaultView": {
     "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
     "description": "Rotation subpage label, guidance or validation error.",
@@ -5441,7 +5441,7 @@
       ]
     }
   },
-  "haExternalPages": "External pages",
+  "haExternalPages": "Páginas externas",
   "@haExternalPages": {
     "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
     "description": "Rotation subpage label, guidance or validation error.",
@@ -5454,7 +5454,7 @@
       ]
     }
   },
-  "haFadeError": "Choose a fade duration from 0.2 to 5 seconds.",
+  "haFadeError": "Elige una duración de fundido entre 0.2 y 5 segundos.",
   "@haFadeError": {
     "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
     "description": "Rotation subpage label, guidance or validation error.",
@@ -5467,7 +5467,7 @@
       ]
     }
   },
-  "haPauseRemoteHelp": "Touch pauses rotation for this long; each touch restarts it. Voice interactions always pause until they end. 0 keeps rotating.",
+  "haPauseRemoteHelp": "Tocar la pantalla pausa la rotación durante este tiempo y cada toque reinicia la cuenta. Las interacciones de voz la pausan hasta que terminan. Con 0, los toques no pausan la rotación.",
   "@haPauseRemoteHelp": {
     "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
     "description": "Rotation subpage label, guidance or validation error.",
@@ -5493,7 +5493,7 @@
       ]
     }
   },
-  "settingHaUrlDescription": "Por ejemplo, https://homeassistant.local:8123, sin la ruta de un panel.",
+  "settingHaUrlDescription": "Por ejemplo, https://homeassistant.local:8123, sin la ruta de un panel de control.",
   "@settingHaUrlDescription": {
     "context": "Settings:Home Assistant Setup",
     "description": "Help below the Home Assistant base URL field.",
@@ -5534,7 +5534,7 @@
       ]
     }
   },
-  "settingHaAutoLoginTitle": "Log in automatically",
+  "settingHaAutoLoginTitle": "Iniciar sesión automáticamente",
   "@settingHaAutoLoginTitle": {
     "context": "Settings:Home Assistant Setup",
     "description": "Setting label.",
@@ -5547,7 +5547,7 @@
       ]
     }
   },
-  "settingHaAutoLoginDescription": "Sign in to the dashboard with the access token above instead of showing the Home Assistant login page.",
+  "settingHaAutoLoginDescription": "Inicia sesión en el panel de control con el token de acceso indicado arriba en lugar de mostrar la página de inicio de sesión de Home Assistant.",
   "@settingHaAutoLoginDescription": {
     "context": "Settings:Home Assistant Setup",
     "description": "Help below the setting.",
@@ -5560,7 +5560,7 @@
       ]
     }
   },
-  "haValidate": "Validate",
+  "haValidate": "Validar",
   "@haValidate": {
     "context": "Settings:Home Assistant Setup",
     "description": "Connection status, action or dashboard picker text.",
@@ -5573,7 +5573,7 @@
       ]
     }
   },
-  "haValidateConnection": "Validate connection",
+  "haValidateConnection": "Validar conexión",
   "@haValidateConnection": {
     "context": "Settings:Home Assistant Setup",
     "description": "Connection status, action or dashboard picker text.",
@@ -5586,7 +5586,7 @@
       ]
     }
   },
-  "haChecking": "Checking…",
+  "haChecking": "Comprobando…",
   "@haChecking": {
     "context": "Settings:Home Assistant Setup",
     "description": "Connection status, action or dashboard picker text.",
@@ -5599,7 +5599,7 @@
       ]
     }
   },
-  "haConnected": "Connected",
+  "haConnected": "Conectado",
   "@haConnected": {
     "context": "Settings:Home Assistant Setup",
     "description": "Connection status, action or dashboard picker text.",
@@ -5612,7 +5612,7 @@
       ]
     }
   },
-  "haConnectedRemote": "Connected.",
+  "haConnectedRemote": "Conectado.",
   "@haConnectedRemote": {
     "context": "Settings:Home Assistant Setup",
     "description": "Connection status, action or dashboard picker text.",
@@ -5625,7 +5625,7 @@
       ]
     }
   },
-  "haNotValidated": "Not validated yet. The settings below unlock once the connection checks out.",
+  "haNotValidated": "Aún no se ha validado. Las opciones de abajo se habilitan cuando se confirma la conexión.",
   "@haNotValidated": {
     "context": "Settings:Home Assistant Setup",
     "description": "Connection status, action or dashboard picker text.",
@@ -5638,7 +5638,7 @@
       ]
     }
   },
-  "haConnectFailed": "Could not connect.",
+  "haConnectFailed": "No se pudo conectar.",
   "@haConnectFailed": {
     "context": "Settings:Home Assistant Setup",
     "description": "Connection status, action or dashboard picker text.",
@@ -5651,7 +5651,7 @@
       ]
     }
   },
-  "haNotConfigured": "Home Assistant URL and token not configured",
+  "haNotConfigured": "La URL y el token de Home Assistant no están configurados",
   "@haNotConfigured": {
     "context": "Settings:Home Assistant Setup",
     "description": "Connection status, action or dashboard picker text.",
@@ -5664,7 +5664,7 @@
       ]
     }
   },
-  "haInvalidToken": "invalid token",
+  "haInvalidToken": "Token no válido",
   "@haInvalidToken": {
     "context": "Settings:Home Assistant Setup",
     "description": "Connection status, action or dashboard picker text.",
@@ -5677,7 +5677,7 @@
       ]
     }
   },
-  "haUnreachable": "Could not reach Home Assistant: {error}",
+  "haUnreachable": "No se pudo conectar con Home Assistant: {error}",
   "@haUnreachable": {
     "context": "Settings:Home Assistant Setup",
     "description": "Connection status, action or dashboard picker text.",
@@ -5696,7 +5696,7 @@
       }
     }
   },
-  "haProxy": "Secure context proxy",
+  "haProxy": "Proxy de contexto seguro",
   "@haProxy": {
     "context": "Settings:Home Assistant Setup",
     "description": "Connection status, action or dashboard picker text.",
@@ -5709,7 +5709,7 @@
       ]
     }
   },
-  "haProxyHelp": "Routes a plain http Home Assistant through an in-app proxy so the browser unlocks the microphone and other https-only features. Only for http URLs.",
+  "haProxyHelp": "Pasa la conexión http de Home Assistant por un proxy dentro de la aplicación para que el navegador habilite el micrófono y otras funciones exclusivas de https. Solo para direcciones http.",
   "@haProxyHelp": {
     "context": "Settings:Home Assistant Setup",
     "description": "Connection status, action or dashboard picker text.",
@@ -5722,7 +5722,7 @@
       ]
     }
   },
-  "haProxyRemoteHelp": "Routes a plain http Home Assistant through a proxy inside the app so the browser unlocks the microphone and other https-only features. Available only for http URLs.",
+  "haProxyRemoteHelp": "Pasa la conexión http de Home Assistant por un proxy dentro de la aplicación para que el navegador habilite el micrófono y otras funciones exclusivas de https. Solo para direcciones http.",
   "@haProxyRemoteHelp": {
     "context": "Settings:Home Assistant Setup",
     "description": "Connection status, action or dashboard picker text.",
@@ -5735,7 +5735,7 @@
       ]
     }
   },
-  "haProxyNotice": "This Home Assistant URL uses plain http, and browsers block the microphone and other features on http pages. Kiosk Satellite will route the dashboard through a secure proxy inside the app so everything works. You may need to sign in to Home Assistant again.",
+  "haProxyNotice": "Esta dirección de Home Assistant usa http y los navegadores bloquean el micrófono y otras funciones en páginas http. Kiosk Satellite pasará el panel de control por un proxy seguro dentro de la aplicación para habilitarlas. Es posible que tengas que volver a iniciar sesión en Home Assistant.",
   "@haProxyNotice": {
     "context": "Settings:Home Assistant Setup",
     "description": "Connection status, action or dashboard picker text.",
@@ -5748,7 +5748,7 @@
       ]
     }
   },
-  "haProxyRemoteNotice": "This Home Assistant URL uses plain http, and browsers block the microphone and other features on http pages. Kiosk Satellite will route the dashboard through a secure proxy inside the app so everything works. You may need to sign in to Home Assistant again on the tablet.",
+  "haProxyRemoteNotice": "Esta dirección de Home Assistant usa http y los navegadores bloquean el micrófono y otras funciones en páginas http. Kiosk Satellite pasará el panel de control por un proxy seguro dentro de la aplicación para habilitarlas. Es posible que tengas que volver a iniciar sesión en Home Assistant en la tableta.",
   "@haProxyRemoteNotice": {
     "context": "Settings:Home Assistant Setup",
     "description": "Connection status, action or dashboard picker text.",
@@ -5761,7 +5761,7 @@
       ]
     }
   },
-  "haDashboard": "Dashboard",
+  "haDashboard": "Panel de control",
   "@haDashboard": {
     "context": "Settings:Home Assistant Setup",
     "description": "Connection status, action or dashboard picker text.",
@@ -5774,7 +5774,7 @@
       ]
     }
   },
-  "haChooseView": "Choose a view",
+  "haChooseView": "Elegir una vista",
   "@haChooseView": {
     "context": "Settings:Home Assistant Setup",
     "description": "Connection status, action or dashboard picker text.",
@@ -5787,7 +5787,7 @@
       ]
     }
   },
-  "haLoadingDashboards": "Loading dashboards…",
+  "haLoadingDashboards": "Cargando paneles de control…",
   "@haLoadingDashboards": {
     "context": "Settings:Home Assistant Setup",
     "description": "Connection status, action or dashboard picker text.",
@@ -5800,7 +5800,7 @@
       ]
     }
   },
-  "haListFailed": "Could not list dashboards",
+  "haListFailed": "No se pudieron listar los paneles de control",
   "@haListFailed": {
     "context": "Settings:Home Assistant Setup",
     "description": "Connection status, action or dashboard picker text.",
@@ -5813,7 +5813,7 @@
       ]
     }
   },
-  "haRetryHint": "Tap to retry.",
+  "haRetryHint": "Toca para volver a intentarlo.",
   "@haRetryHint": {
     "context": "Settings:Home Assistant Setup",
     "description": "Connection status, action or dashboard picker text.",
@@ -5826,7 +5826,7 @@
       ]
     }
   },
-  "haChangeView": "Change view",
+  "haChangeView": "Cambiar vista",
   "@haChangeView": {
     "context": "Settings:Home Assistant Setup",
     "description": "Connection status, action or dashboard picker text.",
@@ -5839,7 +5839,7 @@
       ]
     }
   },
-  "haNoViews": "No sub views",
+  "haNoViews": "No hay vistas secundarias",
   "@haNoViews": {
     "context": "Settings:Home Assistant Setup",
     "description": "Connection status, action or dashboard picker text.",
@@ -5852,7 +5852,7 @@
       ]
     }
   },
-  "haNoViewsHelp": "This dashboard has no selectable sub views.",
+  "haNoViewsHelp": "Este panel de control no tiene vistas secundarias seleccionables.",
   "@haNoViewsHelp": {
     "context": "Settings:Home Assistant Setup",
     "description": "Connection status, action or dashboard picker text.",
@@ -5865,7 +5865,7 @@
       ]
     }
   },
-  "haNoDashboards": "No dashboards found",
+  "haNoDashboards": "No se encontraron paneles de control",
   "@haNoDashboards": {
     "context": "Settings:Home Assistant Setup",
     "description": "Connection status, action or dashboard picker text.",
@@ -5878,7 +5878,7 @@
       ]
     }
   },
-  "settingHaThemeTitle": "Theme",
+  "settingHaThemeTitle": "Tema",
   "@settingHaThemeTitle": {
     "context": "Settings:Home Assistant Setup:Theme",
     "description": "Setting label.",
@@ -5891,7 +5891,7 @@
       ]
     }
   },
-  "settingHaThemeDescription": "Light or dark for the Home Assistant dashboard, also set from the Theme entity in Home Assistant. Auto follows the settings below.",
+  "settingHaThemeDescription": "Tema claro u oscuro para el panel de control de Home Assistant. También se puede elegir desde la entidad Tema de Home Assistant. Automático sigue las opciones de abajo.",
   "@settingHaThemeDescription": {
     "context": "Settings:Home Assistant Setup:Theme",
     "description": "Help below the setting.",
@@ -5904,7 +5904,7 @@
       ]
     }
   },
-  "settingThemeMatchAppTitle": "Sync Home Assistant themes with Kiosk Satellite",
+  "settingThemeMatchAppTitle": "Sincronizar el tema de Home Assistant con Kiosk Satellite",
   "@settingThemeMatchAppTitle": {
     "context": "Settings:Home Assistant Setup:Theme",
     "description": "Setting label.",
@@ -5917,7 +5917,7 @@
       ]
     }
   },
-  "settingThemeMatchAppDescription": "Automatically match your Home Assistant theme to your Kiosk Satellite interface.",
+  "settingThemeMatchAppDescription": "Adapta automáticamente el tema de Home Assistant al de la interfaz de Kiosk Satellite.",
   "@settingThemeMatchAppDescription": {
     "context": "Settings:Home Assistant Setup:Theme",
     "description": "Help below the setting.",
@@ -5930,7 +5930,7 @@
       ]
     }
   },
-  "settingThemeAutoTitle": "Match theme to time of day",
+  "settingThemeAutoTitle": "Cambiar el tema según la hora",
   "@settingThemeAutoTitle": {
     "context": "Settings:Home Assistant Setup:Theme",
     "description": "Setting label.",
@@ -5943,7 +5943,7 @@
       ]
     }
   },
-  "settingThemeAutoDescription": "Switch Home Assistant between light and dark on a schedule. Keeps whatever theme is selected, flipping only its light/dark variant.",
+  "settingThemeAutoDescription": "Cambia Home Assistant entre claro y oscuro según un horario. Conserva el tema seleccionado y cambia solo su variante clara u oscura.",
   "@settingThemeAutoDescription": {
     "context": "Settings:Home Assistant Setup:Theme",
     "description": "Help below the setting.",
@@ -5956,7 +5956,7 @@
       ]
     }
   },
-  "settingThemeDarkAtTitle": "Dark theme at",
+  "settingThemeDarkAtTitle": "Tema oscuro a las",
   "@settingThemeDarkAtTitle": {
     "context": "Settings:Home Assistant Setup:Theme",
     "description": "Setting label.",
@@ -5969,7 +5969,7 @@
       ]
     }
   },
-  "settingThemeDarkAtDescription": "Local time to switch to the dark theme.",
+  "settingThemeDarkAtDescription": "Hora local para cambiar al tema oscuro.",
   "@settingThemeDarkAtDescription": {
     "context": "Settings:Home Assistant Setup:Theme",
     "description": "Help below the setting.",
@@ -5982,7 +5982,7 @@
       ]
     }
   },
-  "settingThemeLightAtTitle": "Light theme at",
+  "settingThemeLightAtTitle": "Tema claro a las",
   "@settingThemeLightAtTitle": {
     "context": "Settings:Home Assistant Setup:Theme",
     "description": "Setting label.",
@@ -5995,7 +5995,7 @@
       ]
     }
   },
-  "settingThemeLightAtDescription": "Local time to switch back to the light theme.",
+  "settingThemeLightAtDescription": "Hora local para volver al tema claro.",
   "@settingThemeLightAtDescription": {
     "context": "Settings:Home Assistant Setup:Theme",
     "description": "Help below the setting.",
@@ -6008,7 +6008,7 @@
       ]
     }
   },
-  "settingThemeAutoAppTitle": "Also switch the app theme",
+  "settingThemeAutoAppTitle": "Cambiar también el tema de la aplicación",
   "@settingThemeAutoAppTitle": {
     "context": "Settings:Home Assistant Setup:Theme",
     "description": "Setting label.",
@@ -6021,7 +6021,7 @@
       ]
     }
   },
-  "settingThemeAutoAppDescription": "Flip Kiosk Satellite's own theme (menu, settings) together with the scheduled Home Assistant change.",
+  "settingThemeAutoAppDescription": "Cambia el tema de Kiosk Satellite (menú y configuración) junto con el cambio programado de Home Assistant.",
   "@settingThemeAutoAppDescription": {
     "context": "Settings:Home Assistant Setup:Theme",
     "description": "Help below the setting.",
@@ -6034,7 +6034,7 @@
       ]
     }
   },
-  "haThemeHint": "Match the app, or switch dark and light on a schedule",
+  "haThemeHint": "Sincroniza con la aplicación o cambia entre claro y oscuro según un horario",
   "@haThemeHint": {
     "context": "Settings:Home Assistant Setup:Theme",
     "description": "Theme subpage summary or automatic theme choice.",
@@ -6047,7 +6047,7 @@
       ]
     }
   },
-  "haThemeAuto": "Auto",
+  "haThemeAuto": "Automático",
   "@haThemeAuto": {
     "context": "Settings:Home Assistant Setup:Theme",
     "description": "Theme subpage summary or automatic theme choice.",
@@ -6060,7 +6060,7 @@
       ]
     }
   },
-  "settingHaKioskModeTitle": "HA kiosk mode",
+  "settingHaKioskModeTitle": "Modo kiosko de HA",
   "@settingHaKioskModeTitle": {
     "context": "Settings:Home Assistant Setup:User Interface",
     "description": "Setting label.",
@@ -6073,7 +6073,7 @@
       ]
     }
   },
-  "settingHaKioskModeDescription": "Hide the Home Assistant header and sidebar. Applies immediately.",
+  "settingHaKioskModeDescription": "Oculta la cabecera y la barra lateral de Home Assistant. Se aplica de inmediato.",
   "@settingHaKioskModeDescription": {
     "context": "Settings:Home Assistant Setup:User Interface",
     "description": "Help below the setting.",
@@ -6086,7 +6086,7 @@
       ]
     }
   },
-  "settingHaKioskHideHeaderTitle": "Hide the header",
+  "settingHaKioskHideHeaderTitle": "Ocultar la cabecera",
   "@settingHaKioskHideHeaderTitle": {
     "context": "Settings:Home Assistant Setup:User Interface",
     "description": "Setting label.",
@@ -6099,7 +6099,7 @@
       ]
     }
   },
-  "settingHaKioskHideHeaderDescription": "Hide the dashboard toolbar and view tabs while HA kiosk mode is on. Leave off if you switch views from the header.",
+  "settingHaKioskHideHeaderDescription": "Oculta la barra de herramientas del panel de control y las pestañas de las vistas mientras está activo el modo kiosko de HA. Déjalo desactivado si cambias de vista desde la cabecera.",
   "@settingHaKioskHideHeaderDescription": {
     "context": "Settings:Home Assistant Setup:User Interface",
     "description": "Help below the setting.",
@@ -6112,7 +6112,7 @@
       ]
     }
   },
-  "settingHaKioskHideSidebarTitle": "Hide the sidebar",
+  "settingHaKioskHideSidebarTitle": "Ocultar la barra lateral",
   "@settingHaKioskHideSidebarTitle": {
     "context": "Settings:Home Assistant Setup:User Interface",
     "description": "Setting label.",
@@ -6125,7 +6125,7 @@
       ]
     }
   },
-  "settingHaKioskHideSidebarDescription": "Hide the navigation sidebar while HA kiosk mode is on.",
+  "settingHaKioskHideSidebarDescription": "Oculta la barra lateral de navegación mientras está activo el modo kiosko de HA.",
   "@settingHaKioskHideSidebarDescription": {
     "context": "Settings:Home Assistant Setup:User Interface",
     "description": "Help below the setting.",
@@ -6138,7 +6138,7 @@
       ]
     }
   },
-  "settingHaKioskMenuTitle": "Show in the kiosk menu",
+  "settingHaKioskMenuTitle": "Mostrar en el menú del kiosko",
   "@settingHaKioskMenuTitle": {
     "context": "Settings:Home Assistant Setup:User Interface",
     "description": "Setting label.",
@@ -6151,7 +6151,7 @@
       ]
     }
   },
-  "settingHaKioskMenuDescription": "Add an HA Kiosk Mode entry to the kiosk menu that turns it on and off.",
+  "settingHaKioskMenuDescription": "Añade una opción al menú del kiosko para activar y desactivar el modo kiosko de HA.",
   "@settingHaKioskMenuDescription": {
     "context": "Settings:Home Assistant Setup:User Interface",
     "description": "Help below the setting.",
@@ -6164,7 +6164,7 @@
       ]
     }
   },
-  "settingHaDashboardCarouselTitle": "Enable dashboard carousel",
+  "settingHaDashboardCarouselTitle": "Activar el carrusel del panel de control",
   "@settingHaDashboardCarouselTitle": {
     "context": "Settings:Home Assistant Setup:User Interface",
     "description": "Setting label.",
@@ -6177,7 +6177,7 @@
       ]
     }
   },
-  "settingHaDashboardCarouselDescription": "Swipe left or right on the dashboard to move between its views. Swipes on sliders, maps and scrolling cards are left alone.",
+  "settingHaDashboardCarouselDescription": "Desliza a izquierda o derecha sobre el panel de control para cambiar de vista. No afecta a los gestos sobre controles deslizantes, mapas y tarjetas con desplazamiento.",
   "@settingHaDashboardCarouselDescription": {
     "context": "Settings:Home Assistant Setup:User Interface",
     "description": "Help below the setting.",
@@ -6190,7 +6190,7 @@
       ]
     }
   },
-  "settingHaCarouselOverCardsTitle": "Capture swipe gestures over cards",
+  "settingHaCarouselOverCardsTitle": "Capturar deslizamientos sobre tarjetas",
   "@settingHaCarouselOverCardsTitle": {
     "context": "Settings:Home Assistant Setup:User Interface",
     "description": "Setting label.",
@@ -6203,7 +6203,7 @@
       ]
     }
   },
-  "settingHaCarouselOverCardsDescription": "Switch views even when the swipe starts on a card that reacts to swipes. Sliders still work normally.",
+  "settingHaCarouselOverCardsDescription": "Cambia de vista incluso cuando el gesto comienza sobre una tarjeta que responde a deslizamientos. Los controles deslizantes siguen funcionando normalmente.",
   "@settingHaCarouselOverCardsDescription": {
     "context": "Settings:Home Assistant Setup:User Interface",
     "description": "Help below the setting.",
@@ -6216,7 +6216,7 @@
       ]
     }
   },
-  "settingHaHapticsTitle": "Enable haptics",
+  "settingHaHapticsTitle": "Activar la vibración",
   "@settingHaHapticsTitle": {
     "context": "Settings:Home Assistant Setup:User Interface",
     "description": "Setting label.",
@@ -6229,7 +6229,7 @@
       ]
     }
   },
-  "settingHaHapticsDescription": "Vibrate when buttons, switches, cards, sliders and thermostat dials are used. Requires a vibration motor.",
+  "settingHaHapticsDescription": "Vibra al usar botones, interruptores, tarjetas, controles deslizantes y diales de termostato. Requiere un motor de vibración.",
   "@settingHaHapticsDescription": {
     "context": "Settings:Home Assistant Setup:User Interface",
     "description": "Help below the setting.",
@@ -6242,7 +6242,7 @@
       ]
     }
   },
-  "settingHaHapticsStrengthTitle": "Vibration strength",
+  "settingHaHapticsStrengthTitle": "Intensidad de la vibración",
   "@settingHaHapticsStrengthTitle": {
     "context": "Settings:Home Assistant Setup:User Interface",
     "description": "Setting label.",
@@ -6255,7 +6255,7 @@
       ]
     }
   },
-  "settingHaHapticsStrengthDescription": "How strong the vibration feels.",
+  "settingHaHapticsStrengthDescription": "Qué tan intensa se siente la vibración.",
   "@settingHaHapticsStrengthDescription": {
     "context": "Settings:Home Assistant Setup:User Interface",
     "description": "Help below the setting.",
@@ -6268,7 +6268,7 @@
       ]
     }
   },
-  "settingHaTapSoundTitle": "Play tap sounds",
+  "settingHaTapSoundTitle": "Reproducir sonidos al tocar",
   "@settingHaTapSoundTitle": {
     "context": "Settings:Home Assistant Setup:User Interface",
     "description": "Setting label.",
@@ -6281,7 +6281,7 @@
       ]
     }
   },
-  "settingHaTapSoundDescription": "Play the standard tap sound when buttons, switches, cards, sliders and thermostat dials are used.",
+  "settingHaTapSoundDescription": "Reproduce el sonido de toque de Android al usar botones, interruptores, tarjetas, controles deslizantes y diales de termostato.",
   "@settingHaTapSoundDescription": {
     "context": "Settings:Home Assistant Setup:User Interface",
     "description": "Help below the setting.",
@@ -6294,7 +6294,7 @@
       ]
     }
   },
-  "settingHaTapSoundVolumeTitle": "Tap sound volume",
+  "settingHaTapSoundVolumeTitle": "Volumen del sonido de toque",
   "@settingHaTapSoundVolumeTitle": {
     "context": "Settings:Home Assistant Setup:User Interface",
     "description": "Setting label.",
@@ -6307,7 +6307,7 @@
       ]
     }
   },
-  "settingHaTapSoundVolumeDescription": "How loud the tap sound plays.",
+  "settingHaTapSoundVolumeDescription": "Qué tan fuerte suena cada toque.",
   "@settingHaTapSoundVolumeDescription": {
     "context": "Settings:Home Assistant Setup:User Interface",
     "description": "Help below the setting.",
@@ -6320,7 +6320,7 @@
       ]
     }
   },
-  "haUserInterface": "User Interface",
+  "haUserInterface": "Interfaz de usuario",
   "@haUserInterface": {
     "context": "Settings:Home Assistant Setup:User Interface",
     "description": "Subpage heading, summary or vibration choice. Light means gentle vibration, not a color theme.",
@@ -6333,7 +6333,7 @@
       ]
     }
   },
-  "haInterfaceHint": "Kiosk mode, dashboard carousel, haptics, tap sounds",
+  "haInterfaceHint": "Modo kiosko, carrusel del panel de control, vibración y sonidos de toque",
   "@haInterfaceHint": {
     "context": "Settings:Home Assistant Setup:User Interface",
     "description": "Subpage heading, summary or vibration choice. Light means gentle vibration, not a color theme.",
@@ -6346,7 +6346,7 @@
       ]
     }
   },
-  "haHaptics": "Haptics",
+  "haHaptics": "Vibración y sonidos",
   "@haHaptics": {
     "context": "Settings:Home Assistant Setup:User Interface",
     "description": "Subpage heading, summary or vibration choice. Light means gentle vibration, not a color theme.",
@@ -6359,7 +6359,7 @@
       ]
     }
   },
-  "haVibrationLight": "Light",
+  "haVibrationLight": "Suave",
   "@haVibrationLight": {
     "context": "Settings:Home Assistant Setup:User Interface",
     "description": "Subpage heading, summary or vibration choice. Light means gentle vibration, not a color theme.",
@@ -6372,7 +6372,7 @@
       ]
     }
   },
-  "haVibrationMedium": "Medium",
+  "haVibrationMedium": "Media",
   "@haVibrationMedium": {
     "context": "Settings:Home Assistant Setup:User Interface",
     "description": "Subpage heading, summary or vibration choice. Light means gentle vibration, not a color theme.",
@@ -6385,7 +6385,7 @@
       ]
     }
   },
-  "haVibrationStrong": "Strong",
+  "haVibrationStrong": "Fuerte",
   "@haVibrationStrong": {
     "context": "Settings:Home Assistant Setup:User Interface",
     "description": "Subpage heading, summary or vibration choice. Light means gentle vibration, not a color theme.",
@@ -6411,7 +6411,7 @@
       ]
     }
   },
-  "settingsMenuHomeAssistantSummary": "Conexión, panel, modo kiosko",
+  "settingsMenuHomeAssistantSummary": "Conexión, panel de control, modo kiosko",
   "@settingsMenuHomeAssistantSummary": {
     "context": "Settings:Menu",
     "description": "Summary below Home Assistant Setup in the Settings menu.",
@@ -7305,7 +7305,7 @@
     "description": "Validation error for a malformed address.",
     "x-notes": "Preserve the example URL exactly."
   },
-  "baseUrlPath": "Introduce solo la URL base, sin la ruta de un panel. Ejemplo: https://homeassistant.local:8123",
+  "baseUrlPath": "Introduce solo la URL base, sin la ruta de un panel de control. Ejemplo: https://homeassistant.local:8123",
   "@baseUrlPath": {
     "context": "First-time setup:Connect",
     "description": "Validation error for an address containing a dashboard path.",
@@ -7332,7 +7332,7 @@
     "context": "First-time setup:Navigation",
     "description": "Summary below the connection step label."
   },
-  "setupDashboard": "Panel",
+  "setupDashboard": "Panel de control",
   "@setupDashboard": {
     "context": "First-time setup:Navigation",
     "description": "Dashboard step label."
@@ -7409,7 +7409,7 @@
     "context": "First-time setup:Welcome",
     "description": "Action to select a configuration file."
   },
-  "setupRestoreHelp": "Importa una configuración exportada desde Kiosk Satellite y omite el resto de este asistente. Se incluyen la configuración, el panel y los datos de inicio de sesión.",
+  "setupRestoreHelp": "Importa una configuración exportada desde Kiosk Satellite y omite el resto de este asistente. Se incluyen la configuración, el panel de control y los datos de inicio de sesión.",
   "@setupRestoreHelp": {
     "context": "First-time setup:Welcome",
     "description": "Explanation of what restoring a configuration imports."

@@ -57,13 +57,13 @@ class UiStringsEs extends UiStrings {
   String get commonCopy => 'Copiar';
 
   @override
-  String get commonAdd => 'Add';
+  String get commonAdd => 'Añadir';
 
   @override
-  String get commonRemove => 'Remove';
+  String get commonRemove => 'Eliminar';
 
   @override
-  String get commonClose => 'Close';
+  String get commonClose => 'Cerrar';
 
   @override
   String drawerPluginAction(String pluginName, String actionTitle) {
@@ -77,7 +77,7 @@ class UiStringsEs extends UiStrings {
   String get drawerPluginActionError => 'No se pudo ejecutar esta acción.';
 
   @override
-  String get drawerDashboard => 'Panel';
+  String get drawerDashboard => 'Panel de control';
 
   @override
   String get drawerHaKiosk => 'Modo kiosko de HA';
@@ -357,7 +357,7 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get settingLegacyWebViewDescription =>
-      'Dibuja el panel en una textura para GPU antiguas que fallan cuando aparece. Se activa automáticamente cuando el dispositivo lo necesita. Se aplica la próxima vez que se inicia la aplicación.';
+      'Dibuja el panel de control en una textura para GPU antiguas que fallan cuando aparece. Se activa automáticamente cuando el dispositivo lo necesita. Se aplica la próxima vez que se inicia la aplicación.';
 
   @override
   String get deviceHostnamePlaceholder => 'Se toma del nombre del dispositivo';
@@ -932,7 +932,7 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get deviceReasonHaHelp =>
-      'Mantiene abiertas la sesión del panel y su conexión WebSocket con la pantalla apagada.';
+      'Mantiene abiertas la sesión del panel de control y su conexión WebSocket con la pantalla apagada.';
 
   @override
   String get deviceReasonListening => 'Escucha en segundo plano';
@@ -1306,32 +1306,33 @@ class UiStringsEs extends UiStrings {
   String get deviceThemeSystem => 'Sistema';
 
   @override
-  String get settingHaHoldModeTitle => 'Hold mode';
+  String get settingHaHoldModeTitle => 'Modo de pausa';
 
   @override
   String get settingHaHoldModeDescription =>
-      'Keep the current view on screen: the screensaver, dashboard view rotation and the return to home timer are paused until turned off.';
+      'Mantiene la vista actual en pantalla. El protector de pantalla, la rotación de vistas y el temporizador de regreso al inicio quedan en pausa hasta desactivarlo.';
 
   @override
-  String get settingHaHoldReleaseMinutesTitle => 'End hold automatically after';
+  String get settingHaHoldReleaseMinutesTitle =>
+      'Terminar la pausa automáticamente después de';
 
   @override
   String get settingHaHoldReleaseMinutesDescription =>
-      'Turns hold mode off by itself after the set time. Set to 0 to hold until turned off manually.';
+      'Desactiva el modo de pausa al cumplirse el tiempo indicado. Con 0, continúa hasta desactivarlo manualmente.';
 
   @override
-  String get settingHaHoldMenuTitle => 'Show in the kiosk menu';
+  String get settingHaHoldMenuTitle => 'Mostrar en el menú del kiosko';
 
   @override
   String get settingHaHoldMenuDescription =>
-      'Adds a menu entry that turns hold mode on and off.';
+      'Añade una opción al menú para activar y desactivar el modo de pausa.';
 
   @override
   String get haHoldHint =>
-      'Pin the current view, automatic release, menu entry';
+      'Mantiene la vista actual, finalización automática y opción de menú';
 
   @override
-  String get haNever => 'Never';
+  String get haNever => 'Nunca';
 
   @override
   String haMinutes(String minutes) {
@@ -1349,188 +1350,196 @@ class UiStringsEs extends UiStrings {
   }
 
   @override
-  String get settingDisableSuspendTitle => 'Keep connected in the background';
+  String get settingDisableSuspendTitle =>
+      'Mantener la conexión en segundo plano';
 
   @override
   String get settingDisableSuspendDescription =>
-      'Turns off Home Assistant\'s \"Suspend background connections\" setting, which would otherwise drop the connection a few minutes after the screen goes off.';
+      'Desactiva la opción «Suspender conexiones en segundo plano» de Home Assistant, que de otro modo cerraría la conexión unos minutos después de apagarse la pantalla.';
 
   @override
   String get settingFreezeOnScreensaverTitle =>
-      'Pause dashboard during screensaver';
+      'Pausar el panel de control durante el protector de pantalla';
 
   @override
   String get settingFreezeOnScreensaverDescription =>
-      'Stops drawing the dashboard while the screensaver covers it, cutting CPU and GPU use; the connection stays live. Not for the Dim screensaver.';
+      'Deja de dibujar el panel de control mientras lo cubre el protector de pantalla para reducir el uso de CPU y GPU. La conexión sigue activa. No se aplica al modo Atenuar.';
 
   @override
-  String get settingWsFilterTitle => 'Filter dashboard updates';
+  String get settingWsFilterTitle =>
+      'Filtrar las actualizaciones del panel de control';
 
   @override
   String get settingWsFilterDescription =>
-      'Only process updates for entities on the current view, cutting stutter on low-powered tablets. Views that cannot be resolved stay unfiltered.';
+      'Procesa solo las actualizaciones de las entidades de la vista actual para reducir las interrupciones en tabletas poco potentes. Las vistas cuyas entidades no se puedan determinar quedan sin filtrar.';
 
   @override
   String get settingPauseDashboardCamerasTitle =>
-      'Pause HA dashboard camera streams during screensaver';
+      'Pausar las cámaras del panel de control durante el protector de pantalla';
 
   @override
   String get settingPauseDashboardCamerasDescription =>
-      'Pauses supported muted camera streams on the Home Assistant dashboard while the screensaver covers it. Streams reconnect when it closes. Does not affect the device camera or the Camera Streams feature.';
+      'Pausa las transmisiones de cámara compatibles y silenciadas del panel de control de Home Assistant mientras lo cubre el protector de pantalla. Se reconectan al cerrarlo. No afecta a la cámara del dispositivo ni a la función Transmisiones de cámara.';
 
   @override
-  String get haOptimizations => 'Optimizations';
+  String get haOptimizations => 'Optimizaciones';
 
   @override
   String get haOptimizationsHint =>
-      'Background connection, dashboard and camera pause, update filter';
+      'Conexión en segundo plano, pausa del panel de control y las cámaras, filtro de actualizaciones';
 
   @override
   String get haScanUnavailable =>
-      'Scan details are not available for the current view.';
+      'Los detalles del análisis no están disponibles para la vista actual.';
 
   @override
-  String get haScanDetails => 'Dashboard scan details';
+  String get haScanDetails => 'Detalles del análisis del panel de control';
 
   @override
   String haWatchedTitle(String count) {
-    return 'Watched entities ($count)';
+    return 'Entidades supervisadas ($count)';
   }
 
   @override
-  String get haWatched => 'Watched entities';
+  String get haWatched => 'Entidades supervisadas';
 
   @override
   String get haEntityListUnavailable =>
-      'The entity list is not available right now.';
+      'La lista de entidades no está disponible en este momento.';
 
   @override
   String haWatching(String count) {
-    return 'Watching $count entities on this view.';
+    return 'Se supervisan $count entidades en esta vista.';
   }
 
   @override
-  String get haNoUpdates => 'No updates in the last minute.';
+  String get haNoUpdates => 'No hubo actualizaciones en el último minuto.';
 
   @override
   String haFiltered(String percent, String dropped, String total) {
-    return 'Filtered $percent% of updates in the last minute ($dropped of $total).';
+    return 'Se filtró el $percent% de las actualizaciones del último minuto ($dropped de $total).';
   }
 
   @override
   String get haRawUpdates =>
-      'Something on this page receives every entity update anyway, so filtering saves less here.';
+      'Un elemento de esta página recibe todas las actualizaciones de entidades de todas formas, por lo que el filtrado ahorra menos aquí.';
 
   @override
   String get haAllStates =>
-      'This view reads all entity states, so its updates are not filtered.';
+      'Esta vista lee los estados de todas las entidades, por lo que sus actualizaciones no se filtran.';
 
   @override
   String get haUnknownEntities =>
-      'This view\'s entities can\'t be determined, so its updates are not filtered.';
+      'No se pueden determinar las entidades de esta vista, por lo que sus actualizaciones no se filtran.';
 
   @override
-  String get haWaiting => 'Waiting for the dashboard to load…';
+  String get haWaiting => 'Esperando a que se cargue el panel de control…';
 
   @override
-  String get haShowScan => 'Show scan details.';
+  String get haShowScan => 'Mostrar detalles del análisis.';
 
   @override
   String haThreshold(String count) {
-    return 'This view uses $count entities, which crosses the filtering threshold. Filtering is disabled.';
+    return 'Esta vista usa $count entidades, lo que supera el umbral del filtro. El filtrado está desactivado.';
   }
 
   @override
-  String get settingHaReturnHomeEnabledTitle => 'Return to home dashboard view';
+  String get settingHaReturnHomeEnabledTitle =>
+      'Volver a la vista de inicio del panel de control';
 
   @override
   String get settingHaReturnHomeEnabledDescription =>
-      'Go back to the dashboard configured above after a period of inactivity.';
+      'Vuelve al panel de control configurado arriba después de un periodo de inactividad.';
 
   @override
-  String get settingHaReturnHomeSecondsTitle => 'Return after (seconds)';
+  String get settingHaReturnHomeSecondsTitle => 'Volver después de (segundos)';
 
   @override
   String get settingHaReturnHomeSecondsDescription =>
-      'Inactivity period before the kiosk goes back.';
+      'Periodo de inactividad antes de que el kiosko vuelva.';
 
   @override
-  String get haReturnHint => 'Go back to the home view when left idle';
+  String get haReturnHint =>
+      'Vuelve a la vista de inicio tras un periodo de inactividad';
 
   @override
   String get haReturnDisabled =>
-      'Turned off while Dashboard view rotation is on.';
+      'Se desactiva mientras está activa la rotación de vistas del panel de control.';
 
   @override
   String get haReturnNoPath =>
-      'The configured dashboard has no view path to return to.';
+      'El panel de control configurado no tiene una ruta de vista a la que volver.';
 
   @override
   String haReturnPath(String path) {
-    return 'Returns to \"$path\" after the timeout.';
+    return 'Vuelve a \"$path\" al cumplirse el tiempo de espera.';
   }
 
   @override
-  String get settingHaRotationEnabledTitle => 'Enable dashboard view rotation';
+  String get settingHaRotationEnabledTitle =>
+      'Activar la rotación de vistas del panel de control';
 
   @override
   String get settingHaRotationEnabledDescription =>
-      'Cycle through the selected dashboard views in an endless loop, showing each one for the chosen number of seconds.';
+      'Recorre las vistas seleccionadas del panel de control en un ciclo continuo y muestra cada una durante el número de segundos elegido.';
 
   @override
-  String get settingHaRotationSecondsTitle => 'Seconds per view';
+  String get settingHaRotationSecondsTitle => 'Segundos por vista';
 
   @override
   String get settingHaRotationSecondsDescription =>
-      'How long each view stays on screen.';
+      'Cuánto tiempo permanece cada vista en pantalla.';
 
   @override
   String get settingHaRotationPauseSecondsTitle =>
-      'Pause rotation on interaction (seconds)';
+      'Pausa de la rotación al interactuar (segundos)';
 
   @override
   String get settingHaRotationPauseSecondsDescription =>
-      'Touching the screen pauses rotation for this long, and each touch restarts the countdown. Voice interactions pause until they end. 0 keeps rotating through touches.';
+      'Tocar la pantalla pausa la rotación durante este tiempo y cada toque reinicia la cuenta. Las interacciones de voz la pausan hasta que terminan. Con 0, los toques no pausan la rotación.';
 
   @override
-  String get settingHaRotationCrossfadeTitle => 'Fade between views';
+  String get settingHaRotationCrossfadeTitle => 'Fundido entre vistas';
 
   @override
   String get settingHaRotationCrossfadeDescription =>
-      'Fade out to the background and into the next view instead of switching instantly. Moving to a different dashboard or an external page still switches instantly.';
+      'Se desvanece hasta el fondo y luego aparece la siguiente vista en lugar de cambiar al instante. Los cambios a otro panel de control o a una página externa siguen siendo instantáneos.';
 
   @override
-  String get settingHaRotationFadeSecondsTitle => 'Fade duration (seconds)';
+  String get settingHaRotationFadeSecondsTitle =>
+      'Duración del fundido (segundos)';
 
   @override
   String get settingHaRotationFadeSecondsDescription =>
-      'Combined fade-out and fade-in time. Loading the next view can add time, especially on its first visit.';
+      'Tiempo total de desaparición y aparición. Cargar la siguiente vista puede añadir tiempo, sobre todo al abrirla por primera vez.';
 
   @override
-  String get haRotation => 'Dashboard View Rotation';
+  String get haRotation => 'Rotación de vistas del panel de control';
 
   @override
-  String get haRotationHint => 'Cycle through views, dwell time, fade';
+  String get haRotationHint =>
+      'Recorre las vistas, duración de cada vista y fundido';
 
   @override
-  String get haDefaultView => 'Default view';
+  String get haDefaultView => 'Vista predeterminada';
 
   @override
-  String get haExternalPages => 'External pages';
+  String get haExternalPages => 'Páginas externas';
 
   @override
-  String get haFadeError => 'Choose a fade duration from 0.2 to 5 seconds.';
+  String get haFadeError =>
+      'Elige una duración de fundido entre 0.2 y 5 segundos.';
 
   @override
   String get haPauseRemoteHelp =>
-      'Touch pauses rotation for this long; each touch restarts it. Voice interactions always pause until they end. 0 keeps rotating.';
+      'Tocar la pantalla pausa la rotación durante este tiempo y cada toque reinicia la cuenta. Las interacciones de voz la pausan hasta que terminan. Con 0, los toques no pausan la rotación.';
 
   @override
   String get settingHaUrlTitle => 'URL base de Home Assistant';
 
   @override
   String get settingHaUrlDescription =>
-      'Por ejemplo, https://homeassistant.local:8123, sin la ruta de un panel.';
+      'Por ejemplo, https://homeassistant.local:8123, sin la ruta de un panel de control.';
 
   @override
   String get settingHaTokenTitle => 'Token de acceso de larga duración';
@@ -1540,236 +1549,241 @@ class UiStringsEs extends UiStrings {
       'Se crea en tu perfil de Home Assistant → Seguridad.';
 
   @override
-  String get settingHaAutoLoginTitle => 'Log in automatically';
+  String get settingHaAutoLoginTitle => 'Iniciar sesión automáticamente';
 
   @override
   String get settingHaAutoLoginDescription =>
-      'Sign in to the dashboard with the access token above instead of showing the Home Assistant login page.';
+      'Inicia sesión en el panel de control con el token de acceso indicado arriba en lugar de mostrar la página de inicio de sesión de Home Assistant.';
 
   @override
-  String get haValidate => 'Validate';
+  String get haValidate => 'Validar';
 
   @override
-  String get haValidateConnection => 'Validate connection';
+  String get haValidateConnection => 'Validar conexión';
 
   @override
-  String get haChecking => 'Checking…';
+  String get haChecking => 'Comprobando…';
 
   @override
-  String get haConnected => 'Connected';
+  String get haConnected => 'Conectado';
 
   @override
-  String get haConnectedRemote => 'Connected.';
+  String get haConnectedRemote => 'Conectado.';
 
   @override
   String get haNotValidated =>
-      'Not validated yet. The settings below unlock once the connection checks out.';
+      'Aún no se ha validado. Las opciones de abajo se habilitan cuando se confirma la conexión.';
 
   @override
-  String get haConnectFailed => 'Could not connect.';
+  String get haConnectFailed => 'No se pudo conectar.';
 
   @override
-  String get haNotConfigured => 'Home Assistant URL and token not configured';
+  String get haNotConfigured =>
+      'La URL y el token de Home Assistant no están configurados';
 
   @override
-  String get haInvalidToken => 'invalid token';
+  String get haInvalidToken => 'Token no válido';
 
   @override
   String haUnreachable(String error) {
-    return 'Could not reach Home Assistant: $error';
+    return 'No se pudo conectar con Home Assistant: $error';
   }
 
   @override
-  String get haProxy => 'Secure context proxy';
+  String get haProxy => 'Proxy de contexto seguro';
 
   @override
   String get haProxyHelp =>
-      'Routes a plain http Home Assistant through an in-app proxy so the browser unlocks the microphone and other https-only features. Only for http URLs.';
+      'Pasa la conexión http de Home Assistant por un proxy dentro de la aplicación para que el navegador habilite el micrófono y otras funciones exclusivas de https. Solo para direcciones http.';
 
   @override
   String get haProxyRemoteHelp =>
-      'Routes a plain http Home Assistant through a proxy inside the app so the browser unlocks the microphone and other https-only features. Available only for http URLs.';
+      'Pasa la conexión http de Home Assistant por un proxy dentro de la aplicación para que el navegador habilite el micrófono y otras funciones exclusivas de https. Solo para direcciones http.';
 
   @override
   String get haProxyNotice =>
-      'This Home Assistant URL uses plain http, and browsers block the microphone and other features on http pages. Kiosk Satellite will route the dashboard through a secure proxy inside the app so everything works. You may need to sign in to Home Assistant again.';
+      'Esta dirección de Home Assistant usa http y los navegadores bloquean el micrófono y otras funciones en páginas http. Kiosk Satellite pasará el panel de control por un proxy seguro dentro de la aplicación para habilitarlas. Es posible que tengas que volver a iniciar sesión en Home Assistant.';
 
   @override
   String get haProxyRemoteNotice =>
-      'This Home Assistant URL uses plain http, and browsers block the microphone and other features on http pages. Kiosk Satellite will route the dashboard through a secure proxy inside the app so everything works. You may need to sign in to Home Assistant again on the tablet.';
+      'Esta dirección de Home Assistant usa http y los navegadores bloquean el micrófono y otras funciones en páginas http. Kiosk Satellite pasará el panel de control por un proxy seguro dentro de la aplicación para habilitarlas. Es posible que tengas que volver a iniciar sesión en Home Assistant en la tableta.';
 
   @override
-  String get haDashboard => 'Dashboard';
+  String get haDashboard => 'Panel de control';
 
   @override
-  String get haChooseView => 'Choose a view';
+  String get haChooseView => 'Elegir una vista';
 
   @override
-  String get haLoadingDashboards => 'Loading dashboards…';
+  String get haLoadingDashboards => 'Cargando paneles de control…';
 
   @override
-  String get haListFailed => 'Could not list dashboards';
+  String get haListFailed => 'No se pudieron listar los paneles de control';
 
   @override
-  String get haRetryHint => 'Tap to retry.';
+  String get haRetryHint => 'Toca para volver a intentarlo.';
 
   @override
-  String get haChangeView => 'Change view';
+  String get haChangeView => 'Cambiar vista';
 
   @override
-  String get haNoViews => 'No sub views';
+  String get haNoViews => 'No hay vistas secundarias';
 
   @override
-  String get haNoViewsHelp => 'This dashboard has no selectable sub views.';
+  String get haNoViewsHelp =>
+      'Este panel de control no tiene vistas secundarias seleccionables.';
 
   @override
-  String get haNoDashboards => 'No dashboards found';
+  String get haNoDashboards => 'No se encontraron paneles de control';
 
   @override
-  String get settingHaThemeTitle => 'Theme';
+  String get settingHaThemeTitle => 'Tema';
 
   @override
   String get settingHaThemeDescription =>
-      'Light or dark for the Home Assistant dashboard, also set from the Theme entity in Home Assistant. Auto follows the settings below.';
+      'Tema claro u oscuro para el panel de control de Home Assistant. También se puede elegir desde la entidad Tema de Home Assistant. Automático sigue las opciones de abajo.';
 
   @override
   String get settingThemeMatchAppTitle =>
-      'Sync Home Assistant themes with Kiosk Satellite';
+      'Sincronizar el tema de Home Assistant con Kiosk Satellite';
 
   @override
   String get settingThemeMatchAppDescription =>
-      'Automatically match your Home Assistant theme to your Kiosk Satellite interface.';
+      'Adapta automáticamente el tema de Home Assistant al de la interfaz de Kiosk Satellite.';
 
   @override
-  String get settingThemeAutoTitle => 'Match theme to time of day';
+  String get settingThemeAutoTitle => 'Cambiar el tema según la hora';
 
   @override
   String get settingThemeAutoDescription =>
-      'Switch Home Assistant between light and dark on a schedule. Keeps whatever theme is selected, flipping only its light/dark variant.';
+      'Cambia Home Assistant entre claro y oscuro según un horario. Conserva el tema seleccionado y cambia solo su variante clara u oscura.';
 
   @override
-  String get settingThemeDarkAtTitle => 'Dark theme at';
+  String get settingThemeDarkAtTitle => 'Tema oscuro a las';
 
   @override
   String get settingThemeDarkAtDescription =>
-      'Local time to switch to the dark theme.';
+      'Hora local para cambiar al tema oscuro.';
 
   @override
-  String get settingThemeLightAtTitle => 'Light theme at';
+  String get settingThemeLightAtTitle => 'Tema claro a las';
 
   @override
   String get settingThemeLightAtDescription =>
-      'Local time to switch back to the light theme.';
+      'Hora local para volver al tema claro.';
 
   @override
-  String get settingThemeAutoAppTitle => 'Also switch the app theme';
+  String get settingThemeAutoAppTitle =>
+      'Cambiar también el tema de la aplicación';
 
   @override
   String get settingThemeAutoAppDescription =>
-      'Flip Kiosk Satellite\'s own theme (menu, settings) together with the scheduled Home Assistant change.';
+      'Cambia el tema de Kiosk Satellite (menú y configuración) junto con el cambio programado de Home Assistant.';
 
   @override
   String get haThemeHint =>
-      'Match the app, or switch dark and light on a schedule';
+      'Sincroniza con la aplicación o cambia entre claro y oscuro según un horario';
 
   @override
-  String get haThemeAuto => 'Auto';
+  String get haThemeAuto => 'Automático';
 
   @override
-  String get settingHaKioskModeTitle => 'HA kiosk mode';
+  String get settingHaKioskModeTitle => 'Modo kiosko de HA';
 
   @override
   String get settingHaKioskModeDescription =>
-      'Hide the Home Assistant header and sidebar. Applies immediately.';
+      'Oculta la cabecera y la barra lateral de Home Assistant. Se aplica de inmediato.';
 
   @override
-  String get settingHaKioskHideHeaderTitle => 'Hide the header';
+  String get settingHaKioskHideHeaderTitle => 'Ocultar la cabecera';
 
   @override
   String get settingHaKioskHideHeaderDescription =>
-      'Hide the dashboard toolbar and view tabs while HA kiosk mode is on. Leave off if you switch views from the header.';
+      'Oculta la barra de herramientas del panel de control y las pestañas de las vistas mientras está activo el modo kiosko de HA. Déjalo desactivado si cambias de vista desde la cabecera.';
 
   @override
-  String get settingHaKioskHideSidebarTitle => 'Hide the sidebar';
+  String get settingHaKioskHideSidebarTitle => 'Ocultar la barra lateral';
 
   @override
   String get settingHaKioskHideSidebarDescription =>
-      'Hide the navigation sidebar while HA kiosk mode is on.';
+      'Oculta la barra lateral de navegación mientras está activo el modo kiosko de HA.';
 
   @override
-  String get settingHaKioskMenuTitle => 'Show in the kiosk menu';
+  String get settingHaKioskMenuTitle => 'Mostrar en el menú del kiosko';
 
   @override
   String get settingHaKioskMenuDescription =>
-      'Add an HA Kiosk Mode entry to the kiosk menu that turns it on and off.';
+      'Añade una opción al menú del kiosko para activar y desactivar el modo kiosko de HA.';
 
   @override
-  String get settingHaDashboardCarouselTitle => 'Enable dashboard carousel';
+  String get settingHaDashboardCarouselTitle =>
+      'Activar el carrusel del panel de control';
 
   @override
   String get settingHaDashboardCarouselDescription =>
-      'Swipe left or right on the dashboard to move between its views. Swipes on sliders, maps and scrolling cards are left alone.';
+      'Desliza a izquierda o derecha sobre el panel de control para cambiar de vista. No afecta a los gestos sobre controles deslizantes, mapas y tarjetas con desplazamiento.';
 
   @override
   String get settingHaCarouselOverCardsTitle =>
-      'Capture swipe gestures over cards';
+      'Capturar deslizamientos sobre tarjetas';
 
   @override
   String get settingHaCarouselOverCardsDescription =>
-      'Switch views even when the swipe starts on a card that reacts to swipes. Sliders still work normally.';
+      'Cambia de vista incluso cuando el gesto comienza sobre una tarjeta que responde a deslizamientos. Los controles deslizantes siguen funcionando normalmente.';
 
   @override
-  String get settingHaHapticsTitle => 'Enable haptics';
+  String get settingHaHapticsTitle => 'Activar la vibración';
 
   @override
   String get settingHaHapticsDescription =>
-      'Vibrate when buttons, switches, cards, sliders and thermostat dials are used. Requires a vibration motor.';
+      'Vibra al usar botones, interruptores, tarjetas, controles deslizantes y diales de termostato. Requiere un motor de vibración.';
 
   @override
-  String get settingHaHapticsStrengthTitle => 'Vibration strength';
+  String get settingHaHapticsStrengthTitle => 'Intensidad de la vibración';
 
   @override
   String get settingHaHapticsStrengthDescription =>
-      'How strong the vibration feels.';
+      'Qué tan intensa se siente la vibración.';
 
   @override
-  String get settingHaTapSoundTitle => 'Play tap sounds';
+  String get settingHaTapSoundTitle => 'Reproducir sonidos al tocar';
 
   @override
   String get settingHaTapSoundDescription =>
-      'Play the standard tap sound when buttons, switches, cards, sliders and thermostat dials are used.';
+      'Reproduce el sonido de toque de Android al usar botones, interruptores, tarjetas, controles deslizantes y diales de termostato.';
 
   @override
-  String get settingHaTapSoundVolumeTitle => 'Tap sound volume';
+  String get settingHaTapSoundVolumeTitle => 'Volumen del sonido de toque';
 
   @override
   String get settingHaTapSoundVolumeDescription =>
-      'How loud the tap sound plays.';
+      'Qué tan fuerte suena cada toque.';
 
   @override
-  String get haUserInterface => 'User Interface';
+  String get haUserInterface => 'Interfaz de usuario';
 
   @override
   String get haInterfaceHint =>
-      'Kiosk mode, dashboard carousel, haptics, tap sounds';
+      'Modo kiosko, carrusel del panel de control, vibración y sonidos de toque';
 
   @override
-  String get haHaptics => 'Haptics';
+  String get haHaptics => 'Vibración y sonidos';
 
   @override
-  String get haVibrationLight => 'Light';
+  String get haVibrationLight => 'Suave';
 
   @override
-  String get haVibrationMedium => 'Medium';
+  String get haVibrationMedium => 'Media';
 
   @override
-  String get haVibrationStrong => 'Strong';
+  String get haVibrationStrong => 'Fuerte';
 
   @override
   String get settingsMenuHomeAssistant => 'Configuración de Home Assistant';
 
   @override
-  String get settingsMenuHomeAssistantSummary => 'Conexión, panel, modo kiosko';
+  String get settingsMenuHomeAssistantSummary =>
+      'Conexión, panel de control, modo kiosko';
 
   @override
   String get settingsMenuVoiceSatellite => 'Voice Satellite';
@@ -2046,7 +2060,7 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get baseUrlPath =>
-      'Introduce solo la URL base, sin la ruta de un panel. Ejemplo: https://homeassistant.local:8123';
+      'Introduce solo la URL base, sin la ruta de un panel de control. Ejemplo: https://homeassistant.local:8123';
 
   @override
   String get baseUrlQuery =>
@@ -2062,7 +2076,7 @@ class UiStringsEs extends UiStrings {
   String get setupConnectSummary => 'URL y token de Home Assistant';
 
   @override
-  String get setupDashboard => 'Panel';
+  String get setupDashboard => 'Panel de control';
 
   @override
   String get setupDashboardSummary => 'Lo que muestra el kiosko';
@@ -2111,7 +2125,7 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get setupRestoreHelp =>
-      'Importa una configuración exportada desde Kiosk Satellite y omite el resto de este asistente. Se incluyen la configuración, el panel y los datos de inicio de sesión.';
+      'Importa una configuración exportada desde Kiosk Satellite y omite el resto de este asistente. Se incluyen la configuración, el panel de control y los datos de inicio de sesión.';
 
   @override
   String get setupServicePermissions =>

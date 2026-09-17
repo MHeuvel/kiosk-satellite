@@ -1,0 +1,11 @@
+{
+  "@@locale": "es",
+  "settingHaReturnHomeEnabledTitle": "Volver a la vista de inicio del panel de control",
+  "settingHaReturnHomeEnabledDescription": "Vuelve al panel de control configurado arriba después de un periodo de inactividad.",
+  "settingHaReturnHomeSecondsTitle": "Volver después de (segundos)",
+  "settingHaReturnHomeSecondsDescription": "Periodo de inactividad antes de que el kiosko vuelva.",
+  "haReturnHint": "Vuelve a la vista de inicio tras un periodo de inactividad",
+  "haReturnDisabled": "Se desactiva mientras está activa la rotación de vistas del panel de control.",
+  "haReturnNoPath": "El panel de control configurado no tiene una ruta de vista a la que volver.",
+  "haReturnPath": "Vuelve a \"{path}\" al cumplirse el tiempo de espera."
+}
