@@ -1,0 +1,8 @@
+{
+  "@@locale": "es",
+  "settingIntercomTalkModeTitle": "Modo de conversación",
+  "settingIntercomTalkModeDescription": "Pulsar para hablar envía tu voz mientras mantienes pulsado el botón. Manos libres mantiene abierto el micrófono durante toda la llamada.",
+  "intercomOptionTalkPtt": "Pulsar para hablar",
+  "intercomOptionTalkHandsfree": "Manos libres",
+  "intercomTalkSection": "Conversación"
+}

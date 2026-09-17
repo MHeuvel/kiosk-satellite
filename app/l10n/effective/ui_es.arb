@@ -1050,7 +1050,7 @@
       ]
     }
   },
-  "intercomCall": "Call",
+  "intercomCall": "Llamar",
   "@intercomCall": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1061,7 +1061,7 @@
       ]
     }
   },
-  "intercomNoReady": "No kiosk is ready.",
+  "intercomNoReady": "No hay kioskos listos.",
   "@intercomNoReady": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1072,7 +1072,7 @@
       ]
     }
   },
-  "intercomOneReady": "1 kiosk is ready.",
+  "intercomOneReady": "Hay 1 kiosko listo.",
   "@intercomOneReady": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1083,7 +1083,7 @@
       ]
     }
   },
-  "intercomManyReady": "{count} kiosks are ready.",
+  "intercomManyReady": "Hay {count} kioskos listos.",
   "@intercomManyReady": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1100,7 +1100,7 @@
       }
     }
   },
-  "intercomCallKiosk": "Call a kiosk",
+  "intercomCallKiosk": "Llamar a un kiosko",
   "@intercomCallKiosk": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1111,7 +1111,7 @@
       ]
     }
   },
-  "intercomAnnounceAll": "Announce to all",
+  "intercomAnnounceAll": "Anunciar a todos",
   "@intercomAnnounceAll": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1122,7 +1122,7 @@
       ]
     }
   },
-  "intercomAnnounceHelp": "Talk to every kiosk. One way only.",
+  "intercomAnnounceHelp": "Habla a todos los kioskos. Solo tú puedes hablar.",
   "@intercomAnnounceHelp": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1133,7 +1133,7 @@
       ]
     }
   },
-  "intercomMissedFrom": "Missed call from {name}",
+  "intercomMissedFrom": "Llamada perdida de {name}",
   "@intercomMissedFrom": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1150,7 +1150,7 @@
       }
     }
   },
-  "intercomRangFor": "Rang for {seconds} seconds.",
+  "intercomRangFor": "Sonó durante {seconds} segundos.",
   "@intercomRangFor": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1167,7 +1167,7 @@
       }
     }
   },
-  "intercomCallBack": "Call back",
+  "intercomCallBack": "Devolver llamada",
   "@intercomCallBack": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1178,7 +1178,7 @@
       ]
     }
   },
-  "intercomDeclined": "Declined",
+  "intercomDeclined": "Rechazada",
   "@intercomDeclined": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1189,7 +1189,7 @@
       ]
     }
   },
-  "intercomBusy": "Busy",
+  "intercomBusy": "Ocupado",
   "@intercomBusy": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1200,7 +1200,7 @@
       ]
     }
   },
-  "intercomPeerOff": "Its intercom is off",
+  "intercomPeerOff": "Su intercomunicador está desactivado",
   "@intercomPeerOff": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1211,7 +1211,7 @@
       ]
     }
   },
-  "intercomPeerKey": "Different intercom key",
+  "intercomPeerKey": "Clave de intercomunicador diferente",
   "@intercomPeerKey": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1222,7 +1222,7 @@
       ]
     }
   },
-  "intercomNoAnswer": "No answer",
+  "intercomNoAnswer": "Sin respuesta",
   "@intercomNoAnswer": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1233,7 +1233,7 @@
       ]
     }
   },
-  "intercomDidNotAnswer": "Did not answer",
+  "intercomDidNotAnswer": "No respondió",
   "@intercomDidNotAnswer": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1244,7 +1244,7 @@
       ]
     }
   },
-  "intercomVoiceFailed": "The voice link failed",
+  "intercomVoiceFailed": "Falló la conexión de voz",
   "@intercomVoiceFailed": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1255,7 +1255,7 @@
       ]
     }
   },
-  "intercomCancelled": "Cancelled",
+  "intercomCancelled": "Cancelada",
   "@intercomCancelled": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1266,7 +1266,7 @@
       ]
     }
   },
-  "intercomPageMic": "The page took the microphone",
+  "intercomPageMic": "La página tomó el micrófono",
   "@intercomPageMic": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1277,7 +1277,7 @@
       ]
     }
   },
-  "intercomNobody": "Nobody could take it",
+  "intercomNobody": "Nadie pudo recibirlo",
   "@intercomNobody": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1288,7 +1288,7 @@
       ]
     }
   },
-  "intercomDone": "Done",
+  "intercomDone": "Finalizado",
   "@intercomDone": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1300,7 +1300,7 @@
       ]
     }
   },
-  "intercomEnded": "Call ended",
+  "intercomEnded": "Llamada finalizada",
   "@intercomEnded": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1311,7 +1311,7 @@
       ]
     }
   },
-  "intercomAnnouncement": "Announcement",
+  "intercomAnnouncement": "Anuncio",
   "@intercomAnnouncement": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1323,7 +1323,7 @@
       ]
     }
   },
-  "intercomAnnouncingOne": "Announcing to 1 kiosk",
+  "intercomAnnouncingOne": "Anunciando a 1 kiosko",
   "@intercomAnnouncingOne": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1337,7 +1337,7 @@
       ]
     }
   },
-  "intercomAnnouncingMany": "Announcing to {count} kiosks",
+  "intercomAnnouncingMany": "Anunciando a {count} kioskos",
   "@intercomAnnouncingMany": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1357,7 +1357,7 @@
       }
     }
   },
-  "intercomIsCalling": "is calling",
+  "intercomIsCalling": "está llamando",
   "@intercomIsCalling": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1369,7 +1369,7 @@
     },
     "x-notes": "This phrase appears on its own line below the unchanged kiosk name."
   },
-  "intercomIsAnnouncing": "is announcing",
+  "intercomIsAnnouncing": "está anunciando",
   "@intercomIsAnnouncing": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1381,7 +1381,7 @@
     },
     "x-notes": "This phrase appears on its own line below the unchanged kiosk name."
   },
-  "intercomCalling": "Calling…",
+  "intercomCalling": "Llamando…",
   "@intercomCalling": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1392,7 +1392,7 @@
       ]
     }
   },
-  "intercomAnswersIn": "Answers in {seconds} s",
+  "intercomAnswersIn": "Responde en {seconds} s",
   "@intercomAnswersIn": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1409,7 +1409,7 @@
       }
     }
   },
-  "intercomRinging": "Ringing",
+  "intercomRinging": "Sonando",
   "@intercomRinging": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1420,7 +1420,7 @@
       ]
     }
   },
-  "intercomConnecting": "Connecting…",
+  "intercomConnecting": "Conectando…",
   "@intercomConnecting": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1431,7 +1431,7 @@
       ]
     }
   },
-  "intercomDoneDuration": "Done, {duration}",
+  "intercomDoneDuration": "Finalizado, {duration}",
   "@intercomDoneDuration": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1448,7 +1448,7 @@
       }
     }
   },
-  "intercomEndedDuration": "Call ended, {duration}",
+  "intercomEndedDuration": "Llamada finalizada, {duration}",
   "@intercomEndedDuration": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1465,7 +1465,7 @@
       }
     }
   },
-  "intercomDecline": "Decline",
+  "intercomDecline": "Rechazar",
   "@intercomDecline": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1476,7 +1476,7 @@
       ]
     }
   },
-  "intercomAnswer": "Answer",
+  "intercomAnswer": "Responder",
   "@intercomAnswer": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1487,7 +1487,7 @@
       ]
     }
   },
-  "intercomEveryKiosk": "Every kiosk",
+  "intercomEveryKiosk": "Todos los kioskos",
   "@intercomEveryKiosk": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1498,7 +1498,7 @@
       ]
     }
   },
-  "intercomStop": "Stop",
+  "intercomStop": "Detener",
   "@intercomStop": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1509,7 +1509,7 @@
       ]
     }
   },
-  "intercomHearsYou": "{name} hears you",
+  "intercomHearsYou": "{name} te escucha",
   "@intercomHearsYou": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1526,7 +1526,7 @@
       }
     }
   },
-  "intercomAllHearYou": "Every kiosk hears you",
+  "intercomAllHearYou": "Todos los kioskos te escuchan",
   "@intercomAllHearYou": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1537,7 +1537,7 @@
       ]
     }
   },
-  "intercomHoldHelp": "Hold to talk, let go to listen",
+  "intercomHoldHelp": "Mantén pulsado para hablar y suelta para escuchar",
   "@intercomHoldHelp": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1548,7 +1548,7 @@
       ]
     }
   },
-  "intercomMuted": "Muted",
+  "intercomMuted": "Silenciado",
   "@intercomMuted": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1559,7 +1559,7 @@
       ]
     }
   },
-  "intercomMute": "Mute",
+  "intercomMute": "Silenciar",
   "@intercomMute": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1570,7 +1570,7 @@
       ]
     }
   },
-  "intercomEnd": "End",
+  "intercomEnd": "Finalizar",
   "@intercomEnd": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1581,7 +1581,7 @@
       ]
     }
   },
-  "intercomReply": "Reply",
+  "intercomReply": "Responder",
   "@intercomReply": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1592,7 +1592,7 @@
       ]
     }
   },
-  "intercomDismiss": "Dismiss",
+  "intercomDismiss": "Cerrar",
   "@intercomDismiss": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1604,7 +1604,7 @@
       ]
     }
   },
-  "intercomCallAgain": "Call again",
+  "intercomCallAgain": "Volver a llamar",
   "@intercomCallAgain": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1615,7 +1615,7 @@
       ]
     }
   },
-  "intercomDashboardMic": "The dashboard holds the microphone, listening only.",
+  "intercomDashboardMic": "El panel de control está usando el micrófono. Solo puedes escuchar.",
   "@intercomDashboardMic": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1626,7 +1626,7 @@
       ]
     }
   },
-  "intercomMicDenied": "Microphone not granted, listening only.",
+  "intercomMicDenied": "No se concedió acceso al micrófono. Solo puedes escuchar.",
   "@intercomMicDenied": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1637,7 +1637,7 @@
       ]
     }
   },
-  "intercomHoldTalk": "Hold to talk",
+  "intercomHoldTalk": "Mantén pulsado para hablar",
   "@intercomHoldTalk": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1648,7 +1648,7 @@
       ]
     }
   },
-  "intercomPlaying": "Playing",
+  "intercomPlaying": "Reproduciendo",
   "@intercomPlaying": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1660,7 +1660,7 @@
       ]
     }
   },
-  "intercomAKiosk": "a kiosk",
+  "intercomAKiosk": "un kiosko",
   "@intercomAKiosk": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1670,7 +1670,7 @@
       ]
     }
   },
-  "intercomCallingName": "Calling {name}",
+  "intercomCallingName": "Llamando a {name}",
   "@intercomCallingName": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1686,7 +1686,7 @@
       }
     }
   },
-  "intercomNameCalling": "{name} is calling",
+  "intercomNameCalling": "{name} está llamando",
   "@intercomNameCalling": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1702,7 +1702,7 @@
       }
     }
   },
-  "intercomInCallName": "In a call with {name}",
+  "intercomInCallName": "En una llamada con {name}",
   "@intercomInCallName": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1718,7 +1718,7 @@
       }
     }
   },
-  "intercomNameAnnouncing": "{name} is announcing",
+  "intercomNameAnnouncing": "{name} está anunciando",
   "@intercomNameAnnouncing": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1750,7 +1750,7 @@
       }
     }
   },
-  "intercomEndCall": "End call",
+  "intercomEndCall": "Finalizar llamada",
   "@intercomEndCall": {
     "context": "Intercom call controls",
     "description": "Label or guidance in this section.",
@@ -1760,7 +1760,7 @@
       ]
     }
   },
-  "intercomCallFailed": "Could not call",
+  "intercomCallFailed": "No se pudo llamar",
   "@intercomCallFailed": {
     "context": "Intercom command errors",
     "description": "Label or guidance in this section.",
@@ -1775,7 +1775,7 @@
       ]
     }
   },
-  "intercomKeyFailed": "Could not change the key",
+  "intercomKeyFailed": "No se pudo cambiar la clave",
   "@intercomKeyFailed": {
     "context": "Intercom command errors",
     "description": "Label or guidance in this section.",
@@ -1790,7 +1790,7 @@
       ]
     }
   },
-  "intercomBroadcastFailed": "Could not talk to everyone",
+  "intercomBroadcastFailed": "No se pudo hablar a todos",
   "@intercomBroadcastFailed": {
     "context": "Intercom command errors",
     "description": "Label or guidance in this section.",
@@ -1805,7 +1805,7 @@
       ]
     }
   },
-  "intercomDeviceNoAnswer": "The device did not answer.",
+  "intercomDeviceNoAnswer": "El dispositivo no respondió.",
   "@intercomDeviceNoAnswer": {
     "context": "Intercom command errors",
     "description": "Label or guidance in this section.",
@@ -1820,7 +1820,7 @@
       ]
     }
   },
-  "intercomUnknownKiosk": "unknown kiosk",
+  "intercomUnknownKiosk": "kiosko desconocido",
   "@intercomUnknownKiosk": {
     "context": "Intercom command errors",
     "description": "Label or guidance in this section.",
@@ -1835,7 +1835,7 @@
       ]
     }
   },
-  "intercomNothingRinging": "nothing is ringing",
+  "intercomNothingRinging": "no hay ninguna llamada sonando",
   "@intercomNothingRinging": {
     "context": "Intercom command errors",
     "description": "Label or guidance in this section.",
@@ -1850,7 +1850,7 @@
       ]
     }
   },
-  "intercomNoCall": "no call",
+  "intercomNoCall": "no hay ninguna llamada",
   "@intercomNoCall": {
     "context": "Intercom command errors",
     "description": "Label or guidance in this section.",
@@ -1865,7 +1865,7 @@
       ]
     }
   },
-  "intercomDisabled": "intercom is off",
+  "intercomDisabled": "el intercomunicador está desactivado",
   "@intercomDisabled": {
     "context": "Intercom command errors",
     "description": "Label or guidance in this section.",
@@ -1880,7 +1880,7 @@
       ]
     }
   },
-  "intercomNeedsRemote": "needs the remote admin",
+  "intercomNeedsRemote": "necesita la administración remota",
   "@intercomNeedsRemote": {
     "context": "Intercom command errors",
     "description": "Label or guidance in this section.",
@@ -1895,7 +1895,7 @@
       ]
     }
   },
-  "intercomNeedsDiscovery": "the intercom needs the remote admin and Find other kiosks",
+  "intercomNeedsDiscovery": "el intercomunicador necesita la administración remota y Buscar otros kioskos",
   "@intercomNeedsDiscovery": {
     "context": "Intercom command errors",
     "description": "Label or guidance in this section.",
@@ -1910,7 +1910,7 @@
       ]
     }
   },
-  "intercomAlreadyCalling": "already in a call",
+  "intercomAlreadyCalling": "ya hay una llamada en curso",
   "@intercomAlreadyCalling": {
     "context": "Intercom command errors",
     "description": "Label or guidance in this section.",
@@ -1925,7 +1925,7 @@
       ]
     }
   },
-  "intercomNoReadyError": "no kiosk is ready",
+  "intercomNoReadyError": "no hay kioskos listos",
   "@intercomNoReadyError": {
     "context": "Intercom command errors",
     "description": "Label or guidance in this section.",
@@ -1940,7 +1940,7 @@
       ]
     }
   },
-  "intercomKeyLength": "a key is at least 16 characters",
+  "intercomKeyLength": "la clave debe tener al menos 16 caracteres",
   "@intercomKeyLength": {
     "context": "Intercom command errors",
     "description": "Label or guidance in this section.",
@@ -1955,7 +1955,7 @@
       ]
     }
   },
-  "intercomMicHeld": "the page holds the microphone",
+  "intercomMicHeld": "la página está usando el micrófono",
   "@intercomMicHeld": {
     "context": "Intercom command errors",
     "description": "Label or guidance in this section.",
@@ -1970,7 +1970,7 @@
       ]
     }
   },
-  "intercomMicPermission": "microphone not granted",
+  "intercomMicPermission": "no se concedió acceso al micrófono",
   "@intercomMicPermission": {
     "context": "Intercom command errors",
     "description": "Label or guidance in this section.",
@@ -1985,7 +1985,7 @@
       ]
     }
   },
-  "intercomCallerNoAnswer": "the caller did not answer",
+  "intercomCallerNoAnswer": "el kiosko que llama no respondió",
   "@intercomCallerNoAnswer": {
     "context": "Intercom command errors",
     "description": "Label or guidance in this section.",
@@ -2000,7 +2000,7 @@
       ]
     }
   },
-  "intercomMissedcall": "Missed call",
+  "intercomMissedcall": "Llamada perdida",
   "@intercomMissedcall": {
     "context": "Intercom command errors",
     "description": "Label or guidance in this section.",
@@ -2015,7 +2015,7 @@
       ]
     }
   },
-  "intercomListening": "Listening",
+  "intercomListening": "Escuchando",
   "@intercomListening": {
     "context": "Intercom command errors",
     "description": "Label or guidance in this section.",
@@ -2030,7 +2030,7 @@
       ]
     }
   },
-  "intercomAnnouncementsoff": "Announcements off",
+  "intercomAnnouncementsoff": "Anuncios desactivados",
   "@intercomAnnouncementsoff": {
     "context": "Intercom command errors",
     "description": "Label or guidance in this section.",
@@ -11687,7 +11687,7 @@
       ]
     }
   },
-  "settingIntercomAnswerModeTitle": "Answer mode",
+  "settingIntercomAnswerModeTitle": "Modo de respuesta",
   "@settingIntercomAnswerModeTitle": {
     "context": "Settings > Intercom > Answer",
     "description": "Setting label.",
@@ -11700,7 +11700,7 @@
       ]
     }
   },
-  "settingIntercomAnswerModeDescription": "Ring asks on the screen. Answer automatically opens the call after a chime.",
+  "settingIntercomAnswerModeDescription": "Sonar pide que respondas en la pantalla. Responder automáticamente abre la llamada después de un tono.",
   "@settingIntercomAnswerModeDescription": {
     "context": "Settings > Intercom > Answer",
     "description": "Help below this setting.",
@@ -11713,7 +11713,7 @@
       ]
     }
   },
-  "settingIntercomRingSecondsTitle": "Ring for",
+  "settingIntercomRingSecondsTitle": "Duración del timbre",
   "@settingIntercomRingSecondsTitle": {
     "context": "Settings > Intercom > Answer",
     "description": "Setting label.",
@@ -11726,7 +11726,7 @@
       ]
     }
   },
-  "settingIntercomRingSecondsDescription": "How long a call rings before it counts as missed.",
+  "settingIntercomRingSecondsDescription": "Cuánto tiempo suena una llamada antes de marcarla como perdida.",
   "@settingIntercomRingSecondsDescription": {
     "context": "Settings > Intercom > Answer",
     "description": "Help below this setting.",
@@ -11739,7 +11739,7 @@
       ]
     }
   },
-  "settingIntercomRingSoundTitle": "Ring sound",
+  "settingIntercomRingSoundTitle": "Sonido del timbre",
   "@settingIntercomRingSoundTitle": {
     "context": "Settings > Intercom > Answer",
     "description": "Setting label.",
@@ -11752,7 +11752,7 @@
       ]
     }
   },
-  "settingIntercomRingSoundDescription": "Plays at the notification volume.",
+  "settingIntercomRingSoundDescription": "Se reproduce al volumen de las notificaciones.",
   "@settingIntercomRingSoundDescription": {
     "context": "Settings > Intercom > Answer",
     "description": "Help below this setting.",
@@ -11765,7 +11765,7 @@
       ]
     }
   },
-  "settingIntercomAcceptAnnouncementsTitle": "Accept announcements",
+  "settingIntercomAcceptAnnouncementsTitle": "Aceptar anuncios",
   "@settingIntercomAcceptAnnouncementsTitle": {
     "context": "Settings > Intercom > Answer",
     "description": "Setting label.",
@@ -11778,7 +11778,7 @@
       ]
     }
   },
-  "settingIntercomAcceptAnnouncementsDescription": "Play Announce to all from the other kiosks.",
+  "settingIntercomAcceptAnnouncementsDescription": "Reproduce los anuncios enviados a todos desde otros kioskos.",
   "@settingIntercomAcceptAnnouncementsDescription": {
     "context": "Settings > Intercom > Answer",
     "description": "Help below this setting.",
@@ -11791,7 +11791,7 @@
       ]
     }
   },
-  "intercomOptionAnswerRing": "Ring",
+  "intercomOptionAnswerRing": "Sonar",
   "@intercomOptionAnswerRing": {
     "context": "Settings > Intercom > Answer",
     "description": "Visible option. Its stored value stays unchanged.",
@@ -11804,7 +11804,7 @@
       ]
     }
   },
-  "intercomOptionAnswerAuto": "Answer automatically",
+  "intercomOptionAnswerAuto": "Responder automáticamente",
   "@intercomOptionAnswerAuto": {
     "context": "Settings > Intercom > Answer",
     "description": "Visible option. Its stored value stays unchanged.",
@@ -11817,7 +11817,7 @@
       ]
     }
   },
-  "intercomOptionAnswerDnd": "Do not disturb",
+  "intercomOptionAnswerDnd": "No molestar",
   "@intercomOptionAnswerDnd": {
     "context": "Settings > Intercom > Answer",
     "description": "Visible option. Its stored value stays unchanged.",
@@ -11830,7 +11830,7 @@
       ]
     }
   },
-  "intercomOptionAnswer15": "15 seconds",
+  "intercomOptionAnswer15": "15 segundos",
   "@intercomOptionAnswer15": {
     "context": "Settings > Intercom > Answer",
     "description": "Visible option. Its stored value stays unchanged.",
@@ -11843,7 +11843,7 @@
       ]
     }
   },
-  "intercomOptionAnswer30": "30 seconds",
+  "intercomOptionAnswer30": "30 segundos",
   "@intercomOptionAnswer30": {
     "context": "Settings > Intercom > Answer",
     "description": "Visible option. Its stored value stays unchanged.",
@@ -11856,7 +11856,7 @@
       ]
     }
   },
-  "intercomOptionAnswer45": "45 seconds",
+  "intercomOptionAnswer45": "45 segundos",
   "@intercomOptionAnswer45": {
     "context": "Settings > Intercom > Answer",
     "description": "Visible option. Its stored value stays unchanged.",
@@ -11869,7 +11869,7 @@
       ]
     }
   },
-  "intercomOptionAnswer60": "60 seconds",
+  "intercomOptionAnswer60": "60 segundos",
   "@intercomOptionAnswer60": {
     "context": "Settings > Intercom > Answer",
     "description": "Visible option. Its stored value stays unchanged.",
@@ -11882,7 +11882,7 @@
       ]
     }
   },
-  "intercomAnswerSection": "Answer",
+  "intercomAnswerSection": "Respuesta",
   "@intercomAnswerSection": {
     "context": "Settings > Intercom > Answer",
     "description": "Section heading.",
@@ -11895,7 +11895,7 @@
       ]
     }
   },
-  "settingIntercomEnabledTitle": "Enable intercom",
+  "settingIntercomEnabledTitle": "Activar intercomunicador",
   "@settingIntercomEnabledTitle": {
     "context": "Settings > Intercom",
     "description": "Setting label.",
@@ -11908,7 +11908,7 @@
       ]
     }
   },
-  "settingIntercomEnabledDescription": "Call the other kiosks on this network and take their calls.",
+  "settingIntercomEnabledDescription": "Llama a los otros kioskos de esta red y recibe sus llamadas.",
   "@settingIntercomEnabledDescription": {
     "context": "Settings > Intercom",
     "description": "Help below this setting.",
@@ -11921,7 +11921,7 @@
       ]
     }
   },
-  "settingIntercomKeyTitle": "Intercom key",
+  "settingIntercomKeyTitle": "Clave del intercomunicador",
   "@settingIntercomKeyTitle": {
     "context": "Settings > Intercom",
     "description": "Setting label.",
@@ -11934,7 +11934,7 @@
       ]
     }
   },
-  "settingIntercomKeyDescription": "Kiosks with the same key can call each other. Fleet Management can sync it.",
+  "settingIntercomKeyDescription": "Los kioskos con la misma clave pueden llamarse entre sí. La gestión de flota puede sincronizarla.",
   "@settingIntercomKeyDescription": {
     "context": "Settings > Intercom",
     "description": "Help below this setting.",
@@ -11947,7 +11947,7 @@
       ]
     }
   },
-  "settingIntercomKeyPlaceholder": "Made when the intercom is enabled",
+  "settingIntercomKeyPlaceholder": "Se crea al activar el intercomunicador",
   "@settingIntercomKeyPlaceholder": {
     "context": "Settings > Intercom",
     "description": "Placeholder for the key before the intercom is enabled.",
@@ -11960,7 +11960,7 @@
       ]
     }
   },
-  "settingIntercomMenuTitle": "Show in the kiosk menu",
+  "settingIntercomMenuTitle": "Mostrar en el menú del kiosko",
   "@settingIntercomMenuTitle": {
     "context": "Settings > Intercom",
     "description": "Setting label.",
@@ -11973,7 +11973,7 @@
       ]
     }
   },
-  "settingIntercomMenuDescription": "Add an Intercom entry to the kiosk menu.",
+  "settingIntercomMenuDescription": "Añade la opción Intercomunicador al menú del kiosko.",
   "@settingIntercomMenuDescription": {
     "context": "Settings > Intercom",
     "description": "Help below this setting.",
@@ -11986,7 +11986,7 @@
       ]
     }
   },
-  "intercomNeedsAdmin": "The intercom needs the remote admin",
+  "intercomNeedsAdmin": "El intercomunicador necesita la administración remota",
   "@intercomNeedsAdmin": {
     "context": "Settings > Intercom",
     "description": "Label or guidance in this section.",
@@ -11999,7 +11999,7 @@
       ]
     }
   },
-  "intercomAdminHelp": "Kiosks find and reach each other through it. Turn on Remote management and Find other kiosks under Device, then come back.",
+  "intercomAdminHelp": "Los kioskos se encuentran y se conectan a través de ella. Activa Administración remota y Buscar otros kioskos en Dispositivo y luego vuelve aquí.",
   "@intercomAdminHelp": {
     "context": "Settings > Intercom",
     "description": "Label or guidance in this section.",
@@ -12012,7 +12012,7 @@
       ]
     }
   },
-  "intercomChangeKey": "Change key",
+  "intercomChangeKey": "Cambiar clave",
   "@intercomChangeKey": {
     "context": "Settings > Intercom",
     "description": "Label or guidance in this section.",
@@ -12025,7 +12025,7 @@
       ]
     }
   },
-  "intercomChangeKeyHelp": "Paste the key from another kiosk, or make a new one.",
+  "intercomChangeKeyHelp": "Pega la clave de otro kiosko o crea una nueva.",
   "@intercomChangeKeyHelp": {
     "context": "Settings > Intercom",
     "description": "Label or guidance in this section.",
@@ -12038,7 +12038,7 @@
       ]
     }
   },
-  "intercomChange": "Change",
+  "intercomChange": "Cambiar",
   "@intercomChange": {
     "context": "Settings > Intercom",
     "description": "Label or guidance in this section.",
@@ -12051,7 +12051,7 @@
       ]
     }
   },
-  "intercomKeyWarning": "Kiosks with this key can call each other. A new key cuts this kiosk off from the others until they get it too.",
+  "intercomKeyWarning": "Los kioskos con esta clave pueden llamarse entre sí. Una clave nueva desconecta este kiosko de los demás hasta que ellos también la tengan.",
   "@intercomKeyWarning": {
     "context": "Settings > Intercom",
     "description": "Label or guidance in this section.",
@@ -12064,7 +12064,7 @@
       ]
     }
   },
-  "intercomRegenerate": "Regenerate",
+  "intercomRegenerate": "Generar de nuevo",
   "@intercomRegenerate": {
     "context": "Settings > Intercom",
     "description": "Label or guidance in this section.",
@@ -12077,7 +12077,7 @@
       ]
     }
   },
-  "intercomKeyChanged": "Key changed",
+  "intercomKeyChanged": "Clave cambiada",
   "@intercomKeyChanged": {
     "context": "Settings > Intercom",
     "description": "Label or guidance in this section.",
@@ -12087,7 +12087,7 @@
       ]
     }
   },
-  "intercomNotSet": "Not set",
+  "intercomNotSet": "Sin configurar",
   "@intercomNotSet": {
     "context": "Settings > Intercom",
     "description": "Label or guidance in this section.",
@@ -12100,7 +12100,7 @@
       ]
     }
   },
-  "intercomOpen": "Open",
+  "intercomOpen": "Abrir",
   "@intercomOpen": {
     "context": "Settings > Intercom",
     "description": "Action or validation message.",
@@ -12110,7 +12110,7 @@
       ]
     }
   },
-  "intercomKiosks": "Kiosks",
+  "intercomKiosks": "Kioskos",
   "@intercomKiosks": {
     "context": "Settings > Intercom > Kiosks",
     "description": "Label or guidance in this section.",
@@ -12123,7 +12123,7 @@
       ]
     }
   },
-  "intercomRosterHelp": "Kiosks discovered on this network. A kiosk is ready once its intercom is on with the same key.",
+  "intercomRosterHelp": "Kioskos encontrados en esta red. Un kiosko está listo cuando su intercomunicador está activado y usa la misma clave.",
   "@intercomRosterHelp": {
     "context": "Settings > Intercom > Kiosks",
     "description": "Label or guidance in this section.",
@@ -12136,7 +12136,7 @@
       ]
     }
   },
-  "intercomNoOther": "No other kiosk heard",
+  "intercomNoOther": "No se encontró otro kiosko",
   "@intercomNoOther": {
     "context": "Settings > Intercom > Kiosks",
     "description": "Label or guidance in this section.",
@@ -12146,7 +12146,7 @@
       ]
     }
   },
-  "intercomRosterDeviceHelp": "Kiosks with Remote management and Find other kiosks on show up here.",
+  "intercomRosterDeviceHelp": "Aquí aparecen los kioskos que tienen activadas Administración remota y Buscar otros kioskos.",
   "@intercomRosterDeviceHelp": {
     "context": "Settings > Intercom > Kiosks",
     "description": "Label or guidance in this section.",
@@ -12156,7 +12156,7 @@
       ]
     }
   },
-  "intercomNoneHeard": "No kiosks heard",
+  "intercomNoneHeard": "No se encontraron kioskos",
   "@intercomNoneHeard": {
     "context": "Settings > Intercom > Kiosks",
     "description": "Label or guidance in this section.",
@@ -12166,7 +12166,7 @@
       ]
     }
   },
-  "intercomRosterRemoteHelp": "A kiosk shows up once its remote admin is on and it shares this network.",
+  "intercomRosterRemoteHelp": "Un kiosko aparece cuando su administración remota está activada y está en esta red.",
   "@intercomRosterRemoteHelp": {
     "context": "Settings > Intercom > Kiosks",
     "description": "Label or guidance in this section.",
@@ -12176,7 +12176,7 @@
       ]
     }
   },
-  "intercomReady": "Ready",
+  "intercomReady": "Listo",
   "@intercomReady": {
     "context": "Settings > Intercom > Kiosks",
     "description": "Label or guidance in this section.",
@@ -12189,7 +12189,7 @@
       ]
     }
   },
-  "intercomOff": "Intercom off",
+  "intercomOff": "Intercomunicador desactivado",
   "@intercomOff": {
     "context": "Settings > Intercom > Kiosks",
     "description": "Label or guidance in this section.",
@@ -12202,7 +12202,7 @@
       ]
     }
   },
-  "intercomDifferentKey": "Different key",
+  "intercomDifferentKey": "Clave diferente",
   "@intercomDifferentKey": {
     "context": "Settings > Intercom > Kiosks",
     "description": "Label or guidance in this section.",
@@ -12215,7 +12215,7 @@
       ]
     }
   },
-  "intercomUnreachable": "Unreachable",
+  "intercomUnreachable": "No accesible",
   "@intercomUnreachable": {
     "context": "Settings > Intercom > Kiosks",
     "description": "Label or guidance in this section.",
@@ -12228,7 +12228,7 @@
       ]
     }
   },
-  "intercomOffline": "Offline",
+  "intercomOffline": "Desconectado",
   "@intercomOffline": {
     "context": "Settings > Intercom > Kiosks",
     "description": "Label or guidance in this section.",
@@ -12241,7 +12241,7 @@
       ]
     }
   },
-  "intercomChecking": "Checking…",
+  "intercomChecking": "Comprobando…",
   "@intercomChecking": {
     "context": "Settings > Intercom > Kiosks",
     "description": "Label or guidance in this section.",
@@ -12254,7 +12254,7 @@
       ]
     }
   },
-  "settingIntercomTalkModeTitle": "Talk mode",
+  "settingIntercomTalkModeTitle": "Modo de conversación",
   "@settingIntercomTalkModeTitle": {
     "context": "Settings > Intercom > Talk",
     "description": "Setting label.",
@@ -12267,7 +12267,7 @@
       ]
     }
   },
-  "settingIntercomTalkModeDescription": "Push to talk sends while the button is held. Hands free keeps the microphone open for the whole call.",
+  "settingIntercomTalkModeDescription": "Pulsar para hablar envía tu voz mientras mantienes pulsado el botón. Manos libres mantiene abierto el micrófono durante toda la llamada.",
   "@settingIntercomTalkModeDescription": {
     "context": "Settings > Intercom > Talk",
     "description": "Help below this setting.",
@@ -12280,7 +12280,7 @@
       ]
     }
   },
-  "intercomOptionTalkPtt": "Push to talk",
+  "intercomOptionTalkPtt": "Pulsar para hablar",
   "@intercomOptionTalkPtt": {
     "context": "Settings > Intercom > Talk",
     "description": "Visible option. Its stored value stays unchanged.",
@@ -12293,7 +12293,7 @@
       ]
     }
   },
-  "intercomOptionTalkHandsfree": "Hands free",
+  "intercomOptionTalkHandsfree": "Manos libres",
   "@intercomOptionTalkHandsfree": {
     "context": "Settings > Intercom > Talk",
     "description": "Visible option. Its stored value stays unchanged.",
@@ -12306,7 +12306,7 @@
       ]
     }
   },
-  "intercomTalkSection": "Talk",
+  "intercomTalkSection": "Conversación",
   "@intercomTalkSection": {
     "context": "Settings > Intercom > Talk",
     "description": "Section heading.",
@@ -24291,7 +24291,7 @@
     "context": "First-time setup:Welcome",
     "description": "Browser password field label for an optional replacement."
   },
-  "intercomBuiltinRing": "Built-in ring",
+  "intercomBuiltinRing": "Timbre integrado",
   "@intercomBuiltinRing": {
     "context": "Shared sound file picker",
     "description": "Label or guidance in this section.",
@@ -24308,7 +24308,7 @@
       ]
     }
   },
-  "intercomBuiltinChime": "Built-in chime",
+  "intercomBuiltinChime": "Tono integrado",
   "@intercomBuiltinChime": {
     "context": "Shared sound file picker",
     "description": "Label or guidance in this section.",
@@ -24325,7 +24325,7 @@
       ]
     }
   },
-  "intercomMissingFile": "{file} (missing)",
+  "intercomMissingFile": "{file} (no encontrado)",
   "@intercomMissingFile": {
     "context": "Shared sound file picker",
     "description": "Label or guidance in this section.",
@@ -24348,7 +24348,7 @@
       }
     }
   },
-  "intercomAddSound": "Add a sound",
+  "intercomAddSound": "Añadir un sonido",
   "@intercomAddSound": {
     "context": "Shared sound file picker",
     "description": "Label or guidance in this section.",
@@ -24365,7 +24365,7 @@
       ]
     }
   },
-  "intercomCopySoundHelp": "Copy a sound file from this device into the sounds folder.",
+  "intercomCopySoundHelp": "Copia un archivo de sonido de este dispositivo a la carpeta de sonidos.",
   "@intercomCopySoundHelp": {
     "context": "Shared sound file picker",
     "description": "Label or guidance in this section.",
@@ -24377,7 +24377,7 @@
       ]
     }
   },
-  "intercomUploadSoundHelp": "Upload a sound file from this computer into the sounds folder.",
+  "intercomUploadSoundHelp": "Sube un archivo de sonido de esta computadora a la carpeta de sonidos.",
   "@intercomUploadSoundHelp": {
     "context": "Shared sound file picker",
     "description": "Label or guidance in this section.",
@@ -24389,7 +24389,7 @@
       ]
     }
   },
-  "intercomUpload": "Upload",
+  "intercomUpload": "Subir",
   "@intercomUpload": {
     "context": "Shared sound file picker",
     "description": "Label or guidance in this section.",
@@ -24401,7 +24401,7 @@
       ]
     }
   },
-  "intercomUploading": "Uploading…",
+  "intercomUploading": "Subiendo…",
   "@intercomUploading": {
     "context": "Shared sound file picker",
     "description": "Label or guidance in this section.",
@@ -24413,7 +24413,7 @@
       ]
     }
   },
-  "intercomUnsupportedSound": "Not a supported sound",
+  "intercomUnsupportedSound": "Sonido no compatible",
   "@intercomUnsupportedSound": {
     "context": "Shared sound file picker",
     "description": "Label or guidance in this section.",
@@ -24425,7 +24425,7 @@
       ]
     }
   },
-  "intercomChooseSound": "Not a supported sound: pick an MP3, OGG, WAV, FLAC, M4A or AAC file.",
+  "intercomChooseSound": "Sonido no compatible: elige un archivo MP3, OGG, WAV, FLAC, M4A o AAC.",
   "@intercomChooseSound": {
     "context": "Shared sound file picker",
     "description": "Label or guidance in this section.",
@@ -24437,7 +24437,7 @@
       ]
     }
   },
-  "intercomCopyFailed": "Could not copy the file",
+  "intercomCopyFailed": "No se pudo copiar el archivo",
   "@intercomCopyFailed": {
     "context": "Shared sound file picker",
     "description": "Label or guidance in this section.",
@@ -24449,7 +24449,7 @@
       ]
     }
   },
-  "intercomUploadFailed": "Upload failed: {error}",
+  "intercomUploadFailed": "No se pudo subir: {error}",
   "@intercomUploadFailed": {
     "context": "Shared sound file picker",
     "description": "Label or guidance in this section.",
@@ -24467,7 +24467,7 @@
       }
     }
   },
-  "intercomSaveFailed": "Not saved: {error}",
+  "intercomSaveFailed": "No se guardó: {error}",
   "@intercomSaveFailed": {
     "context": "Shared sound file picker",
     "description": "Label or guidance in this section.",
@@ -24485,7 +24485,7 @@
       }
     }
   },
-  "intercomSoundFilename": "Enter a file name, not a path.",
+  "intercomSoundFilename": "Introduce un nombre de archivo, no una ruta.",
   "@intercomSoundFilename": {
     "context": "Shared sound file picker",
     "description": "Action or validation message.",
@@ -24502,7 +24502,7 @@
       ]
     }
   },
-  "intercomSoundFormats": "Pick an MP3, OGG, WAV, FLAC, M4A or AAC file.",
+  "intercomSoundFormats": "Elige un archivo MP3, OGG, WAV, FLAC, M4A o AAC.",
   "@intercomSoundFormats": {
     "context": "Shared sound file picker",
     "description": "Action or validation message.",

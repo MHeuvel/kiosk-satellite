@@ -1,0 +1,231 @@
+{
+  "@@locale": "en",
+  "intercomBuiltinRing": "Built-in ring",
+  "@intercomBuiltinRing": {
+    "context": "Shared sound file picker",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer > Ring sound",
+        "Settings > ESPHome > Notifications > Notification sound",
+        "Settings > ESPHome > Announcements > Chime sound"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer > Ring sound",
+        "ESPHome > Notifications > Notification sound",
+        "ESPHome > Announcements > Chime sound"
+      ]
+    }
+  },
+  "intercomBuiltinChime": "Built-in chime",
+  "@intercomBuiltinChime": {
+    "context": "Shared sound file picker",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer > Ring sound",
+        "Settings > ESPHome > Notifications > Notification sound",
+        "Settings > ESPHome > Announcements > Chime sound"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer > Ring sound",
+        "ESPHome > Notifications > Notification sound",
+        "ESPHome > Announcements > Chime sound"
+      ]
+    }
+  },
+  "intercomMissingFile": "{file} (missing)",
+  "@intercomMissingFile": {
+    "context": "Shared sound file picker",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer > Ring sound",
+        "Settings > ESPHome > Notifications > Notification sound",
+        "Settings > ESPHome > Announcements > Chime sound"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer > Ring sound",
+        "ESPHome > Notifications > Notification sound",
+        "ESPHome > Announcements > Chime sound"
+      ]
+    },
+    "placeholders": {
+      "file": {
+        "type": "String",
+        "description": "Original filename. Keep unchanged."
+      }
+    }
+  },
+  "intercomAddSound": "Add a sound",
+  "@intercomAddSound": {
+    "context": "Shared sound file picker",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer > Ring sound",
+        "Settings > ESPHome > Notifications > Notification sound",
+        "Settings > ESPHome > Announcements > Chime sound"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer > Ring sound",
+        "ESPHome > Notifications > Notification sound",
+        "ESPHome > Announcements > Chime sound"
+      ]
+    }
+  },
+  "intercomCopySoundHelp": "Copy a sound file from this device into the sounds folder.",
+  "@intercomCopySoundHelp": {
+    "context": "Shared sound file picker",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer > Ring sound",
+        "Settings > ESPHome > Notifications > Notification sound",
+        "Settings > ESPHome > Announcements > Chime sound"
+      ]
+    }
+  },
+  "intercomUploadSoundHelp": "Upload a sound file from this computer into the sounds folder.",
+  "@intercomUploadSoundHelp": {
+    "context": "Shared sound file picker",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Intercom > Answer > Ring sound",
+        "ESPHome > Notifications > Notification sound",
+        "ESPHome > Announcements > Chime sound"
+      ]
+    }
+  },
+  "intercomUpload": "Upload",
+  "@intercomUpload": {
+    "context": "Shared sound file picker",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Intercom > Answer > Ring sound",
+        "ESPHome > Notifications > Notification sound",
+        "ESPHome > Announcements > Chime sound"
+      ]
+    }
+  },
+  "intercomUploading": "Uploading…",
+  "@intercomUploading": {
+    "context": "Shared sound file picker",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Intercom > Answer > Ring sound",
+        "ESPHome > Notifications > Notification sound",
+        "ESPHome > Announcements > Chime sound"
+      ]
+    }
+  },
+  "intercomUnsupportedSound": "Not a supported sound",
+  "@intercomUnsupportedSound": {
+    "context": "Shared sound file picker",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer > Ring sound",
+        "Settings > ESPHome > Notifications > Notification sound",
+        "Settings > ESPHome > Announcements > Chime sound"
+      ]
+    }
+  },
+  "intercomChooseSound": "Not a supported sound: pick an MP3, OGG, WAV, FLAC, M4A or AAC file.",
+  "@intercomChooseSound": {
+    "context": "Shared sound file picker",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Intercom > Answer > Ring sound",
+        "ESPHome > Notifications > Notification sound",
+        "ESPHome > Announcements > Chime sound"
+      ]
+    }
+  },
+  "intercomCopyFailed": "Could not copy the file",
+  "@intercomCopyFailed": {
+    "context": "Shared sound file picker",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer > Ring sound",
+        "Settings > ESPHome > Notifications > Notification sound",
+        "Settings > ESPHome > Announcements > Chime sound"
+      ]
+    }
+  },
+  "intercomUploadFailed": "Upload failed: {error}",
+  "@intercomUploadFailed": {
+    "context": "Shared sound file picker",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Intercom > Answer > Ring sound",
+        "ESPHome > Notifications > Notification sound",
+        "ESPHome > Announcements > Chime sound"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Technical error details. Keep unchanged."
+      }
+    }
+  },
+  "intercomSaveFailed": "Not saved: {error}",
+  "@intercomSaveFailed": {
+    "context": "Shared sound file picker",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Intercom > Answer > Ring sound",
+        "ESPHome > Notifications > Notification sound",
+        "ESPHome > Announcements > Chime sound"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Technical error details. Keep unchanged."
+      }
+    }
+  },
+  "intercomSoundFilename": "Enter a file name, not a path.",
+  "@intercomSoundFilename": {
+    "context": "Shared sound file picker",
+    "description": "Action or validation message.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer > Ring sound",
+        "Settings > ESPHome > Notifications > Notification sound",
+        "Settings > ESPHome > Announcements > Chime sound"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer > Ring sound",
+        "ESPHome > Notifications > Notification sound",
+        "ESPHome > Announcements > Chime sound"
+      ]
+    }
+  },
+  "intercomSoundFormats": "Pick an MP3, OGG, WAV, FLAC, M4A or AAC file.",
+  "@intercomSoundFormats": {
+    "context": "Shared sound file picker",
+    "description": "Action or validation message.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer > Ring sound",
+        "Settings > ESPHome > Notifications > Notification sound",
+        "Settings > ESPHome > Announcements > Chime sound"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer > Ring sound",
+        "ESPHome > Notifications > Notification sound",
+        "ESPHome > Announcements > Chime sound"
+      ]
+    }
+  }
+}

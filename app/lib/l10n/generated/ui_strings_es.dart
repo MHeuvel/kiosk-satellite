@@ -378,193 +378,196 @@ class UiStringsEs extends UiStrings {
   String get drawerNoReleaseNotes => 'No hay notas de la versión.';
 
   @override
-  String get intercomCall => 'Call';
+  String get intercomCall => 'Llamar';
 
   @override
-  String get intercomNoReady => 'No kiosk is ready.';
+  String get intercomNoReady => 'No hay kioskos listos.';
 
   @override
-  String get intercomOneReady => '1 kiosk is ready.';
+  String get intercomOneReady => 'Hay 1 kiosko listo.';
 
   @override
   String intercomManyReady(String count) {
-    return '$count kiosks are ready.';
+    return 'Hay $count kioskos listos.';
   }
 
   @override
-  String get intercomCallKiosk => 'Call a kiosk';
+  String get intercomCallKiosk => 'Llamar a un kiosko';
 
   @override
-  String get intercomAnnounceAll => 'Announce to all';
+  String get intercomAnnounceAll => 'Anunciar a todos';
 
   @override
-  String get intercomAnnounceHelp => 'Talk to every kiosk. One way only.';
+  String get intercomAnnounceHelp =>
+      'Habla a todos los kioskos. Solo tú puedes hablar.';
 
   @override
   String intercomMissedFrom(String name) {
-    return 'Missed call from $name';
+    return 'Llamada perdida de $name';
   }
 
   @override
   String intercomRangFor(String seconds) {
-    return 'Rang for $seconds seconds.';
+    return 'Sonó durante $seconds segundos.';
   }
 
   @override
-  String get intercomCallBack => 'Call back';
+  String get intercomCallBack => 'Devolver llamada';
 
   @override
-  String get intercomDeclined => 'Declined';
+  String get intercomDeclined => 'Rechazada';
 
   @override
-  String get intercomBusy => 'Busy';
+  String get intercomBusy => 'Ocupado';
 
   @override
-  String get intercomPeerOff => 'Its intercom is off';
+  String get intercomPeerOff => 'Su intercomunicador está desactivado';
 
   @override
-  String get intercomPeerKey => 'Different intercom key';
+  String get intercomPeerKey => 'Clave de intercomunicador diferente';
 
   @override
-  String get intercomNoAnswer => 'No answer';
+  String get intercomNoAnswer => 'Sin respuesta';
 
   @override
-  String get intercomDidNotAnswer => 'Did not answer';
+  String get intercomDidNotAnswer => 'No respondió';
 
   @override
-  String get intercomVoiceFailed => 'The voice link failed';
+  String get intercomVoiceFailed => 'Falló la conexión de voz';
 
   @override
-  String get intercomCancelled => 'Cancelled';
+  String get intercomCancelled => 'Cancelada';
 
   @override
-  String get intercomPageMic => 'The page took the microphone';
+  String get intercomPageMic => 'La página tomó el micrófono';
 
   @override
-  String get intercomNobody => 'Nobody could take it';
+  String get intercomNobody => 'Nadie pudo recibirlo';
 
   @override
-  String get intercomDone => 'Done';
+  String get intercomDone => 'Finalizado';
 
   @override
-  String get intercomEnded => 'Call ended';
+  String get intercomEnded => 'Llamada finalizada';
 
   @override
-  String get intercomAnnouncement => 'Announcement';
+  String get intercomAnnouncement => 'Anuncio';
 
   @override
-  String get intercomAnnouncingOne => 'Announcing to 1 kiosk';
+  String get intercomAnnouncingOne => 'Anunciando a 1 kiosko';
 
   @override
   String intercomAnnouncingMany(String count) {
-    return 'Announcing to $count kiosks';
+    return 'Anunciando a $count kioskos';
   }
 
   @override
-  String get intercomIsCalling => 'is calling';
+  String get intercomIsCalling => 'está llamando';
 
   @override
-  String get intercomIsAnnouncing => 'is announcing';
+  String get intercomIsAnnouncing => 'está anunciando';
 
   @override
-  String get intercomCalling => 'Calling…';
+  String get intercomCalling => 'Llamando…';
 
   @override
   String intercomAnswersIn(String seconds) {
-    return 'Answers in $seconds s';
+    return 'Responde en $seconds s';
   }
 
   @override
-  String get intercomRinging => 'Ringing';
+  String get intercomRinging => 'Sonando';
 
   @override
-  String get intercomConnecting => 'Connecting…';
+  String get intercomConnecting => 'Conectando…';
 
   @override
   String intercomDoneDuration(String duration) {
-    return 'Done, $duration';
+    return 'Finalizado, $duration';
   }
 
   @override
   String intercomEndedDuration(String duration) {
-    return 'Call ended, $duration';
+    return 'Llamada finalizada, $duration';
   }
 
   @override
-  String get intercomDecline => 'Decline';
+  String get intercomDecline => 'Rechazar';
 
   @override
-  String get intercomAnswer => 'Answer';
+  String get intercomAnswer => 'Responder';
 
   @override
-  String get intercomEveryKiosk => 'Every kiosk';
+  String get intercomEveryKiosk => 'Todos los kioskos';
 
   @override
-  String get intercomStop => 'Stop';
+  String get intercomStop => 'Detener';
 
   @override
   String intercomHearsYou(String name) {
-    return '$name hears you';
+    return '$name te escucha';
   }
 
   @override
-  String get intercomAllHearYou => 'Every kiosk hears you';
+  String get intercomAllHearYou => 'Todos los kioskos te escuchan';
 
   @override
-  String get intercomHoldHelp => 'Hold to talk, let go to listen';
+  String get intercomHoldHelp =>
+      'Mantén pulsado para hablar y suelta para escuchar';
 
   @override
-  String get intercomMuted => 'Muted';
+  String get intercomMuted => 'Silenciado';
 
   @override
-  String get intercomMute => 'Mute';
+  String get intercomMute => 'Silenciar';
 
   @override
-  String get intercomEnd => 'End';
+  String get intercomEnd => 'Finalizar';
 
   @override
-  String get intercomReply => 'Reply';
+  String get intercomReply => 'Responder';
 
   @override
-  String get intercomDismiss => 'Dismiss';
+  String get intercomDismiss => 'Cerrar';
 
   @override
-  String get intercomCallAgain => 'Call again';
+  String get intercomCallAgain => 'Volver a llamar';
 
   @override
   String get intercomDashboardMic =>
-      'The dashboard holds the microphone, listening only.';
+      'El panel de control está usando el micrófono. Solo puedes escuchar.';
 
   @override
-  String get intercomMicDenied => 'Microphone not granted, listening only.';
+  String get intercomMicDenied =>
+      'No se concedió acceso al micrófono. Solo puedes escuchar.';
 
   @override
-  String get intercomHoldTalk => 'Hold to talk';
+  String get intercomHoldTalk => 'Mantén pulsado para hablar';
 
   @override
-  String get intercomPlaying => 'Playing';
+  String get intercomPlaying => 'Reproduciendo';
 
   @override
-  String get intercomAKiosk => 'a kiosk';
+  String get intercomAKiosk => 'un kiosko';
 
   @override
   String intercomCallingName(String name) {
-    return 'Calling $name';
+    return 'Llamando a $name';
   }
 
   @override
   String intercomNameCalling(String name) {
-    return '$name is calling';
+    return '$name está llamando';
   }
 
   @override
   String intercomInCallName(String name) {
-    return 'In a call with $name';
+    return 'En una llamada con $name';
   }
 
   @override
   String intercomNameAnnouncing(String name) {
-    return '$name is announcing';
+    return '$name está anunciando';
   }
 
   @override
@@ -573,65 +576,65 @@ class UiStringsEs extends UiStrings {
   }
 
   @override
-  String get intercomEndCall => 'End call';
+  String get intercomEndCall => 'Finalizar llamada';
 
   @override
-  String get intercomCallFailed => 'Could not call';
+  String get intercomCallFailed => 'No se pudo llamar';
 
   @override
-  String get intercomKeyFailed => 'Could not change the key';
+  String get intercomKeyFailed => 'No se pudo cambiar la clave';
 
   @override
-  String get intercomBroadcastFailed => 'Could not talk to everyone';
+  String get intercomBroadcastFailed => 'No se pudo hablar a todos';
 
   @override
-  String get intercomDeviceNoAnswer => 'The device did not answer.';
+  String get intercomDeviceNoAnswer => 'El dispositivo no respondió.';
 
   @override
-  String get intercomUnknownKiosk => 'unknown kiosk';
+  String get intercomUnknownKiosk => 'kiosko desconocido';
 
   @override
-  String get intercomNothingRinging => 'nothing is ringing';
+  String get intercomNothingRinging => 'no hay ninguna llamada sonando';
 
   @override
-  String get intercomNoCall => 'no call';
+  String get intercomNoCall => 'no hay ninguna llamada';
 
   @override
-  String get intercomDisabled => 'intercom is off';
+  String get intercomDisabled => 'el intercomunicador está desactivado';
 
   @override
-  String get intercomNeedsRemote => 'needs the remote admin';
+  String get intercomNeedsRemote => 'necesita la administración remota';
 
   @override
   String get intercomNeedsDiscovery =>
-      'the intercom needs the remote admin and Find other kiosks';
+      'el intercomunicador necesita la administración remota y Buscar otros kioskos';
 
   @override
-  String get intercomAlreadyCalling => 'already in a call';
+  String get intercomAlreadyCalling => 'ya hay una llamada en curso';
 
   @override
-  String get intercomNoReadyError => 'no kiosk is ready';
+  String get intercomNoReadyError => 'no hay kioskos listos';
 
   @override
-  String get intercomKeyLength => 'a key is at least 16 characters';
+  String get intercomKeyLength => 'la clave debe tener al menos 16 caracteres';
 
   @override
-  String get intercomMicHeld => 'the page holds the microphone';
+  String get intercomMicHeld => 'la página está usando el micrófono';
 
   @override
-  String get intercomMicPermission => 'microphone not granted';
+  String get intercomMicPermission => 'no se concedió acceso al micrófono';
 
   @override
-  String get intercomCallerNoAnswer => 'the caller did not answer';
+  String get intercomCallerNoAnswer => 'el kiosko que llama no respondió';
 
   @override
-  String get intercomMissedcall => 'Missed call';
+  String get intercomMissedcall => 'Llamada perdida';
 
   @override
-  String get intercomListening => 'Listening';
+  String get intercomListening => 'Escuchando';
 
   @override
-  String get intercomAnnouncementsoff => 'Announcements off';
+  String get intercomAnnouncementsoff => 'Anuncios desactivados';
 
   @override
   String get mediaPlay => 'Reproducir';
@@ -3204,169 +3207,170 @@ class UiStringsEs extends UiStrings {
   String get haVibrationStrong => 'Fuerte';
 
   @override
-  String get settingIntercomAnswerModeTitle => 'Answer mode';
+  String get settingIntercomAnswerModeTitle => 'Modo de respuesta';
 
   @override
   String get settingIntercomAnswerModeDescription =>
-      'Ring asks on the screen. Answer automatically opens the call after a chime.';
+      'Sonar pide que respondas en la pantalla. Responder automáticamente abre la llamada después de un tono.';
 
   @override
-  String get settingIntercomRingSecondsTitle => 'Ring for';
+  String get settingIntercomRingSecondsTitle => 'Duración del timbre';
 
   @override
   String get settingIntercomRingSecondsDescription =>
-      'How long a call rings before it counts as missed.';
+      'Cuánto tiempo suena una llamada antes de marcarla como perdida.';
 
   @override
-  String get settingIntercomRingSoundTitle => 'Ring sound';
+  String get settingIntercomRingSoundTitle => 'Sonido del timbre';
 
   @override
   String get settingIntercomRingSoundDescription =>
-      'Plays at the notification volume.';
+      'Se reproduce al volumen de las notificaciones.';
 
   @override
-  String get settingIntercomAcceptAnnouncementsTitle => 'Accept announcements';
+  String get settingIntercomAcceptAnnouncementsTitle => 'Aceptar anuncios';
 
   @override
   String get settingIntercomAcceptAnnouncementsDescription =>
-      'Play Announce to all from the other kiosks.';
+      'Reproduce los anuncios enviados a todos desde otros kioskos.';
 
   @override
-  String get intercomOptionAnswerRing => 'Ring';
+  String get intercomOptionAnswerRing => 'Sonar';
 
   @override
-  String get intercomOptionAnswerAuto => 'Answer automatically';
+  String get intercomOptionAnswerAuto => 'Responder automáticamente';
 
   @override
-  String get intercomOptionAnswerDnd => 'Do not disturb';
+  String get intercomOptionAnswerDnd => 'No molestar';
 
   @override
-  String get intercomOptionAnswer15 => '15 seconds';
+  String get intercomOptionAnswer15 => '15 segundos';
 
   @override
-  String get intercomOptionAnswer30 => '30 seconds';
+  String get intercomOptionAnswer30 => '30 segundos';
 
   @override
-  String get intercomOptionAnswer45 => '45 seconds';
+  String get intercomOptionAnswer45 => '45 segundos';
 
   @override
-  String get intercomOptionAnswer60 => '60 seconds';
+  String get intercomOptionAnswer60 => '60 segundos';
 
   @override
-  String get intercomAnswerSection => 'Answer';
+  String get intercomAnswerSection => 'Respuesta';
 
   @override
-  String get settingIntercomEnabledTitle => 'Enable intercom';
+  String get settingIntercomEnabledTitle => 'Activar intercomunicador';
 
   @override
   String get settingIntercomEnabledDescription =>
-      'Call the other kiosks on this network and take their calls.';
+      'Llama a los otros kioskos de esta red y recibe sus llamadas.';
 
   @override
-  String get settingIntercomKeyTitle => 'Intercom key';
+  String get settingIntercomKeyTitle => 'Clave del intercomunicador';
 
   @override
   String get settingIntercomKeyDescription =>
-      'Kiosks with the same key can call each other. Fleet Management can sync it.';
+      'Los kioskos con la misma clave pueden llamarse entre sí. La gestión de flota puede sincronizarla.';
 
   @override
   String get settingIntercomKeyPlaceholder =>
-      'Made when the intercom is enabled';
+      'Se crea al activar el intercomunicador';
 
   @override
-  String get settingIntercomMenuTitle => 'Show in the kiosk menu';
+  String get settingIntercomMenuTitle => 'Mostrar en el menú del kiosko';
 
   @override
   String get settingIntercomMenuDescription =>
-      'Add an Intercom entry to the kiosk menu.';
+      'Añade la opción Intercomunicador al menú del kiosko.';
 
   @override
-  String get intercomNeedsAdmin => 'The intercom needs the remote admin';
+  String get intercomNeedsAdmin =>
+      'El intercomunicador necesita la administración remota';
 
   @override
   String get intercomAdminHelp =>
-      'Kiosks find and reach each other through it. Turn on Remote management and Find other kiosks under Device, then come back.';
+      'Los kioskos se encuentran y se conectan a través de ella. Activa Administración remota y Buscar otros kioskos en Dispositivo y luego vuelve aquí.';
 
   @override
-  String get intercomChangeKey => 'Change key';
+  String get intercomChangeKey => 'Cambiar clave';
 
   @override
   String get intercomChangeKeyHelp =>
-      'Paste the key from another kiosk, or make a new one.';
+      'Pega la clave de otro kiosko o crea una nueva.';
 
   @override
-  String get intercomChange => 'Change';
+  String get intercomChange => 'Cambiar';
 
   @override
   String get intercomKeyWarning =>
-      'Kiosks with this key can call each other. A new key cuts this kiosk off from the others until they get it too.';
+      'Los kioskos con esta clave pueden llamarse entre sí. Una clave nueva desconecta este kiosko de los demás hasta que ellos también la tengan.';
 
   @override
-  String get intercomRegenerate => 'Regenerate';
+  String get intercomRegenerate => 'Generar de nuevo';
 
   @override
-  String get intercomKeyChanged => 'Key changed';
+  String get intercomKeyChanged => 'Clave cambiada';
 
   @override
-  String get intercomNotSet => 'Not set';
+  String get intercomNotSet => 'Sin configurar';
 
   @override
-  String get intercomOpen => 'Open';
+  String get intercomOpen => 'Abrir';
 
   @override
-  String get intercomKiosks => 'Kiosks';
+  String get intercomKiosks => 'Kioskos';
 
   @override
   String get intercomRosterHelp =>
-      'Kiosks discovered on this network. A kiosk is ready once its intercom is on with the same key.';
+      'Kioskos encontrados en esta red. Un kiosko está listo cuando su intercomunicador está activado y usa la misma clave.';
 
   @override
-  String get intercomNoOther => 'No other kiosk heard';
+  String get intercomNoOther => 'No se encontró otro kiosko';
 
   @override
   String get intercomRosterDeviceHelp =>
-      'Kiosks with Remote management and Find other kiosks on show up here.';
+      'Aquí aparecen los kioskos que tienen activadas Administración remota y Buscar otros kioskos.';
 
   @override
-  String get intercomNoneHeard => 'No kiosks heard';
+  String get intercomNoneHeard => 'No se encontraron kioskos';
 
   @override
   String get intercomRosterRemoteHelp =>
-      'A kiosk shows up once its remote admin is on and it shares this network.';
+      'Un kiosko aparece cuando su administración remota está activada y está en esta red.';
 
   @override
-  String get intercomReady => 'Ready';
+  String get intercomReady => 'Listo';
 
   @override
-  String get intercomOff => 'Intercom off';
+  String get intercomOff => 'Intercomunicador desactivado';
 
   @override
-  String get intercomDifferentKey => 'Different key';
+  String get intercomDifferentKey => 'Clave diferente';
 
   @override
-  String get intercomUnreachable => 'Unreachable';
+  String get intercomUnreachable => 'No accesible';
 
   @override
-  String get intercomOffline => 'Offline';
+  String get intercomOffline => 'Desconectado';
 
   @override
-  String get intercomChecking => 'Checking…';
+  String get intercomChecking => 'Comprobando…';
 
   @override
-  String get settingIntercomTalkModeTitle => 'Talk mode';
+  String get settingIntercomTalkModeTitle => 'Modo de conversación';
 
   @override
   String get settingIntercomTalkModeDescription =>
-      'Push to talk sends while the button is held. Hands free keeps the microphone open for the whole call.';
+      'Pulsar para hablar envía tu voz mientras mantienes pulsado el botón. Manos libres mantiene abierto el micrófono durante toda la llamada.';
 
   @override
-  String get intercomOptionTalkPtt => 'Push to talk';
+  String get intercomOptionTalkPtt => 'Pulsar para hablar';
 
   @override
-  String get intercomOptionTalkHandsfree => 'Hands free';
+  String get intercomOptionTalkHandsfree => 'Manos libres';
 
   @override
-  String get intercomTalkSection => 'Talk';
+  String get intercomTalkSection => 'Conversación';
 
   @override
   String get mediaCacheTitle => 'Caché de portadas';
@@ -6659,57 +6663,58 @@ class UiStringsEs extends UiStrings {
       'Nueva contraseña de administración (deja el campo vacío para conservar la actual)';
 
   @override
-  String get intercomBuiltinRing => 'Built-in ring';
+  String get intercomBuiltinRing => 'Timbre integrado';
 
   @override
-  String get intercomBuiltinChime => 'Built-in chime';
+  String get intercomBuiltinChime => 'Tono integrado';
 
   @override
   String intercomMissingFile(String file) {
-    return '$file (missing)';
+    return '$file (no encontrado)';
   }
 
   @override
-  String get intercomAddSound => 'Add a sound';
+  String get intercomAddSound => 'Añadir un sonido';
 
   @override
   String get intercomCopySoundHelp =>
-      'Copy a sound file from this device into the sounds folder.';
+      'Copia un archivo de sonido de este dispositivo a la carpeta de sonidos.';
 
   @override
   String get intercomUploadSoundHelp =>
-      'Upload a sound file from this computer into the sounds folder.';
+      'Sube un archivo de sonido de esta computadora a la carpeta de sonidos.';
 
   @override
-  String get intercomUpload => 'Upload';
+  String get intercomUpload => 'Subir';
 
   @override
-  String get intercomUploading => 'Uploading…';
+  String get intercomUploading => 'Subiendo…';
 
   @override
-  String get intercomUnsupportedSound => 'Not a supported sound';
+  String get intercomUnsupportedSound => 'Sonido no compatible';
 
   @override
   String get intercomChooseSound =>
-      'Not a supported sound: pick an MP3, OGG, WAV, FLAC, M4A or AAC file.';
+      'Sonido no compatible: elige un archivo MP3, OGG, WAV, FLAC, M4A o AAC.';
 
   @override
-  String get intercomCopyFailed => 'Could not copy the file';
+  String get intercomCopyFailed => 'No se pudo copiar el archivo';
 
   @override
   String intercomUploadFailed(String error) {
-    return 'Upload failed: $error';
+    return 'No se pudo subir: $error';
   }
 
   @override
   String intercomSaveFailed(String error) {
-    return 'Not saved: $error';
+    return 'No se guardó: $error';
   }
 
   @override
-  String get intercomSoundFilename => 'Enter a file name, not a path.';
+  String get intercomSoundFilename =>
+      'Introduce un nombre de archivo, no una ruta.';
 
   @override
   String get intercomSoundFormats =>
-      'Pick an MP3, OGG, WAV, FLAC, M4A or AAC file.';
+      'Elige un archivo MP3, OGG, WAV, FLAC, M4A o AAC.';
 }

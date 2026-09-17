@@ -1,0 +1,22 @@
+{
+  "@@locale": "es",
+  "intercomCallFailed": "No se pudo llamar",
+  "intercomKeyFailed": "No se pudo cambiar la clave",
+  "intercomBroadcastFailed": "No se pudo hablar a todos",
+  "intercomDeviceNoAnswer": "El dispositivo no respondió.",
+  "intercomUnknownKiosk": "kiosko desconocido",
+  "intercomNothingRinging": "no hay ninguna llamada sonando",
+  "intercomNoCall": "no hay ninguna llamada",
+  "intercomDisabled": "el intercomunicador está desactivado",
+  "intercomNeedsRemote": "necesita la administración remota",
+  "intercomNeedsDiscovery": "el intercomunicador necesita la administración remota y Buscar otros kioskos",
+  "intercomAlreadyCalling": "ya hay una llamada en curso",
+  "intercomNoReadyError": "no hay kioskos listos",
+  "intercomKeyLength": "la clave debe tener al menos 16 caracteres",
+  "intercomMicHeld": "la página está usando el micrófono",
+  "intercomMicPermission": "no se concedió acceso al micrófono",
+  "intercomCallerNoAnswer": "el kiosko que llama no respondió",
+  "intercomMissedcall": "Llamada perdida",
+  "intercomListening": "Escuchando",
+  "intercomAnnouncementsoff": "Anuncios desactivados"
+}

@@ -1,0 +1,19 @@
+{
+  "@@locale": "es",
+  "settingIntercomAnswerModeTitle": "Modo de respuesta",
+  "settingIntercomAnswerModeDescription": "Sonar pide que respondas en la pantalla. Responder automáticamente abre la llamada después de un tono.",
+  "settingIntercomRingSecondsTitle": "Duración del timbre",
+  "settingIntercomRingSecondsDescription": "Cuánto tiempo suena una llamada antes de marcarla como perdida.",
+  "settingIntercomRingSoundTitle": "Sonido del timbre",
+  "settingIntercomRingSoundDescription": "Se reproduce al volumen de las notificaciones.",
+  "settingIntercomAcceptAnnouncementsTitle": "Aceptar anuncios",
+  "settingIntercomAcceptAnnouncementsDescription": "Reproduce los anuncios enviados a todos desde otros kioskos.",
+  "intercomOptionAnswerRing": "Sonar",
+  "intercomOptionAnswerAuto": "Responder automáticamente",
+  "intercomOptionAnswerDnd": "No molestar",
+  "intercomOptionAnswer15": "15 segundos",
+  "intercomOptionAnswer30": "30 segundos",
+  "intercomOptionAnswer45": "45 segundos",
+  "intercomOptionAnswer60": "60 segundos",
+  "intercomAnswerSection": "Respuesta"
+}

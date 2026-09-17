@@ -1,0 +1,15 @@
+{
+  "@@locale": "es",
+  "intercomKiosks": "Kioskos",
+  "intercomRosterHelp": "Kioskos encontrados en esta red. Un kiosko está listo cuando su intercomunicador está activado y usa la misma clave.",
+  "intercomNoOther": "No se encontró otro kiosko",
+  "intercomRosterDeviceHelp": "Aquí aparecen los kioskos que tienen activadas Administración remota y Buscar otros kioskos.",
+  "intercomNoneHeard": "No se encontraron kioskos",
+  "intercomRosterRemoteHelp": "Un kiosko aparece cuando su administración remota está activada y está en esta red.",
+  "intercomReady": "Listo",
+  "intercomOff": "Intercomunicador desactivado",
+  "intercomDifferentKey": "Clave diferente",
+  "intercomUnreachable": "No accesible",
+  "intercomOffline": "Desconectado",
+  "intercomChecking": "Comprobando…"
+}

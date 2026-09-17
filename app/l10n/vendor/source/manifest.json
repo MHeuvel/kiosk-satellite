@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite",
-  "revision": "28d1ab2e086c72f1d326ff1a8e30b6a4d7b06a39",
+  "revision": "5b360814245f80fcddf7281fc95a33b5c352aa07",
   "workingTree": false,
   "files": {
     "camera_view_status_en.arb": "5c2fdaeb44fc707fa15cfb92a186ff2616e4ea255cd5ea3ff3dac37c532fedbe",
@@ -9,6 +9,8 @@
     "dlna_player_en.arb": "d87128704c558709c36c8276f406e20cf03246c7d6acd8b00182d6a11ea7064a",
     "drawer_menu_en.arb": "1ddb021d9c030d046e0368ac9e73e046905fa34138f345f3d767b974c542d9d3",
     "drawer_updates_en.arb": "51e19440c034c4a169b43ff5ff3780c7d762dcf88751c81bf4aef3c04029a956",
+    "intercom_calls_en.arb": "76790d5c39367e505f5c282e60a64e6370f18620a3923da6bc2b6586cb16b78c",
+    "intercom_errors_en.arb": "561be9299f5574c15d4b4727dfb2238c00b0eccfef75f2c4c0c642845bbf367f",
     "player_controls_en.arb": "61e81ca8c32de2c69557ea016c96174f8b06651c3a6afc6081e3b9b08f3942f1",
     "player_queue_en.arb": "2b9d165ec8649eab92534fc486a92172ba186e89d4f1632b6b2845d825796cda",
     "player_speaker_groups_en.arb": "4ee28b50a4e886608c7ea76afe271ae9c677460ec9c72e8b14fccd7706cda2c0",
@@ -43,6 +45,10 @@
     "settings_home_assistant_setup_en.arb": "68c38135fc63cf9668f35b2cbe1e12474374e38567a87e96c896dd43e620e990",
     "settings_home_assistant_theme_en.arb": "08a84abbbe70038834683afbea2c21f0728139a9fb6bd362e3ab31365dc21a83",
     "settings_home_assistant_user_interface_en.arb": "8f45ce732c94fe887be200e4f98c0abaa84117ad2f64000b41f43e53c8c56ecf",
+    "settings_intercom_answer_en.arb": "22a2819b9f429e82d7d5b4942301d942a60b743f9b4916c0942784a71dc89339",
+    "settings_intercom_general_en.arb": "50f5a07783342a1ad2adb7a4e1b7acb10eb4091c2db86a914a49d14cef84bf80",
+    "settings_intercom_kiosks_en.arb": "45690fa9320f6e48eef74ad8f2cd0675cbf02f38bd307bd2c879dcde7ae3df3b",
+    "settings_intercom_talk_en.arb": "a1f6fd2a791e716c89f5232552d3ff5c0b802837427ca6faf8173abc4fd998a6",
     "settings_media_player_cache_en.arb": "ce251f8e7c3307fc7863779680cc610a8d2bf50b41e9d904b3f84ad153564a8a",
     "settings_media_player_floating_en.arb": "cb84a2d33a3e48ef9096946f22b57eff8016336e2ebb2a8667c2a8849f90ed65",
     "settings_media_player_general_en.arb": "296e07f09a97b3321c8850c15b7fd885645bc92172bb67114269efa5d1e74455",
@@ -92,7 +98,8 @@
     "settings_web_browsing_scripts_en.arb": "90d79b0f38721340dd1b07041ebb40447869c9983daf6e0a772225a3974e3784",
     "setup_connect_en.arb": "353cf737e1650b2f9b7b5c5d4e2d7d5f463d012149ba5ec180425b31845a7b2e",
     "setup_navigation_en.arb": "71c532e240d4abf6cf53324f583f6a60b8e0999bc26a41cd80de8eb441d564a7",
-    "setup_welcome_en.arb": "a26a34d1e8f30df984627884b880f4fda8f410e1ad3a21a9b3399499c4d7be50"
+    "setup_welcome_en.arb": "a26a34d1e8f30df984627884b880f4fda8f410e1ad3a21a9b3399499c4d7be50",
+    "sound_picker_en.arb": "3287a30c9f51f864354862d1208ec5b79e87026b6a5521939f71c944b02bb626"
   },
   "scope": "setup-settings-navigation-and-device-drawer"
 }
