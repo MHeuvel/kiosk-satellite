@@ -1,0 +1,9 @@
+{
+  "@@locale": "es",
+  "overviewGoView": "Ir a una vista",
+  "overviewLoadingViews": "Cargando vistas…",
+  "overviewPickView": "Elige una vista del panel de control…",
+  "overviewDefaultView": "Vista predeterminada",
+  "overviewNoDashboards": "No se encontraron paneles de control",
+  "overviewViewsUnavailable": "Vistas no disponibles"
+}

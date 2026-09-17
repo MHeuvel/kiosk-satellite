@@ -1,0 +1,69 @@
+{
+  "@@locale": "en",
+  "overviewGoView": "Go to view",
+  "@overviewGoView": {
+    "context": "Remote admin > Overview > Quick controls > Go to view",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls > Go to view"
+      ]
+    }
+  },
+  "overviewLoadingViews": "Loading views…",
+  "@overviewLoadingViews": {
+    "context": "Remote admin > Overview > Quick controls > Go to view",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls > Go to view"
+      ]
+    }
+  },
+  "overviewPickView": "Pick a dashboard view…",
+  "@overviewPickView": {
+    "context": "Remote admin > Overview > Quick controls > Go to view",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls > Go to view"
+      ]
+    }
+  },
+  "overviewDefaultView": "Default view",
+  "@overviewDefaultView": {
+    "context": "Remote admin > Overview > Quick controls > Go to view",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls > Go to view"
+      ]
+    }
+  },
+  "overviewNoDashboards": "No dashboards found",
+  "@overviewNoDashboards": {
+    "context": "Remote admin > Overview > Quick controls > Go to view",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls > Go to view"
+      ]
+    }
+  },
+  "overviewViewsUnavailable": "Views unavailable",
+  "@overviewViewsUnavailable": {
+    "context": "Remote admin > Overview > Quick controls > Go to view",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls > Go to view"
+      ]
+    }
+  }
+}

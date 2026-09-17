@@ -1,0 +1,12 @@
+{
+  "@@locale": "es",
+  "overviewNoScreenshot": "Sin captura de pantalla",
+  "overviewStill": "Fija",
+  "overviewLive": "En vivo",
+  "overviewFullSize": "Tamaño completo",
+  "overviewLiveInterval": "En vivo, cada 5 segundos",
+  "overviewTaken": "Captura: {age}",
+  "overviewCameraViewNamed": "Vista de cámaras: {name}",
+  "overviewCameraView": "Vista de cámaras",
+  "overviewScreenOffState": "Pantalla apagada"
+}

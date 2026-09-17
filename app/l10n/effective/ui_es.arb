@@ -8678,7 +8678,7 @@
       ]
     }
   },
-  "overviewAttention": "Needs attention",
+  "overviewAttention": "Requiere atención",
   "@overviewAttention": {
     "context": "Remote admin > Overview > Needs attention",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -8689,7 +8689,7 @@
       ]
     }
   },
-  "overviewOpen": "Open",
+  "overviewOpen": "Abrir",
   "@overviewOpen": {
     "context": "Remote admin > Overview > Needs attention",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -8700,7 +8700,7 @@
       ]
     }
   },
-  "overviewUpdate": "Update",
+  "overviewUpdate": "Actualizar",
   "@overviewUpdate": {
     "context": "Remote admin > Overview > Needs attention",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -8711,7 +8711,7 @@
       ]
     }
   },
-  "overviewInvitation": "{name} wants to lead this kiosk",
+  "overviewInvitation": "{name} quiere dirigir este kiosko",
   "@overviewInvitation": {
     "context": "Remote admin > Overview > Needs attention",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -8727,7 +8727,7 @@
       }
     }
   },
-  "overviewInvitationHelp": "Confirm on the kiosk screen or under Fleet Management there.",
+  "overviewInvitationHelp": "Confirma en la pantalla del kiosko o en Administración de flota en ese dispositivo.",
   "@overviewInvitationHelp": {
     "context": "Remote admin > Overview > Needs attention",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -8738,7 +8738,7 @@
       ]
     }
   },
-  "overviewOutdatedOne": "1 follower runs another release",
+  "overviewOutdatedOne": "1 seguidor usa otra versión",
   "@overviewOutdatedOne": {
     "context": "Remote admin > Overview > Needs attention",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -8749,7 +8749,7 @@
       ]
     }
   },
-  "overviewOutdatedMany": "{count} followers run another release",
+  "overviewOutdatedMany": "{count} seguidores usan otra versión",
   "@overviewOutdatedMany": {
     "context": "Remote admin > Overview > Needs attention",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -8765,7 +8765,7 @@
       }
     }
   },
-  "overviewSyncWaiting": "{names}. Sync waits for version {version}.",
+  "overviewSyncWaiting": "{names}. La sincronización espera la versión {version}.",
   "@overviewSyncWaiting": {
     "context": "Remote admin > Overview > Needs attention",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -8784,7 +8784,7 @@
       }
     }
   },
-  "overviewThisRelease": "this release",
+  "overviewThisRelease": "actual",
   "@overviewThisRelease": {
     "context": "Remote admin > Overview > Needs attention",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -8795,7 +8795,7 @@
       ]
     }
   },
-  "overviewUpdateAvailable": "Update available",
+  "overviewUpdateAvailable": "Actualización disponible",
   "@overviewUpdateAvailable": {
     "context": "Remote admin > Overview > Needs attention",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -8806,7 +8806,7 @@
       ]
     }
   },
-  "overviewInstallHelp": "Kiosk Satellite {version} is ready to install. The installation is confirmed on the tablet screen.",
+  "overviewInstallHelp": "Kiosk Satellite {version} está listo para instalar. La instalación se confirma en la pantalla de la tablet.",
   "@overviewInstallHelp": {
     "context": "Remote admin > Overview > Needs attention",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -8822,7 +8822,7 @@
       }
     }
   },
-  "overviewHaSetup": "Home Assistant not set up",
+  "overviewHaSetup": "Home Assistant sin configurar",
   "@overviewHaSetup": {
     "context": "Remote admin > Overview > Needs attention",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -8833,7 +8833,7 @@
       ]
     }
   },
-  "overviewHaSetupHelp": "Connect the kiosk to Home Assistant to load a dashboard.",
+  "overviewHaSetupHelp": "Conecta el kiosko a Home Assistant para cargar un panel de control.",
   "@overviewHaSetupHelp": {
     "context": "Remote admin > Overview > Needs attention",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -8844,7 +8844,7 @@
       ]
     }
   },
-  "overviewSetUp": "Set up",
+  "overviewSetUp": "Configurar",
   "@overviewSetUp": {
     "context": "Remote admin > Overview > Needs attention",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -8855,7 +8855,7 @@
       ]
     }
   },
-  "overviewHaNotValidated": "Home Assistant not validated",
+  "overviewHaNotValidated": "Home Assistant sin validar",
   "@overviewHaNotValidated": {
     "context": "Remote admin > Overview > Needs attention",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -8866,7 +8866,7 @@
       ]
     }
   },
-  "overviewHaNotValidatedHelp": "The URL and token have not passed a connection check this run. The kiosk retries every 30 seconds.",
+  "overviewHaNotValidatedHelp": "La URL y el token no han superado una comprobación de conexión en esta ejecución. El kiosko vuelve a intentarlo cada 30 segundos.",
   "@overviewHaNotValidatedHelp": {
     "context": "Remote admin > Overview > Needs attention",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -8877,7 +8877,7 @@
       ]
     }
   },
-  "overviewOpenSetup": "Open setup",
+  "overviewOpenSetup": "Abrir configuración",
   "@overviewOpenSetup": {
     "context": "Remote admin > Overview > Needs attention",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -8888,7 +8888,7 @@
       ]
     }
   },
-  "overviewWakeStopped": "Wake word detection stopped",
+  "overviewWakeStopped": "Detección de palabras de activación detenida",
   "@overviewWakeStopped": {
     "context": "Remote admin > Overview > Needs attention",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -8899,7 +8899,7 @@
       ]
     }
   },
-  "overviewWakeReleased": "The engine was released.",
+  "overviewWakeReleased": "El motor se detuvo.",
   "@overviewWakeReleased": {
     "context": "Remote admin > Overview > Needs attention",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -8910,7 +8910,7 @@
       ]
     }
   },
-  "overviewOpenVoice": "Open Voice Satellite",
+  "overviewOpenVoice": "Abrir Voice Satellite",
   "@overviewOpenVoice": {
     "context": "Remote admin > Overview > Needs attention",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -8921,7 +8921,7 @@
       ]
     }
   },
-  "overviewOpenService": "Open service",
+  "overviewOpenService": "Abrir servicio",
   "@overviewOpenService": {
     "context": "Remote admin > Overview > Needs attention",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -8932,7 +8932,7 @@
       ]
     }
   },
-  "overviewPermissionMissing": "Permission missing: {permission}",
+  "overviewPermissionMissing": "Falta el permiso: {permission}",
   "@overviewPermissionMissing": {
     "context": "Remote admin > Overview > Needs attention",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -8948,7 +8948,7 @@
       }
     }
   },
-  "overviewQuick": "Quick controls",
+  "overviewQuick": "Controles rápidos",
   "@overviewQuick": {
     "context": "Remote admin > Overview > Quick controls",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -8959,7 +8959,7 @@
       ]
     }
   },
-  "overviewReload": "Reload page",
+  "overviewReload": "Recargar página",
   "@overviewReload": {
     "context": "Remote admin > Overview > Quick controls",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -8970,7 +8970,7 @@
       ]
     }
   },
-  "overviewScreenOn": "Screen on",
+  "overviewScreenOn": "Encender pantalla",
   "@overviewScreenOn": {
     "context": "Remote admin > Overview > Quick controls",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -8981,7 +8981,7 @@
       ]
     }
   },
-  "overviewScreenOff": "Screen off",
+  "overviewScreenOff": "Apagar pantalla",
   "@overviewScreenOff": {
     "context": "Remote admin > Overview > Quick controls",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -8992,7 +8992,7 @@
       ]
     }
   },
-  "overviewSaverStart": "Start screensaver",
+  "overviewSaverStart": "Iniciar protector de pantalla",
   "@overviewSaverStart": {
     "context": "Remote admin > Overview > Quick controls",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9003,7 +9003,7 @@
       ]
     }
   },
-  "overviewSaverStop": "Dismiss screensaver",
+  "overviewSaverStop": "Cerrar protector de pantalla",
   "@overviewSaverStop": {
     "context": "Remote admin > Overview > Quick controls",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9014,7 +9014,7 @@
       ]
     }
   },
-  "overviewCameraShow": "Show camera view",
+  "overviewCameraShow": "Mostrar vista de cámaras",
   "@overviewCameraShow": {
     "context": "Remote admin > Overview > Quick controls",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9025,7 +9025,7 @@
       ]
     }
   },
-  "overviewCameraHide": "Dismiss camera view",
+  "overviewCameraHide": "Cerrar vista de cámaras",
   "@overviewCameraHide": {
     "context": "Remote admin > Overview > Quick controls",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9036,7 +9036,7 @@
       ]
     }
   },
-  "overviewSaverPostpone": "Postpone screensaver",
+  "overviewSaverPostpone": "Posponer protector de pantalla",
   "@overviewSaverPostpone": {
     "context": "Remote admin > Overview > Quick controls",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9047,7 +9047,7 @@
       ]
     }
   },
-  "overviewDnd": "Do not disturb",
+  "overviewDnd": "No molestar",
   "@overviewDnd": {
     "context": "Remote admin > Overview > Quick controls",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9058,7 +9058,7 @@
       ]
     }
   },
-  "overviewDndOn": "Do not disturb on",
+  "overviewDndOn": "No molestar activado",
   "@overviewDndOn": {
     "context": "Remote admin > Overview > Quick controls",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9069,7 +9069,7 @@
       ]
     }
   },
-  "overviewSnapshot": "Take snapshot",
+  "overviewSnapshot": "Tomar captura",
   "@overviewSnapshot": {
     "context": "Remote admin > Overview > Quick controls",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9080,7 +9080,7 @@
       ]
     }
   },
-  "overviewCheckUpdates": "Check for updates",
+  "overviewCheckUpdates": "Buscar actualizaciones",
   "@overviewCheckUpdates": {
     "context": "Remote admin > Overview > Quick controls",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9091,7 +9091,7 @@
       ]
     }
   },
-  "overviewRestartApp": "Restart app",
+  "overviewRestartApp": "Reiniciar aplicación",
   "@overviewRestartApp": {
     "context": "Remote admin > Overview > Quick controls",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9102,7 +9102,7 @@
       ]
     }
   },
-  "overviewRestartDevice": "Restart device",
+  "overviewRestartDevice": "Reiniciar dispositivo",
   "@overviewRestartDevice": {
     "context": "Remote admin > Overview > Quick controls",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9113,7 +9113,7 @@
       ]
     }
   },
-  "overviewExit": "Exit app",
+  "overviewExit": "Salir de la aplicación",
   "@overviewExit": {
     "context": "Remote admin > Overview > Quick controls",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9124,7 +9124,7 @@
       ]
     }
   },
-  "overviewBrightness": "Brightness",
+  "overviewBrightness": "Brillo",
   "@overviewBrightness": {
     "context": "Remote admin > Overview > Quick controls",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9135,7 +9135,7 @@
       ]
     }
   },
-  "overviewVolume": "Master Volume",
+  "overviewVolume": "Volumen principal",
   "@overviewVolume": {
     "context": "Remote admin > Overview > Quick controls",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9146,7 +9146,7 @@
       ]
     }
   },
-  "overviewBrightnessGrant": "Brightness is using an app-level fallback. Grant \"Modify system settings\" so the slider controls the panel's actual brightness.",
+  "overviewBrightnessGrant": "El brillo está usando un ajuste limitado a la aplicación. Concede el permiso \"Modificar ajustes del sistema\" para controlar el brillo real de la pantalla.",
   "@overviewBrightnessGrant": {
     "context": "Remote admin > Overview > Quick controls",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9157,7 +9157,7 @@
       ]
     }
   },
-  "overviewRestartQuestion": "Restart this device? Kiosk Satellite comes back when it boots.",
+  "overviewRestartQuestion": "¿Reiniciar este dispositivo? Kiosk Satellite volverá a abrirse cuando arranque.",
   "@overviewRestartQuestion": {
     "context": "Remote admin > Overview > Quick controls",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9168,7 +9168,7 @@
       ]
     }
   },
-  "overviewRestart": "Restart",
+  "overviewRestart": "Reiniciar",
   "@overviewRestart": {
     "context": "Remote admin > Overview > Quick controls",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9179,7 +9179,7 @@
       ]
     }
   },
-  "overviewNoSnapshot": "No snapshot came back.",
+  "overviewNoSnapshot": "No se recibió ninguna captura.",
   "@overviewNoSnapshot": {
     "context": "Remote admin > Overview > Quick controls",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9190,7 +9190,7 @@
       ]
     }
   },
-  "overviewSnapshotTitle": "Camera snapshot",
+  "overviewSnapshotTitle": "Captura de la cámara",
   "@overviewSnapshotTitle": {
     "context": "Remote admin > Overview > Quick controls",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9201,7 +9201,7 @@
       ]
     }
   },
-  "overviewUpdateCheckFailed": "Update check failed. Can the device reach GitHub?",
+  "overviewUpdateCheckFailed": "No se pudieron buscar actualizaciones. ¿El dispositivo puede acceder a GitHub?",
   "@overviewUpdateCheckFailed": {
     "context": "Remote admin > Overview > Quick controls",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9212,7 +9212,7 @@
       ]
     }
   },
-  "overviewLatest": "You are on the latest version.",
+  "overviewLatest": "Tienes la versión más reciente.",
   "@overviewLatest": {
     "context": "Remote admin > Overview > Quick controls",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9223,7 +9223,7 @@
       ]
     }
   },
-  "overviewVersionAvailable": "Version {version} is available",
+  "overviewVersionAvailable": "La versión {version} está disponible",
   "@overviewVersionAvailable": {
     "context": "Remote admin > Overview > Quick controls",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9239,7 +9239,7 @@
       }
     }
   },
-  "overviewInstallAttention": "Install it from Needs attention.",
+  "overviewInstallAttention": "Instálala desde Requiere atención.",
   "@overviewInstallAttention": {
     "context": "Remote admin > Overview > Quick controls",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9250,7 +9250,7 @@
       ]
     }
   },
-  "overviewNoViewsWithCameras": "No camera view has any cameras yet. Add cameras to a view under Cameras first.",
+  "overviewNoViewsWithCameras": "Ninguna vista tiene cámaras todavía. Primero agrega cámaras a una vista en Cámaras.",
   "@overviewNoViewsWithCameras": {
     "context": "Remote admin > Overview > Quick controls",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9261,7 +9261,7 @@
       ]
     }
   },
-  "overviewShowViewFailed": "Could not show view",
+  "overviewShowViewFailed": "No se pudo mostrar la vista",
   "@overviewShowViewFailed": {
     "context": "Remote admin > Overview > Quick controls",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9272,7 +9272,7 @@
       ]
     }
   },
-  "overviewAppVersion": "App Version",
+  "overviewAppVersion": "Versión de la aplicación",
   "@overviewAppVersion": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9283,7 +9283,7 @@
       ]
     }
   },
-  "overviewNotSetup": "Not set up",
+  "overviewNotSetup": "Sin configurar",
   "@overviewNotSetup": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9294,7 +9294,7 @@
       ]
     }
   },
-  "overviewNotValidated": "Not validated",
+  "overviewNotValidated": "Sin validar",
   "@overviewNotValidated": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9305,7 +9305,7 @@
       ]
     }
   },
-  "overviewCheckingFilter": "Checking filter...",
+  "overviewCheckingFilter": "Comprobando el filtro…",
   "@overviewCheckingFilter": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9316,7 +9316,7 @@
       ]
     }
   },
-  "overviewValidated": "Validated",
+  "overviewValidated": "Validado",
   "@overviewValidated": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9327,7 +9327,7 @@
       ]
     }
   },
-  "overviewFilterUnavailable": "Filter status unavailable",
+  "overviewFilterUnavailable": "Estado del filtro no disponible",
   "@overviewFilterUnavailable": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9338,7 +9338,7 @@
       ]
     }
   },
-  "overviewUnfiltered": "Updates unfiltered",
+  "overviewUnfiltered": "Actualizaciones sin filtrar",
   "@overviewUnfiltered": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9349,7 +9349,7 @@
       ]
     }
   },
-  "overviewWatchingOne": "Watching 1 entity",
+  "overviewWatchingOne": "Supervisando 1 entidad",
   "@overviewWatchingOne": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9360,7 +9360,7 @@
       ]
     }
   },
-  "overviewWatchingMany": "Watching {count} entities",
+  "overviewWatchingMany": "Supervisando {count} entidades",
   "@overviewWatchingMany": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9376,7 +9376,7 @@
       }
     }
   },
-  "overviewFilterDisabled": "Filtering disabled, view uses {count} entities",
+  "overviewFilterDisabled": "Filtrado desactivado, la vista usa {count} entidades",
   "@overviewFilterDisabled": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9392,7 +9392,7 @@
       }
     }
   },
-  "overviewWakeOff": "Wake word detection off",
+  "overviewWakeOff": "Detección de palabras de activación desactivada",
   "@overviewWakeOff": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9403,7 +9403,7 @@
       ]
     }
   },
-  "overviewListeningFor": "Listening for {words}",
+  "overviewListeningFor": "Escuchando: {words}",
   "@overviewListeningFor": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9419,7 +9419,7 @@
       }
     }
   },
-  "overviewListening": "Listening",
+  "overviewListening": "Escuchando",
   "@overviewListening": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9430,7 +9430,7 @@
       ]
     }
   },
-  "overviewNotListening": "Not listening",
+  "overviewNotListening": "Sin escuchar",
   "@overviewNotListening": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9441,7 +9441,7 @@
       ]
     }
   },
-  "overviewEntitiesProxy": "Entities and BT proxy",
+  "overviewEntitiesProxy": "Entidades y proxy Bluetooth",
   "@overviewEntitiesProxy": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9452,7 +9452,7 @@
       ]
     }
   },
-  "overviewEntitiesOnly": "Entities only",
+  "overviewEntitiesOnly": "Solo entidades",
   "@overviewEntitiesOnly": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9463,7 +9463,7 @@
       ]
     }
   },
-  "overviewProxyOnly": "BT Proxy only",
+  "overviewProxyOnly": "Solo proxy Bluetooth",
   "@overviewProxyOnly": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9474,7 +9474,7 @@
       ]
     }
   },
-  "overviewWaitingHA": "Waiting for Home Assistant",
+  "overviewWaitingHA": "Esperando a Home Assistant",
   "@overviewWaitingHA": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9485,7 +9485,7 @@
       ]
     }
   },
-  "overviewNotRunning": "Not running",
+  "overviewNotRunning": "Sin ejecutar",
   "@overviewNotRunning": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9496,7 +9496,7 @@
       ]
     }
   },
-  "overviewRunningOne": "Running - 1 feature",
+  "overviewRunningOne": "En ejecución - 1 función",
   "@overviewRunningOne": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9507,7 +9507,7 @@
       ]
     }
   },
-  "overviewRunningMany": "Running - {count} features",
+  "overviewRunningMany": "En ejecución - {count} funciones",
   "@overviewRunningMany": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9523,7 +9523,7 @@
       }
     }
   },
-  "overviewDownloading": "Downloading: {version}",
+  "overviewDownloading": "Descargando: {version}",
   "@overviewDownloading": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9539,7 +9539,7 @@
       }
     }
   },
-  "overviewNewVersion": "New version: {version}",
+  "overviewNewVersion": "Nueva versión: {version}",
   "@overviewNewVersion": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9555,7 +9555,7 @@
       }
     }
   },
-  "overviewCurrentVersion": "Up to date: {version}",
+  "overviewCurrentVersion": "Al día: {version}",
   "@overviewCurrentVersion": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9571,7 +9571,7 @@
       }
     }
   },
-  "overviewCurrent": "Up to date",
+  "overviewCurrent": "Al día",
   "@overviewCurrent": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9582,7 +9582,7 @@
       ]
     }
   },
-  "overviewPluginAttribution": "{name} plugin",
+  "overviewPluginAttribution": "Complemento {name}",
   "@overviewPluginAttribution": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9598,7 +9598,7 @@
       }
     }
   },
-  "overviewMuted": "muted",
+  "overviewMuted": "Silenciado",
   "@overviewMuted": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9609,7 +9609,7 @@
       ]
     }
   },
-  "overviewBrowser": "browser",
+  "overviewBrowser": "Detección en el navegador",
   "@overviewBrowser": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9620,7 +9620,7 @@
       ]
     }
   },
-  "overviewWakeWaiting": "Waiting for Voice Satellite. The engine and wake words are configured by the integration once this device opens its dashboard.",
+  "overviewWakeWaiting": "Esperando a Voice Satellite. La integración configura el motor y las palabras de activación cuando este dispositivo abre su panel de control.",
   "@overviewWakeWaiting": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9631,7 +9631,7 @@
       ]
     }
   },
-  "overviewWakeDisabled": "Wake word detection is off. Turn it on to inherit models from Voice Satellite.",
+  "overviewWakeDisabled": "La detección de palabras de activación está desactivada. Actívala para recibir los modelos de Voice Satellite.",
   "@overviewWakeDisabled": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9642,7 +9642,7 @@
       ]
     }
   },
-  "overviewMicBlocked": "Microphone blocked. Android will not ask again, so allow it in the app settings, then retry.",
+  "overviewMicBlocked": "Micrófono bloqueado. Android no volverá a solicitar el permiso. Concédelo en los ajustes de la aplicación y vuelve a intentarlo.",
   "@overviewMicBlocked": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9653,7 +9653,7 @@
       ]
     }
   },
-  "overviewMicDeclined": "Microphone declined. Wake word detection needs it; retry to be asked again.",
+  "overviewMicDeclined": "Se rechazó el permiso del micrófono. La detección de palabras de activación lo necesita. Vuelve a intentarlo para solicitarlo de nuevo.",
   "@overviewMicDeclined": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9664,7 +9664,7 @@
       ]
     }
   },
-  "overviewMicLost": "The microphone stopped working. Retry, or reload the page.",
+  "overviewMicLost": "El micrófono dejó de funcionar. Vuelve a intentarlo o recarga la página.",
   "@overviewMicLost": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9675,7 +9675,7 @@
       ]
     }
   },
-  "overviewModelsUnavailable": "Could not download the models from Home Assistant. Retry once it is reachable.",
+  "overviewModelsUnavailable": "No se pudieron descargar los modelos de Home Assistant. Vuelve a intentarlo cuando esté accesible.",
   "@overviewModelsUnavailable": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9686,7 +9686,7 @@
       ]
     }
   },
-  "overviewCrashed": "The detector kept crashing on this device, so it was stopped. Voice Satellite is listening in the browser instead. Retry, or restart the app.",
+  "overviewCrashed": "El detector fallaba repetidamente en este dispositivo y se detuvo. Voice Satellite está escuchando desde el navegador. Vuelve a intentarlo o reinicia la aplicación.",
   "@overviewCrashed": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9697,7 +9697,7 @@
       ]
     }
   },
-  "overviewWakeFailed": "The wake-word engine could not start. Retry, or reload the page.",
+  "overviewWakeFailed": "No se pudo iniciar el motor de palabras de activación. Vuelve a intentarlo o recarga la página.",
   "@overviewWakeFailed": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9708,7 +9708,7 @@
       ]
     }
   },
-  "overviewNativeUnavailable": "No native runner for {engine}. Voice Satellite keeps browser detection.",
+  "overviewNativeUnavailable": "No hay un motor nativo para {engine}. Voice Satellite mantiene la detección en el navegador.",
   "@overviewNativeUnavailable": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9724,7 +9724,7 @@
       }
     }
   },
-  "overviewNativeListening": "Listening natively",
+  "overviewNativeListening": "Escuchando con el motor nativo",
   "@overviewNativeListening": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9735,7 +9735,7 @@
       ]
     }
   },
-  "overviewSuspended": "Ready (suspended during a voice session)",
+  "overviewSuspended": "Listo (en pausa durante una interacción de voz)",
   "@overviewSuspended": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9746,7 +9746,7 @@
       ]
     }
   },
-  "overviewNoScreenshot": "No screenshot",
+  "overviewNoScreenshot": "Sin captura de pantalla",
   "@overviewNoScreenshot": {
     "context": "Remote admin > Overview > Screenshot",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9757,7 +9757,7 @@
       ]
     }
   },
-  "overviewStill": "Still",
+  "overviewStill": "Fija",
   "@overviewStill": {
     "context": "Remote admin > Overview > Screenshot",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9768,7 +9768,7 @@
       ]
     }
   },
-  "overviewLive": "Live",
+  "overviewLive": "En vivo",
   "@overviewLive": {
     "context": "Remote admin > Overview > Screenshot",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9779,7 +9779,7 @@
       ]
     }
   },
-  "overviewFullSize": "Full size",
+  "overviewFullSize": "Tamaño completo",
   "@overviewFullSize": {
     "context": "Remote admin > Overview > Screenshot",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9790,7 +9790,7 @@
       ]
     }
   },
-  "overviewLiveInterval": "Live, every 5 seconds",
+  "overviewLiveInterval": "En vivo, cada 5 segundos",
   "@overviewLiveInterval": {
     "context": "Remote admin > Overview > Screenshot",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9801,7 +9801,7 @@
       ]
     }
   },
-  "overviewTaken": "Taken {age}",
+  "overviewTaken": "Captura: {age}",
   "@overviewTaken": {
     "context": "Remote admin > Overview > Screenshot",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9817,7 +9817,7 @@
       }
     }
   },
-  "overviewCameraViewNamed": "Camera view: {name}",
+  "overviewCameraViewNamed": "Vista de cámaras: {name}",
   "@overviewCameraViewNamed": {
     "context": "Remote admin > Overview > Screenshot",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9833,7 +9833,7 @@
       }
     }
   },
-  "overviewCameraView": "Camera view",
+  "overviewCameraView": "Vista de cámaras",
   "@overviewCameraView": {
     "context": "Remote admin > Overview > Screenshot",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9844,7 +9844,7 @@
       ]
     }
   },
-  "overviewScreenOffState": "Screen is off",
+  "overviewScreenOffState": "Pantalla apagada",
   "@overviewScreenOffState": {
     "context": "Remote admin > Overview > Screenshot",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9855,7 +9855,7 @@
       ]
     }
   },
-  "overviewGoView": "Go to view",
+  "overviewGoView": "Ir a una vista",
   "@overviewGoView": {
     "context": "Remote admin > Overview > Quick controls > Go to view",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9866,7 +9866,7 @@
       ]
     }
   },
-  "overviewLoadingViews": "Loading views…",
+  "overviewLoadingViews": "Cargando vistas…",
   "@overviewLoadingViews": {
     "context": "Remote admin > Overview > Quick controls > Go to view",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9877,7 +9877,7 @@
       ]
     }
   },
-  "overviewPickView": "Pick a dashboard view…",
+  "overviewPickView": "Elige una vista del panel de control…",
   "@overviewPickView": {
     "context": "Remote admin > Overview > Quick controls > Go to view",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9888,7 +9888,7 @@
       ]
     }
   },
-  "overviewDefaultView": "Default view",
+  "overviewDefaultView": "Vista predeterminada",
   "@overviewDefaultView": {
     "context": "Remote admin > Overview > Quick controls > Go to view",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9899,7 +9899,7 @@
       ]
     }
   },
-  "overviewNoDashboards": "No dashboards found",
+  "overviewNoDashboards": "No se encontraron paneles de control",
   "@overviewNoDashboards": {
     "context": "Remote admin > Overview > Quick controls > Go to view",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
@@ -9910,7 +9910,7 @@
       ]
     }
   },
-  "overviewViewsUnavailable": "Views unavailable",
+  "overviewViewsUnavailable": "Vistas no disponibles",
   "@overviewViewsUnavailable": {
     "context": "Remote admin > Overview > Quick controls > Go to view",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",

@@ -1,12 +1,12 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite-localization",
-  "revision": "0ea35907e1e392815c060237ac84aea85718e939",
+  "revision": "2454f34aa4575470f83fa4b044283a94a6f68fd6",
   "locales": [
     "es"
   ],
   "files": {
-    "source/manifest.json": "4025953027697fe44d27107784c0259c85438265096de3393f3fe4af0908bee4",
+    "source/manifest.json": "e29ddd2c32a144db30fcefa443c828e09139b7c8cc9edad9957642c1090f4d1e",
     "source/about_identity_en.arb": "dd006567f69f846e2e3b73f09ad13784f0022d282ea3101fa9be7fc95175ec2d",
     "source/about_updates_en.arb": "b41df3870ffb041249448dc4b13b14a9350ab4417510f23e772458dd1e582c85",
     "source/app_launcher_overlay_en.arb": "9598d5f3383b23bed8c34a54795da71f211533160a84417010def4dd54f9a173",
@@ -45,6 +45,11 @@
     "source/plugins_install_en.arb": "5fd03be0947474fedc6ed3a9264013c6419b5e98d40806402ace289184b227f3",
     "source/plugins_output_en.arb": "fa74c2b8021e30b18fabb8b4de82228d59c1685751bd72573e395c8584a45009",
     "source/plugins_shizuku_en.arb": "125d9b296f8445081d299072e5989553b3f39fd973b83390209840be07c06dce",
+    "source/remote_overview_attention_en.arb": "3854fcd0c487604b337723f6978646821a29ea01288e3e38f7928b01fa51e87c",
+    "source/remote_overview_controls_en.arb": "3d7577c8816f1e5279142f158432401f6374eee5079a4595ef0a4fde4109dc29",
+    "source/remote_overview_health_en.arb": "1698515ca2328e602781b1a71b1fa4cfff60a8bbb7a93aa7bffeba3187a8ac49",
+    "source/remote_overview_screen_en.arb": "8a3fd605d0d74a4cedf1ad25e63d7e9edbf7aef47e0fd1603aee7ec50356d8a6",
+    "source/remote_overview_views_en.arb": "deaa735cf85667db613813c4cb18d6f9ceb93b609dccfc507092321338ac1c39",
     "source/settings_app_launcher_en.arb": "bcfe4add767f2ac32d1abb99b4ff9fa035b2f48d30563630276ceba84aae1350",
     "source/settings_app_launcher_permissions_en.arb": "0be89fecc325751499b4709455ed64da9906b6678816c0eee73c71fc0243604d",
     "source/settings_camera_general_en.arb": "00d87524bed1865548e20f1740717ca8f698dc4d0831b0b1ab535ccff5a81bab",
@@ -194,6 +199,11 @@
     "translations/es/plugins_install_es.arb": "a93dcc51139390e804486736f2d31b000c8c3345333f3f39eaedad56f35cc525",
     "translations/es/plugins_output_es.arb": "b46b469b4f6f9868a8d4be0349f6e72e1767f4c9aa7b5bd40a97a1de55c550dc",
     "translations/es/plugins_shizuku_es.arb": "41b40b3ebe6e2f272dffe5246fe53505a5c74fc3854e4a1ff089e7b0c2709d2b",
+    "translations/es/remote_overview_attention_es.arb": "3b719fb30d9c2f96512b90b10b32e6f2ad3d7b4613034c2cc4679ef110b076a6",
+    "translations/es/remote_overview_controls_es.arb": "8e06a492dd6e49e79bde9f206af2143c981b095d2480ebcb991f8b9a1a0f7f46",
+    "translations/es/remote_overview_health_es.arb": "28cf10ad9f7b27a0500848b18d988989e6bf08e0deaa37347884a6b296b0cb07",
+    "translations/es/remote_overview_screen_es.arb": "a75b6029a433492f651f39200233579eb1a3a51f05ac0321c29ec6b2531d3727",
+    "translations/es/remote_overview_views_es.arb": "95ea87f945fec838f8e5107717b8fb2b4792797db3d30412740877223dffa99e",
     "translations/es/settings_app_launcher_es.arb": "08c71df6f388cdf9a7b026de843a6632c1e6f3c136aa0c2f3a0a8c0657a0c7b5",
     "translations/es/settings_app_launcher_permissions_es.arb": "2f157bd88ad33661bbb268e74b0f2f2868ad350bfa0e4ea718d7edabdbabebd0",
     "translations/es/settings_camera_general_es.arb": "e2480068ceb00fab0d1adb4a5dfe51db815f8a4a7d1c0b09c2060cf5b892b34c",
@@ -305,7 +315,7 @@
     "translations/es/setup_navigation_es.arb": "7ee26fae39874fe8a9a091522ba676075f21be21bee79737d2d5465eb8ad3acc",
     "translations/es/setup_welcome_es.arb": "5ecd1fef9e8d6b0dd3e085d410941099bb7dd8d4f502e98684fefecaf1663d9c",
     "translations/es/sound_picker_es.arb": "4b1867bded8d578e13653eb8e62deb55eae9e41167e0702ea5c9c2329a8a665b",
-    "metadata/reviews/es.json": "1bc551b4ba75c765ec3efa0fe1e7b99cfdb7628dc3a8c6b0b72fbda9f0e8dc5c",
+    "metadata/reviews/es.json": "84ca6a1e64c30915aeb55256d27b86d826eefb3f2f2e22b960d6819c48c7cc82",
     "LICENSE": "4d3e371a6b6cabc75b4be46fecce7601556d0eb777ad9dba4b00bc13a61de5fc",
     "CREDITS.md": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "docs/CONTRIBUTOR-AGREEMENT.md": "f17a3cd0ddbab3a6b95c50d98b81d5648cb8feb09fc54e33bcce855e45ddb014"

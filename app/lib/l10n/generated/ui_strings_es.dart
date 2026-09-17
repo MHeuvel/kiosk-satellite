@@ -2365,368 +2365,371 @@ class UiStringsEs extends UiStrings {
       'Aprueba la solicitud de permiso en el kiosko.';
 
   @override
-  String get overviewAttention => 'Needs attention';
+  String get overviewAttention => 'Requiere atención';
 
   @override
-  String get overviewOpen => 'Open';
+  String get overviewOpen => 'Abrir';
 
   @override
-  String get overviewUpdate => 'Update';
+  String get overviewUpdate => 'Actualizar';
 
   @override
   String overviewInvitation(String name) {
-    return '$name wants to lead this kiosk';
+    return '$name quiere dirigir este kiosko';
   }
 
   @override
   String get overviewInvitationHelp =>
-      'Confirm on the kiosk screen or under Fleet Management there.';
+      'Confirma en la pantalla del kiosko o en Administración de flota en ese dispositivo.';
 
   @override
-  String get overviewOutdatedOne => '1 follower runs another release';
+  String get overviewOutdatedOne => '1 seguidor usa otra versión';
 
   @override
   String overviewOutdatedMany(String count) {
-    return '$count followers run another release';
+    return '$count seguidores usan otra versión';
   }
 
   @override
   String overviewSyncWaiting(String names, String version) {
-    return '$names. Sync waits for version $version.';
+    return '$names. La sincronización espera la versión $version.';
   }
 
   @override
-  String get overviewThisRelease => 'this release';
+  String get overviewThisRelease => 'actual';
 
   @override
-  String get overviewUpdateAvailable => 'Update available';
+  String get overviewUpdateAvailable => 'Actualización disponible';
 
   @override
   String overviewInstallHelp(String version) {
-    return 'Kiosk Satellite $version is ready to install. The installation is confirmed on the tablet screen.';
+    return 'Kiosk Satellite $version está listo para instalar. La instalación se confirma en la pantalla de la tablet.';
   }
 
   @override
-  String get overviewHaSetup => 'Home Assistant not set up';
+  String get overviewHaSetup => 'Home Assistant sin configurar';
 
   @override
   String get overviewHaSetupHelp =>
-      'Connect the kiosk to Home Assistant to load a dashboard.';
+      'Conecta el kiosko a Home Assistant para cargar un panel de control.';
 
   @override
-  String get overviewSetUp => 'Set up';
+  String get overviewSetUp => 'Configurar';
 
   @override
-  String get overviewHaNotValidated => 'Home Assistant not validated';
+  String get overviewHaNotValidated => 'Home Assistant sin validar';
 
   @override
   String get overviewHaNotValidatedHelp =>
-      'The URL and token have not passed a connection check this run. The kiosk retries every 30 seconds.';
+      'La URL y el token no han superado una comprobación de conexión en esta ejecución. El kiosko vuelve a intentarlo cada 30 segundos.';
 
   @override
-  String get overviewOpenSetup => 'Open setup';
+  String get overviewOpenSetup => 'Abrir configuración';
 
   @override
-  String get overviewWakeStopped => 'Wake word detection stopped';
+  String get overviewWakeStopped =>
+      'Detección de palabras de activación detenida';
 
   @override
-  String get overviewWakeReleased => 'The engine was released.';
+  String get overviewWakeReleased => 'El motor se detuvo.';
 
   @override
-  String get overviewOpenVoice => 'Open Voice Satellite';
+  String get overviewOpenVoice => 'Abrir Voice Satellite';
 
   @override
-  String get overviewOpenService => 'Open service';
+  String get overviewOpenService => 'Abrir servicio';
 
   @override
   String overviewPermissionMissing(String permission) {
-    return 'Permission missing: $permission';
+    return 'Falta el permiso: $permission';
   }
 
   @override
-  String get overviewQuick => 'Quick controls';
+  String get overviewQuick => 'Controles rápidos';
 
   @override
-  String get overviewReload => 'Reload page';
+  String get overviewReload => 'Recargar página';
 
   @override
-  String get overviewScreenOn => 'Screen on';
+  String get overviewScreenOn => 'Encender pantalla';
 
   @override
-  String get overviewScreenOff => 'Screen off';
+  String get overviewScreenOff => 'Apagar pantalla';
 
   @override
-  String get overviewSaverStart => 'Start screensaver';
+  String get overviewSaverStart => 'Iniciar protector de pantalla';
 
   @override
-  String get overviewSaverStop => 'Dismiss screensaver';
+  String get overviewSaverStop => 'Cerrar protector de pantalla';
 
   @override
-  String get overviewCameraShow => 'Show camera view';
+  String get overviewCameraShow => 'Mostrar vista de cámaras';
 
   @override
-  String get overviewCameraHide => 'Dismiss camera view';
+  String get overviewCameraHide => 'Cerrar vista de cámaras';
 
   @override
-  String get overviewSaverPostpone => 'Postpone screensaver';
+  String get overviewSaverPostpone => 'Posponer protector de pantalla';
 
   @override
-  String get overviewDnd => 'Do not disturb';
+  String get overviewDnd => 'No molestar';
 
   @override
-  String get overviewDndOn => 'Do not disturb on';
+  String get overviewDndOn => 'No molestar activado';
 
   @override
-  String get overviewSnapshot => 'Take snapshot';
+  String get overviewSnapshot => 'Tomar captura';
 
   @override
-  String get overviewCheckUpdates => 'Check for updates';
+  String get overviewCheckUpdates => 'Buscar actualizaciones';
 
   @override
-  String get overviewRestartApp => 'Restart app';
+  String get overviewRestartApp => 'Reiniciar aplicación';
 
   @override
-  String get overviewRestartDevice => 'Restart device';
+  String get overviewRestartDevice => 'Reiniciar dispositivo';
 
   @override
-  String get overviewExit => 'Exit app';
+  String get overviewExit => 'Salir de la aplicación';
 
   @override
-  String get overviewBrightness => 'Brightness';
+  String get overviewBrightness => 'Brillo';
 
   @override
-  String get overviewVolume => 'Master Volume';
+  String get overviewVolume => 'Volumen principal';
 
   @override
   String get overviewBrightnessGrant =>
-      'Brightness is using an app-level fallback. Grant \"Modify system settings\" so the slider controls the panel\'s actual brightness.';
+      'El brillo está usando un ajuste limitado a la aplicación. Concede el permiso \"Modificar ajustes del sistema\" para controlar el brillo real de la pantalla.';
 
   @override
   String get overviewRestartQuestion =>
-      'Restart this device? Kiosk Satellite comes back when it boots.';
+      '¿Reiniciar este dispositivo? Kiosk Satellite volverá a abrirse cuando arranque.';
 
   @override
-  String get overviewRestart => 'Restart';
+  String get overviewRestart => 'Reiniciar';
 
   @override
-  String get overviewNoSnapshot => 'No snapshot came back.';
+  String get overviewNoSnapshot => 'No se recibió ninguna captura.';
 
   @override
-  String get overviewSnapshotTitle => 'Camera snapshot';
+  String get overviewSnapshotTitle => 'Captura de la cámara';
 
   @override
   String get overviewUpdateCheckFailed =>
-      'Update check failed. Can the device reach GitHub?';
+      'No se pudieron buscar actualizaciones. ¿El dispositivo puede acceder a GitHub?';
 
   @override
-  String get overviewLatest => 'You are on the latest version.';
+  String get overviewLatest => 'Tienes la versión más reciente.';
 
   @override
   String overviewVersionAvailable(String version) {
-    return 'Version $version is available';
+    return 'La versión $version está disponible';
   }
 
   @override
-  String get overviewInstallAttention => 'Install it from Needs attention.';
+  String get overviewInstallAttention => 'Instálala desde Requiere atención.';
 
   @override
   String get overviewNoViewsWithCameras =>
-      'No camera view has any cameras yet. Add cameras to a view under Cameras first.';
+      'Ninguna vista tiene cámaras todavía. Primero agrega cámaras a una vista en Cámaras.';
 
   @override
-  String get overviewShowViewFailed => 'Could not show view';
+  String get overviewShowViewFailed => 'No se pudo mostrar la vista';
 
   @override
-  String get overviewAppVersion => 'App Version';
+  String get overviewAppVersion => 'Versión de la aplicación';
 
   @override
-  String get overviewNotSetup => 'Not set up';
+  String get overviewNotSetup => 'Sin configurar';
 
   @override
-  String get overviewNotValidated => 'Not validated';
+  String get overviewNotValidated => 'Sin validar';
 
   @override
-  String get overviewCheckingFilter => 'Checking filter...';
+  String get overviewCheckingFilter => 'Comprobando el filtro…';
 
   @override
-  String get overviewValidated => 'Validated';
+  String get overviewValidated => 'Validado';
 
   @override
-  String get overviewFilterUnavailable => 'Filter status unavailable';
+  String get overviewFilterUnavailable => 'Estado del filtro no disponible';
 
   @override
-  String get overviewUnfiltered => 'Updates unfiltered';
+  String get overviewUnfiltered => 'Actualizaciones sin filtrar';
 
   @override
-  String get overviewWatchingOne => 'Watching 1 entity';
+  String get overviewWatchingOne => 'Supervisando 1 entidad';
 
   @override
   String overviewWatchingMany(String count) {
-    return 'Watching $count entities';
+    return 'Supervisando $count entidades';
   }
 
   @override
   String overviewFilterDisabled(String count) {
-    return 'Filtering disabled, view uses $count entities';
+    return 'Filtrado desactivado, la vista usa $count entidades';
   }
 
   @override
-  String get overviewWakeOff => 'Wake word detection off';
+  String get overviewWakeOff =>
+      'Detección de palabras de activación desactivada';
 
   @override
   String overviewListeningFor(String words) {
-    return 'Listening for $words';
+    return 'Escuchando: $words';
   }
 
   @override
-  String get overviewListening => 'Listening';
+  String get overviewListening => 'Escuchando';
 
   @override
-  String get overviewNotListening => 'Not listening';
+  String get overviewNotListening => 'Sin escuchar';
 
   @override
-  String get overviewEntitiesProxy => 'Entities and BT proxy';
+  String get overviewEntitiesProxy => 'Entidades y proxy Bluetooth';
 
   @override
-  String get overviewEntitiesOnly => 'Entities only';
+  String get overviewEntitiesOnly => 'Solo entidades';
 
   @override
-  String get overviewProxyOnly => 'BT Proxy only';
+  String get overviewProxyOnly => 'Solo proxy Bluetooth';
 
   @override
-  String get overviewWaitingHA => 'Waiting for Home Assistant';
+  String get overviewWaitingHA => 'Esperando a Home Assistant';
 
   @override
-  String get overviewNotRunning => 'Not running';
+  String get overviewNotRunning => 'Sin ejecutar';
 
   @override
-  String get overviewRunningOne => 'Running - 1 feature';
+  String get overviewRunningOne => 'En ejecución - 1 función';
 
   @override
   String overviewRunningMany(String count) {
-    return 'Running - $count features';
+    return 'En ejecución - $count funciones';
   }
 
   @override
   String overviewDownloading(String version) {
-    return 'Downloading: $version';
+    return 'Descargando: $version';
   }
 
   @override
   String overviewNewVersion(String version) {
-    return 'New version: $version';
+    return 'Nueva versión: $version';
   }
 
   @override
   String overviewCurrentVersion(String version) {
-    return 'Up to date: $version';
+    return 'Al día: $version';
   }
 
   @override
-  String get overviewCurrent => 'Up to date';
+  String get overviewCurrent => 'Al día';
 
   @override
   String overviewPluginAttribution(String name) {
-    return '$name plugin';
+    return 'Complemento $name';
   }
 
   @override
-  String get overviewMuted => 'muted';
+  String get overviewMuted => 'Silenciado';
 
   @override
-  String get overviewBrowser => 'browser';
+  String get overviewBrowser => 'Detección en el navegador';
 
   @override
   String get overviewWakeWaiting =>
-      'Waiting for Voice Satellite. The engine and wake words are configured by the integration once this device opens its dashboard.';
+      'Esperando a Voice Satellite. La integración configura el motor y las palabras de activación cuando este dispositivo abre su panel de control.';
 
   @override
   String get overviewWakeDisabled =>
-      'Wake word detection is off. Turn it on to inherit models from Voice Satellite.';
+      'La detección de palabras de activación está desactivada. Actívala para recibir los modelos de Voice Satellite.';
 
   @override
   String get overviewMicBlocked =>
-      'Microphone blocked. Android will not ask again, so allow it in the app settings, then retry.';
+      'Micrófono bloqueado. Android no volverá a solicitar el permiso. Concédelo en los ajustes de la aplicación y vuelve a intentarlo.';
 
   @override
   String get overviewMicDeclined =>
-      'Microphone declined. Wake word detection needs it; retry to be asked again.';
+      'Se rechazó el permiso del micrófono. La detección de palabras de activación lo necesita. Vuelve a intentarlo para solicitarlo de nuevo.';
 
   @override
   String get overviewMicLost =>
-      'The microphone stopped working. Retry, or reload the page.';
+      'El micrófono dejó de funcionar. Vuelve a intentarlo o recarga la página.';
 
   @override
   String get overviewModelsUnavailable =>
-      'Could not download the models from Home Assistant. Retry once it is reachable.';
+      'No se pudieron descargar los modelos de Home Assistant. Vuelve a intentarlo cuando esté accesible.';
 
   @override
   String get overviewCrashed =>
-      'The detector kept crashing on this device, so it was stopped. Voice Satellite is listening in the browser instead. Retry, or restart the app.';
+      'El detector fallaba repetidamente en este dispositivo y se detuvo. Voice Satellite está escuchando desde el navegador. Vuelve a intentarlo o reinicia la aplicación.';
 
   @override
   String get overviewWakeFailed =>
-      'The wake-word engine could not start. Retry, or reload the page.';
+      'No se pudo iniciar el motor de palabras de activación. Vuelve a intentarlo o recarga la página.';
 
   @override
   String overviewNativeUnavailable(String engine) {
-    return 'No native runner for $engine. Voice Satellite keeps browser detection.';
+    return 'No hay un motor nativo para $engine. Voice Satellite mantiene la detección en el navegador.';
   }
 
   @override
-  String get overviewNativeListening => 'Listening natively';
+  String get overviewNativeListening => 'Escuchando con el motor nativo';
 
   @override
-  String get overviewSuspended => 'Ready (suspended during a voice session)';
+  String get overviewSuspended =>
+      'Listo (en pausa durante una interacción de voz)';
 
   @override
-  String get overviewNoScreenshot => 'No screenshot';
+  String get overviewNoScreenshot => 'Sin captura de pantalla';
 
   @override
-  String get overviewStill => 'Still';
+  String get overviewStill => 'Fija';
 
   @override
-  String get overviewLive => 'Live';
+  String get overviewLive => 'En vivo';
 
   @override
-  String get overviewFullSize => 'Full size';
+  String get overviewFullSize => 'Tamaño completo';
 
   @override
-  String get overviewLiveInterval => 'Live, every 5 seconds';
+  String get overviewLiveInterval => 'En vivo, cada 5 segundos';
 
   @override
   String overviewTaken(String age) {
-    return 'Taken $age';
+    return 'Captura: $age';
   }
 
   @override
   String overviewCameraViewNamed(String name) {
-    return 'Camera view: $name';
+    return 'Vista de cámaras: $name';
   }
 
   @override
-  String get overviewCameraView => 'Camera view';
+  String get overviewCameraView => 'Vista de cámaras';
 
   @override
-  String get overviewScreenOffState => 'Screen is off';
+  String get overviewScreenOffState => 'Pantalla apagada';
 
   @override
-  String get overviewGoView => 'Go to view';
+  String get overviewGoView => 'Ir a una vista';
 
   @override
-  String get overviewLoadingViews => 'Loading views…';
+  String get overviewLoadingViews => 'Cargando vistas…';
 
   @override
-  String get overviewPickView => 'Pick a dashboard view…';
+  String get overviewPickView => 'Elige una vista del panel de control…';
 
   @override
-  String get overviewDefaultView => 'Default view';
+  String get overviewDefaultView => 'Vista predeterminada';
 
   @override
-  String get overviewNoDashboards => 'No dashboards found';
+  String get overviewNoDashboards => 'No se encontraron paneles de control';
 
   @override
-  String get overviewViewsUnavailable => 'Views unavailable';
+  String get overviewViewsUnavailable => 'Vistas no disponibles';
 
   @override
   String get settingLauncherEnabledTitle => 'Activar lanzador de aplicaciones';
