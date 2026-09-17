@@ -11085,7 +11085,7 @@
       ]
     }
   },
-  "settingSendspinSonosGroupVolumeTitle": "Adjust the group volume",
+  "settingSendspinSonosGroupVolumeTitle": "Ajustar el volumen del grupo",
   "@settingSendspinSonosGroupVolumeTitle": {
     "context": "Settings > Media Player > Sonos > Adjust the group volume",
     "description": "Setting label.",
@@ -11098,7 +11098,7 @@
       ]
     }
   },
-  "settingSendspinSonosGroupVolumeDescription": "While the followed room plays in a group, the volume slider sets the whole group's volume. Off, only that room's.",
+  "settingSendspinSonosGroupVolumeDescription": "Cuando la habitación controlada reproduce en un grupo, el control de volumen ajusta todo el grupo. Si está desactivado, solo ajusta esa habitación.",
   "@settingSendspinSonosGroupVolumeDescription": {
     "context": "Settings > Media Player > Sonos > Adjust the group volume",
     "description": "Help below this setting.",
@@ -11111,7 +11111,7 @@
       ]
     }
   },
-  "settingSendspinSonosInputsTitle": "Show TV and line-in",
+  "settingSendspinSonosInputsTitle": "Mostrar TV y entrada de línea",
   "@settingSendspinSonosInputsTitle": {
     "context": "Settings > Media Player > Sonos > Show TV and line-in",
     "description": "Setting label.",
@@ -11124,7 +11124,7 @@
       ]
     }
   },
-  "settingSendspinSonosInputsDescription": "Show activity in the media player when eARC or line-in inputs are active.",
+  "settingSendspinSonosInputsDescription": "Muestra actividad en el reproductor multimedia cuando las entradas eARC o de línea están activas.",
   "@settingSendspinSonosInputsDescription": {
     "context": "Settings > Media Player > Sonos > Show TV and line-in",
     "description": "Help below this setting.",
@@ -11137,7 +11137,7 @@
       ]
     }
   },
-  "mediaSonosHint": "Speakers on the network, add one by address",
+  "mediaSonosHint": "Altavoces en la red y añadir por dirección",
   "@mediaSonosHint": {
     "context": "Settings > Media Player > Sonos",
     "description": "Label or guidance in this section.",
@@ -11150,7 +11150,7 @@
       ]
     }
   },
-  "mediaSonosSpeakers": "Speakers",
+  "mediaSonosSpeakers": "Altavoces",
   "@mediaSonosSpeakers": {
     "context": "Settings > Media Player > Sonos > Speakers",
     "description": "Label or guidance in this section.",
@@ -11163,7 +11163,7 @@
       ]
     }
   },
-  "mediaSonosNoneFound": "No Sonos found",
+  "mediaSonosNoneFound": "No se encontró ningún Sonos",
   "@mediaSonosNoneFound": {
     "context": "Settings > Media Player > Sonos > Speakers",
     "description": "Label or guidance in this section.",
@@ -11176,7 +11176,7 @@
       ]
     }
   },
-  "mediaSonosDiscoveryEmpty": "Nothing answered on this network. Add one by address.",
+  "mediaSonosDiscoveryEmpty": "Ningún altavoz respondió en esta red. Añade uno por su dirección.",
   "@mediaSonosDiscoveryEmpty": {
     "context": "Settings > Media Player > Sonos > Speakers",
     "description": "Label or guidance in this section.",
@@ -11189,7 +11189,7 @@
       ]
     }
   },
-  "mediaSonosAddTitle": "Add a Sonos by address",
+  "mediaSonosAddTitle": "Añadir un Sonos por dirección",
   "@mediaSonosAddTitle": {
     "context": "Settings > Media Player > Sonos > Speakers",
     "description": "Label or guidance in this section.",
@@ -11202,7 +11202,7 @@
       ]
     }
   },
-  "mediaSonosLooking": "Looking…",
+  "mediaSonosLooking": "Buscando…",
   "@mediaSonosLooking": {
     "context": "Settings > Media Player > Sonos > Speakers",
     "description": "Label or guidance in this section.",
@@ -11212,7 +11212,7 @@
       ]
     }
   },
-  "mediaSonosEmpty": "No speakers yet",
+  "mediaSonosEmpty": "Aún no hay altavoces",
   "@mediaSonosEmpty": {
     "context": "Settings > Media Player > Sonos > Speakers",
     "description": "Label or guidance in this section.",
@@ -11225,7 +11225,7 @@
       ]
     }
   },
-  "mediaSonosEmptyHelp": "Search this network or add a speaker by its address.",
+  "mediaSonosEmptyHelp": "Busca en esta red o añade un altavoz por su dirección.",
   "@mediaSonosEmptyHelp": {
     "context": "Settings > Media Player > Sonos > Speakers",
     "description": "Label or guidance in this section.",
@@ -11238,7 +11238,7 @@
       ]
     }
   },
-  "mediaSonosForget": "Forget",
+  "mediaSonosForget": "Olvidar",
   "@mediaSonosForget": {
     "context": "Settings > Media Player > Sonos > Speakers",
     "description": "Label or guidance in this section.",
@@ -11251,7 +11251,7 @@
       ]
     }
   },
-  "mediaSonosSearchTitle": "Search the network",
+  "mediaSonosSearchTitle": "Buscar en la red",
   "@mediaSonosSearchTitle": {
     "context": "Settings > Media Player > Sonos > Speakers",
     "description": "Label or guidance in this section.",
@@ -11264,7 +11264,7 @@
       ]
     }
   },
-  "mediaSonosSearchHelp": "Finds Sonos speakers on this network. The speakers must be on the same VLAN as this device to be auto discovered.",
+  "mediaSonosSearchHelp": "Busca altavoces Sonos en esta red. Los altavoces deben estar en la misma VLAN que este dispositivo para encontrarlos automáticamente.",
   "@mediaSonosSearchHelp": {
     "context": "Settings > Media Player > Sonos > Speakers",
     "description": "Label or guidance in this section.",
@@ -11277,7 +11277,7 @@
       ]
     }
   },
-  "mediaSonosSearch": "Search",
+  "mediaSonosSearch": "Buscar",
   "@mediaSonosSearch": {
     "context": "Settings > Media Player > Sonos > Speakers",
     "description": "Label or guidance in this section.",
@@ -11290,7 +11290,7 @@
       ]
     }
   },
-  "mediaSonosSearching": "Searching…",
+  "mediaSonosSearching": "Buscando…",
   "@mediaSonosSearching": {
     "context": "Settings > Media Player > Sonos > Speakers",
     "description": "Label or guidance in this section.",
@@ -11300,7 +11300,7 @@
       ]
     }
   },
-  "mediaSonosAddAddress": "Add by address",
+  "mediaSonosAddAddress": "Añadir por dirección",
   "@mediaSonosAddAddress": {
     "context": "Settings > Media Player > Sonos > Speakers",
     "description": "Label or guidance in this section.",
@@ -11313,7 +11313,7 @@
       ]
     }
   },
-  "mediaSonosAddressHelp": "The speaker's address on the network. The whole household is added from it.",
+  "mediaSonosAddressHelp": "La dirección del altavoz en la red. A partir de él se añaden todos los altavoces de su sistema Sonos.",
   "@mediaSonosAddressHelp": {
     "context": "Settings > Media Player > Sonos > Speakers",
     "description": "Label or guidance in this section.",
@@ -11326,7 +11326,7 @@
       ]
     }
   },
-  "mediaSonosPickRoom": "Pick a room under Player source, Sonos.",
+  "mediaSonosPickRoom": "Elige una habitación en Origen del reproductor, Sonos.",
   "@mediaSonosPickRoom": {
     "context": "Settings > Media Player > Sonos > Speakers",
     "description": "Label or guidance in this section.",
@@ -11336,7 +11336,7 @@
       ]
     }
   },
-  "mediaSonosAdded": "Sonos added",
+  "mediaSonosAdded": "Sonos añadido",
   "@mediaSonosAdded": {
     "context": "Settings > Media Player > Sonos > Speakers",
     "description": "Label or guidance in this section.",
@@ -11346,7 +11346,7 @@
       ]
     }
   },
-  "mediaSonosNoRooms": "The speaker listed no rooms.",
+  "mediaSonosNoRooms": "El altavoz no devolvió ninguna habitación.",
   "@mediaSonosNoRooms": {
     "context": "Settings > Media Player > Sonos > Speakers",
     "description": "Label or guidance in this section.",
@@ -11359,7 +11359,7 @@
       ]
     }
   },
-  "mediaSonosNoAddress": "no address",
+  "mediaSonosNoAddress": "sin dirección",
   "@mediaSonosNoAddress": {
     "context": "Settings > Media Player > Sonos > Speakers",
     "description": "Label or guidance in this section.",
@@ -11372,7 +11372,7 @@
       ]
     }
   },
-  "mediaSonosUnreachable": "No Sonos answered at {host}.",
+  "mediaSonosUnreachable": "Ningún Sonos respondió en {host}.",
   "@mediaSonosUnreachable": {
     "context": "Settings > Media Player > Sonos > Speakers",
     "description": "Label or guidance in this section.",

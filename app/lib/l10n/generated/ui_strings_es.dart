@@ -3038,83 +3038,85 @@ class UiStringsEs extends UiStrings {
   String get mediaPcm => 'PCM (sin compresión)';
 
   @override
-  String get settingSendspinSonosGroupVolumeTitle => 'Adjust the group volume';
+  String get settingSendspinSonosGroupVolumeTitle =>
+      'Ajustar el volumen del grupo';
 
   @override
   String get settingSendspinSonosGroupVolumeDescription =>
-      'While the followed room plays in a group, the volume slider sets the whole group\'s volume. Off, only that room\'s.';
+      'Cuando la habitación controlada reproduce en un grupo, el control de volumen ajusta todo el grupo. Si está desactivado, solo ajusta esa habitación.';
 
   @override
-  String get settingSendspinSonosInputsTitle => 'Show TV and line-in';
+  String get settingSendspinSonosInputsTitle => 'Mostrar TV y entrada de línea';
 
   @override
   String get settingSendspinSonosInputsDescription =>
-      'Show activity in the media player when eARC or line-in inputs are active.';
+      'Muestra actividad en el reproductor multimedia cuando las entradas eARC o de línea están activas.';
 
   @override
-  String get mediaSonosHint => 'Speakers on the network, add one by address';
+  String get mediaSonosHint => 'Altavoces en la red y añadir por dirección';
 
   @override
-  String get mediaSonosSpeakers => 'Speakers';
+  String get mediaSonosSpeakers => 'Altavoces';
 
   @override
-  String get mediaSonosNoneFound => 'No Sonos found';
+  String get mediaSonosNoneFound => 'No se encontró ningún Sonos';
 
   @override
   String get mediaSonosDiscoveryEmpty =>
-      'Nothing answered on this network. Add one by address.';
+      'Ningún altavoz respondió en esta red. Añade uno por su dirección.';
 
   @override
-  String get mediaSonosAddTitle => 'Add a Sonos by address';
+  String get mediaSonosAddTitle => 'Añadir un Sonos por dirección';
 
   @override
-  String get mediaSonosLooking => 'Looking…';
+  String get mediaSonosLooking => 'Buscando…';
 
   @override
-  String get mediaSonosEmpty => 'No speakers yet';
+  String get mediaSonosEmpty => 'Aún no hay altavoces';
 
   @override
   String get mediaSonosEmptyHelp =>
-      'Search this network or add a speaker by its address.';
+      'Busca en esta red o añade un altavoz por su dirección.';
 
   @override
-  String get mediaSonosForget => 'Forget';
+  String get mediaSonosForget => 'Olvidar';
 
   @override
-  String get mediaSonosSearchTitle => 'Search the network';
+  String get mediaSonosSearchTitle => 'Buscar en la red';
 
   @override
   String get mediaSonosSearchHelp =>
-      'Finds Sonos speakers on this network. The speakers must be on the same VLAN as this device to be auto discovered.';
+      'Busca altavoces Sonos en esta red. Los altavoces deben estar en la misma VLAN que este dispositivo para encontrarlos automáticamente.';
 
   @override
-  String get mediaSonosSearch => 'Search';
+  String get mediaSonosSearch => 'Buscar';
 
   @override
-  String get mediaSonosSearching => 'Searching…';
+  String get mediaSonosSearching => 'Buscando…';
 
   @override
-  String get mediaSonosAddAddress => 'Add by address';
+  String get mediaSonosAddAddress => 'Añadir por dirección';
 
   @override
   String get mediaSonosAddressHelp =>
-      'The speaker\'s address on the network. The whole household is added from it.';
+      'La dirección del altavoz en la red. A partir de él se añaden todos los altavoces de su sistema Sonos.';
 
   @override
-  String get mediaSonosPickRoom => 'Pick a room under Player source, Sonos.';
+  String get mediaSonosPickRoom =>
+      'Elige una habitación en Origen del reproductor, Sonos.';
 
   @override
-  String get mediaSonosAdded => 'Sonos added';
+  String get mediaSonosAdded => 'Sonos añadido';
 
   @override
-  String get mediaSonosNoRooms => 'The speaker listed no rooms.';
+  String get mediaSonosNoRooms => 'El altavoz no devolvió ninguna habitación.';
 
   @override
-  String get mediaSonosNoAddress => 'no address';
+  String get mediaSonosNoAddress => 'sin dirección';
 
   @override
   String mediaSonosUnreachable(String host) {
-    return 'No Sonos answered at $host.';
+    return 'Ningún Sonos respondió en $host.';
   }
 
   @override

@@ -1,12 +1,12 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite-localization",
-  "revision": "a22a97343cf0c8b658937083d1cfa236aaa8759f",
+  "revision": "59c2a4b28f2e53077452151e1e11b718e42ae3a0",
   "locales": [
     "es"
   ],
   "files": {
-    "source/manifest.json": "13967d5a7f118679b64469412a421213cda53cbed9cba80f3cee79fd1e3aaf0e",
+    "source/manifest.json": "466296d3c63a96831cfbe4ee6a3615f4706020d5723aee0434d33c76de01ecd8",
     "source/camera_view_status_en.arb": "5c2fdaeb44fc707fa15cfb92a186ff2616e4ea255cd5ea3ff3dac37c532fedbe",
     "source/common_en.arb": "445e2b0d194c744c2ec3591b9176ff9ef903ab02e38924b80923f86698982e9a",
     "source/drawer_menu_en.arb": "1ddb021d9c030d046e0368ac9e73e046905fa34138f345f3d767b974c542d9d3",
@@ -46,6 +46,7 @@
     "source/settings_media_player_music_assistant_en.arb": "22560aad901b2595fda1d4cf521d1336340d18f90585516a215cd3959eb71fc4",
     "source/settings_media_player_picker_en.arb": "3d64cbaa15954ae255529cce5febe1755563a9df27f2b1d479aaf6849b28c204",
     "source/settings_media_player_sendspin_en.arb": "f7652dabeee326455079fe0470340915da410cf950d2d3a2d856b73802d7882b",
+    "source/settings_media_player_sonos_en.arb": "daf0a51ab1dc951f25e3091c6ce8125abb0f98b18787a659530e94a79f86b68c",
     "source/settings_menu_en.arb": "b2cfb709ab5942d9ac7e9a459938c243d4fbc6963e97d1bbbda1f02db37a0f58",
     "source/settings_screen_audio_adaptive_brightness_en.arb": "71e64c4371deeb2b2bb3c955cc3bb93cb3c334d13780c94add54a61413639da0",
     "source/settings_screen_audio_devices_en.arb": "73e8996a1e380818dc17cea250802c181298df42bf2a89ad5ec20f29e1eabf8a",
@@ -125,6 +126,7 @@
     "translations/es/settings_media_player_music_assistant_es.arb": "9608f948a9de2dfcc2068eaf8a8621e88ed8e27dbf640049faca2155844aa704",
     "translations/es/settings_media_player_picker_es.arb": "376e2d509acb466a7b376c87fc1a3e245fdc30e02335113c122752eae7f24da1",
     "translations/es/settings_media_player_sendspin_es.arb": "bf5e1f8c44f9402d9e9e7874008924526a7eab4bbb5668a872b4d76d2e52d7d4",
+    "translations/es/settings_media_player_sonos_es.arb": "e58a2c0d82cf84beaa26c292575e7aea5fe9fd43f106b856513f0ef3072ee59c",
     "translations/es/settings_menu_es.arb": "b2d7046e71403638c423c6a1b70aa760ad5551c32ffd3c816e59a25f10ea1c83",
     "translations/es/settings_screen_audio_adaptive_brightness_es.arb": "216b21de8e371b65ae025c2e61f9bf78b58384bcee6a105bfa1e0d250fc1fdb6",
     "translations/es/settings_screen_audio_devices_es.arb": "61894d229ed5917fdee0ef81b09309a786e2b9c139715ac51afb5a44004ce21e",
@@ -165,7 +167,7 @@
     "translations/es/setup_connect_es.arb": "f45ffe0a86088030d211b40d2979551f4051c29c5369e86c472c090a64254fa3",
     "translations/es/setup_navigation_es.arb": "7ee26fae39874fe8a9a091522ba676075f21be21bee79737d2d5465eb8ad3acc",
     "translations/es/setup_welcome_es.arb": "5ecd1fef9e8d6b0dd3e085d410941099bb7dd8d4f502e98684fefecaf1663d9c",
-    "metadata/reviews/es.json": "bb772de3d9eb0437828adf8523a1a547c9eda74529a9c7307230745538a93272",
+    "metadata/reviews/es.json": "4cf60771d35d445f7c4c20a1ed11fb44fa4eba98c198eddf74603b05baca5174",
     "LICENSE": "4d3e371a6b6cabc75b4be46fecce7601556d0eb777ad9dba4b00bc13a61de5fc",
     "CREDITS.md": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "docs/CONTRIBUTOR-AGREEMENT.md": "f17a3cd0ddbab3a6b95c50d98b81d5648cb8feb09fc54e33bcce855e45ddb014"
