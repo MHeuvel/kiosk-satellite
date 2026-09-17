@@ -1,0 +1,23 @@
+{
+  "@@locale": "es",
+  "voiceTester": "Prueba de palabras de activación",
+  "voiceTesterHelp": "Observa en tiempo real lo que escucha y puntúa el motor para entender por qué detecta o no la palabra de activación.",
+  "voiceTesterSearch": "Una vista en tiempo real de lo que escucha y puntúa el motor.",
+  "voiceTesterWaiting": "Esperando a Voice Satellite",
+  "voiceStopWordNamed": "{word} (palabra de detención)",
+  "voiceScore": "Puntuación",
+  "voiceThreshold": "Umbral",
+  "voiceHits": "Detecciones",
+  "voiceNearMisses": "Casi detecciones",
+  "voicePeak": "Máximo",
+  "voiceMicLevel": "Nivel del micrófono",
+  "voiceChunkProcessing": "Procesamiento por bloque (mín. / prom. / máx.)",
+  "voiceLog": "Registro",
+  "voiceLogEmpty": "Aquí aparecerán las detecciones y las casi detecciones.",
+  "voiceLogHit": "DETECCIÓN",
+  "voiceLogNear": "casi",
+  "voiceLogScore": "puntuación",
+  "voiceLogDecoded": "decodificado",
+  "voiceLogDistance": "dist.",
+  "voiceLogConfidence": "conf."
+}

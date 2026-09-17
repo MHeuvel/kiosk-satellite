@@ -33262,7 +33262,7 @@
       }
     }
   },
-  "voiceAppearanceHint": "Overlay skin, theme, activity bar, text size",
+  "voiceAppearanceHint": "Estilo del asistente, tema, barra de actividad, tamaño del texto",
   "@voiceAppearanceHint": {
     "context": "Settings > Voice Satellite > Appearance",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -33275,7 +33275,7 @@
       ]
     }
   },
-  "voiceSkin": "Skin",
+  "voiceSkin": "Estilo",
   "@voiceSkin": {
     "context": "Settings > Voice Satellite > Appearance",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -33288,7 +33288,7 @@
       ]
     }
   },
-  "voiceSkinHelp": "The look of the voice assistant overlay.",
+  "voiceSkinHelp": "La apariencia del asistente de voz en pantalla.",
   "@voiceSkinHelp": {
     "context": "Settings > Voice Satellite > Appearance",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -33301,7 +33301,7 @@
       ]
     }
   },
-  "voiceTheme": "Theme mode",
+  "voiceTheme": "Modo del tema",
   "@voiceTheme": {
     "context": "Settings > Voice Satellite > Appearance",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -33314,7 +33314,7 @@
       ]
     }
   },
-  "voiceThemeHelp": "Light or dark rendering of the overlay.",
+  "voiceThemeHelp": "Muestra el asistente en modo claro u oscuro.",
   "@voiceThemeHelp": {
     "context": "Settings > Voice Satellite > Appearance",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -33327,7 +33327,7 @@
       ]
     }
   },
-  "voiceReactive": "Reactive activity bar",
+  "voiceReactive": "Barra de actividad reactiva",
   "@voiceReactive": {
     "context": "Settings > Voice Satellite > Appearance",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -33340,7 +33340,7 @@
       ]
     }
   },
-  "voiceReactiveHelp": "The activity bar reacts to audio. NOT RECOMMENDED for low-power devices like the Echo Show.",
+  "voiceReactiveHelp": "La barra de actividad reacciona al audio. NO SE RECOMIENDA para dispositivos de poca potencia como el Echo Show.",
   "@voiceReactiveHelp": {
     "context": "Settings > Voice Satellite > Appearance",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -33353,7 +33353,7 @@
       ]
     }
   },
-  "voiceRate": "Reactive bar update rate",
+  "voiceRate": "Frecuencia de actualización de la barra reactiva",
   "@voiceRate": {
     "context": "Settings > Voice Satellite > Appearance",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -33366,7 +33366,7 @@
       ]
     }
   },
-  "voiceRateHelp": "How often the activity bar redraws. Higher is smoother and uses more CPU.",
+  "voiceRateHelp": "Con qué frecuencia se actualiza la barra de actividad. Una frecuencia mayor se ve más fluida y usa más CPU.",
   "@voiceRateHelp": {
     "context": "Settings > Voice Satellite > Appearance",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -33379,7 +33379,7 @@
       ]
     }
   },
-  "voiceScaleHelp": "The size of the overlay text.",
+  "voiceScaleHelp": "El tamaño del texto del asistente en pantalla.",
   "@voiceScaleHelp": {
     "context": "Settings > Voice Satellite > Appearance",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -33392,7 +33392,7 @@
       ]
     }
   },
-  "voiceUpdateIntegration": "Update the Voice Satellite integration in Home Assistant to control these settings from the kiosk.",
+  "voiceUpdateIntegration": "Actualiza la integración Voice Satellite en Home Assistant para controlar estos ajustes desde el kiosko.",
   "@voiceUpdateIntegration": {
     "context": "Settings > Voice Satellite > Appearance",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -33405,7 +33405,7 @@
       ]
     }
   },
-  "voiceDashboardRequired": "Available while the kiosk is showing your Home Assistant dashboard.",
+  "voiceDashboardRequired": "Disponible mientras el kiosko muestra tu panel de control de Home Assistant.",
   "@voiceDashboardRequired": {
     "context": "Settings > Voice Satellite > Appearance",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -33938,7 +33938,7 @@
       ]
     }
   },
-  "voicePermissionsSearch": "Microphone and the other grants wake word detection needs.",
+  "voicePermissionsSearch": "Micrófono y otros permisos necesarios para detectar palabras de activación.",
   "@voicePermissionsSearch": {
     "context": "Settings search > Voice Satellite > Required system permissions",
     "description": "Search-result description for the permission group.",
@@ -34068,7 +34068,7 @@
       ]
     }
   },
-  "voiceTester": "Wake Word Tester",
+  "voiceTester": "Prueba de palabras de activación",
   "@voiceTester": {
     "context": "Settings > Voice Satellite > Wake Word Tester",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34079,7 +34079,7 @@
       "remoteAdmin": []
     }
   },
-  "voiceTesterHelp": "Watch what the engine hears and scores in real time, to see why the wake word is or is not triggering.",
+  "voiceTesterHelp": "Observa en tiempo real lo que escucha y puntúa el motor para entender por qué detecta o no la palabra de activación.",
   "@voiceTesterHelp": {
     "context": "Settings > Voice Satellite > Wake Word Tester",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34090,7 +34090,7 @@
       "remoteAdmin": []
     }
   },
-  "voiceTesterSearch": "A live look at what the engine hears and scores.",
+  "voiceTesterSearch": "Una vista en tiempo real de lo que escucha y puntúa el motor.",
   "@voiceTesterSearch": {
     "context": "Settings > Voice Satellite > Wake Word Tester",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34101,7 +34101,7 @@
       "remoteAdmin": []
     }
   },
-  "voiceTesterWaiting": "Waiting for Voice Satellite",
+  "voiceTesterWaiting": "Esperando a Voice Satellite",
   "@voiceTesterWaiting": {
     "context": "Settings > Voice Satellite > Wake Word Tester",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34112,7 +34112,7 @@
       "remoteAdmin": []
     }
   },
-  "voiceStopWordNamed": "{word} (stop word)",
+  "voiceStopWordNamed": "{word} (palabra de detención)",
   "@voiceStopWordNamed": {
     "context": "Settings > Voice Satellite > Wake Word Tester",
     "description": "Marks a spoken word as the stop word in the model picker. Keep {word} unchanged.",
@@ -34128,7 +34128,7 @@
       }
     }
   },
-  "voiceScore": "Score",
+  "voiceScore": "Puntuación",
   "@voiceScore": {
     "context": "Settings > Voice Satellite > Wake Word Tester",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34139,7 +34139,7 @@
       "remoteAdmin": []
     }
   },
-  "voiceThreshold": "Threshold",
+  "voiceThreshold": "Umbral",
   "@voiceThreshold": {
     "context": "Settings > Voice Satellite > Wake Word Tester",
     "description": "The score needed to trigger detection. Shown in the chart legend.",
@@ -34150,7 +34150,7 @@
       "remoteAdmin": []
     }
   },
-  "voiceHits": "Hits",
+  "voiceHits": "Detecciones",
   "@voiceHits": {
     "context": "Settings > Voice Satellite > Wake Word Tester",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34161,7 +34161,7 @@
       "remoteAdmin": []
     }
   },
-  "voiceNearMisses": "Near misses",
+  "voiceNearMisses": "Casi detecciones",
   "@voiceNearMisses": {
     "context": "Settings > Voice Satellite > Wake Word Tester",
     "description": "Count of samples close to triggering that did not become detections.",
@@ -34172,7 +34172,7 @@
       "remoteAdmin": []
     }
   },
-  "voicePeak": "Peak",
+  "voicePeak": "Máximo",
   "@voicePeak": {
     "context": "Settings > Voice Satellite > Wake Word Tester",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34183,7 +34183,7 @@
       "remoteAdmin": []
     }
   },
-  "voiceMicLevel": "Mic level",
+  "voiceMicLevel": "Nivel del micrófono",
   "@voiceMicLevel": {
     "context": "Settings > Voice Satellite > Wake Word Tester",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34194,7 +34194,7 @@
       "remoteAdmin": []
     }
   },
-  "voiceChunkProcessing": "Chunk processing (min / avg / max)",
+  "voiceChunkProcessing": "Procesamiento por bloque (mín. / prom. / máx.)",
   "@voiceChunkProcessing": {
     "context": "Settings > Voice Satellite > Wake Word Tester",
     "description": "Time to process an audio chunk, summarized as minimum, average and maximum. Keep the three values in that order.",
@@ -34205,7 +34205,7 @@
       "remoteAdmin": []
     }
   },
-  "voiceLog": "Log",
+  "voiceLog": "Registro",
   "@voiceLog": {
     "context": "Settings > Voice Satellite > Wake Word Tester",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34216,7 +34216,7 @@
       "remoteAdmin": []
     }
   },
-  "voiceLogEmpty": "Detections and near misses will appear here.",
+  "voiceLogEmpty": "Aquí aparecerán las detecciones y las casi detecciones.",
   "@voiceLogEmpty": {
     "context": "Settings > Voice Satellite > Wake Word Tester",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34227,7 +34227,7 @@
       "remoteAdmin": []
     }
   },
-  "voiceLogHit": "HIT",
+  "voiceLogHit": "DETECCIÓN",
   "@voiceLogHit": {
     "context": "Settings > Voice Satellite > Wake Word Tester",
     "description": "Log marker for a successful detection. May be uppercase in the translation.",
@@ -34238,7 +34238,7 @@
       "remoteAdmin": []
     }
   },
-  "voiceLogNear": "near",
+  "voiceLogNear": "casi",
   "@voiceLogNear": {
     "context": "Settings > Voice Satellite > Wake Word Tester",
     "description": "Short log marker for a near miss: the model heard something but did not trigger.",
@@ -34249,7 +34249,7 @@
       "remoteAdmin": []
     }
   },
-  "voiceLogScore": "score",
+  "voiceLogScore": "puntuación",
   "@voiceLogScore": {
     "context": "Settings > Voice Satellite > Wake Word Tester",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34260,7 +34260,7 @@
       "remoteAdmin": []
     }
   },
-  "voiceLogDecoded": "decoded",
+  "voiceLogDecoded": "decodificado",
   "@voiceLogDecoded": {
     "context": "Settings > Voice Satellite > Wake Word Tester",
     "description": "Label before the phonemes decoded by the model. The phonemes themselves must stay unchanged.",
@@ -34271,7 +34271,7 @@
       "remoteAdmin": []
     }
   },
-  "voiceLogDistance": "ed",
+  "voiceLogDistance": "dist.",
   "@voiceLogDistance": {
     "context": "Settings > Voice Satellite > Wake Word Tester",
     "description": "Short label before the edit distance between decoded phonemes and the target word. This is a diagnostic label, not a language code.",
@@ -34282,7 +34282,7 @@
       "remoteAdmin": []
     }
   },
-  "voiceLogConfidence": "conf",
+  "voiceLogConfidence": "conf.",
   "@voiceLogConfidence": {
     "context": "Settings > Voice Satellite > Wake Word Tester",
     "description": "Short label before a matched-confidence measurement in the diagnostic log.",
@@ -34293,7 +34293,7 @@
       "remoteAdmin": []
     }
   },
-  "voiceWakePage": "Wake Word",
+  "voiceWakePage": "Palabra de activación",
   "@voiceWakePage": {
     "context": "Settings > Voice Satellite > Wake Word",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34306,7 +34306,7 @@
       ]
     }
   },
-  "voiceWakeHint": "Engine, wake words, sensitivity, cached models",
+  "voiceWakeHint": "Motor, palabras de activación, sensibilidad, modelos en caché",
   "@voiceWakeHint": {
     "context": "Settings > Voice Satellite > Wake Word",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34319,7 +34319,7 @@
       ]
     }
   },
-  "voiceWakeLabel": "Wake word",
+  "voiceWakeLabel": "Palabra de activación",
   "@voiceWakeLabel": {
     "context": "Settings > Voice Satellite > Wake Word",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34332,7 +34332,7 @@
       ]
     }
   },
-  "voiceWakeEngine": "Wake word engine",
+  "voiceWakeEngine": "Motor de palabras de activación",
   "@voiceWakeEngine": {
     "context": "Settings > Voice Satellite > Wake Word",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34345,7 +34345,7 @@
       ]
     }
   },
-  "voiceWakeEngineHelp": "Where detection runs and which engine listens.",
+  "voiceWakeEngineHelp": "Dónde se ejecuta la detección y qué motor escucha.",
   "@voiceWakeEngineHelp": {
     "context": "Settings > Voice Satellite > Wake Word",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34358,7 +34358,7 @@
       ]
     }
   },
-  "voiceWake1": "Wake word 1",
+  "voiceWake1": "Palabra de activación 1",
   "@voiceWake1": {
     "context": "Settings > Voice Satellite > Wake Word",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34371,7 +34371,7 @@
       ]
     }
   },
-  "voiceWake1Help": "The word that starts a voice command.",
+  "voiceWake1Help": "La palabra que inicia un comando de voz.",
   "@voiceWake1Help": {
     "context": "Settings > Voice Satellite > Wake Word",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34384,7 +34384,7 @@
       ]
     }
   },
-  "voiceWake2": "Wake word 2",
+  "voiceWake2": "Palabra de activación 2",
   "@voiceWake2": {
     "context": "Settings > Voice Satellite > Wake Word",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34397,7 +34397,7 @@
       ]
     }
   },
-  "voiceWake2Help": "A second wake word, answered by Assist pipeline 2.",
+  "voiceWake2Help": "Una segunda palabra de activación que responde a través del canal de Assist 2.",
   "@voiceWake2Help": {
     "context": "Settings > Voice Satellite > Wake Word",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34410,7 +34410,7 @@
       ]
     }
   },
-  "voiceSensitivity": "Wake word sensitivity",
+  "voiceSensitivity": "Sensibilidad de la palabra de activación",
   "@voiceSensitivity": {
     "context": "Settings > Voice Satellite > Wake Word",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34423,7 +34423,7 @@
       ]
     }
   },
-  "voiceSensitivityHelp": "How easily the wake word triggers.",
+  "voiceSensitivityHelp": "Con qué facilidad se detecta la palabra de activación.",
   "@voiceSensitivityHelp": {
     "context": "Settings > Voice Satellite > Wake Word",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34436,7 +34436,7 @@
       ]
     }
   },
-  "voiceNoiseGate": "Wake word noise gate",
+  "voiceNoiseGate": "Puerta de ruido para la palabra de activación",
   "@voiceNoiseGate": {
     "context": "Settings > Voice Satellite > Wake Word",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34449,7 +34449,7 @@
       ]
     }
   },
-  "voiceNoiseGateHelp": "Skip local wake word inference while the room is quiet, saving CPU.",
+  "voiceNoiseGateHelp": "Omite el procesamiento local de palabras de activación mientras la habitación está en silencio para reducir el uso de CPU.",
   "@voiceNoiseGateHelp": {
     "context": "Settings > Voice Satellite > Wake Word",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34462,7 +34462,7 @@
       ]
     }
   },
-  "voiceStopInterruption": "Stop word interruption",
+  "voiceStopInterruption": "Interrumpir con la palabra de detención",
   "@voiceStopInterruption": {
     "context": "Settings > Voice Satellite > Wake Word",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34475,7 +34475,7 @@
       ]
     }
   },
-  "voiceStopInterruptionHelp": "Say the stop word to interrupt responses.",
+  "voiceStopInterruptionHelp": "Di la palabra de detención para interrumpir las respuestas.",
   "@voiceStopInterruptionHelp": {
     "context": "Settings > Voice Satellite > Wake Word",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34488,7 +34488,7 @@
       ]
     }
   },
-  "voiceAssignFirst": "Assign a satellite to control these settings.",
+  "voiceAssignFirst": "Asigna un satélite para controlar estos ajustes.",
   "@voiceAssignFirst": {
     "context": "Settings > Voice Satellite > Wake Word",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34501,7 +34501,7 @@
       ]
     }
   },
-  "voiceCachedModels": "Cached models",
+  "voiceCachedModels": "Modelos en caché",
   "@voiceCachedModels": {
     "context": "Settings > Voice Satellite > Wake Word",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34514,7 +34514,7 @@
       ]
     }
   },
-  "voiceCachedModelsHelp": "Re-download from Home Assistant. Use after re-publishing a model.",
+  "voiceCachedModelsHelp": "Vuelve a descargar los modelos desde Home Assistant. Úsalo después de volver a publicar un modelo.",
   "@voiceCachedModelsHelp": {
     "context": "Settings > Voice Satellite > Wake Word",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34527,7 +34527,7 @@
       ]
     }
   },
-  "voiceClearCache": "Clear cache",
+  "voiceClearCache": "Borrar caché",
   "@voiceClearCache": {
     "context": "Settings > Voice Satellite > Wake Word",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34540,7 +34540,7 @@
       ]
     }
   },
-  "voiceClearing": "Clearing…",
+  "voiceClearing": "Borrando…",
   "@voiceClearing": {
     "context": "Settings > Voice Satellite > Wake Word",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34553,7 +34553,7 @@
       ]
     }
   },
-  "voiceCacheCleared": "Files cleared: {count}. Downloading again.",
+  "voiceCacheCleared": "Archivos borrados: {count}. Descargando de nuevo.",
   "@voiceCacheCleared": {
     "context": "Settings > Voice Satellite > Wake Word",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34571,7 +34571,7 @@
       }
     }
   },
-  "voiceCacheCount": "Cleared {count}",
+  "voiceCacheCount": "Archivos borrados: {count}",
   "@voiceCacheCount": {
     "context": "Settings > Voice Satellite > Wake Word",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34589,7 +34589,7 @@
       }
     }
   },
-  "voiceVerySensitive": "Very sensitive",
+  "voiceVerySensitive": "Muy sensible",
   "@voiceVerySensitive": {
     "context": "Settings > Voice Satellite > Wake Word",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34602,7 +34602,7 @@
       ]
     }
   },
-  "voiceWakeWordPreferFp32Title": "Prefer fp32 vsWakeWord models",
+  "voiceWakeWordPreferFp32Title": "Preferir modelos fp32 de vsWakeWord",
   "@voiceWakeWordPreferFp32Title": {
     "context": "Settings > Voice Satellite > Wake Word",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34615,7 +34615,7 @@
       ]
     }
   },
-  "voiceWakeWordPreferFp32Description": "Uses fp32 models instead of smaller int8 versions. Adds 10-30% more CPU usage while listening to avoid about 2% confidence drift.",
+  "voiceWakeWordPreferFp32Description": "Usa modelos fp32 en lugar de las versiones int8 más pequeñas. Aumenta el uso de CPU entre un 10 y un 30% durante la escucha para evitar una variación de confianza de aproximadamente el 2%.",
   "@voiceWakeWordPreferFp32Description": {
     "context": "Settings > Voice Satellite > Wake Word",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34628,7 +34628,7 @@
       ]
     }
   },
-  "voiceWakeWordResumeTimeoutSecondsTitle": "Resume timeout (seconds)",
+  "voiceWakeWordResumeTimeoutSecondsTitle": "Tiempo de espera para reanudar (segundos)",
   "@voiceWakeWordResumeTimeoutSecondsTitle": {
     "context": "Settings > Voice Satellite > Wake Word",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34641,7 +34641,7 @@
       ]
     }
   },
-  "voiceWakeWordResumeTimeoutSecondsDescription": "Self-heal: resume listening if the page never calls setWakeWordActive(true) after a handoff. Waits while a voice turn is still streaming audio, so a long turn is never cut short.",
+  "voiceWakeWordResumeTimeoutSecondsDescription": "Recuperación automática: reanuda la escucha si la página no llama a setWakeWordActive(true) después de cederle el control. Espera mientras una interacción de voz sigue transmitiendo audio para no cortar una interacción larga.",
   "@voiceWakeWordResumeTimeoutSecondsDescription": {
     "context": "Settings > Voice Satellite > Wake Word",
     "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
@@ -34654,7 +34654,7 @@
       ]
     }
   },
-  "voiceSlightlySensitive": "Slightly sensitive",
+  "voiceSlightlySensitive": "Poco sensible",
   "@voiceSlightlySensitive": {
     "context": "Settings > Voice Satellite > Wake Word > Wake word engine or sensitivity",
     "description": "Built-in option label. Keep engine names unchanged.",
@@ -34667,7 +34667,7 @@
       ]
     }
   },
-  "voiceModeratelySensitive": "Moderately sensitive",
+  "voiceModeratelySensitive": "Moderadamente sensible",
   "@voiceModeratelySensitive": {
     "context": "Settings > Voice Satellite > Wake Word > Wake word engine or sensitivity",
     "description": "Built-in option label. Keep engine names unchanged.",
@@ -34680,7 +34680,7 @@
       ]
     }
   },
-  "voiceOnDevice": "On Device",
+  "voiceOnDevice": "En el dispositivo",
   "@voiceOnDevice": {
     "context": "Settings > Voice Satellite > Wake Word > Wake word engine or sensitivity",
     "description": "Built-in option label. Keep engine names unchanged.",
@@ -34693,7 +34693,7 @@
       ]
     }
   },
-  "voiceOnDeviceEngine": "On device ({engine})",
+  "voiceOnDeviceEngine": "En el dispositivo ({engine})",
   "@voiceOnDeviceEngine": {
     "context": "Settings > Voice Satellite > Wake Word > Wake word engine or sensitivity",
     "description": "Built-in option label. Keep engine names unchanged.",

@@ -1,0 +1,159 @@
+{
+  "@@locale": "en",
+  "voiceAppearanceHint": "Overlay skin, theme, activity bar, text size",
+  "@voiceAppearanceHint": {
+    "context": "Settings > Voice Satellite > Appearance",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Appearance"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Appearance"
+      ]
+    }
+  },
+  "voiceSkin": "Skin",
+  "@voiceSkin": {
+    "context": "Settings > Voice Satellite > Appearance",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Appearance"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Appearance"
+      ]
+    }
+  },
+  "voiceSkinHelp": "The look of the voice assistant overlay.",
+  "@voiceSkinHelp": {
+    "context": "Settings > Voice Satellite > Appearance",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Appearance"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Appearance"
+      ]
+    }
+  },
+  "voiceTheme": "Theme mode",
+  "@voiceTheme": {
+    "context": "Settings > Voice Satellite > Appearance",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Appearance"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Appearance"
+      ]
+    }
+  },
+  "voiceThemeHelp": "Light or dark rendering of the overlay.",
+  "@voiceThemeHelp": {
+    "context": "Settings > Voice Satellite > Appearance",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Appearance"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Appearance"
+      ]
+    }
+  },
+  "voiceReactive": "Reactive activity bar",
+  "@voiceReactive": {
+    "context": "Settings > Voice Satellite > Appearance",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Appearance"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Appearance"
+      ]
+    }
+  },
+  "voiceReactiveHelp": "The activity bar reacts to audio. NOT RECOMMENDED for low-power devices like the Echo Show.",
+  "@voiceReactiveHelp": {
+    "context": "Settings > Voice Satellite > Appearance",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Appearance"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Appearance"
+      ]
+    }
+  },
+  "voiceRate": "Reactive bar update rate",
+  "@voiceRate": {
+    "context": "Settings > Voice Satellite > Appearance",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Appearance"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Appearance"
+      ]
+    }
+  },
+  "voiceRateHelp": "How often the activity bar redraws. Higher is smoother and uses more CPU.",
+  "@voiceRateHelp": {
+    "context": "Settings > Voice Satellite > Appearance",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Appearance"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Appearance"
+      ]
+    }
+  },
+  "voiceScaleHelp": "The size of the overlay text.",
+  "@voiceScaleHelp": {
+    "context": "Settings > Voice Satellite > Appearance",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Appearance"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Appearance"
+      ]
+    }
+  },
+  "voiceUpdateIntegration": "Update the Voice Satellite integration in Home Assistant to control these settings from the kiosk.",
+  "@voiceUpdateIntegration": {
+    "context": "Settings > Voice Satellite > Appearance",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Appearance"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Appearance"
+      ]
+    }
+  },
+  "voiceDashboardRequired": "Available while the kiosk is showing your Home Assistant dashboard.",
+  "@voiceDashboardRequired": {
+    "context": "Settings > Voice Satellite > Appearance",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Appearance"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Appearance"
+      ]
+    }
+  }
+}

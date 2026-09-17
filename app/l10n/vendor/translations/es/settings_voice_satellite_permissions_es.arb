@@ -9,5 +9,6 @@
   "voiceNotificationMissing": "Necesario para que la escucha en segundo plano funcione de forma fiable.",
   "voiceBatteryHeld": "Android mantendrá la escucha en funcionamiento.",
   "voiceBatteryMissing": "Sin este permiso, la escucha se detiene después de unas horas.",
-  "voicePermissionDirections": "Concede estos permisos en el dispositivo: desliza desde el borde izquierdo → Configuración → Voice Satellite → Permisos del sistema necesarios."
+  "voicePermissionDirections": "Concede estos permisos en el dispositivo: desliza desde el borde izquierdo → Configuración → Voice Satellite → Permisos del sistema necesarios.",
+  "voicePermissionsSearch": "Micrófono y otros permisos necesarios para detectar palabras de activación."
 }

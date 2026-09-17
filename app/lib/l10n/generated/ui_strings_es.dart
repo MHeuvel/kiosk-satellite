@@ -8925,44 +8925,44 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get voiceAppearanceHint =>
-      'Overlay skin, theme, activity bar, text size';
+      'Estilo del asistente, tema, barra de actividad, tamaño del texto';
 
   @override
-  String get voiceSkin => 'Skin';
+  String get voiceSkin => 'Estilo';
 
   @override
-  String get voiceSkinHelp => 'The look of the voice assistant overlay.';
+  String get voiceSkinHelp => 'La apariencia del asistente de voz en pantalla.';
 
   @override
-  String get voiceTheme => 'Theme mode';
+  String get voiceTheme => 'Modo del tema';
 
   @override
-  String get voiceThemeHelp => 'Light or dark rendering of the overlay.';
+  String get voiceThemeHelp => 'Muestra el asistente en modo claro u oscuro.';
 
   @override
-  String get voiceReactive => 'Reactive activity bar';
+  String get voiceReactive => 'Barra de actividad reactiva';
 
   @override
   String get voiceReactiveHelp =>
-      'The activity bar reacts to audio. NOT RECOMMENDED for low-power devices like the Echo Show.';
+      'La barra de actividad reacciona al audio. NO SE RECOMIENDA para dispositivos de poca potencia como el Echo Show.';
 
   @override
-  String get voiceRate => 'Reactive bar update rate';
+  String get voiceRate => 'Frecuencia de actualización de la barra reactiva';
 
   @override
   String get voiceRateHelp =>
-      'How often the activity bar redraws. Higher is smoother and uses more CPU.';
+      'Con qué frecuencia se actualiza la barra de actividad. Una frecuencia mayor se ve más fluida y usa más CPU.';
 
   @override
-  String get voiceScaleHelp => 'The size of the overlay text.';
+  String get voiceScaleHelp => 'El tamaño del texto del asistente en pantalla.';
 
   @override
   String get voiceUpdateIntegration =>
-      'Update the Voice Satellite integration in Home Assistant to control these settings from the kiosk.';
+      'Actualiza la integración Voice Satellite en Home Assistant para controlar estos ajustes desde el kiosko.';
 
   @override
   String get voiceDashboardRequired =>
-      'Available while the kiosk is showing your Home Assistant dashboard.';
+      'Disponible mientras el kiosko muestra tu panel de control de Home Assistant.';
 
   @override
   String get voiceEngine => 'Motor';
@@ -9107,7 +9107,7 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get voicePermissionsSearch =>
-      'Microphone and the other grants wake word detection needs.';
+      'Micrófono y otros permisos necesarios para detectar palabras de activación.';
 
   @override
   String get voiceDisconnected => 'Home Assistant no está conectado';
@@ -9140,175 +9140,180 @@ class UiStringsEs extends UiStrings {
   String get voiceLoading => 'Cargando los controles de Voice Satellite…';
 
   @override
-  String get voiceTester => 'Wake Word Tester';
+  String get voiceTester => 'Prueba de palabras de activación';
 
   @override
   String get voiceTesterHelp =>
-      'Watch what the engine hears and scores in real time, to see why the wake word is or is not triggering.';
+      'Observa en tiempo real lo que escucha y puntúa el motor para entender por qué detecta o no la palabra de activación.';
 
   @override
   String get voiceTesterSearch =>
-      'A live look at what the engine hears and scores.';
+      'Una vista en tiempo real de lo que escucha y puntúa el motor.';
 
   @override
-  String get voiceTesterWaiting => 'Waiting for Voice Satellite';
+  String get voiceTesterWaiting => 'Esperando a Voice Satellite';
 
   @override
   String voiceStopWordNamed(String word) {
-    return '$word (stop word)';
+    return '$word (palabra de detención)';
   }
 
   @override
-  String get voiceScore => 'Score';
+  String get voiceScore => 'Puntuación';
 
   @override
-  String get voiceThreshold => 'Threshold';
+  String get voiceThreshold => 'Umbral';
 
   @override
-  String get voiceHits => 'Hits';
+  String get voiceHits => 'Detecciones';
 
   @override
-  String get voiceNearMisses => 'Near misses';
+  String get voiceNearMisses => 'Casi detecciones';
 
   @override
-  String get voicePeak => 'Peak';
+  String get voicePeak => 'Máximo';
 
   @override
-  String get voiceMicLevel => 'Mic level';
+  String get voiceMicLevel => 'Nivel del micrófono';
 
   @override
-  String get voiceChunkProcessing => 'Chunk processing (min / avg / max)';
+  String get voiceChunkProcessing =>
+      'Procesamiento por bloque (mín. / prom. / máx.)';
 
   @override
-  String get voiceLog => 'Log';
+  String get voiceLog => 'Registro';
 
   @override
-  String get voiceLogEmpty => 'Detections and near misses will appear here.';
+  String get voiceLogEmpty =>
+      'Aquí aparecerán las detecciones y las casi detecciones.';
 
   @override
-  String get voiceLogHit => 'HIT';
+  String get voiceLogHit => 'DETECCIÓN';
 
   @override
-  String get voiceLogNear => 'near';
+  String get voiceLogNear => 'casi';
 
   @override
-  String get voiceLogScore => 'score';
+  String get voiceLogScore => 'puntuación';
 
   @override
-  String get voiceLogDecoded => 'decoded';
+  String get voiceLogDecoded => 'decodificado';
 
   @override
-  String get voiceLogDistance => 'ed';
+  String get voiceLogDistance => 'dist.';
 
   @override
-  String get voiceLogConfidence => 'conf';
+  String get voiceLogConfidence => 'conf.';
 
   @override
-  String get voiceWakePage => 'Wake Word';
+  String get voiceWakePage => 'Palabra de activación';
 
   @override
-  String get voiceWakeHint => 'Engine, wake words, sensitivity, cached models';
+  String get voiceWakeHint =>
+      'Motor, palabras de activación, sensibilidad, modelos en caché';
 
   @override
-  String get voiceWakeLabel => 'Wake word';
+  String get voiceWakeLabel => 'Palabra de activación';
 
   @override
-  String get voiceWakeEngine => 'Wake word engine';
+  String get voiceWakeEngine => 'Motor de palabras de activación';
 
   @override
   String get voiceWakeEngineHelp =>
-      'Where detection runs and which engine listens.';
+      'Dónde se ejecuta la detección y qué motor escucha.';
 
   @override
-  String get voiceWake1 => 'Wake word 1';
+  String get voiceWake1 => 'Palabra de activación 1';
 
   @override
-  String get voiceWake1Help => 'The word that starts a voice command.';
+  String get voiceWake1Help => 'La palabra que inicia un comando de voz.';
 
   @override
-  String get voiceWake2 => 'Wake word 2';
+  String get voiceWake2 => 'Palabra de activación 2';
 
   @override
   String get voiceWake2Help =>
-      'A second wake word, answered by Assist pipeline 2.';
+      'Una segunda palabra de activación que responde a través del canal de Assist 2.';
 
   @override
-  String get voiceSensitivity => 'Wake word sensitivity';
+  String get voiceSensitivity => 'Sensibilidad de la palabra de activación';
 
   @override
-  String get voiceSensitivityHelp => 'How easily the wake word triggers.';
+  String get voiceSensitivityHelp =>
+      'Con qué facilidad se detecta la palabra de activación.';
 
   @override
-  String get voiceNoiseGate => 'Wake word noise gate';
+  String get voiceNoiseGate => 'Puerta de ruido para la palabra de activación';
 
   @override
   String get voiceNoiseGateHelp =>
-      'Skip local wake word inference while the room is quiet, saving CPU.';
+      'Omite el procesamiento local de palabras de activación mientras la habitación está en silencio para reducir el uso de CPU.';
 
   @override
-  String get voiceStopInterruption => 'Stop word interruption';
+  String get voiceStopInterruption => 'Interrumpir con la palabra de detención';
 
   @override
   String get voiceStopInterruptionHelp =>
-      'Say the stop word to interrupt responses.';
+      'Di la palabra de detención para interrumpir las respuestas.';
 
   @override
   String get voiceAssignFirst =>
-      'Assign a satellite to control these settings.';
+      'Asigna un satélite para controlar estos ajustes.';
 
   @override
-  String get voiceCachedModels => 'Cached models';
+  String get voiceCachedModels => 'Modelos en caché';
 
   @override
   String get voiceCachedModelsHelp =>
-      'Re-download from Home Assistant. Use after re-publishing a model.';
+      'Vuelve a descargar los modelos desde Home Assistant. Úsalo después de volver a publicar un modelo.';
 
   @override
-  String get voiceClearCache => 'Clear cache';
+  String get voiceClearCache => 'Borrar caché';
 
   @override
-  String get voiceClearing => 'Clearing…';
+  String get voiceClearing => 'Borrando…';
 
   @override
   String voiceCacheCleared(String count) {
-    return 'Files cleared: $count. Downloading again.';
+    return 'Archivos borrados: $count. Descargando de nuevo.';
   }
 
   @override
   String voiceCacheCount(String count) {
-    return 'Cleared $count';
+    return 'Archivos borrados: $count';
   }
 
   @override
-  String get voiceVerySensitive => 'Very sensitive';
+  String get voiceVerySensitive => 'Muy sensible';
 
   @override
-  String get voiceWakeWordPreferFp32Title => 'Prefer fp32 vsWakeWord models';
+  String get voiceWakeWordPreferFp32Title =>
+      'Preferir modelos fp32 de vsWakeWord';
 
   @override
   String get voiceWakeWordPreferFp32Description =>
-      'Uses fp32 models instead of smaller int8 versions. Adds 10-30% more CPU usage while listening to avoid about 2% confidence drift.';
+      'Usa modelos fp32 en lugar de las versiones int8 más pequeñas. Aumenta el uso de CPU entre un 10 y un 30% durante la escucha para evitar una variación de confianza de aproximadamente el 2%.';
 
   @override
   String get voiceWakeWordResumeTimeoutSecondsTitle =>
-      'Resume timeout (seconds)';
+      'Tiempo de espera para reanudar (segundos)';
 
   @override
   String get voiceWakeWordResumeTimeoutSecondsDescription =>
-      'Self-heal: resume listening if the page never calls setWakeWordActive(true) after a handoff. Waits while a voice turn is still streaming audio, so a long turn is never cut short.';
+      'Recuperación automática: reanuda la escucha si la página no llama a setWakeWordActive(true) después de cederle el control. Espera mientras una interacción de voz sigue transmitiendo audio para no cortar una interacción larga.';
 
   @override
-  String get voiceSlightlySensitive => 'Slightly sensitive';
+  String get voiceSlightlySensitive => 'Poco sensible';
 
   @override
-  String get voiceModeratelySensitive => 'Moderately sensitive';
+  String get voiceModeratelySensitive => 'Moderadamente sensible';
 
   @override
-  String get voiceOnDevice => 'On Device';
+  String get voiceOnDevice => 'En el dispositivo';
 
   @override
   String voiceOnDeviceEngine(String engine) {
-    return 'On device ($engine)';
+    return 'En el dispositivo ($engine)';
   }
 
   @override

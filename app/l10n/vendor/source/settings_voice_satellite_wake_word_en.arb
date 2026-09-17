@@ -1,0 +1,421 @@
+{
+  "@@locale": "en",
+  "voiceWakePage": "Wake Word",
+  "@voiceWakePage": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake Word"
+      ]
+    }
+  },
+  "voiceWakeHint": "Engine, wake words, sensitivity, cached models",
+  "@voiceWakeHint": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake Word"
+      ]
+    }
+  },
+  "voiceWakeLabel": "Wake word",
+  "@voiceWakeLabel": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake Word"
+      ]
+    }
+  },
+  "voiceWakeEngine": "Wake word engine",
+  "@voiceWakeEngine": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake Word"
+      ]
+    }
+  },
+  "voiceWakeEngineHelp": "Where detection runs and which engine listens.",
+  "@voiceWakeEngineHelp": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake Word"
+      ]
+    }
+  },
+  "voiceWake1": "Wake word 1",
+  "@voiceWake1": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake Word"
+      ]
+    }
+  },
+  "voiceWake1Help": "The word that starts a voice command.",
+  "@voiceWake1Help": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake Word"
+      ]
+    }
+  },
+  "voiceWake2": "Wake word 2",
+  "@voiceWake2": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake Word"
+      ]
+    }
+  },
+  "voiceWake2Help": "A second wake word, answered by Assist pipeline 2.",
+  "@voiceWake2Help": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake Word"
+      ]
+    }
+  },
+  "voiceSensitivity": "Wake word sensitivity",
+  "@voiceSensitivity": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake Word"
+      ]
+    }
+  },
+  "voiceSensitivityHelp": "How easily the wake word triggers.",
+  "@voiceSensitivityHelp": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake Word"
+      ]
+    }
+  },
+  "voiceNoiseGate": "Wake word noise gate",
+  "@voiceNoiseGate": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake Word"
+      ]
+    }
+  },
+  "voiceNoiseGateHelp": "Skip local wake word inference while the room is quiet, saving CPU.",
+  "@voiceNoiseGateHelp": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake Word"
+      ]
+    }
+  },
+  "voiceStopInterruption": "Stop word interruption",
+  "@voiceStopInterruption": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake Word"
+      ]
+    }
+  },
+  "voiceStopInterruptionHelp": "Say the stop word to interrupt responses.",
+  "@voiceStopInterruptionHelp": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake Word"
+      ]
+    }
+  },
+  "voiceAssignFirst": "Assign a satellite to control these settings.",
+  "@voiceAssignFirst": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake Word"
+      ]
+    }
+  },
+  "voiceCachedModels": "Cached models",
+  "@voiceCachedModels": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake Word"
+      ]
+    }
+  },
+  "voiceCachedModelsHelp": "Re-download from Home Assistant. Use after re-publishing a model.",
+  "@voiceCachedModelsHelp": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake Word"
+      ]
+    }
+  },
+  "voiceClearCache": "Clear cache",
+  "@voiceClearCache": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake Word"
+      ]
+    }
+  },
+  "voiceClearing": "Clearing…",
+  "@voiceClearing": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake Word"
+      ]
+    }
+  },
+  "voiceCacheCleared": "Files cleared: {count}. Downloading again.",
+  "@voiceCacheCleared": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake Word"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceCacheCount": "Cleared {count}",
+  "@voiceCacheCount": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake Word"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceVerySensitive": "Very sensitive",
+  "@voiceVerySensitive": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake Word"
+      ]
+    }
+  },
+  "voiceWakeWordPreferFp32Title": "Prefer fp32 vsWakeWord models",
+  "@voiceWakeWordPreferFp32Title": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake Word"
+      ]
+    }
+  },
+  "voiceWakeWordPreferFp32Description": "Uses fp32 models instead of smaller int8 versions. Adds 10-30% more CPU usage while listening to avoid about 2% confidence drift.",
+  "@voiceWakeWordPreferFp32Description": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake Word"
+      ]
+    }
+  },
+  "voiceWakeWordResumeTimeoutSecondsTitle": "Resume timeout (seconds)",
+  "@voiceWakeWordResumeTimeoutSecondsTitle": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake Word"
+      ]
+    }
+  },
+  "voiceWakeWordResumeTimeoutSecondsDescription": "Self-heal: resume listening if the page never calls setWakeWordActive(true) after a handoff. Waits while a voice turn is still streaming audio, so a long turn is never cut short.",
+  "@voiceWakeWordResumeTimeoutSecondsDescription": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake Word"
+      ]
+    }
+  },
+  "voiceSlightlySensitive": "Slightly sensitive",
+  "@voiceSlightlySensitive": {
+    "context": "Settings > Voice Satellite > Wake Word > Wake word engine or sensitivity",
+    "description": "Built-in option label. Keep engine names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake Word"
+      ]
+    }
+  },
+  "voiceModeratelySensitive": "Moderately sensitive",
+  "@voiceModeratelySensitive": {
+    "context": "Settings > Voice Satellite > Wake Word > Wake word engine or sensitivity",
+    "description": "Built-in option label. Keep engine names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake Word"
+      ]
+    }
+  },
+  "voiceOnDevice": "On Device",
+  "@voiceOnDevice": {
+    "context": "Settings > Voice Satellite > Wake Word > Wake word engine or sensitivity",
+    "description": "Built-in option label. Keep engine names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake Word"
+      ]
+    }
+  },
+  "voiceOnDeviceEngine": "On device ({engine})",
+  "@voiceOnDeviceEngine": {
+    "context": "Settings > Voice Satellite > Wake Word > Wake word engine or sensitivity",
+    "description": "Built-in option label. Keep engine names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake Word"
+      ]
+    },
+    "placeholders": {
+      "engine": {
+        "type": "String"
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "@@locale": "es",
+  "voiceAppearanceHint": "Estilo del asistente, tema, barra de actividad, tamaño del texto",
+  "voiceSkin": "Estilo",
+  "voiceSkinHelp": "La apariencia del asistente de voz en pantalla.",
+  "voiceTheme": "Modo del tema",
+  "voiceThemeHelp": "Muestra el asistente en modo claro u oscuro.",
+  "voiceReactive": "Barra de actividad reactiva",
+  "voiceReactiveHelp": "La barra de actividad reacciona al audio. NO SE RECOMIENDA para dispositivos de poca potencia como el Echo Show.",
+  "voiceRate": "Frecuencia de actualización de la barra reactiva",
+  "voiceRateHelp": "Con qué frecuencia se actualiza la barra de actividad. Una frecuencia mayor se ve más fluida y usa más CPU.",
+  "voiceScaleHelp": "El tamaño del texto del asistente en pantalla.",
+  "voiceUpdateIntegration": "Actualiza la integración Voice Satellite en Home Assistant para controlar estos ajustes desde el kiosko.",
+  "voiceDashboardRequired": "Disponible mientras el kiosko muestra tu panel de control de Home Assistant."
+}
