@@ -19291,7 +19291,7 @@
       }
     }
   },
-  "settingDisableCacheTitle": "Disable cache",
+  "settingDisableCacheTitle": "Desactivar caché",
   "@settingDisableCacheTitle": {
     "context": "Settings > Web Browsing > Disable cache",
     "description": "Setting label.",
@@ -19304,7 +19304,7 @@
       ]
     }
   },
-  "settingDisableCacheDescription": "Always fetch from the network and drop cached page data on load, so a redeployed dashboard always comes back fresh. Slow; treat it as a development aid.",
+  "settingDisableCacheDescription": "Siempre carga desde la red y descarta los datos de la página almacenados en caché al cargar, para mostrar la versión más reciente del panel de control. Es lento. Úsalo como ayuda durante el desarrollo.",
   "@settingDisableCacheDescription": {
     "context": "Settings > Web Browsing > Disable cache",
     "description": "Help below this setting.",
@@ -19317,7 +19317,7 @@
       ]
     }
   },
-  "settingAllowMixedContentTitle": "Allow mixed content",
+  "settingAllowMixedContentTitle": "Permitir contenido mixto",
   "@settingAllowMixedContentTitle": {
     "context": "Settings > Web Browsing > Allow mixed content",
     "description": "Setting label.",
@@ -19330,7 +19330,7 @@
       ]
     }
   },
-  "settingAllowMixedContentDescription": "Let HTTPS pages load insecure HTTP resources. Helps when Home Assistant mixes http:// content into an https:// dashboard.",
+  "settingAllowMixedContentDescription": "Permite que las páginas HTTPS carguen recursos HTTP no seguros. Útil cuando Home Assistant incluye contenido http:// en un panel de control que usa https:// para conectarse.",
   "@settingAllowMixedContentDescription": {
     "context": "Settings > Web Browsing > Allow mixed content",
     "description": "Help below this setting.",
@@ -19343,7 +19343,7 @@
       ]
     }
   },
-  "settingIgnoreSslErrorsTitle": "Ignore SSL errors",
+  "settingIgnoreSslErrorsTitle": "Ignorar errores SSL",
   "@settingIgnoreSslErrorsTitle": {
     "context": "Settings > Web Browsing > Ignore SSL errors",
     "description": "Setting label.",
@@ -19356,7 +19356,7 @@
       ]
     }
   },
-  "settingIgnoreSslErrorsDescription": "Accept untrusted or self-signed certificates. Use only on your own network, since it disables certificate verification.",
+  "settingIgnoreSslErrorsDescription": "Acepta certificados no confiables o autofirmados. Úsalo solo en tu propia red, ya que desactiva la verificación de certificados.",
   "@settingIgnoreSslErrorsDescription": {
     "context": "Settings > Web Browsing > Ignore SSL errors",
     "description": "Help below this setting.",
@@ -19369,7 +19369,7 @@
       ]
     }
   },
-  "settingAutoReloadOnErrorTitle": "Auto-reload on error",
+  "settingAutoReloadOnErrorTitle": "Recargar automáticamente si hay un error",
   "@settingAutoReloadOnErrorTitle": {
     "context": "Settings > Web Browsing > Auto-reload on error",
     "description": "Setting label.",
@@ -19382,7 +19382,7 @@
       ]
     }
   },
-  "settingAutoReloadOnErrorDescription": "Recover automatically from page failures and app crashes.",
+  "settingAutoReloadOnErrorDescription": "Recupera la página automáticamente tras un error de carga o un cierre inesperado de la aplicación.",
   "@settingAutoReloadOnErrorDescription": {
     "context": "Settings > Web Browsing > Auto-reload on error",
     "description": "Help below this setting.",
@@ -19395,7 +19395,7 @@
       ]
     }
   },
-  "settingPullToRefreshTitle": "Enable pull to refresh",
+  "settingPullToRefreshTitle": "Activar deslizar para recargar",
   "@settingPullToRefreshTitle": {
     "context": "Settings > Web Browsing > Enable pull to refresh",
     "description": "Setting label.",
@@ -19408,7 +19408,7 @@
       ]
     }
   },
-  "settingPullToRefreshDescription": "Drag down from the top of the page to reload it. Off by default: on a scrolling dashboard an accidental pull is easy.",
+  "settingPullToRefreshDescription": "Desliza hacia abajo desde la parte superior de la página para recargarla. Desactivado de forma predeterminada porque es fácil hacerlo por accidente al desplazarse por un panel de control.",
   "@settingPullToRefreshDescription": {
     "context": "Settings > Web Browsing > Enable pull to refresh",
     "description": "Help below this setting.",
@@ -19421,7 +19421,7 @@
       ]
     }
   },
-  "settingPullToRefreshClearCacheTitle": "Clear cache when pulling to refresh",
+  "settingPullToRefreshClearCacheTitle": "Borrar caché al deslizar para recargar",
   "@settingPullToRefreshClearCacheTitle": {
     "context": "Settings > Web Browsing > Clear cache when pulling to refresh",
     "description": "Setting label.",
@@ -19434,7 +19434,7 @@
       ]
     }
   },
-  "settingPullToRefreshClearCacheDescription": "A pull also clears the web cache and wake word models before reloading, so everything comes back fresh. Login and saved page data are kept.",
+  "settingPullToRefreshClearCacheDescription": "Al deslizar también se borran la caché web y los modelos de palabras de activación antes de recargar. Se conservan la sesión y los datos guardados de la página.",
   "@settingPullToRefreshClearCacheDescription": {
     "context": "Settings > Web Browsing > Clear cache when pulling to refresh",
     "description": "Help below this setting.",
@@ -19447,7 +19447,7 @@
       ]
     }
   },
-  "settingBrowserZoomTitle": "Zoom level",
+  "settingBrowserZoomTitle": "Nivel de zoom",
   "@settingBrowserZoomTitle": {
     "context": "Settings > Web Browsing > Zoom level",
     "description": "Setting label.",
@@ -19460,7 +19460,7 @@
       ]
     }
   },
-  "settingBrowserZoomDescription": "Scales the whole page. Above 1x for wall tablets viewed from a distance; below 1x fits more dashboard on a small screen.",
+  "settingBrowserZoomDescription": "Cambia la escala de toda la página. Un valor superior a 1x facilita verla a distancia en una tableta de pared. Un valor inferior a 1x permite mostrar más del panel de control en una pantalla pequeña.",
   "@settingBrowserZoomDescription": {
     "context": "Settings > Web Browsing > Zoom level",
     "description": "Help below this setting.",
@@ -19473,7 +19473,7 @@
       ]
     }
   },
-  "settingPinchToZoomTitle": "Enable pinch to zoom",
+  "settingPinchToZoomTitle": "Activar zoom con dos dedos",
   "@settingPinchToZoomTitle": {
     "context": "Settings > Web Browsing > Enable pinch to zoom",
     "description": "Setting label.",
@@ -19486,7 +19486,7 @@
       ]
     }
   },
-  "settingPinchToZoomDescription": "Zoom the page with a two-finger pinch. Off by default so a kiosk dashboard stays put under stray touches.",
+  "settingPinchToZoomDescription": "Acerca o aleja la página con dos dedos. Desactivado de forma predeterminada para evitar que los toques accidentales cambien el panel de control del kiosko.",
   "@settingPinchToZoomDescription": {
     "context": "Settings > Web Browsing > Enable pinch to zoom",
     "description": "Help below this setting.",
@@ -19499,7 +19499,7 @@
       ]
     }
   },
-  "settingDisableScrollingTitle": "Disable scrolling",
+  "settingDisableScrollingTitle": "Desactivar desplazamiento",
   "@settingDisableScrollingTitle": {
     "context": "Settings > Web Browsing > Disable scrolling",
     "description": "Setting label.",
@@ -19512,7 +19512,7 @@
       ]
     }
   },
-  "settingDisableScrollingDescription": "Lock the page in place so it cannot be scrolled in any direction. Taps and buttons keep working.",
+  "settingDisableScrollingDescription": "Fija la página para que no se pueda desplazar en ninguna dirección. Los toques y botones siguen funcionando.",
   "@settingDisableScrollingDescription": {
     "context": "Settings > Web Browsing > Disable scrolling",
     "description": "Help below this setting.",
@@ -19525,7 +19525,7 @@
       ]
     }
   },
-  "browserCrashPermissionHelp": "Without this the kiosk cannot come back after a crash.",
+  "browserCrashPermissionHelp": "Sin este permiso, el kiosko no puede volver a abrirse después de un cierre inesperado.",
   "@browserCrashPermissionHelp": {
     "context": "Settings > Web Browsing > Auto-reload on error > Display over other apps",
     "description": "Warning when the permission is missing.",
@@ -19535,7 +19535,7 @@
       ]
     }
   },
-  "settingBrowserInjectJsTitle": "Inject JavaScript on the HA dashboard",
+  "settingBrowserInjectJsTitle": "Inyectar JavaScript en el panel de control de HA",
   "@settingBrowserInjectJsTitle": {
     "context": "Settings > Web Browsing > Inject JavaScript on the HA dashboard",
     "description": "Setting label.",
@@ -19548,7 +19548,7 @@
       ]
     }
   },
-  "settingBrowserInjectJsDescription": "Run this JavaScript code after every load of the dashboard page. Useful to hide distracting elements or tweak a dashboard you do not control.",
+  "settingBrowserInjectJsDescription": "Ejecuta este código JavaScript después de cada carga del panel de control. Útil para ocultar elementos que distraen o modificar un panel de control que no administras.",
   "@settingBrowserInjectJsDescription": {
     "context": "Settings > Web Browsing > Inject JavaScript on the HA dashboard",
     "description": "Help below this setting.",
@@ -19561,7 +19561,7 @@
       ]
     }
   },
-  "settingBrowserInjectJsExternalTitle": "Inject JavaScript on external pages",
+  "settingBrowserInjectJsExternalTitle": "Inyectar JavaScript en páginas externas",
   "@settingBrowserInjectJsExternalTitle": {
     "context": "Settings > Web Browsing > Inject JavaScript on external pages",
     "description": "Setting label.",
@@ -19574,7 +19574,7 @@
       ]
     }
   },
-  "settingBrowserInjectJsExternalDescription": "Run this JavaScript code after loading each external page: pages opened by a dashboard link, dashboard rotation pages and the website screensaver. The Music Assistant page is left alone.",
+  "settingBrowserInjectJsExternalDescription": "Ejecuta este código JavaScript después de cargar cada página externa: las abiertas desde un enlace del panel de control, las de la rotación de paneles de control y las del protector de pantalla de sitio web. No se aplica a la página de Music Assistant.",
   "@settingBrowserInjectJsExternalDescription": {
     "context": "Settings > Web Browsing > Inject JavaScript on external pages",
     "description": "Help below this setting.",
@@ -19587,7 +19587,7 @@
       ]
     }
   },
-  "browserInjectJsPlaceholder": "// Example: hide a distracting element\ndocument.querySelector('#banner').style.display = 'none';",
+  "browserInjectJsPlaceholder": "// Ejemplo: ocultar un elemento que distrae\ndocument.querySelector('#banner').style.display = 'none';",
   "@browserInjectJsPlaceholder": {
     "context": "Settings > Web Browsing > Inject JavaScript on the HA dashboard",
     "description": "Example code shown in the empty editor.",
@@ -19601,7 +19601,7 @@
     },
     "x-notes": "Translate only the comment on the first line. Preserve the executable JavaScript on the second line exactly."
   },
-  "browserInjectJsExternalPlaceholder": "// Example: zoom a site that ignores the dashboard zoom level\ndocument.documentElement.style.zoom = '1.25';",
+  "browserInjectJsExternalPlaceholder": "// Ejemplo: ampliar un sitio que ignora el nivel de zoom del panel de control\ndocument.documentElement.style.zoom = '1.25';",
   "@browserInjectJsExternalPlaceholder": {
     "context": "Settings > Web Browsing > Inject JavaScript on external pages",
     "description": "Example code shown in the empty editor.",

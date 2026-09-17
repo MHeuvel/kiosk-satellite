@@ -1,0 +1,169 @@
+{
+  "@@locale": "en",
+  "settingAutoReloadOnErrorTitle": "Auto-reload on error",
+  "@settingAutoReloadOnErrorTitle": {
+    "context": "Settings > Web Browsing > Auto-reload on error",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Web Browsing > Auto-reload on error"
+      ],
+      "remoteAdmin": [
+        "Web Browsing > Auto-reload on error"
+      ]
+    }
+  },
+  "settingAutoReloadOnErrorDescription": "Recover automatically from page failures and app crashes.",
+  "@settingAutoReloadOnErrorDescription": {
+    "context": "Settings > Web Browsing > Auto-reload on error",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Web Browsing > Auto-reload on error"
+      ],
+      "remoteAdmin": [
+        "Web Browsing > Auto-reload on error"
+      ]
+    }
+  },
+  "settingPullToRefreshTitle": "Enable pull to refresh",
+  "@settingPullToRefreshTitle": {
+    "context": "Settings > Web Browsing > Enable pull to refresh",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Web Browsing > Enable pull to refresh"
+      ],
+      "remoteAdmin": [
+        "Web Browsing > Enable pull to refresh"
+      ]
+    }
+  },
+  "settingPullToRefreshDescription": "Drag down from the top of the page to reload it. Off by default: on a scrolling dashboard an accidental pull is easy.",
+  "@settingPullToRefreshDescription": {
+    "context": "Settings > Web Browsing > Enable pull to refresh",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Web Browsing > Enable pull to refresh"
+      ],
+      "remoteAdmin": [
+        "Web Browsing > Enable pull to refresh"
+      ]
+    }
+  },
+  "settingPullToRefreshClearCacheTitle": "Clear cache when pulling to refresh",
+  "@settingPullToRefreshClearCacheTitle": {
+    "context": "Settings > Web Browsing > Clear cache when pulling to refresh",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Web Browsing > Clear cache when pulling to refresh"
+      ],
+      "remoteAdmin": [
+        "Web Browsing > Clear cache when pulling to refresh"
+      ]
+    }
+  },
+  "settingPullToRefreshClearCacheDescription": "A pull also clears the web cache and wake word models before reloading, so everything comes back fresh. Login and saved page data are kept.",
+  "@settingPullToRefreshClearCacheDescription": {
+    "context": "Settings > Web Browsing > Clear cache when pulling to refresh",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Web Browsing > Clear cache when pulling to refresh"
+      ],
+      "remoteAdmin": [
+        "Web Browsing > Clear cache when pulling to refresh"
+      ]
+    }
+  },
+  "settingBrowserZoomTitle": "Zoom level",
+  "@settingBrowserZoomTitle": {
+    "context": "Settings > Web Browsing > Zoom level",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Web Browsing > Zoom level"
+      ],
+      "remoteAdmin": [
+        "Web Browsing > Zoom level"
+      ]
+    }
+  },
+  "settingBrowserZoomDescription": "Scales the whole page. Above 1x for wall tablets viewed from a distance; below 1x fits more dashboard on a small screen.",
+  "@settingBrowserZoomDescription": {
+    "context": "Settings > Web Browsing > Zoom level",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Web Browsing > Zoom level"
+      ],
+      "remoteAdmin": [
+        "Web Browsing > Zoom level"
+      ]
+    }
+  },
+  "settingPinchToZoomTitle": "Enable pinch to zoom",
+  "@settingPinchToZoomTitle": {
+    "context": "Settings > Web Browsing > Enable pinch to zoom",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Web Browsing > Enable pinch to zoom"
+      ],
+      "remoteAdmin": [
+        "Web Browsing > Enable pinch to zoom"
+      ]
+    }
+  },
+  "settingPinchToZoomDescription": "Zoom the page with a two-finger pinch. Off by default so a kiosk dashboard stays put under stray touches.",
+  "@settingPinchToZoomDescription": {
+    "context": "Settings > Web Browsing > Enable pinch to zoom",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Web Browsing > Enable pinch to zoom"
+      ],
+      "remoteAdmin": [
+        "Web Browsing > Enable pinch to zoom"
+      ]
+    }
+  },
+  "settingDisableScrollingTitle": "Disable scrolling",
+  "@settingDisableScrollingTitle": {
+    "context": "Settings > Web Browsing > Disable scrolling",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Web Browsing > Disable scrolling"
+      ],
+      "remoteAdmin": [
+        "Web Browsing > Disable scrolling"
+      ]
+    }
+  },
+  "settingDisableScrollingDescription": "Lock the page in place so it cannot be scrolled in any direction. Taps and buttons keep working.",
+  "@settingDisableScrollingDescription": {
+    "context": "Settings > Web Browsing > Disable scrolling",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Web Browsing > Disable scrolling"
+      ],
+      "remoteAdmin": [
+        "Web Browsing > Disable scrolling"
+      ]
+    }
+  },
+  "browserCrashPermissionHelp": "Without this the kiosk cannot come back after a crash.",
+  "@browserCrashPermissionHelp": {
+    "context": "Settings > Web Browsing > Auto-reload on error > Display over other apps",
+    "description": "Warning when the permission is missing.",
+    "x-locations": {
+      "device": [
+        "Settings > Web Browsing > Auto-reload on error > Display over other apps"
+      ]
+    }
+  }
+}

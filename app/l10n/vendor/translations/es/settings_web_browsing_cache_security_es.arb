@@ -1,0 +1,9 @@
+{
+  "@@locale": "es",
+  "settingDisableCacheTitle": "Desactivar caché",
+  "settingDisableCacheDescription": "Siempre carga desde la red y descarta los datos de la página almacenados en caché al cargar, para mostrar la versión más reciente del panel de control. Es lento. Úsalo como ayuda durante el desarrollo.",
+  "settingAllowMixedContentTitle": "Permitir contenido mixto",
+  "settingAllowMixedContentDescription": "Permite que las páginas HTTPS carguen recursos HTTP no seguros. Útil cuando Home Assistant incluye contenido http:// en un panel de control que usa https:// para conectarse.",
+  "settingIgnoreSslErrorsTitle": "Ignorar errores SSL",
+  "settingIgnoreSslErrorsDescription": "Acepta certificados no confiables o autofirmados. Úsalo solo en tu propia red, ya que desactiva la verificación de certificados."
+}

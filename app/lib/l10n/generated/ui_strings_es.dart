@@ -5210,96 +5210,97 @@ class UiStringsEs extends UiStrings {
   }
 
   @override
-  String get settingDisableCacheTitle => 'Disable cache';
+  String get settingDisableCacheTitle => 'Desactivar caché';
 
   @override
   String get settingDisableCacheDescription =>
-      'Always fetch from the network and drop cached page data on load, so a redeployed dashboard always comes back fresh. Slow; treat it as a development aid.';
+      'Siempre carga desde la red y descarta los datos de la página almacenados en caché al cargar, para mostrar la versión más reciente del panel de control. Es lento. Úsalo como ayuda durante el desarrollo.';
 
   @override
-  String get settingAllowMixedContentTitle => 'Allow mixed content';
+  String get settingAllowMixedContentTitle => 'Permitir contenido mixto';
 
   @override
   String get settingAllowMixedContentDescription =>
-      'Let HTTPS pages load insecure HTTP resources. Helps when Home Assistant mixes http:// content into an https:// dashboard.';
+      'Permite que las páginas HTTPS carguen recursos HTTP no seguros. Útil cuando Home Assistant incluye contenido http:// en un panel de control que usa https:// para conectarse.';
 
   @override
-  String get settingIgnoreSslErrorsTitle => 'Ignore SSL errors';
+  String get settingIgnoreSslErrorsTitle => 'Ignorar errores SSL';
 
   @override
   String get settingIgnoreSslErrorsDescription =>
-      'Accept untrusted or self-signed certificates. Use only on your own network, since it disables certificate verification.';
+      'Acepta certificados no confiables o autofirmados. Úsalo solo en tu propia red, ya que desactiva la verificación de certificados.';
 
   @override
-  String get settingAutoReloadOnErrorTitle => 'Auto-reload on error';
+  String get settingAutoReloadOnErrorTitle =>
+      'Recargar automáticamente si hay un error';
 
   @override
   String get settingAutoReloadOnErrorDescription =>
-      'Recover automatically from page failures and app crashes.';
+      'Recupera la página automáticamente tras un error de carga o un cierre inesperado de la aplicación.';
 
   @override
-  String get settingPullToRefreshTitle => 'Enable pull to refresh';
+  String get settingPullToRefreshTitle => 'Activar deslizar para recargar';
 
   @override
   String get settingPullToRefreshDescription =>
-      'Drag down from the top of the page to reload it. Off by default: on a scrolling dashboard an accidental pull is easy.';
+      'Desliza hacia abajo desde la parte superior de la página para recargarla. Desactivado de forma predeterminada porque es fácil hacerlo por accidente al desplazarse por un panel de control.';
 
   @override
   String get settingPullToRefreshClearCacheTitle =>
-      'Clear cache when pulling to refresh';
+      'Borrar caché al deslizar para recargar';
 
   @override
   String get settingPullToRefreshClearCacheDescription =>
-      'A pull also clears the web cache and wake word models before reloading, so everything comes back fresh. Login and saved page data are kept.';
+      'Al deslizar también se borran la caché web y los modelos de palabras de activación antes de recargar. Se conservan la sesión y los datos guardados de la página.';
 
   @override
-  String get settingBrowserZoomTitle => 'Zoom level';
+  String get settingBrowserZoomTitle => 'Nivel de zoom';
 
   @override
   String get settingBrowserZoomDescription =>
-      'Scales the whole page. Above 1x for wall tablets viewed from a distance; below 1x fits more dashboard on a small screen.';
+      'Cambia la escala de toda la página. Un valor superior a 1x facilita verla a distancia en una tableta de pared. Un valor inferior a 1x permite mostrar más del panel de control en una pantalla pequeña.';
 
   @override
-  String get settingPinchToZoomTitle => 'Enable pinch to zoom';
+  String get settingPinchToZoomTitle => 'Activar zoom con dos dedos';
 
   @override
   String get settingPinchToZoomDescription =>
-      'Zoom the page with a two-finger pinch. Off by default so a kiosk dashboard stays put under stray touches.';
+      'Acerca o aleja la página con dos dedos. Desactivado de forma predeterminada para evitar que los toques accidentales cambien el panel de control del kiosko.';
 
   @override
-  String get settingDisableScrollingTitle => 'Disable scrolling';
+  String get settingDisableScrollingTitle => 'Desactivar desplazamiento';
 
   @override
   String get settingDisableScrollingDescription =>
-      'Lock the page in place so it cannot be scrolled in any direction. Taps and buttons keep working.';
+      'Fija la página para que no se pueda desplazar en ninguna dirección. Los toques y botones siguen funcionando.';
 
   @override
   String get browserCrashPermissionHelp =>
-      'Without this the kiosk cannot come back after a crash.';
+      'Sin este permiso, el kiosko no puede volver a abrirse después de un cierre inesperado.';
 
   @override
   String get settingBrowserInjectJsTitle =>
-      'Inject JavaScript on the HA dashboard';
+      'Inyectar JavaScript en el panel de control de HA';
 
   @override
   String get settingBrowserInjectJsDescription =>
-      'Run this JavaScript code after every load of the dashboard page. Useful to hide distracting elements or tweak a dashboard you do not control.';
+      'Ejecuta este código JavaScript después de cada carga del panel de control. Útil para ocultar elementos que distraen o modificar un panel de control que no administras.';
 
   @override
   String get settingBrowserInjectJsExternalTitle =>
-      'Inject JavaScript on external pages';
+      'Inyectar JavaScript en páginas externas';
 
   @override
   String get settingBrowserInjectJsExternalDescription =>
-      'Run this JavaScript code after loading each external page: pages opened by a dashboard link, dashboard rotation pages and the website screensaver. The Music Assistant page is left alone.';
+      'Ejecuta este código JavaScript después de cargar cada página externa: las abiertas desde un enlace del panel de control, las de la rotación de paneles de control y las del protector de pantalla de sitio web. No se aplica a la página de Music Assistant.';
 
   @override
   String get browserInjectJsPlaceholder =>
-      '// Example: hide a distracting element\ndocument.querySelector(\'#banner\').style.display = \'none\';';
+      '// Ejemplo: ocultar un elemento que distrae\ndocument.querySelector(\'#banner\').style.display = \'none\';';
 
   @override
   String get browserInjectJsExternalPlaceholder =>
-      '// Example: zoom a site that ignores the dashboard zoom level\ndocument.documentElement.style.zoom = \'1.25\';';
+      '// Ejemplo: ampliar un sitio que ignora el nivel de zoom del panel de control\ndocument.documentElement.style.zoom = \'1.25\';';
 
   @override
   String get setupConnectHeading => 'Conectar con Home Assistant';

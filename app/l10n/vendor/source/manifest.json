@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite",
-  "revision": "0a308d324ce60dea9231d2f3c8010c1dde9fb727",
+  "revision": "3fab4ad0972d0ae250fdd0ed1ee97edbca30f279",
   "workingTree": false,
   "files": {
     "camera_view_status_en.arb": "5c2fdaeb44fc707fa15cfb92a186ff2616e4ea255cd5ea3ff3dac37c532fedbe",
@@ -72,6 +72,9 @@
     "settings_screensaver_widget_weather_en.arb": "d04d3d37a8475c0c471cd7e3fbb17d91fb9bb4446d428280a1b6be54d2b19155",
     "settings_screensaver_widgets_en.arb": "59206df222f4f667a15dce7a4a9837c3fcb51596a5131c7549fb4c73f0654366",
     "settings_search_en.arb": "d8ea2b418814f507a28a47cfda97d656d3fdf00962a2817f7f390450a49b5a67",
+    "settings_web_browsing_cache_security_en.arb": "505532dcf425da4b416891b480fa153a0774a1ac7aa2855412d0defc3f935f5b",
+    "settings_web_browsing_navigation_en.arb": "93297eaee901e44150c7ecce2b31f533647900ed41381b4d4c4823f6fcc6163c",
+    "settings_web_browsing_scripts_en.arb": "90d79b0f38721340dd1b07041ebb40447869c9983daf6e0a772225a3974e3784",
     "setup_connect_en.arb": "353cf737e1650b2f9b7b5c5d4e2d7d5f463d012149ba5ec180425b31845a7b2e",
     "setup_navigation_en.arb": "71c532e240d4abf6cf53324f583f6a60b8e0999bc26a41cd80de8eb441d564a7",
     "setup_welcome_en.arb": "a26a34d1e8f30df984627884b880f4fda8f410e1ad3a21a9b3399499c4d7be50"

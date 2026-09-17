@@ -1,0 +1,83 @@
+{
+  "@@locale": "en",
+  "settingBrowserInjectJsTitle": "Inject JavaScript on the HA dashboard",
+  "@settingBrowserInjectJsTitle": {
+    "context": "Settings > Web Browsing > Inject JavaScript on the HA dashboard",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Web Browsing > Inject JavaScript on the HA dashboard"
+      ],
+      "remoteAdmin": [
+        "Web Browsing > Inject JavaScript on the HA dashboard"
+      ]
+    }
+  },
+  "settingBrowserInjectJsDescription": "Run this JavaScript code after every load of the dashboard page. Useful to hide distracting elements or tweak a dashboard you do not control.",
+  "@settingBrowserInjectJsDescription": {
+    "context": "Settings > Web Browsing > Inject JavaScript on the HA dashboard",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Web Browsing > Inject JavaScript on the HA dashboard"
+      ],
+      "remoteAdmin": [
+        "Web Browsing > Inject JavaScript on the HA dashboard"
+      ]
+    }
+  },
+  "settingBrowserInjectJsExternalTitle": "Inject JavaScript on external pages",
+  "@settingBrowserInjectJsExternalTitle": {
+    "context": "Settings > Web Browsing > Inject JavaScript on external pages",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Web Browsing > Inject JavaScript on external pages"
+      ],
+      "remoteAdmin": [
+        "Web Browsing > Inject JavaScript on external pages"
+      ]
+    }
+  },
+  "settingBrowserInjectJsExternalDescription": "Run this JavaScript code after loading each external page: pages opened by a dashboard link, dashboard rotation pages and the website screensaver. The Music Assistant page is left alone.",
+  "@settingBrowserInjectJsExternalDescription": {
+    "context": "Settings > Web Browsing > Inject JavaScript on external pages",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Web Browsing > Inject JavaScript on external pages"
+      ],
+      "remoteAdmin": [
+        "Web Browsing > Inject JavaScript on external pages"
+      ]
+    }
+  },
+  "browserInjectJsPlaceholder": "// Example: hide a distracting element\ndocument.querySelector('#banner').style.display = 'none';",
+  "@browserInjectJsPlaceholder": {
+    "context": "Settings > Web Browsing > Inject JavaScript on the HA dashboard",
+    "description": "Example code shown in the empty editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Web Browsing > Inject JavaScript on the HA dashboard"
+      ],
+      "remoteAdmin": [
+        "Web Browsing > Inject JavaScript on the HA dashboard"
+      ]
+    },
+    "x-notes": "Translate only the comment on the first line. Preserve the executable JavaScript on the second line exactly."
+  },
+  "browserInjectJsExternalPlaceholder": "// Example: zoom a site that ignores the dashboard zoom level\ndocument.documentElement.style.zoom = '1.25';",
+  "@browserInjectJsExternalPlaceholder": {
+    "context": "Settings > Web Browsing > Inject JavaScript on external pages",
+    "description": "Example code shown in the empty editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Web Browsing > Inject JavaScript on external pages"
+      ],
+      "remoteAdmin": [
+        "Web Browsing > Inject JavaScript on external pages"
+      ]
+    },
+    "x-notes": "Translate only the comment on the first line. Preserve the executable JavaScript on the second line exactly."
+  }
+}

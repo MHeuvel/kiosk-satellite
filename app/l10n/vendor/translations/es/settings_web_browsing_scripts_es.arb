@@ -1,0 +1,9 @@
+{
+  "@@locale": "es",
+  "settingBrowserInjectJsTitle": "Inyectar JavaScript en el panel de control de HA",
+  "settingBrowserInjectJsDescription": "Ejecuta este código JavaScript después de cada carga del panel de control. Útil para ocultar elementos que distraen o modificar un panel de control que no administras.",
+  "settingBrowserInjectJsExternalTitle": "Inyectar JavaScript en páginas externas",
+  "settingBrowserInjectJsExternalDescription": "Ejecuta este código JavaScript después de cargar cada página externa: las abiertas desde un enlace del panel de control, las de la rotación de paneles de control y las del protector de pantalla de sitio web. No se aplica a la página de Music Assistant.",
+  "browserInjectJsPlaceholder": "// Ejemplo: ocultar un elemento que distrae\ndocument.querySelector('#banner').style.display = 'none';",
+  "browserInjectJsExternalPlaceholder": "// Ejemplo: ampliar un sitio que ignora el nivel de zoom del panel de control\ndocument.documentElement.style.zoom = '1.25';"
+}

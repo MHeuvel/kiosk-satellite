@@ -1,0 +1,81 @@
+{
+  "@@locale": "en",
+  "settingDisableCacheTitle": "Disable cache",
+  "@settingDisableCacheTitle": {
+    "context": "Settings > Web Browsing > Disable cache",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Web Browsing > Disable cache"
+      ],
+      "remoteAdmin": [
+        "Web Browsing > Disable cache"
+      ]
+    }
+  },
+  "settingDisableCacheDescription": "Always fetch from the network and drop cached page data on load, so a redeployed dashboard always comes back fresh. Slow; treat it as a development aid.",
+  "@settingDisableCacheDescription": {
+    "context": "Settings > Web Browsing > Disable cache",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Web Browsing > Disable cache"
+      ],
+      "remoteAdmin": [
+        "Web Browsing > Disable cache"
+      ]
+    }
+  },
+  "settingAllowMixedContentTitle": "Allow mixed content",
+  "@settingAllowMixedContentTitle": {
+    "context": "Settings > Web Browsing > Allow mixed content",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Web Browsing > Allow mixed content"
+      ],
+      "remoteAdmin": [
+        "Web Browsing > Allow mixed content"
+      ]
+    }
+  },
+  "settingAllowMixedContentDescription": "Let HTTPS pages load insecure HTTP resources. Helps when Home Assistant mixes http:// content into an https:// dashboard.",
+  "@settingAllowMixedContentDescription": {
+    "context": "Settings > Web Browsing > Allow mixed content",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Web Browsing > Allow mixed content"
+      ],
+      "remoteAdmin": [
+        "Web Browsing > Allow mixed content"
+      ]
+    }
+  },
+  "settingIgnoreSslErrorsTitle": "Ignore SSL errors",
+  "@settingIgnoreSslErrorsTitle": {
+    "context": "Settings > Web Browsing > Ignore SSL errors",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Web Browsing > Ignore SSL errors"
+      ],
+      "remoteAdmin": [
+        "Web Browsing > Ignore SSL errors"
+      ]
+    }
+  },
+  "settingIgnoreSslErrorsDescription": "Accept untrusted or self-signed certificates. Use only on your own network, since it disables certificate verification.",
+  "@settingIgnoreSslErrorsDescription": {
+    "context": "Settings > Web Browsing > Ignore SSL errors",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Web Browsing > Ignore SSL errors"
+      ],
+      "remoteAdmin": [
+        "Web Browsing > Ignore SSL errors"
+      ]
+    }
+  }
+}

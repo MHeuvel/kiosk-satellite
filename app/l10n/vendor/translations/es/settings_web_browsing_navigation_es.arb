@@ -1,0 +1,16 @@
+{
+  "@@locale": "es",
+  "settingAutoReloadOnErrorTitle": "Recargar automáticamente si hay un error",
+  "settingAutoReloadOnErrorDescription": "Recupera la página automáticamente tras un error de carga o un cierre inesperado de la aplicación.",
+  "settingPullToRefreshTitle": "Activar deslizar para recargar",
+  "settingPullToRefreshDescription": "Desliza hacia abajo desde la parte superior de la página para recargarla. Desactivado de forma predeterminada porque es fácil hacerlo por accidente al desplazarse por un panel de control.",
+  "settingPullToRefreshClearCacheTitle": "Borrar caché al deslizar para recargar",
+  "settingPullToRefreshClearCacheDescription": "Al deslizar también se borran la caché web y los modelos de palabras de activación antes de recargar. Se conservan la sesión y los datos guardados de la página.",
+  "settingBrowserZoomTitle": "Nivel de zoom",
+  "settingBrowserZoomDescription": "Cambia la escala de toda la página. Un valor superior a 1x facilita verla a distancia en una tableta de pared. Un valor inferior a 1x permite mostrar más del panel de control en una pantalla pequeña.",
+  "settingPinchToZoomTitle": "Activar zoom con dos dedos",
+  "settingPinchToZoomDescription": "Acerca o aleja la página con dos dedos. Desactivado de forma predeterminada para evitar que los toques accidentales cambien el panel de control del kiosko.",
+  "settingDisableScrollingTitle": "Desactivar desplazamiento",
+  "settingDisableScrollingDescription": "Fija la página para que no se pueda desplazar en ninguna dirección. Los toques y botones siguen funcionando.",
+  "browserCrashPermissionHelp": "Sin este permiso, el kiosko no puede volver a abrirse después de un cierre inesperado."
+}
