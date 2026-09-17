@@ -350,6 +350,130 @@ class UiStringsEn extends UiStrings {
   String get drawerNoReleaseNotes => 'No release notes.';
 
   @override
+  String get mediaPlay => 'Play';
+
+  @override
+  String get mediaPause => 'Pause';
+
+  @override
+  String get mediaPreviousTrack => 'Previous track';
+
+  @override
+  String get mediaNextTrack => 'Next track';
+
+  @override
+  String get mediaPlaying => 'Playing';
+
+  @override
+  String get mediaPaused => 'Paused';
+
+  @override
+  String get mediaIdle => 'Idle';
+
+  @override
+  String get mediaStatusUnavailable => 'Status unavailable';
+
+  @override
+  String get mediaUnknownTrack => 'Unknown track';
+
+  @override
+  String mediaStatusSource(String status, String source) {
+    return '$status - $source';
+  }
+
+  @override
+  String get mediaShowVolume => 'Show volume';
+
+  @override
+  String get mediaHideVolume => 'Hide volume';
+
+  @override
+  String get mediaMute => 'Mute';
+
+  @override
+  String get mediaUnmute => 'Unmute';
+
+  @override
+  String get mediaFavoriteAdd => 'Add to favorites';
+
+  @override
+  String get mediaFavoriteRemove => 'Remove from favorites';
+
+  @override
+  String get mediaShuffleOn => 'Turn shuffle on';
+
+  @override
+  String get mediaShuffleOff => 'Turn shuffle off';
+
+  @override
+  String get mediaRepeatAll => 'Repeat all';
+
+  @override
+  String get mediaRepeatOne => 'Repeat one';
+
+  @override
+  String get mediaRepeatOff => 'Turn repeat off';
+
+  @override
+  String get mediaShowLyrics => 'Show lyrics';
+
+  @override
+  String get mediaHideLyrics => 'Hide lyrics';
+
+  @override
+  String get mediaShowQueue => 'Show queue';
+
+  @override
+  String get mediaHideQueue => 'Hide queue';
+
+  @override
+  String get mediaVolume => 'Volume';
+
+  @override
+  String get mediaPlaybackPosition => 'Playback position';
+
+  @override
+  String get mediaShowNowPlaying => 'Show Now Playing';
+
+  @override
+  String get mediaShowFloatingPlayer => 'Show the floating player';
+
+  @override
+  String get mediaOpenMusicAssistant => 'Open Music Assistant';
+
+  @override
+  String get mediaCannotControl => 'command not supported or not sent';
+
+  @override
+  String get mediaNothingQueued => 'Nothing queued';
+
+  @override
+  String get mediaChapters => 'Chapters';
+
+  @override
+  String get mediaNowPlaying => 'Now playing';
+
+  @override
+  String get mediaUpNext => 'Up next';
+
+  @override
+  String mediaUnnamedChapter(String number) {
+    return 'Chapter $number';
+  }
+
+  @override
+  String get mediaGroupLead => 'Leads the group';
+
+  @override
+  String get mediaGroupReadFailed => 'The group could not be read.';
+
+  @override
+  String get mediaGroupEmpty => 'No other players to group with.';
+
+  @override
+  String get mediaSpeakerSelection => 'Speaker selection';
+
+  @override
   String get settingCameraEnabledTitle => 'Enable camera';
 
   @override
@@ -2735,6 +2859,55 @@ class UiStringsEn extends UiStrings {
   }
 
   @override
+  String get settingSendspinShowPlayerTitle => 'Show the floating player';
+
+  @override
+  String get settingSendspinShowPlayerDescription =>
+      'While music plays, show a small now-playing window over the dashboard with artwork, track info and progress. Drag it anywhere; the position is remembered.';
+
+  @override
+  String get settingSendspinPlayerSizeTitle => 'Player size';
+
+  @override
+  String get settingSendspinPlayerSizeDescription =>
+      'Compact is a small, unobtrusive now-playing window. Large adds previous, play/pause and next buttons sized for touch, controlling the whole playback group.';
+
+  @override
+  String get settingSendspinPausedHideMinutesTitle =>
+      'Hide the paused player after';
+
+  @override
+  String get settingSendspinPausedHideMinutesDescription =>
+      'How long a paused player stays on screen. It applies to both the floating player and the Now Playing view.';
+
+  @override
+  String get settingSendspinDismissKeepsPlayingTitle =>
+      'Keep playing when dismissed';
+
+  @override
+  String get settingSendspinDismissKeepsPlayingDescription =>
+      'Flinging the floating player away hides it without stopping the music.';
+
+  @override
+  String get settingSendspinPlayerShortcutTitle => 'Show in the kiosk menu';
+
+  @override
+  String get settingSendspinPlayerShortcutDescription =>
+      'Add an entry in the kiosk menu that shows or hides the floating player. WARNING: If nothing is playing or there is no queue for this player, it won\'t show up.';
+
+  @override
+  String get mediaFloatingPage => 'Floating Player';
+
+  @override
+  String get mediaFloatingHint => 'The small card over the dashboard';
+
+  @override
+  String get mediaCompact => 'Compact';
+
+  @override
+  String get mediaLargeControls => 'Large with controls';
+
+  @override
   String get settingSendspinPlayerSourceTitle => 'Player source';
 
   @override
@@ -2794,6 +2967,41 @@ class UiStringsEn extends UiStrings {
   String mediaLocalOffline(String player) {
     return 'This device\'s own Sendspin player stays offline while $player is controlled.';
   }
+
+  @override
+  String get settingSendspinLyricsEnabledTitle => 'Enable lyrics';
+
+  @override
+  String get settingSendspinLyricsEnabledDescription =>
+      'Synchronized lyrics on the Now Playing view, for every player source.';
+
+  @override
+  String get settingSendspinLyricsSourceTitle => 'Lyrics source';
+
+  @override
+  String get settingSendspinLyricsSourceDescription =>
+      'Where the lyrics come from. Music Assistant needs the server address and token on its page.';
+
+  @override
+  String get settingSendspinLyricsFallbackTitle =>
+      'Fallback to Music Assistant';
+
+  @override
+  String get settingSendspinLyricsFallbackDescription =>
+      'If LRCLIB is unreachable, Music Assistant is asked instead. Needs the Music Assistant connection.';
+
+  @override
+  String get settingSendspinLyricsOffsetTitle => 'Lyrics timing';
+
+  @override
+  String get settingSendspinLyricsOffsetDescription =>
+      'Shift the lyrics against the music. Positive shows each line earlier, negative later. Worth a nudge on tracks that read consistently off.';
+
+  @override
+  String get mediaLyricsPage => 'Lyrics';
+
+  @override
+  String get mediaLyricsHint => 'Synchronized lyrics, their source and timing';
 
   @override
   String get settingSendspinMaUrlTitle => 'Server address';
@@ -2887,6 +3095,130 @@ class UiStringsEn extends UiStrings {
 
   @override
   String get mediaServerClosed => 'the server closed the connection';
+
+  @override
+  String get settingSendspinFullscreenControlsTitle => 'Show media controls';
+
+  @override
+  String get settingSendspinFullscreenControlsDescription =>
+      'Previous, play/pause and next buttons and a progress bar on the Now Playing view. With controls on, a close button dismisses it instead of a tap anywhere.';
+
+  @override
+  String get settingSendspinFullscreenTextScaleTitle => 'Text scale';
+
+  @override
+  String get settingSendspinFullscreenTextScaleDescription =>
+      'Size of the track title, artist, album, lyrics and queue text. Applies in both layouts and alongside the screensaver. Artwork adjusts to leave room for the text.';
+
+  @override
+  String get settingSendspinFullscreenButtonScaleTitle => 'Button scale';
+
+  @override
+  String get settingSendspinFullscreenButtonScaleDescription =>
+      'Size of the playback buttons and progress bar, independent of text size. Applies in both layouts and alongside the screensaver. Controls fit the space available in the player.';
+
+  @override
+  String get settingSendspinFullscreenHorizontalTitle => 'Horizontal mode';
+
+  @override
+  String get settingSendspinFullscreenHorizontalDescription =>
+      'Split artwork and controls into equal left and right halves. With lyrics or the queue open, track details move below the artwork. Ignored while Now Playing is shown alongside a screensaver.';
+
+  @override
+  String get settingSendspinFullscreenDoubleTapTitle => 'Double tap to dismiss';
+
+  @override
+  String get settingSendspinFullscreenDoubleTapDescription =>
+      'A double tap anywhere on the Now Playing view dismisses it. The close button won\'t be shown. Ignored while Now Playing is shown alongside a screensaver.';
+
+  @override
+  String get settingSendspinFullscreenOnPlayTitle =>
+      'Launch Now Playing when music starts playing';
+
+  @override
+  String get settingSendspinFullscreenOnPlayDescription =>
+      'Open the Now Playing view as soon as playback starts instead of waiting for the screensaver timeout.';
+
+  @override
+  String get settingSendspinFullscreenMotionTitle =>
+      'Dismiss \"Now Playing\" on motion';
+
+  @override
+  String get settingSendspinFullscreenMotionDescription =>
+      'Let motion dismiss Now Playing like a regular screensaver. Off, only touch dismisses it, so a walk-past does not interrupt the music display. Ignored while Now Playing is shown alongside a screensaver.';
+
+  @override
+  String get settingSendspinFullscreenShortcutTitle => 'Show in the kiosk menu';
+
+  @override
+  String get settingSendspinFullscreenShortcutDescription =>
+      'Add an entry in the kiosk menu that shows the Now Playing view. WARNING: If nothing is playing or there is no queue for this player, it won\'t show up.';
+
+  @override
+  String get settingSendspinSpeakerPillTitle => 'Show speaker selection pill';
+
+  @override
+  String get settingSendspinSpeakerPillDescription =>
+      'Shows speaker selection for 5 seconds after screen interaction. Add or remove speakers from the current group.';
+
+  @override
+  String get settingSendspinQueueArtTitle => 'Show album art in the queue';
+
+  @override
+  String get settingSendspinQueueArtDescription =>
+      'A cover on every row of the queue panel.';
+
+  @override
+  String get mediaNowPlayingHint => 'Full-screen view while music plays';
+
+  @override
+  String get mediaInterfaceHeading => 'User Interface';
+
+  @override
+  String get settingSendspinFullscreenTitle =>
+      '\"Now Playing\" instead of the screensaver';
+
+  @override
+  String get settingSendspinFullscreenDescription =>
+      'While music plays, the screensaver becomes a full-screen Now Playing view with album art. With nothing playing, the regular screensaver runs.';
+
+  @override
+  String get settingSendspinFullscreenSplitTitle =>
+      'Show alongside screensaver';
+
+  @override
+  String get settingSendspinFullscreenSplitDescription =>
+      'Keep the screensaver visible beside Now Playing. Portrait screens stack the screensaver above the player. Small screens keep the full-screen player.';
+
+  @override
+  String get settingSendspinFullscreenPhotoFillTitle => 'Fill the screen';
+
+  @override
+  String get settingSendspinFullscreenPhotoFillDescription =>
+      'Override photo filling while the screensaver shares the display with Now Playing. Default uses each screensaver\'s own setting. Off keeps the whole photo between black bars. Smart enlarges photos shaped close to the screen, framing the rest over a blurred backdrop. Always enlarges every photo, cutting off what does not fit.';
+
+  @override
+  String get settingSendspinFullscreenOverrideBrightnessTitle =>
+      'Override screensaver brightness';
+
+  @override
+  String get settingSendspinFullscreenOverrideBrightnessDescription =>
+      'Use normal screen brightness instead of screensaver brightness while Now Playing is shown alongside a screensaver. This also overrides scheduled screensaver brightness.';
+
+  @override
+  String get mediaScreensaverHeading => 'Screensaver';
+
+  @override
+  String get mediaDefaultFill => 'Default';
+
+  @override
+  String get mediaFillOff => 'Off';
+
+  @override
+  String get mediaFillSmart => 'Smart';
+
+  @override
+  String get mediaFillAlways => 'Always';
 
   @override
   String get mediaPickPlayer => 'Pick a player';

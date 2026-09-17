@@ -1,9 +1,13 @@
 import 'dart:convert';
 import 'package:fake_async/fake_async.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'package:kiosk_satellite/l10n/generated/ui_strings.dart';
+import 'package:kiosk_satellite/l10n/generated/ui_strings_en.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kiosk_satellite/app_container.dart';
+import 'package:kiosk_satellite/core/app_locales.dart';
 import 'package:kiosk_satellite/core/command_registry.dart';
 import 'package:kiosk_satellite/core/event_bus.dart';
 import 'package:kiosk_satellite/core/events.dart';
@@ -18,6 +22,37 @@ import 'package:kiosk_satellite/managers/settings/settings_manager.dart';
 import 'package:kiosk_satellite/ui/sendspin_player_overlay.dart';
 import 'package:kiosk_satellite/ui/lyrics_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+class _PlayerMessages extends UiStringsEn {
+  @override
+  String get mediaPause => 'TEST pause';
+  @override
+  String get mediaNextTrack => 'TEST next track';
+  @override
+  String get mediaShowQueue => 'TEST show queue';
+  @override
+  String get mediaHideQueue => 'TEST hide queue';
+  @override
+  String get mediaNowPlaying => 'TEST playing heading';
+  @override
+  String get mediaUpNext => 'TEST queue heading';
+  @override
+  String get mediaChapters => 'TEST chapters';
+  @override
+  String mediaUnnamedChapter(String number) => 'TEST chapter $number';
+}
+
+class _PlayerDelegate extends LocalizationsDelegate<UiStrings> {
+  const _PlayerDelegate();
+  @override
+  bool isSupported(Locale locale) => true;
+  @override
+  Future<UiStrings> load(Locale locale) => SynchronousFuture(
+    locale.languageCode == 'es' ? _PlayerMessages() : UiStringsEn(),
+  );
+  @override
+  bool shouldReload(_PlayerDelegate old) => false;
+}
 
 /// A Music Assistant that answers the few commands the view needs: one
 /// queue, one track, and a favorite flag the commands flip.
@@ -991,6 +1026,7 @@ void main() {
       Size size = const Size(1280, 800),
       List<String>? supported,
       bool alongsideScreensaver = false,
+      ValueListenable<Locale>? language,
     }) async {
       SharedPreferences.setMockInitialValues({
         'ks.sendspin.fullscreen': true,
@@ -1026,15 +1062,27 @@ void main() {
         'playing': true,
         'supportedCommands': ?supported,
       };
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: SendspinFullscreenView(
-              container: container,
-              alongsideScreensaver: alongsideScreensaver,
-            ),
+      Widget view(Locale? locale) => MaterialApp(
+        locale: locale,
+        supportedLocales: const [Locale('en'), Locale('es')],
+        localizationsDelegates: const [
+          _PlayerDelegate(),
+          ...appLocalizationsDelegates,
+        ],
+        home: Scaffold(
+          body: SendspinFullscreenView(
+            container: container,
+            alongsideScreensaver: alongsideScreensaver,
           ),
         ),
+      );
+      await tester.pumpWidget(
+        language == null
+            ? view(null)
+            : ValueListenableBuilder<Locale>(
+                valueListenable: language,
+                builder: (_, locale, _) => view(locale),
+              ),
       );
       await tester.pump();
     }
@@ -1191,6 +1239,59 @@ void main() {
         ],
       };
     }
+
+    testWidgets(
+      'language changes preserve playback, queue names and chapter metadata',
+      (tester) async {
+        final language = ValueNotifier(const Locale('es'));
+        addTearDown(language.dispose);
+        await pump(tester, settings: ma, language: language);
+        await settle(tester);
+        expect(find.byTooltip('TEST pause'), findsOneWidget);
+        await tester.tap(find.byTooltip('TEST show queue'));
+        await settle(tester);
+        expect(find.text('TEST PLAYING HEADING'), findsOneWidget);
+        expect(find.text('TEST QUEUE HEADING'), findsOneWidget);
+        expect(find.text('Next'), findsOneWidget);
+        final before = container.sendspin.nowPlaying.value;
+        calls.clear();
+        language.value = const Locale('en');
+        await settle(tester);
+        expect(find.text('NOW PLAYING'), findsOneWidget);
+        expect(find.byTooltip('Pause'), findsOneWidget);
+        expect(container.sendspin.nowPlaying.value, same(before));
+        expect(
+          calls.where((c) => c.method == 'start' || c.method == 'stop'),
+          isEmpty,
+        );
+        language.value = const Locale('es');
+        await settle(tester);
+        expect(find.byTooltip('TEST hide queue'), findsOneWidget);
+        container.sendspin.nowPlaying.value = {
+          ...before!,
+          'mediaType': 'audiobook',
+          'title': 'Book',
+          'durationMs': 120000,
+          'positionMs': 0,
+          'playing': false,
+          'chapters': [
+            {'name': '', 'start': 0, 'end': 60},
+            {'name': 'Chapter 2', 'start': 60, 'end': 120},
+          ],
+        };
+        await settle(tester);
+        expect(find.text('TEST CHAPTERS'), findsOneWidget);
+        expect(find.text('TEST chapter 1'), findsWidgets);
+        expect(find.text('Chapter 2'), findsOneWidget);
+        language.value = const Locale('en');
+        await settle(tester);
+        expect(find.text('Chapter 1'), findsWidgets);
+        expect(find.text('TEST chapter 1'), findsNothing);
+        expect(find.text('Chapter 2'), findsOneWidget);
+        await tester.pump(const Duration(seconds: 3));
+        expect(tester.takeException(), isNull);
+      },
+    );
 
     testWidgets(
       'chapter progress seeks in absolute book time and falls back for songs',

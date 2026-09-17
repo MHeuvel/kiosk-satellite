@@ -998,5 +998,97 @@
   "sendspin.sonos_inputs": {
     "title": "settingSendspinSonosInputsTitle",
     "description": "settingSendspinSonosInputsDescription"
+  },
+  "sendspin.show_player": {
+    "title": "settingSendspinShowPlayerTitle",
+    "description": "settingSendspinShowPlayerDescription"
+  },
+  "sendspin.player_size": {
+    "title": "settingSendspinPlayerSizeTitle",
+    "description": "settingSendspinPlayerSizeDescription"
+  },
+  "sendspin.paused_hide_minutes": {
+    "title": "settingSendspinPausedHideMinutesTitle",
+    "description": "settingSendspinPausedHideMinutesDescription"
+  },
+  "sendspin.dismiss_keeps_playing": {
+    "title": "settingSendspinDismissKeepsPlayingTitle",
+    "description": "settingSendspinDismissKeepsPlayingDescription"
+  },
+  "sendspin.player_shortcut": {
+    "title": "settingSendspinPlayerShortcutTitle",
+    "description": "settingSendspinPlayerShortcutDescription"
+  },
+  "sendspin.fullscreen": {
+    "title": "settingSendspinFullscreenTitle",
+    "description": "settingSendspinFullscreenDescription"
+  },
+  "sendspin.fullscreen_split": {
+    "title": "settingSendspinFullscreenSplitTitle",
+    "description": "settingSendspinFullscreenSplitDescription"
+  },
+  "sendspin.fullscreen_photo_fill": {
+    "title": "settingSendspinFullscreenPhotoFillTitle",
+    "description": "settingSendspinFullscreenPhotoFillDescription"
+  },
+  "sendspin.fullscreen_override_brightness": {
+    "title": "settingSendspinFullscreenOverrideBrightnessTitle",
+    "description": "settingSendspinFullscreenOverrideBrightnessDescription"
+  },
+  "sendspin.fullscreen_controls": {
+    "title": "settingSendspinFullscreenControlsTitle",
+    "description": "settingSendspinFullscreenControlsDescription"
+  },
+  "sendspin.fullscreen_text_scale": {
+    "title": "settingSendspinFullscreenTextScaleTitle",
+    "description": "settingSendspinFullscreenTextScaleDescription"
+  },
+  "sendspin.fullscreen_button_scale": {
+    "title": "settingSendspinFullscreenButtonScaleTitle",
+    "description": "settingSendspinFullscreenButtonScaleDescription"
+  },
+  "sendspin.fullscreen_horizontal": {
+    "title": "settingSendspinFullscreenHorizontalTitle",
+    "description": "settingSendspinFullscreenHorizontalDescription"
+  },
+  "sendspin.fullscreen_double_tap": {
+    "title": "settingSendspinFullscreenDoubleTapTitle",
+    "description": "settingSendspinFullscreenDoubleTapDescription"
+  },
+  "sendspin.fullscreen_on_play": {
+    "title": "settingSendspinFullscreenOnPlayTitle",
+    "description": "settingSendspinFullscreenOnPlayDescription"
+  },
+  "sendspin.fullscreen_motion": {
+    "title": "settingSendspinFullscreenMotionTitle",
+    "description": "settingSendspinFullscreenMotionDescription"
+  },
+  "sendspin.fullscreen_shortcut": {
+    "title": "settingSendspinFullscreenShortcutTitle",
+    "description": "settingSendspinFullscreenShortcutDescription"
+  },
+  "sendspin.speaker_pill": {
+    "title": "settingSendspinSpeakerPillTitle",
+    "description": "settingSendspinSpeakerPillDescription"
+  },
+  "sendspin.queue_art": {
+    "title": "settingSendspinQueueArtTitle",
+    "description": "settingSendspinQueueArtDescription"
+  },
+  "sendspin.lyrics_enabled": {
+    "title": "settingSendspinLyricsEnabledTitle",
+    "description": "settingSendspinLyricsEnabledDescription"
+  },
+  "sendspin.lyrics_source": {
+    "title": "settingSendspinLyricsSourceTitle",
+    "description": "settingSendspinLyricsSourceDescription"
+  },
+  "sendspin.lyrics_fallback_ma": {
+    "title": "settingSendspinLyricsFallbackTitle",
+    "description": "settingSendspinLyricsFallbackDescription"
+  },
+  "sendspin.lyrics_offset": {
+    "title": "settingSendspinLyricsOffsetTitle",
+    "description": "settingSendspinLyricsOffsetDescription"
   }
 }

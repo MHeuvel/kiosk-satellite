@@ -13,7 +13,10 @@ class AudiobookChapter {
 
 /// Normalize optional provider metadata. Invalid chapters leave the ordinary
 /// book timeline available, and missing ends use the next start or book end.
-List<AudiobookChapter> audiobookChapters(Map<String, Object?>? snapshot) {
+List<AudiobookChapter> audiobookChapters(
+  Map<String, Object?>? snapshot, {
+  String Function(int number)? unnamedChapter,
+}) {
   if (snapshot?['mediaType'] != 'audiobook') return const [];
   final raw = snapshot?['chapters'];
   if (raw is! List) return const [];
@@ -42,7 +45,10 @@ List<AudiobookChapter> audiobookChapters(Map<String, Object?>? snapshot) {
     if (end <= entry.start) continue;
     result.add(
       AudiobookChapter(
-        entry.name.isEmpty ? 'Chapter ${result.length + 1}' : entry.name,
+        entry.name.isEmpty
+            ? unnamedChapter?.call(result.length + 1) ??
+                  'Chapter ${result.length + 1}'
+            : entry.name,
         entry.start,
         end,
       ),

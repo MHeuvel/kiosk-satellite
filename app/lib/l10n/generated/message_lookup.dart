@@ -94,6 +94,44 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'drawerUpdateFailed' => strings.drawerUpdateFailed,
       'drawerUpdates' => strings.drawerUpdates,
       'drawerNoReleaseNotes' => strings.drawerNoReleaseNotes,
+      'mediaPlay' => strings.mediaPlay,
+      'mediaPause' => strings.mediaPause,
+      'mediaPreviousTrack' => strings.mediaPreviousTrack,
+      'mediaNextTrack' => strings.mediaNextTrack,
+      'mediaPlaying' => strings.mediaPlaying,
+      'mediaPaused' => strings.mediaPaused,
+      'mediaIdle' => strings.mediaIdle,
+      'mediaStatusUnavailable' => strings.mediaStatusUnavailable,
+      'mediaUnknownTrack' => strings.mediaUnknownTrack,
+      'mediaShowVolume' => strings.mediaShowVolume,
+      'mediaHideVolume' => strings.mediaHideVolume,
+      'mediaMute' => strings.mediaMute,
+      'mediaUnmute' => strings.mediaUnmute,
+      'mediaFavoriteAdd' => strings.mediaFavoriteAdd,
+      'mediaFavoriteRemove' => strings.mediaFavoriteRemove,
+      'mediaShuffleOn' => strings.mediaShuffleOn,
+      'mediaShuffleOff' => strings.mediaShuffleOff,
+      'mediaRepeatAll' => strings.mediaRepeatAll,
+      'mediaRepeatOne' => strings.mediaRepeatOne,
+      'mediaRepeatOff' => strings.mediaRepeatOff,
+      'mediaShowLyrics' => strings.mediaShowLyrics,
+      'mediaHideLyrics' => strings.mediaHideLyrics,
+      'mediaShowQueue' => strings.mediaShowQueue,
+      'mediaHideQueue' => strings.mediaHideQueue,
+      'mediaVolume' => strings.mediaVolume,
+      'mediaPlaybackPosition' => strings.mediaPlaybackPosition,
+      'mediaShowNowPlaying' => strings.mediaShowNowPlaying,
+      'mediaShowFloatingPlayer' => strings.mediaShowFloatingPlayer,
+      'mediaOpenMusicAssistant' => strings.mediaOpenMusicAssistant,
+      'mediaCannotControl' => strings.mediaCannotControl,
+      'mediaNothingQueued' => strings.mediaNothingQueued,
+      'mediaChapters' => strings.mediaChapters,
+      'mediaNowPlaying' => strings.mediaNowPlaying,
+      'mediaUpNext' => strings.mediaUpNext,
+      'mediaGroupLead' => strings.mediaGroupLead,
+      'mediaGroupReadFailed' => strings.mediaGroupReadFailed,
+      'mediaGroupEmpty' => strings.mediaGroupEmpty,
+      'mediaSpeakerSelection' => strings.mediaSpeakerSelection,
       'settingCameraEnabledTitle' => strings.settingCameraEnabledTitle,
       'settingCameraEnabledDescription' =>
         strings.settingCameraEnabledDescription,
@@ -815,6 +853,30 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'mediaCacheClearFailed' => strings.mediaCacheClearFailed,
       'mediaCacheChecking' => strings.mediaCacheChecking,
       'mediaCacheClearing' => strings.mediaCacheClearing,
+      'settingSendspinShowPlayerTitle' =>
+        strings.settingSendspinShowPlayerTitle,
+      'settingSendspinShowPlayerDescription' =>
+        strings.settingSendspinShowPlayerDescription,
+      'settingSendspinPlayerSizeTitle' =>
+        strings.settingSendspinPlayerSizeTitle,
+      'settingSendspinPlayerSizeDescription' =>
+        strings.settingSendspinPlayerSizeDescription,
+      'settingSendspinPausedHideMinutesTitle' =>
+        strings.settingSendspinPausedHideMinutesTitle,
+      'settingSendspinPausedHideMinutesDescription' =>
+        strings.settingSendspinPausedHideMinutesDescription,
+      'settingSendspinDismissKeepsPlayingTitle' =>
+        strings.settingSendspinDismissKeepsPlayingTitle,
+      'settingSendspinDismissKeepsPlayingDescription' =>
+        strings.settingSendspinDismissKeepsPlayingDescription,
+      'settingSendspinPlayerShortcutTitle' =>
+        strings.settingSendspinPlayerShortcutTitle,
+      'settingSendspinPlayerShortcutDescription' =>
+        strings.settingSendspinPlayerShortcutDescription,
+      'mediaFloatingPage' => strings.mediaFloatingPage,
+      'mediaFloatingHint' => strings.mediaFloatingHint,
+      'mediaCompact' => strings.mediaCompact,
+      'mediaLargeControls' => strings.mediaLargeControls,
       'settingSendspinPlayerSourceTitle' =>
         strings.settingSendspinPlayerSourceTitle,
       'settingSendspinPlayerSourceDescription' =>
@@ -840,6 +902,24 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'mediaKeysNowPlaying' => strings.mediaKeysNowPlaying,
       'mediaKeysPlaying' => strings.mediaKeysPlaying,
       'mediaAnotherPlayer' => strings.mediaAnotherPlayer,
+      'settingSendspinLyricsEnabledTitle' =>
+        strings.settingSendspinLyricsEnabledTitle,
+      'settingSendspinLyricsEnabledDescription' =>
+        strings.settingSendspinLyricsEnabledDescription,
+      'settingSendspinLyricsSourceTitle' =>
+        strings.settingSendspinLyricsSourceTitle,
+      'settingSendspinLyricsSourceDescription' =>
+        strings.settingSendspinLyricsSourceDescription,
+      'settingSendspinLyricsFallbackTitle' =>
+        strings.settingSendspinLyricsFallbackTitle,
+      'settingSendspinLyricsFallbackDescription' =>
+        strings.settingSendspinLyricsFallbackDescription,
+      'settingSendspinLyricsOffsetTitle' =>
+        strings.settingSendspinLyricsOffsetTitle,
+      'settingSendspinLyricsOffsetDescription' =>
+        strings.settingSendspinLyricsOffsetDescription,
+      'mediaLyricsPage' => strings.mediaLyricsPage,
+      'mediaLyricsHint' => strings.mediaLyricsHint,
       'settingSendspinMaUrlTitle' => strings.settingSendspinMaUrlTitle,
       'settingSendspinMaUrlDescription' =>
         strings.settingSendspinMaUrlDescription,
@@ -875,6 +955,68 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'mediaNoToken' => strings.mediaNoToken,
       'mediaTimeout' => strings.mediaTimeout,
       'mediaServerClosed' => strings.mediaServerClosed,
+      'settingSendspinFullscreenControlsTitle' =>
+        strings.settingSendspinFullscreenControlsTitle,
+      'settingSendspinFullscreenControlsDescription' =>
+        strings.settingSendspinFullscreenControlsDescription,
+      'settingSendspinFullscreenTextScaleTitle' =>
+        strings.settingSendspinFullscreenTextScaleTitle,
+      'settingSendspinFullscreenTextScaleDescription' =>
+        strings.settingSendspinFullscreenTextScaleDescription,
+      'settingSendspinFullscreenButtonScaleTitle' =>
+        strings.settingSendspinFullscreenButtonScaleTitle,
+      'settingSendspinFullscreenButtonScaleDescription' =>
+        strings.settingSendspinFullscreenButtonScaleDescription,
+      'settingSendspinFullscreenHorizontalTitle' =>
+        strings.settingSendspinFullscreenHorizontalTitle,
+      'settingSendspinFullscreenHorizontalDescription' =>
+        strings.settingSendspinFullscreenHorizontalDescription,
+      'settingSendspinFullscreenDoubleTapTitle' =>
+        strings.settingSendspinFullscreenDoubleTapTitle,
+      'settingSendspinFullscreenDoubleTapDescription' =>
+        strings.settingSendspinFullscreenDoubleTapDescription,
+      'settingSendspinFullscreenOnPlayTitle' =>
+        strings.settingSendspinFullscreenOnPlayTitle,
+      'settingSendspinFullscreenOnPlayDescription' =>
+        strings.settingSendspinFullscreenOnPlayDescription,
+      'settingSendspinFullscreenMotionTitle' =>
+        strings.settingSendspinFullscreenMotionTitle,
+      'settingSendspinFullscreenMotionDescription' =>
+        strings.settingSendspinFullscreenMotionDescription,
+      'settingSendspinFullscreenShortcutTitle' =>
+        strings.settingSendspinFullscreenShortcutTitle,
+      'settingSendspinFullscreenShortcutDescription' =>
+        strings.settingSendspinFullscreenShortcutDescription,
+      'settingSendspinSpeakerPillTitle' =>
+        strings.settingSendspinSpeakerPillTitle,
+      'settingSendspinSpeakerPillDescription' =>
+        strings.settingSendspinSpeakerPillDescription,
+      'settingSendspinQueueArtTitle' => strings.settingSendspinQueueArtTitle,
+      'settingSendspinQueueArtDescription' =>
+        strings.settingSendspinQueueArtDescription,
+      'mediaNowPlayingHint' => strings.mediaNowPlayingHint,
+      'mediaInterfaceHeading' => strings.mediaInterfaceHeading,
+      'settingSendspinFullscreenTitle' =>
+        strings.settingSendspinFullscreenTitle,
+      'settingSendspinFullscreenDescription' =>
+        strings.settingSendspinFullscreenDescription,
+      'settingSendspinFullscreenSplitTitle' =>
+        strings.settingSendspinFullscreenSplitTitle,
+      'settingSendspinFullscreenSplitDescription' =>
+        strings.settingSendspinFullscreenSplitDescription,
+      'settingSendspinFullscreenPhotoFillTitle' =>
+        strings.settingSendspinFullscreenPhotoFillTitle,
+      'settingSendspinFullscreenPhotoFillDescription' =>
+        strings.settingSendspinFullscreenPhotoFillDescription,
+      'settingSendspinFullscreenOverrideBrightnessTitle' =>
+        strings.settingSendspinFullscreenOverrideBrightnessTitle,
+      'settingSendspinFullscreenOverrideBrightnessDescription' =>
+        strings.settingSendspinFullscreenOverrideBrightnessDescription,
+      'mediaScreensaverHeading' => strings.mediaScreensaverHeading,
+      'mediaDefaultFill' => strings.mediaDefaultFill,
+      'mediaFillOff' => strings.mediaFillOff,
+      'mediaFillSmart' => strings.mediaFillSmart,
+      'mediaFillAlways' => strings.mediaFillAlways,
       'mediaPickPlayer' => strings.mediaPickPlayer,
       'mediaMaPlayer' => strings.mediaMaPlayer,
       'mediaHaPlayer' => strings.mediaHaPlayer,

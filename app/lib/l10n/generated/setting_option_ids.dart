@@ -188,6 +188,16 @@ const settingOptionMessageIds = <String, Map<String, String>>{
     "flac": "mediaFlac",
     "opus": "mediaOpus",
     "pcm": "mediaPcm"
+  },
+  "sendspin.player_size": {
+    "compact": "mediaCompact",
+    "large": "mediaLargeControls"
+  },
+  "sendspin.fullscreen_photo_fill": {
+    "default": "mediaDefaultFill",
+    "off": "mediaFillOff",
+    "smart": "mediaFillSmart",
+    "always": "mediaFillAlways"
   }
 };
 const settingPlaceholderMessageIds = <String, String>{

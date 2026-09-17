@@ -69,6 +69,15 @@ void main() {
     }
   });
 
+  test('every visible Media Player setting has catalog messages', () {
+    for (final setting in allSettings.where(
+      (s) => s.category == 'Sendspin' && !s.hidden,
+    )) {
+      expect(setting.titleMessageId, isNotNull, reason: setting.key);
+      expect(setting.descriptionMessageId, isNotNull, reason: setting.key);
+    }
+  });
+
   test('unreviewed Spanish has not been activated', () {
     // This becomes an enabled language only after the first complete import.
     if (!File('l10n/localization.lock.json').existsSync()) {

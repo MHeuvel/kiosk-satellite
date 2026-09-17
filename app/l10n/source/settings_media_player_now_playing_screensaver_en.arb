@@ -1,0 +1,172 @@
+{
+  "@@locale": "en",
+  "settingSendspinFullscreenTitle": "\"Now Playing\" instead of the screensaver",
+  "@settingSendspinFullscreenTitle": {
+    "context": "Settings > Media Player > Now Playing > Screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > Screensaver"
+      ]
+    }
+  },
+  "settingSendspinFullscreenDescription": "While music plays, the screensaver becomes a full-screen Now Playing view with album art. With nothing playing, the regular screensaver runs.",
+  "@settingSendspinFullscreenDescription": {
+    "context": "Settings > Media Player > Now Playing > Screensaver",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > Screensaver"
+      ]
+    }
+  },
+  "settingSendspinFullscreenSplitTitle": "Show alongside screensaver",
+  "@settingSendspinFullscreenSplitTitle": {
+    "context": "Settings > Media Player > Now Playing > Screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > Screensaver"
+      ]
+    }
+  },
+  "settingSendspinFullscreenSplitDescription": "Keep the screensaver visible beside Now Playing. Portrait screens stack the screensaver above the player. Small screens keep the full-screen player.",
+  "@settingSendspinFullscreenSplitDescription": {
+    "context": "Settings > Media Player > Now Playing > Screensaver",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > Screensaver"
+      ]
+    }
+  },
+  "settingSendspinFullscreenPhotoFillTitle": "Fill the screen",
+  "@settingSendspinFullscreenPhotoFillTitle": {
+    "context": "Settings > Media Player > Now Playing > Screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > Screensaver"
+      ]
+    }
+  },
+  "settingSendspinFullscreenPhotoFillDescription": "Override photo filling while the screensaver shares the display with Now Playing. Default uses each screensaver's own setting. Off keeps the whole photo between black bars. Smart enlarges photos shaped close to the screen, framing the rest over a blurred backdrop. Always enlarges every photo, cutting off what does not fit.",
+  "@settingSendspinFullscreenPhotoFillDescription": {
+    "context": "Settings > Media Player > Now Playing > Screensaver",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > Screensaver"
+      ]
+    }
+  },
+  "settingSendspinFullscreenOverrideBrightnessTitle": "Override screensaver brightness",
+  "@settingSendspinFullscreenOverrideBrightnessTitle": {
+    "context": "Settings > Media Player > Now Playing > Screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > Screensaver"
+      ]
+    }
+  },
+  "settingSendspinFullscreenOverrideBrightnessDescription": "Use normal screen brightness instead of screensaver brightness while Now Playing is shown alongside a screensaver. This also overrides scheduled screensaver brightness.",
+  "@settingSendspinFullscreenOverrideBrightnessDescription": {
+    "context": "Settings > Media Player > Now Playing > Screensaver",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > Screensaver"
+      ]
+    }
+  },
+  "mediaScreensaverHeading": "Screensaver",
+  "@mediaScreensaverHeading": {
+    "context": "Settings > Media Player > Now Playing > Screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > Screensaver"
+      ]
+    }
+  },
+  "mediaDefaultFill": "Default",
+  "@mediaDefaultFill": {
+    "context": "Settings > Media Player > Now Playing > Screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > Screensaver"
+      ]
+    }
+  },
+  "mediaFillOff": "Off",
+  "@mediaFillOff": {
+    "context": "Settings > Media Player > Now Playing > Screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > Screensaver"
+      ]
+    }
+  },
+  "mediaFillSmart": "Smart",
+  "@mediaFillSmart": {
+    "context": "Settings > Media Player > Now Playing > Screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > Screensaver"
+      ]
+    }
+  },
+  "mediaFillAlways": "Always",
+  "@mediaFillAlways": {
+    "context": "Settings > Media Player > Now Playing > Screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > Screensaver"
+      ]
+    }
+  }
+}

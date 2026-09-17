@@ -11,10 +11,19 @@ import 'theme.dart';
 import 'thumb_cache.dart';
 
 import '../app_container.dart';
+import '../l10n/messages.dart';
 import '../core/events.dart';
 import '../managers/sendspin/audiobook_chapters.dart';
 import '../managers/sendspin/remote_player.dart';
 import '../managers/settings/definitions.dart' as defs;
+
+String _transportLabel(BuildContext context, String command) =>
+    switch (command) {
+      'previous' => l10n(context).mediaPreviousTrack,
+      'next' => l10n(context).mediaNextTrack,
+      'pause' => l10n(context).mediaPause,
+      _ => l10n(context).mediaPlay,
+    };
 
 /// The floating now-playing card for the Sendspin player.
 ///
@@ -702,9 +711,14 @@ class _SendspinFullscreenViewState extends State<SendspinFullscreenView> {
                   customBorder: const CircleBorder(),
                   focusColor: Colors.white24,
                   onTap: () => c.screensaver.notifyActivity('close'),
-                  child: const Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Icon(Icons.close, color: Colors.white, size: 24),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Icon(
+                      Icons.close,
+                      color: Colors.white,
+                      size: 24,
+                      semanticLabel: l10n(context).commonClose,
+                    ),
                   ),
                 ),
               ),
@@ -1253,7 +1267,11 @@ class _QueueViewState extends State<_QueueView> {
       valueListenable: container.sendspin.queueItems,
       builder: (context, items, _) {
         final now = container.sendspin.nowPlaying.value;
-        final chapters = audiobookChapters(now);
+        final chapters = audiobookChapters(
+          now,
+          unnamedChapter: (number) =>
+              l10n(context).mediaUnnamedChapter('$number'),
+        );
         final chapterMode = chapters.isNotEmpty;
         if (chapterMode) {
           final position = playbackPositionMs(
@@ -1305,7 +1323,7 @@ class _QueueViewState extends State<_QueueView> {
         if (items.isEmpty) {
           return Center(
             child: Text(
-              'Nothing queued',
+              mediaText(context, 'Nothing queued'),
               style: TextStyle(color: Colors.white38, fontSize: fontSize),
             ),
           );
@@ -1335,18 +1353,22 @@ class _QueueViewState extends State<_QueueView> {
               controller: _scroll,
               padding: const EdgeInsets.symmetric(vertical: 24),
               children: [
-                if (chapterMode) _heading('Chapters', count: items.length),
+                if (chapterMode)
+                  _heading(mediaText(context, 'Chapters'), count: items.length),
                 for (final (i, item) in played.indexed)
                   _row(
                     item,
                     key: i == played.length - 1 ? _lastPlayedKey : null,
                   ),
                 if (current >= 0) ...[
-                  _heading('Now playing', key: _nowPlayingKey),
+                  _heading(
+                    mediaText(context, 'Now playing'),
+                    key: _nowPlayingKey,
+                  ),
                   _row(items[current]),
                 ],
                 _heading(
-                  'Up next',
+                  mediaText(context, 'Up next'),
                   count: chapterMode ? upcoming.length : upNext,
                 ),
                 for (final item in upcoming) _row(item),
@@ -1682,8 +1704,11 @@ class _PlayerChip extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(
+                Icon(
                   Icons.speaker_outlined,
+                  semanticLabel: grouping
+                      ? l10n(context).mediaSpeakerSelection
+                      : null,
                   color: Colors.white70,
                   size: 20,
                 ),
@@ -1932,8 +1957,8 @@ class _GroupMenuState extends State<_GroupMenu> {
                             // Another player's name over this one's
                             // menu: say why.
                             if (group != null && !group.leads)
-                              const Text(
-                                'Leads the group',
+                              Text(
+                                mediaText(context, 'Leads the group'),
                                 style: TextStyle(
                                   color: Colors.white54,
                                   fontSize: 13,
@@ -1961,9 +1986,9 @@ class _GroupMenuState extends State<_GroupMenu> {
                     ),
                   )
                 else if (_failed)
-                  note('The group could not be read.')
+                  note(mediaText(context, 'The group could not be read.'))
                 else if (members.isEmpty)
-                  note('No other players to group with.')
+                  note(mediaText(context, 'No other players to group with.'))
                 else
                   Flexible(
                     child: ListView(
@@ -2008,7 +2033,9 @@ class _GroupMenuState extends State<_GroupMenu> {
                                     child: Text(
                                       m.available
                                           ? m.name
-                                          : '${m.name} (offline)',
+                                          : l10n(
+                                              context,
+                                            ).mediaOfflineName(m.name),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: rowStyle.copyWith(
@@ -2023,8 +2050,8 @@ class _GroupMenuState extends State<_GroupMenu> {
                                   // way: unchecking it is leaving.
                                   if (m.id == group?.selfId && isLocal) ...[
                                     const SizedBox(width: 10),
-                                    const Text(
-                                      'This device',
+                                    Text(
+                                      mediaText(context, 'This device'),
                                       style: TextStyle(
                                         color: Colors.white54,
                                         fontSize: 13,
@@ -2255,10 +2282,12 @@ class _NowPlayingControlsState extends State<_NowPlayingControls> {
       IconData icon,
       VoidCallback? onPressed, {
       required double size,
+      required String label,
       Color color = Colors.white,
       FocusNode? focusNode,
     }) => IconButton(
       icon: Icon(icon, size: size * scale),
+      tooltip: label,
       color: color,
       disabledColor: color,
       // A dpad walking the buttons needs to see where it is, on a dark
@@ -2273,7 +2302,12 @@ class _NowPlayingControlsState extends State<_NowPlayingControls> {
       onPressed: onPressed,
     );
     Widget transport(IconData icon, String command, {required double size}) =>
-        btn(icon, () => c.sendspin.control(command), size: size);
+        btn(
+          icon,
+          () => c.sendspin.control(command),
+          size: size,
+          label: _transportLabel(context, command),
+        );
     // The six toggles, three a side: lit when on, dimmed when off. A
     // missing one leaves its width behind so the transport stays
     // centered under the cover either way.
@@ -2289,6 +2323,9 @@ class _NowPlayingControlsState extends State<_NowPlayingControls> {
                 ? Icons.favorite_rounded
                 : Icons.favorite_border_rounded,
             favorite == null ? null : c.sendspin.toggleFavorite,
+            label: favorite == true
+                ? l10n(context).mediaFavoriteRemove
+                : l10n(context).mediaFavoriteAdd,
             size: toggleSize,
             color: favorite == true
                 ? Colors.white
@@ -2306,6 +2343,11 @@ class _NowPlayingControlsState extends State<_NowPlayingControls> {
                 ? Icons.repeat_one_rounded
                 : Icons.repeat_rounded,
             () => _cycleRepeat(repeatMode),
+            label: switch (repeatMode) {
+              'off' => l10n(context).mediaRepeatAll,
+              'all' => l10n(context).mediaRepeatOne,
+              _ => l10n(context).mediaRepeatOff,
+            },
             size: toggleSize,
             color: repeatMode == 'off' ? Colors.white38 : Colors.white,
           )
@@ -2315,6 +2357,9 @@ class _NowPlayingControlsState extends State<_NowPlayingControls> {
         ? btn(
             Icons.shuffle_rounded,
             () => _toggleShuffle(!shuffleOn),
+            label: shuffleOn
+                ? l10n(context).mediaShuffleOff
+                : l10n(context).mediaShuffleOn,
             size: toggleSize,
             color: shuffleOn ? Colors.white : Colors.white38,
           )
@@ -2329,6 +2374,9 @@ class _NowPlayingControlsState extends State<_NowPlayingControls> {
         ? btn(
             lyricsOn ? Icons.lyrics_rounded : Icons.lyrics_outlined,
             c.sendspin.toggleLyrics,
+            label: lyricsOn
+                ? l10n(context).mediaHideLyrics
+                : l10n(context).mediaShowLyrics,
             size: toggleSize,
             color: lyricsOn ? Colors.white : Colors.white38,
           )
@@ -2337,6 +2385,9 @@ class _NowPlayingControlsState extends State<_NowPlayingControls> {
         ? btn(
             Icons.queue_music_rounded,
             c.sendspin.toggleQueue,
+            label: queueOpen
+                ? l10n(context).mediaHideQueue
+                : l10n(context).mediaShowQueue,
             size: toggleSize,
             color: queueOpen ? Colors.white : Colors.white38,
           )
@@ -2358,6 +2409,9 @@ class _NowPlayingControlsState extends State<_NowPlayingControls> {
                       ? Icons.volume_up_rounded
                       : Icons.volume_up_outlined),
             _toggleVolume,
+            label: volumeOpen
+                ? l10n(context).mediaHideVolume
+                : l10n(context).mediaShowVolume,
             size: toggleSize,
             color: volumeOpen ? Colors.white : Colors.white38,
           )
@@ -2413,6 +2467,7 @@ class _NowPlayingControlsState extends State<_NowPlayingControls> {
               ? Icons.pause_circle_filled_rounded
               : Icons.play_circle_fill_rounded,
           () => c.sendspin.control(playing ? 'pause' : 'play'),
+          label: playing ? l10n(context).mediaPause : l10n(context).mediaPlay,
           size: 68,
           focusNode: _playFocus,
         ),
@@ -2450,6 +2505,9 @@ class _NowPlayingControlsState extends State<_NowPlayingControls> {
                       if (mounted) setState(() {});
                     },
                     size: 32,
+                    label: muted
+                        ? l10n(context).mediaUnmute
+                        : l10n(context).mediaMute,
                     color: muted ? Colors.white : Colors.white70,
                   ),
                   Expanded(
@@ -2469,6 +2527,8 @@ class _NowPlayingControlsState extends State<_NowPlayingControls> {
                         trackShape: const RectangularSliderTrackShape(),
                       ),
                       child: Slider(
+                        semanticFormatterCallback: (value) =>
+                            '${l10n(context).mediaVolume}: ${value.round()}%',
                         value: level ?? 0,
                         max: 100,
                         onChanged: level == null
@@ -2686,7 +2746,10 @@ class _NowPlayingProgressState extends State<_NowPlayingProgress> {
       }
     }
     if (bookDuration > 0) position = position.clamp(0, bookDuration);
-    final chapters = audiobookChapters(now);
+    final chapters = audiobookChapters(
+      now,
+      unnamedChapter: (number) => l10n(context).mediaUnnamedChapter('$number'),
+    );
     final chapterIndex = currentChapterIndex(chapters, position, bookDuration);
     final chapter = _dragging
         ? _dragChapter
@@ -2746,6 +2809,8 @@ class _NowPlayingProgressState extends State<_NowPlayingProgress> {
                 trackShape: const RectangularSliderTrackShape(),
               ),
               child: Slider(
+                semanticFormatterCallback: (value) =>
+                    '${l10n(context).mediaPlaybackPosition}: ${_clock(value.round())}',
                 value: shown,
                 max: duration.toDouble(),
                 onChangeStart: canSeek
@@ -2976,6 +3041,7 @@ class _SendspinPlayerOverlayState extends State<SendspinPlayerOverlay> {
     bool has(String cmd) => supported.isEmpty || supported.contains(cmd);
     Widget btn(IconData icon, String command, {double size = 26}) => IconButton(
       icon: Icon(icon, size: size),
+      tooltip: _transportLabel(context, command),
       color: scheme.onSurface,
       visualDensity: VisualDensity.compact,
       onPressed: () => c.sendspin.control(command),
@@ -3006,7 +3072,7 @@ class _SendspinPlayerOverlayState extends State<SendspinPlayerOverlay> {
 
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
-    final title = '${now['title'] ?? 'Playing'}';
+    final title = '${now['title'] ?? l10n(context).mediaPlaying}';
     final artist = [now['artist'], now['album']]
         .where((v) => v != null && '$v'.isNotEmpty)
         .join(' — ')
@@ -3022,7 +3088,10 @@ class _SendspinPlayerOverlayState extends State<SendspinPlayerOverlay> {
       now,
       DateTime.now().millisecondsSinceEpoch,
     );
-    final chapters = audiobookChapters(now);
+    final chapters = audiobookChapters(
+      now,
+      unnamedChapter: (number) => l10n(context).mediaUnnamedChapter('$number'),
+    );
     final chapterIndex = currentChapterIndex(chapters, position, duration);
     if (chapterIndex >= 0) {
       final chapter = chapters[chapterIndex];
@@ -3287,6 +3356,9 @@ class _SendspinPlayerOverlayState extends State<SendspinPlayerOverlay> {
                                       ),
                                       child: Icon(
                                         Icons.fullscreen_rounded,
+                                        semanticLabel: l10n(
+                                          context,
+                                        ).mediaShowNowPlaying,
                                         size: _badgeSize,
                                         color: scheme.primary,
                                       ),

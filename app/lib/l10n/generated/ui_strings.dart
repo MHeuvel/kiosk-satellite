@@ -715,6 +715,246 @@ abstract class UiStrings {
   /// **'No release notes.'**
   String get drawerNoReleaseNotes;
 
+  /// Playback button tooltip and accessibility label.
+  ///
+  /// In en, this message translates to:
+  /// **'Play'**
+  String get mediaPlay;
+
+  /// Playback button tooltip and accessibility label.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
+  String get mediaPause;
+
+  /// Playback button tooltip and accessibility label.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous track'**
+  String get mediaPreviousTrack;
+
+  /// Playback button tooltip and accessibility label.
+  ///
+  /// In en, this message translates to:
+  /// **'Next track'**
+  String get mediaNextTrack;
+
+  /// Playback status or fallback text when a floating player track has no title.
+  ///
+  /// In en, this message translates to:
+  /// **'Playing'**
+  String get mediaPlaying;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Paused'**
+  String get mediaPaused;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Idle'**
+  String get mediaIdle;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Status unavailable'**
+  String get mediaStatusUnavailable;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown track'**
+  String get mediaUnknownTrack;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{status} - {source}'**
+  String mediaStatusSource(String status, String source);
+
+  /// Button tooltip or slider accessibility label.
+  ///
+  /// In en, this message translates to:
+  /// **'Show volume'**
+  String get mediaShowVolume;
+
+  /// Button tooltip or slider accessibility label.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide volume'**
+  String get mediaHideVolume;
+
+  /// Button tooltip or slider accessibility label.
+  ///
+  /// In en, this message translates to:
+  /// **'Mute'**
+  String get mediaMute;
+
+  /// Button tooltip or slider accessibility label.
+  ///
+  /// In en, this message translates to:
+  /// **'Unmute'**
+  String get mediaUnmute;
+
+  /// Button tooltip or slider accessibility label.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to favorites'**
+  String get mediaFavoriteAdd;
+
+  /// Button tooltip or slider accessibility label.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from favorites'**
+  String get mediaFavoriteRemove;
+
+  /// Button tooltip or slider accessibility label.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn shuffle on'**
+  String get mediaShuffleOn;
+
+  /// Button tooltip or slider accessibility label.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn shuffle off'**
+  String get mediaShuffleOff;
+
+  /// Button tooltip or slider accessibility label.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat all'**
+  String get mediaRepeatAll;
+
+  /// Button tooltip or slider accessibility label.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat one'**
+  String get mediaRepeatOne;
+
+  /// Button tooltip or slider accessibility label.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn repeat off'**
+  String get mediaRepeatOff;
+
+  /// Button tooltip or slider accessibility label.
+  ///
+  /// In en, this message translates to:
+  /// **'Show lyrics'**
+  String get mediaShowLyrics;
+
+  /// Button tooltip or slider accessibility label.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide lyrics'**
+  String get mediaHideLyrics;
+
+  /// Button tooltip or slider accessibility label.
+  ///
+  /// In en, this message translates to:
+  /// **'Show queue'**
+  String get mediaShowQueue;
+
+  /// Button tooltip or slider accessibility label.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide queue'**
+  String get mediaHideQueue;
+
+  /// Button tooltip or slider accessibility label.
+  ///
+  /// In en, this message translates to:
+  /// **'Volume'**
+  String get mediaVolume;
+
+  /// Button tooltip or slider accessibility label.
+  ///
+  /// In en, this message translates to:
+  /// **'Playback position'**
+  String get mediaPlaybackPosition;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Now Playing'**
+  String get mediaShowNowPlaying;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Show the floating player'**
+  String get mediaShowFloatingPlayer;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Music Assistant'**
+  String get mediaOpenMusicAssistant;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'command not supported or not sent'**
+  String get mediaCannotControl;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing queued'**
+  String get mediaNothingQueued;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Chapters'**
+  String get mediaChapters;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Now playing'**
+  String get mediaNowPlaying;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Up next'**
+  String get mediaUpNext;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Chapter {number}'**
+  String mediaUnnamedChapter(String number);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Leads the group'**
+  String get mediaGroupLead;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The group could not be read.'**
+  String get mediaGroupReadFailed;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No other players to group with.'**
+  String get mediaGroupEmpty;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Speaker selection'**
+  String get mediaSpeakerSelection;
+
   /// Setting label.
   ///
   /// In en, this message translates to:
@@ -4828,6 +5068,90 @@ abstract class UiStrings {
   /// Setting label.
   ///
   /// In en, this message translates to:
+  /// **'Show the floating player'**
+  String get settingSendspinShowPlayerTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'While music plays, show a small now-playing window over the dashboard with artwork, track info and progress. Drag it anywhere; the position is remembered.'**
+  String get settingSendspinShowPlayerDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Player size'**
+  String get settingSendspinPlayerSizeTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Compact is a small, unobtrusive now-playing window. Large adds previous, play/pause and next buttons sized for touch, controlling the whole playback group.'**
+  String get settingSendspinPlayerSizeDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide the paused player after'**
+  String get settingSendspinPausedHideMinutesTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'How long a paused player stays on screen. It applies to both the floating player and the Now Playing view.'**
+  String get settingSendspinPausedHideMinutesDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep playing when dismissed'**
+  String get settingSendspinDismissKeepsPlayingTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Flinging the floating player away hides it without stopping the music.'**
+  String get settingSendspinDismissKeepsPlayingDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Show in the kiosk menu'**
+  String get settingSendspinPlayerShortcutTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Add an entry in the kiosk menu that shows or hides the floating player. WARNING: If nothing is playing or there is no queue for this player, it won\'t show up.'**
+  String get settingSendspinPlayerShortcutDescription;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Floating Player'**
+  String get mediaFloatingPage;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The small card over the dashboard'**
+  String get mediaFloatingHint;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Compact'**
+  String get mediaCompact;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Large with controls'**
+  String get mediaLargeControls;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
   /// **'Player source'**
   String get settingSendspinPlayerSourceTitle;
 
@@ -4926,6 +5250,66 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'This device\'s own Sendspin player stays offline while {player} is controlled.'**
   String mediaLocalOffline(String player);
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable lyrics'**
+  String get settingSendspinLyricsEnabledTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Synchronized lyrics on the Now Playing view, for every player source.'**
+  String get settingSendspinLyricsEnabledDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Lyrics source'**
+  String get settingSendspinLyricsSourceTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Where the lyrics come from. Music Assistant needs the server address and token on its page.'**
+  String get settingSendspinLyricsSourceDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Fallback to Music Assistant'**
+  String get settingSendspinLyricsFallbackTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'If LRCLIB is unreachable, Music Assistant is asked instead. Needs the Music Assistant connection.'**
+  String get settingSendspinLyricsFallbackDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Lyrics timing'**
+  String get settingSendspinLyricsOffsetTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Shift the lyrics against the music. Positive shows each line earlier, negative later. Worth a nudge on tracks that read consistently off.'**
+  String get settingSendspinLyricsOffsetDescription;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Lyrics'**
+  String get mediaLyricsPage;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Synchronized lyrics, their source and timing'**
+  String get mediaLyricsHint;
 
   /// Setting label.
   ///
@@ -5088,6 +5472,216 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'the server closed the connection'**
   String get mediaServerClosed;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Show media controls'**
+  String get settingSendspinFullscreenControlsTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous, play/pause and next buttons and a progress bar on the Now Playing view. With controls on, a close button dismisses it instead of a tap anywhere.'**
+  String get settingSendspinFullscreenControlsDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Text scale'**
+  String get settingSendspinFullscreenTextScaleTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Size of the track title, artist, album, lyrics and queue text. Applies in both layouts and alongside the screensaver. Artwork adjusts to leave room for the text.'**
+  String get settingSendspinFullscreenTextScaleDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Button scale'**
+  String get settingSendspinFullscreenButtonScaleTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Size of the playback buttons and progress bar, independent of text size. Applies in both layouts and alongside the screensaver. Controls fit the space available in the player.'**
+  String get settingSendspinFullscreenButtonScaleDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Horizontal mode'**
+  String get settingSendspinFullscreenHorizontalTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Split artwork and controls into equal left and right halves. With lyrics or the queue open, track details move below the artwork. Ignored while Now Playing is shown alongside a screensaver.'**
+  String get settingSendspinFullscreenHorizontalDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Double tap to dismiss'**
+  String get settingSendspinFullscreenDoubleTapTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'A double tap anywhere on the Now Playing view dismisses it. The close button won\'t be shown. Ignored while Now Playing is shown alongside a screensaver.'**
+  String get settingSendspinFullscreenDoubleTapDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Launch Now Playing when music starts playing'**
+  String get settingSendspinFullscreenOnPlayTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the Now Playing view as soon as playback starts instead of waiting for the screensaver timeout.'**
+  String get settingSendspinFullscreenOnPlayDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Dismiss \"Now Playing\" on motion'**
+  String get settingSendspinFullscreenMotionTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Let motion dismiss Now Playing like a regular screensaver. Off, only touch dismisses it, so a walk-past does not interrupt the music display. Ignored while Now Playing is shown alongside a screensaver.'**
+  String get settingSendspinFullscreenMotionDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Show in the kiosk menu'**
+  String get settingSendspinFullscreenShortcutTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Add an entry in the kiosk menu that shows the Now Playing view. WARNING: If nothing is playing or there is no queue for this player, it won\'t show up.'**
+  String get settingSendspinFullscreenShortcutDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Show speaker selection pill'**
+  String get settingSendspinSpeakerPillTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Shows speaker selection for 5 seconds after screen interaction. Add or remove speakers from the current group.'**
+  String get settingSendspinSpeakerPillDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Show album art in the queue'**
+  String get settingSendspinQueueArtTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'A cover on every row of the queue panel.'**
+  String get settingSendspinQueueArtDescription;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Full-screen view while music plays'**
+  String get mediaNowPlayingHint;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'User Interface'**
+  String get mediaInterfaceHeading;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'\"Now Playing\" instead of the screensaver'**
+  String get settingSendspinFullscreenTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'While music plays, the screensaver becomes a full-screen Now Playing view with album art. With nothing playing, the regular screensaver runs.'**
+  String get settingSendspinFullscreenDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Show alongside screensaver'**
+  String get settingSendspinFullscreenSplitTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep the screensaver visible beside Now Playing. Portrait screens stack the screensaver above the player. Small screens keep the full-screen player.'**
+  String get settingSendspinFullscreenSplitDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Fill the screen'**
+  String get settingSendspinFullscreenPhotoFillTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Override photo filling while the screensaver shares the display with Now Playing. Default uses each screensaver\'s own setting. Off keeps the whole photo between black bars. Smart enlarges photos shaped close to the screen, framing the rest over a blurred backdrop. Always enlarges every photo, cutting off what does not fit.'**
+  String get settingSendspinFullscreenPhotoFillDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Override screensaver brightness'**
+  String get settingSendspinFullscreenOverrideBrightnessTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Use normal screen brightness instead of screensaver brightness while Now Playing is shown alongside a screensaver. This also overrides scheduled screensaver brightness.'**
+  String get settingSendspinFullscreenOverrideBrightnessDescription;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Screensaver'**
+  String get mediaScreensaverHeading;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Default'**
+  String get mediaDefaultFill;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Off'**
+  String get mediaFillOff;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Smart'**
+  String get mediaFillSmart;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Always'**
+  String get mediaFillAlways;
 
   /// Label or guidance in this section.
   ///

@@ -1,0 +1,43 @@
+{
+  "@@locale": "en",
+  "mediaGroupLead": "Leads the group",
+  "@mediaGroupLead": {
+    "context": "Now Playing > Speaker selection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Speaker selection"
+      ]
+    }
+  },
+  "mediaGroupReadFailed": "The group could not be read.",
+  "@mediaGroupReadFailed": {
+    "context": "Now Playing > Speaker selection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Speaker selection"
+      ]
+    }
+  },
+  "mediaGroupEmpty": "No other players to group with.",
+  "@mediaGroupEmpty": {
+    "context": "Now Playing > Speaker selection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Speaker selection"
+      ]
+    }
+  },
+  "mediaSpeakerSelection": "Speaker selection",
+  "@mediaSpeakerSelection": {
+    "context": "Now Playing > Speaker selection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Speaker selection"
+      ]
+    }
+  }
+}

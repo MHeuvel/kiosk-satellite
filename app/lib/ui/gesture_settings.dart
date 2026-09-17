@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import '../app_container.dart';
+import '../l10n/messages.dart';
 import '../managers/gestures/gesture_mappings.dart';
 import '../managers/settings/definitions.dart' as defs;
 import 'hand_gesture_tester.dart';
@@ -133,7 +134,7 @@ class _GestureSettingsPanelState extends State<GestureSettingsPanel> {
                   _ => Icons.gesture,
                 }),
                 title: Text(describeGestureTrigger(mapping.trigger)),
-                subtitle: Text(describeGestureAction(mapping.action)),
+                subtitle: Text(_localizedAction(context, mapping.action)),
                 onTap: () => _edit(mapping),
                 trailing: IconButton(
                   tooltip: 'Delete gesture',
@@ -466,7 +467,7 @@ class _GestureSettingsPanelState extends State<GestureSettingsPanel> {
                         title: Text(
                           action == null
                               ? 'Choose an action'
-                              : describeGestureAction(action!),
+                              : _localizedAction(context, action!),
                         ),
                         subtitle: Text(
                           action == null
@@ -588,7 +589,7 @@ class _GestureSettingsPanelState extends State<GestureSettingsPanel> {
                   children: [
                     Icon(icon, size: 20),
                     const SizedBox(width: 12),
-                    Expanded(child: Text(label)),
+                    Expanded(child: Text(mediaText(context, label))),
                   ],
                 ),
               ),
@@ -1261,4 +1262,15 @@ class _GestureSettingsPanelState extends State<GestureSettingsPanel> {
     data.dispose();
     return result;
   }
+}
+
+String _localizedAction(BuildContext context, Map<String, Object?> action) {
+  final description = describeGestureAction(action);
+  return const {
+        'sendspin_player',
+        'now_playing',
+        'music_assistant',
+      }.contains(action['type'])
+      ? mediaText(context, description)
+      : description;
 }

@@ -957,6 +957,461 @@
       ]
     }
   },
+  "mediaPlay": "Play",
+  "@mediaPlay": {
+    "context": "Media Player playback controls",
+    "description": "Playback button tooltip and accessibility label.",
+    "x-locations": {
+      "device": [
+        "Floating Player > Playback controls",
+        "Now Playing > Playback controls"
+      ],
+      "remoteAdmin": [
+        "Overview > Now playing"
+      ]
+    }
+  },
+  "mediaPause": "Pause",
+  "@mediaPause": {
+    "context": "Media Player playback controls",
+    "description": "Playback button tooltip and accessibility label.",
+    "x-locations": {
+      "device": [
+        "Floating Player > Playback controls",
+        "Now Playing > Playback controls"
+      ],
+      "remoteAdmin": [
+        "Overview > Now playing"
+      ]
+    }
+  },
+  "mediaPreviousTrack": "Previous track",
+  "@mediaPreviousTrack": {
+    "context": "Media Player playback controls",
+    "description": "Playback button tooltip and accessibility label.",
+    "x-locations": {
+      "device": [
+        "Floating Player > Playback controls",
+        "Now Playing > Playback controls"
+      ],
+      "remoteAdmin": [
+        "Overview > Now playing"
+      ]
+    }
+  },
+  "mediaNextTrack": "Next track",
+  "@mediaNextTrack": {
+    "context": "Media Player playback controls",
+    "description": "Playback button tooltip and accessibility label.",
+    "x-locations": {
+      "device": [
+        "Floating Player > Playback controls",
+        "Now Playing > Playback controls"
+      ],
+      "remoteAdmin": [
+        "Overview > Now playing"
+      ]
+    }
+  },
+  "mediaPlaying": "Playing",
+  "@mediaPlaying": {
+    "context": "Floating Player and full-screen Now Playing",
+    "description": "Playback status or fallback text when a floating player track has no title.",
+    "x-locations": {
+      "device": [
+        "Floating Player and full-screen Now Playing"
+      ],
+      "remoteAdmin": [
+        "Overview > Now playing"
+      ]
+    }
+  },
+  "mediaPaused": "Paused",
+  "@mediaPaused": {
+    "context": "Remote administration > Overview > Media Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Overview > Media Player status",
+        "Overview > Now playing"
+      ]
+    }
+  },
+  "mediaIdle": "Idle",
+  "@mediaIdle": {
+    "context": "Remote administration > Overview > Media Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Overview > Media Player status",
+        "Overview > Now playing"
+      ]
+    }
+  },
+  "mediaStatusUnavailable": "Status unavailable",
+  "@mediaStatusUnavailable": {
+    "context": "Remote administration > Overview > Media Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Overview > Media Player status",
+        "Overview > Now playing"
+      ]
+    }
+  },
+  "mediaUnknownTrack": "Unknown track",
+  "@mediaUnknownTrack": {
+    "context": "Remote administration > Overview > Media Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Overview > Media Player status",
+        "Overview > Now playing"
+      ]
+    }
+  },
+  "mediaStatusSource": "{status} - {source}",
+  "@mediaStatusSource": {
+    "context": "Remote administration > Overview > Media Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Overview > Media Player status",
+        "Overview > Now playing"
+      ]
+    },
+    "placeholders": {
+      "status": {
+        "type": "String",
+        "description": "Value supplied by the app. Keep numbers, names and technical details unchanged."
+      },
+      "source": {
+        "type": "String",
+        "description": "Value supplied by the app. Keep numbers, names and technical details unchanged."
+      }
+    }
+  },
+  "mediaShowVolume": "Show volume",
+  "@mediaShowVolume": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaHideVolume": "Hide volume",
+  "@mediaHideVolume": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaMute": "Mute",
+  "@mediaMute": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaUnmute": "Unmute",
+  "@mediaUnmute": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaFavoriteAdd": "Add to favorites",
+  "@mediaFavoriteAdd": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaFavoriteRemove": "Remove from favorites",
+  "@mediaFavoriteRemove": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaShuffleOn": "Turn shuffle on",
+  "@mediaShuffleOn": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaShuffleOff": "Turn shuffle off",
+  "@mediaShuffleOff": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaRepeatAll": "Repeat all",
+  "@mediaRepeatAll": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaRepeatOne": "Repeat one",
+  "@mediaRepeatOne": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaRepeatOff": "Turn repeat off",
+  "@mediaRepeatOff": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaShowLyrics": "Show lyrics",
+  "@mediaShowLyrics": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaHideLyrics": "Hide lyrics",
+  "@mediaHideLyrics": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaShowQueue": "Show queue",
+  "@mediaShowQueue": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaHideQueue": "Hide queue",
+  "@mediaHideQueue": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaVolume": "Volume",
+  "@mediaVolume": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaPlaybackPosition": "Playback position",
+  "@mediaPlaybackPosition": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaShowNowPlaying": "Show Now Playing",
+  "@mediaShowNowPlaying": {
+    "context": "Settings > Gestures > Action",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Action",
+        "Floating Player > Open Now Playing"
+      ],
+      "remoteAdmin": [
+        "Gestures > Action"
+      ]
+    }
+  },
+  "mediaShowFloatingPlayer": "Show the floating player",
+  "@mediaShowFloatingPlayer": {
+    "context": "Settings > Gestures > Action",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Action"
+      ],
+      "remoteAdmin": [
+        "Gestures > Action"
+      ]
+    }
+  },
+  "mediaOpenMusicAssistant": "Open Music Assistant",
+  "@mediaOpenMusicAssistant": {
+    "context": "Settings > Gestures > Action",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Action"
+      ],
+      "remoteAdmin": [
+        "Gestures > Action"
+      ]
+    }
+  },
+  "mediaCannotControl": "command not supported or not sent",
+  "@mediaCannotControl": {
+    "context": "Remote administration > Overview > Media Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Overview > Media Player status",
+        "Overview > Now playing"
+      ]
+    }
+  },
+  "mediaNothingQueued": "Nothing queued",
+  "@mediaNothingQueued": {
+    "context": "Now Playing > Queue and audiobook chapters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Queue and audiobook chapters"
+      ]
+    }
+  },
+  "mediaChapters": "Chapters",
+  "@mediaChapters": {
+    "context": "Now Playing > Queue and audiobook chapters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Queue and audiobook chapters"
+      ]
+    }
+  },
+  "mediaNowPlaying": "Now playing",
+  "@mediaNowPlaying": {
+    "context": "Now Playing > Queue and audiobook chapters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Queue and audiobook chapters"
+      ],
+      "remoteAdmin": [
+        "Overview > Now playing"
+      ]
+    }
+  },
+  "mediaUpNext": "Up next",
+  "@mediaUpNext": {
+    "context": "Now Playing > Queue and audiobook chapters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Queue and audiobook chapters"
+      ]
+    }
+  },
+  "mediaUnnamedChapter": "Chapter {number}",
+  "@mediaUnnamedChapter": {
+    "context": "Now Playing > Queue and audiobook chapters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Queue and audiobook chapters"
+      ]
+    },
+    "placeholders": {
+      "number": {
+        "type": "String",
+        "description": "Value supplied by the app. Keep numbers, names and technical details unchanged."
+      }
+    },
+    "x-notes": "Used only when the audiobook provider omits the chapter name. Supplied chapter titles are not translated."
+  },
+  "mediaGroupLead": "Leads the group",
+  "@mediaGroupLead": {
+    "context": "Now Playing > Speaker selection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Speaker selection"
+      ]
+    }
+  },
+  "mediaGroupReadFailed": "The group could not be read.",
+  "@mediaGroupReadFailed": {
+    "context": "Now Playing > Speaker selection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Speaker selection"
+      ]
+    }
+  },
+  "mediaGroupEmpty": "No other players to group with.",
+  "@mediaGroupEmpty": {
+    "context": "Now Playing > Speaker selection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Speaker selection"
+      ]
+    }
+  },
+  "mediaSpeakerSelection": "Speaker selection",
+  "@mediaSpeakerSelection": {
+    "context": "Now Playing > Speaker selection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Speaker selection"
+      ]
+    }
+  },
   "settingCameraEnabledTitle": "Activar cámara",
   "@settingCameraEnabledTitle": {
     "context": "Settings > Camera",
@@ -10141,6 +10596,188 @@
       }
     }
   },
+  "settingSendspinShowPlayerTitle": "Show the floating player",
+  "@settingSendspinShowPlayerTitle": {
+    "context": "Settings > Media Player > Floating Player",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Floating Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Floating Player"
+      ]
+    }
+  },
+  "settingSendspinShowPlayerDescription": "While music plays, show a small now-playing window over the dashboard with artwork, track info and progress. Drag it anywhere; the position is remembered.",
+  "@settingSendspinShowPlayerDescription": {
+    "context": "Settings > Media Player > Floating Player",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Floating Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Floating Player"
+      ]
+    }
+  },
+  "settingSendspinPlayerSizeTitle": "Player size",
+  "@settingSendspinPlayerSizeTitle": {
+    "context": "Settings > Media Player > Floating Player",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Floating Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Floating Player"
+      ]
+    }
+  },
+  "settingSendspinPlayerSizeDescription": "Compact is a small, unobtrusive now-playing window. Large adds previous, play/pause and next buttons sized for touch, controlling the whole playback group.",
+  "@settingSendspinPlayerSizeDescription": {
+    "context": "Settings > Media Player > Floating Player",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Floating Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Floating Player"
+      ]
+    }
+  },
+  "settingSendspinPausedHideMinutesTitle": "Hide the paused player after",
+  "@settingSendspinPausedHideMinutesTitle": {
+    "context": "Settings > Media Player > Floating Player",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Floating Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Floating Player"
+      ]
+    }
+  },
+  "settingSendspinPausedHideMinutesDescription": "How long a paused player stays on screen. It applies to both the floating player and the Now Playing view.",
+  "@settingSendspinPausedHideMinutesDescription": {
+    "context": "Settings > Media Player > Floating Player",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Floating Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Floating Player"
+      ]
+    }
+  },
+  "settingSendspinDismissKeepsPlayingTitle": "Keep playing when dismissed",
+  "@settingSendspinDismissKeepsPlayingTitle": {
+    "context": "Settings > Media Player > Floating Player",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Floating Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Floating Player"
+      ]
+    }
+  },
+  "settingSendspinDismissKeepsPlayingDescription": "Flinging the floating player away hides it without stopping the music.",
+  "@settingSendspinDismissKeepsPlayingDescription": {
+    "context": "Settings > Media Player > Floating Player",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Floating Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Floating Player"
+      ]
+    }
+  },
+  "settingSendspinPlayerShortcutTitle": "Show in the kiosk menu",
+  "@settingSendspinPlayerShortcutTitle": {
+    "context": "Settings > Media Player > Floating Player",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Floating Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Floating Player"
+      ]
+    }
+  },
+  "settingSendspinPlayerShortcutDescription": "Add an entry in the kiosk menu that shows or hides the floating player. WARNING: If nothing is playing or there is no queue for this player, it won't show up.",
+  "@settingSendspinPlayerShortcutDescription": {
+    "context": "Settings > Media Player > Floating Player",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Floating Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Floating Player"
+      ]
+    }
+  },
+  "mediaFloatingPage": "Floating Player",
+  "@mediaFloatingPage": {
+    "context": "Settings > Media Player > Floating Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Floating Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Floating Player"
+      ]
+    }
+  },
+  "mediaFloatingHint": "The small card over the dashboard",
+  "@mediaFloatingHint": {
+    "context": "Settings > Media Player > Floating Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Floating Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Floating Player"
+      ]
+    }
+  },
+  "mediaCompact": "Compact",
+  "@mediaCompact": {
+    "context": "Settings > Media Player > Floating Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Floating Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Floating Player"
+      ]
+    }
+  },
+  "mediaLargeControls": "Large with controls",
+  "@mediaLargeControls": {
+    "context": "Settings > Media Player > Floating Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Floating Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Floating Player"
+      ]
+    }
+  },
   "settingSendspinPlayerSourceTitle": "Origen del reproductor",
   "@settingSendspinPlayerSourceTitle": {
     "context": "Settings > Media Player",
@@ -10366,6 +11003,136 @@
         "type": "String",
         "description": "Value supplied by the app. Preserve names, addresses and technical details."
       }
+    }
+  },
+  "settingSendspinLyricsEnabledTitle": "Enable lyrics",
+  "@settingSendspinLyricsEnabledTitle": {
+    "context": "Settings > Media Player > Lyrics",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Lyrics"
+      ],
+      "remoteAdmin": [
+        "Media Player > Lyrics"
+      ]
+    }
+  },
+  "settingSendspinLyricsEnabledDescription": "Synchronized lyrics on the Now Playing view, for every player source.",
+  "@settingSendspinLyricsEnabledDescription": {
+    "context": "Settings > Media Player > Lyrics",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Lyrics"
+      ],
+      "remoteAdmin": [
+        "Media Player > Lyrics"
+      ]
+    }
+  },
+  "settingSendspinLyricsSourceTitle": "Lyrics source",
+  "@settingSendspinLyricsSourceTitle": {
+    "context": "Settings > Media Player > Lyrics",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Lyrics"
+      ],
+      "remoteAdmin": [
+        "Media Player > Lyrics"
+      ]
+    }
+  },
+  "settingSendspinLyricsSourceDescription": "Where the lyrics come from. Music Assistant needs the server address and token on its page.",
+  "@settingSendspinLyricsSourceDescription": {
+    "context": "Settings > Media Player > Lyrics",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Lyrics"
+      ],
+      "remoteAdmin": [
+        "Media Player > Lyrics"
+      ]
+    }
+  },
+  "settingSendspinLyricsFallbackTitle": "Fallback to Music Assistant",
+  "@settingSendspinLyricsFallbackTitle": {
+    "context": "Settings > Media Player > Lyrics",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Lyrics"
+      ],
+      "remoteAdmin": [
+        "Media Player > Lyrics"
+      ]
+    }
+  },
+  "settingSendspinLyricsFallbackDescription": "If LRCLIB is unreachable, Music Assistant is asked instead. Needs the Music Assistant connection.",
+  "@settingSendspinLyricsFallbackDescription": {
+    "context": "Settings > Media Player > Lyrics",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Lyrics"
+      ],
+      "remoteAdmin": [
+        "Media Player > Lyrics"
+      ]
+    }
+  },
+  "settingSendspinLyricsOffsetTitle": "Lyrics timing",
+  "@settingSendspinLyricsOffsetTitle": {
+    "context": "Settings > Media Player > Lyrics",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Lyrics"
+      ],
+      "remoteAdmin": [
+        "Media Player > Lyrics"
+      ]
+    }
+  },
+  "settingSendspinLyricsOffsetDescription": "Shift the lyrics against the music. Positive shows each line earlier, negative later. Worth a nudge on tracks that read consistently off.",
+  "@settingSendspinLyricsOffsetDescription": {
+    "context": "Settings > Media Player > Lyrics",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Lyrics"
+      ],
+      "remoteAdmin": [
+        "Media Player > Lyrics"
+      ]
+    }
+  },
+  "mediaLyricsPage": "Lyrics",
+  "@mediaLyricsPage": {
+    "context": "Settings > Media Player > Lyrics",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Lyrics"
+      ],
+      "remoteAdmin": [
+        "Media Player > Lyrics"
+      ]
+    }
+  },
+  "mediaLyricsHint": "Synchronized lyrics, their source and timing",
+  "@mediaLyricsHint": {
+    "context": "Settings > Media Player > Lyrics",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Lyrics"
+      ],
+      "remoteAdmin": [
+        "Media Player > Lyrics"
+      ]
     }
   },
   "settingSendspinMaUrlTitle": "Dirección del servidor",
@@ -10732,6 +11499,461 @@
       ],
       "remoteAdmin": [
         "Media Player > Music Assistant > Validate connection"
+      ]
+    }
+  },
+  "settingSendspinFullscreenControlsTitle": "Show media controls",
+  "@settingSendspinFullscreenControlsTitle": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "settingSendspinFullscreenControlsDescription": "Previous, play/pause and next buttons and a progress bar on the Now Playing view. With controls on, a close button dismisses it instead of a tap anywhere.",
+  "@settingSendspinFullscreenControlsDescription": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "settingSendspinFullscreenTextScaleTitle": "Text scale",
+  "@settingSendspinFullscreenTextScaleTitle": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "settingSendspinFullscreenTextScaleDescription": "Size of the track title, artist, album, lyrics and queue text. Applies in both layouts and alongside the screensaver. Artwork adjusts to leave room for the text.",
+  "@settingSendspinFullscreenTextScaleDescription": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "settingSendspinFullscreenButtonScaleTitle": "Button scale",
+  "@settingSendspinFullscreenButtonScaleTitle": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "settingSendspinFullscreenButtonScaleDescription": "Size of the playback buttons and progress bar, independent of text size. Applies in both layouts and alongside the screensaver. Controls fit the space available in the player.",
+  "@settingSendspinFullscreenButtonScaleDescription": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "settingSendspinFullscreenHorizontalTitle": "Horizontal mode",
+  "@settingSendspinFullscreenHorizontalTitle": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "settingSendspinFullscreenHorizontalDescription": "Split artwork and controls into equal left and right halves. With lyrics or the queue open, track details move below the artwork. Ignored while Now Playing is shown alongside a screensaver.",
+  "@settingSendspinFullscreenHorizontalDescription": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "settingSendspinFullscreenDoubleTapTitle": "Double tap to dismiss",
+  "@settingSendspinFullscreenDoubleTapTitle": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "settingSendspinFullscreenDoubleTapDescription": "A double tap anywhere on the Now Playing view dismisses it. The close button won't be shown. Ignored while Now Playing is shown alongside a screensaver.",
+  "@settingSendspinFullscreenDoubleTapDescription": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "settingSendspinFullscreenOnPlayTitle": "Launch Now Playing when music starts playing",
+  "@settingSendspinFullscreenOnPlayTitle": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "settingSendspinFullscreenOnPlayDescription": "Open the Now Playing view as soon as playback starts instead of waiting for the screensaver timeout.",
+  "@settingSendspinFullscreenOnPlayDescription": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "settingSendspinFullscreenMotionTitle": "Dismiss \"Now Playing\" on motion",
+  "@settingSendspinFullscreenMotionTitle": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "settingSendspinFullscreenMotionDescription": "Let motion dismiss Now Playing like a regular screensaver. Off, only touch dismisses it, so a walk-past does not interrupt the music display. Ignored while Now Playing is shown alongside a screensaver.",
+  "@settingSendspinFullscreenMotionDescription": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "settingSendspinFullscreenShortcutTitle": "Show in the kiosk menu",
+  "@settingSendspinFullscreenShortcutTitle": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "settingSendspinFullscreenShortcutDescription": "Add an entry in the kiosk menu that shows the Now Playing view. WARNING: If nothing is playing or there is no queue for this player, it won't show up.",
+  "@settingSendspinFullscreenShortcutDescription": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "settingSendspinSpeakerPillTitle": "Show speaker selection pill",
+  "@settingSendspinSpeakerPillTitle": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "settingSendspinSpeakerPillDescription": "Shows speaker selection for 5 seconds after screen interaction. Add or remove speakers from the current group.",
+  "@settingSendspinSpeakerPillDescription": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "settingSendspinQueueArtTitle": "Show album art in the queue",
+  "@settingSendspinQueueArtTitle": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "settingSendspinQueueArtDescription": "A cover on every row of the queue panel.",
+  "@settingSendspinQueueArtDescription": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "mediaNowPlayingHint": "Full-screen view while music plays",
+  "@mediaNowPlayingHint": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "mediaInterfaceHeading": "User Interface",
+  "@mediaInterfaceHeading": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "settingSendspinFullscreenTitle": "\"Now Playing\" instead of the screensaver",
+  "@settingSendspinFullscreenTitle": {
+    "context": "Settings > Media Player > Now Playing > Screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > Screensaver"
+      ]
+    }
+  },
+  "settingSendspinFullscreenDescription": "While music plays, the screensaver becomes a full-screen Now Playing view with album art. With nothing playing, the regular screensaver runs.",
+  "@settingSendspinFullscreenDescription": {
+    "context": "Settings > Media Player > Now Playing > Screensaver",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > Screensaver"
+      ]
+    }
+  },
+  "settingSendspinFullscreenSplitTitle": "Show alongside screensaver",
+  "@settingSendspinFullscreenSplitTitle": {
+    "context": "Settings > Media Player > Now Playing > Screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > Screensaver"
+      ]
+    }
+  },
+  "settingSendspinFullscreenSplitDescription": "Keep the screensaver visible beside Now Playing. Portrait screens stack the screensaver above the player. Small screens keep the full-screen player.",
+  "@settingSendspinFullscreenSplitDescription": {
+    "context": "Settings > Media Player > Now Playing > Screensaver",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > Screensaver"
+      ]
+    }
+  },
+  "settingSendspinFullscreenPhotoFillTitle": "Fill the screen",
+  "@settingSendspinFullscreenPhotoFillTitle": {
+    "context": "Settings > Media Player > Now Playing > Screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > Screensaver"
+      ]
+    }
+  },
+  "settingSendspinFullscreenPhotoFillDescription": "Override photo filling while the screensaver shares the display with Now Playing. Default uses each screensaver's own setting. Off keeps the whole photo between black bars. Smart enlarges photos shaped close to the screen, framing the rest over a blurred backdrop. Always enlarges every photo, cutting off what does not fit.",
+  "@settingSendspinFullscreenPhotoFillDescription": {
+    "context": "Settings > Media Player > Now Playing > Screensaver",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > Screensaver"
+      ]
+    }
+  },
+  "settingSendspinFullscreenOverrideBrightnessTitle": "Override screensaver brightness",
+  "@settingSendspinFullscreenOverrideBrightnessTitle": {
+    "context": "Settings > Media Player > Now Playing > Screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > Screensaver"
+      ]
+    }
+  },
+  "settingSendspinFullscreenOverrideBrightnessDescription": "Use normal screen brightness instead of screensaver brightness while Now Playing is shown alongside a screensaver. This also overrides scheduled screensaver brightness.",
+  "@settingSendspinFullscreenOverrideBrightnessDescription": {
+    "context": "Settings > Media Player > Now Playing > Screensaver",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > Screensaver"
+      ]
+    }
+  },
+  "mediaScreensaverHeading": "Screensaver",
+  "@mediaScreensaverHeading": {
+    "context": "Settings > Media Player > Now Playing > Screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > Screensaver"
+      ]
+    }
+  },
+  "mediaDefaultFill": "Default",
+  "@mediaDefaultFill": {
+    "context": "Settings > Media Player > Now Playing > Screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > Screensaver"
+      ]
+    }
+  },
+  "mediaFillOff": "Off",
+  "@mediaFillOff": {
+    "context": "Settings > Media Player > Now Playing > Screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > Screensaver"
+      ]
+    }
+  },
+  "mediaFillSmart": "Smart",
+  "@mediaFillSmart": {
+    "context": "Settings > Media Player > Now Playing > Screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > Screensaver"
+      ]
+    }
+  },
+  "mediaFillAlways": "Always",
+  "@mediaFillAlways": {
+    "context": "Settings > Media Player > Now Playing > Screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > Screensaver"
       ]
     }
   },

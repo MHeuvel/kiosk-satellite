@@ -1,0 +1,358 @@
+{
+  "@@locale": "en",
+  "mediaPlay": "Play",
+  "@mediaPlay": {
+    "context": "Media Player playback controls",
+    "description": "Playback button tooltip and accessibility label.",
+    "x-locations": {
+      "device": [
+        "Floating Player > Playback controls",
+        "Now Playing > Playback controls"
+      ],
+      "remoteAdmin": [
+        "Overview > Now playing"
+      ]
+    }
+  },
+  "mediaPause": "Pause",
+  "@mediaPause": {
+    "context": "Media Player playback controls",
+    "description": "Playback button tooltip and accessibility label.",
+    "x-locations": {
+      "device": [
+        "Floating Player > Playback controls",
+        "Now Playing > Playback controls"
+      ],
+      "remoteAdmin": [
+        "Overview > Now playing"
+      ]
+    }
+  },
+  "mediaPreviousTrack": "Previous track",
+  "@mediaPreviousTrack": {
+    "context": "Media Player playback controls",
+    "description": "Playback button tooltip and accessibility label.",
+    "x-locations": {
+      "device": [
+        "Floating Player > Playback controls",
+        "Now Playing > Playback controls"
+      ],
+      "remoteAdmin": [
+        "Overview > Now playing"
+      ]
+    }
+  },
+  "mediaNextTrack": "Next track",
+  "@mediaNextTrack": {
+    "context": "Media Player playback controls",
+    "description": "Playback button tooltip and accessibility label.",
+    "x-locations": {
+      "device": [
+        "Floating Player > Playback controls",
+        "Now Playing > Playback controls"
+      ],
+      "remoteAdmin": [
+        "Overview > Now playing"
+      ]
+    }
+  },
+  "mediaPlaying": "Playing",
+  "@mediaPlaying": {
+    "context": "Floating Player and full-screen Now Playing",
+    "description": "Playback status or fallback text when a floating player track has no title.",
+    "x-locations": {
+      "device": [
+        "Floating Player and full-screen Now Playing"
+      ],
+      "remoteAdmin": [
+        "Overview > Now playing"
+      ]
+    }
+  },
+  "mediaPaused": "Paused",
+  "@mediaPaused": {
+    "context": "Remote administration > Overview > Media Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Overview > Media Player status",
+        "Overview > Now playing"
+      ]
+    }
+  },
+  "mediaIdle": "Idle",
+  "@mediaIdle": {
+    "context": "Remote administration > Overview > Media Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Overview > Media Player status",
+        "Overview > Now playing"
+      ]
+    }
+  },
+  "mediaStatusUnavailable": "Status unavailable",
+  "@mediaStatusUnavailable": {
+    "context": "Remote administration > Overview > Media Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Overview > Media Player status",
+        "Overview > Now playing"
+      ]
+    }
+  },
+  "mediaUnknownTrack": "Unknown track",
+  "@mediaUnknownTrack": {
+    "context": "Remote administration > Overview > Media Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Overview > Media Player status",
+        "Overview > Now playing"
+      ]
+    }
+  },
+  "mediaStatusSource": "{status} - {source}",
+  "@mediaStatusSource": {
+    "context": "Remote administration > Overview > Media Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Overview > Media Player status",
+        "Overview > Now playing"
+      ]
+    },
+    "placeholders": {
+      "status": {
+        "type": "String",
+        "description": "Value supplied by the app. Keep numbers, names and technical details unchanged."
+      },
+      "source": {
+        "type": "String",
+        "description": "Value supplied by the app. Keep numbers, names and technical details unchanged."
+      }
+    }
+  },
+  "mediaShowVolume": "Show volume",
+  "@mediaShowVolume": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaHideVolume": "Hide volume",
+  "@mediaHideVolume": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaMute": "Mute",
+  "@mediaMute": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaUnmute": "Unmute",
+  "@mediaUnmute": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaFavoriteAdd": "Add to favorites",
+  "@mediaFavoriteAdd": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaFavoriteRemove": "Remove from favorites",
+  "@mediaFavoriteRemove": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaShuffleOn": "Turn shuffle on",
+  "@mediaShuffleOn": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaShuffleOff": "Turn shuffle off",
+  "@mediaShuffleOff": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaRepeatAll": "Repeat all",
+  "@mediaRepeatAll": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaRepeatOne": "Repeat one",
+  "@mediaRepeatOne": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaRepeatOff": "Turn repeat off",
+  "@mediaRepeatOff": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaShowLyrics": "Show lyrics",
+  "@mediaShowLyrics": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaHideLyrics": "Hide lyrics",
+  "@mediaHideLyrics": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaShowQueue": "Show queue",
+  "@mediaShowQueue": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaHideQueue": "Hide queue",
+  "@mediaHideQueue": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaVolume": "Volume",
+  "@mediaVolume": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaPlaybackPosition": "Playback position",
+  "@mediaPlaybackPosition": {
+    "context": "Now Playing > Playback controls",
+    "description": "Button tooltip or slider accessibility label.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Playback controls"
+      ]
+    }
+  },
+  "mediaShowNowPlaying": "Show Now Playing",
+  "@mediaShowNowPlaying": {
+    "context": "Settings > Gestures > Action",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Action",
+        "Floating Player > Open Now Playing"
+      ],
+      "remoteAdmin": [
+        "Gestures > Action"
+      ]
+    }
+  },
+  "mediaShowFloatingPlayer": "Show the floating player",
+  "@mediaShowFloatingPlayer": {
+    "context": "Settings > Gestures > Action",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Action"
+      ],
+      "remoteAdmin": [
+        "Gestures > Action"
+      ]
+    }
+  },
+  "mediaOpenMusicAssistant": "Open Music Assistant",
+  "@mediaOpenMusicAssistant": {
+    "context": "Settings > Gestures > Action",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Action"
+      ],
+      "remoteAdmin": [
+        "Gestures > Action"
+      ]
+    }
+  },
+  "mediaCannotControl": "command not supported or not sent",
+  "@mediaCannotControl": {
+    "context": "Remote administration > Overview > Media Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Overview > Media Player status",
+        "Overview > Now playing"
+      ]
+    }
+  }
+}

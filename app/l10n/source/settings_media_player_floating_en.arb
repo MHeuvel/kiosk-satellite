@@ -1,0 +1,185 @@
+{
+  "@@locale": "en",
+  "settingSendspinShowPlayerTitle": "Show the floating player",
+  "@settingSendspinShowPlayerTitle": {
+    "context": "Settings > Media Player > Floating Player",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Floating Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Floating Player"
+      ]
+    }
+  },
+  "settingSendspinShowPlayerDescription": "While music plays, show a small now-playing window over the dashboard with artwork, track info and progress. Drag it anywhere; the position is remembered.",
+  "@settingSendspinShowPlayerDescription": {
+    "context": "Settings > Media Player > Floating Player",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Floating Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Floating Player"
+      ]
+    }
+  },
+  "settingSendspinPlayerSizeTitle": "Player size",
+  "@settingSendspinPlayerSizeTitle": {
+    "context": "Settings > Media Player > Floating Player",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Floating Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Floating Player"
+      ]
+    }
+  },
+  "settingSendspinPlayerSizeDescription": "Compact is a small, unobtrusive now-playing window. Large adds previous, play/pause and next buttons sized for touch, controlling the whole playback group.",
+  "@settingSendspinPlayerSizeDescription": {
+    "context": "Settings > Media Player > Floating Player",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Floating Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Floating Player"
+      ]
+    }
+  },
+  "settingSendspinPausedHideMinutesTitle": "Hide the paused player after",
+  "@settingSendspinPausedHideMinutesTitle": {
+    "context": "Settings > Media Player > Floating Player",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Floating Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Floating Player"
+      ]
+    }
+  },
+  "settingSendspinPausedHideMinutesDescription": "How long a paused player stays on screen. It applies to both the floating player and the Now Playing view.",
+  "@settingSendspinPausedHideMinutesDescription": {
+    "context": "Settings > Media Player > Floating Player",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Floating Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Floating Player"
+      ]
+    }
+  },
+  "settingSendspinDismissKeepsPlayingTitle": "Keep playing when dismissed",
+  "@settingSendspinDismissKeepsPlayingTitle": {
+    "context": "Settings > Media Player > Floating Player",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Floating Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Floating Player"
+      ]
+    }
+  },
+  "settingSendspinDismissKeepsPlayingDescription": "Flinging the floating player away hides it without stopping the music.",
+  "@settingSendspinDismissKeepsPlayingDescription": {
+    "context": "Settings > Media Player > Floating Player",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Floating Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Floating Player"
+      ]
+    }
+  },
+  "settingSendspinPlayerShortcutTitle": "Show in the kiosk menu",
+  "@settingSendspinPlayerShortcutTitle": {
+    "context": "Settings > Media Player > Floating Player",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Floating Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Floating Player"
+      ]
+    }
+  },
+  "settingSendspinPlayerShortcutDescription": "Add an entry in the kiosk menu that shows or hides the floating player. WARNING: If nothing is playing or there is no queue for this player, it won't show up.",
+  "@settingSendspinPlayerShortcutDescription": {
+    "context": "Settings > Media Player > Floating Player",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Floating Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Floating Player"
+      ]
+    }
+  },
+  "mediaFloatingPage": "Floating Player",
+  "@mediaFloatingPage": {
+    "context": "Settings > Media Player > Floating Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Floating Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Floating Player"
+      ]
+    }
+  },
+  "mediaFloatingHint": "The small card over the dashboard",
+  "@mediaFloatingHint": {
+    "context": "Settings > Media Player > Floating Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Floating Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Floating Player"
+      ]
+    }
+  },
+  "mediaCompact": "Compact",
+  "@mediaCompact": {
+    "context": "Settings > Media Player > Floating Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Floating Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Floating Player"
+      ]
+    }
+  },
+  "mediaLargeControls": "Large with controls",
+  "@mediaLargeControls": {
+    "context": "Settings > Media Player > Floating Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Floating Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Floating Player"
+      ]
+    }
+  }
+}

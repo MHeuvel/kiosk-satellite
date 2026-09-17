@@ -1,3 +1,4 @@
+import { mediaText, mediaError, navigationText, t } from './localization.js';
 import { watchUpdates } from './live.js';
 import { $, api, cmd, state } from './core.js';
 import { attachUpdateInstall, refreshUpdateBadge } from './device.js';
@@ -290,11 +291,13 @@ function paintHealth({ filter = true } = {}) {
   // player, not a fault: an own Sendspin player with no server around and
   // a followed remote player at rest both read the same, so nothing here
   // asks a person to go and fix a quiet speaker.
-  if (!media) paintTile('media', '', 'Status unavailable');
-  else if (!media.enabled) paintTile('media', '', 'Off');
+  const mediaName = document.querySelector('[data-status="media"] .s-name');
+  if (mediaName) mediaName.textContent = navigationText('Media Player');
+  if (!media) paintTile('media', '', mediaText('Status unavailable'));
+  else if (!media.enabled) paintTile('media', '', mediaText('Off'));
   else {
     const where = media.remotePlayer || serverLabel(media.serverName);
-    const label = (word) => (where ? `${word} - ${where}` : word);
+    const label = (word) => (where ? t('mediaStatusSource', {status: mediaText(word), source: where}) : mediaText(word));
     if (media.playing) paintTile('media', 'on', label('Playing'));
     else if (media.playbackState === 'paused') paintTile('media', '', label('Paused'));
     else paintTile('media', '', label('Idle'));
@@ -487,12 +490,13 @@ document.addEventListener('ks-quick', paintShotBadge);
    The same read the Media Player tile paints from. */
 let npVisible = false;
 function paintNowPlaying(s) {
+  $('#npTitle').textContent = mediaText('Now playing');
   const show = !!(s && s.enabled && (s.playing || s.title));
   $('#npTitle').classList.toggle('hidden', !show);
   $('#npCard').classList.toggle('hidden', !show);
   npVisible = show;
   if (!show) return;
-  $('#npTrack').textContent = s.title || 'Unknown track';
+  $('#npTrack').textContent = s.title || mediaText('Unknown track');
   $('#npArtist').textContent = [s.artist, s.album].filter(Boolean).join(' · ');
   $('#npSource').textContent = [serverLabel(s.serverName), settingVal('sendspin.player_name')]
     .filter(Boolean).join(' · ');
@@ -514,7 +518,11 @@ function paintNowPlaying(s) {
   const play = $('#npPlay');
   play.innerHTML = s.playing ? ICONS.pause : ICONS.play;
   play.dataset.np = s.playing ? 'pause' : 'play';
-  play.title = s.playing ? 'Pause' : 'Play';
+  for (const button of document.querySelectorAll('#npCard [data-np]')) {
+    const id = {previous: 'mediaPreviousTrack', next: 'mediaNextTrack', play: 'mediaPlay', pause: 'mediaPause'}[button.dataset.np];
+    button.title = t(id);
+    button.setAttribute('aria-label', button.title);
+  }
   const supported = s.supportedCommands || [];
   document.querySelectorAll('#npCard [data-np]').forEach((b) => {
     b.disabled = supported.length > 0 && !supported.includes(b.dataset.np);
@@ -543,7 +551,7 @@ document.querySelectorAll('#npCard [data-np]').forEach((b) =>
   b.addEventListener('click', async () => {
     const res = await cmd('sendspinControl', { command: b.dataset.np }).catch(() => null);
     if (res && res.ok === false && res.error) {
-      showToast({ title: b.title || 'Media player', message: res.error, kind: 'error' });
+      showToast({ title: b.title || navigationText('Media Player'), message: mediaError(res.error), kind: 'error' });
     }
     setTimeout(refreshNowPlaying, 800);
   }));

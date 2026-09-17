@@ -1,3 +1,4 @@
+import { mediaText } from './localization.js';
 import { watchUpdates } from './live.js';
 import {
   cameraAction,
@@ -100,9 +101,9 @@ export function describeGestureAction(a) {
     case 'camera_view':
       if (a.mode === 'hide') return 'Close the camera view';
       return a.viewName ? `Toggle camera view ${a.viewName}` : 'Toggle the camera view';
-    case 'sendspin_player': return 'Show the floating player';
-    case 'now_playing': return 'Show Now Playing';
-    case 'music_assistant': return 'Open Music Assistant';
+    case 'sendspin_player': return mediaText('Show the floating player');
+    case 'now_playing': return mediaText('Show Now Playing');
+    case 'music_assistant': return mediaText('Open Music Assistant');
     case 'app_launcher': return 'Open the app launcher';
     case 'intercom_open': return 'Open Call a kiosk';
     case 'intercom_call': return `Call ${a.kioskName || a.kioskId}`;
@@ -445,7 +446,7 @@ export async function pickGestureAction(current) {
     items.push({ header: group });
     for (const [value, label, icon] of actions) {
       items.push({
-        name: label, selected: current?.type === value, value, icon,
+        name: mediaText(label), selected: current?.type === value, value, icon,
       });
     }
   }
