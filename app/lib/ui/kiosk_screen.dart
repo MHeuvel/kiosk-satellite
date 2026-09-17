@@ -11,6 +11,7 @@ import '../core/permissions.dart';
 
 import '../app_container.dart';
 import '../l10n/messages.dart';
+import '../l10n/gesture_messages.dart';
 import 'screensaver_view.dart';
 import '../core/events.dart';
 import '../managers/browser/carousel_script.dart';
@@ -641,10 +642,10 @@ class _KioskScreenState extends State<KioskScreen>
       if (!mounted) return;
       // The command's error already names the call the outcome names.
       final error = e.error?.replaceFirst(RegExp(r'^.*? failed: '), '');
-      final outcome = describeGestureActionOutcome(e.action, ok: e.ok);
+      final outcome = localizedGestureOutcome(context, e.action, ok: e.ok);
       showToast(
         context,
-        title: gestureActionKindTitle(e.action),
+        title: gestureText(context, gestureActionKindTitle(e.action)),
         message: e.ok || error == null || error.isEmpty
             ? outcome
             : '$outcome: $error',
@@ -1735,7 +1736,7 @@ class _KioskScreenState extends State<KioskScreen>
         if (!result.ok && mounted) {
           showToast(
             context,
-            title: describeGestureAction(action),
+            title: localizedGestureAction(context, action),
             message: result.error ?? 'Failed',
             kind: ToastKind.error,
           );

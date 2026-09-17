@@ -1,4 +1,4 @@
-import { mediaText } from './localization.js';
+import { gestureText, cameraText, localizeSetting, t } from './localization.js';
 import { watchUpdates } from './live.js';
 import {
   cameraAction,
@@ -8,7 +8,7 @@ import {
   cameraListRow,
   cameraSelectField,
 } from './cameras.js';
-import { api, cacheSettings, cmd, state } from './core.js';
+import { api, cmd, state } from './core.js';
 import { applyManagedBanners } from './fleetsync.js';
 import { settingRow } from './rows.js';
 import { fetchViews, radioRow } from './views.js';
@@ -64,62 +64,59 @@ export const GESTURE_ACTION_GROUPS = [
   ]],
 ];
 
-// Kept word-for-word with describeGestureTrigger/-Action in
-// gesture_mappings.dart: both UIs must name the same row identically.
-export function describeGestureTrigger(t) {
-  const corner = GESTURE_CORNERS[t.corner] || '';
-  const seconds = (ms, fallback = 1500) => {
-    const s = (Number(ms) || fallback) / 1000;
-    return Number.isInteger(s) ? String(s) : s.toFixed(1);
+export function gestureCorner(corner) {
+  const name = GESTURE_CORNERS[corner];
+  return name ? gestureText(name[0].toUpperCase() + name.slice(1) + ' corner') : corner;
+}
+
+export function describeGestureTrigger(trigger) {
+  const corner = gestureText(GESTURE_CORNERS[trigger.corner] || '');
+  const seconds = () => {
+    const value = (Number(trigger.holdMs) || 1500) / 1000;
+    return Number.isInteger(value) ? String(value) : value.toFixed(1);
   };
-  switch (t.type) {
-    case 'corner_taps': return `${t.taps} taps in the ${corner} corner`;
-    case 'corner_hold':
-      return `Hold the ${corner} corner for ${seconds(t.holdMs)}s`;
-    case 'finger_taps':
-      return Number(t.taps) === 2
-        ? `${t.fingers}-finger double tap` : `${t.fingers}-finger tap`;
-    case 'finger_hold':
-      return `${t.fingers}-finger hold for ${seconds(t.holdMs)}s`;
-    case 'corner_sequence':
-      return 'Corner sequence: '
-        + (t.sequence || []).map((c) => String(c).toUpperCase()).join(' > ');
-    case 'claps': return `${t.claps} claps`;
+  switch (trigger.type) {
+    case 'corner_taps': return t('gestureDescribeCornerTaps', {count: trigger.taps, corner});
+    case 'corner_hold': return t('gestureDescribeCornerHold', {corner, seconds: seconds()});
+    case 'finger_taps': return t(Number(trigger.taps) === 2 ? 'gestureDescribeFingerDouble' : 'gestureDescribeFingerTap', {count: trigger.fingers});
+    case 'finger_hold': return t('gestureDescribeFingerHold', {count: trigger.fingers, seconds: seconds()});
+    case 'corner_sequence': return t('gestureDescribeSequence', {sequence: (trigger.sequence || []).map(gestureCorner).join(' > ')});
+    case 'claps': return t('gestureDescribeClaps', {count: trigger.claps});
     case 'fingers': {
-      const n = Number(t.fingers) || 5;
-      return n === 5 ? 'Show an open hand' : `Show ${n} finger${n === 1 ? '' : 's'}`;
+      const count = Number(trigger.fingers) || 5;
+      return count === 5 ? gestureText('Show an open hand') : t(count === 1 ? 'gestureDescribeOneFinger' : 'gestureDescribeFingers', {count});
     }
   }
-  return 'Gesture';
+  return gestureText('Gesture');
 }
 
 export function describeGestureAction(a) {
   if (a.type === 'plugin_action') return `${a.pluginName || a.pluginId}: ${a.title || a.command}`;
   switch (a.type) {
-    case 'navigate': return `Go to ${a.path}`;
-    case 'url': return `Open ${a.url}`;
+    case 'navigate': return t('gestureGoTo', {value: a.path});
+    case 'url': return t('gestureOpen', {value: a.url});
     case 'camera_view':
-      if (a.mode === 'hide') return 'Close the camera view';
-      return a.viewName ? `Toggle camera view ${a.viewName}` : 'Toggle the camera view';
-    case 'sendspin_player': return mediaText('Show the floating player');
-    case 'now_playing': return mediaText('Show Now Playing');
-    case 'music_assistant': return mediaText('Open Music Assistant');
-    case 'app_launcher': return 'Open the app launcher';
-    case 'intercom_open': return 'Open Call a kiosk';
-    case 'intercom_call': return `Call ${a.kioskName || a.kioskId}`;
-    case 'screensaver': return 'Start the screensaver';
-    case 'screensaver_stop': return 'Stop the screensaver';
-    case 'hold_mode': return 'Toggle hold mode';
-    case 'ha_kiosk': return 'Toggle HA kiosk mode';
-    case 'launch_app': return `Open app ${a.package}`;
-    case 'open_uri': return `Open ${a.uri}`;
-    case 'android_settings': return 'Open Android Settings';
-    case 'ha_service': return `Call ${a.domain}.${a.service}`;
-    case 'ha_script': return `Run ${a.entityId}`;
-    case 'ha_automation': return `Trigger ${a.entityId}`;
-    case 'ha_event': return `Fire event ${a.event}`;
+      if (a.mode === 'hide') return gestureText('Close the camera view');
+      return a.viewName ? t('gestureCameraToggleName', {name: a.viewName}) : gestureText('Toggle the camera view');
+    case 'sendspin_player': return gestureText('Show the floating player');
+    case 'now_playing': return gestureText('Show Now Playing');
+    case 'music_assistant': return gestureText('Open Music Assistant');
+    case 'app_launcher': return gestureText('Open the app launcher');
+    case 'intercom_open': return gestureText('Open Call a kiosk');
+    case 'intercom_call': return t('gestureCall', {value: a.kioskName || a.kioskId});
+    case 'screensaver': return gestureText('Start the screensaver');
+    case 'screensaver_stop': return gestureText('Stop the screensaver');
+    case 'hold_mode': return gestureText('Toggle hold mode');
+    case 'ha_kiosk': return gestureText('Toggle HA kiosk mode');
+    case 'launch_app': return t('gestureOpenApp', {package: a.package});
+    case 'open_uri': return t('gestureOpen', {value: a.uri});
+    case 'android_settings': return gestureText('Open Android Settings');
+    case 'ha_service': return t('gestureCall', {value: `${a.domain}.${a.service}`});
+    case 'ha_script': return t('gestureRun', {value: a.entityId});
+    case 'ha_automation': return t('gestureTriggerAction', {value: a.entityId});
+    case 'ha_event': return t('gestureFireEvent', {value: a.event});
   }
-  return 'Action';
+  return gestureText('Action');
 }
 
 export function readGestureMappings() {
@@ -170,7 +167,7 @@ export function gestureListModal(title, items) {
     });
     const cancel = document.createElement('button');
     cancel.className = 'btn-text';
-    cancel.textContent = 'Cancel';
+    cancel.textContent = gestureText('Cancel');
     cancel.addEventListener('click', () => { back.remove(); resolve(null); });
     foot.appendChild(cancel);
   });
@@ -221,14 +218,14 @@ export async function validateGestureHaAction(domain, service, entity) {
       domain, service, ...(entity ? { entity_id: entity } : {}),
     });
   } catch (_) { result = null; }
-  if (!result?.ok) return [false, result?.error || 'Could not validate.'];
+  if (!result?.ok) return [false, result?.error || gestureText('Could not validate.')];
   const data = result.data || {};
-  if (data.domain === false) return [false, `Domain ${domain} not found.`];
+  if (data.domain === false) return [false, t('gestureDomainMissing', {value: domain})];
   if (data.service === false) {
-    return [false, `Service ${domain}.${service} not found.`];
+    return [false, t('gestureServiceMissing', {value: `${domain}.${service}`})];
   }
-  if (data.entity === false) return [false, `Entity ${entity} not found.`];
-  return [true, 'Looks good.'];
+  if (data.entity === false) return [false, t('gestureEntityMissing', {value: entity})];
+  return [true, gestureText('Looks good.')];
 }
 
 // The Validate row for the HA editors: ghost button plus status line.
@@ -239,7 +236,7 @@ export function gestureValidateRow(getCheck) {
   const status = document.createElement('span');
   status.className = 'desc';
   status.style.flex = '1';
-  const button = cameraAction('Validate', async () => {
+  const button = cameraAction(gestureText('Validate'), async () => {
     const check = getCheck();
     if (typeof check === 'string') {
       status.style.color = 'var(--error)';
@@ -248,7 +245,7 @@ export function gestureValidateRow(getCheck) {
     }
     button.disabled = true;
     status.style.color = '';
-    status.textContent = 'Checking…';
+    status.textContent = gestureText('Checking…');
     const [ok, message] =
       await validateGestureHaAction(check.domain, check.service, check.entity);
     button.disabled = false;
@@ -271,7 +268,7 @@ export async function configureGestureHaEntity(current, spec) {
   };
   body.append(entity.wrap, gestureValidateRow(() => qualified()
     ? { domain: spec.domain, service: spec.service, entity: qualified() }
-    : `Enter a ${spec.domain}.* entity.`));
+    : t('gestureEntityRequired', {domain: spec.domain})));
   let out = null;
   const saved = await cameraEditor({
     title: spec.title,
@@ -280,7 +277,7 @@ export async function configureGestureHaEntity(current, spec) {
       const value = qualified();
       if (!value.startsWith(`${spec.domain}.`)
         || value.length <= spec.domain.length + 1) {
-        return { ok: false, error: `Enter a ${spec.domain}.* entity.` };
+        return { ok: false, error: t('gestureEntityRequired', {domain: spec.domain}) };
       }
       out = { type: spec.type, entityId: value };
       return { ok: true };
@@ -313,12 +310,12 @@ export async function configureGestureNavigate(current) {
   }
   if (!entries.length) {
     await messageBox({
-      title: 'No dashboards',
-      message: 'Could not list dashboards. Is Home Assistant connected?',
+      title: gestureText('No dashboards'),
+      message: gestureText('Could not list dashboards. Is Home Assistant connected?'),
     });
     return null;
   }
-  const path = await gestureListModal('Go to a dashboard view', entries.map((e) => ({
+  const path = await gestureListModal(gestureText('Go to a dashboard view'), entries.map((e) => ({
     ...e, selected: current?.path === e.value,
   })));
   return path ? { type: 'navigate', path } : null;
@@ -328,16 +325,16 @@ export async function configureGestureCameraView(current) {
   const result = await cmd('cameraGetConfig').catch(() => null);
   const views = result?.ok ? result.data.views : [];
   const items = views.map((view) => ({
-    name: `Show ${view.name}`,
+    name: t('gestureCameraShow', {name: view.name}),
     selected: current?.mode === 'show' && current?.viewId === view.id,
     value: view,
   }));
   items.push({
-    name: 'Close the camera view',
+    name: gestureText('Close the camera view'),
     selected: current?.mode === 'hide',
     value: 'hide',
   });
-  const picked = await gestureListModal('Camera view', items);
+  const picked = await gestureListModal(gestureText('Camera view'), items);
   if (!picked) return null;
   if (picked === 'hide') return { type: 'camera_view', mode: 'hide' };
   return {
@@ -355,8 +352,8 @@ export async function configureGestureIntercomCall(current) {
     selected: current?.kioskId === k.id,
     value: k,
   }));
-  if (!items.length) items.push({ name: 'No kiosk found on the network yet.', desc: '', value: null });
-  const picked = await gestureListModal('Call a kiosk', items);
+  if (!items.length) items.push({ name: gestureText('No kiosk found on the network yet.'), desc: '', value: null });
+  const picked = await gestureListModal(gestureText('Call a kiosk'), items);
   if (!picked) return null;
   return { type: 'intercom_call', kioskId: picked.id, kioskName: picked.name };
 }
@@ -374,13 +371,13 @@ export function parseGestureData(text) {
 
 export async function configureGestureHaService(current) {
   const body = document.createElement('div');
-  const domain = cameraField('Domain', current?.domain || '');
+  const domain = cameraField(gestureText('Domain'), current?.domain || '');
   domain.input.placeholder = 'light';
-  const service = cameraField('Service', current?.service || '');
+  const service = cameraField(gestureText('Service'), current?.service || '');
   service.input.placeholder = 'turn_on';
-  const entity = cameraField('Entity (optional)', current?.entityId || '');
+  const entity = cameraField(gestureText('Entity (optional)'), current?.entityId || '');
   entity.input.placeholder = 'light.kitchen';
-  const data = gestureTextarea('Service data (optional)',
+  const data = gestureTextarea(gestureText('Service data (optional)'),
     current?.data ? JSON.stringify(current.data) : '', '{"brightness_pct": 60}');
   body.append(domain.wrap, service.wrap, entity.wrap, data.wrap,
     gestureValidateRow(() => domain.input.value.trim() && service.input.value.trim()
@@ -389,17 +386,17 @@ export async function configureGestureHaService(current) {
         service: service.input.value.trim(),
         entity: entity.input.value.trim(),
       }
-      : 'Domain and service are required.'));
+      : gestureText('Domain and service are required.')));
   let out = null;
   const saved = await cameraEditor({
-    title: 'Call a Home Assistant service',
+    title: gestureText('Call a Home Assistant service'),
     body,
     save: async () => {
       if (!domain.input.value.trim() || !service.input.value.trim()) {
-        return { ok: false, error: 'Domain and service are required.' };
+        return { ok: false, error: gestureText('Domain and service are required.') };
       }
       const parsed = parseGestureData(data.input.value);
-      if (!parsed.ok) return { ok: false, error: 'Service data must be a JSON object.' };
+      if (!parsed.ok) return { ok: false, error: gestureText('Service data must be a JSON object.') };
       out = {
         type: 'ha_service',
         domain: domain.input.value.trim(),
@@ -415,21 +412,21 @@ export async function configureGestureHaService(current) {
 
 export async function configureGestureHaEvent(current) {
   const body = document.createElement('div');
-  const event = cameraField('Event type', current?.event || '');
+  const event = cameraField(gestureText('Event type'), current?.event || '');
   event.input.placeholder = 'kiosk_satellite_gesture';
-  const data = gestureTextarea('Event data (optional)',
+  const data = gestureTextarea(gestureText('Event data (optional)'),
     current?.data ? JSON.stringify(current.data) : '', '{"room": "kitchen"}');
   body.append(event.wrap, data.wrap);
   let out = null;
   const saved = await cameraEditor({
-    title: 'Fire a Home Assistant event',
+    title: gestureText('Fire a Home Assistant event'),
     body,
     save: async () => {
       if (!event.input.value.trim()) {
-        return { ok: false, error: 'Event type is required.' };
+        return { ok: false, error: gestureText('Event type is required.') };
       }
       const parsed = parseGestureData(data.input.value);
-      if (!parsed.ok) return { ok: false, error: 'Event data must be a JSON object.' };
+      if (!parsed.ok) return { ok: false, error: gestureText('Event data must be a JSON object.') };
       out = { type: 'ha_event', event: event.input.value.trim() };
       if (parsed.value) out.data = parsed.value;
       return { ok: true };
@@ -446,20 +443,20 @@ export async function pickGestureAction(current) {
     items.push({ header: group });
     for (const [value, label, icon] of actions) {
       items.push({
-        name: mediaText(label), selected: current?.type === value, value, icon,
+        name: gestureText(label), selected: current?.type === value, value, icon,
       });
     }
   }
-  const type = await gestureListModal('Action', items);
+  const type = await gestureListModal(gestureText('Action'), items);
   if (!type) return null;
   const carried = current?.type === type ? current : null;
   switch (type) {
     case 'plugin_action': {
       const result = await cmd('getPluginActions');
-      if (!result.ok) { await messageBox({ title: 'Plugin actions', message: result.error || 'Could not load plugin actions.' }); return null; }
+      if (!result.ok) { await messageBox({ title: gestureText('Plugin actions'), message: result.error || gestureText('Could not load plugin actions.') }); return null; }
       const actions = (result.data || []).filter((action) => action.available);
-      if (!actions.length) { await messageBox({ title: 'Plugin actions', message: 'Enable a plugin with actions in Plugin Manager first.' }); return null; }
-      return gestureListModal('Plugin action', actions.map((action) => ({
+      if (!actions.length) { await messageBox({ title: gestureText('Plugin actions'), message: gestureText('Enable a plugin with actions in Plugin Manager first.') }); return null; }
+      return gestureListModal(gestureText('Plugin action'), actions.map((action) => ({
         name: action.title, desc: action.pluginName,
         value: { type, pluginId: action.pluginId, command: action.command, pluginName: action.pluginName, title: action.title },
         selected: carried?.pluginId === action.pluginId && carried?.command === action.command,
@@ -472,7 +469,7 @@ export async function pickGestureAction(current) {
       return { type };
     case 'navigate': return configureGestureNavigate(carried);
     case 'url': return configureGestureText(carried, {
-      type: 'url', title: 'Open a web page', field: 'url', label: 'URL',
+      type: 'url', title: gestureText('Open a web page'), field: 'url', label: 'URL',
       placeholder: 'https://example.com',
       validate: (v) => {
         try {
@@ -480,29 +477,29 @@ export async function pickGestureAction(current) {
           if ((url.protocol === 'http:' || url.protocol === 'https:')
             && url.hostname) return null;
         } catch (_) {}
-        return 'Enter a full http(s) URL.';
+        return gestureText('Enter a full http(s) URL.');
       },
     });
     case 'camera_view': return configureGestureCameraView(carried);
     case 'intercom_call': return configureGestureIntercomCall(carried);
     case 'launch_app': return configureGestureText(carried, {
-      type: 'launch_app', title: 'Open another app', field: 'package',
-      label: 'Package name', placeholder: 'com.android.deskclock',
-      validate: (v) => v.includes('.') ? null : 'Enter a package name.',
+      type: 'launch_app', title: gestureText('Open another app'), field: 'package',
+      label: gestureText('Package name'), placeholder: 'com.android.deskclock',
+      validate: (v) => v.includes('.') ? null : gestureText('Enter a package name.'),
     });
     case 'open_uri': return configureGestureText(carried, {
-      type: 'open_uri', title: 'Open a deep link', field: 'uri', label: 'URI',
+      type: 'open_uri', title: gestureText('Open a deep link'), field: 'uri', label: 'URI',
       placeholder: 'myapp://path',
-      validate: (v) => /^[a-z][a-z0-9+.-]*:/i.test(v) ? null : 'Enter a full URI.',
+      validate: (v) => /^[a-z][a-z0-9+.-]*:/i.test(v) ? null : gestureText('Enter a full URI.'),
     });
     case 'ha_service': return configureGestureHaService(carried);
     case 'ha_script': return configureGestureHaEntity(carried, {
-      type: 'ha_script', title: 'Run a script', label: 'Script entity',
+      type: 'ha_script', title: gestureText('Run a script'), label: gestureText('Script entity'),
       hint: 'script.good_morning', domain: 'script', service: 'turn_on',
     });
     case 'ha_automation': return configureGestureHaEntity(carried, {
-      type: 'ha_automation', title: 'Trigger an automation',
-      label: 'Automation entity', hint: 'automation.lights_off',
+      type: 'ha_automation', title: gestureText('Trigger an automation'),
+      label: gestureText('Automation entity'), hint: 'automation.lights_off',
       domain: 'automation', service: 'trigger',
     });
     case 'ha_event': return configureGestureHaEvent(carried);
@@ -513,51 +510,50 @@ export async function pickGestureAction(current) {
 // The main editor: the trigger's fields show and hide with its type, the
 // action summarizes below with its own chooser.
 export async function editGesture(existing) {
-  const t = existing?.trigger || {};
+  const triggerValue = existing?.trigger || {};
   let action = existing?.action || null;
-  const sequence = Array.isArray(t.sequence) ? t.sequence.map(String) : [];
+  const sequence = Array.isArray(triggerValue.sequence) ? triggerValue.sequence.map(String) : [];
 
   const body = document.createElement('div');
   // Show fingers needs a hand runtime this Android version cannot load
   // (issue #331): not offered, though an existing mapping still opens.
   const handsOk = !(state.visionSupport && state.visionSupport.hands === false);
-  const typeSel = cameraSelectField('Gesture',
+  const typeSel = cameraSelectField(gestureText('Gesture'),
     GESTURE_TRIGGERS
-      .filter(([value]) => handsOk || value !== 'fingers' || t.type === 'fingers')
-      .map(([value, label]) => ({ value, label })),
-    t.type || 'corner_taps');
-  const cornerSel = cameraSelectField('Corner',
+      .filter(([value]) => handsOk || value !== 'fingers' || triggerValue.type === 'fingers')
+      .map(([value, label]) => ({ value, label: gestureText(label) })),
+    triggerValue.type || 'corner_taps');
+  const cornerSel = cameraSelectField(gestureText('Corner'),
     Object.entries(GESTURE_CORNERS).map(([value, label]) => ({
-      value, label: label[0].toUpperCase() + label.slice(1) + ' corner',
-    })), GESTURE_CORNERS[t.corner] ? t.corner : 'tl');
-  const tapsSel = cameraSelectField('Taps',
-    [{ value: '2', label: '2 taps' }, { value: '3', label: '3 taps' },
-      { value: '4', label: '4 taps' }],
-    String(Math.min(Math.max(Number(t.taps) || 2, 2), 4)));
-  const fingersSel = cameraSelectField('Fingers',
-    [{ value: '2', label: '2 fingers' }, { value: '3', label: '3 fingers' }],
-    String(Number(t.fingers) === 2 ? 2 : 3));
-  const fingerTapsSel = cameraSelectField('Taps',
-    [{ value: '1', label: 'Single tap' }, { value: '2', label: 'Double tap' }],
-    String(Number(t.taps) === 2 ? 2 : 1));
-  const clapsSel = cameraSelectField('Claps',
-    [{ value: '2', label: '2 claps' }, { value: '3', label: '3 claps' },
-      { value: '4', label: '4 claps' }],
-    String(Math.min(Math.max(Number(t.claps) || 2, 2), 4)));
+      value, label: gestureCorner(value),
+    })), GESTURE_CORNERS[triggerValue.corner] ? triggerValue.corner : 'tl');
+  const tapsSel = cameraSelectField(gestureText('Taps'),
+    [{ value: '2', label: gestureText('2 taps') }, { value: '3', label: gestureText('3 taps') },
+      { value: '4', label: gestureText('4 taps') }],
+    String(Math.min(Math.max(Number(triggerValue.taps) || 2, 2), 4)));
+  const fingersSel = cameraSelectField(gestureText('Fingers'),
+    [{ value: '2', label: gestureText('2 fingers') }, { value: '3', label: gestureText('3 fingers') }],
+    String(Number(triggerValue.fingers) === 2 ? 2 : 3));
+  const fingerTapsSel = cameraSelectField(gestureText('Taps'),
+    [{ value: '1', label: gestureText('Single tap') }, { value: '2', label: gestureText('Double tap') }],
+    String(Number(triggerValue.taps) === 2 ? 2 : 1));
+  const clapsSel = cameraSelectField(gestureText('Claps'),
+    [{ value: '2', label: gestureText('2 claps') }, { value: '3', label: gestureText('3 claps') },
+      { value: '4', label: gestureText('4 claps') }],
+    String(Math.min(Math.max(Number(triggerValue.claps) || 2, 2), 4)));
   const clapsNote = document.createElement('span');
   clapsNote.className = 'desc';
-  clapsNote.textContent = 'Claps are heard through the microphone, with or '
-    + 'without wake word detection.';
-  const fingerCountSel = cameraSelectField('Fingers',
-    [{ value: '1', label: '1 finger' }, { value: '2', label: '2 fingers' },
-      { value: '3', label: '3 fingers' }, { value: '4', label: '4 fingers' },
-      { value: '5', label: 'Open hand (5)' }],
-    String(Math.min(Math.max(Number(t.fingers) || 5, 1), 5)));
+  clapsNote.textContent = gestureText('Claps are heard through the microphone, with or without wake word detection.');
+  const fingerCountSel = cameraSelectField(gestureText('Fingers'),
+    [{ value: '1', label: gestureText('1 finger') }, { value: '2', label: gestureText('2 fingers') },
+      { value: '3', label: gestureText('3 fingers') }, { value: '4', label: gestureText('4 fingers') },
+      { value: '5', label: gestureText('Open hand (5)') }],
+    String(Math.min(Math.max(Number(triggerValue.fingers) || 5, 1), 5)));
   const palmNote = document.createElement('span');
   palmNote.className = 'desc';
   palmNote.textContent = handsOk
-    ? 'Requires the camera enabled and a well lit environment.'
-    : (state.visionSupport.hint || 'Not available on this device.');
+    ? gestureText('Requires the camera enabled and a well lit environment.')
+    : gestureText(cameraText(state.visionSupport.hint || 'Not available on this device.'));
 
   const holdWrap = document.createElement('label');
   holdWrap.className = 'form-field';
@@ -568,9 +564,9 @@ export async function editGesture(existing) {
   holdInput.min = '500';
   holdInput.max = '3000';
   holdInput.step = '250';
-  holdInput.value = String(Number(t.holdMs) || 1500);
+  holdInput.value = String(Number(triggerValue.holdMs) || 1500);
   const holdText = () => {
-    holdLabel.textContent = `Hold for ${(Number(holdInput.value) / 1000).toFixed(2)} s`;
+    holdLabel.textContent = t('gestureHoldDuration', {seconds: (Number(holdInput.value) / 1000).toFixed(2)});
   };
   holdInput.addEventListener('input', holdText);
   holdText();
@@ -584,17 +580,17 @@ export async function editGesture(existing) {
   seqButtons.style.cssText = 'display:flex; gap:8px; flex-wrap:wrap;';
   const paintSeq = () => {
     seqText.textContent = sequence.length
-      ? sequence.map((c) => c.toUpperCase()).join(' > ')
-      : 'Tap the corners in order (2 to 8 steps).';
+      ? sequence.map(gestureCorner).join(' > ')
+      : gestureText('Tap the corners in order (2 to 8 steps).');
   };
   for (const corner of Object.keys(GESTURE_CORNERS)) {
-    seqButtons.appendChild(cameraAction(corner.toUpperCase(), () => {
+    seqButtons.appendChild(cameraAction(gestureCorner(corner), () => {
       if (sequence.length >= 8) return;
       sequence.push(corner);
       paintSeq();
     }));
   }
-  seqButtons.appendChild(cameraAction('Undo', () => {
+  seqButtons.appendChild(cameraAction(gestureText('Undo'), () => {
     sequence.pop();
     paintSeq();
   }));
@@ -608,12 +604,12 @@ export async function editGesture(existing) {
   actionInfo.className = 'info';
   const actionName = document.createElement('div');
   actionName.className = 'name';
-  actionName.textContent = action ? describeGestureAction(action) : 'Choose an action';
+  actionName.textContent = action ? describeGestureAction(action) : gestureText('Choose an action');
   const actionDesc = document.createElement('div');
   actionDesc.className = 'desc';
-  actionDesc.textContent = 'What this gesture triggers.';
+  actionDesc.textContent = gestureText('What this gesture triggers.');
   actionInfo.append(actionName, actionDesc);
-  actionRow.append(actionInfo, cameraAction('Choose', async () => {
+  actionRow.append(actionInfo, cameraAction(gestureText('Choose'), async () => {
     const picked = await pickGestureAction(action);
     if (picked) {
       action = picked;
@@ -644,13 +640,13 @@ export async function editGesture(existing) {
   update();
 
   return cameraEditor({
-    title: existing ? 'Edit gesture' : 'Add gesture',
+    title: existing ? gestureText('Edit gesture') : gestureText('Add gesture'),
     body,
     save: async () => {
       const type = typeSel.select.value;
-      if (!action) return { ok: false, error: 'Choose an action.' };
+      if (!action) return { ok: false, error: gestureText('Choose an action.') };
       if (type === 'corner_sequence' && sequence.length < 2) {
-        return { ok: false, error: 'Add at least two corners.' };
+        return { ok: false, error: gestureText('Add at least two corners.') };
       }
       const trigger = { type };
       if (type === 'corner_taps' || type === 'corner_hold') {
@@ -682,36 +678,30 @@ export async function editGesture(existing) {
 
 export async function loadGestures() {
   const root = document.getElementById('tab-gestures');
-  root.innerHTML = '<div class="card"><div class="desc">Reading…</div></div>';
-  try {
-    const r = await (await api('/api/settings')).json();
-    cacheSettings(r.settings || []);
-  } catch (_) {
-    root.innerHTML =
-      '<div class="card"><div class="desc">Could not read the settings.</div></div>';
-    applyManagedBanners();
-    return;
-  }
+  // Boot and live updates own the settings cache and language. A page visit
+  // must not replace them with a separate settings response.
+  const settings = (state.settings || []).map(setting =>
+    Object.assign(setting, localizeSetting(setting)));
   root.innerHTML = '';
   // Rebuilt from scratch on every visit, so the banner a follower's synced
   // category wears goes back on first; the generic tabs keep theirs because
   // nothing redraws them between settings loads.
   applyManagedBanners();
   const value = (key) =>
-    (state.settings || []).find((s) => s.key === key)?.value;
+    settings.find((s) => s.key === key)?.value;
   const refresh = () => loadGestures();
 
   if (value('kiosk.enabled') === true && value('kiosk.disable_gestures') === true) {
     const off = document.createElement('div');
     off.className = 'card';
-    off.appendChild(cameraListRow('Gestures are off',
-      'Disable Gestures is on in Kiosk Mode settings.', []));
+    off.appendChild(cameraListRow(gestureText('Gestures are off'),
+      gestureText('Disable Gestures is on in Kiosk Mode settings.'), []));
     root.appendChild(off);
   }
 
   const heading = document.createElement('h2');
   heading.className = 'card-title';
-  heading.textContent = 'Gestures';
+  heading.textContent = gestureText('Gestures');
   root.appendChild(heading);
   const card = document.createElement('div');
   card.className = 'card';
@@ -719,8 +709,8 @@ export async function loadGestures() {
 
   const mappings = readGestureMappings();
   if (!mappings.length) {
-    card.appendChild(cameraListRow('No gestures configured',
-      'A gesture triggers its action without any visible control.',
+    card.appendChild(cameraListRow(gestureText('No gestures configured'),
+      gestureText('A gesture triggers its action without any visible control.'),
       [], { icon: 'gesture' }));
   }
   for (const mapping of mappings) {
@@ -728,15 +718,13 @@ export async function loadGestures() {
       describeGestureTrigger(mapping.trigger),
       describeGestureAction(mapping.action),
       [
-        cameraAction('Delete', async () => {
+        cameraAction(gestureText('Delete'), async () => {
           const choice = await messageBox({
-            title: 'Delete gesture?',
-            message: `${describeGestureTrigger(mapping.trigger)} will no `
-              + 'longer '
-              + describeGestureAction(mapping.action).toLowerCase() + '.',
-            buttons: ['Cancel', 'Delete'],
+            title: gestureText('Delete gesture?'),
+            message: t('gestureDeleteMessage', {trigger: describeGestureTrigger(mapping.trigger), action: describeGestureAction(mapping.action)}),
+            buttons: [gestureText('Cancel'), gestureText('Delete')],
           });
-          if (choice !== 'Delete') return;
+          if (choice !== gestureText('Delete')) return;
           await saveGestureMappings(
             readGestureMappings().filter((m) => m.id !== mapping.id));
           refresh();
@@ -751,7 +739,7 @@ export async function loadGestures() {
     ));
   }
   card.appendChild(cameraListRow(
-    'Add gesture', 'Pick a gesture and the action it triggers.', [],
+    gestureText('Add gesture'), gestureText('Pick a gesture and the action it triggers.'), [],
     {
       icon: 'add',
       onClick: async () => {
@@ -762,21 +750,18 @@ export async function loadGestures() {
 
   const note = document.createElement('div');
   note.className = 'group-note';
-  note.textContent = 'Gestures are observed, not blocked: the taps also '
-    + 'reach the dashboard, so corners and multi-finger shapes keep them '
-    + 'from firing anything there.';
+  note.textContent = gestureText('Gestures are observed, not blocked: the taps also reach the dashboard, so corners and multi-finger shapes keep them from firing anything there.');
   root.appendChild(note);
 
   // Mirrors the device's Clapper section (ui/gesture_settings.dart).
-  const strictness = (state.settings || [])
-    .find((s) => s.key === 'gestures.clap_strictness');
+  const strictness = settings.find((s) => s.key === 'gestures.clap_strictness');
   if (strictness) {
     const clapperHeading = document.createElement('h2');
     clapperHeading.className = 'card-title';
     // Follows the group note, which ends flush (no bottom margin); the
     // usual card-to-heading rhythm needs restoring by hand here.
     clapperHeading.style.marginTop = '22px';
-    clapperHeading.textContent = 'Clapper';
+    clapperHeading.textContent = gestureText('Clapper');
     root.appendChild(clapperHeading);
     const clapperCard = document.createElement('div');
     clapperCard.className = 'card';
@@ -811,3 +796,6 @@ export const CATEGORY_TABS = [
 ];
 
 watchUpdates(['gestures'], loadGestures, { visible: () => !!document.querySelector('#tab-gestures.active') });
+document.addEventListener('ks-settings-cached', () => {
+  if (document.querySelector('#tab-gestures.active')) loadGestures();
+});

@@ -1,3 +1,5 @@
+import { launcherTextMessageIds } from './launcher_text_ids.js';
+import { gestureTextMessageIds } from './gesture_text_ids.js';
 import { kioskTextMessageIds } from './kiosk_text_ids.js';
 import { intercomTextMessageIds } from './intercom_text_ids.js';
 import { mediaTextMessageIds } from './media_text_ids.js';
@@ -9,6 +11,14 @@ import { catalogs } from './catalogs.js';
 import { navigationMessageIds } from './navigation_ids.js';
 import { deviceTextMessageIds } from './device_text_ids.js';
 import { haTextMessageIds } from './ha_text_ids.js';
+
+export function launcherText(english) {
+  return t(launcherTextMessageIds[english], {}, english);
+}
+
+export function gestureText(english) {
+  return t(gestureTextMessageIds[english], {}, english);
+}
 
 export function haText(english) {
   return t(haTextMessageIds[english], {}, english);
@@ -85,6 +95,8 @@ export function settingsPageText(category, english) {
     : category === 'Screen & Audio' || category === 'screenaudio' ? screenAudioText(english)
     : category === 'Screensaver' || category === 'screensaver' ? screensaverText(english)
     : category === 'Camera' || category === 'camera' ? cameraText(english)
+    : ['Launcher', 'launcher'].includes(category) ? launcherText(english)
+    : ['Gestures', 'gestures'].includes(category) ? gestureText(english)
     : ['Kiosk', 'kiosk', 'Home', 'home'].includes(category) ? kioskText(english)
     : category === 'Intercom' || category === 'intercom' ? (english === 'Answer' ? t('intercomAnswerSection') : english === 'Talk' ? t('intercomTalkSection') : intercomText(english))
     : category === 'Sendspin' || category === 'sendspin' ? mediaText(english) : english;

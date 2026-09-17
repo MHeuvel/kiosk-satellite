@@ -1236,4 +1236,24 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingHomeKeepPinningTitle",
     "description": "settingHomeKeepPinningDescription",
   },
+  "launcher.enabled": {
+    "title": "settingLauncherEnabledTitle",
+    "description": "settingLauncherEnabledDescription",
+  },
+  "launcher.apps": {
+    "title": "settingKioskAllowAppsTitle",
+    "description": "settingLauncherAppsDescription",
+  },
+  "launcher.auto_return": {
+    "title": "settingLauncherAutoReturnTitle",
+    "description": "settingLauncherAutoReturnDescription",
+  },
+  "launcher.auto_return_seconds": {
+    "title": "settingLauncherAutoReturnSecondsTitle",
+    "description": "settingLauncherAutoReturnSecondsDescription",
+  },
+  "gestures.clap_strictness": {
+    "title": "settingClapStrictnessTitle",
+    "description": "settingClapStrictnessDescription",
+  },
 };

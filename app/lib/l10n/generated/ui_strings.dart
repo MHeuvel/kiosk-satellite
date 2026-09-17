@@ -97,6 +97,54 @@ abstract class UiStrings {
     Locale('es'),
   ];
 
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open {name}'**
+  String launcherOpenFailed(String name);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'It may have been uninstalled.'**
+  String get launcherUninstalled;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'None yet. Pick the apps the launcher offers.'**
+  String get launcherNoneHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'None yet'**
+  String get launcherNone;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not list the apps'**
+  String get launcherListFailed;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not list the apps: {error}'**
+  String launcherListError(String error);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'listing failed'**
+  String get launcherListingFailed;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No launchable apps found.'**
+  String get launcherEmpty;
+
   /// Page title.
   ///
   /// In en, this message translates to:
@@ -762,6 +810,888 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'No release notes.'**
   String get drawerNoReleaseNotes;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Action'**
+  String get gestureAction;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to a dashboard view'**
+  String get gestureNavigate;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Open a web page'**
+  String get gestureUrl;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Show a camera view'**
+  String get gestureCameraView;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the app launcher'**
+  String get gestureLauncher;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Call a kiosk'**
+  String get gestureIntercomOpen;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Call a kiosk'**
+  String get gestureIntercomCall;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Start the screensaver'**
+  String get gestureScreensaver;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop the screensaver'**
+  String get gestureScreensaverStop;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Toggle hold mode'**
+  String get gestureHoldMode;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Toggle HA kiosk mode'**
+  String get gestureHaKiosk;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Run a plugin action'**
+  String get gesturePluginRun;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Open another app'**
+  String get gestureLaunchApp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Open a deep link'**
+  String get gestureDeepLink;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Android Settings'**
+  String get gestureAndroidSettings;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Call a service'**
+  String get gestureService;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Run a script'**
+  String get gestureScript;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Trigger an automation'**
+  String get gestureAutomation;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Fire an event'**
+  String get gestureEvent;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Plugin action'**
+  String get gesturePluginAction;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Plugin actions'**
+  String get gesturePluginActions;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable a plugin with actions in Plugin Manager first.'**
+  String get gesturePluginHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load plugin actions.'**
+  String get gesturePluginFailed;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a full http(s) URL.'**
+  String get gestureUrlError;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Package name'**
+  String get gesturePackage;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a package name.'**
+  String get gesturePackageError;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a full URI.'**
+  String get gestureUriError;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No dashboards'**
+  String get gestureNoDashboards;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not list dashboards'**
+  String get gestureDashboardsFailed;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Is Home Assistant connected?'**
+  String get gestureHaConnected;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not list dashboards. Is Home Assistant connected?'**
+  String get gestureDashboardsHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera view'**
+  String get gestureCameraTitle;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Show {name}'**
+  String gestureCameraShow(String name);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Close the camera view'**
+  String get gestureCameraClose;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No camera views configured yet.'**
+  String get gestureCameraEmpty;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No kiosk found on the network yet.'**
+  String get gestureIntercomEmpty;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} taps in the {corner} corner'**
+  String gestureDescribeCornerTaps(String count, String corner);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold the {corner} corner for {seconds}s'**
+  String gestureDescribeCornerHold(String corner, String seconds);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{count}-finger double tap'**
+  String gestureDescribeFingerDouble(String count);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{count}-finger tap'**
+  String gestureDescribeFingerTap(String count);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{count}-finger hold for {seconds}s'**
+  String gestureDescribeFingerHold(String count, String seconds);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Corner sequence: {sequence}'**
+  String gestureDescribeSequence(String sequence);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} claps'**
+  String gestureDescribeClaps(String count);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Show an open hand'**
+  String get gestureDescribeOpenHand;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Show {count} finger'**
+  String gestureDescribeOneFinger(String count);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Show {count} fingers'**
+  String gestureDescribeFingers(String count);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'top-left'**
+  String get gestureTopLeft;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'top-right'**
+  String get gestureTopRight;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'bottom-left'**
+  String get gestureBottomLeft;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'bottom-right'**
+  String get gestureBottomRight;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to {value}'**
+  String gestureGoTo(String value);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Open {value}'**
+  String gestureOpen(String value);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Toggle the camera view'**
+  String get gestureCameraToggle;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Toggle camera view {name}'**
+  String gestureCameraToggleName(String name);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Call {value}'**
+  String gestureCall(String value);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Open app {package}'**
+  String gestureOpenApp(String package);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Run {value}'**
+  String gestureRun(String value);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Trigger {value}'**
+  String gestureTriggerAction(String value);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Fire event {value}'**
+  String gestureFireEvent(String value);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Looks good.'**
+  String get gestureValid;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not validate.'**
+  String get gestureValidationFailed;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Domain {value} not found.'**
+  String gestureDomainMissing(String value);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Service {value} not found.'**
+  String gestureServiceMissing(String value);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Entity {value} not found.'**
+  String gestureEntityMissing(String value);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a {domain}.* entity.'**
+  String gestureEntityRequired(String domain);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Script entity'**
+  String get gestureScriptEntity;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Automation entity'**
+  String get gestureAutomationEntity;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Domain'**
+  String get gestureDomain;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Entity (optional)'**
+  String get gestureEntityOptional;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Service data (optional)'**
+  String get gestureServiceData;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Call a Home Assistant service'**
+  String get gestureServiceTitle;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Domain and service are required.'**
+  String get gestureServiceRequired;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Service data must be a JSON object.'**
+  String get gestureServiceJson;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Event type'**
+  String get gestureEventType;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Event data (optional)'**
+  String get gestureEventData;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Fire a Home Assistant event'**
+  String get gestureEventTitle;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Event type is required.'**
+  String get gestureEventRequired;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Event data must be a JSON object.'**
+  String get gestureEventJson;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Hand Gesture Tester'**
+  String get gestureTester;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Open tester'**
+  String get gestureOpenTester;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn on the camera in Camera settings first.'**
+  String get gestureCameraFirst;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch which fingers the camera reads, to learn how to hold your hand.'**
+  String get gestureTesterHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold your hand up at shoulder height, palm to the camera, fingers spread. Curl a finger all the way down to drop it from the count. Tuck the thumb across the palm to show four: the thumb only counts on an open hand.'**
+  String get gestureHandHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Gestures do not fire while the tester is open.'**
+  String get gestureTesterPaused;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Show a hand to the camera.'**
+  String get gestureShowHand;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Triggers: {action}'**
+  String gestureTesterTrigger(String action);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No gesture uses this count.'**
+  String get gestureNoCount;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No hand in view'**
+  String get gestureNoHand;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Reading the hand'**
+  String get gestureReadingHand;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No fingers up'**
+  String get gestureNoFingers;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} hands in view, reading the larger one.'**
+  String gestureHandsCount(String count);
+
+  /// Description in settings search results.
+  ///
+  /// In en, this message translates to:
+  /// **'A live look at the fingers the camera reads.'**
+  String get gestureTesterSearch;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Assistant Service'**
+  String get gestureHaServiceKind;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Assistant Script'**
+  String get gestureHaScriptKind;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Assistant Automation'**
+  String get gestureHaAutomationKind;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Assistant Event'**
+  String get gestureHaEventKind;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Ran {value}'**
+  String gestureRan(String value);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not run {value}'**
+  String gestureRunFailed(String value);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Called {value}'**
+  String gestureCalled(String value);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not call {value}'**
+  String gestureCallFailed(String value);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Triggered {value}'**
+  String gestureTriggered(String value);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not trigger {value}'**
+  String gestureTriggerFailed(String value);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Fired event {value}'**
+  String gestureFired(String value);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not fire event {value}'**
+  String gestureFireFailed(String value);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get gestureDone;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed'**
+  String get gestureFailed;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit gesture'**
+  String get gestureEdit;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Gesture'**
+  String get gestureTrigger;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Taps in a corner'**
+  String get gestureCornerTaps;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold a corner'**
+  String get gestureCornerHold;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Multi-finger tap'**
+  String get gestureFingerTaps;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Multi-finger hold'**
+  String get gestureFingerHold;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Corner sequence'**
+  String get gestureSequence;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Claps'**
+  String get gestureClaps;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Show fingers'**
+  String get gestureShowFingers;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Corner'**
+  String get gestureCorner;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Top-left corner'**
+  String get gestureCornerTl;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Top-right corner'**
+  String get gestureCornerTr;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Bottom-left corner'**
+  String get gestureCornerBl;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Bottom-right corner'**
+  String get gestureCornerBr;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Taps'**
+  String get gestureTaps;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'2 taps'**
+  String get gestureTaps2;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'3 taps'**
+  String get gestureTaps3;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'4 taps'**
+  String get gestureTaps4;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Fingers'**
+  String get gestureFingers;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'1 finger'**
+  String get gestureFinger1;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'2 fingers'**
+  String get gestureFinger2;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'3 fingers'**
+  String get gestureFinger3;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'4 fingers'**
+  String get gestureFinger4;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Open hand (5)'**
+  String get gestureOpenHand5;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Single tap'**
+  String get gestureSingleTap;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Double tap'**
+  String get gestureDoubleTap;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold for {seconds} s'**
+  String gestureHoldDuration(String seconds);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Requires the camera enabled and a well lit environment.'**
+  String get gestureCameraHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Not available on this device.'**
+  String get gestureUnavailable;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'2 claps'**
+  String get gestureClaps2;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'3 claps'**
+  String get gestureClaps3;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'4 claps'**
+  String get gestureClaps4;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Claps are heard through the microphone, with or without wake word detection.'**
+  String get gestureClapHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the corners in order (2 to 8 steps).'**
+  String get gestureSequenceHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove last step'**
+  String get gestureRemoveStep;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Undo'**
+  String get gestureUndo;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose an action'**
+  String get gestureChooseAction;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'What this gesture triggers.'**
+  String get gestureActionHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to change.'**
+  String get gestureChangeHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose an action.'**
+  String get gestureChooseError;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Add at least two corners.'**
+  String get gestureSequenceError;
 
   /// Label or guidance in this section.
   ///
@@ -1482,6 +2412,84 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Speaker selection'**
   String get mediaSpeakerSelection;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable App Launcher'**
+  String get settingLauncherEnabledTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Open a picked set of installed apps from the kiosk.'**
+  String get settingLauncherEnabledDescription;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The apps the launcher offers.'**
+  String get settingLauncherAppsDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Return automatically'**
+  String get settingLauncherAutoReturnTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Come back to the kiosk once the other app has gone untouched for a while.'**
+  String get settingLauncherAutoReturnDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Return after (seconds)'**
+  String get settingLauncherAutoReturnSecondsTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Time without a touch in the other app before the kiosk comes back.'**
+  String get settingLauncherAutoReturnSecondsDescription;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosk Satellite can bring itself back in the foreground and notice touches in the other app.'**
+  String get launcherOverlayHeld;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Without this the kiosk cannot come back on its own, and touches in the other app go unseen.'**
+  String get launcherOverlayMissing;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Without this the kiosk cannot come back on its own, and touches in the other app go unseen. The grant screen appears on the tablet.'**
+  String get launcherOverlayRemote;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Android may pause the app behind the other one, and a paused clock never brings the kiosk back.'**
+  String get launcherBatteryMissing;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Android may pause the app behind the other one, and a paused clock never brings the kiosk back. The grant dialog appears on the tablet.'**
+  String get launcherBatteryRemote;
+
+  /// Description in settings search results.
+  ///
+  /// In en, this message translates to:
+  /// **'The grants Return automatically leans on.'**
+  String get launcherPermissionsSearch;
 
   /// Setting label.
   ///
@@ -4824,6 +5832,102 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Set when the renderer starts'**
   String get settingDlnaPortPlaceholder;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Clap detection'**
+  String get settingClapStrictnessTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Strict needs louder, evenly spaced claps; try it if household noise false-triggers.'**
+  String get settingClapStrictnessDescription;
+
+  /// Clap detection option.
+  ///
+  /// In en, this message translates to:
+  /// **'Standard'**
+  String get gestureStrictnessStandard;
+
+  /// Clap detection option.
+  ///
+  /// In en, this message translates to:
+  /// **'Strict'**
+  String get gestureStrictnessStrict;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Gestures are off'**
+  String get gestureOff;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Disable Gestures is on in Kiosk Mode settings.'**
+  String get gestureOffHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No gestures configured'**
+  String get gestureEmpty;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'A gesture triggers its action without any visible control.'**
+  String get gestureEmptyHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete gesture'**
+  String get gestureDeleteTooltip;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete gesture?'**
+  String get gestureDeleteTitle;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove this gesture? Trigger: {trigger}. Action: {action}.'**
+  String gestureDeleteMessage(String trigger, String action);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Add gesture'**
+  String get gestureAdd;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a gesture and the action it triggers.'**
+  String get gestureAddHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Gestures are observed, not blocked: the taps also reach the dashboard, so corners and multi-finger shapes keep them from firing anything there.'**
+  String get gestureTouchHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Clapper'**
+  String get gestureClapper;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not read the settings.'**
+  String get gestureReadFailed;
 
   /// Setting label.
   ///

@@ -507,6 +507,8 @@ List<SettingsSearchEntry> buildSettingsSearchIndex(
   String Function(String)? haTextFor,
   String Function(String)? screenAudioTextFor,
   String Function(String)? screensaverTextFor,
+  String Function(String)? launcherTextFor,
+  String Function(String)? gestureTextFor,
   String Function(SettingDef<Object>)? titleFor,
   String Function(SettingDef<Object>)? descriptionFor,
 }) {
@@ -572,6 +574,10 @@ List<SettingsSearchEntry> buildSettingsSearchIndex(
         ? screenAudioTextFor
         : entry.category == 'Screensaver'
         ? screensaverTextFor
+        : entry.category == 'Launcher'
+        ? launcherTextFor
+        : entry.category == 'Gestures'
+        ? gestureTextFor
         : null;
     if (translate == null) return entry;
     return SettingsSearchEntry(

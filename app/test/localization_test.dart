@@ -69,9 +69,19 @@ void main() {
     }
   });
 
-  test('every visible media, Intercom, Kiosk and Home setting has catalog messages', () {
+  test('every localized category has messages for its visible settings', () {
     for (final setting in allSettings.where(
-      (s) => ['Sendspin', 'DLNA', 'Intercom', 'Kiosk', 'Home'].contains(s.category) && !s.hidden,
+      (s) =>
+          [
+            'Sendspin',
+            'DLNA',
+            'Intercom',
+            'Kiosk',
+            'Home',
+            'Launcher',
+            'Gestures',
+          ].contains(s.category) &&
+          !s.hidden,
     )) {
       expect(setting.titleMessageId, isNotNull, reason: setting.key);
       expect(setting.descriptionMessageId, isNotNull, reason: setting.key);

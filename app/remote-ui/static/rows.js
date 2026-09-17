@@ -1,3 +1,4 @@
+import { launcherText } from './localization.js';
 import { intercomError, mediaText, cameraText, cameraError, deviceText, haText, screensaverText, screensaverError, t } from './localization.js';
 import { watchUpdates } from './live.js';
 import {
@@ -370,9 +371,9 @@ export function settingRow(s) {
     // the row's edge instead of drifting with the label length.
     val.style.cssText =
       'flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap';
-    val.textContent = chosen.length ? chosen.map((a) => a.label).join(', ') : 'None yet';
+    val.textContent = chosen.length ? chosen.map((a) => a.label).join(', ') : launcherText('None yet');
     const btn = document.createElement('button');
-    btn.className = 'btn-ghost'; btn.textContent = 'Edit';
+    btn.className = 'btn-ghost'; btn.textContent = launcherText('Edit');
     btn.style.flex = 'none';
     btn.addEventListener('click', async () => {
       const picked = await openLauncherAppsPicker(chosen);

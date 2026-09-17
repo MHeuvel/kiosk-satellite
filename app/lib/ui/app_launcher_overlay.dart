@@ -5,6 +5,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 import '../app_container.dart';
+import '../l10n/messages.dart';
 import '../managers/launcher/app_launcher_manager.dart';
 import 'theme.dart';
 import 'toast.dart';
@@ -110,11 +111,11 @@ class _LauncherScreenState extends State<_LauncherScreen> {
     });
     // The one visible failure mode is an app uninstalled since it was
     // picked; silence would read as a dead button.
-    if (!result.ok) {
+    if (!result.ok && overlay.mounted) {
       showToastIn(
         overlay,
-        title: 'Could not open ${app.label}',
-        message: 'It may have been uninstalled.',
+        title: l10n(overlay.context).launcherOpenFailed(app.label),
+        message: launcherText(overlay.context, 'It may have been uninstalled.'),
         kind: ToastKind.error,
       );
     }
@@ -193,6 +194,7 @@ class _LauncherScreenState extends State<_LauncherScreen> {
                       right: 8,
                       child: IconButton(
                         icon: const Icon(Icons.close),
+                        tooltip: l10n(context).commonClose,
                         iconSize: 28,
                         color: theme.colorScheme.onSurfaceVariant,
                         onPressed: _close,

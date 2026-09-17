@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../app_container.dart';
+import '../l10n/messages.dart';
+import '../l10n/gesture_messages.dart';
 import '../managers/gestures/gesture_mappings.dart';
 import '../managers/motion/motion_manager.dart';
 import '../managers/settings/definitions.dart' as defs;
@@ -26,14 +28,26 @@ class HandGestureTesterTile extends StatelessWidget {
     final enabled = !unsupported && !cameraOff;
     return ListTile(
       leading: const Icon(Icons.waving_hand_outlined),
-      title: const Text('Open tester'),
+      title: Text(gestureText(context, 'Open tester')),
       subtitle: Text(
         unsupported
-            ? (c.deviceCamera.visionHint ?? 'Not available on this device.')
+            ? gestureText(
+                context,
+                cameraText(
+                  context,
+                  c.deviceCamera.visionHint ?? 'Not available on this device.',
+                ),
+              )
             : cameraOff
-            ? 'Turn on the camera in Camera settings first.'
-            : 'Watch which fingers the camera reads, to learn how to hold '
-                  'your hand.',
+            ? gestureText(
+                context,
+                'Turn on the camera in Camera settings first.',
+              )
+            : gestureText(
+                context,
+                'Watch which fingers the camera reads, to learn how to hold '
+                'your hand.',
+              ),
       ),
       trailing: const Icon(Icons.chevron_right),
       enabled: enabled,
@@ -94,13 +108,15 @@ class HandGestureTesterDialog extends StatelessWidget {
                     color: theme.colorScheme.primary,
                   ),
                   const SizedBox(width: 10),
-                  Text(
-                    'Hand Gesture Tester',
-                    style: theme.textTheme.titleMedium,
+                  Expanded(
+                    child: Text(
+                      gestureText(context, 'Hand Gesture Tester'),
+                      style: theme.textTheme.titleMedium,
+                    ),
                   ),
-                  const Spacer(),
                   IconButton(
                     icon: const Icon(Icons.close),
+                    tooltip: l10n(context).commonClose,
                     onPressed: () => Navigator.pop(context),
                   ),
                 ],
@@ -122,16 +138,22 @@ class HandGestureTesterDialog extends StatelessWidget {
                         ),
                         const SizedBox(height: 20),
                         Text(
-                          'Hold your hand up at shoulder height, palm to the '
-                          'camera, fingers spread. Curl a finger all the way '
-                          'down to drop it from the count. Tuck the thumb '
-                          'across the palm to show four: the thumb only '
-                          'counts on an open hand.',
+                          gestureText(
+                            context,
+                            'Hold your hand up at shoulder height, palm to the '
+                            'camera, fingers spread. Curl a finger all the way '
+                            'down to drop it from the count. Tuck the thumb '
+                            'across the palm to show four: the thumb only '
+                            'counts on an open hand.',
+                          ),
                           style: muted,
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          'Gestures do not fire while the tester is open.',
+                          gestureText(
+                            context,
+                            'Gestures do not fire while the tester is open.',
+                          ),
                           style: muted,
                         ),
                       ],
@@ -179,23 +201,28 @@ class _Reading extends StatelessWidget {
     // one height as hands come and go.
     final String detail;
     if (r == null) {
-      detail = 'Show a hand to the camera.';
+      detail = gestureText(context, 'Show a hand to the camera.');
     } else if (match != null) {
-      detail = 'Triggers: ${describeGestureAction(match.action)}';
+      detail = l10n(
+        context,
+      ).gestureTesterTrigger(localizedGestureAction(context, match.action));
     } else if (fingers != null && fingers > 0) {
-      detail = 'No gesture uses this count.';
+      detail = gestureText(context, 'No gesture uses this count.');
     } else {
       detail = ' ';
     }
     final String label;
     if (r == null) {
-      label = 'No hand in view';
+      label = gestureText(context, 'No hand in view');
     } else if (fingers == null) {
-      label = 'Reading the hand';
+      label = gestureText(context, 'Reading the hand');
     } else if (fingers == 0) {
-      label = 'No fingers up';
+      label = gestureText(context, 'No fingers up');
     } else {
-      label = describeGestureTrigger({'type': 'fingers', 'fingers': fingers});
+      label = localizedGestureTrigger(context, {
+        'type': 'fingers',
+        'fingers': fingers,
+      });
     }
     return Column(
       children: [
@@ -209,14 +236,18 @@ class _Reading extends StatelessWidget {
             color: scheme.primary,
           ),
         ),
-        Text(label, maxLines: 1, style: theme.textTheme.titleMedium),
+        Text(
+          label,
+          textAlign: TextAlign.center,
+          style: theme.textTheme.titleMedium,
+        ),
         const SizedBox(height: 4),
-        Text(detail, maxLines: 1, style: muted),
+        Text(detail, textAlign: TextAlign.center, style: muted),
         Text(
           r != null && r.hands > 1
-              ? '${r.hands} hands in view, reading the larger one.'
+              ? l10n(context).gestureHandsCount('${r.hands}')
               : ' ',
-          maxLines: 1,
+          textAlign: TextAlign.center,
           style: muted,
         ),
       ],

@@ -1,3 +1,4 @@
+import { launcherText } from './localization.js';
 import { deviceText, screensaverText, immichError, t } from './localization.js';
 import { cmd } from './core.js';
 import { modalShell } from './widgets.js';
@@ -151,29 +152,31 @@ export function openLauncherAppsPicker(current) {
     const selected = new Set((current || []).map((a) => a.package));
 
     const shell = modalShell({
-      title: 'Apps',
+      title: launcherText('Apps'),
       width: 520,
       onDismiss: () => close(null),
     });
     const close = (val) => { shell.close(); resolve(val); };
     const list = shell.body;
-    list.innerHTML = '<div class="desc" style="color:var(--muted)">Loading…</div>';
+    list.innerHTML = '<div class="desc" style="color:var(--muted)"></div>';
+    list.firstChild.textContent = launcherText('Loading…');
 
     const cancel = document.createElement('button');
-    cancel.className = 'btn-text'; cancel.textContent = 'Cancel';
+    cancel.className = 'btn-text'; cancel.textContent = launcherText('Cancel');
     cancel.addEventListener('click', () => close(null));
     const okBtn = document.createElement('button');
-    okBtn.className = 'btn-primary'; okBtn.textContent = 'Save'; okBtn.disabled = true;
+    okBtn.className = 'btn-primary'; okBtn.textContent = launcherText('Save'); okBtn.disabled = true;
     shell.foot.append(cancel, okBtn);
 
     (async () => {
       let apps = [];
       try {
         const r = await cmd('installedApps');
-        if (!r.ok) throw new Error(r.error || 'listing failed');
+        if (!r.ok) throw new Error(r.error || launcherText('listing failed'));
         apps = r.data || [];
       } catch (e) {
-        list.innerHTML = `<div class="desc" style="color:var(--error)">Could not list the apps: ${e}</div>`;
+        list.innerHTML = '<div class="desc" style="color:var(--error)"></div>';
+        list.firstChild.textContent = t('launcherListError', {error: String(e)});
         return;
       }
       list.innerHTML = '';
@@ -197,7 +200,8 @@ export function openLauncherAppsPicker(current) {
         list.appendChild(r);
       }
       if (!apps.length) {
-        list.innerHTML = '<div class="desc" style="color:var(--muted)">No launchable apps found.</div>';
+        list.innerHTML = '<div class="desc" style="color:var(--muted)"></div>';
+        list.firstChild.textContent = launcherText('No launchable apps found.');
         return;
       }
       okBtn.disabled = false;

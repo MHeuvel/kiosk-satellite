@@ -1,0 +1,94 @@
+{
+  "@@locale": "en",
+  "settingLauncherEnabledTitle": "Enable App Launcher",
+  "@settingLauncherEnabledTitle": {
+    "context": "Settings > App Launcher",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > App Launcher > Enable App Launcher"
+      ],
+      "remoteAdmin": [
+        "App Launcher > Enable App Launcher"
+      ]
+    }
+  },
+  "settingLauncherEnabledDescription": "Open a picked set of installed apps from the kiosk.",
+  "@settingLauncherEnabledDescription": {
+    "context": "Settings > App Launcher",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > App Launcher > Enable App Launcher"
+      ],
+      "remoteAdmin": [
+        "App Launcher > Enable App Launcher"
+      ]
+    }
+  },
+  "settingLauncherAppsDescription": "The apps the launcher offers.",
+  "@settingLauncherAppsDescription": {
+    "context": "Settings > App Launcher",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > App Launcher > Apps"
+      ],
+      "remoteAdmin": [
+        "App Launcher > Apps"
+      ]
+    }
+  },
+  "settingLauncherAutoReturnTitle": "Return automatically",
+  "@settingLauncherAutoReturnTitle": {
+    "context": "Settings > App Launcher",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > App Launcher > Return automatically"
+      ],
+      "remoteAdmin": [
+        "App Launcher > Return automatically"
+      ]
+    }
+  },
+  "settingLauncherAutoReturnDescription": "Come back to the kiosk once the other app has gone untouched for a while.",
+  "@settingLauncherAutoReturnDescription": {
+    "context": "Settings > App Launcher",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > App Launcher > Return automatically"
+      ],
+      "remoteAdmin": [
+        "App Launcher > Return automatically"
+      ]
+    }
+  },
+  "settingLauncherAutoReturnSecondsTitle": "Return after (seconds)",
+  "@settingLauncherAutoReturnSecondsTitle": {
+    "context": "Settings > App Launcher",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > App Launcher > Return after (seconds)"
+      ],
+      "remoteAdmin": [
+        "App Launcher > Return after (seconds)"
+      ]
+    }
+  },
+  "settingLauncherAutoReturnSecondsDescription": "Time without a touch in the other app before the kiosk comes back.",
+  "@settingLauncherAutoReturnSecondsDescription": {
+    "context": "Settings > App Launcher",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > App Launcher > Return after (seconds)"
+      ],
+      "remoteAdmin": [
+        "App Launcher > Return after (seconds)"
+      ]
+    }
+  }
+}

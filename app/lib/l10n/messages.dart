@@ -6,6 +6,8 @@ import 'generated/message_lookup.dart';
 import 'generated/media_text_ids.dart';
 import 'generated/intercom_text_ids.dart';
 import 'generated/kiosk_text_ids.dart';
+import 'generated/launcher_text_ids.dart';
+import 'generated/gesture_text_ids.dart';
 import 'generated/navigation_ids.dart';
 import 'generated/device_text_ids.dart';
 import 'generated/ha_text_ids.dart';
@@ -82,6 +84,14 @@ String cameraText(BuildContext context, String english) =>
 /// Translate media settings without changing player names or saved values.
 String mediaText(BuildContext context, String english) =>
     messageById(l10n(context), mediaTextMessageIds[english], english);
+
+/// App Launcher presentation, preserving app names and package identifiers.
+String launcherText(BuildContext context, String english) =>
+    messageById(l10n(context), launcherTextMessageIds[english], english);
+
+/// Gesture editor labels, preserving stored action and trigger values.
+String gestureText(BuildContext context, String english) =>
+    messageById(l10n(context), gestureTextMessageIds[english], english);
 
 /// Fixed Kiosk Mode and Home Launcher labels.
 String kioskText(BuildContext context, String english) =>
@@ -256,6 +266,8 @@ String settingsPageText(
   'Screensaver' => screensaverText(context, english),
   'Camera' => cameraText(context, english),
   'Sendspin' => mediaText(context, english),
+  'Launcher' => launcherText(context, english),
+  'Gestures' => gestureText(context, english),
   'Kiosk' || 'Home' => kioskText(context, english),
   'Intercom' => switch (english) {
     'Answer' => l10n(context).intercomAnswerSection,

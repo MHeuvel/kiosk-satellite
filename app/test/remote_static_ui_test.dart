@@ -183,7 +183,7 @@ void main() {
         expect(response.statusCode, 200, reason: name);
         final source = await body(response);
         for (final m in RegExp(
-          r"""from\s*['"]\./([^'"]+)['"]""",
+          r"""(?:from\s*|import\s*(?:\(\s*)?)['"]\./([^'"]+)['"]""",
         ).allMatches(source)) {
           final spec = m.group(1)!;
           expect(
@@ -197,6 +197,23 @@ void main() {
       expect(seen.length, greaterThan(15), reason: 'the whole graph resolves');
     },
   );
+
+  test('side-effect and dynamic imports share the bundle version', () async {
+    assets.overrides['assets/remote-ui/static/main.js'] =
+        "import './settings.js';\n"
+        'import "./core.js";\n'
+        "export { t } from './localization.js';\n"
+        "const lazy = () => import('./gestures.js');\n";
+    final html = await body(await get('/'));
+    final version = RegExp(
+      r'static/main\.js\?v=([0-9a-f]+)',
+    ).firstMatch(html)!.group(1);
+    final source = await body(await get('/static/main.js?v=$version'));
+    expect(source, contains("import './settings.js?v=$version'"));
+    expect(source, contains('import "./core.js?v=$version"'));
+    expect(source, contains("from './localization.js?v=$version'"));
+    expect(source, contains("import('./gestures.js?v=$version')"));
+  });
 
   test('static files carry type and immutable caching', () async {
     final response = await get('/static/app.css');
@@ -272,6 +289,7 @@ void main() {
 
 class _TrackedAssets extends AssetBundle {
   final loads = <String, int>{};
+  final overrides = <String, String>{};
   final started = Completer<void>();
   Completer<void>? gate;
   String? failOn;
@@ -284,6 +302,10 @@ class _TrackedAssets extends AssetBundle {
       await gate?.future;
     }
     if (key == failOn) throw StateError('missing test asset: $key');
+    final override = overrides[key];
+    if (override != null) {
+      return ByteData.sublistView(Uint8List.fromList(utf8.encode(override)));
+    }
     return rootBundle.load(key);
   }
 }

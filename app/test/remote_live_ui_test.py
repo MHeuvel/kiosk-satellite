@@ -76,6 +76,37 @@ with sync_playwright() as playwright:
     change('ui.language', 'es')
     expect(camera_servers).to_be_visible()
     expect(camera_codec).to_have_text('TEST codec')
+    # Gestures renders from the subscription cache, including language and edits.
+    page.evaluate("""async () => {
+      const url = performance.getEntriesByType('resource').find(r => r.name.includes('/catalogs.js')).name;
+      const {catalogs} = await import(url);
+      catalogs.es.gestureEmpty = 'TEST sin gestos';
+      catalogs.es.settingClapStrictnessTitle = 'TEST palmadas';
+      catalogs.es.gestureOpenApp = 'TEST abrir {package}';
+    }""")
+    reads_before = len([f for f in frames if f.get('type') == 'get' and f.get('name') == 'settings'])
+    page.locator('#tabs button[data-tab="gestures"]').click()
+    gestures = page.locator('#tab-gestures')
+    expect(gestures.get_by_text('TEST sin gestos', exact=True)).to_be_visible()
+    gesture_detection = gestures.locator('[data-key="gestures.clap_strictness"] .name')
+    expect(gesture_detection).to_have_text('TEST palmadas')
+    change('gestures.clap_strictness', 'strict')
+    expect(gestures.locator('select')).to_have_value('strict')
+    mapped = [{'id':'original', 'trigger':{'type':'claps','claps':2},
+               'action':{'type':'launch_app','package':'com.example.KeepCase'}}]
+    change('gestures.mappings', json.dumps(mapped))
+    expect(gestures.get_by_text('TEST abrir com.example.KeepCase', exact=True)).to_be_visible()
+    for locale, text in [('en','Open app com.example.KeepCase'), ('es','TEST abrir com.example.KeepCase')]:
+        change('ui.language', locale)
+        expect(gestures.get_by_text(text, exact=True)).to_be_visible()
+        page.locator('#tabs button[data-tab="launcher"]').click()
+        page.locator('#tabs button[data-tab="gestures"]').click()
+        expect(gestures.get_by_text(text, exact=True)).to_be_visible()
+    page.wait_for_timeout(500)
+    expect(gesture_detection).to_have_text('TEST palmadas')
+    assert len([f for f in frames if f.get('type') == 'get' and f.get('name') == 'settings']) == reads_before
+    change('gestures.mappings', '[]')
+    expect(gestures.get_by_text('TEST sin gestos', exact=True)).to_be_visible()
     page.locator('#tabs button[data-tab="device"]').click()
     # Changing the dropdown in this browser applies the new language too.
     language.select_option('en')

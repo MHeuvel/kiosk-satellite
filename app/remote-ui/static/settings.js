@@ -1,4 +1,4 @@
-import { kioskText, intercomText, intercomError, cameraText, cameraError, cameraResolutionNotice, screensaverText, deviceText, haText, screenAudioText, haConnectionError, settingsPageText, t } from './localization.js';
+import { launcherText, kioskText, intercomText, intercomError, cameraText, cameraError, cameraResolutionNotice, screensaverText, deviceText, haText, screenAudioText, haConnectionError, settingsPageText, t } from './localization.js';
 import { preserveDraft } from './drafts.js';
 import { beginLiveRender, endLiveRender, watchUpdates } from './live.js';
 import {
@@ -458,7 +458,7 @@ async function renderSettings({ cached = false } = {}) {
       const info = document.createElement('div');
       info.className = 'info';
       info.innerHTML = '<div class="name"></div><div class="desc"></div>';
-      info.querySelector('.name').textContent = kioskText(name);
+      info.querySelector('.name').textContent = launcherText(kioskText(name));
       info.querySelector('.desc').textContent = kioskText("Checking...");
       row.appendChild(info);
       const state = document.createElement('span');
@@ -466,7 +466,7 @@ async function renderSettings({ cached = false } = {}) {
       row.appendChild(state);
       const render = (ok) => {
         info.querySelector('.desc').textContent =
-          ok === null ? kioskText("Status unavailable.") : ok ? kioskText(held) : kioskText(missing);
+          ok === null ? kioskText("Status unavailable.") : ok ? launcherText(kioskText(held)) : launcherText(kioskText(missing));
         state.textContent = ok === null ? '' : ok ? kioskText("Granted") : kioskText("Missing");
         state.style.color = ok ? 'var(--ok)' : 'var(--error)';
         row.querySelector('button')?.remove();

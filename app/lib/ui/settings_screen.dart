@@ -443,6 +443,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
         haTextFor: (text) => haText(context, text),
         screenAudioTextFor: (text) => screenAudioText(context, text),
         screensaverTextFor: (text) => screensaverText(context, text),
+        launcherTextFor: (text) => launcherText(context, text),
+        gestureTextFor: (text) => gestureText(context, text),
         titleFor: (def) => def.localizedTitle(context),
         descriptionFor: (def) => def.localizedDescription(context),
       );
@@ -2283,7 +2285,7 @@ class _CategoryContentState extends State<_CategoryContent> {
         if (widget.category == 'Launcher' &&
             container.settings.get(launcherEnabled) &&
             container.settings.get(launcherAutoReturn)) ...[
-          const SectionHeading('Required system permissions'),
+          SectionHeading(launcherText(context, 'Required system permissions')),
           SearchLandingTarget(
             id: 'x:launcher_permissions',
             child: SettingsCard(
@@ -3953,8 +3955,8 @@ class _LauncherPermissionsTileState extends State<_LauncherPermissionsTile>
         granted == true ? Icons.check_circle_outline : missingIcon,
         color: granted == true ? null : theme.colorScheme.error,
       ),
-      title: Text(title),
-      subtitle: Text(granted == true ? held : missing),
+      title: Text(launcherText(context, title)),
+      subtitle: Text(launcherText(context, granted == true ? held : missing)),
       trailing: granted == true
           ? null
           : TextButton(
@@ -3962,7 +3964,7 @@ class _LauncherPermissionsTileState extends State<_LauncherPermissionsTile>
                 await onGrant();
                 await _refresh();
               },
-              child: const Text('Grant'),
+              child: Text(launcherText(context, 'Grant')),
             ),
     );
   }
@@ -3974,25 +3976,33 @@ class _LauncherPermissionsTileState extends State<_LauncherPermissionsTile>
         _row(
           granted: _perms?.displayOverOtherApps,
           missingIcon: Icons.open_in_new_off_outlined,
-          title: 'Display over other apps',
-          held:
-              'Kiosk Satellite can bring itself back in the foreground and '
-              'notice touches in the other app.',
-          missing:
-              'Without this the kiosk cannot come back on its own, and '
-              'touches in the other app go unseen.',
+          title: launcherText(context, 'Display over other apps'),
+          held: launcherText(
+            context,
+            'Kiosk Satellite can bring itself back in the foreground and '
+            'notice touches in the other app.',
+          ),
+          missing: launcherText(
+            context,
+            'Without this the kiosk cannot come back on its own, and '
+            'touches in the other app go unseen.',
+          ),
           onGrant: () => requestOsPermission(Permission.systemAlertWindow),
         ),
         _row(
           granted: _perms?.batteryUnrestricted,
           missingIcon: Icons.battery_alert_outlined,
-          title: 'Unrestricted battery',
-          held:
-              'Allows the process to run in the background without being '
-              'paused or killed.',
-          missing:
-              'Android may pause the app behind the other one, and a paused '
-              'clock never brings the kiosk back.',
+          title: launcherText(context, 'Unrestricted battery'),
+          held: launcherText(
+            context,
+            'Allows the process to run in the background without being '
+            'paused or killed.',
+          ),
+          missing: launcherText(
+            context,
+            'Android may pause the app behind the other one, and a paused '
+            'clock never brings the kiosk back.',
+          ),
           onGrant: BackgroundListening.requestBatteryUnrestricted,
         ),
       ]),
@@ -5671,7 +5681,9 @@ class _NotificationSoundTileState extends State<_NotificationSoundTile> {
     final options = [
       (
         '',
-        def.key == intercomRingSound.key ? intercomText(context, "Built-in ring") : intercomText(context, "Built-in chime"),
+        def.key == intercomRingSound.key
+            ? intercomText(context, "Built-in ring")
+            : intercomText(context, "Built-in chime"),
       ),
       for (final sound in _sounds) (sound, sound),
       if (current.isNotEmpty && !_sounds.contains(current))
@@ -5693,9 +5705,15 @@ class _NotificationSoundTileState extends State<_NotificationSoundTile> {
         ListTile(
           title: Text(intercomText(context, "Add a sound")),
           subtitle: Text(
-            intercomText(context, "Copy a sound file from this device into the sounds folder."),
+            intercomText(
+              context,
+              "Copy a sound file from this device into the sounds folder.",
+            ),
           ),
-          trailing: TextButton(onPressed: _browse, child: Text(intercomText(context, "Browse"))),
+          trailing: TextButton(
+            onPressed: _browse,
+            child: Text(intercomText(context, "Browse")),
+          ),
         ),
       ],
     );
@@ -9887,7 +9905,10 @@ class SettingTile extends StatelessWidget {
             title: Text(def.localizedTitle(context)),
             subtitle: Text(
               chosen.isEmpty
-                  ? 'None yet. Pick the apps the launcher offers.'
+                  ? launcherText(
+                      context,
+                      'None yet. Pick the apps the launcher offers.',
+                    )
                   : chosen.map((a) => a.label).join(', '),
             ),
             trailing: const Icon(Icons.edit_outlined),
@@ -10060,7 +10081,7 @@ class SettingTile extends StatelessWidget {
     if (!result.ok) {
       showToast(
         context,
-        title: 'Could not list the apps',
+        title: launcherText(context, 'Could not list the apps'),
         message: result.error,
         kind: ToastKind.error,
       );
@@ -10075,11 +10096,11 @@ class SettingTile extends StatelessWidget {
       context: context,
       builder: (context) => StatefulBuilder(
         builder: (context, setState) => AlertDialog(
-          title: const Text('Apps'),
+          title: Text(launcherText(context, 'Apps')),
           content: SizedBox(
             width: 420,
             child: apps.isEmpty
-                ? const Text('No launchable apps found.')
+                ? Text(launcherText(context, 'No launchable apps found.'))
                 : EdgeFade(
                     child: ListView(
                       shrinkWrap: true,
@@ -10108,11 +10129,11 @@ class SettingTile extends StatelessWidget {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context, false),
-              child: const Text('Cancel'),
+              child: Text(launcherText(context, 'Cancel')),
             ),
             FilledButton(
               onPressed: () => Navigator.pop(context, true),
-              child: const Text('Save'),
+              child: Text(launcherText(context, 'Save')),
             ),
           ],
         ),
@@ -10367,7 +10388,13 @@ class SettingTile extends StatelessWidget {
                           context,
                           haText(
                             context,
-                            deviceText(context, intercomError(context, mediaText(context, error!))),
+                            deviceText(
+                              context,
+                              intercomError(
+                                context,
+                                mediaText(context, error!),
+                              ),
+                            ),
                           ),
                         ),
                       ),

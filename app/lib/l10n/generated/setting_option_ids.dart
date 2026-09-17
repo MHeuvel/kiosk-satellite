@@ -220,6 +220,10 @@ const settingOptionMessageIds = <String, Map<String, String>>{
     "taps5hold": "kioskGestureTaps5Hold",
     "taps7hold": "kioskGestureTaps7Hold",
     "none": "kioskGestureNone"
+  },
+  "gestures.clap_strictness": {
+    "standard": "gestureStrictnessStandard",
+    "strict": "gestureStrictnessStrict"
   }
 };
 const settingPlaceholderMessageIds = <String, String>{

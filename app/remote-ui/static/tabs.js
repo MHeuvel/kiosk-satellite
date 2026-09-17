@@ -1,6 +1,5 @@
 import { navigationText, t, localizeNavigation, settingsPageText } from './localization.js';
 import { readRoute, routeHash, routeSlug } from './routes.js';
-import { loadSettings } from './settings.js';
 import { loadCameras } from './cameras.js';
 import { $, state } from './core.js';
 import { loadAboutInfo, loadDeviceInfo } from './device.js';

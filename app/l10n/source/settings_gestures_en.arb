@@ -1,0 +1,220 @@
+{
+  "@@locale": "en",
+  "settingClapStrictnessTitle": "Clap detection",
+  "@settingClapStrictnessTitle": {
+    "context": "Settings > Gestures",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Clap detection"
+      ],
+      "remoteAdmin": [
+        "Gestures > Clap detection"
+      ]
+    }
+  },
+  "settingClapStrictnessDescription": "Strict needs louder, evenly spaced claps; try it if household noise false-triggers.",
+  "@settingClapStrictnessDescription": {
+    "context": "Settings > Gestures",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Clap detection"
+      ],
+      "remoteAdmin": [
+        "Gestures > Clap detection"
+      ]
+    }
+  },
+  "gestureStrictnessStandard": "Standard",
+  "@gestureStrictnessStandard": {
+    "context": "Settings > Gestures",
+    "description": "Clap detection option.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Clapper > Clap detection"
+      ],
+      "remoteAdmin": [
+        "Gestures > Clapper > Clap detection"
+      ]
+    }
+  },
+  "gestureStrictnessStrict": "Strict",
+  "@gestureStrictnessStrict": {
+    "context": "Settings > Gestures",
+    "description": "Clap detection option.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Clapper > Clap detection"
+      ],
+      "remoteAdmin": [
+        "Gestures > Clapper > Clap detection"
+      ]
+    }
+  },
+  "gestureOff": "Gestures are off",
+  "@gestureOff": {
+    "context": "Settings > Gestures",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures"
+      ],
+      "remoteAdmin": [
+        "Gestures"
+      ]
+    }
+  },
+  "gestureOffHelp": "Disable Gestures is on in Kiosk Mode settings.",
+  "@gestureOffHelp": {
+    "context": "Settings > Gestures",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures"
+      ],
+      "remoteAdmin": [
+        "Gestures"
+      ]
+    }
+  },
+  "gestureEmpty": "No gestures configured",
+  "@gestureEmpty": {
+    "context": "Settings > Gestures",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures"
+      ],
+      "remoteAdmin": [
+        "Gestures"
+      ]
+    }
+  },
+  "gestureEmptyHelp": "A gesture triggers its action without any visible control.",
+  "@gestureEmptyHelp": {
+    "context": "Settings > Gestures",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures"
+      ],
+      "remoteAdmin": [
+        "Gestures"
+      ]
+    }
+  },
+  "gestureDeleteTooltip": "Delete gesture",
+  "@gestureDeleteTooltip": {
+    "context": "Settings > Gestures",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures"
+      ],
+      "remoteAdmin": [
+        "Gestures"
+      ]
+    }
+  },
+  "gestureDeleteTitle": "Delete gesture?",
+  "@gestureDeleteTitle": {
+    "context": "Settings > Gestures",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures"
+      ],
+      "remoteAdmin": [
+        "Gestures"
+      ]
+    }
+  },
+  "gestureDeleteMessage": "Remove this gesture? Trigger: {trigger}. Action: {action}.",
+  "@gestureDeleteMessage": {
+    "context": "Settings > Gestures",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures"
+      ],
+      "remoteAdmin": [
+        "Gestures"
+      ]
+    },
+    "placeholders": {
+      "trigger": {
+        "type": "String"
+      },
+      "action": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
+  },
+  "gestureAdd": "Add gesture",
+  "@gestureAdd": {
+    "context": "Settings > Gestures",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures"
+      ],
+      "remoteAdmin": [
+        "Gestures"
+      ]
+    }
+  },
+  "gestureAddHelp": "Pick a gesture and the action it triggers.",
+  "@gestureAddHelp": {
+    "context": "Settings > Gestures",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures"
+      ],
+      "remoteAdmin": [
+        "Gestures"
+      ]
+    }
+  },
+  "gestureTouchHelp": "Gestures are observed, not blocked: the taps also reach the dashboard, so corners and multi-finger shapes keep them from firing anything there.",
+  "@gestureTouchHelp": {
+    "context": "Settings > Gestures",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures"
+      ],
+      "remoteAdmin": [
+        "Gestures"
+      ]
+    }
+  },
+  "gestureClapper": "Clapper",
+  "@gestureClapper": {
+    "context": "Settings > Gestures",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures"
+      ],
+      "remoteAdmin": [
+        "Gestures"
+      ]
+    }
+  },
+  "gestureReadFailed": "Could not read the settings.",
+  "@gestureReadFailed": {
+    "context": "Settings > Gestures",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures"
+      ],
+      "remoteAdmin": [
+        "Gestures"
+      ]
+    }
+  }
+}
