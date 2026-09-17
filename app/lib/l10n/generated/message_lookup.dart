@@ -45,6 +45,7 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'commonPreviousMonth' => strings.commonPreviousMonth,
       'commonNextMonth' => strings.commonNextMonth,
       'commonLoading' => strings.commonLoading,
+      'commonChoose' => strings.commonChoose,
       'drawerPluginActionErrorTitle' => strings.drawerPluginActionErrorTitle,
       'drawerPluginActionError' => strings.drawerPluginActionError,
       'drawerDashboard' => strings.drawerDashboard,
@@ -838,6 +839,22 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'screensaverBackgroundHint' => strings.screensaverBackgroundHint,
       'screensaverImageUrlError' => strings.screensaverImageUrlError,
       'screensaverRefreshError' => strings.screensaverRefreshError,
+      'screensaverOverlayEntity' => strings.screensaverOverlayEntity,
+      'screensaverOverlayNotSet' => strings.screensaverOverlayNotSet,
+      'screensaverOverlayName' => strings.screensaverOverlayName,
+      'screensaverOverlayNameHelp' => strings.screensaverOverlayNameHelp,
+      'screensaverOverlayValue' => strings.screensaverOverlayValue,
+      'screensaverOverlayState' => strings.screensaverOverlayState,
+      'screensaverOverlayEntityRequired' =>
+        strings.screensaverOverlayEntityRequired,
+      'screensaverOverlaySearchHint' => strings.screensaverOverlaySearchHint,
+      'screensaverOverlaySearchHintRemote' =>
+        strings.screensaverOverlaySearchHintRemote,
+      'screensaverOverlaySearchEmpty' => strings.screensaverOverlaySearchEmpty,
+      'screensaverOverlayNoMatches' => strings.screensaverOverlayNoMatches,
+      'screensaverOverlaySearching' => strings.screensaverOverlaySearching,
+      'screensaverOverlayUnreachable' => strings.screensaverOverlayUnreachable,
+      'screensaverOverlayNoAnswer' => strings.screensaverOverlayNoAnswer,
       'settingScreensaverEnabledTitle' =>
         strings.settingScreensaverEnabledTitle,
       'settingScreensaverEnabledDescription' =>
@@ -899,6 +916,50 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'screensaverDimWarning' => strings.screensaverDimWarning,
       'screensaverUnavailablePlugin' => strings.screensaverUnavailablePlugin,
       'screensaverScreenOffWarning' => strings.screensaverScreenOffWarning,
+      'settingScreensaverGlanceScaleTitle' =>
+        strings.settingScreensaverGlanceScaleTitle,
+      'settingScreensaverGlanceScaleDescription' =>
+        strings.settingScreensaverGlanceScaleDescription,
+      'settingScreensaverGlanceFontTitle' =>
+        strings.settingScreensaverGlanceFontTitle,
+      'settingScreensaverGlanceFontDescription' =>
+        strings.settingScreensaverGlanceFontDescription,
+      'settingScreensaverGlanceFontWeightTitle' =>
+        strings.settingScreensaverGlanceFontWeightTitle,
+      'settingScreensaverGlanceFontWeightDescription' =>
+        strings.settingScreensaverGlanceFontWeightDescription,
+      'settingScreensaverGlanceHideNamesTitle' =>
+        strings.settingScreensaverGlanceHideNamesTitle,
+      'settingScreensaverGlanceHideNamesDescription' =>
+        strings.settingScreensaverGlanceHideNamesDescription,
+      'settingScreensaverGlanceBwIconsTitle' =>
+        strings.settingScreensaverGlanceBwIconsTitle,
+      'settingScreensaverGlanceBwIconsDescription' =>
+        strings.settingScreensaverGlanceBwIconsDescription,
+      'settingScreensaverGlanceTextOnlyTitle' =>
+        strings.settingScreensaverGlanceTextOnlyTitle,
+      'settingScreensaverGlanceTextOnlyDescription' =>
+        strings.settingScreensaverGlanceTextOnlyDescription,
+      'screensaverOverlayAppearance' => strings.screensaverOverlayAppearance,
+      'settingScreensaverGlanceEnabledTitle' =>
+        strings.settingScreensaverGlanceEnabledTitle,
+      'settingScreensaverGlanceEnabledDescription' =>
+        strings.settingScreensaverGlanceEnabledDescription,
+      'settingScreensaverGlanceEntitiesTitle' =>
+        strings.settingScreensaverGlanceEntitiesTitle,
+      'settingScreensaverGlanceEntitiesDescription' =>
+        strings.settingScreensaverGlanceEntitiesDescription,
+      'settingScreensaverGlanceNowPlayingTitle' =>
+        strings.settingScreensaverGlanceNowPlayingTitle,
+      'settingScreensaverGlanceNowPlayingDescription' =>
+        strings.settingScreensaverGlanceNowPlayingDescription,
+      'screensaverOverlayShowing' => strings.screensaverOverlayShowing,
+      'screensaverOverlayReorder' => strings.screensaverOverlayReorder,
+      'screensaverOverlayFull' => strings.screensaverOverlayFull,
+      'screensaverOverlayPickerTitle' => strings.screensaverOverlayPickerTitle,
+      'screensaverOverlayNone' => strings.screensaverOverlayNone,
+      'screensaverOverlayGlancePage' => strings.screensaverOverlayGlancePage,
+      'screensaverOverlayGlanceHint' => strings.screensaverOverlayGlanceHint,
       'settingScreensaverImmichUrlTitle' =>
         strings.settingScreensaverImmichUrlTitle,
       'settingScreensaverImmichUrlDescription' =>
@@ -1263,6 +1324,96 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'settingScreensaverWebsiteDoubleTapDescription' =>
         strings.settingScreensaverWebsiteDoubleTapDescription,
       'screensaverWebsiteSection' => strings.screensaverWebsiteSection,
+      'screensaverOverlaySmallClock' => strings.screensaverOverlaySmallClock,
+      'screensaverOverlayWeather' => strings.screensaverOverlayWeather,
+      'screensaverOverlayBattery' => strings.screensaverOverlayBattery,
+      'screensaverOverlayClockNote' => strings.screensaverOverlayClockNote,
+      'screensaverOverlayCameraNote' => strings.screensaverOverlayCameraNote,
+      'screensaverOverlayScale' => strings.screensaverOverlayScale,
+      'screensaverOverlayScaleHelp' => strings.screensaverOverlayScaleHelp,
+      'screensaverOverlayFont' => strings.screensaverOverlayFont,
+      'screensaverOverlayCorner' => strings.screensaverOverlayCorner,
+      'screensaverOverlayWidget' => strings.screensaverOverlayWidget,
+      'screensaverOverlayClock24' => strings.screensaverOverlayClock24,
+      'screensaverOverlayClock24Help' => strings.screensaverOverlayClock24Help,
+      'screensaverOverlayShowDate' => strings.screensaverOverlayShowDate,
+      'screensaverOverlayShowDateHelp' =>
+        strings.screensaverOverlayShowDateHelp,
+      'screensaverOverlayPercentage' => strings.screensaverOverlayPercentage,
+      'screensaverOverlayPercentageHelp' =>
+        strings.screensaverOverlayPercentageHelp,
+      'screensaverOverlayLow' => strings.screensaverOverlayLow,
+      'screensaverOverlayLowHelp' => strings.screensaverOverlayLowHelp,
+      'screensaverOverlayShowName' => strings.screensaverOverlayShowName,
+      'screensaverOverlayShowNameHelp' =>
+        strings.screensaverOverlayShowNameHelp,
+      'screensaverOverlayFontSystem' => strings.screensaverOverlayFontSystem,
+      'screensaverOverlayFontSerif' => strings.screensaverOverlayFontSerif,
+      'screensaverOverlayFontCondensed' =>
+        strings.screensaverOverlayFontCondensed,
+      'screensaverOverlayFontMonospace' =>
+        strings.screensaverOverlayFontMonospace,
+      'screensaverOverlayFontCasual' => strings.screensaverOverlayFontCasual,
+      'screensaverOverlayFontCursive' => strings.screensaverOverlayFontCursive,
+      'screensaverOverlayColor' => strings.screensaverOverlayColor,
+      'screensaverOverlayWeatherEntity' =>
+        strings.screensaverOverlayWeatherEntity,
+      'screensaverOverlayNoWeather' => strings.screensaverOverlayNoWeather,
+      'screensaverOverlayNoWeatherHelp' =>
+        strings.screensaverOverlayNoWeatherHelp,
+      'screensaverOverlayPickWeather' => strings.screensaverOverlayPickWeather,
+      'screensaverOverlayWeatherRequired' =>
+        strings.screensaverOverlayWeatherRequired,
+      'screensaverOverlayLocationName' =>
+        strings.screensaverOverlayLocationName,
+      'screensaverOverlayLocationHelp' =>
+        strings.screensaverOverlayLocationHelp,
+      'screensaverOverlayLocation' => strings.screensaverOverlayLocation,
+      'screensaverOverlayLocationDetail' =>
+        strings.screensaverOverlayLocationDetail,
+      'screensaverOverlayFeelsLike' => strings.screensaverOverlayFeelsLike,
+      'screensaverOverlayFeelsLikeHelp' =>
+        strings.screensaverOverlayFeelsLikeHelp,
+      'screensaverOverlayFeelsLikeOnly' =>
+        strings.screensaverOverlayFeelsLikeOnly,
+      'screensaverOverlayFeelsLikeOnlyHelp' =>
+        strings.screensaverOverlayFeelsLikeOnlyHelp,
+      'screensaverOverlayForecast' => strings.screensaverOverlayForecast,
+      'screensaverOverlayForecastHelp' =>
+        strings.screensaverOverlayForecastHelp,
+      'screensaverOverlayHumidity' => strings.screensaverOverlayHumidity,
+      'screensaverOverlayWind' => strings.screensaverOverlayWind,
+      'screensaverOverlayVisibility' => strings.screensaverOverlayVisibility,
+      'settingScreensaverWidgetsTitle' =>
+        strings.settingScreensaverWidgetsTitle,
+      'settingScreensaverWidgetsDescription' =>
+        strings.settingScreensaverWidgetsDescription,
+      'settingScreensaverWidgetScaleTitle' =>
+        strings.settingScreensaverWidgetScaleTitle,
+      'settingScreensaverWidgetScaleDescription' =>
+        strings.settingScreensaverWidgetScaleDescription,
+      'settingScreensaverWidgetFontTitle' =>
+        strings.settingScreensaverWidgetFontTitle,
+      'settingScreensaverWidgetFontDescription' =>
+        strings.settingScreensaverWidgetFontDescription,
+      'settingScreensaverWidgetFontWeightTitle' =>
+        strings.settingScreensaverWidgetFontWeightTitle,
+      'settingScreensaverWidgetFontWeightDescription' =>
+        strings.settingScreensaverWidgetFontWeightDescription,
+      'settingScreensaverWidgetTextShadowTitle' =>
+        strings.settingScreensaverWidgetTextShadowTitle,
+      'settingScreensaverWidgetTextShadowDescription' =>
+        strings.settingScreensaverWidgetTextShadowDescription,
+      'settingScreensaverVignetteStrengthTitle' =>
+        strings.settingScreensaverVignetteStrengthTitle,
+      'settingScreensaverVignetteStrengthDescription' =>
+        strings.settingScreensaverVignetteStrengthDescription,
+      'screensaverOverlayWidgetsEmpty' =>
+        strings.screensaverOverlayWidgetsEmpty,
+      'screensaverOverlayRemove' => strings.screensaverOverlayRemove,
+      'screensaverOverlayAdd' => strings.screensaverOverlayAdd,
+      'screensaverOverlayAddHelp' => strings.screensaverOverlayAddHelp,
+      'screensaverOverlayWidgetsHint' => strings.screensaverOverlayWidgetsHint,
       'settingsSearchHint' => strings.settingsSearchHint,
       'settingsSearchClear' => strings.settingsSearchClear,
       'settingsSearchResults' => strings.settingsSearchResults,

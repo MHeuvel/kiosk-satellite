@@ -210,6 +210,11 @@
     "context": "Common:Dialogs",
     "description": "Shared picker action or loading state."
   },
+  "commonChoose": "Choose",
+  "@commonChoose": {
+    "context": "Common:Actions",
+    "description": "Button to choose an item."
+  },
   "drawerPluginAction": "{pluginName}: {actionTitle}",
   "@drawerPluginAction": {
     "context": "Device:Drawer",
@@ -9306,6 +9311,237 @@
       }
     }
   },
+  "screensaverOverlayEntity": "Entity",
+  "@screensaverOverlayEntity": {
+    "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Entity widget > Choose",
+        "Settings > Screensaver > At a Glance > Entities"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Entity widget > Choose",
+        "Screensaver > At a Glance > Entities"
+      ]
+    }
+  },
+  "screensaverOverlayNotSet": "Not set",
+  "@screensaverOverlayNotSet": {
+    "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Entity widget > Choose",
+        "Settings > Screensaver > At a Glance > Entities"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Entity widget > Choose",
+        "Screensaver > At a Glance > Entities"
+      ]
+    }
+  },
+  "screensaverOverlayName": "Name",
+  "@screensaverOverlayName": {
+    "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Entity widget > Choose",
+        "Settings > Screensaver > At a Glance > Entities"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Entity widget > Choose",
+        "Screensaver > At a Glance > Entities"
+      ]
+    }
+  },
+  "screensaverOverlayNameHelp": "Leave empty to use the Home Assistant name.",
+  "@screensaverOverlayNameHelp": {
+    "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Entity widget > Choose",
+        "Settings > Screensaver > At a Glance > Entities"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Entity widget > Choose",
+        "Screensaver > At a Glance > Entities"
+      ]
+    }
+  },
+  "screensaverOverlayValue": "Displayed value",
+  "@screensaverOverlayValue": {
+    "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Entity widget > Choose",
+        "Settings > Screensaver > At a Glance > Entities"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Entity widget > Choose",
+        "Screensaver > At a Glance > Entities"
+      ]
+    }
+  },
+  "screensaverOverlayState": "State",
+  "@screensaverOverlayState": {
+    "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Entity widget > Choose",
+        "Settings > Screensaver > At a Glance > Entities"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Entity widget > Choose",
+        "Screensaver > At a Glance > Entities"
+      ]
+    }
+  },
+  "screensaverOverlayEntityRequired": "Pick an entity.",
+  "@screensaverOverlayEntityRequired": {
+    "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Entity widget > Choose",
+        "Settings > Screensaver > At a Glance > Entities"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Entity widget > Choose",
+        "Screensaver > At a Glance > Entities"
+      ]
+    }
+  },
+  "screensaverOverlaySearchHint": "Name or entity id",
+  "@screensaverOverlaySearchHint": {
+    "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Entity widget > Choose",
+        "Settings > Screensaver > At a Glance > Entities"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Entity widget > Choose",
+        "Screensaver > At a Glance > Entities"
+      ]
+    }
+  },
+  "screensaverOverlaySearchHintRemote": "Search by name or entity id",
+  "@screensaverOverlaySearchHintRemote": {
+    "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Entity widget > Choose",
+        "Settings > Screensaver > At a Glance > Entities"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Entity widget > Choose",
+        "Screensaver > At a Glance > Entities"
+      ]
+    }
+  },
+  "screensaverOverlaySearchEmpty": "Type to search entities.",
+  "@screensaverOverlaySearchEmpty": {
+    "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Entity widget > Choose",
+        "Settings > Screensaver > At a Glance > Entities"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Entity widget > Choose",
+        "Screensaver > At a Glance > Entities"
+      ]
+    }
+  },
+  "screensaverOverlayNoMatches": "Nothing matched.",
+  "@screensaverOverlayNoMatches": {
+    "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Entity widget > Choose",
+        "Settings > Screensaver > At a Glance > Entities"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Entity widget > Choose",
+        "Screensaver > At a Glance > Entities"
+      ]
+    }
+  },
+  "screensaverOverlaySearching": "Searching…",
+  "@screensaverOverlaySearching": {
+    "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Entity widget > Choose",
+        "Settings > Screensaver > At a Glance > Entities"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Entity widget > Choose",
+        "Screensaver > At a Glance > Entities"
+      ]
+    }
+  },
+  "screensaverOverlayUnreachable": "Could not reach Home Assistant",
+  "@screensaverOverlayUnreachable": {
+    "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Entity widget > Choose",
+        "Settings > Screensaver > At a Glance > Entities"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Entity widget > Choose",
+        "Screensaver > At a Glance > Entities"
+      ]
+    }
+  },
+  "screensaverOverlayNoAnswer": "The device did not answer.",
+  "@screensaverOverlayNoAnswer": {
+    "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Entity widget > Choose",
+        "Settings > Screensaver > At a Glance > Entities"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Entity widget > Choose",
+        "Screensaver > At a Glance > Entities"
+      ]
+    }
+  },
+  "screensaverOverlaySearchError": "Could not search entities: {error}",
+  "@screensaverOverlaySearchError": {
+    "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Entity widget > Choose",
+        "Settings > Screensaver > At a Glance > Entities"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Entity widget > Choose",
+        "Screensaver > At a Glance > Entities"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Technical error details. Keep unchanged."
+      }
+    }
+  },
   "settingScreensaverEnabledTitle": "Protector de pantalla",
   "@settingScreensaverEnabledTitle": {
     "context": "Settings:Screensaver",
@@ -9823,6 +10059,382 @@
       ],
       "remoteAdmin": [
         "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverGlanceScaleTitle": "Row scaling",
+  "@settingScreensaverGlanceScaleTitle": {
+    "context": "Settings > Screensaver > At a Glance > Appearance",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance > Appearance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance > Appearance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceScaleDescription": "Scale the row to better fit your screen size.",
+  "@settingScreensaverGlanceScaleDescription": {
+    "context": "Settings > Screensaver > At a Glance > Appearance",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance > Appearance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance > Appearance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceFontTitle": "Font family",
+  "@settingScreensaverGlanceFontTitle": {
+    "context": "Settings > Screensaver > At a Glance > Appearance",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance > Appearance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance > Appearance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceFontDescription": "The typeface the row is drawn in.",
+  "@settingScreensaverGlanceFontDescription": {
+    "context": "Settings > Screensaver > At a Glance > Appearance",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance > Appearance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance > Appearance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceFontWeightTitle": "Font weight",
+  "@settingScreensaverGlanceFontWeightTitle": {
+    "context": "Settings > Screensaver > At a Glance > Appearance",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance > Appearance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance > Appearance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceFontWeightDescription": "How heavy the row's text is drawn. Default is each line's own weight: regular names, semibold values.",
+  "@settingScreensaverGlanceFontWeightDescription": {
+    "context": "Settings > Screensaver > At a Glance > Appearance",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance > Appearance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance > Appearance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceHideNamesTitle": "Hide names",
+  "@settingScreensaverGlanceHideNamesTitle": {
+    "context": "Settings > Screensaver > At a Glance > Appearance",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance > Appearance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance > Appearance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceHideNamesDescription": "Show only the icon and the value, with the value drawn larger.",
+  "@settingScreensaverGlanceHideNamesDescription": {
+    "context": "Settings > Screensaver > At a Glance > Appearance",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance > Appearance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance > Appearance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceBwIconsTitle": "Monochromatic icons",
+  "@settingScreensaverGlanceBwIconsTitle": {
+    "context": "Settings > Screensaver > At a Glance > Appearance",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance > Appearance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance > Appearance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceBwIconsDescription": "Keep every icon in the neutral grey instead of its state color.",
+  "@settingScreensaverGlanceBwIconsDescription": {
+    "context": "Settings > Screensaver > At a Glance > Appearance",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance > Appearance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance > Appearance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceTextOnlyTitle": "Floating text style",
+  "@settingScreensaverGlanceTextOnlyTitle": {
+    "context": "Settings > Screensaver > At a Glance > Appearance",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance > Appearance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance > Appearance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceTextOnlyDescription": "Show the entities as floating text instead of chips.",
+  "@settingScreensaverGlanceTextOnlyDescription": {
+    "context": "Settings > Screensaver > At a Glance > Appearance",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance > Appearance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance > Appearance"
+      ]
+    }
+  },
+  "screensaverOverlayAppearance": "Appearance",
+  "@screensaverOverlayAppearance": {
+    "context": "Settings > Screensaver > At a Glance > Appearance",
+    "description": "Settings group heading.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance > Appearance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance > Appearance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceEnabledTitle": "At a glance",
+  "@settingScreensaverGlanceEnabledTitle": {
+    "context": "Settings > Screensaver > At a Glance",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceEnabledDescription": "Show a row of Home Assistant entity states on the screensaver.",
+  "@settingScreensaverGlanceEnabledDescription": {
+    "context": "Settings > Screensaver > At a Glance",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceEntitiesTitle": "Entities",
+  "@settingScreensaverGlanceEntitiesTitle": {
+    "context": "Settings > Screensaver > At a Glance",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceEntitiesDescription": "Up to four entities to show, each with an optional custom name.",
+  "@settingScreensaverGlanceEntitiesDescription": {
+    "context": "Settings > Screensaver > At a Glance",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceNowPlayingTitle": "Show on Now Playing",
+  "@settingScreensaverGlanceNowPlayingTitle": {
+    "context": "Settings > Screensaver > At a Glance",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceNowPlayingDescription": "Show the row on the full-screen Now Playing view. It stays hidden while lyrics are showing.",
+  "@settingScreensaverGlanceNowPlayingDescription": {
+    "context": "Settings > Screensaver > At a Glance",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance"
+      ]
+    }
+  },
+  "screensaverOverlayShowing": "Showing",
+  "@screensaverOverlayShowing": {
+    "context": "Settings > Screensaver > At a Glance",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance"
+      ]
+    }
+  },
+  "screensaverOverlayReorder": "Showing (drag to reorder)",
+  "@screensaverOverlayReorder": {
+    "context": "Settings > Screensaver > At a Glance",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance"
+      ]
+    }
+  },
+  "screensaverOverlayFull": "That is the most the row can show. Remove one to add another.",
+  "@screensaverOverlayFull": {
+    "context": "Settings > Screensaver > At a Glance",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance"
+      ]
+    }
+  },
+  "screensaverOverlayPickerTitle": "At a glance entities",
+  "@screensaverOverlayPickerTitle": {
+    "context": "Settings > Screensaver > At a Glance",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance"
+      ]
+    }
+  },
+  "screensaverOverlayGlanceEmpty": "None yet. Up to {count} entities.",
+  "@screensaverOverlayGlanceEmpty": {
+    "context": "Settings > Screensaver > At a Glance",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Maximum number of entities."
+      }
+    }
+  },
+  "screensaverOverlayNone": "None yet",
+  "@screensaverOverlayNone": {
+    "context": "Settings > Screensaver > At a Glance",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance"
+      ]
+    }
+  },
+  "screensaverOverlayLimit": "Up to {count} entities.",
+  "@screensaverOverlayLimit": {
+    "context": "Settings > Screensaver > At a Glance",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Maximum number of entities."
+      }
+    }
+  },
+  "screensaverOverlayGlancePage": "At a Glance",
+  "@screensaverOverlayGlancePage": {
+    "context": "Settings > Screensaver > At a Glance",
+    "description": "Subpage navigation title or summary.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance"
+      ]
+    }
+  },
+  "screensaverOverlayGlanceHint": "Entities shown over the screensaver",
+  "@screensaverOverlayGlanceHint": {
+    "context": "Settings > Screensaver > At a Glance",
+    "description": "Subpage navigation title or summary.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance"
       ]
     }
   },
@@ -13278,6 +13890,812 @@
       ],
       "remoteAdmin": [
         "Screensaver > Website screensaver"
+      ]
+    }
+  },
+  "screensaverOverlaySmallClock": "Small clock",
+  "@screensaverOverlaySmallClock": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayWeather": "Weather",
+  "@screensaverOverlayWeather": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayBattery": "Battery",
+  "@screensaverOverlayBattery": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayClockNote": "Hidden in Digital Clock and Camera Streams screensaver modes.",
+  "@screensaverOverlayClockNote": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayCameraNote": "Hidden in the Camera Streams screensaver mode.",
+  "@screensaverOverlayCameraNote": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayScale": "Scale",
+  "@screensaverOverlayScale": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayScaleHelp": "Scale this widget size to better fit your screen.",
+  "@screensaverOverlayScaleHelp": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayFont": "Font family",
+  "@screensaverOverlayFont": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayCorner": "Corner",
+  "@screensaverOverlayCorner": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayWidget": "Widget",
+  "@screensaverOverlayWidget": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayClock24": "24-hour clock",
+  "@screensaverOverlayClock24": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayClock24Help": "Show a 24-hour time instead of AM/PM.",
+  "@screensaverOverlayClock24Help": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayShowDate": "Show date",
+  "@screensaverOverlayShowDate": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayShowDateHelp": "Add a short date under the clock.",
+  "@screensaverOverlayShowDateHelp": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayPercentage": "Show percentage",
+  "@screensaverOverlayPercentage": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayPercentageHelp": "The charge beside the icon.",
+  "@screensaverOverlayPercentageHelp": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayLow": "Only when low",
+  "@screensaverOverlayLow": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayLowHelp": "Stay hidden until the charge drops to 20 percent.",
+  "@screensaverOverlayLowHelp": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayShowName": "Show name",
+  "@screensaverOverlayShowName": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayShowNameHelp": "The name under the value.",
+  "@screensaverOverlayShowNameHelp": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayFontSystem": "System",
+  "@screensaverOverlayFontSystem": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Generic font family option. Font brand names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayFontSerif": "Serif",
+  "@screensaverOverlayFontSerif": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Generic font family option. Font brand names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayFontCondensed": "Condensed",
+  "@screensaverOverlayFontCondensed": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Generic font family option. Font brand names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayFontMonospace": "Monospace",
+  "@screensaverOverlayFontMonospace": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Generic font family option. Font brand names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayFontCasual": "Casual",
+  "@screensaverOverlayFontCasual": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Generic font family option. Font brand names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayFontCursive": "Cursive",
+  "@screensaverOverlayFontCursive": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Generic font family option. Font brand names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayColor": "Color",
+  "@screensaverOverlayColor": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Text color picker label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayWeatherEntity": "Weather entity",
+  "@screensaverOverlayWeatherEntity": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayNoWeather": "No weather entities",
+  "@screensaverOverlayNoWeather": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayNoWeatherHelp": "Home Assistant reported none.",
+  "@screensaverOverlayNoWeatherHelp": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayPickWeather": "Pick a weather entity…",
+  "@screensaverOverlayPickWeather": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayWeatherRequired": "Pick a weather entity.",
+  "@screensaverOverlayWeatherRequired": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayLocationName": "Location name",
+  "@screensaverOverlayLocationName": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayLocationHelp": "Leave empty to hide the location line.",
+  "@screensaverOverlayLocationHelp": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayLocation": "Location",
+  "@screensaverOverlayLocation": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayLocationDetail": "The place's name over the temperature.",
+  "@screensaverOverlayLocationDetail": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayFeelsLike": "Feels like",
+  "@screensaverOverlayFeelsLike": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayFeelsLikeHelp": "The apparent temperature after the real one, \"30° / 33°\".",
+  "@screensaverOverlayFeelsLikeHelp": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayFeelsLikeOnly": "Feels like only",
+  "@screensaverOverlayFeelsLikeOnly": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayFeelsLikeOnlyHelp": "The apparent temperature in the real one's place.",
+  "@screensaverOverlayFeelsLikeOnlyHelp": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayForecast": "Forecast",
+  "@screensaverOverlayForecast": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayForecastHelp": "The conditions, with a matching icon.",
+  "@screensaverOverlayForecastHelp": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayHumidity": "Humidity",
+  "@screensaverOverlayHumidity": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayWind": "Wind speed",
+  "@screensaverOverlayWind": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayVisibility": "Visibility",
+  "@screensaverOverlayVisibility": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "settingScreensaverWidgetsTitle": "Widgets",
+  "@settingScreensaverWidgetsTitle": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "settingScreensaverWidgetsDescription": "Small overlays in the corners of the screensaver.",
+  "@settingScreensaverWidgetsDescription": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "settingScreensaverWidgetScaleTitle": "Global widget scaling",
+  "@settingScreensaverWidgetScaleTitle": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "settingScreensaverWidgetScaleDescription": "Scale all widgets together to better fit your screen size. Each widget keeps its own scale relative to the others.",
+  "@settingScreensaverWidgetScaleDescription": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "settingScreensaverWidgetFontTitle": "Global font family",
+  "@settingScreensaverWidgetFontTitle": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "settingScreensaverWidgetFontDescription": "The typeface every widget is drawn in. A widget can pick its own.",
+  "@settingScreensaverWidgetFontDescription": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "settingScreensaverWidgetFontWeightTitle": "Global font weight",
+  "@settingScreensaverWidgetFontWeightTitle": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "settingScreensaverWidgetFontWeightDescription": "How heavy every widget's text is drawn. Default is each line's own weight. A widget can pick its own.",
+  "@settingScreensaverWidgetFontWeightDescription": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "settingScreensaverWidgetTextShadowTitle": "Text drop shadow",
+  "@settingScreensaverWidgetTextShadowTitle": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "settingScreensaverWidgetTextShadowDescription": "Add a drop shadow to widget text for readability on photos.",
+  "@settingScreensaverWidgetTextShadowDescription": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "settingScreensaverVignetteStrengthTitle": "Vignette strength",
+  "@settingScreensaverVignetteStrengthTitle": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "settingScreensaverVignetteStrengthDescription": "Darkness of the shading behind the widgets, for readability on bright photos. 0 turns it off.",
+  "@settingScreensaverVignetteStrengthDescription": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "screensaverOverlayWidgetsEmpty": "No widgets yet",
+  "@screensaverOverlayWidgetsEmpty": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "screensaverOverlayRemove": "Remove widget",
+  "@screensaverOverlayRemove": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "screensaverOverlayAdd": "Add widget",
+  "@screensaverOverlayAdd": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "screensaverOverlayAddHelp": "A small clock, the weather, the battery or an entity in a corner.",
+  "@screensaverOverlayAddHelp": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "screensaverOverlayWidgetsHint": "Corner overlays and their scale",
+  "@screensaverOverlayWidgetsHint": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Subpage navigation title or summary.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
       ]
     }
   },

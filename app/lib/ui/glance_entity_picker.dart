@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../app_container.dart';
+import '../l10n/messages.dart';
 import '../managers/settings/definitions.dart';
 import 'entity_picker.dart';
 import 'kit.dart';
@@ -73,7 +74,9 @@ class _GlanceEntityPickerState extends State<GlanceEntityPicker> {
     setState(() {
       _searching = false;
       if (!result.ok) {
-        _error = result.error ?? 'Could not reach Home Assistant';
+        _error = result.error == null
+            ? l10n(context).screensaverOverlayUnreachable
+            : l10n(context).screensaverOverlaySearchError(result.error!);
         _results = const [];
         return;
       }
@@ -99,7 +102,7 @@ class _GlanceEntityPickerState extends State<GlanceEntityPicker> {
       text: '${entity['custom_name'] ?? ''}',
     );
     var attribute = entity['attribute'] as String? ?? '';
-    final submitted = await showDialog<bool>(
+    final route = DialogRoute<bool>(
       context: context,
       builder: (context) => StatefulBuilder(
         builder: (context, setDialogState) => AlertDialog(
@@ -112,19 +115,26 @@ class _GlanceEntityPickerState extends State<GlanceEntityPicker> {
               spacing: 16,
               children: [
                 LabeledField(
-                  label: 'Name',
+                  label: screensaverText(context, 'Name'),
                   child: TextField(
                     controller: controller,
                     decoration: InputDecoration(
                       hintText: '${entity['name']}',
-                      helperText: 'Leave empty to use the Home Assistant name.',
+                      helperText: screensaverText(
+                        context,
+                        'Leave empty to use the Home Assistant name.',
+                      ),
                     ),
                   ),
                 ),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  title: const Text('Displayed value'),
-                  subtitle: Text(attribute.isEmpty ? 'State' : attribute),
+                  title: Text(screensaverText(context, 'Displayed value')),
+                  subtitle: Text(
+                    attribute.isEmpty
+                        ? screensaverText(context, 'State')
+                        : attribute,
+                  ),
                   trailing: TextButton(
                     onPressed: () async {
                       final picked = await pickEntityAttribute(
@@ -137,7 +147,7 @@ class _GlanceEntityPickerState extends State<GlanceEntityPicker> {
                         setDialogState(() => attribute = picked);
                       }
                     },
-                    child: const Text('Choose'),
+                    child: Text(screensaverText(context, 'Choose')),
                   ),
                 ),
               ],
@@ -146,19 +156,21 @@ class _GlanceEntityPickerState extends State<GlanceEntityPicker> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: const Text('Cancel'),
+              child: Text(screensaverText(context, 'Cancel')),
             ),
             FilledButton(
               onPressed: () => Navigator.of(context).pop(true),
-              child: const Text('Save'),
+              child: Text(screensaverText(context, 'Save')),
             ),
           ],
         ),
       ),
     );
+    final submitted = await Navigator.of(context).push(route);
     final name = controller.text.trim();
+    await route.completed;
     controller.dispose();
-    if (submitted != true) return;
+    if (submitted != true || !mounted) return;
     setState(() {
       if (name.isEmpty) {
         entity.remove('custom_name');
@@ -178,11 +190,11 @@ class _GlanceEntityPickerState extends State<GlanceEntityPicker> {
     final full = _chosen.length >= screensaverGlanceMax;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('At a glance'),
+        title: Text(screensaverText(context, 'At a glance')),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, _chosen),
-            child: const Text('Save'),
+            child: Text(screensaverText(context, 'Save')),
           ),
         ],
       ),
@@ -194,7 +206,7 @@ class _GlanceEntityPickerState extends State<GlanceEntityPicker> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Showing (drag to reorder)',
+                  screensaverText(context, 'Showing (drag to reorder)'),
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
                     color: Theme.of(context).colorScheme.primary,
                   ),
@@ -251,7 +263,7 @@ class _GlanceEntityPickerState extends State<GlanceEntityPicker> {
               controller: _query,
               onChanged: _onQueryChanged,
               decoration: InputDecoration(
-                hintText: 'Name or entity id',
+                hintText: screensaverText(context, 'Name or entity id'),
                 prefixIcon: const Icon(Icons.search),
                 suffixIcon: _searching
                     ? const Padding(
@@ -270,8 +282,10 @@ class _GlanceEntityPickerState extends State<GlanceEntityPicker> {
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 12, 20, 0),
               child: Text(
-                'That is the most the row can show. Remove one to add '
-                'another.',
+                screensaverText(
+                  context,
+                  'That is the most the row can show. Remove one to add another.',
+                ),
                 style: Theme.of(context).textTheme.bodySmall,
               ),
             ),
@@ -289,10 +303,13 @@ class _GlanceEntityPickerState extends State<GlanceEntityPicker> {
                       padding: const EdgeInsets.all(24),
                       child: Text(
                         _searching
-                            ? 'Searching…'
+                            ? screensaverText(context, 'Searching…')
                             : _query.text.trim().isEmpty
-                            ? 'Type to search entities.'
-                            : 'Nothing matched.',
+                            ? screensaverText(
+                                context,
+                                'Type to search entities.',
+                              )
+                            : screensaverText(context, 'Nothing matched.'),
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: Theme.of(context).colorScheme.onSurfaceVariant,
                         ),

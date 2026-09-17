@@ -1,0 +1,224 @@
+{
+  "@@locale": "en",
+  "settingScreensaverWidgetsTitle": "Widgets",
+  "@settingScreensaverWidgetsTitle": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "settingScreensaverWidgetsDescription": "Small overlays in the corners of the screensaver.",
+  "@settingScreensaverWidgetsDescription": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "settingScreensaverWidgetScaleTitle": "Global widget scaling",
+  "@settingScreensaverWidgetScaleTitle": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "settingScreensaverWidgetScaleDescription": "Scale all widgets together to better fit your screen size. Each widget keeps its own scale relative to the others.",
+  "@settingScreensaverWidgetScaleDescription": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "settingScreensaverWidgetFontTitle": "Global font family",
+  "@settingScreensaverWidgetFontTitle": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "settingScreensaverWidgetFontDescription": "The typeface every widget is drawn in. A widget can pick its own.",
+  "@settingScreensaverWidgetFontDescription": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "settingScreensaverWidgetFontWeightTitle": "Global font weight",
+  "@settingScreensaverWidgetFontWeightTitle": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "settingScreensaverWidgetFontWeightDescription": "How heavy every widget's text is drawn. Default is each line's own weight. A widget can pick its own.",
+  "@settingScreensaverWidgetFontWeightDescription": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "settingScreensaverWidgetTextShadowTitle": "Text drop shadow",
+  "@settingScreensaverWidgetTextShadowTitle": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "settingScreensaverWidgetTextShadowDescription": "Add a drop shadow to widget text for readability on photos.",
+  "@settingScreensaverWidgetTextShadowDescription": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "settingScreensaverVignetteStrengthTitle": "Vignette strength",
+  "@settingScreensaverVignetteStrengthTitle": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "settingScreensaverVignetteStrengthDescription": "Darkness of the shading behind the widgets, for readability on bright photos. 0 turns it off.",
+  "@settingScreensaverVignetteStrengthDescription": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "screensaverOverlayWidgetsEmpty": "No widgets yet",
+  "@screensaverOverlayWidgetsEmpty": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "screensaverOverlayRemove": "Remove widget",
+  "@screensaverOverlayRemove": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "screensaverOverlayAdd": "Add widget",
+  "@screensaverOverlayAdd": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "screensaverOverlayAddHelp": "A small clock, the weather, the battery or an entity in a corner.",
+  "@screensaverOverlayAddHelp": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "screensaverOverlayWidgetsHint": "Corner overlays and their scale",
+  "@screensaverOverlayWidgetsHint": {
+    "context": "Settings > Screensaver > Widgets",
+    "description": "Subpage navigation title or summary.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  }
+}

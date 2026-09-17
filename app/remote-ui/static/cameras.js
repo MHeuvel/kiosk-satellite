@@ -1,4 +1,4 @@
-import { t } from './localization.js';
+import { screensaverText, t } from './localization.js';
 import { watchUpdates } from './live.js';
 import { api, cacheSettings, cmd, state } from './core.js';
 import { applyManagedBanners } from './fleetsync.js';
@@ -327,7 +327,7 @@ export async function glanceEntityEditor(entity) {
     if (res.ok) attributes = res.data || {};
   } catch (_) {}
   if (!attributes) {
-    messageBox({ title: 'At a glance', message: 'Could not reach Home Assistant.' });
+    messageBox({ title: screensaverText('At a glance'), message: t('screensaverOverlayUnreachable') });
     return false;
   }
   /* Presentation metadata and structured values are left out, same list as
@@ -338,15 +338,15 @@ export async function glanceEntityEditor(entity) {
     !hidden.includes(k)
     && (attributes[k] === null || typeof attributes[k] !== 'object')).sort();
   const body = document.createElement('div');
-  const field = cameraField('Name', entity.custom_name || '');
+  const field = cameraField(screensaverText('Name'), entity.custom_name || '');
   field.input.placeholder = entity.name || entity.entity_id;
   const note = document.createElement('div');
   note.className = 'desc';
   note.style.marginTop = '8px';
-  note.textContent = 'Leave empty to use the Home Assistant name.';
+  note.textContent = screensaverText('Leave empty to use the Home Assistant name.');
   const current = entity.attribute || '';
-  const value = cameraSelectField('Displayed value',
-    [{ value: '', label: 'State' },
+  const value = cameraSelectField(screensaverText('Displayed value'),
+    [{ value: '', label: screensaverText('State') },
       ...names.map((n) => ({ value: n, label: `${n} \u00b7 ${attributes[n]}` }))],
     names.includes(current) ? current : '');
   value.wrap.style.marginTop = '16px';
@@ -371,14 +371,14 @@ export async function glanceEntityPicker(initial) {
   const chosenLabel = document.createElement('div');
   chosenLabel.className = 'desc';
   chosenLabel.style.cssText = 'margin:0 2px 6px; font-weight:600;';
-  chosenLabel.textContent = 'Showing';
+  chosenLabel.textContent = screensaverText('Showing');
   const list = document.createElement('div');
   list.className = 'card';
   list.style.cssText = 'margin:0 0 16px; padding:0 16px;';
 
   const search = document.createElement('input');
   search.type = 'search';
-  search.placeholder = 'Search by name or entity id';
+  search.placeholder = screensaverText('Search by name or entity id');
   search.className = 'field';
   search.style.margin = '0';
   const results = document.createElement('div');
@@ -413,7 +413,7 @@ export async function glanceEntityPicker(initial) {
         ? `${entity.entity_id} · ${entity.attribute}`
         : entity.entity_id;
       info.append(name, desc);
-      const edit = cameraAction('Edit', async () => {
+      const edit = cameraAction(screensaverText('Edit'), async () => {
         if (await glanceEntityEditor(entity)) renderChosen();
       }, false, 'pencil');
       const move = (delta) => {
@@ -422,10 +422,10 @@ export async function glanceEntityPicker(initial) {
         chosen.splice(to, 0, chosen.splice(index, 1)[0]);
         renderChosen();
       };
-      const up = cameraAction('Move up', () => move(-1), false, 'up', index === 0);
-      const down = cameraAction('Move down', () => move(1), false, 'down',
+      const up = cameraAction(screensaverText('Move up'), () => move(-1), false, 'up', index === 0);
+      const down = cameraAction(screensaverText('Move down'), () => move(1), false, 'down',
         index === chosen.length - 1);
-      const remove = cameraAction('Remove', () => {
+      const remove = cameraAction(screensaverText('Remove'), () => {
         chosen.splice(index, 1);
         renderChosen();
         renderResults(lastResults);
@@ -438,7 +438,7 @@ export async function glanceEntityPicker(initial) {
   const renderResults = (entities) => {
     lastResults = entities;
     if (!entities.length) {
-      hint(search.value.trim() ? 'Nothing matched.' : 'Type to search entities.');
+      hint(search.value.trim() ? screensaverText('Nothing matched.') : screensaverText('Type to search entities.'));
       return;
     }
     results.innerHTML = '';
@@ -455,7 +455,7 @@ export async function glanceEntityPicker(initial) {
       desc.className = 'desc';
       desc.textContent = `${entity.entity_id} \u00b7 ${entity.state}`;
       info.append(name, desc);
-      const btn = cameraAction(picked ? 'Remove' : 'Add', () => {
+      const btn = cameraAction(picked ? screensaverText('Remove') : screensaverText('Add'), () => {
         if (picked) {
           const at = chosen.findIndex((e) => e.entity_id === entity.entity_id);
           if (at >= 0) chosen.splice(at, 1);
@@ -478,15 +478,15 @@ export async function glanceEntityPicker(initial) {
     const query = search.value.trim();
     if (!query) { renderResults([]); return; }
     debounce = setTimeout(async () => {
-      hint('Searching\u2026');
+      hint(screensaverText('Searching\u2026'));
       try {
         const res = await (await api('/api/commands/haSearchEntities', {
           method: 'POST', body: JSON.stringify({ query }) })).json();
         if (search.value.trim() !== query) return; // a newer search won
-        if (!res.ok) { hint('Could not reach Home Assistant.'); return; }
+        if (!res.ok) { hint(t('screensaverOverlayUnreachable')); return; }
         renderResults(res.data || []);
       } catch (_) {
-        hint('The device did not answer.');
+        hint(screensaverText('The device did not answer.'));
       }
     }, 350);
   });
@@ -495,7 +495,7 @@ export async function glanceEntityPicker(initial) {
   renderResults([]);
   body.append(chosenLabel, list, search, results);
   const saved = await cameraEditor({
-    title: 'At a glance entities',
+    title: screensaverText('At a glance entities'),
     body,
     save: async () => ({ ok: true }),
   });
@@ -506,7 +506,7 @@ export async function glanceEntityPicker(initial) {
    search without the chosen list, for the places that want a single entity
    (the entity widget). Mirrors the device's dialog. Resolves to
    {entity_id, name} when a result is clicked, null when dismissed. */
-export function entitySearchPicker(title = 'Entity', { allowClear = false } = {}) {
+export function entitySearchPicker(title = null, { allowClear = false } = {}) {
   return new Promise((resolve) => {
     let done = false;
     const finish = (value) => {
@@ -514,12 +514,12 @@ export function entitySearchPicker(title = 'Entity', { allowClear = false } = {}
       done = true;
       resolve(value);
     };
-    const shell = modalShell({ title, width: 620, onDismiss: () => finish(null) });
+    const shell = modalShell({ title: title ?? screensaverText('Entity'), width: 620, onDismiss: () => finish(null) });
     const body = document.createElement('div');
     body.classList.add('modal-form');
     const search = document.createElement('input');
     search.type = 'search';
-    search.placeholder = 'Search by name or entity id';
+    search.placeholder = screensaverText('Search by name or entity id');
     search.className = 'field';
     search.style.margin = '0';
     const results = document.createElement('div');
@@ -535,7 +535,7 @@ export function entitySearchPicker(title = 'Entity', { allowClear = false } = {}
     };
     const renderResults = (entities) => {
       if (!entities.length) {
-        hint(search.value.trim() ? 'Nothing matched.' : 'Type to search entities.');
+        hint(search.value.trim() ? screensaverText('Nothing matched.') : screensaverText('Type to search entities.'));
         return;
       }
       results.innerHTML = '';
@@ -574,28 +574,28 @@ export function entitySearchPicker(title = 'Entity', { allowClear = false } = {}
       const query = search.value.trim();
       if (!query) { renderResults([]); return; }
       debounce = setTimeout(async () => {
-        hint('Searching\u2026');
+        hint(screensaverText('Searching\u2026'));
         try {
           const res = await (await api('/api/commands/haSearchEntities', {
             method: 'POST', body: JSON.stringify({ query }) })).json();
           if (search.value.trim() !== query) return; // a newer search won
-          if (!res.ok) { hint('Could not reach Home Assistant.'); return; }
+          if (!res.ok) { hint(t('screensaverOverlayUnreachable')); return; }
           renderResults(res.data || []);
         } catch (_) {
-          hint('The device did not answer.');
+          hint(screensaverText('The device did not answer.'));
         }
       }, 350);
     });
     renderResults([]);
     body.append(search, results);
     shell.body.appendChild(body);
-    const cancel = cameraAction('Cancel', () => {
+    const cancel = cameraAction(screensaverText('Cancel'), () => {
       shell.close();
       finish(null);
     });
     cancel.className = 'btn-text';
     if (allowClear) {
-      const clear = cameraAction('Clear', () => {
+      const clear = cameraAction(screensaverText('Clear'), () => {
         finish({ entity_id: '', name: '' });
         shell.close();
       });

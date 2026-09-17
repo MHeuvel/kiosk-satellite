@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../app_container.dart';
+import '../l10n/messages.dart';
 import '../core/command_registry.dart';
 import 'kit.dart';
 import 'toast.dart';
@@ -19,7 +20,7 @@ import 'toast.dart';
 Future<(String, String)?> pickHomeAssistantEntity(
   BuildContext context,
   AppContainer container, {
-  String title = 'Entity',
+  String? title,
 }) => pickHomeAssistantEntityFromCommands(
   context,
   container.commands,
@@ -29,13 +30,13 @@ Future<(String, String)?> pickHomeAssistantEntity(
 Future<(String, String)?> pickHomeAssistantEntityFromCommands(
   BuildContext context,
   CommandRegistry commands, {
-  String title = 'Entity',
+  String? title,
   bool allowClear = false,
 }) => showDialog<(String, String)>(
   context: context,
   builder: (context) => _EntityPickerDialog(
     commands: commands,
-    title: title,
+    title: title ?? screensaverText(context, 'Entity'),
     allowClear: allowClear,
   ),
 );
@@ -70,7 +71,7 @@ Future<String?> pickEntityAttribute(
   if (!result.ok) {
     showToast(
       context,
-      title: 'Could not reach Home Assistant',
+      title: screensaverText(context, 'Could not reach Home Assistant'),
       kind: ToastKind.error,
     );
     return null;
@@ -85,9 +86,9 @@ Future<String?> pickEntityAttribute(
   ]..sort();
   return showRadioPicker<String>(
     context,
-    title: 'Displayed value',
+    title: screensaverText(context, 'Displayed value'),
     options: [
-      const PickerOption('', 'State'),
+      PickerOption('', screensaverText(context, 'State')),
       for (final name in names)
         PickerOption(name, name, detail: '${attributes[name]}'),
     ],
@@ -155,7 +156,9 @@ class _EntityPickerDialogState extends State<_EntityPickerDialog> {
     setState(() {
       _searching = false;
       if (!result.ok) {
-        _error = result.error ?? 'Could not reach Home Assistant';
+        _error = result.error == null
+            ? l10n(context).screensaverOverlayUnreachable
+            : l10n(context).screensaverOverlaySearchError(result.error!);
         _results = const [];
         return;
       }
@@ -182,7 +185,7 @@ class _EntityPickerDialogState extends State<_EntityPickerDialog> {
               autofocus: true,
               onChanged: _onQueryChanged,
               decoration: InputDecoration(
-                hintText: 'Name or entity id',
+                hintText: screensaverText(context, 'Name or entity id'),
                 prefixIcon: const Icon(Icons.search),
                 suffixIcon: _searching
                     ? const Padding(
@@ -211,10 +214,13 @@ class _EntityPickerDialogState extends State<_EntityPickerDialog> {
                         padding: const EdgeInsets.all(24),
                         child: Text(
                           _searching
-                              ? 'Searching…'
+                              ? screensaverText(context, 'Searching…')
                               : _query.text.trim().isEmpty
-                              ? 'Type to search entities.'
-                              : 'Nothing matched.',
+                              ? screensaverText(
+                                  context,
+                                  'Type to search entities.',
+                                )
+                              : screensaverText(context, 'Nothing matched.'),
                           style: theme.textTheme.bodyMedium?.copyWith(
                             color: theme.colorScheme.onSurfaceVariant,
                           ),
@@ -245,11 +251,11 @@ class _EntityPickerDialogState extends State<_EntityPickerDialog> {
         if (widget.allowClear)
           TextButton(
             onPressed: () => Navigator.pop(context, ('', '')),
-            child: const Text('Clear'),
+            child: Text(screensaverText(context, 'Clear')),
           ),
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('Cancel'),
+          child: Text(screensaverText(context, 'Cancel')),
         ),
       ],
     );

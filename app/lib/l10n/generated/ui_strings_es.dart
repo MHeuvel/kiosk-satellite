@@ -135,6 +135,9 @@ class UiStringsEs extends UiStrings {
   String get commonLoading => 'Cargando…';
 
   @override
+  String get commonChoose => 'Choose';
+
+  @override
   String drawerPluginAction(String pluginName, String actionTitle) {
     return '$pluginName: $actionTitle';
   }
@@ -2587,6 +2590,55 @@ class UiStringsEs extends UiStrings {
   }
 
   @override
+  String get screensaverOverlayEntity => 'Entity';
+
+  @override
+  String get screensaverOverlayNotSet => 'Not set';
+
+  @override
+  String get screensaverOverlayName => 'Name';
+
+  @override
+  String get screensaverOverlayNameHelp =>
+      'Leave empty to use the Home Assistant name.';
+
+  @override
+  String get screensaverOverlayValue => 'Displayed value';
+
+  @override
+  String get screensaverOverlayState => 'State';
+
+  @override
+  String get screensaverOverlayEntityRequired => 'Pick an entity.';
+
+  @override
+  String get screensaverOverlaySearchHint => 'Name or entity id';
+
+  @override
+  String get screensaverOverlaySearchHintRemote =>
+      'Search by name or entity id';
+
+  @override
+  String get screensaverOverlaySearchEmpty => 'Type to search entities.';
+
+  @override
+  String get screensaverOverlayNoMatches => 'Nothing matched.';
+
+  @override
+  String get screensaverOverlaySearching => 'Searching…';
+
+  @override
+  String get screensaverOverlayUnreachable => 'Could not reach Home Assistant';
+
+  @override
+  String get screensaverOverlayNoAnswer => 'The device did not answer.';
+
+  @override
+  String screensaverOverlaySearchError(String error) {
+    return 'Could not search entities: $error';
+  }
+
+  @override
   String get settingScreensaverEnabledTitle => 'Protector de pantalla';
 
   @override
@@ -2727,6 +2779,105 @@ class UiStringsEs extends UiStrings {
   @override
   String get screensaverScreenOffWarning =>
       'Cuando la pantalla se apaga por completo, la administración de energía de la tableta toma el control. Muchos modelos de Android presentan problemas en ese estado: el Wi-Fi se suspende o se desconecta, las entidades de Home Assistant dejan de estar disponibles, se puede perder el acceso a la cámara y algunos modelos cierran las aplicaciones en segundo plano. El comportamiento depende del fabricante.\n\nLa alternativa fiable es usar el protector de pantalla Negro y dejar esta opción en 0. La pantalla se ve igual de oscura y la aplicación mantiene el control.';
+
+  @override
+  String get settingScreensaverGlanceScaleTitle => 'Row scaling';
+
+  @override
+  String get settingScreensaverGlanceScaleDescription =>
+      'Scale the row to better fit your screen size.';
+
+  @override
+  String get settingScreensaverGlanceFontTitle => 'Font family';
+
+  @override
+  String get settingScreensaverGlanceFontDescription =>
+      'The typeface the row is drawn in.';
+
+  @override
+  String get settingScreensaverGlanceFontWeightTitle => 'Font weight';
+
+  @override
+  String get settingScreensaverGlanceFontWeightDescription =>
+      'How heavy the row\'s text is drawn. Default is each line\'s own weight: regular names, semibold values.';
+
+  @override
+  String get settingScreensaverGlanceHideNamesTitle => 'Hide names';
+
+  @override
+  String get settingScreensaverGlanceHideNamesDescription =>
+      'Show only the icon and the value, with the value drawn larger.';
+
+  @override
+  String get settingScreensaverGlanceBwIconsTitle => 'Monochromatic icons';
+
+  @override
+  String get settingScreensaverGlanceBwIconsDescription =>
+      'Keep every icon in the neutral grey instead of its state color.';
+
+  @override
+  String get settingScreensaverGlanceTextOnlyTitle => 'Floating text style';
+
+  @override
+  String get settingScreensaverGlanceTextOnlyDescription =>
+      'Show the entities as floating text instead of chips.';
+
+  @override
+  String get screensaverOverlayAppearance => 'Appearance';
+
+  @override
+  String get settingScreensaverGlanceEnabledTitle => 'At a glance';
+
+  @override
+  String get settingScreensaverGlanceEnabledDescription =>
+      'Show a row of Home Assistant entity states on the screensaver.';
+
+  @override
+  String get settingScreensaverGlanceEntitiesTitle => 'Entities';
+
+  @override
+  String get settingScreensaverGlanceEntitiesDescription =>
+      'Up to four entities to show, each with an optional custom name.';
+
+  @override
+  String get settingScreensaverGlanceNowPlayingTitle => 'Show on Now Playing';
+
+  @override
+  String get settingScreensaverGlanceNowPlayingDescription =>
+      'Show the row on the full-screen Now Playing view. It stays hidden while lyrics are showing.';
+
+  @override
+  String get screensaverOverlayShowing => 'Showing';
+
+  @override
+  String get screensaverOverlayReorder => 'Showing (drag to reorder)';
+
+  @override
+  String get screensaverOverlayFull =>
+      'That is the most the row can show. Remove one to add another.';
+
+  @override
+  String get screensaverOverlayPickerTitle => 'At a glance entities';
+
+  @override
+  String screensaverOverlayGlanceEmpty(String count) {
+    return 'None yet. Up to $count entities.';
+  }
+
+  @override
+  String get screensaverOverlayNone => 'None yet';
+
+  @override
+  String screensaverOverlayLimit(String count) {
+    return 'Up to $count entities.';
+  }
+
+  @override
+  String get screensaverOverlayGlancePage => 'At a Glance';
+
+  @override
+  String get screensaverOverlayGlanceHint =>
+      'Entities shown over the screensaver';
 
   @override
   String get settingScreensaverImmichUrlTitle => 'Dirección del servidor';
@@ -3626,6 +3777,210 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get screensaverWebsiteSection => 'Protector de pantalla: Sitio web';
+
+  @override
+  String get screensaverOverlaySmallClock => 'Small clock';
+
+  @override
+  String get screensaverOverlayWeather => 'Weather';
+
+  @override
+  String get screensaverOverlayBattery => 'Battery';
+
+  @override
+  String get screensaverOverlayClockNote =>
+      'Hidden in Digital Clock and Camera Streams screensaver modes.';
+
+  @override
+  String get screensaverOverlayCameraNote =>
+      'Hidden in the Camera Streams screensaver mode.';
+
+  @override
+  String get screensaverOverlayScale => 'Scale';
+
+  @override
+  String get screensaverOverlayScaleHelp =>
+      'Scale this widget size to better fit your screen.';
+
+  @override
+  String get screensaverOverlayFont => 'Font family';
+
+  @override
+  String get screensaverOverlayCorner => 'Corner';
+
+  @override
+  String get screensaverOverlayWidget => 'Widget';
+
+  @override
+  String get screensaverOverlayClock24 => '24-hour clock';
+
+  @override
+  String get screensaverOverlayClock24Help =>
+      'Show a 24-hour time instead of AM/PM.';
+
+  @override
+  String get screensaverOverlayShowDate => 'Show date';
+
+  @override
+  String get screensaverOverlayShowDateHelp =>
+      'Add a short date under the clock.';
+
+  @override
+  String get screensaverOverlayPercentage => 'Show percentage';
+
+  @override
+  String get screensaverOverlayPercentageHelp => 'The charge beside the icon.';
+
+  @override
+  String get screensaverOverlayLow => 'Only when low';
+
+  @override
+  String get screensaverOverlayLowHelp =>
+      'Stay hidden until the charge drops to 20 percent.';
+
+  @override
+  String get screensaverOverlayShowName => 'Show name';
+
+  @override
+  String get screensaverOverlayShowNameHelp => 'The name under the value.';
+
+  @override
+  String get screensaverOverlayFontSystem => 'System';
+
+  @override
+  String get screensaverOverlayFontSerif => 'Serif';
+
+  @override
+  String get screensaverOverlayFontCondensed => 'Condensed';
+
+  @override
+  String get screensaverOverlayFontMonospace => 'Monospace';
+
+  @override
+  String get screensaverOverlayFontCasual => 'Casual';
+
+  @override
+  String get screensaverOverlayFontCursive => 'Cursive';
+
+  @override
+  String get screensaverOverlayColor => 'Color';
+
+  @override
+  String get screensaverOverlayWeatherEntity => 'Weather entity';
+
+  @override
+  String get screensaverOverlayNoWeather => 'No weather entities';
+
+  @override
+  String get screensaverOverlayNoWeatherHelp => 'Home Assistant reported none.';
+
+  @override
+  String get screensaverOverlayPickWeather => 'Pick a weather entity…';
+
+  @override
+  String get screensaverOverlayWeatherRequired => 'Pick a weather entity.';
+
+  @override
+  String get screensaverOverlayLocationName => 'Location name';
+
+  @override
+  String get screensaverOverlayLocationHelp =>
+      'Leave empty to hide the location line.';
+
+  @override
+  String get screensaverOverlayLocation => 'Location';
+
+  @override
+  String get screensaverOverlayLocationDetail =>
+      'The place\'s name over the temperature.';
+
+  @override
+  String get screensaverOverlayFeelsLike => 'Feels like';
+
+  @override
+  String get screensaverOverlayFeelsLikeHelp =>
+      'The apparent temperature after the real one, \"30° / 33°\".';
+
+  @override
+  String get screensaverOverlayFeelsLikeOnly => 'Feels like only';
+
+  @override
+  String get screensaverOverlayFeelsLikeOnlyHelp =>
+      'The apparent temperature in the real one\'s place.';
+
+  @override
+  String get screensaverOverlayForecast => 'Forecast';
+
+  @override
+  String get screensaverOverlayForecastHelp =>
+      'The conditions, with a matching icon.';
+
+  @override
+  String get screensaverOverlayHumidity => 'Humidity';
+
+  @override
+  String get screensaverOverlayWind => 'Wind speed';
+
+  @override
+  String get screensaverOverlayVisibility => 'Visibility';
+
+  @override
+  String get settingScreensaverWidgetsTitle => 'Widgets';
+
+  @override
+  String get settingScreensaverWidgetsDescription =>
+      'Small overlays in the corners of the screensaver.';
+
+  @override
+  String get settingScreensaverWidgetScaleTitle => 'Global widget scaling';
+
+  @override
+  String get settingScreensaverWidgetScaleDescription =>
+      'Scale all widgets together to better fit your screen size. Each widget keeps its own scale relative to the others.';
+
+  @override
+  String get settingScreensaverWidgetFontTitle => 'Global font family';
+
+  @override
+  String get settingScreensaverWidgetFontDescription =>
+      'The typeface every widget is drawn in. A widget can pick its own.';
+
+  @override
+  String get settingScreensaverWidgetFontWeightTitle => 'Global font weight';
+
+  @override
+  String get settingScreensaverWidgetFontWeightDescription =>
+      'How heavy every widget\'s text is drawn. Default is each line\'s own weight. A widget can pick its own.';
+
+  @override
+  String get settingScreensaverWidgetTextShadowTitle => 'Text drop shadow';
+
+  @override
+  String get settingScreensaverWidgetTextShadowDescription =>
+      'Add a drop shadow to widget text for readability on photos.';
+
+  @override
+  String get settingScreensaverVignetteStrengthTitle => 'Vignette strength';
+
+  @override
+  String get settingScreensaverVignetteStrengthDescription =>
+      'Darkness of the shading behind the widgets, for readability on bright photos. 0 turns it off.';
+
+  @override
+  String get screensaverOverlayWidgetsEmpty => 'No widgets yet';
+
+  @override
+  String get screensaverOverlayRemove => 'Remove widget';
+
+  @override
+  String get screensaverOverlayAdd => 'Add widget';
+
+  @override
+  String get screensaverOverlayAddHelp =>
+      'A small clock, the weather, the battery or an entity in a corner.';
+
+  @override
+  String get screensaverOverlayWidgetsHint => 'Corner overlays and their scale';
 
   @override
   String get settingsSearchHint => 'Buscar en la configuración';

@@ -349,6 +349,12 @@ abstract class UiStrings {
   /// **'Loading…'**
   String get commonLoading;
 
+  /// Button to choose an item.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose'**
+  String get commonChoose;
+
   /// Plugin action label. Both values come from the plugin and are kept as supplied.
   ///
   /// In en, this message translates to:
@@ -4537,6 +4543,96 @@ abstract class UiStrings {
   /// **'Use at most {count} characters'**
   String screensaverMaxCharacters(String count);
 
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Entity'**
+  String get screensaverOverlayEntity;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Not set'**
+  String get screensaverOverlayNotSet;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get screensaverOverlayName;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave empty to use the Home Assistant name.'**
+  String get screensaverOverlayNameHelp;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Displayed value'**
+  String get screensaverOverlayValue;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'State'**
+  String get screensaverOverlayState;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick an entity.'**
+  String get screensaverOverlayEntityRequired;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Name or entity id'**
+  String get screensaverOverlaySearchHint;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by name or entity id'**
+  String get screensaverOverlaySearchHintRemote;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Type to search entities.'**
+  String get screensaverOverlaySearchEmpty;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing matched.'**
+  String get screensaverOverlayNoMatches;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Searching…'**
+  String get screensaverOverlaySearching;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not reach Home Assistant'**
+  String get screensaverOverlayUnreachable;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'The device did not answer.'**
+  String get screensaverOverlayNoAnswer;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not search entities: {error}'**
+  String screensaverOverlaySearchError(String error);
+
   /// Setting label.
   ///
   /// In en, this message translates to:
@@ -4776,6 +4872,174 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Once the display truly powers off, the tablet\'s own power management takes over, and many Android models misbehave in that state: Wi-Fi naps or drops, the Home Assistant entities go unavailable, the camera can be revoked, and some models kill background apps outright. What happens depends on the manufacturer.\n\nThe reliable alternative is the Black screensaver with this setting left at 0: the panel looks just as dark, and the app keeps full control.'**
   String get screensaverScreenOffWarning;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Row scaling'**
+  String get settingScreensaverGlanceScaleTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Scale the row to better fit your screen size.'**
+  String get settingScreensaverGlanceScaleDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Font family'**
+  String get settingScreensaverGlanceFontTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The typeface the row is drawn in.'**
+  String get settingScreensaverGlanceFontDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Font weight'**
+  String get settingScreensaverGlanceFontWeightTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'How heavy the row\'s text is drawn. Default is each line\'s own weight: regular names, semibold values.'**
+  String get settingScreensaverGlanceFontWeightDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide names'**
+  String get settingScreensaverGlanceHideNamesTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Show only the icon and the value, with the value drawn larger.'**
+  String get settingScreensaverGlanceHideNamesDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Monochromatic icons'**
+  String get settingScreensaverGlanceBwIconsTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep every icon in the neutral grey instead of its state color.'**
+  String get settingScreensaverGlanceBwIconsDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Floating text style'**
+  String get settingScreensaverGlanceTextOnlyTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Show the entities as floating text instead of chips.'**
+  String get settingScreensaverGlanceTextOnlyDescription;
+
+  /// Settings group heading.
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get screensaverOverlayAppearance;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'At a glance'**
+  String get settingScreensaverGlanceEnabledTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Show a row of Home Assistant entity states on the screensaver.'**
+  String get settingScreensaverGlanceEnabledDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Entities'**
+  String get settingScreensaverGlanceEntitiesTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Up to four entities to show, each with an optional custom name.'**
+  String get settingScreensaverGlanceEntitiesDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Show on Now Playing'**
+  String get settingScreensaverGlanceNowPlayingTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Show the row on the full-screen Now Playing view. It stays hidden while lyrics are showing.'**
+  String get settingScreensaverGlanceNowPlayingDescription;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Showing'**
+  String get screensaverOverlayShowing;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Showing (drag to reorder)'**
+  String get screensaverOverlayReorder;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'That is the most the row can show. Remove one to add another.'**
+  String get screensaverOverlayFull;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'At a glance entities'**
+  String get screensaverOverlayPickerTitle;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'None yet. Up to {count} entities.'**
+  String screensaverOverlayGlanceEmpty(String count);
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'None yet'**
+  String get screensaverOverlayNone;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Up to {count} entities.'**
+  String screensaverOverlayLimit(String count);
+
+  /// Subpage navigation title or summary.
+  ///
+  /// In en, this message translates to:
+  /// **'At a Glance'**
+  String get screensaverOverlayGlancePage;
+
+  /// Subpage navigation title or summary.
+  ///
+  /// In en, this message translates to:
+  /// **'Entities shown over the screensaver'**
+  String get screensaverOverlayGlanceHint;
 
   /// Setting label.
   ///
@@ -6294,6 +6558,378 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Website screensaver'**
   String get screensaverWebsiteSection;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Small clock'**
+  String get screensaverOverlaySmallClock;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Weather'**
+  String get screensaverOverlayWeather;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Battery'**
+  String get screensaverOverlayBattery;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Hidden in Digital Clock and Camera Streams screensaver modes.'**
+  String get screensaverOverlayClockNote;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Hidden in the Camera Streams screensaver mode.'**
+  String get screensaverOverlayCameraNote;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Scale'**
+  String get screensaverOverlayScale;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Scale this widget size to better fit your screen.'**
+  String get screensaverOverlayScaleHelp;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Font family'**
+  String get screensaverOverlayFont;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Corner'**
+  String get screensaverOverlayCorner;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Widget'**
+  String get screensaverOverlayWidget;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'24-hour clock'**
+  String get screensaverOverlayClock24;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Show a 24-hour time instead of AM/PM.'**
+  String get screensaverOverlayClock24Help;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Show date'**
+  String get screensaverOverlayShowDate;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a short date under the clock.'**
+  String get screensaverOverlayShowDateHelp;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Show percentage'**
+  String get screensaverOverlayPercentage;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'The charge beside the icon.'**
+  String get screensaverOverlayPercentageHelp;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Only when low'**
+  String get screensaverOverlayLow;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Stay hidden until the charge drops to 20 percent.'**
+  String get screensaverOverlayLowHelp;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Show name'**
+  String get screensaverOverlayShowName;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'The name under the value.'**
+  String get screensaverOverlayShowNameHelp;
+
+  /// Generic font family option. Font brand names stay unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get screensaverOverlayFontSystem;
+
+  /// Generic font family option. Font brand names stay unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Serif'**
+  String get screensaverOverlayFontSerif;
+
+  /// Generic font family option. Font brand names stay unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Condensed'**
+  String get screensaverOverlayFontCondensed;
+
+  /// Generic font family option. Font brand names stay unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Monospace'**
+  String get screensaverOverlayFontMonospace;
+
+  /// Generic font family option. Font brand names stay unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Casual'**
+  String get screensaverOverlayFontCasual;
+
+  /// Generic font family option. Font brand names stay unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Cursive'**
+  String get screensaverOverlayFontCursive;
+
+  /// Text color picker label.
+  ///
+  /// In en, this message translates to:
+  /// **'Color'**
+  String get screensaverOverlayColor;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Weather entity'**
+  String get screensaverOverlayWeatherEntity;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'No weather entities'**
+  String get screensaverOverlayNoWeather;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Assistant reported none.'**
+  String get screensaverOverlayNoWeatherHelp;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a weather entity…'**
+  String get screensaverOverlayPickWeather;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a weather entity.'**
+  String get screensaverOverlayWeatherRequired;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Location name'**
+  String get screensaverOverlayLocationName;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave empty to hide the location line.'**
+  String get screensaverOverlayLocationHelp;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get screensaverOverlayLocation;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'The place\'s name over the temperature.'**
+  String get screensaverOverlayLocationDetail;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Feels like'**
+  String get screensaverOverlayFeelsLike;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'The apparent temperature after the real one, \"30° / 33°\".'**
+  String get screensaverOverlayFeelsLikeHelp;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Feels like only'**
+  String get screensaverOverlayFeelsLikeOnly;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'The apparent temperature in the real one\'s place.'**
+  String get screensaverOverlayFeelsLikeOnlyHelp;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Forecast'**
+  String get screensaverOverlayForecast;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'The conditions, with a matching icon.'**
+  String get screensaverOverlayForecastHelp;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Humidity'**
+  String get screensaverOverlayHumidity;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Wind speed'**
+  String get screensaverOverlayWind;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Visibility'**
+  String get screensaverOverlayVisibility;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Widgets'**
+  String get settingScreensaverWidgetsTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Small overlays in the corners of the screensaver.'**
+  String get settingScreensaverWidgetsDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Global widget scaling'**
+  String get settingScreensaverWidgetScaleTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Scale all widgets together to better fit your screen size. Each widget keeps its own scale relative to the others.'**
+  String get settingScreensaverWidgetScaleDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Global font family'**
+  String get settingScreensaverWidgetFontTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The typeface every widget is drawn in. A widget can pick its own.'**
+  String get settingScreensaverWidgetFontDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Global font weight'**
+  String get settingScreensaverWidgetFontWeightTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'How heavy every widget\'s text is drawn. Default is each line\'s own weight. A widget can pick its own.'**
+  String get settingScreensaverWidgetFontWeightDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Text drop shadow'**
+  String get settingScreensaverWidgetTextShadowTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a drop shadow to widget text for readability on photos.'**
+  String get settingScreensaverWidgetTextShadowDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Vignette strength'**
+  String get settingScreensaverVignetteStrengthTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Darkness of the shading behind the widgets, for readability on bright photos. 0 turns it off.'**
+  String get settingScreensaverVignetteStrengthDescription;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'No widgets yet'**
+  String get screensaverOverlayWidgetsEmpty;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove widget'**
+  String get screensaverOverlayRemove;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Add widget'**
+  String get screensaverOverlayAdd;
+
+  /// Label or guidance in this editor.
+  ///
+  /// In en, this message translates to:
+  /// **'A small clock, the weather, the battery or an entity in a corner.'**
+  String get screensaverOverlayAddHelp;
+
+  /// Subpage navigation title or summary.
+  ///
+  /// In en, this message translates to:
+  /// **'Corner overlays and their scale'**
+  String get screensaverOverlayWidgetsHint;
 
   /// Placeholder in the Settings search box.
   ///

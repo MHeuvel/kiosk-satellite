@@ -1,0 +1,172 @@
+{
+  "@@locale": "en",
+  "settingScreensaverGlanceScaleTitle": "Row scaling",
+  "@settingScreensaverGlanceScaleTitle": {
+    "context": "Settings > Screensaver > At a Glance > Appearance",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance > Appearance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance > Appearance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceScaleDescription": "Scale the row to better fit your screen size.",
+  "@settingScreensaverGlanceScaleDescription": {
+    "context": "Settings > Screensaver > At a Glance > Appearance",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance > Appearance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance > Appearance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceFontTitle": "Font family",
+  "@settingScreensaverGlanceFontTitle": {
+    "context": "Settings > Screensaver > At a Glance > Appearance",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance > Appearance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance > Appearance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceFontDescription": "The typeface the row is drawn in.",
+  "@settingScreensaverGlanceFontDescription": {
+    "context": "Settings > Screensaver > At a Glance > Appearance",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance > Appearance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance > Appearance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceFontWeightTitle": "Font weight",
+  "@settingScreensaverGlanceFontWeightTitle": {
+    "context": "Settings > Screensaver > At a Glance > Appearance",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance > Appearance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance > Appearance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceFontWeightDescription": "How heavy the row's text is drawn. Default is each line's own weight: regular names, semibold values.",
+  "@settingScreensaverGlanceFontWeightDescription": {
+    "context": "Settings > Screensaver > At a Glance > Appearance",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance > Appearance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance > Appearance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceHideNamesTitle": "Hide names",
+  "@settingScreensaverGlanceHideNamesTitle": {
+    "context": "Settings > Screensaver > At a Glance > Appearance",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance > Appearance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance > Appearance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceHideNamesDescription": "Show only the icon and the value, with the value drawn larger.",
+  "@settingScreensaverGlanceHideNamesDescription": {
+    "context": "Settings > Screensaver > At a Glance > Appearance",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance > Appearance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance > Appearance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceBwIconsTitle": "Monochromatic icons",
+  "@settingScreensaverGlanceBwIconsTitle": {
+    "context": "Settings > Screensaver > At a Glance > Appearance",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance > Appearance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance > Appearance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceBwIconsDescription": "Keep every icon in the neutral grey instead of its state color.",
+  "@settingScreensaverGlanceBwIconsDescription": {
+    "context": "Settings > Screensaver > At a Glance > Appearance",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance > Appearance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance > Appearance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceTextOnlyTitle": "Floating text style",
+  "@settingScreensaverGlanceTextOnlyTitle": {
+    "context": "Settings > Screensaver > At a Glance > Appearance",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance > Appearance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance > Appearance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceTextOnlyDescription": "Show the entities as floating text instead of chips.",
+  "@settingScreensaverGlanceTextOnlyDescription": {
+    "context": "Settings > Screensaver > At a Glance > Appearance",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance > Appearance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance > Appearance"
+      ]
+    }
+  },
+  "screensaverOverlayAppearance": "Appearance",
+  "@screensaverOverlayAppearance": {
+    "context": "Settings > Screensaver > At a Glance > Appearance",
+    "description": "Settings group heading.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance > Appearance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance > Appearance"
+      ]
+    }
+  }
+}

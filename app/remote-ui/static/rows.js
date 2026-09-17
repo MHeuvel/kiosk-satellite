@@ -785,10 +785,10 @@ export function settingRow(s) {
   if (s.key === 'screensaver.widgets') {
     let entries = [];
     try { entries = JSON.parse(s.value || '[]') || []; } catch (_) { entries = []; }
-    const CORNERS = [['top_left', 'Top left'], ['top_right', 'Top right'],
-      ['bottom_left', 'Bottom left'], ['bottom_right', 'Bottom right']];
-    const TYPES = [['clock', 'Small clock'], ['weather', 'Weather'],
-      ['battery', 'Battery'], ['entity', 'Entity']];
+    const CORNERS = [['top_left', screensaverText('Top left')], ['top_right', screensaverText('Top right')],
+      ['bottom_left', screensaverText('Bottom left')], ['bottom_right', screensaverText('Bottom right')]];
+    const TYPES = [['clock', screensaverText('Small clock')], ['weather', screensaverText('Weather')],
+      ['battery', screensaverText('Battery')], ['entity', screensaverText('Entity')]];
     const DEFAULTS = {
       clock: { color: '250,250,250', scale: 0, font: 'default',
         font_weight: 'default', h24: false, date: false },
@@ -805,14 +805,14 @@ export function settingRow(s) {
     // The typeface and weight pickers, the clock screensaver's vocabulary
     // (kept with definitions.dart) behind a Default that follows the
     // Global font family and Global font weight rows outside the modal.
-    const FONTS = [['default', 'Default'], ['rubik', 'Rubik'],
-      ['nunito', 'Nunito'], ['inter', 'Inter'], ['system', 'System'],
-      ['serif', 'Serif'], ['condensed', 'Condensed'],
-      ['monospace', 'Monospace'], ['casual', 'Casual'],
-      ['cursive', 'Cursive'], ['lcd', 'LCD']];
-    const WEIGHTS = [['default', 'Default'], ['light', 'Light'],
-      ['regular', 'Regular'], ['medium', 'Medium'], ['bold', 'Bold'],
-      ['black', 'Black']];
+    const FONTS = [['default', screensaverText('Default')], ['rubik', 'Rubik'],
+      ['nunito', 'Nunito'], ['inter', 'Inter'], ['oswald', 'Oswald'], ['roboto_slab', 'Roboto Slab'], ['system', screensaverText('System')],
+      ['serif', screensaverText('Serif')], ['condensed', screensaverText('Condensed')],
+      ['monospace', screensaverText('Monospace')], ['casual', screensaverText('Casual')],
+      ['cursive', screensaverText('Cursive')], ['lcd', 'LCD']];
+    const WEIGHTS = [['default', screensaverText('Default')], ['light', screensaverText('Light')],
+      ['regular', screensaverText('Regular')], ['medium', screensaverText('Medium')], ['bold', screensaverText('Bold')],
+      ['black', t('screensaverFontBlack')]];
     const pickOf = (list, value) =>
       list.some(([v]) => v === value) ? value : 'default';
     // The per-widget scale, a percent offset from the size the Global
@@ -863,12 +863,12 @@ export function settingRow(s) {
       const note = document.createElement('span');
       note.className = 'desc';
       const noteFor = (t) => t === 'clock'
-        ? 'Hidden in Digital Clock and Camera Streams screensaver modes.'
-        : 'Hidden in the Camera Streams screensaver mode.';
-      const cornerSel = cameraSelectField('Corner',
+        ? screensaverText('Hidden in Digital Clock and Camera Streams screensaver modes.')
+        : screensaverText('Hidden in the Camera Streams screensaver mode.');
+      const cornerSel = cameraSelectField(screensaverText('Corner'),
         free.map(([value, label]) => ({ value, label })),
         existing?.position || free[0][0]);
-      const typeSel = cameraSelectField('Widget',
+      const typeSel = cameraSelectField(screensaverText('Widget'),
         TYPES.map(([value, label]) => ({ value, label })), type);
       // The current type's own settings, rebuilt when the type changes.
       const typeBlock = document.createElement('div');
@@ -886,8 +886,8 @@ export function settingRow(s) {
         wrap.style.alignItems = 'flex-start';
         const title = document.createElement('span');
         title.className = 'desc';
-        title.textContent = 'Color';
-        const input = swatch(config.color || '250,250,250', 'Color', () => {});
+        title.textContent = screensaverText('Color');
+        const input = swatch(config.color || '250,250,250', screensaverText('Color'), () => {});
         wrap.append(title, input);
         return { wrap, input };
       };
@@ -898,10 +898,10 @@ export function settingRow(s) {
         wrap.className = 'form-field';
         const title = document.createElement('span');
         title.className = 'desc';
-        title.textContent = 'Scale';
+        title.textContent = screensaverText('Scale');
         const hint = document.createElement('span');
         hint.className = 'desc';
-        hint.textContent = 'Scale this widget size to better fit your screen.';
+        hint.textContent = screensaverText('Scale this widget size to better fit your screen.');
         const line = document.createElement('div');
         line.style.cssText = 'display:flex; align-items:center; gap:10px;';
         const input = document.createElement('input');
@@ -927,27 +927,27 @@ export function settingRow(s) {
         note.textContent = noteFor(type);
         typeBlock.innerHTML = '';
         refs = { color: colorField(), scale: scaleField(),
-          font: cameraSelectField('Font family',
+          font: cameraSelectField(screensaverText('Font family'),
             FONTS.map(([value, label]) => ({ value, label })),
             pickOf(FONTS, config.font)),
-          weight: cameraSelectField('Font weight',
+          weight: cameraSelectField(screensaverText('Font weight'),
             WEIGHTS.map(([value, label]) => ({ value, label })),
             pickOf(WEIGHTS, config.font_weight)) };
         if (type === 'clock') {
-          refs.h24 = cameraToggle('24-hour clock',
-            config.h24 === true, 'Show a 24-hour time instead of AM/PM.');
-          refs.date = cameraToggle('Show date',
-            config.date === true, 'Add a short date under the clock.');
+          refs.h24 = cameraToggle(screensaverText('24-hour clock'),
+            config.h24 === true, screensaverText('Show a 24-hour time instead of AM/PM.'));
+          refs.date = cameraToggle(screensaverText('Show date'),
+            config.date === true, screensaverText('Add a short date under the clock.'));
           typeBlock.append(refs.color.wrap, refs.scale.wrap, refs.font.wrap,
             refs.weight.wrap, refs.h24.wrap, refs.date.wrap);
           return;
         }
         if (type === 'battery') {
-          refs.percent = cameraToggle('Show percentage',
-            config.percent !== false, 'The charge beside the icon.');
-          refs.low = cameraToggle('Only when low',
+          refs.percent = cameraToggle(screensaverText('Show percentage'),
+            config.percent !== false, screensaverText('The charge beside the icon.'));
+          refs.low = cameraToggle(screensaverText('Only when low'),
             config.low === true,
-            'Stay hidden until the charge drops to 20 percent.');
+            screensaverText('Stay hidden until the charge drops to 20 percent.'));
           typeBlock.append(refs.color.wrap, refs.scale.wrap, refs.font.wrap,
             refs.weight.wrap, refs.percent.wrap, refs.low.wrap);
           return;
@@ -962,13 +962,13 @@ export function settingRow(s) {
           info.className = 'info';
           const name = document.createElement('div');
           name.className = 'name';
-          name.textContent = 'Entity';
+          name.textContent = screensaverText('Entity');
           const desc = document.createElement('div');
           desc.className = 'desc';
-          desc.textContent = config.name || config.entity || 'Not set';
+          desc.textContent = config.name || config.entity || screensaverText('Not set');
           info.append(name, desc);
-          refs.attribute = cameraSelectField('Displayed value',
-            [{ value: '', label: 'State' },
+          refs.attribute = cameraSelectField(screensaverText('Displayed value'),
+            [{ value: '', label: screensaverText('State') },
               ...(config.attribute
                 ? [{ value: config.attribute, label: config.attribute }] : [])],
             config.attribute || '');
@@ -994,7 +994,7 @@ export function settingRow(s) {
               refs.attribute.select.innerHTML = '';
               const state = document.createElement('option');
               state.value = '';
-              state.textContent = 'State';
+              state.textContent = screensaverText('State');
               refs.attribute.select.appendChild(state);
               for (const n of names) {
                 const o = document.createElement('option');
@@ -1005,7 +1005,7 @@ export function settingRow(s) {
               }
             } catch (_) {}
           };
-          const choose = cameraAction('Choose\u2026', async () => {
+          const choose = cameraAction(t('commonChoose'), async () => {
             const picked = await entitySearchPicker();
             if (!picked) return;
             // Another entity has other attributes: back to its state.
@@ -1026,19 +1026,19 @@ export function settingRow(s) {
             wrap.className = 'form-field';
             const title = document.createElement('span');
             title.className = 'desc';
-            title.textContent = 'Name';
+            title.textContent = screensaverText('Name');
             const input = document.createElement('input');
             input.className = 'field';
             input.type = 'text';
             input.placeholder = config.name
-              || 'Leave empty to use the Home Assistant name';
+              || t('screensaverOverlayNameHelp');
             input.value = config.label || '';
             input.style.maxWidth = 'none';
             wrap.append(title, input);
             return { wrap, input };
           })();
-          refs.showName = cameraToggle('Show name',
-            config.show_name !== false, 'The name under the value.');
+          refs.showName = cameraToggle(screensaverText('Show name'),
+            config.show_name !== false, screensaverText('The name under the value.'));
           typeBlock.append(refs.entity.wrap, refs.label.wrap,
             refs.attribute.wrap, refs.color.wrap, refs.scale.wrap,
             refs.font.wrap, refs.weight.wrap, refs.showName.wrap);
@@ -1048,10 +1048,10 @@ export function settingRow(s) {
         // Weather: the entity everything is read from, then the line
         // toggles. The temperature always shows; each other line also
         // needs the entity to actually carry the reading.
-        refs.entity = cameraSelectField('Weather entity',
+        refs.entity = cameraSelectField(screensaverText('Weather entity'),
           config.entity
             ? [{ value: config.entity, label: config.name || config.entity }]
-            : [{ value: '', label: 'Pick a weather entity…' }],
+            : [{ value: '', label: screensaverText('Pick a weather entity…') }],
           config.entity || '');
         (async () => {
           try {
@@ -1064,7 +1064,7 @@ export function settingRow(s) {
             refs.entity.select.innerHTML = '';
             if (!config.entity) {
               const blank = document.createElement('option');
-              blank.value = ''; blank.textContent = 'Pick a weather entity…';
+              blank.value = ''; blank.textContent = screensaverText('Pick a weather entity…');
               refs.entity.select.appendChild(blank);
             }
             for (const e of found) {
@@ -1082,29 +1082,29 @@ export function settingRow(s) {
           wrap.className = 'form-field';
           const title = document.createElement('span');
           title.className = 'desc';
-          title.textContent = 'Location name';
+          title.textContent = screensaverText('Location name');
           const input = document.createElement('input');
           input.className = 'field';
           input.type = 'text';
-          input.placeholder = 'Leave empty to hide the location line';
+          input.placeholder = t('screensaverOverlayLocationHelp');
           input.value = config.label || '';
           input.style.maxWidth = 'none';
           wrap.append(title, input);
           return { wrap, input };
         })();
-        refs.location = cameraToggle('Location',
-          config.location === true, "The place's name over the temperature.");
-        refs.feelsLike = cameraToggle('Feels like',
+        refs.location = cameraToggle(screensaverText('Location'),
+          config.location === true, screensaverText("The place's name over the temperature."));
+        refs.feelsLike = cameraToggle(screensaverText('Feels like'),
           config.feels_like === true,
-          'The apparent temperature after the real one, "30° / 33°".');
-        refs.feelsLikeOnly = cameraToggle('Feels like only',
+          screensaverText('The apparent temperature after the real one, "30° / 33°".'));
+        refs.feelsLikeOnly = cameraToggle(screensaverText('Feels like only'),
           config.feels_like_only === true,
-          "The apparent temperature in the real one's place.");
-        refs.forecast = cameraToggle('Forecast',
-          config.forecast === true, 'The conditions, with a matching icon.');
-        refs.humidity = cameraToggle('Humidity', config.humidity === true);
-        refs.wind = cameraToggle('Wind speed', config.wind === true);
-        refs.visibility = cameraToggle('Visibility', config.visibility === true);
+          screensaverText("The apparent temperature in the real one's place."));
+        refs.forecast = cameraToggle(screensaverText('Forecast'),
+          config.forecast === true, screensaverText('The conditions, with a matching icon.'));
+        refs.humidity = cameraToggle(screensaverText('Humidity'), config.humidity === true);
+        refs.wind = cameraToggle(screensaverText('Wind speed'), config.wind === true);
+        refs.visibility = cameraToggle(screensaverText('Visibility'), config.visibility === true);
         typeBlock.append(refs.entity.wrap, refs.label.wrap, refs.color.wrap,
           refs.scale.wrap, refs.font.wrap, refs.weight.wrap,
           refs.location.wrap, refs.feelsLike.wrap, refs.feelsLikeOnly.wrap,
@@ -1143,7 +1143,7 @@ export function settingRow(s) {
               percent: refs.percent.input.checked,
               low: refs.low.input.checked };
           } else if (type === 'entity') {
-            if (!config.entity) return { ok: false, error: 'Pick an entity.' };
+            if (!config.entity) return { ok: false, error: screensaverText('Pick an entity.') };
             entryConfig = { entity: config.entity,
               name: config.name || config.entity,
               label: refs.label.input.value.trim(),
@@ -1152,7 +1152,7 @@ export function settingRow(s) {
               font_weight };
           } else {
             const entity = refs.entity.select.value;
-            if (!entity) return { ok: false, error: 'Pick a weather entity.' };
+            if (!entity) return { ok: false, error: screensaverText('Pick a weather entity.') };
             const option = refs.entity.select.selectedOptions[0];
             entryConfig = { entity,
               name: option ? option.textContent : entity,
@@ -1179,7 +1179,7 @@ export function settingRow(s) {
     const entryRow = (e) => cameraListRow(
       typeLabel(e.type), cornerLabel(e.position),
       [
-        cameraAction('Delete', () => {
+        cameraAction(screensaverText('Delete'), () => {
           entries = entries.filter((o) => o !== e);
           persist();
         }, false, 'delete'),
@@ -1194,8 +1194,8 @@ export function settingRow(s) {
     // The add row is the last row of the card, the whole row the button,
     // mirrored on the device. Every corner taken means nothing left to
     // add: the row stays, disabled, rather than disappearing.
-    const addRow = () => cameraListRow('Add widget',
-      'A small clock, the weather, the battery or an entity in a corner.', [],
+    const addRow = () => cameraListRow(screensaverText('Add widget'),
+      screensaverText('A small clock, the weather, the battery or an entity in a corner.'), [],
       { icon: 'add', onClick: () => editWidget(null),
         disabled: entries.length >= CORNERS.length });
 
@@ -1224,7 +1224,7 @@ export function settingRow(s) {
     try { chosen = JSON.parse(s.value || '[]') || []; } catch (_) { chosen = []; }
     const btn = document.createElement('button');
     btn.className = 'btn-ghost';
-    btn.textContent = 'Choose\u2026';
+    btn.textContent = t('commonChoose');
     btn.style.cssText = 'flex-shrink:0;';
     row.appendChild(btn);
 
@@ -1237,7 +1237,7 @@ export function settingRow(s) {
     let entityRows = [];
     const build = () => {
       if (!chosen.length) {
-        return [readOnlyRow('None yet', `Up to ${GLANCE_MAX} entities.`, '')];
+        return [readOnlyRow(screensaverText('None yet'), t('screensaverOverlayLimit', {count: String(GLANCE_MAX)}), '')];
       }
       // Numbered so the display order is readable without opening the modal.
       return chosen.map((entity, index) => readOnlyRow(

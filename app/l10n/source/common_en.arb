@@ -209,5 +209,10 @@
   "@commonLoading": {
     "context": "Common:Dialogs",
     "description": "Shared picker action or loading state."
+  },
+  "commonChoose": "Choose",
+  "@commonChoose": {
+    "context": "Common:Actions",
+    "description": "Button to choose an item."
   }
 }

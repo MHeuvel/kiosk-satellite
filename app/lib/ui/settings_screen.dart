@@ -4720,10 +4720,22 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
   /// The per-type hint under the dialog's title: where the widget
   /// deliberately stays off, so nobody hunts for a hidden clock.
   String? _modeNote(String type) => switch (type) {
-    'clock' => 'Hidden in Digital Clock and Camera Streams screensaver modes.',
-    'weather' => 'Hidden in the Camera Streams screensaver mode.',
-    'battery' => 'Hidden in the Camera Streams screensaver mode.',
-    'entity' => 'Hidden in the Camera Streams screensaver mode.',
+    'clock' => screensaverText(
+      context,
+      'Hidden in Digital Clock and Camera Streams screensaver modes.',
+    ),
+    'weather' => screensaverText(
+      context,
+      'Hidden in the Camera Streams screensaver mode.',
+    ),
+    'battery' => screensaverText(
+      context,
+      'Hidden in the Camera Streams screensaver mode.',
+    ),
+    'entity' => screensaverText(
+      context,
+      'Hidden in the Camera Streams screensaver mode.',
+    ),
     _ => null,
   };
 
@@ -4742,7 +4754,7 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
       if (context.mounted) {
         showToast(
           context,
-          title: 'Could not reach Home Assistant',
+          title: screensaverText(context, 'Could not reach Home Assistant'),
           kind: ToastKind.error,
         );
       }
@@ -4757,8 +4769,8 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
       if (context.mounted) {
         showToast(
           context,
-          title: 'No weather entities',
-          message: 'Home Assistant reported none.',
+          title: screensaverText(context, 'No weather entities'),
+          message: screensaverText(context, 'Home Assistant reported none.'),
           kind: ToastKind.warning,
         );
       }
@@ -4767,7 +4779,7 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
     if (!context.mounted) return null;
     return showRadioPicker<(String, String)>(
       context,
-      title: 'Weather entity',
+      title: screensaverText(context, 'Weather entity'),
       options: [for (final e in entities) PickerOption(e, e.$2, detail: e.$1)],
       selected: entities.where((e) => e.$1 == current).firstOrNull,
     );
@@ -4795,7 +4807,7 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
     // a controller so edits survive the dialog's rebuilds.
     final labelCtrl = TextEditingController(text: '${config['label'] ?? ''}');
 
-    final submitted = await showDialog<bool>(
+    final route = DialogRoute<bool>(
       context: context,
       builder: (context) => StatefulBuilder(
         builder: (context, setDialogState) {
@@ -4816,13 +4828,13 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
           // Both types carry a color; the toggle rows are per type.
           Widget colorRow() => ListTile(
             contentPadding: EdgeInsets.zero,
-            title: const Text('Color'),
+            title: Text(screensaverText(context, 'Color')),
             trailing: GestureDetector(
               onTap: () async {
                 final picked = await pickColor(
                   context,
                   initial: '${config['color'] ?? ''}',
-                  title: 'Color',
+                  title: screensaverText(context, 'Color'),
                 );
                 if (picked != null) {
                   setDialogState(() => config['color'] = picked);
@@ -4857,9 +4869,12 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
             children: [
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                title: const Text('Scale'),
-                subtitle: const Text(
-                  'Scale this widget size to better fit your screen.',
+                title: Text(screensaverText(context, 'Scale')),
+                subtitle: Text(
+                  screensaverText(
+                    context,
+                    'Scale this widget size to better fit your screen.',
+                  ),
                 ),
                 trailing: Text(
                   scalePercent > 0 ? '+$scalePercent%' : '$scalePercent%',
@@ -4881,7 +4896,7 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
           // Every type also picks its typeface and weight: Default follows
           // the Global font family and Global font weight rows outside.
           Widget fontRow() => LabeledField(
-            label: 'Font family',
+            label: screensaverText(context, 'Font family'),
             child: DropdownButtonFormField<String>(
               initialValue:
                   screensaverWidgetFontOptions.contains(config['font'])
@@ -4894,8 +4909,8 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
                     value: f,
                     child: Text(
                       f == screensaverWidgetFontDefault
-                          ? 'Default'
-                          : fontFamilyLabels[f] ?? f,
+                          ? screensaverText(context, 'Default')
+                          : screensaverText(context, fontFamilyLabels[f] ?? f),
                     ),
                   ),
               ],
@@ -4905,7 +4920,7 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
             ),
           );
           Widget fontWeightRow() => LabeledField(
-            label: 'Font weight',
+            label: screensaverText(context, 'Font weight'),
             child: DropdownButtonFormField<String>(
               initialValue:
                   screensaverWidgetFontWeightOptions.contains(
@@ -4918,7 +4933,13 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
                 for (final w in screensaverWidgetFontWeightOptions)
                   DropdownMenuItem(
                     value: w,
-                    child: Text(fontWeightLabels[w] ?? w),
+                    child: Text(
+                      screensaverWidgetFontWeight.localizedOption(
+                        context,
+                        w,
+                        fontWeightLabels[w] ?? w,
+                      ),
+                    ),
                   ),
               ],
               onChanged: (value) => setDialogState(
@@ -4934,7 +4955,9 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
           return AlertDialog(
             // The widget's own name: the dialog reads as that widget's
             // settings, not as a generic form.
-            title: Text(describeScreensaverWidgetType(type)),
+            title: Text(
+              screensaverText(context, describeScreensaverWidgetType(type)),
+            ),
             content: SizedBox(
               width: 480,
               child: SingleChildScrollView(
@@ -4951,7 +4974,7 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
                         ),
                       ),
                     LabeledField(
-                      label: 'Corner',
+                      label: screensaverText(context, 'Corner'),
                       child: DropdownButtonFormField<String>(
                         initialValue: position,
                         decoration: const InputDecoration(),
@@ -4959,7 +4982,12 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
                           for (final corner in free)
                             DropdownMenuItem(
                               value: corner,
-                              child: Text(cornerLabels[corner] ?? corner),
+                              child: Text(
+                                screensaverText(
+                                  context,
+                                  cornerLabels[corner] ?? corner,
+                                ),
+                              ),
                             ),
                         ],
                         onChanged: (value) =>
@@ -4967,7 +4995,7 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
                       ),
                     ),
                     LabeledField(
-                      label: 'Widget',
+                      label: screensaverText(context, 'Widget'),
                       child: DropdownButtonFormField<String>(
                         initialValue: type,
                         decoration: const InputDecoration(),
@@ -4975,7 +5003,12 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
                           for (final t in screensaverWidgetTypes)
                             DropdownMenuItem(
                               value: t,
-                              child: Text(describeScreensaverWidgetType(t)),
+                              child: Text(
+                                screensaverText(
+                                  context,
+                                  describeScreensaverWidgetType(t),
+                                ),
+                              ),
                             ),
                         ],
                         onChanged: (value) => setDialogState(() {
@@ -4993,8 +5026,8 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
                       scaleRow(),
                       fontRow(),
                       fontWeightRow(),
-                      toggle('24-hour clock', 'h24'),
-                      toggle('Show date', 'date'),
+                      toggle(screensaverText(context, '24-hour clock'), 'h24'),
+                      toggle(screensaverText(context, 'Show date'), 'date'),
                     ],
                     if (type == 'weather') ...[
                       // The entity everything is read from; the friendly
@@ -5002,13 +5035,13 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
                       // show it without a Home Assistant round trip.
                       ListTile(
                         contentPadding: EdgeInsets.zero,
-                        title: const Text('Weather entity'),
+                        title: Text(screensaverText(context, 'Weather entity')),
                         subtitle: Text(
                           weatherName.isNotEmpty
                               ? weatherName
                               : (weatherEntity.isNotEmpty
                                     ? weatherEntity
-                                    : 'Not set'),
+                                    : screensaverText(context, 'Not set')),
                         ),
                         trailing: TextButton(
                           onPressed: () async {
@@ -5023,18 +5056,20 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
                               });
                             }
                           },
-                          child: const Text('Choose'),
+                          child: Text(screensaverText(context, 'Choose')),
                         ),
                       ),
                       // Weather entities carry no city attribute, so the
                       // place shown over the temperature is named by hand.
                       LabeledField(
-                        label: 'Location name',
+                        label: screensaverText(context, 'Location name'),
                         child: TextField(
                           controller: labelCtrl,
-                          decoration: const InputDecoration(
-                            helperText:
-                                'Leave empty to hide the location line.',
+                          decoration: InputDecoration(
+                            helperText: screensaverText(
+                              context,
+                              'Leave empty to hide the location line.',
+                            ),
                           ),
                           onChanged: (v) => config['label'] = v.trim(),
                         ),
@@ -5047,21 +5082,33 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
                       // needs the entity to carry the reading. Feels like
                       // rides the temperature line, so it sits where the
                       // temperature does, between Location and Forecast.
-                      toggle('Location', 'location'),
-                      toggle('Feels like', 'feels_like'),
-                      toggle('Feels like only', 'feels_like_only'),
-                      toggle('Forecast', 'forecast'),
-                      toggle('Humidity', 'humidity'),
-                      toggle('Wind speed', 'wind'),
-                      toggle('Visibility', 'visibility'),
+                      toggle(screensaverText(context, 'Location'), 'location'),
+                      toggle(
+                        screensaverText(context, 'Feels like'),
+                        'feels_like',
+                      ),
+                      toggle(
+                        screensaverText(context, 'Feels like only'),
+                        'feels_like_only',
+                      ),
+                      toggle(screensaverText(context, 'Forecast'), 'forecast'),
+                      toggle(screensaverText(context, 'Humidity'), 'humidity'),
+                      toggle(screensaverText(context, 'Wind speed'), 'wind'),
+                      toggle(
+                        screensaverText(context, 'Visibility'),
+                        'visibility',
+                      ),
                     ],
                     if (type == 'battery') ...[
                       colorRow(),
                       scaleRow(),
                       fontRow(),
                       fontWeightRow(),
-                      toggle('Show percentage', 'percent'),
-                      toggle('Only when low', 'low'),
+                      toggle(
+                        screensaverText(context, 'Show percentage'),
+                        'percent',
+                      ),
+                      toggle(screensaverText(context, 'Only when low'), 'low'),
                     ],
                     if (type == 'entity') ...[
                       // The entity everything is read from, picked by
@@ -5070,13 +5117,13 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
                       // editors can show it without a round trip.
                       ListTile(
                         contentPadding: EdgeInsets.zero,
-                        title: const Text('Entity'),
+                        title: Text(screensaverText(context, 'Entity')),
                         subtitle: Text(
                           weatherName.isNotEmpty
                               ? weatherName
                               : (weatherEntity.isNotEmpty
                                     ? weatherEntity
-                                    : 'Not set'),
+                                    : screensaverText(context, 'Not set')),
                         ),
                         trailing: TextButton(
                           onPressed: () async {
@@ -5096,29 +5143,33 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
                               });
                             }
                           },
-                          child: const Text('Choose'),
+                          child: Text(screensaverText(context, 'Choose')),
                         ),
                       ),
                       LabeledField(
-                        label: 'Name',
+                        label: screensaverText(context, 'Name'),
                         child: TextField(
                           controller: labelCtrl,
                           decoration: InputDecoration(
                             hintText: weatherName.isNotEmpty
                                 ? weatherName
                                 : null,
-                            helperText:
-                                'Leave empty to use the Home Assistant name.',
+                            helperText: screensaverText(
+                              context,
+                              'Leave empty to use the Home Assistant name.',
+                            ),
                           ),
                           onChanged: (v) => config['label'] = v.trim(),
                         ),
                       ),
                       ListTile(
                         contentPadding: EdgeInsets.zero,
-                        title: const Text('Displayed value'),
+                        title: Text(
+                          screensaverText(context, 'Displayed value'),
+                        ),
                         subtitle: Text(
                           '${config['attribute'] ?? ''}'.isEmpty
-                              ? 'State'
+                              ? screensaverText(context, 'State')
                               : '${config['attribute']}',
                         ),
                         trailing: TextButton(
@@ -5137,14 +5188,17 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
                                     );
                                   }
                                 },
-                          child: const Text('Choose'),
+                          child: Text(screensaverText(context, 'Choose')),
                         ),
                       ),
                       colorRow(),
                       scaleRow(),
                       fontRow(),
                       fontWeightRow(),
-                      toggle('Show name', 'show_name'),
+                      toggle(
+                        screensaverText(context, 'Show name'),
+                        'show_name',
+                      ),
                     ],
                   ],
                 ),
@@ -5153,7 +5207,7 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: const Text('Cancel'),
+                child: Text(screensaverText(context, 'Cancel')),
               ),
               FilledButton(
                 // A weather or entity widget without its entity has
@@ -5163,13 +5217,19 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
                         weatherEntity.isEmpty
                     ? null
                     : () => Navigator.pop(context, true),
-                child: Text(existing == null ? 'Add' : 'Save'),
+                child: Text(
+                  existing == null
+                      ? screensaverText(context, 'Add')
+                      : screensaverText(context, 'Save'),
+                ),
               ),
             ],
           );
         },
       ),
     );
+    final submitted = await Navigator.of(context).push(route);
+    await route.completed;
     labelCtrl.dispose();
     if (submitted != true) return;
     await _save([
@@ -5189,17 +5249,21 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
       children: [
         if (widgets.isEmpty)
           ListTile(
-            title: const Text('No widgets yet'),
-            subtitle: Text(screensaverWidgets.description),
+            title: Text(screensaverText(context, 'No widgets yet')),
+            subtitle: Text(screensaverWidgets.localizedDescription(context)),
           ),
         for (final w in widgets)
           ListTile(
             leading: Icon(_icon(w.type)),
-            title: Text(describeScreensaverWidgetType(w.type)),
-            subtitle: Text(cornerLabels[w.position] ?? w.position),
+            title: Text(
+              screensaverText(context, describeScreensaverWidgetType(w.type)),
+            ),
+            subtitle: Text(
+              screensaverText(context, cornerLabels[w.position] ?? w.position),
+            ),
             trailing: IconButton(
               icon: const Icon(Icons.delete_outline),
-              tooltip: 'Remove widget',
+              tooltip: screensaverText(context, 'Remove widget'),
               onPressed: () => _save(
                 [...widgets]..removeWhere((x) => x.position == w.position),
               ),
@@ -5211,10 +5275,12 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
         // left to add: the row stays, disabled, rather than disappearing.
         ListTile(
           leading: const Icon(Icons.add),
-          title: const Text('Add widget'),
-          subtitle: const Text(
-            'A small clock, the weather, the battery or an entity in a '
-            'corner.',
+          title: Text(screensaverText(context, 'Add widget')),
+          subtitle: Text(
+            screensaverText(
+              context,
+              'A small clock, the weather, the battery or an entity in a corner.',
+            ),
           ),
           enabled: widgets.length < cornerOptions.length,
           onTap: () => _edit(context, null),
@@ -9737,7 +9803,9 @@ class SettingTile extends StatelessWidget {
             title: Text(def.localizedTitle(context)),
             subtitle: Text(
               chosen.isEmpty
-                  ? 'None yet. Up to $screensaverGlanceMax entities.'
+                  ? l10n(context).screensaverOverlayGlanceEmpty(
+                      screensaverGlanceMax.toString(),
+                    )
                   : chosen.map((e) => e['custom_name'] ?? e['name']).join(', '),
             ),
             trailing: const Icon(Icons.edit_outlined),

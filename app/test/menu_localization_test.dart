@@ -4,9 +4,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kiosk_satellite/app_container.dart';
+import 'package:kiosk_satellite/core/command_registry.dart';
 import 'package:kiosk_satellite/core/app_locales.dart';
 import 'package:kiosk_satellite/managers/camera/models.dart';
 import 'package:kiosk_satellite/ui/camera_views_picker.dart';
+import 'package:kiosk_satellite/ui/glance_entity_picker.dart';
 import 'package:kiosk_satellite/l10n/generated/ui_strings.dart';
 import 'package:kiosk_satellite/l10n/generated/ui_strings_en.dart';
 import 'package:kiosk_satellite/managers/settings/definitions.dart' as defs;
@@ -19,6 +21,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 // Test wording exercises localization even before draft catalogs are approved.
 class MenuMessages extends UiStringsEn {
+  @override
+  String get screensaverOverlaySmallClock => 'TEST small clock';
+  @override
+  String get screensaverOverlayCorner => 'TEST corner';
+  @override
+  String get screensaverOverlayValue => 'TEST displayed value';
+  @override
+  String get screensaverOverlayState => 'TEST state';
+  @override
+  String get screensaverOverlayName => 'TEST name';
+  @override
+  String get commonChoose => 'TEST choose';
   @override
   String get screensaverMediaRoot => 'TEST media root';
   @override
@@ -129,6 +143,119 @@ Future<AppContainer> containerFor(WidgetTester tester, Size size) async {
 }
 
 void main() {
+  testWidgets('translated widget editor preserves corner and font settings', (
+    tester,
+  ) async {
+    final container = await containerFor(tester, const Size(800, 1600));
+    final original = [
+      {
+        'position': 'top_right',
+        'type': 'clock',
+        'config': {
+          'color': '1,2,3',
+          'scale': 15,
+          'font': 'oswald',
+          'font_weight': 'black',
+          'h24': true,
+          'date': false,
+        },
+      },
+    ];
+    await container.settings.setFromJson(
+      defs.screensaverWidgets.key,
+      jsonEncode(original),
+    );
+    await tester.pumpWidget(
+      localized(
+        SubpageSettingsScreen(
+          container: container,
+          category: 'Screensaver',
+          subpage: 'Widgets',
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('TEST small clock'));
+    await tester.pumpAndSettle();
+    expect(find.text('TEST corner'), findsOneWidget);
+    expect(find.text('TEST heavy font'), findsOneWidget);
+    expect(find.text('Oswald'), findsOneWidget);
+    await tester.tap(find.text('TEST save'));
+    await tester.pumpAndSettle();
+    expect(
+      jsonDecode(container.settings.get(defs.screensaverWidgets)),
+      original,
+    );
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('translated glance editor preserves names and attribute keys', (
+    tester,
+  ) async {
+    final container = await containerFor(tester, const Size(800, 1400));
+    container.commands.register(
+      Command(
+        name: 'haEntityAttributes',
+        description: 'Test attributes',
+        handler: (_) async =>
+            const CommandResult.ok({'humidity': 51, 'friendly_name': 'State'}),
+      ),
+    );
+    List<Map<String, Object?>>? result;
+    await tester.pumpWidget(
+      localized(
+        Scaffold(
+          body: Builder(
+            builder: (context) => TextButton(
+              onPressed: () async {
+                result = await Navigator.of(context)
+                    .push<List<Map<String, Object?>>>(
+                      MaterialPageRoute(
+                        builder: (_) => GlanceEntityPicker(
+                          container: container,
+                          initial: [
+                            {'entity_id': 'sensor.original', 'name': 'State'},
+                          ],
+                        ),
+                      ),
+                    );
+              },
+              child: const Text('Open picker'),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.tap(find.text('Open picker'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('State'));
+    await tester.pumpAndSettle();
+    expect(find.text('TEST displayed value'), findsOneWidget);
+    expect(find.text('TEST state'), findsOneWidget);
+    final nameField = find.descendant(
+      of: find.widgetWithText(LabeledField, 'TEST name'),
+      matching: find.byType(TextField),
+    );
+    await tester.enterText(nameField, 'My name');
+    await tester.tap(find.text('TEST choose'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('humidity'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('TEST save').last);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('TEST save'));
+    await tester.pumpAndSettle();
+    expect(result, [
+      {
+        'entity_id': 'sensor.original',
+        'name': 'State',
+        'custom_name': 'My name',
+        'attribute': 'humidity',
+      },
+    ]);
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets(
     'translated camera picker preserves supplied names and view IDs',
     (tester) async {

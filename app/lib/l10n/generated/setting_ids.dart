@@ -644,4 +644,64 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingScreensaverCameraMuteTitle",
     "description": "settingScreensaverCameraMuteDescription",
   },
+  "screensaver.widgets": {
+    "title": "settingScreensaverWidgetsTitle",
+    "description": "settingScreensaverWidgetsDescription",
+  },
+  "screensaver.widget_scale": {
+    "title": "settingScreensaverWidgetScaleTitle",
+    "description": "settingScreensaverWidgetScaleDescription",
+  },
+  "screensaver.widget_font": {
+    "title": "settingScreensaverWidgetFontTitle",
+    "description": "settingScreensaverWidgetFontDescription",
+  },
+  "screensaver.widget_font_weight": {
+    "title": "settingScreensaverWidgetFontWeightTitle",
+    "description": "settingScreensaverWidgetFontWeightDescription",
+  },
+  "screensaver.widget_text_shadow": {
+    "title": "settingScreensaverWidgetTextShadowTitle",
+    "description": "settingScreensaverWidgetTextShadowDescription",
+  },
+  "screensaver.vignette_strength": {
+    "title": "settingScreensaverVignetteStrengthTitle",
+    "description": "settingScreensaverVignetteStrengthDescription",
+  },
+  "screensaver.glance_enabled": {
+    "title": "settingScreensaverGlanceEnabledTitle",
+    "description": "settingScreensaverGlanceEnabledDescription",
+  },
+  "screensaver.glance_entities": {
+    "title": "settingScreensaverGlanceEntitiesTitle",
+    "description": "settingScreensaverGlanceEntitiesDescription",
+  },
+  "screensaver.glance_scale": {
+    "title": "settingScreensaverGlanceScaleTitle",
+    "description": "settingScreensaverGlanceScaleDescription",
+  },
+  "screensaver.glance_font": {
+    "title": "settingScreensaverGlanceFontTitle",
+    "description": "settingScreensaverGlanceFontDescription",
+  },
+  "screensaver.glance_font_weight": {
+    "title": "settingScreensaverGlanceFontWeightTitle",
+    "description": "settingScreensaverGlanceFontWeightDescription",
+  },
+  "screensaver.glance_hide_names": {
+    "title": "settingScreensaverGlanceHideNamesTitle",
+    "description": "settingScreensaverGlanceHideNamesDescription",
+  },
+  "screensaver.glance_bw_icons": {
+    "title": "settingScreensaverGlanceBwIconsTitle",
+    "description": "settingScreensaverGlanceBwIconsDescription",
+  },
+  "screensaver.glance_text_only": {
+    "title": "settingScreensaverGlanceTextOnlyTitle",
+    "description": "settingScreensaverGlanceTextOnlyDescription",
+  },
+  "screensaver.glance_now_playing": {
+    "title": "settingScreensaverGlanceNowPlayingTitle",
+    "description": "settingScreensaverGlanceNowPlayingDescription",
+  },
 };

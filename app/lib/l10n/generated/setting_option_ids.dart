@@ -133,6 +133,38 @@ const settingOptionMessageIds = <String, Map<String, String>>{
     "3650": "screensaverMediaPast10Years",
     "since": "screensaverMediaSince",
     "range": "screensaverMediaTimeframe"
+  },
+  "screensaver.widget_font_weight": {
+    "default": "screensaverFontDefault",
+    "light": "screensaverFontLight",
+    "regular": "screensaverFontRegular",
+    "medium": "screensaverFontMedium",
+    "bold": "screensaverFontBold",
+    "black": "screensaverFontBlack"
+  },
+  "screensaver.glance_font_weight": {
+    "default": "screensaverFontDefault",
+    "light": "screensaverFontLight",
+    "regular": "screensaverFontRegular",
+    "medium": "screensaverFontMedium",
+    "bold": "screensaverFontBold",
+    "black": "screensaverFontBlack"
+  },
+  "screensaver.widget_font": {
+    "system": "screensaverOverlayFontSystem",
+    "serif": "screensaverOverlayFontSerif",
+    "condensed": "screensaverOverlayFontCondensed",
+    "monospace": "screensaverOverlayFontMonospace",
+    "casual": "screensaverOverlayFontCasual",
+    "cursive": "screensaverOverlayFontCursive"
+  },
+  "screensaver.glance_font": {
+    "system": "screensaverOverlayFontSystem",
+    "serif": "screensaverOverlayFontSerif",
+    "condensed": "screensaverOverlayFontCondensed",
+    "monospace": "screensaverOverlayFontMonospace",
+    "casual": "screensaverOverlayFontCasual",
+    "cursive": "screensaverOverlayFontCursive"
   }
 };
 const settingPlaceholderMessageIds = <String, String>{

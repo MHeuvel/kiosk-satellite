@@ -1,0 +1,210 @@
+{
+  "@@locale": "en",
+  "settingScreensaverGlanceEnabledTitle": "At a glance",
+  "@settingScreensaverGlanceEnabledTitle": {
+    "context": "Settings > Screensaver > At a Glance",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceEnabledDescription": "Show a row of Home Assistant entity states on the screensaver.",
+  "@settingScreensaverGlanceEnabledDescription": {
+    "context": "Settings > Screensaver > At a Glance",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceEntitiesTitle": "Entities",
+  "@settingScreensaverGlanceEntitiesTitle": {
+    "context": "Settings > Screensaver > At a Glance",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceEntitiesDescription": "Up to four entities to show, each with an optional custom name.",
+  "@settingScreensaverGlanceEntitiesDescription": {
+    "context": "Settings > Screensaver > At a Glance",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceNowPlayingTitle": "Show on Now Playing",
+  "@settingScreensaverGlanceNowPlayingTitle": {
+    "context": "Settings > Screensaver > At a Glance",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance"
+      ]
+    }
+  },
+  "settingScreensaverGlanceNowPlayingDescription": "Show the row on the full-screen Now Playing view. It stays hidden while lyrics are showing.",
+  "@settingScreensaverGlanceNowPlayingDescription": {
+    "context": "Settings > Screensaver > At a Glance",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance"
+      ]
+    }
+  },
+  "screensaverOverlayShowing": "Showing",
+  "@screensaverOverlayShowing": {
+    "context": "Settings > Screensaver > At a Glance",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance"
+      ]
+    }
+  },
+  "screensaverOverlayReorder": "Showing (drag to reorder)",
+  "@screensaverOverlayReorder": {
+    "context": "Settings > Screensaver > At a Glance",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance"
+      ]
+    }
+  },
+  "screensaverOverlayFull": "That is the most the row can show. Remove one to add another.",
+  "@screensaverOverlayFull": {
+    "context": "Settings > Screensaver > At a Glance",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance"
+      ]
+    }
+  },
+  "screensaverOverlayPickerTitle": "At a glance entities",
+  "@screensaverOverlayPickerTitle": {
+    "context": "Settings > Screensaver > At a Glance",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance"
+      ]
+    }
+  },
+  "screensaverOverlayGlanceEmpty": "None yet. Up to {count} entities.",
+  "@screensaverOverlayGlanceEmpty": {
+    "context": "Settings > Screensaver > At a Glance",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Maximum number of entities."
+      }
+    }
+  },
+  "screensaverOverlayNone": "None yet",
+  "@screensaverOverlayNone": {
+    "context": "Settings > Screensaver > At a Glance",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance"
+      ]
+    }
+  },
+  "screensaverOverlayLimit": "Up to {count} entities.",
+  "@screensaverOverlayLimit": {
+    "context": "Settings > Screensaver > At a Glance",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Maximum number of entities."
+      }
+    }
+  },
+  "screensaverOverlayGlancePage": "At a Glance",
+  "@screensaverOverlayGlancePage": {
+    "context": "Settings > Screensaver > At a Glance",
+    "description": "Subpage navigation title or summary.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance"
+      ]
+    }
+  },
+  "screensaverOverlayGlanceHint": "Entities shown over the screensaver",
+  "@screensaverOverlayGlanceHint": {
+    "context": "Settings > Screensaver > At a Glance",
+    "description": "Subpage navigation title or summary.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > At a Glance"
+      ],
+      "remoteAdmin": [
+        "Screensaver > At a Glance"
+      ]
+    }
+  }
+}
