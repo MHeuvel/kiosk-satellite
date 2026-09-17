@@ -1,3 +1,4 @@
+import { screenAudioText, t } from './localization.js';
 import { watchUpdates } from './live.js';
 import { api, cmd, state } from './core.js';
 import { readOnlyRow } from './device.js';
@@ -28,10 +29,10 @@ export function micLevelRow() {
   row.dataset.key = 'x:mic_level';
   const info = document.createElement('div'); info.className = 'info';
   info.innerHTML = `<div class="name"></div><div class="desc"></div>`;
-  info.querySelector('.name').textContent = 'Microphone level';
+  info.querySelector('.name').textContent = screenAudioText('Microphone level');
   info.querySelector('.desc').textContent =
-    'Speak from where you use the device; adjust the gain until normal ' +
-    'speech tops out around the end of the green.';
+    screenAudioText('Speak from where you use the device; adjust the gain until normal ' +
+    'speech tops out around the end of the green.');
   row.appendChild(info);
   const wrap = document.createElement('div');
   wrap.style.cssText =
@@ -117,9 +118,9 @@ export async function prependMasterVolumeRow() {
   row.dataset.key = 'master-volume';
   const info = document.createElement('div'); info.className = 'info';
   info.innerHTML = '<div class="name"></div><div class="desc"></div>';
-  info.querySelector('.name').textContent = 'Master volume';
+  info.querySelector('.name').textContent = screenAudioText('Master volume');
   info.querySelector('.desc').textContent =
-    'The device volume. Media, intercom and assistant volumes scale under it.';
+    screenAudioText('The device volume. Media, intercom and assistant volumes scale under it.');
   row.appendChild(info);
   attachSlider(row, { min: 0, max: 100, step: 5, value: Math.round(percent),
     label: (v) => `${v}%`,
@@ -153,16 +154,16 @@ export async function appendAudioDeviceRows(card, wakeWordOn, watching = false) 
   if (wakeWordOn) {
     rows.push({
       key: 'audio.mic_device',
-      title: 'Microphone',
-      desc: 'The microphone wake word detection and voice turns capture from.',
+      title: screenAudioText('Microphone'),
+      desc: screenAudioText('The microphone wake word detection and voice turns capture from.'),
       list: data.inputs || [],
       current: data.micSelected || '',
     });
   }
   rows.push({
     key: 'audio.speaker_device',
-    title: 'Speaker',
-    desc: 'Output for Voice Satellite sounds; media playback follows the system route. Echo cancellation only works with the microphone and speaker on the same device.',
+    title: screenAudioText('Speaker'),
+    desc: screenAudioText('Output for Voice Satellite sounds; media playback follows the system route. Echo cancellation only works with the microphone and speaker on the same device.'),
     list: data.outputs || [],
     current: data.speakerSelected || '',
   });
@@ -172,10 +173,10 @@ export async function appendAudioDeviceRows(card, wakeWordOn, watching = false) 
     row.dataset.key = spec.key;
     row.querySelector('span').remove();
     const sel = document.createElement('select');
-    const opts = [{ selector: '', label: 'Automatic' }, ...spec.list];
+    const opts = [{ selector: '', label: screenAudioText('Automatic') }, ...spec.list];
     if (spec.current && !opts.some((o) => o.selector === spec.current)) {
-      const name = spec.current.split('|')[2] || 'Selected device';
-      opts.push({ selector: spec.current, label: `${name} (not connected)` });
+      const name = spec.current.split('|')[2] || screenAudioText('Selected device');
+      opts.push({ selector: spec.current, label: t('screenAudioDisconnected', {name}) });
     }
     for (const o of opts) {
       const opt = document.createElement('option');
@@ -228,17 +229,17 @@ export async function updateMicChannelRow() {
     } catch (_) {}
   }
   if (channels < 2) { old?.remove(); return; }
-  const row = readOnlyRow(setting.title, setting.description, '');
+  const row = readOnlyRow(screenAudioText(setting.title), screenAudioText(setting.description), '');
   row.querySelector('span').remove();
   row.dataset.key = 'audio.mic_channel';
   const current = Number(setting.value) || 0;
-  const opts = [[0, 'Downmix (default)']];
-  for (let i = 1; i <= channels; i++) opts.push([i, `Channel ${i}`]);
+  const opts = [[0, screenAudioText('Downmix (default)')]];
+  for (let i = 1; i <= channels; i++) opts.push([i, t('screenAudioChannel', {channel: String(i)})]);
   // A stored channel beyond what the mic reports stays visible instead of
   // masquerading as another option; capture falls back to the mono downmix
   // until it is repicked.
   if (current > channels) {
-    opts.push([current, `Channel ${current} (not on this microphone)`]);
+    opts.push([current, t('screenAudioChannelMissing', {channel: String(current)})]);
   }
   const sel = document.createElement('select');
   for (const [v, label] of opts) {

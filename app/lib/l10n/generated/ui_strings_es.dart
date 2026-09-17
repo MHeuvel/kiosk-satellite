@@ -1967,6 +1967,330 @@ class UiStringsEs extends UiStrings {
   String get settingsMenuThemeAuto => 'Automático';
 
   @override
+  String get settingAdaptiveBrightnessTitle => 'Adaptive brightness';
+
+  @override
+  String get settingAdaptiveBrightnessDescription =>
+      'Dim the screen as the room gets darker, using the ambient light sensor.';
+
+  @override
+  String get settingAdaptiveMinBrightnessTitle => 'Minimum brightness';
+
+  @override
+  String get settingAdaptiveMinBrightnessDescription =>
+      'Screen brightness in a dark room.';
+
+  @override
+  String get settingAdaptiveMaxBrightnessTitle => 'Maximum brightness';
+
+  @override
+  String get settingAdaptiveMaxBrightnessDescription =>
+      'Screen brightness in a bright room.';
+
+  @override
+  String get settingAdaptiveDarkLuxTitle => 'Dark room (lx)';
+
+  @override
+  String get settingAdaptiveDarkLuxDescription =>
+      'Light level at or below which the screen sits at Minimum brightness.';
+
+  @override
+  String get settingAdaptiveBrightLuxTitle => 'Bright room (lx)';
+
+  @override
+  String get settingAdaptiveBrightLuxDescription =>
+      'Light level at or above which the screen sits at Maximum brightness.';
+
+  @override
+  String get screenAudioAdaptiveHint =>
+      'Follow the room light with the ambient light sensor';
+
+  @override
+  String get screenAudioAdaptiveNote =>
+      'Level in a bright room. Adaptive brightness dims it from there.';
+
+  @override
+  String get screenAudioAdaptiveOwns => 'Adaptive brightness is on.';
+
+  @override
+  String get screenAudioNoSensor => 'No ambient light sensor on this device.';
+
+  @override
+  String get screenAudioAmbientLight => 'Ambient light';
+
+  @override
+  String get screenAudioAmbientHelp =>
+      'What the ambient light sensor reads right now.';
+
+  @override
+  String get screenAudioNoReading => 'No reading yet';
+
+  @override
+  String screenAudioLux(String lux) {
+    return '$lux lx';
+  }
+
+  @override
+  String screenAudioLuxLast(String lux) {
+    return '$lux lx (last known)';
+  }
+
+  @override
+  String get screenAudioSetsMaximum =>
+      'Sets Maximum brightness: adaptive brightness is on.';
+
+  @override
+  String get screenAudioSetsDefault => 'Sets Default brightness.';
+
+  @override
+  String get settingAudioMicDeviceTitle => 'Microphone';
+
+  @override
+  String get settingAudioMicDeviceDescription =>
+      'The microphone wake word detection and voice turns capture from.';
+
+  @override
+  String get settingAudioSpeakerDeviceTitle => 'Speaker';
+
+  @override
+  String get settingAudioSpeakerDeviceDescription =>
+      'Output for Voice Satellite sounds; media playback follows the system route. Echo cancellation only works with the microphone and speaker on the same device.';
+
+  @override
+  String get screenAudioDevices => 'Audio Devices';
+
+  @override
+  String get screenAudioSelectedDevice => 'Selected device';
+
+  @override
+  String screenAudioDisconnected(String name) {
+    return '$name (not connected)';
+  }
+
+  @override
+  String get settingMicAudioSourceTitle => 'Capture mode';
+
+  @override
+  String get settingMicAudioSourceDescription =>
+      'Voice communication is the only mode with echo cancellation, so leave it unless the microphone reads far quieter here than in a recorder app.';
+
+  @override
+  String get settingMicEchoCancellationTitle => 'Echo cancellation';
+
+  @override
+  String get settingMicEchoCancellationDescription =>
+      'Keeps the kiosk\'s own speaker out of the microphone so the stop word works during playback. Turn it off only if the microphone reads far quieter here than in a recorder app.';
+
+  @override
+  String get settingMicChannelTitle => 'Microphone channel';
+
+  @override
+  String get settingMicChannelDescription =>
+      'Multichannel microphones often reserve one channel for speech recognition; picking it can improve detection.';
+
+  @override
+  String get settingMicAgcTitle => 'Automatic gain control';
+
+  @override
+  String get settingMicAgcDescription =>
+      'Let Android level the microphone instead of a fixed gain. It also lifts room noise, and on some devices it does nothing at all.';
+
+  @override
+  String get settingMicNoiseSuppressionTitle => 'Noise suppression';
+
+  @override
+  String get settingMicNoiseSuppressionDescription =>
+      'Reduce microphone background noise using Android processing. It may help or hurt wake word detection depending on the device.';
+
+  @override
+  String get settingMicGainDbTitle => 'Microphone gain';
+
+  @override
+  String get settingMicGainDbDescription =>
+      'Boost or cut the microphone before anything hears it. Aim for a level near 0.05 in the wake word tester; too much gain distorts speech and hurts detection.';
+
+  @override
+  String get settingMicCaptureFormatTitle => 'Capture format';
+
+  @override
+  String get settingMicCaptureFormatDescription =>
+      'Pick 48 kHz stereo when the microphone works in other apps but not here: some sound cards record in that format only and the app converts it itself.';
+
+  @override
+  String get screenAudioMicrophoneSettings => 'Microphone settings';
+
+  @override
+  String get screenAudioMicrophoneHint =>
+      'Capture mode, channel, gain, live level';
+
+  @override
+  String get screenAudioMicrophoneNote =>
+      'Adjust capture for your microphone and room. Test wake words and voice interactions after changing these settings.';
+
+  @override
+  String get screenAudioVoiceCommunication => 'Voice communication (default)';
+
+  @override
+  String get screenAudioVoiceRecognition => 'Voice recognition';
+
+  @override
+  String get screenAudioRawMicrophone => 'Raw microphone';
+
+  @override
+  String get screenAudioAutomaticDefault => 'Automatic (default)';
+
+  @override
+  String get screenAudioStereo => '48 kHz stereo';
+
+  @override
+  String get screenAudioDownmix => 'Downmix (default)';
+
+  @override
+  String screenAudioChannel(String channel) {
+    return 'Channel $channel';
+  }
+
+  @override
+  String screenAudioChannelMissing(String channel) {
+    return 'Channel $channel (not on this microphone)';
+  }
+
+  @override
+  String get screenAudioMicrophoneLevel => 'Microphone level';
+
+  @override
+  String get screenAudioMicrophoneLevelHelp =>
+      'Speak from where you use the device; adjust the gain until normal speech tops out around the end of the green.';
+
+  @override
+  String get settingBrowserCutoutModeTitle => 'Display cutout';
+
+  @override
+  String get settingBrowserCutoutModeDescription =>
+      'What to do with the screen area around a camera cutout or punch hole. Pick Avoid the cutout if the camera sits on top of buttons at the top of the dashboard.';
+
+  @override
+  String get settingScreenOrientationTitle => 'Screen orientation';
+
+  @override
+  String get settingScreenOrientationDescription =>
+      'Force the screen into one orientation. Use this on a device without a rotation sensor, or one mounted a way the sensor gets wrong.';
+
+  @override
+  String get settingKeepScreenOnTitle => 'Keep screen on';
+
+  @override
+  String get settingKeepScreenOnDescription =>
+      'Prevent the OS from turning the screen off.';
+
+  @override
+  String get settingSetBrightnessOnLaunchTitle => 'Set brightness on launch';
+
+  @override
+  String get settingSetBrightnessOnLaunchDescription =>
+      'Apply the default brightness whenever the app starts.';
+
+  @override
+  String get settingDefaultBrightnessTitle => 'Default brightness';
+
+  @override
+  String get settingDefaultBrightnessDescription =>
+      'Screen brightness applied when the app starts. Moving the slider applies it immediately.';
+
+  @override
+  String get screenAudioScreen => 'Screen';
+
+  @override
+  String get screenAudioCutoutAlways => 'Use the cutout area';
+
+  @override
+  String get screenAudioCutoutShort => 'Short edges only';
+
+  @override
+  String get screenAudioCutoutDefault => 'System default';
+
+  @override
+  String get screenAudioCutoutNever => 'Avoid the cutout';
+
+  @override
+  String get screenAudioAutomatic => 'Automatic';
+
+  @override
+  String get screenAudioLandscape => 'Landscape';
+
+  @override
+  String get screenAudioReverseLandscape => 'Reverse landscape';
+
+  @override
+  String get screenAudioPortrait => 'Portrait';
+
+  @override
+  String get screenAudioReversePortrait => 'Reverse portrait';
+
+  @override
+  String get screenAudioPermission => 'Permission';
+
+  @override
+  String get screenAudioBrightnessFallback => 'Brightness is using a fallback';
+
+  @override
+  String get screenAudioBrightnessPermission =>
+      'Without the \"Modify system settings\" permission, brightness changes only dim this app instead of setting the panel\'s actual brightness.';
+
+  @override
+  String get screenAudioBrightnessPermissionRemote =>
+      'Without the \"Modify system settings\" permission, brightness changes only dim the app instead of setting the panel\'s actual brightness.';
+
+  @override
+  String get screenAudioAlwaysOn => 'Always-on display';
+
+  @override
+  String get screenAudioAlwaysOnClock => 'This device keeps a dim clock on';
+
+  @override
+  String get screenAudioAlwaysOnHelp =>
+      'Turning the screen off puts the device to sleep, but the always-on display lights the lock screen back up and no app can stop it. Turn off \"Always show time and info\" in Android settings under Display, near the lock screen options; some ROMs call it always-on display. The Home Assistant screen entity stays unavailable until you do.';
+
+  @override
+  String get settingMediaVolumeTitle => 'Media volume';
+
+  @override
+  String get settingMediaVolumeDescription =>
+      'Music and video play at this share of the master volume. The Sendspin player volume in Music Assistant moves this slider.';
+
+  @override
+  String get settingAssistantVolumeTitle => 'Assistant volume';
+
+  @override
+  String get settingAssistantVolumeDescription =>
+      'Voice responses and chimes play at this share of the master volume, independent of the media volume.';
+
+  @override
+  String get settingAssistantFullVolumeRangeTitle =>
+      'Full assistant volume range';
+
+  @override
+  String get settingAssistantFullVolumeRangeDescription =>
+      'Initialize the built-in speaker\'s call volume at 100% when assistant audio first starts. Master and assistant volume still apply. Other apps share this call volume, which is not restored afterward.';
+
+  @override
+  String get settingIntercomVolumeTitle => 'Intercom volume';
+
+  @override
+  String get settingIntercomVolumeDescription =>
+      'The other kiosk\'s voice and announcements play at this share of the master volume.';
+
+  @override
+  String get screenAudioVolume => 'Audio Volume';
+
+  @override
+  String get screenAudioMasterVolume => 'Master volume';
+
+  @override
+  String get screenAudioMasterHelp =>
+      'The device volume. Media, intercom and assistant volumes scale under it.';
+
+  @override
   String get settingsSearchHint => 'Buscar en la configuración';
 
   @override

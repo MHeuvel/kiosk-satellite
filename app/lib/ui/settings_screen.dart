@@ -129,7 +129,9 @@ List<Widget> _sectionedCards(
       if (current != null && !(out.isEmpty && current == subpage)) {
         final heading = current;
         out.add(
-          (def.category == 'Device' || def.category == 'Home Assistant')
+          (def.category == 'Device' ||
+                  def.category == 'Home Assistant' ||
+                  def.category == 'Screen & Audio')
               ? Builder(
                   builder: (context) => SectionHeading(
                     settingsPageText(context, def.category, heading),
@@ -438,6 +440,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         pageText: (text) => navigationText(context, text),
         deviceTextFor: (text) => deviceText(context, text),
         haTextFor: (text) => haText(context, text),
+        screenAudioTextFor: (text) => screenAudioText(context, text),
         titleFor: (def) => def.localizedTitle(context),
         descriptionFor: (def) => def.localizedDescription(context),
       );
@@ -854,7 +857,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                       'settings-sub-$category-$_subpage',
                                   title:
                                       (category == 'Device' ||
-                                          category == 'Home Assistant')
+                                          category == 'Home Assistant' ||
+                                          category == 'Screen & Audio')
                                       ? settingsPageText(
                                           context,
                                           category,
@@ -1363,7 +1367,9 @@ class SubpageSettingsScreen extends StatelessWidget {
             const SizedBox(width: 12),
             Flexible(
               child: Text(
-                (category == 'Device' || category == 'Home Assistant')
+                (category == 'Device' ||
+                        category == 'Home Assistant' ||
+                        category == 'Screen & Audio')
                     ? settingsPageText(context, category, subpage)
                     : pluginSubpageTitle(container, category, subpage),
                 overflow: TextOverflow.ellipsis,
@@ -2165,7 +2171,7 @@ class _CategoryContentState extends State<_CategoryContent> {
           // One card, mixer-style: the master fader (live device volume,
           // not a setting) with the media and assistant faders that scale
           // under it. The remote UI mirrors this page.
-          const SectionHeading('Audio Volume'),
+          SectionHeading(screenAudioText(context, 'Audio Volume')),
           SettingsCard(
             children: [
               SearchLandingTarget(
@@ -2185,7 +2191,7 @@ class _CategoryContentState extends State<_CategoryContent> {
           // the remote UI mirrors both rows. The mic one only while detection
           // is on — with it off this app never opens the microphone, the
           // browser does.
-          const SectionHeading('Audio Devices'),
+          SectionHeading(screenAudioText(context, 'Audio Devices')),
           SettingsCard(
             children: [
               if (container.settings.get(wakeWordEnabled))
@@ -2698,8 +2704,8 @@ class _CategoryContentState extends State<_CategoryContent> {
         id: defaultBrightness.key,
         child: SettingsRow(
           enabled: false,
-          title: Text(defaultBrightness.title),
-          subtitle: const Text(_adaptiveOwnsNote),
+          title: Text(defaultBrightness.localizedTitle(context)),
+          subtitle: Text(screenAudioText(context, _adaptiveOwnsNote)),
           trailing: Text(
             '${(container.settings.get(defaultBrightness) * 100).round()}%',
           ),
@@ -2711,8 +2717,8 @@ class _CategoryContentState extends State<_CategoryContent> {
       adaptiveBrightness.key: SearchLandingTarget(
         id: adaptiveBrightness.key,
         child: SwitchListTile(
-          title: Text(adaptiveBrightness.title),
-          subtitle: const Text(_noLightSensorNote),
+          title: Text(adaptiveBrightness.localizedTitle(context)),
+          subtitle: Text(screenAudioText(context, _noLightSensorNote)),
           value: false,
           onChanged: null,
         ),
@@ -2731,7 +2737,7 @@ class _CategoryContentState extends State<_CategoryContent> {
         id: screensaverClockNight.key,
         child: SwitchListTile(
           title: Text(screensaverClockNight.title),
-          subtitle: const Text(_noLightSensorNote),
+          subtitle: Text(screenAudioText(context, _noLightSensorNote)),
           value: false,
           onChanged: null,
         ),
@@ -2813,7 +2819,9 @@ class _CategoryContentState extends State<_CategoryContent> {
     // is on: the slider is the bright-room level the room's light dims
     // from, which is not what a slider called "brightness" says on its own.
     if (widget.category == 'Screensaver' && _adaptiveOn(container))
-      screensaverBrightnessLevel.key: const HintRow(_adaptiveNote),
+      screensaverBrightnessLevel.key: HintRow(
+        screenAudioText(context, _adaptiveNote),
+      ),
     if (widget.category == 'Camera')
       cameraRtspResolution.key: HintRow(
         container.settings.cameraResolutionNotice,
@@ -2871,7 +2879,8 @@ class _CategoryContentState extends State<_CategoryContent> {
         children: [
           if (container.settings.get(screensaverMode) == 'dim')
             const WarnRow(_dimModeNote),
-          if (_adaptiveOn(container)) const HintRow(_adaptiveNote),
+          if (_adaptiveOn(container))
+            HintRow(screenAudioText(context, _adaptiveNote)),
         ],
       ),
     if (widget.category == 'Screensaver') ...{
@@ -3249,7 +3258,7 @@ class _CategoryContentState extends State<_CategoryContent> {
 
     if (widget.category == 'Screen & Audio') {
       return [
-        const GroupNote(_micGroupNote),
+        GroupNote(screenAudioText(context, _micGroupNote)),
         SettingsCard(
           children: [
             for (final def in _defsFor(widget.category))
@@ -5180,13 +5189,16 @@ class _AmbientLightRowState extends State<_AmbientLightRow> {
   Widget build(BuildContext context) {
     final lux = _lux;
     return SettingsRow(
-      title: const Text('Ambient light'),
-      subtitle: const Text(_ambientLightNote),
+      title: Text(screenAudioText(context, 'Ambient light')),
+      subtitle: Text(screenAudioText(context, _ambientLightNote)),
       trailing: Text(
         lux == null
-            ? 'No reading yet'
-            : '${lux == lux.roundToDouble() ? lux.toInt() : lux.toStringAsFixed(1)} lx'
-                  '${_live ? '' : ' (last known)'}',
+            ? screenAudioText(context, 'No reading yet')
+            : (_live
+                  ? l10n(context).screenAudioLux
+                  : l10n(context).screenAudioLuxLast)(
+                '${lux == lux.roundToDouble() ? lux.toInt() : lux.toStringAsFixed(1)}',
+              ),
       ),
     );
   }
@@ -6412,20 +6424,25 @@ class _BrightnessGrantCardState extends State<_BrightnessGrantCard> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const SectionHeading('Permission'),
+        SectionHeading(screenAudioText(context, 'Permission')),
         SettingsCard(
           children: [
             ListTile(
               leading: const Icon(Icons.brightness_6_outlined),
-              title: const Text('Brightness is using a fallback'),
-              subtitle: const Text(
-                'Without the "Modify system settings" permission, '
-                'brightness changes only dim this app instead of setting '
-                "the panel's actual brightness.",
+              title: Text(
+                screenAudioText(context, 'Brightness is using a fallback'),
+              ),
+              subtitle: Text(
+                screenAudioText(
+                  context,
+                  'Without the "Modify system settings" permission, '
+                  'brightness changes only dim this app instead of setting '
+                  "the panel's actual brightness.",
+                ),
               ),
               trailing: FilledButton.tonal(
                 onPressed: _request,
-                child: const Text('Grant'),
+                child: Text(screenAudioText(context, 'Grant')),
               ),
             ),
           ],
@@ -6473,20 +6490,25 @@ class _AmbientDisplayCardState extends State<_AmbientDisplayCard> {
     if (!widget.container.screen.ambientDisplay) return const SizedBox.shrink();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: const [
-        SectionHeading('Always-on display'),
+      children: [
+        SectionHeading(screenAudioText(context, 'Always-on display')),
         SettingsCard(
           children: [
             ListTile(
-              leading: Icon(Icons.brightness_low_outlined),
-              title: Text('This device keeps a dim clock on'),
+              leading: const Icon(Icons.brightness_low_outlined),
+              title: Text(
+                screenAudioText(context, 'This device keeps a dim clock on'),
+              ),
               subtitle: Text(
-                'Turning the screen off puts the device to sleep, but the '
-                'always-on display lights the lock screen back up and no app '
-                'can stop it. Turn off "Always show time and info" in '
-                'Android settings under Display, near the lock screen '
-                'options; some ROMs call it always-on display. The Home '
-                'Assistant screen entity stays unavailable until you do.',
+                screenAudioText(
+                  context,
+                  'Turning the screen off puts the device to sleep, but the '
+                  'always-on display lights the lock screen back up and no app '
+                  'can stop it. Turn off "Always show time and info" in '
+                  'Android settings under Display, near the lock screen '
+                  'options; some ROMs call it always-on display. The Home '
+                  'Assistant screen entity stays unavailable until you do.',
+                ),
               ),
             ),
           ],
@@ -7439,7 +7461,7 @@ class _AudioDeviceTileState extends State<AudioDeviceTile> {
     final current = c.settings.get(widget.def);
     final devices = _devices;
     final options = <(String, String)>[
-      ('', 'Automatic'),
+      ('', screenAudioText(context, 'Automatic')),
       ...?devices,
       // A configured device that is not present right now: keep it choosable
       // (it comes back when the device does), named from its selector.
@@ -7448,19 +7470,30 @@ class _AudioDeviceTileState extends State<AudioDeviceTile> {
           !devices.any((d) => d.$1 == current))
         (
           current,
-          '${current.split('|').length > 2 && current.split('|')[2].isNotEmpty ? current.split('|')[2] : 'Selected device'} (not connected)',
+          l10n(context).screenAudioDisconnected(
+            current.split('|').length > 2 && current.split('|')[2].isNotEmpty
+                ? current.split('|')[2]
+                : screenAudioText(context, 'Selected device'),
+          ),
         ),
     ];
     if (devices == null) {
       return ListTile(
-        title: Text(widget.def.localizedTitle(context)),
-        subtitle: Text(widget.def.localizedDescription(context)),
+        title: Text(
+          screenAudioText(context, widget.def.localizedTitle(context)),
+        ),
+        subtitle: Text(
+          screenAudioText(context, widget.def.localizedDescription(context)),
+        ),
         trailing: const Text('…'),
       );
     }
     return DropdownRow<String>(
-      title: widget.def.localizedTitle(context),
-      description: widget.def.localizedDescription(context),
+      title: screenAudioText(context, widget.def.localizedTitle(context)),
+      description: screenAudioText(
+        context,
+        widget.def.localizedDescription(context),
+      ),
       value: options.any((o) => o.$1 == current) ? current : '',
       options: options,
       onChanged: (v) async {
@@ -7542,17 +7575,18 @@ class _MicChannelTileState extends State<MicChannelTile> {
     final c = widget.container;
     final current = c.settings.get(micChannel).toInt();
     final options = <(num, String)>[
-      (0, 'Downmix (default)'),
-      for (var i = 1; i <= _channels; i++) (i, 'Channel $i'),
+      (0, screenAudioText(context, 'Downmix (default)')),
+      for (var i = 1; i <= _channels; i++)
+        (i, l10n(context).screenAudioChannel('$i')),
       // A stored channel beyond what the mic reports stays visible instead
       // of masquerading as another option; capture falls back to the mono
       // downmix until it is repicked.
       if (current > _channels)
-        (current, 'Channel $current (not on this microphone)'),
+        (current, l10n(context).screenAudioChannelMissing('$current')),
     ];
     return DropdownRow<num>(
-      title: micChannel.title,
-      description: micChannel.description,
+      title: screenAudioText(context, micChannel.title),
+      description: screenAudioText(context, micChannel.description),
       value: current,
       options: options,
       onChanged: (v) async {
@@ -9060,9 +9094,12 @@ class _MasterVolumeTileState extends State<_MasterVolumeTile> {
     return Column(
       children: [
         ListTile(
-          title: const Text('Master volume'),
-          subtitle: const Text(
-            'The device volume. Media, intercom and assistant volumes scale under it.',
+          title: Text(screenAudioText(context, 'Master volume')),
+          subtitle: Text(
+            screenAudioText(
+              context,
+              'The device volume. Media, intercom and assistant volumes scale under it.',
+            ),
           ),
           trailing: Text(
             '${value.round()}%',

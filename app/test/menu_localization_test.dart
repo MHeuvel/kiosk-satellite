@@ -16,6 +16,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 // Test wording exercises localization even before draft catalogs are approved.
 class MenuMessages extends UiStringsEn {
   @override
+  String get screenAudioReversePortrait => 'TEST reverse portrait';
+  @override
+  String get settingAdaptiveBrightnessTitle => 'TEST adaptive';
+  @override
+  String get screenAudioNoSensor => 'TEST no sensor';
+  @override
   String get settingHaHoldModeTitle => 'TEST hold page';
   @override
   String get settingHaHoldModeDescription => 'TEST hold explanation';
@@ -103,6 +109,57 @@ Future<AppContainer> containerFor(WidgetTester tester, Size size) async {
 }
 
 void main() {
+  testWidgets('Screen and Audio choices keep values and sensor gating', (
+    tester,
+  ) async {
+    final container = await containerFor(tester, const Size(600, 1200));
+    await tester.pumpWidget(
+      localized(
+        Scaffold(
+          body: SettingTile(
+            container: container,
+            def: defs.screenOrientation,
+            onChanged: () {},
+          ),
+        ),
+      ),
+    );
+    final row = tester.widget<DropdownRow<String>>(
+      find.byType(DropdownRow<String>),
+    );
+    expect(
+      row.options,
+      contains(('reverse_portrait', 'TEST reverse portrait')),
+    );
+    row.onChanged('reverse_portrait');
+    await tester.pump();
+    expect(container.settings.get(defs.screenOrientation), 'reverse_portrait');
+    container.device.hasLightSensor = false;
+    await tester.pumpWidget(
+      localized(
+        SubpageSettingsScreen(
+          container: container,
+          category: 'Screen & Audio',
+          subpage: 'Adaptive brightness',
+        ),
+      ),
+    );
+    await tester.pump();
+    expect(find.text('TEST no sensor'), findsOneWidget);
+    final toggle = tester.widget<SwitchListTile>(
+      find.byType(SwitchListTile).first,
+    );
+    expect(toggle.onChanged, isNull);
+    expect(toggle.value, isFalse);
+    expect(
+      tester
+          .widget<SubpageSettingsScreen>(find.byType(SubpageSettingsScreen))
+          .subpage,
+      'Adaptive brightness',
+    );
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('Home Assistant validation displays a translated failure', (
     tester,
   ) async {

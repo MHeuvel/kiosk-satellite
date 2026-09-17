@@ -589,6 +589,124 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'settingsMenuLogout' => strings.settingsMenuLogout,
       'settingsMenuSwitchKiosk' => strings.settingsMenuSwitchKiosk,
       'settingsMenuThemeAuto' => strings.settingsMenuThemeAuto,
+      'settingAdaptiveBrightnessTitle' =>
+        strings.settingAdaptiveBrightnessTitle,
+      'settingAdaptiveBrightnessDescription' =>
+        strings.settingAdaptiveBrightnessDescription,
+      'settingAdaptiveMinBrightnessTitle' =>
+        strings.settingAdaptiveMinBrightnessTitle,
+      'settingAdaptiveMinBrightnessDescription' =>
+        strings.settingAdaptiveMinBrightnessDescription,
+      'settingAdaptiveMaxBrightnessTitle' =>
+        strings.settingAdaptiveMaxBrightnessTitle,
+      'settingAdaptiveMaxBrightnessDescription' =>
+        strings.settingAdaptiveMaxBrightnessDescription,
+      'settingAdaptiveDarkLuxTitle' => strings.settingAdaptiveDarkLuxTitle,
+      'settingAdaptiveDarkLuxDescription' =>
+        strings.settingAdaptiveDarkLuxDescription,
+      'settingAdaptiveBrightLuxTitle' => strings.settingAdaptiveBrightLuxTitle,
+      'settingAdaptiveBrightLuxDescription' =>
+        strings.settingAdaptiveBrightLuxDescription,
+      'screenAudioAdaptiveHint' => strings.screenAudioAdaptiveHint,
+      'screenAudioAdaptiveNote' => strings.screenAudioAdaptiveNote,
+      'screenAudioAdaptiveOwns' => strings.screenAudioAdaptiveOwns,
+      'screenAudioNoSensor' => strings.screenAudioNoSensor,
+      'screenAudioAmbientLight' => strings.screenAudioAmbientLight,
+      'screenAudioAmbientHelp' => strings.screenAudioAmbientHelp,
+      'screenAudioNoReading' => strings.screenAudioNoReading,
+      'screenAudioSetsMaximum' => strings.screenAudioSetsMaximum,
+      'screenAudioSetsDefault' => strings.screenAudioSetsDefault,
+      'settingAudioMicDeviceTitle' => strings.settingAudioMicDeviceTitle,
+      'settingAudioMicDeviceDescription' =>
+        strings.settingAudioMicDeviceDescription,
+      'settingAudioSpeakerDeviceTitle' =>
+        strings.settingAudioSpeakerDeviceTitle,
+      'settingAudioSpeakerDeviceDescription' =>
+        strings.settingAudioSpeakerDeviceDescription,
+      'screenAudioDevices' => strings.screenAudioDevices,
+      'screenAudioSelectedDevice' => strings.screenAudioSelectedDevice,
+      'settingMicAudioSourceTitle' => strings.settingMicAudioSourceTitle,
+      'settingMicAudioSourceDescription' =>
+        strings.settingMicAudioSourceDescription,
+      'settingMicEchoCancellationTitle' =>
+        strings.settingMicEchoCancellationTitle,
+      'settingMicEchoCancellationDescription' =>
+        strings.settingMicEchoCancellationDescription,
+      'settingMicChannelTitle' => strings.settingMicChannelTitle,
+      'settingMicChannelDescription' => strings.settingMicChannelDescription,
+      'settingMicAgcTitle' => strings.settingMicAgcTitle,
+      'settingMicAgcDescription' => strings.settingMicAgcDescription,
+      'settingMicNoiseSuppressionTitle' =>
+        strings.settingMicNoiseSuppressionTitle,
+      'settingMicNoiseSuppressionDescription' =>
+        strings.settingMicNoiseSuppressionDescription,
+      'settingMicGainDbTitle' => strings.settingMicGainDbTitle,
+      'settingMicGainDbDescription' => strings.settingMicGainDbDescription,
+      'settingMicCaptureFormatTitle' => strings.settingMicCaptureFormatTitle,
+      'settingMicCaptureFormatDescription' =>
+        strings.settingMicCaptureFormatDescription,
+      'screenAudioMicrophoneSettings' => strings.screenAudioMicrophoneSettings,
+      'screenAudioMicrophoneHint' => strings.screenAudioMicrophoneHint,
+      'screenAudioMicrophoneNote' => strings.screenAudioMicrophoneNote,
+      'screenAudioVoiceCommunication' => strings.screenAudioVoiceCommunication,
+      'screenAudioVoiceRecognition' => strings.screenAudioVoiceRecognition,
+      'screenAudioRawMicrophone' => strings.screenAudioRawMicrophone,
+      'screenAudioAutomaticDefault' => strings.screenAudioAutomaticDefault,
+      'screenAudioStereo' => strings.screenAudioStereo,
+      'screenAudioDownmix' => strings.screenAudioDownmix,
+      'screenAudioMicrophoneLevel' => strings.screenAudioMicrophoneLevel,
+      'screenAudioMicrophoneLevelHelp' =>
+        strings.screenAudioMicrophoneLevelHelp,
+      'settingBrowserCutoutModeTitle' => strings.settingBrowserCutoutModeTitle,
+      'settingBrowserCutoutModeDescription' =>
+        strings.settingBrowserCutoutModeDescription,
+      'settingScreenOrientationTitle' => strings.settingScreenOrientationTitle,
+      'settingScreenOrientationDescription' =>
+        strings.settingScreenOrientationDescription,
+      'settingKeepScreenOnTitle' => strings.settingKeepScreenOnTitle,
+      'settingKeepScreenOnDescription' =>
+        strings.settingKeepScreenOnDescription,
+      'settingSetBrightnessOnLaunchTitle' =>
+        strings.settingSetBrightnessOnLaunchTitle,
+      'settingSetBrightnessOnLaunchDescription' =>
+        strings.settingSetBrightnessOnLaunchDescription,
+      'settingDefaultBrightnessTitle' => strings.settingDefaultBrightnessTitle,
+      'settingDefaultBrightnessDescription' =>
+        strings.settingDefaultBrightnessDescription,
+      'screenAudioScreen' => strings.screenAudioScreen,
+      'screenAudioCutoutAlways' => strings.screenAudioCutoutAlways,
+      'screenAudioCutoutShort' => strings.screenAudioCutoutShort,
+      'screenAudioCutoutDefault' => strings.screenAudioCutoutDefault,
+      'screenAudioCutoutNever' => strings.screenAudioCutoutNever,
+      'screenAudioAutomatic' => strings.screenAudioAutomatic,
+      'screenAudioLandscape' => strings.screenAudioLandscape,
+      'screenAudioReverseLandscape' => strings.screenAudioReverseLandscape,
+      'screenAudioPortrait' => strings.screenAudioPortrait,
+      'screenAudioReversePortrait' => strings.screenAudioReversePortrait,
+      'screenAudioPermission' => strings.screenAudioPermission,
+      'screenAudioBrightnessFallback' => strings.screenAudioBrightnessFallback,
+      'screenAudioBrightnessPermission' =>
+        strings.screenAudioBrightnessPermission,
+      'screenAudioBrightnessPermissionRemote' =>
+        strings.screenAudioBrightnessPermissionRemote,
+      'screenAudioAlwaysOn' => strings.screenAudioAlwaysOn,
+      'screenAudioAlwaysOnClock' => strings.screenAudioAlwaysOnClock,
+      'screenAudioAlwaysOnHelp' => strings.screenAudioAlwaysOnHelp,
+      'settingMediaVolumeTitle' => strings.settingMediaVolumeTitle,
+      'settingMediaVolumeDescription' => strings.settingMediaVolumeDescription,
+      'settingAssistantVolumeTitle' => strings.settingAssistantVolumeTitle,
+      'settingAssistantVolumeDescription' =>
+        strings.settingAssistantVolumeDescription,
+      'settingAssistantFullVolumeRangeTitle' =>
+        strings.settingAssistantFullVolumeRangeTitle,
+      'settingAssistantFullVolumeRangeDescription' =>
+        strings.settingAssistantFullVolumeRangeDescription,
+      'settingIntercomVolumeTitle' => strings.settingIntercomVolumeTitle,
+      'settingIntercomVolumeDescription' =>
+        strings.settingIntercomVolumeDescription,
+      'screenAudioVolume' => strings.screenAudioVolume,
+      'screenAudioMasterVolume' => strings.screenAudioMasterVolume,
+      'screenAudioMasterHelp' => strings.screenAudioMasterHelp,
       'settingsSearchHint' => strings.settingsSearchHint,
       'settingsSearchClear' => strings.settingsSearchClear,
       'settingsSearchResults' => strings.settingsSearchResults,

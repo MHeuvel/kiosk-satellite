@@ -3463,6 +3463,564 @@ abstract class UiStrings {
   /// **'Automatic'**
   String get settingsMenuThemeAuto;
 
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Adaptive brightness'**
+  String get settingAdaptiveBrightnessTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Dim the screen as the room gets darker, using the ambient light sensor.'**
+  String get settingAdaptiveBrightnessDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum brightness'**
+  String get settingAdaptiveMinBrightnessTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Screen brightness in a dark room.'**
+  String get settingAdaptiveMinBrightnessDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum brightness'**
+  String get settingAdaptiveMaxBrightnessTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Screen brightness in a bright room.'**
+  String get settingAdaptiveMaxBrightnessDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark room (lx)'**
+  String get settingAdaptiveDarkLuxTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Light level at or below which the screen sits at Minimum brightness.'**
+  String get settingAdaptiveDarkLuxDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Bright room (lx)'**
+  String get settingAdaptiveBrightLuxTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Light level at or above which the screen sits at Maximum brightness.'**
+  String get settingAdaptiveBrightLuxDescription;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow the room light with the ambient light sensor'**
+  String get screenAudioAdaptiveHint;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Level in a bright room. Adaptive brightness dims it from there.'**
+  String get screenAudioAdaptiveNote;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Adaptive brightness is on.'**
+  String get screenAudioAdaptiveOwns;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'No ambient light sensor on this device.'**
+  String get screenAudioNoSensor;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Ambient light'**
+  String get screenAudioAmbientLight;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'What the ambient light sensor reads right now.'**
+  String get screenAudioAmbientHelp;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'No reading yet'**
+  String get screenAudioNoReading;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'{lux} lx'**
+  String screenAudioLux(String lux);
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'{lux} lx (last known)'**
+  String screenAudioLuxLast(String lux);
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Sets Maximum brightness: adaptive brightness is on.'**
+  String get screenAudioSetsMaximum;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Sets Default brightness.'**
+  String get screenAudioSetsDefault;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone'**
+  String get settingAudioMicDeviceTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The microphone wake word detection and voice turns capture from.'**
+  String get settingAudioMicDeviceDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Speaker'**
+  String get settingAudioSpeakerDeviceTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Output for Voice Satellite sounds; media playback follows the system route. Echo cancellation only works with the microphone and speaker on the same device.'**
+  String get settingAudioSpeakerDeviceDescription;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio Devices'**
+  String get screenAudioDevices;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected device'**
+  String get screenAudioSelectedDevice;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} (not connected)'**
+  String screenAudioDisconnected(String name);
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Capture mode'**
+  String get settingMicAudioSourceTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice communication is the only mode with echo cancellation, so leave it unless the microphone reads far quieter here than in a recorder app.'**
+  String get settingMicAudioSourceDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Echo cancellation'**
+  String get settingMicEchoCancellationTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Keeps the kiosk\'s own speaker out of the microphone so the stop word works during playback. Turn it off only if the microphone reads far quieter here than in a recorder app.'**
+  String get settingMicEchoCancellationDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone channel'**
+  String get settingMicChannelTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Multichannel microphones often reserve one channel for speech recognition; picking it can improve detection.'**
+  String get settingMicChannelDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic gain control'**
+  String get settingMicAgcTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Let Android level the microphone instead of a fixed gain. It also lifts room noise, and on some devices it does nothing at all.'**
+  String get settingMicAgcDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Noise suppression'**
+  String get settingMicNoiseSuppressionTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Reduce microphone background noise using Android processing. It may help or hurt wake word detection depending on the device.'**
+  String get settingMicNoiseSuppressionDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone gain'**
+  String get settingMicGainDbTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Boost or cut the microphone before anything hears it. Aim for a level near 0.05 in the wake word tester; too much gain distorts speech and hurts detection.'**
+  String get settingMicGainDbDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Capture format'**
+  String get settingMicCaptureFormatTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick 48 kHz stereo when the microphone works in other apps but not here: some sound cards record in that format only and the app converts it itself.'**
+  String get settingMicCaptureFormatDescription;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone settings'**
+  String get screenAudioMicrophoneSettings;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Capture mode, channel, gain, live level'**
+  String get screenAudioMicrophoneHint;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Adjust capture for your microphone and room. Test wake words and voice interactions after changing these settings.'**
+  String get screenAudioMicrophoneNote;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice communication (default)'**
+  String get screenAudioVoiceCommunication;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice recognition'**
+  String get screenAudioVoiceRecognition;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Raw microphone'**
+  String get screenAudioRawMicrophone;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic (default)'**
+  String get screenAudioAutomaticDefault;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'48 kHz stereo'**
+  String get screenAudioStereo;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Downmix (default)'**
+  String get screenAudioDownmix;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Channel {channel}'**
+  String screenAudioChannel(String channel);
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Channel {channel} (not on this microphone)'**
+  String screenAudioChannelMissing(String channel);
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone level'**
+  String get screenAudioMicrophoneLevel;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Speak from where you use the device; adjust the gain until normal speech tops out around the end of the green.'**
+  String get screenAudioMicrophoneLevelHelp;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Display cutout'**
+  String get settingBrowserCutoutModeTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'What to do with the screen area around a camera cutout or punch hole. Pick Avoid the cutout if the camera sits on top of buttons at the top of the dashboard.'**
+  String get settingBrowserCutoutModeDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Screen orientation'**
+  String get settingScreenOrientationTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Force the screen into one orientation. Use this on a device without a rotation sensor, or one mounted a way the sensor gets wrong.'**
+  String get settingScreenOrientationDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep screen on'**
+  String get settingKeepScreenOnTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Prevent the OS from turning the screen off.'**
+  String get settingKeepScreenOnDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Set brightness on launch'**
+  String get settingSetBrightnessOnLaunchTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply the default brightness whenever the app starts.'**
+  String get settingSetBrightnessOnLaunchDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Default brightness'**
+  String get settingDefaultBrightnessTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Screen brightness applied when the app starts. Moving the slider applies it immediately.'**
+  String get settingDefaultBrightnessDescription;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Screen'**
+  String get screenAudioScreen;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the cutout area'**
+  String get screenAudioCutoutAlways;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Short edges only'**
+  String get screenAudioCutoutShort;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'System default'**
+  String get screenAudioCutoutDefault;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Avoid the cutout'**
+  String get screenAudioCutoutNever;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic'**
+  String get screenAudioAutomatic;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Landscape'**
+  String get screenAudioLandscape;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Reverse landscape'**
+  String get screenAudioReverseLandscape;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Portrait'**
+  String get screenAudioPortrait;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Reverse portrait'**
+  String get screenAudioReversePortrait;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Permission'**
+  String get screenAudioPermission;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Brightness is using a fallback'**
+  String get screenAudioBrightnessFallback;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Without the \"Modify system settings\" permission, brightness changes only dim this app instead of setting the panel\'s actual brightness.'**
+  String get screenAudioBrightnessPermission;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Without the \"Modify system settings\" permission, brightness changes only dim the app instead of setting the panel\'s actual brightness.'**
+  String get screenAudioBrightnessPermissionRemote;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Always-on display'**
+  String get screenAudioAlwaysOn;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'This device keeps a dim clock on'**
+  String get screenAudioAlwaysOnClock;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Turning the screen off puts the device to sleep, but the always-on display lights the lock screen back up and no app can stop it. Turn off \"Always show time and info\" in Android settings under Display, near the lock screen options; some ROMs call it always-on display. The Home Assistant screen entity stays unavailable until you do.'**
+  String get screenAudioAlwaysOnHelp;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Media volume'**
+  String get settingMediaVolumeTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Music and video play at this share of the master volume. The Sendspin player volume in Music Assistant moves this slider.'**
+  String get settingMediaVolumeDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Assistant volume'**
+  String get settingAssistantVolumeTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice responses and chimes play at this share of the master volume, independent of the media volume.'**
+  String get settingAssistantVolumeDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Full assistant volume range'**
+  String get settingAssistantFullVolumeRangeTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Initialize the built-in speaker\'s call volume at 100% when assistant audio first starts. Master and assistant volume still apply. Other apps share this call volume, which is not restored afterward.'**
+  String get settingAssistantFullVolumeRangeDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Intercom volume'**
+  String get settingIntercomVolumeTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The other kiosk\'s voice and announcements play at this share of the master volume.'**
+  String get settingIntercomVolumeDescription;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio Volume'**
+  String get screenAudioVolume;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Master volume'**
+  String get screenAudioMasterVolume;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'The device volume. Media, intercom and assistant volumes scale under it.'**
+  String get screenAudioMasterHelp;
+
   /// Placeholder in the Settings search box.
   ///
   /// In en, this message translates to:

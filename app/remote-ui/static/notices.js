@@ -1,3 +1,4 @@
+import { screenAudioText, t } from './localization.js';
 import { watchUpdates } from './live.js';
 import { hintRow } from './widgets.js';
 import { api, state } from './core.js';
@@ -355,7 +356,7 @@ export async function updateProximityRows() {
 export async function updateAdaptiveBrightnessRows() {
   await probeLightSensor();
   for (const stale of document.querySelectorAll('.adaptive-note')) stale.remove();
-  const note = (text) => hintRow(text, { className: 'adaptive-note' });
+  const note = (text) => hintRow(screenAudioText(text), { className: 'adaptive-note' });
   const row = document.querySelector('[data-key="screen.adaptive_brightness"]');
   const byKey = Object.fromEntries((state.settings || []).map((s) => [s.key, s]));
   const adaptiveOn = byKey['screen.adaptive_brightness']?.value === true
@@ -366,8 +367,8 @@ export async function updateAdaptiveBrightnessRows() {
   if (modeRow) {
     modeRow.style.display = '';
     document.getElementById('brightnessMode').textContent = adaptiveOn
-      ? 'Sets Maximum brightness: adaptive brightness is on.'
-      : 'Sets Default brightness.';
+      ? screenAudioText('Sets Maximum brightness: adaptive brightness is on.')
+      : screenAudioText('Sets Default brightness.');
   }
   const defaultRow = document.querySelector('[data-key="screen.default_brightness"]');
   const defaultSlider = defaultRow?.querySelector('input[type="range"]');
@@ -380,7 +381,7 @@ export async function updateAdaptiveBrightnessRows() {
     return;
   }
   if (row && state.lightSensor) {
-    const reading = readOnlyRow('Ambient light', AMBIENT_LIGHT_NOTE,
+    const reading = readOnlyRow(screenAudioText('Ambient light'), screenAudioText(AMBIENT_LIGHT_NOTE),
       formatLux(state.lightLux));
     reading.classList.add('adaptive-note');
     reading.lastElementChild.classList.add('ambient-light-value');
@@ -431,7 +432,7 @@ export async function updateClockNightRows() {
   const input = row.querySelector('.switch input');
   if (input) { input.checked = false; input.disabled = true; }
   row.insertAdjacentElement('afterend',
-    hintRow(NO_LIGHT_SENSOR_NOTE, { className: 'clock-night-note' }));
+    hintRow(screenAudioText(NO_LIGHT_SENSOR_NOTE), { className: 'clock-night-note' }));
 }
 
 /* A fresh sensor reading from the WebSocket: the live row, if it is up. */
@@ -445,9 +446,9 @@ export function showLightLevel(lux) {
 /* Until the sensor has spoken this session, the reading is the last
    session's (some drivers emit nothing at registration), and says so. */
 function formatLux(lux) {
-  if (typeof lux !== 'number') return 'No reading yet';
-  return `${Number.isInteger(lux) ? lux : lux.toFixed(1)} lx`
-    + (state.lightLive ? '' : ' (last known)');
+  if (typeof lux !== 'number') return screenAudioText('No reading yet');
+  return t(state.lightLive ? 'screenAudioLux' : 'screenAudioLuxLast',
+    {lux: String(Number.isInteger(lux) ? lux : lux.toFixed(1))});
 }
 
 const ADAPTIVE_NOTE =

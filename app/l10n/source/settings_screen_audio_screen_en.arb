@@ -1,0 +1,354 @@
+{
+  "@@locale": "en",
+  "settingBrowserCutoutModeTitle": "Display cutout",
+  "@settingBrowserCutoutModeTitle": {
+    "context": "Settings:Screen & Audio:Screen",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Screen"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Screen"
+      ]
+    }
+  },
+  "settingBrowserCutoutModeDescription": "What to do with the screen area around a camera cutout or punch hole. Pick Avoid the cutout if the camera sits on top of buttons at the top of the dashboard.",
+  "@settingBrowserCutoutModeDescription": {
+    "context": "Settings:Screen & Audio:Screen",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Screen"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Screen"
+      ]
+    }
+  },
+  "settingScreenOrientationTitle": "Screen orientation",
+  "@settingScreenOrientationTitle": {
+    "context": "Settings:Screen & Audio:Screen",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Screen"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Screen"
+      ]
+    }
+  },
+  "settingScreenOrientationDescription": "Force the screen into one orientation. Use this on a device without a rotation sensor, or one mounted a way the sensor gets wrong.",
+  "@settingScreenOrientationDescription": {
+    "context": "Settings:Screen & Audio:Screen",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Screen"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Screen"
+      ]
+    }
+  },
+  "settingKeepScreenOnTitle": "Keep screen on",
+  "@settingKeepScreenOnTitle": {
+    "context": "Settings:Screen & Audio:Screen",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Screen"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Screen"
+      ]
+    }
+  },
+  "settingKeepScreenOnDescription": "Prevent the OS from turning the screen off.",
+  "@settingKeepScreenOnDescription": {
+    "context": "Settings:Screen & Audio:Screen",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Screen"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Screen"
+      ]
+    }
+  },
+  "settingSetBrightnessOnLaunchTitle": "Set brightness on launch",
+  "@settingSetBrightnessOnLaunchTitle": {
+    "context": "Settings:Screen & Audio:Screen",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Screen"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Screen"
+      ]
+    }
+  },
+  "settingSetBrightnessOnLaunchDescription": "Apply the default brightness whenever the app starts.",
+  "@settingSetBrightnessOnLaunchDescription": {
+    "context": "Settings:Screen & Audio:Screen",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Screen"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Screen"
+      ]
+    }
+  },
+  "settingDefaultBrightnessTitle": "Default brightness",
+  "@settingDefaultBrightnessTitle": {
+    "context": "Settings:Screen & Audio:Screen",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Screen"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Screen"
+      ]
+    }
+  },
+  "settingDefaultBrightnessDescription": "Screen brightness applied when the app starts. Moving the slider applies it immediately.",
+  "@settingDefaultBrightnessDescription": {
+    "context": "Settings:Screen & Audio:Screen",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Screen"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Screen"
+      ]
+    }
+  },
+  "screenAudioScreen": "Screen",
+  "@screenAudioScreen": {
+    "context": "Settings:Screen & Audio:Screen",
+    "description": "Heading, choice, status or guidance shown in this group.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Screen"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Screen"
+      ]
+    }
+  },
+  "screenAudioCutoutAlways": "Use the cutout area",
+  "@screenAudioCutoutAlways": {
+    "context": "Settings:Screen & Audio:Screen",
+    "description": "Heading, choice, status or guidance shown in this group.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Screen"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Screen"
+      ]
+    }
+  },
+  "screenAudioCutoutShort": "Short edges only",
+  "@screenAudioCutoutShort": {
+    "context": "Settings:Screen & Audio:Screen",
+    "description": "Heading, choice, status or guidance shown in this group.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Screen"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Screen"
+      ]
+    }
+  },
+  "screenAudioCutoutDefault": "System default",
+  "@screenAudioCutoutDefault": {
+    "context": "Settings:Screen & Audio:Screen",
+    "description": "Heading, choice, status or guidance shown in this group.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Screen"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Screen"
+      ]
+    }
+  },
+  "screenAudioCutoutNever": "Avoid the cutout",
+  "@screenAudioCutoutNever": {
+    "context": "Settings:Screen & Audio:Screen",
+    "description": "Heading, choice, status or guidance shown in this group.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Screen"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Screen"
+      ]
+    }
+  },
+  "screenAudioAutomatic": "Automatic",
+  "@screenAudioAutomatic": {
+    "context": "Settings:Screen & Audio:Screen",
+    "description": "Heading, choice, status or guidance shown in this group.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Screen"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Screen"
+      ]
+    }
+  },
+  "screenAudioLandscape": "Landscape",
+  "@screenAudioLandscape": {
+    "context": "Settings:Screen & Audio:Screen",
+    "description": "Heading, choice, status or guidance shown in this group.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Screen"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Screen"
+      ]
+    }
+  },
+  "screenAudioReverseLandscape": "Reverse landscape",
+  "@screenAudioReverseLandscape": {
+    "context": "Settings:Screen & Audio:Screen",
+    "description": "Heading, choice, status or guidance shown in this group.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Screen"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Screen"
+      ]
+    }
+  },
+  "screenAudioPortrait": "Portrait",
+  "@screenAudioPortrait": {
+    "context": "Settings:Screen & Audio:Screen",
+    "description": "Heading, choice, status or guidance shown in this group.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Screen"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Screen"
+      ]
+    }
+  },
+  "screenAudioReversePortrait": "Reverse portrait",
+  "@screenAudioReversePortrait": {
+    "context": "Settings:Screen & Audio:Screen",
+    "description": "Heading, choice, status or guidance shown in this group.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Screen"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Screen"
+      ]
+    }
+  },
+  "screenAudioPermission": "Permission",
+  "@screenAudioPermission": {
+    "context": "Settings:Screen & Audio:Screen",
+    "description": "Heading, choice, status or guidance shown in this group.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Screen"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Screen"
+      ]
+    }
+  },
+  "screenAudioBrightnessFallback": "Brightness is using a fallback",
+  "@screenAudioBrightnessFallback": {
+    "context": "Settings:Screen & Audio:Screen",
+    "description": "Heading, choice, status or guidance shown in this group.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Screen"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Screen"
+      ]
+    }
+  },
+  "screenAudioBrightnessPermission": "Without the \"Modify system settings\" permission, brightness changes only dim this app instead of setting the panel's actual brightness.",
+  "@screenAudioBrightnessPermission": {
+    "context": "Settings:Screen & Audio:Screen",
+    "description": "Heading, choice, status or guidance shown in this group.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Screen"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Screen"
+      ]
+    }
+  },
+  "screenAudioBrightnessPermissionRemote": "Without the \"Modify system settings\" permission, brightness changes only dim the app instead of setting the panel's actual brightness.",
+  "@screenAudioBrightnessPermissionRemote": {
+    "context": "Settings:Screen & Audio:Screen",
+    "description": "Heading, choice, status or guidance shown in this group.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Screen"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Screen"
+      ]
+    }
+  },
+  "screenAudioAlwaysOn": "Always-on display",
+  "@screenAudioAlwaysOn": {
+    "context": "Settings:Screen & Audio:Screen",
+    "description": "Heading, choice, status or guidance shown in this group.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Screen"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Screen"
+      ]
+    }
+  },
+  "screenAudioAlwaysOnClock": "This device keeps a dim clock on",
+  "@screenAudioAlwaysOnClock": {
+    "context": "Settings:Screen & Audio:Screen",
+    "description": "Heading, choice, status or guidance shown in this group.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Screen"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Screen"
+      ]
+    }
+  },
+  "screenAudioAlwaysOnHelp": "Turning the screen off puts the device to sleep, but the always-on display lights the lock screen back up and no app can stop it. Turn off \"Always show time and info\" in Android settings under Display, near the lock screen options; some ROMs call it always-on display. The Home Assistant screen entity stays unavailable until you do.",
+  "@screenAudioAlwaysOnHelp": {
+    "context": "Settings:Screen & Audio:Screen",
+    "description": "Heading, choice, status or guidance shown in this group.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Screen"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Screen"
+      ]
+    }
+  }
+}

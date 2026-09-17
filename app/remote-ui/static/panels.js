@@ -1,3 +1,4 @@
+import { screenAudioText } from './localization.js';
 import { receiveUpdate, watchUpdates } from './live.js';
 import { $, api, cmd, state } from './core.js';
 import { readOnlyRow } from './device.js';
@@ -366,11 +367,11 @@ export async function updateAmbientDisplayNotice() {
   if (existing) return;
   const heading = document.createElement('h2');
   heading.className = 'card-title ambient-display-card';
-  heading.textContent = 'Always-on display';
+  heading.textContent = screenAudioText('Always-on display');
   const card = document.createElement('div');
   card.className = 'card ambient-display-card';
-  card.appendChild(readOnlyRow('This device keeps a dim clock on',
-    'Turning the screen off puts the device to sleep, but the always-on display lights the lock screen back up and no app can stop it. Turn off "Always show time and info" in Android settings under Display, near the lock screen options; some ROMs call it always-on display. The Home Assistant screen entity stays unavailable until you do.', ''));
+  card.appendChild(readOnlyRow(screenAudioText('This device keeps a dim clock on'),
+    screenAudioText('Turning the screen off puts the device to sleep, but the always-on display lights the lock screen back up and no app can stop it. Turn off "Always show time and info" in Android settings under Display, near the lock screen options; some ROMs call it always-on display. The Home Assistant screen entity stays unavailable until you do.'), ''));
   insertAfterScreenCard(heading, card);
 }
 
@@ -391,14 +392,14 @@ export async function updateBrightnessGrantNotices() {
   if (existing) return;
   const heading = document.createElement('h2');
   heading.className = 'card-title brightness-grant-card';
-  heading.textContent = 'Permission';
+  heading.textContent = screenAudioText('Permission');
   const card = document.createElement('div');
   card.className = 'card brightness-grant-card';
-  card.appendChild(readOnlyRow('Brightness is using a fallback',
-    'Without the "Modify system settings" permission, brightness changes only dim the app instead of setting the panel\'s actual brightness.', ''));
+  card.appendChild(readOnlyRow(screenAudioText('Brightness is using a fallback'),
+    screenAudioText('Without the "Modify system settings" permission, brightness changes only dim the app instead of setting the panel\'s actual brightness.'), ''));
   const btn = document.createElement('button');
   btn.className = 'btn-ghost';
-  btn.textContent = 'Grant on device';
+  btn.textContent = screenAudioText('Grant on device');
   btn.style.cssText = 'margin:0 0 14px';
   btn.addEventListener('click', requestBrightnessGrant);
   card.appendChild(btn);

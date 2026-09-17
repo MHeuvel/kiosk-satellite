@@ -1,3 +1,4 @@
+import { screenAudioTextMessageIds } from './screen_audio_text_ids.js';
 import { catalogs } from './catalogs.js';
 import { navigationMessageIds } from './navigation_ids.js';
 import { deviceTextMessageIds } from './device_text_ids.js';
@@ -7,9 +8,14 @@ export function haText(english) {
   return t(haTextMessageIds[english], {}, english);
 }
 
+export function screenAudioText(english) {
+  return t(screenAudioTextMessageIds[english], {}, english);
+}
+
 export function settingsPageText(category, english) {
   return category === 'Device' || category === 'device' ? deviceText(english)
-    : category === 'Home Assistant' || category === 'homeassistant' ? haText(english) : english;
+    : category === 'Home Assistant' || category === 'homeassistant' ? haText(english)
+    : category === 'Screen & Audio' || category === 'screenaudio' ? screenAudioText(english) : english;
 }
 
 export function haConnectionError(error) {

@@ -4,6 +4,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../app_container.dart';
+import '../l10n/messages.dart';
 
 /// RMS (0..1) to a meter fraction on a dB scale, -60 dBFS to -6 dBFS.
 ///
@@ -85,12 +86,15 @@ class _MicLevelTileState extends State<MicLevelTile> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const ListTile(
-          leading: Icon(Icons.graphic_eq),
-          title: Text('Microphone level'),
+        ListTile(
+          leading: const Icon(Icons.graphic_eq),
+          title: Text(screenAudioText(context, 'Microphone level')),
           subtitle: Text(
-            'Speak from where you use the device; adjust the gain until '
-            'normal speech tops out around the end of the green.',
+            screenAudioText(
+              context,
+              'Speak from where you use the device; adjust the gain until '
+              'normal speech tops out around the end of the green.',
+            ),
           ),
         ),
         Padding(
@@ -105,10 +109,9 @@ class _MicLevelTileState extends State<MicLevelTile> {
                     child: CustomPaint(
                       painter: _SegmentBarPainter(
                         level: micLevelFraction(rms),
-                        offColor: Theme.of(context)
-                            .colorScheme
-                            .onSurface
-                            .withValues(alpha: 0.12),
+                        offColor: Theme.of(
+                          context,
+                        ).colorScheme.onSurface.withValues(alpha: 0.12),
                       ),
                     ),
                   ),
@@ -121,8 +124,8 @@ class _MicLevelTileState extends State<MicLevelTile> {
                     micLevelLabel(rms),
                     textAlign: TextAlign.right,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontFeatures: const [FontFeature.tabularFigures()],
-                        ),
+                      fontFeatures: const [FontFeature.tabularFigures()],
+                    ),
                   ),
                 ),
               ],
@@ -147,18 +150,17 @@ class _SegmentBarPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     const gap = 3.0;
-    final segW =
-        (size.width - gap * (micMeterSegments - 1)) / micMeterSegments;
+    final segW = (size.width - gap * (micMeterSegments - 1)) / micMeterSegments;
     final lit = (level * micMeterSegments).round();
     final paint = Paint();
     for (var i = 0; i < micMeterSegments; i++) {
       paint.color = i >= lit
           ? offColor
           : i < _greenUpTo
-              ? _green
-              : i < _amberUpTo
-                  ? _amber
-                  : _red;
+          ? _green
+          : i < _amberUpTo
+          ? _amber
+          : _red;
       canvas.drawRRect(
         RRect.fromRectAndRadius(
           Rect.fromLTWH(i * (segW + gap), 0, segW, size.height),

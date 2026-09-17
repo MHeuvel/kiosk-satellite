@@ -505,6 +505,7 @@ List<SettingsSearchEntry> buildSettingsSearchIndex(
   String Function(String)? pageText,
   String Function(String)? deviceTextFor,
   String Function(String)? haTextFor,
+  String Function(String)? screenAudioTextFor,
   String Function(SettingDef<Object>)? titleFor,
   String Function(SettingDef<Object>)? descriptionFor,
 }) {
@@ -566,6 +567,8 @@ List<SettingsSearchEntry> buildSettingsSearchIndex(
         ? deviceTextFor
         : entry.category == 'Home Assistant'
         ? haTextFor
+        : entry.category == 'Screen & Audio'
+        ? screenAudioTextFor
         : null;
     if (translate == null) return entry;
     return SettingsSearchEntry(

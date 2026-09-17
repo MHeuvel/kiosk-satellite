@@ -1,4 +1,4 @@
-import { deviceText, haText, haConnectionError, settingsPageText, t } from './localization.js';
+import { deviceText, haText, screenAudioText, haConnectionError, settingsPageText, t } from './localization.js';
 import { preserveDraft } from './drafts.js';
 import { beginLiveRender, endLiveRender, watchUpdates } from './live.js';
 import {
@@ -1287,7 +1287,7 @@ async function renderSettings({ cached = false } = {}) {
       const note = document.createElement('div');
       note.style.cssText =
         'font-size:12.5px; color:var(--muted); margin:-6px 20px 10px';
-      note.textContent = MIC_GROUP_NOTE;
+      note.textContent = screenAudioText(MIC_GROUP_NOTE);
       micCard.before(note);
       // AGC hides the gain slider, but the row is built either way and
       // simply kept out of view, so flipping the switch can reveal it in
@@ -1316,7 +1316,7 @@ async function renderSettings({ cached = false } = {}) {
     if (devCard.children.length) {
       const devHeading = document.createElement('h2');
       devHeading.className = 'card-title';
-      devHeading.textContent = 'Audio Devices';
+      devHeading.textContent = screenAudioText('Audio Devices');
       // Between the volume mixer and the row opening Microphone settings,
       // mirroring the device page.
       if (micEntry) micEntry.before(devHeading, devCard);

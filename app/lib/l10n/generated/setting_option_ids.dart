@@ -18,6 +18,28 @@ const settingOptionMessageIds = <String, Map<String, String>>{
     "auto": "haThemeAuto",
     "light": "deviceThemeLight",
     "dark": "deviceThemeDark"
+  },
+  "browser.cutout_mode": {
+    "always": "screenAudioCutoutAlways",
+    "short_edges": "screenAudioCutoutShort",
+    "default": "screenAudioCutoutDefault",
+    "never": "screenAudioCutoutNever"
+  },
+  "screen.orientation": {
+    "auto": "screenAudioAutomatic",
+    "landscape": "screenAudioLandscape",
+    "reverse_landscape": "screenAudioReverseLandscape",
+    "portrait": "screenAudioPortrait",
+    "reverse_portrait": "screenAudioReversePortrait"
+  },
+  "audio.mic_source": {
+    "voice_communication": "screenAudioVoiceCommunication",
+    "voice_recognition": "screenAudioVoiceRecognition",
+    "mic": "screenAudioRawMicrophone"
+  },
+  "audio.mic_capture_format": {
+    "auto": "screenAudioAutomaticDefault",
+    "hardware": "screenAudioStereo"
   }
 };
 const settingPlaceholderMessageIds = <String, String>{

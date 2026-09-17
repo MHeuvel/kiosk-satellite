@@ -6,6 +6,7 @@ import 'generated/message_lookup.dart';
 import 'generated/navigation_ids.dart';
 import 'generated/device_text_ids.dart';
 import 'generated/ha_text_ids.dart';
+import 'generated/screen_audio_text_ids.dart';
 import 'generated/setting_option_ids.dart';
 import 'generated/ui_strings.dart';
 
@@ -60,6 +61,10 @@ String deviceText(BuildContext context, String english) =>
 String haText(BuildContext context, String english) =>
     messageById(l10n(context), haTextMessageIds[english], english);
 
+/// Resolve Screen & Audio wording while keeping hardware names unchanged.
+String screenAudioText(BuildContext context, String english) =>
+    messageById(l10n(context), screenAudioTextMessageIds[english], english);
+
 String settingsPageText(
   BuildContext context,
   String category,
@@ -67,6 +72,7 @@ String settingsPageText(
 ) => switch (category) {
   'Device' => deviceText(context, english),
   'Home Assistant' => haText(context, english),
+  'Screen & Audio' => screenAudioText(context, english),
   _ => english,
 };
 

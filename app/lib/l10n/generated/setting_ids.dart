@@ -204,4 +204,84 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingHaHoldMenuTitle",
     "description": "settingHaHoldMenuDescription",
   },
+  "browser.cutout_mode": {
+    "title": "settingBrowserCutoutModeTitle",
+    "description": "settingBrowserCutoutModeDescription",
+  },
+  "screen.orientation": {
+    "title": "settingScreenOrientationTitle",
+    "description": "settingScreenOrientationDescription",
+  },
+  "screen.keep_on": {
+    "title": "settingKeepScreenOnTitle",
+    "description": "settingKeepScreenOnDescription",
+  },
+  "screen.set_brightness_on_launch": {
+    "title": "settingSetBrightnessOnLaunchTitle",
+    "description": "settingSetBrightnessOnLaunchDescription",
+  },
+  "screen.default_brightness": {
+    "title": "settingDefaultBrightnessTitle",
+    "description": "settingDefaultBrightnessDescription",
+  },
+  "screen.adaptive_brightness": {
+    "title": "settingAdaptiveBrightnessTitle",
+    "description": "settingAdaptiveBrightnessDescription",
+  },
+  "screen.adaptive_min_brightness": {
+    "title": "settingAdaptiveMinBrightnessTitle",
+    "description": "settingAdaptiveMinBrightnessDescription",
+  },
+  "screen.adaptive_max_brightness": {
+    "title": "settingAdaptiveMaxBrightnessTitle",
+    "description": "settingAdaptiveMaxBrightnessDescription",
+  },
+  "screen.adaptive_dark_lux": {
+    "title": "settingAdaptiveDarkLuxTitle",
+    "description": "settingAdaptiveDarkLuxDescription",
+  },
+  "screen.adaptive_bright_lux": {
+    "title": "settingAdaptiveBrightLuxTitle",
+    "description": "settingAdaptiveBrightLuxDescription",
+  },
+  "audio.media_volume": {
+    "title": "settingMediaVolumeTitle",
+    "description": "settingMediaVolumeDescription",
+  },
+  "audio.assistant_volume": {
+    "title": "settingAssistantVolumeTitle",
+    "description": "settingAssistantVolumeDescription",
+  },
+  "audio.assistant_full_volume_range": {
+    "title": "settingAssistantFullVolumeRangeTitle",
+    "description": "settingAssistantFullVolumeRangeDescription",
+  },
+  "intercom.volume": {
+    "title": "settingIntercomVolumeTitle",
+    "description": "settingIntercomVolumeDescription",
+  },
+  "audio.mic_source": {
+    "title": "settingMicAudioSourceTitle",
+    "description": "settingMicAudioSourceDescription",
+  },
+  "audio.mic_echo_cancellation": {
+    "title": "settingMicEchoCancellationTitle",
+    "description": "settingMicEchoCancellationDescription",
+  },
+  "audio.mic_agc": {
+    "title": "settingMicAgcTitle",
+    "description": "settingMicAgcDescription",
+  },
+  "audio.mic_noise_suppression": {
+    "title": "settingMicNoiseSuppressionTitle",
+    "description": "settingMicNoiseSuppressionDescription",
+  },
+  "audio.mic_gain_db": {
+    "title": "settingMicGainDbTitle",
+    "description": "settingMicGainDbDescription",
+  },
+  "audio.mic_capture_format": {
+    "title": "settingMicCaptureFormatTitle",
+    "description": "settingMicCaptureFormatDescription",
+  },
 };

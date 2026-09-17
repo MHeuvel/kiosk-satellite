@@ -219,7 +219,7 @@ export function refreshNavigationText() {
   if (!title) return;
   if (searchReturnTab) {
     title.textContent = t('settingsSearchResults');
-  } else if ((currentPath.startsWith('device/') || currentPath.startsWith('homeassistant/'))) {
+  } else if ((currentPath.startsWith('device/') || currentPath.startsWith('homeassistant/') || currentPath.startsWith('screenaudio/'))) {
     for (const node of title.childNodes) {
       if (node.nodeType === Node.TEXT_NODE) node.textContent = settingsPageText(currentPath.split('/')[0], currentPath.slice(currentPath.indexOf('/') + 1));
     }
