@@ -35,5 +35,11 @@
   "commonColorGreen": "Verde",
   "commonColorBlue": "Azul",
   "commonColorCyan": "Cian",
-  "commonColorDim": "Gris oscuro"
+  "commonColorDim": "Gris oscuro",
+  "commonEdit": "Editar",
+  "commonMoveUp": "Subir",
+  "commonMoveDown": "Bajar",
+  "commonPreviousMonth": "Mes anterior",
+  "commonNextMonth": "Mes siguiente",
+  "commonLoading": "Cargando…"
 }

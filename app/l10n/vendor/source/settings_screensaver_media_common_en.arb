@@ -1,0 +1,174 @@
+{
+  "@@locale": "en",
+  "screensaverMediaTransitionNone": "None",
+  "@screensaverMediaTransitionNone": {
+    "context": "Settings:Screensaver:Media slideshows",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver",
+        "Settings > Screensaver > Local Media screensaver",
+        "Settings > Screensaver > Photo Gallery screensaver",
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver",
+        "Screensaver > Local Media screensaver",
+        "Screensaver > Photo Gallery screensaver",
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
+  "screensaverMediaTransitionFade": "Crossfade",
+  "@screensaverMediaTransitionFade": {
+    "context": "Settings:Screensaver:Media slideshows",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver",
+        "Settings > Screensaver > Local Media screensaver",
+        "Settings > Screensaver > Photo Gallery screensaver",
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver",
+        "Screensaver > Local Media screensaver",
+        "Screensaver > Photo Gallery screensaver",
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
+  "screensaverMediaTransitionSlide": "Slide",
+  "@screensaverMediaTransitionSlide": {
+    "context": "Settings:Screensaver:Media slideshows",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver",
+        "Settings > Screensaver > Local Media screensaver",
+        "Settings > Screensaver > Photo Gallery screensaver",
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver",
+        "Screensaver > Local Media screensaver",
+        "Screensaver > Photo Gallery screensaver",
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
+  "screensaverMediaTransitionZoom": "Zoom",
+  "@screensaverMediaTransitionZoom": {
+    "context": "Settings:Screensaver:Media slideshows",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver",
+        "Settings > Screensaver > Local Media screensaver",
+        "Settings > Screensaver > Photo Gallery screensaver",
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver",
+        "Screensaver > Local Media screensaver",
+        "Screensaver > Photo Gallery screensaver",
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
+  "screensaverMediaTransitionKenBurns": "Ken Burns",
+  "@screensaverMediaTransitionKenBurns": {
+    "context": "Settings:Screensaver:Media slideshows",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver",
+        "Settings > Screensaver > Local Media screensaver",
+        "Settings > Screensaver > Photo Gallery screensaver",
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver",
+        "Screensaver > Local Media screensaver",
+        "Screensaver > Photo Gallery screensaver",
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
+  "screensaverMediaTransitionRandom": "Random",
+  "@screensaverMediaTransitionRandom": {
+    "context": "Settings:Screensaver:Media slideshows",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver",
+        "Settings > Screensaver > Local Media screensaver",
+        "Settings > Screensaver > Photo Gallery screensaver",
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver",
+        "Screensaver > Local Media screensaver",
+        "Screensaver > Photo Gallery screensaver",
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
+  "screensaverMediaFillOff": "Off",
+  "@screensaverMediaFillOff": {
+    "context": "Settings:Screensaver:Media slideshows",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver",
+        "Settings > Screensaver > Local Media screensaver",
+        "Settings > Screensaver > Photo Gallery screensaver",
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver",
+        "Screensaver > Local Media screensaver",
+        "Screensaver > Photo Gallery screensaver",
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
+  "screensaverMediaFillSmart": "Smart",
+  "@screensaverMediaFillSmart": {
+    "context": "Settings:Screensaver:Media slideshows",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver",
+        "Settings > Screensaver > Local Media screensaver",
+        "Settings > Screensaver > Photo Gallery screensaver",
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver",
+        "Screensaver > Local Media screensaver",
+        "Screensaver > Photo Gallery screensaver",
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
+  "screensaverMediaFillAlways": "Always",
+  "@screensaverMediaFillAlways": {
+    "context": "Settings:Screensaver:Media slideshows",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver",
+        "Settings > Screensaver > Local Media screensaver",
+        "Settings > Screensaver > Photo Gallery screensaver",
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver",
+        "Screensaver > Local Media screensaver",
+        "Screensaver > Photo Gallery screensaver",
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  }
+}

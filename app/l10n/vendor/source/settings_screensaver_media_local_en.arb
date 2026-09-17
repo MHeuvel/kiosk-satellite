@@ -1,0 +1,211 @@
+{
+  "@@locale": "en",
+  "settingScreensaverLocalFolderTitle": "Local folder",
+  "@settingScreensaverLocalFolderTitle": {
+    "context": "Settings:Screensaver:Local Media screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Local Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Local Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverLocalFolderDescription": "Folder on this device whose photos and videos the screensaver cycles through. Picked on the device; the path can also be typed here remotely.",
+  "@settingScreensaverLocalFolderDescription": {
+    "context": "Settings:Screensaver:Local Media screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Local Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Local Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverLocalIntervalTitle": "Seconds per photo",
+  "@settingScreensaverLocalIntervalTitle": {
+    "context": "Settings:Screensaver:Local Media screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Local Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Local Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverLocalIntervalDescription": "How long each photo shows before the next. Videos play in full.",
+  "@settingScreensaverLocalIntervalDescription": {
+    "context": "Settings:Screensaver:Local Media screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Local Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Local Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverLocalShuffleTitle": "Shuffle",
+  "@settingScreensaverLocalShuffleTitle": {
+    "context": "Settings:Screensaver:Local Media screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Local Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Local Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverLocalShuffleDescription": "Cycle the folder in random order instead of by name.",
+  "@settingScreensaverLocalShuffleDescription": {
+    "context": "Settings:Screensaver:Local Media screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Local Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Local Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverLocalRecursiveTitle": "Include subfolders",
+  "@settingScreensaverLocalRecursiveTitle": {
+    "context": "Settings:Screensaver:Local Media screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Local Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Local Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverLocalRecursiveDescription": "Also cycle photos and videos inside subfolders.",
+  "@settingScreensaverLocalRecursiveDescription": {
+    "context": "Settings:Screensaver:Local Media screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Local Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Local Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverLocalTransitionTitle": "Transition",
+  "@settingScreensaverLocalTransitionTitle": {
+    "context": "Settings:Screensaver:Local Media screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Local Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Local Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverLocalTransitionDescription": "How one photo hands off to the next.",
+  "@settingScreensaverLocalTransitionDescription": {
+    "context": "Settings:Screensaver:Local Media screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Local Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Local Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverLocalFillTitle": "Fill the screen",
+  "@settingScreensaverLocalFillTitle": {
+    "context": "Settings:Screensaver:Local Media screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Local Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Local Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverLocalFillDescription": "Off keeps the whole photo between black bars. Smart enlarges photos shaped close to the screen, framing the rest over a blurred backdrop. Always enlarges every photo, cutting off what does not fit.",
+  "@settingScreensaverLocalFillDescription": {
+    "context": "Settings:Screensaver:Local Media screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Local Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Local Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverLocalEdgeTapsTitle": "Tap edges to change slides",
+  "@settingScreensaverLocalEdgeTapsTitle": {
+    "context": "Settings:Screensaver:Local Media screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Local Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Local Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverLocalEdgeTapsDescription": "A tap on the left or right fifth of the screen shows the previous or next slide instead of dismissing.",
+  "@settingScreensaverLocalEdgeTapsDescription": {
+    "context": "Settings:Screensaver:Local Media screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Local Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Local Media screensaver"
+      ]
+    }
+  },
+  "screensaverMediaLocalPage": "Local Media screensaver",
+  "@screensaverMediaLocalPage": {
+    "context": "Settings:Screensaver:Local Media screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Local Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Local Media screensaver"
+      ]
+    }
+  },
+  "screensaverMediaLocalHint": "Folder, timing, shuffle, transition",
+  "@screensaverMediaLocalHint": {
+    "context": "Settings:Screensaver:Local Media screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Local Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Local Media screensaver"
+      ]
+    }
+  }
+}

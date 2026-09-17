@@ -1,0 +1,22 @@
+{
+  "@@locale": "es",
+  "settingScreensaverImmichUrlTitle": "Dirección del servidor",
+  "settingScreensaverImmichUrlDescription": "Dirección del servidor de Immich, incluido su puerto.",
+  "settingScreensaverImmichApiKeyTitle": "Clave de API",
+  "settingScreensaverImmichApiKeyDescription": "Se crea en Immich, en Ajustes de la cuenta → Claves de API.",
+  "screensaverMediaImmichPage": "Protector de pantalla: Immich",
+  "screensaverMediaImmichHint": "Servidor, contenido multimedia, presentación, metadatos y filtros",
+  "screensaverMediaServerConnection": "Conexión con el servidor",
+  "screensaverMediaValidateFailedLog": "La validación falló. Consulta en el registro de la aplicación qué llamada falló.",
+  "screensaverMediaValidateFailed": "La validación falló.",
+  "screensaverMediaNoAnswer": "El dispositivo no respondió.",
+  "screensaverMediaAddressFirst": "Introduce primero la dirección del servidor.",
+  "screensaverMediaKeyFirst": "Introduce primero una clave de API.",
+  "screensaverMediaBadAddress": "La dirección del servidor no es una URL válida.",
+  "screensaverMediaKeyRejected": "Se rechazó la clave de API.",
+  "screensaverMediaScopeMissing": "A la clave de API le falta el permiso {scope}.",
+  "screensaverMediaPermissionMissing": "A la clave de API le falta un permiso: {error}",
+  "screensaverMediaServerError": "El servidor respondió {status}: {error}",
+  "screensaverMediaUnreachable": "No se pudo conectar con {url}.",
+  "screensaverMediaTalkError": "No se pudo comunicar con el servidor: {error}"
+}

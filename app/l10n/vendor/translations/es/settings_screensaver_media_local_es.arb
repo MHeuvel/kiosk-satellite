@@ -1,0 +1,19 @@
+{
+  "@@locale": "es",
+  "settingScreensaverLocalFolderTitle": "Carpeta local",
+  "settingScreensaverLocalFolderDescription": "Carpeta de este dispositivo cuyas fotos y videos recorre el protector de pantalla. Se elige en el dispositivo. También se puede escribir la ruta desde la administración remota.",
+  "settingScreensaverLocalIntervalTitle": "Segundos por foto",
+  "settingScreensaverLocalIntervalDescription": "Tiempo que se muestra cada foto antes de pasar a la siguiente. Los videos se reproducen completos.",
+  "settingScreensaverLocalShuffleTitle": "Orden aleatorio",
+  "settingScreensaverLocalShuffleDescription": "Recorre la carpeta en orden aleatorio en lugar de ordenar por nombre.",
+  "settingScreensaverLocalRecursiveTitle": "Incluir subcarpetas",
+  "settingScreensaverLocalRecursiveDescription": "Incluye también las fotos y los videos de las subcarpetas.",
+  "settingScreensaverLocalTransitionTitle": "Transición",
+  "settingScreensaverLocalTransitionDescription": "Cómo se pasa de una foto a la siguiente.",
+  "settingScreensaverLocalFillTitle": "Llenar la pantalla",
+  "settingScreensaverLocalFillDescription": "Desactivado mantiene la foto completa entre franjas negras. Inteligente amplía las fotos de proporciones similares a la pantalla y muestra las demás sobre un fondo desenfocado. Siempre amplía todas las fotos y recorta lo que no cabe.",
+  "settingScreensaverLocalEdgeTapsTitle": "Tocar los bordes para cambiar de imagen",
+  "settingScreensaverLocalEdgeTapsDescription": "Tocar el quinto izquierdo o derecho de la pantalla muestra la imagen anterior o siguiente en lugar de cerrar el protector de pantalla.",
+  "screensaverMediaLocalPage": "Protector de pantalla: Contenido multimedia local",
+  "screensaverMediaLocalHint": "Carpeta, duración, orden aleatorio y transición"
+}

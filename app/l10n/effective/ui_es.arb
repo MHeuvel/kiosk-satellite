@@ -180,32 +180,32 @@
     "context": "Common:Dialogs",
     "description": "Shared dialog action, time picker label or color preset."
   },
-  "commonEdit": "Edit",
+  "commonEdit": "Editar",
   "@commonEdit": {
     "context": "Common:Dialogs",
     "description": "Shared picker action or loading state."
   },
-  "commonMoveUp": "Move up",
+  "commonMoveUp": "Subir",
   "@commonMoveUp": {
     "context": "Common:Dialogs",
     "description": "Shared picker action or loading state."
   },
-  "commonMoveDown": "Move down",
+  "commonMoveDown": "Bajar",
   "@commonMoveDown": {
     "context": "Common:Dialogs",
     "description": "Shared picker action or loading state."
   },
-  "commonPreviousMonth": "Previous month",
+  "commonPreviousMonth": "Mes anterior",
   "@commonPreviousMonth": {
     "context": "Common:Dialogs",
     "description": "Shared picker action or loading state."
   },
-  "commonNextMonth": "Next month",
+  "commonNextMonth": "Mes siguiente",
   "@commonNextMonth": {
     "context": "Common:Dialogs",
     "description": "Shared picker action or loading state."
   },
-  "commonLoading": "Loading…",
+  "commonLoading": "Cargando…",
   "@commonLoading": {
     "context": "Common:Dialogs",
     "description": "Shared picker action or loading state."
@@ -9670,7 +9670,7 @@
       ]
     }
   },
-  "screensaverModeImmich": "Contenido multimedia de Immich",
+  "screensaverModeImmich": "Immich",
   "@screensaverModeImmich": {
     "context": "Settings:Screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9826,7 +9826,7 @@
       ]
     }
   },
-  "settingScreensaverImmichUrlTitle": "Server address",
+  "settingScreensaverImmichUrlTitle": "Dirección del servidor",
   "@settingScreensaverImmichUrlTitle": {
     "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
     "description": "Setting label.",
@@ -9839,7 +9839,7 @@
       ]
     }
   },
-  "settingScreensaverImmichUrlDescription": "The address of your Immich server, with its port.",
+  "settingScreensaverImmichUrlDescription": "Dirección del servidor de Immich, incluido su puerto.",
   "@settingScreensaverImmichUrlDescription": {
     "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
     "description": "Help below the setting.",
@@ -9852,7 +9852,7 @@
       ]
     }
   },
-  "settingScreensaverImmichApiKeyTitle": "API key",
+  "settingScreensaverImmichApiKeyTitle": "Clave de API",
   "@settingScreensaverImmichApiKeyTitle": {
     "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
     "description": "Setting label.",
@@ -9865,7 +9865,7 @@
       ]
     }
   },
-  "settingScreensaverImmichApiKeyDescription": "Created in Immich under Account Settings → API Keys.",
+  "settingScreensaverImmichApiKeyDescription": "Se crea en Immich, en Ajustes de la cuenta → Claves de API.",
   "@settingScreensaverImmichApiKeyDescription": {
     "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
     "description": "Help below the setting.",
@@ -9878,7 +9878,7 @@
       ]
     }
   },
-  "screensaverMediaImmichPage": "Immich Media screensaver",
+  "screensaverMediaImmichPage": "Protector de pantalla: Immich",
   "@screensaverMediaImmichPage": {
     "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
     "description": "Label or guidance in this section.",
@@ -9891,7 +9891,7 @@
       ]
     }
   },
-  "screensaverMediaImmichHint": "Server, media, slideshow, metadata, filters",
+  "screensaverMediaImmichHint": "Servidor, contenido multimedia, presentación, metadatos y filtros",
   "@screensaverMediaImmichHint": {
     "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
     "description": "Label or guidance in this section.",
@@ -9904,7 +9904,7 @@
       ]
     }
   },
-  "screensaverMediaServerConnection": "Server Connection",
+  "screensaverMediaServerConnection": "Conexión con el servidor",
   "@screensaverMediaServerConnection": {
     "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
     "description": "Label or guidance in this section.",
@@ -9917,7 +9917,7 @@
       ]
     }
   },
-  "screensaverMediaValidateFailedLog": "Validation failed. See the app log for the failing call.",
+  "screensaverMediaValidateFailedLog": "La validación falló. Consulta en el registro de la aplicación qué llamada falló.",
   "@screensaverMediaValidateFailedLog": {
     "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
     "description": "Label or guidance in this section.",
@@ -9930,7 +9930,7 @@
       ]
     }
   },
-  "screensaverMediaValidateFailed": "Validation failed.",
+  "screensaverMediaValidateFailed": "La validación falló.",
   "@screensaverMediaValidateFailed": {
     "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
     "description": "Label or guidance in this section.",
@@ -9943,7 +9943,7 @@
       ]
     }
   },
-  "screensaverMediaNoAnswer": "The device did not answer.",
+  "screensaverMediaNoAnswer": "El dispositivo no respondió.",
   "@screensaverMediaNoAnswer": {
     "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
     "description": "Label or guidance in this section.",
@@ -9956,7 +9956,7 @@
       ]
     }
   },
-  "screensaverMediaAddressFirst": "Enter the server address first.",
+  "screensaverMediaAddressFirst": "Introduce primero la dirección del servidor.",
   "@screensaverMediaAddressFirst": {
     "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
     "description": "Label or guidance in this section.",
@@ -9969,7 +9969,7 @@
       ]
     }
   },
-  "screensaverMediaKeyFirst": "Enter an API key first.",
+  "screensaverMediaKeyFirst": "Introduce primero una clave de API.",
   "@screensaverMediaKeyFirst": {
     "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
     "description": "Label or guidance in this section.",
@@ -9982,7 +9982,7 @@
       ]
     }
   },
-  "screensaverMediaBadAddress": "The server address is not a valid URL.",
+  "screensaverMediaBadAddress": "La dirección del servidor no es una URL válida.",
   "@screensaverMediaBadAddress": {
     "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
     "description": "Label or guidance in this section.",
@@ -9995,7 +9995,7 @@
       ]
     }
   },
-  "screensaverMediaKeyRejected": "The API key was rejected.",
+  "screensaverMediaKeyRejected": "Se rechazó la clave de API.",
   "@screensaverMediaKeyRejected": {
     "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
     "description": "Label or guidance in this section.",
@@ -10008,7 +10008,7 @@
       ]
     }
   },
-  "screensaverMediaScopeMissing": "The API key is missing the {scope} permission.",
+  "screensaverMediaScopeMissing": "A la clave de API le falta el permiso {scope}.",
   "@screensaverMediaScopeMissing": {
     "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
     "description": "Label or guidance in this section.",
@@ -10027,7 +10027,7 @@
       }
     }
   },
-  "screensaverMediaPermissionMissing": "The API key is missing a permission: {error}",
+  "screensaverMediaPermissionMissing": "A la clave de API le falta un permiso: {error}",
   "@screensaverMediaPermissionMissing": {
     "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
     "description": "Label or guidance in this section.",
@@ -10046,7 +10046,7 @@
       }
     }
   },
-  "screensaverMediaServerError": "The server answered {status}: {error}",
+  "screensaverMediaServerError": "El servidor respondió {status}: {error}",
   "@screensaverMediaServerError": {
     "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
     "description": "Label or guidance in this section.",
@@ -10069,7 +10069,7 @@
       }
     }
   },
-  "screensaverMediaUnreachable": "Could not reach {url}.",
+  "screensaverMediaUnreachable": "No se pudo conectar con {url}.",
   "@screensaverMediaUnreachable": {
     "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
     "description": "Label or guidance in this section.",
@@ -10088,7 +10088,7 @@
       }
     }
   },
-  "screensaverMediaTalkError": "Could not talk to the server: {error}",
+  "screensaverMediaTalkError": "No se pudo comunicar con el servidor: {error}",
   "@screensaverMediaTalkError": {
     "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
     "description": "Label or guidance in this section.",
@@ -10107,7 +10107,7 @@
       }
     }
   },
-  "settingScreensaverImmichPeopleTitle": "People",
+  "settingScreensaverImmichPeopleTitle": "Personas",
   "@settingScreensaverImmichPeopleTitle": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Setting label.",
@@ -10120,7 +10120,7 @@
       ]
     }
   },
-  "settingScreensaverImmichPeopleDescription": "Show only media with any of these people.",
+  "settingScreensaverImmichPeopleDescription": "Muestra solo contenido en el que aparezca alguna de estas personas.",
   "@settingScreensaverImmichPeopleDescription": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Help below the setting.",
@@ -10133,7 +10133,7 @@
       ]
     }
   },
-  "settingScreensaverImmichExcludePeopleTitle": "Exclude people",
+  "settingScreensaverImmichExcludePeopleTitle": "Excluir personas",
   "@settingScreensaverImmichExcludePeopleTitle": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Setting label.",
@@ -10146,7 +10146,7 @@
       ]
     }
   },
-  "settingScreensaverImmichExcludePeopleDescription": "Skip media with any of these people.",
+  "settingScreensaverImmichExcludePeopleDescription": "Omite el contenido en el que aparezca alguna de estas personas.",
   "@settingScreensaverImmichExcludePeopleDescription": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Help below the setting.",
@@ -10159,7 +10159,7 @@
       ]
     }
   },
-  "settingScreensaverImmichTagsTitle": "Tags",
+  "settingScreensaverImmichTagsTitle": "Etiquetas",
   "@settingScreensaverImmichTagsTitle": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Setting label.",
@@ -10172,7 +10172,7 @@
       ]
     }
   },
-  "settingScreensaverImmichTagsDescription": "Show only media with any of these tags.",
+  "settingScreensaverImmichTagsDescription": "Muestra solo contenido con alguna de estas etiquetas.",
   "@settingScreensaverImmichTagsDescription": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Help below the setting.",
@@ -10185,7 +10185,7 @@
       ]
     }
   },
-  "settingScreensaverImmichFavoritesOnlyTitle": "Favorites only",
+  "settingScreensaverImmichFavoritesOnlyTitle": "Solo favoritos",
   "@settingScreensaverImmichFavoritesOnlyTitle": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Setting label.",
@@ -10198,7 +10198,7 @@
       ]
     }
   },
-  "settingScreensaverImmichFavoritesOnlyDescription": "Show only media marked as favorite.",
+  "settingScreensaverImmichFavoritesOnlyDescription": "Muestra solo el contenido marcado como favorito.",
   "@settingScreensaverImmichFavoritesOnlyDescription": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Help below the setting.",
@@ -10211,7 +10211,7 @@
       ]
     }
   },
-  "settingScreensaverImmichTakenWithinTitle": "Taken within",
+  "settingScreensaverImmichTakenWithinTitle": "Fecha de captura",
   "@settingScreensaverImmichTakenWithinTitle": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Setting label.",
@@ -10224,7 +10224,7 @@
       ]
     }
   },
-  "settingScreensaverImmichTakenWithinDescription": "Only show media taken in this window.",
+  "settingScreensaverImmichTakenWithinDescription": "Muestra solo el contenido capturado durante este periodo.",
   "@settingScreensaverImmichTakenWithinDescription": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Help below the setting.",
@@ -10237,7 +10237,7 @@
       ]
     }
   },
-  "settingScreensaverImmichTakenFromTitle": "From",
+  "settingScreensaverImmichTakenFromTitle": "Desde",
   "@settingScreensaverImmichTakenFromTitle": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Setting label.",
@@ -10250,7 +10250,7 @@
       ]
     }
   },
-  "settingScreensaverImmichTakenFromDescription": "Skip media taken before this date.",
+  "settingScreensaverImmichTakenFromDescription": "Omite el contenido capturado antes de esta fecha.",
   "@settingScreensaverImmichTakenFromDescription": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Help below the setting.",
@@ -10263,7 +10263,7 @@
       ]
     }
   },
-  "settingScreensaverImmichTakenToTitle": "To",
+  "settingScreensaverImmichTakenToTitle": "Hasta",
   "@settingScreensaverImmichTakenToTitle": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Setting label.",
@@ -10276,7 +10276,7 @@
       ]
     }
   },
-  "settingScreensaverImmichTakenToDescription": "Skip media taken after this date. The day itself counts.",
+  "settingScreensaverImmichTakenToDescription": "Omite el contenido capturado después de esta fecha. Incluye el día indicado.",
   "@settingScreensaverImmichTakenToDescription": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Help below the setting.",
@@ -10289,7 +10289,7 @@
       ]
     }
   },
-  "screensaverMediaFilters": "Filters",
+  "screensaverMediaFilters": "Filtros",
   "@screensaverMediaFilters": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Label or guidance in this section.",
@@ -10302,7 +10302,7 @@
       ]
     }
   },
-  "screensaverMediaAnyone": "Anyone",
+  "screensaverMediaAnyone": "Cualquier persona",
   "@screensaverMediaAnyone": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Label or guidance in this section.",
@@ -10315,7 +10315,7 @@
       ]
     }
   },
-  "screensaverMediaAnyoneDevice": "Anyone.",
+  "screensaverMediaAnyoneDevice": "Cualquier persona.",
   "@screensaverMediaAnyoneDevice": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Label or guidance in this section.",
@@ -10328,7 +10328,7 @@
       ]
     }
   },
-  "screensaverMediaNoOne": "No one",
+  "screensaverMediaNoOne": "Ninguna persona",
   "@screensaverMediaNoOne": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Label or guidance in this section.",
@@ -10341,7 +10341,7 @@
       ]
     }
   },
-  "screensaverMediaNoOneDevice": "No one.",
+  "screensaverMediaNoOneDevice": "Ninguna persona.",
   "@screensaverMediaNoOneDevice": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Label or guidance in this section.",
@@ -10354,7 +10354,7 @@
       ]
     }
   },
-  "screensaverMediaAny": "Any",
+  "screensaverMediaAny": "Cualquiera",
   "@screensaverMediaAny": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Label or guidance in this section.",
@@ -10367,7 +10367,7 @@
       ]
     }
   },
-  "screensaverMediaAnyDevice": "Any.",
+  "screensaverMediaAnyDevice": "Cualquiera.",
   "@screensaverMediaAnyDevice": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Label or guidance in this section.",
@@ -10380,7 +10380,7 @@
       ]
     }
   },
-  "screensaverMediaNoPeople": "No named people yet. Name them in Immich first.",
+  "screensaverMediaNoPeople": "Aún no hay personas con nombre. Asígnales un nombre primero en Immich.",
   "@screensaverMediaNoPeople": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Label or guidance in this section.",
@@ -10393,7 +10393,7 @@
       ]
     }
   },
-  "screensaverMediaNoTags": "No tags yet. Create them in Immich first.",
+  "screensaverMediaNoTags": "Aún no hay etiquetas. Créalas primero en Immich.",
   "@screensaverMediaNoTags": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Label or guidance in this section.",
@@ -10406,7 +10406,7 @@
       ]
     }
   },
-  "screensaverMediaPeopleFailed": "Could not list the people",
+  "screensaverMediaPeopleFailed": "No se pudieron listar las personas",
   "@screensaverMediaPeopleFailed": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Label or guidance in this section.",
@@ -10419,7 +10419,7 @@
       ]
     }
   },
-  "screensaverMediaTagsFailed": "Could not list the tags",
+  "screensaverMediaTagsFailed": "No se pudieron listar las etiquetas",
   "@screensaverMediaTagsFailed": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Label or guidance in this section.",
@@ -10432,7 +10432,7 @@
       ]
     }
   },
-  "screensaverMediaHidden": "Hidden",
+  "screensaverMediaHidden": "Oculto",
   "@screensaverMediaHidden": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Label or guidance in this section.",
@@ -10445,7 +10445,7 @@
       ]
     }
   },
-  "screensaverMediaAnyTime": "Any time",
+  "screensaverMediaAnyTime": "Cualquier fecha",
   "@screensaverMediaAnyTime": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Label or guidance in this section.",
@@ -10458,7 +10458,7 @@
       ]
     }
   },
-  "screensaverMediaPastMonth": "Past month",
+  "screensaverMediaPastMonth": "Último mes",
   "@screensaverMediaPastMonth": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Label or guidance in this section.",
@@ -10471,7 +10471,7 @@
       ]
     }
   },
-  "screensaverMediaPast3Months": "Past 3 months",
+  "screensaverMediaPast3Months": "Últimos 3 meses",
   "@screensaverMediaPast3Months": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Label or guidance in this section.",
@@ -10484,7 +10484,7 @@
       ]
     }
   },
-  "screensaverMediaPastYear": "Past year",
+  "screensaverMediaPastYear": "Último año",
   "@screensaverMediaPastYear": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Label or guidance in this section.",
@@ -10497,7 +10497,7 @@
       ]
     }
   },
-  "screensaverMediaPast2Years": "Past 2 years",
+  "screensaverMediaPast2Years": "Últimos 2 años",
   "@screensaverMediaPast2Years": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Label or guidance in this section.",
@@ -10510,7 +10510,7 @@
       ]
     }
   },
-  "screensaverMediaPast5Years": "Past 5 years",
+  "screensaverMediaPast5Years": "Últimos 5 años",
   "@screensaverMediaPast5Years": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Label or guidance in this section.",
@@ -10523,7 +10523,7 @@
       ]
     }
   },
-  "screensaverMediaPast10Years": "Past 10 years",
+  "screensaverMediaPast10Years": "Últimos 10 años",
   "@screensaverMediaPast10Years": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Label or guidance in this section.",
@@ -10536,7 +10536,7 @@
       ]
     }
   },
-  "screensaverMediaSince": "Since",
+  "screensaverMediaSince": "Desde una fecha",
   "@screensaverMediaSince": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Label or guidance in this section.",
@@ -10549,7 +10549,7 @@
       ]
     }
   },
-  "screensaverMediaTimeframe": "Timeframe",
+  "screensaverMediaTimeframe": "Intervalo de fechas",
   "@screensaverMediaTimeframe": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Label or guidance in this section.",
@@ -10562,7 +10562,7 @@
       ]
     }
   },
-  "screensaverMediaToday": "Today",
+  "screensaverMediaToday": "Hoy",
   "@screensaverMediaToday": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Label or guidance in this section.",
@@ -10575,7 +10575,7 @@
       ]
     }
   },
-  "screensaverMediaDateFormat": "Use YYYY-MM-DD.",
+  "screensaverMediaDateFormat": "Usa el formato YYYY-MM-DD.",
   "@screensaverMediaDateFormat": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Label or guidance in this section.",
@@ -10588,7 +10588,7 @@
       ]
     }
   },
-  "screensaverMediaNotDate": "That is not a date.",
+  "screensaverMediaNotDate": "La fecha no es válida.",
   "@screensaverMediaNotDate": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Label or guidance in this section.",
@@ -10601,7 +10601,7 @@
       ]
     }
   },
-  "settingScreensaverImmichMetadataTitle": "Show metadata",
+  "settingScreensaverImmichMetadataTitle": "Mostrar metadatos",
   "@settingScreensaverImmichMetadataTitle": {
     "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
     "description": "Setting label.",
@@ -10614,7 +10614,7 @@
       ]
     }
   },
-  "settingScreensaverImmichMetadataDescription": "Album, date, camera and location over the media.",
+  "settingScreensaverImmichMetadataDescription": "Muestra el álbum, la fecha, la cámara y la ubicación sobre el contenido multimedia.",
   "@settingScreensaverImmichMetadataDescription": {
     "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
     "description": "Help below the setting.",
@@ -10627,7 +10627,7 @@
       ]
     }
   },
-  "settingScreensaverImmichMetadataAlbumTitle": "Album name",
+  "settingScreensaverImmichMetadataAlbumTitle": "Nombre del álbum",
   "@settingScreensaverImmichMetadataAlbumTitle": {
     "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
     "description": "Setting label.",
@@ -10640,7 +10640,7 @@
       ]
     }
   },
-  "settingScreensaverImmichMetadataAlbumDescription": "Show which album the photo comes from.",
+  "settingScreensaverImmichMetadataAlbumDescription": "Muestra de qué álbum proviene la foto.",
   "@settingScreensaverImmichMetadataAlbumDescription": {
     "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
     "description": "Help below the setting.",
@@ -10653,7 +10653,7 @@
       ]
     }
   },
-  "settingScreensaverImmichMetadataDateTitle": "Date taken",
+  "settingScreensaverImmichMetadataDateTitle": "Fecha de captura",
   "@settingScreensaverImmichMetadataDateTitle": {
     "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
     "description": "Setting label.",
@@ -10666,7 +10666,7 @@
       ]
     }
   },
-  "settingScreensaverImmichMetadataDateDescription": "Show when the photo was taken.",
+  "settingScreensaverImmichMetadataDateDescription": "Muestra cuándo se tomó la foto.",
   "@settingScreensaverImmichMetadataDateDescription": {
     "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
     "description": "Help below the setting.",
@@ -10679,7 +10679,7 @@
       ]
     }
   },
-  "settingScreensaverImmichMetadataCameraTitle": "Camera details",
+  "settingScreensaverImmichMetadataCameraTitle": "Detalles de la cámara",
   "@settingScreensaverImmichMetadataCameraTitle": {
     "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
     "description": "Setting label.",
@@ -10692,7 +10692,7 @@
       ]
     }
   },
-  "settingScreensaverImmichMetadataCameraDescription": "Show focal length, aperture and ISO.",
+  "settingScreensaverImmichMetadataCameraDescription": "Muestra la distancia focal, la apertura y el ISO.",
   "@settingScreensaverImmichMetadataCameraDescription": {
     "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
     "description": "Help below the setting.",
@@ -10705,7 +10705,7 @@
       ]
     }
   },
-  "settingScreensaverImmichMetadataLocationTitle": "Location",
+  "settingScreensaverImmichMetadataLocationTitle": "Ubicación",
   "@settingScreensaverImmichMetadataLocationTitle": {
     "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
     "description": "Setting label.",
@@ -10718,7 +10718,7 @@
       ]
     }
   },
-  "settingScreensaverImmichMetadataLocationDescription": "Show the place the photo was taken.",
+  "settingScreensaverImmichMetadataLocationDescription": "Muestra dónde se tomó la foto.",
   "@settingScreensaverImmichMetadataLocationDescription": {
     "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
     "description": "Help below the setting.",
@@ -10731,7 +10731,7 @@
       ]
     }
   },
-  "settingScreensaverImmichMetadataPositionTitle": "Metadata position",
+  "settingScreensaverImmichMetadataPositionTitle": "Posición de los metadatos",
   "@settingScreensaverImmichMetadataPositionTitle": {
     "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
     "description": "Setting label.",
@@ -10744,7 +10744,7 @@
       ]
     }
   },
-  "settingScreensaverImmichMetadataPositionDescription": "Which corner the details sit in.",
+  "settingScreensaverImmichMetadataPositionDescription": "Esquina en la que se muestran los detalles.",
   "@settingScreensaverImmichMetadataPositionDescription": {
     "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
     "description": "Help below the setting.",
@@ -10757,7 +10757,7 @@
       ]
     }
   },
-  "settingScreensaverImmichMetadataTextShadowTitle": "Text drop shadow",
+  "settingScreensaverImmichMetadataTextShadowTitle": "Sombra del texto",
   "@settingScreensaverImmichMetadataTextShadowTitle": {
     "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
     "description": "Setting label.",
@@ -10770,7 +10770,7 @@
       ]
     }
   },
-  "settingScreensaverImmichMetadataTextShadowDescription": "Add a drop shadow to metadata text for readability on photos.",
+  "settingScreensaverImmichMetadataTextShadowDescription": "Añade una sombra al texto de los metadatos para facilitar su lectura sobre las fotos.",
   "@settingScreensaverImmichMetadataTextShadowDescription": {
     "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
     "description": "Help below the setting.",
@@ -10783,7 +10783,7 @@
       ]
     }
   },
-  "settingScreensaverImmichMetadataScaleTitle": "Text scaling",
+  "settingScreensaverImmichMetadataScaleTitle": "Tamaño del texto",
   "@settingScreensaverImmichMetadataScaleTitle": {
     "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
     "description": "Setting label.",
@@ -10796,7 +10796,7 @@
       ]
     }
   },
-  "settingScreensaverImmichMetadataScaleDescription": "Scale the photo details to better fit your screen size.",
+  "settingScreensaverImmichMetadataScaleDescription": "Ajusta el tamaño de los detalles de la foto a la pantalla.",
   "@settingScreensaverImmichMetadataScaleDescription": {
     "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
     "description": "Help below the setting.",
@@ -10809,7 +10809,7 @@
       ]
     }
   },
-  "settingScreensaverImmichVignetteStrengthTitle": "Vignette strength",
+  "settingScreensaverImmichVignetteStrengthTitle": "Intensidad del sombreado",
   "@settingScreensaverImmichVignetteStrengthTitle": {
     "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
     "description": "Setting label.",
@@ -10822,7 +10822,7 @@
       ]
     }
   },
-  "settingScreensaverImmichVignetteStrengthDescription": "Darkness of the shading behind the details, for readability on bright photos. 0 turns it off.",
+  "settingScreensaverImmichVignetteStrengthDescription": "Oscuridad del sombreado detrás de los detalles para facilitar la lectura sobre fotos claras. Con 0, se desactiva.",
   "@settingScreensaverImmichVignetteStrengthDescription": {
     "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
     "description": "Help below the setting.",
@@ -10835,7 +10835,7 @@
       ]
     }
   },
-  "screensaverMediaMetadata": "Metadata",
+  "screensaverMediaMetadata": "Metadatos",
   "@screensaverMediaMetadata": {
     "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
     "description": "Label or guidance in this section.",
@@ -10848,7 +10848,7 @@
       ]
     }
   },
-  "screensaverMediaTopLeft": "Top left",
+  "screensaverMediaTopLeft": "Arriba a la izquierda",
   "@screensaverMediaTopLeft": {
     "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
     "description": "Label or guidance in this section.",
@@ -10861,7 +10861,7 @@
       ]
     }
   },
-  "screensaverMediaTopRight": "Top right",
+  "screensaverMediaTopRight": "Arriba a la derecha",
   "@screensaverMediaTopRight": {
     "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
     "description": "Label or guidance in this section.",
@@ -10874,7 +10874,7 @@
       ]
     }
   },
-  "screensaverMediaBottomLeft": "Bottom left",
+  "screensaverMediaBottomLeft": "Abajo a la izquierda",
   "@screensaverMediaBottomLeft": {
     "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
     "description": "Label or guidance in this section.",
@@ -10887,7 +10887,7 @@
       ]
     }
   },
-  "screensaverMediaBottomRight": "Bottom right",
+  "screensaverMediaBottomRight": "Abajo a la derecha",
   "@screensaverMediaBottomRight": {
     "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
     "description": "Label or guidance in this section.",
@@ -10900,7 +10900,7 @@
       ]
     }
   },
-  "settingScreensaverImmichIntervalTitle": "Seconds per image",
+  "settingScreensaverImmichIntervalTitle": "Segundos por imagen",
   "@settingScreensaverImmichIntervalTitle": {
     "context": "Settings:Screensaver:Immich Media screensaver:Slideshow",
     "description": "Setting label.",
@@ -10913,7 +10913,7 @@
       ]
     }
   },
-  "settingScreensaverImmichIntervalDescription": "How long each image shows before the next. Videos play in full.",
+  "settingScreensaverImmichIntervalDescription": "Tiempo que se muestra cada imagen antes de pasar a la siguiente. Los videos se reproducen completos.",
   "@settingScreensaverImmichIntervalDescription": {
     "context": "Settings:Screensaver:Immich Media screensaver:Slideshow",
     "description": "Help below the setting.",
@@ -10926,7 +10926,7 @@
       ]
     }
   },
-  "settingScreensaverImmichShuffleTitle": "Shuffle",
+  "settingScreensaverImmichShuffleTitle": "Orden aleatorio",
   "@settingScreensaverImmichShuffleTitle": {
     "context": "Settings:Screensaver:Immich Media screensaver:Slideshow",
     "description": "Setting label.",
@@ -10939,7 +10939,7 @@
       ]
     }
   },
-  "settingScreensaverImmichShuffleDescription": "Cycle the media in random order.",
+  "settingScreensaverImmichShuffleDescription": "Recorre el contenido multimedia en orden aleatorio.",
   "@settingScreensaverImmichShuffleDescription": {
     "context": "Settings:Screensaver:Immich Media screensaver:Slideshow",
     "description": "Help below the setting.",
@@ -10952,7 +10952,7 @@
       ]
     }
   },
-  "settingScreensaverImmichTransitionTitle": "Transition",
+  "settingScreensaverImmichTransitionTitle": "Transición",
   "@settingScreensaverImmichTransitionTitle": {
     "context": "Settings:Screensaver:Immich Media screensaver:Slideshow",
     "description": "Setting label.",
@@ -10965,7 +10965,7 @@
       ]
     }
   },
-  "settingScreensaverImmichTransitionDescription": "How one item hands off to the next.",
+  "settingScreensaverImmichTransitionDescription": "Cómo se pasa de un elemento al siguiente.",
   "@settingScreensaverImmichTransitionDescription": {
     "context": "Settings:Screensaver:Immich Media screensaver:Slideshow",
     "description": "Help below the setting.",
@@ -10978,7 +10978,7 @@
       ]
     }
   },
-  "settingScreensaverImmichFillTitle": "Fill the screen",
+  "settingScreensaverImmichFillTitle": "Llenar la pantalla",
   "@settingScreensaverImmichFillTitle": {
     "context": "Settings:Screensaver:Immich Media screensaver:Slideshow",
     "description": "Setting label.",
@@ -10991,7 +10991,7 @@
       ]
     }
   },
-  "settingScreensaverImmichFillDescription": "Off keeps the whole photo between black bars. Smart enlarges photos shaped close to the screen, framing the rest over a blurred backdrop. Always enlarges every photo, cutting off what does not fit.",
+  "settingScreensaverImmichFillDescription": "Desactivado mantiene la foto completa entre franjas negras. Inteligente amplía las fotos de proporciones similares a la pantalla y muestra las demás sobre un fondo desenfocado. Siempre amplía todas las fotos y recorta lo que no cabe.",
   "@settingScreensaverImmichFillDescription": {
     "context": "Settings:Screensaver:Immich Media screensaver:Slideshow",
     "description": "Help below the setting.",
@@ -11004,7 +11004,7 @@
       ]
     }
   },
-  "settingScreensaverImmichPairPortraitTitle": "Pair portrait photos",
+  "settingScreensaverImmichPairPortraitTitle": "Combinar fotos verticales",
   "@settingScreensaverImmichPairPortraitTitle": {
     "context": "Settings:Screensaver:Immich Media screensaver:Slideshow",
     "description": "Setting label.",
@@ -11017,7 +11017,7 @@
       ]
     }
   },
-  "settingScreensaverImmichPairPortraitDescription": "Show two portrait photos side by side so they fill the screen.",
+  "settingScreensaverImmichPairPortraitDescription": "Muestra dos fotos verticales una junto a la otra para llenar la pantalla.",
   "@settingScreensaverImmichPairPortraitDescription": {
     "context": "Settings:Screensaver:Immich Media screensaver:Slideshow",
     "description": "Help below the setting.",
@@ -11030,7 +11030,7 @@
       ]
     }
   },
-  "settingScreensaverImmichEdgeTapsTitle": "Tap edges to change slides",
+  "settingScreensaverImmichEdgeTapsTitle": "Tocar los bordes para cambiar de imagen",
   "@settingScreensaverImmichEdgeTapsTitle": {
     "context": "Settings:Screensaver:Immich Media screensaver:Slideshow",
     "description": "Setting label.",
@@ -11043,7 +11043,7 @@
       ]
     }
   },
-  "settingScreensaverImmichEdgeTapsDescription": "A tap on the left or right fifth of the screen shows the previous or next slide instead of dismissing.",
+  "settingScreensaverImmichEdgeTapsDescription": "Tocar el quinto izquierdo o derecho de la pantalla muestra la imagen anterior o siguiente en lugar de cerrar el protector de pantalla.",
   "@settingScreensaverImmichEdgeTapsDescription": {
     "context": "Settings:Screensaver:Immich Media screensaver:Slideshow",
     "description": "Help below the setting.",
@@ -11056,7 +11056,7 @@
       ]
     }
   },
-  "screensaverMediaSlideshow": "Slideshow",
+  "screensaverMediaSlideshow": "Presentación",
   "@screensaverMediaSlideshow": {
     "context": "Settings:Screensaver:Immich Media screensaver:Slideshow",
     "description": "Label or guidance in this section.",
@@ -11069,7 +11069,7 @@
       ]
     }
   },
-  "settingScreensaverImmichAlbumTitle": "Media source",
+  "settingScreensaverImmichAlbumTitle": "Origen multimedia",
   "@settingScreensaverImmichAlbumTitle": {
     "context": "Settings:Screensaver:Immich Media screensaver:Media",
     "description": "Setting label.",
@@ -11082,7 +11082,7 @@
       ]
     }
   },
-  "settingScreensaverImmichAlbumDescription": "The whole library, or the albums you pick.",
+  "settingScreensaverImmichAlbumDescription": "Toda la biblioteca o los álbumes que elijas.",
   "@settingScreensaverImmichAlbumDescription": {
     "context": "Settings:Screensaver:Immich Media screensaver:Media",
     "description": "Help below the setting.",
@@ -11095,7 +11095,7 @@
       ]
     }
   },
-  "settingScreensaverImmichPhotosOnlyTitle": "Photos only",
+  "settingScreensaverImmichPhotosOnlyTitle": "Solo fotos",
   "@settingScreensaverImmichPhotosOnlyTitle": {
     "context": "Settings:Screensaver:Immich Media screensaver:Media",
     "description": "Setting label.",
@@ -11108,7 +11108,7 @@
       ]
     }
   },
-  "settingScreensaverImmichPhotosOnlyDescription": "Skip videos in the slideshow.",
+  "settingScreensaverImmichPhotosOnlyDescription": "Omite los videos de la presentación.",
   "@settingScreensaverImmichPhotosOnlyDescription": {
     "context": "Settings:Screensaver:Immich Media screensaver:Media",
     "description": "Help below the setting.",
@@ -11121,7 +11121,7 @@
       ]
     }
   },
-  "settingScreensaverImmichCacheTitle": "Cache media locally",
+  "settingScreensaverImmichCacheTitle": "Guardar contenido en caché local",
   "@settingScreensaverImmichCacheTitle": {
     "context": "Settings:Screensaver:Immich Media screensaver:Media",
     "description": "Setting label.",
@@ -11134,7 +11134,7 @@
       ]
     }
   },
-  "settingScreensaverImmichCacheDescription": "Keep copies on the device so images load instantly.",
+  "settingScreensaverImmichCacheDescription": "Guarda copias en el dispositivo para que las imágenes carguen al instante.",
   "@settingScreensaverImmichCacheDescription": {
     "context": "Settings:Screensaver:Immich Media screensaver:Media",
     "description": "Help below the setting.",
@@ -11147,7 +11147,7 @@
       ]
     }
   },
-  "settingScreensaverImmichCacheMaxTitle": "Cache size (items)",
+  "settingScreensaverImmichCacheMaxTitle": "Tamaño de la caché (elementos)",
   "@settingScreensaverImmichCacheMaxTitle": {
     "context": "Settings:Screensaver:Immich Media screensaver:Media",
     "description": "Setting label.",
@@ -11160,7 +11160,7 @@
       ]
     }
   },
-  "settingScreensaverImmichCacheMaxDescription": "The oldest items are deleted once the cache is full.",
+  "settingScreensaverImmichCacheMaxDescription": "Elimina los elementos más antiguos cuando se llena la caché.",
   "@settingScreensaverImmichCacheMaxDescription": {
     "context": "Settings:Screensaver:Immich Media screensaver:Media",
     "description": "Help below the setting.",
@@ -11173,7 +11173,7 @@
       ]
     }
   },
-  "screensaverMediaAll": "All media",
+  "screensaverMediaAll": "Todo el contenido",
   "@screensaverMediaAll": {
     "context": "Settings:Screensaver:Immich Media screensaver:Media",
     "description": "Label or guidance in this section.",
@@ -11186,7 +11186,7 @@
       ]
     }
   },
-  "screensaverMediaAllDevice": "All media.",
+  "screensaverMediaAllDevice": "Todo el contenido.",
   "@screensaverMediaAllDevice": {
     "context": "Settings:Screensaver:Immich Media screensaver:Media",
     "description": "Label or guidance in this section.",
@@ -11199,7 +11199,7 @@
       ]
     }
   },
-  "screensaverMediaNoAlbums": "No albums yet. Create one in Immich first.",
+  "screensaverMediaNoAlbums": "Aún no hay álbumes. Crea uno primero en Immich.",
   "@screensaverMediaNoAlbums": {
     "context": "Settings:Screensaver:Immich Media screensaver:Media",
     "description": "Label or guidance in this section.",
@@ -11212,7 +11212,7 @@
       ]
     }
   },
-  "screensaverMediaAlbumsFailed": "Could not list the albums",
+  "screensaverMediaAlbumsFailed": "No se pudieron listar los álbumes",
   "@screensaverMediaAlbumsFailed": {
     "context": "Settings:Screensaver:Immich Media screensaver:Media",
     "description": "Label or guidance in this section.",
@@ -11225,7 +11225,7 @@
       ]
     }
   },
-  "screensaverMediaListError": "Could not list them: {error}",
+  "screensaverMediaListError": "No se pudieron listar los elementos: {error}",
   "@screensaverMediaListError": {
     "context": "Settings:Screensaver:Immich Media screensaver:Media",
     "description": "Label or guidance in this section.",
@@ -11244,7 +11244,7 @@
       }
     }
   },
-  "screensaverMediaListingFailed": "listing failed",
+  "screensaverMediaListingFailed": "No se pudieron listar los elementos",
   "@screensaverMediaListingFailed": {
     "context": "Settings:Screensaver:Immich Media screensaver:Media",
     "description": "Label or guidance in this section.",
@@ -11257,7 +11257,7 @@
       ]
     }
   },
-  "screensaverMediaItems": "{count} items",
+  "screensaverMediaItems": "{count} elementos",
   "@screensaverMediaItems": {
     "context": "Settings:Screensaver:Immich Media screensaver:Media",
     "description": "Label or guidance in this section.",
@@ -11276,7 +11276,7 @@
       }
     }
   },
-  "screensaverMediaCached": "{count} cached, {size}",
+  "screensaverMediaCached": "{count} en caché, {size}",
   "@screensaverMediaCached": {
     "context": "Settings:Screensaver:Immich Media screensaver:Media",
     "description": "Label or guidance in this section.",
@@ -11299,7 +11299,7 @@
       }
     }
   },
-  "settingScreensaverCameraViewsTitle": "Camera views",
+  "settingScreensaverCameraViewsTitle": "Vistas de cámaras",
   "@settingScreensaverCameraViewsTitle": {
     "context": "Settings:Screensaver:Camera Streams screensaver",
     "description": "Setting label.",
@@ -11312,7 +11312,7 @@
       ]
     }
   },
-  "settingScreensaverCameraViewsDescription": "The camera views the screensaver shows, in this order.",
+  "settingScreensaverCameraViewsDescription": "Vistas de cámaras que muestra el protector de pantalla, en este orden.",
   "@settingScreensaverCameraViewsDescription": {
     "context": "Settings:Screensaver:Camera Streams screensaver",
     "description": "Help below the setting.",
@@ -11325,7 +11325,7 @@
       ]
     }
   },
-  "settingScreensaverCameraViewSecondsTitle": "Seconds per camera view",
+  "settingScreensaverCameraViewSecondsTitle": "Segundos por vista de cámaras",
   "@settingScreensaverCameraViewSecondsTitle": {
     "context": "Settings:Screensaver:Camera Streams screensaver",
     "description": "Setting label.",
@@ -11338,7 +11338,7 @@
       ]
     }
   },
-  "settingScreensaverCameraViewSecondsDescription": "How long each view stays on screen before the next one. With a single view selected nothing rotates.",
+  "settingScreensaverCameraViewSecondsDescription": "Tiempo que permanece cada vista en pantalla antes de pasar a la siguiente. Si solo se elige una vista, no hay rotación.",
   "@settingScreensaverCameraViewSecondsDescription": {
     "context": "Settings:Screensaver:Camera Streams screensaver",
     "description": "Help below the setting.",
@@ -11351,7 +11351,7 @@
       ]
     }
   },
-  "settingScreensaverCameraMuteTitle": "Mute all views",
+  "settingScreensaverCameraMuteTitle": "Silenciar todas las vistas",
   "@settingScreensaverCameraMuteTitle": {
     "context": "Settings:Screensaver:Camera Streams screensaver",
     "description": "Setting label.",
@@ -11364,7 +11364,7 @@
       ]
     }
   },
-  "settingScreensaverCameraMuteDescription": "Keeps every view silent, even a single camera.",
+  "settingScreensaverCameraMuteDescription": "Mantiene todas las vistas en silencio, incluso las de una sola cámara.",
   "@settingScreensaverCameraMuteDescription": {
     "context": "Settings:Screensaver:Camera Streams screensaver",
     "description": "Help below the setting.",
@@ -11377,7 +11377,7 @@
       ]
     }
   },
-  "screensaverMediaCameraPage": "Camera Streams screensaver",
+  "screensaverMediaCameraPage": "Protector de pantalla: Transmisiones de cámara",
   "@screensaverMediaCameraPage": {
     "context": "Settings:Screensaver:Camera Streams screensaver",
     "description": "Label or guidance in this section.",
@@ -11390,7 +11390,7 @@
       ]
     }
   },
-  "screensaverMediaCameraHint": "Views to show, seconds per view, sound",
+  "screensaverMediaCameraHint": "Vistas que se muestran, segundos por vista y sonido",
   "@screensaverMediaCameraHint": {
     "context": "Settings:Screensaver:Camera Streams screensaver",
     "description": "Label or guidance in this section.",
@@ -11403,7 +11403,7 @@
       ]
     }
   },
-  "screensaverMediaNoCameras": "No camera view has cameras yet. Add one under Camera Streams.",
+  "screensaverMediaNoCameras": "Ninguna vista tiene cámaras todavía. Añade una en Transmisiones de cámara.",
   "@screensaverMediaNoCameras": {
     "context": "Settings:Screensaver:Camera Streams screensaver",
     "description": "Label or guidance in this section.",
@@ -11416,7 +11416,7 @@
       ]
     }
   },
-  "screensaverMediaNoCamerasRemote": "No camera view has cameras yet",
+  "screensaverMediaNoCamerasRemote": "Ninguna vista tiene cámaras todavía",
   "@screensaverMediaNoCamerasRemote": {
     "context": "Settings:Screensaver:Camera Streams screensaver",
     "description": "Label or guidance in this section.",
@@ -11429,7 +11429,7 @@
       ]
     }
   },
-  "screensaverMediaAddCameras": "Add one under Camera Streams.",
+  "screensaverMediaAddCameras": "Añade una en Transmisiones de cámara.",
   "@screensaverMediaAddCameras": {
     "context": "Settings:Screensaver:Camera Streams screensaver",
     "description": "Label or guidance in this section.",
@@ -11442,7 +11442,7 @@
       ]
     }
   },
-  "screensaverMediaNoViews": "None yet. Pick the views the screensaver cycles through.",
+  "screensaverMediaNoViews": "Aún no hay vistas seleccionadas. Elige las vistas que recorre el protector de pantalla.",
   "@screensaverMediaNoViews": {
     "context": "Settings:Screensaver:Camera Streams screensaver",
     "description": "Label or guidance in this section.",
@@ -11455,7 +11455,7 @@
       ]
     }
   },
-  "screensaverMediaRotation": "In the rotation (drag to reorder)",
+  "screensaverMediaRotation": "En la rotación (arrastra para reordenar)",
   "@screensaverMediaRotation": {
     "context": "Settings:Screensaver:Camera Streams screensaver",
     "description": "Label or guidance in this section.",
@@ -11468,7 +11468,7 @@
       ]
     }
   },
-  "screensaverMediaAvailable": "Available",
+  "screensaverMediaAvailable": "Disponibles",
   "@screensaverMediaAvailable": {
     "context": "Settings:Screensaver:Camera Streams screensaver",
     "description": "Label or guidance in this section.",
@@ -11481,7 +11481,7 @@
       ]
     }
   },
-  "screensaverMediaOneCamera": "{count} camera",
+  "screensaverMediaOneCamera": "{count} cámara",
   "@screensaverMediaOneCamera": {
     "context": "Settings:Screensaver:Camera Streams screensaver",
     "description": "Label or guidance in this section.",
@@ -11500,7 +11500,7 @@
       }
     }
   },
-  "screensaverMediaCameras": "{count} cameras",
+  "screensaverMediaCameras": "{count} cámaras",
   "@screensaverMediaCameras": {
     "context": "Settings:Screensaver:Camera Streams screensaver",
     "description": "Label or guidance in this section.",
@@ -11519,7 +11519,7 @@
       }
     }
   },
-  "screensaverMediaPosition": "Position {index} · {cameras}",
+  "screensaverMediaPosition": "Posición {index} · {cameras}",
   "@screensaverMediaPosition": {
     "context": "Settings:Screensaver:Camera Streams screensaver",
     "description": "Label or guidance in this section.",
@@ -11542,7 +11542,7 @@
       }
     }
   },
-  "screensaverMediaTransitionNone": "None",
+  "screensaverMediaTransitionNone": "Ninguna",
   "@screensaverMediaTransitionNone": {
     "context": "Settings:Screensaver:Media slideshows",
     "description": "Label or guidance in this section.",
@@ -11561,7 +11561,7 @@
       ]
     }
   },
-  "screensaverMediaTransitionFade": "Crossfade",
+  "screensaverMediaTransitionFade": "Fundido cruzado",
   "@screensaverMediaTransitionFade": {
     "context": "Settings:Screensaver:Media slideshows",
     "description": "Label or guidance in this section.",
@@ -11580,7 +11580,7 @@
       ]
     }
   },
-  "screensaverMediaTransitionSlide": "Slide",
+  "screensaverMediaTransitionSlide": "Deslizamiento",
   "@screensaverMediaTransitionSlide": {
     "context": "Settings:Screensaver:Media slideshows",
     "description": "Label or guidance in this section.",
@@ -11637,7 +11637,7 @@
       ]
     }
   },
-  "screensaverMediaTransitionRandom": "Random",
+  "screensaverMediaTransitionRandom": "Aleatoria",
   "@screensaverMediaTransitionRandom": {
     "context": "Settings:Screensaver:Media slideshows",
     "description": "Label or guidance in this section.",
@@ -11656,7 +11656,7 @@
       ]
     }
   },
-  "screensaverMediaFillOff": "Off",
+  "screensaverMediaFillOff": "Desactivado",
   "@screensaverMediaFillOff": {
     "context": "Settings:Screensaver:Media slideshows",
     "description": "Label or guidance in this section.",
@@ -11675,7 +11675,7 @@
       ]
     }
   },
-  "screensaverMediaFillSmart": "Smart",
+  "screensaverMediaFillSmart": "Inteligente",
   "@screensaverMediaFillSmart": {
     "context": "Settings:Screensaver:Media slideshows",
     "description": "Label or guidance in this section.",
@@ -11694,7 +11694,7 @@
       ]
     }
   },
-  "screensaverMediaFillAlways": "Always",
+  "screensaverMediaFillAlways": "Siempre",
   "@screensaverMediaFillAlways": {
     "context": "Settings:Screensaver:Media slideshows",
     "description": "Label or guidance in this section.",
@@ -11713,7 +11713,7 @@
       ]
     }
   },
-  "settingScreensaverGalleryItemsTitle": "Photos",
+  "settingScreensaverGalleryItemsTitle": "Fotos",
   "@settingScreensaverGalleryItemsTitle": {
     "context": "Settings:Screensaver:Photo Gallery screensaver",
     "description": "Setting label.",
@@ -11726,7 +11726,7 @@
       ]
     }
   },
-  "settingScreensaverGalleryItemsDescription": "The photos and videos this screensaver cycles. Picked from the gallery on the device; picking again replaces the selection.",
+  "settingScreensaverGalleryItemsDescription": "Fotos y videos que recorre este protector de pantalla. Se eligen desde la galería del dispositivo. Volver a elegir reemplaza la selección.",
   "@settingScreensaverGalleryItemsDescription": {
     "context": "Settings:Screensaver:Photo Gallery screensaver",
     "description": "Help below the setting.",
@@ -11739,7 +11739,7 @@
       ]
     }
   },
-  "settingScreensaverGalleryIntervalTitle": "Seconds per photo",
+  "settingScreensaverGalleryIntervalTitle": "Segundos por foto",
   "@settingScreensaverGalleryIntervalTitle": {
     "context": "Settings:Screensaver:Photo Gallery screensaver",
     "description": "Setting label.",
@@ -11752,7 +11752,7 @@
       ]
     }
   },
-  "settingScreensaverGalleryIntervalDescription": "How long each photo shows before the next. Videos play in full.",
+  "settingScreensaverGalleryIntervalDescription": "Tiempo que se muestra cada foto antes de pasar a la siguiente. Los videos se reproducen completos.",
   "@settingScreensaverGalleryIntervalDescription": {
     "context": "Settings:Screensaver:Photo Gallery screensaver",
     "description": "Help below the setting.",
@@ -11765,7 +11765,7 @@
       ]
     }
   },
-  "settingScreensaverGalleryShuffleTitle": "Shuffle",
+  "settingScreensaverGalleryShuffleTitle": "Orden aleatorio",
   "@settingScreensaverGalleryShuffleTitle": {
     "context": "Settings:Screensaver:Photo Gallery screensaver",
     "description": "Setting label.",
@@ -11778,7 +11778,7 @@
       ]
     }
   },
-  "settingScreensaverGalleryShuffleDescription": "Cycle the selection in random order.",
+  "settingScreensaverGalleryShuffleDescription": "Recorre la selección en orden aleatorio.",
   "@settingScreensaverGalleryShuffleDescription": {
     "context": "Settings:Screensaver:Photo Gallery screensaver",
     "description": "Help below the setting.",
@@ -11791,7 +11791,7 @@
       ]
     }
   },
-  "settingScreensaverGalleryTransitionTitle": "Transition",
+  "settingScreensaverGalleryTransitionTitle": "Transición",
   "@settingScreensaverGalleryTransitionTitle": {
     "context": "Settings:Screensaver:Photo Gallery screensaver",
     "description": "Setting label.",
@@ -11804,7 +11804,7 @@
       ]
     }
   },
-  "settingScreensaverGalleryTransitionDescription": "How one photo hands off to the next.",
+  "settingScreensaverGalleryTransitionDescription": "Cómo se pasa de una foto a la siguiente.",
   "@settingScreensaverGalleryTransitionDescription": {
     "context": "Settings:Screensaver:Photo Gallery screensaver",
     "description": "Help below the setting.",
@@ -11817,7 +11817,7 @@
       ]
     }
   },
-  "settingScreensaverGalleryFillTitle": "Fill the screen",
+  "settingScreensaverGalleryFillTitle": "Llenar la pantalla",
   "@settingScreensaverGalleryFillTitle": {
     "context": "Settings:Screensaver:Photo Gallery screensaver",
     "description": "Setting label.",
@@ -11830,7 +11830,7 @@
       ]
     }
   },
-  "settingScreensaverGalleryFillDescription": "Off keeps the whole photo between black bars. Smart enlarges photos shaped close to the screen, framing the rest over a blurred backdrop. Always enlarges every photo, cutting off what does not fit.",
+  "settingScreensaverGalleryFillDescription": "Desactivado mantiene la foto completa entre franjas negras. Inteligente amplía las fotos de proporciones similares a la pantalla y muestra las demás sobre un fondo desenfocado. Siempre amplía todas las fotos y recorta lo que no cabe.",
   "@settingScreensaverGalleryFillDescription": {
     "context": "Settings:Screensaver:Photo Gallery screensaver",
     "description": "Help below the setting.",
@@ -11843,7 +11843,7 @@
       ]
     }
   },
-  "settingScreensaverGalleryEdgeTapsTitle": "Tap edges to change slides",
+  "settingScreensaverGalleryEdgeTapsTitle": "Tocar los bordes para cambiar de imagen",
   "@settingScreensaverGalleryEdgeTapsTitle": {
     "context": "Settings:Screensaver:Photo Gallery screensaver",
     "description": "Setting label.",
@@ -11856,7 +11856,7 @@
       ]
     }
   },
-  "settingScreensaverGalleryEdgeTapsDescription": "A tap on the left or right fifth of the screen shows the previous or next slide instead of dismissing.",
+  "settingScreensaverGalleryEdgeTapsDescription": "Tocar el quinto izquierdo o derecho de la pantalla muestra la imagen anterior o siguiente en lugar de cerrar el protector de pantalla.",
   "@settingScreensaverGalleryEdgeTapsDescription": {
     "context": "Settings:Screensaver:Photo Gallery screensaver",
     "description": "Help below the setting.",
@@ -11869,7 +11869,7 @@
       ]
     }
   },
-  "screensaverMediaGalleryPage": "Photo Gallery screensaver",
+  "screensaverMediaGalleryPage": "Protector de pantalla: Galería de fotos",
   "@screensaverMediaGalleryPage": {
     "context": "Settings:Screensaver:Photo Gallery screensaver",
     "description": "Label or guidance in this section.",
@@ -11882,7 +11882,7 @@
       ]
     }
   },
-  "screensaverMediaGalleryHint": "Photos, timing, shuffle, transition",
+  "screensaverMediaGalleryHint": "Fotos, duración, orden aleatorio y transición",
   "@screensaverMediaGalleryHint": {
     "context": "Settings:Screensaver:Photo Gallery screensaver",
     "description": "Label or guidance in this section.",
@@ -11895,7 +11895,7 @@
       ]
     }
   },
-  "screensaverMediaLoadingPhotos": "Loading photos...",
+  "screensaverMediaLoadingPhotos": "Cargando fotos...",
   "@screensaverMediaLoadingPhotos": {
     "context": "Settings:Screensaver:Photo Gallery screensaver",
     "description": "Label or guidance in this section.",
@@ -11908,7 +11908,7 @@
       ]
     }
   },
-  "screensaverMediaCopying": "Copying photo {index} of {total}...",
+  "screensaverMediaCopying": "Copiando foto {index} de {total}...",
   "@screensaverMediaCopying": {
     "context": "Settings:Screensaver:Photo Gallery screensaver",
     "description": "Label or guidance in this section.",
@@ -11931,7 +11931,7 @@
       }
     }
   },
-  "screensaverMediaCopyFailed": "Could not copy the photos",
+  "screensaverMediaCopyFailed": "No se pudieron copiar las fotos",
   "@screensaverMediaCopyFailed": {
     "context": "Settings:Screensaver:Photo Gallery screensaver",
     "description": "Label or guidance in this section.",
@@ -11944,7 +11944,7 @@
       ]
     }
   },
-  "screensaverMediaSmallerSelection": "Try a smaller selection.",
+  "screensaverMediaSmallerSelection": "Prueba con una selección más pequeña.",
   "@screensaverMediaSmallerSelection": {
     "context": "Settings:Screensaver:Photo Gallery screensaver",
     "description": "Label or guidance in this section.",
@@ -11957,7 +11957,7 @@
       ]
     }
   },
-  "screensaverMediaNoPhotos": "No photos selected",
+  "screensaverMediaNoPhotos": "No se han seleccionado fotos",
   "@screensaverMediaNoPhotos": {
     "context": "Settings:Screensaver:Photo Gallery screensaver",
     "description": "Label or guidance in this section.",
@@ -11970,7 +11970,7 @@
       ]
     }
   },
-  "screensaverMediaSelected": "{count} selected",
+  "screensaverMediaSelected": "{count} seleccionados",
   "@screensaverMediaSelected": {
     "context": "Settings:Screensaver:Photo Gallery screensaver",
     "description": "Label or guidance in this section.",
@@ -11989,7 +11989,7 @@
       }
     }
   },
-  "screensaverMediaPickOnDevice": "None selected. Pick on the device.",
+  "screensaverMediaPickOnDevice": "No hay elementos seleccionados. Elígelos en el dispositivo.",
   "@screensaverMediaPickOnDevice": {
     "context": "Settings:Screensaver:Photo Gallery screensaver",
     "description": "Label or guidance in this section.",
@@ -12002,7 +12002,7 @@
       ]
     }
   },
-  "settingScreensaverMediaIdTitle": "Media source",
+  "settingScreensaverMediaIdTitle": "Origen multimedia",
   "@settingScreensaverMediaIdTitle": {
     "context": "Settings:Screensaver:Home Assistant Media screensaver",
     "description": "Setting label.",
@@ -12015,7 +12015,7 @@
       ]
     }
   },
-  "settingScreensaverMediaIdDescription": "A Home Assistant media item, folder, or camera. Use Browse to pick one.",
+  "settingScreensaverMediaIdDescription": "Elemento multimedia, carpeta o cámara de Home Assistant. Usa Examinar para elegir uno.",
   "@settingScreensaverMediaIdDescription": {
     "context": "Settings:Screensaver:Home Assistant Media screensaver",
     "description": "Help below the setting.",
@@ -12028,7 +12028,7 @@
       ]
     }
   },
-  "settingScreensaverMediaIntervalTitle": "Seconds per image",
+  "settingScreensaverMediaIntervalTitle": "Segundos por imagen",
   "@settingScreensaverMediaIntervalTitle": {
     "context": "Settings:Screensaver:Home Assistant Media screensaver",
     "description": "Setting label.",
@@ -12041,7 +12041,7 @@
       ]
     }
   },
-  "settingScreensaverMediaIntervalDescription": "How long each image shows before the next. Videos play in full.",
+  "settingScreensaverMediaIntervalDescription": "Tiempo que se muestra cada imagen antes de pasar a la siguiente. Los videos se reproducen completos.",
   "@settingScreensaverMediaIntervalDescription": {
     "context": "Settings:Screensaver:Home Assistant Media screensaver",
     "description": "Help below the setting.",
@@ -12054,7 +12054,7 @@
       ]
     }
   },
-  "settingScreensaverMediaShuffleTitle": "Shuffle",
+  "settingScreensaverMediaShuffleTitle": "Orden aleatorio",
   "@settingScreensaverMediaShuffleTitle": {
     "context": "Settings:Screensaver:Home Assistant Media screensaver",
     "description": "Setting label.",
@@ -12067,7 +12067,7 @@
       ]
     }
   },
-  "settingScreensaverMediaShuffleDescription": "Play a folder in random order.",
+  "settingScreensaverMediaShuffleDescription": "Reproduce una carpeta en orden aleatorio.",
   "@settingScreensaverMediaShuffleDescription": {
     "context": "Settings:Screensaver:Home Assistant Media screensaver",
     "description": "Help below the setting.",
@@ -12080,7 +12080,7 @@
       ]
     }
   },
-  "settingScreensaverMediaRecursiveTitle": "Include subfolders",
+  "settingScreensaverMediaRecursiveTitle": "Incluir subcarpetas",
   "@settingScreensaverMediaRecursiveTitle": {
     "context": "Settings:Screensaver:Home Assistant Media screensaver",
     "description": "Setting label.",
@@ -12093,7 +12093,7 @@
       ]
     }
   },
-  "settingScreensaverMediaRecursiveDescription": "Descend into subfolders when a folder is chosen.",
+  "settingScreensaverMediaRecursiveDescription": "Incluye las subcarpetas de la carpeta elegida.",
   "@settingScreensaverMediaRecursiveDescription": {
     "context": "Settings:Screensaver:Home Assistant Media screensaver",
     "description": "Help below the setting.",
@@ -12106,7 +12106,7 @@
       ]
     }
   },
-  "settingScreensaverMediaTransitionTitle": "Transition",
+  "settingScreensaverMediaTransitionTitle": "Transición",
   "@settingScreensaverMediaTransitionTitle": {
     "context": "Settings:Screensaver:Home Assistant Media screensaver",
     "description": "Setting label.",
@@ -12119,7 +12119,7 @@
       ]
     }
   },
-  "settingScreensaverMediaTransitionDescription": "How one item hands off to the next.",
+  "settingScreensaverMediaTransitionDescription": "Cómo se pasa de un elemento al siguiente.",
   "@settingScreensaverMediaTransitionDescription": {
     "context": "Settings:Screensaver:Home Assistant Media screensaver",
     "description": "Help below the setting.",
@@ -12132,7 +12132,7 @@
       ]
     }
   },
-  "settingScreensaverMediaFillTitle": "Fill the screen",
+  "settingScreensaverMediaFillTitle": "Llenar la pantalla",
   "@settingScreensaverMediaFillTitle": {
     "context": "Settings:Screensaver:Home Assistant Media screensaver",
     "description": "Setting label.",
@@ -12145,7 +12145,7 @@
       ]
     }
   },
-  "settingScreensaverMediaFillDescription": "Off keeps the whole photo between black bars. Smart enlarges photos shaped close to the screen, framing the rest over a blurred backdrop. Always enlarges every photo, cutting off what does not fit.",
+  "settingScreensaverMediaFillDescription": "Desactivado mantiene la foto completa entre franjas negras. Inteligente amplía las fotos de proporciones similares a la pantalla y muestra las demás sobre un fondo desenfocado. Siempre amplía todas las fotos y recorta lo que no cabe.",
   "@settingScreensaverMediaFillDescription": {
     "context": "Settings:Screensaver:Home Assistant Media screensaver",
     "description": "Help below the setting.",
@@ -12158,7 +12158,7 @@
       ]
     }
   },
-  "settingScreensaverMediaEdgeTapsTitle": "Tap edges to change slides",
+  "settingScreensaverMediaEdgeTapsTitle": "Tocar los bordes para cambiar de imagen",
   "@settingScreensaverMediaEdgeTapsTitle": {
     "context": "Settings:Screensaver:Home Assistant Media screensaver",
     "description": "Setting label.",
@@ -12171,7 +12171,7 @@
       ]
     }
   },
-  "settingScreensaverMediaEdgeTapsDescription": "A tap on the left or right fifth of the screen shows the previous or next slide instead of dismissing.",
+  "settingScreensaverMediaEdgeTapsDescription": "Tocar el quinto izquierdo o derecho de la pantalla muestra la imagen anterior o siguiente en lugar de cerrar el protector de pantalla.",
   "@settingScreensaverMediaEdgeTapsDescription": {
     "context": "Settings:Screensaver:Home Assistant Media screensaver",
     "description": "Help below the setting.",
@@ -12184,7 +12184,7 @@
       ]
     }
   },
-  "screensaverMediaHaPage": "Home Assistant Media screensaver",
+  "screensaverMediaHaPage": "Protector de pantalla: Contenido multimedia de Home Assistant",
   "@screensaverMediaHaPage": {
     "context": "Settings:Screensaver:Home Assistant Media screensaver",
     "description": "Label or guidance in this section.",
@@ -12197,7 +12197,7 @@
       ]
     }
   },
-  "screensaverMediaHaHint": "Media source, timing, shuffle, fill",
+  "screensaverMediaHaHint": "Origen multimedia, duración, orden aleatorio y ajuste a la pantalla",
   "@screensaverMediaHaHint": {
     "context": "Settings:Screensaver:Home Assistant Media screensaver",
     "description": "Label or guidance in this section.",
@@ -12210,7 +12210,7 @@
       ]
     }
   },
-  "screensaverMediaChoose": "Choose media",
+  "screensaverMediaChoose": "Elegir contenido multimedia",
   "@screensaverMediaChoose": {
     "context": "Settings:Screensaver:Home Assistant Media screensaver",
     "description": "Label or guidance in this section.",
@@ -12223,7 +12223,7 @@
       ]
     }
   },
-  "screensaverMediaRoot": "Media",
+  "screensaverMediaRoot": "Contenido multimedia",
   "@screensaverMediaRoot": {
     "context": "Settings:Screensaver:Home Assistant Media screensaver",
     "description": "Label or guidance in this section.",
@@ -12236,7 +12236,7 @@
       ]
     }
   },
-  "screensaverMediaHaUnavailable": "Could not reach Home Assistant, or the token is missing.",
+  "screensaverMediaHaUnavailable": "No se pudo conectar con Home Assistant o falta el token.",
   "@screensaverMediaHaUnavailable": {
     "context": "Settings:Screensaver:Home Assistant Media screensaver",
     "description": "Label or guidance in this section.",
@@ -12249,7 +12249,7 @@
       ]
     }
   },
-  "screensaverMediaEmpty": "Nothing here.",
+  "screensaverMediaEmpty": "No hay elementos aquí.",
   "@screensaverMediaEmpty": {
     "context": "Settings:Screensaver:Home Assistant Media screensaver",
     "description": "Label or guidance in this section.",
@@ -12262,7 +12262,7 @@
       ]
     }
   },
-  "screensaverMediaUseFolder": "Use this folder",
+  "screensaverMediaUseFolder": "Usar esta carpeta",
   "@screensaverMediaUseFolder": {
     "context": "Settings:Screensaver:Home Assistant Media screensaver",
     "description": "Label or guidance in this section.",
@@ -12275,7 +12275,7 @@
       ]
     }
   },
-  "screensaverMediaFolder": "folder",
+  "screensaverMediaFolder": "carpeta",
   "@screensaverMediaFolder": {
     "context": "Settings:Screensaver:Home Assistant Media screensaver",
     "description": "Label or guidance in this section.",
@@ -12288,7 +12288,7 @@
       ]
     }
   },
-  "screensaverMediaCamera": "camera",
+  "screensaverMediaCamera": "cámara",
   "@screensaverMediaCamera": {
     "context": "Settings:Screensaver:Home Assistant Media screensaver",
     "description": "Label or guidance in this section.",
@@ -12301,7 +12301,7 @@
       ]
     }
   },
-  "screensaverMediaItem": "item",
+  "screensaverMediaItem": "elemento",
   "@screensaverMediaItem": {
     "context": "Settings:Screensaver:Home Assistant Media screensaver",
     "description": "Label or guidance in this section.",
@@ -12314,7 +12314,7 @@
       ]
     }
   },
-  "screensaverMediaBrowseFailed": "browse failed",
+  "screensaverMediaBrowseFailed": "No se pudo explorar el contenido",
   "@screensaverMediaBrowseFailed": {
     "context": "Settings:Screensaver:Home Assistant Media screensaver",
     "description": "Label or guidance in this section.",
@@ -12327,7 +12327,7 @@
       ]
     }
   },
-  "screensaverMediaBrowseError": "Could not browse: {error}",
+  "screensaverMediaBrowseError": "No se pudo explorar el contenido: {error}",
   "@screensaverMediaBrowseError": {
     "context": "Settings:Screensaver:Home Assistant Media screensaver",
     "description": "Label or guidance in this section.",
@@ -12346,7 +12346,7 @@
       }
     }
   },
-  "screensaverMediaNotSet": "Not set",
+  "screensaverMediaNotSet": "Sin configurar",
   "@screensaverMediaNotSet": {
     "context": "Settings:Screensaver:Home Assistant Media screensaver",
     "description": "Label or guidance in this section.",
@@ -12359,7 +12359,7 @@
       ]
     }
   },
-  "settingScreensaverLocalFolderTitle": "Local folder",
+  "settingScreensaverLocalFolderTitle": "Carpeta local",
   "@settingScreensaverLocalFolderTitle": {
     "context": "Settings:Screensaver:Local Media screensaver",
     "description": "Setting label.",
@@ -12372,7 +12372,7 @@
       ]
     }
   },
-  "settingScreensaverLocalFolderDescription": "Folder on this device whose photos and videos the screensaver cycles through. Picked on the device; the path can also be typed here remotely.",
+  "settingScreensaverLocalFolderDescription": "Carpeta de este dispositivo cuyas fotos y videos recorre el protector de pantalla. Se elige en el dispositivo. También se puede escribir la ruta desde la administración remota.",
   "@settingScreensaverLocalFolderDescription": {
     "context": "Settings:Screensaver:Local Media screensaver",
     "description": "Help below the setting.",
@@ -12385,7 +12385,7 @@
       ]
     }
   },
-  "settingScreensaverLocalIntervalTitle": "Seconds per photo",
+  "settingScreensaverLocalIntervalTitle": "Segundos por foto",
   "@settingScreensaverLocalIntervalTitle": {
     "context": "Settings:Screensaver:Local Media screensaver",
     "description": "Setting label.",
@@ -12398,7 +12398,7 @@
       ]
     }
   },
-  "settingScreensaverLocalIntervalDescription": "How long each photo shows before the next. Videos play in full.",
+  "settingScreensaverLocalIntervalDescription": "Tiempo que se muestra cada foto antes de pasar a la siguiente. Los videos se reproducen completos.",
   "@settingScreensaverLocalIntervalDescription": {
     "context": "Settings:Screensaver:Local Media screensaver",
     "description": "Help below the setting.",
@@ -12411,7 +12411,7 @@
       ]
     }
   },
-  "settingScreensaverLocalShuffleTitle": "Shuffle",
+  "settingScreensaverLocalShuffleTitle": "Orden aleatorio",
   "@settingScreensaverLocalShuffleTitle": {
     "context": "Settings:Screensaver:Local Media screensaver",
     "description": "Setting label.",
@@ -12424,7 +12424,7 @@
       ]
     }
   },
-  "settingScreensaverLocalShuffleDescription": "Cycle the folder in random order instead of by name.",
+  "settingScreensaverLocalShuffleDescription": "Recorre la carpeta en orden aleatorio en lugar de ordenar por nombre.",
   "@settingScreensaverLocalShuffleDescription": {
     "context": "Settings:Screensaver:Local Media screensaver",
     "description": "Help below the setting.",
@@ -12437,7 +12437,7 @@
       ]
     }
   },
-  "settingScreensaverLocalRecursiveTitle": "Include subfolders",
+  "settingScreensaverLocalRecursiveTitle": "Incluir subcarpetas",
   "@settingScreensaverLocalRecursiveTitle": {
     "context": "Settings:Screensaver:Local Media screensaver",
     "description": "Setting label.",
@@ -12450,7 +12450,7 @@
       ]
     }
   },
-  "settingScreensaverLocalRecursiveDescription": "Also cycle photos and videos inside subfolders.",
+  "settingScreensaverLocalRecursiveDescription": "Incluye también las fotos y los videos de las subcarpetas.",
   "@settingScreensaverLocalRecursiveDescription": {
     "context": "Settings:Screensaver:Local Media screensaver",
     "description": "Help below the setting.",
@@ -12463,7 +12463,7 @@
       ]
     }
   },
-  "settingScreensaverLocalTransitionTitle": "Transition",
+  "settingScreensaverLocalTransitionTitle": "Transición",
   "@settingScreensaverLocalTransitionTitle": {
     "context": "Settings:Screensaver:Local Media screensaver",
     "description": "Setting label.",
@@ -12476,7 +12476,7 @@
       ]
     }
   },
-  "settingScreensaverLocalTransitionDescription": "How one photo hands off to the next.",
+  "settingScreensaverLocalTransitionDescription": "Cómo se pasa de una foto a la siguiente.",
   "@settingScreensaverLocalTransitionDescription": {
     "context": "Settings:Screensaver:Local Media screensaver",
     "description": "Help below the setting.",
@@ -12489,7 +12489,7 @@
       ]
     }
   },
-  "settingScreensaverLocalFillTitle": "Fill the screen",
+  "settingScreensaverLocalFillTitle": "Llenar la pantalla",
   "@settingScreensaverLocalFillTitle": {
     "context": "Settings:Screensaver:Local Media screensaver",
     "description": "Setting label.",
@@ -12502,7 +12502,7 @@
       ]
     }
   },
-  "settingScreensaverLocalFillDescription": "Off keeps the whole photo between black bars. Smart enlarges photos shaped close to the screen, framing the rest over a blurred backdrop. Always enlarges every photo, cutting off what does not fit.",
+  "settingScreensaverLocalFillDescription": "Desactivado mantiene la foto completa entre franjas negras. Inteligente amplía las fotos de proporciones similares a la pantalla y muestra las demás sobre un fondo desenfocado. Siempre amplía todas las fotos y recorta lo que no cabe.",
   "@settingScreensaverLocalFillDescription": {
     "context": "Settings:Screensaver:Local Media screensaver",
     "description": "Help below the setting.",
@@ -12515,7 +12515,7 @@
       ]
     }
   },
-  "settingScreensaverLocalEdgeTapsTitle": "Tap edges to change slides",
+  "settingScreensaverLocalEdgeTapsTitle": "Tocar los bordes para cambiar de imagen",
   "@settingScreensaverLocalEdgeTapsTitle": {
     "context": "Settings:Screensaver:Local Media screensaver",
     "description": "Setting label.",
@@ -12528,7 +12528,7 @@
       ]
     }
   },
-  "settingScreensaverLocalEdgeTapsDescription": "A tap on the left or right fifth of the screen shows the previous or next slide instead of dismissing.",
+  "settingScreensaverLocalEdgeTapsDescription": "Tocar el quinto izquierdo o derecho de la pantalla muestra la imagen anterior o siguiente en lugar de cerrar el protector de pantalla.",
   "@settingScreensaverLocalEdgeTapsDescription": {
     "context": "Settings:Screensaver:Local Media screensaver",
     "description": "Help below the setting.",
@@ -12541,7 +12541,7 @@
       ]
     }
   },
-  "screensaverMediaLocalPage": "Local Media screensaver",
+  "screensaverMediaLocalPage": "Protector de pantalla: Contenido multimedia local",
   "@screensaverMediaLocalPage": {
     "context": "Settings:Screensaver:Local Media screensaver",
     "description": "Label or guidance in this section.",
@@ -12554,7 +12554,7 @@
       ]
     }
   },
-  "screensaverMediaLocalHint": "Folder, timing, shuffle, transition",
+  "screensaverMediaLocalHint": "Carpeta, duración, orden aleatorio y transición",
   "@screensaverMediaLocalHint": {
     "context": "Settings:Screensaver:Local Media screensaver",
     "description": "Label or guidance in this section.",

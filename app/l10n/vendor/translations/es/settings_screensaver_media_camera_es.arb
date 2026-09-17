@@ -1,0 +1,20 @@
+{
+  "@@locale": "es",
+  "settingScreensaverCameraViewsTitle": "Vistas de cámaras",
+  "settingScreensaverCameraViewsDescription": "Vistas de cámaras que muestra el protector de pantalla, en este orden.",
+  "settingScreensaverCameraViewSecondsTitle": "Segundos por vista de cámaras",
+  "settingScreensaverCameraViewSecondsDescription": "Tiempo que permanece cada vista en pantalla antes de pasar a la siguiente. Si solo se elige una vista, no hay rotación.",
+  "settingScreensaverCameraMuteTitle": "Silenciar todas las vistas",
+  "settingScreensaverCameraMuteDescription": "Mantiene todas las vistas en silencio, incluso las de una sola cámara.",
+  "screensaverMediaCameraPage": "Protector de pantalla: Transmisiones de cámara",
+  "screensaverMediaCameraHint": "Vistas que se muestran, segundos por vista y sonido",
+  "screensaverMediaNoCameras": "Ninguna vista tiene cámaras todavía. Añade una en Transmisiones de cámara.",
+  "screensaverMediaNoCamerasRemote": "Ninguna vista tiene cámaras todavía",
+  "screensaverMediaAddCameras": "Añade una en Transmisiones de cámara.",
+  "screensaverMediaNoViews": "Aún no hay vistas seleccionadas. Elige las vistas que recorre el protector de pantalla.",
+  "screensaverMediaRotation": "En la rotación (arrastra para reordenar)",
+  "screensaverMediaAvailable": "Disponibles",
+  "screensaverMediaOneCamera": "{count} cámara",
+  "screensaverMediaCameras": "{count} cámaras",
+  "screensaverMediaPosition": "Posición {index} · {cameras}"
+}

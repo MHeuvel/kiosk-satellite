@@ -1,0 +1,497 @@
+{
+  "@@locale": "en",
+  "settingScreensaverImmichPeopleTitle": "People",
+  "@settingScreensaverImmichPeopleTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "settingScreensaverImmichPeopleDescription": "Show only media with any of these people.",
+  "@settingScreensaverImmichPeopleDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "settingScreensaverImmichExcludePeopleTitle": "Exclude people",
+  "@settingScreensaverImmichExcludePeopleTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "settingScreensaverImmichExcludePeopleDescription": "Skip media with any of these people.",
+  "@settingScreensaverImmichExcludePeopleDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "settingScreensaverImmichTagsTitle": "Tags",
+  "@settingScreensaverImmichTagsTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "settingScreensaverImmichTagsDescription": "Show only media with any of these tags.",
+  "@settingScreensaverImmichTagsDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "settingScreensaverImmichFavoritesOnlyTitle": "Favorites only",
+  "@settingScreensaverImmichFavoritesOnlyTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "settingScreensaverImmichFavoritesOnlyDescription": "Show only media marked as favorite.",
+  "@settingScreensaverImmichFavoritesOnlyDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "settingScreensaverImmichTakenWithinTitle": "Taken within",
+  "@settingScreensaverImmichTakenWithinTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "settingScreensaverImmichTakenWithinDescription": "Only show media taken in this window.",
+  "@settingScreensaverImmichTakenWithinDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "settingScreensaverImmichTakenFromTitle": "From",
+  "@settingScreensaverImmichTakenFromTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "settingScreensaverImmichTakenFromDescription": "Skip media taken before this date.",
+  "@settingScreensaverImmichTakenFromDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "settingScreensaverImmichTakenToTitle": "To",
+  "@settingScreensaverImmichTakenToTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "settingScreensaverImmichTakenToDescription": "Skip media taken after this date. The day itself counts.",
+  "@settingScreensaverImmichTakenToDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaFilters": "Filters",
+  "@screensaverMediaFilters": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaAnyone": "Anyone",
+  "@screensaverMediaAnyone": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaAnyoneDevice": "Anyone.",
+  "@screensaverMediaAnyoneDevice": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaNoOne": "No one",
+  "@screensaverMediaNoOne": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaNoOneDevice": "No one.",
+  "@screensaverMediaNoOneDevice": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaAny": "Any",
+  "@screensaverMediaAny": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaAnyDevice": "Any.",
+  "@screensaverMediaAnyDevice": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaNoPeople": "No named people yet. Name them in Immich first.",
+  "@screensaverMediaNoPeople": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaNoTags": "No tags yet. Create them in Immich first.",
+  "@screensaverMediaNoTags": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaPeopleFailed": "Could not list the people",
+  "@screensaverMediaPeopleFailed": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaTagsFailed": "Could not list the tags",
+  "@screensaverMediaTagsFailed": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaHidden": "Hidden",
+  "@screensaverMediaHidden": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaAnyTime": "Any time",
+  "@screensaverMediaAnyTime": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaPastMonth": "Past month",
+  "@screensaverMediaPastMonth": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaPast3Months": "Past 3 months",
+  "@screensaverMediaPast3Months": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaPastYear": "Past year",
+  "@screensaverMediaPastYear": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaPast2Years": "Past 2 years",
+  "@screensaverMediaPast2Years": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaPast5Years": "Past 5 years",
+  "@screensaverMediaPast5Years": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaPast10Years": "Past 10 years",
+  "@screensaverMediaPast10Years": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaSince": "Since",
+  "@screensaverMediaSince": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaTimeframe": "Timeframe",
+  "@screensaverMediaTimeframe": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaToday": "Today",
+  "@screensaverMediaToday": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaDateFormat": "Use YYYY-MM-DD.",
+  "@screensaverMediaDateFormat": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaNotDate": "That is not a date.",
+  "@screensaverMediaNotDate": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  }
+}

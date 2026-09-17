@@ -1,0 +1,302 @@
+{
+  "@@locale": "en",
+  "settingScreensaverImmichMetadataTitle": "Show metadata",
+  "@settingScreensaverImmichMetadataTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichMetadataDescription": "Album, date, camera and location over the media.",
+  "@settingScreensaverImmichMetadataDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichMetadataAlbumTitle": "Album name",
+  "@settingScreensaverImmichMetadataAlbumTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichMetadataAlbumDescription": "Show which album the photo comes from.",
+  "@settingScreensaverImmichMetadataAlbumDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichMetadataDateTitle": "Date taken",
+  "@settingScreensaverImmichMetadataDateTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichMetadataDateDescription": "Show when the photo was taken.",
+  "@settingScreensaverImmichMetadataDateDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichMetadataCameraTitle": "Camera details",
+  "@settingScreensaverImmichMetadataCameraTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichMetadataCameraDescription": "Show focal length, aperture and ISO.",
+  "@settingScreensaverImmichMetadataCameraDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichMetadataLocationTitle": "Location",
+  "@settingScreensaverImmichMetadataLocationTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichMetadataLocationDescription": "Show the place the photo was taken.",
+  "@settingScreensaverImmichMetadataLocationDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichMetadataPositionTitle": "Metadata position",
+  "@settingScreensaverImmichMetadataPositionTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichMetadataPositionDescription": "Which corner the details sit in.",
+  "@settingScreensaverImmichMetadataPositionDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichMetadataTextShadowTitle": "Text drop shadow",
+  "@settingScreensaverImmichMetadataTextShadowTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichMetadataTextShadowDescription": "Add a drop shadow to metadata text for readability on photos.",
+  "@settingScreensaverImmichMetadataTextShadowDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichMetadataScaleTitle": "Text scaling",
+  "@settingScreensaverImmichMetadataScaleTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichMetadataScaleDescription": "Scale the photo details to better fit your screen size.",
+  "@settingScreensaverImmichMetadataScaleDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichVignetteStrengthTitle": "Vignette strength",
+  "@settingScreensaverImmichVignetteStrengthTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichVignetteStrengthDescription": "Darkness of the shading behind the details, for readability on bright photos. 0 turns it off.",
+  "@settingScreensaverImmichVignetteStrengthDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "screensaverMediaMetadata": "Metadata",
+  "@screensaverMediaMetadata": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "screensaverMediaTopLeft": "Top left",
+  "@screensaverMediaTopLeft": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "screensaverMediaTopRight": "Top right",
+  "@screensaverMediaTopRight": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "screensaverMediaBottomLeft": "Bottom left",
+  "@screensaverMediaBottomLeft": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "screensaverMediaBottomRight": "Bottom right",
+  "@screensaverMediaBottomRight": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  }
+}

@@ -1,0 +1,360 @@
+{
+  "@@locale": "en",
+  "settingScreensaverMediaIdTitle": "Media source",
+  "@settingScreensaverMediaIdTitle": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverMediaIdDescription": "A Home Assistant media item, folder, or camera. Use Browse to pick one.",
+  "@settingScreensaverMediaIdDescription": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverMediaIntervalTitle": "Seconds per image",
+  "@settingScreensaverMediaIntervalTitle": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverMediaIntervalDescription": "How long each image shows before the next. Videos play in full.",
+  "@settingScreensaverMediaIntervalDescription": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverMediaShuffleTitle": "Shuffle",
+  "@settingScreensaverMediaShuffleTitle": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverMediaShuffleDescription": "Play a folder in random order.",
+  "@settingScreensaverMediaShuffleDescription": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverMediaRecursiveTitle": "Include subfolders",
+  "@settingScreensaverMediaRecursiveTitle": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverMediaRecursiveDescription": "Descend into subfolders when a folder is chosen.",
+  "@settingScreensaverMediaRecursiveDescription": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverMediaTransitionTitle": "Transition",
+  "@settingScreensaverMediaTransitionTitle": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverMediaTransitionDescription": "How one item hands off to the next.",
+  "@settingScreensaverMediaTransitionDescription": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverMediaFillTitle": "Fill the screen",
+  "@settingScreensaverMediaFillTitle": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverMediaFillDescription": "Off keeps the whole photo between black bars. Smart enlarges photos shaped close to the screen, framing the rest over a blurred backdrop. Always enlarges every photo, cutting off what does not fit.",
+  "@settingScreensaverMediaFillDescription": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverMediaEdgeTapsTitle": "Tap edges to change slides",
+  "@settingScreensaverMediaEdgeTapsTitle": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverMediaEdgeTapsDescription": "A tap on the left or right fifth of the screen shows the previous or next slide instead of dismissing.",
+  "@settingScreensaverMediaEdgeTapsDescription": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "screensaverMediaHaPage": "Home Assistant Media screensaver",
+  "@screensaverMediaHaPage": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "screensaverMediaHaHint": "Media source, timing, shuffle, fill",
+  "@screensaverMediaHaHint": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "screensaverMediaChoose": "Choose media",
+  "@screensaverMediaChoose": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "screensaverMediaRoot": "Media",
+  "@screensaverMediaRoot": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "screensaverMediaHaUnavailable": "Could not reach Home Assistant, or the token is missing.",
+  "@screensaverMediaHaUnavailable": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "screensaverMediaEmpty": "Nothing here.",
+  "@screensaverMediaEmpty": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "screensaverMediaUseFolder": "Use this folder",
+  "@screensaverMediaUseFolder": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "screensaverMediaFolder": "folder",
+  "@screensaverMediaFolder": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "screensaverMediaCamera": "camera",
+  "@screensaverMediaCamera": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "screensaverMediaItem": "item",
+  "@screensaverMediaItem": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "screensaverMediaBrowseFailed": "browse failed",
+  "@screensaverMediaBrowseFailed": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "screensaverMediaBrowseError": "Could not browse: {error}",
+  "@screensaverMediaBrowseError": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Technical error details. Keep unchanged."
+      }
+    }
+  },
+  "screensaverMediaNotSet": "Not set",
+  "@screensaverMediaNotSet": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  }
+}

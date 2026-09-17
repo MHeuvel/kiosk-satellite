@@ -28,7 +28,7 @@
   "screensaverModeMedia": "Contenido multimedia de Home Assistant",
   "screensaverModeLocal": "Contenido multimedia local",
   "screensaverModeGallery": "Galería de fotos",
-  "screensaverModeImmich": "Contenido multimedia de Immich",
+  "screensaverModeImmich": "Immich",
   "screensaverModeWebsite": "Sitio web",
   "screensaverModeCamera": "Transmisiones de cámara",
   "screensaverDimSection": "Protector de pantalla: Atenuar",
