@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../app_container.dart';
+import '../l10n/messages.dart';
 import '../core/events.dart';
 import '../managers/sendspin/music_assistant_api.dart';
 import '../managers/settings/definitions.dart' as defs;
@@ -153,7 +154,10 @@ class KioskDrawer extends StatelessWidget {
                                 _item(
                                   context,
                                   Icons.extension_outlined,
-                                  '${action['pluginName']}: ${action['title']}',
+                                  l10n(context).drawerPluginAction(
+                                    '${action['pluginName']}',
+                                    '${action['title']}',
+                                  ),
                                   () async {
                                     onClose();
                                     final result = await c.commands
@@ -164,10 +168,14 @@ class KioskDrawer extends StatelessWidget {
                                     if (!result.ok && context.mounted) {
                                       showToast(
                                         context,
-                                        title: 'Plugin action',
+                                        title: l10n(
+                                          context,
+                                        ).drawerPluginActionErrorTitle,
                                         message:
                                             result.error ??
-                                            'Could not run this action.',
+                                            l10n(
+                                              context,
+                                            ).drawerPluginActionError,
                                         kind: ToastKind.error,
                                       );
                                     }
@@ -180,7 +188,7 @@ class KioskDrawer extends StatelessWidget {
                                   divided: sep(),
                                   context,
                                   Icons.dashboard_outlined,
-                                  'Dashboard',
+                                  l10n(context).drawerDashboard,
                                   () {
                                     onClose();
                                     c.commands.execute('loadUrl', {
@@ -193,7 +201,7 @@ class KioskDrawer extends StatelessWidget {
                                   divided: sep(),
                                   context,
                                   Icons.settings_outlined,
-                                  'Settings',
+                                  l10n(context).commonSettings,
                                   () {
                                     onClose();
                                     onSettings();
@@ -220,7 +228,7 @@ class KioskDrawer extends StatelessWidget {
                                     c.settings.get(defs.haKioskMode)
                                         ? Icons.fullscreen_exit
                                         : Icons.fullscreen,
-                                    'HA Kiosk Mode',
+                                    l10n(context).drawerHaKiosk,
                                     () async {
                                       onClose();
                                       await c.settings.set(
@@ -241,7 +249,7 @@ class KioskDrawer extends StatelessWidget {
                                     divided: sep(),
                                     context,
                                     Icons.videocam_outlined,
-                                    'Camera View',
+                                    l10n(context).drawerCameraView,
                                     () {
                                       onClose();
                                       c.camera.showView(view.id);
@@ -262,7 +270,7 @@ class KioskDrawer extends StatelessWidget {
                                     divided: sep(),
                                     context,
                                     Icons.speaker_phone_outlined,
-                                    'Intercom',
+                                    l10n(context).drawerIntercom,
                                     () {
                                       onClose();
                                       c.commands.execute(
@@ -286,7 +294,7 @@ class KioskDrawer extends StatelessWidget {
                                     divided: sep(),
                                     context,
                                     'assets/svg/music-assistant.svg',
-                                    'Music Assistant',
+                                    l10n(context).drawerMusicAssistant,
                                     () {
                                       onClose();
                                       c.commands.execute(
@@ -329,7 +337,7 @@ class KioskDrawer extends StatelessWidget {
                                     divided: sep(),
                                     context,
                                     Icons.dark_mode_outlined,
-                                    'Start Screensaver',
+                                    l10n(context).drawerScreensaver,
                                     () {
                                       onClose();
                                       c.commands.execute(
@@ -345,7 +353,7 @@ class KioskDrawer extends StatelessWidget {
                                   divided: sep(),
                                   context,
                                   Icons.lock_outline,
-                                  'Lockdown Mode',
+                                  l10n(context).drawerLockdown,
                                   () async {
                                     onClose();
                                     await c.settings.set(
@@ -384,7 +392,7 @@ class KioskDrawer extends StatelessWidget {
                                     divided: sep(),
                                     context,
                                     Icons.apps_outlined,
-                                    'Apps',
+                                    l10n(context).drawerApps,
                                     () {
                                       onClose();
                                       c.launcher.visible.value = true;
@@ -395,7 +403,7 @@ class KioskDrawer extends StatelessWidget {
                                   divided: sep(),
                                   context,
                                   Icons.cleaning_services_outlined,
-                                  'Clear web cache',
+                                  l10n(context).drawerClearCache,
                                   () {
                                     onClose();
                                     c.commands.execute(
@@ -428,18 +436,21 @@ class KioskDrawer extends StatelessWidget {
                                   divided: false,
                                   context,
                                   Icons.restart_alt_outlined,
-                                  'Restart Device',
+                                  l10n(context).drawerRestartDevice,
                                   () async {
                                     onClose();
                                     if (context.mounted &&
                                         await showConfirmDialog(
                                           context,
-                                          title: 'Restart Device',
-                                          message:
-                                              'Restart this device? Kiosk '
-                                              'Satellite comes back when it '
-                                              'boots.',
-                                          confirmLabel: 'Restart',
+                                          title: l10n(
+                                            context,
+                                          ).drawerRestartDevice,
+                                          message: l10n(
+                                            context,
+                                          ).drawerRestartConfirm,
+                                          confirmLabel: l10n(
+                                            context,
+                                          ).drawerRestart,
                                         )) {
                                       await c.commands.execute(
                                         'rebootDevice',
@@ -453,15 +464,21 @@ class KioskDrawer extends StatelessWidget {
                                   divided: c.kiosk.rebootSupported.value,
                                   context,
                                   Icons.power_settings_new_outlined,
-                                  'Exit Application',
+                                  l10n(context).drawerExitApplication,
                                   () async {
                                     onClose();
                                     if (context.mounted &&
                                         await showConfirmDialog(
                                           context,
-                                          title: 'Exit Application',
-                                          message: 'Close Kiosk Satellite?',
-                                          confirmLabel: 'Exit',
+                                          title: l10n(
+                                            context,
+                                          ).drawerExitApplication,
+                                          message: l10n(
+                                            context,
+                                          ).drawerExitConfirm,
+                                          confirmLabel: l10n(
+                                            context,
+                                          ).drawerExit,
                                         )) {
                                       await c.commands.execute(
                                         'exitApp',
@@ -518,7 +535,7 @@ class KioskDrawer extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Hold mode is on',
+                                      l10n(context).drawerHoldActive,
                                       style: theme.textTheme.titleSmall
                                           ?.copyWith(
                                             fontWeight: FontWeight.w600,
@@ -528,8 +545,7 @@ class KioskDrawer extends StatelessWidget {
                                           ),
                                     ),
                                     Text(
-                                      'Screensaver and timers are paused · '
-                                      'tap to turn off',
+                                      l10n(context).drawerHoldHelp,
                                       style: theme.textTheme.bodySmall
                                           ?.copyWith(
                                             color: theme
@@ -569,7 +585,9 @@ class KioskDrawer extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 6),
                               child: Text(
-                                'Version ${c.device.appVersion}',
+                                l10n(
+                                  context,
+                                ).drawerVersion(c.device.appVersion),
                                 textAlign: TextAlign.center,
                                 style: theme.textTheme.bodySmall?.copyWith(
                                   color: theme.colorScheme.onSurfaceVariant,
@@ -602,7 +620,7 @@ class KioskDrawer extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            'Update available',
+                                            l10n(context).drawerUpdateAvailable,
                                             style: theme.textTheme.titleSmall
                                                 ?.copyWith(
                                                   fontWeight: FontWeight.w600,
@@ -612,8 +630,9 @@ class KioskDrawer extends StatelessWidget {
                                                 ),
                                           ),
                                           Text(
-                                            'Version ${info.version} · tap to '
-                                            'install',
+                                            l10n(
+                                              context,
+                                            ).drawerUpdateInstall(info.version),
                                             style: theme.textTheme.bodySmall
                                                 ?.copyWith(
                                                   color: theme
@@ -643,21 +662,21 @@ class KioskDrawer extends StatelessWidget {
                   child: Center(
                     child: SegmentedButton<String>(
                       showSelectedIcon: false,
-                      segments: const [
+                      segments: [
                         ButtonSegment(
                           value: 'dark',
-                          icon: Icon(Icons.dark_mode_outlined),
-                          tooltip: 'Dark',
+                          icon: const Icon(Icons.dark_mode_outlined),
+                          tooltip: l10n(context).drawerThemeDark,
                         ),
                         ButtonSegment(
                           value: 'light',
-                          icon: Icon(Icons.light_mode_outlined),
-                          tooltip: 'Light',
+                          icon: const Icon(Icons.light_mode_outlined),
+                          tooltip: l10n(context).drawerThemeLight,
                         ),
                         ButtonSegment(
                           value: 'system',
-                          icon: Icon(Icons.brightness_auto_outlined),
-                          tooltip: 'Follow Android',
+                          icon: const Icon(Icons.brightness_auto_outlined),
+                          tooltip: l10n(context).drawerThemeAndroid,
                         ),
                       ],
                       selected: {c.settings.get(defs.uiTheme)},
@@ -691,7 +710,9 @@ class KioskDrawer extends StatelessWidget {
           divided: divided,
           context,
           Icons.play_circle_outlined,
-          shown ? 'Hide Floating Player' : 'Show Floating Player',
+          shown
+              ? l10n(context).drawerHidePlayer
+              : l10n(context).drawerShowPlayer,
           () {
             onClose();
             if (shown) {
@@ -717,7 +738,7 @@ class KioskDrawer extends StatelessWidget {
           divided: divided,
           context,
           Icons.album_outlined,
-          'Now Playing',
+          l10n(context).drawerNowPlaying,
           () {
             onClose();
             unawaited(c.sendspin.showFullscreen());
@@ -744,7 +765,7 @@ class KioskDrawer extends StatelessWidget {
           divided: divided,
           context,
           Icons.pause_circle_outline,
-          on ? 'Turn Off Hold Mode' : 'Turn On Hold Mode',
+          on ? l10n(context).drawerHoldOff : l10n(context).drawerHoldOn,
           () {
             onClose();
             unawaited(c.settings.set(defs.haHoldMode, !on));
@@ -800,14 +821,16 @@ class KioskDrawer extends StatelessWidget {
                   color: theme.colorScheme.onSurfaceVariant,
                 ),
               const SizedBox(width: 16),
-              Text(
-                label,
-                // The same style the settings rail titles use — titleMedium,
-                // not bodyLarge: both are 16px, but bodyLarge tracks looser
-                // (letter-spacing 0.5 vs 0.15) and the difference shows.
-                style: theme.textTheme.titleMedium?.copyWith(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
+              Expanded(
+                child: Text(
+                  label,
+                  // The same style the settings rail titles use — titleMedium,
+                  // not bodyLarge: both are 16px, but bodyLarge tracks looser
+                  // (letter-spacing 0.5 vs 0.15) and the difference shows.
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ],
@@ -835,23 +858,24 @@ class KioskDrawer extends StatelessWidget {
   /// line for the notice via its ValueListenableBuilder on its own; the
   /// other two outcomes only exist as this feedback.
   Future<void> _checkNow(BuildContext context) async {
+    final strings = l10n(context);
     final overlay = Overlay.of(context, rootOverlay: true);
-    showToastIn(overlay, title: 'Checking for updates…', sticky: true);
+    showToastIn(overlay, title: strings.drawerUpdateChecking, sticky: true);
     final reachable = await c.update.check();
     dismissToast();
     if (c.update.available.value != null) return;
     if (reachable) {
       showToastIn(
         overlay,
-        title: 'Up to date',
-        message: 'You are on the latest version.',
+        title: strings.drawerUpdateCurrent,
+        message: strings.drawerUpdateCurrentHelp,
         kind: ToastKind.success,
       );
     } else {
       showToastIn(
         overlay,
-        title: 'Update check failed',
-        message: 'Is the device online?',
+        title: strings.drawerUpdateCheckFailed,
+        message: strings.drawerUpdateOffline,
         kind: ToastKind.error,
       );
     }
@@ -867,7 +891,7 @@ class KioskDrawer extends StatelessWidget {
     final go = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Update to ${info.version}'),
+        title: Text(l10n(context).drawerUpdateTo(info.version)),
         content: SizedBox(
           width: 420,
           child: SingleChildScrollView(
@@ -875,11 +899,10 @@ class KioskDrawer extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ..._releaseNotes(theme, info.notes),
+                ..._releaseNotes(context, theme, info.notes),
                 const SizedBox(height: 16),
                 Text(
-                  'The download starts on Update; Android asks you to '
-                  'confirm the installation.',
+                  l10n(context).drawerUpdateInstructions,
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
@@ -887,8 +910,7 @@ class KioskDrawer extends StatelessWidget {
                 if (!canRelaunch) ...[
                   const SizedBox(height: 8),
                   Text(
-                    'Without the "Display over other apps" permission the '
-                    'app cannot reopen itself after updating.',
+                    l10n(context).drawerUpdateRelaunch,
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: theme.colorScheme.error,
                     ),
@@ -901,11 +923,11 @@ class KioskDrawer extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
+            child: Text(l10n(context).commonCancel),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(context, true),
-            child: const Text('Update'),
+            child: Text(l10n(context).drawerUpdate),
           ),
         ],
       ),
@@ -919,7 +941,7 @@ class KioskDrawer extends StatelessWidget {
         context: context,
         barrierDismissible: false,
         builder: (context) => AlertDialog(
-          title: const Text('Downloading update'),
+          title: Text(l10n(context).drawerUpdateDownloading),
           content: ValueListenableBuilder<double?>(
             valueListenable: c.update.progress,
             builder: (context, p, _) => Column(
@@ -929,7 +951,9 @@ class KioskDrawer extends StatelessWidget {
                 LinearProgressIndicator(value: p),
                 const SizedBox(height: 12),
                 Text(
-                  p == null ? 'Starting…' : '${(p * 100).toStringAsFixed(0)}%',
+                  p == null
+                      ? l10n(context).drawerUpdateStarting
+                      : '${(p * 100).toStringAsFixed(0)}%',
                 ),
               ],
             ),
@@ -940,7 +964,7 @@ class KioskDrawer extends StatelessWidget {
             // every other way a download ends (#272).
             TextButton(
               onPressed: c.update.cancelDownload,
-              child: const Text('Cancel'),
+              child: Text(l10n(context).commonCancel),
             ),
           ],
         ),
@@ -958,12 +982,16 @@ class KioskDrawer extends StatelessWidget {
       await showDialog<void>(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text(pending ? 'Update failed' : 'Updates'),
+          title: Text(
+            pending
+                ? l10n(context).drawerUpdateFailed
+                : l10n(context).drawerUpdates,
+          ),
           content: Text(error),
           actions: [
             FilledButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text('OK'),
+              child: Text(l10n(context).commonOk),
             ),
           ],
         ),
@@ -974,12 +1002,21 @@ class KioskDrawer extends StatelessWidget {
   /// The GitHub release body, markdown-lite: headings bold, list markers as
   /// bullets, emphasis/code/link syntax stripped. A real markdown renderer
   /// is a dependency this one dialog does not justify.
-  List<Widget> _releaseNotes(ThemeData theme, String notes) {
+  List<Widget> _releaseNotes(
+    BuildContext context,
+    ThemeData theme,
+    String notes,
+  ) {
     String inline(String s) => s
         .replaceAllMapped(RegExp(r'\[([^\]]*)\]\([^)]*\)'), (m) => m[1] ?? '')
         .replaceAll(RegExp(r'\*\*|__|`'), '');
     if (notes.isEmpty) {
-      return [Text('No release notes.', style: theme.textTheme.bodyMedium)];
+      return [
+        Text(
+          l10n(context).drawerNoReleaseNotes,
+          style: theme.textTheme.bodyMedium,
+        ),
+      ];
     }
     final out = <Widget>[];
     for (final raw in notes.split('\n')) {

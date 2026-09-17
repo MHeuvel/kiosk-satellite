@@ -287,6 +287,10 @@ class SettingsManager extends Manager {
   /// back to the default — so a rename in place has to be rewritten once,
   /// here, before anything reads it.
   Future<void> _migrate() async {
+    // The preview's automatic language choice is now explicit English.
+    if (_prefs.get(_prefix + uiLanguage.key) == 'system') {
+      await _prefs.setString(_prefix + uiLanguage.key, 'en');
+    }
     // Turn noise suppression off once for existing installs. Record this
     // on fresh installs too so later choices survive app restarts.
     const noiseSuppressionMigration =

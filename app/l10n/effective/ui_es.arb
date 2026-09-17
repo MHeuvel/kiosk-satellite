@@ -1,0 +1,1778 @@
+{
+  "@@locale": "es",
+  "commonImport": "Importar",
+  "@commonImport": {
+    "context": "Common:Actions",
+    "description": "Button to import a configuration file."
+  },
+  "commonBack": "Atrás",
+  "@commonBack": {
+    "context": "Common:Actions",
+    "description": "Button to return to the previous step."
+  },
+  "commonNext": "Siguiente",
+  "@commonNext": {
+    "context": "Common:Actions",
+    "description": "Button to advance to the next step."
+  },
+  "commonFinish": "Finalizar",
+  "@commonFinish": {
+    "context": "Common:Actions",
+    "description": "Button to complete setup."
+  },
+  "commonWorking": "Procesando…",
+  "@commonWorking": {
+    "context": "Common:Actions",
+    "description": "Button label while an operation is running."
+  },
+  "commonSettings": "Settings",
+  "@commonSettings": {
+    "context": "Common:Actions",
+    "description": "Heading for Settings and the drawer action that opens it."
+  },
+  "commonCancel": "Cancel",
+  "@commonCancel": {
+    "context": "Common:Actions",
+    "description": "Button to dismiss a dialog without applying its action."
+  },
+  "commonOk": "OK",
+  "@commonOk": {
+    "context": "Common:Actions",
+    "description": "Button to dismiss a message."
+  },
+  "drawerPluginAction": "{pluginName}: {actionTitle}",
+  "@drawerPluginAction": {
+    "context": "Device:Drawer",
+    "description": "Plugin action label. Both values come from the plugin and are kept as supplied.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    },
+    "placeholders": {
+      "pluginName": {
+        "type": "String",
+        "example": "Example plugin"
+      },
+      "actionTitle": {
+        "type": "String",
+        "example": "Open view"
+      }
+    }
+  },
+  "drawerPluginActionErrorTitle": "Plugin action",
+  "@drawerPluginActionErrorTitle": {
+    "context": "Device:Drawer",
+    "description": "Error heading after a plugin action fails.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerPluginActionError": "Could not run this action.",
+  "@drawerPluginActionError": {
+    "context": "Device:Drawer",
+    "description": "Fallback error when a plugin provides no error text.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerDashboard": "Dashboard",
+  "@drawerDashboard": {
+    "context": "Device:Drawer",
+    "description": "Opens the configured Home Assistant dashboard.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerHaKiosk": "HA Kiosk Mode",
+  "@drawerHaKiosk": {
+    "context": "Device:Drawer",
+    "description": "Toggles the Home Assistant header and sidebar. Shown when the menu shortcut is enabled.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerCameraView": "Camera View",
+  "@drawerCameraView": {
+    "context": "Device:Drawer",
+    "description": "Opens the default camera view. Shown when that view contains cameras.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerIntercom": "Intercom",
+  "@drawerIntercom": {
+    "context": "Device:Drawer",
+    "description": "Opens the intercom when it is enabled and available.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerMusicAssistant": "Music Assistant",
+  "@drawerMusicAssistant": {
+    "context": "Device:Drawer",
+    "description": "Opens Music Assistant when its address and menu shortcut are configured. Keep the product name.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerHidePlayer": "Hide Floating Player",
+  "@drawerHidePlayer": {
+    "context": "Device:Drawer",
+    "description": "Shown while the floating player is visible.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerShowPlayer": "Show Floating Player",
+  "@drawerShowPlayer": {
+    "context": "Device:Drawer",
+    "description": "Shown while the floating player is hidden.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerNowPlaying": "Now Playing",
+  "@drawerNowPlaying": {
+    "context": "Device:Drawer",
+    "description": "Opens the full-screen player when a track is available and the shortcut is enabled.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerScreensaver": "Start Screensaver",
+  "@drawerScreensaver": {
+    "context": "Device:Drawer",
+    "description": "Starts the screensaver when its menu shortcut is enabled.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerLockdown": "Lockdown Mode",
+  "@drawerLockdown": {
+    "context": "Device:Drawer",
+    "description": "Activates lockdown when its menu shortcut is enabled.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerHoldOff": "Turn Off Hold Mode",
+  "@drawerHoldOff": {
+    "context": "Device:Drawer",
+    "description": "Releases a hold so screensaver and timers can resume.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerHoldOn": "Turn On Hold Mode",
+  "@drawerHoldOn": {
+    "context": "Device:Drawer",
+    "description": "Pauses screensaver and timers to keep the current view on screen.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerApps": "Apps",
+  "@drawerApps": {
+    "context": "Device:Drawer",
+    "description": "Opens the app launcher when it is enabled and has allowed apps.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerClearCache": "Clear web cache",
+  "@drawerClearCache": {
+    "context": "Device:Drawer",
+    "description": "Clears the embedded browser cache.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerRestartDevice": "Restart Device",
+  "@drawerRestartDevice": {
+    "context": "Device:Drawer",
+    "description": "Shown when device owner or Shizuku access allows a restart. Also the confirmation title.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerRestartConfirm": "Restart this device? Kiosk Satellite comes back when it boots.",
+  "@drawerRestartConfirm": {
+    "context": "Device:Drawer",
+    "description": "Confirmation before restarting Android.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerRestart": "Restart",
+  "@drawerRestart": {
+    "context": "Device:Drawer",
+    "description": "Button that confirms the device restart.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerExitApplication": "Exit Application",
+  "@drawerExitApplication": {
+    "context": "Device:Drawer",
+    "description": "Hidden when Kiosk Satellite is the home screen. Also the confirmation title.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerExitConfirm": "Close Kiosk Satellite?",
+  "@drawerExitConfirm": {
+    "context": "Device:Drawer",
+    "description": "Confirmation before closing the application.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerExit": "Exit",
+  "@drawerExit": {
+    "context": "Device:Drawer",
+    "description": "Button that confirms closing the application.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerHoldActive": "Hold mode is on",
+  "@drawerHoldActive": {
+    "context": "Device:Drawer",
+    "description": "Notice below the menu while hold mode is active.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerHoldHelp": "Screensaver and timers are paused · tap to turn off",
+  "@drawerHoldHelp": {
+    "context": "Device:Drawer",
+    "description": "Tappable notice that releases hold mode.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerThemeDark": "Dark",
+  "@drawerThemeDark": {
+    "context": "Device:Drawer",
+    "description": "Tooltip for the dark theme button at the bottom of the drawer.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerThemeLight": "Light",
+  "@drawerThemeLight": {
+    "context": "Device:Drawer",
+    "description": "Tooltip for the light theme button at the bottom of the drawer.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerThemeAndroid": "Follow Android",
+  "@drawerThemeAndroid": {
+    "context": "Device:Drawer",
+    "description": "Tooltip for matching the Android theme. This controls appearance, not language.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerVersion": "Version {version}",
+  "@drawerVersion": {
+    "context": "Device:Drawer:Updates",
+    "description": "Current version below the drawer actions. Tap to check for updates.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    },
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "2026.9.59"
+      }
+    }
+  },
+  "drawerUpdateAvailable": "Update available",
+  "@drawerUpdateAvailable": {
+    "context": "Device:Drawer:Updates",
+    "description": "Notice shown when a newer version is available.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    }
+  },
+  "drawerUpdateInstall": "Version {version} · tap to install",
+  "@drawerUpdateInstall": {
+    "context": "Device:Drawer:Updates",
+    "description": "Tappable update notice below the drawer actions.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    },
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "2026.9.59"
+      }
+    }
+  },
+  "drawerUpdateChecking": "Checking for updates…",
+  "@drawerUpdateChecking": {
+    "context": "Device:Drawer:Updates",
+    "description": "Progress notice during a manual update check.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    }
+  },
+  "drawerUpdateCurrent": "Up to date",
+  "@drawerUpdateCurrent": {
+    "context": "Device:Drawer:Updates",
+    "description": "Heading when the installed version is current.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    }
+  },
+  "drawerUpdateCurrentHelp": "You are on the latest version.",
+  "@drawerUpdateCurrentHelp": {
+    "context": "Device:Drawer:Updates",
+    "description": "Result of a successful check with no update.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    }
+  },
+  "drawerUpdateCheckFailed": "Update check failed",
+  "@drawerUpdateCheckFailed": {
+    "context": "Device:Drawer:Updates",
+    "description": "Heading when the manual update check fails.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    }
+  },
+  "drawerUpdateOffline": "Is the device online?",
+  "@drawerUpdateOffline": {
+    "context": "Device:Drawer:Updates",
+    "description": "Help after an update check fails.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    }
+  },
+  "drawerUpdateTo": "Update to {version}",
+  "@drawerUpdateTo": {
+    "context": "Device:Drawer:Updates",
+    "description": "Title of the update confirmation dialog.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    },
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "2026.9.59"
+      }
+    }
+  },
+  "drawerUpdateInstructions": "The download starts on Update. Android asks you to confirm the installation.",
+  "@drawerUpdateInstructions": {
+    "context": "Device:Drawer:Updates",
+    "description": "Help below the release notes.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    }
+  },
+  "drawerUpdateRelaunch": "Without the \"Display over other apps\" permission the app cannot reopen itself after updating.",
+  "@drawerUpdateRelaunch": {
+    "context": "Device:Drawer:Updates",
+    "description": "Notice when the overlay permission is missing.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    }
+  },
+  "drawerUpdate": "Update",
+  "@drawerUpdate": {
+    "context": "Device:Drawer:Updates",
+    "description": "Button that starts downloading an update.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    }
+  },
+  "drawerUpdateDownloading": "Downloading update",
+  "@drawerUpdateDownloading": {
+    "context": "Device:Drawer:Updates",
+    "description": "Title of the download progress dialog.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    }
+  },
+  "drawerUpdateStarting": "Starting…",
+  "@drawerUpdateStarting": {
+    "context": "Device:Drawer:Updates",
+    "description": "Progress text before a download percentage is available.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    }
+  },
+  "drawerUpdateFailed": "Update failed",
+  "@drawerUpdateFailed": {
+    "context": "Device:Drawer:Updates",
+    "description": "Title when downloading or installing fails. Technical error details remain as supplied.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    }
+  },
+  "drawerUpdates": "Updates",
+  "@drawerUpdates": {
+    "context": "Device:Drawer:Updates",
+    "description": "Dialog title when there is no longer an update to install.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    }
+  },
+  "drawerNoReleaseNotes": "No release notes.",
+  "@drawerNoReleaseNotes": {
+    "context": "Device:Drawer:Updates",
+    "description": "Placeholder when a release has no notes. Published release notes remain as supplied.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    }
+  },
+  "settingDeviceNameTitle": "Nombre del dispositivo",
+  "@settingDeviceNameTitle": {
+    "context": "Settings:Device",
+    "description": "Device name field label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Device name"
+      ],
+      "remoteAdmin": [
+        "Device > Device name",
+        "First-time setup > Welcome > Device name"
+      ]
+    }
+  },
+  "settingDeviceNameDescription": "Nombre que se muestra en la administración remota y con el que se identifica el dispositivo en Home Assistant.",
+  "@settingDeviceNameDescription": {
+    "context": "Settings:Device",
+    "description": "Help below the Device name field.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Device name"
+      ],
+      "remoteAdmin": [
+        "Device > Device name"
+      ]
+    }
+  },
+  "settingRemoteEnabledTitle": "Administración remota",
+  "@settingRemoteEnabledTitle": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Switch label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration > Remote management"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration > Remote management"
+      ]
+    }
+  },
+  "settingRemoteEnabledDescription": "Activa el servidor web integrado para administrar el dispositivo.",
+  "@settingRemoteEnabledDescription": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Help below the switch.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration > Remote management"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration > Remote management"
+      ]
+    }
+  },
+  "settingRemotePortTitle": "Puerto del servidor",
+  "@settingRemotePortTitle": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Server port field label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration > Server port"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration > Server port"
+      ]
+    }
+  },
+  "settingRemotePortDescription": "Puerto de la interfaz de administración remota.",
+  "@settingRemotePortDescription": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Help below the Server port field.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration > Server port"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration > Server port"
+      ]
+    }
+  },
+  "settingRemotePasswordTitle": "Contraseña de administración",
+  "@settingRemotePasswordTitle": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Admin password field label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration > Admin password"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration > Admin password"
+      ]
+    }
+  },
+  "settingRemotePasswordDescription": "Necesaria para iniciar sesión en la interfaz remota.",
+  "@settingRemotePasswordDescription": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Help below the Admin password field.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration > Admin password"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration > Admin password"
+      ]
+    }
+  },
+  "settingUiLanguageTitle": "Language",
+  "@settingUiLanguageTitle": {
+    "context": "Settings:Device:User Interface",
+    "description": "Language selector label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > User Interface > Language"
+      ],
+      "remoteAdmin": [
+        "Device > User Interface > Language"
+      ]
+    }
+  },
+  "settingUiLanguageDescription": "Language for Kiosk Satellite and remote administration. Home Assistant keeps its own language.",
+  "@settingUiLanguageDescription": {
+    "context": "Settings:Device:User Interface",
+    "description": "Help below the language selector.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > User Interface > Language"
+      ],
+      "remoteAdmin": [
+        "Device > User Interface > Language"
+      ]
+    }
+  },
+  "settingHaUrlTitle": "URL base de Home Assistant",
+  "@settingHaUrlTitle": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Home Assistant base URL field label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Home Assistant base URL"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Home Assistant base URL"
+      ]
+    }
+  },
+  "settingHaUrlDescription": "Por ejemplo, https://homeassistant.local:8123, sin la ruta de un panel.",
+  "@settingHaUrlDescription": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Help below the Home Assistant base URL field.",
+    "x-notes": "Preserve the example URL exactly.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Home Assistant base URL"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Home Assistant base URL"
+      ]
+    }
+  },
+  "settingHaTokenTitle": "Token de acceso de larga duración",
+  "@settingHaTokenTitle": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Long-lived access token field label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Long-lived access token"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Long-lived access token",
+        "First-time setup > Connect > Long-lived access token"
+      ]
+    }
+  },
+  "settingHaTokenDescription": "Se crea en tu perfil de Home Assistant → Seguridad.",
+  "@settingHaTokenDescription": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Help below the Long-lived access token field.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Long-lived access token"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Long-lived access token"
+      ]
+    }
+  },
+  "settingsMenuHomeAssistant": "Home Assistant Setup",
+  "@settingsMenuHomeAssistant": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuHomeAssistantSummary": "Connection, dashboard, kiosk mode",
+  "@settingsMenuHomeAssistantSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Home Assistant Setup in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuVoiceSatellite": "Voice Satellite",
+  "@settingsMenuVoiceSatellite": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuVoiceSatelliteSummary": "Wake word, background listening",
+  "@settingsMenuVoiceSatelliteSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Voice Satellite in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuEsphome": "ESPHome",
+  "@settingsMenuEsphome": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuEsphomeSummary": "Native entities and Bluetooth proxy",
+  "@settingsMenuEsphomeSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below ESPHome in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuScreenAudio": "Screen & Audio",
+  "@settingsMenuScreenAudio": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuScreenAudioSummary": "Brightness, volume, microphone",
+  "@settingsMenuScreenAudioSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Screen & Audio in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuScreensaver": "Screensaver",
+  "@settingsMenuScreensaver": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuScreensaverSummary": "Idle timeout, modes, motion wake",
+  "@settingsMenuScreensaverSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Screensaver in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuBrowser": "Web Browsing",
+  "@settingsMenuBrowser": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuBrowserSummary": "Cache, SSL, Zoom level",
+  "@settingsMenuBrowserSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Web Browsing in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuMediaPlayer": "Media Player",
+  "@settingsMenuMediaPlayer": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuMediaPlayerSummary": "Music Assistant, Sendspin, Sonos",
+  "@settingsMenuMediaPlayerSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Media Player in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuDlna": "DLNA Renderer",
+  "@settingsMenuDlna": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuDlnaSummary": "Play images, videos and audio remotely",
+  "@settingsMenuDlnaSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below DLNA Renderer in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuIntercom": "Intercom",
+  "@settingsMenuIntercom": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuIntercomSummary": "Talk between kiosks",
+  "@settingsMenuIntercomSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Intercom in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuCamera": "Camera",
+  "@settingsMenuCamera": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuCameraSummary": "Device camera, motion, streaming",
+  "@settingsMenuCameraSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Camera in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuCameraStreams": "Camera Streams",
+  "@settingsMenuCameraStreams": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuCameraStreamsSummary": "Go2RTC and Home Assistant cameras",
+  "@settingsMenuCameraStreamsSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Camera Streams in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuKiosk": "Kiosk Mode",
+  "@settingsMenuKiosk": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuKioskSummary": "Exit gesture, PIN, hardware buttons",
+  "@settingsMenuKioskSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Kiosk Mode in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuHomeLauncher": "Home Launcher",
+  "@settingsMenuHomeLauncher": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuHomeLauncherSummary": "Replace the device home screen",
+  "@settingsMenuHomeLauncherSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Home Launcher in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuAppLauncher": "App Launcher",
+  "@settingsMenuAppLauncher": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuAppLauncherSummary": "Open other apps from the kiosk",
+  "@settingsMenuAppLauncherSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below App Launcher in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuGestures": "Gestures",
+  "@settingsMenuGestures": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuGesturesSummary": "Touch, palm and clap gestures",
+  "@settingsMenuGesturesSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Gestures in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuDevice": "Device",
+  "@settingsMenuDevice": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuDeviceSummary": "Name, app theme, remote access",
+  "@settingsMenuDeviceSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Device in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuFleet": "Fleet Management",
+  "@settingsMenuFleet": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuFleetSummary": "Lead or follow other kiosks",
+  "@settingsMenuFleetSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Fleet Management in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuPlugins": "Plugin Manager",
+  "@settingsMenuPlugins": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuPluginsSummary": "Install and manage plugins",
+  "@settingsMenuPluginsSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Plugin Manager in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuLogs": "Logs",
+  "@settingsMenuLogs": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuLogsSummary": "App log and web console",
+  "@settingsMenuLogsSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Logs in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuAbout": "About",
+  "@settingsMenuAbout": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuAboutSummary": "Version, author, license",
+  "@settingsMenuAboutSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below About in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuOverview": "Overview",
+  "@settingsMenuOverview": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuOverviewSummary": "Screen and quick controls",
+  "@settingsMenuOverviewSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Overview in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuLockdown": "Lockdown Mode",
+  "@settingsMenuLockdown": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuLockdownSummary": "Disable screen interactions",
+  "@settingsMenuLockdownSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Lockdown Mode in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuFiles": "File Manager",
+  "@settingsMenuFiles": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuFilesSummary": "Browse, download and upload files",
+  "@settingsMenuFilesSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below File Manager in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsGroupHomeAssistant": "Home Assistant",
+  "@settingsGroupHomeAssistant": {
+    "context": "Settings:Menu",
+    "description": "Heading above a group of Settings menu entries.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsGroupDisplay": "Display",
+  "@settingsGroupDisplay": {
+    "context": "Settings:Menu",
+    "description": "Heading above a group of Settings menu entries.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsGroupMediaCameras": "Media & Cameras",
+  "@settingsGroupMediaCameras": {
+    "context": "Settings:Menu",
+    "description": "Heading above a group of Settings menu entries.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsGroupKiosk": "Kiosk",
+  "@settingsGroupKiosk": {
+    "context": "Settings:Menu",
+    "description": "Heading above a group of Settings menu entries.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsGroupSystem": "System",
+  "@settingsGroupSystem": {
+    "context": "Settings:Menu",
+    "description": "Heading above a group of Settings menu entries.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuMenu": "Menu",
+  "@settingsMenuMenu": {
+    "context": "Settings:Menu",
+    "description": "Remote administration sidebar control or accessibility label.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Sidebar or mobile menu header"
+      ]
+    }
+  },
+  "settingsMenuTheme": "Theme",
+  "@settingsMenuTheme": {
+    "context": "Settings:Menu",
+    "description": "Remote administration sidebar control or accessibility label.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Sidebar or mobile menu header"
+      ]
+    }
+  },
+  "settingsMenuLogout": "Log out",
+  "@settingsMenuLogout": {
+    "context": "Settings:Menu",
+    "description": "Remote administration sidebar control or accessibility label.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Sidebar or mobile menu header"
+      ]
+    }
+  },
+  "settingsMenuSwitchKiosk": "Switch kiosk",
+  "@settingsMenuSwitchKiosk": {
+    "context": "Settings:Menu",
+    "description": "Remote administration sidebar control or accessibility label.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Sidebar or mobile menu header"
+      ]
+    }
+  },
+  "settingsMenuThemeState": "Theme: {theme}",
+  "@settingsMenuThemeState": {
+    "context": "Settings:Menu",
+    "description": "Tooltip on the remote sidebar theme button. The value is the localized theme name.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Sidebar > theme button"
+      ]
+    },
+    "placeholders": {
+      "theme": {
+        "type": "String",
+        "example": "Dark"
+      }
+    }
+  },
+  "settingsMenuThemeAuto": "Automatic",
+  "@settingsMenuThemeAuto": {
+    "context": "Settings:Menu",
+    "description": "Theme choice that follows the browser color preference.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Sidebar > theme button"
+      ]
+    }
+  },
+  "settingsSearchHint": "Search settings",
+  "@settingsSearchHint": {
+    "context": "Settings:Search",
+    "description": "Placeholder in the Settings search box.",
+    "x-locations": {
+      "device": [
+        "Settings > search box"
+      ],
+      "remoteAdmin": [
+        "Sidebar > search box"
+      ]
+    }
+  },
+  "settingsSearchClear": "Clear search",
+  "@settingsSearchClear": {
+    "context": "Settings:Search",
+    "description": "Tooltip and accessibility label for the clear button.",
+    "x-locations": {
+      "device": [
+        "Settings > search box"
+      ],
+      "remoteAdmin": [
+        "Sidebar > search box"
+      ]
+    }
+  },
+  "settingsSearchResults": "Search results",
+  "@settingsSearchResults": {
+    "context": "Settings:Search",
+    "description": "Heading above matching settings.",
+    "x-locations": {
+      "device": [
+        "Settings > search box"
+      ],
+      "remoteAdmin": [
+        "Sidebar > search box"
+      ]
+    }
+  },
+  "settingsSearchEmpty": "No settings match \"{query}\".",
+  "@settingsSearchEmpty": {
+    "context": "Settings:Search",
+    "description": "Empty result message. The query is the text entered by the user.",
+    "x-locations": {
+      "device": [
+        "Settings > search box"
+      ],
+      "remoteAdmin": [
+        "Sidebar > search box"
+      ]
+    },
+    "placeholders": {
+      "query": {
+        "type": "String",
+        "example": "camera"
+      }
+    }
+  },
+  "setupConnectHeading": "Conectar con Home Assistant",
+  "@setupConnectHeading": {
+    "context": "First-time setup:Connect",
+    "description": "Page heading."
+  },
+  "setupConnectLead": "La URL base de tu instancia y un token de acceso de larga duración, que puedes crear en tu perfil de Home Assistant → Seguridad → Tokens de acceso de larga duración.",
+  "@setupConnectLead": {
+    "context": "First-time setup:Connect",
+    "description": "Introduction explaining the required credentials."
+  },
+  "setupBaseUrl": "URL base de Home Assistant",
+  "@setupBaseUrl": {
+    "context": "First-time setup:Connect",
+    "description": "Home Assistant address field label."
+  },
+  "setupToken": "Token de acceso de larga duración",
+  "@setupToken": {
+    "context": "First-time setup:Connect",
+    "description": "Access token field label."
+  },
+  "setupScanQr": "Escanear el código QR",
+  "@setupScanQr": {
+    "context": "First-time setup:Connect",
+    "description": "Button to scan connection details from a QR code."
+  },
+  "setupInvalidToken": "Token de acceso no válido",
+  "@setupInvalidToken": {
+    "context": "First-time setup:Connect",
+    "description": "Error heading when Home Assistant rejects the token."
+  },
+  "setupInvalidTokenHelp": "Home Assistant rechazó este token. En Home Assistant, abre tu perfil → Seguridad → Tokens de acceso de larga duración, crea un nuevo token y copia su valor completo.",
+  "@setupInvalidTokenHelp": {
+    "context": "First-time setup:Connect",
+    "description": "Instructions for replacing a rejected token."
+  },
+  "setupUnreachable": "Home Assistant no responde",
+  "@setupUnreachable": {
+    "context": "First-time setup:Connect",
+    "description": "Error heading when the server does not respond."
+  },
+  "setupUnreachableHelp": "No se recibió respuesta de esta dirección. Comprueba que la URL sea correcta y que este dispositivo esté en la misma red que tu servidor de Home Assistant.",
+  "@setupUnreachableHelp": {
+    "context": "First-time setup:Connect",
+    "description": "Troubleshooting advice for an unreachable server."
+  },
+  "setupUnexpectedResponseHelp": "Un servidor respondió, pero no parece ser Home Assistant. Comprueba que la URL sea la dirección base de Home Assistant, por ejemplo https://homeassistant.local:8123.",
+  "@setupUnexpectedResponseHelp": {
+    "context": "First-time setup:Connect",
+    "description": "Help when the address responds as a different service.",
+    "x-notes": "Preserve the example URL exactly."
+  },
+  "setupCannotConnect": "No se pudo conectar",
+  "@setupCannotConnect": {
+    "context": "First-time setup:Connect",
+    "description": "Heading for other connection errors."
+  },
+  "setupCameraPermission": "Se necesita permiso para usar la cámara",
+  "@setupCameraPermission": {
+    "context": "First-time setup:Connect",
+    "description": "Error heading when QR scanning needs camera permission."
+  },
+  "setupCameraBlocked": "Permite que Kiosk Satellite acceda a la cámara en la configuración de Android para escanear el código QR.",
+  "@setupCameraBlocked": {
+    "context": "First-time setup:Connect",
+    "description": "Instructions when camera access must be enabled in Android."
+  },
+  "setupCameraAllow": "Permite el acceso a la cámara para escanear el código QR.",
+  "@setupCameraAllow": {
+    "context": "First-time setup:Connect",
+    "description": "Instructions when camera access can be requested in the app."
+  },
+  "setupEnterBaseUrl": "Introduce la URL base de Home Assistant",
+  "@setupEnterBaseUrl": {
+    "context": "First-time setup:Connect",
+    "description": "Error heading when the address field is empty."
+  },
+  "setupInvalidBaseUrl": "URL base no válida",
+  "@setupInvalidBaseUrl": {
+    "context": "First-time setup:Connect",
+    "description": "Error heading when the address format is invalid."
+  },
+  "setupBaseUrlHelp": "Es la dirección que usas para abrir Home Assistant, por ejemplo https://homeassistant.local:8123.",
+  "@setupBaseUrlHelp": {
+    "context": "First-time setup:Connect",
+    "description": "Example explaining the expected address.",
+    "x-notes": "Preserve the example URL exactly."
+  },
+  "setupEnterToken": "Introduce un token de acceso de larga duración",
+  "@setupEnterToken": {
+    "context": "First-time setup:Connect",
+    "description": "Error heading when the access token field is empty."
+  },
+  "setupEnterTokenHelp": "En Home Assistant, abre tu perfil → Seguridad → Tokens de acceso de larga duración para crear uno.",
+  "@setupEnterTokenHelp": {
+    "context": "First-time setup:Connect",
+    "description": "Instructions for creating an access token."
+  },
+  "setupValidateContinue": "Validar y continuar",
+  "@setupValidateContinue": {
+    "context": "First-time setup:Connect",
+    "description": "Button to test credentials and advance."
+  },
+  "setupUnexpectedResponse": "Respuesta inesperada ({error})",
+  "@setupUnexpectedResponse": {
+    "context": "First-time setup:Connect",
+    "description": "Error heading for an unexpected server response.",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "HTTP 503",
+        "description": "Diagnostic HTTP response code."
+      }
+    }
+  },
+  "baseUrlInvalid": "Introduce una URL válida, por ejemplo https://homeassistant.local:8123",
+  "@baseUrlInvalid": {
+    "context": "First-time setup:Connect",
+    "description": "Validation error for a malformed address.",
+    "x-notes": "Preserve the example URL exactly."
+  },
+  "baseUrlPath": "Introduce solo la URL base, sin la ruta de un panel. Ejemplo: https://homeassistant.local:8123",
+  "@baseUrlPath": {
+    "context": "First-time setup:Connect",
+    "description": "Validation error for an address containing a dashboard path.",
+    "x-notes": "Preserve the example URL exactly."
+  },
+  "baseUrlQuery": "Introduce solo la URL base, sin nada después del puerto. Ejemplo: https://homeassistant.local:8123",
+  "@baseUrlQuery": {
+    "context": "First-time setup:Connect",
+    "description": "Validation error for an address containing a query or fragment.",
+    "x-notes": "Preserve the example URL exactly."
+  },
+  "setupWelcome": "Bienvenido",
+  "@setupWelcome": {
+    "context": "First-time setup:Navigation",
+    "description": "Welcome step label."
+  },
+  "setupConnect": "Conectar",
+  "@setupConnect": {
+    "context": "First-time setup:Navigation",
+    "description": "Home Assistant connection step label."
+  },
+  "setupConnectSummary": "URL y token de Home Assistant",
+  "@setupConnectSummary": {
+    "context": "First-time setup:Navigation",
+    "description": "Summary below the connection step label."
+  },
+  "setupDashboard": "Panel",
+  "@setupDashboard": {
+    "context": "First-time setup:Navigation",
+    "description": "Dashboard step label."
+  },
+  "setupDashboardSummary": "Lo que muestra el kiosko",
+  "@setupDashboardSummary": {
+    "context": "First-time setup:Navigation",
+    "description": "Summary below the dashboard step label."
+  },
+  "setupRecommendedSummary": "Configuración recomendada",
+  "@setupRecommendedSummary": {
+    "context": "First-time setup:Navigation",
+    "description": "Summary below the recommended settings step."
+  },
+  "setupPermissions": "Permisos",
+  "@setupPermissions": {
+    "context": "First-time setup:Navigation",
+    "description": "Permissions step label and page heading."
+  },
+  "setupPermissionsSummary": "Lo necesario para la configuración",
+  "@setupPermissionsSummary": {
+    "context": "First-time setup:Navigation",
+    "description": "Summary below the permissions step label."
+  },
+  "setupRemoteHeading": "Administración remota",
+  "@setupRemoteHeading": {
+    "context": "First-time setup:Welcome",
+    "description": "Remote administration section heading and step summary."
+  },
+  "setupTitle": "Configurar\nKiosk Satellite",
+  "@setupTitle": {
+    "context": "First-time setup:Welcome",
+    "description": "Setup heading on the device.",
+    "x-notes": "Keep Kiosk Satellite unchanged. The line break separates the action from the product name."
+  },
+  "setupWelcomeLead": "Convierte esta tableta en un kiosko de Home Assistant. La configuración tarda un par de minutos y este asistente te guía paso a paso.",
+  "@setupWelcomeLead": {
+    "context": "First-time setup:Welcome",
+    "description": "Introduction on the device.",
+    "x-notes": "Keep Home Assistant unchanged."
+  },
+  "setupDeviceName": "Nombre del dispositivo",
+  "@setupDeviceName": {
+    "context": "First-time setup:Welcome",
+    "description": "Device name field label on the device."
+  },
+  "setupDeviceNameHelp": "Nombre con el que se identifica este kiosko en Home Assistant, en la administración remota y en la red. Puedes cambiarlo cuando quieras en Settings > Device.",
+  "@setupDeviceNameHelp": {
+    "context": "First-time setup:Welcome",
+    "description": "Help below the device name field."
+  },
+  "setupEnableRemote": "Activar la administración remota",
+  "@setupEnableRemote": {
+    "context": "First-time setup:Welcome",
+    "description": "Remote administration switch label on the device."
+  },
+  "setupEnableRemoteHelp": "Sigue administrando este kiosko desde un navegador web después de configurarlo. Desde allí es mucho más fácil pegar el token de acceso de Home Assistant.",
+  "@setupEnableRemoteHelp": {
+    "context": "First-time setup:Welcome",
+    "description": "Help below the remote administration switch."
+  },
+  "setupRemotePassword": "Contraseña de administración remota",
+  "@setupRemotePassword": {
+    "context": "First-time setup:Welcome",
+    "description": "Remote password field label on the device."
+  },
+  "setupRestoreHeading": "Restaurar copia de seguridad",
+  "@setupRestoreHeading": {
+    "context": "First-time setup:Welcome",
+    "description": "Configuration restore section heading."
+  },
+  "setupRestore": "Restaurar desde un archivo de configuración",
+  "@setupRestore": {
+    "context": "First-time setup:Welcome",
+    "description": "Action to select a configuration file."
+  },
+  "setupRestoreHelp": "Importa una configuración exportada desde Kiosk Satellite y omite el resto de este asistente. Se incluyen la configuración, el panel y los datos de inicio de sesión.",
+  "@setupRestoreHelp": {
+    "context": "First-time setup:Welcome",
+    "description": "Explanation of what restoring a configuration imports."
+  },
+  "setupServicePermissions": "Permisos recomendados para el servicio",
+  "@setupServicePermissions": {
+    "context": "First-time setup:Welcome",
+    "description": "Heading above the recommended service permissions."
+  },
+  "setupPasswordShort": "La contraseña es demasiado corta",
+  "@setupPasswordShort": {
+    "context": "First-time setup:Welcome",
+    "description": "Error heading for a password below the minimum length."
+  },
+  "setupPasswordMinimum": "Usa al menos 4 caracteres.",
+  "@setupPasswordMinimum": {
+    "context": "First-time setup:Welcome",
+    "description": "Password length requirement below the error heading.",
+    "x-notes": "The minimum is 4 characters."
+  },
+  "setupRemoteAddress": "Puedes continuar esta configuración de forma remota desde un navegador web en {address}, aunque el interruptor de arriba esté desactivado.",
+  "@setupRemoteAddress": {
+    "context": "First-time setup:Welcome",
+    "description": "Instructions for continuing setup in a browser.",
+    "x-notes": "The address comes from the device. Do not add a literal URL.",
+    "placeholders": {
+      "address": {
+        "type": "String",
+        "example": "http://192.168.1.10:2324",
+        "description": "Complete URL of the remote admin."
+      }
+    }
+  },
+  "remoteWelcomeTitle": "Bienvenido a Kiosk Satellite",
+  "@remoteWelcomeTitle": {
+    "context": "First-time setup:Welcome",
+    "description": "Welcome heading in the browser.",
+    "x-notes": "Keep Kiosk Satellite unchanged."
+  },
+  "remoteWelcomePassword": "Esta tableta está pendiente de configurar. Primero, protege la administración remota con una contraseña.",
+  "@remoteWelcomePassword": {
+    "context": "First-time setup:Welcome",
+    "description": "Browser introduction when no admin password is set."
+  },
+  "remoteWelcomeReady": "Esta tableta está pendiente de configurar. La contraseña de administración remota ya está definida. Para cambiarla, escribe una nueva aquí.",
+  "@remoteWelcomeReady": {
+    "context": "First-time setup:Welcome",
+    "description": "Browser introduction when an admin password is already set."
+  },
+  "remoteInitialPassword": "Contraseña de administración (mínimo 4 caracteres)",
+  "@remoteInitialPassword": {
+    "context": "First-time setup:Welcome",
+    "description": "Browser password field label for a new password.",
+    "x-notes": "The minimum is 4 characters."
+  },
+  "remoteNewPassword": "Nueva contraseña de administración (deja el campo vacío para conservar la actual)",
+  "@remoteNewPassword": {
+    "context": "First-time setup:Welcome",
+    "description": "Browser password field label for an optional replacement."
+  }
+}

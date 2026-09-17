@@ -24,4 +24,8 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingDeviceNameTitle",
     "description": "settingDeviceNameDescription",
   },
+  "ui.language": {
+    "title": "settingUiLanguageTitle",
+    "description": "settingUiLanguageDescription",
+  },
 };

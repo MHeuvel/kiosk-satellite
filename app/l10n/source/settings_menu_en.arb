@@ -1,0 +1,732 @@
+{
+  "@@locale": "en",
+  "settingsMenuHomeAssistant": "Home Assistant Setup",
+  "@settingsMenuHomeAssistant": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuHomeAssistantSummary": "Connection, dashboard, kiosk mode",
+  "@settingsMenuHomeAssistantSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Home Assistant Setup in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuVoiceSatellite": "Voice Satellite",
+  "@settingsMenuVoiceSatellite": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuVoiceSatelliteSummary": "Wake word, background listening",
+  "@settingsMenuVoiceSatelliteSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Voice Satellite in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuEsphome": "ESPHome",
+  "@settingsMenuEsphome": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuEsphomeSummary": "Native entities and Bluetooth proxy",
+  "@settingsMenuEsphomeSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below ESPHome in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuScreenAudio": "Screen & Audio",
+  "@settingsMenuScreenAudio": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuScreenAudioSummary": "Brightness, volume, microphone",
+  "@settingsMenuScreenAudioSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Screen & Audio in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuScreensaver": "Screensaver",
+  "@settingsMenuScreensaver": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuScreensaverSummary": "Idle timeout, modes, motion wake",
+  "@settingsMenuScreensaverSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Screensaver in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuBrowser": "Web Browsing",
+  "@settingsMenuBrowser": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuBrowserSummary": "Cache, SSL, Zoom level",
+  "@settingsMenuBrowserSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Web Browsing in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuMediaPlayer": "Media Player",
+  "@settingsMenuMediaPlayer": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuMediaPlayerSummary": "Music Assistant, Sendspin, Sonos",
+  "@settingsMenuMediaPlayerSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Media Player in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuDlna": "DLNA Renderer",
+  "@settingsMenuDlna": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuDlnaSummary": "Play images, videos and audio remotely",
+  "@settingsMenuDlnaSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below DLNA Renderer in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuIntercom": "Intercom",
+  "@settingsMenuIntercom": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuIntercomSummary": "Talk between kiosks",
+  "@settingsMenuIntercomSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Intercom in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuCamera": "Camera",
+  "@settingsMenuCamera": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuCameraSummary": "Device camera, motion, streaming",
+  "@settingsMenuCameraSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Camera in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuCameraStreams": "Camera Streams",
+  "@settingsMenuCameraStreams": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuCameraStreamsSummary": "Go2RTC and Home Assistant cameras",
+  "@settingsMenuCameraStreamsSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Camera Streams in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuKiosk": "Kiosk Mode",
+  "@settingsMenuKiosk": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuKioskSummary": "Exit gesture, PIN, hardware buttons",
+  "@settingsMenuKioskSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Kiosk Mode in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuHomeLauncher": "Home Launcher",
+  "@settingsMenuHomeLauncher": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuHomeLauncherSummary": "Replace the device home screen",
+  "@settingsMenuHomeLauncherSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Home Launcher in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuAppLauncher": "App Launcher",
+  "@settingsMenuAppLauncher": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuAppLauncherSummary": "Open other apps from the kiosk",
+  "@settingsMenuAppLauncherSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below App Launcher in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuGestures": "Gestures",
+  "@settingsMenuGestures": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuGesturesSummary": "Touch, palm and clap gestures",
+  "@settingsMenuGesturesSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Gestures in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuDevice": "Device",
+  "@settingsMenuDevice": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuDeviceSummary": "Name, app theme, remote access",
+  "@settingsMenuDeviceSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Device in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuFleet": "Fleet Management",
+  "@settingsMenuFleet": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuFleetSummary": "Lead or follow other kiosks",
+  "@settingsMenuFleetSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Fleet Management in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuPlugins": "Plugin Manager",
+  "@settingsMenuPlugins": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuPluginsSummary": "Install and manage plugins",
+  "@settingsMenuPluginsSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Plugin Manager in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuLogs": "Logs",
+  "@settingsMenuLogs": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuLogsSummary": "App log and web console",
+  "@settingsMenuLogsSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Logs in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuAbout": "About",
+  "@settingsMenuAbout": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuAboutSummary": "Version, author, license",
+  "@settingsMenuAboutSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below About in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuOverview": "Overview",
+  "@settingsMenuOverview": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuOverviewSummary": "Screen and quick controls",
+  "@settingsMenuOverviewSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Overview in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuLockdown": "Lockdown Mode",
+  "@settingsMenuLockdown": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuLockdownSummary": "Disable screen interactions",
+  "@settingsMenuLockdownSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below Lockdown Mode in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuFiles": "File Manager",
+  "@settingsMenuFiles": {
+    "context": "Settings:Menu",
+    "description": "Settings menu entry. Product names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuFilesSummary": "Browse, download and upload files",
+  "@settingsMenuFilesSummary": {
+    "context": "Settings:Menu",
+    "description": "Summary below File Manager in the Settings menu.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsGroupHomeAssistant": "Home Assistant",
+  "@settingsGroupHomeAssistant": {
+    "context": "Settings:Menu",
+    "description": "Heading above a group of Settings menu entries.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsGroupDisplay": "Display",
+  "@settingsGroupDisplay": {
+    "context": "Settings:Menu",
+    "description": "Heading above a group of Settings menu entries.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsGroupMediaCameras": "Media & Cameras",
+  "@settingsGroupMediaCameras": {
+    "context": "Settings:Menu",
+    "description": "Heading above a group of Settings menu entries.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsGroupKiosk": "Kiosk",
+  "@settingsGroupKiosk": {
+    "context": "Settings:Menu",
+    "description": "Heading above a group of Settings menu entries.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsGroupSystem": "System",
+  "@settingsGroupSystem": {
+    "context": "Settings:Menu",
+    "description": "Heading above a group of Settings menu entries.",
+    "x-locations": {
+      "device": [
+        "Settings > menu"
+      ],
+      "remoteAdmin": [
+        "Sidebar menu"
+      ]
+    }
+  },
+  "settingsMenuMenu": "Menu",
+  "@settingsMenuMenu": {
+    "context": "Settings:Menu",
+    "description": "Remote administration sidebar control or accessibility label.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Sidebar or mobile menu header"
+      ]
+    }
+  },
+  "settingsMenuTheme": "Theme",
+  "@settingsMenuTheme": {
+    "context": "Settings:Menu",
+    "description": "Remote administration sidebar control or accessibility label.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Sidebar or mobile menu header"
+      ]
+    }
+  },
+  "settingsMenuLogout": "Log out",
+  "@settingsMenuLogout": {
+    "context": "Settings:Menu",
+    "description": "Remote administration sidebar control or accessibility label.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Sidebar or mobile menu header"
+      ]
+    }
+  },
+  "settingsMenuSwitchKiosk": "Switch kiosk",
+  "@settingsMenuSwitchKiosk": {
+    "context": "Settings:Menu",
+    "description": "Remote administration sidebar control or accessibility label.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Sidebar or mobile menu header"
+      ]
+    }
+  },
+  "settingsMenuThemeState": "Theme: {theme}",
+  "@settingsMenuThemeState": {
+    "context": "Settings:Menu",
+    "description": "Tooltip on the remote sidebar theme button. The value is the localized theme name.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Sidebar > theme button"
+      ]
+    },
+    "placeholders": {
+      "theme": {
+        "type": "String",
+        "example": "Dark"
+      }
+    }
+  },
+  "settingsMenuThemeAuto": "Automatic",
+  "@settingsMenuThemeAuto": {
+    "context": "Settings:Menu",
+    "description": "Theme choice that follows the browser color preference.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Sidebar > theme button"
+      ]
+    }
+  }
+}

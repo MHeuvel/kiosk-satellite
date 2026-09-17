@@ -4,6 +4,14 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import '../l10n/generated/ui_strings.dart';
 import '../l10n/messages.dart';
 
+/// English is the default until automatic language selection is offered.
+Locale appLocaleForLanguage(String language) {
+  for (final locale in UiStrings.supportedLocales) {
+    if (locale.toLanguageTag() == language) return locale;
+  }
+  return const Locale('en');
+}
+
 /// Localization setup for the root MaterialApp (issue #551).
 ///
 /// Rubik has no CJK glyphs, so those characters fall back to system fonts.

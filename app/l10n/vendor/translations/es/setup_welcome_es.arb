@@ -1,0 +1,23 @@
+{
+  "@@locale": "es",
+  "setupRemoteHeading": "Administración remota",
+  "setupTitle": "Configurar\nKiosk Satellite",
+  "setupWelcomeLead": "Convierte esta tableta en un kiosko de Home Assistant. La configuración tarda un par de minutos y este asistente te guía paso a paso.",
+  "setupDeviceName": "Nombre del dispositivo",
+  "setupDeviceNameHelp": "Nombre con el que se identifica este kiosko en Home Assistant, en la administración remota y en la red. Puedes cambiarlo cuando quieras en Settings > Device.",
+  "setupEnableRemote": "Activar la administración remota",
+  "setupEnableRemoteHelp": "Sigue administrando este kiosko desde un navegador web después de configurarlo. Desde allí es mucho más fácil pegar el token de acceso de Home Assistant.",
+  "setupRemotePassword": "Contraseña de administración remota",
+  "setupRestoreHeading": "Restaurar copia de seguridad",
+  "setupRestore": "Restaurar desde un archivo de configuración",
+  "setupRestoreHelp": "Importa una configuración exportada desde Kiosk Satellite y omite el resto de este asistente. Se incluyen la configuración, el panel y los datos de inicio de sesión.",
+  "setupServicePermissions": "Permisos recomendados para el servicio",
+  "setupPasswordShort": "La contraseña es demasiado corta",
+  "setupPasswordMinimum": "Usa al menos 4 caracteres.",
+  "setupRemoteAddress": "Puedes continuar esta configuración de forma remota desde un navegador web en {address}, aunque el interruptor de arriba esté desactivado.",
+  "remoteWelcomeTitle": "Bienvenido a Kiosk Satellite",
+  "remoteWelcomePassword": "Esta tableta está pendiente de configurar. Primero, protege la administración remota con una contraseña.",
+  "remoteWelcomeReady": "Esta tableta está pendiente de configurar. La contraseña de administración remota ya está definida. Para cambiarla, escribe una nueva aquí.",
+  "remoteInitialPassword": "Contraseña de administración (mínimo 4 caracteres)",
+  "remoteNewPassword": "Nueva contraseña de administración (deja el campo vacío para conservar la actual)"
+}

@@ -502,6 +502,7 @@ const List<SettingsSearchEntry> handBuiltSearchEntries = [
 /// message locale changes so translated labels remain searchable.
 List<SettingsSearchEntry> buildSettingsSearchIndex(
   List<(String category, String title, String subtitle)> pages, {
+  String Function(String)? pageText,
   String Function(SettingDef<Object>)? titleFor,
   String Function(SettingDef<Object>)? descriptionFor,
 }) {
@@ -510,8 +511,9 @@ List<SettingsSearchEntry> buildSettingsSearchIndex(
     for (final (category, title, subtitle) in pages)
       SettingsSearchEntry(
         category: category,
-        title: title,
-        description: subtitle,
+        title: pageText?.call(title) ?? title,
+        description: pageText?.call(subtitle) ?? subtitle,
+        englishAlias: '$title $subtitle',
         isPage: true,
       ),
     // The second-level pages, findable like the category pages above; a

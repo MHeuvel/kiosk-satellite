@@ -384,6 +384,7 @@ class RemoteManager extends Manager {
         'setupNeeded': _setupMode,
         'passwordNeeded': _settings.get(defs.remotePassword).isEmpty,
         'deviceName': deviceName is String ? deviceName : '',
+        'language': _settings.get(defs.uiLanguage),
         // An import applied its settings but the OS permission prompts are
         // still being answered on the device; the start URL (what ends
         // setup) lands after them. The UI shows "finish on the device"

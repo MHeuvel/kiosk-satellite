@@ -24,5 +24,20 @@
   "@commonWorking": {
     "context": "Common:Actions",
     "description": "Button label while an operation is running."
+  },
+  "commonSettings": "Settings",
+  "@commonSettings": {
+    "context": "Common:Actions",
+    "description": "Heading for Settings and the drawer action that opens it."
+  },
+  "commonCancel": "Cancel",
+  "@commonCancel": {
+    "context": "Common:Actions",
+    "description": "Button to dismiss a dialog without applying its action."
+  },
+  "commonOk": "OK",
+  "@commonOk": {
+    "context": "Common:Actions",
+    "description": "Button to dismiss a message."
   }
 }

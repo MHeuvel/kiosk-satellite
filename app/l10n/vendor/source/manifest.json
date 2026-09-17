@@ -1,0 +1,16 @@
+{
+  "schema": 2,
+  "repository": "https://github.com/jxlarrea/kiosk-satellite",
+  "revision": "84a8a49f5cfa519d11ada0cac872698b99b72d24",
+  "workingTree": false,
+  "files": {
+    "common_en.arb": "ebc5e38815bb1daa8ea45d71928e61c9a8d7366bd618fe31d2281414b9f34c09",
+    "settings_device_en.arb": "fc259bd2358e9a10989abbbcedf0e9db73fb406a792cb5adddf238047ceb66bd",
+    "settings_device_remote_administration_en.arb": "3eee8ec272b630c0b5fbc7d4318744722a15a919b3510aabeea78963a15e2657",
+    "settings_home_assistant_setup_en.arb": "ca6282beb0baa193e8ba4fd35aa0d451b6c805b23a2e847ea93b1b0c15292cd6",
+    "setup_connect_en.arb": "353cf737e1650b2f9b7b5c5d4e2d7d5f463d012149ba5ec180425b31845a7b2e",
+    "setup_navigation_en.arb": "71c532e240d4abf6cf53324f583f6a60b8e0999bc26a41cd80de8eb441d564a7",
+    "setup_welcome_en.arb": "a26a34d1e8f30df984627884b880f4fda8f410e1ad3a21a9b3399499c4d7be50"
+  },
+  "scope": "setup-welcome-connect-and-shared-settings"
+}

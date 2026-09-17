@@ -151,11 +151,12 @@ class _KioskSatelliteAppState extends State<KioskSatelliteApp>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    // The theme and Scale UI settings apply live, including when flipped from
-    // the remote admin — the whole point of changing them from another room
-    // is seeing it.
+    // Interface settings apply immediately, including remote changes.
     _sub = widget.container.bus.on<SettingChanged>().listen(
-      (e) => e.key == defs.uiTheme.key || e.key == defs.uiScale.key
+      (e) =>
+          e.key == defs.uiTheme.key ||
+              e.key == defs.uiScale.key ||
+              e.key == defs.uiLanguage.key
           ? setState(() {})
           : null,
     );
@@ -243,6 +244,7 @@ class _KioskSatelliteAppState extends State<KioskSatelliteApp>
       debugShowCheckedModeBanner: false,
       localizationsDelegates: appLocalizationsDelegates,
       supportedLocales: appSupportedLocales,
+      locale: appLocaleForLanguage(container.settings.get(defs.uiLanguage)),
       theme: buildTheme(Brightness.light),
       darkTheme: buildTheme(Brightness.dark),
       themeMode: switch (container.settings.get(defs.uiTheme)) {

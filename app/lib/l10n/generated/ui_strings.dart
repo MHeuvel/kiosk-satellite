@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
 import 'ui_strings_en.dart';
+import 'ui_strings_es.dart';
 
 // ignore_for_file: type=lint
 
@@ -91,7 +92,10 @@ abstract class UiStrings {
       ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('en')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
+    Locale('es'),
+  ];
 
   /// Button to import a configuration file.
   ///
@@ -122,6 +126,294 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Working…'**
   String get commonWorking;
+
+  /// Heading for Settings and the drawer action that opens it.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get commonSettings;
+
+  /// Button to dismiss a dialog without applying its action.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get commonCancel;
+
+  /// Button to dismiss a message.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get commonOk;
+
+  /// Plugin action label. Both values come from the plugin and are kept as supplied.
+  ///
+  /// In en, this message translates to:
+  /// **'{pluginName}: {actionTitle}'**
+  String drawerPluginAction(String pluginName, String actionTitle);
+
+  /// Error heading after a plugin action fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Plugin action'**
+  String get drawerPluginActionErrorTitle;
+
+  /// Fallback error when a plugin provides no error text.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not run this action.'**
+  String get drawerPluginActionError;
+
+  /// Opens the configured Home Assistant dashboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Dashboard'**
+  String get drawerDashboard;
+
+  /// Toggles the Home Assistant header and sidebar. Shown when the menu shortcut is enabled.
+  ///
+  /// In en, this message translates to:
+  /// **'HA Kiosk Mode'**
+  String get drawerHaKiosk;
+
+  /// Opens the default camera view. Shown when that view contains cameras.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera View'**
+  String get drawerCameraView;
+
+  /// Opens the intercom when it is enabled and available.
+  ///
+  /// In en, this message translates to:
+  /// **'Intercom'**
+  String get drawerIntercom;
+
+  /// Opens Music Assistant when its address and menu shortcut are configured. Keep the product name.
+  ///
+  /// In en, this message translates to:
+  /// **'Music Assistant'**
+  String get drawerMusicAssistant;
+
+  /// Shown while the floating player is visible.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide Floating Player'**
+  String get drawerHidePlayer;
+
+  /// Shown while the floating player is hidden.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Floating Player'**
+  String get drawerShowPlayer;
+
+  /// Opens the full-screen player when a track is available and the shortcut is enabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Now Playing'**
+  String get drawerNowPlaying;
+
+  /// Starts the screensaver when its menu shortcut is enabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Screensaver'**
+  String get drawerScreensaver;
+
+  /// Activates lockdown when its menu shortcut is enabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Lockdown Mode'**
+  String get drawerLockdown;
+
+  /// Releases a hold so screensaver and timers can resume.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn Off Hold Mode'**
+  String get drawerHoldOff;
+
+  /// Pauses screensaver and timers to keep the current view on screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn On Hold Mode'**
+  String get drawerHoldOn;
+
+  /// Opens the app launcher when it is enabled and has allowed apps.
+  ///
+  /// In en, this message translates to:
+  /// **'Apps'**
+  String get drawerApps;
+
+  /// Clears the embedded browser cache.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear web cache'**
+  String get drawerClearCache;
+
+  /// Shown when device owner or Shizuku access allows a restart. Also the confirmation title.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart Device'**
+  String get drawerRestartDevice;
+
+  /// Confirmation before restarting Android.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart this device? Kiosk Satellite comes back when it boots.'**
+  String get drawerRestartConfirm;
+
+  /// Button that confirms the device restart.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart'**
+  String get drawerRestart;
+
+  /// Hidden when Kiosk Satellite is the home screen. Also the confirmation title.
+  ///
+  /// In en, this message translates to:
+  /// **'Exit Application'**
+  String get drawerExitApplication;
+
+  /// Confirmation before closing the application.
+  ///
+  /// In en, this message translates to:
+  /// **'Close Kiosk Satellite?'**
+  String get drawerExitConfirm;
+
+  /// Button that confirms closing the application.
+  ///
+  /// In en, this message translates to:
+  /// **'Exit'**
+  String get drawerExit;
+
+  /// Notice below the menu while hold mode is active.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold mode is on'**
+  String get drawerHoldActive;
+
+  /// Tappable notice that releases hold mode.
+  ///
+  /// In en, this message translates to:
+  /// **'Screensaver and timers are paused · tap to turn off'**
+  String get drawerHoldHelp;
+
+  /// Tooltip for the dark theme button at the bottom of the drawer.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get drawerThemeDark;
+
+  /// Tooltip for the light theme button at the bottom of the drawer.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get drawerThemeLight;
+
+  /// Tooltip for matching the Android theme. This controls appearance, not language.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow Android'**
+  String get drawerThemeAndroid;
+
+  /// Current version below the drawer actions. Tap to check for updates.
+  ///
+  /// In en, this message translates to:
+  /// **'Version {version}'**
+  String drawerVersion(String version);
+
+  /// Notice shown when a newer version is available.
+  ///
+  /// In en, this message translates to:
+  /// **'Update available'**
+  String get drawerUpdateAvailable;
+
+  /// Tappable update notice below the drawer actions.
+  ///
+  /// In en, this message translates to:
+  /// **'Version {version} · tap to install'**
+  String drawerUpdateInstall(String version);
+
+  /// Progress notice during a manual update check.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking for updates…'**
+  String get drawerUpdateChecking;
+
+  /// Heading when the installed version is current.
+  ///
+  /// In en, this message translates to:
+  /// **'Up to date'**
+  String get drawerUpdateCurrent;
+
+  /// Result of a successful check with no update.
+  ///
+  /// In en, this message translates to:
+  /// **'You are on the latest version.'**
+  String get drawerUpdateCurrentHelp;
+
+  /// Heading when the manual update check fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Update check failed'**
+  String get drawerUpdateCheckFailed;
+
+  /// Help after an update check fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Is the device online?'**
+  String get drawerUpdateOffline;
+
+  /// Title of the update confirmation dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Update to {version}'**
+  String drawerUpdateTo(String version);
+
+  /// Help below the release notes.
+  ///
+  /// In en, this message translates to:
+  /// **'The download starts on Update. Android asks you to confirm the installation.'**
+  String get drawerUpdateInstructions;
+
+  /// Notice when the overlay permission is missing.
+  ///
+  /// In en, this message translates to:
+  /// **'Without the \"Display over other apps\" permission the app cannot reopen itself after updating.'**
+  String get drawerUpdateRelaunch;
+
+  /// Button that starts downloading an update.
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get drawerUpdate;
+
+  /// Title of the download progress dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloading update'**
+  String get drawerUpdateDownloading;
+
+  /// Progress text before a download percentage is available.
+  ///
+  /// In en, this message translates to:
+  /// **'Starting…'**
+  String get drawerUpdateStarting;
+
+  /// Title when downloading or installing fails. Technical error details remain as supplied.
+  ///
+  /// In en, this message translates to:
+  /// **'Update failed'**
+  String get drawerUpdateFailed;
+
+  /// Dialog title when there is no longer an update to install.
+  ///
+  /// In en, this message translates to:
+  /// **'Updates'**
+  String get drawerUpdates;
+
+  /// Placeholder when a release has no notes. Published release notes remain as supplied.
+  ///
+  /// In en, this message translates to:
+  /// **'No release notes.'**
+  String get drawerNoReleaseNotes;
 
   /// Device name field label.
   ///
@@ -171,6 +463,18 @@ abstract class UiStrings {
   /// **'Required to log in to the remote interface.'**
   String get settingRemotePasswordDescription;
 
+  /// Language selector label.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get settingUiLanguageTitle;
+
+  /// Help below the language selector.
+  ///
+  /// In en, this message translates to:
+  /// **'Language for Kiosk Satellite and remote administration. Home Assistant keeps its own language.'**
+  String get settingUiLanguageDescription;
+
   /// Home Assistant base URL field label.
   ///
   /// In en, this message translates to:
@@ -194,6 +498,372 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Created under your HA profile → Security.'**
   String get settingHaTokenDescription;
+
+  /// Settings menu entry. Product names stay unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Assistant Setup'**
+  String get settingsMenuHomeAssistant;
+
+  /// Summary below Home Assistant Setup in the Settings menu.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection, dashboard, kiosk mode'**
+  String get settingsMenuHomeAssistantSummary;
+
+  /// Settings menu entry. Product names stay unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice Satellite'**
+  String get settingsMenuVoiceSatellite;
+
+  /// Summary below Voice Satellite in the Settings menu.
+  ///
+  /// In en, this message translates to:
+  /// **'Wake word, background listening'**
+  String get settingsMenuVoiceSatelliteSummary;
+
+  /// Settings menu entry. Product names stay unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'ESPHome'**
+  String get settingsMenuEsphome;
+
+  /// Summary below ESPHome in the Settings menu.
+  ///
+  /// In en, this message translates to:
+  /// **'Native entities and Bluetooth proxy'**
+  String get settingsMenuEsphomeSummary;
+
+  /// Settings menu entry. Product names stay unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Screen & Audio'**
+  String get settingsMenuScreenAudio;
+
+  /// Summary below Screen & Audio in the Settings menu.
+  ///
+  /// In en, this message translates to:
+  /// **'Brightness, volume, microphone'**
+  String get settingsMenuScreenAudioSummary;
+
+  /// Settings menu entry. Product names stay unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Screensaver'**
+  String get settingsMenuScreensaver;
+
+  /// Summary below Screensaver in the Settings menu.
+  ///
+  /// In en, this message translates to:
+  /// **'Idle timeout, modes, motion wake'**
+  String get settingsMenuScreensaverSummary;
+
+  /// Settings menu entry. Product names stay unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Web Browsing'**
+  String get settingsMenuBrowser;
+
+  /// Summary below Web Browsing in the Settings menu.
+  ///
+  /// In en, this message translates to:
+  /// **'Cache, SSL, Zoom level'**
+  String get settingsMenuBrowserSummary;
+
+  /// Settings menu entry. Product names stay unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Media Player'**
+  String get settingsMenuMediaPlayer;
+
+  /// Summary below Media Player in the Settings menu.
+  ///
+  /// In en, this message translates to:
+  /// **'Music Assistant, Sendspin, Sonos'**
+  String get settingsMenuMediaPlayerSummary;
+
+  /// Settings menu entry. Product names stay unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'DLNA Renderer'**
+  String get settingsMenuDlna;
+
+  /// Summary below DLNA Renderer in the Settings menu.
+  ///
+  /// In en, this message translates to:
+  /// **'Play images, videos and audio remotely'**
+  String get settingsMenuDlnaSummary;
+
+  /// Settings menu entry. Product names stay unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Intercom'**
+  String get settingsMenuIntercom;
+
+  /// Summary below Intercom in the Settings menu.
+  ///
+  /// In en, this message translates to:
+  /// **'Talk between kiosks'**
+  String get settingsMenuIntercomSummary;
+
+  /// Settings menu entry. Product names stay unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera'**
+  String get settingsMenuCamera;
+
+  /// Summary below Camera in the Settings menu.
+  ///
+  /// In en, this message translates to:
+  /// **'Device camera, motion, streaming'**
+  String get settingsMenuCameraSummary;
+
+  /// Settings menu entry. Product names stay unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera Streams'**
+  String get settingsMenuCameraStreams;
+
+  /// Summary below Camera Streams in the Settings menu.
+  ///
+  /// In en, this message translates to:
+  /// **'Go2RTC and Home Assistant cameras'**
+  String get settingsMenuCameraStreamsSummary;
+
+  /// Settings menu entry. Product names stay unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosk Mode'**
+  String get settingsMenuKiosk;
+
+  /// Summary below Kiosk Mode in the Settings menu.
+  ///
+  /// In en, this message translates to:
+  /// **'Exit gesture, PIN, hardware buttons'**
+  String get settingsMenuKioskSummary;
+
+  /// Settings menu entry. Product names stay unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Launcher'**
+  String get settingsMenuHomeLauncher;
+
+  /// Summary below Home Launcher in the Settings menu.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace the device home screen'**
+  String get settingsMenuHomeLauncherSummary;
+
+  /// Settings menu entry. Product names stay unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'App Launcher'**
+  String get settingsMenuAppLauncher;
+
+  /// Summary below App Launcher in the Settings menu.
+  ///
+  /// In en, this message translates to:
+  /// **'Open other apps from the kiosk'**
+  String get settingsMenuAppLauncherSummary;
+
+  /// Settings menu entry. Product names stay unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Gestures'**
+  String get settingsMenuGestures;
+
+  /// Summary below Gestures in the Settings menu.
+  ///
+  /// In en, this message translates to:
+  /// **'Touch, palm and clap gestures'**
+  String get settingsMenuGesturesSummary;
+
+  /// Settings menu entry. Product names stay unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Device'**
+  String get settingsMenuDevice;
+
+  /// Summary below Device in the Settings menu.
+  ///
+  /// In en, this message translates to:
+  /// **'Name, app theme, remote access'**
+  String get settingsMenuDeviceSummary;
+
+  /// Settings menu entry. Product names stay unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Fleet Management'**
+  String get settingsMenuFleet;
+
+  /// Summary below Fleet Management in the Settings menu.
+  ///
+  /// In en, this message translates to:
+  /// **'Lead or follow other kiosks'**
+  String get settingsMenuFleetSummary;
+
+  /// Settings menu entry. Product names stay unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Plugin Manager'**
+  String get settingsMenuPlugins;
+
+  /// Summary below Plugin Manager in the Settings menu.
+  ///
+  /// In en, this message translates to:
+  /// **'Install and manage plugins'**
+  String get settingsMenuPluginsSummary;
+
+  /// Settings menu entry. Product names stay unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Logs'**
+  String get settingsMenuLogs;
+
+  /// Summary below Logs in the Settings menu.
+  ///
+  /// In en, this message translates to:
+  /// **'App log and web console'**
+  String get settingsMenuLogsSummary;
+
+  /// Settings menu entry. Product names stay unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get settingsMenuAbout;
+
+  /// Summary below About in the Settings menu.
+  ///
+  /// In en, this message translates to:
+  /// **'Version, author, license'**
+  String get settingsMenuAboutSummary;
+
+  /// Settings menu entry. Product names stay unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Overview'**
+  String get settingsMenuOverview;
+
+  /// Summary below Overview in the Settings menu.
+  ///
+  /// In en, this message translates to:
+  /// **'Screen and quick controls'**
+  String get settingsMenuOverviewSummary;
+
+  /// Settings menu entry. Product names stay unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Lockdown Mode'**
+  String get settingsMenuLockdown;
+
+  /// Summary below Lockdown Mode in the Settings menu.
+  ///
+  /// In en, this message translates to:
+  /// **'Disable screen interactions'**
+  String get settingsMenuLockdownSummary;
+
+  /// Settings menu entry. Product names stay unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'File Manager'**
+  String get settingsMenuFiles;
+
+  /// Summary below File Manager in the Settings menu.
+  ///
+  /// In en, this message translates to:
+  /// **'Browse, download and upload files'**
+  String get settingsMenuFilesSummary;
+
+  /// Heading above a group of Settings menu entries.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Assistant'**
+  String get settingsGroupHomeAssistant;
+
+  /// Heading above a group of Settings menu entries.
+  ///
+  /// In en, this message translates to:
+  /// **'Display'**
+  String get settingsGroupDisplay;
+
+  /// Heading above a group of Settings menu entries.
+  ///
+  /// In en, this message translates to:
+  /// **'Media & Cameras'**
+  String get settingsGroupMediaCameras;
+
+  /// Heading above a group of Settings menu entries.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosk'**
+  String get settingsGroupKiosk;
+
+  /// Heading above a group of Settings menu entries.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get settingsGroupSystem;
+
+  /// Remote administration sidebar control or accessibility label.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu'**
+  String get settingsMenuMenu;
+
+  /// Remote administration sidebar control or accessibility label.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get settingsMenuTheme;
+
+  /// Remote administration sidebar control or accessibility label.
+  ///
+  /// In en, this message translates to:
+  /// **'Log out'**
+  String get settingsMenuLogout;
+
+  /// Remote administration sidebar control or accessibility label.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch kiosk'**
+  String get settingsMenuSwitchKiosk;
+
+  /// Tooltip on the remote sidebar theme button. The value is the localized theme name.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme: {theme}'**
+  String settingsMenuThemeState(String theme);
+
+  /// Theme choice that follows the browser color preference.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic'**
+  String get settingsMenuThemeAuto;
+
+  /// Placeholder in the Settings search box.
+  ///
+  /// In en, this message translates to:
+  /// **'Search settings'**
+  String get settingsSearchHint;
+
+  /// Tooltip and accessibility label for the clear button.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear search'**
+  String get settingsSearchClear;
+
+  /// Heading above matching settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Search results'**
+  String get settingsSearchResults;
+
+  /// Empty result message. The query is the text entered by the user.
+  ///
+  /// In en, this message translates to:
+  /// **'No settings match \"{query}\".'**
+  String settingsSearchEmpty(String query);
 
   /// Page heading.
   ///
@@ -518,7 +1188,7 @@ class _UiStringsDelegate extends LocalizationsDelegate<UiStrings> {
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['en'].contains(locale.languageCode);
+      <String>['en', 'es'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_UiStringsDelegate old) => false;
@@ -529,6 +1199,8 @@ UiStrings lookupUiStrings(Locale locale) {
   switch (locale.languageCode) {
     case 'en':
       return UiStringsEn();
+    case 'es':
+      return UiStringsEs();
   }
 
   throw FlutterError(

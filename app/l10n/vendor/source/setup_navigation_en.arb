@@ -1,0 +1,43 @@
+{
+  "@@locale": "en",
+  "setupWelcome": "Welcome",
+  "@setupWelcome": {
+    "context": "First-time setup:Navigation",
+    "description": "Welcome step label."
+  },
+  "setupConnect": "Connect",
+  "@setupConnect": {
+    "context": "First-time setup:Navigation",
+    "description": "Home Assistant connection step label."
+  },
+  "setupConnectSummary": "Home Assistant URL & token",
+  "@setupConnectSummary": {
+    "context": "First-time setup:Navigation",
+    "description": "Summary below the connection step label."
+  },
+  "setupDashboard": "Dashboard",
+  "@setupDashboard": {
+    "context": "First-time setup:Navigation",
+    "description": "Dashboard step label."
+  },
+  "setupDashboardSummary": "What the kiosk shows",
+  "@setupDashboardSummary": {
+    "context": "First-time setup:Navigation",
+    "description": "Summary below the dashboard step label."
+  },
+  "setupRecommendedSummary": "Recommended settings",
+  "@setupRecommendedSummary": {
+    "context": "First-time setup:Navigation",
+    "description": "Summary below the recommended settings step."
+  },
+  "setupPermissions": "Permissions",
+  "@setupPermissions": {
+    "context": "First-time setup:Navigation",
+    "description": "Permissions step label and page heading."
+  },
+  "setupPermissionsSummary": "What the setup needs",
+  "@setupPermissionsSummary": {
+    "context": "First-time setup:Navigation",
+    "description": "Summary below the permissions step label."
+  }
+}

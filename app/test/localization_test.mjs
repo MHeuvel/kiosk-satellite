@@ -1,8 +1,10 @@
 import assert from 'node:assert/strict';
-import test from 'node:test';
+import test, { beforeEach } from 'node:test';
 import { readFileSync, readdirSync } from 'node:fs';
 import { catalogs } from '../remote-ui/static/catalogs.js';
-import { formatMessage, localizeSetting, resolveLanguage, t } from '../remote-ui/static/localization.js';
+import { formatMessage, localizeSetting, setLanguagePreference, t } from '../remote-ui/static/localization.js';
+
+beforeEach(() => setLanguagePreference('en'));
 
 test('browser English catalog matches the current source', () => {
   const directory = new URL('../l10n/source/', import.meta.url);
@@ -18,10 +20,14 @@ test('browser English catalog matches the current source', () => {
   assert.deepEqual(catalogs.en, source);
 });
 
-test('browser locale selects an available language or English', () => {
-  assert.equal(resolveLanguage(['es-EC', 'en'], ['en', 'es']), 'es');
-  assert.equal(resolveLanguage(['de-DE'], ['en', 'es']), 'en');
-  assert.equal(resolveLanguage(['zh-Hans'], ['en', 'zh-Hant']), 'en');
+test('English is the default and replaces the old automatic choice', () => {
+  assert.equal(t('commonNext'), 'Next');
+  setLanguagePreference('es');
+  assert.equal(t('commonNext'), 'Siguiente');
+  setLanguagePreference('system');
+  assert.equal(t('commonNext'), 'Next');
+  setLanguagePreference(undefined);
+  assert.equal(t('commonNext'), 'Next');
 });
 
 test('placeholder values stay plain text and are not substituted twice', () => {
@@ -39,4 +45,31 @@ test('setting localization preserves keys and values without changing the input'
   assert.equal(localized.value, setting.value);
   assert.equal(setting.title, 'Original');
   assert.deepEqual(localizeSetting(localized), localized);
+});
+
+test('explicit kiosk language overrides the browser while keeping native names', () => {
+  setLanguagePreference('es');
+  const setting = { key: 'ui.language', value: 'es', title: 'Language',
+    options: ['en', 'es'], optionLabels: { en: 'English', es: 'Español' } };
+  const localized = localizeSetting(setting);
+  assert.deepEqual(localized.options, setting.options);
+  assert.equal(localized.optionLabels.es, 'Español');
+  assert.equal(localized.value, 'es');
+  assert.equal(t('commonNext'), 'Siguiente');
+  setLanguagePreference('en');
+  assert.equal(t('commonNext'), 'Next');
+  setLanguagePreference('unavailable');
+  assert.equal(t('commonNext'), 'Next');
+});
+
+test('changing language translates cached settings again without losing English aliases', () => {
+  const original = { title: 'Device name', titleMessageId: 'settingDeviceNameTitle', value: 'Kitchen' };
+  setLanguagePreference('es');
+  const spanish = localizeSetting(original);
+  assert.equal(spanish.title, 'Nombre del dispositivo');
+  setLanguagePreference('en');
+  const english = localizeSetting(spanish);
+  assert.equal(english.title, 'Device name');
+  assert.equal(english.englishTitle, 'Device name');
+  assert.equal(english.value, 'Kitchen');
 });

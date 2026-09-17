@@ -12,8 +12,10 @@ APP = Path(__file__).resolve().parents[1]
 ROOT = APP / "remote-ui"
 english = {key: value for path in (APP / "l10n/source").glob("*_en.arb")
            for key, value in json.loads(path.read_text()).items() if not key.startswith("@")}
-# Test markers only. Xavier supplies the actual Spanish translations.
-spanish = {"remoteWelcomeTitle": "TEST remote welcome", "settingHaUrlTitle": "TEST address"}
+# Test markers keep this check independent of translation review status.
+spanish = {"remoteWelcomeTitle": "TEST remote welcome", "settingHaUrlTitle": "TEST address",
+           "settingsMenuDevice": "TEST dispositivo", "settingsSearchHint": "TEST buscar",
+           "settingsGroupSystem": "TEST sistema", "settingsMenuThemeState": "TEST tema {theme}", "drawerThemeDark": "TEST oscuro", "settingsSearchEmpty": "TEST no match {query}"}
 
 
 class Handler(SimpleHTTPRequestHandler):
@@ -27,7 +29,7 @@ base = f"http://127.0.0.1:{server.server_port}"
 try:
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(headless=True, args=["--no-sandbox"])
-        page = browser.new_page(locale="es-EC", viewport={"width": 1200, "height": 900})
+        page = browser.new_page(locale="en-US", viewport={"width": 1200, "height": 900})
         errors = []
         page.on("pageerror", lambda error: errors.append(str(error)))
         html = (ROOT / "index.html").read_text().replace(
@@ -42,8 +44,23 @@ try:
           const core = await import('/static/core.js');
           core.cacheSettings([{key: 'ha.url', type: 'string', category: 'Home Assistant',
             title: 'Home Assistant base URL', description: 'Connection address',
-            titleMessageId: 'settingHaUrlTitle', value: 'https://example.test'}]);
+            titleMessageId: 'settingHaUrlTitle', value: 'https://example.test'}, {key: 'ui.language', value: 'es'}]);
+          const tabs = await import('/static/tabs.js');
+          tabs.refreshNavigationText();
           const search = await import('/static/search.js');
+          if (!search.searchSettingsIndex('TEST dispositivo').some(row => row.tab === 'device' && row.isPage)) throw new Error('Translated page not searchable');
+          if (!search.searchSettingsIndex('Device').some(row => row.tab === 'device' && row.isPage)) throw new Error('English page alias lost');
+          if (document.querySelector('#settingsSearch').placeholder !== 'TEST buscar') throw new Error('Search placeholder not translated');
+          if (document.querySelector('[data-tab="device"] .nav-title').textContent !== 'TEST dispositivo') throw new Error('Sidebar not translated');
+          localStorage.setItem('ks_theme', 'dark');
+          core.applyTheme();
+          if (document.querySelector('#themeBtn').title !== 'TEST tema TEST oscuro') throw new Error('Theme tooltip lost its translation');
+          const {setLanguagePreference} = await import('/static/localization.js');
+          setLanguagePreference('en');
+          tabs.refreshNavigationText();
+          if (document.querySelector('[data-tab="device"] .nav-title').textContent !== 'Device') throw new Error('Sidebar did not switch back');
+          setLanguagePreference('es');
+          tabs.refreshNavigationText();
           const translated = search.searchSettingsIndex('TEST address');
           const english = search.searchSettingsIndex('Home Assistant base URL');
           const {wizard} = await import('/static/app.js');

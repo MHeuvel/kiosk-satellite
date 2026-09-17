@@ -1,0 +1,5 @@
+{
+  "@@locale": "es",
+  "settingDeviceNameTitle": "Nombre del dispositivo",
+  "settingDeviceNameDescription": "Nombre que se muestra en la administración remota y con el que se identifica el dispositivo en Home Assistant."
+}

@@ -1,0 +1,9 @@
+{
+  "@@locale": "es",
+  "settingRemoteEnabledTitle": "Administración remota",
+  "settingRemoteEnabledDescription": "Activa el servidor web integrado para administrar el dispositivo.",
+  "settingRemotePortTitle": "Puerto del servidor",
+  "settingRemotePortDescription": "Puerto de la interfaz de administración remota.",
+  "settingRemotePasswordTitle": "Contraseña de administración",
+  "settingRemotePasswordDescription": "Necesaria para iniciar sesión en la interfaz remota."
+}

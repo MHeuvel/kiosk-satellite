@@ -6,7 +6,7 @@ from playwright.sync_api import sync_playwright, expect
 base = sys.argv[1]
 with sync_playwright() as playwright:
     browser = playwright.chromium.launch(headless=True)
-    context = browser.new_context(viewport={"width": 1400, "height": 1000})
+    context = browser.new_context(viewport={"width": 1400, "height": 1000}, locale='en-US')
     response = context.request.post(base + '/api/login', data=json.dumps({'password': 'secret'}))
     token = response.json()['token']
     context.add_init_script('localStorage.setItem("ks_token", ' + json.dumps(token) + ')')
@@ -38,6 +38,28 @@ with sync_playwright() as playwright:
             headers={'Authorization': 'Bearer ' + token},
             data=json.dumps({'key': key, 'value': value}))
         assert result.json()['ok'] and result.json()['data'] is True, result.text()
+
+    # A device language change repaints the open admin without a page reload.
+    page.locator('#tabs button[data-tab="device"]').click()
+    name = page.locator('[data-key="device.name"] .name')
+    language = page.locator('[data-key="ui.language"] select')
+    expect(name).to_have_text('Device name')
+    page.evaluate('window.languageTestMarker = true')
+    change('ui.language', 'es')
+    expect(name).to_have_text('Nombre del dispositivo')
+    expect(language).to_have_value('es')
+    assert page.evaluate('window.languageTestMarker') is True
+    # The saved choice also wins over an English browser on a fresh load.
+    page.reload()
+    expect(name).to_have_text('Nombre del dispositivo')
+    # Changing the dropdown in this browser applies the new language too.
+    language.select_option('en')
+    expect(name).to_have_text('Device name')
+    language.select_option('es')
+    expect(name).to_have_text('Nombre del dispositivo')
+    expect(language.locator('option[value="system"]')).to_have_count(0)
+    language.select_option('en')
+    expect(name).to_have_text('Device name')
 
     page.locator('#tabs button[data-tab="screensaver"]').click()
     mode = page.locator('[data-key="screensaver.mode"] select')

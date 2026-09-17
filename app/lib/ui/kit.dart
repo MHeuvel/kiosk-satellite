@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../l10n/messages.dart';
 import 'theme.dart';
 import 'toast.dart';
 
@@ -1006,7 +1007,7 @@ Future<bool> showConfirmDialog(
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(false),
-          child: const Text('Cancel'),
+          child: Text(l10n(context).commonCancel),
         ),
         FilledButton(
           style: destructive

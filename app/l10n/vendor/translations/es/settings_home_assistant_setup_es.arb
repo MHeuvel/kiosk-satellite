@@ -1,0 +1,7 @@
+{
+  "@@locale": "es",
+  "settingHaUrlTitle": "URL base de Home Assistant",
+  "settingHaUrlDescription": "Por ejemplo, https://homeassistant.local:8123, sin la ruta de un panel.",
+  "settingHaTokenTitle": "Token de acceso de larga duración",
+  "settingHaTokenDescription": "Se crea en tu perfil de Home Assistant → Seguridad."
+}

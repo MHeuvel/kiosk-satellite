@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 
 import '../managers/settings/definitions.dart';
 import 'generated/message_lookup.dart';
+import 'generated/navigation_ids.dart';
 import 'generated/ui_strings.dart';
 
 final _english = lookupUiStrings(const Locale('en'));
@@ -43,3 +44,7 @@ extension LocalizedSetting on SettingDef<Object> {
   String localizedDescription(BuildContext context) =>
       messageById(l10n(context), descriptionMessageId, description);
 }
+
+/// Translate menu presentation while keeping category and route keys stable.
+String navigationText(BuildContext context, String english) =>
+    messageById(l10n(context), navigationMessageIds[english], english);

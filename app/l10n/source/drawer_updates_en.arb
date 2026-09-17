@@ -1,0 +1,191 @@
+{
+  "@@locale": "en",
+  "drawerVersion": "Version {version}",
+  "@drawerVersion": {
+    "context": "Device:Drawer:Updates",
+    "description": "Current version below the drawer actions. Tap to check for updates.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    },
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "2026.9.59"
+      }
+    }
+  },
+  "drawerUpdateAvailable": "Update available",
+  "@drawerUpdateAvailable": {
+    "context": "Device:Drawer:Updates",
+    "description": "Notice shown when a newer version is available.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    }
+  },
+  "drawerUpdateInstall": "Version {version} · tap to install",
+  "@drawerUpdateInstall": {
+    "context": "Device:Drawer:Updates",
+    "description": "Tappable update notice below the drawer actions.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    },
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "2026.9.59"
+      }
+    }
+  },
+  "drawerUpdateChecking": "Checking for updates…",
+  "@drawerUpdateChecking": {
+    "context": "Device:Drawer:Updates",
+    "description": "Progress notice during a manual update check.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    }
+  },
+  "drawerUpdateCurrent": "Up to date",
+  "@drawerUpdateCurrent": {
+    "context": "Device:Drawer:Updates",
+    "description": "Heading when the installed version is current.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    }
+  },
+  "drawerUpdateCurrentHelp": "You are on the latest version.",
+  "@drawerUpdateCurrentHelp": {
+    "context": "Device:Drawer:Updates",
+    "description": "Result of a successful check with no update.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    }
+  },
+  "drawerUpdateCheckFailed": "Update check failed",
+  "@drawerUpdateCheckFailed": {
+    "context": "Device:Drawer:Updates",
+    "description": "Heading when the manual update check fails.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    }
+  },
+  "drawerUpdateOffline": "Is the device online?",
+  "@drawerUpdateOffline": {
+    "context": "Device:Drawer:Updates",
+    "description": "Help after an update check fails.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    }
+  },
+  "drawerUpdateTo": "Update to {version}",
+  "@drawerUpdateTo": {
+    "context": "Device:Drawer:Updates",
+    "description": "Title of the update confirmation dialog.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    },
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "2026.9.59"
+      }
+    }
+  },
+  "drawerUpdateInstructions": "The download starts on Update. Android asks you to confirm the installation.",
+  "@drawerUpdateInstructions": {
+    "context": "Device:Drawer:Updates",
+    "description": "Help below the release notes.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    }
+  },
+  "drawerUpdateRelaunch": "Without the \"Display over other apps\" permission the app cannot reopen itself after updating.",
+  "@drawerUpdateRelaunch": {
+    "context": "Device:Drawer:Updates",
+    "description": "Notice when the overlay permission is missing.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    }
+  },
+  "drawerUpdate": "Update",
+  "@drawerUpdate": {
+    "context": "Device:Drawer:Updates",
+    "description": "Button that starts downloading an update.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    }
+  },
+  "drawerUpdateDownloading": "Downloading update",
+  "@drawerUpdateDownloading": {
+    "context": "Device:Drawer:Updates",
+    "description": "Title of the download progress dialog.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    }
+  },
+  "drawerUpdateStarting": "Starting…",
+  "@drawerUpdateStarting": {
+    "context": "Device:Drawer:Updates",
+    "description": "Progress text before a download percentage is available.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    }
+  },
+  "drawerUpdateFailed": "Update failed",
+  "@drawerUpdateFailed": {
+    "context": "Device:Drawer:Updates",
+    "description": "Title when downloading or installing fails. Technical error details remain as supplied.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    }
+  },
+  "drawerUpdates": "Updates",
+  "@drawerUpdates": {
+    "context": "Device:Drawer:Updates",
+    "description": "Dialog title when there is no longer an update to install.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    }
+  },
+  "drawerNoReleaseNotes": "No release notes.",
+  "@drawerNoReleaseNotes": {
+    "context": "Device:Drawer:Updates",
+    "description": "Placeholder when a release has no notes. Published release notes remain as supplied.",
+    "x-locations": {
+      "device": [
+        "Drawer > version or update notice"
+      ]
+    }
+  }
+}

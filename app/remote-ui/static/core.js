@@ -1,7 +1,7 @@
 import { detachSocket, socketReady, socketRequest } from './transport.js';
 import { start } from './app.js';
 import { startWizard } from './wizard.js';
-import { localizeSetting } from './localization.js';
+import { localizeSetting, setLanguagePreference, themeLabel } from './localization.js';
 
 // A function declaration on purpose: several modules use $ at module top
 // level and sit in import cycles with this one, and only hoisted function
@@ -12,6 +12,7 @@ export const state = { token: localStorage.getItem('ks_token'), ws: null };
 // Controls retain their setting definitions between renders. Refresh their
 // values in place so a page visit cannot leave other pages on old objects.
 export function cacheSettings(definitions) {
+  setLanguagePreference(definitions.find(setting => setting.key === 'ui.language')?.value);
   const existing = new Map((state.settings || []).map(setting => [setting.key, setting]));
   state.settings = definitions.map(setting => {
     setting = localizeSetting(setting);
@@ -41,8 +42,8 @@ export function applyTheme() {
   document.documentElement.dataset.theme = dark ? 'dark' : 'light';
   const btn = $('#themeBtn');
   btn.innerHTML = THEME_ICONS[pref];
-  btn.title = `Theme: ${pref}`;
-  btn.setAttribute('aria-label', `Theme: ${pref}`);
+  btn.title = themeLabel(pref);
+  btn.setAttribute('aria-label', btn.title);
 }
 $('#themeBtn').addEventListener('click', () => {
   const order = ['light', 'dark', 'auto'];
@@ -165,6 +166,7 @@ export async function login() {
   start();
 }
 export function logout() {
+  setLanguagePreference('en');
   state.token = null; localStorage.removeItem('ks_token');
   detachSocket();
   document.dispatchEvent(new CustomEvent('ks-logout'));

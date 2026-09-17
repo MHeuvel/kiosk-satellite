@@ -7,6 +7,7 @@ library;
 
 import 'dart:convert';
 
+import '../../l10n/generated/language_codes.dart';
 import '../../l10n/generated/setting_ids.dart';
 
 import '../btproxy/node_name.dart';
@@ -7371,6 +7372,21 @@ String effectiveHostname(String typed, String deviceName) {
   return esphomeNodeFromDeviceName(deviceName);
 }
 
+const uiLanguage = SettingDef<String>(
+  key: 'ui.language',
+  type: SettingType.select,
+  defaultValue: 'en',
+  title: 'Language',
+  description:
+      'Language for Kiosk Satellite and remote administration. '
+      'Home Assistant keeps its own language.',
+  category: 'Device',
+  section: 'User Interface',
+  options: messageLanguageOptions,
+  optionLabels: {'en': 'English', 'es': 'Español'},
+  perDevice: true,
+);
+
 const uiTheme = SettingDef<String>(
   key: 'ui.theme',
   type: SettingType.select,
@@ -7839,6 +7855,7 @@ const List<SettingDef<Object>> allSettings = [
   disableImpeller,
   legacyWebView,
   // The User Interface group: consecutive, or the heading would repeat.
+  uiLanguage,
   uiTheme,
   uiScale,
   // The two pages, service first, close the Device page.

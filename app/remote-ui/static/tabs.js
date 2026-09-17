@@ -1,3 +1,4 @@
+import { navigationText, t, localizeNavigation } from './localization.js';
 import { readRoute, routeHash, routeSlug } from './routes.js';
 import { loadSettings } from './settings.js';
 import { loadCameras } from './cameras.js';
@@ -156,7 +157,7 @@ export function showTab(name, { push = true, refresh = true } = {}) {
     const back = document.createElement('button');
     back.type = 'button';
     back.className = 'title-back';
-    back.setAttribute('aria-label', 'Back');
+    back.setAttribute('aria-label', t('commonBack'));
     back.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"'
       + ' stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
       + '<path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>';
@@ -166,7 +167,7 @@ export function showTab(name, { push = true, refresh = true } = {}) {
     titleEl.prepend(back, subpageIcon(tab === 'plugins' ? 'Plugins' : sub));
   } else {
     // The nav rail's glyph, bare, same drawing, no disc.
-    titleEl.textContent = TAB_TITLES[tab];
+    titleEl.textContent = navigationText(TAB_TITLES[tab]);
     const glyph = document.querySelector(`#tabs button[data-tab="${tab}"] svg`);
     if (glyph) titleEl.prepend(glyph.cloneNode(true));
   }
@@ -211,3 +212,18 @@ export function setNav(open) {
 $('#navToggle').addEventListener('click', () =>
   setNav(!$('#tabs').classList.contains('open')));
 $('#navBackdrop').addEventListener('click', () => setNav(false));
+
+export function refreshNavigationText() {
+  localizeNavigation();
+  const title = document.getElementById('pageTitle');
+  if (!title) return;
+  if (searchReturnTab) {
+    title.textContent = t('settingsSearchResults');
+  } else if (!currentPath.includes('/')) {
+    // Preserve the icon already attached by showTab.
+    for (const node of title.childNodes) {
+      if (node.nodeType === Node.TEXT_NODE) node.textContent = navigationText(TAB_TITLES[currentPath]);
+    }
+  }
+  title.querySelector('.title-back')?.setAttribute('aria-label', t('commonBack'));
+}

@@ -365,7 +365,7 @@ class _RailHeading extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.fromLTRB(16, first ? 4 : 18, 16, 6),
       child: Text(
-        text.toUpperCase(),
+        navigationText(context, text).toUpperCase(),
         style: theme.textTheme.bodySmall?.copyWith(
           color: theme.colorScheme.onSurfaceVariant,
           fontWeight: FontWeight.w600,
@@ -426,6 +426,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           for (final (category, title, _, subtitle) in _categories)
             (category, title, subtitle),
         ],
+        pageText: (text) => navigationText(context, text),
         titleFor: (def) => def.localizedTitle(context),
         descriptionFor: (def) => def.localizedDescription(context),
       );
@@ -558,12 +559,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onChanged: (_) =>
                   setState(() => _showResults = _query.isNotEmpty),
               decoration: InputDecoration(
-                hintText: 'Search settings',
+                hintText: l10n(context).settingsSearchHint,
                 prefixIcon: Icon(Icons.search, color: scheme.onSurfaceVariant),
                 suffixIcon: _query.isEmpty
                     ? null
                     : IconButton(
-                        tooltip: 'Clear search',
+                        tooltip: l10n(context).settingsSearchClear,
                         icon: const Icon(Icons.close, size: 20),
                         onPressed: () => setState(() {
                           _searchCtl.clear();
@@ -624,7 +625,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               const Icon(Icons.search, size: 26),
               const SizedBox(width: 12),
               Text(
-                'Search results',
+                l10n(context).settingsSearchResults,
                 style: theme.textTheme.headlineSmall?.copyWith(
                   fontFamily: Ks.displayFont,
                   fontWeight: FontWeight.w600,
@@ -640,7 +641,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         Padding(
           padding: const EdgeInsets.fromLTRB(Ks.inset, 12, Ks.inset, 12),
           child: Text(
-            'No settings match "$_query".',
+            l10n(context).settingsSearchEmpty(_query),
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -664,7 +665,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               .where((c) => c.$1 == category)
               .map((c) => c.$2)
               .firstOrNull;
-          children.add(SectionHeading(title ?? entry.category));
+          children.add(
+            SectionHeading(navigationText(context, title ?? entry.category)),
+          );
         }
         rows.add(
           ListTile(
@@ -753,7 +756,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         children: [
                           Expanded(
                             child: Text(
-                              'Settings',
+                              l10n(context).commonSettings,
                               style: theme.textTheme.headlineMedium?.copyWith(
                                 fontFamily: Ks.displayFont,
                                 fontWeight: FontWeight.w600,
@@ -824,7 +827,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 child: _widePane(
                                   context,
                                   storageKey: 'settings-pane-$category',
-                                  title: title,
+                                  title: navigationText(context, title),
                                   icon: icon,
                                   child: _CategoryContent(
                                     key: ValueKey(category),
@@ -890,7 +893,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 if (onBack != null) ...[
                   IconButton(
                     icon: const Icon(Icons.arrow_back),
-                    tooltip: 'Back',
+                    tooltip: l10n(context).commonBack,
                     onPressed: onBack,
                   ),
                   const SizedBox(width: 4),
@@ -975,14 +978,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        title,
+                        navigationText(context, title),
                         style: theme.textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        subtitle,
+                        navigationText(context, subtitle),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: theme.textTheme.bodySmall?.copyWith(
@@ -1018,7 +1021,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Widget _hub(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Settings')),
+      appBar: AppBar(title: Text(l10n(context).commonSettings)),
       body: constrainedColumn(
         Column(
           children: [
@@ -1048,8 +1051,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                       index: index,
                                       icon: icon,
                                     ),
-                                    title: Text(title),
-                                    subtitle: Text(subtitle),
+                                    title: Text(navigationText(context, title)),
+                                    subtitle: Text(
+                                      navigationText(context, subtitle),
+                                    ),
                                     trailing: const Icon(Icons.chevron_right),
                                     onTap: () => Navigator.of(context).push(
                                       MaterialPageRoute<void>(
@@ -1125,7 +1130,7 @@ class CategorySettingsScreen extends StatelessWidget {
                 ),
                 const SizedBox(width: 10),
               ],
-              Text(title),
+              Text(navigationText(context, title)),
             ],
           ),
         ),

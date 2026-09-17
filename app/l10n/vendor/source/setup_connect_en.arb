@@ -1,0 +1,135 @@
+{
+  "@@locale": "en",
+  "setupConnectHeading": "Connect to Home Assistant",
+  "@setupConnectHeading": {
+    "context": "First-time setup:Connect",
+    "description": "Page heading."
+  },
+  "setupConnectLead": "The base URL of your instance and a long-lived access token, created under your HA profile → Security → Long-lived access tokens.",
+  "@setupConnectLead": {
+    "context": "First-time setup:Connect",
+    "description": "Introduction explaining the required credentials."
+  },
+  "setupBaseUrl": "Home Assistant base URL",
+  "@setupBaseUrl": {
+    "context": "First-time setup:Connect",
+    "description": "Home Assistant address field label."
+  },
+  "setupToken": "Long-lived access token",
+  "@setupToken": {
+    "context": "First-time setup:Connect",
+    "description": "Access token field label."
+  },
+  "setupScanQr": "Scan the QR code",
+  "@setupScanQr": {
+    "context": "First-time setup:Connect",
+    "description": "Button to scan connection details from a QR code."
+  },
+  "setupInvalidToken": "Invalid access token",
+  "@setupInvalidToken": {
+    "context": "First-time setup:Connect",
+    "description": "Error heading when Home Assistant rejects the token."
+  },
+  "setupInvalidTokenHelp": "Home Assistant rejected this token. In Home Assistant, open your profile → Security → Long-lived access tokens, create a new token and copy the complete value.",
+  "@setupInvalidTokenHelp": {
+    "context": "First-time setup:Connect",
+    "description": "Instructions for replacing a rejected token."
+  },
+  "setupUnreachable": "Can't reach Home Assistant",
+  "@setupUnreachable": {
+    "context": "First-time setup:Connect",
+    "description": "Error heading when the server does not respond."
+  },
+  "setupUnreachableHelp": "No response from this address. Check that the URL is correct and that this device is on the same network as your Home Assistant server.",
+  "@setupUnreachableHelp": {
+    "context": "First-time setup:Connect",
+    "description": "Troubleshooting advice for an unreachable server."
+  },
+  "setupUnexpectedResponseHelp": "A server responded, but it doesn't appear to be Home Assistant. Check that the URL is your Home Assistant base address, for example https://homeassistant.local:8123.",
+  "@setupUnexpectedResponseHelp": {
+    "context": "First-time setup:Connect",
+    "description": "Help when the address responds as a different service.",
+    "x-notes": "Preserve the example URL exactly."
+  },
+  "setupCannotConnect": "Can't connect",
+  "@setupCannotConnect": {
+    "context": "First-time setup:Connect",
+    "description": "Heading for other connection errors."
+  },
+  "setupCameraPermission": "Camera permission needed",
+  "@setupCameraPermission": {
+    "context": "First-time setup:Connect",
+    "description": "Error heading when QR scanning needs camera permission."
+  },
+  "setupCameraBlocked": "Allow the camera for Kiosk Satellite in the Android settings to scan the QR code.",
+  "@setupCameraBlocked": {
+    "context": "First-time setup:Connect",
+    "description": "Instructions when camera access must be enabled in Android."
+  },
+  "setupCameraAllow": "Allow the camera to scan the QR code.",
+  "@setupCameraAllow": {
+    "context": "First-time setup:Connect",
+    "description": "Instructions when camera access can be requested in the app."
+  },
+  "setupEnterBaseUrl": "Enter your Home Assistant base URL",
+  "@setupEnterBaseUrl": {
+    "context": "First-time setup:Connect",
+    "description": "Error heading when the address field is empty."
+  },
+  "setupInvalidBaseUrl": "Invalid base URL",
+  "@setupInvalidBaseUrl": {
+    "context": "First-time setup:Connect",
+    "description": "Error heading when the address format is invalid."
+  },
+  "setupBaseUrlHelp": "This is the address you use to open Home Assistant, for example https://homeassistant.local:8123.",
+  "@setupBaseUrlHelp": {
+    "context": "First-time setup:Connect",
+    "description": "Example explaining the expected address.",
+    "x-notes": "Preserve the example URL exactly."
+  },
+  "setupEnterToken": "Enter a long-lived access token",
+  "@setupEnterToken": {
+    "context": "First-time setup:Connect",
+    "description": "Error heading when the access token field is empty."
+  },
+  "setupEnterTokenHelp": "In Home Assistant, open your profile → Security → Long-lived access tokens to create one.",
+  "@setupEnterTokenHelp": {
+    "context": "First-time setup:Connect",
+    "description": "Instructions for creating an access token."
+  },
+  "setupValidateContinue": "Validate & continue",
+  "@setupValidateContinue": {
+    "context": "First-time setup:Connect",
+    "description": "Button to test credentials and advance."
+  },
+  "setupUnexpectedResponse": "Unexpected response ({error})",
+  "@setupUnexpectedResponse": {
+    "context": "First-time setup:Connect",
+    "description": "Error heading for an unexpected server response.",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "HTTP 503",
+        "description": "Diagnostic HTTP response code."
+      }
+    }
+  },
+  "baseUrlInvalid": "Enter a valid URL, for example https://homeassistant.local:8123",
+  "@baseUrlInvalid": {
+    "context": "First-time setup:Connect",
+    "description": "Validation error for a malformed address.",
+    "x-notes": "Preserve the example URL exactly."
+  },
+  "baseUrlPath": "Enter only the base URL, without a dashboard path. Example: https://homeassistant.local:8123",
+  "@baseUrlPath": {
+    "context": "First-time setup:Connect",
+    "description": "Validation error for an address containing a dashboard path.",
+    "x-notes": "Preserve the example URL exactly."
+  },
+  "baseUrlQuery": "Enter only the base URL, without anything after the port. Example: https://homeassistant.local:8123",
+  "@baseUrlQuery": {
+    "context": "First-time setup:Connect",
+    "description": "Validation error for an address containing a query or fragment.",
+    "x-notes": "Preserve the example URL exactly."
+  }
+}

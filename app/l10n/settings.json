@@ -22,5 +22,9 @@
   "device.name": {
     "title": "settingDeviceNameTitle",
     "description": "settingDeviceNameDescription"
+  },
+  "ui.language": {
+    "title": "settingUiLanguageTitle",
+    "description": "settingUiLanguageDescription"
   }
 }

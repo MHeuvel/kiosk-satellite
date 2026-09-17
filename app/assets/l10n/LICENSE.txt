@@ -1,0 +1,106 @@
+Kiosk Satellite Localization License
+Version 1.0
+
+Copyright (c) 2026 Xavier Larrea
+All rights reserved except as expressly permitted below.
+
+1. Scope
+
+This license applies to material in the official repository at
+https://github.com/jxlarrea/kiosk-satellite-localization that is distributed
+with this license, including templates, translations, metadata, documentation
+and repository tooling. It also applies to generated catalog resources
+identified as covered by this license in Kiosk Satellite release notices.
+
+Material carrying separate license terms remains subject to those terms.
+This license does not replace the licenses for Kiosk Satellite application
+code, third-party dependencies or other separately identified material.
+
+Xavier Larrea grants permissions only for rights he owns or is authorized
+to license. Contributors retain copyright and authorship in their original
+contributions. They grant exclusive worldwide usage rights under the
+separate Contributor Agreement. Copyright ownership does not transfer.
+
+2. Permission to contribute
+
+You receive a worldwide, nonexclusive, no-charge permission to view and copy
+this material to understand, prepare, validate, discuss, review and submit
+localization contributions to the official Kiosk Satellite project.
+
+For those purposes, you may clone the repository, create forks and branches,
+modify catalogs, use repository tooling and share proposed changes through
+forks, patches and pull requests. You may collaborate with other contributors
+and retain the resulting contribution and review history. You may prepare
+local previews and test resources for Kiosk Satellite localization.
+
+You may read the public documentation and retain copies of the license,
+Contributor Agreement and related notices for reference and legal records.
+This license does not independently authorize modification or distribution
+of Kiosk Satellite application code. Consult that code's applicable license.
+
+3. Permission to use translations in Kiosk Satellite
+
+You may use accepted translations as bundled in official Kiosk Satellite
+releases. You may redistribute those translations as part of a complete,
+unmodified official release when the application's license permits that
+redistribution. Preserve this license and the applicable notices.
+
+These permissions do not authorize publishing unofficial application builds
+or distributing independent language packs outside the contribution process
+described in section 2.
+
+4. Conditions and limits
+
+Preserve applicable copyright, authorship and license notices in copies and
+forks. Identify your changes and do not represent an unofficial translation
+or fork as accepted, endorsed or published by Xavier Larrea.
+
+You may not use this material in another product, sell catalog access,
+distribute it for unrelated purposes or offer it under different license
+terms without separate written permission from the relevant rights holder.
+
+No trademark rights are granted beyond identifying Kiosk Satellite and the
+official localization project for the permitted purposes. No rights in
+unrelated material are granted. Rights not expressly granted are reserved.
+
+5. Proposed contributions
+
+By intentionally submitting original material for review in this repository,
+you permit Xavier Larrea and participants in the contribution process to
+copy, display, review, test and adapt it for the purposes in section 2 and
+to retain its submission history. You grant this limited, nonexclusive
+permission only for rights you hold or are authorized to license.
+
+This review permission does not grant exclusive rights or by itself
+authorize incorporating an unaccepted contribution into an official release.
+Acceptance into the project requires the separate Contributor Agreement and
+its recorded acceptance process. Opening a pull request alone does not
+execute that agreement. Disclose other authors and rights holders.
+
+6. Platform permissions and existing rights
+
+This license applies to material distributed with it. It does not revoke
+permissions already validly granted under another license.
+
+Nothing here limits applicable statutory exceptions, public-domain uses or
+permissions independently granted under GitHub's terms or another valid
+license. This is a restricted license and is not an open-source license.
+
+7. Duration and breach
+
+These permissions continue for the duration of the applicable rights while
+you comply with these terms. If you breach them, stop the unauthorized use.
+Your permissions under this license terminate if you fail to cure a curable
+breach within 30 days after receiving written notice identifying it.
+
+Termination does not remove lawful records of earlier activity, statutory
+rights or permissions independently granted by another valid license.
+Claims concerning a breach remain subject to applicable law.
+
+8. Warranty and liability
+
+To the extent permitted by applicable law, the material is provided as is
+without warranties of any kind, including fitness for a particular purpose,
+merchantability and noninfringement. Xavier Larrea and contributors are not
+liable for loss or damage arising from use of the material except where
+applicable law does not permit that exclusion.

@@ -41,7 +41,7 @@ import { renderFleetPage } from './fleetsync.js';
 import { decorateAnnouncementsPage, renderIntercomPage } from './intercom.js';
 import { askImportOptions } from './pickers.js';
 import { settingRow } from './rows.js';
-import { applySubpageView, currentPath, setCurrentPath, subpageEntry } from './tabs.js';
+import { applySubpageView, currentPath, setCurrentPath, subpageEntry, refreshNavigationText } from './tabs.js';
 import {
   fetchViews,
   pickView,
@@ -150,6 +150,7 @@ const liveSettings = new Map();
 // Compare with what was rendered so those echoes still update other rows.
 const renderedSettings = new Map();
 const layoutSettings = new Set([
+  'ui.language',
   'audio.mic_agc', 'launcher.auto_return', 'home.enabled',
   'browser.auto_reload_on_error', 'screensaver.dismiss_on_motion',
   'screensaver.dismiss_on_face', 'screensaver.dismiss_on_person',
@@ -257,6 +258,7 @@ async function renderSettings({ cached = false } = {}) {
   renderedSettings.clear();
   for (const setting of settings) renderedSettings.set(setting.key, JSON.stringify(setting));
   settings = cacheSettings(settings);
+  refreshNavigationText();
   // Named once for every second-level page, including the ones with no
   // settings of their own (Voice Satellite's are live entity rows).
   state.subpageHints = subpageHints || {};

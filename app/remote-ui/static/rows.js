@@ -241,6 +241,10 @@ export function settingRow(s) {
     }
     clearRowError(row);
     if (cached) cached.value = value;
+    if (s.key === 'ui.language') {
+      await loadSettings({ cached: true });
+      return;
+    }
     // AGC hides the gain slider next to it without gating it (the row is
     // always rendered, so there is nothing for syncGatedRows to place).
     if (s.key === 'audio.mic_agc') {

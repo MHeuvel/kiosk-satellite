@@ -1,0 +1,116 @@
+{
+  "@@locale": "en",
+  "setupRemoteHeading": "Remote administration",
+  "@setupRemoteHeading": {
+    "context": "First-time setup:Welcome",
+    "description": "Remote administration section heading and step summary."
+  },
+  "setupTitle": "Set up\nKiosk Satellite",
+  "@setupTitle": {
+    "context": "First-time setup:Welcome",
+    "description": "Setup heading on the device.",
+    "x-notes": "Keep Kiosk Satellite unchanged. The line break separates the action from the product name."
+  },
+  "setupWelcomeLead": "Turn this tablet into a Home Assistant kiosk. Setup takes a couple of minutes and this wizard walks you through it.",
+  "@setupWelcomeLead": {
+    "context": "First-time setup:Welcome",
+    "description": "Introduction on the device.",
+    "x-notes": "Keep Home Assistant unchanged."
+  },
+  "setupDeviceName": "Device name",
+  "@setupDeviceName": {
+    "context": "First-time setup:Welcome",
+    "description": "Device name field label on the device."
+  },
+  "setupDeviceNameHelp": "How this kiosk is called in Home Assistant, in the remote admin and on the network. Change it any time under Settings, Device.",
+  "@setupDeviceNameHelp": {
+    "context": "First-time setup:Welcome",
+    "description": "Help below the device name field."
+  },
+  "setupEnableRemote": "Enable remote administration",
+  "@setupEnableRemote": {
+    "context": "First-time setup:Welcome",
+    "description": "Remote administration switch label on the device."
+  },
+  "setupEnableRemoteHelp": "Keep managing this kiosk from a web browser after setup, where pasting the Home Assistant access token is much easier.",
+  "@setupEnableRemoteHelp": {
+    "context": "First-time setup:Welcome",
+    "description": "Help below the remote administration switch."
+  },
+  "setupRemotePassword": "Remote admin password",
+  "@setupRemotePassword": {
+    "context": "First-time setup:Welcome",
+    "description": "Remote password field label on the device."
+  },
+  "setupRestoreHeading": "Restore backup",
+  "@setupRestoreHeading": {
+    "context": "First-time setup:Welcome",
+    "description": "Configuration restore section heading."
+  },
+  "setupRestore": "Restore from configuration file",
+  "@setupRestore": {
+    "context": "First-time setup:Welcome",
+    "description": "Action to select a configuration file."
+  },
+  "setupRestoreHelp": "Import a configuration exported from Kiosk Satellite and skip the rest of this wizard. Settings, dashboard and login all come along.",
+  "@setupRestoreHelp": {
+    "context": "First-time setup:Welcome",
+    "description": "Explanation of what restoring a configuration imports."
+  },
+  "setupServicePermissions": "Recommended Service Permissions",
+  "@setupServicePermissions": {
+    "context": "First-time setup:Welcome",
+    "description": "Heading above the recommended service permissions."
+  },
+  "setupPasswordShort": "Password too short",
+  "@setupPasswordShort": {
+    "context": "First-time setup:Welcome",
+    "description": "Error heading for a password below the minimum length."
+  },
+  "setupPasswordMinimum": "Use at least 4 characters.",
+  "@setupPasswordMinimum": {
+    "context": "First-time setup:Welcome",
+    "description": "Password length requirement below the error heading.",
+    "x-notes": "The minimum is 4 characters."
+  },
+  "setupRemoteAddress": "You can continue this setup remotely from a web browser at {address}, whether the switch above is on or not.",
+  "@setupRemoteAddress": {
+    "context": "First-time setup:Welcome",
+    "description": "Instructions for continuing setup in a browser.",
+    "x-notes": "The address comes from the device. Do not add a literal URL.",
+    "placeholders": {
+      "address": {
+        "type": "String",
+        "example": "http://192.168.1.10:2324",
+        "description": "Complete URL of the remote admin."
+      }
+    }
+  },
+  "remoteWelcomeTitle": "Welcome to Kiosk Satellite",
+  "@remoteWelcomeTitle": {
+    "context": "First-time setup:Welcome",
+    "description": "Welcome heading in the browser.",
+    "x-notes": "Keep Kiosk Satellite unchanged."
+  },
+  "remoteWelcomePassword": "This tablet is waiting to be set up. First, protect this remote admin with a password.",
+  "@remoteWelcomePassword": {
+    "context": "First-time setup:Welcome",
+    "description": "Browser introduction when no admin password is set."
+  },
+  "remoteWelcomeReady": "This tablet is waiting to be set up. The remote admin password is already set; type a new one here to change it.",
+  "@remoteWelcomeReady": {
+    "context": "First-time setup:Welcome",
+    "description": "Browser introduction when an admin password is already set."
+  },
+  "remoteInitialPassword": "Admin password (min 4 characters)",
+  "@remoteInitialPassword": {
+    "context": "First-time setup:Welcome",
+    "description": "Browser password field label for a new password.",
+    "x-notes": "The minimum is 4 characters."
+  },
+  "remoteNewPassword": "New admin password (leave empty to keep the current one)",
+  "@remoteNewPassword": {
+    "context": "First-time setup:Welcome",
+    "description": "Browser password field label for an optional replacement."
+  }
+}

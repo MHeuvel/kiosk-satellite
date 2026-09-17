@@ -1,4 +1,4 @@
-import { t } from './localization.js';
+import { setLanguagePreference, t } from './localization.js';
 import { WIZ_LOCKED, WIZ_OPTIONAL, wizard } from './app.js';
 import { $, THEME_ICONS, api, showView, state } from './core.js';
 import { readOnlyRow } from './device.js';
@@ -716,6 +716,7 @@ export async function startWizard({ needPassword }) {
   try {
     const setup = await (await fetch('api/setup/status')).json();
     wizard.deviceName = setup?.deviceName || '';
+    setLanguagePreference(setup?.language);
   } catch (_) { wizard.deviceName = ''; }
   wizard.i = 0;
   wizard.steps = wizardSteps();

@@ -253,6 +253,31 @@ class SnapshotTests(unittest.TestCase):
         catalog.write(self.repo / "translations/pt-BR/common_pt_BR.arb", {"@@locale": "pt_BR", "welcome": "TEST welcome"})
         catalog.validate_repository(self.repo)
 
+    def test_preview_uses_drafts_without_changing_review_or_lock(self):
+        catalog.import_catalog(self.app, self.repo, self.revision, "es")
+        lock_path = self.app / "l10n/localization.lock.json"
+        lock = lock_path.read_bytes()
+        reviews = (self.repo / "metadata/reviews/es.json").read_bytes()
+        catalog.write(self.repo / "translations/es/common_es.arb", {"@@locale": "es", "welcome": "DRAFT welcome"})
+        catalog.generate(self.app, self.repo)
+        self.assertEqual(catalog.read(self.app / "l10n/effective/ui_es.arb")["welcome"], "DRAFT welcome")
+        self.assertEqual(lock_path.read_bytes(), lock)
+        self.assertEqual((self.repo / "metadata/reviews/es.json").read_bytes(), reviews)
+        catalog.generate(self.app)
+        self.assertEqual(catalog.read(self.app / "l10n/effective/ui_es.arb")["welcome"], "TEST welcome")
+
+    def test_preview_rejects_a_different_english_source(self):
+        changed = copy.deepcopy(self.source)
+        changed["welcome"] = "New welcome"
+        self.write_sources(self.app / "l10n/source", changed)
+        with self.assertRaisesRegex(ValueError, "Export"):
+            catalog.generate(self.app, self.repo)
+
+    def test_navigation_mapping_requires_matching_source_text(self):
+        catalog.write(self.app / "l10n/navigation.json", {"Different label": "welcome"})
+        with self.assertRaisesRegex(ValueError, "navigation message mapping"):
+            catalog.generate(self.app)
+
     def test_generation_rejects_a_broken_setting_mapping(self):
         catalog.write(self.app / "l10n/settings.json", {"device.name": {"title": "unknown", "description": "welcome"}})
         with self.assertRaisesRegex(ValueError, "mapping"):

@@ -1,3 +1,4 @@
+import { navigationText, t } from './localization.js';
 import { readRoute } from './routes.js';
 import { $, depSatisfied, state } from './core.js';
 import { permissionSpecs } from './permissions.js';
@@ -213,7 +214,7 @@ export function searchSettingsIndex(query) {
   DEFLESS_SUBPAGES.forEach(([tab, name]) => addSub(tab, name));
   const hits = [];
   const shown = (key) => (state.settings || []).some((s) => s.key === key && !s.hidden);
-  [...SEARCH_PAGES, ...subs, ...defs, ...SEARCH_EXTRAS, ...pluginSearchEntries()].forEach((raw, order) => {
+  [...SEARCH_PAGES.map(page => ({...page, title: navigationText(page.title), desc: navigationText(page.desc), englishAlias: `${page.title} ${page.desc}`})), ...subs, ...defs, ...SEARCH_EXTRAS, ...pluginSearchEntries()].forEach((raw, order) => {
     if (typeof raw.title !== 'string' || !raw.title.trim()) return;
     const e = {...raw, desc: typeof raw.desc === 'string' ? raw.desc : ''};
     if (e.onlyWith && !shown(e.onlyWith)) return;
@@ -259,7 +260,7 @@ export function renderSearch() {
     searchReturnTab = currentPath || 'dashboard';
     document.querySelectorAll('.tab').forEach((t) =>
       t.classList.toggle('active', t.id === 'tab-search'));
-    $('#pageTitle').textContent = 'Search results';
+    $('#pageTitle').textContent = t('settingsSearchResults');
   }
   const results = searchSettingsIndex(q);
   const build = (root) => {
@@ -270,7 +271,7 @@ export function renderSearch() {
       const d = document.createElement('div');
       d.className = 'desc';
       d.style.cssText = 'color:var(--muted); padding:12px 0;';
-      d.textContent = `No settings match "${q}".`;
+      d.textContent = t('settingsSearchEmpty', { query: q });
       card.appendChild(d);
       root.appendChild(card);
       return;
@@ -282,7 +283,7 @@ export function renderSearch() {
         tab = e.tab;
         const h = document.createElement('h2');
         h.className = 'card-title';
-        h.textContent = TAB_TITLES[tab] || tab;
+        h.textContent = navigationText(TAB_TITLES[tab] || tab);
         root.appendChild(h);
         card = document.createElement('div');
         card.className = 'card search-results';
