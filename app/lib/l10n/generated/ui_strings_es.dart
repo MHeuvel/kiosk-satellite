@@ -8924,172 +8924,175 @@ class UiStringsEs extends UiStrings {
   }
 
   @override
-  String get voiceEngine => 'Engine';
+  String get voiceEngine => 'Motor';
 
   @override
-  String get voiceEngineHelp => 'Start or Stop the Voice Satellite engine.';
+  String get voiceEngineHelp => 'Inicia o detén el motor de Voice Satellite.';
 
   @override
-  String get voiceAssigned => 'Assigned satellite';
+  String get voiceAssigned => 'Satélite asignado';
 
   @override
   String get voiceAssignedHelp =>
-      'The assist_satellite entity this kiosk identifies as in Home Assistant. Changing it reloads the dashboard.';
+      'La entidad assist_satellite con la que este kiosko se identifica en Home Assistant. Cambiarla vuelve a cargar el panel de control.';
 
   @override
   String get voiceAssignedSearch =>
-      'The assist_satellite entity this kiosk identifies as in Home Assistant.';
+      'La entidad assist_satellite con la que este kiosko se identifica en Home Assistant.';
 
   @override
-  String get voiceNoneAssigned => 'None assigned';
+  String get voiceNoneAssigned => 'Ninguno asignado';
 
   @override
-  String get voiceAutoStart => 'Auto start';
+  String get voiceAutoStart => 'Inicio automático';
 
   @override
   String get voiceAutoStartHelp =>
-      'Auto start Voice Satellite on dashboard load.';
+      'Inicia Voice Satellite automáticamente al cargar el panel de control.';
 
   @override
-  String get voiceMuteHelp => 'Stop listening for wake words.';
+  String get voiceMuteHelp => 'Deja de escuchar palabras de activación.';
 
   @override
-  String get voicePipeline1 => 'Assist pipeline 1';
+  String get voicePipeline1 => 'Canal de Assist 1';
 
   @override
   String get voicePipeline1Help =>
-      'The Assist pipeline voice commands run through.';
+      'El canal de Assist que procesa los comandos de voz.';
 
   @override
-  String get voicePipeline2 => 'Assist pipeline 2';
+  String get voicePipeline2 => 'Canal de Assist 2';
 
   @override
   String get voicePipeline2Help =>
-      'The pipeline used when the second wake word triggers.';
+      'El canal que se usa cuando se detecta la segunda palabra de activación.';
 
   @override
-  String get voiceVad => 'Finished speaking detection';
+  String get voiceVad => 'Detección del fin del habla';
 
   @override
-  String get voiceVadHelp => 'How long a pause ends a voice command.';
+  String get voiceVadHelp =>
+      'Cuánto debe durar una pausa para dar por terminado un comando de voz.';
 
   @override
-  String get voiceMutedWarning => 'Disable muted microphone warning';
+  String get voiceMutedWarning => 'Desactivar el aviso de micrófono silenciado';
 
   @override
   String get voiceMutedWarningHelp =>
-      'Hide the muted microphone warning at startup and whenever the satellite microphone is muted.';
+      'Oculta el aviso de micrófono silenciado al iniciar y cuando se silencia el micrófono del satélite.';
 
   @override
-  String get voiceDebug => 'Debug logging';
+  String get voiceDebug => 'Registro de depuración';
 
   @override
   String get voiceDebugHelp =>
-      'Show Voice Satellite debug info in the browser console.';
+      'Muestra información de depuración de Voice Satellite en la consola del navegador.';
 
   @override
-  String get voiceVersion => 'Voice Satellite version';
+  String get voiceVersion => 'Versión de Voice Satellite';
 
   @override
   String get voiceVersionHelp =>
-      'The integration version installed in Home Assistant.';
+      'La versión de la integración instalada en Home Assistant.';
 
   @override
-  String get voiceVadDefault => 'Default';
+  String get voiceVadDefault => 'Predeterminado';
 
   @override
-  String get voiceVadRelaxed => 'Relaxed';
+  String get voiceVadRelaxed => 'Relajado';
 
   @override
-  String get voiceVadAggressive => 'Aggressive';
+  String get voiceVadAggressive => 'Agresivo';
 
   @override
   String get voiceGeneral => 'General';
 
   @override
-  String get voiceStart => 'Start';
+  String get voiceStart => 'Iniciar';
 
   @override
-  String get voiceNotavailable => 'Not available';
+  String get voiceNotavailable => 'No disponible';
 
   @override
-  String get voiceDisabled => 'Disabled';
+  String get voiceDisabled => 'Desactivado';
 
   @override
   String get settingWakeWordBackgroundTitle =>
-      'Keep listening in the background';
+      'Seguir escuchando en segundo plano';
 
   @override
   String get settingWakeWordBackgroundDescription =>
-      'Keep hearing the wake word while another app is in front, and return on a detection. Needs a permanent notification and display over other apps.';
+      'Sigue escuchando la palabra de activación mientras otra aplicación está en primer plano y vuelve al detectarla. Requiere una notificación permanente y el permiso para mostrar sobre otras aplicaciones.';
 
   @override
-  String get voiceMicHeld => 'Wake word detection can hear you.';
+  String get voiceMicHeld =>
+      'La detección de palabras de activación puede escucharte.';
 
   @override
   String get voiceMicBlocked =>
-      'Blocked. Android will not ask again, so allow it in the app settings.';
+      'Bloqueado. Android no volverá a solicitar el permiso. Concédelo en los ajustes de la aplicación.';
 
   @override
   String get voiceMicMissing =>
-      'Without this nothing is listening for the wake word.';
+      'Sin este permiso, nada escucha la palabra de activación.';
 
   @override
   String get voiceForegroundHeld =>
-      'Kiosk Satellite can come forward when it hears you.';
+      'Kiosk Satellite puede pasar al primer plano cuando te escucha.';
 
   @override
   String get voiceForegroundMissing =>
-      'Without this the wake word is heard and nothing happens.';
+      'Sin este permiso, se detecta la palabra de activación pero no ocurre nada.';
 
   @override
   String get voiceNotificationHeld =>
-      'The ongoing notification that enables background listening.';
+      'La notificación permanente que permite escuchar en segundo plano.';
 
   @override
   String get voiceNotificationMissing =>
-      'Needed for background listening to work reliably.';
+      'Necesario para que la escucha en segundo plano funcione de forma fiable.';
 
   @override
-  String get voiceBatteryHeld => 'Android will leave the listener running.';
+  String get voiceBatteryHeld =>
+      'Android mantendrá la escucha en funcionamiento.';
 
   @override
   String get voiceBatteryMissing =>
-      'Without this the listener is stopped after a few hours.';
+      'Sin este permiso, la escucha se detiene después de unas horas.';
 
   @override
   String get voicePermissionDirections =>
-      'Grant these on the device itself: swipe in from the left edge → Settings → Voice Satellite → Required system permissions.';
+      'Concede estos permisos en el dispositivo: desliza desde el borde izquierdo → Configuración → Voice Satellite → Permisos del sistema necesarios.';
 
   @override
-  String get voiceDisconnected => 'Home Assistant not connected';
+  String get voiceDisconnected => 'Home Assistant no está conectado';
 
   @override
   String get voiceValidate =>
-      'Validate the connection under Home Assistant Setup first.';
+      'Primero valida la conexión en Configuración de Home Assistant.';
 
   @override
-  String get voiceChecking => 'Checking for Voice Satellite…';
+  String get voiceChecking => 'Buscando Voice Satellite…';
 
   @override
   String get voiceMissing =>
-      'Voice Satellite is not installed in Home Assistant';
+      'Voice Satellite no está instalado en Home Assistant';
 
   @override
   String get voiceInstallHelp =>
-      'Voice Satellite turns this kiosk into a full hands-free voice assistant for Home Assistant: wake word detection, conversations, timers and announcements, right on the dashboard.\n\nIt is available in the default HACS repository. Install it on your Home Assistant instance, then come back here.';
+      'Voice Satellite convierte este kiosko en un asistente de voz de manos libres para Home Assistant: detección de palabras de activación, conversaciones, temporizadores y anuncios, directamente en el panel de control.\n\nEstá disponible en el repositorio predeterminado de HACS. Instálalo en tu instancia de Home Assistant y luego vuelve aquí.';
 
   @override
-  String get voiceLearnMore => 'Learn more about ';
+  String get voiceLearnMore => 'Más información sobre ';
 
   @override
-  String get voiceGithub => 'Voice Satellite on Github';
+  String get voiceGithub => 'Voice Satellite en GitHub';
 
   @override
-  String get voiceHacs => 'Open HACS repository';
+  String get voiceHacs => 'Abrir el repositorio de HACS';
 
   @override
-  String get voiceLoading => 'Loading Voice Satellite controls…';
+  String get voiceLoading => 'Cargando los controles de Voice Satellite…';
 
   @override
   String get settingDisableCacheTitle => 'Desactivar caché';

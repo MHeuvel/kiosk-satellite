@@ -1,0 +1,393 @@
+{
+  "@@locale": "en",
+  "voiceEngine": "Engine",
+  "@voiceEngine": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voiceEngineHelp": "Start or Stop the Voice Satellite engine.",
+  "@voiceEngineHelp": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voiceAssigned": "Assigned satellite",
+  "@voiceAssigned": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voiceAssignedHelp": "The assist_satellite entity this kiosk identifies as in Home Assistant. Changing it reloads the dashboard.",
+  "@voiceAssignedHelp": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voiceAssignedSearch": "The assist_satellite entity this kiosk identifies as in Home Assistant.",
+  "@voiceAssignedSearch": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voiceNoneAssigned": "None assigned",
+  "@voiceNoneAssigned": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voiceAutoStart": "Auto start",
+  "@voiceAutoStart": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voiceAutoStartHelp": "Auto start Voice Satellite on dashboard load.",
+  "@voiceAutoStartHelp": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voiceMuteHelp": "Stop listening for wake words.",
+  "@voiceMuteHelp": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voicePipeline1": "Assist pipeline 1",
+  "@voicePipeline1": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voicePipeline1Help": "The Assist pipeline voice commands run through.",
+  "@voicePipeline1Help": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voicePipeline2": "Assist pipeline 2",
+  "@voicePipeline2": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voicePipeline2Help": "The pipeline used when the second wake word triggers.",
+  "@voicePipeline2Help": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voiceVad": "Finished speaking detection",
+  "@voiceVad": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voiceVadHelp": "How long a pause ends a voice command.",
+  "@voiceVadHelp": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voiceMutedWarning": "Disable muted microphone warning",
+  "@voiceMutedWarning": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voiceMutedWarningHelp": "Hide the muted microphone warning at startup and whenever the satellite microphone is muted.",
+  "@voiceMutedWarningHelp": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voiceDebug": "Debug logging",
+  "@voiceDebug": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voiceDebugHelp": "Show Voice Satellite debug info in the browser console.",
+  "@voiceDebugHelp": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voiceVersion": "Voice Satellite version",
+  "@voiceVersion": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voiceVersionHelp": "The integration version installed in Home Assistant.",
+  "@voiceVersionHelp": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voiceVadDefault": "Default",
+  "@voiceVadDefault": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voiceVadRelaxed": "Relaxed",
+  "@voiceVadRelaxed": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voiceVadAggressive": "Aggressive",
+  "@voiceVadAggressive": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voiceGeneral": "General",
+  "@voiceGeneral": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voiceStart": "Start",
+  "@voiceStart": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voiceNotavailable": "Not available",
+  "@voiceNotavailable": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voiceDisabled": "Disabled",
+  "@voiceDisabled": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "settingWakeWordBackgroundTitle": "Keep listening in the background",
+  "@settingWakeWordBackgroundTitle": {
+    "context": "Settings > Voice Satellite",
+    "description": "Background listening setting on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "settingWakeWordBackgroundDescription": "Keep hearing the wake word while another app is in front, and return on a detection. Needs a permanent notification and display over other apps.",
+  "@settingWakeWordBackgroundDescription": {
+    "context": "Settings > Voice Satellite",
+    "description": "Background listening setting on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  }
+}

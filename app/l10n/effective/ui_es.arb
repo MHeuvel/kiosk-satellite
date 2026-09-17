@@ -33262,7 +33262,7 @@
       }
     }
   },
-  "voiceEngine": "Engine",
+  "voiceEngine": "Motor",
   "@voiceEngine": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33275,7 +33275,7 @@
       ]
     }
   },
-  "voiceEngineHelp": "Start or Stop the Voice Satellite engine.",
+  "voiceEngineHelp": "Inicia o detén el motor de Voice Satellite.",
   "@voiceEngineHelp": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33288,7 +33288,7 @@
       ]
     }
   },
-  "voiceAssigned": "Assigned satellite",
+  "voiceAssigned": "Satélite asignado",
   "@voiceAssigned": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33301,7 +33301,7 @@
       ]
     }
   },
-  "voiceAssignedHelp": "The assist_satellite entity this kiosk identifies as in Home Assistant. Changing it reloads the dashboard.",
+  "voiceAssignedHelp": "La entidad assist_satellite con la que este kiosko se identifica en Home Assistant. Cambiarla vuelve a cargar el panel de control.",
   "@voiceAssignedHelp": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33314,7 +33314,7 @@
       ]
     }
   },
-  "voiceAssignedSearch": "The assist_satellite entity this kiosk identifies as in Home Assistant.",
+  "voiceAssignedSearch": "La entidad assist_satellite con la que este kiosko se identifica en Home Assistant.",
   "@voiceAssignedSearch": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33327,7 +33327,7 @@
       ]
     }
   },
-  "voiceNoneAssigned": "None assigned",
+  "voiceNoneAssigned": "Ninguno asignado",
   "@voiceNoneAssigned": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33340,7 +33340,7 @@
       ]
     }
   },
-  "voiceAutoStart": "Auto start",
+  "voiceAutoStart": "Inicio automático",
   "@voiceAutoStart": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33353,7 +33353,7 @@
       ]
     }
   },
-  "voiceAutoStartHelp": "Auto start Voice Satellite on dashboard load.",
+  "voiceAutoStartHelp": "Inicia Voice Satellite automáticamente al cargar el panel de control.",
   "@voiceAutoStartHelp": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33366,7 +33366,7 @@
       ]
     }
   },
-  "voiceMuteHelp": "Stop listening for wake words.",
+  "voiceMuteHelp": "Deja de escuchar palabras de activación.",
   "@voiceMuteHelp": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33379,7 +33379,7 @@
       ]
     }
   },
-  "voicePipeline1": "Assist pipeline 1",
+  "voicePipeline1": "Canal de Assist 1",
   "@voicePipeline1": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33392,7 +33392,7 @@
       ]
     }
   },
-  "voicePipeline1Help": "The Assist pipeline voice commands run through.",
+  "voicePipeline1Help": "El canal de Assist que procesa los comandos de voz.",
   "@voicePipeline1Help": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33405,7 +33405,7 @@
       ]
     }
   },
-  "voicePipeline2": "Assist pipeline 2",
+  "voicePipeline2": "Canal de Assist 2",
   "@voicePipeline2": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33418,7 +33418,7 @@
       ]
     }
   },
-  "voicePipeline2Help": "The pipeline used when the second wake word triggers.",
+  "voicePipeline2Help": "El canal que se usa cuando se detecta la segunda palabra de activación.",
   "@voicePipeline2Help": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33431,7 +33431,7 @@
       ]
     }
   },
-  "voiceVad": "Finished speaking detection",
+  "voiceVad": "Detección del fin del habla",
   "@voiceVad": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33444,7 +33444,7 @@
       ]
     }
   },
-  "voiceVadHelp": "How long a pause ends a voice command.",
+  "voiceVadHelp": "Cuánto debe durar una pausa para dar por terminado un comando de voz.",
   "@voiceVadHelp": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33457,7 +33457,7 @@
       ]
     }
   },
-  "voiceMutedWarning": "Disable muted microphone warning",
+  "voiceMutedWarning": "Desactivar el aviso de micrófono silenciado",
   "@voiceMutedWarning": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33470,7 +33470,7 @@
       ]
     }
   },
-  "voiceMutedWarningHelp": "Hide the muted microphone warning at startup and whenever the satellite microphone is muted.",
+  "voiceMutedWarningHelp": "Oculta el aviso de micrófono silenciado al iniciar y cuando se silencia el micrófono del satélite.",
   "@voiceMutedWarningHelp": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33483,7 +33483,7 @@
       ]
     }
   },
-  "voiceDebug": "Debug logging",
+  "voiceDebug": "Registro de depuración",
   "@voiceDebug": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33496,7 +33496,7 @@
       ]
     }
   },
-  "voiceDebugHelp": "Show Voice Satellite debug info in the browser console.",
+  "voiceDebugHelp": "Muestra información de depuración de Voice Satellite en la consola del navegador.",
   "@voiceDebugHelp": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33509,7 +33509,7 @@
       ]
     }
   },
-  "voiceVersion": "Voice Satellite version",
+  "voiceVersion": "Versión de Voice Satellite",
   "@voiceVersion": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33522,7 +33522,7 @@
       ]
     }
   },
-  "voiceVersionHelp": "The integration version installed in Home Assistant.",
+  "voiceVersionHelp": "La versión de la integración instalada en Home Assistant.",
   "@voiceVersionHelp": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33535,7 +33535,7 @@
       ]
     }
   },
-  "voiceVadDefault": "Default",
+  "voiceVadDefault": "Predeterminado",
   "@voiceVadDefault": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33548,7 +33548,7 @@
       ]
     }
   },
-  "voiceVadRelaxed": "Relaxed",
+  "voiceVadRelaxed": "Relajado",
   "@voiceVadRelaxed": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33561,7 +33561,7 @@
       ]
     }
   },
-  "voiceVadAggressive": "Aggressive",
+  "voiceVadAggressive": "Agresivo",
   "@voiceVadAggressive": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33587,7 +33587,7 @@
       ]
     }
   },
-  "voiceStart": "Start",
+  "voiceStart": "Iniciar",
   "@voiceStart": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33600,7 +33600,7 @@
       ]
     }
   },
-  "voiceNotavailable": "Not available",
+  "voiceNotavailable": "No disponible",
   "@voiceNotavailable": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33613,7 +33613,7 @@
       ]
     }
   },
-  "voiceDisabled": "Disabled",
+  "voiceDisabled": "Desactivado",
   "@voiceDisabled": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33626,7 +33626,7 @@
       ]
     }
   },
-  "settingWakeWordBackgroundTitle": "Keep listening in the background",
+  "settingWakeWordBackgroundTitle": "Seguir escuchando en segundo plano",
   "@settingWakeWordBackgroundTitle": {
     "context": "Settings > Voice Satellite",
     "description": "Background listening setting on the Voice Satellite main page.",
@@ -33639,7 +33639,7 @@
       ]
     }
   },
-  "settingWakeWordBackgroundDescription": "Keep hearing the wake word while another app is in front, and return on a detection. Needs a permanent notification and display over other apps.",
+  "settingWakeWordBackgroundDescription": "Sigue escuchando la palabra de activación mientras otra aplicación está en primer plano y vuelve al detectarla. Requiere una notificación permanente y el permiso para mostrar sobre otras aplicaciones.",
   "@settingWakeWordBackgroundDescription": {
     "context": "Settings > Voice Satellite",
     "description": "Background listening setting on the Voice Satellite main page.",
@@ -33652,7 +33652,7 @@
       ]
     }
   },
-  "voiceMicHeld": "Wake word detection can hear you.",
+  "voiceMicHeld": "La detección de palabras de activación puede escucharte.",
   "@voiceMicHeld": {
     "context": "Settings > Voice Satellite > Required system permissions",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33665,7 +33665,7 @@
       ]
     }
   },
-  "voiceMicBlocked": "Blocked. Android will not ask again, so allow it in the app settings.",
+  "voiceMicBlocked": "Bloqueado. Android no volverá a solicitar el permiso. Concédelo en los ajustes de la aplicación.",
   "@voiceMicBlocked": {
     "context": "Settings > Voice Satellite > Required system permissions",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33678,7 +33678,7 @@
       ]
     }
   },
-  "voiceMicMissing": "Without this nothing is listening for the wake word.",
+  "voiceMicMissing": "Sin este permiso, nada escucha la palabra de activación.",
   "@voiceMicMissing": {
     "context": "Settings > Voice Satellite > Required system permissions",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33691,7 +33691,7 @@
       ]
     }
   },
-  "voiceForegroundHeld": "Kiosk Satellite can come forward when it hears you.",
+  "voiceForegroundHeld": "Kiosk Satellite puede pasar al primer plano cuando te escucha.",
   "@voiceForegroundHeld": {
     "context": "Settings > Voice Satellite > Required system permissions",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33704,7 +33704,7 @@
       ]
     }
   },
-  "voiceForegroundMissing": "Without this the wake word is heard and nothing happens.",
+  "voiceForegroundMissing": "Sin este permiso, se detecta la palabra de activación pero no ocurre nada.",
   "@voiceForegroundMissing": {
     "context": "Settings > Voice Satellite > Required system permissions",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33717,7 +33717,7 @@
       ]
     }
   },
-  "voiceNotificationHeld": "The ongoing notification that enables background listening.",
+  "voiceNotificationHeld": "La notificación permanente que permite escuchar en segundo plano.",
   "@voiceNotificationHeld": {
     "context": "Settings > Voice Satellite > Required system permissions",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33730,7 +33730,7 @@
       ]
     }
   },
-  "voiceNotificationMissing": "Needed for background listening to work reliably.",
+  "voiceNotificationMissing": "Necesario para que la escucha en segundo plano funcione de forma fiable.",
   "@voiceNotificationMissing": {
     "context": "Settings > Voice Satellite > Required system permissions",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33743,7 +33743,7 @@
       ]
     }
   },
-  "voiceBatteryHeld": "Android will leave the listener running.",
+  "voiceBatteryHeld": "Android mantendrá la escucha en funcionamiento.",
   "@voiceBatteryHeld": {
     "context": "Settings > Voice Satellite > Required system permissions",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33756,7 +33756,7 @@
       ]
     }
   },
-  "voiceBatteryMissing": "Without this the listener is stopped after a few hours.",
+  "voiceBatteryMissing": "Sin este permiso, la escucha se detiene después de unas horas.",
   "@voiceBatteryMissing": {
     "context": "Settings > Voice Satellite > Required system permissions",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33769,7 +33769,7 @@
       ]
     }
   },
-  "voicePermissionDirections": "Grant these on the device itself: swipe in from the left edge → Settings → Voice Satellite → Required system permissions.",
+  "voicePermissionDirections": "Concede estos permisos en el dispositivo: desliza desde el borde izquierdo → Configuración → Voice Satellite → Permisos del sistema necesarios.",
   "@voicePermissionDirections": {
     "context": "Settings > Voice Satellite > Required system permissions",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33782,7 +33782,7 @@
       ]
     }
   },
-  "voiceDisconnected": "Home Assistant not connected",
+  "voiceDisconnected": "Home Assistant no está conectado",
   "@voiceDisconnected": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33795,7 +33795,7 @@
       ]
     }
   },
-  "voiceValidate": "Validate the connection under Home Assistant Setup first.",
+  "voiceValidate": "Primero valida la conexión en Configuración de Home Assistant.",
   "@voiceValidate": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33808,7 +33808,7 @@
       ]
     }
   },
-  "voiceChecking": "Checking for Voice Satellite…",
+  "voiceChecking": "Buscando Voice Satellite…",
   "@voiceChecking": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33821,7 +33821,7 @@
       ]
     }
   },
-  "voiceMissing": "Voice Satellite is not installed in Home Assistant",
+  "voiceMissing": "Voice Satellite no está instalado en Home Assistant",
   "@voiceMissing": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33834,7 +33834,7 @@
       ]
     }
   },
-  "voiceInstallHelp": "Voice Satellite turns this kiosk into a full hands-free voice assistant for Home Assistant: wake word detection, conversations, timers and announcements, right on the dashboard.\n\nIt is available in the default HACS repository. Install it on your Home Assistant instance, then come back here.",
+  "voiceInstallHelp": "Voice Satellite convierte este kiosko en un asistente de voz de manos libres para Home Assistant: detección de palabras de activación, conversaciones, temporizadores y anuncios, directamente en el panel de control.\n\nEstá disponible en el repositorio predeterminado de HACS. Instálalo en tu instancia de Home Assistant y luego vuelve aquí.",
   "@voiceInstallHelp": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33847,7 +33847,7 @@
       ]
     }
   },
-  "voiceLearnMore": "Learn more about ",
+  "voiceLearnMore": "Más información sobre ",
   "@voiceLearnMore": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33860,7 +33860,7 @@
       ]
     }
   },
-  "voiceGithub": "Voice Satellite on Github",
+  "voiceGithub": "Voice Satellite en GitHub",
   "@voiceGithub": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33873,7 +33873,7 @@
       ]
     }
   },
-  "voiceHacs": "Open HACS repository",
+  "voiceHacs": "Abrir el repositorio de HACS",
   "@voiceHacs": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",
@@ -33886,7 +33886,7 @@
       ]
     }
   },
-  "voiceLoading": "Loading Voice Satellite controls…",
+  "voiceLoading": "Cargando los controles de Voice Satellite…",
   "@voiceLoading": {
     "context": "Settings > Voice Satellite",
     "description": "Label or help shown on the Voice Satellite main page.",

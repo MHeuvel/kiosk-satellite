@@ -1,0 +1,13 @@
+{
+  "@@locale": "es",
+  "voiceMicHeld": "La detección de palabras de activación puede escucharte.",
+  "voiceMicBlocked": "Bloqueado. Android no volverá a solicitar el permiso. Concédelo en los ajustes de la aplicación.",
+  "voiceMicMissing": "Sin este permiso, nada escucha la palabra de activación.",
+  "voiceForegroundHeld": "Kiosk Satellite puede pasar al primer plano cuando te escucha.",
+  "voiceForegroundMissing": "Sin este permiso, se detecta la palabra de activación pero no ocurre nada.",
+  "voiceNotificationHeld": "La notificación permanente que permite escuchar en segundo plano.",
+  "voiceNotificationMissing": "Necesario para que la escucha en segundo plano funcione de forma fiable.",
+  "voiceBatteryHeld": "Android mantendrá la escucha en funcionamiento.",
+  "voiceBatteryMissing": "Sin este permiso, la escucha se detiene después de unas horas.",
+  "voicePermissionDirections": "Concede estos permisos en el dispositivo: desliza desde el borde izquierdo → Configuración → Voice Satellite → Permisos del sistema necesarios."
+}
