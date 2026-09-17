@@ -3236,6 +3236,12 @@ abstract class UiStrings {
   /// **'Unlock'**
   String get kioskUnlock;
 
+  /// Brief notice shown when touching the locked screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Screen is locked'**
+  String get lockdownScreenLocked;
+
   /// Console tab and docked panel title.
   ///
   /// In en, this message translates to:
@@ -9074,6 +9080,102 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Open settings on device'**
   String get kioskOpenSettingsDevice;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Lockdown Mode'**
+  String get settingLockdownEnabledTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Disables screen interactions until turned off either from Home Assistant or with the exit gesture.'**
+  String get settingLockdownEnabledDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Show in the kiosk menu'**
+  String get settingLockdownMenuTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a Lockdown Mode entry to the kiosk menu that locks the screen. Use the exit gesture, Remote Admin or Home Assistant to unlock it.'**
+  String get settingLockdownMenuDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Blackout screen'**
+  String get settingLockdownBlackoutTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Turns the screen black while locked.'**
+  String get settingLockdownBlackoutDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow screensaver'**
+  String get settingLockdownAllowScreensaverTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Lets the screensaver run while locked. Dismiss on motion stays deactivated until the lock lifts.'**
+  String get settingLockdownAllowScreensaverDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Lockdown exit gesture'**
+  String get settingLockdownExitGestureTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Fast taps anywhere turn Lockdown Mode off, after the kiosk PIN if one is set. Hold variants need the last tap held down. When disabled, only the remote admin or Home Assistant can turn it off.'**
+  String get settingLockdownExitGestureDescription;
+
+  /// Exit gesture option. Remote administration and Home Assistant can still unlock the device.
+  ///
+  /// In en, this message translates to:
+  /// **'Disabled (remote only)'**
+  String get lockdownGestureNone;
+
+  /// Explanation below the permission group.
+  ///
+  /// In en, this message translates to:
+  /// **'Lockdown Mode makes the dashboard non-interactive, arms every Kiosk Mode protection without changing your Kiosk Mode settings, and mutes wake word detection while it is on. With the System UI guard enabled (above), the notification shade and recents are blocked too. Home Assistant gets a Lockdown mode switch over ESPHome.'**
+  String get lockdownExplanation;
+
+  /// Device search guidance for the remote-only configuration page.
+  ///
+  /// In en, this message translates to:
+  /// **'Remote-only touch shield. Set it up from the Remote Admin UI; its grants live under Required system permissions.'**
+  String get lockdownSearch;
+
+  /// Granted overlay permission status.
+  ///
+  /// In en, this message translates to:
+  /// **'The lockdown shield can cover the whole screen.'**
+  String get lockdownOverlayHeld;
+
+  /// Missing overlay permission guidance.
+  ///
+  /// In en, this message translates to:
+  /// **'Without this the shield only covers the app. The grant screen appears on the tablet.'**
+  String get lockdownOverlayMissing;
+
+  /// Search description for the permissions group.
+  ///
+  /// In en, this message translates to:
+  /// **'The grants the lockdown protections lean on.'**
+  String get lockdownPermissionsSearch;
 
   /// Label or guidance in this section.
   ///

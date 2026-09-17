@@ -45,6 +45,13 @@ object LockShieldOverlay {
     private val main = Handler(Looper.getMainLooper())
     private var view: FrameLayout? = null
     private var pill: TextView? = null
+    private var lockedText = "Screen is locked"
+
+    /** Update the label without changing the shield or its touch handling. */
+    fun setText(value: String) {
+        lockedText = value
+        pill?.text = value
+    }
     private var hidePill: Runnable? = null
     private var blackout = false
     private var passThrough = false
@@ -76,7 +83,7 @@ object LockShieldOverlay {
         // The acknowledgement pill, twin of the Flutter shield's: a tap on
         // a locked screen should read as locked, not broken.
         val text = TextView(context)
-        text.text = "Screen is locked"
+        text.text = lockedText
         text.setTextColor(Color.WHITE)
         text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14.5f)
         text.setPadding(

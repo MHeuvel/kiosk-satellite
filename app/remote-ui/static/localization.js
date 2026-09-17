@@ -102,7 +102,7 @@ export function settingsPageText(category, english) {
     : ['Gestures', 'gestures'].includes(category) ? gestureText(english)
     : ['Fleet', 'fleet'].includes(category) ? fleetText(english)
     : ['Plugins', 'plugins'].includes(category) ? pluginText(english)
-    : ['Kiosk', 'kiosk', 'Home', 'home'].includes(category) ? kioskText(english)
+    : ['Kiosk', 'kiosk', 'Home', 'home', 'Lockdown', 'lockdown'].includes(category) ? kioskText(english)
     : category === 'Intercom' || category === 'intercom' ? (english === 'Answer' ? t('intercomAnswerSection') : english === 'Talk' ? t('intercomTalkSection') : intercomText(english))
     : category === 'Sendspin' || category === 'sendspin' ? mediaText(english) : english;
 }

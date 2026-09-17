@@ -1264,4 +1264,24 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "fleetKeepFollowersOnThisVersion",
     "description": "fleetAutomaticallyUpdateAllFollowersToTheKioskSatelliteVersion",
   },
+  "lockdown.enabled": {
+    "title": "settingLockdownEnabledTitle",
+    "description": "settingLockdownEnabledDescription",
+  },
+  "lockdown.menu": {
+    "title": "settingLockdownMenuTitle",
+    "description": "settingLockdownMenuDescription",
+  },
+  "lockdown.blackout": {
+    "title": "settingLockdownBlackoutTitle",
+    "description": "settingLockdownBlackoutDescription",
+  },
+  "lockdown.allow_screensaver": {
+    "title": "settingLockdownAllowScreensaverTitle",
+    "description": "settingLockdownAllowScreensaverDescription",
+  },
+  "lockdown.exit_gesture": {
+    "title": "settingLockdownExitGestureTitle",
+    "description": "settingLockdownExitGestureDescription",
+  },
 };

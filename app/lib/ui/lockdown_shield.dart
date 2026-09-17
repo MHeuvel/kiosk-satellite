@@ -1,3 +1,4 @@
+import '../l10n/messages.dart';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -77,18 +78,21 @@ class _LockdownShieldState extends State<LockdownShield> {
                     color: Colors.black.withValues(alpha: 0.72),
                     borderRadius: BorderRadius.circular(Ks.radiusCard),
                   ),
-                  child: const Row(
+                  child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.lock_outline,
                         size: 18,
                         color: Colors.white70,
                       ),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       Text(
-                        'Screen is locked',
-                        style: TextStyle(color: Colors.white, fontSize: 14.5),
+                        l10n(context).lockdownScreenLocked,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 14.5,
+                        ),
                       ),
                     ],
                   ),

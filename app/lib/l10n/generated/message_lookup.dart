@@ -479,6 +479,7 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'kioskPinHint' => strings.kioskPinHint,
       'kioskWrongPin' => strings.kioskWrongPin,
       'kioskUnlock' => strings.kioskUnlock,
+      'lockdownScreenLocked' => strings.lockdownScreenLocked,
       'logsWebConsole' => strings.logsWebConsole,
       'logsDock' => strings.logsDock,
       'logsNoOutput' => strings.logsNoOutput,
@@ -1554,6 +1555,29 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'kioskGuardRemote' => strings.kioskGuardRemote,
       'kioskGrantDevice' => strings.kioskGrantDevice,
       'kioskOpenSettingsDevice' => strings.kioskOpenSettingsDevice,
+      'settingLockdownEnabledTitle' => strings.settingLockdownEnabledTitle,
+      'settingLockdownEnabledDescription' =>
+        strings.settingLockdownEnabledDescription,
+      'settingLockdownMenuTitle' => strings.settingLockdownMenuTitle,
+      'settingLockdownMenuDescription' =>
+        strings.settingLockdownMenuDescription,
+      'settingLockdownBlackoutTitle' => strings.settingLockdownBlackoutTitle,
+      'settingLockdownBlackoutDescription' =>
+        strings.settingLockdownBlackoutDescription,
+      'settingLockdownAllowScreensaverTitle' =>
+        strings.settingLockdownAllowScreensaverTitle,
+      'settingLockdownAllowScreensaverDescription' =>
+        strings.settingLockdownAllowScreensaverDescription,
+      'settingLockdownExitGestureTitle' =>
+        strings.settingLockdownExitGestureTitle,
+      'settingLockdownExitGestureDescription' =>
+        strings.settingLockdownExitGestureDescription,
+      'lockdownGestureNone' => strings.lockdownGestureNone,
+      'lockdownExplanation' => strings.lockdownExplanation,
+      'lockdownSearch' => strings.lockdownSearch,
+      'lockdownOverlayHeld' => strings.lockdownOverlayHeld,
+      'lockdownOverlayMissing' => strings.lockdownOverlayMissing,
+      'lockdownPermissionsSearch' => strings.lockdownPermissionsSearch,
       'mediaCacheTitle' => strings.mediaCacheTitle,
       'mediaCacheReadFailed' => strings.mediaCacheReadFailed,
       'mediaCacheClearFailed' => strings.mediaCacheClearFailed,

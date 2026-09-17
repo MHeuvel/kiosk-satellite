@@ -1251,12 +1251,12 @@ async function renderSettings({ cached = false } = {}) {
     const note = document.createElement('div');
     note.className = 'group-note';
     note.textContent =
-      'Lockdown Mode makes the dashboard non-interactive, arms every ' +
+kioskText('Lockdown Mode makes the dashboard non-interactive, arms every ' +
       'Kiosk Mode protection without changing your Kiosk Mode settings, ' +
       'and mutes wake word detection while it is on. With the System UI ' +
       'guard enabled (above), the notification shade and recents are ' +
       'blocked too. Home Assistant gets a Lockdown mode switch over ' +
-      'ESPHome.';
+      'ESPHome.');
     document.getElementById('tab-lockdown').appendChild(note);
   }
   // The master fader tops the Audio Volume card, mirroring the device: the

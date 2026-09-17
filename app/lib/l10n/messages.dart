@@ -96,7 +96,7 @@ String launcherText(BuildContext context, String english) =>
 String gestureText(BuildContext context, String english) =>
     messageById(l10n(context), gestureTextMessageIds[english], english);
 
-/// Fixed Kiosk Mode and Home Launcher labels.
+/// Fixed Kiosk Mode, Lockdown Mode and Home Launcher labels.
 String kioskText(BuildContext context, String english) =>
     messageById(l10n(context), kioskTextMessageIds[english], english);
 
@@ -271,7 +271,7 @@ String settingsPageText(
   'Sendspin' => mediaText(context, english),
   'Launcher' => launcherText(context, english),
   'Gestures' => gestureText(context, english),
-  'Kiosk' || 'Home' => kioskText(context, english),
+  'Kiosk' || 'Home' || 'Lockdown' => kioskText(context, english),
   'Intercom' => switch (english) {
     'Answer' => l10n(context).intercomAnswerSection,
     'Talk' => l10n(context).intercomTalkSection,

@@ -169,6 +169,7 @@ class KioskLock(private val activity: Activity, messenger: BinaryMessenger) {
                     // The screen-level lockdown shield. Its window consumes
                     // every touch, so the exit-gesture counter is fed from
                     // there instead of the Activity while it is up.
+                    call.argument<String>("lockShieldText")?.let { LockShieldOverlay.setText(it) }
                     LockShieldOverlay.onTouch = { ev -> onTouch(ev) }
                     LockShieldOverlay.sync(
                         activity.applicationContext,
@@ -211,6 +212,10 @@ class KioskLock(private val activity: Activity, messenger: BinaryMessenger) {
                         am.lockTaskModeState !=
                             ActivityManager.LOCK_TASK_MODE_NONE
                     )
+                }
+                "lockShieldText" -> {
+                    call.argument<String>("text")?.let { LockShieldOverlay.setText(it) }
+                    result.success(null)
                 }
                 "lockShieldPassThrough" -> {
                     LockShieldOverlay.setPassThrough(

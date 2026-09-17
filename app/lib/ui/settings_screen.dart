@@ -445,6 +445,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         screenAudioTextFor: (text) => screenAudioText(context, text),
         screensaverTextFor: (text) => screensaverText(context, text),
         launcherTextFor: (text) => launcherText(context, text),
+        kioskTextFor: (text) => kioskText(context, text),
         gestureTextFor: (text) => gestureText(context, text),
         fleetTextFor: (text) => fleetText(context, text),
         pluginTextFor: (text) => pluginText(context, text),

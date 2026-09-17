@@ -1,4 +1,4 @@
-import 'dart:async' show Timer, unawaited;
+import 'dart:async' show StreamSubscription, Timer, unawaited;
 import 'dart:io';
 
 import 'package:flutter/services.dart';
@@ -6,6 +6,8 @@ import 'package:flutter/widgets.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../core/command_registry.dart';
+import '../../core/app_locales.dart';
+import '../../l10n/generated/ui_strings.dart';
 import '../../core/events.dart';
 import '../../core/manager.dart';
 import '../files/files_manager.dart' show legacyStorage;
@@ -95,6 +97,12 @@ class KioskManager extends Manager with WidgetsBindingObserver {
   /// Whether lockdown is on — the kiosk screen swaps the drawer swipe for
   /// the exit gesture while this holds.
   bool get locked => _settings.get(defs.kioskEnabled);
+
+  StreamSubscription<SettingChanged>? _languageSubscription;
+
+  String get _lockShieldText => lookupUiStrings(
+    appLocaleForLanguage(_settings.get(defs.uiLanguage)),
+  ).lockdownScreenLocked;
 
   /// Whether Lockdown Mode holds (discussion #143): the kiosk screen keeps
   /// a touch shield over everything and the exit gesture disables the mode
@@ -660,6 +668,11 @@ class KioskManager extends Manager with WidgetsBindingObserver {
       _armReclaim();
     });
 
+    _languageSubscription = bus.on<SettingChanged>().listen((event) {
+      if (event.key == defs.uiLanguage.key && pushFlags) {
+        unawaited(_invoke<void>('lockShieldText', {'text': _lockShieldText}));
+      }
+    });
     if (!Platform.isAndroid) return;
 
     WidgetsBinding.instance.addObserver(this);
@@ -873,6 +886,7 @@ class KioskManager extends Manager with WidgetsBindingObserver {
 
   @override
   Future<void> dispose() async {
+    await _languageSubscription?.cancel();
     if (Platform.isAndroid) WidgetsBinding.instance.removeObserver(this);
     _reclaimTimer?.cancel();
     _reclaimTimer = null;
@@ -923,6 +937,7 @@ class KioskManager extends Manager with WidgetsBindingObserver {
         _settings.get(defs.kioskEnabled) &&
         _settings.get(defs.kioskDisableHome);
     await _invoke<void>('apply', {
+      'lockShieldText': _lockShieldText,
       // Back and the bar-blink watcher are tied to the master switch, not
       // their own toggles: a kiosk the back button can background — or one
       // where the bars linger — is not locked in any useful sense.

@@ -224,6 +224,13 @@ const settingOptionMessageIds = <String, Map<String, String>>{
   "gestures.clap_strictness": {
     "standard": "gestureStrictnessStandard",
     "strict": "gestureStrictnessStrict"
+  },
+  "lockdown.exit_gesture": {
+    "taps5": "kioskGestureTaps5",
+    "taps7": "kioskGestureTaps7",
+    "taps5hold": "kioskGestureTaps5Hold",
+    "taps7hold": "kioskGestureTaps7Hold",
+    "none": "lockdownGestureNone"
   }
 };
 const settingPlaceholderMessageIds = <String, String>{

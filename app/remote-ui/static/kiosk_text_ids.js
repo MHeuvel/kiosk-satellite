@@ -135,5 +135,11 @@ export const kioskTextMessageIds = {
   "Active": "kioskActive",
   "Not the home screen.": "kioskNotHome",
   "Waiting for a confirmation on the device: the system dialog or home settings open there.": "kioskWaitingRemote",
-  "Set on device": "kioskSetDevice"
+  "Set on device": "kioskSetDevice",
+  "Lockdown Mode makes the dashboard non-interactive, arms every Kiosk Mode protection without changing your Kiosk Mode settings, and mutes wake word detection while it is on. With the System UI guard enabled (above), the notification shade and recents are blocked too. Home Assistant gets a Lockdown mode switch over ESPHome.": "lockdownExplanation",
+  "Remote-only touch shield. Set it up from the Remote Admin UI; its grants live under Required system permissions.": "lockdownSearch",
+  "The lockdown shield can cover the whole screen.": "lockdownOverlayHeld",
+  "Without this the shield only covers the app. The grant screen appears on the tablet.": "lockdownOverlayMissing",
+  "The grants the lockdown protections lean on.": "lockdownPermissionsSearch",
+  "Screen is locked": "lockdownScreenLocked"
 };

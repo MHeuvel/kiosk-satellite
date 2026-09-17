@@ -1827,6 +1827,9 @@ class UiStringsEn extends UiStrings {
   String get kioskUnlock => 'Unlock';
 
   @override
+  String get lockdownScreenLocked => 'Screen is locked';
+
+  @override
   String get logsWebConsole => 'Web Console';
 
   @override
@@ -5189,6 +5192,64 @@ class UiStringsEn extends UiStrings {
 
   @override
   String get kioskOpenSettingsDevice => 'Open settings on device';
+
+  @override
+  String get settingLockdownEnabledTitle => 'Enable Lockdown Mode';
+
+  @override
+  String get settingLockdownEnabledDescription =>
+      'Disables screen interactions until turned off either from Home Assistant or with the exit gesture.';
+
+  @override
+  String get settingLockdownMenuTitle => 'Show in the kiosk menu';
+
+  @override
+  String get settingLockdownMenuDescription =>
+      'Add a Lockdown Mode entry to the kiosk menu that locks the screen. Use the exit gesture, Remote Admin or Home Assistant to unlock it.';
+
+  @override
+  String get settingLockdownBlackoutTitle => 'Blackout screen';
+
+  @override
+  String get settingLockdownBlackoutDescription =>
+      'Turns the screen black while locked.';
+
+  @override
+  String get settingLockdownAllowScreensaverTitle => 'Allow screensaver';
+
+  @override
+  String get settingLockdownAllowScreensaverDescription =>
+      'Lets the screensaver run while locked. Dismiss on motion stays deactivated until the lock lifts.';
+
+  @override
+  String get settingLockdownExitGestureTitle => 'Lockdown exit gesture';
+
+  @override
+  String get settingLockdownExitGestureDescription =>
+      'Fast taps anywhere turn Lockdown Mode off, after the kiosk PIN if one is set. Hold variants need the last tap held down. When disabled, only the remote admin or Home Assistant can turn it off.';
+
+  @override
+  String get lockdownGestureNone => 'Disabled (remote only)';
+
+  @override
+  String get lockdownExplanation =>
+      'Lockdown Mode makes the dashboard non-interactive, arms every Kiosk Mode protection without changing your Kiosk Mode settings, and mutes wake word detection while it is on. With the System UI guard enabled (above), the notification shade and recents are blocked too. Home Assistant gets a Lockdown mode switch over ESPHome.';
+
+  @override
+  String get lockdownSearch =>
+      'Remote-only touch shield. Set it up from the Remote Admin UI; its grants live under Required system permissions.';
+
+  @override
+  String get lockdownOverlayHeld =>
+      'The lockdown shield can cover the whole screen.';
+
+  @override
+  String get lockdownOverlayMissing =>
+      'Without this the shield only covers the app. The grant screen appears on the tablet.';
+
+  @override
+  String get lockdownPermissionsSearch =>
+      'The grants the lockdown protections lean on.';
 
   @override
   String get mediaCacheTitle => 'Album art cache';
