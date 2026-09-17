@@ -1,0 +1,100 @@
+{
+  "@@locale": "en",
+  "settingAudioMicDeviceTitle": "Microphone",
+  "@settingAudioMicDeviceTitle": {
+    "context": "Settings:Screen & Audio:Audio Devices",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Audio Devices"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Audio Devices"
+      ]
+    }
+  },
+  "settingAudioMicDeviceDescription": "The microphone wake word detection and voice turns capture from.",
+  "@settingAudioMicDeviceDescription": {
+    "context": "Settings:Screen & Audio:Audio Devices",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Audio Devices"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Audio Devices"
+      ]
+    }
+  },
+  "settingAudioSpeakerDeviceTitle": "Speaker",
+  "@settingAudioSpeakerDeviceTitle": {
+    "context": "Settings:Screen & Audio:Audio Devices",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Audio Devices"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Audio Devices"
+      ]
+    }
+  },
+  "settingAudioSpeakerDeviceDescription": "Output for Voice Satellite sounds; media playback follows the system route. Echo cancellation only works with the microphone and speaker on the same device.",
+  "@settingAudioSpeakerDeviceDescription": {
+    "context": "Settings:Screen & Audio:Audio Devices",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Audio Devices"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Audio Devices"
+      ]
+    }
+  },
+  "screenAudioDevices": "Audio Devices",
+  "@screenAudioDevices": {
+    "context": "Settings:Screen & Audio:Audio Devices",
+    "description": "Heading, choice, status or guidance shown in this group.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Audio Devices"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Audio Devices"
+      ]
+    }
+  },
+  "screenAudioSelectedDevice": "Selected device",
+  "@screenAudioSelectedDevice": {
+    "context": "Settings:Screen & Audio:Audio Devices",
+    "description": "Heading, choice, status or guidance shown in this group.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Audio Devices"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Audio Devices"
+      ]
+    }
+  },
+  "screenAudioDisconnected": "{name} (not connected)",
+  "@screenAudioDisconnected": {
+    "context": "Settings:Screen & Audio:Audio Devices",
+    "description": "Heading, choice, status or guidance shown in this group.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Audio Devices"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Audio Devices"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "description": "Device name supplied by the hardware. Keep unchanged."
+      }
+    }
+  }
+}

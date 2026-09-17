@@ -1967,63 +1967,64 @@ class UiStringsEs extends UiStrings {
   String get settingsMenuThemeAuto => 'Automático';
 
   @override
-  String get settingAdaptiveBrightnessTitle => 'Adaptive brightness';
+  String get settingAdaptiveBrightnessTitle => 'Brillo adaptativo';
 
   @override
   String get settingAdaptiveBrightnessDescription =>
-      'Dim the screen as the room gets darker, using the ambient light sensor.';
+      'Atenúa la pantalla a medida que se oscurece la habitación usando el sensor de luz ambiental.';
 
   @override
-  String get settingAdaptiveMinBrightnessTitle => 'Minimum brightness';
+  String get settingAdaptiveMinBrightnessTitle => 'Brillo mínimo';
 
   @override
   String get settingAdaptiveMinBrightnessDescription =>
-      'Screen brightness in a dark room.';
+      'Brillo de la pantalla en una habitación oscura.';
 
   @override
-  String get settingAdaptiveMaxBrightnessTitle => 'Maximum brightness';
+  String get settingAdaptiveMaxBrightnessTitle => 'Brillo máximo';
 
   @override
   String get settingAdaptiveMaxBrightnessDescription =>
-      'Screen brightness in a bright room.';
+      'Brillo de la pantalla en una habitación iluminada.';
 
   @override
-  String get settingAdaptiveDarkLuxTitle => 'Dark room (lx)';
+  String get settingAdaptiveDarkLuxTitle => 'Habitación oscura (lx)';
 
   @override
   String get settingAdaptiveDarkLuxDescription =>
-      'Light level at or below which the screen sits at Minimum brightness.';
+      'Nivel de luz en el que la pantalla alcanza el brillo mínimo. Por debajo, permanece en ese nivel.';
 
   @override
-  String get settingAdaptiveBrightLuxTitle => 'Bright room (lx)';
+  String get settingAdaptiveBrightLuxTitle => 'Habitación iluminada (lx)';
 
   @override
   String get settingAdaptiveBrightLuxDescription =>
-      'Light level at or above which the screen sits at Maximum brightness.';
+      'Nivel de luz en el que la pantalla alcanza el brillo máximo. Por encima, permanece en ese nivel.';
 
   @override
   String get screenAudioAdaptiveHint =>
-      'Follow the room light with the ambient light sensor';
+      'Ajusta el brillo a la luz de la habitación con el sensor de luz ambiental';
 
   @override
   String get screenAudioAdaptiveNote =>
-      'Level in a bright room. Adaptive brightness dims it from there.';
+      'Nivel en una habitación iluminada. El brillo adaptativo lo reduce a partir de ese valor.';
 
   @override
-  String get screenAudioAdaptiveOwns => 'Adaptive brightness is on.';
+  String get screenAudioAdaptiveOwns => 'El brillo adaptativo está activado.';
 
   @override
-  String get screenAudioNoSensor => 'No ambient light sensor on this device.';
+  String get screenAudioNoSensor =>
+      'Este dispositivo no tiene sensor de luz ambiental.';
 
   @override
-  String get screenAudioAmbientLight => 'Ambient light';
+  String get screenAudioAmbientLight => 'Luz ambiental';
 
   @override
   String get screenAudioAmbientHelp =>
-      'What the ambient light sensor reads right now.';
+      'Lectura actual del sensor de luz ambiental.';
 
   @override
-  String get screenAudioNoReading => 'No reading yet';
+  String get screenAudioNoReading => 'Aún no hay lectura';
 
   @override
   String screenAudioLux(String lux) {
@@ -2032,263 +2033,267 @@ class UiStringsEs extends UiStrings {
 
   @override
   String screenAudioLuxLast(String lux) {
-    return '$lux lx (last known)';
+    return '$lux lx (última lectura)';
   }
 
   @override
   String get screenAudioSetsMaximum =>
-      'Sets Maximum brightness: adaptive brightness is on.';
+      'Ajusta el brillo máximo porque el brillo adaptativo está activado.';
 
   @override
-  String get screenAudioSetsDefault => 'Sets Default brightness.';
+  String get screenAudioSetsDefault => 'Ajusta el brillo predeterminado.';
 
   @override
-  String get settingAudioMicDeviceTitle => 'Microphone';
+  String get settingAudioMicDeviceTitle => 'Micrófono';
 
   @override
   String get settingAudioMicDeviceDescription =>
-      'The microphone wake word detection and voice turns capture from.';
+      'Micrófono que se usa para detectar la palabra de activación y capturar las interacciones de voz.';
 
   @override
-  String get settingAudioSpeakerDeviceTitle => 'Speaker';
+  String get settingAudioSpeakerDeviceTitle => 'Altavoz';
 
   @override
   String get settingAudioSpeakerDeviceDescription =>
-      'Output for Voice Satellite sounds; media playback follows the system route. Echo cancellation only works with the microphone and speaker on the same device.';
+      'Salida para los sonidos de Voice Satellite. La reproducción multimedia sigue la ruta del sistema. La cancelación de eco solo funciona si el micrófono y el altavoz pertenecen al mismo dispositivo.';
 
   @override
-  String get screenAudioDevices => 'Audio Devices';
+  String get screenAudioDevices => 'Dispositivos de audio';
 
   @override
-  String get screenAudioSelectedDevice => 'Selected device';
+  String get screenAudioSelectedDevice => 'Dispositivo seleccionado';
 
   @override
   String screenAudioDisconnected(String name) {
-    return '$name (not connected)';
+    return '$name (sin conectar)';
   }
 
   @override
-  String get settingMicAudioSourceTitle => 'Capture mode';
+  String get settingMicAudioSourceTitle => 'Modo de captura';
 
   @override
   String get settingMicAudioSourceDescription =>
-      'Voice communication is the only mode with echo cancellation, so leave it unless the microphone reads far quieter here than in a recorder app.';
+      'Comunicación de voz es el único modo con cancelación de eco. Déjalo seleccionado salvo que el micrófono capte un volumen mucho más bajo aquí que en una aplicación de grabación.';
 
   @override
-  String get settingMicEchoCancellationTitle => 'Echo cancellation';
+  String get settingMicEchoCancellationTitle => 'Cancelación de eco';
 
   @override
   String get settingMicEchoCancellationDescription =>
-      'Keeps the kiosk\'s own speaker out of the microphone so the stop word works during playback. Turn it off only if the microphone reads far quieter here than in a recorder app.';
+      'Evita que el micrófono capte el altavoz del kiosko para que la palabra de parada funcione durante la reproducción. Desactívala solo si el micrófono capta un volumen mucho más bajo aquí que en una aplicación de grabación.';
 
   @override
-  String get settingMicChannelTitle => 'Microphone channel';
+  String get settingMicChannelTitle => 'Canal del micrófono';
 
   @override
   String get settingMicChannelDescription =>
-      'Multichannel microphones often reserve one channel for speech recognition; picking it can improve detection.';
+      'Los micrófonos multicanal suelen reservar un canal para el reconocimiento de voz. Elegirlo puede mejorar la detección.';
 
   @override
-  String get settingMicAgcTitle => 'Automatic gain control';
+  String get settingMicAgcTitle => 'Control automático de ganancia';
 
   @override
   String get settingMicAgcDescription =>
-      'Let Android level the microphone instead of a fixed gain. It also lifts room noise, and on some devices it does nothing at all.';
+      'Permite que Android ajuste el nivel del micrófono en lugar de usar una ganancia fija. También amplifica el ruido ambiental y en algunos dispositivos no tiene ningún efecto.';
 
   @override
-  String get settingMicNoiseSuppressionTitle => 'Noise suppression';
+  String get settingMicNoiseSuppressionTitle => 'Supresión de ruido';
 
   @override
   String get settingMicNoiseSuppressionDescription =>
-      'Reduce microphone background noise using Android processing. It may help or hurt wake word detection depending on the device.';
+      'Reduce el ruido de fondo del micrófono mediante el procesamiento de Android. Puede mejorar o empeorar la detección de la palabra de activación según el dispositivo.';
 
   @override
-  String get settingMicGainDbTitle => 'Microphone gain';
+  String get settingMicGainDbTitle => 'Ganancia del micrófono';
 
   @override
   String get settingMicGainDbDescription =>
-      'Boost or cut the microphone before anything hears it. Aim for a level near 0.05 in the wake word tester; too much gain distorts speech and hurts detection.';
+      'Amplifica o atenúa el micrófono antes de procesar el audio. Busca un nivel cercano a 0.05 en el probador de palabras de activación. Una ganancia excesiva distorsiona la voz y empeora la detección.';
 
   @override
-  String get settingMicCaptureFormatTitle => 'Capture format';
+  String get settingMicCaptureFormatTitle => 'Formato de captura';
 
   @override
   String get settingMicCaptureFormatDescription =>
-      'Pick 48 kHz stereo when the microphone works in other apps but not here: some sound cards record in that format only and the app converts it itself.';
+      'Elige Estéreo a 48 kHz cuando el micrófono funcione en otras aplicaciones pero no aquí. Algunas tarjetas de sonido solo graban en ese formato y la aplicación lo convierte por su cuenta.';
 
   @override
-  String get screenAudioMicrophoneSettings => 'Microphone settings';
+  String get screenAudioMicrophoneSettings => 'Configuración del micrófono';
 
   @override
   String get screenAudioMicrophoneHint =>
-      'Capture mode, channel, gain, live level';
+      'Modo de captura, canal, ganancia y nivel en tiempo real';
 
   @override
   String get screenAudioMicrophoneNote =>
-      'Adjust capture for your microphone and room. Test wake words and voice interactions after changing these settings.';
+      'Ajusta la captura al micrófono y a la habitación. Prueba las palabras de activación y las interacciones de voz después de cambiar estas opciones.';
 
   @override
-  String get screenAudioVoiceCommunication => 'Voice communication (default)';
+  String get screenAudioVoiceCommunication =>
+      'Comunicación de voz (predeterminado)';
 
   @override
-  String get screenAudioVoiceRecognition => 'Voice recognition';
+  String get screenAudioVoiceRecognition => 'Reconocimiento de voz';
 
   @override
-  String get screenAudioRawMicrophone => 'Raw microphone';
+  String get screenAudioRawMicrophone => 'Micrófono sin procesar';
 
   @override
-  String get screenAudioAutomaticDefault => 'Automatic (default)';
+  String get screenAudioAutomaticDefault => 'Automático (predeterminado)';
 
   @override
-  String get screenAudioStereo => '48 kHz stereo';
+  String get screenAudioStereo => 'Estéreo a 48 kHz';
 
   @override
-  String get screenAudioDownmix => 'Downmix (default)';
+  String get screenAudioDownmix => 'Mezclar canales (predeterminado)';
 
   @override
   String screenAudioChannel(String channel) {
-    return 'Channel $channel';
+    return 'Canal $channel';
   }
 
   @override
   String screenAudioChannelMissing(String channel) {
-    return 'Channel $channel (not on this microphone)';
+    return 'Canal $channel (no disponible en este micrófono)';
   }
 
   @override
-  String get screenAudioMicrophoneLevel => 'Microphone level';
+  String get screenAudioMicrophoneLevel => 'Nivel del micrófono';
 
   @override
   String get screenAudioMicrophoneLevelHelp =>
-      'Speak from where you use the device; adjust the gain until normal speech tops out around the end of the green.';
+      'Habla desde donde usas el dispositivo. Ajusta la ganancia hasta que la voz normal alcance aproximadamente el final de la zona verde.';
 
   @override
-  String get settingBrowserCutoutModeTitle => 'Display cutout';
+  String get settingBrowserCutoutModeTitle => 'Área de la cámara frontal';
 
   @override
   String get settingBrowserCutoutModeDescription =>
-      'What to do with the screen area around a camera cutout or punch hole. Pick Avoid the cutout if the camera sits on top of buttons at the top of the dashboard.';
+      'Qué hacer con el área de la pantalla alrededor de la cámara frontal. Elige Evitar el área de la cámara si esta cubre los botones de la parte superior del panel de control.';
 
   @override
-  String get settingScreenOrientationTitle => 'Screen orientation';
+  String get settingScreenOrientationTitle => 'Orientación de la pantalla';
 
   @override
   String get settingScreenOrientationDescription =>
-      'Force the screen into one orientation. Use this on a device without a rotation sensor, or one mounted a way the sensor gets wrong.';
+      'Fuerza la pantalla a una orientación. Úsalo en un dispositivo sin sensor de rotación o instalado de una forma que el sensor no detecta correctamente.';
 
   @override
-  String get settingKeepScreenOnTitle => 'Keep screen on';
+  String get settingKeepScreenOnTitle => 'Mantener la pantalla encendida';
 
   @override
   String get settingKeepScreenOnDescription =>
-      'Prevent the OS from turning the screen off.';
+      'Evita que el sistema operativo apague la pantalla.';
 
   @override
-  String get settingSetBrightnessOnLaunchTitle => 'Set brightness on launch';
+  String get settingSetBrightnessOnLaunchTitle =>
+      'Establecer el brillo al iniciar';
 
   @override
   String get settingSetBrightnessOnLaunchDescription =>
-      'Apply the default brightness whenever the app starts.';
+      'Aplica el brillo predeterminado cada vez que se inicia la aplicación.';
 
   @override
-  String get settingDefaultBrightnessTitle => 'Default brightness';
+  String get settingDefaultBrightnessTitle => 'Brillo predeterminado';
 
   @override
   String get settingDefaultBrightnessDescription =>
-      'Screen brightness applied when the app starts. Moving the slider applies it immediately.';
+      'Brillo de la pantalla al iniciar la aplicación. Mover el control deslizante lo aplica de inmediato.';
 
   @override
-  String get screenAudioScreen => 'Screen';
+  String get screenAudioScreen => 'Pantalla';
 
   @override
-  String get screenAudioCutoutAlways => 'Use the cutout area';
+  String get screenAudioCutoutAlways => 'Usar el área de la cámara';
 
   @override
-  String get screenAudioCutoutShort => 'Short edges only';
+  String get screenAudioCutoutShort => 'Solo en los bordes cortos';
 
   @override
-  String get screenAudioCutoutDefault => 'System default';
+  String get screenAudioCutoutDefault => 'Predeterminado del sistema';
 
   @override
-  String get screenAudioCutoutNever => 'Avoid the cutout';
+  String get screenAudioCutoutNever => 'Evitar el área de la cámara';
 
   @override
-  String get screenAudioAutomatic => 'Automatic';
+  String get screenAudioAutomatic => 'Automático';
 
   @override
-  String get screenAudioLandscape => 'Landscape';
+  String get screenAudioLandscape => 'Horizontal';
 
   @override
-  String get screenAudioReverseLandscape => 'Reverse landscape';
+  String get screenAudioReverseLandscape => 'Horizontal invertida';
 
   @override
-  String get screenAudioPortrait => 'Portrait';
+  String get screenAudioPortrait => 'Vertical';
 
   @override
-  String get screenAudioReversePortrait => 'Reverse portrait';
+  String get screenAudioReversePortrait => 'Vertical invertida';
 
   @override
-  String get screenAudioPermission => 'Permission';
+  String get screenAudioPermission => 'Permiso';
 
   @override
-  String get screenAudioBrightnessFallback => 'Brightness is using a fallback';
+  String get screenAudioBrightnessFallback =>
+      'El brillo usa un método alternativo';
 
   @override
   String get screenAudioBrightnessPermission =>
-      'Without the \"Modify system settings\" permission, brightness changes only dim this app instead of setting the panel\'s actual brightness.';
+      'Sin el permiso «Modificar ajustes del sistema», los cambios de brillo solo atenúan esta aplicación en lugar de ajustar el brillo real de la pantalla.';
 
   @override
   String get screenAudioBrightnessPermissionRemote =>
-      'Without the \"Modify system settings\" permission, brightness changes only dim the app instead of setting the panel\'s actual brightness.';
+      'Sin el permiso «Modificar ajustes del sistema», los cambios de brillo solo atenúan la aplicación en lugar de ajustar el brillo real de la pantalla.';
 
   @override
-  String get screenAudioAlwaysOn => 'Always-on display';
+  String get screenAudioAlwaysOn => 'Pantalla siempre activa';
 
   @override
-  String get screenAudioAlwaysOnClock => 'This device keeps a dim clock on';
+  String get screenAudioAlwaysOnClock =>
+      'Este dispositivo mantiene un reloj tenue encendido';
 
   @override
   String get screenAudioAlwaysOnHelp =>
-      'Turning the screen off puts the device to sleep, but the always-on display lights the lock screen back up and no app can stop it. Turn off \"Always show time and info\" in Android settings under Display, near the lock screen options; some ROMs call it always-on display. The Home Assistant screen entity stays unavailable until you do.';
+      'Apagar la pantalla pone el dispositivo en reposo, pero la función de pantalla siempre activa vuelve a encender la pantalla de bloqueo y ninguna aplicación puede impedirlo. Desactiva «Mostrar siempre la hora y la información» en los ajustes de Android, en Pantalla, junto a las opciones de bloqueo. Algunas ROM llaman a esta función Pantalla siempre activa. La entidad de pantalla de Home Assistant seguirá sin estar disponible hasta que lo hagas.';
 
   @override
-  String get settingMediaVolumeTitle => 'Media volume';
+  String get settingMediaVolumeTitle => 'Volumen multimedia';
 
   @override
   String get settingMediaVolumeDescription =>
-      'Music and video play at this share of the master volume. The Sendspin player volume in Music Assistant moves this slider.';
+      'La música y los videos se reproducen a esta proporción del volumen principal. El volumen del reproductor Sendspin en Music Assistant mueve este control.';
 
   @override
-  String get settingAssistantVolumeTitle => 'Assistant volume';
+  String get settingAssistantVolumeTitle => 'Volumen del asistente';
 
   @override
   String get settingAssistantVolumeDescription =>
-      'Voice responses and chimes play at this share of the master volume, independent of the media volume.';
+      'Las respuestas de voz y los sonidos se reproducen a esta proporción del volumen principal, independientemente del volumen multimedia.';
 
   @override
   String get settingAssistantFullVolumeRangeTitle =>
-      'Full assistant volume range';
+      'Rango completo del volumen del asistente';
 
   @override
   String get settingAssistantFullVolumeRangeDescription =>
-      'Initialize the built-in speaker\'s call volume at 100% when assistant audio first starts. Master and assistant volume still apply. Other apps share this call volume, which is not restored afterward.';
+      'Establece el volumen de llamadas del altavoz integrado al 100 % cuando se inicia el audio del asistente por primera vez. El volumen principal y el del asistente siguen aplicándose. Otras aplicaciones comparten este volumen de llamadas, que no se restaura después.';
 
   @override
-  String get settingIntercomVolumeTitle => 'Intercom volume';
+  String get settingIntercomVolumeTitle => 'Volumen del intercomunicador';
 
   @override
   String get settingIntercomVolumeDescription =>
-      'The other kiosk\'s voice and announcements play at this share of the master volume.';
+      'La voz y los anuncios del otro kiosko se reproducen a esta proporción del volumen principal.';
 
   @override
-  String get screenAudioVolume => 'Audio Volume';
+  String get screenAudioVolume => 'Volumen de audio';
 
   @override
-  String get screenAudioMasterVolume => 'Master volume';
+  String get screenAudioMasterVolume => 'Volumen principal';
 
   @override
   String get screenAudioMasterHelp =>
-      'The device volume. Media, intercom and assistant volumes scale under it.';
+      'Volumen del dispositivo. Los volúmenes multimedia, del intercomunicador y del asistente se ajustan en proporción a este.';
 
   @override
   String get settingsSearchHint => 'Buscar en la configuración';

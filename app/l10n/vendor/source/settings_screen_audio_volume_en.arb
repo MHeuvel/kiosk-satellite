@@ -1,0 +1,146 @@
+{
+  "@@locale": "en",
+  "settingMediaVolumeTitle": "Media volume",
+  "@settingMediaVolumeTitle": {
+    "context": "Settings:Screen & Audio:Audio Volume",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Audio Volume"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Audio Volume"
+      ]
+    }
+  },
+  "settingMediaVolumeDescription": "Music and video play at this share of the master volume. The Sendspin player volume in Music Assistant moves this slider.",
+  "@settingMediaVolumeDescription": {
+    "context": "Settings:Screen & Audio:Audio Volume",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Audio Volume"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Audio Volume"
+      ]
+    }
+  },
+  "settingAssistantVolumeTitle": "Assistant volume",
+  "@settingAssistantVolumeTitle": {
+    "context": "Settings:Screen & Audio:Audio Volume",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Audio Volume"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Audio Volume"
+      ]
+    }
+  },
+  "settingAssistantVolumeDescription": "Voice responses and chimes play at this share of the master volume, independent of the media volume.",
+  "@settingAssistantVolumeDescription": {
+    "context": "Settings:Screen & Audio:Audio Volume",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Audio Volume"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Audio Volume"
+      ]
+    }
+  },
+  "settingAssistantFullVolumeRangeTitle": "Full assistant volume range",
+  "@settingAssistantFullVolumeRangeTitle": {
+    "context": "Settings:Screen & Audio:Audio Volume",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Audio Volume"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Audio Volume"
+      ]
+    }
+  },
+  "settingAssistantFullVolumeRangeDescription": "Initialize the built-in speaker's call volume at 100% when assistant audio first starts. Master and assistant volume still apply. Other apps share this call volume, which is not restored afterward.",
+  "@settingAssistantFullVolumeRangeDescription": {
+    "context": "Settings:Screen & Audio:Audio Volume",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Audio Volume"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Audio Volume"
+      ]
+    }
+  },
+  "settingIntercomVolumeTitle": "Intercom volume",
+  "@settingIntercomVolumeTitle": {
+    "context": "Settings:Screen & Audio:Audio Volume",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Audio Volume"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Audio Volume"
+      ]
+    }
+  },
+  "settingIntercomVolumeDescription": "The other kiosk's voice and announcements play at this share of the master volume.",
+  "@settingIntercomVolumeDescription": {
+    "context": "Settings:Screen & Audio:Audio Volume",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Audio Volume"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Audio Volume"
+      ]
+    }
+  },
+  "screenAudioVolume": "Audio Volume",
+  "@screenAudioVolume": {
+    "context": "Settings:Screen & Audio:Audio Volume",
+    "description": "Heading, choice, status or guidance shown in this group.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Audio Volume"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Audio Volume"
+      ]
+    }
+  },
+  "screenAudioMasterVolume": "Master volume",
+  "@screenAudioMasterVolume": {
+    "context": "Settings:Screen & Audio:Audio Volume",
+    "description": "Heading, choice, status or guidance shown in this group.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Audio Volume"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Audio Volume"
+      ]
+    }
+  },
+  "screenAudioMasterHelp": "The device volume. Media, intercom and assistant volumes scale under it.",
+  "@screenAudioMasterHelp": {
+    "context": "Settings:Screen & Audio:Audio Volume",
+    "description": "Heading, choice, status or guidance shown in this group.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Audio Volume"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Audio Volume"
+      ]
+    }
+  }
+}

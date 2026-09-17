@@ -7127,7 +7127,7 @@
       ]
     }
   },
-  "settingAdaptiveBrightnessTitle": "Adaptive brightness",
+  "settingAdaptiveBrightnessTitle": "Brillo adaptativo",
   "@settingAdaptiveBrightnessTitle": {
     "context": "Settings:Screen & Audio:Adaptive brightness",
     "description": "Setting label.",
@@ -7140,7 +7140,7 @@
       ]
     }
   },
-  "settingAdaptiveBrightnessDescription": "Dim the screen as the room gets darker, using the ambient light sensor.",
+  "settingAdaptiveBrightnessDescription": "Atenúa la pantalla a medida que se oscurece la habitación usando el sensor de luz ambiental.",
   "@settingAdaptiveBrightnessDescription": {
     "context": "Settings:Screen & Audio:Adaptive brightness",
     "description": "Help below the setting.",
@@ -7153,7 +7153,7 @@
       ]
     }
   },
-  "settingAdaptiveMinBrightnessTitle": "Minimum brightness",
+  "settingAdaptiveMinBrightnessTitle": "Brillo mínimo",
   "@settingAdaptiveMinBrightnessTitle": {
     "context": "Settings:Screen & Audio:Adaptive brightness",
     "description": "Setting label.",
@@ -7166,7 +7166,7 @@
       ]
     }
   },
-  "settingAdaptiveMinBrightnessDescription": "Screen brightness in a dark room.",
+  "settingAdaptiveMinBrightnessDescription": "Brillo de la pantalla en una habitación oscura.",
   "@settingAdaptiveMinBrightnessDescription": {
     "context": "Settings:Screen & Audio:Adaptive brightness",
     "description": "Help below the setting.",
@@ -7179,7 +7179,7 @@
       ]
     }
   },
-  "settingAdaptiveMaxBrightnessTitle": "Maximum brightness",
+  "settingAdaptiveMaxBrightnessTitle": "Brillo máximo",
   "@settingAdaptiveMaxBrightnessTitle": {
     "context": "Settings:Screen & Audio:Adaptive brightness",
     "description": "Setting label.",
@@ -7192,7 +7192,7 @@
       ]
     }
   },
-  "settingAdaptiveMaxBrightnessDescription": "Screen brightness in a bright room.",
+  "settingAdaptiveMaxBrightnessDescription": "Brillo de la pantalla en una habitación iluminada.",
   "@settingAdaptiveMaxBrightnessDescription": {
     "context": "Settings:Screen & Audio:Adaptive brightness",
     "description": "Help below the setting.",
@@ -7205,7 +7205,7 @@
       ]
     }
   },
-  "settingAdaptiveDarkLuxTitle": "Dark room (lx)",
+  "settingAdaptiveDarkLuxTitle": "Habitación oscura (lx)",
   "@settingAdaptiveDarkLuxTitle": {
     "context": "Settings:Screen & Audio:Adaptive brightness",
     "description": "Setting label.",
@@ -7218,7 +7218,7 @@
       ]
     }
   },
-  "settingAdaptiveDarkLuxDescription": "Light level at or below which the screen sits at Minimum brightness.",
+  "settingAdaptiveDarkLuxDescription": "Nivel de luz en el que la pantalla alcanza el brillo mínimo. Por debajo, permanece en ese nivel.",
   "@settingAdaptiveDarkLuxDescription": {
     "context": "Settings:Screen & Audio:Adaptive brightness",
     "description": "Help below the setting.",
@@ -7231,7 +7231,7 @@
       ]
     }
   },
-  "settingAdaptiveBrightLuxTitle": "Bright room (lx)",
+  "settingAdaptiveBrightLuxTitle": "Habitación iluminada (lx)",
   "@settingAdaptiveBrightLuxTitle": {
     "context": "Settings:Screen & Audio:Adaptive brightness",
     "description": "Setting label.",
@@ -7244,7 +7244,7 @@
       ]
     }
   },
-  "settingAdaptiveBrightLuxDescription": "Light level at or above which the screen sits at Maximum brightness.",
+  "settingAdaptiveBrightLuxDescription": "Nivel de luz en el que la pantalla alcanza el brillo máximo. Por encima, permanece en ese nivel.",
   "@settingAdaptiveBrightLuxDescription": {
     "context": "Settings:Screen & Audio:Adaptive brightness",
     "description": "Help below the setting.",
@@ -7257,7 +7257,7 @@
       ]
     }
   },
-  "screenAudioAdaptiveHint": "Follow the room light with the ambient light sensor",
+  "screenAudioAdaptiveHint": "Ajusta el brillo a la luz de la habitación con el sensor de luz ambiental",
   "@screenAudioAdaptiveHint": {
     "context": "Settings:Screen & Audio:Adaptive brightness",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -7270,7 +7270,7 @@
       ]
     }
   },
-  "screenAudioAdaptiveNote": "Level in a bright room. Adaptive brightness dims it from there.",
+  "screenAudioAdaptiveNote": "Nivel en una habitación iluminada. El brillo adaptativo lo reduce a partir de ese valor.",
   "@screenAudioAdaptiveNote": {
     "context": "Settings:Screen & Audio:Adaptive brightness",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -7283,7 +7283,7 @@
       ]
     }
   },
-  "screenAudioAdaptiveOwns": "Adaptive brightness is on.",
+  "screenAudioAdaptiveOwns": "El brillo adaptativo está activado.",
   "@screenAudioAdaptiveOwns": {
     "context": "Settings:Screen & Audio:Adaptive brightness",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -7296,7 +7296,7 @@
       ]
     }
   },
-  "screenAudioNoSensor": "No ambient light sensor on this device.",
+  "screenAudioNoSensor": "Este dispositivo no tiene sensor de luz ambiental.",
   "@screenAudioNoSensor": {
     "context": "Settings:Screen & Audio:Adaptive brightness",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -7309,7 +7309,7 @@
       ]
     }
   },
-  "screenAudioAmbientLight": "Ambient light",
+  "screenAudioAmbientLight": "Luz ambiental",
   "@screenAudioAmbientLight": {
     "context": "Settings:Screen & Audio:Adaptive brightness",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -7322,7 +7322,7 @@
       ]
     }
   },
-  "screenAudioAmbientHelp": "What the ambient light sensor reads right now.",
+  "screenAudioAmbientHelp": "Lectura actual del sensor de luz ambiental.",
   "@screenAudioAmbientHelp": {
     "context": "Settings:Screen & Audio:Adaptive brightness",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -7335,7 +7335,7 @@
       ]
     }
   },
-  "screenAudioNoReading": "No reading yet",
+  "screenAudioNoReading": "Aún no hay lectura",
   "@screenAudioNoReading": {
     "context": "Settings:Screen & Audio:Adaptive brightness",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -7367,7 +7367,7 @@
       }
     }
   },
-  "screenAudioLuxLast": "{lux} lx (last known)",
+  "screenAudioLuxLast": "{lux} lx (última lectura)",
   "@screenAudioLuxLast": {
     "context": "Settings:Screen & Audio:Adaptive brightness",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -7386,7 +7386,7 @@
       }
     }
   },
-  "screenAudioSetsMaximum": "Sets Maximum brightness: adaptive brightness is on.",
+  "screenAudioSetsMaximum": "Ajusta el brillo máximo porque el brillo adaptativo está activado.",
   "@screenAudioSetsMaximum": {
     "context": "Settings:Screen & Audio:Adaptive brightness",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -7399,7 +7399,7 @@
       ]
     }
   },
-  "screenAudioSetsDefault": "Sets Default brightness.",
+  "screenAudioSetsDefault": "Ajusta el brillo predeterminado.",
   "@screenAudioSetsDefault": {
     "context": "Settings:Screen & Audio:Adaptive brightness",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -7412,7 +7412,7 @@
       ]
     }
   },
-  "settingAudioMicDeviceTitle": "Microphone",
+  "settingAudioMicDeviceTitle": "Micrófono",
   "@settingAudioMicDeviceTitle": {
     "context": "Settings:Screen & Audio:Audio Devices",
     "description": "Setting label.",
@@ -7425,7 +7425,7 @@
       ]
     }
   },
-  "settingAudioMicDeviceDescription": "The microphone wake word detection and voice turns capture from.",
+  "settingAudioMicDeviceDescription": "Micrófono que se usa para detectar la palabra de activación y capturar las interacciones de voz.",
   "@settingAudioMicDeviceDescription": {
     "context": "Settings:Screen & Audio:Audio Devices",
     "description": "Help below the setting.",
@@ -7438,7 +7438,7 @@
       ]
     }
   },
-  "settingAudioSpeakerDeviceTitle": "Speaker",
+  "settingAudioSpeakerDeviceTitle": "Altavoz",
   "@settingAudioSpeakerDeviceTitle": {
     "context": "Settings:Screen & Audio:Audio Devices",
     "description": "Setting label.",
@@ -7451,7 +7451,7 @@
       ]
     }
   },
-  "settingAudioSpeakerDeviceDescription": "Output for Voice Satellite sounds; media playback follows the system route. Echo cancellation only works with the microphone and speaker on the same device.",
+  "settingAudioSpeakerDeviceDescription": "Salida para los sonidos de Voice Satellite. La reproducción multimedia sigue la ruta del sistema. La cancelación de eco solo funciona si el micrófono y el altavoz pertenecen al mismo dispositivo.",
   "@settingAudioSpeakerDeviceDescription": {
     "context": "Settings:Screen & Audio:Audio Devices",
     "description": "Help below the setting.",
@@ -7464,7 +7464,7 @@
       ]
     }
   },
-  "screenAudioDevices": "Audio Devices",
+  "screenAudioDevices": "Dispositivos de audio",
   "@screenAudioDevices": {
     "context": "Settings:Screen & Audio:Audio Devices",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -7477,7 +7477,7 @@
       ]
     }
   },
-  "screenAudioSelectedDevice": "Selected device",
+  "screenAudioSelectedDevice": "Dispositivo seleccionado",
   "@screenAudioSelectedDevice": {
     "context": "Settings:Screen & Audio:Audio Devices",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -7490,7 +7490,7 @@
       ]
     }
   },
-  "screenAudioDisconnected": "{name} (not connected)",
+  "screenAudioDisconnected": "{name} (sin conectar)",
   "@screenAudioDisconnected": {
     "context": "Settings:Screen & Audio:Audio Devices",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -7509,7 +7509,7 @@
       }
     }
   },
-  "settingMicAudioSourceTitle": "Capture mode",
+  "settingMicAudioSourceTitle": "Modo de captura",
   "@settingMicAudioSourceTitle": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Setting label.",
@@ -7522,7 +7522,7 @@
       ]
     }
   },
-  "settingMicAudioSourceDescription": "Voice communication is the only mode with echo cancellation, so leave it unless the microphone reads far quieter here than in a recorder app.",
+  "settingMicAudioSourceDescription": "Comunicación de voz es el único modo con cancelación de eco. Déjalo seleccionado salvo que el micrófono capte un volumen mucho más bajo aquí que en una aplicación de grabación.",
   "@settingMicAudioSourceDescription": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Help below the setting.",
@@ -7535,7 +7535,7 @@
       ]
     }
   },
-  "settingMicEchoCancellationTitle": "Echo cancellation",
+  "settingMicEchoCancellationTitle": "Cancelación de eco",
   "@settingMicEchoCancellationTitle": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Setting label.",
@@ -7548,7 +7548,7 @@
       ]
     }
   },
-  "settingMicEchoCancellationDescription": "Keeps the kiosk's own speaker out of the microphone so the stop word works during playback. Turn it off only if the microphone reads far quieter here than in a recorder app.",
+  "settingMicEchoCancellationDescription": "Evita que el micrófono capte el altavoz del kiosko para que la palabra de parada funcione durante la reproducción. Desactívala solo si el micrófono capta un volumen mucho más bajo aquí que en una aplicación de grabación.",
   "@settingMicEchoCancellationDescription": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Help below the setting.",
@@ -7561,7 +7561,7 @@
       ]
     }
   },
-  "settingMicChannelTitle": "Microphone channel",
+  "settingMicChannelTitle": "Canal del micrófono",
   "@settingMicChannelTitle": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Setting label.",
@@ -7574,7 +7574,7 @@
       ]
     }
   },
-  "settingMicChannelDescription": "Multichannel microphones often reserve one channel for speech recognition; picking it can improve detection.",
+  "settingMicChannelDescription": "Los micrófonos multicanal suelen reservar un canal para el reconocimiento de voz. Elegirlo puede mejorar la detección.",
   "@settingMicChannelDescription": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Help below the setting.",
@@ -7587,7 +7587,7 @@
       ]
     }
   },
-  "settingMicAgcTitle": "Automatic gain control",
+  "settingMicAgcTitle": "Control automático de ganancia",
   "@settingMicAgcTitle": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Setting label.",
@@ -7600,7 +7600,7 @@
       ]
     }
   },
-  "settingMicAgcDescription": "Let Android level the microphone instead of a fixed gain. It also lifts room noise, and on some devices it does nothing at all.",
+  "settingMicAgcDescription": "Permite que Android ajuste el nivel del micrófono en lugar de usar una ganancia fija. También amplifica el ruido ambiental y en algunos dispositivos no tiene ningún efecto.",
   "@settingMicAgcDescription": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Help below the setting.",
@@ -7613,7 +7613,7 @@
       ]
     }
   },
-  "settingMicNoiseSuppressionTitle": "Noise suppression",
+  "settingMicNoiseSuppressionTitle": "Supresión de ruido",
   "@settingMicNoiseSuppressionTitle": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Setting label.",
@@ -7626,7 +7626,7 @@
       ]
     }
   },
-  "settingMicNoiseSuppressionDescription": "Reduce microphone background noise using Android processing. It may help or hurt wake word detection depending on the device.",
+  "settingMicNoiseSuppressionDescription": "Reduce el ruido de fondo del micrófono mediante el procesamiento de Android. Puede mejorar o empeorar la detección de la palabra de activación según el dispositivo.",
   "@settingMicNoiseSuppressionDescription": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Help below the setting.",
@@ -7639,7 +7639,7 @@
       ]
     }
   },
-  "settingMicGainDbTitle": "Microphone gain",
+  "settingMicGainDbTitle": "Ganancia del micrófono",
   "@settingMicGainDbTitle": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Setting label.",
@@ -7652,7 +7652,7 @@
       ]
     }
   },
-  "settingMicGainDbDescription": "Boost or cut the microphone before anything hears it. Aim for a level near 0.05 in the wake word tester; too much gain distorts speech and hurts detection.",
+  "settingMicGainDbDescription": "Amplifica o atenúa el micrófono antes de procesar el audio. Busca un nivel cercano a 0.05 en el probador de palabras de activación. Una ganancia excesiva distorsiona la voz y empeora la detección.",
   "@settingMicGainDbDescription": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Help below the setting.",
@@ -7665,7 +7665,7 @@
       ]
     }
   },
-  "settingMicCaptureFormatTitle": "Capture format",
+  "settingMicCaptureFormatTitle": "Formato de captura",
   "@settingMicCaptureFormatTitle": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Setting label.",
@@ -7678,7 +7678,7 @@
       ]
     }
   },
-  "settingMicCaptureFormatDescription": "Pick 48 kHz stereo when the microphone works in other apps but not here: some sound cards record in that format only and the app converts it itself.",
+  "settingMicCaptureFormatDescription": "Elige Estéreo a 48 kHz cuando el micrófono funcione en otras aplicaciones pero no aquí. Algunas tarjetas de sonido solo graban en ese formato y la aplicación lo convierte por su cuenta.",
   "@settingMicCaptureFormatDescription": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Help below the setting.",
@@ -7691,7 +7691,7 @@
       ]
     }
   },
-  "screenAudioMicrophoneSettings": "Microphone settings",
+  "screenAudioMicrophoneSettings": "Configuración del micrófono",
   "@screenAudioMicrophoneSettings": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -7704,7 +7704,7 @@
       ]
     }
   },
-  "screenAudioMicrophoneHint": "Capture mode, channel, gain, live level",
+  "screenAudioMicrophoneHint": "Modo de captura, canal, ganancia y nivel en tiempo real",
   "@screenAudioMicrophoneHint": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -7717,7 +7717,7 @@
       ]
     }
   },
-  "screenAudioMicrophoneNote": "Adjust capture for your microphone and room. Test wake words and voice interactions after changing these settings.",
+  "screenAudioMicrophoneNote": "Ajusta la captura al micrófono y a la habitación. Prueba las palabras de activación y las interacciones de voz después de cambiar estas opciones.",
   "@screenAudioMicrophoneNote": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -7730,7 +7730,7 @@
       ]
     }
   },
-  "screenAudioVoiceCommunication": "Voice communication (default)",
+  "screenAudioVoiceCommunication": "Comunicación de voz (predeterminado)",
   "@screenAudioVoiceCommunication": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -7743,7 +7743,7 @@
       ]
     }
   },
-  "screenAudioVoiceRecognition": "Voice recognition",
+  "screenAudioVoiceRecognition": "Reconocimiento de voz",
   "@screenAudioVoiceRecognition": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -7756,7 +7756,7 @@
       ]
     }
   },
-  "screenAudioRawMicrophone": "Raw microphone",
+  "screenAudioRawMicrophone": "Micrófono sin procesar",
   "@screenAudioRawMicrophone": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -7769,7 +7769,7 @@
       ]
     }
   },
-  "screenAudioAutomaticDefault": "Automatic (default)",
+  "screenAudioAutomaticDefault": "Automático (predeterminado)",
   "@screenAudioAutomaticDefault": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -7782,7 +7782,7 @@
       ]
     }
   },
-  "screenAudioStereo": "48 kHz stereo",
+  "screenAudioStereo": "Estéreo a 48 kHz",
   "@screenAudioStereo": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -7795,7 +7795,7 @@
       ]
     }
   },
-  "screenAudioDownmix": "Downmix (default)",
+  "screenAudioDownmix": "Mezclar canales (predeterminado)",
   "@screenAudioDownmix": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -7808,7 +7808,7 @@
       ]
     }
   },
-  "screenAudioChannel": "Channel {channel}",
+  "screenAudioChannel": "Canal {channel}",
   "@screenAudioChannel": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -7827,7 +7827,7 @@
       }
     }
   },
-  "screenAudioChannelMissing": "Channel {channel} (not on this microphone)",
+  "screenAudioChannelMissing": "Canal {channel} (no disponible en este micrófono)",
   "@screenAudioChannelMissing": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -7846,7 +7846,7 @@
       }
     }
   },
-  "screenAudioMicrophoneLevel": "Microphone level",
+  "screenAudioMicrophoneLevel": "Nivel del micrófono",
   "@screenAudioMicrophoneLevel": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -7859,7 +7859,7 @@
       ]
     }
   },
-  "screenAudioMicrophoneLevelHelp": "Speak from where you use the device; adjust the gain until normal speech tops out around the end of the green.",
+  "screenAudioMicrophoneLevelHelp": "Habla desde donde usas el dispositivo. Ajusta la ganancia hasta que la voz normal alcance aproximadamente el final de la zona verde.",
   "@screenAudioMicrophoneLevelHelp": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -7872,7 +7872,7 @@
       ]
     }
   },
-  "settingBrowserCutoutModeTitle": "Display cutout",
+  "settingBrowserCutoutModeTitle": "Área de la cámara frontal",
   "@settingBrowserCutoutModeTitle": {
     "context": "Settings:Screen & Audio:Screen",
     "description": "Setting label.",
@@ -7885,7 +7885,7 @@
       ]
     }
   },
-  "settingBrowserCutoutModeDescription": "What to do with the screen area around a camera cutout or punch hole. Pick Avoid the cutout if the camera sits on top of buttons at the top of the dashboard.",
+  "settingBrowserCutoutModeDescription": "Qué hacer con el área de la pantalla alrededor de la cámara frontal. Elige Evitar el área de la cámara si esta cubre los botones de la parte superior del panel de control.",
   "@settingBrowserCutoutModeDescription": {
     "context": "Settings:Screen & Audio:Screen",
     "description": "Help below the setting.",
@@ -7898,7 +7898,7 @@
       ]
     }
   },
-  "settingScreenOrientationTitle": "Screen orientation",
+  "settingScreenOrientationTitle": "Orientación de la pantalla",
   "@settingScreenOrientationTitle": {
     "context": "Settings:Screen & Audio:Screen",
     "description": "Setting label.",
@@ -7911,7 +7911,7 @@
       ]
     }
   },
-  "settingScreenOrientationDescription": "Force the screen into one orientation. Use this on a device without a rotation sensor, or one mounted a way the sensor gets wrong.",
+  "settingScreenOrientationDescription": "Fuerza la pantalla a una orientación. Úsalo en un dispositivo sin sensor de rotación o instalado de una forma que el sensor no detecta correctamente.",
   "@settingScreenOrientationDescription": {
     "context": "Settings:Screen & Audio:Screen",
     "description": "Help below the setting.",
@@ -7924,7 +7924,7 @@
       ]
     }
   },
-  "settingKeepScreenOnTitle": "Keep screen on",
+  "settingKeepScreenOnTitle": "Mantener la pantalla encendida",
   "@settingKeepScreenOnTitle": {
     "context": "Settings:Screen & Audio:Screen",
     "description": "Setting label.",
@@ -7937,7 +7937,7 @@
       ]
     }
   },
-  "settingKeepScreenOnDescription": "Prevent the OS from turning the screen off.",
+  "settingKeepScreenOnDescription": "Evita que el sistema operativo apague la pantalla.",
   "@settingKeepScreenOnDescription": {
     "context": "Settings:Screen & Audio:Screen",
     "description": "Help below the setting.",
@@ -7950,7 +7950,7 @@
       ]
     }
   },
-  "settingSetBrightnessOnLaunchTitle": "Set brightness on launch",
+  "settingSetBrightnessOnLaunchTitle": "Establecer el brillo al iniciar",
   "@settingSetBrightnessOnLaunchTitle": {
     "context": "Settings:Screen & Audio:Screen",
     "description": "Setting label.",
@@ -7963,7 +7963,7 @@
       ]
     }
   },
-  "settingSetBrightnessOnLaunchDescription": "Apply the default brightness whenever the app starts.",
+  "settingSetBrightnessOnLaunchDescription": "Aplica el brillo predeterminado cada vez que se inicia la aplicación.",
   "@settingSetBrightnessOnLaunchDescription": {
     "context": "Settings:Screen & Audio:Screen",
     "description": "Help below the setting.",
@@ -7976,7 +7976,7 @@
       ]
     }
   },
-  "settingDefaultBrightnessTitle": "Default brightness",
+  "settingDefaultBrightnessTitle": "Brillo predeterminado",
   "@settingDefaultBrightnessTitle": {
     "context": "Settings:Screen & Audio:Screen",
     "description": "Setting label.",
@@ -7989,7 +7989,7 @@
       ]
     }
   },
-  "settingDefaultBrightnessDescription": "Screen brightness applied when the app starts. Moving the slider applies it immediately.",
+  "settingDefaultBrightnessDescription": "Brillo de la pantalla al iniciar la aplicación. Mover el control deslizante lo aplica de inmediato.",
   "@settingDefaultBrightnessDescription": {
     "context": "Settings:Screen & Audio:Screen",
     "description": "Help below the setting.",
@@ -8002,7 +8002,7 @@
       ]
     }
   },
-  "screenAudioScreen": "Screen",
+  "screenAudioScreen": "Pantalla",
   "@screenAudioScreen": {
     "context": "Settings:Screen & Audio:Screen",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -8015,7 +8015,7 @@
       ]
     }
   },
-  "screenAudioCutoutAlways": "Use the cutout area",
+  "screenAudioCutoutAlways": "Usar el área de la cámara",
   "@screenAudioCutoutAlways": {
     "context": "Settings:Screen & Audio:Screen",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -8028,7 +8028,7 @@
       ]
     }
   },
-  "screenAudioCutoutShort": "Short edges only",
+  "screenAudioCutoutShort": "Solo en los bordes cortos",
   "@screenAudioCutoutShort": {
     "context": "Settings:Screen & Audio:Screen",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -8041,7 +8041,7 @@
       ]
     }
   },
-  "screenAudioCutoutDefault": "System default",
+  "screenAudioCutoutDefault": "Predeterminado del sistema",
   "@screenAudioCutoutDefault": {
     "context": "Settings:Screen & Audio:Screen",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -8054,7 +8054,7 @@
       ]
     }
   },
-  "screenAudioCutoutNever": "Avoid the cutout",
+  "screenAudioCutoutNever": "Evitar el área de la cámara",
   "@screenAudioCutoutNever": {
     "context": "Settings:Screen & Audio:Screen",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -8067,7 +8067,7 @@
       ]
     }
   },
-  "screenAudioAutomatic": "Automatic",
+  "screenAudioAutomatic": "Automático",
   "@screenAudioAutomatic": {
     "context": "Settings:Screen & Audio:Screen",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -8080,7 +8080,7 @@
       ]
     }
   },
-  "screenAudioLandscape": "Landscape",
+  "screenAudioLandscape": "Horizontal",
   "@screenAudioLandscape": {
     "context": "Settings:Screen & Audio:Screen",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -8093,7 +8093,7 @@
       ]
     }
   },
-  "screenAudioReverseLandscape": "Reverse landscape",
+  "screenAudioReverseLandscape": "Horizontal invertida",
   "@screenAudioReverseLandscape": {
     "context": "Settings:Screen & Audio:Screen",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -8106,7 +8106,7 @@
       ]
     }
   },
-  "screenAudioPortrait": "Portrait",
+  "screenAudioPortrait": "Vertical",
   "@screenAudioPortrait": {
     "context": "Settings:Screen & Audio:Screen",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -8119,7 +8119,7 @@
       ]
     }
   },
-  "screenAudioReversePortrait": "Reverse portrait",
+  "screenAudioReversePortrait": "Vertical invertida",
   "@screenAudioReversePortrait": {
     "context": "Settings:Screen & Audio:Screen",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -8132,7 +8132,7 @@
       ]
     }
   },
-  "screenAudioPermission": "Permission",
+  "screenAudioPermission": "Permiso",
   "@screenAudioPermission": {
     "context": "Settings:Screen & Audio:Screen",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -8145,7 +8145,7 @@
       ]
     }
   },
-  "screenAudioBrightnessFallback": "Brightness is using a fallback",
+  "screenAudioBrightnessFallback": "El brillo usa un método alternativo",
   "@screenAudioBrightnessFallback": {
     "context": "Settings:Screen & Audio:Screen",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -8158,7 +8158,7 @@
       ]
     }
   },
-  "screenAudioBrightnessPermission": "Without the \"Modify system settings\" permission, brightness changes only dim this app instead of setting the panel's actual brightness.",
+  "screenAudioBrightnessPermission": "Sin el permiso «Modificar ajustes del sistema», los cambios de brillo solo atenúan esta aplicación en lugar de ajustar el brillo real de la pantalla.",
   "@screenAudioBrightnessPermission": {
     "context": "Settings:Screen & Audio:Screen",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -8171,7 +8171,7 @@
       ]
     }
   },
-  "screenAudioBrightnessPermissionRemote": "Without the \"Modify system settings\" permission, brightness changes only dim the app instead of setting the panel's actual brightness.",
+  "screenAudioBrightnessPermissionRemote": "Sin el permiso «Modificar ajustes del sistema», los cambios de brillo solo atenúan la aplicación en lugar de ajustar el brillo real de la pantalla.",
   "@screenAudioBrightnessPermissionRemote": {
     "context": "Settings:Screen & Audio:Screen",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -8184,7 +8184,7 @@
       ]
     }
   },
-  "screenAudioAlwaysOn": "Always-on display",
+  "screenAudioAlwaysOn": "Pantalla siempre activa",
   "@screenAudioAlwaysOn": {
     "context": "Settings:Screen & Audio:Screen",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -8197,7 +8197,7 @@
       ]
     }
   },
-  "screenAudioAlwaysOnClock": "This device keeps a dim clock on",
+  "screenAudioAlwaysOnClock": "Este dispositivo mantiene un reloj tenue encendido",
   "@screenAudioAlwaysOnClock": {
     "context": "Settings:Screen & Audio:Screen",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -8210,7 +8210,7 @@
       ]
     }
   },
-  "screenAudioAlwaysOnHelp": "Turning the screen off puts the device to sleep, but the always-on display lights the lock screen back up and no app can stop it. Turn off \"Always show time and info\" in Android settings under Display, near the lock screen options; some ROMs call it always-on display. The Home Assistant screen entity stays unavailable until you do.",
+  "screenAudioAlwaysOnHelp": "Apagar la pantalla pone el dispositivo en reposo, pero la función de pantalla siempre activa vuelve a encender la pantalla de bloqueo y ninguna aplicación puede impedirlo. Desactiva «Mostrar siempre la hora y la información» en los ajustes de Android, en Pantalla, junto a las opciones de bloqueo. Algunas ROM llaman a esta función Pantalla siempre activa. La entidad de pantalla de Home Assistant seguirá sin estar disponible hasta que lo hagas.",
   "@screenAudioAlwaysOnHelp": {
     "context": "Settings:Screen & Audio:Screen",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -8223,7 +8223,7 @@
       ]
     }
   },
-  "settingMediaVolumeTitle": "Media volume",
+  "settingMediaVolumeTitle": "Volumen multimedia",
   "@settingMediaVolumeTitle": {
     "context": "Settings:Screen & Audio:Audio Volume",
     "description": "Setting label.",
@@ -8236,7 +8236,7 @@
       ]
     }
   },
-  "settingMediaVolumeDescription": "Music and video play at this share of the master volume. The Sendspin player volume in Music Assistant moves this slider.",
+  "settingMediaVolumeDescription": "La música y los videos se reproducen a esta proporción del volumen principal. El volumen del reproductor Sendspin en Music Assistant mueve este control.",
   "@settingMediaVolumeDescription": {
     "context": "Settings:Screen & Audio:Audio Volume",
     "description": "Help below the setting.",
@@ -8249,7 +8249,7 @@
       ]
     }
   },
-  "settingAssistantVolumeTitle": "Assistant volume",
+  "settingAssistantVolumeTitle": "Volumen del asistente",
   "@settingAssistantVolumeTitle": {
     "context": "Settings:Screen & Audio:Audio Volume",
     "description": "Setting label.",
@@ -8262,7 +8262,7 @@
       ]
     }
   },
-  "settingAssistantVolumeDescription": "Voice responses and chimes play at this share of the master volume, independent of the media volume.",
+  "settingAssistantVolumeDescription": "Las respuestas de voz y los sonidos se reproducen a esta proporción del volumen principal, independientemente del volumen multimedia.",
   "@settingAssistantVolumeDescription": {
     "context": "Settings:Screen & Audio:Audio Volume",
     "description": "Help below the setting.",
@@ -8275,7 +8275,7 @@
       ]
     }
   },
-  "settingAssistantFullVolumeRangeTitle": "Full assistant volume range",
+  "settingAssistantFullVolumeRangeTitle": "Rango completo del volumen del asistente",
   "@settingAssistantFullVolumeRangeTitle": {
     "context": "Settings:Screen & Audio:Audio Volume",
     "description": "Setting label.",
@@ -8288,7 +8288,7 @@
       ]
     }
   },
-  "settingAssistantFullVolumeRangeDescription": "Initialize the built-in speaker's call volume at 100% when assistant audio first starts. Master and assistant volume still apply. Other apps share this call volume, which is not restored afterward.",
+  "settingAssistantFullVolumeRangeDescription": "Establece el volumen de llamadas del altavoz integrado al 100 % cuando se inicia el audio del asistente por primera vez. El volumen principal y el del asistente siguen aplicándose. Otras aplicaciones comparten este volumen de llamadas, que no se restaura después.",
   "@settingAssistantFullVolumeRangeDescription": {
     "context": "Settings:Screen & Audio:Audio Volume",
     "description": "Help below the setting.",
@@ -8301,7 +8301,7 @@
       ]
     }
   },
-  "settingIntercomVolumeTitle": "Intercom volume",
+  "settingIntercomVolumeTitle": "Volumen del intercomunicador",
   "@settingIntercomVolumeTitle": {
     "context": "Settings:Screen & Audio:Audio Volume",
     "description": "Setting label.",
@@ -8314,7 +8314,7 @@
       ]
     }
   },
-  "settingIntercomVolumeDescription": "The other kiosk's voice and announcements play at this share of the master volume.",
+  "settingIntercomVolumeDescription": "La voz y los anuncios del otro kiosko se reproducen a esta proporción del volumen principal.",
   "@settingIntercomVolumeDescription": {
     "context": "Settings:Screen & Audio:Audio Volume",
     "description": "Help below the setting.",
@@ -8327,7 +8327,7 @@
       ]
     }
   },
-  "screenAudioVolume": "Audio Volume",
+  "screenAudioVolume": "Volumen de audio",
   "@screenAudioVolume": {
     "context": "Settings:Screen & Audio:Audio Volume",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -8340,7 +8340,7 @@
       ]
     }
   },
-  "screenAudioMasterVolume": "Master volume",
+  "screenAudioMasterVolume": "Volumen principal",
   "@screenAudioMasterVolume": {
     "context": "Settings:Screen & Audio:Audio Volume",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -8353,7 +8353,7 @@
       ]
     }
   },
-  "screenAudioMasterHelp": "The device volume. Media, intercom and assistant volumes scale under it.",
+  "screenAudioMasterHelp": "Volumen del dispositivo. Los volúmenes multimedia, del intercomunicador y del asistente se ajustan en proporción a este.",
   "@screenAudioMasterHelp": {
     "context": "Settings:Screen & Audio:Audio Volume",
     "description": "Heading, choice, status or guidance shown in this group.",

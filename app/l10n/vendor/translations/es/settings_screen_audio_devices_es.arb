@@ -1,0 +1,10 @@
+{
+  "@@locale": "es",
+  "settingAudioMicDeviceTitle": "Micrófono",
+  "settingAudioMicDeviceDescription": "Micrófono que se usa para detectar la palabra de activación y capturar las interacciones de voz.",
+  "settingAudioSpeakerDeviceTitle": "Altavoz",
+  "settingAudioSpeakerDeviceDescription": "Salida para los sonidos de Voice Satellite. La reproducción multimedia sigue la ruta del sistema. La cancelación de eco solo funciona si el micrófono y el altavoz pertenecen al mismo dispositivo.",
+  "screenAudioDevices": "Dispositivos de audio",
+  "screenAudioSelectedDevice": "Dispositivo seleccionado",
+  "screenAudioDisconnected": "{name} (sin conectar)"
+}

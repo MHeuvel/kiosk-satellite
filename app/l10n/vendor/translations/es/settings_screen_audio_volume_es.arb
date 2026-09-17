@@ -1,0 +1,14 @@
+{
+  "@@locale": "es",
+  "settingMediaVolumeTitle": "Volumen multimedia",
+  "settingMediaVolumeDescription": "La música y los videos se reproducen a esta proporción del volumen principal. El volumen del reproductor Sendspin en Music Assistant mueve este control.",
+  "settingAssistantVolumeTitle": "Volumen del asistente",
+  "settingAssistantVolumeDescription": "Las respuestas de voz y los sonidos se reproducen a esta proporción del volumen principal, independientemente del volumen multimedia.",
+  "settingAssistantFullVolumeRangeTitle": "Rango completo del volumen del asistente",
+  "settingAssistantFullVolumeRangeDescription": "Establece el volumen de llamadas del altavoz integrado al 100 % cuando se inicia el audio del asistente por primera vez. El volumen principal y el del asistente siguen aplicándose. Otras aplicaciones comparten este volumen de llamadas, que no se restaura después.",
+  "settingIntercomVolumeTitle": "Volumen del intercomunicador",
+  "settingIntercomVolumeDescription": "La voz y los anuncios del otro kiosko se reproducen a esta proporción del volumen principal.",
+  "screenAudioVolume": "Volumen de audio",
+  "screenAudioMasterVolume": "Volumen principal",
+  "screenAudioMasterHelp": "Volumen del dispositivo. Los volúmenes multimedia, del intercomunicador y del asistente se ajustan en proporción a este."
+}
