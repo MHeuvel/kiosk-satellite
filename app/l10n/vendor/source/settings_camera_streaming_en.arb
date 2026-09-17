@@ -1,0 +1,515 @@
+{
+  "@@locale": "en",
+  "settingCameraRtspEnabledTitle": "Enable camera streaming",
+  "@settingCameraRtspEnabledTitle": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspEnabledDescription": "Share H.264 video with RTSP or ONVIF clients. Video encoding runs only while a viewer is connected. Hardware encoding is preferred with software fallback when needed. Uses the camera selected in Camera settings.",
+  "@settingCameraRtspEnabledDescription": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraStreamingProtocolTitle": "Streaming protocol",
+  "@settingCameraStreamingProtocolTitle": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraStreamingProtocolDescription": "ONVIF lets compatible clients discover the camera and connect to its stream.",
+  "@settingCameraStreamingProtocolDescription": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspPortTitle": "Port",
+  "@settingCameraRtspPortTitle": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspPortDescription": "RTSP server port.",
+  "@settingCameraRtspPortDescription": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraOnvifPortTitle": "Port",
+  "@settingCameraOnvifPortTitle": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraOnvifPortDescription": "ONVIF server port.",
+  "@settingCameraOnvifPortDescription": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspResolutionTitle": "Resolution",
+  "@settingCameraRtspResolutionTitle": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspResolutionDescription": "Supported streaming sizes for the selected camera and encoder. Video follows the device orientation.",
+  "@settingCameraRtspResolutionDescription": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspAnalysisTitle": "Motion analysis while streaming",
+  "@settingCameraRtspAnalysisTitle": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspAnalysisDescription": "Keep motion detection, face detection and hand gestures available while viewers are connected. Turning this off can allow higher resolutions. Snapshots then use video frames at the streaming resolution.",
+  "@settingCameraRtspAnalysisDescription": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspFpsTitle": "Frame rate",
+  "@settingCameraRtspFpsTitle": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspFpsDescription": "Target video frames per second. Motion keeps its separate analysis rate. Actual delivery depends on the camera.",
+  "@settingCameraRtspFpsDescription": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspBitrateTitle": "Bitrate",
+  "@settingCameraRtspBitrateTitle": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspBitrateDescription": "Target video bitrate. Higher improves detail and uses more network bandwidth.",
+  "@settingCameraRtspBitrateDescription": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspAudioTitle": "Include microphone audio",
+  "@settingCameraRtspAudioTitle": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspAudioDescription": "Include microphone audio in the camera stream. Shares your microphone settings. WARNING: Increased CPU usage.",
+  "@settingCameraRtspAudioDescription": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspAuthTitle": "Require authentication",
+  "@settingCameraRtspAuthTitle": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspAuthDescription": "Require a username and password to view the stream. Streaming traffic is not encrypted.",
+  "@settingCameraRtspAuthDescription": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspUsernameTitle": "Username",
+  "@settingCameraRtspUsernameTitle": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspUsernameDescription": "Username for streaming clients.",
+  "@settingCameraRtspUsernameDescription": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspPasswordTitle": "Password",
+  "@settingCameraRtspPasswordTitle": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspPasswordDescription": "Set a password to start the authenticated stream.",
+  "@settingCameraRtspPasswordDescription": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "cameraStreamingPage": "RTSP & ONVIF Streaming",
+  "@cameraStreamingPage": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "cameraStreamingHint": "Share the device camera via RTSP or ONVIF",
+  "@cameraStreamingHint": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "cameraPortError": "Enter a whole port number from 1024 to 65535.",
+  "@cameraPortError": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "cameraUsernameError": "Use 1 to 64 characters without spaces, quotes, colons or backslashes.",
+  "@cameraUsernameError": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "cameraNoSizes": "No supported sizes available",
+  "@cameraNoSizes": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "cameraNoSizesHelp": "No supported sizes available. Check the camera connection.",
+  "@cameraNoSizesHelp": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "cameraResolutionSupport": "Resolution support",
+  "@cameraResolutionSupport": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "cameraCheckingSizes": "Checking camera and H.264 encoder support...",
+  "@cameraCheckingSizes": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "cameraSupportedSizes": "Only sizes supported by the camera and H.264 encoder at the current streaming settings are listed.",
+  "@cameraSupportedSizes": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "cameraExtraSizes": "Turn off Motion analysis while streaming to also use {sizes}.",
+  "@cameraExtraSizes": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    },
+    "placeholders": {
+      "sizes": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraAnalysisOff": "Motion detection, face detection and hand gestures pause while viewers are connected. Snapshots use video frames at the streaming resolution.",
+  "@cameraAnalysisOff": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "cameraRejectedSizes": "The encoder cannot use {sizes} at these settings.",
+  "@cameraRejectedSizes": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    },
+    "placeholders": {
+      "sizes": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraRejectedCount": "{count} camera sizes are excluded because the encoder cannot use them at these settings.",
+  "@cameraRejectedCount": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraCaptureRejected": "Other camera sizes are unavailable in the current capture setup.",
+  "@cameraCaptureRejected": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  }
+}

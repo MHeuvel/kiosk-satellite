@@ -1,0 +1,11 @@
+{
+  "@@locale": "es",
+  "cameraNoCamera": "No se detectó ninguna cámara",
+  "cameraNoCameraHelp": "Este dispositivo no informa de ninguna cámara utilizable.",
+  "cameraCameraPermission": "Falta el permiso de cámara",
+  "cameraCameraPermissionHelp": "Sin este permiso no se puede usar la cámara. El diálogo para concederlo aparece en la pantalla de la tableta.",
+  "cameraGrantOnDevice": "Conceder en el dispositivo",
+  "cameraCameraBlocked": "Bloqueado. Android no volverá a preguntar. Permítelo en la configuración de la aplicación.",
+  "cameraCameraNeeded": "Sin este permiso no se puede usar la cámara.",
+  "cameraAppSettings": "Configuración de la aplicación"
+}

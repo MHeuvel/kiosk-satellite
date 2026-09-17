@@ -693,7 +693,7 @@
       ]
     }
   },
-  "settingCameraEnabledTitle": "Enable camera",
+  "settingCameraEnabledTitle": "Activar cámara",
   "@settingCameraEnabledTitle": {
     "context": "Settings > Camera",
     "description": "Setting label.",
@@ -706,7 +706,7 @@
       ]
     }
   },
-  "settingCameraEnabledDescription": "Camera use adds CPU load and heat, which can shorten the battery and device lifespan.",
+  "settingCameraEnabledDescription": "El uso de la cámara aumenta la carga de CPU y el calor, lo que puede reducir la vida útil de la batería y del dispositivo.",
   "@settingCameraEnabledDescription": {
     "context": "Settings > Camera",
     "description": "Help below this setting.",
@@ -719,7 +719,7 @@
       ]
     }
   },
-  "settingCameraDeviceTitle": "Camera",
+  "settingCameraDeviceTitle": "Cámara",
   "@settingCameraDeviceTitle": {
     "context": "Settings > Camera",
     "description": "Setting label.",
@@ -732,7 +732,7 @@
       ]
     }
   },
-  "settingCameraDeviceDescription": "Which camera to use.",
+  "settingCameraDeviceDescription": "Cámara que se usará.",
   "@settingCameraDeviceDescription": {
     "context": "Settings > Camera",
     "description": "Help below this setting.",
@@ -745,7 +745,7 @@
       ]
     }
   },
-  "settingCameraSnapshotResolutionTitle": "Snapshot resolution",
+  "settingCameraSnapshotResolutionTitle": "Resolución de las capturas",
   "@settingCameraSnapshotResolutionTitle": {
     "context": "Settings > Camera",
     "description": "Setting label.",
@@ -758,7 +758,7 @@
       ]
     }
   },
-  "settingCameraSnapshotResolutionDescription": "Higher looks sharper but costs more CPU and bandwidth.",
+  "settingCameraSnapshotResolutionDescription": "Una resolución mayor mejora la nitidez, pero consume más CPU y ancho de banda.",
   "@settingCameraSnapshotResolutionDescription": {
     "context": "Settings > Camera",
     "description": "Help below this setting.",
@@ -771,7 +771,7 @@
       ]
     }
   },
-  "settingCameraDisableDetectionSnapshotsTitle": "Disable snapshots on detection",
+  "settingCameraDisableDetectionSnapshotsTitle": "Desactivar capturas al detectar actividad",
   "@settingCameraDisableDetectionSnapshotsTitle": {
     "context": "Settings > Camera",
     "description": "Setting label.",
@@ -784,7 +784,7 @@
       ]
     }
   },
-  "settingCameraDisableDetectionSnapshotsDescription": "Prevent automatic snapshots triggered by detection. Motion, face, presence and gesture detection keep working. Manual requests and Continuous snapshots can still capture images.",
+  "settingCameraDisableDetectionSnapshotsDescription": "Evita las capturas automáticas por detección. La detección de movimiento, rostros, presencia y gestos sigue funcionando. Las solicitudes manuales y las capturas continuas pueden seguir tomando imágenes.",
   "@settingCameraDisableDetectionSnapshotsDescription": {
     "context": "Settings > Camera",
     "description": "Help below this setting.",
@@ -797,7 +797,7 @@
       ]
     }
   },
-  "settingCameraSnapshotsTitle": "Continuous snapshots",
+  "settingCameraSnapshotsTitle": "Capturas continuas",
   "@settingCameraSnapshotsTitle": {
     "context": "Settings > Camera",
     "description": "Setting label.",
@@ -810,7 +810,7 @@
       ]
     }
   },
-  "settingCameraSnapshotsDescription": "Publish a fresh camera snapshot to Home Assistant at a fixed interval.",
+  "settingCameraSnapshotsDescription": "Publica una nueva captura de la cámara en Home Assistant a intervalos fijos.",
   "@settingCameraSnapshotsDescription": {
     "context": "Settings > Camera",
     "description": "Help below this setting.",
@@ -823,7 +823,7 @@
       ]
     }
   },
-  "settingCameraSnapshotIntervalTitle": "Snapshot interval",
+  "settingCameraSnapshotIntervalTitle": "Intervalo entre capturas",
   "@settingCameraSnapshotIntervalTitle": {
     "context": "Settings > Camera",
     "description": "Setting label.",
@@ -836,7 +836,7 @@
       ]
     }
   },
-  "settingCameraSnapshotIntervalDescription": "Seconds between snapshots.",
+  "settingCameraSnapshotIntervalDescription": "Segundos entre capturas.",
   "@settingCameraSnapshotIntervalDescription": {
     "context": "Settings > Camera",
     "description": "Help below this setting.",
@@ -849,7 +849,7 @@
       ]
     }
   },
-  "cameraFront": "Front",
+  "cameraFront": "Frontal",
   "@cameraFront": {
     "context": "Settings > Camera",
     "description": "Label or guidance in this section.",
@@ -862,7 +862,7 @@
       ]
     }
   },
-  "cameraBack": "Back",
+  "cameraBack": "Trasera",
   "@cameraBack": {
     "context": "Settings > Camera",
     "description": "Label or guidance in this section.",
@@ -875,7 +875,7 @@
       ]
     }
   },
-  "cameraOnlyCamera": "The only camera this device has.",
+  "cameraOnlyCamera": "La única cámara de este dispositivo.",
   "@cameraOnlyCamera": {
     "context": "Settings > Camera",
     "description": "Label or guidance in this section.",
@@ -888,7 +888,7 @@
       ]
     }
   },
-  "settingMotionSensorTitle": "Motion sensor",
+  "settingMotionSensorTitle": "Sensor de movimiento",
   "@settingMotionSensorTitle": {
     "context": "Settings > Camera > Motion Sensor",
     "description": "Setting label.",
@@ -901,7 +901,7 @@
       ]
     }
   },
-  "settingMotionSensorDescription": "Expose motion as a Home Assistant sensor. WARNING: Keeps the camera running permanently, even with the screen off.",
+  "settingMotionSensorDescription": "Publica el movimiento como un sensor de Home Assistant. ADVERTENCIA: Mantiene la cámara encendida permanentemente, incluso con la pantalla apagada.",
   "@settingMotionSensorDescription": {
     "context": "Settings > Camera > Motion Sensor",
     "description": "Help below this setting.",
@@ -914,7 +914,7 @@
       ]
     }
   },
-  "settingMotionSensorOffDelayTitle": "Clear after",
+  "settingMotionSensorOffDelayTitle": "Dejar de detectar después de",
   "@settingMotionSensorOffDelayTitle": {
     "context": "Settings > Camera > Motion Sensor",
     "description": "Setting label.",
@@ -927,7 +927,7 @@
       ]
     }
   },
-  "settingMotionSensorOffDelayDescription": "Seconds without motion before the sensor reads clear.",
+  "settingMotionSensorOffDelayDescription": "Segundos sin movimiento antes de que el sensor deje de indicar movimiento.",
   "@settingMotionSensorOffDelayDescription": {
     "context": "Settings > Camera > Motion Sensor",
     "description": "Help below this setting.",
@@ -940,7 +940,7 @@
       ]
     }
   },
-  "settingMotionFpsTitle": "Motion frame rate",
+  "settingMotionFpsTitle": "Frecuencia de cuadros para detectar movimiento",
   "@settingMotionFpsTitle": {
     "context": "Settings > Camera > Motion Sensor",
     "description": "Setting label.",
@@ -953,7 +953,7 @@
       ]
     }
   },
-  "settingMotionFpsDescription": "Frames per second the camera checks for motion. Lower is lighter on the CPU; 2 is plenty to notice someone approaching.",
+  "settingMotionFpsDescription": "Cuadros por segundo que la cámara analiza para detectar movimiento. Un valor menor consume menos CPU. Con 2 es suficiente para detectar que alguien se acerca.",
   "@settingMotionFpsDescription": {
     "context": "Settings > Camera > Motion Sensor",
     "description": "Help below this setting.",
@@ -966,7 +966,7 @@
       ]
     }
   },
-  "settingMotionStartDelayTitle": "Startup delay",
+  "settingMotionStartDelayTitle": "Retraso de inicio",
   "@settingMotionStartDelayTitle": {
     "context": "Settings > Camera > Motion Sensor",
     "description": "Setting label.",
@@ -979,7 +979,7 @@
       ]
     }
   },
-  "settingMotionStartDelayDescription": "Ignore motion for this long after the camera starts, for devices whose camera physically moves as it opens.",
+  "settingMotionStartDelayDescription": "Ignora el movimiento durante este tiempo después de iniciar la cámara. Útil en dispositivos cuya cámara se mueve físicamente al abrirse.",
   "@settingMotionStartDelayDescription": {
     "context": "Settings > Camera > Motion Sensor",
     "description": "Help below this setting.",
@@ -992,7 +992,7 @@
       ]
     }
   },
-  "settingMotionSensitivityTitle": "Motion sensitivity",
+  "settingMotionSensitivityTitle": "Sensibilidad de movimiento",
   "@settingMotionSensitivityTitle": {
     "context": "Settings > Camera > Motion Sensor",
     "description": "Setting label.",
@@ -1005,7 +1005,7 @@
       ]
     }
   },
-  "settingMotionSensitivityDescription": "Higher trips on smaller movements. 1 needs a large change across the frame; 100 reacts to the slightest motion.",
+  "settingMotionSensitivityDescription": "Los valores más altos detectan movimientos más pequeños. El valor 1 requiere un cambio grande en la imagen. El valor 100 responde al movimiento más leve.",
   "@settingMotionSensitivityDescription": {
     "context": "Settings > Camera > Motion Sensor",
     "description": "Help below this setting.",
@@ -1018,7 +1018,7 @@
       ]
     }
   },
-  "cameraMotionPage": "Motion Sensor",
+  "cameraMotionPage": "Sensor de movimiento",
   "@cameraMotionPage": {
     "context": "Settings > Camera > Motion Sensor",
     "description": "Label or guidance in this section.",
@@ -1031,7 +1031,7 @@
       ]
     }
   },
-  "cameraMotionHint": "Home Assistant motion sensor and shared detection settings",
+  "cameraMotionHint": "Sensor de movimiento de Home Assistant y ajustes compartidos de detección",
   "@cameraMotionHint": {
     "context": "Settings > Camera > Motion Sensor",
     "description": "Label or guidance in this section.",
@@ -1044,7 +1044,7 @@
       ]
     }
   },
-  "cameraNoCamera": "No camera detected",
+  "cameraNoCamera": "No se detectó ninguna cámara",
   "@cameraNoCamera": {
     "context": "Settings > Camera > Enable camera",
     "description": "Label or guidance in this section.",
@@ -1057,7 +1057,7 @@
       ]
     }
   },
-  "cameraNoCameraHelp": "This device does not report any usable camera.",
+  "cameraNoCameraHelp": "Este dispositivo no informa de ninguna cámara utilizable.",
   "@cameraNoCameraHelp": {
     "context": "Settings > Camera > Enable camera",
     "description": "Label or guidance in this section.",
@@ -1070,7 +1070,7 @@
       ]
     }
   },
-  "cameraCameraPermission": "Camera permission missing",
+  "cameraCameraPermission": "Falta el permiso de cámara",
   "@cameraCameraPermission": {
     "context": "Settings > Camera > Enable camera",
     "description": "Label or guidance in this section.",
@@ -1083,7 +1083,7 @@
       ]
     }
   },
-  "cameraCameraPermissionHelp": "Without it the camera cannot be used. The grant dialog appears on the tablet screen.",
+  "cameraCameraPermissionHelp": "Sin este permiso no se puede usar la cámara. El diálogo para concederlo aparece en la pantalla de la tableta.",
   "@cameraCameraPermissionHelp": {
     "context": "Settings > Camera > Enable camera",
     "description": "Label or guidance in this section.",
@@ -1096,7 +1096,7 @@
       ]
     }
   },
-  "cameraGrantOnDevice": "Grant on device",
+  "cameraGrantOnDevice": "Conceder en el dispositivo",
   "@cameraGrantOnDevice": {
     "context": "Settings > Camera > Enable camera",
     "description": "Label or guidance in this section.",
@@ -1109,7 +1109,7 @@
       ]
     }
   },
-  "cameraCameraBlocked": "Blocked. Android will not ask again, so allow it in the app settings.",
+  "cameraCameraBlocked": "Bloqueado. Android no volverá a preguntar. Permítelo en la configuración de la aplicación.",
   "@cameraCameraBlocked": {
     "context": "Settings > Camera > Enable camera",
     "description": "Label or guidance in this section.",
@@ -1122,7 +1122,7 @@
       ]
     }
   },
-  "cameraCameraNeeded": "Without this the camera cannot be used.",
+  "cameraCameraNeeded": "Sin este permiso no se puede usar la cámara.",
   "@cameraCameraNeeded": {
     "context": "Settings > Camera > Enable camera",
     "description": "Label or guidance in this section.",
@@ -1135,7 +1135,7 @@
       ]
     }
   },
-  "cameraAppSettings": "App settings",
+  "cameraAppSettings": "Configuración de la aplicación",
   "@cameraAppSettings": {
     "context": "Settings > Camera > Enable camera",
     "description": "Label or guidance in this section.",
@@ -1148,7 +1148,7 @@
       ]
     }
   },
-  "cameraLatest": "Latest snapshot",
+  "cameraLatest": "Última captura",
   "@cameraLatest": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
@@ -1159,7 +1159,7 @@
       ]
     }
   },
-  "cameraNoSnapshot": "No snapshot yet.",
+  "cameraNoSnapshot": "Aún no hay capturas.",
   "@cameraNoSnapshot": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
@@ -1170,7 +1170,7 @@
       ]
     }
   },
-  "cameraImageAlt": "Latest camera snapshot",
+  "cameraImageAlt": "Última captura de la cámara",
   "@cameraImageAlt": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
@@ -1181,7 +1181,7 @@
       ]
     }
   },
-  "cameraTakeSnapshot": "Take snapshot",
+  "cameraTakeSnapshot": "Tomar captura",
   "@cameraTakeSnapshot": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
@@ -1192,7 +1192,7 @@
       ]
     }
   },
-  "cameraSnapshotFailed": "Snapshot failed.",
+  "cameraSnapshotFailed": "No se pudo tomar la captura.",
   "@cameraSnapshotFailed": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
@@ -1203,7 +1203,7 @@
       ]
     }
   },
-  "cameraSnapshotError": "Snapshot failed: {error}",
+  "cameraSnapshotError": "No se pudo tomar la captura: {error}",
   "@cameraSnapshotError": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
@@ -1220,7 +1220,7 @@
       }
     }
   },
-  "cameraCameraDisabled": "The camera is disabled in the Camera settings.",
+  "cameraCameraDisabled": "La cámara está desactivada en la configuración de Cámara.",
   "@cameraCameraDisabled": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
@@ -1231,7 +1231,7 @@
       ]
     }
   },
-  "cameraSnapshotBusy": "A snapshot is already in progress.",
+  "cameraSnapshotBusy": "Ya hay una captura en curso.",
   "@cameraSnapshotBusy": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
@@ -1242,7 +1242,7 @@
       ]
     }
   },
-  "cameraPermissionDenied": "Camera permission not granted.",
+  "cameraPermissionDenied": "No se ha concedido el permiso de cámara.",
   "@cameraPermissionDenied": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
@@ -1253,7 +1253,7 @@
       ]
     }
   },
-  "cameraDetectionDisabled": "Detection snapshots are disabled.",
+  "cameraDetectionDisabled": "Las capturas por detección están desactivadas.",
   "@cameraDetectionDisabled": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
@@ -1264,7 +1264,7 @@
       ]
     }
   },
-  "cameraNoImage": "The camera returned no image.",
+  "cameraNoImage": "La cámara no devolvió ninguna imagen.",
   "@cameraNoImage": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
@@ -1275,7 +1275,7 @@
       ]
     }
   },
-  "cameraTimedOut": "The camera did not answer in time.",
+  "cameraTimedOut": "La cámara no respondió a tiempo.",
   "@cameraTimedOut": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
@@ -1286,7 +1286,7 @@
       ]
     }
   },
-  "cameraBackground": "The camera is unavailable while the app is in the background.",
+  "cameraBackground": "La cámara no está disponible mientras la aplicación está en segundo plano.",
   "@cameraBackground": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
@@ -1297,7 +1297,7 @@
       ]
     }
   },
-  "cameraJustNow": "just now",
+  "cameraJustNow": "hace un momento",
   "@cameraJustNow": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
@@ -1308,7 +1308,7 @@
       ]
     }
   },
-  "cameraSecondsAgo": "{count} seconds ago",
+  "cameraSecondsAgo": "hace {count} segundos",
   "@cameraSecondsAgo": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
@@ -1325,7 +1325,7 @@
       }
     }
   },
-  "cameraMinuteAgo": "1 minute ago",
+  "cameraMinuteAgo": "hace 1 minuto",
   "@cameraMinuteAgo": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
@@ -1336,7 +1336,7 @@
       ]
     }
   },
-  "cameraMinutesAgo": "{count} minutes ago",
+  "cameraMinutesAgo": "hace {count} minutos",
   "@cameraMinutesAgo": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
@@ -1353,7 +1353,7 @@
       }
     }
   },
-  "cameraHourAgo": "1 hour ago",
+  "cameraHourAgo": "hace 1 hora",
   "@cameraHourAgo": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
@@ -1364,7 +1364,7 @@
       ]
     }
   },
-  "cameraHoursAgo": "{count} hours ago",
+  "cameraHoursAgo": "hace {count} horas",
   "@cameraHoursAgo": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
@@ -1381,7 +1381,7 @@
       }
     }
   },
-  "cameraDayAgo": "1 day ago",
+  "cameraDayAgo": "hace 1 día",
   "@cameraDayAgo": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
@@ -1392,7 +1392,7 @@
       ]
     }
   },
-  "cameraDaysAgo": "{count} days ago",
+  "cameraDaysAgo": "hace {count} días",
   "@cameraDaysAgo": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
@@ -1409,7 +1409,7 @@
       }
     }
   },
-  "cameraStatusHeading": "Stream Status",
+  "cameraStatusHeading": "Estado de la transmisión",
   "@cameraStatusHeading": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
     "description": "Label or guidance in this section.",
@@ -1422,7 +1422,7 @@
       ]
     }
   },
-  "cameraClientsHeading": "Connected Clients",
+  "cameraClientsHeading": "Clientes conectados",
   "@cameraClientsHeading": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
     "description": "Label or guidance in this section.",
@@ -1435,7 +1435,7 @@
       ]
     }
   },
-  "cameraUnavailable": "Unavailable",
+  "cameraUnavailable": "No disponible",
   "@cameraUnavailable": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
     "description": "Label or guidance in this section.",
@@ -1448,7 +1448,7 @@
       ]
     }
   },
-  "cameraStopped": "Stopped",
+  "cameraStopped": "Detenida",
   "@cameraStopped": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
     "description": "Label or guidance in this section.",
@@ -1461,7 +1461,7 @@
       ]
     }
   },
-  "cameraStreaming": "Streaming",
+  "cameraStreaming": "Transmitiendo",
   "@cameraStreaming": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
     "description": "Label or guidance in this section.",
@@ -1474,7 +1474,7 @@
       ]
     }
   },
-  "cameraIdle": "Idle",
+  "cameraIdle": "En espera",
   "@cameraIdle": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
     "description": "Label or guidance in this section.",
@@ -1487,7 +1487,7 @@
       ]
     }
   },
-  "cameraConnected": "Connected",
+  "cameraConnected": "Conectado",
   "@cameraConnected": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
     "description": "Label or guidance in this section.",
@@ -1500,7 +1500,7 @@
       ]
     }
   },
-  "cameraChecking": "Checking...",
+  "cameraChecking": "Comprobando...",
   "@cameraChecking": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
     "description": "Label or guidance in this section.",
@@ -1513,7 +1513,7 @@
       ]
     }
   },
-  "cameraCheckingStatus": "Checking stream status...",
+  "cameraCheckingStatus": "Comprobando el estado de la transmisión...",
   "@cameraCheckingStatus": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
     "description": "Label or guidance in this section.",
@@ -1526,7 +1526,7 @@
       ]
     }
   },
-  "cameraStatusUnavailable": "Stream status unavailable.",
+  "cameraStatusUnavailable": "Estado de la transmisión no disponible.",
   "@cameraStatusUnavailable": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
     "description": "Label or guidance in this section.",
@@ -1539,7 +1539,7 @@
       ]
     }
   },
-  "cameraListenerStopped": "Listener is stopped.",
+  "cameraListenerStopped": "El servidor está detenido.",
   "@cameraListenerStopped": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
     "description": "Label or guidance in this section.",
@@ -1552,7 +1552,7 @@
       ]
     }
   },
-  "cameraViewer": "{count} connected viewer. Actual video: {resolution}.",
+  "cameraViewer": "{count} espectador conectado. Video real: {resolution}.",
   "@cameraViewer": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
     "description": "Label or guidance in this section.",
@@ -1575,7 +1575,7 @@
       }
     }
   },
-  "cameraViewers": "{count} connected viewers. Actual video: {resolution}.",
+  "cameraViewers": "{count} espectadores conectados. Video real: {resolution}.",
   "@cameraViewers": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
     "description": "Label or guidance in this section.",
@@ -1598,7 +1598,7 @@
       }
     }
   },
-  "cameraReady": "Ready. The encoder starts when a viewer connects.",
+  "cameraReady": "Listo. El codificador se inicia cuando se conecta un espectador.",
   "@cameraReady": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
     "description": "Label or guidance in this section.",
@@ -1611,7 +1611,7 @@
       ]
     }
   },
-  "cameraFallback": "Requested {requested}, camera supplied {actual}.",
+  "cameraFallback": "Se solicitó {requested} y la cámara proporcionó {actual}.",
   "@cameraFallback": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
     "description": "Label or guidance in this section.",
@@ -1653,7 +1653,7 @@
       }
     }
   },
-  "cameraAudioPaused": "Audio paused while the browser uses the microphone.",
+  "cameraAudioPaused": "Audio en pausa mientras el navegador usa el micrófono.",
   "@cameraAudioPaused": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
     "description": "Label or guidance in this section.",
@@ -1666,7 +1666,7 @@
       ]
     }
   },
-  "cameraAudioStreaming": "Microphone audio streaming.",
+  "cameraAudioStreaming": "Transmitiendo audio del micrófono.",
   "@cameraAudioStreaming": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
     "description": "Label or guidance in this section.",
@@ -1679,7 +1679,7 @@
       ]
     }
   },
-  "cameraAudioIdle": "Microphone audio idle.",
+  "cameraAudioIdle": "Audio del micrófono en espera.",
   "@cameraAudioIdle": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
     "description": "Label or guidance in this section.",
@@ -1692,7 +1692,7 @@
       ]
     }
   },
-  "cameraDiscoveryError": "ONVIF discovery: {error}",
+  "cameraDiscoveryError": "Detección ONVIF: {error}",
   "@cameraDiscoveryError": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
     "description": "Label or guidance in this section.",
@@ -1711,7 +1711,7 @@
       }
     }
   },
-  "cameraOnvifUrl": "ONVIF URL",
+  "cameraOnvifUrl": "URL de ONVIF",
   "@cameraOnvifUrl": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
     "description": "Label or guidance in this section.",
@@ -1724,7 +1724,7 @@
       ]
     }
   },
-  "cameraStreamUrl": "Stream URL",
+  "cameraStreamUrl": "URL de la transmisión",
   "@cameraStreamUrl": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
     "description": "Label or guidance in this section.",
@@ -1737,7 +1737,7 @@
       ]
     }
   },
-  "cameraWaitingAddress": "Waiting for a network address",
+  "cameraWaitingAddress": "Esperando una dirección de red",
   "@cameraWaitingAddress": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
     "description": "Label or guidance in this section.",
@@ -1750,7 +1750,7 @@
       ]
     }
   },
-  "cameraClientsUnavailable": "Client information unavailable.",
+  "cameraClientsUnavailable": "Información de clientes no disponible.",
   "@cameraClientsUnavailable": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
     "description": "Label or guidance in this section.",
@@ -1763,7 +1763,7 @@
       ]
     }
   },
-  "cameraNoClients": "No connected clients.",
+  "cameraNoClients": "No hay clientes conectados.",
   "@cameraNoClients": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
     "description": "Label or guidance in this section.",
@@ -1776,7 +1776,7 @@
       ]
     }
   },
-  "cameraClientDetails": "{status} · {transport} · Port {port}",
+  "cameraClientDetails": "{status} · {transport} · Puerto {port}",
   "@cameraClientDetails": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
     "description": "Label or guidance in this section.",
@@ -1803,7 +1803,7 @@
       }
     }
   },
-  "cameraConnectedFor": "Connected for {duration}",
+  "cameraConnectedFor": "Conectado durante {duration}",
   "@cameraConnectedFor": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
     "description": "Label or guidance in this section.",
@@ -1822,7 +1822,7 @@
       }
     }
   },
-  "cameraDurationSeconds": "{seconds}s",
+  "cameraDurationSeconds": "{seconds} s",
   "@cameraDurationSeconds": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
     "description": "Label or guidance in this section.",
@@ -1841,7 +1841,7 @@
       }
     }
   },
-  "cameraDurationMinutes": "{minutes}m {seconds}s",
+  "cameraDurationMinutes": "{minutes} min {seconds} s",
   "@cameraDurationMinutes": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
     "description": "Label or guidance in this section.",
@@ -1864,7 +1864,7 @@
       }
     }
   },
-  "cameraDurationHours": "{hours}h {minutes}m",
+  "cameraDurationHours": "{hours} h {minutes} min",
   "@cameraDurationHours": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
     "description": "Label or guidance in this section.",
@@ -1887,7 +1887,7 @@
       }
     }
   },
-  "cameraCredentialsMissing": "Set a streaming username and password to enable authentication.",
+  "cameraCredentialsMissing": "Establece un nombre de usuario y una contraseña de transmisión para activar la autenticación.",
   "@cameraCredentialsMissing": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
     "description": "Label or guidance in this section.",
@@ -1900,7 +1900,7 @@
       ]
     }
   },
-  "cameraPortWaiting": "Waiting for the RTSP port to be released.",
+  "cameraPortWaiting": "Esperando a que se libere el puerto RTSP.",
   "@cameraPortWaiting": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
     "description": "Label or guidance in this section.",
@@ -1913,7 +1913,7 @@
       ]
     }
   },
-  "cameraListenerFailed": "Could not start the RTSP listener.",
+  "cameraListenerFailed": "No se pudo iniciar el servidor RTSP.",
   "@cameraListenerFailed": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
     "description": "Label or guidance in this section.",
@@ -1926,7 +1926,7 @@
       ]
     }
   },
-  "settingCameraRtspEnabledTitle": "Enable camera streaming",
+  "settingCameraRtspEnabledTitle": "Activar transmisión de la cámara",
   "@settingCameraRtspEnabledTitle": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Setting label.",
@@ -1939,7 +1939,7 @@
       ]
     }
   },
-  "settingCameraRtspEnabledDescription": "Share H.264 video with RTSP or ONVIF clients. Video encoding runs only while a viewer is connected. Hardware encoding is preferred with software fallback when needed. Uses the camera selected in Camera settings.",
+  "settingCameraRtspEnabledDescription": "Comparte video H.264 con clientes RTSP u ONVIF. El video se codifica solo mientras hay un espectador conectado. Se prefiere la codificación por hardware y se usa software cuando es necesario. Usa la cámara elegida en la configuración de Cámara.",
   "@settingCameraRtspEnabledDescription": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Help below this setting.",
@@ -1952,7 +1952,7 @@
       ]
     }
   },
-  "settingCameraStreamingProtocolTitle": "Streaming protocol",
+  "settingCameraStreamingProtocolTitle": "Protocolo de transmisión",
   "@settingCameraStreamingProtocolTitle": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Setting label.",
@@ -1965,7 +1965,7 @@
       ]
     }
   },
-  "settingCameraStreamingProtocolDescription": "ONVIF lets compatible clients discover the camera and connect to its stream.",
+  "settingCameraStreamingProtocolDescription": "ONVIF permite que los clientes compatibles descubran la cámara y se conecten a su transmisión.",
   "@settingCameraStreamingProtocolDescription": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Help below this setting.",
@@ -1978,7 +1978,7 @@
       ]
     }
   },
-  "settingCameraRtspPortTitle": "Port",
+  "settingCameraRtspPortTitle": "Puerto",
   "@settingCameraRtspPortTitle": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Setting label.",
@@ -1991,7 +1991,7 @@
       ]
     }
   },
-  "settingCameraRtspPortDescription": "RTSP server port.",
+  "settingCameraRtspPortDescription": "Puerto del servidor RTSP.",
   "@settingCameraRtspPortDescription": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Help below this setting.",
@@ -2004,7 +2004,7 @@
       ]
     }
   },
-  "settingCameraOnvifPortTitle": "Port",
+  "settingCameraOnvifPortTitle": "Puerto",
   "@settingCameraOnvifPortTitle": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Setting label.",
@@ -2017,7 +2017,7 @@
       ]
     }
   },
-  "settingCameraOnvifPortDescription": "ONVIF server port.",
+  "settingCameraOnvifPortDescription": "Puerto del servidor ONVIF.",
   "@settingCameraOnvifPortDescription": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Help below this setting.",
@@ -2030,7 +2030,7 @@
       ]
     }
   },
-  "settingCameraRtspResolutionTitle": "Resolution",
+  "settingCameraRtspResolutionTitle": "Resolución",
   "@settingCameraRtspResolutionTitle": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Setting label.",
@@ -2043,7 +2043,7 @@
       ]
     }
   },
-  "settingCameraRtspResolutionDescription": "Supported streaming sizes for the selected camera and encoder. Video follows the device orientation.",
+  "settingCameraRtspResolutionDescription": "Tamaños de transmisión compatibles con la cámara y el codificador elegidos. El video sigue la orientación del dispositivo.",
   "@settingCameraRtspResolutionDescription": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Help below this setting.",
@@ -2056,7 +2056,7 @@
       ]
     }
   },
-  "settingCameraRtspAnalysisTitle": "Motion analysis while streaming",
+  "settingCameraRtspAnalysisTitle": "Analizar movimiento durante la transmisión",
   "@settingCameraRtspAnalysisTitle": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Setting label.",
@@ -2069,7 +2069,7 @@
       ]
     }
   },
-  "settingCameraRtspAnalysisDescription": "Keep motion detection, face detection and hand gestures available while viewers are connected. Turning this off can allow higher resolutions. Snapshots then use video frames at the streaming resolution.",
+  "settingCameraRtspAnalysisDescription": "Mantiene disponibles la detección de movimiento, rostros y gestos de manos mientras hay espectadores conectados. Desactivarlo puede permitir resoluciones mayores. Las capturas usan entonces cuadros de video con la resolución de transmisión.",
   "@settingCameraRtspAnalysisDescription": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Help below this setting.",
@@ -2082,7 +2082,7 @@
       ]
     }
   },
-  "settingCameraRtspFpsTitle": "Frame rate",
+  "settingCameraRtspFpsTitle": "Frecuencia de cuadros",
   "@settingCameraRtspFpsTitle": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Setting label.",
@@ -2095,7 +2095,7 @@
       ]
     }
   },
-  "settingCameraRtspFpsDescription": "Target video frames per second. Motion keeps its separate analysis rate. Actual delivery depends on the camera.",
+  "settingCameraRtspFpsDescription": "Cuadros de video por segundo deseados. El movimiento conserva su frecuencia de análisis independiente. La frecuencia real depende de la cámara.",
   "@settingCameraRtspFpsDescription": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Help below this setting.",
@@ -2108,7 +2108,7 @@
       ]
     }
   },
-  "settingCameraRtspBitrateTitle": "Bitrate",
+  "settingCameraRtspBitrateTitle": "Tasa de bits",
   "@settingCameraRtspBitrateTitle": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Setting label.",
@@ -2121,7 +2121,7 @@
       ]
     }
   },
-  "settingCameraRtspBitrateDescription": "Target video bitrate. Higher improves detail and uses more network bandwidth.",
+  "settingCameraRtspBitrateDescription": "Tasa de bits de video deseada. Un valor mayor mejora el detalle y consume más ancho de banda.",
   "@settingCameraRtspBitrateDescription": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Help below this setting.",
@@ -2134,7 +2134,7 @@
       ]
     }
   },
-  "settingCameraRtspAudioTitle": "Include microphone audio",
+  "settingCameraRtspAudioTitle": "Incluir audio del micrófono",
   "@settingCameraRtspAudioTitle": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Setting label.",
@@ -2147,7 +2147,7 @@
       ]
     }
   },
-  "settingCameraRtspAudioDescription": "Include microphone audio in the camera stream. Shares your microphone settings. WARNING: Increased CPU usage.",
+  "settingCameraRtspAudioDescription": "Incluye audio del micrófono en la transmisión de la cámara. Usa la configuración del micrófono. ADVERTENCIA: Aumenta el consumo de CPU.",
   "@settingCameraRtspAudioDescription": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Help below this setting.",
@@ -2160,7 +2160,7 @@
       ]
     }
   },
-  "settingCameraRtspAuthTitle": "Require authentication",
+  "settingCameraRtspAuthTitle": "Exigir autenticación",
   "@settingCameraRtspAuthTitle": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Setting label.",
@@ -2173,7 +2173,7 @@
       ]
     }
   },
-  "settingCameraRtspAuthDescription": "Require a username and password to view the stream. Streaming traffic is not encrypted.",
+  "settingCameraRtspAuthDescription": "Exige un nombre de usuario y una contraseña para ver la transmisión. El tráfico de la transmisión no está cifrado.",
   "@settingCameraRtspAuthDescription": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Help below this setting.",
@@ -2186,7 +2186,7 @@
       ]
     }
   },
-  "settingCameraRtspUsernameTitle": "Username",
+  "settingCameraRtspUsernameTitle": "Nombre de usuario",
   "@settingCameraRtspUsernameTitle": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Setting label.",
@@ -2199,7 +2199,7 @@
       ]
     }
   },
-  "settingCameraRtspUsernameDescription": "Username for streaming clients.",
+  "settingCameraRtspUsernameDescription": "Nombre de usuario para los clientes de transmisión.",
   "@settingCameraRtspUsernameDescription": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Help below this setting.",
@@ -2212,7 +2212,7 @@
       ]
     }
   },
-  "settingCameraRtspPasswordTitle": "Password",
+  "settingCameraRtspPasswordTitle": "Contraseña",
   "@settingCameraRtspPasswordTitle": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Setting label.",
@@ -2225,7 +2225,7 @@
       ]
     }
   },
-  "settingCameraRtspPasswordDescription": "Set a password to start the authenticated stream.",
+  "settingCameraRtspPasswordDescription": "Establece una contraseña para iniciar la transmisión con autenticación.",
   "@settingCameraRtspPasswordDescription": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Help below this setting.",
@@ -2238,7 +2238,7 @@
       ]
     }
   },
-  "cameraStreamingPage": "RTSP & ONVIF Streaming",
+  "cameraStreamingPage": "Transmisión RTSP y ONVIF",
   "@cameraStreamingPage": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Label or guidance in this section.",
@@ -2251,7 +2251,7 @@
       ]
     }
   },
-  "cameraStreamingHint": "Share the device camera via RTSP or ONVIF",
+  "cameraStreamingHint": "Comparte la cámara del dispositivo mediante RTSP u ONVIF",
   "@cameraStreamingHint": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Label or guidance in this section.",
@@ -2264,7 +2264,7 @@
       ]
     }
   },
-  "cameraPortError": "Enter a whole port number from 1024 to 65535.",
+  "cameraPortError": "Introduce un número de puerto entero entre 1024 y 65535.",
   "@cameraPortError": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Label or guidance in this section.",
@@ -2277,7 +2277,7 @@
       ]
     }
   },
-  "cameraUsernameError": "Use 1 to 64 characters without spaces, quotes, colons or backslashes.",
+  "cameraUsernameError": "Usa entre 1 y 64 caracteres sin espacios, comillas, dos puntos ni barras invertidas.",
   "@cameraUsernameError": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Label or guidance in this section.",
@@ -2290,7 +2290,7 @@
       ]
     }
   },
-  "cameraNoSizes": "No supported sizes available",
+  "cameraNoSizes": "No hay tamaños compatibles disponibles",
   "@cameraNoSizes": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Label or guidance in this section.",
@@ -2303,7 +2303,7 @@
       ]
     }
   },
-  "cameraNoSizesHelp": "No supported sizes available. Check the camera connection.",
+  "cameraNoSizesHelp": "No hay tamaños compatibles disponibles. Revisa la conexión de la cámara.",
   "@cameraNoSizesHelp": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Label or guidance in this section.",
@@ -2316,7 +2316,7 @@
       ]
     }
   },
-  "cameraResolutionSupport": "Resolution support",
+  "cameraResolutionSupport": "Compatibilidad de resoluciones",
   "@cameraResolutionSupport": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Label or guidance in this section.",
@@ -2329,7 +2329,7 @@
       ]
     }
   },
-  "cameraCheckingSizes": "Checking camera and H.264 encoder support...",
+  "cameraCheckingSizes": "Comprobando la compatibilidad de la cámara y del codificador H.264...",
   "@cameraCheckingSizes": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Label or guidance in this section.",
@@ -2342,7 +2342,7 @@
       ]
     }
   },
-  "cameraSupportedSizes": "Only sizes supported by the camera and H.264 encoder at the current streaming settings are listed.",
+  "cameraSupportedSizes": "Solo se muestran los tamaños compatibles con la cámara y el codificador H.264 con la configuración actual de transmisión.",
   "@cameraSupportedSizes": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Label or guidance in this section.",
@@ -2355,7 +2355,7 @@
       ]
     }
   },
-  "cameraExtraSizes": "Turn off Motion analysis while streaming to also use {sizes}.",
+  "cameraExtraSizes": "Desactiva Analizar movimiento durante la transmisión para usar también {sizes}.",
   "@cameraExtraSizes": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Label or guidance in this section.",
@@ -2374,7 +2374,7 @@
       }
     }
   },
-  "cameraAnalysisOff": "Motion detection, face detection and hand gestures pause while viewers are connected. Snapshots use video frames at the streaming resolution.",
+  "cameraAnalysisOff": "La detección de movimiento, rostros y gestos de manos se pausa mientras hay espectadores conectados. Las capturas usan cuadros de video con la resolución de transmisión.",
   "@cameraAnalysisOff": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Label or guidance in this section.",
@@ -2387,7 +2387,7 @@
       ]
     }
   },
-  "cameraRejectedSizes": "The encoder cannot use {sizes} at these settings.",
+  "cameraRejectedSizes": "El codificador no puede usar {sizes} con esta configuración.",
   "@cameraRejectedSizes": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Label or guidance in this section.",
@@ -2406,7 +2406,7 @@
       }
     }
   },
-  "cameraRejectedCount": "{count} camera sizes are excluded because the encoder cannot use them at these settings.",
+  "cameraRejectedCount": "Se excluyen {count} tamaños de cámara porque el codificador no puede usarlos con esta configuración.",
   "@cameraRejectedCount": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Label or guidance in this section.",
@@ -2425,7 +2425,7 @@
       }
     }
   },
-  "cameraCaptureRejected": "Other camera sizes are unavailable in the current capture setup.",
+  "cameraCaptureRejected": "Otros tamaños de cámara no están disponibles con la configuración actual de captura.",
   "@cameraCaptureRejected": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Label or guidance in this section.",

@@ -1,0 +1,520 @@
+{
+  "@@locale": "en",
+  "cameraStatusHeading": "Stream Status",
+  "@cameraStatusHeading": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraClientsHeading": "Connected Clients",
+  "@cameraClientsHeading": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraUnavailable": "Unavailable",
+  "@cameraUnavailable": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraStopped": "Stopped",
+  "@cameraStopped": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraStreaming": "Streaming",
+  "@cameraStreaming": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraIdle": "Idle",
+  "@cameraIdle": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraConnected": "Connected",
+  "@cameraConnected": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraChecking": "Checking...",
+  "@cameraChecking": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraCheckingStatus": "Checking stream status...",
+  "@cameraCheckingStatus": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraStatusUnavailable": "Stream status unavailable.",
+  "@cameraStatusUnavailable": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraListenerStopped": "Listener is stopped.",
+  "@cameraListenerStopped": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraViewer": "{count} connected viewer. Actual video: {resolution}.",
+  "@cameraViewer": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      },
+      "resolution": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraViewers": "{count} connected viewers. Actual video: {resolution}.",
+  "@cameraViewers": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      },
+      "resolution": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraReady": "Ready. The encoder starts when a viewer connects.",
+  "@cameraReady": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraFallback": "Requested {requested}, camera supplied {actual}.",
+  "@cameraFallback": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    },
+    "placeholders": {
+      "requested": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      },
+      "actual": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraAudioError": "Audio: {error}",
+  "@cameraAudioError": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraAudioPaused": "Audio paused while the browser uses the microphone.",
+  "@cameraAudioPaused": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraAudioStreaming": "Microphone audio streaming.",
+  "@cameraAudioStreaming": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraAudioIdle": "Microphone audio idle.",
+  "@cameraAudioIdle": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraDiscoveryError": "ONVIF discovery: {error}",
+  "@cameraDiscoveryError": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraOnvifUrl": "ONVIF URL",
+  "@cameraOnvifUrl": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraStreamUrl": "Stream URL",
+  "@cameraStreamUrl": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraWaitingAddress": "Waiting for a network address",
+  "@cameraWaitingAddress": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraClientsUnavailable": "Client information unavailable.",
+  "@cameraClientsUnavailable": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraNoClients": "No connected clients.",
+  "@cameraNoClients": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraClientDetails": "{status} · {transport} · Port {port}",
+  "@cameraClientDetails": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    },
+    "placeholders": {
+      "status": {
+        "type": "String",
+        "description": "Localized status or duration."
+      },
+      "transport": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      },
+      "port": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraConnectedFor": "Connected for {duration}",
+  "@cameraConnectedFor": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    },
+    "placeholders": {
+      "duration": {
+        "type": "String",
+        "description": "Localized status or duration."
+      }
+    }
+  },
+  "cameraDurationSeconds": "{seconds}s",
+  "@cameraDurationSeconds": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    },
+    "placeholders": {
+      "seconds": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraDurationMinutes": "{minutes}m {seconds}s",
+  "@cameraDurationMinutes": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    },
+    "placeholders": {
+      "minutes": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      },
+      "seconds": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraDurationHours": "{hours}h {minutes}m",
+  "@cameraDurationHours": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    },
+    "placeholders": {
+      "hours": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      },
+      "minutes": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraCredentialsMissing": "Set a streaming username and password to enable authentication.",
+  "@cameraCredentialsMissing": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraPortWaiting": "Waiting for the RTSP port to be released.",
+  "@cameraPortWaiting": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraListenerFailed": "Could not start the RTSP listener.",
+  "@cameraListenerFailed": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  }
+}

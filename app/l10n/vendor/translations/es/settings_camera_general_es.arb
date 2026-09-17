@@ -1,0 +1,18 @@
+{
+  "@@locale": "es",
+  "settingCameraEnabledTitle": "Activar cámara",
+  "settingCameraEnabledDescription": "El uso de la cámara aumenta la carga de CPU y el calor, lo que puede reducir la vida útil de la batería y del dispositivo.",
+  "settingCameraDeviceTitle": "Cámara",
+  "settingCameraDeviceDescription": "Cámara que se usará.",
+  "settingCameraSnapshotResolutionTitle": "Resolución de las capturas",
+  "settingCameraSnapshotResolutionDescription": "Una resolución mayor mejora la nitidez, pero consume más CPU y ancho de banda.",
+  "settingCameraDisableDetectionSnapshotsTitle": "Desactivar capturas al detectar actividad",
+  "settingCameraDisableDetectionSnapshotsDescription": "Evita las capturas automáticas por detección. La detección de movimiento, rostros, presencia y gestos sigue funcionando. Las solicitudes manuales y las capturas continuas pueden seguir tomando imágenes.",
+  "settingCameraSnapshotsTitle": "Capturas continuas",
+  "settingCameraSnapshotsDescription": "Publica una nueva captura de la cámara en Home Assistant a intervalos fijos.",
+  "settingCameraSnapshotIntervalTitle": "Intervalo entre capturas",
+  "settingCameraSnapshotIntervalDescription": "Segundos entre capturas.",
+  "cameraFront": "Frontal",
+  "cameraBack": "Trasera",
+  "cameraOnlyCamera": "La única cámara de este dispositivo."
+}

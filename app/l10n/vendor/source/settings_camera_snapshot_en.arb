@@ -1,0 +1,264 @@
+{
+  "@@locale": "en",
+  "cameraLatest": "Latest snapshot",
+  "@cameraLatest": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    }
+  },
+  "cameraNoSnapshot": "No snapshot yet.",
+  "@cameraNoSnapshot": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    }
+  },
+  "cameraImageAlt": "Latest camera snapshot",
+  "@cameraImageAlt": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    }
+  },
+  "cameraTakeSnapshot": "Take snapshot",
+  "@cameraTakeSnapshot": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    }
+  },
+  "cameraSnapshotFailed": "Snapshot failed.",
+  "@cameraSnapshotFailed": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    }
+  },
+  "cameraSnapshotError": "Snapshot failed: {error}",
+  "@cameraSnapshotError": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraCameraDisabled": "The camera is disabled in the Camera settings.",
+  "@cameraCameraDisabled": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    }
+  },
+  "cameraSnapshotBusy": "A snapshot is already in progress.",
+  "@cameraSnapshotBusy": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    }
+  },
+  "cameraPermissionDenied": "Camera permission not granted.",
+  "@cameraPermissionDenied": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    }
+  },
+  "cameraDetectionDisabled": "Detection snapshots are disabled.",
+  "@cameraDetectionDisabled": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    }
+  },
+  "cameraNoImage": "The camera returned no image.",
+  "@cameraNoImage": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    }
+  },
+  "cameraTimedOut": "The camera did not answer in time.",
+  "@cameraTimedOut": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    }
+  },
+  "cameraBackground": "The camera is unavailable while the app is in the background.",
+  "@cameraBackground": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    }
+  },
+  "cameraJustNow": "just now",
+  "@cameraJustNow": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    }
+  },
+  "cameraSecondsAgo": "{count} seconds ago",
+  "@cameraSecondsAgo": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraMinuteAgo": "1 minute ago",
+  "@cameraMinuteAgo": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    }
+  },
+  "cameraMinutesAgo": "{count} minutes ago",
+  "@cameraMinutesAgo": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraHourAgo": "1 hour ago",
+  "@cameraHourAgo": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    }
+  },
+  "cameraHoursAgo": "{count} hours ago",
+  "@cameraHoursAgo": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraDayAgo": "1 day ago",
+  "@cameraDayAgo": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    }
+  },
+  "cameraDaysAgo": "{count} days ago",
+  "@cameraDaysAgo": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  }
+}
