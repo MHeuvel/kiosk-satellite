@@ -2770,6 +2770,269 @@ class UiStringsEs extends UiStrings {
   String get haVibrationStrong => 'Fuerte';
 
   @override
+  String get mediaCacheTitle => 'Album art cache';
+
+  @override
+  String get mediaCacheReadFailed => 'Could not read cache size.';
+
+  @override
+  String get mediaCacheClearFailed => 'Could not clear the cache.';
+
+  @override
+  String get mediaCacheChecking => 'Checking cache size...';
+
+  @override
+  String get mediaCacheClearing => 'Clearing...';
+
+  @override
+  String mediaCacheUsage(String used, String limit) {
+    return '$used used of $limit. Queue thumbnails are cached automatically.';
+  }
+
+  @override
+  String get settingSendspinPlayerSourceTitle => 'Player source';
+
+  @override
+  String get settingSendspinPlayerSourceDescription =>
+      'What the floating player and Now Playing show and control: this device or a player elsewhere.';
+
+  @override
+  String get settingSendspinPlayerTitle => 'Player';
+
+  @override
+  String get settingSendspinPlayerDescription =>
+      'The player of that source to show and control.';
+
+  @override
+  String get settingSendspinDuckPercentTitle =>
+      'Duck volume during voice interactions';
+
+  @override
+  String get settingSendspinDuckPercentDescription =>
+      'Music drops to this share of its volume during voice interactions and intercom calls, then comes back.';
+
+  @override
+  String get settingSendspinVolumeKeysTitle =>
+      'Volume buttons control the player';
+
+  @override
+  String get settingSendspinVolumeKeysDescription =>
+      'This device\'s volume buttons change the followed player\'s volume instead of its own. Only while the Now Playing view is on screen, or whenever the player is playing.';
+
+  @override
+  String get settingSendspinVolumeKeyStepTitle => 'Volume button step';
+
+  @override
+  String get settingSendspinVolumeKeyStepDescription =>
+      'How far one press of a volume button moves the player.';
+
+  @override
+  String get mediaIntro =>
+      'The floating player and Now Playing show only while the picked player has a track playing or a queue loaded. With nothing playing or queued, neither appears.';
+
+  @override
+  String get mediaThisDevice => 'This device';
+
+  @override
+  String get mediaOff => 'Off';
+
+  @override
+  String get mediaKeysNowPlaying => 'While Now Playing is shown';
+
+  @override
+  String get mediaKeysPlaying => 'While the player is playing';
+
+  @override
+  String get mediaAnotherPlayer => 'another player';
+
+  @override
+  String mediaLocalOffline(String player) {
+    return 'This device\'s own Sendspin player stays offline while $player is controlled.';
+  }
+
+  @override
+  String get settingSendspinMaUrlTitle => 'Server address';
+
+  @override
+  String get settingSendspinMaUrlDescription =>
+      'The Music Assistant server\'s address, as its web interface shows it. Usually https and port 8095.';
+
+  @override
+  String get settingSendspinMaTokenTitle => 'Auth token';
+
+  @override
+  String get settingSendspinMaTokenDescription =>
+      'A long-lived token from Music Assistant (Settings, then Users). Read access is enough for lyrics; the kiosk menu shortcut opens the web interface as whoever the token belongs to.';
+
+  @override
+  String get settingSendspinMaShortcutTitle => 'Show in the kiosk menu';
+
+  @override
+  String get settingSendspinMaShortcutDescription =>
+      'Add a Music Assistant entry to the kiosk menu, opening the server\'s web interface over the dashboard. Needs the server address above.';
+
+  @override
+  String get settingSendspinMaOpenFullscreenTitle =>
+      'Open directly to Now Playing';
+
+  @override
+  String get settingSendspinMaOpenFullscreenDescription =>
+      'Open Music Assistant\'s full-screen player from the kiosk menu or the Open Music Assistant gesture.';
+
+  @override
+  String get settingSendspinMaAutoCloseTitle => 'Close after inactivity';
+
+  @override
+  String get settingSendspinMaAutoCloseDescription =>
+      'Return to the dashboard when nobody has touched the Music Assistant page for this long. Zero leaves it open until it is closed.';
+
+  @override
+  String get settingSendspinMaHideCloseTitle => 'Hide the close button';
+
+  @override
+  String get settingSendspinMaHideCloseDescription =>
+      'The floating close button can sit on top of Music Assistant\'s own controls, like the Now Playing menu. Without it, dismiss with the back button or by using the kiosk\'s drawer menu.';
+
+  @override
+  String get mediaMaHint => 'Server, token, kiosk menu shortcut';
+
+  @override
+  String get mediaKioskMenu => 'Kiosk menu';
+
+  @override
+  String get mediaValidateConnection => 'Validate connection';
+
+  @override
+  String get mediaValidate => 'Validate';
+
+  @override
+  String get mediaChecking => 'Checking…';
+
+  @override
+  String get mediaConnected => 'Connected';
+
+  @override
+  String mediaConnectedVersion(String version) {
+    return 'Connected to Music Assistant $version';
+  }
+
+  @override
+  String get mediaValidateHint =>
+      'Check the address and token before turning on the shortcut or lyrics.';
+
+  @override
+  String get mediaDeviceNoAnswer => 'The device did not answer.';
+
+  @override
+  String get mediaValidationFailed => 'Validation failed.';
+
+  @override
+  String get mediaNoAddress => 'No server address set.';
+
+  @override
+  String get mediaNoToken => 'No auth token set.';
+
+  @override
+  String get mediaTimeout => 'Music Assistant did not answer in time.';
+
+  @override
+  String mediaUnreachable(String host, String error) {
+    return 'Could not reach $host: $error';
+  }
+
+  @override
+  String get mediaServerClosed => 'the server closed the connection';
+
+  @override
+  String get mediaPickPlayer => 'Pick a player';
+
+  @override
+  String get mediaMaPlayer => 'Music Assistant player';
+
+  @override
+  String get mediaHaPlayer => 'Home Assistant media player';
+
+  @override
+  String get mediaSonosRoom => 'Sonos room';
+
+  @override
+  String get mediaSearchPlayers => 'Search players';
+
+  @override
+  String get mediaOffline => 'Offline';
+
+  @override
+  String mediaOfflineName(String name) {
+    return '$name (offline)';
+  }
+
+  @override
+  String get mediaSetUpMa => 'Set up Music Assistant to list its players.';
+
+  @override
+  String get mediaSetUpHa =>
+      'Connect Home Assistant to list its media players.';
+
+  @override
+  String get mediaSetUpSonos =>
+      'No Sonos speakers known yet. Find or add one on the Sonos page.';
+
+  @override
+  String mediaHaFailed(String error) {
+    return 'Home Assistant did not answer: $error';
+  }
+
+  @override
+  String get mediaSaveFailed => 'Could not save the player.';
+
+  @override
+  String get mediaSelectFailed => 'Could not select player';
+
+  @override
+  String get settingSendspinEnabledTitle => 'Enable Sendspin player';
+
+  @override
+  String get settingSendspinEnabledDescription =>
+      'Turn this device into a synchronized Sendspin player. It appears in Music Assistant under the device name, in sync with every other Sendspin speaker.';
+
+  @override
+  String get settingSendspinServerTitle => 'Server';
+
+  @override
+  String get settingSendspinServerDescription =>
+      'Sendspin server address, for example 192.168.1.10:8927. Leave empty to find the server on the network automatically.';
+
+  @override
+  String get settingSendspinCodecTitle => 'Preferred audio codec';
+
+  @override
+  String get settingSendspinCodecDescription =>
+      'FLAC is lossless and ideal on WiFi or ethernet. The server makes the final choice from what this device offers.';
+
+  @override
+  String get settingSendspinSyncOffsetTitle => 'Audio sync offset (ms)';
+
+  @override
+  String get settingSendspinSyncOffsetDescription =>
+      'Negative plays this device earlier, for speakers that lag behind the group (Bluetooth). Tune by ear; applies live.';
+
+  @override
+  String get mediaSendspinPage => 'Sendspin Player';
+
+  @override
+  String get mediaSendspinHint =>
+      'Make this device a synchronized Music Assistant player';
+
+  @override
+  String get mediaFlac => 'FLAC (lossless)';
+
+  @override
+  String get mediaOpus => 'Opus (efficient)';
+
+  @override
+  String get mediaPcm => 'PCM (uncompressed)';
+
+  @override
   String get settingsMenuHomeAssistant => 'Configuración de Home Assistant';
 
   @override
@@ -5277,6 +5540,14 @@ class UiStringsEs extends UiStrings {
   @override
   String get browserCrashPermissionHelp =>
       'Sin este permiso, el kiosko no puede volver a abrirse después de un cierre inesperado.';
+
+  @override
+  String get browserCrashPermissionMissing =>
+      '\"Display over other apps\" permission missing';
+
+  @override
+  String get browserCrashPermissionRemoteHelp =>
+      'Without it the kiosk cannot bring itself back after a crash. The grant screen appears on the tablet.';
 
   @override
   String get settingBrowserInjectJsTitle =>

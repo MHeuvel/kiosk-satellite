@@ -25,6 +25,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 // Test wording exercises localization even before draft catalogs are approved.
 class MenuMessages extends UiStringsEn {
   @override
+  String get mediaPickPlayer => 'TEST choose player';
+  @override
+  String get mediaMaPlayer => 'TEST MA player';
+  @override
+  String get mediaOffline => 'TEST unavailable player';
+  @override
+  String get mediaValidateConnection => 'TEST check MA';
+  @override
+  String mediaUnreachable(String host, String error) =>
+      'TEST MA error $host: $error';
+
+  @override
   String get settingCameraAllowH265Title => 'TEST codec';
   @override
   String get cameraStreamsCameras => 'TEST camera list';
@@ -189,6 +201,79 @@ Future<AppContainer> containerFor(WidgetTester tester, Size size) async {
 }
 
 void main() {
+  testWidgets('media player picker preserves supplied names and IDs', (
+    tester,
+  ) async {
+    final container = await containerFor(tester, const Size(1000, 1800));
+    await container.settings.set(defs.sendspinPlayerSource, 'ma');
+    container.commands.register(
+      Command(
+        name: 'mediaPlayers',
+        description: '',
+        handler: (_) async => CommandResult.ok({
+          'players': [
+            {
+              'id': 'ma:raw-id',
+              'name': 'Offline <player>',
+              'group': 'ma',
+              'available': false,
+            },
+          ],
+        }),
+      ),
+    );
+    await tester.pumpWidget(
+      localized(
+        CategorySettingsScreen(
+          container: container,
+          title: 'Media Player',
+          category: 'Sendspin',
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('TEST choose player'));
+    await tester.pumpAndSettle();
+    expect(find.text('TEST MA player'), findsOneWidget);
+    expect(find.text('TEST unavailable player'), findsOneWidget);
+    await tester.tap(find.text('Offline <player>'));
+    await tester.pumpAndSettle();
+    expect(container.settings.get(defs.sendspinPlayer), 'ma:raw-id');
+    expect(container.settings.get(defs.sendspinPlayerName), 'Offline <player>');
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('Music Assistant connection errors preserve technical details', (
+    tester,
+  ) async {
+    final container = await containerFor(tester, const Size(800, 1800));
+    container.commands.register(
+      Command(
+        name: 'maValidate',
+        description: '',
+        handler: (_) async =>
+            CommandResult.fail('Could not reach ma.example:8095: <raw error>'),
+      ),
+    );
+    await tester.pumpWidget(
+      localized(
+        SubpageSettingsScreen(
+          container: container,
+          category: 'Sendspin',
+          subpage: 'Music Assistant',
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('TEST check MA'));
+    await tester.pumpAndSettle();
+    expect(
+      find.text('TEST MA error ma.example:8095: <raw error>'),
+      findsOneWidget,
+    );
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets(
     'translated Camera Streams editors preserve sources and view order',
     (tester) async {

@@ -1,4 +1,4 @@
-import { screenAudioText, screensaverText, immichError } from './localization.js';
+import { mediaText, mediaError, deviceText, t, screenAudioText, screensaverText, immichError } from './localization.js';
 import { receiveUpdate, watchUpdates } from './live.js';
 import { $, api, cmd, state } from './core.js';
 import { readOnlyRow } from './device.js';
@@ -23,15 +23,13 @@ export async function updateAutoReloadOverlayNotice() {
   } catch (_) { return; }
   if (granted) return;
   const tab = document.getElementById('tab-browser');
-  const anchor = [...tab.querySelectorAll('.row')]
-    .find((r) => r.querySelector('.name')?.textContent === 'Auto-reload on error');
+  const anchor = tab.querySelector('[data-key="browser.auto_reload_on_error"]');
   if (!anchor || tab.querySelector('.autoreload-overlay-notice')) return;
-  const row = readOnlyRow('"Display over other apps" permission missing',
-    'Without it the kiosk cannot bring itself back after a crash. The grant screen appears on the tablet.', '');
+  const row = readOnlyRow(t('browserCrashPermissionMissing'), t('browserCrashPermissionRemoteHelp'), '');
   row.classList.add('autoreload-overlay-notice');
   const btn = document.createElement('button');
   btn.className = 'btn-ghost';
-  btn.textContent = 'Grant on device';
+  btn.textContent = deviceText('Grant on device');
   btn.style.cssText = 'flex-shrink:0;';
   btn.addEventListener('click', async () => {
     btn.disabled = true;
@@ -89,26 +87,25 @@ export function updateImmichValidateRow() {
 export function updateMaValidateRow() {
   const tab = document.getElementById('tab-sendspin');
   if (!tab) return;
-  const anchor = [...tab.querySelectorAll('.row')]
-    .find((r) => r.querySelector('.name')?.textContent === 'Auth token');
+  const anchor = tab.querySelector('[data-key="sendspin.ma_token"]');
   if (!anchor || tab.querySelector('.ma-validate-row')) return;
-  const row = readOnlyRow('Validate connection',
-    'Check the address and token before turning on the shortcut or lyrics.', '');
+  const row = readOnlyRow(mediaText('Validate connection'),
+    mediaText('Check the address and token before turning on the shortcut or lyrics.'), '');
   row.classList.add('ma-validate-row');
   const btn = document.createElement('button');
   btn.className = 'btn-ghost';
-  btn.textContent = 'Validate';
+  btn.textContent = mediaText('Validate');
   btn.style.cssText = 'flex-shrink:0;';
   btn.addEventListener('click', async () => {
-    btn.disabled = true; btn.textContent = 'Checking\u2026';
+    btn.disabled = true; btn.textContent = mediaText('Checking\u2026');
     let res;
     try { res = await (await api('/api/commands/maValidate', { method: 'POST', body: '{}' })).json(); }
     catch (_) { res = { ok: false, error: 'The device did not answer.' }; }
-    btn.disabled = false; btn.textContent = 'Validate';
+    btn.disabled = false; btn.textContent = mediaText('Validate');
     const version = res.ok ? (res.data || {}).version : null;
     row.querySelector('.desc').textContent = res.ok
-      ? (version ? `Connected to Music Assistant ${version}` : 'Connected')
-      : (res.error || 'Validation failed.');
+      ? (version ? t('mediaConnectedVersion', {version}) : mediaText('Connected'))
+      : mediaError(res.error || 'Validation failed.');
   });
   row.appendChild(btn);
   anchor.insertAdjacentElement('afterend', row);
@@ -123,9 +120,9 @@ export async function updatePlayerRow() {
   if (!tab) return;
   // What every source has in common, said once at the top of the page.
   if (!tab.querySelector('.media-player-intro')) {
-    const intro = hintRow('The floating player and Now Playing show only while '
+    const intro = hintRow(mediaText('The floating player and Now Playing show only while '
       + 'the picked player has a track playing or a queue loaded. With nothing '
-      + 'playing or queued, neither appears.');
+      + 'playing or queued, neither appears.'));
     intro.classList.add('media-player-intro');
     // On the page title's line: the title sits 4 in from the card edge.
     intro.style.cssText = 'margin: 0 0 4px 4px;';
@@ -164,23 +161,22 @@ export async function updatePlayerRow() {
       return option;
     };
     sel.replaceChildren();
-    add('', source ? 'Pick a player' : 'Sendspin Player');
+    add('', mediaText(source ? 'Pick a player' : 'Sendspin Player'));
     if (source) {
-      if (note && !players.length) add(`note:${source}`, note).disabled = true;
+      if (note && !players.length) add(`note:${source}`, mediaError(note)).disabled = true;
       const names = {};
       for (const p of players) names[p.name] = (names[p.name] || 0) + 1;
       for (const p of players) {
         const label = p.id === id && name ? name
           : names[p.name] > 1 && p.sub ? `${p.name} (${p.sub})` : p.name;
-        add(p.id, p.available === false ? `${label} (offline)` : label);
+        add(p.id, p.available === false ? t('mediaOfflineName', {name: label}) : label);
       }
       if (id && !players.some(p => p.id === id)) add(id, name || id);
     }
     sel.value = source ? id : '';
     tab.querySelector('.player-warn')?.remove();
     if (source) {
-      const warning = hintRow(`This device's own Sendspin player stays offline `
-        + `while ${name || 'another player'} is controlled.`, { warn: true });
+      const warning = hintRow(t('mediaLocalOffline', {player: name || mediaText('another player')}), { warn: true });
       warning.classList.add('player-warn', 'divided');
       row.insertAdjacentElement('afterend', warning);
     }
@@ -215,7 +211,7 @@ export async function updatePlayerRow() {
         if (setting.key in values) setting.value = values[setting.key];
       }
     } catch (error) {
-      showToast({ title: 'Could not select player', message: error.message, kind: 'error' });
+      showToast({ title: mediaText('Could not select player'), message: mediaError(error.message), kind: 'error' });
     }
     paint();
   });

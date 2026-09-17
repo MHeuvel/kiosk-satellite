@@ -930,5 +930,65 @@
   "browser.ignore_ssl_errors": {
     "title": "settingIgnoreSslErrorsTitle",
     "description": "settingIgnoreSslErrorsDescription"
+  },
+  "sendspin.player_source": {
+    "title": "settingSendspinPlayerSourceTitle",
+    "description": "settingSendspinPlayerSourceDescription"
+  },
+  "sendspin.player": {
+    "title": "settingSendspinPlayerTitle",
+    "description": "settingSendspinPlayerDescription"
+  },
+  "sendspin.duck_percent": {
+    "title": "settingSendspinDuckPercentTitle",
+    "description": "settingSendspinDuckPercentDescription"
+  },
+  "sendspin.volume_keys": {
+    "title": "settingSendspinVolumeKeysTitle",
+    "description": "settingSendspinVolumeKeysDescription"
+  },
+  "sendspin.volume_key_step": {
+    "title": "settingSendspinVolumeKeyStepTitle",
+    "description": "settingSendspinVolumeKeyStepDescription"
+  },
+  "sendspin.enabled": {
+    "title": "settingSendspinEnabledTitle",
+    "description": "settingSendspinEnabledDescription"
+  },
+  "sendspin.server": {
+    "title": "settingSendspinServerTitle",
+    "description": "settingSendspinServerDescription"
+  },
+  "sendspin.codec": {
+    "title": "settingSendspinCodecTitle",
+    "description": "settingSendspinCodecDescription"
+  },
+  "sendspin.sync_offset_ms": {
+    "title": "settingSendspinSyncOffsetTitle",
+    "description": "settingSendspinSyncOffsetDescription"
+  },
+  "sendspin.ma_url": {
+    "title": "settingSendspinMaUrlTitle",
+    "description": "settingSendspinMaUrlDescription"
+  },
+  "sendspin.ma_token": {
+    "title": "settingSendspinMaTokenTitle",
+    "description": "settingSendspinMaTokenDescription"
+  },
+  "sendspin.ma_shortcut": {
+    "title": "settingSendspinMaShortcutTitle",
+    "description": "settingSendspinMaShortcutDescription"
+  },
+  "sendspin.ma_open_fullscreen": {
+    "title": "settingSendspinMaOpenFullscreenTitle",
+    "description": "settingSendspinMaOpenFullscreenDescription"
+  },
+  "sendspin.ma_auto_close": {
+    "title": "settingSendspinMaAutoCloseTitle",
+    "description": "settingSendspinMaAutoCloseDescription"
+  },
+  "sendspin.ma_hide_close": {
+    "title": "settingSendspinMaHideCloseTitle",
+    "description": "settingSendspinMaHideCloseDescription"
   }
 }

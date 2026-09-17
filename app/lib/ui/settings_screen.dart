@@ -2227,9 +2227,12 @@ class _CategoryContentState extends State<_CategoryContent> {
           // Its icon on the page title's line: the title sits 4 in from
           // the card edge, so the hint does too.
           if (widget.category == 'Sendspin')
-            const Padding(
-              padding: EdgeInsets.only(left: 4),
-              child: HintRow(_mediaPlayerIntro, inset: false),
+            Padding(
+              padding: const EdgeInsets.only(left: 4),
+              child: HintRow(
+                mediaText(context, _mediaPlayerIntro),
+                inset: false,
+              ),
             ),
           ..._withEsphomeStartError(
             _sectionedCards(
@@ -2939,9 +2942,11 @@ class _CategoryContentState extends State<_CategoryContent> {
     if (widget.category == 'Sendspin' &&
         container.settings.get(sendspinPlayerSource).isNotEmpty)
       sendspinPlayer.key: WarnRow(
-        "This device's own Sendspin player stays offline while "
-        '${container.settings.get(sendspinPlayerName).trim().isEmpty ? 'another player' : container.settings.get(sendspinPlayerName).trim()} '
-        'is controlled.',
+        l10n(context).mediaLocalOffline(
+          container.settings.get(sendspinPlayerName).trim().isEmpty
+              ? l10n(context).mediaAnotherPlayer
+              : container.settings.get(sendspinPlayerName).trim(),
+        ),
       ),
     // The live list right under the sort picker that orders it.
     // Rides the section's dependsOn: with the proxy off there is
@@ -5951,12 +5956,15 @@ class _MaValidateRowState extends State<_MaValidateRow> {
 
   @override
   Widget build(BuildContext context) => ListTile(
-    title: const Text('Validate connection'),
+    title: Text(mediaText(context, 'Validate connection')),
     subtitle: Text(
       _validating
-          ? 'Checking…'
-          : _message ??
-                'Check the address and token before turning on the shortcut or lyrics.',
+          ? mediaText(context, 'Checking…')
+          : mediaError(
+              context,
+              _message ??
+                  'Check the address and token before turning on the shortcut or lyrics.',
+            ),
     ),
     trailing: _validating
         ? const SizedBox(
@@ -6027,13 +6035,13 @@ class _PlayerRowState extends State<_PlayerRow> {
     final name = settings.get(sendspinPlayerName).trim();
     final picked = local || settings.get(sendspinPlayer).trim().isNotEmpty;
     final label = local
-        ? 'Sendspin Player'
+        ? mediaText(context, 'Sendspin Player')
         : picked && name.isNotEmpty
         ? name
-        : 'Pick a player';
+        : mediaText(context, 'Pick a player');
     return SettingsRow(
-      title: Text(sendspinPlayer.title),
-      subtitle: Text(sendspinPlayer.description),
+      title: Text(sendspinPlayer.localizedTitle(context)),
+      subtitle: Text(sendspinPlayer.localizedDescription(context)),
       trailing: ControlBox(
         onTap: local ? null : _pick,
         child: Row(
@@ -6149,9 +6157,9 @@ class _PlayerPickerDialogState extends State<_PlayerPickerDialog> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(24, 0, 24, 8),
                     child: TextField(
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.search),
-                        hintText: 'Search players',
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.search),
+                        hintText: mediaText(context, 'Search players'),
                         isDense: true,
                       ),
                       onChanged: (v) => setState(() => _query = v.trim()),
@@ -6161,7 +6169,7 @@ class _PlayerPickerDialogState extends State<_PlayerPickerDialog> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(24, 8, 24, 12),
                     child: Text(
-                      _note!,
+                      mediaError(context, _note!),
                       style: theme.textTheme.bodyMedium?.copyWith(
                         color: scheme.onSurfaceVariant,
                       ),
@@ -6173,7 +6181,7 @@ class _PlayerPickerDialogState extends State<_PlayerPickerDialog> {
                       value: '${p['id']}',
                       title: Text('${p['name']}'),
                       subtitle: p['available'] == false
-                          ? const Text('Offline')
+                          ? Text(mediaText(context, 'Offline'))
                           : p['sub'] != null
                           ? Text('${p['sub']}')
                           : null,
@@ -6182,7 +6190,7 @@ class _PlayerPickerDialogState extends State<_PlayerPickerDialog> {
             ),
           );
     return AlertDialog(
-      title: Text(_titles[widget.source] ?? 'Player'),
+      title: Text(mediaText(context, _titles[widget.source] ?? 'Player')),
       contentPadding: const EdgeInsets.fromLTRB(0, 12, 0, 8),
       content: SizedBox(width: 440, child: body),
     );
@@ -6446,17 +6454,20 @@ class _AlbumArtCacheRowState extends State<AlbumArtCacheRow> {
   Widget build(BuildContext context) {
     final stats = _stats;
     return SettingsRow(
-      title: const Text('Album art cache'),
+      title: Text(mediaText(context, 'Album art cache')),
       subtitle: Text(
-        _error ??
-            (stats == null
-                ? 'Checking cache size...'
-                : '${formatBytes(stats['bytes'] as int)} used of '
-                      '${formatBytes(stats['maxBytes'] as int)}. Queue thumbnails are cached automatically.'),
+        _error != null
+            ? mediaText(context, _error!)
+            : (stats == null
+                  ? mediaText(context, 'Checking cache size...')
+                  : l10n(context).mediaCacheUsage(
+                      formatBytes(stats['bytes'] as int),
+                      formatBytes(stats['maxBytes'] as int),
+                    )),
       ),
       trailing: OutlinedButton(
         onPressed: _busy ? null : _clear,
-        child: Text(_busy ? 'Clearing...' : 'Clear'),
+        child: Text(mediaText(context, _busy ? 'Clearing...' : 'Clear')),
       ),
     );
   }

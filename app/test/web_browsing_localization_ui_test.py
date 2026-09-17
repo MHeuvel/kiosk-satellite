@@ -15,9 +15,9 @@ translated = {k: 'TEST ' + v for k, v in english.items()}
 mapping = json.loads((APP / 'l10n/settings.json').read_text())
 hints = json.loads((APP / 'l10n/setting_placeholders.json').read_text())
 settings = [dict(key='ui.language', value='es', type='string', category='Device', hidden=True)]
-for key in ['browser.inject_js', 'browser.inject_js_external', 'browser.ignore_ssl_errors']:
-    settings.append(dict(key=key, value=False if key.endswith('errors') else '',
-        type='boolean' if key.endswith('errors') else 'string', category='Browser',
+for key in ['browser.inject_js', 'browser.inject_js_external', 'browser.ignore_ssl_errors', 'browser.auto_reload_on_error']:
+    settings.append(dict(key=key, value=True if key.endswith('auto_reload_on_error') else False if key.endswith('errors') else '',
+        type='boolean' if key.endswith(('errors', 'auto_reload_on_error')) else 'string', category='Browser',
         title=english[mapping[key]['title']], description=english[mapping[key]['description']],
         titleMessageId=mapping[key]['title'], descriptionMessageId=mapping[key]['description'],
         multiline=key in hints, placeholder=english[hints[key]] if key in hints else None,
@@ -68,6 +68,8 @@ try:
         }""")
 
         root = page.locator('#tab-browser')
+        expect(root.locator('.autoreload-overlay-notice .name')).to_have_text(translated['browserCrashPermissionMissing'])
+        expect(root.locator('.autoreload-overlay-notice .desc')).to_have_text(translated['browserCrashPermissionRemoteHelp'])
         code = "document.title = 'Panel de control <img src=x>';\nwindow.example = '{value}';"
         for key in ['browser.inject_js', 'browser.inject_js_external']:
             row = root.locator(f'[data-key="{key}"]')

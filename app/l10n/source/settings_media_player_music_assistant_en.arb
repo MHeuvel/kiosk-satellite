@@ -1,0 +1,370 @@
+{
+  "@@locale": "en",
+  "settingSendspinMaUrlTitle": "Server address",
+  "@settingSendspinMaUrlTitle": {
+    "context": "Settings > Media Player > Music Assistant",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Music Assistant"
+      ],
+      "remoteAdmin": [
+        "Media Player > Music Assistant"
+      ]
+    }
+  },
+  "settingSendspinMaUrlDescription": "The Music Assistant server's address, as its web interface shows it. Usually https and port 8095.",
+  "@settingSendspinMaUrlDescription": {
+    "context": "Settings > Media Player > Music Assistant",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Music Assistant"
+      ],
+      "remoteAdmin": [
+        "Media Player > Music Assistant"
+      ]
+    }
+  },
+  "settingSendspinMaTokenTitle": "Auth token",
+  "@settingSendspinMaTokenTitle": {
+    "context": "Settings > Media Player > Music Assistant",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Music Assistant"
+      ],
+      "remoteAdmin": [
+        "Media Player > Music Assistant"
+      ]
+    }
+  },
+  "settingSendspinMaTokenDescription": "A long-lived token from Music Assistant (Settings, then Users). Read access is enough for lyrics; the kiosk menu shortcut opens the web interface as whoever the token belongs to.",
+  "@settingSendspinMaTokenDescription": {
+    "context": "Settings > Media Player > Music Assistant",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Music Assistant"
+      ],
+      "remoteAdmin": [
+        "Media Player > Music Assistant"
+      ]
+    }
+  },
+  "settingSendspinMaShortcutTitle": "Show in the kiosk menu",
+  "@settingSendspinMaShortcutTitle": {
+    "context": "Settings > Media Player > Music Assistant",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Music Assistant"
+      ],
+      "remoteAdmin": [
+        "Media Player > Music Assistant"
+      ]
+    }
+  },
+  "settingSendspinMaShortcutDescription": "Add a Music Assistant entry to the kiosk menu, opening the server's web interface over the dashboard. Needs the server address above.",
+  "@settingSendspinMaShortcutDescription": {
+    "context": "Settings > Media Player > Music Assistant",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Music Assistant"
+      ],
+      "remoteAdmin": [
+        "Media Player > Music Assistant"
+      ]
+    }
+  },
+  "settingSendspinMaOpenFullscreenTitle": "Open directly to Now Playing",
+  "@settingSendspinMaOpenFullscreenTitle": {
+    "context": "Settings > Media Player > Music Assistant",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Music Assistant"
+      ],
+      "remoteAdmin": [
+        "Media Player > Music Assistant"
+      ]
+    }
+  },
+  "settingSendspinMaOpenFullscreenDescription": "Open Music Assistant's full-screen player from the kiosk menu or the Open Music Assistant gesture.",
+  "@settingSendspinMaOpenFullscreenDescription": {
+    "context": "Settings > Media Player > Music Assistant",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Music Assistant"
+      ],
+      "remoteAdmin": [
+        "Media Player > Music Assistant"
+      ]
+    }
+  },
+  "settingSendspinMaAutoCloseTitle": "Close after inactivity",
+  "@settingSendspinMaAutoCloseTitle": {
+    "context": "Settings > Media Player > Music Assistant",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Music Assistant"
+      ],
+      "remoteAdmin": [
+        "Media Player > Music Assistant"
+      ]
+    }
+  },
+  "settingSendspinMaAutoCloseDescription": "Return to the dashboard when nobody has touched the Music Assistant page for this long. Zero leaves it open until it is closed.",
+  "@settingSendspinMaAutoCloseDescription": {
+    "context": "Settings > Media Player > Music Assistant",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Music Assistant"
+      ],
+      "remoteAdmin": [
+        "Media Player > Music Assistant"
+      ]
+    }
+  },
+  "settingSendspinMaHideCloseTitle": "Hide the close button",
+  "@settingSendspinMaHideCloseTitle": {
+    "context": "Settings > Media Player > Music Assistant",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Music Assistant"
+      ],
+      "remoteAdmin": [
+        "Media Player > Music Assistant"
+      ]
+    }
+  },
+  "settingSendspinMaHideCloseDescription": "The floating close button can sit on top of Music Assistant's own controls, like the Now Playing menu. Without it, dismiss with the back button or by using the kiosk's drawer menu.",
+  "@settingSendspinMaHideCloseDescription": {
+    "context": "Settings > Media Player > Music Assistant",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Music Assistant"
+      ],
+      "remoteAdmin": [
+        "Media Player > Music Assistant"
+      ]
+    }
+  },
+  "mediaMaHint": "Server, token, kiosk menu shortcut",
+  "@mediaMaHint": {
+    "context": "Settings > Media Player > Music Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Music Assistant"
+      ],
+      "remoteAdmin": [
+        "Media Player > Music Assistant"
+      ]
+    }
+  },
+  "mediaKioskMenu": "Kiosk menu",
+  "@mediaKioskMenu": {
+    "context": "Settings > Media Player > Music Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Music Assistant"
+      ],
+      "remoteAdmin": [
+        "Media Player > Music Assistant"
+      ]
+    }
+  },
+  "mediaValidateConnection": "Validate connection",
+  "@mediaValidateConnection": {
+    "context": "Settings > Media Player > Music Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Music Assistant"
+      ],
+      "remoteAdmin": [
+        "Media Player > Music Assistant"
+      ]
+    }
+  },
+  "mediaValidate": "Validate",
+  "@mediaValidate": {
+    "context": "Settings > Media Player > Music Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Music Assistant"
+      ],
+      "remoteAdmin": [
+        "Media Player > Music Assistant"
+      ]
+    }
+  },
+  "mediaChecking": "Checking…",
+  "@mediaChecking": {
+    "context": "Settings > Media Player > Music Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Music Assistant"
+      ],
+      "remoteAdmin": [
+        "Media Player > Music Assistant"
+      ]
+    }
+  },
+  "mediaConnected": "Connected",
+  "@mediaConnected": {
+    "context": "Settings > Media Player > Music Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Music Assistant"
+      ],
+      "remoteAdmin": [
+        "Media Player > Music Assistant"
+      ]
+    }
+  },
+  "mediaConnectedVersion": "Connected to Music Assistant {version}",
+  "@mediaConnectedVersion": {
+    "context": "Settings > Media Player > Music Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Music Assistant"
+      ],
+      "remoteAdmin": [
+        "Media Player > Music Assistant"
+      ]
+    },
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve names, addresses and technical details."
+      }
+    }
+  },
+  "mediaValidateHint": "Check the address and token before turning on the shortcut or lyrics.",
+  "@mediaValidateHint": {
+    "context": "Settings > Media Player > Music Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Music Assistant"
+      ],
+      "remoteAdmin": [
+        "Media Player > Music Assistant"
+      ]
+    }
+  },
+  "mediaDeviceNoAnswer": "The device did not answer.",
+  "@mediaDeviceNoAnswer": {
+    "context": "Settings > Media Player > Music Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Music Assistant"
+      ],
+      "remoteAdmin": [
+        "Media Player > Music Assistant"
+      ]
+    }
+  },
+  "mediaValidationFailed": "Validation failed.",
+  "@mediaValidationFailed": {
+    "context": "Settings > Media Player > Music Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Music Assistant"
+      ],
+      "remoteAdmin": [
+        "Media Player > Music Assistant"
+      ]
+    }
+  },
+  "mediaNoAddress": "No server address set.",
+  "@mediaNoAddress": {
+    "context": "Settings > Media Player > Music Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Music Assistant"
+      ],
+      "remoteAdmin": [
+        "Media Player > Music Assistant"
+      ]
+    }
+  },
+  "mediaNoToken": "No auth token set.",
+  "@mediaNoToken": {
+    "context": "Settings > Media Player > Music Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Music Assistant"
+      ],
+      "remoteAdmin": [
+        "Media Player > Music Assistant"
+      ]
+    }
+  },
+  "mediaTimeout": "Music Assistant did not answer in time.",
+  "@mediaTimeout": {
+    "context": "Settings > Media Player > Music Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Music Assistant"
+      ],
+      "remoteAdmin": [
+        "Media Player > Music Assistant"
+      ]
+    }
+  },
+  "mediaUnreachable": "Could not reach {host}: {error}",
+  "@mediaUnreachable": {
+    "context": "Settings > Media Player > Music Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Music Assistant"
+      ],
+      "remoteAdmin": [
+        "Media Player > Music Assistant"
+      ]
+    },
+    "placeholders": {
+      "host": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve names, addresses and technical details."
+      },
+      "error": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve names, addresses and technical details."
+      }
+    }
+  },
+  "mediaServerClosed": "the server closed the connection",
+  "@mediaServerClosed": {
+    "context": "Settings > Media Player > Music Assistant > Validate connection",
+    "description": "Connection failure.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Music Assistant > Validate connection"
+      ],
+      "remoteAdmin": [
+        "Media Player > Music Assistant > Validate connection"
+      ]
+    }
+  }
+}

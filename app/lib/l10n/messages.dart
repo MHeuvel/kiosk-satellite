@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 
 import '../managers/settings/definitions.dart';
 import 'generated/message_lookup.dart';
+import 'generated/media_text_ids.dart';
 import 'generated/navigation_ids.dart';
 import 'generated/device_text_ids.dart';
 import 'generated/ha_text_ids.dart';
@@ -75,6 +76,31 @@ String screensaverText(BuildContext context, String english) =>
 /// Resolve camera presentation while preserving addresses and hardware names.
 String cameraText(BuildContext context, String english) =>
     messageById(l10n(context), cameraTextMessageIds[english], english);
+
+/// Translate media settings without changing player names or saved values.
+String mediaText(BuildContext context, String english) =>
+    messageById(l10n(context), mediaTextMessageIds[english], english);
+
+String mediaError(BuildContext context, String error) {
+  const ha = 'Home Assistant did not answer: ';
+  if (error.startsWith(ha)) {
+    return l10n(context).mediaHaFailed(error.substring(ha.length));
+  }
+  const connected = 'Connected to Music Assistant ';
+  if (error.startsWith(connected)) {
+    return l10n(
+      context,
+    ).mediaConnectedVersion(error.substring(connected.length));
+  }
+  final unreachable = RegExp(
+    r'^Could not reach (.+?): (.*)$',
+    dotAll: true,
+  ).firstMatch(error);
+  if (unreachable != null) {
+    return l10n(context).mediaUnreachable(unreachable[1]!, unreachable[2]!);
+  }
+  return mediaText(context, error);
+}
 
 String cameraStreamsText(BuildContext context, String english) =>
     messageById(l10n(context), cameraStreamsTextMessageIds[english], english);
@@ -150,6 +176,7 @@ String settingsPageText(
   'Screen & Audio' => screenAudioText(context, english),
   'Screensaver' => screensaverText(context, english),
   'Camera' => cameraText(context, english),
+  'Sendspin' => mediaText(context, english),
   _ => english,
 };
 

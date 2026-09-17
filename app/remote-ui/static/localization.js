@@ -1,3 +1,4 @@
+import { mediaTextMessageIds } from './media_text_ids.js';
 import { screensaverTextMessageIds } from './screensaver_text_ids.js';
 import { cameraTextMessageIds } from './camera_text_ids.js';
 import { cameraStreamsTextMessageIds } from './camera_streams_text_ids.js';
@@ -21,6 +22,20 @@ export function screensaverText(english) {
 
 export function cameraText(english) {
   return t(cameraTextMessageIds[english], {}, english);
+}
+
+export function mediaText(english) {
+  return t(mediaTextMessageIds[english], {}, english);
+}
+
+export function mediaError(error) {
+  const ha = 'Home Assistant did not answer: ';
+  if (error.startsWith(ha)) return t('mediaHaFailed', {error: error.slice(ha.length)});
+  const connected = 'Connected to Music Assistant ';
+  if (error.startsWith(connected)) return t('mediaConnectedVersion', {version: error.slice(connected.length)});
+  const unreachable = /^Could not reach (.+?): (.*)$/s.exec(error);
+  if (unreachable) return t('mediaUnreachable', {host: unreachable[1], error: unreachable[2]});
+  return mediaText(error);
 }
 
 export function cameraStreamsText(english) {
@@ -65,7 +80,8 @@ export function settingsPageText(category, english) {
     : category === 'Home Assistant' || category === 'homeassistant' ? haText(english)
     : category === 'Screen & Audio' || category === 'screenaudio' ? screenAudioText(english)
     : category === 'Screensaver' || category === 'screensaver' ? screensaverText(english)
-    : category === 'Camera' || category === 'camera' ? cameraText(english) : english;
+    : category === 'Camera' || category === 'camera' ? cameraText(english)
+    : category === 'Sendspin' || category === 'sendspin' ? mediaText(english) : english;
 }
 
 export function haConnectionError(error) {

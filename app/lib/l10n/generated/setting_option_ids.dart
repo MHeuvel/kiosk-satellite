@@ -175,6 +175,19 @@ const settingOptionMessageIds = <String, Map<String, String>>{
   "camera.device": {
     "front": "cameraFront",
     "back": "cameraBack"
+  },
+  "sendspin.player_source": {
+    "": "mediaThisDevice"
+  },
+  "sendspin.volume_keys": {
+    "off": "mediaOff",
+    "now_playing": "mediaKeysNowPlaying",
+    "playing": "mediaKeysPlaying"
+  },
+  "sendspin.codec": {
+    "flac": "mediaFlac",
+    "opus": "mediaOpus",
+    "pcm": "mediaPcm"
   }
 };
 const settingPlaceholderMessageIds = <String, String>{

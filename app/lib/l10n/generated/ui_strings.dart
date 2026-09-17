@@ -4789,6 +4789,462 @@ abstract class UiStrings {
   /// **'Strong'**
   String get haVibrationStrong;
 
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Album art cache'**
+  String get mediaCacheTitle;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not read cache size.'**
+  String get mediaCacheReadFailed;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not clear the cache.'**
+  String get mediaCacheClearFailed;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking cache size...'**
+  String get mediaCacheChecking;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Clearing...'**
+  String get mediaCacheClearing;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{used} used of {limit}. Queue thumbnails are cached automatically.'**
+  String mediaCacheUsage(String used, String limit);
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Player source'**
+  String get settingSendspinPlayerSourceTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'What the floating player and Now Playing show and control: this device or a player elsewhere.'**
+  String get settingSendspinPlayerSourceDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Player'**
+  String get settingSendspinPlayerTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The player of that source to show and control.'**
+  String get settingSendspinPlayerDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Duck volume during voice interactions'**
+  String get settingSendspinDuckPercentTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Music drops to this share of its volume during voice interactions and intercom calls, then comes back.'**
+  String get settingSendspinDuckPercentDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Volume buttons control the player'**
+  String get settingSendspinVolumeKeysTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'This device\'s volume buttons change the followed player\'s volume instead of its own. Only while the Now Playing view is on screen, or whenever the player is playing.'**
+  String get settingSendspinVolumeKeysDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Volume button step'**
+  String get settingSendspinVolumeKeyStepTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'How far one press of a volume button moves the player.'**
+  String get settingSendspinVolumeKeyStepDescription;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The floating player and Now Playing show only while the picked player has a track playing or a queue loaded. With nothing playing or queued, neither appears.'**
+  String get mediaIntro;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'This device'**
+  String get mediaThisDevice;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Off'**
+  String get mediaOff;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'While Now Playing is shown'**
+  String get mediaKeysNowPlaying;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'While the player is playing'**
+  String get mediaKeysPlaying;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'another player'**
+  String get mediaAnotherPlayer;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'This device\'s own Sendspin player stays offline while {player} is controlled.'**
+  String mediaLocalOffline(String player);
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Server address'**
+  String get settingSendspinMaUrlTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The Music Assistant server\'s address, as its web interface shows it. Usually https and port 8095.'**
+  String get settingSendspinMaUrlDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Auth token'**
+  String get settingSendspinMaTokenTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'A long-lived token from Music Assistant (Settings, then Users). Read access is enough for lyrics; the kiosk menu shortcut opens the web interface as whoever the token belongs to.'**
+  String get settingSendspinMaTokenDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Show in the kiosk menu'**
+  String get settingSendspinMaShortcutTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a Music Assistant entry to the kiosk menu, opening the server\'s web interface over the dashboard. Needs the server address above.'**
+  String get settingSendspinMaShortcutDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Open directly to Now Playing'**
+  String get settingSendspinMaOpenFullscreenTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Music Assistant\'s full-screen player from the kiosk menu or the Open Music Assistant gesture.'**
+  String get settingSendspinMaOpenFullscreenDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Close after inactivity'**
+  String get settingSendspinMaAutoCloseTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Return to the dashboard when nobody has touched the Music Assistant page for this long. Zero leaves it open until it is closed.'**
+  String get settingSendspinMaAutoCloseDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide the close button'**
+  String get settingSendspinMaHideCloseTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The floating close button can sit on top of Music Assistant\'s own controls, like the Now Playing menu. Without it, dismiss with the back button or by using the kiosk\'s drawer menu.'**
+  String get settingSendspinMaHideCloseDescription;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Server, token, kiosk menu shortcut'**
+  String get mediaMaHint;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosk menu'**
+  String get mediaKioskMenu;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Validate connection'**
+  String get mediaValidateConnection;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Validate'**
+  String get mediaValidate;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking…'**
+  String get mediaChecking;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Connected'**
+  String get mediaConnected;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Connected to Music Assistant {version}'**
+  String mediaConnectedVersion(String version);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Check the address and token before turning on the shortcut or lyrics.'**
+  String get mediaValidateHint;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The device did not answer.'**
+  String get mediaDeviceNoAnswer;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Validation failed.'**
+  String get mediaValidationFailed;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No server address set.'**
+  String get mediaNoAddress;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No auth token set.'**
+  String get mediaNoToken;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Music Assistant did not answer in time.'**
+  String get mediaTimeout;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not reach {host}: {error}'**
+  String mediaUnreachable(String host, String error);
+
+  /// Connection failure.
+  ///
+  /// In en, this message translates to:
+  /// **'the server closed the connection'**
+  String get mediaServerClosed;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a player'**
+  String get mediaPickPlayer;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Music Assistant player'**
+  String get mediaMaPlayer;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Assistant media player'**
+  String get mediaHaPlayer;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Sonos room'**
+  String get mediaSonosRoom;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Search players'**
+  String get mediaSearchPlayers;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline'**
+  String get mediaOffline;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} (offline)'**
+  String mediaOfflineName(String name);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Set up Music Assistant to list its players.'**
+  String get mediaSetUpMa;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect Home Assistant to list its media players.'**
+  String get mediaSetUpHa;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No Sonos speakers known yet. Find or add one on the Sonos page.'**
+  String get mediaSetUpSonos;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Assistant did not answer: {error}'**
+  String mediaHaFailed(String error);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save the player.'**
+  String get mediaSaveFailed;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not select player'**
+  String get mediaSelectFailed;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Sendspin player'**
+  String get settingSendspinEnabledTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn this device into a synchronized Sendspin player. It appears in Music Assistant under the device name, in sync with every other Sendspin speaker.'**
+  String get settingSendspinEnabledDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Server'**
+  String get settingSendspinServerTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Sendspin server address, for example 192.168.1.10:8927. Leave empty to find the server on the network automatically.'**
+  String get settingSendspinServerDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Preferred audio codec'**
+  String get settingSendspinCodecTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'FLAC is lossless and ideal on WiFi or ethernet. The server makes the final choice from what this device offers.'**
+  String get settingSendspinCodecDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio sync offset (ms)'**
+  String get settingSendspinSyncOffsetTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Negative plays this device earlier, for speakers that lag behind the group (Bluetooth). Tune by ear; applies live.'**
+  String get settingSendspinSyncOffsetDescription;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Sendspin Player'**
+  String get mediaSendspinPage;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Make this device a synchronized Music Assistant player'**
+  String get mediaSendspinHint;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'FLAC (lossless)'**
+  String get mediaFlac;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Opus (efficient)'**
+  String get mediaOpus;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'PCM (uncompressed)'**
+  String get mediaPcm;
+
   /// Settings menu entry. Product names stay unchanged.
   ///
   /// In en, this message translates to:
@@ -9042,6 +9498,18 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Without this the kiosk cannot come back after a crash.'**
   String get browserCrashPermissionHelp;
+
+  /// Remote crash recovery permission notice.
+  ///
+  /// In en, this message translates to:
+  /// **'\"Display over other apps\" permission missing'**
+  String get browserCrashPermissionMissing;
+
+  /// Remote crash recovery permission notice.
+  ///
+  /// In en, this message translates to:
+  /// **'Without it the kiosk cannot bring itself back after a crash. The grant screen appears on the tablet.'**
+  String get browserCrashPermissionRemoteHelp;
 
   /// Setting label.
   ///

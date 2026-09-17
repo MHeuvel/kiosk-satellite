@@ -165,5 +165,25 @@
         "Settings > Web Browsing > Auto-reload on error > Display over other apps"
       ]
     }
+  },
+  "browserCrashPermissionMissing": "\"Display over other apps\" permission missing",
+  "@browserCrashPermissionMissing": {
+    "context": "Web Browsing > Auto-reload on error",
+    "description": "Remote crash recovery permission notice.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Web Browsing > Auto-reload on error"
+      ]
+    }
+  },
+  "browserCrashPermissionRemoteHelp": "Without it the kiosk cannot bring itself back after a crash. The grant screen appears on the tablet.",
+  "@browserCrashPermissionRemoteHelp": {
+    "context": "Web Browsing > Auto-reload on error",
+    "description": "Remote crash recovery permission notice.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Web Browsing > Auto-reload on error"
+      ]
+    }
   }
 }

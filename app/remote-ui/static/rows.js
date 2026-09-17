@@ -1,4 +1,4 @@
-import { cameraText, cameraError, deviceText, haText, screensaverText, screensaverError, t } from './localization.js';
+import { mediaText, cameraText, cameraError, deviceText, haText, screensaverText, screensaverError, t } from './localization.js';
 import { watchUpdates } from './live.js';
 import {
   GLANCE_MAX,
@@ -144,22 +144,21 @@ function albumArtCacheRow() {
   info.className = 'info';
   const name = document.createElement('div');
   name.className = 'name';
-  name.textContent = 'Album art cache';
+  name.textContent = mediaText('Album art cache');
   const note = document.createElement('div');
   note.className = 'desc';
-  note.textContent = 'Checking cache size...';
+  note.textContent = mediaText('Checking cache size...');
   info.append(name, note);
   const button = document.createElement('button');
   button.className = 'btn-ghost';
-  button.textContent = 'Clear';
+  button.textContent = mediaText('Clear');
   row.append(info, button);
   let revision = 0;
   const format = (bytes) => bytes < 1024 ? `${bytes} B`
     : bytes < 1048576 ? `${(bytes / 1024).toFixed(1)} KB`
     : `${(bytes / 1048576).toFixed(1)} MB`;
   const show = (data) => {
-    note.textContent = `${format(data.bytes)} used of ${format(data.maxBytes)}. `
-      + 'Queue thumbnails are cached automatically.';
+    note.textContent = t('mediaCacheUsage', {used: format(data.bytes), limit: format(data.maxBytes)});
   };
   const command = async (name) => {
     const response = await api(`/api/commands/${name}`, { method: 'POST', body: '{}' });
@@ -173,16 +172,16 @@ function albumArtCacheRow() {
       const data = await command('albumArtCacheStats');
       if (current === revision) show(data);
     } catch (_) {
-      if (current === revision) note.textContent = 'Could not read cache size.';
+      if (current === revision) note.textContent = mediaText('Could not read cache size.');
     }
   };
   button.addEventListener('click', async () => {
     revision++;
     button.disabled = true;
-    button.textContent = 'Clearing...';
+    button.textContent = mediaText('Clearing...');
     try { show(await command('clearAlbumArtCache')); }
-    catch (_) { note.textContent = 'Could not clear the cache.'; }
-    finally { button.disabled = false; button.textContent = 'Clear'; }
+    catch (_) { note.textContent = mediaText('Could not clear the cache.'); }
+    finally { button.disabled = false; button.textContent = mediaText('Clear'); }
   });
   read();
   watchUpdates(['artwork-cache'], read, { owner: row });
