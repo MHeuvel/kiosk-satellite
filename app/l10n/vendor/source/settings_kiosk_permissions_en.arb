@@ -1,0 +1,93 @@
+{
+  "@@locale": "en",
+  "kioskForeground": "Kiosk Satellite can bring itself back in the foreground.",
+  "@kioskForeground": {
+    "context": "Settings > Kiosk Mode > Required system permissions",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Required system permissions"
+      ]
+    }
+  },
+  "kioskOverlayMissing": "Without this the kiosk cannot bring itself back and the lockdown shield only covers the app.",
+  "@kioskOverlayMissing": {
+    "context": "Settings > Kiosk Mode > Required system permissions",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Required system permissions"
+      ]
+    }
+  },
+  "kioskGuardHeld": "The notification shade and recents close on their own while the screen is protected.",
+  "@kioskGuardHeld": {
+    "context": "Settings > Kiosk Mode > Required system permissions",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Required system permissions",
+        "Lockdown Mode > Required system permissions"
+      ]
+    }
+  },
+  "kioskGuardMissing": "Without this the notification shade and recents stay reachable. Enable Kiosk Satellite under Accessibility.",
+  "@kioskGuardMissing": {
+    "context": "Settings > Kiosk Mode > Required system permissions",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Required system permissions"
+      ]
+    }
+  },
+  "kioskOverlayRemote": "Without this the kiosk cannot bring itself back. The grant screen appears on the tablet.",
+  "@kioskOverlayRemote": {
+    "context": "Settings > Kiosk Mode > Required system permissions",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Kiosk Mode > Required system permissions"
+      ]
+    }
+  },
+  "kioskGuardRemote": "Without this the notification shade and recents stay reachable. Enable Kiosk Satellite under Accessibility on the tablet.",
+  "@kioskGuardRemote": {
+    "context": "Settings > Kiosk Mode > Required system permissions",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Kiosk Mode > Required system permissions",
+        "Lockdown Mode > Required system permissions"
+      ]
+    }
+  },
+  "kioskGrantDevice": "Grant on device",
+  "@kioskGrantDevice": {
+    "context": "Settings > Kiosk Mode > Required system permissions",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Kiosk Mode > Required system permissions",
+        "Lockdown Mode > Required system permissions"
+      ]
+    }
+  },
+  "kioskOpenSettingsDevice": "Open settings on device",
+  "@kioskOpenSettingsDevice": {
+    "context": "Settings > Kiosk Mode > Required system permissions",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Kiosk Mode > Required system permissions",
+        "Lockdown Mode > Required system permissions"
+      ]
+    }
+  }
+}

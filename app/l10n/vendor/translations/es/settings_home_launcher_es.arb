@@ -1,0 +1,7 @@
+{
+  "@@locale": "es",
+  "settingHomeLauncherEnabledTitle": "Usar como pantalla de inicio",
+  "settingHomeLauncherEnabledDescription": "Registra Kiosk Satellite como pantalla de inicio del dispositivo: el kiosko se abre al encenderlo y cada pulsación de Inicio vuelve a él. Se desactiva y restaura el lanzador anterior si la aplicación falla al iniciarse repetidamente.",
+  "settingHomeKeepPinningTitle": "Mantener fijación de pantalla",
+  "settingHomeKeepPinningDescription": "Fija la pantalla incluso cuando Kiosk Satellite es la pantalla de inicio. Bloquea los botones Aplicaciones recientes y Atrás a nivel del sistema, pero vuelve a mostrar la confirmación de fijación en dispositivos donde la aplicación no es propietaria del dispositivo."
+}

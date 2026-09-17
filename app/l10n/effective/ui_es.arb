@@ -2045,7 +2045,7 @@
       ]
     }
   },
-  "kioskPinTitle": "Kiosk PIN",
+  "kioskPinTitle": "PIN del kiosko",
   "@kioskPinTitle": {
     "context": "Device > Kiosk exit gesture > PIN dialog",
     "description": "Label or guidance in this section.",
@@ -2065,7 +2065,7 @@
       ]
     }
   },
-  "kioskWrongPin": "Wrong PIN",
+  "kioskWrongPin": "PIN incorrecto",
   "@kioskWrongPin": {
     "context": "Device > Kiosk exit gesture > PIN dialog",
     "description": "Label or guidance in this section.",
@@ -2075,7 +2075,7 @@
       ]
     }
   },
-  "kioskUnlock": "Unlock",
+  "kioskUnlock": "Desbloquear",
   "@kioskUnlock": {
     "context": "Device > Kiosk exit gesture > PIN dialog",
     "description": "Label or guidance in this section.",
@@ -11727,7 +11727,7 @@
       ]
     }
   },
-  "settingHomeLauncherEnabledTitle": "Act as the home screen",
+  "settingHomeLauncherEnabledTitle": "Usar como pantalla de inicio",
   "@settingHomeLauncherEnabledTitle": {
     "context": "Settings > Home Launcher",
     "description": "Setting label.",
@@ -11740,7 +11740,7 @@
       ]
     }
   },
-  "settingHomeLauncherEnabledDescription": "Register Kiosk Satellite as the device home screen: the kiosk starts at boot and every home press returns to it. Turns itself off and restores the previous launcher if the app fails to start repeatedly.",
+  "settingHomeLauncherEnabledDescription": "Registra Kiosk Satellite como pantalla de inicio del dispositivo: el kiosko se abre al encenderlo y cada pulsación de Inicio vuelve a él. Se desactiva y restaura el lanzador anterior si la aplicación falla al iniciarse repetidamente.",
   "@settingHomeLauncherEnabledDescription": {
     "context": "Settings > Home Launcher",
     "description": "Help below this setting.",
@@ -11753,7 +11753,7 @@
       ]
     }
   },
-  "settingHomeKeepPinningTitle": "Keep screen pinning",
+  "settingHomeKeepPinningTitle": "Mantener fijación de pantalla",
   "@settingHomeKeepPinningTitle": {
     "context": "Settings > Home Launcher",
     "description": "Setting label.",
@@ -11766,7 +11766,7 @@
       ]
     }
   },
-  "settingHomeKeepPinningDescription": "Pin the screen even while Kiosk Satellite is the home screen. Blocks recents and back natively, but brings back the pinning confirmation dialog on devices without device ownership.",
+  "settingHomeKeepPinningDescription": "Fija la pantalla incluso cuando Kiosk Satellite es la pantalla de inicio. Bloquea los botones Aplicaciones recientes y Atrás a nivel del sistema, pero vuelve a mostrar la confirmación de fijación en dispositivos donde la aplicación no es propietaria del dispositivo.",
   "@settingHomeKeepPinningDescription": {
     "context": "Settings > Home Launcher",
     "description": "Help below this setting.",
@@ -11779,7 +11779,7 @@
       ]
     }
   },
-  "kioskHomeScreen": "Home screen",
+  "kioskHomeScreen": "Pantalla de inicio",
   "@kioskHomeScreen": {
     "context": "Settings > Home Launcher > Status",
     "description": "Label or guidance in this section.",
@@ -11792,7 +11792,7 @@
       ]
     }
   },
-  "kioskCheckingDevice": "Checking the device...",
+  "kioskCheckingDevice": "Comprobando el dispositivo...",
   "@kioskCheckingDevice": {
     "context": "Settings > Home Launcher > Status",
     "description": "Label or guidance in this section.",
@@ -11802,7 +11802,7 @@
       ]
     }
   },
-  "kioskFireOs": "Fire OS does not allow replacing its launcher.",
+  "kioskFireOs": "Fire OS no permite sustituir su lanzador.",
   "@kioskFireOs": {
     "context": "Settings > Home Launcher > Status",
     "description": "Label or guidance in this section.",
@@ -11815,7 +11815,7 @@
       ]
     }
   },
-  "kioskUnsupported": "This device does not allow changing the home screen.",
+  "kioskUnsupported": "Este dispositivo no permite cambiar la pantalla de inicio.",
   "@kioskUnsupported": {
     "context": "Settings > Home Launcher > Status",
     "description": "Label or guidance in this section.",
@@ -11828,7 +11828,7 @@
       ]
     }
   },
-  "kioskRecovered": "Turned off automatically after repeated failed starts; the previous launcher was restored. Turn the switch back on to try again.",
+  "kioskRecovered": "Se desactivó automáticamente tras varios fallos al iniciar y se restauró el lanzador anterior. Vuelve a activar el interruptor para intentarlo de nuevo.",
   "@kioskRecovered": {
     "context": "Settings > Home Launcher > Status",
     "description": "Label or guidance in this section.",
@@ -11841,7 +11841,7 @@
       ]
     }
   },
-  "kioskHeld": "Kiosk Satellite is the home screen. The kiosk starts at boot and every home press returns to it.",
+  "kioskHeld": "Kiosk Satellite es la pantalla de inicio. El kiosko se abre al encender el dispositivo y cada pulsación de Inicio vuelve a él.",
   "@kioskHeld": {
     "context": "Settings > Home Launcher > Status",
     "description": "Label or guidance in this section.",
@@ -11854,7 +11854,7 @@
       ]
     }
   },
-  "kioskDisabled": "Not the home screen. Turn on Act as the home screen above.",
+  "kioskDisabled": "No es la pantalla de inicio. Activa Usar como pantalla de inicio arriba.",
   "@kioskDisabled": {
     "context": "Settings > Home Launcher > Status",
     "description": "Label or guidance in this section.",
@@ -11864,7 +11864,7 @@
       ]
     }
   },
-  "kioskWaiting": "Not the current home screen yet: the device is waiting for a confirmation.",
+  "kioskWaiting": "Aún no es la pantalla de inicio actual: el dispositivo espera una confirmación.",
   "@kioskWaiting": {
     "context": "Settings > Home Launcher > Status",
     "description": "Label or guidance in this section.",
@@ -11874,7 +11874,7 @@
       ]
     }
   },
-  "kioskOpenHomeSettings": "Open home settings",
+  "kioskOpenHomeSettings": "Abrir configuración de inicio",
   "@kioskOpenHomeSettings": {
     "context": "Settings > Home Launcher > Status",
     "description": "Label or guidance in this section.",
@@ -11884,7 +11884,7 @@
       ]
     }
   },
-  "kioskSetDefault": "Set as default",
+  "kioskSetDefault": "Establecer como predeterminada",
   "@kioskSetDefault": {
     "context": "Settings > Home Launcher > Status",
     "description": "Label or guidance in this section.",
@@ -11894,7 +11894,7 @@
       ]
     }
   },
-  "kioskActive": "Active",
+  "kioskActive": "Activo",
   "@kioskActive": {
     "context": "Settings > Home Launcher > Status",
     "description": "Label or guidance in this section.",
@@ -11904,7 +11904,7 @@
       ]
     }
   },
-  "kioskNotHome": "Not the home screen.",
+  "kioskNotHome": "No es la pantalla de inicio.",
   "@kioskNotHome": {
     "context": "Settings > Home Launcher > Status",
     "description": "Label or guidance in this section.",
@@ -11914,7 +11914,7 @@
       ]
     }
   },
-  "kioskWaitingRemote": "Waiting for a confirmation on the device: the system dialog or home settings open there.",
+  "kioskWaitingRemote": "Esperando confirmación en el dispositivo: allí se abre el diálogo del sistema o la configuración de inicio.",
   "@kioskWaitingRemote": {
     "context": "Settings > Home Launcher > Status",
     "description": "Label or guidance in this section.",
@@ -11924,7 +11924,7 @@
       ]
     }
   },
-  "kioskSetDevice": "Set on device",
+  "kioskSetDevice": "Configurar en el dispositivo",
   "@kioskSetDevice": {
     "context": "Settings > Home Launcher > Status",
     "description": "Label or guidance in this section.",
@@ -12566,7 +12566,7 @@
       ]
     }
   },
-  "settingKioskAllowDrawerTitle": "Allow menu with quick actions",
+  "settingKioskAllowDrawerTitle": "Permitir menú con acciones rápidas",
   "@settingKioskAllowDrawerTitle": {
     "context": "Settings > Kiosk Mode > Allowed Actions",
     "description": "Setting label.",
@@ -12579,7 +12579,7 @@
       ]
     }
   },
-  "settingKioskAllowDrawerDescription": "An edge swipe opens the menu without the exit gesture or PIN, limited to the actions selected below.",
+  "settingKioskAllowDrawerDescription": "Un deslizamiento desde el borde abre el menú sin gesto de salida ni PIN, limitado a las acciones seleccionadas abajo.",
   "@settingKioskAllowDrawerDescription": {
     "context": "Settings > Kiosk Mode > Allowed Actions",
     "description": "Help below this setting.",
@@ -12592,7 +12592,7 @@
       ]
     }
   },
-  "settingKioskAllowDashboardTitle": "Dashboard",
+  "settingKioskAllowDashboardTitle": "Panel de control",
   "@settingKioskAllowDashboardTitle": {
     "context": "Settings > Kiosk Mode > Allowed Actions",
     "description": "Setting label.",
@@ -12605,7 +12605,7 @@
       ]
     }
   },
-  "settingKioskAllowDashboardDescription": "Reload the start page.",
+  "settingKioskAllowDashboardDescription": "Vuelve a cargar la página de inicio.",
   "@settingKioskAllowDashboardDescription": {
     "context": "Settings > Kiosk Mode > Allowed Actions",
     "description": "Help below this setting.",
@@ -12618,7 +12618,7 @@
       ]
     }
   },
-  "settingKioskAllowHaKioskTitle": "HA Kiosk Mode",
+  "settingKioskAllowHaKioskTitle": "Modo kiosko de HA",
   "@settingKioskAllowHaKioskTitle": {
     "context": "Settings > Kiosk Mode > Allowed Actions",
     "description": "Setting label.",
@@ -12631,7 +12631,7 @@
       ]
     }
   },
-  "settingKioskAllowHaKioskDescription": "Show or hide the Home Assistant header and sidebar.",
+  "settingKioskAllowHaKioskDescription": "Muestra u oculta la cabecera y la barra lateral de Home Assistant.",
   "@settingKioskAllowHaKioskDescription": {
     "context": "Settings > Kiosk Mode > Allowed Actions",
     "description": "Help below this setting.",
@@ -12644,7 +12644,7 @@
       ]
     }
   },
-  "settingKioskAllowCameraTitle": "Camera View",
+  "settingKioskAllowCameraTitle": "Vista de cámaras",
   "@settingKioskAllowCameraTitle": {
     "context": "Settings > Kiosk Mode > Allowed Actions",
     "description": "Setting label.",
@@ -12657,7 +12657,7 @@
       ]
     }
   },
-  "settingKioskAllowCameraDescription": "Open the default camera view.",
+  "settingKioskAllowCameraDescription": "Abre la vista de cámaras predeterminada.",
   "@settingKioskAllowCameraDescription": {
     "context": "Settings > Kiosk Mode > Allowed Actions",
     "description": "Help below this setting.",
@@ -12670,7 +12670,7 @@
       ]
     }
   },
-  "settingKioskAllowIntercomTitle": "Intercom",
+  "settingKioskAllowIntercomTitle": "Intercomunicador",
   "@settingKioskAllowIntercomTitle": {
     "context": "Settings > Kiosk Mode > Allowed Actions",
     "description": "Setting label.",
@@ -12683,7 +12683,7 @@
       ]
     }
   },
-  "settingKioskAllowIntercomDescription": "Call other kiosks from the kiosk menu.",
+  "settingKioskAllowIntercomDescription": "Llama a otros kioskos desde el menú del kiosko.",
   "@settingKioskAllowIntercomDescription": {
     "context": "Settings > Kiosk Mode > Allowed Actions",
     "description": "Help below this setting.",
@@ -12709,7 +12709,7 @@
       ]
     }
   },
-  "settingKioskAllowMusicDescription": "Open the Music Assistant web interface.",
+  "settingKioskAllowMusicDescription": "Abre la interfaz web de Music Assistant.",
   "@settingKioskAllowMusicDescription": {
     "context": "Settings > Kiosk Mode > Allowed Actions",
     "description": "Help below this setting.",
@@ -12722,7 +12722,7 @@
       ]
     }
   },
-  "settingKioskAllowSendspinPlayerTitle": "Floating Player",
+  "settingKioskAllowSendspinPlayerTitle": "Reproductor flotante",
   "@settingKioskAllowSendspinPlayerTitle": {
     "context": "Settings > Kiosk Mode > Allowed Actions",
     "description": "Setting label.",
@@ -12735,7 +12735,7 @@
       ]
     }
   },
-  "settingKioskAllowSendspinPlayerDescription": "Show or hide the floating player and open Now Playing.",
+  "settingKioskAllowSendspinPlayerDescription": "Muestra u oculta el reproductor flotante y abre Reproduciendo Ahora.",
   "@settingKioskAllowSendspinPlayerDescription": {
     "context": "Settings > Kiosk Mode > Allowed Actions",
     "description": "Help below this setting.",
@@ -12748,7 +12748,7 @@
       ]
     }
   },
-  "settingKioskAllowScreensaverTitle": "Start Screensaver",
+  "settingKioskAllowScreensaverTitle": "Iniciar protector de pantalla",
   "@settingKioskAllowScreensaverTitle": {
     "context": "Settings > Kiosk Mode > Allowed Actions",
     "description": "Setting label.",
@@ -12761,7 +12761,7 @@
       ]
     }
   },
-  "settingKioskAllowScreensaverDescription": "Start the screensaver now.",
+  "settingKioskAllowScreensaverDescription": "Inicia el protector de pantalla ahora.",
   "@settingKioskAllowScreensaverDescription": {
     "context": "Settings > Kiosk Mode > Allowed Actions",
     "description": "Help below this setting.",
@@ -12774,7 +12774,7 @@
       ]
     }
   },
-  "settingKioskAllowHoldTitle": "Hold Mode",
+  "settingKioskAllowHoldTitle": "Modo de pausa",
   "@settingKioskAllowHoldTitle": {
     "context": "Settings > Kiosk Mode > Allowed Actions",
     "description": "Setting label.",
@@ -12787,7 +12787,7 @@
       ]
     }
   },
-  "settingKioskAllowHoldDescription": "Turn hold mode on or off.",
+  "settingKioskAllowHoldDescription": "Activa o desactiva el modo de pausa.",
   "@settingKioskAllowHoldDescription": {
     "context": "Settings > Kiosk Mode > Allowed Actions",
     "description": "Help below this setting.",
@@ -12800,7 +12800,7 @@
       ]
     }
   },
-  "settingKioskAllowLockdownTitle": "Lockdown Mode",
+  "settingKioskAllowLockdownTitle": "Modo de bloqueo",
   "@settingKioskAllowLockdownTitle": {
     "context": "Settings > Kiosk Mode > Allowed Actions",
     "description": "Setting label.",
@@ -12813,7 +12813,7 @@
       ]
     }
   },
-  "settingKioskAllowLockdownDescription": "Lock the screen until the exit gesture or a remote unlock.",
+  "settingKioskAllowLockdownDescription": "Bloquea la pantalla hasta usar el gesto de salida o desbloquearla de forma remota.",
   "@settingKioskAllowLockdownDescription": {
     "context": "Settings > Kiosk Mode > Allowed Actions",
     "description": "Help below this setting.",
@@ -12826,7 +12826,7 @@
       ]
     }
   },
-  "settingKioskAllowThemeTitle": "Theme picker",
+  "settingKioskAllowThemeTitle": "Selector de tema",
   "@settingKioskAllowThemeTitle": {
     "context": "Settings > Kiosk Mode > Allowed Actions",
     "description": "Setting label.",
@@ -12839,7 +12839,7 @@
       ]
     }
   },
-  "settingKioskAllowThemeDescription": "Switch between the light and dark themes.",
+  "settingKioskAllowThemeDescription": "Cambia entre los temas claro y oscuro.",
   "@settingKioskAllowThemeDescription": {
     "context": "Settings > Kiosk Mode > Allowed Actions",
     "description": "Help below this setting.",
@@ -12852,7 +12852,7 @@
       ]
     }
   },
-  "settingKioskAllowAppsTitle": "Apps",
+  "settingKioskAllowAppsTitle": "Aplicaciones",
   "@settingKioskAllowAppsTitle": {
     "context": "Settings > Kiosk Mode > Allowed Actions",
     "description": "Setting label.",
@@ -12865,7 +12865,7 @@
       ]
     }
   },
-  "settingKioskAllowAppsDescription": "Open the app launcher. With Disable home button on, launching an app unpins the kiosk until it returns.",
+  "settingKioskAllowAppsDescription": "Abre el lanzador de aplicaciones. Si Desactivar botón Inicio está activado, abrir una aplicación libera la fijación del kiosko hasta que vuelvas a él.",
   "@settingKioskAllowAppsDescription": {
     "context": "Settings > Kiosk Mode > Allowed Actions",
     "description": "Help below this setting.",
@@ -12878,7 +12878,7 @@
       ]
     }
   },
-  "kioskAllowedActions": "Allowed Actions",
+  "kioskAllowedActions": "Acciones permitidas",
   "@kioskAllowedActions": {
     "context": "Settings > Kiosk Mode > Allowed Actions",
     "description": "Label or guidance in this section.",
@@ -12891,7 +12891,7 @@
       ]
     }
   },
-  "kioskAllowedHelp": "Which quick actions the kiosk menu offers",
+  "kioskAllowedHelp": "Qué acciones rápidas ofrece el menú del kiosko",
   "@kioskAllowedHelp": {
     "context": "Settings > Kiosk Mode > Allowed Actions",
     "description": "Label or guidance in this section.",
@@ -12904,7 +12904,7 @@
       ]
     }
   },
-  "settingKioskEnabledTitle": "Enable kiosk mode",
+  "settingKioskEnabledTitle": "Activar modo kiosko",
   "@settingKioskEnabledTitle": {
     "context": "Settings > Kiosk Mode",
     "description": "Setting label.",
@@ -12917,7 +12917,7 @@
       ]
     }
   },
-  "settingKioskEnabledDescription": "Lock the tablet into Kiosk Satellite. The menu swipe is replaced by the exit gesture, the back button stays inside the kiosk, and the protections below arm.",
+  "settingKioskEnabledDescription": "Mantiene la tablet en Kiosk Satellite. El gesto de salida sustituye al deslizamiento para abrir el menú, el botón Atrás permanece dentro del kiosko y se activan las protecciones de abajo.",
   "@settingKioskEnabledDescription": {
     "context": "Settings > Kiosk Mode",
     "description": "Help below this setting.",
@@ -12930,7 +12930,7 @@
       ]
     }
   },
-  "settingKioskStartOnBootTitle": "Start on boot",
+  "settingKioskStartOnBootTitle": "Iniciar al encender",
   "@settingKioskStartOnBootTitle": {
     "context": "Settings > Kiosk Mode",
     "description": "Setting label.",
@@ -12943,7 +12943,7 @@
       ]
     }
   },
-  "settingKioskStartOnBootDescription": "Launch Kiosk Satellite when the device powers on. On Android 10+ this needs the display over other apps permission; Android asks on first enable.",
+  "settingKioskStartOnBootDescription": "Abre Kiosk Satellite cuando se enciende el dispositivo. En Android 10 o posterior necesita el permiso para mostrarse sobre otras aplicaciones. Android lo solicita al activar esta opción por primera vez.",
   "@settingKioskStartOnBootDescription": {
     "context": "Settings > Kiosk Mode",
     "description": "Help below this setting.",
@@ -12956,7 +12956,7 @@
       ]
     }
   },
-  "settingKioskExitGestureTitle": "Kiosk exit gesture",
+  "settingKioskExitGestureTitle": "Gesto de salida del kiosko",
   "@settingKioskExitGestureTitle": {
     "context": "Settings > Kiosk Mode",
     "description": "Setting label.",
@@ -12969,7 +12969,7 @@
       ]
     }
   },
-  "settingKioskExitGestureDescription": "Fast taps anywhere open the menu, after the PIN if one is set. Hold variants need the last tap held down. When disabled, only the remote admin can reach settings.",
+  "settingKioskExitGestureDescription": "Los toques rápidos en cualquier lugar abren el menú después de pedir el PIN, si hay uno. Las variantes que indican mantener pulsado requieren mantener el último toque. Si se desactiva, solo se puede acceder a la configuración desde la administración remota.",
   "@settingKioskExitGestureDescription": {
     "context": "Settings > Kiosk Mode",
     "description": "Help below this setting.",
@@ -12982,7 +12982,7 @@
       ]
     }
   },
-  "settingKioskPinTitle": "Kiosk mode PIN",
+  "settingKioskPinTitle": "PIN del modo kiosko",
   "@settingKioskPinTitle": {
     "context": "Settings > Kiosk Mode",
     "description": "Setting label.",
@@ -12995,7 +12995,7 @@
       ]
     }
   },
-  "settingKioskPinDescription": "Asked after the exit gesture before the menu opens. Leave empty for no PIN.",
+  "settingKioskPinDescription": "Se solicita después del gesto de salida y antes de abrir el menú. Déjalo vacío para no usar PIN.",
   "@settingKioskPinDescription": {
     "context": "Settings > Kiosk Mode",
     "description": "Help below this setting.",
@@ -13008,7 +13008,7 @@
       ]
     }
   },
-  "settingKioskDisableStatusBarTitle": "Disable status bar",
+  "settingKioskDisableStatusBarTitle": "Desactivar barra de estado",
   "@settingKioskDisableStatusBarTitle": {
     "context": "Settings > Kiosk Mode",
     "description": "Setting label.",
@@ -13021,7 +13021,7 @@
       ]
     }
   },
-  "settingKioskDisableStatusBarDescription": "Block the status bar pull-down with a shield over the top edge. Needs the display over other apps permission; Android asks on first enable.",
+  "settingKioskDisableStatusBarDescription": "Bloquea el despliegue de la barra de estado con una protección sobre el borde superior. Necesita el permiso para mostrarse sobre otras aplicaciones. Android lo solicita al activar esta opción por primera vez.",
   "@settingKioskDisableStatusBarDescription": {
     "context": "Settings > Kiosk Mode",
     "description": "Help below this setting.",
@@ -13034,7 +13034,7 @@
       ]
     }
   },
-  "settingKioskDisableVolumeTitle": "Disable volume buttons",
+  "settingKioskDisableVolumeTitle": "Desactivar botones de volumen",
   "@settingKioskDisableVolumeTitle": {
     "context": "Settings > Kiosk Mode",
     "description": "Setting label.",
@@ -13047,7 +13047,7 @@
       ]
     }
   },
-  "settingKioskDisableVolumeDescription": "Swallow the hardware volume keys.",
+  "settingKioskDisableVolumeDescription": "Ignora los botones físicos de volumen.",
   "@settingKioskDisableVolumeDescription": {
     "context": "Settings > Kiosk Mode",
     "description": "Help below this setting.",
@@ -13060,7 +13060,7 @@
       ]
     }
   },
-  "settingKioskDisablePowerTitle": "Disable power button",
+  "settingKioskDisablePowerTitle": "Desactivar botón de encendido",
   "@settingKioskDisablePowerTitle": {
     "context": "Settings > Kiosk Mode",
     "description": "Setting label.",
@@ -13073,7 +13073,7 @@
       ]
     }
   },
-  "settingKioskDisablePowerDescription": "Android cannot block the power button, so the screen turns right back on when it is pressed. Turning the screen off remotely still works.",
+  "settingKioskDisablePowerDescription": "Android no permite bloquear el botón de encendido, así que la pantalla vuelve a encenderse en cuanto se pulsa. Aún puedes apagar la pantalla de forma remota.",
   "@settingKioskDisablePowerDescription": {
     "context": "Settings > Kiosk Mode",
     "description": "Help below this setting.",
@@ -13086,7 +13086,7 @@
       ]
     }
   },
-  "settingKioskDisableHomeTitle": "Disable home button",
+  "settingKioskDisableHomeTitle": "Desactivar botón Inicio",
   "@settingKioskDisableHomeTitle": {
     "context": "Settings > Kiosk Mode",
     "description": "Setting label.",
@@ -13099,7 +13099,7 @@
       ]
     }
   },
-  "settingKioskDisableHomeDescription": "Pin the app with Android screen pinning, which blocks the home and recents buttons. Android asks to confirm the first time.",
+  "settingKioskDisableHomeDescription": "Fija la aplicación con la función de fijación de pantalla de Android, que bloquea los botones Inicio y Aplicaciones recientes. Android pide confirmación la primera vez.",
   "@settingKioskDisableHomeDescription": {
     "context": "Settings > Kiosk Mode",
     "description": "Help below this setting.",
@@ -13112,7 +13112,7 @@
       ]
     }
   },
-  "settingKioskDisableContextMenusTitle": "Disable context menus",
+  "settingKioskDisableContextMenusTitle": "Desactivar menús contextuales",
   "@settingKioskDisableContextMenusTitle": {
     "context": "Settings > Kiosk Mode",
     "description": "Setting label.",
@@ -13125,7 +13125,7 @@
       ]
     }
   },
-  "settingKioskDisableContextMenusDescription": "Suppress long-press menus and text selection inside the web view.",
+  "settingKioskDisableContextMenusDescription": "Impide los menús de pulsación prolongada y la selección de texto en la vista web.",
   "@settingKioskDisableContextMenusDescription": {
     "context": "Settings > Kiosk Mode",
     "description": "Help below this setting.",
@@ -13138,7 +13138,7 @@
       ]
     }
   },
-  "settingKioskDisablePullRefreshTitle": "Disable pull to refresh",
+  "settingKioskDisablePullRefreshTitle": "Desactivar deslizar para actualizar",
   "@settingKioskDisablePullRefreshTitle": {
     "context": "Settings > Kiosk Mode",
     "description": "Setting label.",
@@ -13151,7 +13151,7 @@
       ]
     }
   },
-  "settingKioskDisablePullRefreshDescription": "Ignore the pull-to-refresh gesture while kiosk mode is on.",
+  "settingKioskDisablePullRefreshDescription": "Ignora el gesto de deslizar para actualizar mientras el modo kiosko está activado.",
   "@settingKioskDisablePullRefreshDescription": {
     "context": "Settings > Kiosk Mode",
     "description": "Help below this setting.",
@@ -13164,7 +13164,7 @@
       ]
     }
   },
-  "settingKioskDisableGesturesTitle": "Disable Gestures",
+  "settingKioskDisableGesturesTitle": "Desactivar gestos",
   "@settingKioskDisableGesturesTitle": {
     "context": "Settings > Kiosk Mode",
     "description": "Setting label.",
@@ -13177,7 +13177,7 @@
       ]
     }
   },
-  "settingKioskDisableGesturesDescription": "Ignore the gestures from the Gestures page while kiosk mode is on.",
+  "settingKioskDisableGesturesDescription": "Ignora los gestos de la página Gestos mientras el modo kiosko está activado.",
   "@settingKioskDisableGesturesDescription": {
     "context": "Settings > Kiosk Mode",
     "description": "Help below this setting.",
@@ -13190,7 +13190,7 @@
       ]
     }
   },
-  "kioskGestureTaps5": "5 fast taps",
+  "kioskGestureTaps5": "5 toques rápidos",
   "@kioskGestureTaps5": {
     "context": "Settings > Kiosk Mode",
     "description": "Exit gesture option. Keep the number of taps unchanged.",
@@ -13203,7 +13203,7 @@
       ]
     }
   },
-  "kioskGestureTaps7": "7 fast taps",
+  "kioskGestureTaps7": "7 toques rápidos",
   "@kioskGestureTaps7": {
     "context": "Settings > Kiosk Mode",
     "description": "Exit gesture option. Keep the number of taps unchanged.",
@@ -13216,7 +13216,7 @@
       ]
     }
   },
-  "kioskGestureTaps5Hold": "5 fast taps, holding the last",
+  "kioskGestureTaps5Hold": "5 toques rápidos, manteniendo el último",
   "@kioskGestureTaps5Hold": {
     "context": "Settings > Kiosk Mode",
     "description": "Exit gesture option. Keep the number of taps unchanged.",
@@ -13229,7 +13229,7 @@
       ]
     }
   },
-  "kioskGestureTaps7Hold": "7 fast taps, holding the last",
+  "kioskGestureTaps7Hold": "7 toques rápidos, manteniendo el último",
   "@kioskGestureTaps7Hold": {
     "context": "Settings > Kiosk Mode",
     "description": "Exit gesture option. Keep the number of taps unchanged.",
@@ -13242,7 +13242,7 @@
       ]
     }
   },
-  "kioskGestureNone": "Disabled (remote admin only)",
+  "kioskGestureNone": "Desactivado (solo administración remota)",
   "@kioskGestureNone": {
     "context": "Settings > Kiosk Mode",
     "description": "Exit gesture option. Keep the number of taps unchanged.",
@@ -13255,7 +13255,7 @@
       ]
     }
   },
-  "kioskForeground": "Kiosk Satellite can bring itself back in the foreground.",
+  "kioskForeground": "Kiosk Satellite puede volver al primer plano.",
   "@kioskForeground": {
     "context": "Settings > Kiosk Mode > Required system permissions",
     "description": "Label or guidance in this section.",
@@ -13268,7 +13268,7 @@
       ]
     }
   },
-  "kioskOverlayMissing": "Without this the kiosk cannot bring itself back and the lockdown shield only covers the app.",
+  "kioskOverlayMissing": "Sin este permiso, el kiosko no puede volver al primer plano y la protección del modo de bloqueo solo cubre la aplicación.",
   "@kioskOverlayMissing": {
     "context": "Settings > Kiosk Mode > Required system permissions",
     "description": "Label or guidance in this section.",
@@ -13278,7 +13278,7 @@
       ]
     }
   },
-  "kioskGuardHeld": "The notification shade and recents close on their own while the screen is protected.",
+  "kioskGuardHeld": "El panel de notificaciones y las aplicaciones recientes se cierran automáticamente mientras la pantalla está protegida.",
   "@kioskGuardHeld": {
     "context": "Settings > Kiosk Mode > Required system permissions",
     "description": "Label or guidance in this section.",
@@ -13292,7 +13292,7 @@
       ]
     }
   },
-  "kioskGuardMissing": "Without this the notification shade and recents stay reachable. Enable Kiosk Satellite under Accessibility.",
+  "kioskGuardMissing": "Sin este permiso, el panel de notificaciones y las aplicaciones recientes siguen siendo accesibles. Activa Kiosk Satellite en Accesibilidad.",
   "@kioskGuardMissing": {
     "context": "Settings > Kiosk Mode > Required system permissions",
     "description": "Label or guidance in this section.",
@@ -13302,7 +13302,7 @@
       ]
     }
   },
-  "kioskOverlayRemote": "Without this the kiosk cannot bring itself back. The grant screen appears on the tablet.",
+  "kioskOverlayRemote": "Sin este permiso, el kiosko no puede volver al primer plano. La pantalla para concederlo aparece en la tablet.",
   "@kioskOverlayRemote": {
     "context": "Settings > Kiosk Mode > Required system permissions",
     "description": "Label or guidance in this section.",
@@ -13312,7 +13312,7 @@
       ]
     }
   },
-  "kioskGuardRemote": "Without this the notification shade and recents stay reachable. Enable Kiosk Satellite under Accessibility on the tablet.",
+  "kioskGuardRemote": "Sin este permiso, el panel de notificaciones y las aplicaciones recientes siguen siendo accesibles. Activa Kiosk Satellite en Accesibilidad en la tablet.",
   "@kioskGuardRemote": {
     "context": "Settings > Kiosk Mode > Required system permissions",
     "description": "Label or guidance in this section.",
@@ -13323,7 +13323,7 @@
       ]
     }
   },
-  "kioskGrantDevice": "Grant on device",
+  "kioskGrantDevice": "Conceder en el dispositivo",
   "@kioskGrantDevice": {
     "context": "Settings > Kiosk Mode > Required system permissions",
     "description": "Label or guidance in this section.",
@@ -13334,7 +13334,7 @@
       ]
     }
   },
-  "kioskOpenSettingsDevice": "Open settings on device",
+  "kioskOpenSettingsDevice": "Abrir configuración en el dispositivo",
   "@kioskOpenSettingsDevice": {
     "context": "Settings > Kiosk Mode > Required system permissions",
     "description": "Label or guidance in this section.",
@@ -15762,7 +15762,7 @@
       ]
     }
   },
-  "settingsMenuHomeLauncher": "Pantalla de inicio",
+  "settingsMenuHomeLauncher": "Lanzador de Inicio",
   "@settingsMenuHomeLauncher": {
     "context": "Settings:Menu",
     "description": "Settings menu entry. Product names stay unchanged.",

@@ -1,0 +1,11 @@
+{
+  "@@locale": "es",
+  "kioskForeground": "Kiosk Satellite puede volver al primer plano.",
+  "kioskOverlayMissing": "Sin este permiso, el kiosko no puede volver al primer plano y la protección del modo de bloqueo solo cubre la aplicación.",
+  "kioskGuardHeld": "El panel de notificaciones y las aplicaciones recientes se cierran automáticamente mientras la pantalla está protegida.",
+  "kioskGuardMissing": "Sin este permiso, el panel de notificaciones y las aplicaciones recientes siguen siendo accesibles. Activa Kiosk Satellite en Accesibilidad.",
+  "kioskOverlayRemote": "Sin este permiso, el kiosko no puede volver al primer plano. La pantalla para concederlo aparece en la tablet.",
+  "kioskGuardRemote": "Sin este permiso, el panel de notificaciones y las aplicaciones recientes siguen siendo accesibles. Activa Kiosk Satellite en Accesibilidad en la tablet.",
+  "kioskGrantDevice": "Conceder en el dispositivo",
+  "kioskOpenSettingsDevice": "Abrir configuración en el dispositivo"
+}

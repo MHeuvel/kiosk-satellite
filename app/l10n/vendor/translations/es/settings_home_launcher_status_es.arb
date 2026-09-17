@@ -1,0 +1,17 @@
+{
+  "@@locale": "es",
+  "kioskHomeScreen": "Pantalla de inicio",
+  "kioskCheckingDevice": "Comprobando el dispositivo...",
+  "kioskFireOs": "Fire OS no permite sustituir su lanzador.",
+  "kioskUnsupported": "Este dispositivo no permite cambiar la pantalla de inicio.",
+  "kioskRecovered": "Se desactivó automáticamente tras varios fallos al iniciar y se restauró el lanzador anterior. Vuelve a activar el interruptor para intentarlo de nuevo.",
+  "kioskHeld": "Kiosk Satellite es la pantalla de inicio. El kiosko se abre al encender el dispositivo y cada pulsación de Inicio vuelve a él.",
+  "kioskDisabled": "No es la pantalla de inicio. Activa Usar como pantalla de inicio arriba.",
+  "kioskWaiting": "Aún no es la pantalla de inicio actual: el dispositivo espera una confirmación.",
+  "kioskOpenHomeSettings": "Abrir configuración de inicio",
+  "kioskSetDefault": "Establecer como predeterminada",
+  "kioskActive": "Activo",
+  "kioskNotHome": "No es la pantalla de inicio.",
+  "kioskWaitingRemote": "Esperando confirmación en el dispositivo: allí se abre el diálogo del sistema o la configuración de inicio.",
+  "kioskSetDevice": "Configurar en el dispositivo"
+}

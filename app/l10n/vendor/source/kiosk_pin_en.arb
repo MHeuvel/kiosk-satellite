@@ -1,0 +1,43 @@
+{
+  "@@locale": "en",
+  "kioskPinTitle": "Kiosk PIN",
+  "@kioskPinTitle": {
+    "context": "Device > Kiosk exit gesture > PIN dialog",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Device > Kiosk exit gesture > PIN dialog"
+      ]
+    }
+  },
+  "kioskPinHint": "PIN",
+  "@kioskPinHint": {
+    "context": "Device > Kiosk exit gesture > PIN dialog",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Device > Kiosk exit gesture > PIN dialog"
+      ]
+    }
+  },
+  "kioskWrongPin": "Wrong PIN",
+  "@kioskWrongPin": {
+    "context": "Device > Kiosk exit gesture > PIN dialog",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Device > Kiosk exit gesture > PIN dialog"
+      ]
+    }
+  },
+  "kioskUnlock": "Unlock",
+  "@kioskUnlock": {
+    "context": "Device > Kiosk exit gesture > PIN dialog",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Device > Kiosk exit gesture > PIN dialog"
+      ]
+    }
+  }
+}

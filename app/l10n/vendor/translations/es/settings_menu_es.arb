@@ -24,7 +24,7 @@
   "settingsMenuCameraStreamsSummary": "Cámaras de Go2RTC y Home Assistant",
   "settingsMenuKiosk": "Modo kiosko",
   "settingsMenuKioskSummary": "Gesto de salida, PIN, botones físicos",
-  "settingsMenuHomeLauncher": "Pantalla de inicio",
+  "settingsMenuHomeLauncher": "Lanzador de Inicio",
   "settingsMenuHomeLauncherSummary": "Reemplaza la pantalla de inicio del dispositivo",
   "settingsMenuAppLauncher": "Lanzador de aplicaciones",
   "settingsMenuAppLauncherSummary": "Abre otras aplicaciones desde el kiosko",

@@ -1,0 +1,55 @@
+{
+  "@@locale": "en",
+  "settingHomeLauncherEnabledTitle": "Act as the home screen",
+  "@settingHomeLauncherEnabledTitle": {
+    "context": "Settings > Home Launcher",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Launcher > Act as the home screen"
+      ],
+      "remoteAdmin": [
+        "Home Launcher > Act as the home screen"
+      ]
+    }
+  },
+  "settingHomeLauncherEnabledDescription": "Register Kiosk Satellite as the device home screen: the kiosk starts at boot and every home press returns to it. Turns itself off and restores the previous launcher if the app fails to start repeatedly.",
+  "@settingHomeLauncherEnabledDescription": {
+    "context": "Settings > Home Launcher",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Launcher > Act as the home screen"
+      ],
+      "remoteAdmin": [
+        "Home Launcher > Act as the home screen"
+      ]
+    }
+  },
+  "settingHomeKeepPinningTitle": "Keep screen pinning",
+  "@settingHomeKeepPinningTitle": {
+    "context": "Settings > Home Launcher",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Launcher > Keep screen pinning"
+      ],
+      "remoteAdmin": [
+        "Home Launcher > Keep screen pinning"
+      ]
+    }
+  },
+  "settingHomeKeepPinningDescription": "Pin the screen even while Kiosk Satellite is the home screen. Blocks recents and back natively, but brings back the pinning confirmation dialog on devices without device ownership.",
+  "@settingHomeKeepPinningDescription": {
+    "context": "Settings > Home Launcher",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Launcher > Keep screen pinning"
+      ],
+      "remoteAdmin": [
+        "Home Launcher > Keep screen pinning"
+      ]
+    }
+  }
+}

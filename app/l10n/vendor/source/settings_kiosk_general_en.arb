@@ -1,0 +1,354 @@
+{
+  "@@locale": "en",
+  "settingKioskEnabledTitle": "Enable kiosk mode",
+  "@settingKioskEnabledTitle": {
+    "context": "Settings > Kiosk Mode",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Enable kiosk mode"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Enable kiosk mode"
+      ]
+    }
+  },
+  "settingKioskEnabledDescription": "Lock the tablet into Kiosk Satellite. The menu swipe is replaced by the exit gesture, the back button stays inside the kiosk, and the protections below arm.",
+  "@settingKioskEnabledDescription": {
+    "context": "Settings > Kiosk Mode",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Enable kiosk mode"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Enable kiosk mode"
+      ]
+    }
+  },
+  "settingKioskStartOnBootTitle": "Start on boot",
+  "@settingKioskStartOnBootTitle": {
+    "context": "Settings > Kiosk Mode",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Start on boot"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Start on boot"
+      ]
+    }
+  },
+  "settingKioskStartOnBootDescription": "Launch Kiosk Satellite when the device powers on. On Android 10+ this needs the display over other apps permission; Android asks on first enable.",
+  "@settingKioskStartOnBootDescription": {
+    "context": "Settings > Kiosk Mode",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Start on boot"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Start on boot"
+      ]
+    }
+  },
+  "settingKioskExitGestureTitle": "Kiosk exit gesture",
+  "@settingKioskExitGestureTitle": {
+    "context": "Settings > Kiosk Mode",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Kiosk exit gesture"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Kiosk exit gesture"
+      ]
+    }
+  },
+  "settingKioskExitGestureDescription": "Fast taps anywhere open the menu, after the PIN if one is set. Hold variants need the last tap held down. When disabled, only the remote admin can reach settings.",
+  "@settingKioskExitGestureDescription": {
+    "context": "Settings > Kiosk Mode",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Kiosk exit gesture"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Kiosk exit gesture"
+      ]
+    }
+  },
+  "settingKioskPinTitle": "Kiosk mode PIN",
+  "@settingKioskPinTitle": {
+    "context": "Settings > Kiosk Mode",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Kiosk mode PIN"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Kiosk mode PIN"
+      ]
+    }
+  },
+  "settingKioskPinDescription": "Asked after the exit gesture before the menu opens. Leave empty for no PIN.",
+  "@settingKioskPinDescription": {
+    "context": "Settings > Kiosk Mode",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Kiosk mode PIN"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Kiosk mode PIN"
+      ]
+    }
+  },
+  "settingKioskDisableStatusBarTitle": "Disable status bar",
+  "@settingKioskDisableStatusBarTitle": {
+    "context": "Settings > Kiosk Mode",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Disable status bar"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Disable status bar"
+      ]
+    }
+  },
+  "settingKioskDisableStatusBarDescription": "Block the status bar pull-down with a shield over the top edge. Needs the display over other apps permission; Android asks on first enable.",
+  "@settingKioskDisableStatusBarDescription": {
+    "context": "Settings > Kiosk Mode",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Disable status bar"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Disable status bar"
+      ]
+    }
+  },
+  "settingKioskDisableVolumeTitle": "Disable volume buttons",
+  "@settingKioskDisableVolumeTitle": {
+    "context": "Settings > Kiosk Mode",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Disable volume buttons"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Disable volume buttons"
+      ]
+    }
+  },
+  "settingKioskDisableVolumeDescription": "Swallow the hardware volume keys.",
+  "@settingKioskDisableVolumeDescription": {
+    "context": "Settings > Kiosk Mode",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Disable volume buttons"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Disable volume buttons"
+      ]
+    }
+  },
+  "settingKioskDisablePowerTitle": "Disable power button",
+  "@settingKioskDisablePowerTitle": {
+    "context": "Settings > Kiosk Mode",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Disable power button"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Disable power button"
+      ]
+    }
+  },
+  "settingKioskDisablePowerDescription": "Android cannot block the power button, so the screen turns right back on when it is pressed. Turning the screen off remotely still works.",
+  "@settingKioskDisablePowerDescription": {
+    "context": "Settings > Kiosk Mode",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Disable power button"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Disable power button"
+      ]
+    }
+  },
+  "settingKioskDisableHomeTitle": "Disable home button",
+  "@settingKioskDisableHomeTitle": {
+    "context": "Settings > Kiosk Mode",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Disable home button"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Disable home button"
+      ]
+    }
+  },
+  "settingKioskDisableHomeDescription": "Pin the app with Android screen pinning, which blocks the home and recents buttons. Android asks to confirm the first time.",
+  "@settingKioskDisableHomeDescription": {
+    "context": "Settings > Kiosk Mode",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Disable home button"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Disable home button"
+      ]
+    }
+  },
+  "settingKioskDisableContextMenusTitle": "Disable context menus",
+  "@settingKioskDisableContextMenusTitle": {
+    "context": "Settings > Kiosk Mode",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Disable context menus"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Disable context menus"
+      ]
+    }
+  },
+  "settingKioskDisableContextMenusDescription": "Suppress long-press menus and text selection inside the web view.",
+  "@settingKioskDisableContextMenusDescription": {
+    "context": "Settings > Kiosk Mode",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Disable context menus"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Disable context menus"
+      ]
+    }
+  },
+  "settingKioskDisablePullRefreshTitle": "Disable pull to refresh",
+  "@settingKioskDisablePullRefreshTitle": {
+    "context": "Settings > Kiosk Mode",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Disable pull to refresh"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Disable pull to refresh"
+      ]
+    }
+  },
+  "settingKioskDisablePullRefreshDescription": "Ignore the pull-to-refresh gesture while kiosk mode is on.",
+  "@settingKioskDisablePullRefreshDescription": {
+    "context": "Settings > Kiosk Mode",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Disable pull to refresh"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Disable pull to refresh"
+      ]
+    }
+  },
+  "settingKioskDisableGesturesTitle": "Disable Gestures",
+  "@settingKioskDisableGesturesTitle": {
+    "context": "Settings > Kiosk Mode",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Disable Gestures"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Disable Gestures"
+      ]
+    }
+  },
+  "settingKioskDisableGesturesDescription": "Ignore the gestures from the Gestures page while kiosk mode is on.",
+  "@settingKioskDisableGesturesDescription": {
+    "context": "Settings > Kiosk Mode",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Disable Gestures"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Disable Gestures"
+      ]
+    }
+  },
+  "kioskGestureTaps5": "5 fast taps",
+  "@kioskGestureTaps5": {
+    "context": "Settings > Kiosk Mode",
+    "description": "Exit gesture option. Keep the number of taps unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Kiosk exit gesture"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Kiosk exit gesture"
+      ]
+    }
+  },
+  "kioskGestureTaps7": "7 fast taps",
+  "@kioskGestureTaps7": {
+    "context": "Settings > Kiosk Mode",
+    "description": "Exit gesture option. Keep the number of taps unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Kiosk exit gesture"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Kiosk exit gesture"
+      ]
+    }
+  },
+  "kioskGestureTaps5Hold": "5 fast taps, holding the last",
+  "@kioskGestureTaps5Hold": {
+    "context": "Settings > Kiosk Mode",
+    "description": "Exit gesture option. Keep the number of taps unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Kiosk exit gesture"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Kiosk exit gesture"
+      ]
+    }
+  },
+  "kioskGestureTaps7Hold": "7 fast taps, holding the last",
+  "@kioskGestureTaps7Hold": {
+    "context": "Settings > Kiosk Mode",
+    "description": "Exit gesture option. Keep the number of taps unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Kiosk exit gesture"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Kiosk exit gesture"
+      ]
+    }
+  },
+  "kioskGestureNone": "Disabled (remote admin only)",
+  "@kioskGestureNone": {
+    "context": "Settings > Kiosk Mode",
+    "description": "Exit gesture option. Keep the number of taps unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Kiosk exit gesture"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Kiosk exit gesture"
+      ]
+    }
+  }
+}
