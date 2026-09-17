@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../app_container.dart';
+import '../l10n/messages.dart';
 import '../core/events.dart';
 import '../managers/camera/models.dart';
 import '../managers/settings/definitions.dart' as defs;
@@ -43,7 +44,12 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
     ToastKind kind = ToastKind.info,
   }) {
     if (!mounted) return;
-    showToast(context, title: title, message: message, kind: kind);
+    showToast(
+      context,
+      title: title,
+      message: message == null ? null : cameraStreamsError(context, message),
+      kind: kind,
+    );
   }
 
   Future<void> _run(Future<void> Function() action) async {
@@ -62,22 +68,30 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const SectionHeading('Home Assistant'),
+        SectionHeading('Home Assistant'),
         SettingsCard(
           children: [
             ListTile(
               leading: const Icon(Icons.download_outlined),
-              title: const Text('Import cameras from Home Assistant'),
-              subtitle: const Text(
-                'Add every camera of the connected Home Assistant, playing '
-                'over WebRTC, HLS or MJPEG. Importing again merges new '
-                'cameras.',
+              title: Text(
+                cameraStreamsText(
+                  context,
+                  'Import cameras from Home Assistant',
+                ),
+              ),
+              subtitle: Text(
+                cameraStreamsText(
+                  context,
+                  'Add every camera of the connected Home Assistant, playing '
+                  'over WebRTC, HLS or MJPEG. Importing again merges new '
+                  'cameras.',
+                ),
               ),
               onTap: _busy ? null : _importHomeAssistant,
             ),
           ],
         ),
-        const SectionHeading('Go2RTC servers'),
+        SectionHeading(cameraStreamsText(context, 'Go2RTC servers')),
         SettingsCard(
           children: [
             for (final server in config.servers)
@@ -90,12 +104,12 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
                   spacing: 2,
                   children: [
                     IconButton(
-                      tooltip: 'Import streams',
+                      tooltip: cameraStreamsText(context, 'Import streams'),
                       icon: const Icon(Icons.download_outlined),
                       onPressed: _busy ? null : () => _import(server),
                     ),
                     IconButton(
-                      tooltip: 'Delete server',
+                      tooltip: cameraStreamsText(context, 'Delete server'),
                       icon: const Icon(Icons.delete_outline),
                       onPressed: _busy ? null : () => _deleteServer(server),
                     ),
@@ -104,24 +118,32 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
               ),
             ListTile(
               leading: const Icon(Icons.add),
-              title: const Text('Add Go2RTC server'),
-              subtitle: const Text(
-                'Connect to a server and import its streams.',
+              title: Text(cameraStreamsText(context, 'Add Go2RTC server')),
+              subtitle: Text(
+                cameraStreamsText(
+                  context,
+                  'Connect to a server and import its streams.',
+                ),
               ),
               onTap: _busy ? null : () => _editServer(null),
             ),
           ],
         ),
-        const SectionHeading('Cameras'),
+        SectionHeading(cameraStreamsText(context, 'Cameras')),
         SettingsCard(
           children: [
             if (config.cameras.isEmpty)
-              const ListTile(
+              ListTile(
                 leading: Icon(Icons.videocam_off_outlined),
-                title: Text('No cameras configured'),
+                title: Text(
+                  cameraStreamsText(context, 'No cameras configured'),
+                ),
                 subtitle: Text(
-                  'Import cameras from Home Assistant or Go2RTC, or add one '
-                  'manually.',
+                  cameraStreamsText(
+                    context,
+                    'Import cameras from Home Assistant or Go2RTC, or add one '
+                    'manually.',
+                  ),
                 ),
               ),
             for (final camera in config.cameras)
@@ -135,23 +157,26 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
                 subtitle: Text(_cameraSubtitle(camera, config)),
                 onTap: () => _editCamera(camera),
                 trailing: IconButton(
-                  tooltip: 'Delete camera',
+                  tooltip: cameraStreamsText(context, 'Delete camera'),
                   icon: const Icon(Icons.delete_outline),
                   onPressed: _busy ? null : () => _deleteCamera(camera),
                 ),
               ),
             ListTile(
               leading: const Icon(Icons.add),
-              title: const Text('Add camera manually'),
-              subtitle: const Text(
-                'Use a Go2RTC stream name, a WHEP URL or a Home Assistant '
-                'camera entity.',
+              title: Text(cameraStreamsText(context, 'Add camera manually')),
+              subtitle: Text(
+                cameraStreamsText(
+                  context,
+                  'Use a Go2RTC stream name, a WHEP URL or a Home Assistant '
+                  'camera entity.',
+                ),
               ),
               onTap: _busy ? null : () => _editCamera(null),
             ),
           ],
         ),
-        const SectionHeading('Views'),
+        SectionHeading(cameraStreamsText(context, 'Views')),
         SettingsCard(
           children: [
             for (final view in config.views)
@@ -164,18 +189,15 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
                 title: Text(view.name),
                 subtitle: Text(
                   view.cameraIds.isEmpty
-                      ? 'No cameras yet'
-                      : '${view.cameraIds.length} camera'
-                            '${view.cameraIds.length == 1 ? '' : 's'}'
-                            ' · Names '
-                            '${view.showCameraNames ? 'shown' : 'hidden'}',
+                      ? cameraStreamsText(context, 'No cameras yet')
+                      : '${(view.cameraIds.length == 1 ? l10n(context).cameraStreamsOneCamera : l10n(context).cameraStreamsManyCameras)('${view.cameraIds.length}')} · ${cameraStreamsText(context, view.showCameraNames ? 'Names shown' : 'Names hidden')}',
                 ),
                 onTap: () => _editView(view),
                 trailing: Wrap(
                   spacing: 2,
                   children: [
                     IconButton(
-                      tooltip: 'Show view',
+                      tooltip: cameraStreamsText(context, 'Show view'),
                       icon: const Icon(Icons.play_arrow),
                       onPressed: view.cameraIds.isEmpty
                           ? null
@@ -185,7 +207,7 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
                     // gets retired, so it carries no delete.
                     if (!view.isDefault)
                       IconButton(
-                        tooltip: 'Delete view',
+                        tooltip: cameraStreamsText(context, 'Delete view'),
                         icon: const Icon(Icons.delete_outline),
                         onPressed: _busy ? null : () => _deleteView(view),
                       ),
@@ -194,11 +216,14 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
               ),
             ListTile(
               leading: const Icon(Icons.add),
-              title: const Text('Create camera view'),
+              title: Text(cameraStreamsText(context, 'Create camera view')),
               subtitle: Text(
                 config.cameras.isEmpty
-                    ? 'Add a camera first.'
-                    : 'Choose and order up to 12 cameras.',
+                    ? cameraStreamsText(context, 'Add a camera first.')
+                    : cameraStreamsText(
+                        context,
+                        'Choose and order up to 12 cameras.',
+                      ),
               ),
               enabled: config.cameras.isNotEmpty && !_busy,
               onTap: config.cameras.isEmpty || _busy
@@ -207,14 +232,16 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
             ),
           ],
         ),
-        const SectionHeading('Playback'),
+        SectionHeading(cameraStreamsText(context, 'Playback')),
         SettingsCard(
           children: [
             SearchLandingTarget(
               id: defs.cameraAllowH265.key,
               child: SwitchListTile(
-                title: Text(defs.cameraAllowH265.title),
-                subtitle: Text(defs.cameraAllowH265.description),
+                title: Text(defs.cameraAllowH265.localizedTitle(context)),
+                subtitle: Text(
+                  defs.cameraAllowH265.localizedDescription(context),
+                ),
                 value: widget.container.settings.get(defs.cameraAllowH265),
                 onChanged: (value) async {
                   await widget.container.settings.setFromJson(
@@ -228,8 +255,10 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
             SearchLandingTarget(
               id: defs.cameraPreferMse.key,
               child: SwitchListTile(
-                title: Text(defs.cameraPreferMse.title),
-                subtitle: Text(defs.cameraPreferMse.description),
+                title: Text(defs.cameraPreferMse.localizedTitle(context)),
+                subtitle: Text(
+                  defs.cameraPreferMse.localizedDescription(context),
+                ),
                 value: widget.container.settings.get(defs.cameraPreferMse),
                 onChanged: (value) async {
                   await widget.container.settings.setFromJson(
@@ -243,8 +272,10 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
             SearchLandingTarget(
               id: defs.cameraPreferHls.key,
               child: SwitchListTile(
-                title: Text(defs.cameraPreferHls.title),
-                subtitle: Text(defs.cameraPreferHls.description),
+                title: Text(defs.cameraPreferHls.localizedTitle(context)),
+                subtitle: Text(
+                  defs.cameraPreferHls.localizedDescription(context),
+                ),
                 value: widget.container.settings.get(defs.cameraPreferHls),
                 onChanged: (value) async {
                   await widget.container.settings.setFromJson(
@@ -258,8 +289,10 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
             SearchLandingTarget(
               id: defs.cameraSingleAudio.key,
               child: SwitchListTile(
-                title: Text(defs.cameraSingleAudio.title),
-                subtitle: Text(defs.cameraSingleAudio.description),
+                title: Text(defs.cameraSingleAudio.localizedTitle(context)),
+                subtitle: Text(
+                  defs.cameraSingleAudio.localizedDescription(context),
+                ),
                 value: widget.container.settings.get(defs.cameraSingleAudio),
                 onChanged: (value) async {
                   await widget.container.settings.setFromJson(
@@ -273,8 +306,10 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
             SearchLandingTarget(
               id: defs.cameraPinchZoom.key,
               child: SwitchListTile(
-                title: Text(defs.cameraPinchZoom.title),
-                subtitle: Text(defs.cameraPinchZoom.description),
+                title: Text(defs.cameraPinchZoom.localizedTitle(context)),
+                subtitle: Text(
+                  defs.cameraPinchZoom.localizedDescription(context),
+                ),
                 value: widget.container.settings.get(defs.cameraPinchZoom),
                 onChanged: (value) async {
                   await widget.container.settings.setFromJson(
@@ -291,10 +326,13 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
             ),
           ],
         ),
-        const GroupNote(
-          'Grids with several cameras are video-only. For low-power devices, '
-          'use lower resolution Go2RTC streams in views and optionally set a '
-          'separate fullscreen stream.',
+        GroupNote(
+          cameraStreamsText(
+            context,
+            'Grids with several cameras are video-only. For low-power devices, '
+            'use lower resolution Go2RTC streams in views and optionally set a '
+            'separate fullscreen stream.',
+          ),
         ),
       ],
     );
@@ -315,10 +353,12 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
     return Column(
       children: [
         ListTile(
-          title: Text(def.title),
-          subtitle: Text(def.description),
+          title: Text(def.localizedTitle(context)),
+          subtitle: Text(def.localizedDescription(context)),
           trailing: Text(
-            value <= 0 ? 'Off' : '${value.round()} s',
+            value <= 0
+                ? cameraStreamsText(context, 'Off')
+                : l10n(context).cameraStreamsSeconds('${value.round()}'),
             style: Theme.of(context).textTheme.titleMedium,
           ),
         ),
@@ -359,13 +399,14 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
           .where((camera) => camera.id == id)
           .map((camera) => camera.name)
           .firstOrNull ??
-      'Unknown camera';
+      cameraStreamsText(context, 'Unknown camera');
 
   Future<void> _showView(CameraViewConfig view) async {
     final result = await widget.container.camera.showView(view.id);
+    if (!mounted) return;
     if (!result.ok) {
       _message(
-        'Could not show the view',
+        cameraStreamsText(context, 'Could not show the view'),
         message: result.error,
         kind: ToastKind.error,
       );
@@ -402,14 +443,16 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
   ) {
     final formats = ' · ${_cameraFormats(camera)}';
     if (camera.kind == 'whep') return '${camera.whepUrl ?? 'WHEP'}$formats';
-    final status = camera.missing ? ' (missing)' : '';
+    final status = camera.missing
+        ? cameraStreamsText(context, ' (missing)')
+        : '';
     if (camera.kind == 'ha') {
       return 'Home Assistant: ${camera.entityId ?? ''}$status$formats';
     }
     final server = configuration.servers
         .where((item) => item.id == camera.serverId)
         .firstOrNull;
-    return '${server?.name ?? 'Unknown server'}: '
+    return '${server?.name ?? cameraStreamsText(context, 'Unknown server')}: '
         '${camera.streamName ?? ''}$status$formats';
   }
 
@@ -418,14 +461,21 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
       'cameraImportGo2Rtc',
       {'serverId': server.id},
     );
+    if (!mounted) return;
     if (!result.ok) {
-      _message('Import failed', message: result.error, kind: ToastKind.error);
+      _message(
+        cameraStreamsText(context, 'Import failed'),
+        message: result.error,
+        kind: ToastKind.error,
+      );
       return;
     }
     final data = result.data as Map;
     _message(
-      'Import complete',
-      message: "${data['added']} added, ${data['missing']} missing.",
+      cameraStreamsText(context, 'Import complete'),
+      message: l10n(
+        context,
+      ).cameraStreamsImportCounts('${data['added']}', '${data['missing']}'),
       kind: ToastKind.success,
     );
   });
@@ -435,14 +485,21 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
       'cameraImportHomeAssistant',
       const {},
     );
+    if (!mounted) return;
     if (!result.ok) {
-      _message('Import failed', message: result.error, kind: ToastKind.error);
+      _message(
+        cameraStreamsText(context, 'Import failed'),
+        message: result.error,
+        kind: ToastKind.error,
+      );
       return;
     }
     final data = result.data as Map;
     _message(
-      'Import complete',
-      message: "${data['added']} added, ${data['missing']} missing.",
+      cameraStreamsText(context, 'Import complete'),
+      message: l10n(
+        context,
+      ).cameraStreamsImportCounts('${data['added']}', '${data['missing']}'),
       kind: ToastKind.success,
     );
   });
@@ -457,7 +514,11 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
       context: context,
       builder: (context) => StatefulBuilder(
         builder: (context, setDialogState) => AlertDialog(
-          title: Text(server == null ? 'Add Go2RTC server' : 'Edit server'),
+          title: Text(
+            server == null
+                ? cameraStreamsText(context, 'Add Go2RTC server')
+                : cameraStreamsText(context, 'Edit server'),
+          ),
           content: SizedBox(
             width: 480,
             child: EdgeFade(
@@ -467,14 +528,14 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
                   spacing: 16,
                   children: [
                     LabeledField(
-                      label: 'Name',
+                      label: cameraStreamsText(context, 'Name'),
                       child: TextField(
                         controller: name,
                         decoration: const InputDecoration(),
                       ),
                     ),
                     LabeledField(
-                      label: 'Base URL',
+                      label: cameraStreamsText(context, 'Base URL'),
                       child: TextField(
                         controller: url,
                         keyboardType: TextInputType.url,
@@ -484,7 +545,7 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
                       ),
                     ),
                     LabeledField(
-                      label: 'Username (optional)',
+                      label: cameraStreamsText(context, 'Username (optional)'),
                       child: TextField(
                         controller: username,
                         decoration: const InputDecoration(),
@@ -492,8 +553,11 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
                     ),
                     LabeledField(
                       label: server?.password.isNotEmpty == true
-                          ? 'New password (leave blank to keep)'
-                          : 'Password (optional)',
+                          ? cameraStreamsText(
+                              context,
+                              'New password (leave blank to keep)',
+                            )
+                          : cameraStreamsText(context, 'Password (optional)'),
                       child: TextField(
                         controller: password,
                         obscureText: true,
@@ -502,7 +566,12 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
                     ),
                     SwitchListTile(
                       contentPadding: EdgeInsets.zero,
-                      title: const Text('Allow invalid TLS certificate'),
+                      title: Text(
+                        cameraStreamsText(
+                          context,
+                          'Allow invalid TLS certificate',
+                        ),
+                      ),
                       value: invalidCertificate,
                       onChanged: (value) =>
                           setDialogState(() => invalidCertificate = value),
@@ -515,11 +584,11 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context, false),
-              child: const Text('Cancel'),
+              child: Text(cameraStreamsText(context, 'Cancel')),
             ),
             FilledButton(
               onPressed: () => Navigator.pop(context, true),
-              child: const Text('Save'),
+              child: Text(cameraStreamsText(context, 'Save')),
             ),
           ],
         ),
@@ -540,9 +609,10 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
         'cameraPutServer',
         params,
       );
+      if (!mounted) return;
       if (!result.ok) {
         _message(
-          'Could not save the server',
+          cameraStreamsText(context, 'Could not save the server'),
           message: result.error,
           kind: ToastKind.error,
         );
@@ -568,7 +638,11 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
       context: context,
       builder: (context) => StatefulBuilder(
         builder: (context, setDialogState) => AlertDialog(
-          title: Text(camera == null ? 'Add camera' : 'Edit camera'),
+          title: Text(
+            camera == null
+                ? cameraStreamsText(context, 'Add camera')
+                : cameraStreamsText(context, 'Edit camera'),
+          ),
           content: SizedBox(
             width: 480,
             child: EdgeFade(
@@ -578,29 +652,38 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
                   spacing: 16,
                   children: [
                     LabeledField(
-                      label: 'Name',
+                      label: cameraStreamsText(context, 'Name'),
                       child: TextField(
                         controller: name,
                         decoration: const InputDecoration(),
                       ),
                     ),
                     LabeledField(
-                      label: 'Type',
+                      label: cameraStreamsText(context, 'Type'),
                       child: DropdownButtonFormField<String>(
                         initialValue: kind,
                         decoration: const InputDecoration(),
-                        items: const [
+                        items: [
                           DropdownMenuItem(
                             value: 'go2rtc',
-                            child: Text('Go2RTC stream'),
+                            child: Text(
+                              cameraStreamsText(context, 'Go2RTC stream'),
+                            ),
                           ),
                           DropdownMenuItem(
                             value: 'whep',
-                            child: Text('Direct WHEP URL'),
+                            child: Text(
+                              cameraStreamsText(context, 'Direct WHEP URL'),
+                            ),
                           ),
                           DropdownMenuItem(
                             value: 'ha',
-                            child: Text('Home Assistant camera'),
+                            child: Text(
+                              cameraStreamsText(
+                                context,
+                                'Home Assistant camera',
+                              ),
+                            ),
                           ),
                         ],
                         onChanged: (value) =>
@@ -609,7 +692,7 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
                     ),
                     if (kind == 'ha') ...[
                       LabeledField(
-                        label: 'Camera entity',
+                        label: cameraStreamsText(context, 'Camera entity'),
                         child: TextField(
                           controller: entity,
                           decoration: const InputDecoration(
@@ -618,7 +701,7 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
                         ),
                       ),
                       LabeledField(
-                        label: 'Preferred protocol',
+                        label: cameraStreamsText(context, 'Preferred protocol'),
                         child: DropdownButtonFormField<String>(
                           initialValue: preferredProtocol,
                           decoration: const InputDecoration(),
@@ -627,7 +710,9 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
                                 in CameraSource.preferredProtocols.entries)
                               DropdownMenuItem(
                                 value: entry.key,
-                                child: Text(entry.value),
+                                child: Text(
+                                  cameraStreamsText(context, entry.value),
+                                ),
                               ),
                           ],
                           onChanged: (value) => setDialogState(
@@ -637,7 +722,7 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
                       ),
                     ] else if (kind == 'go2rtc') ...[
                       LabeledField(
-                        label: 'Server',
+                        label: cameraStreamsText(context, 'Server'),
                         child: DropdownButtonFormField<String>(
                           initialValue:
                               config.servers.any(
@@ -658,14 +743,17 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
                         ),
                       ),
                       LabeledField(
-                        label: 'Stream name',
+                        label: cameraStreamsText(context, 'Stream name'),
                         child: TextField(
                           controller: stream,
                           decoration: const InputDecoration(),
                         ),
                       ),
                       LabeledField(
-                        label: 'Fullscreen stream (optional)',
+                        label: cameraStreamsText(
+                          context,
+                          'Fullscreen stream (optional)',
+                        ),
                         child: TextField(
                           controller: fullscreen,
                           decoration: const InputDecoration(),
@@ -673,7 +761,7 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
                       ),
                     ] else
                       LabeledField(
-                        label: 'WHEP URL',
+                        label: cameraStreamsText(context, 'WHEP URL'),
                         child: TextField(
                           controller: whep,
                           keyboardType: TextInputType.url,
@@ -688,11 +776,11 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context, false),
-              child: const Text('Cancel'),
+              child: Text(cameraStreamsText(context, 'Cancel')),
             ),
             FilledButton(
               onPressed: () => Navigator.pop(context, true),
-              child: const Text('Save'),
+              child: Text(cameraStreamsText(context, 'Save')),
             ),
           ],
         ),
@@ -712,9 +800,10 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
             if (kind == 'ha') 'preferredProtocol': preferredProtocol,
             'fullscreenStreamName': fullscreen.text,
           });
+      if (!mounted) return;
       if (!result.ok) {
         _message(
-          'Could not save the camera',
+          cameraStreamsText(context, 'Could not save the camera'),
           message: result.error,
           kind: ToastKind.error,
         );
@@ -732,7 +821,11 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
       context: context,
       builder: (context) => StatefulBuilder(
         builder: (context, setDialogState) => AlertDialog(
-          title: Text(view == null ? 'Create camera view' : 'Edit view'),
+          title: Text(
+            view == null
+                ? cameraStreamsText(context, 'Create camera view')
+                : cameraStreamsText(context, 'Edit view'),
+          ),
           content: SizedBox(
             width: 640,
             child: EdgeFade(
@@ -741,7 +834,7 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     LabeledField(
-                      label: 'Name',
+                      label: cameraStreamsText(context, 'Name'),
                       child: TextField(
                         controller: name,
                         decoration: const InputDecoration(),
@@ -749,7 +842,9 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
                     ),
                     SwitchListTile(
                       contentPadding: EdgeInsets.zero,
-                      title: const Text('Show camera names'),
+                      title: Text(
+                        cameraStreamsText(context, 'Show camera names'),
+                      ),
                       value: showCameraNames,
                       onChanged: (value) =>
                           setDialogState(() => showCameraNames = value),
@@ -759,7 +854,10 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
                     // own list you can drag: reading position off a checkbox
                     // list meant re-ticking everything to move one tile.
                     if (selected.isNotEmpty) ...[
-                      _sectionLabel(context, 'Grid'),
+                      _sectionLabel(
+                        context,
+                        cameraStreamsText(context, 'Grid'),
+                      ),
                       Padding(
                         padding: const EdgeInsets.only(top: 4, bottom: 8),
                         child: KsDropdown<int>(
@@ -781,7 +879,15 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
                                       height: 22,
                                     ),
                                     const SizedBox(width: 10),
-                                    Text('$size Camera${size == 1 ? '' : 's'}'),
+                                    Text(
+                                      (size == 1
+                                          ? l10n(context).cameraStreamsOneCamera
+                                          : l10n(
+                                              context,
+                                            ).cameraStreamsManyCameras)(
+                                        '$size',
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -800,7 +906,10 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
                           filled: selected.length,
                         ),
                       ),
-                      _sectionLabel(context, 'In this view'),
+                      _sectionLabel(
+                        context,
+                        cameraStreamsText(context, 'In this view'),
+                      ),
                       ReorderableListView(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
@@ -824,7 +933,11 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
                                 child: const Icon(Icons.drag_handle),
                               ),
                               title: Text(_cameraName(cameras, id)),
-                              subtitle: Text('Position ${index + 1}'),
+                              subtitle: Text(
+                                l10n(
+                                  context,
+                                ).cameraStreamsPosition('${index + 1}'),
+                              ),
                               // A tablet has no drag: the same reordering,
                               // one step at a time.
                               trailing: OrderActions(
@@ -851,7 +964,10 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
                       const SizedBox(height: 8),
                     ],
                     if (cameras.any((c) => !selected.contains(c.id))) ...[
-                      _sectionLabel(context, 'Available'),
+                      _sectionLabel(
+                        context,
+                        cameraStreamsText(context, 'Available'),
+                      ),
                       for (final camera in cameras)
                         if (!selected.contains(camera.id))
                           ListTile(
@@ -863,7 +979,12 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
                             ),
                             title: Text(camera.name),
                             subtitle: camera.missing
-                                ? const Text('Missing from Go2RTC')
+                                ? Text(
+                                    cameraStreamsText(
+                                      context,
+                                      'Missing from Go2RTC',
+                                    ),
+                                  )
                                 : null,
                             trailing: const Icon(Icons.add_circle_outline),
                             enabled: selected.length < 12,
@@ -886,7 +1007,7 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context, false),
-              child: const Text('Cancel'),
+              child: Text(cameraStreamsText(context, 'Cancel')),
             ),
             FilledButton(
               // The default view may be saved empty — that is how it is
@@ -894,7 +1015,7 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
               onPressed: selected.isEmpty && view?.isDefault != true
                   ? null
                   : () => Navigator.pop(context, true),
-              child: const Text('Save'),
+              child: Text(cameraStreamsText(context, 'Save')),
             ),
           ],
         ),
@@ -910,9 +1031,10 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
         if (selected.isNotEmpty)
           'grid': (grid ?? selected.length).clamp(selected.length, 12),
       });
+      if (!mounted) return;
       if (!result.ok) {
         _message(
-          'Could not save the view',
+          cameraStreamsText(context, 'Could not save the view'),
           message: result.error,
           kind: ToastKind.error,
         );
@@ -929,11 +1051,11 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context, false),
-              child: const Text('Cancel'),
+              child: Text(cameraStreamsText(context, 'Cancel')),
             ),
             FilledButton(
               onPressed: () => Navigator.pop(context, true),
-              child: const Text('Delete'),
+              child: Text(cameraStreamsText(context, 'Delete')),
             ),
           ],
         ),
@@ -942,8 +1064,11 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
 
   Future<void> _deleteServer(CameraServer server) async {
     if (!await _confirm(
-      'Delete ${server.name}?',
-      'Its cameras will be removed from every view.',
+      l10n(context).cameraStreamsDeleteNamed(server.name),
+      cameraStreamsText(
+        context,
+        'Its cameras will be removed from every view.',
+      ),
     )) {
       return;
     }
@@ -956,8 +1081,8 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
 
   Future<void> _deleteCamera(CameraSource camera) async {
     if (!await _confirm(
-      'Delete ${camera.name}?',
-      'It will be removed from every view.',
+      l10n(context).cameraStreamsDeleteNamed(camera.name),
+      cameraStreamsText(context, 'It will be removed from every view.'),
     )) {
       return;
     }
@@ -969,7 +1094,10 @@ class _CameraSettingsPanelState extends State<CameraSettingsPanel> {
   }
 
   Future<void> _deleteView(CameraViewConfig view) async {
-    if (!await _confirm('Delete ${view.name}?', 'This cannot be undone.')) {
+    if (!await _confirm(
+      l10n(context).cameraStreamsDeleteNamed(view.name),
+      cameraStreamsText(context, 'This cannot be undone.'),
+    )) {
       return;
     }
     await _run(() async {

@@ -864,4 +864,28 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingCameraRtspPasswordTitle",
     "description": "settingCameraRtspPasswordDescription",
   },
+  "camera.allow_h265": {
+    "title": "settingCameraAllowH265Title",
+    "description": "settingCameraAllowH265Description",
+  },
+  "camera.prefer_mse": {
+    "title": "settingCameraPreferMseTitle",
+    "description": "settingCameraPreferMseDescription",
+  },
+  "camera.prefer_hls": {
+    "title": "settingCameraPreferHlsTitle",
+    "description": "settingCameraPreferHlsDescription",
+  },
+  "camera.single_audio": {
+    "title": "settingCameraSingleAudioTitle",
+    "description": "settingCameraSingleAudioDescription",
+  },
+  "camera.pinch_zoom": {
+    "title": "settingCameraPinchZoomTitle",
+    "description": "settingCameraPinchZoomDescription",
+  },
+  "camera.auto_dismiss_seconds": {
+    "title": "settingCameraAutoDismissSecondsTitle",
+    "description": "settingCameraAutoDismissSecondsDescription",
+  },
 };

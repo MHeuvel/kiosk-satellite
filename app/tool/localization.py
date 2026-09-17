@@ -367,7 +367,7 @@ def generate(app, preview_repo=None):
         + "const messageLanguageOptions = <String>[\n"
         + "".join(f"  '{locale.replace('_', '-')}',\n" for locale in catalogs)
         + "];\n")
-    for filename, variable in [("navigation", "navigationMessageIds"), ("device_text", "deviceTextMessageIds"), ("ha_text", "haTextMessageIds"), ("screen_audio_text", "screenAudioTextMessageIds"), ("screensaver_text", "screensaverTextMessageIds"), ("camera_text", "cameraTextMessageIds")]:
+    for filename, variable in [("navigation", "navigationMessageIds"), ("device_text", "deviceTextMessageIds"), ("ha_text", "haTextMessageIds"), ("screen_audio_text", "screenAudioTextMessageIds"), ("screensaver_text", "screensaverTextMessageIds"), ("camera_text", "cameraTextMessageIds"), ("camera_streams_text", "cameraStreamsTextMessageIds")]:
         path = app / f"l10n/{filename}.json"
         mapping = read(path) if path.exists() else {}
         for label, identifier in mapping.items():

@@ -1387,6 +1387,678 @@ abstract class UiStrings {
   /// **'Other camera sizes are unavailable in the current capture setup.'**
   String get cameraCaptureRejected;
 
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'name required'**
+  String get cameraStreamsNameRequired;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'valid HTTP or HTTPS baseUrl required'**
+  String get cameraStreamsBaseUrlRequired;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'server not found'**
+  String get cameraStreamsServerNotFound;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Go2RTC returned an invalid stream list'**
+  String get cameraStreamsInvalidStreamList;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'kind must be go2rtc, whep or ha'**
+  String get cameraStreamsKindRequired;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'preferredProtocol must be auto, webrtc, hls or mjpeg'**
+  String get cameraStreamsProtocolRequired;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'valid serverId required'**
+  String get cameraStreamsServerRequired;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'streamName required'**
+  String get cameraStreamsStreamRequired;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'a camera.* entityId is required'**
+  String get cameraStreamsEntityRequired;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'valid WHEP URL required'**
+  String get cameraStreamsWhepRequired;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'camera not found'**
+  String get cameraStreamsCameraNotFound;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'cameraIds must be a list'**
+  String get cameraStreamsListRequired;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'a view must contain 1 to 12 cameras'**
+  String get cameraStreamsViewCount;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'a camera can appear only once per view'**
+  String get cameraStreamsRepeatedCamera;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'view contains an unknown camera'**
+  String get cameraStreamsUnknownViewCamera;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'view name must be unique'**
+  String get cameraStreamsUniqueViewName;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'grid must be between 1 and 12'**
+  String get cameraStreamsGridRange;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'grid is smaller than the camera count'**
+  String get cameraStreamsGridTooSmall;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'view not found'**
+  String get cameraStreamsViewNotFound;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'the default view cannot be deleted; empty it instead'**
+  String get cameraStreamsDefaultViewDelete;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'view has no cameras'**
+  String get cameraStreamsViewEmpty;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'could not read Home Assistant: {error}'**
+  String cameraStreamsHaReadFailed(String error);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'could not connect to {server}: {error}'**
+  String cameraStreamsConnectFailed(String server, String error);
+
+  /// Import error.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Assistant is not configured or unreachable'**
+  String get cameraStreamsHaUnavailable;
+
+  /// Import error.
+  ///
+  /// In en, this message translates to:
+  /// **'Go2RTC returned HTTP {status}'**
+  String cameraStreamsHttpError(String status);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Import cameras from Home Assistant'**
+  String get cameraStreamsImportHa;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Add every camera of the connected Home Assistant, playing over WebRTC, HLS or MJPEG. Importing again merges new cameras.'**
+  String get cameraStreamsImportHaHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Import failed'**
+  String get cameraStreamsImportFailed;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Import complete'**
+  String get cameraStreamsImportComplete;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{added} added, {missing} missing.'**
+  String cameraStreamsImportCounts(String added, String missing);
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow H.265 streams'**
+  String get settingCameraAllowH265Title;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Play H.265 camera streams as they are. A device that cannot decode H.265 shows a blank image instead.'**
+  String get settingCameraAllowH265Description;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Prefer MSE over WebRTC'**
+  String get settingCameraPreferMseTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Stream Go2RTC cameras over MSE first. For devices that cannot play WebRTC; adds a second or two of delay.'**
+  String get settingCameraPreferMseDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Prefer HLS over WebRTC'**
+  String get settingCameraPreferHlsTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Stream Home Assistant cameras over HLS first. For devices that cannot play WebRTC; adds a few seconds of delay.'**
+  String get settingCameraPreferHlsDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Play sound for a single camera'**
+  String get settingCameraSingleAudioTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Play the camera\'s sound when only one camera is on screen. Grids with several cameras stay silent.'**
+  String get settingCameraSingleAudioDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Pinch to zoom a single camera'**
+  String get settingCameraPinchZoomTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Zoom into the picture with two fingers when only one camera is on screen. Drag to move around, double-tap to reset.'**
+  String get settingCameraPinchZoomDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-dismiss after'**
+  String get settingCameraAutoDismissSecondsTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Close an opened camera view on its own; 0 keeps it up. The camera screensaver is unaffected.'**
+  String get settingCameraAutoDismissSecondsDescription;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Playback'**
+  String get cameraStreamsPlayback;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Off'**
+  String get cameraStreamsOff;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{seconds} s'**
+  String cameraStreamsSeconds(String seconds);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Grids with several cameras are video-only. For low-power devices, use lower resolution Go2RTC streams in views and optionally set a separate fullscreen stream.'**
+  String get cameraStreamsGridHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Go2RTC servers'**
+  String get cameraStreamsServers;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Import streams'**
+  String get cameraStreamsImportStreams;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete server'**
+  String get cameraStreamsDeleteServer;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Go2RTC server'**
+  String get cameraStreamsAddServer;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect to a server and import its streams.'**
+  String get cameraStreamsAddServerHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit server'**
+  String get cameraStreamsEditServer;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get cameraStreamsName;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Base URL'**
+  String get cameraStreamsBaseUrl;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Username (optional)'**
+  String get cameraStreamsUsername;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'New password (leave blank to keep)'**
+  String get cameraStreamsNewPassword;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Password (optional)'**
+  String get cameraStreamsPassword;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow invalid TLS certificate'**
+  String get cameraStreamsInvalidCertificate;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save the server'**
+  String get cameraStreamsSaveServerFailed;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Its cameras will be removed from every view.'**
+  String get cameraStreamsDeleteServerHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Cameras'**
+  String get cameraStreamsCameras;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No cameras configured'**
+  String get cameraStreamsNoCameras;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Import cameras from Home Assistant or Go2RTC, or add one manually.'**
+  String get cameraStreamsNoCamerasHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete camera'**
+  String get cameraStreamsDeleteCamera;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Add camera manually'**
+  String get cameraStreamsAddManually;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Use a Go2RTC stream name, a WHEP URL or a Home Assistant camera entity.'**
+  String get cameraStreamsAddManuallyHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown camera'**
+  String get cameraStreamsUnknownCamera;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown server'**
+  String get cameraStreamsUnknownServer;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **' (missing)'**
+  String get cameraStreamsMissing;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Add camera'**
+  String get cameraStreamsAddCamera;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit camera'**
+  String get cameraStreamsEditCamera;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get cameraStreamsType;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Go2RTC stream'**
+  String get cameraStreamsGo2RtcStream;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Direct WHEP URL'**
+  String get cameraStreamsDirectWhep;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Assistant camera'**
+  String get cameraStreamsHaCamera;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera entity'**
+  String get cameraStreamsEntity;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Preferred protocol'**
+  String get cameraStreamsProtocol;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto'**
+  String get cameraStreamsAuto;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Server'**
+  String get cameraStreamsServer;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Stream name'**
+  String get cameraStreamsStreamName;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Go2RTC stream name'**
+  String get cameraStreamsGo2RtcStreamName;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Fullscreen stream (optional)'**
+  String get cameraStreamsFullscreen;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'WHEP URL'**
+  String get cameraStreamsWhep;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save the camera'**
+  String get cameraStreamsSaveCameraFailed;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'It will be removed from every view.'**
+  String get cameraStreamsDeleteCameraHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load cameras.'**
+  String get cameraStreamsLoadFailed;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Views'**
+  String get cameraStreamsViews;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No cameras yet'**
+  String get cameraStreamsEmptyView;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Names shown'**
+  String get cameraStreamsNamesShown;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Names hidden'**
+  String get cameraStreamsNamesHidden;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Show view'**
+  String get cameraStreamsShowView;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete view'**
+  String get cameraStreamsDeleteView;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Create camera view'**
+  String get cameraStreamsCreateView;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a camera first.'**
+  String get cameraStreamsAddFirst;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose and order up to 12 cameras.'**
+  String get cameraStreamsChooseCameras;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not show the view'**
+  String get cameraStreamsShowFailed;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not show view'**
+  String get cameraStreamsShowFailedRemote;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit view'**
+  String get cameraStreamsEditView;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Show camera names'**
+  String get cameraStreamsShowNames;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Display a label over each camera.'**
+  String get cameraStreamsShowNamesHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Grid'**
+  String get cameraStreamsGrid;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} Camera'**
+  String cameraStreamsOneCamera(String count);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} Cameras'**
+  String cameraStreamsManyCameras(String count);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'In this view'**
+  String get cameraStreamsInView;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Available'**
+  String get cameraStreamsAvailable;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Position {position}'**
+  String cameraStreamsPosition(String position);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Missing from Go2RTC'**
+  String get cameraStreamsMissingGo2Rtc;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save the view'**
+  String get cameraStreamsSaveViewFailed;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete {name}?'**
+  String cameraStreamsDeleteNamed(String name);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'This cannot be undone.'**
+  String get cameraStreamsCannotUndo;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Show'**
+  String get cameraStreamsShow;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop'**
+  String get cameraStreamsStop;
+
   /// Setting label.
   ///
   /// In en, this message translates to:

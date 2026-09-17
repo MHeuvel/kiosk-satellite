@@ -8,6 +8,7 @@ import 'generated/device_text_ids.dart';
 import 'generated/ha_text_ids.dart';
 import 'generated/screensaver_text_ids.dart';
 import 'generated/camera_text_ids.dart';
+import 'generated/camera_streams_text_ids.dart';
 import 'generated/screen_audio_text_ids.dart';
 import 'generated/setting_option_ids.dart';
 import 'generated/ui_strings.dart';
@@ -74,6 +75,30 @@ String screensaverText(BuildContext context, String english) =>
 /// Resolve camera presentation while preserving addresses and hardware names.
 String cameraText(BuildContext context, String english) =>
     messageById(l10n(context), cameraTextMessageIds[english], english);
+
+String cameraStreamsText(BuildContext context, String english) =>
+    messageById(l10n(context), cameraStreamsTextMessageIds[english], english);
+
+String cameraStreamsError(BuildContext context, String error) {
+  final http = RegExp(r'^Go2RTC returned HTTP (\d+)$').firstMatch(error);
+  if (http != null) return l10n(context).cameraStreamsHttpError(http[1]!);
+  const haPrefix = 'could not read Home Assistant: ';
+  if (error.startsWith(haPrefix)) {
+    return l10n(
+      context,
+    ).cameraStreamsHaReadFailed(error.substring(haPrefix.length));
+  }
+  final connection = RegExp(
+    r'^could not connect to (.+?): (.*)$',
+    dotAll: true,
+  ).firstMatch(error);
+  if (connection != null) {
+    return l10n(
+      context,
+    ).cameraStreamsConnectFailed(connection[1]!, connection[2]!);
+  }
+  return cameraStreamsText(context, error);
+}
 
 String cameraError(BuildContext context, String error) =>
     error.startsWith('Snapshot failed: ')

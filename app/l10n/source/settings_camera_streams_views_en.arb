@@ -1,0 +1,365 @@
+{
+  "@@locale": "en",
+  "cameraStreamsViews": "Views",
+  "@cameraStreamsViews": {
+    "context": "Settings > Camera Streams > Views",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Views"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Views"
+      ]
+    }
+  },
+  "cameraStreamsEmptyView": "No cameras yet",
+  "@cameraStreamsEmptyView": {
+    "context": "Settings > Camera Streams > Views",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Views"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Views"
+      ]
+    }
+  },
+  "cameraStreamsNamesShown": "Names shown",
+  "@cameraStreamsNamesShown": {
+    "context": "Settings > Camera Streams > Views",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Views"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Views"
+      ]
+    }
+  },
+  "cameraStreamsNamesHidden": "Names hidden",
+  "@cameraStreamsNamesHidden": {
+    "context": "Settings > Camera Streams > Views",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Views"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Views"
+      ]
+    }
+  },
+  "cameraStreamsShowView": "Show view",
+  "@cameraStreamsShowView": {
+    "context": "Settings > Camera Streams > Views",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Views"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Views"
+      ]
+    }
+  },
+  "cameraStreamsDeleteView": "Delete view",
+  "@cameraStreamsDeleteView": {
+    "context": "Settings > Camera Streams > Views",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Views"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Views"
+      ]
+    }
+  },
+  "cameraStreamsCreateView": "Create camera view",
+  "@cameraStreamsCreateView": {
+    "context": "Settings > Camera Streams > Views",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Views"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Views"
+      ]
+    }
+  },
+  "cameraStreamsAddFirst": "Add a camera first.",
+  "@cameraStreamsAddFirst": {
+    "context": "Settings > Camera Streams > Views",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Views"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Views"
+      ]
+    }
+  },
+  "cameraStreamsChooseCameras": "Choose and order up to 12 cameras.",
+  "@cameraStreamsChooseCameras": {
+    "context": "Settings > Camera Streams > Views",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Views"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Views"
+      ]
+    }
+  },
+  "cameraStreamsShowFailed": "Could not show the view",
+  "@cameraStreamsShowFailed": {
+    "context": "Settings > Camera Streams > Views",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Views"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Views"
+      ]
+    }
+  },
+  "cameraStreamsShowFailedRemote": "Could not show view",
+  "@cameraStreamsShowFailedRemote": {
+    "context": "Settings > Camera Streams > Views",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Views"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Views"
+      ]
+    }
+  },
+  "cameraStreamsEditView": "Edit view",
+  "@cameraStreamsEditView": {
+    "context": "Settings > Camera Streams > Views",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Views"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Views"
+      ]
+    }
+  },
+  "cameraStreamsShowNames": "Show camera names",
+  "@cameraStreamsShowNames": {
+    "context": "Settings > Camera Streams > Views",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Views"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Views"
+      ]
+    }
+  },
+  "cameraStreamsShowNamesHelp": "Display a label over each camera.",
+  "@cameraStreamsShowNamesHelp": {
+    "context": "Settings > Camera Streams > Views",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Views"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Views"
+      ]
+    }
+  },
+  "cameraStreamsGrid": "Grid",
+  "@cameraStreamsGrid": {
+    "context": "Settings > Camera Streams > Views",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Views"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Views"
+      ]
+    }
+  },
+  "cameraStreamsOneCamera": "{count} Camera",
+  "@cameraStreamsOneCamera": {
+    "context": "Settings > Camera Streams > Views",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Views"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Views"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Value supplied by the app. Keep names, IDs and technical details unchanged."
+      }
+    }
+  },
+  "cameraStreamsManyCameras": "{count} Cameras",
+  "@cameraStreamsManyCameras": {
+    "context": "Settings > Camera Streams > Views",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Views"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Views"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Value supplied by the app. Keep names, IDs and technical details unchanged."
+      }
+    }
+  },
+  "cameraStreamsInView": "In this view",
+  "@cameraStreamsInView": {
+    "context": "Settings > Camera Streams > Views",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Views"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Views"
+      ]
+    }
+  },
+  "cameraStreamsAvailable": "Available",
+  "@cameraStreamsAvailable": {
+    "context": "Settings > Camera Streams > Views",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Views"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Views"
+      ]
+    }
+  },
+  "cameraStreamsPosition": "Position {position}",
+  "@cameraStreamsPosition": {
+    "context": "Settings > Camera Streams > Views",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Views"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Views"
+      ]
+    },
+    "placeholders": {
+      "position": {
+        "type": "String",
+        "description": "Value supplied by the app. Keep names, IDs and technical details unchanged."
+      }
+    }
+  },
+  "cameraStreamsMissingGo2Rtc": "Missing from Go2RTC",
+  "@cameraStreamsMissingGo2Rtc": {
+    "context": "Settings > Camera Streams > Views",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Views"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Views"
+      ]
+    }
+  },
+  "cameraStreamsSaveViewFailed": "Could not save the view",
+  "@cameraStreamsSaveViewFailed": {
+    "context": "Settings > Camera Streams > Views",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Views"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Views"
+      ]
+    }
+  },
+  "cameraStreamsDeleteNamed": "Delete {name}?",
+  "@cameraStreamsDeleteNamed": {
+    "context": "Settings > Camera Streams > Views",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Views"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Views"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "description": "Value supplied by the app. Keep names, IDs and technical details unchanged."
+      }
+    }
+  },
+  "cameraStreamsCannotUndo": "This cannot be undone.",
+  "@cameraStreamsCannotUndo": {
+    "context": "Settings > Camera Streams > Views",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Views"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Views"
+      ]
+    }
+  },
+  "cameraStreamsShow": "Show",
+  "@cameraStreamsShow": {
+    "context": "Settings > Camera Streams > Views",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Views"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Views"
+      ]
+    }
+  },
+  "cameraStreamsStop": "Stop",
+  "@cameraStreamsStop": {
+    "context": "Settings > Camera Streams > Views",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Views"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Views"
+      ]
+    }
+  }
+}

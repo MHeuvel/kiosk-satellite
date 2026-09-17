@@ -738,6 +738,381 @@ class UiStringsEn extends UiStrings {
       'Other camera sizes are unavailable in the current capture setup.';
 
   @override
+  String get cameraStreamsNameRequired => 'name required';
+
+  @override
+  String get cameraStreamsBaseUrlRequired =>
+      'valid HTTP or HTTPS baseUrl required';
+
+  @override
+  String get cameraStreamsServerNotFound => 'server not found';
+
+  @override
+  String get cameraStreamsInvalidStreamList =>
+      'Go2RTC returned an invalid stream list';
+
+  @override
+  String get cameraStreamsKindRequired => 'kind must be go2rtc, whep or ha';
+
+  @override
+  String get cameraStreamsProtocolRequired =>
+      'preferredProtocol must be auto, webrtc, hls or mjpeg';
+
+  @override
+  String get cameraStreamsServerRequired => 'valid serverId required';
+
+  @override
+  String get cameraStreamsStreamRequired => 'streamName required';
+
+  @override
+  String get cameraStreamsEntityRequired => 'a camera.* entityId is required';
+
+  @override
+  String get cameraStreamsWhepRequired => 'valid WHEP URL required';
+
+  @override
+  String get cameraStreamsCameraNotFound => 'camera not found';
+
+  @override
+  String get cameraStreamsListRequired => 'cameraIds must be a list';
+
+  @override
+  String get cameraStreamsViewCount => 'a view must contain 1 to 12 cameras';
+
+  @override
+  String get cameraStreamsRepeatedCamera =>
+      'a camera can appear only once per view';
+
+  @override
+  String get cameraStreamsUnknownViewCamera =>
+      'view contains an unknown camera';
+
+  @override
+  String get cameraStreamsUniqueViewName => 'view name must be unique';
+
+  @override
+  String get cameraStreamsGridRange => 'grid must be between 1 and 12';
+
+  @override
+  String get cameraStreamsGridTooSmall =>
+      'grid is smaller than the camera count';
+
+  @override
+  String get cameraStreamsViewNotFound => 'view not found';
+
+  @override
+  String get cameraStreamsDefaultViewDelete =>
+      'the default view cannot be deleted; empty it instead';
+
+  @override
+  String get cameraStreamsViewEmpty => 'view has no cameras';
+
+  @override
+  String cameraStreamsHaReadFailed(String error) {
+    return 'could not read Home Assistant: $error';
+  }
+
+  @override
+  String cameraStreamsConnectFailed(String server, String error) {
+    return 'could not connect to $server: $error';
+  }
+
+  @override
+  String get cameraStreamsHaUnavailable =>
+      'Home Assistant is not configured or unreachable';
+
+  @override
+  String cameraStreamsHttpError(String status) {
+    return 'Go2RTC returned HTTP $status';
+  }
+
+  @override
+  String get cameraStreamsImportHa => 'Import cameras from Home Assistant';
+
+  @override
+  String get cameraStreamsImportHaHelp =>
+      'Add every camera of the connected Home Assistant, playing over WebRTC, HLS or MJPEG. Importing again merges new cameras.';
+
+  @override
+  String get cameraStreamsImportFailed => 'Import failed';
+
+  @override
+  String get cameraStreamsImportComplete => 'Import complete';
+
+  @override
+  String cameraStreamsImportCounts(String added, String missing) {
+    return '$added added, $missing missing.';
+  }
+
+  @override
+  String get settingCameraAllowH265Title => 'Allow H.265 streams';
+
+  @override
+  String get settingCameraAllowH265Description =>
+      'Play H.265 camera streams as they are. A device that cannot decode H.265 shows a blank image instead.';
+
+  @override
+  String get settingCameraPreferMseTitle => 'Prefer MSE over WebRTC';
+
+  @override
+  String get settingCameraPreferMseDescription =>
+      'Stream Go2RTC cameras over MSE first. For devices that cannot play WebRTC; adds a second or two of delay.';
+
+  @override
+  String get settingCameraPreferHlsTitle => 'Prefer HLS over WebRTC';
+
+  @override
+  String get settingCameraPreferHlsDescription =>
+      'Stream Home Assistant cameras over HLS first. For devices that cannot play WebRTC; adds a few seconds of delay.';
+
+  @override
+  String get settingCameraSingleAudioTitle => 'Play sound for a single camera';
+
+  @override
+  String get settingCameraSingleAudioDescription =>
+      'Play the camera\'s sound when only one camera is on screen. Grids with several cameras stay silent.';
+
+  @override
+  String get settingCameraPinchZoomTitle => 'Pinch to zoom a single camera';
+
+  @override
+  String get settingCameraPinchZoomDescription =>
+      'Zoom into the picture with two fingers when only one camera is on screen. Drag to move around, double-tap to reset.';
+
+  @override
+  String get settingCameraAutoDismissSecondsTitle => 'Auto-dismiss after';
+
+  @override
+  String get settingCameraAutoDismissSecondsDescription =>
+      'Close an opened camera view on its own; 0 keeps it up. The camera screensaver is unaffected.';
+
+  @override
+  String get cameraStreamsPlayback => 'Playback';
+
+  @override
+  String get cameraStreamsOff => 'Off';
+
+  @override
+  String cameraStreamsSeconds(String seconds) {
+    return '$seconds s';
+  }
+
+  @override
+  String get cameraStreamsGridHelp =>
+      'Grids with several cameras are video-only. For low-power devices, use lower resolution Go2RTC streams in views and optionally set a separate fullscreen stream.';
+
+  @override
+  String get cameraStreamsServers => 'Go2RTC servers';
+
+  @override
+  String get cameraStreamsImportStreams => 'Import streams';
+
+  @override
+  String get cameraStreamsDeleteServer => 'Delete server';
+
+  @override
+  String get cameraStreamsAddServer => 'Add Go2RTC server';
+
+  @override
+  String get cameraStreamsAddServerHelp =>
+      'Connect to a server and import its streams.';
+
+  @override
+  String get cameraStreamsEditServer => 'Edit server';
+
+  @override
+  String get cameraStreamsName => 'Name';
+
+  @override
+  String get cameraStreamsBaseUrl => 'Base URL';
+
+  @override
+  String get cameraStreamsUsername => 'Username (optional)';
+
+  @override
+  String get cameraStreamsNewPassword => 'New password (leave blank to keep)';
+
+  @override
+  String get cameraStreamsPassword => 'Password (optional)';
+
+  @override
+  String get cameraStreamsInvalidCertificate => 'Allow invalid TLS certificate';
+
+  @override
+  String get cameraStreamsSaveServerFailed => 'Could not save the server';
+
+  @override
+  String get cameraStreamsDeleteServerHelp =>
+      'Its cameras will be removed from every view.';
+
+  @override
+  String get cameraStreamsCameras => 'Cameras';
+
+  @override
+  String get cameraStreamsNoCameras => 'No cameras configured';
+
+  @override
+  String get cameraStreamsNoCamerasHelp =>
+      'Import cameras from Home Assistant or Go2RTC, or add one manually.';
+
+  @override
+  String get cameraStreamsDeleteCamera => 'Delete camera';
+
+  @override
+  String get cameraStreamsAddManually => 'Add camera manually';
+
+  @override
+  String get cameraStreamsAddManuallyHelp =>
+      'Use a Go2RTC stream name, a WHEP URL or a Home Assistant camera entity.';
+
+  @override
+  String get cameraStreamsUnknownCamera => 'Unknown camera';
+
+  @override
+  String get cameraStreamsUnknownServer => 'Unknown server';
+
+  @override
+  String get cameraStreamsMissing => ' (missing)';
+
+  @override
+  String get cameraStreamsAddCamera => 'Add camera';
+
+  @override
+  String get cameraStreamsEditCamera => 'Edit camera';
+
+  @override
+  String get cameraStreamsType => 'Type';
+
+  @override
+  String get cameraStreamsGo2RtcStream => 'Go2RTC stream';
+
+  @override
+  String get cameraStreamsDirectWhep => 'Direct WHEP URL';
+
+  @override
+  String get cameraStreamsHaCamera => 'Home Assistant camera';
+
+  @override
+  String get cameraStreamsEntity => 'Camera entity';
+
+  @override
+  String get cameraStreamsProtocol => 'Preferred protocol';
+
+  @override
+  String get cameraStreamsAuto => 'Auto';
+
+  @override
+  String get cameraStreamsServer => 'Server';
+
+  @override
+  String get cameraStreamsStreamName => 'Stream name';
+
+  @override
+  String get cameraStreamsGo2RtcStreamName => 'Go2RTC stream name';
+
+  @override
+  String get cameraStreamsFullscreen => 'Fullscreen stream (optional)';
+
+  @override
+  String get cameraStreamsWhep => 'WHEP URL';
+
+  @override
+  String get cameraStreamsSaveCameraFailed => 'Could not save the camera';
+
+  @override
+  String get cameraStreamsDeleteCameraHelp =>
+      'It will be removed from every view.';
+
+  @override
+  String get cameraStreamsLoadFailed => 'Could not load cameras.';
+
+  @override
+  String get cameraStreamsViews => 'Views';
+
+  @override
+  String get cameraStreamsEmptyView => 'No cameras yet';
+
+  @override
+  String get cameraStreamsNamesShown => 'Names shown';
+
+  @override
+  String get cameraStreamsNamesHidden => 'Names hidden';
+
+  @override
+  String get cameraStreamsShowView => 'Show view';
+
+  @override
+  String get cameraStreamsDeleteView => 'Delete view';
+
+  @override
+  String get cameraStreamsCreateView => 'Create camera view';
+
+  @override
+  String get cameraStreamsAddFirst => 'Add a camera first.';
+
+  @override
+  String get cameraStreamsChooseCameras => 'Choose and order up to 12 cameras.';
+
+  @override
+  String get cameraStreamsShowFailed => 'Could not show the view';
+
+  @override
+  String get cameraStreamsShowFailedRemote => 'Could not show view';
+
+  @override
+  String get cameraStreamsEditView => 'Edit view';
+
+  @override
+  String get cameraStreamsShowNames => 'Show camera names';
+
+  @override
+  String get cameraStreamsShowNamesHelp => 'Display a label over each camera.';
+
+  @override
+  String get cameraStreamsGrid => 'Grid';
+
+  @override
+  String cameraStreamsOneCamera(String count) {
+    return '$count Camera';
+  }
+
+  @override
+  String cameraStreamsManyCameras(String count) {
+    return '$count Cameras';
+  }
+
+  @override
+  String get cameraStreamsInView => 'In this view';
+
+  @override
+  String get cameraStreamsAvailable => 'Available';
+
+  @override
+  String cameraStreamsPosition(String position) {
+    return 'Position $position';
+  }
+
+  @override
+  String get cameraStreamsMissingGo2Rtc => 'Missing from Go2RTC';
+
+  @override
+  String get cameraStreamsSaveViewFailed => 'Could not save the view';
+
+  @override
+  String cameraStreamsDeleteNamed(String name) {
+    return 'Delete $name?';
+  }
+
+  @override
+  String get cameraStreamsCannotUndo => 'This cannot be undone.';
+
+  @override
+  String get cameraStreamsShow => 'Show';
+
+  @override
+  String get cameraStreamsStop => 'Stop';
+
+  @override
   String get settingAnalyticsBasicTitle => 'Basic analytics';
 
   @override

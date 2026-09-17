@@ -1,0 +1,354 @@
+{
+  "@@locale": "en",
+  "cameraStreamsNameRequired": "name required",
+  "@cameraStreamsNameRequired": {
+    "context": "Settings > Camera Streams > Server, camera and view editors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Server, camera and view editors"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Server, camera and view editors"
+      ]
+    }
+  },
+  "cameraStreamsBaseUrlRequired": "valid HTTP or HTTPS baseUrl required",
+  "@cameraStreamsBaseUrlRequired": {
+    "context": "Settings > Camera Streams > Server, camera and view editors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Server, camera and view editors"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Server, camera and view editors"
+      ]
+    }
+  },
+  "cameraStreamsServerNotFound": "server not found",
+  "@cameraStreamsServerNotFound": {
+    "context": "Settings > Camera Streams > Server, camera and view editors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Server, camera and view editors"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Server, camera and view editors"
+      ]
+    }
+  },
+  "cameraStreamsInvalidStreamList": "Go2RTC returned an invalid stream list",
+  "@cameraStreamsInvalidStreamList": {
+    "context": "Settings > Camera Streams > Server, camera and view editors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Server, camera and view editors"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Server, camera and view editors"
+      ]
+    }
+  },
+  "cameraStreamsKindRequired": "kind must be go2rtc, whep or ha",
+  "@cameraStreamsKindRequired": {
+    "context": "Settings > Camera Streams > Server, camera and view editors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Server, camera and view editors"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Server, camera and view editors"
+      ]
+    }
+  },
+  "cameraStreamsProtocolRequired": "preferredProtocol must be auto, webrtc, hls or mjpeg",
+  "@cameraStreamsProtocolRequired": {
+    "context": "Settings > Camera Streams > Server, camera and view editors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Server, camera and view editors"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Server, camera and view editors"
+      ]
+    }
+  },
+  "cameraStreamsServerRequired": "valid serverId required",
+  "@cameraStreamsServerRequired": {
+    "context": "Settings > Camera Streams > Server, camera and view editors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Server, camera and view editors"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Server, camera and view editors"
+      ]
+    }
+  },
+  "cameraStreamsStreamRequired": "streamName required",
+  "@cameraStreamsStreamRequired": {
+    "context": "Settings > Camera Streams > Server, camera and view editors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Server, camera and view editors"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Server, camera and view editors"
+      ]
+    }
+  },
+  "cameraStreamsEntityRequired": "a camera.* entityId is required",
+  "@cameraStreamsEntityRequired": {
+    "context": "Settings > Camera Streams > Server, camera and view editors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Server, camera and view editors"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Server, camera and view editors"
+      ]
+    }
+  },
+  "cameraStreamsWhepRequired": "valid WHEP URL required",
+  "@cameraStreamsWhepRequired": {
+    "context": "Settings > Camera Streams > Server, camera and view editors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Server, camera and view editors"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Server, camera and view editors"
+      ]
+    }
+  },
+  "cameraStreamsCameraNotFound": "camera not found",
+  "@cameraStreamsCameraNotFound": {
+    "context": "Settings > Camera Streams > Server, camera and view editors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Server, camera and view editors"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Server, camera and view editors"
+      ]
+    }
+  },
+  "cameraStreamsListRequired": "cameraIds must be a list",
+  "@cameraStreamsListRequired": {
+    "context": "Settings > Camera Streams > Server, camera and view editors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Server, camera and view editors"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Server, camera and view editors"
+      ]
+    }
+  },
+  "cameraStreamsViewCount": "a view must contain 1 to 12 cameras",
+  "@cameraStreamsViewCount": {
+    "context": "Settings > Camera Streams > Server, camera and view editors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Server, camera and view editors"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Server, camera and view editors"
+      ]
+    }
+  },
+  "cameraStreamsRepeatedCamera": "a camera can appear only once per view",
+  "@cameraStreamsRepeatedCamera": {
+    "context": "Settings > Camera Streams > Server, camera and view editors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Server, camera and view editors"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Server, camera and view editors"
+      ]
+    }
+  },
+  "cameraStreamsUnknownViewCamera": "view contains an unknown camera",
+  "@cameraStreamsUnknownViewCamera": {
+    "context": "Settings > Camera Streams > Server, camera and view editors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Server, camera and view editors"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Server, camera and view editors"
+      ]
+    }
+  },
+  "cameraStreamsUniqueViewName": "view name must be unique",
+  "@cameraStreamsUniqueViewName": {
+    "context": "Settings > Camera Streams > Server, camera and view editors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Server, camera and view editors"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Server, camera and view editors"
+      ]
+    }
+  },
+  "cameraStreamsGridRange": "grid must be between 1 and 12",
+  "@cameraStreamsGridRange": {
+    "context": "Settings > Camera Streams > Server, camera and view editors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Server, camera and view editors"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Server, camera and view editors"
+      ]
+    }
+  },
+  "cameraStreamsGridTooSmall": "grid is smaller than the camera count",
+  "@cameraStreamsGridTooSmall": {
+    "context": "Settings > Camera Streams > Server, camera and view editors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Server, camera and view editors"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Server, camera and view editors"
+      ]
+    }
+  },
+  "cameraStreamsViewNotFound": "view not found",
+  "@cameraStreamsViewNotFound": {
+    "context": "Settings > Camera Streams > Server, camera and view editors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Server, camera and view editors"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Server, camera and view editors"
+      ]
+    }
+  },
+  "cameraStreamsDefaultViewDelete": "the default view cannot be deleted; empty it instead",
+  "@cameraStreamsDefaultViewDelete": {
+    "context": "Settings > Camera Streams > Server, camera and view editors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Server, camera and view editors"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Server, camera and view editors"
+      ]
+    }
+  },
+  "cameraStreamsViewEmpty": "view has no cameras",
+  "@cameraStreamsViewEmpty": {
+    "context": "Settings > Camera Streams > Server, camera and view editors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Server, camera and view editors"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Server, camera and view editors"
+      ]
+    }
+  },
+  "cameraStreamsHaReadFailed": "could not read Home Assistant: {error}",
+  "@cameraStreamsHaReadFailed": {
+    "context": "Settings > Camera Streams > Server, camera and view editors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Server, camera and view editors"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Server, camera and view editors"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Value supplied by the app. Keep names, IDs and technical details unchanged."
+      }
+    }
+  },
+  "cameraStreamsConnectFailed": "could not connect to {server}: {error}",
+  "@cameraStreamsConnectFailed": {
+    "context": "Settings > Camera Streams > Server, camera and view editors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Server, camera and view editors"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Server, camera and view editors"
+      ]
+    },
+    "placeholders": {
+      "server": {
+        "type": "String",
+        "description": "Value supplied by the app. Keep names, IDs and technical details unchanged."
+      },
+      "error": {
+        "type": "String",
+        "description": "Value supplied by the app. Keep names, IDs and technical details unchanged."
+      }
+    }
+  },
+  "cameraStreamsHaUnavailable": "Home Assistant is not configured or unreachable",
+  "@cameraStreamsHaUnavailable": {
+    "context": "Settings > Camera Streams > Home Assistant and Go2RTC servers",
+    "description": "Import error.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Home Assistant",
+        "Settings > Camera Streams > Go2RTC servers"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Home Assistant",
+        "Camera Streams > Go2RTC servers"
+      ]
+    }
+  },
+  "cameraStreamsHttpError": "Go2RTC returned HTTP {status}",
+  "@cameraStreamsHttpError": {
+    "context": "Settings > Camera Streams > Home Assistant and Go2RTC servers",
+    "description": "Import error.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Home Assistant",
+        "Settings > Camera Streams > Go2RTC servers"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Home Assistant",
+        "Camera Streams > Go2RTC servers"
+      ]
+    },
+    "placeholders": {
+      "status": {
+        "type": "String",
+        "description": "HTTP status code."
+      }
+    }
+  }
+}

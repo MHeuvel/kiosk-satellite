@@ -10,6 +10,7 @@ import 'package:kiosk_satellite/core/app_locales.dart';
 import 'package:kiosk_satellite/managers/camera/models.dart';
 import 'package:kiosk_satellite/managers/device_camera/camera_resolutions.dart';
 import 'package:kiosk_satellite/ui/camera_views_picker.dart';
+import 'package:kiosk_satellite/ui/camera_settings.dart';
 import 'package:kiosk_satellite/ui/glance_entity_picker.dart';
 import 'package:kiosk_satellite/l10n/generated/ui_strings.dart';
 import 'package:kiosk_satellite/l10n/generated/ui_strings_en.dart';
@@ -23,6 +24,23 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 // Test wording exercises localization even before draft catalogs are approved.
 class MenuMessages extends UiStringsEn {
+  @override
+  String get settingCameraAllowH265Title => 'TEST codec';
+  @override
+  String get cameraStreamsCameras => 'TEST camera list';
+  @override
+  String get cameraStreamsViews => 'TEST views';
+  @override
+  String get cameraStreamsName => 'TEST name';
+  @override
+  String get cameraStreamsAuto => 'TEST auto';
+  @override
+  String get cameraStreamsGrid => 'TEST grid';
+  @override
+  String cameraStreamsPosition(String position) => 'TEST position $position';
+  @override
+  String cameraStreamsManyCameras(String count) => 'TEST cameras $count';
+
   @override
   String get cameraStreaming => 'TEST active stream';
   @override
@@ -171,6 +189,115 @@ Future<AppContainer> containerFor(WidgetTester tester, Size size) async {
 }
 
 void main() {
+  testWidgets(
+    'translated Camera Streams editors preserve sources and view order',
+    (tester) async {
+      final container = await containerFor(tester, const Size(1000, 2600));
+      await container.settings.setFromJson(
+        defs.cameraConfig.key,
+        const CameraConfiguration(
+          servers: [
+            CameraServer(
+              id: 'server-raw',
+              name: 'Name',
+              baseUrl: 'https://go2rtc.example:1984',
+              password: 'secret-raw',
+            ),
+          ],
+          cameras: [
+            CameraSource(
+              id: 'ha-raw',
+              name: 'Cameras',
+              kind: 'ha',
+              entityId: 'camera.front_door',
+              preferredProtocol: 'hls',
+            ),
+            CameraSource(
+              id: 'go-raw',
+              name: 'Views',
+              kind: 'go2rtc',
+              serverId: 'server-raw',
+              streamName: 'low_raw',
+              fullscreenStreamName: 'high_raw',
+            ),
+          ],
+          views: [
+            CameraViewConfig(
+              id: 'view-raw',
+              name: 'Grid',
+              cameraIds: ['ha-raw', 'go-raw'],
+              showCameraNames: false,
+              grid: 4,
+            ),
+          ],
+        ).encode(),
+      );
+      await container.camera.init();
+      addTearDown(container.camera.dispose);
+      await tester.pumpWidget(
+        localized(
+          Scaffold(
+            body: SingleChildScrollView(
+              child: CameraSettingsPanel(container: container),
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('TEST camera list'), findsOneWidget);
+      await tester.tap(find.text('TEST codec'));
+      await tester.pumpAndSettle();
+      expect(container.settings.get(defs.cameraAllowH265), isTrue);
+      expect(find.text('Cameras'), findsOneWidget);
+      expect(find.text('Views'), findsOneWidget);
+      await tester.tap(find.text('Name'));
+      await tester.pumpAndSettle();
+      expect(find.text('TEST name'), findsOneWidget);
+      expect(find.text('https://go2rtc.example:1984'), findsWidgets);
+      await tester.tap(find.widgetWithText(FilledButton, 'TEST save'));
+      await tester.pumpAndSettle();
+      expect(container.camera.config.servers.single.password, 'secret-raw');
+      expect(container.camera.config.servers.single.name, 'Name');
+      await tester.tap(find.text('Cameras'));
+      await tester.pumpAndSettle();
+      expect(find.text('camera.front_door'), findsWidgets);
+      await tester.tap(find.text('HLS').last);
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('TEST auto').last);
+      await tester.pumpAndSettle();
+      await tester.tap(find.widgetWithText(FilledButton, 'TEST save'));
+      await tester.pumpAndSettle();
+      final camera = container.camera.config.cameras.firstWhere(
+        (c) => c.id == 'ha-raw',
+      );
+      expect(camera.preferredProtocol, 'auto');
+      expect(camera.entityId, 'camera.front_door');
+      expect(camera.name, 'Cameras');
+      await tester.tap(find.text('Grid'));
+      await tester.pumpAndSettle();
+      expect(find.text('TEST grid'), findsOneWidget);
+      expect(find.text('TEST cameras 4'), findsOneWidget);
+      final second = find.ancestor(
+        of: find.text('TEST position 2'),
+        matching: find.byType(SettingsRow),
+      );
+      await tester.tap(
+        find.descendant(of: second, matching: find.byTooltip('Move up')),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.widgetWithText(FilledButton, 'TEST save'));
+      await tester.pumpAndSettle();
+      final view = container.camera.config.views.firstWhere(
+        (v) => v.id == 'view-raw',
+      );
+      expect(view.cameraIds, ['go-raw', 'ha-raw']);
+      expect(view.grid, 4);
+      expect(view.name, 'Grid');
+      expect(view.showCameraNames, isFalse);
+      expect(tester.takeException(), isNull);
+    },
+  );
+
   testWidgets(
     'translated Camera choices and status preserve technical values',
     (tester) async {

@@ -1,0 +1,189 @@
+{
+  "@@locale": "en",
+  "cameraStreamsServers": "Go2RTC servers",
+  "@cameraStreamsServers": {
+    "context": "Settings > Camera Streams > Go2RTC servers",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Go2RTC servers"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Go2RTC servers"
+      ]
+    }
+  },
+  "cameraStreamsImportStreams": "Import streams",
+  "@cameraStreamsImportStreams": {
+    "context": "Settings > Camera Streams > Go2RTC servers",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Go2RTC servers"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Go2RTC servers"
+      ]
+    }
+  },
+  "cameraStreamsDeleteServer": "Delete server",
+  "@cameraStreamsDeleteServer": {
+    "context": "Settings > Camera Streams > Go2RTC servers",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Go2RTC servers"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Go2RTC servers"
+      ]
+    }
+  },
+  "cameraStreamsAddServer": "Add Go2RTC server",
+  "@cameraStreamsAddServer": {
+    "context": "Settings > Camera Streams > Go2RTC servers",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Go2RTC servers"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Go2RTC servers"
+      ]
+    }
+  },
+  "cameraStreamsAddServerHelp": "Connect to a server and import its streams.",
+  "@cameraStreamsAddServerHelp": {
+    "context": "Settings > Camera Streams > Go2RTC servers",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Go2RTC servers"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Go2RTC servers"
+      ]
+    }
+  },
+  "cameraStreamsEditServer": "Edit server",
+  "@cameraStreamsEditServer": {
+    "context": "Settings > Camera Streams > Go2RTC servers",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Go2RTC servers"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Go2RTC servers"
+      ]
+    }
+  },
+  "cameraStreamsName": "Name",
+  "@cameraStreamsName": {
+    "context": "Settings > Camera Streams > Server, camera and view editors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Go2RTC servers > Add Go2RTC server or Edit server",
+        "Settings > Camera Streams > Cameras > Add camera or Edit camera",
+        "Settings > Camera Streams > Views > Create camera view or Edit view"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Go2RTC servers > Add Go2RTC server or Edit server",
+        "Camera Streams > Cameras > Add camera or Edit camera",
+        "Camera Streams > Views > Create camera view or Edit view"
+      ]
+    }
+  },
+  "cameraStreamsBaseUrl": "Base URL",
+  "@cameraStreamsBaseUrl": {
+    "context": "Settings > Camera Streams > Go2RTC servers",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Go2RTC servers"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Go2RTC servers"
+      ]
+    }
+  },
+  "cameraStreamsUsername": "Username (optional)",
+  "@cameraStreamsUsername": {
+    "context": "Settings > Camera Streams > Go2RTC servers",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Go2RTC servers"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Go2RTC servers"
+      ]
+    }
+  },
+  "cameraStreamsNewPassword": "New password (leave blank to keep)",
+  "@cameraStreamsNewPassword": {
+    "context": "Settings > Camera Streams > Go2RTC servers",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Go2RTC servers"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Go2RTC servers"
+      ]
+    }
+  },
+  "cameraStreamsPassword": "Password (optional)",
+  "@cameraStreamsPassword": {
+    "context": "Settings > Camera Streams > Go2RTC servers",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Go2RTC servers"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Go2RTC servers"
+      ]
+    }
+  },
+  "cameraStreamsInvalidCertificate": "Allow invalid TLS certificate",
+  "@cameraStreamsInvalidCertificate": {
+    "context": "Settings > Camera Streams > Go2RTC servers",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Go2RTC servers"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Go2RTC servers"
+      ]
+    }
+  },
+  "cameraStreamsSaveServerFailed": "Could not save the server",
+  "@cameraStreamsSaveServerFailed": {
+    "context": "Settings > Camera Streams > Go2RTC servers",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Go2RTC servers"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Go2RTC servers"
+      ]
+    }
+  },
+  "cameraStreamsDeleteServerHelp": "Its cameras will be removed from every view.",
+  "@cameraStreamsDeleteServerHelp": {
+    "context": "Settings > Camera Streams > Go2RTC servers",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Go2RTC servers"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Go2RTC servers"
+      ]
+    }
+  }
+}

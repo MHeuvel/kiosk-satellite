@@ -1,0 +1,217 @@
+{
+  "@@locale": "en",
+  "settingCameraAllowH265Title": "Allow H.265 streams",
+  "@settingCameraAllowH265Title": {
+    "context": "Settings > Camera Streams > Playback",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Playback"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Playback"
+      ]
+    }
+  },
+  "settingCameraAllowH265Description": "Play H.265 camera streams as they are. A device that cannot decode H.265 shows a blank image instead.",
+  "@settingCameraAllowH265Description": {
+    "context": "Settings > Camera Streams > Playback",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Playback"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Playback"
+      ]
+    }
+  },
+  "settingCameraPreferMseTitle": "Prefer MSE over WebRTC",
+  "@settingCameraPreferMseTitle": {
+    "context": "Settings > Camera Streams > Playback",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Playback"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Playback"
+      ]
+    }
+  },
+  "settingCameraPreferMseDescription": "Stream Go2RTC cameras over MSE first. For devices that cannot play WebRTC; adds a second or two of delay.",
+  "@settingCameraPreferMseDescription": {
+    "context": "Settings > Camera Streams > Playback",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Playback"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Playback"
+      ]
+    }
+  },
+  "settingCameraPreferHlsTitle": "Prefer HLS over WebRTC",
+  "@settingCameraPreferHlsTitle": {
+    "context": "Settings > Camera Streams > Playback",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Playback"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Playback"
+      ]
+    }
+  },
+  "settingCameraPreferHlsDescription": "Stream Home Assistant cameras over HLS first. For devices that cannot play WebRTC; adds a few seconds of delay.",
+  "@settingCameraPreferHlsDescription": {
+    "context": "Settings > Camera Streams > Playback",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Playback"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Playback"
+      ]
+    }
+  },
+  "settingCameraSingleAudioTitle": "Play sound for a single camera",
+  "@settingCameraSingleAudioTitle": {
+    "context": "Settings > Camera Streams > Playback",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Playback"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Playback"
+      ]
+    }
+  },
+  "settingCameraSingleAudioDescription": "Play the camera's sound when only one camera is on screen. Grids with several cameras stay silent.",
+  "@settingCameraSingleAudioDescription": {
+    "context": "Settings > Camera Streams > Playback",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Playback"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Playback"
+      ]
+    }
+  },
+  "settingCameraPinchZoomTitle": "Pinch to zoom a single camera",
+  "@settingCameraPinchZoomTitle": {
+    "context": "Settings > Camera Streams > Playback",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Playback"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Playback"
+      ]
+    }
+  },
+  "settingCameraPinchZoomDescription": "Zoom into the picture with two fingers when only one camera is on screen. Drag to move around, double-tap to reset.",
+  "@settingCameraPinchZoomDescription": {
+    "context": "Settings > Camera Streams > Playback",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Playback"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Playback"
+      ]
+    }
+  },
+  "settingCameraAutoDismissSecondsTitle": "Auto-dismiss after",
+  "@settingCameraAutoDismissSecondsTitle": {
+    "context": "Settings > Camera Streams > Playback",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Playback"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Playback"
+      ]
+    }
+  },
+  "settingCameraAutoDismissSecondsDescription": "Close an opened camera view on its own; 0 keeps it up. The camera screensaver is unaffected.",
+  "@settingCameraAutoDismissSecondsDescription": {
+    "context": "Settings > Camera Streams > Playback",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Playback"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Playback"
+      ]
+    }
+  },
+  "cameraStreamsPlayback": "Playback",
+  "@cameraStreamsPlayback": {
+    "context": "Settings > Camera Streams > Playback",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Playback"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Playback"
+      ]
+    }
+  },
+  "cameraStreamsOff": "Off",
+  "@cameraStreamsOff": {
+    "context": "Settings > Camera Streams > Playback",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Playback"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Playback"
+      ]
+    }
+  },
+  "cameraStreamsSeconds": "{seconds} s",
+  "@cameraStreamsSeconds": {
+    "context": "Settings > Camera Streams > Playback",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Playback"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Playback"
+      ]
+    },
+    "placeholders": {
+      "seconds": {
+        "type": "String",
+        "description": "Value supplied by the app. Keep names, IDs and technical details unchanged."
+      }
+    }
+  },
+  "cameraStreamsGridHelp": "Grids with several cameras are video-only. For low-power devices, use lower resolution Go2RTC streams in views and optionally set a separate fullscreen stream.",
+  "@cameraStreamsGridHelp": {
+    "context": "Settings > Camera Streams > Playback",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Playback"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Playback"
+      ]
+    }
+  }
+}

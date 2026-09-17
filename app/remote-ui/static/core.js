@@ -19,6 +19,7 @@ export function cacheSettings(definitions) {
     const cached = existing.get(setting.key);
     return cached ? Object.assign(cached, setting) : setting;
   });
+  document.dispatchEvent(new CustomEvent('ks-settings-cached'));
   return state.settings;
 }
 

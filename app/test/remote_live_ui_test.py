@@ -52,6 +52,31 @@ with sync_playwright() as playwright:
     # The saved choice also wins over an English browser on a fresh load.
     page.reload()
     expect(name).to_have_text('Nombre del dispositivo')
+    # Camera Streams must keep translated text after its settings read and live refresh.
+    page.evaluate("""async () => {
+      const url = performance.getEntriesByType('resource').find(r => r.name.includes('/catalogs.js')).name;
+      const {catalogs} = await import(url);
+      catalogs.es.cameraStreamsServers = 'TEST servidores';
+      catalogs.es.settingCameraAllowH265Title = 'TEST codec';
+    }""")
+    page.locator('#tabs button[data-tab="cameras"]').click()
+    camera_servers = page.locator('#tab-cameras .card-title').filter(has_text='TEST servidores')
+    expect(camera_servers).to_be_visible()
+    camera_codec = page.locator('#tab-cameras [data-key="camera.allow_h265"] .name')
+    expect(camera_codec).to_have_text('TEST codec')
+    change('camera.allow_h265', True)
+    expect(page.locator('#tab-cameras [data-key="camera.allow_h265"] input')).to_be_checked()
+    change('camera.allow_h265', False)
+    expect(page.locator('#tab-cameras [data-key="camera.allow_h265"] input')).not_to_be_checked()
+    page.wait_for_timeout(500)
+    expect(camera_servers).to_be_visible()
+    expect(camera_codec).to_have_text('TEST codec')
+    change('ui.language', 'en')
+    expect(page.locator('#tab-cameras .card-title').filter(has_text='Go2RTC servers')).to_be_visible()
+    change('ui.language', 'es')
+    expect(camera_servers).to_be_visible()
+    expect(camera_codec).to_have_text('TEST codec')
+    page.locator('#tabs button[data-tab="device"]').click()
     # Changing the dropdown in this browser applies the new language too.
     language.select_option('en')
     expect(name).to_have_text('Device name')

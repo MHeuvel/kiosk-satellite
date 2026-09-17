@@ -1,5 +1,6 @@
 import { screensaverTextMessageIds } from './screensaver_text_ids.js';
 import { cameraTextMessageIds } from './camera_text_ids.js';
+import { cameraStreamsTextMessageIds } from './camera_streams_text_ids.js';
 import { screenAudioTextMessageIds } from './screen_audio_text_ids.js';
 import { catalogs } from './catalogs.js';
 import { navigationMessageIds } from './navigation_ids.js';
@@ -20,6 +21,20 @@ export function screensaverText(english) {
 
 export function cameraText(english) {
   return t(cameraTextMessageIds[english], {}, english);
+}
+
+export function cameraStreamsText(english) {
+  return t(cameraStreamsTextMessageIds[english], {}, english);
+}
+
+export function cameraStreamsError(error) {
+  const http = /^Go2RTC returned HTTP (\d+)$/.exec(error);
+  if (http) return t('cameraStreamsHttpError', {status: http[1]});
+  const haPrefix = 'could not read Home Assistant: ';
+  if (error.startsWith(haPrefix)) return t('cameraStreamsHaReadFailed', {error: error.slice(haPrefix.length)});
+  const connection = /^could not connect to (.+?): (.*)$/s.exec(error);
+  if (connection) return t('cameraStreamsConnectFailed', {server: connection[1], error: connection[2]});
+  return cameraStreamsText(error);
 }
 
 export function cameraError(error) {

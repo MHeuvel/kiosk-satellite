@@ -1,6 +1,6 @@
-import { screensaverText, t } from './localization.js';
+import { cameraStreamsText, cameraStreamsError, localizeSetting, screensaverText, t } from './localization.js';
 import { watchUpdates } from './live.js';
-import { api, cacheSettings, cmd, state } from './core.js';
+import { api, cmd, state } from './core.js';
 import { applyManagedBanners } from './fleetsync.js';
 import { settingRow } from './rows.js';
 import { messageBox, modalShell } from './widgets.js';
@@ -260,7 +260,7 @@ export function cameraToggle(label, checked, description = '') {
   return { wrap, input };
 }
 
-export function cameraEditor({ title, body, save, width = 620, tall = false }) {
+export function cameraEditor({ title, body, save, width = 620, tall = false, formatError = (error) => error }) {
   return new Promise((resolve) => {
     const shell = modalShell({ title, width });
     if (tall) shell.card.style.maxHeight = 'min(94vh, 1000px)';
@@ -282,14 +282,14 @@ export function cameraEditor({ title, body, save, width = 620, tall = false }) {
       try {
         const result = await save();
         if (!result || !result.ok) {
-          error.textContent = result?.error || t('commonSaveFailed');
+          error.textContent = formatError(result?.error || t('commonSaveFailed'));
           submit.disabled = false;
           return;
         }
         shell.close();
         resolve(true);
       } catch (exception) {
-        error.textContent = String(exception);
+        error.textContent = formatError(String(exception));
         submit.disabled = false;
       }
     }, true);
@@ -609,17 +609,17 @@ export function entitySearchPicker(title = null, { allowClear = false } = {}) {
 
 export async function editCameraServer(server) {
   const body = document.createElement('div');
-  const name = cameraField('Name', server?.name || 'Go2RTC');
-  const url = cameraField('Base URL', server?.baseUrl || '');
+  const name = cameraField(cameraStreamsText('Name'), server?.name || 'Go2RTC');
+  const url = cameraField(cameraStreamsText('Base URL'), server?.baseUrl || '');
   url.input.placeholder = 'http://192.168.1.10:1984';
-  const username = cameraField('Username (optional)', server?.username || '');
+  const username = cameraField(cameraStreamsText('Username (optional)'), server?.username || '');
   const password = cameraField(
-    server?.passwordSet ? 'New password (leave blank to keep)' : 'Password (optional)',
+    server?.passwordSet ? cameraStreamsText('New password (leave blank to keep)') : cameraStreamsText('Password (optional)'),
     '',
     'password',
   );
   const invalidCertificate = cameraToggle(
-    'Allow invalid TLS certificate',
+    cameraStreamsText('Allow invalid TLS certificate'),
     server?.allowInvalidCertificate === true,
   );
   body.append(
@@ -630,7 +630,8 @@ export async function editCameraServer(server) {
     invalidCertificate.wrap,
   );
   return cameraEditor({
-    title: server ? 'Edit server' : 'Add Go2RTC server',
+    formatError: cameraStreamsError,
+    title: server ? cameraStreamsText('Edit server') : cameraStreamsText('Add Go2RTC server'),
     body,
     save: () => {
       const params = {
@@ -648,27 +649,27 @@ export async function editCameraServer(server) {
 
 export async function editCameraSource(config, camera) {
   const body = document.createElement('div');
-  const name = cameraField('Name', camera?.name || '');
+  const name = cameraField(cameraStreamsText('Name'), camera?.name || '');
   const initialKind = camera?.kind || (config.servers.length ? 'go2rtc' : 'whep');
-  const kind = cameraSelectField('Type', [
-    { value: 'go2rtc', label: 'Go2RTC stream' },
-    { value: 'whep', label: 'Direct WHEP URL' },
-    { value: 'ha', label: 'Home Assistant camera' },
+  const kind = cameraSelectField(cameraStreamsText('Type'), [
+    { value: 'go2rtc', label: cameraStreamsText('Go2RTC stream') },
+    { value: 'whep', label: cameraStreamsText('Direct WHEP URL') },
+    { value: 'ha', label: cameraStreamsText('Home Assistant camera') },
   ], initialKind);
   const server = cameraSelectField(
-    'Server',
+    cameraStreamsText('Server'),
     config.servers.map((item) => ({ value: item.id, label: item.name })),
     camera?.serverId || config.servers[0]?.id || '',
   );
-  const stream = cameraField('Go2RTC stream name', camera?.streamName || '');
+  const stream = cameraField(cameraStreamsText('Go2RTC stream name'), camera?.streamName || '');
   const fullscreen = cameraField(
-    'Fullscreen stream (optional)',
+    cameraStreamsText('Fullscreen stream (optional)'),
     camera?.fullscreenStreamName || '',
   );
-  const whep = cameraField('WHEP URL', camera?.whepUrl || '');
-  const entity = cameraField('Camera entity', camera?.entityId || '');
-  const preferredProtocol = cameraSelectField('Preferred protocol', [
-    { value: 'auto', label: 'Auto' },
+  const whep = cameraField(cameraStreamsText('WHEP URL'), camera?.whepUrl || '');
+  const entity = cameraField(cameraStreamsText('Camera entity'), camera?.entityId || '');
+  const preferredProtocol = cameraSelectField(cameraStreamsText('Preferred protocol'), [
+    { value: 'auto', label: cameraStreamsText('Auto') },
     { value: 'webrtc', label: 'WebRTC' },
     { value: 'hls', label: 'HLS' },
     { value: 'mjpeg', label: 'MJPEG' },
@@ -696,7 +697,8 @@ export async function editCameraSource(config, camera) {
   kind.select.addEventListener('change', updateKind);
   updateKind();
   return cameraEditor({
-    title: camera ? 'Edit camera' : 'Add camera',
+    formatError: cameraStreamsError,
+    title: camera ? cameraStreamsText('Edit camera') : cameraStreamsText('Add camera'),
     body,
     save: () => cmd('cameraPutSource', {
       id: camera?.id || '',
@@ -715,11 +717,11 @@ export async function editCameraSource(config, camera) {
 
 export async function editCameraView(config, view) {
   const body = document.createElement('div');
-  const name = cameraField('Name', view?.name || '');
+  const name = cameraField(cameraStreamsText('Name'), view?.name || '');
   const showNames = cameraToggle(
-    'Show camera names',
+    cameraStreamsText('Show camera names'),
     view?.showCameraNames !== false,
-    'Display a label over each camera.',
+    cameraStreamsText('Display a label over each camera.'),
   );
   const selected = [...(view?.cameraIds || [])];
   const byId = Object.fromEntries(config.cameras.map((c) => [c.id, c]));
@@ -742,8 +744,8 @@ export async function editCameraView(config, view) {
     el.textContent = text;
     return el;
   };
-  const chosenLabel = label('In this view');
-  const availableLabel = label('Available');
+  const chosenLabel = label(cameraStreamsText('In this view'));
+  const availableLabel = label(cameraStreamsText('Available'));
   // The grid the view renders with: the UniFi Protect layout per slot
   // count, chosen in a dropdown like UniFi's and numbered in camera order.
   // GRIDS is [columns, rows] in layout units, SPANS lists
@@ -790,7 +792,7 @@ export async function editCameraView(config, view) {
   const gridField = document.createElement('div');
   gridField.className = 'form-field';
   gridField.style.cssText = 'margin-top:14px; position:relative;';
-  const gridLabel = label('Grid');
+  const gridLabel = label(cameraStreamsText('Grid'));
   gridLabel.style.margin = '0 2px';
   const gridButton = document.createElement('button');
   gridButton.type = 'button';
@@ -827,7 +829,7 @@ export async function editCameraView(config, view) {
     grid = Math.min(12, Math.max(grid, selected.length, 1));
     gridButton.innerHTML = '';
     const gridText = document.createElement('span');
-    gridText.textContent = `${grid} Camera${grid === 1 ? '' : 's'}`;
+    gridText.textContent = t(grid === 1 ? 'cameraStreamsOneCamera' : 'cameraStreamsManyCameras', {count: String(grid)});
     gridText.style.flex = '1';
     const chevron = document.createElement('span');
     chevron.style.cssText = 'color:var(--muted); display:flex;';
@@ -846,7 +848,7 @@ export async function editCameraView(config, view) {
         + '; color:var(--text); border-radius:8px; cursor:pointer;'
         + ' font-size:14px; text-align:left;';
       const optionText = document.createElement('span');
-      optionText.textContent = `${size} Camera${size === 1 ? '' : 's'}`;
+      optionText.textContent = t(size === 1 ? 'cameraStreamsOneCamera' : 'cameraStreamsManyCameras', {count: String(size)});
       option.append(gridIcon(size), optionText);
       option.addEventListener('click', () => {
         grid = size;
@@ -913,9 +915,9 @@ export async function editCameraView(config, view) {
       cameraName.textContent = camera ? camera.name : id;
       const description = document.createElement('div');
       description.className = 'desc';
-      description.textContent = `Position ${index + 1}`;
+      description.textContent = t('cameraStreamsPosition', {position: String(index + 1)});
       info.append(cameraName, description);
-      const remove = cameraAction('Remove', () => {
+      const remove = cameraAction(cameraStreamsText('Remove'), () => {
         selected.splice(selected.indexOf(id), 1);
         render();
       }, false, 'delete');
@@ -955,8 +957,8 @@ export async function editCameraView(config, view) {
         selected.splice(to, 0, selected.splice(index, 1)[0]);
         render();
       };
-      const up = cameraAction('Move up', () => move(-1), false, 'up', index === 0);
-      const down = cameraAction('Move down', () => move(1), false, 'down',
+      const up = cameraAction(cameraStreamsText('Move up'), () => move(-1), false, 'up', index === 0);
+      const down = cameraAction(cameraStreamsText('Move down'), () => move(1), false, 'down',
         index === selected.length - 1);
       row.insertBefore(down, remove);
       row.insertBefore(up, down);
@@ -973,9 +975,9 @@ export async function editCameraView(config, view) {
       cameraName.textContent = camera.name;
       const description = document.createElement('div');
       description.className = 'desc';
-      description.textContent = camera.missing ? 'Missing from Go2RTC' : '';
+      description.textContent = camera.missing ? cameraStreamsText('Missing from Go2RTC') : '';
       info.append(cameraName, description);
-      const add = cameraAction('Add', () => {
+      const add = cameraAction(cameraStreamsText('Add'), () => {
         if (selected.length >= 12) return;
         selected.push(camera.id);
         render();
@@ -993,7 +995,8 @@ export async function editCameraView(config, view) {
   body.append(name.wrap, showNames.wrap, gridField, preview,
     chosenLabel, chosen, availableLabel, available);
   return cameraEditor({
-    title: view ? 'Edit view' : 'Create camera view',
+    formatError: cameraStreamsError,
+    title: view ? cameraStreamsText('Edit view') : cameraStreamsText('Create camera view'),
     body,
     width: 780,
     tall: true,
@@ -1011,18 +1014,15 @@ export async function loadCameras() {
   const root = document.getElementById('tab-cameras');
   const result = await cmd('cameraGetConfig').catch(() => null);
   if (!result || !result.ok) {
-    root.innerHTML = '<div class="card"><div class="desc">Could not load cameras.</div></div>';
+    root.innerHTML = '<div class="card"><div class="desc"></div></div>';
+    root.querySelector('.desc').textContent = cameraStreamsText('Could not load cameras.');
     return;
   }
   const config = result.data;
-  // The page is otherwise built from the camera document alone; the playback
-  // row at the end is a real setting, so its definition comes from the
-  // settings API the same way the generic pages read theirs.
-  let settings = [];
-  try {
-    const read = await (await api('/api/settings')).json();
-    settings = cacheSettings(read.settings || []);
-  } catch (_) {}
+  // Boot and live updates own the settings cache and language. A page visit
+  // must not replace them with a separate settings response.
+  const settings = (state.settings || []).map(setting =>
+    Object.assign(setting, localizeSetting(setting)));
   root.innerHTML = '';
   // Rebuilt from scratch on every visit, so the follower banner goes back on
   // first (see applyManagedBanners).
@@ -1045,18 +1045,18 @@ export async function loadCameras() {
   heading('Home Assistant');
   const haCard = card();
   haCard.appendChild(cameraListRow(
-    'Import cameras from Home Assistant',
-    'Add every camera of the connected Home Assistant, playing over '
-      + 'WebRTC, HLS or MJPEG. Importing again merges new cameras.',
+    cameraStreamsText('Import cameras from Home Assistant'),
+    cameraStreamsText('Add every camera of the connected Home Assistant, playing over '
+      + 'WebRTC, HLS or MJPEG. Importing again merges new cameras.'),
     [
-      cameraAction('Import', async () => {
+      cameraAction(cameraStreamsText('Import'), async () => {
         const imported = await cmd('cameraImportHomeAssistant');
         if (!imported.ok) {
-          await messageBox({ title: 'Import failed', message: imported.error });
+          await messageBox({ title: cameraStreamsText('Import failed'), message: cameraStreamsError(imported.error || '') });
         } else {
           await messageBox({
-            title: 'Import complete',
-            message: `${imported.data.added} added, ${imported.data.missing} missing.`,
+            title: cameraStreamsText('Import complete'),
+            message: t('cameraStreamsImportCounts', {added: String(imported.data.added), missing: String(imported.data.missing)}),
           });
         }
         refresh();
@@ -1065,29 +1065,29 @@ export async function loadCameras() {
     { icon: 'home' },
   ));
 
-  heading('Go2RTC servers');
+  heading(cameraStreamsText('Go2RTC servers'));
   const serversCard = card();
   for (const server of config.servers) {
     serversCard.appendChild(cameraListRow(server.name, server.baseUrl, [
-      cameraAction('Import', async () => {
+      cameraAction(cameraStreamsText('Import'), async () => {
         const imported = await cmd('cameraImportGo2Rtc', { serverId: server.id });
         if (!imported.ok) {
-          await messageBox({ title: 'Import failed', message: imported.error });
+          await messageBox({ title: cameraStreamsText('Import failed'), message: cameraStreamsError(imported.error || '') });
         } else {
           await messageBox({
-            title: 'Import complete',
-            message: `${imported.data.added} added, ${imported.data.missing} missing.`,
+            title: cameraStreamsText('Import complete'),
+            message: t('cameraStreamsImportCounts', {added: String(imported.data.added), missing: String(imported.data.missing)}),
           });
         }
         refresh();
       }, false, 'download'),
-      cameraAction('Delete', async () => {
+      cameraAction(cameraStreamsText('Delete'), async () => {
         const choice = await messageBox({
-          title: `Delete ${server.name}?`,
-          message: 'Its cameras will be removed from every view.',
-          buttons: ['Cancel', 'Delete'],
+          title: t('cameraStreamsDeleteNamed', {name: server.name}),
+          message: cameraStreamsText('Its cameras will be removed from every view.'),
+          buttons: [cameraStreamsText('Cancel'), cameraStreamsText('Delete')],
         });
-        if (choice !== 'Delete') return;
+        if (choice !== cameraStreamsText('Delete')) return;
         await cmd('cameraDeleteServer', { id: server.id });
         refresh();
       }, false, 'delete'),
@@ -1099,8 +1099,8 @@ export async function loadCameras() {
     }));
   }
   serversCard.appendChild(cameraListRow(
-    'Add Go2RTC server',
-    'Connect to a server and import its streams.',
+    cameraStreamsText('Add Go2RTC server'),
+    cameraStreamsText('Connect to a server and import its streams.'),
     [],
     {
       icon: 'add',
@@ -1110,12 +1110,12 @@ export async function loadCameras() {
     },
   ));
 
-  heading('Cameras');
+  heading(cameraStreamsText('Cameras'));
   const camerasCard = card();
   if (!config.cameras.length) {
     camerasCard.appendChild(cameraListRow(
-      'No cameras configured',
-      'Import cameras from Home Assistant or Go2RTC, or add one manually.',
+      cameraStreamsText('No cameras configured'),
+      cameraStreamsText('Import cameras from Home Assistant or Go2RTC, or add one manually.'),
       [],
       { icon: 'videoOff' },
     ));
@@ -1139,17 +1139,17 @@ export async function loadCameras() {
       ? `${camera.whepUrl}${formats}`
       : camera.kind === 'ha'
         ? `Home Assistant: ${camera.entityId || ''}`
-          + (camera.missing ? ' (missing)' : '') + formats
-        : `${serverNames[camera.serverId] || 'Unknown server'}: ${camera.streamName}`
-          + (camera.missing ? ' (missing)' : '') + formats;
+          + (camera.missing ? cameraStreamsText(' (missing)') : '') + formats
+        : `${serverNames[camera.serverId] || cameraStreamsText('Unknown server')}: ${camera.streamName}`
+          + (camera.missing ? cameraStreamsText(' (missing)') : '') + formats;
     camerasCard.appendChild(cameraListRow(camera.name, description, [
-      cameraAction('Delete', async () => {
+      cameraAction(cameraStreamsText('Delete'), async () => {
         const choice = await messageBox({
-          title: `Delete ${camera.name}?`,
-          message: 'It will be removed from every view.',
-          buttons: ['Cancel', 'Delete'],
+          title: t('cameraStreamsDeleteNamed', {name: camera.name}),
+          message: cameraStreamsText('It will be removed from every view.'),
+          buttons: [cameraStreamsText('Cancel'), cameraStreamsText('Delete')],
         });
-        if (choice !== 'Delete') return;
+        if (choice !== cameraStreamsText('Delete')) return;
         await cmd('cameraDeleteSource', { id: camera.id });
         refresh();
       }, false, 'delete'),
@@ -1161,8 +1161,8 @@ export async function loadCameras() {
     }));
   }
   camerasCard.appendChild(cameraListRow(
-    'Add camera manually',
-    'Use a Go2RTC stream name, a WHEP URL or a Home Assistant camera entity.',
+    cameraStreamsText('Add camera manually'),
+    cameraStreamsText('Use a Go2RTC stream name, a WHEP URL or a Home Assistant camera entity.'),
     [],
     {
       icon: 'add',
@@ -1172,31 +1172,31 @@ export async function loadCameras() {
     },
   ));
 
-  heading('Views');
+  heading(cameraStreamsText('Views'));
   const viewsCard = card();
   const cameraNames = Object.fromEntries(config.cameras.map((camera) => [camera.id, camera.name]));
   for (const view of config.views) {
     const empty = !view.cameraIds.length;
     const actions = [
-      cameraAction('Show', async () => {
+      cameraAction(cameraStreamsText('Show'), async () => {
         const shown = await cmd('showCameraView', { viewId: view.id });
         if (!shown.ok) {
-          await messageBox({ title: 'Could not show view', message: shown.error });
+          await messageBox({ title: cameraStreamsText('Could not show view'), message: cameraStreamsError(shown.error || '') });
         }
       }, false, 'play', empty),
-      cameraAction('Stop', async () => {
+      cameraAction(cameraStreamsText('Stop'), async () => {
         await cmd('hideCameraView');
       }, false, 'stop'),
     ];
     // The default view is permanent: emptying it retires it.
     if (!view.isDefault) {
-      actions.push(cameraAction('Delete', async () => {
+      actions.push(cameraAction(cameraStreamsText('Delete'), async () => {
         const choice = await messageBox({
-          title: `Delete ${view.name}?`,
-          message: 'This cannot be undone.',
-          buttons: ['Cancel', 'Delete'],
+          title: t('cameraStreamsDeleteNamed', {name: view.name}),
+          message: cameraStreamsText('This cannot be undone.'),
+          buttons: [cameraStreamsText('Cancel'), cameraStreamsText('Delete')],
         });
-        if (choice !== 'Delete') return;
+        if (choice !== cameraStreamsText('Delete')) return;
         await cmd('cameraDeleteView', { id: view.id });
         refresh();
       }, false, 'delete'));
@@ -1204,9 +1204,9 @@ export async function loadCameras() {
     viewsCard.appendChild(cameraListRow(
       view.name,
       empty
-        ? 'No cameras yet'
+        ? cameraStreamsText('No cameras yet')
         : view.cameraIds.map((id) => cameraNames[id] || id).join(', ')
-          + ` · Names ${view.showCameraNames === false ? 'hidden' : 'shown'}`,
+          + ' · ' + cameraStreamsText(view.showCameraNames === false ? 'Names hidden' : 'Names shown'),
       actions,
       {
         icon: view.isDefault ? 'star' : 'grid',
@@ -1217,10 +1217,10 @@ export async function loadCameras() {
     ));
   }
   viewsCard.appendChild(cameraListRow(
-    'Create camera view',
+    cameraStreamsText('Create camera view'),
     config.cameras.length
-      ? 'Choose and order up to 12 cameras.'
-      : 'Add a camera first.',
+      ? cameraStreamsText('Choose and order up to 12 cameras.')
+      : cameraStreamsText('Add a camera first.'),
     [],
     {
       icon: 'add',
@@ -1239,10 +1239,13 @@ export async function loadCameras() {
     .map((key) => settings.find((setting) => setting.key === key))
     .filter(Boolean);
   if (playback.length) {
-    heading('Playback');
+    heading(cameraStreamsText('Playback'));
     const playbackCard = card();
     for (const setting of playback) playbackCard.appendChild(settingRow(setting));
   }
 }
 
 watchUpdates(['cameras'], loadCameras, { visible: () => !!document.querySelector('#tab-cameras.active') });
+document.addEventListener('ks-settings-cached', () => {
+  if (document.querySelector('#tab-cameras.active')) loadCameras();
+});
