@@ -1,0 +1,12 @@
+{
+  "@@locale": "es",
+  "logsWebConsole": "Consola web",
+  "logsDock": "Acoplar sobre la página actual",
+  "logsNoOutput": "La consola aún no tiene mensajes",
+  "logsShareSubject": "Registro de la consola de Kiosk Satellite",
+  "logsInput": "Ejecutar JavaScript en la página",
+  "logsInputHistory": "Ejecutar JavaScript en la página (Intro para ejecutar, arriba/abajo para el historial)",
+  "logsRun": "Ejecutar",
+  "logsEvaluationFailed": "No se pudo ejecutar",
+  "logsDeviceUnreachable": "No se puede conectar con el dispositivo"
+}

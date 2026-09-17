@@ -1,0 +1,109 @@
+{
+  "@@locale": "en",
+  "aboutCheckNow": "Check for updates now",
+  "@aboutCheckNow": {
+    "context": "Remote administration > About > Updates",
+    "description": "Tooltip on the clickable version number in remote administration.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About > Updates"
+      ]
+    }
+  },
+  "aboutChecking": "Checking…",
+  "@aboutChecking": {
+    "context": "Remote administration > About > Updates",
+    "description": "Version link while checking for updates.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About > Updates"
+      ]
+    }
+  },
+  "aboutCheckFailed": "Update check failed. Can the device reach GitHub?",
+  "@aboutCheckFailed": {
+    "context": "Remote administration > About > Updates",
+    "description": "Failed update check notification.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About > Updates"
+      ]
+    }
+  },
+  "aboutOverlayMissing": "\"Display over other apps\" permission missing",
+  "@aboutOverlayMissing": {
+    "context": "Remote administration > About > Updates",
+    "description": "Missing Android permission label.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About > Updates"
+      ]
+    }
+  },
+  "aboutOverlayHelp": "Without it the app cannot reopen itself after updating. The grant screen appears on the tablet.",
+  "@aboutOverlayHelp": {
+    "context": "Remote administration > About > Updates",
+    "description": "Help for the missing overlay permission.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About > Updates"
+      ]
+    }
+  },
+  "aboutDownloadProgress": "Downloading… {percent}%",
+  "@aboutDownloadProgress": {
+    "context": "Remote administration > About > Updates",
+    "description": "Download progress on the installation button.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About > Updates > install a version",
+        "Overview > available update"
+      ]
+    },
+    "placeholders": {
+      "percent": {
+        "type": "String",
+        "description": "Download percentage as digits."
+      }
+    }
+  },
+  "aboutDownloadFailed": "Update failed: {error}",
+  "@aboutDownloadFailed": {
+    "context": "Remote administration > About > Updates",
+    "description": "Failed update command with the original technical detail.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About > Updates > install a version",
+        "Overview > available update"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Original technical error. Do not translate its contents."
+      }
+    }
+  },
+  "aboutAlreadyCurrent": "Already up to date",
+  "@aboutAlreadyCurrent": {
+    "context": "Remote administration > About > Updates",
+    "description": "The device checked again and no update was needed.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About > Updates > install a version",
+        "Overview > available update"
+      ]
+    }
+  },
+  "aboutInstallHelp": "The download runs on the tablet; the installation must be confirmed on the tablet screen.",
+  "@aboutInstallHelp": {
+    "context": "Remote administration > About > Updates",
+    "description": "Guidance below release notes before installation.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About > Updates > install a version",
+        "Overview > available update"
+      ]
+    }
+  }
+}

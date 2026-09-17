@@ -1,0 +1,12 @@
+{
+  "@@locale": "es",
+  "aboutCheckNow": "Buscar actualizaciones ahora",
+  "aboutChecking": "Buscando…",
+  "aboutCheckFailed": "No se pudieron buscar actualizaciones. ¿Puede el dispositivo conectarse con GitHub?",
+  "aboutOverlayMissing": "Falta el permiso «Mostrar sobre otras aplicaciones»",
+  "aboutOverlayHelp": "Sin este permiso, la aplicación no puede volver a abrirse después de actualizarse. La pantalla para concederlo aparece en la tablet.",
+  "aboutDownloadProgress": "Descargando… {percent}%",
+  "aboutDownloadFailed": "La actualización falló: {error}",
+  "aboutAlreadyCurrent": "Ya está actualizado",
+  "aboutInstallHelp": "La descarga se realiza en la tablet. Debes confirmar la instalación en su pantalla."
+}

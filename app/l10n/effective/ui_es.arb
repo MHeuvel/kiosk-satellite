@@ -1,6 +1,6 @@
 {
   "@@locale": "es",
-  "aboutApp": "App",
+  "aboutApp": "Aplicación",
   "@aboutApp": {
     "context": "Settings > About",
     "description": "App information group heading.",
@@ -13,7 +13,7 @@
       ]
     }
   },
-  "aboutVersion": "App version",
+  "aboutVersion": "Versión de la aplicación",
   "@aboutVersion": {
     "context": "Settings > About",
     "description": "Installed app version label.",
@@ -26,7 +26,7 @@
       ]
     }
   },
-  "aboutBuild": "Build",
+  "aboutBuild": "Compilación",
   "@aboutBuild": {
     "context": "Settings > About",
     "description": "Build mode label. The technical value stays unchanged.",
@@ -39,7 +39,7 @@
       ]
     }
   },
-  "aboutPackage": "Package",
+  "aboutPackage": "Paquete",
   "@aboutPackage": {
     "context": "Settings > About",
     "description": "Android package identifier label.",
@@ -52,7 +52,7 @@
       ]
     }
   },
-  "aboutAttribution": "Attribution",
+  "aboutAttribution": "Créditos",
   "@aboutAttribution": {
     "context": "Settings > About",
     "description": "Author and project links group heading.",
@@ -65,7 +65,7 @@
       ]
     }
   },
-  "aboutAuthor": "Author",
+  "aboutAuthor": "Autor",
   "@aboutAuthor": {
     "context": "Settings > About",
     "description": "App author label.",
@@ -78,7 +78,7 @@
       ]
     }
   },
-  "aboutWebsite": "Website",
+  "aboutWebsite": "Sitio web",
   "@aboutWebsite": {
     "context": "Settings > About",
     "description": "Project website label.",
@@ -91,7 +91,7 @@
       ]
     }
   },
-  "aboutSourceCode": "Source code",
+  "aboutSourceCode": "Código fuente",
   "@aboutSourceCode": {
     "context": "Settings > About",
     "description": "Project repository link label.",
@@ -104,7 +104,7 @@
       ]
     }
   },
-  "aboutLicense": "License",
+  "aboutLicense": "Licencia",
   "@aboutLicense": {
     "context": "Settings > About",
     "description": "App license link label. Keep the license identifier unchanged.",
@@ -117,7 +117,7 @@
       ]
     }
   },
-  "aboutLicenseSummary": "Kiosk Satellite is free for personal, non-commercial use. It is licensed under CC BY-NC-ND 4.0: you may use and share it, but commercial use of the app and redistribution of modified app builds are not permitted. Independent plugins have additional permission under PLUGIN-EXCEPTION.md.",
+  "aboutLicenseSummary": "Kiosk Satellite es gratuito para uso personal y no comercial. Se distribuye bajo la licencia CC BY-NC-ND 4.0: puedes usarlo y compartirlo, pero no se permite el uso comercial de la aplicación ni la redistribución de versiones modificadas. Los plugins independientes tienen permisos adicionales según PLUGIN-EXCEPTION.md.",
   "@aboutLicenseSummary": {
     "context": "Settings > About",
     "description": "Plain-language summary below the links. The linked license remains the authoritative legal text.",
@@ -130,7 +130,7 @@
       ]
     }
   },
-  "aboutCheckNow": "Check for updates now",
+  "aboutCheckNow": "Buscar actualizaciones ahora",
   "@aboutCheckNow": {
     "context": "Remote administration > About > Updates",
     "description": "Tooltip on the clickable version number in remote administration.",
@@ -140,7 +140,7 @@
       ]
     }
   },
-  "aboutChecking": "Checking…",
+  "aboutChecking": "Buscando…",
   "@aboutChecking": {
     "context": "Remote administration > About > Updates",
     "description": "Version link while checking for updates.",
@@ -150,7 +150,7 @@
       ]
     }
   },
-  "aboutCheckFailed": "Update check failed. Can the device reach GitHub?",
+  "aboutCheckFailed": "No se pudieron buscar actualizaciones. ¿Puede el dispositivo conectarse con GitHub?",
   "@aboutCheckFailed": {
     "context": "Remote administration > About > Updates",
     "description": "Failed update check notification.",
@@ -160,7 +160,7 @@
       ]
     }
   },
-  "aboutOverlayMissing": "\"Display over other apps\" permission missing",
+  "aboutOverlayMissing": "Falta el permiso «Mostrar sobre otras aplicaciones»",
   "@aboutOverlayMissing": {
     "context": "Remote administration > About > Updates",
     "description": "Missing Android permission label.",
@@ -170,7 +170,7 @@
       ]
     }
   },
-  "aboutOverlayHelp": "Without it the app cannot reopen itself after updating. The grant screen appears on the tablet.",
+  "aboutOverlayHelp": "Sin este permiso, la aplicación no puede volver a abrirse después de actualizarse. La pantalla para concederlo aparece en la tablet.",
   "@aboutOverlayHelp": {
     "context": "Remote administration > About > Updates",
     "description": "Help for the missing overlay permission.",
@@ -180,7 +180,7 @@
       ]
     }
   },
-  "aboutDownloadProgress": "Downloading… {percent}%",
+  "aboutDownloadProgress": "Descargando… {percent}%",
   "@aboutDownloadProgress": {
     "context": "Remote administration > About > Updates",
     "description": "Download progress on the installation button.",
@@ -197,7 +197,7 @@
       }
     }
   },
-  "aboutDownloadFailed": "Update failed: {error}",
+  "aboutDownloadFailed": "La actualización falló: {error}",
   "@aboutDownloadFailed": {
     "context": "Remote administration > About > Updates",
     "description": "Failed update command with the original technical detail.",
@@ -214,7 +214,7 @@
       }
     }
   },
-  "aboutAlreadyCurrent": "Already up to date",
+  "aboutAlreadyCurrent": "Ya está actualizado",
   "@aboutAlreadyCurrent": {
     "context": "Remote administration > About > Updates",
     "description": "The device checked again and no update was needed.",
@@ -225,7 +225,7 @@
       ]
     }
   },
-  "aboutInstallHelp": "The download runs on the tablet; the installation must be confirmed on the tablet screen.",
+  "aboutInstallHelp": "La descarga se realiza en la tablet. Debes confirmar la instalación en su pantalla.",
   "@aboutInstallHelp": {
     "context": "Remote administration > About > Updates",
     "description": "Guidance below release notes before installation.",
@@ -6665,7 +6665,7 @@
       ]
     }
   },
-  "logsWebConsole": "Web Console",
+  "logsWebConsole": "Consola web",
   "@logsWebConsole": {
     "context": "Settings > Logs > Web Console",
     "description": "Console tab and docked panel title.",
@@ -6680,7 +6680,7 @@
     },
     "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
   },
-  "logsDock": "Dock over the live page",
+  "logsDock": "Acoplar sobre la página actual",
   "@logsDock": {
     "context": "Settings > Logs > Web Console",
     "description": "Open the console over the kiosk page.",
@@ -6695,7 +6695,7 @@
     },
     "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
   },
-  "logsNoOutput": "No console output yet",
+  "logsNoOutput": "La consola aún no tiene mensajes",
   "@logsNoOutput": {
     "context": "Settings > Logs > Web Console",
     "description": "Empty console notice.",
@@ -6710,7 +6710,7 @@
     },
     "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
   },
-  "logsShareSubject": "Kiosk Satellite console log",
+  "logsShareSubject": "Registro de la consola de Kiosk Satellite",
   "@logsShareSubject": {
     "context": "Settings > Logs > Web Console",
     "description": "Subject when sharing console output.",
@@ -6725,7 +6725,7 @@
     },
     "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
   },
-  "logsInput": "Run JavaScript in the page",
+  "logsInput": "Ejecutar JavaScript en la página",
   "@logsInput": {
     "context": "Settings > Logs > Web Console",
     "description": "Empty JavaScript command input hint.",
@@ -6740,7 +6740,7 @@
     },
     "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
   },
-  "logsInputHistory": "Run JavaScript in the page (Enter to run, Up/Down for history)",
+  "logsInputHistory": "Ejecutar JavaScript en la página (Intro para ejecutar, arriba/abajo para el historial)",
   "@logsInputHistory": {
     "context": "Settings > Logs > Web Console",
     "description": "Remote JavaScript command input hint.",
@@ -6755,7 +6755,7 @@
     },
     "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
   },
-  "logsRun": "Run",
+  "logsRun": "Ejecutar",
   "@logsRun": {
     "context": "Settings > Logs > Web Console",
     "description": "Execute the JavaScript entered by the user.",
@@ -6770,7 +6770,7 @@
     },
     "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
   },
-  "logsEvaluationFailed": "evaluation failed",
+  "logsEvaluationFailed": "No se pudo ejecutar",
   "@logsEvaluationFailed": {
     "context": "Settings > Logs > Web Console",
     "description": "Fallback when JavaScript evaluation fails without details.",
@@ -6785,7 +6785,7 @@
     },
     "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
   },
-  "logsDeviceUnreachable": "device unreachable",
+  "logsDeviceUnreachable": "No se puede conectar con el dispositivo",
   "@logsDeviceUnreachable": {
     "context": "Settings > Logs > Web Console",
     "description": "Console command connection failure.",
@@ -6800,7 +6800,7 @@
     },
     "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
   },
-  "logsEntries": "{count} entries",
+  "logsEntries": "{count} entradas",
   "@logsEntries": {
     "context": "Settings > Logs",
     "description": "Number of stored log or console entries.",
@@ -6820,7 +6820,7 @@
     },
     "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
   },
-  "logsCopyLog": "Copy log",
+  "logsCopyLog": "Copiar registro",
   "@logsCopyLog": {
     "context": "Settings > Logs",
     "description": "Copy button tooltip.",
@@ -6834,7 +6834,7 @@
     },
     "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
   },
-  "logsShareLog": "Share log",
+  "logsShareLog": "Compartir registro",
   "@logsShareLog": {
     "context": "Settings > Logs",
     "description": "Share button tooltip in the docked console.",
@@ -6848,7 +6848,7 @@
     },
     "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
   },
-  "logsCopied": "Copied",
+  "logsCopied": "Copiado",
   "@logsCopied": {
     "context": "Settings > Logs",
     "description": "Successful clipboard notification title.",
@@ -6862,7 +6862,7 @@
     },
     "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
   },
-  "logsCopyFailed": "Could not copy",
+  "logsCopyFailed": "No se pudo copiar",
   "@logsCopyFailed": {
     "context": "Settings > Logs",
     "description": "Failed clipboard notification title.",
@@ -6876,7 +6876,7 @@
     },
     "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
   },
-  "logsOnClipboard": "The log is on the clipboard.",
+  "logsOnClipboard": "El registro está en el portapapeles.",
   "@logsOnClipboard": {
     "context": "Settings > Logs",
     "description": "Successful copy notification.",
@@ -6890,7 +6890,7 @@
     },
     "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
   },
-  "logsConsoleOnClipboard": "The console log is on the clipboard.",
+  "logsConsoleOnClipboard": "El registro de la consola está en el portapapeles.",
   "@logsConsoleOnClipboard": {
     "context": "Settings > Logs",
     "description": "Successful console copy notification.",
@@ -6904,7 +6904,7 @@
     },
     "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
   },
-  "logsSystemLog": "Android system log for this app (crashes live here)",
+  "logsSystemLog": "Registro del sistema Android para esta aplicación (incluye los fallos)",
   "@logsSystemLog": {
     "context": "Settings > Logs > Logcat",
     "description": "Explanation above the Android log.",
@@ -6918,7 +6918,7 @@
     },
     "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
   },
-  "logsErrors": "Errors & crashes",
+  "logsErrors": "Errores y fallos",
   "@logsErrors": {
     "context": "Settings > Logs > Logcat",
     "description": "Severity filter.",
@@ -6932,7 +6932,7 @@
     },
     "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
   },
-  "logsWarnings": "Warnings",
+  "logsWarnings": "Advertencias",
   "@logsWarnings": {
     "context": "Settings > Logs > Logcat",
     "description": "Severity filter.",
@@ -6946,7 +6946,7 @@
     },
     "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
   },
-  "logsInfo": "Info & debug",
+  "logsInfo": "Información y depuración",
   "@logsInfo": {
     "context": "Settings > Logs > Logcat",
     "description": "Severity filter.",
@@ -6960,7 +6960,7 @@
     },
     "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
   },
-  "logsNoMatches": "No matching lines. Enable more types above to see the full log.",
+  "logsNoMatches": "No hay líneas que coincidan. Activa más tipos arriba para ver el registro completo.",
   "@logsNoMatches": {
     "context": "Settings > Logs > Logcat",
     "description": "Empty filtered log notice.",
@@ -6974,7 +6974,7 @@
     },
     "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
   },
-  "logsUnavailable": "logcat unavailable",
+  "logsUnavailable": "Logcat no disponible",
   "@logsUnavailable": {
     "context": "Settings > Logs > Logcat",
     "description": "Fallback when the device cannot return its system log.",
@@ -6988,7 +6988,7 @@
     },
     "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
   },
-  "logsReadFailed": "Could not read logcat: {error}",
+  "logsReadFailed": "No se pudo leer Logcat: {error}",
   "@logsReadFailed": {
     "context": "Settings > Logs > Logcat",
     "description": "Failure notice with the original technical error.",
@@ -7008,7 +7008,7 @@
     },
     "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
   },
-  "logsUnknown": "unknown",
+  "logsUnknown": "desconocido",
   "@logsUnknown": {
     "context": "Settings > Logs > Logcat",
     "description": "Fallback detail when a failure provides no error.",

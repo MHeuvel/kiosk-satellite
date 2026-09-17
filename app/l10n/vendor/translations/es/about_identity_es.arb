@@ -1,0 +1,13 @@
+{
+  "@@locale": "es",
+  "aboutApp": "Aplicación",
+  "aboutVersion": "Versión de la aplicación",
+  "aboutBuild": "Compilación",
+  "aboutPackage": "Paquete",
+  "aboutAttribution": "Créditos",
+  "aboutAuthor": "Autor",
+  "aboutWebsite": "Sitio web",
+  "aboutSourceCode": "Código fuente",
+  "aboutLicense": "Licencia",
+  "aboutLicenseSummary": "Kiosk Satellite es gratuito para uso personal y no comercial. Se distribuye bajo la licencia CC BY-NC-ND 4.0: puedes usarlo y compartirlo, pero no se permite el uso comercial de la aplicación ni la redistribución de versiones modificadas. Los plugins independientes tienen permisos adicionales según PLUGIN-EXCEPTION.md."
+}

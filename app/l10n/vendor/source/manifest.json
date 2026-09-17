@@ -1,9 +1,11 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite",
-  "revision": "b830cd97b7653109a0f001d8b7221839139cb96a",
+  "revision": "cbe01dac5577cd6d38d5537a0e7757b18c2ac7d6",
   "workingTree": false,
   "files": {
+    "about_identity_en.arb": "dd006567f69f846e2e3b73f09ad13784f0022d282ea3101fa9be7fc95175ec2d",
+    "about_updates_en.arb": "b41df3870ffb041249448dc4b13b14a9350ab4417510f23e772458dd1e582c85",
     "app_launcher_overlay_en.arb": "9598d5f3383b23bed8c34a54795da71f211533160a84417010def4dd54f9a173",
     "app_launcher_picker_en.arb": "94a472a1db6ae5f8e0db8825c45e5272c8660bce68a347fa2c92454ec6a2672e",
     "camera_view_status_en.arb": "5c2fdaeb44fc707fa15cfb92a186ff2616e4ea255cd5ea3ff3dac37c532fedbe",
@@ -27,6 +29,9 @@
     "intercom_calls_en.arb": "76790d5c39367e505f5c282e60a64e6370f18620a3923da6bc2b6586cb16b78c",
     "intercom_errors_en.arb": "561be9299f5574c15d4b4727dfb2238c00b0eccfef75f2c4c0c642845bbf367f",
     "kiosk_pin_en.arb": "5490d54265cd01006e1b8bbb425aff2e8064bdddfd10d9721e7591bd862ce02c",
+    "logs_console_en.arb": "02d7388e4b742757e9472d1b1a77f58adcec0ba4004ba8e0704ab5d017fdce8e",
+    "logs_general_en.arb": "aa0d8340c109e04aa6383c98642ff797667899c604719c2dcf94d059a8edab03",
+    "logs_logcat_en.arb": "e859068386a59a36c581dfc0c973281f4c76a579590b6ee53656c0e3016f9ff4",
     "player_controls_en.arb": "61e81ca8c32de2c69557ea016c96174f8b06651c3a6afc6081e3b9b08f3942f1",
     "player_queue_en.arb": "2b9d165ec8649eab92534fc486a92172ba186e89d4f1632b6b2845d825796cda",
     "player_speaker_groups_en.arb": "4ee28b50a4e886608c7ea76afe271ae9c677460ec9c72e8b14fccd7706cda2c0",

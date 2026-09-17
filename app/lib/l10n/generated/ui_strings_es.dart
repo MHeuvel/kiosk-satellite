@@ -9,70 +9,70 @@ class UiStringsEs extends UiStrings {
   UiStringsEs([String locale = 'es']) : super(locale);
 
   @override
-  String get aboutApp => 'App';
+  String get aboutApp => 'Aplicación';
 
   @override
-  String get aboutVersion => 'App version';
+  String get aboutVersion => 'Versión de la aplicación';
 
   @override
-  String get aboutBuild => 'Build';
+  String get aboutBuild => 'Compilación';
 
   @override
-  String get aboutPackage => 'Package';
+  String get aboutPackage => 'Paquete';
 
   @override
-  String get aboutAttribution => 'Attribution';
+  String get aboutAttribution => 'Créditos';
 
   @override
-  String get aboutAuthor => 'Author';
+  String get aboutAuthor => 'Autor';
 
   @override
-  String get aboutWebsite => 'Website';
+  String get aboutWebsite => 'Sitio web';
 
   @override
-  String get aboutSourceCode => 'Source code';
+  String get aboutSourceCode => 'Código fuente';
 
   @override
-  String get aboutLicense => 'License';
+  String get aboutLicense => 'Licencia';
 
   @override
   String get aboutLicenseSummary =>
-      'Kiosk Satellite is free for personal, non-commercial use. It is licensed under CC BY-NC-ND 4.0: you may use and share it, but commercial use of the app and redistribution of modified app builds are not permitted. Independent plugins have additional permission under PLUGIN-EXCEPTION.md.';
+      'Kiosk Satellite es gratuito para uso personal y no comercial. Se distribuye bajo la licencia CC BY-NC-ND 4.0: puedes usarlo y compartirlo, pero no se permite el uso comercial de la aplicación ni la redistribución de versiones modificadas. Los plugins independientes tienen permisos adicionales según PLUGIN-EXCEPTION.md.';
 
   @override
-  String get aboutCheckNow => 'Check for updates now';
+  String get aboutCheckNow => 'Buscar actualizaciones ahora';
 
   @override
-  String get aboutChecking => 'Checking…';
+  String get aboutChecking => 'Buscando…';
 
   @override
   String get aboutCheckFailed =>
-      'Update check failed. Can the device reach GitHub?';
+      'No se pudieron buscar actualizaciones. ¿Puede el dispositivo conectarse con GitHub?';
 
   @override
   String get aboutOverlayMissing =>
-      '\"Display over other apps\" permission missing';
+      'Falta el permiso «Mostrar sobre otras aplicaciones»';
 
   @override
   String get aboutOverlayHelp =>
-      'Without it the app cannot reopen itself after updating. The grant screen appears on the tablet.';
+      'Sin este permiso, la aplicación no puede volver a abrirse después de actualizarse. La pantalla para concederlo aparece en la tablet.';
 
   @override
   String aboutDownloadProgress(String percent) {
-    return 'Downloading… $percent%';
+    return 'Descargando… $percent%';
   }
 
   @override
   String aboutDownloadFailed(String error) {
-    return 'Update failed: $error';
+    return 'La actualización falló: $error';
   }
 
   @override
-  String get aboutAlreadyCurrent => 'Already up to date';
+  String get aboutAlreadyCurrent => 'Ya está actualizado';
 
   @override
   String get aboutInstallHelp =>
-      'The download runs on the tablet; the installation must be confirmed on the tablet screen.';
+      'La descarga se realiza en la tablet. Debes confirmar la instalación en su pantalla.';
 
   @override
   String launcherOpenFailed(String name) {
@@ -1847,83 +1847,84 @@ class UiStringsEs extends UiStrings {
   String get kioskUnlock => 'Desbloquear';
 
   @override
-  String get logsWebConsole => 'Web Console';
+  String get logsWebConsole => 'Consola web';
 
   @override
-  String get logsDock => 'Dock over the live page';
+  String get logsDock => 'Acoplar sobre la página actual';
 
   @override
-  String get logsNoOutput => 'No console output yet';
+  String get logsNoOutput => 'La consola aún no tiene mensajes';
 
   @override
-  String get logsShareSubject => 'Kiosk Satellite console log';
+  String get logsShareSubject => 'Registro de la consola de Kiosk Satellite';
 
   @override
-  String get logsInput => 'Run JavaScript in the page';
+  String get logsInput => 'Ejecutar JavaScript en la página';
 
   @override
   String get logsInputHistory =>
-      'Run JavaScript in the page (Enter to run, Up/Down for history)';
+      'Ejecutar JavaScript en la página (Intro para ejecutar, arriba/abajo para el historial)';
 
   @override
-  String get logsRun => 'Run';
+  String get logsRun => 'Ejecutar';
 
   @override
-  String get logsEvaluationFailed => 'evaluation failed';
+  String get logsEvaluationFailed => 'No se pudo ejecutar';
 
   @override
-  String get logsDeviceUnreachable => 'device unreachable';
+  String get logsDeviceUnreachable => 'No se puede conectar con el dispositivo';
 
   @override
   String logsEntries(String count) {
-    return '$count entries';
+    return '$count entradas';
   }
 
   @override
-  String get logsCopyLog => 'Copy log';
+  String get logsCopyLog => 'Copiar registro';
 
   @override
-  String get logsShareLog => 'Share log';
+  String get logsShareLog => 'Compartir registro';
 
   @override
-  String get logsCopied => 'Copied';
+  String get logsCopied => 'Copiado';
 
   @override
-  String get logsCopyFailed => 'Could not copy';
+  String get logsCopyFailed => 'No se pudo copiar';
 
   @override
-  String get logsOnClipboard => 'The log is on the clipboard.';
+  String get logsOnClipboard => 'El registro está en el portapapeles.';
 
   @override
-  String get logsConsoleOnClipboard => 'The console log is on the clipboard.';
+  String get logsConsoleOnClipboard =>
+      'El registro de la consola está en el portapapeles.';
 
   @override
   String get logsSystemLog =>
-      'Android system log for this app (crashes live here)';
+      'Registro del sistema Android para esta aplicación (incluye los fallos)';
 
   @override
-  String get logsErrors => 'Errors & crashes';
+  String get logsErrors => 'Errores y fallos';
 
   @override
-  String get logsWarnings => 'Warnings';
+  String get logsWarnings => 'Advertencias';
 
   @override
-  String get logsInfo => 'Info & debug';
+  String get logsInfo => 'Información y depuración';
 
   @override
   String get logsNoMatches =>
-      'No matching lines. Enable more types above to see the full log.';
+      'No hay líneas que coincidan. Activa más tipos arriba para ver el registro completo.';
 
   @override
-  String get logsUnavailable => 'logcat unavailable';
+  String get logsUnavailable => 'Logcat no disponible';
 
   @override
   String logsReadFailed(String error) {
-    return 'Could not read logcat: $error';
+    return 'No se pudo leer Logcat: $error';
   }
 
   @override
-  String get logsUnknown => 'unknown';
+  String get logsUnknown => 'desconocido';
 
   @override
   String get mediaPlay => 'Reproducir';
