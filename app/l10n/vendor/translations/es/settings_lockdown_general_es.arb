@@ -1,0 +1,16 @@
+{
+  "@@locale": "es",
+  "settingLockdownEnabledTitle": "Activar modo de bloqueo",
+  "settingLockdownEnabledDescription": "Desactiva las interacciones con la pantalla hasta que se desactive desde Home Assistant o con el gesto de salida.",
+  "settingLockdownMenuTitle": "Mostrar en el menú del kiosko",
+  "settingLockdownMenuDescription": "Añade una opción de modo de bloqueo al menú del kiosko para bloquear la pantalla. Usa el gesto de salida, la administración remota o Home Assistant para desbloquearla.",
+  "settingLockdownBlackoutTitle": "Pantalla en negro",
+  "settingLockdownBlackoutDescription": "Pone la pantalla en negro mientras está bloqueada.",
+  "settingLockdownAllowScreensaverTitle": "Permitir el protector de pantalla",
+  "settingLockdownAllowScreensaverDescription": "Permite que el protector de pantalla funcione mientras la pantalla está bloqueada. La detección de movimiento no lo desactiva hasta que se quite el bloqueo.",
+  "settingLockdownExitGestureTitle": "Gesto de salida del bloqueo",
+  "settingLockdownExitGestureDescription": "Los toques rápidos en cualquier parte desactivan el modo de bloqueo, después de introducir el PIN del kiosko si hay uno. Las variantes que requieren mantener el toque necesitan que mantengas pulsado el último. Si se desactiva el gesto, solo la administración remota o Home Assistant pueden quitar el bloqueo.",
+  "lockdownGestureNone": "Desactivado (solo de forma remota)",
+  "lockdownExplanation": "El modo de bloqueo desactiva las interacciones con el panel de control, activa todas las protecciones del modo kiosko sin cambiar su configuración y silencia la detección de la palabra de activación mientras está activo. Con la protección de la interfaz del sistema activada arriba, también se bloquean el panel de notificaciones y las aplicaciones recientes. Home Assistant recibe un interruptor del modo de bloqueo a través de ESPHome.",
+  "lockdownSearch": "Bloqueo táctil que se configura desde la administración remota. Sus permisos están en Permisos del sistema necesarios."
+}

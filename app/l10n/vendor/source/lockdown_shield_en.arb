@@ -1,0 +1,13 @@
+{
+  "@@locale": "en",
+  "lockdownScreenLocked": "Screen is locked",
+  "@lockdownScreenLocked": {
+    "context": "Kiosk screen > Lockdown Mode > tap the screen",
+    "description": "Brief notice shown when touching the locked screen.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > Lockdown Mode > tap the screen"
+      ]
+    }
+  }
+}

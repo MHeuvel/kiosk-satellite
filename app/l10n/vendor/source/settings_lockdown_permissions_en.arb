@@ -1,0 +1,33 @@
+{
+  "@@locale": "en",
+  "lockdownOverlayHeld": "The lockdown shield can cover the whole screen.",
+  "@lockdownOverlayHeld": {
+    "context": "Lockdown Mode > Required system permissions > Display over other apps",
+    "description": "Granted overlay permission status.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Lockdown Mode > Required system permissions > Display over other apps"
+      ]
+    }
+  },
+  "lockdownOverlayMissing": "Without this the shield only covers the app. The grant screen appears on the tablet.",
+  "@lockdownOverlayMissing": {
+    "context": "Lockdown Mode > Required system permissions > Display over other apps",
+    "description": "Missing overlay permission guidance.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Lockdown Mode > Required system permissions > Display over other apps"
+      ]
+    }
+  },
+  "lockdownPermissionsSearch": "The grants the lockdown protections lean on.",
+  "@lockdownPermissionsSearch": {
+    "context": "Search > Lockdown Mode > Required system permissions",
+    "description": "Search description for the permissions group.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Search > Lockdown Mode > Required system permissions"
+      ]
+    }
+  }
+}

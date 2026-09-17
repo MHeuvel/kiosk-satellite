@@ -1,0 +1,133 @@
+{
+  "@@locale": "en",
+  "settingLockdownEnabledTitle": "Enable Lockdown Mode",
+  "@settingLockdownEnabledTitle": {
+    "context": "Lockdown Mode > Enable Lockdown Mode",
+    "description": "Setting label.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Lockdown Mode > Enable Lockdown Mode"
+      ]
+    }
+  },
+  "settingLockdownEnabledDescription": "Disables screen interactions until turned off either from Home Assistant or with the exit gesture.",
+  "@settingLockdownEnabledDescription": {
+    "context": "Lockdown Mode > Enable Lockdown Mode",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Lockdown Mode > Enable Lockdown Mode"
+      ]
+    }
+  },
+  "settingLockdownMenuTitle": "Show in the kiosk menu",
+  "@settingLockdownMenuTitle": {
+    "context": "Lockdown Mode > Show in the kiosk menu",
+    "description": "Setting label.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Lockdown Mode > Show in the kiosk menu"
+      ]
+    }
+  },
+  "settingLockdownMenuDescription": "Add a Lockdown Mode entry to the kiosk menu that locks the screen. Use the exit gesture, Remote Admin or Home Assistant to unlock it.",
+  "@settingLockdownMenuDescription": {
+    "context": "Lockdown Mode > Show in the kiosk menu",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Lockdown Mode > Show in the kiosk menu"
+      ]
+    }
+  },
+  "settingLockdownBlackoutTitle": "Blackout screen",
+  "@settingLockdownBlackoutTitle": {
+    "context": "Lockdown Mode > Blackout screen",
+    "description": "Setting label.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Lockdown Mode > Blackout screen"
+      ]
+    }
+  },
+  "settingLockdownBlackoutDescription": "Turns the screen black while locked.",
+  "@settingLockdownBlackoutDescription": {
+    "context": "Lockdown Mode > Blackout screen",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Lockdown Mode > Blackout screen"
+      ]
+    }
+  },
+  "settingLockdownAllowScreensaverTitle": "Allow screensaver",
+  "@settingLockdownAllowScreensaverTitle": {
+    "context": "Lockdown Mode > Allow screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Lockdown Mode > Allow screensaver"
+      ]
+    }
+  },
+  "settingLockdownAllowScreensaverDescription": "Lets the screensaver run while locked. Dismiss on motion stays deactivated until the lock lifts.",
+  "@settingLockdownAllowScreensaverDescription": {
+    "context": "Lockdown Mode > Allow screensaver",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Lockdown Mode > Allow screensaver"
+      ]
+    }
+  },
+  "settingLockdownExitGestureTitle": "Lockdown exit gesture",
+  "@settingLockdownExitGestureTitle": {
+    "context": "Lockdown Mode > Lockdown exit gesture",
+    "description": "Setting label.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Lockdown Mode > Lockdown exit gesture"
+      ]
+    }
+  },
+  "settingLockdownExitGestureDescription": "Fast taps anywhere turn Lockdown Mode off, after the kiosk PIN if one is set. Hold variants need the last tap held down. When disabled, only the remote admin or Home Assistant can turn it off.",
+  "@settingLockdownExitGestureDescription": {
+    "context": "Lockdown Mode > Lockdown exit gesture",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Lockdown Mode > Lockdown exit gesture"
+      ]
+    }
+  },
+  "lockdownGestureNone": "Disabled (remote only)",
+  "@lockdownGestureNone": {
+    "context": "Lockdown Mode > Lockdown exit gesture",
+    "description": "Exit gesture option. Remote administration and Home Assistant can still unlock the device.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Lockdown Mode > Lockdown exit gesture"
+      ]
+    }
+  },
+  "lockdownExplanation": "Lockdown Mode makes the dashboard non-interactive, arms every Kiosk Mode protection without changing your Kiosk Mode settings, and mutes wake word detection while it is on. With the System UI guard enabled (above), the notification shade and recents are blocked too. Home Assistant gets a Lockdown mode switch over ESPHome.",
+  "@lockdownExplanation": {
+    "context": "Lockdown Mode",
+    "description": "Explanation below the permission group.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Lockdown Mode"
+      ]
+    }
+  },
+  "lockdownSearch": "Remote-only touch shield. Set it up from the Remote Admin UI; its grants live under Required system permissions.",
+  "@lockdownSearch": {
+    "context": "Settings > Search > Lockdown Mode",
+    "description": "Device search guidance for the remote-only configuration page.",
+    "x-locations": {
+      "device": [
+        "Settings > Search > Lockdown Mode"
+      ]
+    }
+  }
+}

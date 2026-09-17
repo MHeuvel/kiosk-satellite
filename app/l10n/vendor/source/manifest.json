@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite",
-  "revision": "cbe01dac5577cd6d38d5537a0e7757b18c2ac7d6",
+  "revision": "23b4f18905ece0fb933c9c535b6091cecf191879",
   "workingTree": false,
   "files": {
     "about_identity_en.arb": "dd006567f69f846e2e3b73f09ad13784f0022d282ea3101fa9be7fc95175ec2d",
@@ -29,6 +29,7 @@
     "intercom_calls_en.arb": "76790d5c39367e505f5c282e60a64e6370f18620a3923da6bc2b6586cb16b78c",
     "intercom_errors_en.arb": "561be9299f5574c15d4b4727dfb2238c00b0eccfef75f2c4c0c642845bbf367f",
     "kiosk_pin_en.arb": "5490d54265cd01006e1b8bbb425aff2e8064bdddfd10d9721e7591bd862ce02c",
+    "lockdown_shield_en.arb": "7613d309f86c6369ad1dbbbff4a661e1a9cbd15e99d7d973b317b4fd4988a4c2",
     "logs_console_en.arb": "02d7388e4b742757e9472d1b1a77f58adcec0ba4004ba8e0704ab5d017fdce8e",
     "logs_general_en.arb": "aa0d8340c109e04aa6383c98642ff797667899c604719c2dcf94d059a8edab03",
     "logs_logcat_en.arb": "e859068386a59a36c581dfc0c973281f4c76a579590b6ee53656c0e3016f9ff4",
@@ -83,6 +84,8 @@
     "settings_kiosk_allowed_actions_en.arb": "b8e75e7a59104299e40f0ce16c09465a2af55c8773b069f9f065be2c44c5d405",
     "settings_kiosk_general_en.arb": "a45e0a0510b43f5a2f6f0deb5a508ddd31e2fb9ce5a69a1af9f2e4f1a4fe11a3",
     "settings_kiosk_permissions_en.arb": "686c9c49e03d50ec06070dbbf9717bccf2916fc68464d2ac12c4de3cd7f2e337",
+    "settings_lockdown_general_en.arb": "35f9a497d506c0925ca06d3f39f5ff8e3d99ccdc6c8552005ef56754c7c2a2ba",
+    "settings_lockdown_permissions_en.arb": "5e1c4165f637ce0c7d46c2f52587044bf47da538e3c17ca74a6e512a771547f1",
     "settings_media_player_cache_en.arb": "ce251f8e7c3307fc7863779680cc610a8d2bf50b41e9d904b3f84ad153564a8a",
     "settings_media_player_floating_en.arb": "cb84a2d33a3e48ef9096946f22b57eff8016336e2ebb2a8667c2a8849f90ed65",
     "settings_media_player_general_en.arb": "296e07f09a97b3321c8850c15b7fd885645bc92172bb67114269efa5d1e74455",

@@ -2609,6 +2609,11 @@
     "translation": "d4c2d75416f69c74c65679f94762c7243ad2f1f6293961ff798bb483a39a7169",
     "author": "Xavier Larrea"
   },
+  "lockdownScreenLocked": {
+    "source": "9832d22da93015afdff4a686b9ef637c2b52a5b77e22947acbf96a963a5727ba",
+    "translation": "00df7ba7c5f5d5d7ff69777c3453e40b8971c65a818bee56ec9a70efe142d237",
+    "author": "Xavier Larrea"
+  },
   "logsWebConsole": {
     "source": "fc7866322025871625aae8aa535c6752a1424d387fc08fef8c3e0611fd60fa66",
     "translation": "d65a7158411295f6f917852d2a14269edd1efb15ce416106ab26b6b364e76de8",
@@ -7472,6 +7477,86 @@
   "kioskOpenSettingsDevice": {
     "source": "b093eeb5b5e7790a516296017863ad73f3a2b9e6f5aa308f8973e490a7a92cf8",
     "translation": "962c25ad2cf28695fe402fb070d96de08673d468a16f9b1ea4c09b81f9b201ee",
+    "author": "Xavier Larrea"
+  },
+  "settingLockdownEnabledTitle": {
+    "source": "948dc2fd0fa4f0cde59d18097294646593c7bd7aad75bda1797608b210028a30",
+    "translation": "94b41edfb5202faddb49bdc3fc50f520cbea91cd5fef42c63059c4846964b08f",
+    "author": "Xavier Larrea"
+  },
+  "settingLockdownEnabledDescription": {
+    "source": "3cad7a0e7f1be784590d184566ba45a5749b8845a730ae3e2364b092cb9d555a",
+    "translation": "e3cd403bedfba7ca377ad587e1f4bdd8d7a4633842734606cce2ea0e6b1b5a09",
+    "author": "Xavier Larrea"
+  },
+  "settingLockdownMenuTitle": {
+    "source": "ae21aa7c52626750b5ee710e9095e0fe28aeb80a7e31c277bd49b9124a8c1ccd",
+    "translation": "29c899b0556f35c0c6dbad1923dbfcc3418509108780b8064c3e99d4cc8bc7a3",
+    "author": "Xavier Larrea"
+  },
+  "settingLockdownMenuDescription": {
+    "source": "4b51b176b2ee3c41c33b16a751a1a7aa8b8bbee6e60f15e0895f71c873fe7d1d",
+    "translation": "7c3879042b943925f0a44f770f7231d3d08368d566905f9cd075644f01f41c1d",
+    "author": "Xavier Larrea"
+  },
+  "settingLockdownBlackoutTitle": {
+    "source": "fc4059d9d027f1d74a8b1f881e67c1867b87fc7a099819388cd34076926ec7dd",
+    "translation": "f1a850df7d4fdece02569f2bcc687da5b569c42f8ff3b55e263f144668ba2356",
+    "author": "Xavier Larrea"
+  },
+  "settingLockdownBlackoutDescription": {
+    "source": "b9f0f42dd73ecdf02e1b69703ad41a9cd94bdba3ea81f839653f3178eaa881bb",
+    "translation": "5dc7918c87442974fee83a0ff8dc7d139ffd617a9973d792725cb45084cdf17d",
+    "author": "Xavier Larrea"
+  },
+  "settingLockdownAllowScreensaverTitle": {
+    "source": "632a602fb45752db221284c60d5753df53e2787999f267374fb6bba09609edf6",
+    "translation": "f30715974f322828f39d4a1b38e1eca2ad7048735095f7dca57c2c7de0d1cc16",
+    "author": "Xavier Larrea"
+  },
+  "settingLockdownAllowScreensaverDescription": {
+    "source": "338811a047f698f6a05b636aae66af3b4cd24e8136a75f3efd76e1ee957fbf06",
+    "translation": "83ebcca4a1fff19e305fdd30eec6ead32e00d5e1f93b58dc05dd8005452a58c2",
+    "author": "Xavier Larrea"
+  },
+  "settingLockdownExitGestureTitle": {
+    "source": "75d8851d2f3e07048c08cb21afc43bc0fe057ab6dc501aeab1645c514ec71f0b",
+    "translation": "f090bb575680186f743483505f4583e937bf1f839a57d4ba8a6a766d5b04aebc",
+    "author": "Xavier Larrea"
+  },
+  "settingLockdownExitGestureDescription": {
+    "source": "8d989b40230650c394ac2abd5182f98c7f128c038c2b1bf1412d4d535c188504",
+    "translation": "3ddd060935bc9267734dd50f04fb238574c49ff8ec8904d4b606273755d71e5e",
+    "author": "Xavier Larrea"
+  },
+  "lockdownGestureNone": {
+    "source": "ad610f668eccd2e0dcd6d614ffde817b77a006713f3f3ca0b82bf8e36ba258b0",
+    "translation": "0a610cd15c775d7ed4ffa07ca41eb30e5eedb67c038b8021d20068c50df04a7b",
+    "author": "Xavier Larrea"
+  },
+  "lockdownExplanation": {
+    "source": "1e53b064cc7abc3c8d935035ab88b0460d2fe901cc32eddcb289b14b04345f13",
+    "translation": "7a734e42666eaf71323a3cecbb0b201dfca7370e8086315f662bc86d4736cfd9",
+    "author": "Xavier Larrea"
+  },
+  "lockdownSearch": {
+    "source": "a4fd0bde8f1bf50abe2e69b306917d1d9a2e359e49a64dceab88a2cac273165b",
+    "translation": "97c3169e2712515d75617bcdd44a8f7c387b912b95e3002e5f44b2908bd40980",
+    "author": "Xavier Larrea"
+  },
+  "lockdownOverlayHeld": {
+    "source": "e2aeb5dd5ede35a2c8093d35d2807b792ac42691976152a7414d11ac1300cdb5",
+    "translation": "15f3696d8d3961be2249ace364602e860ea58c5ab9bd058dad1dd8b5481a2ade",
+    "author": "Xavier Larrea"
+  },
+  "lockdownOverlayMissing": {
+    "source": "da420ced7f9c606176575aa1616010685d544a5b3736c9d1067381684c73e367",
+    "translation": "28da3c95b09e260cdb44e360d77748e3ea21eadc8a82d857b165aee4c3ab3b72",
+    "author": "Xavier Larrea"
+  },
+  "lockdownPermissionsSearch": {
+    "source": "e01961af805d69c6a00033355ada46e91fc0ccc1b008dbefb4da480cb0eb637b",
+    "translation": "618dcf434080a15c7d851cb304fe97a3954e300ddc124d3e09414be69094b2c7",
     "author": "Xavier Larrea"
   },
   "mediaCacheTitle": {

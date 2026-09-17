@@ -1847,7 +1847,7 @@ class UiStringsEs extends UiStrings {
   String get kioskUnlock => 'Desbloquear';
 
   @override
-  String get lockdownScreenLocked => 'Screen is locked';
+  String get lockdownScreenLocked => 'La pantalla está bloqueada';
 
   @override
   String get logsWebConsole => 'Consola web';
@@ -5282,62 +5282,62 @@ class UiStringsEs extends UiStrings {
   String get kioskOpenSettingsDevice => 'Abrir configuración en el dispositivo';
 
   @override
-  String get settingLockdownEnabledTitle => 'Enable Lockdown Mode';
+  String get settingLockdownEnabledTitle => 'Activar modo de bloqueo';
 
   @override
   String get settingLockdownEnabledDescription =>
-      'Disables screen interactions until turned off either from Home Assistant or with the exit gesture.';
+      'Desactiva las interacciones con la pantalla hasta que se desactive desde Home Assistant o con el gesto de salida.';
 
   @override
-  String get settingLockdownMenuTitle => 'Show in the kiosk menu';
+  String get settingLockdownMenuTitle => 'Mostrar en el menú del kiosko';
 
   @override
   String get settingLockdownMenuDescription =>
-      'Add a Lockdown Mode entry to the kiosk menu that locks the screen. Use the exit gesture, Remote Admin or Home Assistant to unlock it.';
+      'Añade una opción de modo de bloqueo al menú del kiosko para bloquear la pantalla. Usa el gesto de salida, la administración remota o Home Assistant para desbloquearla.';
 
   @override
-  String get settingLockdownBlackoutTitle => 'Blackout screen';
+  String get settingLockdownBlackoutTitle => 'Pantalla en negro';
 
   @override
   String get settingLockdownBlackoutDescription =>
-      'Turns the screen black while locked.';
+      'Pone la pantalla en negro mientras está bloqueada.';
 
   @override
-  String get settingLockdownAllowScreensaverTitle => 'Allow screensaver';
+  String get settingLockdownAllowScreensaverTitle =>
+      'Permitir el protector de pantalla';
 
   @override
   String get settingLockdownAllowScreensaverDescription =>
-      'Lets the screensaver run while locked. Dismiss on motion stays deactivated until the lock lifts.';
+      'Permite que el protector de pantalla funcione mientras la pantalla está bloqueada. La detección de movimiento no lo desactiva hasta que se quite el bloqueo.';
 
   @override
-  String get settingLockdownExitGestureTitle => 'Lockdown exit gesture';
+  String get settingLockdownExitGestureTitle => 'Gesto de salida del bloqueo';
 
   @override
   String get settingLockdownExitGestureDescription =>
-      'Fast taps anywhere turn Lockdown Mode off, after the kiosk PIN if one is set. Hold variants need the last tap held down. When disabled, only the remote admin or Home Assistant can turn it off.';
+      'Los toques rápidos en cualquier parte desactivan el modo de bloqueo, después de introducir el PIN del kiosko si hay uno. Las variantes que requieren mantener el toque necesitan que mantengas pulsado el último. Si se desactiva el gesto, solo la administración remota o Home Assistant pueden quitar el bloqueo.';
 
   @override
-  String get lockdownGestureNone => 'Disabled (remote only)';
+  String get lockdownGestureNone => 'Desactivado (solo de forma remota)';
 
   @override
   String get lockdownExplanation =>
-      'Lockdown Mode makes the dashboard non-interactive, arms every Kiosk Mode protection without changing your Kiosk Mode settings, and mutes wake word detection while it is on. With the System UI guard enabled (above), the notification shade and recents are blocked too. Home Assistant gets a Lockdown mode switch over ESPHome.';
+      'El modo de bloqueo desactiva las interacciones con el panel de control, activa todas las protecciones del modo kiosko sin cambiar su configuración y silencia la detección de la palabra de activación mientras está activo. Con la protección de la interfaz del sistema activada arriba, también se bloquean el panel de notificaciones y las aplicaciones recientes. Home Assistant recibe un interruptor del modo de bloqueo a través de ESPHome.';
 
   @override
   String get lockdownSearch =>
-      'Remote-only touch shield. Set it up from the Remote Admin UI; its grants live under Required system permissions.';
+      'Bloqueo táctil que se configura desde la administración remota. Sus permisos están en Permisos del sistema necesarios.';
 
   @override
-  String get lockdownOverlayHeld =>
-      'The lockdown shield can cover the whole screen.';
+  String get lockdownOverlayHeld => 'El bloqueo puede cubrir toda la pantalla.';
 
   @override
   String get lockdownOverlayMissing =>
-      'Without this the shield only covers the app. The grant screen appears on the tablet.';
+      'Sin este permiso, el bloqueo solo cubre la aplicación. La pantalla para concederlo aparece en la tablet.';
 
   @override
   String get lockdownPermissionsSearch =>
-      'The grants the lockdown protections lean on.';
+      'Los permisos que necesitan las protecciones del modo de bloqueo.';
 
   @override
   String get mediaCacheTitle => 'Caché de portadas';

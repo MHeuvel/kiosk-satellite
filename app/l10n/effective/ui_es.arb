@@ -6665,7 +6665,7 @@
       ]
     }
   },
-  "lockdownScreenLocked": "Screen is locked",
+  "lockdownScreenLocked": "La pantalla está bloqueada",
   "@lockdownScreenLocked": {
     "context": "Kiosk screen > Lockdown Mode > tap the screen",
     "description": "Brief notice shown when touching the locked screen.",
@@ -19559,7 +19559,7 @@
       ]
     }
   },
-  "settingLockdownEnabledTitle": "Enable Lockdown Mode",
+  "settingLockdownEnabledTitle": "Activar modo de bloqueo",
   "@settingLockdownEnabledTitle": {
     "context": "Lockdown Mode > Enable Lockdown Mode",
     "description": "Setting label.",
@@ -19569,7 +19569,7 @@
       ]
     }
   },
-  "settingLockdownEnabledDescription": "Disables screen interactions until turned off either from Home Assistant or with the exit gesture.",
+  "settingLockdownEnabledDescription": "Desactiva las interacciones con la pantalla hasta que se desactive desde Home Assistant o con el gesto de salida.",
   "@settingLockdownEnabledDescription": {
     "context": "Lockdown Mode > Enable Lockdown Mode",
     "description": "Help below this setting.",
@@ -19579,7 +19579,7 @@
       ]
     }
   },
-  "settingLockdownMenuTitle": "Show in the kiosk menu",
+  "settingLockdownMenuTitle": "Mostrar en el menú del kiosko",
   "@settingLockdownMenuTitle": {
     "context": "Lockdown Mode > Show in the kiosk menu",
     "description": "Setting label.",
@@ -19589,7 +19589,7 @@
       ]
     }
   },
-  "settingLockdownMenuDescription": "Add a Lockdown Mode entry to the kiosk menu that locks the screen. Use the exit gesture, Remote Admin or Home Assistant to unlock it.",
+  "settingLockdownMenuDescription": "Añade una opción de modo de bloqueo al menú del kiosko para bloquear la pantalla. Usa el gesto de salida, la administración remota o Home Assistant para desbloquearla.",
   "@settingLockdownMenuDescription": {
     "context": "Lockdown Mode > Show in the kiosk menu",
     "description": "Help below this setting.",
@@ -19599,7 +19599,7 @@
       ]
     }
   },
-  "settingLockdownBlackoutTitle": "Blackout screen",
+  "settingLockdownBlackoutTitle": "Pantalla en negro",
   "@settingLockdownBlackoutTitle": {
     "context": "Lockdown Mode > Blackout screen",
     "description": "Setting label.",
@@ -19609,7 +19609,7 @@
       ]
     }
   },
-  "settingLockdownBlackoutDescription": "Turns the screen black while locked.",
+  "settingLockdownBlackoutDescription": "Pone la pantalla en negro mientras está bloqueada.",
   "@settingLockdownBlackoutDescription": {
     "context": "Lockdown Mode > Blackout screen",
     "description": "Help below this setting.",
@@ -19619,7 +19619,7 @@
       ]
     }
   },
-  "settingLockdownAllowScreensaverTitle": "Allow screensaver",
+  "settingLockdownAllowScreensaverTitle": "Permitir el protector de pantalla",
   "@settingLockdownAllowScreensaverTitle": {
     "context": "Lockdown Mode > Allow screensaver",
     "description": "Setting label.",
@@ -19629,7 +19629,7 @@
       ]
     }
   },
-  "settingLockdownAllowScreensaverDescription": "Lets the screensaver run while locked. Dismiss on motion stays deactivated until the lock lifts.",
+  "settingLockdownAllowScreensaverDescription": "Permite que el protector de pantalla funcione mientras la pantalla está bloqueada. La detección de movimiento no lo desactiva hasta que se quite el bloqueo.",
   "@settingLockdownAllowScreensaverDescription": {
     "context": "Lockdown Mode > Allow screensaver",
     "description": "Help below this setting.",
@@ -19639,7 +19639,7 @@
       ]
     }
   },
-  "settingLockdownExitGestureTitle": "Lockdown exit gesture",
+  "settingLockdownExitGestureTitle": "Gesto de salida del bloqueo",
   "@settingLockdownExitGestureTitle": {
     "context": "Lockdown Mode > Lockdown exit gesture",
     "description": "Setting label.",
@@ -19649,7 +19649,7 @@
       ]
     }
   },
-  "settingLockdownExitGestureDescription": "Fast taps anywhere turn Lockdown Mode off, after the kiosk PIN if one is set. Hold variants need the last tap held down. When disabled, only the remote admin or Home Assistant can turn it off.",
+  "settingLockdownExitGestureDescription": "Los toques rápidos en cualquier parte desactivan el modo de bloqueo, después de introducir el PIN del kiosko si hay uno. Las variantes que requieren mantener el toque necesitan que mantengas pulsado el último. Si se desactiva el gesto, solo la administración remota o Home Assistant pueden quitar el bloqueo.",
   "@settingLockdownExitGestureDescription": {
     "context": "Lockdown Mode > Lockdown exit gesture",
     "description": "Help below this setting.",
@@ -19659,7 +19659,7 @@
       ]
     }
   },
-  "lockdownGestureNone": "Disabled (remote only)",
+  "lockdownGestureNone": "Desactivado (solo de forma remota)",
   "@lockdownGestureNone": {
     "context": "Lockdown Mode > Lockdown exit gesture",
     "description": "Exit gesture option. Remote administration and Home Assistant can still unlock the device.",
@@ -19669,7 +19669,7 @@
       ]
     }
   },
-  "lockdownExplanation": "Lockdown Mode makes the dashboard non-interactive, arms every Kiosk Mode protection without changing your Kiosk Mode settings, and mutes wake word detection while it is on. With the System UI guard enabled (above), the notification shade and recents are blocked too. Home Assistant gets a Lockdown mode switch over ESPHome.",
+  "lockdownExplanation": "El modo de bloqueo desactiva las interacciones con el panel de control, activa todas las protecciones del modo kiosko sin cambiar su configuración y silencia la detección de la palabra de activación mientras está activo. Con la protección de la interfaz del sistema activada arriba, también se bloquean el panel de notificaciones y las aplicaciones recientes. Home Assistant recibe un interruptor del modo de bloqueo a través de ESPHome.",
   "@lockdownExplanation": {
     "context": "Lockdown Mode",
     "description": "Explanation below the permission group.",
@@ -19679,7 +19679,7 @@
       ]
     }
   },
-  "lockdownSearch": "Remote-only touch shield. Set it up from the Remote Admin UI; its grants live under Required system permissions.",
+  "lockdownSearch": "Bloqueo táctil que se configura desde la administración remota. Sus permisos están en Permisos del sistema necesarios.",
   "@lockdownSearch": {
     "context": "Settings > Search > Lockdown Mode",
     "description": "Device search guidance for the remote-only configuration page.",
@@ -19689,7 +19689,7 @@
       ]
     }
   },
-  "lockdownOverlayHeld": "The lockdown shield can cover the whole screen.",
+  "lockdownOverlayHeld": "El bloqueo puede cubrir toda la pantalla.",
   "@lockdownOverlayHeld": {
     "context": "Lockdown Mode > Required system permissions > Display over other apps",
     "description": "Granted overlay permission status.",
@@ -19699,7 +19699,7 @@
       ]
     }
   },
-  "lockdownOverlayMissing": "Without this the shield only covers the app. The grant screen appears on the tablet.",
+  "lockdownOverlayMissing": "Sin este permiso, el bloqueo solo cubre la aplicación. La pantalla para concederlo aparece en la tablet.",
   "@lockdownOverlayMissing": {
     "context": "Lockdown Mode > Required system permissions > Display over other apps",
     "description": "Missing overlay permission guidance.",
@@ -19709,7 +19709,7 @@
       ]
     }
   },
-  "lockdownPermissionsSearch": "The grants the lockdown protections lean on.",
+  "lockdownPermissionsSearch": "Los permisos que necesitan las protecciones del modo de bloqueo.",
   "@lockdownPermissionsSearch": {
     "context": "Search > Lockdown Mode > Required system permissions",
     "description": "Search description for the permissions group.",
