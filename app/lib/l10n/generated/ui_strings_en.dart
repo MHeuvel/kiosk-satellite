@@ -375,6 +375,262 @@ class UiStringsEn extends UiStrings {
   String get drawerNoReleaseNotes => 'No release notes.';
 
   @override
+  String get intercomCall => 'Call';
+
+  @override
+  String get intercomNoReady => 'No kiosk is ready.';
+
+  @override
+  String get intercomOneReady => '1 kiosk is ready.';
+
+  @override
+  String intercomManyReady(String count) {
+    return '$count kiosks are ready.';
+  }
+
+  @override
+  String get intercomCallKiosk => 'Call a kiosk';
+
+  @override
+  String get intercomAnnounceAll => 'Announce to all';
+
+  @override
+  String get intercomAnnounceHelp => 'Talk to every kiosk. One way only.';
+
+  @override
+  String intercomMissedFrom(String name) {
+    return 'Missed call from $name';
+  }
+
+  @override
+  String intercomRangFor(String seconds) {
+    return 'Rang for $seconds seconds.';
+  }
+
+  @override
+  String get intercomCallBack => 'Call back';
+
+  @override
+  String get intercomDeclined => 'Declined';
+
+  @override
+  String get intercomBusy => 'Busy';
+
+  @override
+  String get intercomPeerOff => 'Its intercom is off';
+
+  @override
+  String get intercomPeerKey => 'Different intercom key';
+
+  @override
+  String get intercomNoAnswer => 'No answer';
+
+  @override
+  String get intercomDidNotAnswer => 'Did not answer';
+
+  @override
+  String get intercomVoiceFailed => 'The voice link failed';
+
+  @override
+  String get intercomCancelled => 'Cancelled';
+
+  @override
+  String get intercomPageMic => 'The page took the microphone';
+
+  @override
+  String get intercomNobody => 'Nobody could take it';
+
+  @override
+  String get intercomDone => 'Done';
+
+  @override
+  String get intercomEnded => 'Call ended';
+
+  @override
+  String get intercomAnnouncement => 'Announcement';
+
+  @override
+  String get intercomAnnouncingOne => 'Announcing to 1 kiosk';
+
+  @override
+  String intercomAnnouncingMany(String count) {
+    return 'Announcing to $count kiosks';
+  }
+
+  @override
+  String get intercomIsCalling => 'is calling';
+
+  @override
+  String get intercomIsAnnouncing => 'is announcing';
+
+  @override
+  String get intercomCalling => 'Calling…';
+
+  @override
+  String intercomAnswersIn(String seconds) {
+    return 'Answers in $seconds s';
+  }
+
+  @override
+  String get intercomRinging => 'Ringing';
+
+  @override
+  String get intercomConnecting => 'Connecting…';
+
+  @override
+  String intercomDoneDuration(String duration) {
+    return 'Done, $duration';
+  }
+
+  @override
+  String intercomEndedDuration(String duration) {
+    return 'Call ended, $duration';
+  }
+
+  @override
+  String get intercomDecline => 'Decline';
+
+  @override
+  String get intercomAnswer => 'Answer';
+
+  @override
+  String get intercomEveryKiosk => 'Every kiosk';
+
+  @override
+  String get intercomStop => 'Stop';
+
+  @override
+  String intercomHearsYou(String name) {
+    return '$name hears you';
+  }
+
+  @override
+  String get intercomAllHearYou => 'Every kiosk hears you';
+
+  @override
+  String get intercomHoldHelp => 'Hold to talk, let go to listen';
+
+  @override
+  String get intercomMuted => 'Muted';
+
+  @override
+  String get intercomMute => 'Mute';
+
+  @override
+  String get intercomEnd => 'End';
+
+  @override
+  String get intercomReply => 'Reply';
+
+  @override
+  String get intercomDismiss => 'Dismiss';
+
+  @override
+  String get intercomCallAgain => 'Call again';
+
+  @override
+  String get intercomDashboardMic =>
+      'The dashboard holds the microphone, listening only.';
+
+  @override
+  String get intercomMicDenied => 'Microphone not granted, listening only.';
+
+  @override
+  String get intercomHoldTalk => 'Hold to talk';
+
+  @override
+  String get intercomPlaying => 'Playing';
+
+  @override
+  String get intercomAKiosk => 'a kiosk';
+
+  @override
+  String intercomCallingName(String name) {
+    return 'Calling $name';
+  }
+
+  @override
+  String intercomNameCalling(String name) {
+    return '$name is calling';
+  }
+
+  @override
+  String intercomInCallName(String name) {
+    return 'In a call with $name';
+  }
+
+  @override
+  String intercomNameAnnouncing(String name) {
+    return '$name is announcing';
+  }
+
+  @override
+  String intercomHaMessage(String message) {
+    return 'Home Assistant: $message';
+  }
+
+  @override
+  String get intercomEndCall => 'End call';
+
+  @override
+  String get intercomCallFailed => 'Could not call';
+
+  @override
+  String get intercomKeyFailed => 'Could not change the key';
+
+  @override
+  String get intercomBroadcastFailed => 'Could not talk to everyone';
+
+  @override
+  String get intercomDeviceNoAnswer => 'The device did not answer.';
+
+  @override
+  String get intercomUnknownKiosk => 'unknown kiosk';
+
+  @override
+  String get intercomNothingRinging => 'nothing is ringing';
+
+  @override
+  String get intercomNoCall => 'no call';
+
+  @override
+  String get intercomDisabled => 'intercom is off';
+
+  @override
+  String get intercomNeedsRemote => 'needs the remote admin';
+
+  @override
+  String get intercomNeedsDiscovery =>
+      'the intercom needs the remote admin and Find other kiosks';
+
+  @override
+  String get intercomAlreadyCalling => 'already in a call';
+
+  @override
+  String get intercomNoReadyError => 'no kiosk is ready';
+
+  @override
+  String get intercomKeyLength => 'a key is at least 16 characters';
+
+  @override
+  String get intercomMicHeld => 'the page holds the microphone';
+
+  @override
+  String get intercomMicPermission => 'microphone not granted';
+
+  @override
+  String get intercomCallerNoAnswer => 'the caller did not answer';
+
+  @override
+  String get intercomMissedcall => 'Missed call';
+
+  @override
+  String get intercomListening => 'Listening';
+
+  @override
+  String get intercomAnnouncementsoff => 'Announcements off';
+
+  @override
   String get mediaPlay => 'Play';
 
   @override
@@ -2886,6 +3142,171 @@ class UiStringsEn extends UiStrings {
 
   @override
   String get haVibrationStrong => 'Strong';
+
+  @override
+  String get settingIntercomAnswerModeTitle => 'Answer mode';
+
+  @override
+  String get settingIntercomAnswerModeDescription =>
+      'Ring asks on the screen. Answer automatically opens the call after a chime.';
+
+  @override
+  String get settingIntercomRingSecondsTitle => 'Ring for';
+
+  @override
+  String get settingIntercomRingSecondsDescription =>
+      'How long a call rings before it counts as missed.';
+
+  @override
+  String get settingIntercomRingSoundTitle => 'Ring sound';
+
+  @override
+  String get settingIntercomRingSoundDescription =>
+      'Plays at the notification volume.';
+
+  @override
+  String get settingIntercomAcceptAnnouncementsTitle => 'Accept announcements';
+
+  @override
+  String get settingIntercomAcceptAnnouncementsDescription =>
+      'Play Announce to all from the other kiosks.';
+
+  @override
+  String get intercomOptionAnswerRing => 'Ring';
+
+  @override
+  String get intercomOptionAnswerAuto => 'Answer automatically';
+
+  @override
+  String get intercomOptionAnswerDnd => 'Do not disturb';
+
+  @override
+  String get intercomOptionAnswer15 => '15 seconds';
+
+  @override
+  String get intercomOptionAnswer30 => '30 seconds';
+
+  @override
+  String get intercomOptionAnswer45 => '45 seconds';
+
+  @override
+  String get intercomOptionAnswer60 => '60 seconds';
+
+  @override
+  String get intercomAnswerSection => 'Answer';
+
+  @override
+  String get settingIntercomEnabledTitle => 'Enable intercom';
+
+  @override
+  String get settingIntercomEnabledDescription =>
+      'Call the other kiosks on this network and take their calls.';
+
+  @override
+  String get settingIntercomKeyTitle => 'Intercom key';
+
+  @override
+  String get settingIntercomKeyDescription =>
+      'Kiosks with the same key can call each other. Fleet Management can sync it.';
+
+  @override
+  String get settingIntercomKeyPlaceholder =>
+      'Made when the intercom is enabled';
+
+  @override
+  String get settingIntercomMenuTitle => 'Show in the kiosk menu';
+
+  @override
+  String get settingIntercomMenuDescription =>
+      'Add an Intercom entry to the kiosk menu.';
+
+  @override
+  String get intercomNeedsAdmin => 'The intercom needs the remote admin';
+
+  @override
+  String get intercomAdminHelp =>
+      'Kiosks find and reach each other through it. Turn on Remote management and Find other kiosks under Device, then come back.';
+
+  @override
+  String get intercomChangeKey => 'Change key';
+
+  @override
+  String get intercomChangeKeyHelp =>
+      'Paste the key from another kiosk, or make a new one.';
+
+  @override
+  String get intercomChange => 'Change';
+
+  @override
+  String get intercomKeyWarning =>
+      'Kiosks with this key can call each other. A new key cuts this kiosk off from the others until they get it too.';
+
+  @override
+  String get intercomRegenerate => 'Regenerate';
+
+  @override
+  String get intercomKeyChanged => 'Key changed';
+
+  @override
+  String get intercomNotSet => 'Not set';
+
+  @override
+  String get intercomOpen => 'Open';
+
+  @override
+  String get intercomKiosks => 'Kiosks';
+
+  @override
+  String get intercomRosterHelp =>
+      'Kiosks discovered on this network. A kiosk is ready once its intercom is on with the same key.';
+
+  @override
+  String get intercomNoOther => 'No other kiosk heard';
+
+  @override
+  String get intercomRosterDeviceHelp =>
+      'Kiosks with Remote management and Find other kiosks on show up here.';
+
+  @override
+  String get intercomNoneHeard => 'No kiosks heard';
+
+  @override
+  String get intercomRosterRemoteHelp =>
+      'A kiosk shows up once its remote admin is on and it shares this network.';
+
+  @override
+  String get intercomReady => 'Ready';
+
+  @override
+  String get intercomOff => 'Intercom off';
+
+  @override
+  String get intercomDifferentKey => 'Different key';
+
+  @override
+  String get intercomUnreachable => 'Unreachable';
+
+  @override
+  String get intercomOffline => 'Offline';
+
+  @override
+  String get intercomChecking => 'Checking…';
+
+  @override
+  String get settingIntercomTalkModeTitle => 'Talk mode';
+
+  @override
+  String get settingIntercomTalkModeDescription =>
+      'Push to talk sends while the button is held. Hands free keeps the microphone open for the whole call.';
+
+  @override
+  String get intercomOptionTalkPtt => 'Push to talk';
+
+  @override
+  String get intercomOptionTalkHandsfree => 'Hands free';
+
+  @override
+  String get intercomTalkSection => 'Talk';
 
   @override
   String get mediaCacheTitle => 'Album art cache';
@@ -6095,4 +6516,59 @@ class UiStringsEn extends UiStrings {
   @override
   String get remoteNewPassword =>
       'New admin password (leave empty to keep the current one)';
+
+  @override
+  String get intercomBuiltinRing => 'Built-in ring';
+
+  @override
+  String get intercomBuiltinChime => 'Built-in chime';
+
+  @override
+  String intercomMissingFile(String file) {
+    return '$file (missing)';
+  }
+
+  @override
+  String get intercomAddSound => 'Add a sound';
+
+  @override
+  String get intercomCopySoundHelp =>
+      'Copy a sound file from this device into the sounds folder.';
+
+  @override
+  String get intercomUploadSoundHelp =>
+      'Upload a sound file from this computer into the sounds folder.';
+
+  @override
+  String get intercomUpload => 'Upload';
+
+  @override
+  String get intercomUploading => 'Uploading…';
+
+  @override
+  String get intercomUnsupportedSound => 'Not a supported sound';
+
+  @override
+  String get intercomChooseSound =>
+      'Not a supported sound: pick an MP3, OGG, WAV, FLAC, M4A or AAC file.';
+
+  @override
+  String get intercomCopyFailed => 'Could not copy the file';
+
+  @override
+  String intercomUploadFailed(String error) {
+    return 'Upload failed: $error';
+  }
+
+  @override
+  String intercomSaveFailed(String error) {
+    return 'Not saved: $error';
+  }
+
+  @override
+  String get intercomSoundFilename => 'Enter a file name, not a path.';
+
+  @override
+  String get intercomSoundFormats =>
+      'Pick an MP3, OGG, WAV, FLAC, M4A or AAC file.';
 }

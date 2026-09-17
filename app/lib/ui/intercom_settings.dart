@@ -4,6 +4,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../app_container.dart';
+import '../l10n/messages.dart';
 import '../core/events.dart';
 import '../managers/settings/definitions.dart' as defs;
 import 'kit.dart';
@@ -75,8 +76,10 @@ class _IntercomSettingsPanelState extends State<IntercomSettingsPanel> {
     if (!mounted || r.ok) return;
     showToast(
       context,
-      title: 'Could not call',
-      message: r.error,
+      title: intercomText(context, "Could not call"),
+      message: r.error == null
+          ? null
+          : intercomError(context, r.error!, status: c.intercom.status()),
       kind: ToastKind.error,
     );
   }
@@ -91,15 +94,18 @@ class _IntercomSettingsPanelState extends State<IntercomSettingsPanel> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         if (!available) ...[
-          const SettingsCard(
+          SettingsCard(
             children: [
               SettingsRow(
                 leading: Icon(Icons.cloud_off_outlined),
-                title: Text('The intercom needs the remote admin'),
+                title: Text(
+                  intercomText(context, "The intercom needs the remote admin"),
+                ),
                 subtitle: Text(
-                  'Kiosks find and reach each other through it. Turn on '
-                  'Remote management and Find other kiosks under Device, '
-                  'then come back.',
+                  intercomText(
+                    context,
+                    "Kiosks find and reach each other through it. Turn on Remote management and Find other kiosks under Device, then come back.",
+                  ),
                 ),
               ),
             ],
@@ -108,15 +114,17 @@ class _IntercomSettingsPanelState extends State<IntercomSettingsPanel> {
         ],
         ...widget.cards,
         if (enabled) ...[
-          const SectionHeading('Kiosks'),
+          SectionHeading(intercomText(context, "Kiosks")),
           SearchLandingTarget(
             id: 'x:intercom_kiosks',
             child: SettingsCard(
               children: [
                 ..._kioskRows(context),
-                const HintRow(
-                  'Kiosks discovered on this network. A kiosk is ready once '
-                  'its intercom is on with the same key.',
+                HintRow(
+                  intercomText(
+                    context,
+                    "Kiosks discovered on this network. A kiosk is ready once its intercom is on with the same key.",
+                  ),
                 ),
               ],
             ),
@@ -132,12 +140,14 @@ class _IntercomSettingsPanelState extends State<IntercomSettingsPanel> {
         if (k is Map) k.cast<String, Object?>(),
     ];
     if (kiosks.isEmpty) {
-      return const [
+      return [
         SettingsRow(
-          title: Text('No other kiosk heard'),
+          title: Text(intercomText(context, "No other kiosk heard")),
           subtitle: Text(
-            'Kiosks with Remote management and Find other kiosks on show '
-            'up here.',
+            intercomText(
+              context,
+              "Kiosks with Remote management and Find other kiosks on show up here.",
+            ),
           ),
         ),
       ];
@@ -164,7 +174,7 @@ class _IntercomSettingsPanelState extends State<IntercomSettingsPanel> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  '${k['statusText']}',
+                  intercomText(context, '${k['statusText']}'),
                   style: TextStyle(
                     fontSize: 13,
                     color: intercomStatusColor(context, '${k['status']}'),
@@ -179,7 +189,7 @@ class _IntercomSettingsPanelState extends State<IntercomSettingsPanel> {
                       size: 18,
                       color: scheme.onSurface,
                     ),
-                    label: const Text('Call'),
+                    label: Text(intercomText(context, "Call")),
                   ),
                 ],
               ],
@@ -249,16 +259,19 @@ class IntercomChangeKeyRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SettingsRow(
-    title: const Text('Change key'),
-    subtitle: const Text(
-      'Paste the key from another kiosk, or make a new one.',
+    title: Text(intercomText(context, "Change key")),
+    subtitle: Text(
+      intercomText(
+        context,
+        "Paste the key from another kiosk, or make a new one.",
+      ),
     ),
     trailing: OutlinedButton(
       onPressed: () async {
         final changed = await showIntercomKeyDialog(context, container);
         if (changed) onChanged();
       },
-      child: const Text('Change'),
+      child: Text(intercomText(context, "Change")),
     ),
   );
 }
@@ -275,23 +288,29 @@ Future<bool> showIntercomKeyDialog(
   final overlay = Overlay.of(context, rootOverlay: true);
   Future<bool> run(Map<String, Object?> params) async {
     final r = await container.commands.execute('intercomSetKey', params);
-    if (!r.ok) {
+    if (!r.ok && context.mounted) {
       showToastIn(
         overlay,
-        title: 'Could not change the key',
-        message: r.error,
+        title: intercomText(context, "Could not change the key"),
+        message: r.error == null
+            ? null
+            : intercomError(
+                context,
+                r.error!,
+                status: container.intercom.status(),
+              ),
         kind: ToastKind.error,
       );
     }
     return r.ok;
   }
 
-  final changed = await showDialog<bool>(
+  final route = DialogRoute<bool>(
     context: context,
     builder: (ctx) {
       final scheme = Theme.of(ctx).colorScheme;
       return AlertDialog(
-        title: const Text('Intercom key'),
+        title: Text(intercomText(ctx, "Intercom key")),
         content: SizedBox(
           width: 420,
           child: Column(
@@ -307,8 +326,10 @@ Future<bool> showIntercomKeyDialog(
               ),
               const SizedBox(height: 8),
               Text(
-                'Kiosks with this key can call each other. A new key cuts '
-                'this kiosk off from the others until they get it too.',
+                intercomText(
+                  ctx,
+                  "Kiosks with this key can call each other. A new key cuts this kiosk off from the others until they get it too.",
+                ),
                 style: Theme.of(
                   ctx,
                 ).textTheme.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
@@ -319,27 +340,29 @@ Future<bool> showIntercomKeyDialog(
         actions: [
           SizedBox(
             width: double.infinity,
-            child: Row(
+            child: OverflowBar(
+              alignment: MainAxisAlignment.end,
+              overflowAlignment: OverflowBarAlignment.end,
+              spacing: 10,
+              overflowSpacing: 8,
               children: [
                 OutlinedButton(
                   onPressed: () async {
                     final ok = await run(const {'regenerate': true});
                     if (ok && ctx.mounted) Navigator.pop(ctx, true);
                   },
-                  child: const Text('Regenerate'),
+                  child: Text(intercomText(ctx, "Regenerate")),
                 ),
-                const Spacer(),
                 TextButton(
                   onPressed: () => Navigator.pop(ctx, false),
-                  child: const Text('Cancel'),
+                  child: Text(intercomText(ctx, "Cancel")),
                 ),
-                const SizedBox(width: 10),
                 FilledButton(
                   onPressed: () async {
                     final ok = await run({'key': controller.text});
                     if (ok && ctx.mounted) Navigator.pop(ctx, true);
                   },
-                  child: const Text('Save'),
+                  child: Text(intercomText(ctx, "Save")),
                 ),
               ],
             ),
@@ -348,6 +371,8 @@ Future<bool> showIntercomKeyDialog(
       );
     },
   );
+  final changed = await Navigator.of(context, rootNavigator: true).push(route);
+  await route.completed;
   controller.dispose();
   return changed ?? false;
 }
@@ -479,13 +504,15 @@ Future<void> showIntercomSheet(BuildContext context, AppContainer c) async {
       onPick: (command, params) async {
         Navigator.pop(ctx);
         final r = await c.commands.execute(command, params);
-        if (r.ok) return;
+        if (r.ok || !context.mounted) return;
         showToastIn(
           overlay,
           title: command == 'intercomBroadcast'
-              ? 'Could not talk to everyone'
-              : 'Could not call',
-          message: r.error,
+              ? intercomText(context, "Could not talk to everyone")
+              : intercomText(context, "Could not call"),
+          message: r.error == null
+              ? null
+              : intercomError(context, r.error!, status: c.intercom.status()),
           kind: ToastKind.error,
         );
       },
@@ -532,9 +559,9 @@ class _IntercomSheetState extends State<_IntercomSheet> {
     ];
     final count = ready.length;
     final line = switch (count) {
-      0 => 'No kiosk is ready.',
-      1 => '1 kiosk is ready.',
-      _ => '$count kiosks are ready.',
+      0 => intercomText(context, "No kiosk is ready."),
+      1 => intercomText(context, "1 kiosk is ready."),
+      _ => l10n(context).intercomManyReady('$count'),
     };
     return Dialog(
       child: ConstrainedBox(
@@ -550,7 +577,7 @@ class _IntercomSheetState extends State<_IntercomSheet> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Call a kiosk',
+                    intercomText(context, "Call a kiosk"),
                     style: Theme.of(context).dialogTheme.titleTextStyle,
                   ),
                   const SizedBox(height: 4),
@@ -579,7 +606,7 @@ class _IntercomSheetState extends State<_IntercomSheet> {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(4, 20, 4, 8),
                           child: Text(
-                            'KIOSKS',
+                            intercomText(context, "Kiosks").toUpperCase(),
                             style: TextStyle(
                               fontSize: 12.5,
                               fontWeight: FontWeight.w600,
@@ -626,7 +653,7 @@ class _IntercomSheetState extends State<_IntercomSheet> {
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('Cancel'),
+                  child: Text(intercomText(context, "Cancel")),
                 ),
               ),
             ),
@@ -662,7 +689,7 @@ class _AnnounceTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Announce to all',
+                      intercomText(context, "Announce to all"),
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -671,7 +698,10 @@ class _AnnounceTile extends StatelessWidget {
                     ),
                     const SizedBox(height: 2),
                     Text(
-                      'Talk to every kiosk. One way only.',
+                      intercomText(
+                        context,
+                        "Talk to every kiosk. One way only.",
+                      ),
                       style: TextStyle(
                         fontSize: 13.5,
                         height: 1.3,
@@ -863,10 +893,12 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
     final overlay = Overlay.of(context, rootOverlay: true);
     showToastIn(
       overlay,
-      title: 'Missed call from ${peer['name']}',
-      message: 'Rang for ${c.settings.get(defs.intercomRingSeconds)} seconds.',
+      title: l10n(context).intercomMissedFrom('${peer['name']}'),
+      message: l10n(
+        context,
+      ).intercomRangFor(c.settings.get(defs.intercomRingSeconds)),
       duration: const Duration(seconds: 8),
-      actionLabel: id.isEmpty ? null : 'Call back',
+      actionLabel: id.isEmpty ? null : intercomText(context, "Call back"),
       onAction: id.isEmpty ? null : () => _run('intercomCall', {'id': id}),
     );
   }
@@ -879,8 +911,10 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
     if (r.ok || !mounted) return;
     showToast(
       context,
-      title: 'Intercom',
-      message: r.error,
+      title: intercomText(context, "Intercom"),
+      message: r.error == null
+          ? null
+          : intercomError(context, r.error!, status: c.intercom.status()),
       kind: ToastKind.error,
     );
   }
@@ -906,20 +940,20 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
         .inSeconds;
   }
 
-  static String _reasonText(String reason) => switch (reason) {
-    'declined' => 'Declined',
-    'busy' => 'Busy',
-    'dnd' => 'Do not disturb',
-    'off' => 'Its intercom is off',
-    'key' => 'Different intercom key',
-    'no_answer' => 'No answer',
-    'unreachable' => 'Did not answer',
-    'failed' => 'The voice link failed',
-    'cancelled' => 'Cancelled',
-    'mic_busy' => 'The page took the microphone',
-    'no_targets' => 'Nobody could take it',
-    'broadcast_over' => 'Done',
-    _ => 'Call ended',
+  String _reasonText(String reason) => switch (reason) {
+    'declined' => intercomText(context, "Declined"),
+    'busy' => intercomText(context, "Busy"),
+    'dnd' => intercomText(context, "Do not disturb"),
+    'off' => intercomText(context, "Its intercom is off"),
+    'key' => intercomText(context, "Different intercom key"),
+    'no_answer' => intercomText(context, "No answer"),
+    'unreachable' => intercomText(context, "Did not answer"),
+    'failed' => intercomText(context, "The voice link failed"),
+    'cancelled' => intercomText(context, "Cancelled"),
+    'mic_busy' => intercomText(context, "The page took the microphone"),
+    'no_targets' => intercomText(context, "Nobody could take it"),
+    'broadcast_over' => intercomText(context, "Done"),
+    _ => intercomText(context, "Call ended"),
   };
 
   @override
@@ -975,21 +1009,20 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
     String? sub;
     final automated = call['automated'] == true;
     if (broadcast && outgoing && state == 'ended') {
-      name = 'Announcement';
+      name = intercomText(context, "Announcement");
     } else if (broadcast && outgoing) {
       final listening = [
         for (final t in (call['targets'] as List? ?? const []))
           if (t is Map && t['status'] == 'listening') '${t['name']}',
       ];
       name = listening.isEmpty
-          ? 'Announcement'
-          : 'Announcing to ${listening.length} '
-                '${listening.length == 1 ? 'kiosk' : 'kiosks'}';
+          ? intercomText(context, "Announcement")
+          : intercomAnnouncing(context, listening.length);
       sub = listening.join(', ');
     } else if (state == 'ringing') {
-      sub = 'is calling';
+      sub = intercomText(context, "is calling");
     } else if (state == 'listening') {
-      sub = 'is announcing';
+      sub = intercomText(context, "is announcing");
     }
 
     // The state line.
@@ -997,18 +1030,22 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
     var stateColor = scheme.onSurfaceVariant;
     switch (state) {
       case 'calling':
-        stateLine = 'Calling…';
+        stateLine = intercomText(context, "Calling…");
       case 'ringing':
         final auto = call['autoAnswerAt'];
         if (auto is num) {
           final left = (auto.toInt() - DateTime.now().millisecondsSinceEpoch);
-          stateLine = 'Answers in ${math.max(0, (left / 1000).ceil())} s';
+          stateLine = l10n(
+            context,
+          ).intercomAnswersIn('${math.max(0, (left / 1000).ceil())}');
         } else {
-          stateLine = 'Ringing';
+          stateLine = intercomText(context, "Ringing");
         }
       case 'in_call' || 'broadcasting':
         final elapsed = _elapsed();
-        stateLine = elapsed < 0 ? 'Connecting…' : _mmss(elapsed);
+        stateLine = elapsed < 0
+            ? intercomText(context, "Connecting…")
+            : _mmss(elapsed);
         if (elapsed >= 0) stateColor = scheme.onSurface;
       case 'listening':
         stateLine = '';
@@ -1016,8 +1053,8 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
         final duration = (call['duration'] as num?)?.toInt() ?? 0;
         stateLine = reason == 'ended' || reason.isEmpty
             ? broadcast && outgoing
-                  ? 'Done, ${_mmss(duration)}'
-                  : 'Call ended, ${_mmss(duration)}'
+                  ? l10n(context).intercomDoneDuration(_mmss(duration))
+                  : l10n(context).intercomEndedDuration(_mmss(duration))
             : _reasonText(reason);
       default:
         stateLine = '';
@@ -1045,7 +1082,7 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
         controls.add(
           _Disc(
             icon: Icons.call_end,
-            label: 'Cancel',
+            label: intercomText(context, "Cancel"),
             kind: _DiscKind.end,
             onTap: () => _run('intercomHangup'),
           ),
@@ -1054,25 +1091,24 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
         controls.addAll([
           _Disc(
             icon: Icons.call_end,
-            label: 'Decline',
+            label: intercomText(context, "Decline"),
             kind: _DiscKind.end,
             onTap: () => _run('intercomDecline'),
           ),
           _Disc(
             icon: Icons.call,
-            label: 'Answer',
+            label: intercomText(context, "Answer"),
             kind: _DiscKind.primary,
             onTap: () => _run('intercomAnswer'),
           ),
         ]);
       case 'in_call' || 'broadcasting':
-        final hears = state == 'broadcasting' ? 'Every kiosk' : peerName;
         if (automated) {
           // A clip from Home Assistant plays: nothing to hold or mute.
           controls.add(
             _Disc(
               icon: Icons.stop,
-              label: 'Stop',
+              label: intercomText(context, "Stop"),
               kind: _DiscKind.plain,
               onTap: () => _run('intercomHangup'),
             ),
@@ -1092,7 +1128,11 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  _held ? '$hears hears you' : 'Hold to talk, let go to listen',
+                  _held
+                      ? (state == 'broadcasting'
+                            ? l10n(context).intercomAllHearYou
+                            : l10n(context).intercomHearsYou(peerName))
+                      : intercomText(context, "Hold to talk, let go to listen"),
                   style: TextStyle(
                     fontSize: 13,
                     color: scheme.onSurfaceVariant,
@@ -1106,7 +1146,9 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
           controls.add(
             _Disc(
               icon: muted ? Icons.mic_off : Icons.mic,
-              label: muted ? 'Muted' : 'Mute',
+              label: muted
+                  ? intercomText(context, "Muted")
+                  : intercomText(context, "Mute"),
               kind: muted ? _DiscKind.dark : _DiscKind.plain,
               onTap: () => _run('intercomMute', {'on': !muted}),
             ),
@@ -1116,13 +1158,13 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
           state == 'broadcasting'
               ? _Disc(
                   icon: Icons.close,
-                  label: 'Done',
+                  label: intercomText(context, "Done"),
                   kind: _DiscKind.plain,
                   onTap: () => _run('intercomHangup'),
                 )
               : _Disc(
                   icon: Icons.call_end,
-                  label: 'End',
+                  label: intercomText(context, "End"),
                   kind: _DiscKind.end,
                   onTap: () => _run('intercomHangup'),
                 ),
@@ -1131,13 +1173,13 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
         controls.addAll([
           _Disc(
             icon: Icons.call,
-            label: 'Reply',
+            label: intercomText(context, "Reply"),
             kind: _DiscKind.primary,
             onTap: () => _run('intercomCall', {'id': '${_peer['id']}'}),
           ),
           _Disc(
             icon: Icons.close,
-            label: 'Dismiss',
+            label: intercomText(context, "Dismiss"),
             kind: _DiscKind.plain,
             onTap: () => _run('intercomHangup'),
           ),
@@ -1148,7 +1190,7 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
           controls.add(
             _Disc(
               icon: Icons.call,
-              label: 'Call again',
+              label: intercomText(context, "Call again"),
               kind: _DiscKind.primary,
               onTap: () => _run('intercomCall', {'id': '${_peer['id']}'}),
             ),
@@ -1157,7 +1199,7 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
         controls.add(
           _Disc(
             icon: Icons.close,
-            label: 'Close',
+            label: intercomText(context, "Close"),
             kind: _DiscKind.plain,
             onTap: () => _run('intercomDismiss'),
           ),
@@ -1174,7 +1216,7 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
               Icon(Icons.campaign_outlined, size: 16, color: scheme.primary),
               const SizedBox(width: 8),
               Text(
-                'ANNOUNCEMENT',
+                intercomText(context, "Announcement").toUpperCase(),
                 style: TextStyle(
                   fontSize: 12.5,
                   fontWeight: FontWeight.w600,
@@ -1237,8 +1279,14 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
           const SizedBox(height: 12),
           Text(
             micBusy
-                ? 'The dashboard holds the microphone, listening only.'
-                : 'Microphone not granted, listening only.',
+                ? intercomText(
+                    context,
+                    "The dashboard holds the microphone, listening only.",
+                  )
+                : intercomText(
+                    context,
+                    "Microphone not granted, listening only.",
+                  ),
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 13, color: scheme.onSurfaceVariant),
           ),
@@ -1407,12 +1455,15 @@ class _TalkPill extends StatelessWidget {
           children: [
             Icon(Icons.mic, size: 26, color: fg),
             const SizedBox(width: 12),
-            Text(
-              'Hold to talk',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: fg,
+            Flexible(
+              child: Text(
+                intercomText(context, "Hold to talk"),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: fg,
+                ),
               ),
             ),
           ],
@@ -1513,7 +1564,9 @@ class _AnnouncementOverlayState extends State<AnnouncementOverlay> {
                       ),
                       const SizedBox(height: 14),
                       Text(
-                        message.isEmpty ? 'Announcement' : message,
+                        message.isEmpty
+                            ? intercomText(context, "Announcement")
+                            : message,
                         textAlign: TextAlign.center,
                         maxLines: 8,
                         overflow: TextOverflow.ellipsis,
@@ -1526,7 +1579,9 @@ class _AnnouncementOverlayState extends State<AnnouncementOverlay> {
                       ),
                       const SizedBox(height: 10),
                       Text(
-                        playing ? 'Playing' : 'Done',
+                        playing
+                            ? intercomText(context, "Playing")
+                            : intercomText(context, "Done"),
                         style: TextStyle(
                           fontSize: 14,
                           color: scheme.onSurfaceVariant,
@@ -1535,7 +1590,7 @@ class _AnnouncementOverlayState extends State<AnnouncementOverlay> {
                       const SizedBox(height: 18),
                       _Disc(
                         icon: Icons.close,
-                        label: 'Dismiss',
+                        label: intercomText(context, "Dismiss"),
                         kind: _DiscKind.plain,
                         onTap: () => widget.container.commands.execute(
                           playing ? 'intercomHangup' : 'intercomDismiss',

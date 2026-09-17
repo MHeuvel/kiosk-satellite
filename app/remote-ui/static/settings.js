@@ -1,4 +1,4 @@
-import { cameraText, cameraError, cameraResolutionNotice, screensaverText, deviceText, haText, screenAudioText, haConnectionError, settingsPageText, t } from './localization.js';
+import { intercomText, intercomError, cameraText, cameraError, cameraResolutionNotice, screensaverText, deviceText, haText, screenAudioText, haConnectionError, settingsPageText, t } from './localization.js';
 import { preserveDraft } from './drafts.js';
 import { beginLiveRender, endLiveRender, watchUpdates } from './live.js';
 import {
@@ -68,11 +68,11 @@ import { banner, copyBox, messageBox, showToast } from './widgets.js';
 // actually hold. The upload becomes the pick, as it does on the device.
 export function attachSoundUpload(fileRow, { refresh, write }) {
   const SOUND_EXTENSIONS = ['mp3', 'ogg', 'oga', 'wav', 'flac', 'm4a', 'aac'];
-  const addRow = readOnlyRow('Add a sound',
-    'Upload a sound file from this computer into the sounds folder.', '');
+  const addRow = readOnlyRow(intercomText("Add a sound"),
+    intercomText("Upload a sound file from this computer into the sounds folder."), '');
   const upload = document.createElement('button');
   upload.className = 'btn-ghost';
-  upload.textContent = 'Upload';
+  upload.textContent = intercomText("Upload");
   upload.style.cssText = 'flex-shrink:0;';
   const picker = document.createElement('input');
   picker.type = 'file'; picker.hidden = true;
@@ -83,10 +83,10 @@ export function attachSoundUpload(fileRow, { refresh, write }) {
     const ext = (file.name.match(/\.([^.]+)$/) || [, ''])[1].toLowerCase();
     if (!SOUND_EXTENSIONS.includes(ext)) {
       picker.value = '';
-      alert('Not a supported sound: pick an MP3, OGG, WAV, FLAC, M4A or AAC file.');
+      alert(intercomText("Not a supported sound: pick an MP3, OGG, WAV, FLAC, M4A or AAC file."));
       return;
     }
-    upload.disabled = true; upload.textContent = 'Uploading…';
+    upload.disabled = true; upload.textContent = intercomText("Uploading…");
     try {
       const q = `root=app&path=${encodeURIComponent(`sounds/${file.name}`)}`;
       const res = await api(`/api/files/upload?${q}`, { method: 'POST', body: file });
@@ -94,9 +94,9 @@ export function attachSoundUpload(fileRow, { refresh, write }) {
       if (!res.ok) throw new Error(out.error || `HTTP ${res.status}`);
       await write(file.name);
       await refresh();
-    } catch (e) { alert('Upload failed: ' + (e.message || e)); }
+    } catch (e) { alert(t('intercomUploadFailed', {error: intercomError(String(e.message || e))})); }
     picker.value = '';
-    upload.disabled = false; upload.textContent = 'Upload';
+    upload.disabled = false; upload.textContent = intercomText("Upload");
   });
   upload.addEventListener('click', () => picker.click());
   addRow.append(upload, picker);
@@ -112,7 +112,7 @@ export function attachSoundSelect(row, setting) {
     const current = `${setting.value || ''}`;
     const names = [...sounds];
     if (current && !names.includes(current)) names.push(current);
-    [['', setting.key === 'intercom.ring_sound' ? 'Built-in ring' : 'Built-in chime'], ...names.map((n) => [n, n === current && !sounds.includes(n) ? `${n} (missing)` : n])]
+    [['', setting.key === 'intercom.ring_sound' ? intercomText("Built-in ring") : intercomText("Built-in chime")], ...names.map((n) => [n, n === current && !sounds.includes(n) ? t('intercomMissingFile', {file:n}) : n])]
       .forEach(([value, label]) => {
         const opt = document.createElement('option');
         opt.value = value; opt.textContent = label;
@@ -138,7 +138,7 @@ export function attachSoundSelect(row, setting) {
   };
   sel.addEventListener('change', async () => {
     try { await write(sel.value); }
-    catch (e) { alert('Not saved: ' + (e.message || e)); await refresh(); }
+    catch (e) { alert(t('intercomSaveFailed', {error: intercomError(String(e.message || e))})); await refresh(); }
   });
   fill([]);
   row.appendChild(sel);

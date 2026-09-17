@@ -1104,4 +1104,36 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingDlnaPortTitle",
     "description": "settingDlnaPortDescription",
   },
+  "intercom.enabled": {
+    "title": "settingIntercomEnabledTitle",
+    "description": "settingIntercomEnabledDescription",
+  },
+  "intercom.key": {
+    "title": "settingIntercomKeyTitle",
+    "description": "settingIntercomKeyDescription",
+  },
+  "intercom.menu": {
+    "title": "settingIntercomMenuTitle",
+    "description": "settingIntercomMenuDescription",
+  },
+  "intercom.answer_mode": {
+    "title": "settingIntercomAnswerModeTitle",
+    "description": "settingIntercomAnswerModeDescription",
+  },
+  "intercom.ring_seconds": {
+    "title": "settingIntercomRingSecondsTitle",
+    "description": "settingIntercomRingSecondsDescription",
+  },
+  "intercom.ring_sound": {
+    "title": "settingIntercomRingSoundTitle",
+    "description": "settingIntercomRingSoundDescription",
+  },
+  "intercom.accept_announcements": {
+    "title": "settingIntercomAcceptAnnouncementsTitle",
+    "description": "settingIntercomAcceptAnnouncementsDescription",
+  },
+  "intercom.talk_mode": {
+    "title": "settingIntercomTalkModeTitle",
+    "description": "settingIntercomTalkModeDescription",
+  },
 };

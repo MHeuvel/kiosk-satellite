@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import '../managers/settings/definitions.dart';
 import 'generated/message_lookup.dart';
 import 'generated/media_text_ids.dart';
+import 'generated/intercom_text_ids.dart';
 import 'generated/navigation_ids.dart';
 import 'generated/device_text_ids.dart';
 import 'generated/ha_text_ids.dart';
@@ -80,6 +81,74 @@ String cameraText(BuildContext context, String english) =>
 /// Translate media settings without changing player names or saved values.
 String mediaText(BuildContext context, String english) =>
     messageById(l10n(context), mediaTextMessageIds[english], english);
+
+/// Fixed Intercom labels. Kiosk names and message content bypass this helper.
+String intercomText(BuildContext context, String english) =>
+    messageById(l10n(context), intercomTextMessageIds[english], english);
+
+String intercomError(
+  BuildContext context,
+  String error, {
+  Map<String, Object?>? status,
+}) {
+  final call = status?['call'];
+  final targets = call is Map ? call['targets'] : null;
+  if (targets is List && targets.isNotEmpty && targets.every((t) => t is Map)) {
+    String label(Object? value) =>
+        const <String, String>{
+          'listening': 'listening',
+          'busy': 'busy',
+          'dnd': 'do not disturb',
+          'off': 'intercom off',
+          'refused': 'announcements off',
+          'key': 'a different key',
+          'unreachable': 'unreachable',
+          'left': 'done',
+        }['$value'] ??
+        '$value';
+    final original = targets
+        .map((t) => "${t['name']}: ${label(t['status'])}")
+        .join(', ');
+    if (error == original) {
+      return targets
+          .map(
+            (t) =>
+                "${t['name']}: ${intercomError(context, label(t['status']))}",
+          )
+          .join(', ');
+    }
+  }
+  return intercomText(context, intercomErrorLabel(error));
+}
+
+String intercomErrorLabel(String error) =>
+    const <String, String>{
+      'ended': 'Call ended',
+      'declined': 'Declined',
+      'cancelled': 'Cancelled',
+      'busy': 'Busy',
+      'do not disturb': 'Do not disturb',
+      'its intercom is off': 'Its intercom is off',
+      'a different intercom key': 'Different intercom key',
+      'no answer': 'No answer',
+      'missed': 'Missed call',
+      'did not answer': 'Did not answer',
+      'the voice link failed': 'The voice link failed',
+      'the page took the microphone': 'The page took the microphone',
+      'nobody could take it': 'Nobody could take it',
+      'the broadcast ended': 'Done',
+      'listening': 'Listening',
+      'intercom off': 'Intercom off',
+      'announcements off': 'Announcements off',
+      'a different key': 'Different key',
+      'unreachable': 'Unreachable',
+      'done': 'Done',
+    }[error] ??
+    error;
+
+String intercomAnnouncing(BuildContext context, int count) => count == 1
+    ? l10n(context).intercomAnnouncingOne
+    : l10n(context).intercomAnnouncingMany('$count');
 
 String mediaError(BuildContext context, String error) {
   final sonos = RegExp(
@@ -182,6 +251,11 @@ String settingsPageText(
   'Screensaver' => screensaverText(context, english),
   'Camera' => cameraText(context, english),
   'Sendspin' => mediaText(context, english),
+  'Intercom' => switch (english) {
+    'Answer' => l10n(context).intercomAnswerSection,
+    'Talk' => l10n(context).intercomTalkSection,
+    _ => intercomText(context, english),
+  },
   _ => english,
 };
 

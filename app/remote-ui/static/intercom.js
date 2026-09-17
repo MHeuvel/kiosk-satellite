@@ -1,3 +1,4 @@
+import { intercomText, intercomError, intercomAnnouncing, t } from './localization.js';
 import { watchUpdates } from './live.js';
 import { api, cmd, state } from './core.js';
 import { attachSoundSelect, attachSoundUpload } from './settings.js';
@@ -101,10 +102,11 @@ async function run(name, params = {}, { reload = true } = {}) {
   busy = true;
   let out;
   try { out = await cmd(name, params); }
-  catch (_) { out = { ok: false, error: 'The device did not answer.' }; }
+  catch (_) { out = { ok: false, error: intercomText("The device did not answer.") }; }
   busy = false;
-  if (!out.ok) showToast({ title: 'Intercom', message: out.error || '', kind: 'error' });
-  if (reload) { await loadStatus(); renderIntercomPage({ fetch: false }); }
+  if (reload) await loadStatus();
+  if (!out.ok) showToast({ title: intercomText("Intercom"), message: intercomError(out.error || '', status), kind: 'error' });
+  if (reload) renderIntercomPage({ fetch: false });
   return out;
 }
 
@@ -121,7 +123,7 @@ const mmss = (since) => {
 // success and stays open with the toast on a refusal.
 function openKeyDialog() {
   const current = `${byKey('intercom.key')?.value || ''}`;
-  const shell = modalShell({ title: 'Intercom key', width: 480, onDismiss: () => shell.close() });
+  const shell = modalShell({ title: intercomText("Intercom key"), width: 480, onDismiss: () => shell.close() });
   const input = document.createElement('input');
   input.className = 'field';
   input.value = current;
@@ -129,7 +131,7 @@ function openKeyDialog() {
   input.autocomplete = 'off';
   input.style.cssText = 'width:100%; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;';
   shell.body.appendChild(input);
-  shell.body.appendChild(hintRow('Kiosks with this key can call each other. A new key cuts this kiosk off from the others until they get it too.'));
+  shell.body.appendChild(hintRow(intercomText("Kiosks with this key can call each other. A new key cuts this kiosk off from the others until they get it too.")));
   const apply = async (params) => {
     const out = await run('intercomSetKey', params, { reload: false });
     if (!out?.ok) return;
@@ -137,7 +139,7 @@ function openKeyDialog() {
     const def = byKey('intercom.key');
     if (def) def.value = key;
     if (keyBox) keyBox.set(key);
-    showToast({ title: 'Key changed', kind: 'success' });
+    showToast({ title: intercomText("Key changed"), kind: 'success' });
     shell.close();
     await loadStatus();
     renderIntercomPage({ fetch: false });
@@ -148,12 +150,12 @@ function openKeyDialog() {
     apply({ key });
   };
   input.addEventListener('keydown', (e) => { if (e.key === 'Enter') save(); });
-  const regen = button('Regenerate', 'btn-ghost', () => apply({ regenerate: true }));
+  const regen = button(intercomText("Regenerate"), 'btn-ghost', () => apply({ regenerate: true }));
   regen.style.marginRight = 'auto';
   shell.foot.append(
     regen,
-    button('Cancel', 'btn-text', () => shell.close()),
-    button('Save', 'btn-primary', save),
+    button(intercomText("Cancel"), 'btn-text', () => shell.close()),
+    button(intercomText("Save"), 'btn-primary', save),
   );
   input.focus();
   input.select();
@@ -169,12 +171,12 @@ function decorateRows(tab) {
   const keyRow = tab.querySelector('[data-key="intercom.key"]');
   const keyInput = keyRow?.querySelector('input');
   if (keyInput && !keyRow.querySelector('.copy-box')) {
-    keyBox = copyBox(keyInput.value, { placeholder: keyInput.placeholder || 'Not set' });
+    keyBox = copyBox(keyInput.value, { placeholder: keyInput.placeholder || intercomText("Not set") });
     keyInput.replaceWith(keyBox.el);
     // Lives with the definition rows: wiped and redrawn with them on a
     // settings load, left alone on a status redraw.
-    const change = infoRow('Change key', 'Paste the key from another kiosk, or make a new one.');
-    change.appendChild(button('Change', 'btn-ghost', openKeyDialog));
+    const change = infoRow(intercomText("Change key"), intercomText("Paste the key from another kiosk, or make a new one."));
+    change.appendChild(button(intercomText("Change"), 'btn-ghost', openKeyDialog));
     keyRow.insertAdjacentElement('afterend', change);
   }
 
@@ -193,15 +195,15 @@ const LIVE = new Set(['calling', 'ringing', 'in_call', 'broadcasting', 'listenin
 function liveCard() {
   const call = status.call || {};
   const peer = call.peer || {};
-  const name = peer.name || peer.address || 'a kiosk';
+  const name = peer.name || peer.address || intercomText("a kiosk");
   const targets = call.targets || [];
   const heard = targets.filter((t) => t.status === 'listening').length || targets.length;
   const title = {
-    calling: `Calling ${name}`,
-    ringing: `${name} is calling`,
-    in_call: `In a call with ${name}`,
-    broadcasting: `Announcing to ${heard} kiosk${heard === 1 ? '' : 's'}`,
-    listening: call.automated && call.message ? `Home Assistant: ${call.message}` : `${name} is announcing`,
+    calling: t('intercomCallingName', {name}),
+    ringing: t('intercomNameCalling', {name}),
+    in_call: t('intercomInCallName', {name}),
+    broadcasting: intercomAnnouncing(heard),
+    listening: call.automated && call.message ? t('intercomHaMessage', {message: call.message}) : t('intercomNameAnnouncing', {name}),
   }[status.state];
   const card = document.createElement('div');
   card.className = 'card intercom-built';
@@ -212,7 +214,7 @@ function liveCard() {
     tags.push(clock);
   }
   const row = kioskRow({ name: title, address: peer.address, tags });
-  row.appendChild(button('End call', 'btn-ghost', () => run('intercomHangup')));
+  row.appendChild(button(intercomText("End call"), 'btn-ghost', () => run('intercomHangup')));
   card.appendChild(row);
   if (clock) {
     tickTimer = setInterval(() => {
@@ -241,7 +243,7 @@ export async function renderIntercomPage({ fetch = true } = {}) {
   if (tickTimer) { clearInterval(tickTimer); tickTimer = null; }
   tab.querySelectorAll('.intercom-built').forEach((n) => n.remove());
   if (!status) {
-    const h = hintRow('The device did not answer.');
+    const h = hintRow(intercomText("The device did not answer."));
     h.classList.add('intercom-built');
     tab.appendChild(h);
     return;
@@ -252,9 +254,9 @@ export async function renderIntercomPage({ fetch = true } = {}) {
   if (status.available === false) {
     const card = document.createElement('div');
     card.className = 'card intercom-built';
-    const row = infoRow('The intercom needs the remote admin',
-      'Kiosks find and reach each other through it. Turn on Remote management and Find other kiosks under Device, then come back.');
-    row.appendChild(button('Open', 'btn-ghost', () => showTab('device')));
+    const row = infoRow(intercomText("The intercom needs the remote admin"),
+      intercomText("Kiosks find and reach each other through it. Turn on Remote management and Find other kiosks under Device, then come back."));
+    row.appendChild(button(intercomText('Open'), 'btn-ghost', () => showTab('device')));
     card.appendChild(row);
     top.push(card);
   }
@@ -263,20 +265,20 @@ export async function renderIntercomPage({ fetch = true } = {}) {
 
   // The roster is worth nothing with the intercom off.
   if (status.available !== false && status.enabled) {
-    const [h, card] = titled('Kiosks');
+    const [h, card] = titled(intercomText("Kiosks"));
     const kiosks = status.kiosks || [];
     if (!kiosks.length) {
-      card.appendChild(infoRow('No kiosks heard', 'A kiosk shows up once its remote admin is on and it shares this network.'));
+      card.appendChild(infoRow(intercomText("No kiosks heard"), intercomText("A kiosk shows up once its remote admin is on and it shares this network.")));
     }
     for (const k of kiosks) {
       const row = kioskRow({ name: k.name, address: k.address, version: k.version, dim: k.status === 'offline' });
       const st = document.createElement('span');
       st.className = 'fleet-status' + (k.status === 'ready' ? ' ok' : k.status === 'key' || k.status === 'unreachable' ? ' warn' : '');
-      st.textContent = k.statusText || '';
+      st.textContent = intercomText(k.statusText || '');
       row.appendChild(st);
       card.appendChild(row);
     }
-    card.appendChild(hintRow('Kiosks discovered on this network. A kiosk is ready once its intercom is on with the same key.'));
+    card.appendChild(hintRow(intercomText("Kiosks discovered on this network. A kiosk is ready once its intercom is on with the same key.")));
     tab.append(h, card);
   }
 }

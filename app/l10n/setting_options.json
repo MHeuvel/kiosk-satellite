@@ -197,5 +197,20 @@
     "off": "mediaFillOff",
     "smart": "mediaFillSmart",
     "always": "mediaFillAlways"
+  },
+  "intercom.answer_mode": {
+    "ring": "intercomOptionAnswerRing",
+    "auto": "intercomOptionAnswerAuto",
+    "dnd": "intercomOptionAnswerDnd"
+  },
+  "intercom.ring_seconds": {
+    "15": "intercomOptionAnswer15",
+    "30": "intercomOptionAnswer30",
+    "45": "intercomOptionAnswer45",
+    "60": "intercomOptionAnswer60"
+  },
+  "intercom.talk_mode": {
+    "ptt": "intercomOptionTalkPtt",
+    "handsfree": "intercomOptionTalkHandsfree"
   }
 }

@@ -1,0 +1,218 @@
+{
+  "@@locale": "en",
+  "settingIntercomEnabledTitle": "Enable intercom",
+  "@settingIntercomEnabledTitle": {
+    "context": "Settings > Intercom",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "settingIntercomEnabledDescription": "Call the other kiosks on this network and take their calls.",
+  "@settingIntercomEnabledDescription": {
+    "context": "Settings > Intercom",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "settingIntercomKeyTitle": "Intercom key",
+  "@settingIntercomKeyTitle": {
+    "context": "Settings > Intercom",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "settingIntercomKeyDescription": "Kiosks with the same key can call each other. Fleet Management can sync it.",
+  "@settingIntercomKeyDescription": {
+    "context": "Settings > Intercom",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "settingIntercomKeyPlaceholder": "Made when the intercom is enabled",
+  "@settingIntercomKeyPlaceholder": {
+    "context": "Settings > Intercom",
+    "description": "Placeholder for the key before the intercom is enabled.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "settingIntercomMenuTitle": "Show in the kiosk menu",
+  "@settingIntercomMenuTitle": {
+    "context": "Settings > Intercom",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "settingIntercomMenuDescription": "Add an Intercom entry to the kiosk menu.",
+  "@settingIntercomMenuDescription": {
+    "context": "Settings > Intercom",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomNeedsAdmin": "The intercom needs the remote admin",
+  "@intercomNeedsAdmin": {
+    "context": "Settings > Intercom",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomAdminHelp": "Kiosks find and reach each other through it. Turn on Remote management and Find other kiosks under Device, then come back.",
+  "@intercomAdminHelp": {
+    "context": "Settings > Intercom",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomChangeKey": "Change key",
+  "@intercomChangeKey": {
+    "context": "Settings > Intercom",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomChangeKeyHelp": "Paste the key from another kiosk, or make a new one.",
+  "@intercomChangeKeyHelp": {
+    "context": "Settings > Intercom",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomChange": "Change",
+  "@intercomChange": {
+    "context": "Settings > Intercom",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomKeyWarning": "Kiosks with this key can call each other. A new key cuts this kiosk off from the others until they get it too.",
+  "@intercomKeyWarning": {
+    "context": "Settings > Intercom",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomRegenerate": "Regenerate",
+  "@intercomRegenerate": {
+    "context": "Settings > Intercom",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomKeyChanged": "Key changed",
+  "@intercomKeyChanged": {
+    "context": "Settings > Intercom",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomNotSet": "Not set",
+  "@intercomNotSet": {
+    "context": "Settings > Intercom",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomOpen": "Open",
+  "@intercomOpen": {
+    "context": "Settings > Intercom",
+    "description": "Action or validation message.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { mediaText, cameraText, cameraError, deviceText, haText, screensaverText, screensaverError, t } from './localization.js';
+import { intercomError, mediaText, cameraText, cameraError, deviceText, haText, screensaverText, screensaverError, t } from './localization.js';
 import { watchUpdates } from './live.js';
 import {
   GLANCE_MAX,
@@ -121,7 +121,7 @@ function showRowError(row, message, onRetry) {
     el.className = 'row-error';
     row.appendChild(el);
   }
-  el.textContent = cameraError(screensaverError(haText(deviceText(mediaText(message)))));
+  el.textContent = cameraError(screensaverError(haText(deviceText(intercomError(mediaText(message))))));
   if (onRetry) {
     const retry = document.createElement('button');
     retry.className = 'btn-ghost';

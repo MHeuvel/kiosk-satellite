@@ -5,6 +5,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ## Unreleased
 
 ### Added
+- **Intercom settings and call controls use translation templates.** Seven templates add 141 messages for setup, keys, kiosk status, calls, announcements and shared sound pickers. Longer controls fit narrow screens and the key dialog keeps its field alive through its closing animation.
 - **DLNA Renderer settings and playback notices use translation templates.** Fifteen messages cover receiver controls, shared port validation, playback errors and accessibility labels. All 1765 catalog messages now have bundled, author-approved Spanish translations. Language changes preserve media titles and playback state.
 - **Remaining Media Player settings and playback controls use translation templates.** Seven templates add 99 messages for Floating Player, Now Playing appearance, Lyrics settings, queues, chapters and speaker grouping. All 1750 catalog messages now have bundled, author-approved Spanish translations. Device controls and remote status follow the selected language while preserving provider metadata and playback state.
 - **Sonos settings use translation templates in both interfaces.** The catalog adds 24 messages for playback options, discovery, adding speakers by address, forgetting speakers and connection notices. All 1651 catalog messages now have bundled, author-approved Spanish translations. Speaker names, addresses and IDs remain unchanged.

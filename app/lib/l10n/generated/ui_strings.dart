@@ -763,6 +763,462 @@ abstract class UiStrings {
   /// **'No release notes.'**
   String get drawerNoReleaseNotes;
 
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Call'**
+  String get intercomCall;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No kiosk is ready.'**
+  String get intercomNoReady;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'1 kiosk is ready.'**
+  String get intercomOneReady;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} kiosks are ready.'**
+  String intercomManyReady(String count);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Call a kiosk'**
+  String get intercomCallKiosk;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Announce to all'**
+  String get intercomAnnounceAll;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Talk to every kiosk. One way only.'**
+  String get intercomAnnounceHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Missed call from {name}'**
+  String intercomMissedFrom(String name);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Rang for {seconds} seconds.'**
+  String intercomRangFor(String seconds);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Call back'**
+  String get intercomCallBack;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Declined'**
+  String get intercomDeclined;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Busy'**
+  String get intercomBusy;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Its intercom is off'**
+  String get intercomPeerOff;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Different intercom key'**
+  String get intercomPeerKey;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No answer'**
+  String get intercomNoAnswer;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Did not answer'**
+  String get intercomDidNotAnswer;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The voice link failed'**
+  String get intercomVoiceFailed;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get intercomCancelled;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The page took the microphone'**
+  String get intercomPageMic;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Nobody could take it'**
+  String get intercomNobody;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get intercomDone;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Call ended'**
+  String get intercomEnded;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Announcement'**
+  String get intercomAnnouncement;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Announcing to 1 kiosk'**
+  String get intercomAnnouncingOne;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Announcing to {count} kiosks'**
+  String intercomAnnouncingMany(String count);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'is calling'**
+  String get intercomIsCalling;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'is announcing'**
+  String get intercomIsAnnouncing;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Calling…'**
+  String get intercomCalling;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Answers in {seconds} s'**
+  String intercomAnswersIn(String seconds);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Ringing'**
+  String get intercomRinging;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Connecting…'**
+  String get intercomConnecting;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Done, {duration}'**
+  String intercomDoneDuration(String duration);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Call ended, {duration}'**
+  String intercomEndedDuration(String duration);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Decline'**
+  String get intercomDecline;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer'**
+  String get intercomAnswer;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Every kiosk'**
+  String get intercomEveryKiosk;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop'**
+  String get intercomStop;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} hears you'**
+  String intercomHearsYou(String name);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Every kiosk hears you'**
+  String get intercomAllHearYou;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold to talk, let go to listen'**
+  String get intercomHoldHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Muted'**
+  String get intercomMuted;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Mute'**
+  String get intercomMute;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'End'**
+  String get intercomEnd;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Reply'**
+  String get intercomReply;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Dismiss'**
+  String get intercomDismiss;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Call again'**
+  String get intercomCallAgain;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The dashboard holds the microphone, listening only.'**
+  String get intercomDashboardMic;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone not granted, listening only.'**
+  String get intercomMicDenied;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold to talk'**
+  String get intercomHoldTalk;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Playing'**
+  String get intercomPlaying;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'a kiosk'**
+  String get intercomAKiosk;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Calling {name}'**
+  String intercomCallingName(String name);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} is calling'**
+  String intercomNameCalling(String name);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'In a call with {name}'**
+  String intercomInCallName(String name);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} is announcing'**
+  String intercomNameAnnouncing(String name);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Assistant: {message}'**
+  String intercomHaMessage(String message);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'End call'**
+  String get intercomEndCall;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not call'**
+  String get intercomCallFailed;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not change the key'**
+  String get intercomKeyFailed;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not talk to everyone'**
+  String get intercomBroadcastFailed;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The device did not answer.'**
+  String get intercomDeviceNoAnswer;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'unknown kiosk'**
+  String get intercomUnknownKiosk;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'nothing is ringing'**
+  String get intercomNothingRinging;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'no call'**
+  String get intercomNoCall;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'intercom is off'**
+  String get intercomDisabled;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'needs the remote admin'**
+  String get intercomNeedsRemote;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'the intercom needs the remote admin and Find other kiosks'**
+  String get intercomNeedsDiscovery;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'already in a call'**
+  String get intercomAlreadyCalling;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'no kiosk is ready'**
+  String get intercomNoReadyError;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'a key is at least 16 characters'**
+  String get intercomKeyLength;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'the page holds the microphone'**
+  String get intercomMicHeld;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'microphone not granted'**
+  String get intercomMicPermission;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'the caller did not answer'**
+  String get intercomCallerNoAnswer;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Missed call'**
+  String get intercomMissedcall;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Listening'**
+  String get intercomListening;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Announcements off'**
+  String get intercomAnnouncementsoff;
+
   /// Playback button tooltip and accessibility label.
   ///
   /// In en, this message translates to:
@@ -5118,6 +5574,306 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Strong'**
   String get haVibrationStrong;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer mode'**
+  String get settingIntercomAnswerModeTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Ring asks on the screen. Answer automatically opens the call after a chime.'**
+  String get settingIntercomAnswerModeDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Ring for'**
+  String get settingIntercomRingSecondsTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'How long a call rings before it counts as missed.'**
+  String get settingIntercomRingSecondsDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Ring sound'**
+  String get settingIntercomRingSoundTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Plays at the notification volume.'**
+  String get settingIntercomRingSoundDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept announcements'**
+  String get settingIntercomAcceptAnnouncementsTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Play Announce to all from the other kiosks.'**
+  String get settingIntercomAcceptAnnouncementsDescription;
+
+  /// Visible option. Its stored value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Ring'**
+  String get intercomOptionAnswerRing;
+
+  /// Visible option. Its stored value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer automatically'**
+  String get intercomOptionAnswerAuto;
+
+  /// Visible option. Its stored value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Do not disturb'**
+  String get intercomOptionAnswerDnd;
+
+  /// Visible option. Its stored value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'15 seconds'**
+  String get intercomOptionAnswer15;
+
+  /// Visible option. Its stored value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'30 seconds'**
+  String get intercomOptionAnswer30;
+
+  /// Visible option. Its stored value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'45 seconds'**
+  String get intercomOptionAnswer45;
+
+  /// Visible option. Its stored value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'60 seconds'**
+  String get intercomOptionAnswer60;
+
+  /// Section heading.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer'**
+  String get intercomAnswerSection;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable intercom'**
+  String get settingIntercomEnabledTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Call the other kiosks on this network and take their calls.'**
+  String get settingIntercomEnabledDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Intercom key'**
+  String get settingIntercomKeyTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosks with the same key can call each other. Fleet Management can sync it.'**
+  String get settingIntercomKeyDescription;
+
+  /// Placeholder for the key before the intercom is enabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Made when the intercom is enabled'**
+  String get settingIntercomKeyPlaceholder;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Show in the kiosk menu'**
+  String get settingIntercomMenuTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Add an Intercom entry to the kiosk menu.'**
+  String get settingIntercomMenuDescription;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The intercom needs the remote admin'**
+  String get intercomNeedsAdmin;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosks find and reach each other through it. Turn on Remote management and Find other kiosks under Device, then come back.'**
+  String get intercomAdminHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Change key'**
+  String get intercomChangeKey;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste the key from another kiosk, or make a new one.'**
+  String get intercomChangeKeyHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Change'**
+  String get intercomChange;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosks with this key can call each other. A new key cuts this kiosk off from the others until they get it too.'**
+  String get intercomKeyWarning;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Regenerate'**
+  String get intercomRegenerate;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Key changed'**
+  String get intercomKeyChanged;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Not set'**
+  String get intercomNotSet;
+
+  /// Action or validation message.
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get intercomOpen;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosks'**
+  String get intercomKiosks;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosks discovered on this network. A kiosk is ready once its intercom is on with the same key.'**
+  String get intercomRosterHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No other kiosk heard'**
+  String get intercomNoOther;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosks with Remote management and Find other kiosks on show up here.'**
+  String get intercomRosterDeviceHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No kiosks heard'**
+  String get intercomNoneHeard;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'A kiosk shows up once its remote admin is on and it shares this network.'**
+  String get intercomRosterRemoteHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready'**
+  String get intercomReady;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Intercom off'**
+  String get intercomOff;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Different key'**
+  String get intercomDifferentKey;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Unreachable'**
+  String get intercomUnreachable;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline'**
+  String get intercomOffline;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking…'**
+  String get intercomChecking;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Talk mode'**
+  String get settingIntercomTalkModeTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Push to talk sends while the button is held. Hands free keeps the microphone open for the whole call.'**
+  String get settingIntercomTalkModeDescription;
+
+  /// Visible option. Its stored value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Push to talk'**
+  String get intercomOptionTalkPtt;
+
+  /// Visible option. Its stored value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Hands free'**
+  String get intercomOptionTalkHandsfree;
+
+  /// Section heading.
+  ///
+  /// In en, this message translates to:
+  /// **'Talk'**
+  String get intercomTalkSection;
 
   /// Label or guidance in this section.
   ///
@@ -10686,6 +11442,96 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'New admin password (leave empty to keep the current one)'**
   String get remoteNewPassword;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Built-in ring'**
+  String get intercomBuiltinRing;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Built-in chime'**
+  String get intercomBuiltinChime;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{file} (missing)'**
+  String intercomMissingFile(String file);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a sound'**
+  String get intercomAddSound;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy a sound file from this device into the sounds folder.'**
+  String get intercomCopySoundHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload a sound file from this computer into the sounds folder.'**
+  String get intercomUploadSoundHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload'**
+  String get intercomUpload;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploading…'**
+  String get intercomUploading;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Not a supported sound'**
+  String get intercomUnsupportedSound;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Not a supported sound: pick an MP3, OGG, WAV, FLAC, M4A or AAC file.'**
+  String get intercomChooseSound;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not copy the file'**
+  String get intercomCopyFailed;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload failed: {error}'**
+  String intercomUploadFailed(String error);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Not saved: {error}'**
+  String intercomSaveFailed(String error);
+
+  /// Action or validation message.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a file name, not a path.'**
+  String get intercomSoundFilename;
+
+  /// Action or validation message.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick an MP3, OGG, WAV, FLAC, M4A or AAC file.'**
+  String get intercomSoundFormats;
 }
 
 class _UiStringsDelegate extends LocalizationsDelegate<UiStrings> {

@@ -1050,6 +1050,1001 @@
       ]
     }
   },
+  "intercomCall": "Call",
+  "@intercomCall": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomNoReady": "No kiosk is ready.",
+  "@intercomNoReady": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomOneReady": "1 kiosk is ready.",
+  "@intercomOneReady": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomManyReady": "{count} kiosks are ready.",
+  "@intercomManyReady": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Number of kiosks."
+      }
+    }
+  },
+  "intercomCallKiosk": "Call a kiosk",
+  "@intercomCallKiosk": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomAnnounceAll": "Announce to all",
+  "@intercomAnnounceAll": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomAnnounceHelp": "Talk to every kiosk. One way only.",
+  "@intercomAnnounceHelp": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomMissedFrom": "Missed call from {name}",
+  "@intercomMissedFrom": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "description": "Kiosk name supplied by the user. Keep unchanged."
+      }
+    }
+  },
+  "intercomRangFor": "Rang for {seconds} seconds.",
+  "@intercomRangFor": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    },
+    "placeholders": {
+      "seconds": {
+        "type": "String",
+        "description": "Number of seconds."
+      }
+    }
+  },
+  "intercomCallBack": "Call back",
+  "@intercomCallBack": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomDeclined": "Declined",
+  "@intercomDeclined": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomBusy": "Busy",
+  "@intercomBusy": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomPeerOff": "Its intercom is off",
+  "@intercomPeerOff": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomPeerKey": "Different intercom key",
+  "@intercomPeerKey": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomNoAnswer": "No answer",
+  "@intercomNoAnswer": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomDidNotAnswer": "Did not answer",
+  "@intercomDidNotAnswer": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomVoiceFailed": "The voice link failed",
+  "@intercomVoiceFailed": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomCancelled": "Cancelled",
+  "@intercomCancelled": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomPageMic": "The page took the microphone",
+  "@intercomPageMic": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomNobody": "Nobody could take it",
+  "@intercomNobody": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomDone": "Done",
+  "@intercomDone": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay",
+        "Home Assistant announcement overlay"
+      ]
+    }
+  },
+  "intercomEnded": "Call ended",
+  "@intercomEnded": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomAnnouncement": "Announcement",
+  "@intercomAnnouncement": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay",
+        "Home Assistant announcement overlay"
+      ]
+    }
+  },
+  "intercomAnnouncingOne": "Announcing to 1 kiosk",
+  "@intercomAnnouncingOne": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom > Active call"
+      ]
+    }
+  },
+  "intercomAnnouncingMany": "Announcing to {count} kiosks",
+  "@intercomAnnouncingMany": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom > Active call"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Number of kiosks."
+      }
+    }
+  },
+  "intercomIsCalling": "is calling",
+  "@intercomIsCalling": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    },
+    "x-notes": "This phrase appears on its own line below the unchanged kiosk name."
+  },
+  "intercomIsAnnouncing": "is announcing",
+  "@intercomIsAnnouncing": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    },
+    "x-notes": "This phrase appears on its own line below the unchanged kiosk name."
+  },
+  "intercomCalling": "Calling…",
+  "@intercomCalling": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomAnswersIn": "Answers in {seconds} s",
+  "@intercomAnswersIn": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    },
+    "placeholders": {
+      "seconds": {
+        "type": "String",
+        "description": "Number of seconds."
+      }
+    }
+  },
+  "intercomRinging": "Ringing",
+  "@intercomRinging": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomConnecting": "Connecting…",
+  "@intercomConnecting": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomDoneDuration": "Done, {duration}",
+  "@intercomDoneDuration": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    },
+    "placeholders": {
+      "duration": {
+        "type": "String",
+        "description": "Elapsed time in minutes and seconds."
+      }
+    }
+  },
+  "intercomEndedDuration": "Call ended, {duration}",
+  "@intercomEndedDuration": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    },
+    "placeholders": {
+      "duration": {
+        "type": "String",
+        "description": "Elapsed time in minutes and seconds."
+      }
+    }
+  },
+  "intercomDecline": "Decline",
+  "@intercomDecline": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomAnswer": "Answer",
+  "@intercomAnswer": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomEveryKiosk": "Every kiosk",
+  "@intercomEveryKiosk": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomStop": "Stop",
+  "@intercomStop": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomHearsYou": "{name} hears you",
+  "@intercomHearsYou": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "description": "Kiosk name supplied by the user. Keep unchanged."
+      }
+    }
+  },
+  "intercomAllHearYou": "Every kiosk hears you",
+  "@intercomAllHearYou": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomHoldHelp": "Hold to talk, let go to listen",
+  "@intercomHoldHelp": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomMuted": "Muted",
+  "@intercomMuted": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomMute": "Mute",
+  "@intercomMute": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomEnd": "End",
+  "@intercomEnd": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomReply": "Reply",
+  "@intercomReply": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomDismiss": "Dismiss",
+  "@intercomDismiss": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay",
+        "Home Assistant announcement overlay"
+      ]
+    }
+  },
+  "intercomCallAgain": "Call again",
+  "@intercomCallAgain": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomDashboardMic": "The dashboard holds the microphone, listening only.",
+  "@intercomDashboardMic": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomMicDenied": "Microphone not granted, listening only.",
+  "@intercomMicDenied": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomHoldTalk": "Hold to talk",
+  "@intercomHoldTalk": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay"
+      ]
+    }
+  },
+  "intercomPlaying": "Playing",
+  "@intercomPlaying": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Intercom > Call a kiosk",
+        "Active intercom call overlay",
+        "Home Assistant announcement overlay"
+      ]
+    }
+  },
+  "intercomAKiosk": "a kiosk",
+  "@intercomAKiosk": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Intercom > Active call"
+      ]
+    }
+  },
+  "intercomCallingName": "Calling {name}",
+  "@intercomCallingName": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Intercom > Active call"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "description": "Kiosk name supplied by the user. Keep unchanged."
+      }
+    }
+  },
+  "intercomNameCalling": "{name} is calling",
+  "@intercomNameCalling": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Intercom > Active call"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "description": "Kiosk name supplied by the user. Keep unchanged."
+      }
+    }
+  },
+  "intercomInCallName": "In a call with {name}",
+  "@intercomInCallName": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Intercom > Active call"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "description": "Kiosk name supplied by the user. Keep unchanged."
+      }
+    }
+  },
+  "intercomNameAnnouncing": "{name} is announcing",
+  "@intercomNameAnnouncing": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Intercom > Active call"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "description": "Kiosk name supplied by the user. Keep unchanged."
+      }
+    }
+  },
+  "intercomHaMessage": "Home Assistant: {message}",
+  "@intercomHaMessage": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Intercom > Active call"
+      ]
+    },
+    "placeholders": {
+      "message": {
+        "type": "String",
+        "description": "Announcement text supplied by Home Assistant. Keep unchanged."
+      }
+    }
+  },
+  "intercomEndCall": "End call",
+  "@intercomEndCall": {
+    "context": "Intercom call controls",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Intercom > Active call"
+      ]
+    }
+  },
+  "intercomCallFailed": "Could not call",
+  "@intercomCallFailed": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomKeyFailed": "Could not change the key",
+  "@intercomKeyFailed": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomBroadcastFailed": "Could not talk to everyone",
+  "@intercomBroadcastFailed": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomDeviceNoAnswer": "The device did not answer.",
+  "@intercomDeviceNoAnswer": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomUnknownKiosk": "unknown kiosk",
+  "@intercomUnknownKiosk": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomNothingRinging": "nothing is ringing",
+  "@intercomNothingRinging": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomNoCall": "no call",
+  "@intercomNoCall": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomDisabled": "intercom is off",
+  "@intercomDisabled": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomNeedsRemote": "needs the remote admin",
+  "@intercomNeedsRemote": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomNeedsDiscovery": "the intercom needs the remote admin and Find other kiosks",
+  "@intercomNeedsDiscovery": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomAlreadyCalling": "already in a call",
+  "@intercomAlreadyCalling": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomNoReadyError": "no kiosk is ready",
+  "@intercomNoReadyError": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomKeyLength": "a key is at least 16 characters",
+  "@intercomKeyLength": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomMicHeld": "the page holds the microphone",
+  "@intercomMicHeld": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomMicPermission": "microphone not granted",
+  "@intercomMicPermission": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomCallerNoAnswer": "the caller did not answer",
+  "@intercomCallerNoAnswer": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomMissedcall": "Missed call",
+  "@intercomMissedcall": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomListening": "Listening",
+  "@intercomListening": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomAnnouncementsoff": "Announcements off",
+  "@intercomAnnouncementsoff": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
   "mediaPlay": "Play",
   "@mediaPlay": {
     "context": "Media Player playback controls",
@@ -10689,6 +11684,638 @@
       ],
       "remoteAdmin": [
         "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingIntercomAnswerModeTitle": "Answer mode",
+  "@settingIntercomAnswerModeTitle": {
+    "context": "Settings > Intercom > Answer",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer"
+      ]
+    }
+  },
+  "settingIntercomAnswerModeDescription": "Ring asks on the screen. Answer automatically opens the call after a chime.",
+  "@settingIntercomAnswerModeDescription": {
+    "context": "Settings > Intercom > Answer",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer"
+      ]
+    }
+  },
+  "settingIntercomRingSecondsTitle": "Ring for",
+  "@settingIntercomRingSecondsTitle": {
+    "context": "Settings > Intercom > Answer",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer"
+      ]
+    }
+  },
+  "settingIntercomRingSecondsDescription": "How long a call rings before it counts as missed.",
+  "@settingIntercomRingSecondsDescription": {
+    "context": "Settings > Intercom > Answer",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer"
+      ]
+    }
+  },
+  "settingIntercomRingSoundTitle": "Ring sound",
+  "@settingIntercomRingSoundTitle": {
+    "context": "Settings > Intercom > Answer",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer"
+      ]
+    }
+  },
+  "settingIntercomRingSoundDescription": "Plays at the notification volume.",
+  "@settingIntercomRingSoundDescription": {
+    "context": "Settings > Intercom > Answer",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer"
+      ]
+    }
+  },
+  "settingIntercomAcceptAnnouncementsTitle": "Accept announcements",
+  "@settingIntercomAcceptAnnouncementsTitle": {
+    "context": "Settings > Intercom > Answer",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer"
+      ]
+    }
+  },
+  "settingIntercomAcceptAnnouncementsDescription": "Play Announce to all from the other kiosks.",
+  "@settingIntercomAcceptAnnouncementsDescription": {
+    "context": "Settings > Intercom > Answer",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer"
+      ]
+    }
+  },
+  "intercomOptionAnswerRing": "Ring",
+  "@intercomOptionAnswerRing": {
+    "context": "Settings > Intercom > Answer",
+    "description": "Visible option. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer"
+      ]
+    }
+  },
+  "intercomOptionAnswerAuto": "Answer automatically",
+  "@intercomOptionAnswerAuto": {
+    "context": "Settings > Intercom > Answer",
+    "description": "Visible option. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer"
+      ]
+    }
+  },
+  "intercomOptionAnswerDnd": "Do not disturb",
+  "@intercomOptionAnswerDnd": {
+    "context": "Settings > Intercom > Answer",
+    "description": "Visible option. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer"
+      ]
+    }
+  },
+  "intercomOptionAnswer15": "15 seconds",
+  "@intercomOptionAnswer15": {
+    "context": "Settings > Intercom > Answer",
+    "description": "Visible option. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer"
+      ]
+    }
+  },
+  "intercomOptionAnswer30": "30 seconds",
+  "@intercomOptionAnswer30": {
+    "context": "Settings > Intercom > Answer",
+    "description": "Visible option. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer"
+      ]
+    }
+  },
+  "intercomOptionAnswer45": "45 seconds",
+  "@intercomOptionAnswer45": {
+    "context": "Settings > Intercom > Answer",
+    "description": "Visible option. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer"
+      ]
+    }
+  },
+  "intercomOptionAnswer60": "60 seconds",
+  "@intercomOptionAnswer60": {
+    "context": "Settings > Intercom > Answer",
+    "description": "Visible option. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer"
+      ]
+    }
+  },
+  "intercomAnswerSection": "Answer",
+  "@intercomAnswerSection": {
+    "context": "Settings > Intercom > Answer",
+    "description": "Section heading.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer"
+      ]
+    }
+  },
+  "settingIntercomEnabledTitle": "Enable intercom",
+  "@settingIntercomEnabledTitle": {
+    "context": "Settings > Intercom",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "settingIntercomEnabledDescription": "Call the other kiosks on this network and take their calls.",
+  "@settingIntercomEnabledDescription": {
+    "context": "Settings > Intercom",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "settingIntercomKeyTitle": "Intercom key",
+  "@settingIntercomKeyTitle": {
+    "context": "Settings > Intercom",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "settingIntercomKeyDescription": "Kiosks with the same key can call each other. Fleet Management can sync it.",
+  "@settingIntercomKeyDescription": {
+    "context": "Settings > Intercom",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "settingIntercomKeyPlaceholder": "Made when the intercom is enabled",
+  "@settingIntercomKeyPlaceholder": {
+    "context": "Settings > Intercom",
+    "description": "Placeholder for the key before the intercom is enabled.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "settingIntercomMenuTitle": "Show in the kiosk menu",
+  "@settingIntercomMenuTitle": {
+    "context": "Settings > Intercom",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "settingIntercomMenuDescription": "Add an Intercom entry to the kiosk menu.",
+  "@settingIntercomMenuDescription": {
+    "context": "Settings > Intercom",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomNeedsAdmin": "The intercom needs the remote admin",
+  "@intercomNeedsAdmin": {
+    "context": "Settings > Intercom",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomAdminHelp": "Kiosks find and reach each other through it. Turn on Remote management and Find other kiosks under Device, then come back.",
+  "@intercomAdminHelp": {
+    "context": "Settings > Intercom",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomChangeKey": "Change key",
+  "@intercomChangeKey": {
+    "context": "Settings > Intercom",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomChangeKeyHelp": "Paste the key from another kiosk, or make a new one.",
+  "@intercomChangeKeyHelp": {
+    "context": "Settings > Intercom",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomChange": "Change",
+  "@intercomChange": {
+    "context": "Settings > Intercom",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomKeyWarning": "Kiosks with this key can call each other. A new key cuts this kiosk off from the others until they get it too.",
+  "@intercomKeyWarning": {
+    "context": "Settings > Intercom",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomRegenerate": "Regenerate",
+  "@intercomRegenerate": {
+    "context": "Settings > Intercom",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomKeyChanged": "Key changed",
+  "@intercomKeyChanged": {
+    "context": "Settings > Intercom",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomNotSet": "Not set",
+  "@intercomNotSet": {
+    "context": "Settings > Intercom",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomOpen": "Open",
+  "@intercomOpen": {
+    "context": "Settings > Intercom",
+    "description": "Action or validation message.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomKiosks": "Kiosks",
+  "@intercomKiosks": {
+    "context": "Settings > Intercom > Kiosks",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Kiosks"
+      ],
+      "remoteAdmin": [
+        "Intercom > Kiosks"
+      ]
+    }
+  },
+  "intercomRosterHelp": "Kiosks discovered on this network. A kiosk is ready once its intercom is on with the same key.",
+  "@intercomRosterHelp": {
+    "context": "Settings > Intercom > Kiosks",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Kiosks"
+      ],
+      "remoteAdmin": [
+        "Intercom > Kiosks"
+      ]
+    }
+  },
+  "intercomNoOther": "No other kiosk heard",
+  "@intercomNoOther": {
+    "context": "Settings > Intercom > Kiosks",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Kiosks"
+      ]
+    }
+  },
+  "intercomRosterDeviceHelp": "Kiosks with Remote management and Find other kiosks on show up here.",
+  "@intercomRosterDeviceHelp": {
+    "context": "Settings > Intercom > Kiosks",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Kiosks"
+      ]
+    }
+  },
+  "intercomNoneHeard": "No kiosks heard",
+  "@intercomNoneHeard": {
+    "context": "Settings > Intercom > Kiosks",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Intercom > Kiosks"
+      ]
+    }
+  },
+  "intercomRosterRemoteHelp": "A kiosk shows up once its remote admin is on and it shares this network.",
+  "@intercomRosterRemoteHelp": {
+    "context": "Settings > Intercom > Kiosks",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Intercom > Kiosks"
+      ]
+    }
+  },
+  "intercomReady": "Ready",
+  "@intercomReady": {
+    "context": "Settings > Intercom > Kiosks",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Kiosks"
+      ],
+      "remoteAdmin": [
+        "Intercom > Kiosks"
+      ]
+    }
+  },
+  "intercomOff": "Intercom off",
+  "@intercomOff": {
+    "context": "Settings > Intercom > Kiosks",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Kiosks"
+      ],
+      "remoteAdmin": [
+        "Intercom > Kiosks"
+      ]
+    }
+  },
+  "intercomDifferentKey": "Different key",
+  "@intercomDifferentKey": {
+    "context": "Settings > Intercom > Kiosks",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Kiosks"
+      ],
+      "remoteAdmin": [
+        "Intercom > Kiosks"
+      ]
+    }
+  },
+  "intercomUnreachable": "Unreachable",
+  "@intercomUnreachable": {
+    "context": "Settings > Intercom > Kiosks",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Kiosks"
+      ],
+      "remoteAdmin": [
+        "Intercom > Kiosks"
+      ]
+    }
+  },
+  "intercomOffline": "Offline",
+  "@intercomOffline": {
+    "context": "Settings > Intercom > Kiosks",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Kiosks"
+      ],
+      "remoteAdmin": [
+        "Intercom > Kiosks"
+      ]
+    }
+  },
+  "intercomChecking": "Checking…",
+  "@intercomChecking": {
+    "context": "Settings > Intercom > Kiosks",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Kiosks"
+      ],
+      "remoteAdmin": [
+        "Intercom > Kiosks"
+      ]
+    }
+  },
+  "settingIntercomTalkModeTitle": "Talk mode",
+  "@settingIntercomTalkModeTitle": {
+    "context": "Settings > Intercom > Talk",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Talk"
+      ],
+      "remoteAdmin": [
+        "Intercom > Talk"
+      ]
+    }
+  },
+  "settingIntercomTalkModeDescription": "Push to talk sends while the button is held. Hands free keeps the microphone open for the whole call.",
+  "@settingIntercomTalkModeDescription": {
+    "context": "Settings > Intercom > Talk",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Talk"
+      ],
+      "remoteAdmin": [
+        "Intercom > Talk"
+      ]
+    }
+  },
+  "intercomOptionTalkPtt": "Push to talk",
+  "@intercomOptionTalkPtt": {
+    "context": "Settings > Intercom > Talk",
+    "description": "Visible option. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Talk"
+      ],
+      "remoteAdmin": [
+        "Intercom > Talk"
+      ]
+    }
+  },
+  "intercomOptionTalkHandsfree": "Hands free",
+  "@intercomOptionTalkHandsfree": {
+    "context": "Settings > Intercom > Talk",
+    "description": "Visible option. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Talk"
+      ],
+      "remoteAdmin": [
+        "Intercom > Talk"
+      ]
+    }
+  },
+  "intercomTalkSection": "Talk",
+  "@intercomTalkSection": {
+    "context": "Settings > Intercom > Talk",
+    "description": "Section heading.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Talk"
+      ],
+      "remoteAdmin": [
+        "Intercom > Talk"
       ]
     }
   },
@@ -22663,5 +24290,233 @@
   "@remoteNewPassword": {
     "context": "First-time setup:Welcome",
     "description": "Browser password field label for an optional replacement."
+  },
+  "intercomBuiltinRing": "Built-in ring",
+  "@intercomBuiltinRing": {
+    "context": "Shared sound file picker",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer > Ring sound",
+        "Settings > ESPHome > Notifications > Notification sound",
+        "Settings > ESPHome > Announcements > Chime sound"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer > Ring sound",
+        "ESPHome > Notifications > Notification sound",
+        "ESPHome > Announcements > Chime sound"
+      ]
+    }
+  },
+  "intercomBuiltinChime": "Built-in chime",
+  "@intercomBuiltinChime": {
+    "context": "Shared sound file picker",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer > Ring sound",
+        "Settings > ESPHome > Notifications > Notification sound",
+        "Settings > ESPHome > Announcements > Chime sound"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer > Ring sound",
+        "ESPHome > Notifications > Notification sound",
+        "ESPHome > Announcements > Chime sound"
+      ]
+    }
+  },
+  "intercomMissingFile": "{file} (missing)",
+  "@intercomMissingFile": {
+    "context": "Shared sound file picker",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer > Ring sound",
+        "Settings > ESPHome > Notifications > Notification sound",
+        "Settings > ESPHome > Announcements > Chime sound"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer > Ring sound",
+        "ESPHome > Notifications > Notification sound",
+        "ESPHome > Announcements > Chime sound"
+      ]
+    },
+    "placeholders": {
+      "file": {
+        "type": "String",
+        "description": "Original filename. Keep unchanged."
+      }
+    }
+  },
+  "intercomAddSound": "Add a sound",
+  "@intercomAddSound": {
+    "context": "Shared sound file picker",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer > Ring sound",
+        "Settings > ESPHome > Notifications > Notification sound",
+        "Settings > ESPHome > Announcements > Chime sound"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer > Ring sound",
+        "ESPHome > Notifications > Notification sound",
+        "ESPHome > Announcements > Chime sound"
+      ]
+    }
+  },
+  "intercomCopySoundHelp": "Copy a sound file from this device into the sounds folder.",
+  "@intercomCopySoundHelp": {
+    "context": "Shared sound file picker",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer > Ring sound",
+        "Settings > ESPHome > Notifications > Notification sound",
+        "Settings > ESPHome > Announcements > Chime sound"
+      ]
+    }
+  },
+  "intercomUploadSoundHelp": "Upload a sound file from this computer into the sounds folder.",
+  "@intercomUploadSoundHelp": {
+    "context": "Shared sound file picker",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Intercom > Answer > Ring sound",
+        "ESPHome > Notifications > Notification sound",
+        "ESPHome > Announcements > Chime sound"
+      ]
+    }
+  },
+  "intercomUpload": "Upload",
+  "@intercomUpload": {
+    "context": "Shared sound file picker",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Intercom > Answer > Ring sound",
+        "ESPHome > Notifications > Notification sound",
+        "ESPHome > Announcements > Chime sound"
+      ]
+    }
+  },
+  "intercomUploading": "Uploading…",
+  "@intercomUploading": {
+    "context": "Shared sound file picker",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Intercom > Answer > Ring sound",
+        "ESPHome > Notifications > Notification sound",
+        "ESPHome > Announcements > Chime sound"
+      ]
+    }
+  },
+  "intercomUnsupportedSound": "Not a supported sound",
+  "@intercomUnsupportedSound": {
+    "context": "Shared sound file picker",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer > Ring sound",
+        "Settings > ESPHome > Notifications > Notification sound",
+        "Settings > ESPHome > Announcements > Chime sound"
+      ]
+    }
+  },
+  "intercomChooseSound": "Not a supported sound: pick an MP3, OGG, WAV, FLAC, M4A or AAC file.",
+  "@intercomChooseSound": {
+    "context": "Shared sound file picker",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Intercom > Answer > Ring sound",
+        "ESPHome > Notifications > Notification sound",
+        "ESPHome > Announcements > Chime sound"
+      ]
+    }
+  },
+  "intercomCopyFailed": "Could not copy the file",
+  "@intercomCopyFailed": {
+    "context": "Shared sound file picker",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer > Ring sound",
+        "Settings > ESPHome > Notifications > Notification sound",
+        "Settings > ESPHome > Announcements > Chime sound"
+      ]
+    }
+  },
+  "intercomUploadFailed": "Upload failed: {error}",
+  "@intercomUploadFailed": {
+    "context": "Shared sound file picker",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Intercom > Answer > Ring sound",
+        "ESPHome > Notifications > Notification sound",
+        "ESPHome > Announcements > Chime sound"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Technical error details. Keep unchanged."
+      }
+    }
+  },
+  "intercomSaveFailed": "Not saved: {error}",
+  "@intercomSaveFailed": {
+    "context": "Shared sound file picker",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Intercom > Answer > Ring sound",
+        "ESPHome > Notifications > Notification sound",
+        "ESPHome > Announcements > Chime sound"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Technical error details. Keep unchanged."
+      }
+    }
+  },
+  "intercomSoundFilename": "Enter a file name, not a path.",
+  "@intercomSoundFilename": {
+    "context": "Shared sound file picker",
+    "description": "Action or validation message.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer > Ring sound",
+        "Settings > ESPHome > Notifications > Notification sound",
+        "Settings > ESPHome > Announcements > Chime sound"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer > Ring sound",
+        "ESPHome > Notifications > Notification sound",
+        "ESPHome > Announcements > Chime sound"
+      ]
+    }
+  },
+  "intercomSoundFormats": "Pick an MP3, OGG, WAV, FLAC, M4A or AAC file.",
+  "@intercomSoundFormats": {
+    "context": "Shared sound file picker",
+    "description": "Action or validation message.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer > Ring sound",
+        "Settings > ESPHome > Notifications > Notification sound",
+        "Settings > ESPHome > Announcements > Chime sound"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer > Ring sound",
+        "ESPHome > Notifications > Notification sound",
+        "ESPHome > Announcements > Chime sound"
+      ]
+    }
   }
 }

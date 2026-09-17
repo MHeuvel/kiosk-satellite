@@ -1,0 +1,68 @@
+{
+  "@@locale": "en",
+  "settingIntercomTalkModeTitle": "Talk mode",
+  "@settingIntercomTalkModeTitle": {
+    "context": "Settings > Intercom > Talk",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Talk"
+      ],
+      "remoteAdmin": [
+        "Intercom > Talk"
+      ]
+    }
+  },
+  "settingIntercomTalkModeDescription": "Push to talk sends while the button is held. Hands free keeps the microphone open for the whole call.",
+  "@settingIntercomTalkModeDescription": {
+    "context": "Settings > Intercom > Talk",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Talk"
+      ],
+      "remoteAdmin": [
+        "Intercom > Talk"
+      ]
+    }
+  },
+  "intercomOptionTalkPtt": "Push to talk",
+  "@intercomOptionTalkPtt": {
+    "context": "Settings > Intercom > Talk",
+    "description": "Visible option. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Talk"
+      ],
+      "remoteAdmin": [
+        "Intercom > Talk"
+      ]
+    }
+  },
+  "intercomOptionTalkHandsfree": "Hands free",
+  "@intercomOptionTalkHandsfree": {
+    "context": "Settings > Intercom > Talk",
+    "description": "Visible option. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Talk"
+      ],
+      "remoteAdmin": [
+        "Intercom > Talk"
+      ]
+    }
+  },
+  "intercomTalkSection": "Talk",
+  "@intercomTalkSection": {
+    "context": "Settings > Intercom > Talk",
+    "description": "Section heading.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Talk"
+      ],
+      "remoteAdmin": [
+        "Intercom > Talk"
+      ]
+    }
+  }
+}

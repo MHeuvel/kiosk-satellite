@@ -1,3 +1,4 @@
+import { intercomTextMessageIds } from './intercom_text_ids.js';
 import { mediaTextMessageIds } from './media_text_ids.js';
 import { screensaverTextMessageIds } from './screensaver_text_ids.js';
 import { cameraTextMessageIds } from './camera_text_ids.js';
@@ -83,6 +84,7 @@ export function settingsPageText(category, english) {
     : category === 'Screen & Audio' || category === 'screenaudio' ? screenAudioText(english)
     : category === 'Screensaver' || category === 'screensaver' ? screensaverText(english)
     : category === 'Camera' || category === 'camera' ? cameraText(english)
+    : category === 'Intercom' || category === 'intercom' ? (english === 'Answer' ? t('intercomAnswerSection') : english === 'Talk' ? t('intercomTalkSection') : intercomText(english))
     : category === 'Sendspin' || category === 'sendspin' ? mediaText(english) : english;
 }
 
@@ -186,4 +188,37 @@ export function immichError(error) {
   const talk = 'Could not talk to the server: ';
   if (error.startsWith(talk)) return t('screensaverMediaTalkError', {error: error.slice(talk.length)});
   return screensaverText(error);
+}
+
+export function intercomText(english) {
+  return t(intercomTextMessageIds[english], {}, english);
+}
+export function intercomError(error, status = null) {
+  const targets = status?.call?.targets;
+  if (Array.isArray(targets) && targets.length) {
+    const statuses = {listening:'listening', busy:'busy', dnd:'do not disturb',
+      off:'intercom off', refused:'announcements off', key:'a different key',
+      unreachable:'unreachable', left:'done'};
+    const label = (value) => Object.hasOwn(statuses, value) ? statuses[value] : value;
+    const original = targets.map((target) => `${target.name}: ${label(target.status)}`).join(', ');
+    if (error === original) return targets.map((target) =>
+      `${target.name}: ${intercomError(label(target.status))}`).join(', ');
+  }
+  const labels = {
+    ended: 'Call ended', declined: 'Declined', cancelled: 'Cancelled',
+    busy: 'Busy', 'do not disturb': 'Do not disturb',
+    'its intercom is off': 'Its intercom is off',
+    'a different intercom key': 'Different intercom key',
+    'no answer': 'No answer', missed: 'Missed call',
+    'did not answer': 'Did not answer', 'the voice link failed': 'The voice link failed',
+    'the page took the microphone': 'The page took the microphone',
+    'nobody could take it': 'Nobody could take it', 'the broadcast ended': 'Done',
+    listening: 'Listening', 'intercom off': 'Intercom off',
+    'announcements off': 'Announcements off', 'a different key': 'Different key',
+    unreachable: 'Unreachable', done: 'Done',
+  };
+  return intercomText(Object.hasOwn(labels, error) ? labels[error] : error);
+}
+export function intercomAnnouncing(count) {
+  return count === 1 ? t('intercomAnnouncingOne') : t('intercomAnnouncingMany', {count});
 }

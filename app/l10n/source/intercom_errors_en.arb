@@ -1,0 +1,288 @@
+{
+  "@@locale": "en",
+  "intercomCallFailed": "Could not call",
+  "@intercomCallFailed": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomKeyFailed": "Could not change the key",
+  "@intercomKeyFailed": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomBroadcastFailed": "Could not talk to everyone",
+  "@intercomBroadcastFailed": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomDeviceNoAnswer": "The device did not answer.",
+  "@intercomDeviceNoAnswer": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomUnknownKiosk": "unknown kiosk",
+  "@intercomUnknownKiosk": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomNothingRinging": "nothing is ringing",
+  "@intercomNothingRinging": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomNoCall": "no call",
+  "@intercomNoCall": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomDisabled": "intercom is off",
+  "@intercomDisabled": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomNeedsRemote": "needs the remote admin",
+  "@intercomNeedsRemote": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomNeedsDiscovery": "the intercom needs the remote admin and Find other kiosks",
+  "@intercomNeedsDiscovery": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomAlreadyCalling": "already in a call",
+  "@intercomAlreadyCalling": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomNoReadyError": "no kiosk is ready",
+  "@intercomNoReadyError": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomKeyLength": "a key is at least 16 characters",
+  "@intercomKeyLength": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomMicHeld": "the page holds the microphone",
+  "@intercomMicHeld": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomMicPermission": "microphone not granted",
+  "@intercomMicPermission": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomCallerNoAnswer": "the caller did not answer",
+  "@intercomCallerNoAnswer": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomMissedcall": "Missed call",
+  "@intercomMissedcall": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomListening": "Listening",
+  "@intercomListening": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "intercomAnnouncementsoff": "Announcements off",
+  "@intercomAnnouncementsoff": {
+    "context": "Intercom command errors",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom",
+        "Kiosk menu > Intercom",
+        "Active intercom call overlay"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  }
+}

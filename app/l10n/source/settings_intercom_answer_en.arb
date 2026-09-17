@@ -1,0 +1,211 @@
+{
+  "@@locale": "en",
+  "settingIntercomAnswerModeTitle": "Answer mode",
+  "@settingIntercomAnswerModeTitle": {
+    "context": "Settings > Intercom > Answer",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer"
+      ]
+    }
+  },
+  "settingIntercomAnswerModeDescription": "Ring asks on the screen. Answer automatically opens the call after a chime.",
+  "@settingIntercomAnswerModeDescription": {
+    "context": "Settings > Intercom > Answer",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer"
+      ]
+    }
+  },
+  "settingIntercomRingSecondsTitle": "Ring for",
+  "@settingIntercomRingSecondsTitle": {
+    "context": "Settings > Intercom > Answer",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer"
+      ]
+    }
+  },
+  "settingIntercomRingSecondsDescription": "How long a call rings before it counts as missed.",
+  "@settingIntercomRingSecondsDescription": {
+    "context": "Settings > Intercom > Answer",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer"
+      ]
+    }
+  },
+  "settingIntercomRingSoundTitle": "Ring sound",
+  "@settingIntercomRingSoundTitle": {
+    "context": "Settings > Intercom > Answer",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer"
+      ]
+    }
+  },
+  "settingIntercomRingSoundDescription": "Plays at the notification volume.",
+  "@settingIntercomRingSoundDescription": {
+    "context": "Settings > Intercom > Answer",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer"
+      ]
+    }
+  },
+  "settingIntercomAcceptAnnouncementsTitle": "Accept announcements",
+  "@settingIntercomAcceptAnnouncementsTitle": {
+    "context": "Settings > Intercom > Answer",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer"
+      ]
+    }
+  },
+  "settingIntercomAcceptAnnouncementsDescription": "Play Announce to all from the other kiosks.",
+  "@settingIntercomAcceptAnnouncementsDescription": {
+    "context": "Settings > Intercom > Answer",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer"
+      ]
+    }
+  },
+  "intercomOptionAnswerRing": "Ring",
+  "@intercomOptionAnswerRing": {
+    "context": "Settings > Intercom > Answer",
+    "description": "Visible option. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer"
+      ]
+    }
+  },
+  "intercomOptionAnswerAuto": "Answer automatically",
+  "@intercomOptionAnswerAuto": {
+    "context": "Settings > Intercom > Answer",
+    "description": "Visible option. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer"
+      ]
+    }
+  },
+  "intercomOptionAnswerDnd": "Do not disturb",
+  "@intercomOptionAnswerDnd": {
+    "context": "Settings > Intercom > Answer",
+    "description": "Visible option. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer"
+      ]
+    }
+  },
+  "intercomOptionAnswer15": "15 seconds",
+  "@intercomOptionAnswer15": {
+    "context": "Settings > Intercom > Answer",
+    "description": "Visible option. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer"
+      ]
+    }
+  },
+  "intercomOptionAnswer30": "30 seconds",
+  "@intercomOptionAnswer30": {
+    "context": "Settings > Intercom > Answer",
+    "description": "Visible option. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer"
+      ]
+    }
+  },
+  "intercomOptionAnswer45": "45 seconds",
+  "@intercomOptionAnswer45": {
+    "context": "Settings > Intercom > Answer",
+    "description": "Visible option. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer"
+      ]
+    }
+  },
+  "intercomOptionAnswer60": "60 seconds",
+  "@intercomOptionAnswer60": {
+    "context": "Settings > Intercom > Answer",
+    "description": "Visible option. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer"
+      ]
+    }
+  },
+  "intercomAnswerSection": "Answer",
+  "@intercomAnswerSection": {
+    "context": "Settings > Intercom > Answer",
+    "description": "Section heading.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Answer"
+      ],
+      "remoteAdmin": [
+        "Intercom > Answer"
+      ]
+    }
+  }
+}

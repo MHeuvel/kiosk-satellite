@@ -198,6 +198,21 @@ const settingOptionMessageIds = <String, Map<String, String>>{
     "off": "mediaFillOff",
     "smart": "mediaFillSmart",
     "always": "mediaFillAlways"
+  },
+  "intercom.answer_mode": {
+    "ring": "intercomOptionAnswerRing",
+    "auto": "intercomOptionAnswerAuto",
+    "dnd": "intercomOptionAnswerDnd"
+  },
+  "intercom.ring_seconds": {
+    "15": "intercomOptionAnswer15",
+    "30": "intercomOptionAnswer30",
+    "45": "intercomOptionAnswer45",
+    "60": "intercomOptionAnswer60"
+  },
+  "intercom.talk_mode": {
+    "ptt": "intercomOptionTalkPtt",
+    "handsfree": "intercomOptionTalkHandsfree"
   }
 };
 const settingPlaceholderMessageIds = <String, String>{
@@ -207,5 +222,6 @@ const settingPlaceholderMessageIds = <String, String>{
   "screensaver.immich_taken_to": "screensaverMediaToday",
   "browser.inject_js": "browserInjectJsPlaceholder",
   "browser.inject_js_external": "browserInjectJsExternalPlaceholder",
-  "dlna.port": "settingDlnaPortPlaceholder"
+  "dlna.port": "settingDlnaPortPlaceholder",
+  "intercom.key": "settingIntercomKeyPlaceholder"
 };

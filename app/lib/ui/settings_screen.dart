@@ -5644,8 +5644,8 @@ class _NotificationSoundTileState extends State<_NotificationSoundTile> {
       if (mounted) {
         showToast(
           context,
-          title: 'Not a supported sound',
-          message: '${e.message}',
+          title: intercomText(context, "Not a supported sound"),
+          message: intercomText(context, '${e.message}'),
           kind: ToastKind.error,
         );
       }
@@ -5654,7 +5654,7 @@ class _NotificationSoundTileState extends State<_NotificationSoundTile> {
       if (mounted) {
         showToast(
           context,
-          title: 'Could not copy the file',
+          title: intercomText(context, "Could not copy the file"),
           message: '$e',
           kind: ToastKind.error,
         );
@@ -5675,11 +5675,11 @@ class _NotificationSoundTileState extends State<_NotificationSoundTile> {
     final options = [
       (
         '',
-        def.key == intercomRingSound.key ? 'Built-in ring' : 'Built-in chime',
+        def.key == intercomRingSound.key ? intercomText(context, "Built-in ring") : intercomText(context, "Built-in chime"),
       ),
       for (final sound in _sounds) (sound, sound),
       if (current.isNotEmpty && !_sounds.contains(current))
-        (current, '$current (missing)'),
+        (current, l10n(context).intercomMissingFile(current)),
     ];
     return Column(
       children: [
@@ -5695,11 +5695,11 @@ class _NotificationSoundTileState extends State<_NotificationSoundTile> {
           },
         ),
         ListTile(
-          title: const Text('Add a sound'),
-          subtitle: const Text(
-            'Copy a sound file from this device into the sounds folder.',
+          title: Text(intercomText(context, "Add a sound")),
+          subtitle: Text(
+            intercomText(context, "Copy a sound file from this device into the sounds folder."),
           ),
-          trailing: TextButton(onPressed: _browse, child: const Text('Browse')),
+          trailing: TextButton(onPressed: _browse, child: Text(intercomText(context, "Browse"))),
         ),
       ],
     );
@@ -10371,7 +10371,7 @@ class SettingTile extends StatelessWidget {
                           context,
                           haText(
                             context,
-                            deviceText(context, mediaText(context, error!)),
+                            deviceText(context, intercomError(context, mediaText(context, error!))),
                           ),
                         ),
                       ),

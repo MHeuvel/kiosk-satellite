@@ -1,0 +1,147 @@
+{
+  "@@locale": "en",
+  "intercomKiosks": "Kiosks",
+  "@intercomKiosks": {
+    "context": "Settings > Intercom > Kiosks",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Kiosks"
+      ],
+      "remoteAdmin": [
+        "Intercom > Kiosks"
+      ]
+    }
+  },
+  "intercomRosterHelp": "Kiosks discovered on this network. A kiosk is ready once its intercom is on with the same key.",
+  "@intercomRosterHelp": {
+    "context": "Settings > Intercom > Kiosks",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Kiosks"
+      ],
+      "remoteAdmin": [
+        "Intercom > Kiosks"
+      ]
+    }
+  },
+  "intercomNoOther": "No other kiosk heard",
+  "@intercomNoOther": {
+    "context": "Settings > Intercom > Kiosks",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Kiosks"
+      ]
+    }
+  },
+  "intercomRosterDeviceHelp": "Kiosks with Remote management and Find other kiosks on show up here.",
+  "@intercomRosterDeviceHelp": {
+    "context": "Settings > Intercom > Kiosks",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Kiosks"
+      ]
+    }
+  },
+  "intercomNoneHeard": "No kiosks heard",
+  "@intercomNoneHeard": {
+    "context": "Settings > Intercom > Kiosks",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Intercom > Kiosks"
+      ]
+    }
+  },
+  "intercomRosterRemoteHelp": "A kiosk shows up once its remote admin is on and it shares this network.",
+  "@intercomRosterRemoteHelp": {
+    "context": "Settings > Intercom > Kiosks",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Intercom > Kiosks"
+      ]
+    }
+  },
+  "intercomReady": "Ready",
+  "@intercomReady": {
+    "context": "Settings > Intercom > Kiosks",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Kiosks"
+      ],
+      "remoteAdmin": [
+        "Intercom > Kiosks"
+      ]
+    }
+  },
+  "intercomOff": "Intercom off",
+  "@intercomOff": {
+    "context": "Settings > Intercom > Kiosks",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Kiosks"
+      ],
+      "remoteAdmin": [
+        "Intercom > Kiosks"
+      ]
+    }
+  },
+  "intercomDifferentKey": "Different key",
+  "@intercomDifferentKey": {
+    "context": "Settings > Intercom > Kiosks",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Kiosks"
+      ],
+      "remoteAdmin": [
+        "Intercom > Kiosks"
+      ]
+    }
+  },
+  "intercomUnreachable": "Unreachable",
+  "@intercomUnreachable": {
+    "context": "Settings > Intercom > Kiosks",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Kiosks"
+      ],
+      "remoteAdmin": [
+        "Intercom > Kiosks"
+      ]
+    }
+  },
+  "intercomOffline": "Offline",
+  "@intercomOffline": {
+    "context": "Settings > Intercom > Kiosks",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Kiosks"
+      ],
+      "remoteAdmin": [
+        "Intercom > Kiosks"
+      ]
+    }
+  },
+  "intercomChecking": "Checking…",
+  "@intercomChecking": {
+    "context": "Settings > Intercom > Kiosks",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Kiosks"
+      ],
+      "remoteAdmin": [
+        "Intercom > Kiosks"
+      ]
+    }
+  }
+}
