@@ -77,6 +77,7 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'commonLoading' => strings.commonLoading,
       'commonChoose' => strings.commonChoose,
       'dlnaPortInvalid' => strings.dlnaPortInvalid,
+      'commonSelectAll' => strings.commonSelectAll,
       'dlnaCannotDecode' => strings.dlnaCannotDecode,
       'dlnaCannotRead' => strings.dlnaCannotRead,
       'dlnaCannotPlay' => strings.dlnaCannotPlay,
@@ -125,6 +126,28 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'drawerUpdateFailed' => strings.drawerUpdateFailed,
       'drawerUpdates' => strings.drawerUpdates,
       'drawerNoReleaseNotes' => strings.drawerNoReleaseNotes,
+      'esphomeAllExposed' => strings.esphomeAllExposed,
+      'esphomeEntitySearch' => strings.esphomeEntitySearch,
+      'esphomeEntityLoading' => strings.esphomeEntityLoading,
+      'esphomeEntityUnavailable' => strings.esphomeEntityUnavailable,
+      'esphomeEntityNoMatch' => strings.esphomeEntityNoMatch,
+      'esphomeEntityLoadFailed' => strings.esphomeEntityLoadFailed,
+      'esphomeEntitySaveFailed' => strings.esphomeEntitySaveFailed,
+      'esphomeTypeConfig' => strings.esphomeTypeConfig,
+      'esphomeTypeDiagnostics' => strings.esphomeTypeDiagnostics,
+      'esphomeTypeSensorGroup' => strings.esphomeTypeSensorGroup,
+      'esphomeTypeControl' => strings.esphomeTypeControl,
+      'esphomeTypeSensor' => strings.esphomeTypeSensor,
+      'esphomeTypeTextSensor' => strings.esphomeTypeTextSensor,
+      'esphomeTypeBinarySensor' => strings.esphomeTypeBinarySensor,
+      'esphomeTypeCamera' => strings.esphomeTypeCamera,
+      'esphomeTypeSwitch' => strings.esphomeTypeSwitch,
+      'esphomeTypeButton' => strings.esphomeTypeButton,
+      'esphomeTypeNumber' => strings.esphomeTypeNumber,
+      'esphomeTypeSelect' => strings.esphomeTypeSelect,
+      'esphomeTypeLight' => strings.esphomeTypeLight,
+      'esphomeTypeUpdate' => strings.esphomeTypeUpdate,
+      'esphomeTypeText' => strings.esphomeTypeText,
       'fleetFleetManagementNeedsTheRemoteAdmin' =>
         strings.fleetFleetManagementNeedsTheRemoteAdmin,
       'fleetKiosksFindEachOtherThroughItTurnOnRemote' =>
@@ -1214,6 +1237,38 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'settingDlnaPortTitle' => strings.settingDlnaPortTitle,
       'settingDlnaPortDescription' => strings.settingDlnaPortDescription,
       'settingDlnaPortPlaceholder' => strings.settingDlnaPortPlaceholder,
+      'settingEsphomeRealMacTitle' => strings.settingEsphomeRealMacTitle,
+      'settingEsphomeRealMacDescription' =>
+        strings.settingEsphomeRealMacDescription,
+      'settingEsphomeMacOverrideTitle' =>
+        strings.settingEsphomeMacOverrideTitle,
+      'settingEsphomeMacOverrideDescription' =>
+        strings.settingEsphomeMacOverrideDescription,
+      'esphomeAdvanced' => strings.esphomeAdvanced,
+      'esphomeAdvancedHelp' => strings.esphomeAdvancedHelp,
+      'esphomeMacInvalid' => strings.esphomeMacInvalid,
+      'esphomeMacUnavailable' => strings.esphomeMacUnavailable,
+      'settingEsphomeEnabledTitle' => strings.settingEsphomeEnabledTitle,
+      'settingEsphomeEnabledDescription' =>
+        strings.settingEsphomeEnabledDescription,
+      'settingEsphomeEntitiesTitle' => strings.settingEsphomeEntitiesTitle,
+      'settingEsphomeEntitiesDescription' =>
+        strings.settingEsphomeEntitiesDescription,
+      'settingEsphomeExcludedEntitiesTitle' =>
+        strings.settingEsphomeExcludedEntitiesTitle,
+      'settingEsphomeExcludedEntitiesDescription' =>
+        strings.settingEsphomeExcludedEntitiesDescription,
+      'settingEsphomeNodeNameTitle' => strings.settingEsphomeNodeNameTitle,
+      'settingEsphomeNodeNameDescription' =>
+        strings.settingEsphomeNodeNameDescription,
+      'settingEsphomeNodeNamePlaceholder' =>
+        strings.settingEsphomeNodeNamePlaceholder,
+      'settingBtproxyKeyTitle' => strings.settingBtproxyKeyTitle,
+      'settingBtproxyKeyDescription' => strings.settingBtproxyKeyDescription,
+      'settingBtproxyKeyPlaceholder' => strings.settingBtproxyKeyPlaceholder,
+      'settingBtproxyPortTitle' => strings.settingBtproxyPortTitle,
+      'settingBtproxyPortDescription' => strings.settingBtproxyPortDescription,
+      'esphomeExcludedInvalid' => strings.esphomeExcludedInvalid,
       'settingClapStrictnessTitle' => strings.settingClapStrictnessTitle,
       'settingClapStrictnessDescription' =>
         strings.settingClapStrictnessDescription,

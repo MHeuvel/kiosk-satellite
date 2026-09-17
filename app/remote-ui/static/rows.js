@@ -1,4 +1,4 @@
-import { launcherText } from './localization.js';
+import { esphomeText, launcherText } from './localization.js';
 import { intercomError, mediaText, cameraText, cameraError, deviceText, haText, screensaverText, screensaverError, t } from './localization.js';
 import { watchUpdates } from './live.js';
 import {
@@ -122,7 +122,7 @@ function showRowError(row, message, onRetry) {
     el.className = 'row-error';
     row.appendChild(el);
   }
-  el.textContent = cameraError(screensaverError(haText(deviceText(intercomError(mediaText(message))))));
+  el.textContent = cameraError(screensaverError(haText(deviceText(intercomError(esphomeText(mediaText(message)))))));
   if (onRetry) {
     const retry = document.createElement('button');
     retry.className = 'btn-ghost';
@@ -400,21 +400,26 @@ export function settingRow(s) {
     summary.className = 'device';
     const refresh = () => {
       const count = new Set(chosen()).size;
-      summary.textContent = count ? `${count} excluded` : 'All available entities exposed';
+      summary.textContent = count ? t('esphomeExcludedCount', {count}) : esphomeText('All available entities exposed');
     };
     refresh();
     const button = document.createElement('button');
     button.className = 'btn-ghost';
-    button.textContent = 'Edit';
-    button.addEventListener('click', async () => {
-      const picked = await openEspHomeEntityPicker(chosen());
-      if (picked === null) return;
+    button.textContent = esphomeText('Edit');
+    row.updateSetting = () => { refresh(); return true; };
+    row.saveExclusions = async (picked) => {
       try {
         await save(JSON.stringify(picked));
         refresh();
       } catch (_) {
-        showRowError(row, 'Could not save exclusions. Try again.');
+        showRowError(row, esphomeText('Could not save exclusions. Try again.'));
       }
+    };
+    button.addEventListener('click', async () => {
+      const picked = await openEspHomeEntityPicker(chosen());
+      if (picked === null) return;
+      const current = document.querySelector('[data-key="esphome.excluded_entities"]') || row;
+      await current.saveExclusions(picked);
     });
     row.append(summary, button);
     return row;

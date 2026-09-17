@@ -130,7 +130,8 @@ List<Widget> _sectionedCards(
       if (current != null && !(out.isEmpty && current == subpage)) {
         final heading = current;
         out.add(
-          (def.category == 'Device' ||
+          (def.category == 'ESPHome' ||
+                  def.category == 'Device' ||
                   def.category == 'Home Assistant' ||
                   def.category == 'Screen & Audio' ||
                   def.category == 'Screensaver')
@@ -446,6 +447,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         screensaverTextFor: (text) => screensaverText(context, text),
         launcherTextFor: (text) => launcherText(context, text),
         kioskTextFor: (text) => kioskText(context, text),
+        esphomeTextFor: (text) => esphomeText(context, text),
         gestureTextFor: (text) => gestureText(context, text),
         fleetTextFor: (text) => fleetText(context, text),
         pluginTextFor: (text) => pluginText(context, text),
@@ -867,7 +869,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   storageKey:
                                       'settings-sub-$category-$_subpage',
                                   title:
-                                      (category == 'Device' ||
+                                      (category == 'ESPHome' ||
+                                          category == 'Device' ||
                                           category == 'Home Assistant' ||
                                           category == 'Screen & Audio' ||
                                           category == 'Screensaver')
@@ -1381,7 +1384,8 @@ class SubpageSettingsScreen extends StatelessWidget {
             const SizedBox(width: 12),
             Flexible(
               child: Text(
-                (category == 'Device' ||
+                (category == 'ESPHome' ||
+                        category == 'Device' ||
                         category == 'Home Assistant' ||
                         category == 'Screen & Audio' ||
                         category == 'Screensaver')
@@ -1465,7 +1469,7 @@ class _CategoryContentState extends State<_CategoryContent> {
     }
     return [
       cards.first,
-      WarnRow('The ESPHome server failed to start: $_espStartError'),
+      WarnRow(l10n(context).esphomeStartFailed(_espStartError!)),
       ...cards.skip(1),
     ];
   }
@@ -8897,14 +8901,22 @@ class _RealMacStatusRowState extends State<_RealMacStatusRow> {
       onChanged: widget.onChanged,
     );
     return switch (identity.source) {
-      WifiMacSource.hardware => HintRow('Reporting ${identity.mac}.'),
+      WifiMacSource.hardware => HintRow(
+        l10n(context).esphomeMacHardware(identity.mac!),
+      ),
       WifiMacSource.manual => Column(
-        children: [HintRow('Reporting ${identity.mac}, entered below.'), field],
+        children: [
+          HintRow(l10n(context).esphomeMacManual(identity.mac!)),
+          field,
+        ],
       ),
       WifiMacSource.none => Column(
         children: [
-          const WarnRow(
-            'Android will not reveal this device\'s hardware address.',
+          WarnRow(
+            esphomeText(
+              context,
+              "Android will not reveal this device's hardware address.",
+            ),
           ),
           field,
         ],
@@ -10498,7 +10510,10 @@ class SettingTile extends StatelessWidget {
                               context,
                               intercomError(
                                 context,
-                                mediaText(context, error!),
+                                esphomeText(
+                                  context,
+                                  mediaText(context, error!),
+                                ),
                               ),
                             ),
                           ),

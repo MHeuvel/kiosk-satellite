@@ -1,4 +1,4 @@
-import { launcherText, kioskText, intercomText, intercomError, cameraText, cameraError, cameraResolutionNotice, screensaverText, deviceText, haText, screenAudioText, haConnectionError, settingsPageText, t } from './localization.js';
+import { esphomeText, launcherText, kioskText, intercomText, intercomError, cameraText, cameraError, cameraResolutionNotice, screensaverText, deviceText, haText, screenAudioText, haConnectionError, settingsPageText, t } from './localization.js';
 import { preserveDraft } from './drafts.js';
 import { beginLiveRender, endLiveRender, watchUpdates } from './live.js';
 import {
@@ -1174,7 +1174,7 @@ async function renderSettings({ cached = false } = {}) {
     const paintError = (message) => {
       let row = root.querySelector('.esphome-start-error');
       if (!message) { row?.remove(); return; }
-      const text = 'The ESPHome server failed to start: ' + message;
+      const text = t('esphomeStartFailed', {error: message});
       if (row) { row.querySelector('span').textContent = text; return; }
       row = document.createElement('div');
       row.className = 'esphome-start-error';
@@ -2339,10 +2339,10 @@ export async function refreshRealMacNote() {
       '1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/>' +
       '<path d="M12 9v4M12 17h.01"/></svg><span></span>';
   note.querySelector('span').textContent = !mac
-    ? 'Android will not reveal this device\'s hardware address.'
+    ? esphomeText("Android will not reveal this device's hardware address.")
     : source === 'manual'
-      ? `Reporting ${mac}, entered below.`
-      : `Reporting ${mac}.`;
+      ? t('esphomeMacManual', {mac})
+      : t('esphomeMacHardware', {mac});
   row.insertAdjacentElement('afterend', note);
   const field = byKey['esphome.mac_override'];
   if (source !== 'hardware' && field) {

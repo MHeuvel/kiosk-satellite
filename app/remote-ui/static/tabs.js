@@ -218,7 +218,7 @@ export function refreshNavigationText() {
   if (!title) return;
   if (searchReturnTab) {
     title.textContent = t('settingsSearchResults');
-  } else if ((currentPath.startsWith('device/') || currentPath.startsWith('homeassistant/') || currentPath.startsWith('screenaudio/') || currentPath.startsWith('screensaver/') || currentPath.startsWith('fleet/'))) {
+  } else if ((currentPath.startsWith('esphome/') || currentPath.startsWith('device/') || currentPath.startsWith('homeassistant/') || currentPath.startsWith('screenaudio/') || currentPath.startsWith('screensaver/') || currentPath.startsWith('fleet/'))) {
     for (const node of title.childNodes) {
       if (node.nodeType === Node.TEXT_NODE) node.textContent = currentPath.startsWith('fleet/') ? [...document.querySelectorAll('#tab-fleet > .subpage')].find(p => p.dataset.subpage === currentPath.slice(6))?.dataset.title || currentPath.slice(6) : settingsPageText(currentPath.split('/')[0], currentPath.slice(currentPath.indexOf('/') + 1));
     }

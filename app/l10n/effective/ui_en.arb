@@ -841,6 +841,11 @@
     },
     "x-notes": "Empty is a valid choice. Preserve the numeric port bounds."
   },
+  "commonSelectAll": "Select all",
+  "@commonSelectAll": {
+    "context": "Common:Actions",
+    "description": "Select every item in a multi-selection list."
+  },
   "dlnaCannotDecode": "This device cannot decode this video.",
   "@dlnaCannotDecode": {
     "context": "Device > DLNA playback overlay",
@@ -1393,6 +1398,311 @@
     "x-locations": {
       "device": [
         "Drawer > version or update notice"
+      ]
+    }
+  },
+  "esphomeAllExposed": "All available entities exposed",
+  "@esphomeAllExposed": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Summary when no entities are excluded.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeExcludedCount": "{count} excluded",
+  "@esphomeExcludedCount": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Number of excluded entities.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Number of excluded entities."
+      }
+    }
+  },
+  "esphomeEntitySearch": "Search entities",
+  "@esphomeEntitySearch": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity search hint and accessibility label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeEntityLoading": "Loading entities…",
+  "@esphomeEntityLoading": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Loading notice.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeEntityUnavailable": "Currently unavailable",
+  "@esphomeEntityUnavailable": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "An excluded entity that the server no longer reports.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeEntityNoMatch": "No matching entities",
+  "@esphomeEntityNoMatch": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "No results for the search.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeEntityLoadFailed": "Could not load entities. Close the picker and try again.",
+  "@esphomeEntityLoadFailed": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity loading failure.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeEntitySaveFailed": "Could not save exclusions. Try again.",
+  "@esphomeEntitySaveFailed": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity selection save failure.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeTypeConfig": "Configuration",
+  "@esphomeTypeConfig": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeTypeDiagnostics": "Diagnostics",
+  "@esphomeTypeDiagnostics": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeTypeSensorGroup": "Sensor",
+  "@esphomeTypeSensorGroup": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeTypeControl": "Control",
+  "@esphomeTypeControl": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeTypeSensor": "sensor",
+  "@esphomeTypeSensor": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeTypeTextSensor": "text sensor",
+  "@esphomeTypeTextSensor": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeTypeBinarySensor": "binary sensor",
+  "@esphomeTypeBinarySensor": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeTypeCamera": "camera",
+  "@esphomeTypeCamera": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeTypeSwitch": "switch",
+  "@esphomeTypeSwitch": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeTypeButton": "button",
+  "@esphomeTypeButton": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeTypeNumber": "number",
+  "@esphomeTypeNumber": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeTypeSelect": "select",
+  "@esphomeTypeSelect": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeTypeLight": "light",
+  "@esphomeTypeLight": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeTypeUpdate": "update",
+  "@esphomeTypeUpdate": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeTypeText": "text",
+  "@esphomeTypeText": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
       ]
     }
   },
@@ -15976,6 +16286,362 @@
       ],
       "remoteAdmin": [
         "DLNA Renderer > Server port"
+      ]
+    }
+  },
+  "settingEsphomeRealMacTitle": "Use real Wi-Fi MAC address",
+  "@settingEsphomeRealMacTitle": {
+    "context": "Settings > ESPHome > Advanced settings",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Advanced settings"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Advanced settings"
+      ]
+    }
+  },
+  "settingEsphomeRealMacDescription": "Home Assistant links this kiosk with the same device your network integrations already track. Changing this creates a new ESPHome device in Home Assistant.",
+  "@settingEsphomeRealMacDescription": {
+    "context": "Settings > ESPHome > Advanced settings",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Advanced settings"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Advanced settings"
+      ]
+    }
+  },
+  "settingEsphomeMacOverrideTitle": "Spoof Wi-Fi MAC address",
+  "@settingEsphomeMacOverrideTitle": {
+    "context": "Settings > ESPHome > Advanced settings",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Advanced settings"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Advanced settings"
+      ]
+    }
+  },
+  "settingEsphomeMacOverrideDescription": "Since the MAC address cannot be resolved, you can use this field to enter your own. Changing this creates a new ESPHome device in Home Assistant.",
+  "@settingEsphomeMacOverrideDescription": {
+    "context": "Settings > ESPHome > Advanced settings",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Advanced settings"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Advanced settings"
+      ]
+    }
+  },
+  "esphomeAdvanced": "Advanced settings",
+  "@esphomeAdvanced": {
+    "context": "Settings > ESPHome > Advanced settings",
+    "description": "Advanced identity page link and heading.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Advanced settings"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Advanced settings"
+      ]
+    }
+  },
+  "esphomeAdvancedHelp": "Real or spoofed Wi-Fi MAC address",
+  "@esphomeAdvancedHelp": {
+    "context": "Settings > ESPHome > Advanced settings",
+    "description": "Description below the Advanced settings link.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Advanced settings"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Advanced settings"
+      ]
+    }
+  },
+  "esphomeMacInvalid": "Enter a valid MAC address.",
+  "@esphomeMacInvalid": {
+    "context": "Settings > ESPHome > Advanced settings",
+    "description": "Validation error for a manually entered address.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Advanced settings"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Advanced settings"
+      ]
+    }
+  },
+  "esphomeMacHardware": "Reporting {mac}.",
+  "@esphomeMacHardware": {
+    "context": "Settings > ESPHome > Advanced settings",
+    "description": "Status when the hardware address is used.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Advanced settings"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Advanced settings"
+      ]
+    },
+    "placeholders": {
+      "mac": {
+        "type": "String",
+        "description": "Device MAC address. Keep it unchanged."
+      }
+    }
+  },
+  "esphomeMacManual": "Reporting {mac}, entered below.",
+  "@esphomeMacManual": {
+    "context": "Settings > ESPHome > Advanced settings",
+    "description": "Status when a manually entered address is used.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Advanced settings"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Advanced settings"
+      ]
+    },
+    "placeholders": {
+      "mac": {
+        "type": "String",
+        "description": "Device MAC address. Keep it unchanged."
+      }
+    }
+  },
+  "esphomeMacUnavailable": "Android will not reveal this device's hardware address.",
+  "@esphomeMacUnavailable": {
+    "context": "Settings > ESPHome > Advanced settings",
+    "description": "Status when Android cannot provide the hardware address.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Advanced settings"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Advanced settings"
+      ]
+    }
+  },
+  "settingEsphomeEnabledTitle": "Enable ESPHome",
+  "@settingEsphomeEnabledTitle": {
+    "context": "Settings > ESPHome",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome"
+      ],
+      "remoteAdmin": [
+        "ESPHome"
+      ]
+    }
+  },
+  "settingEsphomeEnabledDescription": "Serve this kiosk to Home Assistant as an ESPHome device: its sensors and controls as native entities. Discovered automatically.",
+  "@settingEsphomeEnabledDescription": {
+    "context": "Settings > ESPHome",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome"
+      ],
+      "remoteAdmin": [
+        "ESPHome"
+      ]
+    }
+  },
+  "settingEsphomeEntitiesTitle": "Expose kiosk entities",
+  "@settingEsphomeEntitiesTitle": {
+    "context": "Settings > ESPHome",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome"
+      ],
+      "remoteAdmin": [
+        "ESPHome"
+      ]
+    }
+  },
+  "settingEsphomeEntitiesDescription": "Serve the sensors and controls of this device as ESPHome entities.",
+  "@settingEsphomeEntitiesDescription": {
+    "context": "Settings > ESPHome",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome"
+      ],
+      "remoteAdmin": [
+        "ESPHome"
+      ]
+    }
+  },
+  "settingEsphomeExcludedEntitiesTitle": "Excluded entities",
+  "@settingEsphomeExcludedEntitiesTitle": {
+    "context": "Settings > ESPHome",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome"
+      ],
+      "remoteAdmin": [
+        "ESPHome"
+      ]
+    }
+  },
+  "settingEsphomeExcludedEntitiesDescription": "Pick entities to exclude from Home Assistant. All other available entities are exposed. Saving reconnects ESPHome.",
+  "@settingEsphomeExcludedEntitiesDescription": {
+    "context": "Settings > ESPHome",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome"
+      ],
+      "remoteAdmin": [
+        "ESPHome"
+      ]
+    }
+  },
+  "settingEsphomeNodeNameTitle": "Node name",
+  "@settingEsphomeNodeNameTitle": {
+    "context": "Settings > ESPHome",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome"
+      ],
+      "remoteAdmin": [
+        "ESPHome"
+      ]
+    }
+  },
+  "settingEsphomeNodeNameDescription": "Names this kiosk on the network, and Home Assistant builds its action names from it. Renaming it renames those actions.",
+  "@settingEsphomeNodeNameDescription": {
+    "context": "Settings > ESPHome",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome"
+      ],
+      "remoteAdmin": [
+        "ESPHome"
+      ]
+    }
+  },
+  "settingEsphomeNodeNamePlaceholder": "Set on first start",
+  "@settingEsphomeNodeNamePlaceholder": {
+    "context": "Settings > ESPHome",
+    "description": "Placeholder before the server has started.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome"
+      ],
+      "remoteAdmin": [
+        "ESPHome"
+      ]
+    }
+  },
+  "settingBtproxyKeyTitle": "Encryption key",
+  "@settingBtproxyKeyTitle": {
+    "context": "Settings > ESPHome",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome"
+      ],
+      "remoteAdmin": [
+        "ESPHome"
+      ]
+    }
+  },
+  "settingBtproxyKeyDescription": "Paste this key into Home Assistant when it asks for the encryption key. Generated automatically on first start.",
+  "@settingBtproxyKeyDescription": {
+    "context": "Settings > ESPHome",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome"
+      ],
+      "remoteAdmin": [
+        "ESPHome"
+      ]
+    }
+  },
+  "settingBtproxyKeyPlaceholder": "Generated on first start",
+  "@settingBtproxyKeyPlaceholder": {
+    "context": "Settings > ESPHome",
+    "description": "Placeholder before the server has started.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome"
+      ],
+      "remoteAdmin": [
+        "ESPHome"
+      ]
+    }
+  },
+  "settingBtproxyPortTitle": "API port",
+  "@settingBtproxyPortTitle": {
+    "context": "Settings > ESPHome",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome"
+      ],
+      "remoteAdmin": [
+        "ESPHome"
+      ]
+    }
+  },
+  "settingBtproxyPortDescription": "The port Home Assistant connects to. Leave empty for the ESPHome standard, 6053.",
+  "@settingBtproxyPortDescription": {
+    "context": "Settings > ESPHome",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome"
+      ],
+      "remoteAdmin": [
+        "ESPHome"
+      ]
+    }
+  },
+  "esphomeStartFailed": "The ESPHome server failed to start: {error}",
+  "@esphomeStartFailed": {
+    "context": "Settings > ESPHome",
+    "description": "Server startup failure with the original technical detail.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome"
+      ],
+      "remoteAdmin": [
+        "ESPHome"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Original technical error. Keep it unchanged."
+      }
+    }
+  },
+  "esphomeExcludedInvalid": "Choose a list of entity IDs.",
+  "@esphomeExcludedInvalid": {
+    "context": "Settings > ESPHome",
+    "description": "Invalid entity exclusion setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome"
+      ],
+      "remoteAdmin": [
+        "ESPHome"
       ]
     }
   },

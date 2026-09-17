@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
 import vm from 'node:vm';
-import { cameraError, deviceText, haText, mediaText, intercomError, screensaverError } from '../remote-ui/static/localization.js';
+import { esphomeText, cameraError, deviceText, haText, mediaText, intercomError, screensaverError } from '../remote-ui/static/localization.js';
 
 const source = readFileSync(new URL('../remote-ui/static/rows.js', import.meta.url), 'utf8');
 const errors = source.slice(source.indexOf('function showRowError('), source.indexOf('function albumArtCacheRow('));
@@ -38,7 +38,7 @@ function client(key = 'browser.inject_js', { tag = 'textarea', type = 'textarea'
   let respond;
   let layoutUpdates = 0;
   const context = vm.createContext({
-    cameraError, deviceText, haText, mediaText, intercomError, screensaverError, s: cached, state: { settings: [cached] }, row, Event,
+    esphomeText, cameraError, deviceText, haText, mediaText, intercomError, screensaverError, s: cached, state: { settings: [cached] }, row, Event,
     document: { createElement: tag => new Element(tag) },
     api: async (path, options) => {
       assert.equal(path, '/api/settings');

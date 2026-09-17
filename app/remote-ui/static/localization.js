@@ -1,3 +1,4 @@
+import { esphomeTextMessageIds } from './esphome_text_ids.js';
 import { supportTextMessageIds } from './support_text_ids.js';
 import { fleetTextMessageIds } from './fleet_text_ids.js';
 import { pluginTextMessageIds } from './plugin_text_ids.js';
@@ -93,7 +94,8 @@ export function screensaverError(error) {
 }
 
 export function settingsPageText(category, english) {
-  return category === 'Device' || category === 'device' ? deviceText(english)
+  return ['ESPHome', 'esphome'].includes(category) ? esphomeText(english)
+    : category === 'Device' || category === 'device' ? deviceText(english)
     : category === 'Home Assistant' || category === 'homeassistant' ? haText(english)
     : category === 'Screen & Audio' || category === 'screenaudio' ? screenAudioText(english)
     : category === 'Screensaver' || category === 'screensaver' ? screensaverText(english)
@@ -250,3 +252,5 @@ export function fleetText(english) { return t(fleetTextMessageIds[english], {}, 
 export function pluginText(english) { return t(pluginTextMessageIds[english], {}, english); }
 
 export function supportText(english) { return t(supportTextMessageIds[english], {}, english); }
+
+export function esphomeText(english) { return t(esphomeTextMessageIds[english], {}, english); }

@@ -1,0 +1,308 @@
+{
+  "@@locale": "en",
+  "esphomeAllExposed": "All available entities exposed",
+  "@esphomeAllExposed": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Summary when no entities are excluded.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeExcludedCount": "{count} excluded",
+  "@esphomeExcludedCount": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Number of excluded entities.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Number of excluded entities."
+      }
+    }
+  },
+  "esphomeEntitySearch": "Search entities",
+  "@esphomeEntitySearch": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity search hint and accessibility label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeEntityLoading": "Loading entities…",
+  "@esphomeEntityLoading": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Loading notice.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeEntityUnavailable": "Currently unavailable",
+  "@esphomeEntityUnavailable": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "An excluded entity that the server no longer reports.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeEntityNoMatch": "No matching entities",
+  "@esphomeEntityNoMatch": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "No results for the search.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeEntityLoadFailed": "Could not load entities. Close the picker and try again.",
+  "@esphomeEntityLoadFailed": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity loading failure.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeEntitySaveFailed": "Could not save exclusions. Try again.",
+  "@esphomeEntitySaveFailed": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity selection save failure.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeTypeConfig": "Configuration",
+  "@esphomeTypeConfig": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeTypeDiagnostics": "Diagnostics",
+  "@esphomeTypeDiagnostics": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeTypeSensorGroup": "Sensor",
+  "@esphomeTypeSensorGroup": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeTypeControl": "Control",
+  "@esphomeTypeControl": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeTypeSensor": "sensor",
+  "@esphomeTypeSensor": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeTypeTextSensor": "text sensor",
+  "@esphomeTypeTextSensor": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeTypeBinarySensor": "binary sensor",
+  "@esphomeTypeBinarySensor": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeTypeCamera": "camera",
+  "@esphomeTypeCamera": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeTypeSwitch": "switch",
+  "@esphomeTypeSwitch": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeTypeButton": "button",
+  "@esphomeTypeButton": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeTypeNumber": "number",
+  "@esphomeTypeNumber": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeTypeSelect": "select",
+  "@esphomeTypeSelect": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeTypeLight": "light",
+  "@esphomeTypeLight": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeTypeUpdate": "update",
+  "@esphomeTypeUpdate": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  },
+  "esphomeTypeText": "text",
+  "@esphomeTypeText": {
+    "context": "Settings > ESPHome > Excluded entities",
+    "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Excluded entities"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Excluded entities"
+      ]
+    }
+  }
+}

@@ -509,6 +509,7 @@ List<SettingsSearchEntry> buildSettingsSearchIndex(
   String Function(String)? screensaverTextFor,
   String Function(String)? launcherTextFor,
   String Function(String)? kioskTextFor,
+  String Function(String)? esphomeTextFor,
   String Function(String)? gestureTextFor,
   String Function(String)? fleetTextFor,
   String Function(String)? pluginTextFor,
@@ -577,6 +578,8 @@ List<SettingsSearchEntry> buildSettingsSearchIndex(
         ? screenAudioTextFor
         : entry.category == 'Screensaver'
         ? screensaverTextFor
+        : entry.category == 'ESPHome'
+        ? esphomeTextFor
         : ['Kiosk', 'Home', 'Lockdown'].contains(entry.category)
         ? kioskTextFor
         : entry.category == 'Launcher'

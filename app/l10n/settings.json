@@ -1282,5 +1282,37 @@
   "lockdown.exit_gesture": {
     "title": "settingLockdownExitGestureTitle",
     "description": "settingLockdownExitGestureDescription"
+  },
+  "esphome.enabled": {
+    "title": "settingEsphomeEnabledTitle",
+    "description": "settingEsphomeEnabledDescription"
+  },
+  "esphome.entities": {
+    "title": "settingEsphomeEntitiesTitle",
+    "description": "settingEsphomeEntitiesDescription"
+  },
+  "esphome.excluded_entities": {
+    "title": "settingEsphomeExcludedEntitiesTitle",
+    "description": "settingEsphomeExcludedEntitiesDescription"
+  },
+  "esphome.node_name": {
+    "title": "settingEsphomeNodeNameTitle",
+    "description": "settingEsphomeNodeNameDescription"
+  },
+  "btproxy.key": {
+    "title": "settingBtproxyKeyTitle",
+    "description": "settingBtproxyKeyDescription"
+  },
+  "btproxy.port": {
+    "title": "settingBtproxyPortTitle",
+    "description": "settingBtproxyPortDescription"
+  },
+  "esphome.real_mac": {
+    "title": "settingEsphomeRealMacTitle",
+    "description": "settingEsphomeRealMacDescription"
+  },
+  "esphome.mac_override": {
+    "title": "settingEsphomeMacOverrideTitle",
+    "description": "settingEsphomeMacOverrideDescription"
   }
 }

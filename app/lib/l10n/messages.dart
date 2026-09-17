@@ -1,3 +1,4 @@
+import 'generated/esphome_text_ids.dart';
 import 'generated/support_text_ids.dart';
 import 'generated/fleet_text_ids.dart';
 import 'generated/plugin_text_ids.dart';
@@ -263,6 +264,7 @@ String settingsPageText(
   String category,
   String english,
 ) => switch (category) {
+  'ESPHome' => esphomeText(context, english),
   'Device' => deviceText(context, english),
   'Home Assistant' => haText(context, english),
   'Screen & Audio' => screenAudioText(context, english),
@@ -361,3 +363,7 @@ String pluginText(BuildContext context, String english) =>
 /// App-owned Logs and About labels, excluding diagnostic and provider data.
 String supportText(BuildContext context, String english) =>
     messageById(l10n(context), supportTextMessageIds[english], english);
+
+/// ESPHome setup labels, excluding entity names and network identifiers.
+String esphomeText(BuildContext context, String english) =>
+    messageById(l10n(context), esphomeTextMessageIds[english], english);

@@ -241,5 +241,7 @@ const settingPlaceholderMessageIds = <String, String>{
   "browser.inject_js": "browserInjectJsPlaceholder",
   "browser.inject_js_external": "browserInjectJsExternalPlaceholder",
   "dlna.port": "settingDlnaPortPlaceholder",
-  "intercom.key": "settingIntercomKeyPlaceholder"
+  "intercom.key": "settingIntercomKeyPlaceholder",
+  "esphome.node_name": "settingEsphomeNodeNamePlaceholder",
+  "btproxy.key": "settingBtproxyKeyPlaceholder"
 };

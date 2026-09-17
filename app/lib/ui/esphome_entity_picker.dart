@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
+import '../l10n/messages.dart';
+
 import '../core/command_registry.dart';
 import '../managers/settings/settings_manager.dart';
 
@@ -23,11 +25,11 @@ class EspHomeExcludedEntitiesRow extends StatelessWidget {
       settings.get(esphomeExcludedEntities),
     );
     return ListTile(
-      title: Text(esphomeExcludedEntities.title),
+      title: Text(esphomeExcludedEntities.localizedTitle(context)),
       subtitle: Text(
         selected.isEmpty
-            ? 'All available entities exposed'
-            : '${selected.length} excluded',
+            ? esphomeText(context, 'All available entities exposed')
+            : l10n(context).esphomeExcludedCount(selected.length.toString()),
       ),
       trailing: const Icon(Icons.chevron_right),
       onTap: () async {
@@ -83,16 +85,13 @@ class _EntityPickerState extends State<_EntityPicker> {
             <String, String>{
               'id': '${entity['objectId']}',
               'name': '${entity['name']}',
-              'detail': [
-                if (entity['categoryLabel'] != null)
-                  '${entity['categoryLabel']}',
-                '${entity['type']}'.replaceAll('_', ' '),
-              ].join(' · '),
+              'category': '${entity['categoryLabel'] ?? ''}',
+              'type': '${entity['type']}'.replaceAll('_', ' '),
             },
       ];
       final available = entities.map((e) => e['id']).toSet();
       for (final id in _selected.difference(available)) {
-        entities.add({'id': id, 'name': id, 'detail': 'Currently unavailable'});
+        entities.add({'id': id, 'name': id, 'unavailable': 'true'});
       }
       entities.sort(
         (a, b) => a['name']!.toLowerCase().compareTo(b['name']!.toLowerCase()),
@@ -108,29 +107,37 @@ class _EntityPickerState extends State<_EntityPicker> {
     }
   }
 
+  String _detail(Map<String, String> entity) => entity['unavailable'] == 'true'
+      ? esphomeText(context, 'Currently unavailable')
+      : [entity['category'] ?? '', entity['type'] ?? '']
+            .where((value) => value.isNotEmpty)
+            .map((value) => esphomeText(context, value))
+            .join(' · ');
+
   @override
   Widget build(BuildContext context) {
     final filtered = _entities
         ?.where(
-          (e) => '${e['name']} ${e['id']} ${e['detail']}'
-              .toLowerCase()
-              .contains(_query),
+          (e) =>
+              '${e['name']} ${e['id']} ${_detail(e)} ${e['category']} ${e['type']}'
+                  .toLowerCase()
+                  .contains(_query),
         )
         .toList();
     return AlertDialog(
-      title: Text(esphomeExcludedEntities.title),
+      title: Text(esphomeExcludedEntities.localizedTitle(context)),
       content: SizedBox(
         width: 520,
         height: 460,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(esphomeExcludedEntities.description),
+            Text(esphomeExcludedEntities.localizedDescription(context)),
             const SizedBox(height: 12),
             TextField(
-              decoration: const InputDecoration(
-                hintText: 'Search entities',
-                prefixIcon: Icon(Icons.search),
+              decoration: InputDecoration(
+                hintText: esphomeText(context, 'Search entities'),
+                prefixIcon: const Icon(Icons.search),
               ),
               onChanged: (value) =>
                   setState(() => _query = value.trim().toLowerCase()),
@@ -138,11 +145,13 @@ class _EntityPickerState extends State<_EntityPicker> {
             const SizedBox(height: 8),
             Expanded(
               child: _error != null
-                  ? Center(child: Text(_error!))
+                  ? Center(child: Text(esphomeText(context, _error!)))
                   : filtered == null
                   ? const Center(child: CircularProgressIndicator())
                   : filtered.isEmpty
-                  ? const Center(child: Text('No matching entities'))
+                  ? Center(
+                      child: Text(esphomeText(context, 'No matching entities')),
+                    )
                   : ListView.builder(
                       itemCount: filtered.length,
                       itemBuilder: (context, index) {
@@ -150,7 +159,7 @@ class _EntityPickerState extends State<_EntityPicker> {
                         final id = entity['id']!;
                         return CheckboxListTile(
                           title: Text(entity['name']!),
-                          subtitle: Text(entity['detail']!),
+                          subtitle: Text(_detail(entity)),
                           value: _selected.contains(id),
                           onChanged: (checked) => setState(() {
                             if (checked == true) {
@@ -173,21 +182,21 @@ class _EntityPickerState extends State<_EntityPicker> {
               : () => setState(() {
                   _selected.addAll(_entities!.map((entity) => entity['id']!));
                 }),
-          child: const Text('Select all'),
+          child: Text(esphomeText(context, 'Select all')),
         ),
         TextButton(
           onPressed: _entities == null ? null : () => setState(_selected.clear),
-          child: const Text('Clear'),
+          child: Text(esphomeText(context, 'Clear')),
         ),
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('Cancel'),
+          child: Text(esphomeText(context, 'Cancel')),
         ),
         TextButton(
           onPressed: _entities == null
               ? null
               : () => Navigator.pop(context, _selected),
-          child: const Text('Save'),
+          child: Text(esphomeText(context, 'Save')),
         ),
       ],
     );

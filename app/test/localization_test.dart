@@ -58,7 +58,15 @@ void main() {
     final strings = UiStringsEn();
     for (final def in allSettings) {
       if (def.titleMessageId == null) continue;
-      expect(def.hidden, isFalse, reason: '${def.key} has no visible setting');
+      // The MAC override is rendered by both interfaces after a failed
+      // hardware read, although it is hidden from the generic settings list.
+      if (def.key != esphomeMacOverride.key) {
+        expect(
+          def.hidden,
+          isFalse,
+          reason: '${def.key} has no visible setting',
+        );
+      }
       expect(source[def.titleMessageId], def.title, reason: def.key);
       expect(
         source[def.descriptionMessageId],

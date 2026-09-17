@@ -303,6 +303,9 @@ class UiStringsEs extends UiStrings {
       'Introduce un puerto entre 1024 y 65535 o déjalo vacío';
 
   @override
+  String get commonSelectAll => 'Select all';
+
+  @override
   String get dlnaCannotDecode =>
       'Este dispositivo no puede decodificar este video.';
 
@@ -472,6 +475,78 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get drawerNoReleaseNotes => 'No hay notas de la versión.';
+
+  @override
+  String get esphomeAllExposed => 'All available entities exposed';
+
+  @override
+  String esphomeExcludedCount(String count) {
+    return '$count excluded';
+  }
+
+  @override
+  String get esphomeEntitySearch => 'Search entities';
+
+  @override
+  String get esphomeEntityLoading => 'Loading entities…';
+
+  @override
+  String get esphomeEntityUnavailable => 'Currently unavailable';
+
+  @override
+  String get esphomeEntityNoMatch => 'No matching entities';
+
+  @override
+  String get esphomeEntityLoadFailed =>
+      'Could not load entities. Close the picker and try again.';
+
+  @override
+  String get esphomeEntitySaveFailed => 'Could not save exclusions. Try again.';
+
+  @override
+  String get esphomeTypeConfig => 'Configuration';
+
+  @override
+  String get esphomeTypeDiagnostics => 'Diagnostics';
+
+  @override
+  String get esphomeTypeSensorGroup => 'Sensor';
+
+  @override
+  String get esphomeTypeControl => 'Control';
+
+  @override
+  String get esphomeTypeSensor => 'sensor';
+
+  @override
+  String get esphomeTypeTextSensor => 'text sensor';
+
+  @override
+  String get esphomeTypeBinarySensor => 'binary sensor';
+
+  @override
+  String get esphomeTypeCamera => 'camera';
+
+  @override
+  String get esphomeTypeSwitch => 'switch';
+
+  @override
+  String get esphomeTypeButton => 'button';
+
+  @override
+  String get esphomeTypeNumber => 'number';
+
+  @override
+  String get esphomeTypeSelect => 'select';
+
+  @override
+  String get esphomeTypeLight => 'light';
+
+  @override
+  String get esphomeTypeUpdate => 'update';
+
+  @override
+  String get esphomeTypeText => 'text';
 
   @override
   String get fleetFleetManagementNeedsTheRemoteAdmin =>
@@ -4309,6 +4384,99 @@ class UiStringsEs extends UiStrings {
   @override
   String get settingDlnaPortPlaceholder =>
       'Se establece cuando inicia el receptor';
+
+  @override
+  String get settingEsphomeRealMacTitle => 'Use real Wi-Fi MAC address';
+
+  @override
+  String get settingEsphomeRealMacDescription =>
+      'Home Assistant links this kiosk with the same device your network integrations already track. Changing this creates a new ESPHome device in Home Assistant.';
+
+  @override
+  String get settingEsphomeMacOverrideTitle => 'Spoof Wi-Fi MAC address';
+
+  @override
+  String get settingEsphomeMacOverrideDescription =>
+      'Since the MAC address cannot be resolved, you can use this field to enter your own. Changing this creates a new ESPHome device in Home Assistant.';
+
+  @override
+  String get esphomeAdvanced => 'Advanced settings';
+
+  @override
+  String get esphomeAdvancedHelp => 'Real or spoofed Wi-Fi MAC address';
+
+  @override
+  String get esphomeMacInvalid => 'Enter a valid MAC address.';
+
+  @override
+  String esphomeMacHardware(String mac) {
+    return 'Reporting $mac.';
+  }
+
+  @override
+  String esphomeMacManual(String mac) {
+    return 'Reporting $mac, entered below.';
+  }
+
+  @override
+  String get esphomeMacUnavailable =>
+      'Android will not reveal this device\'s hardware address.';
+
+  @override
+  String get settingEsphomeEnabledTitle => 'Enable ESPHome';
+
+  @override
+  String get settingEsphomeEnabledDescription =>
+      'Serve this kiosk to Home Assistant as an ESPHome device: its sensors and controls as native entities. Discovered automatically.';
+
+  @override
+  String get settingEsphomeEntitiesTitle => 'Expose kiosk entities';
+
+  @override
+  String get settingEsphomeEntitiesDescription =>
+      'Serve the sensors and controls of this device as ESPHome entities.';
+
+  @override
+  String get settingEsphomeExcludedEntitiesTitle => 'Excluded entities';
+
+  @override
+  String get settingEsphomeExcludedEntitiesDescription =>
+      'Pick entities to exclude from Home Assistant. All other available entities are exposed. Saving reconnects ESPHome.';
+
+  @override
+  String get settingEsphomeNodeNameTitle => 'Node name';
+
+  @override
+  String get settingEsphomeNodeNameDescription =>
+      'Names this kiosk on the network, and Home Assistant builds its action names from it. Renaming it renames those actions.';
+
+  @override
+  String get settingEsphomeNodeNamePlaceholder => 'Set on first start';
+
+  @override
+  String get settingBtproxyKeyTitle => 'Encryption key';
+
+  @override
+  String get settingBtproxyKeyDescription =>
+      'Paste this key into Home Assistant when it asks for the encryption key. Generated automatically on first start.';
+
+  @override
+  String get settingBtproxyKeyPlaceholder => 'Generated on first start';
+
+  @override
+  String get settingBtproxyPortTitle => 'API port';
+
+  @override
+  String get settingBtproxyPortDescription =>
+      'The port Home Assistant connects to. Leave empty for the ESPHome standard, 6053.';
+
+  @override
+  String esphomeStartFailed(String error) {
+    return 'The ESPHome server failed to start: $error';
+  }
+
+  @override
+  String get esphomeExcludedInvalid => 'Choose a list of entity IDs.';
 
   @override
   String get settingClapStrictnessTitle => 'Detección de palmadas';

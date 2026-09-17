@@ -613,6 +613,12 @@ abstract class UiStrings {
   /// **'Enter a port between 1024 and 65535, or leave it empty'**
   String get dlnaPortInvalid;
 
+  /// Select every item in a multi-selection list.
+  ///
+  /// In en, this message translates to:
+  /// **'Select all'**
+  String get commonSelectAll;
+
   /// Playback failure caused by the device video decoder.
   ///
   /// In en, this message translates to:
@@ -924,6 +930,144 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'No release notes.'**
   String get drawerNoReleaseNotes;
+
+  /// Summary when no entities are excluded.
+  ///
+  /// In en, this message translates to:
+  /// **'All available entities exposed'**
+  String get esphomeAllExposed;
+
+  /// Number of excluded entities.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} excluded'**
+  String esphomeExcludedCount(String count);
+
+  /// Entity search hint and accessibility label.
+  ///
+  /// In en, this message translates to:
+  /// **'Search entities'**
+  String get esphomeEntitySearch;
+
+  /// Loading notice.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading entities…'**
+  String get esphomeEntityLoading;
+
+  /// An excluded entity that the server no longer reports.
+  ///
+  /// In en, this message translates to:
+  /// **'Currently unavailable'**
+  String get esphomeEntityUnavailable;
+
+  /// No results for the search.
+  ///
+  /// In en, this message translates to:
+  /// **'No matching entities'**
+  String get esphomeEntityNoMatch;
+
+  /// Entity loading failure.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load entities. Close the picker and try again.'**
+  String get esphomeEntityLoadFailed;
+
+  /// Entity selection save failure.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save exclusions. Try again.'**
+  String get esphomeEntitySaveFailed;
+
+  /// Entity category or type label. Entity names and identifiers remain unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Configuration'**
+  String get esphomeTypeConfig;
+
+  /// Entity category or type label. Entity names and identifiers remain unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Diagnostics'**
+  String get esphomeTypeDiagnostics;
+
+  /// Entity category or type label. Entity names and identifiers remain unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Sensor'**
+  String get esphomeTypeSensorGroup;
+
+  /// Entity category or type label. Entity names and identifiers remain unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Control'**
+  String get esphomeTypeControl;
+
+  /// Entity category or type label. Entity names and identifiers remain unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'sensor'**
+  String get esphomeTypeSensor;
+
+  /// Entity category or type label. Entity names and identifiers remain unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'text sensor'**
+  String get esphomeTypeTextSensor;
+
+  /// Entity category or type label. Entity names and identifiers remain unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'binary sensor'**
+  String get esphomeTypeBinarySensor;
+
+  /// Entity category or type label. Entity names and identifiers remain unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'camera'**
+  String get esphomeTypeCamera;
+
+  /// Entity category or type label. Entity names and identifiers remain unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'switch'**
+  String get esphomeTypeSwitch;
+
+  /// Entity category or type label. Entity names and identifiers remain unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'button'**
+  String get esphomeTypeButton;
+
+  /// Entity category or type label. Entity names and identifiers remain unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'number'**
+  String get esphomeTypeNumber;
+
+  /// Entity category or type label. Entity names and identifiers remain unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'select'**
+  String get esphomeTypeSelect;
+
+  /// Entity category or type label. Entity names and identifiers remain unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'light'**
+  String get esphomeTypeLight;
+
+  /// Entity category or type label. Entity names and identifiers remain unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'update'**
+  String get esphomeTypeUpdate;
+
+  /// Entity category or type label. Entity names and identifiers remain unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'text'**
+  String get esphomeTypeText;
 
   /// Visible label, help or status in this section.
   ///
@@ -7436,6 +7580,162 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Set when the renderer starts'**
   String get settingDlnaPortPlaceholder;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Use real Wi-Fi MAC address'**
+  String get settingEsphomeRealMacTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Assistant links this kiosk with the same device your network integrations already track. Changing this creates a new ESPHome device in Home Assistant.'**
+  String get settingEsphomeRealMacDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Spoof Wi-Fi MAC address'**
+  String get settingEsphomeMacOverrideTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Since the MAC address cannot be resolved, you can use this field to enter your own. Changing this creates a new ESPHome device in Home Assistant.'**
+  String get settingEsphomeMacOverrideDescription;
+
+  /// Advanced identity page link and heading.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced settings'**
+  String get esphomeAdvanced;
+
+  /// Description below the Advanced settings link.
+  ///
+  /// In en, this message translates to:
+  /// **'Real or spoofed Wi-Fi MAC address'**
+  String get esphomeAdvancedHelp;
+
+  /// Validation error for a manually entered address.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid MAC address.'**
+  String get esphomeMacInvalid;
+
+  /// Status when the hardware address is used.
+  ///
+  /// In en, this message translates to:
+  /// **'Reporting {mac}.'**
+  String esphomeMacHardware(String mac);
+
+  /// Status when a manually entered address is used.
+  ///
+  /// In en, this message translates to:
+  /// **'Reporting {mac}, entered below.'**
+  String esphomeMacManual(String mac);
+
+  /// Status when Android cannot provide the hardware address.
+  ///
+  /// In en, this message translates to:
+  /// **'Android will not reveal this device\'s hardware address.'**
+  String get esphomeMacUnavailable;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable ESPHome'**
+  String get settingEsphomeEnabledTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Serve this kiosk to Home Assistant as an ESPHome device: its sensors and controls as native entities. Discovered automatically.'**
+  String get settingEsphomeEnabledDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Expose kiosk entities'**
+  String get settingEsphomeEntitiesTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Serve the sensors and controls of this device as ESPHome entities.'**
+  String get settingEsphomeEntitiesDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Excluded entities'**
+  String get settingEsphomeExcludedEntitiesTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick entities to exclude from Home Assistant. All other available entities are exposed. Saving reconnects ESPHome.'**
+  String get settingEsphomeExcludedEntitiesDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Node name'**
+  String get settingEsphomeNodeNameTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Names this kiosk on the network, and Home Assistant builds its action names from it. Renaming it renames those actions.'**
+  String get settingEsphomeNodeNameDescription;
+
+  /// Placeholder before the server has started.
+  ///
+  /// In en, this message translates to:
+  /// **'Set on first start'**
+  String get settingEsphomeNodeNamePlaceholder;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Encryption key'**
+  String get settingBtproxyKeyTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste this key into Home Assistant when it asks for the encryption key. Generated automatically on first start.'**
+  String get settingBtproxyKeyDescription;
+
+  /// Placeholder before the server has started.
+  ///
+  /// In en, this message translates to:
+  /// **'Generated on first start'**
+  String get settingBtproxyKeyPlaceholder;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'API port'**
+  String get settingBtproxyPortTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The port Home Assistant connects to. Leave empty for the ESPHome standard, 6053.'**
+  String get settingBtproxyPortDescription;
+
+  /// Server startup failure with the original technical detail.
+  ///
+  /// In en, this message translates to:
+  /// **'The ESPHome server failed to start: {error}'**
+  String esphomeStartFailed(String error);
+
+  /// Invalid entity exclusion setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a list of entity IDs.'**
+  String get esphomeExcludedInvalid;
 
   /// Setting label.
   ///
