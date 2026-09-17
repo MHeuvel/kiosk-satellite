@@ -231,6 +231,24 @@ const settingOptionMessageIds = <String, Map<String, String>>{
     "taps5hold": "kioskGestureTaps5Hold",
     "taps7hold": "kioskGestureTaps7Hold",
     "none": "lockdownGestureNone"
+  },
+  "btproxy.scan_duty": {
+    "low_latency": "esphomeOptionContinuous",
+    "balanced": "esphomeOptionBalanced",
+    "low_power": "esphomeOptionLowPower"
+  },
+  "btproxy.nearby_sort": {
+    "last_seen": "esphomeOptionLastSeen",
+    "name": "esphomeOptionName",
+    "mac": "esphomeOptionMacAddress",
+    "rssi": "esphomeOptionSignalStrength"
+  },
+  "btproxy.min_connect_rssi": {
+    "": "esphomeOptionNoLimit",
+    "-70": "esphomeOption70DbmSameRoom",
+    "-80": "esphomeOption80Dbm",
+    "-85": "esphomeOption85Dbm",
+    "-90": "esphomeOption90DbmEdgeOfRange"
   }
 };
 const settingPlaceholderMessageIds = <String, String>{
@@ -243,5 +261,6 @@ const settingPlaceholderMessageIds = <String, String>{
   "dlna.port": "settingDlnaPortPlaceholder",
   "intercom.key": "settingIntercomKeyPlaceholder",
   "esphome.node_name": "settingEsphomeNodeNamePlaceholder",
-  "btproxy.key": "settingBtproxyKeyPlaceholder"
+  "btproxy.key": "settingBtproxyKeyPlaceholder",
+  "announcements.tts_engine": "esphomeTtsFirst"
 };

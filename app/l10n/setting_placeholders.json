@@ -8,5 +8,6 @@
   "dlna.port": "settingDlnaPortPlaceholder",
   "intercom.key": "settingIntercomKeyPlaceholder",
   "esphome.node_name": "settingEsphomeNodeNamePlaceholder",
-  "btproxy.key": "settingBtproxyKeyPlaceholder"
+  "btproxy.key": "settingBtproxyKeyPlaceholder",
+  "announcements.tts_engine": "esphomeTtsFirst"
 }

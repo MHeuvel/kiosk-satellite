@@ -1,0 +1,217 @@
+{
+  "@@locale": "en",
+  "settingNotificationsTransparencyTitle": "Transparency",
+  "@settingNotificationsTransparencyTitle": {
+    "context": "Settings > ESPHome > Notifications",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Notifications"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Notifications"
+      ]
+    }
+  },
+  "settingNotificationsTransparencyDescription": "Lets the screen behind show through the notification cards. Text and icons stay solid.",
+  "@settingNotificationsTransparencyDescription": {
+    "context": "Settings > ESPHome > Notifications",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Notifications"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Notifications"
+      ]
+    }
+  },
+  "settingNotificationsBlurTitle": "Background blur",
+  "@settingNotificationsBlurTitle": {
+    "context": "Settings > ESPHome > Notifications",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Notifications"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Notifications"
+      ]
+    }
+  },
+  "settingNotificationsBlurDescription": "Blurs what shows through a transparent notification card. Note: Blur cannot be applied over the Home Assistant dashboard surface.",
+  "@settingNotificationsBlurDescription": {
+    "context": "Settings > ESPHome > Notifications",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Notifications"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Notifications"
+      ]
+    }
+  },
+  "settingNotificationsChimeFileTitle": "Notification sound",
+  "@settingNotificationsChimeFileTitle": {
+    "context": "Settings > ESPHome > Notifications",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Notifications"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Notifications"
+      ]
+    }
+  },
+  "settingNotificationsChimeFileDescription": "Sound files are read from Android/data/me.jxl.kiosk_satellite/files/sounds on the device, also reachable from the File Manager.",
+  "@settingNotificationsChimeFileDescription": {
+    "context": "Settings > ESPHome > Notifications",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Notifications"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Notifications"
+      ]
+    }
+  },
+  "settingNotificationsVolumeTitle": "Notification volume",
+  "@settingNotificationsVolumeTitle": {
+    "context": "Settings > ESPHome > Notifications",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Notifications"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Notifications"
+      ]
+    }
+  },
+  "settingNotificationsVolumeDescription": "How loud the notification sound plays, apart from the media and assistant volumes.",
+  "@settingNotificationsVolumeDescription": {
+    "context": "Settings > ESPHome > Notifications",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Notifications"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Notifications"
+      ]
+    }
+  },
+  "esphomeNotifications": "Notifications",
+  "@esphomeNotifications": {
+    "context": "Settings > ESPHome > Notifications",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Notifications"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Notifications"
+      ]
+    }
+  },
+  "esphomeNotificationsHelp": "Transparency, blur, notification sound, test notification",
+  "@esphomeNotificationsHelp": {
+    "context": "Settings > ESPHome > Notifications",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Notifications"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Notifications"
+      ]
+    }
+  },
+  "esphomeAppearance": "Appearance",
+  "@esphomeAppearance": {
+    "context": "Settings > ESPHome > Notifications",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Notifications"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Notifications"
+      ]
+    }
+  },
+  "esphomeSound": "Sound",
+  "@esphomeSound": {
+    "context": "Settings > ESPHome > Notifications",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Notifications"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Notifications"
+      ]
+    }
+  },
+  "esphomeNotificationTest": "Test notification",
+  "@esphomeNotificationTest": {
+    "context": "Settings > ESPHome > Notifications",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Notifications"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Notifications"
+      ]
+    }
+  },
+  "esphomeNotificationHelp": "Notifications are sent from Home Assistant with the {action} action. Test shows one over the dashboard.",
+  "@esphomeNotificationHelp": {
+    "context": "Settings > ESPHome > Notifications",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Notifications"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Notifications"
+      ]
+    },
+    "placeholders": {
+      "action": {
+        "type": "String",
+        "description": "Home Assistant action identifier. Keep unchanged."
+      }
+    }
+  },
+  "esphomeNotificationBody": "This is what a notification from Home Assistant looks and sounds like.",
+  "@esphomeNotificationBody": {
+    "context": "Settings > ESPHome > Notifications",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Notifications"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Notifications"
+      ]
+    }
+  },
+  "esphomeNotificationSearch": "The Home Assistant action that sends notifications, and a button to show one.",
+  "@esphomeNotificationSearch": {
+    "context": "Settings > ESPHome > Notifications",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Notifications"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Notifications"
+      ]
+    }
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "@@locale": "en",
+  "esphomeNearby": "Nearby devices",
+  "@esphomeNearby": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeNearbySearch": "The Bluetooth devices this kiosk hears, with names where known.",
+  "@esphomeNearbySearch": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeNearbyEmpty": "Nothing heard yet.",
+  "@esphomeNearbyEmpty": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeNearbyWaiting": "Nothing heard yet. Devices appear here once the proxy is scanning.",
+  "@esphomeNearbyWaiting": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeRotating": "(rotating address)",
+  "@esphomeRotating": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeNearbyCount": "Showing the first {count} of {total}.",
+  "@esphomeNearbyCount": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Number to display."
+      },
+      "total": {
+        "type": "String",
+        "description": "Total device count."
+      }
+    }
+  },
+  "esphomeSlots": "Up to {count} devices can be connected at once through this proxy. Home Assistant routes further devices through other proxies.",
+  "@esphomeSlots": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Number to display."
+      }
+    }
+  },
+  "esphomeSecondsAgo": "{count}s ago",
+  "@esphomeSecondsAgo": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Number to display."
+      }
+    }
+  },
+  "esphomeMinutesAgo": "{count} min ago",
+  "@esphomeMinutesAgo": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Number to display."
+      }
+    }
+  },
+  "esphomeHoursAgo": "{count} h ago",
+  "@esphomeHoursAgo": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Number to display."
+      }
+    }
+  }
+}

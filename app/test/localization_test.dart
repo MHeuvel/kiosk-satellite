@@ -88,6 +88,7 @@ void main() {
             'Home',
             'Launcher',
             'Gestures',
+            'ESPHome',
           ].contains(s.category) &&
           !s.hidden,
     )) {

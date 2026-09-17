@@ -4356,6 +4356,403 @@ class UiStringsEn extends UiStrings {
       'Android will not reveal this device\'s hardware address.';
 
   @override
+  String get settingAnnouncementsEnabledTitle => 'Enable announcements';
+
+  @override
+  String get settingAnnouncementsEnabledDescription =>
+      'Play the announcements Home Assistant sends with the announce action.';
+
+  @override
+  String get settingAnnouncementsTtsEngineTitle => 'Text to speech engine';
+
+  @override
+  String get settingAnnouncementsTtsEngineDescription =>
+      'The Home Assistant text to speech entity that speaks announcements.';
+
+  @override
+  String get esphomeTtsFirst => 'First available';
+
+  @override
+  String get settingAnnouncementsChimeTitle => 'Chime first';
+
+  @override
+  String get settingAnnouncementsChimeDescription =>
+      'Play a chime before the announcement.';
+
+  @override
+  String get settingAnnouncementsChimeFileTitle => 'Chime sound';
+
+  @override
+  String get settingAnnouncementsChimeFileDescription =>
+      'Plays at the notification volume.';
+
+  @override
+  String get esphomeAnnouncements => 'Announcements';
+
+  @override
+  String get esphomeAnnouncementsHelp =>
+      'Spoken announcements from Home Assistant';
+
+  @override
+  String get esphomeChime => 'Chime';
+
+  @override
+  String get esphomeTtsUnavailable => 'Could not reach Home Assistant';
+
+  @override
+  String get settingBtproxyEnabledTitle => 'Enable Bluetooth proxy';
+
+  @override
+  String get settingBtproxyEnabledDescription =>
+      'Relay nearby Bluetooth devices to Home Assistant.';
+
+  @override
+  String get settingBtproxyScanDutyTitle => 'Scan intensity';
+
+  @override
+  String get settingBtproxyScanDutyDescription =>
+      'How much of the time the radio listens. Lower cuts CPU; devices that advertise rarely take longer to appear.';
+
+  @override
+  String get settingBtproxyConnectionsTitle => 'Allow device connections';
+
+  @override
+  String get settingBtproxyConnectionsDescription =>
+      'Home Assistant can connect to Bluetooth devices through this proxy.';
+
+  @override
+  String get settingBtproxyMacLookupTitle =>
+      'Look up device manufacturers online';
+
+  @override
+  String get settingBtproxyMacLookupDescription =>
+      'Names unknown nearby devices by their hardware address prefix using api.macvendors.com. Only the 3-byte manufacturer prefix is sent, once per manufacturer; nothing else leaves the device.';
+
+  @override
+  String get settingBtproxyNearbySortTitle => 'Sort by';
+
+  @override
+  String get settingBtproxyNearbySortDescription =>
+      'The order of the nearby devices list below.';
+
+  @override
+  String get settingBtproxyMinConnectRssiTitle =>
+      'Minimum signal for connections';
+
+  @override
+  String get settingBtproxyMinConnectRssiDescription =>
+      'Refuse device connections heard weaker than this, so a closer proxy takes them instead.';
+
+  @override
+  String get esphomeOptionContinuous => 'Continuous';
+
+  @override
+  String get esphomeOptionBalanced => 'Balanced';
+
+  @override
+  String get esphomeOptionLowPower => 'Low power';
+
+  @override
+  String get esphomeOptionLastSeen => 'Last seen';
+
+  @override
+  String get esphomeOptionName => 'Name';
+
+  @override
+  String get esphomeOptionMacAddress => 'MAC address';
+
+  @override
+  String get esphomeOptionSignalStrength => 'Signal strength';
+
+  @override
+  String get esphomeOptionNoLimit => 'No limit';
+
+  @override
+  String get esphomeOption70DbmSameRoom => '-70 dBm (same room)';
+
+  @override
+  String get esphomeOption80Dbm => '-80 dBm';
+
+  @override
+  String get esphomeOption85Dbm => '-85 dBm';
+
+  @override
+  String get esphomeOption90DbmEdgeOfRange => '-90 dBm (edge of range)';
+
+  @override
+  String get esphomeBluetooth => 'Bluetooth Proxy';
+
+  @override
+  String get esphomeBluetoothHelp =>
+      'Relay nearby Bluetooth devices to Home Assistant';
+
+  @override
+  String get esphomeBluetoothOff =>
+      'Bluetooth is off. Turn it on to use the proxy.';
+
+  @override
+  String get esphomeBluetoothUnsupported =>
+      'Not available on this device: it has no Bluetooth.';
+
+  @override
+  String get esphomeBluetoothBuildUnsupported =>
+      'Not available on this device: its Android build has no Bluetooth LE support.';
+
+  @override
+  String get esphomeIdentityBthome => 'BTHome sensor';
+
+  @override
+  String get esphomeIdentityXiaomi => 'Xiaomi sensor';
+
+  @override
+  String get esphomeIdentityQingping => 'Qingping sensor';
+
+  @override
+  String get esphomeIdentityGoogleNest => 'Google/Nest device';
+
+  @override
+  String get esphomeIdentityEddystone => 'Eddystone beacon';
+
+  @override
+  String get esphomeIdentityGoogleFastPair => 'Google Fast Pair device';
+
+  @override
+  String get esphomeIdentityAppleFindMy => 'Apple Find My device';
+
+  @override
+  String get esphomeIdentityExposure => 'Exposure notification (phone)';
+
+  @override
+  String get esphomeIdentityAugustYale => 'August/Yale lock';
+
+  @override
+  String get esphomeIdentityAmazon => 'Amazon device';
+
+  @override
+  String get esphomeIdentityTile => 'Tile tracker';
+
+  @override
+  String get esphomeIdentityInput => 'Input device (remote/keyboard)';
+
+  @override
+  String get esphomeIdentityHeartRate => 'Heart rate sensor';
+
+  @override
+  String get esphomeIdentityEnvironmental => 'Environmental sensor';
+
+  @override
+  String get esphomeIdentityApple => 'Apple device';
+
+  @override
+  String get esphomeIdentityWindows => 'Windows PC';
+
+  @override
+  String get esphomeIdentitySamsung => 'Samsung device';
+
+  @override
+  String get esphomeIdentityGoogle => 'Google device';
+
+  @override
+  String get esphomeIdentityUnknown => 'Unknown device';
+
+  @override
+  String esphomeIdentityVendor(String vendor) {
+    return '$vendor device';
+  }
+
+  @override
+  String get esphomeNearby => 'Nearby devices';
+
+  @override
+  String get esphomeNearbySearch =>
+      'The Bluetooth devices this kiosk hears, with names where known.';
+
+  @override
+  String get esphomeNearbyEmpty => 'Nothing heard yet.';
+
+  @override
+  String get esphomeNearbyWaiting =>
+      'Nothing heard yet. Devices appear here once the proxy is scanning.';
+
+  @override
+  String get esphomeRotating => '(rotating address)';
+
+  @override
+  String esphomeNearbyCount(String count, String total) {
+    return 'Showing the first $count of $total.';
+  }
+
+  @override
+  String esphomeSlots(String count) {
+    return 'Up to $count devices can be connected at once through this proxy. Home Assistant routes further devices through other proxies.';
+  }
+
+  @override
+  String esphomeSecondsAgo(String count) {
+    return '${count}s ago';
+  }
+
+  @override
+  String esphomeMinutesAgo(String count) {
+    return '$count min ago';
+  }
+
+  @override
+  String esphomeHoursAgo(String count) {
+    return '$count h ago';
+  }
+
+  @override
+  String get settingLocationEnabledTitle => 'Report location';
+
+  @override
+  String get settingLocationEnabledDescription =>
+      'Read the GPS position and serve it to Home Assistant as latitude, longitude, accuracy, altitude and speed sensors. Turning this on or off re-registers the ESPHome device.';
+
+  @override
+  String get settingLocationIntervalTitle => 'Update interval';
+
+  @override
+  String get settingLocationIntervalDescription =>
+      'Seconds between position readings.';
+
+  @override
+  String get esphomeGps => 'GPS Sensor';
+
+  @override
+  String get esphomeGpsHelp => 'Expose GPS sensor data to Home Assistant';
+
+  @override
+  String get esphomeLocationOff => 'Off.';
+
+  @override
+  String get esphomeLocationWaiting =>
+      'Waiting for the first fix. A cold start under open sky can take a few minutes.';
+
+  @override
+  String get esphomeCoordinates => 'Last coordinates';
+
+  @override
+  String get esphomeLocationDenied => 'Location permission not granted.';
+
+  @override
+  String get esphomeLocationAbsent => 'No GPS receiver.';
+
+  @override
+  String esphomeLocationError(String error) {
+    return 'GPS unavailable: $error';
+  }
+
+  @override
+  String get esphomeLocationUnsupported =>
+      'Not available on this device: it has no GPS receiver.';
+
+  @override
+  String get settingNotificationsTransparencyTitle => 'Transparency';
+
+  @override
+  String get settingNotificationsTransparencyDescription =>
+      'Lets the screen behind show through the notification cards. Text and icons stay solid.';
+
+  @override
+  String get settingNotificationsBlurTitle => 'Background blur';
+
+  @override
+  String get settingNotificationsBlurDescription =>
+      'Blurs what shows through a transparent notification card. Note: Blur cannot be applied over the Home Assistant dashboard surface.';
+
+  @override
+  String get settingNotificationsChimeFileTitle => 'Notification sound';
+
+  @override
+  String get settingNotificationsChimeFileDescription =>
+      'Sound files are read from Android/data/me.jxl.kiosk_satellite/files/sounds on the device, also reachable from the File Manager.';
+
+  @override
+  String get settingNotificationsVolumeTitle => 'Notification volume';
+
+  @override
+  String get settingNotificationsVolumeDescription =>
+      'How loud the notification sound plays, apart from the media and assistant volumes.';
+
+  @override
+  String get esphomeNotifications => 'Notifications';
+
+  @override
+  String get esphomeNotificationsHelp =>
+      'Transparency, blur, notification sound, test notification';
+
+  @override
+  String get esphomeAppearance => 'Appearance';
+
+  @override
+  String get esphomeSound => 'Sound';
+
+  @override
+  String get esphomeNotificationTest => 'Test notification';
+
+  @override
+  String esphomeNotificationHelp(String action) {
+    return 'Notifications are sent from Home Assistant with the $action action. Test shows one over the dashboard.';
+  }
+
+  @override
+  String get esphomeNotificationBody =>
+      'This is what a notification from Home Assistant looks and sounds like.';
+
+  @override
+  String get esphomeNotificationSearch =>
+      'The Home Assistant action that sends notifications, and a button to show one.';
+
+  @override
+  String get esphomeLocation => 'Location';
+
+  @override
+  String get esphomeLocationSearch =>
+      'The Location grant the location sensors need.';
+
+  @override
+  String get esphomeBluetoothSearch =>
+      'The Nearby devices grant the Bluetooth proxy needs to scan.';
+
+  @override
+  String get esphomeLocationMissing =>
+      'Without this the GPS receiver cannot be read and the location sensors stay unknown.';
+
+  @override
+  String get esphomeLocationServicesOff =>
+      'Location is off in the device settings, so the receiver delivers nothing.';
+
+  @override
+  String get esphomeLocationGranted =>
+      'The location sensors can read the GPS receiver.';
+
+  @override
+  String get esphomeBluetoothGranted =>
+      'The proxy can scan for nearby Bluetooth devices.';
+
+  @override
+  String get esphomeBluetoothMissing =>
+      'Without this the proxy cannot scan for devices.';
+
+  @override
+  String get esphomeBluetoothLocationMissing =>
+      'Android only delivers Bluetooth scan results, beacons included, with Location granted. The proxy never reads the device position.';
+
+  @override
+  String get esphomeBluetoothLocationOff =>
+      'Location is off in the device settings, so Bluetooth scanning finds nothing.';
+
+  @override
+  String get esphomeBluetoothBeacons => 'Bluetooth scanning can hear beacons.';
+
+  @override
+  String get esphomeSent => 'Sent';
+
+  @override
+  String get esphomeNotsaved => 'Not saved';
+
+  @override
   String get settingEsphomeEnabledTitle => 'Enable ESPHome';
 
   @override

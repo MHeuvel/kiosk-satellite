@@ -1248,6 +1248,139 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'esphomeAdvancedHelp' => strings.esphomeAdvancedHelp,
       'esphomeMacInvalid' => strings.esphomeMacInvalid,
       'esphomeMacUnavailable' => strings.esphomeMacUnavailable,
+      'settingAnnouncementsEnabledTitle' =>
+        strings.settingAnnouncementsEnabledTitle,
+      'settingAnnouncementsEnabledDescription' =>
+        strings.settingAnnouncementsEnabledDescription,
+      'settingAnnouncementsTtsEngineTitle' =>
+        strings.settingAnnouncementsTtsEngineTitle,
+      'settingAnnouncementsTtsEngineDescription' =>
+        strings.settingAnnouncementsTtsEngineDescription,
+      'esphomeTtsFirst' => strings.esphomeTtsFirst,
+      'settingAnnouncementsChimeTitle' =>
+        strings.settingAnnouncementsChimeTitle,
+      'settingAnnouncementsChimeDescription' =>
+        strings.settingAnnouncementsChimeDescription,
+      'settingAnnouncementsChimeFileTitle' =>
+        strings.settingAnnouncementsChimeFileTitle,
+      'settingAnnouncementsChimeFileDescription' =>
+        strings.settingAnnouncementsChimeFileDescription,
+      'esphomeAnnouncements' => strings.esphomeAnnouncements,
+      'esphomeAnnouncementsHelp' => strings.esphomeAnnouncementsHelp,
+      'esphomeChime' => strings.esphomeChime,
+      'esphomeTtsUnavailable' => strings.esphomeTtsUnavailable,
+      'settingBtproxyEnabledTitle' => strings.settingBtproxyEnabledTitle,
+      'settingBtproxyEnabledDescription' =>
+        strings.settingBtproxyEnabledDescription,
+      'settingBtproxyScanDutyTitle' => strings.settingBtproxyScanDutyTitle,
+      'settingBtproxyScanDutyDescription' =>
+        strings.settingBtproxyScanDutyDescription,
+      'settingBtproxyConnectionsTitle' =>
+        strings.settingBtproxyConnectionsTitle,
+      'settingBtproxyConnectionsDescription' =>
+        strings.settingBtproxyConnectionsDescription,
+      'settingBtproxyMacLookupTitle' => strings.settingBtproxyMacLookupTitle,
+      'settingBtproxyMacLookupDescription' =>
+        strings.settingBtproxyMacLookupDescription,
+      'settingBtproxyNearbySortTitle' => strings.settingBtproxyNearbySortTitle,
+      'settingBtproxyNearbySortDescription' =>
+        strings.settingBtproxyNearbySortDescription,
+      'settingBtproxyMinConnectRssiTitle' =>
+        strings.settingBtproxyMinConnectRssiTitle,
+      'settingBtproxyMinConnectRssiDescription' =>
+        strings.settingBtproxyMinConnectRssiDescription,
+      'esphomeOptionContinuous' => strings.esphomeOptionContinuous,
+      'esphomeOptionBalanced' => strings.esphomeOptionBalanced,
+      'esphomeOptionLowPower' => strings.esphomeOptionLowPower,
+      'esphomeOptionLastSeen' => strings.esphomeOptionLastSeen,
+      'esphomeOptionName' => strings.esphomeOptionName,
+      'esphomeOptionMacAddress' => strings.esphomeOptionMacAddress,
+      'esphomeOptionSignalStrength' => strings.esphomeOptionSignalStrength,
+      'esphomeOptionNoLimit' => strings.esphomeOptionNoLimit,
+      'esphomeOption70DbmSameRoom' => strings.esphomeOption70DbmSameRoom,
+      'esphomeOption80Dbm' => strings.esphomeOption80Dbm,
+      'esphomeOption85Dbm' => strings.esphomeOption85Dbm,
+      'esphomeOption90DbmEdgeOfRange' => strings.esphomeOption90DbmEdgeOfRange,
+      'esphomeBluetooth' => strings.esphomeBluetooth,
+      'esphomeBluetoothHelp' => strings.esphomeBluetoothHelp,
+      'esphomeBluetoothOff' => strings.esphomeBluetoothOff,
+      'esphomeBluetoothUnsupported' => strings.esphomeBluetoothUnsupported,
+      'esphomeBluetoothBuildUnsupported' =>
+        strings.esphomeBluetoothBuildUnsupported,
+      'esphomeIdentityBthome' => strings.esphomeIdentityBthome,
+      'esphomeIdentityXiaomi' => strings.esphomeIdentityXiaomi,
+      'esphomeIdentityQingping' => strings.esphomeIdentityQingping,
+      'esphomeIdentityGoogleNest' => strings.esphomeIdentityGoogleNest,
+      'esphomeIdentityEddystone' => strings.esphomeIdentityEddystone,
+      'esphomeIdentityGoogleFastPair' => strings.esphomeIdentityGoogleFastPair,
+      'esphomeIdentityAppleFindMy' => strings.esphomeIdentityAppleFindMy,
+      'esphomeIdentityExposure' => strings.esphomeIdentityExposure,
+      'esphomeIdentityAugustYale' => strings.esphomeIdentityAugustYale,
+      'esphomeIdentityAmazon' => strings.esphomeIdentityAmazon,
+      'esphomeIdentityTile' => strings.esphomeIdentityTile,
+      'esphomeIdentityInput' => strings.esphomeIdentityInput,
+      'esphomeIdentityHeartRate' => strings.esphomeIdentityHeartRate,
+      'esphomeIdentityEnvironmental' => strings.esphomeIdentityEnvironmental,
+      'esphomeIdentityApple' => strings.esphomeIdentityApple,
+      'esphomeIdentityWindows' => strings.esphomeIdentityWindows,
+      'esphomeIdentitySamsung' => strings.esphomeIdentitySamsung,
+      'esphomeIdentityGoogle' => strings.esphomeIdentityGoogle,
+      'esphomeIdentityUnknown' => strings.esphomeIdentityUnknown,
+      'esphomeNearby' => strings.esphomeNearby,
+      'esphomeNearbySearch' => strings.esphomeNearbySearch,
+      'esphomeNearbyEmpty' => strings.esphomeNearbyEmpty,
+      'esphomeNearbyWaiting' => strings.esphomeNearbyWaiting,
+      'esphomeRotating' => strings.esphomeRotating,
+      'settingLocationEnabledTitle' => strings.settingLocationEnabledTitle,
+      'settingLocationEnabledDescription' =>
+        strings.settingLocationEnabledDescription,
+      'settingLocationIntervalTitle' => strings.settingLocationIntervalTitle,
+      'settingLocationIntervalDescription' =>
+        strings.settingLocationIntervalDescription,
+      'esphomeGps' => strings.esphomeGps,
+      'esphomeGpsHelp' => strings.esphomeGpsHelp,
+      'esphomeLocationOff' => strings.esphomeLocationOff,
+      'esphomeLocationWaiting' => strings.esphomeLocationWaiting,
+      'esphomeCoordinates' => strings.esphomeCoordinates,
+      'esphomeLocationDenied' => strings.esphomeLocationDenied,
+      'esphomeLocationAbsent' => strings.esphomeLocationAbsent,
+      'esphomeLocationUnsupported' => strings.esphomeLocationUnsupported,
+      'settingNotificationsTransparencyTitle' =>
+        strings.settingNotificationsTransparencyTitle,
+      'settingNotificationsTransparencyDescription' =>
+        strings.settingNotificationsTransparencyDescription,
+      'settingNotificationsBlurTitle' => strings.settingNotificationsBlurTitle,
+      'settingNotificationsBlurDescription' =>
+        strings.settingNotificationsBlurDescription,
+      'settingNotificationsChimeFileTitle' =>
+        strings.settingNotificationsChimeFileTitle,
+      'settingNotificationsChimeFileDescription' =>
+        strings.settingNotificationsChimeFileDescription,
+      'settingNotificationsVolumeTitle' =>
+        strings.settingNotificationsVolumeTitle,
+      'settingNotificationsVolumeDescription' =>
+        strings.settingNotificationsVolumeDescription,
+      'esphomeNotifications' => strings.esphomeNotifications,
+      'esphomeNotificationsHelp' => strings.esphomeNotificationsHelp,
+      'esphomeAppearance' => strings.esphomeAppearance,
+      'esphomeSound' => strings.esphomeSound,
+      'esphomeNotificationTest' => strings.esphomeNotificationTest,
+      'esphomeNotificationBody' => strings.esphomeNotificationBody,
+      'esphomeNotificationSearch' => strings.esphomeNotificationSearch,
+      'esphomeLocation' => strings.esphomeLocation,
+      'esphomeLocationSearch' => strings.esphomeLocationSearch,
+      'esphomeBluetoothSearch' => strings.esphomeBluetoothSearch,
+      'esphomeLocationMissing' => strings.esphomeLocationMissing,
+      'esphomeLocationServicesOff' => strings.esphomeLocationServicesOff,
+      'esphomeLocationGranted' => strings.esphomeLocationGranted,
+      'esphomeBluetoothGranted' => strings.esphomeBluetoothGranted,
+      'esphomeBluetoothMissing' => strings.esphomeBluetoothMissing,
+      'esphomeBluetoothLocationMissing' =>
+        strings.esphomeBluetoothLocationMissing,
+      'esphomeBluetoothLocationOff' => strings.esphomeBluetoothLocationOff,
+      'esphomeBluetoothBeacons' => strings.esphomeBluetoothBeacons,
+      'esphomeSent' => strings.esphomeSent,
+      'esphomeNotsaved' => strings.esphomeNotsaved,
       'settingEsphomeEnabledTitle' => strings.settingEsphomeEnabledTitle,
       'settingEsphomeEnabledDescription' =>
         strings.settingEsphomeEnabledDescription,

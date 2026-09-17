@@ -367,3 +367,23 @@ String supportText(BuildContext context, String english) =>
 /// ESPHome setup labels, excluding entity names and network identifiers.
 String esphomeText(BuildContext context, String english) =>
     messageById(l10n(context), esphomeTextMessageIds[english], english);
+
+String esphomeError(BuildContext context, String english) =>
+    english.startsWith('GPS unavailable: ')
+    ? l10n(
+        context,
+      ).esphomeLocationError(english.substring('GPS unavailable: '.length))
+    : esphomeText(context, english);
+
+String esphomeDeviceIdentity(
+  BuildContext context,
+  Map<String, Object?> device,
+) {
+  final identity = '${device['identity'] ?? 'Unknown device'}';
+  if ('${device['name'] ?? ''}'.trim().isNotEmpty) return identity;
+  final vendor = device['vendor'];
+  if (vendor != null && identity == '$vendor device') {
+    return l10n(context).esphomeIdentityVendor('$vendor');
+  }
+  return esphomeText(context, identity);
+}

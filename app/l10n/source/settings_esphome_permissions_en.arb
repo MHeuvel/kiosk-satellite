@@ -1,0 +1,172 @@
+{
+  "@@locale": "en",
+  "esphomeLocation": "Location",
+  "@esphomeLocation": {
+    "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ]
+    }
+  },
+  "esphomeLocationSearch": "The Location grant the location sensors need.",
+  "@esphomeLocationSearch": {
+    "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ]
+    }
+  },
+  "esphomeBluetoothSearch": "The Nearby devices grant the Bluetooth proxy needs to scan.",
+  "@esphomeBluetoothSearch": {
+    "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ]
+    }
+  },
+  "esphomeLocationMissing": "Without this the GPS receiver cannot be read and the location sensors stay unknown.",
+  "@esphomeLocationMissing": {
+    "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ]
+    }
+  },
+  "esphomeLocationServicesOff": "Location is off in the device settings, so the receiver delivers nothing.",
+  "@esphomeLocationServicesOff": {
+    "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ]
+    }
+  },
+  "esphomeLocationGranted": "The location sensors can read the GPS receiver.",
+  "@esphomeLocationGranted": {
+    "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ]
+    }
+  },
+  "esphomeBluetoothGranted": "The proxy can scan for nearby Bluetooth devices.",
+  "@esphomeBluetoothGranted": {
+    "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ]
+    }
+  },
+  "esphomeBluetoothMissing": "Without this the proxy cannot scan for devices.",
+  "@esphomeBluetoothMissing": {
+    "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ]
+    }
+  },
+  "esphomeBluetoothLocationMissing": "Android only delivers Bluetooth scan results, beacons included, with Location granted. The proxy never reads the device position.",
+  "@esphomeBluetoothLocationMissing": {
+    "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ]
+    }
+  },
+  "esphomeBluetoothLocationOff": "Location is off in the device settings, so Bluetooth scanning finds nothing.",
+  "@esphomeBluetoothLocationOff": {
+    "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ]
+    }
+  },
+  "esphomeBluetoothBeacons": "Bluetooth scanning can hear beacons.",
+  "@esphomeBluetoothBeacons": {
+    "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ]
+    }
+  },
+  "esphomeSent": "Sent",
+  "@esphomeSent": {
+    "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ]
+    }
+  },
+  "esphomeNotsaved": "Not saved",
+  "@esphomeNotsaved": {
+    "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ]
+    }
+  }
+}

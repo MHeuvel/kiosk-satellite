@@ -1,8 +1,8 @@
-import { intercomText, intercomError, intercomAnnouncing, t } from './localization.js';
+import { esphomeText, messageLanguage, intercomText, intercomError, intercomAnnouncing, t } from './localization.js';
 import { watchUpdates } from './live.js';
 import { api, cmd, state } from './core.js';
 import { attachSoundSelect, attachSoundUpload } from './settings.js';
-import { gestureListModal } from './gestures.js';
+import { radioRow } from './views.js';
 import { currentPath, showTab } from './tabs.js';
 import { copyBox, hintRow, modalShell, showToast } from './widgets.js';
 
@@ -311,7 +311,7 @@ export function decorateAnnouncementsPage() {
     const box = document.createElement('button');
     box.type = 'button';
     box.className = 'btn-ghost tts-pick';
-    const label = () => `${ttsDef.value || ''}`.trim() || 'First available';
+    const label = () => `${ttsDef.value || ''}`.trim() || esphomeText('First available');
     box.textContent = label();
     // The friendly name once Home Assistant answers; the id until then.
     if (`${ttsDef.value || ''}`.trim()) {
@@ -327,22 +327,48 @@ export function decorateAnnouncementsPage() {
         if (r.ok) engines = r.data || [];
         else throw new Error(r.error || 'unreachable');
       } catch (_) {
-        showToast({ title: 'Could not reach Home Assistant', kind: 'error' });
+        showToast({ title: esphomeText('Could not reach Home Assistant'), kind: 'error' });
         return;
       }
       const current = `${ttsDef.value || ''}`.trim();
-      const picked = await gestureListModal('Text to speech engine', [
-        { name: 'First available', desc: '', value: '', selected: !current },
-        ...engines.map((e) => ({ name: e.name, desc: e.entity_id, value: e.entity_id, selected: e.entity_id === current })),
-      ]);
+      const picked = await new Promise((resolve) => {
+        let language = messageLanguage();
+        const shell = modalShell({title: esphomeText('Text to speech engine'), onDismiss: () => close(null)});
+        const close = (value) => {
+          document.removeEventListener('ks-settings-cached', onLanguage);
+          shell.close();
+          resolve(value);
+        };
+        const first = radioRow('', '', !current, () => close(''));
+        shell.body.append(first);
+        for (const engine of engines) {
+          shell.body.append(radioRow(engine.name, engine.entity_id,
+            engine.entity_id === current, () => close(engine.entity_id)));
+        }
+        const cancel = document.createElement('button');
+        cancel.className = 'btn-text'; cancel.addEventListener('click', () => close(null));
+        shell.foot.append(cancel);
+        const labels = () => {
+          shell.head.textContent = esphomeText('Text to speech engine');
+          first.querySelector('.name').textContent = esphomeText('First available');
+          cancel.textContent = esphomeText('Cancel');
+        };
+        const onLanguage = () => {
+          if (language === messageLanguage()) return;
+          language = messageLanguage(); labels();
+        };
+        document.addEventListener('ks-settings-cached', onLanguage); labels();
+      });
       if (picked === null) return;
       const res = await api('/api/settings', {
         method: 'PATCH',
         body: JSON.stringify({ 'announcements.tts_engine': picked }),
       });
-      if (!res.ok) { showToast({ title: 'Not saved', kind: 'error' }); return; }
-      ttsDef.value = picked;
-      box.textContent = engines.find((e) => e.entity_id === picked)?.name || label();
+      if (!res.ok) { showToast({ title: esphomeText('Not saved'), kind: 'error' }); return; }
+      const currentDef = byKey('announcements.tts_engine') || ttsDef;
+      currentDef.value = picked;
+      const currentBox = document.querySelector('[data-key="announcements.tts_engine"] .tts-pick') || box;
+      currentBox.textContent = engines.find((e) => e.entity_id === picked)?.name || picked || esphomeText('First available');
     });
     ttsRow.appendChild(box);
   }

@@ -7644,6 +7644,690 @@ abstract class UiStrings {
   /// Setting label.
   ///
   /// In en, this message translates to:
+  /// **'Enable announcements'**
+  String get settingAnnouncementsEnabledTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Play the announcements Home Assistant sends with the announce action.'**
+  String get settingAnnouncementsEnabledDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Text to speech engine'**
+  String get settingAnnouncementsTtsEngineTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The Home Assistant text to speech entity that speaks announcements.'**
+  String get settingAnnouncementsTtsEngineDescription;
+
+  /// Default choice when no engine is selected.
+  ///
+  /// In en, this message translates to:
+  /// **'First available'**
+  String get esphomeTtsFirst;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Chime first'**
+  String get settingAnnouncementsChimeTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Play a chime before the announcement.'**
+  String get settingAnnouncementsChimeDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Chime sound'**
+  String get settingAnnouncementsChimeFileTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Plays at the notification volume.'**
+  String get settingAnnouncementsChimeFileDescription;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Announcements'**
+  String get esphomeAnnouncements;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Spoken announcements from Home Assistant'**
+  String get esphomeAnnouncementsHelp;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Chime'**
+  String get esphomeChime;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not reach Home Assistant'**
+  String get esphomeTtsUnavailable;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Bluetooth proxy'**
+  String get settingBtproxyEnabledTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Relay nearby Bluetooth devices to Home Assistant.'**
+  String get settingBtproxyEnabledDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan intensity'**
+  String get settingBtproxyScanDutyTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'How much of the time the radio listens. Lower cuts CPU; devices that advertise rarely take longer to appear.'**
+  String get settingBtproxyScanDutyDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow device connections'**
+  String get settingBtproxyConnectionsTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Assistant can connect to Bluetooth devices through this proxy.'**
+  String get settingBtproxyConnectionsDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Look up device manufacturers online'**
+  String get settingBtproxyMacLookupTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Names unknown nearby devices by their hardware address prefix using api.macvendors.com. Only the 3-byte manufacturer prefix is sent, once per manufacturer; nothing else leaves the device.'**
+  String get settingBtproxyMacLookupDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Sort by'**
+  String get settingBtproxyNearbySortTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The order of the nearby devices list below.'**
+  String get settingBtproxyNearbySortDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum signal for connections'**
+  String get settingBtproxyMinConnectRssiTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Refuse device connections heard weaker than this, so a closer proxy takes them instead.'**
+  String get settingBtproxyMinConnectRssiDescription;
+
+  /// Choice label. The saved value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Continuous'**
+  String get esphomeOptionContinuous;
+
+  /// Choice label. The saved value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Balanced'**
+  String get esphomeOptionBalanced;
+
+  /// Choice label. The saved value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Low power'**
+  String get esphomeOptionLowPower;
+
+  /// Choice label. The saved value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Last seen'**
+  String get esphomeOptionLastSeen;
+
+  /// Choice label. The saved value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get esphomeOptionName;
+
+  /// Choice label. The saved value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'MAC address'**
+  String get esphomeOptionMacAddress;
+
+  /// Choice label. The saved value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Signal strength'**
+  String get esphomeOptionSignalStrength;
+
+  /// Choice label. The saved value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'No limit'**
+  String get esphomeOptionNoLimit;
+
+  /// Choice label. The saved value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'-70 dBm (same room)'**
+  String get esphomeOption70DbmSameRoom;
+
+  /// Choice label. The saved value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'-80 dBm'**
+  String get esphomeOption80Dbm;
+
+  /// Choice label. The saved value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'-85 dBm'**
+  String get esphomeOption85Dbm;
+
+  /// Choice label. The saved value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'-90 dBm (edge of range)'**
+  String get esphomeOption90DbmEdgeOfRange;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Bluetooth Proxy'**
+  String get esphomeBluetooth;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Relay nearby Bluetooth devices to Home Assistant'**
+  String get esphomeBluetoothHelp;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Bluetooth is off. Turn it on to use the proxy.'**
+  String get esphomeBluetoothOff;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Not available on this device: it has no Bluetooth.'**
+  String get esphomeBluetoothUnsupported;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Not available on this device: its Android build has no Bluetooth LE support.'**
+  String get esphomeBluetoothBuildUnsupported;
+
+  /// Inferred device class. Never translate an actual broadcast name or manufacturer name.
+  ///
+  /// In en, this message translates to:
+  /// **'BTHome sensor'**
+  String get esphomeIdentityBthome;
+
+  /// Inferred device class. Never translate an actual broadcast name or manufacturer name.
+  ///
+  /// In en, this message translates to:
+  /// **'Xiaomi sensor'**
+  String get esphomeIdentityXiaomi;
+
+  /// Inferred device class. Never translate an actual broadcast name or manufacturer name.
+  ///
+  /// In en, this message translates to:
+  /// **'Qingping sensor'**
+  String get esphomeIdentityQingping;
+
+  /// Inferred device class. Never translate an actual broadcast name or manufacturer name.
+  ///
+  /// In en, this message translates to:
+  /// **'Google/Nest device'**
+  String get esphomeIdentityGoogleNest;
+
+  /// Inferred device class. Never translate an actual broadcast name or manufacturer name.
+  ///
+  /// In en, this message translates to:
+  /// **'Eddystone beacon'**
+  String get esphomeIdentityEddystone;
+
+  /// Inferred device class. Never translate an actual broadcast name or manufacturer name.
+  ///
+  /// In en, this message translates to:
+  /// **'Google Fast Pair device'**
+  String get esphomeIdentityGoogleFastPair;
+
+  /// Inferred device class. Never translate an actual broadcast name or manufacturer name.
+  ///
+  /// In en, this message translates to:
+  /// **'Apple Find My device'**
+  String get esphomeIdentityAppleFindMy;
+
+  /// Inferred device class. Never translate an actual broadcast name or manufacturer name.
+  ///
+  /// In en, this message translates to:
+  /// **'Exposure notification (phone)'**
+  String get esphomeIdentityExposure;
+
+  /// Inferred device class. Never translate an actual broadcast name or manufacturer name.
+  ///
+  /// In en, this message translates to:
+  /// **'August/Yale lock'**
+  String get esphomeIdentityAugustYale;
+
+  /// Inferred device class. Never translate an actual broadcast name or manufacturer name.
+  ///
+  /// In en, this message translates to:
+  /// **'Amazon device'**
+  String get esphomeIdentityAmazon;
+
+  /// Inferred device class. Never translate an actual broadcast name or manufacturer name.
+  ///
+  /// In en, this message translates to:
+  /// **'Tile tracker'**
+  String get esphomeIdentityTile;
+
+  /// Inferred device class. Never translate an actual broadcast name or manufacturer name.
+  ///
+  /// In en, this message translates to:
+  /// **'Input device (remote/keyboard)'**
+  String get esphomeIdentityInput;
+
+  /// Inferred device class. Never translate an actual broadcast name or manufacturer name.
+  ///
+  /// In en, this message translates to:
+  /// **'Heart rate sensor'**
+  String get esphomeIdentityHeartRate;
+
+  /// Inferred device class. Never translate an actual broadcast name or manufacturer name.
+  ///
+  /// In en, this message translates to:
+  /// **'Environmental sensor'**
+  String get esphomeIdentityEnvironmental;
+
+  /// Inferred device class. Never translate an actual broadcast name or manufacturer name.
+  ///
+  /// In en, this message translates to:
+  /// **'Apple device'**
+  String get esphomeIdentityApple;
+
+  /// Inferred device class. Never translate an actual broadcast name or manufacturer name.
+  ///
+  /// In en, this message translates to:
+  /// **'Windows PC'**
+  String get esphomeIdentityWindows;
+
+  /// Inferred device class. Never translate an actual broadcast name or manufacturer name.
+  ///
+  /// In en, this message translates to:
+  /// **'Samsung device'**
+  String get esphomeIdentitySamsung;
+
+  /// Inferred device class. Never translate an actual broadcast name or manufacturer name.
+  ///
+  /// In en, this message translates to:
+  /// **'Google device'**
+  String get esphomeIdentityGoogle;
+
+  /// Inferred device class. Never translate an actual broadcast name or manufacturer name.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown device'**
+  String get esphomeIdentityUnknown;
+
+  /// Inferred device class. Never translate an actual broadcast name or manufacturer name.
+  ///
+  /// In en, this message translates to:
+  /// **'{vendor} device'**
+  String esphomeIdentityVendor(String vendor);
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Nearby devices'**
+  String get esphomeNearby;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'The Bluetooth devices this kiosk hears, with names where known.'**
+  String get esphomeNearbySearch;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing heard yet.'**
+  String get esphomeNearbyEmpty;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing heard yet. Devices appear here once the proxy is scanning.'**
+  String get esphomeNearbyWaiting;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'(rotating address)'**
+  String get esphomeRotating;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Showing the first {count} of {total}.'**
+  String esphomeNearbyCount(String count, String total);
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Up to {count} devices can be connected at once through this proxy. Home Assistant routes further devices through other proxies.'**
+  String esphomeSlots(String count);
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'{count}s ago'**
+  String esphomeSecondsAgo(String count);
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} min ago'**
+  String esphomeMinutesAgo(String count);
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} h ago'**
+  String esphomeHoursAgo(String count);
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Report location'**
+  String get settingLocationEnabledTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Read the GPS position and serve it to Home Assistant as latitude, longitude, accuracy, altitude and speed sensors. Turning this on or off re-registers the ESPHome device.'**
+  String get settingLocationEnabledDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Update interval'**
+  String get settingLocationIntervalTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Seconds between position readings.'**
+  String get settingLocationIntervalDescription;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'GPS Sensor'**
+  String get esphomeGps;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Expose GPS sensor data to Home Assistant'**
+  String get esphomeGpsHelp;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Off.'**
+  String get esphomeLocationOff;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for the first fix. A cold start under open sky can take a few minutes.'**
+  String get esphomeLocationWaiting;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Last coordinates'**
+  String get esphomeCoordinates;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Location permission not granted.'**
+  String get esphomeLocationDenied;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'No GPS receiver.'**
+  String get esphomeLocationAbsent;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'GPS unavailable: {error}'**
+  String esphomeLocationError(String error);
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Not available on this device: it has no GPS receiver.'**
+  String get esphomeLocationUnsupported;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Transparency'**
+  String get settingNotificationsTransparencyTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Lets the screen behind show through the notification cards. Text and icons stay solid.'**
+  String get settingNotificationsTransparencyDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Background blur'**
+  String get settingNotificationsBlurTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Blurs what shows through a transparent notification card. Note: Blur cannot be applied over the Home Assistant dashboard surface.'**
+  String get settingNotificationsBlurDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification sound'**
+  String get settingNotificationsChimeFileTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Sound files are read from Android/data/me.jxl.kiosk_satellite/files/sounds on the device, also reachable from the File Manager.'**
+  String get settingNotificationsChimeFileDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification volume'**
+  String get settingNotificationsVolumeTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'How loud the notification sound plays, apart from the media and assistant volumes.'**
+  String get settingNotificationsVolumeDescription;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get esphomeNotifications;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Transparency, blur, notification sound, test notification'**
+  String get esphomeNotificationsHelp;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get esphomeAppearance;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Sound'**
+  String get esphomeSound;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Test notification'**
+  String get esphomeNotificationTest;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications are sent from Home Assistant with the {action} action. Test shows one over the dashboard.'**
+  String esphomeNotificationHelp(String action);
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'This is what a notification from Home Assistant looks and sounds like.'**
+  String get esphomeNotificationBody;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'The Home Assistant action that sends notifications, and a button to show one.'**
+  String get esphomeNotificationSearch;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get esphomeLocation;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'The Location grant the location sensors need.'**
+  String get esphomeLocationSearch;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'The Nearby devices grant the Bluetooth proxy needs to scan.'**
+  String get esphomeBluetoothSearch;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Without this the GPS receiver cannot be read and the location sensors stay unknown.'**
+  String get esphomeLocationMissing;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Location is off in the device settings, so the receiver delivers nothing.'**
+  String get esphomeLocationServicesOff;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'The location sensors can read the GPS receiver.'**
+  String get esphomeLocationGranted;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'The proxy can scan for nearby Bluetooth devices.'**
+  String get esphomeBluetoothGranted;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Without this the proxy cannot scan for devices.'**
+  String get esphomeBluetoothMissing;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Android only delivers Bluetooth scan results, beacons included, with Location granted. The proxy never reads the device position.'**
+  String get esphomeBluetoothLocationMissing;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Location is off in the device settings, so Bluetooth scanning finds nothing.'**
+  String get esphomeBluetoothLocationOff;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Bluetooth scanning can hear beacons.'**
+  String get esphomeBluetoothBeacons;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent'**
+  String get esphomeSent;
+
+  /// Interface label or status message.
+  ///
+  /// In en, this message translates to:
+  /// **'Not saved'**
+  String get esphomeNotsaved;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
   /// **'Enable ESPHome'**
   String get settingEsphomeEnabledTitle;
 

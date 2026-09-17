@@ -1,4 +1,4 @@
-import { esphomeText, launcherText, kioskText, intercomText, intercomError, cameraText, cameraError, cameraResolutionNotice, screensaverText, deviceText, haText, screenAudioText, haConnectionError, settingsPageText, t } from './localization.js';
+import { esphomeError, esphomeDeviceIdentity, esphomeText, launcherText, kioskText, intercomText, intercomError, cameraText, cameraError, cameraResolutionNotice, screensaverText, deviceText, haText, screenAudioText, haConnectionError, settingsPageText, t } from './localization.js';
 import { preserveDraft } from './drafts.js';
 import { beginLiveRender, endLiveRender, watchUpdates } from './live.js';
 import {
@@ -714,25 +714,24 @@ async function renderSettings({ cached = false } = {}) {
       const action = node
         ? `esphome.${node.replace(/-/g, '_')}_notification`
         : 'esphome.<node name>_notification';
-      const row = readOnlyRow('Test notification',
-        `Notifications are sent from Home Assistant with the ${action} `
-        + 'action. Test shows one over the dashboard.', '');
+      const row = readOnlyRow(esphomeText('Test notification'),
+        t('esphomeNotificationHelp', {action}), '');
       const test = document.createElement('button');
       test.className = 'btn-ghost';
-      test.textContent = 'Test';
+      test.textContent = esphomeText('Test');
       test.style.cssText = 'flex-shrink:0;';
       test.addEventListener('click', async () => {
         test.disabled = true;
         try {
           await cmd('showNotification', {
-            title: 'Test notification',
-            message: 'This is what a notification from Home Assistant looks and sounds like.',
+            title: esphomeText('Test notification'),
+            message: esphomeText('This is what a notification from Home Assistant looks and sounds like.'),
             type: 'info',
             icon: 'mdi:bell-ring',
           });
-          test.textContent = 'Sent';
-        } catch (_) { test.textContent = 'Failed'; }
-        setTimeout(() => { test.textContent = 'Test'; test.disabled = false; }, 2000);
+          test.textContent = esphomeText('Sent');
+        } catch (_) { test.textContent = esphomeText('Failed'); }
+        setTimeout(() => { test.textContent = esphomeText('Test'); test.disabled = false; }, 2000);
       });
       row.appendChild(test);
       const card = document.createElement('div');
@@ -774,21 +773,21 @@ async function renderSettings({ cached = false } = {}) {
       // [desc, value]: the words under the name and the coordinates on
       // the right.
       const fixText = (st) => {
-        if (!st) return ['Status unavailable.', ''];
-        if (!st.enabled) return ['Off.', ''];
-        if (st.error) return [st.error, ''];
+        if (!st) return [esphomeText('Status unavailable.'), ''];
+        if (!st.enabled) return [esphomeText('Off.'), ''];
+        if (st.error) return [esphomeError(st.error), ''];
         const fix = st.fix;
         if (!fix) {
-          return ['Waiting for the first fix. A cold start under open sky '
-            + 'can take a few minutes.', ''];
+          return [esphomeText('Waiting for the first fix. A cold start under open sky '
+            + 'can take a few minutes.'), ''];
         }
         const age = Math.max(0, Math.round((Date.now() - fix.time) / 1000));
-        const ago = age < 60 ? `${age}s ago` : age < 3600
-          ? `${Math.round(age / 60)} min ago` : `${Math.round(age / 3600)} h ago`;
+        const ago = age < 60 ? t('esphomeSecondsAgo', {count: age}) : age < 3600
+          ? t('esphomeMinutesAgo', {count: Math.round(age / 60)}) : t('esphomeHoursAgo', {count: Math.round(age / 3600)});
         const acc = fix.accuracy == null ? '' : `±${Math.round(fix.accuracy)} m, `;
         return [`${acc}${ago}`, `${fix.latitude.toFixed(5)}, ${fix.longitude.toFixed(5)}`];
       };
-      const status = readOnlyRow('Last coordinates', 'Checking...', '');
+      const status = readOnlyRow(esphomeText('Last coordinates'), esphomeText('Checking...'), '');
       status.classList.add('location-status');
       row.insertAdjacentElement('afterend', status);
       const paintFix = async () => {
@@ -809,7 +808,7 @@ async function renderSettings({ cached = false } = {}) {
           status.remove();
           clearInterval(window.__locationTimer);
           row.insertAdjacentElement('afterend',
-            note(res.data.hint || 'Not available on this device.'));
+            note(esphomeText(res.data.hint || 'Not available on this device.')));
         })
         .catch(() => {});
 
@@ -817,7 +816,7 @@ async function renderSettings({ cached = false } = {}) {
       // system-wide location switch, like the proxy's location row.
       const h = document.createElement('h2');
       h.className = 'card-title';
-      h.textContent = 'Required system permissions';
+      h.textContent = esphomeText('Required system permissions');
       const permCard = document.createElement('div');
       permCard.className = 'card';
       const permRow = document.createElement('div');
@@ -825,8 +824,8 @@ async function renderSettings({ cached = false } = {}) {
       const info = document.createElement('div');
       info.className = 'info';
       info.innerHTML = '<div class="name"></div><div class="desc"></div>';
-      info.querySelector('.name').textContent = 'Location';
-      info.querySelector('.desc').textContent = 'Checking...';
+      info.querySelector('.name').textContent = esphomeText('Location');
+      info.querySelector('.desc').textContent = esphomeText('Checking...');
       permRow.appendChild(info);
       const stateEl = document.createElement('span');
       stateEl.style.whiteSpace = 'nowrap';
@@ -839,18 +838,18 @@ async function renderSettings({ cached = false } = {}) {
         const ok = p === null ? null
           : p.location === true && p.locationServicesOn === true;
         info.querySelector('.desc').textContent = ok === null
-          ? 'Status unavailable.'
-          : ok ? 'The location sensors can read the GPS receiver.'
+          ? esphomeText('Status unavailable.')
+          : ok ? esphomeText('The location sensors can read the GPS receiver.')
           : p.location !== true
-            ? 'Without this the GPS receiver cannot be read and the location sensors stay unknown.'
-            : 'Location is off in the device settings, so the receiver delivers nothing.';
-        stateEl.textContent = ok === null ? '' : ok ? 'Granted' : 'Missing';
+            ? esphomeText('Without this the GPS receiver cannot be read and the location sensors stay unknown.')
+            : esphomeText('Location is off in the device settings, so the receiver delivers nothing.');
+        stateEl.textContent = ok === null ? '' : ok ? esphomeText('Granted') : esphomeText('Missing');
         stateEl.style.color = ok ? 'var(--ok)' : 'var(--error)';
         permRow.querySelector('button')?.remove();
         if (ok !== false) return;
         const btn = document.createElement('button');
         btn.className = 'btn-ghost';
-        btn.textContent = 'Grant on device';
+        btn.textContent = esphomeText('Grant on device');
         btn.style.cssText = 'flex-shrink:0;';
         btn.addEventListener('click', async () => {
           btn.disabled = true;
@@ -906,7 +905,7 @@ async function renderSettings({ cached = false } = {}) {
     card.id = 'btproxy-nearby-card';
     const empty = document.createElement('div');
     empty.className = 'desc';
-    empty.textContent = 'Nothing heard yet.';
+    empty.textContent = esphomeText('Nothing heard yet.');
     card.appendChild(empty);
     (btPanel || root).appendChild(card);
     // Same ordering rules as the device list (sortNearbyJson in
@@ -958,8 +957,8 @@ async function renderSettings({ cached = false } = {}) {
         info.className = 'info';
         info.innerHTML = '<div class="name"></div><div class="desc"></div>';
         info.querySelector('.name').textContent =
-          (d.identity || 'Unknown device') +
-          (d.rotating ? '  (rotating address)' : '');
+          esphomeDeviceIdentity(d) +
+          (d.rotating ? '  ' + esphomeText('(rotating address)') : '');
         if (d.connected) {
           // The devices this kiosk is actively serving a Home Assistant
           // connection for; accent, not a signal tier color.
@@ -967,15 +966,15 @@ async function renderSettings({ cached = false } = {}) {
           link.style.cssText = 'background:var(--accent); ' +
             'color:var(--surface); border-radius:6px; padding:0 6px 1px; ' +
             'font-size:11.5px; margin-left:8px; white-space:nowrap';
-          link.textContent = 'Connected';
+          link.textContent = esphomeText('Connected');
           info.querySelector('.name').appendChild(link);
         }
         const seen = d.last_seen ? new Date(d.last_seen) : null;
         const age = seen ? Math.max(0, (Date.now() - seen) / 1000) : null;
         const ageText = age === null ? '' :
-          age < 60 ? `${Math.round(age)}s ago` :
-          age < 3600 ? `${Math.round(age / 60)}m ago` :
-          `${Math.round(age / 3600)}h ago`;
+          age < 60 ? t('esphomeSecondsAgo', {count: Math.round(age)}) :
+          age < 3600 ? t('esphomeMinutesAgo', {count: Math.round(age / 60)}) :
+          t('esphomeHoursAgo', {count: Math.round(age / 3600)});
         // Same tiers as rssiTier in ble_identity.dart: -65 and up is
         // same-room, to -84 adjacent-room, below that edge of range.
         const rssi = d.rssi ?? -128;
@@ -1004,7 +1003,7 @@ async function renderSettings({ cached = false } = {}) {
         const more = document.createElement('div');
         more.className = 'desc';
         more.style.cssText = 'margin-top:8px';
-        more.textContent = `Showing the first 25 of ${devices.length}.`;
+        more.textContent = t('esphomeNearbyCount', {count: 25, total: devices.length});
         card.appendChild(more);
       }
     };
@@ -1037,9 +1036,7 @@ async function renderSettings({ cached = false } = {}) {
             '<circle cx="12" cy="12" r="9"/>' +
             '<path d="M12 8h.01M12 11.5V16"/></svg><span></span>';
           note.querySelector('span').textContent =
-            `Up to ${slots} devices can be connected at once through ` +
-            'this proxy. Home Assistant routes further devices through ' +
-            'other proxies.';
+            t('esphomeSlots', {count: slots});
           row.insertAdjacentElement('afterend', note);
         })
         .catch(() => {});
@@ -1057,7 +1054,7 @@ async function renderSettings({ cached = false } = {}) {
     {
       const h = document.createElement('h2');
       h.className = 'card-title';
-      h.textContent = 'Required system permissions';
+      h.textContent = esphomeText('Required system permissions');
       const permCard = document.createElement('div');
       permCard.className = 'card';
       // Two rows, two grants: the Bluetooth pair (a formality below
@@ -1070,7 +1067,7 @@ async function renderSettings({ cached = false } = {}) {
         info.className = 'info';
         info.innerHTML = '<div class="name"></div><div class="desc"></div>';
         info.querySelector('.name').textContent = name;
-        info.querySelector('.desc').textContent = 'Checking...';
+        info.querySelector('.desc').textContent = esphomeText('Checking...');
         row.appendChild(info);
         const stateEl = document.createElement('span');
         stateEl.style.whiteSpace = 'nowrap';
@@ -1078,14 +1075,14 @@ async function renderSettings({ cached = false } = {}) {
         permCard.appendChild(row);
         return { row, info, stateEl };
       };
-      const pairRow = makeRow('Nearby devices');
-      const locRow = makeRow('Location');
+      const pairRow = makeRow(esphomeText('Nearby devices'));
+      const locRow = makeRow(esphomeText('Location'));
       // On the Bluetooth Proxy page, right above the Nearby devices group
       // whose list stays empty without them, the same place the device
       // page puts it. The page above is the fallback while the panel is
       // not there (the proxy row hidden).
       const nearbyHead = btPanel && [...btPanel.querySelectorAll('h2.card-title')]
-        .find((x) => x.textContent === 'Nearby devices');
+        .find((x) => x.textContent === esphomeText('Nearby devices'));
       if (nearbyHead) {
         btPanel.insertBefore(h, nearbyHead);
         btPanel.insertBefore(permCard, nearbyHead);
@@ -1097,14 +1094,14 @@ async function renderSettings({ cached = false } = {}) {
         .then((res) => res.data || null).catch(() => null);
       const paintRow = ({ row, info, stateEl }, ok, held, missing) => {
         info.querySelector('.desc').textContent = ok === null
-          ? 'Status unavailable.' : ok ? held : missing;
-        stateEl.textContent = ok === null ? '' : ok ? 'Granted' : 'Missing';
+          ? esphomeText('Status unavailable.') : ok ? held : missing;
+        stateEl.textContent = ok === null ? '' : ok ? esphomeText('Granted') : esphomeText('Missing');
         stateEl.style.color = ok ? 'var(--ok)' : 'var(--error)';
         row.querySelector('button')?.remove();
         if (ok !== false) return;
         const btn = document.createElement('button');
         btn.className = 'btn-ghost';
-        btn.textContent = 'Grant on device';
+        btn.textContent = esphomeText('Grant on device');
         btn.style.cssText = 'flex-shrink:0;';
         btn.addEventListener('click', async () => {
           btn.disabled = true;
@@ -1128,15 +1125,15 @@ async function renderSettings({ cached = false } = {}) {
       const paint = (perms) => {
         const p = perms === null ? null : perms;
         paintRow(pairRow, p === null ? null : p.bluetoothPair === true,
-          'The proxy can scan for nearby Bluetooth devices.',
-          'Without this the proxy cannot scan for devices.');
+          esphomeText('The proxy can scan for nearby Bluetooth devices.'),
+          esphomeText('Without this the proxy cannot scan for devices.'));
         paintRow(locRow,
           p === null ? null : p.location === true &&
             p.locationServicesOn !== false,
-          'Bluetooth scanning can hear beacons.',
+          esphomeText('Bluetooth scanning can hear beacons.'),
           p !== null && p.location === true
-            ? 'Location is off in the device settings, so Bluetooth scanning finds nothing.'
-            : 'Android only delivers Bluetooth scan results, beacons included, with Location granted. The proxy never reads the device position.');
+            ? esphomeText('Location is off in the device settings, so Bluetooth scanning finds nothing.')
+            : esphomeText('Android only delivers Bluetooth scan results, beacons included, with Location granted. The proxy never reads the device position.'));
       };
       readPerm().then(paint);
     }
@@ -1165,7 +1162,7 @@ async function renderSettings({ cached = false } = {}) {
       });
       if (existing) return;
       panel.prepend(banner(
-        'Bluetooth is off. Turn it on to use the proxy.',
+        esphomeText('Bluetooth is off. Turn it on to use the proxy.'),
         { className: 'bt-off-banner' }));
     };
     // A dead server right where its switch is, mirroring the device
@@ -1234,7 +1231,7 @@ async function renderSettings({ cached = false } = {}) {
           const div = document.createElement('div');
           div.className = 'row ble-unsupported-note';
           div.style.cssText = 'font-size:12.5px; color:var(--muted);';
-          div.textContent = res.data.hint || 'Not available on this device.';
+          div.textContent = esphomeText(res.data.hint || 'Not available on this device.');
           row.insertAdjacentElement('afterend', div);
         }
         if (window.__btAdapterTimer) clearInterval(window.__btAdapterTimer);

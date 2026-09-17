@@ -254,3 +254,19 @@ export function pluginText(english) { return t(pluginTextMessageIds[english], {}
 export function supportText(english) { return t(supportTextMessageIds[english], {}, english); }
 
 export function esphomeText(english) { return t(esphomeTextMessageIds[english], {}, english); }
+
+
+export function esphomeError(english) {
+  return english.startsWith('GPS unavailable: ')
+    ? t('esphomeLocationError', {error: english.slice('GPS unavailable: '.length)})
+    : esphomeText(english);
+}
+
+export function esphomeDeviceIdentity(device) {
+  const identity = device.identity || 'Unknown device';
+  if (`${device.name || ''}`.trim()) return identity;
+  if (device.vendor && identity === `${device.vendor} device`) {
+    return t('esphomeIdentityVendor', {vendor: device.vendor});
+  }
+  return esphomeText(identity);
+}

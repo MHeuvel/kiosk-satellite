@@ -1314,5 +1314,69 @@
   "esphome.mac_override": {
     "title": "settingEsphomeMacOverrideTitle",
     "description": "settingEsphomeMacOverrideDescription"
+  },
+  "notifications.transparency": {
+    "title": "settingNotificationsTransparencyTitle",
+    "description": "settingNotificationsTransparencyDescription"
+  },
+  "notifications.blur": {
+    "title": "settingNotificationsBlurTitle",
+    "description": "settingNotificationsBlurDescription"
+  },
+  "notifications.chime_file": {
+    "title": "settingNotificationsChimeFileTitle",
+    "description": "settingNotificationsChimeFileDescription"
+  },
+  "notifications.volume": {
+    "title": "settingNotificationsVolumeTitle",
+    "description": "settingNotificationsVolumeDescription"
+  },
+  "announcements.enabled": {
+    "title": "settingAnnouncementsEnabledTitle",
+    "description": "settingAnnouncementsEnabledDescription"
+  },
+  "announcements.tts_engine": {
+    "title": "settingAnnouncementsTtsEngineTitle",
+    "description": "settingAnnouncementsTtsEngineDescription"
+  },
+  "announcements.chime": {
+    "title": "settingAnnouncementsChimeTitle",
+    "description": "settingAnnouncementsChimeDescription"
+  },
+  "announcements.chime_file": {
+    "title": "settingAnnouncementsChimeFileTitle",
+    "description": "settingAnnouncementsChimeFileDescription"
+  },
+  "location.enabled": {
+    "title": "settingLocationEnabledTitle",
+    "description": "settingLocationEnabledDescription"
+  },
+  "location.interval": {
+    "title": "settingLocationIntervalTitle",
+    "description": "settingLocationIntervalDescription"
+  },
+  "btproxy.enabled": {
+    "title": "settingBtproxyEnabledTitle",
+    "description": "settingBtproxyEnabledDescription"
+  },
+  "btproxy.scan_duty": {
+    "title": "settingBtproxyScanDutyTitle",
+    "description": "settingBtproxyScanDutyDescription"
+  },
+  "btproxy.connections": {
+    "title": "settingBtproxyConnectionsTitle",
+    "description": "settingBtproxyConnectionsDescription"
+  },
+  "btproxy.mac_lookup": {
+    "title": "settingBtproxyMacLookupTitle",
+    "description": "settingBtproxyMacLookupDescription"
+  },
+  "btproxy.nearby_sort": {
+    "title": "settingBtproxyNearbySortTitle",
+    "description": "settingBtproxyNearbySortDescription"
+  },
+  "btproxy.min_connect_rssi": {
+    "title": "settingBtproxyMinConnectRssiTitle",
+    "description": "settingBtproxyMinConnectRssiDescription"
   }
 }

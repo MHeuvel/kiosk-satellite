@@ -428,7 +428,7 @@ class _AnnouncementTtsEngineRowState extends State<AnnouncementTtsEngineRow> {
   }
 
   String _labelOf(String id) {
-    if (id.isEmpty) return 'First available';
+    if (id.isEmpty) return esphomeText(context, 'First available');
     for (final e in _engines) {
       if (e['entity_id'] == id) return e['name']!;
     }
@@ -441,21 +441,38 @@ class _AnnouncementTtsEngineRowState extends State<AnnouncementTtsEngineRow> {
     if (!ok) {
       showToast(
         context,
-        title: 'Could not reach Home Assistant',
+        title: esphomeText(context, 'Could not reach Home Assistant'),
         kind: ToastKind.error,
       );
       return;
     }
     final current = c.settings.get(defs.announcementsTtsEngine).trim();
-    final picked = await showRadioPicker<String>(
-      context,
-      title: 'Text to speech engine',
-      options: [
-        const PickerOption('', 'First available'),
-        for (final e in _engines)
-          PickerOption(e['entity_id']!, e['name']!, detail: e['entity_id']),
-      ],
-      selected: current,
+    final picked = await showDialog<String>(
+      context: context,
+      builder: (context) => SimpleDialog(
+        title: Text(esphomeText(context, 'Text to speech engine')),
+        children: [
+          RadioGroup<String>(
+            groupValue: current,
+            onChanged: (value) => Navigator.of(context).pop(value),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                RadioListTile<String>(
+                  value: '',
+                  title: Text(esphomeText(context, 'First available')),
+                ),
+                for (final engine in _engines)
+                  RadioListTile<String>(
+                    value: engine['entity_id']!,
+                    title: Text(engine['name']!),
+                    subtitle: Text(engine['entity_id']!),
+                  ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
     if (picked == null) return;
     await c.settings.set(defs.announcementsTtsEngine, picked);
@@ -467,8 +484,11 @@ class _AnnouncementTtsEngineRowState extends State<AnnouncementTtsEngineRow> {
     return SearchLandingTarget(
       id: defs.announcementsTtsEngine.key,
       child: SettingsRow(
-        title: Text(defs.announcementsTtsEngine.title),
-        subtitle: Text(defs.announcementsTtsEngine.description),
+        stack: true,
+        title: Text(defs.announcementsTtsEngine.localizedTitle(context)),
+        subtitle: Text(
+          defs.announcementsTtsEngine.localizedDescription(context),
+        ),
         trailing: ControlBox(
           onTap: _pick,
           child: Row(

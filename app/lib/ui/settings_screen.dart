@@ -2706,9 +2706,12 @@ class _CategoryContentState extends State<_CategoryContent> {
       btproxyEnabled.key: SearchLandingTarget(
         id: btproxyEnabled.key,
         child: SwitchListTile(
-          title: Text(btproxyEnabled.title),
+          title: Text(btproxyEnabled.localizedTitle(context)),
           subtitle: Text(
-            container.btProxy.bleHint ?? 'Not available on this device.',
+            esphomeText(
+              context,
+              container.btProxy.bleHint ?? 'Not available on this device.',
+            ),
           ),
           value: false,
           onChanged: null,
@@ -2721,9 +2724,13 @@ class _CategoryContentState extends State<_CategoryContent> {
       locationEnabled.key: SearchLandingTarget(
         id: locationEnabled.key,
         child: SwitchListTile(
-          title: Text(locationEnabled.title),
+          title: Text(locationEnabled.localizedTitle(context)),
           subtitle: Text(
-            container.location.locationHint ?? 'Not available on this device.',
+            esphomeText(
+              context,
+              container.location.locationHint ??
+                  'Not available on this device.',
+            ),
           ),
           value: false,
           onChanged: null,
@@ -3137,7 +3144,7 @@ class _CategoryContentState extends State<_CategoryContent> {
           for (final def in defs)
             if (def.section != 'Nearby devices') def,
         ]),
-        const SectionHeading('Required system permissions'),
+        SectionHeading(esphomeText(context, 'Required system permissions')),
         const SearchLandingTarget(
           id: 'x:btproxy_permissions',
           child: SettingsCard(children: [_BtProxyPermissionsTile()]),
@@ -3157,8 +3164,11 @@ class _CategoryContentState extends State<_CategoryContent> {
       // and render it inert. The poll in initState lifts this the moment
       // Bluetooth comes back.
       return [
-        const NoticeBanner(
-          text: 'Bluetooth is off. Turn it on to use the proxy.',
+        NoticeBanner(
+          text: esphomeText(
+            context,
+            'Bluetooth is off. Turn it on to use the proxy.',
+          ),
         ),
         AbsorbPointer(
           child: Opacity(opacity: 0.45, child: Column(children: cards)),
@@ -3213,7 +3223,7 @@ class _CategoryContentState extends State<_CategoryContent> {
           for (final def in _defsFor(widget.category))
             if (def.subpage == subpage) def,
         ]),
-        const SectionHeading('Required system permissions'),
+        SectionHeading(esphomeText(context, 'Required system permissions')),
         SearchLandingTarget(
           id: 'x:location_permissions',
           child: SettingsCard(
@@ -5847,26 +5857,25 @@ class _NotificationTestRow extends StatelessWidget {
         ? 'esphome.<node name>_notification'
         : 'esphome.${node.replaceAll('-', '_')}_notification';
     return ListTile(
-      title: const Text('Test notification'),
-      subtitle: Text(
-        'Notifications are sent from Home Assistant with the $action '
-        'action. Test shows one over the dashboard.',
-      ),
+      title: Text(esphomeText(context, 'Test notification')),
+      subtitle: Text(l10n(context).esphomeNotificationHelp(action)),
       trailing: FilledButton.tonal(
         onPressed: () {
           Navigator.of(context).popUntil((route) => route.isFirst);
           unawaited(
-            container.commands.execute('showNotification', const {
-              'title': 'Test notification',
-              'message':
-                  'This is what a notification from Home Assistant '
-                  'looks and sounds like.',
+            container.commands.execute('showNotification', {
+              'title': esphomeText(context, 'Test notification'),
+              'message': esphomeText(
+                context,
+                'This is what a notification from Home Assistant '
+                'looks and sounds like.',
+              ),
               'type': 'info',
               'icon': 'mdi:bell-ring',
             }),
           );
         },
-        child: const Text('Test'),
+        child: Text(esphomeText(context, 'Test')),
       ),
     );
   }
@@ -5927,18 +5936,24 @@ class _BtNearbyDevicesRowState extends State<_BtNearbyDevicesRow> {
     final seen = DateTime.tryParse('$iso');
     if (seen == null) return '';
     final age = DateTime.now().difference(seen);
-    if (age.inSeconds < 60) return '${age.inSeconds}s ago';
-    if (age.inMinutes < 60) return '${age.inMinutes}m ago';
-    return '${age.inHours}h ago';
+    if (age.inSeconds < 60) {
+      return l10n(context).esphomeSecondsAgo(age.inSeconds.toString());
+    }
+    if (age.inMinutes < 60) {
+      return l10n(context).esphomeMinutesAgo(age.inMinutes.toString());
+    }
+    return l10n(context).esphomeHoursAgo(age.inHours.toString());
   }
 
   @override
   Widget build(BuildContext context) {
     if (!_loaded) return const SizedBox.shrink();
     if (_devices.isEmpty) {
-      return const HintRow(
-        'Nothing heard yet. Devices appear here once the proxy is '
-        'scanning.',
+      return HintRow(
+        esphomeText(
+          context,
+          'Nothing heard yet. Devices appear here once the proxy is scanning.',
+        ),
       );
     }
     final sorted = sortNearbyJson(
@@ -5963,8 +5978,8 @@ class _BtNearbyDevicesRowState extends State<_BtNearbyDevicesRow> {
                 children: [
                   TextSpan(
                     text:
-                        '${device['identity'] ?? 'Unknown device'}'
-                        '${device['rotating'] == true ? '  (rotating address)' : ''}',
+                        '${esphomeDeviceIdentity(context, device)}'
+                        '${device['rotating'] == true ? '  ${esphomeText(context, '(rotating address)')}' : ''}',
                   ),
                   // The devices this kiosk is actively serving a Home
                   // Assistant connection for; the accent tone keeps it
@@ -5982,8 +5997,8 @@ class _BtNearbyDevicesRowState extends State<_BtNearbyDevicesRow> {
                           color: const Color(0xFF44686C),
                           borderRadius: BorderRadius.circular(6),
                         ),
-                        child: const Text(
-                          'Connected',
+                        child: Text(
+                          esphomeText(context, 'Connected'),
                           style: TextStyle(color: Colors.white, fontSize: 11.5),
                         ),
                       ),
@@ -6030,7 +6045,11 @@ class _BtNearbyDevicesRowState extends State<_BtNearbyDevicesRow> {
             ),
           ),
         if (_devices.length > _shown)
-          HintRow('Showing the first $_shown of ${_devices.length}.'),
+          HintRow(
+            l10n(
+              context,
+            ).esphomeNearbyCount(_shown.toString(), _devices.length.toString()),
+          ),
       ],
     );
   }
@@ -8852,10 +8871,7 @@ class _BtSlotsHintRowState extends State<_BtSlotsHintRow> {
     if (_slots <= 0 || !widget.container.settings.get(btproxyConnections)) {
       return const SizedBox.shrink();
     }
-    return HintRow(
-      'Up to $_slots devices can be connected at once through this proxy. '
-      'Home Assistant routes further devices through other proxies.',
-    );
+    return HintRow(l10n(context).esphomeSlots(_slots.toString()));
   }
 }
 
@@ -8998,15 +9014,24 @@ class _LocationPermissionsTileState extends State<_LocationPermissionsTile>
             : Icons.location_off_outlined,
         color: granted == true ? null : theme.colorScheme.error,
       ),
-      title: const Text('Location'),
+      title: Text(esphomeText(context, 'Location')),
       subtitle: Text(
         perms == null || !perms.location
-            ? 'Without this the GPS receiver cannot be read and the '
-                  'location sensors stay unknown.'
+            ? esphomeText(
+                context,
+                'Without this the GPS receiver cannot be read and the '
+                'location sensors stay unknown.',
+              )
             : !perms.locationServicesOn
-            ? 'Location is off in the device settings, so the receiver '
-                  'delivers nothing.'
-            : 'The location sensors can read the GPS receiver.',
+            ? esphomeText(
+                context,
+                'Location is off in the device settings, so the receiver '
+                'delivers nothing.',
+              )
+            : esphomeText(
+                context,
+                'The location sensors can read the GPS receiver.',
+              ),
       ),
       trailing: granted == true
           ? null
@@ -9015,7 +9040,7 @@ class _LocationPermissionsTileState extends State<_LocationPermissionsTile>
                 await SystemPermissions.requestLocation();
                 await _refresh();
               },
-              child: const Text('Grant'),
+              child: Text(esphomeText(context, 'Grant')),
             ),
     );
   }
@@ -9058,20 +9083,22 @@ class _LocationStatusRowState extends State<_LocationStatusRow> {
     final String text;
     String? coordinates;
     if (!location.enabled) {
-      text = 'Off.';
+      text = esphomeText(context, 'Off.');
     } else if (location.error != null) {
-      text = location.error!;
+      text = esphomeError(context, location.error!);
     } else if (fix == null) {
-      text =
-          'Waiting for the first fix. A cold start under open sky can '
-          'take a few minutes.';
+      text = esphomeText(
+        context,
+        'Waiting for the first fix. A cold start under open sky can '
+        'take a few minutes.',
+      );
     } else {
       final age = DateTime.now().toUtc().difference(fix.time);
       final ago = age.inSeconds < 60
-          ? '${age.inSeconds}s ago'
+          ? l10n(context).esphomeSecondsAgo(age.inSeconds.toString())
           : age.inMinutes < 60
-          ? '${age.inMinutes} min ago'
-          : '${age.inHours} h ago';
+          ? l10n(context).esphomeMinutesAgo(age.inMinutes.toString())
+          : l10n(context).esphomeHoursAgo(age.inHours.toString());
       coordinates =
           '${fix.latitude.toStringAsFixed(5)}, '
           '${fix.longitude.toStringAsFixed(5)}';
@@ -9081,7 +9108,7 @@ class _LocationStatusRowState extends State<_LocationStatusRow> {
     }
     return SettingsRow(
       leading: const Icon(Icons.my_location_outlined),
-      title: const Text('Last coordinates'),
+      title: Text(esphomeText(context, 'Last coordinates')),
       subtitle: Text(text),
       trailing: coordinates == null ? null : Text(coordinates),
     );
@@ -9314,8 +9341,8 @@ class _BtProxyPermissionsTileState extends State<_BtProxyPermissionsTile>
         granted == true ? Icons.check_circle_outline : missingIcon,
         color: granted == true ? null : theme.colorScheme.error,
       ),
-      title: Text(title),
-      subtitle: Text(subtitle),
+      title: Text(esphomeText(context, title)),
+      subtitle: Text(esphomeText(context, subtitle)),
       trailing: granted == true
           ? null
           : TextButton(
@@ -9326,7 +9353,7 @@ class _BtProxyPermissionsTileState extends State<_BtProxyPermissionsTile>
                 await SystemPermissions.requestBluetooth();
                 await _refresh();
               },
-              child: const Text('Grant'),
+              child: Text(esphomeText(context, 'Grant')),
             ),
     );
   }
@@ -9343,25 +9370,37 @@ class _BtProxyPermissionsTileState extends State<_BtProxyPermissionsTile>
         _row(
           granted: _bluetooth == null ? null : perms?.bluetoothPair,
           missingIcon: Icons.bluetooth_disabled_outlined,
-          title: 'Nearby devices',
+          title: esphomeText(context, 'Nearby devices'),
           subtitle: perms?.bluetoothPair == true
-              ? 'The proxy can scan for nearby Bluetooth devices.'
-              : 'Without this the proxy cannot scan for devices.',
+              ? esphomeText(
+                  context,
+                  'The proxy can scan for nearby Bluetooth devices.',
+                )
+              : esphomeText(
+                  context,
+                  'Without this the proxy cannot scan for devices.',
+                ),
         ),
         _row(
           granted: _bluetooth == null
               ? null
               : perms != null && perms.location && perms.locationServicesOn,
           missingIcon: Icons.location_off_outlined,
-          title: 'Location',
+          title: esphomeText(context, 'Location'),
           subtitle: perms == null || !perms.location
-              ? 'Android only delivers Bluetooth scan results, beacons '
-                    'included, with Location granted. The proxy never reads '
-                    'the device position.'
+              ? esphomeText(
+                  context,
+                  'Android only delivers Bluetooth scan results, beacons '
+                  'included, with Location granted. The proxy never reads '
+                  'the device position.',
+                )
               : !perms.locationServicesOn
-              ? 'Location is off in the device settings, so Bluetooth '
-                    'scanning finds nothing.'
-              : 'Bluetooth scanning can hear beacons.',
+              ? esphomeText(
+                  context,
+                  'Location is off in the device settings, so Bluetooth '
+                  'scanning finds nothing.',
+                )
+              : esphomeText(context, 'Bluetooth scanning can hear beacons.'),
         ),
       ],
     );

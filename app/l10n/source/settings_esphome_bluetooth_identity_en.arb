@@ -1,0 +1,269 @@
+{
+  "@@locale": "en",
+  "esphomeIdentityBthome": "BTHome sensor",
+  "@esphomeIdentityBthome": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityXiaomi": "Xiaomi sensor",
+  "@esphomeIdentityXiaomi": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityQingping": "Qingping sensor",
+  "@esphomeIdentityQingping": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityGoogleNest": "Google/Nest device",
+  "@esphomeIdentityGoogleNest": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityEddystone": "Eddystone beacon",
+  "@esphomeIdentityEddystone": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityGoogleFastPair": "Google Fast Pair device",
+  "@esphomeIdentityGoogleFastPair": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityAppleFindMy": "Apple Find My device",
+  "@esphomeIdentityAppleFindMy": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityExposure": "Exposure notification (phone)",
+  "@esphomeIdentityExposure": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityAugustYale": "August/Yale lock",
+  "@esphomeIdentityAugustYale": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityAmazon": "Amazon device",
+  "@esphomeIdentityAmazon": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityTile": "Tile tracker",
+  "@esphomeIdentityTile": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityInput": "Input device (remote/keyboard)",
+  "@esphomeIdentityInput": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityHeartRate": "Heart rate sensor",
+  "@esphomeIdentityHeartRate": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityEnvironmental": "Environmental sensor",
+  "@esphomeIdentityEnvironmental": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityApple": "Apple device",
+  "@esphomeIdentityApple": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityWindows": "Windows PC",
+  "@esphomeIdentityWindows": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentitySamsung": "Samsung device",
+  "@esphomeIdentitySamsung": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityGoogle": "Google device",
+  "@esphomeIdentityGoogle": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityUnknown": "Unknown device",
+  "@esphomeIdentityUnknown": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityVendor": "{vendor} device",
+  "@esphomeIdentityVendor": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    },
+    "placeholders": {
+      "vendor": {
+        "type": "String",
+        "description": "Manufacturer name. Keep unchanged."
+      }
+    }
+  }
+}

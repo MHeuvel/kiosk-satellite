@@ -16431,6 +16431,1540 @@
       ]
     }
   },
+  "settingAnnouncementsEnabledTitle": "Enable announcements",
+  "@settingAnnouncementsEnabledTitle": {
+    "context": "Settings > ESPHome > Announcements",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Announcements"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Announcements"
+      ]
+    }
+  },
+  "settingAnnouncementsEnabledDescription": "Play the announcements Home Assistant sends with the announce action.",
+  "@settingAnnouncementsEnabledDescription": {
+    "context": "Settings > ESPHome > Announcements",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Announcements"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Announcements"
+      ]
+    }
+  },
+  "settingAnnouncementsTtsEngineTitle": "Text to speech engine",
+  "@settingAnnouncementsTtsEngineTitle": {
+    "context": "Settings > ESPHome > Announcements",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Announcements"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Announcements"
+      ]
+    }
+  },
+  "settingAnnouncementsTtsEngineDescription": "The Home Assistant text to speech entity that speaks announcements.",
+  "@settingAnnouncementsTtsEngineDescription": {
+    "context": "Settings > ESPHome > Announcements",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Announcements"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Announcements"
+      ]
+    }
+  },
+  "esphomeTtsFirst": "First available",
+  "@esphomeTtsFirst": {
+    "context": "Settings > ESPHome > Announcements",
+    "description": "Default choice when no engine is selected.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Announcements"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Announcements"
+      ]
+    }
+  },
+  "settingAnnouncementsChimeTitle": "Chime first",
+  "@settingAnnouncementsChimeTitle": {
+    "context": "Settings > ESPHome > Announcements",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Announcements"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Announcements"
+      ]
+    }
+  },
+  "settingAnnouncementsChimeDescription": "Play a chime before the announcement.",
+  "@settingAnnouncementsChimeDescription": {
+    "context": "Settings > ESPHome > Announcements",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Announcements"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Announcements"
+      ]
+    }
+  },
+  "settingAnnouncementsChimeFileTitle": "Chime sound",
+  "@settingAnnouncementsChimeFileTitle": {
+    "context": "Settings > ESPHome > Announcements",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Announcements"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Announcements"
+      ]
+    }
+  },
+  "settingAnnouncementsChimeFileDescription": "Plays at the notification volume.",
+  "@settingAnnouncementsChimeFileDescription": {
+    "context": "Settings > ESPHome > Announcements",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Announcements"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Announcements"
+      ]
+    }
+  },
+  "esphomeAnnouncements": "Announcements",
+  "@esphomeAnnouncements": {
+    "context": "Settings > ESPHome > Announcements",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Announcements"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Announcements"
+      ]
+    }
+  },
+  "esphomeAnnouncementsHelp": "Spoken announcements from Home Assistant",
+  "@esphomeAnnouncementsHelp": {
+    "context": "Settings > ESPHome > Announcements",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Announcements"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Announcements"
+      ]
+    }
+  },
+  "esphomeChime": "Chime",
+  "@esphomeChime": {
+    "context": "Settings > ESPHome > Announcements",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Announcements"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Announcements"
+      ]
+    }
+  },
+  "esphomeTtsUnavailable": "Could not reach Home Assistant",
+  "@esphomeTtsUnavailable": {
+    "context": "Settings > ESPHome > Announcements",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Announcements"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Announcements"
+      ]
+    }
+  },
+  "settingBtproxyEnabledTitle": "Enable Bluetooth proxy",
+  "@settingBtproxyEnabledTitle": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "settingBtproxyEnabledDescription": "Relay nearby Bluetooth devices to Home Assistant.",
+  "@settingBtproxyEnabledDescription": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "settingBtproxyScanDutyTitle": "Scan intensity",
+  "@settingBtproxyScanDutyTitle": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "settingBtproxyScanDutyDescription": "How much of the time the radio listens. Lower cuts CPU; devices that advertise rarely take longer to appear.",
+  "@settingBtproxyScanDutyDescription": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "settingBtproxyConnectionsTitle": "Allow device connections",
+  "@settingBtproxyConnectionsTitle": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "settingBtproxyConnectionsDescription": "Home Assistant can connect to Bluetooth devices through this proxy.",
+  "@settingBtproxyConnectionsDescription": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "settingBtproxyMacLookupTitle": "Look up device manufacturers online",
+  "@settingBtproxyMacLookupTitle": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "settingBtproxyMacLookupDescription": "Names unknown nearby devices by their hardware address prefix using api.macvendors.com. Only the 3-byte manufacturer prefix is sent, once per manufacturer; nothing else leaves the device.",
+  "@settingBtproxyMacLookupDescription": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "settingBtproxyNearbySortTitle": "Sort by",
+  "@settingBtproxyNearbySortTitle": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "settingBtproxyNearbySortDescription": "The order of the nearby devices list below.",
+  "@settingBtproxyNearbySortDescription": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "settingBtproxyMinConnectRssiTitle": "Minimum signal for connections",
+  "@settingBtproxyMinConnectRssiTitle": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "settingBtproxyMinConnectRssiDescription": "Refuse device connections heard weaker than this, so a closer proxy takes them instead.",
+  "@settingBtproxyMinConnectRssiDescription": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeOptionContinuous": "Continuous",
+  "@esphomeOptionContinuous": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Choice label. The saved value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeOptionBalanced": "Balanced",
+  "@esphomeOptionBalanced": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Choice label. The saved value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeOptionLowPower": "Low power",
+  "@esphomeOptionLowPower": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Choice label. The saved value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeOptionLastSeen": "Last seen",
+  "@esphomeOptionLastSeen": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Choice label. The saved value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeOptionName": "Name",
+  "@esphomeOptionName": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Choice label. The saved value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeOptionMacAddress": "MAC address",
+  "@esphomeOptionMacAddress": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Choice label. The saved value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeOptionSignalStrength": "Signal strength",
+  "@esphomeOptionSignalStrength": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Choice label. The saved value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeOptionNoLimit": "No limit",
+  "@esphomeOptionNoLimit": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Choice label. The saved value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeOption70DbmSameRoom": "-70 dBm (same room)",
+  "@esphomeOption70DbmSameRoom": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Choice label. The saved value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeOption80Dbm": "-80 dBm",
+  "@esphomeOption80Dbm": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Choice label. The saved value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeOption85Dbm": "-85 dBm",
+  "@esphomeOption85Dbm": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Choice label. The saved value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeOption90DbmEdgeOfRange": "-90 dBm (edge of range)",
+  "@esphomeOption90DbmEdgeOfRange": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Choice label. The saved value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeBluetooth": "Bluetooth Proxy",
+  "@esphomeBluetooth": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeBluetoothHelp": "Relay nearby Bluetooth devices to Home Assistant",
+  "@esphomeBluetoothHelp": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeBluetoothOff": "Bluetooth is off. Turn it on to use the proxy.",
+  "@esphomeBluetoothOff": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeBluetoothUnsupported": "Not available on this device: it has no Bluetooth.",
+  "@esphomeBluetoothUnsupported": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeBluetoothBuildUnsupported": "Not available on this device: its Android build has no Bluetooth LE support.",
+  "@esphomeBluetoothBuildUnsupported": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeIdentityBthome": "BTHome sensor",
+  "@esphomeIdentityBthome": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityXiaomi": "Xiaomi sensor",
+  "@esphomeIdentityXiaomi": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityQingping": "Qingping sensor",
+  "@esphomeIdentityQingping": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityGoogleNest": "Google/Nest device",
+  "@esphomeIdentityGoogleNest": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityEddystone": "Eddystone beacon",
+  "@esphomeIdentityEddystone": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityGoogleFastPair": "Google Fast Pair device",
+  "@esphomeIdentityGoogleFastPair": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityAppleFindMy": "Apple Find My device",
+  "@esphomeIdentityAppleFindMy": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityExposure": "Exposure notification (phone)",
+  "@esphomeIdentityExposure": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityAugustYale": "August/Yale lock",
+  "@esphomeIdentityAugustYale": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityAmazon": "Amazon device",
+  "@esphomeIdentityAmazon": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityTile": "Tile tracker",
+  "@esphomeIdentityTile": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityInput": "Input device (remote/keyboard)",
+  "@esphomeIdentityInput": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityHeartRate": "Heart rate sensor",
+  "@esphomeIdentityHeartRate": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityEnvironmental": "Environmental sensor",
+  "@esphomeIdentityEnvironmental": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityApple": "Apple device",
+  "@esphomeIdentityApple": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityWindows": "Windows PC",
+  "@esphomeIdentityWindows": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentitySamsung": "Samsung device",
+  "@esphomeIdentitySamsung": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityGoogle": "Google device",
+  "@esphomeIdentityGoogle": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityUnknown": "Unknown device",
+  "@esphomeIdentityUnknown": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeIdentityVendor": "{vendor} device",
+  "@esphomeIdentityVendor": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    },
+    "placeholders": {
+      "vendor": {
+        "type": "String",
+        "description": "Manufacturer name. Keep unchanged."
+      }
+    }
+  },
+  "esphomeNearby": "Nearby devices",
+  "@esphomeNearby": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeNearbySearch": "The Bluetooth devices this kiosk hears, with names where known.",
+  "@esphomeNearbySearch": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeNearbyEmpty": "Nothing heard yet.",
+  "@esphomeNearbyEmpty": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeNearbyWaiting": "Nothing heard yet. Devices appear here once the proxy is scanning.",
+  "@esphomeNearbyWaiting": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeRotating": "(rotating address)",
+  "@esphomeRotating": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    }
+  },
+  "esphomeNearbyCount": "Showing the first {count} of {total}.",
+  "@esphomeNearbyCount": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Number to display."
+      },
+      "total": {
+        "type": "String",
+        "description": "Total device count."
+      }
+    }
+  },
+  "esphomeSlots": "Up to {count} devices can be connected at once through this proxy. Home Assistant routes further devices through other proxies.",
+  "@esphomeSlots": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Number to display."
+      }
+    }
+  },
+  "esphomeSecondsAgo": "{count}s ago",
+  "@esphomeSecondsAgo": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Number to display."
+      }
+    }
+  },
+  "esphomeMinutesAgo": "{count} min ago",
+  "@esphomeMinutesAgo": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Number to display."
+      }
+    }
+  },
+  "esphomeHoursAgo": "{count} h ago",
+  "@esphomeHoursAgo": {
+    "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy > Nearby devices"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy > Nearby devices"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Number to display."
+      }
+    }
+  },
+  "settingLocationEnabledTitle": "Report location",
+  "@settingLocationEnabledTitle": {
+    "context": "Settings > ESPHome > GPS Sensor",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > GPS Sensor"
+      ],
+      "remoteAdmin": [
+        "ESPHome > GPS Sensor"
+      ]
+    }
+  },
+  "settingLocationEnabledDescription": "Read the GPS position and serve it to Home Assistant as latitude, longitude, accuracy, altitude and speed sensors. Turning this on or off re-registers the ESPHome device.",
+  "@settingLocationEnabledDescription": {
+    "context": "Settings > ESPHome > GPS Sensor",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > GPS Sensor"
+      ],
+      "remoteAdmin": [
+        "ESPHome > GPS Sensor"
+      ]
+    }
+  },
+  "settingLocationIntervalTitle": "Update interval",
+  "@settingLocationIntervalTitle": {
+    "context": "Settings > ESPHome > GPS Sensor",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > GPS Sensor"
+      ],
+      "remoteAdmin": [
+        "ESPHome > GPS Sensor"
+      ]
+    }
+  },
+  "settingLocationIntervalDescription": "Seconds between position readings.",
+  "@settingLocationIntervalDescription": {
+    "context": "Settings > ESPHome > GPS Sensor",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > GPS Sensor"
+      ],
+      "remoteAdmin": [
+        "ESPHome > GPS Sensor"
+      ]
+    }
+  },
+  "esphomeGps": "GPS Sensor",
+  "@esphomeGps": {
+    "context": "Settings > ESPHome > GPS Sensor",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > GPS Sensor"
+      ],
+      "remoteAdmin": [
+        "ESPHome > GPS Sensor"
+      ]
+    }
+  },
+  "esphomeGpsHelp": "Expose GPS sensor data to Home Assistant",
+  "@esphomeGpsHelp": {
+    "context": "Settings > ESPHome > GPS Sensor",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > GPS Sensor"
+      ],
+      "remoteAdmin": [
+        "ESPHome > GPS Sensor"
+      ]
+    }
+  },
+  "esphomeLocationOff": "Off.",
+  "@esphomeLocationOff": {
+    "context": "Settings > ESPHome > GPS Sensor",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > GPS Sensor"
+      ],
+      "remoteAdmin": [
+        "ESPHome > GPS Sensor"
+      ]
+    }
+  },
+  "esphomeLocationWaiting": "Waiting for the first fix. A cold start under open sky can take a few minutes.",
+  "@esphomeLocationWaiting": {
+    "context": "Settings > ESPHome > GPS Sensor",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > GPS Sensor"
+      ],
+      "remoteAdmin": [
+        "ESPHome > GPS Sensor"
+      ]
+    }
+  },
+  "esphomeCoordinates": "Last coordinates",
+  "@esphomeCoordinates": {
+    "context": "Settings > ESPHome > GPS Sensor",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > GPS Sensor"
+      ],
+      "remoteAdmin": [
+        "ESPHome > GPS Sensor"
+      ]
+    }
+  },
+  "esphomeLocationDenied": "Location permission not granted.",
+  "@esphomeLocationDenied": {
+    "context": "Settings > ESPHome > GPS Sensor",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > GPS Sensor"
+      ],
+      "remoteAdmin": [
+        "ESPHome > GPS Sensor"
+      ]
+    }
+  },
+  "esphomeLocationAbsent": "No GPS receiver.",
+  "@esphomeLocationAbsent": {
+    "context": "Settings > ESPHome > GPS Sensor",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > GPS Sensor"
+      ],
+      "remoteAdmin": [
+        "ESPHome > GPS Sensor"
+      ]
+    }
+  },
+  "esphomeLocationError": "GPS unavailable: {error}",
+  "@esphomeLocationError": {
+    "context": "Settings > ESPHome > GPS Sensor",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > GPS Sensor"
+      ],
+      "remoteAdmin": [
+        "ESPHome > GPS Sensor"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Original technical error. Keep unchanged."
+      }
+    }
+  },
+  "esphomeLocationUnsupported": "Not available on this device: it has no GPS receiver.",
+  "@esphomeLocationUnsupported": {
+    "context": "Settings > ESPHome > GPS Sensor",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > GPS Sensor"
+      ],
+      "remoteAdmin": [
+        "ESPHome > GPS Sensor"
+      ]
+    }
+  },
+  "settingNotificationsTransparencyTitle": "Transparency",
+  "@settingNotificationsTransparencyTitle": {
+    "context": "Settings > ESPHome > Notifications",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Notifications"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Notifications"
+      ]
+    }
+  },
+  "settingNotificationsTransparencyDescription": "Lets the screen behind show through the notification cards. Text and icons stay solid.",
+  "@settingNotificationsTransparencyDescription": {
+    "context": "Settings > ESPHome > Notifications",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Notifications"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Notifications"
+      ]
+    }
+  },
+  "settingNotificationsBlurTitle": "Background blur",
+  "@settingNotificationsBlurTitle": {
+    "context": "Settings > ESPHome > Notifications",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Notifications"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Notifications"
+      ]
+    }
+  },
+  "settingNotificationsBlurDescription": "Blurs what shows through a transparent notification card. Note: Blur cannot be applied over the Home Assistant dashboard surface.",
+  "@settingNotificationsBlurDescription": {
+    "context": "Settings > ESPHome > Notifications",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Notifications"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Notifications"
+      ]
+    }
+  },
+  "settingNotificationsChimeFileTitle": "Notification sound",
+  "@settingNotificationsChimeFileTitle": {
+    "context": "Settings > ESPHome > Notifications",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Notifications"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Notifications"
+      ]
+    }
+  },
+  "settingNotificationsChimeFileDescription": "Sound files are read from Android/data/me.jxl.kiosk_satellite/files/sounds on the device, also reachable from the File Manager.",
+  "@settingNotificationsChimeFileDescription": {
+    "context": "Settings > ESPHome > Notifications",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Notifications"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Notifications"
+      ]
+    }
+  },
+  "settingNotificationsVolumeTitle": "Notification volume",
+  "@settingNotificationsVolumeTitle": {
+    "context": "Settings > ESPHome > Notifications",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Notifications"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Notifications"
+      ]
+    }
+  },
+  "settingNotificationsVolumeDescription": "How loud the notification sound plays, apart from the media and assistant volumes.",
+  "@settingNotificationsVolumeDescription": {
+    "context": "Settings > ESPHome > Notifications",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Notifications"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Notifications"
+      ]
+    }
+  },
+  "esphomeNotifications": "Notifications",
+  "@esphomeNotifications": {
+    "context": "Settings > ESPHome > Notifications",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Notifications"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Notifications"
+      ]
+    }
+  },
+  "esphomeNotificationsHelp": "Transparency, blur, notification sound, test notification",
+  "@esphomeNotificationsHelp": {
+    "context": "Settings > ESPHome > Notifications",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Notifications"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Notifications"
+      ]
+    }
+  },
+  "esphomeAppearance": "Appearance",
+  "@esphomeAppearance": {
+    "context": "Settings > ESPHome > Notifications",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Notifications"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Notifications"
+      ]
+    }
+  },
+  "esphomeSound": "Sound",
+  "@esphomeSound": {
+    "context": "Settings > ESPHome > Notifications",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Notifications"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Notifications"
+      ]
+    }
+  },
+  "esphomeNotificationTest": "Test notification",
+  "@esphomeNotificationTest": {
+    "context": "Settings > ESPHome > Notifications",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Notifications"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Notifications"
+      ]
+    }
+  },
+  "esphomeNotificationHelp": "Notifications are sent from Home Assistant with the {action} action. Test shows one over the dashboard.",
+  "@esphomeNotificationHelp": {
+    "context": "Settings > ESPHome > Notifications",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Notifications"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Notifications"
+      ]
+    },
+    "placeholders": {
+      "action": {
+        "type": "String",
+        "description": "Home Assistant action identifier. Keep unchanged."
+      }
+    }
+  },
+  "esphomeNotificationBody": "This is what a notification from Home Assistant looks and sounds like.",
+  "@esphomeNotificationBody": {
+    "context": "Settings > ESPHome > Notifications",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Notifications"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Notifications"
+      ]
+    }
+  },
+  "esphomeNotificationSearch": "The Home Assistant action that sends notifications, and a button to show one.",
+  "@esphomeNotificationSearch": {
+    "context": "Settings > ESPHome > Notifications",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Notifications"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Notifications"
+      ]
+    }
+  },
+  "esphomeLocation": "Location",
+  "@esphomeLocation": {
+    "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ]
+    }
+  },
+  "esphomeLocationSearch": "The Location grant the location sensors need.",
+  "@esphomeLocationSearch": {
+    "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ]
+    }
+  },
+  "esphomeBluetoothSearch": "The Nearby devices grant the Bluetooth proxy needs to scan.",
+  "@esphomeBluetoothSearch": {
+    "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ]
+    }
+  },
+  "esphomeLocationMissing": "Without this the GPS receiver cannot be read and the location sensors stay unknown.",
+  "@esphomeLocationMissing": {
+    "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ]
+    }
+  },
+  "esphomeLocationServicesOff": "Location is off in the device settings, so the receiver delivers nothing.",
+  "@esphomeLocationServicesOff": {
+    "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ]
+    }
+  },
+  "esphomeLocationGranted": "The location sensors can read the GPS receiver.",
+  "@esphomeLocationGranted": {
+    "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ]
+    }
+  },
+  "esphomeBluetoothGranted": "The proxy can scan for nearby Bluetooth devices.",
+  "@esphomeBluetoothGranted": {
+    "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ]
+    }
+  },
+  "esphomeBluetoothMissing": "Without this the proxy cannot scan for devices.",
+  "@esphomeBluetoothMissing": {
+    "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ]
+    }
+  },
+  "esphomeBluetoothLocationMissing": "Android only delivers Bluetooth scan results, beacons included, with Location granted. The proxy never reads the device position.",
+  "@esphomeBluetoothLocationMissing": {
+    "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ]
+    }
+  },
+  "esphomeBluetoothLocationOff": "Location is off in the device settings, so Bluetooth scanning finds nothing.",
+  "@esphomeBluetoothLocationOff": {
+    "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ]
+    }
+  },
+  "esphomeBluetoothBeacons": "Bluetooth scanning can hear beacons.",
+  "@esphomeBluetoothBeacons": {
+    "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ]
+    }
+  },
+  "esphomeSent": "Sent",
+  "@esphomeSent": {
+    "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ]
+    }
+  },
+  "esphomeNotsaved": "Not saved",
+  "@esphomeNotsaved": {
+    "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions"
+      ]
+    }
+  },
   "settingEsphomeEnabledTitle": "Enable ESPHome",
   "@settingEsphomeEnabledTitle": {
     "context": "Settings > ESPHome",
