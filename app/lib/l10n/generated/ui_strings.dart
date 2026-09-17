@@ -97,6 +97,96 @@ abstract class UiStrings {
     Locale('es'),
   ];
 
+  /// Page title.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera view'**
+  String get cameraViewerTitle;
+
+  /// Status shown over a camera tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Connecting...'**
+  String get cameraViewerConnecting;
+
+  /// Status shown over a camera tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Reconnecting...'**
+  String get cameraViewerReconnecting;
+
+  /// Status shown over a camera tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Trying {transport}...'**
+  String cameraViewerTrying(String transport);
+
+  /// Status shown over a camera tile.
+  ///
+  /// In en, this message translates to:
+  /// **'This device cannot decode {codec}'**
+  String cameraViewerCannotDecode(String codec);
+
+  /// Status shown over a camera tile.
+  ///
+  /// In en, this message translates to:
+  /// **'This device cannot play {transport} streams'**
+  String cameraViewerCannotPlay(String transport);
+
+  /// Status shown over a camera tile.
+  ///
+  /// In en, this message translates to:
+  /// **'This device cannot decode this stream'**
+  String get cameraViewerCannotDecodeStream;
+
+  /// Status shown over a camera tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot reach Home Assistant. Retrying in {seconds}s'**
+  String cameraViewerHaRetry(String seconds);
+
+  /// Status shown over a camera tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot reach the camera server. Retrying in {seconds}s'**
+  String cameraViewerServerRetry(String seconds);
+
+  /// Status shown over a camera tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection failed. Retrying in {seconds}s'**
+  String cameraViewerConnectionRetry(String seconds);
+
+  /// Status shown over a camera tile.
+  ///
+  /// In en, this message translates to:
+  /// **'The camera server could not start this stream. Retrying...'**
+  String get cameraViewerStartRetry;
+
+  /// Status shown over a camera tile.
+  ///
+  /// In en, this message translates to:
+  /// **'The camera server could not start this stream. Retrying in {seconds}s'**
+  String cameraViewerStartDelayedRetry(String seconds);
+
+  /// Status shown over a camera tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Stream not found on the camera server. Retrying in {seconds}s'**
+  String cameraViewerMissingRetry(String seconds);
+
+  /// Status shown over a camera tile.
+  ///
+  /// In en, this message translates to:
+  /// **'The camera server rejected the login. Retrying in {seconds}s'**
+  String cameraViewerLoginRetry(String seconds);
+
+  /// Status shown over a camera tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Stream missing from Go2RTC'**
+  String get cameraViewerMissing;
+
   /// Button to import a configuration file.
   ///
   /// In en, this message translates to:

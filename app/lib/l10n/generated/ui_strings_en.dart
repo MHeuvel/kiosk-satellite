@@ -9,6 +9,71 @@ class UiStringsEn extends UiStrings {
   UiStringsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get cameraViewerTitle => 'Camera view';
+
+  @override
+  String get cameraViewerConnecting => 'Connecting...';
+
+  @override
+  String get cameraViewerReconnecting => 'Reconnecting...';
+
+  @override
+  String cameraViewerTrying(String transport) {
+    return 'Trying $transport...';
+  }
+
+  @override
+  String cameraViewerCannotDecode(String codec) {
+    return 'This device cannot decode $codec';
+  }
+
+  @override
+  String cameraViewerCannotPlay(String transport) {
+    return 'This device cannot play $transport streams';
+  }
+
+  @override
+  String get cameraViewerCannotDecodeStream =>
+      'This device cannot decode this stream';
+
+  @override
+  String cameraViewerHaRetry(String seconds) {
+    return 'Cannot reach Home Assistant. Retrying in ${seconds}s';
+  }
+
+  @override
+  String cameraViewerServerRetry(String seconds) {
+    return 'Cannot reach the camera server. Retrying in ${seconds}s';
+  }
+
+  @override
+  String cameraViewerConnectionRetry(String seconds) {
+    return 'Connection failed. Retrying in ${seconds}s';
+  }
+
+  @override
+  String get cameraViewerStartRetry =>
+      'The camera server could not start this stream. Retrying...';
+
+  @override
+  String cameraViewerStartDelayedRetry(String seconds) {
+    return 'The camera server could not start this stream. Retrying in ${seconds}s';
+  }
+
+  @override
+  String cameraViewerMissingRetry(String seconds) {
+    return 'Stream not found on the camera server. Retrying in ${seconds}s';
+  }
+
+  @override
+  String cameraViewerLoginRetry(String seconds) {
+    return 'The camera server rejected the login. Retrying in ${seconds}s';
+  }
+
+  @override
+  String get cameraViewerMissing => 'Stream missing from Go2RTC';
+
+  @override
   String get commonImport => 'Import';
 
   @override

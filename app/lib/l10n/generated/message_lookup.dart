@@ -3,6 +3,13 @@ import 'ui_strings.dart';
 
 String messageById(UiStrings strings, String? id, String fallback) =>
     switch (id) {
+      'cameraViewerTitle' => strings.cameraViewerTitle,
+      'cameraViewerConnecting' => strings.cameraViewerConnecting,
+      'cameraViewerReconnecting' => strings.cameraViewerReconnecting,
+      'cameraViewerCannotDecodeStream' =>
+        strings.cameraViewerCannotDecodeStream,
+      'cameraViewerStartRetry' => strings.cameraViewerStartRetry,
+      'cameraViewerMissing' => strings.cameraViewerMissing,
       'commonImport' => strings.commonImport,
       'commonBack' => strings.commonBack,
       'commonNext' => strings.commonNext,

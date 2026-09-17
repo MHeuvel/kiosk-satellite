@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 import '../app_container.dart';
+import '../l10n/camera_view_messages.dart';
+import '../l10n/messages.dart';
 import '../managers/camera/camera_manager.dart';
 import '../managers/camera/models.dart';
 import '../managers/settings/definitions.dart' as defs;
@@ -270,7 +272,9 @@ class CameraPlayer extends StatefulWidget {
 }
 
 class _CameraPlayerState extends State<CameraPlayer> {
-  late final String _configJson = _buildConfig();
+  late String _configJson;
+  String _messagesJson = '{}';
+  String _language = 'en';
   InAppWebViewController? _controller;
   bool _tornDown = false;
 
@@ -291,6 +295,24 @@ class _CameraPlayerState extends State<CameraPlayer> {
       widget.container.camera.focusedCameraId.addListener(_syncFocus);
     }
   }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final strings = l10n(context);
+    final messagesJson = jsonEncode(cameraViewMessages(strings));
+    final language = strings.localeName.replaceAll('_', '-');
+    final changed = messagesJson != _messagesJson || language != _language;
+    _messagesJson = messagesJson;
+    _language = language;
+    _configJson = _buildConfig();
+    if (changed && !_tornDown) {
+      _controller?.evaluateJavascript(source: _messageScript);
+    }
+  }
+
+  String get _messageScript =>
+      'window.ksSetMessages && window.ksSetMessages($_messagesJson, ${jsonEncode(_language)});';
 
   /// Stop the streams from inside the page.
   ///
@@ -360,6 +382,8 @@ class _CameraPlayerState extends State<CameraPlayer> {
         camera.id: camera,
     };
     return jsonEncode({
+      'messages': jsonDecode(_messagesJson),
+      'language': _language,
       'viewId': widget.view.id,
       'viewName': widget.view.name,
       'showCameraNames': widget.view.showCameraNames,
@@ -447,7 +471,8 @@ class _CameraPlayerState extends State<CameraPlayer> {
       // WebViews where the injection arrived late. Where it arrived on
       // time the page has already booted and dropped the hook.
       controller.evaluateJavascript(
-        source: 'window.ksSetConfig && window.ksSetConfig($_configJson);',
+        source:
+            'window.ksSetConfig && window.ksSetConfig($_configJson); $_messageScript',
       );
     },
     initialFile: 'assets/camera-view/index.html',

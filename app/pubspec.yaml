@@ -97,6 +97,7 @@ flutter:
     - assets/screensaver/screensaver.js
     - assets/camera-view/index.html
     - assets/camera-view/camera-view.js
+    - assets/camera-view/messages.js
     - assets/camera-view/hls.light.min.js
     - assets/branding/icon.png
     - assets/branding/mark.png
