@@ -193,6 +193,24 @@ abstract class UiStrings {
   /// **'Copy'**
   String get commonCopy;
 
+  /// Add action button.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get commonAdd;
+
+  /// Remove action button.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get commonRemove;
+
+  /// Close action button.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get commonClose;
+
   /// Plugin action label. Both values come from the plugin and are kept as supplied.
   ///
   /// In en, this message translates to:
@@ -2329,6 +2347,360 @@ abstract class UiStrings {
   /// **'System'**
   String get deviceThemeSystem;
 
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold mode'**
+  String get settingHaHoldModeTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep the current view on screen: the screensaver, dashboard view rotation and the return to home timer are paused until turned off.'**
+  String get settingHaHoldModeDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'End hold automatically after'**
+  String get settingHaHoldReleaseMinutesTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Turns hold mode off by itself after the set time. Set to 0 to hold until turned off manually.'**
+  String get settingHaHoldReleaseMinutesDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Show in the kiosk menu'**
+  String get settingHaHoldMenuTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Adds a menu entry that turns hold mode on and off.'**
+  String get settingHaHoldMenuDescription;
+
+  /// Hold subpage summary or duration displayed beside the automatic release slider.
+  ///
+  /// In en, this message translates to:
+  /// **'Pin the current view, automatic release, menu entry'**
+  String get haHoldHint;
+
+  /// Hold subpage summary or duration displayed beside the automatic release slider.
+  ///
+  /// In en, this message translates to:
+  /// **'Never'**
+  String get haNever;
+
+  /// Hold subpage summary or duration displayed beside the automatic release slider.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min'**
+  String haMinutes(String minutes);
+
+  /// Hold subpage summary or duration displayed beside the automatic release slider.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours} h'**
+  String haHours(String hours);
+
+  /// Hold subpage summary or duration displayed beside the automatic release slider.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours} h {minutes} min'**
+  String haHoursMinutes(String hours, String minutes);
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep connected in the background'**
+  String get settingDisableSuspendTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Turns off Home Assistant\'s \"Suspend background connections\" setting, which would otherwise drop the connection a few minutes after the screen goes off.'**
+  String get settingDisableSuspendDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause dashboard during screensaver'**
+  String get settingFreezeOnScreensaverTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Stops drawing the dashboard while the screensaver covers it, cutting CPU and GPU use; the connection stays live. Not for the Dim screensaver.'**
+  String get settingFreezeOnScreensaverDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter dashboard updates'**
+  String get settingWsFilterTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Only process updates for entities on the current view, cutting stutter on low-powered tablets. Views that cannot be resolved stay unfiltered.'**
+  String get settingWsFilterDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause HA dashboard camera streams during screensaver'**
+  String get settingPauseDashboardCamerasTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Pauses supported muted camera streams on the Home Assistant dashboard while the screensaver covers it. Streams reconnect when it closes. Does not affect the device camera or the Camera Streams feature.'**
+  String get settingPauseDashboardCamerasDescription;
+
+  /// Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.
+  ///
+  /// In en, this message translates to:
+  /// **'Optimizations'**
+  String get haOptimizations;
+
+  /// Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.
+  ///
+  /// In en, this message translates to:
+  /// **'Background connection, dashboard and camera pause, update filter'**
+  String get haOptimizationsHint;
+
+  /// Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan details are not available for the current view.'**
+  String get haScanUnavailable;
+
+  /// Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.
+  ///
+  /// In en, this message translates to:
+  /// **'Dashboard scan details'**
+  String get haScanDetails;
+
+  /// Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.
+  ///
+  /// In en, this message translates to:
+  /// **'Watched entities ({count})'**
+  String haWatchedTitle(String count);
+
+  /// Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.
+  ///
+  /// In en, this message translates to:
+  /// **'Watched entities'**
+  String get haWatched;
+
+  /// Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.
+  ///
+  /// In en, this message translates to:
+  /// **'The entity list is not available right now.'**
+  String get haEntityListUnavailable;
+
+  /// Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.
+  ///
+  /// In en, this message translates to:
+  /// **'Watching {count} entities on this view.'**
+  String haWatching(String count);
+
+  /// Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.
+  ///
+  /// In en, this message translates to:
+  /// **'No updates in the last minute.'**
+  String get haNoUpdates;
+
+  /// Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.
+  ///
+  /// In en, this message translates to:
+  /// **'Filtered {percent}% of updates in the last minute ({dropped} of {total}).'**
+  String haFiltered(String percent, String dropped, String total);
+
+  /// Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.
+  ///
+  /// In en, this message translates to:
+  /// **'Something on this page receives every entity update anyway, so filtering saves less here.'**
+  String get haRawUpdates;
+
+  /// Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.
+  ///
+  /// In en, this message translates to:
+  /// **'This view reads all entity states, so its updates are not filtered.'**
+  String get haAllStates;
+
+  /// Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.
+  ///
+  /// In en, this message translates to:
+  /// **'This view\'s entities can\'t be determined, so its updates are not filtered.'**
+  String get haUnknownEntities;
+
+  /// Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for the dashboard to load…'**
+  String get haWaiting;
+
+  /// Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.
+  ///
+  /// In en, this message translates to:
+  /// **'Show scan details.'**
+  String get haShowScan;
+
+  /// Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.
+  ///
+  /// In en, this message translates to:
+  /// **'This view uses {count} entities, which crosses the filtering threshold. Filtering is disabled.'**
+  String haThreshold(String count);
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Return to home dashboard view'**
+  String get settingHaReturnHomeEnabledTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Go back to the dashboard configured above after a period of inactivity.'**
+  String get settingHaReturnHomeEnabledDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Return after (seconds)'**
+  String get settingHaReturnHomeSecondsTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Inactivity period before the kiosk goes back.'**
+  String get settingHaReturnHomeSecondsDescription;
+
+  /// Return-to-home subpage summary, disabled reason or destination.
+  ///
+  /// In en, this message translates to:
+  /// **'Go back to the home view when left idle'**
+  String get haReturnHint;
+
+  /// Return-to-home subpage summary, disabled reason or destination.
+  ///
+  /// In en, this message translates to:
+  /// **'Turned off while Dashboard view rotation is on.'**
+  String get haReturnDisabled;
+
+  /// Return-to-home subpage summary, disabled reason or destination.
+  ///
+  /// In en, this message translates to:
+  /// **'The configured dashboard has no view path to return to.'**
+  String get haReturnNoPath;
+
+  /// Return-to-home subpage summary, disabled reason or destination.
+  ///
+  /// In en, this message translates to:
+  /// **'Returns to \"{path}\" after the timeout.'**
+  String haReturnPath(String path);
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable dashboard view rotation'**
+  String get settingHaRotationEnabledTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Cycle through the selected dashboard views in an endless loop, showing each one for the chosen number of seconds.'**
+  String get settingHaRotationEnabledDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Seconds per view'**
+  String get settingHaRotationSecondsTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'How long each view stays on screen.'**
+  String get settingHaRotationSecondsDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause rotation on interaction (seconds)'**
+  String get settingHaRotationPauseSecondsTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Touching the screen pauses rotation for this long, and each touch restarts the countdown. Voice interactions pause until they end. 0 keeps rotating through touches.'**
+  String get settingHaRotationPauseSecondsDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Fade between views'**
+  String get settingHaRotationCrossfadeTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Fade out to the background and into the next view instead of switching instantly. Moving to a different dashboard or an external page still switches instantly.'**
+  String get settingHaRotationCrossfadeDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Fade duration (seconds)'**
+  String get settingHaRotationFadeSecondsTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Combined fade-out and fade-in time. Loading the next view can add time, especially on its first visit.'**
+  String get settingHaRotationFadeSecondsDescription;
+
+  /// Rotation subpage label, guidance or validation error.
+  ///
+  /// In en, this message translates to:
+  /// **'Dashboard View Rotation'**
+  String get haRotation;
+
+  /// Rotation subpage label, guidance or validation error.
+  ///
+  /// In en, this message translates to:
+  /// **'Cycle through views, dwell time, fade'**
+  String get haRotationHint;
+
+  /// Rotation subpage label, guidance or validation error.
+  ///
+  /// In en, this message translates to:
+  /// **'Default view'**
+  String get haDefaultView;
+
+  /// Rotation subpage label, guidance or validation error.
+  ///
+  /// In en, this message translates to:
+  /// **'External pages'**
+  String get haExternalPages;
+
+  /// Rotation subpage label, guidance or validation error.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a fade duration from 0.2 to 5 seconds.'**
+  String get haFadeError;
+
+  /// Rotation subpage label, guidance or validation error.
+  ///
+  /// In en, this message translates to:
+  /// **'Touch pauses rotation for this long; each touch restarts it. Voice interactions always pause until they end. 0 keeps rotating.'**
+  String get haPauseRemoteHelp;
+
   /// Home Assistant base URL field label.
   ///
   /// In en, this message translates to:
@@ -2352,6 +2724,402 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Created under your HA profile → Security.'**
   String get settingHaTokenDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Log in automatically'**
+  String get settingHaAutoLoginTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in to the dashboard with the access token above instead of showing the Home Assistant login page.'**
+  String get settingHaAutoLoginDescription;
+
+  /// Connection status, action or dashboard picker text.
+  ///
+  /// In en, this message translates to:
+  /// **'Validate'**
+  String get haValidate;
+
+  /// Connection status, action or dashboard picker text.
+  ///
+  /// In en, this message translates to:
+  /// **'Validate connection'**
+  String get haValidateConnection;
+
+  /// Connection status, action or dashboard picker text.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking…'**
+  String get haChecking;
+
+  /// Connection status, action or dashboard picker text.
+  ///
+  /// In en, this message translates to:
+  /// **'Connected'**
+  String get haConnected;
+
+  /// Connection status, action or dashboard picker text.
+  ///
+  /// In en, this message translates to:
+  /// **'Connected.'**
+  String get haConnectedRemote;
+
+  /// Connection status, action or dashboard picker text.
+  ///
+  /// In en, this message translates to:
+  /// **'Not validated yet. The settings below unlock once the connection checks out.'**
+  String get haNotValidated;
+
+  /// Connection status, action or dashboard picker text.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not connect.'**
+  String get haConnectFailed;
+
+  /// Connection status, action or dashboard picker text.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Assistant URL and token not configured'**
+  String get haNotConfigured;
+
+  /// Connection status, action or dashboard picker text.
+  ///
+  /// In en, this message translates to:
+  /// **'invalid token'**
+  String get haInvalidToken;
+
+  /// Connection status, action or dashboard picker text.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not reach Home Assistant: {error}'**
+  String haUnreachable(String error);
+
+  /// Connection status, action or dashboard picker text.
+  ///
+  /// In en, this message translates to:
+  /// **'Secure context proxy'**
+  String get haProxy;
+
+  /// Connection status, action or dashboard picker text.
+  ///
+  /// In en, this message translates to:
+  /// **'Routes a plain http Home Assistant through an in-app proxy so the browser unlocks the microphone and other https-only features. Only for http URLs.'**
+  String get haProxyHelp;
+
+  /// Connection status, action or dashboard picker text.
+  ///
+  /// In en, this message translates to:
+  /// **'Routes a plain http Home Assistant through a proxy inside the app so the browser unlocks the microphone and other https-only features. Available only for http URLs.'**
+  String get haProxyRemoteHelp;
+
+  /// Connection status, action or dashboard picker text.
+  ///
+  /// In en, this message translates to:
+  /// **'This Home Assistant URL uses plain http, and browsers block the microphone and other features on http pages. Kiosk Satellite will route the dashboard through a secure proxy inside the app so everything works. You may need to sign in to Home Assistant again.'**
+  String get haProxyNotice;
+
+  /// Connection status, action or dashboard picker text.
+  ///
+  /// In en, this message translates to:
+  /// **'This Home Assistant URL uses plain http, and browsers block the microphone and other features on http pages. Kiosk Satellite will route the dashboard through a secure proxy inside the app so everything works. You may need to sign in to Home Assistant again on the tablet.'**
+  String get haProxyRemoteNotice;
+
+  /// Connection status, action or dashboard picker text.
+  ///
+  /// In en, this message translates to:
+  /// **'Dashboard'**
+  String get haDashboard;
+
+  /// Connection status, action or dashboard picker text.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a view'**
+  String get haChooseView;
+
+  /// Connection status, action or dashboard picker text.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading dashboards…'**
+  String get haLoadingDashboards;
+
+  /// Connection status, action or dashboard picker text.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not list dashboards'**
+  String get haListFailed;
+
+  /// Connection status, action or dashboard picker text.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to retry.'**
+  String get haRetryHint;
+
+  /// Connection status, action or dashboard picker text.
+  ///
+  /// In en, this message translates to:
+  /// **'Change view'**
+  String get haChangeView;
+
+  /// Connection status, action or dashboard picker text.
+  ///
+  /// In en, this message translates to:
+  /// **'No sub views'**
+  String get haNoViews;
+
+  /// Connection status, action or dashboard picker text.
+  ///
+  /// In en, this message translates to:
+  /// **'This dashboard has no selectable sub views.'**
+  String get haNoViewsHelp;
+
+  /// Connection status, action or dashboard picker text.
+  ///
+  /// In en, this message translates to:
+  /// **'No dashboards found'**
+  String get haNoDashboards;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get settingHaThemeTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Light or dark for the Home Assistant dashboard, also set from the Theme entity in Home Assistant. Auto follows the settings below.'**
+  String get settingHaThemeDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync Home Assistant themes with Kiosk Satellite'**
+  String get settingThemeMatchAppTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatically match your Home Assistant theme to your Kiosk Satellite interface.'**
+  String get settingThemeMatchAppDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Match theme to time of day'**
+  String get settingThemeAutoTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch Home Assistant between light and dark on a schedule. Keeps whatever theme is selected, flipping only its light/dark variant.'**
+  String get settingThemeAutoDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark theme at'**
+  String get settingThemeDarkAtTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Local time to switch to the dark theme.'**
+  String get settingThemeDarkAtDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Light theme at'**
+  String get settingThemeLightAtTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Local time to switch back to the light theme.'**
+  String get settingThemeLightAtDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Also switch the app theme'**
+  String get settingThemeAutoAppTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Flip Kiosk Satellite\'s own theme (menu, settings) together with the scheduled Home Assistant change.'**
+  String get settingThemeAutoAppDescription;
+
+  /// Theme subpage summary or automatic theme choice.
+  ///
+  /// In en, this message translates to:
+  /// **'Match the app, or switch dark and light on a schedule'**
+  String get haThemeHint;
+
+  /// Theme subpage summary or automatic theme choice.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto'**
+  String get haThemeAuto;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'HA kiosk mode'**
+  String get settingHaKioskModeTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide the Home Assistant header and sidebar. Applies immediately.'**
+  String get settingHaKioskModeDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide the header'**
+  String get settingHaKioskHideHeaderTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide the dashboard toolbar and view tabs while HA kiosk mode is on. Leave off if you switch views from the header.'**
+  String get settingHaKioskHideHeaderDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide the sidebar'**
+  String get settingHaKioskHideSidebarTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide the navigation sidebar while HA kiosk mode is on.'**
+  String get settingHaKioskHideSidebarDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Show in the kiosk menu'**
+  String get settingHaKioskMenuTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Add an HA Kiosk Mode entry to the kiosk menu that turns it on and off.'**
+  String get settingHaKioskMenuDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable dashboard carousel'**
+  String get settingHaDashboardCarouselTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Swipe left or right on the dashboard to move between its views. Swipes on sliders, maps and scrolling cards are left alone.'**
+  String get settingHaDashboardCarouselDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Capture swipe gestures over cards'**
+  String get settingHaCarouselOverCardsTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch views even when the swipe starts on a card that reacts to swipes. Sliders still work normally.'**
+  String get settingHaCarouselOverCardsDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable haptics'**
+  String get settingHaHapticsTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Vibrate when buttons, switches, cards, sliders and thermostat dials are used. Requires a vibration motor.'**
+  String get settingHaHapticsDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Vibration strength'**
+  String get settingHaHapticsStrengthTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'How strong the vibration feels.'**
+  String get settingHaHapticsStrengthDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Play tap sounds'**
+  String get settingHaTapSoundTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Play the standard tap sound when buttons, switches, cards, sliders and thermostat dials are used.'**
+  String get settingHaTapSoundDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap sound volume'**
+  String get settingHaTapSoundVolumeTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'How loud the tap sound plays.'**
+  String get settingHaTapSoundVolumeDescription;
+
+  /// Subpage heading, summary or vibration choice. Light means gentle vibration, not a color theme.
+  ///
+  /// In en, this message translates to:
+  /// **'User Interface'**
+  String get haUserInterface;
+
+  /// Subpage heading, summary or vibration choice. Light means gentle vibration, not a color theme.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosk mode, dashboard carousel, haptics, tap sounds'**
+  String get haInterfaceHint;
+
+  /// Subpage heading, summary or vibration choice. Light means gentle vibration, not a color theme.
+  ///
+  /// In en, this message translates to:
+  /// **'Haptics'**
+  String get haHaptics;
+
+  /// Subpage heading, summary or vibration choice. Light means gentle vibration, not a color theme.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get haVibrationLight;
+
+  /// Subpage heading, summary or vibration choice. Light means gentle vibration, not a color theme.
+  ///
+  /// In en, this message translates to:
+  /// **'Medium'**
+  String get haVibrationMedium;
+
+  /// Subpage heading, summary or vibration choice. Light means gentle vibration, not a color theme.
+  ///
+  /// In en, this message translates to:
+  /// **'Strong'**
+  String get haVibrationStrong;
 
   /// Settings menu entry. Product names stay unchanged.
   ///

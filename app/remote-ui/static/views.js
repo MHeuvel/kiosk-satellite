@@ -1,3 +1,4 @@
+import { haText, t } from './localization.js';
 import { api } from './core.js';
 import { readOnlyRow } from './device.js';
 import { copyText, messageBox, modalShell } from './widgets.js';
@@ -24,7 +25,7 @@ export async function fetchViews(urlPath) {
 export function pickView(urlPath, views, currentRoute) {
   return new Promise((resolve) => {
     const { back, body, foot } = modalShell({
-      title: 'Choose a view',
+      title: haText('Choose a view'),
       onDismiss: () => { back.remove(); resolve(null); },
     });
     views.forEach((v) => {
@@ -34,7 +35,7 @@ export function pickView(urlPath, views, currentRoute) {
     });
     const cancel = document.createElement('button');
     cancel.className = 'btn-text';
-    cancel.textContent = 'Cancel';
+    cancel.textContent = haText('Cancel');
     cancel.addEventListener('click', () => { back.remove(); resolve(null); });
     foot.appendChild(cancel);
   });
@@ -52,9 +53,9 @@ export async function showScanDiagnostic() {
     details = decoded?.details;
   } catch (_) {}
   if (typeof details !== 'string' || !details) {
-    details = 'Scan details are not available for the current view.';
+    details = haText('Scan details are not available for the current view.');
   }
-  const { back, body, foot } = modalShell({ title: 'Dashboard scan details', width: 620,
+  const { back, body, foot } = modalShell({ title: haText('Dashboard scan details'), width: 620,
     onDismiss: () => back.remove() });
   const text = document.createElement('pre');
   text.style.cssText = 'white-space:pre-wrap; overflow-wrap:anywhere; font-size:13px;';
@@ -62,11 +63,11 @@ export async function showScanDiagnostic() {
   body.appendChild(text);
   const copy = document.createElement('button');
   copy.className = 'btn-text';
-  copy.textContent = 'Copy';
+  copy.textContent = haText('Copy');
   copy.addEventListener('click', () => copyText(details));
   const close = document.createElement('button');
   close.className = 'btn-primary';
-  close.textContent = 'Close';
+  close.textContent = haText('Close');
   close.addEventListener('click', () => back.remove());
   foot.append(copy, close);
 }
@@ -87,18 +88,18 @@ export async function showWatchedEntities() {
     if (typeof items === 'string') items = JSON.parse(items);
   } catch (_) {}
   if (!Array.isArray(items) || !items.length) {
-    messageBox({ title: 'Watched entities', message: 'The entity list is not available right now.' });
+    messageBox({ title: haText('Watched entities'), message: haText('The entity list is not available right now.') });
     return;
   }
   const { back, body, foot } = modalShell({
-    title: `Watched entities (${items.length})`,
+    title: t('haWatchedTitle', {count: String(items.length)}),
     width: 520,
     onDismiss: () => back.remove(),
   });
-  items.forEach((it) => body.appendChild(readOnlyRow(it.name || it.id, it.name ? it.id : '', '')));
+  items.forEach((it) => body.appendChild(readOnlyRow(it.name || it.id, it.name ? it.id : '', '', false)));
   const done = document.createElement('button');
   done.className = 'btn-primary';
-  done.textContent = 'Close';
+  done.textContent = haText('Close');
   done.addEventListener('click', () => back.remove());
   foot.appendChild(done);
 }
@@ -107,7 +108,7 @@ export async function showWatchedEntities() {
 // row, like the device's RadioListTile. The whole row is the click target;
 // the input is the visual, kept in sync by each re-render.
 export function radioRow(name, desc, selected, onPick) {
-  const row = readOnlyRow(name, desc, '');
+  const row = readOnlyRow(name, desc, '', false);
   row.querySelector('span').remove();
   const r = document.createElement('input');
   r.type = 'radio';

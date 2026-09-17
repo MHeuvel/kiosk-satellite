@@ -1,0 +1,168 @@
+{
+  "@@locale": "en",
+  "settingHaHoldModeTitle": "Hold mode",
+  "@settingHaHoldModeTitle": {
+    "context": "Settings:Home Assistant Setup:Hold mode",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Hold mode"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Hold mode"
+      ]
+    }
+  },
+  "settingHaHoldModeDescription": "Keep the current view on screen: the screensaver, dashboard view rotation and the return to home timer are paused until turned off.",
+  "@settingHaHoldModeDescription": {
+    "context": "Settings:Home Assistant Setup:Hold mode",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Hold mode"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Hold mode"
+      ]
+    }
+  },
+  "settingHaHoldReleaseMinutesTitle": "End hold automatically after",
+  "@settingHaHoldReleaseMinutesTitle": {
+    "context": "Settings:Home Assistant Setup:Hold mode",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Hold mode"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Hold mode"
+      ]
+    }
+  },
+  "settingHaHoldReleaseMinutesDescription": "Turns hold mode off by itself after the set time. Set to 0 to hold until turned off manually.",
+  "@settingHaHoldReleaseMinutesDescription": {
+    "context": "Settings:Home Assistant Setup:Hold mode",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Hold mode"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Hold mode"
+      ]
+    }
+  },
+  "settingHaHoldMenuTitle": "Show in the kiosk menu",
+  "@settingHaHoldMenuTitle": {
+    "context": "Settings:Home Assistant Setup:Hold mode",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Hold mode"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Hold mode"
+      ]
+    }
+  },
+  "settingHaHoldMenuDescription": "Adds a menu entry that turns hold mode on and off.",
+  "@settingHaHoldMenuDescription": {
+    "context": "Settings:Home Assistant Setup:Hold mode",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Hold mode"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Hold mode"
+      ]
+    }
+  },
+  "haHoldHint": "Pin the current view, automatic release, menu entry",
+  "@haHoldHint": {
+    "context": "Settings:Home Assistant Setup:Hold mode",
+    "description": "Hold subpage summary or duration displayed beside the automatic release slider.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Hold mode"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Hold mode"
+      ]
+    }
+  },
+  "haNever": "Never",
+  "@haNever": {
+    "context": "Settings:Home Assistant Setup:Hold mode",
+    "description": "Hold subpage summary or duration displayed beside the automatic release slider.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Hold mode"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Hold mode"
+      ]
+    }
+  },
+  "haMinutes": "{minutes} min",
+  "@haMinutes": {
+    "context": "Settings:Home Assistant Setup:Hold mode",
+    "description": "Hold subpage summary or duration displayed beside the automatic release slider.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Hold mode"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Hold mode"
+      ]
+    },
+    "placeholders": {
+      "minutes": {
+        "type": "String",
+        "description": "Remaining minutes."
+      }
+    }
+  },
+  "haHours": "{hours} h",
+  "@haHours": {
+    "context": "Settings:Home Assistant Setup:Hold mode",
+    "description": "Hold subpage summary or duration displayed beside the automatic release slider.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Hold mode"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Hold mode"
+      ]
+    },
+    "placeholders": {
+      "hours": {
+        "type": "String",
+        "description": "Whole hours."
+      }
+    }
+  },
+  "haHoursMinutes": "{hours} h {minutes} min",
+  "@haHoursMinutes": {
+    "context": "Settings:Home Assistant Setup:Hold mode",
+    "description": "Hold subpage summary or duration displayed beside the automatic release slider.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Hold mode"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Hold mode"
+      ]
+    },
+    "placeholders": {
+      "hours": {
+        "type": "String",
+        "description": "Whole hours."
+      },
+      "minutes": {
+        "type": "String",
+        "description": "Remaining minutes."
+      }
+    }
+  }
+}

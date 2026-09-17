@@ -1,0 +1,341 @@
+{
+  "@@locale": "en",
+  "settingHaKioskModeTitle": "HA kiosk mode",
+  "@settingHaKioskModeTitle": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaKioskModeDescription": "Hide the Home Assistant header and sidebar. Applies immediately.",
+  "@settingHaKioskModeDescription": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaKioskHideHeaderTitle": "Hide the header",
+  "@settingHaKioskHideHeaderTitle": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaKioskHideHeaderDescription": "Hide the dashboard toolbar and view tabs while HA kiosk mode is on. Leave off if you switch views from the header.",
+  "@settingHaKioskHideHeaderDescription": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaKioskHideSidebarTitle": "Hide the sidebar",
+  "@settingHaKioskHideSidebarTitle": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaKioskHideSidebarDescription": "Hide the navigation sidebar while HA kiosk mode is on.",
+  "@settingHaKioskHideSidebarDescription": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaKioskMenuTitle": "Show in the kiosk menu",
+  "@settingHaKioskMenuTitle": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaKioskMenuDescription": "Add an HA Kiosk Mode entry to the kiosk menu that turns it on and off.",
+  "@settingHaKioskMenuDescription": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaDashboardCarouselTitle": "Enable dashboard carousel",
+  "@settingHaDashboardCarouselTitle": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaDashboardCarouselDescription": "Swipe left or right on the dashboard to move between its views. Swipes on sliders, maps and scrolling cards are left alone.",
+  "@settingHaDashboardCarouselDescription": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaCarouselOverCardsTitle": "Capture swipe gestures over cards",
+  "@settingHaCarouselOverCardsTitle": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaCarouselOverCardsDescription": "Switch views even when the swipe starts on a card that reacts to swipes. Sliders still work normally.",
+  "@settingHaCarouselOverCardsDescription": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaHapticsTitle": "Enable haptics",
+  "@settingHaHapticsTitle": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaHapticsDescription": "Vibrate when buttons, switches, cards, sliders and thermostat dials are used. Requires a vibration motor.",
+  "@settingHaHapticsDescription": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaHapticsStrengthTitle": "Vibration strength",
+  "@settingHaHapticsStrengthTitle": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaHapticsStrengthDescription": "How strong the vibration feels.",
+  "@settingHaHapticsStrengthDescription": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaTapSoundTitle": "Play tap sounds",
+  "@settingHaTapSoundTitle": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaTapSoundDescription": "Play the standard tap sound when buttons, switches, cards, sliders and thermostat dials are used.",
+  "@settingHaTapSoundDescription": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaTapSoundVolumeTitle": "Tap sound volume",
+  "@settingHaTapSoundVolumeTitle": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaTapSoundVolumeDescription": "How loud the tap sound plays.",
+  "@settingHaTapSoundVolumeDescription": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "haUserInterface": "User Interface",
+  "@haUserInterface": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Subpage heading, summary or vibration choice. Light means gentle vibration, not a color theme.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "haInterfaceHint": "Kiosk mode, dashboard carousel, haptics, tap sounds",
+  "@haInterfaceHint": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Subpage heading, summary or vibration choice. Light means gentle vibration, not a color theme.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "haHaptics": "Haptics",
+  "@haHaptics": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Subpage heading, summary or vibration choice. Light means gentle vibration, not a color theme.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "haVibrationLight": "Light",
+  "@haVibrationLight": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Subpage heading, summary or vibration choice. Light means gentle vibration, not a color theme.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "haVibrationMedium": "Medium",
+  "@haVibrationMedium": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Subpage heading, summary or vibration choice. Light means gentle vibration, not a color theme.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "haVibrationStrong": "Strong",
+  "@haVibrationStrong": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Subpage heading, summary or vibration choice. Light means gentle vibration, not a color theme.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  }
+}

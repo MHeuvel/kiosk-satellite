@@ -57,6 +57,15 @@ class UiStringsEs extends UiStrings {
   String get commonCopy => 'Copiar';
 
   @override
+  String get commonAdd => 'Add';
+
+  @override
+  String get commonRemove => 'Remove';
+
+  @override
+  String get commonClose => 'Close';
+
+  @override
   String drawerPluginAction(String pluginName, String actionTitle) {
     return '$pluginName: $actionTitle';
   }
@@ -1297,6 +1306,226 @@ class UiStringsEs extends UiStrings {
   String get deviceThemeSystem => 'Sistema';
 
   @override
+  String get settingHaHoldModeTitle => 'Hold mode';
+
+  @override
+  String get settingHaHoldModeDescription =>
+      'Keep the current view on screen: the screensaver, dashboard view rotation and the return to home timer are paused until turned off.';
+
+  @override
+  String get settingHaHoldReleaseMinutesTitle => 'End hold automatically after';
+
+  @override
+  String get settingHaHoldReleaseMinutesDescription =>
+      'Turns hold mode off by itself after the set time. Set to 0 to hold until turned off manually.';
+
+  @override
+  String get settingHaHoldMenuTitle => 'Show in the kiosk menu';
+
+  @override
+  String get settingHaHoldMenuDescription =>
+      'Adds a menu entry that turns hold mode on and off.';
+
+  @override
+  String get haHoldHint =>
+      'Pin the current view, automatic release, menu entry';
+
+  @override
+  String get haNever => 'Never';
+
+  @override
+  String haMinutes(String minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String haHours(String hours) {
+    return '$hours h';
+  }
+
+  @override
+  String haHoursMinutes(String hours, String minutes) {
+    return '$hours h $minutes min';
+  }
+
+  @override
+  String get settingDisableSuspendTitle => 'Keep connected in the background';
+
+  @override
+  String get settingDisableSuspendDescription =>
+      'Turns off Home Assistant\'s \"Suspend background connections\" setting, which would otherwise drop the connection a few minutes after the screen goes off.';
+
+  @override
+  String get settingFreezeOnScreensaverTitle =>
+      'Pause dashboard during screensaver';
+
+  @override
+  String get settingFreezeOnScreensaverDescription =>
+      'Stops drawing the dashboard while the screensaver covers it, cutting CPU and GPU use; the connection stays live. Not for the Dim screensaver.';
+
+  @override
+  String get settingWsFilterTitle => 'Filter dashboard updates';
+
+  @override
+  String get settingWsFilterDescription =>
+      'Only process updates for entities on the current view, cutting stutter on low-powered tablets. Views that cannot be resolved stay unfiltered.';
+
+  @override
+  String get settingPauseDashboardCamerasTitle =>
+      'Pause HA dashboard camera streams during screensaver';
+
+  @override
+  String get settingPauseDashboardCamerasDescription =>
+      'Pauses supported muted camera streams on the Home Assistant dashboard while the screensaver covers it. Streams reconnect when it closes. Does not affect the device camera or the Camera Streams feature.';
+
+  @override
+  String get haOptimizations => 'Optimizations';
+
+  @override
+  String get haOptimizationsHint =>
+      'Background connection, dashboard and camera pause, update filter';
+
+  @override
+  String get haScanUnavailable =>
+      'Scan details are not available for the current view.';
+
+  @override
+  String get haScanDetails => 'Dashboard scan details';
+
+  @override
+  String haWatchedTitle(String count) {
+    return 'Watched entities ($count)';
+  }
+
+  @override
+  String get haWatched => 'Watched entities';
+
+  @override
+  String get haEntityListUnavailable =>
+      'The entity list is not available right now.';
+
+  @override
+  String haWatching(String count) {
+    return 'Watching $count entities on this view.';
+  }
+
+  @override
+  String get haNoUpdates => 'No updates in the last minute.';
+
+  @override
+  String haFiltered(String percent, String dropped, String total) {
+    return 'Filtered $percent% of updates in the last minute ($dropped of $total).';
+  }
+
+  @override
+  String get haRawUpdates =>
+      'Something on this page receives every entity update anyway, so filtering saves less here.';
+
+  @override
+  String get haAllStates =>
+      'This view reads all entity states, so its updates are not filtered.';
+
+  @override
+  String get haUnknownEntities =>
+      'This view\'s entities can\'t be determined, so its updates are not filtered.';
+
+  @override
+  String get haWaiting => 'Waiting for the dashboard to load…';
+
+  @override
+  String get haShowScan => 'Show scan details.';
+
+  @override
+  String haThreshold(String count) {
+    return 'This view uses $count entities, which crosses the filtering threshold. Filtering is disabled.';
+  }
+
+  @override
+  String get settingHaReturnHomeEnabledTitle => 'Return to home dashboard view';
+
+  @override
+  String get settingHaReturnHomeEnabledDescription =>
+      'Go back to the dashboard configured above after a period of inactivity.';
+
+  @override
+  String get settingHaReturnHomeSecondsTitle => 'Return after (seconds)';
+
+  @override
+  String get settingHaReturnHomeSecondsDescription =>
+      'Inactivity period before the kiosk goes back.';
+
+  @override
+  String get haReturnHint => 'Go back to the home view when left idle';
+
+  @override
+  String get haReturnDisabled =>
+      'Turned off while Dashboard view rotation is on.';
+
+  @override
+  String get haReturnNoPath =>
+      'The configured dashboard has no view path to return to.';
+
+  @override
+  String haReturnPath(String path) {
+    return 'Returns to \"$path\" after the timeout.';
+  }
+
+  @override
+  String get settingHaRotationEnabledTitle => 'Enable dashboard view rotation';
+
+  @override
+  String get settingHaRotationEnabledDescription =>
+      'Cycle through the selected dashboard views in an endless loop, showing each one for the chosen number of seconds.';
+
+  @override
+  String get settingHaRotationSecondsTitle => 'Seconds per view';
+
+  @override
+  String get settingHaRotationSecondsDescription =>
+      'How long each view stays on screen.';
+
+  @override
+  String get settingHaRotationPauseSecondsTitle =>
+      'Pause rotation on interaction (seconds)';
+
+  @override
+  String get settingHaRotationPauseSecondsDescription =>
+      'Touching the screen pauses rotation for this long, and each touch restarts the countdown. Voice interactions pause until they end. 0 keeps rotating through touches.';
+
+  @override
+  String get settingHaRotationCrossfadeTitle => 'Fade between views';
+
+  @override
+  String get settingHaRotationCrossfadeDescription =>
+      'Fade out to the background and into the next view instead of switching instantly. Moving to a different dashboard or an external page still switches instantly.';
+
+  @override
+  String get settingHaRotationFadeSecondsTitle => 'Fade duration (seconds)';
+
+  @override
+  String get settingHaRotationFadeSecondsDescription =>
+      'Combined fade-out and fade-in time. Loading the next view can add time, especially on its first visit.';
+
+  @override
+  String get haRotation => 'Dashboard View Rotation';
+
+  @override
+  String get haRotationHint => 'Cycle through views, dwell time, fade';
+
+  @override
+  String get haDefaultView => 'Default view';
+
+  @override
+  String get haExternalPages => 'External pages';
+
+  @override
+  String get haFadeError => 'Choose a fade duration from 0.2 to 5 seconds.';
+
+  @override
+  String get haPauseRemoteHelp =>
+      'Touch pauses rotation for this long; each touch restarts it. Voice interactions always pause until they end. 0 keeps rotating.';
+
+  @override
   String get settingHaUrlTitle => 'URL base de Home Assistant';
 
   @override
@@ -1309,6 +1538,232 @@ class UiStringsEs extends UiStrings {
   @override
   String get settingHaTokenDescription =>
       'Se crea en tu perfil de Home Assistant → Seguridad.';
+
+  @override
+  String get settingHaAutoLoginTitle => 'Log in automatically';
+
+  @override
+  String get settingHaAutoLoginDescription =>
+      'Sign in to the dashboard with the access token above instead of showing the Home Assistant login page.';
+
+  @override
+  String get haValidate => 'Validate';
+
+  @override
+  String get haValidateConnection => 'Validate connection';
+
+  @override
+  String get haChecking => 'Checking…';
+
+  @override
+  String get haConnected => 'Connected';
+
+  @override
+  String get haConnectedRemote => 'Connected.';
+
+  @override
+  String get haNotValidated =>
+      'Not validated yet. The settings below unlock once the connection checks out.';
+
+  @override
+  String get haConnectFailed => 'Could not connect.';
+
+  @override
+  String get haNotConfigured => 'Home Assistant URL and token not configured';
+
+  @override
+  String get haInvalidToken => 'invalid token';
+
+  @override
+  String haUnreachable(String error) {
+    return 'Could not reach Home Assistant: $error';
+  }
+
+  @override
+  String get haProxy => 'Secure context proxy';
+
+  @override
+  String get haProxyHelp =>
+      'Routes a plain http Home Assistant through an in-app proxy so the browser unlocks the microphone and other https-only features. Only for http URLs.';
+
+  @override
+  String get haProxyRemoteHelp =>
+      'Routes a plain http Home Assistant through a proxy inside the app so the browser unlocks the microphone and other https-only features. Available only for http URLs.';
+
+  @override
+  String get haProxyNotice =>
+      'This Home Assistant URL uses plain http, and browsers block the microphone and other features on http pages. Kiosk Satellite will route the dashboard through a secure proxy inside the app so everything works. You may need to sign in to Home Assistant again.';
+
+  @override
+  String get haProxyRemoteNotice =>
+      'This Home Assistant URL uses plain http, and browsers block the microphone and other features on http pages. Kiosk Satellite will route the dashboard through a secure proxy inside the app so everything works. You may need to sign in to Home Assistant again on the tablet.';
+
+  @override
+  String get haDashboard => 'Dashboard';
+
+  @override
+  String get haChooseView => 'Choose a view';
+
+  @override
+  String get haLoadingDashboards => 'Loading dashboards…';
+
+  @override
+  String get haListFailed => 'Could not list dashboards';
+
+  @override
+  String get haRetryHint => 'Tap to retry.';
+
+  @override
+  String get haChangeView => 'Change view';
+
+  @override
+  String get haNoViews => 'No sub views';
+
+  @override
+  String get haNoViewsHelp => 'This dashboard has no selectable sub views.';
+
+  @override
+  String get haNoDashboards => 'No dashboards found';
+
+  @override
+  String get settingHaThemeTitle => 'Theme';
+
+  @override
+  String get settingHaThemeDescription =>
+      'Light or dark for the Home Assistant dashboard, also set from the Theme entity in Home Assistant. Auto follows the settings below.';
+
+  @override
+  String get settingThemeMatchAppTitle =>
+      'Sync Home Assistant themes with Kiosk Satellite';
+
+  @override
+  String get settingThemeMatchAppDescription =>
+      'Automatically match your Home Assistant theme to your Kiosk Satellite interface.';
+
+  @override
+  String get settingThemeAutoTitle => 'Match theme to time of day';
+
+  @override
+  String get settingThemeAutoDescription =>
+      'Switch Home Assistant between light and dark on a schedule. Keeps whatever theme is selected, flipping only its light/dark variant.';
+
+  @override
+  String get settingThemeDarkAtTitle => 'Dark theme at';
+
+  @override
+  String get settingThemeDarkAtDescription =>
+      'Local time to switch to the dark theme.';
+
+  @override
+  String get settingThemeLightAtTitle => 'Light theme at';
+
+  @override
+  String get settingThemeLightAtDescription =>
+      'Local time to switch back to the light theme.';
+
+  @override
+  String get settingThemeAutoAppTitle => 'Also switch the app theme';
+
+  @override
+  String get settingThemeAutoAppDescription =>
+      'Flip Kiosk Satellite\'s own theme (menu, settings) together with the scheduled Home Assistant change.';
+
+  @override
+  String get haThemeHint =>
+      'Match the app, or switch dark and light on a schedule';
+
+  @override
+  String get haThemeAuto => 'Auto';
+
+  @override
+  String get settingHaKioskModeTitle => 'HA kiosk mode';
+
+  @override
+  String get settingHaKioskModeDescription =>
+      'Hide the Home Assistant header and sidebar. Applies immediately.';
+
+  @override
+  String get settingHaKioskHideHeaderTitle => 'Hide the header';
+
+  @override
+  String get settingHaKioskHideHeaderDescription =>
+      'Hide the dashboard toolbar and view tabs while HA kiosk mode is on. Leave off if you switch views from the header.';
+
+  @override
+  String get settingHaKioskHideSidebarTitle => 'Hide the sidebar';
+
+  @override
+  String get settingHaKioskHideSidebarDescription =>
+      'Hide the navigation sidebar while HA kiosk mode is on.';
+
+  @override
+  String get settingHaKioskMenuTitle => 'Show in the kiosk menu';
+
+  @override
+  String get settingHaKioskMenuDescription =>
+      'Add an HA Kiosk Mode entry to the kiosk menu that turns it on and off.';
+
+  @override
+  String get settingHaDashboardCarouselTitle => 'Enable dashboard carousel';
+
+  @override
+  String get settingHaDashboardCarouselDescription =>
+      'Swipe left or right on the dashboard to move between its views. Swipes on sliders, maps and scrolling cards are left alone.';
+
+  @override
+  String get settingHaCarouselOverCardsTitle =>
+      'Capture swipe gestures over cards';
+
+  @override
+  String get settingHaCarouselOverCardsDescription =>
+      'Switch views even when the swipe starts on a card that reacts to swipes. Sliders still work normally.';
+
+  @override
+  String get settingHaHapticsTitle => 'Enable haptics';
+
+  @override
+  String get settingHaHapticsDescription =>
+      'Vibrate when buttons, switches, cards, sliders and thermostat dials are used. Requires a vibration motor.';
+
+  @override
+  String get settingHaHapticsStrengthTitle => 'Vibration strength';
+
+  @override
+  String get settingHaHapticsStrengthDescription =>
+      'How strong the vibration feels.';
+
+  @override
+  String get settingHaTapSoundTitle => 'Play tap sounds';
+
+  @override
+  String get settingHaTapSoundDescription =>
+      'Play the standard tap sound when buttons, switches, cards, sliders and thermostat dials are used.';
+
+  @override
+  String get settingHaTapSoundVolumeTitle => 'Tap sound volume';
+
+  @override
+  String get settingHaTapSoundVolumeDescription =>
+      'How loud the tap sound plays.';
+
+  @override
+  String get haUserInterface => 'User Interface';
+
+  @override
+  String get haInterfaceHint =>
+      'Kiosk mode, dashboard carousel, haptics, tap sounds';
+
+  @override
+  String get haHaptics => 'Haptics';
+
+  @override
+  String get haVibrationLight => 'Light';
+
+  @override
+  String get haVibrationMedium => 'Medium';
+
+  @override
+  String get haVibrationStrong => 'Strong';
 
   @override
   String get settingsMenuHomeAssistant => 'Configuración de Home Assistant';

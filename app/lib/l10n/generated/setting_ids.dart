@@ -80,4 +80,128 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingAnalyticsDiagnosticsTitle",
     "description": "settingAnalyticsDiagnosticsDescription",
   },
+  "ha.auto_login": {
+    "title": "settingHaAutoLoginTitle",
+    "description": "settingHaAutoLoginDescription",
+  },
+  "browser.disable_suspend": {
+    "title": "settingDisableSuspendTitle",
+    "description": "settingDisableSuspendDescription",
+  },
+  "browser.freeze_on_screensaver": {
+    "title": "settingFreezeOnScreensaverTitle",
+    "description": "settingFreezeOnScreensaverDescription",
+  },
+  "browser.ws_filter": {
+    "title": "settingWsFilterTitle",
+    "description": "settingWsFilterDescription",
+  },
+  "browser.pause_dashboard_cameras": {
+    "title": "settingPauseDashboardCamerasTitle",
+    "description": "settingPauseDashboardCamerasDescription",
+  },
+  "ha.kiosk_mode": {
+    "title": "settingHaKioskModeTitle",
+    "description": "settingHaKioskModeDescription",
+  },
+  "ha.kiosk_hide_header": {
+    "title": "settingHaKioskHideHeaderTitle",
+    "description": "settingHaKioskHideHeaderDescription",
+  },
+  "ha.kiosk_hide_sidebar": {
+    "title": "settingHaKioskHideSidebarTitle",
+    "description": "settingHaKioskHideSidebarDescription",
+  },
+  "ha.kiosk_menu": {
+    "title": "settingHaKioskMenuTitle",
+    "description": "settingHaKioskMenuDescription",
+  },
+  "ha.dashboard_carousel": {
+    "title": "settingHaDashboardCarouselTitle",
+    "description": "settingHaDashboardCarouselDescription",
+  },
+  "ha.carousel_over_cards": {
+    "title": "settingHaCarouselOverCardsTitle",
+    "description": "settingHaCarouselOverCardsDescription",
+  },
+  "ha.haptics": {
+    "title": "settingHaHapticsTitle",
+    "description": "settingHaHapticsDescription",
+  },
+  "ha.haptics_strength": {
+    "title": "settingHaHapticsStrengthTitle",
+    "description": "settingHaHapticsStrengthDescription",
+  },
+  "ha.tap_sound": {
+    "title": "settingHaTapSoundTitle",
+    "description": "settingHaTapSoundDescription",
+  },
+  "ha.tap_sound_volume": {
+    "title": "settingHaTapSoundVolumeTitle",
+    "description": "settingHaTapSoundVolumeDescription",
+  },
+  "ha.theme": {
+    "title": "settingHaThemeTitle",
+    "description": "settingHaThemeDescription",
+  },
+  "ha.theme_match_app": {
+    "title": "settingThemeMatchAppTitle",
+    "description": "settingThemeMatchAppDescription",
+  },
+  "ha.theme_auto": {
+    "title": "settingThemeAutoTitle",
+    "description": "settingThemeAutoDescription",
+  },
+  "ha.theme_dark_at": {
+    "title": "settingThemeDarkAtTitle",
+    "description": "settingThemeDarkAtDescription",
+  },
+  "ha.theme_light_at": {
+    "title": "settingThemeLightAtTitle",
+    "description": "settingThemeLightAtDescription",
+  },
+  "ha.theme_auto_app": {
+    "title": "settingThemeAutoAppTitle",
+    "description": "settingThemeAutoAppDescription",
+  },
+  "ha.rotation_enabled": {
+    "title": "settingHaRotationEnabledTitle",
+    "description": "settingHaRotationEnabledDescription",
+  },
+  "ha.rotation_seconds": {
+    "title": "settingHaRotationSecondsTitle",
+    "description": "settingHaRotationSecondsDescription",
+  },
+  "ha.rotation_pause_seconds": {
+    "title": "settingHaRotationPauseSecondsTitle",
+    "description": "settingHaRotationPauseSecondsDescription",
+  },
+  "ha.rotation_crossfade": {
+    "title": "settingHaRotationCrossfadeTitle",
+    "description": "settingHaRotationCrossfadeDescription",
+  },
+  "ha.rotation_fade_seconds": {
+    "title": "settingHaRotationFadeSecondsTitle",
+    "description": "settingHaRotationFadeSecondsDescription",
+  },
+  "ha.return_home_enabled": {
+    "title": "settingHaReturnHomeEnabledTitle",
+    "description": "settingHaReturnHomeEnabledDescription",
+  },
+  "ha.return_home_seconds": {
+    "title": "settingHaReturnHomeSecondsTitle",
+    "description": "settingHaReturnHomeSecondsDescription",
+  },
+  "ha.hold_mode": {
+    "title": "settingHaHoldModeTitle",
+    "description": "settingHaHoldModeDescription",
+  },
+  "ha.hold_release_minutes": {
+    "title": "settingHaHoldReleaseMinutesTitle",
+    "description": "settingHaHoldReleaseMinutesDescription",
+  },
+  "ha.hold_menu": {
+    "title": "settingHaHoldMenuTitle",
+    "description": "settingHaHoldMenuDescription",
+  },
 };

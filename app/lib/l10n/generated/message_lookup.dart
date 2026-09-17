@@ -19,6 +19,9 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'commonSave' => strings.commonSave,
       'commonRetry' => strings.commonRetry,
       'commonCopy' => strings.commonCopy,
+      'commonAdd' => strings.commonAdd,
+      'commonRemove' => strings.commonRemove,
+      'commonClose' => strings.commonClose,
       'drawerPluginActionErrorTitle' => strings.drawerPluginActionErrorTitle,
       'drawerPluginActionError' => strings.drawerPluginActionError,
       'drawerDashboard' => strings.drawerDashboard,
@@ -371,10 +374,157 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'deviceThemeDark' => strings.deviceThemeDark,
       'deviceThemeLight' => strings.deviceThemeLight,
       'deviceThemeSystem' => strings.deviceThemeSystem,
+      'settingHaHoldModeTitle' => strings.settingHaHoldModeTitle,
+      'settingHaHoldModeDescription' => strings.settingHaHoldModeDescription,
+      'settingHaHoldReleaseMinutesTitle' =>
+        strings.settingHaHoldReleaseMinutesTitle,
+      'settingHaHoldReleaseMinutesDescription' =>
+        strings.settingHaHoldReleaseMinutesDescription,
+      'settingHaHoldMenuTitle' => strings.settingHaHoldMenuTitle,
+      'settingHaHoldMenuDescription' => strings.settingHaHoldMenuDescription,
+      'haHoldHint' => strings.haHoldHint,
+      'haNever' => strings.haNever,
+      'settingDisableSuspendTitle' => strings.settingDisableSuspendTitle,
+      'settingDisableSuspendDescription' =>
+        strings.settingDisableSuspendDescription,
+      'settingFreezeOnScreensaverTitle' =>
+        strings.settingFreezeOnScreensaverTitle,
+      'settingFreezeOnScreensaverDescription' =>
+        strings.settingFreezeOnScreensaverDescription,
+      'settingWsFilterTitle' => strings.settingWsFilterTitle,
+      'settingWsFilterDescription' => strings.settingWsFilterDescription,
+      'settingPauseDashboardCamerasTitle' =>
+        strings.settingPauseDashboardCamerasTitle,
+      'settingPauseDashboardCamerasDescription' =>
+        strings.settingPauseDashboardCamerasDescription,
+      'haOptimizations' => strings.haOptimizations,
+      'haOptimizationsHint' => strings.haOptimizationsHint,
+      'haScanUnavailable' => strings.haScanUnavailable,
+      'haScanDetails' => strings.haScanDetails,
+      'haWatched' => strings.haWatched,
+      'haEntityListUnavailable' => strings.haEntityListUnavailable,
+      'haNoUpdates' => strings.haNoUpdates,
+      'haRawUpdates' => strings.haRawUpdates,
+      'haAllStates' => strings.haAllStates,
+      'haUnknownEntities' => strings.haUnknownEntities,
+      'haWaiting' => strings.haWaiting,
+      'haShowScan' => strings.haShowScan,
+      'settingHaReturnHomeEnabledTitle' =>
+        strings.settingHaReturnHomeEnabledTitle,
+      'settingHaReturnHomeEnabledDescription' =>
+        strings.settingHaReturnHomeEnabledDescription,
+      'settingHaReturnHomeSecondsTitle' =>
+        strings.settingHaReturnHomeSecondsTitle,
+      'settingHaReturnHomeSecondsDescription' =>
+        strings.settingHaReturnHomeSecondsDescription,
+      'haReturnHint' => strings.haReturnHint,
+      'haReturnDisabled' => strings.haReturnDisabled,
+      'haReturnNoPath' => strings.haReturnNoPath,
+      'settingHaRotationEnabledTitle' => strings.settingHaRotationEnabledTitle,
+      'settingHaRotationEnabledDescription' =>
+        strings.settingHaRotationEnabledDescription,
+      'settingHaRotationSecondsTitle' => strings.settingHaRotationSecondsTitle,
+      'settingHaRotationSecondsDescription' =>
+        strings.settingHaRotationSecondsDescription,
+      'settingHaRotationPauseSecondsTitle' =>
+        strings.settingHaRotationPauseSecondsTitle,
+      'settingHaRotationPauseSecondsDescription' =>
+        strings.settingHaRotationPauseSecondsDescription,
+      'settingHaRotationCrossfadeTitle' =>
+        strings.settingHaRotationCrossfadeTitle,
+      'settingHaRotationCrossfadeDescription' =>
+        strings.settingHaRotationCrossfadeDescription,
+      'settingHaRotationFadeSecondsTitle' =>
+        strings.settingHaRotationFadeSecondsTitle,
+      'settingHaRotationFadeSecondsDescription' =>
+        strings.settingHaRotationFadeSecondsDescription,
+      'haRotation' => strings.haRotation,
+      'haRotationHint' => strings.haRotationHint,
+      'haDefaultView' => strings.haDefaultView,
+      'haExternalPages' => strings.haExternalPages,
+      'haFadeError' => strings.haFadeError,
+      'haPauseRemoteHelp' => strings.haPauseRemoteHelp,
       'settingHaUrlTitle' => strings.settingHaUrlTitle,
       'settingHaUrlDescription' => strings.settingHaUrlDescription,
       'settingHaTokenTitle' => strings.settingHaTokenTitle,
       'settingHaTokenDescription' => strings.settingHaTokenDescription,
+      'settingHaAutoLoginTitle' => strings.settingHaAutoLoginTitle,
+      'settingHaAutoLoginDescription' => strings.settingHaAutoLoginDescription,
+      'haValidate' => strings.haValidate,
+      'haValidateConnection' => strings.haValidateConnection,
+      'haChecking' => strings.haChecking,
+      'haConnected' => strings.haConnected,
+      'haConnectedRemote' => strings.haConnectedRemote,
+      'haNotValidated' => strings.haNotValidated,
+      'haConnectFailed' => strings.haConnectFailed,
+      'haNotConfigured' => strings.haNotConfigured,
+      'haInvalidToken' => strings.haInvalidToken,
+      'haProxy' => strings.haProxy,
+      'haProxyHelp' => strings.haProxyHelp,
+      'haProxyRemoteHelp' => strings.haProxyRemoteHelp,
+      'haProxyNotice' => strings.haProxyNotice,
+      'haProxyRemoteNotice' => strings.haProxyRemoteNotice,
+      'haDashboard' => strings.haDashboard,
+      'haChooseView' => strings.haChooseView,
+      'haLoadingDashboards' => strings.haLoadingDashboards,
+      'haListFailed' => strings.haListFailed,
+      'haRetryHint' => strings.haRetryHint,
+      'haChangeView' => strings.haChangeView,
+      'haNoViews' => strings.haNoViews,
+      'haNoViewsHelp' => strings.haNoViewsHelp,
+      'haNoDashboards' => strings.haNoDashboards,
+      'settingHaThemeTitle' => strings.settingHaThemeTitle,
+      'settingHaThemeDescription' => strings.settingHaThemeDescription,
+      'settingThemeMatchAppTitle' => strings.settingThemeMatchAppTitle,
+      'settingThemeMatchAppDescription' =>
+        strings.settingThemeMatchAppDescription,
+      'settingThemeAutoTitle' => strings.settingThemeAutoTitle,
+      'settingThemeAutoDescription' => strings.settingThemeAutoDescription,
+      'settingThemeDarkAtTitle' => strings.settingThemeDarkAtTitle,
+      'settingThemeDarkAtDescription' => strings.settingThemeDarkAtDescription,
+      'settingThemeLightAtTitle' => strings.settingThemeLightAtTitle,
+      'settingThemeLightAtDescription' =>
+        strings.settingThemeLightAtDescription,
+      'settingThemeAutoAppTitle' => strings.settingThemeAutoAppTitle,
+      'settingThemeAutoAppDescription' =>
+        strings.settingThemeAutoAppDescription,
+      'haThemeHint' => strings.haThemeHint,
+      'haThemeAuto' => strings.haThemeAuto,
+      'settingHaKioskModeTitle' => strings.settingHaKioskModeTitle,
+      'settingHaKioskModeDescription' => strings.settingHaKioskModeDescription,
+      'settingHaKioskHideHeaderTitle' => strings.settingHaKioskHideHeaderTitle,
+      'settingHaKioskHideHeaderDescription' =>
+        strings.settingHaKioskHideHeaderDescription,
+      'settingHaKioskHideSidebarTitle' =>
+        strings.settingHaKioskHideSidebarTitle,
+      'settingHaKioskHideSidebarDescription' =>
+        strings.settingHaKioskHideSidebarDescription,
+      'settingHaKioskMenuTitle' => strings.settingHaKioskMenuTitle,
+      'settingHaKioskMenuDescription' => strings.settingHaKioskMenuDescription,
+      'settingHaDashboardCarouselTitle' =>
+        strings.settingHaDashboardCarouselTitle,
+      'settingHaDashboardCarouselDescription' =>
+        strings.settingHaDashboardCarouselDescription,
+      'settingHaCarouselOverCardsTitle' =>
+        strings.settingHaCarouselOverCardsTitle,
+      'settingHaCarouselOverCardsDescription' =>
+        strings.settingHaCarouselOverCardsDescription,
+      'settingHaHapticsTitle' => strings.settingHaHapticsTitle,
+      'settingHaHapticsDescription' => strings.settingHaHapticsDescription,
+      'settingHaHapticsStrengthTitle' => strings.settingHaHapticsStrengthTitle,
+      'settingHaHapticsStrengthDescription' =>
+        strings.settingHaHapticsStrengthDescription,
+      'settingHaTapSoundTitle' => strings.settingHaTapSoundTitle,
+      'settingHaTapSoundDescription' => strings.settingHaTapSoundDescription,
+      'settingHaTapSoundVolumeTitle' => strings.settingHaTapSoundVolumeTitle,
+      'settingHaTapSoundVolumeDescription' =>
+        strings.settingHaTapSoundVolumeDescription,
+      'haUserInterface' => strings.haUserInterface,
+      'haInterfaceHint' => strings.haInterfaceHint,
+      'haHaptics' => strings.haHaptics,
+      'haVibrationLight' => strings.haVibrationLight,
+      'haVibrationMedium' => strings.haVibrationMedium,
+      'haVibrationStrong' => strings.haVibrationStrong,
       'settingsMenuHomeAssistant' => strings.settingsMenuHomeAssistant,
       'settingsMenuHomeAssistantSummary' =>
         strings.settingsMenuHomeAssistantSummary,

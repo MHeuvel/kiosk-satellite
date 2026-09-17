@@ -53,5 +53,349 @@
         "Home Assistant Setup > Long-lived access token"
       ]
     }
+  },
+  "settingHaAutoLoginTitle": "Log in automatically",
+  "@settingHaAutoLoginTitle": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "settingHaAutoLoginDescription": "Sign in to the dashboard with the access token above instead of showing the Home Assistant login page.",
+  "@settingHaAutoLoginDescription": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haValidate": "Validate",
+  "@haValidate": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haValidateConnection": "Validate connection",
+  "@haValidateConnection": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haChecking": "Checking…",
+  "@haChecking": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haConnected": "Connected",
+  "@haConnected": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haConnectedRemote": "Connected.",
+  "@haConnectedRemote": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haNotValidated": "Not validated yet. The settings below unlock once the connection checks out.",
+  "@haNotValidated": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haConnectFailed": "Could not connect.",
+  "@haConnectFailed": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haNotConfigured": "Home Assistant URL and token not configured",
+  "@haNotConfigured": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haInvalidToken": "invalid token",
+  "@haInvalidToken": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haUnreachable": "Could not reach Home Assistant: {error}",
+  "@haUnreachable": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Technical connection error."
+      }
+    }
+  },
+  "haProxy": "Secure context proxy",
+  "@haProxy": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haProxyHelp": "Routes a plain http Home Assistant through an in-app proxy so the browser unlocks the microphone and other https-only features. Only for http URLs.",
+  "@haProxyHelp": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haProxyRemoteHelp": "Routes a plain http Home Assistant through a proxy inside the app so the browser unlocks the microphone and other https-only features. Available only for http URLs.",
+  "@haProxyRemoteHelp": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haProxyNotice": "This Home Assistant URL uses plain http, and browsers block the microphone and other features on http pages. Kiosk Satellite will route the dashboard through a secure proxy inside the app so everything works. You may need to sign in to Home Assistant again.",
+  "@haProxyNotice": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haProxyRemoteNotice": "This Home Assistant URL uses plain http, and browsers block the microphone and other features on http pages. Kiosk Satellite will route the dashboard through a secure proxy inside the app so everything works. You may need to sign in to Home Assistant again on the tablet.",
+  "@haProxyRemoteNotice": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haDashboard": "Dashboard",
+  "@haDashboard": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haChooseView": "Choose a view",
+  "@haChooseView": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haLoadingDashboards": "Loading dashboards…",
+  "@haLoadingDashboards": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haListFailed": "Could not list dashboards",
+  "@haListFailed": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haRetryHint": "Tap to retry.",
+  "@haRetryHint": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haChangeView": "Change view",
+  "@haChangeView": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haNoViews": "No sub views",
+  "@haNoViews": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haNoViewsHelp": "This dashboard has no selectable sub views.",
+  "@haNoViewsHelp": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haNoDashboards": "No dashboards found",
+  "@haNoDashboards": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
   }
 }

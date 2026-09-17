@@ -1,0 +1,113 @@
+{
+  "@@locale": "en",
+  "settingHaReturnHomeEnabledTitle": "Return to home dashboard view",
+  "@settingHaReturnHomeEnabledTitle": {
+    "context": "Settings:Home Assistant Setup:Return to home dashboard view",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Return to home dashboard view"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Return to home dashboard view"
+      ]
+    }
+  },
+  "settingHaReturnHomeEnabledDescription": "Go back to the dashboard configured above after a period of inactivity.",
+  "@settingHaReturnHomeEnabledDescription": {
+    "context": "Settings:Home Assistant Setup:Return to home dashboard view",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Return to home dashboard view"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Return to home dashboard view"
+      ]
+    }
+  },
+  "settingHaReturnHomeSecondsTitle": "Return after (seconds)",
+  "@settingHaReturnHomeSecondsTitle": {
+    "context": "Settings:Home Assistant Setup:Return to home dashboard view",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Return to home dashboard view"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Return to home dashboard view"
+      ]
+    }
+  },
+  "settingHaReturnHomeSecondsDescription": "Inactivity period before the kiosk goes back.",
+  "@settingHaReturnHomeSecondsDescription": {
+    "context": "Settings:Home Assistant Setup:Return to home dashboard view",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Return to home dashboard view"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Return to home dashboard view"
+      ]
+    }
+  },
+  "haReturnHint": "Go back to the home view when left idle",
+  "@haReturnHint": {
+    "context": "Settings:Home Assistant Setup:Return to home dashboard view",
+    "description": "Return-to-home subpage summary, disabled reason or destination.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Return to home dashboard view"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Return to home dashboard view"
+      ]
+    }
+  },
+  "haReturnDisabled": "Turned off while Dashboard view rotation is on.",
+  "@haReturnDisabled": {
+    "context": "Settings:Home Assistant Setup:Return to home dashboard view",
+    "description": "Return-to-home subpage summary, disabled reason or destination.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Return to home dashboard view"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Return to home dashboard view"
+      ]
+    }
+  },
+  "haReturnNoPath": "The configured dashboard has no view path to return to.",
+  "@haReturnNoPath": {
+    "context": "Settings:Home Assistant Setup:Return to home dashboard view",
+    "description": "Return-to-home subpage summary, disabled reason or destination.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Return to home dashboard view"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Return to home dashboard view"
+      ]
+    }
+  },
+  "haReturnPath": "Returns to \"{path}\" after the timeout.",
+  "@haReturnPath": {
+    "context": "Settings:Home Assistant Setup:Return to home dashboard view",
+    "description": "Return-to-home subpage summary, disabled reason or destination.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Return to home dashboard view"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Return to home dashboard view"
+      ]
+    },
+    "placeholders": {
+      "path": {
+        "type": "String",
+        "description": "Unchanged dashboard view path."
+      }
+    }
+  }
+}

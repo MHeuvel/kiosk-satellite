@@ -5,6 +5,7 @@ import '../managers/settings/definitions.dart';
 import 'generated/message_lookup.dart';
 import 'generated/navigation_ids.dart';
 import 'generated/device_text_ids.dart';
+import 'generated/ha_text_ids.dart';
 import 'generated/setting_option_ids.dart';
 import 'generated/ui_strings.dart';
 
@@ -54,6 +55,25 @@ String navigationText(BuildContext context, String english) =>
 /// Resolve fixed Device page wording without translating supplied values.
 String deviceText(BuildContext context, String english) =>
     messageById(l10n(context), deviceTextMessageIds[english], english);
+
+/// Resolve fixed Home Assistant settings wording, never supplied names or paths.
+String haText(BuildContext context, String english) =>
+    messageById(l10n(context), haTextMessageIds[english], english);
+
+String settingsPageText(
+  BuildContext context,
+  String category,
+  String english,
+) => switch (category) {
+  'Device' => deviceText(context, english),
+  'Home Assistant' => haText(context, english),
+  _ => english,
+};
+
+String haConnectionError(BuildContext context, String error) =>
+    error.startsWith('unreachable: ')
+    ? l10n(context).haUnreachable(error.substring('unreachable: '.length))
+    : haText(context, error);
 
 extension LocalizedSettingChoices on SettingDef<Object> {
   String localizedOption(BuildContext context, String value, String fallback) =>

@@ -80,6 +80,21 @@
     "context": "Common:Actions",
     "description": "Button to copy a value to the clipboard."
   },
+  "commonAdd": "Add",
+  "@commonAdd": {
+    "context": "Common:Actions",
+    "description": "Add action button."
+  },
+  "commonRemove": "Remove",
+  "@commonRemove": {
+    "context": "Common:Actions",
+    "description": "Remove action button."
+  },
+  "commonClose": "Close",
+  "@commonClose": {
+    "context": "Common:Actions",
+    "description": "Close action button."
+  },
   "drawerPluginAction": "{pluginName}: {actionTitle}",
   "@drawerPluginAction": {
     "context": "Device:Drawer",
@@ -4638,6 +4653,833 @@
       ]
     }
   },
+  "settingHaHoldModeTitle": "Hold mode",
+  "@settingHaHoldModeTitle": {
+    "context": "Settings:Home Assistant Setup:Hold mode",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Hold mode"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Hold mode"
+      ]
+    }
+  },
+  "settingHaHoldModeDescription": "Keep the current view on screen: the screensaver, dashboard view rotation and the return to home timer are paused until turned off.",
+  "@settingHaHoldModeDescription": {
+    "context": "Settings:Home Assistant Setup:Hold mode",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Hold mode"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Hold mode"
+      ]
+    }
+  },
+  "settingHaHoldReleaseMinutesTitle": "End hold automatically after",
+  "@settingHaHoldReleaseMinutesTitle": {
+    "context": "Settings:Home Assistant Setup:Hold mode",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Hold mode"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Hold mode"
+      ]
+    }
+  },
+  "settingHaHoldReleaseMinutesDescription": "Turns hold mode off by itself after the set time. Set to 0 to hold until turned off manually.",
+  "@settingHaHoldReleaseMinutesDescription": {
+    "context": "Settings:Home Assistant Setup:Hold mode",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Hold mode"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Hold mode"
+      ]
+    }
+  },
+  "settingHaHoldMenuTitle": "Show in the kiosk menu",
+  "@settingHaHoldMenuTitle": {
+    "context": "Settings:Home Assistant Setup:Hold mode",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Hold mode"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Hold mode"
+      ]
+    }
+  },
+  "settingHaHoldMenuDescription": "Adds a menu entry that turns hold mode on and off.",
+  "@settingHaHoldMenuDescription": {
+    "context": "Settings:Home Assistant Setup:Hold mode",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Hold mode"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Hold mode"
+      ]
+    }
+  },
+  "haHoldHint": "Pin the current view, automatic release, menu entry",
+  "@haHoldHint": {
+    "context": "Settings:Home Assistant Setup:Hold mode",
+    "description": "Hold subpage summary or duration displayed beside the automatic release slider.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Hold mode"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Hold mode"
+      ]
+    }
+  },
+  "haNever": "Never",
+  "@haNever": {
+    "context": "Settings:Home Assistant Setup:Hold mode",
+    "description": "Hold subpage summary or duration displayed beside the automatic release slider.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Hold mode"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Hold mode"
+      ]
+    }
+  },
+  "haMinutes": "{minutes} min",
+  "@haMinutes": {
+    "context": "Settings:Home Assistant Setup:Hold mode",
+    "description": "Hold subpage summary or duration displayed beside the automatic release slider.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Hold mode"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Hold mode"
+      ]
+    },
+    "placeholders": {
+      "minutes": {
+        "type": "String",
+        "description": "Remaining minutes."
+      }
+    }
+  },
+  "haHours": "{hours} h",
+  "@haHours": {
+    "context": "Settings:Home Assistant Setup:Hold mode",
+    "description": "Hold subpage summary or duration displayed beside the automatic release slider.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Hold mode"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Hold mode"
+      ]
+    },
+    "placeholders": {
+      "hours": {
+        "type": "String",
+        "description": "Whole hours."
+      }
+    }
+  },
+  "haHoursMinutes": "{hours} h {minutes} min",
+  "@haHoursMinutes": {
+    "context": "Settings:Home Assistant Setup:Hold mode",
+    "description": "Hold subpage summary or duration displayed beside the automatic release slider.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Hold mode"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Hold mode"
+      ]
+    },
+    "placeholders": {
+      "hours": {
+        "type": "String",
+        "description": "Whole hours."
+      },
+      "minutes": {
+        "type": "String",
+        "description": "Remaining minutes."
+      }
+    }
+  },
+  "settingDisableSuspendTitle": "Keep connected in the background",
+  "@settingDisableSuspendTitle": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "settingDisableSuspendDescription": "Turns off Home Assistant's \"Suspend background connections\" setting, which would otherwise drop the connection a few minutes after the screen goes off.",
+  "@settingDisableSuspendDescription": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "settingFreezeOnScreensaverTitle": "Pause dashboard during screensaver",
+  "@settingFreezeOnScreensaverTitle": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "settingFreezeOnScreensaverDescription": "Stops drawing the dashboard while the screensaver covers it, cutting CPU and GPU use; the connection stays live. Not for the Dim screensaver.",
+  "@settingFreezeOnScreensaverDescription": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "settingWsFilterTitle": "Filter dashboard updates",
+  "@settingWsFilterTitle": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "settingWsFilterDescription": "Only process updates for entities on the current view, cutting stutter on low-powered tablets. Views that cannot be resolved stay unfiltered.",
+  "@settingWsFilterDescription": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "settingPauseDashboardCamerasTitle": "Pause HA dashboard camera streams during screensaver",
+  "@settingPauseDashboardCamerasTitle": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "settingPauseDashboardCamerasDescription": "Pauses supported muted camera streams on the Home Assistant dashboard while the screensaver covers it. Streams reconnect when it closes. Does not affect the device camera or the Camera Streams feature.",
+  "@settingPauseDashboardCamerasDescription": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "haOptimizations": "Optimizations",
+  "@haOptimizations": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "haOptimizationsHint": "Background connection, dashboard and camera pause, update filter",
+  "@haOptimizationsHint": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "haScanUnavailable": "Scan details are not available for the current view.",
+  "@haScanUnavailable": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "haScanDetails": "Dashboard scan details",
+  "@haScanDetails": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "haWatchedTitle": "Watched entities ({count})",
+  "@haWatchedTitle": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Number of entities."
+      }
+    }
+  },
+  "haWatched": "Watched entities",
+  "@haWatched": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "haEntityListUnavailable": "The entity list is not available right now.",
+  "@haEntityListUnavailable": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "haWatching": "Watching {count} entities on this view.",
+  "@haWatching": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Number of entities."
+      }
+    }
+  },
+  "haNoUpdates": "No updates in the last minute.",
+  "@haNoUpdates": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "haFiltered": "Filtered {percent}% of updates in the last minute ({dropped} of {total}).",
+  "@haFiltered": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    },
+    "placeholders": {
+      "percent": {
+        "type": "String",
+        "description": "Percentage of updates filtered."
+      },
+      "dropped": {
+        "type": "String",
+        "description": "Number of updates filtered."
+      },
+      "total": {
+        "type": "String",
+        "description": "Total number of updates."
+      }
+    }
+  },
+  "haRawUpdates": "Something on this page receives every entity update anyway, so filtering saves less here.",
+  "@haRawUpdates": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "haAllStates": "This view reads all entity states, so its updates are not filtered.",
+  "@haAllStates": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "haUnknownEntities": "This view's entities can't be determined, so its updates are not filtered.",
+  "@haUnknownEntities": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "haWaiting": "Waiting for the dashboard to load…",
+  "@haWaiting": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "haShowScan": "Show scan details.",
+  "@haShowScan": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    }
+  },
+  "haThreshold": "This view uses {count} entities, which crosses the filtering threshold. Filtering is disabled.",
+  "@haThreshold": {
+    "context": "Settings:Home Assistant Setup:Optimizations",
+    "description": "Live update-filter status, diagnostic dialog label or explanation. Technical scan output and entity names stay as supplied.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Optimizations"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Optimizations"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Number of entities."
+      }
+    }
+  },
+  "settingHaReturnHomeEnabledTitle": "Return to home dashboard view",
+  "@settingHaReturnHomeEnabledTitle": {
+    "context": "Settings:Home Assistant Setup:Return to home dashboard view",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Return to home dashboard view"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Return to home dashboard view"
+      ]
+    }
+  },
+  "settingHaReturnHomeEnabledDescription": "Go back to the dashboard configured above after a period of inactivity.",
+  "@settingHaReturnHomeEnabledDescription": {
+    "context": "Settings:Home Assistant Setup:Return to home dashboard view",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Return to home dashboard view"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Return to home dashboard view"
+      ]
+    }
+  },
+  "settingHaReturnHomeSecondsTitle": "Return after (seconds)",
+  "@settingHaReturnHomeSecondsTitle": {
+    "context": "Settings:Home Assistant Setup:Return to home dashboard view",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Return to home dashboard view"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Return to home dashboard view"
+      ]
+    }
+  },
+  "settingHaReturnHomeSecondsDescription": "Inactivity period before the kiosk goes back.",
+  "@settingHaReturnHomeSecondsDescription": {
+    "context": "Settings:Home Assistant Setup:Return to home dashboard view",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Return to home dashboard view"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Return to home dashboard view"
+      ]
+    }
+  },
+  "haReturnHint": "Go back to the home view when left idle",
+  "@haReturnHint": {
+    "context": "Settings:Home Assistant Setup:Return to home dashboard view",
+    "description": "Return-to-home subpage summary, disabled reason or destination.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Return to home dashboard view"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Return to home dashboard view"
+      ]
+    }
+  },
+  "haReturnDisabled": "Turned off while Dashboard view rotation is on.",
+  "@haReturnDisabled": {
+    "context": "Settings:Home Assistant Setup:Return to home dashboard view",
+    "description": "Return-to-home subpage summary, disabled reason or destination.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Return to home dashboard view"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Return to home dashboard view"
+      ]
+    }
+  },
+  "haReturnNoPath": "The configured dashboard has no view path to return to.",
+  "@haReturnNoPath": {
+    "context": "Settings:Home Assistant Setup:Return to home dashboard view",
+    "description": "Return-to-home subpage summary, disabled reason or destination.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Return to home dashboard view"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Return to home dashboard view"
+      ]
+    }
+  },
+  "haReturnPath": "Returns to \"{path}\" after the timeout.",
+  "@haReturnPath": {
+    "context": "Settings:Home Assistant Setup:Return to home dashboard view",
+    "description": "Return-to-home subpage summary, disabled reason or destination.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Return to home dashboard view"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Return to home dashboard view"
+      ]
+    },
+    "placeholders": {
+      "path": {
+        "type": "String",
+        "description": "Unchanged dashboard view path."
+      }
+    }
+  },
+  "settingHaRotationEnabledTitle": "Enable dashboard view rotation",
+  "@settingHaRotationEnabledTitle": {
+    "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Dashboard View Rotation"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Dashboard View Rotation"
+      ]
+    }
+  },
+  "settingHaRotationEnabledDescription": "Cycle through the selected dashboard views in an endless loop, showing each one for the chosen number of seconds.",
+  "@settingHaRotationEnabledDescription": {
+    "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Dashboard View Rotation"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Dashboard View Rotation"
+      ]
+    }
+  },
+  "settingHaRotationSecondsTitle": "Seconds per view",
+  "@settingHaRotationSecondsTitle": {
+    "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Dashboard View Rotation"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Dashboard View Rotation"
+      ]
+    }
+  },
+  "settingHaRotationSecondsDescription": "How long each view stays on screen.",
+  "@settingHaRotationSecondsDescription": {
+    "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Dashboard View Rotation"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Dashboard View Rotation"
+      ]
+    }
+  },
+  "settingHaRotationPauseSecondsTitle": "Pause rotation on interaction (seconds)",
+  "@settingHaRotationPauseSecondsTitle": {
+    "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Dashboard View Rotation"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Dashboard View Rotation"
+      ]
+    }
+  },
+  "settingHaRotationPauseSecondsDescription": "Touching the screen pauses rotation for this long, and each touch restarts the countdown. Voice interactions pause until they end. 0 keeps rotating through touches.",
+  "@settingHaRotationPauseSecondsDescription": {
+    "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Dashboard View Rotation"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Dashboard View Rotation"
+      ]
+    }
+  },
+  "settingHaRotationCrossfadeTitle": "Fade between views",
+  "@settingHaRotationCrossfadeTitle": {
+    "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Dashboard View Rotation"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Dashboard View Rotation"
+      ]
+    }
+  },
+  "settingHaRotationCrossfadeDescription": "Fade out to the background and into the next view instead of switching instantly. Moving to a different dashboard or an external page still switches instantly.",
+  "@settingHaRotationCrossfadeDescription": {
+    "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Dashboard View Rotation"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Dashboard View Rotation"
+      ]
+    }
+  },
+  "settingHaRotationFadeSecondsTitle": "Fade duration (seconds)",
+  "@settingHaRotationFadeSecondsTitle": {
+    "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Dashboard View Rotation"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Dashboard View Rotation"
+      ]
+    }
+  },
+  "settingHaRotationFadeSecondsDescription": "Combined fade-out and fade-in time. Loading the next view can add time, especially on its first visit.",
+  "@settingHaRotationFadeSecondsDescription": {
+    "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Dashboard View Rotation"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Dashboard View Rotation"
+      ]
+    }
+  },
+  "haRotation": "Dashboard View Rotation",
+  "@haRotation": {
+    "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
+    "description": "Rotation subpage label, guidance or validation error.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Dashboard View Rotation"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Dashboard View Rotation"
+      ]
+    }
+  },
+  "haRotationHint": "Cycle through views, dwell time, fade",
+  "@haRotationHint": {
+    "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
+    "description": "Rotation subpage label, guidance or validation error.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Dashboard View Rotation"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Dashboard View Rotation"
+      ]
+    }
+  },
+  "haDefaultView": "Default view",
+  "@haDefaultView": {
+    "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
+    "description": "Rotation subpage label, guidance or validation error.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Dashboard View Rotation"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Dashboard View Rotation"
+      ]
+    }
+  },
+  "haExternalPages": "External pages",
+  "@haExternalPages": {
+    "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
+    "description": "Rotation subpage label, guidance or validation error.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Dashboard View Rotation"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Dashboard View Rotation"
+      ]
+    }
+  },
+  "haFadeError": "Choose a fade duration from 0.2 to 5 seconds.",
+  "@haFadeError": {
+    "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
+    "description": "Rotation subpage label, guidance or validation error.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Dashboard View Rotation"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Dashboard View Rotation"
+      ]
+    }
+  },
+  "haPauseRemoteHelp": "Touch pauses rotation for this long; each touch restarts it. Voice interactions always pause until they end. 0 keeps rotating.",
+  "@haPauseRemoteHelp": {
+    "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
+    "description": "Rotation subpage label, guidance or validation error.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Dashboard View Rotation"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Dashboard View Rotation"
+      ]
+    }
+  },
   "settingHaUrlTitle": "Home Assistant base URL",
   "@settingHaUrlTitle": {
     "context": "Settings:Home Assistant Setup",
@@ -4689,6 +5531,870 @@
       ],
       "remoteAdmin": [
         "Home Assistant Setup > Long-lived access token"
+      ]
+    }
+  },
+  "settingHaAutoLoginTitle": "Log in automatically",
+  "@settingHaAutoLoginTitle": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "settingHaAutoLoginDescription": "Sign in to the dashboard with the access token above instead of showing the Home Assistant login page.",
+  "@settingHaAutoLoginDescription": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haValidate": "Validate",
+  "@haValidate": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haValidateConnection": "Validate connection",
+  "@haValidateConnection": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haChecking": "Checking…",
+  "@haChecking": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haConnected": "Connected",
+  "@haConnected": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haConnectedRemote": "Connected.",
+  "@haConnectedRemote": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haNotValidated": "Not validated yet. The settings below unlock once the connection checks out.",
+  "@haNotValidated": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haConnectFailed": "Could not connect.",
+  "@haConnectFailed": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haNotConfigured": "Home Assistant URL and token not configured",
+  "@haNotConfigured": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haInvalidToken": "invalid token",
+  "@haInvalidToken": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haUnreachable": "Could not reach Home Assistant: {error}",
+  "@haUnreachable": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Technical connection error."
+      }
+    }
+  },
+  "haProxy": "Secure context proxy",
+  "@haProxy": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haProxyHelp": "Routes a plain http Home Assistant through an in-app proxy so the browser unlocks the microphone and other https-only features. Only for http URLs.",
+  "@haProxyHelp": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haProxyRemoteHelp": "Routes a plain http Home Assistant through a proxy inside the app so the browser unlocks the microphone and other https-only features. Available only for http URLs.",
+  "@haProxyRemoteHelp": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haProxyNotice": "This Home Assistant URL uses plain http, and browsers block the microphone and other features on http pages. Kiosk Satellite will route the dashboard through a secure proxy inside the app so everything works. You may need to sign in to Home Assistant again.",
+  "@haProxyNotice": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haProxyRemoteNotice": "This Home Assistant URL uses plain http, and browsers block the microphone and other features on http pages. Kiosk Satellite will route the dashboard through a secure proxy inside the app so everything works. You may need to sign in to Home Assistant again on the tablet.",
+  "@haProxyRemoteNotice": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haDashboard": "Dashboard",
+  "@haDashboard": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haChooseView": "Choose a view",
+  "@haChooseView": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haLoadingDashboards": "Loading dashboards…",
+  "@haLoadingDashboards": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haListFailed": "Could not list dashboards",
+  "@haListFailed": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haRetryHint": "Tap to retry.",
+  "@haRetryHint": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haChangeView": "Change view",
+  "@haChangeView": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haNoViews": "No sub views",
+  "@haNoViews": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haNoViewsHelp": "This dashboard has no selectable sub views.",
+  "@haNoViewsHelp": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "haNoDashboards": "No dashboards found",
+  "@haNoDashboards": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Connection status, action or dashboard picker text.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup"
+      ]
+    }
+  },
+  "settingHaThemeTitle": "Theme",
+  "@settingHaThemeTitle": {
+    "context": "Settings:Home Assistant Setup:Theme",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Theme"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Theme"
+      ]
+    }
+  },
+  "settingHaThemeDescription": "Light or dark for the Home Assistant dashboard, also set from the Theme entity in Home Assistant. Auto follows the settings below.",
+  "@settingHaThemeDescription": {
+    "context": "Settings:Home Assistant Setup:Theme",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Theme"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Theme"
+      ]
+    }
+  },
+  "settingThemeMatchAppTitle": "Sync Home Assistant themes with Kiosk Satellite",
+  "@settingThemeMatchAppTitle": {
+    "context": "Settings:Home Assistant Setup:Theme",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Theme"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Theme"
+      ]
+    }
+  },
+  "settingThemeMatchAppDescription": "Automatically match your Home Assistant theme to your Kiosk Satellite interface.",
+  "@settingThemeMatchAppDescription": {
+    "context": "Settings:Home Assistant Setup:Theme",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Theme"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Theme"
+      ]
+    }
+  },
+  "settingThemeAutoTitle": "Match theme to time of day",
+  "@settingThemeAutoTitle": {
+    "context": "Settings:Home Assistant Setup:Theme",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Theme"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Theme"
+      ]
+    }
+  },
+  "settingThemeAutoDescription": "Switch Home Assistant between light and dark on a schedule. Keeps whatever theme is selected, flipping only its light/dark variant.",
+  "@settingThemeAutoDescription": {
+    "context": "Settings:Home Assistant Setup:Theme",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Theme"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Theme"
+      ]
+    }
+  },
+  "settingThemeDarkAtTitle": "Dark theme at",
+  "@settingThemeDarkAtTitle": {
+    "context": "Settings:Home Assistant Setup:Theme",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Theme"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Theme"
+      ]
+    }
+  },
+  "settingThemeDarkAtDescription": "Local time to switch to the dark theme.",
+  "@settingThemeDarkAtDescription": {
+    "context": "Settings:Home Assistant Setup:Theme",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Theme"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Theme"
+      ]
+    }
+  },
+  "settingThemeLightAtTitle": "Light theme at",
+  "@settingThemeLightAtTitle": {
+    "context": "Settings:Home Assistant Setup:Theme",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Theme"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Theme"
+      ]
+    }
+  },
+  "settingThemeLightAtDescription": "Local time to switch back to the light theme.",
+  "@settingThemeLightAtDescription": {
+    "context": "Settings:Home Assistant Setup:Theme",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Theme"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Theme"
+      ]
+    }
+  },
+  "settingThemeAutoAppTitle": "Also switch the app theme",
+  "@settingThemeAutoAppTitle": {
+    "context": "Settings:Home Assistant Setup:Theme",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Theme"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Theme"
+      ]
+    }
+  },
+  "settingThemeAutoAppDescription": "Flip Kiosk Satellite's own theme (menu, settings) together with the scheduled Home Assistant change.",
+  "@settingThemeAutoAppDescription": {
+    "context": "Settings:Home Assistant Setup:Theme",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Theme"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Theme"
+      ]
+    }
+  },
+  "haThemeHint": "Match the app, or switch dark and light on a schedule",
+  "@haThemeHint": {
+    "context": "Settings:Home Assistant Setup:Theme",
+    "description": "Theme subpage summary or automatic theme choice.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Theme"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Theme"
+      ]
+    }
+  },
+  "haThemeAuto": "Auto",
+  "@haThemeAuto": {
+    "context": "Settings:Home Assistant Setup:Theme",
+    "description": "Theme subpage summary or automatic theme choice.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Theme"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Theme"
+      ]
+    }
+  },
+  "settingHaKioskModeTitle": "HA kiosk mode",
+  "@settingHaKioskModeTitle": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaKioskModeDescription": "Hide the Home Assistant header and sidebar. Applies immediately.",
+  "@settingHaKioskModeDescription": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaKioskHideHeaderTitle": "Hide the header",
+  "@settingHaKioskHideHeaderTitle": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaKioskHideHeaderDescription": "Hide the dashboard toolbar and view tabs while HA kiosk mode is on. Leave off if you switch views from the header.",
+  "@settingHaKioskHideHeaderDescription": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaKioskHideSidebarTitle": "Hide the sidebar",
+  "@settingHaKioskHideSidebarTitle": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaKioskHideSidebarDescription": "Hide the navigation sidebar while HA kiosk mode is on.",
+  "@settingHaKioskHideSidebarDescription": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaKioskMenuTitle": "Show in the kiosk menu",
+  "@settingHaKioskMenuTitle": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaKioskMenuDescription": "Add an HA Kiosk Mode entry to the kiosk menu that turns it on and off.",
+  "@settingHaKioskMenuDescription": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaDashboardCarouselTitle": "Enable dashboard carousel",
+  "@settingHaDashboardCarouselTitle": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaDashboardCarouselDescription": "Swipe left or right on the dashboard to move between its views. Swipes on sliders, maps and scrolling cards are left alone.",
+  "@settingHaDashboardCarouselDescription": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaCarouselOverCardsTitle": "Capture swipe gestures over cards",
+  "@settingHaCarouselOverCardsTitle": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaCarouselOverCardsDescription": "Switch views even when the swipe starts on a card that reacts to swipes. Sliders still work normally.",
+  "@settingHaCarouselOverCardsDescription": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaHapticsTitle": "Enable haptics",
+  "@settingHaHapticsTitle": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaHapticsDescription": "Vibrate when buttons, switches, cards, sliders and thermostat dials are used. Requires a vibration motor.",
+  "@settingHaHapticsDescription": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaHapticsStrengthTitle": "Vibration strength",
+  "@settingHaHapticsStrengthTitle": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaHapticsStrengthDescription": "How strong the vibration feels.",
+  "@settingHaHapticsStrengthDescription": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaTapSoundTitle": "Play tap sounds",
+  "@settingHaTapSoundTitle": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaTapSoundDescription": "Play the standard tap sound when buttons, switches, cards, sliders and thermostat dials are used.",
+  "@settingHaTapSoundDescription": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaTapSoundVolumeTitle": "Tap sound volume",
+  "@settingHaTapSoundVolumeTitle": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "settingHaTapSoundVolumeDescription": "How loud the tap sound plays.",
+  "@settingHaTapSoundVolumeDescription": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "haUserInterface": "User Interface",
+  "@haUserInterface": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Subpage heading, summary or vibration choice. Light means gentle vibration, not a color theme.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "haInterfaceHint": "Kiosk mode, dashboard carousel, haptics, tap sounds",
+  "@haInterfaceHint": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Subpage heading, summary or vibration choice. Light means gentle vibration, not a color theme.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "haHaptics": "Haptics",
+  "@haHaptics": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Subpage heading, summary or vibration choice. Light means gentle vibration, not a color theme.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "haVibrationLight": "Light",
+  "@haVibrationLight": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Subpage heading, summary or vibration choice. Light means gentle vibration, not a color theme.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "haVibrationMedium": "Medium",
+  "@haVibrationMedium": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Subpage heading, summary or vibration choice. Light means gentle vibration, not a color theme.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
+      ]
+    }
+  },
+  "haVibrationStrong": "Strong",
+  "@haVibrationStrong": {
+    "context": "Settings:Home Assistant Setup:User Interface",
+    "description": "Subpage heading, summary or vibration choice. Light means gentle vibration, not a color theme.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > User Interface"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > User Interface"
       ]
     }
   },

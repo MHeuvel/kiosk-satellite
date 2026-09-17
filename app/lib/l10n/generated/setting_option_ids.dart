@@ -8,6 +8,16 @@ const settingOptionMessageIds = <String, Map<String, String>>{
   "update.source": {
     "github": "deviceUpdateGithub",
     "custom": "deviceUpdateCustom"
+  },
+  "ha.haptics_strength": {
+    "light": "haVibrationLight",
+    "medium": "haVibrationMedium",
+    "strong": "haVibrationStrong"
+  },
+  "ha.theme": {
+    "auto": "haThemeAuto",
+    "light": "deviceThemeLight",
+    "dark": "deviceThemeDark"
   }
 };
 const settingPlaceholderMessageIds = <String, String>{

@@ -79,5 +79,20 @@
   "@commonCopy": {
     "context": "Common:Actions",
     "description": "Button to copy a value to the clipboard."
+  },
+  "commonAdd": "Add",
+  "@commonAdd": {
+    "context": "Common:Actions",
+    "description": "Add action button."
+  },
+  "commonRemove": "Remove",
+  "@commonRemove": {
+    "context": "Common:Actions",
+    "description": "Remove action button."
+  },
+  "commonClose": "Close",
+  "@commonClose": {
+    "context": "Common:Actions",
+    "description": "Close action button."
   }
 }

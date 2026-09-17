@@ -852,12 +852,12 @@ export async function loadPermissions() {
   root.appendChild(wrap);
 }
 
-export function readOnlyRow(name, desc, value) {
+export function readOnlyRow(name, desc, value, localize = true) {
   const row = document.createElement('div'); row.className = 'row';
   const info = document.createElement('div'); info.className = 'info';
   info.innerHTML = `<div class="name"></div><div class="desc"></div>`;
-  info.querySelector('.name').textContent = deviceText(name);
-  info.querySelector('.desc').textContent = deviceText(desc);
+  info.querySelector('.name').textContent = localize ? deviceText(name) : name;
+  info.querySelector('.desc').textContent = localize ? deviceText(desc) : desc;
   row.appendChild(info);
   const v = document.createElement('span');
   v.style.whiteSpace = 'nowrap';

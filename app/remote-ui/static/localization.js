@@ -1,6 +1,21 @@
 import { catalogs } from './catalogs.js';
 import { navigationMessageIds } from './navigation_ids.js';
 import { deviceTextMessageIds } from './device_text_ids.js';
+import { haTextMessageIds } from './ha_text_ids.js';
+
+export function haText(english) {
+  return t(haTextMessageIds[english], {}, english);
+}
+
+export function settingsPageText(category, english) {
+  return category === 'Device' || category === 'device' ? deviceText(english)
+    : category === 'Home Assistant' || category === 'homeassistant' ? haText(english) : english;
+}
+
+export function haConnectionError(error) {
+  return error.startsWith('unreachable: ')
+    ? t('haUnreachable', {error: error.slice('unreachable: '.length)}) : haText(error);
+}
 
 // The kiosk and remote administration share one explicit language choice.
 let languagePreference = 'en';

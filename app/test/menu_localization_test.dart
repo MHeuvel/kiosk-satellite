@@ -16,6 +16,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 // Test wording exercises localization even before draft catalogs are approved.
 class MenuMessages extends UiStringsEn {
   @override
+  String get settingHaHoldModeTitle => 'TEST hold page';
+  @override
+  String get settingHaHoldModeDescription => 'TEST hold explanation';
+  @override
+  String get haNever => 'TEST never';
+  @override
+  String get haValidateConnection => 'TEST validate';
+  @override
+  String get haNotConfigured => 'TEST missing credentials';
+  @override
+  String get haVibrationLight => 'TEST gentle vibration';
+  @override
   String get deviceAnalyticsPage => 'TEST analytics page';
   @override
   String get deviceAnalyticsIntro => 'TEST analytics introduction';
@@ -91,6 +103,69 @@ Future<AppContainer> containerFor(WidgetTester tester, Size size) async {
 }
 
 void main() {
+  testWidgets('Home Assistant validation displays a translated failure', (
+    tester,
+  ) async {
+    final container = await containerFor(tester, const Size(600, 1200));
+    await tester.pumpWidget(
+      localized(
+        CategorySettingsScreen(
+          container: container,
+          title: 'Home Assistant Setup',
+          category: 'Home Assistant',
+        ),
+      ),
+    );
+    await tester.tap(find.text('TEST validate'));
+    await tester.pump();
+    expect(find.text('TEST missing credentials'), findsOneWidget);
+    expect(container.homeAssistant.connectionOk.value, isFalse);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('Home Assistant labels preserve canonical choices and routes', (
+    tester,
+  ) async {
+    final container = await containerFor(tester, const Size(600, 1200));
+    await tester.pumpWidget(
+      localized(
+        Scaffold(
+          body: SettingTile(
+            container: container,
+            def: defs.haHapticsStrength,
+            onChanged: () {},
+          ),
+        ),
+      ),
+    );
+    final row = tester.widget<DropdownRow<String>>(
+      find.byType(DropdownRow<String>),
+    );
+    expect(row.options.first, ('light', 'TEST gentle vibration'));
+    row.onChanged('light');
+    await tester.pump();
+    expect(container.settings.get(defs.haHapticsStrength), 'light');
+    await tester.pumpWidget(
+      localized(
+        SubpageSettingsScreen(
+          container: container,
+          category: 'Home Assistant',
+          subpage: 'Hold mode',
+        ),
+      ),
+    );
+    await tester.pump();
+    expect(find.text('TEST hold explanation'), findsOneWidget);
+    expect(find.text('TEST never'), findsOneWidget);
+    expect(
+      tester
+          .widget<SubpageSettingsScreen>(find.byType(SubpageSettingsScreen))
+          .subpage,
+      'Hold mode',
+    );
+    expect(tester.takeException(), isNull);
+  });
+
   for (final width in [500.0, 1200.0]) {
     testWidgets('localized Settings navigation and search at width $width', (
       tester,

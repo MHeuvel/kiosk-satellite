@@ -504,6 +504,7 @@ List<SettingsSearchEntry> buildSettingsSearchIndex(
   List<(String category, String title, String subtitle)> pages, {
   String Function(String)? pageText,
   String Function(String)? deviceTextFor,
+  String Function(String)? haTextFor,
   String Function(SettingDef<Object>)? titleFor,
   String Function(SettingDef<Object>)? descriptionFor,
 }) {
@@ -561,11 +562,16 @@ List<SettingsSearchEntry> buildSettingsSearchIndex(
               deviceHiddenKeys.contains(screensaverDismissOnPerson.key)))
         entry,
   ].map((entry) {
-    if (entry.category != 'Device' || deviceTextFor == null) return entry;
+    final translate = entry.category == 'Device'
+        ? deviceTextFor
+        : entry.category == 'Home Assistant'
+        ? haTextFor
+        : null;
+    if (translate == null) return entry;
     return SettingsSearchEntry(
       category: entry.category,
-      title: deviceTextFor(entry.title),
-      description: deviceTextFor(entry.description),
+      title: translate(entry.title),
+      description: translate(entry.description),
       englishAlias: '${entry.englishAlias} ${entry.title} ${entry.description}',
       defKey: entry.defKey,
       isPage: entry.isPage,

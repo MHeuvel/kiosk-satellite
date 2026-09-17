@@ -1,0 +1,211 @@
+{
+  "@@locale": "en",
+  "settingHaRotationEnabledTitle": "Enable dashboard view rotation",
+  "@settingHaRotationEnabledTitle": {
+    "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Dashboard View Rotation"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Dashboard View Rotation"
+      ]
+    }
+  },
+  "settingHaRotationEnabledDescription": "Cycle through the selected dashboard views in an endless loop, showing each one for the chosen number of seconds.",
+  "@settingHaRotationEnabledDescription": {
+    "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Dashboard View Rotation"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Dashboard View Rotation"
+      ]
+    }
+  },
+  "settingHaRotationSecondsTitle": "Seconds per view",
+  "@settingHaRotationSecondsTitle": {
+    "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Dashboard View Rotation"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Dashboard View Rotation"
+      ]
+    }
+  },
+  "settingHaRotationSecondsDescription": "How long each view stays on screen.",
+  "@settingHaRotationSecondsDescription": {
+    "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Dashboard View Rotation"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Dashboard View Rotation"
+      ]
+    }
+  },
+  "settingHaRotationPauseSecondsTitle": "Pause rotation on interaction (seconds)",
+  "@settingHaRotationPauseSecondsTitle": {
+    "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Dashboard View Rotation"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Dashboard View Rotation"
+      ]
+    }
+  },
+  "settingHaRotationPauseSecondsDescription": "Touching the screen pauses rotation for this long, and each touch restarts the countdown. Voice interactions pause until they end. 0 keeps rotating through touches.",
+  "@settingHaRotationPauseSecondsDescription": {
+    "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Dashboard View Rotation"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Dashboard View Rotation"
+      ]
+    }
+  },
+  "settingHaRotationCrossfadeTitle": "Fade between views",
+  "@settingHaRotationCrossfadeTitle": {
+    "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Dashboard View Rotation"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Dashboard View Rotation"
+      ]
+    }
+  },
+  "settingHaRotationCrossfadeDescription": "Fade out to the background and into the next view instead of switching instantly. Moving to a different dashboard or an external page still switches instantly.",
+  "@settingHaRotationCrossfadeDescription": {
+    "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Dashboard View Rotation"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Dashboard View Rotation"
+      ]
+    }
+  },
+  "settingHaRotationFadeSecondsTitle": "Fade duration (seconds)",
+  "@settingHaRotationFadeSecondsTitle": {
+    "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Dashboard View Rotation"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Dashboard View Rotation"
+      ]
+    }
+  },
+  "settingHaRotationFadeSecondsDescription": "Combined fade-out and fade-in time. Loading the next view can add time, especially on its first visit.",
+  "@settingHaRotationFadeSecondsDescription": {
+    "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Dashboard View Rotation"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Dashboard View Rotation"
+      ]
+    }
+  },
+  "haRotation": "Dashboard View Rotation",
+  "@haRotation": {
+    "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
+    "description": "Rotation subpage label, guidance or validation error.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Dashboard View Rotation"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Dashboard View Rotation"
+      ]
+    }
+  },
+  "haRotationHint": "Cycle through views, dwell time, fade",
+  "@haRotationHint": {
+    "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
+    "description": "Rotation subpage label, guidance or validation error.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Dashboard View Rotation"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Dashboard View Rotation"
+      ]
+    }
+  },
+  "haDefaultView": "Default view",
+  "@haDefaultView": {
+    "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
+    "description": "Rotation subpage label, guidance or validation error.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Dashboard View Rotation"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Dashboard View Rotation"
+      ]
+    }
+  },
+  "haExternalPages": "External pages",
+  "@haExternalPages": {
+    "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
+    "description": "Rotation subpage label, guidance or validation error.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Dashboard View Rotation"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Dashboard View Rotation"
+      ]
+    }
+  },
+  "haFadeError": "Choose a fade duration from 0.2 to 5 seconds.",
+  "@haFadeError": {
+    "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
+    "description": "Rotation subpage label, guidance or validation error.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Dashboard View Rotation"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Dashboard View Rotation"
+      ]
+    }
+  },
+  "haPauseRemoteHelp": "Touch pauses rotation for this long; each touch restarts it. Voice interactions always pause until they end. 0 keeps rotating.",
+  "@haPauseRemoteHelp": {
+    "context": "Settings:Home Assistant Setup:Dashboard View Rotation",
+    "description": "Rotation subpage label, guidance or validation error.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Dashboard View Rotation"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Dashboard View Rotation"
+      ]
+    }
+  }
+}

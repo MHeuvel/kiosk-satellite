@@ -129,10 +129,11 @@ List<Widget> _sectionedCards(
       if (current != null && !(out.isEmpty && current == subpage)) {
         final heading = current;
         out.add(
-          def.category == 'Device'
+          (def.category == 'Device' || def.category == 'Home Assistant')
               ? Builder(
-                  builder: (context) =>
-                      SectionHeading(deviceText(context, heading)),
+                  builder: (context) => SectionHeading(
+                    settingsPageText(context, def.category, heading),
+                  ),
                 )
               : SectionHeading(heading),
         );
@@ -436,6 +437,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ],
         pageText: (text) => navigationText(context, text),
         deviceTextFor: (text) => deviceText(context, text),
+        haTextFor: (text) => haText(context, text),
         titleFor: (def) => def.localizedTitle(context),
         descriptionFor: (def) => def.localizedDescription(context),
       );
@@ -850,8 +852,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   context,
                                   storageKey:
                                       'settings-sub-$category-$_subpage',
-                                  title: category == 'Device'
-                                      ? deviceText(context, _subpage!)
+                                  title:
+                                      (category == 'Device' ||
+                                          category == 'Home Assistant')
+                                      ? settingsPageText(
+                                          context,
+                                          category,
+                                          _subpage!,
+                                        )
                                       : pluginSubpageTitle(
                                           widget.container,
                                           category,
@@ -1286,12 +1294,10 @@ class _SubpageEntryTile extends StatelessWidget {
       // hangs the hint under the name, past the glyph, on any pane.
       child: ListTile(
         leading: SubpageGlyph(subpage),
-        title: Text(
-          category == 'Device' ? deviceText(context, subpage) : subpage,
-        ),
+        title: Text(settingsPageText(context, category, subpage)),
         subtitle: hint == null
             ? null
-            : Text(category == 'Device' ? deviceText(context, hint) : hint),
+            : Text(settingsPageText(context, category, hint)),
         trailing: const Icon(Icons.chevron_right),
         onTap: () => nav == null
             ? Navigator.of(context).push(
@@ -1357,8 +1363,8 @@ class SubpageSettingsScreen extends StatelessWidget {
             const SizedBox(width: 12),
             Flexible(
               child: Text(
-                category == 'Device'
-                    ? deviceText(context, subpage)
+                (category == 'Device' || category == 'Home Assistant')
+                    ? settingsPageText(context, category, subpage)
                     : pluginSubpageTitle(container, category, subpage),
                 overflow: TextOverflow.ellipsis,
               ),
@@ -2405,18 +2411,23 @@ class _CategoryContentState extends State<_CategoryContent> {
           SearchLandingTarget(
             id: 'x:ha_validate',
             child: ListTile(
-              title: const Text('Validate connection'),
+              title: Text(haText(context, 'Validate connection')),
               subtitle: Text(
                 _haValidating
-                    ? 'Checking…'
-                    : _haError ??
+                    ? haText(context, 'Checking…')
+                    : (_haError == null
+                              ? null
+                              : haConnectionError(context, _haError!)) ??
                           (container.homeAssistant.connectionOk.value
-                              ? 'Connected'
-                              : 'Not validated yet. The settings below unlock '
-                                    'once the connection checks out.'),
+                              ? haText(context, 'Connected')
+                              : haText(
+                                  context,
+                                  'Not validated yet. The settings below unlock '
+                                  'once the connection checks out.',
+                                )),
               ),
               trailing: _haValidating
-                  ? const SizedBox(
+                  ? SizedBox(
                       width: 20,
                       height: 20,
                       child: CircularProgressIndicator(strokeWidth: 2.4),
@@ -2444,8 +2455,8 @@ class _CategoryContentState extends State<_CategoryContent> {
                     uri.host != 'localhost' &&
                     uri.host != '127.0.0.1';
                 return SwitchListTile(
-                  title: Text(secureProxy.title),
-                  subtitle: Text(secureProxy.description),
+                  title: Text(haText(context, secureProxy.title)),
+                  subtitle: Text(haText(context, secureProxy.description)),
                   value: container.settings.get(secureProxy),
                   onChanged: isHttp
                       ? (v) async {
@@ -2487,18 +2498,21 @@ class _CategoryContentState extends State<_CategoryContent> {
       await showDialog<void>(
         context: context,
         builder: (context) => AlertDialog(
-          title: const Text('Secure context proxy'),
-          content: const Text(
-            'This Home Assistant URL uses plain http, and browsers block '
-            'the microphone and other features on http pages. Kiosk '
-            'Satellite will route the dashboard through a secure proxy '
-            'inside the app so everything works. You may need to sign in '
-            'to Home Assistant again.',
+          title: Text(haText(context, 'Secure context proxy')),
+          content: Text(
+            haText(
+              context,
+              'This Home Assistant URL uses plain http, and browsers block '
+              'the microphone and other features on http pages. Kiosk '
+              'Satellite will route the dashboard through a secure proxy '
+              'inside the app so everything works. You may need to sign in '
+              'to Home Assistant again.',
+            ),
           ),
           actions: [
             FilledButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text('OK'),
+              child: Text(haText(context, 'OK')),
             ),
           ],
         ),
@@ -2523,7 +2537,7 @@ class _CategoryContentState extends State<_CategoryContent> {
   /// so what is left here is the row that opens each of those pages.
   List<Widget> _haConfiguredCards(AppContainer container) {
     return [
-      const SectionHeading('Dashboard'),
+      SectionHeading(haText(context, 'Dashboard')),
       SearchLandingTarget(
         id: 'x:dashboard_picker',
         child: _DashboardPickerCard(container: container),
@@ -3289,10 +3303,13 @@ class _CategoryContentState extends State<_CategoryContent> {
             if (container.settings.get(haRotationEnabled))
               haReturnHomeEnabled.key: SearchLandingTarget(
                 id: haReturnHomeEnabled.key,
-                child: const SwitchListTile(
-                  title: Text('Return to home dashboard view'),
+                child: SwitchListTile(
+                  title: Text(haText(context, 'Return to home dashboard view')),
                   subtitle: Text(
-                    'Turned off while Dashboard view rotation is on.',
+                    haText(
+                      context,
+                      'Turned off while Dashboard view rotation is on.',
+                    ),
                   ),
                   value: false,
                   onChanged: null,
@@ -3350,8 +3367,11 @@ class _CategoryContentState extends State<_CategoryContent> {
   String _returnHomeTargetHint(AppContainer container) {
     final path = container.homeAssistant.homeViewPath();
     return path == null
-        ? 'The configured dashboard has no view path to return to.'
-        : 'Returns to "$path" after the timeout.';
+        ? haText(
+            context,
+            'The configured dashboard has no view path to return to.',
+          )
+        : l10n(context).haReturnPath(path);
   }
 
   /// The Voice Satellite page: gated on the proven HA connection like the
@@ -6522,7 +6542,7 @@ class _OptimizationsCardState extends State<_OptimizationsCard> {
   /// Poll the in-page filter's counters only while the filter is on.
   void _syncPolling() {
     if (_filterOn && _poll == null) {
-      _poll = Timer.periodic(const Duration(seconds: 2), (_) => _refresh());
+      _poll = Timer.periodic(Duration(seconds: 2), (_) => _refresh());
       _refresh();
     } else if (!_filterOn && _poll != null) {
       _poll!.cancel();
@@ -6578,7 +6598,7 @@ class _OptimizationsCardState extends State<_OptimizationsCard> {
     // belongs to a previous page and must be discarded.
     if (_hist.isNotEmpty && total < _hist.last.$2) _hist.clear();
     _hist.add((now, total, fwd));
-    _hist.removeWhere((s) => now.difference(s.$1) > const Duration(minutes: 1));
+    _hist.removeWhere((s) => now.difference(s.$1) > Duration(minutes: 1));
     // Deltas over the retained window, not lifetime counts.
     final dTotal = _hist.length > 1 ? total - _hist.first.$2 : 0;
     final dFwd = _hist.length > 1 ? fwd - _hist.first.$3 : 0;
@@ -6622,11 +6642,14 @@ class _OptimizationsCardState extends State<_OptimizationsCard> {
     final saved = decoded is Map ? decoded['details'] : null;
     final details = saved is String && saved.isNotEmpty
         ? saved
-        : 'Scan details are not available for the current view.';
+        : haText(
+            context,
+            'Scan details are not available for the current view.',
+          );
     await showDialog<void>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Dashboard scan details'),
+        title: Text(haText(context, 'Dashboard scan details')),
         content: SizedBox(
           width: 520,
           child: SingleChildScrollView(child: SelectableText(details)),
@@ -6634,11 +6657,11 @@ class _OptimizationsCardState extends State<_OptimizationsCard> {
         actions: [
           TextButton(
             onPressed: () => Clipboard.setData(ClipboardData(text: details)),
-            child: const Text('Copy'),
+            child: Text(haText(context, 'Copy')),
           ),
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Close'),
+            child: Text(haText(context, 'Close')),
           ),
         ],
       ),
@@ -6672,7 +6695,7 @@ class _OptimizationsCardState extends State<_OptimizationsCard> {
     await showDialog<void>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text('Watched entities (${items.length})'),
+        title: Text(l10n(context).haWatchedTitle('${items.length}')),
         content: SizedBox(
           width: 420,
           child: EdgeFade(
@@ -6693,7 +6716,7 @@ class _OptimizationsCardState extends State<_OptimizationsCard> {
         actions: [
           FilledButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Close'),
+            child: Text(haText(context, 'Close')),
           ),
         ],
       ),
@@ -6726,9 +6749,7 @@ class _OptimizationsCardState extends State<_OptimizationsCard> {
   /// (see [_refresh]).
   bool _rawFirehose = false;
 
-  static const _rawFirehoseNote =
-      ' Something on this page receives every entity update anyway, so '
-      'filtering saves less here.';
+  String get _rawFirehoseNote => ' ${l10n(context).haRawUpdates}';
 
   Widget _telemetry(ThemeData theme) {
     final s = _stats;
@@ -6743,9 +6764,8 @@ class _OptimizationsCardState extends State<_OptimizationsCard> {
     if (_ready && _mode == 'filtering' && s != null) {
       final rest =
           (pct == null
-              ? ' No updates in the last minute.'
-              : ' Filtered $pct% of updates in the last minute '
-                    '(${s.dropped} of ${s.total}).') +
+              ? ' ${l10n(context).haNoUpdates}'
+              : ' ${l10n(context).haFiltered('$pct', '${s.dropped}', '${s.total}')}') +
           (_rawFirehose ? _rawFirehoseNote : '');
       return _telemetryRow(
         theme,
@@ -6754,7 +6774,7 @@ class _OptimizationsCardState extends State<_OptimizationsCard> {
             style: base,
             children: [
               TextSpan(
-                text: 'Watching ${s.allow} entities on this view.',
+                text: l10n(context).haWatching('${s.allow}'),
                 style: TextStyle(
                   color: theme.colorScheme.primary,
                   decoration: TextDecoration.underline,
@@ -6769,13 +6789,13 @@ class _OptimizationsCardState extends State<_OptimizationsCard> {
       );
     }
     final note = _rawFirehose ? _rawFirehoseNote : '';
-    final text = _ready && _mode == 'passthrough'
-        ? _runtimeAll
-              ? 'This view reads all entity states, so its updates '
-                    'are not filtered.$note'
-              : 'This view\'s entities can\'t be determined, so its updates '
-                    'are not filtered.$note'
-        : 'Waiting for the dashboard to load...';
+    final text =
+        (_ready && _mode == 'passthrough'
+            ? (_runtimeAll
+                  ? l10n(context).haAllStates
+                  : l10n(context).haUnknownEntities)
+            : l10n(context).haWaiting) +
+        note;
     return _telemetryRow(
       theme,
       Text.rich(
@@ -6785,7 +6805,7 @@ class _OptimizationsCardState extends State<_OptimizationsCard> {
             TextSpan(text: text),
             if (_ready && _mode == 'passthrough' && _runtimeAll)
               TextSpan(
-                text: ' Show scan details.',
+                text: ' ${l10n(context).haShowScan}',
                 style: TextStyle(
                   color: theme.colorScheme.primary,
                   decoration: TextDecoration.underline,
@@ -6800,7 +6820,7 @@ class _OptimizationsCardState extends State<_OptimizationsCard> {
   }
 
   Widget _telemetryRow(ThemeData theme, Widget child) => Padding(
-    padding: const EdgeInsets.fromLTRB(16, 12, 16, 14),
+    padding: EdgeInsets.fromLTRB(16, 12, 16, 14),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -6809,7 +6829,7 @@ class _OptimizationsCardState extends State<_OptimizationsCard> {
           size: 18,
           color: theme.colorScheme.primary,
         ),
-        const SizedBox(width: 10),
+        SizedBox(width: 10),
         Expanded(child: child),
       ],
     ),
@@ -6901,7 +6921,7 @@ class _DashboardPickerCardState extends State<_DashboardPickerCard> {
     final current = _selectedRoute(urlPath);
     final picked = await showRadioPicker<String>(
       context,
-      title: 'Choose a view',
+      title: haText(context, 'Choose a view'),
       selected: current,
       options: [
         for (final v in views)
@@ -6921,10 +6941,10 @@ class _DashboardPickerCardState extends State<_DashboardPickerCard> {
       future: _dashboards,
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
-          return const SettingsCard(
+          return SettingsCard(
             children: [
               ListTile(
-                title: Text('Loading dashboards…'),
+                title: Text(haText(context, 'Loading dashboards…')),
                 trailing: SizedBox(
                   width: 20,
                   height: 20,
@@ -6939,9 +6959,9 @@ class _DashboardPickerCardState extends State<_DashboardPickerCard> {
           return SettingsCard(
             children: [
               ListTile(
-                title: const Text('Could not list dashboards'),
-                subtitle: const Text('Tap to retry.'),
-                trailing: const Icon(Icons.refresh),
+                title: Text(haText(context, 'Could not list dashboards')),
+                subtitle: Text(haText(context, 'Tap to retry.')),
+                trailing: Icon(Icons.refresh),
                 onTap: () => setState(() {
                   _dashboards = c.homeAssistant.listDashboards();
                 }),
@@ -6998,7 +7018,7 @@ class _DashboardPickerCardState extends State<_DashboardPickerCard> {
       trailing: selected
           ? TextButton(
               onPressed: hasViews ? () => _changeView(urlPath) : null,
-              child: const Text('Change view'),
+              child: Text(haText(context, 'Change view')),
             )
           : null,
       onTap: selected ? null : () => _pickDashboard(urlPath),
@@ -7056,7 +7076,7 @@ class _RotationCardState extends State<_RotationCard> {
               // bare path — an empty route, navigated as /<url_path>, which
               // resolves the default view. A synthetic "/0" would spin.
               ? [
-                  {'title': 'Default view', 'route': ''},
+                  {'title': null, 'route': ''},
                 ]
               : views[i]!,
         ),
@@ -7162,8 +7182,8 @@ class _RotationCardState extends State<_RotationCard> {
             future: _views,
             builder: (context, snapshot) {
               if (snapshot.connectionState != ConnectionState.done) {
-                return const ListTile(
-                  title: Text('Loading dashboards…'),
+                return ListTile(
+                  title: Text(haText(context, 'Loading dashboards…')),
                   trailing: SizedBox(
                     width: 20,
                     height: 20,
@@ -7174,9 +7194,9 @@ class _RotationCardState extends State<_RotationCard> {
               final dashboards = snapshot.data;
               if (dashboards == null || dashboards.isEmpty) {
                 return ListTile(
-                  title: const Text('Could not list dashboards'),
-                  subtitle: const Text('Tap to retry.'),
-                  trailing: const Icon(Icons.refresh),
+                  title: Text(haText(context, 'Could not list dashboards')),
+                  subtitle: Text(haText(context, 'Tap to retry.')),
+                  trailing: Icon(Icons.refresh),
                   onTap: () => setState(() {
                     _views = _load();
                   }),
@@ -7190,7 +7210,7 @@ class _RotationCardState extends State<_RotationCard> {
                     // The dashboard is a plain header, not a choice — the
                     // views beneath it are what rotate.
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 14, 20, 2),
+                      padding: EdgeInsets.fromLTRB(20, 14, 20, 2),
                       child: Text(
                         title,
                         style: theme.textTheme.labelLarge?.copyWith(
@@ -7208,17 +7228,18 @@ class _RotationCardState extends State<_RotationCard> {
                       ])
                         CheckboxListTile(
                           value: selected.contains(path),
-                          title: Text('${v['title']}'),
+                          title: Text(
+                            v['title'] == null
+                                ? haText(context, 'Default view')
+                                : '${v['title']}',
+                          ),
                           subtitle: Text(path),
                           controlAffinity: ListTileControlAffinity.leading,
-                          contentPadding: const EdgeInsets.only(
-                            left: 28,
-                            right: 20,
-                          ),
+                          contentPadding: EdgeInsets.only(left: 28, right: 20),
                           onChanged: (_) => _toggle(path),
                         ),
                   ],
-                  const SizedBox(height: 6),
+                  SizedBox(height: 6),
                 ],
               );
             },
@@ -7226,9 +7247,9 @@ class _RotationCardState extends State<_RotationCard> {
           // External pages: shown in their own overlay during rotation, so
           // the dashboard (and Voice Satellite) stays loaded underneath.
           Padding(
-            padding: const EdgeInsets.fromLTRB(20, 8, 20, 2),
+            padding: EdgeInsets.fromLTRB(20, 8, 20, 2),
             child: Text(
-              'External pages',
+              haText(context, 'External pages'),
               style: theme.textTheme.labelLarge?.copyWith(
                 color: theme.colorScheme.primary,
                 fontWeight: FontWeight.w600,
@@ -7238,16 +7259,16 @@ class _RotationCardState extends State<_RotationCard> {
           for (final url in _urls())
             ListTile(
               dense: true,
-              contentPadding: const EdgeInsets.only(left: 28, right: 12),
+              contentPadding: EdgeInsets.only(left: 28, right: 12),
               title: Text(url, style: theme.textTheme.bodyMedium),
               trailing: IconButton(
-                icon: const Icon(Icons.close, size: 20),
-                tooltip: 'Remove',
+                icon: Icon(Icons.close, size: 20),
+                tooltip: haText(context, 'Remove'),
                 onPressed: () => _saveUrls(_urls()..remove(url)),
               ),
             ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(28, 4, 12, 12),
+            padding: EdgeInsets.fromLTRB(28, 4, 12, 12),
             child: Row(
               children: [
                 Expanded(
@@ -7257,14 +7278,17 @@ class _RotationCardState extends State<_RotationCard> {
                     autocorrect: false,
                     onSubmitted: (_) => _addUrl(),
                     // Border and fill come from the input theme.
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       isDense: true,
                       hintText: 'https://example.com',
                     ),
                   ),
                 ),
-                const SizedBox(width: 8),
-                FilledButton(onPressed: _addUrl, child: const Text('Add')),
+                SizedBox(width: 8),
+                FilledButton(
+                  onPressed: _addUrl,
+                  child: Text(haText(context, 'Add')),
+                ),
               ],
             ),
           ),
@@ -9099,11 +9123,13 @@ class _SliderTileState extends State<_SliderTile> {
     // not) and 90 is "1 h 30 min". Wording mirrored in the remote admin.
     if (def.key == haHoldReleaseMinutes.key) {
       final minutes = v.round();
-      if (minutes <= 0) return 'Never';
+      if (minutes <= 0) return haText(context, 'Never');
       final h = minutes ~/ 60;
       final m = minutes % 60;
-      if (h == 0) return '$m min';
-      return m == 0 ? '$h h' : '$h h $m min';
+      if (h == 0) return l10n(context).haMinutes('$m');
+      return m == 0
+          ? l10n(context).haHours('$h')
+          : l10n(context).haHoursMinutes('$h', '$m');
     }
     final text = v == v.roundToDouble()
         ? v.toInt().toString()
@@ -10033,7 +10059,9 @@ class SettingTile extends StatelessWidget {
                     def.localizedPlaceholder(context) ??
                     def.localizedDescription(context),
                 hintMaxLines: def.multiline ? 4 : null,
-                errorText: error == null ? null : deviceText(context, error!),
+                errorText: error == null
+                    ? null
+                    : haText(context, deviceText(context, error!)),
               ),
             ),
           ),

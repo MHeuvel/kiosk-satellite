@@ -1,0 +1,185 @@
+{
+  "@@locale": "en",
+  "settingHaThemeTitle": "Theme",
+  "@settingHaThemeTitle": {
+    "context": "Settings:Home Assistant Setup:Theme",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Theme"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Theme"
+      ]
+    }
+  },
+  "settingHaThemeDescription": "Light or dark for the Home Assistant dashboard, also set from the Theme entity in Home Assistant. Auto follows the settings below.",
+  "@settingHaThemeDescription": {
+    "context": "Settings:Home Assistant Setup:Theme",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Theme"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Theme"
+      ]
+    }
+  },
+  "settingThemeMatchAppTitle": "Sync Home Assistant themes with Kiosk Satellite",
+  "@settingThemeMatchAppTitle": {
+    "context": "Settings:Home Assistant Setup:Theme",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Theme"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Theme"
+      ]
+    }
+  },
+  "settingThemeMatchAppDescription": "Automatically match your Home Assistant theme to your Kiosk Satellite interface.",
+  "@settingThemeMatchAppDescription": {
+    "context": "Settings:Home Assistant Setup:Theme",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Theme"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Theme"
+      ]
+    }
+  },
+  "settingThemeAutoTitle": "Match theme to time of day",
+  "@settingThemeAutoTitle": {
+    "context": "Settings:Home Assistant Setup:Theme",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Theme"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Theme"
+      ]
+    }
+  },
+  "settingThemeAutoDescription": "Switch Home Assistant between light and dark on a schedule. Keeps whatever theme is selected, flipping only its light/dark variant.",
+  "@settingThemeAutoDescription": {
+    "context": "Settings:Home Assistant Setup:Theme",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Theme"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Theme"
+      ]
+    }
+  },
+  "settingThemeDarkAtTitle": "Dark theme at",
+  "@settingThemeDarkAtTitle": {
+    "context": "Settings:Home Assistant Setup:Theme",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Theme"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Theme"
+      ]
+    }
+  },
+  "settingThemeDarkAtDescription": "Local time to switch to the dark theme.",
+  "@settingThemeDarkAtDescription": {
+    "context": "Settings:Home Assistant Setup:Theme",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Theme"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Theme"
+      ]
+    }
+  },
+  "settingThemeLightAtTitle": "Light theme at",
+  "@settingThemeLightAtTitle": {
+    "context": "Settings:Home Assistant Setup:Theme",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Theme"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Theme"
+      ]
+    }
+  },
+  "settingThemeLightAtDescription": "Local time to switch back to the light theme.",
+  "@settingThemeLightAtDescription": {
+    "context": "Settings:Home Assistant Setup:Theme",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Theme"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Theme"
+      ]
+    }
+  },
+  "settingThemeAutoAppTitle": "Also switch the app theme",
+  "@settingThemeAutoAppTitle": {
+    "context": "Settings:Home Assistant Setup:Theme",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Theme"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Theme"
+      ]
+    }
+  },
+  "settingThemeAutoAppDescription": "Flip Kiosk Satellite's own theme (menu, settings) together with the scheduled Home Assistant change.",
+  "@settingThemeAutoAppDescription": {
+    "context": "Settings:Home Assistant Setup:Theme",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Theme"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Theme"
+      ]
+    }
+  },
+  "haThemeHint": "Match the app, or switch dark and light on a schedule",
+  "@haThemeHint": {
+    "context": "Settings:Home Assistant Setup:Theme",
+    "description": "Theme subpage summary or automatic theme choice.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Theme"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Theme"
+      ]
+    }
+  },
+  "haThemeAuto": "Auto",
+  "@haThemeAuto": {
+    "context": "Settings:Home Assistant Setup:Theme",
+    "description": "Theme subpage summary or automatic theme choice.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Theme"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Theme"
+      ]
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { deviceText } from './localization.js';
+import { deviceText, haText, t } from './localization.js';
 import { watchUpdates } from './live.js';
 import {
   GLANCE_MAX,
@@ -121,7 +121,7 @@ function showRowError(row, message, onRetry) {
     el.className = 'row-error';
     row.appendChild(el);
   }
-  el.textContent = deviceText(message);
+  el.textContent = haText(deviceText(message));
   if (onRetry) {
     const retry = document.createElement('button');
     retry.className = 'btn-ghost';
@@ -1426,10 +1426,10 @@ export function settingRow(s) {
       // "1 h 30 min". Kept identical to the device's copy.
       if (s.key === 'ha.hold_release_minutes') {
         const minutes = Math.round(v);
-        if (minutes <= 0) return 'Never';
+        if (minutes <= 0) return haText('Never');
         const h = Math.floor(minutes / 60), m = minutes % 60;
-        if (h === 0) return `${m} min`;
-        return m === 0 ? `${h} h` : `${h} h ${m} min`;
+        if (h === 0) return t('haMinutes', {minutes: String(m)});
+        return m === 0 ? t('haHours', {hours: String(h)}) : t('haHoursMinutes', {hours: String(h), minutes: String(m)});
       }
       return s.unit === '%'
         ? `${Math.round(s.max <= 1 ? v * 100 : v)}%`

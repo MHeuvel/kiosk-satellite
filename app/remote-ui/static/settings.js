@@ -1,4 +1,4 @@
-import { deviceText, t } from './localization.js';
+import { deviceText, haText, haConnectionError, settingsPageText, t } from './localization.js';
 import { preserveDraft } from './drafts.js';
 import { beginLiveRender, endLiveRender, watchUpdates } from './live.js';
 import {
@@ -317,7 +317,7 @@ async function renderSettings({ cached = false } = {}) {
           if (heading && !(heading === subpage && !target.children.length)) {
             const h = document.createElement('h2');
             h.className = 'card-title';
-            h.textContent = cat === 'Device' ? deviceText(heading) : heading;
+            h.textContent = settingsPageText(cat, heading);
             target.appendChild(h);
           }
           const card = document.createElement('div');
@@ -1577,11 +1577,11 @@ async function renderSettings({ cached = false } = {}) {
     connCard.className = 'card';
     ha.filter((s) => s.key === 'ha.url' || s.key === 'ha.token')
       .forEach((s) => connCard.appendChild(settingRow(s)));
-    const vrow = readOnlyRow('Validate connection', '', '');
+    const vrow = readOnlyRow(haText('Validate connection'), '', '');
     vrow.querySelector('span').remove();
     const vbtn = document.createElement('button');
     vbtn.className = 'btn-ghost';
-    vbtn.textContent = 'Validate';
+    vbtn.textContent = haText('Validate');
     vrow.appendChild(vbtn);
     connCard.appendChild(vrow);
     // Secure context proxy, below Validate — hand-built here exactly like
@@ -1599,11 +1599,11 @@ async function renderSettings({ cached = false } = {}) {
       const spInfo = document.createElement('div');
       spInfo.className = 'info';
       spInfo.innerHTML = '<div class="name"></div><div class="desc"></div>';
-      spInfo.querySelector('.name').textContent = 'Secure context proxy';
+      spInfo.querySelector('.name').textContent = haText('Secure context proxy');
       spInfo.querySelector('.desc').textContent =
-        'Routes a plain http Home Assistant through a proxy inside the app '
+        haText('Routes a plain http Home Assistant through a proxy inside the app '
         + 'so the browser unlocks the microphone and other https-only '
-        + 'features. Available only for http URLs.';
+        + 'features. Available only for http URLs.');
       spRow.appendChild(spInfo);
       const spLbl = document.createElement('label');
       spLbl.className = 'switch';
@@ -1647,28 +1647,28 @@ async function renderSettings({ cached = false } = {}) {
         && u.hostname !== 'localhost' && u.hostname !== '127.0.0.1'
         && proxySetting && proxySetting.value !== true) {
         await messageBox({
-          title: 'Secure context proxy',
-          message: 'This Home Assistant URL uses plain http, and browsers '
+          title: haText('Secure context proxy'),
+          message: haText('This Home Assistant URL uses plain http, and browsers '
             + 'block the microphone and other features on http pages. Kiosk '
             + 'Satellite will route the dashboard through a secure proxy '
             + 'inside the app so everything works. You may need to sign in '
-            + 'to Home Assistant again on the tablet.',
-          buttons: ['OK'],
+            + 'to Home Assistant again on the tablet.'),
+          buttons: [haText('OK')],
         });
         await api('/api/settings', { method: 'PATCH',
           body: JSON.stringify({ 'browser.secure_proxy': true }) });
       }
-      vbtn.disabled = true; vbtn.textContent = 'Checking\u2026';
+      vbtn.disabled = true; vbtn.textContent = haText('Checking\u2026');
       const out = await (await api('/api/commands/haCheckConnection', { method: 'POST', body: '{}' })).json().catch(() => ({}));
-      vbtn.disabled = false; vbtn.textContent = 'Validate';
+      vbtn.disabled = false; vbtn.textContent = haText('Validate');
       if (out.ok) { state.dashboardsCache = null; await loadSettings(); await loadVsPermissions(); loadViewJump(); }
-      else vdesc.textContent = out.error || 'Could not connect.';
+      else vdesc.textContent = out.error ? haConnectionError(out.error) : haText('Could not connect.');
     });
 
     if (!state.haConnected) {
-      vdesc.textContent = 'Not validated yet. The settings below unlock once the connection checks out.';
+      vdesc.textContent = haText('Not validated yet. The settings below unlock once the connection checks out.');
     } else {
-      vdesc.textContent = 'Connected.';
+      vdesc.textContent = haText('Connected.');
       // Dashboard picker: what the kiosk shows. Radio rows; picking one sets
       // the start URL and navigates the device right away. The kiosk lands on
       // a single view, so the selected dashboard's row shows its chosen view
@@ -1677,7 +1677,7 @@ async function renderSettings({ cached = false } = {}) {
       // dashboard's views are only fetched when it is picked or changed.
       const h = document.createElement('h2');
       h.className = 'card-title';
-      h.textContent = 'Dashboard';
+      h.textContent = haText('Dashboard');
       root.appendChild(h);
       const dcard = document.createElement('div');
       dcard.className = 'card';
@@ -1725,13 +1725,13 @@ async function renderSettings({ cached = false } = {}) {
             // "Change view": pick another of this dashboard's views.
             const btn = document.createElement('button');
             btn.className = 'btn-ghost';
-            btn.textContent = 'Change view';
+            btn.textContent = haText('Change view');
             btn.style.cssText = 'margin-left:8px; flex-shrink:0;';
             btn.addEventListener('click', async (e) => {
               e.stopPropagation();
               const views = await fetchViews(d.url_path);
               if (!views || !views.length) {
-                messageBox({ title: 'No sub views', message: 'This dashboard has no selectable sub views.' });
+                messageBox({ title: haText('No sub views'), message: haText('This dashboard has no selectable sub views.') });
                 return;
               }
               const route = await pickView(d.url_path, views, selRoute);
@@ -1742,9 +1742,9 @@ async function renderSettings({ cached = false } = {}) {
           }
           dcard.appendChild(row);
         }
-        if (!dashboards.length) dcard.appendChild(readOnlyRow('No dashboards found', '', ''));
+        if (!dashboards.length) dcard.appendChild(readOnlyRow(haText('No dashboards found'), '', ''));
       } catch (_) {
-        dcard.appendChild(readOnlyRow('Could not list dashboards', '', ''));
+        dcard.appendChild(readOnlyRow(haText('Could not list dashboards'), '', ''));
       }
       // The rest of the Home Assistant settings, through the same
       // section-aware renderer as every other tab. Almost all of them
@@ -1846,7 +1846,7 @@ async function renderSettings({ cached = false } = {}) {
           // whole tab (and re-fetches every dashboard) on save, which reads
           // as a jarring reload here. A plain PATCH is enough.
           {
-            const secRow = readOnlyRow('Seconds per view', '', '');
+            const secRow = readOnlyRow(haText('Seconds per view'), '', '');
             secRow.querySelector('span').remove();
             const secInp = document.createElement('input');
             secInp.type = 'number';
@@ -1866,9 +1866,9 @@ async function renderSettings({ cached = false } = {}) {
           }
           // Pause-on-interaction, same in-place save.
           {
-            const pRow = readOnlyRow('Pause rotation on interaction (seconds)',
-              'Touch pauses rotation for this long; each touch restarts it. '
-              + 'Voice interactions always pause until they end. 0 keeps rotating.',
+            const pRow = readOnlyRow(haText('Pause rotation on interaction (seconds)'),
+              haText('Touch pauses rotation for this long; each touch restarts it. '
+              + 'Voice interactions always pause until they end. 0 keeps rotating.'),
               '');
             pRow.querySelector('span').remove();
             const pInp = document.createElement('input');
@@ -1922,7 +1922,7 @@ async function renderSettings({ cached = false } = {}) {
             // Unreadable (strategy) dashboards rotate via their bare path:
             // an empty route navigated as /<url_path>, which resolves the
             // default view. A synthetic /0 would spin.
-            return [{ title: 'Default view', route: '' }];
+            return [{ title: haText('Default view'), route: '' }];
           }));
           dashList.forEach((d, i) => {
             const hdr = document.createElement('div');
@@ -1934,7 +1934,7 @@ async function renderSettings({ cached = false } = {}) {
               const path = v.route ? `${d.url_path}/${v.route}` : d.url_path;
               // A real checkbox (accent-colored by the global input rule),
               // saved in place: no full re-render, the page stays put.
-              const row = readOnlyRow(v.title || v.route, path, '');
+              const row = readOnlyRow(v.title || v.route, path, '', false);
               row.querySelector('span').remove();
               row.style.paddingLeft = '14px';
               const cb = document.createElement('input');
@@ -1952,7 +1952,7 @@ async function renderSettings({ cached = false } = {}) {
               rcard.appendChild(row);
             });
           });
-          if (!dashList.length) rcard.appendChild(readOnlyRow('No dashboards found', '', ''));
+          if (!dashList.length) rcard.appendChild(readOnlyRow(haText('No dashboards found'), '', ''));
 
           // External pages: shown in their own overlay during rotation, so
           // the dashboard (and Voice Satellite) stays loaded underneath.
@@ -1967,17 +1967,17 @@ async function renderSettings({ cached = false } = {}) {
           const uhdr = document.createElement('div');
           uhdr.style.cssText = 'padding:12px 0 2px; font-size:13px; font-weight:600;'
             + 'color:var(--primary)';
-          uhdr.textContent = 'External pages';
+          uhdr.textContent = haText('External pages');
           rcard.appendChild(uhdr);
           const ulist = document.createElement('div');
           rcard.appendChild(ulist);
           const renderUrls = () => {
             ulist.innerHTML = '';
             urls.forEach((u) => {
-              const row = readOnlyRow(u, '', '');
+              const row = readOnlyRow(u, '', '', false);
               row.querySelector('span').remove();
               row.style.paddingLeft = '14px';
-              const rm = cameraAction('Remove', async () => {
+              const rm = cameraAction(haText('Remove'), async () => {
                 await saveUrls(urls.filter((x) => x !== u));
                 renderUrls();
               }, false, 'delete');
@@ -1996,7 +1996,7 @@ async function renderSettings({ cached = false } = {}) {
             + 'border:1px solid var(--border); border-radius:var(--radius-sm);'
             + 'color:var(--text); padding:9px 12px; margin-right:8px';
           const add = document.createElement('button');
-          add.className = 'btn-ghost'; add.textContent = 'Add';
+          add.className = 'btn-ghost'; add.textContent = haText('Add');
           const doAdd = async () => {
             let v = inp.value.trim();
             if (!v) return;
@@ -2032,7 +2032,7 @@ async function renderSettings({ cached = false } = {}) {
             hcard.innerHTML = '';
             if (byKey['ha.rotation_enabled']?.value === true) {
               hcard.appendChild(toggleRow(rhEnabled.title,
-                'Turned off while Dashboard view rotation is on.',
+                haText('Turned off while Dashboard view rotation is on.'),
                 false, null));
               return;
             }
@@ -2056,8 +2056,8 @@ async function renderSettings({ cached = false } = {}) {
             note.className = 'row';
             note.style.cssText = 'font-size:12.5px; color:var(--muted);';
             note.textContent = homePath
-              ? `Returns to "${homePath}" after the timeout.`
-              : 'The configured dashboard has no view path to return to.';
+              ? t('haReturnPath', {path: homePath})
+              : haText('The configured dashboard has no view path to return to.');
             hcard.appendChild(note);
             if (rhEnabled.value === true && rhSeconds) {
               hcard.appendChild(settingRow(rhSeconds));
@@ -2129,10 +2129,10 @@ async function renderSettings({ cached = false } = {}) {
             if (wf && wf.value === true) {
               const tel = document.createElement('div');
               tel.className = 'row';
-              const t = document.createElement('div');
-              t.style.cssText = 'color:var(--muted); font-size:13px; line-height:1.5; padding:2px 0';
-              t.textContent = 'Waiting for the dashboard to load…';
-              tel.appendChild(t);
+              const telemetryText = document.createElement('div');
+              telemetryText.style.cssText = 'color:var(--muted); font-size:13px; line-height:1.5; padding:2px 0';
+              telemetryText.textContent = haText('Waiting for the dashboard to load…');
+              tel.appendChild(telemetryText);
               ocard.appendChild(tel);
               // Samples of the wrapper's cumulative counters, kept for the
               // last minute: the raw counters run since page load, and a
@@ -2150,11 +2150,11 @@ async function renderSettings({ cached = false } = {}) {
                   // stream that big is what gets a tablet dropped by Home
                   // Assistant for falling behind, so it is worth saying.
                   const raw = st && st.stateChangedSubs > 0
-                    ? ' Something on this page receives every entity update anyway, so filtering saves less here.'
+                    ? ' ' + t('haRawUpdates')
                     : '';
                   if (!st || !st.mode || st.mode === 'boot') {
                     hist.length = 0;
-                    t.textContent = 'Waiting for the dashboard to load…';
+                    telemetryText.textContent = haText('Waiting for the dashboard to load…');
                     return;
                   }
                   if (st.mode === 'passthrough') {
@@ -2163,18 +2163,18 @@ async function renderSettings({ cached = false } = {}) {
                     if (down && down.reads != null && down.total != null) {
                       // Stood down on its own (issue #570): the dashboard,
                       // not the setting, is what decides here.
-                      t.textContent = `This view uses ${down.reads} entities, which crosses the filtering threshold. Filtering is disabled.` + raw;
+                      telemetryText.textContent = t('haThreshold', {count: String(down.reads)}) + raw;
                       return;
                     }
-                    t.textContent = (st.runtimeAll
-                      ? 'This view reads all entity states, so its updates are not filtered.'
-                      : "This view's entities can't be determined, so its updates are not filtered.") + raw;
+                    telemetryText.textContent = (st.runtimeAll
+                      ? haText('This view reads all entity states, so its updates are not filtered.')
+                      : haText("This view's entities can't be determined, so its updates are not filtered.")) + raw;
                     if (st.runtimeAll) {
                       const details = document.createElement('span');
                       details.style.cssText = 'color:var(--primary); text-decoration:underline; cursor:pointer;';
-                      details.textContent = 'Show scan details.';
+                      details.textContent = haText('Show scan details.');
                       details.addEventListener('click', showScanDiagnostic);
-                      t.append(' ', details);
+                      telemetryText.append(' ', details);
                     }
                     return;
                   }
@@ -2190,20 +2190,20 @@ async function renderSettings({ cached = false } = {}) {
                   const pct = dTotal > 0 ? Math.round(100 * dropped / dTotal) : null;
                   // The watched-entities count is a link: it opens a modal
                   // listing exactly which entities the filter is forwarding.
-                  t.textContent = '';
+                  telemetryText.textContent = '';
                   const link = document.createElement('span');
-                  link.textContent = `Watching ${st.allow} entities on this view.`;
+                  link.textContent = t('haWatching', {count: String(st.allow)});
                   link.style.cssText = 'color:var(--primary); text-decoration:underline; cursor:pointer;';
                   link.addEventListener('click', showWatchedEntities);
                   const rest = document.createElement('span');
                   rest.textContent = (pct == null
-                    ? ' No updates in the last minute.'
-                    : ` Filtered ${pct}% of updates in the last minute (${dropped} of ${dTotal}).`) + raw;
-                  t.append(link, rest);
+                    ? ' ' + t('haNoUpdates')
+                    : ' ' + t('haFiltered', {percent: String(pct), dropped: String(dropped), total: String(dTotal)})) + raw;
+                  telemetryText.append(link, rest);
                 } catch (_) {}
               };
               poll();
-              watchUpdates(['filter'], poll, { owner: t });
+              watchUpdates(['filter'], poll, { owner: telemetryText });
             }
           };
           renderOpt();
