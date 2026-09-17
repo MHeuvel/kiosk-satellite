@@ -46,9 +46,15 @@ def read(path):
     return decode(read_bytes(path))
 
 
+def file_limit(path):
+    # Review records aggregate every section, unlike individual ARB files.
+    return 5_000_000 if Path(path).parts[-3:] == ("metadata", "reviews", "es.json") else 500_000
+
+
 def read_bytes(path):
-    if path.is_symlink() or not path.is_file() or path.stat().st_size > 500_000:
-        raise ValueError(f"Expected a regular file no larger than 500 KB: {path}")
+    limit = file_limit(path)
+    if path.is_symlink() or not path.is_file() or path.stat().st_size > limit:
+        raise ValueError(f"Expected a regular file no larger than {limit} bytes: {path}")
     return path.read_bytes()
 
 
@@ -260,8 +266,7 @@ def git_file(repository, revision, path):
     if not mode.startswith("100644 blob "):
         raise ValueError(f"Snapshot path must be an ordinary file: {path}")
     data = subprocess.check_output(["git", "-C", str(repository), "show", f"{revision}:{path}"])
-    # Review records aggregate every section, unlike individual ARB files.
-    limit = 5_000_000 if path == "metadata/reviews/es.json" else 500_000
+    limit = file_limit(path)
     if len(data) > limit:
         raise ValueError(f"Snapshot file too large: {path}")
     return data

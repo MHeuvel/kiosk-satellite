@@ -30,7 +30,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 - **Install from file reports its progress across the fleet.** Pushing an uploaded APK to the fleet used to go quiet after the upload to the leader, with no sign of anything happening until the followers restarted. The leader now streams the file to one follower at a time and reports each step as it goes. The Fleet Management page on both the device and the remote admin shows Sending with a percentage on the follower taking the file, then Installing once it started, and the Install on the fleet button on the remote admin reads out the same progress while it waits. A follower still reports Installing between the leader's polls, and a stale Unreachable no longer hides an install that just started (#584).
 
 ### Fixed
-- **Localization imports support larger review catalogs.** Aggregate Spanish review records have a separate bounded size limit while individual source files retain their existing limit.
+- **Localization imports support larger review catalogs.** Imported and local aggregate Spanish review records share a separate bounded size limit while individual source files retain their existing limit.
 - **Remote administration refreshes every JavaScript module after an upgrade.** Version stamping now includes side-effect and dynamic imports so cached settings modules cannot mix with the new build. Gestures renders from the shared localized settings cache.
 
 ### Changed

@@ -46,6 +46,20 @@ class CatalogTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "too large"):
             read_file("metadata/reviews/es.json", 5_000_001)
 
+    def test_local_review_files_use_the_snapshot_limit(self):
+        with tempfile.TemporaryDirectory() as root:
+            path = Path(root) / "metadata/reviews/es.json"
+            path.parent.mkdir(parents=True)
+            path.write_bytes(b"x" * 512_838)
+            self.assertEqual(len(catalog.read_bytes(path)), 512_838)
+            path.write_bytes(b"x" * 5_000_001)
+            with self.assertRaises(ValueError):
+                catalog.read_bytes(path)
+            other = Path(root) / "common_en.arb"
+            other.write_bytes(b"x" * 500_001)
+            with self.assertRaises(ValueError):
+                catalog.read_bytes(other)
+
     def test_duplicate_keys_are_rejected(self):
         with self.assertRaisesRegex(ValueError, "Duplicate"):
             catalog.decode(b'{"welcome":"One","welcome":"Two"}')
