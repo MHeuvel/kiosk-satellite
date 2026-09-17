@@ -1,8 +1,8 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite",
-  "revision": "ea919d51e4b8843a5db50244d0ba4da9972cb99a",
-  "workingTree": true,
+  "revision": "b3ba749289639985772d6db8728ec86eba652f92",
+  "workingTree": false,
   "files": {
     "common_en.arb": "6e8cb4cebbf979bb2193acc89385ff2c949fe12d01ec205c10efbd14ffafd6b6",
     "drawer_menu_en.arb": "1ddb021d9c030d046e0368ac9e73e046905fa34138f345f3d767b974c542d9d3",

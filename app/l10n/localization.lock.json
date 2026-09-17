@@ -1,12 +1,12 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite-localization",
-  "revision": "666b4e466440ac3994243da97f68a5b875057f01",
+  "revision": "1d1b7499e04361f502b29795fc83165ac7c5015b",
   "locales": [
     "es"
   ],
   "files": {
-    "source/manifest.json": "34e8f038328952a2e54cec6e03e8cd9aeac9d2b786a4caa388f8c58a86a97ab5",
+    "source/manifest.json": "8912f76f130ae74a8d669cdcefc433e82fd1bf03b92bb2c2f49b92644363a5ca",
     "source/common_en.arb": "6e8cb4cebbf979bb2193acc89385ff2c949fe12d01ec205c10efbd14ffafd6b6",
     "source/drawer_menu_en.arb": "1ddb021d9c030d046e0368ac9e73e046905fa34138f345f3d767b974c542d9d3",
     "source/drawer_updates_en.arb": "51e19440c034c4a169b43ff5ff3780c7d762dcf88751c81bf4aef3c04029a956",
