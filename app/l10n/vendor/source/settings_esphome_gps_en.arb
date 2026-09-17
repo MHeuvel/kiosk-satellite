@@ -1,0 +1,178 @@
+{
+  "@@locale": "en",
+  "settingLocationEnabledTitle": "Report location",
+  "@settingLocationEnabledTitle": {
+    "context": "Settings > ESPHome > GPS Sensor",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > GPS Sensor"
+      ],
+      "remoteAdmin": [
+        "ESPHome > GPS Sensor"
+      ]
+    }
+  },
+  "settingLocationEnabledDescription": "Read the GPS position and serve it to Home Assistant as latitude, longitude, accuracy, altitude and speed sensors. Turning this on or off re-registers the ESPHome device.",
+  "@settingLocationEnabledDescription": {
+    "context": "Settings > ESPHome > GPS Sensor",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > GPS Sensor"
+      ],
+      "remoteAdmin": [
+        "ESPHome > GPS Sensor"
+      ]
+    }
+  },
+  "settingLocationIntervalTitle": "Update interval",
+  "@settingLocationIntervalTitle": {
+    "context": "Settings > ESPHome > GPS Sensor",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > GPS Sensor"
+      ],
+      "remoteAdmin": [
+        "ESPHome > GPS Sensor"
+      ]
+    }
+  },
+  "settingLocationIntervalDescription": "Seconds between position readings.",
+  "@settingLocationIntervalDescription": {
+    "context": "Settings > ESPHome > GPS Sensor",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > GPS Sensor"
+      ],
+      "remoteAdmin": [
+        "ESPHome > GPS Sensor"
+      ]
+    }
+  },
+  "esphomeGps": "GPS Sensor",
+  "@esphomeGps": {
+    "context": "Settings > ESPHome > GPS Sensor",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > GPS Sensor"
+      ],
+      "remoteAdmin": [
+        "ESPHome > GPS Sensor"
+      ]
+    }
+  },
+  "esphomeGpsHelp": "Expose GPS sensor data to Home Assistant",
+  "@esphomeGpsHelp": {
+    "context": "Settings > ESPHome > GPS Sensor",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > GPS Sensor"
+      ],
+      "remoteAdmin": [
+        "ESPHome > GPS Sensor"
+      ]
+    }
+  },
+  "esphomeLocationOff": "Off.",
+  "@esphomeLocationOff": {
+    "context": "Settings > ESPHome > GPS Sensor",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > GPS Sensor"
+      ],
+      "remoteAdmin": [
+        "ESPHome > GPS Sensor"
+      ]
+    }
+  },
+  "esphomeLocationWaiting": "Waiting for the first fix. A cold start under open sky can take a few minutes.",
+  "@esphomeLocationWaiting": {
+    "context": "Settings > ESPHome > GPS Sensor",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > GPS Sensor"
+      ],
+      "remoteAdmin": [
+        "ESPHome > GPS Sensor"
+      ]
+    }
+  },
+  "esphomeCoordinates": "Last coordinates",
+  "@esphomeCoordinates": {
+    "context": "Settings > ESPHome > GPS Sensor",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > GPS Sensor"
+      ],
+      "remoteAdmin": [
+        "ESPHome > GPS Sensor"
+      ]
+    }
+  },
+  "esphomeLocationDenied": "Location permission not granted.",
+  "@esphomeLocationDenied": {
+    "context": "Settings > ESPHome > GPS Sensor",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > GPS Sensor"
+      ],
+      "remoteAdmin": [
+        "ESPHome > GPS Sensor"
+      ]
+    }
+  },
+  "esphomeLocationAbsent": "No GPS receiver.",
+  "@esphomeLocationAbsent": {
+    "context": "Settings > ESPHome > GPS Sensor",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > GPS Sensor"
+      ],
+      "remoteAdmin": [
+        "ESPHome > GPS Sensor"
+      ]
+    }
+  },
+  "esphomeLocationError": "GPS unavailable: {error}",
+  "@esphomeLocationError": {
+    "context": "Settings > ESPHome > GPS Sensor",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > GPS Sensor"
+      ],
+      "remoteAdmin": [
+        "ESPHome > GPS Sensor"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Original technical error. Keep unchanged."
+      }
+    }
+  },
+  "esphomeLocationUnsupported": "Not available on this device: it has no GPS receiver.",
+  "@esphomeLocationUnsupported": {
+    "context": "Settings > ESPHome > GPS Sensor",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > GPS Sensor"
+      ],
+      "remoteAdmin": [
+        "ESPHome > GPS Sensor"
+      ]
+    }
+  }
+}

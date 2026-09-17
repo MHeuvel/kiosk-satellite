@@ -6279,6 +6279,576 @@
     "translation": "4843c34f5188ca016d2aa4b56901be6d621faa2001bbc86294d2ea190b21930b",
     "author": "Xavier Larrea"
   },
+  "settingAnnouncementsEnabledTitle": {
+    "source": "4ee8e47d47e0da03875feb209cc0c21a112e3c0a5c48290af942bd8b33d0809f",
+    "translation": "d3927385179e26f1c32cd28ad18687d719a33b33ed10d826db19beddabb0727c",
+    "author": "Xavier Larrea"
+  },
+  "settingAnnouncementsEnabledDescription": {
+    "source": "79ecedb59acce2de8f06db319148cc2fc32ce4b013d52c2dd289de9fd9e60388",
+    "translation": "1273b49190c883fcc861ee392bf70035a7e865bb8fc7c32ced9e48f4eab23f85",
+    "author": "Xavier Larrea"
+  },
+  "settingAnnouncementsTtsEngineTitle": {
+    "source": "e2fc85e817b85841294d800e297f493f3a86dcd4a738e657f8d6bedecee88896",
+    "translation": "b050b2767afdf8eb81e109fb88fb43df887ecd9d889ab4b49688e9d5bd989b32",
+    "author": "Xavier Larrea"
+  },
+  "settingAnnouncementsTtsEngineDescription": {
+    "source": "9d31551c905ba018cc046be15585afc1b73ce2f2376f50938545726594e5f6bb",
+    "translation": "6c52baaf14c6354ee1e7dd7581e764b86b3b94b8a692234007d5db158ae44620",
+    "author": "Xavier Larrea"
+  },
+  "esphomeTtsFirst": {
+    "source": "0075125e82e7f9a897a8bd43d680c08c50571237d67c1f9a4253dab9157cbb93",
+    "translation": "946fa0e9a9914c5828d888b1f87241ce352d151698bae5bd908b37214211d013",
+    "author": "Xavier Larrea"
+  },
+  "settingAnnouncementsChimeTitle": {
+    "source": "743c64025dc36d21dd680fca93a10330c1ca3fbb9a3a44ccb57ee21c8a81a737",
+    "translation": "921dd51c06f7541062c51f2b5b09a62803bc474e25611689bee8062594bc4765",
+    "author": "Xavier Larrea"
+  },
+  "settingAnnouncementsChimeDescription": {
+    "source": "127f7fef50faa2f0c921df63516b81b248072144972922e5860f3854eba1063c",
+    "translation": "99f0231d600944d6aa706e2a813c834dac1c44c0eb2a9f42607b5201b5e823cd",
+    "author": "Xavier Larrea"
+  },
+  "settingAnnouncementsChimeFileTitle": {
+    "source": "4133b9986b7ce793afff7753cbca997e28246e4b9a20baa5c0bd00770e364cdb",
+    "translation": "c95e0673d4b6f49a3d49e5a78d93714e341787e1c5c6cab53d2f953e5722829d",
+    "author": "Xavier Larrea"
+  },
+  "settingAnnouncementsChimeFileDescription": {
+    "source": "67ca08280d70e2638fd492a25b9ad96125e46109915c102884288e98a3e60020",
+    "translation": "8298202bb5109fcfaa89e18ac07be43d6caf343f234b9f8d8e631b1be95a9293",
+    "author": "Xavier Larrea"
+  },
+  "esphomeAnnouncements": {
+    "source": "b5f9dcf008e428825af40e5af6b2f8a9d7382f1945a3b625e720015552c94a0e",
+    "translation": "56830d1638255f82d79f683625fc996a829e761ad52a454a8166d01b59ad3428",
+    "author": "Xavier Larrea"
+  },
+  "esphomeAnnouncementsHelp": {
+    "source": "89e9c1da1c4c22421410eefa29a18341ad11099d2c8ced07d0583c21ff4f0395",
+    "translation": "1eac0e7a53e6f38e3827e0503c6d0eff9005b98892e97efd3454c51eb78c4d87",
+    "author": "Xavier Larrea"
+  },
+  "esphomeChime": {
+    "source": "c79c9b2ac749073db17d76de18877b3d182bfbd985d1ff21555e3aa940cbdeb9",
+    "translation": "2ca0602adc4f407f115795328ea6ad8580935e00b595aec2ba114a6d1baf5714",
+    "author": "Xavier Larrea"
+  },
+  "esphomeTtsUnavailable": {
+    "source": "c2f7220379042fecc42059adda2aa5fab03ff3fe0e6be1a1d7e005842cdccfed",
+    "translation": "8eb1a7b1fbc66512cbaef84bda330b17bfb43c6f655bd1aa68bb86b22b991ca9",
+    "author": "Xavier Larrea"
+  },
+  "settingBtproxyEnabledTitle": {
+    "source": "068429a7f541bf06e4e6a11faaa32b82c21b7413554a2e0e6afe33ee9e724bd7",
+    "translation": "be20628764041d78c26ca9db868b97752f545d238b9e60829e3d01b2c9553bf2",
+    "author": "Xavier Larrea"
+  },
+  "settingBtproxyEnabledDescription": {
+    "source": "cb951e6fb36543f9fd1ec112994dfde61633909f10a65227e12101ae0ecd2b0d",
+    "translation": "64517bf3237938690f4d3b185c11ab1a5e1d4bdf42998b6d064eb138a2f6bf70",
+    "author": "Xavier Larrea"
+  },
+  "settingBtproxyScanDutyTitle": {
+    "source": "d05468d785798cb90f5ad64470906875dddaf10db6b4b20132b1721f1f7dfe3d",
+    "translation": "f7a0c439bfb35ceb0560af2a3bea69fc2ce8656006017b27cf5835a87900e054",
+    "author": "Xavier Larrea"
+  },
+  "settingBtproxyScanDutyDescription": {
+    "source": "9d040d5a61cefcf0034f1691ba77243fc82d919b57394dbf4ba1667c1bca04c4",
+    "translation": "83f89ae09f4455cd0ec038f43b3568a13be08e70b017a272d987ecf3c19afe89",
+    "author": "Xavier Larrea"
+  },
+  "settingBtproxyConnectionsTitle": {
+    "source": "6ab3c20fc85297eb54276a8ad99ab7574d2430c350f3146c28ab17ddd6e95606",
+    "translation": "9db64e10d060142f269997aee6d3f6b57321201588bc496b9c622444cd89a8c8",
+    "author": "Xavier Larrea"
+  },
+  "settingBtproxyConnectionsDescription": {
+    "source": "c08d30516fc1f7cabcfe4dff2c03aaf45a209cb5a8c0a1a3c792ab7dc1f1cc85",
+    "translation": "25b5c30e70991d4578d0547c430dfabd66683c3ef9494ee24596ee996932d387",
+    "author": "Xavier Larrea"
+  },
+  "settingBtproxyMacLookupTitle": {
+    "source": "334b2bdf43c8d23468c87f5b440b0f9d417d70da07f960c29f9e36726a164f7e",
+    "translation": "1c3d3576a1244e353352f9109dd72265fe46da1a24b15df68f29e2474b0bb5f8",
+    "author": "Xavier Larrea"
+  },
+  "settingBtproxyMacLookupDescription": {
+    "source": "240bf6920fefb57fd60a0925a90976e11daf60b32e719c9a91edc6d8a6d1e387",
+    "translation": "15206ed047db1a0d55a5c821ace269aaff68ecb80254eade20d101da61899948",
+    "author": "Xavier Larrea"
+  },
+  "settingBtproxyNearbySortTitle": {
+    "source": "7ecf1f5f2a53d56bf9a2c0bcaf34ce8905ad4c7d35eb0b136a6ef12c97e666bd",
+    "translation": "1b8d52ae1c0403162ab42fde413e016b371a4986b5894eede36476b37631ff33",
+    "author": "Xavier Larrea"
+  },
+  "settingBtproxyNearbySortDescription": {
+    "source": "fe2c2241e00596decf084f3764b4dc6e7747238ada36199f6511eb84fb16f280",
+    "translation": "7faae634cd31e3bffc9f8fe7dae6b5833f4b7e100c676fc06bb0709cfea44bb0",
+    "author": "Xavier Larrea"
+  },
+  "settingBtproxyMinConnectRssiTitle": {
+    "source": "f27516bd8b2d16293e87abd6bc2d445533da1ae4c1c9a2a73d6fccb8e73ee3c6",
+    "translation": "c3931b02633f323888531d340bd03a712570c3082e6281f63c3f4e733c65b26d",
+    "author": "Xavier Larrea"
+  },
+  "settingBtproxyMinConnectRssiDescription": {
+    "source": "e653af2a03333643b5590cb1f7605f06c075b360300cc66aaa3943daf226ee52",
+    "translation": "5a5c0f71405ece5afc60f6c4ee27e3d74360499ad4dc8d9fc6e6e805a3c31b29",
+    "author": "Xavier Larrea"
+  },
+  "esphomeOptionContinuous": {
+    "source": "a42353347e216e9739fc1def57cf7155b6e08a2f781296d8d297fb9fdaf6d920",
+    "translation": "1b160ea0c9aab9cabae69aed9bfa4dbc9bae536f3d95e4d9a3440a0587e89e24",
+    "author": "Xavier Larrea"
+  },
+  "esphomeOptionBalanced": {
+    "source": "da9debd7dc68f10fe440106a7534bfddfc1e75ea89aaeab873802ae0a9ae844d",
+    "translation": "9123685a0d2a98ba9db42261a2a213439eb56ed7bb6916c3d00652a54c6e5b07",
+    "author": "Xavier Larrea"
+  },
+  "esphomeOptionLowPower": {
+    "source": "5633a78302b9aaa55c439faff74127fb212c73787bd9a3f51ebf0829f1e81c49",
+    "translation": "1c2d021a71e8a5ca232929935810c15a10ea3db950ee997e0c168fee2242364c",
+    "author": "Xavier Larrea"
+  },
+  "esphomeOptionLastSeen": {
+    "source": "363ad0d90681a900497346f29d9b3368e1852520541c316992e3bb2f831782fd",
+    "translation": "3c91d390c581aa458aadf3e20315154483516ab84dc29a7758af89ec669f46c3",
+    "author": "Xavier Larrea"
+  },
+  "esphomeOptionName": {
+    "source": "cff10bf6eaa05a9fac300f363cfd562f8712831034ba7406ff3e84473c00538e",
+    "translation": "562bb15757a8b593d6fdc812b0767c0e198bf7d8e19157933110de09c9db9012",
+    "author": "Xavier Larrea"
+  },
+  "esphomeOptionMacAddress": {
+    "source": "a40e651724410d764c18a607c7152b211585116724652a22fa92ca2b6f2a9da2",
+    "translation": "1ee93ea7b9af392476a9f855b0e50f30d8baec426cf020620e0edbf3be9e7c4a",
+    "author": "Xavier Larrea"
+  },
+  "esphomeOptionSignalStrength": {
+    "source": "d30fa274a9387e1c23c1ad10674254a6245d0b13b8472dd3dfb3b72efb26fa52",
+    "translation": "f86aa779a990b99422bc3da48a85c3da064afde85addbc7ae09def65ca51892a",
+    "author": "Xavier Larrea"
+  },
+  "esphomeOptionNoLimit": {
+    "source": "dc085e8877f30a701dbc94a45d97aa41c33a31e3d1ad6c236a2e4b089db11ac1",
+    "translation": "553f5b2ff5d004f1af4f494dc10643448f501c177a18ac20c133d5f148455d50",
+    "author": "Xavier Larrea"
+  },
+  "esphomeOption70DbmSameRoom": {
+    "source": "9ff8baa43825a50ecebc93ceea41d98bf03a6ba4e35a6242c4461b4433607957",
+    "translation": "743e5524df978397527a7150a9d292eaaa7632e773e42cdd9a66dc44bceefbcb",
+    "author": "Xavier Larrea"
+  },
+  "esphomeOption80Dbm": {
+    "source": "b755cc50a1b1dcacc763adde598601a9410d0705207bc57177df900565cc41f6",
+    "translation": "7fb815cae4f7d12a04b145af027013b14b802497417bcd3c9c5a2f9a132606a2",
+    "author": "Xavier Larrea"
+  },
+  "esphomeOption85Dbm": {
+    "source": "5eddbd8f75316f75543d56382e2936fc2937ec21abd6d2dae68df011f02305ef",
+    "translation": "701dc591abcc8198c4e12714bb9ff4b42ee2860500f594e280b3dd036723676c",
+    "author": "Xavier Larrea"
+  },
+  "esphomeOption90DbmEdgeOfRange": {
+    "source": "d2111136dbae60c5fe9649b90a2dfac27644fe6b4adaad58e1206dbd476b2e76",
+    "translation": "f6832c85eff6c53e0a9d26cd5b903ac612b407901a626d1f42737e4bb129b567",
+    "author": "Xavier Larrea"
+  },
+  "esphomeBluetooth": {
+    "source": "a455f84f8ee2c91fa7170d84e07c1b8676110a6aa312eb31d524e09e64ae54c5",
+    "translation": "4d73f973bdc6638b052d47ad48da36cba1b2659cd122c2e9dbc9c5479029ea9b",
+    "author": "Xavier Larrea"
+  },
+  "esphomeBluetoothHelp": {
+    "source": "45987516290fa199c422b5738385c207dc61ba054721e0bd60a2c9fa98faf78f",
+    "translation": "d82c517c8592fa13d8e7c2218a93da871eab25f67287029bbcdcf838fe17f5c6",
+    "author": "Xavier Larrea"
+  },
+  "esphomeBluetoothOff": {
+    "source": "7788f483206682047bdd7f7af3e17a7dd08acc22893796b358b49403137c4edc",
+    "translation": "7b333f053ef2fb5b3b4ae5f9b995b95e45baa2898f315dd45b93ae58726316af",
+    "author": "Xavier Larrea"
+  },
+  "esphomeBluetoothUnsupported": {
+    "source": "1b84ed234011c7bb7bf4c95efe45e764404503210131c4e8f9156f1041f6d303",
+    "translation": "18764b6d93d8b22292f96ab19f45decbc7a5ca65fc6722dbc677a75f1a97610c",
+    "author": "Xavier Larrea"
+  },
+  "esphomeBluetoothBuildUnsupported": {
+    "source": "f72d0aedd73b9bdac447b7e4960e9d6e7734c731c6c69e82f084a132ae98650d",
+    "translation": "264bf45cd354d13d31fcdac6c69a4dcd455422d8aa942957bf96353a5006fade",
+    "author": "Xavier Larrea"
+  },
+  "esphomeIdentityBthome": {
+    "source": "5e92c7ea988017f83b15346f8de35e375b285cd5a6d5f8fd901ab029f87af50a",
+    "translation": "e2d1c805254263100e44bced256aa4f5fe712030a253a8efcd9f6e8fff60982f",
+    "author": "Xavier Larrea"
+  },
+  "esphomeIdentityXiaomi": {
+    "source": "7d32caf8e525e65f1d0824379180a87173418601cf6add92594e4d58cac4faa0",
+    "translation": "7a00d91f33c519aff007a9d11ad1f1c5ce1955c06644906c07d45b03b03fcc4c",
+    "author": "Xavier Larrea"
+  },
+  "esphomeIdentityQingping": {
+    "source": "5fa89b7f37f37dde441f7ed91d888ca458423c586503298c2627e557774d9bbc",
+    "translation": "052aca869d9a5a4fa2f52b90fd3e4d77aee36b7ca45faddfe81cccc207c99649",
+    "author": "Xavier Larrea"
+  },
+  "esphomeIdentityGoogleNest": {
+    "source": "487cb47094c239697319e7bd460837773a7593c74a6e951b1d8fc568096b09b4",
+    "translation": "db159fd3735f9a6fc00e5eb682013314d9200bb80b0ae17b1a87b24915c43eef",
+    "author": "Xavier Larrea"
+  },
+  "esphomeIdentityEddystone": {
+    "source": "9f73e136bc5353c9182974d73c2d5b0d05854632fd8af00e5ac62418bcc03ce2",
+    "translation": "5d990a709d071c9e9f3b13f0e22f84e14915f0f44f29ef9ebf76fc1689eb648f",
+    "author": "Xavier Larrea"
+  },
+  "esphomeIdentityGoogleFastPair": {
+    "source": "09ce6d23722afb68d9f21acaea8b58ffc1375273c2f42f7d85e6a86950c95951",
+    "translation": "544d1bb906a93f26fb296e88f545edbdc52c20d5ca9b9c8ace2dc81c0c90c143",
+    "author": "Xavier Larrea"
+  },
+  "esphomeIdentityAppleFindMy": {
+    "source": "80ea180d33189742544054c50db7d07d4b4c88133e369bca86f182d41a862cf9",
+    "translation": "ebe3f72eac59cf11bf8932b2d0f060fb886ee6a520ab9d8fa35cc0c0067c0a8e",
+    "author": "Xavier Larrea"
+  },
+  "esphomeIdentityExposure": {
+    "source": "5fc7204cd5161b5f17ffc1831485efd388343c5748cfe3c11a47486e4290f139",
+    "translation": "ab52178b0b1f4ec70aa75a3197eafafcbd163e73512263ef0f0123a7bb3c74ff",
+    "author": "Xavier Larrea"
+  },
+  "esphomeIdentityAugustYale": {
+    "source": "9b9c7eef21ab5f2531fbadc545799bcd7256d6ada473438f8df6947656889ad4",
+    "translation": "fda4bb37f5b768d9a08d302ff39d9931a9a96115b4a65aefc3d2f7d6e8848291",
+    "author": "Xavier Larrea"
+  },
+  "esphomeIdentityAmazon": {
+    "source": "ca5910ba97d96b6d2359cae56a9890556b78cfaf1a89035689e82c5a9b365c69",
+    "translation": "57b72fb63a1cb2ddac362363cf1846adf491baed54014d94021485e6f4010259",
+    "author": "Xavier Larrea"
+  },
+  "esphomeIdentityTile": {
+    "source": "b46c34ced2770b92fd921887733661f185ec781c971fe863c0bb45900fb0f261",
+    "translation": "e502d869ffd94d0fefbf2386ff3c03f021432aebadfa50b2b4c071ce2fd93929",
+    "author": "Xavier Larrea"
+  },
+  "esphomeIdentityInput": {
+    "source": "02f443dffe244101e34d7a028e206efb0ad32aff1f386396604a8eb919fa3462",
+    "translation": "87a70cd9b4ea973e1cd125eaf74d4574874eb19f142976ff9ef4e8f282566621",
+    "author": "Xavier Larrea"
+  },
+  "esphomeIdentityHeartRate": {
+    "source": "0329d0bd2a947f9ce0932571b0faccaf1eedbbf243a28b71be75f07621cdeb2b",
+    "translation": "de1185e2dccfbba69b2f226ed2dda798d28478bd36550979c375a57d97e46c3e",
+    "author": "Xavier Larrea"
+  },
+  "esphomeIdentityEnvironmental": {
+    "source": "2b2cc827af45db3abc8e96f6849d247bef4942b8b2354a74b23e113f44047c2b",
+    "translation": "0aecf7709a9f6c8d98f5eddb49c8ef041ac0b391c37332d2ec4f02520a170978",
+    "author": "Xavier Larrea"
+  },
+  "esphomeIdentityApple": {
+    "source": "77ba101d72b29d1759c2f007d4cd6f08cb00c31355167baea941cf6984b92747",
+    "translation": "f7ea34b3e9bdcf3d8b13cfb180c2d7c4e059c16e6de0e3dfd7db0b06c3642d04",
+    "author": "Xavier Larrea"
+  },
+  "esphomeIdentityWindows": {
+    "source": "e7a2b993bb8a118b4d7b9820e40097713034ec3afb5d87c0484737d038f249e5",
+    "translation": "1b426e82fddb6cf3ae1636075e4d53bb5e4b1fc15c761b0319ffb5edc22a659a",
+    "author": "Xavier Larrea"
+  },
+  "esphomeIdentitySamsung": {
+    "source": "3bda6d2cd47ce86a519cf72419f6c51b77d474b27460035fd2cfdb973aef29a5",
+    "translation": "97c04dfd9ee84fe37947d645478bd5d780503d1fc667822ef7bac1ab3b5a87db",
+    "author": "Xavier Larrea"
+  },
+  "esphomeIdentityGoogle": {
+    "source": "e703bbb9136af624c477c4abc45148e2ff3671cef751d9dff484bf7cbcb028df",
+    "translation": "8fc9df47383d773562a7aa632c6359d206689c23eca6aa4b250091322a5f8e02",
+    "author": "Xavier Larrea"
+  },
+  "esphomeIdentityUnknown": {
+    "source": "51e73b1d0e57efaacda55a49d88e55138a63e21de919ebbf7faaea986519ed9c",
+    "translation": "6a742ad06db42ca9c041c6d25ed5fde8404968db1edb6979e9c171f7d1bbf136",
+    "author": "Xavier Larrea"
+  },
+  "esphomeIdentityVendor": {
+    "source": "8ad34f8995927ff0ea81f7103a50cec91cf447098cb5c6ab6c9315b277813dcf",
+    "translation": "fdde1d1e761519608f2c12462d69685be75aa3fc9b33e847d7f0417f2af08a71",
+    "author": "Xavier Larrea"
+  },
+  "esphomeNearby": {
+    "source": "31762202ccebc872822d5d2f236fc707c22723f2b5d85cca5c35c2e1884564cd",
+    "translation": "ab2a759ba58e88e567094601696411615cd67078f8ff8ff559bc11fca922f540",
+    "author": "Xavier Larrea"
+  },
+  "esphomeNearbySearch": {
+    "source": "cc1859c3a0e6f50e71b70e7a0652c23e124968233e3ba0deabc5d8cf2ca70a03",
+    "translation": "0379ab57c29f41b22ba4c2b9f5d58869ca8da86ae7b779a492d149d9d0d85b30",
+    "author": "Xavier Larrea"
+  },
+  "esphomeNearbyEmpty": {
+    "source": "2a8b8e33f12ed01f11c89b3aac30b516837b82343703a9c3c334851c43cbe429",
+    "translation": "e4f35cba0012c390301cc30b3f8f78ffb8af731dfbe85243d58bc02f35cc9aa9",
+    "author": "Xavier Larrea"
+  },
+  "esphomeNearbyWaiting": {
+    "source": "4283735a4dc74dd453ee3ba81dd0776e279d6a913bc97b79dc874230cac1d222",
+    "translation": "71011db575f3f2dce9cf4f9917598deaa87d7f5b01a612a1162f7b3bced9451c",
+    "author": "Xavier Larrea"
+  },
+  "esphomeRotating": {
+    "source": "d71751c73119822d4256c9f5d817caac818b385b2aad36157bbed520faabd980",
+    "translation": "5eb93b95bac73ea51449b425da5ece9007dda6e47aba812c65c39ed11bfadd72",
+    "author": "Xavier Larrea"
+  },
+  "esphomeNearbyCount": {
+    "source": "02cc7e7c7097e7d8a7a2498f14e19d47b233d2b97e6c34ab3e63365d036a25d2",
+    "translation": "363df05876f0fb5360aa1aef57cf8e826821c3a4a12d93c3771f1c821d8e6547",
+    "author": "Xavier Larrea"
+  },
+  "esphomeSlots": {
+    "source": "69b0eb6357bfc40345fccee38d3d40ee2c7842c369a598148e807bd25bf0aa54",
+    "translation": "251977472304da95e6cb7337c1898553469d52d16209c60daddcae115b9e6d05",
+    "author": "Xavier Larrea"
+  },
+  "esphomeSecondsAgo": {
+    "source": "fc0284edc8e38808793d50b0332e47cf56fd68ee5d05f9b577d4be72471914fa",
+    "translation": "eefc06c8cabdb4daf22bef3fdf93bba775d50ccadde1c6275a842a323102edfc",
+    "author": "Xavier Larrea"
+  },
+  "esphomeMinutesAgo": {
+    "source": "2897b488f0e2001336c1f664cac6bbd37a1ccda1d4310112fb7e85bc2fdd6fcc",
+    "translation": "6fa621329ad9f4fff22a35cb5a91a005e45a94a91184a5d36526757a6a225425",
+    "author": "Xavier Larrea"
+  },
+  "esphomeHoursAgo": {
+    "source": "27d27565261c4fc8a61d7762fe9426d65062fc4284cec9c96c2ab57ea37bd8c6",
+    "translation": "bb96e51fff66a3a97558f4c23a532bca16253a1a7659f08b517d41560629f73c",
+    "author": "Xavier Larrea"
+  },
+  "settingLocationEnabledTitle": {
+    "source": "cf51475be4e96a22dd5a3381faba8069543f13b6d06591e69d4e1d273e922823",
+    "translation": "7cfc62b18c7478a51ff22ed4b37ec79bd60ba671645067c9f11fd47c44f124b1",
+    "author": "Xavier Larrea"
+  },
+  "settingLocationEnabledDescription": {
+    "source": "72c2a724b1167d9509748576bd9a6cac3596fdc1124178e5d11824ca0e6130fd",
+    "translation": "12661d75db76ad2ad278faa13cd495df8f9105506d781e7487165dfa1798ce04",
+    "author": "Xavier Larrea"
+  },
+  "settingLocationIntervalTitle": {
+    "source": "175ee2fc5f305788e167c28a34b726eefb549c62fd4f7331c29ba088e64a88aa",
+    "translation": "a75f0e5cd0199562cb86f080d96be3680283d3a81937f71b273ab8e93f7ec043",
+    "author": "Xavier Larrea"
+  },
+  "settingLocationIntervalDescription": {
+    "source": "9b91e79151e44369d9532f89142f9ac315d41689e97a01124ed806dbedc6016c",
+    "translation": "7f4c16095e205fecddb06114a94cab23412b9353b0b90049f355c1bd767e73ed",
+    "author": "Xavier Larrea"
+  },
+  "esphomeGps": {
+    "source": "d15f7b235cc4d2a30b38364bfd439ab8e26c44d6fc71d9c35dc68587f925f770",
+    "translation": "ef7c53c118af4cf715ed7e8956188297b311e4df8c7e04c559b10422defe5273",
+    "author": "Xavier Larrea"
+  },
+  "esphomeGpsHelp": {
+    "source": "5b469d4042440c19a50177ea0894dad76f5147ff02a4cd2232c7269633917b94",
+    "translation": "3b8be85938b3c84f7a36f35ce6ad4b6f2c6c958bd33b91731f97eb852c309ce5",
+    "author": "Xavier Larrea"
+  },
+  "esphomeLocationOff": {
+    "source": "4783a065d07545a31b103aacc062e8ed5727fa1e370902025b72bc5e26448a5d",
+    "translation": "74fc8d58d5314d5c427949177e3f66950fc593890af887e966aba084cba70261",
+    "author": "Xavier Larrea"
+  },
+  "esphomeLocationWaiting": {
+    "source": "e6f81080e751a02bc86c0b08b332e745c64a45bffe6c283a879baa2809119e10",
+    "translation": "ce04b81bbc6595753df1d8ccd81b269438f2360d02715b4736cebc45711cf818",
+    "author": "Xavier Larrea"
+  },
+  "esphomeCoordinates": {
+    "source": "608bd520f235948f91b5c34b137558e1499fa171447330d37b64fa21499afb91",
+    "translation": "89b35e2027c8550aa2e2860b1674a7aefc077f969c56e921355f0c415de3575a",
+    "author": "Xavier Larrea"
+  },
+  "esphomeLocationDenied": {
+    "source": "a378ac0689d36ff2d6616aa9eaa67bdd4fed6aa883afbf5a5f4754bb079cf6b9",
+    "translation": "4a2fa7bbdf1bf442c05d51a59fca08086f89b0b3223916e04268b03db3ad810b",
+    "author": "Xavier Larrea"
+  },
+  "esphomeLocationAbsent": {
+    "source": "12b2fbbd878914c34d3fa2de55f9d077a3175249df61e2daab27ab3b573c9e97",
+    "translation": "f103a4f6554feefd55e3e3abfd02313352b5041b758928d6bf99c70b698e90ae",
+    "author": "Xavier Larrea"
+  },
+  "esphomeLocationError": {
+    "source": "a5386fc35a09c318acbc818eb21b26b4f2b6ff83cff1710a1feb053736e0cc37",
+    "translation": "ad50f67457c09803d1d6149a660acf874b369c80b114a58ba22cf9b54d0f3813",
+    "author": "Xavier Larrea"
+  },
+  "esphomeLocationUnsupported": {
+    "source": "aa49e2e67ed91b5264d804ce85338aff6163c1833558307f69d6ec240ef01256",
+    "translation": "0069a8c58b2ce8a8c2f4abba1d9dac29e9406f332c2114969408573cf24f5594",
+    "author": "Xavier Larrea"
+  },
+  "settingNotificationsTransparencyTitle": {
+    "source": "7ec78262bdb0eca4d2563dd226cfc46398bc3178910198b64cd9173fb85d6214",
+    "translation": "aea42ac793713aecac8b4645bcbc74bf8fe52013e4d39c8069edb6ab0f346d72",
+    "author": "Xavier Larrea"
+  },
+  "settingNotificationsTransparencyDescription": {
+    "source": "9b184f91ae527594400684a53417129fd73165ec08c4783add24ebdbf6de41f0",
+    "translation": "57f81373661747100de40215643f2651d1d450c9be802bd66e49ee865a53aa4e",
+    "author": "Xavier Larrea"
+  },
+  "settingNotificationsBlurTitle": {
+    "source": "b696719eaef8f7b81f208a6962876bcfef3438a058187c2b2225269c2582e972",
+    "translation": "18c6d96c0d5daa4282a4ce784be48847de4c4b572071c3cfdf86842b1f188d4d",
+    "author": "Xavier Larrea"
+  },
+  "settingNotificationsBlurDescription": {
+    "source": "f427635a0b390cd1c9a3cb423ae5171dca13a75ed1b527741a82bf4dca953512",
+    "translation": "6568984095762324652bbacf7af1303a28faa3850c5964580b567723c6b4f69d",
+    "author": "Xavier Larrea"
+  },
+  "settingNotificationsChimeFileTitle": {
+    "source": "413ecb207f0542b2b472a0a4e32c3f6a9d7fe2be24a34b16d4d4b5835a0fc904",
+    "translation": "fae15f20816cab5eb4723312c6e71adf9a6591474e0c45964d20c18b4ec17834",
+    "author": "Xavier Larrea"
+  },
+  "settingNotificationsChimeFileDescription": {
+    "source": "78605abb70d0633918f9dac3373196ddd2d26f50ac81d4f94b556e24899cc0ce",
+    "translation": "7d7a751549bdc82ca0c2094a4f24defb7409c272c8c7ca16359aa0710b6d01ef",
+    "author": "Xavier Larrea"
+  },
+  "settingNotificationsVolumeTitle": {
+    "source": "2c37dd710f0fec759e5acbe98d202a393ea6ab9c83690bec5fe360ece9ce9e49",
+    "translation": "50daafeb0149507fdd866b411ed756b83e79d899cb6f77f9bd22b0767f2285e8",
+    "author": "Xavier Larrea"
+  },
+  "settingNotificationsVolumeDescription": {
+    "source": "23abbc28e8d86c9cfd9ee5e5332e70803009878e5ee2d7633ee68cd59bf1499a",
+    "translation": "495cda7c9a966bfd375ec4de86ff430a98da90b32a0c1960093b90cf2d50b2af",
+    "author": "Xavier Larrea"
+  },
+  "esphomeNotifications": {
+    "source": "f9f264d9a7b9caf28bad84a6b252c10b294c6645b88cb0a9cc6a36cc6659abf3",
+    "translation": "80dade6fab6f93872b35f82102b1c4fcf0a5a6572cc26d70b7a35c3c974938ee",
+    "author": "Xavier Larrea"
+  },
+  "esphomeNotificationsHelp": {
+    "source": "a477d70f2eb5d34a6f6b184f308f44952351eb4d18854320c7a878513a5987df",
+    "translation": "30260b5ad6a1606db10df5bf160033f478913fe0e263b42e97c32dff50c4a253",
+    "author": "Xavier Larrea"
+  },
+  "esphomeAppearance": {
+    "source": "cb5dbfe58f7ebe7a468726d8141766fef2aba264c4ef4c9bb29f078134d1db41",
+    "translation": "e3e9cbaccaec3d2a1f8ca00870401c1ff2a20885e47e2df64a66d5387b9c4515",
+    "author": "Xavier Larrea"
+  },
+  "esphomeSound": {
+    "source": "0905cca7276064bfd2dbea3d24ee5aa58ef1b49369231951cc672f3571e53a67",
+    "translation": "25ab720915f5f9ac3665596572ba88f3310ffdf3c1dca8b53fdf7e973ad9e9eb",
+    "author": "Xavier Larrea"
+  },
+  "esphomeNotificationTest": {
+    "source": "dc9c2d7ef62e8a8f730a1e98500a189dc68a077c7ed0cd8f50a7e7fd8b73245a",
+    "translation": "570992d97cfc832bbe3317dff6ebeef48bdcd6728c2b8b87d7cb483adac09894",
+    "author": "Xavier Larrea"
+  },
+  "esphomeNotificationHelp": {
+    "source": "ad5254983d92c5605e9e61fc000414239ecb2c28cda2864fd38ee7af55985ed0",
+    "translation": "26715c801d9f5c42fdb615f13cd9f5dd570abef7d2d9d37e9ea005817d8a99f4",
+    "author": "Xavier Larrea"
+  },
+  "esphomeNotificationBody": {
+    "source": "23d3e88b51e9a9644d59b4fa83f99ed4dbedcf5793a25fc5aff7741582204538",
+    "translation": "15f40807b9e073dad0662415ad4d3f2e4911d09c6c9d79691e4bb7e1a1ccc7b4",
+    "author": "Xavier Larrea"
+  },
+  "esphomeNotificationSearch": {
+    "source": "ad21807985e3c39703846707e51a234301da08e744b611f63ec78f464a9f7105",
+    "translation": "d676ec4e5d4539378ca8bbdff42f232c88ba6ad550a4a6d058ceb12ffd1ce9bf",
+    "author": "Xavier Larrea"
+  },
+  "esphomeLocation": {
+    "source": "305ba22329b6b5f4918388243e6782c7d8ce00d2644c53fa6de07b7a1d0b7228",
+    "translation": "73b9189b6c6ef693f13b7d4fd31dc01c94323f44bbb18155bc5045db178c5200",
+    "author": "Xavier Larrea"
+  },
+  "esphomeLocationSearch": {
+    "source": "b1e58bba34d612bbbd29dacaeac9c241622ac22ebfd102023eb638014602f613",
+    "translation": "86716da230d0c177b03c8a4b74da6811fadf3bd93e86176a648f4375fc22dd16",
+    "author": "Xavier Larrea"
+  },
+  "esphomeBluetoothSearch": {
+    "source": "3030abc110581e2894c9a107f873600b3413e30e79b4cbb969c673af7c675294",
+    "translation": "130dd76d8a0ecfdf537e9e9cb0eb5e10e661497fd291f8e01e99bb03fd200d9b",
+    "author": "Xavier Larrea"
+  },
+  "esphomeLocationMissing": {
+    "source": "7791a8fbc96bb47a91be838b23a7723453471ed723c675c3cbdaec13c2e1cf49",
+    "translation": "f931fb3a9c09cde780c735b992eafbce4ab0209d30c13f6710bd3b7dd65e65f8",
+    "author": "Xavier Larrea"
+  },
+  "esphomeLocationServicesOff": {
+    "source": "1f3fac16071122e660d88fb6525fed3686b3857619f15fdb7cbfb14b89679330",
+    "translation": "8a018fd9e6fdda0064e922f8641998b78fee001ac90bb54bcaf36a77d6b3766a",
+    "author": "Xavier Larrea"
+  },
+  "esphomeLocationGranted": {
+    "source": "cd2b0974a8986e586ed53c26c96fb0c51b1dd02d0421ec58b3cb205ab22d8f1c",
+    "translation": "629e65e421e5ff4607b2e9bba060aa0d98c0a0618615ee66c70fb53faad58c71",
+    "author": "Xavier Larrea"
+  },
+  "esphomeBluetoothGranted": {
+    "source": "a2a57141c9a6548abf6beadc85d12f8feb74bc3dd2090fccb10c03bc585b06e0",
+    "translation": "46b1651e03ff1be62517bd5d87924513836d99e37a64376b43c467bb7848236d",
+    "author": "Xavier Larrea"
+  },
+  "esphomeBluetoothMissing": {
+    "source": "8ba604e570e5c78e35a9e83c69770d27f0c84fadaf8bda1fe955f5c666d76544",
+    "translation": "a6bb51cb7a3f5936063f033884d34a16b301684687dc86525f7e61e796c8fb7b",
+    "author": "Xavier Larrea"
+  },
+  "esphomeBluetoothLocationMissing": {
+    "source": "568d2c9d23d3955c08794261ab777e09cda42645f3b99bb3ddddcdbbec2b77db",
+    "translation": "5068c3fefaf59a64f92b43272ce7e3c9ced7f2a41df44cf0b7e35a4f56ba930f",
+    "author": "Xavier Larrea"
+  },
+  "esphomeBluetoothLocationOff": {
+    "source": "8c16d298d963fb7941110b3d8ed2ed3047cb72eeb63c4e98cea31b91938cf147",
+    "translation": "d44d3116346ba919d13c8d27d09d5ed40c5ab8c6a8c4a43554a7052aff197b1d",
+    "author": "Xavier Larrea"
+  },
+  "esphomeBluetoothBeacons": {
+    "source": "7a2db998980e7ae9c2877214097327793258f555da144f21600af97ad5ce6211",
+    "translation": "d349908f5fe0bca4895bf16b6a05cd2d8fa28fe24233aefbd6e840001c8da79b",
+    "author": "Xavier Larrea"
+  },
+  "esphomeSent": {
+    "source": "f8aca5db1e1fa661fb7325b67bff98e104415a07e6e7cb6cb49447e02bc1fc71",
+    "translation": "7dc97b519111f2776bffd9362730a21ff9e9859457634d7c268c0ebfed26e216",
+    "author": "Xavier Larrea"
+  },
+  "esphomeNotsaved": {
+    "source": "9af53e14712976d5b5cac7fb11e20e8a2aa58ab7eb83a0cec613d6a43e5ff1bc",
+    "translation": "8f0d4e9aa013dd189ddd577ec5a1cb0bdd965499f82c5402ca9013ae4b8ff1a7",
+    "author": "Xavier Larrea"
+  },
   "settingEsphomeEnabledTitle": {
     "source": "443ae2de424b0310e44b6270fa106908b0d0d35522ce569332549776d0b492be",
     "translation": "2b1e5162c4a9ad820f74431a2ab5065a3d16c62e91b475c25765bb940fe2cc96",

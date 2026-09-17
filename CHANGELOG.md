@@ -5,7 +5,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ## Unreleased
 
 ### Added
-- **Remaining ESPHome settings use translation templates in both interfaces.** Seven templates add 114 messages for Bluetooth Proxy, nearby devices, Notifications, Announcements, GPS Sensor and permissions. Language changes preserve device data, selected voices and saved values.
+- **Remaining ESPHome settings use translation templates in both interfaces.** All 2619 catalog messages now have bundled, author-approved Spanish translations. Seven templates add 114 messages for Bluetooth Proxy, nearby devices, Notifications, Announcements, GPS Sensor and permissions. Language changes preserve device data, selected voices and saved values.
 - **ESPHome setup uses translation templates in both interfaces.** All 2505 catalog messages now have bundled, author-approved Spanish translations. Fifty new messages cover server setup, excluded entities and Advanced settings. Language changes preserve selected entities, network identifiers and credentials.
 - **Lockdown Mode uses translation templates.** All 2455 catalog messages now have bundled, author-approved Spanish translations. Seventeen messages cover remote settings, permissions, search guidance and the locked-screen notice. Both device shields follow the selected language without changing protection flags, PINs or exit gestures.
 - **Logs and About use translation templates in both interfaces.** All 2438 catalog messages now have bundled, author-approved Spanish translations. Five templates add 43 messages for log controls, console notices, app details and update actions. Language changes preserve diagnostic output, typed JavaScript, filters and active downloads. About details fit narrow screens.

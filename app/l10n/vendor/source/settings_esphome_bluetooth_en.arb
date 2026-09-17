@@ -1,0 +1,380 @@
+{
+  "@@locale": "en",
+  "settingBtproxyEnabledTitle": "Enable Bluetooth proxy",
+  "@settingBtproxyEnabledTitle": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "settingBtproxyEnabledDescription": "Relay nearby Bluetooth devices to Home Assistant.",
+  "@settingBtproxyEnabledDescription": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "settingBtproxyScanDutyTitle": "Scan intensity",
+  "@settingBtproxyScanDutyTitle": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "settingBtproxyScanDutyDescription": "How much of the time the radio listens. Lower cuts CPU; devices that advertise rarely take longer to appear.",
+  "@settingBtproxyScanDutyDescription": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "settingBtproxyConnectionsTitle": "Allow device connections",
+  "@settingBtproxyConnectionsTitle": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "settingBtproxyConnectionsDescription": "Home Assistant can connect to Bluetooth devices through this proxy.",
+  "@settingBtproxyConnectionsDescription": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "settingBtproxyMacLookupTitle": "Look up device manufacturers online",
+  "@settingBtproxyMacLookupTitle": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "settingBtproxyMacLookupDescription": "Names unknown nearby devices by their hardware address prefix using api.macvendors.com. Only the 3-byte manufacturer prefix is sent, once per manufacturer; nothing else leaves the device.",
+  "@settingBtproxyMacLookupDescription": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "settingBtproxyNearbySortTitle": "Sort by",
+  "@settingBtproxyNearbySortTitle": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "settingBtproxyNearbySortDescription": "The order of the nearby devices list below.",
+  "@settingBtproxyNearbySortDescription": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "settingBtproxyMinConnectRssiTitle": "Minimum signal for connections",
+  "@settingBtproxyMinConnectRssiTitle": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "settingBtproxyMinConnectRssiDescription": "Refuse device connections heard weaker than this, so a closer proxy takes them instead.",
+  "@settingBtproxyMinConnectRssiDescription": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeOptionContinuous": "Continuous",
+  "@esphomeOptionContinuous": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Choice label. The saved value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeOptionBalanced": "Balanced",
+  "@esphomeOptionBalanced": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Choice label. The saved value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeOptionLowPower": "Low power",
+  "@esphomeOptionLowPower": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Choice label. The saved value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeOptionLastSeen": "Last seen",
+  "@esphomeOptionLastSeen": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Choice label. The saved value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeOptionName": "Name",
+  "@esphomeOptionName": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Choice label. The saved value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeOptionMacAddress": "MAC address",
+  "@esphomeOptionMacAddress": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Choice label. The saved value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeOptionSignalStrength": "Signal strength",
+  "@esphomeOptionSignalStrength": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Choice label. The saved value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeOptionNoLimit": "No limit",
+  "@esphomeOptionNoLimit": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Choice label. The saved value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeOption70DbmSameRoom": "-70 dBm (same room)",
+  "@esphomeOption70DbmSameRoom": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Choice label. The saved value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeOption80Dbm": "-80 dBm",
+  "@esphomeOption80Dbm": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Choice label. The saved value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeOption85Dbm": "-85 dBm",
+  "@esphomeOption85Dbm": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Choice label. The saved value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeOption90DbmEdgeOfRange": "-90 dBm (edge of range)",
+  "@esphomeOption90DbmEdgeOfRange": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Choice label. The saved value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeBluetooth": "Bluetooth Proxy",
+  "@esphomeBluetooth": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeBluetoothHelp": "Relay nearby Bluetooth devices to Home Assistant",
+  "@esphomeBluetoothHelp": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeBluetoothOff": "Bluetooth is off. Turn it on to use the proxy.",
+  "@esphomeBluetoothOff": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeBluetoothUnsupported": "Not available on this device: it has no Bluetooth.",
+  "@esphomeBluetoothUnsupported": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "esphomeBluetoothBuildUnsupported": "Not available on this device: its Android build has no Bluetooth LE support.",
+  "@esphomeBluetoothBuildUnsupported": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  }
+}

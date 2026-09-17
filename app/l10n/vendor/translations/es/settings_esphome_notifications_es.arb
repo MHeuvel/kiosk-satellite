@@ -1,0 +1,19 @@
+{
+  "@@locale": "es",
+  "settingNotificationsTransparencyTitle": "Transparencia",
+  "settingNotificationsTransparencyDescription": "Permite ver la pantalla a través de las tarjetas de notificación. El texto y los iconos se mantienen opacos.",
+  "settingNotificationsBlurTitle": "Desenfoque del fondo",
+  "settingNotificationsBlurDescription": "Desenfoca lo que se ve a través de una tarjeta de notificación transparente. Nota: el desenfoque no se puede aplicar sobre el panel de control de Home Assistant.",
+  "settingNotificationsChimeFileTitle": "Sonido de notificación",
+  "settingNotificationsChimeFileDescription": "Los archivos de sonido se leen desde Android/data/me.jxl.kiosk_satellite/files/sounds en el dispositivo. También puedes acceder a esa carpeta desde el Administrador de archivos.",
+  "settingNotificationsVolumeTitle": "Volumen de notificaciones",
+  "settingNotificationsVolumeDescription": "Volumen del sonido de notificación, independiente de los volúmenes de contenido multimedia y del asistente.",
+  "esphomeNotifications": "Notificaciones",
+  "esphomeNotificationsHelp": "Transparencia, desenfoque, sonido y notificación de prueba",
+  "esphomeAppearance": "Apariencia",
+  "esphomeSound": "Sonido",
+  "esphomeNotificationTest": "Notificación de prueba",
+  "esphomeNotificationHelp": "Las notificaciones se envían desde Home Assistant con la acción {action}. La prueba muestra una sobre el panel de control.",
+  "esphomeNotificationBody": "Así se ve y suena una notificación de Home Assistant.",
+  "esphomeNotificationSearch": "La acción de Home Assistant que envía notificaciones y un botón para mostrar una."
+}

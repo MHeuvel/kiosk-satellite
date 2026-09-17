@@ -1,0 +1,16 @@
+{
+  "@@locale": "es",
+  "esphomeLocation": "Ubicación",
+  "esphomeLocationSearch": "El permiso de ubicación que necesitan los sensores de ubicación.",
+  "esphomeBluetoothSearch": "El permiso de dispositivos cercanos que necesita el proxy Bluetooth para escanear.",
+  "esphomeLocationMissing": "Sin este permiso no se puede leer el receptor GPS y los sensores de ubicación quedan sin datos.",
+  "esphomeLocationServicesOff": "La ubicación está desactivada en los ajustes del dispositivo, por lo que el receptor no proporciona datos.",
+  "esphomeLocationGranted": "Los sensores de ubicación pueden leer el receptor GPS.",
+  "esphomeBluetoothGranted": "El proxy puede escanear dispositivos Bluetooth cercanos.",
+  "esphomeBluetoothMissing": "Sin este permiso, el proxy no puede escanear dispositivos.",
+  "esphomeBluetoothLocationMissing": "Android solo proporciona resultados del escaneo Bluetooth, incluidas las balizas, cuando se concede el permiso de ubicación. El proxy nunca lee la posición del dispositivo.",
+  "esphomeBluetoothLocationOff": "La ubicación está desactivada en los ajustes del dispositivo, por lo que el escaneo Bluetooth no encuentra nada.",
+  "esphomeBluetoothBeacons": "El escaneo Bluetooth puede detectar balizas.",
+  "esphomeSent": "Enviada",
+  "esphomeNotsaved": "No se guardó"
+}

@@ -16431,7 +16431,7 @@
       ]
     }
   },
-  "settingAnnouncementsEnabledTitle": "Enable announcements",
+  "settingAnnouncementsEnabledTitle": "Activar anuncios",
   "@settingAnnouncementsEnabledTitle": {
     "context": "Settings > ESPHome > Announcements",
     "description": "Setting label.",
@@ -16444,7 +16444,7 @@
       ]
     }
   },
-  "settingAnnouncementsEnabledDescription": "Play the announcements Home Assistant sends with the announce action.",
+  "settingAnnouncementsEnabledDescription": "Reproduce los anuncios que Home Assistant envía con la acción announce.",
   "@settingAnnouncementsEnabledDescription": {
     "context": "Settings > ESPHome > Announcements",
     "description": "Help below the setting.",
@@ -16457,7 +16457,7 @@
       ]
     }
   },
-  "settingAnnouncementsTtsEngineTitle": "Text to speech engine",
+  "settingAnnouncementsTtsEngineTitle": "Motor de texto a voz",
   "@settingAnnouncementsTtsEngineTitle": {
     "context": "Settings > ESPHome > Announcements",
     "description": "Setting label.",
@@ -16470,7 +16470,7 @@
       ]
     }
   },
-  "settingAnnouncementsTtsEngineDescription": "The Home Assistant text to speech entity that speaks announcements.",
+  "settingAnnouncementsTtsEngineDescription": "La entidad de texto a voz de Home Assistant que lee los anuncios.",
   "@settingAnnouncementsTtsEngineDescription": {
     "context": "Settings > ESPHome > Announcements",
     "description": "Help below the setting.",
@@ -16483,7 +16483,7 @@
       ]
     }
   },
-  "esphomeTtsFirst": "First available",
+  "esphomeTtsFirst": "Primero disponible",
   "@esphomeTtsFirst": {
     "context": "Settings > ESPHome > Announcements",
     "description": "Default choice when no engine is selected.",
@@ -16496,7 +16496,7 @@
       ]
     }
   },
-  "settingAnnouncementsChimeTitle": "Chime first",
+  "settingAnnouncementsChimeTitle": "Reproducir un tono primero",
   "@settingAnnouncementsChimeTitle": {
     "context": "Settings > ESPHome > Announcements",
     "description": "Setting label.",
@@ -16509,7 +16509,7 @@
       ]
     }
   },
-  "settingAnnouncementsChimeDescription": "Play a chime before the announcement.",
+  "settingAnnouncementsChimeDescription": "Reproduce un tono antes del anuncio.",
   "@settingAnnouncementsChimeDescription": {
     "context": "Settings > ESPHome > Announcements",
     "description": "Help below the setting.",
@@ -16522,7 +16522,7 @@
       ]
     }
   },
-  "settingAnnouncementsChimeFileTitle": "Chime sound",
+  "settingAnnouncementsChimeFileTitle": "Sonido del tono",
   "@settingAnnouncementsChimeFileTitle": {
     "context": "Settings > ESPHome > Announcements",
     "description": "Setting label.",
@@ -16535,7 +16535,7 @@
       ]
     }
   },
-  "settingAnnouncementsChimeFileDescription": "Plays at the notification volume.",
+  "settingAnnouncementsChimeFileDescription": "Se reproduce al volumen de notificaciones.",
   "@settingAnnouncementsChimeFileDescription": {
     "context": "Settings > ESPHome > Announcements",
     "description": "Help below the setting.",
@@ -16548,7 +16548,7 @@
       ]
     }
   },
-  "esphomeAnnouncements": "Announcements",
+  "esphomeAnnouncements": "Anuncios",
   "@esphomeAnnouncements": {
     "context": "Settings > ESPHome > Announcements",
     "description": "Interface label or status message.",
@@ -16561,7 +16561,7 @@
       ]
     }
   },
-  "esphomeAnnouncementsHelp": "Spoken announcements from Home Assistant",
+  "esphomeAnnouncementsHelp": "Anuncios de voz de Home Assistant",
   "@esphomeAnnouncementsHelp": {
     "context": "Settings > ESPHome > Announcements",
     "description": "Interface label or status message.",
@@ -16574,7 +16574,7 @@
       ]
     }
   },
-  "esphomeChime": "Chime",
+  "esphomeChime": "Tono",
   "@esphomeChime": {
     "context": "Settings > ESPHome > Announcements",
     "description": "Interface label or status message.",
@@ -16587,7 +16587,7 @@
       ]
     }
   },
-  "esphomeTtsUnavailable": "Could not reach Home Assistant",
+  "esphomeTtsUnavailable": "No se pudo conectar con Home Assistant",
   "@esphomeTtsUnavailable": {
     "context": "Settings > ESPHome > Announcements",
     "description": "Interface label or status message.",
@@ -16600,7 +16600,7 @@
       ]
     }
   },
-  "settingBtproxyEnabledTitle": "Enable Bluetooth proxy",
+  "settingBtproxyEnabledTitle": "Activar proxy Bluetooth",
   "@settingBtproxyEnabledTitle": {
     "context": "Settings > ESPHome > Bluetooth Proxy",
     "description": "Setting label.",
@@ -16613,7 +16613,7 @@
       ]
     }
   },
-  "settingBtproxyEnabledDescription": "Relay nearby Bluetooth devices to Home Assistant.",
+  "settingBtproxyEnabledDescription": "Conecta los dispositivos Bluetooth cercanos con Home Assistant a través de este kiosko.",
   "@settingBtproxyEnabledDescription": {
     "context": "Settings > ESPHome > Bluetooth Proxy",
     "description": "Help below the setting.",
@@ -16626,7 +16626,7 @@
       ]
     }
   },
-  "settingBtproxyScanDutyTitle": "Scan intensity",
+  "settingBtproxyScanDutyTitle": "Intensidad del escaneo",
   "@settingBtproxyScanDutyTitle": {
     "context": "Settings > ESPHome > Bluetooth Proxy",
     "description": "Setting label.",
@@ -16639,7 +16639,7 @@
       ]
     }
   },
-  "settingBtproxyScanDutyDescription": "How much of the time the radio listens. Lower cuts CPU; devices that advertise rarely take longer to appear.",
+  "settingBtproxyScanDutyDescription": "Cuánto tiempo escucha la radio. Una intensidad menor reduce el uso de CPU. Los dispositivos que transmiten con poca frecuencia tardan más en aparecer.",
   "@settingBtproxyScanDutyDescription": {
     "context": "Settings > ESPHome > Bluetooth Proxy",
     "description": "Help below the setting.",
@@ -16652,7 +16652,7 @@
       ]
     }
   },
-  "settingBtproxyConnectionsTitle": "Allow device connections",
+  "settingBtproxyConnectionsTitle": "Permitir conexiones a dispositivos",
   "@settingBtproxyConnectionsTitle": {
     "context": "Settings > ESPHome > Bluetooth Proxy",
     "description": "Setting label.",
@@ -16665,7 +16665,7 @@
       ]
     }
   },
-  "settingBtproxyConnectionsDescription": "Home Assistant can connect to Bluetooth devices through this proxy.",
+  "settingBtproxyConnectionsDescription": "Home Assistant puede conectarse a dispositivos Bluetooth a través de este proxy.",
   "@settingBtproxyConnectionsDescription": {
     "context": "Settings > ESPHome > Bluetooth Proxy",
     "description": "Help below the setting.",
@@ -16678,7 +16678,7 @@
       ]
     }
   },
-  "settingBtproxyMacLookupTitle": "Look up device manufacturers online",
+  "settingBtproxyMacLookupTitle": "Consultar fabricantes de dispositivos en línea",
   "@settingBtproxyMacLookupTitle": {
     "context": "Settings > ESPHome > Bluetooth Proxy",
     "description": "Setting label.",
@@ -16691,7 +16691,7 @@
       ]
     }
   },
-  "settingBtproxyMacLookupDescription": "Names unknown nearby devices by their hardware address prefix using api.macvendors.com. Only the 3-byte manufacturer prefix is sent, once per manufacturer; nothing else leaves the device.",
+  "settingBtproxyMacLookupDescription": "Identifica los dispositivos cercanos desconocidos por el prefijo de su dirección de hardware mediante api.macvendors.com. Solo se envía el prefijo de 3 bytes del fabricante, una vez por fabricante. Ningún otro dato sale del dispositivo.",
   "@settingBtproxyMacLookupDescription": {
     "context": "Settings > ESPHome > Bluetooth Proxy",
     "description": "Help below the setting.",
@@ -16704,7 +16704,7 @@
       ]
     }
   },
-  "settingBtproxyNearbySortTitle": "Sort by",
+  "settingBtproxyNearbySortTitle": "Ordenar por",
   "@settingBtproxyNearbySortTitle": {
     "context": "Settings > ESPHome > Bluetooth Proxy",
     "description": "Setting label.",
@@ -16717,7 +16717,7 @@
       ]
     }
   },
-  "settingBtproxyNearbySortDescription": "The order of the nearby devices list below.",
+  "settingBtproxyNearbySortDescription": "El orden de la lista de dispositivos cercanos que aparece abajo.",
   "@settingBtproxyNearbySortDescription": {
     "context": "Settings > ESPHome > Bluetooth Proxy",
     "description": "Help below the setting.",
@@ -16730,7 +16730,7 @@
       ]
     }
   },
-  "settingBtproxyMinConnectRssiTitle": "Minimum signal for connections",
+  "settingBtproxyMinConnectRssiTitle": "Señal mínima para conexiones",
   "@settingBtproxyMinConnectRssiTitle": {
     "context": "Settings > ESPHome > Bluetooth Proxy",
     "description": "Setting label.",
@@ -16743,7 +16743,7 @@
       ]
     }
   },
-  "settingBtproxyMinConnectRssiDescription": "Refuse device connections heard weaker than this, so a closer proxy takes them instead.",
+  "settingBtproxyMinConnectRssiDescription": "Rechaza las conexiones a dispositivos cuya señal sea más débil que este valor, para que las atienda un proxy más cercano.",
   "@settingBtproxyMinConnectRssiDescription": {
     "context": "Settings > ESPHome > Bluetooth Proxy",
     "description": "Help below the setting.",
@@ -16756,7 +16756,7 @@
       ]
     }
   },
-  "esphomeOptionContinuous": "Continuous",
+  "esphomeOptionContinuous": "Continuo",
   "@esphomeOptionContinuous": {
     "context": "Settings > ESPHome > Bluetooth Proxy",
     "description": "Choice label. The saved value stays unchanged.",
@@ -16769,7 +16769,7 @@
       ]
     }
   },
-  "esphomeOptionBalanced": "Balanced",
+  "esphomeOptionBalanced": "Equilibrado",
   "@esphomeOptionBalanced": {
     "context": "Settings > ESPHome > Bluetooth Proxy",
     "description": "Choice label. The saved value stays unchanged.",
@@ -16782,7 +16782,7 @@
       ]
     }
   },
-  "esphomeOptionLowPower": "Low power",
+  "esphomeOptionLowPower": "Bajo consumo",
   "@esphomeOptionLowPower": {
     "context": "Settings > ESPHome > Bluetooth Proxy",
     "description": "Choice label. The saved value stays unchanged.",
@@ -16795,7 +16795,7 @@
       ]
     }
   },
-  "esphomeOptionLastSeen": "Last seen",
+  "esphomeOptionLastSeen": "Última detección",
   "@esphomeOptionLastSeen": {
     "context": "Settings > ESPHome > Bluetooth Proxy",
     "description": "Choice label. The saved value stays unchanged.",
@@ -16808,7 +16808,7 @@
       ]
     }
   },
-  "esphomeOptionName": "Name",
+  "esphomeOptionName": "Nombre",
   "@esphomeOptionName": {
     "context": "Settings > ESPHome > Bluetooth Proxy",
     "description": "Choice label. The saved value stays unchanged.",
@@ -16821,7 +16821,7 @@
       ]
     }
   },
-  "esphomeOptionMacAddress": "MAC address",
+  "esphomeOptionMacAddress": "Dirección MAC",
   "@esphomeOptionMacAddress": {
     "context": "Settings > ESPHome > Bluetooth Proxy",
     "description": "Choice label. The saved value stays unchanged.",
@@ -16834,7 +16834,7 @@
       ]
     }
   },
-  "esphomeOptionSignalStrength": "Signal strength",
+  "esphomeOptionSignalStrength": "Intensidad de la señal",
   "@esphomeOptionSignalStrength": {
     "context": "Settings > ESPHome > Bluetooth Proxy",
     "description": "Choice label. The saved value stays unchanged.",
@@ -16847,7 +16847,7 @@
       ]
     }
   },
-  "esphomeOptionNoLimit": "No limit",
+  "esphomeOptionNoLimit": "Sin límite",
   "@esphomeOptionNoLimit": {
     "context": "Settings > ESPHome > Bluetooth Proxy",
     "description": "Choice label. The saved value stays unchanged.",
@@ -16860,7 +16860,7 @@
       ]
     }
   },
-  "esphomeOption70DbmSameRoom": "-70 dBm (same room)",
+  "esphomeOption70DbmSameRoom": "-70 dBm (misma habitación)",
   "@esphomeOption70DbmSameRoom": {
     "context": "Settings > ESPHome > Bluetooth Proxy",
     "description": "Choice label. The saved value stays unchanged.",
@@ -16899,7 +16899,7 @@
       ]
     }
   },
-  "esphomeOption90DbmEdgeOfRange": "-90 dBm (edge of range)",
+  "esphomeOption90DbmEdgeOfRange": "-90 dBm (límite de alcance)",
   "@esphomeOption90DbmEdgeOfRange": {
     "context": "Settings > ESPHome > Bluetooth Proxy",
     "description": "Choice label. The saved value stays unchanged.",
@@ -16912,7 +16912,7 @@
       ]
     }
   },
-  "esphomeBluetooth": "Bluetooth Proxy",
+  "esphomeBluetooth": "Proxy Bluetooth",
   "@esphomeBluetooth": {
     "context": "Settings > ESPHome > Bluetooth Proxy",
     "description": "Interface label or status message.",
@@ -16925,7 +16925,7 @@
       ]
     }
   },
-  "esphomeBluetoothHelp": "Relay nearby Bluetooth devices to Home Assistant",
+  "esphomeBluetoothHelp": "Conecta los dispositivos Bluetooth cercanos con Home Assistant",
   "@esphomeBluetoothHelp": {
     "context": "Settings > ESPHome > Bluetooth Proxy",
     "description": "Interface label or status message.",
@@ -16938,7 +16938,7 @@
       ]
     }
   },
-  "esphomeBluetoothOff": "Bluetooth is off. Turn it on to use the proxy.",
+  "esphomeBluetoothOff": "Bluetooth está desactivado. Actívalo para usar el proxy.",
   "@esphomeBluetoothOff": {
     "context": "Settings > ESPHome > Bluetooth Proxy",
     "description": "Interface label or status message.",
@@ -16951,7 +16951,7 @@
       ]
     }
   },
-  "esphomeBluetoothUnsupported": "Not available on this device: it has no Bluetooth.",
+  "esphomeBluetoothUnsupported": "No disponible en este dispositivo: no tiene Bluetooth.",
   "@esphomeBluetoothUnsupported": {
     "context": "Settings > ESPHome > Bluetooth Proxy",
     "description": "Interface label or status message.",
@@ -16964,7 +16964,7 @@
       ]
     }
   },
-  "esphomeBluetoothBuildUnsupported": "Not available on this device: its Android build has no Bluetooth LE support.",
+  "esphomeBluetoothBuildUnsupported": "No disponible en este dispositivo: su versión de Android no admite Bluetooth LE.",
   "@esphomeBluetoothBuildUnsupported": {
     "context": "Settings > ESPHome > Bluetooth Proxy",
     "description": "Interface label or status message.",
@@ -16977,7 +16977,7 @@
       ]
     }
   },
-  "esphomeIdentityBthome": "BTHome sensor",
+  "esphomeIdentityBthome": "Sensor BTHome",
   "@esphomeIdentityBthome": {
     "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
     "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
@@ -16990,7 +16990,7 @@
       ]
     }
   },
-  "esphomeIdentityXiaomi": "Xiaomi sensor",
+  "esphomeIdentityXiaomi": "Sensor Xiaomi",
   "@esphomeIdentityXiaomi": {
     "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
     "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
@@ -17003,7 +17003,7 @@
       ]
     }
   },
-  "esphomeIdentityQingping": "Qingping sensor",
+  "esphomeIdentityQingping": "Sensor Qingping",
   "@esphomeIdentityQingping": {
     "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
     "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
@@ -17016,7 +17016,7 @@
       ]
     }
   },
-  "esphomeIdentityGoogleNest": "Google/Nest device",
+  "esphomeIdentityGoogleNest": "Dispositivo Google/Nest",
   "@esphomeIdentityGoogleNest": {
     "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
     "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
@@ -17029,7 +17029,7 @@
       ]
     }
   },
-  "esphomeIdentityEddystone": "Eddystone beacon",
+  "esphomeIdentityEddystone": "Baliza Eddystone",
   "@esphomeIdentityEddystone": {
     "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
     "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
@@ -17042,7 +17042,7 @@
       ]
     }
   },
-  "esphomeIdentityGoogleFastPair": "Google Fast Pair device",
+  "esphomeIdentityGoogleFastPair": "Dispositivo Google Fast Pair",
   "@esphomeIdentityGoogleFastPair": {
     "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
     "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
@@ -17055,7 +17055,7 @@
       ]
     }
   },
-  "esphomeIdentityAppleFindMy": "Apple Find My device",
+  "esphomeIdentityAppleFindMy": "Dispositivo Apple Find My",
   "@esphomeIdentityAppleFindMy": {
     "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
     "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
@@ -17068,7 +17068,7 @@
       ]
     }
   },
-  "esphomeIdentityExposure": "Exposure notification (phone)",
+  "esphomeIdentityExposure": "Notificación de exposición (teléfono)",
   "@esphomeIdentityExposure": {
     "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
     "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
@@ -17081,7 +17081,7 @@
       ]
     }
   },
-  "esphomeIdentityAugustYale": "August/Yale lock",
+  "esphomeIdentityAugustYale": "Cerradura August/Yale",
   "@esphomeIdentityAugustYale": {
     "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
     "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
@@ -17094,7 +17094,7 @@
       ]
     }
   },
-  "esphomeIdentityAmazon": "Amazon device",
+  "esphomeIdentityAmazon": "Dispositivo Amazon",
   "@esphomeIdentityAmazon": {
     "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
     "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
@@ -17107,7 +17107,7 @@
       ]
     }
   },
-  "esphomeIdentityTile": "Tile tracker",
+  "esphomeIdentityTile": "Localizador Tile",
   "@esphomeIdentityTile": {
     "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
     "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
@@ -17120,7 +17120,7 @@
       ]
     }
   },
-  "esphomeIdentityInput": "Input device (remote/keyboard)",
+  "esphomeIdentityInput": "Dispositivo de entrada (control remoto/teclado)",
   "@esphomeIdentityInput": {
     "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
     "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
@@ -17133,7 +17133,7 @@
       ]
     }
   },
-  "esphomeIdentityHeartRate": "Heart rate sensor",
+  "esphomeIdentityHeartRate": "Sensor de frecuencia cardíaca",
   "@esphomeIdentityHeartRate": {
     "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
     "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
@@ -17146,7 +17146,7 @@
       ]
     }
   },
-  "esphomeIdentityEnvironmental": "Environmental sensor",
+  "esphomeIdentityEnvironmental": "Sensor ambiental",
   "@esphomeIdentityEnvironmental": {
     "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
     "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
@@ -17159,7 +17159,7 @@
       ]
     }
   },
-  "esphomeIdentityApple": "Apple device",
+  "esphomeIdentityApple": "Dispositivo Apple",
   "@esphomeIdentityApple": {
     "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
     "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
@@ -17172,7 +17172,7 @@
       ]
     }
   },
-  "esphomeIdentityWindows": "Windows PC",
+  "esphomeIdentityWindows": "PC con Windows",
   "@esphomeIdentityWindows": {
     "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
     "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
@@ -17185,7 +17185,7 @@
       ]
     }
   },
-  "esphomeIdentitySamsung": "Samsung device",
+  "esphomeIdentitySamsung": "Dispositivo Samsung",
   "@esphomeIdentitySamsung": {
     "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
     "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
@@ -17198,7 +17198,7 @@
       ]
     }
   },
-  "esphomeIdentityGoogle": "Google device",
+  "esphomeIdentityGoogle": "Dispositivo Google",
   "@esphomeIdentityGoogle": {
     "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
     "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
@@ -17211,7 +17211,7 @@
       ]
     }
   },
-  "esphomeIdentityUnknown": "Unknown device",
+  "esphomeIdentityUnknown": "Dispositivo desconocido",
   "@esphomeIdentityUnknown": {
     "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
     "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
@@ -17224,7 +17224,7 @@
       ]
     }
   },
-  "esphomeIdentityVendor": "{vendor} device",
+  "esphomeIdentityVendor": "Dispositivo {vendor}",
   "@esphomeIdentityVendor": {
     "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
     "description": "Inferred device class. Never translate an actual broadcast name or manufacturer name.",
@@ -17243,7 +17243,7 @@
       }
     }
   },
-  "esphomeNearby": "Nearby devices",
+  "esphomeNearby": "Dispositivos cercanos",
   "@esphomeNearby": {
     "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
     "description": "Interface label or status message.",
@@ -17256,7 +17256,7 @@
       ]
     }
   },
-  "esphomeNearbySearch": "The Bluetooth devices this kiosk hears, with names where known.",
+  "esphomeNearbySearch": "Los dispositivos Bluetooth que detecta este kiosko, con sus nombres cuando se conocen.",
   "@esphomeNearbySearch": {
     "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
     "description": "Interface label or status message.",
@@ -17269,7 +17269,7 @@
       ]
     }
   },
-  "esphomeNearbyEmpty": "Nothing heard yet.",
+  "esphomeNearbyEmpty": "Aún no se ha detectado ningún dispositivo.",
   "@esphomeNearbyEmpty": {
     "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
     "description": "Interface label or status message.",
@@ -17282,7 +17282,7 @@
       ]
     }
   },
-  "esphomeNearbyWaiting": "Nothing heard yet. Devices appear here once the proxy is scanning.",
+  "esphomeNearbyWaiting": "Aún no se ha detectado ningún dispositivo. Los dispositivos aparecen aquí cuando el proxy empieza a escanear.",
   "@esphomeNearbyWaiting": {
     "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
     "description": "Interface label or status message.",
@@ -17295,7 +17295,7 @@
       ]
     }
   },
-  "esphomeRotating": "(rotating address)",
+  "esphomeRotating": "(dirección variable)",
   "@esphomeRotating": {
     "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
     "description": "Interface label or status message.",
@@ -17308,7 +17308,7 @@
       ]
     }
   },
-  "esphomeNearbyCount": "Showing the first {count} of {total}.",
+  "esphomeNearbyCount": "Se muestran los primeros {count} de {total}.",
   "@esphomeNearbyCount": {
     "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
     "description": "Interface label or status message.",
@@ -17331,7 +17331,7 @@
       }
     }
   },
-  "esphomeSlots": "Up to {count} devices can be connected at once through this proxy. Home Assistant routes further devices through other proxies.",
+  "esphomeSlots": "Se pueden conectar hasta {count} dispositivos a la vez a través de este proxy. Home Assistant conecta los demás dispositivos a través de otros proxies.",
   "@esphomeSlots": {
     "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
     "description": "Interface label or status message.",
@@ -17350,7 +17350,7 @@
       }
     }
   },
-  "esphomeSecondsAgo": "{count}s ago",
+  "esphomeSecondsAgo": "hace {count} s",
   "@esphomeSecondsAgo": {
     "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
     "description": "Interface label or status message.",
@@ -17369,7 +17369,7 @@
       }
     }
   },
-  "esphomeMinutesAgo": "{count} min ago",
+  "esphomeMinutesAgo": "hace {count} min",
   "@esphomeMinutesAgo": {
     "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
     "description": "Interface label or status message.",
@@ -17388,7 +17388,7 @@
       }
     }
   },
-  "esphomeHoursAgo": "{count} h ago",
+  "esphomeHoursAgo": "hace {count} h",
   "@esphomeHoursAgo": {
     "context": "Settings > ESPHome > Bluetooth Proxy > Nearby devices",
     "description": "Interface label or status message.",
@@ -17407,7 +17407,7 @@
       }
     }
   },
-  "settingLocationEnabledTitle": "Report location",
+  "settingLocationEnabledTitle": "Informar ubicación",
   "@settingLocationEnabledTitle": {
     "context": "Settings > ESPHome > GPS Sensor",
     "description": "Setting label.",
@@ -17420,7 +17420,7 @@
       ]
     }
   },
-  "settingLocationEnabledDescription": "Read the GPS position and serve it to Home Assistant as latitude, longitude, accuracy, altitude and speed sensors. Turning this on or off re-registers the ESPHome device.",
+  "settingLocationEnabledDescription": "Lee la posición del GPS y la expone en Home Assistant como sensores de latitud, longitud, precisión, altitud y velocidad. Activar o desactivar esta opción vuelve a registrar el dispositivo ESPHome.",
   "@settingLocationEnabledDescription": {
     "context": "Settings > ESPHome > GPS Sensor",
     "description": "Help below the setting.",
@@ -17433,7 +17433,7 @@
       ]
     }
   },
-  "settingLocationIntervalTitle": "Update interval",
+  "settingLocationIntervalTitle": "Intervalo de actualización",
   "@settingLocationIntervalTitle": {
     "context": "Settings > ESPHome > GPS Sensor",
     "description": "Setting label.",
@@ -17446,7 +17446,7 @@
       ]
     }
   },
-  "settingLocationIntervalDescription": "Seconds between position readings.",
+  "settingLocationIntervalDescription": "Segundos entre lecturas de posición.",
   "@settingLocationIntervalDescription": {
     "context": "Settings > ESPHome > GPS Sensor",
     "description": "Help below the setting.",
@@ -17459,7 +17459,7 @@
       ]
     }
   },
-  "esphomeGps": "GPS Sensor",
+  "esphomeGps": "Sensor GPS",
   "@esphomeGps": {
     "context": "Settings > ESPHome > GPS Sensor",
     "description": "Interface label or status message.",
@@ -17472,7 +17472,7 @@
       ]
     }
   },
-  "esphomeGpsHelp": "Expose GPS sensor data to Home Assistant",
+  "esphomeGpsHelp": "Expone los datos del sensor GPS en Home Assistant",
   "@esphomeGpsHelp": {
     "context": "Settings > ESPHome > GPS Sensor",
     "description": "Interface label or status message.",
@@ -17485,7 +17485,7 @@
       ]
     }
   },
-  "esphomeLocationOff": "Off.",
+  "esphomeLocationOff": "Desactivado.",
   "@esphomeLocationOff": {
     "context": "Settings > ESPHome > GPS Sensor",
     "description": "Interface label or status message.",
@@ -17498,7 +17498,7 @@
       ]
     }
   },
-  "esphomeLocationWaiting": "Waiting for the first fix. A cold start under open sky can take a few minutes.",
+  "esphomeLocationWaiting": "Esperando la primera posición. Un inicio en frío a cielo abierto puede tardar unos minutos.",
   "@esphomeLocationWaiting": {
     "context": "Settings > ESPHome > GPS Sensor",
     "description": "Interface label or status message.",
@@ -17511,7 +17511,7 @@
       ]
     }
   },
-  "esphomeCoordinates": "Last coordinates",
+  "esphomeCoordinates": "Últimas coordenadas",
   "@esphomeCoordinates": {
     "context": "Settings > ESPHome > GPS Sensor",
     "description": "Interface label or status message.",
@@ -17524,7 +17524,7 @@
       ]
     }
   },
-  "esphomeLocationDenied": "Location permission not granted.",
+  "esphomeLocationDenied": "No se ha concedido el permiso de ubicación.",
   "@esphomeLocationDenied": {
     "context": "Settings > ESPHome > GPS Sensor",
     "description": "Interface label or status message.",
@@ -17537,7 +17537,7 @@
       ]
     }
   },
-  "esphomeLocationAbsent": "No GPS receiver.",
+  "esphomeLocationAbsent": "No hay receptor GPS.",
   "@esphomeLocationAbsent": {
     "context": "Settings > ESPHome > GPS Sensor",
     "description": "Interface label or status message.",
@@ -17550,7 +17550,7 @@
       ]
     }
   },
-  "esphomeLocationError": "GPS unavailable: {error}",
+  "esphomeLocationError": "GPS no disponible: {error}",
   "@esphomeLocationError": {
     "context": "Settings > ESPHome > GPS Sensor",
     "description": "Interface label or status message.",
@@ -17569,7 +17569,7 @@
       }
     }
   },
-  "esphomeLocationUnsupported": "Not available on this device: it has no GPS receiver.",
+  "esphomeLocationUnsupported": "No disponible en este dispositivo: no tiene receptor GPS.",
   "@esphomeLocationUnsupported": {
     "context": "Settings > ESPHome > GPS Sensor",
     "description": "Interface label or status message.",
@@ -17582,7 +17582,7 @@
       ]
     }
   },
-  "settingNotificationsTransparencyTitle": "Transparency",
+  "settingNotificationsTransparencyTitle": "Transparencia",
   "@settingNotificationsTransparencyTitle": {
     "context": "Settings > ESPHome > Notifications",
     "description": "Setting label.",
@@ -17595,7 +17595,7 @@
       ]
     }
   },
-  "settingNotificationsTransparencyDescription": "Lets the screen behind show through the notification cards. Text and icons stay solid.",
+  "settingNotificationsTransparencyDescription": "Permite ver la pantalla a través de las tarjetas de notificación. El texto y los iconos se mantienen opacos.",
   "@settingNotificationsTransparencyDescription": {
     "context": "Settings > ESPHome > Notifications",
     "description": "Help below the setting.",
@@ -17608,7 +17608,7 @@
       ]
     }
   },
-  "settingNotificationsBlurTitle": "Background blur",
+  "settingNotificationsBlurTitle": "Desenfoque del fondo",
   "@settingNotificationsBlurTitle": {
     "context": "Settings > ESPHome > Notifications",
     "description": "Setting label.",
@@ -17621,7 +17621,7 @@
       ]
     }
   },
-  "settingNotificationsBlurDescription": "Blurs what shows through a transparent notification card. Note: Blur cannot be applied over the Home Assistant dashboard surface.",
+  "settingNotificationsBlurDescription": "Desenfoca lo que se ve a través de una tarjeta de notificación transparente. Nota: el desenfoque no se puede aplicar sobre el panel de control de Home Assistant.",
   "@settingNotificationsBlurDescription": {
     "context": "Settings > ESPHome > Notifications",
     "description": "Help below the setting.",
@@ -17634,7 +17634,7 @@
       ]
     }
   },
-  "settingNotificationsChimeFileTitle": "Notification sound",
+  "settingNotificationsChimeFileTitle": "Sonido de notificación",
   "@settingNotificationsChimeFileTitle": {
     "context": "Settings > ESPHome > Notifications",
     "description": "Setting label.",
@@ -17647,7 +17647,7 @@
       ]
     }
   },
-  "settingNotificationsChimeFileDescription": "Sound files are read from Android/data/me.jxl.kiosk_satellite/files/sounds on the device, also reachable from the File Manager.",
+  "settingNotificationsChimeFileDescription": "Los archivos de sonido se leen desde Android/data/me.jxl.kiosk_satellite/files/sounds en el dispositivo. También puedes acceder a esa carpeta desde el Administrador de archivos.",
   "@settingNotificationsChimeFileDescription": {
     "context": "Settings > ESPHome > Notifications",
     "description": "Help below the setting.",
@@ -17660,7 +17660,7 @@
       ]
     }
   },
-  "settingNotificationsVolumeTitle": "Notification volume",
+  "settingNotificationsVolumeTitle": "Volumen de notificaciones",
   "@settingNotificationsVolumeTitle": {
     "context": "Settings > ESPHome > Notifications",
     "description": "Setting label.",
@@ -17673,7 +17673,7 @@
       ]
     }
   },
-  "settingNotificationsVolumeDescription": "How loud the notification sound plays, apart from the media and assistant volumes.",
+  "settingNotificationsVolumeDescription": "Volumen del sonido de notificación, independiente de los volúmenes de contenido multimedia y del asistente.",
   "@settingNotificationsVolumeDescription": {
     "context": "Settings > ESPHome > Notifications",
     "description": "Help below the setting.",
@@ -17686,7 +17686,7 @@
       ]
     }
   },
-  "esphomeNotifications": "Notifications",
+  "esphomeNotifications": "Notificaciones",
   "@esphomeNotifications": {
     "context": "Settings > ESPHome > Notifications",
     "description": "Interface label or status message.",
@@ -17699,7 +17699,7 @@
       ]
     }
   },
-  "esphomeNotificationsHelp": "Transparency, blur, notification sound, test notification",
+  "esphomeNotificationsHelp": "Transparencia, desenfoque, sonido y notificación de prueba",
   "@esphomeNotificationsHelp": {
     "context": "Settings > ESPHome > Notifications",
     "description": "Interface label or status message.",
@@ -17712,7 +17712,7 @@
       ]
     }
   },
-  "esphomeAppearance": "Appearance",
+  "esphomeAppearance": "Apariencia",
   "@esphomeAppearance": {
     "context": "Settings > ESPHome > Notifications",
     "description": "Interface label or status message.",
@@ -17725,7 +17725,7 @@
       ]
     }
   },
-  "esphomeSound": "Sound",
+  "esphomeSound": "Sonido",
   "@esphomeSound": {
     "context": "Settings > ESPHome > Notifications",
     "description": "Interface label or status message.",
@@ -17738,7 +17738,7 @@
       ]
     }
   },
-  "esphomeNotificationTest": "Test notification",
+  "esphomeNotificationTest": "Notificación de prueba",
   "@esphomeNotificationTest": {
     "context": "Settings > ESPHome > Notifications",
     "description": "Interface label or status message.",
@@ -17751,7 +17751,7 @@
       ]
     }
   },
-  "esphomeNotificationHelp": "Notifications are sent from Home Assistant with the {action} action. Test shows one over the dashboard.",
+  "esphomeNotificationHelp": "Las notificaciones se envían desde Home Assistant con la acción {action}. La prueba muestra una sobre el panel de control.",
   "@esphomeNotificationHelp": {
     "context": "Settings > ESPHome > Notifications",
     "description": "Interface label or status message.",
@@ -17770,7 +17770,7 @@
       }
     }
   },
-  "esphomeNotificationBody": "This is what a notification from Home Assistant looks and sounds like.",
+  "esphomeNotificationBody": "Así se ve y suena una notificación de Home Assistant.",
   "@esphomeNotificationBody": {
     "context": "Settings > ESPHome > Notifications",
     "description": "Interface label or status message.",
@@ -17783,7 +17783,7 @@
       ]
     }
   },
-  "esphomeNotificationSearch": "The Home Assistant action that sends notifications, and a button to show one.",
+  "esphomeNotificationSearch": "La acción de Home Assistant que envía notificaciones y un botón para mostrar una.",
   "@esphomeNotificationSearch": {
     "context": "Settings > ESPHome > Notifications",
     "description": "Interface label or status message.",
@@ -17796,7 +17796,7 @@
       ]
     }
   },
-  "esphomeLocation": "Location",
+  "esphomeLocation": "Ubicación",
   "@esphomeLocation": {
     "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
     "description": "Interface label or status message.",
@@ -17809,7 +17809,7 @@
       ]
     }
   },
-  "esphomeLocationSearch": "The Location grant the location sensors need.",
+  "esphomeLocationSearch": "El permiso de ubicación que necesitan los sensores de ubicación.",
   "@esphomeLocationSearch": {
     "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
     "description": "Interface label or status message.",
@@ -17822,7 +17822,7 @@
       ]
     }
   },
-  "esphomeBluetoothSearch": "The Nearby devices grant the Bluetooth proxy needs to scan.",
+  "esphomeBluetoothSearch": "El permiso de dispositivos cercanos que necesita el proxy Bluetooth para escanear.",
   "@esphomeBluetoothSearch": {
     "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
     "description": "Interface label or status message.",
@@ -17835,7 +17835,7 @@
       ]
     }
   },
-  "esphomeLocationMissing": "Without this the GPS receiver cannot be read and the location sensors stay unknown.",
+  "esphomeLocationMissing": "Sin este permiso no se puede leer el receptor GPS y los sensores de ubicación quedan sin datos.",
   "@esphomeLocationMissing": {
     "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
     "description": "Interface label or status message.",
@@ -17848,7 +17848,7 @@
       ]
     }
   },
-  "esphomeLocationServicesOff": "Location is off in the device settings, so the receiver delivers nothing.",
+  "esphomeLocationServicesOff": "La ubicación está desactivada en los ajustes del dispositivo, por lo que el receptor no proporciona datos.",
   "@esphomeLocationServicesOff": {
     "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
     "description": "Interface label or status message.",
@@ -17861,7 +17861,7 @@
       ]
     }
   },
-  "esphomeLocationGranted": "The location sensors can read the GPS receiver.",
+  "esphomeLocationGranted": "Los sensores de ubicación pueden leer el receptor GPS.",
   "@esphomeLocationGranted": {
     "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
     "description": "Interface label or status message.",
@@ -17874,7 +17874,7 @@
       ]
     }
   },
-  "esphomeBluetoothGranted": "The proxy can scan for nearby Bluetooth devices.",
+  "esphomeBluetoothGranted": "El proxy puede escanear dispositivos Bluetooth cercanos.",
   "@esphomeBluetoothGranted": {
     "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
     "description": "Interface label or status message.",
@@ -17887,7 +17887,7 @@
       ]
     }
   },
-  "esphomeBluetoothMissing": "Without this the proxy cannot scan for devices.",
+  "esphomeBluetoothMissing": "Sin este permiso, el proxy no puede escanear dispositivos.",
   "@esphomeBluetoothMissing": {
     "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
     "description": "Interface label or status message.",
@@ -17900,7 +17900,7 @@
       ]
     }
   },
-  "esphomeBluetoothLocationMissing": "Android only delivers Bluetooth scan results, beacons included, with Location granted. The proxy never reads the device position.",
+  "esphomeBluetoothLocationMissing": "Android solo proporciona resultados del escaneo Bluetooth, incluidas las balizas, cuando se concede el permiso de ubicación. El proxy nunca lee la posición del dispositivo.",
   "@esphomeBluetoothLocationMissing": {
     "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
     "description": "Interface label or status message.",
@@ -17913,7 +17913,7 @@
       ]
     }
   },
-  "esphomeBluetoothLocationOff": "Location is off in the device settings, so Bluetooth scanning finds nothing.",
+  "esphomeBluetoothLocationOff": "La ubicación está desactivada en los ajustes del dispositivo, por lo que el escaneo Bluetooth no encuentra nada.",
   "@esphomeBluetoothLocationOff": {
     "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
     "description": "Interface label or status message.",
@@ -17926,7 +17926,7 @@
       ]
     }
   },
-  "esphomeBluetoothBeacons": "Bluetooth scanning can hear beacons.",
+  "esphomeBluetoothBeacons": "El escaneo Bluetooth puede detectar balizas.",
   "@esphomeBluetoothBeacons": {
     "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
     "description": "Interface label or status message.",
@@ -17939,7 +17939,7 @@
       ]
     }
   },
-  "esphomeSent": "Sent",
+  "esphomeSent": "Enviada",
   "@esphomeSent": {
     "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
     "description": "Interface label or status message.",
@@ -17952,7 +17952,7 @@
       ]
     }
   },
-  "esphomeNotsaved": "Not saved",
+  "esphomeNotsaved": "No se guardó",
   "@esphomeNotsaved": {
     "context": "Settings > ESPHome > Bluetooth Proxy and GPS Sensor > Required system permissions",
     "description": "Interface label or status message.",

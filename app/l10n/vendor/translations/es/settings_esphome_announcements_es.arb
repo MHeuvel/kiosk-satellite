@@ -1,0 +1,16 @@
+{
+  "@@locale": "es",
+  "settingAnnouncementsEnabledTitle": "Activar anuncios",
+  "settingAnnouncementsEnabledDescription": "Reproduce los anuncios que Home Assistant envía con la acción announce.",
+  "settingAnnouncementsTtsEngineTitle": "Motor de texto a voz",
+  "settingAnnouncementsTtsEngineDescription": "La entidad de texto a voz de Home Assistant que lee los anuncios.",
+  "esphomeTtsFirst": "Primero disponible",
+  "settingAnnouncementsChimeTitle": "Reproducir un tono primero",
+  "settingAnnouncementsChimeDescription": "Reproduce un tono antes del anuncio.",
+  "settingAnnouncementsChimeFileTitle": "Sonido del tono",
+  "settingAnnouncementsChimeFileDescription": "Se reproduce al volumen de notificaciones.",
+  "esphomeAnnouncements": "Anuncios",
+  "esphomeAnnouncementsHelp": "Anuncios de voz de Home Assistant",
+  "esphomeChime": "Tono",
+  "esphomeTtsUnavailable": "No se pudo conectar con Home Assistant"
+}
