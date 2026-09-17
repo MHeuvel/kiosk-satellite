@@ -3387,7 +3387,7 @@ class _CategoryContentState extends State<_CategoryContent> {
             for (final def in _defsFor(widget.category))
               if (def.subpage == subpage) def,
           ]),
-          const SectionHeading('Speakers'),
+          SectionHeading(mediaText(context, 'Speakers')),
           SearchLandingTarget(
             id: 'x:sonos_speakers',
             child: SettingsCard(
@@ -6252,8 +6252,11 @@ class _SonosSpeakersCardState extends State<_SonosSpeakersCard> {
     if (discover && (_speakers?.isEmpty ?? true)) {
       showToast(
         context,
-        title: 'No Sonos found',
-        message: 'Nothing answered on this network. Add one by address.',
+        title: mediaText(context, 'No Sonos found'),
+        message: mediaText(
+          context,
+          'Nothing answered on this network. Add one by address.',
+        ),
         kind: ToastKind.warning,
       );
     }
@@ -6264,7 +6267,7 @@ class _SonosSpeakersCardState extends State<_SonosSpeakersCard> {
     final host = await showDialog<String>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Add a Sonos by address'),
+        title: Text(mediaText(context, 'Add a Sonos by address')),
         content: SizedBox(
           width: 420,
           child: TextField(
@@ -6278,11 +6281,11 @@ class _SonosSpeakersCardState extends State<_SonosSpeakersCard> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancel'),
+            child: Text(mediaText(context, 'Cancel')),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(ctx, _host.text),
-            child: const Text('Add'),
+            child: Text(mediaText(context, 'Add')),
           ),
         ],
       ),
@@ -6297,8 +6300,10 @@ class _SonosSpeakersCardState extends State<_SonosSpeakersCard> {
       setState(() => _busy = false);
       showToast(
         context,
-        title: 'No Sonos found',
-        message: result.error,
+        title: mediaText(context, 'No Sonos found'),
+        message: result.error == null
+            ? null
+            : mediaError(context, result.error!),
         kind: ToastKind.error,
       );
       return;
@@ -6309,7 +6314,7 @@ class _SonosSpeakersCardState extends State<_SonosSpeakersCard> {
 
   Future<void> _forget(String id) async {
     await widget.container.commands.execute('sonosForget', {'id': id});
-    await _load();
+    if (mounted) await _load();
   }
 
   @override
@@ -6320,12 +6325,15 @@ class _SonosSpeakersCardState extends State<_SonosSpeakersCard> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         if (speakers == null)
-          const ListTile(title: Text('Looking…'))
+          ListTile(title: Text(mediaText(context, 'Looking…')))
         else if (speakers.isEmpty)
-          const ListTile(
-            title: Text('No speakers yet'),
+          ListTile(
+            title: Text(mediaText(context, 'No speakers yet')),
             subtitle: Text(
-              'Search this network or add a speaker by its address.',
+              mediaText(
+                context,
+                'Search this network or add a speaker by its address.',
+              ),
             ),
           )
         else
@@ -6338,16 +6346,18 @@ class _SonosSpeakersCardState extends State<_SonosSpeakersCard> {
               subtitle: Text('${p['host']} · ${p['id']}'),
               trailing: IconButton(
                 icon: const Icon(Icons.delete_outline),
-                tooltip: 'Forget',
+                tooltip: mediaText(context, 'Forget'),
                 onPressed: _busy ? null : () => _forget('${p['id']}'),
               ),
             ),
         const Divider(height: 1),
         SettingsRow(
-          title: const Text('Search the network'),
-          subtitle: const Text(
-            'Finds Sonos speakers on this network. The speakers must be on '
-            'the same VLAN as this device to be auto discovered.',
+          title: Text(mediaText(context, 'Search the network')),
+          subtitle: Text(
+            mediaText(
+              context,
+              'Finds Sonos speakers on this network. The speakers must be on the same VLAN as this device to be auto discovered.',
+            ),
           ),
           trailing: _busy
               ? const SizedBox(
@@ -6357,25 +6367,27 @@ class _SonosSpeakersCardState extends State<_SonosSpeakersCard> {
                 )
               : OutlinedButton(
                   onPressed: () => _load(discover: true),
-                  child: const Text('Search'),
+                  child: Text(mediaText(context, 'Search')),
                 ),
         ),
         SettingsRow(
-          title: const Text('Add by address'),
-          subtitle: const Text(
-            'The speaker\'s address on the network. The whole household '
-            'is added from it.',
+          title: Text(mediaText(context, 'Add by address')),
+          subtitle: Text(
+            mediaText(
+              context,
+              "The speaker's address on the network. The whole household is added from it.",
+            ),
           ),
           trailing: FilledButton(
             onPressed: _busy ? null : _add,
-            child: const Text('Add'),
+            child: Text(mediaText(context, 'Add')),
           ),
         ),
         if (speakers != null && speakers.isNotEmpty)
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 4, 20, 12),
             child: Text(
-              'Pick a room under Player source, Sonos.',
+              mediaText(context, 'Pick a room under Player source, Sonos.'),
               style: Theme.of(
                 context,
               ).textTheme.bodySmall?.copyWith(color: scheme.onSurfaceVariant),

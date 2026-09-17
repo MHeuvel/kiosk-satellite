@@ -5,6 +5,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ## Unreleased
 
 ### Added
+- **Sonos settings use translation templates in both interfaces.** The catalog adds 24 messages for playback options, discovery, adding speakers by address, forgetting speakers and connection notices. Speaker names, addresses and IDs remain unchanged.
 - **Media Player setup uses translation templates in both interfaces.** Five templates add 76 messages for player selection, volume controls, Sendspin, Music Assistant connections and album art cache. Spanish uses "Reproduciendo Ahora" for Now Playing throughout the catalog. Two additional messages restore the remote browser crash recovery notice when its setting label is translated. All 1627 catalog messages now have bundled, author-approved Spanish translations. Player names, IDs and credentials stay unchanged.
 - **Web Browsing settings use translation templates in both interfaces.** Three templates add 25 messages for reload behavior, zoom, scrolling, cache, security and JavaScript editors. All 1549 catalog messages now have bundled, author-approved Spanish translations. Translated examples preserve executable code and saved settings.
 - **Live camera views use the selected language.** Connecting, playback failures and retry notices share 15 translation messages. All 1524 catalog messages now have bundled, author-approved Spanish translations. Open views update their language without restarting streams and preserve camera names and protocol details.

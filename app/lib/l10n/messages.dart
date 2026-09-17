@@ -82,6 +82,11 @@ String mediaText(BuildContext context, String english) =>
     messageById(l10n(context), mediaTextMessageIds[english], english);
 
 String mediaError(BuildContext context, String error) {
+  final sonos = RegExp(
+    r'^No Sonos answered at (.*)\.$',
+    dotAll: true,
+  ).firstMatch(error);
+  if (sonos != null) return l10n(context).mediaSonosUnreachable(sonos[1]!);
   const ha = 'Home Assistant did not answer: ';
   if (error.startsWith(ha)) {
     return l10n(context).mediaHaFailed(error.substring(ha.length));

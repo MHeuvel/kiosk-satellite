@@ -25,6 +25,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 // Test wording exercises localization even before draft catalogs are approved.
 class MenuMessages extends UiStringsEn {
   @override
+  String get mediaSonosEmpty => 'TEST empty speakers';
+  @override
+  String get mediaSonosAddTitle => 'TEST add speaker address';
+  @override
+  String get mediaSonosForget => 'TEST forget speaker';
+  @override
+  String mediaSonosUnreachable(String host) => 'TEST no speaker at $host';
+
+  @override
   String get mediaPickPlayer => 'TEST choose player';
   @override
   String get mediaMaPlayer => 'TEST MA player';
@@ -201,6 +210,75 @@ Future<AppContainer> containerFor(WidgetTester tester, Size size) async {
 }
 
 void main() {
+  testWidgets('Sonos controls preserve speaker addresses and IDs', (
+    tester,
+  ) async {
+    final container = await containerFor(tester, const Size(1000, 1800));
+    var speakers = <Map<String, Object?>>[];
+    final added = <String>[];
+    final forgotten = <String>[];
+    container.commands.register(
+      Command(
+        name: 'sonosSpeakers',
+        description: '',
+        handler: (_) async => CommandResult.ok(speakers),
+      ),
+    );
+    container.commands.register(
+      Command(
+        name: 'sonosAdd',
+        description: '',
+        handler: (args) async {
+          added.add(args['host'] as String);
+          speakers = [
+            {
+              'id': 'RINCON_raw-id',
+              'host': args['host'],
+              'name': 'Forget <speaker>',
+            },
+          ];
+          return CommandResult.ok(speakers);
+        },
+      ),
+    );
+    container.commands.register(
+      Command(
+        name: 'sonosForget',
+        description: '',
+        handler: (args) async {
+          forgotten.add(args['id'] as String);
+          speakers = [];
+          return CommandResult.ok(speakers);
+        },
+      ),
+    );
+    await tester.pumpWidget(
+      localized(
+        SubpageSettingsScreen(
+          container: container,
+          category: 'Sendspin',
+          subpage: 'Sonos',
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('TEST empty speakers'), findsOneWidget);
+    await tester.tap(find.widgetWithText(FilledButton, 'Add'));
+    await tester.pumpAndSettle();
+    expect(find.text('TEST add speaker address'), findsOneWidget);
+    await tester.enterText(find.byType(TextField), ' 192.0.2.40 ');
+    await tester.tap(find.widgetWithText(FilledButton, 'Add').last);
+    await tester.pumpAndSettle();
+    expect(added, ['192.0.2.40']);
+    expect(find.text('Forget <speaker>'), findsOneWidget);
+    expect(find.text('192.0.2.40 · RINCON_raw-id'), findsOneWidget);
+    await tester.tap(find.byTooltip('TEST forget speaker'));
+    await tester.pumpAndSettle();
+    expect(forgotten, ['RINCON_raw-id']);
+    expect(find.text('TEST empty speakers'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('media player picker preserves supplied names and IDs', (
     tester,
   ) async {

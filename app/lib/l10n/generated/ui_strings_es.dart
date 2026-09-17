@@ -3038,6 +3038,86 @@ class UiStringsEs extends UiStrings {
   String get mediaPcm => 'PCM (sin compresión)';
 
   @override
+  String get settingSendspinSonosGroupVolumeTitle => 'Adjust the group volume';
+
+  @override
+  String get settingSendspinSonosGroupVolumeDescription =>
+      'While the followed room plays in a group, the volume slider sets the whole group\'s volume. Off, only that room\'s.';
+
+  @override
+  String get settingSendspinSonosInputsTitle => 'Show TV and line-in';
+
+  @override
+  String get settingSendspinSonosInputsDescription =>
+      'Show activity in the media player when eARC or line-in inputs are active.';
+
+  @override
+  String get mediaSonosHint => 'Speakers on the network, add one by address';
+
+  @override
+  String get mediaSonosSpeakers => 'Speakers';
+
+  @override
+  String get mediaSonosNoneFound => 'No Sonos found';
+
+  @override
+  String get mediaSonosDiscoveryEmpty =>
+      'Nothing answered on this network. Add one by address.';
+
+  @override
+  String get mediaSonosAddTitle => 'Add a Sonos by address';
+
+  @override
+  String get mediaSonosLooking => 'Looking…';
+
+  @override
+  String get mediaSonosEmpty => 'No speakers yet';
+
+  @override
+  String get mediaSonosEmptyHelp =>
+      'Search this network or add a speaker by its address.';
+
+  @override
+  String get mediaSonosForget => 'Forget';
+
+  @override
+  String get mediaSonosSearchTitle => 'Search the network';
+
+  @override
+  String get mediaSonosSearchHelp =>
+      'Finds Sonos speakers on this network. The speakers must be on the same VLAN as this device to be auto discovered.';
+
+  @override
+  String get mediaSonosSearch => 'Search';
+
+  @override
+  String get mediaSonosSearching => 'Searching…';
+
+  @override
+  String get mediaSonosAddAddress => 'Add by address';
+
+  @override
+  String get mediaSonosAddressHelp =>
+      'The speaker\'s address on the network. The whole household is added from it.';
+
+  @override
+  String get mediaSonosPickRoom => 'Pick a room under Player source, Sonos.';
+
+  @override
+  String get mediaSonosAdded => 'Sonos added';
+
+  @override
+  String get mediaSonosNoRooms => 'The speaker listed no rooms.';
+
+  @override
+  String get mediaSonosNoAddress => 'no address';
+
+  @override
+  String mediaSonosUnreachable(String host) {
+    return 'No Sonos answered at $host.';
+  }
+
+  @override
   String get settingsMenuHomeAssistant => 'Configuración de Home Assistant';
 
   @override

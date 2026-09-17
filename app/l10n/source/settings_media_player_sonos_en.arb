@@ -1,0 +1,309 @@
+{
+  "@@locale": "en",
+  "settingSendspinSonosGroupVolumeTitle": "Adjust the group volume",
+  "@settingSendspinSonosGroupVolumeTitle": {
+    "context": "Settings > Media Player > Sonos > Adjust the group volume",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sonos > Adjust the group volume"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sonos > Adjust the group volume"
+      ]
+    }
+  },
+  "settingSendspinSonosGroupVolumeDescription": "While the followed room plays in a group, the volume slider sets the whole group's volume. Off, only that room's.",
+  "@settingSendspinSonosGroupVolumeDescription": {
+    "context": "Settings > Media Player > Sonos > Adjust the group volume",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sonos > Adjust the group volume"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sonos > Adjust the group volume"
+      ]
+    }
+  },
+  "settingSendspinSonosInputsTitle": "Show TV and line-in",
+  "@settingSendspinSonosInputsTitle": {
+    "context": "Settings > Media Player > Sonos > Show TV and line-in",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sonos > Show TV and line-in"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sonos > Show TV and line-in"
+      ]
+    }
+  },
+  "settingSendspinSonosInputsDescription": "Show activity in the media player when eARC or line-in inputs are active.",
+  "@settingSendspinSonosInputsDescription": {
+    "context": "Settings > Media Player > Sonos > Show TV and line-in",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sonos > Show TV and line-in"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sonos > Show TV and line-in"
+      ]
+    }
+  },
+  "mediaSonosHint": "Speakers on the network, add one by address",
+  "@mediaSonosHint": {
+    "context": "Settings > Media Player > Sonos",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sonos"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sonos"
+      ]
+    }
+  },
+  "mediaSonosSpeakers": "Speakers",
+  "@mediaSonosSpeakers": {
+    "context": "Settings > Media Player > Sonos > Speakers",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sonos > Speakers"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sonos > Speakers"
+      ]
+    }
+  },
+  "mediaSonosNoneFound": "No Sonos found",
+  "@mediaSonosNoneFound": {
+    "context": "Settings > Media Player > Sonos > Speakers",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sonos > Speakers"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sonos > Speakers"
+      ]
+    }
+  },
+  "mediaSonosDiscoveryEmpty": "Nothing answered on this network. Add one by address.",
+  "@mediaSonosDiscoveryEmpty": {
+    "context": "Settings > Media Player > Sonos > Speakers",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sonos > Speakers"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sonos > Speakers"
+      ]
+    }
+  },
+  "mediaSonosAddTitle": "Add a Sonos by address",
+  "@mediaSonosAddTitle": {
+    "context": "Settings > Media Player > Sonos > Speakers",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sonos > Speakers"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sonos > Speakers"
+      ]
+    }
+  },
+  "mediaSonosLooking": "Looking…",
+  "@mediaSonosLooking": {
+    "context": "Settings > Media Player > Sonos > Speakers",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sonos > Speakers"
+      ]
+    }
+  },
+  "mediaSonosEmpty": "No speakers yet",
+  "@mediaSonosEmpty": {
+    "context": "Settings > Media Player > Sonos > Speakers",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sonos > Speakers"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sonos > Speakers"
+      ]
+    }
+  },
+  "mediaSonosEmptyHelp": "Search this network or add a speaker by its address.",
+  "@mediaSonosEmptyHelp": {
+    "context": "Settings > Media Player > Sonos > Speakers",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sonos > Speakers"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sonos > Speakers"
+      ]
+    }
+  },
+  "mediaSonosForget": "Forget",
+  "@mediaSonosForget": {
+    "context": "Settings > Media Player > Sonos > Speakers",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sonos > Speakers"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sonos > Speakers"
+      ]
+    }
+  },
+  "mediaSonosSearchTitle": "Search the network",
+  "@mediaSonosSearchTitle": {
+    "context": "Settings > Media Player > Sonos > Speakers",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sonos > Speakers"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sonos > Speakers"
+      ]
+    }
+  },
+  "mediaSonosSearchHelp": "Finds Sonos speakers on this network. The speakers must be on the same VLAN as this device to be auto discovered.",
+  "@mediaSonosSearchHelp": {
+    "context": "Settings > Media Player > Sonos > Speakers",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sonos > Speakers"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sonos > Speakers"
+      ]
+    }
+  },
+  "mediaSonosSearch": "Search",
+  "@mediaSonosSearch": {
+    "context": "Settings > Media Player > Sonos > Speakers",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sonos > Speakers"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sonos > Speakers"
+      ]
+    }
+  },
+  "mediaSonosSearching": "Searching…",
+  "@mediaSonosSearching": {
+    "context": "Settings > Media Player > Sonos > Speakers",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Media Player > Sonos > Speakers"
+      ]
+    }
+  },
+  "mediaSonosAddAddress": "Add by address",
+  "@mediaSonosAddAddress": {
+    "context": "Settings > Media Player > Sonos > Speakers",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sonos > Speakers"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sonos > Speakers"
+      ]
+    }
+  },
+  "mediaSonosAddressHelp": "The speaker's address on the network. The whole household is added from it.",
+  "@mediaSonosAddressHelp": {
+    "context": "Settings > Media Player > Sonos > Speakers",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sonos > Speakers"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sonos > Speakers"
+      ]
+    }
+  },
+  "mediaSonosPickRoom": "Pick a room under Player source, Sonos.",
+  "@mediaSonosPickRoom": {
+    "context": "Settings > Media Player > Sonos > Speakers",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sonos > Speakers"
+      ]
+    }
+  },
+  "mediaSonosAdded": "Sonos added",
+  "@mediaSonosAdded": {
+    "context": "Settings > Media Player > Sonos > Speakers",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Media Player > Sonos > Speakers"
+      ]
+    }
+  },
+  "mediaSonosNoRooms": "The speaker listed no rooms.",
+  "@mediaSonosNoRooms": {
+    "context": "Settings > Media Player > Sonos > Speakers",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sonos > Speakers"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sonos > Speakers"
+      ]
+    }
+  },
+  "mediaSonosNoAddress": "no address",
+  "@mediaSonosNoAddress": {
+    "context": "Settings > Media Player > Sonos > Speakers",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sonos > Speakers"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sonos > Speakers"
+      ]
+    }
+  },
+  "mediaSonosUnreachable": "No Sonos answered at {host}.",
+  "@mediaSonosUnreachable": {
+    "context": "Settings > Media Player > Sonos > Speakers",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sonos > Speakers"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sonos > Speakers"
+      ]
+    },
+    "placeholders": {
+      "host": {
+        "type": "String",
+        "description": "Speaker address supplied by the app. Keep unchanged."
+      }
+    }
+  }
+}

@@ -226,7 +226,7 @@ export async function updateSonosPage() {
   if (panel.querySelector('.sonos-speakers')) return;
   const h = document.createElement('h2');
   h.className = 'card-title';
-  h.textContent = 'Speakers';
+  h.textContent = mediaText('Speakers');
   const card = document.createElement('div');
   card.className = 'card sonos-speakers';
   panel.append(h, card);
@@ -239,8 +239,8 @@ export async function updateSonosPage() {
   const render = (speakers) => {
     list.textContent = '';
     if (!speakers.length) {
-      list.appendChild(readOnlyRow('No speakers yet',
-        'Search this network or add a speaker by its address.', ''));
+      list.appendChild(readOnlyRow(mediaText('No speakers yet'),
+        mediaText('Search this network or add a speaker by its address.'), ''));
     }
     for (const p of speakers) {
       // The address, and the id an automation can follow the room by.
@@ -248,8 +248,8 @@ export async function updateSonosPage() {
       r.querySelector('span')?.remove();
       const forget = document.createElement('button');
       forget.className = 'icon-btn';
-      forget.title = 'Forget';
-      forget.setAttribute('aria-label', 'Forget');
+      forget.title = mediaText('Forget');
+      forget.setAttribute('aria-label', mediaText('Forget'));
       forget.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M6 7l1 13h10l1-13"/><path d="M9 7V4h6v3"/></svg>';
       forget.addEventListener('click', async () => {
         const out = await (await api('/api/commands/sonosForget', {
@@ -269,34 +269,33 @@ export async function updateSonosPage() {
     render(out.ok ? (out.data || []) : []);
     if (discover && out.ok) refreshPick();
     if (discover && out.ok && !(out.data || []).length) {
-      showToast({ title: 'No Sonos found',
-        message: 'Nothing answered on this network. Add one by address.', kind: 'warning' });
+      showToast({ title: mediaText('No Sonos found'),
+        message: mediaText('Nothing answered on this network. Add one by address.'), kind: 'warning' });
     }
   };
-  const search = readOnlyRow('Search the network',
-    'Finds Sonos speakers on this network. The speakers must be on the same '
-    + 'VLAN as this device to be auto discovered.', '');
+  const search = readOnlyRow(mediaText('Search the network'),
+    mediaText('Finds Sonos speakers on this network. The speakers must be on the same VLAN as this device to be auto discovered.'), '');
   search.querySelector('span')?.remove();
   const searchBtn = document.createElement('button');
   searchBtn.className = 'btn-ghost';
-  searchBtn.textContent = 'Search';
+  searchBtn.textContent = mediaText('Search');
   searchBtn.addEventListener('click', async () => {
-    searchBtn.disabled = true; searchBtn.textContent = 'Searching…';
+    searchBtn.disabled = true; searchBtn.textContent = mediaText('Searching…');
     await load(true);
-    searchBtn.disabled = false; searchBtn.textContent = 'Search';
+    searchBtn.disabled = false; searchBtn.textContent = mediaText('Search');
   });
   search.appendChild(searchBtn);
   card.appendChild(search);
-  const addRow = readOnlyRow('Add by address',
-    "The speaker's address on the network. The whole household is added from it.", '');
+  const addRow = readOnlyRow(mediaText('Add by address'),
+    mediaText("The speaker's address on the network. The whole household is added from it."), '');
   addRow.querySelector('span')?.remove();
   const addBtn = document.createElement('button');
   addBtn.className = 'btn-primary';
-  addBtn.textContent = 'Add';
+  addBtn.textContent = mediaText('Add');
   addBtn.style.cssText = 'flex-shrink:0;';
   addBtn.addEventListener('click', () => {
     // The address in a modal, the way every value is entered here.
-    const shell = modalShell({ title: 'Add a Sonos by address', width: 440,
+    const shell = modalShell({ title: mediaText('Add a Sonos by address'), width: 440,
       onDismiss: () => shell.close() });
     const input = document.createElement('input');
     input.className = 'field';
@@ -305,11 +304,11 @@ export async function updateSonosPage() {
     shell.body.appendChild(input);
     const cancel = document.createElement('button');
     cancel.className = 'btn-text';
-    cancel.textContent = 'Cancel';
+    cancel.textContent = mediaText('Cancel');
     cancel.addEventListener('click', () => shell.close());
     const ok = document.createElement('button');
     ok.className = 'btn-primary';
-    ok.textContent = 'Add';
+    ok.textContent = mediaText('Add');
     const submit = async () => {
       const host = input.value.trim();
       if (!host) return;
@@ -320,9 +319,9 @@ export async function updateSonosPage() {
           method: 'POST', body: JSON.stringify({ host }) })).json();
       } catch (_) { out = { ok: false, error: 'The device did not answer.' }; }
       ok.disabled = false;
-      if (!out.ok) { showToast({ title: 'No Sonos found', message: out.error || '', kind: 'error' }); return; }
+      if (!out.ok) { showToast({ title: mediaText('No Sonos found'), message: mediaError(out.error || ''), kind: 'error' }); return; }
       shell.close();
-      showToast({ title: 'Sonos added', message: (out.data || []).map((p) => p.name).join(', '), kind: 'success' });
+      showToast({ title: mediaText('Sonos added'), message: (out.data || []).map((p) => p.name).join(', '), kind: 'success' });
       await load(false);
       refreshPick();
     };

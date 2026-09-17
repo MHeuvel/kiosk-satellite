@@ -5245,6 +5245,150 @@ abstract class UiStrings {
   /// **'PCM (uncompressed)'**
   String get mediaPcm;
 
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Adjust the group volume'**
+  String get settingSendspinSonosGroupVolumeTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'While the followed room plays in a group, the volume slider sets the whole group\'s volume. Off, only that room\'s.'**
+  String get settingSendspinSonosGroupVolumeDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Show TV and line-in'**
+  String get settingSendspinSonosInputsTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Show activity in the media player when eARC or line-in inputs are active.'**
+  String get settingSendspinSonosInputsDescription;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Speakers on the network, add one by address'**
+  String get mediaSonosHint;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Speakers'**
+  String get mediaSonosSpeakers;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No Sonos found'**
+  String get mediaSonosNoneFound;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing answered on this network. Add one by address.'**
+  String get mediaSonosDiscoveryEmpty;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a Sonos by address'**
+  String get mediaSonosAddTitle;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Looking…'**
+  String get mediaSonosLooking;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No speakers yet'**
+  String get mediaSonosEmpty;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Search this network or add a speaker by its address.'**
+  String get mediaSonosEmptyHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Forget'**
+  String get mediaSonosForget;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Search the network'**
+  String get mediaSonosSearchTitle;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Finds Sonos speakers on this network. The speakers must be on the same VLAN as this device to be auto discovered.'**
+  String get mediaSonosSearchHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get mediaSonosSearch;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Searching…'**
+  String get mediaSonosSearching;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Add by address'**
+  String get mediaSonosAddAddress;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The speaker\'s address on the network. The whole household is added from it.'**
+  String get mediaSonosAddressHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a room under Player source, Sonos.'**
+  String get mediaSonosPickRoom;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Sonos added'**
+  String get mediaSonosAdded;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The speaker listed no rooms.'**
+  String get mediaSonosNoRooms;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'no address'**
+  String get mediaSonosNoAddress;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No Sonos answered at {host}.'**
+  String mediaSonosUnreachable(String host);
+
   /// Settings menu entry. Product names stay unchanged.
   ///
   /// In en, this message translates to:

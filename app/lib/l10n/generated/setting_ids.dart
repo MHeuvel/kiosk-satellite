@@ -992,4 +992,12 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingSendspinMaHideCloseTitle",
     "description": "settingSendspinMaHideCloseDescription",
   },
+  "sendspin.sonos_group_volume": {
+    "title": "settingSendspinSonosGroupVolumeTitle",
+    "description": "settingSendspinSonosGroupVolumeDescription",
+  },
+  "sendspin.sonos_inputs": {
+    "title": "settingSendspinSonosInputsTitle",
+    "description": "settingSendspinSonosInputsDescription",
+  },
 };

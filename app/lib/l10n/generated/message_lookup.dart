@@ -904,6 +904,33 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'mediaFlac' => strings.mediaFlac,
       'mediaOpus' => strings.mediaOpus,
       'mediaPcm' => strings.mediaPcm,
+      'settingSendspinSonosGroupVolumeTitle' =>
+        strings.settingSendspinSonosGroupVolumeTitle,
+      'settingSendspinSonosGroupVolumeDescription' =>
+        strings.settingSendspinSonosGroupVolumeDescription,
+      'settingSendspinSonosInputsTitle' =>
+        strings.settingSendspinSonosInputsTitle,
+      'settingSendspinSonosInputsDescription' =>
+        strings.settingSendspinSonosInputsDescription,
+      'mediaSonosHint' => strings.mediaSonosHint,
+      'mediaSonosSpeakers' => strings.mediaSonosSpeakers,
+      'mediaSonosNoneFound' => strings.mediaSonosNoneFound,
+      'mediaSonosDiscoveryEmpty' => strings.mediaSonosDiscoveryEmpty,
+      'mediaSonosAddTitle' => strings.mediaSonosAddTitle,
+      'mediaSonosLooking' => strings.mediaSonosLooking,
+      'mediaSonosEmpty' => strings.mediaSonosEmpty,
+      'mediaSonosEmptyHelp' => strings.mediaSonosEmptyHelp,
+      'mediaSonosForget' => strings.mediaSonosForget,
+      'mediaSonosSearchTitle' => strings.mediaSonosSearchTitle,
+      'mediaSonosSearchHelp' => strings.mediaSonosSearchHelp,
+      'mediaSonosSearch' => strings.mediaSonosSearch,
+      'mediaSonosSearching' => strings.mediaSonosSearching,
+      'mediaSonosAddAddress' => strings.mediaSonosAddAddress,
+      'mediaSonosAddressHelp' => strings.mediaSonosAddressHelp,
+      'mediaSonosPickRoom' => strings.mediaSonosPickRoom,
+      'mediaSonosAdded' => strings.mediaSonosAdded,
+      'mediaSonosNoRooms' => strings.mediaSonosNoRooms,
+      'mediaSonosNoAddress' => strings.mediaSonosNoAddress,
       'settingsMenuHomeAssistant' => strings.settingsMenuHomeAssistant,
       'settingsMenuHomeAssistantSummary' =>
         strings.settingsMenuHomeAssistantSummary,

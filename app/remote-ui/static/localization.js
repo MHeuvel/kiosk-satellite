@@ -29,6 +29,8 @@ export function mediaText(english) {
 }
 
 export function mediaError(error) {
+  const sonos = /^No Sonos answered at (.*)\.$/s.exec(error);
+  if (sonos) return t('mediaSonosUnreachable', {host: sonos[1]});
   const ha = 'Home Assistant did not answer: ';
   if (error.startsWith(ha)) return t('mediaHaFailed', {error: error.slice(ha.length)});
   const connected = 'Connected to Music Assistant ';
