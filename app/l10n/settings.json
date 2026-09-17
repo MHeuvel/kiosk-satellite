@@ -1378,5 +1378,9 @@
   "btproxy.min_connect_rssi": {
     "title": "settingBtproxyMinConnectRssiTitle",
     "description": "settingBtproxyMinConnectRssiDescription"
+  },
+  "wake_word.background": {
+    "title": "settingWakeWordBackgroundTitle",
+    "description": "settingWakeWordBackgroundDescription"
   }
 }

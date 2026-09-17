@@ -1,3 +1,4 @@
+import { voiceText, voiceVadOption } from './localization.js';
 import { watchUpdates } from './live.js';
 import { toggleRow } from './audio.js';
 import { cmd, state } from './core.js';
@@ -119,20 +120,21 @@ export async function renderVsControls(root, { auto = false } = {}) {
   const entitySwitchRow = (key, title, desc) => {
     const ent = entity(key);
     if (!ent) return null;
-    if (!ent.available) return readOnlyRow(title, desc, 'Not available');
-    return toggleRow(title, desc, ent.state === 'on',
+    if (!ent.available) return readOnlyRow(voiceText(title), voiceText(desc), voiceText('Not available'));
+    return toggleRow(voiceText(title), voiceText(desc), ent.state === 'on',
       (v) => switchEntity(key, v));
   };
   const entityRow = (key, title, desc, capitalize) => {
     const ent = entity(key);
     if (!ent) return null;
     if (!ent.available || !(ent.options || []).length) {
-      return readOnlyRow(title, desc, 'Not available');
+      return readOnlyRow(voiceText(title), voiceText(desc), voiceText('Not available'));
     }
     // Options whose values are bare lowercase words render like Home
     // Assistant shows them; the raw value is what gets written.
-    const label = (o) => capitalize && o ? o[0].toUpperCase() + o.slice(1) : o;
-    return vsSelectRow(title, desc,
+    const label = (o) => key === 'vad_sensitivity' ? voiceVadOption(o)
+      : capitalize && o ? o[0].toUpperCase() + o.slice(1) : o;
+    return vsSelectRow(voiceText(title), voiceText(desc),
       (ent.options || []).map((o) => ({ value: o, label: label(o) })),
       ent.state, (v) => selectEntity(key, v));
   };
@@ -157,18 +159,18 @@ export async function renderVsControls(root, { auto = false } = {}) {
 
   // General: the engine, the satellite binding, auto start and the
   // pipelines.
-  const [generalWrap, generalCard] = section('vsGeneralCard', 'General');
+  const [generalWrap, generalCard] = section('vsGeneralCard', voiceText('General'));
   const engine = data.browser && data.browser.engine;
   if (engine) {
-    const row = readOnlyRow('Engine',
-      'Start or Stop the Voice Satellite engine.', '');
+    const row = readOnlyRow(voiceText('Engine'),
+      voiceText('Start or Stop the Voice Satellite engine.'), '');
     const status = row.querySelector('span');
-    status.textContent = engine.running ? 'Running' : 'Stopped';
+    status.textContent = engine.running ? voiceText('Running') : voiceText('Stopped');
     status.style.color = engine.running ? 'var(--primary)' : 'var(--muted)';
     status.style.marginRight = '10px';
     const btn = document.createElement('button');
     btn.className = 'btn-ghost';
-    btn.textContent = engine.running ? 'Stop' : 'Start';
+    btn.textContent = engine.running ? voiceText('Stop') : voiceText('Start');
     btn.style.cssText = engine.running
       ? 'background:var(--error); border-color:transparent; color:#fff'
       : 'background:var(--primary-fill); border-color:transparent;'
@@ -184,14 +186,14 @@ export async function renderVsControls(root, { auto = false } = {}) {
     row.appendChild(btn);
     generalCard.appendChild(row);
   }
-  const satDesc = 'The assist_satellite entity this kiosk identifies as in ' +
-    'Home Assistant. Changing it reloads the dashboard.';
+  const satDesc = voiceText('The assist_satellite entity this kiosk identifies as in ' +
+    'Home Assistant. Changing it reloads the dashboard.');
   const sats = data.satellites || [];
   if (sats.length) {
-    generalCard.appendChild(vsSelectRow('Assigned satellite', satDesc,
+    generalCard.appendChild(vsSelectRow(voiceText('Assigned satellite'), satDesc,
       // Disabled clears the binding: the kiosk stops identifying as a
       // satellite until one is picked again.
-      [{ value: '', label: 'Disabled' },
+      [{ value: '', label: voiceText('Disabled') },
        ...sats.map((s) => ({ value: s.entity_id, label: s.name }))],
       data.satellite || '',
       async (v) => {
@@ -199,12 +201,12 @@ export async function renderVsControls(root, { auto = false } = {}) {
         rebuild(3000);
       }));
   } else {
-    generalCard.appendChild(readOnlyRow('Assigned satellite', satDesc,
-      data.satellite || 'None assigned'));
+    generalCard.appendChild(readOnlyRow(voiceText('Assigned satellite'), satDesc,
+      data.satellite || voiceText('None assigned')));
   }
   if (browser) {
-    generalCard.appendChild(toggleRow('Auto start',
-      'Auto start Voice Satellite on dashboard load.',
+    generalCard.appendChild(toggleRow(voiceText('Auto start'),
+      voiceText('Auto start Voice Satellite on dashboard load.'),
       browser.auto_start !== false, (v) => applyBrowser({ auto_start: v })));
   }
   // Adopt the declarative "Keep listening in the background" row out of the
@@ -232,19 +234,19 @@ export async function renderVsControls(root, { auto = false } = {}) {
   // Only offered once the settings hook reports the key: an older Voice
   // Satellite silently drops writes it does not know.
   if (browser && 'disable_muted_microphone_warning' in browser) {
-    generalCard.appendChild(toggleRow('Disable muted microphone warning',
-      'Hide the muted microphone warning at startup and whenever the satellite microphone is muted.',
+    generalCard.appendChild(toggleRow(voiceText('Disable muted microphone warning'),
+      voiceText('Hide the muted microphone warning at startup and whenever the satellite microphone is muted.'),
       browser.disable_muted_microphone_warning === true,
       (v) => applyBrowser({ disable_muted_microphone_warning: v })));
   }
   if (browser && 'debug' in browser) {
-    generalCard.appendChild(toggleRow('Debug logging',
-      'Show Voice Satellite debug info in the browser console.',
+    generalCard.appendChild(toggleRow(voiceText('Debug logging'),
+      voiceText('Show Voice Satellite debug info in the browser console.'),
       browser.debug === true, (v) => applyBrowser({ debug: v })));
   }
   if (data.version) {
-    generalCard.appendChild(readOnlyRow('Voice Satellite version',
-      'The integration version installed in Home Assistant.',
+    generalCard.appendChild(readOnlyRow(voiceText('Voice Satellite version'),
+      voiceText('The integration version installed in Home Assistant.'),
       `v${data.version}`));
   }
 

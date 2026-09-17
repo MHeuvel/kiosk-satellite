@@ -448,6 +448,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         launcherTextFor: (text) => launcherText(context, text),
         kioskTextFor: (text) => kioskText(context, text),
         esphomeTextFor: (text) => esphomeText(context, text),
+        voiceTextFor: (text) => voiceText(context, text),
         gestureTextFor: (text) => gestureText(context, text),
         fleetTextFor: (text) => fleetText(context, text),
         pluginTextFor: (text) => pluginText(context, text),
@@ -3518,14 +3519,16 @@ class _CategoryContentState extends State<_CategoryContent> {
   /// being installed.
   List<Widget> _vsContent(AppContainer container) {
     if (!container.homeAssistant.connectionOk.value) {
-      return const [
+      return [
         SettingsCard(
           children: [
             ListTile(
-              title: Text('Home Assistant not connected'),
+              title: Text(voiceText(context, 'Home Assistant not connected')),
               subtitle: Text(
-                'Validate the connection under Home Assistant '
-                'Configuration first.',
+                voiceText(
+                  context,
+                  'Validate the connection under Home Assistant Setup first.',
+                ),
               ),
             ),
           ],
@@ -3537,10 +3540,12 @@ class _CategoryContentState extends State<_CategoryContent> {
         future: _vsDetected,
         builder: (context, snapshot) {
           if (snapshot.connectionState != ConnectionState.done) {
-            return const SettingsCard(
+            return SettingsCard(
               children: [
                 ListTile(
-                  title: Text('Checking for Voice Satellite…'),
+                  title: Text(
+                    voiceText(context, 'Checking for Voice Satellite…'),
+                  ),
                   trailing: SizedBox(
                     width: 20,
                     height: 20,
@@ -3553,20 +3558,26 @@ class _CategoryContentState extends State<_CategoryContent> {
           if (snapshot.data != true) {
             return SettingsCard(
               children: [
-                const ListTile(
+                ListTile(
                   title: Text(
-                    'Voice Satellite is not installed in Home Assistant',
+                    voiceText(
+                      context,
+                      'Voice Satellite is not installed in Home Assistant',
+                    ),
                   ),
                   subtitle: Padding(
                     padding: EdgeInsets.only(top: 4),
                     child: Text(
-                      'Voice Satellite turns this kiosk into a full '
-                      'hands-free voice assistant for Home Assistant: '
-                      'wake word detection, conversations, timers and '
-                      'announcements, right on the dashboard.\n\n'
-                      'It is available in the default HACS repository. '
-                      'Install it on your Home Assistant instance, then '
-                      'come back here.',
+                      voiceText(
+                        context,
+                        'Voice Satellite turns this kiosk into a full '
+                        'hands-free voice assistant for Home Assistant: '
+                        'wake word detection, conversations, timers and '
+                        'announcements, right on the dashboard.\n\n'
+                        'It is available in the default HACS repository. '
+                        'Install it on your Home Assistant instance, then '
+                        'come back here.',
+                      ),
                     ),
                   ),
                 ),
@@ -3587,9 +3598,12 @@ class _CategoryContentState extends State<_CategoryContent> {
                         ).popUntil((route) => route.isFirst);
                         container.commands.execute('loadUrl', {'url': url});
                       },
-                      child: SvgPicture.asset(
-                        'assets/branding/hacs.svg',
-                        height: 44,
+                      child: Semantics(
+                        label: voiceText(context, 'Open HACS repository'),
+                        child: SvgPicture.asset(
+                          'assets/branding/hacs.svg',
+                          height: 44,
+                        ),
                       ),
                     ),
                   ),
@@ -3617,7 +3631,9 @@ class _CategoryContentState extends State<_CategoryContent> {
                                 ).colorScheme.onSurfaceVariant,
                               ),
                           children: [
-                            const TextSpan(text: 'Learn more about '),
+                            TextSpan(
+                              text: voiceText(context, 'Learn more about '),
+                            ),
                             WidgetSpan(
                               alignment: PlaceholderAlignment.middle,
                               child: Padding(
@@ -3633,7 +3649,10 @@ class _CategoryContentState extends State<_CategoryContent> {
                               ),
                             ),
                             TextSpan(
-                              text: 'Voice Satellite on Github',
+                              text: voiceText(
+                                context,
+                                'Voice Satellite on Github',
+                              ),
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.primary,
                                 decoration: TextDecoration.underline,
@@ -3683,7 +3702,9 @@ class _CategoryContentState extends State<_CategoryContent> {
               // the one listening — with detection off, the browser asks
               // for the microphone through its own flow.
               if (container.settings.get(wakeWordEnabled)) ...[
-                const SectionHeading('Required system permissions'),
+                SectionHeading(
+                  voiceText(context, 'Required system permissions'),
+                ),
                 SearchLandingTarget(
                   id: 'x:vs_permissions',
                   child: SettingsCard(
@@ -8749,11 +8770,14 @@ class _SystemPermissionsTileState extends State<SystemPermissionsTile>
         granted == true ? Icons.check_circle_outline : missingIcon,
         color: granted == true ? null : theme.colorScheme.error,
       ),
-      title: Text(title),
-      subtitle: Text(granted == true ? held : missing),
+      title: Text(voiceText(context, title)),
+      subtitle: Text(voiceText(context, granted == true ? held : missing)),
       trailing: granted == true
           ? null
-          : TextButton(onPressed: onGrant, child: Text(action)),
+          : TextButton(
+              onPressed: onGrant,
+              child: Text(voiceText(context, action)),
+            ),
     );
   }
 
@@ -10728,13 +10752,18 @@ class _VsControlsSectionState extends State<VsControlsSection> {
         engine['canStart'] == true && '${_data?['satellite'] ?? ''}'.isNotEmpty;
     final scheme = Theme.of(context).colorScheme;
     return SettingsRow(
-      title: const Text('Engine'),
-      subtitle: const Text('Start or Stop the Voice Satellite engine.'),
+      stack: true,
+      title: Text(voiceText(context, 'Engine')),
+      subtitle: Text(
+        voiceText(context, 'Start or Stop the Voice Satellite engine.'),
+      ),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            running ? 'Running' : 'Stopped',
+            running
+                ? voiceText(context, 'Running')
+                : voiceText(context, 'Stopped'),
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
               color: running ? scheme.primary : scheme.onSurfaceVariant,
             ),
@@ -10750,7 +10779,13 @@ class _VsControlsSectionState extends State<VsControlsSection> {
             onPressed: _engineBusy || (!running && !canStart)
                 ? null
                 : () => _engine(running ? 'stop' : 'start'),
-            child: Text(_engineBusy ? '…' : (running ? 'Stop' : 'Start')),
+            child: Text(
+              _engineBusy
+                  ? '…'
+                  : (running
+                        ? voiceText(context, 'Stop')
+                        : voiceText(context, 'Start')),
+            ),
           ),
         ],
       ),
@@ -10775,17 +10810,17 @@ class _VsControlsSectionState extends State<VsControlsSection> {
     if (entity == null) return null;
     if (entity['available'] != true) {
       return ListTile(
-        title: Text(title),
-        subtitle: Text(description),
+        title: Text(voiceText(context, title)),
+        subtitle: Text(voiceText(context, description)),
         trailing: Text(
-          'Not available',
+          voiceText(context, 'Not available'),
           style: Theme.of(context).textTheme.bodyMedium,
         ),
       );
     }
     return SwitchListTile(
-      title: Text(title),
-      subtitle: Text(description),
+      title: Text(voiceText(context, title)),
+      subtitle: Text(voiceText(context, description)),
       value: '${entity['state']}' == 'on',
       onChanged: (v) => _switchEntity(key, v),
     );
@@ -10836,21 +10871,24 @@ class _VsControlsSectionState extends State<VsControlsSection> {
     final state = '${entity['state'] ?? ''}';
     if (entity['available'] != true || options.isEmpty) {
       return ListTile(
-        title: Text(title),
-        subtitle: Text(description),
+        title: Text(voiceText(context, title)),
+        subtitle: Text(voiceText(context, description)),
         trailing: Text(
-          'Not available',
+          voiceText(context, 'Not available'),
           style: Theme.of(context).textTheme.bodyMedium,
         ),
       );
     }
     // Options whose values are bare lowercase words render like Home
     // Assistant shows them; the raw value is what gets written.
-    String label(String o) =>
-        capitalize && o.isNotEmpty ? o[0].toUpperCase() + o.substring(1) : o;
+    String label(String o) => key == 'vad_sensitivity'
+        ? voiceVadOption(context, o)
+        : capitalize && o.isNotEmpty
+        ? o[0].toUpperCase() + o.substring(1)
+        : o;
     return DropdownRow<String>(
-      title: title,
-      description: description,
+      title: voiceText(context, title),
+      description: voiceText(context, description),
       value: options.contains(state) ? state : null,
       options: [for (final o in options) (o, label(o))],
       onChanged: (v) {
@@ -10860,10 +10898,12 @@ class _VsControlsSectionState extends State<VsControlsSection> {
   }
 
   Widget _satelliteRow(BuildContext context) {
-    const title = 'Assigned satellite';
-    const description =
-        'The assist_satellite entity this kiosk identifies as in Home '
-        'Assistant. Changing it reloads the dashboard.';
+    final title = voiceText(context, 'Assigned satellite');
+    final description = voiceText(
+      context,
+      'The assist_satellite entity this kiosk identifies as in Home '
+      'Assistant. Changing it reloads the dashboard.',
+    );
     final list = _data?['satellites'];
     final satellites = [
       for (final s in (list is List ? list : const []))
@@ -10872,10 +10912,10 @@ class _VsControlsSectionState extends State<VsControlsSection> {
     final current = '${_data?['satellite'] ?? ''}';
     if (satellites.isEmpty) {
       return ListTile(
-        title: const Text(title),
-        subtitle: const Text(description),
+        title: Text(title),
+        subtitle: Text(description),
         trailing: Text(
-          current.isEmpty ? 'None assigned' : current,
+          current.isEmpty ? voiceText(context, 'None assigned') : current,
           style: Theme.of(context).textTheme.bodyMedium,
         ),
       );
@@ -10883,7 +10923,7 @@ class _VsControlsSectionState extends State<VsControlsSection> {
     final options = [
       // Disabled clears the binding: this kiosk stops identifying as a
       // satellite until one is picked again.
-      ('', 'Disabled'),
+      ('', voiceText(context, 'Disabled')),
       ...satellites,
       if (current.isNotEmpty && !satellites.any((s) => s.$1 == current))
         (current, current),
@@ -10906,10 +10946,12 @@ class _VsControlsSectionState extends State<VsControlsSection> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const SettingsCard(
+          SettingsCard(
             children: [
               ListTile(
-                title: Text('Loading Voice Satellite controls…'),
+                title: Text(
+                  voiceText(context, 'Loading Voice Satellite controls…'),
+                ),
                 trailing: SizedBox(
                   width: 20,
                   height: 20,
@@ -10940,8 +10982,10 @@ class _VsControlsSectionState extends State<VsControlsSection> {
       _satelliteRow(context),
       if (browser != null)
         SwitchListTile(
-          title: const Text('Auto start'),
-          subtitle: const Text('Auto start Voice Satellite on dashboard load.'),
+          title: Text(voiceText(context, 'Auto start')),
+          subtitle: Text(
+            voiceText(context, 'Auto start Voice Satellite on dashboard load.'),
+          ),
           value: browser['auto_start'] != false,
           onChanged: (v) => _applyBrowser({'auto_start': v}),
         ),
@@ -10968,10 +11012,13 @@ class _VsControlsSectionState extends State<VsControlsSection> {
       if (browser != null &&
           browser.containsKey('disable_muted_microphone_warning'))
         SwitchListTile(
-          title: const Text('Disable muted microphone warning'),
-          subtitle: const Text(
-            'Hide the muted microphone warning at startup and whenever '
-            'the satellite microphone is muted.',
+          title: Text(voiceText(context, 'Disable muted microphone warning')),
+          subtitle: Text(
+            voiceText(
+              context,
+              'Hide the muted microphone warning at startup and whenever '
+              'the satellite microphone is muted.',
+            ),
           ),
           value: browser['disable_muted_microphone_warning'] == true,
           onChanged: (v) =>
@@ -10979,18 +11026,24 @@ class _VsControlsSectionState extends State<VsControlsSection> {
         ),
       if (browser != null && browser.containsKey('debug'))
         SwitchListTile(
-          title: const Text('Debug logging'),
-          subtitle: const Text(
-            'Show Voice Satellite debug info in the browser console.',
+          title: Text(voiceText(context, 'Debug logging')),
+          subtitle: Text(
+            voiceText(
+              context,
+              'Show Voice Satellite debug info in the browser console.',
+            ),
           ),
           value: browser['debug'] == true,
           onChanged: (v) => _applyBrowser({'debug': v}),
         ),
       if ('${_data?['version'] ?? ''}'.isNotEmpty)
         ListTile(
-          title: const Text('Voice Satellite version'),
-          subtitle: const Text(
-            'The integration version installed in Home Assistant.',
+          title: Text(voiceText(context, 'Voice Satellite version')),
+          subtitle: Text(
+            voiceText(
+              context,
+              'The integration version installed in Home Assistant.',
+            ),
           ),
           trailing: Text(
             'v${_data?['version']}',
@@ -11144,7 +11197,7 @@ class _VsControlsSectionState extends State<VsControlsSection> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const SectionHeading('General'),
+        SectionHeading(voiceText(context, 'General')),
         SearchLandingTarget(
           id: 'x:assigned_satellite',
           child: SettingsCard(children: general),

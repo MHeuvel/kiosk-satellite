@@ -15255,6 +15255,300 @@ abstract class UiStrings {
   /// **'No settings match \"{query}\".'**
   String settingsSearchEmpty(String query);
 
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Engine'**
+  String get voiceEngine;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Start or Stop the Voice Satellite engine.'**
+  String get voiceEngineHelp;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Assigned satellite'**
+  String get voiceAssigned;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'The assist_satellite entity this kiosk identifies as in Home Assistant. Changing it reloads the dashboard.'**
+  String get voiceAssignedHelp;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'The assist_satellite entity this kiosk identifies as in Home Assistant.'**
+  String get voiceAssignedSearch;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'None assigned'**
+  String get voiceNoneAssigned;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto start'**
+  String get voiceAutoStart;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto start Voice Satellite on dashboard load.'**
+  String get voiceAutoStartHelp;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop listening for wake words.'**
+  String get voiceMuteHelp;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Assist pipeline 1'**
+  String get voicePipeline1;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'The Assist pipeline voice commands run through.'**
+  String get voicePipeline1Help;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Assist pipeline 2'**
+  String get voicePipeline2;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'The pipeline used when the second wake word triggers.'**
+  String get voicePipeline2Help;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Finished speaking detection'**
+  String get voiceVad;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'How long a pause ends a voice command.'**
+  String get voiceVadHelp;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Disable muted microphone warning'**
+  String get voiceMutedWarning;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide the muted microphone warning at startup and whenever the satellite microphone is muted.'**
+  String get voiceMutedWarningHelp;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Debug logging'**
+  String get voiceDebug;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Voice Satellite debug info in the browser console.'**
+  String get voiceDebugHelp;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice Satellite version'**
+  String get voiceVersion;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'The integration version installed in Home Assistant.'**
+  String get voiceVersionHelp;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Default'**
+  String get voiceVadDefault;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Relaxed'**
+  String get voiceVadRelaxed;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Aggressive'**
+  String get voiceVadAggressive;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'General'**
+  String get voiceGeneral;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get voiceStart;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Not available'**
+  String get voiceNotavailable;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Disabled'**
+  String get voiceDisabled;
+
+  /// Background listening setting on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep listening in the background'**
+  String get settingWakeWordBackgroundTitle;
+
+  /// Background listening setting on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep hearing the wake word while another app is in front, and return on a detection. Needs a permanent notification and display over other apps.'**
+  String get settingWakeWordBackgroundDescription;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Wake word detection can hear you.'**
+  String get voiceMicHeld;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked. Android will not ask again, so allow it in the app settings.'**
+  String get voiceMicBlocked;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Without this nothing is listening for the wake word.'**
+  String get voiceMicMissing;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosk Satellite can come forward when it hears you.'**
+  String get voiceForegroundHeld;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Without this the wake word is heard and nothing happens.'**
+  String get voiceForegroundMissing;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'The ongoing notification that enables background listening.'**
+  String get voiceNotificationHeld;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Needed for background listening to work reliably.'**
+  String get voiceNotificationMissing;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Android will leave the listener running.'**
+  String get voiceBatteryHeld;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Without this the listener is stopped after a few hours.'**
+  String get voiceBatteryMissing;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Grant these on the device itself: swipe in from the left edge → Settings → Voice Satellite → Required system permissions.'**
+  String get voicePermissionDirections;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Assistant not connected'**
+  String get voiceDisconnected;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Validate the connection under Home Assistant Setup first.'**
+  String get voiceValidate;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking for Voice Satellite…'**
+  String get voiceChecking;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice Satellite is not installed in Home Assistant'**
+  String get voiceMissing;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice Satellite turns this kiosk into a full hands-free voice assistant for Home Assistant: wake word detection, conversations, timers and announcements, right on the dashboard.\n\nIt is available in the default HACS repository. Install it on your Home Assistant instance, then come back here.'**
+  String get voiceInstallHelp;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn more about '**
+  String get voiceLearnMore;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice Satellite on Github'**
+  String get voiceGithub;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Open HACS repository'**
+  String get voiceHacs;
+
+  /// Label or help shown on the Voice Satellite main page.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Voice Satellite controls…'**
+  String get voiceLoading;
+
   /// Setting label.
   ///
   /// In en, this message translates to:

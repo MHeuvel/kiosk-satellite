@@ -1,6 +1,6 @@
 import { deviceTextMessageIds } from './device_text_ids.js';
 import { supportTextMessageIds } from './support_text_ids.js';
-import { deviceText, supportText, t } from './localization.js';
+import { voiceText, deviceText, supportText, t } from './localization.js';
 import { $, api, cmd, state } from './core.js';
 import { watchUpdates } from './live.js';
 import { copyBox, hintRow, messageBox, modalShell, showToast } from './widgets.js';
@@ -800,20 +800,20 @@ export async function loadPermissions() {
     [deviceText('Microphone'), p.microphone,
       'Wake word detection can hear you.',
       p.microphoneBlocked
-        ? 'Blocked. Android will not ask again.'
-        : 'Nothing is listening for the wake word.'],
+        ? 'Blocked. Android will not ask again, so allow it in the app settings.'
+        : 'Without this nothing is listening for the wake word.'],
   ];
   if (p.background) {
     rows.push(
       [deviceText('Display over other apps'), p.displayOverOtherApps,
-        'Can come forward when it hears you.',
-        'The wake word is heard and nothing happens.'],
+        'Kiosk Satellite can come forward when it hears you.',
+        'Without this the wake word is heard and nothing happens.'],
       [deviceText('Notifications'), p.notification,
         'The ongoing notification that enables background listening.',
         'Needed for background listening to work reliably.'],
       [deviceText('Unrestricted battery'), p.batteryUnrestricted,
         'Android will leave the listener running.',
-        'The listener is stopped after a few hours.'],
+        'Without this the listener is stopped after a few hours.'],
     );
   }
 
@@ -824,7 +824,7 @@ export async function loadPermissions() {
     const info = document.createElement('div'); info.className = 'info';
     info.innerHTML = `<div class="name"></div><div class="desc"></div>`;
     info.querySelector('.name').textContent = deviceText(name);
-    info.querySelector('.desc').textContent = granted ? held : missing;
+    info.querySelector('.desc').textContent = voiceText(granted ? held : missing);
     row.appendChild(info);
     const state = document.createElement('span');
     state.style.cssText =
@@ -840,8 +840,8 @@ export async function loadPermissions() {
     note.className = 'desc';
     note.style.cssText = 'margin-top:12px; color:var(--warn)';
     note.textContent =
-      'Grant these on the device itself: swipe in from the left edge → ' +
-      'Settings → Voice Satellite → Required system permissions.';
+      voiceText('Grant these on the device itself: swipe in from the left edge → ' +
+      'Settings → Voice Satellite → Required system permissions.');
     card.appendChild(note);
   }
 

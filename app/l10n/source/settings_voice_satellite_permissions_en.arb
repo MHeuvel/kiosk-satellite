@@ -1,0 +1,133 @@
+{
+  "@@locale": "en",
+  "voiceMicHeld": "Wake word detection can hear you.",
+  "@voiceMicHeld": {
+    "context": "Settings > Voice Satellite > Required system permissions",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Required system permissions"
+      ]
+    }
+  },
+  "voiceMicBlocked": "Blocked. Android will not ask again, so allow it in the app settings.",
+  "@voiceMicBlocked": {
+    "context": "Settings > Voice Satellite > Required system permissions",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Required system permissions"
+      ]
+    }
+  },
+  "voiceMicMissing": "Without this nothing is listening for the wake word.",
+  "@voiceMicMissing": {
+    "context": "Settings > Voice Satellite > Required system permissions",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Required system permissions"
+      ]
+    }
+  },
+  "voiceForegroundHeld": "Kiosk Satellite can come forward when it hears you.",
+  "@voiceForegroundHeld": {
+    "context": "Settings > Voice Satellite > Required system permissions",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Required system permissions"
+      ]
+    }
+  },
+  "voiceForegroundMissing": "Without this the wake word is heard and nothing happens.",
+  "@voiceForegroundMissing": {
+    "context": "Settings > Voice Satellite > Required system permissions",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Required system permissions"
+      ]
+    }
+  },
+  "voiceNotificationHeld": "The ongoing notification that enables background listening.",
+  "@voiceNotificationHeld": {
+    "context": "Settings > Voice Satellite > Required system permissions",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Required system permissions"
+      ]
+    }
+  },
+  "voiceNotificationMissing": "Needed for background listening to work reliably.",
+  "@voiceNotificationMissing": {
+    "context": "Settings > Voice Satellite > Required system permissions",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Required system permissions"
+      ]
+    }
+  },
+  "voiceBatteryHeld": "Android will leave the listener running.",
+  "@voiceBatteryHeld": {
+    "context": "Settings > Voice Satellite > Required system permissions",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Required system permissions"
+      ]
+    }
+  },
+  "voiceBatteryMissing": "Without this the listener is stopped after a few hours.",
+  "@voiceBatteryMissing": {
+    "context": "Settings > Voice Satellite > Required system permissions",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Required system permissions"
+      ]
+    }
+  },
+  "voicePermissionDirections": "Grant these on the device itself: swipe in from the left edge → Settings → Voice Satellite → Required system permissions.",
+  "@voicePermissionDirections": {
+    "context": "Settings > Voice Satellite > Required system permissions",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Required system permissions"
+      ]
+    }
+  }
+}

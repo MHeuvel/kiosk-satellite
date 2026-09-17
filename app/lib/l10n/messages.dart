@@ -1,3 +1,4 @@
+import 'generated/voice_text_ids.dart';
 import 'generated/esphome_text_ids.dart';
 import 'generated/support_text_ids.dart';
 import 'generated/fleet_text_ids.dart';
@@ -387,3 +388,14 @@ String esphomeDeviceIdentity(
   }
   return esphomeText(context, identity);
 }
+
+/// App-owned Voice Satellite labels. Provider names and identifiers stay raw.
+String voiceText(BuildContext context, String english) =>
+    messageById(l10n(context), voiceTextMessageIds[english], english);
+
+String voiceVadOption(BuildContext context, String value) => switch (value) {
+  'default' => voiceText(context, 'Default'),
+  'relaxed' => voiceText(context, 'Relaxed'),
+  'aggressive' => voiceText(context, 'Aggressive'),
+  _ => value.isEmpty ? value : value[0].toUpperCase() + value.substring(1),
+};

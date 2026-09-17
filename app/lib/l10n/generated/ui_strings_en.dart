@@ -8749,6 +8749,174 @@ class UiStringsEn extends UiStrings {
   }
 
   @override
+  String get voiceEngine => 'Engine';
+
+  @override
+  String get voiceEngineHelp => 'Start or Stop the Voice Satellite engine.';
+
+  @override
+  String get voiceAssigned => 'Assigned satellite';
+
+  @override
+  String get voiceAssignedHelp =>
+      'The assist_satellite entity this kiosk identifies as in Home Assistant. Changing it reloads the dashboard.';
+
+  @override
+  String get voiceAssignedSearch =>
+      'The assist_satellite entity this kiosk identifies as in Home Assistant.';
+
+  @override
+  String get voiceNoneAssigned => 'None assigned';
+
+  @override
+  String get voiceAutoStart => 'Auto start';
+
+  @override
+  String get voiceAutoStartHelp =>
+      'Auto start Voice Satellite on dashboard load.';
+
+  @override
+  String get voiceMuteHelp => 'Stop listening for wake words.';
+
+  @override
+  String get voicePipeline1 => 'Assist pipeline 1';
+
+  @override
+  String get voicePipeline1Help =>
+      'The Assist pipeline voice commands run through.';
+
+  @override
+  String get voicePipeline2 => 'Assist pipeline 2';
+
+  @override
+  String get voicePipeline2Help =>
+      'The pipeline used when the second wake word triggers.';
+
+  @override
+  String get voiceVad => 'Finished speaking detection';
+
+  @override
+  String get voiceVadHelp => 'How long a pause ends a voice command.';
+
+  @override
+  String get voiceMutedWarning => 'Disable muted microphone warning';
+
+  @override
+  String get voiceMutedWarningHelp =>
+      'Hide the muted microphone warning at startup and whenever the satellite microphone is muted.';
+
+  @override
+  String get voiceDebug => 'Debug logging';
+
+  @override
+  String get voiceDebugHelp =>
+      'Show Voice Satellite debug info in the browser console.';
+
+  @override
+  String get voiceVersion => 'Voice Satellite version';
+
+  @override
+  String get voiceVersionHelp =>
+      'The integration version installed in Home Assistant.';
+
+  @override
+  String get voiceVadDefault => 'Default';
+
+  @override
+  String get voiceVadRelaxed => 'Relaxed';
+
+  @override
+  String get voiceVadAggressive => 'Aggressive';
+
+  @override
+  String get voiceGeneral => 'General';
+
+  @override
+  String get voiceStart => 'Start';
+
+  @override
+  String get voiceNotavailable => 'Not available';
+
+  @override
+  String get voiceDisabled => 'Disabled';
+
+  @override
+  String get settingWakeWordBackgroundTitle =>
+      'Keep listening in the background';
+
+  @override
+  String get settingWakeWordBackgroundDescription =>
+      'Keep hearing the wake word while another app is in front, and return on a detection. Needs a permanent notification and display over other apps.';
+
+  @override
+  String get voiceMicHeld => 'Wake word detection can hear you.';
+
+  @override
+  String get voiceMicBlocked =>
+      'Blocked. Android will not ask again, so allow it in the app settings.';
+
+  @override
+  String get voiceMicMissing =>
+      'Without this nothing is listening for the wake word.';
+
+  @override
+  String get voiceForegroundHeld =>
+      'Kiosk Satellite can come forward when it hears you.';
+
+  @override
+  String get voiceForegroundMissing =>
+      'Without this the wake word is heard and nothing happens.';
+
+  @override
+  String get voiceNotificationHeld =>
+      'The ongoing notification that enables background listening.';
+
+  @override
+  String get voiceNotificationMissing =>
+      'Needed for background listening to work reliably.';
+
+  @override
+  String get voiceBatteryHeld => 'Android will leave the listener running.';
+
+  @override
+  String get voiceBatteryMissing =>
+      'Without this the listener is stopped after a few hours.';
+
+  @override
+  String get voicePermissionDirections =>
+      'Grant these on the device itself: swipe in from the left edge → Settings → Voice Satellite → Required system permissions.';
+
+  @override
+  String get voiceDisconnected => 'Home Assistant not connected';
+
+  @override
+  String get voiceValidate =>
+      'Validate the connection under Home Assistant Setup first.';
+
+  @override
+  String get voiceChecking => 'Checking for Voice Satellite…';
+
+  @override
+  String get voiceMissing =>
+      'Voice Satellite is not installed in Home Assistant';
+
+  @override
+  String get voiceInstallHelp =>
+      'Voice Satellite turns this kiosk into a full hands-free voice assistant for Home Assistant: wake word detection, conversations, timers and announcements, right on the dashboard.\n\nIt is available in the default HACS repository. Install it on your Home Assistant instance, then come back here.';
+
+  @override
+  String get voiceLearnMore => 'Learn more about ';
+
+  @override
+  String get voiceGithub => 'Voice Satellite on Github';
+
+  @override
+  String get voiceHacs => 'Open HACS repository';
+
+  @override
+  String get voiceLoading => 'Loading Voice Satellite controls…';
+
+  @override
   String get settingDisableCacheTitle => 'Disable cache';
 
   @override

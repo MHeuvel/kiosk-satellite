@@ -1,3 +1,4 @@
+import { voiceTextMessageIds } from './voice_text_ids.js';
 import { esphomeTextMessageIds } from './esphome_text_ids.js';
 import { supportTextMessageIds } from './support_text_ids.js';
 import { fleetTextMessageIds } from './fleet_text_ids.js';
@@ -269,4 +270,12 @@ export function esphomeDeviceIdentity(device) {
     return t('esphomeIdentityVendor', {vendor: device.vendor});
   }
   return esphomeText(identity);
+}
+
+
+export function voiceText(english) { return t(voiceTextMessageIds[english], {}, english); }
+export function voiceVadOption(value) {
+  const labels = {default: 'Default', relaxed: 'Relaxed', aggressive: 'Aggressive'};
+  return Object.hasOwn(labels, value) ? voiceText(labels[value])
+    : value ? value[0].toUpperCase() + value.slice(1) : value;
 }

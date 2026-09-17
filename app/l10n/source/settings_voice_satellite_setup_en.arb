@@ -1,0 +1,120 @@
+{
+  "@@locale": "en",
+  "voiceDisconnected": "Home Assistant not connected",
+  "@voiceDisconnected": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voiceValidate": "Validate the connection under Home Assistant Setup first.",
+  "@voiceValidate": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voiceChecking": "Checking for Voice Satellite…",
+  "@voiceChecking": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voiceMissing": "Voice Satellite is not installed in Home Assistant",
+  "@voiceMissing": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voiceInstallHelp": "Voice Satellite turns this kiosk into a full hands-free voice assistant for Home Assistant: wake word detection, conversations, timers and announcements, right on the dashboard.\n\nIt is available in the default HACS repository. Install it on your Home Assistant instance, then come back here.",
+  "@voiceInstallHelp": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voiceLearnMore": "Learn more about ",
+  "@voiceLearnMore": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voiceGithub": "Voice Satellite on Github",
+  "@voiceGithub": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voiceHacs": "Open HACS repository",
+  "@voiceHacs": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "voiceLoading": "Loading Voice Satellite controls…",
+  "@voiceLoading": {
+    "context": "Settings > Voice Satellite",
+    "description": "Label or help shown on the Voice Satellite main page.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  }
+}

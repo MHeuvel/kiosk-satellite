@@ -1380,4 +1380,8 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingBtproxyMinConnectRssiTitle",
     "description": "settingBtproxyMinConnectRssiDescription",
   },
+  "wake_word.background": {
+    "title": "settingWakeWordBackgroundTitle",
+    "description": "settingWakeWordBackgroundDescription",
+  },
 };
