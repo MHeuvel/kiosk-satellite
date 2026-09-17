@@ -40,6 +40,46 @@
     "context": "Common:Actions",
     "description": "Button to dismiss a message."
   },
+  "commonGrant": "Grant",
+  "@commonGrant": {
+    "context": "Common:Actions",
+    "description": "Button to grant an Android permission."
+  },
+  "commonEnable": "Enable",
+  "@commonEnable": {
+    "context": "Common:Actions",
+    "description": "Button to enable a feature."
+  },
+  "commonRefresh": "Refresh",
+  "@commonRefresh": {
+    "context": "Common:Actions",
+    "description": "Button to refresh the displayed status."
+  },
+  "commonTest": "Test",
+  "@commonTest": {
+    "context": "Common:Actions",
+    "description": "Button to test a connection."
+  },
+  "commonInstall": "Install",
+  "@commonInstall": {
+    "context": "Common:Actions",
+    "description": "Button to install an update."
+  },
+  "commonSave": "Save",
+  "@commonSave": {
+    "context": "Common:Actions",
+    "description": "Button to save edited settings."
+  },
+  "commonRetry": "Retry",
+  "@commonRetry": {
+    "context": "Common:Actions",
+    "description": "Button to retry a failed action."
+  },
+  "commonCopy": "Copy",
+  "@commonCopy": {
+    "context": "Common:Actions",
+    "description": "Button to copy a value to the clipboard."
+  },
   "drawerPluginAction": "{pluginName}: {actionTitle}",
   "@drawerPluginAction": {
     "context": "Device:Drawer",
@@ -518,6 +558,453 @@
       ]
     }
   },
+  "settingAnalyticsBasicTitle": "Basic analytics",
+  "@settingAnalyticsBasicTitle": {
+    "context": "Settings:Device:Kiosk Satellite Analytics",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Analytics"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Analytics"
+      ]
+    }
+  },
+  "settingAnalyticsBasicDescription": "Information about your device, such as model, Android version, app version, screen size and language.",
+  "@settingAnalyticsBasicDescription": {
+    "context": "Settings:Device:Kiosk Satellite Analytics",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Analytics"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Analytics"
+      ]
+    }
+  },
+  "settingAnalyticsUsageTitle": "Usage",
+  "@settingAnalyticsUsageTitle": {
+    "context": "Settings:Device:Kiosk Satellite Analytics",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Analytics"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Analytics"
+      ]
+    }
+  },
+  "settingAnalyticsUsageDescription": "Details of what you use with Kiosk Satellite.",
+  "@settingAnalyticsUsageDescription": {
+    "context": "Settings:Device:Kiosk Satellite Analytics",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Analytics"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Analytics"
+      ]
+    }
+  },
+  "settingAnalyticsDiagnosticsTitle": "Diagnostics",
+  "@settingAnalyticsDiagnosticsTitle": {
+    "context": "Settings:Device:Kiosk Satellite Analytics",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Analytics"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Analytics"
+      ]
+    }
+  },
+  "settingAnalyticsDiagnosticsDescription": "Share crash reports when unexpected errors occur.",
+  "@settingAnalyticsDiagnosticsDescription": {
+    "context": "Settings:Device:Kiosk Satellite Analytics",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Analytics"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Analytics"
+      ]
+    }
+  },
+  "deviceAnalyticsPage": "Kiosk Satellite Analytics",
+  "@deviceAnalyticsPage": {
+    "context": "Settings:Device:Kiosk Satellite Analytics",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Analytics"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Analytics"
+      ]
+    }
+  },
+  "deviceAnalyticsIntro": "Share anonymized information from your installation to help make Kiosk Satellite better and guide which devices and features get attention.",
+  "@deviceAnalyticsIntro": {
+    "context": "Settings:Device:Kiosk Satellite Analytics",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Analytics"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Analytics"
+      ]
+    }
+  },
+  "deviceAnalyticsLearn": "Learn how we process your data",
+  "@deviceAnalyticsLearn": {
+    "context": "Settings:Device:Kiosk Satellite Analytics",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Analytics"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Analytics"
+      ]
+    }
+  },
+  "deviceAnalyticsLearnHelp": "What Kiosk Satellite Analytics sends and what it never sends.",
+  "@deviceAnalyticsLearnHelp": {
+    "context": "Settings:Device:Kiosk Satellite Analytics",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Analytics"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Analytics"
+      ]
+    }
+  },
+  "deviceExportConfig": "Export configuration",
+  "@deviceExportConfig": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceExportConfigHelp": "Save every setting and the page's local storage to a file.",
+  "@deviceExportConfigHelp": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceExportConfigRemoteHelp": "Download every setting and the page's local storage.",
+  "@deviceExportConfigRemoteHelp": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceImportConfig": "Import configuration",
+  "@deviceImportConfig": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceImportConfigHelp": "Replace this device's settings from an exported file.",
+  "@deviceImportConfigHelp": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceExportFailed": "Export failed",
+  "@deviceExportFailed": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceExported": "Configuration exported",
+  "@deviceExported": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceImportFailed": "Import failed",
+  "@deviceImportFailed": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceInvalidJson": "That file is not valid JSON.",
+  "@deviceInvalidJson": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceImportComplete": "Import complete",
+  "@deviceImportComplete": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceAppliedSettings": "Applied {count} settings.",
+  "@deviceAppliedSettings": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "example": "3"
+      }
+    }
+  },
+  "deviceAppliedReload": "Applied {count} settings. The page may reload.",
+  "@deviceAppliedReload": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "example": "3"
+      }
+    }
+  },
+  "deviceReplaceOriginal": "Replace the original device",
+  "@deviceReplaceOriginal": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceReplaceQuestion": "Replace this device's settings with the file's? The page may reload.",
+  "@deviceReplaceQuestion": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceNewDevice": "Set up as new device",
+  "@deviceNewDevice": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceReplaceIdentity": "Keeps the backup's name and ESPHome identity; the original device must stay offline.",
+  "@deviceReplaceIdentity": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceNewIdentity": "Assign its own name and ESPHome identity, so both devices are unique.",
+  "@deviceNewIdentity": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceRestoreStorage": "Restore Webview's local storage",
+  "@deviceRestoreStorage": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceRestoreStorageHelp": "Includes the Home Assistant signed in session and the Voice Satellite assist_satellite selection - two devices must not share one satellite.",
+  "@deviceRestoreStorageHelp": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceDownload": "Download",
+  "@deviceDownload": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceChooseFile": "Choose file…",
+  "@deviceChooseFile": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceImportFailedSentence": "Import failed.",
+  "@deviceImportFailedSentence": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceReplaceNamed": "Replace \"{name}\"",
+  "@deviceReplaceNamed": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Kitchen"
+      }
+    }
+  },
   "settingDeviceNameTitle": "Device name",
   "@settingDeviceNameTitle": {
     "context": "Settings:Device",
@@ -544,6 +1031,1569 @@
         "Device > Device name"
       ]
     }
+  },
+  "settingDeviceHostnameTitle": "mDNS name",
+  "@settingDeviceHostnameTitle": {
+    "context": "Settings:Device",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "settingDeviceHostnameDescription": "Reach the remote admin using this name and the configured port on the local network. Clear it to take the device name again.",
+  "@settingDeviceHostnameDescription": {
+    "context": "Settings:Device",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "settingDisableImpellerTitle": "Legacy renderer",
+  "@settingDisableImpellerTitle": {
+    "context": "Settings:Device",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "settingDisableImpellerDescription": "Use the older Skia renderer, for old GPUs that crash at startup. Turns itself on after two such crashes; takes effect on the next app start.",
+  "@settingDisableImpellerDescription": {
+    "context": "Settings:Device",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "settingLegacyWebViewTitle": "Legacy WebView renderer",
+  "@settingLegacyWebViewTitle": {
+    "context": "Settings:Device",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "settingLegacyWebViewDescription": "Draw the dashboard into a texture, for old GPUs that crash when it appears. Turns itself on where the device needs it; takes effect on the next app start.",
+  "@settingLegacyWebViewDescription": {
+    "context": "Settings:Device",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceHostnamePlaceholder": "Set from the device name",
+  "@deviceHostnamePlaceholder": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceConfiguration": "Configuration",
+  "@deviceConfiguration": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "devicePermissionsManager": "Permissions Manager",
+  "@devicePermissionsManager": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceOptions": "Options",
+  "@deviceOptions": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceStatus": "Status",
+  "@deviceStatus": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceConnection": "Connection",
+  "@deviceConnection": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "devicePermissions": "Permissions",
+  "@devicePermissions": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceHelp": "Help",
+  "@deviceHelp": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceAccess": "Access",
+  "@deviceAccess": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceReading": "Reading…",
+  "@deviceReading": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceChecking": "Checking...",
+  "@deviceChecking": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceUnavailable": "Status unavailable.",
+  "@deviceUnavailable": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceGrantOnDevice": "Grant on device",
+  "@deviceGrantOnDevice": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceAppSettings": "App settings",
+  "@deviceAppSettings": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceCopyCommand": "Copy command",
+  "@deviceCopyCommand": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceOpenGuide": "Open guide",
+  "@deviceOpenGuide": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceNotSet": "Not set",
+  "@deviceNotSet": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceGranted": "Granted",
+  "@deviceGranted": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceNotGranted": "Not granted",
+  "@deviceNotGranted": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceMissing": "Missing",
+  "@deviceMissing": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceNotOffered": "Not offered",
+  "@deviceNotOffered": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceOn": "on",
+  "@deviceOn": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceOff": "off",
+  "@deviceOff": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceServiceHint": "Status, what keeps it running, required permissions",
+  "@deviceServiceHint": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceRemoteHintActual": "Manage this kiosk from a browser on your network",
+  "@deviceRemoteHintActual": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceUpdatesHint": "Where the app looks for new releases",
+  "@deviceUpdatesHint": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceShizukuHint": "Connection, Android permissions and setup",
+  "@deviceShizukuHint": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceHelperHint": "Silent update status, ADB setup and instructions",
+  "@deviceHelperHint": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceAnalyticsHint": "Share anonymized information to help improve Kiosk Satellite",
+  "@deviceAnalyticsHint": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceHardwareHint": "Model, Android version, addresses, memory, uptime",
+  "@deviceHardwareHint": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceHaHint": "Connection, version and what the kiosk shows",
+  "@deviceHaHint": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceWebViewHint": "Engine version, renderer and user agent",
+  "@deviceWebViewHint": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "devicePasswordSet": "•••••• (set)",
+  "@devicePasswordSet": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceSaveFailed": "Could not save this setting. Try again.",
+  "@deviceSaveFailed": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceOpenSettingsDevice": "Open settings on device",
+  "@deviceOpenSettingsDevice": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceHardwarePage": "Hardware",
+  "@deviceHardwarePage": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceWebViewPage": "WebView",
+  "@deviceWebViewPage": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceModel": "Device model",
+  "@deviceModel": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceAndroidVersion": "Android version",
+  "@deviceAndroidVersion": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceAndroidBuild": "Android build",
+  "@deviceAndroidBuild": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceIpv4": "IPv4 address",
+  "@deviceIpv4": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceIpv6": "IPv6 addresses",
+  "@deviceIpv6": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceAppUptime": "App uptime",
+  "@deviceAppUptime": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceNetworkUptime": "Network uptime",
+  "@deviceNetworkUptime": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceCpuUsage": "CPU usage",
+  "@deviceCpuUsage": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceCpuTemp": "CPU temperature",
+  "@deviceCpuTemp": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceBatteryLevel": "Battery level",
+  "@deviceBatteryLevel": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceScreenBrightness": "Screen brightness",
+  "@deviceScreenBrightness": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceScreenStatus": "Screen status",
+  "@deviceScreenStatus": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceScreenSize": "Screen size",
+  "@deviceScreenSize": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceRam": "RAM (free/total)",
+  "@deviceRam": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceStorage": "Internal storage (free/total)",
+  "@deviceStorage": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceHaUrl": "Home Assistant URL",
+  "@deviceHaUrl": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceWakeDetection": "Wake word detection",
+  "@deviceWakeDetection": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceWakeStatus": "Wake word status",
+  "@deviceWakeStatus": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceEngine": "Engine",
+  "@deviceEngine": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceWakeWords": "Wake words",
+  "@deviceWakeWords": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceStopWord": "Stop word",
+  "@deviceStopWord": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceMotionDetection": "Motion detection",
+  "@deviceMotionDetection": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceFaceDetection": "Face detection",
+  "@deviceFaceDetection": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceProvider": "Provider",
+  "@deviceProvider": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceVersion": "Version",
+  "@deviceVersion": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceUserAgent": "User agent",
+  "@deviceUserAgent": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "devicePlugged": "plugged",
+  "@devicePlugged": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceLowMemory": "low",
+  "@deviceLowMemory": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceRequiredPermissions": "Required system permissions",
+  "@deviceRequiredPermissions": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "devicePermissionIntro": "Grants are given on this device, so each button opens an Android dialog or settings screen here. Some brands add their own battery or autostart manager on top, which Android cannot report.",
+  "@devicePermissionIntro": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "devicePermissionIntroRemote": "Grants are given on the device, so each button opens an Android dialog or settings screen there. Some brands add their own battery or autostart manager on top, which Android cannot report.",
+  "@devicePermissionIntroRemote": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceMicrophone": "Microphone",
+  "@deviceMicrophone": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceMicrophoneHeld": "Allows microphone usage for wake word detection, speech to text and intercom calls.",
+  "@deviceMicrophoneHeld": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceBattery": "Unrestricted battery",
+  "@deviceBattery": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceBatteryHeld": "Allows the process to run in the background without being paused or killed.",
+  "@deviceBatteryHeld": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceCamera": "Camera",
+  "@deviceCamera": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceCameraHeld": "Motion detection and snapshots can use the camera.",
+  "@deviceCameraHeld": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceBluetooth": "Nearby devices",
+  "@deviceBluetooth": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceBluetoothHeld": "The Bluetooth proxy can scan for nearby devices.",
+  "@deviceBluetoothHeld": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceNotifications": "Notifications",
+  "@deviceNotifications": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceNotificationsHeld": "Allows the Kiosk Satellite Service's ongoing notification, which says what it is keeping alive.",
+  "@deviceNotificationsHeld": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceOverlay": "Display over other apps",
+  "@deviceOverlay": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceOverlayHeld": "Kiosk Satellite can bring itself back in the foreground.",
+  "@deviceOverlayHeld": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceWriteSettings": "Modify system settings",
+  "@deviceWriteSettings": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceWriteSettingsHeld": "Brightness changes set the panel's real brightness.",
+  "@deviceWriteSettingsHeld": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceUiGuard": "System UI guard",
+  "@deviceUiGuard": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceUiGuardHeld": "The notification shade and recents close on their own while the screen is protected.",
+  "@deviceUiGuardHeld": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceDeviceAdmin": "Device admin",
+  "@deviceDeviceAdmin": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceDeviceAdminHeld": "Allows the app to turn the screen off.",
+  "@deviceDeviceAdminHeld": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceAllFiles": "All files access",
+  "@deviceAllFiles": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceAllFilesHeld": "The File Manager can browse the shared storage.",
+  "@deviceAllFilesHeld": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceUsageAccess": "Usage access",
+  "@deviceUsageAccess": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceUsageAccessHeld": "The Foreground app sensor can name whichever app is on screen.",
+  "@deviceUsageAccessHeld": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceLocation": "Location",
+  "@deviceLocation": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceLocationHeld": "Pages, Bluetooth scanning and the location sensors can use the device position.",
+  "@deviceLocationHeld": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceMicBlocked": "Blocked. Android will not ask again, so allow it in the app settings.",
+  "@deviceMicBlocked": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceMicMissing": "Wake word detection is on and nothing is listening.",
+  "@deviceMicMissing": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceMicIdle": "Needed by wake word detection, the intercom and pages that ask for the microphone.",
+  "@deviceMicIdle": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceBatteryMissing": "Android may pause the app when the screen is off, dropping the Home Assistant connection and the ESPHome entities with it.",
+  "@deviceBatteryMissing": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceCameraMissing": "The camera is switched on and cannot be opened.",
+  "@deviceCameraMissing": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceCameraIdle": "Needed by motion detection, camera snapshots and pages that ask for the camera.",
+  "@deviceCameraIdle": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceBluetoothMissing": "The Bluetooth proxy is switched on and cannot scan.",
+  "@deviceBluetoothMissing": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceBluetoothLocation": "Bluetooth scanning needs the Location permission.",
+  "@deviceBluetoothLocation": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceBluetoothLocationOff": "Location is off in the device settings, so Bluetooth scanning finds nothing.",
+  "@deviceBluetoothLocationOff": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceBluetoothIdle": "Needed by the Bluetooth proxy to scan for devices.",
+  "@deviceBluetoothIdle": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceNotificationMissing": "Needed to show the Kiosk Satellite Service's ongoing notification.",
+  "@deviceNotificationMissing": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceOverlayMissing": "Without this the app cannot reopen itself after a crash, an update or a wake word heard behind another app.",
+  "@deviceOverlayMissing": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceOverlayIdle": "Lets the app bring itself back to the front, and the lockdown shield cover the whole screen.",
+  "@deviceOverlayIdle": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceBrightnessMissing": "Brightness only dims the app window, so the panel and Home Assistant never see the change.",
+  "@deviceBrightnessMissing": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceBrightnessIdle": "Needed to set the panel's real brightness rather than dimming the app window.",
+  "@deviceBrightnessIdle": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceGuardMissing": "The notification shade and recents stay reachable. Enable Kiosk Satellite under Accessibility.",
+  "@deviceGuardMissing": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceGuardIdle": "Closes the notification shade and recents while kiosk mode protects the screen.",
+  "@deviceGuardIdle": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceAdminIdle": "Lets Screen off power the panel down instead of only blacking it out.",
+  "@deviceAdminIdle": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceFilesIdle": "Lets the File Manager browse the shared storage instead of only the app folder.",
+  "@deviceFilesIdle": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceUsageIdle": "Lets the Foreground app sensor name apps other than Kiosk Satellite.",
+  "@deviceUsageIdle": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceLocationMissing": "Android will not deliver Bluetooth scan results without Location, and the location sensors cannot read the GPS receiver.",
+  "@deviceLocationMissing": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceLocationIdle": "Used by pages that ask for your location, by Bluetooth scanning and by the ESPHome location sensors.",
+  "@deviceLocationIdle": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceServiceOverlayMissing": "Without this the service cannot relaunch the kiosk after a crash or a close from recents.",
+  "@deviceServiceOverlayMissing": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceServiceOverlayIdle": "Needed to relaunch the kiosk after a crash.",
+  "@deviceServiceOverlayIdle": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceListeningMissing": "Background listening is on and nothing is listening.",
+  "@deviceListeningMissing": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceListeningIdle": "Needed by background listening.",
+  "@deviceListeningIdle": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceMotionIdle": "Needed by motion detection.",
+  "@deviceMotionIdle": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceBatteryAdb": "This device has no settings screen for it. Grant it over adb: adb shell dumpsys deviceidle whitelist +me.jxl.kiosk_satellite",
+  "@deviceBatteryAdb": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    },
+    "x-notes": "Keep the ADB command exactly as written."
+  },
+  "deviceOverlayAdb": "This device has no settings screen for it. Grant it over adb: adb shell appops set me.jxl.kiosk_satellite SYSTEM_ALERT_WINDOW allow",
+  "@deviceOverlayAdb": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    },
+    "x-notes": "Keep the ADB command exactly as written."
   },
   "settingRemoteEnabledTitle": "Remote management",
   "@settingRemoteEnabledTitle": {
@@ -623,6 +2673,1841 @@
       ]
     }
   },
+  "settingRemoteFleetDiscoveryTitle": "Find other kiosks",
+  "@settingRemoteFleetDiscoveryTitle": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration"
+      ]
+    }
+  },
+  "settingRemoteFleetDiscoveryDescription": "Announce this device on the network and list the other kiosks in the remote admin, to switch between them.",
+  "@settingRemoteFleetDiscoveryDescription": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration"
+      ]
+    }
+  },
+  "deviceRemotePage": "Remote Administration",
+  "@deviceRemotePage": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration"
+      ]
+    }
+  },
+  "deviceAdminAddress": "Admin address",
+  "@deviceAdminAddress": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration"
+      ]
+    }
+  },
+  "deviceAdminAddressHelp": "Open this address in a browser on your computer.",
+  "@deviceAdminAddressHelp": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration"
+      ]
+    }
+  },
+  "deviceByName": "By name",
+  "@deviceByName": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration"
+      ]
+    }
+  },
+  "deviceByNameHelp": "The same address by hostname, on networks that resolve .local names.",
+  "@deviceByNameHelp": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration"
+      ]
+    }
+  },
+  "devicePasswordNeeded": "Set an admin password below to start the server.",
+  "@devicePasswordNeeded": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration"
+      ]
+    }
+  },
+  "deviceServerStopped": "The server is not running.",
+  "@deviceServerStopped": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration"
+      ]
+    }
+  },
+  "devicePortError": "Could not listen on port {port}: {error}",
+  "@devicePortError": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration"
+      ]
+    },
+    "placeholders": {
+      "port": {
+        "type": "String",
+        "example": "Example"
+      },
+      "error": {
+        "type": "String",
+        "example": "Connection refused"
+      }
+    }
+  },
+  "settingServiceCpuAwakeTitle": "Keep the CPU awake while the screen is off",
+  "@settingServiceCpuAwakeTitle": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "settingServiceCpuAwakeDescription": "Holds a wake lock through dark spells so connections and timers keep running on time. Costs battery on an unplugged tablet.",
+  "@settingServiceCpuAwakeDescription": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceServicePage": "Kiosk Satellite Service",
+  "@deviceServicePage": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceKeepingRunning": "Keeping it running",
+  "@deviceKeepingRunning": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceService": "Service",
+  "@deviceService": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceStopped": "Stopped",
+  "@deviceStopped": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceStoppedSentence": "Stopped.",
+  "@deviceStoppedSentence": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceRunning": "Running",
+  "@deviceRunning": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceRunningSentence": "Running.",
+  "@deviceRunningSentence": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceRunningBackground": "Running without the foreground exemption.",
+  "@deviceRunningBackground": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceServiceTypes": "Foreground service types",
+  "@deviceServiceTypes": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceServiceTypesHelp": "What the service declares to Android for the features it holds up.",
+  "@deviceServiceTypesHelp": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceNoneDeclared": "None declared.",
+  "@deviceNoneDeclared": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceNone": "none",
+  "@deviceNone": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceCpuLock": "CPU wake lock",
+  "@deviceCpuLock": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceCpuOff": "Off: the setting below is off.",
+  "@deviceCpuOff": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceCpuHeld": "Held: the screen is off.",
+  "@deviceCpuHeld": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceCpuReleased": "Released while the screen is on.",
+  "@deviceCpuReleased": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceNotHeld": "Not held.",
+  "@deviceNotHeld": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceHeld": "Held",
+  "@deviceHeld": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReleased": "Released",
+  "@deviceReleased": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceWifiLock": "Wi-Fi lock",
+  "@deviceWifiLock": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceWifiHeld": "Held: the radio stays out of power saving.",
+  "@deviceWifiHeld": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceWifiHelp": "Keeps the radio out of power saving through screen-off.",
+  "@deviceWifiHelp": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceNotification": "Notification",
+  "@deviceNotification": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceNotificationHidden": "Hidden: notifications are turned off for the app. The service runs regardless.",
+  "@deviceNotificationHidden": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceNotificationShown": "Shown in the notification shade while the service runs.",
+  "@deviceNotificationShown": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceHidden": "Hidden",
+  "@deviceHidden": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceShown": "Shown",
+  "@deviceShown": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonHa": "Home Assistant connection",
+  "@deviceReasonHa": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonHaHelp": "Keeps the dashboard session and its websocket open while the screen is off.",
+  "@deviceReasonHaHelp": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonListening": "Background listening",
+  "@deviceReasonListening": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonListeningHelp": "Keeps the wake word engine and its microphone running behind other apps.",
+  "@deviceReasonListeningHelp": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonRtsp": "RTSP microphone audio",
+  "@deviceReasonRtsp": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonRtspHelp": "Keeps microphone streaming available to connected RTSP viewers.",
+  "@deviceReasonRtspHelp": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonEspHome": "ESPHome server",
+  "@deviceReasonEspHome": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonEspHomeHelp": "Keeps the ESPHome API server answering Home Assistant.",
+  "@deviceReasonEspHomeHelp": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonRemote": "Remote administration",
+  "@deviceReasonRemote": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonRemoteHelp": "Keeps the admin web server answering.",
+  "@deviceReasonRemoteHelp": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonProtections": "Kiosk protections",
+  "@deviceReasonProtections": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonProtectionsHelp": "Relaunches the kiosk when it is closed from recents or crashes.",
+  "@deviceReasonProtectionsHelp": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonBluetooth": "Bluetooth proxy",
+  "@deviceReasonBluetooth": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonBluetoothHelp": "Keeps Bluetooth scanning running while the app is not on screen.",
+  "@deviceReasonBluetoothHelp": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonLocation": "Location sensors",
+  "@deviceReasonLocation": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonLocationHelp": "Keeps GPS fixes arriving while the screen is off or another app is in front.",
+  "@deviceReasonLocationHelp": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonPerson": "Person detection",
+  "@deviceReasonPerson": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonPersonHelp": "Keeps reading the device's person sensor while another app is in front.",
+  "@deviceReasonPersonHelp": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonCameraHelp": "Keeps the camera usable after the panel powers off, for motion and face detection.",
+  "@deviceReasonCameraHelp": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceServiceStopped": "Stopped: {error}",
+  "@deviceServiceStopped": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Connection refused"
+      }
+    }
+  },
+  "deviceServiceRunning": "Running for {uptime}.",
+  "@deviceServiceRunning": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    },
+    "placeholders": {
+      "uptime": {
+        "type": "String",
+        "example": "2h 15m"
+      }
+    }
+  },
+  "settingShizukuInstallUpdatesTitle": "Install updates through Shizuku",
+  "@settingShizukuInstallUpdatesTitle": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "settingShizukuInstallUpdatesDescription": "Install Kiosk Satellite updates without on-device confirmation. Shizuku must be running and authorized.",
+  "@settingShizukuInstallUpdatesDescription": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuAccess": "Shizuku access",
+  "@deviceShizukuAccess": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuCheck": "Checking availability",
+  "@deviceShizukuCheck": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuRoot": "Connected with root access",
+  "@deviceShizukuRoot": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuShell": "Connected with shell access",
+  "@deviceShizukuShell": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuGrant": "Tap to grant access. Approve the request on this kiosk.",
+  "@deviceShizukuGrant": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuGrantRemote": "Grant access and approve the request on this kiosk.",
+  "@deviceShizukuGrantRemote": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuDenied": "Allow Kiosk Satellite in the Shizuku app.",
+  "@deviceShizukuDenied": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuUnsupported": "Shizuku 13 or later is required.",
+  "@deviceShizukuUnsupported": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuStart": "Start Shizuku on this device.",
+  "@deviceShizukuStart": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuTest": "Test connection",
+  "@deviceShizukuTest": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuTestHelp": "Read the process identity without changing the device.",
+  "@deviceShizukuTestHelp": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuTestTitle": "Connection test",
+  "@deviceShizukuTestTitle": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuTestFailed": "Shizuku could not complete the connection test.",
+  "@deviceShizukuTestFailed": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuAlreadyGranted": "All permissions are already granted.",
+  "@deviceShizukuAlreadyGranted": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuConfirmed": "Android confirmed the requested permissions.",
+  "@deviceShizukuConfirmed": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuResults": "Permission results",
+  "@deviceShizukuResults": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuGrantAll": "Grant all permissions",
+  "@deviceShizukuGrantAll": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuGrantAllHelp": "Grant all permissions used by KS, including features that are currently off.",
+  "@deviceShizukuGrantAllHelp": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuSetup": "Set up Shizuku",
+  "@deviceShizukuSetup": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuSetupHelp": "Read installation and startup instructions.",
+  "@deviceShizukuSetupHelp": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuLifetime": "Shizuku started through ADB must be started again after a device reboot. Shell access does not provide root permissions.",
+  "@deviceShizukuLifetime": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuFailed": "Shizuku request failed",
+  "@deviceShizukuFailed": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuApprove": "Approve the request on the kiosk.",
+  "@deviceShizukuApprove": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuTestOk": "Shizuku successfully ran a command with {access} access.",
+  "@deviceShizukuTestOk": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    },
+    "placeholders": {
+      "access": {
+        "type": "String",
+        "example": "shell"
+      }
+    }
+  },
+  "deviceHelperPage": "Optional update helper",
+  "@deviceHelperPage": {
+    "context": "Settings:Device:Optional update helper",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Optional update helper"
+      ],
+      "remoteAdmin": [
+        "Device > Optional update helper"
+      ]
+    }
+  },
+  "deviceHelperStatus": "Helper status",
+  "@deviceHelperStatus": {
+    "context": "Settings:Device:Optional update helper",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Optional update helper"
+      ],
+      "remoteAdmin": [
+        "Device > Optional update helper"
+      ]
+    }
+  },
+  "deviceHelperError": "Could not check the update helper.",
+  "@deviceHelperError": {
+    "context": "Settings:Device:Optional update helper",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Optional update helper"
+      ],
+      "remoteAdmin": [
+        "Device > Optional update helper"
+      ]
+    }
+  },
+  "deviceHelperUnneeded": "Android can now install updates silently. The helper is not needed.",
+  "@deviceHelperUnneeded": {
+    "context": "Settings:Device:Optional update helper",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Optional update helper"
+      ],
+      "remoteAdmin": [
+        "Device > Optional update helper"
+      ]
+    }
+  },
+  "deviceHelperIntro": "This device currently needs confirmation on the screen to install updates through Android. The optional helper lets Kiosk Satellite install updates without a tap.",
+  "@deviceHelperIntro": {
+    "context": "Settings:Device:Optional update helper",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Optional update helper"
+      ],
+      "remoteAdmin": [
+        "Device > Optional update helper"
+      ]
+    }
+  },
+  "deviceHelperBusy": "Installing an update.",
+  "@deviceHelperBusy": {
+    "context": "Settings:Device:Optional update helper",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Optional update helper"
+      ],
+      "remoteAdmin": [
+        "Device > Optional update helper"
+      ]
+    }
+  },
+  "deviceHelperReady": "Ready. Updates install without confirmation.",
+  "@deviceHelperReady": {
+    "context": "Settings:Device:Optional update helper",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Optional update helper"
+      ],
+      "remoteAdmin": [
+        "Device > Optional update helper"
+      ]
+    }
+  },
+  "deviceHelperUnavailable": "Unavailable. Start the helper through ADB to enable updates without confirmation.",
+  "@deviceHelperUnavailable": {
+    "context": "Settings:Device:Optional update helper",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Optional update helper"
+      ],
+      "remoteAdmin": [
+        "Device > Optional update helper"
+      ]
+    }
+  },
+  "deviceHelperLifetime": "The helper survives app restarts and updates but stops after a device reboot. Run the command from a computer with ADB to start it again. The computer can then disconnect.",
+  "@deviceHelperLifetime": {
+    "context": "Settings:Device:Optional update helper",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Optional update helper"
+      ],
+      "remoteAdmin": [
+        "Device > Optional update helper"
+      ]
+    }
+  },
+  "deviceHelperStart": "Start through ADB",
+  "@deviceHelperStart": {
+    "context": "Settings:Device:Optional update helper",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Optional update helper"
+      ],
+      "remoteAdmin": [
+        "Device > Optional update helper"
+      ]
+    }
+  },
+  "deviceHelperGuide": "Setup guide",
+  "@deviceHelperGuide": {
+    "context": "Settings:Device:Optional update helper",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Optional update helper"
+      ],
+      "remoteAdmin": [
+        "Device > Optional update helper"
+      ]
+    }
+  },
+  "deviceHelperGuideHelp": "Read the update helper instructions and requirements.",
+  "@deviceHelperGuideHelp": {
+    "context": "Settings:Device:Optional update helper",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Optional update helper"
+      ],
+      "remoteAdmin": [
+        "Device > Optional update helper"
+      ]
+    }
+  },
+  "settingUpdateSourceTitle": "Update source",
+  "@settingUpdateSourceTitle": {
+    "context": "Settings:Device:Updates",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "settingUpdateSourceDescription": "Where the app looks for new releases.",
+  "@settingUpdateSourceDescription": {
+    "context": "Settings:Device:Updates",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "settingUpdateSourceUrlTitle": "Repository URL",
+  "@settingUpdateSourceUrlTitle": {
+    "context": "Settings:Device:Updates",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "settingUpdateSourceUrlDescription": "A folder on a web server the kiosk can reach, holding releases.json and the release APKs.",
+  "@settingUpdateSourceUrlDescription": {
+    "context": "Settings:Device:Updates",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "deviceUpdatesPage": "Updates",
+  "@deviceUpdatesPage": {
+    "context": "Settings:Device:Updates",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "deviceUpdateGithub": "GitHub Repository",
+  "@deviceUpdateGithub": {
+    "context": "Settings:Device:Updates",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "deviceUpdateCustom": "Custom Repository",
+  "@deviceUpdateCustom": {
+    "context": "Settings:Device:Updates",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "deviceUpdateGuide": "Custom repository guide",
+  "@deviceUpdateGuide": {
+    "context": "Settings:Device:Updates",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "deviceUpdateGuideHelp": "How to host the releases file and the APKs on your own network.",
+  "@deviceUpdateGuideHelp": {
+    "context": "Settings:Device:Updates",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "deviceInstallFile": "Install from file",
+  "@deviceInstallFile": {
+    "context": "Settings:Device:Updates",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "deviceInstallFileHelp": "Upload a Kiosk Satellite APK from a computer through the remote admin, on this same page. For a kiosk that cannot reach GitHub or a custom repository.",
+  "@deviceInstallFileHelp": {
+    "context": "Settings:Device:Updates",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "deviceInstallFileRemoteHelp": "Upload a Kiosk Satellite APK from this computer and install it. For a kiosk that cannot reach GitHub or a custom repository.",
+  "@deviceInstallFileRemoteHelp": {
+    "context": "Settings:Device:Updates",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "deviceUploadedApk": "Uploaded APK",
+  "@deviceUploadedApk": {
+    "context": "Settings:Device:Updates",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "deviceInstalling": "Installing…",
+  "@deviceInstalling": {
+    "context": "Settings:Device:Updates",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "deviceDeviceNoAnswer": "The device did not answer.",
+  "@deviceDeviceNoAnswer": {
+    "context": "Settings:Device:Updates",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "deviceInstallFailed": "Update failed. Check the device logs.",
+  "@deviceInstallFailed": {
+    "context": "Settings:Device:Updates",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "deviceConfirmTablet": "Confirm on the tablet screen",
+  "@deviceConfirmTablet": {
+    "context": "Settings:Device:Updates",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "deviceUploadedVersion": "Version {version} (build {build}, {size} MB) is on the device, waiting to be installed.",
+  "@deviceUploadedVersion": {
+    "context": "Settings:Device:Updates",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    },
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "2026.9.59"
+      },
+      "build": {
+        "type": "String",
+        "example": "258"
+      },
+      "size": {
+        "type": "String",
+        "example": "131.5"
+      }
+    }
+  },
+  "deviceInstallVersion": "Install version {version}",
+  "@deviceInstallVersion": {
+    "context": "Settings:Device:Updates",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    },
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "2026.9.59"
+      }
+    }
+  },
+  "deviceHttpError": "The device answered HTTP {code}.",
+  "@deviceHttpError": {
+    "context": "Settings:Device:Updates",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    },
+    "placeholders": {
+      "code": {
+        "type": "String",
+        "example": "Example"
+      }
+    }
+  },
+  "deviceUploadFailed": "The upload failed.",
+  "@deviceUploadFailed": {
+    "context": "Settings:Device:Updates",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "deviceInstallFleet": "Install on the fleet",
+  "@deviceInstallFleet": {
+    "context": "Settings:Device:Updates",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "deviceSendingFleet": "Sending to the fleet…",
+  "@deviceSendingFleet": {
+    "context": "Settings:Device:Updates",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "deviceSameBuild": "The kiosk already runs this build.",
+  "@deviceSameBuild": {
+    "context": "Settings:Device:Updates",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "deviceInstallConfirmation": "The install must be confirmed on the tablet screen unless the kiosk installs silently.",
+  "@deviceInstallConfirmation": {
+    "context": "Settings:Device:Updates",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "deviceSelfLast": "This kiosk installs last.",
+  "@deviceSelfLast": {
+    "context": "Settings:Device:Updates",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "deviceUpdatingFleet": "Updating the fleet",
+  "@deviceUpdatingFleet": {
+    "context": "Settings:Device:Updates",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "deviceUploading": "Uploading… {percent}%",
+  "@deviceUploading": {
+    "context": "Settings:Device:Updates",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    },
+    "placeholders": {
+      "percent": {
+        "type": "String",
+        "example": "50"
+      }
+    }
+  },
+  "deviceUploadedDetails": "The uploaded APK is version {version} (build {build}, {size} MB).",
+  "@deviceUploadedDetails": {
+    "context": "Settings:Device:Updates",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    },
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "2026.9.59"
+      },
+      "build": {
+        "type": "String",
+        "example": "258"
+      },
+      "size": {
+        "type": "String",
+        "example": "131.5"
+      }
+    }
+  },
+  "deviceCurrentBuild": "The kiosk runs {version} (build {build}).",
+  "@deviceCurrentBuild": {
+    "context": "Settings:Device:Updates",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    },
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "2026.9.59"
+      },
+      "build": {
+        "type": "String",
+        "example": "258"
+      }
+    }
+  },
+  "deviceSendingTo": "Sending to {name}… {percent}%",
+  "@deviceSendingTo": {
+    "context": "Settings:Device:Updates",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Kitchen"
+      },
+      "percent": {
+        "type": "String",
+        "example": "50"
+      }
+    }
+  },
+  "deviceInstallingOn": "Installing on {name}…",
+  "@deviceInstallingOn": {
+    "context": "Settings:Device:Updates",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Kitchen"
+      }
+    }
+  },
+  "deviceInstallingNames": "{names} installing.",
+  "@deviceInstallingNames": {
+    "context": "Settings:Device:Updates",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    },
+    "placeholders": {
+      "names": {
+        "type": "String",
+        "example": "Example"
+      }
+    }
+  },
+  "deviceUpdateUrlInvalid": "Enter the folder URL, for example http://nas.local/kiosk-satellite",
+  "@deviceUpdateUrlInvalid": {
+    "context": "Settings:Device:Updates",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "deviceUpdateUrlPath": "Enter only the folder URL, without anything after the path. Example: http://nas.local/kiosk-satellite",
+  "@deviceUpdateUrlPath": {
+    "context": "Settings:Device:Updates",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
   "settingUiLanguageTitle": "Language",
   "@settingUiLanguageTitle": {
     "context": "Settings:Device:User Interface",
@@ -646,6 +4531,110 @@
       ],
       "remoteAdmin": [
         "Device > User Interface > Language"
+      ]
+    }
+  },
+  "settingUiThemeTitle": "App theme",
+  "@settingUiThemeTitle": {
+    "context": "Settings:Device:User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > User Interface"
+      ],
+      "remoteAdmin": [
+        "Device > User Interface"
+      ]
+    }
+  },
+  "settingUiThemeDescription": "Light or dark for the app's own screens: menu, settings, dialogs. System follows the Android setting.",
+  "@settingUiThemeDescription": {
+    "context": "Settings:Device:User Interface",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > User Interface"
+      ],
+      "remoteAdmin": [
+        "Device > User Interface"
+      ]
+    }
+  },
+  "settingUiScaleTitle": "Scale UI",
+  "@settingUiScaleTitle": {
+    "context": "Settings:Device:User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > User Interface"
+      ],
+      "remoteAdmin": [
+        "Device > User Interface"
+      ]
+    }
+  },
+  "settingUiScaleDescription": "Size of the app's own screens: menu, settings, dialogs. For high density displays. Web content keeps its size.",
+  "@settingUiScaleDescription": {
+    "context": "Settings:Device:User Interface",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > User Interface"
+      ],
+      "remoteAdmin": [
+        "Device > User Interface"
+      ]
+    }
+  },
+  "deviceUserInterface": "User Interface",
+  "@deviceUserInterface": {
+    "context": "Settings:Device:User Interface",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > User Interface"
+      ],
+      "remoteAdmin": [
+        "Device > User Interface"
+      ]
+    }
+  },
+  "deviceThemeDark": "Dark",
+  "@deviceThemeDark": {
+    "context": "Settings:Device:User Interface",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > User Interface"
+      ],
+      "remoteAdmin": [
+        "Device > User Interface"
+      ]
+    }
+  },
+  "deviceThemeLight": "Light",
+  "@deviceThemeLight": {
+    "context": "Settings:Device:User Interface",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > User Interface"
+      ],
+      "remoteAdmin": [
+        "Device > User Interface"
+      ]
+    }
+  },
+  "deviceThemeSystem": "System",
+  "@deviceThemeSystem": {
+    "context": "Settings:Device:User Interface",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > User Interface"
+      ],
+      "remoteAdmin": [
+        "Device > User Interface"
       ]
     }
   },

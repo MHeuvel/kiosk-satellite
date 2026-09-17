@@ -1,0 +1,303 @@
+{
+  "@@locale": "en",
+  "deviceHardwarePage": "Hardware",
+  "@deviceHardwarePage": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceWebViewPage": "WebView",
+  "@deviceWebViewPage": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceModel": "Device model",
+  "@deviceModel": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceAndroidVersion": "Android version",
+  "@deviceAndroidVersion": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceAndroidBuild": "Android build",
+  "@deviceAndroidBuild": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceIpv4": "IPv4 address",
+  "@deviceIpv4": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceIpv6": "IPv6 addresses",
+  "@deviceIpv6": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceAppUptime": "App uptime",
+  "@deviceAppUptime": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceNetworkUptime": "Network uptime",
+  "@deviceNetworkUptime": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceCpuUsage": "CPU usage",
+  "@deviceCpuUsage": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceCpuTemp": "CPU temperature",
+  "@deviceCpuTemp": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceBatteryLevel": "Battery level",
+  "@deviceBatteryLevel": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceScreenBrightness": "Screen brightness",
+  "@deviceScreenBrightness": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceScreenStatus": "Screen status",
+  "@deviceScreenStatus": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceScreenSize": "Screen size",
+  "@deviceScreenSize": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceRam": "RAM (free/total)",
+  "@deviceRam": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceStorage": "Internal storage (free/total)",
+  "@deviceStorage": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceHaUrl": "Home Assistant URL",
+  "@deviceHaUrl": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceWakeDetection": "Wake word detection",
+  "@deviceWakeDetection": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceWakeStatus": "Wake word status",
+  "@deviceWakeStatus": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceEngine": "Engine",
+  "@deviceEngine": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceWakeWords": "Wake words",
+  "@deviceWakeWords": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceStopWord": "Stop word",
+  "@deviceStopWord": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceMotionDetection": "Motion detection",
+  "@deviceMotionDetection": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceFaceDetection": "Face detection",
+  "@deviceFaceDetection": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceProvider": "Provider",
+  "@deviceProvider": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceVersion": "Version",
+  "@deviceVersion": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceUserAgent": "User agent",
+  "@deviceUserAgent": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "devicePlugged": "plugged",
+  "@devicePlugged": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  },
+  "deviceLowMemory": "low",
+  "@deviceLowMemory": {
+    "context": "Settings:Device:Hardware / Home Assistant / WebView",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Hardware / Home Assistant / WebView"
+      ]
+    }
+  }
+}

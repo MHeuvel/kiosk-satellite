@@ -503,6 +503,7 @@ const List<SettingsSearchEntry> handBuiltSearchEntries = [
 List<SettingsSearchEntry> buildSettingsSearchIndex(
   List<(String category, String title, String subtitle)> pages, {
   String Function(String)? pageText,
+  String Function(String)? deviceTextFor,
   String Function(SettingDef<Object>)? titleFor,
   String Function(SettingDef<Object>)? descriptionFor,
 }) {
@@ -559,7 +560,19 @@ List<SettingsSearchEntry> buildSettingsSearchIndex(
           !(entry.anchorId == 'x:person_log_access' &&
               deviceHiddenKeys.contains(screensaverDismissOnPerson.key)))
         entry,
-  ];
+  ].map((entry) {
+    if (entry.category != 'Device' || deviceTextFor == null) return entry;
+    return SettingsSearchEntry(
+      category: entry.category,
+      title: deviceTextFor(entry.title),
+      description: deviceTextFor(entry.description),
+      englishAlias: '${entry.englishAlias} ${entry.title} ${entry.description}',
+      defKey: entry.defKey,
+      isPage: entry.isPage,
+      anchorId: entry.anchorId,
+      subpage: entry.subpage,
+    );
+  }).toList();
 }
 
 /// Installed plugin controls use their current manifest instead of global definitions.
@@ -767,7 +780,7 @@ class _SearchLandingTargetState extends State<SearchLandingTarget>
           child: child,
         );
       },
-      child: widget.child,
+      child: Material(type: MaterialType.transparency, child: widget.child),
     );
   }
 }

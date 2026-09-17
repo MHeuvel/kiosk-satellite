@@ -61,11 +61,3 @@ Contributing does not give you ownership of Kiosk Satellite, employment, a partn
 The [contributor privacy notice](CONTRIBUTOR-PRIVACY.md) explains the acceptance records and credit information. Do not post legal identity documents or private contact information in PRs. Any additional identity or authority verification must use an appropriate private route.
 
 You may retain the agreement and acceptance record for your own records. Deleting a public checkbox or comment after acceptance does not itself undo a valid license. This does not limit any statutory right to terminate or challenge it.
-
-## 8. Law and agreement changes
-
-Ecuadorian law governs this agreement subject to applicable mandatory law. Disputes may be brought before a court with lawful jurisdiction. Nothing here removes mandatory jurisdiction or protections available in another country.
-
-This version and the recorded Contribution define the rights granted between you and Xavier Larrea. The contributor rulebook explains the process but does not expand this grant. A later agreement version does not change an earlier accepted agreement without fresh agreement by the affected parties. Separate licenses already validly granted remain subject to their own terms.
-
-If a provision is unenforceable, the remaining provisions apply to the extent permitted by law. That does not establish a valid exclusive license where mandatory requirements are unmet or replace a required exclusive grant with nonexclusive rights. Formal notices may be raised through the official repository to arrange private contact where needed. These terms do not limit legally required methods of notice.

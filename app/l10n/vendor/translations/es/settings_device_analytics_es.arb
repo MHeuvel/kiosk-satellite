@@ -1,0 +1,13 @@
+{
+  "@@locale": "es",
+  "settingAnalyticsBasicTitle": "Estadísticas básicas",
+  "settingAnalyticsBasicDescription": "Información del dispositivo, como el modelo, la versión de Android, la versión de la aplicación, el tamaño de pantalla y el idioma.",
+  "settingAnalyticsUsageTitle": "Uso",
+  "settingAnalyticsUsageDescription": "Detalles de lo que usas con Kiosk Satellite.",
+  "settingAnalyticsDiagnosticsTitle": "Diagnóstico",
+  "settingAnalyticsDiagnosticsDescription": "Comparte informes de fallos cuando se producen errores inesperados.",
+  "deviceAnalyticsPage": "Estadísticas de Kiosk Satellite",
+  "deviceAnalyticsIntro": "Comparte información anónima de tu instalación para mejorar Kiosk Satellite y ayudar a decidir qué dispositivos y funciones necesitan atención.",
+  "deviceAnalyticsLearn": "Cómo procesamos tus datos",
+  "deviceAnalyticsLearnHelp": "Qué envían las estadísticas de Kiosk Satellite y qué información nunca se envía."
+}

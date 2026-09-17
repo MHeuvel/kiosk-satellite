@@ -1,4 +1,4 @@
-import { navigationText, t } from './localization.js';
+import { navigationText, t, deviceText } from './localization.js';
 import { readRoute } from './routes.js';
 import { $, depSatisfied, state } from './core.js';
 import { permissionSpecs } from './permissions.js';
@@ -217,6 +217,11 @@ export function searchSettingsIndex(query) {
   [...SEARCH_PAGES.map(page => ({...page, title: navigationText(page.title), desc: navigationText(page.desc), englishAlias: `${page.title} ${page.desc}`})), ...subs, ...defs, ...SEARCH_EXTRAS, ...pluginSearchEntries()].forEach((raw, order) => {
     if (typeof raw.title !== 'string' || !raw.title.trim()) return;
     const e = {...raw, desc: typeof raw.desc === 'string' ? raw.desc : ''};
+    if (e.tab === 'device') {
+      e.englishAlias = `${e.englishAlias || ''} ${e.title} ${e.desc}`;
+      e.title = deviceText(e.title);
+      e.desc = deviceText(e.desc);
+    }
     if (e.onlyWith && !shown(e.onlyWith)) return;
     const title = e.title.toLowerCase();
     const hay = `${title} ${e.desc.toLowerCase()} ${(e.englishAlias || '').toLowerCase()}`;

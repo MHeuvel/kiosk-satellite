@@ -283,6 +283,21 @@ class SnapshotTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "mapping"):
             catalog.generate(self.app)
 
+    def test_device_mapping_requires_exact_source_wording(self):
+        catalog.write(self.app / "l10n/device_text.json", {"Changed heading": "welcome"})
+        with self.assertRaisesRegex(ValueError, "device message mapping"):
+            catalog.generate(self.app)
+
+    def test_options_and_placeholders_reject_missing_or_parameterized_messages(self):
+        for filename in ["setting_options", "setting_placeholders"]:
+            for identifier in ["unknown", "response"]:
+                value = {"dark": identifier} if filename == "setting_options" else identifier
+                path = self.app / f"l10n/{filename}.json"
+                catalog.write(path, {"ui.theme": value})
+                with self.subTest(filename=filename, identifier=identifier), self.assertRaisesRegex(ValueError, "option or placeholder"):
+                    catalog.generate(self.app)
+                path.unlink()
+
 
 if __name__ == "__main__":
     unittest.main()

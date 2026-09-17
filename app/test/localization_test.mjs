@@ -73,3 +73,22 @@ test('changing language translates cached settings again without losing English 
   assert.equal(english.englishTitle, 'Device name');
   assert.equal(english.value, 'Kitchen');
 });
+
+test('translated option labels and placeholders keep their stored values', () => {
+  const original = { key: 'ui.theme', options: ['dark', 'light', 'system'], value: 'system',
+    optionLabels: { dark: 'Dark', light: 'Light', system: 'System' },
+    optionMessageIds: { dark: 'drawerThemeDark', light: 'drawerThemeLight' },
+    placeholder: 'English example', placeholderMessageId: 'commonNext' };
+  setLanguagePreference('es');
+  const spanish = localizeSetting(original);
+  assert.equal(spanish.optionLabels.dark, 'Oscuro');
+  assert.equal(spanish.placeholder, 'Siguiente');
+  assert.equal(spanish.value, 'system');
+  assert.deepEqual(spanish.options, original.options);
+  assert.equal(original.optionLabels.dark, 'Dark');
+  setLanguagePreference('en');
+  const english = localizeSetting(spanish);
+  assert.equal(english.optionLabels.dark, 'Dark');
+  assert.equal(english.optionLabels.system, 'System');
+  assert.equal(english.placeholder, 'Next');
+});

@@ -1,5 +1,6 @@
 import { catalogs } from './catalogs.js';
 import { navigationMessageIds } from './navigation_ids.js';
+import { deviceTextMessageIds } from './device_text_ids.js';
 
 // The kiosk and remote administration share one explicit language choice.
 let languagePreference = 'en';
@@ -27,6 +28,12 @@ export function localizeSetting(setting) {
   const englishDescription = setting.englishDescription ?? setting.description;
   return {
     ...setting,
+    englishOptionLabels: setting.englishOptionLabels ?? setting.optionLabels,
+    englishPlaceholder: setting.englishPlaceholder ?? setting.placeholder,
+    optionLabels: setting.optionMessageIds ? Object.fromEntries(
+      Object.entries(setting.englishOptionLabels ?? setting.optionLabels ?? {}).map(([value, label]) =>
+        [value, t(setting.optionMessageIds[value], {}, label)])) : setting.optionLabels,
+    placeholder: setting.placeholderMessageId ? t(setting.placeholderMessageId, {}, setting.englishPlaceholder ?? setting.placeholder) : setting.placeholder,
     englishTitle,
     englishDescription,
     title: setting.titleMessageId ? t(setting.titleMessageId, {}, englishTitle) : setting.title,
@@ -70,4 +77,8 @@ export function themeLabel(preference) {
   const theme = preference === 'dark' ? t('drawerThemeDark')
     : preference === 'light' ? t('drawerThemeLight') : t('settingsMenuThemeAuto');
   return t('settingsMenuThemeState', { theme });
+}
+
+export function deviceText(english) {
+  return typeof english === 'string' ? t(deviceTextMessageIds[english], {}, english) : english;
 }

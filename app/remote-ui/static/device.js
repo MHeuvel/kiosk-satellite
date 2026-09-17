@@ -1,3 +1,4 @@
+import { deviceText, t } from './localization.js';
 import { $, api, cmd, state } from './core.js';
 import { watchUpdates } from './live.js';
 import { copyBox, hintRow, messageBox, modalShell, showToast } from './widgets.js';
@@ -18,7 +19,7 @@ export function renderUpdateHelper(root, initialStatus) {
       status = result.data;
       error = null;
     } catch (_) {
-      error = 'Could not check the update helper.';
+      error = deviceText('Could not check the update helper.');
     }
     paint();
   };
@@ -26,11 +27,11 @@ export function renderUpdateHelper(root, initialStatus) {
   const paint = () => {
     group.replaceChildren();
     if (status?.nativeSilent === true) {
-      group.appendChild(hintRow('Android can now install updates silently. The helper is not needed.'));
+      group.appendChild(hintRow(deviceText('Android can now install updates silently. The helper is not needed.')));
       return;
     }
-    const intro = hintRow('This device currently needs confirmation on the screen to install updates through Android. '
-      + 'The optional helper lets Kiosk Satellite install updates without a tap.');
+    const intro = hintRow(deviceText('This device currently needs confirmation on the screen to install updates through Android. '
+      + 'The optional helper lets Kiosk Satellite install updates without a tap.'));
     intro.style.marginLeft = '4px';
     const card = document.createElement('div');
     card.className = 'card';
@@ -44,14 +45,14 @@ export function renderUpdateHelper(root, initialStatus) {
     };
     const busy = status.helper === 'busy';
     const active = busy || status.helper === 'ready';
-    const row = readOnlyRow('Helper status', error || (busy
-      ? 'Installing an update.' : active
-        ? 'Ready. Updates install without confirmation.'
-        : 'Unavailable. Start the helper through ADB to enable updates without confirmation.'), '');
+    const row = readOnlyRow(deviceText('Helper status'), error || (busy
+      ? deviceText('Installing an update.') : active
+        ? deviceText('Ready. Updates install without confirmation.')
+        : deviceText('Unavailable. Start the helper through ADB to enable updates without confirmation.')), '');
     row.querySelector('span').remove();
     const button = document.createElement('button');
     button.className = 'btn-ghost';
-    button.textContent = 'Refresh';
+    button.textContent = deviceText('Refresh');
     button.addEventListener('click', async () => {
       button.disabled = true;
       await refresh();
@@ -59,21 +60,21 @@ export function renderUpdateHelper(root, initialStatus) {
     row.appendChild(button);
     card.appendChild(row);
 
-    note('The helper survives app restarts and updates but stops after a device reboot. '
-      + 'Run the command from a computer with ADB to start it again. The computer can then disconnect.');
+    note(deviceText('The helper survives app restarts and updates but stops after a device reboot. '
+      + 'Run the command from a computer with ADB to start it again. The computer can then disconnect.'));
     if (status.startCommand) {
-      const setup = readOnlyRow('Start through ADB', '', '');
+      const setup = readOnlyRow(deviceText('Start through ADB'), '', '');
       setup.querySelector('span').remove();
       const copy = copyBox(status.startCommand);
       copy.el.style.cssText = 'width:100%; max-width:none;';
       setup.querySelector('.info').appendChild(copy.el);
       card.appendChild(setup);
     }
-    const docs = readOnlyRow('Setup guide', 'Read the update helper instructions and requirements.', '');
+    const docs = readOnlyRow(deviceText('Setup guide'), deviceText('Read the update helper instructions and requirements.'), '');
     docs.querySelector('span').remove();
     const link = document.createElement('a');
     link.className = 'btn-ghost';
-    link.textContent = 'Open guide';
+    link.textContent = deviceText('Open guide');
     link.href = 'https://kiosksatellite.com/docs/updates/#optional-update-helper';
     link.target = '_blank';
     link.rel = 'noreferrer';
@@ -95,15 +96,15 @@ export function renderAnalyticsIntro(panel) {
   card.className = 'card';
   const intro = document.createElement('div');
   intro.className = 'row desc';
-  intro.textContent = 'Share anonymized information from your installation to help make '
-    + 'Kiosk Satellite better and guide which devices and features get attention.';
+  intro.textContent = deviceText('Share anonymized information from your installation to help make '
+    + 'Kiosk Satellite better and guide which devices and features get attention.');
   card.appendChild(intro);
-  const docs = readOnlyRow('Learn how we process your data',
-    'What Kiosk Satellite Analytics sends and what it never sends.', '');
+  const docs = readOnlyRow(deviceText('Learn how we process your data'),
+    deviceText('What Kiosk Satellite Analytics sends and what it never sends.'), '');
   docs.querySelector('span').remove();
   const link = document.createElement('a');
   link.className = 'btn-ghost';
-  link.textContent = 'Open guide';
+  link.textContent = deviceText('Open guide');
   link.href = ANALYTICS_DOCS_URL;
   link.target = '_blank';
   link.rel = 'noreferrer';
@@ -124,13 +125,13 @@ export function renderUpdateSourceDocs(panel) {
   renderUploadInstall(panel);
   const card = document.createElement('div');
   card.className = 'card';
-  const docs = readOnlyRow('Custom repository guide',
-    'How to host the releases file and the APKs on your own network.', '');
+  const docs = readOnlyRow(deviceText('Custom repository guide'),
+    deviceText('How to host the releases file and the APKs on your own network.'), '');
   docs.querySelector('span').remove();
   docs.dataset.searchId = 'x:update_docs';
   const link = document.createElement('a');
   link.className = 'btn-ghost';
-  link.textContent = 'Open guide';
+  link.textContent = deviceText('Open guide');
   link.href = UPDATE_DOCS_URL;
   link.target = '_blank';
   link.rel = 'noreferrer';
@@ -147,13 +148,13 @@ export function renderUpdateSourceDocs(panel) {
 function renderUploadInstall(panel) {
   const card = document.createElement('div');
   card.className = 'card';
-  const pick = readOnlyRow('Install from file',
-    'Upload a Kiosk Satellite APK from this computer and install it. For a kiosk that cannot reach GitHub or a custom repository.', '');
+  const pick = readOnlyRow(deviceText('Install from file'),
+    deviceText('Upload a Kiosk Satellite APK from this computer and install it. For a kiosk that cannot reach GitHub or a custom repository.'), '');
   pick.querySelector('span').remove();
   pick.dataset.searchId = 'x:update_upload';
   const btn = document.createElement('button');
   btn.className = 'btn-ghost';
-  btn.textContent = 'Install from file';
+  btn.textContent = deviceText('Install from file');
   attachUploadInstall(btn);
   pick.appendChild(btn);
   card.appendChild(pick);
@@ -161,19 +162,19 @@ function renderUploadInstall(panel) {
   cmd('getUpdateStatus').then((r) => {
     const up = r?.data?.uploaded;
     if (!up) return;
-    const row = readOnlyRow('Uploaded APK',
-      `Version ${up.version} (build ${up.buildNumber}, ${(up.size / 1048576).toFixed(1)} MB) is on the device, waiting to be installed.`, '');
+    const row = readOnlyRow(deviceText('Uploaded APK'),
+      t('deviceUploadedVersion', {version: up.version, build: String(up.buildNumber), size: (up.size / 1048576).toFixed(1)}), '');
     row.querySelector('span').remove();
     const inst = document.createElement('button');
     inst.className = 'btn-ghost';
-    const idle = `Install version ${up.version}`;
+    const idle = t('deviceInstallVersion', {version: up.version});
     inst.textContent = idle;
     inst.onclick = async () => {
       inst.disabled = true;
       const out = await cmd('installUploadedApk').catch(() => null);
       if (!out?.ok) {
         inst.disabled = false;
-        await messageBox({ title: 'Uploaded APK', message: out?.error || 'The device did not answer.' });
+        await messageBox({ title: deviceText('Uploaded APK'), message: out?.error || deviceText('The device did not answer.') });
         return;
       }
       await rideUploadedInstall(inst, idle);
@@ -200,7 +201,8 @@ export async function loadDeviceInfo() {
       .querySelector(`#tab-device > .subpage[data-subpage="${name}"]`);
     if (panel) {
       panel.innerHTML =
-        '<div class="card"><div class="desc" style="color:var(--muted)">Reading…</div></div>';
+        '<div class="card"><div class="desc" style="color:var(--muted)"></div></div>';
+      panel.querySelector('.desc').textContent = deviceText('Reading…');
     }
   }
 
@@ -223,7 +225,7 @@ export async function loadDeviceInfo() {
 
   const S = {};
   (settings?.settings || []).forEach((x) => (S[x.key] = x.value));
-  const yn = (v) => (v === true ? 'on' : v === false ? 'off' : '-');
+  const yn = (v) => (v === true ? deviceText('on') : v === false ? deviceText('off') : '-');
   const or = (v, alt = '-') => (v === null || v === undefined || v === '' ? alt : v);
   const mb = (b) => (b == null ? null : Math.round(b / 1048576));
   const pair = (free, total, unit) =>
@@ -251,7 +253,7 @@ export async function loadDeviceInfo() {
     } else {
       const h = document.createElement('h2');
       h.className = 'card-title';
-      h.textContent = title;
+      h.textContent = deviceText(title);
       target.appendChild(h);
     }
     const c = document.createElement('div'); c.className = 'card';
@@ -259,7 +261,7 @@ export async function loadDeviceInfo() {
       if (v === undefined) continue;
       const row = document.createElement('div'); row.className = 'row';
       const info = document.createElement('div'); info.className = 'info';
-      const n = document.createElement('div'); n.className = 'name'; n.textContent = k;
+      const n = document.createElement('div'); n.className = 'name'; n.textContent = deviceText(k);
       info.appendChild(n); row.appendChild(info);
       const val = document.createElement('span');
       val.style.cssText = 'text-align:right; word-break:break-all; max-width:60%';
@@ -271,43 +273,43 @@ export async function loadDeviceInfo() {
   };
 
   card('Hardware', [
-    ['Device name', or(info?.name)],
-    ['Device model', det?.brand && det?.brand !== det?.manufacturer
+    [deviceText('Device name'), or(info?.name)],
+    [deviceText('Device model'), det?.brand && det?.brand !== det?.manufacturer
       ? `${or(info?.model)} (${det.brand})` : or(info?.model)],
-    ['Android version', `${or(info?.osVersion)}${info?.sdkInt ? ` (SDK ${info.sdkInt})` : ''}`],
-    ['Android build', or(det?.androidBuild)],
-    ['IPv4 address', or(info?.ip)],
-    ['IPv6 addresses', or((info?.ipv6 || []).join(', '))],
-    ['App uptime', dur(info?.uptime?.app)],
+    [deviceText('Android version'), `${or(info?.osVersion)}${info?.sdkInt ? ` (SDK ${info.sdkInt})` : ''}`],
+    [deviceText('Android build'), or(det?.androidBuild)],
+    [deviceText('IPv4 address'), or(info?.ip)],
+    [deviceText('IPv6 addresses'), or((info?.ipv6 || []).join(', '))],
+    [deviceText('App uptime'), dur(info?.uptime?.app)],
     // Since the app last saw the network come up, so it caps at the app
     // uptime; Android does not tell an app when the router associated.
-    ['Network uptime', dur(info?.uptime?.network)],
-    ['CPU usage', info?.cpu == null ? '-' : `${Math.round(info.cpu)}%`],
-    ['CPU temperature', info?.temp == null ? '-' : `${Math.round(info.temp)}°C`],
-    ['Battery level', info?.battery == null ? '-'
-      : `${info.battery}%${info.charging ? ' (plugged)' : ''}`],
-    ['Screen brightness', info?.brightness == null ? '-'
+    [deviceText('Network uptime'), dur(info?.uptime?.network)],
+    [deviceText('CPU usage'), info?.cpu == null ? '-' : `${Math.round(info.cpu)}%`],
+    [deviceText('CPU temperature'), info?.temp == null ? '-' : `${Math.round(info.temp)}°C`],
+    [deviceText('Battery level'), info?.battery == null ? '-'
+      : `${info.battery}%${info.charging ? ` (${deviceText('plugged')})` : ''}`],
+    [deviceText('Screen brightness'), info?.brightness == null ? '-'
       : `${Math.round(info.brightness * 100)}% (${Math.round(info.brightness * 255)}/255)`],
-    ['Screen status', yn(screenOn)],
-    ['Screen size', det?.screen?.width == null ? '-'
+    [deviceText('Screen status'), yn(screenOn)],
+    [deviceText('Screen size'), det?.screen?.width == null ? '-'
       : `${det.screen.width}x${det.screen.height} px` +
         (det.screen.density ? ` @${det.screen.density}x` : '')],
-    ['RAM (free/total)', pair(mb(det?.ram?.free), mb(det?.ram?.total), 'MB') +
-      (det?.ram?.low ? ', low' : '')],
-    ['Internal storage (free/total)',
+    [deviceText('RAM (free/total)'), pair(mb(det?.ram?.free), mb(det?.ram?.total), 'MB') +
+      (det?.ram?.low ? `, ${deviceText('low')}` : '')],
+    [deviceText('Internal storage (free/total)'),
       pair(mb(det?.storage?.free), mb(det?.storage?.total), 'MB')],
   ]);
 
   card('Home Assistant', [
-    ['Home Assistant URL', or(S['ha.url'])],
-    ['Wake word detection', yn(S['wake_word.enabled'])],
-    ['Wake word status', or(wake?.statusLabel)],
-    ['Engine', or(wake?.engineLabel)],
-    ['Wake words', or((wake?.models || []).map((m) => m.wakeWord).join(', '))],
-    ['Stop word', or(wake?.stopWord)],
-    ['Background listening', yn(S['wake_word.background'])],
-    ['Motion detection', yn(motion)],
-    ['Face detection', yn(face)],
+    [deviceText('Home Assistant URL'), or(S['ha.url'])],
+    [deviceText('Wake word detection'), yn(S['wake_word.enabled'])],
+    [deviceText('Wake word status'), or(wake?.statusLabel)],
+    [deviceText('Engine'), or(wake?.engineLabel)],
+    [deviceText('Wake words'), or((wake?.models || []).map((m) => m.wakeWord).join(', '))],
+    [deviceText('Stop word'), or(wake?.stopWord)],
+    [deviceText('Background listening'), yn(S['wake_word.background'])],
+    [deviceText('Motion detection'), yn(motion)],
+    [deviceText('Face detection'), yn(face)],
   ]);
 
   // Permissions used to be summarised here, read-only. The Permissions group
@@ -320,9 +322,9 @@ export async function loadDeviceInfo() {
   card('WebView', [
     // The system WebView, which updates itself independently of this app and
     // is the thing actually rendering the card.
-    ['Provider', or(det?.webview?.package)],
-    ['Version', or(det?.webview?.version)],
-    ['User agent', or(ua)],
+    [deviceText('Provider'), or(det?.webview?.package)],
+    [deviceText('Version'), or(det?.webview?.version)],
+    [deviceText('User agent'), or(ua)],
   ]);
 }
 
@@ -340,14 +342,14 @@ function settleInstall(btn, st, idleLabel) {
   if (st?.lastOutcome === 'failed') {
     btn.disabled = false;
     btn.textContent = idleLabel;
-    alert(st.lastError || 'Update failed. Check the device logs.');
+    alert(st.lastError || deviceText('Update failed. Check the device logs.'));
     return;
   }
   if (st?.lastOutcome === 'silent') {
-    btn.textContent = 'Installing…';
+    btn.textContent = deviceText('Installing…');
     return;
   }
-  btn.textContent = 'Confirm on the tablet screen';
+  btn.textContent = deviceText('Confirm on the tablet screen');
 }
 
 /* An APK from this computer, for a kiosk that can reach neither GitHub
@@ -364,9 +366,9 @@ function uploadApk(file, onProgress) {
     };
     xhr.onload = () => {
       try { resolve(JSON.parse(xhr.responseText)); }
-      catch (_) { resolve({ ok: false, error: `The device answered HTTP ${xhr.status}.` }); }
+      catch (_) { resolve({ ok: false, error: t('deviceHttpError', {code: String(xhr.status)}) }); }
     };
-    xhr.onerror = () => resolve({ ok: false, error: 'The device did not answer.' });
+    xhr.onerror = () => resolve({ ok: false, error: deviceText('The device did not answer.') });
     xhr.send(file);
   });
 }
@@ -377,7 +379,7 @@ async function rideUploadedInstall(btn, idleLabel) {
   let st;
   let misses = 0;
   btn.disabled = true;
-  btn.textContent = 'Installing…';
+  btn.textContent = deviceText('Installing…');
   for (;;) {
     await new Promise((r) => setTimeout(r, 1000));
     const cur = (await cmd('getUpdateStatus').catch(() => null))?.data;
@@ -405,15 +407,15 @@ export function attachUploadInstall(btn) {
     picker.value = '';
     if (!file) return;
     btn.disabled = true;
-    btn.textContent = 'Uploading… 0%';
+    btn.textContent = t('deviceUploading', {percent: '0'});
     const res = await uploadApk(file, (f) => {
-      btn.textContent = `Uploading… ${Math.round(f * 100)}%`;
+      btn.textContent = t('deviceUploading', {percent: String(Math.round(f * 100))});
     });
     if (!res?.ok) {
       btn.disabled = false;
       btn.textContent = idleLabel;
-      await messageBox({ title: 'Install from file',
-        message: res?.error || 'The upload failed.' });
+      await messageBox({ title: deviceText('Install from file'),
+        message: res?.error || deviceText('The upload failed.') });
       return;
     }
     const d = res.data || {};
@@ -423,11 +425,11 @@ export function attachUploadInstall(btn) {
     const leads = !!fleet?.leader && (fleet.followers || []).some((f) => f.online);
     const buttons = ['Cancel', ...(leads ? ['Install on the fleet'] : []), 'Install'];
     const choice = await messageBox({
-      title: `Install version ${d.version}`,
-      message: `The uploaded APK is version ${d.version} (build ${d.buildNumber}, ${mb} MB). `
-        + (same ? 'The kiosk already runs this build.'
-          : `The kiosk runs ${d.currentVersion} (build ${d.currentBuild}).`)
-        + '\nThe install must be confirmed on the tablet screen unless the kiosk installs silently.',
+      title: t('deviceInstallVersion', {version: d.version}),
+      message: t('deviceUploadedDetails', {version: d.version, build: String(d.buildNumber), size: mb}) + ' '
+        + (same ? deviceText('The kiosk already runs this build.')
+          : t('deviceCurrentBuild', {version: d.currentVersion, build: String(d.currentBuild)}))
+        + '\n' + t('deviceInstallConfirmation'),
       buttons,
     });
     if (choice === 'Cancel') {
@@ -439,14 +441,14 @@ export function attachUploadInstall(btn) {
       // The command answers once every follower has the file. Until then
       // the fleet status carries who is taking it and how far, pushed on
       // every step, so the button reads it out (#584).
-      btn.textContent = 'Sending to the fleet…';
+      btn.textContent = deviceText('Sending to the fleet…');
       const stop = watchUpdates(['fleetsync'], async () => {
         const st = (await cmd('fleetStatus').catch(() => null))?.data?.install;
         if (!st || st.done) return;
         if (st.sendingTo) {
-          btn.textContent = `Sending to ${st.sendingTo}… ${Math.round((st.progress || 0) * 100)}%`;
+          btn.textContent = t('deviceSendingTo', {name: st.sendingTo, percent: String(Math.round((st.progress || 0) * 100))});
         } else if (st.started?.length) {
-          btn.textContent = `Installing on ${st.started[st.started.length - 1]}…`;
+          btn.textContent = t('deviceInstallingOn', {name: st.started[st.started.length - 1]});
         }
       }, { owner: btn });
       const out = await cmd('fleetInstallUploaded').catch(() => null);
@@ -454,16 +456,16 @@ export function attachUploadInstall(btn) {
       if (!out?.ok) {
         btn.disabled = false;
         btn.textContent = idleLabel;
-        await messageBox({ title: 'Install on the fleet',
-          message: out?.error || 'The device did not answer.' });
+        await messageBox({ title: deviceText('Install on the fleet'),
+          message: out?.error || deviceText('The device did not answer.') });
         return;
       }
       const data = out.data || {};
       const parts = [];
-      if ((data.started || []).length) parts.push(`${data.started.join(', ')} installing.`);
-      if (data.self) parts.push('This kiosk installs last.');
+      if ((data.started || []).length) parts.push(t('deviceInstallingNames', {names: data.started.join(', ')}));
+      if (data.self) parts.push(deviceText('This kiosk installs last.'));
       for (const [k, v] of Object.entries(data.skipped || {})) parts.push(`${k}: ${v}.`);
-      showToast({ title: 'Updating the fleet', message: parts.join(' '),
+      showToast({ title: deviceText('Updating the fleet'), message: parts.join(' '),
         kind: data.started?.length || data.self ? 'success' : 'info' });
       if (!data.self) {
         btn.disabled = false;
@@ -475,8 +477,8 @@ export function attachUploadInstall(btn) {
       if (!out?.ok) {
         btn.disabled = false;
         btn.textContent = idleLabel;
-        await messageBox({ title: 'Install from file',
-          message: out?.error || 'The device did not answer.' });
+        await messageBox({ title: deviceText('Install from file'),
+          message: out?.error || deviceText('The device did not answer.') });
         return;
       }
     }
@@ -509,7 +511,7 @@ export function attachUpdateInstall(btn, upd) {
     }
     const cancelBtn = document.createElement('button');
     cancelBtn.className = 'btn-ghost';
-    cancelBtn.textContent = 'Cancel';
+    cancelBtn.textContent = deviceText('Cancel');
     cancelBtn.addEventListener('click', () => {
       cancelBtn.disabled = true;
       cmd('cancelUpdateDownload').catch(() => null);
@@ -586,7 +588,7 @@ export function attachUpdateInstall(btn, upd) {
     shell.card.insertBefore(hint, shell.foot);
     const cancel = document.createElement('button');
     cancel.className = 'btn-text';
-    cancel.textContent = 'Cancel';
+    cancel.textContent = deviceText('Cancel');
     cancel.addEventListener('click', () => back.remove());
     const ok = document.createElement('button');
     ok.className = 'btn-primary';
@@ -616,13 +618,13 @@ export async function loadAboutInfo() {
   const card = (title, rows) => {
     const h = document.createElement('h2');
     h.className = 'card-title';
-    h.textContent = title;
+    h.textContent = deviceText(title);
     root.appendChild(h);
     const c = document.createElement('div'); c.className = 'card';
     for (const [k, v, d] of rows) {
       const row = document.createElement('div'); row.className = 'row';
       const cell = document.createElement('div'); cell.className = 'info';
-      const n = document.createElement('div'); n.className = 'name'; n.textContent = k;
+      const n = document.createElement('div'); n.className = 'name'; n.textContent = deviceText(k);
       cell.appendChild(n);
       if (d) {
         const dd = document.createElement('div');
@@ -667,7 +669,7 @@ export async function loadAboutInfo() {
     if (!res?.reachable) {
       alert('Update check failed. Can the device reach GitHub?');
     } else if (!res.availableVersion) {
-      messageBox({ title: 'Updates', message: 'You are on the latest version.' });
+      messageBox({ title: deviceText('Updates'), message: 'You are on the latest version.' });
     }
   });
   card('App', [
@@ -692,7 +694,7 @@ export async function loadAboutInfo() {
     if (upd.canRelaunch === false) {
       const grant = document.createElement('button');
       grant.className = 'btn-ghost';
-      grant.textContent = 'Grant on device';
+      grant.textContent = deviceText('Grant on device');
       grant.style.cssText = '';
       grant.addEventListener('click', async () => {
         grant.disabled = true;
@@ -712,9 +714,9 @@ export async function loadAboutInfo() {
       updRows.push(['"Display over other apps" permission missing', grant,
         'Without it the app cannot reopen itself after updating. The grant screen appears on the tablet.']);
     }
-    card('Updates', updRows);
+    card(deviceText('Updates'), updRows);
   } else {
-    card('Updates', [['Updates',
+    card(deviceText('Updates'), [[deviceText('Updates'),
       upd ? 'Up to date' : or(null)]]);
   }
 
@@ -789,13 +791,13 @@ export async function loadPermissions() {
   wrap.id = 'permsCard';
   const h = document.createElement('h2');
   h.className = 'card-title';
-  h.textContent = 'Required system permissions';
+  h.textContent = deviceText('Required system permissions');
   const card = document.createElement('div');
   card.className = 'card';
   wrap.append(h, card);
 
   const rows = [
-    ['Microphone', p.microphone,
+    [deviceText('Microphone'), p.microphone,
       'Wake word detection can hear you.',
       p.microphoneBlocked
         ? 'Blocked. Android will not ask again.'
@@ -803,13 +805,13 @@ export async function loadPermissions() {
   ];
   if (p.background) {
     rows.push(
-      ['Display over other apps', p.displayOverOtherApps,
+      [deviceText('Display over other apps'), p.displayOverOtherApps,
         'Can come forward when it hears you.',
         'The wake word is heard and nothing happens.'],
-      ['Notifications', p.notification,
+      [deviceText('Notifications'), p.notification,
         'The ongoing notification that enables background listening.',
         'Needed for background listening to work reliably.'],
-      ['Unrestricted battery', p.batteryUnrestricted,
+      [deviceText('Unrestricted battery'), p.batteryUnrestricted,
         'Android will leave the listener running.',
         'The listener is stopped after a few hours.'],
     );
@@ -821,13 +823,13 @@ export async function loadPermissions() {
     const row = document.createElement('div'); row.className = 'row';
     const info = document.createElement('div'); info.className = 'info';
     info.innerHTML = `<div class="name"></div><div class="desc"></div>`;
-    info.querySelector('.name').textContent = name;
+    info.querySelector('.name').textContent = deviceText(name);
     info.querySelector('.desc').textContent = granted ? held : missing;
     row.appendChild(info);
     const state = document.createElement('span');
     state.style.cssText =
       `white-space:nowrap; color:${granted ? 'var(--ok)' : 'var(--error)'}`;
-    state.textContent = granted ? 'Granted' : 'Missing';
+    state.textContent = granted ? deviceText('Granted') : deviceText('Missing');
     row.appendChild(state);
     card.appendChild(row);
   }
@@ -854,8 +856,8 @@ export function readOnlyRow(name, desc, value) {
   const row = document.createElement('div'); row.className = 'row';
   const info = document.createElement('div'); info.className = 'info';
   info.innerHTML = `<div class="name"></div><div class="desc"></div>`;
-  info.querySelector('.name').textContent = name;
-  info.querySelector('.desc').textContent = desc;
+  info.querySelector('.name').textContent = deviceText(name);
+  info.querySelector('.desc').textContent = deviceText(desc);
   row.appendChild(info);
   const v = document.createElement('span');
   v.style.whiteSpace = 'nowrap';

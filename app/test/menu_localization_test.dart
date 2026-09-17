@@ -8,12 +8,23 @@ import 'package:kiosk_satellite/l10n/generated/ui_strings_en.dart';
 import 'package:kiosk_satellite/managers/settings/definitions.dart' as defs;
 import 'package:kiosk_satellite/managers/update/update_manager.dart';
 import 'package:kiosk_satellite/ui/kiosk_drawer.dart';
+import 'package:kiosk_satellite/ui/kit.dart';
 import 'package:kiosk_satellite/ui/settings_screen.dart';
 import 'package:kiosk_satellite/ui/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // Test wording exercises localization even before draft catalogs are approved.
 class MenuMessages extends UiStringsEn {
+  @override
+  String get deviceAnalyticsPage => 'TEST analytics page';
+  @override
+  String get deviceAnalyticsIntro => 'TEST analytics introduction';
+  @override
+  String get deviceThemeDark => 'TEST dark';
+  @override
+  String get deviceThemeLight => 'TEST light';
+  @override
+  String get deviceThemeSystem => 'TEST system';
   @override
   String get commonSettings => 'Configuración';
   @override
@@ -109,6 +120,71 @@ void main() {
       expect(tester.takeException(), isNull);
     });
   }
+
+  for (final width in [500.0, 1200.0]) {
+    testWidgets('translated Device subpages keep their route at width $width', (
+      tester,
+    ) async {
+      final container = await containerFor(tester, Size(width, 1400));
+      await tester.pumpWidget(localized(SettingsScreen(container: container)));
+      await tester.pump(const Duration(milliseconds: 100));
+      final search = find.widgetWithText(TextField, 'Buscar configuración');
+      await tester.enterText(search, 'TEST analytics page');
+      await tester.pump();
+      await tester.tap(find.text('TEST analytics page').last);
+      await tester.pump(const Duration(milliseconds: 500));
+      await tester.pump(const Duration(milliseconds: 1800));
+      // Search lands on the entry, whose route name must remain English.
+      await tester.ensureVisible(find.text('TEST analytics page').last);
+      await tester.pump(const Duration(milliseconds: 500));
+      await tester.tap(find.text('TEST analytics page').last);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 500));
+      expect(find.text('TEST analytics introduction'), findsOneWidget);
+      if (width < 720) {
+        expect(
+          tester
+              .widget<SubpageSettingsScreen>(find.byType(SubpageSettingsScreen))
+              .subpage,
+          'Kiosk Satellite Analytics',
+        );
+      }
+      expect(tester.takeException(), isNull);
+    });
+  }
+
+  testWidgets('translated theme options persist canonical values', (
+    tester,
+  ) async {
+    final container = await containerFor(tester, const Size(600, 1000));
+    await tester.pumpWidget(
+      localized(
+        Scaffold(
+          body: SettingTile(
+            container: container,
+            def: defs.uiTheme,
+            onChanged: () {},
+          ),
+        ),
+      ),
+    );
+    final row = tester.widget<DropdownRow<String>>(
+      find.byType(DropdownRow<String>),
+    );
+    expect(row.options, [
+      ('dark', 'TEST dark'),
+      ('light', 'TEST light'),
+      ('system', 'TEST system'),
+    ]);
+    row.onChanged('dark');
+    await tester.pump();
+    expect(container.settings.get(defs.uiTheme), 'dark');
+    final definition = container.settings.describe().firstWhere(
+      (d) => d['key'] == 'ui.theme',
+    );
+    expect(definition['options'], ['dark', 'light', 'system']);
+    expect((definition['optionMessageIds'] as Map)['dark'], 'deviceThemeDark');
+  });
 
   testWidgets(
     'drawer localizes conditional actions and preserves plugin values',

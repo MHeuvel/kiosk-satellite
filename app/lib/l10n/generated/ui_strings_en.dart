@@ -33,6 +33,30 @@ class UiStringsEn extends UiStrings {
   String get commonOk => 'OK';
 
   @override
+  String get commonGrant => 'Grant';
+
+  @override
+  String get commonEnable => 'Enable';
+
+  @override
+  String get commonRefresh => 'Refresh';
+
+  @override
+  String get commonTest => 'Test';
+
+  @override
+  String get commonInstall => 'Install';
+
+  @override
+  String get commonSave => 'Save';
+
+  @override
+  String get commonRetry => 'Retry';
+
+  @override
+  String get commonCopy => 'Copy';
+
+  @override
   String drawerPluginAction(String pluginName, String actionTitle) {
     return '$pluginName: $actionTitle';
   }
@@ -180,11 +204,557 @@ class UiStringsEn extends UiStrings {
   String get drawerNoReleaseNotes => 'No release notes.';
 
   @override
+  String get settingAnalyticsBasicTitle => 'Basic analytics';
+
+  @override
+  String get settingAnalyticsBasicDescription =>
+      'Information about your device, such as model, Android version, app version, screen size and language.';
+
+  @override
+  String get settingAnalyticsUsageTitle => 'Usage';
+
+  @override
+  String get settingAnalyticsUsageDescription =>
+      'Details of what you use with Kiosk Satellite.';
+
+  @override
+  String get settingAnalyticsDiagnosticsTitle => 'Diagnostics';
+
+  @override
+  String get settingAnalyticsDiagnosticsDescription =>
+      'Share crash reports when unexpected errors occur.';
+
+  @override
+  String get deviceAnalyticsPage => 'Kiosk Satellite Analytics';
+
+  @override
+  String get deviceAnalyticsIntro =>
+      'Share anonymized information from your installation to help make Kiosk Satellite better and guide which devices and features get attention.';
+
+  @override
+  String get deviceAnalyticsLearn => 'Learn how we process your data';
+
+  @override
+  String get deviceAnalyticsLearnHelp =>
+      'What Kiosk Satellite Analytics sends and what it never sends.';
+
+  @override
+  String get deviceExportConfig => 'Export configuration';
+
+  @override
+  String get deviceExportConfigHelp =>
+      'Save every setting and the page\'s local storage to a file.';
+
+  @override
+  String get deviceExportConfigRemoteHelp =>
+      'Download every setting and the page\'s local storage.';
+
+  @override
+  String get deviceImportConfig => 'Import configuration';
+
+  @override
+  String get deviceImportConfigHelp =>
+      'Replace this device\'s settings from an exported file.';
+
+  @override
+  String get deviceExportFailed => 'Export failed';
+
+  @override
+  String get deviceExported => 'Configuration exported';
+
+  @override
+  String get deviceImportFailed => 'Import failed';
+
+  @override
+  String get deviceInvalidJson => 'That file is not valid JSON.';
+
+  @override
+  String get deviceImportComplete => 'Import complete';
+
+  @override
+  String deviceAppliedSettings(String count) {
+    return 'Applied $count settings.';
+  }
+
+  @override
+  String deviceAppliedReload(String count) {
+    return 'Applied $count settings. The page may reload.';
+  }
+
+  @override
+  String get deviceReplaceOriginal => 'Replace the original device';
+
+  @override
+  String get deviceReplaceQuestion =>
+      'Replace this device\'s settings with the file\'s? The page may reload.';
+
+  @override
+  String get deviceNewDevice => 'Set up as new device';
+
+  @override
+  String get deviceReplaceIdentity =>
+      'Keeps the backup\'s name and ESPHome identity; the original device must stay offline.';
+
+  @override
+  String get deviceNewIdentity =>
+      'Assign its own name and ESPHome identity, so both devices are unique.';
+
+  @override
+  String get deviceRestoreStorage => 'Restore Webview\'s local storage';
+
+  @override
+  String get deviceRestoreStorageHelp =>
+      'Includes the Home Assistant signed in session and the Voice Satellite assist_satellite selection - two devices must not share one satellite.';
+
+  @override
+  String get deviceDownload => 'Download';
+
+  @override
+  String get deviceChooseFile => 'Choose file…';
+
+  @override
+  String get deviceImportFailedSentence => 'Import failed.';
+
+  @override
+  String deviceReplaceNamed(String name) {
+    return 'Replace \"$name\"';
+  }
+
+  @override
   String get settingDeviceNameTitle => 'Device name';
 
   @override
   String get settingDeviceNameDescription =>
       'Friendly name shown in remote management and used as the device name published to Home Assistant.';
+
+  @override
+  String get settingDeviceHostnameTitle => 'mDNS name';
+
+  @override
+  String get settingDeviceHostnameDescription =>
+      'Reach the remote admin using this name and the configured port on the local network. Clear it to take the device name again.';
+
+  @override
+  String get settingDisableImpellerTitle => 'Legacy renderer';
+
+  @override
+  String get settingDisableImpellerDescription =>
+      'Use the older Skia renderer, for old GPUs that crash at startup. Turns itself on after two such crashes; takes effect on the next app start.';
+
+  @override
+  String get settingLegacyWebViewTitle => 'Legacy WebView renderer';
+
+  @override
+  String get settingLegacyWebViewDescription =>
+      'Draw the dashboard into a texture, for old GPUs that crash when it appears. Turns itself on where the device needs it; takes effect on the next app start.';
+
+  @override
+  String get deviceHostnamePlaceholder => 'Set from the device name';
+
+  @override
+  String get deviceConfiguration => 'Configuration';
+
+  @override
+  String get devicePermissionsManager => 'Permissions Manager';
+
+  @override
+  String get deviceOptions => 'Options';
+
+  @override
+  String get deviceStatus => 'Status';
+
+  @override
+  String get deviceConnection => 'Connection';
+
+  @override
+  String get devicePermissions => 'Permissions';
+
+  @override
+  String get deviceHelp => 'Help';
+
+  @override
+  String get deviceAccess => 'Access';
+
+  @override
+  String get deviceReading => 'Reading…';
+
+  @override
+  String get deviceChecking => 'Checking...';
+
+  @override
+  String get deviceUnavailable => 'Status unavailable.';
+
+  @override
+  String get deviceGrantOnDevice => 'Grant on device';
+
+  @override
+  String get deviceAppSettings => 'App settings';
+
+  @override
+  String get deviceCopyCommand => 'Copy command';
+
+  @override
+  String get deviceOpenGuide => 'Open guide';
+
+  @override
+  String get deviceNotSet => 'Not set';
+
+  @override
+  String get deviceGranted => 'Granted';
+
+  @override
+  String get deviceNotGranted => 'Not granted';
+
+  @override
+  String get deviceMissing => 'Missing';
+
+  @override
+  String get deviceNotOffered => 'Not offered';
+
+  @override
+  String get deviceOn => 'on';
+
+  @override
+  String get deviceOff => 'off';
+
+  @override
+  String get deviceServiceHint =>
+      'Status, what keeps it running, required permissions';
+
+  @override
+  String get deviceRemoteHintActual =>
+      'Manage this kiosk from a browser on your network';
+
+  @override
+  String get deviceUpdatesHint => 'Where the app looks for new releases';
+
+  @override
+  String get deviceShizukuHint => 'Connection, Android permissions and setup';
+
+  @override
+  String get deviceHelperHint =>
+      'Silent update status, ADB setup and instructions';
+
+  @override
+  String get deviceAnalyticsHint =>
+      'Share anonymized information to help improve Kiosk Satellite';
+
+  @override
+  String get deviceHardwareHint =>
+      'Model, Android version, addresses, memory, uptime';
+
+  @override
+  String get deviceHaHint => 'Connection, version and what the kiosk shows';
+
+  @override
+  String get deviceWebViewHint => 'Engine version, renderer and user agent';
+
+  @override
+  String get devicePasswordSet => '•••••• (set)';
+
+  @override
+  String get deviceSaveFailed => 'Could not save this setting. Try again.';
+
+  @override
+  String get deviceOpenSettingsDevice => 'Open settings on device';
+
+  @override
+  String get deviceHardwarePage => 'Hardware';
+
+  @override
+  String get deviceWebViewPage => 'WebView';
+
+  @override
+  String get deviceModel => 'Device model';
+
+  @override
+  String get deviceAndroidVersion => 'Android version';
+
+  @override
+  String get deviceAndroidBuild => 'Android build';
+
+  @override
+  String get deviceIpv4 => 'IPv4 address';
+
+  @override
+  String get deviceIpv6 => 'IPv6 addresses';
+
+  @override
+  String get deviceAppUptime => 'App uptime';
+
+  @override
+  String get deviceNetworkUptime => 'Network uptime';
+
+  @override
+  String get deviceCpuUsage => 'CPU usage';
+
+  @override
+  String get deviceCpuTemp => 'CPU temperature';
+
+  @override
+  String get deviceBatteryLevel => 'Battery level';
+
+  @override
+  String get deviceScreenBrightness => 'Screen brightness';
+
+  @override
+  String get deviceScreenStatus => 'Screen status';
+
+  @override
+  String get deviceScreenSize => 'Screen size';
+
+  @override
+  String get deviceRam => 'RAM (free/total)';
+
+  @override
+  String get deviceStorage => 'Internal storage (free/total)';
+
+  @override
+  String get deviceHaUrl => 'Home Assistant URL';
+
+  @override
+  String get deviceWakeDetection => 'Wake word detection';
+
+  @override
+  String get deviceWakeStatus => 'Wake word status';
+
+  @override
+  String get deviceEngine => 'Engine';
+
+  @override
+  String get deviceWakeWords => 'Wake words';
+
+  @override
+  String get deviceStopWord => 'Stop word';
+
+  @override
+  String get deviceMotionDetection => 'Motion detection';
+
+  @override
+  String get deviceFaceDetection => 'Face detection';
+
+  @override
+  String get deviceProvider => 'Provider';
+
+  @override
+  String get deviceVersion => 'Version';
+
+  @override
+  String get deviceUserAgent => 'User agent';
+
+  @override
+  String get devicePlugged => 'plugged';
+
+  @override
+  String get deviceLowMemory => 'low';
+
+  @override
+  String get deviceRequiredPermissions => 'Required system permissions';
+
+  @override
+  String get devicePermissionIntro =>
+      'Grants are given on this device, so each button opens an Android dialog or settings screen here. Some brands add their own battery or autostart manager on top, which Android cannot report.';
+
+  @override
+  String get devicePermissionIntroRemote =>
+      'Grants are given on the device, so each button opens an Android dialog or settings screen there. Some brands add their own battery or autostart manager on top, which Android cannot report.';
+
+  @override
+  String get deviceMicrophone => 'Microphone';
+
+  @override
+  String get deviceMicrophoneHeld =>
+      'Allows microphone usage for wake word detection, speech to text and intercom calls.';
+
+  @override
+  String get deviceBattery => 'Unrestricted battery';
+
+  @override
+  String get deviceBatteryHeld =>
+      'Allows the process to run in the background without being paused or killed.';
+
+  @override
+  String get deviceCamera => 'Camera';
+
+  @override
+  String get deviceCameraHeld =>
+      'Motion detection and snapshots can use the camera.';
+
+  @override
+  String get deviceBluetooth => 'Nearby devices';
+
+  @override
+  String get deviceBluetoothHeld =>
+      'The Bluetooth proxy can scan for nearby devices.';
+
+  @override
+  String get deviceNotifications => 'Notifications';
+
+  @override
+  String get deviceNotificationsHeld =>
+      'Allows the Kiosk Satellite Service\'s ongoing notification, which says what it is keeping alive.';
+
+  @override
+  String get deviceOverlay => 'Display over other apps';
+
+  @override
+  String get deviceOverlayHeld =>
+      'Kiosk Satellite can bring itself back in the foreground.';
+
+  @override
+  String get deviceWriteSettings => 'Modify system settings';
+
+  @override
+  String get deviceWriteSettingsHeld =>
+      'Brightness changes set the panel\'s real brightness.';
+
+  @override
+  String get deviceUiGuard => 'System UI guard';
+
+  @override
+  String get deviceUiGuardHeld =>
+      'The notification shade and recents close on their own while the screen is protected.';
+
+  @override
+  String get deviceDeviceAdmin => 'Device admin';
+
+  @override
+  String get deviceDeviceAdminHeld => 'Allows the app to turn the screen off.';
+
+  @override
+  String get deviceAllFiles => 'All files access';
+
+  @override
+  String get deviceAllFilesHeld =>
+      'The File Manager can browse the shared storage.';
+
+  @override
+  String get deviceUsageAccess => 'Usage access';
+
+  @override
+  String get deviceUsageAccessHeld =>
+      'The Foreground app sensor can name whichever app is on screen.';
+
+  @override
+  String get deviceLocation => 'Location';
+
+  @override
+  String get deviceLocationHeld =>
+      'Pages, Bluetooth scanning and the location sensors can use the device position.';
+
+  @override
+  String get deviceMicBlocked =>
+      'Blocked. Android will not ask again, so allow it in the app settings.';
+
+  @override
+  String get deviceMicMissing =>
+      'Wake word detection is on and nothing is listening.';
+
+  @override
+  String get deviceMicIdle =>
+      'Needed by wake word detection, the intercom and pages that ask for the microphone.';
+
+  @override
+  String get deviceBatteryMissing =>
+      'Android may pause the app when the screen is off, dropping the Home Assistant connection and the ESPHome entities with it.';
+
+  @override
+  String get deviceCameraMissing =>
+      'The camera is switched on and cannot be opened.';
+
+  @override
+  String get deviceCameraIdle =>
+      'Needed by motion detection, camera snapshots and pages that ask for the camera.';
+
+  @override
+  String get deviceBluetoothMissing =>
+      'The Bluetooth proxy is switched on and cannot scan.';
+
+  @override
+  String get deviceBluetoothLocation =>
+      'Bluetooth scanning needs the Location permission.';
+
+  @override
+  String get deviceBluetoothLocationOff =>
+      'Location is off in the device settings, so Bluetooth scanning finds nothing.';
+
+  @override
+  String get deviceBluetoothIdle =>
+      'Needed by the Bluetooth proxy to scan for devices.';
+
+  @override
+  String get deviceNotificationMissing =>
+      'Needed to show the Kiosk Satellite Service\'s ongoing notification.';
+
+  @override
+  String get deviceOverlayMissing =>
+      'Without this the app cannot reopen itself after a crash, an update or a wake word heard behind another app.';
+
+  @override
+  String get deviceOverlayIdle =>
+      'Lets the app bring itself back to the front, and the lockdown shield cover the whole screen.';
+
+  @override
+  String get deviceBrightnessMissing =>
+      'Brightness only dims the app window, so the panel and Home Assistant never see the change.';
+
+  @override
+  String get deviceBrightnessIdle =>
+      'Needed to set the panel\'s real brightness rather than dimming the app window.';
+
+  @override
+  String get deviceGuardMissing =>
+      'The notification shade and recents stay reachable. Enable Kiosk Satellite under Accessibility.';
+
+  @override
+  String get deviceGuardIdle =>
+      'Closes the notification shade and recents while kiosk mode protects the screen.';
+
+  @override
+  String get deviceAdminIdle =>
+      'Lets Screen off power the panel down instead of only blacking it out.';
+
+  @override
+  String get deviceFilesIdle =>
+      'Lets the File Manager browse the shared storage instead of only the app folder.';
+
+  @override
+  String get deviceUsageIdle =>
+      'Lets the Foreground app sensor name apps other than Kiosk Satellite.';
+
+  @override
+  String get deviceLocationMissing =>
+      'Android will not deliver Bluetooth scan results without Location, and the location sensors cannot read the GPS receiver.';
+
+  @override
+  String get deviceLocationIdle =>
+      'Used by pages that ask for your location, by Bluetooth scanning and by the ESPHome location sensors.';
+
+  @override
+  String get deviceServiceOverlayMissing =>
+      'Without this the service cannot relaunch the kiosk after a crash or a close from recents.';
+
+  @override
+  String get deviceServiceOverlayIdle =>
+      'Needed to relaunch the kiosk after a crash.';
+
+  @override
+  String get deviceListeningMissing =>
+      'Background listening is on and nothing is listening.';
+
+  @override
+  String get deviceListeningIdle => 'Needed by background listening.';
+
+  @override
+  String get deviceMotionIdle => 'Needed by motion detection.';
+
+  @override
+  String get deviceBatteryAdb =>
+      'This device has no settings screen for it. Grant it over adb: adb shell dumpsys deviceidle whitelist +me.jxl.kiosk_satellite';
+
+  @override
+  String get deviceOverlayAdb =>
+      'This device has no settings screen for it. Grant it over adb: adb shell appops set me.jxl.kiosk_satellite SYSTEM_ALERT_WINDOW allow';
 
   @override
   String get settingRemoteEnabledTitle => 'Remote management';
@@ -208,11 +778,507 @@ class UiStringsEn extends UiStrings {
       'Required to log in to the remote interface.';
 
   @override
+  String get settingRemoteFleetDiscoveryTitle => 'Find other kiosks';
+
+  @override
+  String get settingRemoteFleetDiscoveryDescription =>
+      'Announce this device on the network and list the other kiosks in the remote admin, to switch between them.';
+
+  @override
+  String get deviceRemotePage => 'Remote Administration';
+
+  @override
+  String get deviceAdminAddress => 'Admin address';
+
+  @override
+  String get deviceAdminAddressHelp =>
+      'Open this address in a browser on your computer.';
+
+  @override
+  String get deviceByName => 'By name';
+
+  @override
+  String get deviceByNameHelp =>
+      'The same address by hostname, on networks that resolve .local names.';
+
+  @override
+  String get devicePasswordNeeded =>
+      'Set an admin password below to start the server.';
+
+  @override
+  String get deviceServerStopped => 'The server is not running.';
+
+  @override
+  String devicePortError(String port, String error) {
+    return 'Could not listen on port $port: $error';
+  }
+
+  @override
+  String get settingServiceCpuAwakeTitle =>
+      'Keep the CPU awake while the screen is off';
+
+  @override
+  String get settingServiceCpuAwakeDescription =>
+      'Holds a wake lock through dark spells so connections and timers keep running on time. Costs battery on an unplugged tablet.';
+
+  @override
+  String get deviceServicePage => 'Kiosk Satellite Service';
+
+  @override
+  String get deviceKeepingRunning => 'Keeping it running';
+
+  @override
+  String get deviceService => 'Service';
+
+  @override
+  String get deviceStopped => 'Stopped';
+
+  @override
+  String get deviceStoppedSentence => 'Stopped.';
+
+  @override
+  String get deviceRunning => 'Running';
+
+  @override
+  String get deviceRunningSentence => 'Running.';
+
+  @override
+  String get deviceRunningBackground =>
+      'Running without the foreground exemption.';
+
+  @override
+  String get deviceServiceTypes => 'Foreground service types';
+
+  @override
+  String get deviceServiceTypesHelp =>
+      'What the service declares to Android for the features it holds up.';
+
+  @override
+  String get deviceNoneDeclared => 'None declared.';
+
+  @override
+  String get deviceNone => 'none';
+
+  @override
+  String get deviceCpuLock => 'CPU wake lock';
+
+  @override
+  String get deviceCpuOff => 'Off: the setting below is off.';
+
+  @override
+  String get deviceCpuHeld => 'Held: the screen is off.';
+
+  @override
+  String get deviceCpuReleased => 'Released while the screen is on.';
+
+  @override
+  String get deviceNotHeld => 'Not held.';
+
+  @override
+  String get deviceHeld => 'Held';
+
+  @override
+  String get deviceReleased => 'Released';
+
+  @override
+  String get deviceWifiLock => 'Wi-Fi lock';
+
+  @override
+  String get deviceWifiHeld => 'Held: the radio stays out of power saving.';
+
+  @override
+  String get deviceWifiHelp =>
+      'Keeps the radio out of power saving through screen-off.';
+
+  @override
+  String get deviceNotification => 'Notification';
+
+  @override
+  String get deviceNotificationHidden =>
+      'Hidden: notifications are turned off for the app. The service runs regardless.';
+
+  @override
+  String get deviceNotificationShown =>
+      'Shown in the notification shade while the service runs.';
+
+  @override
+  String get deviceHidden => 'Hidden';
+
+  @override
+  String get deviceShown => 'Shown';
+
+  @override
+  String get deviceReasonHa => 'Home Assistant connection';
+
+  @override
+  String get deviceReasonHaHelp =>
+      'Keeps the dashboard session and its websocket open while the screen is off.';
+
+  @override
+  String get deviceReasonListening => 'Background listening';
+
+  @override
+  String get deviceReasonListeningHelp =>
+      'Keeps the wake word engine and its microphone running behind other apps.';
+
+  @override
+  String get deviceReasonRtsp => 'RTSP microphone audio';
+
+  @override
+  String get deviceReasonRtspHelp =>
+      'Keeps microphone streaming available to connected RTSP viewers.';
+
+  @override
+  String get deviceReasonEspHome => 'ESPHome server';
+
+  @override
+  String get deviceReasonEspHomeHelp =>
+      'Keeps the ESPHome API server answering Home Assistant.';
+
+  @override
+  String get deviceReasonRemote => 'Remote administration';
+
+  @override
+  String get deviceReasonRemoteHelp => 'Keeps the admin web server answering.';
+
+  @override
+  String get deviceReasonProtections => 'Kiosk protections';
+
+  @override
+  String get deviceReasonProtectionsHelp =>
+      'Relaunches the kiosk when it is closed from recents or crashes.';
+
+  @override
+  String get deviceReasonBluetooth => 'Bluetooth proxy';
+
+  @override
+  String get deviceReasonBluetoothHelp =>
+      'Keeps Bluetooth scanning running while the app is not on screen.';
+
+  @override
+  String get deviceReasonLocation => 'Location sensors';
+
+  @override
+  String get deviceReasonLocationHelp =>
+      'Keeps GPS fixes arriving while the screen is off or another app is in front.';
+
+  @override
+  String get deviceReasonPerson => 'Person detection';
+
+  @override
+  String get deviceReasonPersonHelp =>
+      'Keeps reading the device\'s person sensor while another app is in front.';
+
+  @override
+  String get deviceReasonCameraHelp =>
+      'Keeps the camera usable after the panel powers off, for motion and face detection.';
+
+  @override
+  String deviceServiceStopped(String error) {
+    return 'Stopped: $error';
+  }
+
+  @override
+  String deviceServiceRunning(String uptime) {
+    return 'Running for $uptime.';
+  }
+
+  @override
+  String get settingShizukuInstallUpdatesTitle =>
+      'Install updates through Shizuku';
+
+  @override
+  String get settingShizukuInstallUpdatesDescription =>
+      'Install Kiosk Satellite updates without on-device confirmation. Shizuku must be running and authorized.';
+
+  @override
+  String get deviceShizukuAccess => 'Shizuku access';
+
+  @override
+  String get deviceShizukuCheck => 'Checking availability';
+
+  @override
+  String get deviceShizukuRoot => 'Connected with root access';
+
+  @override
+  String get deviceShizukuShell => 'Connected with shell access';
+
+  @override
+  String get deviceShizukuGrant =>
+      'Tap to grant access. Approve the request on this kiosk.';
+
+  @override
+  String get deviceShizukuGrantRemote =>
+      'Grant access and approve the request on this kiosk.';
+
+  @override
+  String get deviceShizukuDenied => 'Allow Kiosk Satellite in the Shizuku app.';
+
+  @override
+  String get deviceShizukuUnsupported => 'Shizuku 13 or later is required.';
+
+  @override
+  String get deviceShizukuStart => 'Start Shizuku on this device.';
+
+  @override
+  String get deviceShizukuTest => 'Test connection';
+
+  @override
+  String get deviceShizukuTestHelp =>
+      'Read the process identity without changing the device.';
+
+  @override
+  String get deviceShizukuTestTitle => 'Connection test';
+
+  @override
+  String get deviceShizukuTestFailed =>
+      'Shizuku could not complete the connection test.';
+
+  @override
+  String get deviceShizukuAlreadyGranted =>
+      'All permissions are already granted.';
+
+  @override
+  String get deviceShizukuConfirmed =>
+      'Android confirmed the requested permissions.';
+
+  @override
+  String get deviceShizukuResults => 'Permission results';
+
+  @override
+  String get deviceShizukuGrantAll => 'Grant all permissions';
+
+  @override
+  String get deviceShizukuGrantAllHelp =>
+      'Grant all permissions used by KS, including features that are currently off.';
+
+  @override
+  String get deviceShizukuSetup => 'Set up Shizuku';
+
+  @override
+  String get deviceShizukuSetupHelp =>
+      'Read installation and startup instructions.';
+
+  @override
+  String get deviceShizukuLifetime =>
+      'Shizuku started through ADB must be started again after a device reboot. Shell access does not provide root permissions.';
+
+  @override
+  String get deviceShizukuFailed => 'Shizuku request failed';
+
+  @override
+  String get deviceShizukuApprove => 'Approve the request on the kiosk.';
+
+  @override
+  String deviceShizukuTestOk(String access) {
+    return 'Shizuku successfully ran a command with $access access.';
+  }
+
+  @override
+  String get deviceHelperPage => 'Optional update helper';
+
+  @override
+  String get deviceHelperStatus => 'Helper status';
+
+  @override
+  String get deviceHelperError => 'Could not check the update helper.';
+
+  @override
+  String get deviceHelperUnneeded =>
+      'Android can now install updates silently. The helper is not needed.';
+
+  @override
+  String get deviceHelperIntro =>
+      'This device currently needs confirmation on the screen to install updates through Android. The optional helper lets Kiosk Satellite install updates without a tap.';
+
+  @override
+  String get deviceHelperBusy => 'Installing an update.';
+
+  @override
+  String get deviceHelperReady =>
+      'Ready. Updates install without confirmation.';
+
+  @override
+  String get deviceHelperUnavailable =>
+      'Unavailable. Start the helper through ADB to enable updates without confirmation.';
+
+  @override
+  String get deviceHelperLifetime =>
+      'The helper survives app restarts and updates but stops after a device reboot. Run the command from a computer with ADB to start it again. The computer can then disconnect.';
+
+  @override
+  String get deviceHelperStart => 'Start through ADB';
+
+  @override
+  String get deviceHelperGuide => 'Setup guide';
+
+  @override
+  String get deviceHelperGuideHelp =>
+      'Read the update helper instructions and requirements.';
+
+  @override
+  String get settingUpdateSourceTitle => 'Update source';
+
+  @override
+  String get settingUpdateSourceDescription =>
+      'Where the app looks for new releases.';
+
+  @override
+  String get settingUpdateSourceUrlTitle => 'Repository URL';
+
+  @override
+  String get settingUpdateSourceUrlDescription =>
+      'A folder on a web server the kiosk can reach, holding releases.json and the release APKs.';
+
+  @override
+  String get deviceUpdatesPage => 'Updates';
+
+  @override
+  String get deviceUpdateGithub => 'GitHub Repository';
+
+  @override
+  String get deviceUpdateCustom => 'Custom Repository';
+
+  @override
+  String get deviceUpdateGuide => 'Custom repository guide';
+
+  @override
+  String get deviceUpdateGuideHelp =>
+      'How to host the releases file and the APKs on your own network.';
+
+  @override
+  String get deviceInstallFile => 'Install from file';
+
+  @override
+  String get deviceInstallFileHelp =>
+      'Upload a Kiosk Satellite APK from a computer through the remote admin, on this same page. For a kiosk that cannot reach GitHub or a custom repository.';
+
+  @override
+  String get deviceInstallFileRemoteHelp =>
+      'Upload a Kiosk Satellite APK from this computer and install it. For a kiosk that cannot reach GitHub or a custom repository.';
+
+  @override
+  String get deviceUploadedApk => 'Uploaded APK';
+
+  @override
+  String get deviceInstalling => 'Installing…';
+
+  @override
+  String get deviceDeviceNoAnswer => 'The device did not answer.';
+
+  @override
+  String get deviceInstallFailed => 'Update failed. Check the device logs.';
+
+  @override
+  String get deviceConfirmTablet => 'Confirm on the tablet screen';
+
+  @override
+  String deviceUploadedVersion(String version, String build, String size) {
+    return 'Version $version (build $build, $size MB) is on the device, waiting to be installed.';
+  }
+
+  @override
+  String deviceInstallVersion(String version) {
+    return 'Install version $version';
+  }
+
+  @override
+  String deviceHttpError(String code) {
+    return 'The device answered HTTP $code.';
+  }
+
+  @override
+  String get deviceUploadFailed => 'The upload failed.';
+
+  @override
+  String get deviceInstallFleet => 'Install on the fleet';
+
+  @override
+  String get deviceSendingFleet => 'Sending to the fleet…';
+
+  @override
+  String get deviceSameBuild => 'The kiosk already runs this build.';
+
+  @override
+  String get deviceInstallConfirmation =>
+      'The install must be confirmed on the tablet screen unless the kiosk installs silently.';
+
+  @override
+  String get deviceSelfLast => 'This kiosk installs last.';
+
+  @override
+  String get deviceUpdatingFleet => 'Updating the fleet';
+
+  @override
+  String deviceUploading(String percent) {
+    return 'Uploading… $percent%';
+  }
+
+  @override
+  String deviceUploadedDetails(String version, String build, String size) {
+    return 'The uploaded APK is version $version (build $build, $size MB).';
+  }
+
+  @override
+  String deviceCurrentBuild(String version, String build) {
+    return 'The kiosk runs $version (build $build).';
+  }
+
+  @override
+  String deviceSendingTo(String name, String percent) {
+    return 'Sending to $name… $percent%';
+  }
+
+  @override
+  String deviceInstallingOn(String name) {
+    return 'Installing on $name…';
+  }
+
+  @override
+  String deviceInstallingNames(String names) {
+    return '$names installing.';
+  }
+
+  @override
+  String get deviceUpdateUrlInvalid =>
+      'Enter the folder URL, for example http://nas.local/kiosk-satellite';
+
+  @override
+  String get deviceUpdateUrlPath =>
+      'Enter only the folder URL, without anything after the path. Example: http://nas.local/kiosk-satellite';
+
+  @override
   String get settingUiLanguageTitle => 'Language';
 
   @override
   String get settingUiLanguageDescription =>
       'Language for Kiosk Satellite and remote administration. Home Assistant keeps its own language.';
+
+  @override
+  String get settingUiThemeTitle => 'App theme';
+
+  @override
+  String get settingUiThemeDescription =>
+      'Light or dark for the app\'s own screens: menu, settings, dialogs. System follows the Android setting.';
+
+  @override
+  String get settingUiScaleTitle => 'Scale UI';
+
+  @override
+  String get settingUiScaleDescription =>
+      'Size of the app\'s own screens: menu, settings, dialogs. For high density displays. Web content keeps its size.';
+
+  @override
+  String get deviceUserInterface => 'User Interface';
+
+  @override
+  String get deviceThemeDark => 'Dark';
+
+  @override
+  String get deviceThemeLight => 'Light';
+
+  @override
+  String get deviceThemeSystem => 'System';
 
   @override
   String get settingHaUrlTitle => 'Home Assistant base URL';

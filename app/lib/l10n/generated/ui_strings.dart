@@ -145,6 +145,54 @@ abstract class UiStrings {
   /// **'OK'**
   String get commonOk;
 
+  /// Button to grant an Android permission.
+  ///
+  /// In en, this message translates to:
+  /// **'Grant'**
+  String get commonGrant;
+
+  /// Button to enable a feature.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable'**
+  String get commonEnable;
+
+  /// Button to refresh the displayed status.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh'**
+  String get commonRefresh;
+
+  /// Button to test a connection.
+  ///
+  /// In en, this message translates to:
+  /// **'Test'**
+  String get commonTest;
+
+  /// Button to install an update.
+  ///
+  /// In en, this message translates to:
+  /// **'Install'**
+  String get commonInstall;
+
+  /// Button to save edited settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get commonSave;
+
+  /// Button to retry a failed action.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get commonRetry;
+
+  /// Button to copy a value to the clipboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy'**
+  String get commonCopy;
+
   /// Plugin action label. Both values come from the plugin and are kept as supplied.
   ///
   /// In en, this message translates to:
@@ -415,6 +463,204 @@ abstract class UiStrings {
   /// **'No release notes.'**
   String get drawerNoReleaseNotes;
 
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Basic analytics'**
+  String get settingAnalyticsBasicTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Information about your device, such as model, Android version, app version, screen size and language.'**
+  String get settingAnalyticsBasicDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Usage'**
+  String get settingAnalyticsUsageTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Details of what you use with Kiosk Satellite.'**
+  String get settingAnalyticsUsageDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Diagnostics'**
+  String get settingAnalyticsDiagnosticsTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Share crash reports when unexpected errors occur.'**
+  String get settingAnalyticsDiagnosticsDescription;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosk Satellite Analytics'**
+  String get deviceAnalyticsPage;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Share anonymized information from your installation to help make Kiosk Satellite better and guide which devices and features get attention.'**
+  String get deviceAnalyticsIntro;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn how we process your data'**
+  String get deviceAnalyticsLearn;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'What Kiosk Satellite Analytics sends and what it never sends.'**
+  String get deviceAnalyticsLearnHelp;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Export configuration'**
+  String get deviceExportConfig;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Save every setting and the page\'s local storage to a file.'**
+  String get deviceExportConfigHelp;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Download every setting and the page\'s local storage.'**
+  String get deviceExportConfigRemoteHelp;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Import configuration'**
+  String get deviceImportConfig;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace this device\'s settings from an exported file.'**
+  String get deviceImportConfigHelp;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Export failed'**
+  String get deviceExportFailed;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Configuration exported'**
+  String get deviceExported;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Import failed'**
+  String get deviceImportFailed;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'That file is not valid JSON.'**
+  String get deviceInvalidJson;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Import complete'**
+  String get deviceImportComplete;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Applied {count} settings.'**
+  String deviceAppliedSettings(String count);
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Applied {count} settings. The page may reload.'**
+  String deviceAppliedReload(String count);
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace the original device'**
+  String get deviceReplaceOriginal;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace this device\'s settings with the file\'s? The page may reload.'**
+  String get deviceReplaceQuestion;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Set up as new device'**
+  String get deviceNewDevice;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Keeps the backup\'s name and ESPHome identity; the original device must stay offline.'**
+  String get deviceReplaceIdentity;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Assign its own name and ESPHome identity, so both devices are unique.'**
+  String get deviceNewIdentity;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Webview\'s local storage'**
+  String get deviceRestoreStorage;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Includes the Home Assistant signed in session and the Voice Satellite assist_satellite selection - two devices must not share one satellite.'**
+  String get deviceRestoreStorageHelp;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Download'**
+  String get deviceDownload;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose file…'**
+  String get deviceChooseFile;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Import failed.'**
+  String get deviceImportFailedSentence;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace \"{name}\"'**
+  String deviceReplaceNamed(String name);
+
   /// Device name field label.
   ///
   /// In en, this message translates to:
@@ -426,6 +672,768 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Friendly name shown in remote management and used as the device name published to Home Assistant.'**
   String get settingDeviceNameDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'mDNS name'**
+  String get settingDeviceHostnameTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Reach the remote admin using this name and the configured port on the local network. Clear it to take the device name again.'**
+  String get settingDeviceHostnameDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Legacy renderer'**
+  String get settingDisableImpellerTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the older Skia renderer, for old GPUs that crash at startup. Turns itself on after two such crashes; takes effect on the next app start.'**
+  String get settingDisableImpellerDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Legacy WebView renderer'**
+  String get settingLegacyWebViewTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Draw the dashboard into a texture, for old GPUs that crash when it appears. Turns itself on where the device needs it; takes effect on the next app start.'**
+  String get settingLegacyWebViewDescription;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Set from the device name'**
+  String get deviceHostnamePlaceholder;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Configuration'**
+  String get deviceConfiguration;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Permissions Manager'**
+  String get devicePermissionsManager;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Options'**
+  String get deviceOptions;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get deviceStatus;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection'**
+  String get deviceConnection;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Permissions'**
+  String get devicePermissions;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Help'**
+  String get deviceHelp;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Access'**
+  String get deviceAccess;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Reading…'**
+  String get deviceReading;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking...'**
+  String get deviceChecking;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Status unavailable.'**
+  String get deviceUnavailable;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Grant on device'**
+  String get deviceGrantOnDevice;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'App settings'**
+  String get deviceAppSettings;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy command'**
+  String get deviceCopyCommand;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Open guide'**
+  String get deviceOpenGuide;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Not set'**
+  String get deviceNotSet;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Granted'**
+  String get deviceGranted;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Not granted'**
+  String get deviceNotGranted;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Missing'**
+  String get deviceMissing;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Not offered'**
+  String get deviceNotOffered;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'on'**
+  String get deviceOn;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'off'**
+  String get deviceOff;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Status, what keeps it running, required permissions'**
+  String get deviceServiceHint;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage this kiosk from a browser on your network'**
+  String get deviceRemoteHintActual;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Where the app looks for new releases'**
+  String get deviceUpdatesHint;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection, Android permissions and setup'**
+  String get deviceShizukuHint;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Silent update status, ADB setup and instructions'**
+  String get deviceHelperHint;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Share anonymized information to help improve Kiosk Satellite'**
+  String get deviceAnalyticsHint;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Model, Android version, addresses, memory, uptime'**
+  String get deviceHardwareHint;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection, version and what the kiosk shows'**
+  String get deviceHaHint;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Engine version, renderer and user agent'**
+  String get deviceWebViewHint;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'•••••• (set)'**
+  String get devicePasswordSet;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save this setting. Try again.'**
+  String get deviceSaveFailed;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Open settings on device'**
+  String get deviceOpenSettingsDevice;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Hardware'**
+  String get deviceHardwarePage;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'WebView'**
+  String get deviceWebViewPage;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Device model'**
+  String get deviceModel;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Android version'**
+  String get deviceAndroidVersion;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Android build'**
+  String get deviceAndroidBuild;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'IPv4 address'**
+  String get deviceIpv4;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'IPv6 addresses'**
+  String get deviceIpv6;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'App uptime'**
+  String get deviceAppUptime;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Network uptime'**
+  String get deviceNetworkUptime;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'CPU usage'**
+  String get deviceCpuUsage;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'CPU temperature'**
+  String get deviceCpuTemp;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Battery level'**
+  String get deviceBatteryLevel;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Screen brightness'**
+  String get deviceScreenBrightness;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Screen status'**
+  String get deviceScreenStatus;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Screen size'**
+  String get deviceScreenSize;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'RAM (free/total)'**
+  String get deviceRam;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Internal storage (free/total)'**
+  String get deviceStorage;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Assistant URL'**
+  String get deviceHaUrl;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Wake word detection'**
+  String get deviceWakeDetection;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Wake word status'**
+  String get deviceWakeStatus;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Engine'**
+  String get deviceEngine;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Wake words'**
+  String get deviceWakeWords;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop word'**
+  String get deviceStopWord;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Motion detection'**
+  String get deviceMotionDetection;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Face detection'**
+  String get deviceFaceDetection;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Provider'**
+  String get deviceProvider;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Version'**
+  String get deviceVersion;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'User agent'**
+  String get deviceUserAgent;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'plugged'**
+  String get devicePlugged;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'low'**
+  String get deviceLowMemory;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Required system permissions'**
+  String get deviceRequiredPermissions;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Grants are given on this device, so each button opens an Android dialog or settings screen here. Some brands add their own battery or autostart manager on top, which Android cannot report.'**
+  String get devicePermissionIntro;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Grants are given on the device, so each button opens an Android dialog or settings screen there. Some brands add their own battery or autostart manager on top, which Android cannot report.'**
+  String get devicePermissionIntroRemote;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone'**
+  String get deviceMicrophone;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Allows microphone usage for wake word detection, speech to text and intercom calls.'**
+  String get deviceMicrophoneHeld;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Unrestricted battery'**
+  String get deviceBattery;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Allows the process to run in the background without being paused or killed.'**
+  String get deviceBatteryHeld;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera'**
+  String get deviceCamera;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Motion detection and snapshots can use the camera.'**
+  String get deviceCameraHeld;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Nearby devices'**
+  String get deviceBluetooth;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'The Bluetooth proxy can scan for nearby devices.'**
+  String get deviceBluetoothHeld;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get deviceNotifications;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Allows the Kiosk Satellite Service\'s ongoing notification, which says what it is keeping alive.'**
+  String get deviceNotificationsHeld;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Display over other apps'**
+  String get deviceOverlay;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosk Satellite can bring itself back in the foreground.'**
+  String get deviceOverlayHeld;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Modify system settings'**
+  String get deviceWriteSettings;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Brightness changes set the panel\'s real brightness.'**
+  String get deviceWriteSettingsHeld;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'System UI guard'**
+  String get deviceUiGuard;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'The notification shade and recents close on their own while the screen is protected.'**
+  String get deviceUiGuardHeld;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Device admin'**
+  String get deviceDeviceAdmin;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Allows the app to turn the screen off.'**
+  String get deviceDeviceAdminHeld;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'All files access'**
+  String get deviceAllFiles;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'The File Manager can browse the shared storage.'**
+  String get deviceAllFilesHeld;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Usage access'**
+  String get deviceUsageAccess;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'The Foreground app sensor can name whichever app is on screen.'**
+  String get deviceUsageAccessHeld;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get deviceLocation;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Pages, Bluetooth scanning and the location sensors can use the device position.'**
+  String get deviceLocationHeld;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked. Android will not ask again, so allow it in the app settings.'**
+  String get deviceMicBlocked;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Wake word detection is on and nothing is listening.'**
+  String get deviceMicMissing;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Needed by wake word detection, the intercom and pages that ask for the microphone.'**
+  String get deviceMicIdle;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Android may pause the app when the screen is off, dropping the Home Assistant connection and the ESPHome entities with it.'**
+  String get deviceBatteryMissing;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'The camera is switched on and cannot be opened.'**
+  String get deviceCameraMissing;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Needed by motion detection, camera snapshots and pages that ask for the camera.'**
+  String get deviceCameraIdle;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'The Bluetooth proxy is switched on and cannot scan.'**
+  String get deviceBluetoothMissing;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Bluetooth scanning needs the Location permission.'**
+  String get deviceBluetoothLocation;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Location is off in the device settings, so Bluetooth scanning finds nothing.'**
+  String get deviceBluetoothLocationOff;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Needed by the Bluetooth proxy to scan for devices.'**
+  String get deviceBluetoothIdle;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Needed to show the Kiosk Satellite Service\'s ongoing notification.'**
+  String get deviceNotificationMissing;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Without this the app cannot reopen itself after a crash, an update or a wake word heard behind another app.'**
+  String get deviceOverlayMissing;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Lets the app bring itself back to the front, and the lockdown shield cover the whole screen.'**
+  String get deviceOverlayIdle;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Brightness only dims the app window, so the panel and Home Assistant never see the change.'**
+  String get deviceBrightnessMissing;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Needed to set the panel\'s real brightness rather than dimming the app window.'**
+  String get deviceBrightnessIdle;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'The notification shade and recents stay reachable. Enable Kiosk Satellite under Accessibility.'**
+  String get deviceGuardMissing;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Closes the notification shade and recents while kiosk mode protects the screen.'**
+  String get deviceGuardIdle;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Lets Screen off power the panel down instead of only blacking it out.'**
+  String get deviceAdminIdle;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Lets the File Manager browse the shared storage instead of only the app folder.'**
+  String get deviceFilesIdle;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Lets the Foreground app sensor name apps other than Kiosk Satellite.'**
+  String get deviceUsageIdle;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Android will not deliver Bluetooth scan results without Location, and the location sensors cannot read the GPS receiver.'**
+  String get deviceLocationMissing;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Used by pages that ask for your location, by Bluetooth scanning and by the ESPHome location sensors.'**
+  String get deviceLocationIdle;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Without this the service cannot relaunch the kiosk after a crash or a close from recents.'**
+  String get deviceServiceOverlayMissing;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Needed to relaunch the kiosk after a crash.'**
+  String get deviceServiceOverlayIdle;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Background listening is on and nothing is listening.'**
+  String get deviceListeningMissing;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Needed by background listening.'**
+  String get deviceListeningIdle;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Needed by motion detection.'**
+  String get deviceMotionIdle;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'This device has no settings screen for it. Grant it over adb: adb shell dumpsys deviceidle whitelist +me.jxl.kiosk_satellite'**
+  String get deviceBatteryAdb;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'This device has no settings screen for it. Grant it over adb: adb shell appops set me.jxl.kiosk_satellite SYSTEM_ALERT_WINDOW allow'**
+  String get deviceOverlayAdb;
 
   /// Switch label.
   ///
@@ -463,6 +1471,804 @@ abstract class UiStrings {
   /// **'Required to log in to the remote interface.'**
   String get settingRemotePasswordDescription;
 
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Find other kiosks'**
+  String get settingRemoteFleetDiscoveryTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Announce this device on the network and list the other kiosks in the remote admin, to switch between them.'**
+  String get settingRemoteFleetDiscoveryDescription;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Remote Administration'**
+  String get deviceRemotePage;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Admin address'**
+  String get deviceAdminAddress;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Open this address in a browser on your computer.'**
+  String get deviceAdminAddressHelp;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'By name'**
+  String get deviceByName;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'The same address by hostname, on networks that resolve .local names.'**
+  String get deviceByNameHelp;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Set an admin password below to start the server.'**
+  String get devicePasswordNeeded;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'The server is not running.'**
+  String get deviceServerStopped;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not listen on port {port}: {error}'**
+  String devicePortError(String port, String error);
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep the CPU awake while the screen is off'**
+  String get settingServiceCpuAwakeTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Holds a wake lock through dark spells so connections and timers keep running on time. Costs battery on an unplugged tablet.'**
+  String get settingServiceCpuAwakeDescription;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosk Satellite Service'**
+  String get deviceServicePage;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Keeping it running'**
+  String get deviceKeepingRunning;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Service'**
+  String get deviceService;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Stopped'**
+  String get deviceStopped;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Stopped.'**
+  String get deviceStoppedSentence;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Running'**
+  String get deviceRunning;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Running.'**
+  String get deviceRunningSentence;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Running without the foreground exemption.'**
+  String get deviceRunningBackground;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Foreground service types'**
+  String get deviceServiceTypes;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'What the service declares to Android for the features it holds up.'**
+  String get deviceServiceTypesHelp;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'None declared.'**
+  String get deviceNoneDeclared;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'none'**
+  String get deviceNone;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'CPU wake lock'**
+  String get deviceCpuLock;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Off: the setting below is off.'**
+  String get deviceCpuOff;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Held: the screen is off.'**
+  String get deviceCpuHeld;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Released while the screen is on.'**
+  String get deviceCpuReleased;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Not held.'**
+  String get deviceNotHeld;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Held'**
+  String get deviceHeld;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Released'**
+  String get deviceReleased;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Wi-Fi lock'**
+  String get deviceWifiLock;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Held: the radio stays out of power saving.'**
+  String get deviceWifiHeld;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Keeps the radio out of power saving through screen-off.'**
+  String get deviceWifiHelp;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification'**
+  String get deviceNotification;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Hidden: notifications are turned off for the app. The service runs regardless.'**
+  String get deviceNotificationHidden;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Shown in the notification shade while the service runs.'**
+  String get deviceNotificationShown;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Hidden'**
+  String get deviceHidden;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Shown'**
+  String get deviceShown;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Assistant connection'**
+  String get deviceReasonHa;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Keeps the dashboard session and its websocket open while the screen is off.'**
+  String get deviceReasonHaHelp;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Background listening'**
+  String get deviceReasonListening;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Keeps the wake word engine and its microphone running behind other apps.'**
+  String get deviceReasonListeningHelp;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'RTSP microphone audio'**
+  String get deviceReasonRtsp;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Keeps microphone streaming available to connected RTSP viewers.'**
+  String get deviceReasonRtspHelp;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'ESPHome server'**
+  String get deviceReasonEspHome;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Keeps the ESPHome API server answering Home Assistant.'**
+  String get deviceReasonEspHomeHelp;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Remote administration'**
+  String get deviceReasonRemote;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Keeps the admin web server answering.'**
+  String get deviceReasonRemoteHelp;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosk protections'**
+  String get deviceReasonProtections;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Relaunches the kiosk when it is closed from recents or crashes.'**
+  String get deviceReasonProtectionsHelp;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Bluetooth proxy'**
+  String get deviceReasonBluetooth;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Keeps Bluetooth scanning running while the app is not on screen.'**
+  String get deviceReasonBluetoothHelp;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Location sensors'**
+  String get deviceReasonLocation;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Keeps GPS fixes arriving while the screen is off or another app is in front.'**
+  String get deviceReasonLocationHelp;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Person detection'**
+  String get deviceReasonPerson;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Keeps reading the device\'s person sensor while another app is in front.'**
+  String get deviceReasonPersonHelp;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Keeps the camera usable after the panel powers off, for motion and face detection.'**
+  String get deviceReasonCameraHelp;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Stopped: {error}'**
+  String deviceServiceStopped(String error);
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Running for {uptime}.'**
+  String deviceServiceRunning(String uptime);
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Install updates through Shizuku'**
+  String get settingShizukuInstallUpdatesTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Install Kiosk Satellite updates without on-device confirmation. Shizuku must be running and authorized.'**
+  String get settingShizukuInstallUpdatesDescription;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Shizuku access'**
+  String get deviceShizukuAccess;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking availability'**
+  String get deviceShizukuCheck;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Connected with root access'**
+  String get deviceShizukuRoot;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Connected with shell access'**
+  String get deviceShizukuShell;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to grant access. Approve the request on this kiosk.'**
+  String get deviceShizukuGrant;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Grant access and approve the request on this kiosk.'**
+  String get deviceShizukuGrantRemote;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow Kiosk Satellite in the Shizuku app.'**
+  String get deviceShizukuDenied;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Shizuku 13 or later is required.'**
+  String get deviceShizukuUnsupported;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Shizuku on this device.'**
+  String get deviceShizukuStart;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Test connection'**
+  String get deviceShizukuTest;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Read the process identity without changing the device.'**
+  String get deviceShizukuTestHelp;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection test'**
+  String get deviceShizukuTestTitle;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Shizuku could not complete the connection test.'**
+  String get deviceShizukuTestFailed;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'All permissions are already granted.'**
+  String get deviceShizukuAlreadyGranted;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Android confirmed the requested permissions.'**
+  String get deviceShizukuConfirmed;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Permission results'**
+  String get deviceShizukuResults;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Grant all permissions'**
+  String get deviceShizukuGrantAll;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Grant all permissions used by KS, including features that are currently off.'**
+  String get deviceShizukuGrantAllHelp;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Set up Shizuku'**
+  String get deviceShizukuSetup;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Read installation and startup instructions.'**
+  String get deviceShizukuSetupHelp;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Shizuku started through ADB must be started again after a device reboot. Shell access does not provide root permissions.'**
+  String get deviceShizukuLifetime;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Shizuku request failed'**
+  String get deviceShizukuFailed;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Approve the request on the kiosk.'**
+  String get deviceShizukuApprove;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Shizuku successfully ran a command with {access} access.'**
+  String deviceShizukuTestOk(String access);
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional update helper'**
+  String get deviceHelperPage;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Helper status'**
+  String get deviceHelperStatus;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not check the update helper.'**
+  String get deviceHelperError;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Android can now install updates silently. The helper is not needed.'**
+  String get deviceHelperUnneeded;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'This device currently needs confirmation on the screen to install updates through Android. The optional helper lets Kiosk Satellite install updates without a tap.'**
+  String get deviceHelperIntro;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Installing an update.'**
+  String get deviceHelperBusy;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready. Updates install without confirmation.'**
+  String get deviceHelperReady;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Unavailable. Start the helper through ADB to enable updates without confirmation.'**
+  String get deviceHelperUnavailable;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'The helper survives app restarts and updates but stops after a device reboot. Run the command from a computer with ADB to start it again. The computer can then disconnect.'**
+  String get deviceHelperLifetime;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Start through ADB'**
+  String get deviceHelperStart;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Setup guide'**
+  String get deviceHelperGuide;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Read the update helper instructions and requirements.'**
+  String get deviceHelperGuideHelp;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Update source'**
+  String get settingUpdateSourceTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Where the app looks for new releases.'**
+  String get settingUpdateSourceDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Repository URL'**
+  String get settingUpdateSourceUrlTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'A folder on a web server the kiosk can reach, holding releases.json and the release APKs.'**
+  String get settingUpdateSourceUrlDescription;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Updates'**
+  String get deviceUpdatesPage;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'GitHub Repository'**
+  String get deviceUpdateGithub;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom Repository'**
+  String get deviceUpdateCustom;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom repository guide'**
+  String get deviceUpdateGuide;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'How to host the releases file and the APKs on your own network.'**
+  String get deviceUpdateGuideHelp;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Install from file'**
+  String get deviceInstallFile;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload a Kiosk Satellite APK from a computer through the remote admin, on this same page. For a kiosk that cannot reach GitHub or a custom repository.'**
+  String get deviceInstallFileHelp;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload a Kiosk Satellite APK from this computer and install it. For a kiosk that cannot reach GitHub or a custom repository.'**
+  String get deviceInstallFileRemoteHelp;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploaded APK'**
+  String get deviceUploadedApk;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Installing…'**
+  String get deviceInstalling;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'The device did not answer.'**
+  String get deviceDeviceNoAnswer;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Update failed. Check the device logs.'**
+  String get deviceInstallFailed;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm on the tablet screen'**
+  String get deviceConfirmTablet;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Version {version} (build {build}, {size} MB) is on the device, waiting to be installed.'**
+  String deviceUploadedVersion(String version, String build, String size);
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Install version {version}'**
+  String deviceInstallVersion(String version);
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'The device answered HTTP {code}.'**
+  String deviceHttpError(String code);
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'The upload failed.'**
+  String get deviceUploadFailed;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Install on the fleet'**
+  String get deviceInstallFleet;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Sending to the fleet…'**
+  String get deviceSendingFleet;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'The kiosk already runs this build.'**
+  String get deviceSameBuild;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'The install must be confirmed on the tablet screen unless the kiosk installs silently.'**
+  String get deviceInstallConfirmation;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'This kiosk installs last.'**
+  String get deviceSelfLast;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Updating the fleet'**
+  String get deviceUpdatingFleet;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploading… {percent}%'**
+  String deviceUploading(String percent);
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'The uploaded APK is version {version} (build {build}, {size} MB).'**
+  String deviceUploadedDetails(String version, String build, String size);
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'The kiosk runs {version} (build {build}).'**
+  String deviceCurrentBuild(String version, String build);
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Sending to {name}… {percent}%'**
+  String deviceSendingTo(String name, String percent);
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Installing on {name}…'**
+  String deviceInstallingOn(String name);
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'{names} installing.'**
+  String deviceInstallingNames(String names);
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the folder URL, for example http://nas.local/kiosk-satellite'**
+  String get deviceUpdateUrlInvalid;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter only the folder URL, without anything after the path. Example: http://nas.local/kiosk-satellite'**
+  String get deviceUpdateUrlPath;
+
   /// Language selector label.
   ///
   /// In en, this message translates to:
@@ -474,6 +2280,54 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Language for Kiosk Satellite and remote administration. Home Assistant keeps its own language.'**
   String get settingUiLanguageDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'App theme'**
+  String get settingUiThemeTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Light or dark for the app\'s own screens: menu, settings, dialogs. System follows the Android setting.'**
+  String get settingUiThemeDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Scale UI'**
+  String get settingUiScaleTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Size of the app\'s own screens: menu, settings, dialogs. For high density displays. Web content keeps its size.'**
+  String get settingUiScaleDescription;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'User Interface'**
+  String get deviceUserInterface;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get deviceThemeDark;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get deviceThemeLight;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get deviceThemeSystem;
 
   /// Home Assistant base URL field label.
   ///

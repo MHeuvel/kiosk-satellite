@@ -1,3 +1,4 @@
+import { deviceText } from './localization.js';
 import { cmd } from './core.js';
 
 /* ---- Dashboard ---- */
@@ -95,7 +96,7 @@ export function messageBox({ title, message, buttons = ['OK'] }) {
     body.appendChild(p);
     buttons.forEach((label, i) => {
       const btn = document.createElement('button');
-      btn.textContent = label;
+      btn.textContent = deviceText(label);
       btn.className = i === buttons.length - 1 ? 'btn-primary' : 'btn-text';
       btn.addEventListener('click', () => { back.remove(); resolve(label); });
       foot.appendChild(btn);
@@ -751,7 +752,7 @@ export function copyBox(value, { placeholder = 'Not set' } = {}) {
   const box = document.createElement('button');
   box.type = 'button';
   box.className = 'copy-box';
-  box.title = 'Copy';
+  box.title = deviceText('Copy');
   const text = document.createElement('span');
   text.className = 'copy-value';
   const disc = document.createElement('span');

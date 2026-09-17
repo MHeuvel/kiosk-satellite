@@ -26,5 +26,57 @@
   "ui.language": {
     "title": "settingUiLanguageTitle",
     "description": "settingUiLanguageDescription"
+  },
+  "ui.theme": {
+    "title": "settingUiThemeTitle",
+    "description": "settingUiThemeDescription"
+  },
+  "ui.scale": {
+    "title": "settingUiScaleTitle",
+    "description": "settingUiScaleDescription"
+  },
+  "device.hostname": {
+    "title": "settingDeviceHostnameTitle",
+    "description": "settingDeviceHostnameDescription"
+  },
+  "render.disable_impeller": {
+    "title": "settingDisableImpellerTitle",
+    "description": "settingDisableImpellerDescription"
+  },
+  "render.legacy_webview": {
+    "title": "settingLegacyWebViewTitle",
+    "description": "settingLegacyWebViewDescription"
+  },
+  "remote.fleet_discovery": {
+    "title": "settingRemoteFleetDiscoveryTitle",
+    "description": "settingRemoteFleetDiscoveryDescription"
+  },
+  "service.cpu_awake": {
+    "title": "settingServiceCpuAwakeTitle",
+    "description": "settingServiceCpuAwakeDescription"
+  },
+  "update.source": {
+    "title": "settingUpdateSourceTitle",
+    "description": "settingUpdateSourceDescription"
+  },
+  "update.source_url": {
+    "title": "settingUpdateSourceUrlTitle",
+    "description": "settingUpdateSourceUrlDescription"
+  },
+  "shizuku.install_updates": {
+    "title": "settingShizukuInstallUpdatesTitle",
+    "description": "settingShizukuInstallUpdatesDescription"
+  },
+  "analytics.basic": {
+    "title": "settingAnalyticsBasicTitle",
+    "description": "settingAnalyticsBasicDescription"
+  },
+  "analytics.usage": {
+    "title": "settingAnalyticsUsageTitle",
+    "description": "settingAnalyticsUsageDescription"
+  },
+  "analytics.diagnostics": {
+    "title": "settingAnalyticsDiagnosticsTitle",
+    "description": "settingAnalyticsDiagnosticsDescription"
   }
 }

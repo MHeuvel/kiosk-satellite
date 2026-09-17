@@ -39,5 +39,45 @@
   "@commonOk": {
     "context": "Common:Actions",
     "description": "Button to dismiss a message."
+  },
+  "commonGrant": "Grant",
+  "@commonGrant": {
+    "context": "Common:Actions",
+    "description": "Button to grant an Android permission."
+  },
+  "commonEnable": "Enable",
+  "@commonEnable": {
+    "context": "Common:Actions",
+    "description": "Button to enable a feature."
+  },
+  "commonRefresh": "Refresh",
+  "@commonRefresh": {
+    "context": "Common:Actions",
+    "description": "Button to refresh the displayed status."
+  },
+  "commonTest": "Test",
+  "@commonTest": {
+    "context": "Common:Actions",
+    "description": "Button to test a connection."
+  },
+  "commonInstall": "Install",
+  "@commonInstall": {
+    "context": "Common:Actions",
+    "description": "Button to install an update."
+  },
+  "commonSave": "Save",
+  "@commonSave": {
+    "context": "Common:Actions",
+    "description": "Button to save edited settings."
+  },
+  "commonRetry": "Retry",
+  "@commonRetry": {
+    "context": "Common:Actions",
+    "description": "Button to retry a failed action."
+  },
+  "commonCopy": "Copy",
+  "@commonCopy": {
+    "context": "Common:Actions",
+    "description": "Button to copy a value to the clipboard."
   }
 }

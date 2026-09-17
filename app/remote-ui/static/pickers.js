@@ -1,3 +1,4 @@
+import { deviceText, t } from './localization.js';
 import { cmd } from './core.js';
 import { modalShell } from './widgets.js';
 
@@ -13,7 +14,7 @@ import { modalShell } from './widgets.js';
 export function askImportOptions(backupName) {
   return new Promise((resolve) => {
     const { back, body, foot } = modalShell({
-      title: 'Import configuration',
+      title: deviceText('Import configuration'),
       width: 460,
       onDismiss: () => close(null),
     });
@@ -23,13 +24,19 @@ export function askImportOptions(backupName) {
     let local = false;
     let localTouched = false;
     const replaceLabel = backupName && backupName.trim()
-      ? `Replace "${backupName.trim()}"` : 'Replace the original device';
+      ? t('deviceReplaceNamed', {name: backupName.trim()}) : deviceText('Replace the original device');
 
     body.innerHTML = `
       <div style="font-size:13.5px; margin-bottom:12px">Replace this device's settings with the file's? The page may reload.</div>
       <label style="display:block; margin-bottom:8px"><input type="radio" name="impid"> Set up as new device<div class="desc" style="margin-left:22px">Assign its own name and ESPHome identity, so both devices are unique.</div></label>
       <label style="display:block; margin-bottom:12px"><input type="radio" name="impid"> <span id="impReplaceLbl"></span><div class="desc" style="margin-left:22px">Keeps the backup's name and ESPHome identity; the original device must stay offline.</div></label>
       <label style="display:block"><input type="checkbox" id="impLocal"> Restore Webview's local storage<div class="desc" style="margin-left:22px">Includes the Home Assistant signed in session and the Voice Satellite assist_satellite selection - two devices must not share one satellite.</div></label>`;
+    const walker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT);
+    while (walker.nextNode()) {
+      const node = walker.currentNode;
+      const value = node.textContent.trim();
+      if (value) node.textContent = node.textContent.replace(value, deviceText(value));
+    }
     body.querySelector('#impReplaceLbl').textContent = replaceLabel;
     const radios = body.querySelectorAll('input[type=radio]');
     const localCb = body.querySelector('#impLocal');
@@ -44,11 +51,11 @@ export function askImportOptions(backupName) {
     });
     const cancel = document.createElement('button');
     cancel.className = 'btn-text';
-    cancel.textContent = 'Cancel';
+    cancel.textContent = deviceText('Cancel');
     cancel.addEventListener('click', () => close(null));
     const go = document.createElement('button');
     go.className = 'btn-primary';
-    go.textContent = 'Import';
+    go.textContent = deviceText('Import');
     go.addEventListener('click', () => close({ adopt, local }));
     foot.append(cancel, go);
   });

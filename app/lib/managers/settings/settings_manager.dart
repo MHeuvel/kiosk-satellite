@@ -564,6 +564,10 @@ class SettingsManager extends Manager {
         if (def.titleMessageId != null) 'titleMessageId': def.titleMessageId,
         if (def.descriptionMessageId != null)
           'descriptionMessageId': def.descriptionMessageId,
+        if (def.optionMessageIds != null)
+          'optionMessageIds': def.optionMessageIds,
+        if (def.placeholderMessageId != null)
+          'placeholderMessageId': def.placeholderMessageId,
         'category': def.category,
         if (def.section != null) 'section': def.section,
         // The remote admin folds these into the same second-level page the

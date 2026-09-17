@@ -1,3 +1,4 @@
+import { deviceText } from './localization.js';
 import { watchUpdates } from './live.js';
 import {
   GLANCE_MAX,
@@ -120,11 +121,11 @@ function showRowError(row, message, onRetry) {
     el.className = 'row-error';
     row.appendChild(el);
   }
-  el.textContent = message;
+  el.textContent = deviceText(message);
   if (onRetry) {
     const retry = document.createElement('button');
     retry.className = 'btn-ghost';
-    retry.textContent = 'Retry';
+    retry.textContent = deviceText('Retry');
     retry.addEventListener('click', async () => {
       retry.disabled = true;
       try { await onRetry(); }
@@ -1530,7 +1531,7 @@ export function settingRow(s) {
   } else {
     const inp = document.createElement('input');
     inp.type = s.type === 'password' ? 'password' : s.type === 'number' ? 'number' : 'text';
-    if (s.type === 'password') inp.placeholder = s.value === '__set__' ? '•••••• (set)' : 'Not set';
+    if (s.type === 'password') inp.placeholder = s.value === '__set__' ? deviceText('•••••• (set)') : deviceText('Not set');
     else {
       inp.value = (s.type === 'number' && typeof s.value === 'number')
         ? String(s.value)  // JS prints an integer-valued number without a .0
@@ -1544,7 +1545,7 @@ export function settingRow(s) {
     row.appendChild(inp);
     bindUpdate(inp, () => {
       inp.value = s.type === 'password' ? '' : s.value ?? '';
-      if (s.type === 'password') inp.placeholder = s.value === '__set__' ? '•••••• (set)' : 'Not set';
+      if (s.type === 'password') inp.placeholder = s.value === '__set__' ? deviceText('•••••• (set)') : deviceText('Not set');
     });
   }
   return row;

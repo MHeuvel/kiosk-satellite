@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'kit.dart';
+import '../l10n/messages.dart';
 
 /// What a configuration import should do about the two things a backup
 /// carries that belong to one specific device (issue #25): its identity
@@ -22,30 +23,33 @@ Future<ImportOptions?> showImportOptionsDialog(
   var localTouched = false;
   final replaceLabel =
       (backupDeviceName == null || backupDeviceName.trim().isEmpty)
-      ? 'Replace the original device'
-      : 'Replace "${backupDeviceName.trim()}"';
+      ? deviceText(context, 'Replace the original device')
+      : l10n(context).deviceReplaceNamed(backupDeviceName.trim());
   return showDialog<ImportOptions>(
     context: context,
     builder: (context) => StatefulBuilder(
       builder: (context, setState) => AlertDialog(
-        title: const Text('Import configuration'),
+        title: Text(deviceText(context, 'Import configuration')),
         content: SizedBox(
           width: 420,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Replace this device's settings with the file's? The page "
-                'may reload.',
+              Text(
+                deviceText(
+                  context,
+                  "Replace this device's settings with the file's? The page "
+                  'may reload.',
+                ),
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16),
               ScrollingSegments(
                 child: SegmentedButton<bool>(
                   segments: [
-                    const ButtonSegment(
+                    ButtonSegment(
                       value: false,
-                      label: Text('Set up as new device'),
+                      label: Text(deviceText(context, 'Set up as new device')),
                     ),
                     ButtonSegment(value: true, label: Text(replaceLabel)),
                   ],
@@ -56,19 +60,25 @@ Future<ImportOptions?> showImportOptionsDialog(
                   }),
                 ),
               ),
-              const SizedBox(height: 4),
+              SizedBox(height: 4),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4),
+                padding: EdgeInsets.symmetric(horizontal: 4),
                 child: Text(
                   adopt
-                      ? 'Keeps the backup\'s name and ESPHome identity; the '
-                            'original device must stay offline.'
-                      : 'Assign its own name and ESPHome identity, so both '
-                            'devices are unique.',
+                      ? deviceText(
+                          context,
+                          'Keeps the backup\'s name and ESPHome identity; the '
+                          'original device must stay offline.',
+                        )
+                      : deviceText(
+                          context,
+                          'Assign its own name and ESPHome identity, so both '
+                          'devices are unique.',
+                        ),
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8),
               CheckboxListTile(
                 contentPadding: EdgeInsets.zero,
                 value: local,
@@ -76,11 +86,16 @@ Future<ImportOptions?> showImportOptionsDialog(
                   local = v == true;
                   localTouched = true;
                 }),
-                title: const Text("Restore Webview's local storage"),
-                subtitle: const Text(
-                  'Includes the Home Assistant signed in session and the '
-                  'Voice Satellite assist_satellite selection - two devices '
-                  'must not share one satellite.',
+                title: Text(
+                  deviceText(context, "Restore Webview's local storage"),
+                ),
+                subtitle: Text(
+                  deviceText(
+                    context,
+                    'Includes the Home Assistant signed in session and the '
+                    'Voice Satellite assist_satellite selection - two devices '
+                    'must not share one satellite.',
+                  ),
                 ),
               ),
             ],
@@ -89,14 +104,14 @@ Future<ImportOptions?> showImportOptionsDialog(
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: Text(deviceText(context, 'Cancel')),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(context, (
               adoptIdentity: adopt,
               importLocalStorage: local,
             )),
-            child: const Text('Import'),
+            child: Text(deviceText(context, 'Import')),
           ),
         ],
       ),

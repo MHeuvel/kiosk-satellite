@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../managers/shizuku/shizuku_manager.dart';
 import '../managers/wake_word/permission_descriptions.dart';
 import 'kit.dart';
+import '../l10n/messages.dart';
 import 'plugin_shizuku.dart';
 import 'toast.dart';
 import 'settings_search.dart';
@@ -48,7 +49,7 @@ class _ShizukuSettingsPanelState extends State<ShizukuSettingsPanel>
     try {
       await widget.manager.refresh();
     } catch (_) {
-      if (mounted) widget.manager.state.value = const {'status': 'unavailable'};
+      if (mounted) widget.manager.state.value = {'status': 'unavailable'};
     }
   }
 
@@ -65,25 +66,33 @@ class _ShizukuSettingsPanelState extends State<ShizukuSettingsPanel>
           final ok = result['exitCode'] == 0 && result['timedOut'] != true;
           showToast(
             context,
-            title: 'Connection test',
+            title: deviceText(context, 'Connection test'),
             message: ok
-                ? 'Shizuku successfully ran a command with ${widget.manager.state.value['uid'] == 0 ? 'root' : 'shell'} access.'
-                : 'Shizuku could not complete the connection test.',
+                ? l10n(context).deviceShizukuTestOk(
+                    widget.manager.state.value['uid'] == 0 ? 'root' : 'shell',
+                  )
+                : deviceText(
+                    context,
+                    'Shizuku could not complete the connection test.',
+                  ),
             kind: ok ? ToastKind.success : ToastKind.error,
           );
         } else {
-          final rows = (result['results'] as List? ?? const [])
+          final rows = (result['results'] as List? ?? [])
               .whereType<Map>()
               .toList();
           final failed = rows.where((row) => row['ok'] != true).toList();
           final names = {
             for (final entry in devicePermissionDescriptions.entries)
-              entry.key: entry.value.title,
+              entry.key: deviceText(context, entry.value.title),
           };
           final message = rows.isEmpty
-              ? 'All permissions are already granted.'
+              ? deviceText(context, 'All permissions are already granted.')
               : failed.isEmpty
-              ? 'Android confirmed the requested permissions.'
+              ? deviceText(
+                  context,
+                  'Android confirmed the requested permissions.',
+                )
               : failed
                     .map(
                       (row) =>
@@ -93,12 +102,12 @@ class _ShizukuSettingsPanelState extends State<ShizukuSettingsPanel>
           await showDialog<void>(
             context: context,
             builder: (context) => AlertDialog(
-              title: const Text('Permission results'),
+              title: Text(deviceText(context, 'Permission results')),
               content: SingleChildScrollView(child: Text(message)),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(context),
-                  child: const Text('OK'),
+                  child: Text(deviceText(context, 'OK')),
                 ),
               ],
             ),
@@ -154,23 +163,26 @@ class _ShizukuSettingsPanelState extends State<ShizukuSettingsPanel>
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const SectionHeading('Connection'),
+          SectionHeading(deviceText(context, 'Connection')),
           SettingsCard(
             children: [
               SearchLandingTarget(
                 id: 'x:shizuku:permission',
                 child: SettingsRow(
-                  title: const Text('Shizuku access'),
+                  title: Text(deviceText(context, 'Shizuku access')),
                   subtitle: Text(
-                    pluginShizukuHint(
-                      state,
-                    ).replaceAll(' Tap for setup instructions.', ''),
+                    deviceText(
+                      context,
+                      pluginShizukuHint(
+                        state,
+                      ).replaceAll(' Tap for setup instructions.', ''),
+                    ),
                   ),
                   trailing: ready
-                      ? const Icon(Icons.check_circle_outline)
+                      ? Icon(Icons.check_circle_outline)
                       : _button(
                           'permission',
-                          'Grant',
+                          deviceText(context, 'Grant'),
                           state['status'] == 'permission_required',
                         ),
                 ),
@@ -178,59 +190,86 @@ class _ShizukuSettingsPanelState extends State<ShizukuSettingsPanel>
               SearchLandingTarget(
                 id: 'x:shizuku:identity',
                 child: SettingsRow(
-                  title: const Text('Test connection'),
-                  subtitle: const Text(
-                    'Read the process identity without changing the device.',
+                  title: Text(deviceText(context, 'Test connection')),
+                  subtitle: Text(
+                    deviceText(
+                      context,
+                      'Read the process identity without changing the device.',
+                    ),
                   ),
-                  trailing: _button('identity', 'Test', ready),
+                  trailing: _button(
+                    'identity',
+                    deviceText(context, 'Test'),
+                    ready,
+                  ),
                 ),
               ),
             ],
           ),
           SettingsCard(children: [widget.updateSettings]),
-          const SectionHeading('Permissions'),
+          SectionHeading(deviceText(context, 'Permissions')),
           SettingsCard(
             children: [
               SearchLandingTarget(
                 id: 'x:shizuku:grantAll',
                 child: SettingsRow(
-                  title: const Text('Grant all permissions'),
-                  subtitle: const Text(
-                    'Grant all permissions used by KS, including features that are currently off.',
+                  title: Text(deviceText(context, 'Grant all permissions')),
+                  subtitle: Text(
+                    deviceText(
+                      context,
+                      'Grant all permissions used by KS, including features that are currently off.',
+                    ),
                   ),
-                  trailing: _button('grantAll', 'Grant', ready, primary: true),
+                  trailing: _button(
+                    'grantAll',
+                    deviceText(context, 'Grant'),
+                    ready,
+                    primary: true,
+                  ),
                 ),
               ),
               for (final entry in devicePermissionDescriptions.entries)
                 SearchLandingTarget(
                   id: 'x:shizuku:${entry.key}',
                   child: SettingsRow(
-                    title: Text(entry.value.title),
-                    subtitle: Text(entry.value.description),
-                    trailing: _button(entry.key, 'Grant', ready),
+                    title: Text(deviceText(context, entry.value.title)),
+                    subtitle: Text(
+                      deviceText(context, entry.value.description),
+                    ),
+                    trailing: _button(
+                      entry.key,
+                      deviceText(context, 'Grant'),
+                      ready,
+                    ),
                   ),
                 ),
             ],
           ),
-          const SectionHeading('Help'),
+          SectionHeading(deviceText(context, 'Help')),
           SettingsCard(
             children: [
               SearchLandingTarget(
                 id: 'x:shizuku:setup',
                 child: SettingsRow(
-                  title: const Text('Set up Shizuku'),
-                  subtitle: const Text(
-                    'Read installation and startup instructions.',
+                  title: Text(deviceText(context, 'Set up Shizuku')),
+                  subtitle: Text(
+                    deviceText(
+                      context,
+                      'Read installation and startup instructions.',
+                    ),
                   ),
-                  trailing: const Icon(Icons.open_in_new),
+                  trailing: Icon(Icons.open_in_new),
                   onTap: () => launchUrl(
                     Uri.parse('https://shizuku.rikka.app/guide/setup/'),
                     mode: LaunchMode.externalApplication,
                   ),
                 ),
               ),
-              const HintRow(
-                'Shizuku started through ADB must be started again after a device reboot. Shell access does not provide root permissions.',
+              HintRow(
+                deviceText(
+                  context,
+                  'Shizuku started through ADB must be started again after a device reboot. Shell access does not provide root permissions.',
+                ),
               ),
             ],
           ),

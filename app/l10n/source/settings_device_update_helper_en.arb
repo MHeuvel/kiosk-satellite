@@ -1,0 +1,159 @@
+{
+  "@@locale": "en",
+  "deviceHelperPage": "Optional update helper",
+  "@deviceHelperPage": {
+    "context": "Settings:Device:Optional update helper",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Optional update helper"
+      ],
+      "remoteAdmin": [
+        "Device > Optional update helper"
+      ]
+    }
+  },
+  "deviceHelperStatus": "Helper status",
+  "@deviceHelperStatus": {
+    "context": "Settings:Device:Optional update helper",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Optional update helper"
+      ],
+      "remoteAdmin": [
+        "Device > Optional update helper"
+      ]
+    }
+  },
+  "deviceHelperError": "Could not check the update helper.",
+  "@deviceHelperError": {
+    "context": "Settings:Device:Optional update helper",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Optional update helper"
+      ],
+      "remoteAdmin": [
+        "Device > Optional update helper"
+      ]
+    }
+  },
+  "deviceHelperUnneeded": "Android can now install updates silently. The helper is not needed.",
+  "@deviceHelperUnneeded": {
+    "context": "Settings:Device:Optional update helper",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Optional update helper"
+      ],
+      "remoteAdmin": [
+        "Device > Optional update helper"
+      ]
+    }
+  },
+  "deviceHelperIntro": "This device currently needs confirmation on the screen to install updates through Android. The optional helper lets Kiosk Satellite install updates without a tap.",
+  "@deviceHelperIntro": {
+    "context": "Settings:Device:Optional update helper",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Optional update helper"
+      ],
+      "remoteAdmin": [
+        "Device > Optional update helper"
+      ]
+    }
+  },
+  "deviceHelperBusy": "Installing an update.",
+  "@deviceHelperBusy": {
+    "context": "Settings:Device:Optional update helper",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Optional update helper"
+      ],
+      "remoteAdmin": [
+        "Device > Optional update helper"
+      ]
+    }
+  },
+  "deviceHelperReady": "Ready. Updates install without confirmation.",
+  "@deviceHelperReady": {
+    "context": "Settings:Device:Optional update helper",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Optional update helper"
+      ],
+      "remoteAdmin": [
+        "Device > Optional update helper"
+      ]
+    }
+  },
+  "deviceHelperUnavailable": "Unavailable. Start the helper through ADB to enable updates without confirmation.",
+  "@deviceHelperUnavailable": {
+    "context": "Settings:Device:Optional update helper",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Optional update helper"
+      ],
+      "remoteAdmin": [
+        "Device > Optional update helper"
+      ]
+    }
+  },
+  "deviceHelperLifetime": "The helper survives app restarts and updates but stops after a device reboot. Run the command from a computer with ADB to start it again. The computer can then disconnect.",
+  "@deviceHelperLifetime": {
+    "context": "Settings:Device:Optional update helper",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Optional update helper"
+      ],
+      "remoteAdmin": [
+        "Device > Optional update helper"
+      ]
+    }
+  },
+  "deviceHelperStart": "Start through ADB",
+  "@deviceHelperStart": {
+    "context": "Settings:Device:Optional update helper",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Optional update helper"
+      ],
+      "remoteAdmin": [
+        "Device > Optional update helper"
+      ]
+    }
+  },
+  "deviceHelperGuide": "Setup guide",
+  "@deviceHelperGuide": {
+    "context": "Settings:Device:Optional update helper",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Optional update helper"
+      ],
+      "remoteAdmin": [
+        "Device > Optional update helper"
+      ]
+    }
+  },
+  "deviceHelperGuideHelp": "Read the update helper instructions and requirements.",
+  "@deviceHelperGuideHelp": {
+    "context": "Settings:Device:Optional update helper",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Optional update helper"
+      ],
+      "remoteAdmin": [
+        "Device > Optional update helper"
+      ]
+    }
+  }
+}

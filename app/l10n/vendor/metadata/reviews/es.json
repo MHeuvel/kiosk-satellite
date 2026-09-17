@@ -39,6 +39,46 @@
     "translation": "640d6761c178f2ad81e2a8cdb44c589bdc879396563118f96ebba2de686efefa",
     "author": "Xavier Larrea"
   },
+  "commonGrant": {
+    "source": "31a1377ff051149db3572796b845e1404ee6fe148b9a90588606f35495542a73",
+    "translation": "10621c577c7568f115a6eaeb67c1cb435a3fdd68fca3ad74261a1a8abc5b6908",
+    "author": "Xavier Larrea"
+  },
+  "commonEnable": {
+    "source": "3c2827fd4ecc8f6b866d0f99c8369d06f7e8df7cc072e0c4e7b830f783fc9e18",
+    "translation": "8e38c2571d87f6eebd2d63b1279ab830e044ea72e7367c45665c612f5af9a9f8",
+    "author": "Xavier Larrea"
+  },
+  "commonRefresh": {
+    "source": "3bfa4e6c4177ac85a55ffeb5da75a57a0549aca01962fb26fd1b7e4023208981",
+    "translation": "fe5f6628c7b56bf16ad01e4d0b033ac28a15c0f78d26b42118790c6396dc2b68",
+    "author": "Xavier Larrea"
+  },
+  "commonTest": {
+    "source": "11eb4963459534fa1389778bdc7c025fa0ff08b54446f0ecc997913b1057f9dc",
+    "translation": "4fe0a93ea1c59fb4cd6387ca2b9407a9fd9552571930c288f89dcc9bac60ca09",
+    "author": "Xavier Larrea"
+  },
+  "commonInstall": {
+    "source": "dd7f5cec676397db0614937fcb45fb6eed7415371a1327cfecb799d49b3ee353",
+    "translation": "8e8a1dd4867699097dcf0ee6c992db4cfde2911b67b3bebbe1297c586738b403",
+    "author": "Xavier Larrea"
+  },
+  "commonSave": {
+    "source": "88a6d03d36be0af36e57c9f19a19286a78c9010955a5e00e8556b6180466e073",
+    "translation": "13e51a210f45ed1b09bd6dfc2f64b834b06ed81424464750ca47a9eceb7da7ea",
+    "author": "Xavier Larrea"
+  },
+  "commonRetry": {
+    "source": "2f3cb254cb7cfaafc7c6aa302f675736a4e7e450d0fa120c7c0147a03e470cbc",
+    "translation": "a9254c5f812829afde4d8579f6a2b763d3f285adf993cbf0247b00cabac5fb2e",
+    "author": "Xavier Larrea"
+  },
+  "commonCopy": {
+    "source": "7ceaed9b4bafa3f3dfa2f200b1bf49f94c605e0708205c58dc65b278978b4fba",
+    "translation": "39dcf1cbeb5adbd084a1c71d75bca9e6e0c2376d933b674b1049e631ee1fd98f",
+    "author": "Xavier Larrea"
+  },
   "drawerPluginAction": {
     "source": "89bac3122bad60cc59b58a2baf7af87471a6d8918116bf75ab1b66de0d724b88",
     "translation": "3bfb4e7cada1f48202a0fab90644424c6da719acb6714caa9cc498f11b3a547f",
@@ -264,6 +304,171 @@
     "translation": "9593bc8d0dae9dde68a7e864aa8b0ba61cb0c6084b804a0ba902bc3a1c2b565b",
     "author": "Xavier Larrea"
   },
+  "settingAnalyticsBasicTitle": {
+    "source": "1d8e39137b1e859570cb69f2e7bcc9857f5d56a2923d4f813aa04cbda3727acf",
+    "translation": "b0125f730680488bc8af6bf8e4bb0bd8ef47f21d23eaf42b7367723c61fb9eb3",
+    "author": "Xavier Larrea"
+  },
+  "settingAnalyticsBasicDescription": {
+    "source": "101ec5d3067e335edcc5bf7b765241f76bd02f21c16c9df348502e4c1850915d",
+    "translation": "11d88e82ee8ad78d1ed03ea073db82308dc33626fd50977228e3342b12dba14e",
+    "author": "Xavier Larrea"
+  },
+  "settingAnalyticsUsageTitle": {
+    "source": "e8d7c1491b407fffd0820d6498482998af5275a729a4fd4b9da5d2c41f278619",
+    "translation": "da8920821e236009782bce6b477ee19ea42348078adc5884d3604b37f3e61c2d",
+    "author": "Xavier Larrea"
+  },
+  "settingAnalyticsUsageDescription": {
+    "source": "652f2c9677697011a9ceb31d0fba8d1e1c2bc7bddeb44e048aa83202e4491986",
+    "translation": "a77e62e72faa9e487a162ab327bddb9cb509925ec9ef52dbcea49abc6f7e5c6e",
+    "author": "Xavier Larrea"
+  },
+  "settingAnalyticsDiagnosticsTitle": {
+    "source": "d2726b9f0edfb191ebb752f3a331c9ad986477a5cbeda520f4df1ad73f2f80b1",
+    "translation": "e695eb16e81f370456a9375d968aab92dc55e8bf2d1b171f22adc58578690bc6",
+    "author": "Xavier Larrea"
+  },
+  "settingAnalyticsDiagnosticsDescription": {
+    "source": "44fd7c44aea4c5b0e594742ef02194e89afc32f947df152569cf278f200f349a",
+    "translation": "c5382b3f6cd20db4cab1d28295715091b55dfcb73ad98cbf5c21e004b1f0011b",
+    "author": "Xavier Larrea"
+  },
+  "deviceAnalyticsPage": {
+    "source": "a6e21d31df6a3707068b319fe2902ea9443e50963d1f4212d64d7cf9a3e1217c",
+    "translation": "82dd8a80976e26625954b239e92fff4ad65147de51fdbb16d4dfe1c8b9644949",
+    "author": "Xavier Larrea"
+  },
+  "deviceAnalyticsIntro": {
+    "source": "6fa8a2e756fdcc7c6b58c0cd3e93ea95bf3251dc43e23a14c22316cfd01b6ee5",
+    "translation": "c92c3e6dbba9ef0067265892dcbf22bb3dc43a690361fe2ba32317db44ea3ac4",
+    "author": "Xavier Larrea"
+  },
+  "deviceAnalyticsLearn": {
+    "source": "0db1c90bba5b68c49a7c11e6c8564c04c36927a2f8ad00a5d5844db3024813b1",
+    "translation": "9d5a4b13531d5a2a4f29afb8aa892971667c1c4224ac883c48680a7b226f90a2",
+    "author": "Xavier Larrea"
+  },
+  "deviceAnalyticsLearnHelp": {
+    "source": "06efb60f769be8e730744a14c33567300ac93e0ee5efabec4dff9c0179219be1",
+    "translation": "ce07c1180898da0d9aaa489bddc0d02fd7f8163fc1550326ea90fdb07045966b",
+    "author": "Xavier Larrea"
+  },
+  "deviceExportConfig": {
+    "source": "158cbe54cc51e2f280f671d1b2259ef1678f51ca82f7991a59cc4a0c343ff37c",
+    "translation": "9b4ebaabe258c9260490658be5943eda2059365ed7cac223023ac7830e837137",
+    "author": "Xavier Larrea"
+  },
+  "deviceExportConfigHelp": {
+    "source": "98848041b8f8a33b65d043bda66c0ed2f4bf0e0d9059740077907b4e645c5a8e",
+    "translation": "9e792aacc5680b38961eef2a9ceab41cf532302e1380b09ccba788dfa92c0145",
+    "author": "Xavier Larrea"
+  },
+  "deviceExportConfigRemoteHelp": {
+    "source": "0d6c1eb2be33a35d1effe7e3a5f66c02cf44a2a79925d39046452fe7b714327d",
+    "translation": "b4f3edface48b52ca22eda495cfc488dd9943628d98c0c21e33b2b7c45c19fb4",
+    "author": "Xavier Larrea"
+  },
+  "deviceImportConfig": {
+    "source": "ebd819f3895c7d7b769da683d63d34de6bf89436fae96511ffef8d602ca48c0c",
+    "translation": "b6274c66f0c5882ce96f43d1d2971f0a4656fb2bc0d8865b31a4e00e2704ed53",
+    "author": "Xavier Larrea"
+  },
+  "deviceImportConfigHelp": {
+    "source": "f6c21d00c5562a68ffeb3f875af17412587484037bdf54d7fa1880c78880cce5",
+    "translation": "28dce8f7c388496d004096923d66485d4937187489cd1a688f53d0e75381d8a1",
+    "author": "Xavier Larrea"
+  },
+  "deviceExportFailed": {
+    "source": "702b39a583ee0815b86274cb20c70865a79db166421caea6ff681e3278cf2556",
+    "translation": "2c6181868ac725e0b3a6b620ea0a22e0fd5c577cf5adb894681616715bcd11b4",
+    "author": "Xavier Larrea"
+  },
+  "deviceExported": {
+    "source": "a8ec26b24704d6b7b29b8e55137fd6e7b845175cbec56658c96806b026571c9b",
+    "translation": "809bfc30a4fcaca3076f87efa4f19b55241f28e2fd15e97d9a5dbf76d3fa20ad",
+    "author": "Xavier Larrea"
+  },
+  "deviceImportFailed": {
+    "source": "426c87f4d8265aa953e7e2d615dd4b5d5ccaa917ab9640006b4739806a034c94",
+    "translation": "1b0c3b796a046a212e7ba2fda0b22c453e8908fffa0f9814b4168c9b6ee8d59a",
+    "author": "Xavier Larrea"
+  },
+  "deviceInvalidJson": {
+    "source": "ea51d3410499f9839f4c51e5c2216ce34e5fffeb865e477034e486455aec07e9",
+    "translation": "f396c95cbb5143e6d548089d4eff368513409df9d5295d0549a05f43d578b833",
+    "author": "Xavier Larrea"
+  },
+  "deviceImportComplete": {
+    "source": "11f38ab4016fe7af1fb3230a2eb2688209cbaf4973a179644e642c1d26bfdd73",
+    "translation": "0ff259b7145c4350cda0d3da855c3b1379909370b30b479729def71333c06063",
+    "author": "Xavier Larrea"
+  },
+  "deviceAppliedSettings": {
+    "source": "a0b218d07e2601e5fd117750307e4175beeb924ecdd30773fc5eb98b711819f9",
+    "translation": "bbe85800527a93ff294ae3ec53d32bfde179ee62eb9a0a9171898abda59573f9",
+    "author": "Xavier Larrea"
+  },
+  "deviceAppliedReload": {
+    "source": "3613e638486354eba94b3cc98acff588e3c152e928d05539f91186f4f237f076",
+    "translation": "de956f8531d4ae3010571b70f547f9f5f2cb1329293cd2e3f4356fdba5a31329",
+    "author": "Xavier Larrea"
+  },
+  "deviceReplaceOriginal": {
+    "source": "8836b6df29308fae483a4add8224f4b96a3a7145a27daf05c16bde1a5a379272",
+    "translation": "e1dd6927c3cc83e26d63494ec96e1b1e4fab2fed8b80f423aa815e0ba1691314",
+    "author": "Xavier Larrea"
+  },
+  "deviceReplaceQuestion": {
+    "source": "8f26d94ee1f559f5d2aa80e06fbb5060702e4676be4756132f2deab37da326f6",
+    "translation": "9a89b689f03b84130ca4cb1419edacc5dfe2dc710fc7ba88a39b9a05f0d9d370",
+    "author": "Xavier Larrea"
+  },
+  "deviceNewDevice": {
+    "source": "51e30c549b861792d68e7c27d98bb5cf964bc626e516b8e5d66db481e5c5ce06",
+    "translation": "6fcd2b48dd15967754e656d2e9f13583d35bc7e85570c80eab9c136803084855",
+    "author": "Xavier Larrea"
+  },
+  "deviceReplaceIdentity": {
+    "source": "4f5a27ad582a33e910d3ccd5c9c61df035ab4c3f6078e84f440d878a23815c17",
+    "translation": "017e8c73cacbc630a4b96a79f6542250316fe54abb33be828fbc3d227aaee9e3",
+    "author": "Xavier Larrea"
+  },
+  "deviceNewIdentity": {
+    "source": "0ef3cd4241e6077af2addd25ce9f25297464710e1a11e09e530eb72f05112fcb",
+    "translation": "ebcc70c6c0933e1dbf3183430f7c14eaa8e870bbd71f4ea6c516cb9f33607522",
+    "author": "Xavier Larrea"
+  },
+  "deviceRestoreStorage": {
+    "source": "d8975cfaf6b5a77e9e8b477d27abd1e1d6b8cbaaf60820b4a81d5f5618bc903b",
+    "translation": "99afd5db5c9c7822e41d1c852cdac285c0ba9e6ef574bb222f445fdb69e5c855",
+    "author": "Xavier Larrea"
+  },
+  "deviceRestoreStorageHelp": {
+    "source": "35f8da56984a26fb3c96c1412d99b9b95a26a2960fecbbefcf17233561ecd682",
+    "translation": "6fdc3dc920b0919f3c9409952d4776a2d76c2d15b664d62ece286c7f479e5d7b",
+    "author": "Xavier Larrea"
+  },
+  "deviceDownload": {
+    "source": "b5c1e39f252ecb639613aabf7c7b386d3138b6a17441168390827138e87de40c",
+    "translation": "ed3d9c907370d71150f428f9c11fc060d1bdf3e901c418592abfa4e234cf7ede",
+    "author": "Xavier Larrea"
+  },
+  "deviceChooseFile": {
+    "source": "b00e2fa87e872a48da440cf991e1c628bf00a0ad3e6c45ad42e7a53e111d7cff",
+    "translation": "65dce01b0ecb72058e4f570d872efe4ad38c59eae6d2f9f81d100c12922f97ee",
+    "author": "Xavier Larrea"
+  },
+  "deviceImportFailedSentence": {
+    "source": "dfdbae53ec2dd76d498af314168ef1c4a4b62fcebb1d3c3a8e3dd745a34a446a",
+    "translation": "42ff835336e9accbaa4fb167ca1ef5940fe959cc4dfdbe248856a32278a18c5f",
+    "author": "Xavier Larrea"
+  },
+  "deviceReplaceNamed": {
+    "source": "354eb7d5a5cbbacd93deb50f4f9b0f57e84dbd79ce13ca540b1d083d0b3961c0",
+    "translation": "aa5009f06ade324de1192bb5d3bd787dcf1b22d3004b41e282aecc0ef72182d9",
+    "author": "Xavier Larrea"
+  },
   "settingDeviceNameTitle": {
     "source": "c1421400cdc35b4309a748857021c65bfeef715fb4e3ea6aee3468accb2b1e83",
     "translation": "98f071bdabd026112b98460e9c1edae5c4e557c8cddf748d336f90ff0d391c0f",
@@ -272,6 +477,641 @@
   "settingDeviceNameDescription": {
     "source": "f4e7ea90cd66a68c523de306dc427380c496c9642c3258649b6516b18a20de0f",
     "translation": "da1d65716a2c67c367ef4c9cb8ba8374ef5552df4dde628d8d63b9353882b8a8",
+    "author": "Xavier Larrea"
+  },
+  "settingDeviceHostnameTitle": {
+    "source": "2fb7fa4717838921be9b9c14ee9edfe2729a54f39c236dcc5cb01cfc2edf7b7f",
+    "translation": "f1baff05ab790379e31b7c5ce27c0e8b86fe112dba7a03cc9a9fa4f31badca60",
+    "author": "Xavier Larrea"
+  },
+  "settingDeviceHostnameDescription": {
+    "source": "34ae500da02c9d3261023680e2e53817b9fa0384538bfda037050f5e65239040",
+    "translation": "f26532c5aa92ee035534a69b956b238583c0b82cb682926db805a6d1b81c4fe3",
+    "author": "Xavier Larrea"
+  },
+  "settingDisableImpellerTitle": {
+    "source": "9d69d346cbf1e6f4132165245f448ff8ccbbfe1dee79436f9a2c50f8a0ccac08",
+    "translation": "53e482587a691fa7d2f7422ad2185d32248627dee789d859e6b79d0e5f688389",
+    "author": "Xavier Larrea"
+  },
+  "settingDisableImpellerDescription": {
+    "source": "f077379acfad2725d346551af8bd41ba4e78a52498649f322301fbc182e7fb58",
+    "translation": "a9039170807354bd02a3708bfe94c8a8998af788c9c68f7ea7bc5042439ff460",
+    "author": "Xavier Larrea"
+  },
+  "settingLegacyWebViewTitle": {
+    "source": "32a7714cb52ce2deef7e9cc56fe5bd3bcaecfca63bdf060833a2ddf59fa93e1f",
+    "translation": "97e94971706f9669fb284fb34153ab46011a7458b848826807d195b5119bfef6",
+    "author": "Xavier Larrea"
+  },
+  "settingLegacyWebViewDescription": {
+    "source": "dcace46e9e338c55efcb88a30ec3d5ccedb657630f0ea05f5e643398259a0294",
+    "translation": "8c31f03ef69e56d4aef7982ef2601b328735a927bb8c48c1fb2cc64dd7a3ccfc",
+    "author": "Xavier Larrea"
+  },
+  "deviceHostnamePlaceholder": {
+    "source": "1ede943b2cef34824357579b02ae9744a3dd6e520bb807d6151d0fd2d2f1c930",
+    "translation": "fe3c8b581769c74899566aa01cbd20eced8f536b459f1be2223c2c78edd64a72",
+    "author": "Xavier Larrea"
+  },
+  "deviceConfiguration": {
+    "source": "a0cd71696d143055f827813b8fb3a059aac0e120d5c000e9207839497a7db340",
+    "translation": "bb507137e363137915421975ee9fcf5264a60200e5417072bc5e1b9a38e61ba7",
+    "author": "Xavier Larrea"
+  },
+  "devicePermissionsManager": {
+    "source": "5239ea9695896dba00d48c1b7815b4bef4c2a0c1d292beab357826eab61fcb6c",
+    "translation": "d17994b17053227067ac386e02829fc00eefbe52c58713975450a3ff4276b0cf",
+    "author": "Xavier Larrea"
+  },
+  "deviceOptions": {
+    "source": "7fd7dbc1104647a1420598d99d42f7a1126a28db11589e1f0beec7c5c2fb578b",
+    "translation": "81db3b5709d0ba95fdf0ec7929ed21885a2776e47070b58c2f73bf0a2ed10e5d",
+    "author": "Xavier Larrea"
+  },
+  "deviceStatus": {
+    "source": "a703eae9cab962c5ba2d2f308b411b0ea16e1b78804031a2bab666eb353bed2e",
+    "translation": "98e5acddb6c46a248f96e8a549b4103a91f47299e1dbf508e436d738912c5cbd",
+    "author": "Xavier Larrea"
+  },
+  "deviceConnection": {
+    "source": "e3b5cf4251d80437f3def111323fce3b68972ebc82964d3f0b80a958f183a949",
+    "translation": "a7f534961a9cafe5715149f3e27d6e98a3d4bed43d75c824bed708339264f174",
+    "author": "Xavier Larrea"
+  },
+  "devicePermissions": {
+    "source": "9308d0fdc94c959f09e12ef3748c12089a064da5b4f79310ad6a509ca508e5ae",
+    "translation": "e8d94ecbab5499b1b6f170cae7d47d138555867cac9baaf37d813e50b0e1bb85",
+    "author": "Xavier Larrea"
+  },
+  "deviceHelp": {
+    "source": "3232a74b537f5eb8b352edf532d28d43eb2808bf482c365ed60282a28ae1a63c",
+    "translation": "32b40035b08043ae77b5d89beee418b5b456482d0cf9ce89181c94428c808cfe",
+    "author": "Xavier Larrea"
+  },
+  "deviceAccess": {
+    "source": "b9a4ccfc654bcb4b9980e9969d7365f54386d7bbb1dedfe18790ddc86005c7ed",
+    "translation": "bf904abc16526a69880c448f2e7712530540dbf03828ab42f5b2f13037dc90c1",
+    "author": "Xavier Larrea"
+  },
+  "deviceReading": {
+    "source": "83c4de650993ecca71ffcd7685d1df8978118fe99b20c5362e949a75b7632fda",
+    "translation": "c3529f99a82d63a6680abe4af0193e066005b9cbef2f425cded7c94a51b512d3",
+    "author": "Xavier Larrea"
+  },
+  "deviceChecking": {
+    "source": "7410d10aaf0371d671ccb5e236e6c9e238a58bf75e86dec5a8d804f8d4909638",
+    "translation": "29058f7920ae92d9179ada26fe24fc7541e5ad115e72c56b6c2cc186e44e64d2",
+    "author": "Xavier Larrea"
+  },
+  "deviceUnavailable": {
+    "source": "7b0a937bf7e3b5d4630726cb9299da4e39c997442d82eda93579bc218545bb95",
+    "translation": "93f3b40e39d3578c5870d3b41c152bf1675508a3abd29fc47b0e8f847ea4f247",
+    "author": "Xavier Larrea"
+  },
+  "deviceGrantOnDevice": {
+    "source": "a1383ba976750c7adbf711aa523867eba13f0a11f33a8759db4dd205630c0dac",
+    "translation": "2af386c7bf528faef08ee57c23061bd23759b5b97ac44c25b50b1fd6bb9d6a39",
+    "author": "Xavier Larrea"
+  },
+  "deviceAppSettings": {
+    "source": "fa8e36830fee6ac2f5ff0964c271fa03bb8235d0f7819a37f22bb95bfc0955ab",
+    "translation": "24888fa487b43535d806f7fc0fd4802003a2df60f762db72e84b5aefb9776c25",
+    "author": "Xavier Larrea"
+  },
+  "deviceCopyCommand": {
+    "source": "62f584bdf54be64a82a3a318309b7c52c97a8dd50f854e912597340bac1f2391",
+    "translation": "ffd3736638c756e369a8eeb47c3cd2757859c947d72638bb6a8931ae607fef1f",
+    "author": "Xavier Larrea"
+  },
+  "deviceOpenGuide": {
+    "source": "dfe8c21e19e23dff8944332352b5427d356903f0b8ea2a0b4287a061b6de25ab",
+    "translation": "f223e13d75b19a6a07b8431caf84191591fae2fa9b7b4f07a593100cc27af4f2",
+    "author": "Xavier Larrea"
+  },
+  "deviceNotSet": {
+    "source": "cdf087d7607a89b75ab316bf60281d5fa708ee5c2b4f1579ca5d048abc7c2f1e",
+    "translation": "fd76a2eb2096c9d9a9eca087cf557ee1d5e57f4eb380a7307262a0ab4e03564b",
+    "author": "Xavier Larrea"
+  },
+  "deviceGranted": {
+    "source": "57b3e41d4ac3a2b495a9f07aa3b8c211f22eeecec35c479de3e8f5de4e235dfd",
+    "translation": "6c6216a41d441a50fcb5119277a2ca0ac029ecaa52fa1677614f46266443cdfa",
+    "author": "Xavier Larrea"
+  },
+  "deviceNotGranted": {
+    "source": "90908ac69809acd0b5e4951356ed7fc35d09c5e517d774a3c16306b59843c830",
+    "translation": "dbefecf339383a6d00034187ea27c9d6bae0fa65a11402de51095db902438ce9",
+    "author": "Xavier Larrea"
+  },
+  "deviceMissing": {
+    "source": "6a3fb42fae3a6c114bb881cf65741f525eeda7ef55c3642cde4eea633fa8866e",
+    "translation": "44de42c372e42794cdf5963683a88662bd80a0e9225e91e2b17ad5a334056b7d",
+    "author": "Xavier Larrea"
+  },
+  "deviceNotOffered": {
+    "source": "9b90f54d2f64bea0f30eef8f33e03f62483e6ecd4f96e9fbc93b177ddf4200ab",
+    "translation": "b781f6bd9b98e43d557bc80c4c6838cc1130b1db4f687d2e39f4396f482a642b",
+    "author": "Xavier Larrea"
+  },
+  "deviceOn": {
+    "source": "d5fe75e09b68d0a3d6695d230c009681663e9dcec00f5a120d2329b6bb47ed79",
+    "translation": "6b12871b3c9b1de69a20ac3d48aa513983a08a5b4eb3409ad7cbf4897675277d",
+    "author": "Xavier Larrea"
+  },
+  "deviceOff": {
+    "source": "866da1a9e52ec31712daf089744fb76194438ceb910afd072195268503a8b4cf",
+    "translation": "db10a4dc3f294da8fdd6975876221d04dea4bc8c56f8c82b28fd93d4de27965b",
+    "author": "Xavier Larrea"
+  },
+  "deviceServiceHint": {
+    "source": "99858ac8f71d0578d02b34dbd81a7a2f3391cbd9ecf0a5fd91911319239f893c",
+    "translation": "2f378d88607aeabd9dc9f97fc27125d6ba4a72358f8b3a8686715064e6fe4856",
+    "author": "Xavier Larrea"
+  },
+  "deviceRemoteHintActual": {
+    "source": "6deaa10a2c7b463030ddf6f3fc4fdde0fd58ad186c63b15b857013031fa958a7",
+    "translation": "fe990fa0056f8d215ab883f080499e7c094ac78e17a38be085183764cbb0845b",
+    "author": "Xavier Larrea"
+  },
+  "deviceUpdatesHint": {
+    "source": "733015cee071eb111d4b64141869a9cdca232b7fc9909c6dc7bab20712169537",
+    "translation": "b8a93dd7bb4daf416c12059f69758854e872e13f46c8ee18afde278bfe805ca9",
+    "author": "Xavier Larrea"
+  },
+  "deviceShizukuHint": {
+    "source": "00a814c0f23ab0eb8d06ef96b299a38af5b7ce9112300e90dcb479743e13823d",
+    "translation": "fbb8748e679690edfd46b21909b6e3812d940907e94886c6c576ce2e4dbc41a2",
+    "author": "Xavier Larrea"
+  },
+  "deviceHelperHint": {
+    "source": "2c7e8b4b93e0a9709d8f485046d6c3a6dfdccc3b9b00cefb4eec59d3b30c6963",
+    "translation": "45f9f949b560cd2a34e6998d837a4c239f300578b87fc6d26545b200ea5b1b1e",
+    "author": "Xavier Larrea"
+  },
+  "deviceAnalyticsHint": {
+    "source": "4897ffd07e2346aa42ef3e91256e43e0553e1cc9813ae895e69a6d18133bab30",
+    "translation": "dd9c1f7b2d83231b064ca756bae868fb3a2c476f790c5a7d618da3dd399228f8",
+    "author": "Xavier Larrea"
+  },
+  "deviceHardwareHint": {
+    "source": "9fdbc3fa733b19da7df617ff988cf880b1e0fecbd3b77e926c825949225dd6a9",
+    "translation": "3c3e33a958fc87f2e572284fb7d90e6f44c58d803bd8a47dc31dadc6ff42e660",
+    "author": "Xavier Larrea"
+  },
+  "deviceHaHint": {
+    "source": "40f619695fc25dd89daeb0f92d3ae79108c26fb6bc2886764323221d2ecbb06f",
+    "translation": "0a154c813d44cbec75de039280b1171fb3c760e71943ab2b81488d5a2cf5d9ea",
+    "author": "Xavier Larrea"
+  },
+  "deviceWebViewHint": {
+    "source": "a9f346738566deb18813d86bb565374e6404b289fffd04407b9cf039f8f5ede7",
+    "translation": "9f09da682665f64850c64e5ed0e8a14e15c583e3b5d66d71744b9701cc704448",
+    "author": "Xavier Larrea"
+  },
+  "devicePasswordSet": {
+    "source": "fb7ce6b2dd1f3eaff5476af29be7c1e3159ee092e3e59f0e5701cce5cef39aab",
+    "translation": "f8b98af1e340fa30daf8f6397c87a9763b9a1ce9cad945827c1fdb37bd7948af",
+    "author": "Xavier Larrea"
+  },
+  "deviceSaveFailed": {
+    "source": "8d31e3c8f1448fa0679f41a61c82d23aa4674fc3176327ed9cf415212dced925",
+    "translation": "41252e2b461f7292c88a20e3ffb3afae0a8ab24d247fe400b6b3e1fb0b1db237",
+    "author": "Xavier Larrea"
+  },
+  "deviceOpenSettingsDevice": {
+    "source": "b18bdb94d9cbee39f79b3919c8fbc1678870297146a70e142ea6d28b877fdf3b",
+    "translation": "962c25ad2cf28695fe402fb070d96de08673d468a16f9b1ea4c09b81f9b201ee",
+    "author": "Xavier Larrea"
+  },
+  "deviceHardwarePage": {
+    "source": "b30cfedbf17d8754ef01adcbfc4c83c5a534a13b3309d435cde0c0ea2195a977",
+    "translation": "7975300f01bc46f86e52e528b29955be87a361f05f2fb96e14629bc0a5495d03",
+    "author": "Xavier Larrea"
+  },
+  "deviceWebViewPage": {
+    "source": "aad1425cc46dead35dc38797c09be6682d5dcf517af57e0204db26b126ec21dd",
+    "translation": "c212de852078c9387f6ed3e0437bc6f0fda07d68f540bff764dfb7be61d85a2e",
+    "author": "Xavier Larrea"
+  },
+  "deviceModel": {
+    "source": "d104290a5e74e3b0e999464f04c53093153a63bc7e6860f89a5cffa3189c4461",
+    "translation": "cbf51dc547e312506ed66ea347d6e6ab0f6197833b7ae8334fe76335c89f721a",
+    "author": "Xavier Larrea"
+  },
+  "deviceAndroidVersion": {
+    "source": "10a953d793fe94c78739087677dc95fedfc4146134b054011a27030a7d8d58ea",
+    "translation": "0e4f75289962bbde0d5f9407726e4ca33d37462767312c022f244fe7d0663664",
+    "author": "Xavier Larrea"
+  },
+  "deviceAndroidBuild": {
+    "source": "e85637752ecb141b17fe06826e15882fd6b6f82d4c6f1f4a664b329a83f42bf6",
+    "translation": "30c9969eed3858914fafe935c1343bb80fc7489a776cc4246c840a01a976e4fb",
+    "author": "Xavier Larrea"
+  },
+  "deviceIpv4": {
+    "source": "80b9c2276efb5b1b6b9765254f2d475430eaa1f7d742e8fe8d15d91abb2a8f5a",
+    "translation": "61dd574fae443fe50e551998e05ee166e5300aac45474f48b98a57ff3e4c7dd2",
+    "author": "Xavier Larrea"
+  },
+  "deviceIpv6": {
+    "source": "40ae6b20e889382df177af0fb2d64ef6e0bf92346ebb5baf8318f9f45d564e1d",
+    "translation": "8e626a3992d3d6cc6dee58bb4f26d21f893e8461c496bec50c30b67910b1728d",
+    "author": "Xavier Larrea"
+  },
+  "deviceAppUptime": {
+    "source": "d85003f3419a930fa5cf55586f3b4cf293358951dacdccbeb9718d3338734fa9",
+    "translation": "3a8ea10309863377d22d87e5516b1565d5701611999645c28b32d35f5d2fdb32",
+    "author": "Xavier Larrea"
+  },
+  "deviceNetworkUptime": {
+    "source": "3d6003dfe39fe6e90ba999f05f2a854cc5692e0bedcca8e1d4c0513271873a39",
+    "translation": "63e42c907dafd98329f0cffcab02076b028fd3ff4db1ca66156dd29061de117e",
+    "author": "Xavier Larrea"
+  },
+  "deviceCpuUsage": {
+    "source": "eb919d0a76e532e27964a4a42bfecafc16ac73e6bd80f848c1359e42048fe7cb",
+    "translation": "4c526bbc5a8bfe09741d317e1358fe358f122bc5b3aef2f8ab3f2ade3b5f3d05",
+    "author": "Xavier Larrea"
+  },
+  "deviceCpuTemp": {
+    "source": "af4af6f43fc54f49c6afb20dfc798ad366cbf827172a2b188d1050bf61def512",
+    "translation": "70c1ad67b6769042778879deada963ece8cdba7fccae7bcad9f5e1166418b17e",
+    "author": "Xavier Larrea"
+  },
+  "deviceBatteryLevel": {
+    "source": "b1bedb78ede512c1cace10bdb319f994064db02d1ab3416b40f32f4394256dba",
+    "translation": "e992ffdfdfe801d9f8ae76bffe08fc730dbe6eae4132d0e0c30051f35e30024d",
+    "author": "Xavier Larrea"
+  },
+  "deviceScreenBrightness": {
+    "source": "9240c638eb2ea3ca9d894813b4608a33914ceccb4fd95c936a53eb999bceaf58",
+    "translation": "e5f48ce57534aa1f4adba502311a77b9b17267b910f60b4fe65d261936080dae",
+    "author": "Xavier Larrea"
+  },
+  "deviceScreenStatus": {
+    "source": "59f5e0dadcbb7df3faec5b6b74e09889f4fe1fd6abb3f322cf7c3b7a2a38936e",
+    "translation": "9300b7ace569efc0333b8c7cd315f2255fdba9b03fd9ae4a5363f889748793b3",
+    "author": "Xavier Larrea"
+  },
+  "deviceScreenSize": {
+    "source": "e0133926b01f37a5ec1b66e5c98d203753159c799bfa6c395e222bc609e5b428",
+    "translation": "8e2b282c6d1a5dabf1e8abebee23a91be1c90d63cdf519d4d6b26ffee49fdff3",
+    "author": "Xavier Larrea"
+  },
+  "deviceRam": {
+    "source": "89f91f89e1ae94c14ccf4d874e4e7a39eb617b1ad6f9dfad1d815004027a6f3b",
+    "translation": "edac9ad7e5646e4826ebd12473a9a29236cc6ba5fc63f296449b5bd4a8edfdc4",
+    "author": "Xavier Larrea"
+  },
+  "deviceStorage": {
+    "source": "7af0b1cae9e28e504511c4a7e86b5b0c92a74acc45b19e6802ea3e2b6fe29ab8",
+    "translation": "87a863c5afe1d3fc6d983f2d2449d894336f2e7c82668657cb60a70234985115",
+    "author": "Xavier Larrea"
+  },
+  "deviceHaUrl": {
+    "source": "d167950fc9e5388595901a0b68104db734d43958dd4d460d69dad3975c0cf730",
+    "translation": "9b04cbd16fdd8bc76b51bab089f5b319ddf241c8951dc4ecb0124b7b191fc289",
+    "author": "Xavier Larrea"
+  },
+  "deviceWakeDetection": {
+    "source": "9959290a68c9dcc5914f2abf97037ceda61e9fd537a3e862fd5cb2a640231ebd",
+    "translation": "bdbeacf05f1269540a1ac3baedc9b2fe89c395246920dee99a8a4670ddbeb252",
+    "author": "Xavier Larrea"
+  },
+  "deviceWakeStatus": {
+    "source": "ce4ac295e24a6dda3ac1bd63e7b5d3b3fe8343824d2d5dab945b8d4a2dbb7d3e",
+    "translation": "1b9024ce37d49acf5d758bdca502e0471e2f6e48e84baad62d26615c553fa7df",
+    "author": "Xavier Larrea"
+  },
+  "deviceEngine": {
+    "source": "675869b70abe3c03b3e17e0255c266cfff5f41b76ade65c22eb7e32ab8e4eac4",
+    "translation": "b25a14f2be99acaabc28588e6d8ba9331500282853f0ce76983f449810dcca5d",
+    "author": "Xavier Larrea"
+  },
+  "deviceWakeWords": {
+    "source": "35c897ddb04c4ae26e42241ed106765e80f634be5a08b9676e2cf1f63eabfaee",
+    "translation": "22576c89fd8897442cdb4dc1f943b7b9466a7180c6a7e01b1fbed48d5ebbab35",
+    "author": "Xavier Larrea"
+  },
+  "deviceStopWord": {
+    "source": "c1c51b22089a441e8d488062afa93635debbe3e28f9a1c46496bb83f1017aa6d",
+    "translation": "6b09bcec9e737f506d5ef219ba2d70b4da200d431bfd571f75a7ea8a6aee8403",
+    "author": "Xavier Larrea"
+  },
+  "deviceMotionDetection": {
+    "source": "8be4a7e4306489456efc94a1fdf3892338ecfc0cdd550d43ca4dafab2bea8a99",
+    "translation": "f148c6f9ee8256aa68f8bb420e531485d9cdb501a6763ef4eb905d82e7b068d2",
+    "author": "Xavier Larrea"
+  },
+  "deviceFaceDetection": {
+    "source": "79054e5876cb1d1f0c56acc6ab0848b8a7126c24451b9ebbca901548027e322f",
+    "translation": "cc7b9b30ada514e4876a6e054631b0b0cc083be484bbd647f2d860afe0c367dc",
+    "author": "Xavier Larrea"
+  },
+  "deviceProvider": {
+    "source": "82fc78070ed8ed4e8bfa8449767b5098ef21f2b879272785f1a16ded55364c50",
+    "translation": "e746643f4479d116c60934e62136ca07a8a743009360f97cc3ba82a4fe4a1092",
+    "author": "Xavier Larrea"
+  },
+  "deviceVersion": {
+    "source": "f20d34be7805a69540c00b2a045001159b4743f71c161269c895cda337cef366",
+    "translation": "e8f5f3634326ca3abfa1b8156cceef1af733785a65473ee38e77ed9110e09930",
+    "author": "Xavier Larrea"
+  },
+  "deviceUserAgent": {
+    "source": "3486f35d66ecb9170a1834c90c61457cb4d2e9b3ecf04e3bf29cdd861ffed38c",
+    "translation": "754f7afe0eda00d2c3e968857efac95faa374099875c182bd568ac4d74c819f0",
+    "author": "Xavier Larrea"
+  },
+  "devicePlugged": {
+    "source": "59d14a2355e0deba25a2fcb7efad55955ef5f3df7231799d062a203e0929c6b7",
+    "translation": "973e31efcff3a171657763bc8c8471316803730a2d4819063fabaf1d12534859",
+    "author": "Xavier Larrea"
+  },
+  "deviceLowMemory": {
+    "source": "e7ec286f5251d9bf154334ae52516960a9fe36d494dbff0c16b9413245abe644",
+    "translation": "b2c49648e8be212ea7eaec04dcc1b68abb0102fdc4cd8fabc90c64cfb185e1d0",
+    "author": "Xavier Larrea"
+  },
+  "deviceRequiredPermissions": {
+    "source": "8fe786a7c2abdc91236de0c6e2fbbdf1694f7afeae3f8466cc95843f129eaf28",
+    "translation": "7cd8a0d34cd86fa41a0f96bf250c81da9c436b7c9cc036c5885ea6f3678bc905",
+    "author": "Xavier Larrea"
+  },
+  "devicePermissionIntro": {
+    "source": "0f346e05863fb3d0b4d89c326b7fbc0a15a3dddd425f6ec1e17425100b07ee9e",
+    "translation": "fd1a0694749c4fe5f7dc335dab6e646a3ca772d4a86a7f8fb68a62faf16a314e",
+    "author": "Xavier Larrea"
+  },
+  "devicePermissionIntroRemote": {
+    "source": "f8a1a3fc308c9fbabec6941a15ffe10d12385e51aa039c9b3bd0e06df3432837",
+    "translation": "878b07494dceeca606345118e635f0271fb97bb65ae3d6b993cfc8182c911844",
+    "author": "Xavier Larrea"
+  },
+  "deviceMicrophone": {
+    "source": "906c2e0f65e3fdc548769b9d5043b9cf349f722b220ef380e665dccd144a84c5",
+    "translation": "2cf292a3e3839bbf358f865cefc6397ed26e7b2bb6a3e2e6cebe2d47238b5a00",
+    "author": "Xavier Larrea"
+  },
+  "deviceMicrophoneHeld": {
+    "source": "478f13cf6e721d697f61ae099b1b802557e6108d675c04cc41051e0d7cd41878",
+    "translation": "c136b791c25dbd766bb498ea5d4b7291656f39bbd16b0bc589a7d7f7c43ca8ff",
+    "author": "Xavier Larrea"
+  },
+  "deviceBattery": {
+    "source": "b8bc52ec372a966e040e2c21933cc5be48ba89a4b2f8d80eb32de73cc1014983",
+    "translation": "dd4f10e86db18a36521c7dcdc53fd07ac579329a1aa8a2ad74be1000ca3132b4",
+    "author": "Xavier Larrea"
+  },
+  "deviceBatteryHeld": {
+    "source": "16247a8cbf08eaeb86c273e6c6605e546a4a63b9ebe698e87fc8d4d84aa6141f",
+    "translation": "f15df24d967b30daea05ee840c4878b845d58467bb6a91a004c5959200e4c713",
+    "author": "Xavier Larrea"
+  },
+  "deviceCamera": {
+    "source": "20d649e3ea4f13083ddaa6582b911c7ecbdf2a4ea4cc0cfe29d096b33c0e8c34",
+    "translation": "841b8ccb44fa8d7f8e8c67681c8b0700cd552799dbda37c6877173e4fd6f0969",
+    "author": "Xavier Larrea"
+  },
+  "deviceCameraHeld": {
+    "source": "bbc876d783a2948525962064932571542fabfee7f6d0464fee595873e273ae5e",
+    "translation": "616e474f83a62e099669331bd9ea7ec1ab2b68f1142e2b2414f62bb8976c8523",
+    "author": "Xavier Larrea"
+  },
+  "deviceBluetooth": {
+    "source": "0943b8732e2530098092a2b23e61131607deed87a6abf21ac68d1d00712ef72b",
+    "translation": "ab2a759ba58e88e567094601696411615cd67078f8ff8ff559bc11fca922f540",
+    "author": "Xavier Larrea"
+  },
+  "deviceBluetoothHeld": {
+    "source": "929a9cf900aef3bedfd6325f08c26ae949714f0bd512a505a8a6195b99029004",
+    "translation": "409491730e800c26f4b9e7e9d6c2291d4d1e6231228dcdf95ac6a7c7cd9b4ee2",
+    "author": "Xavier Larrea"
+  },
+  "deviceNotifications": {
+    "source": "3469509d867fe778c32b357001c8f519310ed26c668ba41f26935466e4e9ceb4",
+    "translation": "80dade6fab6f93872b35f82102b1c4fcf0a5a6572cc26d70b7a35c3c974938ee",
+    "author": "Xavier Larrea"
+  },
+  "deviceNotificationsHeld": {
+    "source": "f41c0508d95531e46b800ef7e7bcb6dcdf031e145919e2888223d607b3767afc",
+    "translation": "3126b650331c816d3babe9999bb535a42bc1d175eca2d5846c93a3fd11eaff1b",
+    "author": "Xavier Larrea"
+  },
+  "deviceOverlay": {
+    "source": "29d9262cb813b49ab80eae6ba3d037e2f516b9484d24e47519872fc47ba83566",
+    "translation": "bf25f0a9721f3c32df76633fc77eb1d817ae397739cfc41205de2893a2f0c629",
+    "author": "Xavier Larrea"
+  },
+  "deviceOverlayHeld": {
+    "source": "135b8fbc64c400fb7fcd99fdc91ac11348c8111b4e3f08508a6ae4b3dcc11cb5",
+    "translation": "b70566f6b71fe89830c3ae06ef6f1abef1fdacfc0d1d711f1f096fcd2babb698",
+    "author": "Xavier Larrea"
+  },
+  "deviceWriteSettings": {
+    "source": "07072a6bab2dc3405fc41941c8a94a18e455a55ca36f62c5e1f55d4935babbb2",
+    "translation": "483a4ff1232542710d85ad942aaa796f86bb54665c98a34909d75d5b65e2da3c",
+    "author": "Xavier Larrea"
+  },
+  "deviceWriteSettingsHeld": {
+    "source": "3f48679bc079008df7a65caf8cd47ec8053136f28475df3afa9f3365442b273d",
+    "translation": "96601ff9b750feccd1bb1bb133ea3e5338989378cdf01b67885b3715a5013073",
+    "author": "Xavier Larrea"
+  },
+  "deviceUiGuard": {
+    "source": "78f42c22178a79109edb24607f603ab3fe009f698f5547b089a48780453bbe5f",
+    "translation": "cbb62732a455b702716eab6a80c688b0739ac971ff2d99e23aa4cce5be48cf3b",
+    "author": "Xavier Larrea"
+  },
+  "deviceUiGuardHeld": {
+    "source": "dff9498f822bfd139a637341137b83748abfc8bf4393d112d82c64aad062dd06",
+    "translation": "2c93cc1c22250e43903c269125f8e3eae2c3b073ab97f03a7d45a2b0415354c7",
+    "author": "Xavier Larrea"
+  },
+  "deviceDeviceAdmin": {
+    "source": "1a96fbd7f8022dc01c0ffd7220b9dfd954e66b4a484d4a33cfb59d225bcd45ab",
+    "translation": "6b97eee69c7d31eacad93aca644f9203ea4e72e8c2d7fa11dc0dfe3ae97d79a0",
+    "author": "Xavier Larrea"
+  },
+  "deviceDeviceAdminHeld": {
+    "source": "d21c32eb850089d543fd93fe35b067da80e560b3f099d1385b21dff5f2f5eab3",
+    "translation": "e263b4cd55e3fa9ac7441fde1fa1c22815bc549f86407f09cfd48cba5de9e64f",
+    "author": "Xavier Larrea"
+  },
+  "deviceAllFiles": {
+    "source": "830775f88fb281c977ae987dbafa79433926414b79a3b5f5b0daea14d5d657d0",
+    "translation": "521230c34284499b3f44f29eb6b7b88ff9c457b4d3bd830c4313c8163a51ada9",
+    "author": "Xavier Larrea"
+  },
+  "deviceAllFilesHeld": {
+    "source": "d7a036d20dcef7377ff96f52bcb5dbc74553057125d124b24d43aa7d8cc056e4",
+    "translation": "da5406399d09bd458ed1c414f7fa36e6e3b0e754017dd456b2527b63c6463954",
+    "author": "Xavier Larrea"
+  },
+  "deviceUsageAccess": {
+    "source": "414c1f93e670b8a008b924352875964f80afb0e0919835e9b52400b0d18000b0",
+    "translation": "20abe18353822361276bed80a615d858980af742db0fa18f76ad1603755d6349",
+    "author": "Xavier Larrea"
+  },
+  "deviceUsageAccessHeld": {
+    "source": "15d7525d595041747418fe85afc87837ad707be5838aa236989a5bc0180270da",
+    "translation": "49b3805dc52f4fae99400efff00b4a59f331be6fb8b507aede3b281b17c51101",
+    "author": "Xavier Larrea"
+  },
+  "deviceLocation": {
+    "source": "f8a9ad3b158f823397d0a678098a0f1417585b2b377bbe805133edea21aa38d9",
+    "translation": "73b9189b6c6ef693f13b7d4fd31dc01c94323f44bbb18155bc5045db178c5200",
+    "author": "Xavier Larrea"
+  },
+  "deviceLocationHeld": {
+    "source": "b137a9bfd88a2167f36bacf65ecb9e24106f732392256e0970e894f3705b21f5",
+    "translation": "1f475c1320964d1cbdf0fe14da521800a026ff0e0ff17f4e250e84215652b59e",
+    "author": "Xavier Larrea"
+  },
+  "deviceMicBlocked": {
+    "source": "3356ae11f64866b7b766d247a63b37d8c65bb0ef60509f639e24f0b28137a41b",
+    "translation": "478af0bd9433b18c7e0375196d440154ca7a5fc757b17c82112058c86f7d1791",
+    "author": "Xavier Larrea"
+  },
+  "deviceMicMissing": {
+    "source": "50035e560894dfbb8f6c4276943fd1f897ae396d4ae8b467eba89167d8b046ea",
+    "translation": "ab54da43cf84a1966e720b90f8f3aebb116264799191cd71f7b5c6ebb6c37011",
+    "author": "Xavier Larrea"
+  },
+  "deviceMicIdle": {
+    "source": "3a4750dd6364e22a978adb137ccc6a491aa9cfacf8e48072838cd387c690652c",
+    "translation": "2ba0a5c02f10543d71cb5ede8b8c3b2c7701e891dd0ef4d5f17e43bc4cdc7397",
+    "author": "Xavier Larrea"
+  },
+  "deviceBatteryMissing": {
+    "source": "4fc638b8180fe406fc60750e19856998dde241d7b3a98cf6ee439649b8371427",
+    "translation": "6be092a0458fdb7d37c12d920d7fc1a91f8b87c0035d9ce5815ba30c1267df2f",
+    "author": "Xavier Larrea"
+  },
+  "deviceCameraMissing": {
+    "source": "ebc28eff745f3e62b025c93900c9d21310441bf9afd0cd31eae5f879fe0714b5",
+    "translation": "b8c94cc36e7466730f84594952454193963e4b824955ae11d86dd77b123c584a",
+    "author": "Xavier Larrea"
+  },
+  "deviceCameraIdle": {
+    "source": "e5885d7bb20285094afa358b400a2c5daf3b958f415ff7b947c74ceaae161aa8",
+    "translation": "eaae306ff0dfffa3f05c68691f45601dd90cdbf1527bcfaf09cfa2a5ce5036d1",
+    "author": "Xavier Larrea"
+  },
+  "deviceBluetoothMissing": {
+    "source": "1fb60f8c8cf43a307ce94ac4fff34fc8e3ded799d45e32b6b4102693e9c17bbf",
+    "translation": "fb92db00af78ce020c46d895b4a1c46be71ab476cb2181685c4f7eca542248a3",
+    "author": "Xavier Larrea"
+  },
+  "deviceBluetoothLocation": {
+    "source": "ddc2e997c456b83365617485e67b7aab67b865749f320a8835aee77d87ca4367",
+    "translation": "d82bbcfdd5d7218b3dfdba9b28fedd304036c57e784fe644c24040b30b2cfa34",
+    "author": "Xavier Larrea"
+  },
+  "deviceBluetoothLocationOff": {
+    "source": "cafdac2d86d89d3f2e166dac3ad116676a725588ddaf76e07236830fbb3a7326",
+    "translation": "86a8bb59cb6662fe8117e61c3308afb058425ac77b285c0cc48e01228fe022ef",
+    "author": "Xavier Larrea"
+  },
+  "deviceBluetoothIdle": {
+    "source": "e20f492aa9e7652e15d20694e01c9831f158d2a68130cd40ee1518617df5c874",
+    "translation": "2931df679c051cba18eb99ede80845a7e61fff37f249436eab6427a86cb502fb",
+    "author": "Xavier Larrea"
+  },
+  "deviceNotificationMissing": {
+    "source": "ab6ed9076a0c78360df888a86c7ca9f25aff81b96fa55115338a3a875eb7ebf8",
+    "translation": "999fbef227983d231df0fff7577de01ee5fd7e45645966ac20cfef9595a3bb31",
+    "author": "Xavier Larrea"
+  },
+  "deviceOverlayMissing": {
+    "source": "d6cbbe210d1eb55ac80aba4ad076aebbf565224d8b900dc227026c7bd0fd3d66",
+    "translation": "62ea98cba33cd7e3850cca09e2b0ca3cf6cfc0e605416e03b5f01e2efbaaf3fb",
+    "author": "Xavier Larrea"
+  },
+  "deviceOverlayIdle": {
+    "source": "5e2d7b2a1289b4692afda413e3b643b6db4bc2ce92985f7ae7752c3c6546a90a",
+    "translation": "7fff001477ea07af4c06b2cb1c482cade49cd5b0b06a24e460860125ca51a43a",
+    "author": "Xavier Larrea"
+  },
+  "deviceBrightnessMissing": {
+    "source": "fa3c4c632e73743b870cf4794c8dc855dce4b820c53a6209819e573041ca9eb6",
+    "translation": "d9c516dd852da1eb034423c972a013197cbf527511ac594a7518bfa3567f0cb7",
+    "author": "Xavier Larrea"
+  },
+  "deviceBrightnessIdle": {
+    "source": "db71f02121a588c12a5458f54070537dd9f903835d1545fb12aec19a311a4928",
+    "translation": "fa35fbac79df0ccf1923d4f02dd76cdc672a0fff715d234a93c87dfcf39c315a",
+    "author": "Xavier Larrea"
+  },
+  "deviceGuardMissing": {
+    "source": "cf72eaf679f2923557f9230b5f451e1b45ecb10eafee84cc7dd7db83245c806c",
+    "translation": "9080d677885440d86ec687892b4fb6683e6423dcb3177f8fe439382d50867fdb",
+    "author": "Xavier Larrea"
+  },
+  "deviceGuardIdle": {
+    "source": "5b79655717c27bbe4408e042518c8482282b49664fa0422f2ee10bff305adfb8",
+    "translation": "c09f0323cdaa77bd7bcfbe53041807db55cb23abc54adae584f10a9efd99dde8",
+    "author": "Xavier Larrea"
+  },
+  "deviceAdminIdle": {
+    "source": "017df20ff1224b79a2c7f1f201387d5129c28fdf01b31e575e54c55c152fd0df",
+    "translation": "307571ceebe9713a932699698498f4f5277a3b0217591f7ab067f2d39fb603f7",
+    "author": "Xavier Larrea"
+  },
+  "deviceFilesIdle": {
+    "source": "9ba662900bf41d392b86d2789674976db1abe940d117942dc596e2a131554393",
+    "translation": "b768f6282d0fc2505530cf8c34f2e0eb3a7d1a96cf4572bed9c3e5d8f98d0936",
+    "author": "Xavier Larrea"
+  },
+  "deviceUsageIdle": {
+    "source": "6b9e249eaf36773afbafb95eaccabf2580610442fc626d15051b5baa33dfc338",
+    "translation": "a95ac3f6ea2018274807c074d388e2028c776c8fa8e73dcbc8d2a77f6900c5fe",
+    "author": "Xavier Larrea"
+  },
+  "deviceLocationMissing": {
+    "source": "5baaa67693bbe070666c34051135c8090d8239b41685f87d8504871e5f2b10bf",
+    "translation": "a5baed7a535690c95356becf70b61d3e2f4751bf0dc3c31802b2393e3fc90527",
+    "author": "Xavier Larrea"
+  },
+  "deviceLocationIdle": {
+    "source": "e995f6aa75ea6b8672e57b90b94f51fc12d87575704ac64414819686af75ffa1",
+    "translation": "5de0d48b58c9f883137f3c3c3694cfd2bf12ae70d1de14f34a32562712ba0e5b",
+    "author": "Xavier Larrea"
+  },
+  "deviceServiceOverlayMissing": {
+    "source": "cb79dfe33457de122e8b3dc0f6019ce630b41318866877de67dffbd26725146b",
+    "translation": "0cb8e062ddd0c32dc61b029cd6dc5cba37e92d7d0d93adf9123efd49b31018c9",
+    "author": "Xavier Larrea"
+  },
+  "deviceServiceOverlayIdle": {
+    "source": "d7a718e1a06da9225143fb4d1667b5ada41e253d99c06f9b4e95ae36c5fe42ac",
+    "translation": "b4cb69cc8db04bde62e71b132559f19afd113ccf90017558d4b1b727d3f7399e",
+    "author": "Xavier Larrea"
+  },
+  "deviceListeningMissing": {
+    "source": "89d71dcf32d04e273c3af3c4d57db8b39cd39a3f0f2caff499858b253fb973b9",
+    "translation": "3eef47c88b9ad646a433645041c7dc95eb062a10750be06c3c92962913a8029a",
+    "author": "Xavier Larrea"
+  },
+  "deviceListeningIdle": {
+    "source": "9e68a0bef9ce9173de27bd07611326f550b90c8ab62c8e713fed840ac8160042",
+    "translation": "2b5e9724b33e8580a22cd0f002555a68e8015d10ca767773ea5373738ea52b97",
+    "author": "Xavier Larrea"
+  },
+  "deviceMotionIdle": {
+    "source": "71807de4859454e1b0773e28b9a49e829541eb1b4a911cf45b4210276f4d33fd",
+    "translation": "5ec72dcc8cb1d1c4ca9f613c718ade4335117f22e33bcbf2c5444f6974f2b7fc",
+    "author": "Xavier Larrea"
+  },
+  "deviceBatteryAdb": {
+    "source": "393acdd3ddc5c72bfb4b1967a6d610292bd1f4ab33fa7c68dd044507b6cb87e9",
+    "translation": "7ab787588173879b1c6239825f7bb7f4d2fc65a70986c608e9c91629f83fe5f3",
+    "author": "Xavier Larrea"
+  },
+  "deviceOverlayAdb": {
+    "source": "83f5612a6ff1f80f11e56e6a5c965f1c0a853b16d35f56b28714072b21b59677",
+    "translation": "4297161c9e3d39e5a99781350ceb754d186c782f74c38085e70f7c52f69c99a9",
     "author": "Xavier Larrea"
   },
   "settingRemoteEnabledTitle": {
@@ -304,6 +1144,671 @@
     "translation": "b7940052e1d39887fc297299d1ba38e265dac740d8602b224d9b2467425e0b92",
     "author": "Xavier Larrea"
   },
+  "settingRemoteFleetDiscoveryTitle": {
+    "source": "e23a45afd572b13a45dd9056f5fa5a61a3e95d351c6bc79d2c3fa231e5674644",
+    "translation": "126f374f81b6ab802b3eab6255f3bfa725a92975ef7e6985bc7686913ae044cb",
+    "author": "Xavier Larrea"
+  },
+  "settingRemoteFleetDiscoveryDescription": {
+    "source": "759c97deb0b6f430aaa529836615ffe30c7a1515ecac826d25e13abc30be617b",
+    "translation": "1024773e882a312bc03160be9928d749e4309ddf0bef691608db8d1f0e8ece10",
+    "author": "Xavier Larrea"
+  },
+  "deviceRemotePage": {
+    "source": "8e2e32ea1337ed1838a4bde547ff6d9c0ad6f4a964a12ace0908e749bb44def5",
+    "translation": "aacac26d63ec2e168f608ab931fe32ec26ddd5650bc66724137365fa21a038da",
+    "author": "Xavier Larrea"
+  },
+  "deviceAdminAddress": {
+    "source": "373175559c360ebccf1a3ce9ed4a9a8a5977a2b48793727e2419cee4550c973a",
+    "translation": "51e3c24644478a888ffa09daa9ef7ee67b4dedc37e89766ac348c1850d47fbef",
+    "author": "Xavier Larrea"
+  },
+  "deviceAdminAddressHelp": {
+    "source": "d3e1fb371d9d47f7c5d0b02600c8f3fd7d7d2b282630d62905c11ecfe740964b",
+    "translation": "b989c6a81004ca8b99d1f62739947b32d77524651082499d4ba5c1279df1d6b1",
+    "author": "Xavier Larrea"
+  },
+  "deviceByName": {
+    "source": "f74518c2596058b3ab13f5e8418626119e656268a3154248153398644abaa053",
+    "translation": "81ea96600c24442e562c1eba425a758bdf0e329f2d812d59e0b36e4480692607",
+    "author": "Xavier Larrea"
+  },
+  "deviceByNameHelp": {
+    "source": "2f263fa5c7eeaf3de83cd991290de2a1a2800206e916e1942287d1e2cb06d407",
+    "translation": "2bcaa4480a6f76ce3b8b15598905a9dc486d74832371f5bf595221e3de955075",
+    "author": "Xavier Larrea"
+  },
+  "devicePasswordNeeded": {
+    "source": "7f8833b1994d33df03764a2ffcc8a279dcc6f581b9438a7b0204815e9dbaf1af",
+    "translation": "5f7fc268396ab3f29f8c9537c75d3ac02fe2b20ced4ba89dcc4e8139a47bfe19",
+    "author": "Xavier Larrea"
+  },
+  "deviceServerStopped": {
+    "source": "2a710a65a132578c12f2b50da6f54e60ebaf0feb64fa01da851160acbd762466",
+    "translation": "23fa21082a032ad7753d5c306452002110a7bb062a91dae1ffc2a05102ed0e1c",
+    "author": "Xavier Larrea"
+  },
+  "devicePortError": {
+    "source": "ac42c964968b3c421e39269377bc2b4373ceb43ad0c5024646c5580bb789f53c",
+    "translation": "b4abbc9be6ab2ca5612ce934fddda688030b87bd8527dbc2d8528a0bd86cc50d",
+    "author": "Xavier Larrea"
+  },
+  "settingServiceCpuAwakeTitle": {
+    "source": "41c5c3fb5b8469e5060d43615eebbb46c1a7bea07385bd3e62c4b44f8d609c42",
+    "translation": "3fba1f95383a05bc25a373b079aa3c93ba986e4668bd93610ea45799198011a6",
+    "author": "Xavier Larrea"
+  },
+  "settingServiceCpuAwakeDescription": {
+    "source": "ad4756b2cf66726a7861a5a5a638f8ffdbf78b16b01104b8858e99abef94c2c9",
+    "translation": "8026c2c45d4b043841e3d03e5dc60a22f867c632ef94051b1dcf357baf3bca41",
+    "author": "Xavier Larrea"
+  },
+  "deviceServicePage": {
+    "source": "403bddfa415819c437279017c278542652623bd86a406b2a123b772522eee570",
+    "translation": "3a5ea0d55b5b944c28e6d20f1501f4c189e8e1277b563f1fdeb178d03510b828",
+    "author": "Xavier Larrea"
+  },
+  "deviceKeepingRunning": {
+    "source": "c7a4a1d1a6ee62b4223070b1e595d4d9a7d0b969d0af7b01ebecc2e51bfefb2a",
+    "translation": "4736c48a049a5f965deec73de63dbf785a11379f46332d4b5f0947fe8e43c74b",
+    "author": "Xavier Larrea"
+  },
+  "deviceService": {
+    "source": "441526786e67437e97ae527f081dbf0dfa90023f0b86bbeda59f4dba818dc5f2",
+    "translation": "1efa3b455a06245ebf5ff2d9b81d7da6d5bf0e6c7abe7b0db58b8054c060fac6",
+    "author": "Xavier Larrea"
+  },
+  "deviceStopped": {
+    "source": "60c2b5f615168b86f556e5a407dc2d6c56fcb2790425f9601959744b944e4f81",
+    "translation": "92c57ebc23abe27591036205c781a65d860bc3d5c36960d9e33fcbd217160ff0",
+    "author": "Xavier Larrea"
+  },
+  "deviceStoppedSentence": {
+    "source": "993eef54256ccd6a8c4ce3c4e60fb4f2f5d768b66a2f75d7af7f7446615bd89c",
+    "translation": "f85c5bf6eac58dd05ac61bd1185c7c840aee5e37f7cfed6d83b13b7444b5d2a8",
+    "author": "Xavier Larrea"
+  },
+  "deviceRunning": {
+    "source": "e257cce934ac2d1141217b015ac84994dc9eda4d49018d1dd8020ef17aabac70",
+    "translation": "d2f423908e1ba509edd342a3a660fcb12511920dd0c7d9746a75a90265db7749",
+    "author": "Xavier Larrea"
+  },
+  "deviceRunningSentence": {
+    "source": "bd40ab0d3ea497c124d0a55bd2081604cec8b3393ac92d7ebfef9aaa79aa4324",
+    "translation": "a24398f55908273fa95c127d11798075d807907332569c51c99d4aaa425b7ad8",
+    "author": "Xavier Larrea"
+  },
+  "deviceRunningBackground": {
+    "source": "75d514760649eca234b173fecd40e694e57c6320d022ccd245b564509d420fa1",
+    "translation": "572271dc50f8dbe6bc0bff9f9fff6a652b1ad4d3caa54ab091bea0fb5508e6e4",
+    "author": "Xavier Larrea"
+  },
+  "deviceServiceTypes": {
+    "source": "457afac65e73dc9bfa74c897977911447245514b0de7b0212c86986154b1fb1a",
+    "translation": "86285a4ae540d1f774dc0ecf186bb966ee5fe1283c737a465c1ffd24e552cffa",
+    "author": "Xavier Larrea"
+  },
+  "deviceServiceTypesHelp": {
+    "source": "f6943b8dd3502ed9f5d44faf44c6d962fbfd791758a4795d2821ed89ee8fa8c0",
+    "translation": "1bf637d97d3ae87db10abe89f2ff5d00dae6fddfd8699601b54616dda19b641e",
+    "author": "Xavier Larrea"
+  },
+  "deviceNoneDeclared": {
+    "source": "c91a28963f5d1499df45b56c25e45b186ff639cdcd68dd1341ea32914ebfdfa0",
+    "translation": "0b5b32f45b05f4f8b274f0545acae443ec9f0993b336b436ecf7b247b94afa5b",
+    "author": "Xavier Larrea"
+  },
+  "deviceNone": {
+    "source": "f5d79b59f4209b33c529dcf1a753cb1b2da33d4e474633389d4ef4dfedf304c7",
+    "translation": "3f695d04348e0bb62f1df29cffb76b6e90cd4d0b460a1bd893c481b5e92d1c10",
+    "author": "Xavier Larrea"
+  },
+  "deviceCpuLock": {
+    "source": "2ca06e407d8b5f8fa5a52ac8e9e5bfaf54bc55be44c0b1d9bb40b1bbf03f2e70",
+    "translation": "c61cce368f0f16ef95ac1b6b5777f453970fae43b00c68731d03441f86b92d4a",
+    "author": "Xavier Larrea"
+  },
+  "deviceCpuOff": {
+    "source": "2dfb7c672978b347c41d0aecce5f43e36f60d23b3e572b3dbebd3c351a5094f7",
+    "translation": "4447f3a8c8e2c065a1e8a3b719412e1da605491afb19ff9a90140cf50b90e4ea",
+    "author": "Xavier Larrea"
+  },
+  "deviceCpuHeld": {
+    "source": "46d4c9ee79c14887ba77a36b0bd0cdeafe17ea1aa9479ad406fa8b3922021041",
+    "translation": "7a73552cd35022c8c778055e0c16f5eff412663c7626c0a71e4ff428a9f8ba12",
+    "author": "Xavier Larrea"
+  },
+  "deviceCpuReleased": {
+    "source": "fa4a5fa3020c45b6eb8772849631ee129ab443fd0f2d010b979ed5ed38e68d73",
+    "translation": "ffc629285bec9c6fbe0ff02b2f0629ba960f0f70756e18fc95382909ceb682ab",
+    "author": "Xavier Larrea"
+  },
+  "deviceNotHeld": {
+    "source": "e4b4c54cf405616e9475b7312b6c68b4eb0263dc559de620023d7685969344dc",
+    "translation": "2ff5ed8035f405806295a08cbc6696a04b1df5f912bac86deb8bf560367ab80c",
+    "author": "Xavier Larrea"
+  },
+  "deviceHeld": {
+    "source": "22f0744d42b166a69516a01b8e25a944b7233a98d724783a5ce423f5c5ce5d4b",
+    "translation": "723858144bd5482d4ad8ae46e5fbbcca18061cf39e453730e025a286f1c0ea7f",
+    "author": "Xavier Larrea"
+  },
+  "deviceReleased": {
+    "source": "a963e7aa6e5b724c8d211df93c341547701e2b391a32c18b0af724b0d5b9836d",
+    "translation": "f38424b6670465b5c0f407d1ee986d5212b83205e5c9e5244e455bfee19cc0d8",
+    "author": "Xavier Larrea"
+  },
+  "deviceWifiLock": {
+    "source": "1984b59ebd565300a2de410c0c5a37ccc38de69be891e88a63af1f53b00b2737",
+    "translation": "2925aa790ed9f3c0f5ab16519855575a672facd17c0606aa2d29411b294f759f",
+    "author": "Xavier Larrea"
+  },
+  "deviceWifiHeld": {
+    "source": "c39ea95ef66a6b35419b0359bae3e97dfee7aa330b2583aaba6428ddbb5a42e2",
+    "translation": "0fc4337836b1aba3394c5098d37e026eeca249f9c96e24ee2fd9ee5b57e28e7a",
+    "author": "Xavier Larrea"
+  },
+  "deviceWifiHelp": {
+    "source": "ed359a2dad9262efc3f783b7ba103f9a092c4a30a1ce0a704a6fb39c469786af",
+    "translation": "9c4fac72d20bed66923364fe090338337aee4a28ec328d4a015db2dca590a145",
+    "author": "Xavier Larrea"
+  },
+  "deviceNotification": {
+    "source": "494a2f7e2830b9fce47d82ff441c0d228a46616dd1ba863683020b3f29ec1de3",
+    "translation": "0aea03aa28000600041a256b15189a33a7531b4acfe58bea85fb7d5d1d091859",
+    "author": "Xavier Larrea"
+  },
+  "deviceNotificationHidden": {
+    "source": "4d8684713a4244158689f0f67c53c4681e3d52be67ca4045d655454c160773c1",
+    "translation": "ef3ca7937604eb1056e29103b19cd50b41a7f0a5fbb8c2b27c15e7e8e2b8979c",
+    "author": "Xavier Larrea"
+  },
+  "deviceNotificationShown": {
+    "source": "738f755535c7e955f31de8c0b357b5e78e2ba934851d5a73f5cfe804c342c89b",
+    "translation": "27733fc57de947bfcfbe9a616dce79673ac9ef1655758cff5682a57416a022bd",
+    "author": "Xavier Larrea"
+  },
+  "deviceHidden": {
+    "source": "897cd58e2ed8832a2d8f219a128858146f75fdb6f5691ce02be409a8996f10e0",
+    "translation": "c7858c9b32f1554a3b936aca0ca49d57361d448fe4e17c4015016d770b4f3055",
+    "author": "Xavier Larrea"
+  },
+  "deviceShown": {
+    "source": "91765affde46eb8954291b778167f910ef77299b8fe6b78f8685f4e98c47c284",
+    "translation": "8411f5abb4c710b176d8f28c735f55a5f1e1ac648a8a48432ce4c10014a9bb91",
+    "author": "Xavier Larrea"
+  },
+  "deviceReasonHa": {
+    "source": "e22f31bb02ac463aeb8f666d0519e74bc19b5bb2385bfafa95cd60aefee4f244",
+    "translation": "2e4bfa82be10fbf16a7fb66ab1c01da208ac714bc5e5fd368fc78088f30a668d",
+    "author": "Xavier Larrea"
+  },
+  "deviceReasonHaHelp": {
+    "source": "11adb67bd5652e85765fd589dad6d48fa1ea1d0c8fdb14df252a9d5bad54868b",
+    "translation": "bd7265859ac891ea16a62aeb2f50e5d04df55417e0a2f827df1fd72212aadc4e",
+    "author": "Xavier Larrea"
+  },
+  "deviceReasonListening": {
+    "source": "067dd6b53478dec655d14c83f498290cb5f391b4a04d4af56f9d6925968db7ec",
+    "translation": "f69682e86bd94bd7c6a9eb98ce2c8aece6fd3ea8463699512ed5aad6e47a8139",
+    "author": "Xavier Larrea"
+  },
+  "deviceReasonListeningHelp": {
+    "source": "b01cbd5372896ec4ced5e7a62b824439f55f106da65c5967df5d12c89550ba7e",
+    "translation": "4de76dcf06d08abc12df9d0d64dc2da5052fa6b196a75132f1d6ef7212b4eeec",
+    "author": "Xavier Larrea"
+  },
+  "deviceReasonRtsp": {
+    "source": "2f1b1399651ac99f1a23f768757c23f0736bbf2cf89d1f745247dae10b20e30b",
+    "translation": "e042451365748dc593f3d71a612fd453032118441bd6386403dfe8cc2c1337f4",
+    "author": "Xavier Larrea"
+  },
+  "deviceReasonRtspHelp": {
+    "source": "99e523c6f868b03d67baaabb9c6aa4c81689f8bd95fc890c78fa2fc128f246be",
+    "translation": "1a410d01b05c5a7966f331b2bd6f8bf2d2dbf8880b8cdafe913241bf0916d01b",
+    "author": "Xavier Larrea"
+  },
+  "deviceReasonEspHome": {
+    "source": "a5eaa79f5109b0ad3b9b62592c54e2c2d0a4223f9c9ae7d3ebed25ee3fd87e29",
+    "translation": "596bcae85153cd908c452c920afe0d735b277f0890ede40080e3cd4eec172cc7",
+    "author": "Xavier Larrea"
+  },
+  "deviceReasonEspHomeHelp": {
+    "source": "baf98f6490dac1327cbda68673550439cada0941465235d320c2b7ce9f88241b",
+    "translation": "dbaddf679535cc478771fb896a05489ff45dc314cd7eb3b1e78dc371399a6a39",
+    "author": "Xavier Larrea"
+  },
+  "deviceReasonRemote": {
+    "source": "95ec7b2d2dbabf2dca20126a09303f7195686f18c5d9ce28fdbc965bc331eb56",
+    "translation": "aacac26d63ec2e168f608ab931fe32ec26ddd5650bc66724137365fa21a038da",
+    "author": "Xavier Larrea"
+  },
+  "deviceReasonRemoteHelp": {
+    "source": "1c9c2d0616b1ce7c4983a845082f10b1ff5e731ab3ea32daa6cf9a04f39e68fe",
+    "translation": "abb035ac33f74d47416a49a5912780474a5b4bcd05b033526f46a85f05a3c5fc",
+    "author": "Xavier Larrea"
+  },
+  "deviceReasonProtections": {
+    "source": "02db9d8e87169386f178224df72a4df9d4128ca9d749b0fe2fd1eb3681667bba",
+    "translation": "962153c3bc924898dd976d8060f2764b316145a2a9a96ab889b4a756bed51b2c",
+    "author": "Xavier Larrea"
+  },
+  "deviceReasonProtectionsHelp": {
+    "source": "e1c52f09f350da536506be4f81283af0d6834deaa9d02a4ef283630d62f320d3",
+    "translation": "c6bf9b8dd50a9f2fcf5750777fb6c035101eb37db2fc6260580c1a0adb8df6d8",
+    "author": "Xavier Larrea"
+  },
+  "deviceReasonBluetooth": {
+    "source": "d93e77648a5b4045b772e3aebe5f5c613fa3702ca86fe5a21aafa239f604766a",
+    "translation": "4d73f973bdc6638b052d47ad48da36cba1b2659cd122c2e9dbc9c5479029ea9b",
+    "author": "Xavier Larrea"
+  },
+  "deviceReasonBluetoothHelp": {
+    "source": "873045ab5d09a4d11ae9d5cc92493158495a2fdbae7e188518c56f173898714b",
+    "translation": "defbb6b6273db182edff6b622bbb1711d6bba25757f1d8a3bcd7e938d778a492",
+    "author": "Xavier Larrea"
+  },
+  "deviceReasonLocation": {
+    "source": "0dd020fb6c1c96472422d968a64bb257935cfb54074c0d86106d5decc341a59f",
+    "translation": "b5aaf36285a07da7cf072af94e99ed885316e8ef03a2b43532ed6c37ef224ce9",
+    "author": "Xavier Larrea"
+  },
+  "deviceReasonLocationHelp": {
+    "source": "42ffc33eb549f9f529c0dbfd2dd82bdb6cb15929be20e07253c19f4828cb335a",
+    "translation": "a27f0fbd534a3f743a14ca646ca1fa820b30b20828b8b165439bf516420e00ba",
+    "author": "Xavier Larrea"
+  },
+  "deviceReasonPerson": {
+    "source": "85a7a49a40607a31e0454eca49cba21f1ccb6644adf5cbf272d7d1bb9aa2aae2",
+    "translation": "badea45ac2117af120fe5f6d433068eca2453ab77b06022b3d44a50b0b9ce375",
+    "author": "Xavier Larrea"
+  },
+  "deviceReasonPersonHelp": {
+    "source": "cd70fbed043823fbc512f1334fd15b6eaef21efdd82600466e7bf832c38dc0a1",
+    "translation": "627accdcd89555394471d17dddc6fd7a10dc8ad5ade441176dab37994b34c735",
+    "author": "Xavier Larrea"
+  },
+  "deviceReasonCameraHelp": {
+    "source": "65dddc4e6b67e452251e160f8baeafcdb8c3d4ff64f57d7b840498e43360f3ea",
+    "translation": "5c0e73120b1185ab11629f0a70b8ff85b658f55377733512d5168b453628e0fc",
+    "author": "Xavier Larrea"
+  },
+  "deviceServiceStopped": {
+    "source": "a288f7a1bae0a44eb77952d3899462abf712c265529124e0c81eb4295abb5a28",
+    "translation": "0b2f559ff47a37b004e6f61f9ecb3e381bf6f97553d8f381da3ea9414f8abdf3",
+    "author": "Xavier Larrea"
+  },
+  "deviceServiceRunning": {
+    "source": "d9ec8974df337942f7811330d1a7c02a3e65ca843634395d9cea43aedb29773e",
+    "translation": "47b22b632ee6401fba56b8278cb01def02d2c4dff6fa9430bb176fe66e4107b6",
+    "author": "Xavier Larrea"
+  },
+  "settingShizukuInstallUpdatesTitle": {
+    "source": "ec100d791796fe3c37268bf68f57521f9c782447d01fe1f58acf70d444412701",
+    "translation": "7a46a37a1f93c8df842b23d64db7c79939373d2dd91d3941665fe90f1023fb0c",
+    "author": "Xavier Larrea"
+  },
+  "settingShizukuInstallUpdatesDescription": {
+    "source": "5cd69f24b1cde2ef593d8586912176b756f768f39a828cfcf7212cfcc29b2d67",
+    "translation": "c585b11dda6ed5fc1bd76453dd2b5647f2098384e13bff25d889e38e4a6ee8cc",
+    "author": "Xavier Larrea"
+  },
+  "deviceShizukuAccess": {
+    "source": "1df605131b8ad14752f3a430669089e53bbd07d13e28a51de74a409a1d3955c4",
+    "translation": "68c14b9bfe85d2ca1a2b900931f7743bed524193daf39ee6306835cad7f6d5f6",
+    "author": "Xavier Larrea"
+  },
+  "deviceShizukuCheck": {
+    "source": "a17b44fe1dbac8b68a997fd7a026e0df4775ed1d41e4f720afb5c10282f4445b",
+    "translation": "4666ac486f88b5b38ec11999ea53290efa2448acbb972097c01924101e9b9823",
+    "author": "Xavier Larrea"
+  },
+  "deviceShizukuRoot": {
+    "source": "397c99767495520702de783264ed2a1574c310cc30dab8a4e6465ffbe2fa1d09",
+    "translation": "984c5ad753fbb40a8ca3212314b54aee8c3933776eecbf9ab860b2ea56409845",
+    "author": "Xavier Larrea"
+  },
+  "deviceShizukuShell": {
+    "source": "93939ffbf0ac63449540fb38ab0106a4bdb7f7b8ce0a30a2a7996e979758d54c",
+    "translation": "7377819fa7983fb0065435ca85a36aa353c7e3a7fe7137bb447333cf590e0bfa",
+    "author": "Xavier Larrea"
+  },
+  "deviceShizukuGrant": {
+    "source": "2d50925a97a8b2b77d7baf2ef3c8040ddfe08f58ce32dc21940147a110bf22bf",
+    "translation": "fb0746252f8f70b7dcadfb5eeec00c910562d86f732c4c50b0409c63d6c1e613",
+    "author": "Xavier Larrea"
+  },
+  "deviceShizukuGrantRemote": {
+    "source": "7b54eac8e8f47826c73c80b554cd3e1fc28ca383d925c6794b45e981ebc2a4cc",
+    "translation": "e5f28189d44945246e811fd9746dc79407a6c3199ba03a0aecdbaf0f8a2b019b",
+    "author": "Xavier Larrea"
+  },
+  "deviceShizukuDenied": {
+    "source": "df606f7fe6e1203e58b49b792df800e5963763276cda461ade590df04e931e80",
+    "translation": "6355dbc31f50ea132c939ee7fc25c46c4f513d6edbfed33795aea8d483440514",
+    "author": "Xavier Larrea"
+  },
+  "deviceShizukuUnsupported": {
+    "source": "dd61cac8b7b9d6851b93b551a615be66f2161e9761fe9960b170c644e355fcbe",
+    "translation": "89f89db5d385c03745951aa97161415b0bc628f3c418c1f98a8d9a11f711fb49",
+    "author": "Xavier Larrea"
+  },
+  "deviceShizukuStart": {
+    "source": "1c165a51964ddee34557f19ba98abad5f8746589a6f938d1c81760981c1a81b5",
+    "translation": "76cad4d88f702df98f5c460b7dab42c7b8561249b5655984f89d69f5a76c09ff",
+    "author": "Xavier Larrea"
+  },
+  "deviceShizukuTest": {
+    "source": "5aa0d54e61d961c75c2c5a3964c82c8786d5658a06e5e2c2711e1f8e6de35af7",
+    "translation": "4a60fe65edd7906a6568872f6dace8426c9d67f9cc441f9630bc07b473249724",
+    "author": "Xavier Larrea"
+  },
+  "deviceShizukuTestHelp": {
+    "source": "0b3ca6089ebbec5168e8d39e063a459ebd95709e2d51b28ae1301d47865072f2",
+    "translation": "0a32458922223d0ac3ae7a2a40266c13f290955950674d73793b758547a63fef",
+    "author": "Xavier Larrea"
+  },
+  "deviceShizukuTestTitle": {
+    "source": "592efb8034af94b29f09d8234f8927b8830e99e4536a829d9efe43775b6a4134",
+    "translation": "e53454b0cd15890f95adfcbbcec8509138d84a25240e0d4063125302d2ddea12",
+    "author": "Xavier Larrea"
+  },
+  "deviceShizukuTestFailed": {
+    "source": "a3fa79a0aa1e71f083b1d2785ace1cad6b7811e6c2c980d4da07af4ece26f2d5",
+    "translation": "673f354a8b1802badc11301c33952500104e6cb380f9de305b1459b16a4a89da",
+    "author": "Xavier Larrea"
+  },
+  "deviceShizukuAlreadyGranted": {
+    "source": "6780ecc3a62b30588ebcd258be432628c4a4e6f9257e63e9bb1ba4fbd8d68ed4",
+    "translation": "f1ca5bfc3426af97e5f33b33a8e9a7a803ed87978f556d0e4cadf1027c14e1e5",
+    "author": "Xavier Larrea"
+  },
+  "deviceShizukuConfirmed": {
+    "source": "7ed62362081cb2582df75e0309c6eada74d1ba5603eb62b3ca4ce3bbbfdf39d7",
+    "translation": "e07f62c7458f91ec8ee3ffe30e559d3f0e763acb8b7aef20b51eb16aa883c737",
+    "author": "Xavier Larrea"
+  },
+  "deviceShizukuResults": {
+    "source": "f6dc5457daefe7a2a92df3ce0d22556b0c14d59861a7e9c8ba068250b698207b",
+    "translation": "44b7de514f7c23e68f84622fcd459bd5904d6a83140d90a6c7421a2e48d71d9c",
+    "author": "Xavier Larrea"
+  },
+  "deviceShizukuGrantAll": {
+    "source": "0d595ccbd096b3921ed01f68d865f5a07cd8981587e7480dbc729d7158764e0c",
+    "translation": "218b2478a09e844758a774b4b94a03690250cedf99a718c09e66fbd1bc8faeb6",
+    "author": "Xavier Larrea"
+  },
+  "deviceShizukuGrantAllHelp": {
+    "source": "cecda6d91bbce59127ca50315a43f5bfc987840a2f2897cc5ec875841a844d41",
+    "translation": "176806f9d7d2f4dff65bf9c377454494757ed031c075a9eb86cd71e469d87e80",
+    "author": "Xavier Larrea"
+  },
+  "deviceShizukuSetup": {
+    "source": "23a547cdd83061afef9305accf55d64176900cda70d1026307b33429a54b3ddc",
+    "translation": "0867f65813824e7bc88600505ac600d2322717f79096447a9c69cec647a159d7",
+    "author": "Xavier Larrea"
+  },
+  "deviceShizukuSetupHelp": {
+    "source": "6849a19c3d1d0b167c2d50c938affbe9378d9be4f214474e0530c18d51e8c6ec",
+    "translation": "ef8241eedd65c5a4607665d3d0bdd563f46daf6d41f64cccd025e38b40fc73b4",
+    "author": "Xavier Larrea"
+  },
+  "deviceShizukuLifetime": {
+    "source": "e260607c6d570e44c1839a6662f5915a1cbbd8c757349906cb6897df0c304b52",
+    "translation": "8fd25ea47dddaf9a66e2211fe9fbc8982f46296601acb58d4192887716809133",
+    "author": "Xavier Larrea"
+  },
+  "deviceShizukuFailed": {
+    "source": "d2a6cbb10a1e1af64ce2782243fea4a8be868d7b6c726042cc268b00a608784b",
+    "translation": "5932d296ad25e9ea7e3bd6c65c640defdaf45a405bc82c5a598deead199e7bab",
+    "author": "Xavier Larrea"
+  },
+  "deviceShizukuApprove": {
+    "source": "5740491d789c834b6bc41761524fbfb4a4271432f0bb385685914fa937c2fc15",
+    "translation": "68dfab58b5b15e89a519464108eee2acd048077b6ca57a4c1ed1f5dff6071cc1",
+    "author": "Xavier Larrea"
+  },
+  "deviceShizukuTestOk": {
+    "source": "826b40c231222989e0b30b96816f2ec51511eb7ba05bbc384681894e5592dada",
+    "translation": "51444b78a3f3348fe58d735d87cddafad3a2b45fdaf8d18f6ae19e92b7ec8979",
+    "author": "Xavier Larrea"
+  },
+  "deviceHelperPage": {
+    "source": "0a6c2a4126fb0020a931b0a342b6b4bc73a6200981e5f8c11d1e731646c62468",
+    "translation": "40f2f77814ef3cec9ee067824b8c128e8a4802f4916ac83c3775af1b85f4faf3",
+    "author": "Xavier Larrea"
+  },
+  "deviceHelperStatus": {
+    "source": "3f99b7fbcd0496f64aae4f47313def487ff4fb238f449e21b0c165f56f509bc8",
+    "translation": "eb7a1cae1aed95b71d4a9d304b4780fac05f6119c9ce357b3093f7e0a0746c55",
+    "author": "Xavier Larrea"
+  },
+  "deviceHelperError": {
+    "source": "f458fe47b1499e94497390d1d3e644587eb4bc795706b5fbe03e4acd976c0101",
+    "translation": "522e0c3045b2d27ffe8dcd973a7400be59080aa3a5b2b8f63c878719cd353c80",
+    "author": "Xavier Larrea"
+  },
+  "deviceHelperUnneeded": {
+    "source": "ee5ec7c87c594929872b656c3a862d6e97296dd86eef7778ce8205158b69538b",
+    "translation": "1d278b95b8c569d335861f933f1601937186b72cf996a8e338447055656b48f0",
+    "author": "Xavier Larrea"
+  },
+  "deviceHelperIntro": {
+    "source": "ecb067c3693f58bfc72647363eb278bb784e065d8a150c738f5f350c813a928c",
+    "translation": "d0a3886454df2ed83a8fc1525d9fb79bf279c61465ca34d46a5195ee8eeb0642",
+    "author": "Xavier Larrea"
+  },
+  "deviceHelperBusy": {
+    "source": "ae0027a913226f6e68fa1f3a9fec6e26314e91355ac89cb31711fda94aef252c",
+    "translation": "9802495846a72faa724addab9770aaac1ccec0bc3f111b7e20536f31d49375a2",
+    "author": "Xavier Larrea"
+  },
+  "deviceHelperReady": {
+    "source": "f06c92e1aa8bbfacd73182b9415fe66132f42ad8253550925c5b9986e43d39a6",
+    "translation": "d79344d14874e159d97601da7fb75326c66de22b764e7868218a976de0309119",
+    "author": "Xavier Larrea"
+  },
+  "deviceHelperUnavailable": {
+    "source": "c57dbdb57ce6cea8e7b9a1036f6771775fe355b63830e407fd40ee194bfd2ca0",
+    "translation": "a82951583d73c64647ae4540c8ea163f44011d145a8a67fc8bb2a7261cf131f3",
+    "author": "Xavier Larrea"
+  },
+  "deviceHelperLifetime": {
+    "source": "c6bc73104795cd1d2dd2661647cc434edc8c68b7e7faa515be728596734e0934",
+    "translation": "c744c8c09916eff85b3ce210e7e8fe3ddcb525d8f0efeb99f2f057982684e91a",
+    "author": "Xavier Larrea"
+  },
+  "deviceHelperStart": {
+    "source": "ddd6a3a1f053612e8631d40a42ea6a003d87760440b794ef2e138e80a10e9fb6",
+    "translation": "e024500447dec190f75b440e3191e7ad8337b5ee35f2284c77b06ecaaabe6767",
+    "author": "Xavier Larrea"
+  },
+  "deviceHelperGuide": {
+    "source": "3a1935f9e0ac74e2e07c84c7b6175bafd908d1357f295080237da7c40d5e28bc",
+    "translation": "3fdb65746064534652574b0fe6793ff357ab8a494bedfc13c66001ada26f0f18",
+    "author": "Xavier Larrea"
+  },
+  "deviceHelperGuideHelp": {
+    "source": "9cc8da7c8b56953cf2d77ef1bc4b0383d75573cafe505275e4ba32340118696a",
+    "translation": "eae4aa316ae759e93a0f8711a537b297e313df1d21cbc512a7b3b9b7792edf16",
+    "author": "Xavier Larrea"
+  },
+  "settingUpdateSourceTitle": {
+    "source": "30335ade48b0053a3d6f8af00c80ad9409e2c9af4f826231a6d340f1eed1e1fc",
+    "translation": "8f8633ec5953e6b72cf198cdc2ab3553f4d7b13323ac80447e37f19d7fabbbfd",
+    "author": "Xavier Larrea"
+  },
+  "settingUpdateSourceDescription": {
+    "source": "2a7066f1f1974fc2e37518424c35378ad8b41ca12b1d462b2e4e36f2c846661d",
+    "translation": "321a9b20c9d1dc9b35379afc99bf165bc1138a1a30cb67a18b7838b1bf805d9e",
+    "author": "Xavier Larrea"
+  },
+  "settingUpdateSourceUrlTitle": {
+    "source": "4010d8168acec290581611df54956536dd6e18ff9671d67d2307d1279274555f",
+    "translation": "02e302e78e7d199ae4ea533767fee19ea5bf6dce15a3ae3d0252d365c5980539",
+    "author": "Xavier Larrea"
+  },
+  "settingUpdateSourceUrlDescription": {
+    "source": "8b4c0b947639d16a8a90b7feeca10f2f8dd088b55096fdb3c8997a2415c2bab9",
+    "translation": "84ca5d72aaa686a41dd47320ab11af6cd7f6a3e056531d86c13d9dfbf52b150c",
+    "author": "Xavier Larrea"
+  },
+  "deviceUpdatesPage": {
+    "source": "a03633a877ba2c3f1f0f8e3a10d513e3a6cfcecb39d57e81839689a0392858af",
+    "translation": "f165314f21f8b5a14739e711bbd9b26e7327d21dc488cefb176d43c265fe54c3",
+    "author": "Xavier Larrea"
+  },
+  "deviceUpdateGithub": {
+    "source": "14d1309a83e10a9d61977f3add10810a605696ce56433989f3afe7bd2678301d",
+    "translation": "dfa4c83efd9db816c9108abdd0e48fb79db54c1387c82f2fc9d5788acdffeab0",
+    "author": "Xavier Larrea"
+  },
+  "deviceUpdateCustom": {
+    "source": "78bdc5c0fb2f832eec55a2ac700854d0fc496031305a49b406660aec6c556e1b",
+    "translation": "315d5073fa6c6bdedd603ab5dd7a13e7ad7238d382b8e12d238d2e4f229e95e3",
+    "author": "Xavier Larrea"
+  },
+  "deviceUpdateGuide": {
+    "source": "d7b9031c897b6a9f3685a1195dc9378311d925dfdf93908fc2dd335a2ec651a8",
+    "translation": "c424101bdeb35e545f6dd657deeb0d2ec0fced0cfc081827d026b73dc6edc071",
+    "author": "Xavier Larrea"
+  },
+  "deviceUpdateGuideHelp": {
+    "source": "429600d86906ef45660a13edc3a156fbb871c9c2eb8c7d0f51d3b74b1a24e120",
+    "translation": "cc54d504a33924f26f8d25aab3c85ed435802a9f4abdeae76e212f8682814175",
+    "author": "Xavier Larrea"
+  },
+  "deviceInstallFile": {
+    "source": "aaefa9cfade9eb0c424916313fd6e9ad2976d0e75bc372fc6718675d51964e48",
+    "translation": "26007b29aa38eea5791d9b3886e2f7a528ebbb888685df53afc8c571491283b7",
+    "author": "Xavier Larrea"
+  },
+  "deviceInstallFileHelp": {
+    "source": "a557661b6984e85b7cd70c8a27f197b4512e156e819169d590413bdbc29c7dcf",
+    "translation": "11c0d4440ebb8635a72bcfc3eecc4fceeacb12033750d6db565d51b0d19f3610",
+    "author": "Xavier Larrea"
+  },
+  "deviceInstallFileRemoteHelp": {
+    "source": "803489b499a79134d96435878fe106e38531f0e11a73fcc10120a83ac2b92c2f",
+    "translation": "d4a5ccef3019b082ca551914242af162a63fb11997b170dbbe5ed613d9882fb2",
+    "author": "Xavier Larrea"
+  },
+  "deviceUploadedApk": {
+    "source": "c2a6411f6a41abdb591e58c93960eee0db038f2c0dc0e6dcafa86fd043a9d0e6",
+    "translation": "1208991e135f79660e744715e41b8005b095b1a1ab691ae3800fc6a9d1b585c3",
+    "author": "Xavier Larrea"
+  },
+  "deviceInstalling": {
+    "source": "3bf60c428fef224b32910aa2e6ec5f690a44890f8523d0f4b992af3a2a437e12",
+    "translation": "eff4000bcf5b76424c702ece22250b8b242c39ea73698a2570e7e76fbf9a0b0d",
+    "author": "Xavier Larrea"
+  },
+  "deviceDeviceNoAnswer": {
+    "source": "02f4b18b7374991afa884c4974a1fb8ae46c1a3910c67d5b5831e86d8d6927ef",
+    "translation": "8fbcc81e49ce0ae61a2d11f691d2f3665a36cd495f9d162c6f90cef4a1b5274b",
+    "author": "Xavier Larrea"
+  },
+  "deviceInstallFailed": {
+    "source": "86e76ea67e6999ff7a0988cedcdcc9337b48b5d7c015a89a5be6ea3ecef0377c",
+    "translation": "ed01810daf45f9623e9f4346b45c788fcac7e9c5888fbc56ca352a5cca024903",
+    "author": "Xavier Larrea"
+  },
+  "deviceConfirmTablet": {
+    "source": "1c2d4001fc04254a6eb6398bb1068f480317bcd5a670ab730c217eec1bc2e6cf",
+    "translation": "938341c5d8d8fd596325d5b556d97e531641ae4d7c5e3b970073e0b4dec7cd11",
+    "author": "Xavier Larrea"
+  },
+  "deviceUploadedVersion": {
+    "source": "511d0828986925a08c3c48b84cf46d6fa2ab7253c0b32469f2831a0a4985e75e",
+    "translation": "6a3e7598f9cd061e4e87ad0ae5cfce35e4ed3c50b5a76dcd0731f1f3d3e7a330",
+    "author": "Xavier Larrea"
+  },
+  "deviceInstallVersion": {
+    "source": "66662b6a09b0d428f0b1154ea13f60eab858eebb110f58ab1249ca21f84a1e72",
+    "translation": "e66568d747a336dbc1a4bb5dbed5e7ad42683a14a317fe5a8124710502f68f7a",
+    "author": "Xavier Larrea"
+  },
+  "deviceHttpError": {
+    "source": "646b11caa9972ec6a14a5f7dc9972078a401832c60a11f99fec1f4acdc6314b2",
+    "translation": "0c8c8525bcc0e1d1fca2d7f365a93d040554bf27ef4eb2b2519e05f5b1cae9df",
+    "author": "Xavier Larrea"
+  },
+  "deviceUploadFailed": {
+    "source": "d5d5ec1a6598f0d3dbb7490b0f5913399b6fd0e2d311f0ec21c0e3028951fa6b",
+    "translation": "bfb4c4fd25b189544af02c1ad1afbd2e976e86bb6e0a49cc29930bc18b9d372d",
+    "author": "Xavier Larrea"
+  },
+  "deviceInstallFleet": {
+    "source": "310e3f2e3905cd408c67decc273fe97a87236780c56ba3c48ce10f32440c5246",
+    "translation": "fd6343fa7dedb9e293f980c202b5ae872de5b91bdea27ee98787c474f1dc436d",
+    "author": "Xavier Larrea"
+  },
+  "deviceSendingFleet": {
+    "source": "5c843e22cdf5714cdf15adbeb95a3307fef1c3968e6a7f358e6df00838dd50a6",
+    "translation": "5a976a12dc7642fe093d8229f325215790638fbfc8ef87115746e43422e60fa1",
+    "author": "Xavier Larrea"
+  },
+  "deviceSameBuild": {
+    "source": "887cca5771900a2257b880aa7d0fdd9b74f1e9e78b842e4c223e0d5498de3ca2",
+    "translation": "52c3a7594e28d22ad059450a3666daaba96c33e043691067a04bcb6926c4c44a",
+    "author": "Xavier Larrea"
+  },
+  "deviceInstallConfirmation": {
+    "source": "01a7d96171d1c13122ca2e04b1e3cbb43bb7fb95677df9ce077f8f7dfd44dd1b",
+    "translation": "d779474fc07ebe74133638a76ebd29a48475272ec20ce2b528853eb30ad514fd",
+    "author": "Xavier Larrea"
+  },
+  "deviceSelfLast": {
+    "source": "cf08daba964c2152be5c137a8364f74c77421111f913ff7e9455de6ae4e7e76f",
+    "translation": "2fc175ba7d6080eec7a7f8a9429680b396b4c0c699bf1ca2a51d24a5338131a7",
+    "author": "Xavier Larrea"
+  },
+  "deviceUpdatingFleet": {
+    "source": "47bb0bdf267c75dee4af5604014be199a9dab978638aca747096a999c332329b",
+    "translation": "323e995761030ed580c231d24d6c649e29908799afb63188a9eff0fa8d46ea4d",
+    "author": "Xavier Larrea"
+  },
+  "deviceUploading": {
+    "source": "aef4174c810c1a60d4ab6262cb23e6ed5111ffe6f4b57b817c35c4bc4e9be740",
+    "translation": "b8f3e11ee32cf487648614d4d2c7e4b01cce6ff909c82afba667a5b28c9a6fff",
+    "author": "Xavier Larrea"
+  },
+  "deviceUploadedDetails": {
+    "source": "d7f166cde0119d3f901da0b2145aee67b69564b2484562b8cce83708f5aa311d",
+    "translation": "5bbc4610dda2476c490011ba755568e8fc04297e6209717c1e59b06079d09f21",
+    "author": "Xavier Larrea"
+  },
+  "deviceCurrentBuild": {
+    "source": "63efc202808d4668ae897462b0f77a432c72a326efccee818c0348de1f54ab23",
+    "translation": "b9d9892e1266d622bf7323d8ea32e48cfdd58579b8ccad490ae16d8204178870",
+    "author": "Xavier Larrea"
+  },
+  "deviceSendingTo": {
+    "source": "2c607beb2dd2d1d8efd4a4e08839b688abd2af99da684f88a9fe358f0afac30f",
+    "translation": "054b8402fcfb5a032ecdc0628cd805f00312995278276b9d58e155eda7abd928",
+    "author": "Xavier Larrea"
+  },
+  "deviceInstallingOn": {
+    "source": "6463768f211f2091c163da2af2875d65087be4c5a7d0de222a6aa6eef4ca6bb2",
+    "translation": "b2382c1ff8f3c6b43d4d61cbb493a558dc0b33c88b08856a9b1407c0400d2c8b",
+    "author": "Xavier Larrea"
+  },
+  "deviceInstallingNames": {
+    "source": "c8aa62cdc709b207119884b3f0d6085d4e814d93d47eb8a0eedbebd468f79bc7",
+    "translation": "f8001796f35c1791bd364dace76f08b7ac8fb98a3f1b89fe9a366dcd6547c8f0",
+    "author": "Xavier Larrea"
+  },
+  "deviceUpdateUrlInvalid": {
+    "source": "7d0abbf13b0b180377d872007a1de247c280260242321e2ba9dc747fa7c31ac3",
+    "translation": "0ac6d858bfc58c67883d8423ac223637328e6a8898a390b35e1425134f77d2fe",
+    "author": "Xavier Larrea"
+  },
+  "deviceUpdateUrlPath": {
+    "source": "1c09bd89a6397faa3214b7c224de1c4b020173ec0fa8282af26ae47597329fce",
+    "translation": "ab29d47aadcbe041f67d64b7faab33ccf0b49a2a337f26569839fef4bcca4d09",
+    "author": "Xavier Larrea"
+  },
   "settingUiLanguageTitle": {
     "source": "ea5e0a1e883764d7b8c2991536a50c118f5f01ae71da0abacafb885a7b0e56ad",
     "translation": "7ae9d418353b399fa1d9404c5187943c0be487ffa9c952b6dbb7dee8d17610d5",
@@ -312,6 +1817,46 @@
   "settingUiLanguageDescription": {
     "source": "11db5db3e98fdf4c44c218a43f9d3729da8383a9718ccee8d01b8d87e7db8dfe",
     "translation": "8ab2818b249e769380159acf82526a170c24672e2247933fdf0c627155cd7163",
+    "author": "Xavier Larrea"
+  },
+  "settingUiThemeTitle": {
+    "source": "21c8a89bc77003fe0063070ee73337412e0f0a9efc0303f4fe3003a6ff230269",
+    "translation": "5090a79f1a428154eb02fc62f02e5d3cbd8e15d31c5b0a2167e5922d12374b34",
+    "author": "Xavier Larrea"
+  },
+  "settingUiThemeDescription": {
+    "source": "e0c2d8ad23c2b7c2669dd0106b127bb799dff6c47e8d3f4564533edf1bd734a7",
+    "translation": "270dfc770824a09766307376e8776f55ed816e729530e2cd1b90e97dd0f9ccb3",
+    "author": "Xavier Larrea"
+  },
+  "settingUiScaleTitle": {
+    "source": "e359b8c3e9c53e44815f7b661fb994c33e959eaa2f4f807ba1856c90e6438469",
+    "translation": "ecb7295d6d5d28903392da13c557f9b236f26cfea3837a3f2f2948779137f7c7",
+    "author": "Xavier Larrea"
+  },
+  "settingUiScaleDescription": {
+    "source": "61b8621a0717b3826ea85fd954e92c346f476ffeda34099f434612fe9c6d43e8",
+    "translation": "535eb71847a1c5236a86ae1d51e9a404dbaa5a489f52241ef656ddb67ec6df97",
+    "author": "Xavier Larrea"
+  },
+  "deviceUserInterface": {
+    "source": "754122a2582c2217348a00703b51b17aaf1a032701a81b7724d1842936504be6",
+    "translation": "5ecd491857f39933fccec5f7c3dbc39404f132e22a5d11c2e6c639b21e50b021",
+    "author": "Xavier Larrea"
+  },
+  "deviceThemeDark": {
+    "source": "3bba93feb557f9caf50052b76708ee1eb56aaf94e59a7fcf7b9d0694dc320b5b",
+    "translation": "1b1c27c397aee60cfa874aa6a2a1629439b41d214d70aaa6a67f8c1f439d3398",
+    "author": "Xavier Larrea"
+  },
+  "deviceThemeLight": {
+    "source": "d3386fe72543b80af10ff50e429bf6df8d438fc9c427c92ea80a20e98bd09113",
+    "translation": "2f3e8dcc246498504bc7fef416082aebd9869d8c360432e5a443b28dc304067f",
+    "author": "Xavier Larrea"
+  },
+  "deviceThemeSystem": {
+    "source": "b91a80c6d365f6f2c5638998badaa41b7d61da18fa2645db80c5ac495e6bf41d",
+    "translation": "f150afd3c5994d185052d4165729e1db8eae6914164b9471c3e583edfb1db020",
     "author": "Xavier Larrea"
   },
   "settingHaUrlTitle": {

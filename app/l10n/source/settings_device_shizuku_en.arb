@@ -1,0 +1,347 @@
+{
+  "@@locale": "en",
+  "settingShizukuInstallUpdatesTitle": "Install updates through Shizuku",
+  "@settingShizukuInstallUpdatesTitle": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "settingShizukuInstallUpdatesDescription": "Install Kiosk Satellite updates without on-device confirmation. Shizuku must be running and authorized.",
+  "@settingShizukuInstallUpdatesDescription": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuAccess": "Shizuku access",
+  "@deviceShizukuAccess": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuCheck": "Checking availability",
+  "@deviceShizukuCheck": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuRoot": "Connected with root access",
+  "@deviceShizukuRoot": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuShell": "Connected with shell access",
+  "@deviceShizukuShell": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuGrant": "Tap to grant access. Approve the request on this kiosk.",
+  "@deviceShizukuGrant": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuGrantRemote": "Grant access and approve the request on this kiosk.",
+  "@deviceShizukuGrantRemote": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuDenied": "Allow Kiosk Satellite in the Shizuku app.",
+  "@deviceShizukuDenied": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuUnsupported": "Shizuku 13 or later is required.",
+  "@deviceShizukuUnsupported": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuStart": "Start Shizuku on this device.",
+  "@deviceShizukuStart": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuTest": "Test connection",
+  "@deviceShizukuTest": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuTestHelp": "Read the process identity without changing the device.",
+  "@deviceShizukuTestHelp": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuTestTitle": "Connection test",
+  "@deviceShizukuTestTitle": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuTestFailed": "Shizuku could not complete the connection test.",
+  "@deviceShizukuTestFailed": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuAlreadyGranted": "All permissions are already granted.",
+  "@deviceShizukuAlreadyGranted": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuConfirmed": "Android confirmed the requested permissions.",
+  "@deviceShizukuConfirmed": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuResults": "Permission results",
+  "@deviceShizukuResults": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuGrantAll": "Grant all permissions",
+  "@deviceShizukuGrantAll": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuGrantAllHelp": "Grant all permissions used by KS, including features that are currently off.",
+  "@deviceShizukuGrantAllHelp": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuSetup": "Set up Shizuku",
+  "@deviceShizukuSetup": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuSetupHelp": "Read installation and startup instructions.",
+  "@deviceShizukuSetupHelp": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuLifetime": "Shizuku started through ADB must be started again after a device reboot. Shell access does not provide root permissions.",
+  "@deviceShizukuLifetime": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuFailed": "Shizuku request failed",
+  "@deviceShizukuFailed": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuApprove": "Approve the request on the kiosk.",
+  "@deviceShizukuApprove": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceShizukuTestOk": "Shizuku successfully ran a command with {access} access.",
+  "@deviceShizukuTestOk": {
+    "context": "Settings:Device:Shizuku",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    },
+    "placeholders": {
+      "access": {
+        "type": "String",
+        "example": "shell"
+      }
+    }
+  }
+}

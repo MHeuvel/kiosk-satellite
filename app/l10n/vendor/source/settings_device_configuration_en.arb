@@ -1,0 +1,320 @@
+{
+  "@@locale": "en",
+  "deviceExportConfig": "Export configuration",
+  "@deviceExportConfig": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceExportConfigHelp": "Save every setting and the page's local storage to a file.",
+  "@deviceExportConfigHelp": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceExportConfigRemoteHelp": "Download every setting and the page's local storage.",
+  "@deviceExportConfigRemoteHelp": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceImportConfig": "Import configuration",
+  "@deviceImportConfig": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceImportConfigHelp": "Replace this device's settings from an exported file.",
+  "@deviceImportConfigHelp": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceExportFailed": "Export failed",
+  "@deviceExportFailed": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceExported": "Configuration exported",
+  "@deviceExported": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceImportFailed": "Import failed",
+  "@deviceImportFailed": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceInvalidJson": "That file is not valid JSON.",
+  "@deviceInvalidJson": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceImportComplete": "Import complete",
+  "@deviceImportComplete": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceAppliedSettings": "Applied {count} settings.",
+  "@deviceAppliedSettings": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "example": "3"
+      }
+    }
+  },
+  "deviceAppliedReload": "Applied {count} settings. The page may reload.",
+  "@deviceAppliedReload": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "example": "3"
+      }
+    }
+  },
+  "deviceReplaceOriginal": "Replace the original device",
+  "@deviceReplaceOriginal": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceReplaceQuestion": "Replace this device's settings with the file's? The page may reload.",
+  "@deviceReplaceQuestion": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceNewDevice": "Set up as new device",
+  "@deviceNewDevice": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceReplaceIdentity": "Keeps the backup's name and ESPHome identity; the original device must stay offline.",
+  "@deviceReplaceIdentity": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceNewIdentity": "Assign its own name and ESPHome identity, so both devices are unique.",
+  "@deviceNewIdentity": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceRestoreStorage": "Restore Webview's local storage",
+  "@deviceRestoreStorage": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceRestoreStorageHelp": "Includes the Home Assistant signed in session and the Voice Satellite assist_satellite selection - two devices must not share one satellite.",
+  "@deviceRestoreStorageHelp": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceDownload": "Download",
+  "@deviceDownload": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceChooseFile": "Choose file…",
+  "@deviceChooseFile": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceImportFailedSentence": "Import failed.",
+  "@deviceImportFailedSentence": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    }
+  },
+  "deviceReplaceNamed": "Replace \"{name}\"",
+  "@deviceReplaceNamed": {
+    "context": "Settings:Device:Configuration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Configuration"
+      ],
+      "remoteAdmin": [
+        "Device > Configuration"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Kitchen"
+      }
+    }
+  }
+}

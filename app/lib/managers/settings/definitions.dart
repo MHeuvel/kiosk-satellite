@@ -9,6 +9,7 @@ import 'dart:convert';
 
 import '../../l10n/generated/language_codes.dart';
 import '../../l10n/generated/setting_ids.dart';
+import '../../l10n/generated/setting_option_ids.dart';
 
 import '../btproxy/node_name.dart';
 
@@ -52,6 +53,8 @@ class SettingDef<T> {
 
   String? get titleMessageId => settingMessageIds[key]?['title'];
   String? get descriptionMessageId => settingMessageIds[key]?['description'];
+  Map<String, String>? get optionMessageIds => settingOptionMessageIds[key];
+  String? get placeholderMessageId => settingPlaceholderMessageIds[key];
   final String category;
 
   /// An optional subheading within [category]. Consecutive settings sharing a
@@ -7351,8 +7354,8 @@ const deviceHostname = SettingDef<String>(
   defaultValue: '',
   title: 'mDNS name',
   description:
-      'Reach the remote admin at http://<name>.local:<port> on the local '
-      'network. Clear it to take the device name again.',
+      'Reach the remote admin using this name and the configured port on the '
+      'local network. Clear it to take the device name again.',
   category: 'Device',
   placeholder: 'Set from the device name',
   normalizer: normalizeHostnameSetting,

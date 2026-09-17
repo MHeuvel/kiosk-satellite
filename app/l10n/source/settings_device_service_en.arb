@@ -1,0 +1,665 @@
+{
+  "@@locale": "en",
+  "settingServiceCpuAwakeTitle": "Keep the CPU awake while the screen is off",
+  "@settingServiceCpuAwakeTitle": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "settingServiceCpuAwakeDescription": "Holds a wake lock through dark spells so connections and timers keep running on time. Costs battery on an unplugged tablet.",
+  "@settingServiceCpuAwakeDescription": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceServicePage": "Kiosk Satellite Service",
+  "@deviceServicePage": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceKeepingRunning": "Keeping it running",
+  "@deviceKeepingRunning": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceService": "Service",
+  "@deviceService": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceStopped": "Stopped",
+  "@deviceStopped": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceStoppedSentence": "Stopped.",
+  "@deviceStoppedSentence": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceRunning": "Running",
+  "@deviceRunning": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceRunningSentence": "Running.",
+  "@deviceRunningSentence": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceRunningBackground": "Running without the foreground exemption.",
+  "@deviceRunningBackground": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceServiceTypes": "Foreground service types",
+  "@deviceServiceTypes": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceServiceTypesHelp": "What the service declares to Android for the features it holds up.",
+  "@deviceServiceTypesHelp": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceNoneDeclared": "None declared.",
+  "@deviceNoneDeclared": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceNone": "none",
+  "@deviceNone": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceCpuLock": "CPU wake lock",
+  "@deviceCpuLock": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceCpuOff": "Off: the setting below is off.",
+  "@deviceCpuOff": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceCpuHeld": "Held: the screen is off.",
+  "@deviceCpuHeld": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceCpuReleased": "Released while the screen is on.",
+  "@deviceCpuReleased": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceNotHeld": "Not held.",
+  "@deviceNotHeld": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceHeld": "Held",
+  "@deviceHeld": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReleased": "Released",
+  "@deviceReleased": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceWifiLock": "Wi-Fi lock",
+  "@deviceWifiLock": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceWifiHeld": "Held: the radio stays out of power saving.",
+  "@deviceWifiHeld": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceWifiHelp": "Keeps the radio out of power saving through screen-off.",
+  "@deviceWifiHelp": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceNotification": "Notification",
+  "@deviceNotification": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceNotificationHidden": "Hidden: notifications are turned off for the app. The service runs regardless.",
+  "@deviceNotificationHidden": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceNotificationShown": "Shown in the notification shade while the service runs.",
+  "@deviceNotificationShown": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceHidden": "Hidden",
+  "@deviceHidden": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceShown": "Shown",
+  "@deviceShown": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonHa": "Home Assistant connection",
+  "@deviceReasonHa": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonHaHelp": "Keeps the dashboard session and its websocket open while the screen is off.",
+  "@deviceReasonHaHelp": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonListening": "Background listening",
+  "@deviceReasonListening": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonListeningHelp": "Keeps the wake word engine and its microphone running behind other apps.",
+  "@deviceReasonListeningHelp": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonRtsp": "RTSP microphone audio",
+  "@deviceReasonRtsp": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonRtspHelp": "Keeps microphone streaming available to connected RTSP viewers.",
+  "@deviceReasonRtspHelp": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonEspHome": "ESPHome server",
+  "@deviceReasonEspHome": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonEspHomeHelp": "Keeps the ESPHome API server answering Home Assistant.",
+  "@deviceReasonEspHomeHelp": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonRemote": "Remote administration",
+  "@deviceReasonRemote": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonRemoteHelp": "Keeps the admin web server answering.",
+  "@deviceReasonRemoteHelp": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonProtections": "Kiosk protections",
+  "@deviceReasonProtections": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonProtectionsHelp": "Relaunches the kiosk when it is closed from recents or crashes.",
+  "@deviceReasonProtectionsHelp": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonBluetooth": "Bluetooth proxy",
+  "@deviceReasonBluetooth": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonBluetoothHelp": "Keeps Bluetooth scanning running while the app is not on screen.",
+  "@deviceReasonBluetoothHelp": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonLocation": "Location sensors",
+  "@deviceReasonLocation": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonLocationHelp": "Keeps GPS fixes arriving while the screen is off or another app is in front.",
+  "@deviceReasonLocationHelp": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonPerson": "Person detection",
+  "@deviceReasonPerson": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonPersonHelp": "Keeps reading the device's person sensor while another app is in front.",
+  "@deviceReasonPersonHelp": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceReasonCameraHelp": "Keeps the camera usable after the panel powers off, for motion and face detection.",
+  "@deviceReasonCameraHelp": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    }
+  },
+  "deviceServiceStopped": "Stopped: {error}",
+  "@deviceServiceStopped": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Connection refused"
+      }
+    }
+  },
+  "deviceServiceRunning": "Running for {uptime}.",
+  "@deviceServiceRunning": {
+    "context": "Settings:Device:Kiosk Satellite Service",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Service"
+      ]
+    },
+    "placeholders": {
+      "uptime": {
+        "type": "String",
+        "example": "2h 15m"
+      }
+    }
+  }
+}

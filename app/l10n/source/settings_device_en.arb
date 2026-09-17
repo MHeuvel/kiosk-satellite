@@ -26,5 +26,538 @@
         "Device > Device name"
       ]
     }
+  },
+  "settingDeviceHostnameTitle": "mDNS name",
+  "@settingDeviceHostnameTitle": {
+    "context": "Settings:Device",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "settingDeviceHostnameDescription": "Reach the remote admin using this name and the configured port on the local network. Clear it to take the device name again.",
+  "@settingDeviceHostnameDescription": {
+    "context": "Settings:Device",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "settingDisableImpellerTitle": "Legacy renderer",
+  "@settingDisableImpellerTitle": {
+    "context": "Settings:Device",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "settingDisableImpellerDescription": "Use the older Skia renderer, for old GPUs that crash at startup. Turns itself on after two such crashes; takes effect on the next app start.",
+  "@settingDisableImpellerDescription": {
+    "context": "Settings:Device",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "settingLegacyWebViewTitle": "Legacy WebView renderer",
+  "@settingLegacyWebViewTitle": {
+    "context": "Settings:Device",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "settingLegacyWebViewDescription": "Draw the dashboard into a texture, for old GPUs that crash when it appears. Turns itself on where the device needs it; takes effect on the next app start.",
+  "@settingLegacyWebViewDescription": {
+    "context": "Settings:Device",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceHostnamePlaceholder": "Set from the device name",
+  "@deviceHostnamePlaceholder": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceConfiguration": "Configuration",
+  "@deviceConfiguration": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "devicePermissionsManager": "Permissions Manager",
+  "@devicePermissionsManager": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceOptions": "Options",
+  "@deviceOptions": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceStatus": "Status",
+  "@deviceStatus": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceConnection": "Connection",
+  "@deviceConnection": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "devicePermissions": "Permissions",
+  "@devicePermissions": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceHelp": "Help",
+  "@deviceHelp": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceAccess": "Access",
+  "@deviceAccess": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceReading": "Reading…",
+  "@deviceReading": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceChecking": "Checking...",
+  "@deviceChecking": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceUnavailable": "Status unavailable.",
+  "@deviceUnavailable": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceGrantOnDevice": "Grant on device",
+  "@deviceGrantOnDevice": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceAppSettings": "App settings",
+  "@deviceAppSettings": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceCopyCommand": "Copy command",
+  "@deviceCopyCommand": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceOpenGuide": "Open guide",
+  "@deviceOpenGuide": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceNotSet": "Not set",
+  "@deviceNotSet": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceGranted": "Granted",
+  "@deviceGranted": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceNotGranted": "Not granted",
+  "@deviceNotGranted": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceMissing": "Missing",
+  "@deviceMissing": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceNotOffered": "Not offered",
+  "@deviceNotOffered": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceOn": "on",
+  "@deviceOn": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceOff": "off",
+  "@deviceOff": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceServiceHint": "Status, what keeps it running, required permissions",
+  "@deviceServiceHint": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceRemoteHintActual": "Manage this kiosk from a browser on your network",
+  "@deviceRemoteHintActual": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceUpdatesHint": "Where the app looks for new releases",
+  "@deviceUpdatesHint": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceShizukuHint": "Connection, Android permissions and setup",
+  "@deviceShizukuHint": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceHelperHint": "Silent update status, ADB setup and instructions",
+  "@deviceHelperHint": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceAnalyticsHint": "Share anonymized information to help improve Kiosk Satellite",
+  "@deviceAnalyticsHint": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceHardwareHint": "Model, Android version, addresses, memory, uptime",
+  "@deviceHardwareHint": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceHaHint": "Connection, version and what the kiosk shows",
+  "@deviceHaHint": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceWebViewHint": "Engine version, renderer and user agent",
+  "@deviceWebViewHint": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "devicePasswordSet": "•••••• (set)",
+  "@devicePasswordSet": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceSaveFailed": "Could not save this setting. Try again.",
+  "@deviceSaveFailed": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
+  },
+  "deviceOpenSettingsDevice": "Open settings on device",
+  "@deviceOpenSettingsDevice": {
+    "context": "Settings:Device",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device"
+      ],
+      "remoteAdmin": [
+        "Device"
+      ]
+    }
   }
 }

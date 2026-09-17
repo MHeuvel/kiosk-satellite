@@ -25,5 +25,109 @@
         "Device > User Interface > Language"
       ]
     }
+  },
+  "settingUiThemeTitle": "App theme",
+  "@settingUiThemeTitle": {
+    "context": "Settings:Device:User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > User Interface"
+      ],
+      "remoteAdmin": [
+        "Device > User Interface"
+      ]
+    }
+  },
+  "settingUiThemeDescription": "Light or dark for the app's own screens: menu, settings, dialogs. System follows the Android setting.",
+  "@settingUiThemeDescription": {
+    "context": "Settings:Device:User Interface",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > User Interface"
+      ],
+      "remoteAdmin": [
+        "Device > User Interface"
+      ]
+    }
+  },
+  "settingUiScaleTitle": "Scale UI",
+  "@settingUiScaleTitle": {
+    "context": "Settings:Device:User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > User Interface"
+      ],
+      "remoteAdmin": [
+        "Device > User Interface"
+      ]
+    }
+  },
+  "settingUiScaleDescription": "Size of the app's own screens: menu, settings, dialogs. For high density displays. Web content keeps its size.",
+  "@settingUiScaleDescription": {
+    "context": "Settings:Device:User Interface",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > User Interface"
+      ],
+      "remoteAdmin": [
+        "Device > User Interface"
+      ]
+    }
+  },
+  "deviceUserInterface": "User Interface",
+  "@deviceUserInterface": {
+    "context": "Settings:Device:User Interface",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > User Interface"
+      ],
+      "remoteAdmin": [
+        "Device > User Interface"
+      ]
+    }
+  },
+  "deviceThemeDark": "Dark",
+  "@deviceThemeDark": {
+    "context": "Settings:Device:User Interface",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > User Interface"
+      ],
+      "remoteAdmin": [
+        "Device > User Interface"
+      ]
+    }
+  },
+  "deviceThemeLight": "Light",
+  "@deviceThemeLight": {
+    "context": "Settings:Device:User Interface",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > User Interface"
+      ],
+      "remoteAdmin": [
+        "Device > User Interface"
+      ]
+    }
+  },
+  "deviceThemeSystem": "System",
+  "@deviceThemeSystem": {
+    "context": "Settings:Device:User Interface",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > User Interface"
+      ],
+      "remoteAdmin": [
+        "Device > User Interface"
+      ]
+    }
   }
 }

@@ -1,3 +1,4 @@
+import { deviceText, t } from './localization.js';
 import { preserveDraft } from './drafts.js';
 import { beginLiveRender, endLiveRender, watchUpdates } from './live.js';
 import {
@@ -316,7 +317,7 @@ async function renderSettings({ cached = false } = {}) {
           if (heading && !(heading === subpage && !target.children.length)) {
             const h = document.createElement('h2');
             h.className = 'card-title';
-            h.textContent = heading;
+            h.textContent = cat === 'Device' ? deviceText(heading) : heading;
             target.appendChild(h);
           }
           const card = document.createElement('div');
@@ -1359,11 +1360,11 @@ async function renderSettings({ cached = false } = {}) {
       || document.getElementById('device-settings');
     const heading = document.createElement('h2');
     heading.className = 'card-title';
-    heading.textContent = 'Access';
+    heading.textContent = deviceText('Access');
     const card = document.createElement('div');
     card.className = 'card';
-    card.appendChild(readOnlyRow('Admin address',
-      'Open this address in a browser on your computer.',
+    card.appendChild(readOnlyRow(deviceText('Admin address'),
+      deviceText('Open this address in a browser on your computer.'),
       `http://${location.host}`));
     root.append(heading, card);
     // The same admin by name (issue #470), once the device says what it
@@ -1372,8 +1373,8 @@ async function renderSettings({ cached = false } = {}) {
     cmd('fleet').then((r) => {
       const url = r?.ok ? r.data?.hostUrl : null;
       if (url && card.isConnected) {
-        card.appendChild(readOnlyRow('By name',
-          'The same address by hostname, on networks that resolve .local names.',
+        card.appendChild(readOnlyRow(deviceText('By name'),
+          deviceText('The same address by hostname, on networks that resolve .local names.'),
           url));
       }
     }).catch(() => {});
@@ -1421,7 +1422,7 @@ async function renderSettings({ cached = false } = {}) {
 
     const heading = document.createElement('h2');
     heading.className = 'card-title';
-    heading.textContent = 'Permissions Manager';
+    heading.textContent = deviceText('Permissions Manager');
     const card = document.createElement('div');
     card.className = 'card';
     root.append(heading, card);
@@ -1431,9 +1432,9 @@ async function renderSettings({ cached = false } = {}) {
     note.className = 'row';
     note.style.cssText = 'font-size:12.5px; color:var(--muted);';
     note.textContent =
-      'Grants are given on the device, so each button opens an Android '
+      deviceText('Grants are given on the device, so each button opens an Android '
       + 'dialog or settings screen there. Some brands add their own battery '
-      + 'or autostart manager on top, which Android cannot report.';
+      + 'or autostart manager on top, which Android cannot report.');
     card.appendChild(note);
 
     const rendered = ROWS.map((spec) => {
@@ -1442,8 +1443,8 @@ async function renderSettings({ cached = false } = {}) {
       const info = document.createElement('div');
       info.className = 'info';
       info.innerHTML = '<div class="name"></div><div class="desc"></div>';
-      info.querySelector('.name').textContent = spec.name;
-      info.querySelector('.desc').textContent = 'Checking...';
+      info.querySelector('.name').textContent = deviceText(spec.name);
+      info.querySelector('.desc').textContent = deviceText('Checking...');
       row.appendChild(info);
       const state = document.createElement('span');
       state.style.whiteSpace = 'nowrap';
@@ -1458,24 +1459,24 @@ async function renderSettings({ cached = false } = {}) {
         const unknownState = all[spec.key] === undefined;
         // A spec text may be a function of the full payload (the Bluetooth
         // row words its "missing" by what actually blocks it).
-        const text = (t) => typeof t === 'function' ? t(all) : t;
+        const text = (t) => deviceText(typeof t === 'function' ? t(all) : t);
         // The device has no screen for the grant: the adb command stands
         // in for the button, and the row is not an error nobody can fix.
         const noScreen = !ok && spec.requestable && all[spec.requestable] === false;
         info.querySelector('.desc').textContent = unknownState
-          ? 'Status unavailable.'
-          : noScreen ? spec.adb
+          ? deviceText('Status unavailable.')
+          : noScreen ? deviceText(spec.adb)
           : text(ok ? spec.held : (spec.needed ? spec.missing : spec.idle));
         state.textContent = unknownState ? ''
-          : ok ? 'Granted' : noScreen ? 'Not offered'
-          : (spec.needed ? 'Missing' : 'Not granted');
+          : ok ? deviceText('Granted') : noScreen ? deviceText('Not offered')
+          : (spec.needed ? deviceText('Missing') : deviceText('Not granted'));
         state.style.color = ok ? 'var(--ok)'
           : spec.needed && !noScreen ? 'var(--error)' : 'var(--muted)';
         row.querySelector('button')?.remove();
         if (ok || unknownState || noScreen) continue;
         const btn = document.createElement('button');
         btn.className = 'btn-ghost';
-        btn.textContent = spec.guard ? 'Open settings on device' : 'Grant on device';
+        btn.textContent = spec.guard ? deviceText('Open settings on device') : deviceText('Grant on device');
         btn.style.cssText = 'flex-shrink:0;';
         btn.addEventListener('click', async () => {
           btn.disabled = true;
@@ -2218,7 +2219,7 @@ async function renderSettings({ cached = false } = {}) {
     const host = $('#device-settings');
     const title = document.createElement('h2');
     title.className = 'card-title';
-    title.textContent = 'Configuration';
+    title.textContent = deviceText('Configuration');
     host.appendChild(title);
     const card = document.createElement('div');
     card.className = 'card';
@@ -2228,16 +2229,16 @@ async function renderSettings({ cached = false } = {}) {
       const row = readOnlyRow(label, desc, '');
       row.querySelector('span').remove();
       const btn = document.createElement('button');
-      btn.className = 'btn-ghost'; btn.textContent = btnText;
+      btn.className = 'btn-ghost'; btn.textContent = deviceText(btnText);
       btn.addEventListener('click', onClick);
       row.appendChild(btn);
       card.appendChild(row);
       return { row, desc: row.querySelector('.desc') };
     };
 
-    mkRow('Export configuration',
-      "Download every setting and the page's local storage.",
-      'Download', async () => {
+    mkRow(deviceText('Export configuration'),
+      deviceText("Download every setting and the page's local storage."),
+      deviceText('Download'), async () => {
         const res = await api('/api/config/export');
         if (!res.ok) return;
         const config = await res.json();
@@ -2255,9 +2256,9 @@ async function renderSettings({ cached = false } = {}) {
         URL.revokeObjectURL(a.href);
       });
 
-    const imp = mkRow('Import configuration',
-      "Replace this device's settings from an exported file.",
-      'Choose file\u2026', () => file.click());
+    const imp = mkRow(deviceText('Import configuration'),
+      deviceText("Replace this device's settings from an exported file."),
+      deviceText('Choose file\u2026'), () => file.click());
     const file = document.createElement('input');
     file.type = 'file';
     file.accept = '.json,application/json';
@@ -2271,7 +2272,7 @@ async function renderSettings({ cached = false } = {}) {
       if (!f) return;
       let config;
       try { config = JSON.parse(await f.text()); } catch (_) {
-        imp.desc.textContent = 'That file is not valid JSON.'; return;
+        imp.desc.textContent = deviceText('That file is not valid JSON.'); return;
       }
       const opts = await askImportOptions(
         config && config.settings && config.settings['device.name']);
@@ -2281,8 +2282,8 @@ async function renderSettings({ cached = false } = {}) {
         { method: 'POST', body: JSON.stringify(config) });
       const out = await res.json().catch(() => ({}));
       imp.desc.textContent = res.ok
-        ? `Applied ${out.data && out.data.applied} settings. The page may reload.`
-        : (out.error || 'Import failed.');
+        ? t('deviceAppliedReload', {count: String(out.data && out.data.applied)})
+        : (out.error || deviceText('Import failed.'));
       if (res.ok) setTimeout(() => location.reload(), 2500);
     });
   }

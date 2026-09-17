@@ -1,0 +1,15 @@
+{
+  "@@locale": "es",
+  "deviceHelperPage": "Asistente de actualización opcional",
+  "deviceHelperStatus": "Estado del asistente",
+  "deviceHelperError": "No se pudo consultar el asistente de actualización.",
+  "deviceHelperUnneeded": "Android ya puede instalar actualizaciones sin confirmación. No se necesita el asistente.",
+  "deviceHelperIntro": "Este dispositivo necesita confirmación en la pantalla para instalar actualizaciones mediante Android. El asistente opcional permite que Kiosk Satellite instale actualizaciones sin tocar la pantalla.",
+  "deviceHelperBusy": "Instalando una actualización.",
+  "deviceHelperReady": "Listo. Las actualizaciones se instalan sin confirmación.",
+  "deviceHelperUnavailable": "No disponible. Inicia el asistente mediante ADB para permitir actualizaciones sin confirmación.",
+  "deviceHelperLifetime": "El asistente sigue funcionando después de reiniciar o actualizar la aplicación, pero se detiene al reiniciar el dispositivo. Ejecuta el comando desde una computadora con ADB para iniciarlo de nuevo. Luego puedes desconectar la computadora.",
+  "deviceHelperStart": "Iniciar mediante ADB",
+  "deviceHelperGuide": "Guía de configuración",
+  "deviceHelperGuideHelp": "Consulta las instrucciones y los requisitos del asistente de actualización."
+}

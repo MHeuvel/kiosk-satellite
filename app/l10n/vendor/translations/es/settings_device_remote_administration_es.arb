@@ -5,5 +5,15 @@
   "settingRemotePortTitle": "Puerto del servidor",
   "settingRemotePortDescription": "Puerto de la interfaz de administración remota.",
   "settingRemotePasswordTitle": "Contraseña de administración",
-  "settingRemotePasswordDescription": "Necesaria para iniciar sesión en la interfaz remota."
+  "settingRemotePasswordDescription": "Necesaria para iniciar sesión en la interfaz remota.",
+  "settingRemoteFleetDiscoveryTitle": "Buscar otros kioskos",
+  "settingRemoteFleetDiscoveryDescription": "Anuncia este dispositivo en la red y muestra los otros kioskos en la administración remota para cambiar entre ellos.",
+  "deviceRemotePage": "Administración remota",
+  "deviceAdminAddress": "Dirección de administración",
+  "deviceAdminAddressHelp": "Abre esta dirección en un navegador de tu computadora.",
+  "deviceByName": "Por nombre",
+  "deviceByNameHelp": "La misma dirección mediante el nombre del equipo, en redes que resuelven nombres .local.",
+  "devicePasswordNeeded": "Define una contraseña de administración abajo para iniciar el servidor.",
+  "deviceServerStopped": "El servidor no está en ejecución.",
+  "devicePortError": "No se pudo escuchar en el puerto {port}: {error}"
 }

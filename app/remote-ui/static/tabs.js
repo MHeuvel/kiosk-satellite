@@ -1,4 +1,4 @@
-import { navigationText, t, localizeNavigation } from './localization.js';
+import { navigationText, t, localizeNavigation, deviceText } from './localization.js';
 import { readRoute, routeHash, routeSlug } from './routes.js';
 import { loadSettings } from './settings.js';
 import { loadCameras } from './cameras.js';
@@ -57,10 +57,10 @@ export function subpageEntry(tab, sub, { iconName = sub } = {}) {
   info.className = 'info';
   const name = document.createElement('div');
   name.className = 'name';
-  name.textContent = sub;
+  name.textContent = tab === 'device' ? deviceText(sub) : sub;
   const desc = document.createElement('div');
   desc.className = 'desc';
-  desc.textContent = (state.subpageHints || {})[sub] || '';
+  desc.textContent = tab === 'device' ? deviceText((state.subpageHints || {})[sub] || '') : (state.subpageHints || {})[sub] || '';
   info.append(name, desc);
   const chev = document.createElement('span');
   chev.className = 'chev';
@@ -153,7 +153,7 @@ export function showTab(name, { push = true, refresh = true } = {}) {
   if (sub) {
     // Second level: the page wears the entry row's title behind a back
     // arrow, the shape the device's app bar takes.
-    titleEl.textContent = tab === 'plugins' ? [...document.querySelectorAll('#tab-plugins > .subpage')].find(p => p.dataset.subpage === sub)?.dataset.title || sub : sub;
+    titleEl.textContent = tab === 'plugins' ? [...document.querySelectorAll('#tab-plugins > .subpage')].find(p => p.dataset.subpage === sub)?.dataset.title || sub : tab === 'device' ? deviceText(sub) : sub;
     const back = document.createElement('button');
     back.type = 'button';
     back.className = 'title-back';
@@ -219,6 +219,10 @@ export function refreshNavigationText() {
   if (!title) return;
   if (searchReturnTab) {
     title.textContent = t('settingsSearchResults');
+  } else if (currentPath.startsWith('device/')) {
+    for (const node of title.childNodes) {
+      if (node.nodeType === Node.TEXT_NODE) node.textContent = deviceText(currentPath.slice(7));
+    }
   } else if (!currentPath.includes('/')) {
     // Preserve the icon already attached by showTab.
     for (const node of title.childNodes) {

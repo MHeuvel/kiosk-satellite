@@ -1,0 +1,133 @@
+{
+  "@@locale": "en",
+  "settingAnalyticsBasicTitle": "Basic analytics",
+  "@settingAnalyticsBasicTitle": {
+    "context": "Settings:Device:Kiosk Satellite Analytics",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Analytics"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Analytics"
+      ]
+    }
+  },
+  "settingAnalyticsBasicDescription": "Information about your device, such as model, Android version, app version, screen size and language.",
+  "@settingAnalyticsBasicDescription": {
+    "context": "Settings:Device:Kiosk Satellite Analytics",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Analytics"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Analytics"
+      ]
+    }
+  },
+  "settingAnalyticsUsageTitle": "Usage",
+  "@settingAnalyticsUsageTitle": {
+    "context": "Settings:Device:Kiosk Satellite Analytics",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Analytics"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Analytics"
+      ]
+    }
+  },
+  "settingAnalyticsUsageDescription": "Details of what you use with Kiosk Satellite.",
+  "@settingAnalyticsUsageDescription": {
+    "context": "Settings:Device:Kiosk Satellite Analytics",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Analytics"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Analytics"
+      ]
+    }
+  },
+  "settingAnalyticsDiagnosticsTitle": "Diagnostics",
+  "@settingAnalyticsDiagnosticsTitle": {
+    "context": "Settings:Device:Kiosk Satellite Analytics",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Analytics"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Analytics"
+      ]
+    }
+  },
+  "settingAnalyticsDiagnosticsDescription": "Share crash reports when unexpected errors occur.",
+  "@settingAnalyticsDiagnosticsDescription": {
+    "context": "Settings:Device:Kiosk Satellite Analytics",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Analytics"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Analytics"
+      ]
+    }
+  },
+  "deviceAnalyticsPage": "Kiosk Satellite Analytics",
+  "@deviceAnalyticsPage": {
+    "context": "Settings:Device:Kiosk Satellite Analytics",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Analytics"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Analytics"
+      ]
+    }
+  },
+  "deviceAnalyticsIntro": "Share anonymized information from your installation to help make Kiosk Satellite better and guide which devices and features get attention.",
+  "@deviceAnalyticsIntro": {
+    "context": "Settings:Device:Kiosk Satellite Analytics",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Analytics"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Analytics"
+      ]
+    }
+  },
+  "deviceAnalyticsLearn": "Learn how we process your data",
+  "@deviceAnalyticsLearn": {
+    "context": "Settings:Device:Kiosk Satellite Analytics",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Analytics"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Analytics"
+      ]
+    }
+  },
+  "deviceAnalyticsLearnHelp": "What Kiosk Satellite Analytics sends and what it never sends.",
+  "@deviceAnalyticsLearnHelp": {
+    "context": "Settings:Device:Kiosk Satellite Analytics",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Kiosk Satellite Analytics"
+      ],
+      "remoteAdmin": [
+        "Device > Kiosk Satellite Analytics"
+      ]
+    }
+  }
+}

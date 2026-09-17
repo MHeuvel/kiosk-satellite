@@ -4,6 +4,8 @@ import 'package:flutter/widgets.dart';
 import '../managers/settings/definitions.dart';
 import 'generated/message_lookup.dart';
 import 'generated/navigation_ids.dart';
+import 'generated/device_text_ids.dart';
+import 'generated/setting_option_ids.dart';
 import 'generated/ui_strings.dart';
 
 final _english = lookupUiStrings(const Locale('en'));
@@ -48,3 +50,32 @@ extension LocalizedSetting on SettingDef<Object> {
 /// Translate menu presentation while keeping category and route keys stable.
 String navigationText(BuildContext context, String english) =>
     messageById(l10n(context), navigationMessageIds[english], english);
+
+/// Resolve fixed Device page wording without translating supplied values.
+String deviceText(BuildContext context, String english) =>
+    messageById(l10n(context), deviceTextMessageIds[english], english);
+
+extension LocalizedSettingChoices on SettingDef<Object> {
+  String localizedOption(BuildContext context, String value, String fallback) =>
+      messageById(
+        l10n(context),
+        settingOptionMessageIds[key]?[value],
+        fallback,
+      );
+  String? localizedPlaceholder(BuildContext context) => placeholder == null
+      ? null
+      : messageById(
+          l10n(context),
+          settingPlaceholderMessageIds[key],
+          placeholder!,
+        );
+}
+
+String localizedRemoteReason(BuildContext context, String reason) {
+  final match = RegExp(
+    r'^Could not listen on port ([0-9]+): ([\s\S]*)$',
+  ).firstMatch(reason);
+  return match == null
+      ? deviceText(context, reason)
+      : l10n(context).devicePortError(match[1]!, match[2]!);
+}

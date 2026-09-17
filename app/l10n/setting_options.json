@@ -1,0 +1,11 @@
+{
+  "ui.theme": {
+    "dark": "deviceThemeDark",
+    "light": "deviceThemeLight",
+    "system": "deviceThemeSystem"
+  },
+  "update.source": {
+    "github": "deviceUpdateGithub",
+    "custom": "deviceUpdateCustom"
+  }
+}

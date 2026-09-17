@@ -1,0 +1,733 @@
+{
+  "@@locale": "en",
+  "deviceRequiredPermissions": "Required system permissions",
+  "@deviceRequiredPermissions": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "devicePermissionIntro": "Grants are given on this device, so each button opens an Android dialog or settings screen here. Some brands add their own battery or autostart manager on top, which Android cannot report.",
+  "@devicePermissionIntro": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "devicePermissionIntroRemote": "Grants are given on the device, so each button opens an Android dialog or settings screen there. Some brands add their own battery or autostart manager on top, which Android cannot report.",
+  "@devicePermissionIntroRemote": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceMicrophone": "Microphone",
+  "@deviceMicrophone": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceMicrophoneHeld": "Allows microphone usage for wake word detection, speech to text and intercom calls.",
+  "@deviceMicrophoneHeld": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceBattery": "Unrestricted battery",
+  "@deviceBattery": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceBatteryHeld": "Allows the process to run in the background without being paused or killed.",
+  "@deviceBatteryHeld": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceCamera": "Camera",
+  "@deviceCamera": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceCameraHeld": "Motion detection and snapshots can use the camera.",
+  "@deviceCameraHeld": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceBluetooth": "Nearby devices",
+  "@deviceBluetooth": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceBluetoothHeld": "The Bluetooth proxy can scan for nearby devices.",
+  "@deviceBluetoothHeld": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceNotifications": "Notifications",
+  "@deviceNotifications": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceNotificationsHeld": "Allows the Kiosk Satellite Service's ongoing notification, which says what it is keeping alive.",
+  "@deviceNotificationsHeld": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceOverlay": "Display over other apps",
+  "@deviceOverlay": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceOverlayHeld": "Kiosk Satellite can bring itself back in the foreground.",
+  "@deviceOverlayHeld": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceWriteSettings": "Modify system settings",
+  "@deviceWriteSettings": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceWriteSettingsHeld": "Brightness changes set the panel's real brightness.",
+  "@deviceWriteSettingsHeld": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceUiGuard": "System UI guard",
+  "@deviceUiGuard": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceUiGuardHeld": "The notification shade and recents close on their own while the screen is protected.",
+  "@deviceUiGuardHeld": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceDeviceAdmin": "Device admin",
+  "@deviceDeviceAdmin": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceDeviceAdminHeld": "Allows the app to turn the screen off.",
+  "@deviceDeviceAdminHeld": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceAllFiles": "All files access",
+  "@deviceAllFiles": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceAllFilesHeld": "The File Manager can browse the shared storage.",
+  "@deviceAllFilesHeld": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceUsageAccess": "Usage access",
+  "@deviceUsageAccess": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceUsageAccessHeld": "The Foreground app sensor can name whichever app is on screen.",
+  "@deviceUsageAccessHeld": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceLocation": "Location",
+  "@deviceLocation": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceLocationHeld": "Pages, Bluetooth scanning and the location sensors can use the device position.",
+  "@deviceLocationHeld": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceMicBlocked": "Blocked. Android will not ask again, so allow it in the app settings.",
+  "@deviceMicBlocked": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceMicMissing": "Wake word detection is on and nothing is listening.",
+  "@deviceMicMissing": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceMicIdle": "Needed by wake word detection, the intercom and pages that ask for the microphone.",
+  "@deviceMicIdle": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceBatteryMissing": "Android may pause the app when the screen is off, dropping the Home Assistant connection and the ESPHome entities with it.",
+  "@deviceBatteryMissing": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceCameraMissing": "The camera is switched on and cannot be opened.",
+  "@deviceCameraMissing": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceCameraIdle": "Needed by motion detection, camera snapshots and pages that ask for the camera.",
+  "@deviceCameraIdle": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceBluetoothMissing": "The Bluetooth proxy is switched on and cannot scan.",
+  "@deviceBluetoothMissing": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceBluetoothLocation": "Bluetooth scanning needs the Location permission.",
+  "@deviceBluetoothLocation": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceBluetoothLocationOff": "Location is off in the device settings, so Bluetooth scanning finds nothing.",
+  "@deviceBluetoothLocationOff": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceBluetoothIdle": "Needed by the Bluetooth proxy to scan for devices.",
+  "@deviceBluetoothIdle": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceNotificationMissing": "Needed to show the Kiosk Satellite Service's ongoing notification.",
+  "@deviceNotificationMissing": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceOverlayMissing": "Without this the app cannot reopen itself after a crash, an update or a wake word heard behind another app.",
+  "@deviceOverlayMissing": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceOverlayIdle": "Lets the app bring itself back to the front, and the lockdown shield cover the whole screen.",
+  "@deviceOverlayIdle": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceBrightnessMissing": "Brightness only dims the app window, so the panel and Home Assistant never see the change.",
+  "@deviceBrightnessMissing": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceBrightnessIdle": "Needed to set the panel's real brightness rather than dimming the app window.",
+  "@deviceBrightnessIdle": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceGuardMissing": "The notification shade and recents stay reachable. Enable Kiosk Satellite under Accessibility.",
+  "@deviceGuardMissing": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceGuardIdle": "Closes the notification shade and recents while kiosk mode protects the screen.",
+  "@deviceGuardIdle": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceAdminIdle": "Lets Screen off power the panel down instead of only blacking it out.",
+  "@deviceAdminIdle": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceFilesIdle": "Lets the File Manager browse the shared storage instead of only the app folder.",
+  "@deviceFilesIdle": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceUsageIdle": "Lets the Foreground app sensor name apps other than Kiosk Satellite.",
+  "@deviceUsageIdle": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceLocationMissing": "Android will not deliver Bluetooth scan results without Location, and the location sensors cannot read the GPS receiver.",
+  "@deviceLocationMissing": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceLocationIdle": "Used by pages that ask for your location, by Bluetooth scanning and by the ESPHome location sensors.",
+  "@deviceLocationIdle": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceServiceOverlayMissing": "Without this the service cannot relaunch the kiosk after a crash or a close from recents.",
+  "@deviceServiceOverlayMissing": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceServiceOverlayIdle": "Needed to relaunch the kiosk after a crash.",
+  "@deviceServiceOverlayIdle": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceListeningMissing": "Background listening is on and nothing is listening.",
+  "@deviceListeningMissing": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceListeningIdle": "Needed by background listening.",
+  "@deviceListeningIdle": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceMotionIdle": "Needed by motion detection.",
+  "@deviceMotionIdle": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceBatteryAdb": "This device has no settings screen for it. Grant it over adb: adb shell dumpsys deviceidle whitelist +me.jxl.kiosk_satellite",
+  "@deviceBatteryAdb": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    },
+    "x-notes": "Keep the ADB command exactly as written."
+  },
+  "deviceOverlayAdb": "This device has no settings screen for it. Grant it over adb: adb shell appops set me.jxl.kiosk_satellite SYSTEM_ALERT_WINDOW allow",
+  "@deviceOverlayAdb": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    },
+    "x-notes": "Keep the ADB command exactly as written."
+  }
+}
