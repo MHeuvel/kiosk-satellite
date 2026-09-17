@@ -1,0 +1,172 @@
+{
+  "@@locale": "en",
+  "settingSendspinEnabledTitle": "Enable Sendspin player",
+  "@settingSendspinEnabledTitle": {
+    "context": "Settings > Media Player > Sendspin Player",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sendspin Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sendspin Player"
+      ]
+    }
+  },
+  "settingSendspinEnabledDescription": "Turn this device into a synchronized Sendspin player. It appears in Music Assistant under the device name, in sync with every other Sendspin speaker.",
+  "@settingSendspinEnabledDescription": {
+    "context": "Settings > Media Player > Sendspin Player",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sendspin Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sendspin Player"
+      ]
+    }
+  },
+  "settingSendspinServerTitle": "Server",
+  "@settingSendspinServerTitle": {
+    "context": "Settings > Media Player > Sendspin Player",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sendspin Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sendspin Player"
+      ]
+    }
+  },
+  "settingSendspinServerDescription": "Sendspin server address, for example 192.168.1.10:8927. Leave empty to find the server on the network automatically.",
+  "@settingSendspinServerDescription": {
+    "context": "Settings > Media Player > Sendspin Player",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sendspin Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sendspin Player"
+      ]
+    }
+  },
+  "settingSendspinCodecTitle": "Preferred audio codec",
+  "@settingSendspinCodecTitle": {
+    "context": "Settings > Media Player > Sendspin Player",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sendspin Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sendspin Player"
+      ]
+    }
+  },
+  "settingSendspinCodecDescription": "FLAC is lossless and ideal on WiFi or ethernet. The server makes the final choice from what this device offers.",
+  "@settingSendspinCodecDescription": {
+    "context": "Settings > Media Player > Sendspin Player",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sendspin Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sendspin Player"
+      ]
+    }
+  },
+  "settingSendspinSyncOffsetTitle": "Audio sync offset (ms)",
+  "@settingSendspinSyncOffsetTitle": {
+    "context": "Settings > Media Player > Sendspin Player",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sendspin Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sendspin Player"
+      ]
+    }
+  },
+  "settingSendspinSyncOffsetDescription": "Negative plays this device earlier, for speakers that lag behind the group (Bluetooth). Tune by ear; applies live.",
+  "@settingSendspinSyncOffsetDescription": {
+    "context": "Settings > Media Player > Sendspin Player",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sendspin Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sendspin Player"
+      ]
+    }
+  },
+  "mediaSendspinPage": "Sendspin Player",
+  "@mediaSendspinPage": {
+    "context": "Settings > Media Player > Sendspin Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sendspin Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sendspin Player"
+      ]
+    }
+  },
+  "mediaSendspinHint": "Make this device a synchronized Music Assistant player",
+  "@mediaSendspinHint": {
+    "context": "Settings > Media Player > Sendspin Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sendspin Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sendspin Player"
+      ]
+    }
+  },
+  "mediaFlac": "FLAC (lossless)",
+  "@mediaFlac": {
+    "context": "Settings > Media Player > Sendspin Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sendspin Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sendspin Player"
+      ]
+    }
+  },
+  "mediaOpus": "Opus (efficient)",
+  "@mediaOpus": {
+    "context": "Settings > Media Player > Sendspin Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sendspin Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sendspin Player"
+      ]
+    }
+  },
+  "mediaPcm": "PCM (uncompressed)",
+  "@mediaPcm": {
+    "context": "Settings > Media Player > Sendspin Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sendspin Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sendspin Player"
+      ]
+    }
+  }
+}

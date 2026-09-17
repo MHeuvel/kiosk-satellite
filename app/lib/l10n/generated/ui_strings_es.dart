@@ -235,7 +235,7 @@ class UiStringsEs extends UiStrings {
   String get drawerShowPlayer => 'Mostrar reproductor flotante';
 
   @override
-  String get drawerNowPlaying => 'En reproducción';
+  String get drawerNowPlaying => 'Reproduciendo Ahora';
 
   @override
   String get drawerScreensaver => 'Iniciar protector de pantalla';
@@ -2770,267 +2770,272 @@ class UiStringsEs extends UiStrings {
   String get haVibrationStrong => 'Fuerte';
 
   @override
-  String get mediaCacheTitle => 'Album art cache';
+  String get mediaCacheTitle => 'Caché de portadas';
 
   @override
-  String get mediaCacheReadFailed => 'Could not read cache size.';
+  String get mediaCacheReadFailed => 'No se pudo leer el tamaño de la caché.';
 
   @override
-  String get mediaCacheClearFailed => 'Could not clear the cache.';
+  String get mediaCacheClearFailed => 'No se pudo borrar la caché.';
 
   @override
-  String get mediaCacheChecking => 'Checking cache size...';
+  String get mediaCacheChecking => 'Comprobando el tamaño de la caché...';
 
   @override
-  String get mediaCacheClearing => 'Clearing...';
+  String get mediaCacheClearing => 'Borrando...';
 
   @override
   String mediaCacheUsage(String used, String limit) {
-    return '$used used of $limit. Queue thumbnails are cached automatically.';
+    return '$used usados de $limit. Las miniaturas de la cola se guardan automáticamente en caché.';
   }
 
   @override
-  String get settingSendspinPlayerSourceTitle => 'Player source';
+  String get settingSendspinPlayerSourceTitle => 'Origen del reproductor';
 
   @override
   String get settingSendspinPlayerSourceDescription =>
-      'What the floating player and Now Playing show and control: this device or a player elsewhere.';
+      'Lo que muestran y controlan el reproductor flotante y Reproduciendo Ahora: este dispositivo o un reproductor en otro lugar.';
 
   @override
-  String get settingSendspinPlayerTitle => 'Player';
+  String get settingSendspinPlayerTitle => 'Reproductor';
 
   @override
   String get settingSendspinPlayerDescription =>
-      'The player of that source to show and control.';
+      'El reproductor de ese origen que se mostrará y controlará.';
 
   @override
   String get settingSendspinDuckPercentTitle =>
-      'Duck volume during voice interactions';
+      'Reducir volumen durante interacciones de voz';
 
   @override
   String get settingSendspinDuckPercentDescription =>
-      'Music drops to this share of its volume during voice interactions and intercom calls, then comes back.';
+      'La música baja a este porcentaje de su volumen durante las interacciones de voz y las llamadas del intercomunicador. Después vuelve al volumen anterior.';
 
   @override
   String get settingSendspinVolumeKeysTitle =>
-      'Volume buttons control the player';
+      'Controlar el reproductor con los botones de volumen';
 
   @override
   String get settingSendspinVolumeKeysDescription =>
-      'This device\'s volume buttons change the followed player\'s volume instead of its own. Only while the Now Playing view is on screen, or whenever the player is playing.';
+      'Los botones de volumen de este dispositivo cambian el volumen del reproductor controlado. Se aplican solo mientras se muestra Reproduciendo Ahora o siempre que el reproductor esté reproduciendo.';
 
   @override
-  String get settingSendspinVolumeKeyStepTitle => 'Volume button step';
+  String get settingSendspinVolumeKeyStepTitle =>
+      'Incremento de los botones de volumen';
 
   @override
   String get settingSendspinVolumeKeyStepDescription =>
-      'How far one press of a volume button moves the player.';
+      'Cuánto cambia el volumen del reproductor con cada pulsación.';
 
   @override
   String get mediaIntro =>
-      'The floating player and Now Playing show only while the picked player has a track playing or a queue loaded. With nothing playing or queued, neither appears.';
+      'El reproductor flotante y Reproduciendo Ahora solo aparecen cuando el reproductor elegido tiene una pista en reproducción o una cola cargada. Si no hay nada en reproducción ni en cola, no aparecen.';
 
   @override
-  String get mediaThisDevice => 'This device';
+  String get mediaThisDevice => 'Este dispositivo';
 
   @override
-  String get mediaOff => 'Off';
+  String get mediaOff => 'Desactivado';
 
   @override
-  String get mediaKeysNowPlaying => 'While Now Playing is shown';
+  String get mediaKeysNowPlaying => 'Mientras se muestra Reproduciendo Ahora';
 
   @override
-  String get mediaKeysPlaying => 'While the player is playing';
+  String get mediaKeysPlaying => 'Mientras el reproductor está reproduciendo';
 
   @override
-  String get mediaAnotherPlayer => 'another player';
+  String get mediaAnotherPlayer => 'otro reproductor';
 
   @override
   String mediaLocalOffline(String player) {
-    return 'This device\'s own Sendspin player stays offline while $player is controlled.';
+    return 'El reproductor Sendspin de este dispositivo permanece desconectado mientras se controla $player.';
   }
 
   @override
-  String get settingSendspinMaUrlTitle => 'Server address';
+  String get settingSendspinMaUrlTitle => 'Dirección del servidor';
 
   @override
   String get settingSendspinMaUrlDescription =>
-      'The Music Assistant server\'s address, as its web interface shows it. Usually https and port 8095.';
+      'La dirección del servidor Music Assistant, tal como aparece en su interfaz web. Normalmente usa https y el puerto 8095.';
 
   @override
-  String get settingSendspinMaTokenTitle => 'Auth token';
+  String get settingSendspinMaTokenTitle => 'Token de autenticación';
 
   @override
   String get settingSendspinMaTokenDescription =>
-      'A long-lived token from Music Assistant (Settings, then Users). Read access is enough for lyrics; the kiosk menu shortcut opens the web interface as whoever the token belongs to.';
+      'Un token de larga duración de Music Assistant, en Settings y luego Users. El acceso de lectura es suficiente para las letras. El acceso directo del menú del kiosko abre la interfaz web con el usuario al que pertenece el token.';
 
   @override
-  String get settingSendspinMaShortcutTitle => 'Show in the kiosk menu';
+  String get settingSendspinMaShortcutTitle => 'Mostrar en el menú del kiosko';
 
   @override
   String get settingSendspinMaShortcutDescription =>
-      'Add a Music Assistant entry to the kiosk menu, opening the server\'s web interface over the dashboard. Needs the server address above.';
+      'Añade una entrada de Music Assistant al menú del kiosko para abrir la interfaz web del servidor sobre el panel de control. Requiere la dirección del servidor indicada arriba.';
 
   @override
   String get settingSendspinMaOpenFullscreenTitle =>
-      'Open directly to Now Playing';
+      'Abrir directamente Reproduciendo Ahora';
 
   @override
   String get settingSendspinMaOpenFullscreenDescription =>
-      'Open Music Assistant\'s full-screen player from the kiosk menu or the Open Music Assistant gesture.';
+      'Abre el reproductor de pantalla completa de Music Assistant desde el menú del kiosko o con el gesto Abrir Music Assistant.';
 
   @override
-  String get settingSendspinMaAutoCloseTitle => 'Close after inactivity';
+  String get settingSendspinMaAutoCloseTitle => 'Cerrar tras inactividad';
 
   @override
   String get settingSendspinMaAutoCloseDescription =>
-      'Return to the dashboard when nobody has touched the Music Assistant page for this long. Zero leaves it open until it is closed.';
+      'Vuelve al panel de control cuando nadie haya tocado la página de Music Assistant durante este tiempo. Con cero, permanece abierta hasta que se cierre.';
 
   @override
-  String get settingSendspinMaHideCloseTitle => 'Hide the close button';
+  String get settingSendspinMaHideCloseTitle => 'Ocultar el botón de cierre';
 
   @override
   String get settingSendspinMaHideCloseDescription =>
-      'The floating close button can sit on top of Music Assistant\'s own controls, like the Now Playing menu. Without it, dismiss with the back button or by using the kiosk\'s drawer menu.';
+      'El botón de cierre flotante puede cubrir controles de Music Assistant, como el menú de Reproduciendo Ahora. Sin él, cierra la página con el botón Atrás o con el menú lateral del kiosko.';
 
   @override
-  String get mediaMaHint => 'Server, token, kiosk menu shortcut';
+  String get mediaMaHint =>
+      'Servidor, token y acceso directo en el menú del kiosko';
 
   @override
-  String get mediaKioskMenu => 'Kiosk menu';
+  String get mediaKioskMenu => 'Menú del kiosko';
 
   @override
-  String get mediaValidateConnection => 'Validate connection';
+  String get mediaValidateConnection => 'Validar conexión';
 
   @override
-  String get mediaValidate => 'Validate';
+  String get mediaValidate => 'Validar';
 
   @override
-  String get mediaChecking => 'Checking…';
+  String get mediaChecking => 'Comprobando…';
 
   @override
-  String get mediaConnected => 'Connected';
+  String get mediaConnected => 'Conectado';
 
   @override
   String mediaConnectedVersion(String version) {
-    return 'Connected to Music Assistant $version';
+    return 'Conectado a Music Assistant $version';
   }
 
   @override
   String get mediaValidateHint =>
-      'Check the address and token before turning on the shortcut or lyrics.';
+      'Comprueba la dirección y el token antes de activar el acceso directo o las letras.';
 
   @override
-  String get mediaDeviceNoAnswer => 'The device did not answer.';
+  String get mediaDeviceNoAnswer => 'El dispositivo no respondió.';
 
   @override
-  String get mediaValidationFailed => 'Validation failed.';
+  String get mediaValidationFailed => 'La validación falló.';
 
   @override
-  String get mediaNoAddress => 'No server address set.';
+  String get mediaNoAddress =>
+      'No se ha configurado la dirección del servidor.';
 
   @override
-  String get mediaNoToken => 'No auth token set.';
+  String get mediaNoToken => 'No se ha configurado un token de autenticación.';
 
   @override
-  String get mediaTimeout => 'Music Assistant did not answer in time.';
+  String get mediaTimeout => 'Music Assistant no respondió a tiempo.';
 
   @override
   String mediaUnreachable(String host, String error) {
-    return 'Could not reach $host: $error';
+    return 'No se pudo conectar con $host: $error';
   }
 
   @override
-  String get mediaServerClosed => 'the server closed the connection';
+  String get mediaServerClosed => 'el servidor cerró la conexión';
 
   @override
-  String get mediaPickPlayer => 'Pick a player';
+  String get mediaPickPlayer => 'Elegir un reproductor';
 
   @override
-  String get mediaMaPlayer => 'Music Assistant player';
+  String get mediaMaPlayer => 'Reproductor de Music Assistant';
 
   @override
-  String get mediaHaPlayer => 'Home Assistant media player';
+  String get mediaHaPlayer => 'Reproductor multimedia de Home Assistant';
 
   @override
-  String get mediaSonosRoom => 'Sonos room';
+  String get mediaSonosRoom => 'Habitación de Sonos';
 
   @override
-  String get mediaSearchPlayers => 'Search players';
+  String get mediaSearchPlayers => 'Buscar reproductores';
 
   @override
-  String get mediaOffline => 'Offline';
+  String get mediaOffline => 'Desconectado';
 
   @override
   String mediaOfflineName(String name) {
-    return '$name (offline)';
+    return '$name (desconectado)';
   }
 
   @override
-  String get mediaSetUpMa => 'Set up Music Assistant to list its players.';
+  String get mediaSetUpMa =>
+      'Configura Music Assistant para ver sus reproductores.';
 
   @override
   String get mediaSetUpHa =>
-      'Connect Home Assistant to list its media players.';
+      'Conecta Home Assistant para ver sus reproductores multimedia.';
 
   @override
   String get mediaSetUpSonos =>
-      'No Sonos speakers known yet. Find or add one on the Sonos page.';
+      'Todavía no hay altavoces Sonos registrados. Busca o añade uno en la página Sonos.';
 
   @override
   String mediaHaFailed(String error) {
-    return 'Home Assistant did not answer: $error';
+    return 'Home Assistant no respondió: $error';
   }
 
   @override
-  String get mediaSaveFailed => 'Could not save the player.';
+  String get mediaSaveFailed => 'No se pudo guardar el reproductor.';
 
   @override
-  String get mediaSelectFailed => 'Could not select player';
+  String get mediaSelectFailed => 'No se pudo seleccionar el reproductor';
 
   @override
-  String get settingSendspinEnabledTitle => 'Enable Sendspin player';
+  String get settingSendspinEnabledTitle => 'Activar reproductor Sendspin';
 
   @override
   String get settingSendspinEnabledDescription =>
-      'Turn this device into a synchronized Sendspin player. It appears in Music Assistant under the device name, in sync with every other Sendspin speaker.';
+      'Convierte este dispositivo en un reproductor Sendspin sincronizado. Aparece en Music Assistant con el nombre del dispositivo, sincronizado con los demás altavoces Sendspin.';
 
   @override
-  String get settingSendspinServerTitle => 'Server';
+  String get settingSendspinServerTitle => 'Servidor';
 
   @override
   String get settingSendspinServerDescription =>
-      'Sendspin server address, for example 192.168.1.10:8927. Leave empty to find the server on the network automatically.';
+      'Dirección del servidor Sendspin, por ejemplo 192.168.1.10:8927. Deja el campo vacío para buscar el servidor automáticamente en la red.';
 
   @override
-  String get settingSendspinCodecTitle => 'Preferred audio codec';
+  String get settingSendspinCodecTitle => 'Códec de audio preferido';
 
   @override
   String get settingSendspinCodecDescription =>
-      'FLAC is lossless and ideal on WiFi or ethernet. The server makes the final choice from what this device offers.';
+      'FLAC no tiene pérdida y es ideal para WiFi o Ethernet. El servidor elige el códec entre los que ofrece este dispositivo.';
 
   @override
-  String get settingSendspinSyncOffsetTitle => 'Audio sync offset (ms)';
+  String get settingSendspinSyncOffsetTitle =>
+      'Ajuste de sincronización de audio (ms)';
 
   @override
   String get settingSendspinSyncOffsetDescription =>
-      'Negative plays this device earlier, for speakers that lag behind the group (Bluetooth). Tune by ear; applies live.';
+      'Un valor negativo hace que este dispositivo reproduzca antes, para compensar altavoces que se retrasan respecto al grupo, como los Bluetooth. Ajusta de oído. Se aplica de inmediato.';
 
   @override
-  String get mediaSendspinPage => 'Sendspin Player';
+  String get mediaSendspinPage => 'Reproductor Sendspin';
 
   @override
   String get mediaSendspinHint =>
-      'Make this device a synchronized Music Assistant player';
+      'Convierte este dispositivo en un reproductor sincronizado de Music Assistant';
 
   @override
-  String get mediaFlac => 'FLAC (lossless)';
+  String get mediaFlac => 'FLAC (sin pérdida)';
 
   @override
-  String get mediaOpus => 'Opus (efficient)';
+  String get mediaOpus => 'Opus (eficiente)';
 
   @override
-  String get mediaPcm => 'PCM (uncompressed)';
+  String get mediaPcm => 'PCM (sin compresión)';
 
   @override
   String get settingsMenuHomeAssistant => 'Configuración de Home Assistant';
@@ -4111,11 +4116,11 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get settingScreensaverGlanceNowPlayingTitle =>
-      'Mostrar en Reproduciendo';
+      'Mostrar en Reproduciendo Ahora';
 
   @override
   String get settingScreensaverGlanceNowPlayingDescription =>
-      'Muestra la fila en la vista Reproduciendo a pantalla completa. Se oculta mientras se muestra la letra.';
+      'Muestra la fila en la vista Reproduciendo Ahora a pantalla completa. Se oculta mientras se muestra la letra.';
 
   @override
   String get screensaverOverlayShowing => 'Entidades mostradas';
@@ -5155,11 +5160,11 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get screensaverNowPlaying =>
-      'Mostrar En reproducción junto al protector de pantalla';
+      'Mostrar Reproduciendo Ahora junto al protector de pantalla';
 
   @override
   String get screensaverNowPlayingHelp =>
-      'Predeterminado sigue la distribución general. Activado comparte la pantalla cuando En reproducción está habilitado. Desactivado oculta En reproducción durante estas horas.';
+      'Predeterminado sigue la distribución general. Activado comparte la pantalla cuando Reproduciendo Ahora está habilitado. Desactivado oculta Reproduciendo Ahora durante estas horas.';
 
   @override
   String get screensaverCameraRequired =>
@@ -5206,10 +5211,11 @@ class UiStringsEs extends UiStrings {
   String get screensaverSummaryGlanceOff => 'De un vistazo: desactivado';
 
   @override
-  String get screensaverSummaryNowPlayingOn => 'En reproducción: activado';
+  String get screensaverSummaryNowPlayingOn => 'Reproduciendo Ahora: activado';
 
   @override
-  String get screensaverSummaryNowPlayingOff => 'En reproducción: desactivado';
+  String get screensaverSummaryNowPlayingOff =>
+      'Reproduciendo Ahora: desactivado';
 
   @override
   String screensaverBrightnessPercent(String percent) {
@@ -5543,11 +5549,11 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get browserCrashPermissionMissing =>
-      '\"Display over other apps\" permission missing';
+      'Falta el permiso \"Mostrar sobre otras aplicaciones\"';
 
   @override
   String get browserCrashPermissionRemoteHelp =>
-      'Without it the kiosk cannot bring itself back after a crash. The grant screen appears on the tablet.';
+      'Sin este permiso, el kiosko no puede volver a abrirse después de un cierre inesperado. La pantalla para concederlo aparece en la tableta.';
 
   @override
   String get settingBrowserInjectJsTitle =>

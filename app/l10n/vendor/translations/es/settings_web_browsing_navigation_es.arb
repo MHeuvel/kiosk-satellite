@@ -12,5 +12,7 @@
   "settingPinchToZoomDescription": "Acerca o aleja la página con dos dedos. Desactivado de forma predeterminada para evitar que los toques accidentales cambien el panel de control del kiosko.",
   "settingDisableScrollingTitle": "Desactivar desplazamiento",
   "settingDisableScrollingDescription": "Fija la página para que no se pueda desplazar en ninguna dirección. Los toques y botones siguen funcionando.",
-  "browserCrashPermissionHelp": "Sin este permiso, el kiosko no puede volver a abrirse después de un cierre inesperado."
+  "browserCrashPermissionHelp": "Sin este permiso, el kiosko no puede volver a abrirse después de un cierre inesperado.",
+  "browserCrashPermissionMissing": "Falta el permiso \"Mostrar sobre otras aplicaciones\"",
+  "browserCrashPermissionRemoteHelp": "Sin este permiso, el kiosko no puede volver a abrirse después de un cierre inesperado. La pantalla para concederlo aparece en la tableta."
 }

@@ -1,0 +1,16 @@
+{
+  "@@locale": "es",
+  "mediaPickPlayer": "Elegir un reproductor",
+  "mediaMaPlayer": "Reproductor de Music Assistant",
+  "mediaHaPlayer": "Reproductor multimedia de Home Assistant",
+  "mediaSonosRoom": "Habitación de Sonos",
+  "mediaSearchPlayers": "Buscar reproductores",
+  "mediaOffline": "Desconectado",
+  "mediaOfflineName": "{name} (desconectado)",
+  "mediaSetUpMa": "Configura Music Assistant para ver sus reproductores.",
+  "mediaSetUpHa": "Conecta Home Assistant para ver sus reproductores multimedia.",
+  "mediaSetUpSonos": "Todavía no hay altavoces Sonos registrados. Busca o añade uno en la página Sonos.",
+  "mediaHaFailed": "Home Assistant no respondió: {error}",
+  "mediaSaveFailed": "No se pudo guardar el reproductor.",
+  "mediaSelectFailed": "No se pudo seleccionar el reproductor"
+}

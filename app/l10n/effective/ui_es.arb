@@ -589,7 +589,7 @@
       ]
     }
   },
-  "drawerNowPlaying": "En reproducción",
+  "drawerNowPlaying": "Reproduciendo Ahora",
   "@drawerNowPlaying": {
     "context": "Device:Drawer",
     "description": "Opens the full-screen player when a track is available and the shortcut is enabled.",
@@ -10053,7 +10053,7 @@
       ]
     }
   },
-  "mediaCacheTitle": "Album art cache",
+  "mediaCacheTitle": "Caché de portadas",
   "@mediaCacheTitle": {
     "context": "Settings > Media Player > Album art cache",
     "description": "Label or guidance in this section.",
@@ -10066,7 +10066,7 @@
       ]
     }
   },
-  "mediaCacheReadFailed": "Could not read cache size.",
+  "mediaCacheReadFailed": "No se pudo leer el tamaño de la caché.",
   "@mediaCacheReadFailed": {
     "context": "Settings > Media Player > Album art cache",
     "description": "Label or guidance in this section.",
@@ -10079,7 +10079,7 @@
       ]
     }
   },
-  "mediaCacheClearFailed": "Could not clear the cache.",
+  "mediaCacheClearFailed": "No se pudo borrar la caché.",
   "@mediaCacheClearFailed": {
     "context": "Settings > Media Player > Album art cache",
     "description": "Label or guidance in this section.",
@@ -10092,7 +10092,7 @@
       ]
     }
   },
-  "mediaCacheChecking": "Checking cache size...",
+  "mediaCacheChecking": "Comprobando el tamaño de la caché...",
   "@mediaCacheChecking": {
     "context": "Settings > Media Player > Album art cache",
     "description": "Label or guidance in this section.",
@@ -10105,7 +10105,7 @@
       ]
     }
   },
-  "mediaCacheClearing": "Clearing...",
+  "mediaCacheClearing": "Borrando...",
   "@mediaCacheClearing": {
     "context": "Settings > Media Player > Album art cache",
     "description": "Label or guidance in this section.",
@@ -10118,7 +10118,7 @@
       ]
     }
   },
-  "mediaCacheUsage": "{used} used of {limit}. Queue thumbnails are cached automatically.",
+  "mediaCacheUsage": "{used} usados de {limit}. Las miniaturas de la cola se guardan automáticamente en caché.",
   "@mediaCacheUsage": {
     "context": "Settings > Media Player > Album art cache",
     "description": "Label or guidance in this section.",
@@ -10141,7 +10141,7 @@
       }
     }
   },
-  "settingSendspinPlayerSourceTitle": "Player source",
+  "settingSendspinPlayerSourceTitle": "Origen del reproductor",
   "@settingSendspinPlayerSourceTitle": {
     "context": "Settings > Media Player",
     "description": "Setting label.",
@@ -10154,7 +10154,7 @@
       ]
     }
   },
-  "settingSendspinPlayerSourceDescription": "What the floating player and Now Playing show and control: this device or a player elsewhere.",
+  "settingSendspinPlayerSourceDescription": "Lo que muestran y controlan el reproductor flotante y Reproduciendo Ahora: este dispositivo o un reproductor en otro lugar.",
   "@settingSendspinPlayerSourceDescription": {
     "context": "Settings > Media Player",
     "description": "Help below this setting.",
@@ -10167,7 +10167,7 @@
       ]
     }
   },
-  "settingSendspinPlayerTitle": "Player",
+  "settingSendspinPlayerTitle": "Reproductor",
   "@settingSendspinPlayerTitle": {
     "context": "Settings > Media Player",
     "description": "Setting label.",
@@ -10180,7 +10180,7 @@
       ]
     }
   },
-  "settingSendspinPlayerDescription": "The player of that source to show and control.",
+  "settingSendspinPlayerDescription": "El reproductor de ese origen que se mostrará y controlará.",
   "@settingSendspinPlayerDescription": {
     "context": "Settings > Media Player",
     "description": "Help below this setting.",
@@ -10193,7 +10193,7 @@
       ]
     }
   },
-  "settingSendspinDuckPercentTitle": "Duck volume during voice interactions",
+  "settingSendspinDuckPercentTitle": "Reducir volumen durante interacciones de voz",
   "@settingSendspinDuckPercentTitle": {
     "context": "Settings > Media Player",
     "description": "Setting label.",
@@ -10206,7 +10206,7 @@
       ]
     }
   },
-  "settingSendspinDuckPercentDescription": "Music drops to this share of its volume during voice interactions and intercom calls, then comes back.",
+  "settingSendspinDuckPercentDescription": "La música baja a este porcentaje de su volumen durante las interacciones de voz y las llamadas del intercomunicador. Después vuelve al volumen anterior.",
   "@settingSendspinDuckPercentDescription": {
     "context": "Settings > Media Player",
     "description": "Help below this setting.",
@@ -10219,7 +10219,7 @@
       ]
     }
   },
-  "settingSendspinVolumeKeysTitle": "Volume buttons control the player",
+  "settingSendspinVolumeKeysTitle": "Controlar el reproductor con los botones de volumen",
   "@settingSendspinVolumeKeysTitle": {
     "context": "Settings > Media Player",
     "description": "Setting label.",
@@ -10232,7 +10232,7 @@
       ]
     }
   },
-  "settingSendspinVolumeKeysDescription": "This device's volume buttons change the followed player's volume instead of its own. Only while the Now Playing view is on screen, or whenever the player is playing.",
+  "settingSendspinVolumeKeysDescription": "Los botones de volumen de este dispositivo cambian el volumen del reproductor controlado. Se aplican solo mientras se muestra Reproduciendo Ahora o siempre que el reproductor esté reproduciendo.",
   "@settingSendspinVolumeKeysDescription": {
     "context": "Settings > Media Player",
     "description": "Help below this setting.",
@@ -10245,7 +10245,7 @@
       ]
     }
   },
-  "settingSendspinVolumeKeyStepTitle": "Volume button step",
+  "settingSendspinVolumeKeyStepTitle": "Incremento de los botones de volumen",
   "@settingSendspinVolumeKeyStepTitle": {
     "context": "Settings > Media Player",
     "description": "Setting label.",
@@ -10258,7 +10258,7 @@
       ]
     }
   },
-  "settingSendspinVolumeKeyStepDescription": "How far one press of a volume button moves the player.",
+  "settingSendspinVolumeKeyStepDescription": "Cuánto cambia el volumen del reproductor con cada pulsación.",
   "@settingSendspinVolumeKeyStepDescription": {
     "context": "Settings > Media Player",
     "description": "Help below this setting.",
@@ -10271,7 +10271,7 @@
       ]
     }
   },
-  "mediaIntro": "The floating player and Now Playing show only while the picked player has a track playing or a queue loaded. With nothing playing or queued, neither appears.",
+  "mediaIntro": "El reproductor flotante y Reproduciendo Ahora solo aparecen cuando el reproductor elegido tiene una pista en reproducción o una cola cargada. Si no hay nada en reproducción ni en cola, no aparecen.",
   "@mediaIntro": {
     "context": "Settings > Media Player",
     "description": "Label or guidance in this section.",
@@ -10284,7 +10284,7 @@
       ]
     }
   },
-  "mediaThisDevice": "This device",
+  "mediaThisDevice": "Este dispositivo",
   "@mediaThisDevice": {
     "context": "Settings > Media Player",
     "description": "Label or guidance in this section.",
@@ -10297,7 +10297,7 @@
       ]
     }
   },
-  "mediaOff": "Off",
+  "mediaOff": "Desactivado",
   "@mediaOff": {
     "context": "Settings > Media Player",
     "description": "Label or guidance in this section.",
@@ -10310,7 +10310,7 @@
       ]
     }
   },
-  "mediaKeysNowPlaying": "While Now Playing is shown",
+  "mediaKeysNowPlaying": "Mientras se muestra Reproduciendo Ahora",
   "@mediaKeysNowPlaying": {
     "context": "Settings > Media Player",
     "description": "Label or guidance in this section.",
@@ -10323,7 +10323,7 @@
       ]
     }
   },
-  "mediaKeysPlaying": "While the player is playing",
+  "mediaKeysPlaying": "Mientras el reproductor está reproduciendo",
   "@mediaKeysPlaying": {
     "context": "Settings > Media Player",
     "description": "Label or guidance in this section.",
@@ -10336,7 +10336,7 @@
       ]
     }
   },
-  "mediaAnotherPlayer": "another player",
+  "mediaAnotherPlayer": "otro reproductor",
   "@mediaAnotherPlayer": {
     "context": "Settings > Media Player",
     "description": "Label or guidance in this section.",
@@ -10349,7 +10349,7 @@
       ]
     }
   },
-  "mediaLocalOffline": "This device's own Sendspin player stays offline while {player} is controlled.",
+  "mediaLocalOffline": "El reproductor Sendspin de este dispositivo permanece desconectado mientras se controla {player}.",
   "@mediaLocalOffline": {
     "context": "Settings > Media Player",
     "description": "Label or guidance in this section.",
@@ -10368,7 +10368,7 @@
       }
     }
   },
-  "settingSendspinMaUrlTitle": "Server address",
+  "settingSendspinMaUrlTitle": "Dirección del servidor",
   "@settingSendspinMaUrlTitle": {
     "context": "Settings > Media Player > Music Assistant",
     "description": "Setting label.",
@@ -10381,7 +10381,7 @@
       ]
     }
   },
-  "settingSendspinMaUrlDescription": "The Music Assistant server's address, as its web interface shows it. Usually https and port 8095.",
+  "settingSendspinMaUrlDescription": "La dirección del servidor Music Assistant, tal como aparece en su interfaz web. Normalmente usa https y el puerto 8095.",
   "@settingSendspinMaUrlDescription": {
     "context": "Settings > Media Player > Music Assistant",
     "description": "Help below this setting.",
@@ -10394,7 +10394,7 @@
       ]
     }
   },
-  "settingSendspinMaTokenTitle": "Auth token",
+  "settingSendspinMaTokenTitle": "Token de autenticación",
   "@settingSendspinMaTokenTitle": {
     "context": "Settings > Media Player > Music Assistant",
     "description": "Setting label.",
@@ -10407,7 +10407,7 @@
       ]
     }
   },
-  "settingSendspinMaTokenDescription": "A long-lived token from Music Assistant (Settings, then Users). Read access is enough for lyrics; the kiosk menu shortcut opens the web interface as whoever the token belongs to.",
+  "settingSendspinMaTokenDescription": "Un token de larga duración de Music Assistant, en Settings y luego Users. El acceso de lectura es suficiente para las letras. El acceso directo del menú del kiosko abre la interfaz web con el usuario al que pertenece el token.",
   "@settingSendspinMaTokenDescription": {
     "context": "Settings > Media Player > Music Assistant",
     "description": "Help below this setting.",
@@ -10420,7 +10420,7 @@
       ]
     }
   },
-  "settingSendspinMaShortcutTitle": "Show in the kiosk menu",
+  "settingSendspinMaShortcutTitle": "Mostrar en el menú del kiosko",
   "@settingSendspinMaShortcutTitle": {
     "context": "Settings > Media Player > Music Assistant",
     "description": "Setting label.",
@@ -10433,7 +10433,7 @@
       ]
     }
   },
-  "settingSendspinMaShortcutDescription": "Add a Music Assistant entry to the kiosk menu, opening the server's web interface over the dashboard. Needs the server address above.",
+  "settingSendspinMaShortcutDescription": "Añade una entrada de Music Assistant al menú del kiosko para abrir la interfaz web del servidor sobre el panel de control. Requiere la dirección del servidor indicada arriba.",
   "@settingSendspinMaShortcutDescription": {
     "context": "Settings > Media Player > Music Assistant",
     "description": "Help below this setting.",
@@ -10446,7 +10446,7 @@
       ]
     }
   },
-  "settingSendspinMaOpenFullscreenTitle": "Open directly to Now Playing",
+  "settingSendspinMaOpenFullscreenTitle": "Abrir directamente Reproduciendo Ahora",
   "@settingSendspinMaOpenFullscreenTitle": {
     "context": "Settings > Media Player > Music Assistant",
     "description": "Setting label.",
@@ -10459,7 +10459,7 @@
       ]
     }
   },
-  "settingSendspinMaOpenFullscreenDescription": "Open Music Assistant's full-screen player from the kiosk menu or the Open Music Assistant gesture.",
+  "settingSendspinMaOpenFullscreenDescription": "Abre el reproductor de pantalla completa de Music Assistant desde el menú del kiosko o con el gesto Abrir Music Assistant.",
   "@settingSendspinMaOpenFullscreenDescription": {
     "context": "Settings > Media Player > Music Assistant",
     "description": "Help below this setting.",
@@ -10472,7 +10472,7 @@
       ]
     }
   },
-  "settingSendspinMaAutoCloseTitle": "Close after inactivity",
+  "settingSendspinMaAutoCloseTitle": "Cerrar tras inactividad",
   "@settingSendspinMaAutoCloseTitle": {
     "context": "Settings > Media Player > Music Assistant",
     "description": "Setting label.",
@@ -10485,7 +10485,7 @@
       ]
     }
   },
-  "settingSendspinMaAutoCloseDescription": "Return to the dashboard when nobody has touched the Music Assistant page for this long. Zero leaves it open until it is closed.",
+  "settingSendspinMaAutoCloseDescription": "Vuelve al panel de control cuando nadie haya tocado la página de Music Assistant durante este tiempo. Con cero, permanece abierta hasta que se cierre.",
   "@settingSendspinMaAutoCloseDescription": {
     "context": "Settings > Media Player > Music Assistant",
     "description": "Help below this setting.",
@@ -10498,7 +10498,7 @@
       ]
     }
   },
-  "settingSendspinMaHideCloseTitle": "Hide the close button",
+  "settingSendspinMaHideCloseTitle": "Ocultar el botón de cierre",
   "@settingSendspinMaHideCloseTitle": {
     "context": "Settings > Media Player > Music Assistant",
     "description": "Setting label.",
@@ -10511,7 +10511,7 @@
       ]
     }
   },
-  "settingSendspinMaHideCloseDescription": "The floating close button can sit on top of Music Assistant's own controls, like the Now Playing menu. Without it, dismiss with the back button or by using the kiosk's drawer menu.",
+  "settingSendspinMaHideCloseDescription": "El botón de cierre flotante puede cubrir controles de Music Assistant, como el menú de Reproduciendo Ahora. Sin él, cierra la página con el botón Atrás o con el menú lateral del kiosko.",
   "@settingSendspinMaHideCloseDescription": {
     "context": "Settings > Media Player > Music Assistant",
     "description": "Help below this setting.",
@@ -10524,7 +10524,7 @@
       ]
     }
   },
-  "mediaMaHint": "Server, token, kiosk menu shortcut",
+  "mediaMaHint": "Servidor, token y acceso directo en el menú del kiosko",
   "@mediaMaHint": {
     "context": "Settings > Media Player > Music Assistant",
     "description": "Label or guidance in this section.",
@@ -10537,7 +10537,7 @@
       ]
     }
   },
-  "mediaKioskMenu": "Kiosk menu",
+  "mediaKioskMenu": "Menú del kiosko",
   "@mediaKioskMenu": {
     "context": "Settings > Media Player > Music Assistant",
     "description": "Label or guidance in this section.",
@@ -10550,7 +10550,7 @@
       ]
     }
   },
-  "mediaValidateConnection": "Validate connection",
+  "mediaValidateConnection": "Validar conexión",
   "@mediaValidateConnection": {
     "context": "Settings > Media Player > Music Assistant",
     "description": "Label or guidance in this section.",
@@ -10563,7 +10563,7 @@
       ]
     }
   },
-  "mediaValidate": "Validate",
+  "mediaValidate": "Validar",
   "@mediaValidate": {
     "context": "Settings > Media Player > Music Assistant",
     "description": "Label or guidance in this section.",
@@ -10576,7 +10576,7 @@
       ]
     }
   },
-  "mediaChecking": "Checking…",
+  "mediaChecking": "Comprobando…",
   "@mediaChecking": {
     "context": "Settings > Media Player > Music Assistant",
     "description": "Label or guidance in this section.",
@@ -10589,7 +10589,7 @@
       ]
     }
   },
-  "mediaConnected": "Connected",
+  "mediaConnected": "Conectado",
   "@mediaConnected": {
     "context": "Settings > Media Player > Music Assistant",
     "description": "Label or guidance in this section.",
@@ -10602,7 +10602,7 @@
       ]
     }
   },
-  "mediaConnectedVersion": "Connected to Music Assistant {version}",
+  "mediaConnectedVersion": "Conectado a Music Assistant {version}",
   "@mediaConnectedVersion": {
     "context": "Settings > Media Player > Music Assistant",
     "description": "Label or guidance in this section.",
@@ -10621,7 +10621,7 @@
       }
     }
   },
-  "mediaValidateHint": "Check the address and token before turning on the shortcut or lyrics.",
+  "mediaValidateHint": "Comprueba la dirección y el token antes de activar el acceso directo o las letras.",
   "@mediaValidateHint": {
     "context": "Settings > Media Player > Music Assistant",
     "description": "Label or guidance in this section.",
@@ -10634,7 +10634,7 @@
       ]
     }
   },
-  "mediaDeviceNoAnswer": "The device did not answer.",
+  "mediaDeviceNoAnswer": "El dispositivo no respondió.",
   "@mediaDeviceNoAnswer": {
     "context": "Settings > Media Player > Music Assistant",
     "description": "Label or guidance in this section.",
@@ -10647,7 +10647,7 @@
       ]
     }
   },
-  "mediaValidationFailed": "Validation failed.",
+  "mediaValidationFailed": "La validación falló.",
   "@mediaValidationFailed": {
     "context": "Settings > Media Player > Music Assistant",
     "description": "Label or guidance in this section.",
@@ -10660,7 +10660,7 @@
       ]
     }
   },
-  "mediaNoAddress": "No server address set.",
+  "mediaNoAddress": "No se ha configurado la dirección del servidor.",
   "@mediaNoAddress": {
     "context": "Settings > Media Player > Music Assistant",
     "description": "Label or guidance in this section.",
@@ -10673,7 +10673,7 @@
       ]
     }
   },
-  "mediaNoToken": "No auth token set.",
+  "mediaNoToken": "No se ha configurado un token de autenticación.",
   "@mediaNoToken": {
     "context": "Settings > Media Player > Music Assistant",
     "description": "Label or guidance in this section.",
@@ -10686,7 +10686,7 @@
       ]
     }
   },
-  "mediaTimeout": "Music Assistant did not answer in time.",
+  "mediaTimeout": "Music Assistant no respondió a tiempo.",
   "@mediaTimeout": {
     "context": "Settings > Media Player > Music Assistant",
     "description": "Label or guidance in this section.",
@@ -10699,7 +10699,7 @@
       ]
     }
   },
-  "mediaUnreachable": "Could not reach {host}: {error}",
+  "mediaUnreachable": "No se pudo conectar con {host}: {error}",
   "@mediaUnreachable": {
     "context": "Settings > Media Player > Music Assistant",
     "description": "Label or guidance in this section.",
@@ -10722,7 +10722,7 @@
       }
     }
   },
-  "mediaServerClosed": "the server closed the connection",
+  "mediaServerClosed": "el servidor cerró la conexión",
   "@mediaServerClosed": {
     "context": "Settings > Media Player > Music Assistant > Validate connection",
     "description": "Connection failure.",
@@ -10735,7 +10735,7 @@
       ]
     }
   },
-  "mediaPickPlayer": "Pick a player",
+  "mediaPickPlayer": "Elegir un reproductor",
   "@mediaPickPlayer": {
     "context": "Settings > Media Player > Player",
     "description": "Label or guidance in this section.",
@@ -10748,7 +10748,7 @@
       ]
     }
   },
-  "mediaMaPlayer": "Music Assistant player",
+  "mediaMaPlayer": "Reproductor de Music Assistant",
   "@mediaMaPlayer": {
     "context": "Settings > Media Player > Player",
     "description": "Label or guidance in this section.",
@@ -10761,7 +10761,7 @@
       ]
     }
   },
-  "mediaHaPlayer": "Home Assistant media player",
+  "mediaHaPlayer": "Reproductor multimedia de Home Assistant",
   "@mediaHaPlayer": {
     "context": "Settings > Media Player > Player",
     "description": "Label or guidance in this section.",
@@ -10774,7 +10774,7 @@
       ]
     }
   },
-  "mediaSonosRoom": "Sonos room",
+  "mediaSonosRoom": "Habitación de Sonos",
   "@mediaSonosRoom": {
     "context": "Settings > Media Player > Player",
     "description": "Label or guidance in this section.",
@@ -10787,7 +10787,7 @@
       ]
     }
   },
-  "mediaSearchPlayers": "Search players",
+  "mediaSearchPlayers": "Buscar reproductores",
   "@mediaSearchPlayers": {
     "context": "Settings > Media Player > Player",
     "description": "Label or guidance in this section.",
@@ -10800,7 +10800,7 @@
       ]
     }
   },
-  "mediaOffline": "Offline",
+  "mediaOffline": "Desconectado",
   "@mediaOffline": {
     "context": "Settings > Media Player > Player",
     "description": "Label or guidance in this section.",
@@ -10813,7 +10813,7 @@
       ]
     }
   },
-  "mediaOfflineName": "{name} (offline)",
+  "mediaOfflineName": "{name} (desconectado)",
   "@mediaOfflineName": {
     "context": "Settings > Media Player > Player",
     "description": "Label or guidance in this section.",
@@ -10832,7 +10832,7 @@
       }
     }
   },
-  "mediaSetUpMa": "Set up Music Assistant to list its players.",
+  "mediaSetUpMa": "Configura Music Assistant para ver sus reproductores.",
   "@mediaSetUpMa": {
     "context": "Settings > Media Player > Player",
     "description": "Label or guidance in this section.",
@@ -10845,7 +10845,7 @@
       ]
     }
   },
-  "mediaSetUpHa": "Connect Home Assistant to list its media players.",
+  "mediaSetUpHa": "Conecta Home Assistant para ver sus reproductores multimedia.",
   "@mediaSetUpHa": {
     "context": "Settings > Media Player > Player",
     "description": "Label or guidance in this section.",
@@ -10858,7 +10858,7 @@
       ]
     }
   },
-  "mediaSetUpSonos": "No Sonos speakers known yet. Find or add one on the Sonos page.",
+  "mediaSetUpSonos": "Todavía no hay altavoces Sonos registrados. Busca o añade uno en la página Sonos.",
   "@mediaSetUpSonos": {
     "context": "Settings > Media Player > Player",
     "description": "Label or guidance in this section.",
@@ -10871,7 +10871,7 @@
       ]
     }
   },
-  "mediaHaFailed": "Home Assistant did not answer: {error}",
+  "mediaHaFailed": "Home Assistant no respondió: {error}",
   "@mediaHaFailed": {
     "context": "Settings > Media Player > Player",
     "description": "Label or guidance in this section.",
@@ -10890,7 +10890,7 @@
       }
     }
   },
-  "mediaSaveFailed": "Could not save the player.",
+  "mediaSaveFailed": "No se pudo guardar el reproductor.",
   "@mediaSaveFailed": {
     "context": "Settings > Media Player > Player",
     "description": "Label or guidance in this section.",
@@ -10903,7 +10903,7 @@
       ]
     }
   },
-  "mediaSelectFailed": "Could not select player",
+  "mediaSelectFailed": "No se pudo seleccionar el reproductor",
   "@mediaSelectFailed": {
     "context": "Settings > Media Player > Player",
     "description": "Label or guidance in this section.",
@@ -10916,7 +10916,7 @@
       ]
     }
   },
-  "settingSendspinEnabledTitle": "Enable Sendspin player",
+  "settingSendspinEnabledTitle": "Activar reproductor Sendspin",
   "@settingSendspinEnabledTitle": {
     "context": "Settings > Media Player > Sendspin Player",
     "description": "Setting label.",
@@ -10929,7 +10929,7 @@
       ]
     }
   },
-  "settingSendspinEnabledDescription": "Turn this device into a synchronized Sendspin player. It appears in Music Assistant under the device name, in sync with every other Sendspin speaker.",
+  "settingSendspinEnabledDescription": "Convierte este dispositivo en un reproductor Sendspin sincronizado. Aparece en Music Assistant con el nombre del dispositivo, sincronizado con los demás altavoces Sendspin.",
   "@settingSendspinEnabledDescription": {
     "context": "Settings > Media Player > Sendspin Player",
     "description": "Help below this setting.",
@@ -10942,7 +10942,7 @@
       ]
     }
   },
-  "settingSendspinServerTitle": "Server",
+  "settingSendspinServerTitle": "Servidor",
   "@settingSendspinServerTitle": {
     "context": "Settings > Media Player > Sendspin Player",
     "description": "Setting label.",
@@ -10955,7 +10955,7 @@
       ]
     }
   },
-  "settingSendspinServerDescription": "Sendspin server address, for example 192.168.1.10:8927. Leave empty to find the server on the network automatically.",
+  "settingSendspinServerDescription": "Dirección del servidor Sendspin, por ejemplo 192.168.1.10:8927. Deja el campo vacío para buscar el servidor automáticamente en la red.",
   "@settingSendspinServerDescription": {
     "context": "Settings > Media Player > Sendspin Player",
     "description": "Help below this setting.",
@@ -10968,7 +10968,7 @@
       ]
     }
   },
-  "settingSendspinCodecTitle": "Preferred audio codec",
+  "settingSendspinCodecTitle": "Códec de audio preferido",
   "@settingSendspinCodecTitle": {
     "context": "Settings > Media Player > Sendspin Player",
     "description": "Setting label.",
@@ -10981,7 +10981,7 @@
       ]
     }
   },
-  "settingSendspinCodecDescription": "FLAC is lossless and ideal on WiFi or ethernet. The server makes the final choice from what this device offers.",
+  "settingSendspinCodecDescription": "FLAC no tiene pérdida y es ideal para WiFi o Ethernet. El servidor elige el códec entre los que ofrece este dispositivo.",
   "@settingSendspinCodecDescription": {
     "context": "Settings > Media Player > Sendspin Player",
     "description": "Help below this setting.",
@@ -10994,7 +10994,7 @@
       ]
     }
   },
-  "settingSendspinSyncOffsetTitle": "Audio sync offset (ms)",
+  "settingSendspinSyncOffsetTitle": "Ajuste de sincronización de audio (ms)",
   "@settingSendspinSyncOffsetTitle": {
     "context": "Settings > Media Player > Sendspin Player",
     "description": "Setting label.",
@@ -11007,7 +11007,7 @@
       ]
     }
   },
-  "settingSendspinSyncOffsetDescription": "Negative plays this device earlier, for speakers that lag behind the group (Bluetooth). Tune by ear; applies live.",
+  "settingSendspinSyncOffsetDescription": "Un valor negativo hace que este dispositivo reproduzca antes, para compensar altavoces que se retrasan respecto al grupo, como los Bluetooth. Ajusta de oído. Se aplica de inmediato.",
   "@settingSendspinSyncOffsetDescription": {
     "context": "Settings > Media Player > Sendspin Player",
     "description": "Help below this setting.",
@@ -11020,7 +11020,7 @@
       ]
     }
   },
-  "mediaSendspinPage": "Sendspin Player",
+  "mediaSendspinPage": "Reproductor Sendspin",
   "@mediaSendspinPage": {
     "context": "Settings > Media Player > Sendspin Player",
     "description": "Label or guidance in this section.",
@@ -11033,7 +11033,7 @@
       ]
     }
   },
-  "mediaSendspinHint": "Make this device a synchronized Music Assistant player",
+  "mediaSendspinHint": "Convierte este dispositivo en un reproductor sincronizado de Music Assistant",
   "@mediaSendspinHint": {
     "context": "Settings > Media Player > Sendspin Player",
     "description": "Label or guidance in this section.",
@@ -11046,7 +11046,7 @@
       ]
     }
   },
-  "mediaFlac": "FLAC (lossless)",
+  "mediaFlac": "FLAC (sin pérdida)",
   "@mediaFlac": {
     "context": "Settings > Media Player > Sendspin Player",
     "description": "Label or guidance in this section.",
@@ -11059,7 +11059,7 @@
       ]
     }
   },
-  "mediaOpus": "Opus (efficient)",
+  "mediaOpus": "Opus (eficiente)",
   "@mediaOpus": {
     "context": "Settings > Media Player > Sendspin Player",
     "description": "Label or guidance in this section.",
@@ -11072,7 +11072,7 @@
       ]
     }
   },
-  "mediaPcm": "PCM (uncompressed)",
+  "mediaPcm": "PCM (sin compresión)",
   "@mediaPcm": {
     "context": "Settings > Media Player > Sendspin Player",
     "description": "Label or guidance in this section.",
@@ -15149,7 +15149,7 @@
       ]
     }
   },
-  "settingScreensaverGlanceNowPlayingTitle": "Mostrar en Reproduciendo",
+  "settingScreensaverGlanceNowPlayingTitle": "Mostrar en Reproduciendo Ahora",
   "@settingScreensaverGlanceNowPlayingTitle": {
     "context": "Settings > Screensaver > At a Glance",
     "description": "Setting label.",
@@ -15162,7 +15162,7 @@
       ]
     }
   },
-  "settingScreensaverGlanceNowPlayingDescription": "Muestra la fila en la vista Reproduciendo a pantalla completa. Se oculta mientras se muestra la letra.",
+  "settingScreensaverGlanceNowPlayingDescription": "Muestra la fila en la vista Reproduciendo Ahora a pantalla completa. Se oculta mientras se muestra la letra.",
   "@settingScreensaverGlanceNowPlayingDescription": {
     "context": "Settings > Screensaver > At a Glance",
     "description": "Help below this setting.",
@@ -19096,7 +19096,7 @@
       ]
     }
   },
-  "screensaverNowPlaying": "Mostrar En reproducción junto al protector de pantalla",
+  "screensaverNowPlaying": "Mostrar Reproduciendo Ahora junto al protector de pantalla",
   "@screensaverNowPlaying": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Label, status or guidance in this section.",
@@ -19109,7 +19109,7 @@
       ]
     }
   },
-  "screensaverNowPlayingHelp": "Predeterminado sigue la distribución general. Activado comparte la pantalla cuando En reproducción está habilitado. Desactivado oculta En reproducción durante estas horas.",
+  "screensaverNowPlayingHelp": "Predeterminado sigue la distribución general. Activado comparte la pantalla cuando Reproduciendo Ahora está habilitado. Desactivado oculta Reproduciendo Ahora durante estas horas.",
   "@screensaverNowPlayingHelp": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Label, status or guidance in this section.",
@@ -19304,7 +19304,7 @@
       ]
     }
   },
-  "screensaverSummaryNowPlayingOn": "En reproducción: activado",
+  "screensaverSummaryNowPlayingOn": "Reproduciendo Ahora: activado",
   "@screensaverSummaryNowPlayingOn": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Summary of an explicit schedule override.",
@@ -19317,7 +19317,7 @@
       ]
     }
   },
-  "screensaverSummaryNowPlayingOff": "En reproducción: desactivado",
+  "screensaverSummaryNowPlayingOff": "Reproduciendo Ahora: desactivado",
   "@screensaverSummaryNowPlayingOff": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Summary of an explicit schedule override.",
@@ -20567,7 +20567,7 @@
       ]
     }
   },
-  "browserCrashPermissionMissing": "\"Display over other apps\" permission missing",
+  "browserCrashPermissionMissing": "Falta el permiso \"Mostrar sobre otras aplicaciones\"",
   "@browserCrashPermissionMissing": {
     "context": "Web Browsing > Auto-reload on error",
     "description": "Remote crash recovery permission notice.",
@@ -20577,7 +20577,7 @@
       ]
     }
   },
-  "browserCrashPermissionRemoteHelp": "Without it the kiosk cannot bring itself back after a crash. The grant screen appears on the tablet.",
+  "browserCrashPermissionRemoteHelp": "Sin este permiso, el kiosko no puede volver a abrirse después de un cierre inesperado. La pantalla para concederlo aparece en la tableta.",
   "@browserCrashPermissionRemoteHelp": {
     "context": "Web Browsing > Auto-reload on error",
     "description": "Remote crash recovery permission notice.",

@@ -27,8 +27,8 @@
   "screensaverPerson": "Cerrar al detectar una persona",
   "screensaverWidgets": "Widgets",
   "screensaverGlance": "De un vistazo",
-  "screensaverNowPlaying": "Mostrar En reproducción junto al protector de pantalla",
-  "screensaverNowPlayingHelp": "Predeterminado sigue la distribución general. Activado comparte la pantalla cuando En reproducción está habilitado. Desactivado oculta En reproducción durante estas horas.",
+  "screensaverNowPlaying": "Mostrar Reproduciendo Ahora junto al protector de pantalla",
+  "screensaverNowPlayingHelp": "Predeterminado sigue la distribución general. Activado comparte la pantalla cuando Reproduciendo Ahora está habilitado. Desactivado oculta Reproduciendo Ahora durante estas horas.",
   "screensaverCameraRequired": "Requiere la cámara. Actívala primero en la configuración de Cámara.",
   "screensaverNotAvailable": "No está disponible en este dispositivo.",
   "screensaverSummaryMotionOn": "Movimiento: activado",
@@ -43,8 +43,8 @@
   "screensaverSummaryWidgetsOff": "Widgets: desactivado",
   "screensaverSummaryGlanceOn": "De un vistazo: activado",
   "screensaverSummaryGlanceOff": "De un vistazo: desactivado",
-  "screensaverSummaryNowPlayingOn": "En reproducción: activado",
-  "screensaverSummaryNowPlayingOff": "En reproducción: desactivado",
+  "screensaverSummaryNowPlayingOn": "Reproduciendo Ahora: activado",
+  "screensaverSummaryNowPlayingOff": "Reproduciendo Ahora: desactivado",
   "screensaverBrightnessPercent": "Brillo del {percent} %",
   "screensaverScreenOffAfter": "Apagar la pantalla después de {minutes} min"
 }

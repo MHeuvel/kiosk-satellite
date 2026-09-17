@@ -1,0 +1,9 @@
+{
+  "@@locale": "es",
+  "mediaCacheTitle": "Caché de portadas",
+  "mediaCacheReadFailed": "No se pudo leer el tamaño de la caché.",
+  "mediaCacheClearFailed": "No se pudo borrar la caché.",
+  "mediaCacheChecking": "Comprobando el tamaño de la caché...",
+  "mediaCacheClearing": "Borrando...",
+  "mediaCacheUsage": "{used} usados de {limit}. Las miniaturas de la cola se guardan automáticamente en caché."
+}

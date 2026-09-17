@@ -1,0 +1,91 @@
+{
+  "@@locale": "en",
+  "mediaCacheTitle": "Album art cache",
+  "@mediaCacheTitle": {
+    "context": "Settings > Media Player > Album art cache",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Album art cache"
+      ],
+      "remoteAdmin": [
+        "Media Player > Album art cache"
+      ]
+    }
+  },
+  "mediaCacheReadFailed": "Could not read cache size.",
+  "@mediaCacheReadFailed": {
+    "context": "Settings > Media Player > Album art cache",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Album art cache"
+      ],
+      "remoteAdmin": [
+        "Media Player > Album art cache"
+      ]
+    }
+  },
+  "mediaCacheClearFailed": "Could not clear the cache.",
+  "@mediaCacheClearFailed": {
+    "context": "Settings > Media Player > Album art cache",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Album art cache"
+      ],
+      "remoteAdmin": [
+        "Media Player > Album art cache"
+      ]
+    }
+  },
+  "mediaCacheChecking": "Checking cache size...",
+  "@mediaCacheChecking": {
+    "context": "Settings > Media Player > Album art cache",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Album art cache"
+      ],
+      "remoteAdmin": [
+        "Media Player > Album art cache"
+      ]
+    }
+  },
+  "mediaCacheClearing": "Clearing...",
+  "@mediaCacheClearing": {
+    "context": "Settings > Media Player > Album art cache",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Album art cache"
+      ],
+      "remoteAdmin": [
+        "Media Player > Album art cache"
+      ]
+    }
+  },
+  "mediaCacheUsage": "{used} used of {limit}. Queue thumbnails are cached automatically.",
+  "@mediaCacheUsage": {
+    "context": "Settings > Media Player > Album art cache",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Album art cache"
+      ],
+      "remoteAdmin": [
+        "Media Player > Album art cache"
+      ]
+    },
+    "placeholders": {
+      "used": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve names, addresses and technical details."
+      },
+      "limit": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve names, addresses and technical details."
+      }
+    }
+  }
+}

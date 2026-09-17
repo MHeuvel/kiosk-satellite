@@ -1,0 +1,20 @@
+{
+  "@@locale": "es",
+  "settingSendspinPlayerSourceTitle": "Origen del reproductor",
+  "settingSendspinPlayerSourceDescription": "Lo que muestran y controlan el reproductor flotante y Reproduciendo Ahora: este dispositivo o un reproductor en otro lugar.",
+  "settingSendspinPlayerTitle": "Reproductor",
+  "settingSendspinPlayerDescription": "El reproductor de ese origen que se mostrará y controlará.",
+  "settingSendspinDuckPercentTitle": "Reducir volumen durante interacciones de voz",
+  "settingSendspinDuckPercentDescription": "La música baja a este porcentaje de su volumen durante las interacciones de voz y las llamadas del intercomunicador. Después vuelve al volumen anterior.",
+  "settingSendspinVolumeKeysTitle": "Controlar el reproductor con los botones de volumen",
+  "settingSendspinVolumeKeysDescription": "Los botones de volumen de este dispositivo cambian el volumen del reproductor controlado. Se aplican solo mientras se muestra Reproduciendo Ahora o siempre que el reproductor esté reproduciendo.",
+  "settingSendspinVolumeKeyStepTitle": "Incremento de los botones de volumen",
+  "settingSendspinVolumeKeyStepDescription": "Cuánto cambia el volumen del reproductor con cada pulsación.",
+  "mediaIntro": "El reproductor flotante y Reproduciendo Ahora solo aparecen cuando el reproductor elegido tiene una pista en reproducción o una cola cargada. Si no hay nada en reproducción ni en cola, no aparecen.",
+  "mediaThisDevice": "Este dispositivo",
+  "mediaOff": "Desactivado",
+  "mediaKeysNowPlaying": "Mientras se muestra Reproduciendo Ahora",
+  "mediaKeysPlaying": "Mientras el reproductor está reproduciendo",
+  "mediaAnotherPlayer": "otro reproductor",
+  "mediaLocalOffline": "El reproductor Sendspin de este dispositivo permanece desconectado mientras se controla {player}."
+}

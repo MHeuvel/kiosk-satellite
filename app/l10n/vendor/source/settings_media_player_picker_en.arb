@@ -1,0 +1,184 @@
+{
+  "@@locale": "en",
+  "mediaPickPlayer": "Pick a player",
+  "@mediaPickPlayer": {
+    "context": "Settings > Media Player > Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Player"
+      ]
+    }
+  },
+  "mediaMaPlayer": "Music Assistant player",
+  "@mediaMaPlayer": {
+    "context": "Settings > Media Player > Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Player"
+      ]
+    }
+  },
+  "mediaHaPlayer": "Home Assistant media player",
+  "@mediaHaPlayer": {
+    "context": "Settings > Media Player > Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Player"
+      ]
+    }
+  },
+  "mediaSonosRoom": "Sonos room",
+  "@mediaSonosRoom": {
+    "context": "Settings > Media Player > Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Player"
+      ]
+    }
+  },
+  "mediaSearchPlayers": "Search players",
+  "@mediaSearchPlayers": {
+    "context": "Settings > Media Player > Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Player"
+      ]
+    }
+  },
+  "mediaOffline": "Offline",
+  "@mediaOffline": {
+    "context": "Settings > Media Player > Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Player"
+      ]
+    }
+  },
+  "mediaOfflineName": "{name} (offline)",
+  "@mediaOfflineName": {
+    "context": "Settings > Media Player > Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Player"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve names, addresses and technical details."
+      }
+    }
+  },
+  "mediaSetUpMa": "Set up Music Assistant to list its players.",
+  "@mediaSetUpMa": {
+    "context": "Settings > Media Player > Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Player"
+      ]
+    }
+  },
+  "mediaSetUpHa": "Connect Home Assistant to list its media players.",
+  "@mediaSetUpHa": {
+    "context": "Settings > Media Player > Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Player"
+      ]
+    }
+  },
+  "mediaSetUpSonos": "No Sonos speakers known yet. Find or add one on the Sonos page.",
+  "@mediaSetUpSonos": {
+    "context": "Settings > Media Player > Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Player"
+      ]
+    }
+  },
+  "mediaHaFailed": "Home Assistant did not answer: {error}",
+  "@mediaHaFailed": {
+    "context": "Settings > Media Player > Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Player"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve names, addresses and technical details."
+      }
+    }
+  },
+  "mediaSaveFailed": "Could not save the player.",
+  "@mediaSaveFailed": {
+    "context": "Settings > Media Player > Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Player"
+      ]
+    }
+  },
+  "mediaSelectFailed": "Could not select player",
+  "@mediaSelectFailed": {
+    "context": "Settings > Media Player > Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Player"
+      ]
+    }
+  }
+}
