@@ -5,6 +5,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ## Unreleased
 
 ### Added
+- **Web Browsing settings use translation templates in both interfaces.** Three templates add 25 messages for reload behavior, zoom, scrolling, cache, security and JavaScript editors. Translated examples preserve executable code and saved settings.
 - **Live camera views use the selected language.** Connecting, playback failures and retry notices share 15 translation messages. All 1524 catalog messages now have bundled, author-approved Spanish translations. Open views update their language without restarting streams and preserve camera names and protocol details.
 - **Camera Streams settings now use translation templates in both interfaces.** Six templates add 112 messages for imports, Go2RTC servers, camera editors, views, playback and errors. All 1509 catalog messages now have bundled, author-approved Spanish translations. Remote administration preserves the selected language during camera refreshes and keeps playback controls current.
 - **Camera settings now use translation templates in both interfaces.** Six templates add 127 messages for camera controls, motion sensing, RTSP and ONVIF streaming, permissions, connected clients and remote snapshots. All 1397 catalog messages now have bundled, author-approved Spanish translations. Translated controls preserve camera selections, addresses and stream settings.

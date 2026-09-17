@@ -1800,6 +1800,43 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'settingsSearchHint' => strings.settingsSearchHint,
       'settingsSearchClear' => strings.settingsSearchClear,
       'settingsSearchResults' => strings.settingsSearchResults,
+      'settingDisableCacheTitle' => strings.settingDisableCacheTitle,
+      'settingDisableCacheDescription' =>
+        strings.settingDisableCacheDescription,
+      'settingAllowMixedContentTitle' => strings.settingAllowMixedContentTitle,
+      'settingAllowMixedContentDescription' =>
+        strings.settingAllowMixedContentDescription,
+      'settingIgnoreSslErrorsTitle' => strings.settingIgnoreSslErrorsTitle,
+      'settingIgnoreSslErrorsDescription' =>
+        strings.settingIgnoreSslErrorsDescription,
+      'settingAutoReloadOnErrorTitle' => strings.settingAutoReloadOnErrorTitle,
+      'settingAutoReloadOnErrorDescription' =>
+        strings.settingAutoReloadOnErrorDescription,
+      'settingPullToRefreshTitle' => strings.settingPullToRefreshTitle,
+      'settingPullToRefreshDescription' =>
+        strings.settingPullToRefreshDescription,
+      'settingPullToRefreshClearCacheTitle' =>
+        strings.settingPullToRefreshClearCacheTitle,
+      'settingPullToRefreshClearCacheDescription' =>
+        strings.settingPullToRefreshClearCacheDescription,
+      'settingBrowserZoomTitle' => strings.settingBrowserZoomTitle,
+      'settingBrowserZoomDescription' => strings.settingBrowserZoomDescription,
+      'settingPinchToZoomTitle' => strings.settingPinchToZoomTitle,
+      'settingPinchToZoomDescription' => strings.settingPinchToZoomDescription,
+      'settingDisableScrollingTitle' => strings.settingDisableScrollingTitle,
+      'settingDisableScrollingDescription' =>
+        strings.settingDisableScrollingDescription,
+      'browserCrashPermissionHelp' => strings.browserCrashPermissionHelp,
+      'settingBrowserInjectJsTitle' => strings.settingBrowserInjectJsTitle,
+      'settingBrowserInjectJsDescription' =>
+        strings.settingBrowserInjectJsDescription,
+      'settingBrowserInjectJsExternalTitle' =>
+        strings.settingBrowserInjectJsExternalTitle,
+      'settingBrowserInjectJsExternalDescription' =>
+        strings.settingBrowserInjectJsExternalDescription,
+      'browserInjectJsPlaceholder' => strings.browserInjectJsPlaceholder,
+      'browserInjectJsExternalPlaceholder' =>
+        strings.browserInjectJsExternalPlaceholder,
       'setupConnectHeading' => strings.setupConnectHeading,
       'setupConnectLead' => strings.setupConnectLead,
       'setupBaseUrl' => strings.setupBaseUrl,

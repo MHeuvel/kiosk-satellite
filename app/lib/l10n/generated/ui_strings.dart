@@ -8929,6 +8929,156 @@ abstract class UiStrings {
   /// **'No settings match \"{query}\".'**
   String settingsSearchEmpty(String query);
 
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Disable cache'**
+  String get settingDisableCacheTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Always fetch from the network and drop cached page data on load, so a redeployed dashboard always comes back fresh. Slow; treat it as a development aid.'**
+  String get settingDisableCacheDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow mixed content'**
+  String get settingAllowMixedContentTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Let HTTPS pages load insecure HTTP resources. Helps when Home Assistant mixes http:// content into an https:// dashboard.'**
+  String get settingAllowMixedContentDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Ignore SSL errors'**
+  String get settingIgnoreSslErrorsTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept untrusted or self-signed certificates. Use only on your own network, since it disables certificate verification.'**
+  String get settingIgnoreSslErrorsDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-reload on error'**
+  String get settingAutoReloadOnErrorTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Recover automatically from page failures and app crashes.'**
+  String get settingAutoReloadOnErrorDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable pull to refresh'**
+  String get settingPullToRefreshTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Drag down from the top of the page to reload it. Off by default: on a scrolling dashboard an accidental pull is easy.'**
+  String get settingPullToRefreshDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear cache when pulling to refresh'**
+  String get settingPullToRefreshClearCacheTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'A pull also clears the web cache and wake word models before reloading, so everything comes back fresh. Login and saved page data are kept.'**
+  String get settingPullToRefreshClearCacheDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Zoom level'**
+  String get settingBrowserZoomTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Scales the whole page. Above 1x for wall tablets viewed from a distance; below 1x fits more dashboard on a small screen.'**
+  String get settingBrowserZoomDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable pinch to zoom'**
+  String get settingPinchToZoomTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Zoom the page with a two-finger pinch. Off by default so a kiosk dashboard stays put under stray touches.'**
+  String get settingPinchToZoomDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Disable scrolling'**
+  String get settingDisableScrollingTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Lock the page in place so it cannot be scrolled in any direction. Taps and buttons keep working.'**
+  String get settingDisableScrollingDescription;
+
+  /// Warning when the permission is missing.
+  ///
+  /// In en, this message translates to:
+  /// **'Without this the kiosk cannot come back after a crash.'**
+  String get browserCrashPermissionHelp;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Inject JavaScript on the HA dashboard'**
+  String get settingBrowserInjectJsTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Run this JavaScript code after every load of the dashboard page. Useful to hide distracting elements or tweak a dashboard you do not control.'**
+  String get settingBrowserInjectJsDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Inject JavaScript on external pages'**
+  String get settingBrowserInjectJsExternalTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Run this JavaScript code after loading each external page: pages opened by a dashboard link, dashboard rotation pages and the website screensaver. The Music Assistant page is left alone.'**
+  String get settingBrowserInjectJsExternalDescription;
+
+  /// Example code shown in the empty editor.
+  ///
+  /// In en, this message translates to:
+  /// **'// Example: hide a distracting element\ndocument.querySelector(\'#banner\').style.display = \'none\';'**
+  String get browserInjectJsPlaceholder;
+
+  /// Example code shown in the empty editor.
+  ///
+  /// In en, this message translates to:
+  /// **'// Example: zoom a site that ignores the dashboard zoom level\ndocument.documentElement.style.zoom = \'1.25\';'**
+  String get browserInjectJsExternalPlaceholder;
+
   /// Page heading.
   ///
   /// In en, this message translates to:

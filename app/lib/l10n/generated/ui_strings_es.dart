@@ -5210,6 +5210,98 @@ class UiStringsEs extends UiStrings {
   }
 
   @override
+  String get settingDisableCacheTitle => 'Disable cache';
+
+  @override
+  String get settingDisableCacheDescription =>
+      'Always fetch from the network and drop cached page data on load, so a redeployed dashboard always comes back fresh. Slow; treat it as a development aid.';
+
+  @override
+  String get settingAllowMixedContentTitle => 'Allow mixed content';
+
+  @override
+  String get settingAllowMixedContentDescription =>
+      'Let HTTPS pages load insecure HTTP resources. Helps when Home Assistant mixes http:// content into an https:// dashboard.';
+
+  @override
+  String get settingIgnoreSslErrorsTitle => 'Ignore SSL errors';
+
+  @override
+  String get settingIgnoreSslErrorsDescription =>
+      'Accept untrusted or self-signed certificates. Use only on your own network, since it disables certificate verification.';
+
+  @override
+  String get settingAutoReloadOnErrorTitle => 'Auto-reload on error';
+
+  @override
+  String get settingAutoReloadOnErrorDescription =>
+      'Recover automatically from page failures and app crashes.';
+
+  @override
+  String get settingPullToRefreshTitle => 'Enable pull to refresh';
+
+  @override
+  String get settingPullToRefreshDescription =>
+      'Drag down from the top of the page to reload it. Off by default: on a scrolling dashboard an accidental pull is easy.';
+
+  @override
+  String get settingPullToRefreshClearCacheTitle =>
+      'Clear cache when pulling to refresh';
+
+  @override
+  String get settingPullToRefreshClearCacheDescription =>
+      'A pull also clears the web cache and wake word models before reloading, so everything comes back fresh. Login and saved page data are kept.';
+
+  @override
+  String get settingBrowserZoomTitle => 'Zoom level';
+
+  @override
+  String get settingBrowserZoomDescription =>
+      'Scales the whole page. Above 1x for wall tablets viewed from a distance; below 1x fits more dashboard on a small screen.';
+
+  @override
+  String get settingPinchToZoomTitle => 'Enable pinch to zoom';
+
+  @override
+  String get settingPinchToZoomDescription =>
+      'Zoom the page with a two-finger pinch. Off by default so a kiosk dashboard stays put under stray touches.';
+
+  @override
+  String get settingDisableScrollingTitle => 'Disable scrolling';
+
+  @override
+  String get settingDisableScrollingDescription =>
+      'Lock the page in place so it cannot be scrolled in any direction. Taps and buttons keep working.';
+
+  @override
+  String get browserCrashPermissionHelp =>
+      'Without this the kiosk cannot come back after a crash.';
+
+  @override
+  String get settingBrowserInjectJsTitle =>
+      'Inject JavaScript on the HA dashboard';
+
+  @override
+  String get settingBrowserInjectJsDescription =>
+      'Run this JavaScript code after every load of the dashboard page. Useful to hide distracting elements or tweak a dashboard you do not control.';
+
+  @override
+  String get settingBrowserInjectJsExternalTitle =>
+      'Inject JavaScript on external pages';
+
+  @override
+  String get settingBrowserInjectJsExternalDescription =>
+      'Run this JavaScript code after loading each external page: pages opened by a dashboard link, dashboard rotation pages and the website screensaver. The Music Assistant page is left alone.';
+
+  @override
+  String get browserInjectJsPlaceholder =>
+      '// Example: hide a distracting element\ndocument.querySelector(\'#banner\').style.display = \'none\';';
+
+  @override
+  String get browserInjectJsExternalPlaceholder =>
+      '// Example: zoom a site that ignores the dashboard zoom level\ndocument.documentElement.style.zoom = \'1.25\';';
+
+  @override
   String get setupConnectHeading => 'Conectar con Home Assistant';
 
   @override

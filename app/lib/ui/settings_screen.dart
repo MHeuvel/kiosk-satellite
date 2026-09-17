@@ -4027,16 +4027,14 @@ class _OverlayGrantRowState extends State<_OverlayGrantRow> {
     final theme = Theme.of(context);
     return SettingsRow(
       leading: Icon(Icons.layers_outlined, color: theme.colorScheme.error),
-      title: const Text('Display over other apps'),
-      subtitle: const Text(
-        'Without this the kiosk cannot come back after a crash.',
-      ),
+      title: Text(l10n(context).deviceOverlay),
+      subtitle: Text(l10n(context).browserCrashPermissionHelp),
       trailing: TextButton(
         onPressed: () async {
           await requestOsPermission(Permission.systemAlertWindow);
           await _refresh();
         },
-        child: const Text('Grant'),
+        child: Text(l10n(context).commonGrant),
       ),
     );
   }

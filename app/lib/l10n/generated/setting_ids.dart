@@ -888,4 +888,48 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingCameraAutoDismissSecondsTitle",
     "description": "settingCameraAutoDismissSecondsDescription",
   },
+  "browser.auto_reload_on_error": {
+    "title": "settingAutoReloadOnErrorTitle",
+    "description": "settingAutoReloadOnErrorDescription",
+  },
+  "browser.pull_to_refresh": {
+    "title": "settingPullToRefreshTitle",
+    "description": "settingPullToRefreshDescription",
+  },
+  "browser.pull_to_refresh_clear_cache": {
+    "title": "settingPullToRefreshClearCacheTitle",
+    "description": "settingPullToRefreshClearCacheDescription",
+  },
+  "browser.zoom": {
+    "title": "settingBrowserZoomTitle",
+    "description": "settingBrowserZoomDescription",
+  },
+  "browser.pinch_to_zoom": {
+    "title": "settingPinchToZoomTitle",
+    "description": "settingPinchToZoomDescription",
+  },
+  "browser.disable_scrolling": {
+    "title": "settingDisableScrollingTitle",
+    "description": "settingDisableScrollingDescription",
+  },
+  "browser.disable_cache": {
+    "title": "settingDisableCacheTitle",
+    "description": "settingDisableCacheDescription",
+  },
+  "browser.inject_js": {
+    "title": "settingBrowserInjectJsTitle",
+    "description": "settingBrowserInjectJsDescription",
+  },
+  "browser.inject_js_external": {
+    "title": "settingBrowserInjectJsExternalTitle",
+    "description": "settingBrowserInjectJsExternalDescription",
+  },
+  "browser.allow_mixed_content": {
+    "title": "settingAllowMixedContentTitle",
+    "description": "settingAllowMixedContentDescription",
+  },
+  "browser.ignore_ssl_errors": {
+    "title": "settingIgnoreSslErrorsTitle",
+    "description": "settingIgnoreSslErrorsDescription",
+  },
 };

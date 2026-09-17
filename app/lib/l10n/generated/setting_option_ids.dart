@@ -181,5 +181,7 @@ const settingPlaceholderMessageIds = <String, String>{
   "device.hostname": "deviceHostnamePlaceholder",
   "screensaver.clock_background": "screensaverBackgroundHint",
   "screensaver.immich_taken_from": "screensaverMediaAnyTime",
-  "screensaver.immich_taken_to": "screensaverMediaToday"
+  "screensaver.immich_taken_to": "screensaverMediaToday",
+  "browser.inject_js": "browserInjectJsPlaceholder",
+  "browser.inject_js_external": "browserInjectJsExternalPlaceholder"
 };
