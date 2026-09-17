@@ -1,3 +1,4 @@
+import { overviewTextMessageIds } from './overview_text_ids.js';
 import { voiceTextMessageIds } from './voice_text_ids.js';
 import { esphomeTextMessageIds } from './esphome_text_ids.js';
 import { supportTextMessageIds } from './support_text_ids.js';
@@ -293,4 +294,16 @@ export function voiceEntityOption(key, value) {
   }
   if (key === 'wake_word_model_2' && value === 'Disabled') return voiceText(value);
   return value;
+}
+
+export function overviewText(english) { return t(overviewTextMessageIds[english], {}, english); }
+export function overviewStatus(english) {
+  if (english === 'Waiting for Voice Satellite. The engine and wake words are configured by the card once this device opens its dashboard.') return t('overviewWakeWaiting');
+  let match = /^Watching (\d+) entities$/.exec(english);
+  if (match) return t('overviewWatchingMany', {count: match[1]});
+  match = /^Filtering disabled, view uses (\d+) entities$/.exec(english);
+  if (match) return t('overviewFilterDisabled', {count: match[1]});
+  match = /^No native runner for (.+)\. Voice Satellite keeps browser detection\.$/.exec(english);
+  if (match) return t('overviewNativeUnavailable', {engine: match[1]});
+  return overviewText(english);
 }

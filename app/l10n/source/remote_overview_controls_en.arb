@@ -1,0 +1,327 @@
+{
+  "@@locale": "en",
+  "overviewQuick": "Quick controls",
+  "@overviewQuick": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewReload": "Reload page",
+  "@overviewReload": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewScreenOn": "Screen on",
+  "@overviewScreenOn": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewScreenOff": "Screen off",
+  "@overviewScreenOff": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewSaverStart": "Start screensaver",
+  "@overviewSaverStart": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewSaverStop": "Dismiss screensaver",
+  "@overviewSaverStop": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewCameraShow": "Show camera view",
+  "@overviewCameraShow": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewCameraHide": "Dismiss camera view",
+  "@overviewCameraHide": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewSaverPostpone": "Postpone screensaver",
+  "@overviewSaverPostpone": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewDnd": "Do not disturb",
+  "@overviewDnd": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewDndOn": "Do not disturb on",
+  "@overviewDndOn": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewSnapshot": "Take snapshot",
+  "@overviewSnapshot": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewCheckUpdates": "Check for updates",
+  "@overviewCheckUpdates": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewRestartApp": "Restart app",
+  "@overviewRestartApp": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewRestartDevice": "Restart device",
+  "@overviewRestartDevice": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewExit": "Exit app",
+  "@overviewExit": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewBrightness": "Brightness",
+  "@overviewBrightness": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewVolume": "Master Volume",
+  "@overviewVolume": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewBrightnessGrant": "Brightness is using an app-level fallback. Grant \"Modify system settings\" so the slider controls the panel's actual brightness.",
+  "@overviewBrightnessGrant": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewRestartQuestion": "Restart this device? Kiosk Satellite comes back when it boots.",
+  "@overviewRestartQuestion": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewRestart": "Restart",
+  "@overviewRestart": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewNoSnapshot": "No snapshot came back.",
+  "@overviewNoSnapshot": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewSnapshotTitle": "Camera snapshot",
+  "@overviewSnapshotTitle": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewUpdateCheckFailed": "Update check failed. Can the device reach GitHub?",
+  "@overviewUpdateCheckFailed": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewLatest": "You are on the latest version.",
+  "@overviewLatest": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewVersionAvailable": "Version {version} is available",
+  "@overviewVersionAvailable": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    },
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "overviewInstallAttention": "Install it from Needs attention.",
+  "@overviewInstallAttention": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewNoViewsWithCameras": "No camera view has any cameras yet. Add cameras to a view under Cameras first.",
+  "@overviewNoViewsWithCameras": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewShowViewFailed": "Could not show view",
+  "@overviewShowViewFailed": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  }
+}

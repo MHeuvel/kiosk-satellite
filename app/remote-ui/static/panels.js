@@ -1,3 +1,4 @@
+import { overviewLabel, overviewMessageBox, overviewModalShell } from './overview_labels.js';
 import { mediaText, mediaError, deviceText, t, screenAudioText, screensaverText, immichError } from './localization.js';
 import { receiveUpdate, watchUpdates } from './live.js';
 import { $, api, cmd, state } from './core.js';
@@ -438,7 +439,7 @@ export async function loadViewJump() {
     sel.innerHTML = '';
     const ph = document.createElement('option');
     ph.value = '';
-    ph.textContent = 'Pick a dashboard view…';
+    overviewLabel(ph, 'Pick a dashboard view…');
     sel.appendChild(ph);
     for (const d of dashboards) {
       let views = [];
@@ -449,21 +450,22 @@ export async function loadViewJump() {
       } catch (_) {}
       // Auto-generated and strategy dashboards store no view list; their
       // bare path resolves the default view, same as the rotation picker.
-      if (!views.length) views = [{ title: 'Default view', route: '' }];
+      if (!views.length) views = [{ route: '' }];
       const group = document.createElement('optgroup');
       group.label = d.title || d.url_path;
       for (const v of views) {
         const o = document.createElement('option');
         o.value = v.route ? `${d.url_path}/${v.route}` : d.url_path;
-        o.textContent = v.title || v.route || 'Default view';
+        if (v.title || v.route) o.textContent = v.title || v.route;
+        else overviewLabel(o, 'Default view');
         group.appendChild(o);
       }
       sel.appendChild(group);
     }
     sel.disabled = sel.options.length <= 1;
-    if (sel.disabled) sel.options[0].textContent = 'No dashboards found';
+    if (sel.disabled) overviewLabel(sel.options[0], 'No dashboards found');
   } catch (_) {
-    sel.options[0].textContent = 'Views unavailable';
+    overviewLabel(sel.options[0], 'Views unavailable');
   }
 }
 $('#viewJump').addEventListener('change', async (e) => {
@@ -499,7 +501,7 @@ function setTile(id, { icon, label, command }) {
   const tile = document.getElementById(id);
   if (!tile) return;
   tile.querySelector('.disc').innerHTML = QUICK_ICONS[icon];
-  tile.querySelector('.disc + span').textContent = label;
+  overviewLabel(tile.querySelector('.disc + span'), label);
   // No command means the tile's own handler takes the click (the camera
   // picker); the generic .action handler skips a tile without one.
   if (command) tile.dataset.cmd = command; else delete tile.dataset.cmd;
@@ -564,7 +566,7 @@ async function showCameraViewFromTile() {
   const config = (await cmd('cameraGetConfig').catch(() => null))?.data;
   const views = (config?.views || []).filter((v) => (v.cameraIds || []).length);
   if (!views.length) {
-    await messageBox({
+    await overviewMessageBox({
       title: 'Show camera view',
       message: 'No camera view has any cameras yet. Add cameras to a view under Cameras first.',
     });
@@ -573,7 +575,7 @@ async function showCameraViewFromTile() {
   let viewId = views[0].id;
   if (views.length > 1) {
     viewId = await new Promise((resolve) => {
-      const { back, body, foot } = modalShell({
+      const { back, body, foot } = overviewModalShell({
         title: 'Show camera view',
         onDismiss: () => { back.remove(); resolve(null); },
       });
@@ -584,7 +586,7 @@ async function showCameraViewFromTile() {
       }
       const cancel = document.createElement('button');
       cancel.className = 'btn-text';
-      cancel.textContent = 'Cancel';
+      overviewLabel(cancel, 'Cancel');
       cancel.addEventListener('click', () => { back.remove(); resolve(null); });
       foot.appendChild(cancel);
     });
@@ -592,7 +594,7 @@ async function showCameraViewFromTile() {
   }
   const shown = await cmd('showCameraView', { viewId }).catch(() => null);
   if (shown && shown.ok === false && shown.error) {
-    await messageBox({ title: 'Could not show view', message: shown.error });
+    await overviewMessageBox({ title: 'Could not show view', message: shown.error });
   }
 }
 document.getElementById('tileCameraView')?.addEventListener('click', () => {

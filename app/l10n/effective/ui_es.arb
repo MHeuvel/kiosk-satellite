@@ -8678,6 +8678,1249 @@
       ]
     }
   },
+  "overviewAttention": "Needs attention",
+  "@overviewAttention": {
+    "context": "Remote admin > Overview > Needs attention",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Needs attention"
+      ]
+    }
+  },
+  "overviewOpen": "Open",
+  "@overviewOpen": {
+    "context": "Remote admin > Overview > Needs attention",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Needs attention"
+      ]
+    }
+  },
+  "overviewUpdate": "Update",
+  "@overviewUpdate": {
+    "context": "Remote admin > Overview > Needs attention",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Needs attention"
+      ]
+    }
+  },
+  "overviewInvitation": "{name} wants to lead this kiosk",
+  "@overviewInvitation": {
+    "context": "Remote admin > Overview > Needs attention",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Needs attention"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "overviewInvitationHelp": "Confirm on the kiosk screen or under Fleet Management there.",
+  "@overviewInvitationHelp": {
+    "context": "Remote admin > Overview > Needs attention",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Needs attention"
+      ]
+    }
+  },
+  "overviewOutdatedOne": "1 follower runs another release",
+  "@overviewOutdatedOne": {
+    "context": "Remote admin > Overview > Needs attention",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Needs attention"
+      ]
+    }
+  },
+  "overviewOutdatedMany": "{count} followers run another release",
+  "@overviewOutdatedMany": {
+    "context": "Remote admin > Overview > Needs attention",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Needs attention"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "overviewSyncWaiting": "{names}. Sync waits for version {version}.",
+  "@overviewSyncWaiting": {
+    "context": "Remote admin > Overview > Needs attention",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Needs attention"
+      ]
+    },
+    "placeholders": {
+      "names": {
+        "type": "String"
+      },
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "overviewThisRelease": "this release",
+  "@overviewThisRelease": {
+    "context": "Remote admin > Overview > Needs attention",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Needs attention"
+      ]
+    }
+  },
+  "overviewUpdateAvailable": "Update available",
+  "@overviewUpdateAvailable": {
+    "context": "Remote admin > Overview > Needs attention",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Needs attention"
+      ]
+    }
+  },
+  "overviewInstallHelp": "Kiosk Satellite {version} is ready to install. The installation is confirmed on the tablet screen.",
+  "@overviewInstallHelp": {
+    "context": "Remote admin > Overview > Needs attention",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Needs attention"
+      ]
+    },
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "overviewHaSetup": "Home Assistant not set up",
+  "@overviewHaSetup": {
+    "context": "Remote admin > Overview > Needs attention",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Needs attention"
+      ]
+    }
+  },
+  "overviewHaSetupHelp": "Connect the kiosk to Home Assistant to load a dashboard.",
+  "@overviewHaSetupHelp": {
+    "context": "Remote admin > Overview > Needs attention",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Needs attention"
+      ]
+    }
+  },
+  "overviewSetUp": "Set up",
+  "@overviewSetUp": {
+    "context": "Remote admin > Overview > Needs attention",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Needs attention"
+      ]
+    }
+  },
+  "overviewHaNotValidated": "Home Assistant not validated",
+  "@overviewHaNotValidated": {
+    "context": "Remote admin > Overview > Needs attention",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Needs attention"
+      ]
+    }
+  },
+  "overviewHaNotValidatedHelp": "The URL and token have not passed a connection check this run. The kiosk retries every 30 seconds.",
+  "@overviewHaNotValidatedHelp": {
+    "context": "Remote admin > Overview > Needs attention",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Needs attention"
+      ]
+    }
+  },
+  "overviewOpenSetup": "Open setup",
+  "@overviewOpenSetup": {
+    "context": "Remote admin > Overview > Needs attention",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Needs attention"
+      ]
+    }
+  },
+  "overviewWakeStopped": "Wake word detection stopped",
+  "@overviewWakeStopped": {
+    "context": "Remote admin > Overview > Needs attention",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Needs attention"
+      ]
+    }
+  },
+  "overviewWakeReleased": "The engine was released.",
+  "@overviewWakeReleased": {
+    "context": "Remote admin > Overview > Needs attention",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Needs attention"
+      ]
+    }
+  },
+  "overviewOpenVoice": "Open Voice Satellite",
+  "@overviewOpenVoice": {
+    "context": "Remote admin > Overview > Needs attention",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Needs attention"
+      ]
+    }
+  },
+  "overviewOpenService": "Open service",
+  "@overviewOpenService": {
+    "context": "Remote admin > Overview > Needs attention",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Needs attention"
+      ]
+    }
+  },
+  "overviewPermissionMissing": "Permission missing: {permission}",
+  "@overviewPermissionMissing": {
+    "context": "Remote admin > Overview > Needs attention",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Needs attention"
+      ]
+    },
+    "placeholders": {
+      "permission": {
+        "type": "String"
+      }
+    }
+  },
+  "overviewQuick": "Quick controls",
+  "@overviewQuick": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewReload": "Reload page",
+  "@overviewReload": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewScreenOn": "Screen on",
+  "@overviewScreenOn": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewScreenOff": "Screen off",
+  "@overviewScreenOff": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewSaverStart": "Start screensaver",
+  "@overviewSaverStart": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewSaverStop": "Dismiss screensaver",
+  "@overviewSaverStop": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewCameraShow": "Show camera view",
+  "@overviewCameraShow": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewCameraHide": "Dismiss camera view",
+  "@overviewCameraHide": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewSaverPostpone": "Postpone screensaver",
+  "@overviewSaverPostpone": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewDnd": "Do not disturb",
+  "@overviewDnd": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewDndOn": "Do not disturb on",
+  "@overviewDndOn": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewSnapshot": "Take snapshot",
+  "@overviewSnapshot": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewCheckUpdates": "Check for updates",
+  "@overviewCheckUpdates": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewRestartApp": "Restart app",
+  "@overviewRestartApp": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewRestartDevice": "Restart device",
+  "@overviewRestartDevice": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewExit": "Exit app",
+  "@overviewExit": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewBrightness": "Brightness",
+  "@overviewBrightness": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewVolume": "Master Volume",
+  "@overviewVolume": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewBrightnessGrant": "Brightness is using an app-level fallback. Grant \"Modify system settings\" so the slider controls the panel's actual brightness.",
+  "@overviewBrightnessGrant": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewRestartQuestion": "Restart this device? Kiosk Satellite comes back when it boots.",
+  "@overviewRestartQuestion": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewRestart": "Restart",
+  "@overviewRestart": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewNoSnapshot": "No snapshot came back.",
+  "@overviewNoSnapshot": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewSnapshotTitle": "Camera snapshot",
+  "@overviewSnapshotTitle": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewUpdateCheckFailed": "Update check failed. Can the device reach GitHub?",
+  "@overviewUpdateCheckFailed": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewLatest": "You are on the latest version.",
+  "@overviewLatest": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewVersionAvailable": "Version {version} is available",
+  "@overviewVersionAvailable": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    },
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "overviewInstallAttention": "Install it from Needs attention.",
+  "@overviewInstallAttention": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewNoViewsWithCameras": "No camera view has any cameras yet. Add cameras to a view under Cameras first.",
+  "@overviewNoViewsWithCameras": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewShowViewFailed": "Could not show view",
+  "@overviewShowViewFailed": {
+    "context": "Remote admin > Overview > Quick controls",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "overviewAppVersion": "App Version",
+  "@overviewAppVersion": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewNotSetup": "Not set up",
+  "@overviewNotSetup": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewNotValidated": "Not validated",
+  "@overviewNotValidated": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewCheckingFilter": "Checking filter...",
+  "@overviewCheckingFilter": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewValidated": "Validated",
+  "@overviewValidated": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewFilterUnavailable": "Filter status unavailable",
+  "@overviewFilterUnavailable": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewUnfiltered": "Updates unfiltered",
+  "@overviewUnfiltered": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewWatchingOne": "Watching 1 entity",
+  "@overviewWatchingOne": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewWatchingMany": "Watching {count} entities",
+  "@overviewWatchingMany": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "overviewFilterDisabled": "Filtering disabled, view uses {count} entities",
+  "@overviewFilterDisabled": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "overviewWakeOff": "Wake word detection off",
+  "@overviewWakeOff": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewListeningFor": "Listening for {words}",
+  "@overviewListeningFor": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    },
+    "placeholders": {
+      "words": {
+        "type": "String"
+      }
+    }
+  },
+  "overviewListening": "Listening",
+  "@overviewListening": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewNotListening": "Not listening",
+  "@overviewNotListening": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewEntitiesProxy": "Entities and BT proxy",
+  "@overviewEntitiesProxy": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewEntitiesOnly": "Entities only",
+  "@overviewEntitiesOnly": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewProxyOnly": "BT Proxy only",
+  "@overviewProxyOnly": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewWaitingHA": "Waiting for Home Assistant",
+  "@overviewWaitingHA": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewNotRunning": "Not running",
+  "@overviewNotRunning": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewRunningOne": "Running - 1 feature",
+  "@overviewRunningOne": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewRunningMany": "Running - {count} features",
+  "@overviewRunningMany": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "overviewDownloading": "Downloading: {version}",
+  "@overviewDownloading": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    },
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "overviewNewVersion": "New version: {version}",
+  "@overviewNewVersion": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    },
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "overviewCurrentVersion": "Up to date: {version}",
+  "@overviewCurrentVersion": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    },
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "overviewCurrent": "Up to date",
+  "@overviewCurrent": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewPluginAttribution": "{name} plugin",
+  "@overviewPluginAttribution": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "overviewMuted": "muted",
+  "@overviewMuted": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewBrowser": "browser",
+  "@overviewBrowser": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewWakeWaiting": "Waiting for Voice Satellite. The engine and wake words are configured by the integration once this device opens its dashboard.",
+  "@overviewWakeWaiting": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewWakeDisabled": "Wake word detection is off. Turn it on to inherit models from Voice Satellite.",
+  "@overviewWakeDisabled": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewMicBlocked": "Microphone blocked. Android will not ask again, so allow it in the app settings, then retry.",
+  "@overviewMicBlocked": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewMicDeclined": "Microphone declined. Wake word detection needs it; retry to be asked again.",
+  "@overviewMicDeclined": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewMicLost": "The microphone stopped working. Retry, or reload the page.",
+  "@overviewMicLost": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewModelsUnavailable": "Could not download the models from Home Assistant. Retry once it is reachable.",
+  "@overviewModelsUnavailable": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewCrashed": "The detector kept crashing on this device, so it was stopped. Voice Satellite is listening in the browser instead. Retry, or restart the app.",
+  "@overviewCrashed": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewWakeFailed": "The wake-word engine could not start. Retry, or reload the page.",
+  "@overviewWakeFailed": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewNativeUnavailable": "No native runner for {engine}. Voice Satellite keeps browser detection.",
+  "@overviewNativeUnavailable": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    },
+    "placeholders": {
+      "engine": {
+        "type": "String"
+      }
+    }
+  },
+  "overviewNativeListening": "Listening natively",
+  "@overviewNativeListening": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewSuspended": "Ready (suspended during a voice session)",
+  "@overviewSuspended": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewNoScreenshot": "No screenshot",
+  "@overviewNoScreenshot": {
+    "context": "Remote admin > Overview > Screenshot",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Screenshot"
+      ]
+    }
+  },
+  "overviewStill": "Still",
+  "@overviewStill": {
+    "context": "Remote admin > Overview > Screenshot",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Screenshot"
+      ]
+    }
+  },
+  "overviewLive": "Live",
+  "@overviewLive": {
+    "context": "Remote admin > Overview > Screenshot",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Screenshot"
+      ]
+    }
+  },
+  "overviewFullSize": "Full size",
+  "@overviewFullSize": {
+    "context": "Remote admin > Overview > Screenshot",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Screenshot"
+      ]
+    }
+  },
+  "overviewLiveInterval": "Live, every 5 seconds",
+  "@overviewLiveInterval": {
+    "context": "Remote admin > Overview > Screenshot",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Screenshot"
+      ]
+    }
+  },
+  "overviewTaken": "Taken {age}",
+  "@overviewTaken": {
+    "context": "Remote admin > Overview > Screenshot",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Screenshot"
+      ]
+    },
+    "placeholders": {
+      "age": {
+        "type": "String"
+      }
+    }
+  },
+  "overviewCameraViewNamed": "Camera view: {name}",
+  "@overviewCameraViewNamed": {
+    "context": "Remote admin > Overview > Screenshot",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Screenshot"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "overviewCameraView": "Camera view",
+  "@overviewCameraView": {
+    "context": "Remote admin > Overview > Screenshot",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Screenshot"
+      ]
+    }
+  },
+  "overviewScreenOffState": "Screen is off",
+  "@overviewScreenOffState": {
+    "context": "Remote admin > Overview > Screenshot",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Screenshot"
+      ]
+    }
+  },
+  "overviewGoView": "Go to view",
+  "@overviewGoView": {
+    "context": "Remote admin > Overview > Quick controls > Go to view",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls > Go to view"
+      ]
+    }
+  },
+  "overviewLoadingViews": "Loading views…",
+  "@overviewLoadingViews": {
+    "context": "Remote admin > Overview > Quick controls > Go to view",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls > Go to view"
+      ]
+    }
+  },
+  "overviewPickView": "Pick a dashboard view…",
+  "@overviewPickView": {
+    "context": "Remote admin > Overview > Quick controls > Go to view",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls > Go to view"
+      ]
+    }
+  },
+  "overviewDefaultView": "Default view",
+  "@overviewDefaultView": {
+    "context": "Remote admin > Overview > Quick controls > Go to view",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls > Go to view"
+      ]
+    }
+  },
+  "overviewNoDashboards": "No dashboards found",
+  "@overviewNoDashboards": {
+    "context": "Remote admin > Overview > Quick controls > Go to view",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls > Go to view"
+      ]
+    }
+  },
+  "overviewViewsUnavailable": "Views unavailable",
+  "@overviewViewsUnavailable": {
+    "context": "Remote admin > Overview > Quick controls > Go to view",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls > Go to view"
+      ]
+    }
+  },
   "settingLauncherEnabledTitle": "Activar lanzador de aplicaciones",
   "@settingLauncherEnabledTitle": {
     "context": "Settings > App Launcher",

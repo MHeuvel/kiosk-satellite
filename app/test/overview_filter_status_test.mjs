@@ -17,6 +17,8 @@ function client(read) {
     onOverview: () => visible,
     settingOn: () => enabled,
     paintTile: (...args) => tiles.push(args),
+    overviewText: text => text,
+    overviewStatus: text => text,
   });
   vm.runInContext(module + '\n' + paint, context);
   return { context, calls, tiles, read: context.readFilterStatus, paint: context.paintHaStatus,
@@ -127,4 +129,18 @@ test('failed reads are cached and double-encoded responses are supported', async
   const c = client(async () => response(JSON.stringify({ enabled: true, built: true, allow: 3 })));
   await c.paint(connected);
   assert.equal(c.tiles.at(-1)[2], 'Watching 3 entities');
+});
+
+
+test('cached repaint keeps filter status and does not discard an in-flight answer', async () => {
+  let resolve;
+  const c = client(() => new Promise(r => { resolve = r; }));
+  const pending = c.paint(connected);
+  await c.paint(connected, {filter: false});
+  resolve(response({enabled: true, built: true, allow: 7}));
+  await pending;
+  assert.equal(c.tiles.at(-1)[2], 'Watching 7 entities');
+  await c.paint(connected, {filter: false});
+  assert.equal(c.tiles.at(-1)[2], 'Watching 7 entities');
+  assert.equal(c.calls.length, 1);
 });

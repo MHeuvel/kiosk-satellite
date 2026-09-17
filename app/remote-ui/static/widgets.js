@@ -127,7 +127,7 @@ document.querySelectorAll('.action.tile, .action[data-cmd]').forEach((b) =>
     }
     // The device shows the result; here a toast says the command landed.
     if (res && res.ok !== false) showToast({ title: label, kind: 'success' });
-    else if (!res) showToast({ title: label, message: 'The device did not answer.', kind: 'error' });
+    else if (!res) showToast({ title: label, message: deviceText('The device did not answer.'), kind: 'error' });
   }));
 
 // A hint row inside a card, under the row it explains: the device's HintRow

@@ -1,0 +1,112 @@
+{
+  "@@locale": "en",
+  "overviewNoScreenshot": "No screenshot",
+  "@overviewNoScreenshot": {
+    "context": "Remote admin > Overview > Screenshot",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Screenshot"
+      ]
+    }
+  },
+  "overviewStill": "Still",
+  "@overviewStill": {
+    "context": "Remote admin > Overview > Screenshot",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Screenshot"
+      ]
+    }
+  },
+  "overviewLive": "Live",
+  "@overviewLive": {
+    "context": "Remote admin > Overview > Screenshot",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Screenshot"
+      ]
+    }
+  },
+  "overviewFullSize": "Full size",
+  "@overviewFullSize": {
+    "context": "Remote admin > Overview > Screenshot",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Screenshot"
+      ]
+    }
+  },
+  "overviewLiveInterval": "Live, every 5 seconds",
+  "@overviewLiveInterval": {
+    "context": "Remote admin > Overview > Screenshot",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Screenshot"
+      ]
+    }
+  },
+  "overviewTaken": "Taken {age}",
+  "@overviewTaken": {
+    "context": "Remote admin > Overview > Screenshot",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Screenshot"
+      ]
+    },
+    "placeholders": {
+      "age": {
+        "type": "String"
+      }
+    }
+  },
+  "overviewCameraViewNamed": "Camera view: {name}",
+  "@overviewCameraViewNamed": {
+    "context": "Remote admin > Overview > Screenshot",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Screenshot"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "overviewCameraView": "Camera view",
+  "@overviewCameraView": {
+    "context": "Remote admin > Overview > Screenshot",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Screenshot"
+      ]
+    }
+  },
+  "overviewScreenOffState": "Screen is off",
+  "@overviewScreenOffState": {
+    "context": "Remote admin > Overview > Screenshot",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Screenshot"
+      ]
+    }
+  }
+}

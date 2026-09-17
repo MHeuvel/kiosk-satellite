@@ -4161,6 +4161,636 @@ abstract class UiStrings {
   /// **'Approve the permission request on the kiosk.'**
   String get pluginApproveThePermissionRequestOnTheKiosk;
 
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Needs attention'**
+  String get overviewAttention;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get overviewOpen;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get overviewUpdate;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} wants to lead this kiosk'**
+  String overviewInvitation(String name);
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm on the kiosk screen or under Fleet Management there.'**
+  String get overviewInvitationHelp;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'1 follower runs another release'**
+  String get overviewOutdatedOne;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} followers run another release'**
+  String overviewOutdatedMany(String count);
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'{names}. Sync waits for version {version}.'**
+  String overviewSyncWaiting(String names, String version);
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'this release'**
+  String get overviewThisRelease;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Update available'**
+  String get overviewUpdateAvailable;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosk Satellite {version} is ready to install. The installation is confirmed on the tablet screen.'**
+  String overviewInstallHelp(String version);
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Assistant not set up'**
+  String get overviewHaSetup;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect the kiosk to Home Assistant to load a dashboard.'**
+  String get overviewHaSetupHelp;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Set up'**
+  String get overviewSetUp;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Assistant not validated'**
+  String get overviewHaNotValidated;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The URL and token have not passed a connection check this run. The kiosk retries every 30 seconds.'**
+  String get overviewHaNotValidatedHelp;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Open setup'**
+  String get overviewOpenSetup;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Wake word detection stopped'**
+  String get overviewWakeStopped;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The engine was released.'**
+  String get overviewWakeReleased;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Voice Satellite'**
+  String get overviewOpenVoice;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Open service'**
+  String get overviewOpenService;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Permission missing: {permission}'**
+  String overviewPermissionMissing(String permission);
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick controls'**
+  String get overviewQuick;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload page'**
+  String get overviewReload;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Screen on'**
+  String get overviewScreenOn;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Screen off'**
+  String get overviewScreenOff;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Start screensaver'**
+  String get overviewSaverStart;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Dismiss screensaver'**
+  String get overviewSaverStop;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Show camera view'**
+  String get overviewCameraShow;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Dismiss camera view'**
+  String get overviewCameraHide;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Postpone screensaver'**
+  String get overviewSaverPostpone;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Do not disturb'**
+  String get overviewDnd;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Do not disturb on'**
+  String get overviewDndOn;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Take snapshot'**
+  String get overviewSnapshot;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Check for updates'**
+  String get overviewCheckUpdates;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart app'**
+  String get overviewRestartApp;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart device'**
+  String get overviewRestartDevice;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Exit app'**
+  String get overviewExit;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Brightness'**
+  String get overviewBrightness;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Master Volume'**
+  String get overviewVolume;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Brightness is using an app-level fallback. Grant \"Modify system settings\" so the slider controls the panel\'s actual brightness.'**
+  String get overviewBrightnessGrant;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart this device? Kiosk Satellite comes back when it boots.'**
+  String get overviewRestartQuestion;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart'**
+  String get overviewRestart;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'No snapshot came back.'**
+  String get overviewNoSnapshot;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera snapshot'**
+  String get overviewSnapshotTitle;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Update check failed. Can the device reach GitHub?'**
+  String get overviewUpdateCheckFailed;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'You are on the latest version.'**
+  String get overviewLatest;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Version {version} is available'**
+  String overviewVersionAvailable(String version);
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Install it from Needs attention.'**
+  String get overviewInstallAttention;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'No camera view has any cameras yet. Add cameras to a view under Cameras first.'**
+  String get overviewNoViewsWithCameras;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not show view'**
+  String get overviewShowViewFailed;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'App Version'**
+  String get overviewAppVersion;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Not set up'**
+  String get overviewNotSetup;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Not validated'**
+  String get overviewNotValidated;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking filter...'**
+  String get overviewCheckingFilter;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Validated'**
+  String get overviewValidated;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter status unavailable'**
+  String get overviewFilterUnavailable;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Updates unfiltered'**
+  String get overviewUnfiltered;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Watching 1 entity'**
+  String get overviewWatchingOne;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Watching {count} entities'**
+  String overviewWatchingMany(String count);
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Filtering disabled, view uses {count} entities'**
+  String overviewFilterDisabled(String count);
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Wake word detection off'**
+  String get overviewWakeOff;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Listening for {words}'**
+  String overviewListeningFor(String words);
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Listening'**
+  String get overviewListening;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Not listening'**
+  String get overviewNotListening;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Entities and BT proxy'**
+  String get overviewEntitiesProxy;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Entities only'**
+  String get overviewEntitiesOnly;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'BT Proxy only'**
+  String get overviewProxyOnly;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for Home Assistant'**
+  String get overviewWaitingHA;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Not running'**
+  String get overviewNotRunning;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Running - 1 feature'**
+  String get overviewRunningOne;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Running - {count} features'**
+  String overviewRunningMany(String count);
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloading: {version}'**
+  String overviewDownloading(String version);
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'New version: {version}'**
+  String overviewNewVersion(String version);
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Up to date: {version}'**
+  String overviewCurrentVersion(String version);
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Up to date'**
+  String get overviewCurrent;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} plugin'**
+  String overviewPluginAttribution(String name);
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'muted'**
+  String get overviewMuted;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'browser'**
+  String get overviewBrowser;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for Voice Satellite. The engine and wake words are configured by the integration once this device opens its dashboard.'**
+  String get overviewWakeWaiting;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Wake word detection is off. Turn it on to inherit models from Voice Satellite.'**
+  String get overviewWakeDisabled;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone blocked. Android will not ask again, so allow it in the app settings, then retry.'**
+  String get overviewMicBlocked;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone declined. Wake word detection needs it; retry to be asked again.'**
+  String get overviewMicDeclined;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The microphone stopped working. Retry, or reload the page.'**
+  String get overviewMicLost;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not download the models from Home Assistant. Retry once it is reachable.'**
+  String get overviewModelsUnavailable;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The detector kept crashing on this device, so it was stopped. Voice Satellite is listening in the browser instead. Retry, or restart the app.'**
+  String get overviewCrashed;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The wake-word engine could not start. Retry, or reload the page.'**
+  String get overviewWakeFailed;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'No native runner for {engine}. Voice Satellite keeps browser detection.'**
+  String overviewNativeUnavailable(String engine);
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Listening natively'**
+  String get overviewNativeListening;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready (suspended during a voice session)'**
+  String get overviewSuspended;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'No screenshot'**
+  String get overviewNoScreenshot;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Still'**
+  String get overviewStill;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Live'**
+  String get overviewLive;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Full size'**
+  String get overviewFullSize;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Live, every 5 seconds'**
+  String get overviewLiveInterval;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Taken {age}'**
+  String overviewTaken(String age);
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera view: {name}'**
+  String overviewCameraViewNamed(String name);
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera view'**
+  String get overviewCameraView;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Screen is off'**
+  String get overviewScreenOffState;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to view'**
+  String get overviewGoView;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading views…'**
+  String get overviewLoadingViews;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a dashboard view…'**
+  String get overviewPickView;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Default view'**
+  String get overviewDefaultView;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'No dashboards found'**
+  String get overviewNoDashboards;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Views unavailable'**
+  String get overviewViewsUnavailable;
+
   /// Setting label.
   ///
   /// In en, this message translates to:

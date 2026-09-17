@@ -2365,6 +2365,370 @@ class UiStringsEs extends UiStrings {
       'Aprueba la solicitud de permiso en el kiosko.';
 
   @override
+  String get overviewAttention => 'Needs attention';
+
+  @override
+  String get overviewOpen => 'Open';
+
+  @override
+  String get overviewUpdate => 'Update';
+
+  @override
+  String overviewInvitation(String name) {
+    return '$name wants to lead this kiosk';
+  }
+
+  @override
+  String get overviewInvitationHelp =>
+      'Confirm on the kiosk screen or under Fleet Management there.';
+
+  @override
+  String get overviewOutdatedOne => '1 follower runs another release';
+
+  @override
+  String overviewOutdatedMany(String count) {
+    return '$count followers run another release';
+  }
+
+  @override
+  String overviewSyncWaiting(String names, String version) {
+    return '$names. Sync waits for version $version.';
+  }
+
+  @override
+  String get overviewThisRelease => 'this release';
+
+  @override
+  String get overviewUpdateAvailable => 'Update available';
+
+  @override
+  String overviewInstallHelp(String version) {
+    return 'Kiosk Satellite $version is ready to install. The installation is confirmed on the tablet screen.';
+  }
+
+  @override
+  String get overviewHaSetup => 'Home Assistant not set up';
+
+  @override
+  String get overviewHaSetupHelp =>
+      'Connect the kiosk to Home Assistant to load a dashboard.';
+
+  @override
+  String get overviewSetUp => 'Set up';
+
+  @override
+  String get overviewHaNotValidated => 'Home Assistant not validated';
+
+  @override
+  String get overviewHaNotValidatedHelp =>
+      'The URL and token have not passed a connection check this run. The kiosk retries every 30 seconds.';
+
+  @override
+  String get overviewOpenSetup => 'Open setup';
+
+  @override
+  String get overviewWakeStopped => 'Wake word detection stopped';
+
+  @override
+  String get overviewWakeReleased => 'The engine was released.';
+
+  @override
+  String get overviewOpenVoice => 'Open Voice Satellite';
+
+  @override
+  String get overviewOpenService => 'Open service';
+
+  @override
+  String overviewPermissionMissing(String permission) {
+    return 'Permission missing: $permission';
+  }
+
+  @override
+  String get overviewQuick => 'Quick controls';
+
+  @override
+  String get overviewReload => 'Reload page';
+
+  @override
+  String get overviewScreenOn => 'Screen on';
+
+  @override
+  String get overviewScreenOff => 'Screen off';
+
+  @override
+  String get overviewSaverStart => 'Start screensaver';
+
+  @override
+  String get overviewSaverStop => 'Dismiss screensaver';
+
+  @override
+  String get overviewCameraShow => 'Show camera view';
+
+  @override
+  String get overviewCameraHide => 'Dismiss camera view';
+
+  @override
+  String get overviewSaverPostpone => 'Postpone screensaver';
+
+  @override
+  String get overviewDnd => 'Do not disturb';
+
+  @override
+  String get overviewDndOn => 'Do not disturb on';
+
+  @override
+  String get overviewSnapshot => 'Take snapshot';
+
+  @override
+  String get overviewCheckUpdates => 'Check for updates';
+
+  @override
+  String get overviewRestartApp => 'Restart app';
+
+  @override
+  String get overviewRestartDevice => 'Restart device';
+
+  @override
+  String get overviewExit => 'Exit app';
+
+  @override
+  String get overviewBrightness => 'Brightness';
+
+  @override
+  String get overviewVolume => 'Master Volume';
+
+  @override
+  String get overviewBrightnessGrant =>
+      'Brightness is using an app-level fallback. Grant \"Modify system settings\" so the slider controls the panel\'s actual brightness.';
+
+  @override
+  String get overviewRestartQuestion =>
+      'Restart this device? Kiosk Satellite comes back when it boots.';
+
+  @override
+  String get overviewRestart => 'Restart';
+
+  @override
+  String get overviewNoSnapshot => 'No snapshot came back.';
+
+  @override
+  String get overviewSnapshotTitle => 'Camera snapshot';
+
+  @override
+  String get overviewUpdateCheckFailed =>
+      'Update check failed. Can the device reach GitHub?';
+
+  @override
+  String get overviewLatest => 'You are on the latest version.';
+
+  @override
+  String overviewVersionAvailable(String version) {
+    return 'Version $version is available';
+  }
+
+  @override
+  String get overviewInstallAttention => 'Install it from Needs attention.';
+
+  @override
+  String get overviewNoViewsWithCameras =>
+      'No camera view has any cameras yet. Add cameras to a view under Cameras first.';
+
+  @override
+  String get overviewShowViewFailed => 'Could not show view';
+
+  @override
+  String get overviewAppVersion => 'App Version';
+
+  @override
+  String get overviewNotSetup => 'Not set up';
+
+  @override
+  String get overviewNotValidated => 'Not validated';
+
+  @override
+  String get overviewCheckingFilter => 'Checking filter...';
+
+  @override
+  String get overviewValidated => 'Validated';
+
+  @override
+  String get overviewFilterUnavailable => 'Filter status unavailable';
+
+  @override
+  String get overviewUnfiltered => 'Updates unfiltered';
+
+  @override
+  String get overviewWatchingOne => 'Watching 1 entity';
+
+  @override
+  String overviewWatchingMany(String count) {
+    return 'Watching $count entities';
+  }
+
+  @override
+  String overviewFilterDisabled(String count) {
+    return 'Filtering disabled, view uses $count entities';
+  }
+
+  @override
+  String get overviewWakeOff => 'Wake word detection off';
+
+  @override
+  String overviewListeningFor(String words) {
+    return 'Listening for $words';
+  }
+
+  @override
+  String get overviewListening => 'Listening';
+
+  @override
+  String get overviewNotListening => 'Not listening';
+
+  @override
+  String get overviewEntitiesProxy => 'Entities and BT proxy';
+
+  @override
+  String get overviewEntitiesOnly => 'Entities only';
+
+  @override
+  String get overviewProxyOnly => 'BT Proxy only';
+
+  @override
+  String get overviewWaitingHA => 'Waiting for Home Assistant';
+
+  @override
+  String get overviewNotRunning => 'Not running';
+
+  @override
+  String get overviewRunningOne => 'Running - 1 feature';
+
+  @override
+  String overviewRunningMany(String count) {
+    return 'Running - $count features';
+  }
+
+  @override
+  String overviewDownloading(String version) {
+    return 'Downloading: $version';
+  }
+
+  @override
+  String overviewNewVersion(String version) {
+    return 'New version: $version';
+  }
+
+  @override
+  String overviewCurrentVersion(String version) {
+    return 'Up to date: $version';
+  }
+
+  @override
+  String get overviewCurrent => 'Up to date';
+
+  @override
+  String overviewPluginAttribution(String name) {
+    return '$name plugin';
+  }
+
+  @override
+  String get overviewMuted => 'muted';
+
+  @override
+  String get overviewBrowser => 'browser';
+
+  @override
+  String get overviewWakeWaiting =>
+      'Waiting for Voice Satellite. The engine and wake words are configured by the integration once this device opens its dashboard.';
+
+  @override
+  String get overviewWakeDisabled =>
+      'Wake word detection is off. Turn it on to inherit models from Voice Satellite.';
+
+  @override
+  String get overviewMicBlocked =>
+      'Microphone blocked. Android will not ask again, so allow it in the app settings, then retry.';
+
+  @override
+  String get overviewMicDeclined =>
+      'Microphone declined. Wake word detection needs it; retry to be asked again.';
+
+  @override
+  String get overviewMicLost =>
+      'The microphone stopped working. Retry, or reload the page.';
+
+  @override
+  String get overviewModelsUnavailable =>
+      'Could not download the models from Home Assistant. Retry once it is reachable.';
+
+  @override
+  String get overviewCrashed =>
+      'The detector kept crashing on this device, so it was stopped. Voice Satellite is listening in the browser instead. Retry, or restart the app.';
+
+  @override
+  String get overviewWakeFailed =>
+      'The wake-word engine could not start. Retry, or reload the page.';
+
+  @override
+  String overviewNativeUnavailable(String engine) {
+    return 'No native runner for $engine. Voice Satellite keeps browser detection.';
+  }
+
+  @override
+  String get overviewNativeListening => 'Listening natively';
+
+  @override
+  String get overviewSuspended => 'Ready (suspended during a voice session)';
+
+  @override
+  String get overviewNoScreenshot => 'No screenshot';
+
+  @override
+  String get overviewStill => 'Still';
+
+  @override
+  String get overviewLive => 'Live';
+
+  @override
+  String get overviewFullSize => 'Full size';
+
+  @override
+  String get overviewLiveInterval => 'Live, every 5 seconds';
+
+  @override
+  String overviewTaken(String age) {
+    return 'Taken $age';
+  }
+
+  @override
+  String overviewCameraViewNamed(String name) {
+    return 'Camera view: $name';
+  }
+
+  @override
+  String get overviewCameraView => 'Camera view';
+
+  @override
+  String get overviewScreenOffState => 'Screen is off';
+
+  @override
+  String get overviewGoView => 'Go to view';
+
+  @override
+  String get overviewLoadingViews => 'Loading views…';
+
+  @override
+  String get overviewPickView => 'Pick a dashboard view…';
+
+  @override
+  String get overviewDefaultView => 'Default view';
+
+  @override
+  String get overviewNoDashboards => 'No dashboards found';
+
+  @override
+  String get overviewViewsUnavailable => 'Views unavailable';
+
+  @override
   String get settingLauncherEnabledTitle => 'Activar lanzador de aplicaciones';
 
   @override

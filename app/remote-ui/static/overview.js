@@ -1,14 +1,15 @@
-import { mediaText, mediaError, navigationText, t } from './localization.js';
+import { overviewLabel, overviewMessageBox as messageBox, overviewModalShell as modalShell } from './overview_labels.js';
+import { overviewText, overviewStatus, deviceText, mediaText, mediaError, navigationText, t } from './localization.js';
 import { watchUpdates } from './live.js';
 import { $, api, cmd, state } from './core.js';
 import { attachUpdateInstall, refreshUpdateBadge } from './device.js';
 import { readFilterStatus } from './filter_status.js';
 import { agoLabel } from './notices.js';
-import { loadScreenshot, quick } from './panels.js';
+import { loadScreenshot, quick, renderQuickControls } from './panels.js';
 import { permissionSpecs } from './permissions.js';
 import { loadPlugins } from './plugins.js';
 import { showTab } from './tabs.js';
-import { attachSlider, messageBox, modalShell, showToast } from './widgets.js';
+import { attachSlider, showToast } from './widgets.js';
 
 /* ---- Overview ----
    The first page, and for most visits the only one: what the kiosk needs
@@ -61,8 +62,9 @@ function buildTiles() {
     b.className = 'status';
     b.dataset.status = id;
     b.innerHTML = '<span class="dot"></span><span class="s-text">'
-      + '<span class="s-name"></span><span class="s-sub">Checking…</span></span>';
-    b.querySelector('.s-name').textContent = name;
+      + '<span class="s-name"></span><span class="s-sub"></span></span>';
+    overviewLabel(b.querySelector('.s-name'), name);
+    overviewLabel(b.querySelector('.s-sub'), 'Checking…');
     b.addEventListener('click', () => showTab(tab));
     grid.insertBefore(b, grid.querySelector('.status.plugin'));
   }
@@ -88,9 +90,9 @@ const LEVELS = new Set(['', 'on', 'warn', 'off']);
 function paintPluginTiles(tiles) {
   const grid = $('#statusGrid');
   const keep = new Set();
-  for (const t of Array.isArray(tiles) ? tiles : []) {
-    if (!t || typeof t.pluginId !== 'string' || typeof t.key !== 'string') continue;
-    const id = `plugin:${t.pluginId}:${t.key}`;
+  for (const tile of Array.isArray(tiles) ? tiles : []) {
+    if (!tile || typeof tile.pluginId !== 'string' || typeof tile.key !== 'string') continue;
+    const id = `plugin:${tile.pluginId}:${tile.key}`;
     keep.add(id);
     let b = grid.querySelector(`[data-status="${id}"]`);
     if (!b) {
@@ -103,13 +105,13 @@ function paintPluginTiles(tiles) {
       // The plugin pages are built on first visit: build them before opening one.
       b.addEventListener('click', async () => {
         await loadPlugins();
-        showTab(`plugins/${t.pluginId}`, { refresh: false });
+        showTab(`plugins/${tile.pluginId}`, { refresh: false });
       });
       grid.appendChild(b);
     }
-    b.querySelector('.s-name').textContent = t.title || t.key;
-    b.querySelector('.s-from').textContent = `${t.pluginName || t.pluginId} plugin`;
-    paintTile(id, LEVELS.has(t.level) ? t.level : '', t.text || '');
+    b.querySelector('.s-name').textContent = tile.title || tile.key;
+    b.querySelector('.s-from').textContent = t('overviewPluginAttribution', {name: tile.pluginName || tile.pluginId});
+    paintTile(id, LEVELS.has(tile.level) ? tile.level : '', tile.text || '');
   }
   for (const b of grid.querySelectorAll('.status.plugin')) {
     if (!keep.has(b.dataset.status)) b.remove();
@@ -134,6 +136,8 @@ function renderAttention(items) {
     for (const it of items) {
       const desc = card.querySelector(`[data-key="${CSS.escape(it.key)}"] .desc`);
       if (desc) desc.textContent = it.desc;
+      const name = card.querySelector(`[data-key="${CSS.escape(it.key)}"] .name`);
+      if (name) name.textContent = it.name;
     }
     return;
   }
@@ -161,7 +165,7 @@ function renderAttention(items) {
 // someone's behalf); the button opens the dialog there and re-reads until
 // it lands, the same flow as the Permissions Manager rows.
 function grantButton(btn, spec) {
-  btn.textContent = spec.guard ? 'Open settings on device' : 'Grant on device';
+  overviewLabel(btn, spec.guard ? 'Open settings on device' : 'Grant on device');
   btn.onclick = async () => {
     btn.disabled = true;
     try {
@@ -173,7 +177,7 @@ function grantButton(btn, spec) {
   };
 }
 function openButton(btn, label, tab) {
-  btn.textContent = label;
+  overviewLabel(btn, label);
   btn.onclick = () => showTab(tab);
 }
 
@@ -241,15 +245,19 @@ document.addEventListener('ks-settings', (e) => {
 });
 
 let haStatusRevision = 0;
+let cachedFilterStatus;
 async function paintHaStatus(ha, { filter = true } = {}) {
-  const revision = ++haStatusRevision;
+  const revision = filter ? ++haStatusRevision : haStatusRevision;
   const filtering = settingOn('browser.ws_filter');
-  if (!ha) paintTile('ha', '', 'Status unavailable');
-  else if (!ha.configured) paintTile('ha', 'warn', 'Not set up');
+  if (!filtering || !ha?.configured || !ha?.connected) cachedFilterStatus = undefined;
+  if (!ha) paintTile('ha', '', overviewText('Status unavailable'));
+  else if (!ha.configured) paintTile('ha', 'warn', overviewText('Not set up'));
   // "connected" is this run's validation verdict, not a live probe: it never
   // drops when the server goes away, so the tile says Validated, not Connected.
-  else if (!ha.connected) paintTile('ha', 'off', 'Not validated');
-  else paintTile('ha', 'on', filtering ? 'Checking filter...' : 'Validated');
+  else if (!ha.connected) paintTile('ha', 'off', overviewText('Not validated'));
+  else paintTile('ha', filtering && cachedFilterStatus?.unfiltered ? 'warn' : 'on', filtering
+    ? cachedFilterStatus === undefined ? overviewText('Checking filter...') : overviewStatus(cachedFilterStatus?.label || 'Filter status unavailable')
+    : overviewText('Validated'));
   // Keep the rest of Overview responsive if the dashboard cannot answer.
   // Disabled or disconnected panels do not get a JavaScript request.
   if (!filter || !onOverview()) return;
@@ -257,35 +265,36 @@ async function paintHaStatus(ha, { filter = true } = {}) {
   if (revision !== haStatusRevision || !onOverview() || !ha?.configured || !ha?.connected) return;
   const enabled = settingOn('browser.ws_filter');
   const current = enabled ? status : null;
+  cachedFilterStatus = current;
   paintTile('ha', current?.unfiltered ? 'warn' : 'on',
-    enabled ? current?.label || 'Filter status unavailable' : 'Validated');
+    enabled ? overviewStatus(current?.label || 'Filter status unavailable') : overviewText('Validated'));
 }
 
 function paintHealth({ filter = true } = {}) {
   const { ha, wake, esp, media, svc, upd, perms, guard, fleet, tiles } = health;
   void paintHaStatus(ha, { filter });
 
-  if (!settingOn('wake_word.enabled')) paintTile('voice', '', 'Wake word detection off');
-  else if (!wake) paintTile('voice', '', 'Status unavailable');
-  else if (wake.released) paintTile('voice', 'warn', wake.releaseReason || 'Stopped');
+  if (!settingOn('wake_word.enabled')) paintTile('voice', '', overviewText('Wake word detection off'));
+  else if (!wake) paintTile('voice', '', overviewText('Status unavailable'));
+  else if (wake.released) paintTile('voice', 'warn', overviewStatus(wake.releaseReason || 'Stopped'));
   else if (wake.listening) {
     const words = (wake.models || []).map((m) => m.wakeWord).filter(Boolean).join(', ');
-    paintTile('voice', 'on', words ? `Listening for ${words}` : 'Listening');
-  } else paintTile('voice', 'warn', wake.statusLabel || 'Not listening');
+    paintTile('voice', 'on', words ? t('overviewListeningFor', {words}) : overviewText('Listening'));
+  } else paintTile('voice', 'warn', overviewStatus(wake.statusLabel || 'Not listening'));
 
   // Connected means a Home Assistant session subscribed to entity states
   // (clients), or the proxy relaying: advertisements subscribed or a
   // device connected through it. The proxy signals alone used to decide,
   // so an entities-only server read as waiting while it served everything.
-  if (!esp) paintTile('esphome', '', 'Status unavailable');
-  else if (!esp.running) paintTile('esphome', '', 'Off');
+  if (!esp) paintTile('esphome', '', overviewText('Status unavailable'));
+  else if (!esp.running) paintTile('esphome', '', overviewText('Off'));
   else if (esp.clients || (esp.connections || []).length || esp.subscribers) {
     // What the connection carries, from the two switches under it.
     const entities = settingOn('esphome.entities');
     const proxy = settingOn('btproxy.enabled');
-    paintTile('esphome', 'on', entities && proxy ? 'Entities and BT proxy'
-      : entities ? 'Entities only' : proxy ? 'BT Proxy only' : 'Connected');
-  } else paintTile('esphome', 'warn', 'Waiting for Home Assistant');
+    paintTile('esphome', 'on', entities && proxy ? overviewText('Entities and BT proxy')
+      : entities ? overviewText('Entities only') : proxy ? overviewText('BT Proxy only') : overviewText('Connected'));
+  } else paintTile('esphome', 'warn', overviewText('Waiting for Home Assistant'));
 
   // Green only while something plays. Idle is the normal state of a
   // player, not a fault: an own Sendspin player with no server around and
@@ -303,19 +312,19 @@ function paintHealth({ filter = true } = {}) {
     else paintTile('media', '', label('Idle'));
   }
 
-  if (!svc) paintTile('service', '', 'Status unavailable');
+  if (!svc) paintTile('service', '', overviewText('Status unavailable'));
   else if (svc.error) paintTile('service', 'off', svc.error);
-  else if (!svc.running) paintTile('service', 'warn', 'Not running');
+  else if (!svc.running) paintTile('service', 'warn', overviewText('Not running'));
   else {
     const n = (svc.reasons || []).length;
-    paintTile('service', 'on', n ? `Running - ${n} feature${n === 1 ? '' : 's'}` : 'Running');
+    paintTile('service', 'on', n ? n === 1 ? overviewText('Running - 1 feature') : t('overviewRunningMany', {count: String(n)}) : overviewText('Running'));
   }
 
-  if (!upd) paintTile('update', '', 'Status unavailable');
+  if (!upd) paintTile('update', '', overviewText('Status unavailable'));
   else if (upd.progress !== null && upd.progress !== undefined) {
-    paintTile('update', 'warn', `Downloading: ${upd.availableVersion || ''}`.trim());
-  } else if (upd.availableVersion) paintTile('update', 'warn', `New version: ${upd.availableVersion}`);
-  else paintTile('update', 'on', upd.currentVersion ? `Up to date: ${upd.currentVersion}` : 'Up to date');
+    paintTile('update', 'warn', t('overviewDownloading', {version: upd.availableVersion || ''}).trim());
+  } else if (upd.availableVersion) paintTile('update', 'warn', t('overviewNewVersion', {version: upd.availableVersion}));
+  else paintTile('update', 'on', upd.currentVersion ? t('overviewCurrentVersion', {version: upd.currentVersion}) : overviewText('Up to date'));
 
   paintPluginTiles(tiles);
 
@@ -326,8 +335,8 @@ function paintHealth({ filter = true } = {}) {
   if (fleet?.invite?.leader) {
     items.push({
       key: 'fleet-invite',
-      name: `${fleet.invite.leader.name} wants to lead this kiosk`,
-      desc: 'Confirm on the kiosk screen or under Fleet Management there.',
+      name: t('overviewInvitation', {name: fleet.invite.leader.name}),
+      desc: overviewText('Confirm on the kiosk screen or under Fleet Management there.'),
       action: (btn) => openButton(btn, 'Open', 'fleet'),
     });
   }
@@ -335,10 +344,10 @@ function paintHealth({ filter = true } = {}) {
     const names = fleet.outdated;
     items.push({
       key: 'fleet-outdated',
-      name: `${names.length} follower${names.length === 1 ? '' : 's'} run${names.length === 1 ? 's' : ''} another release`,
-      desc: `${names.join(', ')}. Sync waits until ${names.length === 1 ? 'it runs' : 'they run'} ${fleet.self?.version || 'this release'}.`,
+      name: names.length === 1 ? overviewText('1 follower runs another release') : t('overviewOutdatedMany', {count: String(names.length)}),
+      desc: t('overviewSyncWaiting', {names: names.join(', '), version: fleet.self?.version || overviewText('this release')}),
       action: (btn) => {
-        btn.textContent = 'Update';
+        overviewLabel(btn, 'Update');
         btn.onclick = async () => {
           btn.disabled = true;
           try { await cmd('fleetUpdate'); } catch (_) {}
@@ -351,35 +360,34 @@ function paintHealth({ filter = true } = {}) {
   if (upd?.availableVersion) {
     items.push({
       key: 'update',
-      name: 'Update available',
-      desc: `Kiosk Satellite ${upd.availableVersion} is ready to install. `
-        + 'The installation is confirmed on the tablet screen.',
-      action: (btn) => { btn.textContent = 'Install'; attachUpdateInstall(btn, upd); },
+      name: overviewText('Update available'),
+      desc: t('overviewInstallHelp', {version: upd.availableVersion}),
+      action: (btn) => { overviewLabel(btn, 'Install'); attachUpdateInstall(btn, upd); },
     });
   }
   if (ha && !ha.configured) {
     items.push({
       key: 'ha-setup',
-      name: 'Home Assistant not set up',
-      desc: 'Connect the kiosk to Home Assistant to load a dashboard.',
+      name: overviewText('Home Assistant not set up'),
+      desc: overviewText('Connect the kiosk to Home Assistant to load a dashboard.'),
       action: (btn) => openButton(btn, 'Set up', 'homeassistant'),
     });
   } else if (ha && !ha.connected) {
     items.push({
       key: 'ha',
-      name: 'Home Assistant not validated',
-      desc: 'The URL and token have not passed a connection check this run. The kiosk retries every 30 seconds.',
+      name: overviewText('Home Assistant not validated'),
+      desc: overviewText('The URL and token have not passed a connection check this run. The kiosk retries every 30 seconds.'),
       action: (btn) => openButton(btn, 'Open setup', 'homeassistant'),
     });
   }
   if (settingOn('wake_word.enabled') && wake?.released) {
     items.push({
       key: 'wake',
-      name: 'Wake word detection stopped',
-      desc: wake.releaseReason || 'The engine was released.',
+      name: overviewText('Wake word detection stopped'),
+      desc: overviewStatus(wake.releaseReason || 'The engine was released.'),
       action: (btn) => {
         if (!wake.canRetry) { openButton(btn, 'Open Voice Satellite', 'voicesatellite'); return; }
-        btn.textContent = 'Retry';
+        overviewLabel(btn, 'Retry');
         btn.onclick = async () => {
           btn.disabled = true;
           await cmd('retryWakeWord').catch(() => null);
@@ -391,7 +399,7 @@ function paintHealth({ filter = true } = {}) {
   if (svc?.error) {
     items.push({
       key: 'service',
-      name: 'Kiosk Satellite Service',
+      name: overviewText('Kiosk Satellite Service'),
       desc: svc.error,
       action: (btn) => openButton(btn, 'Open service', 'device/Kiosk Satellite Service'),
     });
@@ -409,8 +417,8 @@ function paintHealth({ filter = true } = {}) {
       if (spec.requestable && all[spec.requestable] === false) continue;
       items.push({
         key: `perm:${spec.key}`,
-        name: `${spec.name} permission missing`,
-        desc: text(spec.missing),
+        name: t('overviewPermissionMissing', {permission: deviceText(spec.name)}),
+        desc: deviceText(text(spec.missing)),
         action: (btn) => grantButton(btn, spec),
       });
     }
@@ -435,8 +443,8 @@ function paintShotMode() {
 }
 function paintTaken() {
   const el = $('#shotTaken');
-  if (live) el.textContent = 'Live, every 5 seconds';
-  else if (state.screenshotAt) el.textContent = `Taken ${agoLabel(new Date(state.screenshotAt))}`;
+  if (live) el.textContent = overviewText('Live, every 5 seconds');
+  else if (state.screenshotAt) el.textContent = t('overviewTaken', {age: agoLabel(new Date(state.screenshotAt))});
   else el.textContent = '';
 }
 // What the panel is doing, on the frame, so a black capture reads as the
@@ -445,11 +453,11 @@ export function paintShotBadge() {
   const el = $('#shotBadge');
   let icon = '';
   let text = '';
-  if (quick.screenOn === false) { icon = ICONS.screenOff; text = 'Screen off'; }
+  if (quick.screenOn === false) { icon = ICONS.screenOff; text = t('overviewScreenOffState'); }
   else if (quick.cameraView?.active) {
     icon = ICONS.camera;
-    text = quick.cameraView.viewName ? `Camera view: ${quick.cameraView.viewName}` : 'Camera view';
-  } else if (quick.screensaverActive === true) { icon = ICONS.moon; text = 'Screensaver'; }
+    text = quick.cameraView.viewName ? t('overviewCameraViewNamed', {name: quick.cameraView.viewName}) : overviewText('Camera view');
+  } else if (quick.screensaverActive === true) { icon = ICONS.moon; text = overviewText('Screensaver'); }
   el.classList.toggle('hidden', !text);
   el.innerHTML = icon;
   el.appendChild(document.createTextNode(text));
@@ -607,8 +615,8 @@ $('#tileRestartDevice').addEventListener('click', async () => {
   });
   if (choice !== 'Restart') return;
   const res = await cmd('rebootDevice').catch(() => null);
-  if (res && res.ok !== false) showToast({ title: 'Restart device', kind: 'success' });
-  else showToast({ title: 'Restart device', message: (res && res.error) || 'The device did not answer.', kind: 'error' });
+  if (res && res.ok !== false) showToast({ title: overviewText('Restart device'), kind: 'success' });
+  else showToast({ title: overviewText('Restart device'), message: (res && res.error) || overviewText('The device did not answer.'), kind: 'error' });
 });
 
 // Do not disturb: only with the intercom on and the remote admin there to
@@ -623,7 +631,7 @@ function paintDndTile(s) {
   if (!shown) return;
   dnd = s.dnd === true;
   tile.classList.toggle('active', dnd);
-  tile.querySelector('.disc + span').textContent = dnd ? 'Do not disturb on' : 'Do not disturb';
+  overviewLabel(tile.querySelector('.disc + span'), dnd ? 'Do not disturb on' : 'Do not disturb');
 }
 async function refreshDndTile() {
   paintDndTile(await ask('intercomStatus'));
@@ -634,8 +642,8 @@ $('#tileDnd').addEventListener('click', async () => {
   try {
     const res = await cmd('intercomSetDnd', { on: !dnd }).catch(() => null);
     if (!res || res.ok === false) {
-      showToast({ title: 'Do not disturb',
-        message: (res && res.error) || 'The device did not answer.', kind: 'error' });
+      showToast({ title: overviewText('Do not disturb'),
+        message: (res && res.error) || overviewText('The device did not answer.'), kind: 'error' });
     }
     await refreshDndTile();
   } finally { tile.disabled = false; }
@@ -668,12 +676,12 @@ $('#tileSnapshot').addEventListener('click', async () => {
     const { back, body, foot } = modalShell({ title: 'Camera snapshot', width: 720 });
     const img = document.createElement('img');
     img.src = url;
-    img.alt = 'Camera snapshot';
+    overviewLabel(img, 'Camera snapshot', 'alt');
     img.style.cssText = 'display:block; width:100%; border-radius:12px;';
     body.appendChild(img);
     const close = document.createElement('button');
     close.className = 'btn-text';
-    close.textContent = 'Close';
+    overviewLabel(close, 'Close');
     close.addEventListener('click', () => { back.remove(); URL.revokeObjectURL(url); });
     foot.appendChild(close);
   } finally { tile.disabled = false; }
@@ -692,8 +700,8 @@ $('#tileCheckUpdate').addEventListener('click', async () => {
     } else if (!res.availableVersion) {
       await messageBox({ title: 'Check for updates', message: 'You are on the latest version.' });
     } else {
-      showToast({ title: `Version ${res.availableVersion} is available`,
-        message: 'Install it from Needs attention.', kind: 'info' });
+      showToast({ title: t('overviewVersionAvailable', {version: res.availableVersion}),
+        message: overviewText('Install it from Needs attention.'), kind: 'info' });
     }
   } finally { tile.disabled = false; }
 });
@@ -732,3 +740,8 @@ export async function initOverview() {
   await Promise.all([refreshHealth(), refreshVolume(), paintRestartDeviceTile(), refreshDndTile()]);
 }
 
+document.addEventListener('ks-settings-cached', () => {
+  paintHealth({filter: false});
+  paintShotMode();
+  renderQuickControls();
+});
