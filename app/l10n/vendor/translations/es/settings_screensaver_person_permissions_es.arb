@@ -1,0 +1,16 @@
+{
+  "@@locale": "es",
+  "screensaverDetectionPermissions": "Permisos del sistema necesarios",
+  "screensaverDetectionLogAccess": "Acceso a los registros",
+  "screensaverDetectionChecking": "Comprobando...",
+  "screensaverDetectionReadable": "Se puede leer el sensor de personas del dispositivo.",
+  "screensaverDetectionRestartRequired": "Concedido. Reinicia Kiosk Satellite para aplicarlo.",
+  "screensaverDetectionGrantHelp": "Este permiso solo se puede conceder mediante ADB. La documentación de Meta Portal incluye el comando completo. Después, reinicia Kiosk Satellite.",
+  "screensaverDetectionGrantRemoteHelp": "Este permiso solo se puede conceder mediante ADB. Abajo está el comando completo, listo para copiar. Después, reinicia Kiosk Satellite.",
+  "screensaverDetectionGranted": "Concedido",
+  "screensaverDetectionMissing": "Falta el permiso",
+  "screensaverDetectionRestart": "Reiniciar",
+  "screensaverDetectionRestartRemote": "Reiniciar el dispositivo",
+  "screensaverDetectionLogRestart": "El acceso a los registros está concedido, pero se aplica al reiniciar Kiosk Satellite.",
+  "screensaverDetectionLogMissing": "No se ha concedido el acceso a los registros."
+}

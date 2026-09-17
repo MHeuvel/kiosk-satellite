@@ -1,0 +1,185 @@
+{
+  "@@locale": "en",
+  "settingScreensaverDismissOnFaceTitle": "Dismiss on face",
+  "@settingScreensaverDismissOnFaceTitle": {
+    "context": "Settings > Screensaver > Face Detection",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Face Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Face Detection"
+      ]
+    }
+  },
+  "settingScreensaverDismissOnFaceDescription": "Wake the screen when someone looks at the kiosk, not on movement alone. The camera runs only during the screensaver. WARNING: Needs a lit face; in the dark, schedule motion detection instead.",
+  "@settingScreensaverDismissOnFaceDescription": {
+    "context": "Settings > Screensaver > Face Detection",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Face Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Face Detection"
+      ]
+    }
+  },
+  "settingScreensaverDismissOnFaceScreenOffOnlyTitle": "Only when screen is off",
+  "@settingScreensaverDismissOnFaceScreenOffOnlyTitle": {
+    "context": "Settings > Screensaver > Face Detection",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Face Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Face Detection"
+      ]
+    }
+  },
+  "settingScreensaverDismissOnFaceScreenOffOnlyDescription": "Keep the screensaver visible when a face is detected while the screen is on. Once the screen turns off, detection wakes the dashboard. Touch still dismisses the screensaver.",
+  "@settingScreensaverDismissOnFaceScreenOffOnlyDescription": {
+    "context": "Settings > Screensaver > Face Detection",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Face Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Face Detection"
+      ]
+    }
+  },
+  "settingScreensaverPostponeOnFaceTitle": "Postpone screensaver on face",
+  "@settingScreensaverPostponeOnFaceTitle": {
+    "context": "Settings > Screensaver > Face Detection",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Face Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Face Detection"
+      ]
+    }
+  },
+  "settingScreensaverPostponeOnFaceDescription": "Delay activating the screensaver while someone is looking at the kiosk. WARNING: Keeps the camera running permanently, with face detection and its CPU cost on top.",
+  "@settingScreensaverPostponeOnFaceDescription": {
+    "context": "Settings > Screensaver > Face Detection",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Face Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Face Detection"
+      ]
+    }
+  },
+  "settingFaceSensitivityTitle": "Face sensitivity",
+  "@settingFaceSensitivityTitle": {
+    "context": "Settings > Screensaver > Face Detection",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Face Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Face Detection"
+      ]
+    }
+  },
+  "settingFaceSensitivityDescription": "Higher wakes on smaller, more distant faces. 1 needs a face close to the screen; 100 reacts to any face the camera can make out.",
+  "@settingFaceSensitivityDescription": {
+    "context": "Settings > Screensaver > Face Detection",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Face Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Face Detection"
+      ]
+    }
+  },
+  "screensaverDetectionFacePage": "Face Detection",
+  "@screensaverDetectionFacePage": {
+    "context": "Settings > Screensaver > Face Detection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Face Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Face Detection"
+      ]
+    }
+  },
+  "screensaverDetectionFaceHint": "Dismiss the screensaver when someone looks at it",
+  "@screensaverDetectionFaceHint": {
+    "context": "Settings > Screensaver > Face Detection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Face Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Face Detection"
+      ]
+    }
+  },
+  "screensaverDetectionMotionPrecedence": "Dismiss on motion is on and takes precedence, so face detection stays idle until it is turned off.",
+  "@screensaverDetectionMotionPrecedence": {
+    "context": "Settings > Screensaver > Face Detection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Face Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Face Detection"
+      ]
+    }
+  },
+  "screensaverDetectionFaceTuning": "Frame rate, camera pick and startup delay are tuned in the Camera settings.",
+  "@screensaverDetectionFaceTuning": {
+    "context": "Settings > Screensaver > Face Detection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Face Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Face Detection"
+      ]
+    }
+  },
+  "screensaverDetectionAndroidUnsupported": "Not available on this Android version.",
+  "@screensaverDetectionAndroidUnsupported": {
+    "context": "Settings > Screensaver > Face Detection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Face Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Face Detection"
+      ]
+    }
+  },
+  "screensaverDetectionX86Unsupported": "Not available on x86 devices.",
+  "@screensaverDetectionX86Unsupported": {
+    "context": "Settings > Screensaver > Face Detection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Face Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Face Detection"
+      ]
+    }
+  }
+}

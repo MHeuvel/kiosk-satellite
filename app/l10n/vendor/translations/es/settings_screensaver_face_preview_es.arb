@@ -1,0 +1,12 @@
+{
+  "@@locale": "es",
+  "settingFacePreviewTitle": "Mostrar vista previa de la cámara",
+  "settingFacePreviewDescription": "Muestra una pequeña vista circular en vivo de la cámara en una esquina durante unos segundos cuando un rostro activa el kiosko.",
+  "settingFacePreviewSecondsTitle": "Duración de la vista previa",
+  "settingFacePreviewSecondsDescription": "Tiempo que la vista previa permanece en pantalla.",
+  "settingFacePreviewScaleTitle": "Escala de la vista previa",
+  "settingFacePreviewScaleDescription": "Ajusta el tamaño de la vista previa a la pantalla.",
+  "settingFacePreviewPositionTitle": "Posición de la vista previa",
+  "settingFacePreviewPositionDescription": "Esquina en la que se muestra la vista previa.",
+  "screensaverDetectionPreviewSection": "Vista previa de la cámara"
+}

@@ -1,0 +1,17 @@
+{
+  "@@locale": "es",
+  "settingScreensaverDismissOnFaceTitle": "Cerrar al detectar un rostro",
+  "settingScreensaverDismissOnFaceDescription": "Activa la pantalla cuando alguien mira el kiosko, no solo cuando hay movimiento. La cámara funciona solo durante el protector de pantalla. ADVERTENCIA: Necesita un rostro iluminado. En la oscuridad, programa la detección de movimiento.",
+  "settingScreensaverDismissOnFaceScreenOffOnlyTitle": "Solo cuando la pantalla está apagada",
+  "settingScreensaverDismissOnFaceScreenOffOnlyDescription": "Mantiene visible el protector de pantalla si detecta un rostro con la pantalla encendida. Cuando la pantalla está apagada, la detección abre el panel de control. Tocar la pantalla sigue cerrando el protector de pantalla.",
+  "settingScreensaverPostponeOnFaceTitle": "Posponer el protector de pantalla al detectar un rostro",
+  "settingScreensaverPostponeOnFaceDescription": "Retrasa la activación del protector de pantalla mientras alguien mira el kiosko. ADVERTENCIA: Mantiene la cámara encendida permanentemente, con el consumo adicional de CPU de la detección de rostros.",
+  "settingFaceSensitivityTitle": "Sensibilidad de detección de rostros",
+  "settingFaceSensitivityDescription": "Los valores más altos detectan rostros más pequeños y lejanos. El valor 1 requiere un rostro cerca de la pantalla. El valor 100 responde a cualquier rostro que la cámara pueda distinguir.",
+  "screensaverDetectionFacePage": "Detección de rostros",
+  "screensaverDetectionFaceHint": "Cierra el protector de pantalla cuando alguien lo mira",
+  "screensaverDetectionMotionPrecedence": "Cerrar al detectar movimiento está activado y tiene prioridad. La detección de rostros queda inactiva hasta que lo desactives.",
+  "screensaverDetectionFaceTuning": "La frecuencia de cuadros, la cámara y el retraso de inicio se ajustan en la configuración de Cámara.",
+  "screensaverDetectionAndroidUnsupported": "No disponible en esta versión de Android.",
+  "screensaverDetectionX86Unsupported": "No disponible en dispositivos x86."
+}

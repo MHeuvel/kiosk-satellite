@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite",
-  "revision": "28fc733781e3047de44f610f6aaae64c6f40033b",
+  "revision": "57d3e19c9ed60b8aa15a4413e414cc5cc8e65b55",
   "workingTree": false,
   "files": {
     "common_en.arb": "445e2b0d194c744c2ec3591b9176ff9ef903ab02e38924b80923f86698982e9a",
@@ -34,6 +34,8 @@
     "settings_screensaver_black_en.arb": "ebf022d21e39061ab0dd2122ca1570abd797d059eed851cbc877499b80bcc79e",
     "settings_screensaver_clock_en.arb": "f4acf3e1ef0dc705d137e6f6ce627513baa58236b802e9080985b5257b5b8e12",
     "settings_screensaver_entity_picker_en.arb": "0691aa0bca520dce916ead490a20861eccd930958c5adb667cde11497d7b7ce5",
+    "settings_screensaver_face_detection_en.arb": "498665376d9b47d83f4932baf0952dfff3807f4510fea02f0a930f764f1dd932",
+    "settings_screensaver_face_preview_en.arb": "9f75439ce71a8947426a0f382eb06632a74c2c145a5642918065e40ae91f9957",
     "settings_screensaver_general_en.arb": "1b31d73cb07b2aa976b6e98ccbbc23ea5f39b7a01b55fcafb618b5bfabb35f3f",
     "settings_screensaver_glance_appearance_en.arb": "b574a776553d61438bb268830e45cdcb30aa79995d3a865aa3caab8c741d628e",
     "settings_screensaver_glance_en.arb": "938eee78793e53b1b39973630e13f01e1ccf59247493880bdbc84fddcdf978e9",
@@ -47,6 +49,10 @@
     "settings_screensaver_media_gallery_en.arb": "22d8025af7ee10cb2743592ef5d12560988a02a95784067782d6e247956412ec",
     "settings_screensaver_media_home_assistant_en.arb": "195fd9df531203bd8319907b327b9b73cfda7d9221cc9004e91e81a64c43f54a",
     "settings_screensaver_media_local_en.arb": "1ca083270389cd297f6427181e81072cbd8f53c9760298adec4eab5adc7c77f7",
+    "settings_screensaver_motion_detection_en.arb": "b16c416cda935c007b290487e18fade56150bfb797830f0e479ce3fbc3b0a0b7",
+    "settings_screensaver_person_detection_en.arb": "b869eab974d2364ea71bb207a2fdcf31ccf427346f7f07d4dce190783e33df85",
+    "settings_screensaver_person_permissions_en.arb": "7c430a8e3ce7c7e12ea0c14a54b708082b58eb0c230e0178e47279c2b84010c1",
+    "settings_screensaver_proximity_detection_en.arb": "e87a5a64854466df9b18f48a036e7bccb01b24b80bf48bdcc05a352c04d0d783",
     "settings_screensaver_schedule_en.arb": "2c777f1f62e3c57d6821cc687110f0ce7ef1e69c867536413aaff37a0c3df7cf",
     "settings_screensaver_website_en.arb": "9852330f7c384c850507318a5bcab08a8d38221d2fd696a1fbc74e2f047c64b8",
     "settings_screensaver_widget_editor_en.arb": "eb2f23ff178b3d812ab77755abc6a32dd043a4266cbe2fb382b3720c63337737",

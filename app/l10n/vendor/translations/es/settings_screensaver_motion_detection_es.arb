@@ -1,0 +1,12 @@
+{
+  "@@locale": "es",
+  "settingScreensaverDismissOnMotionTitle": "Cerrar al detectar movimiento",
+  "settingScreensaverDismissOnMotionDescription": "Usa la cámara mientras se muestra el protector de pantalla y activa la pantalla cuando alguien se acerca. La cámara funciona solo durante el protector de pantalla.",
+  "settingScreensaverDismissOnMotionScreenOffOnlyTitle": "Solo cuando la pantalla está apagada",
+  "settingScreensaverDismissOnMotionScreenOffOnlyDescription": "Mantiene visible el protector de pantalla si detecta movimiento con la pantalla encendida. Cuando la pantalla está apagada, la detección abre el panel de control. Tocar la pantalla sigue cerrando el protector de pantalla.",
+  "settingScreensaverPostponeOnMotionTitle": "Posponer el protector de pantalla al detectar movimiento",
+  "settingScreensaverPostponeOnMotionDescription": "Retrasa la activación del protector de pantalla cuando detecta movimiento. ADVERTENCIA: Mantiene la cámara encendida permanentemente.",
+  "screensaverDetectionMotionPage": "Detección de movimiento",
+  "screensaverDetectionMotionHint": "Cierra o pospone el protector de pantalla al detectar movimiento",
+  "screensaverDetectionMotionTuning": "La detección de movimiento se ajusta en la configuración de Cámara."
+}

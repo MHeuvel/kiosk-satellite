@@ -1,0 +1,146 @@
+{
+  "@@locale": "en",
+  "settingScreensaverDismissOnProximityTitle": "Dismiss on proximity",
+  "@settingScreensaverDismissOnProximityTitle": {
+    "context": "Settings > Screensaver > Proximity Detection",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Proximity Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Proximity Detection"
+      ]
+    }
+  },
+  "settingScreensaverDismissOnProximityDescription": "Watch the proximity sensor while the screensaver is up and wake the screen when something comes close to the device. A device with only sensors made for calls (\"palm\", \"touch\") will not work.",
+  "@settingScreensaverDismissOnProximityDescription": {
+    "context": "Settings > Screensaver > Proximity Detection",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Proximity Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Proximity Detection"
+      ]
+    }
+  },
+  "settingScreensaverDismissOnProximityScreenOffOnlyTitle": "Only when screen is off",
+  "@settingScreensaverDismissOnProximityScreenOffOnlyTitle": {
+    "context": "Settings > Screensaver > Proximity Detection",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Proximity Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Proximity Detection"
+      ]
+    }
+  },
+  "settingScreensaverDismissOnProximityScreenOffOnlyDescription": "Keep the screensaver visible when something approaches while the screen is on. Once the screen turns off, detection wakes the dashboard. Touch still dismisses the screensaver.",
+  "@settingScreensaverDismissOnProximityScreenOffOnlyDescription": {
+    "context": "Settings > Screensaver > Proximity Detection",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Proximity Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Proximity Detection"
+      ]
+    }
+  },
+  "settingScreensaverPostponeOnProximityTitle": "Postpone screensaver on proximity",
+  "@settingScreensaverPostponeOnProximityTitle": {
+    "context": "Settings > Screensaver > Proximity Detection",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Proximity Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Proximity Detection"
+      ]
+    }
+  },
+  "settingScreensaverPostponeOnProximityDescription": "Delay activating the screensaver while something is close to the sensor.",
+  "@settingScreensaverPostponeOnProximityDescription": {
+    "context": "Settings > Screensaver > Proximity Detection",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Proximity Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Proximity Detection"
+      ]
+    }
+  },
+  "screensaverDetectionProximityPage": "Proximity Detection",
+  "@screensaverDetectionProximityPage": {
+    "context": "Settings > Screensaver > Proximity Detection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Proximity Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Proximity Detection"
+      ]
+    }
+  },
+  "screensaverDetectionProximityHint": "Dismiss or postpone the screensaver on the proximity sensor",
+  "@screensaverDetectionProximityHint": {
+    "context": "Settings > Screensaver > Proximity Detection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Proximity Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Proximity Detection"
+      ]
+    }
+  },
+  "screensaverDetectionNoProximity": "Not available on this device: it has no proximity sensor.",
+  "@screensaverDetectionNoProximity": {
+    "context": "Settings > Screensaver > Proximity Detection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Proximity Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Proximity Detection"
+      ]
+    }
+  },
+  "screensaverDetectionSensor": "Sensor",
+  "@screensaverDetectionSensor": {
+    "context": "Settings > Screensaver > Proximity Detection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Proximity Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Proximity Detection"
+      ]
+    }
+  },
+  "screensaverDetectionSensorHelp": "What the device reports as the proximity sensor. A sensor made for calls named \"palm\" or \"touch\" will not work.",
+  "@screensaverDetectionSensorHelp": {
+    "context": "Settings > Screensaver > Proximity Detection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Proximity Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Proximity Detection"
+      ]
+    }
+  }
+}

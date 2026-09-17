@@ -1,0 +1,172 @@
+{
+  "@@locale": "en",
+  "screensaverDetectionPermissions": "Required system permissions",
+  "@screensaverDetectionPermissions": {
+    "context": "Settings > Screensaver > Person Detection > Required system permissions",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Person Detection > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Person Detection > Required system permissions"
+      ]
+    }
+  },
+  "screensaverDetectionLogAccess": "Log access",
+  "@screensaverDetectionLogAccess": {
+    "context": "Settings > Screensaver > Person Detection > Required system permissions",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Person Detection > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Person Detection > Required system permissions"
+      ]
+    }
+  },
+  "screensaverDetectionChecking": "Checking...",
+  "@screensaverDetectionChecking": {
+    "context": "Settings > Screensaver > Person Detection > Required system permissions",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Person Detection > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Person Detection > Required system permissions"
+      ]
+    }
+  },
+  "screensaverDetectionReadable": "The device's person sensor can be read.",
+  "@screensaverDetectionReadable": {
+    "context": "Settings > Screensaver > Person Detection > Required system permissions",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Person Detection > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Person Detection > Required system permissions"
+      ]
+    }
+  },
+  "screensaverDetectionRestartRequired": "Granted. Restart Kiosk Satellite to apply it.",
+  "@screensaverDetectionRestartRequired": {
+    "context": "Settings > Screensaver > Person Detection > Required system permissions",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Person Detection > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Person Detection > Required system permissions"
+      ]
+    }
+  },
+  "screensaverDetectionGrantHelp": "This permission can only be granted via ADB. The Meta Portal doc has the full command. Restart Kiosk Satellite afterwards.",
+  "@screensaverDetectionGrantHelp": {
+    "context": "Settings > Screensaver > Person Detection > Required system permissions",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Person Detection > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Person Detection > Required system permissions"
+      ]
+    }
+  },
+  "screensaverDetectionGrantRemoteHelp": "This permission can only be granted via ADB. Below is the full command, ready to be copied. Restart Kiosk Satellite afterwards.",
+  "@screensaverDetectionGrantRemoteHelp": {
+    "context": "Settings > Screensaver > Person Detection > Required system permissions",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Person Detection > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Person Detection > Required system permissions"
+      ]
+    }
+  },
+  "screensaverDetectionGranted": "Granted",
+  "@screensaverDetectionGranted": {
+    "context": "Settings > Screensaver > Person Detection > Required system permissions",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Person Detection > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Person Detection > Required system permissions"
+      ]
+    }
+  },
+  "screensaverDetectionMissing": "Missing",
+  "@screensaverDetectionMissing": {
+    "context": "Settings > Screensaver > Person Detection > Required system permissions",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Person Detection > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Person Detection > Required system permissions"
+      ]
+    }
+  },
+  "screensaverDetectionRestart": "Restart",
+  "@screensaverDetectionRestart": {
+    "context": "Settings > Screensaver > Person Detection > Required system permissions",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Person Detection > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Person Detection > Required system permissions"
+      ]
+    }
+  },
+  "screensaverDetectionRestartRemote": "Restart on device",
+  "@screensaverDetectionRestartRemote": {
+    "context": "Settings > Screensaver > Person Detection > Required system permissions",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Person Detection > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Person Detection > Required system permissions"
+      ]
+    }
+  },
+  "screensaverDetectionLogRestart": "Log access is granted but takes effect when Kiosk Satellite restarts.",
+  "@screensaverDetectionLogRestart": {
+    "context": "Settings > Screensaver > Person Detection > Required system permissions",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Person Detection > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Person Detection > Required system permissions"
+      ]
+    }
+  },
+  "screensaverDetectionLogMissing": "Log access not granted.",
+  "@screensaverDetectionLogMissing": {
+    "context": "Settings > Screensaver > Person Detection > Required system permissions",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Person Detection > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Person Detection > Required system permissions"
+      ]
+    }
+  }
+}

@@ -2640,88 +2640,90 @@ class UiStringsEs extends UiStrings {
   }
 
   @override
-  String get settingScreensaverDismissOnFaceTitle => 'Dismiss on face';
+  String get settingScreensaverDismissOnFaceTitle =>
+      'Cerrar al detectar un rostro';
 
   @override
   String get settingScreensaverDismissOnFaceDescription =>
-      'Wake the screen when someone looks at the kiosk, not on movement alone. The camera runs only during the screensaver. WARNING: Needs a lit face; in the dark, schedule motion detection instead.';
+      'Activa la pantalla cuando alguien mira el kiosko, no solo cuando hay movimiento. La cámara funciona solo durante el protector de pantalla. ADVERTENCIA: Necesita un rostro iluminado. En la oscuridad, programa la detección de movimiento.';
 
   @override
   String get settingScreensaverDismissOnFaceScreenOffOnlyTitle =>
-      'Only when screen is off';
+      'Solo cuando la pantalla está apagada';
 
   @override
   String get settingScreensaverDismissOnFaceScreenOffOnlyDescription =>
-      'Keep the screensaver visible when a face is detected while the screen is on. Once the screen turns off, detection wakes the dashboard. Touch still dismisses the screensaver.';
+      'Mantiene visible el protector de pantalla si detecta un rostro con la pantalla encendida. Cuando la pantalla está apagada, la detección abre el panel de control. Tocar la pantalla sigue cerrando el protector de pantalla.';
 
   @override
   String get settingScreensaverPostponeOnFaceTitle =>
-      'Postpone screensaver on face';
+      'Posponer el protector de pantalla al detectar un rostro';
 
   @override
   String get settingScreensaverPostponeOnFaceDescription =>
-      'Delay activating the screensaver while someone is looking at the kiosk. WARNING: Keeps the camera running permanently, with face detection and its CPU cost on top.';
+      'Retrasa la activación del protector de pantalla mientras alguien mira el kiosko. ADVERTENCIA: Mantiene la cámara encendida permanentemente, con el consumo adicional de CPU de la detección de rostros.';
 
   @override
-  String get settingFaceSensitivityTitle => 'Face sensitivity';
+  String get settingFaceSensitivityTitle =>
+      'Sensibilidad de detección de rostros';
 
   @override
   String get settingFaceSensitivityDescription =>
-      'Higher wakes on smaller, more distant faces. 1 needs a face close to the screen; 100 reacts to any face the camera can make out.';
+      'Los valores más altos detectan rostros más pequeños y lejanos. El valor 1 requiere un rostro cerca de la pantalla. El valor 100 responde a cualquier rostro que la cámara pueda distinguir.';
 
   @override
-  String get screensaverDetectionFacePage => 'Face Detection';
+  String get screensaverDetectionFacePage => 'Detección de rostros';
 
   @override
   String get screensaverDetectionFaceHint =>
-      'Dismiss the screensaver when someone looks at it';
+      'Cierra el protector de pantalla cuando alguien lo mira';
 
   @override
   String get screensaverDetectionMotionPrecedence =>
-      'Dismiss on motion is on and takes precedence, so face detection stays idle until it is turned off.';
+      'Cerrar al detectar movimiento está activado y tiene prioridad. La detección de rostros queda inactiva hasta que lo desactives.';
 
   @override
   String get screensaverDetectionFaceTuning =>
-      'Frame rate, camera pick and startup delay are tuned in the Camera settings.';
+      'La frecuencia de cuadros, la cámara y el retraso de inicio se ajustan en la configuración de Cámara.';
 
   @override
   String get screensaverDetectionAndroidUnsupported =>
-      'Not available on this Android version.';
+      'No disponible en esta versión de Android.';
 
   @override
   String get screensaverDetectionX86Unsupported =>
-      'Not available on x86 devices.';
+      'No disponible en dispositivos x86.';
 
   @override
-  String get settingFacePreviewTitle => 'Show camera preview';
+  String get settingFacePreviewTitle => 'Mostrar vista previa de la cámara';
 
   @override
   String get settingFacePreviewDescription =>
-      'Show a small round live view of the camera in a corner of the screen for a few seconds when a face wakes the kiosk.';
+      'Muestra una pequeña vista circular en vivo de la cámara en una esquina durante unos segundos cuando un rostro activa el kiosko.';
 
   @override
-  String get settingFacePreviewSecondsTitle => 'Preview duration';
+  String get settingFacePreviewSecondsTitle => 'Duración de la vista previa';
 
   @override
   String get settingFacePreviewSecondsDescription =>
-      'How long the preview stays on screen.';
+      'Tiempo que la vista previa permanece en pantalla.';
 
   @override
-  String get settingFacePreviewScaleTitle => 'Preview scaling';
+  String get settingFacePreviewScaleTitle => 'Escala de la vista previa';
 
   @override
   String get settingFacePreviewScaleDescription =>
-      'Scale the preview to better fit your screen size.';
+      'Ajusta el tamaño de la vista previa a la pantalla.';
 
   @override
-  String get settingFacePreviewPositionTitle => 'Preview position';
+  String get settingFacePreviewPositionTitle => 'Posición de la vista previa';
 
   @override
   String get settingFacePreviewPositionDescription =>
-      'Which corner the preview sits in.';
+      'Esquina en la que se muestra la vista previa.';
 
   @override
-  String get screensaverDetectionPreviewSection => 'Camera Preview';
+  String get screensaverDetectionPreviewSection => 'Vista previa de la cámara';
 
   @override
   String get settingScreensaverEnabledTitle => 'Protector de pantalla';
@@ -3683,196 +3685,200 @@ class UiStringsEs extends UiStrings {
       'Carpeta, duración, orden aleatorio y transición';
 
   @override
-  String get settingScreensaverDismissOnMotionTitle => 'Dismiss on motion';
+  String get settingScreensaverDismissOnMotionTitle =>
+      'Cerrar al detectar movimiento';
 
   @override
   String get settingScreensaverDismissOnMotionDescription =>
-      'Watch the camera while the screensaver is up and wake the screen when someone approaches. The camera runs only during the screensaver.';
+      'Usa la cámara mientras se muestra el protector de pantalla y activa la pantalla cuando alguien se acerca. La cámara funciona solo durante el protector de pantalla.';
 
   @override
   String get settingScreensaverDismissOnMotionScreenOffOnlyTitle =>
-      'Only when screen is off';
+      'Solo cuando la pantalla está apagada';
 
   @override
   String get settingScreensaverDismissOnMotionScreenOffOnlyDescription =>
-      'Keep the screensaver visible when motion is detected while the screen is on. Once the screen turns off, detection wakes the dashboard. Touch still dismisses the screensaver.';
+      'Mantiene visible el protector de pantalla si detecta movimiento con la pantalla encendida. Cuando la pantalla está apagada, la detección abre el panel de control. Tocar la pantalla sigue cerrando el protector de pantalla.';
 
   @override
   String get settingScreensaverPostponeOnMotionTitle =>
-      'Postpone screensaver on motion';
+      'Posponer el protector de pantalla al detectar movimiento';
 
   @override
   String get settingScreensaverPostponeOnMotionDescription =>
-      'Delay activating the screensaver when motion is detected. WARNING: Keeps the camera running permanently.';
+      'Retrasa la activación del protector de pantalla cuando detecta movimiento. ADVERTENCIA: Mantiene la cámara encendida permanentemente.';
 
   @override
-  String get screensaverDetectionMotionPage => 'Motion Detection';
+  String get screensaverDetectionMotionPage => 'Detección de movimiento';
 
   @override
   String get screensaverDetectionMotionHint =>
-      'Dismiss or postpone the screensaver on motion';
+      'Cierra o pospone el protector de pantalla al detectar movimiento';
 
   @override
   String get screensaverDetectionMotionTuning =>
-      'Motion detection is tuned in the Camera settings.';
+      'La detección de movimiento se ajusta en la configuración de Cámara.';
 
   @override
-  String get settingScreensaverDismissOnPersonTitle => 'Dismiss on person';
+  String get settingScreensaverDismissOnPersonTitle =>
+      'Cerrar al detectar una persona';
 
   @override
   String get settingScreensaverDismissOnPersonDescription =>
-      'Read the device\'s person sensor while the screensaver is up and wake the screen when someone is in front of it. Needs the Log access grant below.';
+      'Usa el sensor de personas del dispositivo mientras se muestra el protector de pantalla y activa la pantalla cuando alguien está frente a él. Requiere el permiso de acceso a los registros que aparece abajo.';
 
   @override
   String get settingScreensaverDismissOnPersonScreenOffOnlyTitle =>
-      'Only when screen is off';
+      'Solo cuando la pantalla está apagada';
 
   @override
   String get settingScreensaverDismissOnPersonScreenOffOnlyDescription =>
-      'Keep the screensaver visible when someone arrives while the screen is on. Once the screen turns off, detection wakes the dashboard. Touch still dismisses the screensaver.';
+      'Mantiene visible el protector de pantalla si llega alguien con la pantalla encendida. Cuando la pantalla está apagada, la detección abre el panel de control. Tocar la pantalla sigue cerrando el protector de pantalla.';
 
   @override
   String get settingScreensaverPostponeOnPersonTitle =>
-      'Postpone screensaver on person';
+      'Posponer el protector de pantalla al detectar una persona';
 
   @override
   String get settingScreensaverPostponeOnPersonDescription =>
-      'Delay activating the screensaver while someone is in front of the device.';
+      'Retrasa la activación del protector de pantalla mientras alguien está frente al dispositivo.';
 
   @override
-  String get screensaverDetectionPersonPage => 'Person Detection';
+  String get screensaverDetectionPersonPage => 'Detección de personas';
 
   @override
   String get screensaverDetectionPersonHint =>
-      'Dismiss or postpone the screensaver on the device\'s person sensor';
+      'Cierra o pospone el protector de pantalla con el sensor de personas del dispositivo';
 
   @override
-  String get screensaverDetectionOccupancy => 'Occupancy';
+  String get screensaverDetectionOccupancy => 'Presencia';
 
   @override
-  String get screensaverDetectionStatusUnavailable => 'Status unavailable.';
+  String get screensaverDetectionStatusUnavailable => 'Estado no disponible.';
 
   @override
-  String get screensaverDetectionOff => 'Off.';
+  String get screensaverDetectionOff => 'Desactivado.';
 
   @override
-  String get screensaverDetectionStarting => 'Starting...';
+  String get screensaverDetectionStarting => 'Iniciando...';
 
   @override
   String get screensaverDetectionWaiting =>
-      'Waiting for the first heartbeat. The sensor reports every 30 seconds while someone is in view.';
+      'Esperando la primera señal del sensor. El sensor informa cada 30 segundos mientras hay alguien a la vista.';
 
   @override
   String screensaverDetectionLastHeartbeat(String ago) {
-    return 'Last heartbeat $ago.';
+    return 'Última señal del sensor: $ago.';
   }
 
   @override
   String screensaverDetectionSecondsAgo(String count) {
-    return '${count}s ago';
+    return 'hace $count s';
   }
 
   @override
   String screensaverDetectionMinutesAgo(String count) {
-    return '$count min ago';
+    return 'hace $count min';
   }
 
   @override
   String screensaverDetectionHoursAgo(String count) {
-    return '$count h ago';
+    return 'hace $count h';
   }
 
   @override
-  String get screensaverDetectionDetected => 'Detected';
+  String get screensaverDetectionDetected => 'Persona detectada';
 
   @override
-  String get screensaverDetectionClear => 'Clear';
+  String get screensaverDetectionClear => 'Sin personas';
 
   @override
-  String get screensaverDetectionPermissions => 'Required system permissions';
+  String get screensaverDetectionPermissions =>
+      'Permisos del sistema necesarios';
 
   @override
-  String get screensaverDetectionLogAccess => 'Log access';
+  String get screensaverDetectionLogAccess => 'Acceso a los registros';
 
   @override
-  String get screensaverDetectionChecking => 'Checking...';
+  String get screensaverDetectionChecking => 'Comprobando...';
 
   @override
   String get screensaverDetectionReadable =>
-      'The device\'s person sensor can be read.';
+      'Se puede leer el sensor de personas del dispositivo.';
 
   @override
   String get screensaverDetectionRestartRequired =>
-      'Granted. Restart Kiosk Satellite to apply it.';
+      'Concedido. Reinicia Kiosk Satellite para aplicarlo.';
 
   @override
   String get screensaverDetectionGrantHelp =>
-      'This permission can only be granted via ADB. The Meta Portal doc has the full command. Restart Kiosk Satellite afterwards.';
+      'Este permiso solo se puede conceder mediante ADB. La documentación de Meta Portal incluye el comando completo. Después, reinicia Kiosk Satellite.';
 
   @override
   String get screensaverDetectionGrantRemoteHelp =>
-      'This permission can only be granted via ADB. Below is the full command, ready to be copied. Restart Kiosk Satellite afterwards.';
+      'Este permiso solo se puede conceder mediante ADB. Abajo está el comando completo, listo para copiar. Después, reinicia Kiosk Satellite.';
 
   @override
-  String get screensaverDetectionGranted => 'Granted';
+  String get screensaverDetectionGranted => 'Concedido';
 
   @override
-  String get screensaverDetectionMissing => 'Missing';
+  String get screensaverDetectionMissing => 'Falta el permiso';
 
   @override
-  String get screensaverDetectionRestart => 'Restart';
+  String get screensaverDetectionRestart => 'Reiniciar';
 
   @override
-  String get screensaverDetectionRestartRemote => 'Restart on device';
+  String get screensaverDetectionRestartRemote => 'Reiniciar el dispositivo';
 
   @override
   String get screensaverDetectionLogRestart =>
-      'Log access is granted but takes effect when Kiosk Satellite restarts.';
+      'El acceso a los registros está concedido, pero se aplica al reiniciar Kiosk Satellite.';
 
   @override
-  String get screensaverDetectionLogMissing => 'Log access not granted.';
+  String get screensaverDetectionLogMissing =>
+      'No se ha concedido el acceso a los registros.';
 
   @override
   String get settingScreensaverDismissOnProximityTitle =>
-      'Dismiss on proximity';
+      'Cerrar al detectar proximidad';
 
   @override
   String get settingScreensaverDismissOnProximityDescription =>
-      'Watch the proximity sensor while the screensaver is up and wake the screen when something comes close to the device. A device with only sensors made for calls (\"palm\", \"touch\") will not work.';
+      'Usa el sensor de proximidad mientras se muestra el protector de pantalla y activa la pantalla cuando algo se acerca al dispositivo. Los sensores diseñados solo para llamadas, como \"palm\" o \"touch\", no sirven para esta función.';
 
   @override
   String get settingScreensaverDismissOnProximityScreenOffOnlyTitle =>
-      'Only when screen is off';
+      'Solo cuando la pantalla está apagada';
 
   @override
   String get settingScreensaverDismissOnProximityScreenOffOnlyDescription =>
-      'Keep the screensaver visible when something approaches while the screen is on. Once the screen turns off, detection wakes the dashboard. Touch still dismisses the screensaver.';
+      'Mantiene visible el protector de pantalla si algo se acerca con la pantalla encendida. Cuando la pantalla está apagada, la detección abre el panel de control. Tocar la pantalla sigue cerrando el protector de pantalla.';
 
   @override
   String get settingScreensaverPostponeOnProximityTitle =>
-      'Postpone screensaver on proximity';
+      'Posponer el protector de pantalla al detectar proximidad';
 
   @override
   String get settingScreensaverPostponeOnProximityDescription =>
-      'Delay activating the screensaver while something is close to the sensor.';
+      'Retrasa la activación del protector de pantalla mientras algo está cerca del sensor.';
 
   @override
-  String get screensaverDetectionProximityPage => 'Proximity Detection';
+  String get screensaverDetectionProximityPage => 'Detección de proximidad';
 
   @override
   String get screensaverDetectionProximityHint =>
-      'Dismiss or postpone the screensaver on the proximity sensor';
+      'Cierra o pospone el protector de pantalla con el sensor de proximidad';
 
   @override
   String get screensaverDetectionNoProximity =>
-      'Not available on this device: it has no proximity sensor.';
+      'No disponible en este dispositivo: no tiene sensor de proximidad.';
 
   @override
   String get screensaverDetectionSensor => 'Sensor';
 
   @override
   String get screensaverDetectionSensorHelp =>
-      'What the device reports as the proximity sensor. A sensor made for calls named \"palm\" or \"touch\" will not work.';
+      'Sensor de proximidad que informa el dispositivo. Un sensor diseñado para llamadas llamado \"palm\" o \"touch\" no sirve para esta función.';
 
   @override
   String get settingScreensaverScheduleEnabledTitle =>

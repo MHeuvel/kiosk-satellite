@@ -1,0 +1,14 @@
+{
+  "@@locale": "es",
+  "settingScreensaverDismissOnProximityTitle": "Cerrar al detectar proximidad",
+  "settingScreensaverDismissOnProximityDescription": "Usa el sensor de proximidad mientras se muestra el protector de pantalla y activa la pantalla cuando algo se acerca al dispositivo. Los sensores diseñados solo para llamadas, como \"palm\" o \"touch\", no sirven para esta función.",
+  "settingScreensaverDismissOnProximityScreenOffOnlyTitle": "Solo cuando la pantalla está apagada",
+  "settingScreensaverDismissOnProximityScreenOffOnlyDescription": "Mantiene visible el protector de pantalla si algo se acerca con la pantalla encendida. Cuando la pantalla está apagada, la detección abre el panel de control. Tocar la pantalla sigue cerrando el protector de pantalla.",
+  "settingScreensaverPostponeOnProximityTitle": "Posponer el protector de pantalla al detectar proximidad",
+  "settingScreensaverPostponeOnProximityDescription": "Retrasa la activación del protector de pantalla mientras algo está cerca del sensor.",
+  "screensaverDetectionProximityPage": "Detección de proximidad",
+  "screensaverDetectionProximityHint": "Cierra o pospone el protector de pantalla con el sensor de proximidad",
+  "screensaverDetectionNoProximity": "No disponible en este dispositivo: no tiene sensor de proximidad.",
+  "screensaverDetectionSensor": "Sensor",
+  "screensaverDetectionSensorHelp": "Sensor de proximidad que informa el dispositivo. Un sensor diseñado para llamadas llamado \"palm\" o \"touch\" no sirve para esta función."
+}

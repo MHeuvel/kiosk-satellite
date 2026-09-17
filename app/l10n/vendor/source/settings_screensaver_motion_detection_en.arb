@@ -1,0 +1,120 @@
+{
+  "@@locale": "en",
+  "settingScreensaverDismissOnMotionTitle": "Dismiss on motion",
+  "@settingScreensaverDismissOnMotionTitle": {
+    "context": "Settings > Screensaver > Motion Detection",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Motion Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Motion Detection"
+      ]
+    }
+  },
+  "settingScreensaverDismissOnMotionDescription": "Watch the camera while the screensaver is up and wake the screen when someone approaches. The camera runs only during the screensaver.",
+  "@settingScreensaverDismissOnMotionDescription": {
+    "context": "Settings > Screensaver > Motion Detection",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Motion Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Motion Detection"
+      ]
+    }
+  },
+  "settingScreensaverDismissOnMotionScreenOffOnlyTitle": "Only when screen is off",
+  "@settingScreensaverDismissOnMotionScreenOffOnlyTitle": {
+    "context": "Settings > Screensaver > Motion Detection",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Motion Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Motion Detection"
+      ]
+    }
+  },
+  "settingScreensaverDismissOnMotionScreenOffOnlyDescription": "Keep the screensaver visible when motion is detected while the screen is on. Once the screen turns off, detection wakes the dashboard. Touch still dismisses the screensaver.",
+  "@settingScreensaverDismissOnMotionScreenOffOnlyDescription": {
+    "context": "Settings > Screensaver > Motion Detection",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Motion Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Motion Detection"
+      ]
+    }
+  },
+  "settingScreensaverPostponeOnMotionTitle": "Postpone screensaver on motion",
+  "@settingScreensaverPostponeOnMotionTitle": {
+    "context": "Settings > Screensaver > Motion Detection",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Motion Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Motion Detection"
+      ]
+    }
+  },
+  "settingScreensaverPostponeOnMotionDescription": "Delay activating the screensaver when motion is detected. WARNING: Keeps the camera running permanently.",
+  "@settingScreensaverPostponeOnMotionDescription": {
+    "context": "Settings > Screensaver > Motion Detection",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Motion Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Motion Detection"
+      ]
+    }
+  },
+  "screensaverDetectionMotionPage": "Motion Detection",
+  "@screensaverDetectionMotionPage": {
+    "context": "Settings > Screensaver > Motion Detection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Motion Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Motion Detection"
+      ]
+    }
+  },
+  "screensaverDetectionMotionHint": "Dismiss or postpone the screensaver on motion",
+  "@screensaverDetectionMotionHint": {
+    "context": "Settings > Screensaver > Motion Detection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Motion Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Motion Detection"
+      ]
+    }
+  },
+  "screensaverDetectionMotionTuning": "Motion detection is tuned in the Camera settings.",
+  "@screensaverDetectionMotionTuning": {
+    "context": "Settings > Screensaver > Motion Detection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Motion Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Motion Detection"
+      ]
+    }
+  }
+}

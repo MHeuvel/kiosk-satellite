@@ -1,0 +1,22 @@
+{
+  "@@locale": "es",
+  "settingScreensaverDismissOnPersonTitle": "Cerrar al detectar una persona",
+  "settingScreensaverDismissOnPersonDescription": "Usa el sensor de personas del dispositivo mientras se muestra el protector de pantalla y activa la pantalla cuando alguien está frente a él. Requiere el permiso de acceso a los registros que aparece abajo.",
+  "settingScreensaverDismissOnPersonScreenOffOnlyTitle": "Solo cuando la pantalla está apagada",
+  "settingScreensaverDismissOnPersonScreenOffOnlyDescription": "Mantiene visible el protector de pantalla si llega alguien con la pantalla encendida. Cuando la pantalla está apagada, la detección abre el panel de control. Tocar la pantalla sigue cerrando el protector de pantalla.",
+  "settingScreensaverPostponeOnPersonTitle": "Posponer el protector de pantalla al detectar una persona",
+  "settingScreensaverPostponeOnPersonDescription": "Retrasa la activación del protector de pantalla mientras alguien está frente al dispositivo.",
+  "screensaverDetectionPersonPage": "Detección de personas",
+  "screensaverDetectionPersonHint": "Cierra o pospone el protector de pantalla con el sensor de personas del dispositivo",
+  "screensaverDetectionOccupancy": "Presencia",
+  "screensaverDetectionStatusUnavailable": "Estado no disponible.",
+  "screensaverDetectionOff": "Desactivado.",
+  "screensaverDetectionStarting": "Iniciando...",
+  "screensaverDetectionWaiting": "Esperando la primera señal del sensor. El sensor informa cada 30 segundos mientras hay alguien a la vista.",
+  "screensaverDetectionLastHeartbeat": "Última señal del sensor: {ago}.",
+  "screensaverDetectionSecondsAgo": "hace {count} s",
+  "screensaverDetectionMinutesAgo": "hace {count} min",
+  "screensaverDetectionHoursAgo": "hace {count} h",
+  "screensaverDetectionDetected": "Persona detectada",
+  "screensaverDetectionClear": "Sin personas"
+}

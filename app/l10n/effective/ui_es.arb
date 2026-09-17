@@ -9542,7 +9542,7 @@
       }
     }
   },
-  "settingScreensaverDismissOnFaceTitle": "Dismiss on face",
+  "settingScreensaverDismissOnFaceTitle": "Cerrar al detectar un rostro",
   "@settingScreensaverDismissOnFaceTitle": {
     "context": "Settings > Screensaver > Face Detection",
     "description": "Setting label.",
@@ -9555,7 +9555,7 @@
       ]
     }
   },
-  "settingScreensaverDismissOnFaceDescription": "Wake the screen when someone looks at the kiosk, not on movement alone. The camera runs only during the screensaver. WARNING: Needs a lit face; in the dark, schedule motion detection instead.",
+  "settingScreensaverDismissOnFaceDescription": "Activa la pantalla cuando alguien mira el kiosko, no solo cuando hay movimiento. La cámara funciona solo durante el protector de pantalla. ADVERTENCIA: Necesita un rostro iluminado. En la oscuridad, programa la detección de movimiento.",
   "@settingScreensaverDismissOnFaceDescription": {
     "context": "Settings > Screensaver > Face Detection",
     "description": "Help below this setting.",
@@ -9568,7 +9568,7 @@
       ]
     }
   },
-  "settingScreensaverDismissOnFaceScreenOffOnlyTitle": "Only when screen is off",
+  "settingScreensaverDismissOnFaceScreenOffOnlyTitle": "Solo cuando la pantalla está apagada",
   "@settingScreensaverDismissOnFaceScreenOffOnlyTitle": {
     "context": "Settings > Screensaver > Face Detection",
     "description": "Setting label.",
@@ -9581,7 +9581,7 @@
       ]
     }
   },
-  "settingScreensaverDismissOnFaceScreenOffOnlyDescription": "Keep the screensaver visible when a face is detected while the screen is on. Once the screen turns off, detection wakes the dashboard. Touch still dismisses the screensaver.",
+  "settingScreensaverDismissOnFaceScreenOffOnlyDescription": "Mantiene visible el protector de pantalla si detecta un rostro con la pantalla encendida. Cuando la pantalla está apagada, la detección abre el panel de control. Tocar la pantalla sigue cerrando el protector de pantalla.",
   "@settingScreensaverDismissOnFaceScreenOffOnlyDescription": {
     "context": "Settings > Screensaver > Face Detection",
     "description": "Help below this setting.",
@@ -9594,7 +9594,7 @@
       ]
     }
   },
-  "settingScreensaverPostponeOnFaceTitle": "Postpone screensaver on face",
+  "settingScreensaverPostponeOnFaceTitle": "Posponer el protector de pantalla al detectar un rostro",
   "@settingScreensaverPostponeOnFaceTitle": {
     "context": "Settings > Screensaver > Face Detection",
     "description": "Setting label.",
@@ -9607,7 +9607,7 @@
       ]
     }
   },
-  "settingScreensaverPostponeOnFaceDescription": "Delay activating the screensaver while someone is looking at the kiosk. WARNING: Keeps the camera running permanently, with face detection and its CPU cost on top.",
+  "settingScreensaverPostponeOnFaceDescription": "Retrasa la activación del protector de pantalla mientras alguien mira el kiosko. ADVERTENCIA: Mantiene la cámara encendida permanentemente, con el consumo adicional de CPU de la detección de rostros.",
   "@settingScreensaverPostponeOnFaceDescription": {
     "context": "Settings > Screensaver > Face Detection",
     "description": "Help below this setting.",
@@ -9620,7 +9620,7 @@
       ]
     }
   },
-  "settingFaceSensitivityTitle": "Face sensitivity",
+  "settingFaceSensitivityTitle": "Sensibilidad de detección de rostros",
   "@settingFaceSensitivityTitle": {
     "context": "Settings > Screensaver > Face Detection",
     "description": "Setting label.",
@@ -9633,7 +9633,7 @@
       ]
     }
   },
-  "settingFaceSensitivityDescription": "Higher wakes on smaller, more distant faces. 1 needs a face close to the screen; 100 reacts to any face the camera can make out.",
+  "settingFaceSensitivityDescription": "Los valores más altos detectan rostros más pequeños y lejanos. El valor 1 requiere un rostro cerca de la pantalla. El valor 100 responde a cualquier rostro que la cámara pueda distinguir.",
   "@settingFaceSensitivityDescription": {
     "context": "Settings > Screensaver > Face Detection",
     "description": "Help below this setting.",
@@ -9646,7 +9646,7 @@
       ]
     }
   },
-  "screensaverDetectionFacePage": "Face Detection",
+  "screensaverDetectionFacePage": "Detección de rostros",
   "@screensaverDetectionFacePage": {
     "context": "Settings > Screensaver > Face Detection",
     "description": "Label or guidance in this section.",
@@ -9659,7 +9659,7 @@
       ]
     }
   },
-  "screensaverDetectionFaceHint": "Dismiss the screensaver when someone looks at it",
+  "screensaverDetectionFaceHint": "Cierra el protector de pantalla cuando alguien lo mira",
   "@screensaverDetectionFaceHint": {
     "context": "Settings > Screensaver > Face Detection",
     "description": "Label or guidance in this section.",
@@ -9672,7 +9672,7 @@
       ]
     }
   },
-  "screensaverDetectionMotionPrecedence": "Dismiss on motion is on and takes precedence, so face detection stays idle until it is turned off.",
+  "screensaverDetectionMotionPrecedence": "Cerrar al detectar movimiento está activado y tiene prioridad. La detección de rostros queda inactiva hasta que lo desactives.",
   "@screensaverDetectionMotionPrecedence": {
     "context": "Settings > Screensaver > Face Detection",
     "description": "Label or guidance in this section.",
@@ -9685,7 +9685,7 @@
       ]
     }
   },
-  "screensaverDetectionFaceTuning": "Frame rate, camera pick and startup delay are tuned in the Camera settings.",
+  "screensaverDetectionFaceTuning": "La frecuencia de cuadros, la cámara y el retraso de inicio se ajustan en la configuración de Cámara.",
   "@screensaverDetectionFaceTuning": {
     "context": "Settings > Screensaver > Face Detection",
     "description": "Label or guidance in this section.",
@@ -9698,7 +9698,7 @@
       ]
     }
   },
-  "screensaverDetectionAndroidUnsupported": "Not available on this Android version.",
+  "screensaverDetectionAndroidUnsupported": "No disponible en esta versión de Android.",
   "@screensaverDetectionAndroidUnsupported": {
     "context": "Settings > Screensaver > Face Detection",
     "description": "Label or guidance in this section.",
@@ -9711,7 +9711,7 @@
       ]
     }
   },
-  "screensaverDetectionX86Unsupported": "Not available on x86 devices.",
+  "screensaverDetectionX86Unsupported": "No disponible en dispositivos x86.",
   "@screensaverDetectionX86Unsupported": {
     "context": "Settings > Screensaver > Face Detection",
     "description": "Label or guidance in this section.",
@@ -9724,7 +9724,7 @@
       ]
     }
   },
-  "settingFacePreviewTitle": "Show camera preview",
+  "settingFacePreviewTitle": "Mostrar vista previa de la cámara",
   "@settingFacePreviewTitle": {
     "context": "Settings > Screensaver > Face Detection > Camera Preview",
     "description": "Setting label.",
@@ -9737,7 +9737,7 @@
       ]
     }
   },
-  "settingFacePreviewDescription": "Show a small round live view of the camera in a corner of the screen for a few seconds when a face wakes the kiosk.",
+  "settingFacePreviewDescription": "Muestra una pequeña vista circular en vivo de la cámara en una esquina durante unos segundos cuando un rostro activa el kiosko.",
   "@settingFacePreviewDescription": {
     "context": "Settings > Screensaver > Face Detection > Camera Preview",
     "description": "Help below this setting.",
@@ -9750,7 +9750,7 @@
       ]
     }
   },
-  "settingFacePreviewSecondsTitle": "Preview duration",
+  "settingFacePreviewSecondsTitle": "Duración de la vista previa",
   "@settingFacePreviewSecondsTitle": {
     "context": "Settings > Screensaver > Face Detection > Camera Preview",
     "description": "Setting label.",
@@ -9763,7 +9763,7 @@
       ]
     }
   },
-  "settingFacePreviewSecondsDescription": "How long the preview stays on screen.",
+  "settingFacePreviewSecondsDescription": "Tiempo que la vista previa permanece en pantalla.",
   "@settingFacePreviewSecondsDescription": {
     "context": "Settings > Screensaver > Face Detection > Camera Preview",
     "description": "Help below this setting.",
@@ -9776,7 +9776,7 @@
       ]
     }
   },
-  "settingFacePreviewScaleTitle": "Preview scaling",
+  "settingFacePreviewScaleTitle": "Escala de la vista previa",
   "@settingFacePreviewScaleTitle": {
     "context": "Settings > Screensaver > Face Detection > Camera Preview",
     "description": "Setting label.",
@@ -9789,7 +9789,7 @@
       ]
     }
   },
-  "settingFacePreviewScaleDescription": "Scale the preview to better fit your screen size.",
+  "settingFacePreviewScaleDescription": "Ajusta el tamaño de la vista previa a la pantalla.",
   "@settingFacePreviewScaleDescription": {
     "context": "Settings > Screensaver > Face Detection > Camera Preview",
     "description": "Help below this setting.",
@@ -9802,7 +9802,7 @@
       ]
     }
   },
-  "settingFacePreviewPositionTitle": "Preview position",
+  "settingFacePreviewPositionTitle": "Posición de la vista previa",
   "@settingFacePreviewPositionTitle": {
     "context": "Settings > Screensaver > Face Detection > Camera Preview",
     "description": "Setting label.",
@@ -9815,7 +9815,7 @@
       ]
     }
   },
-  "settingFacePreviewPositionDescription": "Which corner the preview sits in.",
+  "settingFacePreviewPositionDescription": "Esquina en la que se muestra la vista previa.",
   "@settingFacePreviewPositionDescription": {
     "context": "Settings > Screensaver > Face Detection > Camera Preview",
     "description": "Help below this setting.",
@@ -9828,7 +9828,7 @@
       ]
     }
   },
-  "screensaverDetectionPreviewSection": "Camera Preview",
+  "screensaverDetectionPreviewSection": "Vista previa de la cámara",
   "@screensaverDetectionPreviewSection": {
     "context": "Settings > Screensaver > Face Detection > Camera Preview",
     "description": "Label or guidance in this section.",
@@ -13478,7 +13478,7 @@
       ]
     }
   },
-  "settingScreensaverDismissOnMotionTitle": "Dismiss on motion",
+  "settingScreensaverDismissOnMotionTitle": "Cerrar al detectar movimiento",
   "@settingScreensaverDismissOnMotionTitle": {
     "context": "Settings > Screensaver > Motion Detection",
     "description": "Setting label.",
@@ -13491,7 +13491,7 @@
       ]
     }
   },
-  "settingScreensaverDismissOnMotionDescription": "Watch the camera while the screensaver is up and wake the screen when someone approaches. The camera runs only during the screensaver.",
+  "settingScreensaverDismissOnMotionDescription": "Usa la cámara mientras se muestra el protector de pantalla y activa la pantalla cuando alguien se acerca. La cámara funciona solo durante el protector de pantalla.",
   "@settingScreensaverDismissOnMotionDescription": {
     "context": "Settings > Screensaver > Motion Detection",
     "description": "Help below this setting.",
@@ -13504,7 +13504,7 @@
       ]
     }
   },
-  "settingScreensaverDismissOnMotionScreenOffOnlyTitle": "Only when screen is off",
+  "settingScreensaverDismissOnMotionScreenOffOnlyTitle": "Solo cuando la pantalla está apagada",
   "@settingScreensaverDismissOnMotionScreenOffOnlyTitle": {
     "context": "Settings > Screensaver > Motion Detection",
     "description": "Setting label.",
@@ -13517,7 +13517,7 @@
       ]
     }
   },
-  "settingScreensaverDismissOnMotionScreenOffOnlyDescription": "Keep the screensaver visible when motion is detected while the screen is on. Once the screen turns off, detection wakes the dashboard. Touch still dismisses the screensaver.",
+  "settingScreensaverDismissOnMotionScreenOffOnlyDescription": "Mantiene visible el protector de pantalla si detecta movimiento con la pantalla encendida. Cuando la pantalla está apagada, la detección abre el panel de control. Tocar la pantalla sigue cerrando el protector de pantalla.",
   "@settingScreensaverDismissOnMotionScreenOffOnlyDescription": {
     "context": "Settings > Screensaver > Motion Detection",
     "description": "Help below this setting.",
@@ -13530,7 +13530,7 @@
       ]
     }
   },
-  "settingScreensaverPostponeOnMotionTitle": "Postpone screensaver on motion",
+  "settingScreensaverPostponeOnMotionTitle": "Posponer el protector de pantalla al detectar movimiento",
   "@settingScreensaverPostponeOnMotionTitle": {
     "context": "Settings > Screensaver > Motion Detection",
     "description": "Setting label.",
@@ -13543,7 +13543,7 @@
       ]
     }
   },
-  "settingScreensaverPostponeOnMotionDescription": "Delay activating the screensaver when motion is detected. WARNING: Keeps the camera running permanently.",
+  "settingScreensaverPostponeOnMotionDescription": "Retrasa la activación del protector de pantalla cuando detecta movimiento. ADVERTENCIA: Mantiene la cámara encendida permanentemente.",
   "@settingScreensaverPostponeOnMotionDescription": {
     "context": "Settings > Screensaver > Motion Detection",
     "description": "Help below this setting.",
@@ -13556,7 +13556,7 @@
       ]
     }
   },
-  "screensaverDetectionMotionPage": "Motion Detection",
+  "screensaverDetectionMotionPage": "Detección de movimiento",
   "@screensaverDetectionMotionPage": {
     "context": "Settings > Screensaver > Motion Detection",
     "description": "Label or guidance in this section.",
@@ -13569,7 +13569,7 @@
       ]
     }
   },
-  "screensaverDetectionMotionHint": "Dismiss or postpone the screensaver on motion",
+  "screensaverDetectionMotionHint": "Cierra o pospone el protector de pantalla al detectar movimiento",
   "@screensaverDetectionMotionHint": {
     "context": "Settings > Screensaver > Motion Detection",
     "description": "Label or guidance in this section.",
@@ -13582,7 +13582,7 @@
       ]
     }
   },
-  "screensaverDetectionMotionTuning": "Motion detection is tuned in the Camera settings.",
+  "screensaverDetectionMotionTuning": "La detección de movimiento se ajusta en la configuración de Cámara.",
   "@screensaverDetectionMotionTuning": {
     "context": "Settings > Screensaver > Motion Detection",
     "description": "Label or guidance in this section.",
@@ -13595,7 +13595,7 @@
       ]
     }
   },
-  "settingScreensaverDismissOnPersonTitle": "Dismiss on person",
+  "settingScreensaverDismissOnPersonTitle": "Cerrar al detectar una persona",
   "@settingScreensaverDismissOnPersonTitle": {
     "context": "Settings > Screensaver > Person Detection",
     "description": "Setting label.",
@@ -13608,7 +13608,7 @@
       ]
     }
   },
-  "settingScreensaverDismissOnPersonDescription": "Read the device's person sensor while the screensaver is up and wake the screen when someone is in front of it. Needs the Log access grant below.",
+  "settingScreensaverDismissOnPersonDescription": "Usa el sensor de personas del dispositivo mientras se muestra el protector de pantalla y activa la pantalla cuando alguien está frente a él. Requiere el permiso de acceso a los registros que aparece abajo.",
   "@settingScreensaverDismissOnPersonDescription": {
     "context": "Settings > Screensaver > Person Detection",
     "description": "Help below this setting.",
@@ -13621,7 +13621,7 @@
       ]
     }
   },
-  "settingScreensaverDismissOnPersonScreenOffOnlyTitle": "Only when screen is off",
+  "settingScreensaverDismissOnPersonScreenOffOnlyTitle": "Solo cuando la pantalla está apagada",
   "@settingScreensaverDismissOnPersonScreenOffOnlyTitle": {
     "context": "Settings > Screensaver > Person Detection",
     "description": "Setting label.",
@@ -13634,7 +13634,7 @@
       ]
     }
   },
-  "settingScreensaverDismissOnPersonScreenOffOnlyDescription": "Keep the screensaver visible when someone arrives while the screen is on. Once the screen turns off, detection wakes the dashboard. Touch still dismisses the screensaver.",
+  "settingScreensaverDismissOnPersonScreenOffOnlyDescription": "Mantiene visible el protector de pantalla si llega alguien con la pantalla encendida. Cuando la pantalla está apagada, la detección abre el panel de control. Tocar la pantalla sigue cerrando el protector de pantalla.",
   "@settingScreensaverDismissOnPersonScreenOffOnlyDescription": {
     "context": "Settings > Screensaver > Person Detection",
     "description": "Help below this setting.",
@@ -13647,7 +13647,7 @@
       ]
     }
   },
-  "settingScreensaverPostponeOnPersonTitle": "Postpone screensaver on person",
+  "settingScreensaverPostponeOnPersonTitle": "Posponer el protector de pantalla al detectar una persona",
   "@settingScreensaverPostponeOnPersonTitle": {
     "context": "Settings > Screensaver > Person Detection",
     "description": "Setting label.",
@@ -13660,7 +13660,7 @@
       ]
     }
   },
-  "settingScreensaverPostponeOnPersonDescription": "Delay activating the screensaver while someone is in front of the device.",
+  "settingScreensaverPostponeOnPersonDescription": "Retrasa la activación del protector de pantalla mientras alguien está frente al dispositivo.",
   "@settingScreensaverPostponeOnPersonDescription": {
     "context": "Settings > Screensaver > Person Detection",
     "description": "Help below this setting.",
@@ -13673,7 +13673,7 @@
       ]
     }
   },
-  "screensaverDetectionPersonPage": "Person Detection",
+  "screensaverDetectionPersonPage": "Detección de personas",
   "@screensaverDetectionPersonPage": {
     "context": "Settings > Screensaver > Person Detection",
     "description": "Label or guidance in this section.",
@@ -13686,7 +13686,7 @@
       ]
     }
   },
-  "screensaverDetectionPersonHint": "Dismiss or postpone the screensaver on the device's person sensor",
+  "screensaverDetectionPersonHint": "Cierra o pospone el protector de pantalla con el sensor de personas del dispositivo",
   "@screensaverDetectionPersonHint": {
     "context": "Settings > Screensaver > Person Detection",
     "description": "Label or guidance in this section.",
@@ -13699,7 +13699,7 @@
       ]
     }
   },
-  "screensaverDetectionOccupancy": "Occupancy",
+  "screensaverDetectionOccupancy": "Presencia",
   "@screensaverDetectionOccupancy": {
     "context": "Settings > Screensaver > Person Detection",
     "description": "Label or guidance in this section.",
@@ -13712,7 +13712,7 @@
       ]
     }
   },
-  "screensaverDetectionStatusUnavailable": "Status unavailable.",
+  "screensaverDetectionStatusUnavailable": "Estado no disponible.",
   "@screensaverDetectionStatusUnavailable": {
     "context": "Settings > Screensaver > Person Detection",
     "description": "Label or guidance in this section.",
@@ -13725,7 +13725,7 @@
       ]
     }
   },
-  "screensaverDetectionOff": "Off.",
+  "screensaverDetectionOff": "Desactivado.",
   "@screensaverDetectionOff": {
     "context": "Settings > Screensaver > Person Detection",
     "description": "Label or guidance in this section.",
@@ -13738,7 +13738,7 @@
       ]
     }
   },
-  "screensaverDetectionStarting": "Starting...",
+  "screensaverDetectionStarting": "Iniciando...",
   "@screensaverDetectionStarting": {
     "context": "Settings > Screensaver > Person Detection",
     "description": "Label or guidance in this section.",
@@ -13751,7 +13751,7 @@
       ]
     }
   },
-  "screensaverDetectionWaiting": "Waiting for the first heartbeat. The sensor reports every 30 seconds while someone is in view.",
+  "screensaverDetectionWaiting": "Esperando la primera señal del sensor. El sensor informa cada 30 segundos mientras hay alguien a la vista.",
   "@screensaverDetectionWaiting": {
     "context": "Settings > Screensaver > Person Detection",
     "description": "Label or guidance in this section.",
@@ -13764,7 +13764,7 @@
       ]
     }
   },
-  "screensaverDetectionLastHeartbeat": "Last heartbeat {ago}.",
+  "screensaverDetectionLastHeartbeat": "Última señal del sensor: {ago}.",
   "@screensaverDetectionLastHeartbeat": {
     "context": "Settings > Screensaver > Person Detection",
     "description": "Label or guidance in this section.",
@@ -13783,7 +13783,7 @@
       }
     }
   },
-  "screensaverDetectionSecondsAgo": "{count}s ago",
+  "screensaverDetectionSecondsAgo": "hace {count} s",
   "@screensaverDetectionSecondsAgo": {
     "context": "Settings > Screensaver > Person Detection",
     "description": "Label or guidance in this section.",
@@ -13802,7 +13802,7 @@
       }
     }
   },
-  "screensaverDetectionMinutesAgo": "{count} min ago",
+  "screensaverDetectionMinutesAgo": "hace {count} min",
   "@screensaverDetectionMinutesAgo": {
     "context": "Settings > Screensaver > Person Detection",
     "description": "Label or guidance in this section.",
@@ -13821,7 +13821,7 @@
       }
     }
   },
-  "screensaverDetectionHoursAgo": "{count} h ago",
+  "screensaverDetectionHoursAgo": "hace {count} h",
   "@screensaverDetectionHoursAgo": {
     "context": "Settings > Screensaver > Person Detection",
     "description": "Label or guidance in this section.",
@@ -13840,7 +13840,7 @@
       }
     }
   },
-  "screensaverDetectionDetected": "Detected",
+  "screensaverDetectionDetected": "Persona detectada",
   "@screensaverDetectionDetected": {
     "context": "Settings > Screensaver > Person Detection",
     "description": "Label or guidance in this section.",
@@ -13853,7 +13853,7 @@
       ]
     }
   },
-  "screensaverDetectionClear": "Clear",
+  "screensaverDetectionClear": "Sin personas",
   "@screensaverDetectionClear": {
     "context": "Settings > Screensaver > Person Detection",
     "description": "Label or guidance in this section.",
@@ -13866,7 +13866,7 @@
       ]
     }
   },
-  "screensaverDetectionPermissions": "Required system permissions",
+  "screensaverDetectionPermissions": "Permisos del sistema necesarios",
   "@screensaverDetectionPermissions": {
     "context": "Settings > Screensaver > Person Detection > Required system permissions",
     "description": "Label or guidance in this section.",
@@ -13879,7 +13879,7 @@
       ]
     }
   },
-  "screensaverDetectionLogAccess": "Log access",
+  "screensaverDetectionLogAccess": "Acceso a los registros",
   "@screensaverDetectionLogAccess": {
     "context": "Settings > Screensaver > Person Detection > Required system permissions",
     "description": "Label or guidance in this section.",
@@ -13892,7 +13892,7 @@
       ]
     }
   },
-  "screensaverDetectionChecking": "Checking...",
+  "screensaverDetectionChecking": "Comprobando...",
   "@screensaverDetectionChecking": {
     "context": "Settings > Screensaver > Person Detection > Required system permissions",
     "description": "Label or guidance in this section.",
@@ -13905,7 +13905,7 @@
       ]
     }
   },
-  "screensaverDetectionReadable": "The device's person sensor can be read.",
+  "screensaverDetectionReadable": "Se puede leer el sensor de personas del dispositivo.",
   "@screensaverDetectionReadable": {
     "context": "Settings > Screensaver > Person Detection > Required system permissions",
     "description": "Label or guidance in this section.",
@@ -13918,7 +13918,7 @@
       ]
     }
   },
-  "screensaverDetectionRestartRequired": "Granted. Restart Kiosk Satellite to apply it.",
+  "screensaverDetectionRestartRequired": "Concedido. Reinicia Kiosk Satellite para aplicarlo.",
   "@screensaverDetectionRestartRequired": {
     "context": "Settings > Screensaver > Person Detection > Required system permissions",
     "description": "Label or guidance in this section.",
@@ -13931,7 +13931,7 @@
       ]
     }
   },
-  "screensaverDetectionGrantHelp": "This permission can only be granted via ADB. The Meta Portal doc has the full command. Restart Kiosk Satellite afterwards.",
+  "screensaverDetectionGrantHelp": "Este permiso solo se puede conceder mediante ADB. La documentación de Meta Portal incluye el comando completo. Después, reinicia Kiosk Satellite.",
   "@screensaverDetectionGrantHelp": {
     "context": "Settings > Screensaver > Person Detection > Required system permissions",
     "description": "Label or guidance in this section.",
@@ -13944,7 +13944,7 @@
       ]
     }
   },
-  "screensaverDetectionGrantRemoteHelp": "This permission can only be granted via ADB. Below is the full command, ready to be copied. Restart Kiosk Satellite afterwards.",
+  "screensaverDetectionGrantRemoteHelp": "Este permiso solo se puede conceder mediante ADB. Abajo está el comando completo, listo para copiar. Después, reinicia Kiosk Satellite.",
   "@screensaverDetectionGrantRemoteHelp": {
     "context": "Settings > Screensaver > Person Detection > Required system permissions",
     "description": "Label or guidance in this section.",
@@ -13957,7 +13957,7 @@
       ]
     }
   },
-  "screensaverDetectionGranted": "Granted",
+  "screensaverDetectionGranted": "Concedido",
   "@screensaverDetectionGranted": {
     "context": "Settings > Screensaver > Person Detection > Required system permissions",
     "description": "Label or guidance in this section.",
@@ -13970,7 +13970,7 @@
       ]
     }
   },
-  "screensaverDetectionMissing": "Missing",
+  "screensaverDetectionMissing": "Falta el permiso",
   "@screensaverDetectionMissing": {
     "context": "Settings > Screensaver > Person Detection > Required system permissions",
     "description": "Label or guidance in this section.",
@@ -13983,7 +13983,7 @@
       ]
     }
   },
-  "screensaverDetectionRestart": "Restart",
+  "screensaverDetectionRestart": "Reiniciar",
   "@screensaverDetectionRestart": {
     "context": "Settings > Screensaver > Person Detection > Required system permissions",
     "description": "Label or guidance in this section.",
@@ -13996,7 +13996,7 @@
       ]
     }
   },
-  "screensaverDetectionRestartRemote": "Restart on device",
+  "screensaverDetectionRestartRemote": "Reiniciar el dispositivo",
   "@screensaverDetectionRestartRemote": {
     "context": "Settings > Screensaver > Person Detection > Required system permissions",
     "description": "Label or guidance in this section.",
@@ -14009,7 +14009,7 @@
       ]
     }
   },
-  "screensaverDetectionLogRestart": "Log access is granted but takes effect when Kiosk Satellite restarts.",
+  "screensaverDetectionLogRestart": "El acceso a los registros está concedido, pero se aplica al reiniciar Kiosk Satellite.",
   "@screensaverDetectionLogRestart": {
     "context": "Settings > Screensaver > Person Detection > Required system permissions",
     "description": "Label or guidance in this section.",
@@ -14022,7 +14022,7 @@
       ]
     }
   },
-  "screensaverDetectionLogMissing": "Log access not granted.",
+  "screensaverDetectionLogMissing": "No se ha concedido el acceso a los registros.",
   "@screensaverDetectionLogMissing": {
     "context": "Settings > Screensaver > Person Detection > Required system permissions",
     "description": "Label or guidance in this section.",
@@ -14035,7 +14035,7 @@
       ]
     }
   },
-  "settingScreensaverDismissOnProximityTitle": "Dismiss on proximity",
+  "settingScreensaverDismissOnProximityTitle": "Cerrar al detectar proximidad",
   "@settingScreensaverDismissOnProximityTitle": {
     "context": "Settings > Screensaver > Proximity Detection",
     "description": "Setting label.",
@@ -14048,7 +14048,7 @@
       ]
     }
   },
-  "settingScreensaverDismissOnProximityDescription": "Watch the proximity sensor while the screensaver is up and wake the screen when something comes close to the device. A device with only sensors made for calls (\"palm\", \"touch\") will not work.",
+  "settingScreensaverDismissOnProximityDescription": "Usa el sensor de proximidad mientras se muestra el protector de pantalla y activa la pantalla cuando algo se acerca al dispositivo. Los sensores diseñados solo para llamadas, como \"palm\" o \"touch\", no sirven para esta función.",
   "@settingScreensaverDismissOnProximityDescription": {
     "context": "Settings > Screensaver > Proximity Detection",
     "description": "Help below this setting.",
@@ -14061,7 +14061,7 @@
       ]
     }
   },
-  "settingScreensaverDismissOnProximityScreenOffOnlyTitle": "Only when screen is off",
+  "settingScreensaverDismissOnProximityScreenOffOnlyTitle": "Solo cuando la pantalla está apagada",
   "@settingScreensaverDismissOnProximityScreenOffOnlyTitle": {
     "context": "Settings > Screensaver > Proximity Detection",
     "description": "Setting label.",
@@ -14074,7 +14074,7 @@
       ]
     }
   },
-  "settingScreensaverDismissOnProximityScreenOffOnlyDescription": "Keep the screensaver visible when something approaches while the screen is on. Once the screen turns off, detection wakes the dashboard. Touch still dismisses the screensaver.",
+  "settingScreensaverDismissOnProximityScreenOffOnlyDescription": "Mantiene visible el protector de pantalla si algo se acerca con la pantalla encendida. Cuando la pantalla está apagada, la detección abre el panel de control. Tocar la pantalla sigue cerrando el protector de pantalla.",
   "@settingScreensaverDismissOnProximityScreenOffOnlyDescription": {
     "context": "Settings > Screensaver > Proximity Detection",
     "description": "Help below this setting.",
@@ -14087,7 +14087,7 @@
       ]
     }
   },
-  "settingScreensaverPostponeOnProximityTitle": "Postpone screensaver on proximity",
+  "settingScreensaverPostponeOnProximityTitle": "Posponer el protector de pantalla al detectar proximidad",
   "@settingScreensaverPostponeOnProximityTitle": {
     "context": "Settings > Screensaver > Proximity Detection",
     "description": "Setting label.",
@@ -14100,7 +14100,7 @@
       ]
     }
   },
-  "settingScreensaverPostponeOnProximityDescription": "Delay activating the screensaver while something is close to the sensor.",
+  "settingScreensaverPostponeOnProximityDescription": "Retrasa la activación del protector de pantalla mientras algo está cerca del sensor.",
   "@settingScreensaverPostponeOnProximityDescription": {
     "context": "Settings > Screensaver > Proximity Detection",
     "description": "Help below this setting.",
@@ -14113,7 +14113,7 @@
       ]
     }
   },
-  "screensaverDetectionProximityPage": "Proximity Detection",
+  "screensaverDetectionProximityPage": "Detección de proximidad",
   "@screensaverDetectionProximityPage": {
     "context": "Settings > Screensaver > Proximity Detection",
     "description": "Label or guidance in this section.",
@@ -14126,7 +14126,7 @@
       ]
     }
   },
-  "screensaverDetectionProximityHint": "Dismiss or postpone the screensaver on the proximity sensor",
+  "screensaverDetectionProximityHint": "Cierra o pospone el protector de pantalla con el sensor de proximidad",
   "@screensaverDetectionProximityHint": {
     "context": "Settings > Screensaver > Proximity Detection",
     "description": "Label or guidance in this section.",
@@ -14139,7 +14139,7 @@
       ]
     }
   },
-  "screensaverDetectionNoProximity": "Not available on this device: it has no proximity sensor.",
+  "screensaverDetectionNoProximity": "No disponible en este dispositivo: no tiene sensor de proximidad.",
   "@screensaverDetectionNoProximity": {
     "context": "Settings > Screensaver > Proximity Detection",
     "description": "Label or guidance in this section.",
@@ -14165,7 +14165,7 @@
       ]
     }
   },
-  "screensaverDetectionSensorHelp": "What the device reports as the proximity sensor. A sensor made for calls named \"palm\" or \"touch\" will not work.",
+  "screensaverDetectionSensorHelp": "Sensor de proximidad que informa el dispositivo. Un sensor diseñado para llamadas llamado \"palm\" o \"touch\" no sirve para esta función.",
   "@screensaverDetectionSensorHelp": {
     "context": "Settings > Screensaver > Proximity Detection",
     "description": "Label or guidance in this section.",
