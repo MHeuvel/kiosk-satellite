@@ -23,6 +23,7 @@ class SettingsSearchEntry {
     this.isPage = false,
     this.anchorId,
     this.subpage,
+    this.englishAlias = '',
   });
 
   /// The definitions category ('Home Assistant'), which is also the pane the
@@ -30,6 +31,7 @@ class SettingsSearchEntry {
   final String category;
   final String title;
   final String description;
+  final String englishAlias;
 
   /// Set for entries backed by a [SettingDef]; lets the landing resolver walk
   /// the dependsOn chain when the row is currently gated off.
@@ -496,11 +498,13 @@ const List<SettingsSearchEntry> handBuiltSearchEntries = [
 ];
 
 /// The full index: the category pages, every non-hidden definition whose
-/// category has a pane here, and the hand-built rows. Built once per screen;
-/// the definitions are const so there is nothing to refresh.
+/// category has a pane here and the hand-built rows. Rebuilt when the screen's
+/// message locale changes so translated labels remain searchable.
 List<SettingsSearchEntry> buildSettingsSearchIndex(
-  List<(String category, String title, String subtitle)> pages,
-) {
+  List<(String category, String title, String subtitle)> pages, {
+  String Function(SettingDef<Object>)? titleFor,
+  String Function(SettingDef<Object>)? descriptionFor,
+}) {
   final categories = {for (final p in pages) p.$1};
   return [
     for (final (category, title, subtitle) in pages)
@@ -533,8 +537,9 @@ List<SettingsSearchEntry> buildSettingsSearchIndex(
           categories.contains(def.category))
         SettingsSearchEntry(
           category: def.category,
-          title: def.title,
-          description: def.description,
+          title: titleFor?.call(def) ?? def.title,
+          description: descriptionFor?.call(def) ?? def.description,
+          englishAlias: '${def.title} ${def.description}',
           defKey: def.key,
         ),
     if (categories.contains('Device'))
@@ -622,7 +627,7 @@ List<SettingsSearchEntry> searchSettings(
   int? score(SettingsSearchEntry e) {
     final title = e.title.toLowerCase();
     final description = e.description.toLowerCase();
-    final haystack = '$title $description';
+    final haystack = '$title $description ${e.englishAlias.toLowerCase()}';
     for (final term in terms) {
       if (!haystack.contains(term)) return null;
     }

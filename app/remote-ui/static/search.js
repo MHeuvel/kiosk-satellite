@@ -195,7 +195,8 @@ export function searchSettingsIndex(query) {
   const defs = (state.settings || [])
     .filter((s) => !s.hidden && SEARCH_CATEGORY_TABS[s.category])
     .map((s) => ({ tab: SEARCH_CATEGORY_TABS[s.category], title: s.title,
-      desc: s.description || '', key: s.key }));
+      desc: s.description || '', key: s.key,
+      englishAlias: `${s.englishTitle || ''} ${s.englishDescription || ''}` }));
   // The second-level pages, findable like the tabs are; a hit lands on the
   // entry row that opens them. Mirrors buildSettingsSearchIndex on the device.
   const subs = [];
@@ -217,7 +218,7 @@ export function searchSettingsIndex(query) {
     const e = {...raw, desc: typeof raw.desc === 'string' ? raw.desc : ''};
     if (e.onlyWith && !shown(e.onlyWith)) return;
     const title = e.title.toLowerCase();
-    const hay = `${title} ${e.desc.toLowerCase()}`;
+    const hay = `${title} ${e.desc.toLowerCase()} ${(e.englishAlias || '').toLowerCase()}`;
     if (!terms.every((t) => hay.includes(t))) return;
     // Title prefix beats title match beats description-only, then the nav
     // order keeps groups contiguous — the same ranking as the device.

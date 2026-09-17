@@ -1,0 +1,472 @@
+{
+  "@@locale": "en",
+  "commonImport": "Import",
+  "@commonImport": {
+    "context": "Common:Actions",
+    "description": "Button to import a configuration file."
+  },
+  "commonBack": "Back",
+  "@commonBack": {
+    "context": "Common:Actions",
+    "description": "Button to return to the previous step."
+  },
+  "commonNext": "Next",
+  "@commonNext": {
+    "context": "Common:Actions",
+    "description": "Button to advance to the next step."
+  },
+  "commonFinish": "Finish",
+  "@commonFinish": {
+    "context": "Common:Actions",
+    "description": "Button to complete setup."
+  },
+  "commonWorking": "Working…",
+  "@commonWorking": {
+    "context": "Common:Actions",
+    "description": "Button label while an operation is running."
+  },
+  "settingDeviceNameTitle": "Device name",
+  "@settingDeviceNameTitle": {
+    "context": "Settings:Device",
+    "description": "Device name field label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Device name"
+      ],
+      "remoteAdmin": [
+        "Device > Device name",
+        "First-time setup > Welcome > Device name"
+      ]
+    }
+  },
+  "settingDeviceNameDescription": "Friendly name shown in remote management and used as the device name published to Home Assistant.",
+  "@settingDeviceNameDescription": {
+    "context": "Settings:Device",
+    "description": "Help below the Device name field.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Device name"
+      ],
+      "remoteAdmin": [
+        "Device > Device name"
+      ]
+    }
+  },
+  "settingRemoteEnabledTitle": "Remote management",
+  "@settingRemoteEnabledTitle": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Switch label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration > Remote management"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration > Remote management"
+      ]
+    }
+  },
+  "settingRemoteEnabledDescription": "Run the embedded admin web server.",
+  "@settingRemoteEnabledDescription": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Help below the switch.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration > Remote management"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration > Remote management"
+      ]
+    }
+  },
+  "settingRemotePortTitle": "Server port",
+  "@settingRemotePortTitle": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Server port field label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration > Server port"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration > Server port"
+      ]
+    }
+  },
+  "settingRemotePortDescription": "Port for the remote admin interface.",
+  "@settingRemotePortDescription": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Help below the Server port field.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration > Server port"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration > Server port"
+      ]
+    }
+  },
+  "settingRemotePasswordTitle": "Admin password",
+  "@settingRemotePasswordTitle": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Admin password field label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration > Admin password"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration > Admin password"
+      ]
+    }
+  },
+  "settingRemotePasswordDescription": "Required to log in to the remote interface.",
+  "@settingRemotePasswordDescription": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Help below the Admin password field.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration > Admin password"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration > Admin password"
+      ]
+    }
+  },
+  "settingHaUrlTitle": "Home Assistant base URL",
+  "@settingHaUrlTitle": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Home Assistant base URL field label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Home Assistant base URL"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Home Assistant base URL"
+      ]
+    }
+  },
+  "settingHaUrlDescription": "e.g. https://homeassistant.local:8123, without a dashboard path.",
+  "@settingHaUrlDescription": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Help below the Home Assistant base URL field.",
+    "x-notes": "Preserve the example URL exactly.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Home Assistant base URL"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Home Assistant base URL"
+      ]
+    }
+  },
+  "settingHaTokenTitle": "Long-lived access token",
+  "@settingHaTokenTitle": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Long-lived access token field label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Long-lived access token"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Long-lived access token",
+        "First-time setup > Connect > Long-lived access token"
+      ]
+    }
+  },
+  "settingHaTokenDescription": "Created under your HA profile → Security.",
+  "@settingHaTokenDescription": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Help below the Long-lived access token field.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Long-lived access token"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Long-lived access token"
+      ]
+    }
+  },
+  "setupConnectHeading": "Connect to Home Assistant",
+  "@setupConnectHeading": {
+    "context": "First-time setup:Connect",
+    "description": "Page heading."
+  },
+  "setupConnectLead": "The base URL of your instance and a long-lived access token, created under your HA profile → Security → Long-lived access tokens.",
+  "@setupConnectLead": {
+    "context": "First-time setup:Connect",
+    "description": "Introduction explaining the required credentials."
+  },
+  "setupBaseUrl": "Home Assistant base URL",
+  "@setupBaseUrl": {
+    "context": "First-time setup:Connect",
+    "description": "Home Assistant address field label."
+  },
+  "setupToken": "Long-lived access token",
+  "@setupToken": {
+    "context": "First-time setup:Connect",
+    "description": "Access token field label."
+  },
+  "setupScanQr": "Scan the QR code",
+  "@setupScanQr": {
+    "context": "First-time setup:Connect",
+    "description": "Button to scan connection details from a QR code."
+  },
+  "setupInvalidToken": "Invalid access token",
+  "@setupInvalidToken": {
+    "context": "First-time setup:Connect",
+    "description": "Error heading when Home Assistant rejects the token."
+  },
+  "setupInvalidTokenHelp": "Home Assistant rejected this token. In Home Assistant, open your profile → Security → Long-lived access tokens, create a new token and copy the complete value.",
+  "@setupInvalidTokenHelp": {
+    "context": "First-time setup:Connect",
+    "description": "Instructions for replacing a rejected token."
+  },
+  "setupUnreachable": "Can't reach Home Assistant",
+  "@setupUnreachable": {
+    "context": "First-time setup:Connect",
+    "description": "Error heading when the server does not respond."
+  },
+  "setupUnreachableHelp": "No response from this address. Check that the URL is correct and that this device is on the same network as your Home Assistant server.",
+  "@setupUnreachableHelp": {
+    "context": "First-time setup:Connect",
+    "description": "Troubleshooting advice for an unreachable server."
+  },
+  "setupUnexpectedResponseHelp": "A server responded, but it doesn't appear to be Home Assistant. Check that the URL is your Home Assistant base address, for example https://homeassistant.local:8123.",
+  "@setupUnexpectedResponseHelp": {
+    "context": "First-time setup:Connect",
+    "description": "Help when the address responds as a different service.",
+    "x-notes": "Preserve the example URL exactly."
+  },
+  "setupCannotConnect": "Can't connect",
+  "@setupCannotConnect": {
+    "context": "First-time setup:Connect",
+    "description": "Heading for other connection errors."
+  },
+  "setupCameraPermission": "Camera permission needed",
+  "@setupCameraPermission": {
+    "context": "First-time setup:Connect",
+    "description": "Error heading when QR scanning needs camera permission."
+  },
+  "setupCameraBlocked": "Allow the camera for Kiosk Satellite in the Android settings to scan the QR code.",
+  "@setupCameraBlocked": {
+    "context": "First-time setup:Connect",
+    "description": "Instructions when camera access must be enabled in Android."
+  },
+  "setupCameraAllow": "Allow the camera to scan the QR code.",
+  "@setupCameraAllow": {
+    "context": "First-time setup:Connect",
+    "description": "Instructions when camera access can be requested in the app."
+  },
+  "setupEnterBaseUrl": "Enter your Home Assistant base URL",
+  "@setupEnterBaseUrl": {
+    "context": "First-time setup:Connect",
+    "description": "Error heading when the address field is empty."
+  },
+  "setupInvalidBaseUrl": "Invalid base URL",
+  "@setupInvalidBaseUrl": {
+    "context": "First-time setup:Connect",
+    "description": "Error heading when the address format is invalid."
+  },
+  "setupBaseUrlHelp": "This is the address you use to open Home Assistant, for example https://homeassistant.local:8123.",
+  "@setupBaseUrlHelp": {
+    "context": "First-time setup:Connect",
+    "description": "Example explaining the expected address.",
+    "x-notes": "Preserve the example URL exactly."
+  },
+  "setupEnterToken": "Enter a long-lived access token",
+  "@setupEnterToken": {
+    "context": "First-time setup:Connect",
+    "description": "Error heading when the access token field is empty."
+  },
+  "setupEnterTokenHelp": "In Home Assistant, open your profile → Security → Long-lived access tokens to create one.",
+  "@setupEnterTokenHelp": {
+    "context": "First-time setup:Connect",
+    "description": "Instructions for creating an access token."
+  },
+  "setupValidateContinue": "Validate & continue",
+  "@setupValidateContinue": {
+    "context": "First-time setup:Connect",
+    "description": "Button to test credentials and advance."
+  },
+  "setupUnexpectedResponse": "Unexpected response ({error})",
+  "@setupUnexpectedResponse": {
+    "context": "First-time setup:Connect",
+    "description": "Error heading for an unexpected server response.",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "HTTP 503",
+        "description": "Diagnostic HTTP response code."
+      }
+    }
+  },
+  "baseUrlInvalid": "Enter a valid URL, for example https://homeassistant.local:8123",
+  "@baseUrlInvalid": {
+    "context": "First-time setup:Connect",
+    "description": "Validation error for a malformed address.",
+    "x-notes": "Preserve the example URL exactly."
+  },
+  "baseUrlPath": "Enter only the base URL, without a dashboard path. Example: https://homeassistant.local:8123",
+  "@baseUrlPath": {
+    "context": "First-time setup:Connect",
+    "description": "Validation error for an address containing a dashboard path.",
+    "x-notes": "Preserve the example URL exactly."
+  },
+  "baseUrlQuery": "Enter only the base URL, without anything after the port. Example: https://homeassistant.local:8123",
+  "@baseUrlQuery": {
+    "context": "First-time setup:Connect",
+    "description": "Validation error for an address containing a query or fragment.",
+    "x-notes": "Preserve the example URL exactly."
+  },
+  "setupWelcome": "Welcome",
+  "@setupWelcome": {
+    "context": "First-time setup:Navigation",
+    "description": "Welcome step label."
+  },
+  "setupConnect": "Connect",
+  "@setupConnect": {
+    "context": "First-time setup:Navigation",
+    "description": "Home Assistant connection step label."
+  },
+  "setupConnectSummary": "Home Assistant URL & token",
+  "@setupConnectSummary": {
+    "context": "First-time setup:Navigation",
+    "description": "Summary below the connection step label."
+  },
+  "setupDashboard": "Dashboard",
+  "@setupDashboard": {
+    "context": "First-time setup:Navigation",
+    "description": "Dashboard step label."
+  },
+  "setupDashboardSummary": "What the kiosk shows",
+  "@setupDashboardSummary": {
+    "context": "First-time setup:Navigation",
+    "description": "Summary below the dashboard step label."
+  },
+  "setupRecommendedSummary": "Recommended settings",
+  "@setupRecommendedSummary": {
+    "context": "First-time setup:Navigation",
+    "description": "Summary below the recommended settings step."
+  },
+  "setupPermissions": "Permissions",
+  "@setupPermissions": {
+    "context": "First-time setup:Navigation",
+    "description": "Permissions step label and page heading."
+  },
+  "setupPermissionsSummary": "What the setup needs",
+  "@setupPermissionsSummary": {
+    "context": "First-time setup:Navigation",
+    "description": "Summary below the permissions step label."
+  },
+  "setupRemoteHeading": "Remote administration",
+  "@setupRemoteHeading": {
+    "context": "First-time setup:Welcome",
+    "description": "Remote administration section heading and step summary."
+  },
+  "setupTitle": "Set up\nKiosk Satellite",
+  "@setupTitle": {
+    "context": "First-time setup:Welcome",
+    "description": "Setup heading on the device.",
+    "x-notes": "Keep Kiosk Satellite unchanged. The line break separates the action from the product name."
+  },
+  "setupWelcomeLead": "Turn this tablet into a Home Assistant kiosk. Setup takes a couple of minutes and this wizard walks you through it.",
+  "@setupWelcomeLead": {
+    "context": "First-time setup:Welcome",
+    "description": "Introduction on the device.",
+    "x-notes": "Keep Home Assistant unchanged."
+  },
+  "setupDeviceName": "Device name",
+  "@setupDeviceName": {
+    "context": "First-time setup:Welcome",
+    "description": "Device name field label on the device."
+  },
+  "setupDeviceNameHelp": "How this kiosk is called in Home Assistant, in the remote admin and on the network. Change it any time under Settings, Device.",
+  "@setupDeviceNameHelp": {
+    "context": "First-time setup:Welcome",
+    "description": "Help below the device name field."
+  },
+  "setupEnableRemote": "Enable remote administration",
+  "@setupEnableRemote": {
+    "context": "First-time setup:Welcome",
+    "description": "Remote administration switch label on the device."
+  },
+  "setupEnableRemoteHelp": "Keep managing this kiosk from a web browser after setup, where pasting the Home Assistant access token is much easier.",
+  "@setupEnableRemoteHelp": {
+    "context": "First-time setup:Welcome",
+    "description": "Help below the remote administration switch."
+  },
+  "setupRemotePassword": "Remote admin password",
+  "@setupRemotePassword": {
+    "context": "First-time setup:Welcome",
+    "description": "Remote password field label on the device."
+  },
+  "setupRestoreHeading": "Restore backup",
+  "@setupRestoreHeading": {
+    "context": "First-time setup:Welcome",
+    "description": "Configuration restore section heading."
+  },
+  "setupRestore": "Restore from configuration file",
+  "@setupRestore": {
+    "context": "First-time setup:Welcome",
+    "description": "Action to select a configuration file."
+  },
+  "setupRestoreHelp": "Import a configuration exported from Kiosk Satellite and skip the rest of this wizard. Settings, dashboard and login all come along.",
+  "@setupRestoreHelp": {
+    "context": "First-time setup:Welcome",
+    "description": "Explanation of what restoring a configuration imports."
+  },
+  "setupServicePermissions": "Recommended Service Permissions",
+  "@setupServicePermissions": {
+    "context": "First-time setup:Welcome",
+    "description": "Heading above the recommended service permissions."
+  },
+  "setupPasswordShort": "Password too short",
+  "@setupPasswordShort": {
+    "context": "First-time setup:Welcome",
+    "description": "Error heading for a password below the minimum length."
+  },
+  "setupPasswordMinimum": "Use at least 4 characters.",
+  "@setupPasswordMinimum": {
+    "context": "First-time setup:Welcome",
+    "description": "Password length requirement below the error heading.",
+    "x-notes": "The minimum is 4 characters."
+  },
+  "setupRemoteAddress": "You can continue this setup remotely from a web browser at {address}, whether the switch above is on or not.",
+  "@setupRemoteAddress": {
+    "context": "First-time setup:Welcome",
+    "description": "Instructions for continuing setup in a browser.",
+    "x-notes": "The address comes from the device. Do not add a literal URL.",
+    "placeholders": {
+      "address": {
+        "type": "String",
+        "example": "http://192.168.1.10:2324",
+        "description": "Complete URL of the remote admin."
+      }
+    }
+  },
+  "remoteWelcomeTitle": "Welcome to Kiosk Satellite",
+  "@remoteWelcomeTitle": {
+    "context": "First-time setup:Welcome",
+    "description": "Welcome heading in the browser.",
+    "x-notes": "Keep Kiosk Satellite unchanged."
+  },
+  "remoteWelcomePassword": "This tablet is waiting to be set up. First, protect this remote admin with a password.",
+  "@remoteWelcomePassword": {
+    "context": "First-time setup:Welcome",
+    "description": "Browser introduction when no admin password is set."
+  },
+  "remoteWelcomeReady": "This tablet is waiting to be set up. The remote admin password is already set; type a new one here to change it.",
+  "@remoteWelcomeReady": {
+    "context": "First-time setup:Welcome",
+    "description": "Browser introduction when an admin password is already set."
+  },
+  "remoteInitialPassword": "Admin password (min 4 characters)",
+  "@remoteInitialPassword": {
+    "context": "First-time setup:Welcome",
+    "description": "Browser password field label for a new password.",
+    "x-notes": "The minimum is 4 characters."
+  },
+  "remoteNewPassword": "New admin password (leave empty to keep the current one)",
+  "@remoteNewPassword": {
+    "context": "First-time setup:Welcome",
+    "description": "Browser password field label for an optional replacement."
+  }
+}

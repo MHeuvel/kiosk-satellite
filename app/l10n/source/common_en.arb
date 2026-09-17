@@ -1,0 +1,28 @@
+{
+  "@@locale": "en",
+  "commonImport": "Import",
+  "@commonImport": {
+    "context": "Common:Actions",
+    "description": "Button to import a configuration file."
+  },
+  "commonBack": "Back",
+  "@commonBack": {
+    "context": "Common:Actions",
+    "description": "Button to return to the previous step."
+  },
+  "commonNext": "Next",
+  "@commonNext": {
+    "context": "Common:Actions",
+    "description": "Button to advance to the next step."
+  },
+  "commonFinish": "Finish",
+  "@commonFinish": {
+    "context": "Common:Actions",
+    "description": "Button to complete setup."
+  },
+  "commonWorking": "Working…",
+  "@commonWorking": {
+    "context": "Common:Actions",
+    "description": "Button label while an operation is running."
+  }
+}

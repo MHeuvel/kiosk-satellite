@@ -1,0 +1,57 @@
+{
+  "@@locale": "en",
+  "settingHaUrlTitle": "Home Assistant base URL",
+  "@settingHaUrlTitle": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Home Assistant base URL field label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Home Assistant base URL"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Home Assistant base URL"
+      ]
+    }
+  },
+  "settingHaUrlDescription": "e.g. https://homeassistant.local:8123, without a dashboard path.",
+  "@settingHaUrlDescription": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Help below the Home Assistant base URL field.",
+    "x-notes": "Preserve the example URL exactly.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Home Assistant base URL"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Home Assistant base URL"
+      ]
+    }
+  },
+  "settingHaTokenTitle": "Long-lived access token",
+  "@settingHaTokenTitle": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Long-lived access token field label.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Long-lived access token"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Long-lived access token",
+        "First-time setup > Connect > Long-lived access token"
+      ]
+    }
+  },
+  "settingHaTokenDescription": "Created under your HA profile → Security.",
+  "@settingHaTokenDescription": {
+    "context": "Settings:Home Assistant Setup",
+    "description": "Help below the Long-lived access token field.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Assistant Setup > Long-lived access token"
+      ],
+      "remoteAdmin": [
+        "Home Assistant Setup > Long-lived access token"
+      ]
+    }
+  }
+}

@@ -59,7 +59,7 @@ try:
         field.fill('Test connection')
         results.get_by_text('Test connection', exact=True).click()
         expect(page.locator('[data-search-id="x:shizuku:identity"]')).to_have_class('row shizuku-action search-hit')
-        assert page.url.endswith('#device/Shizuku')
+        assert page.url.endswith('#device/shizuku')
         field.fill('Nearby devices')
         results.get_by_text('Nearby devices', exact=True).last.click()
         expect(page.locator('[data-search-id="x:shizuku:bluetooth"]')).to_have_class('row shizuku-action search-hit')
@@ -87,7 +87,9 @@ try:
         field.fill('')
         field.fill('floating window')
         expect(results.get_by_text('Greeting', exact=True)).to_have_count(0)
-        assert all(name.startswith('get') or name in ['isScreenOn', 'evalJs'] for name in calls), calls
+        read_only = {'isScreenOn', 'evalJs', 'haStatus', 'esphomeStatus',
+                     'sendspinStatus', 'hasUiGuard', 'fleetStatus', 'fleet'}
+        assert all(name.startswith('get') or name in read_only for name in calls), calls
         assert errors == [], errors
         browser.close()
         print('Remote search: missing fields, row text, plugin manifests, target navigation, master gating and read-only searches passed')

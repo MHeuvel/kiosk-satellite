@@ -7,6 +7,8 @@ library;
 
 import 'dart:convert';
 
+import '../../l10n/generated/setting_ids.dart';
+
 import '../btproxy/node_name.dart';
 
 enum SettingType { string, boolean, number, select, password }
@@ -46,6 +48,9 @@ class SettingDef<T> {
   final T defaultValue;
   final String title;
   final String description;
+
+  String? get titleMessageId => settingMessageIds[key]?['title'];
+  String? get descriptionMessageId => settingMessageIds[key]?['description'];
   final String category;
 
   /// An optional subheading within [category]. Consecutive settings sharing a

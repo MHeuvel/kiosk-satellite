@@ -1,0 +1,30 @@
+{
+  "@@locale": "en",
+  "settingDeviceNameTitle": "Device name",
+  "@settingDeviceNameTitle": {
+    "context": "Settings:Device",
+    "description": "Device name field label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Device name"
+      ],
+      "remoteAdmin": [
+        "Device > Device name",
+        "First-time setup > Welcome > Device name"
+      ]
+    }
+  },
+  "settingDeviceNameDescription": "Friendly name shown in remote management and used as the device name published to Home Assistant.",
+  "@settingDeviceNameDescription": {
+    "context": "Settings:Device",
+    "description": "Help below the Device name field.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Device name"
+      ],
+      "remoteAdmin": [
+        "Device > Device name"
+      ]
+    }
+  }
+}

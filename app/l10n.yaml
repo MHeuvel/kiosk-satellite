@@ -1,0 +1,8 @@
+arb-dir: l10n/effective
+template-arb-file: ui_en.arb
+output-dir: lib/l10n/generated
+output-localization-file: ui_strings.dart
+output-class: UiStrings
+nullable-getter: true
+required-resource-attributes: true
+format: true

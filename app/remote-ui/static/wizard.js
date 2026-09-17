@@ -1,3 +1,4 @@
+import { t } from './localization.js';
 import { WIZ_LOCKED, WIZ_OPTIONAL, wizard } from './app.js';
 import { $, THEME_ICONS, api, showView, state } from './core.js';
 import { readOnlyRow } from './device.js';
@@ -43,18 +44,18 @@ export function showImportPending() {
 
 export function wizConnectFail(error) {
   if (error.includes('invalid token')) {
-    return wizFail('Invalid access token',
-      'Home Assistant rejected this token. In Home Assistant, open your profile \u2192 Security \u2192 Long-lived access tokens, create a new token, and copy the complete value.');
+    return wizFail(t('setupInvalidToken'),
+      t('setupInvalidTokenHelp'));
   }
   if (error.startsWith('unreachable')) {
-    return wizFail("Can't reach Home Assistant",
-      'No response from this address. Check that the URL is correct and that this device is on the same network as your Home Assistant server.');
+    return wizFail(t('setupUnreachable'),
+      t('setupUnreachableHelp'));
   }
   if (error.startsWith('HTTP')) {
-    return wizFail(`Unexpected response (${error})`,
-      "A server responded, but it doesn't appear to be Home Assistant. Check that the URL is your Home Assistant base address, for example https://homeassistant.local:8123.");
+    return wizFail(t('setupUnexpectedResponse', { error }),
+      t('setupUnexpectedResponseHelp'));
   }
-  return wizFail("Can't connect", error);
+  return wizFail(t('setupCannotConnect'), error);
 }
 
 export function wizardShowError(e) {
@@ -112,8 +113,9 @@ export function wizardRender() {
     rail.appendChild(row);
   });
   $('#wizardError').textContent = '';
+  $('#wizardBack').textContent = t('commonBack');
   $('#wizardBack').classList.toggle('hidden', wizard.i === 0);
-  $('#wizardNext').textContent = s.nextLabel || 'Next';
+  $('#wizardNext').textContent = s.nextLabel || t('commonNext');
   $('#wizardTitle').textContent = s.title;
   $('#wizardLead').textContent = s.lead;
   const body = $('#wizardBody');
@@ -286,7 +288,7 @@ export function wizardRestoreCard(b) {
   // plain card with a padded row of its own read as a taller, looser
   // group than its neighbours.
   const card = wizardCard(b, true);
-  const row = readOnlyRow('Restore from configuration file',
+  const row = readOnlyRow(t('setupRestore'),
     'Import a configuration exported from Kiosk Satellite and skip the rest of this wizard.', '');
   row.querySelector('span').remove();
   const file = document.createElement('input');
@@ -295,7 +297,7 @@ export function wizardRestoreCard(b) {
   file.hidden = true;
   const btn = document.createElement('button');
   btn.className = 'btn-ghost';
-  btn.textContent = 'Import';
+  btn.textContent = t('commonImport');
   btn.style.cssText = 'flex-shrink:0;';
   btn.addEventListener('click', () => file.click());
   file.addEventListener('change', () => wizardRestore(file, btn));
@@ -363,7 +365,7 @@ export async function wizardRestore(file, btn) {
   } catch (e) {
     wizardShowError(e);
     btn.disabled = false;
-    btn.textContent = 'Import';
+    btn.textContent = t('commonImport');
   }
 }
 
@@ -375,11 +377,11 @@ export function wizardSteps() {
   // discovered later as a notification. The Connect step is then only the
   // Home Assistant connection, on both surfaces.
   steps.push({
-    railTitle: 'Welcome', railSub: 'Remote administration',
-    title: 'Welcome to Kiosk Satellite',
+    railTitle: t('setupWelcome'), railSub: t('setupRemoteHeading'),
+    title: t('remoteWelcomeTitle'),
     lead: wizard.needPassword
-      ? 'This tablet is waiting to be set up. First, protect this remote admin with a password.'
-      : 'This tablet is waiting to be set up. The remote admin password is already set; type a new one here to change it.',
+      ? t('remoteWelcomePassword')
+      : t('remoteWelcomeReady'),
     body: (b) => {
       // The device name first, seeded with what the device calls itself
       // (the model, until someone names it): the ESPHome node name is
@@ -387,23 +389,22 @@ export function wizardSteps() {
       // reads as ks-kitchen-tablet in Home Assistant rather than a
       // generated kiosk-satellite-<id>.
       const dev = wizardCard(b);
-      const nameField = wizardField(dev, 'wzDeviceName', 'text', 'Device name');
+      const nameField = wizardField(dev, 'wzDeviceName', 'text', t('settingDeviceNameTitle'));
       nameField.value = wizard.deviceName || '';
       const note = document.createElement('div');
       note.style.cssText = 'color:var(--muted); font-size:12.5px; line-height:1.5; margin-top:-4px';
-      note.textContent = 'How this kiosk is called in Home Assistant, in the remote admin '
-        + 'and on the network. Change it any time under Settings, Device.';
+      note.textContent = t('setupDeviceNameHelp');
       dev.appendChild(note);
-      wizardHeading(b, 'Remote administration');
+      wizardHeading(b, t('setupRemoteHeading'));
       // Always a field: with a password already set (on the tablet, or by
       // an earlier pass through this step) it changes it, and an empty
       // field keeps it.
       wizardField(wizardCard(b), 'wzPassword', 'password', wizard.needPassword
-        ? 'Admin password (min 4 characters)'
-        : 'New admin password (leave empty to keep the current one)');
-      wizardHeading(b, 'Restore backup');
+        ? t('remoteInitialPassword')
+        : t('remoteNewPassword'));
+      wizardHeading(b, t('setupRestoreHeading'));
       wizardRestoreCard(b);
-      wizardHeading(b, 'Recommended Service Permissions');
+      wizardHeading(b, t('setupServicePermissions'));
       wizardServiceCard(b);
     },
     next: async () => {
@@ -418,7 +419,7 @@ export function wizardSteps() {
           body: JSON.stringify({ 'device.name': deviceName }) });
         return;
       }
-      if (password.length < 4) throw wizFail('Password too short', 'Use at least 4 characters.');
+      if (password.length < 4) throw wizFail(t('setupPasswordShort'), t('setupPasswordMinimum'));
       // A change rides the session the current password minted; a first
       // password has no session yet and goes bare. The name rides along
       // either way: before a password exists there is nothing to PATCH
@@ -443,27 +444,27 @@ export function wizardSteps() {
     },
   });
   steps.push({
-    railTitle: 'Connect', railSub: 'Home Assistant URL & token',
-    title: 'Connect to Home Assistant',
-    lead: 'The base URL of your instance and a long-lived access token, created under your HA profile \u2192 Security \u2192 Long-lived access tokens.',
-    nextLabel: 'Validate & continue',
+    railTitle: t('setupConnect'), railSub: t('setupConnectSummary'),
+    title: t('setupConnectHeading'),
+    lead: t('setupConnectLead'),
+    nextLabel: t('setupValidateContinue'),
     body: (b) => {
       const card = wizardCard(b);
       wizardField(card, 'wzUrl', 'url', 'https://homeassistant.local:8123');
-      wizardField(card, 'wzToken', 'password', 'Long-lived access token');
+      wizardField(card, 'wzToken', 'password', t('settingHaTokenTitle'));
     },
     next: async () => {
       const url = $('#wzUrl').value.trim(), token = $('#wzToken').value.trim();
-      if (!url) throw wizFail('Enter your Home Assistant base URL',
-        'This is the address you use to open Home Assistant, for example https://homeassistant.local:8123.');
-      if (!token) throw wizFail('Enter a long-lived access token',
-        'In Home Assistant, open your profile \u2192 Security \u2192 Long-lived access tokens to create one.');
+      if (!url) throw wizFail(t('setupEnterBaseUrl'),
+        t('setupBaseUrlHelp'));
+      if (!token) throw wizFail(t('setupEnterToken'),
+        t('setupEnterTokenHelp'));
       const patch = await api('/api/settings', { method: 'PATCH',
         body: JSON.stringify({ 'ha.url': url, 'ha.token': token }) });
       const pout = await patch.json();
       if ((pout.rejected || []).includes('ha.url')) {
-        throw wizFail('Invalid base URL',
-          'Enter only the base URL, without a dashboard path. Example: https://homeassistant.local:8123');
+        throw wizFail(t('setupInvalidBaseUrl'),
+          t('baseUrlPath'));
       }
       const check = await (await api('/api/commands/haCheckConnection', { method: 'POST', body: '{}' })).json();
       if (!check.ok) throw wizConnectFail(check.error || '');
@@ -490,7 +491,7 @@ export function wizardSteps() {
     },
   });
   steps.push({
-    railTitle: 'Dashboard', railSub: 'What the kiosk shows',
+    railTitle: t('setupDashboard'), railSub: t('setupDashboardSummary'),
     title: 'Choose a dashboard',
     lead: 'This is what the kiosk will show when it starts.',
     body: (b) => {
@@ -599,10 +600,10 @@ export function wizardSteps() {
     next: async () => {},
   });
   steps.push({
-    railTitle: 'Permissions', railSub: 'What the setup needs',
-    title: 'Permissions',
+    railTitle: t('setupPermissions'), railSub: t('setupPermissionsSummary'),
+    title: t('setupPermissions'),
     lead: 'Android asks for these on the tablet itself. Walk over and accept the prompts, then finish here.',
-    nextLabel: 'Finish',
+    nextLabel: t('commonFinish'),
     body: (b) => {
       const background = wizard.vsDetected && wizard.rec['wake_word.background'];
       const bootStart = wizard.vsDetected && wizard.rec['kiosk.start_on_boot'];

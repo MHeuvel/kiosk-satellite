@@ -1,0 +1,81 @@
+{
+  "@@locale": "en",
+  "settingRemoteEnabledTitle": "Remote management",
+  "@settingRemoteEnabledTitle": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Switch label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration > Remote management"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration > Remote management"
+      ]
+    }
+  },
+  "settingRemoteEnabledDescription": "Run the embedded admin web server.",
+  "@settingRemoteEnabledDescription": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Help below the switch.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration > Remote management"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration > Remote management"
+      ]
+    }
+  },
+  "settingRemotePortTitle": "Server port",
+  "@settingRemotePortTitle": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Server port field label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration > Server port"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration > Server port"
+      ]
+    }
+  },
+  "settingRemotePortDescription": "Port for the remote admin interface.",
+  "@settingRemotePortDescription": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Help below the Server port field.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration > Server port"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration > Server port"
+      ]
+    }
+  },
+  "settingRemotePasswordTitle": "Admin password",
+  "@settingRemotePasswordTitle": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Admin password field label.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration > Admin password"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration > Admin password"
+      ]
+    }
+  },
+  "settingRemotePasswordDescription": "Required to log in to the remote interface.",
+  "@settingRemotePasswordDescription": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Help below the Admin password field.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration > Admin password"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration > Admin password"
+      ]
+    }
+  }
+}

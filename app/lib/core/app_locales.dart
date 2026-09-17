@@ -1,6 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import '../l10n/generated/ui_strings.dart';
+import '../l10n/messages.dart';
+
 /// Localization setup for the root MaterialApp (issue #551).
 ///
 /// Rubik has no CJK glyphs, so those characters fall back to system fonts.
@@ -11,10 +14,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 /// Japanese and Korean, so only the locale tells the font which shape to
 /// use. Listing the CJK locales lets the device locale win that pick.
 ///
-/// Devices in any other language resolve to English, the first entry, which
-/// is what they got before. The HA dashboard renders in the WebView with
-/// its own font and locale pipeline and is untouched by this.
+/// Reviewed message catalogs add their locales to this list. Other languages
+/// fall back to English. The HA dashboard keeps its own locale pipeline.
 const List<LocalizationsDelegate<dynamic>> appLocalizationsDelegates = [
+  MessageDelegate(),
   GlobalMaterialLocalizations.delegate,
   GlobalWidgetsLocalizations.delegate,
   GlobalCupertinoLocalizations.delegate,
@@ -23,7 +26,7 @@ const List<LocalizationsDelegate<dynamic>> appLocalizationsDelegates = [
 /// Language-only entries catch generic device locales, the region and script
 /// entries keep an exact match so zh-Hant-TW is not collapsed to zh.
 const List<Locale> appSupportedLocales = [
-  Locale('en'),
+  ...UiStrings.supportedLocales,
   Locale('ja'),
   Locale('ja', 'JP'),
   Locale('ko'),

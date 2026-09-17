@@ -1,6 +1,7 @@
 import { detachSocket, socketReady, socketRequest } from './transport.js';
 import { start } from './app.js';
 import { startWizard } from './wizard.js';
+import { localizeSetting } from './localization.js';
 
 // A function declaration on purpose: several modules use $ at module top
 // level and sit in import cycles with this one, and only hoisted function
@@ -13,6 +14,7 @@ export const state = { token: localStorage.getItem('ks_token'), ws: null };
 export function cacheSettings(definitions) {
   const existing = new Map((state.settings || []).map(setting => [setting.key, setting]));
   state.settings = definitions.map(setting => {
+    setting = localizeSetting(setting);
     const cached = existing.get(setting.key);
     return cached ? Object.assign(cached, setting) : setting;
   });

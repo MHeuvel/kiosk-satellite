@@ -13,6 +13,7 @@ import 'package:flutter/services.dart';
 
 import '../app_container.dart';
 import '../core/events.dart';
+import '../l10n/messages.dart';
 import '../core/logging.dart';
 import '../managers/btproxy/ble_identity.dart' show rssiTier, sortNearbyJson;
 import '../managers/camera/models.dart'
@@ -413,11 +414,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
   /// back arrow of its own — One UI's tablet behavior.
   String? _subpage;
 
-  late final List<SettingsSearchEntry> _staticSearchIndex =
-      buildSettingsSearchIndex([
-        for (final (category, title, _, subtitle) in _categories)
-          (category, title, subtitle),
-      ]);
+  Object? _searchMessages;
+  List<SettingsSearchEntry>? _cachedSearchIndex;
+
+  List<SettingsSearchEntry> get _staticSearchIndex {
+    final messages = l10n(context);
+    if (!identical(messages, _searchMessages)) {
+      _searchMessages = messages;
+      _cachedSearchIndex = buildSettingsSearchIndex(
+        [
+          for (final (category, title, _, subtitle) in _categories)
+            (category, title, subtitle),
+        ],
+        titleFor: (def) => def.localizedTitle(context),
+        descriptionFor: (def) => def.localizedDescription(context),
+      );
+    }
+    return _cachedSearchIndex!;
+  }
 
   List<SettingsSearchEntry> get _searchIndex => [
     ..._staticSearchIndex,
@@ -5379,8 +5393,8 @@ class _NotificationSoundTileState extends State<_NotificationSoundTile> {
     return Column(
       children: [
         DropdownRow<String>(
-          title: def.title,
-          description: def.description,
+          title: def.localizedTitle(context),
+          description: def.localizedDescription(context),
           value: current,
           options: options,
           onChanged: (v) async {
@@ -7360,14 +7374,14 @@ class _AudioDeviceTileState extends State<AudioDeviceTile> {
     ];
     if (devices == null) {
       return ListTile(
-        title: Text(widget.def.title),
-        subtitle: Text(widget.def.description),
+        title: Text(widget.def.localizedTitle(context)),
+        subtitle: Text(widget.def.localizedDescription(context)),
         trailing: const Text('…'),
       );
     }
     return DropdownRow<String>(
-      title: widget.def.title,
-      description: widget.def.description,
+      title: widget.def.localizedTitle(context),
+      description: widget.def.localizedDescription(context),
       value: options.any((o) => o.$1 == current) ? current : '',
       options: options,
       onChanged: (v) async {
@@ -9030,8 +9044,8 @@ class _SliderTileState extends State<_SliderTile> {
     return Column(
       children: [
         ListTile(
-          title: Text(def.title),
-          subtitle: Text(def.description),
+          title: Text(def.localizedTitle(context)),
+          subtitle: Text(def.localizedDescription(context)),
           trailing: Text(
             _label(value),
             style: Theme.of(context).textTheme.titleMedium,
@@ -9213,8 +9227,8 @@ class SettingTile extends StatelessWidget {
     switch (def.type) {
       case SettingType.boolean:
         return SwitchListTile(
-          title: Text(def.title),
-          subtitle: Text(def.description),
+          title: Text(def.localizedTitle(context)),
+          subtitle: Text(def.localizedDescription(context)),
           value: c.settings.get(def) as bool,
           onChanged: (v) async {
             await c.settings.setFromJson(def.key, v);
@@ -9225,7 +9239,7 @@ class SettingTile extends StatelessWidget {
         final options = _optionsFor(def);
         if (options.isEmpty && def.key == cameraRtspResolution.key) {
           return ListTile(
-            title: Text(def.title),
+            title: Text(def.localizedTitle(context)),
             subtitle: const Text(
               'No supported sizes available. Check the camera connection.',
             ),
@@ -9242,8 +9256,8 @@ class SettingTile extends StatelessWidget {
                 ? option
                 : option[0].toUpperCase() + option.substring(1));
         return DropdownRow<String>(
-          title: def.title,
-          description: def.description,
+          title: def.localizedTitle(context),
+          description: def.localizedDescription(context),
           value: options.contains(current) ? current : options.first,
           options: [for (final option in options) (option, label(option))],
           onChanged: (v) async {
@@ -9277,14 +9291,14 @@ class SettingTile extends StatelessWidget {
               ? Color.fromARGB(255, parts[0]!, parts[1]!, parts[2]!)
               : const Color(0xFFFAFAFA);
           return ListTile(
-            title: Text(def.title),
-            subtitle: Text(def.description),
+            title: Text(def.localizedTitle(context)),
+            subtitle: Text(def.localizedDescription(context)),
             trailing: GestureDetector(
               onTap: () async {
                 final picked = await pickColor(
                   context,
                   initial: rgb,
-                  title: def.title,
+                  title: def.localizedTitle(context),
                 );
                 if (picked != null) {
                   await c.settings.setFromJson(def.key, picked);
@@ -9317,7 +9331,7 @@ class SettingTile extends StatelessWidget {
           final isUrl = isClockBackgroundUrl(path);
           return SettingsRow(
             stack: true,
-            title: Text(def.title),
+            title: Text(def.localizedTitle(context)),
             subtitle: Text(
               path.isEmpty
                   ? 'No photo selected'
@@ -9386,7 +9400,7 @@ class SettingTile extends StatelessWidget {
             count = (jsonDecode(value as String) as List).length;
           } catch (_) {}
           return ListTile(
-            title: Text(def.title),
+            title: Text(def.localizedTitle(context)),
             subtitle: Text(
               count == 0 ? 'No photos selected' : '$count selected',
             ),
@@ -9402,7 +9416,7 @@ class SettingTile extends StatelessWidget {
         // the moment the user understands why.
         if (def.key == screensaverLocalFolder.key) {
           return ListTile(
-            title: Text(def.title),
+            title: Text(def.localizedTitle(context)),
             subtitle: Text(
               display,
               maxLines: 1,
@@ -9425,7 +9439,7 @@ class SettingTile extends StatelessWidget {
         // The screensaver's media is picked from Home Assistant, not typed.
         if (def.key == screensaverMediaId.key) {
           return ListTile(
-            title: Text(def.title),
+            title: Text(def.localizedTitle(context)),
             subtitle: Text(
               display,
               maxLines: 1,
@@ -9454,7 +9468,7 @@ class SettingTile extends StatelessWidget {
         if (def.key == screensaverGlanceEntities.key) {
           final chosen = _glanceEntities(c);
           return ListTile(
-            title: Text(def.title),
+            title: Text(def.localizedTitle(context)),
             subtitle: Text(
               chosen.isEmpty
                   ? 'None yet. Up to $screensaverGlanceMax entities.'
@@ -9469,7 +9483,7 @@ class SettingTile extends StatelessWidget {
         if (def.key == launcherApps.key) {
           final chosen = decodeLauncherApps(value as String);
           return ListTile(
-            title: Text(def.title),
+            title: Text(def.localizedTitle(context)),
             subtitle: Text(
               chosen.isEmpty
                   ? 'None yet. Pick the apps the launcher offers.'
@@ -9485,7 +9499,7 @@ class SettingTile extends StatelessWidget {
         if (immichNamed != null) {
           final chosen = decodeImmichNamed(value as String);
           return ListTile(
-            title: Text(def.title),
+            title: Text(def.localizedTitle(context)),
             subtitle: Text(
               chosen.isEmpty
                   ? immichNamed.empty
@@ -9508,7 +9522,7 @@ class SettingTile extends StatelessWidget {
                 if (view.id == id) view,
           ];
           return ListTile(
-            title: Text(def.title),
+            title: Text(def.localizedTitle(context)),
             subtitle: Text(
               views.isEmpty
                   ? 'No camera view has cameras yet. Add one under Camera '
@@ -9536,8 +9550,8 @@ class SettingTile extends StatelessWidget {
         if (def.key == themeDarkAt.key || def.key == themeLightAt.key) {
           final current = value as String;
           return ListTile(
-            title: Text(def.title),
-            subtitle: Text(def.description),
+            title: Text(def.localizedTitle(context)),
+            subtitle: Text(def.localizedDescription(context)),
             trailing: TimeBox(
               value: current,
               onTap: () => _pickTime(context, current),
@@ -9551,8 +9565,8 @@ class SettingTile extends StatelessWidget {
             def.key == screensaverImmichTakenTo.key) {
           final current = value as String;
           return ListTile(
-            title: Text(def.title),
-            subtitle: Text(def.description),
+            title: Text(def.localizedTitle(context)),
+            subtitle: Text(def.localizedDescription(context)),
             trailing: DateBox(
               value: current,
               placeholder: def.placeholder ?? 'Not set',
@@ -9568,8 +9582,8 @@ class SettingTile extends StatelessWidget {
         if (def.key == btproxyKey.key || def.key == intercomKey.key) {
           return SettingsRow(
             stack: true,
-            title: Text(def.title),
-            subtitle: Text(def.description),
+            title: Text(def.localizedTitle(context)),
+            subtitle: Text(def.localizedDescription(context)),
             trailing: CopyBox(
               value: value as String,
               placeholder: def.placeholder ?? 'Not set',
@@ -9577,10 +9591,12 @@ class SettingTile extends StatelessWidget {
           );
         }
         return ListTile(
-          title: Text(def.title),
+          title: Text(def.localizedTitle(context)),
           // A multiline blob (pasted JavaScript) is edited, not read off the
           // row — the description carries the row instead.
-          subtitle: Text(def.multiline ? def.description : display),
+          subtitle: Text(
+            def.multiline ? def.localizedDescription(context) : display,
+          ),
           trailing: const Icon(Icons.edit_outlined),
           onTap: () => _editText(context),
         );
@@ -9780,7 +9796,7 @@ class SettingTile extends StatelessWidget {
       context: context,
       builder: (context) => StatefulBuilder(
         builder: (context, setState) => AlertDialog(
-          title: Text(row.def.title),
+          title: Text(row.def.localizedTitle(context)),
           content: SizedBox(
             width: 420,
             child: options.isEmpty
@@ -9850,7 +9866,7 @@ class SettingTile extends StatelessWidget {
   Future<void> _pickTime(BuildContext context, String current) async {
     final picked = await showKsTimePicker(
       context,
-      title: def.title,
+      title: def.localizedTitle(context),
       initial: current,
     );
     if (picked == null) return;
@@ -9863,7 +9879,7 @@ class SettingTile extends StatelessWidget {
   Future<void> _pickFilterDate(BuildContext context, String current) async {
     final picked = await showKsDatePicker(
       context,
-      title: def.title,
+      title: def.localizedTitle(context),
       initial: current,
     );
     if (picked == null) return;
@@ -9906,7 +9922,7 @@ class SettingTile extends StatelessWidget {
       context: context,
       builder: (context) => StatefulBuilder(
         builder: (context, setDialogState) => AlertDialog(
-          title: Text(def.title),
+          title: Text(def.localizedTitle(context)),
           content: SizedBox(
             width: def.multiline ? 560 : 420,
             child: TextField(
@@ -9927,7 +9943,7 @@ class SettingTile extends StatelessWidget {
                 if (error != null) setDialogState(() => error = null);
               },
               decoration: InputDecoration(
-                hintText: def.placeholder ?? def.description,
+                hintText: def.placeholder ?? def.localizedDescription(context),
                 hintMaxLines: def.multiline ? 4 : null,
                 errorText: error,
               ),

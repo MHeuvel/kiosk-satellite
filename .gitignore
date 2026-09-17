@@ -12,6 +12,8 @@ app/*.iml
 
 # Misc
 .DS_Store
+__pycache__/
+*.pyc
 
 # Release signing identity: never committed. Local builds read
 # android/key.properties; CI gets the same values from secrets.

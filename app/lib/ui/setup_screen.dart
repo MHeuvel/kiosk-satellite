@@ -8,6 +8,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../app_container.dart';
 import '../core/events.dart';
+import '../l10n/messages.dart';
 import '../core/permissions.dart';
 import '../managers/service/service_manager.dart'
     show batteryAdbHint, overlayAdbHint;
@@ -51,12 +52,32 @@ class SetupScreen extends StatefulWidget {
 class _SetupScreenState extends State<SetupScreen> {
   AppContainer get c => widget.container;
 
-  static const _steps = <(IconData, String, String)>[
-    (Icons.waving_hand_outlined, 'Welcome', 'Remote administration'),
-    (Icons.link_outlined, 'Connect', 'Home Assistant URL & token'),
-    (Icons.dashboard_outlined, 'Dashboard', 'What the kiosk shows'),
-    (Icons.graphic_eq_outlined, 'Voice Satellite', 'Recommended settings'),
-    (Icons.verified_user_outlined, 'Permissions', 'What the setup needs'),
+  List<(IconData, String, String)> get _steps => [
+    (
+      Icons.waving_hand_outlined,
+      l10n(context).setupWelcome,
+      l10n(context).setupRemoteHeading,
+    ),
+    (
+      Icons.link_outlined,
+      l10n(context).setupConnect,
+      l10n(context).setupConnectSummary,
+    ),
+    (
+      Icons.dashboard_outlined,
+      l10n(context).setupDashboard,
+      l10n(context).setupDashboardSummary,
+    ),
+    (
+      Icons.graphic_eq_outlined,
+      'Voice Satellite',
+      l10n(context).setupRecommendedSummary,
+    ),
+    (
+      Icons.verified_user_outlined,
+      l10n(context).setupPermissions,
+      l10n(context).setupPermissionsSummary,
+    ),
   ];
 
   int _step = 0;
@@ -74,27 +95,18 @@ class _SetupScreenState extends State<SetupScreen> {
   void _connectFail(String error) {
     if (error.contains('invalid token')) {
       _fail(
-        'Invalid access token',
-        'Home Assistant rejected this token. In Home Assistant, open your '
-            'profile → Security → Long-lived access tokens, create a new '
-            'token, and copy the complete value.',
+        l10n(context).setupInvalidToken,
+        l10n(context).setupInvalidTokenHelp,
       );
     } else if (error.startsWith('unreachable')) {
-      _fail(
-        "Can't reach Home Assistant",
-        'No response from this address. Check that the URL is correct and '
-            'that this device is on the same network as your Home Assistant '
-            'server.',
-      );
+      _fail(l10n(context).setupUnreachable, l10n(context).setupUnreachableHelp);
     } else if (error.startsWith('HTTP')) {
       _fail(
-        'Unexpected response ($error)',
-        "A server responded, but it doesn't appear to be Home Assistant. "
-            'Check that the URL is your Home Assistant base address, for '
-            'example https://homeassistant.local:8123.',
+        l10n(context).setupUnexpectedResponse(error),
+        l10n(context).setupUnexpectedResponseHelp,
       );
     } else {
-      _fail("Can't connect", error);
+      _fail(l10n(context).setupCannotConnect, error);
     }
   }
 
@@ -123,11 +135,10 @@ class _SetupScreenState extends State<SetupScreen> {
     if (outcome != PermissionOutcome.granted) {
       showToast(
         context,
-        title: 'Camera permission needed',
+        title: l10n(context).setupCameraPermission,
         message: outcome == PermissionOutcome.blocked
-            ? 'Allow the camera for Kiosk Satellite in the Android '
-                  'settings to scan the QR code.'
-            : 'Allow the camera to scan the QR code.',
+            ? l10n(context).setupCameraBlocked
+            : l10n(context).setupCameraAllow,
         kind: ToastKind.warning,
       );
       return;
@@ -319,6 +330,7 @@ class _SetupScreenState extends State<SetupScreen> {
   // ── Step transitions ───────────────────────────────────────────────────
 
   Future<void> _next() async {
+    final strings = l10n(context);
     setState(() {
       _error = null;
       _errorHint = null;
@@ -333,7 +345,7 @@ class _SetupScreenState extends State<SetupScreen> {
         if (_remoteWanted) {
           final password = _remotePassword.text;
           if (password.length < 4) {
-            _fail('Password too short', 'Use at least 4 characters.');
+            _fail(strings.setupPasswordShort, strings.setupPasswordMinimum);
             return;
           }
           await c.settings.set(defs.remotePassword, password);
@@ -351,20 +363,14 @@ class _SetupScreenState extends State<SetupScreen> {
         if (_haUrl.text.trim().isEmpty || urlError != null) {
           _fail(
             urlError == null
-                ? 'Enter your Home Assistant base URL'
-                : 'Invalid base URL',
-            urlError ??
-                'This is the address you use to open Home Assistant, for '
-                    'example https://homeassistant.local:8123.',
+                ? strings.setupEnterBaseUrl
+                : strings.setupInvalidBaseUrl,
+            localizeBaseUrlError(strings, urlError) ?? strings.setupBaseUrlHelp,
           );
           return;
         }
         if (_haToken.text.trim().isEmpty) {
-          _fail(
-            'Enter a long-lived access token',
-            'In Home Assistant, open your profile → Security → Long-lived '
-                'access tokens to create one.',
-          );
+          _fail(strings.setupEnterToken, strings.setupEnterTokenHelp);
           return;
         }
         setState(() => _busy = true);
@@ -577,7 +583,7 @@ class _SetupScreenState extends State<SetupScreen> {
                     const SizedBox(width: 14),
                     Expanded(
                       child: Text(
-                        'Set up\nKiosk Satellite',
+                        l10n(context).setupTitle,
                         style: theme.textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.w700,
                           height: 1.15,
@@ -790,21 +796,15 @@ class _SetupScreenState extends State<SetupScreen> {
     switch (_step) {
       case 0:
         return withError([
-          heading('Welcome'),
-          lead(
-            'Turn this tablet into a Home Assistant kiosk. Setup takes a '
-            'couple of minutes and this wizard walks you through it.',
-          ),
+          heading(l10n(context).setupWelcome),
+          lead(l10n(context).setupWelcomeLead),
           // No group heading: the field's own label says all there is.
           _Card([
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
               child: LabeledField(
-                label: 'Device name',
-                helper:
-                    'How this kiosk is called in Home Assistant, in the '
-                    'remote admin and on the network. Change it any time '
-                    'under Settings, Device.',
+                label: l10n(context).setupDeviceName,
+                helper: l10n(context).setupDeviceNameHelp,
                 child: TextField(
                   controller: _deviceName,
                   textCapitalization: TextCapitalization.words,
@@ -813,15 +813,11 @@ class _SetupScreenState extends State<SetupScreen> {
               ),
             ),
           ]),
-          const SectionHeading('Remote administration'),
+          SectionHeading(l10n(context).setupRemoteHeading),
           _Card([
             SwitchListTile(
-              title: const Text('Enable remote administration'),
-              subtitle: const Text(
-                'Keep managing this kiosk from a web browser after setup, '
-                'where pasting the Home Assistant access token is much '
-                'easier.',
-              ),
+              title: Text(l10n(context).setupEnableRemote),
+              subtitle: Text(l10n(context).setupEnableRemoteHelp),
               value: _remoteWanted,
               onChanged: (v) => setState(() => _remoteWanted = v),
             ),
@@ -829,7 +825,7 @@ class _SetupScreenState extends State<SetupScreen> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 4, 16, 14),
                 child: LabeledField(
-                  label: 'Remote admin password',
+                  label: l10n(context).setupRemotePassword,
                   child: TextField(
                     controller: _remotePassword,
                     obscureText: true,
@@ -846,9 +842,9 @@ class _SetupScreenState extends State<SetupScreen> {
                 color: theme.colorScheme.tertiary,
               ),
               title: Text(
-                'You can continue this setup remotely from a web browser '
-                'at http://${_deviceIp ?? '<device-ip>'}:2324, whether the '
-                'switch above is on or not.',
+                l10n(context).setupRemoteAddress(
+                  'http://${_deviceIp ?? '<device-ip>'}:2324',
+                ),
                 // The tile-title style recolored and a step smaller: the
                 // ochre already carries the emphasis, so full title size
                 // on a near-full-width line reads louder than intended.
@@ -859,40 +855,32 @@ class _SetupScreenState extends State<SetupScreen> {
               ),
             ),
           ]),
-          const SectionHeading('Restore backup'),
+          SectionHeading(l10n(context).setupRestoreHeading),
           _Card([
             ListTile(
               leading: const Icon(Icons.settings_backup_restore_outlined),
-              title: const Text('Restore from configuration file'),
-              subtitle: const Text(
-                'Import a configuration exported from Kiosk Satellite and '
-                'skip the rest of this wizard. Settings, dashboard and '
-                'login all come along.',
-              ),
+              title: Text(l10n(context).setupRestore),
+              subtitle: Text(l10n(context).setupRestoreHelp),
               trailing: TextButton(
                 onPressed: _busy ? null : _importBackup,
-                child: const Text('Import'),
+                child: Text(l10n(context).commonImport),
               ),
             ),
           ]),
           // The service the whole kiosk rides on, introduced where the
           // kiosk is born rather than discovered later as a notification.
-          const SectionHeading('Recommended Service Permissions'),
+          SectionHeading(l10n(context).setupServicePermissions),
           _ServiceSetupCard(container: c),
         ]);
       case 1:
         return withError([
-          heading('Connect to Home Assistant'),
-          lead(
-            'The base URL of your instance and a long-lived access token, '
-            'created under your HA profile → Security → Long-lived access '
-            'tokens.',
-          ),
+          heading(l10n(context).setupConnectHeading),
+          lead(l10n(context).setupConnectLead),
           _Card([
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 14, 16, 8),
               child: LabeledField(
-                label: 'Home Assistant base URL',
+                label: l10n(context).setupBaseUrl,
                 child: TextField(
                   controller: _haUrl,
                   keyboardType: TextInputType.url,
@@ -906,7 +894,7 @@ class _SetupScreenState extends State<SetupScreen> {
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
               child: LabeledField(
-                label: 'Long-lived access token',
+                label: l10n(context).setupToken,
                 child: TextField(
                   controller: _haToken,
                   obscureText: true,
@@ -919,7 +907,7 @@ class _SetupScreenState extends State<SetupScreen> {
                         ? null
                         : IconButton(
                             icon: const Icon(Icons.qr_code_scanner),
-                            tooltip: 'Scan the QR code',
+                            tooltip: l10n(context).setupScanQr,
                             onPressed: _busy ? null : _scanToken,
                           ),
                   ),
@@ -1047,7 +1035,7 @@ class _SetupScreenState extends State<SetupScreen> {
             _vsStepActive && _recommended['wake_word.background']!;
         final bootStart = _vsStepActive && _recommended['kiosk.start_on_boot']!;
         return withError([
-          heading('Permissions'),
+          heading(l10n(context).setupPermissions),
           lead(
             'Android will ask for these permissions. Everything is '
             'requested up front so the kiosk never interrupts you later.',
@@ -1130,7 +1118,7 @@ class _SetupScreenState extends State<SetupScreen> {
             FilledButton.tonal(
               onPressed: _busy ? null : _back,
               style: FilledButton.styleFrom(padding: buttonPadding),
-              child: const Text('Back'),
+              child: Text(l10n(context).commonBack),
             ),
             const SizedBox(width: 12),
           ],
@@ -1139,11 +1127,11 @@ class _SetupScreenState extends State<SetupScreen> {
             style: FilledButton.styleFrom(padding: buttonPadding),
             child: Text(
               _busy
-                  ? 'Working…'
+                  ? l10n(context).commonWorking
                   : switch (_step) {
-                      1 => 'Validate & continue',
-                      4 => 'Finish',
-                      _ => 'Next',
+                      1 => l10n(context).setupValidateContinue,
+                      4 => l10n(context).commonFinish,
+                      _ => l10n(context).commonNext,
                     },
             ),
           ),
