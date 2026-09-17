@@ -1,4 +1,6 @@
-import { deviceText, t } from './localization.js';
+import { deviceTextMessageIds } from './device_text_ids.js';
+import { supportTextMessageIds } from './support_text_ids.js';
+import { deviceText, supportText, t } from './localization.js';
 import { $, api, cmd, state } from './core.js';
 import { watchUpdates } from './live.js';
 import { copyBox, hintRow, messageBox, modalShell, showToast } from './widgets.js';
@@ -346,10 +348,10 @@ function settleInstall(btn, st, idleLabel) {
     return;
   }
   if (st?.lastOutcome === 'silent') {
-    btn.textContent = deviceText('Installing…');
+    setAboutLabel(btn, 'deviceInstalling');
     return;
   }
-  btn.textContent = deviceText('Confirm on the tablet screen');
+  setAboutLabel(btn, 'deviceConfirmTablet');
 }
 
 /* An APK from this computer, for a kiosk that can reach neither GitHub
@@ -379,7 +381,7 @@ async function rideUploadedInstall(btn, idleLabel) {
   let st;
   let misses = 0;
   btn.disabled = true;
-  btn.textContent = deviceText('Installing…');
+  setAboutLabel(btn, 'deviceInstalling');
   for (;;) {
     await new Promise((r) => setTimeout(r, 1000));
     const cur = (await cmd('getUpdateStatus').catch(() => null))?.data;
@@ -491,7 +493,7 @@ export function attachUploadInstall(btn) {
    tablet, ridden by polling until the installer has it. `btn` carries its
    idle label already. */
 export function attachUpdateInstall(btn, upd) {
-  const idleLabel = `Install version ${upd.availableVersion}`;
+  const idleLabel = () => t('deviceInstallVersion', {version: upd.availableVersion});
   const run = async () => {
     // One riding loop at a time: a re-rendered About tab (or a second
     // click) starts a fresh one and this token retires the old, which
@@ -506,12 +508,12 @@ export function attachUpdateInstall(btn, upd) {
     // stalled) instead of erroring beside it (#272).
     if (!res?.ok && !/already running/.test(res?.error || '')) {
       btn.disabled = false;
-      alert(`Update failed: ${res?.error || 'device unreachable'}`);
+      alert(t('aboutDownloadFailed', {error: res?.error || supportText('device unreachable')}));
       return;
     }
     const cancelBtn = document.createElement('button');
     cancelBtn.className = 'btn-ghost';
-    cancelBtn.textContent = deviceText('Cancel');
+    setAboutLabel(cancelBtn, 'commonCancel');
     cancelBtn.addEventListener('click', () => {
       cancelBtn.disabled = true;
       cmd('cancelUpdateDownload').catch(() => null);
@@ -531,7 +533,7 @@ export function attachUpdateInstall(btn, upd) {
       misses = 0;
       st = cur;
       if (st.progress === null || st.progress === undefined) break;
-      btn.textContent = `Downloading… ${Math.round(st.progress * 100)}%`;
+      setAboutLabel(btn, 'aboutDownloadProgress', {percent: Math.round(st.progress * 100)});
     }
     cancelBtn.remove();
     // The device re-checks GitHub before downloading, so the run can end
@@ -539,18 +541,20 @@ export function attachUpdateInstall(btn, upd) {
     // tablet is on the latest). Only say so when the device answered:
     // a poll lost to the install itself is not the same thing.
     if (st && !st.availableVersion) {
-      btn.textContent = 'Already up to date';
+      setAboutLabel(btn, 'aboutAlreadyCurrent');
       return;
     }
-    settleInstall(btn, st, idleLabel);
+    settleInstall(btn, st, idleLabel());
+    if (!btn.disabled) setAboutLabel(btn, 'deviceInstallVersion', {version: upd.availableVersion});
   };
   // Release notes first, then the download: the same flow as the
   // drawer's dialog on the device.
   btn.onclick = () => {
     const shell = modalShell({
-      title: `Update to ${upd.availableVersion}`,
+      title: t('drawerUpdateTo', {version: upd.availableVersion}),
       width: 520,
     });
+    setAboutLabel(shell.card.querySelector('.modal-title'), 'drawerUpdateTo', {version: upd.availableVersion});
     const back = shell.back;
     const notes = shell.body;
     notes.style.cssText += 'font-size:13.5px; line-height:1.5;';
@@ -560,7 +564,7 @@ export function attachUpdateInstall(btn, upd) {
       .replace(/\*\*|__|`/g, '');
     const body = (upd.availableNotes || '').trim();
     if (!body) {
-      notes.textContent = 'No release notes.';
+      setAboutLabel(notes, 'drawerNoReleaseNotes');
     } else {
       for (const raw of body.split('\n')) {
         const line = raw.trimEnd();
@@ -581,18 +585,17 @@ export function attachUpdateInstall(btn, upd) {
     }
     // The hint stays visible under the notes, above the fixed actions.
     const hint = document.createElement('div');
-    hint.textContent = 'The download runs on the tablet; the installation '
-      + 'must be confirmed on the tablet screen.';
+    setAboutLabel(hint, 'aboutInstallHelp');
     hint.style.cssText =
       'flex:none; margin:14px 0 0; font-size:12.5px; color:var(--muted);';
     shell.card.insertBefore(hint, shell.foot);
     const cancel = document.createElement('button');
     cancel.className = 'btn-text';
-    cancel.textContent = deviceText('Cancel');
+    setAboutLabel(cancel, 'commonCancel');
     cancel.addEventListener('click', () => back.remove());
     const ok = document.createElement('button');
     ok.className = 'btn-primary';
-    ok.textContent = 'Update';
+    setAboutLabel(ok, 'drawerUpdate');
     ok.addEventListener('click', () => { back.remove(); run(); });
     shell.foot.append(cancel, ok);
   };
@@ -618,17 +621,17 @@ export async function loadAboutInfo() {
   const card = (title, rows) => {
     const h = document.createElement('h2');
     h.className = 'card-title';
-    h.textContent = deviceText(title);
+    setAboutLabel(h, supportTextMessageIds[title] || deviceTextMessageIds[title], {}, 'textContent', deviceText(title));
     root.appendChild(h);
     const c = document.createElement('div'); c.className = 'card';
     for (const [k, v, d] of rows) {
       const row = document.createElement('div'); row.className = 'row';
       const cell = document.createElement('div'); cell.className = 'info';
-      const n = document.createElement('div'); n.className = 'name'; n.textContent = deviceText(k);
+      const n = document.createElement('div'); n.className = 'name'; setAboutLabel(n, supportTextMessageIds[k] || deviceTextMessageIds[k], {}, 'textContent', deviceText(k));
       cell.appendChild(n);
       if (d) {
         const dd = document.createElement('div');
-        dd.className = 'desc'; dd.textContent = d;
+        dd.className = 'desc'; setAboutLabel(dd, supportTextMessageIds[d], {}, 'textContent', d);
         cell.appendChild(dd);
       }
       row.appendChild(cell);
@@ -660,16 +663,16 @@ export async function loadAboutInfo() {
   const versionEl = document.createElement('a');
   versionEl.textContent = `${or(info?.appVersion)} (${or(info?.buildNumber, '-')})`;
   versionEl.href = '#';
-  versionEl.title = 'Check for updates now';
+  setAboutLabel(versionEl, 'aboutCheckNow', {}, 'title');
   versionEl.addEventListener('click', async (e) => {
     e.preventDefault();
-    versionEl.textContent = 'Checking…';
+    setAboutLabel(versionEl, 'aboutChecking', {}, 'textContent');
     const res = (await cmd('checkUpdateNow').catch(() => null))?.data;
     await loadAboutInfo();
     if (!res?.reachable) {
-      alert('Update check failed. Can the device reach GitHub?');
+      alert(supportText("Update check failed. Can the device reach GitHub?"));
     } else if (!res.availableVersion) {
-      messageBox({ title: deviceText('Updates'), message: 'You are on the latest version.' });
+      messageBox({ title: deviceText('Updates'), message: supportText("You are on the latest version.") });
     }
   });
   card('App', [
@@ -685,7 +688,7 @@ export async function loadAboutInfo() {
   if (upd?.availableVersion) {
     const btn = document.createElement('button');
     btn.className = 'btn-ghost';
-    btn.textContent = `Install version ${upd.availableVersion}`;
+    setAboutLabel(btn, 'deviceInstallVersion', { version: upd.availableVersion });
     attachUpdateInstall(btn, upd);
     const updRows = [['Update available', btn]];
     // No draw-over-apps grant means the relaunch receiver's activity start
@@ -694,7 +697,7 @@ export async function loadAboutInfo() {
     if (upd.canRelaunch === false) {
       const grant = document.createElement('button');
       grant.className = 'btn-ghost';
-      grant.textContent = deviceText('Grant on device');
+      setAboutLabel(grant, deviceTextMessageIds['Grant on device']);
       grant.style.cssText = '';
       grant.addEventListener('click', async () => {
         grant.disabled = true;
@@ -714,10 +717,10 @@ export async function loadAboutInfo() {
       updRows.push(['"Display over other apps" permission missing', grant,
         'Without it the app cannot reopen itself after updating. The grant screen appears on the tablet.']);
     }
-    card(deviceText('Updates'), updRows);
+    card('Updates', updRows);
   } else {
-    card(deviceText('Updates'), [[deviceText('Updates'),
-      upd ? 'Up to date' : or(null)]]);
+    card('Updates', [['Updates',
+      upd ? aboutStatus('drawerUpdateCurrent') : or(null)]]);
   }
 
   const repo = link('jxlarrea/kiosk-satellite',
@@ -745,10 +748,7 @@ export async function loadAboutInfo() {
 
   const p = document.createElement('p');
   p.style.cssText = 'color:var(--muted); font-size:.85rem; margin:4px 4px 0; line-height:1.5;';
-  p.textContent = 'Kiosk Satellite is free for personal, non-commercial use. ' +
-    'It is licensed under CC BY-NC-ND 4.0: you may use and share it, but ' +
-    'commercial use of the app and redistribution of modified app builds are not permitted. ' +
-    'Independent plugins have additional permission under PLUGIN-EXCEPTION.md.';
+  setAboutLabel(p, 'aboutLicenseSummary');
   root.appendChild(p);
 }
 
@@ -865,3 +865,28 @@ export function readOnlyRow(name, desc, value, localize = true) {
   row.appendChild(v);
   return row;
 }
+
+// Track each translated property without replacing running update controls.
+const aboutLabels = new WeakMap();
+function setAboutLabel(el, id, values = {}, property = 'textContent', fallback = '') {
+  el[property] = id ? t(id, values) : fallback;
+  if (!id) return;
+  const labels = aboutLabels.get(el) || {};
+  labels[property] = { id, values, rendered: el[property] };
+  aboutLabels.set(el, labels);
+  el.dataset.aboutLabel = '';
+}
+function aboutStatus(id) {
+  const el = document.createElement('span');
+  setAboutLabel(el, id);
+  return el;
+}
+document.addEventListener('ks-settings-cached', () => {
+  document.querySelectorAll('[data-about-label]').forEach((el) => {
+    for (const [property, label] of Object.entries(aboutLabels.get(el) || {})) {
+      if (el[property] !== label.rendered) continue;
+      el[property] = t(label.id, label.values);
+      label.rendered = el[property];
+    }
+  });
+});

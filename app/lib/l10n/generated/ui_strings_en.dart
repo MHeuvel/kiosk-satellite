@@ -9,6 +9,72 @@ class UiStringsEn extends UiStrings {
   UiStringsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get aboutApp => 'App';
+
+  @override
+  String get aboutVersion => 'App version';
+
+  @override
+  String get aboutBuild => 'Build';
+
+  @override
+  String get aboutPackage => 'Package';
+
+  @override
+  String get aboutAttribution => 'Attribution';
+
+  @override
+  String get aboutAuthor => 'Author';
+
+  @override
+  String get aboutWebsite => 'Website';
+
+  @override
+  String get aboutSourceCode => 'Source code';
+
+  @override
+  String get aboutLicense => 'License';
+
+  @override
+  String get aboutLicenseSummary =>
+      'Kiosk Satellite is free for personal, non-commercial use. It is licensed under CC BY-NC-ND 4.0: you may use and share it, but commercial use of the app and redistribution of modified app builds are not permitted. Independent plugins have additional permission under PLUGIN-EXCEPTION.md.';
+
+  @override
+  String get aboutCheckNow => 'Check for updates now';
+
+  @override
+  String get aboutChecking => 'Checking…';
+
+  @override
+  String get aboutCheckFailed =>
+      'Update check failed. Can the device reach GitHub?';
+
+  @override
+  String get aboutOverlayMissing =>
+      '\"Display over other apps\" permission missing';
+
+  @override
+  String get aboutOverlayHelp =>
+      'Without it the app cannot reopen itself after updating. The grant screen appears on the tablet.';
+
+  @override
+  String aboutDownloadProgress(String percent) {
+    return 'Downloading… $percent%';
+  }
+
+  @override
+  String aboutDownloadFailed(String error) {
+    return 'Update failed: $error';
+  }
+
+  @override
+  String get aboutAlreadyCurrent => 'Already up to date';
+
+  @override
+  String get aboutInstallHelp =>
+      'The download runs on the tablet; the installation must be confirmed on the tablet screen.';
+
+  @override
   String launcherOpenFailed(String name) {
     return 'Could not open $name';
   }
@@ -1759,6 +1825,85 @@ class UiStringsEn extends UiStrings {
 
   @override
   String get kioskUnlock => 'Unlock';
+
+  @override
+  String get logsWebConsole => 'Web Console';
+
+  @override
+  String get logsDock => 'Dock over the live page';
+
+  @override
+  String get logsNoOutput => 'No console output yet';
+
+  @override
+  String get logsShareSubject => 'Kiosk Satellite console log';
+
+  @override
+  String get logsInput => 'Run JavaScript in the page';
+
+  @override
+  String get logsInputHistory =>
+      'Run JavaScript in the page (Enter to run, Up/Down for history)';
+
+  @override
+  String get logsRun => 'Run';
+
+  @override
+  String get logsEvaluationFailed => 'evaluation failed';
+
+  @override
+  String get logsDeviceUnreachable => 'device unreachable';
+
+  @override
+  String logsEntries(String count) {
+    return '$count entries';
+  }
+
+  @override
+  String get logsCopyLog => 'Copy log';
+
+  @override
+  String get logsShareLog => 'Share log';
+
+  @override
+  String get logsCopied => 'Copied';
+
+  @override
+  String get logsCopyFailed => 'Could not copy';
+
+  @override
+  String get logsOnClipboard => 'The log is on the clipboard.';
+
+  @override
+  String get logsConsoleOnClipboard => 'The console log is on the clipboard.';
+
+  @override
+  String get logsSystemLog =>
+      'Android system log for this app (crashes live here)';
+
+  @override
+  String get logsErrors => 'Errors & crashes';
+
+  @override
+  String get logsWarnings => 'Warnings';
+
+  @override
+  String get logsInfo => 'Info & debug';
+
+  @override
+  String get logsNoMatches =>
+      'No matching lines. Enable more types above to see the full log.';
+
+  @override
+  String get logsUnavailable => 'logcat unavailable';
+
+  @override
+  String logsReadFailed(String error) {
+    return 'Could not read logcat: $error';
+  }
+
+  @override
+  String get logsUnknown => 'unknown';
 
   @override
   String get mediaPlay => 'Play';

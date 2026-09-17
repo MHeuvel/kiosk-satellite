@@ -1,0 +1,107 @@
+{
+  "@@locale": "en",
+  "logsEntries": "{count} entries",
+  "@logsEntries": {
+    "context": "Settings > Logs",
+    "description": "Number of stored log or console entries.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs"
+      ],
+      "device": [
+        "Settings > Logs"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Number of entries."
+      }
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsCopyLog": "Copy log",
+  "@logsCopyLog": {
+    "context": "Settings > Logs",
+    "description": "Copy button tooltip.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs"
+      ],
+      "device": [
+        "Settings > Logs"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsShareLog": "Share log",
+  "@logsShareLog": {
+    "context": "Settings > Logs",
+    "description": "Share button tooltip in the docked console.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs"
+      ],
+      "device": [
+        "Settings > Logs"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsCopied": "Copied",
+  "@logsCopied": {
+    "context": "Settings > Logs",
+    "description": "Successful clipboard notification title.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs"
+      ],
+      "device": [
+        "Settings > Logs"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsCopyFailed": "Could not copy",
+  "@logsCopyFailed": {
+    "context": "Settings > Logs",
+    "description": "Failed clipboard notification title.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs"
+      ],
+      "device": [
+        "Settings > Logs"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsOnClipboard": "The log is on the clipboard.",
+  "@logsOnClipboard": {
+    "context": "Settings > Logs",
+    "description": "Successful copy notification.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs"
+      ],
+      "device": [
+        "Settings > Logs"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsConsoleOnClipboard": "The console log is on the clipboard.",
+  "@logsConsoleOnClipboard": {
+    "context": "Settings > Logs",
+    "description": "Successful console copy notification.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs"
+      ],
+      "device": [
+        "Settings > Logs"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  }
+}

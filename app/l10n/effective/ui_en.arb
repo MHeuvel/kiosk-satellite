@@ -1,5 +1,241 @@
 {
   "@@locale": "en",
+  "aboutApp": "App",
+  "@aboutApp": {
+    "context": "Settings > About",
+    "description": "App information group heading.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About"
+      ],
+      "device": [
+        "Settings > About"
+      ]
+    }
+  },
+  "aboutVersion": "App version",
+  "@aboutVersion": {
+    "context": "Settings > About",
+    "description": "Installed app version label.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About"
+      ],
+      "device": [
+        "Settings > About"
+      ]
+    }
+  },
+  "aboutBuild": "Build",
+  "@aboutBuild": {
+    "context": "Settings > About",
+    "description": "Build mode label. The technical value stays unchanged.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About"
+      ],
+      "device": [
+        "Settings > About"
+      ]
+    }
+  },
+  "aboutPackage": "Package",
+  "@aboutPackage": {
+    "context": "Settings > About",
+    "description": "Android package identifier label.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About"
+      ],
+      "device": [
+        "Settings > About"
+      ]
+    }
+  },
+  "aboutAttribution": "Attribution",
+  "@aboutAttribution": {
+    "context": "Settings > About",
+    "description": "Author and project links group heading.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About"
+      ],
+      "device": [
+        "Settings > About"
+      ]
+    }
+  },
+  "aboutAuthor": "Author",
+  "@aboutAuthor": {
+    "context": "Settings > About",
+    "description": "App author label.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About"
+      ],
+      "device": [
+        "Settings > About"
+      ]
+    }
+  },
+  "aboutWebsite": "Website",
+  "@aboutWebsite": {
+    "context": "Settings > About",
+    "description": "Project website label.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About"
+      ],
+      "device": [
+        "Settings > About"
+      ]
+    }
+  },
+  "aboutSourceCode": "Source code",
+  "@aboutSourceCode": {
+    "context": "Settings > About",
+    "description": "Project repository link label.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About"
+      ],
+      "device": [
+        "Settings > About"
+      ]
+    }
+  },
+  "aboutLicense": "License",
+  "@aboutLicense": {
+    "context": "Settings > About",
+    "description": "App license link label. Keep the license identifier unchanged.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About"
+      ],
+      "device": [
+        "Settings > About"
+      ]
+    }
+  },
+  "aboutLicenseSummary": "Kiosk Satellite is free for personal, non-commercial use. It is licensed under CC BY-NC-ND 4.0: you may use and share it, but commercial use of the app and redistribution of modified app builds are not permitted. Independent plugins have additional permission under PLUGIN-EXCEPTION.md.",
+  "@aboutLicenseSummary": {
+    "context": "Settings > About",
+    "description": "Plain-language summary below the links. The linked license remains the authoritative legal text.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About"
+      ],
+      "device": [
+        "Settings > About"
+      ]
+    }
+  },
+  "aboutCheckNow": "Check for updates now",
+  "@aboutCheckNow": {
+    "context": "Remote administration > About > Updates",
+    "description": "Tooltip on the clickable version number in remote administration.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About > Updates"
+      ]
+    }
+  },
+  "aboutChecking": "Checking…",
+  "@aboutChecking": {
+    "context": "Remote administration > About > Updates",
+    "description": "Version link while checking for updates.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About > Updates"
+      ]
+    }
+  },
+  "aboutCheckFailed": "Update check failed. Can the device reach GitHub?",
+  "@aboutCheckFailed": {
+    "context": "Remote administration > About > Updates",
+    "description": "Failed update check notification.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About > Updates"
+      ]
+    }
+  },
+  "aboutOverlayMissing": "\"Display over other apps\" permission missing",
+  "@aboutOverlayMissing": {
+    "context": "Remote administration > About > Updates",
+    "description": "Missing Android permission label.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About > Updates"
+      ]
+    }
+  },
+  "aboutOverlayHelp": "Without it the app cannot reopen itself after updating. The grant screen appears on the tablet.",
+  "@aboutOverlayHelp": {
+    "context": "Remote administration > About > Updates",
+    "description": "Help for the missing overlay permission.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About > Updates"
+      ]
+    }
+  },
+  "aboutDownloadProgress": "Downloading… {percent}%",
+  "@aboutDownloadProgress": {
+    "context": "Remote administration > About > Updates",
+    "description": "Download progress on the installation button.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About > Updates > install a version",
+        "Overview > available update"
+      ]
+    },
+    "placeholders": {
+      "percent": {
+        "type": "String",
+        "description": "Download percentage as digits."
+      }
+    }
+  },
+  "aboutDownloadFailed": "Update failed: {error}",
+  "@aboutDownloadFailed": {
+    "context": "Remote administration > About > Updates",
+    "description": "Failed update command with the original technical detail.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About > Updates > install a version",
+        "Overview > available update"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Original technical error. Do not translate its contents."
+      }
+    }
+  },
+  "aboutAlreadyCurrent": "Already up to date",
+  "@aboutAlreadyCurrent": {
+    "context": "Remote administration > About > Updates",
+    "description": "The device checked again and no update was needed.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About > Updates > install a version",
+        "Overview > available update"
+      ]
+    }
+  },
+  "aboutInstallHelp": "The download runs on the tablet; the installation must be confirmed on the tablet screen.",
+  "@aboutInstallHelp": {
+    "context": "Remote administration > About > Updates",
+    "description": "Guidance below release notes before installation.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About > Updates > install a version",
+        "Overview > available update"
+      ]
+    }
+  },
   "launcherOpenFailed": "Could not open {name}",
   "@launcherOpenFailed": {
     "context": "Device > Menu > Apps",
@@ -6428,6 +6664,363 @@
         "Device > Kiosk exit gesture > PIN dialog"
       ]
     }
+  },
+  "logsWebConsole": "Web Console",
+  "@logsWebConsole": {
+    "context": "Settings > Logs > Web Console",
+    "description": "Console tab and docked panel title.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Web Console"
+      ],
+      "device": [
+        "Settings > Logs > Web Console",
+        "Kiosk page > docked Web Console"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsDock": "Dock over the live page",
+  "@logsDock": {
+    "context": "Settings > Logs > Web Console",
+    "description": "Open the console over the kiosk page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Web Console"
+      ],
+      "device": [
+        "Settings > Logs > Web Console",
+        "Kiosk page > docked Web Console"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsNoOutput": "No console output yet",
+  "@logsNoOutput": {
+    "context": "Settings > Logs > Web Console",
+    "description": "Empty console notice.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Web Console"
+      ],
+      "device": [
+        "Settings > Logs > Web Console",
+        "Kiosk page > docked Web Console"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsShareSubject": "Kiosk Satellite console log",
+  "@logsShareSubject": {
+    "context": "Settings > Logs > Web Console",
+    "description": "Subject when sharing console output.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Web Console"
+      ],
+      "device": [
+        "Settings > Logs > Web Console",
+        "Kiosk page > docked Web Console"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsInput": "Run JavaScript in the page",
+  "@logsInput": {
+    "context": "Settings > Logs > Web Console",
+    "description": "Empty JavaScript command input hint.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Web Console"
+      ],
+      "device": [
+        "Settings > Logs > Web Console",
+        "Kiosk page > docked Web Console"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsInputHistory": "Run JavaScript in the page (Enter to run, Up/Down for history)",
+  "@logsInputHistory": {
+    "context": "Settings > Logs > Web Console",
+    "description": "Remote JavaScript command input hint.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Web Console"
+      ],
+      "device": [
+        "Settings > Logs > Web Console",
+        "Kiosk page > docked Web Console"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsRun": "Run",
+  "@logsRun": {
+    "context": "Settings > Logs > Web Console",
+    "description": "Execute the JavaScript entered by the user.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Web Console"
+      ],
+      "device": [
+        "Settings > Logs > Web Console",
+        "Kiosk page > docked Web Console"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsEvaluationFailed": "evaluation failed",
+  "@logsEvaluationFailed": {
+    "context": "Settings > Logs > Web Console",
+    "description": "Fallback when JavaScript evaluation fails without details.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Web Console"
+      ],
+      "device": [
+        "Settings > Logs > Web Console",
+        "Kiosk page > docked Web Console"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsDeviceUnreachable": "device unreachable",
+  "@logsDeviceUnreachable": {
+    "context": "Settings > Logs > Web Console",
+    "description": "Console command connection failure.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Web Console"
+      ],
+      "device": [
+        "Settings > Logs > Web Console",
+        "Kiosk page > docked Web Console"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsEntries": "{count} entries",
+  "@logsEntries": {
+    "context": "Settings > Logs",
+    "description": "Number of stored log or console entries.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs"
+      ],
+      "device": [
+        "Settings > Logs"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Number of entries."
+      }
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsCopyLog": "Copy log",
+  "@logsCopyLog": {
+    "context": "Settings > Logs",
+    "description": "Copy button tooltip.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs"
+      ],
+      "device": [
+        "Settings > Logs"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsShareLog": "Share log",
+  "@logsShareLog": {
+    "context": "Settings > Logs",
+    "description": "Share button tooltip in the docked console.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs"
+      ],
+      "device": [
+        "Settings > Logs"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsCopied": "Copied",
+  "@logsCopied": {
+    "context": "Settings > Logs",
+    "description": "Successful clipboard notification title.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs"
+      ],
+      "device": [
+        "Settings > Logs"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsCopyFailed": "Could not copy",
+  "@logsCopyFailed": {
+    "context": "Settings > Logs",
+    "description": "Failed clipboard notification title.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs"
+      ],
+      "device": [
+        "Settings > Logs"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsOnClipboard": "The log is on the clipboard.",
+  "@logsOnClipboard": {
+    "context": "Settings > Logs",
+    "description": "Successful copy notification.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs"
+      ],
+      "device": [
+        "Settings > Logs"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsConsoleOnClipboard": "The console log is on the clipboard.",
+  "@logsConsoleOnClipboard": {
+    "context": "Settings > Logs",
+    "description": "Successful console copy notification.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs"
+      ],
+      "device": [
+        "Settings > Logs"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsSystemLog": "Android system log for this app (crashes live here)",
+  "@logsSystemLog": {
+    "context": "Settings > Logs > Logcat",
+    "description": "Explanation above the Android log.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Logcat"
+      ],
+      "device": [
+        "Settings > Logs > Logcat"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsErrors": "Errors & crashes",
+  "@logsErrors": {
+    "context": "Settings > Logs > Logcat",
+    "description": "Severity filter.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Logcat"
+      ],
+      "device": [
+        "Settings > Logs > Logcat"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsWarnings": "Warnings",
+  "@logsWarnings": {
+    "context": "Settings > Logs > Logcat",
+    "description": "Severity filter.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Logcat"
+      ],
+      "device": [
+        "Settings > Logs > Logcat"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsInfo": "Info & debug",
+  "@logsInfo": {
+    "context": "Settings > Logs > Logcat",
+    "description": "Severity filter.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Logcat"
+      ],
+      "device": [
+        "Settings > Logs > Logcat"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsNoMatches": "No matching lines. Enable more types above to see the full log.",
+  "@logsNoMatches": {
+    "context": "Settings > Logs > Logcat",
+    "description": "Empty filtered log notice.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Logcat"
+      ],
+      "device": [
+        "Settings > Logs > Logcat"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsUnavailable": "logcat unavailable",
+  "@logsUnavailable": {
+    "context": "Settings > Logs > Logcat",
+    "description": "Fallback when the device cannot return its system log.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Logcat"
+      ],
+      "device": [
+        "Settings > Logs > Logcat"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsReadFailed": "Could not read logcat: {error}",
+  "@logsReadFailed": {
+    "context": "Settings > Logs > Logcat",
+    "description": "Failure notice with the original technical error.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Logcat"
+      ],
+      "device": [
+        "Settings > Logs > Logcat"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Original technical error. Do not translate its contents."
+      }
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsUnknown": "unknown",
+  "@logsUnknown": {
+    "context": "Settings > Logs > Logcat",
+    "description": "Fallback detail when a failure provides no error.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Logcat"
+      ],
+      "device": [
+        "Settings > Logs > Logcat"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
   },
   "mediaPlay": "Play",
   "@mediaPlay": {

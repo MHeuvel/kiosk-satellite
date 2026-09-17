@@ -1,0 +1,121 @@
+{
+  "@@locale": "en",
+  "logsSystemLog": "Android system log for this app (crashes live here)",
+  "@logsSystemLog": {
+    "context": "Settings > Logs > Logcat",
+    "description": "Explanation above the Android log.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Logcat"
+      ],
+      "device": [
+        "Settings > Logs > Logcat"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsErrors": "Errors & crashes",
+  "@logsErrors": {
+    "context": "Settings > Logs > Logcat",
+    "description": "Severity filter.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Logcat"
+      ],
+      "device": [
+        "Settings > Logs > Logcat"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsWarnings": "Warnings",
+  "@logsWarnings": {
+    "context": "Settings > Logs > Logcat",
+    "description": "Severity filter.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Logcat"
+      ],
+      "device": [
+        "Settings > Logs > Logcat"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsInfo": "Info & debug",
+  "@logsInfo": {
+    "context": "Settings > Logs > Logcat",
+    "description": "Severity filter.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Logcat"
+      ],
+      "device": [
+        "Settings > Logs > Logcat"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsNoMatches": "No matching lines. Enable more types above to see the full log.",
+  "@logsNoMatches": {
+    "context": "Settings > Logs > Logcat",
+    "description": "Empty filtered log notice.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Logcat"
+      ],
+      "device": [
+        "Settings > Logs > Logcat"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsUnavailable": "logcat unavailable",
+  "@logsUnavailable": {
+    "context": "Settings > Logs > Logcat",
+    "description": "Fallback when the device cannot return its system log.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Logcat"
+      ],
+      "device": [
+        "Settings > Logs > Logcat"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsReadFailed": "Could not read logcat: {error}",
+  "@logsReadFailed": {
+    "context": "Settings > Logs > Logcat",
+    "description": "Failure notice with the original technical error.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Logcat"
+      ],
+      "device": [
+        "Settings > Logs > Logcat"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Original technical error. Do not translate its contents."
+      }
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsUnknown": "unknown",
+  "@logsUnknown": {
+    "context": "Settings > Logs > Logcat",
+    "description": "Fallback detail when a failure provides no error.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Logcat"
+      ],
+      "device": [
+        "Settings > Logs > Logcat"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  }
+}

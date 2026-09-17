@@ -380,7 +380,7 @@
           <div class="seg">
             <button class="active" data-log="app">Kiosk Satellite</button>
             <button data-log="logcat">Logcat</button>
-            <button data-log="console">Web Console</button>
+            <button data-log="console" data-log-message="logsWebConsole">Web Console</button>
           </div>
         </div>
       </div>
@@ -390,13 +390,13 @@
         <div class="log-head">
           <span class="log-meta" id="logMeta"></span>
           <span id="logcatFilters" style="display:none; gap:14px; align-items:center; font-size:13px; color:var(--muted);">
-            <label style="display:flex; align-items:center; gap:5px; cursor:pointer;"><input type="checkbox" id="lcErrors" checked> Errors &amp; crashes</label>
-            <label style="display:flex; align-items:center; gap:5px; cursor:pointer;"><input type="checkbox" id="lcWarnings" checked> Warnings</label>
-            <label style="display:flex; align-items:center; gap:5px; cursor:pointer;"><input type="checkbox" id="lcInfo"> Info &amp; debug</label>
+            <label style="display:flex; align-items:center; gap:5px; cursor:pointer;"><input type="checkbox" id="lcErrors" checked> <span data-log-message="logsErrors">Errors &amp; crashes</span></label>
+            <label style="display:flex; align-items:center; gap:5px; cursor:pointer;"><input type="checkbox" id="lcWarnings" checked> <span data-log-message="logsWarnings">Warnings</span></label>
+            <label style="display:flex; align-items:center; gap:5px; cursor:pointer;"><input type="checkbox" id="lcInfo"> <span data-log-message="logsInfo">Info &amp; debug</span></label>
           </span>
           <span class="spacer"></span>
-          <button class="btn-ghost" id="copyLogs">Copy</button>
-          <button class="btn-ghost" id="refreshLogs">Refresh</button>
+          <button class="btn-ghost" id="copyLogs" data-log-message="commonCopy">Copy</button>
+          <button class="btn-ghost" id="refreshLogs" data-log-message="commonRefresh">Refresh</button>
         </div>
         <div class="console edge-fade" id="logsOut"></div>
       </div>
@@ -404,8 +404,8 @@
         <div class="log-head">
           <span class="log-meta" id="consoleMeta"></span>
           <span class="spacer"></span>
-          <button class="btn-ghost" id="copyConsole">Copy</button>
-          <button class="btn-ghost" id="clearConsole">Clear</button>
+          <button class="btn-ghost" id="copyConsole" data-log-message="commonCopy">Copy</button>
+          <button class="btn-ghost" id="clearConsole" data-log-message="commonClear">Clear</button>
         </div>
         <div class="console edge-fade" id="consoleOut"></div>
         <div class="console-input">

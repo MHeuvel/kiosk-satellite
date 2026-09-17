@@ -1,3 +1,4 @@
+import 'generated/support_text_ids.dart';
 import 'generated/fleet_text_ids.dart';
 import 'generated/plugin_text_ids.dart';
 import 'package:flutter/foundation.dart';
@@ -356,3 +357,7 @@ String fleetText(BuildContext context, String english) =>
 /// Application-owned plugin labels. Community content stays unchanged.
 String pluginText(BuildContext context, String english) =>
     messageById(l10n(context), pluginTextMessageIds[english], english);
+
+/// App-owned Logs and About labels, excluding diagnostic and provider data.
+String supportText(BuildContext context, String english) =>
+    messageById(l10n(context), supportTextMessageIds[english], english);

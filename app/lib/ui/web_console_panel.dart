@@ -1,3 +1,4 @@
+import '../l10n/messages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
@@ -68,15 +69,18 @@ class _WebConsolePanelState extends State<WebConsolePanel> {
     if (!mounted) return;
     showToast(
       context,
-      title: 'Copied',
-      message: 'The console log is on the clipboard.',
+      title: supportText(context, 'Copied'),
+      message: supportText(context, 'The console log is on the clipboard.'),
       kind: ToastKind.success,
       duration: const Duration(seconds: 2),
     );
   }
 
   Future<void> _share() async {
-    await Share.share(_export(), subject: 'Kiosk Satellite console log');
+    await Share.share(
+      _export(),
+      subject: supportText(context, 'Kiosk Satellite console log'),
+    );
   }
 
   @override
@@ -107,25 +111,30 @@ class _WebConsolePanelState extends State<WebConsolePanel> {
                       color: theme.colorScheme.primary,
                     ),
                     const SizedBox(width: 8),
-                    Text('Web Console', style: theme.textTheme.titleSmall),
+                    Flexible(
+                      child: Text(
+                        supportText(context, 'Web Console'),
+                        style: theme.textTheme.titleSmall,
+                      ),
+                    ),
                     const Spacer(),
                     IconButton(
-                      tooltip: 'Copy log',
+                      tooltip: supportText(context, 'Copy log'),
                       icon: const Icon(Icons.copy_outlined, size: 18),
                       onPressed: _copy,
                     ),
                     IconButton(
-                      tooltip: 'Share log',
+                      tooltip: supportText(context, 'Share log'),
                       icon: const Icon(Icons.share_outlined, size: 18),
                       onPressed: _share,
                     ),
                     IconButton(
-                      tooltip: 'Clear',
+                      tooltip: supportText(context, 'Clear'),
                       icon: const Icon(Icons.block_outlined, size: 18),
                       onPressed: widget.browser.clearConsole,
                     ),
                     IconButton(
-                      tooltip: 'Close',
+                      tooltip: supportText(context, 'Close'),
                       icon: const Icon(Icons.close, size: 18),
                       onPressed: widget.onClose,
                     ),
@@ -147,7 +156,7 @@ class _WebConsolePanelState extends State<WebConsolePanel> {
                     if (entries.isEmpty) {
                       return Center(
                         child: Text(
-                          'No console output yet',
+                          supportText(context, 'No console output yet'),
                           style: theme.textTheme.bodySmall,
                         ),
                       );
@@ -216,15 +225,18 @@ class _WebConsolePanelState extends State<WebConsolePanel> {
                           fontFamily: 'monospace',
                           fontSize: 13,
                         ),
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           isDense: true,
                           border: InputBorder.none,
-                          hintText: 'Run JavaScript in the page',
+                          hintText: supportText(
+                            context,
+                            'Run JavaScript in the page',
+                          ),
                         ),
                       ),
                     ),
                     IconButton(
-                      tooltip: 'Run',
+                      tooltip: supportText(context, 'Run'),
                       icon: const Icon(Icons.send, size: 18),
                       onPressed: _run,
                     ),

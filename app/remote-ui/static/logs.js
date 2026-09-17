@@ -1,3 +1,4 @@
+import { supportText, t } from './localization.js';
 import { showToast } from './widgets.js';
 import { $, api, cmd } from './core.js';
 
@@ -43,8 +44,8 @@ export async function copyPane(el, btn) {
     ta.remove();
   }
   showToast({
-    title: ok ? 'Copied' : 'Could not copy',
-    message: ok ? 'The log is on the clipboard.' : '',
+    title: ok ? supportText("Copied") : supportText("Could not copy"),
+    message: ok ? supportText("The log is on the clipboard.") : '',
     kind: ok ? 'success' : 'error',
     duration: 2000,
   });
@@ -100,10 +101,11 @@ $('#copyLogs').addEventListener('click', (e) => copyPane($('#logsOut'), e.target
           appendLine(out, 'log', typeof d === 'string' ? d : JSON.stringify(d));
         }
       } else {
-        appendLine(out, 'error', res.error || 'evaluation failed');
+        if (res.error) appendLine(out, 'error', res.error);
+        else appendNotice(out, 'error', 'logsEvaluationFailed');
       }
     } catch (_) {
-      appendLine(out, 'error', 'device unreachable');
+      appendNotice(out, 'error', 'logsDeviceUnreachable');
     }
     out.scrollTop = out.scrollHeight;
   });
@@ -136,7 +138,7 @@ export function renderLogcat() {
   // Errors-only is the default; a quiet log must read as good news, not as
   // a broken viewer.
   if (!shown && _logcatText.trim()) {
-    appendLine(el, 'debug', 'No matching lines. Enable more types above to see the full log.');
+    appendNotice(el, 'debug', 'logsNoMatches');
   }
 }
 // Which of the three views the Logs tab shows: the app's own log, the
@@ -155,7 +157,7 @@ document.querySelectorAll('.log-nav button').forEach((btn) =>
   }));
 
 export function updateConsoleMeta() {
-  $('#consoleMeta').textContent = `${$('#consoleOut').children.length} entries`;
+  $('#consoleMeta').textContent = t('logsEntries', { count: $('#consoleOut').children.length });
 }
 
 export async function loadLogs() {
@@ -170,17 +172,42 @@ export async function loadLogs() {
     try {
       const r = await (await api('/api/commands/getLogcat', {
         method: 'POST', body: '{}' })).json();
-      if (!r.ok) { appendLine(el, 'error', r.error || 'logcat unavailable'); return; }
+      if (!r.ok) {
+        if (r.error) appendLine(el, 'error', r.error);
+        else appendNotice(el, 'error', 'logsUnavailable');
+        return;
+      }
       _logcatText = String(r.data || '');
       renderLogcat();
-    } catch (_) { appendLine(el, 'error', 'logcat unavailable'); }
+    } catch (_) { appendNotice(el, 'error', 'logsUnavailable'); }
     return;
   }
   const { logs } = await (await api('/api/logs')).json();
-  $('#logMeta').textContent = `${(logs || []).length} entries`;
+  $('#logMeta').dataset.count = String((logs || []).length);
+  $('#logMeta').textContent = t('logsEntries', { count: (logs || []).length });
   (logs || []).forEach((l) =>
     appendLine(el, l.level, `${l.tag}: ${l.message}`, Date.parse(l.time)));
 }
 $('#refreshLogs').addEventListener('click', loadLogs);
 ['lcErrors', 'lcWarnings', 'lcInfo'].forEach((id) =>
   $('#' + id).addEventListener('change', renderLogcat));
+
+// Update labels in place so language changes keep filters, history and input.
+function refreshLogLabels() {
+  document.querySelectorAll('[data-log-message]').forEach((el) => {
+    el.textContent = t(el.dataset.logMessage);
+  });
+  $('#consoleInput').placeholder = t('logsInputHistory');
+  updateConsoleMeta();
+  const meta = $('#logMeta');
+  if (meta.dataset.count !== undefined) meta.textContent = t('logsEntries', { count: meta.dataset.count });
+  document.querySelectorAll('[data-log-notice]').forEach((el) => {
+    el.lastChild.textContent = t(el.dataset.logNotice);
+  });
+}
+function appendNotice(el, level, id) {
+  appendLine(el, level, t(id));
+  el.lastElementChild.dataset.logNotice = id;
+}
+document.addEventListener('ks-settings-cached', refreshLogLabels);
+refreshLogLabels();

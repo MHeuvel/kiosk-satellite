@@ -1,3 +1,4 @@
+import { supportTextMessageIds } from './support_text_ids.js';
 import { fleetTextMessageIds } from './fleet_text_ids.js';
 import { pluginTextMessageIds } from './plugin_text_ids.js';
 import { launcherTextMessageIds } from './launcher_text_ids.js';
@@ -247,3 +248,5 @@ export function kioskText(english) {
 
 export function fleetText(english) { return t(fleetTextMessageIds[english], {}, english); }
 export function pluginText(english) { return t(pluginTextMessageIds[english], {}, english); }
+
+export function supportText(english) { return t(supportTextMessageIds[english], {}, english); }

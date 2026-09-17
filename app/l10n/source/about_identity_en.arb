@@ -1,0 +1,133 @@
+{
+  "@@locale": "en",
+  "aboutApp": "App",
+  "@aboutApp": {
+    "context": "Settings > About",
+    "description": "App information group heading.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About"
+      ],
+      "device": [
+        "Settings > About"
+      ]
+    }
+  },
+  "aboutVersion": "App version",
+  "@aboutVersion": {
+    "context": "Settings > About",
+    "description": "Installed app version label.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About"
+      ],
+      "device": [
+        "Settings > About"
+      ]
+    }
+  },
+  "aboutBuild": "Build",
+  "@aboutBuild": {
+    "context": "Settings > About",
+    "description": "Build mode label. The technical value stays unchanged.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About"
+      ],
+      "device": [
+        "Settings > About"
+      ]
+    }
+  },
+  "aboutPackage": "Package",
+  "@aboutPackage": {
+    "context": "Settings > About",
+    "description": "Android package identifier label.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About"
+      ],
+      "device": [
+        "Settings > About"
+      ]
+    }
+  },
+  "aboutAttribution": "Attribution",
+  "@aboutAttribution": {
+    "context": "Settings > About",
+    "description": "Author and project links group heading.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About"
+      ],
+      "device": [
+        "Settings > About"
+      ]
+    }
+  },
+  "aboutAuthor": "Author",
+  "@aboutAuthor": {
+    "context": "Settings > About",
+    "description": "App author label.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About"
+      ],
+      "device": [
+        "Settings > About"
+      ]
+    }
+  },
+  "aboutWebsite": "Website",
+  "@aboutWebsite": {
+    "context": "Settings > About",
+    "description": "Project website label.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About"
+      ],
+      "device": [
+        "Settings > About"
+      ]
+    }
+  },
+  "aboutSourceCode": "Source code",
+  "@aboutSourceCode": {
+    "context": "Settings > About",
+    "description": "Project repository link label.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About"
+      ],
+      "device": [
+        "Settings > About"
+      ]
+    }
+  },
+  "aboutLicense": "License",
+  "@aboutLicense": {
+    "context": "Settings > About",
+    "description": "App license link label. Keep the license identifier unchanged.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About"
+      ],
+      "device": [
+        "Settings > About"
+      ]
+    }
+  },
+  "aboutLicenseSummary": "Kiosk Satellite is free for personal, non-commercial use. It is licensed under CC BY-NC-ND 4.0: you may use and share it, but commercial use of the app and redistribution of modified app builds are not permitted. Independent plugins have additional permission under PLUGIN-EXCEPTION.md.",
+  "@aboutLicenseSummary": {
+    "context": "Settings > About",
+    "description": "Plain-language summary below the links. The linked license remains the authoritative legal text.",
+    "x-locations": {
+      "remoteAdmin": [
+        "About"
+      ],
+      "device": [
+        "Settings > About"
+      ]
+    }
+  }
+}

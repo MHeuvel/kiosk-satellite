@@ -1,0 +1,138 @@
+{
+  "@@locale": "en",
+  "logsWebConsole": "Web Console",
+  "@logsWebConsole": {
+    "context": "Settings > Logs > Web Console",
+    "description": "Console tab and docked panel title.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Web Console"
+      ],
+      "device": [
+        "Settings > Logs > Web Console",
+        "Kiosk page > docked Web Console"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsDock": "Dock over the live page",
+  "@logsDock": {
+    "context": "Settings > Logs > Web Console",
+    "description": "Open the console over the kiosk page.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Web Console"
+      ],
+      "device": [
+        "Settings > Logs > Web Console",
+        "Kiosk page > docked Web Console"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsNoOutput": "No console output yet",
+  "@logsNoOutput": {
+    "context": "Settings > Logs > Web Console",
+    "description": "Empty console notice.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Web Console"
+      ],
+      "device": [
+        "Settings > Logs > Web Console",
+        "Kiosk page > docked Web Console"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsShareSubject": "Kiosk Satellite console log",
+  "@logsShareSubject": {
+    "context": "Settings > Logs > Web Console",
+    "description": "Subject when sharing console output.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Web Console"
+      ],
+      "device": [
+        "Settings > Logs > Web Console",
+        "Kiosk page > docked Web Console"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsInput": "Run JavaScript in the page",
+  "@logsInput": {
+    "context": "Settings > Logs > Web Console",
+    "description": "Empty JavaScript command input hint.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Web Console"
+      ],
+      "device": [
+        "Settings > Logs > Web Console",
+        "Kiosk page > docked Web Console"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsInputHistory": "Run JavaScript in the page (Enter to run, Up/Down for history)",
+  "@logsInputHistory": {
+    "context": "Settings > Logs > Web Console",
+    "description": "Remote JavaScript command input hint.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Web Console"
+      ],
+      "device": [
+        "Settings > Logs > Web Console",
+        "Kiosk page > docked Web Console"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsRun": "Run",
+  "@logsRun": {
+    "context": "Settings > Logs > Web Console",
+    "description": "Execute the JavaScript entered by the user.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Web Console"
+      ],
+      "device": [
+        "Settings > Logs > Web Console",
+        "Kiosk page > docked Web Console"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsEvaluationFailed": "evaluation failed",
+  "@logsEvaluationFailed": {
+    "context": "Settings > Logs > Web Console",
+    "description": "Fallback when JavaScript evaluation fails without details.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Web Console"
+      ],
+      "device": [
+        "Settings > Logs > Web Console",
+        "Kiosk page > docked Web Console"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  },
+  "logsDeviceUnreachable": "device unreachable",
+  "@logsDeviceUnreachable": {
+    "context": "Settings > Logs > Web Console",
+    "description": "Console command connection failure.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Logs > Web Console"
+      ],
+      "device": [
+        "Settings > Logs > Web Console",
+        "Kiosk page > docked Web Console"
+      ]
+    },
+    "x-notes": "Translate the app controls and notices only. Log lines, JavaScript code and returned results stay unchanged."
+  }
+}

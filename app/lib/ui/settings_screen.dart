@@ -1699,6 +1699,7 @@ class _CategoryContentState extends State<_CategoryContent> {
   /// which the in-app log by definition cannot record.
   String _logSource = 'app';
   String? _logcatText;
+  String? _logcatError;
   bool _logcatLoading = false;
 
   /// Logcat type filters, so a crash can be copied without 800 lines of
@@ -1736,9 +1737,8 @@ class _CategoryContentState extends State<_CategoryContent> {
     if (!mounted) return;
     setState(() {
       _logcatLoading = false;
-      _logcatText = r.ok
-          ? '${r.data}'
-          : 'Could not read logcat: ${r.error ?? 'unknown'}';
+      _logcatText = r.ok ? '${r.data}' : null;
+      _logcatError = r.ok ? null : r.error ?? '';
     });
   }
 
@@ -1784,14 +1784,17 @@ class _CategoryContentState extends State<_CategoryContent> {
           ListTile(
             title: Text(
               isLogcat
-                  ? 'Android system log for this app (crashes live here)'
-                  : '${entries.length} entries',
+                  ? supportText(
+                      context,
+                      'Android system log for this app (crashes live here)',
+                    )
+                  : l10n(context).logsEntries((entries.length).toString()),
             ),
             trailing: Wrap(
               spacing: 4,
               children: [
                 IconButton(
-                  tooltip: 'Copy log',
+                  tooltip: supportText(context, 'Copy log'),
                   icon: const Icon(Icons.copy_outlined, size: 20),
                   onPressed: () async {
                     await Clipboard.setData(
@@ -1804,15 +1807,18 @@ class _CategoryContentState extends State<_CategoryContent> {
                     if (!mounted) return;
                     showToast(
                       context,
-                      title: 'Copied',
-                      message: 'The log is on the clipboard.',
+                      title: supportText(context, 'Copied'),
+                      message: supportText(
+                        context,
+                        'The log is on the clipboard.',
+                      ),
                       kind: ToastKind.success,
                       duration: const Duration(seconds: 2),
                     );
                   },
                 ),
                 IconButton(
-                  tooltip: 'Refresh',
+                  tooltip: supportText(context, 'Refresh'),
                   icon: const Icon(Icons.refresh, size: 20),
                   onPressed: () =>
                       isLogcat ? _fetchLogcat(container) : setState(() {}),
@@ -1829,9 +1835,21 @@ class _CategoryContentState extends State<_CategoryContent> {
                 spacing: 16,
                 children: [
                   for (final (label, value, set) in [
-                    ('Errors & crashes', _lcErrors, (bool v) => _lcErrors = v),
-                    ('Warnings', _lcWarnings, (bool v) => _lcWarnings = v),
-                    ('Info & debug', _lcInfo, (bool v) => _lcInfo = v),
+                    (
+                      supportText(context, 'Errors & crashes'),
+                      _lcErrors,
+                      (bool v) => _lcErrors = v,
+                    ),
+                    (
+                      supportText(context, 'Warnings'),
+                      _lcWarnings,
+                      (bool v) => _lcWarnings = v,
+                    ),
+                    (
+                      supportText(context, 'Info & debug'),
+                      _lcInfo,
+                      (bool v) => _lcInfo = v,
+                    ),
                   ])
                     InkWell(
                       onTap: () => setState(() => set(!value)),
@@ -1870,13 +1888,25 @@ class _CategoryContentState extends State<_CategoryContent> {
                         )
                       : Builder(
                           builder: (context) {
+                            if (_logcatError != null) {
+                              return Text(
+                                l10n(context).logsReadFailed(
+                                  _logcatError!.isEmpty
+                                      ? supportText(context, 'unknown')
+                                      : _logcatError!,
+                                ),
+                              );
+                            }
                             final lines = _filteredLogcat();
                             // Errors-only is the default; a quiet log must read
                             // as good news, not as a broken viewer.
                             if (lines.isEmpty && _logcatText != null) {
                               return Text(
-                                'No matching lines. Enable more types above to '
-                                'see the full log.',
+                                supportText(
+                                  context,
+                                  'No matching lines. Enable more types above to '
+                                  'see the full log.',
+                                ),
                                 style: theme.textTheme.bodySmall?.copyWith(
                                   color: theme.colorScheme.onSurfaceVariant,
                                 ),
@@ -1945,12 +1975,14 @@ class _CategoryContentState extends State<_CategoryContent> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   ListTile(
-                    title: Text('${entries.length} entries'),
+                    title: Text(
+                      l10n(context).logsEntries((entries.length).toString()),
+                    ),
                     trailing: Wrap(
                       spacing: 4,
                       children: [
                         IconButton(
-                          tooltip: 'Copy log',
+                          tooltip: supportText(context, 'Copy log'),
                           icon: const Icon(Icons.copy_outlined, size: 20),
                           onPressed: () async {
                             await Clipboard.setData(
@@ -1965,20 +1997,26 @@ class _CategoryContentState extends State<_CategoryContent> {
                             if (!context.mounted) return;
                             showToast(
                               context,
-                              title: 'Copied',
-                              message: 'The console log is on the clipboard.',
+                              title: supportText(context, 'Copied'),
+                              message: supportText(
+                                context,
+                                'The console log is on the clipboard.',
+                              ),
                               kind: ToastKind.success,
                               duration: const Duration(seconds: 2),
                             );
                           },
                         ),
                         IconButton(
-                          tooltip: 'Clear',
+                          tooltip: supportText(context, 'Clear'),
                           icon: const Icon(Icons.block_outlined, size: 20),
                           onPressed: container.browser.clearConsole,
                         ),
                         IconButton(
-                          tooltip: 'Dock over the live page',
+                          tooltip: supportText(
+                            context,
+                            'Dock over the live page',
+                          ),
                           icon: const Icon(Icons.terminal_outlined, size: 20),
                           onPressed: () {
                             Navigator.of(
@@ -1994,7 +2032,7 @@ class _CategoryContentState extends State<_CategoryContent> {
                     padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                     child: entries.isEmpty
                         ? Text(
-                            'No console output yet',
+                            supportText(context, 'No console output yet'),
                             style: theme.textTheme.bodySmall?.copyWith(
                               color: theme.colorScheme.onSurfaceVariant,
                             ),
@@ -2042,56 +2080,76 @@ class _CategoryContentState extends State<_CategoryContent> {
     final device = container.device;
     Widget row(String name, String value, {VoidCallback? onTap}) => ListTile(
       title: Text(name),
-      trailing: Text(value, style: Theme.of(context).textTheme.bodyMedium),
+      trailing: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxWidth: MediaQuery.sizeOf(context).width * .48,
+        ),
+        child: Text(
+          value,
+          textAlign: TextAlign.end,
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+      ),
       onTap: onTap,
     );
     return [
-      const SectionHeading('App'),
-      SettingsCard(
-        children: [
-          row('App version', '${device.appVersion} (${device.buildNumber})'),
-          row('Build', device.buildMode),
-          row('Package', device.packageName),
-        ],
-      ),
-      const SectionHeading('Attribution'),
+      SectionHeading(supportText(context, 'App')),
       SettingsCard(
         children: [
           row(
-            'Author',
+            supportText(context, 'App version'),
+            '${device.appVersion} (${device.buildNumber})',
+          ),
+          row(supportText(context, 'Build'), device.buildMode),
+          row(supportText(context, 'Package'), device.packageName),
+        ],
+      ),
+      SectionHeading(supportText(context, 'Attribution')),
+      SettingsCard(
+        children: [
+          row(
+            supportText(context, 'Author'),
             'Xavier Larrea',
             onTap: () => _openLink('https://github.com/jxlarrea'),
           ),
           row(
-            'Website',
+            supportText(context, 'Website'),
             'kiosksatellite.com',
             onTap: () => _openLink('https://kiosksatellite.com'),
           ),
           ListTile(
-            title: const Text('Source code'),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SvgPicture.string(
-                  _githubMark,
-                  height: 15,
-                  colorFilter: ColorFilter.mode(
-                    Theme.of(context).colorScheme.onSurface,
-                    BlendMode.srcIn,
+            title: Text(supportText(context, 'Source code')),
+            trailing: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxWidth: MediaQuery.sizeOf(context).width * .48,
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SvgPicture.string(
+                    _githubMark,
+                    height: 15,
+                    colorFilter: ColorFilter.mode(
+                      Theme.of(context).colorScheme.onSurface,
+                      BlendMode.srcIn,
+                    ),
                   ),
-                ),
-                const SizedBox(width: 5),
-                Text(
-                  'jxlarrea/kiosk-satellite',
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-              ],
+                  const SizedBox(width: 5),
+                  Flexible(
+                    child: Text(
+                      'jxlarrea/kiosk-satellite',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      textAlign: TextAlign.end,
+                    ),
+                  ),
+                ],
+              ),
             ),
             onTap: () =>
                 _openLink('https://github.com/jxlarrea/kiosk-satellite'),
           ),
           row(
-            'License',
+            supportText(context, 'License'),
             'CC BY-NC-ND 4.0',
             onTap: () => _openLink(
               'https://github.com/jxlarrea/kiosk-satellite/blob/main/LICENSE',
@@ -2102,11 +2160,14 @@ class _CategoryContentState extends State<_CategoryContent> {
       Padding(
         padding: const EdgeInsets.fromLTRB(20, 0, 20, 8),
         child: Text(
-          'Kiosk Satellite is free for personal, non-commercial use. It is '
-          'licensed under CC BY-NC-ND 4.0: you may use and share it, but '
-          'commercial use of the app and redistribution of modified app '
-          'builds are not permitted. Independent plugins have additional '
-          'permission under PLUGIN-EXCEPTION.md.',
+          supportText(
+            context,
+            'Kiosk Satellite is free for personal, non-commercial use. It is '
+            'licensed under CC BY-NC-ND 4.0: you may use and share it, but '
+            'commercial use of the app and redistribution of modified app '
+            'builds are not permitted. Independent plugins have additional '
+            'permission under PLUGIN-EXCEPTION.md.',
+          ),
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
             color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),
@@ -2395,10 +2456,16 @@ class _CategoryContentState extends State<_CategoryContent> {
             child: ScrollingSegments(
               child: SegmentedButton<String>(
                 showSelectedIcon: false,
-                segments: const [
-                  ButtonSegment(value: 'app', label: Text('Kiosk Satellite')),
-                  ButtonSegment(value: 'logcat', label: Text('Logcat')),
-                  ButtonSegment(value: 'console', label: Text('Web Console')),
+                segments: [
+                  const ButtonSegment(
+                    value: 'app',
+                    label: Text('Kiosk Satellite'),
+                  ),
+                  const ButtonSegment(value: 'logcat', label: Text('Logcat')),
+                  ButtonSegment(
+                    value: 'console',
+                    label: Text(supportText(context, 'Web Console')),
+                  ),
                 ],
                 selected: {_logSource},
                 onSelectionChanged: (selection) {

@@ -97,6 +97,120 @@ abstract class UiStrings {
     Locale('es'),
   ];
 
+  /// App information group heading.
+  ///
+  /// In en, this message translates to:
+  /// **'App'**
+  String get aboutApp;
+
+  /// Installed app version label.
+  ///
+  /// In en, this message translates to:
+  /// **'App version'**
+  String get aboutVersion;
+
+  /// Build mode label. The technical value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Build'**
+  String get aboutBuild;
+
+  /// Android package identifier label.
+  ///
+  /// In en, this message translates to:
+  /// **'Package'**
+  String get aboutPackage;
+
+  /// Author and project links group heading.
+  ///
+  /// In en, this message translates to:
+  /// **'Attribution'**
+  String get aboutAttribution;
+
+  /// App author label.
+  ///
+  /// In en, this message translates to:
+  /// **'Author'**
+  String get aboutAuthor;
+
+  /// Project website label.
+  ///
+  /// In en, this message translates to:
+  /// **'Website'**
+  String get aboutWebsite;
+
+  /// Project repository link label.
+  ///
+  /// In en, this message translates to:
+  /// **'Source code'**
+  String get aboutSourceCode;
+
+  /// App license link label. Keep the license identifier unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'License'**
+  String get aboutLicense;
+
+  /// Plain-language summary below the links. The linked license remains the authoritative legal text.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosk Satellite is free for personal, non-commercial use. It is licensed under CC BY-NC-ND 4.0: you may use and share it, but commercial use of the app and redistribution of modified app builds are not permitted. Independent plugins have additional permission under PLUGIN-EXCEPTION.md.'**
+  String get aboutLicenseSummary;
+
+  /// Tooltip on the clickable version number in remote administration.
+  ///
+  /// In en, this message translates to:
+  /// **'Check for updates now'**
+  String get aboutCheckNow;
+
+  /// Version link while checking for updates.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking…'**
+  String get aboutChecking;
+
+  /// Failed update check notification.
+  ///
+  /// In en, this message translates to:
+  /// **'Update check failed. Can the device reach GitHub?'**
+  String get aboutCheckFailed;
+
+  /// Missing Android permission label.
+  ///
+  /// In en, this message translates to:
+  /// **'\"Display over other apps\" permission missing'**
+  String get aboutOverlayMissing;
+
+  /// Help for the missing overlay permission.
+  ///
+  /// In en, this message translates to:
+  /// **'Without it the app cannot reopen itself after updating. The grant screen appears on the tablet.'**
+  String get aboutOverlayHelp;
+
+  /// Download progress on the installation button.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloading… {percent}%'**
+  String aboutDownloadProgress(String percent);
+
+  /// Failed update command with the original technical detail.
+  ///
+  /// In en, this message translates to:
+  /// **'Update failed: {error}'**
+  String aboutDownloadFailed(String error);
+
+  /// The device checked again and no update was needed.
+  ///
+  /// In en, this message translates to:
+  /// **'Already up to date'**
+  String get aboutAlreadyCurrent;
+
+  /// Guidance below release notes before installation.
+  ///
+  /// In en, this message translates to:
+  /// **'The download runs on the tablet; the installation must be confirmed on the tablet screen.'**
+  String get aboutInstallHelp;
+
   /// Label or guidance in this section.
   ///
   /// In en, this message translates to:
@@ -3121,6 +3235,150 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Unlock'**
   String get kioskUnlock;
+
+  /// Console tab and docked panel title.
+  ///
+  /// In en, this message translates to:
+  /// **'Web Console'**
+  String get logsWebConsole;
+
+  /// Open the console over the kiosk page.
+  ///
+  /// In en, this message translates to:
+  /// **'Dock over the live page'**
+  String get logsDock;
+
+  /// Empty console notice.
+  ///
+  /// In en, this message translates to:
+  /// **'No console output yet'**
+  String get logsNoOutput;
+
+  /// Subject when sharing console output.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosk Satellite console log'**
+  String get logsShareSubject;
+
+  /// Empty JavaScript command input hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Run JavaScript in the page'**
+  String get logsInput;
+
+  /// Remote JavaScript command input hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Run JavaScript in the page (Enter to run, Up/Down for history)'**
+  String get logsInputHistory;
+
+  /// Execute the JavaScript entered by the user.
+  ///
+  /// In en, this message translates to:
+  /// **'Run'**
+  String get logsRun;
+
+  /// Fallback when JavaScript evaluation fails without details.
+  ///
+  /// In en, this message translates to:
+  /// **'evaluation failed'**
+  String get logsEvaluationFailed;
+
+  /// Console command connection failure.
+  ///
+  /// In en, this message translates to:
+  /// **'device unreachable'**
+  String get logsDeviceUnreachable;
+
+  /// Number of stored log or console entries.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} entries'**
+  String logsEntries(String count);
+
+  /// Copy button tooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy log'**
+  String get logsCopyLog;
+
+  /// Share button tooltip in the docked console.
+  ///
+  /// In en, this message translates to:
+  /// **'Share log'**
+  String get logsShareLog;
+
+  /// Successful clipboard notification title.
+  ///
+  /// In en, this message translates to:
+  /// **'Copied'**
+  String get logsCopied;
+
+  /// Failed clipboard notification title.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not copy'**
+  String get logsCopyFailed;
+
+  /// Successful copy notification.
+  ///
+  /// In en, this message translates to:
+  /// **'The log is on the clipboard.'**
+  String get logsOnClipboard;
+
+  /// Successful console copy notification.
+  ///
+  /// In en, this message translates to:
+  /// **'The console log is on the clipboard.'**
+  String get logsConsoleOnClipboard;
+
+  /// Explanation above the Android log.
+  ///
+  /// In en, this message translates to:
+  /// **'Android system log for this app (crashes live here)'**
+  String get logsSystemLog;
+
+  /// Severity filter.
+  ///
+  /// In en, this message translates to:
+  /// **'Errors & crashes'**
+  String get logsErrors;
+
+  /// Severity filter.
+  ///
+  /// In en, this message translates to:
+  /// **'Warnings'**
+  String get logsWarnings;
+
+  /// Severity filter.
+  ///
+  /// In en, this message translates to:
+  /// **'Info & debug'**
+  String get logsInfo;
+
+  /// Empty filtered log notice.
+  ///
+  /// In en, this message translates to:
+  /// **'No matching lines. Enable more types above to see the full log.'**
+  String get logsNoMatches;
+
+  /// Fallback when the device cannot return its system log.
+  ///
+  /// In en, this message translates to:
+  /// **'logcat unavailable'**
+  String get logsUnavailable;
+
+  /// Failure notice with the original technical error.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not read logcat: {error}'**
+  String logsReadFailed(String error);
+
+  /// Fallback detail when a failure provides no error.
+  ///
+  /// In en, this message translates to:
+  /// **'unknown'**
+  String get logsUnknown;
 
   /// Playback button tooltip and accessibility label.
   ///
