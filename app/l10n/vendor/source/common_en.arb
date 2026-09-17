@@ -214,5 +214,21 @@
   "@commonChoose": {
     "context": "Common:Actions",
     "description": "Button to choose an item."
+  },
+  "dlnaPortInvalid": "Enter a port between 1024 and 65535, or leave it empty",
+  "@dlnaPortInvalid": {
+    "context": "Shared server port validation",
+    "description": "Validation error for the server port.",
+    "x-locations": {
+      "device": [
+        "Settings > DLNA Renderer > Server port",
+        "Settings > ESPHome > API port"
+      ],
+      "remoteAdmin": [
+        "DLNA Renderer > Server port",
+        "ESPHome > API port"
+      ]
+    },
+    "x-notes": "Empty is a valid choice. Preserve the numeric port bounds."
   }
 }

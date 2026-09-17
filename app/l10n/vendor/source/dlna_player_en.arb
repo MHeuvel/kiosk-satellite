@@ -1,0 +1,80 @@
+{
+  "@@locale": "en",
+  "dlnaCannotDecode": "This device cannot decode this video.",
+  "@dlnaCannotDecode": {
+    "context": "Device > DLNA playback overlay",
+    "description": "Playback failure caused by the device video decoder.",
+    "x-locations": {
+      "device": [
+        "Full-screen media received from Home Assistant or a DLNA controller"
+      ]
+    },
+    "x-notes": "Only app labels are translated. Media titles and controller metadata stay as supplied."
+  },
+  "dlnaCannotRead": "This file could not be read.",
+  "@dlnaCannotRead": {
+    "context": "Device > DLNA playback overlay",
+    "description": "Playback failure caused by an unreadable file.",
+    "x-locations": {
+      "device": [
+        "Full-screen media received from Home Assistant or a DLNA controller"
+      ]
+    },
+    "x-notes": "Only app labels are translated. Media titles and controller metadata stay as supplied."
+  },
+  "dlnaCannotPlay": "This media could not be played.",
+  "@dlnaCannotPlay": {
+    "context": "Device > DLNA playback overlay",
+    "description": "Playback failure or accessibility label for the failed media icon.",
+    "x-locations": {
+      "device": [
+        "Full-screen media received from Home Assistant or a DLNA controller"
+      ]
+    },
+    "x-notes": "Only app labels are translated. Media titles and controller metadata stay as supplied."
+  },
+  "dlnaSeeLogs": "See the App Logs for details",
+  "@dlnaSeeLogs": {
+    "context": "Device > DLNA playback overlay",
+    "description": "Help below a playback failure.",
+    "x-locations": {
+      "device": [
+        "Full-screen media received from Home Assistant or a DLNA controller"
+      ]
+    },
+    "x-notes": "Only app labels are translated. Media titles and controller metadata stay as supplied."
+  },
+  "dlnaLoading": "Loading media",
+  "@dlnaLoading": {
+    "context": "Device > DLNA playback overlay",
+    "description": "Accessibility label for the loading spinner.",
+    "x-locations": {
+      "device": [
+        "Full-screen media received from Home Assistant or a DLNA controller"
+      ]
+    },
+    "x-notes": "Only app labels are translated. Media titles and controller metadata stay as supplied."
+  },
+  "dlnaImageFailed": "This image could not be displayed.",
+  "@dlnaImageFailed": {
+    "context": "Device > DLNA playback overlay",
+    "description": "Accessibility label for the failed image icon.",
+    "x-locations": {
+      "device": [
+        "Full-screen media received from Home Assistant or a DLNA controller"
+      ]
+    },
+    "x-notes": "Only app labels are translated. Media titles and controller metadata stay as supplied."
+  },
+  "dlnaStop": "Stop playback",
+  "@dlnaStop": {
+    "context": "Device > DLNA playback overlay",
+    "description": "Accessibility label for tapping the overlay to stop playback.",
+    "x-locations": {
+      "device": [
+        "Full-screen media received from Home Assistant or a DLNA controller"
+      ]
+    },
+    "x-notes": "Only app labels are translated. Media titles and controller metadata stay as supplied."
+  }
+}

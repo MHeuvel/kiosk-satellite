@@ -1,0 +1,10 @@
+{
+  "@@locale": "es",
+  "settingDlnaEnabledTitle": "Activar receptor DLNA",
+  "settingDlnaEnabledDescription": "Muestra imágenes y reproduce contenido enviado desde Home Assistant o cualquier aplicación DLNA. El dispositivo aparece como un reproductor multimedia con el nombre del dispositivo.",
+  "settingDlnaAudioBackgroundTitle": "Mantener el audio en segundo plano",
+  "settingDlnaAudioBackgroundDescription": "El audio recibido se reproduce sin ocupar la pantalla.",
+  "settingDlnaPortTitle": "Puerto del servidor",
+  "settingDlnaPortDescription": "El puerto que usa el receptor se completa cuando este inicia. Cámbialo para usar otro puerto o déjalo vacío para que el receptor elija uno de nuevo.",
+  "settingDlnaPortPlaceholder": "Se establece cuando inicia el receptor"
+}

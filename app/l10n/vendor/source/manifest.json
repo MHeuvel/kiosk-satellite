@@ -1,11 +1,12 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite",
-  "revision": "593679da58c5f0d2afbf34c0ee675c4562d9644c",
+  "revision": "28d1ab2e086c72f1d326ff1a8e30b6a4d7b06a39",
   "workingTree": false,
   "files": {
     "camera_view_status_en.arb": "5c2fdaeb44fc707fa15cfb92a186ff2616e4ea255cd5ea3ff3dac37c532fedbe",
-    "common_en.arb": "445e2b0d194c744c2ec3591b9176ff9ef903ab02e38924b80923f86698982e9a",
+    "common_en.arb": "3dfbbe37e42e8fe9deac8fd1481cab3208f25e7717d9506af169e5916678be7a",
+    "dlna_player_en.arb": "d87128704c558709c36c8276f406e20cf03246c7d6acd8b00182d6a11ea7064a",
     "drawer_menu_en.arb": "1ddb021d9c030d046e0368ac9e73e046905fa34138f345f3d767b974c542d9d3",
     "drawer_updates_en.arb": "51e19440c034c4a169b43ff5ff3780c7d762dcf88751c81bf4aef3c04029a956",
     "player_controls_en.arb": "61e81ca8c32de2c69557ea016c96174f8b06651c3a6afc6081e3b9b08f3942f1",
@@ -34,6 +35,7 @@
     "settings_device_update_helper_en.arb": "bc1bba53c0f381b8b4ba7f8ed0b09ef427c9536965e71486c21f360257323f5e",
     "settings_device_updates_en.arb": "0f2dce196c07a62a187ddca3d3375ec6131ade726b09ec054164e11c2e28b1bd",
     "settings_device_user_interface_en.arb": "b8141baf2e9d4eb042665651a396fb361744a96db84e2a63c8844827d7eae7ca",
+    "settings_dlna_en.arb": "f9d6e9fb2ad0c96ed584d8fd07d555a7f57ac348943847128a0d8054f95f20f4",
     "settings_home_assistant_hold_en.arb": "e8cd71bd923d73e86036647b3e06d953b0521c46f44ee317c1c810c34eb8cc97",
     "settings_home_assistant_optimizations_en.arb": "e7066d9b1609841aecba03c4815a26773d3bb5e681a505924dcbffae15fa3d07",
     "settings_home_assistant_return_home_en.arb": "7ff2a4c54cf270b687747d34748ce8d965a690084ce78c3438ca6562f221992c",

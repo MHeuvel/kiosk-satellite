@@ -1,0 +1,10 @@
+{
+  "@@locale": "es",
+  "dlnaCannotDecode": "Este dispositivo no puede decodificar este video.",
+  "dlnaCannotRead": "No se pudo leer este archivo.",
+  "dlnaCannotPlay": "No se pudo reproducir este contenido.",
+  "dlnaSeeLogs": "Consulta los registros de la aplicación para ver los detalles",
+  "dlnaLoading": "Cargando contenido",
+  "dlnaImageFailed": "No se pudo mostrar esta imagen.",
+  "dlnaStop": "Detener reproducción"
+}

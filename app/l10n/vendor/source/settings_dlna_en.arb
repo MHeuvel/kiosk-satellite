@@ -1,0 +1,94 @@
+{
+  "@@locale": "en",
+  "settingDlnaEnabledTitle": "Enable DLNA renderer",
+  "@settingDlnaEnabledTitle": {
+    "context": "Settings > DLNA Renderer",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > DLNA Renderer > Enable DLNA renderer"
+      ],
+      "remoteAdmin": [
+        "DLNA Renderer > Enable DLNA renderer"
+      ]
+    }
+  },
+  "settingDlnaEnabledDescription": "Show images and play media pushed from Home Assistant or any DLNA app. The device appears as a media player named after the device name.",
+  "@settingDlnaEnabledDescription": {
+    "context": "Settings > DLNA Renderer",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > DLNA Renderer > Enable DLNA renderer"
+      ],
+      "remoteAdmin": [
+        "DLNA Renderer > Enable DLNA renderer"
+      ]
+    }
+  },
+  "settingDlnaAudioBackgroundTitle": "Keep audio in the background",
+  "@settingDlnaAudioBackgroundTitle": {
+    "context": "Settings > DLNA Renderer",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > DLNA Renderer > Keep audio in the background"
+      ],
+      "remoteAdmin": [
+        "DLNA Renderer > Keep audio in the background"
+      ]
+    }
+  },
+  "settingDlnaAudioBackgroundDescription": "Pushed audio plays without taking over the screen.",
+  "@settingDlnaAudioBackgroundDescription": {
+    "context": "Settings > DLNA Renderer",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > DLNA Renderer > Keep audio in the background"
+      ],
+      "remoteAdmin": [
+        "DLNA Renderer > Keep audio in the background"
+      ]
+    }
+  },
+  "settingDlnaPortTitle": "Server port",
+  "@settingDlnaPortTitle": {
+    "context": "Settings > DLNA Renderer",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > DLNA Renderer > Server port"
+      ],
+      "remoteAdmin": [
+        "DLNA Renderer > Server port"
+      ]
+    }
+  },
+  "settingDlnaPortDescription": "The port the renderer is on, filled in when it starts. Change it to move the renderer, or clear it to let it pick again.",
+  "@settingDlnaPortDescription": {
+    "context": "Settings > DLNA Renderer",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > DLNA Renderer > Server port"
+      ],
+      "remoteAdmin": [
+        "DLNA Renderer > Server port"
+      ]
+    }
+  },
+  "settingDlnaPortPlaceholder": "Set when the renderer starts",
+  "@settingDlnaPortPlaceholder": {
+    "context": "Settings > DLNA Renderer",
+    "description": "Placeholder in the empty server port field.",
+    "x-locations": {
+      "device": [
+        "Settings > DLNA Renderer > Server port"
+      ],
+      "remoteAdmin": [
+        "DLNA Renderer > Server port"
+      ]
+    }
+  }
+}

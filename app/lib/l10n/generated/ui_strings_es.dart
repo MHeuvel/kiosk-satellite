@@ -204,28 +204,30 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get dlnaPortInvalid =>
-      'Enter a port between 1024 and 65535, or leave it empty';
+      'Introduce un puerto entre 1024 y 65535 o déjalo vacío';
 
   @override
-  String get dlnaCannotDecode => 'This device cannot decode this video.';
+  String get dlnaCannotDecode =>
+      'Este dispositivo no puede decodificar este video.';
 
   @override
-  String get dlnaCannotRead => 'This file could not be read.';
+  String get dlnaCannotRead => 'No se pudo leer este archivo.';
 
   @override
-  String get dlnaCannotPlay => 'This media could not be played.';
+  String get dlnaCannotPlay => 'No se pudo reproducir este contenido.';
 
   @override
-  String get dlnaSeeLogs => 'See the App Logs for details';
+  String get dlnaSeeLogs =>
+      'Consulta los registros de la aplicación para ver los detalles';
 
   @override
-  String get dlnaLoading => 'Loading media';
+  String get dlnaLoading => 'Cargando contenido';
 
   @override
-  String get dlnaImageFailed => 'This image could not be displayed.';
+  String get dlnaImageFailed => 'No se pudo mostrar esta imagen.';
 
   @override
-  String get dlnaStop => 'Stop playback';
+  String get dlnaStop => 'Detener reproducción';
 
   @override
   String drawerPluginAction(String pluginName, String actionTitle) {
@@ -2447,28 +2449,30 @@ class UiStringsEs extends UiStrings {
   String get deviceThemeSystem => 'Sistema';
 
   @override
-  String get settingDlnaEnabledTitle => 'Enable DLNA renderer';
+  String get settingDlnaEnabledTitle => 'Activar receptor DLNA';
 
   @override
   String get settingDlnaEnabledDescription =>
-      'Show images and play media pushed from Home Assistant or any DLNA app. The device appears as a media player named after the device name.';
+      'Muestra imágenes y reproduce contenido enviado desde Home Assistant o cualquier aplicación DLNA. El dispositivo aparece como un reproductor multimedia con el nombre del dispositivo.';
 
   @override
-  String get settingDlnaAudioBackgroundTitle => 'Keep audio in the background';
+  String get settingDlnaAudioBackgroundTitle =>
+      'Mantener el audio en segundo plano';
 
   @override
   String get settingDlnaAudioBackgroundDescription =>
-      'Pushed audio plays without taking over the screen.';
+      'El audio recibido se reproduce sin ocupar la pantalla.';
 
   @override
-  String get settingDlnaPortTitle => 'Server port';
+  String get settingDlnaPortTitle => 'Puerto del servidor';
 
   @override
   String get settingDlnaPortDescription =>
-      'The port the renderer is on, filled in when it starts. Change it to move the renderer, or clear it to let it pick again.';
+      'El puerto que usa el receptor se completa cuando este inicia. Cámbialo para usar otro puerto o déjalo vacío para que el receptor elija uno de nuevo.';
 
   @override
-  String get settingDlnaPortPlaceholder => 'Set when the renderer starts';
+  String get settingDlnaPortPlaceholder =>
+      'Se establece cuando inicia el receptor';
 
   @override
   String get settingHaHoldModeTitle => 'Modo de pausa';

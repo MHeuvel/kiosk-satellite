@@ -479,7 +479,7 @@
     "context": "Common:Actions",
     "description": "Button to choose an item."
   },
-  "dlnaPortInvalid": "Enter a port between 1024 and 65535, or leave it empty",
+  "dlnaPortInvalid": "Introduce un puerto entre 1024 y 65535 o déjalo vacío",
   "@dlnaPortInvalid": {
     "context": "Shared server port validation",
     "description": "Validation error for the server port.",
@@ -495,7 +495,7 @@
     },
     "x-notes": "Empty is a valid choice. Preserve the numeric port bounds."
   },
-  "dlnaCannotDecode": "This device cannot decode this video.",
+  "dlnaCannotDecode": "Este dispositivo no puede decodificar este video.",
   "@dlnaCannotDecode": {
     "context": "Device > DLNA playback overlay",
     "description": "Playback failure caused by the device video decoder.",
@@ -506,7 +506,7 @@
     },
     "x-notes": "Only app labels are translated. Media titles and controller metadata stay as supplied."
   },
-  "dlnaCannotRead": "This file could not be read.",
+  "dlnaCannotRead": "No se pudo leer este archivo.",
   "@dlnaCannotRead": {
     "context": "Device > DLNA playback overlay",
     "description": "Playback failure caused by an unreadable file.",
@@ -517,7 +517,7 @@
     },
     "x-notes": "Only app labels are translated. Media titles and controller metadata stay as supplied."
   },
-  "dlnaCannotPlay": "This media could not be played.",
+  "dlnaCannotPlay": "No se pudo reproducir este contenido.",
   "@dlnaCannotPlay": {
     "context": "Device > DLNA playback overlay",
     "description": "Playback failure or accessibility label for the failed media icon.",
@@ -528,7 +528,7 @@
     },
     "x-notes": "Only app labels are translated. Media titles and controller metadata stay as supplied."
   },
-  "dlnaSeeLogs": "See the App Logs for details",
+  "dlnaSeeLogs": "Consulta los registros de la aplicación para ver los detalles",
   "@dlnaSeeLogs": {
     "context": "Device > DLNA playback overlay",
     "description": "Help below a playback failure.",
@@ -539,7 +539,7 @@
     },
     "x-notes": "Only app labels are translated. Media titles and controller metadata stay as supplied."
   },
-  "dlnaLoading": "Loading media",
+  "dlnaLoading": "Cargando contenido",
   "@dlnaLoading": {
     "context": "Device > DLNA playback overlay",
     "description": "Accessibility label for the loading spinner.",
@@ -550,7 +550,7 @@
     },
     "x-notes": "Only app labels are translated. Media titles and controller metadata stay as supplied."
   },
-  "dlnaImageFailed": "This image could not be displayed.",
+  "dlnaImageFailed": "No se pudo mostrar esta imagen.",
   "@dlnaImageFailed": {
     "context": "Device > DLNA playback overlay",
     "description": "Accessibility label for the failed image icon.",
@@ -561,7 +561,7 @@
     },
     "x-notes": "Only app labels are translated. Media titles and controller metadata stay as supplied."
   },
-  "dlnaStop": "Stop playback",
+  "dlnaStop": "Detener reproducción",
   "@dlnaStop": {
     "context": "Device > DLNA playback overlay",
     "description": "Accessibility label for tapping the overlay to stop playback.",
@@ -8856,7 +8856,7 @@
       ]
     }
   },
-  "settingDlnaEnabledTitle": "Enable DLNA renderer",
+  "settingDlnaEnabledTitle": "Activar receptor DLNA",
   "@settingDlnaEnabledTitle": {
     "context": "Settings > DLNA Renderer",
     "description": "Setting label.",
@@ -8869,7 +8869,7 @@
       ]
     }
   },
-  "settingDlnaEnabledDescription": "Show images and play media pushed from Home Assistant or any DLNA app. The device appears as a media player named after the device name.",
+  "settingDlnaEnabledDescription": "Muestra imágenes y reproduce contenido enviado desde Home Assistant o cualquier aplicación DLNA. El dispositivo aparece como un reproductor multimedia con el nombre del dispositivo.",
   "@settingDlnaEnabledDescription": {
     "context": "Settings > DLNA Renderer",
     "description": "Help below this setting.",
@@ -8882,7 +8882,7 @@
       ]
     }
   },
-  "settingDlnaAudioBackgroundTitle": "Keep audio in the background",
+  "settingDlnaAudioBackgroundTitle": "Mantener el audio en segundo plano",
   "@settingDlnaAudioBackgroundTitle": {
     "context": "Settings > DLNA Renderer",
     "description": "Setting label.",
@@ -8895,7 +8895,7 @@
       ]
     }
   },
-  "settingDlnaAudioBackgroundDescription": "Pushed audio plays without taking over the screen.",
+  "settingDlnaAudioBackgroundDescription": "El audio recibido se reproduce sin ocupar la pantalla.",
   "@settingDlnaAudioBackgroundDescription": {
     "context": "Settings > DLNA Renderer",
     "description": "Help below this setting.",
@@ -8908,7 +8908,7 @@
       ]
     }
   },
-  "settingDlnaPortTitle": "Server port",
+  "settingDlnaPortTitle": "Puerto del servidor",
   "@settingDlnaPortTitle": {
     "context": "Settings > DLNA Renderer",
     "description": "Setting label.",
@@ -8921,7 +8921,7 @@
       ]
     }
   },
-  "settingDlnaPortDescription": "The port the renderer is on, filled in when it starts. Change it to move the renderer, or clear it to let it pick again.",
+  "settingDlnaPortDescription": "El puerto que usa el receptor se completa cuando este inicia. Cámbialo para usar otro puerto o déjalo vacío para que el receptor elija uno de nuevo.",
   "@settingDlnaPortDescription": {
     "context": "Settings > DLNA Renderer",
     "description": "Help below this setting.",
@@ -8934,7 +8934,7 @@
       ]
     }
   },
-  "settingDlnaPortPlaceholder": "Set when the renderer starts",
+  "settingDlnaPortPlaceholder": "Se establece cuando inicia el receptor",
   "@settingDlnaPortPlaceholder": {
     "context": "Settings > DLNA Renderer",
     "description": "Placeholder in the empty server port field.",
