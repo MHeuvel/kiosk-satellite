@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kiosk_satellite/app_container.dart';
 import 'package:kiosk_satellite/core/command_registry.dart';
@@ -21,6 +22,20 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 // Test wording exercises localization even before draft catalogs are approved.
 class MenuMessages extends UiStringsEn {
+  @override
+  String get settingScreensaverEnabledTitle => 'TEST screensaver';
+  @override
+  String get screensaverCameraRequired => 'TEST camera required';
+  @override
+  String get screensaverDetectionNoProximity => 'TEST no proximity sensor';
+  @override
+  String get screensaverDetectionProximityPage => 'TEST proximity page';
+  @override
+  String get screensaverDetectionPermissions => 'TEST permissions';
+  @override
+  String get screensaverDetectionGrantHelp => 'TEST ADB instructions';
+  @override
+  String get screensaverDetectionOff => 'TEST detection off';
   @override
   String get screensaverOverlaySmallClock => 'TEST small clock';
   @override
@@ -143,6 +158,100 @@ Future<AppContainer> containerFor(WidgetTester tester, Size size) async {
 }
 
 void main() {
+  testWidgets(
+    'translated detection pages preserve unavailable hardware gates',
+    (tester) async {
+      final container = await containerFor(tester, const Size(800, 1400));
+      await container.settings.setFromJson(defs.cameraEnabled.key, false);
+      await tester.pumpWidget(
+        localized(
+          SubpageSettingsScreen(
+            container: container,
+            category: 'Screensaver',
+            subpage: 'Motion Detection',
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('TEST camera required'), findsOneWidget);
+      expect(
+        tester
+            .widget<SwitchListTile>(find.byType(SwitchListTile).first)
+            .onChanged,
+        isNull,
+      );
+      const channel = MethodChannel('kiosk_satellite/proximity_sensor');
+      final messenger =
+          TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+      messenger.setMockMethodCallHandler(
+        channel,
+        (_) async => {
+          'supported': false,
+          'hint': 'Not available on this device: it has no proximity sensor.',
+        },
+      );
+      addTearDown(() => messenger.setMockMethodCallHandler(channel, null));
+      await container.proximity.proximitySupport();
+      await tester.pumpWidget(
+        localized(
+          SubpageSettingsScreen(
+            container: container,
+            category: 'Screensaver',
+            subpage: 'Proximity Detection',
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('TEST proximity page'), findsWidgets);
+      expect(find.text('TEST no proximity sensor'), findsOneWidget);
+      expect(
+        tester
+            .widget<SwitchListTile>(find.byType(SwitchListTile).first)
+            .onChanged,
+        isNull,
+      );
+      expect(tester.takeException(), isNull);
+    },
+  );
+
+  testWidgets(
+    'translated person permission guidance preserves the page route',
+    (tester) async {
+      final container = await containerFor(tester, const Size(800, 1400));
+      const channel = MethodChannel('kiosk_satellite/background');
+      final messenger =
+          TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+      messenger.setMockMethodCallHandler(
+        channel,
+        (call) async => switch (call.method) {
+          'personSensorSupport' => {'supported': true},
+          'readLogsState' => {'granted': false, 'effective': false},
+          _ => null,
+        },
+      );
+      addTearDown(() => messenger.setMockMethodCallHandler(channel, null));
+      await tester.pumpWidget(
+        localized(
+          SubpageSettingsScreen(
+            container: container,
+            category: 'Screensaver',
+            subpage: 'Person Detection',
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('TEST ADB instructions'), findsOneWidget);
+      expect(find.text('TEST detection off'), findsOneWidget);
+      expect(
+        tester
+            .widget<SubpageSettingsScreen>(find.byType(SubpageSettingsScreen))
+            .subpage,
+        'Person Detection',
+      );
+      expect(tester.takeException(), isNull);
+    },
+  );
+
   testWidgets('translated widget editor preserves corner and font settings', (
     tester,
   ) async {

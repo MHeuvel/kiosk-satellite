@@ -1,4 +1,4 @@
-import { deviceText, haText, screenAudioText, haConnectionError, settingsPageText, t } from './localization.js';
+import { screensaverText, deviceText, haText, screenAudioText, haConnectionError, settingsPageText, t } from './localization.js';
 import { preserveDraft } from './drafts.js';
 import { beginLiveRender, endLiveRender, watchUpdates } from './live.js';
 import {
@@ -2380,29 +2380,28 @@ export function updatePersonSensorRows() {
     .catch(() => null);
   const ago = (ms) => {
     const age = Math.max(0, Math.round((Date.now() - ms) / 1000));
-    return age < 60 ? `${age}s ago` : age < 3600
-      ? `${Math.round(age / 60)} min ago` : `${Math.round(age / 3600)} h ago`;
+    return age < 60 ? t('screensaverDetectionSecondsAgo', {count: String(age)}) : age < 3600
+      ? t('screensaverDetectionMinutesAgo', {count: String(Math.round(age / 60))}) : t('screensaverDetectionHoursAgo', {count: String(Math.round(age / 3600))});
   };
   // [desc, value]: the words under the name and who is in view.
   const statusText = (st) => {
-    if (!st) return ['Status unavailable.', ''];
-    if (!st.enabled) return ['Off.', ''];
-    if (st.error) return [st.error, ''];
-    if (!st.running) return ['Starting...', ''];
+    if (!st) return [screensaverText('Status unavailable.'), ''];
+    if (!st.enabled) return [screensaverText('Off.'), ''];
+    if (st.error) return [screensaverText(st.error), ''];
+    if (!st.running) return [screensaverText('Starting...'), ''];
     if (!st.lastBeat) {
-      return ['Waiting for the first heartbeat. The sensor reports every '
-        + '30 seconds while someone is in view.', 'Clear'];
+      return [screensaverText("Waiting for the first heartbeat. The sensor reports every 30 seconds while someone is in view."), t('screensaverDetectionClear')];
     }
-    return [`Last heartbeat ${ago(st.lastBeat)}.`, st.present ? 'Detected' : 'Clear'];
+    return [t('screensaverDetectionLastHeartbeat', {ago: ago(st.lastBeat)}), st.present ? screensaverText('Detected') : t('screensaverDetectionClear')];
   };
-  const status = readOnlyRow('Occupancy', 'Checking...', '');
+  const status = readOnlyRow(screensaverText('Occupancy'), screensaverText('Checking...'), '');
   status.classList.add('person-status');
   row.insertAdjacentElement('afterend', status);
 
   // Required system permissions: the READ_LOGS grant.
   const h = document.createElement('h2');
   h.className = 'card-title person-grant';
-  h.textContent = 'Required system permissions';
+  h.textContent = screensaverText('Required system permissions');
   const permCard = document.createElement('div');
   permCard.className = 'card person-grant';
   const permRow = document.createElement('div');
@@ -2410,8 +2409,8 @@ export function updatePersonSensorRows() {
   const info = document.createElement('div');
   info.className = 'info';
   info.innerHTML = '<div class="name"></div><div class="desc"></div>';
-  info.querySelector('.name').textContent = 'Log access';
-  info.querySelector('.desc').textContent = 'Checking...';
+  info.querySelector('.name').textContent = screensaverText('Log access');
+  info.querySelector('.desc').textContent = screensaverText('Checking...');
   permRow.appendChild(info);
   const stateEl = document.createElement('span');
   stateEl.style.whiteSpace = 'nowrap';
@@ -2429,13 +2428,12 @@ export function updatePersonSensorRows() {
     const ok = access === null ? null
       : access.granted === true && access.effective === true;
     info.querySelector('.desc').textContent = ok === null
-      ? 'Status unavailable.'
-      : ok ? "The device's person sensor can be read."
+      ? screensaverText('Status unavailable.')
+      : ok ? screensaverText("The device's person sensor can be read.")
       : access.granted
-        ? 'Granted. Restart Kiosk Satellite to apply it.'
-        : 'This permission can only be granted via ADB. Below is the full '
-          + 'command, ready to be copied. Restart Kiosk Satellite afterwards.';
-    stateEl.textContent = ok === null ? '' : ok ? 'Granted' : 'Missing';
+        ? screensaverText('Granted. Restart Kiosk Satellite to apply it.')
+        : screensaverText("This permission can only be granted via ADB. Below is the full command, ready to be copied. Restart Kiosk Satellite afterwards.");
+    stateEl.textContent = ok === null ? '' : ok ? screensaverText('Granted') : screensaverText('Missing');
     stateEl.style.color = ok ? 'var(--ok)' : 'var(--error)';
     permRow.querySelector('button')?.remove();
     copy.el.remove();
@@ -2443,7 +2441,7 @@ export function updatePersonSensorRows() {
     if (access.granted) {
       const btn = document.createElement('button');
       btn.className = 'btn-ghost';
-      btn.textContent = 'Restart on device';
+      btn.textContent = screensaverText('Restart on device');
       btn.style.cssText = 'flex-shrink:0;';
       btn.addEventListener('click', async () => {
         btn.disabled = true;

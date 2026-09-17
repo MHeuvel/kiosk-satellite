@@ -1,0 +1,120 @@
+{
+  "@@locale": "en",
+  "settingFacePreviewTitle": "Show camera preview",
+  "@settingFacePreviewTitle": {
+    "context": "Settings > Screensaver > Face Detection > Camera Preview",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Face Detection > Camera Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Face Detection > Camera Preview"
+      ]
+    }
+  },
+  "settingFacePreviewDescription": "Show a small round live view of the camera in a corner of the screen for a few seconds when a face wakes the kiosk.",
+  "@settingFacePreviewDescription": {
+    "context": "Settings > Screensaver > Face Detection > Camera Preview",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Face Detection > Camera Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Face Detection > Camera Preview"
+      ]
+    }
+  },
+  "settingFacePreviewSecondsTitle": "Preview duration",
+  "@settingFacePreviewSecondsTitle": {
+    "context": "Settings > Screensaver > Face Detection > Camera Preview",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Face Detection > Camera Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Face Detection > Camera Preview"
+      ]
+    }
+  },
+  "settingFacePreviewSecondsDescription": "How long the preview stays on screen.",
+  "@settingFacePreviewSecondsDescription": {
+    "context": "Settings > Screensaver > Face Detection > Camera Preview",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Face Detection > Camera Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Face Detection > Camera Preview"
+      ]
+    }
+  },
+  "settingFacePreviewScaleTitle": "Preview scaling",
+  "@settingFacePreviewScaleTitle": {
+    "context": "Settings > Screensaver > Face Detection > Camera Preview",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Face Detection > Camera Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Face Detection > Camera Preview"
+      ]
+    }
+  },
+  "settingFacePreviewScaleDescription": "Scale the preview to better fit your screen size.",
+  "@settingFacePreviewScaleDescription": {
+    "context": "Settings > Screensaver > Face Detection > Camera Preview",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Face Detection > Camera Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Face Detection > Camera Preview"
+      ]
+    }
+  },
+  "settingFacePreviewPositionTitle": "Preview position",
+  "@settingFacePreviewPositionTitle": {
+    "context": "Settings > Screensaver > Face Detection > Camera Preview",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Face Detection > Camera Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Face Detection > Camera Preview"
+      ]
+    }
+  },
+  "settingFacePreviewPositionDescription": "Which corner the preview sits in.",
+  "@settingFacePreviewPositionDescription": {
+    "context": "Settings > Screensaver > Face Detection > Camera Preview",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Face Detection > Camera Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Face Detection > Camera Preview"
+      ]
+    }
+  },
+  "screensaverDetectionPreviewSection": "Camera Preview",
+  "@screensaverDetectionPreviewSection": {
+    "context": "Settings > Screensaver > Face Detection > Camera Preview",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Face Detection > Camera Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Face Detection > Camera Preview"
+      ]
+    }
+  }
+}

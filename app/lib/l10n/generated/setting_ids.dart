@@ -704,4 +704,72 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingScreensaverGlanceNowPlayingTitle",
     "description": "settingScreensaverGlanceNowPlayingDescription",
   },
+  "screensaver.dismiss_on_motion": {
+    "title": "settingScreensaverDismissOnMotionTitle",
+    "description": "settingScreensaverDismissOnMotionDescription",
+  },
+  "screensaver.dismiss_on_motion_screen_off_only": {
+    "title": "settingScreensaverDismissOnMotionScreenOffOnlyTitle",
+    "description": "settingScreensaverDismissOnMotionScreenOffOnlyDescription",
+  },
+  "screensaver.postpone_on_motion": {
+    "title": "settingScreensaverPostponeOnMotionTitle",
+    "description": "settingScreensaverPostponeOnMotionDescription",
+  },
+  "screensaver.dismiss_on_face": {
+    "title": "settingScreensaverDismissOnFaceTitle",
+    "description": "settingScreensaverDismissOnFaceDescription",
+  },
+  "screensaver.dismiss_on_face_screen_off_only": {
+    "title": "settingScreensaverDismissOnFaceScreenOffOnlyTitle",
+    "description": "settingScreensaverDismissOnFaceScreenOffOnlyDescription",
+  },
+  "screensaver.postpone_on_face": {
+    "title": "settingScreensaverPostponeOnFaceTitle",
+    "description": "settingScreensaverPostponeOnFaceDescription",
+  },
+  "face.sensitivity": {
+    "title": "settingFaceSensitivityTitle",
+    "description": "settingFaceSensitivityDescription",
+  },
+  "face.preview": {
+    "title": "settingFacePreviewTitle",
+    "description": "settingFacePreviewDescription",
+  },
+  "face.preview_seconds": {
+    "title": "settingFacePreviewSecondsTitle",
+    "description": "settingFacePreviewSecondsDescription",
+  },
+  "face.preview_scale": {
+    "title": "settingFacePreviewScaleTitle",
+    "description": "settingFacePreviewScaleDescription",
+  },
+  "face.preview_position": {
+    "title": "settingFacePreviewPositionTitle",
+    "description": "settingFacePreviewPositionDescription",
+  },
+  "screensaver.dismiss_on_proximity": {
+    "title": "settingScreensaverDismissOnProximityTitle",
+    "description": "settingScreensaverDismissOnProximityDescription",
+  },
+  "screensaver.dismiss_on_proximity_screen_off_only": {
+    "title": "settingScreensaverDismissOnProximityScreenOffOnlyTitle",
+    "description": "settingScreensaverDismissOnProximityScreenOffOnlyDescription",
+  },
+  "screensaver.postpone_on_proximity": {
+    "title": "settingScreensaverPostponeOnProximityTitle",
+    "description": "settingScreensaverPostponeOnProximityDescription",
+  },
+  "screensaver.dismiss_on_person": {
+    "title": "settingScreensaverDismissOnPersonTitle",
+    "description": "settingScreensaverDismissOnPersonDescription",
+  },
+  "screensaver.dismiss_on_person_screen_off_only": {
+    "title": "settingScreensaverDismissOnPersonScreenOffOnlyTitle",
+    "description": "settingScreensaverDismissOnPersonScreenOffOnlyDescription",
+  },
+  "screensaver.postpone_on_person": {
+    "title": "settingScreensaverPostponeOnPersonTitle",
+    "description": "settingScreensaverPostponeOnPersonDescription",
+  },
 };

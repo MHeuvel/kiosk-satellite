@@ -855,6 +855,46 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'screensaverOverlaySearching' => strings.screensaverOverlaySearching,
       'screensaverOverlayUnreachable' => strings.screensaverOverlayUnreachable,
       'screensaverOverlayNoAnswer' => strings.screensaverOverlayNoAnswer,
+      'settingScreensaverDismissOnFaceTitle' =>
+        strings.settingScreensaverDismissOnFaceTitle,
+      'settingScreensaverDismissOnFaceDescription' =>
+        strings.settingScreensaverDismissOnFaceDescription,
+      'settingScreensaverDismissOnFaceScreenOffOnlyTitle' =>
+        strings.settingScreensaverDismissOnFaceScreenOffOnlyTitle,
+      'settingScreensaverDismissOnFaceScreenOffOnlyDescription' =>
+        strings.settingScreensaverDismissOnFaceScreenOffOnlyDescription,
+      'settingScreensaverPostponeOnFaceTitle' =>
+        strings.settingScreensaverPostponeOnFaceTitle,
+      'settingScreensaverPostponeOnFaceDescription' =>
+        strings.settingScreensaverPostponeOnFaceDescription,
+      'settingFaceSensitivityTitle' => strings.settingFaceSensitivityTitle,
+      'settingFaceSensitivityDescription' =>
+        strings.settingFaceSensitivityDescription,
+      'screensaverDetectionFacePage' => strings.screensaverDetectionFacePage,
+      'screensaverDetectionFaceHint' => strings.screensaverDetectionFaceHint,
+      'screensaverDetectionMotionPrecedence' =>
+        strings.screensaverDetectionMotionPrecedence,
+      'screensaverDetectionFaceTuning' =>
+        strings.screensaverDetectionFaceTuning,
+      'screensaverDetectionAndroidUnsupported' =>
+        strings.screensaverDetectionAndroidUnsupported,
+      'screensaverDetectionX86Unsupported' =>
+        strings.screensaverDetectionX86Unsupported,
+      'settingFacePreviewTitle' => strings.settingFacePreviewTitle,
+      'settingFacePreviewDescription' => strings.settingFacePreviewDescription,
+      'settingFacePreviewSecondsTitle' =>
+        strings.settingFacePreviewSecondsTitle,
+      'settingFacePreviewSecondsDescription' =>
+        strings.settingFacePreviewSecondsDescription,
+      'settingFacePreviewScaleTitle' => strings.settingFacePreviewScaleTitle,
+      'settingFacePreviewScaleDescription' =>
+        strings.settingFacePreviewScaleDescription,
+      'settingFacePreviewPositionTitle' =>
+        strings.settingFacePreviewPositionTitle,
+      'settingFacePreviewPositionDescription' =>
+        strings.settingFacePreviewPositionDescription,
+      'screensaverDetectionPreviewSection' =>
+        strings.screensaverDetectionPreviewSection,
       'settingScreensaverEnabledTitle' =>
         strings.settingScreensaverEnabledTitle,
       'settingScreensaverEnabledDescription' =>
@@ -1258,6 +1298,88 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingScreensaverLocalEdgeTapsDescription,
       'screensaverMediaLocalPage' => strings.screensaverMediaLocalPage,
       'screensaverMediaLocalHint' => strings.screensaverMediaLocalHint,
+      'settingScreensaverDismissOnMotionTitle' =>
+        strings.settingScreensaverDismissOnMotionTitle,
+      'settingScreensaverDismissOnMotionDescription' =>
+        strings.settingScreensaverDismissOnMotionDescription,
+      'settingScreensaverDismissOnMotionScreenOffOnlyTitle' =>
+        strings.settingScreensaverDismissOnMotionScreenOffOnlyTitle,
+      'settingScreensaverDismissOnMotionScreenOffOnlyDescription' =>
+        strings.settingScreensaverDismissOnMotionScreenOffOnlyDescription,
+      'settingScreensaverPostponeOnMotionTitle' =>
+        strings.settingScreensaverPostponeOnMotionTitle,
+      'settingScreensaverPostponeOnMotionDescription' =>
+        strings.settingScreensaverPostponeOnMotionDescription,
+      'screensaverDetectionMotionPage' =>
+        strings.screensaverDetectionMotionPage,
+      'screensaverDetectionMotionHint' =>
+        strings.screensaverDetectionMotionHint,
+      'screensaverDetectionMotionTuning' =>
+        strings.screensaverDetectionMotionTuning,
+      'settingScreensaverDismissOnPersonTitle' =>
+        strings.settingScreensaverDismissOnPersonTitle,
+      'settingScreensaverDismissOnPersonDescription' =>
+        strings.settingScreensaverDismissOnPersonDescription,
+      'settingScreensaverDismissOnPersonScreenOffOnlyTitle' =>
+        strings.settingScreensaverDismissOnPersonScreenOffOnlyTitle,
+      'settingScreensaverDismissOnPersonScreenOffOnlyDescription' =>
+        strings.settingScreensaverDismissOnPersonScreenOffOnlyDescription,
+      'settingScreensaverPostponeOnPersonTitle' =>
+        strings.settingScreensaverPostponeOnPersonTitle,
+      'settingScreensaverPostponeOnPersonDescription' =>
+        strings.settingScreensaverPostponeOnPersonDescription,
+      'screensaverDetectionPersonPage' =>
+        strings.screensaverDetectionPersonPage,
+      'screensaverDetectionPersonHint' =>
+        strings.screensaverDetectionPersonHint,
+      'screensaverDetectionOccupancy' => strings.screensaverDetectionOccupancy,
+      'screensaverDetectionStatusUnavailable' =>
+        strings.screensaverDetectionStatusUnavailable,
+      'screensaverDetectionOff' => strings.screensaverDetectionOff,
+      'screensaverDetectionStarting' => strings.screensaverDetectionStarting,
+      'screensaverDetectionWaiting' => strings.screensaverDetectionWaiting,
+      'screensaverDetectionDetected' => strings.screensaverDetectionDetected,
+      'screensaverDetectionClear' => strings.screensaverDetectionClear,
+      'screensaverDetectionPermissions' =>
+        strings.screensaverDetectionPermissions,
+      'screensaverDetectionLogAccess' => strings.screensaverDetectionLogAccess,
+      'screensaverDetectionChecking' => strings.screensaverDetectionChecking,
+      'screensaverDetectionReadable' => strings.screensaverDetectionReadable,
+      'screensaverDetectionRestartRequired' =>
+        strings.screensaverDetectionRestartRequired,
+      'screensaverDetectionGrantHelp' => strings.screensaverDetectionGrantHelp,
+      'screensaverDetectionGrantRemoteHelp' =>
+        strings.screensaverDetectionGrantRemoteHelp,
+      'screensaverDetectionGranted' => strings.screensaverDetectionGranted,
+      'screensaverDetectionMissing' => strings.screensaverDetectionMissing,
+      'screensaverDetectionRestart' => strings.screensaverDetectionRestart,
+      'screensaverDetectionRestartRemote' =>
+        strings.screensaverDetectionRestartRemote,
+      'screensaverDetectionLogRestart' =>
+        strings.screensaverDetectionLogRestart,
+      'screensaverDetectionLogMissing' =>
+        strings.screensaverDetectionLogMissing,
+      'settingScreensaverDismissOnProximityTitle' =>
+        strings.settingScreensaverDismissOnProximityTitle,
+      'settingScreensaverDismissOnProximityDescription' =>
+        strings.settingScreensaverDismissOnProximityDescription,
+      'settingScreensaverDismissOnProximityScreenOffOnlyTitle' =>
+        strings.settingScreensaverDismissOnProximityScreenOffOnlyTitle,
+      'settingScreensaverDismissOnProximityScreenOffOnlyDescription' =>
+        strings.settingScreensaverDismissOnProximityScreenOffOnlyDescription,
+      'settingScreensaverPostponeOnProximityTitle' =>
+        strings.settingScreensaverPostponeOnProximityTitle,
+      'settingScreensaverPostponeOnProximityDescription' =>
+        strings.settingScreensaverPostponeOnProximityDescription,
+      'screensaverDetectionProximityPage' =>
+        strings.screensaverDetectionProximityPage,
+      'screensaverDetectionProximityHint' =>
+        strings.screensaverDetectionProximityHint,
+      'screensaverDetectionNoProximity' =>
+        strings.screensaverDetectionNoProximity,
+      'screensaverDetectionSensor' => strings.screensaverDetectionSensor,
+      'screensaverDetectionSensorHelp' =>
+        strings.screensaverDetectionSensorHelp,
       'settingScreensaverScheduleEnabledTitle' =>
         strings.settingScreensaverScheduleEnabledTitle,
       'settingScreensaverScheduleEnabledDescription' =>

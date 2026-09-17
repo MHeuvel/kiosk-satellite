@@ -253,12 +253,12 @@ export function updateMotionCameraRows() {
     const input = dismiss.querySelector('.switch input');
     if (input) { input.checked = false; input.disabled = true; }
     dismiss.insertAdjacentElement('afterend',
-      note('Requires the camera. Turn it on in the Camera settings first.'));
+      note(screensaverText('Requires the camera. Turn it on in the Camera settings first.')));
   } else {
     const anchor = tab.querySelector('[data-key="screensaver.postpone_on_motion"]');
     if (anchor) {
       anchor.insertAdjacentElement('afterend',
-        note('Motion detection is tuned in the Camera settings.'));
+        note(screensaverText('Motion detection is tuned in the Camera settings.')));
     }
   }
 }
@@ -283,26 +283,24 @@ export function updateFaceRows() {
     const input = face.querySelector('.switch input');
     if (input) { input.checked = false; input.disabled = true; }
     face.insertAdjacentElement('afterend',
-      note('Requires the camera. Turn it on in the Camera settings first.'));
+      note(screensaverText('Requires the camera. Turn it on in the Camera settings first.')));
     return;
   }
   if (state.visionSupport && state.visionSupport.faces === false) {
     const input = face.querySelector('.switch input');
     if (input) { input.checked = false; input.disabled = true; }
     face.insertAdjacentElement('afterend',
-      note(state.visionSupport.hint || 'Not available on this device.'));
+      note(screensaverText(state.visionSupport.hint || 'Not available on this device.')));
     return;
   }
   if (byKey['screensaver.dismiss_on_motion']?.value === true) {
     face.insertAdjacentElement('afterend', note(
-      'Dismiss on motion is on and takes precedence, so face detection '
-      + 'stays idle until it is turned off.', true));
+      screensaverText("Dismiss on motion is on and takes precedence, so face detection stays idle until it is turned off."), true));
   }
   const sensitivity = tab.querySelector('[data-key="face.sensitivity"]');
   if (sensitivity) {
     sensitivity.insertAdjacentElement('afterend', note(
-      'Frame rate, camera pick and startup delay are tuned in the Camera '
-      + 'settings.'));
+      screensaverText("Frame rate, camera pick and startup delay are tuned in the Camera settings.")));
   }
 }
 
@@ -329,12 +327,12 @@ export async function updateProximityRows() {
     const input = row.querySelector('.switch input');
     if (input) { input.checked = false; input.disabled = true; }
     row.insertAdjacentElement('afterend', hintRow(
-      support.hint || 'Not available on this device.',
+      screensaverText(support.hint || 'Not available on this device.'),
       { className: 'proximity-note' }));
     return;
   }
   if (!support || !support.name) return;
-  const sensor = readOnlyRow('Sensor', PROXIMITY_SENSOR_NOTE, support.name);
+  const sensor = readOnlyRow(screensaverText('Sensor'), screensaverText(PROXIMITY_SENSOR_NOTE), support.name, false);
   sensor.classList.add('proximity-note');
   const value = sensor.lastElementChild;
   value.style.whiteSpace = 'normal';

@@ -2643,11 +2643,13 @@ class _CategoryContentState extends State<_CategoryContent> {
         !container.deviceCamera.effectiveEnabled)
       screensaverDismissOnMotion.key: SearchLandingTarget(
         id: screensaverDismissOnMotion.key,
-        child: const SwitchListTile(
-          title: Text('Dismiss on motion'),
+        child: SwitchListTile(
+          title: Text(screensaverText(context, 'Dismiss on motion')),
           subtitle: Text(
-            'Requires the camera. Turn it on in the Camera '
-            'settings first.',
+            screensaverText(
+              context,
+              "Requires the camera. Turn it on in the Camera settings first.",
+            ),
           ),
           value: false,
           onChanged: null,
@@ -2657,11 +2659,13 @@ class _CategoryContentState extends State<_CategoryContent> {
         !container.deviceCamera.effectiveEnabled)
       screensaverDismissOnFace.key: SearchLandingTarget(
         id: screensaverDismissOnFace.key,
-        child: const SwitchListTile(
-          title: Text('Dismiss on face'),
+        child: SwitchListTile(
+          title: Text(screensaverText(context, 'Dismiss on face')),
           subtitle: Text(
-            'Requires the camera. Turn it on in the Camera '
-            'settings first.',
+            screensaverText(
+              context,
+              "Requires the camera. Turn it on in the Camera settings first.",
+            ),
           ),
           value: false,
           onChanged: null,
@@ -2675,10 +2679,13 @@ class _CategoryContentState extends State<_CategoryContent> {
       screensaverDismissOnFace.key: SearchLandingTarget(
         id: screensaverDismissOnFace.key,
         child: SwitchListTile(
-          title: const Text('Dismiss on face'),
+          title: Text(screensaverText(context, 'Dismiss on face')),
           subtitle: Text(
-            container.deviceCamera.visionHint ??
-                'Not available on this device.',
+            screensaverText(
+              context,
+              container.deviceCamera.visionHint ??
+                  'Not available on this device.',
+            ),
           ),
           value: false,
           onChanged: null,
@@ -2691,10 +2698,13 @@ class _CategoryContentState extends State<_CategoryContent> {
       screensaverDismissOnProximity.key: SearchLandingTarget(
         id: screensaverDismissOnProximity.key,
         child: SwitchListTile(
-          title: Text(screensaverDismissOnProximity.title),
+          title: Text(screensaverDismissOnProximity.localizedTitle(context)),
           subtitle: Text(
-            container.proximity.proximityHint ??
-                'Not available on this device.',
+            screensaverText(
+              context,
+              container.proximity.proximityHint ??
+                  'Not available on this device.',
+            ),
           ),
           value: false,
           onChanged: null,
@@ -2841,17 +2851,22 @@ class _CategoryContentState extends State<_CategoryContent> {
     // Where the tuning rows used to be: camera pick, frame rate
     // and sensitivity are Camera-settings decisions now.
     if (widget.category == 'Screensaver')
-      screensaverPostponeOnMotion.key: const HintRow(
-        'Motion detection is tuned in the Camera settings.',
+      screensaverPostponeOnMotion.key: HintRow(
+        screensaverText(
+          context,
+          'Motion detection is tuned in the Camera settings.',
+        ),
       ),
     // Dismiss on motion owns the wake-up while it is on (issue #304): the
     // face leg is idle, and the row says so instead of looking armed.
     if (widget.category == 'Screensaver' &&
         container.deviceCamera.effectiveEnabled &&
         container.settings.get(screensaverDismissOnMotion))
-      screensaverDismissOnFace.key: const WarnRow(_faceMotionNote),
+      screensaverDismissOnFace.key: WarnRow(
+        screensaverText(context, _faceMotionNote),
+      ),
     if (widget.category == 'Screensaver')
-      faceSensitivity.key: const HintRow(_faceTuningNote),
+      faceSensitivity.key: HintRow(screensaverText(context, _faceTuningNote)),
     // The sensor's name under the switch, where there is one: the name is
     // what tells a hover sensor from a phone's call-only palm sensor.
     // Mirrored on the remote (notices.js, updateProximityRows).
@@ -2859,8 +2874,8 @@ class _CategoryContentState extends State<_CategoryContent> {
         !container.proximity.proximityKnownUnsupported &&
         container.proximity.sensorName != null)
       screensaverDismissOnProximity.key: SettingsRow(
-        title: const Text('Sensor'),
-        subtitle: const Text(_proximitySensorNote),
+        title: Text(screensaverText(context, 'Sensor')),
+        subtitle: Text(screensaverText(context, _proximitySensorNote)),
         trailing: Text(
           container.proximity.sensorName!,
           textAlign: TextAlign.end,
@@ -3078,7 +3093,7 @@ class _CategoryContentState extends State<_CategoryContent> {
           for (final def in _defsFor(widget.category))
             if (def.subpage == subpage) def,
         ]),
-        const SectionHeading('Required system permissions'),
+        SectionHeading(screensaverText(context, 'Required system permissions')),
         SearchLandingTarget(
           id: 'x:person_log_access',
           child: SettingsCard(
@@ -4587,11 +4602,11 @@ class _ScheduleEditorState extends State<_ScheduleEditor> {
                       'proximity',
                       enabled: !noProximity,
                       helper: noProximity
-                          ? (proximity.proximityHint ??
-                                screensaverText(
-                                  context,
+                          ? screensaverText(
+                              context,
+                              proximity.proximityHint ??
                                   'Not available on this device.',
-                                ))
+                            )
                           : null,
                     ),
                     if (personShown)
@@ -8966,23 +8981,30 @@ class _PersonSensorLogAccessTileState extends State<_PersonSensorLogAccessTile>
         ok ? Icons.check_circle_outline : Icons.article_outlined,
         color: ok ? null : theme.colorScheme.error,
       ),
-      title: const Text('Log access'),
+      title: Text(screensaverText(context, 'Log access')),
       subtitle: Text(
         access == null
-            ? 'Checking...'
+            ? screensaverText(context, 'Checking...')
             : ok
-            ? "The device's person sensor can be read."
+            ? screensaverText(
+                context,
+                "The device's person sensor can be read.",
+              )
             : access.granted
-            ? 'Granted. Restart Kiosk Satellite to apply it.'
-            : 'This permission can only be granted via ADB. The Meta '
-                  'Portal doc has the full command. Restart Kiosk Satellite '
-                  'afterwards.',
+            ? screensaverText(
+                context,
+                'Granted. Restart Kiosk Satellite to apply it.',
+              )
+            : screensaverText(
+                context,
+                "This permission can only be granted via ADB. The Meta Portal doc has the full command. Restart Kiosk Satellite afterwards.",
+              ),
       ),
       trailing: access != null && access.granted && !ok
           ? TextButton(
               onPressed: () =>
                   widget.container.commands.execute('restartApp', const {}),
-              child: const Text('Restart'),
+              child: Text(screensaverText(context, 'Restart')),
             )
           : null,
     );
@@ -9025,29 +9047,36 @@ class _PersonSensorStatusRowState extends State<_PersonSensorStatusRow> {
     final String text;
     String? value;
     if (!sensor.wanted) {
-      text = 'Off.';
+      text = screensaverText(context, 'Off.');
     } else if (sensor.error != null) {
-      text = sensor.error!;
+      text = screensaverText(context, sensor.error!);
     } else if (!sensor.running) {
-      text = 'Starting...';
+      text = screensaverText(context, 'Starting...');
     } else if (sensor.lastBeat == null) {
-      text =
-          'Waiting for the first heartbeat. The sensor reports every 30 '
-          'seconds while someone is in view.';
-      value = 'Clear';
+      text = screensaverText(
+        context,
+        "Waiting for the first heartbeat. The sensor reports every 30 seconds while someone is in view.",
+      );
+      value = l10n(context).screensaverDetectionClear;
     } else {
       final age = DateTime.now().difference(sensor.lastBeat!);
       final ago = age.inSeconds < 60
-          ? '${age.inSeconds}s ago'
+          ? l10n(
+              context,
+            ).screensaverDetectionSecondsAgo(age.inSeconds.toString())
           : age.inMinutes < 60
-          ? '${age.inMinutes} min ago'
-          : '${age.inHours} h ago';
-      text = 'Last heartbeat $ago.';
-      value = sensor.present ? 'Detected' : 'Clear';
+          ? l10n(
+              context,
+            ).screensaverDetectionMinutesAgo(age.inMinutes.toString())
+          : l10n(context).screensaverDetectionHoursAgo(age.inHours.toString());
+      text = l10n(context).screensaverDetectionLastHeartbeat(ago);
+      value = sensor.present
+          ? screensaverText(context, 'Detected')
+          : l10n(context).screensaverDetectionClear;
     }
     return SettingsRow(
       leading: const Icon(Icons.sensor_occupied_outlined),
-      title: const Text('Occupancy'),
+      title: Text(screensaverText(context, 'Occupancy')),
       subtitle: Text(text),
       trailing: value == null ? null : Text(value),
     );

@@ -165,6 +165,12 @@ const settingOptionMessageIds = <String, Map<String, String>>{
     "monospace": "screensaverOverlayFontMonospace",
     "casual": "screensaverOverlayFontCasual",
     "cursive": "screensaverOverlayFontCursive"
+  },
+  "face.preview_position": {
+    "top_left": "screensaverMediaTopLeft",
+    "top_right": "screensaverMediaTopRight",
+    "bottom_left": "screensaverMediaBottomLeft",
+    "bottom_right": "screensaverMediaBottomRight"
   }
 };
 const settingPlaceholderMessageIds = <String, String>{

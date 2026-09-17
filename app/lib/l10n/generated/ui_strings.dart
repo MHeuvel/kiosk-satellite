@@ -4636,6 +4636,144 @@ abstract class UiStrings {
   /// Setting label.
   ///
   /// In en, this message translates to:
+  /// **'Dismiss on face'**
+  String get settingScreensaverDismissOnFaceTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Wake the screen when someone looks at the kiosk, not on movement alone. The camera runs only during the screensaver. WARNING: Needs a lit face; in the dark, schedule motion detection instead.'**
+  String get settingScreensaverDismissOnFaceDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Only when screen is off'**
+  String get settingScreensaverDismissOnFaceScreenOffOnlyTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep the screensaver visible when a face is detected while the screen is on. Once the screen turns off, detection wakes the dashboard. Touch still dismisses the screensaver.'**
+  String get settingScreensaverDismissOnFaceScreenOffOnlyDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Postpone screensaver on face'**
+  String get settingScreensaverPostponeOnFaceTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Delay activating the screensaver while someone is looking at the kiosk. WARNING: Keeps the camera running permanently, with face detection and its CPU cost on top.'**
+  String get settingScreensaverPostponeOnFaceDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Face sensitivity'**
+  String get settingFaceSensitivityTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Higher wakes on smaller, more distant faces. 1 needs a face close to the screen; 100 reacts to any face the camera can make out.'**
+  String get settingFaceSensitivityDescription;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Face Detection'**
+  String get screensaverDetectionFacePage;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Dismiss the screensaver when someone looks at it'**
+  String get screensaverDetectionFaceHint;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Dismiss on motion is on and takes precedence, so face detection stays idle until it is turned off.'**
+  String get screensaverDetectionMotionPrecedence;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Frame rate, camera pick and startup delay are tuned in the Camera settings.'**
+  String get screensaverDetectionFaceTuning;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Not available on this Android version.'**
+  String get screensaverDetectionAndroidUnsupported;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Not available on x86 devices.'**
+  String get screensaverDetectionX86Unsupported;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Show camera preview'**
+  String get settingFacePreviewTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Show a small round live view of the camera in a corner of the screen for a few seconds when a face wakes the kiosk.'**
+  String get settingFacePreviewDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Preview duration'**
+  String get settingFacePreviewSecondsTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'How long the preview stays on screen.'**
+  String get settingFacePreviewSecondsDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Preview scaling'**
+  String get settingFacePreviewScaleTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Scale the preview to better fit your screen size.'**
+  String get settingFacePreviewScaleDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Preview position'**
+  String get settingFacePreviewPositionTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Which corner the preview sits in.'**
+  String get settingFacePreviewPositionDescription;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera Preview'**
+  String get screensaverDetectionPreviewSection;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
   /// **'Screensaver'**
   String get settingScreensaverEnabledTitle;
 
@@ -6234,6 +6372,318 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Folder, timing, shuffle, transition'**
   String get screensaverMediaLocalHint;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Dismiss on motion'**
+  String get settingScreensaverDismissOnMotionTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch the camera while the screensaver is up and wake the screen when someone approaches. The camera runs only during the screensaver.'**
+  String get settingScreensaverDismissOnMotionDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Only when screen is off'**
+  String get settingScreensaverDismissOnMotionScreenOffOnlyTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep the screensaver visible when motion is detected while the screen is on. Once the screen turns off, detection wakes the dashboard. Touch still dismisses the screensaver.'**
+  String get settingScreensaverDismissOnMotionScreenOffOnlyDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Postpone screensaver on motion'**
+  String get settingScreensaverPostponeOnMotionTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Delay activating the screensaver when motion is detected. WARNING: Keeps the camera running permanently.'**
+  String get settingScreensaverPostponeOnMotionDescription;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Motion Detection'**
+  String get screensaverDetectionMotionPage;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Dismiss or postpone the screensaver on motion'**
+  String get screensaverDetectionMotionHint;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Motion detection is tuned in the Camera settings.'**
+  String get screensaverDetectionMotionTuning;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Dismiss on person'**
+  String get settingScreensaverDismissOnPersonTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Read the device\'s person sensor while the screensaver is up and wake the screen when someone is in front of it. Needs the Log access grant below.'**
+  String get settingScreensaverDismissOnPersonDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Only when screen is off'**
+  String get settingScreensaverDismissOnPersonScreenOffOnlyTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep the screensaver visible when someone arrives while the screen is on. Once the screen turns off, detection wakes the dashboard. Touch still dismisses the screensaver.'**
+  String get settingScreensaverDismissOnPersonScreenOffOnlyDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Postpone screensaver on person'**
+  String get settingScreensaverPostponeOnPersonTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Delay activating the screensaver while someone is in front of the device.'**
+  String get settingScreensaverPostponeOnPersonDescription;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Person Detection'**
+  String get screensaverDetectionPersonPage;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Dismiss or postpone the screensaver on the device\'s person sensor'**
+  String get screensaverDetectionPersonHint;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Occupancy'**
+  String get screensaverDetectionOccupancy;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Status unavailable.'**
+  String get screensaverDetectionStatusUnavailable;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Off.'**
+  String get screensaverDetectionOff;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Starting...'**
+  String get screensaverDetectionStarting;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for the first heartbeat. The sensor reports every 30 seconds while someone is in view.'**
+  String get screensaverDetectionWaiting;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Last heartbeat {ago}.'**
+  String screensaverDetectionLastHeartbeat(String ago);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{count}s ago'**
+  String screensaverDetectionSecondsAgo(String count);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} min ago'**
+  String screensaverDetectionMinutesAgo(String count);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} h ago'**
+  String screensaverDetectionHoursAgo(String count);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Detected'**
+  String get screensaverDetectionDetected;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get screensaverDetectionClear;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Required system permissions'**
+  String get screensaverDetectionPermissions;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Log access'**
+  String get screensaverDetectionLogAccess;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking...'**
+  String get screensaverDetectionChecking;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The device\'s person sensor can be read.'**
+  String get screensaverDetectionReadable;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Granted. Restart Kiosk Satellite to apply it.'**
+  String get screensaverDetectionRestartRequired;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'This permission can only be granted via ADB. The Meta Portal doc has the full command. Restart Kiosk Satellite afterwards.'**
+  String get screensaverDetectionGrantHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'This permission can only be granted via ADB. Below is the full command, ready to be copied. Restart Kiosk Satellite afterwards.'**
+  String get screensaverDetectionGrantRemoteHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Granted'**
+  String get screensaverDetectionGranted;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Missing'**
+  String get screensaverDetectionMissing;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart'**
+  String get screensaverDetectionRestart;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart on device'**
+  String get screensaverDetectionRestartRemote;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Log access is granted but takes effect when Kiosk Satellite restarts.'**
+  String get screensaverDetectionLogRestart;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Log access not granted.'**
+  String get screensaverDetectionLogMissing;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Dismiss on proximity'**
+  String get settingScreensaverDismissOnProximityTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch the proximity sensor while the screensaver is up and wake the screen when something comes close to the device. A device with only sensors made for calls (\"palm\", \"touch\") will not work.'**
+  String get settingScreensaverDismissOnProximityDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Only when screen is off'**
+  String get settingScreensaverDismissOnProximityScreenOffOnlyTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep the screensaver visible when something approaches while the screen is on. Once the screen turns off, detection wakes the dashboard. Touch still dismisses the screensaver.'**
+  String get settingScreensaverDismissOnProximityScreenOffOnlyDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Postpone screensaver on proximity'**
+  String get settingScreensaverPostponeOnProximityTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Delay activating the screensaver while something is close to the sensor.'**
+  String get settingScreensaverPostponeOnProximityDescription;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Proximity Detection'**
+  String get screensaverDetectionProximityPage;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Dismiss or postpone the screensaver on the proximity sensor'**
+  String get screensaverDetectionProximityHint;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Not available on this device: it has no proximity sensor.'**
+  String get screensaverDetectionNoProximity;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Sensor'**
+  String get screensaverDetectionSensor;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'What the device reports as the proximity sensor. A sensor made for calls named \"palm\" or \"touch\" will not work.'**
+  String get screensaverDetectionSensorHelp;
 
   /// Setting label.
   ///

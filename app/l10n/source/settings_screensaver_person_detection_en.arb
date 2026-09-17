@@ -1,0 +1,274 @@
+{
+  "@@locale": "en",
+  "settingScreensaverDismissOnPersonTitle": "Dismiss on person",
+  "@settingScreensaverDismissOnPersonTitle": {
+    "context": "Settings > Screensaver > Person Detection",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Person Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Person Detection"
+      ]
+    }
+  },
+  "settingScreensaverDismissOnPersonDescription": "Read the device's person sensor while the screensaver is up and wake the screen when someone is in front of it. Needs the Log access grant below.",
+  "@settingScreensaverDismissOnPersonDescription": {
+    "context": "Settings > Screensaver > Person Detection",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Person Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Person Detection"
+      ]
+    }
+  },
+  "settingScreensaverDismissOnPersonScreenOffOnlyTitle": "Only when screen is off",
+  "@settingScreensaverDismissOnPersonScreenOffOnlyTitle": {
+    "context": "Settings > Screensaver > Person Detection",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Person Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Person Detection"
+      ]
+    }
+  },
+  "settingScreensaverDismissOnPersonScreenOffOnlyDescription": "Keep the screensaver visible when someone arrives while the screen is on. Once the screen turns off, detection wakes the dashboard. Touch still dismisses the screensaver.",
+  "@settingScreensaverDismissOnPersonScreenOffOnlyDescription": {
+    "context": "Settings > Screensaver > Person Detection",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Person Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Person Detection"
+      ]
+    }
+  },
+  "settingScreensaverPostponeOnPersonTitle": "Postpone screensaver on person",
+  "@settingScreensaverPostponeOnPersonTitle": {
+    "context": "Settings > Screensaver > Person Detection",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Person Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Person Detection"
+      ]
+    }
+  },
+  "settingScreensaverPostponeOnPersonDescription": "Delay activating the screensaver while someone is in front of the device.",
+  "@settingScreensaverPostponeOnPersonDescription": {
+    "context": "Settings > Screensaver > Person Detection",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Person Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Person Detection"
+      ]
+    }
+  },
+  "screensaverDetectionPersonPage": "Person Detection",
+  "@screensaverDetectionPersonPage": {
+    "context": "Settings > Screensaver > Person Detection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Person Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Person Detection"
+      ]
+    }
+  },
+  "screensaverDetectionPersonHint": "Dismiss or postpone the screensaver on the device's person sensor",
+  "@screensaverDetectionPersonHint": {
+    "context": "Settings > Screensaver > Person Detection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Person Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Person Detection"
+      ]
+    }
+  },
+  "screensaverDetectionOccupancy": "Occupancy",
+  "@screensaverDetectionOccupancy": {
+    "context": "Settings > Screensaver > Person Detection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Person Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Person Detection"
+      ]
+    }
+  },
+  "screensaverDetectionStatusUnavailable": "Status unavailable.",
+  "@screensaverDetectionStatusUnavailable": {
+    "context": "Settings > Screensaver > Person Detection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Person Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Person Detection"
+      ]
+    }
+  },
+  "screensaverDetectionOff": "Off.",
+  "@screensaverDetectionOff": {
+    "context": "Settings > Screensaver > Person Detection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Person Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Person Detection"
+      ]
+    }
+  },
+  "screensaverDetectionStarting": "Starting...",
+  "@screensaverDetectionStarting": {
+    "context": "Settings > Screensaver > Person Detection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Person Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Person Detection"
+      ]
+    }
+  },
+  "screensaverDetectionWaiting": "Waiting for the first heartbeat. The sensor reports every 30 seconds while someone is in view.",
+  "@screensaverDetectionWaiting": {
+    "context": "Settings > Screensaver > Person Detection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Person Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Person Detection"
+      ]
+    }
+  },
+  "screensaverDetectionLastHeartbeat": "Last heartbeat {ago}.",
+  "@screensaverDetectionLastHeartbeat": {
+    "context": "Settings > Screensaver > Person Detection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Person Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Person Detection"
+      ]
+    },
+    "placeholders": {
+      "ago": {
+        "type": "String",
+        "description": "Elapsed time already formatted for the selected language."
+      }
+    }
+  },
+  "screensaverDetectionSecondsAgo": "{count}s ago",
+  "@screensaverDetectionSecondsAgo": {
+    "context": "Settings > Screensaver > Person Detection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Person Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Person Detection"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Number of elapsed time units."
+      }
+    }
+  },
+  "screensaverDetectionMinutesAgo": "{count} min ago",
+  "@screensaverDetectionMinutesAgo": {
+    "context": "Settings > Screensaver > Person Detection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Person Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Person Detection"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Number of elapsed time units."
+      }
+    }
+  },
+  "screensaverDetectionHoursAgo": "{count} h ago",
+  "@screensaverDetectionHoursAgo": {
+    "context": "Settings > Screensaver > Person Detection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Person Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Person Detection"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Number of elapsed time units."
+      }
+    }
+  },
+  "screensaverDetectionDetected": "Detected",
+  "@screensaverDetectionDetected": {
+    "context": "Settings > Screensaver > Person Detection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Person Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Person Detection"
+      ]
+    }
+  },
+  "screensaverDetectionClear": "Clear",
+  "@screensaverDetectionClear": {
+    "context": "Settings > Screensaver > Person Detection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Person Detection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Person Detection"
+      ]
+    }
+  }
+}

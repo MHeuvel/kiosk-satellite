@@ -648,7 +648,7 @@ export function settingRow(s) {
           screensaverText('Requires the camera. Turn it on in the Camera settings first.');
       } else if (!faceOk) {
         face.select.title =
-          state.visionSupport.hint || screensaverText('Not available on this device.');
+          screensaverText(state.visionSupport.hint || 'Not available on this device.');
       }
       // The proximity override is offered wherever the sensor is not
       // known to be missing (never disabled on a guess, like the switch),
@@ -658,7 +658,7 @@ export function settingRow(s) {
       const prox = state.proximitySupport;
       if (prox && prox.supported === false) {
         proximity.select.disabled = true;
-        proximity.select.title = prox.hint || screensaverText('Not available on this device.');
+        proximity.select.title = screensaverText(prox.hint || 'Not available on this device.');
       }
       const personDef = (state.settings || [])
         .find((x) => x.key === 'screensaver.dismiss_on_person');
