@@ -207,6 +207,11 @@ class Follower {
   Map<String, Object?>? update;
   String? error;
 
+  /// How much of the uploaded APK the leader has streamed to this kiosk,
+  /// 0 to 1 while a fleet install sends it, null otherwise. The leader's
+  /// own count, so the poll never overwrites it.
+  double? sending;
+
   String get url => 'http://$address:$port';
 
   static Follower? fromJson(Object? raw) {
@@ -301,6 +306,11 @@ class FleetSyncManager extends Manager {
   /// Followers already told to install a release, by the version asked,
   /// so Keep followers on this version asks once per release.
   final _autoUpdated = <String, String>{};
+
+  /// The fleet install of an uploaded APK under way or the last one done,
+  /// as `install` in [status]: which kiosk the APK is going to and how far,
+  /// who is installing, who was skipped and why. Both UIs ride it.
+  Map<String, Object?>? _install;
 
   /// Followers, for the device UI (the remote reads `fleetStatus`).
   List<Follower> get followers => List.unmodifiable(_followers);
@@ -1524,6 +1534,9 @@ class FleetSyncManager extends Manager {
   /// so this one stays up to drive it. Answers who was told and who was
   /// skipped, with the reason, or `error` when nothing is uploaded here.
   Future<Map<String, Object?>> installUploadedOnFleet(String id) async {
+    if (_install?['done'] == false) {
+      return {'error': 'A fleet install is already under way.'};
+    }
     final status = await commands.execute('getUpdateStatus', const {});
     final data = status.data;
     final up = data is Map ? data['uploaded'] : null;
@@ -1536,58 +1549,114 @@ class FleetSyncManager extends Manager {
     final build = (up['buildNumber'] as num?)?.toInt() ?? 0;
     final started = <String>[];
     final skipped = <String, String>{};
-    for (final f in _followers) {
-      if (id.isNotEmpty && f.id != id) continue;
-      if (f.token == null) {
-        skipped[f.name] = 'not a follower yet';
-        continue;
-      }
-      if (!f.online) {
-        skipped[f.name] = 'offline';
-        continue;
-      }
-      log.info(name, 'sending v$version to ${f.name}');
-      final sent = _jsonOf(
-        await _upload('${f.url}/api/update/upload', file, token: f.token),
-      );
-      if (sent?['ok'] != true) {
-        skipped[f.name] = '${sent?['error'] ?? 'did not take the upload'}';
-        continue;
-      }
-      final accepted = sent!['data'];
-      if (accepted is Map && accepted['currentBuild'] == build) {
-        skipped[f.name] = 'already on $version';
-        continue;
-      }
-      final res = _jsonOf(
-        await _post(
-          '${f.url}/api/commands/installUploadedApk',
-          {},
-          token: f.token,
-        ),
-      );
-      if (res?['ok'] == true) {
-        started.add(f.name);
-        f.update = {...?f.update, 'installing': true};
-      } else {
-        skipped[f.name] = '${res?['error'] ?? 'did not answer'}';
-      }
-    }
-    var self = false;
-    if (id.isEmpty) {
-      final r = await commands.execute('installUploadedApk', const {});
-      self = r.ok;
-      if (!r.ok) {
-        skipped[_selfName.isEmpty ? 'this kiosk' : _selfName] = '${r.error}';
-      }
-    }
-    log.info(
-      name,
-      'install the uploaded v$version on the fleet: ${started.length} '
-      'follower(s) installing${self ? ', then this kiosk' : ''}',
-    );
+    final install = _install = {
+      'version': version,
+      'buildNumber': build,
+      'startedAt': DateTime.now().millisecondsSinceEpoch,
+      'done': false,
+      'sendingTo': null,
+      'progress': null,
+      'started': started,
+      'skipped': skipped,
+      'self': null,
+    };
     _publish();
-    return {'started': started, 'skipped': skipped, 'self': self};
+    try {
+      for (final f in _followers) {
+        if (id.isNotEmpty && f.id != id) continue;
+        if (f.token == null) {
+          skipped[f.name] = 'not a follower yet';
+          continue;
+        }
+        if (!f.online) {
+          skipped[f.name] = 'offline';
+          continue;
+        }
+        log.info(name, 'sending v$version to ${f.name}');
+        install
+          ..['sendingTo'] = f.name
+          ..['progress'] = 0.0;
+        f.sending = 0;
+        _publish();
+        var last = DateTime.now();
+        final sent = _jsonOf(
+          await _upload(
+            '${f.url}/api/update/upload',
+            file,
+            token: f.token,
+            onProgress: (fraction) {
+              f.sending = fraction;
+              install['progress'] = fraction;
+              // Every half second, not every chunk: each publish is a
+              // status read on every admin page open.
+              final now = DateTime.now();
+              if (now.difference(last) < const Duration(milliseconds: 500)) {
+                return;
+              }
+              last = now;
+              _publish();
+            },
+          ),
+        );
+        f.sending = null;
+        install
+          ..['sendingTo'] = null
+          ..['progress'] = null;
+        if (sent?['ok'] != true) {
+          skipped[f.name] = '${sent?['error'] ?? 'did not take the upload'}';
+          _publish();
+          continue;
+        }
+        final accepted = sent!['data'];
+        if (accepted is Map && accepted['currentBuild'] == build) {
+          skipped[f.name] = 'already on $version';
+          _publish();
+          continue;
+        }
+        final res = _jsonOf(
+          await _post(
+            '${f.url}/api/commands/installUploadedApk',
+            {},
+            token: f.token,
+          ),
+        );
+        if (res?['ok'] == true) {
+          started.add(f.name);
+          // It just answered: whatever the last poll held against it is
+          // stale, and the row says Installing until the poll says more.
+          f
+            ..error = null
+            ..update = {...?f.update, 'installing': true};
+        } else {
+          skipped[f.name] = '${res?['error'] ?? 'did not answer'}';
+        }
+        _publish();
+      }
+      var self = false;
+      if (id.isEmpty) {
+        final r = await commands.execute('installUploadedApk', const {});
+        self = r.ok;
+        if (!r.ok) {
+          skipped[_selfName.isEmpty ? 'this kiosk' : _selfName] = '${r.error}';
+        }
+      }
+      install['self'] = self;
+      log.info(
+        name,
+        'install the uploaded v$version on the fleet: ${started.length} '
+        'follower(s) installing${self ? ', then this kiosk' : ''}',
+      );
+      return {'started': started, 'skipped': skipped, 'self': self};
+    } finally {
+      for (final f in _followers) {
+        f.sending = null;
+      }
+      install
+        ..['done'] = true
+        ..['sendingTo'] = null
+        ..['progress'] = null;
+      _publish();
+    }
   }
 
   // ── The follower's actions ──────────────────────────────────────────
@@ -1738,6 +1807,7 @@ class FleetSyncManager extends Manager {
               'currentVersion': u['currentVersion'],
               'availableVersion': u['availableVersion'],
               'progress': u['progress'],
+              'installing': u['installing'],
               'lastOutcome': u['lastOutcome'],
             }
           : null,
@@ -1853,6 +1923,7 @@ class FleetSyncManager extends Manager {
       ],
       'followers': rows(),
       'outdated': outdated,
+      'install': _install,
       'following': led == null
           ? null
           : {
@@ -1924,8 +1995,21 @@ class FleetSyncManager extends Manager {
     if (!f.online) {
       return {'phase': 'offline', 'status': 'Offline', 'tone': 'muted'};
     }
+    // The APK on its way is the freshest fact there is: it outranks the
+    // last poll's error and the version gap it is there to close.
+    final sending = f.sending;
+    if (sending != null) {
+      return {
+        'phase': 'updating',
+        'status': 'Sending ${(sending * 100).round()}%',
+        'tone': 'muted',
+      };
+    }
     if (f.error != null) {
       return {'phase': 'error', 'status': f.error, 'tone': 'warn'};
+    }
+    if (f.update?['installing'] == true) {
+      return {'phase': 'updating', 'status': 'Installing', 'tone': 'muted'};
     }
     if (f.version.isNotEmpty && mine.isNotEmpty) {
       final theirs = _versionName(f.version);
@@ -1946,9 +2030,6 @@ class FleetSyncManager extends Manager {
         'status': 'Downloading $pct%',
         'tone': 'muted',
       };
-    }
-    if (f.update?['installing'] == true) {
-      return {'phase': 'updating', 'status': 'Installing', 'tone': 'muted'};
     }
     if (!f.dirty && f.appliedRevision == revision && f.lastSyncAt > 0) {
       return {
@@ -2039,17 +2120,31 @@ class FleetSyncManager extends Manager {
   /// Streams [file] as the raw body of a POST, the way the update upload
   /// endpoint takes an APK. The response comes once the whole file is
   /// across, so this waits [uploadTimeout], not [requestTimeout].
-  Future<http.Response?> _upload(String url, File file, {String? token}) async {
+  Future<http.Response?> _upload(
+    String url,
+    File file, {
+    String? token,
+    void Function(double fraction)? onProgress,
+  }) async {
     final client = clientFactory();
     try {
+      final length = await file.length();
       final request = http.StreamedRequest('POST', Uri.parse(url))
-        ..contentLength = await file.length()
+        ..contentLength = length
         ..headers['Content-Type'] = 'application/vnd.android.package-archive';
       if (token != null) request.headers['Authorization'] = 'Bearer $token';
+      var done = 0;
+      final counted = onProgress == null || length == 0
+          ? file.openRead()
+          : file.openRead().map((chunk) {
+              done += chunk.length;
+              onProgress(done / length);
+              return chunk;
+            });
       // pipe closes the sink after the last chunk, which is what ends the
       // request; a read error ends it too and surfaces from send.
       unawaited(
-        file.openRead().pipe(request.sink).catchError((Object e) {
+        counted.pipe(request.sink).catchError((Object e) {
           log.debug(name, 'upload $url: $e');
         }),
       );

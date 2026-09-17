@@ -50,8 +50,10 @@ void main() {
     ],
   };
 
-  // What getUpdateStatus reports as the uploaded APK, when a test set one.
+  // What getUpdateStatus reports as the uploaded APK, when a test set one,
+  // and whether an install is under way.
   Map<String, Object?>? uploaded;
+  var installing = false;
 
   Future<void> build({Map<String, Object> prefs = const {}}) async {
     SharedPreferences.setMockInitialValues({
@@ -93,6 +95,7 @@ void main() {
       ),
     );
     uploaded = null;
+    installing = false;
     commands.register(
       Command(
         name: 'getUpdateStatus',
@@ -101,6 +104,7 @@ void main() {
           'currentVersion': '2026.9.19',
           'availableVersion': null,
           'progress': null,
+          'installing': installing,
           'uploaded': uploaded,
         }),
       ),
@@ -1283,21 +1287,55 @@ void main() {
         'version': '2026.9.19',
         'leaderId': 'me',
       };
-      answers['POST /api/update/upload'] = (_) => {
-        'ok': true,
-        'data': {'version': '2026.9.20', 'buildNumber': 21, 'currentBuild': 20},
+      // What the status says while the follower takes the upload: the
+      // whole file has streamed by the time the answer is built.
+      Map<String, Object?>? midway;
+      List<Map<String, Object?>>? midwayRows;
+      answers['POST /api/update/upload'] = (_) {
+        // A copy: the manager keeps mutating the same map.
+        midway = Map<String, Object?>.of(
+          (fleet.status()['install'] as Map).cast<String, Object?>(),
+        );
+        midwayRows = (fleet.status()['followers'] as List)
+            .cast<Map<String, Object?>>();
+        return {
+          'ok': true,
+          'data': {
+            'version': '2026.9.20',
+            'buildNumber': 21,
+            'currentBuild': 20,
+          },
+        };
       };
       answers['POST /api/commands/installUploadedApk'] = (_) => {
         'ok': true,
         'data': true,
       };
       await commands.execute('fleetSyncNow', const {});
+      final before = changes;
       final r = await commands.execute('fleetInstallUploaded', const {});
       expect(r.ok, isTrue);
       final data = r.data as Map;
       expect(data['started'], ['Bedroom']);
       expect(data['self'], isTrue);
       expect(selfInstalls, 1);
+      // Progress reached both UIs on the way: the row said Sending, the
+      // install summary named the kiosk and the fraction.
+      expect(midway?['sendingTo'], 'Bedroom');
+      expect(midway?['progress'], 1.0);
+      expect(midway?['done'], isFalse);
+      expect(midwayRows?.single['status'], 'Sending 100%');
+      expect(changes - before, greaterThanOrEqualTo(3));
+      final after = (fleet.status()['install'] as Map).cast<String, Object?>();
+      expect(after['done'], isTrue);
+      expect(after['sendingTo'], isNull);
+      expect(after['started'], ['Bedroom']);
+      expect(after['self'], isTrue);
+      expect(after['version'], '2026.9.20');
+      expect(
+        (fleet.status()['followers'] as List).cast<Map>().single['status'],
+        'Installing',
+      );
       final upload = sent.singleWhere(
         (q) => q.url.path == '/api/update/upload',
       );
@@ -1478,6 +1516,31 @@ void main() {
     f.version = '2026.9.19+118';
     f.online = false;
     expect(FleetSyncManager.phaseOf(f, '2026.9.19', '3', now)['tone'], 'muted');
+    // An update on its way outranks the version gap it closes.
+    f
+      ..online = true
+      ..version = '2026.9.18'
+      ..sending = 0.4;
+    expect(FleetSyncManager.phaseOf(f, '2026.9.19', '3', now), {
+      'phase': 'updating',
+      'status': 'Sending 40%',
+      'tone': 'muted',
+    });
+    f
+      ..sending = null
+      ..update = {'installing': true};
+    expect(
+      FleetSyncManager.phaseOf(f, '2026.9.19', '3', now)['status'],
+      'Installing',
+    );
+  });
+
+  test('a follower reports that it is installing, so the leader keeps '
+      'saying so between polls', () async {
+    await build();
+    installing = true;
+    final st = await fleet.followerStatus();
+    expect((st['update'] as Map)['installing'], isTrue);
   });
 
   group('the Updates only profile', () {

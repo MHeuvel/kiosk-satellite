@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Added
+- **Install from file reports its progress across the fleet.** Pushing an uploaded APK to the fleet used to go quiet after the upload to the leader, with no sign of anything happening until the followers restarted. The leader now streams the file to one follower at a time and reports each step as it goes. The Fleet Management page on both the device and the remote admin shows Sending with a percentage on the follower taking the file, then Installing once it started, and the Install on the fleet button on the remote admin reads out the same progress while it waits. A follower still reports Installing between the leader's polls, and a stale Unreachable no longer hides an install that just started (#584).
+
 ## v2026.9.59 - 2026-09-16
 
 ### Added

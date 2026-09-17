@@ -1,4 +1,5 @@
 import { $, api, cmd, state } from './core.js';
+import { watchUpdates } from './live.js';
 import { copyBox, hintRow, messageBox, modalShell, showToast } from './widgets.js';
 
 // The helper group belongs only on devices without native silent installation.
@@ -435,7 +436,21 @@ export function attachUploadInstall(btn) {
       return;
     }
     if (choice === 'Install on the fleet') {
+      // The command answers once every follower has the file. Until then
+      // the fleet status carries who is taking it and how far, pushed on
+      // every step, so the button reads it out (#584).
+      btn.textContent = 'Sending to the fleet…';
+      const stop = watchUpdates(['fleetsync'], async () => {
+        const st = (await cmd('fleetStatus').catch(() => null))?.data?.install;
+        if (!st || st.done) return;
+        if (st.sendingTo) {
+          btn.textContent = `Sending to ${st.sendingTo}… ${Math.round((st.progress || 0) * 100)}%`;
+        } else if (st.started?.length) {
+          btn.textContent = `Installing on ${st.started[st.started.length - 1]}…`;
+        }
+      }, { owner: btn });
       const out = await cmd('fleetInstallUploaded').catch(() => null);
+      stop();
       if (!out?.ok) {
         btn.disabled = false;
         btn.textContent = idleLabel;
