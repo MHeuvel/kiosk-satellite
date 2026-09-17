@@ -1,3 +1,4 @@
 {
-  "device.hostname": "deviceHostnamePlaceholder"
+  "device.hostname": "deviceHostnamePlaceholder",
+  "screensaver.clock_background": "screensaverBackgroundHint"
 }

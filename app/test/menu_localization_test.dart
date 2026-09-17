@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -15,6 +17,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 // Test wording exercises localization even before draft catalogs are approved.
 class MenuMessages extends UiStringsEn {
+  @override
+  String get screensaverModeBlack => 'TEST black mode';
+  @override
+  String get screensaverFontBlack => 'TEST heavy font';
+  @override
+  String get screensaverOn => 'TEST on';
+  @override
+  String get screensaverNowPlaying => 'TEST now playing';
+  @override
+  String get commonSave => 'TEST save';
   @override
   String get screenAudioReversePortrait => 'TEST reverse portrait';
   @override
@@ -109,6 +121,55 @@ Future<AppContainer> containerFor(WidgetTester tester, Size size) async {
 }
 
 void main() {
+  testWidgets(
+    'translated screensaver schedule keeps mode and override values',
+    (tester) async {
+      final container = await containerFor(tester, const Size(800, 1600));
+      await container.settings.setFromJson(
+        defs.screensaverScheduleEnabled.key,
+        true,
+      );
+      await container.settings.setFromJson(
+        defs.screensaverSchedule.key,
+        '[{"at":"19:00","mode":"black","brightness":0.2,"motion":false}]',
+      );
+      await tester.pumpWidget(
+        localized(
+          SubpageSettingsScreen(
+            container: container,
+            category: 'Screensaver',
+            subpage: 'Scheduled Screensavers',
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.textContaining('TEST black mode'), findsOneWidget);
+      await tester.tap(find.widgetWithText(ListTile, '19:00'));
+      await tester.pumpAndSettle();
+      final field = find.descendant(
+        of: find.widgetWithText(LabeledField, 'TEST now playing'),
+        matching: find.byType(DropdownButtonFormField<String>),
+      );
+      await tester.ensureVisible(field);
+      await tester.tap(field);
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('TEST on').last);
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('TEST save'));
+      await tester.pumpAndSettle();
+      expect(jsonDecode(container.settings.get(defs.screensaverSchedule)), [
+        {
+          'at': '19:00',
+          'mode': 'black',
+          'brightness': 0.2,
+          'motion': false,
+          'now_playing': true,
+        },
+      ]);
+      expect(tester.takeException(), isNull);
+    },
+  );
+
   testWidgets('Screen and Audio choices keep values and sensor gating', (
     tester,
   ) async {

@@ -284,4 +284,160 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingMicCaptureFormatTitle",
     "description": "settingMicCaptureFormatDescription",
   },
+  "screensaver.enabled": {
+    "title": "settingScreensaverEnabledTitle",
+    "description": "settingScreensaverEnabledDescription",
+  },
+  "screensaver.timeout_seconds": {
+    "title": "settingScreensaverTimeoutSecondsTitle",
+    "description": "settingScreensaverTimeoutSecondsDescription",
+  },
+  "screensaver.mode": {
+    "title": "settingScreensaverModeTitle",
+    "description": "settingScreensaverModeDescription",
+  },
+  "screensaver.black_hide_extras": {
+    "title": "settingScreensaverBlackHideExtrasTitle",
+    "description": "settingScreensaverBlackHideExtrasDescription",
+  },
+  "screensaver.clock_style": {
+    "title": "settingScreensaverClockStyleTitle",
+    "description": "settingScreensaverClockStyleDescription",
+  },
+  "screensaver.clock_font": {
+    "title": "settingScreensaverClockFontTitle",
+    "description": "settingScreensaverClockFontDescription",
+  },
+  "screensaver.clock_font_weight": {
+    "title": "settingScreensaverClockFontWeightTitle",
+    "description": "settingScreensaverClockFontWeightDescription",
+  },
+  "screensaver.clock_24h": {
+    "title": "settingScreensaverClock24hTitle",
+    "description": "settingScreensaverClock24hDescription",
+  },
+  "screensaver.clock_seconds": {
+    "title": "settingScreensaverClockSecondsTitle",
+    "description": "settingScreensaverClockSecondsDescription",
+  },
+  "screensaver.clock_show_date": {
+    "title": "settingScreensaverClockDateTitle",
+    "description": "settingScreensaverClockDateDescription",
+  },
+  "screensaver.clock_scale": {
+    "title": "settingScreensaverClockScaleTitle",
+    "description": "settingScreensaverClockScaleDescription",
+  },
+  "screensaver.clock_color": {
+    "title": "settingScreensaverClockColorTitle",
+    "description": "settingScreensaverClockColorDescription",
+  },
+  "screensaver.clock_bg_color": {
+    "title": "settingScreensaverClockBgColorTitle",
+    "description": "settingScreensaverClockBgColorDescription",
+  },
+  "screensaver.clock_background": {
+    "title": "settingScreensaverClockBackgroundTitle",
+    "description": "settingScreensaverClockBackgroundDescription",
+  },
+  "screensaver.clock_background_refresh": {
+    "title": "settingScreensaverClockBackgroundRefreshTitle",
+    "description": "settingScreensaverClockBackgroundRefreshDescription",
+  },
+  "screensaver.flip_digit_color": {
+    "title": "settingScreensaverFlipDigitColorTitle",
+    "description": "settingScreensaverFlipDigitColorDescription",
+  },
+  "screensaver.flip_bg_color": {
+    "title": "settingScreensaverFlipBgColorTitle",
+    "description": "settingScreensaverFlipBgColorDescription",
+  },
+  "screensaver.flip_backdrop_color": {
+    "title": "settingScreensaverFlipBackdropColorTitle",
+    "description": "settingScreensaverFlipBackdropColorDescription",
+  },
+  "screensaver.roller_digit_color": {
+    "title": "settingScreensaverRollerDigitColorTitle",
+    "description": "settingScreensaverRollerDigitColorDescription",
+  },
+  "screensaver.roller_bg_color": {
+    "title": "settingScreensaverRollerBgColorTitle",
+    "description": "settingScreensaverRollerBgColorDescription",
+  },
+  "screensaver.clock_night": {
+    "title": "settingScreensaverClockNightTitle",
+    "description": "settingScreensaverClockNightDescription",
+  },
+  "screensaver.clock_night_lux": {
+    "title": "settingScreensaverClockNightLuxTitle",
+    "description": "settingScreensaverClockNightLuxDescription",
+  },
+  "screensaver.clock_night_color": {
+    "title": "settingScreensaverClockNightColorTitle",
+    "description": "settingScreensaverClockNightColorDescription",
+  },
+  "screensaver.clock_night_bg_color": {
+    "title": "settingScreensaverClockNightBgColorTitle",
+    "description": "settingScreensaverClockNightBgColorDescription",
+  },
+  "screensaver.clock_night_hide_background": {
+    "title": "settingScreensaverClockNightHideBackgroundTitle",
+    "description": "settingScreensaverClockNightHideBackgroundDescription",
+  },
+  "screensaver.clock_night_card_color": {
+    "title": "settingScreensaverClockNightCardColorTitle",
+    "description": "settingScreensaverClockNightCardColorDescription",
+  },
+  "screensaver.website_url": {
+    "title": "settingScreensaverWebsiteUrlTitle",
+    "description": "settingScreensaverWebsiteUrlDescription",
+  },
+  "screensaver.website_zoom": {
+    "title": "settingScreensaverWebsiteZoomTitle",
+    "description": "settingScreensaverWebsiteZoomDescription",
+  },
+  "screensaver.website_double_tap": {
+    "title": "settingScreensaverWebsiteDoubleTapTitle",
+    "description": "settingScreensaverWebsiteDoubleTapDescription",
+  },
+  "screensaver.pixel_shift": {
+    "title": "settingScreensaverPixelShiftTitle",
+    "description": "settingScreensaverPixelShiftDescription",
+  },
+  "screensaver.menu": {
+    "title": "settingScreensaverMenuTitle",
+    "description": "settingScreensaverMenuDescription",
+  },
+  "screensaver.dim_level": {
+    "title": "settingScreensaverDimLevelTitle",
+    "description": "settingScreensaverDimLevelDescription",
+  },
+  "screensaver.brightness_enabled": {
+    "title": "settingScreensaverBrightnessEnabledTitle",
+    "description": "settingScreensaverBrightnessEnabledDescription",
+  },
+  "screensaver.brightness_level": {
+    "title": "settingScreensaverBrightnessLevelTitle",
+    "description": "settingScreensaverBrightnessLevelDescription",
+  },
+  "screensaver.notification_brightness": {
+    "title": "settingScreensaverNotificationBrightnessTitle",
+    "description": "settingScreensaverNotificationBrightnessDescription",
+  },
+  "screensaver.screen_off_minutes": {
+    "title": "settingScreensaverScreenOffMinutesTitle",
+    "description": "settingScreensaverScreenOffMinutesDescription",
+  },
+  "screensaver.screen_off_wake_to_screensaver": {
+    "title": "settingScreensaverScreenOffWakeToScreensaverTitle",
+    "description": "settingScreensaverScreenOffWakeToScreensaverDescription",
+  },
+  "screensaver.schedule_enabled": {
+    "title": "settingScreensaverScheduleEnabledTitle",
+    "description": "settingScreensaverScheduleEnabledDescription",
+  },
+  "screensaver.schedule": {
+    "title": "settingScreensaverScheduleTitle",
+    "description": "settingScreensaverScheduleDescription",
+  },
 };

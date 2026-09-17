@@ -131,7 +131,8 @@ List<Widget> _sectionedCards(
         out.add(
           (def.category == 'Device' ||
                   def.category == 'Home Assistant' ||
-                  def.category == 'Screen & Audio')
+                  def.category == 'Screen & Audio' ||
+                  def.category == 'Screensaver')
               ? Builder(
                   builder: (context) => SectionHeading(
                     settingsPageText(context, def.category, heading),
@@ -441,6 +442,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         deviceTextFor: (text) => deviceText(context, text),
         haTextFor: (text) => haText(context, text),
         screenAudioTextFor: (text) => screenAudioText(context, text),
+        screensaverTextFor: (text) => screensaverText(context, text),
         titleFor: (def) => def.localizedTitle(context),
         descriptionFor: (def) => def.localizedDescription(context),
       );
@@ -858,7 +860,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   title:
                                       (category == 'Device' ||
                                           category == 'Home Assistant' ||
-                                          category == 'Screen & Audio')
+                                          category == 'Screen & Audio' ||
+                                          category == 'Screensaver')
                                       ? settingsPageText(
                                           context,
                                           category,
@@ -1369,7 +1372,8 @@ class SubpageSettingsScreen extends StatelessWidget {
               child: Text(
                 (category == 'Device' ||
                         category == 'Home Assistant' ||
-                        category == 'Screen & Audio')
+                        category == 'Screen & Audio' ||
+                        category == 'Screensaver')
                     ? settingsPageText(context, category, subpage)
                     : pluginSubpageTitle(container, category, subpage),
                 overflow: TextOverflow.ellipsis,
@@ -2736,7 +2740,7 @@ class _CategoryContentState extends State<_CategoryContent> {
       screensaverClockNight.key: SearchLandingTarget(
         id: screensaverClockNight.key,
         child: SwitchListTile(
-          title: Text(screensaverClockNight.title),
+          title: Text(screensaverClockNight.localizedTitle(context)),
           subtitle: Text(screenAudioText(context, _noLightSensorNote)),
           value: false,
           onChanged: null,
@@ -2878,7 +2882,7 @@ class _CategoryContentState extends State<_CategoryContent> {
       screensaverDimLevel.key: Column(
         children: [
           if (container.settings.get(screensaverMode) == 'dim')
-            const WarnRow(_dimModeNote),
+            WarnRow(screensaverText(context, _dimModeNote)),
           if (_adaptiveOn(container))
             HintRow(screenAudioText(context, _adaptiveNote)),
         ],
@@ -4023,26 +4027,29 @@ Future<bool> confirmScreenOff(BuildContext context) async {
   final go = await showDialog<bool>(
     context: context,
     builder: (context) => AlertDialog(
-      title: const Text('WARNING: Please Read!'),
-      content: const Text(
-        'Once the display truly powers off, the tablet\'s own '
-        'power management takes over, and many Android models '
-        'misbehave in that state: Wi-Fi naps or drops, the '
-        'Home Assistant entities go unavailable, the camera '
-        'can be revoked, and some models kill background apps '
-        'outright. What happens depends on the manufacturer.\n\n'
-        'The reliable alternative is the Black screensaver '
-        'with this setting left at 0: the panel looks just as '
-        'dark, and the app keeps full control.',
+      title: Text(screensaverText(context, 'WARNING: Please Read!')),
+      content: Text(
+        screensaverText(
+          context,
+          'Once the display truly powers off, the tablet\'s own '
+          'power management takes over, and many Android models '
+          'misbehave in that state: Wi-Fi naps or drops, the '
+          'Home Assistant entities go unavailable, the camera '
+          'can be revoked, and some models kill background apps '
+          'outright. What happens depends on the manufacturer.\n\n'
+          'The reliable alternative is the Black screensaver '
+          'with this setting left at 0: the panel looks just as '
+          'dark, and the app keeps full control.',
+        ),
       ),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context, false),
-          child: const Text('Cancel'),
+          child: Text(screensaverText(context, 'Cancel')),
         ),
         FilledButton(
           onPressed: () => Navigator.pop(context, true),
-          child: const Text('Turn screen off anyway'),
+          child: Text(screensaverText(context, 'Turn screen off anyway')),
         ),
       ],
     ),
@@ -4105,8 +4112,10 @@ class _ScreenOffAdminRowState extends State<_ScreenOffAdminRow>
         Icons.admin_panel_settings_outlined,
         color: theme.colorScheme.error,
       ),
-      title: const Text('Device admin'),
-      subtitle: const Text('Not granted, so the screen cannot turn off.'),
+      title: Text(screensaverText(context, 'Device admin')),
+      subtitle: Text(
+        screensaverText(context, 'Not granted, so the screen cannot turn off.'),
+      ),
       trailing: TextButton(
         onPressed: () async {
           await widget.container.commands.execute('requestOsPermissions', {
@@ -4114,7 +4123,7 @@ class _ScreenOffAdminRowState extends State<_ScreenOffAdminRow>
           });
           await _refresh();
         },
-        child: const Text('Enable'),
+        child: Text(screensaverText(context, 'Enable')),
       ),
     );
   }
@@ -4169,12 +4178,18 @@ class _ScheduleEditorState extends State<_ScheduleEditor> {
     widget.onChanged();
   }
 
-  Future<String?> _pickTime(String current) =>
-      showKsTimePicker(context, title: 'Time', initial: current);
+  Future<String?> _pickTime(String current) => showKsTimePicker(
+    context,
+    title: screensaverText(context, 'Time'),
+    initial: current,
+  );
 
-  String _modeLabel(String mode) =>
-      widget.container.settings.optionLabel(screensaverMode, mode) ??
-      (mode.isEmpty ? mode : mode[0].toUpperCase() + mode.substring(1));
+  String _modeLabel(String mode) => screensaverMode.localizedOption(
+    context,
+    mode,
+    widget.container.settings.optionLabel(screensaverMode, mode) ??
+        (mode.isEmpty ? mode : mode[0].toUpperCase() + mode.substring(1)),
+  );
 
   /// The row's second line: the mode, then only the overrides actually set,
   /// so a plain entry reads as one word instead of a row of "default"s.
@@ -4182,35 +4197,67 @@ class _ScheduleEditorState extends State<_ScheduleEditor> {
     final parts = <String>[_modeLabel('${entry['mode']}')];
     final brightness = entry['brightness'];
     if (brightness is num) {
-      parts.add('${(brightness * 100).round()}% brightness');
+      parts.add(
+        l10n(
+          context,
+        ).screensaverBrightnessPercent('${(brightness * 100).round()}'),
+      );
     }
     if (entry['motion'] is bool) {
-      parts.add('Motion ${entry['motion'] == true ? 'on' : 'off'}');
+      parts.add(
+        entry['motion'] == true
+            ? l10n(context).screensaverSummaryMotionOn
+            : l10n(context).screensaverSummaryMotionOff,
+      );
     }
     if (entry['face'] is bool) {
-      parts.add('Face ${entry['face'] == true ? 'on' : 'off'}');
+      parts.add(
+        entry['face'] == true
+            ? l10n(context).screensaverSummaryFaceOn
+            : l10n(context).screensaverSummaryFaceOff,
+      );
     }
     if (entry['proximity'] is bool) {
-      parts.add('Proximity ${entry['proximity'] == true ? 'on' : 'off'}');
+      parts.add(
+        entry['proximity'] == true
+            ? l10n(context).screensaverSummaryProximityOn
+            : l10n(context).screensaverSummaryProximityOff,
+      );
     }
     if (entry['person'] is bool) {
-      parts.add('Person ${entry['person'] == true ? 'on' : 'off'}');
+      parts.add(
+        entry['person'] == true
+            ? l10n(context).screensaverSummaryPersonOn
+            : l10n(context).screensaverSummaryPersonOff,
+      );
     }
     if (entry['widgets'] is bool) {
-      parts.add('Widgets ${entry['widgets'] == true ? 'on' : 'off'}');
+      parts.add(
+        entry['widgets'] == true
+            ? l10n(context).screensaverSummaryWidgetsOn
+            : l10n(context).screensaverSummaryWidgetsOff,
+      );
     }
     if (entry['glance'] is bool) {
-      parts.add('At a glance ${entry['glance'] == true ? 'on' : 'off'}');
+      parts.add(
+        entry['glance'] == true
+            ? l10n(context).screensaverSummaryGlanceOn
+            : l10n(context).screensaverSummaryGlanceOff,
+      );
     }
     if (entry['now_playing'] is bool) {
-      parts.add('Now Playing ${entry['now_playing'] == true ? 'on' : 'off'}');
+      parts.add(
+        entry['now_playing'] == true
+            ? l10n(context).screensaverSummaryNowPlayingOn
+            : l10n(context).screensaverSummaryNowPlayingOff,
+      );
     }
     final screenOff = entry['screen_off'];
     if (screenOff is num) {
       parts.add(
         screenOff <= 0
-            ? 'Screen off never'
-            : 'Screen off after ${screenOff.round()} min',
+            ? screensaverText(context, 'Screen off never')
+            : l10n(context).screensaverScreenOffAfter('${screenOff.round()}'),
       );
     }
     return parts.join(' · ');
@@ -4282,10 +4329,19 @@ class _ScheduleEditorState extends State<_ScheduleEditor> {
                 helperText: helper,
                 helperMaxLines: 3,
               ),
-              items: const [
-                DropdownMenuItem(value: 'default', child: Text('Default')),
-                DropdownMenuItem(value: 'on', child: Text('On')),
-                DropdownMenuItem(value: 'off', child: Text('Off')),
+              items: [
+                DropdownMenuItem(
+                  value: 'default',
+                  child: Text(screensaverText(context, 'Default')),
+                ),
+                DropdownMenuItem(
+                  value: 'on',
+                  child: Text(screensaverText(context, 'On')),
+                ),
+                DropdownMenuItem(
+                  value: 'off',
+                  child: Text(screensaverText(context, 'Off')),
+                ),
               ],
               onChanged: !enabled
                   ? null
@@ -4301,7 +4357,11 @@ class _ScheduleEditorState extends State<_ScheduleEditor> {
           final level = (entry['brightness'] as num?)?.toDouble();
           final screenOff = (entry['screen_off'] as num?)?.toInt();
           return AlertDialog(
-            title: Text(existing == null ? 'Add time' : '${entry['at']}'),
+            title: Text(
+              existing == null
+                  ? screensaverText(context, 'Add time')
+                  : '${entry['at']}',
+            ),
             content: SizedBox(
               width: 480,
               child: SingleChildScrollView(
@@ -4313,7 +4373,7 @@ class _ScheduleEditorState extends State<_ScheduleEditor> {
                     // Inside an editor the time is a labeled field, full
                     // width, opening the same picker as the time rows.
                     LabeledField(
-                      label: 'Time',
+                      label: screensaverText(context, 'Time'),
                       child: TimeBox(
                         value: '${entry['at']}',
                         expand: true,
@@ -4326,7 +4386,7 @@ class _ScheduleEditorState extends State<_ScheduleEditor> {
                       ),
                     ),
                     LabeledField(
-                      label: 'Screensaver',
+                      label: screensaverText(context, 'Screensaver'),
                       child: DropdownButtonFormField<String>(
                         initialValue:
                             (widget.container.settings
@@ -4335,7 +4395,7 @@ class _ScheduleEditorState extends State<_ScheduleEditor> {
                                 isPluginScreensaver(entry['mode']))
                             ? entry['mode'] as String
                             : screensaverMode.defaultValue,
-                        decoration: const InputDecoration(),
+                        decoration: InputDecoration(),
                         items: [
                           for (final mode in {
                             ...widget.container.settings.optionsFor(
@@ -4361,11 +4421,19 @@ class _ScheduleEditorState extends State<_ScheduleEditor> {
                     // the slider below is this entry's own level.
                     SwitchListTile(
                       contentPadding: EdgeInsets.zero,
-                      title: const Text('Screensaver brightness'),
+                      title: Text(
+                        screensaverText(context, 'Screensaver brightness'),
+                      ),
                       subtitle: Text(
                         level == null
-                            ? 'Follows the Screensaver brightness setting.'
-                            : 'Applies to every mode except Black.',
+                            ? screensaverText(
+                                context,
+                                'Follows the Screensaver brightness setting.',
+                              )
+                            : screensaverText(
+                                context,
+                                'Applies to every mode except Black.',
+                              ),
                       ),
                       value: level != null,
                       onChanged: (on) => setDialogState(() {
@@ -4413,15 +4481,26 @@ class _ScheduleEditorState extends State<_ScheduleEditor> {
                     // its hours even when that slider is set (issue #437).
                     SwitchListTile(
                       contentPadding: EdgeInsets.zero,
-                      title: const Text('Turn screen off after'),
+                      title: Text(
+                        screensaverText(context, 'Turn screen off after'),
+                      ),
                       subtitle: Text(
                         screenOff == null
-                            ? 'Follows the Turn screen off after setting.'
+                            ? screensaverText(
+                                context,
+                                'Follows the Turn screen off after setting.',
+                              )
                             : screenOff == 0
-                            ? 'Keeps the screen on during these hours.'
-                            : 'Powers down the display once the '
-                                  'screensaver has run this long. Requires '
-                                  'Device Administrator permission.',
+                            ? screensaverText(
+                                context,
+                                'Keeps the screen on during these hours.',
+                              )
+                            : screensaverText(
+                                context,
+                                'Powers down the display once the '
+                                'screensaver has run this long. Requires '
+                                'Device Administrator permission.',
+                              ),
                       ),
                       value: screenOff != null,
                       onChanged: (on) => setDialogState(() {
@@ -4468,7 +4547,9 @@ class _ScheduleEditorState extends State<_ScheduleEditor> {
                           SizedBox(
                             width: 56,
                             child: Text(
-                              screenOff == 0 ? 'Never' : '$screenOff min',
+                              screenOff == 0
+                                  ? screensaverText(context, 'Never')
+                                  : l10n(context).haMinutes('$screenOff'),
                               textAlign: TextAlign.end,
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
@@ -4476,44 +4557,62 @@ class _ScheduleEditorState extends State<_ScheduleEditor> {
                         ],
                       ),
                     override(
-                      'Dismiss on motion',
+                      screensaverText(context, 'Dismiss on motion'),
                       'motion',
                       enabled: cameraOn,
                       helper: cameraOn
                           ? null
-                          : 'Requires the camera. Turn it on in the Camera '
-                                'settings first.',
+                          : screensaverText(
+                              context,
+                              'Requires the camera. Turn it on in the Camera '
+                              'settings first.',
+                            ),
                     ),
                     // Motion keeps precedence inside an entry too: On here
                     // with motion On above still wakes on motion.
                     override(
-                      'Dismiss on face',
+                      screensaverText(context, 'Dismiss on face'),
                       'face',
                       enabled: cameraOn,
                       helper: cameraOn
                           ? null
-                          : 'Requires the camera. Turn it on in the Camera '
-                                'settings first.',
+                          : screensaverText(
+                              context,
+                              'Requires the camera. Turn it on in the Camera '
+                              'settings first.',
+                            ),
                     ),
                     override(
-                      'Dismiss on proximity',
+                      screensaverText(context, 'Dismiss on proximity'),
                       'proximity',
                       enabled: !noProximity,
                       helper: noProximity
                           ? (proximity.proximityHint ??
-                                'Not available on this device.')
+                                screensaverText(
+                                  context,
+                                  'Not available on this device.',
+                                ))
                           : null,
                     ),
-                    if (personShown) override('Dismiss on person', 'person'),
-                    override('Widgets', 'widgets'),
-                    override('At a glance', 'glance'),
+                    if (personShown)
+                      override(
+                        screensaverText(context, 'Dismiss on person'),
+                        'person',
+                      ),
+                    override(screensaverText(context, 'Widgets'), 'widgets'),
+                    override(screensaverText(context, 'At a glance'), 'glance'),
                     override(
-                      'Show Now Playing next to the screensaver',
+                      screensaverText(
+                        context,
+                        'Show Now Playing next to the screensaver',
+                      ),
                       'now_playing',
-                      helper:
-                          'Default follows the global layout. On uses a '
-                          'shared layout when Now Playing is enabled. Off '
-                          'hides Now Playing during these hours.',
+                      helper: screensaverText(
+                        context,
+                        'Default follows the global layout. On uses a '
+                        'shared layout when Now Playing is enabled. Off '
+                        'hides Now Playing during these hours.',
+                      ),
                     ),
                   ],
                 ),
@@ -4522,11 +4621,15 @@ class _ScheduleEditorState extends State<_ScheduleEditor> {
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: const Text('Cancel'),
+                child: Text(screensaverText(context, 'Cancel')),
               ),
               FilledButton(
                 onPressed: () => Navigator.pop(context, true),
-                child: Text(existing == null ? 'Add' : 'Save'),
+                child: Text(
+                  existing == null
+                      ? screensaverText(context, 'Add')
+                      : screensaverText(context, 'Save'),
+                ),
               ),
             ],
           );
@@ -4546,20 +4649,20 @@ class _ScheduleEditorState extends State<_ScheduleEditor> {
         // An empty list is a row, not a blank card.
         if (entries.isEmpty)
           ListTile(
-            leading: const Icon(Icons.schedule),
-            title: const Text('No times yet'),
-            subtitle: Text(screensaverSchedule.description),
+            leading: Icon(Icons.schedule),
+            title: Text(screensaverText(context, 'No times yet')),
+            subtitle: Text(screensaverSchedule.localizedDescription(context)),
           ),
         // Indexed, not by identity: every read decodes new maps, so the
         // position in the stored list is what identifies an entry.
         for (var i = 0; i < entries.length; i++)
           ListTile(
-            leading: const Icon(Icons.schedule),
+            leading: Icon(Icons.schedule),
             title: Text('${entries[i]['at']}'),
             subtitle: Text(_summary(entries[i])),
             trailing: IconButton(
-              icon: const Icon(Icons.delete_outline),
-              tooltip: 'Remove time',
+              icon: Icon(Icons.delete_outline),
+              tooltip: screensaverText(context, 'Remove time'),
               onPressed: () => _save([...entries]..removeAt(i)),
             ),
             onTap: () => _edit(context, i),
@@ -4567,9 +4670,11 @@ class _ScheduleEditorState extends State<_ScheduleEditor> {
         // The add row is the last row of the card, the whole row the
         // button, mirrored on the remote.
         ListTile(
-          leading: const Icon(Icons.add),
-          title: const Text('Add time'),
-          subtitle: const Text('A screensaver from that time on.'),
+          leading: Icon(Icons.add),
+          title: Text(screensaverText(context, 'Add time')),
+          subtitle: Text(
+            screensaverText(context, 'A screensaver from that time on.'),
+          ),
           onTap: () => _edit(context, null),
         ),
       ],
@@ -9483,7 +9588,7 @@ class SettingTile extends StatelessWidget {
             title: Text(def.localizedTitle(context)),
             subtitle: Text(
               path.isEmpty
-                  ? 'No photo selected'
+                  ? screensaverText(context, 'No photo selected')
                   : isUrl
                   ? path
                   : path.split('/').last,
@@ -9501,11 +9606,11 @@ class SettingTile extends StatelessWidget {
                       await _deleteClockBackgroundCopy(path);
                       onChanged();
                     },
-                    child: const Text('Clear'),
+                    child: Text(screensaverText(context, 'Clear')),
                   ),
                 TextButton(
                   onPressed: () => _editText(context),
-                  child: const Text('URL'),
+                  child: Text('URL'),
                 ),
                 TextButton(
                   onPressed: () async {
@@ -9522,7 +9627,7 @@ class SettingTile extends StatelessWidget {
                     await c.settings.setFromJson(def.key, dest);
                     onChanged();
                   },
-                  child: const Text('Browse'),
+                  child: Text(screensaverText(context, 'Browse')),
                 ),
               ],
             ),
@@ -10098,7 +10203,10 @@ class SettingTile extends StatelessWidget {
                 hintMaxLines: def.multiline ? 4 : null,
                 errorText: error == null
                     ? null
-                    : haText(context, deviceText(context, error!)),
+                    : screensaverError(
+                        context,
+                        haText(context, deviceText(context, error!)),
+                      ),
               ),
             ),
           ),

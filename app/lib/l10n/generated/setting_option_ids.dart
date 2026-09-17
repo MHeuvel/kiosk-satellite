@@ -40,8 +40,33 @@ const settingOptionMessageIds = <String, Map<String, String>>{
   "audio.mic_capture_format": {
     "auto": "screenAudioAutomaticDefault",
     "hardware": "screenAudioStereo"
+  },
+  "screensaver.mode": {
+    "dim": "screensaverModeDim",
+    "black": "screensaverModeBlack",
+    "clock": "screensaverModeClock",
+    "media": "screensaverModeMedia",
+    "local": "screensaverModeLocal",
+    "gallery": "screensaverModeGallery",
+    "immich": "screensaverModeImmich",
+    "website": "screensaverModeWebsite",
+    "camera": "screensaverModeCamera"
+  },
+  "screensaver.clock_style": {
+    "digital": "screensaverStyleDigital",
+    "flip": "screensaverStyleFlip",
+    "roller": "screensaverStyleRoller"
+  },
+  "screensaver.clock_font_weight": {
+    "default": "screensaverFontDefault",
+    "light": "screensaverFontLight",
+    "regular": "screensaverFontRegular",
+    "medium": "screensaverFontMedium",
+    "bold": "screensaverFontBold",
+    "black": "screensaverFontBlack"
   }
 };
 const settingPlaceholderMessageIds = <String, String>{
-  "device.hostname": "deviceHostnamePlaceholder"
+  "device.hostname": "deviceHostnamePlaceholder",
+  "screensaver.clock_background": "screensaverBackgroundHint"
 };

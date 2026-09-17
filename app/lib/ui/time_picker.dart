@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../l10n/messages.dart';
 import 'theme.dart';
 
 /// The one time picker, on both surfaces: two boxes, hour and minute,
@@ -85,7 +86,7 @@ class _TimePickerDialogState extends State<_TimePickerDialog> {
       mainAxisSize: MainAxisSize.min,
       children: [
         IconButton(
-          tooltip: 'Up',
+          tooltip: l10n(context).commonUp,
           icon: const Icon(Icons.keyboard_arrow_up),
           onPressed: () => _step(c, max, delta),
         ),
@@ -123,7 +124,7 @@ class _TimePickerDialogState extends State<_TimePickerDialog> {
           ),
         ),
         IconButton(
-          tooltip: 'Down',
+          tooltip: l10n(context).commonDown,
           icon: const Icon(Icons.keyboard_arrow_down),
           onPressed: () => _step(c, max, -delta),
         ),
@@ -147,7 +148,7 @@ class _TimePickerDialogState extends State<_TimePickerDialog> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _box(context, 'Hour', _hour, 23, 1),
+            _box(context, l10n(context).commonHour, _hour, 23, 1),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
@@ -168,14 +169,14 @@ class _TimePickerDialogState extends State<_TimePickerDialog> {
                 ],
               ),
             ),
-            _box(context, 'Minute', _minute, 59, 5),
+            _box(context, l10n(context).commonMinute, _minute, 59, 5),
           ],
         ),
       ),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('Cancel'),
+          child: Text(l10n(context).commonCancel),
         ),
         FilledButton(
           onPressed: _valid
@@ -184,7 +185,7 @@ class _TimePickerDialogState extends State<_TimePickerDialog> {
                   '${_pad(_read(_hour, 23)!)}:${_pad(_read(_minute, 59)!)}',
                 )
               : null,
-          child: const Text('Set'),
+          child: Text(l10n(context).commonSet),
         ),
       ],
     );

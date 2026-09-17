@@ -1,3 +1,4 @@
+import { t } from './localization.js';
 import { watchUpdates } from './live.js';
 import { api, cacheSettings, cmd, state } from './core.js';
 import { applyManagedBanners } from './fleetsync.js';
@@ -270,18 +271,18 @@ export function cameraEditor({ title, body, save, width = 620, tall = false }) {
     error.className = 'msg-error';
     error.style.flex = 'none';
     shell.card.insertBefore(error, shell.foot);
-    const cancel = cameraAction('Cancel', () => {
+    const cancel = cameraAction(t('commonCancel'), () => {
       shell.close();
       resolve(false);
     });
     cancel.className = 'btn-text';
-    const submit = cameraAction('Save', async () => {
+    const submit = cameraAction(t('commonSave'), async () => {
       submit.disabled = true;
       error.textContent = '';
       try {
         const result = await save();
         if (!result || !result.ok) {
-          error.textContent = result?.error || 'Could not save';
+          error.textContent = result?.error || t('commonSaveFailed');
           submit.disabled = false;
           return;
         }

@@ -95,6 +95,91 @@
     "context": "Common:Actions",
     "description": "Close action button."
   },
+  "commonClear": "Clear",
+  "@commonClear": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonBrowse": "Browse",
+  "@commonBrowse": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonSet": "Set",
+  "@commonSet": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonHour": "Hour",
+  "@commonHour": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonMinute": "Minute",
+  "@commonMinute": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonUp": "Up",
+  "@commonUp": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonDown": "Down",
+  "@commonDown": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonDelete": "Delete",
+  "@commonDelete": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonSaveFailed": "Could not save",
+  "@commonSaveFailed": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonColorWhite": "White",
+  "@commonColorWhite": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonColorWarm": "Warm",
+  "@commonColorWarm": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonColorAmber": "Amber",
+  "@commonColorAmber": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonColorRed": "Red",
+  "@commonColorRed": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonColorGreen": "Green",
+  "@commonColorGreen": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonColorBlue": "Blue",
+  "@commonColorBlue": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonColorCyan": "Cyan",
+  "@commonColorCyan": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonColorDim": "Dim",
+  "@commonColorDim": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
   "drawerPluginAction": "{pluginName}: {actionTitle}",
   "@drawerPluginAction": {
     "context": "Device:Drawer",
@@ -8363,6 +8448,2065 @@
       ],
       "remoteAdmin": [
         "Screen & Audio > Audio Volume"
+      ]
+    }
+  },
+  "settingScreensaverBlackHideExtrasTitle": "Hide all extras",
+  "@settingScreensaverBlackHideExtrasTitle": {
+    "context": "Settings:Screensaver:Black screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Black screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Black screensaver"
+      ]
+    }
+  },
+  "settingScreensaverBlackHideExtrasDescription": "Keeps the screen fully black: no small clock, At a Glance entities, or other overlays.",
+  "@settingScreensaverBlackHideExtrasDescription": {
+    "context": "Settings:Screensaver:Black screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Black screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Black screensaver"
+      ]
+    }
+  },
+  "screensaverBlackSection": "Black screensaver",
+  "@screensaverBlackSection": {
+    "context": "Settings:Screensaver:Black screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Black screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Black screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockStyleTitle": "Style",
+  "@settingScreensaverClockStyleTitle": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockStyleDescription": "How the clock is drawn.",
+  "@settingScreensaverClockStyleDescription": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockFontTitle": "Font Family",
+  "@settingScreensaverClockFontTitle": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockFontDescription": "The typeface the clock is drawn in.",
+  "@settingScreensaverClockFontDescription": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockFontWeightTitle": "Font weight",
+  "@settingScreensaverClockFontWeightTitle": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockFontWeightDescription": "How heavy the clock's digits are drawn. Default is each face's own weight.",
+  "@settingScreensaverClockFontWeightDescription": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClock24hTitle": "24-hour clock",
+  "@settingScreensaverClock24hTitle": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClock24hDescription": "Show a 24-hour time instead of AM/PM.",
+  "@settingScreensaverClock24hDescription": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockSecondsTitle": "Show seconds",
+  "@settingScreensaverClockSecondsTitle": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockSecondsDescription": "Include seconds in the clock.",
+  "@settingScreensaverClockSecondsDescription": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockDateTitle": "Show date",
+  "@settingScreensaverClockDateTitle": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockDateDescription": "Show the weekday and date under the clock.",
+  "@settingScreensaverClockDateDescription": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockScaleTitle": "Clock size",
+  "@settingScreensaverClockScaleTitle": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockScaleDescription": "Scale the clock from 50 to 300 percent for this screen.",
+  "@settingScreensaverClockScaleDescription": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockColorTitle": "Clock color",
+  "@settingScreensaverClockColorTitle": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockColorDescription": "The color of the clock text.",
+  "@settingScreensaverClockColorDescription": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockBgColorTitle": "Background color",
+  "@settingScreensaverClockBgColorTitle": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockBgColorDescription": "The color behind the clock.",
+  "@settingScreensaverClockBgColorDescription": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockBackgroundTitle": "Background photo",
+  "@settingScreensaverClockBackgroundTitle": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockBackgroundDescription": "Show a photo behind the clock instead of the solid color. A path to an image on the device, or an image URL the device fetches.",
+  "@settingScreensaverClockBackgroundDescription": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockBackgroundRefreshTitle": "Refresh URL background",
+  "@settingScreensaverClockBackgroundRefreshTitle": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockBackgroundRefreshDescription": "Minutes between fetches of a URL background. 0 fetches it only when the setting is written.",
+  "@settingScreensaverClockBackgroundRefreshDescription": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverFlipDigitColorTitle": "Digit color",
+  "@settingScreensaverFlipDigitColorTitle": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverFlipDigitColorDescription": "The color of the flip digits.",
+  "@settingScreensaverFlipDigitColorDescription": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverFlipBgColorTitle": "Card color",
+  "@settingScreensaverFlipBgColorTitle": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverFlipBgColorDescription": "The color of the cards.",
+  "@settingScreensaverFlipBgColorDescription": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverFlipBackdropColorTitle": "Background color",
+  "@settingScreensaverFlipBackdropColorTitle": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverFlipBackdropColorDescription": "The color behind the cards.",
+  "@settingScreensaverFlipBackdropColorDescription": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverRollerDigitColorTitle": "Digit color",
+  "@settingScreensaverRollerDigitColorTitle": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverRollerDigitColorDescription": "The color of the rolling digits.",
+  "@settingScreensaverRollerDigitColorDescription": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverRollerBgColorTitle": "Background color",
+  "@settingScreensaverRollerBgColorTitle": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverRollerBgColorDescription": "The color behind the digits.",
+  "@settingScreensaverRollerBgColorDescription": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockNightTitle": "Night mode",
+  "@settingScreensaverClockNightTitle": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockNightDescription": "Recolor the clock while the room is dark.",
+  "@settingScreensaverClockNightDescription": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockNightLuxTitle": "Light level",
+  "@settingScreensaverClockNightLuxTitle": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockNightLuxDescription": "At or below this light level the clock takes the night color.",
+  "@settingScreensaverClockNightLuxDescription": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockNightColorTitle": "Night color",
+  "@settingScreensaverClockNightColorTitle": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockNightColorDescription": "The color of the clock and the widgets in the dark.",
+  "@settingScreensaverClockNightColorDescription": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockNightBgColorTitle": "Night background",
+  "@settingScreensaverClockNightBgColorTitle": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockNightBgColorDescription": "The color behind the clock in the dark.",
+  "@settingScreensaverClockNightBgColorDescription": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockNightHideBackgroundTitle": "Hide background photo",
+  "@settingScreensaverClockNightHideBackgroundTitle": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockNightHideBackgroundDescription": "Use the night background color instead of the photo while Night mode is active.",
+  "@settingScreensaverClockNightHideBackgroundDescription": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockNightCardColorTitle": "Night card color",
+  "@settingScreensaverClockNightCardColorTitle": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockNightCardColorDescription": "The color of the flip cards in the dark.",
+  "@settingScreensaverClockNightCardColorDescription": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "screensaverClockSection": "Clock screensaver",
+  "@screensaverClockSection": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "screensaverClockHint": "Style, font, size, colors, night mode, background photo",
+  "@screensaverClockHint": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "screensaverStyleDigital": "Digital Clock",
+  "@screensaverStyleDigital": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "screensaverStyleFlip": "Flip Clock",
+  "@screensaverStyleFlip": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "screensaverStyleRoller": "Roller Clock",
+  "@screensaverStyleRoller": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "screensaverFontDefault": "Default",
+  "@screensaverFontDefault": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "screensaverFontLight": "Light",
+  "@screensaverFontLight": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "screensaverFontRegular": "Regular",
+  "@screensaverFontRegular": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "screensaverFontMedium": "Medium",
+  "@screensaverFontMedium": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "screensaverFontBold": "Bold",
+  "@screensaverFontBold": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "screensaverFontBlack": "Black",
+  "@screensaverFontBlack": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "screensaverNoPhoto": "No photo selected",
+  "@screensaverNoPhoto": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "screensaverBackgroundHint": "Path to an image on the device, or an image URL",
+  "@screensaverBackgroundHint": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "screensaverImageUrlError": "Enter a full image URL",
+  "@screensaverImageUrlError": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "screensaverRefreshError": "Enter whole minutes from 0 to 1440",
+  "@screensaverRefreshError": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "screensaverMaxCharacters": "Use at most {count} characters",
+  "@screensaverMaxCharacters": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Maximum length validation error.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Maximum number of characters."
+      }
+    }
+  },
+  "settingScreensaverEnabledTitle": "Screensaver",
+  "@settingScreensaverEnabledTitle": {
+    "context": "Settings:Screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverEnabledDescription": "Dim or blank the screen after a period of inactivity.",
+  "@settingScreensaverEnabledDescription": {
+    "context": "Settings:Screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverTimeoutSecondsTitle": "Idle timeout (seconds)",
+  "@settingScreensaverTimeoutSecondsTitle": {
+    "context": "Settings:Screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverTimeoutSecondsDescription": "Inactivity period before the screensaver starts.",
+  "@settingScreensaverTimeoutSecondsDescription": {
+    "context": "Settings:Screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverModeTitle": "Screensaver mode",
+  "@settingScreensaverModeTitle": {
+    "context": "Settings:Screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverModeDescription": "What the screensaver shows after the idle timeout. Dim only lowers the backlight and leaves the dashboard on screen.",
+  "@settingScreensaverModeDescription": {
+    "context": "Settings:Screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverPixelShiftTitle": "Pixel shift",
+  "@settingScreensaverPixelShiftTitle": {
+    "context": "Settings:Screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverPixelShiftDescription": "Nudge the image every minute to protect OLED panels. Not for the black screensaver, whose pixels are already off.",
+  "@settingScreensaverPixelShiftDescription": {
+    "context": "Settings:Screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverMenuTitle": "Show in the kiosk menu",
+  "@settingScreensaverMenuTitle": {
+    "context": "Settings:Screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverMenuDescription": "Add a Start Screensaver entry to the kiosk menu.",
+  "@settingScreensaverMenuDescription": {
+    "context": "Settings:Screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverDimLevelTitle": "Dim level",
+  "@settingScreensaverDimLevelTitle": {
+    "context": "Settings:Screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverDimLevelDescription": "Screen brightness while the screensaver is dimming.",
+  "@settingScreensaverDimLevelDescription": {
+    "context": "Settings:Screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverBrightnessEnabledTitle": "Screensaver brightness",
+  "@settingScreensaverBrightnessEnabledTitle": {
+    "context": "Settings:Screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverBrightnessEnabledDescription": "Use a separate brightness while the screensaver is showing.",
+  "@settingScreensaverBrightnessEnabledDescription": {
+    "context": "Settings:Screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverBrightnessLevelTitle": "Brightness level",
+  "@settingScreensaverBrightnessLevelTitle": {
+    "context": "Settings:Screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverBrightnessLevelDescription": "Applies to every mode except Dim and Black.",
+  "@settingScreensaverBrightnessLevelDescription": {
+    "context": "Settings:Screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverNotificationBrightnessTitle": "Brighten for notifications",
+  "@settingScreensaverNotificationBrightnessTitle": {
+    "context": "Settings:Screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverNotificationBrightnessDescription": "Lift the screensaver dimming while a notification is on screen.",
+  "@settingScreensaverNotificationBrightnessDescription": {
+    "context": "Settings:Screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverScreenOffMinutesTitle": "Turn screen off after",
+  "@settingScreensaverScreenOffMinutesTitle": {
+    "context": "Settings:Screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverScreenOffMinutesDescription": "Powers down the display panel once the screensaver has run for the set duration. Set to 0 to keep the screen on indefinitely. Requires Device Administrator permission.",
+  "@settingScreensaverScreenOffMinutesDescription": {
+    "context": "Settings:Screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverScreenOffWakeToScreensaverTitle": "Wake to screensaver",
+  "@settingScreensaverScreenOffWakeToScreensaverTitle": {
+    "context": "Settings:Screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverScreenOffWakeToScreensaverDescription": "Motion, face, proximity or person detection after the screen has turned off brings the screensaver back instead of the dashboard, with a fresh Turn screen off after countdown. Touch still opens the dashboard.",
+  "@settingScreensaverScreenOffWakeToScreensaverDescription": {
+    "context": "Settings:Screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "screensaverModeDim": "Dim",
+  "@screensaverModeDim": {
+    "context": "Settings:Screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "screensaverModeBlack": "Black",
+  "@screensaverModeBlack": {
+    "context": "Settings:Screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "screensaverModeClock": "Clock",
+  "@screensaverModeClock": {
+    "context": "Settings:Screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "screensaverModeMedia": "Home Assistant Media",
+  "@screensaverModeMedia": {
+    "context": "Settings:Screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "screensaverModeLocal": "Local Media",
+  "@screensaverModeLocal": {
+    "context": "Settings:Screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "screensaverModeGallery": "Photo Gallery",
+  "@screensaverModeGallery": {
+    "context": "Settings:Screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "screensaverModeImmich": "Immich Media",
+  "@screensaverModeImmich": {
+    "context": "Settings:Screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "screensaverModeWebsite": "Website",
+  "@screensaverModeWebsite": {
+    "context": "Settings:Screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "screensaverModeCamera": "Camera Streams",
+  "@screensaverModeCamera": {
+    "context": "Settings:Screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "screensaverDimSection": "Dim screensaver",
+  "@screensaverDimSection": {
+    "context": "Settings:Screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "screensaverWarningTitle": "WARNING: Please Read!",
+  "@screensaverWarningTitle": {
+    "context": "Settings:Screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "screensaverScreenOffProceed": "Turn screen off anyway",
+  "@screensaverScreenOffProceed": {
+    "context": "Settings:Screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "screensaverAdminMissing": "Not granted, so the screen cannot turn off.",
+  "@screensaverAdminMissing": {
+    "context": "Settings:Screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "screensaverAdminMissingRemote": "Device admin permission missing",
+  "@screensaverAdminMissingRemote": {
+    "context": "Settings:Screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "screensaverAdminMissingRemoteHelp": "Without it the screen cannot be turned off. The grant dialog appears on the tablet screen.",
+  "@screensaverAdminMissingRemoteHelp": {
+    "context": "Settings:Screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "screensaverDimWarning": "WARNING: Dim keeps the dashboard visible, so the \"Pause dashboard during screensaver\" optimization will not be applied and the dashboard keeps using CPU, GPU and battery.",
+  "@screensaverDimWarning": {
+    "context": "Settings:Screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "screensaverUnavailablePlugin": "Unavailable plugin screensaver",
+  "@screensaverUnavailablePlugin": {
+    "context": "Settings:Screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "screensaverScreenOffWarning": "Once the display truly powers off, the tablet's own power management takes over, and many Android models misbehave in that state: Wi-Fi naps or drops, the Home Assistant entities go unavailable, the camera can be revoked, and some models kill background apps outright. What happens depends on the manufacturer.\n\nThe reliable alternative is the Black screensaver with this setting left at 0: the panel looks just as dark, and the app keeps full control.",
+  "@screensaverScreenOffWarning": {
+    "context": "Settings:Screensaver",
+    "description": "Warning before enabling physical screen power-off.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverScheduleEnabledTitle": "Enable scheduled screensavers",
+  "@settingScreensaverScheduleEnabledTitle": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "settingScreensaverScheduleEnabledDescription": "Switch to a different screensaver at set times of day.",
+  "@settingScreensaverScheduleEnabledDescription": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "settingScreensaverScheduleTitle": "Times",
+  "@settingScreensaverScheduleTitle": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "settingScreensaverScheduleDescription": "Each time switches the screensaver from then on.",
+  "@settingScreensaverScheduleDescription": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverScheduleSection": "Scheduled Screensavers",
+  "@screensaverScheduleSection": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverTime": "Time",
+  "@screensaverTime": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverAddTime": "Add time",
+  "@screensaverAddTime": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverRemoveTime": "Remove time",
+  "@screensaverRemoveTime": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverNoTimes": "No times yet",
+  "@screensaverNoTimes": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverTimeHelp": "A screensaver from that time on.",
+  "@screensaverTimeHelp": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverPickTime": "Pick a time.",
+  "@screensaverPickTime": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverDefault": "Default",
+  "@screensaverDefault": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverOn": "On",
+  "@screensaverOn": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverOff": "Off",
+  "@screensaverOff": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverBrightness": "Brightness",
+  "@screensaverBrightness": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverBrightnessFollow": "Follows the Screensaver brightness setting.",
+  "@screensaverBrightnessFollow": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverBrightnessExceptBlack": "Applies to every mode except Black.",
+  "@screensaverBrightnessExceptBlack": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverScreenOffFollow": "Follows the Turn screen off after setting.",
+  "@screensaverScreenOffFollow": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverScreenOnHours": "Keeps the screen on during these hours.",
+  "@screensaverScreenOnHours": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverScreenOffHelp": "Powers down the display once the screensaver has run this long. Requires Device Administrator permission.",
+  "@screensaverScreenOffHelp": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverScreenOffNever": "Screen off never",
+  "@screensaverScreenOffNever": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverMotion": "Dismiss on motion",
+  "@screensaverMotion": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverFace": "Dismiss on face",
+  "@screensaverFace": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverProximity": "Dismiss on proximity",
+  "@screensaverProximity": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverPerson": "Dismiss on person",
+  "@screensaverPerson": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverWidgets": "Widgets",
+  "@screensaverWidgets": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverGlance": "At a glance",
+  "@screensaverGlance": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverNowPlaying": "Show Now Playing next to the screensaver",
+  "@screensaverNowPlaying": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverNowPlayingHelp": "Default follows the global layout. On uses a shared layout when Now Playing is enabled. Off hides Now Playing during these hours.",
+  "@screensaverNowPlayingHelp": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverCameraRequired": "Requires the camera. Turn it on in the Camera settings first.",
+  "@screensaverCameraRequired": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverNotAvailable": "Not available on this device.",
+  "@screensaverNotAvailable": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverSummaryMotionOn": "Motion on",
+  "@screensaverSummaryMotionOn": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Summary of an explicit schedule override.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverSummaryMotionOff": "Motion off",
+  "@screensaverSummaryMotionOff": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Summary of an explicit schedule override.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverSummaryFaceOn": "Face on",
+  "@screensaverSummaryFaceOn": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Summary of an explicit schedule override.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverSummaryFaceOff": "Face off",
+  "@screensaverSummaryFaceOff": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Summary of an explicit schedule override.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverSummaryProximityOn": "Proximity on",
+  "@screensaverSummaryProximityOn": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Summary of an explicit schedule override.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverSummaryProximityOff": "Proximity off",
+  "@screensaverSummaryProximityOff": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Summary of an explicit schedule override.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverSummaryPersonOn": "Person on",
+  "@screensaverSummaryPersonOn": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Summary of an explicit schedule override.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverSummaryPersonOff": "Person off",
+  "@screensaverSummaryPersonOff": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Summary of an explicit schedule override.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverSummaryWidgetsOn": "Widgets on",
+  "@screensaverSummaryWidgetsOn": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Summary of an explicit schedule override.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverSummaryWidgetsOff": "Widgets off",
+  "@screensaverSummaryWidgetsOff": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Summary of an explicit schedule override.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverSummaryGlanceOn": "At a glance on",
+  "@screensaverSummaryGlanceOn": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Summary of an explicit schedule override.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverSummaryGlanceOff": "At a glance off",
+  "@screensaverSummaryGlanceOff": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Summary of an explicit schedule override.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverSummaryNowPlayingOn": "Now Playing on",
+  "@screensaverSummaryNowPlayingOn": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Summary of an explicit schedule override.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverSummaryNowPlayingOff": "Now Playing off",
+  "@screensaverSummaryNowPlayingOff": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Summary of an explicit schedule override.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverBrightnessPercent": "{percent}% brightness",
+  "@screensaverBrightnessPercent": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Schedule brightness summary.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    },
+    "placeholders": {
+      "percent": {
+        "type": "String",
+        "description": "Brightness percentage."
+      }
+    }
+  },
+  "screensaverScreenOffAfter": "Screen off after {minutes} min",
+  "@screensaverScreenOffAfter": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Schedule screen-off summary.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    },
+    "placeholders": {
+      "minutes": {
+        "type": "String",
+        "description": "Whole minutes."
+      }
+    }
+  },
+  "settingScreensaverWebsiteUrlTitle": "Website URL",
+  "@settingScreensaverWebsiteUrlTitle": {
+    "context": "Settings:Screensaver:Website screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Website screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Website screensaver"
+      ]
+    }
+  },
+  "settingScreensaverWebsiteUrlDescription": "A page to show full-screen. It must allow being embedded.",
+  "@settingScreensaverWebsiteUrlDescription": {
+    "context": "Settings:Screensaver:Website screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Website screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Website screensaver"
+      ]
+    }
+  },
+  "settingScreensaverWebsiteZoomTitle": "Zoom level",
+  "@settingScreensaverWebsiteZoomTitle": {
+    "context": "Settings:Screensaver:Website screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Website screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Website screensaver"
+      ]
+    }
+  },
+  "settingScreensaverWebsiteZoomDescription": "Scales the whole external screensaver webview.",
+  "@settingScreensaverWebsiteZoomDescription": {
+    "context": "Settings:Screensaver:Website screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Website screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Website screensaver"
+      ]
+    }
+  },
+  "settingScreensaverWebsiteDoubleTapTitle": "Double tap to dismiss",
+  "@settingScreensaverWebsiteDoubleTapTitle": {
+    "context": "Settings:Screensaver:Website screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Website screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Website screensaver"
+      ]
+    }
+  },
+  "settingScreensaverWebsiteDoubleTapDescription": "Single taps interact with the website instead of dismissing.",
+  "@settingScreensaverWebsiteDoubleTapDescription": {
+    "context": "Settings:Screensaver:Website screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Website screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Website screensaver"
+      ]
+    }
+  },
+  "screensaverWebsiteSection": "Website screensaver",
+  "@screensaverWebsiteSection": {
+    "context": "Settings:Screensaver:Website screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Website screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Website screensaver"
       ]
     }
   },

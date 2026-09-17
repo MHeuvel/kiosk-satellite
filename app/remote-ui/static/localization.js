@@ -1,3 +1,4 @@
+import { screensaverTextMessageIds } from './screensaver_text_ids.js';
 import { screenAudioTextMessageIds } from './screen_audio_text_ids.js';
 import { catalogs } from './catalogs.js';
 import { navigationMessageIds } from './navigation_ids.js';
@@ -12,10 +13,20 @@ export function screenAudioText(english) {
   return t(screenAudioTextMessageIds[english], {}, english);
 }
 
+export function screensaverText(english) {
+  return t(screensaverTextMessageIds[english], {}, english);
+}
+
+export function screensaverError(error) {
+  const match = /^Use at most ([0-9]+) characters$/.exec(error);
+  return match ? t('screensaverMaxCharacters', {count: match[1]}) : screensaverText(error);
+}
+
 export function settingsPageText(category, english) {
   return category === 'Device' || category === 'device' ? deviceText(english)
     : category === 'Home Assistant' || category === 'homeassistant' ? haText(english)
-    : category === 'Screen & Audio' || category === 'screenaudio' ? screenAudioText(english) : english;
+    : category === 'Screen & Audio' || category === 'screenaudio' ? screenAudioText(english)
+    : category === 'Screensaver' || category === 'screensaver' ? screensaverText(english) : english;
 }
 
 export function haConnectionError(error) {

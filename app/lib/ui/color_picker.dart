@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../l10n/messages.dart';
 import 'theme.dart';
 
 /// Pick an RGB color: a live preview, three channel sliders, and a row of
@@ -143,7 +144,7 @@ class _ColorPickerDialogState extends State<_ColorPickerDialog> {
                       _b = (c.b * 255).round();
                     }),
                     child: Tooltip(
-                      message: name,
+                      message: commonColorName(context, name),
                       child: Container(
                         width: 34,
                         height: 34,
@@ -163,11 +164,11 @@ class _ColorPickerDialogState extends State<_ColorPickerDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('Cancel'),
+          child: Text(l10n(context).commonCancel),
         ),
         FilledButton(
           onPressed: () => Navigator.pop(context, _toRgb(_color)),
-          child: const Text('Save'),
+          child: Text(l10n(context).commonSave),
         ),
       ],
     );

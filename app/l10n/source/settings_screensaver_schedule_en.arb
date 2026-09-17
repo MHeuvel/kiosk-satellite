@@ -1,0 +1,626 @@
+{
+  "@@locale": "en",
+  "settingScreensaverScheduleEnabledTitle": "Enable scheduled screensavers",
+  "@settingScreensaverScheduleEnabledTitle": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "settingScreensaverScheduleEnabledDescription": "Switch to a different screensaver at set times of day.",
+  "@settingScreensaverScheduleEnabledDescription": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "settingScreensaverScheduleTitle": "Times",
+  "@settingScreensaverScheduleTitle": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "settingScreensaverScheduleDescription": "Each time switches the screensaver from then on.",
+  "@settingScreensaverScheduleDescription": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverScheduleSection": "Scheduled Screensavers",
+  "@screensaverScheduleSection": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverTime": "Time",
+  "@screensaverTime": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverAddTime": "Add time",
+  "@screensaverAddTime": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverRemoveTime": "Remove time",
+  "@screensaverRemoveTime": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverNoTimes": "No times yet",
+  "@screensaverNoTimes": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverTimeHelp": "A screensaver from that time on.",
+  "@screensaverTimeHelp": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverPickTime": "Pick a time.",
+  "@screensaverPickTime": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverDefault": "Default",
+  "@screensaverDefault": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverOn": "On",
+  "@screensaverOn": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverOff": "Off",
+  "@screensaverOff": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverBrightness": "Brightness",
+  "@screensaverBrightness": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverBrightnessFollow": "Follows the Screensaver brightness setting.",
+  "@screensaverBrightnessFollow": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverBrightnessExceptBlack": "Applies to every mode except Black.",
+  "@screensaverBrightnessExceptBlack": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverScreenOffFollow": "Follows the Turn screen off after setting.",
+  "@screensaverScreenOffFollow": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverScreenOnHours": "Keeps the screen on during these hours.",
+  "@screensaverScreenOnHours": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverScreenOffHelp": "Powers down the display once the screensaver has run this long. Requires Device Administrator permission.",
+  "@screensaverScreenOffHelp": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverScreenOffNever": "Screen off never",
+  "@screensaverScreenOffNever": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverMotion": "Dismiss on motion",
+  "@screensaverMotion": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverFace": "Dismiss on face",
+  "@screensaverFace": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverProximity": "Dismiss on proximity",
+  "@screensaverProximity": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverPerson": "Dismiss on person",
+  "@screensaverPerson": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverWidgets": "Widgets",
+  "@screensaverWidgets": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverGlance": "At a glance",
+  "@screensaverGlance": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverNowPlaying": "Show Now Playing next to the screensaver",
+  "@screensaverNowPlaying": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverNowPlayingHelp": "Default follows the global layout. On uses a shared layout when Now Playing is enabled. Off hides Now Playing during these hours.",
+  "@screensaverNowPlayingHelp": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverCameraRequired": "Requires the camera. Turn it on in the Camera settings first.",
+  "@screensaverCameraRequired": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverNotAvailable": "Not available on this device.",
+  "@screensaverNotAvailable": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverSummaryMotionOn": "Motion on",
+  "@screensaverSummaryMotionOn": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Summary of an explicit schedule override.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverSummaryMotionOff": "Motion off",
+  "@screensaverSummaryMotionOff": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Summary of an explicit schedule override.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverSummaryFaceOn": "Face on",
+  "@screensaverSummaryFaceOn": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Summary of an explicit schedule override.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverSummaryFaceOff": "Face off",
+  "@screensaverSummaryFaceOff": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Summary of an explicit schedule override.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverSummaryProximityOn": "Proximity on",
+  "@screensaverSummaryProximityOn": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Summary of an explicit schedule override.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverSummaryProximityOff": "Proximity off",
+  "@screensaverSummaryProximityOff": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Summary of an explicit schedule override.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverSummaryPersonOn": "Person on",
+  "@screensaverSummaryPersonOn": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Summary of an explicit schedule override.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverSummaryPersonOff": "Person off",
+  "@screensaverSummaryPersonOff": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Summary of an explicit schedule override.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverSummaryWidgetsOn": "Widgets on",
+  "@screensaverSummaryWidgetsOn": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Summary of an explicit schedule override.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverSummaryWidgetsOff": "Widgets off",
+  "@screensaverSummaryWidgetsOff": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Summary of an explicit schedule override.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverSummaryGlanceOn": "At a glance on",
+  "@screensaverSummaryGlanceOn": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Summary of an explicit schedule override.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverSummaryGlanceOff": "At a glance off",
+  "@screensaverSummaryGlanceOff": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Summary of an explicit schedule override.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverSummaryNowPlayingOn": "Now Playing on",
+  "@screensaverSummaryNowPlayingOn": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Summary of an explicit schedule override.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverSummaryNowPlayingOff": "Now Playing off",
+  "@screensaverSummaryNowPlayingOff": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Summary of an explicit schedule override.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    }
+  },
+  "screensaverBrightnessPercent": "{percent}% brightness",
+  "@screensaverBrightnessPercent": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Schedule brightness summary.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    },
+    "placeholders": {
+      "percent": {
+        "type": "String",
+        "description": "Brightness percentage."
+      }
+    }
+  },
+  "screensaverScreenOffAfter": "Screen off after {minutes} min",
+  "@screensaverScreenOffAfter": {
+    "context": "Settings:Screensaver:Scheduled Screensavers",
+    "description": "Schedule screen-off summary.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Scheduled Screensavers"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Scheduled Screensavers"
+      ]
+    },
+    "placeholders": {
+      "minutes": {
+        "type": "String",
+        "description": "Whole minutes."
+      }
+    }
+  }
+}

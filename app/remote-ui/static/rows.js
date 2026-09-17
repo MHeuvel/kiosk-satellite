@@ -1,4 +1,4 @@
-import { deviceText, haText, t } from './localization.js';
+import { deviceText, haText, screensaverText, screensaverError, t } from './localization.js';
 import { watchUpdates } from './live.js';
 import {
   GLANCE_MAX,
@@ -121,7 +121,7 @@ function showRowError(row, message, onRetry) {
     el.className = 'row-error';
     row.appendChild(el);
   }
-  el.textContent = haText(deviceText(message));
+  el.textContent = screensaverError(haText(deviceText(message)));
   if (onRetry) {
     const retry = document.createElement('button');
     retry.className = 'btn-ghost';
@@ -467,7 +467,7 @@ export function settingRow(s) {
     const modeDef = (state.settings || []).find((x) => x.key === 'screensaver.mode');
     const modes = (modeDef && modeDef.options) || [];
     const labels = (modeDef && modeDef.optionLabels) || {};
-    const label = (m) => labels[m] || (m?.startsWith('plugin:') ? 'Unavailable plugin screensaver' : (m ? m[0].toUpperCase() + m.slice(1) : m));
+    const label = (m) => labels[m] || (m?.startsWith('plugin:') ? screensaverText('Unavailable plugin screensaver') : (m ? m[0].toUpperCase() + m.slice(1) : m));
 
     // Real siblings, not a wrapper: the card's dividers are drawn between
     // adjacent .row elements (see the glance editor above).
@@ -510,13 +510,13 @@ export function settingRow(s) {
       timeWrap.className = 'form-field';
       const timeTitle = document.createElement('span');
       timeTitle.className = 'desc';
-      timeTitle.textContent = 'Time';
-      const time = timeBox({ title: 'Time', value: start.at || '19:00',
+      timeTitle.textContent = screensaverText('Time');
+      const time = timeBox({ title: screensaverText('Time'), value: start.at || '19:00',
         full: true, onPick: () => {} });
       timeWrap.append(timeTitle, time.el);
 
       const choices = [...new Set([...modes, ...(start.mode?.startsWith('plugin:') ? [start.mode] : [])])];
-      const modeSel = cameraSelectField('Screensaver',
+      const modeSel = cameraSelectField(screensaverText('Screensaver'),
         choices.map((m) => ({ value: m, label: label(m) })),
         choices.includes(start.mode) ? start.mode : ((modeDef && modeDef.value) || 'clock'));
 
@@ -526,14 +526,14 @@ export function settingRow(s) {
       // adaptive brightness); on, the slider below is this entry's own
       // level.
       const hasLevel = typeof start.brightness === 'number';
-      const brightOn = cameraToggle('Screensaver brightness', hasLevel,
-        hasLevel ? 'Applies to every mode except Black.'
-          : 'Follows the Screensaver brightness setting.');
+      const brightOn = cameraToggle(screensaverText('Screensaver brightness'), hasLevel,
+        hasLevel ? screensaverText('Applies to every mode except Black.')
+          : screensaverText('Follows the Screensaver brightness setting.'));
       const brightWrap = document.createElement('label');
       brightWrap.className = 'form-field';
       const brightTitle = document.createElement('span');
       brightTitle.className = 'desc';
-      brightTitle.textContent = 'Brightness';
+      brightTitle.textContent = screensaverText('Brightness');
       const brightLine = document.createElement('div');
       brightLine.style.cssText = 'display:flex; align-items:center; gap:10px;';
       const rng = document.createElement('input');
@@ -554,8 +554,8 @@ export function settingRow(s) {
       brightOn.input.addEventListener('change', () => {
         brightWrap.style.display = brightOn.input.checked ? '' : 'none';
         brightOn.wrap.querySelector('.desc').textContent = brightOn.input.checked
-          ? 'Applies to every mode except Black.'
-          : 'Follows the Screensaver brightness setting.';
+          ? screensaverText('Applies to every mode except Black.')
+          : screensaverText('Follows the Screensaver brightness setting.');
       });
 
       // The same slider as the main screensaver page, behind a switch:
@@ -567,18 +567,18 @@ export function settingRow(s) {
         ? screenOffDef.value : 0;
       const hasOff = typeof start.screen_off === 'number';
       const offDesc = (on, minutes) => !on
-        ? 'Follows the Turn screen off after setting.'
+        ? screensaverText('Follows the Turn screen off after setting.')
         : minutes === 0
-          ? 'Keeps the screen on during these hours.'
-          : 'Powers down the display once the screensaver has run this '
-            + 'long. Requires Device Administrator permission.';
-      const offOn = cameraToggle('Turn screen off after', hasOff,
+          ? screensaverText('Keeps the screen on during these hours.')
+          : screensaverText('Powers down the display once the screensaver has run this '
+            + 'long. Requires Device Administrator permission.');
+      const offOn = cameraToggle(screensaverText('Turn screen off after'), hasOff,
         offDesc(hasOff, hasOff ? start.screen_off : 0));
       const offWrap = document.createElement('label');
       offWrap.className = 'form-field';
       const offTitle = document.createElement('span');
       offTitle.className = 'desc';
-      offTitle.textContent = 'Turn screen off after';
+      offTitle.textContent = screensaverText('Turn screen off after');
       const offLine = document.createElement('div');
       offLine.style.cssText = 'display:flex; align-items:center; gap:10px;';
       const offRng = document.createElement('input');
@@ -590,7 +590,7 @@ export function settingRow(s) {
       offLabel.className = 'device';
       offLabel.style.cssText = 'width:52px; text-align:right; flex-shrink:0;';
       const offPaint = () => {
-        offLabel.textContent = +offRng.value === 0 ? 'Never' : offRng.value + ' min';
+        offLabel.textContent = +offRng.value === 0 ? screensaverText('Never') : t('haMinutes', {minutes: offRng.value});
         offOn.wrap.querySelector('.desc').textContent =
           offDesc(offOn.input.checked, +offRng.value);
       };
@@ -602,11 +602,11 @@ export function settingRow(s) {
         const next = +offRng.value;
         if (offBefore === 0 && next > 0) {
           const pick = await messageBox({
-            title: 'WARNING: Please Read!',
-            message: SCREEN_OFF_WARNING,
-            buttons: ['Cancel', 'Turn screen off anyway'],
+            title: screensaverText('WARNING: Please Read!'),
+            message: screensaverText(SCREEN_OFF_WARNING),
+            buttons: [screensaverText('Cancel'), screensaverText('Turn screen off anyway')],
           });
-          if (pick === 'Cancel') { offRng.value = '0'; offPaint(); return; }
+          if (pick === screensaverText('Cancel')) { offRng.value = '0'; offPaint(); return; }
         }
         offBefore = next;
       });
@@ -624,53 +624,53 @@ export function settingRow(s) {
       // setting outside the schedule, On and Off decide it for this entry's
       // hours.
       const overrideField = (title, value) => cameraSelectField(title,
-        [{ value: '', label: 'Default' }, { value: 'on', label: 'On' },
-          { value: 'off', label: 'Off' }],
+        [{ value: '', label: screensaverText('Default') }, { value: 'on', label: screensaverText('On') },
+          { value: 'off', label: screensaverText('Off') }],
         (typeof value === 'boolean') ? (value ? 'on' : 'off') : '');
       // No camera means no motion detection to override, same as the
       // Dismiss on motion switch.
       const camOn = ((state.settings || []).find((x) => x.key === 'camera.enabled') || {}).value === true
         && state.cameraPresent !== false;
-      const motion = overrideField('Dismiss on motion', start.motion);
+      const motion = overrideField(screensaverText('Dismiss on motion'), start.motion);
       motion.select.disabled = !camOn;
       if (!camOn) {
         motion.select.title =
-          'Requires the camera. Turn it on in the Camera settings first.';
+          screensaverText('Requires the camera. Turn it on in the Camera settings first.');
       }
       // Motion keeps precedence inside an entry too: On here with motion
       // On above still wakes on motion.
-      const face = overrideField('Dismiss on face', start.face);
+      const face = overrideField(screensaverText('Dismiss on face'), start.face);
       const faceOk = camOn
         && !(state.visionSupport && state.visionSupport.faces === false);
       face.select.disabled = !faceOk;
       if (!camOn) {
         face.select.title =
-          'Requires the camera. Turn it on in the Camera settings first.';
+          screensaverText('Requires the camera. Turn it on in the Camera settings first.');
       } else if (!faceOk) {
         face.select.title =
-          state.visionSupport.hint || 'Not available on this device.';
+          state.visionSupport.hint || screensaverText('Not available on this device.');
       }
       // The proximity override is offered wherever the sensor is not
       // known to be missing (never disabled on a guess, like the switch),
       // and the person override only where the Person Detection page
       // exists at all (a Portal's sensor, hidden everywhere else).
-      const proximity = overrideField('Dismiss on proximity', start.proximity);
+      const proximity = overrideField(screensaverText('Dismiss on proximity'), start.proximity);
       const prox = state.proximitySupport;
       if (prox && prox.supported === false) {
         proximity.select.disabled = true;
-        proximity.select.title = prox.hint || 'Not available on this device.';
+        proximity.select.title = prox.hint || screensaverText('Not available on this device.');
       }
       const personDef = (state.settings || [])
         .find((x) => x.key === 'screensaver.dismiss_on_person');
       const personShown = !!personDef && !personDef.hidden;
-      const person = overrideField('Dismiss on person', start.person);
-      const widgets = overrideField('Widgets', start.widgets);
-      const glance = overrideField('At a glance', start.glance);
-      const nowPlaying = overrideField('Show Now Playing next to the screensaver', start.now_playing);
+      const person = overrideField(screensaverText('Dismiss on person'), start.person);
+      const widgets = overrideField(screensaverText('Widgets'), start.widgets);
+      const glance = overrideField(screensaverText('At a glance'), start.glance);
+      const nowPlaying = overrideField(screensaverText('Show Now Playing next to the screensaver'), start.now_playing);
       const nowPlayingHint = document.createElement('span');
       nowPlayingHint.className = 'desc';
-      nowPlayingHint.textContent = 'Default follows the global layout. On uses a '
-        + 'shared layout when Now Playing is enabled. Off hides Now Playing during these hours.';
+      nowPlayingHint.textContent = screensaverText('Default follows the global layout. On uses a '
+        + 'shared layout when Now Playing is enabled. Off hides Now Playing during these hours.');
       nowPlaying.wrap.append(nowPlayingHint);
 
       body.append(timeWrap, modeSel.wrap, brightOn.wrap, brightWrap,
@@ -679,11 +679,11 @@ export function settingRow(s) {
       body.append(widgets.wrap, glance.wrap, nowPlaying.wrap);
 
       return cameraEditor({
-        title: existing ? String(start.at) : 'Add time',
+        title: existing ? String(start.at) : screensaverText('Add time'),
         width: 460,
         body,
         save: async () => {
-          if (!time.value) return { ok: false, error: 'Pick a time.' };
+          if (!time.value) return { ok: false, error: screensaverText('Pick a time.') };
           const entry = {
             at: time.value,
             mode: modeSel.select.value,
@@ -710,32 +710,32 @@ export function settingRow(s) {
     const summary = (e) => {
       const parts = [label(e.mode)];
       if (typeof e.brightness === 'number') {
-        parts.push(Math.round(e.brightness * 100) + '% brightness');
+        parts.push(t('screensaverBrightnessPercent', {percent: String(Math.round(e.brightness * 100))}));
       }
       if (typeof e.motion === 'boolean') {
-        parts.push('Motion ' + (e.motion ? 'on' : 'off'));
+        parts.push(t(e.motion ? 'screensaverSummaryMotionOn' : 'screensaverSummaryMotionOff'));
       }
       if (typeof e.face === 'boolean') {
-        parts.push('Face ' + (e.face ? 'on' : 'off'));
+        parts.push(t(e.face ? 'screensaverSummaryFaceOn' : 'screensaverSummaryFaceOff'));
       }
       if (typeof e.proximity === 'boolean') {
-        parts.push('Proximity ' + (e.proximity ? 'on' : 'off'));
+        parts.push(t(e.proximity ? 'screensaverSummaryProximityOn' : 'screensaverSummaryProximityOff'));
       }
       if (typeof e.person === 'boolean') {
-        parts.push('Person ' + (e.person ? 'on' : 'off'));
+        parts.push(t(e.person ? 'screensaverSummaryPersonOn' : 'screensaverSummaryPersonOff'));
       }
       if (typeof e.widgets === 'boolean') {
-        parts.push('Widgets ' + (e.widgets ? 'on' : 'off'));
+        parts.push(t(e.widgets ? 'screensaverSummaryWidgetsOn' : 'screensaverSummaryWidgetsOff'));
       }
       if (typeof e.glance === 'boolean') {
-        parts.push('At a glance ' + (e.glance ? 'on' : 'off'));
+        parts.push(t(e.glance ? 'screensaverSummaryGlanceOn' : 'screensaverSummaryGlanceOff'));
       }
       if (typeof e.now_playing === 'boolean') {
-        parts.push('Now Playing ' + (e.now_playing ? 'on' : 'off'));
+        parts.push(t(e.now_playing ? 'screensaverSummaryNowPlayingOn' : 'screensaverSummaryNowPlayingOff'));
       }
       if (typeof e.screen_off === 'number') {
-        parts.push(e.screen_off <= 0 ? 'Screen off never'
-          : 'Screen off after ' + Math.round(e.screen_off) + ' min');
+        parts.push(e.screen_off <= 0 ? screensaverText('Screen off never')
+          : t('screensaverScreenOffAfter', {minutes: String(Math.round(e.screen_off))}));
       }
       return parts.join(' · ');
     };
@@ -743,7 +743,7 @@ export function settingRow(s) {
     const entryRow = (e) => cameraListRow(
       String(e.at), summary(e),
       [
-        cameraAction('Delete', () => {
+        cameraAction(screensaverText('Delete'), () => {
           entries = entries.filter((o) => o !== e);
           persist();
         }, false, 'delete'),
@@ -753,8 +753,8 @@ export function settingRow(s) {
 
     // The add row is the last row of the card, the whole row the button,
     // mirrored on the device.
-    const addRow = () => cameraListRow('Add time',
-      'A screensaver from that time on.', [],
+    const addRow = () => cameraListRow(screensaverText('Add time'),
+      screensaverText('A screensaver from that time on.'), [],
       { icon: 'add', onClick: () => editEntry(null) });
 
     const repaint = () => {
@@ -1448,11 +1448,11 @@ export function settingRow(s) {
       if (s.key === 'screensaver.screen_off_minutes' &&
           Number(s.value || 0) === 0 && next > 0) {
         const pick = await messageBox({
-          title: 'WARNING: Please Read!',
-          message: SCREEN_OFF_WARNING,
-          buttons: ['Cancel', 'Turn screen off anyway'],
+          title: screensaverText('WARNING: Please Read!'),
+          message: screensaverText(SCREEN_OFF_WARNING),
+          buttons: [screensaverText('Cancel'), screensaverText('Turn screen off anyway')],
         });
-        if (pick === 'Cancel') {
+        if (pick === screensaverText('Cancel')) {
           slider.set(0);
           return;
         }

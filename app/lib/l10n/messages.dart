@@ -6,6 +6,7 @@ import 'generated/message_lookup.dart';
 import 'generated/navigation_ids.dart';
 import 'generated/device_text_ids.dart';
 import 'generated/ha_text_ids.dart';
+import 'generated/screensaver_text_ids.dart';
 import 'generated/screen_audio_text_ids.dart';
 import 'generated/setting_option_ids.dart';
 import 'generated/ui_strings.dart';
@@ -65,6 +66,17 @@ String haText(BuildContext context, String english) =>
 String screenAudioText(BuildContext context, String english) =>
     messageById(l10n(context), screenAudioTextMessageIds[english], english);
 
+/// Resolve fixed screensaver wording without translating supplied values.
+String screensaverText(BuildContext context, String english) =>
+    messageById(l10n(context), screensaverTextMessageIds[english], english);
+
+String screensaverError(BuildContext context, String error) {
+  final match = RegExp(r'^Use at most ([0-9]+) characters$').firstMatch(error);
+  return match == null
+      ? screensaverText(context, error)
+      : l10n(context).screensaverMaxCharacters(match[1]!);
+}
+
 String settingsPageText(
   BuildContext context,
   String category,
@@ -73,6 +85,7 @@ String settingsPageText(
   'Device' => deviceText(context, english),
   'Home Assistant' => haText(context, english),
   'Screen & Audio' => screenAudioText(context, english),
+  'Screensaver' => screensaverText(context, english),
   _ => english,
 };
 
@@ -105,3 +118,16 @@ String localizedRemoteReason(BuildContext context, String reason) {
       ? deviceText(context, reason)
       : l10n(context).devicePortError(match[1]!, match[2]!);
 }
+
+String commonColorName(BuildContext context, String english) =>
+    switch (english) {
+      'White' => l10n(context).commonColorWhite,
+      'Warm' => l10n(context).commonColorWarm,
+      'Amber' => l10n(context).commonColorAmber,
+      'Red' => l10n(context).commonColorRed,
+      'Green' => l10n(context).commonColorGreen,
+      'Blue' => l10n(context).commonColorBlue,
+      'Cyan' => l10n(context).commonColorCyan,
+      'Dim' => l10n(context).commonColorDim,
+      _ => english,
+    };

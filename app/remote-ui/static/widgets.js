@@ -1,4 +1,4 @@
-import { deviceText } from './localization.js';
+import { deviceText, t } from './localization.js';
 import { cmd } from './core.js';
 
 /* ---- Dashboard ---- */
@@ -365,8 +365,8 @@ export function pickTime({ title, value }) {
       const lab = document.createElement('div');
       lab.className = 'time-label';
       lab.textContent = label;
-      col.append(chevronButton('up', 'Up', () => step(delta)), inp,
-        chevronButton('down', 'Down', () => step(-delta)), lab);
+      col.append(chevronButton('up', t('commonUp'), () => step(delta)), inp,
+        chevronButton('down', t('commonDown'), () => step(-delta)), lab);
       return { col, inp, read, check };
     };
     const colon = document.createElement('div');
@@ -374,13 +374,13 @@ export function pickTime({ title, value }) {
     colon.textContent = ':';
     const cancel = document.createElement('button');
     cancel.className = 'btn-text';
-    cancel.textContent = 'Cancel';
+    cancel.textContent = t('commonCancel');
     cancel.addEventListener('click', () => { back.remove(); resolve(null); });
     const setBtn = document.createElement('button');
     setBtn.className = 'btn-primary';
-    setBtn.textContent = 'Set';
-    const hour = column('Hour', Number.isInteger(h0) ? Math.min(23, Math.max(0, h0)) : 0, 23, 1);
-    const minute = column('Minute', Number.isInteger(m0) ? Math.min(59, Math.max(0, m0)) : 0, 59, 5);
+    setBtn.textContent = t('commonSet');
+    const hour = column(t('commonHour'), Number.isInteger(h0) ? Math.min(23, Math.max(0, h0)) : 0, 23, 1);
+    const minute = column(t('commonMinute'), Number.isInteger(m0) ? Math.min(59, Math.max(0, m0)) : 0, 59, 5);
     setBtn.addEventListener('click', () => {
       const h = hour.read();
       const m = minute.read();
@@ -639,6 +639,7 @@ export function swatch(rgb, title, onPick) {
 // The color picker, the device's dialog drawn here: a live preview with
 // the RGB values on it, three channel sliders tinted R, G and B, then the
 // 8 presets as 34 swatches. Resolves to "r,g,b", or null when cancelled.
+const colorIds = {"White": "commonColorWhite", "Warm": "commonColorWarm", "Amber": "commonColorAmber", "Red": "commonColorRed", "Green": "commonColorGreen", "Blue": "commonColorBlue", "Cyan": "commonColorCyan", "Dim": "commonColorDim"};
 export function pickColor({ title, rgb }) {
   return new Promise((resolve) => {
     const color = parseRgb(rgb);
@@ -688,8 +689,8 @@ export function pickColor({ title, rgb }) {
       const b = document.createElement('button');
       b.type = 'button';
       b.className = 'swatch';
-      b.title = name;
-      b.setAttribute('aria-label', name);
+      b.title = t(colorIds[name], {}, name);
+      b.setAttribute('aria-label', t(colorIds[name], {}, name));
       b.style.background = hex;
       b.addEventListener('click', () => {
         hexToRgb(hex).forEach((n, i) => { color[i] = n; });
@@ -701,11 +702,11 @@ export function pickColor({ title, rgb }) {
     paint();
     const cancel = document.createElement('button');
     cancel.className = 'btn-text';
-    cancel.textContent = 'Cancel';
+    cancel.textContent = t('commonCancel');
     cancel.addEventListener('click', () => { back.remove(); resolve(null); });
     const save = document.createElement('button');
     save.className = 'btn-primary';
-    save.textContent = 'Save';
+    save.textContent = t('commonSave');
     save.addEventListener('click', () => { back.remove(); resolve(color.join(',')); });
     foot.append(cancel, save);
   });

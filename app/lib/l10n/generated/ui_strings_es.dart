@@ -66,6 +66,57 @@ class UiStringsEs extends UiStrings {
   String get commonClose => 'Cerrar';
 
   @override
+  String get commonClear => 'Clear';
+
+  @override
+  String get commonBrowse => 'Browse';
+
+  @override
+  String get commonSet => 'Set';
+
+  @override
+  String get commonHour => 'Hour';
+
+  @override
+  String get commonMinute => 'Minute';
+
+  @override
+  String get commonUp => 'Up';
+
+  @override
+  String get commonDown => 'Down';
+
+  @override
+  String get commonDelete => 'Delete';
+
+  @override
+  String get commonSaveFailed => 'Could not save';
+
+  @override
+  String get commonColorWhite => 'White';
+
+  @override
+  String get commonColorWarm => 'Warm';
+
+  @override
+  String get commonColorAmber => 'Amber';
+
+  @override
+  String get commonColorRed => 'Red';
+
+  @override
+  String get commonColorGreen => 'Green';
+
+  @override
+  String get commonColorBlue => 'Blue';
+
+  @override
+  String get commonColorCyan => 'Cyan';
+
+  @override
+  String get commonColorDim => 'Dim';
+
+  @override
   String drawerPluginAction(String pluginName, String actionTitle) {
     return '$pluginName: $actionTitle';
   }
@@ -2294,6 +2345,542 @@ class UiStringsEs extends UiStrings {
   @override
   String get screenAudioMasterHelp =>
       'Volumen del dispositivo. Los volúmenes multimedia, del intercomunicador y del asistente se ajustan en proporción a este.';
+
+  @override
+  String get settingScreensaverBlackHideExtrasTitle => 'Hide all extras';
+
+  @override
+  String get settingScreensaverBlackHideExtrasDescription =>
+      'Keeps the screen fully black: no small clock, At a Glance entities, or other overlays.';
+
+  @override
+  String get screensaverBlackSection => 'Black screensaver';
+
+  @override
+  String get settingScreensaverClockStyleTitle => 'Style';
+
+  @override
+  String get settingScreensaverClockStyleDescription =>
+      'How the clock is drawn.';
+
+  @override
+  String get settingScreensaverClockFontTitle => 'Font Family';
+
+  @override
+  String get settingScreensaverClockFontDescription =>
+      'The typeface the clock is drawn in.';
+
+  @override
+  String get settingScreensaverClockFontWeightTitle => 'Font weight';
+
+  @override
+  String get settingScreensaverClockFontWeightDescription =>
+      'How heavy the clock\'s digits are drawn. Default is each face\'s own weight.';
+
+  @override
+  String get settingScreensaverClock24hTitle => '24-hour clock';
+
+  @override
+  String get settingScreensaverClock24hDescription =>
+      'Show a 24-hour time instead of AM/PM.';
+
+  @override
+  String get settingScreensaverClockSecondsTitle => 'Show seconds';
+
+  @override
+  String get settingScreensaverClockSecondsDescription =>
+      'Include seconds in the clock.';
+
+  @override
+  String get settingScreensaverClockDateTitle => 'Show date';
+
+  @override
+  String get settingScreensaverClockDateDescription =>
+      'Show the weekday and date under the clock.';
+
+  @override
+  String get settingScreensaverClockScaleTitle => 'Clock size';
+
+  @override
+  String get settingScreensaverClockScaleDescription =>
+      'Scale the clock from 50 to 300 percent for this screen.';
+
+  @override
+  String get settingScreensaverClockColorTitle => 'Clock color';
+
+  @override
+  String get settingScreensaverClockColorDescription =>
+      'The color of the clock text.';
+
+  @override
+  String get settingScreensaverClockBgColorTitle => 'Background color';
+
+  @override
+  String get settingScreensaverClockBgColorDescription =>
+      'The color behind the clock.';
+
+  @override
+  String get settingScreensaverClockBackgroundTitle => 'Background photo';
+
+  @override
+  String get settingScreensaverClockBackgroundDescription =>
+      'Show a photo behind the clock instead of the solid color. A path to an image on the device, or an image URL the device fetches.';
+
+  @override
+  String get settingScreensaverClockBackgroundRefreshTitle =>
+      'Refresh URL background';
+
+  @override
+  String get settingScreensaverClockBackgroundRefreshDescription =>
+      'Minutes between fetches of a URL background. 0 fetches it only when the setting is written.';
+
+  @override
+  String get settingScreensaverFlipDigitColorTitle => 'Digit color';
+
+  @override
+  String get settingScreensaverFlipDigitColorDescription =>
+      'The color of the flip digits.';
+
+  @override
+  String get settingScreensaverFlipBgColorTitle => 'Card color';
+
+  @override
+  String get settingScreensaverFlipBgColorDescription =>
+      'The color of the cards.';
+
+  @override
+  String get settingScreensaverFlipBackdropColorTitle => 'Background color';
+
+  @override
+  String get settingScreensaverFlipBackdropColorDescription =>
+      'The color behind the cards.';
+
+  @override
+  String get settingScreensaverRollerDigitColorTitle => 'Digit color';
+
+  @override
+  String get settingScreensaverRollerDigitColorDescription =>
+      'The color of the rolling digits.';
+
+  @override
+  String get settingScreensaverRollerBgColorTitle => 'Background color';
+
+  @override
+  String get settingScreensaverRollerBgColorDescription =>
+      'The color behind the digits.';
+
+  @override
+  String get settingScreensaverClockNightTitle => 'Night mode';
+
+  @override
+  String get settingScreensaverClockNightDescription =>
+      'Recolor the clock while the room is dark.';
+
+  @override
+  String get settingScreensaverClockNightLuxTitle => 'Light level';
+
+  @override
+  String get settingScreensaverClockNightLuxDescription =>
+      'At or below this light level the clock takes the night color.';
+
+  @override
+  String get settingScreensaverClockNightColorTitle => 'Night color';
+
+  @override
+  String get settingScreensaverClockNightColorDescription =>
+      'The color of the clock and the widgets in the dark.';
+
+  @override
+  String get settingScreensaverClockNightBgColorTitle => 'Night background';
+
+  @override
+  String get settingScreensaverClockNightBgColorDescription =>
+      'The color behind the clock in the dark.';
+
+  @override
+  String get settingScreensaverClockNightHideBackgroundTitle =>
+      'Hide background photo';
+
+  @override
+  String get settingScreensaverClockNightHideBackgroundDescription =>
+      'Use the night background color instead of the photo while Night mode is active.';
+
+  @override
+  String get settingScreensaverClockNightCardColorTitle => 'Night card color';
+
+  @override
+  String get settingScreensaverClockNightCardColorDescription =>
+      'The color of the flip cards in the dark.';
+
+  @override
+  String get screensaverClockSection => 'Clock screensaver';
+
+  @override
+  String get screensaverClockHint =>
+      'Style, font, size, colors, night mode, background photo';
+
+  @override
+  String get screensaverStyleDigital => 'Digital Clock';
+
+  @override
+  String get screensaverStyleFlip => 'Flip Clock';
+
+  @override
+  String get screensaverStyleRoller => 'Roller Clock';
+
+  @override
+  String get screensaverFontDefault => 'Default';
+
+  @override
+  String get screensaverFontLight => 'Light';
+
+  @override
+  String get screensaverFontRegular => 'Regular';
+
+  @override
+  String get screensaverFontMedium => 'Medium';
+
+  @override
+  String get screensaverFontBold => 'Bold';
+
+  @override
+  String get screensaverFontBlack => 'Black';
+
+  @override
+  String get screensaverNoPhoto => 'No photo selected';
+
+  @override
+  String get screensaverBackgroundHint =>
+      'Path to an image on the device, or an image URL';
+
+  @override
+  String get screensaverImageUrlError => 'Enter a full image URL';
+
+  @override
+  String get screensaverRefreshError => 'Enter whole minutes from 0 to 1440';
+
+  @override
+  String screensaverMaxCharacters(String count) {
+    return 'Use at most $count characters';
+  }
+
+  @override
+  String get settingScreensaverEnabledTitle => 'Screensaver';
+
+  @override
+  String get settingScreensaverEnabledDescription =>
+      'Dim or blank the screen after a period of inactivity.';
+
+  @override
+  String get settingScreensaverTimeoutSecondsTitle => 'Idle timeout (seconds)';
+
+  @override
+  String get settingScreensaverTimeoutSecondsDescription =>
+      'Inactivity period before the screensaver starts.';
+
+  @override
+  String get settingScreensaverModeTitle => 'Screensaver mode';
+
+  @override
+  String get settingScreensaverModeDescription =>
+      'What the screensaver shows after the idle timeout. Dim only lowers the backlight and leaves the dashboard on screen.';
+
+  @override
+  String get settingScreensaverPixelShiftTitle => 'Pixel shift';
+
+  @override
+  String get settingScreensaverPixelShiftDescription =>
+      'Nudge the image every minute to protect OLED panels. Not for the black screensaver, whose pixels are already off.';
+
+  @override
+  String get settingScreensaverMenuTitle => 'Show in the kiosk menu';
+
+  @override
+  String get settingScreensaverMenuDescription =>
+      'Add a Start Screensaver entry to the kiosk menu.';
+
+  @override
+  String get settingScreensaverDimLevelTitle => 'Dim level';
+
+  @override
+  String get settingScreensaverDimLevelDescription =>
+      'Screen brightness while the screensaver is dimming.';
+
+  @override
+  String get settingScreensaverBrightnessEnabledTitle =>
+      'Screensaver brightness';
+
+  @override
+  String get settingScreensaverBrightnessEnabledDescription =>
+      'Use a separate brightness while the screensaver is showing.';
+
+  @override
+  String get settingScreensaverBrightnessLevelTitle => 'Brightness level';
+
+  @override
+  String get settingScreensaverBrightnessLevelDescription =>
+      'Applies to every mode except Dim and Black.';
+
+  @override
+  String get settingScreensaverNotificationBrightnessTitle =>
+      'Brighten for notifications';
+
+  @override
+  String get settingScreensaverNotificationBrightnessDescription =>
+      'Lift the screensaver dimming while a notification is on screen.';
+
+  @override
+  String get settingScreensaverScreenOffMinutesTitle => 'Turn screen off after';
+
+  @override
+  String get settingScreensaverScreenOffMinutesDescription =>
+      'Powers down the display panel once the screensaver has run for the set duration. Set to 0 to keep the screen on indefinitely. Requires Device Administrator permission.';
+
+  @override
+  String get settingScreensaverScreenOffWakeToScreensaverTitle =>
+      'Wake to screensaver';
+
+  @override
+  String get settingScreensaverScreenOffWakeToScreensaverDescription =>
+      'Motion, face, proximity or person detection after the screen has turned off brings the screensaver back instead of the dashboard, with a fresh Turn screen off after countdown. Touch still opens the dashboard.';
+
+  @override
+  String get screensaverModeDim => 'Dim';
+
+  @override
+  String get screensaverModeBlack => 'Black';
+
+  @override
+  String get screensaverModeClock => 'Clock';
+
+  @override
+  String get screensaverModeMedia => 'Home Assistant Media';
+
+  @override
+  String get screensaverModeLocal => 'Local Media';
+
+  @override
+  String get screensaverModeGallery => 'Photo Gallery';
+
+  @override
+  String get screensaverModeImmich => 'Immich Media';
+
+  @override
+  String get screensaverModeWebsite => 'Website';
+
+  @override
+  String get screensaverModeCamera => 'Camera Streams';
+
+  @override
+  String get screensaverDimSection => 'Dim screensaver';
+
+  @override
+  String get screensaverWarningTitle => 'WARNING: Please Read!';
+
+  @override
+  String get screensaverScreenOffProceed => 'Turn screen off anyway';
+
+  @override
+  String get screensaverAdminMissing =>
+      'Not granted, so the screen cannot turn off.';
+
+  @override
+  String get screensaverAdminMissingRemote => 'Device admin permission missing';
+
+  @override
+  String get screensaverAdminMissingRemoteHelp =>
+      'Without it the screen cannot be turned off. The grant dialog appears on the tablet screen.';
+
+  @override
+  String get screensaverDimWarning =>
+      'WARNING: Dim keeps the dashboard visible, so the \"Pause dashboard during screensaver\" optimization will not be applied and the dashboard keeps using CPU, GPU and battery.';
+
+  @override
+  String get screensaverUnavailablePlugin => 'Unavailable plugin screensaver';
+
+  @override
+  String get screensaverScreenOffWarning =>
+      'Once the display truly powers off, the tablet\'s own power management takes over, and many Android models misbehave in that state: Wi-Fi naps or drops, the Home Assistant entities go unavailable, the camera can be revoked, and some models kill background apps outright. What happens depends on the manufacturer.\n\nThe reliable alternative is the Black screensaver with this setting left at 0: the panel looks just as dark, and the app keeps full control.';
+
+  @override
+  String get settingScreensaverScheduleEnabledTitle =>
+      'Enable scheduled screensavers';
+
+  @override
+  String get settingScreensaverScheduleEnabledDescription =>
+      'Switch to a different screensaver at set times of day.';
+
+  @override
+  String get settingScreensaverScheduleTitle => 'Times';
+
+  @override
+  String get settingScreensaverScheduleDescription =>
+      'Each time switches the screensaver from then on.';
+
+  @override
+  String get screensaverScheduleSection => 'Scheduled Screensavers';
+
+  @override
+  String get screensaverTime => 'Time';
+
+  @override
+  String get screensaverAddTime => 'Add time';
+
+  @override
+  String get screensaverRemoveTime => 'Remove time';
+
+  @override
+  String get screensaverNoTimes => 'No times yet';
+
+  @override
+  String get screensaverTimeHelp => 'A screensaver from that time on.';
+
+  @override
+  String get screensaverPickTime => 'Pick a time.';
+
+  @override
+  String get screensaverDefault => 'Default';
+
+  @override
+  String get screensaverOn => 'On';
+
+  @override
+  String get screensaverOff => 'Off';
+
+  @override
+  String get screensaverBrightness => 'Brightness';
+
+  @override
+  String get screensaverBrightnessFollow =>
+      'Follows the Screensaver brightness setting.';
+
+  @override
+  String get screensaverBrightnessExceptBlack =>
+      'Applies to every mode except Black.';
+
+  @override
+  String get screensaverScreenOffFollow =>
+      'Follows the Turn screen off after setting.';
+
+  @override
+  String get screensaverScreenOnHours =>
+      'Keeps the screen on during these hours.';
+
+  @override
+  String get screensaverScreenOffHelp =>
+      'Powers down the display once the screensaver has run this long. Requires Device Administrator permission.';
+
+  @override
+  String get screensaverScreenOffNever => 'Screen off never';
+
+  @override
+  String get screensaverMotion => 'Dismiss on motion';
+
+  @override
+  String get screensaverFace => 'Dismiss on face';
+
+  @override
+  String get screensaverProximity => 'Dismiss on proximity';
+
+  @override
+  String get screensaverPerson => 'Dismiss on person';
+
+  @override
+  String get screensaverWidgets => 'Widgets';
+
+  @override
+  String get screensaverGlance => 'At a glance';
+
+  @override
+  String get screensaverNowPlaying =>
+      'Show Now Playing next to the screensaver';
+
+  @override
+  String get screensaverNowPlayingHelp =>
+      'Default follows the global layout. On uses a shared layout when Now Playing is enabled. Off hides Now Playing during these hours.';
+
+  @override
+  String get screensaverCameraRequired =>
+      'Requires the camera. Turn it on in the Camera settings first.';
+
+  @override
+  String get screensaverNotAvailable => 'Not available on this device.';
+
+  @override
+  String get screensaverSummaryMotionOn => 'Motion on';
+
+  @override
+  String get screensaverSummaryMotionOff => 'Motion off';
+
+  @override
+  String get screensaverSummaryFaceOn => 'Face on';
+
+  @override
+  String get screensaverSummaryFaceOff => 'Face off';
+
+  @override
+  String get screensaverSummaryProximityOn => 'Proximity on';
+
+  @override
+  String get screensaverSummaryProximityOff => 'Proximity off';
+
+  @override
+  String get screensaverSummaryPersonOn => 'Person on';
+
+  @override
+  String get screensaverSummaryPersonOff => 'Person off';
+
+  @override
+  String get screensaverSummaryWidgetsOn => 'Widgets on';
+
+  @override
+  String get screensaverSummaryWidgetsOff => 'Widgets off';
+
+  @override
+  String get screensaverSummaryGlanceOn => 'At a glance on';
+
+  @override
+  String get screensaverSummaryGlanceOff => 'At a glance off';
+
+  @override
+  String get screensaverSummaryNowPlayingOn => 'Now Playing on';
+
+  @override
+  String get screensaverSummaryNowPlayingOff => 'Now Playing off';
+
+  @override
+  String screensaverBrightnessPercent(String percent) {
+    return '$percent% brightness';
+  }
+
+  @override
+  String screensaverScreenOffAfter(String minutes) {
+    return 'Screen off after $minutes min';
+  }
+
+  @override
+  String get settingScreensaverWebsiteUrlTitle => 'Website URL';
+
+  @override
+  String get settingScreensaverWebsiteUrlDescription =>
+      'A page to show full-screen. It must allow being embedded.';
+
+  @override
+  String get settingScreensaverWebsiteZoomTitle => 'Zoom level';
+
+  @override
+  String get settingScreensaverWebsiteZoomDescription =>
+      'Scales the whole external screensaver webview.';
+
+  @override
+  String get settingScreensaverWebsiteDoubleTapTitle => 'Double tap to dismiss';
+
+  @override
+  String get settingScreensaverWebsiteDoubleTapDescription =>
+      'Single taps interact with the website instead of dismissing.';
+
+  @override
+  String get screensaverWebsiteSection => 'Website screensaver';
 
   @override
   String get settingsSearchHint => 'Buscar en la configuración';

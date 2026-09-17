@@ -211,6 +211,108 @@ abstract class UiStrings {
   /// **'Close'**
   String get commonClose;
 
+  /// Shared dialog action, time picker label or color preset.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get commonClear;
+
+  /// Shared dialog action, time picker label or color preset.
+  ///
+  /// In en, this message translates to:
+  /// **'Browse'**
+  String get commonBrowse;
+
+  /// Shared dialog action, time picker label or color preset.
+  ///
+  /// In en, this message translates to:
+  /// **'Set'**
+  String get commonSet;
+
+  /// Shared dialog action, time picker label or color preset.
+  ///
+  /// In en, this message translates to:
+  /// **'Hour'**
+  String get commonHour;
+
+  /// Shared dialog action, time picker label or color preset.
+  ///
+  /// In en, this message translates to:
+  /// **'Minute'**
+  String get commonMinute;
+
+  /// Shared dialog action, time picker label or color preset.
+  ///
+  /// In en, this message translates to:
+  /// **'Up'**
+  String get commonUp;
+
+  /// Shared dialog action, time picker label or color preset.
+  ///
+  /// In en, this message translates to:
+  /// **'Down'**
+  String get commonDown;
+
+  /// Shared dialog action, time picker label or color preset.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get commonDelete;
+
+  /// Shared dialog action, time picker label or color preset.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save'**
+  String get commonSaveFailed;
+
+  /// Shared dialog action, time picker label or color preset.
+  ///
+  /// In en, this message translates to:
+  /// **'White'**
+  String get commonColorWhite;
+
+  /// Shared dialog action, time picker label or color preset.
+  ///
+  /// In en, this message translates to:
+  /// **'Warm'**
+  String get commonColorWarm;
+
+  /// Shared dialog action, time picker label or color preset.
+  ///
+  /// In en, this message translates to:
+  /// **'Amber'**
+  String get commonColorAmber;
+
+  /// Shared dialog action, time picker label or color preset.
+  ///
+  /// In en, this message translates to:
+  /// **'Red'**
+  String get commonColorRed;
+
+  /// Shared dialog action, time picker label or color preset.
+  ///
+  /// In en, this message translates to:
+  /// **'Green'**
+  String get commonColorGreen;
+
+  /// Shared dialog action, time picker label or color preset.
+  ///
+  /// In en, this message translates to:
+  /// **'Blue'**
+  String get commonColorBlue;
+
+  /// Shared dialog action, time picker label or color preset.
+  ///
+  /// In en, this message translates to:
+  /// **'Cyan'**
+  String get commonColorCyan;
+
+  /// Shared dialog action, time picker label or color preset.
+  ///
+  /// In en, this message translates to:
+  /// **'Dim'**
+  String get commonColorDim;
+
   /// Plugin action label. Both values come from the plugin and are kept as supplied.
   ///
   /// In en, this message translates to:
@@ -4020,6 +4122,948 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'The device volume. Media, intercom and assistant volumes scale under it.'**
   String get screenAudioMasterHelp;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide all extras'**
+  String get settingScreensaverBlackHideExtrasTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Keeps the screen fully black: no small clock, At a Glance entities, or other overlays.'**
+  String get settingScreensaverBlackHideExtrasDescription;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Black screensaver'**
+  String get screensaverBlackSection;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Style'**
+  String get settingScreensaverClockStyleTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'How the clock is drawn.'**
+  String get settingScreensaverClockStyleDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Font Family'**
+  String get settingScreensaverClockFontTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The typeface the clock is drawn in.'**
+  String get settingScreensaverClockFontDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Font weight'**
+  String get settingScreensaverClockFontWeightTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'How heavy the clock\'s digits are drawn. Default is each face\'s own weight.'**
+  String get settingScreensaverClockFontWeightDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'24-hour clock'**
+  String get settingScreensaverClock24hTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Show a 24-hour time instead of AM/PM.'**
+  String get settingScreensaverClock24hDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Show seconds'**
+  String get settingScreensaverClockSecondsTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Include seconds in the clock.'**
+  String get settingScreensaverClockSecondsDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Show date'**
+  String get settingScreensaverClockDateTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Show the weekday and date under the clock.'**
+  String get settingScreensaverClockDateDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Clock size'**
+  String get settingScreensaverClockScaleTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Scale the clock from 50 to 300 percent for this screen.'**
+  String get settingScreensaverClockScaleDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Clock color'**
+  String get settingScreensaverClockColorTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The color of the clock text.'**
+  String get settingScreensaverClockColorDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Background color'**
+  String get settingScreensaverClockBgColorTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The color behind the clock.'**
+  String get settingScreensaverClockBgColorDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Background photo'**
+  String get settingScreensaverClockBackgroundTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Show a photo behind the clock instead of the solid color. A path to an image on the device, or an image URL the device fetches.'**
+  String get settingScreensaverClockBackgroundDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh URL background'**
+  String get settingScreensaverClockBackgroundRefreshTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Minutes between fetches of a URL background. 0 fetches it only when the setting is written.'**
+  String get settingScreensaverClockBackgroundRefreshDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Digit color'**
+  String get settingScreensaverFlipDigitColorTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The color of the flip digits.'**
+  String get settingScreensaverFlipDigitColorDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Card color'**
+  String get settingScreensaverFlipBgColorTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The color of the cards.'**
+  String get settingScreensaverFlipBgColorDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Background color'**
+  String get settingScreensaverFlipBackdropColorTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The color behind the cards.'**
+  String get settingScreensaverFlipBackdropColorDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Digit color'**
+  String get settingScreensaverRollerDigitColorTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The color of the rolling digits.'**
+  String get settingScreensaverRollerDigitColorDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Background color'**
+  String get settingScreensaverRollerBgColorTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The color behind the digits.'**
+  String get settingScreensaverRollerBgColorDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Night mode'**
+  String get settingScreensaverClockNightTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Recolor the clock while the room is dark.'**
+  String get settingScreensaverClockNightDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Light level'**
+  String get settingScreensaverClockNightLuxTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'At or below this light level the clock takes the night color.'**
+  String get settingScreensaverClockNightLuxDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Night color'**
+  String get settingScreensaverClockNightColorTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The color of the clock and the widgets in the dark.'**
+  String get settingScreensaverClockNightColorDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Night background'**
+  String get settingScreensaverClockNightBgColorTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The color behind the clock in the dark.'**
+  String get settingScreensaverClockNightBgColorDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide background photo'**
+  String get settingScreensaverClockNightHideBackgroundTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the night background color instead of the photo while Night mode is active.'**
+  String get settingScreensaverClockNightHideBackgroundDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Night card color'**
+  String get settingScreensaverClockNightCardColorTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The color of the flip cards in the dark.'**
+  String get settingScreensaverClockNightCardColorDescription;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Clock screensaver'**
+  String get screensaverClockSection;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Style, font, size, colors, night mode, background photo'**
+  String get screensaverClockHint;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Digital Clock'**
+  String get screensaverStyleDigital;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Flip Clock'**
+  String get screensaverStyleFlip;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Roller Clock'**
+  String get screensaverStyleRoller;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Default'**
+  String get screensaverFontDefault;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get screensaverFontLight;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Regular'**
+  String get screensaverFontRegular;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Medium'**
+  String get screensaverFontMedium;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Bold'**
+  String get screensaverFontBold;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Black'**
+  String get screensaverFontBlack;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No photo selected'**
+  String get screensaverNoPhoto;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Path to an image on the device, or an image URL'**
+  String get screensaverBackgroundHint;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a full image URL'**
+  String get screensaverImageUrlError;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter whole minutes from 0 to 1440'**
+  String get screensaverRefreshError;
+
+  /// Maximum length validation error.
+  ///
+  /// In en, this message translates to:
+  /// **'Use at most {count} characters'**
+  String screensaverMaxCharacters(String count);
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Screensaver'**
+  String get settingScreensaverEnabledTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Dim or blank the screen after a period of inactivity.'**
+  String get settingScreensaverEnabledDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Idle timeout (seconds)'**
+  String get settingScreensaverTimeoutSecondsTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Inactivity period before the screensaver starts.'**
+  String get settingScreensaverTimeoutSecondsDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Screensaver mode'**
+  String get settingScreensaverModeTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'What the screensaver shows after the idle timeout. Dim only lowers the backlight and leaves the dashboard on screen.'**
+  String get settingScreensaverModeDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Pixel shift'**
+  String get settingScreensaverPixelShiftTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Nudge the image every minute to protect OLED panels. Not for the black screensaver, whose pixels are already off.'**
+  String get settingScreensaverPixelShiftDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Show in the kiosk menu'**
+  String get settingScreensaverMenuTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a Start Screensaver entry to the kiosk menu.'**
+  String get settingScreensaverMenuDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Dim level'**
+  String get settingScreensaverDimLevelTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Screen brightness while the screensaver is dimming.'**
+  String get settingScreensaverDimLevelDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Screensaver brightness'**
+  String get settingScreensaverBrightnessEnabledTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Use a separate brightness while the screensaver is showing.'**
+  String get settingScreensaverBrightnessEnabledDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Brightness level'**
+  String get settingScreensaverBrightnessLevelTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Applies to every mode except Dim and Black.'**
+  String get settingScreensaverBrightnessLevelDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Brighten for notifications'**
+  String get settingScreensaverNotificationBrightnessTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Lift the screensaver dimming while a notification is on screen.'**
+  String get settingScreensaverNotificationBrightnessDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn screen off after'**
+  String get settingScreensaverScreenOffMinutesTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Powers down the display panel once the screensaver has run for the set duration. Set to 0 to keep the screen on indefinitely. Requires Device Administrator permission.'**
+  String get settingScreensaverScreenOffMinutesDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Wake to screensaver'**
+  String get settingScreensaverScreenOffWakeToScreensaverTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Motion, face, proximity or person detection after the screen has turned off brings the screensaver back instead of the dashboard, with a fresh Turn screen off after countdown. Touch still opens the dashboard.'**
+  String get settingScreensaverScreenOffWakeToScreensaverDescription;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Dim'**
+  String get screensaverModeDim;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Black'**
+  String get screensaverModeBlack;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Clock'**
+  String get screensaverModeClock;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Assistant Media'**
+  String get screensaverModeMedia;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Local Media'**
+  String get screensaverModeLocal;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo Gallery'**
+  String get screensaverModeGallery;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Immich Media'**
+  String get screensaverModeImmich;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Website'**
+  String get screensaverModeWebsite;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera Streams'**
+  String get screensaverModeCamera;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Dim screensaver'**
+  String get screensaverDimSection;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'WARNING: Please Read!'**
+  String get screensaverWarningTitle;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn screen off anyway'**
+  String get screensaverScreenOffProceed;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Not granted, so the screen cannot turn off.'**
+  String get screensaverAdminMissing;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Device admin permission missing'**
+  String get screensaverAdminMissingRemote;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Without it the screen cannot be turned off. The grant dialog appears on the tablet screen.'**
+  String get screensaverAdminMissingRemoteHelp;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'WARNING: Dim keeps the dashboard visible, so the \"Pause dashboard during screensaver\" optimization will not be applied and the dashboard keeps using CPU, GPU and battery.'**
+  String get screensaverDimWarning;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Unavailable plugin screensaver'**
+  String get screensaverUnavailablePlugin;
+
+  /// Warning before enabling physical screen power-off.
+  ///
+  /// In en, this message translates to:
+  /// **'Once the display truly powers off, the tablet\'s own power management takes over, and many Android models misbehave in that state: Wi-Fi naps or drops, the Home Assistant entities go unavailable, the camera can be revoked, and some models kill background apps outright. What happens depends on the manufacturer.\n\nThe reliable alternative is the Black screensaver with this setting left at 0: the panel looks just as dark, and the app keeps full control.'**
+  String get screensaverScreenOffWarning;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable scheduled screensavers'**
+  String get settingScreensaverScheduleEnabledTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch to a different screensaver at set times of day.'**
+  String get settingScreensaverScheduleEnabledDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Times'**
+  String get settingScreensaverScheduleTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Each time switches the screensaver from then on.'**
+  String get settingScreensaverScheduleDescription;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Scheduled Screensavers'**
+  String get screensaverScheduleSection;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get screensaverTime;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Add time'**
+  String get screensaverAddTime;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove time'**
+  String get screensaverRemoveTime;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No times yet'**
+  String get screensaverNoTimes;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'A screensaver from that time on.'**
+  String get screensaverTimeHelp;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a time.'**
+  String get screensaverPickTime;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Default'**
+  String get screensaverDefault;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'On'**
+  String get screensaverOn;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Off'**
+  String get screensaverOff;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Brightness'**
+  String get screensaverBrightness;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Follows the Screensaver brightness setting.'**
+  String get screensaverBrightnessFollow;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Applies to every mode except Black.'**
+  String get screensaverBrightnessExceptBlack;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Follows the Turn screen off after setting.'**
+  String get screensaverScreenOffFollow;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Keeps the screen on during these hours.'**
+  String get screensaverScreenOnHours;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Powers down the display once the screensaver has run this long. Requires Device Administrator permission.'**
+  String get screensaverScreenOffHelp;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Screen off never'**
+  String get screensaverScreenOffNever;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Dismiss on motion'**
+  String get screensaverMotion;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Dismiss on face'**
+  String get screensaverFace;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Dismiss on proximity'**
+  String get screensaverProximity;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Dismiss on person'**
+  String get screensaverPerson;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Widgets'**
+  String get screensaverWidgets;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'At a glance'**
+  String get screensaverGlance;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Now Playing next to the screensaver'**
+  String get screensaverNowPlaying;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Default follows the global layout. On uses a shared layout when Now Playing is enabled. Off hides Now Playing during these hours.'**
+  String get screensaverNowPlayingHelp;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Requires the camera. Turn it on in the Camera settings first.'**
+  String get screensaverCameraRequired;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Not available on this device.'**
+  String get screensaverNotAvailable;
+
+  /// Summary of an explicit schedule override.
+  ///
+  /// In en, this message translates to:
+  /// **'Motion on'**
+  String get screensaverSummaryMotionOn;
+
+  /// Summary of an explicit schedule override.
+  ///
+  /// In en, this message translates to:
+  /// **'Motion off'**
+  String get screensaverSummaryMotionOff;
+
+  /// Summary of an explicit schedule override.
+  ///
+  /// In en, this message translates to:
+  /// **'Face on'**
+  String get screensaverSummaryFaceOn;
+
+  /// Summary of an explicit schedule override.
+  ///
+  /// In en, this message translates to:
+  /// **'Face off'**
+  String get screensaverSummaryFaceOff;
+
+  /// Summary of an explicit schedule override.
+  ///
+  /// In en, this message translates to:
+  /// **'Proximity on'**
+  String get screensaverSummaryProximityOn;
+
+  /// Summary of an explicit schedule override.
+  ///
+  /// In en, this message translates to:
+  /// **'Proximity off'**
+  String get screensaverSummaryProximityOff;
+
+  /// Summary of an explicit schedule override.
+  ///
+  /// In en, this message translates to:
+  /// **'Person on'**
+  String get screensaverSummaryPersonOn;
+
+  /// Summary of an explicit schedule override.
+  ///
+  /// In en, this message translates to:
+  /// **'Person off'**
+  String get screensaverSummaryPersonOff;
+
+  /// Summary of an explicit schedule override.
+  ///
+  /// In en, this message translates to:
+  /// **'Widgets on'**
+  String get screensaverSummaryWidgetsOn;
+
+  /// Summary of an explicit schedule override.
+  ///
+  /// In en, this message translates to:
+  /// **'Widgets off'**
+  String get screensaverSummaryWidgetsOff;
+
+  /// Summary of an explicit schedule override.
+  ///
+  /// In en, this message translates to:
+  /// **'At a glance on'**
+  String get screensaverSummaryGlanceOn;
+
+  /// Summary of an explicit schedule override.
+  ///
+  /// In en, this message translates to:
+  /// **'At a glance off'**
+  String get screensaverSummaryGlanceOff;
+
+  /// Summary of an explicit schedule override.
+  ///
+  /// In en, this message translates to:
+  /// **'Now Playing on'**
+  String get screensaverSummaryNowPlayingOn;
+
+  /// Summary of an explicit schedule override.
+  ///
+  /// In en, this message translates to:
+  /// **'Now Playing off'**
+  String get screensaverSummaryNowPlayingOff;
+
+  /// Schedule brightness summary.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}% brightness'**
+  String screensaverBrightnessPercent(String percent);
+
+  /// Schedule screen-off summary.
+  ///
+  /// In en, this message translates to:
+  /// **'Screen off after {minutes} min'**
+  String screensaverScreenOffAfter(String minutes);
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Website URL'**
+  String get settingScreensaverWebsiteUrlTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'A page to show full-screen. It must allow being embedded.'**
+  String get settingScreensaverWebsiteUrlDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Zoom level'**
+  String get settingScreensaverWebsiteZoomTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Scales the whole external screensaver webview.'**
+  String get settingScreensaverWebsiteZoomDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Double tap to dismiss'**
+  String get settingScreensaverWebsiteDoubleTapTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Single taps interact with the website instead of dismissing.'**
+  String get settingScreensaverWebsiteDoubleTapDescription;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Website screensaver'**
+  String get screensaverWebsiteSection;
 
   /// Placeholder in the Settings search box.
   ///

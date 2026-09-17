@@ -1,4 +1,4 @@
-import { screenAudioText, t } from './localization.js';
+import { screenAudioText, screensaverText, t } from './localization.js';
 import { watchUpdates } from './live.js';
 import { hintRow } from './widgets.js';
 import { api, state } from './core.js';
@@ -209,13 +209,13 @@ export async function updateScreenOffAdminNotice() {
   const tab = document.getElementById('tab-screensaver');
   const anchor = tab.querySelector('[data-key="screensaver.screen_off_minutes"]');
   if (!anchor || tab.querySelector('.screen-off-admin-notice')) return;
-  const row = readOnlyRow('Device admin permission missing',
-    'Without it the screen cannot be turned off. The grant dialog appears '
-    + 'on the tablet screen.', '');
+  const row = readOnlyRow(screensaverText('Device admin permission missing'),
+    screensaverText('Without it the screen cannot be turned off. The grant dialog appears '
+    + 'on the tablet screen.'), '');
   row.classList.add('screen-off-admin-notice');
   const btn = document.createElement('button');
   btn.className = 'btn-ghost';
-  btn.textContent = 'Grant on device';
+  btn.textContent = screensaverText('Grant on device');
   btn.style.cssText = 'flex-shrink:0;';
   btn.addEventListener('click', async () => {
     btn.disabled = true;
@@ -474,9 +474,9 @@ export function updateDimModeNotice() {
   const div = document.createElement('div');
   div.className = 'row dim-mode-note';
   div.style.cssText = 'font-size:12.5px; color:var(--warn);';
-  div.textContent = 'WARNING: Dim keeps the dashboard visible, so the '
+  div.textContent = screensaverText('WARNING: Dim keeps the dashboard visible, so the '
     + '"Pause dashboard during screensaver" optimization will not be applied '
-    + 'and the dashboard keeps using CPU, GPU and battery.';
+    + 'and the dashboard keeps using CPU, GPU and battery.');
   anchor.insertAdjacentElement('afterend', div);
 }
 
