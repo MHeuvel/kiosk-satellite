@@ -1,0 +1,173 @@
+{
+  "@@locale": "en",
+  "setupVoiceDetected": "Voice Satellite detected",
+  "@setupVoiceDetected": {
+    "context": "First-time setup > Voice Satellite",
+    "description": "Translate the setup instruction or control label.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Voice Satellite"
+      ]
+    }
+  },
+  "setupVoiceHelp": "This Home Assistant instance runs the Voice Satellite integration. Choose which satellite this kiosk is, then review its settings. Everything can be changed later.",
+  "@setupVoiceHelp": {
+    "context": "First-time setup > Voice Satellite",
+    "description": "Translate the setup instruction or control label.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Voice Satellite"
+      ]
+    }
+  },
+  "setupNoSatellites": "No satellites found",
+  "@setupNoSatellites": {
+    "context": "First-time setup > Voice Satellite",
+    "description": "Translate the setup instruction or control label.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Voice Satellite"
+      ]
+    }
+  },
+  "setupNoSatellitesHelp": "Add an assist satellite in the Voice Satellite integration, or continue without one and pick it on the dashboard later.",
+  "@setupNoSatellitesHelp": {
+    "context": "First-time setup > Voice Satellite",
+    "description": "Translate the setup instruction or control label.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Voice Satellite"
+      ]
+    }
+  },
+  "setupNewSatelliteHelp": "If this is a new device, create a new satellite entity in Home Assistant first. Settings → Devices & Services → Voice Satellite → Add Entry. IMPORTANT: Two devices cannot share the same entity.",
+  "@setupNewSatelliteHelp": {
+    "context": "First-time setup > Voice Satellite",
+    "description": "Translate the setup instruction or control label.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Voice Satellite"
+      ]
+    },
+    "x-notes": "The path refers to Home Assistant. Keep Voice Satellite unchanged."
+  },
+  "setupApplyRecommended": "Apply all recommended settings",
+  "@setupApplyRecommended": {
+    "context": "First-time setup > Voice Satellite",
+    "description": "Translate the setup instruction or control label.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Voice Satellite"
+      ]
+    }
+  },
+  "setupRecommendedHelp": "The optimal settings for full Voice Satellite integration and functionality.",
+  "@setupRecommendedHelp": {
+    "context": "First-time setup > Voice Satellite",
+    "description": "Translate the setup instruction or control label.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Voice Satellite"
+      ]
+    }
+  },
+  "setupVoiceRequired": "Required by Voice Satellite",
+  "@setupVoiceRequired": {
+    "context": "First-time setup > Voice Satellite",
+    "description": "Translate the setup instruction or control label.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Voice Satellite"
+      ]
+    }
+  },
+  "setupMicrophoneAccess": "Microphone access",
+  "@setupMicrophoneAccess": {
+    "context": "First-time setup > Voice Satellite",
+    "description": "Translate the setup instruction or control label.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Voice Satellite"
+      ]
+    }
+  },
+  "setupNativeWakeWord": "Native wake word detection",
+  "@setupNativeWakeWord": {
+    "context": "First-time setup > Voice Satellite",
+    "description": "Translate the setup instruction or control label.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Voice Satellite"
+      ]
+    }
+  },
+  "setupPullRefresh": "Pull to refresh",
+  "@setupPullRefresh": {
+    "context": "First-time setup > Voice Satellite",
+    "description": "Translate the setup instruction or control label.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Voice Satellite"
+      ]
+    }
+  },
+  "setupAutoplay": "Autoplay audio and video",
+  "@setupAutoplay": {
+    "context": "First-time setup > Voice Satellite",
+    "description": "Translate the setup instruction or control label.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Voice Satellite"
+      ]
+    }
+  },
+  "setupVoiceSkipped": "Not installed, skipped",
+  "@setupVoiceSkipped": {
+    "context": "First-time setup > Voice Satellite",
+    "description": "Translate the setup instruction or control label.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Voice Satellite"
+      ]
+    }
+  }
+}

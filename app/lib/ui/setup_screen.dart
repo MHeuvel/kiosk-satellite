@@ -413,9 +413,8 @@ class _SetupScreenState extends State<SetupScreen> {
       case 2:
         if (_dashboard == null) {
           _fail(
-            'Select a dashboard',
-            'Choose the dashboard the kiosk will display. You can change '
-                'it later in Settings.',
+            l10n(context).setupSelectDashboard,
+            l10n(context).setupSelectDashboardHelp,
           );
           return;
         }
@@ -524,7 +523,7 @@ class _SetupScreenState extends State<SetupScreen> {
       builder: (ctx) {
         final theme = Theme.of(ctx);
         return SimpleDialog(
-          title: const Text('Choose a view'),
+          title: Text(l10n(ctx).haChooseView),
           children: [
             for (final v in views)
               ListTile(
@@ -719,7 +718,7 @@ class _SetupScreenState extends State<SetupScreen> {
                     ),
                     const SizedBox(height: 2),
                     Text(
-                      skipped ? 'Not installed, skipped' : subtitle,
+                      skipped ? l10n(context).setupVoiceSkipped : subtitle,
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
                       ),
@@ -918,11 +917,11 @@ class _SetupScreenState extends State<SetupScreen> {
         ]);
       case 2:
         return withError([
-          heading('Choose a dashboard'),
-          lead('This is what the kiosk will show when it starts.'),
+          heading(l10n(context).setupChooseDashboard),
+          lead(l10n(context).setupDashboardHelp),
           _Card([
             if (_dashboards == null || _dashboards!.isEmpty)
-              const ListTile(title: Text('No dashboards found'))
+              ListTile(title: Text(l10n(context).haNoDashboards))
             else
               for (final d in _dashboards!)
                 for (final urlPath in ['${d['url_path']}'])
@@ -948,7 +947,7 @@ class _SetupScreenState extends State<SetupScreen> {
                               _dashboardViews!.isNotEmpty
                           ? TextButton(
                               onPressed: _changeView,
-                              child: const Text('Change view'),
+                              child: Text(l10n(context).haChangeView),
                             )
                           : null,
                       onTap: isSel ? null : () => _pickDashboard(urlPath),
@@ -957,21 +956,13 @@ class _SetupScreenState extends State<SetupScreen> {
         ]);
       case 3:
         return withError([
-          heading('Voice Satellite detected'),
-          lead(
-            'This Home Assistant instance runs the Voice Satellite '
-            'integration. Choose which satellite this kiosk is, then '
-            'review its settings. Everything can be changed later.',
-          ),
+          heading(l10n(context).setupVoiceDetected),
+          lead(l10n(context).setupVoiceHelp),
           if (_satellites == null || _satellites!.isEmpty)
-            _Card(const [
+            _Card([
               ListTile(
-                title: Text('No satellites found'),
-                subtitle: Text(
-                  'Add an assist satellite in the Voice Satellite '
-                  'integration, or continue without one and pick it on '
-                  'the dashboard later.',
-                ),
+                title: Text(l10n(context).setupNoSatellites),
+                subtitle: Text(l10n(context).setupNoSatellitesHelp),
               ),
             ])
           else ...[
@@ -992,20 +983,12 @@ class _SetupScreenState extends State<SetupScreen> {
                       setState(() => _satellite = s['entity_id'] as String?),
                 ),
             ]),
-            hint(
-              'If this is a new device, create a new satellite entity in '
-              'Home Assistant first. Settings → Devices & Services → '
-              'Voice Satellite → Add Entry. IMPORTANT: Two devices cannot '
-              'share the same entity.',
-            ),
+            hint(l10n(context).setupNewSatelliteHelp),
           ],
           _Card([
             SwitchListTile(
-              title: const Text('Apply all recommended settings'),
-              subtitle: const Text(
-                'The optimal settings for full Voice Satellite integration '
-                'and functionality.',
-              ),
+              title: Text(l10n(context).setupApplyRecommended),
+              subtitle: Text(l10n(context).setupRecommendedHelp),
               value: _allRecommended,
               onChanged: (v) => setState(() {
                 for (final key in _recommended.keys) {
@@ -1017,14 +1000,14 @@ class _SetupScreenState extends State<SetupScreen> {
           _Card([
             for (final (_, label) in _lockedRecommended)
               SwitchListTile(
-                title: Text(label),
-                subtitle: const Text('Required by Voice Satellite'),
+                title: Text(setupText(context, label)),
+                subtitle: Text(l10n(context).setupVoiceRequired),
                 value: true,
                 onChanged: null,
               ),
             for (final (key, label) in _optionalRecommended)
               SwitchListTile(
-                title: Text(label),
+                title: Text(setupText(context, label)),
                 value: _recommended[key]!,
                 onChanged: (v) => setState(() => _recommended[key] = v),
               ),

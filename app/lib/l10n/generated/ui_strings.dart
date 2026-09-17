@@ -16869,6 +16869,30 @@ abstract class UiStrings {
   /// **'Enter only the base URL, without anything after the port. Example: https://homeassistant.local:8123'**
   String get baseUrlQuery;
 
+  /// Translate the setup instruction or control label.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a dashboard'**
+  String get setupChooseDashboard;
+
+  /// Translate the setup instruction or control label.
+  ///
+  /// In en, this message translates to:
+  /// **'This is what the kiosk will show when it starts.'**
+  String get setupDashboardHelp;
+
+  /// Translate the setup instruction or control label.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a dashboard'**
+  String get setupSelectDashboard;
+
+  /// Translate the setup instruction or control label.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the dashboard the kiosk will display. You can change it later in Settings.'**
+  String get setupSelectDashboardHelp;
+
   /// Welcome step label.
   ///
   /// In en, this message translates to:
@@ -16916,6 +16940,84 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'What the setup needs'**
   String get setupPermissionsSummary;
+
+  /// Translate the setup instruction or control label.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice Satellite detected'**
+  String get setupVoiceDetected;
+
+  /// Translate the setup instruction or control label.
+  ///
+  /// In en, this message translates to:
+  /// **'This Home Assistant instance runs the Voice Satellite integration. Choose which satellite this kiosk is, then review its settings. Everything can be changed later.'**
+  String get setupVoiceHelp;
+
+  /// Translate the setup instruction or control label.
+  ///
+  /// In en, this message translates to:
+  /// **'No satellites found'**
+  String get setupNoSatellites;
+
+  /// Translate the setup instruction or control label.
+  ///
+  /// In en, this message translates to:
+  /// **'Add an assist satellite in the Voice Satellite integration, or continue without one and pick it on the dashboard later.'**
+  String get setupNoSatellitesHelp;
+
+  /// Translate the setup instruction or control label.
+  ///
+  /// In en, this message translates to:
+  /// **'If this is a new device, create a new satellite entity in Home Assistant first. Settings → Devices & Services → Voice Satellite → Add Entry. IMPORTANT: Two devices cannot share the same entity.'**
+  String get setupNewSatelliteHelp;
+
+  /// Translate the setup instruction or control label.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply all recommended settings'**
+  String get setupApplyRecommended;
+
+  /// Translate the setup instruction or control label.
+  ///
+  /// In en, this message translates to:
+  /// **'The optimal settings for full Voice Satellite integration and functionality.'**
+  String get setupRecommendedHelp;
+
+  /// Translate the setup instruction or control label.
+  ///
+  /// In en, this message translates to:
+  /// **'Required by Voice Satellite'**
+  String get setupVoiceRequired;
+
+  /// Translate the setup instruction or control label.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone access'**
+  String get setupMicrophoneAccess;
+
+  /// Translate the setup instruction or control label.
+  ///
+  /// In en, this message translates to:
+  /// **'Native wake word detection'**
+  String get setupNativeWakeWord;
+
+  /// Translate the setup instruction or control label.
+  ///
+  /// In en, this message translates to:
+  /// **'Pull to refresh'**
+  String get setupPullRefresh;
+
+  /// Translate the setup instruction or control label.
+  ///
+  /// In en, this message translates to:
+  /// **'Autoplay audio and video'**
+  String get setupAutoplay;
+
+  /// Translate the setup instruction or control label.
+  ///
+  /// In en, this message translates to:
+  /// **'Not installed, skipped'**
+  String get setupVoiceSkipped;
 
   /// Remote administration section heading and step summary.
   ///

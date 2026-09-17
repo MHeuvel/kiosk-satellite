@@ -1,3 +1,4 @@
+import { setupTextMessageIds } from './setup_text_ids.js';
 import { overviewTextMessageIds } from './overview_text_ids.js';
 import { voiceTextMessageIds } from './voice_text_ids.js';
 import { esphomeTextMessageIds } from './esphome_text_ids.js';
@@ -307,3 +308,5 @@ export function overviewStatus(english) {
   if (match) return t('overviewNativeUnavailable', {engine: match[1]});
   return overviewText(english);
 }
+
+export function setupText(english) { return t(setupTextMessageIds[english], {}, english); }

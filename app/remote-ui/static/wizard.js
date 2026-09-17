@@ -1,4 +1,4 @@
-import { setLanguagePreference, t } from './localization.js';
+import { setupText, setLanguagePreference, t } from './localization.js';
 import { WIZ_LOCKED, WIZ_OPTIONAL, wizard } from './app.js';
 import { $, THEME_ICONS, api, showView, state } from './core.js';
 import { readOnlyRow } from './device.js';
@@ -108,7 +108,7 @@ export function wizardRender() {
     text.innerHTML = '<span class="nav-title"></span><span class="nav-sub"></span>';
     text.querySelector('.nav-title').textContent = step.railTitle;
     text.querySelector('.nav-sub').textContent =
-      skipped ? 'Not installed, skipped' : step.railSub;
+      skipped ? setupText('Not installed, skipped') : step.railSub;
     row.append(disc, text);
     rail.appendChild(row);
   });
@@ -492,12 +492,12 @@ export function wizardSteps() {
   });
   steps.push({
     railTitle: t('setupDashboard'), railSub: t('setupDashboardSummary'),
-    title: 'Choose a dashboard',
-    lead: 'This is what the kiosk will show when it starts.',
+    title: setupText('Choose a dashboard'),
+    lead: setupText('This is what the kiosk will show when it starts.'),
     body: (b) => {
       const list = wizardCard(b, true);
       if (!wizard.dashboards.length) {
-        list.appendChild(readOnlyRow('No dashboards found', '', ''));
+        list.appendChild(readOnlyRow(setupText('No dashboards found'), '', ''));
         return;
       }
       wizard.dashboards.forEach((d) => {
@@ -516,7 +516,7 @@ export function wizardSteps() {
         if (selected && wizard.dashboardViews && wizard.dashboardViews.length) {
           const btn = document.createElement('button');
           btn.className = 'btn-ghost';
-          btn.textContent = 'Change view';
+          btn.textContent = setupText('Change view');
           btn.style.cssText = 'margin-left:8px; flex-shrink:0;';
           btn.addEventListener('click', async (e) => {
             e.stopPropagation();
@@ -531,8 +531,8 @@ export function wizardSteps() {
       });
     },
     next: async () => {
-      if (!wizard.dashboard) throw wizFail('Select a dashboard',
-        'Choose the dashboard the kiosk will display. You can change it later in Settings.');
+      if (!wizard.dashboard) throw wizFail(setupText('Select a dashboard'),
+        setupText('Choose the dashboard the kiosk will display. You can change it later in Settings.'));
       const vs = await (await api('/api/commands/haDetectVoiceSatellite', { method: 'POST', body: '{}' })).json();
       wizard.vsDetected = vs.ok && vs.data === true;
       if (wizard.vsDetected) {
@@ -545,14 +545,14 @@ export function wizardSteps() {
   });
   steps.push({
     isVs: true,
-    railTitle: 'Voice Satellite', railSub: 'Satellite, recommended settings',
-    title: 'Voice Satellite detected',
-    lead: 'This Home Assistant instance runs the Voice Satellite integration. Choose which satellite this kiosk is, then review its settings. Everything can be changed later.',
+    railTitle: 'Voice Satellite', railSub: t('setupRecommendedSummary'),
+    title: setupText('Voice Satellite detected'),
+    lead: setupText('This Home Assistant instance runs the Voice Satellite integration. Choose which satellite this kiosk is, then review its settings. Everything can be changed later.'),
     body: (b) => {
       const sats = wizardCard(b, true);
       if (!wizard.satellites.length) {
-        sats.appendChild(readOnlyRow('No satellites found',
-          'Add an assist satellite in the Voice Satellite integration, or continue and pick one on the dashboard later.', ''));
+        sats.appendChild(readOnlyRow(setupText('No satellites found'),
+          setupText('Add an assist satellite in the Voice Satellite integration, or continue without one and pick it on the dashboard later.'), ''));
       } else {
         wizard.satellites.forEach((s) => {
           sats.appendChild(radioRow(s.name || s.entity_id, s.entity_id,
@@ -571,18 +571,15 @@ export function wizardSteps() {
           + 'aria-hidden="true"><circle cx="12" cy="12" r="9"/>'
           + '<path d="M12 8h.01M12 12v4"/></svg>';
         const hintText = document.createElement('span');
-        hintText.textContent = 'If this is a new device, create a new '
-          + 'satellite entity in Home Assistant first. Settings → '
-          + 'Devices & Services → Voice Satellite → Add Entry. '
-          + 'IMPORTANT: Two devices cannot share the same entity.';
+        hintText.textContent = setupText('If this is a new device, create a new satellite entity in Home Assistant first. Settings → Devices & Services → Voice Satellite → Add Entry. IMPORTANT: Two devices cannot share the same entity.');
         hint.appendChild(hintText);
         b.appendChild(hint);
       }
       const toggleRow = wizardToggleRow;
       const master = wizardCard(b, true);
       const all = WIZ_OPTIONAL.every(([k]) => wizard.rec[k]);
-      master.appendChild(toggleRow('Apply all recommended settings',
-        'The optimal settings for full Voice Satellite integration and functionality.',
+      master.appendChild(toggleRow(setupText('Apply all recommended settings'),
+        setupText('The optimal settings for full Voice Satellite integration and functionality.'),
         all, false, () => {
           const next = !all;
           WIZ_OPTIONAL.forEach(([k]) => { wizard.rec[k] = next; });
@@ -590,9 +587,9 @@ export function wizardSteps() {
         }));
       const list = wizardCard(b, true);
       WIZ_LOCKED.forEach(([, label]) =>
-        list.appendChild(toggleRow(label, 'Required by Voice Satellite', true, true)));
+        list.appendChild(toggleRow(setupText(label), setupText('Required by Voice Satellite'), true, true)));
       WIZ_OPTIONAL.forEach(([key, label]) =>
-        list.appendChild(toggleRow(label, '', wizard.rec[key], false, () => {
+        list.appendChild(toggleRow(setupText(label), '', wizard.rec[key], false, () => {
           wizard.rec[key] = !wizard.rec[key];
           wizardRender();
         })));

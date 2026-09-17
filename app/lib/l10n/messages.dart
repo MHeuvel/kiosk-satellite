@@ -1,3 +1,4 @@
+import 'generated/setup_text_ids.dart';
 import 'generated/voice_text_ids.dart';
 import 'generated/esphome_text_ids.dart';
 import 'generated/support_text_ids.dart';
@@ -431,3 +432,7 @@ String voiceEntityOption(BuildContext context, String key, String value) {
   }
   return value;
 }
+
+/// Setup instructions and built-in options, excluding Home Assistant names.
+String setupText(BuildContext context, String english) =>
+    messageById(l10n(context), setupTextMessageIds[english], english);

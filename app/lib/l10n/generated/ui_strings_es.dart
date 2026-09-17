@@ -9871,6 +9871,20 @@ class UiStringsEs extends UiStrings {
       'Introduce solo la URL base, sin nada después del puerto. Ejemplo: https://homeassistant.local:8123';
 
   @override
+  String get setupChooseDashboard => 'Choose a dashboard';
+
+  @override
+  String get setupDashboardHelp =>
+      'This is what the kiosk will show when it starts.';
+
+  @override
+  String get setupSelectDashboard => 'Select a dashboard';
+
+  @override
+  String get setupSelectDashboardHelp =>
+      'Choose the dashboard the kiosk will display. You can change it later in Settings.';
+
+  @override
   String get setupWelcome => 'Bienvenido';
 
   @override
@@ -9893,6 +9907,49 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get setupPermissionsSummary => 'Lo necesario para la configuración';
+
+  @override
+  String get setupVoiceDetected => 'Voice Satellite detected';
+
+  @override
+  String get setupVoiceHelp =>
+      'This Home Assistant instance runs the Voice Satellite integration. Choose which satellite this kiosk is, then review its settings. Everything can be changed later.';
+
+  @override
+  String get setupNoSatellites => 'No satellites found';
+
+  @override
+  String get setupNoSatellitesHelp =>
+      'Add an assist satellite in the Voice Satellite integration, or continue without one and pick it on the dashboard later.';
+
+  @override
+  String get setupNewSatelliteHelp =>
+      'If this is a new device, create a new satellite entity in Home Assistant first. Settings → Devices & Services → Voice Satellite → Add Entry. IMPORTANT: Two devices cannot share the same entity.';
+
+  @override
+  String get setupApplyRecommended => 'Apply all recommended settings';
+
+  @override
+  String get setupRecommendedHelp =>
+      'The optimal settings for full Voice Satellite integration and functionality.';
+
+  @override
+  String get setupVoiceRequired => 'Required by Voice Satellite';
+
+  @override
+  String get setupMicrophoneAccess => 'Microphone access';
+
+  @override
+  String get setupNativeWakeWord => 'Native wake word detection';
+
+  @override
+  String get setupPullRefresh => 'Pull to refresh';
+
+  @override
+  String get setupAutoplay => 'Autoplay audio and video';
+
+  @override
+  String get setupVoiceSkipped => 'Not installed, skipped';
 
   @override
   String get setupRemoteHeading => 'Administración remota';
