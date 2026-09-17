@@ -39,6 +39,12 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'commonColorBlue' => strings.commonColorBlue,
       'commonColorCyan' => strings.commonColorCyan,
       'commonColorDim' => strings.commonColorDim,
+      'commonEdit' => strings.commonEdit,
+      'commonMoveUp' => strings.commonMoveUp,
+      'commonMoveDown' => strings.commonMoveDown,
+      'commonPreviousMonth' => strings.commonPreviousMonth,
+      'commonNextMonth' => strings.commonNextMonth,
+      'commonLoading' => strings.commonLoading,
       'drawerPluginActionErrorTitle' => strings.drawerPluginActionErrorTitle,
       'drawerPluginActionError' => strings.drawerPluginActionError,
       'drawerDashboard' => strings.drawerDashboard,
@@ -893,6 +899,304 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'screensaverDimWarning' => strings.screensaverDimWarning,
       'screensaverUnavailablePlugin' => strings.screensaverUnavailablePlugin,
       'screensaverScreenOffWarning' => strings.screensaverScreenOffWarning,
+      'settingScreensaverImmichUrlTitle' =>
+        strings.settingScreensaverImmichUrlTitle,
+      'settingScreensaverImmichUrlDescription' =>
+        strings.settingScreensaverImmichUrlDescription,
+      'settingScreensaverImmichApiKeyTitle' =>
+        strings.settingScreensaverImmichApiKeyTitle,
+      'settingScreensaverImmichApiKeyDescription' =>
+        strings.settingScreensaverImmichApiKeyDescription,
+      'screensaverMediaImmichPage' => strings.screensaverMediaImmichPage,
+      'screensaverMediaImmichHint' => strings.screensaverMediaImmichHint,
+      'screensaverMediaServerConnection' =>
+        strings.screensaverMediaServerConnection,
+      'screensaverMediaValidateFailedLog' =>
+        strings.screensaverMediaValidateFailedLog,
+      'screensaverMediaValidateFailed' =>
+        strings.screensaverMediaValidateFailed,
+      'screensaverMediaNoAnswer' => strings.screensaverMediaNoAnswer,
+      'screensaverMediaAddressFirst' => strings.screensaverMediaAddressFirst,
+      'screensaverMediaKeyFirst' => strings.screensaverMediaKeyFirst,
+      'screensaverMediaBadAddress' => strings.screensaverMediaBadAddress,
+      'screensaverMediaKeyRejected' => strings.screensaverMediaKeyRejected,
+      'settingScreensaverImmichPeopleTitle' =>
+        strings.settingScreensaverImmichPeopleTitle,
+      'settingScreensaverImmichPeopleDescription' =>
+        strings.settingScreensaverImmichPeopleDescription,
+      'settingScreensaverImmichExcludePeopleTitle' =>
+        strings.settingScreensaverImmichExcludePeopleTitle,
+      'settingScreensaverImmichExcludePeopleDescription' =>
+        strings.settingScreensaverImmichExcludePeopleDescription,
+      'settingScreensaverImmichTagsTitle' =>
+        strings.settingScreensaverImmichTagsTitle,
+      'settingScreensaverImmichTagsDescription' =>
+        strings.settingScreensaverImmichTagsDescription,
+      'settingScreensaverImmichFavoritesOnlyTitle' =>
+        strings.settingScreensaverImmichFavoritesOnlyTitle,
+      'settingScreensaverImmichFavoritesOnlyDescription' =>
+        strings.settingScreensaverImmichFavoritesOnlyDescription,
+      'settingScreensaverImmichTakenWithinTitle' =>
+        strings.settingScreensaverImmichTakenWithinTitle,
+      'settingScreensaverImmichTakenWithinDescription' =>
+        strings.settingScreensaverImmichTakenWithinDescription,
+      'settingScreensaverImmichTakenFromTitle' =>
+        strings.settingScreensaverImmichTakenFromTitle,
+      'settingScreensaverImmichTakenFromDescription' =>
+        strings.settingScreensaverImmichTakenFromDescription,
+      'settingScreensaverImmichTakenToTitle' =>
+        strings.settingScreensaverImmichTakenToTitle,
+      'settingScreensaverImmichTakenToDescription' =>
+        strings.settingScreensaverImmichTakenToDescription,
+      'screensaverMediaFilters' => strings.screensaverMediaFilters,
+      'screensaverMediaAnyone' => strings.screensaverMediaAnyone,
+      'screensaverMediaAnyoneDevice' => strings.screensaverMediaAnyoneDevice,
+      'screensaverMediaNoOne' => strings.screensaverMediaNoOne,
+      'screensaverMediaNoOneDevice' => strings.screensaverMediaNoOneDevice,
+      'screensaverMediaAny' => strings.screensaverMediaAny,
+      'screensaverMediaAnyDevice' => strings.screensaverMediaAnyDevice,
+      'screensaverMediaNoPeople' => strings.screensaverMediaNoPeople,
+      'screensaverMediaNoTags' => strings.screensaverMediaNoTags,
+      'screensaverMediaPeopleFailed' => strings.screensaverMediaPeopleFailed,
+      'screensaverMediaTagsFailed' => strings.screensaverMediaTagsFailed,
+      'screensaverMediaHidden' => strings.screensaverMediaHidden,
+      'screensaverMediaAnyTime' => strings.screensaverMediaAnyTime,
+      'screensaverMediaPastMonth' => strings.screensaverMediaPastMonth,
+      'screensaverMediaPast3Months' => strings.screensaverMediaPast3Months,
+      'screensaverMediaPastYear' => strings.screensaverMediaPastYear,
+      'screensaverMediaPast2Years' => strings.screensaverMediaPast2Years,
+      'screensaverMediaPast5Years' => strings.screensaverMediaPast5Years,
+      'screensaverMediaPast10Years' => strings.screensaverMediaPast10Years,
+      'screensaverMediaSince' => strings.screensaverMediaSince,
+      'screensaverMediaTimeframe' => strings.screensaverMediaTimeframe,
+      'screensaverMediaToday' => strings.screensaverMediaToday,
+      'screensaverMediaDateFormat' => strings.screensaverMediaDateFormat,
+      'screensaverMediaNotDate' => strings.screensaverMediaNotDate,
+      'settingScreensaverImmichMetadataTitle' =>
+        strings.settingScreensaverImmichMetadataTitle,
+      'settingScreensaverImmichMetadataDescription' =>
+        strings.settingScreensaverImmichMetadataDescription,
+      'settingScreensaverImmichMetadataAlbumTitle' =>
+        strings.settingScreensaverImmichMetadataAlbumTitle,
+      'settingScreensaverImmichMetadataAlbumDescription' =>
+        strings.settingScreensaverImmichMetadataAlbumDescription,
+      'settingScreensaverImmichMetadataDateTitle' =>
+        strings.settingScreensaverImmichMetadataDateTitle,
+      'settingScreensaverImmichMetadataDateDescription' =>
+        strings.settingScreensaverImmichMetadataDateDescription,
+      'settingScreensaverImmichMetadataCameraTitle' =>
+        strings.settingScreensaverImmichMetadataCameraTitle,
+      'settingScreensaverImmichMetadataCameraDescription' =>
+        strings.settingScreensaverImmichMetadataCameraDescription,
+      'settingScreensaverImmichMetadataLocationTitle' =>
+        strings.settingScreensaverImmichMetadataLocationTitle,
+      'settingScreensaverImmichMetadataLocationDescription' =>
+        strings.settingScreensaverImmichMetadataLocationDescription,
+      'settingScreensaverImmichMetadataPositionTitle' =>
+        strings.settingScreensaverImmichMetadataPositionTitle,
+      'settingScreensaverImmichMetadataPositionDescription' =>
+        strings.settingScreensaverImmichMetadataPositionDescription,
+      'settingScreensaverImmichMetadataTextShadowTitle' =>
+        strings.settingScreensaverImmichMetadataTextShadowTitle,
+      'settingScreensaverImmichMetadataTextShadowDescription' =>
+        strings.settingScreensaverImmichMetadataTextShadowDescription,
+      'settingScreensaverImmichMetadataScaleTitle' =>
+        strings.settingScreensaverImmichMetadataScaleTitle,
+      'settingScreensaverImmichMetadataScaleDescription' =>
+        strings.settingScreensaverImmichMetadataScaleDescription,
+      'settingScreensaverImmichVignetteStrengthTitle' =>
+        strings.settingScreensaverImmichVignetteStrengthTitle,
+      'settingScreensaverImmichVignetteStrengthDescription' =>
+        strings.settingScreensaverImmichVignetteStrengthDescription,
+      'screensaverMediaMetadata' => strings.screensaverMediaMetadata,
+      'screensaverMediaTopLeft' => strings.screensaverMediaTopLeft,
+      'screensaverMediaTopRight' => strings.screensaverMediaTopRight,
+      'screensaverMediaBottomLeft' => strings.screensaverMediaBottomLeft,
+      'screensaverMediaBottomRight' => strings.screensaverMediaBottomRight,
+      'settingScreensaverImmichIntervalTitle' =>
+        strings.settingScreensaverImmichIntervalTitle,
+      'settingScreensaverImmichIntervalDescription' =>
+        strings.settingScreensaverImmichIntervalDescription,
+      'settingScreensaverImmichShuffleTitle' =>
+        strings.settingScreensaverImmichShuffleTitle,
+      'settingScreensaverImmichShuffleDescription' =>
+        strings.settingScreensaverImmichShuffleDescription,
+      'settingScreensaverImmichTransitionTitle' =>
+        strings.settingScreensaverImmichTransitionTitle,
+      'settingScreensaverImmichTransitionDescription' =>
+        strings.settingScreensaverImmichTransitionDescription,
+      'settingScreensaverImmichFillTitle' =>
+        strings.settingScreensaverImmichFillTitle,
+      'settingScreensaverImmichFillDescription' =>
+        strings.settingScreensaverImmichFillDescription,
+      'settingScreensaverImmichPairPortraitTitle' =>
+        strings.settingScreensaverImmichPairPortraitTitle,
+      'settingScreensaverImmichPairPortraitDescription' =>
+        strings.settingScreensaverImmichPairPortraitDescription,
+      'settingScreensaverImmichEdgeTapsTitle' =>
+        strings.settingScreensaverImmichEdgeTapsTitle,
+      'settingScreensaverImmichEdgeTapsDescription' =>
+        strings.settingScreensaverImmichEdgeTapsDescription,
+      'screensaverMediaSlideshow' => strings.screensaverMediaSlideshow,
+      'settingScreensaverImmichAlbumTitle' =>
+        strings.settingScreensaverImmichAlbumTitle,
+      'settingScreensaverImmichAlbumDescription' =>
+        strings.settingScreensaverImmichAlbumDescription,
+      'settingScreensaverImmichPhotosOnlyTitle' =>
+        strings.settingScreensaverImmichPhotosOnlyTitle,
+      'settingScreensaverImmichPhotosOnlyDescription' =>
+        strings.settingScreensaverImmichPhotosOnlyDescription,
+      'settingScreensaverImmichCacheTitle' =>
+        strings.settingScreensaverImmichCacheTitle,
+      'settingScreensaverImmichCacheDescription' =>
+        strings.settingScreensaverImmichCacheDescription,
+      'settingScreensaverImmichCacheMaxTitle' =>
+        strings.settingScreensaverImmichCacheMaxTitle,
+      'settingScreensaverImmichCacheMaxDescription' =>
+        strings.settingScreensaverImmichCacheMaxDescription,
+      'screensaverMediaAll' => strings.screensaverMediaAll,
+      'screensaverMediaAllDevice' => strings.screensaverMediaAllDevice,
+      'screensaverMediaNoAlbums' => strings.screensaverMediaNoAlbums,
+      'screensaverMediaAlbumsFailed' => strings.screensaverMediaAlbumsFailed,
+      'screensaverMediaListingFailed' => strings.screensaverMediaListingFailed,
+      'settingScreensaverCameraViewsTitle' =>
+        strings.settingScreensaverCameraViewsTitle,
+      'settingScreensaverCameraViewsDescription' =>
+        strings.settingScreensaverCameraViewsDescription,
+      'settingScreensaverCameraViewSecondsTitle' =>
+        strings.settingScreensaverCameraViewSecondsTitle,
+      'settingScreensaverCameraViewSecondsDescription' =>
+        strings.settingScreensaverCameraViewSecondsDescription,
+      'settingScreensaverCameraMuteTitle' =>
+        strings.settingScreensaverCameraMuteTitle,
+      'settingScreensaverCameraMuteDescription' =>
+        strings.settingScreensaverCameraMuteDescription,
+      'screensaverMediaCameraPage' => strings.screensaverMediaCameraPage,
+      'screensaverMediaCameraHint' => strings.screensaverMediaCameraHint,
+      'screensaverMediaNoCameras' => strings.screensaverMediaNoCameras,
+      'screensaverMediaNoCamerasRemote' =>
+        strings.screensaverMediaNoCamerasRemote,
+      'screensaverMediaAddCameras' => strings.screensaverMediaAddCameras,
+      'screensaverMediaNoViews' => strings.screensaverMediaNoViews,
+      'screensaverMediaRotation' => strings.screensaverMediaRotation,
+      'screensaverMediaAvailable' => strings.screensaverMediaAvailable,
+      'screensaverMediaTransitionNone' =>
+        strings.screensaverMediaTransitionNone,
+      'screensaverMediaTransitionFade' =>
+        strings.screensaverMediaTransitionFade,
+      'screensaverMediaTransitionSlide' =>
+        strings.screensaverMediaTransitionSlide,
+      'screensaverMediaTransitionZoom' =>
+        strings.screensaverMediaTransitionZoom,
+      'screensaverMediaTransitionKenBurns' =>
+        strings.screensaverMediaTransitionKenBurns,
+      'screensaverMediaTransitionRandom' =>
+        strings.screensaverMediaTransitionRandom,
+      'screensaverMediaFillOff' => strings.screensaverMediaFillOff,
+      'screensaverMediaFillSmart' => strings.screensaverMediaFillSmart,
+      'screensaverMediaFillAlways' => strings.screensaverMediaFillAlways,
+      'settingScreensaverGalleryItemsTitle' =>
+        strings.settingScreensaverGalleryItemsTitle,
+      'settingScreensaverGalleryItemsDescription' =>
+        strings.settingScreensaverGalleryItemsDescription,
+      'settingScreensaverGalleryIntervalTitle' =>
+        strings.settingScreensaverGalleryIntervalTitle,
+      'settingScreensaverGalleryIntervalDescription' =>
+        strings.settingScreensaverGalleryIntervalDescription,
+      'settingScreensaverGalleryShuffleTitle' =>
+        strings.settingScreensaverGalleryShuffleTitle,
+      'settingScreensaverGalleryShuffleDescription' =>
+        strings.settingScreensaverGalleryShuffleDescription,
+      'settingScreensaverGalleryTransitionTitle' =>
+        strings.settingScreensaverGalleryTransitionTitle,
+      'settingScreensaverGalleryTransitionDescription' =>
+        strings.settingScreensaverGalleryTransitionDescription,
+      'settingScreensaverGalleryFillTitle' =>
+        strings.settingScreensaverGalleryFillTitle,
+      'settingScreensaverGalleryFillDescription' =>
+        strings.settingScreensaverGalleryFillDescription,
+      'settingScreensaverGalleryEdgeTapsTitle' =>
+        strings.settingScreensaverGalleryEdgeTapsTitle,
+      'settingScreensaverGalleryEdgeTapsDescription' =>
+        strings.settingScreensaverGalleryEdgeTapsDescription,
+      'screensaverMediaGalleryPage' => strings.screensaverMediaGalleryPage,
+      'screensaverMediaGalleryHint' => strings.screensaverMediaGalleryHint,
+      'screensaverMediaLoadingPhotos' => strings.screensaverMediaLoadingPhotos,
+      'screensaverMediaCopyFailed' => strings.screensaverMediaCopyFailed,
+      'screensaverMediaSmallerSelection' =>
+        strings.screensaverMediaSmallerSelection,
+      'screensaverMediaNoPhotos' => strings.screensaverMediaNoPhotos,
+      'screensaverMediaPickOnDevice' => strings.screensaverMediaPickOnDevice,
+      'settingScreensaverMediaIdTitle' =>
+        strings.settingScreensaverMediaIdTitle,
+      'settingScreensaverMediaIdDescription' =>
+        strings.settingScreensaverMediaIdDescription,
+      'settingScreensaverMediaIntervalTitle' =>
+        strings.settingScreensaverMediaIntervalTitle,
+      'settingScreensaverMediaIntervalDescription' =>
+        strings.settingScreensaverMediaIntervalDescription,
+      'settingScreensaverMediaShuffleTitle' =>
+        strings.settingScreensaverMediaShuffleTitle,
+      'settingScreensaverMediaShuffleDescription' =>
+        strings.settingScreensaverMediaShuffleDescription,
+      'settingScreensaverMediaRecursiveTitle' =>
+        strings.settingScreensaverMediaRecursiveTitle,
+      'settingScreensaverMediaRecursiveDescription' =>
+        strings.settingScreensaverMediaRecursiveDescription,
+      'settingScreensaverMediaTransitionTitle' =>
+        strings.settingScreensaverMediaTransitionTitle,
+      'settingScreensaverMediaTransitionDescription' =>
+        strings.settingScreensaverMediaTransitionDescription,
+      'settingScreensaverMediaFillTitle' =>
+        strings.settingScreensaverMediaFillTitle,
+      'settingScreensaverMediaFillDescription' =>
+        strings.settingScreensaverMediaFillDescription,
+      'settingScreensaverMediaEdgeTapsTitle' =>
+        strings.settingScreensaverMediaEdgeTapsTitle,
+      'settingScreensaverMediaEdgeTapsDescription' =>
+        strings.settingScreensaverMediaEdgeTapsDescription,
+      'screensaverMediaHaPage' => strings.screensaverMediaHaPage,
+      'screensaverMediaHaHint' => strings.screensaverMediaHaHint,
+      'screensaverMediaChoose' => strings.screensaverMediaChoose,
+      'screensaverMediaRoot' => strings.screensaverMediaRoot,
+      'screensaverMediaHaUnavailable' => strings.screensaverMediaHaUnavailable,
+      'screensaverMediaEmpty' => strings.screensaverMediaEmpty,
+      'screensaverMediaUseFolder' => strings.screensaverMediaUseFolder,
+      'screensaverMediaFolder' => strings.screensaverMediaFolder,
+      'screensaverMediaCamera' => strings.screensaverMediaCamera,
+      'screensaverMediaItem' => strings.screensaverMediaItem,
+      'screensaverMediaBrowseFailed' => strings.screensaverMediaBrowseFailed,
+      'screensaverMediaNotSet' => strings.screensaverMediaNotSet,
+      'settingScreensaverLocalFolderTitle' =>
+        strings.settingScreensaverLocalFolderTitle,
+      'settingScreensaverLocalFolderDescription' =>
+        strings.settingScreensaverLocalFolderDescription,
+      'settingScreensaverLocalIntervalTitle' =>
+        strings.settingScreensaverLocalIntervalTitle,
+      'settingScreensaverLocalIntervalDescription' =>
+        strings.settingScreensaverLocalIntervalDescription,
+      'settingScreensaverLocalShuffleTitle' =>
+        strings.settingScreensaverLocalShuffleTitle,
+      'settingScreensaverLocalShuffleDescription' =>
+        strings.settingScreensaverLocalShuffleDescription,
+      'settingScreensaverLocalRecursiveTitle' =>
+        strings.settingScreensaverLocalRecursiveTitle,
+      'settingScreensaverLocalRecursiveDescription' =>
+        strings.settingScreensaverLocalRecursiveDescription,
+      'settingScreensaverLocalTransitionTitle' =>
+        strings.settingScreensaverLocalTransitionTitle,
+      'settingScreensaverLocalTransitionDescription' =>
+        strings.settingScreensaverLocalTransitionDescription,
+      'settingScreensaverLocalFillTitle' =>
+        strings.settingScreensaverLocalFillTitle,
+      'settingScreensaverLocalFillDescription' =>
+        strings.settingScreensaverLocalFillDescription,
+      'settingScreensaverLocalEdgeTapsTitle' =>
+        strings.settingScreensaverLocalEdgeTapsTitle,
+      'settingScreensaverLocalEdgeTapsDescription' =>
+        strings.settingScreensaverLocalEdgeTapsDescription,
+      'screensaverMediaLocalPage' => strings.screensaverMediaLocalPage,
+      'screensaverMediaLocalHint' => strings.screensaverMediaLocalHint,
       'settingScreensaverScheduleEnabledTitle' =>
         strings.settingScreensaverScheduleEnabledTitle,
       'settingScreensaverScheduleEnabledDescription' =>

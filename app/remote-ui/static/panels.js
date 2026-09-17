@@ -1,4 +1,4 @@
-import { screenAudioText } from './localization.js';
+import { screenAudioText, screensaverText, immichError } from './localization.js';
 import { receiveUpdate, watchUpdates } from './live.js';
 import { $, api, cmd, state } from './core.js';
 import { readOnlyRow } from './device.js';
@@ -59,26 +59,25 @@ export function updateImmichValidateRow() {
   const byKey = Object.fromEntries((state.settings || []).map((s) => [s.key, s]));
   if (byKey['screensaver.mode']?.value !== 'immich') return;
   const tab = document.getElementById('tab-screensaver');
-  const anchor = [...tab.querySelectorAll('.row')]
-    .find((r) => r.querySelector('.name')?.textContent === 'API key');
+  const anchor = tab.querySelector('[data-key="screensaver.immich_api_key"]');
   if (!anchor || tab.querySelector('.immich-validate-row')) return;
   const validated = byKey['screensaver.immich_validated']?.value === true;
-  const row = readOnlyRow('Validate connection',
-    validated ? 'Connected'
-      : 'Not validated yet. The settings below unlock once the connection checks out.', '');
+  const row = readOnlyRow(screensaverText('Validate connection'),
+    validated ? screensaverText('Connected')
+      : screensaverText('Not validated yet. The settings below unlock once the connection checks out.'), '');
   row.classList.add('immich-validate-row');
   const btn = document.createElement('button');
   btn.className = 'btn-ghost';
-  btn.textContent = 'Validate';
+  btn.textContent = screensaverText('Validate');
   btn.style.cssText = 'flex-shrink:0;';
   btn.addEventListener('click', async () => {
-    btn.disabled = true; btn.textContent = 'Checking…';
+    btn.disabled = true; btn.textContent = screensaverText('Checking…');
     let res;
     try { res = await (await api('/api/commands/immichValidate', { method: 'POST', body: '{}' })).json(); }
-    catch (_) { res = { ok: false, error: 'The device did not answer.' }; }
+    catch (_) { res = { ok: false, error: screensaverText('The device did not answer.') }; }
     if (res.ok) { await loadSettings(); return; }
-    btn.disabled = false; btn.textContent = 'Validate';
-    row.querySelector('.desc').textContent = res.error || 'Validation failed.';
+    btn.disabled = false; btn.textContent = screensaverText('Validate');
+    row.querySelector('.desc').textContent = res.error ? immichError(res.error) : screensaverText('Validation failed.');
   });
   row.appendChild(btn);
   anchor.insertAdjacentElement('afterend', row);

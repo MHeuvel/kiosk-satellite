@@ -64,9 +64,80 @@ const settingOptionMessageIds = <String, Map<String, String>>{
     "medium": "screensaverFontMedium",
     "bold": "screensaverFontBold",
     "black": "screensaverFontBlack"
+  },
+  "screensaver.media_transition": {
+    "none": "screensaverMediaTransitionNone",
+    "fade": "screensaverMediaTransitionFade",
+    "slide": "screensaverMediaTransitionSlide",
+    "zoom": "screensaverMediaTransitionZoom",
+    "kenburns": "screensaverMediaTransitionKenBurns",
+    "random": "screensaverMediaTransitionRandom"
+  },
+  "screensaver.media_fill": {
+    "off": "screensaverMediaFillOff",
+    "smart": "screensaverMediaFillSmart",
+    "always": "screensaverMediaFillAlways"
+  },
+  "screensaver.gallery_transition": {
+    "none": "screensaverMediaTransitionNone",
+    "fade": "screensaverMediaTransitionFade",
+    "slide": "screensaverMediaTransitionSlide",
+    "zoom": "screensaverMediaTransitionZoom",
+    "kenburns": "screensaverMediaTransitionKenBurns",
+    "random": "screensaverMediaTransitionRandom"
+  },
+  "screensaver.gallery_fill": {
+    "off": "screensaverMediaFillOff",
+    "smart": "screensaverMediaFillSmart",
+    "always": "screensaverMediaFillAlways"
+  },
+  "screensaver.local_transition": {
+    "none": "screensaverMediaTransitionNone",
+    "fade": "screensaverMediaTransitionFade",
+    "slide": "screensaverMediaTransitionSlide",
+    "zoom": "screensaverMediaTransitionZoom",
+    "kenburns": "screensaverMediaTransitionKenBurns",
+    "random": "screensaverMediaTransitionRandom"
+  },
+  "screensaver.local_fill": {
+    "off": "screensaverMediaFillOff",
+    "smart": "screensaverMediaFillSmart",
+    "always": "screensaverMediaFillAlways"
+  },
+  "screensaver.immich_transition": {
+    "none": "screensaverMediaTransitionNone",
+    "fade": "screensaverMediaTransitionFade",
+    "slide": "screensaverMediaTransitionSlide",
+    "zoom": "screensaverMediaTransitionZoom",
+    "kenburns": "screensaverMediaTransitionKenBurns",
+    "random": "screensaverMediaTransitionRandom"
+  },
+  "screensaver.immich_fill": {
+    "off": "screensaverMediaFillOff",
+    "smart": "screensaverMediaFillSmart",
+    "always": "screensaverMediaFillAlways"
+  },
+  "screensaver.immich_metadata_position": {
+    "top_left": "screensaverMediaTopLeft",
+    "top_right": "screensaverMediaTopRight",
+    "bottom_left": "screensaverMediaBottomLeft",
+    "bottom_right": "screensaverMediaBottomRight"
+  },
+  "screensaver.immich_taken_within": {
+    "": "screensaverMediaAnyTime",
+    "30": "screensaverMediaPastMonth",
+    "90": "screensaverMediaPast3Months",
+    "365": "screensaverMediaPastYear",
+    "730": "screensaverMediaPast2Years",
+    "1825": "screensaverMediaPast5Years",
+    "3650": "screensaverMediaPast10Years",
+    "since": "screensaverMediaSince",
+    "range": "screensaverMediaTimeframe"
   }
 };
 const settingPlaceholderMessageIds = <String, String>{
   "device.hostname": "deviceHostnamePlaceholder",
-  "screensaver.clock_background": "screensaverBackgroundHint"
+  "screensaver.clock_background": "screensaverBackgroundHint",
+  "screensaver.immich_taken_from": "screensaverMediaAnyTime",
+  "screensaver.immich_taken_to": "screensaverMediaToday"
 };

@@ -440,4 +440,208 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingScreensaverScheduleTitle",
     "description": "settingScreensaverScheduleDescription",
   },
+  "screensaver.media_id": {
+    "title": "settingScreensaverMediaIdTitle",
+    "description": "settingScreensaverMediaIdDescription",
+  },
+  "screensaver.media_interval_seconds": {
+    "title": "settingScreensaverMediaIntervalTitle",
+    "description": "settingScreensaverMediaIntervalDescription",
+  },
+  "screensaver.media_shuffle": {
+    "title": "settingScreensaverMediaShuffleTitle",
+    "description": "settingScreensaverMediaShuffleDescription",
+  },
+  "screensaver.media_recursive": {
+    "title": "settingScreensaverMediaRecursiveTitle",
+    "description": "settingScreensaverMediaRecursiveDescription",
+  },
+  "screensaver.media_transition": {
+    "title": "settingScreensaverMediaTransitionTitle",
+    "description": "settingScreensaverMediaTransitionDescription",
+  },
+  "screensaver.media_fill": {
+    "title": "settingScreensaverMediaFillTitle",
+    "description": "settingScreensaverMediaFillDescription",
+  },
+  "screensaver.media_edge_taps": {
+    "title": "settingScreensaverMediaEdgeTapsTitle",
+    "description": "settingScreensaverMediaEdgeTapsDescription",
+  },
+  "screensaver.gallery_items": {
+    "title": "settingScreensaverGalleryItemsTitle",
+    "description": "settingScreensaverGalleryItemsDescription",
+  },
+  "screensaver.gallery_interval_seconds": {
+    "title": "settingScreensaverGalleryIntervalTitle",
+    "description": "settingScreensaverGalleryIntervalDescription",
+  },
+  "screensaver.gallery_shuffle": {
+    "title": "settingScreensaverGalleryShuffleTitle",
+    "description": "settingScreensaverGalleryShuffleDescription",
+  },
+  "screensaver.gallery_transition": {
+    "title": "settingScreensaverGalleryTransitionTitle",
+    "description": "settingScreensaverGalleryTransitionDescription",
+  },
+  "screensaver.gallery_fill": {
+    "title": "settingScreensaverGalleryFillTitle",
+    "description": "settingScreensaverGalleryFillDescription",
+  },
+  "screensaver.gallery_edge_taps": {
+    "title": "settingScreensaverGalleryEdgeTapsTitle",
+    "description": "settingScreensaverGalleryEdgeTapsDescription",
+  },
+  "screensaver.local_folder": {
+    "title": "settingScreensaverLocalFolderTitle",
+    "description": "settingScreensaverLocalFolderDescription",
+  },
+  "screensaver.local_interval_seconds": {
+    "title": "settingScreensaverLocalIntervalTitle",
+    "description": "settingScreensaverLocalIntervalDescription",
+  },
+  "screensaver.local_shuffle": {
+    "title": "settingScreensaverLocalShuffleTitle",
+    "description": "settingScreensaverLocalShuffleDescription",
+  },
+  "screensaver.local_recursive": {
+    "title": "settingScreensaverLocalRecursiveTitle",
+    "description": "settingScreensaverLocalRecursiveDescription",
+  },
+  "screensaver.local_transition": {
+    "title": "settingScreensaverLocalTransitionTitle",
+    "description": "settingScreensaverLocalTransitionDescription",
+  },
+  "screensaver.local_fill": {
+    "title": "settingScreensaverLocalFillTitle",
+    "description": "settingScreensaverLocalFillDescription",
+  },
+  "screensaver.local_edge_taps": {
+    "title": "settingScreensaverLocalEdgeTapsTitle",
+    "description": "settingScreensaverLocalEdgeTapsDescription",
+  },
+  "screensaver.immich_url": {
+    "title": "settingScreensaverImmichUrlTitle",
+    "description": "settingScreensaverImmichUrlDescription",
+  },
+  "screensaver.immich_api_key": {
+    "title": "settingScreensaverImmichApiKeyTitle",
+    "description": "settingScreensaverImmichApiKeyDescription",
+  },
+  "screensaver.immich_album": {
+    "title": "settingScreensaverImmichAlbumTitle",
+    "description": "settingScreensaverImmichAlbumDescription",
+  },
+  "screensaver.immich_photos_only": {
+    "title": "settingScreensaverImmichPhotosOnlyTitle",
+    "description": "settingScreensaverImmichPhotosOnlyDescription",
+  },
+  "screensaver.immich_interval_seconds": {
+    "title": "settingScreensaverImmichIntervalTitle",
+    "description": "settingScreensaverImmichIntervalDescription",
+  },
+  "screensaver.immich_shuffle": {
+    "title": "settingScreensaverImmichShuffleTitle",
+    "description": "settingScreensaverImmichShuffleDescription",
+  },
+  "screensaver.immich_transition": {
+    "title": "settingScreensaverImmichTransitionTitle",
+    "description": "settingScreensaverImmichTransitionDescription",
+  },
+  "screensaver.immich_fill": {
+    "title": "settingScreensaverImmichFillTitle",
+    "description": "settingScreensaverImmichFillDescription",
+  },
+  "screensaver.immich_pair_portrait": {
+    "title": "settingScreensaverImmichPairPortraitTitle",
+    "description": "settingScreensaverImmichPairPortraitDescription",
+  },
+  "screensaver.immich_edge_taps": {
+    "title": "settingScreensaverImmichEdgeTapsTitle",
+    "description": "settingScreensaverImmichEdgeTapsDescription",
+  },
+  "screensaver.immich_cache": {
+    "title": "settingScreensaverImmichCacheTitle",
+    "description": "settingScreensaverImmichCacheDescription",
+  },
+  "screensaver.immich_cache_max_items": {
+    "title": "settingScreensaverImmichCacheMaxTitle",
+    "description": "settingScreensaverImmichCacheMaxDescription",
+  },
+  "screensaver.immich_metadata": {
+    "title": "settingScreensaverImmichMetadataTitle",
+    "description": "settingScreensaverImmichMetadataDescription",
+  },
+  "screensaver.immich_metadata_album": {
+    "title": "settingScreensaverImmichMetadataAlbumTitle",
+    "description": "settingScreensaverImmichMetadataAlbumDescription",
+  },
+  "screensaver.immich_metadata_date": {
+    "title": "settingScreensaverImmichMetadataDateTitle",
+    "description": "settingScreensaverImmichMetadataDateDescription",
+  },
+  "screensaver.immich_metadata_camera": {
+    "title": "settingScreensaverImmichMetadataCameraTitle",
+    "description": "settingScreensaverImmichMetadataCameraDescription",
+  },
+  "screensaver.immich_metadata_location": {
+    "title": "settingScreensaverImmichMetadataLocationTitle",
+    "description": "settingScreensaverImmichMetadataLocationDescription",
+  },
+  "screensaver.immich_metadata_position": {
+    "title": "settingScreensaverImmichMetadataPositionTitle",
+    "description": "settingScreensaverImmichMetadataPositionDescription",
+  },
+  "screensaver.immich_metadata_text_shadow": {
+    "title": "settingScreensaverImmichMetadataTextShadowTitle",
+    "description": "settingScreensaverImmichMetadataTextShadowDescription",
+  },
+  "screensaver.immich_metadata_scale": {
+    "title": "settingScreensaverImmichMetadataScaleTitle",
+    "description": "settingScreensaverImmichMetadataScaleDescription",
+  },
+  "screensaver.immich_vignette_strength": {
+    "title": "settingScreensaverImmichVignetteStrengthTitle",
+    "description": "settingScreensaverImmichVignetteStrengthDescription",
+  },
+  "screensaver.immich_people": {
+    "title": "settingScreensaverImmichPeopleTitle",
+    "description": "settingScreensaverImmichPeopleDescription",
+  },
+  "screensaver.immich_exclude_people": {
+    "title": "settingScreensaverImmichExcludePeopleTitle",
+    "description": "settingScreensaverImmichExcludePeopleDescription",
+  },
+  "screensaver.immich_tags": {
+    "title": "settingScreensaverImmichTagsTitle",
+    "description": "settingScreensaverImmichTagsDescription",
+  },
+  "screensaver.immich_favorites_only": {
+    "title": "settingScreensaverImmichFavoritesOnlyTitle",
+    "description": "settingScreensaverImmichFavoritesOnlyDescription",
+  },
+  "screensaver.immich_taken_within": {
+    "title": "settingScreensaverImmichTakenWithinTitle",
+    "description": "settingScreensaverImmichTakenWithinDescription",
+  },
+  "screensaver.immich_taken_from": {
+    "title": "settingScreensaverImmichTakenFromTitle",
+    "description": "settingScreensaverImmichTakenFromDescription",
+  },
+  "screensaver.immich_taken_to": {
+    "title": "settingScreensaverImmichTakenToTitle",
+    "description": "settingScreensaverImmichTakenToDescription",
+  },
+  "screensaver.camera_views": {
+    "title": "settingScreensaverCameraViewsTitle",
+    "description": "settingScreensaverCameraViewsDescription",
+  },
+  "screensaver.camera_view_seconds": {
+    "title": "settingScreensaverCameraViewSecondsTitle",
+    "description": "settingScreensaverCameraViewSecondsDescription",
+  },
+  "screensaver.camera_mute": {
+    "title": "settingScreensaverCameraMuteTitle",
+    "description": "settingScreensaverCameraMuteDescription",
+  },
 };

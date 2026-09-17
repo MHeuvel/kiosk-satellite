@@ -1,0 +1,292 @@
+{
+  "@@locale": "en",
+  "settingScreensaverGalleryItemsTitle": "Photos",
+  "@settingScreensaverGalleryItemsTitle": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "settingScreensaverGalleryItemsDescription": "The photos and videos this screensaver cycles. Picked from the gallery on the device; picking again replaces the selection.",
+  "@settingScreensaverGalleryItemsDescription": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "settingScreensaverGalleryIntervalTitle": "Seconds per photo",
+  "@settingScreensaverGalleryIntervalTitle": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "settingScreensaverGalleryIntervalDescription": "How long each photo shows before the next. Videos play in full.",
+  "@settingScreensaverGalleryIntervalDescription": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "settingScreensaverGalleryShuffleTitle": "Shuffle",
+  "@settingScreensaverGalleryShuffleTitle": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "settingScreensaverGalleryShuffleDescription": "Cycle the selection in random order.",
+  "@settingScreensaverGalleryShuffleDescription": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "settingScreensaverGalleryTransitionTitle": "Transition",
+  "@settingScreensaverGalleryTransitionTitle": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "settingScreensaverGalleryTransitionDescription": "How one photo hands off to the next.",
+  "@settingScreensaverGalleryTransitionDescription": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "settingScreensaverGalleryFillTitle": "Fill the screen",
+  "@settingScreensaverGalleryFillTitle": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "settingScreensaverGalleryFillDescription": "Off keeps the whole photo between black bars. Smart enlarges photos shaped close to the screen, framing the rest over a blurred backdrop. Always enlarges every photo, cutting off what does not fit.",
+  "@settingScreensaverGalleryFillDescription": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "settingScreensaverGalleryEdgeTapsTitle": "Tap edges to change slides",
+  "@settingScreensaverGalleryEdgeTapsTitle": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "settingScreensaverGalleryEdgeTapsDescription": "A tap on the left or right fifth of the screen shows the previous or next slide instead of dismissing.",
+  "@settingScreensaverGalleryEdgeTapsDescription": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "screensaverMediaGalleryPage": "Photo Gallery screensaver",
+  "@screensaverMediaGalleryPage": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "screensaverMediaGalleryHint": "Photos, timing, shuffle, transition",
+  "@screensaverMediaGalleryHint": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "screensaverMediaLoadingPhotos": "Loading photos...",
+  "@screensaverMediaLoadingPhotos": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "screensaverMediaCopying": "Copying photo {index} of {total}...",
+  "@screensaverMediaCopying": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    },
+    "placeholders": {
+      "index": {
+        "type": "String",
+        "description": "Position starting at one."
+      },
+      "total": {
+        "type": "String",
+        "description": "Total items."
+      }
+    }
+  },
+  "screensaverMediaCopyFailed": "Could not copy the photos",
+  "@screensaverMediaCopyFailed": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "screensaverMediaSmallerSelection": "Try a smaller selection.",
+  "@screensaverMediaSmallerSelection": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "screensaverMediaNoPhotos": "No photos selected",
+  "@screensaverMediaNoPhotos": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "screensaverMediaSelected": "{count} selected",
+  "@screensaverMediaSelected": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Item count."
+      }
+    }
+  },
+  "screensaverMediaPickOnDevice": "None selected. Pick on the device.",
+  "@screensaverMediaPickOnDevice": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  }
+}

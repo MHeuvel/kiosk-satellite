@@ -1,0 +1,233 @@
+{
+  "@@locale": "en",
+  "settingScreensaverImmichAlbumTitle": "Media source",
+  "@settingScreensaverImmichAlbumTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Media",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Media"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Media"
+      ]
+    }
+  },
+  "settingScreensaverImmichAlbumDescription": "The whole library, or the albums you pick.",
+  "@settingScreensaverImmichAlbumDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Media",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Media"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Media"
+      ]
+    }
+  },
+  "settingScreensaverImmichPhotosOnlyTitle": "Photos only",
+  "@settingScreensaverImmichPhotosOnlyTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Media",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Media"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Media"
+      ]
+    }
+  },
+  "settingScreensaverImmichPhotosOnlyDescription": "Skip videos in the slideshow.",
+  "@settingScreensaverImmichPhotosOnlyDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Media",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Media"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Media"
+      ]
+    }
+  },
+  "settingScreensaverImmichCacheTitle": "Cache media locally",
+  "@settingScreensaverImmichCacheTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Media",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Media"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Media"
+      ]
+    }
+  },
+  "settingScreensaverImmichCacheDescription": "Keep copies on the device so images load instantly.",
+  "@settingScreensaverImmichCacheDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Media",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Media"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Media"
+      ]
+    }
+  },
+  "settingScreensaverImmichCacheMaxTitle": "Cache size (items)",
+  "@settingScreensaverImmichCacheMaxTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Media",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Media"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Media"
+      ]
+    }
+  },
+  "settingScreensaverImmichCacheMaxDescription": "The oldest items are deleted once the cache is full.",
+  "@settingScreensaverImmichCacheMaxDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Media",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Media"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Media"
+      ]
+    }
+  },
+  "screensaverMediaAll": "All media",
+  "@screensaverMediaAll": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Media",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Media"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Media"
+      ]
+    }
+  },
+  "screensaverMediaAllDevice": "All media.",
+  "@screensaverMediaAllDevice": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Media",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Media"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Media"
+      ]
+    }
+  },
+  "screensaverMediaNoAlbums": "No albums yet. Create one in Immich first.",
+  "@screensaverMediaNoAlbums": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Media",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Media"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Media"
+      ]
+    }
+  },
+  "screensaverMediaAlbumsFailed": "Could not list the albums",
+  "@screensaverMediaAlbumsFailed": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Media",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Media"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Media"
+      ]
+    }
+  },
+  "screensaverMediaListError": "Could not list them: {error}",
+  "@screensaverMediaListError": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Media",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Media"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Media"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Technical error details. Keep unchanged."
+      }
+    }
+  },
+  "screensaverMediaListingFailed": "listing failed",
+  "@screensaverMediaListingFailed": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Media",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Media"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Media"
+      ]
+    }
+  },
+  "screensaverMediaItems": "{count} items",
+  "@screensaverMediaItems": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Media",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Media"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Media"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Item count."
+      }
+    }
+  },
+  "screensaverMediaCached": "{count} cached, {size}",
+  "@screensaverMediaCached": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Media",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Media"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Media"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Item count."
+      },
+      "size": {
+        "type": "String",
+        "description": "Formatted byte size."
+      }
+    }
+  }
+}

@@ -1,6 +1,14 @@
-import { deviceText, t } from './localization.js';
+import { deviceText, screensaverText, immichError, t } from './localization.js';
 import { cmd } from './core.js';
 import { modalShell } from './widgets.js';
+
+function mediaPickerStatus(list, message) {
+  const text = document.createElement('div');
+  text.className = 'desc';
+  text.style.color = 'var(--muted)';
+  text.textContent = message;
+  list.replaceChildren(text);
+}
 
 /* ---- Media browser (screensaver) ---- */
 // A modal that walks the Home Assistant media tree over haBrowseMedia, the
@@ -63,10 +71,10 @@ export function askImportOptions(backupName) {
 
 export function openMediaBrowser() {
   return new Promise((resolve) => {
-    const trail = [{ id: undefined, title: 'Media' }];
+    const trail = [{ id: undefined, title: screensaverText('Media') }];
 
     const shell = modalShell({
-      title: 'Media',
+      title: screensaverText('Media'),
       width: 520,
       onDismiss: () => close(null),
     });
@@ -83,14 +91,18 @@ export function openMediaBrowser() {
     async function open(id, title, push) {
       if (push) trail.push({ id, title });
       crumbs.textContent = trail.map((c) => c.title).join('  ›  ');
-      list.innerHTML = '<div class="desc" style="color:var(--muted)">Loading…</div>';
+      mediaPickerStatus(list, screensaverText('Loading…'));
       let node;
       try {
         const r = await cmd('haBrowseMedia', id ? { mediaContentId: id } : {});
-        if (!r.ok) throw new Error(r.error || 'browse failed');
+        if (!r.ok) throw new Error(r.error || screensaverText('browse failed'));
         node = r.data;
       } catch (e) {
-        list.innerHTML = `<div class="desc" style="color:var(--error)">Could not browse: ${e}</div>`;
+        list.textContent = '';
+        const error = document.createElement('div');
+        error.className = 'desc'; error.style.color = 'var(--error)';
+        error.textContent = t('screensaverMediaBrowseError', {error: String(e)});
+        list.appendChild(error);
         return;
       }
       list.innerHTML = '';
@@ -101,7 +113,7 @@ export function openMediaBrowser() {
         info.innerHTML = `<div class="name"></div><div class="desc"></div>`;
         info.querySelector('.name').textContent = c.title;
         info.querySelector('.desc').textContent =
-          c.can_expand ? 'folder' : isCam ? 'camera' : (c.media_content_type || 'item');
+          c.can_expand ? screensaverText('folder') : isCam ? screensaverText('camera') : (c.media_content_type || screensaverText('item'));
         r.appendChild(info);
         r.style.cursor = 'pointer';
         r.addEventListener('click', () => {
@@ -111,22 +123,22 @@ export function openMediaBrowser() {
         list.appendChild(r);
       }
       if (!node.children || !node.children.length)
-        list.innerHTML = '<div class="desc" style="color:var(--muted)">Nothing here.</div>';
+        mediaPickerStatus(list, screensaverText('Nothing here.'));
 
       foot.innerHTML = '';
       const cancel = document.createElement('button');
-      cancel.className = 'btn-text'; cancel.textContent = 'Cancel';
+      cancel.className = 'btn-text'; cancel.textContent = screensaverText('Cancel');
       cancel.addEventListener('click', () => close(null));
       const spacer = document.createElement('span'); spacer.className = 'spacer';
       foot.append(cancel, spacer);
       if (trail.length > 1 && node.can_expand) {
         const useFolder = document.createElement('button');
-        useFolder.className = 'btn-ghost'; useFolder.textContent = 'Use this folder';
+        useFolder.className = 'btn-ghost'; useFolder.textContent = screensaverText('Use this folder');
         useFolder.addEventListener('click', () => close({ id: node.media_content_id, isFolder: true }));
         foot.appendChild(useFolder);
       }
     }
-    open(undefined, 'Media', false);
+    open(undefined, screensaverText('Media'), false);
   });
 }
 
@@ -222,26 +234,26 @@ export function openImmichNamesPicker({ title, command, current, none }) {
     });
     const close = (val) => { shell.close(); resolve(val); };
     const list = shell.body;
-    list.innerHTML = '<div class="desc" style="color:var(--muted)">Loading…</div>';
+    mediaPickerStatus(list, screensaverText('Loading…'));
 
     const cancel = document.createElement('button');
-    cancel.className = 'btn-text'; cancel.textContent = 'Cancel';
+    cancel.className = 'btn-text'; cancel.textContent = screensaverText('Cancel');
     cancel.addEventListener('click', () => close(null));
     const okBtn = document.createElement('button');
-    okBtn.className = 'btn-primary'; okBtn.textContent = 'Save'; okBtn.disabled = true;
+    okBtn.className = 'btn-primary'; okBtn.textContent = screensaverText('Save'); okBtn.disabled = true;
     shell.foot.append(cancel, okBtn);
 
     (async () => {
       let options = [];
       try {
         const r = await cmd(command);
-        if (!r.ok) throw new Error(r.error || 'listing failed');
+        if (!r.ok) throw new Error(r.error || screensaverText('listing failed'));
         options = r.data || [];
       } catch (e) {
         list.innerHTML = '';
         const err = document.createElement('div');
         err.className = 'desc'; err.style.color = 'var(--error)';
-        err.textContent = `Could not list them: ${e.message || e}`;
+        err.textContent = t('screensaverMediaListError', {error: immichError(String(e.message || e))});
         list.appendChild(err);
         return;
       }
@@ -266,13 +278,13 @@ export function openImmichNamesPicker({ title, command, current, none }) {
         // eye: the filter still works on them (issue #382).
         if (option.count != null) {
           const desc = document.createElement('div'); desc.className = 'desc';
-          desc.textContent = `${option.count} items`;
+          desc.textContent = t('screensaverMediaItems', {count: String(option.count)});
           info.appendChild(desc);
         } else if (option.hidden) {
           const desc = document.createElement('div');
           desc.className = 'desc with-icon';
           desc.innerHTML = HIDDEN_ICON + '<span></span>';
-          desc.querySelector('span').textContent = 'Hidden';
+          desc.querySelector('span').textContent = screensaverText('Hidden');
           info.appendChild(desc);
         }
         const box = document.createElement('input');

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../app_container.dart';
+import '../l10n/messages.dart';
 import '../managers/camera/models.dart';
 import 'kit.dart';
 
@@ -26,9 +27,9 @@ Future<List<String>?> showCameraViewsPicker(
   ];
   CameraViewConfig viewOf(String id) =>
       views.firstWhere((view) => view.id == id);
-  String cameras(CameraViewConfig view) =>
-      '${view.cameraIds.length} camera'
-      '${view.cameraIds.length == 1 ? '' : 's'}';
+  String cameras(CameraViewConfig view) => (view.cameraIds.length == 1
+      ? l10n(context).screensaverMediaOneCamera
+      : l10n(context).screensaverMediaCameras)('${view.cameraIds.length}');
   Widget label(BuildContext context, String text) => Align(
     alignment: Alignment.centerLeft,
     child: Padding(
@@ -51,7 +52,7 @@ Future<List<String>?> showCameraViewsPicker(
             if (!chosen.contains(view.id)) view,
         ];
         return AlertDialog(
-          title: const Text('Camera views'),
+          title: Text(screensaverText(context, 'Camera views')),
           content: SizedBox(
             width: 640,
             child: EdgeFade(
@@ -61,18 +62,27 @@ Future<List<String>?> showCameraViewsPicker(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     if (views.isEmpty)
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
                         child: Text(
-                          'No camera view has cameras yet. Add one under '
-                          'Camera Streams.',
+                          screensaverText(
+                            context,
+                            'No camera view has cameras yet. Add one under '
+                            'Camera Streams.',
+                          ),
                         ),
                       ),
                     if (chosen.isNotEmpty) ...[
-                      label(context, 'In the rotation (drag to reorder)'),
+                      label(
+                        context,
+                        screensaverText(
+                          context,
+                          'In the rotation (drag to reorder)',
+                        ),
+                      ),
                       ReorderableListView(
                         shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
+                        physics: NeverScrollableScrollPhysics(),
                         buildDefaultDragHandles: false,
                         // onReorderItem: newIndex is already adjusted for
                         // the removal, unlike the deprecated onReorder.
@@ -92,8 +102,10 @@ Future<List<String>?> showCameraViewsPicker(
                               ),
                               title: Text(viewOf(id).name),
                               subtitle: Text(
-                                'Position ${index + 1} · '
-                                '${cameras(viewOf(id))}',
+                                l10n(context).screensaverMediaPosition(
+                                  '${index + 1}',
+                                  cameras(viewOf(id)),
+                                ),
                               ),
                               // A tablet has no drag: the same reordering,
                               // one step at a time.
@@ -122,7 +134,7 @@ Future<List<String>?> showCameraViewsPicker(
                       const SizedBox(height: 8),
                     ],
                     if (available.isNotEmpty) ...[
-                      label(context, 'Available'),
+                      label(context, screensaverText(context, 'Available')),
                       for (final view in available)
                         ListTile(
                           contentPadding: EdgeInsets.zero,
@@ -142,11 +154,11 @@ Future<List<String>?> showCameraViewsPicker(
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context, false),
-              child: const Text('Cancel'),
+              child: Text(screensaverText(context, 'Cancel')),
             ),
             FilledButton(
               onPressed: () => Navigator.pop(context, true),
-              child: const Text('Save'),
+              child: Text(screensaverText(context, 'Save')),
             ),
           ],
         );

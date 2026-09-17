@@ -1,4 +1,4 @@
-import { deviceText, t } from './localization.js';
+import { deviceText, t, messageLanguage } from './localization.js';
 import { cmd } from './core.js';
 
 /* ---- Dashboard ---- */
@@ -401,9 +401,6 @@ const CALENDAR_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor
   + ' stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
   + '<rect x="3" y="5" width="18" height="16" rx="2"/>'
   + '<path d="M3 10h18M8 3v4M16 3v4"/></svg>';
-const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-  'August', 'September', 'October', 'November', 'December'];
-const WEEKDAYS = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
 // "YYYY-MM-DD" for a date, the form both surfaces and the Immich search
 // agree on. Local parts, never toISOString: a date west of UTC would come
@@ -491,8 +488,8 @@ export function pickDate({ title, value, last = new Date(), first = new Date(190
     };
     // The same chevron turned either way, so the two point at each other
     // rather than both leaning the way the time stepper's do.
-    const prev = chevronButton('up', 'Previous month', () => stepMonth(-1));
-    const next = chevronButton('up', 'Next month', () => stepMonth(1));
+    const prev = chevronButton('up', t('commonPreviousMonth'), () => stepMonth(-1));
+    const next = chevronButton('up', t('commonNextMonth'), () => stepMonth(1));
     prev.classList.add('date-step', 'date-prev');
     next.classList.add('date-step', 'date-next');
     head.append(prev, label, next);
@@ -503,10 +500,10 @@ export function pickDate({ title, value, last = new Date(), first = new Date(190
     const WEEKS = 6;
     function paintMonth() {
       grid.textContent = '';
-      for (const d of WEEKDAYS) {
+      for (let weekday = 0; weekday < 7; weekday++) {
         const cell = document.createElement('div');
         cell.className = 'date-weekday';
-        cell.textContent = d;
+        cell.textContent = new Intl.DateTimeFormat(messageLanguage(), {weekday: 'narrow'}).format(new Date(2024, 0, 7 + weekday));
         grid.appendChild(cell);
       }
       const lead = shown.getDay();
@@ -555,7 +552,7 @@ export function pickDate({ title, value, last = new Date(), first = new Date(190
     }
 
     function paint() {
-      labelText.textContent = `${MONTHS[shown.getMonth()]} ${shown.getFullYear()}`;
+      labelText.textContent = new Intl.DateTimeFormat(messageLanguage(), {month: 'long', year: 'numeric'}).format(shown);
       label.classList.toggle('open', years);
       grid.hidden = years;
       yearList.hidden = !years;
@@ -577,15 +574,15 @@ export function pickDate({ title, value, last = new Date(), first = new Date(190
     paint();
     const clear = document.createElement('button');
     clear.className = 'btn-text';
-    clear.textContent = 'Clear';
+    clear.textContent = t('commonClear');
     clear.addEventListener('click', () => { back.remove(); resolve(''); });
     const cancel = document.createElement('button');
     cancel.className = 'btn-text';
-    cancel.textContent = 'Cancel';
+    cancel.textContent = t('commonCancel');
     cancel.addEventListener('click', () => { back.remove(); resolve(null); });
     const setBtn = document.createElement('button');
     setBtn.className = 'btn-primary';
-    setBtn.textContent = 'Set';
+    setBtn.textContent = t('commonSet');
     setBtn.addEventListener('click', () => {
       back.remove();
       resolve(dateString(selected));

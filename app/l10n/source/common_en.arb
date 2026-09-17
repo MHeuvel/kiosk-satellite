@@ -179,5 +179,35 @@
   "@commonColorDim": {
     "context": "Common:Dialogs",
     "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonEdit": "Edit",
+  "@commonEdit": {
+    "context": "Common:Dialogs",
+    "description": "Shared picker action or loading state."
+  },
+  "commonMoveUp": "Move up",
+  "@commonMoveUp": {
+    "context": "Common:Dialogs",
+    "description": "Shared picker action or loading state."
+  },
+  "commonMoveDown": "Move down",
+  "@commonMoveDown": {
+    "context": "Common:Dialogs",
+    "description": "Shared picker action or loading state."
+  },
+  "commonPreviousMonth": "Previous month",
+  "@commonPreviousMonth": {
+    "context": "Common:Dialogs",
+    "description": "Shared picker action or loading state."
+  },
+  "commonNextMonth": "Next month",
+  "@commonNextMonth": {
+    "context": "Common:Dialogs",
+    "description": "Shared picker action or loading state."
+  },
+  "commonLoading": "Loading…",
+  "@commonLoading": {
+    "context": "Common:Dialogs",
+    "description": "Shared picker action or loading state."
   }
 }

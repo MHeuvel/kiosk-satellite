@@ -131,3 +131,30 @@ String commonColorName(BuildContext context, String english) =>
       'Dim' => l10n(context).commonColorDim,
       _ => english,
     };
+
+String immichError(BuildContext context, String error) {
+  final strings = l10n(context);
+  final scope = RegExp(
+    r'^The API key is missing the (.+) permission\.$',
+  ).firstMatch(error);
+  if (scope != null) return strings.screensaverMediaScopeMissing(scope[1]!);
+  const permission = 'The API key is missing a permission: ';
+  if (error.startsWith(permission)) {
+    return strings.screensaverMediaPermissionMissing(
+      error.substring(permission.length),
+    );
+  }
+  final status = RegExp(
+    r'^The server answered ([0-9]+): ([\s\S]*)$',
+  ).firstMatch(error);
+  if (status != null) {
+    return strings.screensaverMediaServerError(status[1]!, status[2]!);
+  }
+  final url = RegExp(r'^Could not reach ([\s\S]+)\.$').firstMatch(error);
+  if (url != null) return strings.screensaverMediaUnreachable(url[1]!);
+  const talk = 'Could not talk to the server: ';
+  if (error.startsWith(talk)) {
+    return strings.screensaverMediaTalkError(error.substring(talk.length));
+  }
+  return screensaverText(context, error);
+}

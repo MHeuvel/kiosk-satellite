@@ -5461,18 +5461,21 @@ class _ImmichValidateRowState extends State<_ImmichValidateRow> {
   Widget build(BuildContext context) {
     final validated = widget.container.settings.get(screensaverImmichValidated);
     return ListTile(
-      title: const Text('Validate connection'),
+      title: Text(screensaverText(context, 'Validate connection')),
       subtitle: Text(
         _validating
-            ? 'Checking…'
-            : _error ??
+            ? screensaverText(context, 'Checking…')
+            : (_error == null ? null : immichError(context, _error!)) ??
                   (validated || _lastOk == true
-                      ? 'Connected'
-                      : 'Not validated yet. The settings below unlock once '
-                            'the connection checks out.'),
+                      ? screensaverText(context, 'Connected')
+                      : screensaverText(
+                          context,
+                          'Not validated yet. The settings below unlock once '
+                          'the connection checks out.',
+                        )),
       ),
       trailing: _validating
-          ? const SizedBox(
+          ? SizedBox(
               width: 20,
               height: 20,
               child: CircularProgressIndicator(strokeWidth: 2.4),
@@ -6389,7 +6392,10 @@ class _ImmichCacheStatsRowState extends State<_ImmichCacheStatsRow> {
     final stats = _stats;
     final text = stats == null
         ? '…'
-        : '${stats['items']} cached, ${formatBytes(stats['bytes'] as int)}';
+        : l10n(context).screensaverMediaCached(
+            '${stats['items']}',
+            formatBytes(stats['bytes'] as int),
+          );
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 10, 16, 12),
       child: Text(
@@ -9390,6 +9396,7 @@ class SettingTile extends StatelessWidget {
   /// complete, and a failure surfaces as a toast instead of vanishing
   /// as an unhandled async error after the old selection is already gone.
   Future<void> _pickGalleryPhotos(BuildContext context) async {
+    final strings = l10n(context);
     final overlay = Overlay.of(context, rootOverlay: true);
     final navigator = Navigator.of(context, rootNavigator: true);
     final progress = ValueNotifier<String?>(null);
@@ -9412,7 +9419,7 @@ class SettingTile extends StatelessWidget {
                   child: ValueListenableBuilder<String?>(
                     valueListenable: progress,
                     builder: (context, label, _) =>
-                        Text(label ?? 'Loading photos...'),
+                        Text(label ?? strings.screensaverMediaLoadingPhotos),
                   ),
                 ),
               ],
@@ -9436,7 +9443,10 @@ class SettingTile extends StatelessWidget {
       await staging.create(recursive: true);
       final names = <String>[];
       for (var i = 0; i < picked.length; i++) {
-        progress.value = 'Copying photo ${i + 1} of ${picked.length}...';
+        progress.value = strings.screensaverMediaCopying(
+          '${i + 1}',
+          '${picked.length}',
+        );
         final name =
             '${i.toString().padLeft(4, '0')}_'
             '${picked[i].name.replaceAll('/', '_')}';
@@ -9455,8 +9465,8 @@ class SettingTile extends StatelessWidget {
       c.log.warn('screensaver', 'gallery pick failed: $e');
       showToastIn(
         overlay,
-        title: 'Could not copy the photos',
-        message: 'Try a smaller selection.',
+        title: strings.screensaverMediaCopyFailed,
+        message: strings.screensaverMediaSmallerSelection,
         kind: ToastKind.error,
       );
     } finally {
@@ -9656,11 +9666,13 @@ class SettingTile extends StatelessWidget {
           return ListTile(
             title: Text(def.localizedTitle(context)),
             subtitle: Text(
-              count == 0 ? 'No photos selected' : '$count selected',
+              count == 0
+                  ? screensaverText(context, 'No photos selected')
+                  : l10n(context).screensaverMediaSelected('$count'),
             ),
             trailing: TextButton(
               onPressed: () => _pickGalleryPhotos(context),
-              child: const Text('Browse'),
+              child: Text(screensaverText(context, 'Browse')),
             ),
           );
         }
@@ -9686,7 +9698,7 @@ class SettingTile extends StatelessWidget {
                   onChanged();
                 }
               },
-              child: const Text('Browse'),
+              child: Text(screensaverText(context, 'Browse')),
             ),
           );
         }
@@ -9713,7 +9725,7 @@ class SettingTile extends StatelessWidget {
                   onChanged();
                 }
               },
-              child: const Text('Browse'),
+              child: Text(screensaverText(context, 'Browse')),
             ),
           );
         }
@@ -9756,7 +9768,7 @@ class SettingTile extends StatelessWidget {
             title: Text(def.localizedTitle(context)),
             subtitle: Text(
               chosen.isEmpty
-                  ? immichNamed.empty
+                  ? screensaverText(context, immichNamed.empty)
                   : chosen.map((n) => n.name).join(', '),
             ),
             trailing: const Icon(Icons.edit_outlined),
@@ -9779,13 +9791,19 @@ class SettingTile extends StatelessWidget {
             title: Text(def.localizedTitle(context)),
             subtitle: Text(
               views.isEmpty
-                  ? 'No camera view has cameras yet. Add one under Camera '
-                        'Streams.'
+                  ? screensaverText(
+                      context,
+                      'No camera view has cameras yet. Add one under Camera '
+                      'Streams.',
+                    )
                   : chosen.isEmpty
-                  ? 'None yet. Pick the views the screensaver cycles through.'
+                  ? screensaverText(
+                      context,
+                      'None yet. Pick the views the screensaver cycles through.',
+                    )
                   : chosen.map((view) => view.name).join(', '),
             ),
-            trailing: const Icon(Icons.edit_outlined),
+            trailing: Icon(Icons.edit_outlined),
             onTap: views.isEmpty ? null : () => _pickCameraViews(context),
           );
         }
@@ -10015,13 +10033,15 @@ class SettingTile extends StatelessWidget {
     BuildContext context,
     _ImmichNamedRow row,
   ) async {
-    final result = await c.commands.execute(row.command, const {});
+    final result = await c.commands.execute(row.command, {});
     if (!context.mounted) return;
     if (!result.ok) {
       showToast(
         context,
-        title: row.errorTitle,
-        message: result.error,
+        title: screensaverText(context, row.errorTitle),
+        message: result.error == null
+            ? null
+            : immichError(context, result.error!),
         kind: ToastKind.error,
       );
       return;
@@ -10033,7 +10053,10 @@ class SettingTile extends StatelessWidget {
     // Albums carry their size, which tells two similarly named ones apart.
     final details = {
       for (final item in (result.data as List).cast<Map>())
-        if (item['count'] != null) '${item['id']}': '${item['count']} items',
+        if (item['count'] != null)
+          '${item['id']}': l10n(
+            context,
+          ).screensaverMediaItems('${item['count']}'),
     };
     // A person hidden in Immich says so under a struck-out eye: the filter
     // still works on them (issue #382), so the line explains the name
@@ -10054,7 +10077,7 @@ class SettingTile extends StatelessWidget {
           content: SizedBox(
             width: 420,
             child: options.isEmpty
-                ? Text(row.none)
+                ? Text(screensaverText(context, row.none))
                 : EdgeFade(
                     child: ListView(
                       shrinkWrap: true,
@@ -10074,8 +10097,8 @@ class SettingTile extends StatelessWidget {
                                         size: 14,
                                         color: muted,
                                       ),
-                                      const SizedBox(width: 5),
-                                      const Text('Hidden'),
+                                      SizedBox(width: 5),
+                                      Text(screensaverText(context, 'Hidden')),
                                     ],
                                   )
                                 : null,
@@ -10094,11 +10117,11 @@ class SettingTile extends StatelessWidget {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context, false),
-              child: const Text('Cancel'),
+              child: Text(screensaverText(context, 'Cancel')),
             ),
             FilledButton(
               onPressed: () => Navigator.pop(context, true),
-              child: const Text('Save'),
+              child: Text(screensaverText(context, 'Save')),
             ),
           ],
         ),

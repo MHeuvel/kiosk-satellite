@@ -117,6 +117,24 @@ class UiStringsEn extends UiStrings {
   String get commonColorDim => 'Dim';
 
   @override
+  String get commonEdit => 'Edit';
+
+  @override
+  String get commonMoveUp => 'Move up';
+
+  @override
+  String get commonMoveDown => 'Move down';
+
+  @override
+  String get commonPreviousMonth => 'Previous month';
+
+  @override
+  String get commonNextMonth => 'Next month';
+
+  @override
+  String get commonLoading => 'Loading…';
+
+  @override
   String drawerPluginAction(String pluginName, String actionTitle) {
     return '$pluginName: $actionTitle';
   }
@@ -2660,6 +2678,704 @@ class UiStringsEn extends UiStrings {
   @override
   String get screensaverScreenOffWarning =>
       'Once the display truly powers off, the tablet\'s own power management takes over, and many Android models misbehave in that state: Wi-Fi naps or drops, the Home Assistant entities go unavailable, the camera can be revoked, and some models kill background apps outright. What happens depends on the manufacturer.\n\nThe reliable alternative is the Black screensaver with this setting left at 0: the panel looks just as dark, and the app keeps full control.';
+
+  @override
+  String get settingScreensaverImmichUrlTitle => 'Server address';
+
+  @override
+  String get settingScreensaverImmichUrlDescription =>
+      'The address of your Immich server, with its port.';
+
+  @override
+  String get settingScreensaverImmichApiKeyTitle => 'API key';
+
+  @override
+  String get settingScreensaverImmichApiKeyDescription =>
+      'Created in Immich under Account Settings → API Keys.';
+
+  @override
+  String get screensaverMediaImmichPage => 'Immich Media screensaver';
+
+  @override
+  String get screensaverMediaImmichHint =>
+      'Server, media, slideshow, metadata, filters';
+
+  @override
+  String get screensaverMediaServerConnection => 'Server Connection';
+
+  @override
+  String get screensaverMediaValidateFailedLog =>
+      'Validation failed. See the app log for the failing call.';
+
+  @override
+  String get screensaverMediaValidateFailed => 'Validation failed.';
+
+  @override
+  String get screensaverMediaNoAnswer => 'The device did not answer.';
+
+  @override
+  String get screensaverMediaAddressFirst => 'Enter the server address first.';
+
+  @override
+  String get screensaverMediaKeyFirst => 'Enter an API key first.';
+
+  @override
+  String get screensaverMediaBadAddress =>
+      'The server address is not a valid URL.';
+
+  @override
+  String get screensaverMediaKeyRejected => 'The API key was rejected.';
+
+  @override
+  String screensaverMediaScopeMissing(String scope) {
+    return 'The API key is missing the $scope permission.';
+  }
+
+  @override
+  String screensaverMediaPermissionMissing(String error) {
+    return 'The API key is missing a permission: $error';
+  }
+
+  @override
+  String screensaverMediaServerError(String status, String error) {
+    return 'The server answered $status: $error';
+  }
+
+  @override
+  String screensaverMediaUnreachable(String url) {
+    return 'Could not reach $url.';
+  }
+
+  @override
+  String screensaverMediaTalkError(String error) {
+    return 'Could not talk to the server: $error';
+  }
+
+  @override
+  String get settingScreensaverImmichPeopleTitle => 'People';
+
+  @override
+  String get settingScreensaverImmichPeopleDescription =>
+      'Show only media with any of these people.';
+
+  @override
+  String get settingScreensaverImmichExcludePeopleTitle => 'Exclude people';
+
+  @override
+  String get settingScreensaverImmichExcludePeopleDescription =>
+      'Skip media with any of these people.';
+
+  @override
+  String get settingScreensaverImmichTagsTitle => 'Tags';
+
+  @override
+  String get settingScreensaverImmichTagsDescription =>
+      'Show only media with any of these tags.';
+
+  @override
+  String get settingScreensaverImmichFavoritesOnlyTitle => 'Favorites only';
+
+  @override
+  String get settingScreensaverImmichFavoritesOnlyDescription =>
+      'Show only media marked as favorite.';
+
+  @override
+  String get settingScreensaverImmichTakenWithinTitle => 'Taken within';
+
+  @override
+  String get settingScreensaverImmichTakenWithinDescription =>
+      'Only show media taken in this window.';
+
+  @override
+  String get settingScreensaverImmichTakenFromTitle => 'From';
+
+  @override
+  String get settingScreensaverImmichTakenFromDescription =>
+      'Skip media taken before this date.';
+
+  @override
+  String get settingScreensaverImmichTakenToTitle => 'To';
+
+  @override
+  String get settingScreensaverImmichTakenToDescription =>
+      'Skip media taken after this date. The day itself counts.';
+
+  @override
+  String get screensaverMediaFilters => 'Filters';
+
+  @override
+  String get screensaverMediaAnyone => 'Anyone';
+
+  @override
+  String get screensaverMediaAnyoneDevice => 'Anyone.';
+
+  @override
+  String get screensaverMediaNoOne => 'No one';
+
+  @override
+  String get screensaverMediaNoOneDevice => 'No one.';
+
+  @override
+  String get screensaverMediaAny => 'Any';
+
+  @override
+  String get screensaverMediaAnyDevice => 'Any.';
+
+  @override
+  String get screensaverMediaNoPeople =>
+      'No named people yet. Name them in Immich first.';
+
+  @override
+  String get screensaverMediaNoTags =>
+      'No tags yet. Create them in Immich first.';
+
+  @override
+  String get screensaverMediaPeopleFailed => 'Could not list the people';
+
+  @override
+  String get screensaverMediaTagsFailed => 'Could not list the tags';
+
+  @override
+  String get screensaverMediaHidden => 'Hidden';
+
+  @override
+  String get screensaverMediaAnyTime => 'Any time';
+
+  @override
+  String get screensaverMediaPastMonth => 'Past month';
+
+  @override
+  String get screensaverMediaPast3Months => 'Past 3 months';
+
+  @override
+  String get screensaverMediaPastYear => 'Past year';
+
+  @override
+  String get screensaverMediaPast2Years => 'Past 2 years';
+
+  @override
+  String get screensaverMediaPast5Years => 'Past 5 years';
+
+  @override
+  String get screensaverMediaPast10Years => 'Past 10 years';
+
+  @override
+  String get screensaverMediaSince => 'Since';
+
+  @override
+  String get screensaverMediaTimeframe => 'Timeframe';
+
+  @override
+  String get screensaverMediaToday => 'Today';
+
+  @override
+  String get screensaverMediaDateFormat => 'Use YYYY-MM-DD.';
+
+  @override
+  String get screensaverMediaNotDate => 'That is not a date.';
+
+  @override
+  String get settingScreensaverImmichMetadataTitle => 'Show metadata';
+
+  @override
+  String get settingScreensaverImmichMetadataDescription =>
+      'Album, date, camera and location over the media.';
+
+  @override
+  String get settingScreensaverImmichMetadataAlbumTitle => 'Album name';
+
+  @override
+  String get settingScreensaverImmichMetadataAlbumDescription =>
+      'Show which album the photo comes from.';
+
+  @override
+  String get settingScreensaverImmichMetadataDateTitle => 'Date taken';
+
+  @override
+  String get settingScreensaverImmichMetadataDateDescription =>
+      'Show when the photo was taken.';
+
+  @override
+  String get settingScreensaverImmichMetadataCameraTitle => 'Camera details';
+
+  @override
+  String get settingScreensaverImmichMetadataCameraDescription =>
+      'Show focal length, aperture and ISO.';
+
+  @override
+  String get settingScreensaverImmichMetadataLocationTitle => 'Location';
+
+  @override
+  String get settingScreensaverImmichMetadataLocationDescription =>
+      'Show the place the photo was taken.';
+
+  @override
+  String get settingScreensaverImmichMetadataPositionTitle =>
+      'Metadata position';
+
+  @override
+  String get settingScreensaverImmichMetadataPositionDescription =>
+      'Which corner the details sit in.';
+
+  @override
+  String get settingScreensaverImmichMetadataTextShadowTitle =>
+      'Text drop shadow';
+
+  @override
+  String get settingScreensaverImmichMetadataTextShadowDescription =>
+      'Add a drop shadow to metadata text for readability on photos.';
+
+  @override
+  String get settingScreensaverImmichMetadataScaleTitle => 'Text scaling';
+
+  @override
+  String get settingScreensaverImmichMetadataScaleDescription =>
+      'Scale the photo details to better fit your screen size.';
+
+  @override
+  String get settingScreensaverImmichVignetteStrengthTitle =>
+      'Vignette strength';
+
+  @override
+  String get settingScreensaverImmichVignetteStrengthDescription =>
+      'Darkness of the shading behind the details, for readability on bright photos. 0 turns it off.';
+
+  @override
+  String get screensaverMediaMetadata => 'Metadata';
+
+  @override
+  String get screensaverMediaTopLeft => 'Top left';
+
+  @override
+  String get screensaverMediaTopRight => 'Top right';
+
+  @override
+  String get screensaverMediaBottomLeft => 'Bottom left';
+
+  @override
+  String get screensaverMediaBottomRight => 'Bottom right';
+
+  @override
+  String get settingScreensaverImmichIntervalTitle => 'Seconds per image';
+
+  @override
+  String get settingScreensaverImmichIntervalDescription =>
+      'How long each image shows before the next. Videos play in full.';
+
+  @override
+  String get settingScreensaverImmichShuffleTitle => 'Shuffle';
+
+  @override
+  String get settingScreensaverImmichShuffleDescription =>
+      'Cycle the media in random order.';
+
+  @override
+  String get settingScreensaverImmichTransitionTitle => 'Transition';
+
+  @override
+  String get settingScreensaverImmichTransitionDescription =>
+      'How one item hands off to the next.';
+
+  @override
+  String get settingScreensaverImmichFillTitle => 'Fill the screen';
+
+  @override
+  String get settingScreensaverImmichFillDescription =>
+      'Off keeps the whole photo between black bars. Smart enlarges photos shaped close to the screen, framing the rest over a blurred backdrop. Always enlarges every photo, cutting off what does not fit.';
+
+  @override
+  String get settingScreensaverImmichPairPortraitTitle =>
+      'Pair portrait photos';
+
+  @override
+  String get settingScreensaverImmichPairPortraitDescription =>
+      'Show two portrait photos side by side so they fill the screen.';
+
+  @override
+  String get settingScreensaverImmichEdgeTapsTitle =>
+      'Tap edges to change slides';
+
+  @override
+  String get settingScreensaverImmichEdgeTapsDescription =>
+      'A tap on the left or right fifth of the screen shows the previous or next slide instead of dismissing.';
+
+  @override
+  String get screensaverMediaSlideshow => 'Slideshow';
+
+  @override
+  String get settingScreensaverImmichAlbumTitle => 'Media source';
+
+  @override
+  String get settingScreensaverImmichAlbumDescription =>
+      'The whole library, or the albums you pick.';
+
+  @override
+  String get settingScreensaverImmichPhotosOnlyTitle => 'Photos only';
+
+  @override
+  String get settingScreensaverImmichPhotosOnlyDescription =>
+      'Skip videos in the slideshow.';
+
+  @override
+  String get settingScreensaverImmichCacheTitle => 'Cache media locally';
+
+  @override
+  String get settingScreensaverImmichCacheDescription =>
+      'Keep copies on the device so images load instantly.';
+
+  @override
+  String get settingScreensaverImmichCacheMaxTitle => 'Cache size (items)';
+
+  @override
+  String get settingScreensaverImmichCacheMaxDescription =>
+      'The oldest items are deleted once the cache is full.';
+
+  @override
+  String get screensaverMediaAll => 'All media';
+
+  @override
+  String get screensaverMediaAllDevice => 'All media.';
+
+  @override
+  String get screensaverMediaNoAlbums =>
+      'No albums yet. Create one in Immich first.';
+
+  @override
+  String get screensaverMediaAlbumsFailed => 'Could not list the albums';
+
+  @override
+  String screensaverMediaListError(String error) {
+    return 'Could not list them: $error';
+  }
+
+  @override
+  String get screensaverMediaListingFailed => 'listing failed';
+
+  @override
+  String screensaverMediaItems(String count) {
+    return '$count items';
+  }
+
+  @override
+  String screensaverMediaCached(String count, String size) {
+    return '$count cached, $size';
+  }
+
+  @override
+  String get settingScreensaverCameraViewsTitle => 'Camera views';
+
+  @override
+  String get settingScreensaverCameraViewsDescription =>
+      'The camera views the screensaver shows, in this order.';
+
+  @override
+  String get settingScreensaverCameraViewSecondsTitle =>
+      'Seconds per camera view';
+
+  @override
+  String get settingScreensaverCameraViewSecondsDescription =>
+      'How long each view stays on screen before the next one. With a single view selected nothing rotates.';
+
+  @override
+  String get settingScreensaverCameraMuteTitle => 'Mute all views';
+
+  @override
+  String get settingScreensaverCameraMuteDescription =>
+      'Keeps every view silent, even a single camera.';
+
+  @override
+  String get screensaverMediaCameraPage => 'Camera Streams screensaver';
+
+  @override
+  String get screensaverMediaCameraHint =>
+      'Views to show, seconds per view, sound';
+
+  @override
+  String get screensaverMediaNoCameras =>
+      'No camera view has cameras yet. Add one under Camera Streams.';
+
+  @override
+  String get screensaverMediaNoCamerasRemote =>
+      'No camera view has cameras yet';
+
+  @override
+  String get screensaverMediaAddCameras => 'Add one under Camera Streams.';
+
+  @override
+  String get screensaverMediaNoViews =>
+      'None yet. Pick the views the screensaver cycles through.';
+
+  @override
+  String get screensaverMediaRotation => 'In the rotation (drag to reorder)';
+
+  @override
+  String get screensaverMediaAvailable => 'Available';
+
+  @override
+  String screensaverMediaOneCamera(String count) {
+    return '$count camera';
+  }
+
+  @override
+  String screensaverMediaCameras(String count) {
+    return '$count cameras';
+  }
+
+  @override
+  String screensaverMediaPosition(String index, String cameras) {
+    return 'Position $index · $cameras';
+  }
+
+  @override
+  String get screensaverMediaTransitionNone => 'None';
+
+  @override
+  String get screensaverMediaTransitionFade => 'Crossfade';
+
+  @override
+  String get screensaverMediaTransitionSlide => 'Slide';
+
+  @override
+  String get screensaverMediaTransitionZoom => 'Zoom';
+
+  @override
+  String get screensaverMediaTransitionKenBurns => 'Ken Burns';
+
+  @override
+  String get screensaverMediaTransitionRandom => 'Random';
+
+  @override
+  String get screensaverMediaFillOff => 'Off';
+
+  @override
+  String get screensaverMediaFillSmart => 'Smart';
+
+  @override
+  String get screensaverMediaFillAlways => 'Always';
+
+  @override
+  String get settingScreensaverGalleryItemsTitle => 'Photos';
+
+  @override
+  String get settingScreensaverGalleryItemsDescription =>
+      'The photos and videos this screensaver cycles. Picked from the gallery on the device; picking again replaces the selection.';
+
+  @override
+  String get settingScreensaverGalleryIntervalTitle => 'Seconds per photo';
+
+  @override
+  String get settingScreensaverGalleryIntervalDescription =>
+      'How long each photo shows before the next. Videos play in full.';
+
+  @override
+  String get settingScreensaverGalleryShuffleTitle => 'Shuffle';
+
+  @override
+  String get settingScreensaverGalleryShuffleDescription =>
+      'Cycle the selection in random order.';
+
+  @override
+  String get settingScreensaverGalleryTransitionTitle => 'Transition';
+
+  @override
+  String get settingScreensaverGalleryTransitionDescription =>
+      'How one photo hands off to the next.';
+
+  @override
+  String get settingScreensaverGalleryFillTitle => 'Fill the screen';
+
+  @override
+  String get settingScreensaverGalleryFillDescription =>
+      'Off keeps the whole photo between black bars. Smart enlarges photos shaped close to the screen, framing the rest over a blurred backdrop. Always enlarges every photo, cutting off what does not fit.';
+
+  @override
+  String get settingScreensaverGalleryEdgeTapsTitle =>
+      'Tap edges to change slides';
+
+  @override
+  String get settingScreensaverGalleryEdgeTapsDescription =>
+      'A tap on the left or right fifth of the screen shows the previous or next slide instead of dismissing.';
+
+  @override
+  String get screensaverMediaGalleryPage => 'Photo Gallery screensaver';
+
+  @override
+  String get screensaverMediaGalleryHint =>
+      'Photos, timing, shuffle, transition';
+
+  @override
+  String get screensaverMediaLoadingPhotos => 'Loading photos...';
+
+  @override
+  String screensaverMediaCopying(String index, String total) {
+    return 'Copying photo $index of $total...';
+  }
+
+  @override
+  String get screensaverMediaCopyFailed => 'Could not copy the photos';
+
+  @override
+  String get screensaverMediaSmallerSelection => 'Try a smaller selection.';
+
+  @override
+  String get screensaverMediaNoPhotos => 'No photos selected';
+
+  @override
+  String screensaverMediaSelected(String count) {
+    return '$count selected';
+  }
+
+  @override
+  String get screensaverMediaPickOnDevice =>
+      'None selected. Pick on the device.';
+
+  @override
+  String get settingScreensaverMediaIdTitle => 'Media source';
+
+  @override
+  String get settingScreensaverMediaIdDescription =>
+      'A Home Assistant media item, folder, or camera. Use Browse to pick one.';
+
+  @override
+  String get settingScreensaverMediaIntervalTitle => 'Seconds per image';
+
+  @override
+  String get settingScreensaverMediaIntervalDescription =>
+      'How long each image shows before the next. Videos play in full.';
+
+  @override
+  String get settingScreensaverMediaShuffleTitle => 'Shuffle';
+
+  @override
+  String get settingScreensaverMediaShuffleDescription =>
+      'Play a folder in random order.';
+
+  @override
+  String get settingScreensaverMediaRecursiveTitle => 'Include subfolders';
+
+  @override
+  String get settingScreensaverMediaRecursiveDescription =>
+      'Descend into subfolders when a folder is chosen.';
+
+  @override
+  String get settingScreensaverMediaTransitionTitle => 'Transition';
+
+  @override
+  String get settingScreensaverMediaTransitionDescription =>
+      'How one item hands off to the next.';
+
+  @override
+  String get settingScreensaverMediaFillTitle => 'Fill the screen';
+
+  @override
+  String get settingScreensaverMediaFillDescription =>
+      'Off keeps the whole photo between black bars. Smart enlarges photos shaped close to the screen, framing the rest over a blurred backdrop. Always enlarges every photo, cutting off what does not fit.';
+
+  @override
+  String get settingScreensaverMediaEdgeTapsTitle =>
+      'Tap edges to change slides';
+
+  @override
+  String get settingScreensaverMediaEdgeTapsDescription =>
+      'A tap on the left or right fifth of the screen shows the previous or next slide instead of dismissing.';
+
+  @override
+  String get screensaverMediaHaPage => 'Home Assistant Media screensaver';
+
+  @override
+  String get screensaverMediaHaHint => 'Media source, timing, shuffle, fill';
+
+  @override
+  String get screensaverMediaChoose => 'Choose media';
+
+  @override
+  String get screensaverMediaRoot => 'Media';
+
+  @override
+  String get screensaverMediaHaUnavailable =>
+      'Could not reach Home Assistant, or the token is missing.';
+
+  @override
+  String get screensaverMediaEmpty => 'Nothing here.';
+
+  @override
+  String get screensaverMediaUseFolder => 'Use this folder';
+
+  @override
+  String get screensaverMediaFolder => 'folder';
+
+  @override
+  String get screensaverMediaCamera => 'camera';
+
+  @override
+  String get screensaverMediaItem => 'item';
+
+  @override
+  String get screensaverMediaBrowseFailed => 'browse failed';
+
+  @override
+  String screensaverMediaBrowseError(String error) {
+    return 'Could not browse: $error';
+  }
+
+  @override
+  String get screensaverMediaNotSet => 'Not set';
+
+  @override
+  String get settingScreensaverLocalFolderTitle => 'Local folder';
+
+  @override
+  String get settingScreensaverLocalFolderDescription =>
+      'Folder on this device whose photos and videos the screensaver cycles through. Picked on the device; the path can also be typed here remotely.';
+
+  @override
+  String get settingScreensaverLocalIntervalTitle => 'Seconds per photo';
+
+  @override
+  String get settingScreensaverLocalIntervalDescription =>
+      'How long each photo shows before the next. Videos play in full.';
+
+  @override
+  String get settingScreensaverLocalShuffleTitle => 'Shuffle';
+
+  @override
+  String get settingScreensaverLocalShuffleDescription =>
+      'Cycle the folder in random order instead of by name.';
+
+  @override
+  String get settingScreensaverLocalRecursiveTitle => 'Include subfolders';
+
+  @override
+  String get settingScreensaverLocalRecursiveDescription =>
+      'Also cycle photos and videos inside subfolders.';
+
+  @override
+  String get settingScreensaverLocalTransitionTitle => 'Transition';
+
+  @override
+  String get settingScreensaverLocalTransitionDescription =>
+      'How one photo hands off to the next.';
+
+  @override
+  String get settingScreensaverLocalFillTitle => 'Fill the screen';
+
+  @override
+  String get settingScreensaverLocalFillDescription =>
+      'Off keeps the whole photo between black bars. Smart enlarges photos shaped close to the screen, framing the rest over a blurred backdrop. Always enlarges every photo, cutting off what does not fit.';
+
+  @override
+  String get settingScreensaverLocalEdgeTapsTitle =>
+      'Tap edges to change slides';
+
+  @override
+  String get settingScreensaverLocalEdgeTapsDescription =>
+      'A tap on the left or right fifth of the screen shows the previous or next slide instead of dismissing.';
+
+  @override
+  String get screensaverMediaLocalPage => 'Local Media screensaver';
+
+  @override
+  String get screensaverMediaLocalHint => 'Folder, timing, shuffle, transition';
 
   @override
   String get settingScreensaverScheduleEnabledTitle =>

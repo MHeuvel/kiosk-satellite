@@ -420,17 +420,17 @@ class OrderActions extends StatelessWidget {
     spacing: 2,
     children: [
       IconButton(
-        tooltip: 'Move up',
+        tooltip: l10n(context).commonMoveUp,
         icon: const Icon(Icons.arrow_upward),
         onPressed: first ? null : onUp,
       ),
       IconButton(
-        tooltip: 'Move down',
+        tooltip: l10n(context).commonMoveDown,
         icon: const Icon(Icons.arrow_downward),
         onPressed: last ? null : onDown,
       ),
       IconButton(
-        tooltip: 'Remove',
+        tooltip: l10n(context).commonRemove,
         icon: const Icon(Icons.delete_outline),
         onPressed: onRemove,
       ),

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kiosk_satellite/app_container.dart';
 import 'package:kiosk_satellite/core/app_locales.dart';
+import 'package:kiosk_satellite/managers/camera/models.dart';
+import 'package:kiosk_satellite/ui/camera_views_picker.dart';
 import 'package:kiosk_satellite/l10n/generated/ui_strings.dart';
 import 'package:kiosk_satellite/l10n/generated/ui_strings_en.dart';
 import 'package:kiosk_satellite/managers/settings/definitions.dart' as defs;
@@ -17,6 +19,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 // Test wording exercises localization even before draft catalogs are approved.
 class MenuMessages extends UiStringsEn {
+  @override
+  String get screensaverMediaRoot => 'TEST media root';
+  @override
+  String get screensaverMediaAvailable => 'TEST available';
+  @override
+  String get settingScreensaverCameraViewsTitle => 'TEST camera views';
   @override
   String get screensaverModeBlack => 'TEST black mode';
   @override
@@ -121,6 +129,66 @@ Future<AppContainer> containerFor(WidgetTester tester, Size size) async {
 }
 
 void main() {
+  testWidgets(
+    'translated camera picker preserves supplied names and view IDs',
+    (tester) async {
+      final container = await containerFor(tester, const Size(800, 1200));
+      await container.settings.setFromJson(
+        defs.cameraConfig.key,
+        const CameraConfiguration(
+          cameras: [
+            CameraSource(
+              id: 'camera',
+              name: 'Camera',
+              kind: 'ha',
+              entityId: 'camera.raw',
+            ),
+          ],
+          views: [
+            CameraViewConfig(
+              id: 'view-raw',
+              name: 'Media',
+              cameraIds: ['camera'],
+            ),
+          ],
+        ).encode(),
+      );
+      await container.camera.init();
+      addTearDown(container.camera.dispose);
+      List<String>? picked;
+      await tester.pumpWidget(
+        localized(
+          Scaffold(
+            body: Builder(
+              builder: (context) => TextButton(
+                onPressed: () async {
+                  picked = await showCameraViewsPicker(
+                    context,
+                    container: container,
+                    initial: [],
+                  );
+                },
+                child: const Text('Open picker'),
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.tap(find.text('Open picker'));
+      await tester.pumpAndSettle();
+      expect(find.text('TEST camera views'), findsOneWidget);
+      expect(find.text('TEST available'), findsOneWidget);
+      expect(find.text('Media'), findsOneWidget);
+      expect(find.text('TEST media root'), findsNothing);
+      await tester.tap(find.text('Media'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('TEST save'));
+      await tester.pumpAndSettle();
+      expect(picked, ['view-raw']);
+      expect(tester.takeException(), isNull);
+    },
+  );
+
   testWidgets(
     'translated screensaver schedule keeps mode and override values',
     (tester) async {

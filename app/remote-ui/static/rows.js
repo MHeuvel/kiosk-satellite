@@ -307,8 +307,8 @@ export function settingRow(s) {
     const val = document.createElement('span');
     val.className = 'device';
     val.textContent = count
-      ? `${count} selected`
-      : 'None selected. Pick on the device.';
+      ? t('screensaverMediaSelected', {count: String(count)})
+      : screensaverText('None selected. Pick on the device.');
     row.appendChild(val);
     return row;
   }
@@ -335,9 +335,9 @@ export function settingRow(s) {
     val.className = 'device';
     val.style.cssText =
       'flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap';
-    val.textContent = s.value || 'Not set';
+    val.textContent = s.value || screensaverText('Not set');
     const btn = document.createElement('button');
-    btn.className = 'btn-ghost'; btn.textContent = 'Browse';
+    btn.className = 'btn-ghost'; btn.textContent = screensaverText('Browse');
     btn.style.flex = 'none';
     btn.addEventListener('click', async () => {
       const picked = await openMediaBrowser();
@@ -430,13 +430,13 @@ export function settingRow(s) {
     val.className = 'device';
     val.style.cssText =
       'flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap';
-    val.textContent = chosen.length ? chosen.map((n) => n.name).join(', ') : immichNamed.empty;
+    val.textContent = chosen.length ? chosen.map((n) => n.name).join(', ') : screensaverText(immichNamed.empty);
     const btn = document.createElement('button');
-    btn.className = 'btn-ghost'; btn.textContent = 'Edit';
+    btn.className = 'btn-ghost'; btn.textContent = screensaverText('Edit');
     btn.style.flex = 'none';
     btn.addEventListener('click', async () => {
       const picked = await openImmichNamesPicker({
-        title: s.title, command: immichNamed.command, current: chosen, none: immichNamed.none,
+        title: s.title, command: immichNamed.command, current: chosen, none: screensaverText(immichNamed.none),
       });
       if (picked) {
         await api('/api/settings', { method: 'PATCH', body: JSON.stringify({
@@ -1299,13 +1299,13 @@ export function settingRow(s) {
     let listRows = [];
     const cameras = (view) => {
       const n = (view.cameraIds || []).length;
-      return `${n} camera${n === 1 ? '' : 's'}`;
+      return t(n === 1 ? 'screensaverMediaOneCamera' : 'screensaverMediaCameras', {count: String(n)});
     };
     const build = () => {
       if (!views) return [];
       if (!views.length) {
-        return [readOnlyRow('No camera view has cameras yet',
-          'Add one under Camera Streams.', '')];
+        return [readOnlyRow(screensaverText('No camera view has cameras yet'),
+          screensaverText('Add one under Camera Streams.'), '')];
       }
       const byId = Object.fromEntries(views.map((v) => [v.id, v]));
       const rows = [];
@@ -1320,11 +1320,11 @@ export function settingRow(s) {
           save();
         };
         rows.push(cameraListRow(view.name,
-          `Position ${index + 1} · ${cameras(view)}`, [
-            cameraAction('Move up', () => move(-1), false, 'up', index === 0),
-            cameraAction('Move down', () => move(1), false, 'down',
+          t('screensaverMediaPosition', {index: String(index + 1), cameras: cameras(view)}), [
+            cameraAction(screensaverText('Move up'), () => move(-1), false, 'up', index === 0),
+            cameraAction(screensaverText('Move down'), () => move(1), false, 'down',
               index === chosen.length - 1),
-            cameraAction('Remove', () => {
+            cameraAction(screensaverText('Remove'), () => {
               chosen = chosen.filter((x) => x !== id);
               repaint();
               save();
@@ -1334,7 +1334,7 @@ export function settingRow(s) {
       for (const view of views) {
         if (chosen.includes(view.id)) continue;
         rows.push(cameraListRow(view.name, cameras(view), [
-          cameraAction('Add', () => {
+          cameraAction(screensaverText('Add'), () => {
             chosen = chosen.concat(view.id);
             repaint();
             save();
@@ -1391,7 +1391,7 @@ export function settingRow(s) {
         const b = d.bytes ?? 0;
         const fmt = b < 1024 ? `${b} B` : b < 1048576 ? `${(b / 1024).toFixed(1)} KB`
           : b < 1073741824 ? `${(b / 1048576).toFixed(1)} MB` : `${(b / 1073741824).toFixed(2)} GB`;
-        note.textContent = `${d.items ?? 0} cached, ${fmt}`;
+        note.textContent = t('screensaverMediaCached', {count: String(d.items ?? 0), size: fmt});
       } catch (_) { note.textContent = ''; }
     })();
     return row;

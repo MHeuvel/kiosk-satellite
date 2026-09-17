@@ -180,6 +180,36 @@
     "context": "Common:Dialogs",
     "description": "Shared dialog action, time picker label or color preset."
   },
+  "commonEdit": "Edit",
+  "@commonEdit": {
+    "context": "Common:Dialogs",
+    "description": "Shared picker action or loading state."
+  },
+  "commonMoveUp": "Move up",
+  "@commonMoveUp": {
+    "context": "Common:Dialogs",
+    "description": "Shared picker action or loading state."
+  },
+  "commonMoveDown": "Move down",
+  "@commonMoveDown": {
+    "context": "Common:Dialogs",
+    "description": "Shared picker action or loading state."
+  },
+  "commonPreviousMonth": "Previous month",
+  "@commonPreviousMonth": {
+    "context": "Common:Dialogs",
+    "description": "Shared picker action or loading state."
+  },
+  "commonNextMonth": "Next month",
+  "@commonNextMonth": {
+    "context": "Common:Dialogs",
+    "description": "Shared picker action or loading state."
+  },
+  "commonLoading": "Loading…",
+  "@commonLoading": {
+    "context": "Common:Dialogs",
+    "description": "Shared picker action or loading state."
+  },
   "drawerPluginAction": "{pluginName}: {actionTitle}",
   "@drawerPluginAction": {
     "context": "Device:Drawer",
@@ -9793,6 +9823,2747 @@
       ],
       "remoteAdmin": [
         "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverImmichUrlTitle": "Server address",
+  "@settingScreensaverImmichUrlTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    }
+  },
+  "settingScreensaverImmichUrlDescription": "The address of your Immich server, with its port.",
+  "@settingScreensaverImmichUrlDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    }
+  },
+  "settingScreensaverImmichApiKeyTitle": "API key",
+  "@settingScreensaverImmichApiKeyTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    }
+  },
+  "settingScreensaverImmichApiKeyDescription": "Created in Immich under Account Settings → API Keys.",
+  "@settingScreensaverImmichApiKeyDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    }
+  },
+  "screensaverMediaImmichPage": "Immich Media screensaver",
+  "@screensaverMediaImmichPage": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    }
+  },
+  "screensaverMediaImmichHint": "Server, media, slideshow, metadata, filters",
+  "@screensaverMediaImmichHint": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    }
+  },
+  "screensaverMediaServerConnection": "Server Connection",
+  "@screensaverMediaServerConnection": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    }
+  },
+  "screensaverMediaValidateFailedLog": "Validation failed. See the app log for the failing call.",
+  "@screensaverMediaValidateFailedLog": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    }
+  },
+  "screensaverMediaValidateFailed": "Validation failed.",
+  "@screensaverMediaValidateFailed": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    }
+  },
+  "screensaverMediaNoAnswer": "The device did not answer.",
+  "@screensaverMediaNoAnswer": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    }
+  },
+  "screensaverMediaAddressFirst": "Enter the server address first.",
+  "@screensaverMediaAddressFirst": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    }
+  },
+  "screensaverMediaKeyFirst": "Enter an API key first.",
+  "@screensaverMediaKeyFirst": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    }
+  },
+  "screensaverMediaBadAddress": "The server address is not a valid URL.",
+  "@screensaverMediaBadAddress": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    }
+  },
+  "screensaverMediaKeyRejected": "The API key was rejected.",
+  "@screensaverMediaKeyRejected": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    }
+  },
+  "screensaverMediaScopeMissing": "The API key is missing the {scope} permission.",
+  "@screensaverMediaScopeMissing": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    },
+    "placeholders": {
+      "scope": {
+        "type": "String",
+        "description": "Immich permission identifier. Keep unchanged."
+      }
+    }
+  },
+  "screensaverMediaPermissionMissing": "The API key is missing a permission: {error}",
+  "@screensaverMediaPermissionMissing": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Technical error details. Keep unchanged."
+      }
+    }
+  },
+  "screensaverMediaServerError": "The server answered {status}: {error}",
+  "@screensaverMediaServerError": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    },
+    "placeholders": {
+      "status": {
+        "type": "String",
+        "description": "HTTP status code."
+      },
+      "error": {
+        "type": "String",
+        "description": "Technical error details. Keep unchanged."
+      }
+    }
+  },
+  "screensaverMediaUnreachable": "Could not reach {url}.",
+  "@screensaverMediaUnreachable": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    },
+    "placeholders": {
+      "url": {
+        "type": "String",
+        "description": "Server URL. Keep unchanged."
+      }
+    }
+  },
+  "screensaverMediaTalkError": "Could not talk to the server: {error}",
+  "@screensaverMediaTalkError": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Technical error details. Keep unchanged."
+      }
+    }
+  },
+  "settingScreensaverImmichPeopleTitle": "People",
+  "@settingScreensaverImmichPeopleTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "settingScreensaverImmichPeopleDescription": "Show only media with any of these people.",
+  "@settingScreensaverImmichPeopleDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "settingScreensaverImmichExcludePeopleTitle": "Exclude people",
+  "@settingScreensaverImmichExcludePeopleTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "settingScreensaverImmichExcludePeopleDescription": "Skip media with any of these people.",
+  "@settingScreensaverImmichExcludePeopleDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "settingScreensaverImmichTagsTitle": "Tags",
+  "@settingScreensaverImmichTagsTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "settingScreensaverImmichTagsDescription": "Show only media with any of these tags.",
+  "@settingScreensaverImmichTagsDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "settingScreensaverImmichFavoritesOnlyTitle": "Favorites only",
+  "@settingScreensaverImmichFavoritesOnlyTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "settingScreensaverImmichFavoritesOnlyDescription": "Show only media marked as favorite.",
+  "@settingScreensaverImmichFavoritesOnlyDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "settingScreensaverImmichTakenWithinTitle": "Taken within",
+  "@settingScreensaverImmichTakenWithinTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "settingScreensaverImmichTakenWithinDescription": "Only show media taken in this window.",
+  "@settingScreensaverImmichTakenWithinDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "settingScreensaverImmichTakenFromTitle": "From",
+  "@settingScreensaverImmichTakenFromTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "settingScreensaverImmichTakenFromDescription": "Skip media taken before this date.",
+  "@settingScreensaverImmichTakenFromDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "settingScreensaverImmichTakenToTitle": "To",
+  "@settingScreensaverImmichTakenToTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "settingScreensaverImmichTakenToDescription": "Skip media taken after this date. The day itself counts.",
+  "@settingScreensaverImmichTakenToDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaFilters": "Filters",
+  "@screensaverMediaFilters": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaAnyone": "Anyone",
+  "@screensaverMediaAnyone": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaAnyoneDevice": "Anyone.",
+  "@screensaverMediaAnyoneDevice": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaNoOne": "No one",
+  "@screensaverMediaNoOne": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaNoOneDevice": "No one.",
+  "@screensaverMediaNoOneDevice": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaAny": "Any",
+  "@screensaverMediaAny": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaAnyDevice": "Any.",
+  "@screensaverMediaAnyDevice": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaNoPeople": "No named people yet. Name them in Immich first.",
+  "@screensaverMediaNoPeople": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaNoTags": "No tags yet. Create them in Immich first.",
+  "@screensaverMediaNoTags": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaPeopleFailed": "Could not list the people",
+  "@screensaverMediaPeopleFailed": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaTagsFailed": "Could not list the tags",
+  "@screensaverMediaTagsFailed": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaHidden": "Hidden",
+  "@screensaverMediaHidden": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaAnyTime": "Any time",
+  "@screensaverMediaAnyTime": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaPastMonth": "Past month",
+  "@screensaverMediaPastMonth": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaPast3Months": "Past 3 months",
+  "@screensaverMediaPast3Months": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaPastYear": "Past year",
+  "@screensaverMediaPastYear": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaPast2Years": "Past 2 years",
+  "@screensaverMediaPast2Years": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaPast5Years": "Past 5 years",
+  "@screensaverMediaPast5Years": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaPast10Years": "Past 10 years",
+  "@screensaverMediaPast10Years": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaSince": "Since",
+  "@screensaverMediaSince": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaTimeframe": "Timeframe",
+  "@screensaverMediaTimeframe": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaToday": "Today",
+  "@screensaverMediaToday": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaDateFormat": "Use YYYY-MM-DD.",
+  "@screensaverMediaDateFormat": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaNotDate": "That is not a date.",
+  "@screensaverMediaNotDate": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "settingScreensaverImmichMetadataTitle": "Show metadata",
+  "@settingScreensaverImmichMetadataTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichMetadataDescription": "Album, date, camera and location over the media.",
+  "@settingScreensaverImmichMetadataDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichMetadataAlbumTitle": "Album name",
+  "@settingScreensaverImmichMetadataAlbumTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichMetadataAlbumDescription": "Show which album the photo comes from.",
+  "@settingScreensaverImmichMetadataAlbumDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichMetadataDateTitle": "Date taken",
+  "@settingScreensaverImmichMetadataDateTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichMetadataDateDescription": "Show when the photo was taken.",
+  "@settingScreensaverImmichMetadataDateDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichMetadataCameraTitle": "Camera details",
+  "@settingScreensaverImmichMetadataCameraTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichMetadataCameraDescription": "Show focal length, aperture and ISO.",
+  "@settingScreensaverImmichMetadataCameraDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichMetadataLocationTitle": "Location",
+  "@settingScreensaverImmichMetadataLocationTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichMetadataLocationDescription": "Show the place the photo was taken.",
+  "@settingScreensaverImmichMetadataLocationDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichMetadataPositionTitle": "Metadata position",
+  "@settingScreensaverImmichMetadataPositionTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichMetadataPositionDescription": "Which corner the details sit in.",
+  "@settingScreensaverImmichMetadataPositionDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichMetadataTextShadowTitle": "Text drop shadow",
+  "@settingScreensaverImmichMetadataTextShadowTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichMetadataTextShadowDescription": "Add a drop shadow to metadata text for readability on photos.",
+  "@settingScreensaverImmichMetadataTextShadowDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichMetadataScaleTitle": "Text scaling",
+  "@settingScreensaverImmichMetadataScaleTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichMetadataScaleDescription": "Scale the photo details to better fit your screen size.",
+  "@settingScreensaverImmichMetadataScaleDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichVignetteStrengthTitle": "Vignette strength",
+  "@settingScreensaverImmichVignetteStrengthTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichVignetteStrengthDescription": "Darkness of the shading behind the details, for readability on bright photos. 0 turns it off.",
+  "@settingScreensaverImmichVignetteStrengthDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "screensaverMediaMetadata": "Metadata",
+  "@screensaverMediaMetadata": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "screensaverMediaTopLeft": "Top left",
+  "@screensaverMediaTopLeft": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "screensaverMediaTopRight": "Top right",
+  "@screensaverMediaTopRight": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "screensaverMediaBottomLeft": "Bottom left",
+  "@screensaverMediaBottomLeft": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "screensaverMediaBottomRight": "Bottom right",
+  "@screensaverMediaBottomRight": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Metadata",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Metadata"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Metadata"
+      ]
+    }
+  },
+  "settingScreensaverImmichIntervalTitle": "Seconds per image",
+  "@settingScreensaverImmichIntervalTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Slideshow",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
+  "settingScreensaverImmichIntervalDescription": "How long each image shows before the next. Videos play in full.",
+  "@settingScreensaverImmichIntervalDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Slideshow",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
+  "settingScreensaverImmichShuffleTitle": "Shuffle",
+  "@settingScreensaverImmichShuffleTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Slideshow",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
+  "settingScreensaverImmichShuffleDescription": "Cycle the media in random order.",
+  "@settingScreensaverImmichShuffleDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Slideshow",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
+  "settingScreensaverImmichTransitionTitle": "Transition",
+  "@settingScreensaverImmichTransitionTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Slideshow",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
+  "settingScreensaverImmichTransitionDescription": "How one item hands off to the next.",
+  "@settingScreensaverImmichTransitionDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Slideshow",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
+  "settingScreensaverImmichFillTitle": "Fill the screen",
+  "@settingScreensaverImmichFillTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Slideshow",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
+  "settingScreensaverImmichFillDescription": "Off keeps the whole photo between black bars. Smart enlarges photos shaped close to the screen, framing the rest over a blurred backdrop. Always enlarges every photo, cutting off what does not fit.",
+  "@settingScreensaverImmichFillDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Slideshow",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
+  "settingScreensaverImmichPairPortraitTitle": "Pair portrait photos",
+  "@settingScreensaverImmichPairPortraitTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Slideshow",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
+  "settingScreensaverImmichPairPortraitDescription": "Show two portrait photos side by side so they fill the screen.",
+  "@settingScreensaverImmichPairPortraitDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Slideshow",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
+  "settingScreensaverImmichEdgeTapsTitle": "Tap edges to change slides",
+  "@settingScreensaverImmichEdgeTapsTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Slideshow",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
+  "settingScreensaverImmichEdgeTapsDescription": "A tap on the left or right fifth of the screen shows the previous or next slide instead of dismissing.",
+  "@settingScreensaverImmichEdgeTapsDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Slideshow",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
+  "screensaverMediaSlideshow": "Slideshow",
+  "@screensaverMediaSlideshow": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Slideshow",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
+  "settingScreensaverImmichAlbumTitle": "Media source",
+  "@settingScreensaverImmichAlbumTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Media",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Media"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Media"
+      ]
+    }
+  },
+  "settingScreensaverImmichAlbumDescription": "The whole library, or the albums you pick.",
+  "@settingScreensaverImmichAlbumDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Media",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Media"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Media"
+      ]
+    }
+  },
+  "settingScreensaverImmichPhotosOnlyTitle": "Photos only",
+  "@settingScreensaverImmichPhotosOnlyTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Media",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Media"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Media"
+      ]
+    }
+  },
+  "settingScreensaverImmichPhotosOnlyDescription": "Skip videos in the slideshow.",
+  "@settingScreensaverImmichPhotosOnlyDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Media",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Media"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Media"
+      ]
+    }
+  },
+  "settingScreensaverImmichCacheTitle": "Cache media locally",
+  "@settingScreensaverImmichCacheTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Media",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Media"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Media"
+      ]
+    }
+  },
+  "settingScreensaverImmichCacheDescription": "Keep copies on the device so images load instantly.",
+  "@settingScreensaverImmichCacheDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Media",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Media"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Media"
+      ]
+    }
+  },
+  "settingScreensaverImmichCacheMaxTitle": "Cache size (items)",
+  "@settingScreensaverImmichCacheMaxTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Media",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Media"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Media"
+      ]
+    }
+  },
+  "settingScreensaverImmichCacheMaxDescription": "The oldest items are deleted once the cache is full.",
+  "@settingScreensaverImmichCacheMaxDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Media",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Media"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Media"
+      ]
+    }
+  },
+  "screensaverMediaAll": "All media",
+  "@screensaverMediaAll": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Media",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Media"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Media"
+      ]
+    }
+  },
+  "screensaverMediaAllDevice": "All media.",
+  "@screensaverMediaAllDevice": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Media",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Media"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Media"
+      ]
+    }
+  },
+  "screensaverMediaNoAlbums": "No albums yet. Create one in Immich first.",
+  "@screensaverMediaNoAlbums": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Media",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Media"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Media"
+      ]
+    }
+  },
+  "screensaverMediaAlbumsFailed": "Could not list the albums",
+  "@screensaverMediaAlbumsFailed": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Media",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Media"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Media"
+      ]
+    }
+  },
+  "screensaverMediaListError": "Could not list them: {error}",
+  "@screensaverMediaListError": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Media",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Media"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Media"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Technical error details. Keep unchanged."
+      }
+    }
+  },
+  "screensaverMediaListingFailed": "listing failed",
+  "@screensaverMediaListingFailed": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Media",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Media"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Media"
+      ]
+    }
+  },
+  "screensaverMediaItems": "{count} items",
+  "@screensaverMediaItems": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Media",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Media"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Media"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Item count."
+      }
+    }
+  },
+  "screensaverMediaCached": "{count} cached, {size}",
+  "@screensaverMediaCached": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Media",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Media"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Media"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Item count."
+      },
+      "size": {
+        "type": "String",
+        "description": "Formatted byte size."
+      }
+    }
+  },
+  "settingScreensaverCameraViewsTitle": "Camera views",
+  "@settingScreensaverCameraViewsTitle": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    }
+  },
+  "settingScreensaverCameraViewsDescription": "The camera views the screensaver shows, in this order.",
+  "@settingScreensaverCameraViewsDescription": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    }
+  },
+  "settingScreensaverCameraViewSecondsTitle": "Seconds per camera view",
+  "@settingScreensaverCameraViewSecondsTitle": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    }
+  },
+  "settingScreensaverCameraViewSecondsDescription": "How long each view stays on screen before the next one. With a single view selected nothing rotates.",
+  "@settingScreensaverCameraViewSecondsDescription": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    }
+  },
+  "settingScreensaverCameraMuteTitle": "Mute all views",
+  "@settingScreensaverCameraMuteTitle": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    }
+  },
+  "settingScreensaverCameraMuteDescription": "Keeps every view silent, even a single camera.",
+  "@settingScreensaverCameraMuteDescription": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    }
+  },
+  "screensaverMediaCameraPage": "Camera Streams screensaver",
+  "@screensaverMediaCameraPage": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    }
+  },
+  "screensaverMediaCameraHint": "Views to show, seconds per view, sound",
+  "@screensaverMediaCameraHint": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    }
+  },
+  "screensaverMediaNoCameras": "No camera view has cameras yet. Add one under Camera Streams.",
+  "@screensaverMediaNoCameras": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    }
+  },
+  "screensaverMediaNoCamerasRemote": "No camera view has cameras yet",
+  "@screensaverMediaNoCamerasRemote": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    }
+  },
+  "screensaverMediaAddCameras": "Add one under Camera Streams.",
+  "@screensaverMediaAddCameras": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    }
+  },
+  "screensaverMediaNoViews": "None yet. Pick the views the screensaver cycles through.",
+  "@screensaverMediaNoViews": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    }
+  },
+  "screensaverMediaRotation": "In the rotation (drag to reorder)",
+  "@screensaverMediaRotation": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    }
+  },
+  "screensaverMediaAvailable": "Available",
+  "@screensaverMediaAvailable": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    }
+  },
+  "screensaverMediaOneCamera": "{count} camera",
+  "@screensaverMediaOneCamera": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Item count."
+      }
+    }
+  },
+  "screensaverMediaCameras": "{count} cameras",
+  "@screensaverMediaCameras": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Item count."
+      }
+    }
+  },
+  "screensaverMediaPosition": "Position {index} · {cameras}",
+  "@screensaverMediaPosition": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    },
+    "placeholders": {
+      "index": {
+        "type": "String",
+        "description": "Position starting at one."
+      },
+      "cameras": {
+        "type": "String",
+        "description": "Localized camera count."
+      }
+    }
+  },
+  "screensaverMediaTransitionNone": "None",
+  "@screensaverMediaTransitionNone": {
+    "context": "Settings:Screensaver:Media slideshows",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver",
+        "Settings > Screensaver > Local Media screensaver",
+        "Settings > Screensaver > Photo Gallery screensaver",
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver",
+        "Screensaver > Local Media screensaver",
+        "Screensaver > Photo Gallery screensaver",
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
+  "screensaverMediaTransitionFade": "Crossfade",
+  "@screensaverMediaTransitionFade": {
+    "context": "Settings:Screensaver:Media slideshows",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver",
+        "Settings > Screensaver > Local Media screensaver",
+        "Settings > Screensaver > Photo Gallery screensaver",
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver",
+        "Screensaver > Local Media screensaver",
+        "Screensaver > Photo Gallery screensaver",
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
+  "screensaverMediaTransitionSlide": "Slide",
+  "@screensaverMediaTransitionSlide": {
+    "context": "Settings:Screensaver:Media slideshows",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver",
+        "Settings > Screensaver > Local Media screensaver",
+        "Settings > Screensaver > Photo Gallery screensaver",
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver",
+        "Screensaver > Local Media screensaver",
+        "Screensaver > Photo Gallery screensaver",
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
+  "screensaverMediaTransitionZoom": "Zoom",
+  "@screensaverMediaTransitionZoom": {
+    "context": "Settings:Screensaver:Media slideshows",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver",
+        "Settings > Screensaver > Local Media screensaver",
+        "Settings > Screensaver > Photo Gallery screensaver",
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver",
+        "Screensaver > Local Media screensaver",
+        "Screensaver > Photo Gallery screensaver",
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
+  "screensaverMediaTransitionKenBurns": "Ken Burns",
+  "@screensaverMediaTransitionKenBurns": {
+    "context": "Settings:Screensaver:Media slideshows",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver",
+        "Settings > Screensaver > Local Media screensaver",
+        "Settings > Screensaver > Photo Gallery screensaver",
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver",
+        "Screensaver > Local Media screensaver",
+        "Screensaver > Photo Gallery screensaver",
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
+  "screensaverMediaTransitionRandom": "Random",
+  "@screensaverMediaTransitionRandom": {
+    "context": "Settings:Screensaver:Media slideshows",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver",
+        "Settings > Screensaver > Local Media screensaver",
+        "Settings > Screensaver > Photo Gallery screensaver",
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver",
+        "Screensaver > Local Media screensaver",
+        "Screensaver > Photo Gallery screensaver",
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
+  "screensaverMediaFillOff": "Off",
+  "@screensaverMediaFillOff": {
+    "context": "Settings:Screensaver:Media slideshows",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver",
+        "Settings > Screensaver > Local Media screensaver",
+        "Settings > Screensaver > Photo Gallery screensaver",
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver",
+        "Screensaver > Local Media screensaver",
+        "Screensaver > Photo Gallery screensaver",
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
+  "screensaverMediaFillSmart": "Smart",
+  "@screensaverMediaFillSmart": {
+    "context": "Settings:Screensaver:Media slideshows",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver",
+        "Settings > Screensaver > Local Media screensaver",
+        "Settings > Screensaver > Photo Gallery screensaver",
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver",
+        "Screensaver > Local Media screensaver",
+        "Screensaver > Photo Gallery screensaver",
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
+  "screensaverMediaFillAlways": "Always",
+  "@screensaverMediaFillAlways": {
+    "context": "Settings:Screensaver:Media slideshows",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver",
+        "Settings > Screensaver > Local Media screensaver",
+        "Settings > Screensaver > Photo Gallery screensaver",
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver",
+        "Screensaver > Local Media screensaver",
+        "Screensaver > Photo Gallery screensaver",
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
+  "settingScreensaverGalleryItemsTitle": "Photos",
+  "@settingScreensaverGalleryItemsTitle": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "settingScreensaverGalleryItemsDescription": "The photos and videos this screensaver cycles. Picked from the gallery on the device; picking again replaces the selection.",
+  "@settingScreensaverGalleryItemsDescription": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "settingScreensaverGalleryIntervalTitle": "Seconds per photo",
+  "@settingScreensaverGalleryIntervalTitle": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "settingScreensaverGalleryIntervalDescription": "How long each photo shows before the next. Videos play in full.",
+  "@settingScreensaverGalleryIntervalDescription": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "settingScreensaverGalleryShuffleTitle": "Shuffle",
+  "@settingScreensaverGalleryShuffleTitle": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "settingScreensaverGalleryShuffleDescription": "Cycle the selection in random order.",
+  "@settingScreensaverGalleryShuffleDescription": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "settingScreensaverGalleryTransitionTitle": "Transition",
+  "@settingScreensaverGalleryTransitionTitle": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "settingScreensaverGalleryTransitionDescription": "How one photo hands off to the next.",
+  "@settingScreensaverGalleryTransitionDescription": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "settingScreensaverGalleryFillTitle": "Fill the screen",
+  "@settingScreensaverGalleryFillTitle": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "settingScreensaverGalleryFillDescription": "Off keeps the whole photo between black bars. Smart enlarges photos shaped close to the screen, framing the rest over a blurred backdrop. Always enlarges every photo, cutting off what does not fit.",
+  "@settingScreensaverGalleryFillDescription": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "settingScreensaverGalleryEdgeTapsTitle": "Tap edges to change slides",
+  "@settingScreensaverGalleryEdgeTapsTitle": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "settingScreensaverGalleryEdgeTapsDescription": "A tap on the left or right fifth of the screen shows the previous or next slide instead of dismissing.",
+  "@settingScreensaverGalleryEdgeTapsDescription": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "screensaverMediaGalleryPage": "Photo Gallery screensaver",
+  "@screensaverMediaGalleryPage": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "screensaverMediaGalleryHint": "Photos, timing, shuffle, transition",
+  "@screensaverMediaGalleryHint": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "screensaverMediaLoadingPhotos": "Loading photos...",
+  "@screensaverMediaLoadingPhotos": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "screensaverMediaCopying": "Copying photo {index} of {total}...",
+  "@screensaverMediaCopying": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    },
+    "placeholders": {
+      "index": {
+        "type": "String",
+        "description": "Position starting at one."
+      },
+      "total": {
+        "type": "String",
+        "description": "Total items."
+      }
+    }
+  },
+  "screensaverMediaCopyFailed": "Could not copy the photos",
+  "@screensaverMediaCopyFailed": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "screensaverMediaSmallerSelection": "Try a smaller selection.",
+  "@screensaverMediaSmallerSelection": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "screensaverMediaNoPhotos": "No photos selected",
+  "@screensaverMediaNoPhotos": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "screensaverMediaSelected": "{count} selected",
+  "@screensaverMediaSelected": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Item count."
+      }
+    }
+  },
+  "screensaverMediaPickOnDevice": "None selected. Pick on the device.",
+  "@screensaverMediaPickOnDevice": {
+    "context": "Settings:Screensaver:Photo Gallery screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Photo Gallery screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Photo Gallery screensaver"
+      ]
+    }
+  },
+  "settingScreensaverMediaIdTitle": "Media source",
+  "@settingScreensaverMediaIdTitle": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverMediaIdDescription": "A Home Assistant media item, folder, or camera. Use Browse to pick one.",
+  "@settingScreensaverMediaIdDescription": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverMediaIntervalTitle": "Seconds per image",
+  "@settingScreensaverMediaIntervalTitle": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverMediaIntervalDescription": "How long each image shows before the next. Videos play in full.",
+  "@settingScreensaverMediaIntervalDescription": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverMediaShuffleTitle": "Shuffle",
+  "@settingScreensaverMediaShuffleTitle": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverMediaShuffleDescription": "Play a folder in random order.",
+  "@settingScreensaverMediaShuffleDescription": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverMediaRecursiveTitle": "Include subfolders",
+  "@settingScreensaverMediaRecursiveTitle": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverMediaRecursiveDescription": "Descend into subfolders when a folder is chosen.",
+  "@settingScreensaverMediaRecursiveDescription": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverMediaTransitionTitle": "Transition",
+  "@settingScreensaverMediaTransitionTitle": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverMediaTransitionDescription": "How one item hands off to the next.",
+  "@settingScreensaverMediaTransitionDescription": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverMediaFillTitle": "Fill the screen",
+  "@settingScreensaverMediaFillTitle": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverMediaFillDescription": "Off keeps the whole photo between black bars. Smart enlarges photos shaped close to the screen, framing the rest over a blurred backdrop. Always enlarges every photo, cutting off what does not fit.",
+  "@settingScreensaverMediaFillDescription": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverMediaEdgeTapsTitle": "Tap edges to change slides",
+  "@settingScreensaverMediaEdgeTapsTitle": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverMediaEdgeTapsDescription": "A tap on the left or right fifth of the screen shows the previous or next slide instead of dismissing.",
+  "@settingScreensaverMediaEdgeTapsDescription": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "screensaverMediaHaPage": "Home Assistant Media screensaver",
+  "@screensaverMediaHaPage": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "screensaverMediaHaHint": "Media source, timing, shuffle, fill",
+  "@screensaverMediaHaHint": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "screensaverMediaChoose": "Choose media",
+  "@screensaverMediaChoose": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "screensaverMediaRoot": "Media",
+  "@screensaverMediaRoot": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "screensaverMediaHaUnavailable": "Could not reach Home Assistant, or the token is missing.",
+  "@screensaverMediaHaUnavailable": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "screensaverMediaEmpty": "Nothing here.",
+  "@screensaverMediaEmpty": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "screensaverMediaUseFolder": "Use this folder",
+  "@screensaverMediaUseFolder": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "screensaverMediaFolder": "folder",
+  "@screensaverMediaFolder": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "screensaverMediaCamera": "camera",
+  "@screensaverMediaCamera": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "screensaverMediaItem": "item",
+  "@screensaverMediaItem": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "screensaverMediaBrowseFailed": "browse failed",
+  "@screensaverMediaBrowseFailed": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "screensaverMediaBrowseError": "Could not browse: {error}",
+  "@screensaverMediaBrowseError": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Technical error details. Keep unchanged."
+      }
+    }
+  },
+  "screensaverMediaNotSet": "Not set",
+  "@screensaverMediaNotSet": {
+    "context": "Settings:Screensaver:Home Assistant Media screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverLocalFolderTitle": "Local folder",
+  "@settingScreensaverLocalFolderTitle": {
+    "context": "Settings:Screensaver:Local Media screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Local Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Local Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverLocalFolderDescription": "Folder on this device whose photos and videos the screensaver cycles through. Picked on the device; the path can also be typed here remotely.",
+  "@settingScreensaverLocalFolderDescription": {
+    "context": "Settings:Screensaver:Local Media screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Local Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Local Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverLocalIntervalTitle": "Seconds per photo",
+  "@settingScreensaverLocalIntervalTitle": {
+    "context": "Settings:Screensaver:Local Media screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Local Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Local Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverLocalIntervalDescription": "How long each photo shows before the next. Videos play in full.",
+  "@settingScreensaverLocalIntervalDescription": {
+    "context": "Settings:Screensaver:Local Media screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Local Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Local Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverLocalShuffleTitle": "Shuffle",
+  "@settingScreensaverLocalShuffleTitle": {
+    "context": "Settings:Screensaver:Local Media screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Local Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Local Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverLocalShuffleDescription": "Cycle the folder in random order instead of by name.",
+  "@settingScreensaverLocalShuffleDescription": {
+    "context": "Settings:Screensaver:Local Media screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Local Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Local Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverLocalRecursiveTitle": "Include subfolders",
+  "@settingScreensaverLocalRecursiveTitle": {
+    "context": "Settings:Screensaver:Local Media screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Local Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Local Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverLocalRecursiveDescription": "Also cycle photos and videos inside subfolders.",
+  "@settingScreensaverLocalRecursiveDescription": {
+    "context": "Settings:Screensaver:Local Media screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Local Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Local Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverLocalTransitionTitle": "Transition",
+  "@settingScreensaverLocalTransitionTitle": {
+    "context": "Settings:Screensaver:Local Media screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Local Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Local Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverLocalTransitionDescription": "How one photo hands off to the next.",
+  "@settingScreensaverLocalTransitionDescription": {
+    "context": "Settings:Screensaver:Local Media screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Local Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Local Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverLocalFillTitle": "Fill the screen",
+  "@settingScreensaverLocalFillTitle": {
+    "context": "Settings:Screensaver:Local Media screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Local Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Local Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverLocalFillDescription": "Off keeps the whole photo between black bars. Smart enlarges photos shaped close to the screen, framing the rest over a blurred backdrop. Always enlarges every photo, cutting off what does not fit.",
+  "@settingScreensaverLocalFillDescription": {
+    "context": "Settings:Screensaver:Local Media screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Local Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Local Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverLocalEdgeTapsTitle": "Tap edges to change slides",
+  "@settingScreensaverLocalEdgeTapsTitle": {
+    "context": "Settings:Screensaver:Local Media screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Local Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Local Media screensaver"
+      ]
+    }
+  },
+  "settingScreensaverLocalEdgeTapsDescription": "A tap on the left or right fifth of the screen shows the previous or next slide instead of dismissing.",
+  "@settingScreensaverLocalEdgeTapsDescription": {
+    "context": "Settings:Screensaver:Local Media screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Local Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Local Media screensaver"
+      ]
+    }
+  },
+  "screensaverMediaLocalPage": "Local Media screensaver",
+  "@screensaverMediaLocalPage": {
+    "context": "Settings:Screensaver:Local Media screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Local Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Local Media screensaver"
+      ]
+    }
+  },
+  "screensaverMediaLocalHint": "Folder, timing, shuffle, transition",
+  "@screensaverMediaLocalHint": {
+    "context": "Settings:Screensaver:Local Media screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Local Media screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Local Media screensaver"
       ]
     }
   },

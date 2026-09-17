@@ -1,0 +1,246 @@
+{
+  "@@locale": "en",
+  "settingScreensaverCameraViewsTitle": "Camera views",
+  "@settingScreensaverCameraViewsTitle": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    }
+  },
+  "settingScreensaverCameraViewsDescription": "The camera views the screensaver shows, in this order.",
+  "@settingScreensaverCameraViewsDescription": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    }
+  },
+  "settingScreensaverCameraViewSecondsTitle": "Seconds per camera view",
+  "@settingScreensaverCameraViewSecondsTitle": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    }
+  },
+  "settingScreensaverCameraViewSecondsDescription": "How long each view stays on screen before the next one. With a single view selected nothing rotates.",
+  "@settingScreensaverCameraViewSecondsDescription": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    }
+  },
+  "settingScreensaverCameraMuteTitle": "Mute all views",
+  "@settingScreensaverCameraMuteTitle": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    }
+  },
+  "settingScreensaverCameraMuteDescription": "Keeps every view silent, even a single camera.",
+  "@settingScreensaverCameraMuteDescription": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    }
+  },
+  "screensaverMediaCameraPage": "Camera Streams screensaver",
+  "@screensaverMediaCameraPage": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    }
+  },
+  "screensaverMediaCameraHint": "Views to show, seconds per view, sound",
+  "@screensaverMediaCameraHint": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    }
+  },
+  "screensaverMediaNoCameras": "No camera view has cameras yet. Add one under Camera Streams.",
+  "@screensaverMediaNoCameras": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    }
+  },
+  "screensaverMediaNoCamerasRemote": "No camera view has cameras yet",
+  "@screensaverMediaNoCamerasRemote": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    }
+  },
+  "screensaverMediaAddCameras": "Add one under Camera Streams.",
+  "@screensaverMediaAddCameras": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    }
+  },
+  "screensaverMediaNoViews": "None yet. Pick the views the screensaver cycles through.",
+  "@screensaverMediaNoViews": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    }
+  },
+  "screensaverMediaRotation": "In the rotation (drag to reorder)",
+  "@screensaverMediaRotation": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    }
+  },
+  "screensaverMediaAvailable": "Available",
+  "@screensaverMediaAvailable": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    }
+  },
+  "screensaverMediaOneCamera": "{count} camera",
+  "@screensaverMediaOneCamera": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Item count."
+      }
+    }
+  },
+  "screensaverMediaCameras": "{count} cameras",
+  "@screensaverMediaCameras": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Item count."
+      }
+    }
+  },
+  "screensaverMediaPosition": "Position {index} · {cameras}",
+  "@screensaverMediaPosition": {
+    "context": "Settings:Screensaver:Camera Streams screensaver",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Camera Streams screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Camera Streams screensaver"
+      ]
+    },
+    "placeholders": {
+      "index": {
+        "type": "String",
+        "description": "Position starting at one."
+      },
+      "cameras": {
+        "type": "String",
+        "description": "Localized camera count."
+      }
+    }
+  }
+}

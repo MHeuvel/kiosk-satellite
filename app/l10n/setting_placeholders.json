@@ -1,4 +1,6 @@
 {
   "device.hostname": "deviceHostnamePlaceholder",
-  "screensaver.clock_background": "screensaverBackgroundHint"
+  "screensaver.clock_background": "screensaverBackgroundHint",
+  "screensaver.immich_taken_from": "screensaverMediaAnyTime",
+  "screensaver.immich_taken_to": "screensaverMediaToday"
 }

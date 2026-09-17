@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../app_container.dart';
+import '../l10n/messages.dart';
 import 'kit.dart';
 
 /// A Home Assistant media browser, for picking the screensaver's media.
@@ -82,7 +83,7 @@ class _MediaPickerDialogState extends State<_MediaPickerDialog> {
 
     return AlertDialog(
       contentPadding: const EdgeInsets.fromLTRB(0, 12, 0, 0),
-      title: const Text('Choose media'),
+      title: Text(screensaverText(context, 'Choose media')),
       content: SizedBox(
         width: 460,
         height: 460,
@@ -97,14 +98,16 @@ class _MediaPickerDialogState extends State<_MediaPickerDialog> {
                 children: [
                   for (var i = 0; i < _trail.length; i++) ...[
                     if (i > 0)
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 2),
-                        child: Icon(Icons.chevron_right, size: 16),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 2),
+                        child: const Icon(Icons.chevron_right, size: 16),
                       ),
                     InkWell(
                       onTap: i == _trail.length - 1 ? null : () => _crumbTo(i),
                       child: Text(
-                        _trail[i].title,
+                        i == 0
+                            ? screensaverText(context, 'Media')
+                            : _trail[i].title,
                         style: TextStyle(
                           color: i == _trail.length - 1
                               ? theme.colorScheme.onSurface
@@ -125,14 +128,16 @@ class _MediaPickerDialogState extends State<_MediaPickerDialog> {
                       child: Padding(
                         padding: const EdgeInsets.all(24),
                         child: Text(
-                          _error!,
+                          screensaverText(context, _error!),
                           textAlign: TextAlign.center,
                           style: TextStyle(color: theme.colorScheme.error),
                         ),
                       ),
                     )
                   : children.isEmpty
-                  ? const Center(child: Text('Nothing here.'))
+                  ? Center(
+                      child: Text(screensaverText(context, 'Nothing here.')),
+                    )
                   : EdgeFade(
                       child: ListView.builder(
                         itemCount: children.length,
@@ -146,7 +151,7 @@ class _MediaPickerDialogState extends State<_MediaPickerDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('Cancel'),
+          child: Text(screensaverText(context, 'Cancel')),
         ),
         // Cycle a whole folder as a slideshow. Not at the root, which is not a
         // real folder.
@@ -158,7 +163,7 @@ class _MediaPickerDialogState extends State<_MediaPickerDialog> {
                 Navigator.pop(context, (id: id, isFolder: true));
               }
             },
-            child: const Text('Use this folder'),
+            child: Text(screensaverText(context, 'Use this folder')),
           ),
       ],
     );

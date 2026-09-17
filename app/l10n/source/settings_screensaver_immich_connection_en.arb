@@ -1,0 +1,284 @@
+{
+  "@@locale": "en",
+  "settingScreensaverImmichUrlTitle": "Server address",
+  "@settingScreensaverImmichUrlTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    }
+  },
+  "settingScreensaverImmichUrlDescription": "The address of your Immich server, with its port.",
+  "@settingScreensaverImmichUrlDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    }
+  },
+  "settingScreensaverImmichApiKeyTitle": "API key",
+  "@settingScreensaverImmichApiKeyTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    }
+  },
+  "settingScreensaverImmichApiKeyDescription": "Created in Immich under Account Settings → API Keys.",
+  "@settingScreensaverImmichApiKeyDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    }
+  },
+  "screensaverMediaImmichPage": "Immich Media screensaver",
+  "@screensaverMediaImmichPage": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    }
+  },
+  "screensaverMediaImmichHint": "Server, media, slideshow, metadata, filters",
+  "@screensaverMediaImmichHint": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    }
+  },
+  "screensaverMediaServerConnection": "Server Connection",
+  "@screensaverMediaServerConnection": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    }
+  },
+  "screensaverMediaValidateFailedLog": "Validation failed. See the app log for the failing call.",
+  "@screensaverMediaValidateFailedLog": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    }
+  },
+  "screensaverMediaValidateFailed": "Validation failed.",
+  "@screensaverMediaValidateFailed": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    }
+  },
+  "screensaverMediaNoAnswer": "The device did not answer.",
+  "@screensaverMediaNoAnswer": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    }
+  },
+  "screensaverMediaAddressFirst": "Enter the server address first.",
+  "@screensaverMediaAddressFirst": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    }
+  },
+  "screensaverMediaKeyFirst": "Enter an API key first.",
+  "@screensaverMediaKeyFirst": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    }
+  },
+  "screensaverMediaBadAddress": "The server address is not a valid URL.",
+  "@screensaverMediaBadAddress": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    }
+  },
+  "screensaverMediaKeyRejected": "The API key was rejected.",
+  "@screensaverMediaKeyRejected": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    }
+  },
+  "screensaverMediaScopeMissing": "The API key is missing the {scope} permission.",
+  "@screensaverMediaScopeMissing": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    },
+    "placeholders": {
+      "scope": {
+        "type": "String",
+        "description": "Immich permission identifier. Keep unchanged."
+      }
+    }
+  },
+  "screensaverMediaPermissionMissing": "The API key is missing a permission: {error}",
+  "@screensaverMediaPermissionMissing": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Technical error details. Keep unchanged."
+      }
+    }
+  },
+  "screensaverMediaServerError": "The server answered {status}: {error}",
+  "@screensaverMediaServerError": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    },
+    "placeholders": {
+      "status": {
+        "type": "String",
+        "description": "HTTP status code."
+      },
+      "error": {
+        "type": "String",
+        "description": "Technical error details. Keep unchanged."
+      }
+    }
+  },
+  "screensaverMediaUnreachable": "Could not reach {url}.",
+  "@screensaverMediaUnreachable": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    },
+    "placeholders": {
+      "url": {
+        "type": "String",
+        "description": "Server URL. Keep unchanged."
+      }
+    }
+  },
+  "screensaverMediaTalkError": "Could not talk to the server: {error}",
+  "@screensaverMediaTalkError": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Server Connection",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Server Connection"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Server Connection"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Technical error details. Keep unchanged."
+      }
+    }
+  }
+}

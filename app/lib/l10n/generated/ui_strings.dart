@@ -313,6 +313,42 @@ abstract class UiStrings {
   /// **'Dim'**
   String get commonColorDim;
 
+  /// Shared picker action or loading state.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get commonEdit;
+
+  /// Shared picker action or loading state.
+  ///
+  /// In en, this message translates to:
+  /// **'Move up'**
+  String get commonMoveUp;
+
+  /// Shared picker action or loading state.
+  ///
+  /// In en, this message translates to:
+  /// **'Move down'**
+  String get commonMoveDown;
+
+  /// Shared picker action or loading state.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous month'**
+  String get commonPreviousMonth;
+
+  /// Shared picker action or loading state.
+  ///
+  /// In en, this message translates to:
+  /// **'Next month'**
+  String get commonNextMonth;
+
+  /// Shared picker action or loading state.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading…'**
+  String get commonLoading;
+
   /// Plugin action label. Both values come from the plugin and are kept as supplied.
   ///
   /// In en, this message translates to:
@@ -4740,6 +4776,1200 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Once the display truly powers off, the tablet\'s own power management takes over, and many Android models misbehave in that state: Wi-Fi naps or drops, the Home Assistant entities go unavailable, the camera can be revoked, and some models kill background apps outright. What happens depends on the manufacturer.\n\nThe reliable alternative is the Black screensaver with this setting left at 0: the panel looks just as dark, and the app keeps full control.'**
   String get screensaverScreenOffWarning;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Server address'**
+  String get settingScreensaverImmichUrlTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The address of your Immich server, with its port.'**
+  String get settingScreensaverImmichUrlDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'API key'**
+  String get settingScreensaverImmichApiKeyTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Created in Immich under Account Settings → API Keys.'**
+  String get settingScreensaverImmichApiKeyDescription;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Immich Media screensaver'**
+  String get screensaverMediaImmichPage;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Server, media, slideshow, metadata, filters'**
+  String get screensaverMediaImmichHint;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Server Connection'**
+  String get screensaverMediaServerConnection;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Validation failed. See the app log for the failing call.'**
+  String get screensaverMediaValidateFailedLog;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Validation failed.'**
+  String get screensaverMediaValidateFailed;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The device did not answer.'**
+  String get screensaverMediaNoAnswer;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the server address first.'**
+  String get screensaverMediaAddressFirst;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an API key first.'**
+  String get screensaverMediaKeyFirst;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The server address is not a valid URL.'**
+  String get screensaverMediaBadAddress;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The API key was rejected.'**
+  String get screensaverMediaKeyRejected;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The API key is missing the {scope} permission.'**
+  String screensaverMediaScopeMissing(String scope);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The API key is missing a permission: {error}'**
+  String screensaverMediaPermissionMissing(String error);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The server answered {status}: {error}'**
+  String screensaverMediaServerError(String status, String error);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not reach {url}.'**
+  String screensaverMediaUnreachable(String url);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not talk to the server: {error}'**
+  String screensaverMediaTalkError(String error);
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'People'**
+  String get settingScreensaverImmichPeopleTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Show only media with any of these people.'**
+  String get settingScreensaverImmichPeopleDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Exclude people'**
+  String get settingScreensaverImmichExcludePeopleTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip media with any of these people.'**
+  String get settingScreensaverImmichExcludePeopleDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Tags'**
+  String get settingScreensaverImmichTagsTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Show only media with any of these tags.'**
+  String get settingScreensaverImmichTagsDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Favorites only'**
+  String get settingScreensaverImmichFavoritesOnlyTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Show only media marked as favorite.'**
+  String get settingScreensaverImmichFavoritesOnlyDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Taken within'**
+  String get settingScreensaverImmichTakenWithinTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Only show media taken in this window.'**
+  String get settingScreensaverImmichTakenWithinDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'From'**
+  String get settingScreensaverImmichTakenFromTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip media taken before this date.'**
+  String get settingScreensaverImmichTakenFromDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'To'**
+  String get settingScreensaverImmichTakenToTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip media taken after this date. The day itself counts.'**
+  String get settingScreensaverImmichTakenToDescription;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Filters'**
+  String get screensaverMediaFilters;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Anyone'**
+  String get screensaverMediaAnyone;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Anyone.'**
+  String get screensaverMediaAnyoneDevice;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No one'**
+  String get screensaverMediaNoOne;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No one.'**
+  String get screensaverMediaNoOneDevice;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Any'**
+  String get screensaverMediaAny;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Any.'**
+  String get screensaverMediaAnyDevice;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No named people yet. Name them in Immich first.'**
+  String get screensaverMediaNoPeople;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No tags yet. Create them in Immich first.'**
+  String get screensaverMediaNoTags;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not list the people'**
+  String get screensaverMediaPeopleFailed;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not list the tags'**
+  String get screensaverMediaTagsFailed;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Hidden'**
+  String get screensaverMediaHidden;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Any time'**
+  String get screensaverMediaAnyTime;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Past month'**
+  String get screensaverMediaPastMonth;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Past 3 months'**
+  String get screensaverMediaPast3Months;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Past year'**
+  String get screensaverMediaPastYear;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Past 2 years'**
+  String get screensaverMediaPast2Years;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Past 5 years'**
+  String get screensaverMediaPast5Years;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Past 10 years'**
+  String get screensaverMediaPast10Years;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Since'**
+  String get screensaverMediaSince;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Timeframe'**
+  String get screensaverMediaTimeframe;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get screensaverMediaToday;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Use YYYY-MM-DD.'**
+  String get screensaverMediaDateFormat;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'That is not a date.'**
+  String get screensaverMediaNotDate;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Show metadata'**
+  String get settingScreensaverImmichMetadataTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Album, date, camera and location over the media.'**
+  String get settingScreensaverImmichMetadataDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Album name'**
+  String get settingScreensaverImmichMetadataAlbumTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Show which album the photo comes from.'**
+  String get settingScreensaverImmichMetadataAlbumDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Date taken'**
+  String get settingScreensaverImmichMetadataDateTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Show when the photo was taken.'**
+  String get settingScreensaverImmichMetadataDateDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera details'**
+  String get settingScreensaverImmichMetadataCameraTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Show focal length, aperture and ISO.'**
+  String get settingScreensaverImmichMetadataCameraDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get settingScreensaverImmichMetadataLocationTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Show the place the photo was taken.'**
+  String get settingScreensaverImmichMetadataLocationDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Metadata position'**
+  String get settingScreensaverImmichMetadataPositionTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Which corner the details sit in.'**
+  String get settingScreensaverImmichMetadataPositionDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Text drop shadow'**
+  String get settingScreensaverImmichMetadataTextShadowTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a drop shadow to metadata text for readability on photos.'**
+  String get settingScreensaverImmichMetadataTextShadowDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Text scaling'**
+  String get settingScreensaverImmichMetadataScaleTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Scale the photo details to better fit your screen size.'**
+  String get settingScreensaverImmichMetadataScaleDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Vignette strength'**
+  String get settingScreensaverImmichVignetteStrengthTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Darkness of the shading behind the details, for readability on bright photos. 0 turns it off.'**
+  String get settingScreensaverImmichVignetteStrengthDescription;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Metadata'**
+  String get screensaverMediaMetadata;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Top left'**
+  String get screensaverMediaTopLeft;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Top right'**
+  String get screensaverMediaTopRight;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Bottom left'**
+  String get screensaverMediaBottomLeft;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Bottom right'**
+  String get screensaverMediaBottomRight;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Seconds per image'**
+  String get settingScreensaverImmichIntervalTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'How long each image shows before the next. Videos play in full.'**
+  String get settingScreensaverImmichIntervalDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Shuffle'**
+  String get settingScreensaverImmichShuffleTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Cycle the media in random order.'**
+  String get settingScreensaverImmichShuffleDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Transition'**
+  String get settingScreensaverImmichTransitionTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'How one item hands off to the next.'**
+  String get settingScreensaverImmichTransitionDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Fill the screen'**
+  String get settingScreensaverImmichFillTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Off keeps the whole photo between black bars. Smart enlarges photos shaped close to the screen, framing the rest over a blurred backdrop. Always enlarges every photo, cutting off what does not fit.'**
+  String get settingScreensaverImmichFillDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Pair portrait photos'**
+  String get settingScreensaverImmichPairPortraitTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Show two portrait photos side by side so they fill the screen.'**
+  String get settingScreensaverImmichPairPortraitDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap edges to change slides'**
+  String get settingScreensaverImmichEdgeTapsTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'A tap on the left or right fifth of the screen shows the previous or next slide instead of dismissing.'**
+  String get settingScreensaverImmichEdgeTapsDescription;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Slideshow'**
+  String get screensaverMediaSlideshow;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Media source'**
+  String get settingScreensaverImmichAlbumTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The whole library, or the albums you pick.'**
+  String get settingScreensaverImmichAlbumDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Photos only'**
+  String get settingScreensaverImmichPhotosOnlyTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip videos in the slideshow.'**
+  String get settingScreensaverImmichPhotosOnlyDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Cache media locally'**
+  String get settingScreensaverImmichCacheTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep copies on the device so images load instantly.'**
+  String get settingScreensaverImmichCacheDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Cache size (items)'**
+  String get settingScreensaverImmichCacheMaxTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The oldest items are deleted once the cache is full.'**
+  String get settingScreensaverImmichCacheMaxDescription;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'All media'**
+  String get screensaverMediaAll;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'All media.'**
+  String get screensaverMediaAllDevice;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No albums yet. Create one in Immich first.'**
+  String get screensaverMediaNoAlbums;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not list the albums'**
+  String get screensaverMediaAlbumsFailed;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not list them: {error}'**
+  String screensaverMediaListError(String error);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'listing failed'**
+  String get screensaverMediaListingFailed;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} items'**
+  String screensaverMediaItems(String count);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} cached, {size}'**
+  String screensaverMediaCached(String count, String size);
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera views'**
+  String get settingScreensaverCameraViewsTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The camera views the screensaver shows, in this order.'**
+  String get settingScreensaverCameraViewsDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Seconds per camera view'**
+  String get settingScreensaverCameraViewSecondsTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'How long each view stays on screen before the next one. With a single view selected nothing rotates.'**
+  String get settingScreensaverCameraViewSecondsDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Mute all views'**
+  String get settingScreensaverCameraMuteTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Keeps every view silent, even a single camera.'**
+  String get settingScreensaverCameraMuteDescription;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera Streams screensaver'**
+  String get screensaverMediaCameraPage;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Views to show, seconds per view, sound'**
+  String get screensaverMediaCameraHint;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No camera view has cameras yet. Add one under Camera Streams.'**
+  String get screensaverMediaNoCameras;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No camera view has cameras yet'**
+  String get screensaverMediaNoCamerasRemote;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Add one under Camera Streams.'**
+  String get screensaverMediaAddCameras;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'None yet. Pick the views the screensaver cycles through.'**
+  String get screensaverMediaNoViews;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'In the rotation (drag to reorder)'**
+  String get screensaverMediaRotation;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Available'**
+  String get screensaverMediaAvailable;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} camera'**
+  String screensaverMediaOneCamera(String count);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} cameras'**
+  String screensaverMediaCameras(String count);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Position {index} · {cameras}'**
+  String screensaverMediaPosition(String index, String cameras);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'None'**
+  String get screensaverMediaTransitionNone;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Crossfade'**
+  String get screensaverMediaTransitionFade;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Slide'**
+  String get screensaverMediaTransitionSlide;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Zoom'**
+  String get screensaverMediaTransitionZoom;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Ken Burns'**
+  String get screensaverMediaTransitionKenBurns;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Random'**
+  String get screensaverMediaTransitionRandom;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Off'**
+  String get screensaverMediaFillOff;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Smart'**
+  String get screensaverMediaFillSmart;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Always'**
+  String get screensaverMediaFillAlways;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Photos'**
+  String get settingScreensaverGalleryItemsTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The photos and videos this screensaver cycles. Picked from the gallery on the device; picking again replaces the selection.'**
+  String get settingScreensaverGalleryItemsDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Seconds per photo'**
+  String get settingScreensaverGalleryIntervalTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'How long each photo shows before the next. Videos play in full.'**
+  String get settingScreensaverGalleryIntervalDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Shuffle'**
+  String get settingScreensaverGalleryShuffleTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Cycle the selection in random order.'**
+  String get settingScreensaverGalleryShuffleDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Transition'**
+  String get settingScreensaverGalleryTransitionTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'How one photo hands off to the next.'**
+  String get settingScreensaverGalleryTransitionDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Fill the screen'**
+  String get settingScreensaverGalleryFillTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Off keeps the whole photo between black bars. Smart enlarges photos shaped close to the screen, framing the rest over a blurred backdrop. Always enlarges every photo, cutting off what does not fit.'**
+  String get settingScreensaverGalleryFillDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap edges to change slides'**
+  String get settingScreensaverGalleryEdgeTapsTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'A tap on the left or right fifth of the screen shows the previous or next slide instead of dismissing.'**
+  String get settingScreensaverGalleryEdgeTapsDescription;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo Gallery screensaver'**
+  String get screensaverMediaGalleryPage;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Photos, timing, shuffle, transition'**
+  String get screensaverMediaGalleryHint;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading photos...'**
+  String get screensaverMediaLoadingPhotos;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Copying photo {index} of {total}...'**
+  String screensaverMediaCopying(String index, String total);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not copy the photos'**
+  String get screensaverMediaCopyFailed;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Try a smaller selection.'**
+  String get screensaverMediaSmallerSelection;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No photos selected'**
+  String get screensaverMediaNoPhotos;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} selected'**
+  String screensaverMediaSelected(String count);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'None selected. Pick on the device.'**
+  String get screensaverMediaPickOnDevice;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Media source'**
+  String get settingScreensaverMediaIdTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'A Home Assistant media item, folder, or camera. Use Browse to pick one.'**
+  String get settingScreensaverMediaIdDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Seconds per image'**
+  String get settingScreensaverMediaIntervalTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'How long each image shows before the next. Videos play in full.'**
+  String get settingScreensaverMediaIntervalDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Shuffle'**
+  String get settingScreensaverMediaShuffleTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Play a folder in random order.'**
+  String get settingScreensaverMediaShuffleDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Include subfolders'**
+  String get settingScreensaverMediaRecursiveTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Descend into subfolders when a folder is chosen.'**
+  String get settingScreensaverMediaRecursiveDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Transition'**
+  String get settingScreensaverMediaTransitionTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'How one item hands off to the next.'**
+  String get settingScreensaverMediaTransitionDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Fill the screen'**
+  String get settingScreensaverMediaFillTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Off keeps the whole photo between black bars. Smart enlarges photos shaped close to the screen, framing the rest over a blurred backdrop. Always enlarges every photo, cutting off what does not fit.'**
+  String get settingScreensaverMediaFillDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap edges to change slides'**
+  String get settingScreensaverMediaEdgeTapsTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'A tap on the left or right fifth of the screen shows the previous or next slide instead of dismissing.'**
+  String get settingScreensaverMediaEdgeTapsDescription;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Assistant Media screensaver'**
+  String get screensaverMediaHaPage;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Media source, timing, shuffle, fill'**
+  String get screensaverMediaHaHint;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose media'**
+  String get screensaverMediaChoose;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Media'**
+  String get screensaverMediaRoot;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not reach Home Assistant, or the token is missing.'**
+  String get screensaverMediaHaUnavailable;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing here.'**
+  String get screensaverMediaEmpty;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Use this folder'**
+  String get screensaverMediaUseFolder;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'folder'**
+  String get screensaverMediaFolder;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'camera'**
+  String get screensaverMediaCamera;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'item'**
+  String get screensaverMediaItem;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'browse failed'**
+  String get screensaverMediaBrowseFailed;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not browse: {error}'**
+  String screensaverMediaBrowseError(String error);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Not set'**
+  String get screensaverMediaNotSet;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Local folder'**
+  String get settingScreensaverLocalFolderTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Folder on this device whose photos and videos the screensaver cycles through. Picked on the device; the path can also be typed here remotely.'**
+  String get settingScreensaverLocalFolderDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Seconds per photo'**
+  String get settingScreensaverLocalIntervalTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'How long each photo shows before the next. Videos play in full.'**
+  String get settingScreensaverLocalIntervalDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Shuffle'**
+  String get settingScreensaverLocalShuffleTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Cycle the folder in random order instead of by name.'**
+  String get settingScreensaverLocalShuffleDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Include subfolders'**
+  String get settingScreensaverLocalRecursiveTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Also cycle photos and videos inside subfolders.'**
+  String get settingScreensaverLocalRecursiveDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Transition'**
+  String get settingScreensaverLocalTransitionTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'How one photo hands off to the next.'**
+  String get settingScreensaverLocalTransitionDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Fill the screen'**
+  String get settingScreensaverLocalFillTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Off keeps the whole photo between black bars. Smart enlarges photos shaped close to the screen, framing the rest over a blurred backdrop. Always enlarges every photo, cutting off what does not fit.'**
+  String get settingScreensaverLocalFillDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap edges to change slides'**
+  String get settingScreensaverLocalEdgeTapsTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'A tap on the left or right fifth of the screen shows the previous or next slide instead of dismissing.'**
+  String get settingScreensaverLocalEdgeTapsDescription;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Local Media screensaver'**
+  String get screensaverMediaLocalPage;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Folder, timing, shuffle, transition'**
+  String get screensaverMediaLocalHint;
 
   /// Setting label.
   ///

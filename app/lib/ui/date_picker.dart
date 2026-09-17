@@ -2,6 +2,8 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../l10n/messages.dart';
+
 /// The one date picker, on both surfaces: a month calendar with the day
 /// tapped, over Clear, Cancel and Set. Material's own calendar rather than
 /// a hand-built grid, since the device is the reference for the metrics,
@@ -98,15 +100,15 @@ class _DatePickerDialogState extends State<_DatePickerDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context, ''),
-          child: const Text('Clear'),
+          child: Text(l10n(context).commonClear),
         ),
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('Cancel'),
+          child: Text(l10n(context).commonCancel),
         ),
         FilledButton(
           onPressed: () => Navigator.pop(context, ksDateString(_selected)),
-          child: const Text('Set'),
+          child: Text(l10n(context).commonSet),
         ),
       ],
     );

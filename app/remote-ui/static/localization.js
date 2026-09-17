@@ -114,3 +114,19 @@ export function themeLabel(preference) {
 export function deviceText(english) {
   return typeof english === 'string' ? t(deviceTextMessageIds[english], {}, english) : english;
 }
+
+export function messageLanguage() { return languagePreference; }
+
+export function immichError(error) {
+  let match = /^The API key is missing the (.+) permission\.$/.exec(error);
+  if (match) return t('screensaverMediaScopeMissing', {scope: match[1]});
+  const permission = 'The API key is missing a permission: ';
+  if (error.startsWith(permission)) return t('screensaverMediaPermissionMissing', {error: error.slice(permission.length)});
+  match = /^The server answered ([0-9]+): ([\s\S]*)$/.exec(error);
+  if (match) return t('screensaverMediaServerError', {status: match[1], error: match[2]});
+  match = /^Could not reach ([\s\S]+)\.$/.exec(error);
+  if (match) return t('screensaverMediaUnreachable', {url: match[1]});
+  const talk = 'Could not talk to the server: ';
+  if (error.startsWith(talk)) return t('screensaverMediaTalkError', {error: error.slice(talk.length)});
+  return screensaverText(error);
+}
