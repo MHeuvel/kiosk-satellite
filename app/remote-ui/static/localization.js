@@ -1,4 +1,5 @@
 import { screensaverTextMessageIds } from './screensaver_text_ids.js';
+import { cameraTextMessageIds } from './camera_text_ids.js';
 import { screenAudioTextMessageIds } from './screen_audio_text_ids.js';
 import { catalogs } from './catalogs.js';
 import { navigationMessageIds } from './navigation_ids.js';
@@ -17,6 +18,28 @@ export function screensaverText(english) {
   return t(screensaverTextMessageIds[english], {}, english);
 }
 
+export function cameraText(english) {
+  return t(cameraTextMessageIds[english], {}, english);
+}
+
+export function cameraError(error) {
+  return error.startsWith('Snapshot failed: ')
+    ? t('cameraSnapshotError', {error: error.slice('Snapshot failed: '.length)}) : cameraText(error);
+}
+
+export function cameraResolutionNotice(notice) {
+  notice = notice.replace('Motion detection, face detection and hand gestures pause while viewers are connected. Snapshots use video frames at the streaming resolution.', t('cameraAnalysisOff'));
+  return notice.split(/(?<=\.) /).map((part) => {
+    const extra = /^Turn off Motion analysis while streaming to also use (.+)\.$/.exec(part);
+    if (extra) return t('cameraExtraSizes', {sizes: extra[1]});
+    const rejected = /^The encoder cannot use (.+) at these settings\.$/.exec(part);
+    if (rejected) return t('cameraRejectedSizes', {sizes: rejected[1]});
+    const count = /^(\d+) camera sizes are excluded because the encoder cannot use them at these settings\.$/.exec(part);
+    if (count) return t('cameraRejectedCount', {count: count[1]});
+    return cameraText(part);
+  }).join(' ');
+}
+
 export function screensaverError(error) {
   const match = /^Use at most ([0-9]+) characters$/.exec(error);
   return match ? t('screensaverMaxCharacters', {count: match[1]}) : screensaverText(error);
@@ -26,7 +49,8 @@ export function settingsPageText(category, english) {
   return category === 'Device' || category === 'device' ? deviceText(english)
     : category === 'Home Assistant' || category === 'homeassistant' ? haText(english)
     : category === 'Screen & Audio' || category === 'screenaudio' ? screenAudioText(english)
-    : category === 'Screensaver' || category === 'screensaver' ? screensaverText(english) : english;
+    : category === 'Screensaver' || category === 'screensaver' ? screensaverText(english)
+    : category === 'Camera' || category === 'camera' ? cameraText(english) : english;
 }
 
 export function haConnectionError(error) {

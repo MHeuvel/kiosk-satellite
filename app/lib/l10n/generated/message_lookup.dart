@@ -87,6 +87,146 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'drawerUpdateFailed' => strings.drawerUpdateFailed,
       'drawerUpdates' => strings.drawerUpdates,
       'drawerNoReleaseNotes' => strings.drawerNoReleaseNotes,
+      'settingCameraEnabledTitle' => strings.settingCameraEnabledTitle,
+      'settingCameraEnabledDescription' =>
+        strings.settingCameraEnabledDescription,
+      'settingCameraDeviceTitle' => strings.settingCameraDeviceTitle,
+      'settingCameraDeviceDescription' =>
+        strings.settingCameraDeviceDescription,
+      'settingCameraSnapshotResolutionTitle' =>
+        strings.settingCameraSnapshotResolutionTitle,
+      'settingCameraSnapshotResolutionDescription' =>
+        strings.settingCameraSnapshotResolutionDescription,
+      'settingCameraDisableDetectionSnapshotsTitle' =>
+        strings.settingCameraDisableDetectionSnapshotsTitle,
+      'settingCameraDisableDetectionSnapshotsDescription' =>
+        strings.settingCameraDisableDetectionSnapshotsDescription,
+      'settingCameraSnapshotsTitle' => strings.settingCameraSnapshotsTitle,
+      'settingCameraSnapshotsDescription' =>
+        strings.settingCameraSnapshotsDescription,
+      'settingCameraSnapshotIntervalTitle' =>
+        strings.settingCameraSnapshotIntervalTitle,
+      'settingCameraSnapshotIntervalDescription' =>
+        strings.settingCameraSnapshotIntervalDescription,
+      'cameraFront' => strings.cameraFront,
+      'cameraBack' => strings.cameraBack,
+      'cameraOnlyCamera' => strings.cameraOnlyCamera,
+      'settingMotionSensorTitle' => strings.settingMotionSensorTitle,
+      'settingMotionSensorDescription' =>
+        strings.settingMotionSensorDescription,
+      'settingMotionSensorOffDelayTitle' =>
+        strings.settingMotionSensorOffDelayTitle,
+      'settingMotionSensorOffDelayDescription' =>
+        strings.settingMotionSensorOffDelayDescription,
+      'settingMotionFpsTitle' => strings.settingMotionFpsTitle,
+      'settingMotionFpsDescription' => strings.settingMotionFpsDescription,
+      'settingMotionStartDelayTitle' => strings.settingMotionStartDelayTitle,
+      'settingMotionStartDelayDescription' =>
+        strings.settingMotionStartDelayDescription,
+      'settingMotionSensitivityTitle' => strings.settingMotionSensitivityTitle,
+      'settingMotionSensitivityDescription' =>
+        strings.settingMotionSensitivityDescription,
+      'cameraMotionPage' => strings.cameraMotionPage,
+      'cameraMotionHint' => strings.cameraMotionHint,
+      'cameraNoCamera' => strings.cameraNoCamera,
+      'cameraNoCameraHelp' => strings.cameraNoCameraHelp,
+      'cameraCameraPermission' => strings.cameraCameraPermission,
+      'cameraCameraPermissionHelp' => strings.cameraCameraPermissionHelp,
+      'cameraGrantOnDevice' => strings.cameraGrantOnDevice,
+      'cameraCameraBlocked' => strings.cameraCameraBlocked,
+      'cameraCameraNeeded' => strings.cameraCameraNeeded,
+      'cameraAppSettings' => strings.cameraAppSettings,
+      'cameraLatest' => strings.cameraLatest,
+      'cameraNoSnapshot' => strings.cameraNoSnapshot,
+      'cameraImageAlt' => strings.cameraImageAlt,
+      'cameraTakeSnapshot' => strings.cameraTakeSnapshot,
+      'cameraSnapshotFailed' => strings.cameraSnapshotFailed,
+      'cameraCameraDisabled' => strings.cameraCameraDisabled,
+      'cameraSnapshotBusy' => strings.cameraSnapshotBusy,
+      'cameraPermissionDenied' => strings.cameraPermissionDenied,
+      'cameraDetectionDisabled' => strings.cameraDetectionDisabled,
+      'cameraNoImage' => strings.cameraNoImage,
+      'cameraTimedOut' => strings.cameraTimedOut,
+      'cameraBackground' => strings.cameraBackground,
+      'cameraJustNow' => strings.cameraJustNow,
+      'cameraMinuteAgo' => strings.cameraMinuteAgo,
+      'cameraHourAgo' => strings.cameraHourAgo,
+      'cameraDayAgo' => strings.cameraDayAgo,
+      'cameraStatusHeading' => strings.cameraStatusHeading,
+      'cameraClientsHeading' => strings.cameraClientsHeading,
+      'cameraUnavailable' => strings.cameraUnavailable,
+      'cameraStopped' => strings.cameraStopped,
+      'cameraStreaming' => strings.cameraStreaming,
+      'cameraIdle' => strings.cameraIdle,
+      'cameraConnected' => strings.cameraConnected,
+      'cameraChecking' => strings.cameraChecking,
+      'cameraCheckingStatus' => strings.cameraCheckingStatus,
+      'cameraStatusUnavailable' => strings.cameraStatusUnavailable,
+      'cameraListenerStopped' => strings.cameraListenerStopped,
+      'cameraReady' => strings.cameraReady,
+      'cameraAudioPaused' => strings.cameraAudioPaused,
+      'cameraAudioStreaming' => strings.cameraAudioStreaming,
+      'cameraAudioIdle' => strings.cameraAudioIdle,
+      'cameraOnvifUrl' => strings.cameraOnvifUrl,
+      'cameraStreamUrl' => strings.cameraStreamUrl,
+      'cameraWaitingAddress' => strings.cameraWaitingAddress,
+      'cameraClientsUnavailable' => strings.cameraClientsUnavailable,
+      'cameraNoClients' => strings.cameraNoClients,
+      'cameraCredentialsMissing' => strings.cameraCredentialsMissing,
+      'cameraPortWaiting' => strings.cameraPortWaiting,
+      'cameraListenerFailed' => strings.cameraListenerFailed,
+      'settingCameraRtspEnabledTitle' => strings.settingCameraRtspEnabledTitle,
+      'settingCameraRtspEnabledDescription' =>
+        strings.settingCameraRtspEnabledDescription,
+      'settingCameraStreamingProtocolTitle' =>
+        strings.settingCameraStreamingProtocolTitle,
+      'settingCameraStreamingProtocolDescription' =>
+        strings.settingCameraStreamingProtocolDescription,
+      'settingCameraRtspPortTitle' => strings.settingCameraRtspPortTitle,
+      'settingCameraRtspPortDescription' =>
+        strings.settingCameraRtspPortDescription,
+      'settingCameraOnvifPortTitle' => strings.settingCameraOnvifPortTitle,
+      'settingCameraOnvifPortDescription' =>
+        strings.settingCameraOnvifPortDescription,
+      'settingCameraRtspResolutionTitle' =>
+        strings.settingCameraRtspResolutionTitle,
+      'settingCameraRtspResolutionDescription' =>
+        strings.settingCameraRtspResolutionDescription,
+      'settingCameraRtspAnalysisTitle' =>
+        strings.settingCameraRtspAnalysisTitle,
+      'settingCameraRtspAnalysisDescription' =>
+        strings.settingCameraRtspAnalysisDescription,
+      'settingCameraRtspFpsTitle' => strings.settingCameraRtspFpsTitle,
+      'settingCameraRtspFpsDescription' =>
+        strings.settingCameraRtspFpsDescription,
+      'settingCameraRtspBitrateTitle' => strings.settingCameraRtspBitrateTitle,
+      'settingCameraRtspBitrateDescription' =>
+        strings.settingCameraRtspBitrateDescription,
+      'settingCameraRtspAudioTitle' => strings.settingCameraRtspAudioTitle,
+      'settingCameraRtspAudioDescription' =>
+        strings.settingCameraRtspAudioDescription,
+      'settingCameraRtspAuthTitle' => strings.settingCameraRtspAuthTitle,
+      'settingCameraRtspAuthDescription' =>
+        strings.settingCameraRtspAuthDescription,
+      'settingCameraRtspUsernameTitle' =>
+        strings.settingCameraRtspUsernameTitle,
+      'settingCameraRtspUsernameDescription' =>
+        strings.settingCameraRtspUsernameDescription,
+      'settingCameraRtspPasswordTitle' =>
+        strings.settingCameraRtspPasswordTitle,
+      'settingCameraRtspPasswordDescription' =>
+        strings.settingCameraRtspPasswordDescription,
+      'cameraStreamingPage' => strings.cameraStreamingPage,
+      'cameraStreamingHint' => strings.cameraStreamingHint,
+      'cameraPortError' => strings.cameraPortError,
+      'cameraUsernameError' => strings.cameraUsernameError,
+      'cameraNoSizes' => strings.cameraNoSizes,
+      'cameraNoSizesHelp' => strings.cameraNoSizesHelp,
+      'cameraResolutionSupport' => strings.cameraResolutionSupport,
+      'cameraCheckingSizes' => strings.cameraCheckingSizes,
+      'cameraSupportedSizes' => strings.cameraSupportedSizes,
+      'cameraAnalysisOff' => strings.cameraAnalysisOff,
+      'cameraCaptureRejected' => strings.cameraCaptureRejected,
       'settingAnalyticsBasicTitle' => strings.settingAnalyticsBasicTitle,
       'settingAnalyticsBasicDescription' =>
         strings.settingAnalyticsBasicDescription,

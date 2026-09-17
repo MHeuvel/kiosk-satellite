@@ -628,6 +628,768 @@ abstract class UiStrings {
   /// Setting label.
   ///
   /// In en, this message translates to:
+  /// **'Enable camera'**
+  String get settingCameraEnabledTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera use adds CPU load and heat, which can shorten the battery and device lifespan.'**
+  String get settingCameraEnabledDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera'**
+  String get settingCameraDeviceTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Which camera to use.'**
+  String get settingCameraDeviceDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Snapshot resolution'**
+  String get settingCameraSnapshotResolutionTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Higher looks sharper but costs more CPU and bandwidth.'**
+  String get settingCameraSnapshotResolutionDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Disable snapshots on detection'**
+  String get settingCameraDisableDetectionSnapshotsTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Prevent automatic snapshots triggered by detection. Motion, face, presence and gesture detection keep working. Manual requests and Continuous snapshots can still capture images.'**
+  String get settingCameraDisableDetectionSnapshotsDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Continuous snapshots'**
+  String get settingCameraSnapshotsTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish a fresh camera snapshot to Home Assistant at a fixed interval.'**
+  String get settingCameraSnapshotsDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Snapshot interval'**
+  String get settingCameraSnapshotIntervalTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Seconds between snapshots.'**
+  String get settingCameraSnapshotIntervalDescription;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Front'**
+  String get cameraFront;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get cameraBack;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The only camera this device has.'**
+  String get cameraOnlyCamera;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Motion sensor'**
+  String get settingMotionSensorTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Expose motion as a Home Assistant sensor. WARNING: Keeps the camera running permanently, even with the screen off.'**
+  String get settingMotionSensorDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear after'**
+  String get settingMotionSensorOffDelayTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Seconds without motion before the sensor reads clear.'**
+  String get settingMotionSensorOffDelayDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Motion frame rate'**
+  String get settingMotionFpsTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Frames per second the camera checks for motion. Lower is lighter on the CPU; 2 is plenty to notice someone approaching.'**
+  String get settingMotionFpsDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Startup delay'**
+  String get settingMotionStartDelayTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Ignore motion for this long after the camera starts, for devices whose camera physically moves as it opens.'**
+  String get settingMotionStartDelayDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Motion sensitivity'**
+  String get settingMotionSensitivityTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Higher trips on smaller movements. 1 needs a large change across the frame; 100 reacts to the slightest motion.'**
+  String get settingMotionSensitivityDescription;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Motion Sensor'**
+  String get cameraMotionPage;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Assistant motion sensor and shared detection settings'**
+  String get cameraMotionHint;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No camera detected'**
+  String get cameraNoCamera;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'This device does not report any usable camera.'**
+  String get cameraNoCameraHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera permission missing'**
+  String get cameraCameraPermission;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Without it the camera cannot be used. The grant dialog appears on the tablet screen.'**
+  String get cameraCameraPermissionHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Grant on device'**
+  String get cameraGrantOnDevice;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked. Android will not ask again, so allow it in the app settings.'**
+  String get cameraCameraBlocked;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Without this the camera cannot be used.'**
+  String get cameraCameraNeeded;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'App settings'**
+  String get cameraAppSettings;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest snapshot'**
+  String get cameraLatest;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No snapshot yet.'**
+  String get cameraNoSnapshot;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest camera snapshot'**
+  String get cameraImageAlt;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Take snapshot'**
+  String get cameraTakeSnapshot;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Snapshot failed.'**
+  String get cameraSnapshotFailed;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Snapshot failed: {error}'**
+  String cameraSnapshotError(String error);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The camera is disabled in the Camera settings.'**
+  String get cameraCameraDisabled;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'A snapshot is already in progress.'**
+  String get cameraSnapshotBusy;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera permission not granted.'**
+  String get cameraPermissionDenied;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Detection snapshots are disabled.'**
+  String get cameraDetectionDisabled;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The camera returned no image.'**
+  String get cameraNoImage;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The camera did not answer in time.'**
+  String get cameraTimedOut;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The camera is unavailable while the app is in the background.'**
+  String get cameraBackground;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'just now'**
+  String get cameraJustNow;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} seconds ago'**
+  String cameraSecondsAgo(String count);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'1 minute ago'**
+  String get cameraMinuteAgo;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} minutes ago'**
+  String cameraMinutesAgo(String count);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'1 hour ago'**
+  String get cameraHourAgo;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} hours ago'**
+  String cameraHoursAgo(String count);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'1 day ago'**
+  String get cameraDayAgo;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} days ago'**
+  String cameraDaysAgo(String count);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Stream Status'**
+  String get cameraStatusHeading;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Connected Clients'**
+  String get cameraClientsHeading;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Unavailable'**
+  String get cameraUnavailable;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Stopped'**
+  String get cameraStopped;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Streaming'**
+  String get cameraStreaming;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Idle'**
+  String get cameraIdle;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Connected'**
+  String get cameraConnected;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking...'**
+  String get cameraChecking;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking stream status...'**
+  String get cameraCheckingStatus;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Stream status unavailable.'**
+  String get cameraStatusUnavailable;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Listener is stopped.'**
+  String get cameraListenerStopped;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} connected viewer. Actual video: {resolution}.'**
+  String cameraViewer(String count, String resolution);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} connected viewers. Actual video: {resolution}.'**
+  String cameraViewers(String count, String resolution);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready. The encoder starts when a viewer connects.'**
+  String get cameraReady;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Requested {requested}, camera supplied {actual}.'**
+  String cameraFallback(String requested, String actual);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio: {error}'**
+  String cameraAudioError(String error);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio paused while the browser uses the microphone.'**
+  String get cameraAudioPaused;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone audio streaming.'**
+  String get cameraAudioStreaming;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone audio idle.'**
+  String get cameraAudioIdle;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'ONVIF discovery: {error}'**
+  String cameraDiscoveryError(String error);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'ONVIF URL'**
+  String get cameraOnvifUrl;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Stream URL'**
+  String get cameraStreamUrl;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for a network address'**
+  String get cameraWaitingAddress;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Client information unavailable.'**
+  String get cameraClientsUnavailable;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No connected clients.'**
+  String get cameraNoClients;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{status} · {transport} · Port {port}'**
+  String cameraClientDetails(String status, String transport, String port);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Connected for {duration}'**
+  String cameraConnectedFor(String duration);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{seconds}s'**
+  String cameraDurationSeconds(String seconds);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes}m {seconds}s'**
+  String cameraDurationMinutes(String minutes, String seconds);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours}h {minutes}m'**
+  String cameraDurationHours(String hours, String minutes);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Set a streaming username and password to enable authentication.'**
+  String get cameraCredentialsMissing;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for the RTSP port to be released.'**
+  String get cameraPortWaiting;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not start the RTSP listener.'**
+  String get cameraListenerFailed;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable camera streaming'**
+  String get settingCameraRtspEnabledTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Share H.264 video with RTSP or ONVIF clients. Video encoding runs only while a viewer is connected. Hardware encoding is preferred with software fallback when needed. Uses the camera selected in Camera settings.'**
+  String get settingCameraRtspEnabledDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Streaming protocol'**
+  String get settingCameraStreamingProtocolTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'ONVIF lets compatible clients discover the camera and connect to its stream.'**
+  String get settingCameraStreamingProtocolDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Port'**
+  String get settingCameraRtspPortTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'RTSP server port.'**
+  String get settingCameraRtspPortDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Port'**
+  String get settingCameraOnvifPortTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'ONVIF server port.'**
+  String get settingCameraOnvifPortDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Resolution'**
+  String get settingCameraRtspResolutionTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Supported streaming sizes for the selected camera and encoder. Video follows the device orientation.'**
+  String get settingCameraRtspResolutionDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Motion analysis while streaming'**
+  String get settingCameraRtspAnalysisTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep motion detection, face detection and hand gestures available while viewers are connected. Turning this off can allow higher resolutions. Snapshots then use video frames at the streaming resolution.'**
+  String get settingCameraRtspAnalysisDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Frame rate'**
+  String get settingCameraRtspFpsTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Target video frames per second. Motion keeps its separate analysis rate. Actual delivery depends on the camera.'**
+  String get settingCameraRtspFpsDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Bitrate'**
+  String get settingCameraRtspBitrateTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Target video bitrate. Higher improves detail and uses more network bandwidth.'**
+  String get settingCameraRtspBitrateDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Include microphone audio'**
+  String get settingCameraRtspAudioTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Include microphone audio in the camera stream. Shares your microphone settings. WARNING: Increased CPU usage.'**
+  String get settingCameraRtspAudioDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Require authentication'**
+  String get settingCameraRtspAuthTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Require a username and password to view the stream. Streaming traffic is not encrypted.'**
+  String get settingCameraRtspAuthDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get settingCameraRtspUsernameTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Username for streaming clients.'**
+  String get settingCameraRtspUsernameDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get settingCameraRtspPasswordTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Set a password to start the authenticated stream.'**
+  String get settingCameraRtspPasswordDescription;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'RTSP & ONVIF Streaming'**
+  String get cameraStreamingPage;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Share the device camera via RTSP or ONVIF'**
+  String get cameraStreamingHint;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a whole port number from 1024 to 65535.'**
+  String get cameraPortError;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Use 1 to 64 characters without spaces, quotes, colons or backslashes.'**
+  String get cameraUsernameError;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No supported sizes available'**
+  String get cameraNoSizes;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No supported sizes available. Check the camera connection.'**
+  String get cameraNoSizesHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Resolution support'**
+  String get cameraResolutionSupport;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking camera and H.264 encoder support...'**
+  String get cameraCheckingSizes;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Only sizes supported by the camera and H.264 encoder at the current streaming settings are listed.'**
+  String get cameraSupportedSizes;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn off Motion analysis while streaming to also use {sizes}.'**
+  String cameraExtraSizes(String sizes);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Motion detection, face detection and hand gestures pause while viewers are connected. Snapshots use video frames at the streaming resolution.'**
+  String get cameraAnalysisOff;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The encoder cannot use {sizes} at these settings.'**
+  String cameraRejectedSizes(String sizes);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} camera sizes are excluded because the encoder cannot use them at these settings.'**
+  String cameraRejectedCount(String count);
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Other camera sizes are unavailable in the current capture setup.'**
+  String get cameraCaptureRejected;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
   /// **'Basic analytics'**
   String get settingAnalyticsBasicTitle;
 

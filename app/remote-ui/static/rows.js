@@ -1,4 +1,4 @@
-import { deviceText, haText, screensaverText, screensaverError, t } from './localization.js';
+import { cameraText, cameraError, deviceText, haText, screensaverText, screensaverError, t } from './localization.js';
 import { watchUpdates } from './live.js';
 import {
   GLANCE_MAX,
@@ -121,7 +121,7 @@ function showRowError(row, message, onRetry) {
     el.className = 'row-error';
     row.appendChild(el);
   }
-  el.textContent = screensaverError(haText(deviceText(message)));
+  el.textContent = cameraError(screensaverError(haText(deviceText(message))));
   if (onRetry) {
     const retry = document.createElement('button');
     retry.className = 'btn-ghost';
@@ -1496,7 +1496,7 @@ export function settingRow(s) {
     let opts = s.options || [];
     if (s.key === 'camera.rtsp.resolution' && !opts.length) {
       const opt = document.createElement('option');
-      opt.textContent = 'No supported sizes available';
+      opt.textContent = cameraText('No supported sizes available');
       sel.appendChild(opt);
       sel.disabled = true;
     }

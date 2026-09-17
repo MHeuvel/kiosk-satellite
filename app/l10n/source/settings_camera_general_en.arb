@@ -1,0 +1,198 @@
+{
+  "@@locale": "en",
+  "settingCameraEnabledTitle": "Enable camera",
+  "@settingCameraEnabledTitle": {
+    "context": "Settings > Camera",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera"
+      ],
+      "remoteAdmin": [
+        "Camera"
+      ]
+    }
+  },
+  "settingCameraEnabledDescription": "Camera use adds CPU load and heat, which can shorten the battery and device lifespan.",
+  "@settingCameraEnabledDescription": {
+    "context": "Settings > Camera",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera"
+      ],
+      "remoteAdmin": [
+        "Camera"
+      ]
+    }
+  },
+  "settingCameraDeviceTitle": "Camera",
+  "@settingCameraDeviceTitle": {
+    "context": "Settings > Camera",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera"
+      ],
+      "remoteAdmin": [
+        "Camera"
+      ]
+    }
+  },
+  "settingCameraDeviceDescription": "Which camera to use.",
+  "@settingCameraDeviceDescription": {
+    "context": "Settings > Camera",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera"
+      ],
+      "remoteAdmin": [
+        "Camera"
+      ]
+    }
+  },
+  "settingCameraSnapshotResolutionTitle": "Snapshot resolution",
+  "@settingCameraSnapshotResolutionTitle": {
+    "context": "Settings > Camera",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera"
+      ],
+      "remoteAdmin": [
+        "Camera"
+      ]
+    }
+  },
+  "settingCameraSnapshotResolutionDescription": "Higher looks sharper but costs more CPU and bandwidth.",
+  "@settingCameraSnapshotResolutionDescription": {
+    "context": "Settings > Camera",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera"
+      ],
+      "remoteAdmin": [
+        "Camera"
+      ]
+    }
+  },
+  "settingCameraDisableDetectionSnapshotsTitle": "Disable snapshots on detection",
+  "@settingCameraDisableDetectionSnapshotsTitle": {
+    "context": "Settings > Camera",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera"
+      ],
+      "remoteAdmin": [
+        "Camera"
+      ]
+    }
+  },
+  "settingCameraDisableDetectionSnapshotsDescription": "Prevent automatic snapshots triggered by detection. Motion, face, presence and gesture detection keep working. Manual requests and Continuous snapshots can still capture images.",
+  "@settingCameraDisableDetectionSnapshotsDescription": {
+    "context": "Settings > Camera",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera"
+      ],
+      "remoteAdmin": [
+        "Camera"
+      ]
+    }
+  },
+  "settingCameraSnapshotsTitle": "Continuous snapshots",
+  "@settingCameraSnapshotsTitle": {
+    "context": "Settings > Camera",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera"
+      ],
+      "remoteAdmin": [
+        "Camera"
+      ]
+    }
+  },
+  "settingCameraSnapshotsDescription": "Publish a fresh camera snapshot to Home Assistant at a fixed interval.",
+  "@settingCameraSnapshotsDescription": {
+    "context": "Settings > Camera",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera"
+      ],
+      "remoteAdmin": [
+        "Camera"
+      ]
+    }
+  },
+  "settingCameraSnapshotIntervalTitle": "Snapshot interval",
+  "@settingCameraSnapshotIntervalTitle": {
+    "context": "Settings > Camera",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera"
+      ],
+      "remoteAdmin": [
+        "Camera"
+      ]
+    }
+  },
+  "settingCameraSnapshotIntervalDescription": "Seconds between snapshots.",
+  "@settingCameraSnapshotIntervalDescription": {
+    "context": "Settings > Camera",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera"
+      ],
+      "remoteAdmin": [
+        "Camera"
+      ]
+    }
+  },
+  "cameraFront": "Front",
+  "@cameraFront": {
+    "context": "Settings > Camera",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera"
+      ],
+      "remoteAdmin": [
+        "Camera"
+      ]
+    }
+  },
+  "cameraBack": "Back",
+  "@cameraBack": {
+    "context": "Settings > Camera",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera"
+      ],
+      "remoteAdmin": [
+        "Camera"
+      ]
+    }
+  },
+  "cameraOnlyCamera": "The only camera this device has.",
+  "@cameraOnlyCamera": {
+    "context": "Settings > Camera",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera"
+      ],
+      "remoteAdmin": [
+        "Camera"
+      ]
+    }
+  }
+}

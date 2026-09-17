@@ -1,0 +1,159 @@
+{
+  "@@locale": "en",
+  "settingMotionSensorTitle": "Motion sensor",
+  "@settingMotionSensorTitle": {
+    "context": "Settings > Camera > Motion Sensor",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Motion Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Motion Sensor"
+      ]
+    }
+  },
+  "settingMotionSensorDescription": "Expose motion as a Home Assistant sensor. WARNING: Keeps the camera running permanently, even with the screen off.",
+  "@settingMotionSensorDescription": {
+    "context": "Settings > Camera > Motion Sensor",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Motion Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Motion Sensor"
+      ]
+    }
+  },
+  "settingMotionSensorOffDelayTitle": "Clear after",
+  "@settingMotionSensorOffDelayTitle": {
+    "context": "Settings > Camera > Motion Sensor",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Motion Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Motion Sensor"
+      ]
+    }
+  },
+  "settingMotionSensorOffDelayDescription": "Seconds without motion before the sensor reads clear.",
+  "@settingMotionSensorOffDelayDescription": {
+    "context": "Settings > Camera > Motion Sensor",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Motion Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Motion Sensor"
+      ]
+    }
+  },
+  "settingMotionFpsTitle": "Motion frame rate",
+  "@settingMotionFpsTitle": {
+    "context": "Settings > Camera > Motion Sensor",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Motion Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Motion Sensor"
+      ]
+    }
+  },
+  "settingMotionFpsDescription": "Frames per second the camera checks for motion. Lower is lighter on the CPU; 2 is plenty to notice someone approaching.",
+  "@settingMotionFpsDescription": {
+    "context": "Settings > Camera > Motion Sensor",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Motion Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Motion Sensor"
+      ]
+    }
+  },
+  "settingMotionStartDelayTitle": "Startup delay",
+  "@settingMotionStartDelayTitle": {
+    "context": "Settings > Camera > Motion Sensor",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Motion Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Motion Sensor"
+      ]
+    }
+  },
+  "settingMotionStartDelayDescription": "Ignore motion for this long after the camera starts, for devices whose camera physically moves as it opens.",
+  "@settingMotionStartDelayDescription": {
+    "context": "Settings > Camera > Motion Sensor",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Motion Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Motion Sensor"
+      ]
+    }
+  },
+  "settingMotionSensitivityTitle": "Motion sensitivity",
+  "@settingMotionSensitivityTitle": {
+    "context": "Settings > Camera > Motion Sensor",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Motion Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Motion Sensor"
+      ]
+    }
+  },
+  "settingMotionSensitivityDescription": "Higher trips on smaller movements. 1 needs a large change across the frame; 100 reacts to the slightest motion.",
+  "@settingMotionSensitivityDescription": {
+    "context": "Settings > Camera > Motion Sensor",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Motion Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Motion Sensor"
+      ]
+    }
+  },
+  "cameraMotionPage": "Motion Sensor",
+  "@cameraMotionPage": {
+    "context": "Settings > Camera > Motion Sensor",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Motion Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Motion Sensor"
+      ]
+    }
+  },
+  "cameraMotionHint": "Home Assistant motion sensor and shared detection settings",
+  "@cameraMotionHint": {
+    "context": "Settings > Camera > Motion Sensor",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Motion Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Motion Sensor"
+      ]
+    }
+  }
+}

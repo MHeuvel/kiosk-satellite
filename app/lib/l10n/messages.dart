@@ -7,6 +7,7 @@ import 'generated/navigation_ids.dart';
 import 'generated/device_text_ids.dart';
 import 'generated/ha_text_ids.dart';
 import 'generated/screensaver_text_ids.dart';
+import 'generated/camera_text_ids.dart';
 import 'generated/screen_audio_text_ids.dart';
 import 'generated/setting_option_ids.dart';
 import 'generated/ui_strings.dart';
@@ -70,6 +71,43 @@ String screenAudioText(BuildContext context, String english) =>
 String screensaverText(BuildContext context, String english) =>
     messageById(l10n(context), screensaverTextMessageIds[english], english);
 
+/// Resolve camera presentation while preserving addresses and hardware names.
+String cameraText(BuildContext context, String english) =>
+    messageById(l10n(context), cameraTextMessageIds[english], english);
+
+String cameraError(BuildContext context, String error) =>
+    error.startsWith('Snapshot failed: ')
+    ? l10n(
+        context,
+      ).cameraSnapshotError(error.substring('Snapshot failed: '.length))
+    : cameraText(context, error);
+
+String cameraResolutionNotice(BuildContext context, String notice) {
+  final strings = l10n(context);
+  notice = notice.replaceAll(
+    'Motion detection, face detection and hand gestures pause while viewers are connected. Snapshots use video frames at the streaming resolution.',
+    strings.cameraAnalysisOff,
+  );
+  return notice
+      .split(RegExp(r'(?<=\.) '))
+      .map((part) {
+        final extra = RegExp(
+          r'^Turn off Motion analysis while streaming to also use (.+)\.$',
+        ).firstMatch(part);
+        if (extra != null) return strings.cameraExtraSizes(extra[1]!);
+        final rejected = RegExp(
+          r'^The encoder cannot use (.+) at these settings\.$',
+        ).firstMatch(part);
+        if (rejected != null) return strings.cameraRejectedSizes(rejected[1]!);
+        final count = RegExp(
+          r'^(\d+) camera sizes are excluded because the encoder cannot use them at these settings\.$',
+        ).firstMatch(part);
+        if (count != null) return strings.cameraRejectedCount(count[1]!);
+        return cameraText(context, part);
+      })
+      .join(' ');
+}
+
 String screensaverError(BuildContext context, String error) {
   final match = RegExp(r'^Use at most ([0-9]+) characters$').firstMatch(error);
   return match == null
@@ -86,6 +124,7 @@ String settingsPageText(
   'Home Assistant' => haText(context, english),
   'Screen & Audio' => screenAudioText(context, english),
   'Screensaver' => screensaverText(context, english),
+  'Camera' => cameraText(context, english),
   _ => english,
 };
 

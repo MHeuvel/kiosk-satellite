@@ -286,6 +286,459 @@ class UiStringsEs extends UiStrings {
   String get drawerNoReleaseNotes => 'No hay notas de la versión.';
 
   @override
+  String get settingCameraEnabledTitle => 'Enable camera';
+
+  @override
+  String get settingCameraEnabledDescription =>
+      'Camera use adds CPU load and heat, which can shorten the battery and device lifespan.';
+
+  @override
+  String get settingCameraDeviceTitle => 'Camera';
+
+  @override
+  String get settingCameraDeviceDescription => 'Which camera to use.';
+
+  @override
+  String get settingCameraSnapshotResolutionTitle => 'Snapshot resolution';
+
+  @override
+  String get settingCameraSnapshotResolutionDescription =>
+      'Higher looks sharper but costs more CPU and bandwidth.';
+
+  @override
+  String get settingCameraDisableDetectionSnapshotsTitle =>
+      'Disable snapshots on detection';
+
+  @override
+  String get settingCameraDisableDetectionSnapshotsDescription =>
+      'Prevent automatic snapshots triggered by detection. Motion, face, presence and gesture detection keep working. Manual requests and Continuous snapshots can still capture images.';
+
+  @override
+  String get settingCameraSnapshotsTitle => 'Continuous snapshots';
+
+  @override
+  String get settingCameraSnapshotsDescription =>
+      'Publish a fresh camera snapshot to Home Assistant at a fixed interval.';
+
+  @override
+  String get settingCameraSnapshotIntervalTitle => 'Snapshot interval';
+
+  @override
+  String get settingCameraSnapshotIntervalDescription =>
+      'Seconds between snapshots.';
+
+  @override
+  String get cameraFront => 'Front';
+
+  @override
+  String get cameraBack => 'Back';
+
+  @override
+  String get cameraOnlyCamera => 'The only camera this device has.';
+
+  @override
+  String get settingMotionSensorTitle => 'Motion sensor';
+
+  @override
+  String get settingMotionSensorDescription =>
+      'Expose motion as a Home Assistant sensor. WARNING: Keeps the camera running permanently, even with the screen off.';
+
+  @override
+  String get settingMotionSensorOffDelayTitle => 'Clear after';
+
+  @override
+  String get settingMotionSensorOffDelayDescription =>
+      'Seconds without motion before the sensor reads clear.';
+
+  @override
+  String get settingMotionFpsTitle => 'Motion frame rate';
+
+  @override
+  String get settingMotionFpsDescription =>
+      'Frames per second the camera checks for motion. Lower is lighter on the CPU; 2 is plenty to notice someone approaching.';
+
+  @override
+  String get settingMotionStartDelayTitle => 'Startup delay';
+
+  @override
+  String get settingMotionStartDelayDescription =>
+      'Ignore motion for this long after the camera starts, for devices whose camera physically moves as it opens.';
+
+  @override
+  String get settingMotionSensitivityTitle => 'Motion sensitivity';
+
+  @override
+  String get settingMotionSensitivityDescription =>
+      'Higher trips on smaller movements. 1 needs a large change across the frame; 100 reacts to the slightest motion.';
+
+  @override
+  String get cameraMotionPage => 'Motion Sensor';
+
+  @override
+  String get cameraMotionHint =>
+      'Home Assistant motion sensor and shared detection settings';
+
+  @override
+  String get cameraNoCamera => 'No camera detected';
+
+  @override
+  String get cameraNoCameraHelp =>
+      'This device does not report any usable camera.';
+
+  @override
+  String get cameraCameraPermission => 'Camera permission missing';
+
+  @override
+  String get cameraCameraPermissionHelp =>
+      'Without it the camera cannot be used. The grant dialog appears on the tablet screen.';
+
+  @override
+  String get cameraGrantOnDevice => 'Grant on device';
+
+  @override
+  String get cameraCameraBlocked =>
+      'Blocked. Android will not ask again, so allow it in the app settings.';
+
+  @override
+  String get cameraCameraNeeded => 'Without this the camera cannot be used.';
+
+  @override
+  String get cameraAppSettings => 'App settings';
+
+  @override
+  String get cameraLatest => 'Latest snapshot';
+
+  @override
+  String get cameraNoSnapshot => 'No snapshot yet.';
+
+  @override
+  String get cameraImageAlt => 'Latest camera snapshot';
+
+  @override
+  String get cameraTakeSnapshot => 'Take snapshot';
+
+  @override
+  String get cameraSnapshotFailed => 'Snapshot failed.';
+
+  @override
+  String cameraSnapshotError(String error) {
+    return 'Snapshot failed: $error';
+  }
+
+  @override
+  String get cameraCameraDisabled =>
+      'The camera is disabled in the Camera settings.';
+
+  @override
+  String get cameraSnapshotBusy => 'A snapshot is already in progress.';
+
+  @override
+  String get cameraPermissionDenied => 'Camera permission not granted.';
+
+  @override
+  String get cameraDetectionDisabled => 'Detection snapshots are disabled.';
+
+  @override
+  String get cameraNoImage => 'The camera returned no image.';
+
+  @override
+  String get cameraTimedOut => 'The camera did not answer in time.';
+
+  @override
+  String get cameraBackground =>
+      'The camera is unavailable while the app is in the background.';
+
+  @override
+  String get cameraJustNow => 'just now';
+
+  @override
+  String cameraSecondsAgo(String count) {
+    return '$count seconds ago';
+  }
+
+  @override
+  String get cameraMinuteAgo => '1 minute ago';
+
+  @override
+  String cameraMinutesAgo(String count) {
+    return '$count minutes ago';
+  }
+
+  @override
+  String get cameraHourAgo => '1 hour ago';
+
+  @override
+  String cameraHoursAgo(String count) {
+    return '$count hours ago';
+  }
+
+  @override
+  String get cameraDayAgo => '1 day ago';
+
+  @override
+  String cameraDaysAgo(String count) {
+    return '$count days ago';
+  }
+
+  @override
+  String get cameraStatusHeading => 'Stream Status';
+
+  @override
+  String get cameraClientsHeading => 'Connected Clients';
+
+  @override
+  String get cameraUnavailable => 'Unavailable';
+
+  @override
+  String get cameraStopped => 'Stopped';
+
+  @override
+  String get cameraStreaming => 'Streaming';
+
+  @override
+  String get cameraIdle => 'Idle';
+
+  @override
+  String get cameraConnected => 'Connected';
+
+  @override
+  String get cameraChecking => 'Checking...';
+
+  @override
+  String get cameraCheckingStatus => 'Checking stream status...';
+
+  @override
+  String get cameraStatusUnavailable => 'Stream status unavailable.';
+
+  @override
+  String get cameraListenerStopped => 'Listener is stopped.';
+
+  @override
+  String cameraViewer(String count, String resolution) {
+    return '$count connected viewer. Actual video: $resolution.';
+  }
+
+  @override
+  String cameraViewers(String count, String resolution) {
+    return '$count connected viewers. Actual video: $resolution.';
+  }
+
+  @override
+  String get cameraReady => 'Ready. The encoder starts when a viewer connects.';
+
+  @override
+  String cameraFallback(String requested, String actual) {
+    return 'Requested $requested, camera supplied $actual.';
+  }
+
+  @override
+  String cameraAudioError(String error) {
+    return 'Audio: $error';
+  }
+
+  @override
+  String get cameraAudioPaused =>
+      'Audio paused while the browser uses the microphone.';
+
+  @override
+  String get cameraAudioStreaming => 'Microphone audio streaming.';
+
+  @override
+  String get cameraAudioIdle => 'Microphone audio idle.';
+
+  @override
+  String cameraDiscoveryError(String error) {
+    return 'ONVIF discovery: $error';
+  }
+
+  @override
+  String get cameraOnvifUrl => 'ONVIF URL';
+
+  @override
+  String get cameraStreamUrl => 'Stream URL';
+
+  @override
+  String get cameraWaitingAddress => 'Waiting for a network address';
+
+  @override
+  String get cameraClientsUnavailable => 'Client information unavailable.';
+
+  @override
+  String get cameraNoClients => 'No connected clients.';
+
+  @override
+  String cameraClientDetails(String status, String transport, String port) {
+    return '$status · $transport · Port $port';
+  }
+
+  @override
+  String cameraConnectedFor(String duration) {
+    return 'Connected for $duration';
+  }
+
+  @override
+  String cameraDurationSeconds(String seconds) {
+    return '${seconds}s';
+  }
+
+  @override
+  String cameraDurationMinutes(String minutes, String seconds) {
+    return '${minutes}m ${seconds}s';
+  }
+
+  @override
+  String cameraDurationHours(String hours, String minutes) {
+    return '${hours}h ${minutes}m';
+  }
+
+  @override
+  String get cameraCredentialsMissing =>
+      'Set a streaming username and password to enable authentication.';
+
+  @override
+  String get cameraPortWaiting => 'Waiting for the RTSP port to be released.';
+
+  @override
+  String get cameraListenerFailed => 'Could not start the RTSP listener.';
+
+  @override
+  String get settingCameraRtspEnabledTitle => 'Enable camera streaming';
+
+  @override
+  String get settingCameraRtspEnabledDescription =>
+      'Share H.264 video with RTSP or ONVIF clients. Video encoding runs only while a viewer is connected. Hardware encoding is preferred with software fallback when needed. Uses the camera selected in Camera settings.';
+
+  @override
+  String get settingCameraStreamingProtocolTitle => 'Streaming protocol';
+
+  @override
+  String get settingCameraStreamingProtocolDescription =>
+      'ONVIF lets compatible clients discover the camera and connect to its stream.';
+
+  @override
+  String get settingCameraRtspPortTitle => 'Port';
+
+  @override
+  String get settingCameraRtspPortDescription => 'RTSP server port.';
+
+  @override
+  String get settingCameraOnvifPortTitle => 'Port';
+
+  @override
+  String get settingCameraOnvifPortDescription => 'ONVIF server port.';
+
+  @override
+  String get settingCameraRtspResolutionTitle => 'Resolution';
+
+  @override
+  String get settingCameraRtspResolutionDescription =>
+      'Supported streaming sizes for the selected camera and encoder. Video follows the device orientation.';
+
+  @override
+  String get settingCameraRtspAnalysisTitle =>
+      'Motion analysis while streaming';
+
+  @override
+  String get settingCameraRtspAnalysisDescription =>
+      'Keep motion detection, face detection and hand gestures available while viewers are connected. Turning this off can allow higher resolutions. Snapshots then use video frames at the streaming resolution.';
+
+  @override
+  String get settingCameraRtspFpsTitle => 'Frame rate';
+
+  @override
+  String get settingCameraRtspFpsDescription =>
+      'Target video frames per second. Motion keeps its separate analysis rate. Actual delivery depends on the camera.';
+
+  @override
+  String get settingCameraRtspBitrateTitle => 'Bitrate';
+
+  @override
+  String get settingCameraRtspBitrateDescription =>
+      'Target video bitrate. Higher improves detail and uses more network bandwidth.';
+
+  @override
+  String get settingCameraRtspAudioTitle => 'Include microphone audio';
+
+  @override
+  String get settingCameraRtspAudioDescription =>
+      'Include microphone audio in the camera stream. Shares your microphone settings. WARNING: Increased CPU usage.';
+
+  @override
+  String get settingCameraRtspAuthTitle => 'Require authentication';
+
+  @override
+  String get settingCameraRtspAuthDescription =>
+      'Require a username and password to view the stream. Streaming traffic is not encrypted.';
+
+  @override
+  String get settingCameraRtspUsernameTitle => 'Username';
+
+  @override
+  String get settingCameraRtspUsernameDescription =>
+      'Username for streaming clients.';
+
+  @override
+  String get settingCameraRtspPasswordTitle => 'Password';
+
+  @override
+  String get settingCameraRtspPasswordDescription =>
+      'Set a password to start the authenticated stream.';
+
+  @override
+  String get cameraStreamingPage => 'RTSP & ONVIF Streaming';
+
+  @override
+  String get cameraStreamingHint => 'Share the device camera via RTSP or ONVIF';
+
+  @override
+  String get cameraPortError => 'Enter a whole port number from 1024 to 65535.';
+
+  @override
+  String get cameraUsernameError =>
+      'Use 1 to 64 characters without spaces, quotes, colons or backslashes.';
+
+  @override
+  String get cameraNoSizes => 'No supported sizes available';
+
+  @override
+  String get cameraNoSizesHelp =>
+      'No supported sizes available. Check the camera connection.';
+
+  @override
+  String get cameraResolutionSupport => 'Resolution support';
+
+  @override
+  String get cameraCheckingSizes =>
+      'Checking camera and H.264 encoder support...';
+
+  @override
+  String get cameraSupportedSizes =>
+      'Only sizes supported by the camera and H.264 encoder at the current streaming settings are listed.';
+
+  @override
+  String cameraExtraSizes(String sizes) {
+    return 'Turn off Motion analysis while streaming to also use $sizes.';
+  }
+
+  @override
+  String get cameraAnalysisOff =>
+      'Motion detection, face detection and hand gestures pause while viewers are connected. Snapshots use video frames at the streaming resolution.';
+
+  @override
+  String cameraRejectedSizes(String sizes) {
+    return 'The encoder cannot use $sizes at these settings.';
+  }
+
+  @override
+  String cameraRejectedCount(String count) {
+    return '$count camera sizes are excluded because the encoder cannot use them at these settings.';
+  }
+
+  @override
+  String get cameraCaptureRejected =>
+      'Other camera sizes are unavailable in the current capture setup.';
+
+  @override
   String get settingAnalyticsBasicTitle => 'Estadísticas básicas';
 
   @override

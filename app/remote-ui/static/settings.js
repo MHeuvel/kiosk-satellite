@@ -1,4 +1,4 @@
-import { screensaverText, deviceText, haText, screenAudioText, haConnectionError, settingsPageText, t } from './localization.js';
+import { cameraText, cameraError, cameraResolutionNotice, screensaverText, deviceText, haText, screenAudioText, haConnectionError, settingsPageText, t } from './localization.js';
 import { preserveDraft } from './drafts.js';
 import { beginLiveRender, endLiveRender, watchUpdates } from './live.js';
 import {
@@ -2476,7 +2476,7 @@ export function updateRtspRows() {
   const resolution = state.settings.find((s) => s.key === 'camera.rtsp.resolution');
   const resolutionRow = panel?.querySelector('[data-key="camera.rtsp.resolution"]');
   if (resolutionRow && resolution?.notice && state.settings.find((s) => s.key === 'camera.rtsp.enabled')?.value) {
-    const notice = readOnlyRow('Resolution support', resolution.notice, '');
+    const notice = readOnlyRow(cameraText('Resolution support'), cameraResolutionNotice(resolution.notice), '');
     notice.lastElementChild.remove();
     notice.classList.add('rtsp-resolution-notice');
     resolutionRow.after(notice);
@@ -2497,53 +2497,53 @@ export function updateRtspRows() {
     panel.append(heading, card);
     return card;
   };
-  const status = readOnlyRow('Checking...', 'Checking stream status...', '');
+  const status = readOnlyRow(cameraText('Checking...'), cameraText('Checking stream status...'), '');
   status.lastElementChild.remove();
   const icon = document.createElement('span');
   icon.className = 'rtsp-state-icon';
   icon.setAttribute('aria-hidden', 'true');
   status.prepend(icon);
-  group('Stream Status').append(status);
-  const clients = group('Connected Clients');
+  group(cameraText('Stream Status')).append(status);
+  const clients = group(cameraText('Connected Clients'));
   let lastUrls = null;
   const clientRows = new Map();
   const duration = (seconds = 0) => {
     const s = Math.max(0, Math.floor(seconds));
-    if (s < 60) return `${s}s`;
-    if (s < 3600) return `${Math.floor(s / 60)}m ${s % 60}s`;
-    return `${Math.floor(s / 3600)}h ${Math.floor(s % 3600 / 60)}m`;
+    if (s < 60) return t('cameraDurationSeconds', {seconds: String(s)});
+    if (s < 3600) return t('cameraDurationMinutes', {minutes: String(Math.floor(s / 60)), seconds: String(s % 60)});
+    return t('cameraDurationHours', {hours: String(Math.floor(s / 3600)), minutes: String(Math.floor(s % 3600 / 60))});
   };
   const render = (st) => {
     const active = !!st?.encoding && st.clients > 0 && !st.error;
     icon.classList.toggle('active', active);
-    status.querySelector('.name').textContent = !st ? 'Unavailable'
-      : st.error ? 'Unavailable' : !st.listening ? 'Stopped' : active ? 'Streaming' : 'Idle';
-    status.querySelector('.desc').textContent = !st ? 'Stream status unavailable.'
-      : st.error || (!st.listening ? 'Listener is stopped.'
-        : active ? `${st.clients} connected ${st.clients === 1 ? 'viewer' : 'viewers'}. Actual video: ${st.resolution || ''}.`
-        : 'Ready. The encoder starts when a viewer connects.');
+    status.querySelector('.name').textContent = !st ? cameraText('Unavailable')
+      : st.error ? cameraText('Unavailable') : !st.listening ? cameraText('Stopped') : active ? cameraText('Streaming') : cameraText('Idle');
+    status.querySelector('.desc').textContent = !st ? cameraText('Stream status unavailable.')
+      : (st.error ? cameraError(String(st.error)) : null) || (!st.listening ? cameraText('Listener is stopped.')
+        : active ? t(st.clients === 1 ? 'cameraViewer' : 'cameraViewers', {count: String(st.clients), resolution: st.resolution || ''})
+        : cameraText('Ready. The encoder starts when a viewer connects.'));
     if (st?.resolutionFallback) {
-      status.querySelector('.desc').textContent += ` Requested ${st.requestedResolution}, camera supplied ${st.captureResolution}.`;
+      status.querySelector('.desc').textContent += ' ' + t('cameraFallback', {requested: st.requestedResolution, actual: st.captureResolution});
     }
     if (st?.audioEnabled) {
-      status.querySelector('.desc').textContent += st.audioError ? ` Audio: ${st.audioError}`
-        : st.audioSuspended ? ' Audio paused while the browser uses the microphone.'
-        : st.audioEncoding ? ' Microphone audio streaming.' : ' Microphone audio idle.';
+      status.querySelector('.desc').textContent += ' ' + (st.audioError ? t('cameraAudioError', {error: st.audioError})
+        : st.audioSuspended ? t('cameraAudioPaused')
+        : st.audioEncoding ? t('cameraAudioStreaming') : t('cameraAudioIdle'));
     }
     if (st?.onvifDiscoveryError) {
-      status.querySelector('.desc').textContent += ` ONVIF discovery: ${st.onvifDiscoveryError}`;
+      status.querySelector('.desc').textContent += ' ' + t('cameraDiscoveryError', {error: st.onvifDiscoveryError});
     }
     const selectedUrls = (st?.protocol || 'rtsp') === protocol
       ? st?.[onvif ? 'onvifUrls' : 'urls'] : [];
     const addresses = (selectedUrls?.length ? selectedUrls : [''])
-      .map((url) => [onvif ? 'ONVIF URL' : 'Stream URL', url]);
+      .map((url) => [onvif ? cameraText('ONVIF URL') : cameraText('Stream URL'), url]);
     const signature = JSON.stringify(addresses);
     if (signature !== lastUrls) {
       lastUrls = signature;
       urls.replaceChildren(...addresses.map(([label, address]) => {
         const row = readOnlyRow(label, '', '');
         row.lastElementChild.replaceWith(copyBox(address, {
-          placeholder: 'Waiting for a network address',
+          placeholder: cameraText('Waiting for a network address'),
         }).el);
         return row;
       }));
@@ -2555,7 +2555,7 @@ export function updateRtspRows() {
     }
     clients.querySelector('.rtsp-empty')?.remove();
     if (!details.length) {
-      const empty = readOnlyRow(st ? 'No connected clients.' : 'Client information unavailable.', '', '');
+      const empty = readOnlyRow(st ? cameraText('No connected clients.') : cameraText('Client information unavailable.'), '', '');
       empty.classList.add('rtsp-empty');
       clients.append(empty);
     }
@@ -2571,8 +2571,8 @@ export function updateRtspRows() {
       row.querySelector('.name').textContent = client.ip;
       row.querySelector('.desc').textContent = [
         client.userAgent,
-        `${client.playing ? 'Streaming' : 'Connected'} · ${client.transport || 'TCP'} · Port ${client.port}`,
-        `Connected for ${duration(client.connectedSeconds)}`,
+        t('cameraClientDetails', {status: cameraText(client.playing ? 'Streaming' : 'Connected'), transport: client.transport || 'TCP', port: String(client.port)}),
+        t('cameraConnectedFor', {duration: duration(client.connectedSeconds)}),
       ].filter(Boolean).join('\n');
     }
   };

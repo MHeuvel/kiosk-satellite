@@ -171,6 +171,10 @@ const settingOptionMessageIds = <String, Map<String, String>>{
     "top_right": "screensaverMediaTopRight",
     "bottom_left": "screensaverMediaBottomLeft",
     "bottom_right": "screensaverMediaBottomRight"
+  },
+  "camera.device": {
+    "front": "cameraFront",
+    "back": "cameraBack"
   }
 };
 const settingPlaceholderMessageIds = <String, String>{

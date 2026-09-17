@@ -1,0 +1,107 @@
+{
+  "@@locale": "en",
+  "cameraNoCamera": "No camera detected",
+  "@cameraNoCamera": {
+    "context": "Settings > Camera > Enable camera",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Enable camera"
+      ],
+      "remoteAdmin": [
+        "Camera > Enable camera"
+      ]
+    }
+  },
+  "cameraNoCameraHelp": "This device does not report any usable camera.",
+  "@cameraNoCameraHelp": {
+    "context": "Settings > Camera > Enable camera",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Enable camera"
+      ],
+      "remoteAdmin": [
+        "Camera > Enable camera"
+      ]
+    }
+  },
+  "cameraCameraPermission": "Camera permission missing",
+  "@cameraCameraPermission": {
+    "context": "Settings > Camera > Enable camera",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Enable camera"
+      ],
+      "remoteAdmin": [
+        "Camera > Enable camera"
+      ]
+    }
+  },
+  "cameraCameraPermissionHelp": "Without it the camera cannot be used. The grant dialog appears on the tablet screen.",
+  "@cameraCameraPermissionHelp": {
+    "context": "Settings > Camera > Enable camera",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Enable camera"
+      ],
+      "remoteAdmin": [
+        "Camera > Enable camera"
+      ]
+    }
+  },
+  "cameraGrantOnDevice": "Grant on device",
+  "@cameraGrantOnDevice": {
+    "context": "Settings > Camera > Enable camera",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Enable camera"
+      ],
+      "remoteAdmin": [
+        "Camera > Enable camera"
+      ]
+    }
+  },
+  "cameraCameraBlocked": "Blocked. Android will not ask again, so allow it in the app settings.",
+  "@cameraCameraBlocked": {
+    "context": "Settings > Camera > Enable camera",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Enable camera"
+      ],
+      "remoteAdmin": [
+        "Camera > Enable camera"
+      ]
+    }
+  },
+  "cameraCameraNeeded": "Without this the camera cannot be used.",
+  "@cameraCameraNeeded": {
+    "context": "Settings > Camera > Enable camera",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Enable camera"
+      ],
+      "remoteAdmin": [
+        "Camera > Enable camera"
+      ]
+    }
+  },
+  "cameraAppSettings": "App settings",
+  "@cameraAppSettings": {
+    "context": "Settings > Camera > Enable camera",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Enable camera"
+      ],
+      "remoteAdmin": [
+        "Camera > Enable camera"
+      ]
+    }
+  }
+}

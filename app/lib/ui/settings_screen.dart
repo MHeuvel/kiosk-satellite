@@ -2760,8 +2760,8 @@ class _CategoryContentState extends State<_CategoryContent> {
       cameraEnabled.key: SearchLandingTarget(
         id: cameraEnabled.key,
         child: SwitchListTile(
-          title: Text(cameraEnabled.title),
-          subtitle: Text(cameraEnabled.description),
+          title: Text(cameraEnabled.localizedTitle(context)),
+          subtitle: Text(cameraEnabled.localizedDescription(context)),
           value: false,
           onChanged: null,
         ),
@@ -2774,14 +2774,20 @@ class _CategoryContentState extends State<_CategoryContent> {
       cameraDevice.key: SearchLandingTarget(
         id: cameraDevice.key,
         child: ListTile(
-          title: Text(cameraDevice.title),
-          subtitle: const Text('The only camera this device has.'),
+          title: Text(cameraDevice.localizedTitle(context)),
+          subtitle: Text(
+            cameraText(context, 'The only camera this device has.'),
+          ),
           trailing: Text(
-            cameraDevice.optionLabels?[container
-                    .deviceCamera
-                    .knownFacings!
-                    .single] ??
-                container.deviceCamera.knownFacings!.single,
+            cameraDevice.localizedOption(
+              context,
+              container.deviceCamera.knownFacings!.single,
+              cameraDevice.optionLabels?[container
+                      .deviceCamera
+                      .knownFacings!
+                      .single] ??
+                  container.deviceCamera.knownFacings!.single,
+            ),
           ),
         ),
       ),
@@ -2838,7 +2844,10 @@ class _CategoryContentState extends State<_CategoryContent> {
       ),
     if (widget.category == 'Camera')
       cameraRtspResolution.key: HintRow(
-        container.settings.cameraResolutionNotice,
+        cameraResolutionNotice(
+          context,
+          container.settings.cameraResolutionNotice,
+        ),
       ),
     if (widget.category == 'Camera')
       cameraEnabled.key: Column(
@@ -5419,9 +5428,12 @@ class _NoCameraRow extends StatelessWidget {
             Icons.no_photography_outlined,
             color: Theme.of(context).colorScheme.error,
           ),
-          title: const Text('No camera detected'),
-          subtitle: const Text(
-            'This device does not report any usable camera.',
+          title: Text(cameraText(context, 'No camera detected')),
+          subtitle: Text(
+            cameraText(
+              context,
+              'This device does not report any usable camera.',
+            ),
           ),
         );
       },
@@ -5464,12 +5476,14 @@ class _CameraGrantRowState extends State<_CameraGrantRow> {
         Icons.no_photography_outlined,
         color: theme.colorScheme.error,
       ),
-      title: const Text('Camera'),
+      title: Text(cameraText(context, 'Camera')),
       subtitle: Text(
         _blocked
-            ? 'Blocked. Android will not ask again, so allow it in the '
-                  'app settings.'
-            : 'Without this the camera cannot be used.',
+            ? cameraText(
+                context,
+                "Blocked. Android will not ask again, so allow it in the app settings.",
+              )
+            : cameraText(context, 'Without this the camera cannot be used.'),
       ),
       trailing: TextButton(
         onPressed: () async {
@@ -5483,7 +5497,11 @@ class _CameraGrantRowState extends State<_CameraGrantRow> {
           }
           await _refresh();
         },
-        child: Text(_blocked ? 'App settings' : 'Grant'),
+        child: Text(
+          _blocked
+              ? cameraText(context, 'App settings')
+              : cameraText(context, 'Grant'),
+        ),
       ),
     );
   }
@@ -9592,8 +9610,11 @@ class SettingTile extends StatelessWidget {
         if (options.isEmpty && def.key == cameraRtspResolution.key) {
           return ListTile(
             title: Text(def.localizedTitle(context)),
-            subtitle: const Text(
-              'No supported sizes available. Check the camera connection.',
+            subtitle: Text(
+              cameraText(
+                context,
+                'No supported sizes available. Check the camera connection.',
+              ),
             ),
             enabled: false,
           );
@@ -10325,7 +10346,10 @@ class SettingTile extends StatelessWidget {
                     ? null
                     : screensaverError(
                         context,
-                        haText(context, deviceText(context, error!)),
+                        cameraError(
+                          context,
+                          haText(context, deviceText(context, error!)),
+                        ),
                       ),
               ),
             ),
@@ -11067,33 +11091,40 @@ class _RtspPageState extends State<_RtspPage> {
         (st?['clients'] as num? ?? 0) > 0 &&
         st?['error'] == null;
     final label = st == null
-        ? 'Unavailable'
+        ? cameraText(context, 'Unavailable')
         : st['error'] != null
-        ? 'Unavailable'
+        ? cameraText(context, 'Unavailable')
         : st['listening'] != true
-        ? 'Stopped'
+        ? cameraText(context, 'Stopped')
         : active
-        ? 'Streaming'
-        : 'Idle';
+        ? cameraText(context, 'Streaming')
+        : cameraText(context, 'Idle');
     final text = st == null
-        ? 'Stream status unavailable.'
+        ? cameraText(context, 'Stream status unavailable.')
         : st['error'] != null
-        ? '${st['error']}'
+        ? cameraError(context, '${st['error']}')
         : st['listening'] != true
-        ? 'Listener is stopped.'
+        ? cameraText(context, 'Listener is stopped.')
         : active
-        ? '${st['clients']} connected ${st['clients'] == 1 ? 'viewer' : 'viewers'}. Actual video: ${st['resolution'] ?? ''}.'
-              .trim()
-        : 'Ready. The encoder starts when a viewer connects.';
+        ? (st['clients'] == 1
+              ? l10n(context).cameraViewer
+              : l10n(context).cameraViewers)(
+            '${st['clients']}',
+            '${st['resolution'] ?? ''}',
+          )
+        : cameraText(
+            context,
+            'Ready. The encoder starts when a viewer connects.',
+          );
     final audioText = st?['audioEnabled'] != true
         ? ''
         : st?['audioError'] != null
-        ? ' Audio: ${st!['audioError']}'
+        ? ' ${l10n(context).cameraAudioError('${st!['audioError']}')}'
         : st?['audioSuspended'] == true
-        ? ' Audio paused while the browser uses the microphone.'
+        ? ' ${l10n(context).cameraAudioPaused}'
         : st?['audioEncoding'] == true
-        ? ' Microphone audio streaming.'
-        : ' Microphone audio idle.';
+        ? ' ${l10n(context).cameraAudioStreaming}'
+        : ' ${l10n(context).cameraAudioIdle}';
     final protocol = widget.container.settings.get(cameraStreamingProtocol);
     final onvif = protocol == 'onvif';
     final urls = (st?['protocol'] ?? 'rtsp') == protocol
@@ -11110,16 +11141,23 @@ class _RtspPageState extends State<_RtspPage> {
               for (final url in urls.isEmpty ? [''] : urls)
                 SettingsRow(
                   stack: true,
-                  title: Text(onvif ? 'ONVIF URL' : 'Stream URL'),
+                  title: Text(
+                    onvif
+                        ? cameraText(context, 'ONVIF URL')
+                        : cameraText(context, 'Stream URL'),
+                  ),
                   trailing: CopyBox(
                     value: url,
-                    placeholder: 'Waiting for a network address',
+                    placeholder: cameraText(
+                      context,
+                      'Waiting for a network address',
+                    ),
                   ),
                 ),
             ],
           ),
         ),
-        const SectionHeading('Stream Status'),
+        SectionHeading(cameraText(context, 'Stream Status')),
         SettingsCard(
           children: [
             SettingsRow(
@@ -11132,25 +11170,25 @@ class _RtspPageState extends State<_RtspPage> {
               subtitle: Text(
                 text +
                     (st?['resolutionFallback'] == true
-                        ? ' Requested ${st!['requestedResolution']}, camera supplied ${st['captureResolution']}.'
+                        ? ' ${l10n(context).cameraFallback('${st!['requestedResolution']}', '${st['captureResolution']}')}'
                         : '') +
                     audioText +
                     (st?['onvifDiscoveryError'] == null
                         ? ''
-                        : ' ONVIF discovery: ${st!["onvifDiscoveryError"]}'),
+                        : ' ${l10n(context).cameraDiscoveryError('${st!["onvifDiscoveryError"]}')}'),
               ),
             ),
           ],
         ),
-        const SectionHeading('Connected Clients'),
+        SectionHeading(cameraText(context, 'Connected Clients')),
         SettingsCard(
           children: [
             if (clients.isEmpty)
               SettingsRow(
                 title: Text(
                   st == null
-                      ? 'Client information unavailable.'
-                      : 'No connected clients.',
+                      ? cameraText(context, 'Client information unavailable.')
+                      : cameraText(context, 'No connected clients.'),
                 ),
               ),
             for (final client in clients)
@@ -11161,8 +11199,17 @@ class _RtspPageState extends State<_RtspPage> {
                   [
                     if ((client['userAgent'] as String? ?? '').isNotEmpty)
                       '${client['userAgent']}',
-                    '${client['playing'] == true ? 'Streaming' : 'Connected'} · ${client['transport'] ?? 'TCP'} · Port ${client['port']}',
-                    'Connected for ${_connectedFor(client['connectedSeconds'] as num? ?? 0)}',
+                    l10n(context).cameraClientDetails(
+                      cameraText(
+                        context,
+                        client['playing'] == true ? 'Streaming' : 'Connected',
+                      ),
+                      '${client['transport'] ?? 'TCP'}',
+                      '${client['port']}',
+                    ),
+                    l10n(context).cameraConnectedFor(
+                      _connectedFor(client['connectedSeconds'] as num? ?? 0),
+                    ),
                   ].join('\n'),
                 ),
               ),
@@ -11174,9 +11221,13 @@ class _RtspPageState extends State<_RtspPage> {
 
   String _connectedFor(num seconds) {
     final s = seconds.toInt();
-    if (s < 60) return '${s}s';
-    if (s < 3600) return '${s ~/ 60}m ${s % 60}s';
-    return '${s ~/ 3600}h ${(s % 3600) ~/ 60}m';
+    if (s < 60) return l10n(context).cameraDurationSeconds('$s');
+    if (s < 3600) {
+      return l10n(context).cameraDurationMinutes('${s ~/ 60}', '${s % 60}');
+    }
+    return l10n(
+      context,
+    ).cameraDurationHours('${s ~/ 3600}', '${(s % 3600) ~/ 60}');
   }
 }
 

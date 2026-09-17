@@ -770,5 +770,97 @@
   "screensaver.postpone_on_person": {
     "title": "settingScreensaverPostponeOnPersonTitle",
     "description": "settingScreensaverPostponeOnPersonDescription"
+  },
+  "camera.enabled": {
+    "title": "settingCameraEnabledTitle",
+    "description": "settingCameraEnabledDescription"
+  },
+  "camera.device": {
+    "title": "settingCameraDeviceTitle",
+    "description": "settingCameraDeviceDescription"
+  },
+  "camera.snapshot_resolution": {
+    "title": "settingCameraSnapshotResolutionTitle",
+    "description": "settingCameraSnapshotResolutionDescription"
+  },
+  "camera.disable_detection_snapshots": {
+    "title": "settingCameraDisableDetectionSnapshotsTitle",
+    "description": "settingCameraDisableDetectionSnapshotsDescription"
+  },
+  "camera.snapshots": {
+    "title": "settingCameraSnapshotsTitle",
+    "description": "settingCameraSnapshotsDescription"
+  },
+  "camera.snapshot_interval": {
+    "title": "settingCameraSnapshotIntervalTitle",
+    "description": "settingCameraSnapshotIntervalDescription"
+  },
+  "motion.sensor": {
+    "title": "settingMotionSensorTitle",
+    "description": "settingMotionSensorDescription"
+  },
+  "motion.sensor_off_delay": {
+    "title": "settingMotionSensorOffDelayTitle",
+    "description": "settingMotionSensorOffDelayDescription"
+  },
+  "motion.fps": {
+    "title": "settingMotionFpsTitle",
+    "description": "settingMotionFpsDescription"
+  },
+  "motion.start_delay": {
+    "title": "settingMotionStartDelayTitle",
+    "description": "settingMotionStartDelayDescription"
+  },
+  "motion.sensitivity": {
+    "title": "settingMotionSensitivityTitle",
+    "description": "settingMotionSensitivityDescription"
+  },
+  "camera.rtsp.enabled": {
+    "title": "settingCameraRtspEnabledTitle",
+    "description": "settingCameraRtspEnabledDescription"
+  },
+  "camera.rtsp.protocol": {
+    "title": "settingCameraStreamingProtocolTitle",
+    "description": "settingCameraStreamingProtocolDescription"
+  },
+  "camera.rtsp.port": {
+    "title": "settingCameraRtspPortTitle",
+    "description": "settingCameraRtspPortDescription"
+  },
+  "camera.onvif.port": {
+    "title": "settingCameraOnvifPortTitle",
+    "description": "settingCameraOnvifPortDescription"
+  },
+  "camera.rtsp.resolution": {
+    "title": "settingCameraRtspResolutionTitle",
+    "description": "settingCameraRtspResolutionDescription"
+  },
+  "camera.rtsp.analysis": {
+    "title": "settingCameraRtspAnalysisTitle",
+    "description": "settingCameraRtspAnalysisDescription"
+  },
+  "camera.rtsp.fps": {
+    "title": "settingCameraRtspFpsTitle",
+    "description": "settingCameraRtspFpsDescription"
+  },
+  "camera.rtsp.bitrate": {
+    "title": "settingCameraRtspBitrateTitle",
+    "description": "settingCameraRtspBitrateDescription"
+  },
+  "camera.rtsp.audio": {
+    "title": "settingCameraRtspAudioTitle",
+    "description": "settingCameraRtspAudioDescription"
+  },
+  "camera.rtsp.auth": {
+    "title": "settingCameraRtspAuthTitle",
+    "description": "settingCameraRtspAuthDescription"
+  },
+  "camera.rtsp.username": {
+    "title": "settingCameraRtspUsernameTitle",
+    "description": "settingCameraRtspUsernameDescription"
+  },
+  "camera.rtsp.password": {
+    "title": "settingCameraRtspPasswordTitle",
+    "description": "settingCameraRtspPasswordDescription"
   }
 }

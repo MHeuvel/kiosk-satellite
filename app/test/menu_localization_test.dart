@@ -8,6 +8,7 @@ import 'package:kiosk_satellite/app_container.dart';
 import 'package:kiosk_satellite/core/command_registry.dart';
 import 'package:kiosk_satellite/core/app_locales.dart';
 import 'package:kiosk_satellite/managers/camera/models.dart';
+import 'package:kiosk_satellite/managers/device_camera/camera_resolutions.dart';
 import 'package:kiosk_satellite/ui/camera_views_picker.dart';
 import 'package:kiosk_satellite/ui/glance_entity_picker.dart';
 import 'package:kiosk_satellite/l10n/generated/ui_strings.dart';
@@ -22,6 +23,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 // Test wording exercises localization even before draft catalogs are approved.
 class MenuMessages extends UiStringsEn {
+  @override
+  String get cameraStreaming => 'TEST active stream';
+  @override
+  String get cameraBack => 'TEST rear camera';
+  @override
+  String cameraViewer(String count, String resolution) =>
+      'TEST viewer $count $resolution';
+  @override
+  String cameraExtraSizes(String sizes) => 'TEST extra sizes $sizes';
+  @override
+  String cameraFallback(String requested, String actual) =>
+      'TEST fallback $requested to $actual';
   @override
   String get settingScreensaverEnabledTitle => 'TEST screensaver';
   @override
@@ -158,6 +171,94 @@ Future<AppContainer> containerFor(WidgetTester tester, Size size) async {
 }
 
 void main() {
+  testWidgets(
+    'translated Camera choices and status preserve technical values',
+    (tester) async {
+      final container = await containerFor(tester, const Size(1200, 3000));
+      await container.settings.setFromJson(defs.cameraEnabled.key, true);
+      await container.settings.setFromJson(defs.cameraRtspEnabled.key, true);
+      container.settings.updateCameraStreamingCapabilities(
+        CameraStreamingCapabilities.fromJson({
+          'withAnalysis': ['640x480'],
+          'withoutAnalysis': ['640x480', '1920x1080'],
+          'encoderRejected': <String>[],
+          'captureRejected': <String>[],
+        }),
+      );
+      container.commands.register(
+        Command(
+          name: 'getRtspStatus',
+          description: 'Test stream',
+          handler: (_) async => const CommandResult.ok({
+            'protocol': 'rtsp',
+            'listening': true,
+            'encoding': true,
+            'clients': 1,
+            'resolution': '640x480',
+            'requestedResolution': '1280x720',
+            'captureResolution': '640x480',
+            'resolutionFallback': true,
+            'urls': ['rtsp://192.0.2.5:8554/live'],
+            'clientDetails': [
+              {
+                'ip': '192.0.2.8',
+                'port': 52341,
+                'transport': 'TCP',
+                'userAgent': 'Streaming',
+                'playing': true,
+                'connectedSeconds': 125,
+              },
+            ],
+          }),
+        ),
+      );
+      await tester.pumpWidget(
+        localized(
+          Scaffold(
+            body: SettingTile(
+              container: container,
+              def: defs.cameraDevice,
+              onChanged: () {},
+            ),
+          ),
+        ),
+      );
+      final choice = tester.widget<DropdownRow<String>>(
+        find.byType(DropdownRow<String>),
+      );
+      expect(choice.options, contains(('back', 'TEST rear camera')));
+      choice.onChanged('back');
+      await tester.pump();
+      expect(container.settings.get(defs.cameraDevice), 'back');
+      await tester.pumpWidget(
+        localized(
+          SubpageSettingsScreen(
+            container: container,
+            category: 'Camera',
+            subpage: 'RTSP & ONVIF Streaming',
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(
+        find.textContaining('TEST extra sizes 1920 × 1080'),
+        findsOneWidget,
+      );
+      expect(find.textContaining('TEST viewer 1 640x480'), findsOneWidget);
+      expect(
+        find.textContaining('TEST fallback 1280x720 to 640x480'),
+        findsOneWidget,
+      );
+      expect(find.text('rtsp://192.0.2.5:8554/live'), findsOneWidget);
+      expect(find.text('192.0.2.8'), findsOneWidget);
+      expect(
+        find.textContaining('Streaming\nTEST active stream · TCP · Port 52341'),
+        findsOneWidget,
+      );
+      expect(tester.takeException(), isNull);
+    },
+  );
+
   testWidgets(
     'translated detection pages preserve unavailable hardware gates',
     (tester) async {

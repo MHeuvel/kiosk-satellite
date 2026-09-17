@@ -1,4 +1,4 @@
-import { screenAudioText, screensaverText, t } from './localization.js';
+import { cameraText, cameraError, screenAudioText, screensaverText, t } from './localization.js';
 import { watchUpdates } from './live.js';
 import { hintRow } from './widgets.js';
 import { api, state } from './core.js';
@@ -45,8 +45,8 @@ export async function updateNoCameraNotice() {
     card.remove();
   }
   if (tab.querySelector('.camera-missing-notice')) return;
-  const row = readOnlyRow('No camera detected',
-    'This device does not report any usable camera.', '');
+  const row = readOnlyRow(cameraText('No camera detected'),
+    cameraText('This device does not report any usable camera.'), '');
   row.classList.add('camera-missing-notice');
   anchor.insertAdjacentElement('afterend', row);
 }
@@ -70,8 +70,8 @@ export async function updateCameraFacingsRow() {
   const tab = document.getElementById('tab-camera');
   const sel = tab.querySelector('[data-key="camera.device"]');
   if (!sel) return;
-  const label = state.cameraFacings[0] === 'back' ? 'Back' : 'Front';
-  const row = readOnlyRow('Camera', 'The only camera this device has.', label);
+  const label = state.cameraFacings[0] === 'back' ? cameraText('Back') : cameraText('Front');
+  const row = readOnlyRow(cameraText('Camera'), cameraText('The only camera this device has.'), label);
   row.dataset.key = 'camera.device';
   sel.replaceWith(row);
 }
@@ -90,12 +90,12 @@ export async function updateCameraGrantNotice() {
   const tab = document.getElementById('tab-camera');
   const anchor = tab.querySelector('[data-key="camera.enabled"]');
   if (!anchor || tab.querySelector('.camera-grant-notice')) return;
-  const row = readOnlyRow('Camera permission missing',
-    'Without it the camera cannot be used. The grant dialog appears on the tablet screen.', '');
+  const row = readOnlyRow(cameraText('Camera permission missing'),
+    cameraText('Without it the camera cannot be used. The grant dialog appears on the tablet screen.'), '');
   row.classList.add('camera-grant-notice');
   const btn = document.createElement('button');
   btn.className = 'btn-ghost';
-  btn.textContent = 'Grant on device';
+  btn.textContent = cameraText('Grant on device');
   btn.style.cssText = 'flex-shrink:0;';
   btn.addEventListener('click', async () => {
     btn.disabled = true;
@@ -126,14 +126,14 @@ export async function updateCameraGrantNotice() {
 export let cameraSnapshotTimer = null;
 export function agoLabel(date) {
   const s = Math.max(0, Math.round((Date.now() - date.getTime()) / 1000));
-  if (s < 5) return 'just now';
-  if (s < 60) return `${s} seconds ago`;
+  if (s < 5) return cameraText('just now');
+  if (s < 60) return t('cameraSecondsAgo', {count: String(s)});
   const m = Math.floor(s / 60);
-  if (m < 60) return m === 1 ? '1 minute ago' : `${m} minutes ago`;
+  if (m < 60) return m === 1 ? cameraText('1 minute ago') : t('cameraMinutesAgo', {count: String(m)});
   const h = Math.floor(m / 60);
-  if (h < 24) return h === 1 ? '1 hour ago' : `${h} hours ago`;
+  if (h < 24) return h === 1 ? cameraText('1 hour ago') : t('cameraHoursAgo', {count: String(h)});
   const d = Math.floor(h / 24);
-  return d === 1 ? '1 day ago' : `${d} days ago`;
+  return d === 1 ? cameraText('1 day ago') : t('cameraDaysAgo', {count: String(d)});
 }
 export async function updateCameraSnapshotPanel() {
   const tab = document.getElementById('tab-camera');
@@ -149,11 +149,12 @@ export async function updateCameraSnapshotPanel() {
   row.style.flexWrap = 'wrap';
   const info = document.createElement('div');
   info.className = 'info';
-  info.innerHTML = '<div class="name">Latest snapshot</div><div class="desc"></div>';
+  info.innerHTML = '<div class="name"></div><div class="desc"></div>';
+  info.querySelector('.name').textContent = cameraText('Latest snapshot');
   const desc = info.querySelector('.desc');
-  desc.textContent = 'No snapshot yet.';
+  desc.textContent = cameraText('No snapshot yet.');
   const img = document.createElement('img');
-  img.alt = 'Latest camera snapshot';
+  img.alt = cameraText('Latest camera snapshot');
   img.style.cssText = 'width:100%; border-radius:12px; margin-top:10px; display:none;';
   let at = null;
   const refresh = async () => {
@@ -168,7 +169,7 @@ export async function updateCameraSnapshotPanel() {
   };
   const btn = document.createElement('button');
   btn.className = 'btn-ghost';
-  btn.textContent = 'Take snapshot';
+  btn.textContent = cameraText('Take snapshot');
   btn.style.cssText = 'flex-shrink:0;';
   btn.addEventListener('click', async () => {
     btn.disabled = true;
@@ -176,13 +177,13 @@ export async function updateCameraSnapshotPanel() {
       const res = await (await api('/api/commands/takeCameraSnapshot', {
         method: 'POST', body: '{}' })).json();
       if (res.ok) await refresh();
-      else desc.textContent = res.error || 'Snapshot failed.';
+      else desc.textContent = cameraError(res.error || 'Snapshot failed.');
     } catch (_) {} finally { btn.disabled = false; }
   });
   row.append(info, btn, img);
   const heading = document.createElement('h2');
   heading.className = 'card-title camera-snapshot-heading';
-  heading.textContent = 'Latest snapshot';
+  heading.textContent = cameraText('Latest snapshot');
   const card = document.createElement('div');
   card.className = 'card camera-snapshot-card';
   card.appendChild(row);

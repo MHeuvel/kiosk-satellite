@@ -693,6 +693,1751 @@
       ]
     }
   },
+  "settingCameraEnabledTitle": "Enable camera",
+  "@settingCameraEnabledTitle": {
+    "context": "Settings > Camera",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera"
+      ],
+      "remoteAdmin": [
+        "Camera"
+      ]
+    }
+  },
+  "settingCameraEnabledDescription": "Camera use adds CPU load and heat, which can shorten the battery and device lifespan.",
+  "@settingCameraEnabledDescription": {
+    "context": "Settings > Camera",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera"
+      ],
+      "remoteAdmin": [
+        "Camera"
+      ]
+    }
+  },
+  "settingCameraDeviceTitle": "Camera",
+  "@settingCameraDeviceTitle": {
+    "context": "Settings > Camera",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera"
+      ],
+      "remoteAdmin": [
+        "Camera"
+      ]
+    }
+  },
+  "settingCameraDeviceDescription": "Which camera to use.",
+  "@settingCameraDeviceDescription": {
+    "context": "Settings > Camera",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera"
+      ],
+      "remoteAdmin": [
+        "Camera"
+      ]
+    }
+  },
+  "settingCameraSnapshotResolutionTitle": "Snapshot resolution",
+  "@settingCameraSnapshotResolutionTitle": {
+    "context": "Settings > Camera",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera"
+      ],
+      "remoteAdmin": [
+        "Camera"
+      ]
+    }
+  },
+  "settingCameraSnapshotResolutionDescription": "Higher looks sharper but costs more CPU and bandwidth.",
+  "@settingCameraSnapshotResolutionDescription": {
+    "context": "Settings > Camera",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera"
+      ],
+      "remoteAdmin": [
+        "Camera"
+      ]
+    }
+  },
+  "settingCameraDisableDetectionSnapshotsTitle": "Disable snapshots on detection",
+  "@settingCameraDisableDetectionSnapshotsTitle": {
+    "context": "Settings > Camera",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera"
+      ],
+      "remoteAdmin": [
+        "Camera"
+      ]
+    }
+  },
+  "settingCameraDisableDetectionSnapshotsDescription": "Prevent automatic snapshots triggered by detection. Motion, face, presence and gesture detection keep working. Manual requests and Continuous snapshots can still capture images.",
+  "@settingCameraDisableDetectionSnapshotsDescription": {
+    "context": "Settings > Camera",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera"
+      ],
+      "remoteAdmin": [
+        "Camera"
+      ]
+    }
+  },
+  "settingCameraSnapshotsTitle": "Continuous snapshots",
+  "@settingCameraSnapshotsTitle": {
+    "context": "Settings > Camera",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera"
+      ],
+      "remoteAdmin": [
+        "Camera"
+      ]
+    }
+  },
+  "settingCameraSnapshotsDescription": "Publish a fresh camera snapshot to Home Assistant at a fixed interval.",
+  "@settingCameraSnapshotsDescription": {
+    "context": "Settings > Camera",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera"
+      ],
+      "remoteAdmin": [
+        "Camera"
+      ]
+    }
+  },
+  "settingCameraSnapshotIntervalTitle": "Snapshot interval",
+  "@settingCameraSnapshotIntervalTitle": {
+    "context": "Settings > Camera",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera"
+      ],
+      "remoteAdmin": [
+        "Camera"
+      ]
+    }
+  },
+  "settingCameraSnapshotIntervalDescription": "Seconds between snapshots.",
+  "@settingCameraSnapshotIntervalDescription": {
+    "context": "Settings > Camera",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera"
+      ],
+      "remoteAdmin": [
+        "Camera"
+      ]
+    }
+  },
+  "cameraFront": "Front",
+  "@cameraFront": {
+    "context": "Settings > Camera",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera"
+      ],
+      "remoteAdmin": [
+        "Camera"
+      ]
+    }
+  },
+  "cameraBack": "Back",
+  "@cameraBack": {
+    "context": "Settings > Camera",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera"
+      ],
+      "remoteAdmin": [
+        "Camera"
+      ]
+    }
+  },
+  "cameraOnlyCamera": "The only camera this device has.",
+  "@cameraOnlyCamera": {
+    "context": "Settings > Camera",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera"
+      ],
+      "remoteAdmin": [
+        "Camera"
+      ]
+    }
+  },
+  "settingMotionSensorTitle": "Motion sensor",
+  "@settingMotionSensorTitle": {
+    "context": "Settings > Camera > Motion Sensor",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Motion Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Motion Sensor"
+      ]
+    }
+  },
+  "settingMotionSensorDescription": "Expose motion as a Home Assistant sensor. WARNING: Keeps the camera running permanently, even with the screen off.",
+  "@settingMotionSensorDescription": {
+    "context": "Settings > Camera > Motion Sensor",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Motion Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Motion Sensor"
+      ]
+    }
+  },
+  "settingMotionSensorOffDelayTitle": "Clear after",
+  "@settingMotionSensorOffDelayTitle": {
+    "context": "Settings > Camera > Motion Sensor",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Motion Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Motion Sensor"
+      ]
+    }
+  },
+  "settingMotionSensorOffDelayDescription": "Seconds without motion before the sensor reads clear.",
+  "@settingMotionSensorOffDelayDescription": {
+    "context": "Settings > Camera > Motion Sensor",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Motion Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Motion Sensor"
+      ]
+    }
+  },
+  "settingMotionFpsTitle": "Motion frame rate",
+  "@settingMotionFpsTitle": {
+    "context": "Settings > Camera > Motion Sensor",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Motion Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Motion Sensor"
+      ]
+    }
+  },
+  "settingMotionFpsDescription": "Frames per second the camera checks for motion. Lower is lighter on the CPU; 2 is plenty to notice someone approaching.",
+  "@settingMotionFpsDescription": {
+    "context": "Settings > Camera > Motion Sensor",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Motion Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Motion Sensor"
+      ]
+    }
+  },
+  "settingMotionStartDelayTitle": "Startup delay",
+  "@settingMotionStartDelayTitle": {
+    "context": "Settings > Camera > Motion Sensor",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Motion Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Motion Sensor"
+      ]
+    }
+  },
+  "settingMotionStartDelayDescription": "Ignore motion for this long after the camera starts, for devices whose camera physically moves as it opens.",
+  "@settingMotionStartDelayDescription": {
+    "context": "Settings > Camera > Motion Sensor",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Motion Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Motion Sensor"
+      ]
+    }
+  },
+  "settingMotionSensitivityTitle": "Motion sensitivity",
+  "@settingMotionSensitivityTitle": {
+    "context": "Settings > Camera > Motion Sensor",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Motion Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Motion Sensor"
+      ]
+    }
+  },
+  "settingMotionSensitivityDescription": "Higher trips on smaller movements. 1 needs a large change across the frame; 100 reacts to the slightest motion.",
+  "@settingMotionSensitivityDescription": {
+    "context": "Settings > Camera > Motion Sensor",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Motion Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Motion Sensor"
+      ]
+    }
+  },
+  "cameraMotionPage": "Motion Sensor",
+  "@cameraMotionPage": {
+    "context": "Settings > Camera > Motion Sensor",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Motion Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Motion Sensor"
+      ]
+    }
+  },
+  "cameraMotionHint": "Home Assistant motion sensor and shared detection settings",
+  "@cameraMotionHint": {
+    "context": "Settings > Camera > Motion Sensor",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Motion Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Motion Sensor"
+      ]
+    }
+  },
+  "cameraNoCamera": "No camera detected",
+  "@cameraNoCamera": {
+    "context": "Settings > Camera > Enable camera",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Enable camera"
+      ],
+      "remoteAdmin": [
+        "Camera > Enable camera"
+      ]
+    }
+  },
+  "cameraNoCameraHelp": "This device does not report any usable camera.",
+  "@cameraNoCameraHelp": {
+    "context": "Settings > Camera > Enable camera",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Enable camera"
+      ],
+      "remoteAdmin": [
+        "Camera > Enable camera"
+      ]
+    }
+  },
+  "cameraCameraPermission": "Camera permission missing",
+  "@cameraCameraPermission": {
+    "context": "Settings > Camera > Enable camera",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Enable camera"
+      ],
+      "remoteAdmin": [
+        "Camera > Enable camera"
+      ]
+    }
+  },
+  "cameraCameraPermissionHelp": "Without it the camera cannot be used. The grant dialog appears on the tablet screen.",
+  "@cameraCameraPermissionHelp": {
+    "context": "Settings > Camera > Enable camera",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Enable camera"
+      ],
+      "remoteAdmin": [
+        "Camera > Enable camera"
+      ]
+    }
+  },
+  "cameraGrantOnDevice": "Grant on device",
+  "@cameraGrantOnDevice": {
+    "context": "Settings > Camera > Enable camera",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Enable camera"
+      ],
+      "remoteAdmin": [
+        "Camera > Enable camera"
+      ]
+    }
+  },
+  "cameraCameraBlocked": "Blocked. Android will not ask again, so allow it in the app settings.",
+  "@cameraCameraBlocked": {
+    "context": "Settings > Camera > Enable camera",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Enable camera"
+      ],
+      "remoteAdmin": [
+        "Camera > Enable camera"
+      ]
+    }
+  },
+  "cameraCameraNeeded": "Without this the camera cannot be used.",
+  "@cameraCameraNeeded": {
+    "context": "Settings > Camera > Enable camera",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Enable camera"
+      ],
+      "remoteAdmin": [
+        "Camera > Enable camera"
+      ]
+    }
+  },
+  "cameraAppSettings": "App settings",
+  "@cameraAppSettings": {
+    "context": "Settings > Camera > Enable camera",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Enable camera"
+      ],
+      "remoteAdmin": [
+        "Camera > Enable camera"
+      ]
+    }
+  },
+  "cameraLatest": "Latest snapshot",
+  "@cameraLatest": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    }
+  },
+  "cameraNoSnapshot": "No snapshot yet.",
+  "@cameraNoSnapshot": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    }
+  },
+  "cameraImageAlt": "Latest camera snapshot",
+  "@cameraImageAlt": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    }
+  },
+  "cameraTakeSnapshot": "Take snapshot",
+  "@cameraTakeSnapshot": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    }
+  },
+  "cameraSnapshotFailed": "Snapshot failed.",
+  "@cameraSnapshotFailed": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    }
+  },
+  "cameraSnapshotError": "Snapshot failed: {error}",
+  "@cameraSnapshotError": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraCameraDisabled": "The camera is disabled in the Camera settings.",
+  "@cameraCameraDisabled": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    }
+  },
+  "cameraSnapshotBusy": "A snapshot is already in progress.",
+  "@cameraSnapshotBusy": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    }
+  },
+  "cameraPermissionDenied": "Camera permission not granted.",
+  "@cameraPermissionDenied": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    }
+  },
+  "cameraDetectionDisabled": "Detection snapshots are disabled.",
+  "@cameraDetectionDisabled": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    }
+  },
+  "cameraNoImage": "The camera returned no image.",
+  "@cameraNoImage": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    }
+  },
+  "cameraTimedOut": "The camera did not answer in time.",
+  "@cameraTimedOut": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    }
+  },
+  "cameraBackground": "The camera is unavailable while the app is in the background.",
+  "@cameraBackground": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    }
+  },
+  "cameraJustNow": "just now",
+  "@cameraJustNow": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    }
+  },
+  "cameraSecondsAgo": "{count} seconds ago",
+  "@cameraSecondsAgo": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraMinuteAgo": "1 minute ago",
+  "@cameraMinuteAgo": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    }
+  },
+  "cameraMinutesAgo": "{count} minutes ago",
+  "@cameraMinutesAgo": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraHourAgo": "1 hour ago",
+  "@cameraHourAgo": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    }
+  },
+  "cameraHoursAgo": "{count} hours ago",
+  "@cameraHoursAgo": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraDayAgo": "1 day ago",
+  "@cameraDayAgo": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    }
+  },
+  "cameraDaysAgo": "{count} days ago",
+  "@cameraDaysAgo": {
+    "context": "Settings > Camera > Latest snapshot",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Camera > Latest snapshot"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraStatusHeading": "Stream Status",
+  "@cameraStatusHeading": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraClientsHeading": "Connected Clients",
+  "@cameraClientsHeading": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraUnavailable": "Unavailable",
+  "@cameraUnavailable": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraStopped": "Stopped",
+  "@cameraStopped": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraStreaming": "Streaming",
+  "@cameraStreaming": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraIdle": "Idle",
+  "@cameraIdle": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraConnected": "Connected",
+  "@cameraConnected": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraChecking": "Checking...",
+  "@cameraChecking": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraCheckingStatus": "Checking stream status...",
+  "@cameraCheckingStatus": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraStatusUnavailable": "Stream status unavailable.",
+  "@cameraStatusUnavailable": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraListenerStopped": "Listener is stopped.",
+  "@cameraListenerStopped": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraViewer": "{count} connected viewer. Actual video: {resolution}.",
+  "@cameraViewer": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      },
+      "resolution": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraViewers": "{count} connected viewers. Actual video: {resolution}.",
+  "@cameraViewers": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      },
+      "resolution": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraReady": "Ready. The encoder starts when a viewer connects.",
+  "@cameraReady": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraFallback": "Requested {requested}, camera supplied {actual}.",
+  "@cameraFallback": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    },
+    "placeholders": {
+      "requested": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      },
+      "actual": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraAudioError": "Audio: {error}",
+  "@cameraAudioError": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraAudioPaused": "Audio paused while the browser uses the microphone.",
+  "@cameraAudioPaused": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraAudioStreaming": "Microphone audio streaming.",
+  "@cameraAudioStreaming": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraAudioIdle": "Microphone audio idle.",
+  "@cameraAudioIdle": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraDiscoveryError": "ONVIF discovery: {error}",
+  "@cameraDiscoveryError": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraOnvifUrl": "ONVIF URL",
+  "@cameraOnvifUrl": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraStreamUrl": "Stream URL",
+  "@cameraStreamUrl": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraWaitingAddress": "Waiting for a network address",
+  "@cameraWaitingAddress": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraClientsUnavailable": "Client information unavailable.",
+  "@cameraClientsUnavailable": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraNoClients": "No connected clients.",
+  "@cameraNoClients": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraClientDetails": "{status} · {transport} · Port {port}",
+  "@cameraClientDetails": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    },
+    "placeholders": {
+      "status": {
+        "type": "String",
+        "description": "Localized status or duration."
+      },
+      "transport": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      },
+      "port": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraConnectedFor": "Connected for {duration}",
+  "@cameraConnectedFor": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    },
+    "placeholders": {
+      "duration": {
+        "type": "String",
+        "description": "Localized status or duration."
+      }
+    }
+  },
+  "cameraDurationSeconds": "{seconds}s",
+  "@cameraDurationSeconds": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    },
+    "placeholders": {
+      "seconds": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraDurationMinutes": "{minutes}m {seconds}s",
+  "@cameraDurationMinutes": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    },
+    "placeholders": {
+      "minutes": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      },
+      "seconds": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraDurationHours": "{hours}h {minutes}m",
+  "@cameraDurationHours": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    },
+    "placeholders": {
+      "hours": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      },
+      "minutes": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraCredentialsMissing": "Set a streaming username and password to enable authentication.",
+  "@cameraCredentialsMissing": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraPortWaiting": "Waiting for the RTSP port to be released.",
+  "@cameraPortWaiting": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "cameraListenerFailed": "Could not start the RTSP listener.",
+  "@cameraListenerFailed": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Stream Status and Connected Clients"
+      ]
+    }
+  },
+  "settingCameraRtspEnabledTitle": "Enable camera streaming",
+  "@settingCameraRtspEnabledTitle": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspEnabledDescription": "Share H.264 video with RTSP or ONVIF clients. Video encoding runs only while a viewer is connected. Hardware encoding is preferred with software fallback when needed. Uses the camera selected in Camera settings.",
+  "@settingCameraRtspEnabledDescription": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraStreamingProtocolTitle": "Streaming protocol",
+  "@settingCameraStreamingProtocolTitle": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraStreamingProtocolDescription": "ONVIF lets compatible clients discover the camera and connect to its stream.",
+  "@settingCameraStreamingProtocolDescription": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspPortTitle": "Port",
+  "@settingCameraRtspPortTitle": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspPortDescription": "RTSP server port.",
+  "@settingCameraRtspPortDescription": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraOnvifPortTitle": "Port",
+  "@settingCameraOnvifPortTitle": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraOnvifPortDescription": "ONVIF server port.",
+  "@settingCameraOnvifPortDescription": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspResolutionTitle": "Resolution",
+  "@settingCameraRtspResolutionTitle": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspResolutionDescription": "Supported streaming sizes for the selected camera and encoder. Video follows the device orientation.",
+  "@settingCameraRtspResolutionDescription": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspAnalysisTitle": "Motion analysis while streaming",
+  "@settingCameraRtspAnalysisTitle": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspAnalysisDescription": "Keep motion detection, face detection and hand gestures available while viewers are connected. Turning this off can allow higher resolutions. Snapshots then use video frames at the streaming resolution.",
+  "@settingCameraRtspAnalysisDescription": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspFpsTitle": "Frame rate",
+  "@settingCameraRtspFpsTitle": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspFpsDescription": "Target video frames per second. Motion keeps its separate analysis rate. Actual delivery depends on the camera.",
+  "@settingCameraRtspFpsDescription": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspBitrateTitle": "Bitrate",
+  "@settingCameraRtspBitrateTitle": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspBitrateDescription": "Target video bitrate. Higher improves detail and uses more network bandwidth.",
+  "@settingCameraRtspBitrateDescription": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspAudioTitle": "Include microphone audio",
+  "@settingCameraRtspAudioTitle": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspAudioDescription": "Include microphone audio in the camera stream. Shares your microphone settings. WARNING: Increased CPU usage.",
+  "@settingCameraRtspAudioDescription": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspAuthTitle": "Require authentication",
+  "@settingCameraRtspAuthTitle": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspAuthDescription": "Require a username and password to view the stream. Streaming traffic is not encrypted.",
+  "@settingCameraRtspAuthDescription": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspUsernameTitle": "Username",
+  "@settingCameraRtspUsernameTitle": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspUsernameDescription": "Username for streaming clients.",
+  "@settingCameraRtspUsernameDescription": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspPasswordTitle": "Password",
+  "@settingCameraRtspPasswordTitle": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspPasswordDescription": "Set a password to start the authenticated stream.",
+  "@settingCameraRtspPasswordDescription": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "cameraStreamingPage": "RTSP & ONVIF Streaming",
+  "@cameraStreamingPage": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "cameraStreamingHint": "Share the device camera via RTSP or ONVIF",
+  "@cameraStreamingHint": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "cameraPortError": "Enter a whole port number from 1024 to 65535.",
+  "@cameraPortError": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "cameraUsernameError": "Use 1 to 64 characters without spaces, quotes, colons or backslashes.",
+  "@cameraUsernameError": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "cameraNoSizes": "No supported sizes available",
+  "@cameraNoSizes": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "cameraNoSizesHelp": "No supported sizes available. Check the camera connection.",
+  "@cameraNoSizesHelp": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "cameraResolutionSupport": "Resolution support",
+  "@cameraResolutionSupport": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "cameraCheckingSizes": "Checking camera and H.264 encoder support...",
+  "@cameraCheckingSizes": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "cameraSupportedSizes": "Only sizes supported by the camera and H.264 encoder at the current streaming settings are listed.",
+  "@cameraSupportedSizes": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "cameraExtraSizes": "Turn off Motion analysis while streaming to also use {sizes}.",
+  "@cameraExtraSizes": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    },
+    "placeholders": {
+      "sizes": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraAnalysisOff": "Motion detection, face detection and hand gestures pause while viewers are connected. Snapshots use video frames at the streaming resolution.",
+  "@cameraAnalysisOff": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "cameraRejectedSizes": "The encoder cannot use {sizes} at these settings.",
+  "@cameraRejectedSizes": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    },
+    "placeholders": {
+      "sizes": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraRejectedCount": "{count} camera sizes are excluded because the encoder cannot use them at these settings.",
+  "@cameraRejectedCount": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "description": "Value supplied by the app. Preserve technical identifiers and measurements."
+      }
+    }
+  },
+  "cameraCaptureRejected": "Other camera sizes are unavailable in the current capture setup.",
+  "@cameraCaptureRejected": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
   "settingAnalyticsBasicTitle": "Estadísticas básicas",
   "@settingAnalyticsBasicTitle": {
     "context": "Settings:Device:Kiosk Satellite Analytics",
