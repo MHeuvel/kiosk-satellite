@@ -1,0 +1,16 @@
+{
+  "@@locale": "es",
+  "settingSendspinFullscreenTitle": "\"Reproduciendo Ahora\" en lugar del protector de pantalla",
+  "settingSendspinFullscreenDescription": "Mientras se reproduce música, el protector de pantalla se convierte en la vista Reproduciendo Ahora a pantalla completa con la portada del álbum. Si no se reproduce nada, se usa el protector de pantalla habitual.",
+  "settingSendspinFullscreenSplitTitle": "Mostrar junto al protector de pantalla",
+  "settingSendspinFullscreenSplitDescription": "Mantiene el protector de pantalla visible junto a Reproduciendo Ahora. En pantallas verticales, el protector de pantalla aparece encima del reproductor. Las pantallas pequeñas mantienen el reproductor a pantalla completa.",
+  "settingSendspinFullscreenPhotoFillTitle": "Llenar la pantalla",
+  "settingSendspinFullscreenPhotoFillDescription": "Cambia cómo se ajustan las fotos cuando el protector de pantalla comparte la pantalla con Reproduciendo Ahora. Predeterminado usa el ajuste de cada protector de pantalla. Desactivado conserva toda la foto entre barras negras. Inteligente amplía las fotos con proporciones similares a la pantalla y muestra las demás sobre un fondo desenfocado. Siempre amplía todas las fotos y recorta lo que no cabe.",
+  "settingSendspinFullscreenOverrideBrightnessTitle": "Cambiar el brillo del protector de pantalla",
+  "settingSendspinFullscreenOverrideBrightnessDescription": "Usa el brillo normal de la pantalla en lugar del brillo del protector de pantalla mientras Reproduciendo Ahora se muestra junto a él. También reemplaza el brillo de los protectores de pantalla programados.",
+  "mediaScreensaverHeading": "Protector de pantalla",
+  "mediaDefaultFill": "Predeterminado",
+  "mediaFillOff": "Desactivado",
+  "mediaFillSmart": "Inteligente",
+  "mediaFillAlways": "Siempre"
+}

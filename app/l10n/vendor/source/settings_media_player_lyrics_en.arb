@@ -1,0 +1,133 @@
+{
+  "@@locale": "en",
+  "settingSendspinLyricsEnabledTitle": "Enable lyrics",
+  "@settingSendspinLyricsEnabledTitle": {
+    "context": "Settings > Media Player > Lyrics",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Lyrics"
+      ],
+      "remoteAdmin": [
+        "Media Player > Lyrics"
+      ]
+    }
+  },
+  "settingSendspinLyricsEnabledDescription": "Synchronized lyrics on the Now Playing view, for every player source.",
+  "@settingSendspinLyricsEnabledDescription": {
+    "context": "Settings > Media Player > Lyrics",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Lyrics"
+      ],
+      "remoteAdmin": [
+        "Media Player > Lyrics"
+      ]
+    }
+  },
+  "settingSendspinLyricsSourceTitle": "Lyrics source",
+  "@settingSendspinLyricsSourceTitle": {
+    "context": "Settings > Media Player > Lyrics",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Lyrics"
+      ],
+      "remoteAdmin": [
+        "Media Player > Lyrics"
+      ]
+    }
+  },
+  "settingSendspinLyricsSourceDescription": "Where the lyrics come from. Music Assistant needs the server address and token on its page.",
+  "@settingSendspinLyricsSourceDescription": {
+    "context": "Settings > Media Player > Lyrics",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Lyrics"
+      ],
+      "remoteAdmin": [
+        "Media Player > Lyrics"
+      ]
+    }
+  },
+  "settingSendspinLyricsFallbackTitle": "Fallback to Music Assistant",
+  "@settingSendspinLyricsFallbackTitle": {
+    "context": "Settings > Media Player > Lyrics",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Lyrics"
+      ],
+      "remoteAdmin": [
+        "Media Player > Lyrics"
+      ]
+    }
+  },
+  "settingSendspinLyricsFallbackDescription": "If LRCLIB is unreachable, Music Assistant is asked instead. Needs the Music Assistant connection.",
+  "@settingSendspinLyricsFallbackDescription": {
+    "context": "Settings > Media Player > Lyrics",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Lyrics"
+      ],
+      "remoteAdmin": [
+        "Media Player > Lyrics"
+      ]
+    }
+  },
+  "settingSendspinLyricsOffsetTitle": "Lyrics timing",
+  "@settingSendspinLyricsOffsetTitle": {
+    "context": "Settings > Media Player > Lyrics",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Lyrics"
+      ],
+      "remoteAdmin": [
+        "Media Player > Lyrics"
+      ]
+    }
+  },
+  "settingSendspinLyricsOffsetDescription": "Shift the lyrics against the music. Positive shows each line earlier, negative later. Worth a nudge on tracks that read consistently off.",
+  "@settingSendspinLyricsOffsetDescription": {
+    "context": "Settings > Media Player > Lyrics",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Lyrics"
+      ],
+      "remoteAdmin": [
+        "Media Player > Lyrics"
+      ]
+    }
+  },
+  "mediaLyricsPage": "Lyrics",
+  "@mediaLyricsPage": {
+    "context": "Settings > Media Player > Lyrics",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Lyrics"
+      ],
+      "remoteAdmin": [
+        "Media Player > Lyrics"
+      ]
+    }
+  },
+  "mediaLyricsHint": "Synchronized lyrics, their source and timing",
+  "@mediaLyricsHint": {
+    "context": "Settings > Media Player > Lyrics",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Lyrics"
+      ],
+      "remoteAdmin": [
+        "Media Player > Lyrics"
+      ]
+    }
+  }
+}

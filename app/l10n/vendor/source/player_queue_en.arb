@@ -1,0 +1,63 @@
+{
+  "@@locale": "en",
+  "mediaNothingQueued": "Nothing queued",
+  "@mediaNothingQueued": {
+    "context": "Now Playing > Queue and audiobook chapters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Queue and audiobook chapters"
+      ]
+    }
+  },
+  "mediaChapters": "Chapters",
+  "@mediaChapters": {
+    "context": "Now Playing > Queue and audiobook chapters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Queue and audiobook chapters"
+      ]
+    }
+  },
+  "mediaNowPlaying": "Now playing",
+  "@mediaNowPlaying": {
+    "context": "Now Playing > Queue and audiobook chapters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Queue and audiobook chapters"
+      ],
+      "remoteAdmin": [
+        "Overview > Now playing"
+      ]
+    }
+  },
+  "mediaUpNext": "Up next",
+  "@mediaUpNext": {
+    "context": "Now Playing > Queue and audiobook chapters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Queue and audiobook chapters"
+      ]
+    }
+  },
+  "mediaUnnamedChapter": "Chapter {number}",
+  "@mediaUnnamedChapter": {
+    "context": "Now Playing > Queue and audiobook chapters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Now Playing > Queue and audiobook chapters"
+      ]
+    },
+    "placeholders": {
+      "number": {
+        "type": "String",
+        "description": "Value supplied by the app. Keep numbers, names and technical details unchanged."
+      }
+    },
+    "x-notes": "Used only when the audiobook provider omits the chapter name. Supplied chapter titles are not translated."
+  }
+}

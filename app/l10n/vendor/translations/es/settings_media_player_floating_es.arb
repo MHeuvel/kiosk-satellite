@@ -1,0 +1,17 @@
+{
+  "@@locale": "es",
+  "settingSendspinShowPlayerTitle": "Mostrar el reproductor flotante",
+  "settingSendspinShowPlayerDescription": "Mientras se reproduce música, muestra una pequeña ventana sobre el panel de control con la portada, los datos de la pista y el progreso. Arrástrala a cualquier lugar. Su posición se guarda.",
+  "settingSendspinPlayerSizeTitle": "Tamaño del reproductor",
+  "settingSendspinPlayerSizeDescription": "Compacto muestra una ventana pequeña y discreta. Grande añade botones táctiles para la pista anterior, reproducir o pausar y la siguiente pista. Controlan todo el grupo de reproducción.",
+  "settingSendspinPausedHideMinutesTitle": "Ocultar el reproductor pausado después de",
+  "settingSendspinPausedHideMinutesDescription": "Cuánto tiempo permanece en pantalla un reproductor pausado. Se aplica tanto al reproductor flotante como a la vista Reproduciendo Ahora.",
+  "settingSendspinDismissKeepsPlayingTitle": "Seguir reproduciendo al ocultarlo",
+  "settingSendspinDismissKeepsPlayingDescription": "Deslizar el reproductor flotante fuera de la pantalla lo oculta sin detener la música.",
+  "settingSendspinPlayerShortcutTitle": "Mostrar en el menú del kiosko",
+  "settingSendspinPlayerShortcutDescription": "Añade una entrada al menú del kiosko para mostrar u ocultar el reproductor flotante. ADVERTENCIA: No aparece si no hay nada en reproducción ni una cola para este reproductor.",
+  "mediaFloatingPage": "Reproductor flotante",
+  "mediaFloatingHint": "La pequeña ventana sobre el panel de control",
+  "mediaCompact": "Compacto",
+  "mediaLargeControls": "Grande con controles"
+}

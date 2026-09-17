@@ -1,0 +1,13 @@
+{
+  "@@locale": "es",
+  "settingSendspinLyricsEnabledTitle": "Activar letras",
+  "settingSendspinLyricsEnabledDescription": "Letras sincronizadas en Reproduciendo Ahora para todos los orígenes de reproductor.",
+  "settingSendspinLyricsSourceTitle": "Origen de las letras",
+  "settingSendspinLyricsSourceDescription": "De dónde se obtienen las letras. Music Assistant necesita la dirección del servidor y el token en su página de configuración.",
+  "settingSendspinLyricsFallbackTitle": "Usar Music Assistant como alternativa",
+  "settingSendspinLyricsFallbackDescription": "Si no se puede conectar con LRCLIB, se consulta Music Assistant. Requiere la conexión con Music Assistant.",
+  "settingSendspinLyricsOffsetTitle": "Sincronización de las letras",
+  "settingSendspinLyricsOffsetDescription": "Ajusta las letras respecto a la música. Un valor positivo muestra cada línea antes y uno negativo, después. Útil si las letras de una pista aparecen siempre desfasadas.",
+  "mediaLyricsPage": "Letras",
+  "mediaLyricsHint": "Letras sincronizadas, su origen y sincronización"
+}

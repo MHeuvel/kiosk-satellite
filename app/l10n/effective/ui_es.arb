@@ -957,7 +957,7 @@
       ]
     }
   },
-  "mediaPlay": "Play",
+  "mediaPlay": "Reproducir",
   "@mediaPlay": {
     "context": "Media Player playback controls",
     "description": "Playback button tooltip and accessibility label.",
@@ -971,7 +971,7 @@
       ]
     }
   },
-  "mediaPause": "Pause",
+  "mediaPause": "Pausar",
   "@mediaPause": {
     "context": "Media Player playback controls",
     "description": "Playback button tooltip and accessibility label.",
@@ -985,7 +985,7 @@
       ]
     }
   },
-  "mediaPreviousTrack": "Previous track",
+  "mediaPreviousTrack": "Pista anterior",
   "@mediaPreviousTrack": {
     "context": "Media Player playback controls",
     "description": "Playback button tooltip and accessibility label.",
@@ -999,7 +999,7 @@
       ]
     }
   },
-  "mediaNextTrack": "Next track",
+  "mediaNextTrack": "Pista siguiente",
   "@mediaNextTrack": {
     "context": "Media Player playback controls",
     "description": "Playback button tooltip and accessibility label.",
@@ -1013,7 +1013,7 @@
       ]
     }
   },
-  "mediaPlaying": "Playing",
+  "mediaPlaying": "Reproduciendo",
   "@mediaPlaying": {
     "context": "Floating Player and full-screen Now Playing",
     "description": "Playback status or fallback text when a floating player track has no title.",
@@ -1026,7 +1026,7 @@
       ]
     }
   },
-  "mediaPaused": "Paused",
+  "mediaPaused": "En pausa",
   "@mediaPaused": {
     "context": "Remote administration > Overview > Media Player",
     "description": "Label or guidance in this section.",
@@ -1037,7 +1037,7 @@
       ]
     }
   },
-  "mediaIdle": "Idle",
+  "mediaIdle": "En espera",
   "@mediaIdle": {
     "context": "Remote administration > Overview > Media Player",
     "description": "Label or guidance in this section.",
@@ -1048,7 +1048,7 @@
       ]
     }
   },
-  "mediaStatusUnavailable": "Status unavailable",
+  "mediaStatusUnavailable": "Estado no disponible",
   "@mediaStatusUnavailable": {
     "context": "Remote administration > Overview > Media Player",
     "description": "Label or guidance in this section.",
@@ -1059,7 +1059,7 @@
       ]
     }
   },
-  "mediaUnknownTrack": "Unknown track",
+  "mediaUnknownTrack": "Pista desconocida",
   "@mediaUnknownTrack": {
     "context": "Remote administration > Overview > Media Player",
     "description": "Label or guidance in this section.",
@@ -1091,7 +1091,7 @@
       }
     }
   },
-  "mediaShowVolume": "Show volume",
+  "mediaShowVolume": "Mostrar volumen",
   "@mediaShowVolume": {
     "context": "Now Playing > Playback controls",
     "description": "Button tooltip or slider accessibility label.",
@@ -1101,7 +1101,7 @@
       ]
     }
   },
-  "mediaHideVolume": "Hide volume",
+  "mediaHideVolume": "Ocultar volumen",
   "@mediaHideVolume": {
     "context": "Now Playing > Playback controls",
     "description": "Button tooltip or slider accessibility label.",
@@ -1111,7 +1111,7 @@
       ]
     }
   },
-  "mediaMute": "Mute",
+  "mediaMute": "Silenciar",
   "@mediaMute": {
     "context": "Now Playing > Playback controls",
     "description": "Button tooltip or slider accessibility label.",
@@ -1121,7 +1121,7 @@
       ]
     }
   },
-  "mediaUnmute": "Unmute",
+  "mediaUnmute": "Activar sonido",
   "@mediaUnmute": {
     "context": "Now Playing > Playback controls",
     "description": "Button tooltip or slider accessibility label.",
@@ -1131,7 +1131,7 @@
       ]
     }
   },
-  "mediaFavoriteAdd": "Add to favorites",
+  "mediaFavoriteAdd": "Añadir a favoritos",
   "@mediaFavoriteAdd": {
     "context": "Now Playing > Playback controls",
     "description": "Button tooltip or slider accessibility label.",
@@ -1141,7 +1141,7 @@
       ]
     }
   },
-  "mediaFavoriteRemove": "Remove from favorites",
+  "mediaFavoriteRemove": "Quitar de favoritos",
   "@mediaFavoriteRemove": {
     "context": "Now Playing > Playback controls",
     "description": "Button tooltip or slider accessibility label.",
@@ -1151,7 +1151,7 @@
       ]
     }
   },
-  "mediaShuffleOn": "Turn shuffle on",
+  "mediaShuffleOn": "Activar reproducción aleatoria",
   "@mediaShuffleOn": {
     "context": "Now Playing > Playback controls",
     "description": "Button tooltip or slider accessibility label.",
@@ -1161,7 +1161,7 @@
       ]
     }
   },
-  "mediaShuffleOff": "Turn shuffle off",
+  "mediaShuffleOff": "Desactivar reproducción aleatoria",
   "@mediaShuffleOff": {
     "context": "Now Playing > Playback controls",
     "description": "Button tooltip or slider accessibility label.",
@@ -1171,7 +1171,7 @@
       ]
     }
   },
-  "mediaRepeatAll": "Repeat all",
+  "mediaRepeatAll": "Repetir todo",
   "@mediaRepeatAll": {
     "context": "Now Playing > Playback controls",
     "description": "Button tooltip or slider accessibility label.",
@@ -1181,7 +1181,7 @@
       ]
     }
   },
-  "mediaRepeatOne": "Repeat one",
+  "mediaRepeatOne": "Repetir una",
   "@mediaRepeatOne": {
     "context": "Now Playing > Playback controls",
     "description": "Button tooltip or slider accessibility label.",
@@ -1191,7 +1191,7 @@
       ]
     }
   },
-  "mediaRepeatOff": "Turn repeat off",
+  "mediaRepeatOff": "Desactivar repetición",
   "@mediaRepeatOff": {
     "context": "Now Playing > Playback controls",
     "description": "Button tooltip or slider accessibility label.",
@@ -1201,7 +1201,7 @@
       ]
     }
   },
-  "mediaShowLyrics": "Show lyrics",
+  "mediaShowLyrics": "Mostrar letras",
   "@mediaShowLyrics": {
     "context": "Now Playing > Playback controls",
     "description": "Button tooltip or slider accessibility label.",
@@ -1211,7 +1211,7 @@
       ]
     }
   },
-  "mediaHideLyrics": "Hide lyrics",
+  "mediaHideLyrics": "Ocultar letras",
   "@mediaHideLyrics": {
     "context": "Now Playing > Playback controls",
     "description": "Button tooltip or slider accessibility label.",
@@ -1221,7 +1221,7 @@
       ]
     }
   },
-  "mediaShowQueue": "Show queue",
+  "mediaShowQueue": "Mostrar cola",
   "@mediaShowQueue": {
     "context": "Now Playing > Playback controls",
     "description": "Button tooltip or slider accessibility label.",
@@ -1231,7 +1231,7 @@
       ]
     }
   },
-  "mediaHideQueue": "Hide queue",
+  "mediaHideQueue": "Ocultar cola",
   "@mediaHideQueue": {
     "context": "Now Playing > Playback controls",
     "description": "Button tooltip or slider accessibility label.",
@@ -1241,7 +1241,7 @@
       ]
     }
   },
-  "mediaVolume": "Volume",
+  "mediaVolume": "Volumen",
   "@mediaVolume": {
     "context": "Now Playing > Playback controls",
     "description": "Button tooltip or slider accessibility label.",
@@ -1251,7 +1251,7 @@
       ]
     }
   },
-  "mediaPlaybackPosition": "Playback position",
+  "mediaPlaybackPosition": "Posición de reproducción",
   "@mediaPlaybackPosition": {
     "context": "Now Playing > Playback controls",
     "description": "Button tooltip or slider accessibility label.",
@@ -1261,7 +1261,7 @@
       ]
     }
   },
-  "mediaShowNowPlaying": "Show Now Playing",
+  "mediaShowNowPlaying": "Mostrar Reproduciendo Ahora",
   "@mediaShowNowPlaying": {
     "context": "Settings > Gestures > Action",
     "description": "Label or guidance in this section.",
@@ -1275,7 +1275,7 @@
       ]
     }
   },
-  "mediaShowFloatingPlayer": "Show the floating player",
+  "mediaShowFloatingPlayer": "Mostrar el reproductor flotante",
   "@mediaShowFloatingPlayer": {
     "context": "Settings > Gestures > Action",
     "description": "Label or guidance in this section.",
@@ -1288,7 +1288,7 @@
       ]
     }
   },
-  "mediaOpenMusicAssistant": "Open Music Assistant",
+  "mediaOpenMusicAssistant": "Abrir Music Assistant",
   "@mediaOpenMusicAssistant": {
     "context": "Settings > Gestures > Action",
     "description": "Label or guidance in this section.",
@@ -1301,7 +1301,7 @@
       ]
     }
   },
-  "mediaCannotControl": "command not supported or not sent",
+  "mediaCannotControl": "El comando no es compatible o no se pudo enviar.",
   "@mediaCannotControl": {
     "context": "Remote administration > Overview > Media Player",
     "description": "Label or guidance in this section.",
@@ -1312,7 +1312,7 @@
       ]
     }
   },
-  "mediaNothingQueued": "Nothing queued",
+  "mediaNothingQueued": "No hay nada en cola",
   "@mediaNothingQueued": {
     "context": "Now Playing > Queue and audiobook chapters",
     "description": "Label or guidance in this section.",
@@ -1322,7 +1322,7 @@
       ]
     }
   },
-  "mediaChapters": "Chapters",
+  "mediaChapters": "Capítulos",
   "@mediaChapters": {
     "context": "Now Playing > Queue and audiobook chapters",
     "description": "Label or guidance in this section.",
@@ -1332,7 +1332,7 @@
       ]
     }
   },
-  "mediaNowPlaying": "Now playing",
+  "mediaNowPlaying": "Reproduciendo Ahora",
   "@mediaNowPlaying": {
     "context": "Now Playing > Queue and audiobook chapters",
     "description": "Label or guidance in this section.",
@@ -1345,7 +1345,7 @@
       ]
     }
   },
-  "mediaUpNext": "Up next",
+  "mediaUpNext": "A continuación",
   "@mediaUpNext": {
     "context": "Now Playing > Queue and audiobook chapters",
     "description": "Label or guidance in this section.",
@@ -1355,7 +1355,7 @@
       ]
     }
   },
-  "mediaUnnamedChapter": "Chapter {number}",
+  "mediaUnnamedChapter": "Capítulo {number}",
   "@mediaUnnamedChapter": {
     "context": "Now Playing > Queue and audiobook chapters",
     "description": "Label or guidance in this section.",
@@ -1372,7 +1372,7 @@
     },
     "x-notes": "Used only when the audiobook provider omits the chapter name. Supplied chapter titles are not translated."
   },
-  "mediaGroupLead": "Leads the group",
+  "mediaGroupLead": "Dirige el grupo",
   "@mediaGroupLead": {
     "context": "Now Playing > Speaker selection",
     "description": "Label or guidance in this section.",
@@ -1382,7 +1382,7 @@
       ]
     }
   },
-  "mediaGroupReadFailed": "The group could not be read.",
+  "mediaGroupReadFailed": "No se pudo consultar el grupo.",
   "@mediaGroupReadFailed": {
     "context": "Now Playing > Speaker selection",
     "description": "Label or guidance in this section.",
@@ -1392,7 +1392,7 @@
       ]
     }
   },
-  "mediaGroupEmpty": "No other players to group with.",
+  "mediaGroupEmpty": "No hay otros reproductores para agrupar.",
   "@mediaGroupEmpty": {
     "context": "Now Playing > Speaker selection",
     "description": "Label or guidance in this section.",
@@ -1402,7 +1402,7 @@
       ]
     }
   },
-  "mediaSpeakerSelection": "Speaker selection",
+  "mediaSpeakerSelection": "Selección de altavoces",
   "@mediaSpeakerSelection": {
     "context": "Now Playing > Speaker selection",
     "description": "Label or guidance in this section.",
@@ -10596,7 +10596,7 @@
       }
     }
   },
-  "settingSendspinShowPlayerTitle": "Show the floating player",
+  "settingSendspinShowPlayerTitle": "Mostrar el reproductor flotante",
   "@settingSendspinShowPlayerTitle": {
     "context": "Settings > Media Player > Floating Player",
     "description": "Setting label.",
@@ -10609,7 +10609,7 @@
       ]
     }
   },
-  "settingSendspinShowPlayerDescription": "While music plays, show a small now-playing window over the dashboard with artwork, track info and progress. Drag it anywhere; the position is remembered.",
+  "settingSendspinShowPlayerDescription": "Mientras se reproduce música, muestra una pequeña ventana sobre el panel de control con la portada, los datos de la pista y el progreso. Arrástrala a cualquier lugar. Su posición se guarda.",
   "@settingSendspinShowPlayerDescription": {
     "context": "Settings > Media Player > Floating Player",
     "description": "Help below this setting.",
@@ -10622,7 +10622,7 @@
       ]
     }
   },
-  "settingSendspinPlayerSizeTitle": "Player size",
+  "settingSendspinPlayerSizeTitle": "Tamaño del reproductor",
   "@settingSendspinPlayerSizeTitle": {
     "context": "Settings > Media Player > Floating Player",
     "description": "Setting label.",
@@ -10635,7 +10635,7 @@
       ]
     }
   },
-  "settingSendspinPlayerSizeDescription": "Compact is a small, unobtrusive now-playing window. Large adds previous, play/pause and next buttons sized for touch, controlling the whole playback group.",
+  "settingSendspinPlayerSizeDescription": "Compacto muestra una ventana pequeña y discreta. Grande añade botones táctiles para la pista anterior, reproducir o pausar y la siguiente pista. Controlan todo el grupo de reproducción.",
   "@settingSendspinPlayerSizeDescription": {
     "context": "Settings > Media Player > Floating Player",
     "description": "Help below this setting.",
@@ -10648,7 +10648,7 @@
       ]
     }
   },
-  "settingSendspinPausedHideMinutesTitle": "Hide the paused player after",
+  "settingSendspinPausedHideMinutesTitle": "Ocultar el reproductor pausado después de",
   "@settingSendspinPausedHideMinutesTitle": {
     "context": "Settings > Media Player > Floating Player",
     "description": "Setting label.",
@@ -10661,7 +10661,7 @@
       ]
     }
   },
-  "settingSendspinPausedHideMinutesDescription": "How long a paused player stays on screen. It applies to both the floating player and the Now Playing view.",
+  "settingSendspinPausedHideMinutesDescription": "Cuánto tiempo permanece en pantalla un reproductor pausado. Se aplica tanto al reproductor flotante como a la vista Reproduciendo Ahora.",
   "@settingSendspinPausedHideMinutesDescription": {
     "context": "Settings > Media Player > Floating Player",
     "description": "Help below this setting.",
@@ -10674,7 +10674,7 @@
       ]
     }
   },
-  "settingSendspinDismissKeepsPlayingTitle": "Keep playing when dismissed",
+  "settingSendspinDismissKeepsPlayingTitle": "Seguir reproduciendo al ocultarlo",
   "@settingSendspinDismissKeepsPlayingTitle": {
     "context": "Settings > Media Player > Floating Player",
     "description": "Setting label.",
@@ -10687,7 +10687,7 @@
       ]
     }
   },
-  "settingSendspinDismissKeepsPlayingDescription": "Flinging the floating player away hides it without stopping the music.",
+  "settingSendspinDismissKeepsPlayingDescription": "Deslizar el reproductor flotante fuera de la pantalla lo oculta sin detener la música.",
   "@settingSendspinDismissKeepsPlayingDescription": {
     "context": "Settings > Media Player > Floating Player",
     "description": "Help below this setting.",
@@ -10700,7 +10700,7 @@
       ]
     }
   },
-  "settingSendspinPlayerShortcutTitle": "Show in the kiosk menu",
+  "settingSendspinPlayerShortcutTitle": "Mostrar en el menú del kiosko",
   "@settingSendspinPlayerShortcutTitle": {
     "context": "Settings > Media Player > Floating Player",
     "description": "Setting label.",
@@ -10713,7 +10713,7 @@
       ]
     }
   },
-  "settingSendspinPlayerShortcutDescription": "Add an entry in the kiosk menu that shows or hides the floating player. WARNING: If nothing is playing or there is no queue for this player, it won't show up.",
+  "settingSendspinPlayerShortcutDescription": "Añade una entrada al menú del kiosko para mostrar u ocultar el reproductor flotante. ADVERTENCIA: No aparece si no hay nada en reproducción ni una cola para este reproductor.",
   "@settingSendspinPlayerShortcutDescription": {
     "context": "Settings > Media Player > Floating Player",
     "description": "Help below this setting.",
@@ -10726,7 +10726,7 @@
       ]
     }
   },
-  "mediaFloatingPage": "Floating Player",
+  "mediaFloatingPage": "Reproductor flotante",
   "@mediaFloatingPage": {
     "context": "Settings > Media Player > Floating Player",
     "description": "Label or guidance in this section.",
@@ -10739,7 +10739,7 @@
       ]
     }
   },
-  "mediaFloatingHint": "The small card over the dashboard",
+  "mediaFloatingHint": "La pequeña ventana sobre el panel de control",
   "@mediaFloatingHint": {
     "context": "Settings > Media Player > Floating Player",
     "description": "Label or guidance in this section.",
@@ -10752,7 +10752,7 @@
       ]
     }
   },
-  "mediaCompact": "Compact",
+  "mediaCompact": "Compacto",
   "@mediaCompact": {
     "context": "Settings > Media Player > Floating Player",
     "description": "Label or guidance in this section.",
@@ -10765,7 +10765,7 @@
       ]
     }
   },
-  "mediaLargeControls": "Large with controls",
+  "mediaLargeControls": "Grande con controles",
   "@mediaLargeControls": {
     "context": "Settings > Media Player > Floating Player",
     "description": "Label or guidance in this section.",
@@ -11005,7 +11005,7 @@
       }
     }
   },
-  "settingSendspinLyricsEnabledTitle": "Enable lyrics",
+  "settingSendspinLyricsEnabledTitle": "Activar letras",
   "@settingSendspinLyricsEnabledTitle": {
     "context": "Settings > Media Player > Lyrics",
     "description": "Setting label.",
@@ -11018,7 +11018,7 @@
       ]
     }
   },
-  "settingSendspinLyricsEnabledDescription": "Synchronized lyrics on the Now Playing view, for every player source.",
+  "settingSendspinLyricsEnabledDescription": "Letras sincronizadas en Reproduciendo Ahora para todos los orígenes de reproductor.",
   "@settingSendspinLyricsEnabledDescription": {
     "context": "Settings > Media Player > Lyrics",
     "description": "Help below this setting.",
@@ -11031,7 +11031,7 @@
       ]
     }
   },
-  "settingSendspinLyricsSourceTitle": "Lyrics source",
+  "settingSendspinLyricsSourceTitle": "Origen de las letras",
   "@settingSendspinLyricsSourceTitle": {
     "context": "Settings > Media Player > Lyrics",
     "description": "Setting label.",
@@ -11044,7 +11044,7 @@
       ]
     }
   },
-  "settingSendspinLyricsSourceDescription": "Where the lyrics come from. Music Assistant needs the server address and token on its page.",
+  "settingSendspinLyricsSourceDescription": "De dónde se obtienen las letras. Music Assistant necesita la dirección del servidor y el token en su página de configuración.",
   "@settingSendspinLyricsSourceDescription": {
     "context": "Settings > Media Player > Lyrics",
     "description": "Help below this setting.",
@@ -11057,7 +11057,7 @@
       ]
     }
   },
-  "settingSendspinLyricsFallbackTitle": "Fallback to Music Assistant",
+  "settingSendspinLyricsFallbackTitle": "Usar Music Assistant como alternativa",
   "@settingSendspinLyricsFallbackTitle": {
     "context": "Settings > Media Player > Lyrics",
     "description": "Setting label.",
@@ -11070,7 +11070,7 @@
       ]
     }
   },
-  "settingSendspinLyricsFallbackDescription": "If LRCLIB is unreachable, Music Assistant is asked instead. Needs the Music Assistant connection.",
+  "settingSendspinLyricsFallbackDescription": "Si no se puede conectar con LRCLIB, se consulta Music Assistant. Requiere la conexión con Music Assistant.",
   "@settingSendspinLyricsFallbackDescription": {
     "context": "Settings > Media Player > Lyrics",
     "description": "Help below this setting.",
@@ -11083,7 +11083,7 @@
       ]
     }
   },
-  "settingSendspinLyricsOffsetTitle": "Lyrics timing",
+  "settingSendspinLyricsOffsetTitle": "Sincronización de las letras",
   "@settingSendspinLyricsOffsetTitle": {
     "context": "Settings > Media Player > Lyrics",
     "description": "Setting label.",
@@ -11096,7 +11096,7 @@
       ]
     }
   },
-  "settingSendspinLyricsOffsetDescription": "Shift the lyrics against the music. Positive shows each line earlier, negative later. Worth a nudge on tracks that read consistently off.",
+  "settingSendspinLyricsOffsetDescription": "Ajusta las letras respecto a la música. Un valor positivo muestra cada línea antes y uno negativo, después. Útil si las letras de una pista aparecen siempre desfasadas.",
   "@settingSendspinLyricsOffsetDescription": {
     "context": "Settings > Media Player > Lyrics",
     "description": "Help below this setting.",
@@ -11109,7 +11109,7 @@
       ]
     }
   },
-  "mediaLyricsPage": "Lyrics",
+  "mediaLyricsPage": "Letras",
   "@mediaLyricsPage": {
     "context": "Settings > Media Player > Lyrics",
     "description": "Label or guidance in this section.",
@@ -11122,7 +11122,7 @@
       ]
     }
   },
-  "mediaLyricsHint": "Synchronized lyrics, their source and timing",
+  "mediaLyricsHint": "Letras sincronizadas, su origen y sincronización",
   "@mediaLyricsHint": {
     "context": "Settings > Media Player > Lyrics",
     "description": "Label or guidance in this section.",
@@ -11502,7 +11502,7 @@
       ]
     }
   },
-  "settingSendspinFullscreenControlsTitle": "Show media controls",
+  "settingSendspinFullscreenControlsTitle": "Mostrar controles multimedia",
   "@settingSendspinFullscreenControlsTitle": {
     "context": "Settings > Media Player > Now Playing > User Interface",
     "description": "Setting label.",
@@ -11515,7 +11515,7 @@
       ]
     }
   },
-  "settingSendspinFullscreenControlsDescription": "Previous, play/pause and next buttons and a progress bar on the Now Playing view. With controls on, a close button dismisses it instead of a tap anywhere.",
+  "settingSendspinFullscreenControlsDescription": "Botones de pista anterior, reproducir o pausar y pista siguiente, junto con una barra de progreso en Reproduciendo Ahora. Con los controles activados, se cierra con un botón en lugar de tocar cualquier parte de la pantalla.",
   "@settingSendspinFullscreenControlsDescription": {
     "context": "Settings > Media Player > Now Playing > User Interface",
     "description": "Help below this setting.",
@@ -11528,7 +11528,7 @@
       ]
     }
   },
-  "settingSendspinFullscreenTextScaleTitle": "Text scale",
+  "settingSendspinFullscreenTextScaleTitle": "Escala del texto",
   "@settingSendspinFullscreenTextScaleTitle": {
     "context": "Settings > Media Player > Now Playing > User Interface",
     "description": "Setting label.",
@@ -11541,7 +11541,7 @@
       ]
     }
   },
-  "settingSendspinFullscreenTextScaleDescription": "Size of the track title, artist, album, lyrics and queue text. Applies in both layouts and alongside the screensaver. Artwork adjusts to leave room for the text.",
+  "settingSendspinFullscreenTextScaleDescription": "Tamaño del título de la pista, artista, álbum, letras y texto de la cola. Se aplica en ambas distribuciones y junto al protector de pantalla. La portada se ajusta para dejar espacio al texto.",
   "@settingSendspinFullscreenTextScaleDescription": {
     "context": "Settings > Media Player > Now Playing > User Interface",
     "description": "Help below this setting.",
@@ -11554,7 +11554,7 @@
       ]
     }
   },
-  "settingSendspinFullscreenButtonScaleTitle": "Button scale",
+  "settingSendspinFullscreenButtonScaleTitle": "Escala de los botones",
   "@settingSendspinFullscreenButtonScaleTitle": {
     "context": "Settings > Media Player > Now Playing > User Interface",
     "description": "Setting label.",
@@ -11567,7 +11567,7 @@
       ]
     }
   },
-  "settingSendspinFullscreenButtonScaleDescription": "Size of the playback buttons and progress bar, independent of text size. Applies in both layouts and alongside the screensaver. Controls fit the space available in the player.",
+  "settingSendspinFullscreenButtonScaleDescription": "Tamaño de los botones de reproducción y la barra de progreso, independiente del tamaño del texto. Se aplica en ambas distribuciones y junto al protector de pantalla. Los controles se adaptan al espacio disponible.",
   "@settingSendspinFullscreenButtonScaleDescription": {
     "context": "Settings > Media Player > Now Playing > User Interface",
     "description": "Help below this setting.",
@@ -11580,7 +11580,7 @@
       ]
     }
   },
-  "settingSendspinFullscreenHorizontalTitle": "Horizontal mode",
+  "settingSendspinFullscreenHorizontalTitle": "Modo horizontal",
   "@settingSendspinFullscreenHorizontalTitle": {
     "context": "Settings > Media Player > Now Playing > User Interface",
     "description": "Setting label.",
@@ -11593,7 +11593,7 @@
       ]
     }
   },
-  "settingSendspinFullscreenHorizontalDescription": "Split artwork and controls into equal left and right halves. With lyrics or the queue open, track details move below the artwork. Ignored while Now Playing is shown alongside a screensaver.",
+  "settingSendspinFullscreenHorizontalDescription": "Divide la portada y los controles en dos mitades iguales, izquierda y derecha. Con las letras o la cola abiertas, los datos de la pista pasan debajo de la portada. No se aplica cuando Reproduciendo Ahora se muestra junto al protector de pantalla.",
   "@settingSendspinFullscreenHorizontalDescription": {
     "context": "Settings > Media Player > Now Playing > User Interface",
     "description": "Help below this setting.",
@@ -11606,7 +11606,7 @@
       ]
     }
   },
-  "settingSendspinFullscreenDoubleTapTitle": "Double tap to dismiss",
+  "settingSendspinFullscreenDoubleTapTitle": "Tocar dos veces para cerrar",
   "@settingSendspinFullscreenDoubleTapTitle": {
     "context": "Settings > Media Player > Now Playing > User Interface",
     "description": "Setting label.",
@@ -11619,7 +11619,7 @@
       ]
     }
   },
-  "settingSendspinFullscreenDoubleTapDescription": "A double tap anywhere on the Now Playing view dismisses it. The close button won't be shown. Ignored while Now Playing is shown alongside a screensaver.",
+  "settingSendspinFullscreenDoubleTapDescription": "Tocar dos veces cualquier parte de Reproduciendo Ahora cierra la vista. No se muestra el botón de cierre. No se aplica cuando Reproduciendo Ahora se muestra junto al protector de pantalla.",
   "@settingSendspinFullscreenDoubleTapDescription": {
     "context": "Settings > Media Player > Now Playing > User Interface",
     "description": "Help below this setting.",
@@ -11632,7 +11632,7 @@
       ]
     }
   },
-  "settingSendspinFullscreenOnPlayTitle": "Launch Now Playing when music starts playing",
+  "settingSendspinFullscreenOnPlayTitle": "Abrir Reproduciendo Ahora al empezar la música",
   "@settingSendspinFullscreenOnPlayTitle": {
     "context": "Settings > Media Player > Now Playing > User Interface",
     "description": "Setting label.",
@@ -11645,7 +11645,7 @@
       ]
     }
   },
-  "settingSendspinFullscreenOnPlayDescription": "Open the Now Playing view as soon as playback starts instead of waiting for the screensaver timeout.",
+  "settingSendspinFullscreenOnPlayDescription": "Abre Reproduciendo Ahora en cuanto comienza la reproducción, sin esperar el tiempo de espera del protector de pantalla.",
   "@settingSendspinFullscreenOnPlayDescription": {
     "context": "Settings > Media Player > Now Playing > User Interface",
     "description": "Help below this setting.",
@@ -11658,7 +11658,7 @@
       ]
     }
   },
-  "settingSendspinFullscreenMotionTitle": "Dismiss \"Now Playing\" on motion",
+  "settingSendspinFullscreenMotionTitle": "Cerrar \"Reproduciendo Ahora\" al detectar movimiento",
   "@settingSendspinFullscreenMotionTitle": {
     "context": "Settings > Media Player > Now Playing > User Interface",
     "description": "Setting label.",
@@ -11671,7 +11671,7 @@
       ]
     }
   },
-  "settingSendspinFullscreenMotionDescription": "Let motion dismiss Now Playing like a regular screensaver. Off, only touch dismisses it, so a walk-past does not interrupt the music display. Ignored while Now Playing is shown alongside a screensaver.",
+  "settingSendspinFullscreenMotionDescription": "Permite cerrar Reproduciendo Ahora con movimiento, como un protector de pantalla normal. Si está desactivado, solo se cierra al tocar la pantalla, para que pasar cerca no interrumpa la vista de música. No se aplica cuando Reproduciendo Ahora se muestra junto al protector de pantalla.",
   "@settingSendspinFullscreenMotionDescription": {
     "context": "Settings > Media Player > Now Playing > User Interface",
     "description": "Help below this setting.",
@@ -11684,7 +11684,7 @@
       ]
     }
   },
-  "settingSendspinFullscreenShortcutTitle": "Show in the kiosk menu",
+  "settingSendspinFullscreenShortcutTitle": "Mostrar en el menú del kiosko",
   "@settingSendspinFullscreenShortcutTitle": {
     "context": "Settings > Media Player > Now Playing > User Interface",
     "description": "Setting label.",
@@ -11697,7 +11697,7 @@
       ]
     }
   },
-  "settingSendspinFullscreenShortcutDescription": "Add an entry in the kiosk menu that shows the Now Playing view. WARNING: If nothing is playing or there is no queue for this player, it won't show up.",
+  "settingSendspinFullscreenShortcutDescription": "Añade una entrada al menú del kiosko para mostrar Reproduciendo Ahora. ADVERTENCIA: No aparece si no hay nada en reproducción ni una cola para este reproductor.",
   "@settingSendspinFullscreenShortcutDescription": {
     "context": "Settings > Media Player > Now Playing > User Interface",
     "description": "Help below this setting.",
@@ -11710,7 +11710,7 @@
       ]
     }
   },
-  "settingSendspinSpeakerPillTitle": "Show speaker selection pill",
+  "settingSendspinSpeakerPillTitle": "Mostrar selector de altavoces",
   "@settingSendspinSpeakerPillTitle": {
     "context": "Settings > Media Player > Now Playing > User Interface",
     "description": "Setting label.",
@@ -11723,7 +11723,7 @@
       ]
     }
   },
-  "settingSendspinSpeakerPillDescription": "Shows speaker selection for 5 seconds after screen interaction. Add or remove speakers from the current group.",
+  "settingSendspinSpeakerPillDescription": "Muestra el selector de altavoces durante 5 segundos después de interactuar con la pantalla. Permite añadir o quitar altavoces del grupo actual.",
   "@settingSendspinSpeakerPillDescription": {
     "context": "Settings > Media Player > Now Playing > User Interface",
     "description": "Help below this setting.",
@@ -11736,7 +11736,7 @@
       ]
     }
   },
-  "settingSendspinQueueArtTitle": "Show album art in the queue",
+  "settingSendspinQueueArtTitle": "Mostrar portadas en la cola",
   "@settingSendspinQueueArtTitle": {
     "context": "Settings > Media Player > Now Playing > User Interface",
     "description": "Setting label.",
@@ -11749,7 +11749,7 @@
       ]
     }
   },
-  "settingSendspinQueueArtDescription": "A cover on every row of the queue panel.",
+  "settingSendspinQueueArtDescription": "Una portada en cada fila de la cola.",
   "@settingSendspinQueueArtDescription": {
     "context": "Settings > Media Player > Now Playing > User Interface",
     "description": "Help below this setting.",
@@ -11762,7 +11762,7 @@
       ]
     }
   },
-  "mediaNowPlayingHint": "Full-screen view while music plays",
+  "mediaNowPlayingHint": "Vista de pantalla completa mientras se reproduce música",
   "@mediaNowPlayingHint": {
     "context": "Settings > Media Player > Now Playing > User Interface",
     "description": "Label or guidance in this section.",
@@ -11775,7 +11775,7 @@
       ]
     }
   },
-  "mediaInterfaceHeading": "User Interface",
+  "mediaInterfaceHeading": "Interfaz de usuario",
   "@mediaInterfaceHeading": {
     "context": "Settings > Media Player > Now Playing > User Interface",
     "description": "Label or guidance in this section.",
@@ -11788,7 +11788,7 @@
       ]
     }
   },
-  "settingSendspinFullscreenTitle": "\"Now Playing\" instead of the screensaver",
+  "settingSendspinFullscreenTitle": "\"Reproduciendo Ahora\" en lugar del protector de pantalla",
   "@settingSendspinFullscreenTitle": {
     "context": "Settings > Media Player > Now Playing > Screensaver",
     "description": "Setting label.",
@@ -11801,7 +11801,7 @@
       ]
     }
   },
-  "settingSendspinFullscreenDescription": "While music plays, the screensaver becomes a full-screen Now Playing view with album art. With nothing playing, the regular screensaver runs.",
+  "settingSendspinFullscreenDescription": "Mientras se reproduce música, el protector de pantalla se convierte en la vista Reproduciendo Ahora a pantalla completa con la portada del álbum. Si no se reproduce nada, se usa el protector de pantalla habitual.",
   "@settingSendspinFullscreenDescription": {
     "context": "Settings > Media Player > Now Playing > Screensaver",
     "description": "Help below this setting.",
@@ -11814,7 +11814,7 @@
       ]
     }
   },
-  "settingSendspinFullscreenSplitTitle": "Show alongside screensaver",
+  "settingSendspinFullscreenSplitTitle": "Mostrar junto al protector de pantalla",
   "@settingSendspinFullscreenSplitTitle": {
     "context": "Settings > Media Player > Now Playing > Screensaver",
     "description": "Setting label.",
@@ -11827,7 +11827,7 @@
       ]
     }
   },
-  "settingSendspinFullscreenSplitDescription": "Keep the screensaver visible beside Now Playing. Portrait screens stack the screensaver above the player. Small screens keep the full-screen player.",
+  "settingSendspinFullscreenSplitDescription": "Mantiene el protector de pantalla visible junto a Reproduciendo Ahora. En pantallas verticales, el protector de pantalla aparece encima del reproductor. Las pantallas pequeñas mantienen el reproductor a pantalla completa.",
   "@settingSendspinFullscreenSplitDescription": {
     "context": "Settings > Media Player > Now Playing > Screensaver",
     "description": "Help below this setting.",
@@ -11840,7 +11840,7 @@
       ]
     }
   },
-  "settingSendspinFullscreenPhotoFillTitle": "Fill the screen",
+  "settingSendspinFullscreenPhotoFillTitle": "Llenar la pantalla",
   "@settingSendspinFullscreenPhotoFillTitle": {
     "context": "Settings > Media Player > Now Playing > Screensaver",
     "description": "Setting label.",
@@ -11853,7 +11853,7 @@
       ]
     }
   },
-  "settingSendspinFullscreenPhotoFillDescription": "Override photo filling while the screensaver shares the display with Now Playing. Default uses each screensaver's own setting. Off keeps the whole photo between black bars. Smart enlarges photos shaped close to the screen, framing the rest over a blurred backdrop. Always enlarges every photo, cutting off what does not fit.",
+  "settingSendspinFullscreenPhotoFillDescription": "Cambia cómo se ajustan las fotos cuando el protector de pantalla comparte la pantalla con Reproduciendo Ahora. Predeterminado usa el ajuste de cada protector de pantalla. Desactivado conserva toda la foto entre barras negras. Inteligente amplía las fotos con proporciones similares a la pantalla y muestra las demás sobre un fondo desenfocado. Siempre amplía todas las fotos y recorta lo que no cabe.",
   "@settingSendspinFullscreenPhotoFillDescription": {
     "context": "Settings > Media Player > Now Playing > Screensaver",
     "description": "Help below this setting.",
@@ -11866,7 +11866,7 @@
       ]
     }
   },
-  "settingSendspinFullscreenOverrideBrightnessTitle": "Override screensaver brightness",
+  "settingSendspinFullscreenOverrideBrightnessTitle": "Cambiar el brillo del protector de pantalla",
   "@settingSendspinFullscreenOverrideBrightnessTitle": {
     "context": "Settings > Media Player > Now Playing > Screensaver",
     "description": "Setting label.",
@@ -11879,7 +11879,7 @@
       ]
     }
   },
-  "settingSendspinFullscreenOverrideBrightnessDescription": "Use normal screen brightness instead of screensaver brightness while Now Playing is shown alongside a screensaver. This also overrides scheduled screensaver brightness.",
+  "settingSendspinFullscreenOverrideBrightnessDescription": "Usa el brillo normal de la pantalla en lugar del brillo del protector de pantalla mientras Reproduciendo Ahora se muestra junto a él. También reemplaza el brillo de los protectores de pantalla programados.",
   "@settingSendspinFullscreenOverrideBrightnessDescription": {
     "context": "Settings > Media Player > Now Playing > Screensaver",
     "description": "Help below this setting.",
@@ -11892,7 +11892,7 @@
       ]
     }
   },
-  "mediaScreensaverHeading": "Screensaver",
+  "mediaScreensaverHeading": "Protector de pantalla",
   "@mediaScreensaverHeading": {
     "context": "Settings > Media Player > Now Playing > Screensaver",
     "description": "Label or guidance in this section.",
@@ -11905,7 +11905,7 @@
       ]
     }
   },
-  "mediaDefaultFill": "Default",
+  "mediaDefaultFill": "Predeterminado",
   "@mediaDefaultFill": {
     "context": "Settings > Media Player > Now Playing > Screensaver",
     "description": "Label or guidance in this section.",
@@ -11918,7 +11918,7 @@
       ]
     }
   },
-  "mediaFillOff": "Off",
+  "mediaFillOff": "Desactivado",
   "@mediaFillOff": {
     "context": "Settings > Media Player > Now Playing > Screensaver",
     "description": "Label or guidance in this section.",
@@ -11931,7 +11931,7 @@
       ]
     }
   },
-  "mediaFillSmart": "Smart",
+  "mediaFillSmart": "Inteligente",
   "@mediaFillSmart": {
     "context": "Settings > Media Player > Now Playing > Screensaver",
     "description": "Label or guidance in this section.",
@@ -11944,7 +11944,7 @@
       ]
     }
   },
-  "mediaFillAlways": "Always",
+  "mediaFillAlways": "Siempre",
   "@mediaFillAlways": {
     "context": "Settings > Media Player > Now Playing > Screensaver",
     "description": "Label or guidance in this section.",

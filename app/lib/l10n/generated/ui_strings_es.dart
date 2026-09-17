@@ -351,31 +351,31 @@ class UiStringsEs extends UiStrings {
   String get drawerNoReleaseNotes => 'No hay notas de la versión.';
 
   @override
-  String get mediaPlay => 'Play';
+  String get mediaPlay => 'Reproducir';
 
   @override
-  String get mediaPause => 'Pause';
+  String get mediaPause => 'Pausar';
 
   @override
-  String get mediaPreviousTrack => 'Previous track';
+  String get mediaPreviousTrack => 'Pista anterior';
 
   @override
-  String get mediaNextTrack => 'Next track';
+  String get mediaNextTrack => 'Pista siguiente';
 
   @override
-  String get mediaPlaying => 'Playing';
+  String get mediaPlaying => 'Reproduciendo';
 
   @override
-  String get mediaPaused => 'Paused';
+  String get mediaPaused => 'En pausa';
 
   @override
-  String get mediaIdle => 'Idle';
+  String get mediaIdle => 'En espera';
 
   @override
-  String get mediaStatusUnavailable => 'Status unavailable';
+  String get mediaStatusUnavailable => 'Estado no disponible';
 
   @override
-  String get mediaUnknownTrack => 'Unknown track';
+  String get mediaUnknownTrack => 'Pista desconocida';
 
   @override
   String mediaStatusSource(String status, String source) {
@@ -383,96 +383,97 @@ class UiStringsEs extends UiStrings {
   }
 
   @override
-  String get mediaShowVolume => 'Show volume';
+  String get mediaShowVolume => 'Mostrar volumen';
 
   @override
-  String get mediaHideVolume => 'Hide volume';
+  String get mediaHideVolume => 'Ocultar volumen';
 
   @override
-  String get mediaMute => 'Mute';
+  String get mediaMute => 'Silenciar';
 
   @override
-  String get mediaUnmute => 'Unmute';
+  String get mediaUnmute => 'Activar sonido';
 
   @override
-  String get mediaFavoriteAdd => 'Add to favorites';
+  String get mediaFavoriteAdd => 'Añadir a favoritos';
 
   @override
-  String get mediaFavoriteRemove => 'Remove from favorites';
+  String get mediaFavoriteRemove => 'Quitar de favoritos';
 
   @override
-  String get mediaShuffleOn => 'Turn shuffle on';
+  String get mediaShuffleOn => 'Activar reproducción aleatoria';
 
   @override
-  String get mediaShuffleOff => 'Turn shuffle off';
+  String get mediaShuffleOff => 'Desactivar reproducción aleatoria';
 
   @override
-  String get mediaRepeatAll => 'Repeat all';
+  String get mediaRepeatAll => 'Repetir todo';
 
   @override
-  String get mediaRepeatOne => 'Repeat one';
+  String get mediaRepeatOne => 'Repetir una';
 
   @override
-  String get mediaRepeatOff => 'Turn repeat off';
+  String get mediaRepeatOff => 'Desactivar repetición';
 
   @override
-  String get mediaShowLyrics => 'Show lyrics';
+  String get mediaShowLyrics => 'Mostrar letras';
 
   @override
-  String get mediaHideLyrics => 'Hide lyrics';
+  String get mediaHideLyrics => 'Ocultar letras';
 
   @override
-  String get mediaShowQueue => 'Show queue';
+  String get mediaShowQueue => 'Mostrar cola';
 
   @override
-  String get mediaHideQueue => 'Hide queue';
+  String get mediaHideQueue => 'Ocultar cola';
 
   @override
-  String get mediaVolume => 'Volume';
+  String get mediaVolume => 'Volumen';
 
   @override
-  String get mediaPlaybackPosition => 'Playback position';
+  String get mediaPlaybackPosition => 'Posición de reproducción';
 
   @override
-  String get mediaShowNowPlaying => 'Show Now Playing';
+  String get mediaShowNowPlaying => 'Mostrar Reproduciendo Ahora';
 
   @override
-  String get mediaShowFloatingPlayer => 'Show the floating player';
+  String get mediaShowFloatingPlayer => 'Mostrar el reproductor flotante';
 
   @override
-  String get mediaOpenMusicAssistant => 'Open Music Assistant';
+  String get mediaOpenMusicAssistant => 'Abrir Music Assistant';
 
   @override
-  String get mediaCannotControl => 'command not supported or not sent';
+  String get mediaCannotControl =>
+      'El comando no es compatible o no se pudo enviar.';
 
   @override
-  String get mediaNothingQueued => 'Nothing queued';
+  String get mediaNothingQueued => 'No hay nada en cola';
 
   @override
-  String get mediaChapters => 'Chapters';
+  String get mediaChapters => 'Capítulos';
 
   @override
-  String get mediaNowPlaying => 'Now playing';
+  String get mediaNowPlaying => 'Reproduciendo Ahora';
 
   @override
-  String get mediaUpNext => 'Up next';
+  String get mediaUpNext => 'A continuación';
 
   @override
   String mediaUnnamedChapter(String number) {
-    return 'Chapter $number';
+    return 'Capítulo $number';
   }
 
   @override
-  String get mediaGroupLead => 'Leads the group';
+  String get mediaGroupLead => 'Dirige el grupo';
 
   @override
-  String get mediaGroupReadFailed => 'The group could not be read.';
+  String get mediaGroupReadFailed => 'No se pudo consultar el grupo.';
 
   @override
-  String get mediaGroupEmpty => 'No other players to group with.';
+  String get mediaGroupEmpty => 'No hay otros reproductores para agrupar.';
 
   @override
-  String get mediaSpeakerSelection => 'Speaker selection';
+  String get mediaSpeakerSelection => 'Selección de altavoces';
 
   @override
   String get settingCameraEnabledTitle => 'Activar cámara';
@@ -2914,53 +2915,56 @@ class UiStringsEs extends UiStrings {
   }
 
   @override
-  String get settingSendspinShowPlayerTitle => 'Show the floating player';
+  String get settingSendspinShowPlayerTitle =>
+      'Mostrar el reproductor flotante';
 
   @override
   String get settingSendspinShowPlayerDescription =>
-      'While music plays, show a small now-playing window over the dashboard with artwork, track info and progress. Drag it anywhere; the position is remembered.';
+      'Mientras se reproduce música, muestra una pequeña ventana sobre el panel de control con la portada, los datos de la pista y el progreso. Arrástrala a cualquier lugar. Su posición se guarda.';
 
   @override
-  String get settingSendspinPlayerSizeTitle => 'Player size';
+  String get settingSendspinPlayerSizeTitle => 'Tamaño del reproductor';
 
   @override
   String get settingSendspinPlayerSizeDescription =>
-      'Compact is a small, unobtrusive now-playing window. Large adds previous, play/pause and next buttons sized for touch, controlling the whole playback group.';
+      'Compacto muestra una ventana pequeña y discreta. Grande añade botones táctiles para la pista anterior, reproducir o pausar y la siguiente pista. Controlan todo el grupo de reproducción.';
 
   @override
   String get settingSendspinPausedHideMinutesTitle =>
-      'Hide the paused player after';
+      'Ocultar el reproductor pausado después de';
 
   @override
   String get settingSendspinPausedHideMinutesDescription =>
-      'How long a paused player stays on screen. It applies to both the floating player and the Now Playing view.';
+      'Cuánto tiempo permanece en pantalla un reproductor pausado. Se aplica tanto al reproductor flotante como a la vista Reproduciendo Ahora.';
 
   @override
   String get settingSendspinDismissKeepsPlayingTitle =>
-      'Keep playing when dismissed';
+      'Seguir reproduciendo al ocultarlo';
 
   @override
   String get settingSendspinDismissKeepsPlayingDescription =>
-      'Flinging the floating player away hides it without stopping the music.';
+      'Deslizar el reproductor flotante fuera de la pantalla lo oculta sin detener la música.';
 
   @override
-  String get settingSendspinPlayerShortcutTitle => 'Show in the kiosk menu';
+  String get settingSendspinPlayerShortcutTitle =>
+      'Mostrar en el menú del kiosko';
 
   @override
   String get settingSendspinPlayerShortcutDescription =>
-      'Add an entry in the kiosk menu that shows or hides the floating player. WARNING: If nothing is playing or there is no queue for this player, it won\'t show up.';
+      'Añade una entrada al menú del kiosko para mostrar u ocultar el reproductor flotante. ADVERTENCIA: No aparece si no hay nada en reproducción ni una cola para este reproductor.';
 
   @override
-  String get mediaFloatingPage => 'Floating Player';
+  String get mediaFloatingPage => 'Reproductor flotante';
 
   @override
-  String get mediaFloatingHint => 'The small card over the dashboard';
+  String get mediaFloatingHint =>
+      'La pequeña ventana sobre el panel de control';
 
   @override
-  String get mediaCompact => 'Compact';
+  String get mediaCompact => 'Compacto';
 
   @override
-  String get mediaLargeControls => 'Large with controls';
+  String get mediaLargeControls => 'Grande con controles';
 
   @override
   String get settingSendspinPlayerSourceTitle => 'Origen del reproductor';
@@ -3025,39 +3029,40 @@ class UiStringsEs extends UiStrings {
   }
 
   @override
-  String get settingSendspinLyricsEnabledTitle => 'Enable lyrics';
+  String get settingSendspinLyricsEnabledTitle => 'Activar letras';
 
   @override
   String get settingSendspinLyricsEnabledDescription =>
-      'Synchronized lyrics on the Now Playing view, for every player source.';
+      'Letras sincronizadas en Reproduciendo Ahora para todos los orígenes de reproductor.';
 
   @override
-  String get settingSendspinLyricsSourceTitle => 'Lyrics source';
+  String get settingSendspinLyricsSourceTitle => 'Origen de las letras';
 
   @override
   String get settingSendspinLyricsSourceDescription =>
-      'Where the lyrics come from. Music Assistant needs the server address and token on its page.';
+      'De dónde se obtienen las letras. Music Assistant necesita la dirección del servidor y el token en su página de configuración.';
 
   @override
   String get settingSendspinLyricsFallbackTitle =>
-      'Fallback to Music Assistant';
+      'Usar Music Assistant como alternativa';
 
   @override
   String get settingSendspinLyricsFallbackDescription =>
-      'If LRCLIB is unreachable, Music Assistant is asked instead. Needs the Music Assistant connection.';
+      'Si no se puede conectar con LRCLIB, se consulta Music Assistant. Requiere la conexión con Music Assistant.';
 
   @override
-  String get settingSendspinLyricsOffsetTitle => 'Lyrics timing';
+  String get settingSendspinLyricsOffsetTitle => 'Sincronización de las letras';
 
   @override
   String get settingSendspinLyricsOffsetDescription =>
-      'Shift the lyrics against the music. Positive shows each line earlier, negative later. Worth a nudge on tracks that read consistently off.';
+      'Ajusta las letras respecto a la música. Un valor positivo muestra cada línea antes y uno negativo, después. Útil si las letras de una pista aparecen siempre desfasadas.';
 
   @override
-  String get mediaLyricsPage => 'Lyrics';
+  String get mediaLyricsPage => 'Letras';
 
   @override
-  String get mediaLyricsHint => 'Synchronized lyrics, their source and timing';
+  String get mediaLyricsHint =>
+      'Letras sincronizadas, su origen y sincronización';
 
   @override
   String get settingSendspinMaUrlTitle => 'Dirección del servidor';
@@ -3155,128 +3160,133 @@ class UiStringsEs extends UiStrings {
   String get mediaServerClosed => 'el servidor cerró la conexión';
 
   @override
-  String get settingSendspinFullscreenControlsTitle => 'Show media controls';
+  String get settingSendspinFullscreenControlsTitle =>
+      'Mostrar controles multimedia';
 
   @override
   String get settingSendspinFullscreenControlsDescription =>
-      'Previous, play/pause and next buttons and a progress bar on the Now Playing view. With controls on, a close button dismisses it instead of a tap anywhere.';
+      'Botones de pista anterior, reproducir o pausar y pista siguiente, junto con una barra de progreso en Reproduciendo Ahora. Con los controles activados, se cierra con un botón en lugar de tocar cualquier parte de la pantalla.';
 
   @override
-  String get settingSendspinFullscreenTextScaleTitle => 'Text scale';
+  String get settingSendspinFullscreenTextScaleTitle => 'Escala del texto';
 
   @override
   String get settingSendspinFullscreenTextScaleDescription =>
-      'Size of the track title, artist, album, lyrics and queue text. Applies in both layouts and alongside the screensaver. Artwork adjusts to leave room for the text.';
+      'Tamaño del título de la pista, artista, álbum, letras y texto de la cola. Se aplica en ambas distribuciones y junto al protector de pantalla. La portada se ajusta para dejar espacio al texto.';
 
   @override
-  String get settingSendspinFullscreenButtonScaleTitle => 'Button scale';
+  String get settingSendspinFullscreenButtonScaleTitle =>
+      'Escala de los botones';
 
   @override
   String get settingSendspinFullscreenButtonScaleDescription =>
-      'Size of the playback buttons and progress bar, independent of text size. Applies in both layouts and alongside the screensaver. Controls fit the space available in the player.';
+      'Tamaño de los botones de reproducción y la barra de progreso, independiente del tamaño del texto. Se aplica en ambas distribuciones y junto al protector de pantalla. Los controles se adaptan al espacio disponible.';
 
   @override
-  String get settingSendspinFullscreenHorizontalTitle => 'Horizontal mode';
+  String get settingSendspinFullscreenHorizontalTitle => 'Modo horizontal';
 
   @override
   String get settingSendspinFullscreenHorizontalDescription =>
-      'Split artwork and controls into equal left and right halves. With lyrics or the queue open, track details move below the artwork. Ignored while Now Playing is shown alongside a screensaver.';
+      'Divide la portada y los controles en dos mitades iguales, izquierda y derecha. Con las letras o la cola abiertas, los datos de la pista pasan debajo de la portada. No se aplica cuando Reproduciendo Ahora se muestra junto al protector de pantalla.';
 
   @override
-  String get settingSendspinFullscreenDoubleTapTitle => 'Double tap to dismiss';
+  String get settingSendspinFullscreenDoubleTapTitle =>
+      'Tocar dos veces para cerrar';
 
   @override
   String get settingSendspinFullscreenDoubleTapDescription =>
-      'A double tap anywhere on the Now Playing view dismisses it. The close button won\'t be shown. Ignored while Now Playing is shown alongside a screensaver.';
+      'Tocar dos veces cualquier parte de Reproduciendo Ahora cierra la vista. No se muestra el botón de cierre. No se aplica cuando Reproduciendo Ahora se muestra junto al protector de pantalla.';
 
   @override
   String get settingSendspinFullscreenOnPlayTitle =>
-      'Launch Now Playing when music starts playing';
+      'Abrir Reproduciendo Ahora al empezar la música';
 
   @override
   String get settingSendspinFullscreenOnPlayDescription =>
-      'Open the Now Playing view as soon as playback starts instead of waiting for the screensaver timeout.';
+      'Abre Reproduciendo Ahora en cuanto comienza la reproducción, sin esperar el tiempo de espera del protector de pantalla.';
 
   @override
   String get settingSendspinFullscreenMotionTitle =>
-      'Dismiss \"Now Playing\" on motion';
+      'Cerrar \"Reproduciendo Ahora\" al detectar movimiento';
 
   @override
   String get settingSendspinFullscreenMotionDescription =>
-      'Let motion dismiss Now Playing like a regular screensaver. Off, only touch dismisses it, so a walk-past does not interrupt the music display. Ignored while Now Playing is shown alongside a screensaver.';
+      'Permite cerrar Reproduciendo Ahora con movimiento, como un protector de pantalla normal. Si está desactivado, solo se cierra al tocar la pantalla, para que pasar cerca no interrumpa la vista de música. No se aplica cuando Reproduciendo Ahora se muestra junto al protector de pantalla.';
 
   @override
-  String get settingSendspinFullscreenShortcutTitle => 'Show in the kiosk menu';
+  String get settingSendspinFullscreenShortcutTitle =>
+      'Mostrar en el menú del kiosko';
 
   @override
   String get settingSendspinFullscreenShortcutDescription =>
-      'Add an entry in the kiosk menu that shows the Now Playing view. WARNING: If nothing is playing or there is no queue for this player, it won\'t show up.';
+      'Añade una entrada al menú del kiosko para mostrar Reproduciendo Ahora. ADVERTENCIA: No aparece si no hay nada en reproducción ni una cola para este reproductor.';
 
   @override
-  String get settingSendspinSpeakerPillTitle => 'Show speaker selection pill';
+  String get settingSendspinSpeakerPillTitle => 'Mostrar selector de altavoces';
 
   @override
   String get settingSendspinSpeakerPillDescription =>
-      'Shows speaker selection for 5 seconds after screen interaction. Add or remove speakers from the current group.';
+      'Muestra el selector de altavoces durante 5 segundos después de interactuar con la pantalla. Permite añadir o quitar altavoces del grupo actual.';
 
   @override
-  String get settingSendspinQueueArtTitle => 'Show album art in the queue';
+  String get settingSendspinQueueArtTitle => 'Mostrar portadas en la cola';
 
   @override
   String get settingSendspinQueueArtDescription =>
-      'A cover on every row of the queue panel.';
+      'Una portada en cada fila de la cola.';
 
   @override
-  String get mediaNowPlayingHint => 'Full-screen view while music plays';
+  String get mediaNowPlayingHint =>
+      'Vista de pantalla completa mientras se reproduce música';
 
   @override
-  String get mediaInterfaceHeading => 'User Interface';
+  String get mediaInterfaceHeading => 'Interfaz de usuario';
 
   @override
   String get settingSendspinFullscreenTitle =>
-      '\"Now Playing\" instead of the screensaver';
+      '\"Reproduciendo Ahora\" en lugar del protector de pantalla';
 
   @override
   String get settingSendspinFullscreenDescription =>
-      'While music plays, the screensaver becomes a full-screen Now Playing view with album art. With nothing playing, the regular screensaver runs.';
+      'Mientras se reproduce música, el protector de pantalla se convierte en la vista Reproduciendo Ahora a pantalla completa con la portada del álbum. Si no se reproduce nada, se usa el protector de pantalla habitual.';
 
   @override
   String get settingSendspinFullscreenSplitTitle =>
-      'Show alongside screensaver';
+      'Mostrar junto al protector de pantalla';
 
   @override
   String get settingSendspinFullscreenSplitDescription =>
-      'Keep the screensaver visible beside Now Playing. Portrait screens stack the screensaver above the player. Small screens keep the full-screen player.';
+      'Mantiene el protector de pantalla visible junto a Reproduciendo Ahora. En pantallas verticales, el protector de pantalla aparece encima del reproductor. Las pantallas pequeñas mantienen el reproductor a pantalla completa.';
 
   @override
-  String get settingSendspinFullscreenPhotoFillTitle => 'Fill the screen';
+  String get settingSendspinFullscreenPhotoFillTitle => 'Llenar la pantalla';
 
   @override
   String get settingSendspinFullscreenPhotoFillDescription =>
-      'Override photo filling while the screensaver shares the display with Now Playing. Default uses each screensaver\'s own setting. Off keeps the whole photo between black bars. Smart enlarges photos shaped close to the screen, framing the rest over a blurred backdrop. Always enlarges every photo, cutting off what does not fit.';
+      'Cambia cómo se ajustan las fotos cuando el protector de pantalla comparte la pantalla con Reproduciendo Ahora. Predeterminado usa el ajuste de cada protector de pantalla. Desactivado conserva toda la foto entre barras negras. Inteligente amplía las fotos con proporciones similares a la pantalla y muestra las demás sobre un fondo desenfocado. Siempre amplía todas las fotos y recorta lo que no cabe.';
 
   @override
   String get settingSendspinFullscreenOverrideBrightnessTitle =>
-      'Override screensaver brightness';
+      'Cambiar el brillo del protector de pantalla';
 
   @override
   String get settingSendspinFullscreenOverrideBrightnessDescription =>
-      'Use normal screen brightness instead of screensaver brightness while Now Playing is shown alongside a screensaver. This also overrides scheduled screensaver brightness.';
+      'Usa el brillo normal de la pantalla en lugar del brillo del protector de pantalla mientras Reproduciendo Ahora se muestra junto a él. También reemplaza el brillo de los protectores de pantalla programados.';
 
   @override
-  String get mediaScreensaverHeading => 'Screensaver';
+  String get mediaScreensaverHeading => 'Protector de pantalla';
 
   @override
-  String get mediaDefaultFill => 'Default';
+  String get mediaDefaultFill => 'Predeterminado';
 
   @override
-  String get mediaFillOff => 'Off';
+  String get mediaFillOff => 'Desactivado';
 
   @override
-  String get mediaFillSmart => 'Smart';
+  String get mediaFillSmart => 'Inteligente';
 
   @override
-  String get mediaFillAlways => 'Always';
+  String get mediaFillAlways => 'Siempre';
 
   @override
   String get mediaPickPlayer => 'Elegir un reproductor';

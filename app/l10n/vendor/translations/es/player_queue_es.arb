@@ -1,0 +1,8 @@
+{
+  "@@locale": "es",
+  "mediaNothingQueued": "No hay nada en cola",
+  "mediaChapters": "Capítulos",
+  "mediaNowPlaying": "Reproduciendo Ahora",
+  "mediaUpNext": "A continuación",
+  "mediaUnnamedChapter": "Capítulo {number}"
+}
