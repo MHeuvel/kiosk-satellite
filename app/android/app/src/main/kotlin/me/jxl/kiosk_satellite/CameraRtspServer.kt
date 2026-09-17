@@ -148,6 +148,16 @@ class CameraRtspServer(
         clients.filter { !it.http && (!keepPendingClients || it.playing) }.forEach { it.close() }
     }
 
+    /** Viewers reconnect for new parameter sets while the listening port stays open. */
+    @Synchronized fun reconfigureVideo(width: Int, height: Int, fps: Int, bitrate: Int) {
+        onvif?.updateVideo(width, height, fps, bitrate)
+        resetVideo()
+        idleTask?.cancel(false)
+        synchronized(formatReady) { videoError = null }
+        if (demand) { demand = false; onDemand(false) }
+        if (audioDemand) { audioDemand = false; onAudioDemand(false) }
+    }
+
     @Synchronized fun close() {
         running = false
         server.close()

@@ -80,6 +80,7 @@ class DeviceCamera(
     /** The motion session's pre-bound capture use case. Main thread only;
      *  set by [CameraMotion] while its session is up. */
     var sharedCapture: ImageCapture? = null
+    var sharedVideoSnapshot: (((ByteArray?, String?) -> Unit) -> Unit)? = null
     var sharedDiagnosticSession: String? = null
     private var snapshotDiagnostic = "snapshot"
 
@@ -142,6 +143,8 @@ class DeviceCamera(
      *  rotation is baked in at build time: assigning targetRotation on a
      *  bound use case resets its pipeline, which fragile legacy HALs have
      *  answered by silently dropping the in-flight capture. */
+    private val streamCapabilities by lazy { CameraStreamCapabilities(context, ::buildCapture) }
+
     fun buildCapture(target: Size = DEFAULT_TARGET): ImageCapture =
         ImageCapture.Builder()
             .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
@@ -195,6 +198,21 @@ class DeviceCamera(
             // The lens facings that exist, for pickers that should not
             // offer a camera the device does not have.
             "facings" -> result.success(cameraFacings(context))
+            "streamResolutions" -> try {
+                result.success(cameraStreamResolutions(context, call.argument<String>("camera") ?: "front"))
+            } catch (e: Exception) {
+                result.error("camera", "Could not read camera resolutions: ${e.message}", null)
+            }
+            "streamCapabilities" -> streamCapabilities.read(
+                call.argument<String>("camera") ?: "front",
+                (call.argument<Number>("fps")?.toInt() ?: 10).coerceIn(5, 30),
+                (call.argument<Number>("bitrate")?.toInt() ?: 500_000).coerceIn(100_000, 8_000_000),
+                Size(call.argument<Number>("snapshotWidth")?.toInt() ?: 640,
+                    call.argument<Number>("snapshotHeight")?.toInt() ?: 480),
+            ) { value, error ->
+                if (error != null) result.error("camera", "Could not check streaming sizes: ${error.message}", null)
+                else result.success(value)
+            }
             else -> result.notImplemented()
         }
     }
@@ -214,7 +232,7 @@ class DeviceCamera(
         val startedAt = android.os.SystemClock.elapsedRealtime()
         CameraDiagnostics.record(diagnosticId, "request", "parent=$sharedDiagnosticSession, " +
             "camera=${if (facing == CameraSelector.DEFAULT_FRONT_CAMERA) "front" else "back"}, requested=$target, " +
-            "mode=${if (sharedCapture != null) "shared JPEG" else if (sharedAnalysis) "analysis" else "standalone"}")
+            "mode=${if (sharedCapture != null) "shared JPEG" else if (sharedVideoSnapshot != null) "video" else if (sharedAnalysis) "analysis" else "standalone"}")
         var completed = false
         // The idle path parks its teardown here so that EVERY exit — a
         // frame, a capture error, or the watchdog below — releases the
@@ -253,6 +271,10 @@ class DeviceCamera(
         // already matches the request.
         sharedCapture?.let {
             take(it, done)
+            return
+        }
+        sharedVideoSnapshot?.let {
+            it(done)
             return
         }
         if (sharedAnalysis) {

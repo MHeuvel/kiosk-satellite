@@ -21,8 +21,6 @@ import androidx.camera.core.CameraState
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
-import androidx.camera.core.resolutionselector.ResolutionSelector
-import androidx.camera.core.resolutionselector.ResolutionStrategy
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import android.util.Size
@@ -350,6 +348,7 @@ class CameraMotion(
     private var closingEncoder: CameraRtspEncoder? = null
     private var boundRtsp = false
     private var boundRtspServer: CameraRtspServer? = null
+    private var boundVideoConfig: Map<*, *>? = null
     private var cancelPending: Runnable? = null
     private var boundArguments: Map<*, *>? = null
     private var disposed = false
@@ -567,6 +566,23 @@ class CameraMotion(
             result.success(rtspStatus())
             return
         }
+        val existing = rtsp
+        if (existing?.listening == true && config["enabled"] == true && sameRtspEndpoint(rtspConfig, config)) {
+            setRtspAudio(false)
+            if (boundRtsp) releaseCamera()
+            capturePolicy.reset()
+            rtspConfig = config
+            rtspError = null
+            existing.reconfigureVideo(
+                (config["width"] as? Number)?.toInt() ?: 640,
+                (config["height"] as? Number)?.toInt() ?: 480,
+                (config["fps"] as? Number)?.toInt()?.coerceIn(5, 30) ?: 10,
+                (config["bitrate"] as? Number)?.toInt()?.coerceIn(100_000, 8_000_000) ?: 500_000,
+            )
+            CameraDiagnostics.record(listenerSession, "video settings", "video=${config["width"]}x${config["height"]}, listener retained")
+            result.success(rtspStatus())
+            return
+        }
         setRtspAudio(false)
         val generation = ++rtspGeneration
         listenerSession = CameraDiagnostics.session("rtsp")
@@ -708,6 +724,12 @@ class CameraMotion(
         "clientDetails" to (rtsp?.clientDetails ?: emptyList<Map<String, Any>>()),
         "encoding" to (rtspEncoder != null), "encoder" to rtspEncoder?.codecName,
         "resolution" to rtspEncoder?.actualSize, "softwareEncoder" to rtspEncoder?.software,
+        "requestedResolution" to "${rtspConfig["width"] ?: 640}x${rtspConfig["height"] ?: 480}",
+        "captureResolution" to rtspEncoder?.captureSize?.toString(),
+        "resolutionFallback" to (rtspEncoder?.captureSize?.let {
+            it.width != ((rtspConfig["width"] as? Number)?.toInt() ?: 640) ||
+                it.height != ((rtspConfig["height"] as? Number)?.toInt() ?: 480)
+        } ?: false),
         "cameraInput" to if (rtspEncoder != null) "SurfaceTexture" else null, "error" to (rtspError ?: rtsp?.error),
         "port" to (rtspConfig["port"] ?: 8554),
         "protocol" to (rtspConfig["protocol"] ?: "rtsp"),
@@ -780,11 +802,13 @@ class CameraMotion(
         val args = arguments as? Map<*, *>
         val wantsRtsp = args?.get("rtsp") == true && rtsp?.demand == true
         val canReuse = boundRtsp && wantsRtsp && boundCamera != null && boundRtspServer === rtsp &&
+            boundVideoConfig == rtspConfig &&
             listOf("camera", "snapshotWidth", "snapshotHeight").all { boundArguments?.get(it) == args?.get(it) }
         if (!canReuse) releaseCamera()
         boundArguments = args
         boundRtsp = wantsRtsp
         boundRtspServer = if (wantsRtsp) rtsp else null
+        boundVideoConfig = if (wantsRtsp) rtspConfig else null
         activeSink = sink
         val fps = (args?.get("fps") as? Number)?.toDouble()?.coerceIn(0.5, 30.0) ?: 2.0
         val sensitivity = (args?.get("sensitivity") as? Number)?.toInt()?.coerceIn(1, 100) ?: 40
@@ -803,14 +827,15 @@ class CameraMotion(
         previewUntilNs = 0L
         onAnalysis {
             if (listenGeneration != myListen) return@onAnalysis
-            motionWanted = args?.get("motion") != false
-            facesWanted = args?.get("faces") == true
-            fingersWanted = args?.get("fingers") == true
+            val allowAnalysis = !wantsRtsp || rtspConfig["analysis"] != false
+            motionWanted = allowAnalysis && args?.get("motion") != false
+            facesWanted = allowAnalysis && args?.get("faces") == true
+            fingersWanted = allowAnalysis && args?.get("fingers") == true
             palmsWanted = fingersWanted
             faceMinWidth =
                 ((args?.get("faceMinWidth") as? Number)?.toFloat() ?: 0.1f).coerceIn(0.01f, 1f)
             lastFaceEmitNs = 0L
-            previewWanted = args?.get("preview") == true
+            previewWanted = allowAnalysis && args?.get("preview") == true
             lastPreviewNs = 0L
             previewIntervalNs = PREVIEW_MIN_INTERVAL_NS
             resetVisionGate()
@@ -963,6 +988,7 @@ class CameraMotion(
                 boundRtsp = false
             }
             val captureLevel = if (boundRtsp) capturePolicy.level(cameraId) else 0
+            val includeAnalysis = !boundRtsp || rtspConfig["analysis"] != false
 
             // The grid reads a fixed handful of pixels per cell and the
             // detectors a fixed 192x192, so the analysis size costs the
@@ -977,14 +1003,7 @@ class CameraMotion(
             val analysisSize =
                 if (captureLevel >= 2) Size(320, 240)
                 else if (palmsWanted || previewWanted || boundRtsp) Size(640, 480) else Size(320, 240)
-            val resolution = ResolutionSelector.Builder()
-                .setResolutionStrategy(
-                    ResolutionStrategy(
-                        analysisSize,
-                        ResolutionStrategy.FALLBACK_RULE_CLOSEST_LOWER_THEN_HIGHER,
-                    ),
-                )
-                .build()
+            val resolution = streamAnalysisResolutionSelector(analysisSize)
 
             val analysisBuilder = ImageAnalysis.Builder()
                 .setResolutionSelector(resolution)
@@ -1011,7 +1030,7 @@ class CameraMotion(
                 }
                 analyze(image, sink, mySession)
             }
-            analysis = imageAnalysis
+            analysis = if (includeAnalysis) imageAnalysis else null
 
             val videoServer = if (boundRtsp) rtsp else null
             val videoPreview = videoServer?.let { server ->
@@ -1023,11 +1042,11 @@ class CameraMotion(
                     @Suppress("DEPRECATION")
                     (context.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.rotation
                 } catch (_: Exception) { Surface.ROTATION_0 }
-                androidx.camera.core.Preview.Builder()
+                val previewBuilder = androidx.camera.core.Preview.Builder()
                     .setTargetRotation(displayRotation())
-                    .setResolutionSelector(ResolutionSelector.Builder().setResolutionStrategy(
-                        ResolutionStrategy(Size(width, height), ResolutionStrategy.FALLBACK_RULE_CLOSEST_LOWER_THEN_HIGHER)
-                    ).build()).build().also { preview ->
+                    .setResolutionSelector(videoResolutionSelector(Size(width, height), exact = captureLevel < 2))
+                if (!includeAnalysis) applyStreamingPreviewExposure(previewBuilder, cameraProvider, selector)
+                previewBuilder.build().also { preview ->
                         val executor = ContextCompat.getMainExecutor(context)
                         preview.setSurfaceProvider(executor) { request ->
                             if (session != mySession) { request.willNotProvideSurface(); return@setSurfaceProvider }
@@ -1070,7 +1089,10 @@ class CameraMotion(
                                 }
                                 val encoder = CameraRtspEncoder(fps, bitrate,
                                     { units -> if (session == mySession) server.config(units) },
-                                    { units, time -> if (session == mySession) server.frame(units, time) },
+                                    { units, time -> if (session == mySession) {
+                                        if (!includeAnalysis) lastFrameAtMs = SystemClock.elapsedRealtime()
+                                        server.frame(units, time)
+                                    } },
                                     diagnosticSession = diagnosticId) { message ->
                                     mainHandler.post { if (session == mySession) server.fail(message) }
                                 }
@@ -1078,9 +1100,13 @@ class CameraMotion(
                                     val surface = encoder.surface(request.resolution, transform)
                                     prepared = encoder
                                     rtspEncoder = encoder
+                                    if (!includeAnalysis) deviceCamera?.sharedVideoSnapshot = encoder::snapshot
                                     request.provideSurface(surface, executor) {
                                         finishRequest()
-                                        if (rtspEncoder === encoder) rtspEncoder = null
+                                        if (rtspEncoder === encoder) {
+                                            rtspEncoder = null
+                                            if (!includeAnalysis) deviceCamera?.sharedVideoSnapshot = null
+                                        }
                                         kotlin.concurrent.thread(name = "camera-rtsp-release") { encoder.close() }
                                     }
                                 } catch (e: Exception) {
@@ -1098,7 +1124,7 @@ class CameraMotion(
             val owner = CameraLifecycle().also { lifecycle = it }
             // Pre-bound so a snapshot never reconfigures this session (an
             // AE resettle would read as motion and wake the screensaver).
-            val imageCapture = deviceCamera?.takeIf { captureLevel == 0 }?.let {
+            val imageCapture = deviceCamera?.takeIf { captureLevel == 0 && includeAnalysis }?.let {
                 val target = snapshotTarget
                 if (target != null) it.buildCapture(target) else it.buildCapture()
             }
@@ -1106,10 +1132,11 @@ class CameraMotion(
                 cameraProvider.unbindAll()
                 val camera = if (videoPreview != null) {
                     try {
-                        if (imageCapture != null) {
-                            cameraProvider.bindToLifecycle(owner, selector, imageAnalysis, imageCapture, videoPreview)
-                                .also { deviceCamera?.sharedCapture = imageCapture }
-                        } else cameraProvider.bindToLifecycle(owner, selector, imageAnalysis, videoPreview)
+                        val uses = mutableListOf<androidx.camera.core.UseCase>(videoPreview)
+                        if (includeAnalysis) uses.add(imageAnalysis)
+                        if (imageCapture != null) uses.add(imageCapture)
+                        cameraProvider.bindToLifecycle(owner, selector, *uses.toTypedArray())
+                            .also { deviceCamera?.sharedCapture = imageCapture }
                     } catch (e: Exception) {
                         CameraDiagnostics.record(diagnosticId, "bind failure", "camera=$cameraId, fallback=$captureLevel", true, e)
                         if (retryRtsp(facing, sink, e.message ?: "capture binding failed")) return@addListener
@@ -1131,12 +1158,12 @@ class CameraMotion(
                     cameraProvider.bindToLifecycle(owner, selector, imageAnalysis)
                 }
                 boundCamera = camera
-                deviceCamera?.sharedAnalysis = deviceCamera?.sharedCapture == null
+                deviceCamera?.sharedAnalysis = includeAnalysis && deviceCamera?.sharedCapture == null
                 deviceCamera?.sharedDiagnosticSession = diagnosticId
                 CameraDiagnostics.record(diagnosticId, "bound", "camera=$cameraId, fallback=$captureLevel, " +
                     "analysisRequested=$analysisSize, analysisActual=${imageAnalysis.resolutionInfo?.resolution}, " +
                     "snapshotRequested=$snapshotTarget, snapshotActual=${imageCapture?.resolutionInfo?.resolution}, " +
-                    "snapshotMode=${if (deviceCamera?.sharedAnalysis == true) "analysis" else "JPEG"}, " +
+                    "snapshotMode=${if (!includeAnalysis) "video" else if (deviceCamera?.sharedAnalysis == true) "analysis" else "JPEG"}, " +
                     "videoActual=${videoPreview?.resolutionInfo?.resolution}")
                 Log.i(TAG, "camera $cameraId capture fallback=$captureLevel, analysis=$analysisSize, " +
                     "snapshot=${if (deviceCamera?.sharedAnalysis == true) "analysis" else "JPEG"}, RTSP=$boundRtsp")
@@ -1204,6 +1231,7 @@ class CameraMotion(
                 // nothing to tear down (its registry never left INITIALIZED).
                 lifecycle = null
                 deviceCamera?.sharedCapture = null
+                deviceCamera?.sharedVideoSnapshot = null
                 deviceCamera?.clearSharedAnalysis()
                 deviceCamera?.motionSessionActive = false
                 CameraDiagnostics.record(diagnosticId, "open failure", "camera=$cameraId, fallback=$captureLevel", true, e)
@@ -1767,6 +1795,7 @@ class CameraMotion(
         boundCamera?.let { closingCamera = it.cameraInfo }
         boundCamera = null
         deviceCamera?.sharedCapture = null
+        deviceCamera?.sharedVideoSnapshot = null
         deviceCamera?.clearSharedAnalysis()
         deviceCamera?.sharedDiagnosticSession = null
         deviceCamera?.motionSessionActive = false
@@ -1897,6 +1926,22 @@ class CameraMotion(
     }
 
     @OptIn(ExperimentalCamera2Interop::class)
+    private fun applyStreamingPreviewExposure(builder: androidx.camera.core.Preview.Builder,
+                                              provider: ProcessCameraProvider, selector: CameraSelector) {
+        try {
+            val info = selector.filter(provider.availableCameraInfos).first()
+            val ranges = Camera2CameraInfo.from(info).getCameraCharacteristic(
+                CameraCharacteristics.CONTROL_AE_AVAILABLE_TARGET_FPS_RANGES) ?: return
+            val target = (rtspConfig["fps"] as? Number)?.toInt()?.coerceIn(5, 30) ?: 10
+            val selected = streamingFpsRange(ranges.map { it.lower..it.upper }, target) ?: return
+            Camera2Interop.Extender(builder).setCaptureRequestOption(CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE,
+                android.util.Range(selected.first, selected.last))
+        } catch (e: Exception) {
+            CameraDiagnostics.record(diagnosticSession, "RTSP exposure setup failure", "using camera defaults", true, e)
+        }
+    }
+
+    @OptIn(ExperimentalCamera2Interop::class)
     private fun applyStreamingExposure(builder: ImageAnalysis.Builder, cameraProvider: ProcessCameraProvider, selector: CameraSelector) {
         try {
             val info = selector.filter(cameraProvider.availableCameraInfos).first()
@@ -1973,6 +2018,7 @@ class CameraMotion(
         }
         activeFacing = null
         deviceCamera?.sharedCapture = null
+        deviceCamera?.sharedVideoSnapshot = null
         deviceCamera?.clearSharedAnalysis()
         deviceCamera?.sharedDiagnosticSession = null
         deviceCamera?.motionSessionActive = false
@@ -1985,6 +2031,7 @@ class CameraMotion(
         rtspEncoder = null
         boundRtsp = false
         boundRtspServer = null
+        boundVideoConfig = null
     }
 
     fun dispose() {

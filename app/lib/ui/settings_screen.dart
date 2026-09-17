@@ -1460,6 +1460,9 @@ class _CategoryContentState extends State<_CategoryContent> {
         if (mounted) setState(() {});
       });
     }
+    if (widget.category == 'Camera') {
+      unawaited(widget.container.deviceCamera.refreshStreamResolutions());
+    }
     // The face rows read the vision runtime's answer the same way
     // (issue #331: Android 7 cannot load it).
     if (widget.category == 'Screensaver') {
@@ -1502,9 +1505,13 @@ class _CategoryContentState extends State<_CategoryContent> {
     _settingsEcho = widget.container.bus.on<SettingChanged>().listen((_) {
       if (mounted) setState(() {});
     });
+    _optionsEcho = widget.container.bus.on<SettingOptionsChanged>().listen((_) {
+      if (mounted) setState(() {});
+    });
   }
 
   StreamSubscription<SettingChanged>? _settingsEcho;
+  StreamSubscription<SettingOptionsChanged>? _optionsEcho;
 
   @override
   void dispose() {
@@ -1514,6 +1521,7 @@ class _CategoryContentState extends State<_CategoryContent> {
     _btAdapterTimer?.cancel();
     _fleetEcho?.cancel();
     _settingsEcho?.cancel();
+    _optionsEcho?.cancel();
     super.dispose();
   }
 
@@ -2741,6 +2749,10 @@ class _CategoryContentState extends State<_CategoryContent> {
     if (widget.category == 'Screensaver' && _adaptiveOn(container))
       screensaverBrightnessLevel.key: const HintRow(_adaptiveNote),
     if (widget.category == 'Camera')
+      cameraRtspResolution.key: HintRow(
+        container.settings.cameraResolutionNotice,
+      ),
+    if (widget.category == 'Camera')
       cameraEnabled.key: Column(
         children: [
           _NoCameraRow(container: container),
@@ -2906,6 +2918,7 @@ class _CategoryContentState extends State<_CategoryContent> {
                 if (def.subpage == subpage) def,
             ],
             after: {
+              ..._rowExtras(container),
               (container.settings.get(cameraStreamingProtocol) == 'onvif'
                       ? cameraOnvifPort.key
                       : cameraRtspPort.key):
@@ -9210,6 +9223,15 @@ class SettingTile extends StatelessWidget {
         );
       case SettingType.select:
         final options = _optionsFor(def);
+        if (options.isEmpty && def.key == cameraRtspResolution.key) {
+          return ListTile(
+            title: Text(def.title),
+            subtitle: const Text(
+              'No supported sizes available. Check the camera connection.',
+            ),
+            enabled: false,
+          );
+        }
         final current = c.settings.get(def) as String;
         // Stored values are lowercase identifiers; people read the declared
         // label ('media' → "Home Assistant Media"), or Capitalised as a
@@ -10663,7 +10685,7 @@ class _RtspPageState extends State<_RtspPage> {
         : st['listening'] != true
         ? 'Listener is stopped.'
         : active
-        ? '${st['clients']} connected ${st['clients'] == 1 ? 'viewer' : 'viewers'}. ${st['resolution'] ?? ''}'
+        ? '${st['clients']} connected ${st['clients'] == 1 ? 'viewer' : 'viewers'}. Actual video: ${st['resolution'] ?? ''}.'
               .trim()
         : 'Ready. The encoder starts when a viewer connects.';
     final audioText = st?['audioEnabled'] != true
@@ -10712,6 +10734,9 @@ class _RtspPageState extends State<_RtspPage> {
               title: Text(label),
               subtitle: Text(
                 text +
+                    (st?['resolutionFallback'] == true
+                        ? ' Requested ${st!['requestedResolution']}, camera supplied ${st['captureResolution']}.'
+                        : '') +
                     audioText +
                     (st?['onvifDiscoveryError'] == null
                         ? ''

@@ -8,6 +8,7 @@ import 'package:kiosk_satellite/core/event_bus.dart';
 import 'package:kiosk_satellite/core/events.dart';
 import 'package:kiosk_satellite/core/logging.dart';
 import 'package:kiosk_satellite/managers/remote/remote_manager.dart';
+import 'package:kiosk_satellite/managers/device_camera/camera_resolutions.dart';
 import 'package:kiosk_satellite/managers/settings/definitions.dart' as defs;
 import 'package:kiosk_satellite/managers/settings/settings_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -171,6 +172,31 @@ void main() {
         jsonEncode({'type': 'get', 'id': 'nope', 'name': 'secrets'}),
       );
       expect((await refused)['ok'], false);
+    },
+  );
+
+  test(
+    'camera choices push to an open admin without a settings write',
+    () async {
+      final client = await connect();
+      await subscribe(client, ['settings']);
+      final update = matching(client.messages, (m) => m['type'] == 'settings');
+      settings.updateCameraStreamingCapabilities(
+        CameraStreamingCapabilities.fromJson({
+          'withAnalysis': ['320x240', '640x480', '1280x720'],
+          'withoutAnalysis': ['320x240', '640x480', '1280x720', '1920x1080'],
+          'encoderRejected': <String>[],
+          'captureRejected': <String>[],
+        }),
+      );
+      final entries = (await update)['settings'] as List;
+      expect(entries, hasLength(1));
+      expect(entries.single['key'], defs.cameraRtspResolution.key);
+      expect(entries.single['options'], ['320x240', '640x480', '1280x720']);
+      expect(entries.single['optionLabels']['1280x720'], '1280 × 720');
+      expect(entries.single['value'], '640x480');
+      expect(entries.single['notice'], contains('Turn off Motion analysis'));
+      expect(entries.single['notice'], contains('1920 × 1080'));
     },
   );
 

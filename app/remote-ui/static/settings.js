@@ -2471,6 +2471,15 @@ export function updateRtspRows() {
   clearInterval(window.__rtspTimer);
   const panel = document.querySelector('#tab-camera .subpage[data-subpage="RTSP & ONVIF Streaming"]');
   panel?.querySelectorAll('.rtsp-status').forEach((row) => row.remove());
+  panel?.querySelector('.rtsp-resolution-notice')?.remove();
+  const resolution = state.settings.find((s) => s.key === 'camera.rtsp.resolution');
+  const resolutionRow = panel?.querySelector('[data-key="camera.rtsp.resolution"]');
+  if (resolutionRow && resolution?.notice && state.settings.find((s) => s.key === 'camera.rtsp.enabled')?.value) {
+    const notice = readOnlyRow('Resolution support', resolution.notice, '');
+    notice.lastElementChild.remove();
+    notice.classList.add('rtsp-resolution-notice');
+    resolutionRow.after(notice);
+  }
   const protocol = state.settings.find((s) => s.key === 'camera.rtsp.protocol')?.value || 'rtsp';
   const onvif = protocol === 'onvif';
   const port = panel?.querySelector(`[data-key="${onvif ? 'camera.onvif.port' : 'camera.rtsp.port'}"]`);
@@ -2510,8 +2519,11 @@ export function updateRtspRows() {
       : st.error ? 'Unavailable' : !st.listening ? 'Stopped' : active ? 'Streaming' : 'Idle';
     status.querySelector('.desc').textContent = !st ? 'Stream status unavailable.'
       : st.error || (!st.listening ? 'Listener is stopped.'
-        : active ? `${st.clients} connected ${st.clients === 1 ? 'viewer' : 'viewers'}. ${st.resolution || ''}`.trim()
+        : active ? `${st.clients} connected ${st.clients === 1 ? 'viewer' : 'viewers'}. Actual video: ${st.resolution || ''}.`
         : 'Ready. The encoder starts when a viewer connects.');
+    if (st?.resolutionFallback) {
+      status.querySelector('.desc').textContent += ` Requested ${st.requestedResolution}, camera supplied ${st.captureResolution}.`;
+    }
     if (st?.audioEnabled) {
       status.querySelector('.desc').textContent += st.audioError ? ` Audio: ${st.audioError}`
         : st.audioSuspended ? ' Audio paused while the browser uses the microphone.'

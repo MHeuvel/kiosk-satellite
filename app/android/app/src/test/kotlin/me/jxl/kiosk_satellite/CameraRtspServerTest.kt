@@ -10,6 +10,33 @@ import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.TimeUnit
 
 class CameraRtspServerTest {
+    @Test fun videoSettingsKeepThePortAndRequestFreshFramesOnReconnect() {
+        val demand = LinkedBlockingQueue<Boolean>()
+        val server = server(demand)
+        try {
+            val port = server.localPort
+            Peer(port).use { peer ->
+                val response = java.util.concurrent.CompletableFuture.supplyAsync { peer.request("DESCRIBE") }
+                assertEquals(true, demand.poll(2, TimeUnit.SECONDS))
+                server.config(listOf(sps, pps))
+                assertTrue(response.get(2, TimeUnit.SECONDS).startsWith("RTSP/1.0 200"))
+                server.reconfigureVideo(1280, 720, 25, 2_000_000)
+                assertTrue(server.listening)
+                assertEquals(port, server.localPort)
+                assertEquals(false, demand.poll(1, TimeUnit.SECONDS))
+                assertFalse(server.demand)
+                assertTrue(server.clientDetails.isEmpty())
+            }
+            Peer(port).use { peer ->
+                val response = java.util.concurrent.CompletableFuture.supplyAsync { peer.request("DESCRIBE") }
+                assertEquals(true, demand.poll(2, TimeUnit.SECONDS))
+                assertFalse(response.isDone)
+                server.config(listOf(sps, pps))
+                assertTrue(response.get(2, TimeUnit.SECONDS).startsWith("RTSP/1.0 200"))
+            }
+        } finally { server.close() }
+    }
+
     @Test fun captureFallbackKeepsTheWaitingDescribeClient() {
         val demand = LinkedBlockingQueue<Boolean>()
         val server = server(demand)

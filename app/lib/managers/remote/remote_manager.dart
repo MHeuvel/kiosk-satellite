@@ -1172,6 +1172,7 @@ class RemoteManager extends Manager {
     // the player when it starts or stops. The few settings a status
     // command reads straight from the store are named here.
     final topics = switch (event) {
+      SettingOptionsChanged() => {'settings'},
       SettingChanged(:final key) => {
         'settings',
         // The Voice Satellite cards re-read the controlled entities on
@@ -1226,6 +1227,9 @@ class RemoteManager extends Manager {
     };
     _pendingTopics.addAll(topics.where(_hasTopic));
     if (event is SettingChanged && _hasTopic('settings')) {
+      _pendingSettings.add(event.key);
+    }
+    if (event is SettingOptionsChanged && _hasTopic('settings')) {
       _pendingSettings.add(event.key);
     }
     if (_pendingTopics.isEmpty || _updatesTimer != null) return;

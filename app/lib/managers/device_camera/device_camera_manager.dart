@@ -11,6 +11,7 @@ import '../settings/definitions.dart' as defs;
 import '../motion/vision_support.dart';
 import '../settings/settings_manager.dart';
 import 'native_camera.dart';
+import 'camera_resolutions.dart';
 
 /// The device's own camera as a Home Assistant feature (discussion #72).
 ///
@@ -37,6 +38,58 @@ class DeviceCameraManager extends Manager {
 
   Timer? _timer;
   bool _capturing = false;
+  bool _disposed = false;
+  int _resolutionProbe = 0;
+  Timer? _resolutionNormalization;
+
+  Future<List<String>> refreshStreamResolutions() async {
+    final probe = ++_resolutionProbe;
+    final facing = _settings.get(defs.cameraDevice);
+    final (snapshotWidth, snapshotHeight) = snapshotResolution(
+      _settings.get(defs.cameraSnapshotResolution),
+    );
+    try {
+      final capabilities = await NativeCamera.streamCapabilities({
+        'camera': facing,
+        'fps': _settings.get(defs.cameraRtspFps).toInt().clamp(5, 30),
+        'bitrate':
+            _settings.get(defs.cameraRtspBitrate).toInt().clamp(100, 8000) *
+            1000,
+        'snapshotWidth': snapshotWidth,
+        'snapshotHeight': snapshotHeight,
+      });
+      if (_disposed ||
+          probe != _resolutionProbe ||
+          facing != _settings.get(defs.cameraDevice)) {
+        return const [];
+      }
+      _settings.updateCameraStreamingCapabilities(capabilities);
+      await _normalizeStreamResolution();
+      return _settings.cameraStreamResolutions ?? const [];
+    } catch (e) {
+      log.debug(name, 'Camera resolutions unavailable: $e');
+      return const [];
+    }
+  }
+
+  Future<void> _normalizeStreamResolution() async {
+    if (_disposed) return;
+    // A backup can change the facing after the size. Wait for the whole batch.
+    if (_settings.importing) {
+      _resolutionNormalization?.cancel();
+      _resolutionNormalization = Timer(const Duration(milliseconds: 1100), () {
+        unawaited(_normalizeStreamResolution());
+      });
+      return;
+    }
+    final sizes = _settings.cameraStreamResolutions;
+    if (sizes == null || sizes.isEmpty) return;
+    final current = _settings.get(defs.cameraRtspResolution);
+    final selected = closestCameraResolution(current, sizes);
+    if (selected != current) {
+      await _settings.set(defs.cameraRtspResolution, selected);
+    }
+  }
 
   /// The last motion tick (any tick, not just ones that shot): the gap
   /// since it is what defines a new motion session.
@@ -115,8 +168,27 @@ class DeviceCameraManager extends Manager {
     unawaited(cameraFacings());
     unawaited(visionSupport());
 
+    bus.on<ActivityAttached>().listen((_) {
+      if (!_disposed) unawaited(refreshStreamResolutions());
+    });
+
     bus.on<SettingChanged>().listen((e) {
+      if (_disposed) return;
       if (!e.key.startsWith('camera.')) return;
+      if (e.key == defs.cameraDevice.key ||
+          e.key == defs.cameraRtspFps.key ||
+          e.key == defs.cameraRtspBitrate.key ||
+          e.key == defs.cameraSnapshotResolution.key) {
+        _settings.updateCameraStreamingCapabilities(null);
+        unawaited(refreshStreamResolutions());
+      } else if (e.key == defs.cameraRtspAnalysis.key) {
+        _settings.refreshCameraStreamingMode();
+        unawaited(_normalizeStreamResolution());
+      } else if (e.key == defs.cameraRtspResolution.key) {
+        unawaited(_normalizeStreamResolution());
+      } else if (e.key == defs.cameraEnabled.key && e.value == true) {
+        unawaited(refreshStreamResolutions());
+      }
       // This switch only gates detection captures. Changing it must not
       // restart the continuous timer and take an immediate snapshot.
       if (e.key == defs.cameraDisableDetectionSnapshots.key) return;
@@ -177,6 +249,16 @@ class DeviceCameraManager extends Manager {
 
     commands.register(
       Command(
+        name: 'getCameraStreamResolutions',
+        description:
+            'Streaming sizes supported by the camera, encoder and selected analysis mode.',
+        handler: (_) async =>
+            CommandResult.ok(await refreshStreamResolutions()),
+      ),
+    );
+
+    commands.register(
+      Command(
         name: 'getVisionSupport',
         description:
             'Whether face detection and hand gestures can run on this '
@@ -197,6 +279,7 @@ class DeviceCameraManager extends Manager {
       ),
     );
 
+    await refreshStreamResolutions();
     _syncTimer();
   }
 
@@ -319,6 +402,8 @@ class DeviceCameraManager extends Manager {
 
   @override
   Future<void> dispose() async {
+    _disposed = true;
+    _resolutionNormalization?.cancel();
     _timer?.cancel();
     _timer = null;
   }

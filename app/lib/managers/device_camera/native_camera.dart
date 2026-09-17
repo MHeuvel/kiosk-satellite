@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'camera_resolutions.dart';
 
 /// Dart side of the native snapshot bridge (`DeviceCamera.kt`).
 ///
@@ -7,6 +8,19 @@ import 'package:flutter/services.dart';
 /// otherwise the camera is opened, read once, and released.
 class NativeCamera {
   static const _channel = MethodChannel('kiosk_satellite/camera');
+
+  static Future<CameraStreamingCapabilities> streamCapabilities(
+    Map<String, Object> config,
+  ) async {
+    final result = await _channel.invokeMapMethod<Object?, Object?>(
+      'streamCapabilities',
+      config,
+    );
+    if (result == null) {
+      throw const FormatException('Camera capabilities unavailable');
+    }
+    return CameraStreamingCapabilities.fromJson(result);
+  }
 
   /// A JPEG still from [camera] ('front' or 'back'), aimed at
   /// [width]x[height] (CameraX lands on the nearest size the hardware
@@ -17,12 +31,11 @@ class NativeCamera {
     required String camera,
     required int width,
     required int height,
-  }) =>
-      _channel.invokeMethod<Uint8List>('snapshot', {
-        'camera': camera,
-        'width': width,
-        'height': height,
-      });
+  }) => _channel.invokeMethod<Uint8List>('snapshot', {
+    'camera': camera,
+    'width': width,
+    'height': height,
+  });
 
   /// Whether the device has any camera at all. False on hardware whose ROM
   /// ships no camera HAL (LineageOS ports on Echo Shows).
@@ -32,9 +45,16 @@ class NativeCamera {
   /// The lens facings the device offers ('front'/'back'). Probed through
   /// Camera2 directly, so it answers even where CameraX cannot initialize.
   static Future<List<String>> facings() async =>
-      (await _channel.invokeMethod<List<Object?>>('facings'))
-          ?.whereType<String>()
-          .toList() ??
+      (await _channel.invokeMethod<List<Object?>>(
+        'facings',
+      ))?.whereType<String>().toList() ??
+      const [];
+
+  /// Sizes available to the selected camera's video surface, without opening it.
+  static Future<List<String>> streamResolutions(String camera) async =>
+      (await _channel.invokeListMethod<String>('streamResolutions', {
+        'camera': camera,
+      })) ??
       const [];
 }
 
@@ -45,7 +65,7 @@ class NativeCamera {
 /// whichever way a frame is taken. Unknown values (a downgrade, an edited
 /// import) fall back to the default tier.
 (int, int) snapshotResolution(String value) => switch (value) {
-      '720' => (960, 720),
-      '1080' => (1440, 1080),
-      _ => (640, 480),
-    };
+  '720' => (960, 720),
+  '1080' => (1440, 1080),
+  _ => (640, 480),
+};

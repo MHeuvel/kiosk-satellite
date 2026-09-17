@@ -13,10 +13,10 @@ import org.w3c.dom.Element
 
 /** Read-only ONVIF device and Media1 services for the shared camera stream. */
 class CameraOnvifService(
-    private val width: Int,
-    private val height: Int,
-    private val fps: Int,
-    private val bitrate: Int,
+    private var width: Int,
+    private var height: Int,
+    private var fps: Int,
+    private var bitrate: Int,
     private val audio: Boolean,
     private val username: String?,
     private val password: String,
@@ -33,7 +33,14 @@ class CameraOnvifService(
     private val scopes = scopes(name)
     private val usedTokens = mutableMapOf<String, Long>()
 
-    fun respond(path: String, bytes: ByteArray, host: String, port: Int): Response {
+    @Synchronized fun updateVideo(width: Int, height: Int, fps: Int, bitrate: Int) {
+        this.width = width
+        this.height = height
+        this.fps = fps
+        this.bitrate = bitrate
+    }
+
+    @Synchronized fun respond(path: String, bytes: ByteArray, host: String, port: Int): Response {
         if (path !in listOf("/onvif/device_service", "/onvif/media_service")) {
             return Response("404 Not Found", "")
         }

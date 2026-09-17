@@ -56,6 +56,9 @@ export async function updateNoCameraNotice() {
    present regardless of the stored value. */
 export async function updateCameraFacingsRow() {
   if (state.cameraPresent === false) return;
+  try {
+    await api('/api/commands/getCameraStreamResolutions', { method: 'POST', body: '{}' });
+  } catch (_) {}
   if (state.cameraFacings === undefined) {
     try {
       const res = await (await api('/api/commands/getCameraFacings', { method: 'POST', body: '{}' })).json();

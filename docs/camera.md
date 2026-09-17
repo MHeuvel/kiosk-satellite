@@ -98,11 +98,14 @@ Tap the **Stream URL** or **ONVIF URL** field below **Port** to copy it. Only th
 | --- | --- | --- |
 | Streaming protocol | RTSP | Choose RTSP or ONVIF. Each protocol remembers its own port. Video, audio and authentication settings are shared. |
 | Port | RTSP: 8554, ONVIF: 8080 | The port for the selected protocol. Choose a free port from 1024 to 65535. Switching protocols restores its saved port. |
-| Resolution | 480p | 480p, 720p or 1080p. Android picks the closest supported size. Video uses the camera sensor's orientation. |
+| Resolution | 640 × 480, or the closest available size | Sizes supported by the camera capture mode and H.264 encoder at the selected frame rate and bitrate. Video follows the device orientation. Stream Status reports the actual video size. |
+| Motion analysis while streaming | on | Turning this off pauses camera detection during streaming and takes snapshots from video frames. The notice under Resolution lists any additional sizes this allows. |
 | Frame rate | 10 fps | Target rate from 5 to 30 fps. Actual delivery depends on the hardware and lighting. |
 | Bitrate | 500 kbps | Target H.264 bitrate from 100 to 8000 kbps. |
 | Include microphone audio | off | Add 16 kHz mono AAC audio at 32 kbps. Continues when Voice Satellite is muted or Lockdown Mode is on. |
 | Require authentication | off | Reveals Username and Password. Both must be set before an authenticated listener starts. |
+
+Resolution stays local to each device because cameras in a fleet can support different sizes. Existing preset values and imported sizes map to the closest supported streaming size.
 
 Use RTSP over TCP in your viewer. The stream contains H.264 video and optional AAC microphone audio. For go2rtc, add the URL as a stream source. Frigate can record the H.264 stream without transcoding it. Authentication uses RTSP Digest. Enter the credentials in your client or use `rtsp://USERNAME:PASSWORD@DEVICE_IP:8554/camera`, with URL encoding for special characters.
 
@@ -116,7 +119,11 @@ Microphone audio shares the capture used by native wake word detection and voice
 
 RTSP audio is independent of Voice Satellite mute and Lockdown Mode. Turn off **Include microphone audio** or RTSP Streaming to stop broadcasting the microphone. Android microphone permission still applies. While the dashboard captures audio through the browser, native capture yields and RTSP audio pauses. It resumes after the browser releases its last microphone track. Native voice interactions continue sharing capture without pausing RTSP audio. **Stream Status** reports audio activity, browser pauses and audio errors separately from video.
 
-Motion and face detection keep their own analysis rates. A voice interaction pauses that analysis while video continues. Snapshots share the same camera session. Hardware that cannot supply all three outputs reports a streaming error and preserves motion and snapshots. Changing the camera or video settings disconnects viewers so they can reconnect with the new configuration.
+Motion and face detection keep their own analysis rates. A voice interaction pauses that analysis while video continues. Snapshots share the same camera session. Capture recovery can reduce the video size or use analysis frames for snapshots if the camera fails to start. Changing the camera or video settings disconnects viewers so they can reconnect with the new configuration.
+
+The resolution list includes sizes the camera can supply in the selected capture mode and an H.264 encoder can handle at the current frame rate and bitrate. Checking these combinations does not open another camera session or interrupt a live stream. The notice below Resolution explains encoder exclusions and lists any additional sizes available with **Motion analysis while streaming** turned off. Camera sensor sizes alone do not guarantee that the device can encode video at those sizes.
+
+**Motion analysis while streaming** is on by default. Turning it off pauses motion detection, face detection and hand gestures while viewers are connected. KS uses a single video output and takes snapshots from those video frames at the streaming resolution. Detection resumes after the streaming session ends. This can unlock larger resolutions on devices whose encoders support them. It does not bypass encoder limits. Changing this mode refreshes the choices and maps an unavailable saved resolution to the closest supported size. Resolution and analysis mode are local to each device and excluded from fleet sync.
 
 The status row reports startup errors and the actual encoded resolution. Screen-off support follows the device's Android camera restrictions. A device that refuses camera access while dark may need to wake before a new viewer can connect.
 

@@ -4065,16 +4065,31 @@ const cameraOnvifPort = SettingDef<num>(
 const cameraRtspResolution = SettingDef<String>(
   key: 'camera.rtsp.resolution',
   type: SettingType.select,
-  defaultValue: '480',
+  defaultValue: '640x480',
   title: 'Resolution',
   description:
-      'Video follows the device orientation. Android selects the closest supported size.',
+      'Supported streaming sizes for the selected camera and encoder. Video follows the device orientation.',
   category: 'Camera',
   section: 'RTSP & ONVIF Streaming',
   subpage: 'RTSP & ONVIF Streaming',
   dependsOn: 'camera.rtsp.enabled',
-  options: ['480', '720', '1080'],
-  optionLabels: {'480': '480p', '720': '720p', '1080': '1080p'},
+  options: [],
+  optionLabels: {},
+  perDevice: true,
+);
+
+const cameraRtspAnalysis = SettingDef<bool>(
+  key: 'camera.rtsp.analysis',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Motion analysis while streaming',
+  description:
+      'Keep motion detection, face detection and hand gestures available while viewers are connected. Turning this off can allow higher resolutions. Snapshots then use video frames at the streaming resolution.',
+  category: 'Camera',
+  section: 'RTSP & ONVIF Streaming',
+  subpage: 'RTSP & ONVIF Streaming',
+  dependsOn: 'camera.rtsp.enabled',
+  perDevice: true,
 );
 
 const cameraRtspFps = SettingDef<num>(
@@ -7676,6 +7691,7 @@ const List<SettingDef<Object>> allSettings = [
   cameraRtspPort,
   cameraOnvifPort,
   cameraRtspResolution,
+  cameraRtspAnalysis,
   cameraRtspFps,
   cameraRtspBitrate,
   cameraRtspAudio,

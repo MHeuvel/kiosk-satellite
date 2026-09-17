@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/command_registry.dart';
 import '../../core/events.dart';
 import '../../core/manager.dart';
+import '../device_camera/camera_resolutions.dart';
 import 'definitions.dart';
 
 export 'definitions.dart';
@@ -20,21 +21,63 @@ class SettingsManager extends Manager {
 
   /// Live renderer names, supplied by the plugin runtime without persisting HTML.
   Map<String, String> Function() pluginScreensavers = () => const {};
-  List<String> optionsFor(SettingDef<Object> def) => [
-    ...?def.options,
-    if (def.key == screensaverMode.key) ...{
-      ...pluginScreensavers().keys,
-      if (isPluginScreensaver(get(def))) get(def) as String,
-    },
-  ];
+  List<String>? _cameraStreamResolutions;
+  List<String>? get cameraStreamResolutions => _cameraStreamResolutions;
+  CameraStreamingCapabilities? _cameraStreamingCapabilities;
+  String get cameraResolutionNotice =>
+      _cameraStreamingCapabilities?.notice(get(cameraRtspAnalysis)) ??
+      'Checking camera and H.264 encoder support...';
+
+  void updateCameraStreamingCapabilities(
+    CameraStreamingCapabilities? capabilities,
+  ) {
+    final previousNotice = cameraResolutionNotice;
+    final previousSizes = _cameraStreamResolutions?.join(',');
+    _cameraStreamingCapabilities = capabilities;
+    _cameraStreamResolutions = capabilities == null
+        ? null
+        : List.unmodifiable(capabilities.sizes(get(cameraRtspAnalysis)));
+    if (previousNotice != cameraResolutionNotice ||
+        previousSizes != _cameraStreamResolutions?.join(',')) {
+      bus.publish(SettingOptionsChanged(cameraRtspResolution.key));
+    }
+  }
+
+  void refreshCameraStreamingMode() {
+    _cameraStreamResolutions = _cameraStreamingCapabilities == null
+        ? null
+        : List.unmodifiable(
+            _cameraStreamingCapabilities!.sizes(get(cameraRtspAnalysis)),
+          );
+    bus.publish(SettingOptionsChanged(cameraRtspResolution.key));
+  }
+
+  void updateCameraStreamResolutions(List<String>? sizes) {
+    if (_cameraStreamResolutions?.join(',') == sizes?.join(',')) return;
+    _cameraStreamResolutions = sizes == null ? null : List.unmodifiable(sizes);
+    bus.publish(SettingOptionsChanged(cameraRtspResolution.key));
+  }
+
+  List<String> optionsFor(SettingDef<Object> def) =>
+      def.key == cameraRtspResolution.key
+      ? _cameraStreamResolutions ?? const []
+      : [
+          ...?def.options,
+          if (def.key == screensaverMode.key) ...{
+            ...pluginScreensavers().keys,
+            if (isPluginScreensaver(get(def))) get(def) as String,
+          },
+        ];
   String? optionLabel(SettingDef<Object> def, String value) =>
-      def.optionLabels?[value] ??
-      (def.key == screensaverMode.key
-          ? pluginScreensavers()[value] ??
-                (isPluginScreensaver(value)
-                    ? 'Unavailable plugin screensaver'
-                    : null)
-          : null);
+      def.key == cameraRtspResolution.key
+      ? cameraResolutionLabel(value)
+      : def.optionLabels?[value] ??
+            (def.key == screensaverMode.key
+                ? pluginScreensavers()[value] ??
+                      (isPluginScreensaver(value)
+                          ? 'Unavailable plugin screensaver'
+                          : null)
+                : null);
 
   static const _prefix = 'ks.';
 
@@ -471,6 +514,8 @@ class SettingsManager extends Manager {
       case SettingType.select
           when value is String &&
               (optionsFor(def).contains(value) ||
+                  (def.key == cameraRtspResolution.key &&
+                      isCameraStreamResolution(value)) ||
                   (def.key == screensaverMode.key &&
                       isPluginScreensaver(value))):
         await set(def, value, source: source);
@@ -529,9 +574,14 @@ class SettingsManager extends Manager {
         if (def.multiline) 'multiline': true,
         if (def.placeholder != null) 'placeholder': def.placeholder,
         if (def.options != null) 'options': optionsFor(def),
+        if (def.key == cameraRtspResolution.key)
+          'notice': cameraResolutionNotice,
         if (def.optionLabels != null)
           'optionLabels': {
             ...?def.optionLabels,
+            if (def.key == cameraRtspResolution.key)
+              for (final size in optionsFor(def))
+                size: cameraResolutionLabel(size),
             if (def.key == screensaverMode.key) ...pluginScreensavers(),
             if (def.key == screensaverMode.key &&
                 isPluginScreensaver(get(def)) &&

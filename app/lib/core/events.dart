@@ -865,6 +865,12 @@ class SettingChanged extends AppEvent {
   final Object? previous;
 }
 
+/// Available choices changed without a settings write.
+class SettingOptionsChanged extends AppEvent {
+  const SettingOptionsChanged(this.key);
+  final String key;
+}
+
 /// Internal plugin entity changes. These do not enter dashboard JavaScript.
 class PluginEntityCatalogChanged extends AppEvent {
   const PluginEntityCatalogChanged();

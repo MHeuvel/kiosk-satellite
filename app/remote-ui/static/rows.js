@@ -1489,6 +1489,12 @@ export function settingRow(s) {
   } else if (s.type === 'select') {
     const sel = document.createElement('select');
     let opts = s.options || [];
+    if (s.key === 'camera.rtsp.resolution' && !opts.length) {
+      const opt = document.createElement('option');
+      opt.textContent = 'No supported sizes available';
+      sel.appendChild(opt);
+      sel.disabled = true;
+    }
     if (s.key === 'screensaver.mode' && !state.haConfigured)
       opts = opts.filter((o) => o !== 'media');
     opts.forEach((o) => {

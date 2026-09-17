@@ -2,6 +2,12 @@ package me.jxl.kiosk_satellite
 
 import kotlin.math.abs
 
+/** Video changes need new parameter sets but keep the same listening endpoint. */
+internal fun sameRtspEndpoint(previous: Map<*, *>, next: Map<*, *>): Boolean {
+    val videoKeys = setOf("width", "height", "fps", "bitrate", "camera", "analysis")
+    return previous.filterKeys { it !in videoKeys } == next.filterKeys { it !in videoKeys }
+}
+
 /** Select an advertised sensor range, never a fabricated fixed frame rate. */
 internal fun streamingFpsRange(ranges: List<IntRange>, target: Int): IntRange? =
     ranges.minWithOrNull(compareBy<IntRange>(

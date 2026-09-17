@@ -9,6 +9,7 @@ import '../../core/events.dart';
 import '../../core/manager.dart';
 import '../../core/permissions.dart';
 import '../device_camera/native_camera.dart' show snapshotResolution;
+import '../device_camera/camera_resolutions.dart';
 import '../gestures/gesture_mappings.dart';
 import '../settings/definitions.dart' as defs;
 import '../settings/settings_manager.dart';
@@ -98,11 +99,13 @@ class MotionManager extends Manager {
       _settings.get(defs.cameraRtspEnabled);
 
   void _configureRtsp({bool force = false}) {
-    final (width, height) = snapshotResolution(
+    final (width, height) = cameraStreamResolution(
       _settings.get(defs.cameraRtspResolution),
     );
     final config = <String, Object>{
       'enabled': _rtspEnabled,
+      'camera': _settings.get(defs.cameraDevice),
+      'analysis': _settings.get(defs.cameraRtspAnalysis),
       'protocol': _settings.get(defs.cameraStreamingProtocol),
       'name': _settings.get(defs.deviceName),
       'audio': _settings.get(defs.cameraRtspAudio),
@@ -493,6 +496,8 @@ class MotionManager extends Manager {
     // can start it without a pause.
     bus.on<SettingChanged>().listen((e) {
       if (e.key.startsWith('camera.rtsp.') ||
+          e.key == defs.cameraDevice.key ||
+          e.key == defs.cameraSnapshotResolution.key ||
           e.key == defs.cameraOnvifPort.key ||
           e.key == defs.deviceName.key ||
           e.key == defs.cameraEnabled.key) {

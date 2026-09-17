@@ -10,6 +10,21 @@ import android.util.Size
 import android.view.Surface
 import kotlin.concurrent.thread
 
+internal fun h264SurfaceFormat(size: Size, fps: Int, bitrate: Int): MediaFormat =
+    MediaFormat.createVideoFormat("video/avc", size.width, size.height).apply {
+        setInteger(MediaFormat.KEY_COLOR_FORMAT, MediaCodecInfo.CodecCapabilities.COLOR_FormatSurface)
+        setInteger(MediaFormat.KEY_BIT_RATE, bitrate)
+        setInteger(MediaFormat.KEY_FRAME_RATE, fps)
+        setInteger(MediaFormat.KEY_I_FRAME_INTERVAL, 1)
+    }
+
+internal fun h264SurfaceEncoders(format: MediaFormat): List<MediaCodecInfo> =
+    MediaCodecList(MediaCodecList.REGULAR_CODECS).codecInfos.filter { info ->
+        info.isEncoder && info.supportedTypes.any { it.equals("video/avc", true) } &&
+            try { info.getCapabilitiesForType("video/avc").isFormatSupported(format) }
+            catch (_: Exception) { false }
+    }
+
 /** One surface encoder and graphics bridge shared by every RTSP viewer. */
 class CameraRtspEncoder(
     private val fps: Int,
@@ -30,6 +45,8 @@ class CameraRtspEncoder(
         private set
     var actualSize = ""
         private set
+    var captureSize: Size? = null
+        private set
     var software = false
         private set
 
@@ -37,20 +54,11 @@ class CameraRtspEncoder(
         check(codec == null)
         val (width, height) = transform.outputDimensions(inputSize.width, inputSize.height)
         val size = Size(width, height)
-        fun format() = MediaFormat.createVideoFormat("video/avc", size.width, size.height).apply {
-            setInteger(MediaFormat.KEY_COLOR_FORMAT, MediaCodecInfo.CodecCapabilities.COLOR_FormatSurface)
-            setInteger(MediaFormat.KEY_BIT_RATE, bitrate)
-            setInteger(MediaFormat.KEY_FRAME_RATE, fps)
-            setInteger(MediaFormat.KEY_I_FRAME_INTERVAL, 1)
-        }
+        fun format() = h264SurfaceFormat(size, fps, bitrate)
         fun hardware(info: MediaCodecInfo): Boolean =
             if (Build.VERSION.SDK_INT >= 29) info.isHardwareAccelerated
             else !info.name.startsWith("OMX.google.") && !info.name.startsWith("c2.android.")
-        val candidates = MediaCodecList(MediaCodecList.REGULAR_CODECS).codecInfos.filter { info ->
-            info.isEncoder && info.supportedTypes.any { it.equals("video/avc", true) } &&
-                try { info.getCapabilitiesForType("video/avc").isFormatSupported(format()) }
-                catch (_: Exception) { false }
-        }.sortedBy { if (hardware(it)) 0 else 1 }
+        val candidates = h264SurfaceEncoders(format()).sortedBy { if (hardware(it)) 0 else 1 }
         var lastFailure: Exception? = null
         for (chosen in candidates) {
             var attempt: MediaCodec? = null
@@ -69,6 +77,7 @@ class CameraRtspEncoder(
                 graphics = bridge
                 codecName = chosen.name
                 actualSize = "${size.width}x${size.height}"
+                captureSize = inputSize
                 software = !hardware(chosen)
                 CameraDiagnostics.record(diagnosticSession, "encoder selected",
                     "codec=$codecName, software=$software, resolution=$size, fps=$fps, bitrate=$bitrate, cameraInput=SurfaceTexture")
@@ -90,6 +99,12 @@ class CameraRtspEncoder(
 
     internal fun updateTransform(transform: RtspVideoTransform) {
         graphics?.updateTransform(transform)
+    }
+
+    internal fun snapshot(done: (ByteArray?, String?) -> Unit) {
+        val bridge = graphics
+        if (bridge == null) done(null, "Video is not ready for a snapshot")
+        else bridge.snapshot(done)
     }
 
     fun keyFrame() {

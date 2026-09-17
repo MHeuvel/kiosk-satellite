@@ -109,6 +109,41 @@ void main() {
   });
 
   test(
+    'exact camera dimensions and facing reach the native stream configuration',
+    () async {
+      await settings.setFromJson(defs.cameraRtspResolution.key, '1280x720');
+      await settle();
+      expect(configurations.last['width'], 1280);
+      expect(configurations.last['height'], 720);
+      await settings.set(defs.cameraDevice, 'back');
+      await settle();
+      expect(configurations.last['camera'], 'back');
+      await settings.setFromJson(defs.cameraRtspResolution.key, '720x1280');
+      await settle();
+      expect(configurations.last['width'], 720);
+      expect(configurations.last['height'], 1280);
+    },
+  );
+
+  test(
+    'analysis mode reaches native streaming without disabling detection settings',
+    () async {
+      await settings.set(defs.motionSensor, true);
+      await settle();
+      expect(configurations.last['analysis'], true);
+      await settings.set(defs.cameraRtspAnalysis, false);
+      await settle();
+      expect(configurations.last['analysis'], false);
+      expect(settings.get(defs.motionSensor), true);
+      await demand(true);
+      expect(stream?['rtsp'], true);
+      await demand(false);
+      expect(stream?['rtsp'], false);
+      expect(stream?['motion'], true);
+    },
+  );
+
+  test(
     'protocols keep separate ports while sharing the other stream settings',
     () async {
       expect(configurations.last['protocol'], 'rtsp');

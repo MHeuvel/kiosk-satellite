@@ -47,6 +47,17 @@ class CameraOnvifServiceTest {
         CameraOnvifService.parse(on.toByteArray())
     }
 
+    @Test fun videoChangesUpdateTheExistingOnvifProfile() {
+        val service = service()
+        service.updateVideo(1920, 1080, 25, 2_000_000)
+        val profile = response(service, "<trt:GetProfiles/>").body
+        assertTrue(profile.contains("<tt:Width>1920</tt:Width>"))
+        assertTrue(profile.contains("<tt:Height>1080</tt:Height>"))
+        assertTrue(profile.contains("<tt:FrameRateLimit>25</tt:FrameRateLimit>"))
+        assertTrue(profile.contains("<tt:BitrateLimit>2000</tt:BitrateLimit>"))
+        assertTrue(response(service, "<trt:GetVideoSources/>").body.contains("<tt:Width>1920</tt:Width>"))
+    }
+
     @Test fun deviceServicesAndStreamUseTheSharedPort() {
         val s = service()
         val services = response(s, "<tds:GetServices><tds:IncludeCapability>true</tds:IncludeCapability></tds:GetServices>")

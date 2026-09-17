@@ -4,6 +4,15 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class CameraCapturePolicyTest {
+    @Test fun videoSettingsCanReuseTheListenerButEndpointChangesCannot() {
+        val config = mapOf("enabled" to true, "port" to 8554, "protocol" to "rtsp", "width" to 640, "height" to 480)
+        assertTrue(sameRtspEndpoint(config, config + mapOf("width" to 1280, "height" to 720, "camera" to "back")))
+        assertFalse(sameRtspEndpoint(config, config + ("port" to 8555)))
+        assertFalse(sameRtspEndpoint(config, config + ("protocol" to "onvif")))
+        assertFalse(sameRtspEndpoint(config, config + ("password" to "changed")))
+        assertFalse(sameRtspEndpoint(config, config + ("enabled" to false)))
+    }
+
     @Test fun variableSensorRangeIsNotTurnedIntoUnsupportedFixedRate() {
         val ranges = listOf(5..30, 15..30, 30..30)
         assertEquals(5..30, streamingFpsRange(ranges, 10))
