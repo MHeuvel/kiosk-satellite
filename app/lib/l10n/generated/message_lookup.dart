@@ -108,6 +108,179 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'drawerUpdateFailed' => strings.drawerUpdateFailed,
       'drawerUpdates' => strings.drawerUpdates,
       'drawerNoReleaseNotes' => strings.drawerNoReleaseNotes,
+      'fleetFleetManagementNeedsTheRemoteAdmin' =>
+        strings.fleetFleetManagementNeedsTheRemoteAdmin,
+      'fleetKiosksFindEachOtherThroughItTurnOnRemote' =>
+        strings.fleetKiosksFindEachOtherThroughItTurnOnRemote,
+      'fleetLeadThisFleet' => strings.fleetLeadThisFleet,
+      'fleetSyncThisKioskSSettingsToItsFollowersRequires' =>
+        strings.fleetSyncThisKioskSSettingsToItsFollowersRequires,
+      'fleetAKioskThatFollowsALeaderCannotLead' =>
+        strings.fleetAKioskThatFollowsALeaderCannotLead,
+      'fleetFollowers' => strings.fleetFollowers,
+      'fleetProfiles' => strings.fleetProfiles,
+      'fleetLeader' => strings.fleetLeader,
+      'fleetLearnWhichSettingsSyncAndWhichDoNotIn' =>
+        strings.fleetLearnWhichSettingsSyncAndWhichDoNotIn,
+      'fleetFleetManagementDocumentation' =>
+        strings.fleetFleetManagementDocumentation,
+      'fleetMore' => strings.fleetMore,
+      'fleetSearchFollowers' => strings.fleetSearchFollowers,
+      'fleetAddAKiosk' => strings.fleetAddAKiosk,
+      'fleetKiosksMemberOfTheFleetAFollowerMustConfirm' =>
+        strings.fleetKiosksMemberOfTheFleetAFollowerMustConfirm,
+      'fleetSendInvitation' => strings.fleetSendInvitation,
+      'fleetInviteAgain' => strings.fleetInviteAgain,
+      'fleetItStopsFollowingThisKioskAndKeepsItsSettings' =>
+        strings.fleetItStopsFollowingThisKioskAndKeepsItsSettings,
+      'fleetItsSettingsReplaceThisKioskSInTheCategories' =>
+        strings.fleetItsSettingsReplaceThisKioskSInTheCategories,
+      'fleetItsSettingsReplaceThisKioskSInTheCategoriesDetail' =>
+        strings.fleetItsSettingsReplaceThisKioskSInTheCategoriesDetail,
+      'fleetConfirmOnTheKioskItselfTheInvitationIsWaiting' =>
+        strings.fleetConfirmOnTheKioskItselfTheInvitationIsWaiting,
+      'fleetAccept' => strings.fleetAccept,
+      'fleetLookingForOtherKiosks' => strings.fleetLookingForOtherKiosks,
+      'fleetNoOtherKioskFoundOnThisNetworkAKiosk' =>
+        strings.fleetNoOtherKioskFoundOnThisNetworkAKiosk,
+      'fleetLeadsAFleet' => strings.fleetLeadsAFleet,
+      'fleetNoFleetManagement' => strings.fleetNoFleetManagement,
+      'fleetKiosksOnThisNetworkThatDoNotFollowThis' =>
+        strings.fleetKiosksOnThisNetworkThatDoNotFollowThis,
+      'fleetJoinedTheFleet' => strings.fleetJoinedTheFleet,
+      'fleetSettingsFromTheLeaderArriveShortly' =>
+        strings.fleetSettingsFromTheLeaderArriveShortly,
+      'fleetAddAProfile' => strings.fleetAddAProfile,
+      'fleetTheCollectionOfSettingsCredentialsAndExclusionsToSync' =>
+        strings.fleetTheCollectionOfSettingsCredentialsAndExclusionsToSync,
+      'fleetNewProfile' => strings.fleetNewProfile,
+      'fleetProfile' => strings.fleetProfile,
+      'fleetUpdatesOnly' => strings.fleetUpdatesOnly,
+      'fleetNothingSyncsOnlyUpdatesArePushed' =>
+        strings.fleetNothingSyncsOnlyUpdatesArePushed,
+      'fleetThisProfileIsGone' => strings.fleetThisProfileIsGone,
+      'fleetItWasDeletedFromAnotherPage' =>
+        strings.fleetItWasDeletedFromAnotherPage,
+      'fleetName' => strings.fleetName,
+      'fleetRename' => strings.fleetRename,
+      'fleetRenameProfile' => strings.fleetRenameProfile,
+      'fleetWhatItSyncs' => strings.fleetWhatItSyncs,
+      'fleetNothing' => strings.fleetNothing,
+      'fleetKiosksOnThisProfileKeepEverySettingOfTheir' =>
+        strings.fleetKiosksOnThisProfileKeepEverySettingOfTheir,
+      'fleetCategories' => strings.fleetCategories,
+      'fleetCredentials' => strings.fleetCredentials,
+      'fleetNoneTravel' => strings.fleetNoneTravel,
+      'fleetIncludeTheDashboard' => strings.fleetIncludeTheDashboard,
+      'fleetTheStartPageAndTheDefaultDashboard' =>
+        strings.fleetTheStartPageAndTheDefaultDashboard,
+      'fleetExcludedSettings' => strings.fleetExcludedSettings,
+      'fleetOneSettingLeftOut' => strings.fleetOneSettingLeftOut,
+      'fleetNoKiosksAssigned' => strings.fleetNoKiosksAssigned,
+      'fleetAssignThisProfileToAKioskOnTheFleet' =>
+        strings.fleetAssignThisProfileToAKioskOnTheFleet,
+      'fleetDuplicate' => strings.fleetDuplicate,
+      'fleetCloneThisProfileIntoANewOne' =>
+        strings.fleetCloneThisProfileIntoANewOne,
+      'fleetDuplicateProfile' => strings.fleetDuplicateProfile,
+      'fleetDeleteProfile' => strings.fleetDeleteProfile,
+      'fleetNoKioskIsOnIt' => strings.fleetNoKioskIsOnIt,
+      'fleetKiosksOnItGetTheDefaultProfile' =>
+        strings.fleetKiosksOnItGetTheDefaultProfile,
+      'fleetBlackScreens' => strings.fleetBlackScreens,
+      'fleetDefault' => strings.fleetDefault,
+      'fleetNone' => strings.fleetNone,
+      'fleetSearchProfiles' => strings.fleetSearchProfiles,
+      'fleetSyncNow' => strings.fleetSyncNow,
+      'fleetChangedHereWaitingForTheLeader' =>
+        strings.fleetChangedHereWaitingForTheLeader,
+      'fleetWaitingForTheFirstSync' => strings.fleetWaitingForTheFirstSync,
+      'fleetNothingYet' => strings.fleetNothingYet,
+      'fleetNoCredentials' => strings.fleetNoCredentials,
+      'fleetTheDashboard' => strings.fleetTheDashboard,
+      'fleetNoDashboard' => strings.fleetNoDashboard,
+      'fleetTheDashboardDetail' => strings.fleetTheDashboardDetail,
+      'fleetNoDashboardDetail' => strings.fleetNoDashboardDetail,
+      'fleetSyncedFromTheLeader' => strings.fleetSyncedFromTheLeader,
+      'fleetLeaveTheFleet' => strings.fleetLeaveTheFleet,
+      'fleetStopsTheSyncSettingsStayAsTheyAre' =>
+        strings.fleetStopsTheSyncSettingsStayAsTheyAre,
+      'fleetLeaveTheFleetDetail' => strings.fleetLeaveTheFleetDetail,
+      'fleetLeave' => strings.fleetLeave,
+      'fleetJustNow' => strings.fleetJustNow,
+      'fleetDeclinedOnTheKiosk' => strings.fleetDeclinedOnTheKiosk,
+      'fleetWaitingForItsOk' => strings.fleetWaitingForItsOk,
+      'fleetLeftTheFleet' => strings.fleetLeftTheFleet,
+      'fleetInstalling' => strings.fleetInstalling,
+      'fleetSyncing' => strings.fleetSyncing,
+      'fleetErrorUnreachable' => strings.fleetErrorUnreachable,
+      'fleetErrorBadAnswer' => strings.fleetErrorBadAnswer,
+      'fleetErrorThePushFailed' => strings.fleetErrorThePushFailed,
+      'fleetErrorLeadThisFleetIsOff' => strings.fleetErrorLeadThisFleetIsOff,
+      'fleetErrorTheRemoteAdminAndFindOtherKiosksMustBeOn' =>
+        strings.fleetErrorTheRemoteAdminAndFindOtherKiosksMustBeOn,
+      'fleetErrorPickAnotherKiosk' => strings.fleetErrorPickAnotherKiosk,
+      'fleetErrorThatKioskIsNotOnTheNetworkRightNow' =>
+        strings.fleetErrorThatKioskIsNotOnTheNetworkRightNow,
+      'fleetErrorThatKioskDidNotAnswer' =>
+        strings.fleetErrorThatKioskDidNotAnswer,
+      'fleetErrorThatKioskRefusedTheInvitation' =>
+        strings.fleetErrorThatKioskRefusedTheInvitation,
+      'fleetErrorTheDefaultProfileStays' =>
+        strings.fleetErrorTheDefaultProfileStays,
+      'fleetErrorTheUpdatesOnlyProfileStays' =>
+        strings.fleetErrorTheUpdatesOnlyProfileStays,
+      'fleetErrorNoSuchProfile' => strings.fleetErrorNoSuchProfile,
+      'fleetErrorNoSuchFollower' => strings.fleetErrorNoSuchFollower,
+      'fleetErrorNoInvitationIsWaiting' =>
+        strings.fleetErrorNoInvitationIsWaiting,
+      'fleetErrorMalformedInvitation' => strings.fleetErrorMalformedInvitation,
+      'fleetErrorCouldNotMintAToken' => strings.fleetErrorCouldNotMintAToken,
+      'fleetErrorNotAFollowerYet' => strings.fleetErrorNotAFollowerYet,
+      'fleetErrorOffline' => strings.fleetErrorOffline,
+      'fleetErrorUpToDate' => strings.fleetErrorUpToDate,
+      'fleetErrorAlreadyDownloading' => strings.fleetErrorAlreadyDownloading,
+      'fleetErrorDidNotAnswer' => strings.fleetErrorDidNotAnswer,
+      'fleetErrorDidNotTakeTheUpload' => strings.fleetErrorDidNotTakeTheUpload,
+      'fleetUnsupportedBuild' => strings.fleetUnsupportedBuild,
+      'fleetSwitchKiosk' => strings.fleetSwitchKiosk,
+      'fleetKiosksOnThisNetworkWithTheRemoteAdminOn' =>
+        strings.fleetKiosksOnThisNetworkWithTheRemoteAdminOn,
+      'fleetNoOtherKioskFoundOnThisNetworkAKioskDetail' =>
+        strings.fleetNoOtherKioskFoundOnThisNetworkAKioskDetail,
+      'fleetSyncedCredentials' => strings.fleetSyncedCredentials,
+      'fleetTheSettingsOnThisListWillNotBeSynced' =>
+        strings.fleetTheSettingsOnThisListWillNotBeSynced,
+      'fleetNothingLeftOut' => strings.fleetNothingLeftOut,
+      'fleetSyncItAgain' => strings.fleetSyncItAgain,
+      'fleetAddASetting' => strings.fleetAddASetting,
+      'fleetExcludeASetting' => strings.fleetExcludeASetting,
+      'fleetSearchSettings' => strings.fleetSearchSettings,
+      'fleetTheAssignedSatellite' => strings.fleetTheAssignedSatellite,
+      'fleetMicrophoneAndSpeakerDevicesMicGain' =>
+        strings.fleetMicrophoneAndSpeakerDevicesMicGain,
+      'fleetTheDeviceCamera' => strings.fleetTheDeviceCamera,
+      'fleetTheFollowedPlayerTheSendspinPlayerId' =>
+        strings.fleetTheFollowedPlayerTheSendspinPlayerId,
+      'fleetNodeNameMacEncryptionKey' => strings.fleetNodeNameMacEncryptionKey,
+      'fleetThePinIsAlsoSynced' => strings.fleetThePinIsAlsoSynced,
+      'fleetTheKeyUnlessSyncedAsACredential' =>
+        strings.fleetTheKeyUnlessSyncedAsACredential,
+      'fleetNameRemoteAdministrationRendererWorkaroundsScale' =>
+        strings.fleetNameRemoteAdministrationRendererWorkaroundsScale,
+      'fleetHomeAssistantToken' => strings.fleetHomeAssistantToken,
+      'fleetMusicAssistantToken' => strings.fleetMusicAssistantToken,
+      'fleetImmichApiKey' => strings.fleetImmichApiKey,
+      'fleetUpdateTheFleet' => strings.fleetUpdateTheFleet,
+      'fleetUpdateTheWholeFleetToTheKioskSatelliteVersion' =>
+        strings.fleetUpdateTheWholeFleetToTheKioskSatelliteVersion,
+      'fleetKeepFollowersOnThisVersion' =>
+        strings.fleetKeepFollowersOnThisVersion,
+      'fleetAutomaticallyUpdateAllFollowersToTheKioskSatelliteVersion' =>
+        strings.fleetAutomaticallyUpdateAllFollowersToTheKioskSatelliteVersion,
+      'fleetNothingToUpdate' => strings.fleetNothingToUpdate,
+      'fleetUpdating' => strings.fleetUpdating,
+      'fleetSearchUpdates' => strings.fleetSearchUpdates,
       'gestureAction' => strings.gestureAction,
       'gestureNavigate' => strings.gestureNavigate,
       'gestureUrl' => strings.gestureUrl,
@@ -327,6 +500,87 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'mediaGroupReadFailed' => strings.mediaGroupReadFailed,
       'mediaGroupEmpty' => strings.mediaGroupEmpty,
       'mediaSpeakerSelection' => strings.mediaSpeakerSelection,
+      'pluginActions' => strings.pluginActions,
+      'pluginKioskDrawer' => strings.pluginKioskDrawer,
+      'pluginToAssignAGestureOpenGesturesAndChooseRun' =>
+        strings.pluginToAssignAGestureOpenGesturesAndChooseRun,
+      'pluginShowInKioskDrawer' => strings.pluginShowInKioskDrawer,
+      'pluginAlsoAvailableWhileLockedIfTheKioskDrawerIs' =>
+        strings.pluginAlsoAvailableWhileLockedIfTheKioskDrawerIs,
+      'pluginExposeToHomeAssistant' => strings.pluginExposeToHomeAssistant,
+      'pluginAddsAButtonToTheKioskEsphomeDeviceRequires' =>
+        strings.pluginAddsAButtonToTheKioskEsphomeDeviceRequires,
+      'pluginSelectAnEntity' => strings.pluginSelectAnEntity,
+      'pluginPlugin' => strings.pluginPlugin,
+      'pluginEnablePlugins' => strings.pluginEnablePlugins,
+      'pluginPluginsAddAdditionalCommunityDevelopedFeaturesToKioskSatellite' =>
+        strings.pluginPluginsAddAdditionalCommunityDevelopedFeaturesToKioskSatellite,
+      'pluginInstalledPlugins' => strings.pluginInstalledPlugins,
+      'pluginNoPluginsInstalledAddARepositoryToGetStarted' =>
+        strings.pluginNoPluginsInstalledAddARepositoryToGetStarted,
+      'pluginDeveloperTools' => strings.pluginDeveloperTools,
+      'pluginCreateAPlugin' => strings.pluginCreateAPlugin,
+      'pluginLearnHowToCreatePluginsWithTheHelloWorld' =>
+        strings.pluginLearnHowToCreatePluginsWithTheHelloWorld,
+      'pluginThisPluginIsNoLongerInstalled' =>
+        strings.pluginThisPluginIsNoLongerInstalled,
+      'pluginEnablePluginsToRunThisPlugin' =>
+        strings.pluginEnablePluginsToRunThisPlugin,
+      'pluginEnableThisPluginFromItsEntryRowToRun' =>
+        strings.pluginEnableThisPluginFromItsEntryRowToRun,
+      'pluginThisRemovesThePluginAndItsSettings' =>
+        strings.pluginThisRemovesThePluginAndItsSettings,
+      'pluginUninstall' => strings.pluginUninstall,
+      'pluginNoUpdatesAvailable' => strings.pluginNoUpdatesAvailable,
+      'pluginThisPluginWasInstalledFromZipAndHasNo' =>
+        strings.pluginThisPluginWasInstalledFromZipAndHasNo,
+      'pluginImageUnavailable' => strings.pluginImageUnavailable,
+      'pluginCouldNotOpenThisLink' => strings.pluginCouldNotOpenThisLink,
+      'pluginAddPlugin' => strings.pluginAddPlugin,
+      'pluginInstallFromAGithubRepository' =>
+        strings.pluginInstallFromAGithubRepository,
+      'pluginMakeSureYouTrustThePluginSAuthorAnd' =>
+        strings.pluginMakeSureYouTrustThePluginSAuthorAnd,
+      'pluginPreview' => strings.pluginPreview,
+      'pluginInstalledVersion' => strings.pluginInstalledVersion,
+      'pluginAuthor' => strings.pluginAuthor,
+      'pluginLicense' => strings.pluginLicense,
+      'pluginPluginsRunCodeInsideKioskSatelliteAndCanAccess' =>
+        strings.pluginPluginsRunCodeInsideKioskSatelliteAndCanAccess,
+      'pluginNewPluginsStartDisabledUpdatesPreserveTheEnabledState' =>
+        strings.pluginNewPluginsStartDisabledUpdatesPreserveTheEnabledState,
+      'pluginTrustAndUpdate' => strings.pluginTrustAndUpdate,
+      'pluginTrustAndInstall' => strings.pluginTrustAndInstall,
+      'pluginInstallFromZip' => strings.pluginInstallFromZip,
+      'pluginForDevelopersOnlyTestALocalBuild' =>
+        strings.pluginForDevelopersOnlyTestALocalBuild,
+      'pluginPluginZip' => strings.pluginPluginZip,
+      'pluginPluginZipMustBeAtMost4Mb' =>
+        strings.pluginPluginZipMustBeAtMost4Mb,
+      'pluginCouldNotReadTheSelectedZip' =>
+        strings.pluginCouldNotReadTheSelectedZip,
+      'pluginCharts' => strings.pluginCharts,
+      'pluginReadings' => strings.pluginReadings,
+      'pluginWaitingForSamples' => strings.pluginWaitingForSamples,
+      'pluginLatest' => strings.pluginLatest,
+      'pluginSelected' => strings.pluginSelected,
+      'pluginNoDataYet' => strings.pluginNoDataYet,
+      'pluginTapOrDragToInspectSamplesDoubleTapTo' =>
+        strings.pluginTapOrDragToInspectSamplesDoubleTapTo,
+      'pluginNoData' => strings.pluginNoData,
+      'pluginOn' => strings.pluginOn,
+      'pluginEmpty' => strings.pluginEmpty,
+      'pluginChartKeyboardHelp' => strings.pluginChartKeyboardHelp,
+      'pluginShizuku13OrLaterIsRequiredTapForSetup' =>
+        strings.pluginShizuku13OrLaterIsRequiredTapForSetup,
+      'pluginStartShizukuOnThisDeviceTapForSetupInstructions' =>
+        strings.pluginStartShizukuOnThisDeviceTapForSetupInstructions,
+      'pluginShizukuGrantsKioskSatelliteShellOrRootAccessInstalled' =>
+        strings.pluginShizukuGrantsKioskSatelliteShellOrRootAccessInstalled,
+      'pluginSetUp' => strings.pluginSetUp,
+      'pluginGrantAccess' => strings.pluginGrantAccess,
+      'pluginApproveThePermissionRequestOnTheKiosk' =>
+        strings.pluginApproveThePermissionRequestOnTheKiosk,
       'settingLauncherEnabledTitle' => strings.settingLauncherEnabledTitle,
       'settingLauncherEnabledDescription' =>
         strings.settingLauncherEnabledDescription,

@@ -1160,6 +1160,2206 @@
       ]
     }
   },
+  "fleetFleetManagementNeedsTheRemoteAdmin": "Fleet Management needs the remote admin",
+  "@fleetFleetManagementNeedsTheRemoteAdmin": {
+    "context": "Settings > Fleet Management",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetKiosksFindEachOtherThroughItTurnOnRemote": "Kiosks find each other through it. Turn on Remote management and Find other kiosks under Device, then come back.",
+  "@fleetKiosksFindEachOtherThroughItTurnOnRemote": {
+    "context": "Settings > Fleet Management",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetLeadThisFleet": "Lead this fleet",
+  "@fleetLeadThisFleet": {
+    "context": "Settings > Fleet Management",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetSyncThisKioskSSettingsToItsFollowersRequires": "Sync this kiosk's settings to its followers. Requires all kiosks to run the same version.",
+  "@fleetSyncThisKioskSSettingsToItsFollowersRequires": {
+    "context": "Settings > Fleet Management",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetAKioskThatFollowsALeaderCannotLead": "A kiosk that follows a leader cannot lead.",
+  "@fleetAKioskThatFollowsALeaderCannotLead": {
+    "context": "Settings > Fleet Management",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetFollowers": "Followers",
+  "@fleetFollowers": {
+    "context": "Settings > Fleet Management",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetProfiles": "Profiles",
+  "@fleetProfiles": {
+    "context": "Settings > Fleet Management",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetLeader": "Leader",
+  "@fleetLeader": {
+    "context": "Settings > Fleet Management",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetLearnWhichSettingsSyncAndWhichDoNotIn": "Learn which settings sync and which do not in the ",
+  "@fleetLearnWhichSettingsSyncAndWhichDoNotIn": {
+    "context": "Settings > Fleet Management",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetFleetManagementDocumentation": "Fleet Management documentation",
+  "@fleetFleetManagementDocumentation": {
+    "context": "Settings > Fleet Management",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetMore": "More",
+  "@fleetMore": {
+    "context": "Settings > Fleet Management",
+    "description": "Accessible label for the follower actions menu.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetSearchFollowers": "The kiosks this one leads, their state and a way to add one.",
+  "@fleetSearchFollowers": {
+    "context": "Settings > Fleet Management",
+    "description": "Search result description.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetAddAKiosk": "Add a kiosk",
+  "@fleetAddAKiosk": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  },
+  "fleetKiosksMemberOfTheFleetAFollowerMustConfirm": "Kiosks member of the fleet. A follower must confirm the invitation on device.",
+  "@fleetKiosksMemberOfTheFleetAFollowerMustConfirm": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  },
+  "fleetSendInvitation": "Send invitation",
+  "@fleetSendInvitation": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  },
+  "fleetInviteAgain": "Invite again",
+  "@fleetInviteAgain": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  },
+  "fleetRemoveName": "Remove {name}?",
+  "@fleetRemoveName": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetItStopsFollowingThisKioskAndKeepsItsSettings": "It stops following this kiosk and keeps its settings.",
+  "@fleetItStopsFollowingThisKioskAndKeepsItsSettings": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  },
+  "fleetNameWantsToLeadThisKiosk": "{name} wants to lead this kiosk",
+  "@fleetNameWantsToLeadThisKiosk": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetItsSettingsReplaceThisKioskSInTheCategories": "Its settings replace this kiosk's in the categories it syncs, from now on. This kiosk keeps its name and identity.",
+  "@fleetItsSettingsReplaceThisKioskSInTheCategories": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  },
+  "fleetItsSettingsReplaceThisKioskSInTheCategoriesDetail": "Its settings replace this kiosk's in the categories it syncs, from now on. This kiosk keeps its name, its Home Assistant, Music Assistant and ESPHome selves and its hardware picks. You can leave the fleet at any time under Settings, Fleet Management.",
+  "@fleetItsSettingsReplaceThisKioskSInTheCategoriesDetail": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  },
+  "fleetConfirmOnTheKioskItselfTheInvitationIsWaiting": "Confirm on the kiosk itself. The invitation is waiting on its screen and under Settings, Fleet Management.",
+  "@fleetConfirmOnTheKioskItselfTheInvitationIsWaiting": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  },
+  "fleetAccept": "Accept",
+  "@fleetAccept": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  },
+  "fleetLookingForOtherKiosks": "Looking for other kiosks…",
+  "@fleetLookingForOtherKiosks": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  },
+  "fleetNoOtherKioskFoundOnThisNetworkAKiosk": "No other kiosk found on this network. A kiosk shows up once its remote admin is on and it shares this Wi-Fi.",
+  "@fleetNoOtherKioskFoundOnThisNetworkAKiosk": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  },
+  "fleetFollowsName": "Follows {name}",
+  "@fleetFollowsName": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetLeadsAFleet": "Leads a fleet",
+  "@fleetLeadsAFleet": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  },
+  "fleetNoFleetManagement": "No Fleet Management",
+  "@fleetNoFleetManagement": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  },
+  "fleetKiosksOnThisNetworkThatDoNotFollowThis": "Kiosks on this network that do not follow this one. Pick one to choose what it gets, then the invitation goes out. A kiosk on a build without Fleet Management joins once it runs one.",
+  "@fleetKiosksOnThisNetworkThatDoNotFollowThis": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  },
+  "fleetJoinedTheFleet": "Joined the fleet",
+  "@fleetJoinedTheFleet": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  },
+  "fleetSettingsFromTheLeaderArriveShortly": "Settings from the leader arrive shortly.",
+  "@fleetSettingsFromTheLeaderArriveShortly": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  },
+  "fleetAddAProfile": "Add a profile",
+  "@fleetAddAProfile": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetTheCollectionOfSettingsCredentialsAndExclusionsToSync": "The collection of settings, credentials and exclusions to sync.",
+  "@fleetTheCollectionOfSettingsCredentialsAndExclusionsToSync": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetNewProfile": "New profile",
+  "@fleetNewProfile": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetProfile": "Profile",
+  "@fleetProfile": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetUpdatesOnly": "Updates only",
+  "@fleetUpdatesOnly": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetNothingSyncsOnlyUpdatesArePushed": "Nothing syncs. Only updates are pushed.",
+  "@fleetNothingSyncsOnlyUpdatesArePushed": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetCategoriesSelectedOfTotalCredentialsCredentialsOfCredentialtotalExcluded": "Categories: {selected} of {total}. Credentials: {credentials} of {credentialTotal}. Excluded: {excluded}.",
+  "@fleetCategoriesSelectedOfTotalCredentialsCredentialsOfCredentialtotalExcluded": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    },
+    "placeholders": {
+      "selected": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      },
+      "credentials": {
+        "type": "String"
+      },
+      "credentialTotal": {
+        "type": "String"
+      },
+      "excluded": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetThisProfileIsGone": "This profile is gone",
+  "@fleetThisProfileIsGone": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetItWasDeletedFromAnotherPage": "It was deleted from another page.",
+  "@fleetItWasDeletedFromAnotherPage": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetName": "Name",
+  "@fleetName": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetRename": "Rename",
+  "@fleetRename": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetRenameProfile": "Rename profile",
+  "@fleetRenameProfile": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetWhatItSyncs": "What it syncs",
+  "@fleetWhatItSyncs": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetNothing": "Nothing",
+  "@fleetNothing": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetKiosksOnThisProfileKeepEverySettingOfTheir": "Kiosks on this profile keep every setting of their own. The leader only pushes updates to them.",
+  "@fleetKiosksOnThisProfileKeepEverySettingOfTheir": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetCategories": "Categories",
+  "@fleetCategories": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetSelectedOfTotalNames": "{selected} of {total}: {names}",
+  "@fleetSelectedOfTotalNames": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    },
+    "placeholders": {
+      "selected": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      },
+      "names": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetCredentials": "Credentials",
+  "@fleetCredentials": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetNoneTravel": "None travel",
+  "@fleetNoneTravel": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetIncludeTheDashboard": "Include the dashboard",
+  "@fleetIncludeTheDashboard": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetTheStartPageAndTheDefaultDashboard": "The start page and the default dashboard.",
+  "@fleetTheStartPageAndTheDefaultDashboard": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetExcludedSettings": "Excluded settings",
+  "@fleetExcludedSettings": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetOneSettingLeftOut": "One setting left out",
+  "@fleetOneSettingLeftOut": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetCountSettingsLeftOut": "{count} settings left out",
+  "@fleetCountSettingsLeftOut": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetNoKiosksAssigned": "No kiosks assigned",
+  "@fleetNoKiosksAssigned": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetAssignThisProfileToAKioskOnTheFleet": "Assign this profile to a kiosk on the Fleet Management page.",
+  "@fleetAssignThisProfileToAKioskOnTheFleet": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetDuplicate": "Duplicate",
+  "@fleetDuplicate": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetCloneThisProfileIntoANewOne": "Clone this profile into a new one.",
+  "@fleetCloneThisProfileIntoANewOne": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetDuplicateProfile": "Duplicate profile",
+  "@fleetDuplicateProfile": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetNameCopy": "{name} copy",
+  "@fleetNameCopy": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetDeleteProfile": "Delete profile",
+  "@fleetDeleteProfile": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetNoKioskIsOnIt": "No kiosk is on it.",
+  "@fleetNoKioskIsOnIt": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetKiosksOnItGetTheDefaultProfile": "Kiosks on it get the Default profile.",
+  "@fleetKiosksOnItGetTheDefaultProfile": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetDeleteName": "Delete {name}?",
+  "@fleetDeleteName": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetBlackScreens": "Black screens",
+  "@fleetBlackScreens": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetSyncToName": "Sync to {name}",
+  "@fleetSyncToName": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetDefault": "Default",
+  "@fleetDefault": {
+    "context": "Settings > Fleet Management",
+    "description": "Name of the built-in default profile. Custom names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetNone": "None",
+  "@fleetNone": {
+    "context": "Settings > Fleet Management",
+    "description": "No categories or excluded settings are selected.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetSearchProfiles": "The named lists a follower can be given: categories, credentials, the dashboard and the settings left out.",
+  "@fleetSearchProfiles": {
+    "context": "Settings > Fleet Management",
+    "description": "Search result description.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetSyncNow": "Sync now",
+  "@fleetSyncNow": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetChangedHereWaitingForTheLeader": "Changed here, waiting for the leader",
+  "@fleetChangedHereWaitingForTheLeader": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetSyncedTime": "Synced {time}",
+  "@fleetSyncedTime": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    },
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetWaitingForTheFirstSync": "Waiting for the first sync",
+  "@fleetWaitingForTheFirstSync": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetNothingYet": "Nothing yet",
+  "@fleetNothingYet": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetNoCredentials": "No credentials",
+  "@fleetNoCredentials": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetWithTheNames": "With the {names}",
+  "@fleetWithTheNames": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    },
+    "placeholders": {
+      "names": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetTheDashboard": "the dashboard",
+  "@fleetTheDashboard": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetNoDashboard": "no dashboard",
+  "@fleetNoDashboard": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetTheDashboardDetail": "The dashboard",
+  "@fleetTheDashboardDetail": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetNoDashboardDetail": "No dashboard",
+  "@fleetNoDashboardDetail": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetSyncedFromTheLeader": "Synced from the leader",
+  "@fleetSyncedFromTheLeader": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetLeaveTheFleet": "Leave the fleet",
+  "@fleetLeaveTheFleet": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetStopsTheSyncSettingsStayAsTheyAre": "Stops the sync. Settings stay as they are.",
+  "@fleetStopsTheSyncSettingsStayAsTheyAre": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetLeaveTheFleetDetail": "Leave the fleet?",
+  "@fleetLeaveTheFleetDetail": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetNameStopsPushingSettingsHereEverythingStaysAsIt": "{name} stops pushing settings here. Everything stays as it is now.",
+  "@fleetNameStopsPushingSettingsHereEverythingStaysAsIt": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetLeave": "Leave",
+  "@fleetLeave": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetJustNow": "just now",
+  "@fleetJustNow": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetCountMinAgo": "{count} min ago",
+  "@fleetCountMinAgo": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetCountHAgo": "{count} h ago",
+  "@fleetCountHAgo": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetCountDaysAgo": "{count} days ago",
+  "@fleetCountDaysAgo": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetNameLeadsTheseSettingsAChangeHereIsReplaced": "{name} leads these settings. A change here is replaced at the next sync.",
+  "@fleetNameLeadsTheseSettingsAChangeHereIsReplaced": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetDeclinedOnTheKiosk": "Declined on the kiosk",
+  "@fleetDeclinedOnTheKiosk": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetWaitingForItsOk": "Waiting for its OK",
+  "@fleetWaitingForItsOk": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetLeftTheFleet": "Left the fleet",
+  "@fleetLeftTheFleet": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetSendingPercent": "Sending {percent}%",
+  "@fleetSendingPercent": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    },
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetInstalling": "Installing",
+  "@fleetInstalling": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetRunsVersionThisKioskNeedsAnUpdate": "Runs {version}, this kiosk needs an update",
+  "@fleetRunsVersionThisKioskNeedsAnUpdate": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    },
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetNeedsVersion": "Needs {version}",
+  "@fleetNeedsVersion": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    },
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetDownloadingPercent": "Downloading {percent}%",
+  "@fleetDownloadingPercent": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    },
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetSyncing": "Syncing…",
+  "@fleetSyncing": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetErrorUnreachable": "Unreachable",
+  "@fleetErrorUnreachable": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorBadAnswer": "Bad answer",
+  "@fleetErrorBadAnswer": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorThePushFailed": "The push failed",
+  "@fleetErrorThePushFailed": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorLeadThisFleetIsOff": "Lead this fleet is off",
+  "@fleetErrorLeadThisFleetIsOff": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorTheRemoteAdminAndFindOtherKiosksMustBeOn": "The remote admin and Find other kiosks must be on",
+  "@fleetErrorTheRemoteAdminAndFindOtherKiosksMustBeOn": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorPickAnotherKiosk": "Pick another kiosk",
+  "@fleetErrorPickAnotherKiosk": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorThatKioskIsNotOnTheNetworkRightNow": "That kiosk is not on the network right now",
+  "@fleetErrorThatKioskIsNotOnTheNetworkRightNow": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorThatKioskDidNotAnswer": "That kiosk did not answer",
+  "@fleetErrorThatKioskDidNotAnswer": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorThatKioskRefusedTheInvitation": "That kiosk refused the invitation",
+  "@fleetErrorThatKioskRefusedTheInvitation": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorTheDefaultProfileStays": "The Default profile stays",
+  "@fleetErrorTheDefaultProfileStays": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorTheUpdatesOnlyProfileStays": "The Updates only profile stays",
+  "@fleetErrorTheUpdatesOnlyProfileStays": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorNoSuchProfile": "No such profile",
+  "@fleetErrorNoSuchProfile": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorNoSuchFollower": "No such follower",
+  "@fleetErrorNoSuchFollower": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorNoInvitationIsWaiting": "No invitation is waiting",
+  "@fleetErrorNoInvitationIsWaiting": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorMalformedInvitation": "Malformed invitation",
+  "@fleetErrorMalformedInvitation": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorCouldNotMintAToken": "Could not mint a token",
+  "@fleetErrorCouldNotMintAToken": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorNotAFollowerYet": "not a follower yet",
+  "@fleetErrorNotAFollowerYet": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorOffline": "offline",
+  "@fleetErrorOffline": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorUpToDate": "up to date",
+  "@fleetErrorUpToDate": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorAlreadyDownloading": "already downloading",
+  "@fleetErrorAlreadyDownloading": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorDidNotAnswer": "did not answer",
+  "@fleetErrorDidNotAnswer": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorDidNotTakeTheUpload": "did not take the upload",
+  "@fleetErrorDidNotTakeTheUpload": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetProfileNameExists": "A profile named {name} exists",
+  "@fleetProfileNameExists": {
+    "context": "Settings > Fleet Management",
+    "description": "Accessible control guidance or action result.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Fleet Management"
+      ],
+      "device": [
+        "Settings > Fleet Management"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep supplied names and version numbers unchanged."
+  },
+  "fleetAlreadyOnVersion": "already on {version}",
+  "@fleetAlreadyOnVersion": {
+    "context": "Settings > Fleet Management",
+    "description": "Accessible control guidance or action result.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Fleet Management"
+      ],
+      "device": [
+        "Settings > Fleet Management"
+      ]
+    },
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep supplied names and version numbers unchanged."
+  },
+  "fleetUnsupportedBuild": "That kiosk runs a build without Fleet Management. It joins once it runs one.",
+  "@fleetUnsupportedBuild": {
+    "context": "Settings > Fleet Management",
+    "description": "Accessible control guidance or action result.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Fleet Management"
+      ],
+      "device": [
+        "Settings > Fleet Management"
+      ]
+    }
+  },
+  "fleetSwitchKiosk": "Switch kiosk",
+  "@fleetSwitchKiosk": {
+    "context": "Remote administration > device name > Switch kiosk",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Remote administration > device name > Switch kiosk"
+      ]
+    }
+  },
+  "fleetKiosksOnThisNetworkWithTheRemoteAdminOn": "Kiosks on this network with the remote admin on. Picking one opens its admin here, on this same page.",
+  "@fleetKiosksOnThisNetworkWithTheRemoteAdminOn": {
+    "context": "Remote administration > device name > Switch kiosk",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Remote administration > device name > Switch kiosk"
+      ]
+    }
+  },
+  "fleetNoOtherKioskFoundOnThisNetworkAKioskDetail": "No other kiosk found on this network. A kiosk shows up once its remote admin is on and it shares this network.",
+  "@fleetNoOtherKioskFoundOnThisNetworkAKioskDetail": {
+    "context": "Remote administration > device name > Switch kiosk",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Remote administration > device name > Switch kiosk"
+      ]
+    }
+  },
+  "fleetSyncedCredentials": "Synced Credentials",
+  "@fleetSyncedCredentials": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetTheSettingsOnThisListWillNotBeSynced": "The settings on this list will not be synced to the followers.",
+  "@fleetTheSettingsOnThisListWillNotBeSynced": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetNothingLeftOut": "Nothing left out",
+  "@fleetNothingLeftOut": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetSyncItAgain": "Sync it again",
+  "@fleetSyncItAgain": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetAddASetting": "Add a setting",
+  "@fleetAddASetting": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetExcludeASetting": "Exclude a setting",
+  "@fleetExcludeASetting": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetSearchSettings": "Search settings",
+  "@fleetSearchSettings": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetCountMoreTypeToNarrowTheList": "{count} more. Type to narrow the list.",
+  "@fleetCountMoreTypeToNarrowTheList": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetNotSyncedNote": "Not synced: {note}",
+  "@fleetNotSyncedNote": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    },
+    "placeholders": {
+      "note": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetTheAssignedSatellite": "the assigned satellite",
+  "@fleetTheAssignedSatellite": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetMicrophoneAndSpeakerDevicesMicGain": "microphone and speaker devices, mic gain",
+  "@fleetMicrophoneAndSpeakerDevicesMicGain": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetTheDeviceCamera": "the device camera",
+  "@fleetTheDeviceCamera": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetTheFollowedPlayerTheSendspinPlayerId": "the followed player, the Sendspin player id",
+  "@fleetTheFollowedPlayerTheSendspinPlayerId": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetNodeNameMacEncryptionKey": "node name, MAC, encryption key",
+  "@fleetNodeNameMacEncryptionKey": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetThePinIsAlsoSynced": "the PIN is also synced",
+  "@fleetThePinIsAlsoSynced": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetTheKeyUnlessSyncedAsACredential": "the key, unless synced as a credential",
+  "@fleetTheKeyUnlessSyncedAsACredential": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetNameRemoteAdministrationRendererWorkaroundsScale": "name, remote administration, renderer workarounds, scale",
+  "@fleetNameRemoteAdministrationRendererWorkaroundsScale": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetHomeAssistantToken": "Home Assistant token",
+  "@fleetHomeAssistantToken": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetMusicAssistantToken": "Music Assistant token",
+  "@fleetMusicAssistantToken": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetImmichApiKey": "Immich API key",
+  "@fleetImmichApiKey": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetUpdateTheFleet": "Update the fleet",
+  "@fleetUpdateTheFleet": {
+    "context": "Settings > Fleet Management > Updates",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Updates"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Updates"
+      ]
+    }
+  },
+  "fleetUpdateTheWholeFleetToTheKioskSatelliteVersion": "Update the whole fleet to the Kiosk Satellite version running on the leader.",
+  "@fleetUpdateTheWholeFleetToTheKioskSatelliteVersion": {
+    "context": "Settings > Fleet Management > Updates",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Updates"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Updates"
+      ]
+    }
+  },
+  "fleetKeepFollowersOnThisVersion": "Keep followers on this version",
+  "@fleetKeepFollowersOnThisVersion": {
+    "context": "Settings > Fleet Management > Updates",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Updates"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Updates"
+      ]
+    }
+  },
+  "fleetAutomaticallyUpdateAllFollowersToTheKioskSatelliteVersion": "Automatically update all followers to the Kiosk Satellite version running on the leader.",
+  "@fleetAutomaticallyUpdateAllFollowersToTheKioskSatelliteVersion": {
+    "context": "Settings > Fleet Management > Updates",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Updates"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Updates"
+      ]
+    }
+  },
+  "fleetNothingToUpdate": "Nothing to update",
+  "@fleetNothingToUpdate": {
+    "context": "Settings > Fleet Management > Updates",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Updates"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Updates"
+      ]
+    }
+  },
+  "fleetUpdating": "Updating",
+  "@fleetUpdating": {
+    "context": "Settings > Fleet Management > Updates",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Updates"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Updates"
+      ]
+    }
+  },
+  "fleetNamesInstalling": "{names} installing.",
+  "@fleetNamesInstalling": {
+    "context": "Settings > Fleet Management > Updates",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Updates"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Updates"
+      ]
+    },
+    "placeholders": {
+      "names": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetSearchUpdates": "Install the release offered to each follower, then here.",
+  "@fleetSearchUpdates": {
+    "context": "Settings > Fleet Management",
+    "description": "Search result description.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
   "gestureAction": "Acción",
   "@gestureAction": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
@@ -4681,6 +6881,887 @@
     "x-locations": {
       "device": [
         "Now Playing > Speaker selection"
+      ]
+    }
+  },
+  "pluginActions": "Actions",
+  "@pluginActions": {
+    "context": "Settings > Plugin Manager > a plugin > Actions",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Actions"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Actions"
+      ]
+    }
+  },
+  "pluginKioskDrawer": "Kiosk drawer",
+  "@pluginKioskDrawer": {
+    "context": "Settings > Plugin Manager > a plugin > Actions",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Actions"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Actions"
+      ]
+    }
+  },
+  "pluginToAssignAGestureOpenGesturesAndChooseRun": "To assign a gesture, open Gestures and choose Run a plugin action.",
+  "@pluginToAssignAGestureOpenGesturesAndChooseRun": {
+    "context": "Settings > Plugin Manager > a plugin > Actions",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Actions"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Actions"
+      ]
+    }
+  },
+  "pluginShowInKioskDrawer": "Show in kiosk drawer",
+  "@pluginShowInKioskDrawer": {
+    "context": "Settings > Plugin Manager > a plugin > Actions",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Actions"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Actions"
+      ]
+    }
+  },
+  "pluginAlsoAvailableWhileLockedIfTheKioskDrawerIs": "Also available while locked if the kiosk drawer is allowed.",
+  "@pluginAlsoAvailableWhileLockedIfTheKioskDrawerIs": {
+    "context": "Settings > Plugin Manager > a plugin > Actions",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Actions"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Actions"
+      ]
+    }
+  },
+  "pluginExposeToHomeAssistant": "Expose to Home Assistant",
+  "@pluginExposeToHomeAssistant": {
+    "context": "Settings > Plugin Manager > a plugin > Actions",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Actions"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Actions"
+      ]
+    }
+  },
+  "pluginAddsAButtonToTheKioskEsphomeDeviceRequires": "Adds a button to the kiosk ESPHome device. Requires ESPHome and native entities.",
+  "@pluginAddsAButtonToTheKioskEsphomeDeviceRequires": {
+    "context": "Settings > Plugin Manager > a plugin > Actions",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Actions"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Actions"
+      ]
+    }
+  },
+  "pluginSelectAnEntity": "Select an entity",
+  "@pluginSelectAnEntity": {
+    "context": "Settings > Plugin Manager > a plugin > Actions",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Actions"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Actions"
+      ]
+    }
+  },
+  "pluginChooseName": "Choose {name}",
+  "@pluginChooseName": {
+    "context": "Settings > Plugin Manager > a plugin > Actions",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Actions"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Actions"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "pluginConfigureName": "Configure {name}",
+  "@pluginConfigureName": {
+    "context": "Settings > Plugin Manager > a plugin > Actions",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Actions"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Actions"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "pluginPlugin": "Plugin",
+  "@pluginPlugin": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginEnablePlugins": "Enable Plugins",
+  "@pluginEnablePlugins": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginPluginsAddAdditionalCommunityDevelopedFeaturesToKioskSatellite": "Plugins add additional community developed features to Kiosk Satellite.",
+  "@pluginPluginsAddAdditionalCommunityDevelopedFeaturesToKioskSatellite": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginInstalledPlugins": "Installed plugins",
+  "@pluginInstalledPlugins": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginNoPluginsInstalledAddARepositoryToGetStarted": "No plugins installed. Add a repository to get started.",
+  "@pluginNoPluginsInstalledAddARepositoryToGetStarted": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginDeveloperTools": "Developer Tools",
+  "@pluginDeveloperTools": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginCreateAPlugin": "Create a plugin",
+  "@pluginCreateAPlugin": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginLearnHowToCreatePluginsWithTheHelloWorld": "Learn how to create plugins with the Hello World template and documentation.",
+  "@pluginLearnHowToCreatePluginsWithTheHelloWorld": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginThisPluginIsNoLongerInstalled": "This plugin is no longer installed.",
+  "@pluginThisPluginIsNoLongerInstalled": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginEnablePluginsToRunThisPlugin": "Enable Plugins to run this plugin.",
+  "@pluginEnablePluginsToRunThisPlugin": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginEnableThisPluginFromItsEntryRowToRun": "Enable this plugin from its entry row to run it.",
+  "@pluginEnableThisPluginFromItsEntryRowToRun": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginUninstallName": "Uninstall {name}?",
+  "@pluginUninstallName": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "pluginUninstallNameDetail": "Uninstall {name}",
+  "@pluginUninstallNameDetail": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "pluginCheckForUpdatesForName": "Check for updates for {name}",
+  "@pluginCheckForUpdatesForName": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "pluginAboutName": "About {name}",
+  "@pluginAboutName": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "pluginThisRemovesThePluginAndItsSettings": "This removes the plugin and its settings.",
+  "@pluginThisRemovesThePluginAndItsSettings": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginUninstall": "Uninstall",
+  "@pluginUninstall": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginNoUpdatesAvailable": "No updates available.",
+  "@pluginNoUpdatesAvailable": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginThisPluginWasInstalledFromZipAndHasNo": "This plugin was installed from ZIP and has no repository README.",
+  "@pluginThisPluginWasInstalledFromZipAndHasNo": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginImageUnavailable": "Image unavailable",
+  "@pluginImageUnavailable": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginCouldNotOpenThisLink": "Could not open this link.",
+  "@pluginCouldNotOpenThisLink": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginEnableName": "Enable {name}",
+  "@pluginEnableName": {
+    "context": "Settings > Plugin Manager > select a plugin",
+    "description": "Accessible control guidance or action result.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Plugin Manager > select a plugin"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep supplied names and version numbers unchanged."
+  },
+  "pluginAddPlugin": "Add plugin",
+  "@pluginAddPlugin": {
+    "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin or Install from ZIP"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > Add plugin or Install from ZIP"
+      ]
+    }
+  },
+  "pluginInstallFromAGithubRepository": "Install from a GitHub repository",
+  "@pluginInstallFromAGithubRepository": {
+    "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin or Install from ZIP"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > Add plugin or Install from ZIP"
+      ]
+    }
+  },
+  "pluginMakeSureYouTrustThePluginSAuthorAnd": "Make sure you trust the plugin's author and its code before installing it.",
+  "@pluginMakeSureYouTrustThePluginSAuthorAnd": {
+    "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin or Install from ZIP"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > Add plugin or Install from ZIP"
+      ]
+    }
+  },
+  "pluginPreview": "Preview",
+  "@pluginPreview": {
+    "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin or Install from ZIP"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > Add plugin or Install from ZIP"
+      ]
+    }
+  },
+  "pluginInstalledVersion": "Installed version",
+  "@pluginInstalledVersion": {
+    "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin or Install from ZIP"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > Add plugin or Install from ZIP"
+      ]
+    }
+  },
+  "pluginAuthor": "Author",
+  "@pluginAuthor": {
+    "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin or Install from ZIP"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > Add plugin or Install from ZIP"
+      ]
+    }
+  },
+  "pluginLicense": "License",
+  "@pluginLicense": {
+    "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin or Install from ZIP"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > Add plugin or Install from ZIP"
+      ]
+    }
+  },
+  "pluginPluginsRunCodeInsideKioskSatelliteAndCanAccess": "Plugins run code inside Kiosk Satellite and can access app data and granted Android permissions. A faulty or malicious plugin can expose private information or stop the app from working. Only install plugins from authors you trust.",
+  "@pluginPluginsRunCodeInsideKioskSatelliteAndCanAccess": {
+    "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin or Install from ZIP"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > Add plugin or Install from ZIP"
+      ]
+    }
+  },
+  "pluginNewPluginsStartDisabledUpdatesPreserveTheEnabledState": "New plugins start disabled. Updates preserve the enabled state and automatically restart running plugins.",
+  "@pluginNewPluginsStartDisabledUpdatesPreserveTheEnabledState": {
+    "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin or Install from ZIP"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > Add plugin or Install from ZIP"
+      ]
+    }
+  },
+  "pluginTrustAndUpdate": "Trust and update",
+  "@pluginTrustAndUpdate": {
+    "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin or Install from ZIP"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > Add plugin or Install from ZIP"
+      ]
+    }
+  },
+  "pluginTrustAndInstall": "Trust and install",
+  "@pluginTrustAndInstall": {
+    "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin or Install from ZIP"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > Add plugin or Install from ZIP"
+      ]
+    }
+  },
+  "pluginInstallFromZip": "Install from ZIP",
+  "@pluginInstallFromZip": {
+    "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin or Install from ZIP"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > Add plugin or Install from ZIP"
+      ]
+    }
+  },
+  "pluginForDevelopersOnlyTestALocalBuild": "For developers only: test a local build",
+  "@pluginForDevelopersOnlyTestALocalBuild": {
+    "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin or Install from ZIP"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > Add plugin or Install from ZIP"
+      ]
+    }
+  },
+  "pluginPluginZip": "Plugin ZIP",
+  "@pluginPluginZip": {
+    "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin or Install from ZIP"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > Add plugin or Install from ZIP"
+      ]
+    }
+  },
+  "pluginPluginZipMustBeAtMost4Mb": "Plugin ZIP must be at most 4 MB",
+  "@pluginPluginZipMustBeAtMost4Mb": {
+    "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin or Install from ZIP"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > Add plugin or Install from ZIP"
+      ]
+    }
+  },
+  "pluginCouldNotReadTheSelectedZip": "Could not read the selected ZIP",
+  "@pluginCouldNotReadTheSelectedZip": {
+    "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin or Install from ZIP"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > Add plugin or Install from ZIP"
+      ]
+    }
+  },
+  "pluginCharts": "Charts",
+  "@pluginCharts": {
+    "context": "Settings > Plugin Manager > a plugin > Charts and Readings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Charts and Readings"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Charts and Readings"
+      ]
+    }
+  },
+  "pluginReadings": "Readings",
+  "@pluginReadings": {
+    "context": "Settings > Plugin Manager > a plugin > Charts and Readings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Charts and Readings"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Charts and Readings"
+      ]
+    }
+  },
+  "pluginWaitingForSamples": "Waiting for samples",
+  "@pluginWaitingForSamples": {
+    "context": "Settings > Plugin Manager > a plugin > Charts and Readings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Charts and Readings"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Charts and Readings"
+      ]
+    }
+  },
+  "pluginLatest": "Latest",
+  "@pluginLatest": {
+    "context": "Settings > Plugin Manager > a plugin > Charts and Readings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Charts and Readings"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Charts and Readings"
+      ]
+    }
+  },
+  "pluginSelected": "Selected",
+  "@pluginSelected": {
+    "context": "Settings > Plugin Manager > a plugin > Charts and Readings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Charts and Readings"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Charts and Readings"
+      ]
+    }
+  },
+  "pluginNoDataYet": "No data yet",
+  "@pluginNoDataYet": {
+    "context": "Settings > Plugin Manager > a plugin > Charts and Readings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Charts and Readings"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Charts and Readings"
+      ]
+    }
+  },
+  "pluginTapOrDragToInspectSamplesDoubleTapTo": "Tap or drag to inspect samples. Double-tap to follow the latest.",
+  "@pluginTapOrDragToInspectSamplesDoubleTapTo": {
+    "context": "Settings > Plugin Manager > a plugin > Charts and Readings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Charts and Readings"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Charts and Readings"
+      ]
+    }
+  },
+  "pluginNoData": "No data",
+  "@pluginNoData": {
+    "context": "Settings > Plugin Manager > a plugin > Charts and Readings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Charts and Readings"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Charts and Readings"
+      ]
+    }
+  },
+  "pluginOn": "On",
+  "@pluginOn": {
+    "context": "Settings > Plugin Manager > a plugin > Charts and Readings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Charts and Readings"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Charts and Readings"
+      ]
+    }
+  },
+  "pluginEmpty": "Empty",
+  "@pluginEmpty": {
+    "context": "Settings > Plugin Manager > a plugin > Charts and Readings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Charts and Readings"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Charts and Readings"
+      ]
+    }
+  },
+  "pluginChartKeyboardHelp": "Use arrow keys to inspect samples and End for the latest.",
+  "@pluginChartKeyboardHelp": {
+    "context": "Settings > Plugin Manager > select a plugin",
+    "description": "Accessible control guidance or action result.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Plugin Manager > select a plugin"
+      ]
+    }
+  },
+  "pluginShizuku13OrLaterIsRequiredTapForSetup": "Shizuku 13 or later is required. Tap for setup instructions.",
+  "@pluginShizuku13OrLaterIsRequiredTapForSetup": {
+    "context": "Settings > Plugin Manager > a plugin > Shizuku access",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Shizuku access"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Shizuku access"
+      ]
+    }
+  },
+  "pluginStartShizukuOnThisDeviceTapForSetupInstructions": "Start Shizuku on this device. Tap for setup instructions.",
+  "@pluginStartShizukuOnThisDeviceTapForSetupInstructions": {
+    "context": "Settings > Plugin Manager > a plugin > Shizuku access",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Shizuku access"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Shizuku access"
+      ]
+    }
+  },
+  "pluginShizukuGrantsKioskSatelliteShellOrRootAccessInstalled": "Shizuku grants Kiosk Satellite shell or root access. Installed plugins run inside KS, so only grant access if you trust them.",
+  "@pluginShizukuGrantsKioskSatelliteShellOrRootAccessInstalled": {
+    "context": "Settings > Plugin Manager > a plugin > Shizuku access",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Shizuku access"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Shizuku access"
+      ]
+    }
+  },
+  "pluginSetUp": "Set up",
+  "@pluginSetUp": {
+    "context": "Settings > Plugin Manager > a plugin > Shizuku access",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Shizuku access"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Shizuku access"
+      ]
+    }
+  },
+  "pluginGrantAccess": "Grant access",
+  "@pluginGrantAccess": {
+    "context": "Settings > Plugin Manager > a plugin > Shizuku access",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Shizuku access"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Shizuku access"
+      ]
+    }
+  },
+  "pluginApproveThePermissionRequestOnTheKiosk": "Approve the permission request on the kiosk.",
+  "@pluginApproveThePermissionRequestOnTheKiosk": {
+    "context": "Settings > Plugin Manager > a plugin > Shizuku access",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Shizuku access"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Shizuku access"
       ]
     }
   },

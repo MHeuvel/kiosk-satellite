@@ -509,6 +509,8 @@ List<SettingsSearchEntry> buildSettingsSearchIndex(
   String Function(String)? screensaverTextFor,
   String Function(String)? launcherTextFor,
   String Function(String)? gestureTextFor,
+  String Function(String)? fleetTextFor,
+  String Function(String)? pluginTextFor,
   String Function(SettingDef<Object>)? titleFor,
   String Function(SettingDef<Object>)? descriptionFor,
 }) {
@@ -578,6 +580,10 @@ List<SettingsSearchEntry> buildSettingsSearchIndex(
         ? launcherTextFor
         : entry.category == 'Gestures'
         ? gestureTextFor
+        : entry.category == 'Fleet'
+        ? fleetTextFor
+        : entry.category == 'Plugins'
+        ? pluginTextFor
         : null;
     if (translate == null) return entry;
     return SettingsSearchEntry(
@@ -595,8 +601,9 @@ List<SettingsSearchEntry> buildSettingsSearchIndex(
 
 /// Installed plugin controls use their current manifest instead of global definitions.
 List<SettingsSearchEntry> pluginSettingsSearchEntries(
-  List<Map<String, Object?>> plugins,
-) => [
+  List<Map<String, Object?>> plugins, {
+  String Function(String)? textFor,
+}) => [
   for (final plugin in plugins) ...[
     SettingsSearchEntry(
       category: 'Plugins',
@@ -608,7 +615,8 @@ List<SettingsSearchEntry> pluginSettingsSearchEntries(
     if ((plugin['capabilities'] as List? ?? const []).contains('shizuku'))
       SettingsSearchEntry(
         category: 'Plugins',
-        title: 'Shizuku access',
+        title: textFor?.call('Shizuku access') ?? 'Shizuku access',
+        englishAlias: 'Shizuku access',
         description: '',
         subpage: '${plugin['id']}',
         anchorId: 'plugin:${plugin['id']}:shizuku',
@@ -628,15 +636,15 @@ List<SettingsSearchEntry> pluginSettingsSearchEntries(
         category: 'Plugins',
         title: '${raw['title']}',
         description: [
-          'Gestures',
+          (textFor?.call('Gestures') ?? 'Gestures'),
           if (((plugin['actionOptions'] as Map?)?[raw['id']]
                   as Map?)?['drawer'] ==
               true)
-            'Kiosk drawer',
+            (textFor?.call('Kiosk drawer') ?? 'Kiosk drawer'),
           if (((plugin['actionOptions'] as Map?)?[raw['id']]
                   as Map?)?['homeAssistant'] ==
               true)
-            'Home Assistant',
+            (textFor?.call('Home Assistant') ?? 'Home Assistant'),
         ].join(' · '),
         subpage: '${plugin['id']}',
         anchorId: 'plugin:${plugin['id']}:action:${raw['id']}',

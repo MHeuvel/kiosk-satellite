@@ -1,8 +1,10 @@
+import { fleetStatusText, profileName } from './fleet-messages.js';
+import { fleetText, t, navigationText, localizeSetting } from './localization.js';
 import { watchUpdates } from './live.js';
 import { cmd, state } from './core.js';
 import { settingRow } from './rows.js';
 import { SEARCH_CATEGORY_TABS } from './search.js';
-import { applySubpageView, currentPath, setCurrentPath, showTab } from './tabs.js';
+import { applySubpageView, currentPath, refreshNavigationText, setCurrentPath, showTab } from './tabs.js';
 import { SUBPAGE_ICONS } from './icons.js';
 import { banner, hintRow, messageBox, modalShell, showToast } from './widgets.js';
 
@@ -98,9 +100,9 @@ async function run(name, params = {}, { reload = true } = {}) {
   busy = true;
   let out;
   try { out = await cmd(name, params); }
-  catch (_) { out = { ok: false, error: 'The device did not answer.' }; }
+  catch (_) { out = { ok: false, error: fleetText('The device did not answer.') }; }
   busy = false;
-  if (!out.ok) showToast({ title: 'Fleet Management', message: out.error || '', kind: 'error' });
+  if (!out.ok) showToast({ title: fleetText('Fleet Management'), message: fleetStatusText(out.error || ''), kind: 'error' });
   if (reload) { await loadStatus(); renderFleetPage({ fetch: false }); }
   return out;
 }
@@ -140,11 +142,7 @@ const MORE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-
 const UPDATES_ONLY = 'updates-only';
 const builtIn = (p) => p.id === 'default' || p.id === UPDATES_ONLY;
 
-const describe = (p) => (p.id === UPDATES_ONLY
-  ? 'Nothing syncs. Only updates are pushed.'
-  : `Categories: ${(p.categories || []).length} of ${(status?.categories || []).length}. `
-  + `Credentials: ${(p.credentials || []).length} of ${(status?.credentials || []).length}. `
-  + `Excluded: ${(p.excluded || []).length}.`);
+const describe = (p) => p.id === UPDATES_ONLY ? fleetText('Nothing syncs. Only updates are pushed.') : t("fleetCategoriesSelectedOfTotalCredentialsCredentialsOfCredentialtotalExcluded", {selected: (p.categories || []).length, total: (status?.categories || []).length, credentials: (p.credentials || []).length, credentialTotal: (status?.credentials || []).length, excluded: (p.excluded || []).length});
 
 // The glyph a profile's entry row and its page title share: registered by
 // name, since the pages are made at runtime.
@@ -160,9 +158,9 @@ const modalHeading = (text) => {
 
 // Which profile a kiosk gets: one radio row per profile. Resolves to the
 // profile id, null when cancelled.
-function openProfilePicker({ who, selected = 'default', confirm = 'Save' }) {
+function openProfilePicker({ who, selected = 'default', confirm = fleetText('Save') }) {
   return new Promise((resolve) => {
-    const shell = modalShell({ title: `Sync to ${who}`, width: 480,
+    const shell = modalShell({ title: t("fleetSyncToName", {name: who}), width: 480,
       onDismiss: () => { shell.close(); resolve(null); } });
     let picked = selected;
     for (const p of status?.profiles || []) {
@@ -176,20 +174,21 @@ function openProfilePicker({ who, selected = 'default', confirm = 'Save' }) {
       const info = document.createElement('div');
       info.className = 'info';
       info.innerHTML = '<div class="name"></div><div class="desc"></div>';
-      info.querySelector('.name').textContent = p.name;
+      info.querySelector('.name').textContent = profileName(p);
       info.querySelector('.desc').textContent = describe(p);
       row.append(inp, info);
       shell.body.appendChild(row);
     }
     shell.foot.append(
-      button('Cancel', 'btn-text', () => { shell.close(); resolve(null); }),
+      button(fleetText('Cancel'), 'btn-text', () => { shell.close(); resolve(null); }),
       button(confirm, 'btn-primary', () => { shell.close(); resolve(picked); }),
     );
   });
 }
 
 // The full path to a setting: category, page, title.
-const pathOf = (e) => [e.category, e.subpage, e.title].filter(Boolean).join(' \u2192 ');
+const settingPresentation = (e) => localizeSetting({...e, titleMessageId: byKey(e.key)?.titleMessageId, descriptionMessageId: byKey(e.key)?.descriptionMessageId});
+const pathOf = (e) => [navigationText(e.category), navigationText(e.subpage), settingPresentation(e).title].filter(Boolean).join(' \u2192 ');
 // Category, then page, then title; a key the list does not know last.
 const orderOf = (e, key) => (e ? `${e.category}\u0000${e.subpage || ''}\u0000${e.title}` : `~${key}`).toLowerCase();
 
@@ -209,7 +208,7 @@ function openNameModal({ title, initial = '' }) {
     const shell = modalShell({ title, width: 440, onDismiss: () => { shell.close(); resolve(null); } });
     const input = document.createElement('input');
     input.className = 'field';
-    input.placeholder = 'Black screens';
+    input.placeholder = fleetText('Black screens');
     input.value = initial;
     input.style.cssText = 'width:100%;';
     shell.body.appendChild(input);
@@ -220,8 +219,8 @@ function openNameModal({ title, initial = '' }) {
     };
     input.addEventListener('keydown', (e) => { if (e.key === 'Enter') done(); });
     shell.foot.append(
-      button('Cancel', 'btn-text', () => { shell.close(); resolve(null); }),
-      button('Save', 'btn-primary', done),
+      button(fleetText('Cancel'), 'btn-text', () => { shell.close(); resolve(null); }),
+      button(fleetText('Save'), 'btn-primary', done),
     );
     input.focus();
   });
@@ -265,19 +264,19 @@ const switchRow = (name, desc, on, set) => {
 function openCategoriesModal(picked) {
   const chosen = new Set(picked);
   return new Promise((resolve) => {
-    const shell = modalShell({ title: 'Categories', width: 560, onDismiss: () => { shell.close(); resolve(null); } });
+    const shell = modalShell({ title: fleetText('Categories'), width: 560, onDismiss: () => { shell.close(); resolve(null); } });
     const cats = document.createElement('div');
     cats.className = 'fleet-cat';
     for (const cat of status?.categories || []) {
       const note = cat.note || '';
-      cats.appendChild(checkRow(cat.title,
-        !note ? '' : cat.id === 'Kiosk' ? note[0].toUpperCase() + note.slice(1) : `Not synced: ${note}`,
+      cats.appendChild(checkRow(navigationText(cat.title),
+        !note ? '' : cat.id === 'Kiosk' ? fleetText(note) : t("fleetNotSyncedNote", {note: fleetText(note)}),
         chosen.has(cat.id), (v) => { if (v) chosen.add(cat.id); else chosen.delete(cat.id); }));
     }
     shell.body.appendChild(cats);
     shell.foot.append(
-      button('Cancel', 'btn-text', () => { shell.close(); resolve(null); }),
-      button('Save', 'btn-primary', () => { shell.close(); resolve([...chosen]); }),
+      button(fleetText('Cancel'), 'btn-text', () => { shell.close(); resolve(null); }),
+      button(fleetText('Save'), 'btn-primary', () => { shell.close(); resolve([...chosen]); }),
     );
   });
 }
@@ -287,14 +286,14 @@ function openCategoriesModal(picked) {
 function openCredentialsModal(picked) {
   const chosen = new Set(picked);
   return new Promise((resolve) => {
-    const shell = modalShell({ title: 'Synced Credentials', width: 520, onDismiss: () => { shell.close(); resolve(null); } });
+    const shell = modalShell({ title: fleetText('Synced Credentials'), width: 520, onDismiss: () => { shell.close(); resolve(null); } });
     for (const c of status?.credentials || []) {
-      shell.body.appendChild(switchRow(c.title, '', chosen.has(c.key),
+      shell.body.appendChild(switchRow(fleetText(c.title), '', chosen.has(c.key),
         (v) => { if (v) chosen.add(c.key); else chosen.delete(c.key); }));
     }
     shell.foot.append(
-      button('Cancel', 'btn-text', () => { shell.close(); resolve(null); }),
-      button('Save', 'btn-primary', () => { shell.close(); resolve([...chosen]); }),
+      button(fleetText('Cancel'), 'btn-text', () => { shell.close(); resolve(null); }),
+      button(fleetText('Save'), 'btn-primary', () => { shell.close(); resolve([...chosen]); }),
     );
   });
 }
@@ -305,23 +304,23 @@ function openCredentialsModal(picked) {
 function openExcludedModal(excluded) {
   const chosen = new Set(excluded);
   return new Promise((resolve) => {
-    const shell = modalShell({ title: 'Excluded settings', width: 560, onDismiss: () => { shell.close(); resolve(null); } });
-    shell.body.appendChild(hintRow('The settings on this list will not be synced to the followers.'));
+    const shell = modalShell({ title: fleetText('Excluded settings'), width: 560, onDismiss: () => { shell.close(); resolve(null); } });
+    shell.body.appendChild(hintRow(fleetText('The settings on this list will not be synced to the followers.')));
     const list = document.createElement('div');
     shell.body.appendChild(list);
     const paint = async () => {
       const known = await syncable();
       list.textContent = '';
-      if (!chosen.size) list.appendChild(infoRow('Nothing left out', ''));
+      if (!chosen.size) list.appendChild(infoRow(fleetText('Nothing left out'), ''));
       const ordered = [...chosen].sort((a, b) => orderOf(known[a], a).localeCompare(orderOf(known[b], b)));
       for (const key of ordered) {
         const e = known[key];
-        const row = infoRow(e ? pathOf(e) : key, e?.description || '');
+        const row = infoRow(e ? pathOf(e) : key, e ? settingPresentation(e).description || '' : '');
         const x = document.createElement('button');
         x.type = 'button';
         x.className = 'icon-btn';
-        x.title = 'Sync it again';
-        x.setAttribute('aria-label', 'Sync it again');
+        x.title = fleetText('Sync it again');
+        x.setAttribute('aria-label', fleetText('Sync it again'));
         x.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>';
         x.addEventListener('click', () => { chosen.delete(key); paint(); });
         row.appendChild(x);
@@ -331,15 +330,15 @@ function openExcludedModal(excluded) {
     paint();
     // Add a setting in the footer, on the left, where it stays in view
     // however long the list above grows.
-    const add = button('Add a setting', 'btn-ghost', async () => {
+    const add = button(fleetText('Add a setting'), 'btn-ghost', async () => {
       const key = await openExcludePicker(chosen);
       if (key) { chosen.add(key); paint(); }
     });
     add.style.marginRight = 'auto';
     shell.foot.append(
       add,
-      button('Cancel', 'btn-text', () => { shell.close(); resolve(null); }),
-      button('Save', 'btn-primary', () => { shell.close(); resolve([...chosen]); }),
+      button(fleetText('Cancel'), 'btn-text', () => { shell.close(); resolve(null); }),
+      button(fleetText('Save'), 'btn-primary', () => { shell.close(); resolve([...chosen]); }),
     );
   });
 }
@@ -350,12 +349,12 @@ function openExcludedModal(excluded) {
 function openExcludePicker(already) {
   return new Promise(async (resolve) => {
     const known = await syncable();
-    const shell = modalShell({ title: 'Exclude a setting', width: 480,
+    const shell = modalShell({ title: fleetText('Exclude a setting'), width: 480,
       onDismiss: () => { shell.close(); resolve(null); } });
     const search = document.createElement('input');
     search.type = 'search';
     search.className = 'field';
-    search.placeholder = 'Search settings';
+    search.placeholder = fleetText('Search settings');
     search.style.cssText = 'width:100%; margin-bottom:8px;';
     shell.body.appendChild(search);
     const list = document.createElement('div');
@@ -365,21 +364,21 @@ function openExcludePicker(already) {
       list.textContent = '';
       const rows = Object.values(known)
         .filter((e) => !already.has(e.key) && !e.hidden
-          && (!q || `${e.title} ${e.category} ${e.subpage || ''}`.toLowerCase().includes(q)))
+          && (!q || `${pathOf(e)} ${e.title} ${e.category} ${e.subpage || ''}`.toLowerCase().includes(q)))
         .sort((a, b) => orderOf(a, a.key).localeCompare(orderOf(b, b.key)));
       for (const e of rows.slice(0, 80)) {
-        const row = infoRow(pathOf(e), e.description || '');
+        const row = infoRow(pathOf(e), settingPresentation(e).description || '');
         row.classList.add('fleet-row');
         row.tabIndex = 0;
         row.addEventListener('click', () => { shell.close(); resolve(e.key); });
         row.addEventListener('keydown', (ev) => { if (ev.key === 'Enter') row.click(); });
         list.appendChild(row);
       }
-      if (rows.length > 80) list.appendChild(hintRow(`${rows.length - 80} more. Type to narrow the list.`));
+      if (rows.length > 80) list.appendChild(hintRow(t("fleetCountMoreTypeToNarrowTheList", {count: rows.length - 80})));
     };
     search.addEventListener('input', paint);
     paint();
-    shell.foot.appendChild(button('Cancel', 'btn-text', () => { shell.close(); resolve(null); }));
+    shell.foot.appendChild(button(fleetText('Cancel'), 'btn-text', () => { shell.close(); resolve(null); }));
     search.focus();
   });
 }
@@ -399,7 +398,7 @@ function profileEntry(p) {
   const info = document.createElement('div');
   info.className = 'info';
   info.innerHTML = '<div class="name"></div><div class="desc"></div>';
-  info.querySelector('.name').textContent = p.name;
+  info.querySelector('.name').textContent = profileName(p);
   info.querySelector('.desc').textContent = describe(p);
   const chev = document.createElement('span');
   chev.className = 'chev';
@@ -434,17 +433,18 @@ function profilePanel(p) {
   const panel = document.createElement('div');
   panel.className = 'subpage';
   panel.dataset.subpage = p.name;
+  panel.dataset.title = profileName(p);
   const fixed = builtIn(p);
   const cats = status?.categories || [];
   const creds = status?.credentials || [];
-  const catNames = cats.filter((c) => (p.categories || []).includes(c.id)).map((c) => c.title);
-  const credNames = creds.filter((c) => (p.credentials || []).includes(c.key)).map((c) => c.title);
+  const catNames = cats.filter((c) => (p.categories || []).includes(c.id)).map((c) => navigationText(fleetText(c.title)));
+  const credNames = creds.filter((c) => (p.credentials || []).includes(c.key)).map((c) => navigationText(fleetText(c.title)));
   if (!fixed) {
     const card = document.createElement('div');
     card.className = 'card';
-    const row = infoRow('Name', p.name);
-    row.appendChild(button('Rename', 'btn-ghost', async () => {
-      const name = await openNameModal({ title: 'Rename profile', initial: p.name });
+    const row = infoRow(fleetText('Name'), p.name);
+    row.appendChild(button(fleetText('Rename'), 'btn-ghost', async () => {
+      const name = await openNameModal({ title: fleetText('Rename profile'), initial: p.name });
       if (!name || name === p.name) return;
       const out = await saveProfile({ ...p, name });
       if (out?.ok) showTab(`fleet/${name}`);
@@ -452,37 +452,37 @@ function profilePanel(p) {
     card.appendChild(row);
     panel.appendChild(card);
   }
-  const [h1, card1] = titled('What it syncs');
+  const [h1, card1] = titled(fleetText('What it syncs'));
   if (p.id === UPDATES_ONLY) {
-    card1.appendChild(infoRow('Nothing',
-      'Kiosks on this profile keep every setting of their own. The leader only pushes updates to them.'));
+    card1.appendChild(infoRow(fleetText('Nothing'),
+      fleetText('Kiosks on this profile keep every setting of their own. The leader only pushes updates to them.')));
   } else {
-    card1.appendChild(openerRow('Categories',
-      catNames.length ? `${catNames.length} of ${cats.length}: ${catNames.join(', ')}` : 'None',
+    card1.appendChild(openerRow(fleetText('Categories'),
+      catNames.length ? t("fleetSelectedOfTotalNames", {selected: catNames.length, total: cats.length, names: catNames.join(', ')}) : fleetText('None'),
       async () => {
         const picked = await openCategoriesModal(p.categories || []);
         if (picked) await saveProfile({ ...p, categories: picked });
       }));
-    card1.appendChild(openerRow('Credentials', credNames.length ? credNames.join(', ') : 'None travel',
+    card1.appendChild(openerRow(fleetText('Credentials'), credNames.length ? credNames.join(', ') : fleetText('None travel'),
       async () => {
         const picked = await openCredentialsModal(p.credentials || []);
         if (picked) await saveProfile({ ...p, credentials: picked });
       }));
-    card1.appendChild(switchRow('Include the dashboard', 'The start page and the default dashboard.',
+    card1.appendChild(switchRow(fleetText('Include the dashboard'), fleetText('The start page and the default dashboard.'),
       !!p.dashboard, (v) => saveProfile({ ...p, dashboard: v })));
     const x = (p.excluded || []).length;
-    card1.appendChild(openerRow('Excluded settings',
-      x === 0 ? 'None' : x === 1 ? 'One setting left out' : `${x} settings left out`,
+    card1.appendChild(openerRow(fleetText('Excluded settings'),
+      x === 0 ? fleetText('None') : x === 1 ? fleetText('One setting left out') : t("fleetCountSettingsLeftOut", {count: x}),
       async () => {
         const picked = await openExcludedModal(p.excluded || []);
         if (picked) await saveProfile({ ...p, excluded: picked });
       }));
   }
   panel.append(h1, card1);
-  const [h2, card2] = titled('Kiosks');
+  const [h2, card2] = titled(fleetText('Kiosks'));
   const names = (status?.followers || []).filter((f) => f.profile === p.id).map((f) => f.name);
   if (!names.length) {
-    card2.appendChild(infoRow('No kiosks assigned', 'Assign this profile to a kiosk on the Fleet Management page.'));
+    card2.appendChild(infoRow(fleetText('No kiosks assigned'), fleetText('Assign this profile to a kiosk on the Fleet Management page.')));
   } else {
     for (const n of names) card2.appendChild(infoRow(n, ''));
   }
@@ -490,20 +490,20 @@ function profilePanel(p) {
   const card3 = document.createElement('div');
   card3.className = 'card';
   card3.style.marginTop = '16px';
-  const dup = infoRow('Duplicate', 'Clone this profile into a new one.');
-  dup.appendChild(button('Duplicate', 'btn-ghost', async () => {
-    const name = await openNameModal({ title: 'Duplicate profile', initial: `${p.name} copy` });
+  const dup = infoRow(fleetText('Duplicate'), fleetText('Clone this profile into a new one.'));
+  dup.appendChild(button(fleetText('Duplicate'), 'btn-ghost', async () => {
+    const name = await openNameModal({ title: fleetText('Duplicate profile'), initial: t("fleetNameCopy", {name: profileName(p)}) });
     if (!name) return;
     const out = await saveProfile({ ...p, id: '', name });
     if (out?.ok) showTab(`fleet/${name}`);
   }));
   card3.appendChild(dup);
   if (!fixed) {
-    const del = infoRow('Delete profile', names.length ? 'Kiosks on it get the Default profile.' : 'No kiosk is on it.');
-    const b = button('Delete', 'btn-ghost', async () => {
-      const pick = await messageBox({ title: `Delete ${p.name}?`,
-        message: 'Kiosks on it get the Default profile.', buttons: ['Cancel', 'Delete'] });
-      if (pick !== 'Delete') return;
+    const del = infoRow(fleetText('Delete profile'), names.length ? fleetText('Kiosks on it get the Default profile.') : fleetText('No kiosk is on it.'));
+    const b = button(fleetText('Delete'), 'btn-ghost', async () => {
+      const pick = await messageBox({ title: t("fleetDeleteName", {name: profileName(p)}),
+        message: fleetText('Kiosks on it get the Default profile.'), buttons: [fleetText('Cancel'), fleetText('Delete')] });
+      if (pick !== fleetText('Delete')) return;
       const out = await run('fleetDeleteProfile', { id: p.id }, { reload: false });
       if (out?.ok) { showTab('fleet'); await loadStatus(); renderFleetPage({ fetch: false }); }
     });
@@ -519,28 +519,28 @@ function profilePanel(p) {
 
 function openAddDialog() {
   return new Promise((resolve) => {
-    const shell = modalShell({ title: 'Add a kiosk', width: 440,
+    const shell = modalShell({ title: fleetText('Add a kiosk'), width: 440,
       onDismiss: () => { shell.close(); resolve(null); } });
     const looking = document.createElement('div');
     looking.className = 'hint-row';
-    looking.textContent = 'Looking for other kiosks…';
+    looking.textContent = fleetText('Looking for other kiosks…');
     shell.body.appendChild(looking);
-    shell.foot.appendChild(button('Cancel', 'btn-text', () => { shell.close(); resolve(null); }));
+    shell.foot.appendChild(button(fleetText('Cancel'), 'btn-text', () => { shell.close(); resolve(null); }));
     cmd('fleetCandidates').then((r) => {
       looking.remove();
       const list = r.ok ? (r.data || []) : [];
       if (!list.length) {
-        shell.body.appendChild(hintRow('No other kiosk found on this network. A kiosk shows up once its remote admin is on and it shares this Wi-Fi.'));
+        shell.body.appendChild(hintRow(fleetText('No other kiosk found on this network. A kiosk shows up once its remote admin is on and it shares this Wi-Fi.')));
         return;
       }
       for (const k of list) {
         const taken = !!k.follows || k.leader === true || k.supported === false;
         const tags = [];
-        if (k.follows) tags.push(tag(`Follows ${k.follows}`));
-        if (k.leader === true) tags.push(tag('Leads a fleet'));
+        if (k.follows) tags.push(tag(t("fleetFollowsName", {name: k.follows})));
+        if (k.leader === true) tags.push(tag(fleetText('Leads a fleet')));
         // A build from before Fleet Management: same version name, no
         // fleet endpoints.
-        if (k.supported === false) tags.push(tag('No Fleet Management', 'error'));
+        if (k.supported === false) tags.push(tag(fleetText('No Fleet Management'), 'error'));
         const row = kioskRow({ name: k.name, address: k.address, version: k.version, tags, dim: taken });
         if (!taken) {
           row.tabIndex = 0;
@@ -549,9 +549,9 @@ function openAddDialog() {
         }
         shell.body.appendChild(row);
       }
-      shell.body.appendChild(hintRow('Kiosks on this network that do not follow this one. Pick one to choose what it gets, then the invitation goes out. A kiosk on a build without Fleet Management joins once it runs one.'));
+      shell.body.appendChild(hintRow(fleetText('Kiosks on this network that do not follow this one. Pick one to choose what it gets, then the invitation goes out. A kiosk on a build without Fleet Management joins once it runs one.')));
     }).catch(() => {
-      looking.textContent = 'The device did not answer.';
+      looking.textContent = fleetText('The device did not answer.');
     });
   });
 }
@@ -565,7 +565,7 @@ export async function renderFleetPage({ fetch = true } = {}) {
   applyManagedBanners();
   tab.innerHTML = '';
   if (!status) {
-    tab.appendChild(hintRow('The device did not answer.'));
+    tab.appendChild(hintRow(fleetText('The device did not answer.')));
     return;
   }
   const enabled = status.enabled === true;
@@ -576,9 +576,9 @@ export async function renderFleetPage({ fetch = true } = {}) {
   if (!enabled) {
     const card = document.createElement('div');
     card.className = 'card';
-    const row = infoRow('Fleet Management needs the remote admin',
-      'Kiosks find each other through it. Turn on Remote management and Find other kiosks under Device, then come back.');
-    row.appendChild(button('Open', 'btn-ghost', () => showTab('device/Remote Administration')));
+    const row = infoRow(fleetText('Fleet Management needs the remote admin'),
+      fleetText('Kiosks find each other through it. Turn on Remote management and Find other kiosks under Device, then come back.'));
+    row.appendChild(button(fleetText('Open'), 'btn-ghost', () => showTab('device/Remote Administration')));
     card.appendChild(row);
     tab.appendChild(card);
   }
@@ -587,8 +587,8 @@ export async function renderFleetPage({ fetch = true } = {}) {
     const card = document.createElement('div');
     card.className = 'card';
     const l = invite.leader;
-    card.appendChild(kioskRow({ name: `${l.name} wants to lead this kiosk`, address: l.address, version: l.version, tags: [tag('Leader', 'device')] }));
-    card.appendChild(hintRow('Confirm on the kiosk itself. The invitation is waiting on its screen and under Settings, Fleet Management.'));
+    card.appendChild(kioskRow({ name: t("fleetNameWantsToLeadThisKiosk", {name: l.name}), address: l.address, version: l.version, tags: [tag(fleetText('Leader'), 'device')] }));
+    card.appendChild(hintRow(fleetText('Confirm on the kiosk itself. The invitation is waiting on its screen and under Settings, Fleet Management.')));
     tab.appendChild(card);
   }
 
@@ -602,7 +602,7 @@ export async function renderFleetPage({ fetch = true } = {}) {
       const input = row.querySelector('input');
       if (following || !enabled) {
         if (input) input.disabled = true;
-        if (following) row.querySelector('.desc').textContent = 'A kiosk that follows a leader cannot lead.';
+        if (following) row.querySelector('.desc').textContent = fleetText('A kiosk that follows a leader cannot lead.');
         row.style.opacity = '.55';
       }
       card.appendChild(row);
@@ -612,13 +612,13 @@ export async function renderFleetPage({ fetch = true } = {}) {
 
   if (enabled && leading) {
     // Followers.
-    const [h, card] = titled('Followers');
+    const [h, card] = titled(fleetText('Followers'));
     for (const f of status.followers || []) card.appendChild(followerRow(f));
-    const add = infoRow('Add a kiosk', 'Kiosks member of the fleet. A follower must confirm the invitation on device.');
-    add.appendChild(button('Add', 'btn-ghost', async () => {
+    const add = infoRow(fleetText('Add a kiosk'), fleetText('Kiosks member of the fleet. A follower must confirm the invitation on device.'));
+    add.appendChild(button(fleetText('Add'), 'btn-ghost', async () => {
       const k = await openAddDialog();
       if (!k) return;
-      const profile = await openProfilePicker({ who: k.name, confirm: 'Send invitation' });
+      const profile = await openProfilePicker({ who: k.name, confirm: fleetText('Send invitation') });
       if (!profile) return;
       await run('fleetInvite', { id: k.id, profile });
     }));
@@ -626,11 +626,11 @@ export async function renderFleetPage({ fetch = true } = {}) {
     tab.append(h, card);
 
     // Profiles: one entry row each, its page parked on the tab.
-    const [h2, card2] = titled('Profiles');
+    const [h2, card2] = titled(fleetText('Profiles'));
     for (const p of status.profiles || []) card2.appendChild(profileEntry(p));
-    const addP = infoRow('Add a profile', 'The collection of settings, credentials and exclusions to sync.');
-    addP.appendChild(button('Add', 'btn-ghost', async () => {
-      const name = await openNameModal({ title: 'New profile' });
+    const addP = infoRow(fleetText('Add a profile'), fleetText('The collection of settings, credentials and exclusions to sync.'));
+    addP.appendChild(button(fleetText('Add'), 'btn-ghost', async () => {
+      const name = await openNameModal({ title: fleetText('New profile') });
       if (!name) return;
       const base = (status.profiles || []).find((p) => p.id === 'default') || {};
       const out = await saveProfile({ ...base, id: '', name });
@@ -639,16 +639,18 @@ export async function renderFleetPage({ fetch = true } = {}) {
     card2.appendChild(addP);
     const note = document.createElement('div');
     note.className = 'group-note';
-    note.innerHTML = 'Learn which settings sync and which do not in the <a target="_blank" rel="noopener"></a>.';
+    note.append(document.createTextNode(fleetText('Learn which settings sync and which do not in the ')));
+    const link = document.createElement('a'); link.target = '_blank'; link.rel = 'noopener';
+    note.append(link, document.createTextNode('.'));
     const a = note.querySelector('a');
     a.href = DOCS_URL;
-    a.textContent = 'Fleet Management documentation';
+    a.textContent = fleetText('Fleet Management documentation');
     tab.append(h2, card2, note);
     for (const p of status.profiles || []) tab.appendChild(profilePanel(p));
 
     // Updates.
-    const [h3, card3] = titled('Updates');
-    const upd = infoRow('Update the fleet', 'Update the whole fleet to the Kiosk Satellite version running on the leader.');
+    const [h3, card3] = titled(fleetText('Updates'));
+    const upd = infoRow(fleetText('Update the fleet'), fleetText('Update the whole fleet to the Kiosk Satellite version running on the leader.'));
     upd.appendChild(button('Update', 'btn-primary', async () => {
       const out = await run('fleetUpdate', {}, { reload: false });
       if (!out?.ok) return;
@@ -656,10 +658,10 @@ export async function renderFleetPage({ fetch = true } = {}) {
       const started = data.started || [];
       const skipped = data.skipped || {};
       const parts = [];
-      if (started.length) parts.push(`${started.join(', ')} installing.`);
-      if (data.self) parts.push('This kiosk installs last.');
-      for (const [k, v] of Object.entries(skipped)) parts.push(`${k}: ${v}.`);
-      showToast({ title: started.length || data.self ? 'Updating' : 'Nothing to update',
+      if (started.length) parts.push(t("fleetNamesInstalling", {names: started.join(', ')}));
+      if (data.self) parts.push(fleetText('This kiosk installs last.'));
+      for (const [k, v] of Object.entries(skipped)) parts.push(`${k}: ${fleetStatusText(v)}.`);
+      showToast({ title: started.length || data.self ? fleetText('Updating') : fleetText('Nothing to update'),
         message: parts.join(' '), kind: started.length || data.self ? 'success' : 'info' });
       await loadStatus();
       renderFleetPage({ fetch: false });
@@ -679,28 +681,29 @@ export async function renderFleetPage({ fetch = true } = {}) {
       setCurrentPath('fleet');
       showTab('fleet');
     }
+    refreshNavigationText();
   }
 
   if (following) {
-    const [h, card] = titled('Leader');
+    const [h, card] = titled(fleetText('Leader'));
     const l = following.leader || {};
-    const row = kioskRow({ name: l.name, address: l.address, version: l.version, tags: [tag('Leader', 'device')] });
+    const row = kioskRow({ name: l.name, address: l.address, version: l.version, tags: [tag(fleetText('Leader'), 'device')] });
     const st = document.createElement('span');
     st.className = 'fleet-status' + (following.dirty ? '' : ' ok');
-    st.textContent = following.dirty ? 'Changed here, waiting for the leader'
-      : following.lastSyncAt ? `Synced ${ago(following.lastSyncAt)}` : 'Waiting for the first sync';
+    st.textContent = following.dirty ? fleetText('Changed here, waiting for the leader')
+      : following.lastSyncAt ? t("fleetSyncedTime", {time: ago(following.lastSyncAt)}) : fleetText('Waiting for the first sync');
     row.appendChild(st);
     card.appendChild(row);
     const cats = following.syncedCategories || [];
     const creds = following.credentials || [];
-    card.appendChild(infoRow('Synced from the leader',
-      `${cats.length ? cats.join(', ') : 'Nothing yet'}. ${creds.length ? `With the ${creds.join(', ')}` : 'No credentials'}. ${following.dashboard ? 'The dashboard' : 'No dashboard'}.`));
-    const leave = infoRow('Leave the fleet', 'Stops the sync. Settings stay as they are.');
-    leave.appendChild(button('Leave', 'btn-ghost', async () => {
-      const pick = await messageBox({ title: 'Leave the fleet?',
-        message: `${l.name} stops pushing settings here. Everything stays as it is now.`,
-        buttons: ['Cancel', 'Leave'] });
-      if (pick !== 'Leave') return;
+    card.appendChild(infoRow(fleetText('Synced from the leader'),
+      [cats.length ? cats.map(navigationText).join(', ') : fleetText('Nothing yet'), creds.length ? t("fleetWithTheNames", {names: creds.map(fleetText).join(', ')}) : fleetText('No credentials'), fleetText(following.dashboard ? fleetText('The dashboard') : fleetText('No dashboard'))].join('. ') + '.'));
+    const leave = infoRow(fleetText('Leave the fleet'), fleetText('Stops the sync. Settings stay as they are.'));
+    leave.appendChild(button(fleetText('Leave'), 'btn-ghost', async () => {
+      const pick = await messageBox({ title: fleetText('Leave the fleet?'),
+        message: t("fleetNameStopsPushingSettingsHereEverythingStaysAsIt", {name: l.name}),
+        buttons: [fleetText('Cancel'), fleetText('Leave')] });
+      if (pick !== fleetText('Leave')) return;
       await run('fleetLeave');
     }));
     card.appendChild(leave);
@@ -710,7 +713,7 @@ export async function renderFleetPage({ fetch = true } = {}) {
 
 function followerRow(f) {
   const tags = [];
-  if (f.profile !== 'default') tags.push(tag(f.profileName || 'Profile', 'device'));
+  if (f.profile !== 'default') tags.push(tag(f.profileName || fleetText('Profile'), 'device'));
   const row = kioskRow({ name: f.name, address: f.address, version: f.version, tags });
   row.classList.remove('fleet-row');
   if (f.phase === 'version') {
@@ -719,27 +722,27 @@ function followerRow(f) {
   }
   const st = document.createElement('span');
   st.className = 'fleet-status' + (f.tone === 'ok' ? ' ok' : f.tone === 'warn' ? ' warn' : '');
-  st.textContent = f.status || '';
+  st.textContent = fleetStatusText(f.status || '');
   const more = document.createElement('button');
   more.type = 'button';
   more.className = 'icon-btn';
-  more.title = 'More';
-  more.setAttribute('aria-label', 'More');
+  more.title = fleetText('More');
+  more.setAttribute('aria-label', fleetText('More'));
   more.innerHTML = MORE;
   more.addEventListener('click', () => popmenu(more, [
-    { label: 'Profile', run: async () => {
+    { label: fleetText('Profile'), run: async () => {
       const profile = await openProfilePicker({ who: f.name, selected: f.profile });
       if (!profile) return;
       await run('fleetAssignProfile', { id: f.id, profile });
     } },
     f.phase === 'declined' || f.phase === 'left'
-      ? { label: 'Invite again', run: () => run('fleetInvite', { id: f.id, profile: f.profile }) }
-      : { label: 'Sync now', run: () => run('fleetSyncNow', { id: f.id }) },
-    { label: 'Remove', danger: true, run: async () => {
-      const pick = await messageBox({ title: `Remove ${f.name}?`,
-        message: 'It stops following this kiosk and keeps its settings.',
-        buttons: ['Cancel', 'Remove'] });
-      if (pick === 'Remove') await run('fleetRemove', { id: f.id });
+      ? { label: fleetText('Invite again'), run: () => run('fleetInvite', { id: f.id, profile: f.profile }) }
+      : { label: fleetText('Sync now'), run: () => run('fleetSyncNow', { id: f.id }) },
+    { label: fleetText('Remove'), danger: true, run: async () => {
+      const pick = await messageBox({ title: t("fleetRemoveName", {name: f.name}),
+        message: fleetText('It stops following this kiosk and keeps its settings.'),
+        buttons: [fleetText('Cancel'), fleetText('Remove')] });
+      if (pick === fleetText('Remove')) await run('fleetRemove', { id: f.id });
     } },
   ]));
   // Two loose trailing controls overlap on a phone: one wrapper.
@@ -752,12 +755,12 @@ function followerRow(f) {
 
 function ago(at) {
   const s = Math.round((Date.now() - at) / 1000);
-  if (s < 60) return 'just now';
+  if (s < 60) return fleetText('just now');
   const m = Math.floor(s / 60);
-  if (m < 60) return `${m} min ago`;
+  if (m < 60) return t("fleetCountMinAgo", {count: m});
   const h = Math.floor(m / 60);
-  if (h < 48) return `${h} h ago`;
-  return `${Math.floor(h / 24)} days ago`;
+  if (h < 48) return t("fleetCountHAgo", {count: h});
+  return t("fleetCountDaysAgo", {count: Math.floor(h / 24)});
 }
 
 /* ---- the banner on a follower's synced categories ---- */
@@ -780,7 +783,7 @@ export function applyManagedBanners() {
   for (const tab of tabs) {
     const el = document.getElementById(`tab-${tab}`);
     if (!el) continue;
-    const b = banner(`${following.leader?.name} leads these settings. A change here is replaced at the next sync.`,
+    const b = banner(t("fleetNameLeadsTheseSettingsAChangeHereIsReplaced", {name: following.leader?.name}),
       { className: 'fleet-banner' });
     el.prepend(b);
   }
@@ -804,3 +807,8 @@ document.addEventListener('ks-event', (e) => {
 watchUpdates(['fleetsync'], (results) => {
   if (!document.querySelector('.modal-back')) return renderFleetPage({ fetch: !results });
 }, { visible: () => currentPath.split('/')[0] === 'fleet' });
+
+document.addEventListener('ks-settings-cached', () => {
+  applyManagedBanners();
+  if (currentPath.split('/')[0] === 'fleet' && !document.querySelector('.modal-back')) renderFleetPage({fetch:false});
+});

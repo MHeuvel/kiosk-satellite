@@ -1,0 +1,316 @@
+{
+  "@@locale": "en",
+  "pluginPlugin": "Plugin",
+  "@pluginPlugin": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginEnablePlugins": "Enable Plugins",
+  "@pluginEnablePlugins": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginPluginsAddAdditionalCommunityDevelopedFeaturesToKioskSatellite": "Plugins add additional community developed features to Kiosk Satellite.",
+  "@pluginPluginsAddAdditionalCommunityDevelopedFeaturesToKioskSatellite": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginInstalledPlugins": "Installed plugins",
+  "@pluginInstalledPlugins": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginNoPluginsInstalledAddARepositoryToGetStarted": "No plugins installed. Add a repository to get started.",
+  "@pluginNoPluginsInstalledAddARepositoryToGetStarted": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginDeveloperTools": "Developer Tools",
+  "@pluginDeveloperTools": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginCreateAPlugin": "Create a plugin",
+  "@pluginCreateAPlugin": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginLearnHowToCreatePluginsWithTheHelloWorld": "Learn how to create plugins with the Hello World template and documentation.",
+  "@pluginLearnHowToCreatePluginsWithTheHelloWorld": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginThisPluginIsNoLongerInstalled": "This plugin is no longer installed.",
+  "@pluginThisPluginIsNoLongerInstalled": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginEnablePluginsToRunThisPlugin": "Enable Plugins to run this plugin.",
+  "@pluginEnablePluginsToRunThisPlugin": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginEnableThisPluginFromItsEntryRowToRun": "Enable this plugin from its entry row to run it.",
+  "@pluginEnableThisPluginFromItsEntryRowToRun": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginUninstallName": "Uninstall {name}?",
+  "@pluginUninstallName": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "pluginUninstallNameDetail": "Uninstall {name}",
+  "@pluginUninstallNameDetail": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "pluginCheckForUpdatesForName": "Check for updates for {name}",
+  "@pluginCheckForUpdatesForName": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "pluginAboutName": "About {name}",
+  "@pluginAboutName": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "pluginThisRemovesThePluginAndItsSettings": "This removes the plugin and its settings.",
+  "@pluginThisRemovesThePluginAndItsSettings": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginUninstall": "Uninstall",
+  "@pluginUninstall": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginNoUpdatesAvailable": "No updates available.",
+  "@pluginNoUpdatesAvailable": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginThisPluginWasInstalledFromZipAndHasNo": "This plugin was installed from ZIP and has no repository README.",
+  "@pluginThisPluginWasInstalledFromZipAndHasNo": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginImageUnavailable": "Image unavailable",
+  "@pluginImageUnavailable": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginCouldNotOpenThisLink": "Could not open this link.",
+  "@pluginCouldNotOpenThisLink": {
+    "context": "Settings > Plugin Manager",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager"
+      ]
+    }
+  },
+  "pluginEnableName": "Enable {name}",
+  "@pluginEnableName": {
+    "context": "Settings > Plugin Manager > select a plugin",
+    "description": "Accessible control guidance or action result.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Plugin Manager > select a plugin"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep supplied names and version numbers unchanged."
+  }
+}

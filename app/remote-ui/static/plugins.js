@@ -1,5 +1,6 @@
+import { pluginText, t, messageLanguage } from './localization.js';
 import { preserveDraft } from './drafts.js';
-import { watchUpdates } from './live.js';
+import { watchUpdates, receiveUpdate } from './live.js';
 import { entitySearchPicker } from './cameras.js';
 import { cmd } from './core.js';
 import { updatePluginCharts } from './plugin-charts.js';
@@ -65,22 +66,22 @@ export async function loadPlugins() {
   try {
     render(root, await refreshPluginSearchState());
   } catch (error) {
-    showToast({ title: 'Plugin Manager', message: error.message, kind: 'error' });
+    showToast({ title: pluginText('Plugin Manager'), message: error.message, kind: 'error' });
   } finally { busy = false; }
 }
 
 function repositoryDialog() {
   return new Promise((resolve) => {
-    const modal = modalShell({ title: 'Add plugin', width: 520 });
+    const modal = modalShell({ title: pluginText('Add plugin'), width: 520 });
     const form = element('form'); form.id = 'plugin-repository-form';
     const row = element('div', undefined, 'row plugin-repository-field');
-    const label = element('label', 'Repository URL', 'info'); label.htmlFor = 'plugin-repository-url';
+    const label = element('label', pluginText('Repository URL'), 'info'); label.htmlFor = 'plugin-repository-url';
     const input = element('input'); input.id = 'plugin-repository-url'; input.type = 'url'; input.required = true;
     input.placeholder = 'https://github.com/owner/plugin'; input.autocomplete = 'url';
-    row.append(label, input); form.append(row, hintRow("Make sure you trust the plugin's author and its code before installing it.")); modal.body.append(form);
-    const cancel = element('button', 'Cancel', 'btn-text');
+    row.append(label, input); form.append(row, hintRow(pluginText("Make sure you trust the plugin's author and its code before installing it."))); modal.body.append(form);
+    const cancel = element('button', pluginText('Cancel'), 'btn-text');
     cancel.onclick = () => { modal.close(); resolve(null); };
-    const preview = element('button', 'Preview', 'btn-primary'); preview.type = 'submit'; preview.setAttribute('form', form.id);
+    const preview = element('button', pluginText('Preview'), 'btn-primary'); preview.type = 'submit'; preview.setAttribute('form', form.id);
     form.onsubmit = (event) => { event.preventDefault(); const url = input.value.trim(); modal.close(); resolve(url); };
     modal.foot.append(cancel, preview); input.focus();
   });
@@ -93,14 +94,14 @@ function confirmPreview(preview) {
     modal.body.append(hintRow(plugin.description));
     for (const [title, value] of Object.entries({ ...(preview.installedVersion ? { 'Installed version': preview.installedVersion } : {}), Version: plugin.version, Author: plugin.author, License: plugin.license })) {
       const row = element('div', undefined, 'row');
-      row.append(element('span', title, 'info'), element('span', value, 'desc')); modal.body.append(row);
+      row.append(element('span', pluginText(title), 'info'), element('span', value, 'desc')); modal.body.append(row);
     }
-    modal.body.append(pluginReadme(preview), hintRow(trustNotice, { warn: true }),
-      hintRow('New plugins start disabled. Updates preserve the enabled state and automatically restart running plugins.'));
+    modal.body.append(pluginReadme(preview), hintRow(pluginText(trustNotice), { warn: true }),
+      hintRow(pluginText('New plugins start disabled. Updates preserve the enabled state and automatically restart running plugins.')));
     if (!preview.compatible) modal.body.append(hintRow(preview.compatibilityError, { warn: true }));
-    const cancel = element('button', 'Cancel', 'btn-text');
+    const cancel = element('button', pluginText('Cancel'), 'btn-text');
     cancel.onclick = () => { modal.close(); resolve(false); };
-    const install = element('button', preview.installedVersion ? 'Trust and update' : 'Trust and install', 'btn-primary');
+    const install = element('button', preview.installedVersion ? pluginText('Trust and update') : pluginText('Trust and install'), 'btn-primary');
     install.disabled = !preview.compatible;
     install.onclick = () => { modal.close(); resolve(true); };
     modal.foot.append(cancel, install);
@@ -109,12 +110,12 @@ function confirmPreview(preview) {
 
 function confirmZip(file) {
   return new Promise((resolve) => {
-    const modal = modalShell({ title: 'Install from ZIP', width: 520 });
-    modal.body.append(hintRow(file.name), hintRow(trustNotice, { warn: true }),
-      hintRow('New plugins start disabled. Updates preserve the enabled state and automatically restart running plugins.'));
-    const cancel = element('button', 'Cancel', 'btn-text');
+    const modal = modalShell({ title: pluginText('Install from ZIP'), width: 520 });
+    modal.body.append(hintRow(file.name), hintRow(pluginText(trustNotice), { warn: true }),
+      hintRow(pluginText('New plugins start disabled. Updates preserve the enabled state and automatically restart running plugins.')));
+    const cancel = element('button', pluginText('Cancel'), 'btn-text');
     cancel.onclick = () => { modal.close(); resolve(false); };
-    const install = element('button', 'Trust and install', 'btn-primary');
+    const install = element('button', pluginText('Trust and install'), 'btn-primary');
     install.onclick = () => { modal.close(); resolve(true); };
     modal.foot.append(cancel, install);
   });
@@ -122,7 +123,7 @@ function confirmZip(file) {
 
 async function zipBase64(file) {
   const bytes = new Uint8Array(await file.arrayBuffer());
-  if (!bytes.length || bytes.length > maxZipBytes) throw new Error('Plugin ZIP must be at most 4 MB');
+  if (!bytes.length || bytes.length > maxZipBytes) throw new Error(pluginText('Plugin ZIP must be at most 4 MB'));
   let binary = '';
   for (let start = 0; start < bytes.length; start += 8192) {
     binary += String.fromCharCode(...bytes.subarray(start, start + 8192));
@@ -148,19 +149,19 @@ function info(title, description = '') {
 function actionOptionsDialog(action, options) {
   return new Promise((resolve) => {
     const shell = modalShell({ title: action.title, onDismiss: () => { shell.close(); resolve(null); } });
-    shell.body.append(hintRow('To assign a gesture, open Gestures and choose Run a plugin action.'));
+    shell.body.append(hintRow(pluginText('To assign a gesture, open Gestures and choose Run a plugin action.')));
     const selected = { drawer: options.drawer === true, homeAssistant: options.homeAssistant === true };
     for (const [key, title, description] of [
-      ['drawer', 'Show in kiosk drawer', 'Also available while locked if the kiosk drawer is allowed.'],
-      ['homeAssistant', 'Expose to Home Assistant', 'Adds a button to the kiosk ESPHome device. Requires ESPHome and native entities.'],
+      ['drawer', pluginText('Show in kiosk drawer'), pluginText('Also available while locked if the kiosk drawer is allowed.')],
+      ['homeAssistant', pluginText('Expose to Home Assistant'), pluginText('Adds a button to the kiosk ESPHome device. Requires ESPHome and native entities.')],
     ]) {
       const row = element('div', undefined, 'row'); row.append(info(title, description));
       const input = element('input'); input.type = 'checkbox'; input.checked = selected[key]; input.setAttribute('aria-label', title);
       input.onchange = () => { selected[key] = input.checked; };
       const toggle = element('label', undefined, 'switch'); toggle.append(input, element('span', undefined, 'slider')); row.append(toggle); shell.body.append(row);
     }
-    const cancel = element('button', 'Cancel', 'btn-text'); cancel.onclick = () => { shell.close(); resolve(null); };
-    const save = element('button', 'Save', 'btn-primary'); save.onclick = () => { shell.close(); resolve(selected); };
+    const cancel = element('button', pluginText('Cancel'), 'btn-text'); cancel.onclick = () => { shell.close(); resolve(null); };
+    const save = element('button', pluginText('Save'), 'btn-primary'); save.onclick = () => { shell.close(); resolve(selected); };
     shell.foot.append(cancel, save);
   });
 }
@@ -176,33 +177,33 @@ function render(root, state) {
   const introduction = element('div', undefined, 'card');
   const masterRow = element('div', undefined, 'row');
   masterRow.dataset.searchId = 'x:plugins:master';
-  masterRow.append(info('Enable Plugins', introText));
+  masterRow.append(info(pluginText('Enable Plugins'), pluginText(introText)));
   const masterToggle = element('label', undefined, 'switch plugin-master-switch');
   const master = element('input'); master.type = 'checkbox'; master.checked = pluginsEnabled;
-  master.setAttribute('aria-label', 'Enable Plugins');
+  master.setAttribute('aria-label', pluginText('Enable Plugins'));
   masterToggle.append(master, element('span', undefined, 'slider')); masterRow.append(masterToggle);
   introduction.append(masterRow);
   const installCard = element('div', undefined, 'card');
   const addRow = element('div', undefined, 'row plugin-add-row');
   addRow.dataset.searchId = 'x:plugins:add';
-  addRow.append(info('Add plugin', 'Install from a GitHub repository'));
-  const add = iconButton('Add plugin', 'M12 5v14M5 12h14'); addRow.append(add);
-  const warning = hintRow(trustNotice, { warn: true }); warning.classList.add('plugin-install-warning');
+  addRow.append(info(pluginText('Add plugin'), pluginText('Install from a GitHub repository')));
+  const add = iconButton(pluginText('Add plugin'), 'M12 5v14M5 12h14'); addRow.append(add);
+  const warning = hintRow(pluginText(trustNotice), { warn: true }); warning.classList.add('plugin-install-warning');
   installCard.append(addRow, warning);
   const list = element('div', undefined, 'card');
   const developerTools = element('div', undefined, 'card');
   const zipRow = element('div', undefined, 'row plugin-add-row');
   zipRow.dataset.searchId = 'x:plugins:zip';
-  zipRow.append(info('Install from ZIP', 'For developers only: test a local build'));
-  const upload = iconButton('Install from ZIP', 'M12 16V4m-4 4 4-4 4 4M4 16v4h16v-4');
+  zipRow.append(info(pluginText('Install from ZIP'), pluginText('For developers only: test a local build')));
+  const upload = iconButton(pluginText('Install from ZIP'), 'M12 16V4m-4 4 4-4 4 4M4 16v4h16v-4');
   const fileInput = element('input'); fileInput.type = 'file'; fileInput.accept = '.zip,application/zip'; fileInput.hidden = true;
-  fileInput.setAttribute('aria-label', 'Plugin ZIP');
+  fileInput.setAttribute('aria-label', pluginText('Plugin ZIP'));
   zipRow.append(upload, fileInput); developerTools.append(zipRow);
   const guideRow = element('a', undefined, 'row plugin-guide-row');
   guideRow.dataset.searchId = 'x:plugins:create';
   guideRow.href = 'https://github.com/jxlarrea/kiosk-satellite-plugin-hello-world';
   guideRow.target = '_blank'; guideRow.rel = 'noopener noreferrer';
-  guideRow.append(info('Create a plugin', 'Learn how to create plugins with the Hello World template and documentation.'));
+  guideRow.append(info(pluginText('Create a plugin'), pluginText('Learn how to create plugins with the Hello World template and documentation.')));
   const guideIcon = element('span', undefined, 'icon-btn'); guideIcon.setAttribute('aria-hidden', 'true');
   guideIcon.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M21 3 10 14M10 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5"/></svg>';
   guideRow.append(guideIcon); developerTools.append(guideRow);
@@ -220,7 +221,7 @@ function render(root, state) {
     root.querySelectorAll('button,input,select').forEach((el) => { el.disabled = true; });
     trigger.classList.add('plugin-busy');
     try { await action(); }
-    catch (failure) { showToast({ title: 'Plugin Manager', message: failure.message, kind: 'error' }); }
+    catch (failure) { showToast({ title: pluginText('Plugin Manager'), message: failure.message, kind: 'error' }); }
     finally {
       trigger.classList.remove('plugin-busy'); busy = false;
       root.removeAttribute('aria-busy');
@@ -237,7 +238,7 @@ function render(root, state) {
     if (currentPath.split('/')[0] === 'plugins') showTab('plugins', { refresh: false });
     return;
   }
-  root.append(installCard, heading('Installed plugins'), list, heading('Developer Tools'), developerTools);
+  root.append(installCard, heading(pluginText('Installed plugins')), list, heading(pluginText('Developer Tools')), developerTools);
   add.onclick = () => run(async () => {
     const url = await repositoryDialog();
     if (url === null) return;
@@ -253,7 +254,7 @@ function render(root, state) {
     const file = fileInput.files?.[0]; fileInput.value = '';
     if (!file) return;
     run(async () => {
-      if (!file.size || file.size > maxZipBytes) throw new Error('Plugin ZIP must be at most 4 MB');
+      if (!file.size || file.size > maxZipBytes) throw new Error(pluginText('Plugin ZIP must be at most 4 MB'));
       if (!await confirmZip(file)) return;
       const data = await zipBase64(file);
       await command('installPlugin', { data, trusted: true });
@@ -261,7 +262,7 @@ function render(root, state) {
     }, upload);
   };
   addRow.onclick = (event) => { if (!event.target.closest('button') && !busy) add.click(); };
-  if (!plugins.length) list.append(hintRow('No plugins installed. Add a repository to get started.'));
+  if (!plugins.length) list.append(hintRow(pluginText('No plugins installed. Add a repository to get started.')));
   for (const plugin of plugins) {
     const row = subpageEntry('plugins', plugin.id, { iconName: 'Plugins' });
     row.querySelector('.name').textContent = plugin.name;
@@ -274,38 +275,38 @@ function render(root, state) {
     };
     const toggle = element('label', undefined, 'switch');
     const enabled = element('input'); enabled.type = 'checkbox'; enabled.checked = plugin.enabled;
-    enabled.setAttribute('aria-label', `Enable ${plugin.name}`);
+    enabled.setAttribute('aria-label', t('pluginEnableName', {name:plugin.name}));
     enabled.disabled = !pluginsEnabled; enabled.dataset.pluginDisabled = String(!pluginsEnabled);
     enabled.onchange = () => update(enabled.checked ? 'enablePlugin' : 'disablePlugin', { id: plugin.id }, row.querySelector('.chev'));
     toggle.onclick = (event) => event.stopPropagation();
     toggle.append(enabled, element('span', undefined, 'slider'));
-    const remove = iconButton(`Uninstall ${plugin.name}`, 'M3 6h18M9 6V4h6v2M5 6l1 14h12l1-14M10 10v6M14 10v6');
+    const remove = iconButton(t("pluginUninstallNameDetail", {name: plugin.name}), 'M3 6h18M9 6V4h6v2M5 6l1 14h12l1-14M10 10v6M14 10v6');
     remove.onclick = (event) => {
       event.stopPropagation();
       run(async () => {
-        if (await messageBox({ title: `Uninstall ${plugin.name}?`, message: 'This removes the plugin and its settings.', buttons: ['Cancel', 'Uninstall'] }) === 'Uninstall') {
+        if (await messageBox({ title: t("pluginUninstallName", {name: plugin.name}), message: pluginText('This removes the plugin and its settings.'), buttons: [pluginText('Cancel'), pluginText('Uninstall')] }) === pluginText('Uninstall')) {
           await command('removePlugin', { id: plugin.id }); await refresh();
         }
       }, remove);
     };
     row.firstElementChild.replaceWith(toggle);
-    const about = iconButton(`About ${plugin.name}`, 'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20ZM12 11v6M12 7h.01');
+    const about = iconButton(t("pluginAboutName", {name: plugin.name}), 'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20ZM12 11v6M12 7h.01');
     about.onclick = (event) => {
       event.stopPropagation();
       const modal = modalShell({ title: plugin.name, width: 760 });
       modal.body.append(plugin.source ? pluginReadme(plugin.source)
-        : element('p', 'This plugin was installed from ZIP and has no repository README.'));
-      const close = element('button', 'Close', 'btn-text'); close.onclick = () => modal.close();
+        : element('p', pluginText('This plugin was installed from ZIP and has no repository README.')));
+      const close = element('button', pluginText('Close'), 'btn-text'); close.onclick = () => modal.close();
       modal.foot.append(close);
     };
-    const check = iconButton(`Check for updates for ${plugin.name}`, 'M3 11a9 9 0 1 1 2.6 7.4M3 4v7h7M12 7v5l3 2');
+    const check = iconButton(t("pluginCheckForUpdatesForName", {name: plugin.name}), 'M3 11a9 9 0 1 1 2.6 7.4M3 4v7h7M12 7v5l3 2');
     check.disabled = !plugin.source?.repository; check.dataset.pluginDisabled = String(check.disabled);
     check.onclick = (event) => {
       event.stopPropagation();
       run(async () => {
         const preview = await command('checkPluginUpdate', { id: plugin.id });
         if (!preview.updateAvailable) {
-          showToast({ title: plugin.name, message: 'No updates available.' });
+          showToast({ title: plugin.name, message: pluginText('No updates available.') });
           return;
         }
         if (await confirmPreview(preview)) {
@@ -328,25 +329,25 @@ function render(root, state) {
       status.classList.add('plugin-runtime-status'); description.append(status);
     }
     if (plugin.error) description.append(hintRow(plugin.error, { warn: true }));
-    if (!pluginsEnabled) description.append(hintRow('Enable Plugins to run this plugin.'));
-    else if (!plugin.enabled) description.append(hintRow('Enable this plugin from its entry row to run it.'));
+    if (!pluginsEnabled) description.append(hintRow(pluginText('Enable Plugins to run this plugin.')));
+    else if (!plugin.enabled) description.append(hintRow(pluginText('Enable this plugin from its entry row to run it.')));
     page.append(description);
     if (plugin.capabilities?.includes('shizuku')) {
       const access = element('div', undefined, 'card plugin-shizuku');
       const row = element('div', undefined, 'row');
       row.dataset.searchId = `plugin:${plugin.id}:shizuku`;
-      row.append(info('Shizuku access', 'Checking availability'));
-      const button = element('button', 'Set up', 'btn-ghost'); button.type = 'button'; button.disabled = true;
+      row.append(info(pluginText('Shizuku access'), pluginText('Checking availability')));
+      const button = element('button', pluginText('Set up'), 'btn-ghost'); button.type = 'button'; button.disabled = true;
       button.onclick = () => {
         if (access.dataset.status === 'permission_required') {
           run(async () => {
             const state = await command('requestPluginShizukuPermission', { id: plugin.id });
             updatePluginShizuku(access, state);
-            showToast({ title: 'Shizuku', message: 'Approve the permission request on the kiosk.' });
+            showToast({ title: 'Shizuku', message: pluginText('Approve the permission request on the kiosk.') });
           }, button);
         } else window.open('https://shizuku.rikka.app/guide/setup/', '_blank', 'noopener,noreferrer');
       };
-      row.append(button); access.append(row, hintRow('Shizuku grants Kiosk Satellite shell or root access. Installed plugins run inside KS, so only grant access if you trust them.'));
+      row.append(button); access.append(row, hintRow(pluginText('Shizuku grants Kiosk Satellite shell or root access. Installed plugins run inside KS, so only grant access if you trust them.')));
       page.append(access);
     }
     page.pluginGroups = plugin.groups || [];
@@ -359,7 +360,7 @@ function render(root, state) {
     const ensureGroup = (group) => {
       if (groups.has(group)) return groups.get(group);
       const panel = element('div', undefined, 'card'); groups.set(group, panel);
-      page.append(heading(group), panel);
+      page.append(heading(group === 'Settings' && !plugin.groups?.some(entry => entry.title === group) && !plugin.settings?.some(entry => entry.group === group) ? pluginText('Settings') : group), panel);
       if (page.pluginGroups.some((entry) => entry.title === group && (entry.charts?.length || entry.readings?.length))) appendOutput(group);
       return panel;
     };
@@ -393,8 +394,8 @@ function render(root, state) {
         control.append(input, output); settingRow.append(control);
       } else if (setting.type === 'entity') {
         const selected = values[setting.key] ?? setting.default;
-        settingRow.replaceChildren(info(setting.title, selected || setting.description || 'Select an entity'));
-        const choose = iconButton(`Choose ${setting.title}`, 'm16 3 5 5-12 12-6 1 1-6 12-12M14 5l5 5');
+        settingRow.replaceChildren(info(setting.title, selected || setting.description || pluginText('Select an entity')));
+        const choose = iconButton(t("pluginChooseName", {name: setting.title}), 'm16 3 5 5-12 12-6 1 1-6 12-12M14 5l5 5');
         choose.onclick = async () => {
           const entity = await entitySearchPicker(setting.title, { allowClear: true });
           if (entity) await saveSetting(setting.key, entity.entity_id, choose);
@@ -425,21 +426,23 @@ function render(root, state) {
         const row = element('div', undefined, 'row'); row.append(info(action.title));
         row.dataset.searchId = `plugin:${plugin.id}:action:${action.id}`;
         const options = plugin.actionOptions?.[action.id] || {};
-        row.replaceChildren(info(action.title, ['Gestures', options.drawer && 'Kiosk drawer', options.homeAssistant && 'Home Assistant'].filter(Boolean).join(' · ')));
-        const button = iconButton(`Configure ${action.title}`, 'm9 5 7 7-7 7');
+        row.replaceChildren(info(action.title, [pluginText('Gestures'), options.drawer && pluginText('Kiosk drawer'), options.homeAssistant && pluginText('Home Assistant')].filter(Boolean).join(' · ')));
+        const button = iconButton(t("pluginConfigureName", {name: action.title}), 'm9 5 7 7-7 7');
         button.onclick = () => run(async () => {
           const selected = await actionOptionsDialog(action, options);
           if (selected) { await command('configurePluginAction', { id: plugin.id, command: action.id, ...selected }); await refresh(); }
         }, button);
         row.append(button); actions.append(row);
       }
-      page.append(heading('Actions'), actions);
+      page.append(heading(pluginText('Actions')), actions);
     }
     root.append(page);
   }
   if (currentPath.split('/')[0] === 'plugins') {
     showTab(currentPath, { push: false, refresh: false });
     if (document.scrollingElement) document.scrollingElement.scrollTop = scroll;
+    // A settings render replaces output containers while the subscription stays active.
+    receiveUpdate('plugins');
   }
 }
 
@@ -447,17 +450,17 @@ function updatePluginShizuku(container, state) {
   const status = state?.status || 'unavailable';
   container.dataset.status = status;
   const descriptions = {
-    ready: state?.uid === 0 ? 'Connected with root access' : 'Connected with shell access',
-    permission_required: 'Grant access and approve the request on this kiosk.',
-    denied: 'Allow Kiosk Satellite in the Shizuku app.',
-    unsupported: 'Shizuku 13 or later is required.',
-    unavailable: 'Start Shizuku on this device.',
+    ready: state?.uid === 0 ? pluginText('Connected with root access') : pluginText('Connected with shell access'),
+    permission_required: pluginText('Grant access and approve the request on this kiosk.'),
+    denied: pluginText('Allow Kiosk Satellite in the Shizuku app.'),
+    unsupported: pluginText('Shizuku 13 or later is required.'),
+    unavailable: pluginText('Start Shizuku on this device.'),
   };
   container.querySelector('.desc').textContent = descriptions[status] || descriptions.unavailable;
   const button = container.querySelector('button');
   button.style.display = status === 'ready' ? 'none' : '';
   button.disabled = false;
-  button.textContent = status === 'permission_required' ? 'Grant access' : 'Set up';
+  button.textContent = status === 'permission_required' ? pluginText('Grant access') : pluginText('Set up');
 }
 
 function updateGroupedPluginOutput(page, kind, items) {
@@ -470,8 +473,8 @@ function updateGroupedPluginOutput(page, kind, items) {
     const selected = items.filter((item) => group
       ? (layout?.[kind] || []).includes(key(item))
       : !layouts.some((entry) => (entry[kind] || []).includes(key(item))));
-    if (kind === 'charts') updatePluginCharts(target, selected, group ? '' : 'Charts');
-    else updatePluginReadings(target, selected, layout?.readingsTitle || 'Readings');
+    if (kind === 'charts') updatePluginCharts(target, selected, group ? '' : pluginText('Charts'));
+    else updatePluginReadings(target, selected, layout?.readingsTitle || pluginText('Readings'));
   }
 }
 
@@ -506,3 +509,13 @@ watchUpdates(['plugin-settings'], async () => {
   try { render(root, next); }
   finally { restoreDraft(); }
 }, { visible: () => currentPath === 'plugins' || currentPath.startsWith('plugins/'), intervalMs: 500 });
+
+let renderedLanguage = messageLanguage();
+document.addEventListener('ks-settings-cached', () => {
+  if (renderedLanguage === messageLanguage()) return;
+  renderedLanguage = messageLanguage();
+  const root = document.getElementById('tab-plugins');
+  if (!root || !pluginSearchState || busy || document.querySelector('.modal-back')) return;
+  const restore = preserveDraft(root, 'data-search-id');
+  try { render(root, pluginSearchState); } finally { restore(); }
+});

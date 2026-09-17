@@ -57,6 +57,7 @@ try:
         expect(root.get_by_text('Wave: 10 %', exact=True)).to_be_visible()
         chart['timestamps'].append(4000); chart['series'][0]['values'].append(40); chart['series'][1]['values'].append(5)
         charts = [copy.deepcopy(chart)]
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
         # The selected sample survives a live update.
         end_time = page.evaluate("new Date(4000).toLocaleString([], {month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false})")
         expect(root.locator('.plugin-chart-dates span').last).to_have_text(end_time)
@@ -67,6 +68,7 @@ try:
         field.fill('Unsaved draft')
         chart['timestamps'].append(5000); chart['series'][0]['values'].append(50); chart['series'][1]['values'].append(5)
         charts = [copy.deepcopy(chart)]
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
         expect(root.get_by_text('Wave: 50 %', exact=True)).to_be_visible()
         expect(field).to_have_value('Unsaved draft'); expect(field).to_be_focused()
         assert writes == 0
@@ -83,6 +85,7 @@ try:
             assert bounds['x'] + bounds['width'] <= width, bounds
             page.screenshot(path=f'/tmp/kiosk-plugin-charts-{theme}.png', full_page=True)
         chart['compact'] = True; charts = [copy.deepcopy(chart)]
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
         expect(root.locator('.plugin-chart')).to_have_class('card plugin-chart compact')
         assert plot.bounding_box()['height'] == 56
         expect(root.locator('.plugin-chart-dates')).to_be_hidden()
@@ -93,6 +96,7 @@ try:
                     series=[dict(name='Wave', color='#1976D2', values=[10, -10, None]), dict(name='Reference', values=[2, 2, 2])])
         for compact in [False, True]:
             bars['compact'] = compact; charts = [copy.deepcopy(bars)]
+            page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
             expect(plot.locator('rect')).to_have_count(5)
             expect(root.locator('.plugin-chart')).to_have_class('card plugin-chart' + (' compact' if compact else ''))
             expect(plot.locator('path')).to_have_count(0)
@@ -114,6 +118,7 @@ try:
             page.screenshot(path=f'/tmp/kiosk-plugin-bars-{compact}.png', full_page=True)
         field.fill('Draft while bars update')
         bars['series'][1]['values'][-1] = 4; charts = [copy.deepcopy(bars)]
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
         # A selected timestamp and the active settings field survive bar updates.
         page.wait_for_function("Math.abs(+document.querySelector('.plugin-chart rect:last-child').getAttribute('height') - 160 * 4 / 22) < .001")
         expect(root.get_by_text('Wave: -10 %', exact=True)).to_be_visible()
@@ -121,17 +126,21 @@ try:
         assert writes == 1
         for values in [[0], [-5], [5], [None], []]:
             charts = [dict(key='demo', title='Bar edge cases', type='bar', timestamps=list(range(len(values))), series=[dict(name='Only', values=values)])]
+            page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
             expect(root.get_by_text('Bar edge cases', exact=True)).to_be_visible()
             expect(root.get_by_text('Only: ' + ('No data' if not values or values[0] is None else str(values[0])), exact=True)).to_be_visible()
             if values and values[0] is not None:
                 expect(plot.locator('rect')).to_have_count(1)
                 assert plot.locator('rect').evaluate("el => +el.getAttribute('height') > 0")
         charts = [dict(key='demo', title='<img src=x onerror=alert(1)>', timestamps=[1000], series=[dict(name='Only', values=[-5])])]
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
         expect(root.get_by_text('Only: -5', exact=True)).to_be_visible()
         expect(root.locator('.plugin-chart img')).to_have_count(0)
         charts = [dict(key='demo', title='Empty', timestamps=[], series=[dict(name='Only', values=[])])]
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
         expect(root.get_by_text('Waiting for samples', exact=True)).to_be_visible()
         charts = []
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
         expect(root.locator('.plugin-charts')).to_be_hidden()
         page.evaluate("async () => (await import('/static/tabs.js')).showTab('plugins', {refresh:false})")
         baseline = polls; page.wait_for_timeout(1200); assert polls == baseline

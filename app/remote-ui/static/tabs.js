@@ -152,7 +152,7 @@ export function showTab(name, { push = true, refresh = true } = {}) {
   if (sub) {
     // Second level: the page wears the entry row's title behind a back
     // arrow, the shape the device's app bar takes.
-    titleEl.textContent = tab === 'plugins' ? [...document.querySelectorAll('#tab-plugins > .subpage')].find(p => p.dataset.subpage === sub)?.dataset.title || sub : settingsPageText(tab, sub);
+    titleEl.textContent = ['plugins', 'fleet'].includes(tab) ? [...document.querySelectorAll(`#tab-${tab} > .subpage`)].find(p => p.dataset.subpage === sub)?.dataset.title || sub : settingsPageText(tab, sub);
     const back = document.createElement('button');
     back.type = 'button';
     back.className = 'title-back';
@@ -218,9 +218,9 @@ export function refreshNavigationText() {
   if (!title) return;
   if (searchReturnTab) {
     title.textContent = t('settingsSearchResults');
-  } else if ((currentPath.startsWith('device/') || currentPath.startsWith('homeassistant/') || currentPath.startsWith('screenaudio/') || currentPath.startsWith('screensaver/'))) {
+  } else if ((currentPath.startsWith('device/') || currentPath.startsWith('homeassistant/') || currentPath.startsWith('screenaudio/') || currentPath.startsWith('screensaver/') || currentPath.startsWith('fleet/'))) {
     for (const node of title.childNodes) {
-      if (node.nodeType === Node.TEXT_NODE) node.textContent = settingsPageText(currentPath.split('/')[0], currentPath.slice(currentPath.indexOf('/') + 1));
+      if (node.nodeType === Node.TEXT_NODE) node.textContent = currentPath.startsWith('fleet/') ? [...document.querySelectorAll('#tab-fleet > .subpage')].find(p => p.dataset.subpage === currentPath.slice(6))?.dataset.title || currentPath.slice(6) : settingsPageText(currentPath.split('/')[0], currentPath.slice(currentPath.indexOf('/') + 1));
     }
   } else if (!currentPath.includes('/')) {
     // Preserve the icon already attached by showTab.

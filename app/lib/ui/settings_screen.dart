@@ -1,3 +1,4 @@
+import '../l10n/fleet_messages.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -445,6 +446,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
         screensaverTextFor: (text) => screensaverText(context, text),
         launcherTextFor: (text) => launcherText(context, text),
         gestureTextFor: (text) => gestureText(context, text),
+        fleetTextFor: (text) => fleetText(context, text),
+        pluginTextFor: (text) => pluginText(context, text),
         titleFor: (def) => def.localizedTitle(context),
         descriptionFor: (def) => def.localizedDescription(context),
       );
@@ -454,7 +457,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   List<SettingsSearchEntry> get _searchIndex => [
     ..._staticSearchIndex,
-    ...pluginSettingsSearchEntries(widget.container.plugins.installed.value),
+    ...pluginSettingsSearchEntries(
+      widget.container.plugins.installed.value,
+      textFor: (text) => pluginText(context, text),
+    ),
   ];
 
   String get _query => _searchCtl.text.trim();
@@ -1303,7 +1309,9 @@ class _SubpageEntryTile extends StatelessWidget {
       // hangs the hint under the name, past the glyph, on any pane.
       child: ListTile(
         leading: SubpageGlyph(subpage),
-        title: Text(settingsPageText(context, category, subpage)),
+        title: Text(
+          _subpageDisplayTitle(context, container, category, subpage),
+        ),
         subtitle: hint == null
             ? null
             : Text(settingsPageText(context, category, hint)),
@@ -1376,7 +1384,12 @@ class SubpageSettingsScreen extends StatelessWidget {
                         category == 'Home Assistant' ||
                         category == 'Screen & Audio' ||
                         category == 'Screensaver')
-                    ? settingsPageText(context, category, subpage)
+                    ? _subpageDisplayTitle(
+                        context,
+                        container,
+                        category,
+                        subpage,
+                      )
                     : pluginSubpageTitle(container, category, subpage),
                 overflow: TextOverflow.ellipsis,
               ),
@@ -2116,7 +2129,7 @@ class _CategoryContentState extends State<_CategoryContent> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         // A follower's page the leader syncs says so before its rows.
-        ...fleetManagedBanner(container, widget.category),
+        ...fleetManagedBanner(context, container, widget.category),
         if (widget.category == 'Home Assistant')
           ..._haConnectionCards(container)
         else if (widget.category == 'Fleet')
@@ -3712,7 +3725,10 @@ class _KioskPermissionsTileState extends State<_KioskPermissionsTile>
       subtitle: Text(kioskText(context, granted == true ? held : missing)),
       trailing: granted == true
           ? null
-          : TextButton(onPressed: onGrant, child: Text(kioskText(context, action))),
+          : TextButton(
+              onPressed: onGrant,
+              child: Text(kioskText(context, action)),
+            ),
     );
   }
 
@@ -3833,8 +3849,14 @@ class _HomeRoleTileState extends State<_HomeRoleTile>
         title: Text(kioskText(context, "Home screen")),
         subtitle: Text(
           fireos
-              ? kioskText(context, "Fire OS does not allow replacing its launcher.")
-              : kioskText(context, "This device does not allow changing the home screen."),
+              ? kioskText(
+                  context,
+                  "Fire OS does not allow replacing its launcher.",
+                )
+              : kioskText(
+                  context,
+                  "This device does not allow changing the home screen.",
+                ),
           style: TextStyle(color: muted),
         ),
       );
@@ -3850,7 +3872,10 @@ class _HomeRoleTileState extends State<_HomeRoleTile>
         ),
         title: Text(kioskText(context, "Home screen")),
         subtitle: Text(
-          kioskText(context, "Turned off automatically after repeated failed starts; the previous launcher was restored. Turn the switch back on to try again."),
+          kioskText(
+            context,
+            "Turned off automatically after repeated failed starts; the previous launcher was restored. Turn the switch back on to try again.",
+          ),
         ),
       );
     }
@@ -3859,7 +3884,10 @@ class _HomeRoleTileState extends State<_HomeRoleTile>
         leading: Icon(Icons.check_circle_outline),
         title: Text(kioskText(context, "Home screen")),
         subtitle: Text(
-          kioskText(context, "Kiosk Satellite is the home screen. The kiosk starts at boot and every home press returns to it."),
+          kioskText(
+            context,
+            "Kiosk Satellite is the home screen. The kiosk starts at boot and every home press returns to it.",
+          ),
         ),
       );
     }
@@ -3868,7 +3896,10 @@ class _HomeRoleTileState extends State<_HomeRoleTile>
         leading: Icon(Icons.home_outlined, color: muted),
         title: Text(kioskText(context, "Home screen")),
         subtitle: Text(
-          kioskText(context, "Not the home screen. Turn on Act as the home screen above."),
+          kioskText(
+            context,
+            "Not the home screen. Turn on Act as the home screen above.",
+          ),
           style: TextStyle(color: muted),
         ),
       );
@@ -3883,13 +3914,20 @@ class _HomeRoleTileState extends State<_HomeRoleTile>
       leading: Icon(Icons.error_outline, color: theme.colorScheme.error),
       title: Text(kioskText(context, "Home screen")),
       subtitle: Text(
-        kioskText(context, "Not the current home screen yet: the device is waiting for a confirmation."),
+        kioskText(
+          context,
+          "Not the current home screen yet: the device is waiting for a confirmation.",
+        ),
       ),
       trailing: TextButton(
         onPressed: () async {
           await widget.container.commands.execute('acquireHomeRole', const {});
         },
-        child: Text(settingsPath ? kioskText(context, "Open home settings") : kioskText(context, "Set as default")),
+        child: Text(
+          settingsPath
+              ? kioskText(context, "Open home settings")
+              : kioskText(context, "Set as default"),
+        ),
       ),
     );
   }
@@ -11357,4 +11395,19 @@ class _UploadedApkRowState extends State<_UploadedApkRow> {
             ),
     );
   }
+}
+
+String _subpageDisplayTitle(
+  BuildContext context,
+  AppContainer container,
+  String category,
+  String subpage,
+) {
+  if (category == 'Fleet') {
+    final profile = container.fleetSync.profiles
+        .where((p) => p.name == subpage)
+        .firstOrNull;
+    if (profile != null) return fleetProfileName(context, profile);
+  }
+  return settingsPageText(context, category, subpage);
 }

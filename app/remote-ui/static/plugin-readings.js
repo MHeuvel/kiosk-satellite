@@ -1,3 +1,4 @@
+import { pluginText } from './localization.js';
 // Live entity values use their own DOM so settings drafts and chart selection survive.
 function element(tag, className, text) {
   const node = document.createElement(tag);
@@ -8,19 +9,19 @@ function element(tag, className, text) {
 
 export function formatPluginReading(reading) {
   const state = reading.state;
-  if (state == null) return 'No data';
-  if (typeof state === 'boolean') return state ? 'On' : 'Off';
+  if (state == null) return pluginText('No data');
+  if (typeof state === 'boolean') return state ? pluginText('On') : pluginText('Off');
   if (typeof state === 'number') {
-    if (!Number.isFinite(state)) return 'No data';
+    if (!Number.isFinite(state)) return pluginText('No data');
     const precision = Math.max(0, Math.min(6, Math.trunc(reading.accuracyDecimals || 0)));
     if (Math.abs(state) >= 1e9) return state.toExponential(precision);
     const value = state.toFixed(precision);
     return Number(value) === 0 ? (0).toFixed(precision) : value;
   }
-  return state === '' ? 'Empty' : String(state);
+  return state === '' ? pluginText('Empty') : String(state);
 }
 
-export function updatePluginReadings(container, readings, title = 'Readings') {
+export function updatePluginReadings(container, readings, title = pluginText('Readings')) {
   readings = Array.isArray(readings) ? readings : [];
   container.hidden = !readings.length;
   if (!readings.length) { container.replaceChildren(); return; }
@@ -29,6 +30,7 @@ export function updatePluginReadings(container, readings, title = 'Readings') {
     list = element('dl', 'card plugin-readings-list');
     container.append(element('div', 'card-title', title), list);
   }
+  container.querySelector('.card-title').textContent = title;
   const existing = new Map([...list.children].map(row => [row.dataset.key, row]));
   for (const reading of readings) {
     const key = `${reading.type}:${reading.key}`;

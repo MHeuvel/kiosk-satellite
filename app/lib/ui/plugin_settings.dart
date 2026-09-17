@@ -1,3 +1,4 @@
+import '../l10n/messages.dart';
 import 'dart:async';
 import 'dart:convert';
 
@@ -71,7 +72,9 @@ class PluginReadme extends StatelessWidget {
       } catch (_) {}
       if (!opened && context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Could not open this link.')),
+          SnackBar(
+            content: Text(pluginText(context, 'Could not open this link.')),
+          ),
         );
       }
     },
@@ -83,7 +86,8 @@ class PluginReadme extends StatelessWidget {
               target.toString(),
               height: 200,
               fit: BoxFit.contain,
-              errorBuilder: (_, _, _) => Text(alt ?? 'Image unavailable'),
+              errorBuilder: (_, _, _) =>
+                  Text(alt ?? pluginText(context, 'Image unavailable')),
             );
     },
   );
@@ -129,7 +133,7 @@ class _PluginSettingsPanelState extends State<PluginSettingsPanel> {
       if (mounted) {
         showToast(
           context,
-          title: 'Plugin Manager',
+          title: pluginText(context, 'Plugin Manager'),
           message: '$error',
           kind: ToastKind.error,
         );
@@ -143,7 +147,7 @@ class _PluginSettingsPanelState extends State<PluginSettingsPanel> {
     final url = await showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Add plugin'),
+        title: Text(pluginText(context, 'Add plugin')),
         content: SizedBox(
           width: 480,
           child: TextField(
@@ -151,11 +155,13 @@ class _PluginSettingsPanelState extends State<PluginSettingsPanel> {
             autofocus: true,
             autocorrect: false,
             keyboardType: TextInputType.url,
-            decoration: const InputDecoration(
-              labelText: 'Repository URL',
+            decoration: InputDecoration(
+              labelText: pluginText(context, 'Repository URL'),
               hintText: 'https://github.com/owner/plugin',
-              helperText:
-                  "Make sure you trust the plugin's author and its code before installing it.",
+              helperText: pluginText(
+                context,
+                "Make sure you trust the plugin's author and its code before installing it.",
+              ),
             ),
             onSubmitted: (value) => Navigator.pop(context, value.trim()),
           ),
@@ -163,11 +169,11 @@ class _PluginSettingsPanelState extends State<PluginSettingsPanel> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: Text(pluginText(context, 'Cancel')),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(context, _url.text.trim()),
-            child: const Text('Preview'),
+            child: Text(pluginText(context, 'Preview')),
           ),
         ],
       ),
@@ -184,7 +190,7 @@ class _PluginSettingsPanelState extends State<PluginSettingsPanel> {
       showToast(
         context,
         title: '${plugin['name']}',
-        message: 'No updates available.',
+        message: pluginText(context, 'No updates available.'),
       );
       return;
     }
@@ -209,10 +215,11 @@ class _PluginSettingsPanelState extends State<PluginSettingsPanel> {
                 const SizedBox(height: 16),
                 for (final entry in {
                   if (isUpdate)
-                    'Installed version': preview['installedVersion'],
-                  'Version': manifest['version'],
-                  'Author': manifest['author'],
-                  'License': manifest['license'],
+                    pluginText(context, 'Installed version'):
+                        preview['installedVersion'],
+                  pluginText(context, 'Version'): manifest['version'],
+                  pluginText(context, 'Author'): manifest['author'],
+                  pluginText(context, 'License'): manifest['license'],
                 }.entries)
                   SettingsRow(
                     contentPadding: EdgeInsets.zero,
@@ -222,10 +229,13 @@ class _PluginSettingsPanelState extends State<PluginSettingsPanel> {
                 const SizedBox(height: 16),
                 PluginReadme(source: preview),
                 const Divider(height: 32),
-                const WarnRow(pluginTrustNotice),
+                WarnRow(pluginText(context, pluginTrustNotice)),
                 const SizedBox(height: 12),
-                const HintRow(
-                  'New plugins start disabled. Updates preserve the enabled state and automatically restart running plugins.',
+                HintRow(
+                  pluginText(
+                    context,
+                    'New plugins start disabled. Updates preserve the enabled state and automatically restart running plugins.',
+                  ),
                 ),
                 if (preview['compatible'] != true)
                   Text(
@@ -241,13 +251,17 @@ class _PluginSettingsPanelState extends State<PluginSettingsPanel> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
+            child: Text(pluginText(context, 'Cancel')),
           ),
           FilledButton(
             onPressed: preview['compatible'] == true
                 ? () => Navigator.pop(context, true)
                 : null,
-            child: Text(isUpdate ? 'Trust and update' : 'Trust and install'),
+            child: Text(
+              isUpdate
+                  ? pluginText(context, 'Trust and update')
+                  : pluginText(context, 'Trust and install'),
+            ),
           ),
         ],
       ),
@@ -270,12 +284,14 @@ class _PluginSettingsPanelState extends State<PluginSettingsPanel> {
     if (picked == null || !mounted) return;
     final file = picked.files.single;
     if (file.size <= 0 || file.size > PluginManager.maxZipBytes) {
-      throw const FormatException('Plugin ZIP must be at most 4 MB');
+      throw FormatException(
+        pluginText(context, 'Plugin ZIP must be at most 4 MB'),
+      );
     }
     final trusted = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Install from ZIP'),
+        title: Text(pluginText(context, 'Install from ZIP')),
         content: SizedBox(
           width: 480,
           child: SingleChildScrollView(
@@ -283,9 +299,12 @@ class _PluginSettingsPanelState extends State<PluginSettingsPanel> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 HintRow(file.name),
-                const WarnRow(pluginTrustNotice),
-                const HintRow(
-                  'New plugins start disabled. Updates preserve the enabled state and automatically restart running plugins.',
+                WarnRow(pluginText(context, pluginTrustNotice)),
+                HintRow(
+                  pluginText(
+                    context,
+                    'New plugins start disabled. Updates preserve the enabled state and automatically restart running plugins.',
+                  ),
                 ),
               ],
             ),
@@ -294,18 +313,20 @@ class _PluginSettingsPanelState extends State<PluginSettingsPanel> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
+            child: Text(pluginText(context, 'Cancel')),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(context, true),
-            child: const Text('Trust and install'),
+            child: Text(pluginText(context, 'Trust and install')),
           ),
         ],
       ),
     );
     if (trusted != true || !mounted) return;
     final stream = file.readStream;
-    if (stream == null) throw StateError('Could not read the selected ZIP');
+    if (stream == null) {
+      throw StateError(pluginText(context, 'Could not read the selected ZIP'));
+    }
     await widget.plugins.installZipStream(stream, trusted: true);
   }
 
@@ -313,16 +334,20 @@ class _PluginSettingsPanelState extends State<PluginSettingsPanel> {
     final remove = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Uninstall ${plugin['name']}?'),
-        content: const Text('This removes the plugin and its settings.'),
+        title: Text(
+          l10n(context).pluginUninstallName((plugin['name']).toString()),
+        ),
+        content: Text(
+          pluginText(context, 'This removes the plugin and its settings.'),
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
+            child: Text(pluginText(context, 'Cancel')),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(context, true),
-            child: const Text('Uninstall'),
+            child: Text(pluginText(context, 'Uninstall')),
           ),
         ],
       ),
@@ -341,15 +366,18 @@ class _PluginSettingsPanelState extends State<PluginSettingsPanel> {
         child: SingleChildScrollView(
           child: plugin['source'] is Map
               ? PluginReadme(source: plugin['source'] as Map)
-              : const Text(
-                  'This plugin was installed from ZIP and has no repository README.',
+              : Text(
+                  pluginText(
+                    context,
+                    'This plugin was installed from ZIP and has no repository README.',
+                  ),
                 ),
         ),
       ),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('Close'),
+          child: Text(pluginText(context, 'Close')),
         ),
       ],
     ),
@@ -366,8 +394,8 @@ class _PluginSettingsPanelState extends State<PluginSettingsPanel> {
             SearchLandingTarget(
               id: 'x:plugins:master',
               child: SettingsRow(
-                title: const Text('Enable Plugins'),
-                subtitle: const Text(pluginIntro),
+                title: Text(pluginText(context, 'Enable Plugins')),
+                subtitle: Text(pluginText(context, pluginIntro)),
                 trailing: Stack(
                   alignment: Alignment.center,
                   children: [
@@ -396,8 +424,10 @@ class _PluginSettingsPanelState extends State<PluginSettingsPanel> {
               SearchLandingTarget(
                 id: 'x:plugins:add',
                 child: SettingsRow(
-                  title: const Text('Add plugin'),
-                  subtitle: const Text('Install from a GitHub repository'),
+                  title: Text(pluginText(context, 'Add plugin')),
+                  subtitle: Text(
+                    pluginText(context, 'Install from a GitHub repository'),
+                  ),
                   trailing: _busy && _busyId == null
                       ? const _PluginProgress()
                       : const Icon(Icons.add_rounded),
@@ -405,13 +435,13 @@ class _PluginSettingsPanelState extends State<PluginSettingsPanel> {
                   onTap: () => _run(_preview),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 4),
-                child: WarnRow(pluginTrustNotice),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: WarnRow(pluginText(context, pluginTrustNotice)),
               ),
             ],
           ),
-          const SectionHeading('Installed plugins'),
+          SectionHeading(pluginText(context, 'Installed plugins')),
           ValueListenableBuilder<String>(
             valueListenable: widget.plugins.status,
             builder: (_, status, _) =>
@@ -422,8 +452,11 @@ class _PluginSettingsPanelState extends State<PluginSettingsPanel> {
             builder: (context, plugins, _) => SettingsCard(
               children: [
                 if (plugins.isEmpty)
-                  const HintRow(
-                    'No plugins installed. Add a repository to get started.',
+                  HintRow(
+                    pluginText(
+                      context,
+                      'No plugins installed. Add a repository to get started.',
+                    ),
                   ),
                 for (final plugin in plugins)
                   SettingsRow(
@@ -461,7 +494,9 @@ class _PluginSettingsPanelState extends State<PluginSettingsPanel> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         IconButton(
-                          tooltip: 'Check for updates for ${plugin['name']}',
+                          tooltip: l10n(context).pluginCheckForUpdatesForName(
+                            (plugin['name']).toString(),
+                          ),
                           icon: _busy && _busyId == '${plugin['id']}:update'
                               ? const _PluginProgress()
                               : const Icon(Icons.update_rounded),
@@ -473,12 +508,16 @@ class _PluginSettingsPanelState extends State<PluginSettingsPanel> {
                                 ),
                         ),
                         IconButton(
-                          tooltip: 'About ${plugin['name']}',
+                          tooltip: l10n(
+                            context,
+                          ).pluginAboutName((plugin['name']).toString()),
                           icon: const Icon(Icons.info_outline_rounded),
                           onPressed: _busy ? null : () => _showInfo(plugin),
                         ),
                         IconButton(
-                          tooltip: 'Uninstall ${plugin['name']}',
+                          tooltip: l10n(context).pluginUninstallNameDetail(
+                            (plugin['name']).toString(),
+                          ),
                           icon: const Icon(Icons.delete_outline_rounded),
                           onPressed: _busy
                               ? null
@@ -496,15 +535,18 @@ class _PluginSettingsPanelState extends State<PluginSettingsPanel> {
               ],
             ),
           ),
-          const SectionHeading('Developer Tools'),
+          SectionHeading(pluginText(context, 'Developer Tools')),
           SettingsCard(
             children: [
               SearchLandingTarget(
                 id: 'x:plugins:zip',
                 child: SettingsRow(
-                  title: const Text('Install from ZIP'),
-                  subtitle: const Text(
-                    'For developers only: test a local build',
+                  title: Text(pluginText(context, 'Install from ZIP')),
+                  subtitle: Text(
+                    pluginText(
+                      context,
+                      'For developers only: test a local build',
+                    ),
                   ),
                   trailing: _busy && _busyId == '_zip'
                       ? const _PluginProgress()
@@ -516,9 +558,12 @@ class _PluginSettingsPanelState extends State<PluginSettingsPanel> {
               SearchLandingTarget(
                 id: 'x:plugins:create',
                 child: SettingsRow(
-                  title: const Text('Create a plugin'),
-                  subtitle: const Text(
-                    'Learn how to create plugins with the Hello World template and documentation.',
+                  title: Text(pluginText(context, 'Create a plugin')),
+                  subtitle: Text(
+                    pluginText(
+                      context,
+                      'Learn how to create plugins with the Hello World template and documentation.',
+                    ),
                   ),
                   trailing: const Icon(Icons.open_in_new),
                   enabled: !_busy,
@@ -529,7 +574,9 @@ class _PluginSettingsPanelState extends State<PluginSettingsPanel> {
                       ),
                       mode: LaunchMode.externalApplication,
                     );
-                    if (!opened) throw StateError('Could not open this link.');
+                    if (!opened) {
+                      throw StateError('Could not open this link.');
+                    }
                     return opened;
                   }),
                 ),
@@ -602,7 +649,7 @@ class _PluginDetailPanelState extends State<PluginDetailPanel> {
       if (mounted) {
         showToast(
           context,
-          title: 'Plugin',
+          title: pluginText(context, 'Plugin'),
           message: '$error',
           kind: ToastKind.error,
         );
@@ -623,7 +670,7 @@ class _PluginDetailPanelState extends State<PluginDetailPanel> {
       final plugins = widget.plugins.installed.value;
       final plugin = plugins.where((p) => p['id'] == widget.id).firstOrNull;
       if (plugin == null) {
-        return const Text('This plugin is no longer installed.');
+        return Text(pluginText(context, 'This plugin is no longer installed.'));
       }
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -641,10 +688,15 @@ class _PluginDetailPanelState extends State<PluginDetailPanel> {
                     ? WarnRow('${plugin['status']}')
                     : HintRow('${plugin['status']}'),
               if (!widget.plugins.enabled.value)
-                const HintRow('Enable Plugins to run this plugin.')
+                HintRow(
+                  pluginText(context, 'Enable Plugins to run this plugin.'),
+                )
               else if (plugin['enabled'] != true)
-                const HintRow(
-                  'Enable this plugin from its entry row to run it.',
+                HintRow(
+                  pluginText(
+                    context,
+                    'Enable this plugin from its entry row to run it.',
+                  ),
                 ),
               if ('${plugin['error'] ?? ''}'.isNotEmpty)
                 WarnRow('${plugin['error']}'),
@@ -713,9 +765,10 @@ class _PluginSettingsState extends State<_PluginSettings> {
   String _actionSummary(String command) {
     final options = (widget.plugin['actionOptions'] as Map?)?[command] as Map?;
     return [
-      'Gestures',
-      if (options?['drawer'] == true) 'Kiosk drawer',
-      if (options?['homeAssistant'] == true) 'Home Assistant',
+      pluginText(context, 'Gestures'),
+      if (options?['drawer'] == true) pluginText(context, 'Kiosk drawer'),
+      if (options?['homeAssistant'] == true)
+        pluginText(context, 'Home Assistant'),
     ].join(' · ');
   }
 
@@ -764,11 +817,11 @@ class _PluginSettingsState extends State<_PluginSettings> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: Text(pluginText(context, 'Cancel')),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(context, draft),
-            child: const Text('Save'),
+            child: Text(pluginText(context, 'Save')),
           ),
         ],
       ),
@@ -784,7 +837,10 @@ class _PluginSettingsState extends State<_PluginSettings> {
       return SettingsRow(
         title: Text('${raw['title']}'),
         subtitle: Text(
-          value.isEmpty ? '${raw['description'] ?? 'Select an entity'}' : value,
+          value.isEmpty
+              ? raw['description']?.toString() ??
+                    pluginText(context, 'Select an entity')
+              : value,
         ),
         trailing: const Icon(Icons.edit_outlined),
         enabled: !_busy,
@@ -808,7 +864,9 @@ class _PluginSettingsState extends State<_PluginSettings> {
       return SettingsRow(
         title: Text('${raw['title']}'),
         subtitle: Text(
-          value.isEmpty ? '${raw['description'] ?? 'Not set'}' : value,
+          value.isEmpty
+              ? raw['description']?.toString() ?? deviceText(context, 'Not set')
+              : value,
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
         ),
@@ -843,13 +901,19 @@ class _PluginSettingsState extends State<_PluginSettings> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const HintRow(
-                    'To assign a gesture, open Gestures and choose Run a plugin action.',
+                  HintRow(
+                    pluginText(
+                      context,
+                      'To assign a gesture, open Gestures and choose Run a plugin action.',
+                    ),
                   ),
                   SettingsRow(
-                    title: const Text('Show in kiosk drawer'),
-                    subtitle: const Text(
-                      'Also available while locked if the kiosk drawer is allowed.',
+                    title: Text(pluginText(context, 'Show in kiosk drawer')),
+                    subtitle: Text(
+                      pluginText(
+                        context,
+                        'Also available while locked if the kiosk drawer is allowed.',
+                      ),
                     ),
                     trailing: Switch(
                       value: drawer,
@@ -858,9 +922,14 @@ class _PluginSettingsState extends State<_PluginSettings> {
                     ),
                   ),
                   SettingsRow(
-                    title: const Text('Expose to Home Assistant'),
-                    subtitle: const Text(
-                      'Adds a button to the kiosk ESPHome device. Requires ESPHome and native entities.',
+                    title: Text(
+                      pluginText(context, 'Expose to Home Assistant'),
+                    ),
+                    subtitle: Text(
+                      pluginText(
+                        context,
+                        'Adds a button to the kiosk ESPHome device. Requires ESPHome and native entities.',
+                      ),
                     ),
                     trailing: Switch(
                       value: homeAssistant,
@@ -875,11 +944,11 @@ class _PluginSettingsState extends State<_PluginSettings> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context, false),
-              child: const Text('Cancel'),
+              child: Text(pluginText(context, 'Cancel')),
             ),
             FilledButton(
               onPressed: () => Navigator.pop(context, true),
-              child: const Text('Save'),
+              child: Text(pluginText(context, 'Save')),
             ),
           ],
         ),
@@ -1000,7 +1069,15 @@ class _PluginSettingsState extends State<_PluginSettings> {
       children: [
         if (settings.isNotEmpty) ...[
           for (final group in pluginSettingsGroups(plugin)) ...[
-            SectionHeading(group),
+            SectionHeading(
+              group == 'Settings' &&
+                      !(plugin['groups'] as List? ?? []).any(
+                        (g) => g['title'] == group,
+                      ) &&
+                      !settings.any((entry) => entry['group'] == group)
+                  ? pluginText(context, 'Settings')
+                  : group,
+            ),
             SettingsCard(
               children: [
                 for (final raw in settings.where(
@@ -1021,7 +1098,7 @@ class _PluginSettingsState extends State<_PluginSettings> {
         ],
         _PluginGroupOutput(plugins: widget.plugins, plugin: plugin),
         if (commands.isNotEmpty) ...[
-          const SectionHeading('Actions'),
+          SectionHeading(pluginText(context, 'Actions')),
           SettingsCard(
             children: [
               for (final raw in commands)
@@ -1088,7 +1165,7 @@ class _PluginGroupOutput extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           if (charts.isNotEmpty && group == null)
-            const SectionHeading('Charts'),
+            SectionHeading(pluginText(context, 'Charts')),
           for (final chart in charts)
             PluginChart(
               key: ValueKey('${plugin['id']}:${chart['key']}'),
@@ -1096,7 +1173,7 @@ class _PluginGroupOutput extends StatelessWidget {
             ),
           PluginReadings(
             readings: readings,
-            title: '${layout?['readingsTitle'] ?? 'Readings'}',
+            title: layout?['readingsTitle']?.toString(),
           ),
         ],
       );

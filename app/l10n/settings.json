@@ -1254,5 +1254,13 @@
   "gestures.clap_strictness": {
     "title": "settingClapStrictnessTitle",
     "description": "settingClapStrictnessDescription"
+  },
+  "fleet.leader": {
+    "title": "fleetLeadThisFleet",
+    "description": "fleetSyncThisKioskSSettingsToItsFollowersRequires"
+  },
+  "fleet.auto_update": {
+    "title": "fleetKeepFollowersOnThisVersion",
+    "description": "fleetAutomaticallyUpdateAllFollowersToTheKioskSatelliteVersion"
   }
 }

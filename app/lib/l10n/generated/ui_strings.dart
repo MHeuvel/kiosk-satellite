@@ -811,6 +811,955 @@ abstract class UiStrings {
   /// **'No release notes.'**
   String get drawerNoReleaseNotes;
 
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Fleet Management needs the remote admin'**
+  String get fleetFleetManagementNeedsTheRemoteAdmin;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosks find each other through it. Turn on Remote management and Find other kiosks under Device, then come back.'**
+  String get fleetKiosksFindEachOtherThroughItTurnOnRemote;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Lead this fleet'**
+  String get fleetLeadThisFleet;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync this kiosk\'s settings to its followers. Requires all kiosks to run the same version.'**
+  String get fleetSyncThisKioskSSettingsToItsFollowersRequires;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'A kiosk that follows a leader cannot lead.'**
+  String get fleetAKioskThatFollowsALeaderCannotLead;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Followers'**
+  String get fleetFollowers;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Profiles'**
+  String get fleetProfiles;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Leader'**
+  String get fleetLeader;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn which settings sync and which do not in the '**
+  String get fleetLearnWhichSettingsSyncAndWhichDoNotIn;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Fleet Management documentation'**
+  String get fleetFleetManagementDocumentation;
+
+  /// Accessible label for the follower actions menu.
+  ///
+  /// In en, this message translates to:
+  /// **'More'**
+  String get fleetMore;
+
+  /// Search result description.
+  ///
+  /// In en, this message translates to:
+  /// **'The kiosks this one leads, their state and a way to add one.'**
+  String get fleetSearchFollowers;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a kiosk'**
+  String get fleetAddAKiosk;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosks member of the fleet. A follower must confirm the invitation on device.'**
+  String get fleetKiosksMemberOfTheFleetAFollowerMustConfirm;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Send invitation'**
+  String get fleetSendInvitation;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Invite again'**
+  String get fleetInviteAgain;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove {name}?'**
+  String fleetRemoveName(String name);
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'It stops following this kiosk and keeps its settings.'**
+  String get fleetItStopsFollowingThisKioskAndKeepsItsSettings;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} wants to lead this kiosk'**
+  String fleetNameWantsToLeadThisKiosk(String name);
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Its settings replace this kiosk\'s in the categories it syncs, from now on. This kiosk keeps its name and identity.'**
+  String get fleetItsSettingsReplaceThisKioskSInTheCategories;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Its settings replace this kiosk\'s in the categories it syncs, from now on. This kiosk keeps its name, its Home Assistant, Music Assistant and ESPHome selves and its hardware picks. You can leave the fleet at any time under Settings, Fleet Management.'**
+  String get fleetItsSettingsReplaceThisKioskSInTheCategoriesDetail;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm on the kiosk itself. The invitation is waiting on its screen and under Settings, Fleet Management.'**
+  String get fleetConfirmOnTheKioskItselfTheInvitationIsWaiting;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept'**
+  String get fleetAccept;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Looking for other kiosks…'**
+  String get fleetLookingForOtherKiosks;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No other kiosk found on this network. A kiosk shows up once its remote admin is on and it shares this Wi-Fi.'**
+  String get fleetNoOtherKioskFoundOnThisNetworkAKiosk;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Follows {name}'**
+  String fleetFollowsName(String name);
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Leads a fleet'**
+  String get fleetLeadsAFleet;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No Fleet Management'**
+  String get fleetNoFleetManagement;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosks on this network that do not follow this one. Pick one to choose what it gets, then the invitation goes out. A kiosk on a build without Fleet Management joins once it runs one.'**
+  String get fleetKiosksOnThisNetworkThatDoNotFollowThis;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Joined the fleet'**
+  String get fleetJoinedTheFleet;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings from the leader arrive shortly.'**
+  String get fleetSettingsFromTheLeaderArriveShortly;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a profile'**
+  String get fleetAddAProfile;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The collection of settings, credentials and exclusions to sync.'**
+  String get fleetTheCollectionOfSettingsCredentialsAndExclusionsToSync;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'New profile'**
+  String get fleetNewProfile;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get fleetProfile;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Updates only'**
+  String get fleetUpdatesOnly;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing syncs. Only updates are pushed.'**
+  String get fleetNothingSyncsOnlyUpdatesArePushed;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories: {selected} of {total}. Credentials: {credentials} of {credentialTotal}. Excluded: {excluded}.'**
+  String
+  fleetCategoriesSelectedOfTotalCredentialsCredentialsOfCredentialtotalExcluded(
+    String selected,
+    String total,
+    String credentials,
+    String credentialTotal,
+    String excluded,
+  );
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'This profile is gone'**
+  String get fleetThisProfileIsGone;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'It was deleted from another page.'**
+  String get fleetItWasDeletedFromAnotherPage;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get fleetName;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Rename'**
+  String get fleetRename;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Rename profile'**
+  String get fleetRenameProfile;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'What it syncs'**
+  String get fleetWhatItSyncs;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing'**
+  String get fleetNothing;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosks on this profile keep every setting of their own. The leader only pushes updates to them.'**
+  String get fleetKiosksOnThisProfileKeepEverySettingOfTheir;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get fleetCategories;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{selected} of {total}: {names}'**
+  String fleetSelectedOfTotalNames(String selected, String total, String names);
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Credentials'**
+  String get fleetCredentials;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'None travel'**
+  String get fleetNoneTravel;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Include the dashboard'**
+  String get fleetIncludeTheDashboard;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The start page and the default dashboard.'**
+  String get fleetTheStartPageAndTheDefaultDashboard;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Excluded settings'**
+  String get fleetExcludedSettings;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'One setting left out'**
+  String get fleetOneSettingLeftOut;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} settings left out'**
+  String fleetCountSettingsLeftOut(String count);
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No kiosks assigned'**
+  String get fleetNoKiosksAssigned;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Assign this profile to a kiosk on the Fleet Management page.'**
+  String get fleetAssignThisProfileToAKioskOnTheFleet;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Duplicate'**
+  String get fleetDuplicate;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Clone this profile into a new one.'**
+  String get fleetCloneThisProfileIntoANewOne;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Duplicate profile'**
+  String get fleetDuplicateProfile;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} copy'**
+  String fleetNameCopy(String name);
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete profile'**
+  String get fleetDeleteProfile;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No kiosk is on it.'**
+  String get fleetNoKioskIsOnIt;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosks on it get the Default profile.'**
+  String get fleetKiosksOnItGetTheDefaultProfile;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete {name}?'**
+  String fleetDeleteName(String name);
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Black screens'**
+  String get fleetBlackScreens;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync to {name}'**
+  String fleetSyncToName(String name);
+
+  /// Name of the built-in default profile. Custom names stay unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Default'**
+  String get fleetDefault;
+
+  /// No categories or excluded settings are selected.
+  ///
+  /// In en, this message translates to:
+  /// **'None'**
+  String get fleetNone;
+
+  /// Search result description.
+  ///
+  /// In en, this message translates to:
+  /// **'The named lists a follower can be given: categories, credentials, the dashboard and the settings left out.'**
+  String get fleetSearchProfiles;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync now'**
+  String get fleetSyncNow;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Changed here, waiting for the leader'**
+  String get fleetChangedHereWaitingForTheLeader;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Synced {time}'**
+  String fleetSyncedTime(String time);
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for the first sync'**
+  String get fleetWaitingForTheFirstSync;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing yet'**
+  String get fleetNothingYet;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No credentials'**
+  String get fleetNoCredentials;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'With the {names}'**
+  String fleetWithTheNames(String names);
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'the dashboard'**
+  String get fleetTheDashboard;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'no dashboard'**
+  String get fleetNoDashboard;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The dashboard'**
+  String get fleetTheDashboardDetail;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No dashboard'**
+  String get fleetNoDashboardDetail;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Synced from the leader'**
+  String get fleetSyncedFromTheLeader;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave the fleet'**
+  String get fleetLeaveTheFleet;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Stops the sync. Settings stay as they are.'**
+  String get fleetStopsTheSyncSettingsStayAsTheyAre;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave the fleet?'**
+  String get fleetLeaveTheFleetDetail;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} stops pushing settings here. Everything stays as it is now.'**
+  String fleetNameStopsPushingSettingsHereEverythingStaysAsIt(String name);
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave'**
+  String get fleetLeave;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'just now'**
+  String get fleetJustNow;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} min ago'**
+  String fleetCountMinAgo(String count);
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} h ago'**
+  String fleetCountHAgo(String count);
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} days ago'**
+  String fleetCountDaysAgo(String count);
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} leads these settings. A change here is replaced at the next sync.'**
+  String fleetNameLeadsTheseSettingsAChangeHereIsReplaced(String name);
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Declined on the kiosk'**
+  String get fleetDeclinedOnTheKiosk;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for its OK'**
+  String get fleetWaitingForItsOk;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Left the fleet'**
+  String get fleetLeftTheFleet;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Sending {percent}%'**
+  String fleetSendingPercent(String percent);
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Installing'**
+  String get fleetInstalling;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Runs {version}, this kiosk needs an update'**
+  String fleetRunsVersionThisKioskNeedsAnUpdate(String version);
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Needs {version}'**
+  String fleetNeedsVersion(String version);
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloading {percent}%'**
+  String fleetDownloadingPercent(String percent);
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Syncing…'**
+  String get fleetSyncing;
+
+  /// Reason a fleet action failed or a kiosk update was skipped.
+  ///
+  /// In en, this message translates to:
+  /// **'Unreachable'**
+  String get fleetErrorUnreachable;
+
+  /// Reason a fleet action failed or a kiosk update was skipped.
+  ///
+  /// In en, this message translates to:
+  /// **'Bad answer'**
+  String get fleetErrorBadAnswer;
+
+  /// Reason a fleet action failed or a kiosk update was skipped.
+  ///
+  /// In en, this message translates to:
+  /// **'The push failed'**
+  String get fleetErrorThePushFailed;
+
+  /// Reason a fleet action failed or a kiosk update was skipped.
+  ///
+  /// In en, this message translates to:
+  /// **'Lead this fleet is off'**
+  String get fleetErrorLeadThisFleetIsOff;
+
+  /// Reason a fleet action failed or a kiosk update was skipped.
+  ///
+  /// In en, this message translates to:
+  /// **'The remote admin and Find other kiosks must be on'**
+  String get fleetErrorTheRemoteAdminAndFindOtherKiosksMustBeOn;
+
+  /// Reason a fleet action failed or a kiosk update was skipped.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick another kiosk'**
+  String get fleetErrorPickAnotherKiosk;
+
+  /// Reason a fleet action failed or a kiosk update was skipped.
+  ///
+  /// In en, this message translates to:
+  /// **'That kiosk is not on the network right now'**
+  String get fleetErrorThatKioskIsNotOnTheNetworkRightNow;
+
+  /// Reason a fleet action failed or a kiosk update was skipped.
+  ///
+  /// In en, this message translates to:
+  /// **'That kiosk did not answer'**
+  String get fleetErrorThatKioskDidNotAnswer;
+
+  /// Reason a fleet action failed or a kiosk update was skipped.
+  ///
+  /// In en, this message translates to:
+  /// **'That kiosk refused the invitation'**
+  String get fleetErrorThatKioskRefusedTheInvitation;
+
+  /// Reason a fleet action failed or a kiosk update was skipped.
+  ///
+  /// In en, this message translates to:
+  /// **'The Default profile stays'**
+  String get fleetErrorTheDefaultProfileStays;
+
+  /// Reason a fleet action failed or a kiosk update was skipped.
+  ///
+  /// In en, this message translates to:
+  /// **'The Updates only profile stays'**
+  String get fleetErrorTheUpdatesOnlyProfileStays;
+
+  /// Reason a fleet action failed or a kiosk update was skipped.
+  ///
+  /// In en, this message translates to:
+  /// **'No such profile'**
+  String get fleetErrorNoSuchProfile;
+
+  /// Reason a fleet action failed or a kiosk update was skipped.
+  ///
+  /// In en, this message translates to:
+  /// **'No such follower'**
+  String get fleetErrorNoSuchFollower;
+
+  /// Reason a fleet action failed or a kiosk update was skipped.
+  ///
+  /// In en, this message translates to:
+  /// **'No invitation is waiting'**
+  String get fleetErrorNoInvitationIsWaiting;
+
+  /// Reason a fleet action failed or a kiosk update was skipped.
+  ///
+  /// In en, this message translates to:
+  /// **'Malformed invitation'**
+  String get fleetErrorMalformedInvitation;
+
+  /// Reason a fleet action failed or a kiosk update was skipped.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not mint a token'**
+  String get fleetErrorCouldNotMintAToken;
+
+  /// Reason a fleet action failed or a kiosk update was skipped.
+  ///
+  /// In en, this message translates to:
+  /// **'not a follower yet'**
+  String get fleetErrorNotAFollowerYet;
+
+  /// Reason a fleet action failed or a kiosk update was skipped.
+  ///
+  /// In en, this message translates to:
+  /// **'offline'**
+  String get fleetErrorOffline;
+
+  /// Reason a fleet action failed or a kiosk update was skipped.
+  ///
+  /// In en, this message translates to:
+  /// **'up to date'**
+  String get fleetErrorUpToDate;
+
+  /// Reason a fleet action failed or a kiosk update was skipped.
+  ///
+  /// In en, this message translates to:
+  /// **'already downloading'**
+  String get fleetErrorAlreadyDownloading;
+
+  /// Reason a fleet action failed or a kiosk update was skipped.
+  ///
+  /// In en, this message translates to:
+  /// **'did not answer'**
+  String get fleetErrorDidNotAnswer;
+
+  /// Reason a fleet action failed or a kiosk update was skipped.
+  ///
+  /// In en, this message translates to:
+  /// **'did not take the upload'**
+  String get fleetErrorDidNotTakeTheUpload;
+
+  /// Accessible control guidance or action result.
+  ///
+  /// In en, this message translates to:
+  /// **'A profile named {name} exists'**
+  String fleetProfileNameExists(String name);
+
+  /// Accessible control guidance or action result.
+  ///
+  /// In en, this message translates to:
+  /// **'already on {version}'**
+  String fleetAlreadyOnVersion(String version);
+
+  /// Accessible control guidance or action result.
+  ///
+  /// In en, this message translates to:
+  /// **'That kiosk runs a build without Fleet Management. It joins once it runs one.'**
+  String get fleetUnsupportedBuild;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch kiosk'**
+  String get fleetSwitchKiosk;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosks on this network with the remote admin on. Picking one opens its admin here, on this same page.'**
+  String get fleetKiosksOnThisNetworkWithTheRemoteAdminOn;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No other kiosk found on this network. A kiosk shows up once its remote admin is on and it shares this network.'**
+  String get fleetNoOtherKioskFoundOnThisNetworkAKioskDetail;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Synced Credentials'**
+  String get fleetSyncedCredentials;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The settings on this list will not be synced to the followers.'**
+  String get fleetTheSettingsOnThisListWillNotBeSynced;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing left out'**
+  String get fleetNothingLeftOut;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync it again'**
+  String get fleetSyncItAgain;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a setting'**
+  String get fleetAddASetting;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Exclude a setting'**
+  String get fleetExcludeASetting;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Search settings'**
+  String get fleetSearchSettings;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} more. Type to narrow the list.'**
+  String fleetCountMoreTypeToNarrowTheList(String count);
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Not synced: {note}'**
+  String fleetNotSyncedNote(String note);
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'the assigned satellite'**
+  String get fleetTheAssignedSatellite;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'microphone and speaker devices, mic gain'**
+  String get fleetMicrophoneAndSpeakerDevicesMicGain;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'the device camera'**
+  String get fleetTheDeviceCamera;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'the followed player, the Sendspin player id'**
+  String get fleetTheFollowedPlayerTheSendspinPlayerId;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'node name, MAC, encryption key'**
+  String get fleetNodeNameMacEncryptionKey;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'the PIN is also synced'**
+  String get fleetThePinIsAlsoSynced;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'the key, unless synced as a credential'**
+  String get fleetTheKeyUnlessSyncedAsACredential;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'name, remote administration, renderer workarounds, scale'**
+  String get fleetNameRemoteAdministrationRendererWorkaroundsScale;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Assistant token'**
+  String get fleetHomeAssistantToken;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Music Assistant token'**
+  String get fleetMusicAssistantToken;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Immich API key'**
+  String get fleetImmichApiKey;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Update the fleet'**
+  String get fleetUpdateTheFleet;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Update the whole fleet to the Kiosk Satellite version running on the leader.'**
+  String get fleetUpdateTheWholeFleetToTheKioskSatelliteVersion;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep followers on this version'**
+  String get fleetKeepFollowersOnThisVersion;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatically update all followers to the Kiosk Satellite version running on the leader.'**
+  String get fleetAutomaticallyUpdateAllFollowersToTheKioskSatelliteVersion;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing to update'**
+  String get fleetNothingToUpdate;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Updating'**
+  String get fleetUpdating;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'{names} installing.'**
+  String fleetNamesInstalling(String names);
+
+  /// Search result description.
+  ///
+  /// In en, this message translates to:
+  /// **'Install the release offered to each follower, then here.'**
+  String get fleetSearchUpdates;
+
   /// Label or guidance in this section.
   ///
   /// In en, this message translates to:
@@ -2412,6 +3361,397 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Speaker selection'**
   String get mediaSpeakerSelection;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Actions'**
+  String get pluginActions;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosk drawer'**
+  String get pluginKioskDrawer;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'To assign a gesture, open Gestures and choose Run a plugin action.'**
+  String get pluginToAssignAGestureOpenGesturesAndChooseRun;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Show in kiosk drawer'**
+  String get pluginShowInKioskDrawer;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Also available while locked if the kiosk drawer is allowed.'**
+  String get pluginAlsoAvailableWhileLockedIfTheKioskDrawerIs;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Expose to Home Assistant'**
+  String get pluginExposeToHomeAssistant;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Adds a button to the kiosk ESPHome device. Requires ESPHome and native entities.'**
+  String get pluginAddsAButtonToTheKioskEsphomeDeviceRequires;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Select an entity'**
+  String get pluginSelectAnEntity;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose {name}'**
+  String pluginChooseName(String name);
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Configure {name}'**
+  String pluginConfigureName(String name);
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Plugin'**
+  String get pluginPlugin;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Plugins'**
+  String get pluginEnablePlugins;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Plugins add additional community developed features to Kiosk Satellite.'**
+  String
+  get pluginPluginsAddAdditionalCommunityDevelopedFeaturesToKioskSatellite;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Installed plugins'**
+  String get pluginInstalledPlugins;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No plugins installed. Add a repository to get started.'**
+  String get pluginNoPluginsInstalledAddARepositoryToGetStarted;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Developer Tools'**
+  String get pluginDeveloperTools;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a plugin'**
+  String get pluginCreateAPlugin;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn how to create plugins with the Hello World template and documentation.'**
+  String get pluginLearnHowToCreatePluginsWithTheHelloWorld;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'This plugin is no longer installed.'**
+  String get pluginThisPluginIsNoLongerInstalled;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Plugins to run this plugin.'**
+  String get pluginEnablePluginsToRunThisPlugin;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable this plugin from its entry row to run it.'**
+  String get pluginEnableThisPluginFromItsEntryRowToRun;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Uninstall {name}?'**
+  String pluginUninstallName(String name);
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Uninstall {name}'**
+  String pluginUninstallNameDetail(String name);
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Check for updates for {name}'**
+  String pluginCheckForUpdatesForName(String name);
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'About {name}'**
+  String pluginAboutName(String name);
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'This removes the plugin and its settings.'**
+  String get pluginThisRemovesThePluginAndItsSettings;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Uninstall'**
+  String get pluginUninstall;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No updates available.'**
+  String get pluginNoUpdatesAvailable;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'This plugin was installed from ZIP and has no repository README.'**
+  String get pluginThisPluginWasInstalledFromZipAndHasNo;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Image unavailable'**
+  String get pluginImageUnavailable;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open this link.'**
+  String get pluginCouldNotOpenThisLink;
+
+  /// Accessible control guidance or action result.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable {name}'**
+  String pluginEnableName(String name);
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Add plugin'**
+  String get pluginAddPlugin;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Install from a GitHub repository'**
+  String get pluginInstallFromAGithubRepository;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Make sure you trust the plugin\'s author and its code before installing it.'**
+  String get pluginMakeSureYouTrustThePluginSAuthorAnd;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Preview'**
+  String get pluginPreview;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Installed version'**
+  String get pluginInstalledVersion;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Author'**
+  String get pluginAuthor;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'License'**
+  String get pluginLicense;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Plugins run code inside Kiosk Satellite and can access app data and granted Android permissions. A faulty or malicious plugin can expose private information or stop the app from working. Only install plugins from authors you trust.'**
+  String get pluginPluginsRunCodeInsideKioskSatelliteAndCanAccess;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'New plugins start disabled. Updates preserve the enabled state and automatically restart running plugins.'**
+  String get pluginNewPluginsStartDisabledUpdatesPreserveTheEnabledState;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Trust and update'**
+  String get pluginTrustAndUpdate;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Trust and install'**
+  String get pluginTrustAndInstall;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Install from ZIP'**
+  String get pluginInstallFromZip;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'For developers only: test a local build'**
+  String get pluginForDevelopersOnlyTestALocalBuild;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Plugin ZIP'**
+  String get pluginPluginZip;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Plugin ZIP must be at most 4 MB'**
+  String get pluginPluginZipMustBeAtMost4Mb;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not read the selected ZIP'**
+  String get pluginCouldNotReadTheSelectedZip;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Charts'**
+  String get pluginCharts;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Readings'**
+  String get pluginReadings;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for samples'**
+  String get pluginWaitingForSamples;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest'**
+  String get pluginLatest;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected'**
+  String get pluginSelected;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No data yet'**
+  String get pluginNoDataYet;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap or drag to inspect samples. Double-tap to follow the latest.'**
+  String get pluginTapOrDragToInspectSamplesDoubleTapTo;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No data'**
+  String get pluginNoData;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'On'**
+  String get pluginOn;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Empty'**
+  String get pluginEmpty;
+
+  /// Accessible control guidance or action result.
+  ///
+  /// In en, this message translates to:
+  /// **'Use arrow keys to inspect samples and End for the latest.'**
+  String get pluginChartKeyboardHelp;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Shizuku 13 or later is required. Tap for setup instructions.'**
+  String get pluginShizuku13OrLaterIsRequiredTapForSetup;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Shizuku on this device. Tap for setup instructions.'**
+  String get pluginStartShizukuOnThisDeviceTapForSetupInstructions;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Shizuku grants Kiosk Satellite shell or root access. Installed plugins run inside KS, so only grant access if you trust them.'**
+  String get pluginShizukuGrantsKioskSatelliteShellOrRootAccessInstalled;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Set up'**
+  String get pluginSetUp;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Grant access'**
+  String get pluginGrantAccess;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Approve the permission request on the kiosk.'**
+  String get pluginApproveThePermissionRequestOnTheKiosk;
 
   /// Setting label.
   ///

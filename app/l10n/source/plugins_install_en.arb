@@ -1,0 +1,211 @@
+{
+  "@@locale": "en",
+  "pluginAddPlugin": "Add plugin",
+  "@pluginAddPlugin": {
+    "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin or Install from ZIP"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > Add plugin or Install from ZIP"
+      ]
+    }
+  },
+  "pluginInstallFromAGithubRepository": "Install from a GitHub repository",
+  "@pluginInstallFromAGithubRepository": {
+    "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin or Install from ZIP"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > Add plugin or Install from ZIP"
+      ]
+    }
+  },
+  "pluginMakeSureYouTrustThePluginSAuthorAnd": "Make sure you trust the plugin's author and its code before installing it.",
+  "@pluginMakeSureYouTrustThePluginSAuthorAnd": {
+    "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin or Install from ZIP"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > Add plugin or Install from ZIP"
+      ]
+    }
+  },
+  "pluginPreview": "Preview",
+  "@pluginPreview": {
+    "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin or Install from ZIP"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > Add plugin or Install from ZIP"
+      ]
+    }
+  },
+  "pluginInstalledVersion": "Installed version",
+  "@pluginInstalledVersion": {
+    "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin or Install from ZIP"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > Add plugin or Install from ZIP"
+      ]
+    }
+  },
+  "pluginAuthor": "Author",
+  "@pluginAuthor": {
+    "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin or Install from ZIP"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > Add plugin or Install from ZIP"
+      ]
+    }
+  },
+  "pluginLicense": "License",
+  "@pluginLicense": {
+    "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin or Install from ZIP"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > Add plugin or Install from ZIP"
+      ]
+    }
+  },
+  "pluginPluginsRunCodeInsideKioskSatelliteAndCanAccess": "Plugins run code inside Kiosk Satellite and can access app data and granted Android permissions. A faulty or malicious plugin can expose private information or stop the app from working. Only install plugins from authors you trust.",
+  "@pluginPluginsRunCodeInsideKioskSatelliteAndCanAccess": {
+    "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin or Install from ZIP"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > Add plugin or Install from ZIP"
+      ]
+    }
+  },
+  "pluginNewPluginsStartDisabledUpdatesPreserveTheEnabledState": "New plugins start disabled. Updates preserve the enabled state and automatically restart running plugins.",
+  "@pluginNewPluginsStartDisabledUpdatesPreserveTheEnabledState": {
+    "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin or Install from ZIP"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > Add plugin or Install from ZIP"
+      ]
+    }
+  },
+  "pluginTrustAndUpdate": "Trust and update",
+  "@pluginTrustAndUpdate": {
+    "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin or Install from ZIP"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > Add plugin or Install from ZIP"
+      ]
+    }
+  },
+  "pluginTrustAndInstall": "Trust and install",
+  "@pluginTrustAndInstall": {
+    "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin or Install from ZIP"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > Add plugin or Install from ZIP"
+      ]
+    }
+  },
+  "pluginInstallFromZip": "Install from ZIP",
+  "@pluginInstallFromZip": {
+    "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin or Install from ZIP"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > Add plugin or Install from ZIP"
+      ]
+    }
+  },
+  "pluginForDevelopersOnlyTestALocalBuild": "For developers only: test a local build",
+  "@pluginForDevelopersOnlyTestALocalBuild": {
+    "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin or Install from ZIP"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > Add plugin or Install from ZIP"
+      ]
+    }
+  },
+  "pluginPluginZip": "Plugin ZIP",
+  "@pluginPluginZip": {
+    "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin or Install from ZIP"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > Add plugin or Install from ZIP"
+      ]
+    }
+  },
+  "pluginPluginZipMustBeAtMost4Mb": "Plugin ZIP must be at most 4 MB",
+  "@pluginPluginZipMustBeAtMost4Mb": {
+    "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin or Install from ZIP"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > Add plugin or Install from ZIP"
+      ]
+    }
+  },
+  "pluginCouldNotReadTheSelectedZip": "Could not read the selected ZIP",
+  "@pluginCouldNotReadTheSelectedZip": {
+    "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin or Install from ZIP"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > Add plugin or Install from ZIP"
+      ]
+    }
+  }
+}

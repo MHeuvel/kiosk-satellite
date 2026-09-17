@@ -1,3 +1,5 @@
+import { fleetTextMessageIds } from './fleet_text_ids.js';
+import { pluginTextMessageIds } from './plugin_text_ids.js';
 import { launcherTextMessageIds } from './launcher_text_ids.js';
 import { gestureTextMessageIds } from './gesture_text_ids.js';
 import { kioskTextMessageIds } from './kiosk_text_ids.js';
@@ -97,6 +99,8 @@ export function settingsPageText(category, english) {
     : category === 'Camera' || category === 'camera' ? cameraText(english)
     : ['Launcher', 'launcher'].includes(category) ? launcherText(english)
     : ['Gestures', 'gestures'].includes(category) ? gestureText(english)
+    : ['Fleet', 'fleet'].includes(category) ? fleetText(english)
+    : ['Plugins', 'plugins'].includes(category) ? pluginText(english)
     : ['Kiosk', 'kiosk', 'Home', 'home'].includes(category) ? kioskText(english)
     : category === 'Intercom' || category === 'intercom' ? (english === 'Answer' ? t('intercomAnswerSection') : english === 'Talk' ? t('intercomTalkSection') : intercomText(english))
     : category === 'Sendspin' || category === 'sendspin' ? mediaText(english) : english;
@@ -240,3 +244,6 @@ export function intercomAnnouncing(count) {
 export function kioskText(english) {
   return t(kioskTextMessageIds[english], {}, english);
 }
+
+export function fleetText(english) { return t(fleetTextMessageIds[english], {}, english); }
+export function pluginText(english) { return t(pluginTextMessageIds[english], {}, english); }

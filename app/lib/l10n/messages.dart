@@ -1,3 +1,5 @@
+import 'generated/fleet_text_ids.dart';
+import 'generated/plugin_text_ids.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
@@ -346,3 +348,11 @@ String immichError(BuildContext context, String error) {
   }
   return screensaverText(context, error);
 }
+
+/// Fleet labels. Stored profile names and identifiers stay unchanged.
+String fleetText(BuildContext context, String english) =>
+    messageById(l10n(context), fleetTextMessageIds[english], english);
+
+/// Application-owned plugin labels. Community content stays unchanged.
+String pluginText(BuildContext context, String english) =>
+    messageById(l10n(context), pluginTextMessageIds[english], english);

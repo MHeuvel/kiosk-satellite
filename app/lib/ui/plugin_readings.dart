@@ -1,3 +1,4 @@
+import '../l10n/messages.dart';
 import 'package:flutter/material.dart';
 
 import 'kit.dart';
@@ -5,14 +6,10 @@ import 'theme.dart';
 
 /// A plugin's confirmed entity states, displayed without editing controls.
 class PluginReadings extends StatelessWidget {
-  const PluginReadings({
-    super.key,
-    required this.readings,
-    this.title = 'Readings',
-  });
+  const PluginReadings({super.key, required this.readings, this.title});
 
   final List<Map<String, Object?>> readings;
-  final String title;
+  final String? title;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +17,7 @@ class PluginReadings extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        SectionHeading(title),
+        SectionHeading(title ?? pluginText(context, 'Readings')),
         SettingsCard(
           children: [
             for (final reading in readings)
@@ -62,7 +59,15 @@ class _ReadingRow extends StatelessWidget {
     final readingStyle = theme.textTheme.bodyLarge?.copyWith(
       fontWeight: FontWeight.w400,
     );
-    final value = formatPluginReading(reading);
+    final rawValue = formatPluginReading(reading);
+    final state = reading['state'];
+    final value =
+        state == null ||
+            state is bool ||
+            state == '' ||
+            (state is num && !state.isFinite)
+        ? pluginText(context, rawValue)
+        : rawValue;
     final unit = reading['type'] == 'sensor' && reading['state'] != null
         ? '${reading['unit'] ?? ''}'
         : '';

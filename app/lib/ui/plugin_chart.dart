@@ -1,3 +1,4 @@
+import '../l10n/messages.dart';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -111,7 +112,7 @@ class _PluginChartState extends State<PluginChart> {
     final theme = Theme.of(context);
     final readings = [
       for (final series in _series)
-        '${series['name']}: ${chartNumber(index < 0 ? null : (series['values'] as List)[index] as num?)}${index >= 0 && (series['values'] as List)[index] != null && unit.isNotEmpty ? ' $unit' : ''}',
+        '${series['name']}: ${pluginText(context, chartNumber(index < 0 ? null : (series['values'] as List)[index] as num?))}${index >= 0 && (series['values'] as List)[index] != null && unit.isNotEmpty ? ' $unit' : ''}',
     ];
     return SettingsCard(
       children: [
@@ -155,15 +156,17 @@ class _PluginChartState extends State<PluginChart> {
               const SizedBox(height: 8),
               Text(
                 index < 0
-                    ? 'Waiting for samples'
-                    : '${_selected == null || !_times.contains(_selected) ? 'Latest' : 'Selected'} · ${_time(_times[index])}',
+                    ? pluginText(context, 'Waiting for samples')
+                    : '${pluginText(context, _selected == null || !_times.contains(_selected) ? 'Latest' : 'Selected')} · ${_time(_times[index])}',
                 style: theme.textTheme.bodySmall,
               ),
               const SizedBox(height: 12),
               if (values.isEmpty)
                 SizedBox(
                   height: height,
-                  child: const Center(child: Text('No data yet')),
+                  child: Center(
+                    child: Text(pluginText(context, 'No data yet')),
+                  ),
                 )
               else
                 Row(
@@ -270,7 +273,10 @@ class _PluginChartState extends State<PluginChart> {
               const SizedBox(height: 8),
               if (!compact)
                 Text(
-                  'Tap or drag to inspect samples. Double-tap to follow the latest.',
+                  pluginText(
+                    context,
+                    'Tap or drag to inspect samples. Double-tap to follow the latest.',
+                  ),
                   style: theme.textTheme.bodySmall,
                 ),
             ],

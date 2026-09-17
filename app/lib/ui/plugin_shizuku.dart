@@ -1,3 +1,4 @@
+import '../l10n/messages.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -83,8 +84,8 @@ class _PluginShizukuPanelState extends State<PluginShizukuPanel> {
     builder: (_, state, _) => SettingsCard(
       children: [
         SettingsRow(
-          title: const Text('Shizuku access'),
-          subtitle: Text(pluginShizukuHint(state)),
+          title: Text(pluginText(context, 'Shizuku access')),
+          subtitle: Text(pluginText(context, pluginShizukuHint(state))),
           trailing: _busy
               ? const SizedBox(
                   width: 20,
@@ -103,8 +104,11 @@ class _PluginShizukuPanelState extends State<PluginShizukuPanel> {
               ? null
               : () => _activate(state['status'] == 'permission_required'),
         ),
-        const HintRow(
-          'Shizuku grants Kiosk Satellite shell or root access. Installed plugins run inside KS, so only grant access if you trust them.',
+        HintRow(
+          pluginText(
+            context,
+            'Shizuku grants Kiosk Satellite shell or root access. Installed plugins run inside KS, so only grant access if you trust them.',
+          ),
         ),
       ],
     ),

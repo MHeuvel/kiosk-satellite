@@ -1,3 +1,4 @@
+import { pluginText, messageLanguage } from './localization.js';
 // Runtime-only charts. Updating a chart never replaces the settings form.
 const palette = ['#1976d2', '#b45309', '#16836b', '#a13ca4'];
 const svgNS = 'http://www.w3.org/2000/svg';
@@ -13,7 +14,7 @@ function svg(tag, attributes) {
   for (const [key, value] of Object.entries(attributes)) el.setAttribute(key, value);
   return el;
 }
-function number(value) { return value == null ? 'No data' : Math.abs(value) >= 1e6 ? value.toExponential(2) : Number(value.toFixed(2)).toString(); }
+function number(value) { return value == null ? pluginText('No data') : Math.abs(value) >= 1e6 ? value.toExponential(2) : Number(value.toFixed(2)).toString(); }
 function time(value) { return new Date(value).toLocaleString([], { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }); }
 
 function domain(times, bars) {
@@ -31,9 +32,9 @@ function createChart() {
   const labels = node('div', 'plugin-chart-scale desc');
   const drawing = svg('svg', { viewBox: '0 0 600 160', preserveAspectRatio: 'none', tabindex: '0', role: 'group' });
   const dates = node('div', 'plugin-chart-dates desc');
-  const empty = node('div', 'plugin-chart-empty desc', 'No data yet');
+  const empty = node('div', 'plugin-chart-empty desc', pluginText('No data yet'));
   plot.append(labels, drawing, empty);
-  card.append(title, legend, selected, plot, dates, node('div', 'desc plugin-chart-help', 'Tap or drag to inspect samples. Double-tap to follow the latest.'));
+  card.append(title, legend, selected, plot, dates, node('div', 'desc plugin-chart-help', pluginText('Tap or drag to inspect samples. Double-tap to follow the latest.')));
   const state = { title, legend, selected, labels, drawing, dates, empty, timestamp: null, chart: null };
   states.set(card, state);
   function inspect(clientX) {
@@ -76,8 +77,8 @@ function paint(state) {
     item.append(marker, document.createTextNode(`${series.name}: ${number(value)}${value != null && chart.unit ? ' ' + chart.unit : ''}`));
     state.legend.append(item);
   }
-  state.selected.textContent = selected < 0 ? 'Waiting for samples' : `${found < 0 ? 'Latest' : 'Selected'} · ${time(times[selected])}`;
-  state.drawing.setAttribute('aria-label', `${chart.title}. ${state.legend.textContent}. ${state.selected.textContent}. Use arrow keys to inspect samples and End for the latest.`);
+  state.selected.textContent = selected < 0 ? pluginText('Waiting for samples') : `${pluginText(found < 0 ? 'Latest' : 'Selected')} · ${time(times[selected])}`;
+  state.drawing.setAttribute('aria-label', `${chart.title}. ${state.legend.textContent}. ${state.selected.textContent}. ${pluginText('Use arrow keys to inspect samples and End for the latest.')}`);
   state.drawing.replaceChildren(); state.labels.replaceChildren(); state.dates.replaceChildren();
   const values = chart.series.flatMap(series => series.values).filter(value => value != null);
   state.empty.hidden = !!values.length; state.drawing.style.display = values.length ? '' : 'none';
@@ -112,7 +113,7 @@ function paint(state) {
   }
 }
 
-export function updatePluginCharts(container, charts, title = 'Charts') {
+export function updatePluginCharts(container, charts, title = pluginText('Charts')) {
   container.hidden = !charts.length;
   const keys = new Set(charts.map(chart => chart.key));
   for (const card of container.querySelectorAll('.plugin-chart')) if (!keys.has(card.dataset.key)) card.remove();
@@ -121,8 +122,8 @@ export function updatePluginCharts(container, charts, title = 'Charts') {
     let card = [...container.querySelectorAll('.plugin-chart')].find(el => el.dataset.key === chart.key);
     if (!card) { card = createChart(); card.dataset.key = chart.key; container.append(card); }
     const state = states.get(card);
-    if (JSON.stringify(state.chart) === JSON.stringify(chart)) continue;
+    if (state.language === messageLanguage() && JSON.stringify(state.chart) === JSON.stringify(chart)) continue;
     card.classList.toggle('compact', chart.compact === true);
-    state.chart = chart; paint(state);
+    state.chart = chart; state.language = messageLanguage(); paint(state);
   }
 }

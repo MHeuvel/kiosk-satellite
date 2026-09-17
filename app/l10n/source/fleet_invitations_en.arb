@@ -1,0 +1,268 @@
+{
+  "@@locale": "en",
+  "fleetAddAKiosk": "Add a kiosk",
+  "@fleetAddAKiosk": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  },
+  "fleetKiosksMemberOfTheFleetAFollowerMustConfirm": "Kiosks member of the fleet. A follower must confirm the invitation on device.",
+  "@fleetKiosksMemberOfTheFleetAFollowerMustConfirm": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  },
+  "fleetSendInvitation": "Send invitation",
+  "@fleetSendInvitation": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  },
+  "fleetInviteAgain": "Invite again",
+  "@fleetInviteAgain": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  },
+  "fleetRemoveName": "Remove {name}?",
+  "@fleetRemoveName": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetItStopsFollowingThisKioskAndKeepsItsSettings": "It stops following this kiosk and keeps its settings.",
+  "@fleetItStopsFollowingThisKioskAndKeepsItsSettings": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  },
+  "fleetNameWantsToLeadThisKiosk": "{name} wants to lead this kiosk",
+  "@fleetNameWantsToLeadThisKiosk": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetItsSettingsReplaceThisKioskSInTheCategories": "Its settings replace this kiosk's in the categories it syncs, from now on. This kiosk keeps its name and identity.",
+  "@fleetItsSettingsReplaceThisKioskSInTheCategories": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  },
+  "fleetItsSettingsReplaceThisKioskSInTheCategoriesDetail": "Its settings replace this kiosk's in the categories it syncs, from now on. This kiosk keeps its name, its Home Assistant, Music Assistant and ESPHome selves and its hardware picks. You can leave the fleet at any time under Settings, Fleet Management.",
+  "@fleetItsSettingsReplaceThisKioskSInTheCategoriesDetail": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  },
+  "fleetConfirmOnTheKioskItselfTheInvitationIsWaiting": "Confirm on the kiosk itself. The invitation is waiting on its screen and under Settings, Fleet Management.",
+  "@fleetConfirmOnTheKioskItselfTheInvitationIsWaiting": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  },
+  "fleetAccept": "Accept",
+  "@fleetAccept": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  },
+  "fleetLookingForOtherKiosks": "Looking for other kiosks…",
+  "@fleetLookingForOtherKiosks": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  },
+  "fleetNoOtherKioskFoundOnThisNetworkAKiosk": "No other kiosk found on this network. A kiosk shows up once its remote admin is on and it shares this Wi-Fi.",
+  "@fleetNoOtherKioskFoundOnThisNetworkAKiosk": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  },
+  "fleetFollowsName": "Follows {name}",
+  "@fleetFollowsName": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetLeadsAFleet": "Leads a fleet",
+  "@fleetLeadsAFleet": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  },
+  "fleetNoFleetManagement": "No Fleet Management",
+  "@fleetNoFleetManagement": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  },
+  "fleetKiosksOnThisNetworkThatDoNotFollowThis": "Kiosks on this network that do not follow this one. Pick one to choose what it gets, then the invitation goes out. A kiosk on a build without Fleet Management joins once it runs one.",
+  "@fleetKiosksOnThisNetworkThatDoNotFollowThis": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  },
+  "fleetJoinedTheFleet": "Joined the fleet",
+  "@fleetJoinedTheFleet": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  },
+  "fleetSettingsFromTheLeaderArriveShortly": "Settings from the leader arrive shortly.",
+  "@fleetSettingsFromTheLeaderArriveShortly": {
+    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  }
+}

@@ -1,3 +1,4 @@
+import { fleetText } from './localization.js';
 import { routeHash } from './routes.js';
 import { watchUpdates } from './live.js';
 import { $, cmd, state } from './core.js';
@@ -65,7 +66,7 @@ function deviceRow(d) {
   addr.textContent = d.address;
   desc.appendChild(addr);
   if (d.version) desc.appendChild(tag(d.version));
-  if (d.self) desc.appendChild(tag('This device', 'device'));
+  if (d.self) desc.appendChild(tag(fleetText('This device'), 'device'));
   info.append(name, desc);
   row.appendChild(info);
   if (!d.self) {
@@ -92,12 +93,12 @@ export function openFleetPicker() {
   if (picker) return;
   const openedAt = Date.now();
   const shell = modalShell({
-    title: 'Switch kiosk',
+    title: fleetText('Switch kiosk'),
     onDismiss: close,
   });
   const cancel = document.createElement('button');
   cancel.className = 'btn-text';
-  cancel.textContent = 'Cancel';
+  cancel.textContent = fleetText('Cancel');
   cancel.addEventListener('click', close);
   shell.foot.appendChild(cancel);
   let lookTimer = null;
@@ -109,25 +110,25 @@ export function openFleetPicker() {
   }
 
   function render() {
+    shell.head.textContent = fleetText('Switch kiosk');
+    cancel.textContent = fleetText('Cancel');
     const body = shell.body;
     body.innerHTML = '';
     devices.forEach((d) => body.appendChild(deviceRow(d)));
     if (others().length) {
-      body.appendChild(hintRow('Kiosks on this network with the remote admin on. '
-        + 'Picking one opens its admin here, on this same page.'));
+      body.appendChild(hintRow(fleetText("Kiosks on this network with the remote admin on. Picking one opens its admin here, on this same page.")));
     } else if (Date.now() - openedAt < 6000) {
       // A query went out when this device started; give the answers a
       // moment before calling the network empty.
       const looking = document.createElement('div');
       looking.className = 'fleet-looking';
       looking.innerHTML = '<span class="fleet-spinner"></span><span></span>';
-      looking.querySelector('span:last-child').textContent = 'Looking for other kiosks…';
+      looking.querySelector('span:last-child').textContent = fleetText('Looking for other kiosks…');
       body.appendChild(looking);
       clearTimeout(lookTimer);
       lookTimer = setTimeout(render, 6000 - (Date.now() - openedAt) + 50);
     } else {
-      body.appendChild(hintRow('No other kiosk found on this network. A kiosk shows '
-        + 'up once its remote admin is on and it shares this network.'));
+      body.appendChild(hintRow(fleetText("No other kiosk found on this network. A kiosk shows up once its remote admin is on and it shares this network.")));
     }
   }
 
@@ -157,3 +158,5 @@ export function setDeviceName(name) {
 }
 
 watchUpdates(['fleet'], refreshFleet);
+
+document.addEventListener('ks-settings-cached', () => picker?.render());

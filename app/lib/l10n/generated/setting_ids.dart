@@ -1256,4 +1256,12 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingClapStrictnessTitle",
     "description": "settingClapStrictnessDescription",
   },
+  "fleet.leader": {
+    "title": "fleetLeadThisFleet",
+    "description": "fleetSyncThisKioskSSettingsToItsFollowersRequires",
+  },
+  "fleet.auto_update": {
+    "title": "fleetKeepFollowersOnThisVersion",
+    "description": "fleetAutomaticallyUpdateAllFollowersToTheKioskSatelliteVersion",
+  },
 };

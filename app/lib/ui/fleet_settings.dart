@@ -1,3 +1,5 @@
+import '../l10n/fleet_messages.dart';
+import '../l10n/messages.dart';
 import 'dart:async';
 
 import 'package:flutter/gestures.dart';
@@ -77,8 +79,8 @@ class _FleetSettingsPanelState extends State<FleetSettingsPanel> {
     if (!r.ok) {
       showToast(
         context,
-        title: 'Fleet Management',
-        message: r.error,
+        title: fleetText(context, 'Fleet Management'),
+        message: r.error == null ? null : fleetStatusText(context, r.error!),
         kind: ToastKind.error,
       );
     }
@@ -88,7 +90,9 @@ class _FleetSettingsPanelState extends State<FleetSettingsPanel> {
   @override
   Widget build(BuildContext context) {
     final status = _status;
-    if (status == null) return const ListTile(title: Text('Loading…'));
+    if (status == null) {
+      return ListTile(title: Text(fleetText(context, 'Loading…')));
+    }
     final enabled = status['enabled'] == true;
     final leading = status['leader'] == true;
     final following = status['following'] as Map?;
@@ -108,18 +112,18 @@ class _FleetSettingsPanelState extends State<FleetSettingsPanel> {
         ),
         if (enabled && leading) ...[
           const SizedBox(height: 16),
-          const SectionHeading('Followers'),
+          SectionHeading(fleetText(context, 'Followers')),
           _followersCard(status),
-          const SectionHeading('Profiles'),
+          SectionHeading(fleetText(context, 'Profiles')),
           _profilesCard(status),
           _docsNote(),
           const SizedBox(height: 16),
-          const SectionHeading('Updates'),
+          SectionHeading(fleetText(context, 'Updates')),
           _updatesCard(status),
         ],
         if (following != null) ...[
           const SizedBox(height: 16),
-          const SectionHeading('Leader'),
+          SectionHeading(fleetText(context, 'Leader')),
           _leaderCard(following),
         ],
       ],
@@ -129,14 +133,19 @@ class _FleetSettingsPanelState extends State<FleetSettingsPanel> {
   Widget _setupCard() => Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      const SettingsCard(
+      SettingsCard(
         children: [
           SettingsRow(
             leading: Icon(Icons.cloud_off_outlined),
-            title: Text('Fleet Management needs the remote admin'),
+            title: Text(
+              fleetText(context, 'Fleet Management needs the remote admin'),
+            ),
             subtitle: Text(
-              'Kiosks find each other through it. Turn on Remote management '
-              'and Find other kiosks under Device, then come back.',
+              fleetText(
+                context,
+                'Kiosks find each other through it. Turn on Remote management '
+                'and Find other kiosks under Device, then come back.',
+              ),
             ),
           ),
         ],
@@ -156,11 +165,14 @@ class _FleetSettingsPanelState extends State<FleetSettingsPanel> {
         SearchLandingTarget(
           id: defs.fleetLeader.key,
           child: SettingsRow(
-            title: const Text('Lead this fleet'),
+            title: Text(fleetText(context, 'Lead this fleet')),
             subtitle: Text(
               following
-                  ? 'A kiosk that follows a leader cannot lead.'
-                  : defs.fleetLeader.description,
+                  ? fleetText(
+                      context,
+                      'A kiosk that follows a leader cannot lead.',
+                    )
+                  : defs.fleetLeader.localizedDescription(context),
             ),
             enabled: canLead,
             trailing: Switch(
@@ -188,15 +200,18 @@ class _FleetSettingsPanelState extends State<FleetSettingsPanel> {
         children: [
           for (final f in rows) _followerRow(f),
           SettingsRow(
-            title: const Text('Add a kiosk'),
-            subtitle: const Text(
-              'Kiosks member of the fleet. A follower must confirm the '
-              'invitation on device.',
+            title: Text(fleetText(context, 'Add a kiosk')),
+            subtitle: Text(
+              fleetText(
+                context,
+                'Kiosks member of the fleet. A follower must confirm the '
+                'invitation on device.',
+              ),
             ),
             trailing: OutlinedButton.icon(
               onPressed: _busy ? null : _addKiosk,
               icon: const Icon(Icons.add, size: 18),
-              label: const Text('Add'),
+              label: Text(fleetText(context, 'Add')),
             ),
           ),
         ],
@@ -224,32 +239,48 @@ class _FleetSettingsPanelState extends State<FleetSettingsPanel> {
           if ('${f['version']}'.isNotEmpty)
             _Tag('${f['version']}', error: phase == 'version'),
           if (f['profile'] != 'default')
-            _Tag('${f['profileName']}', accent: true),
+            _Tag(
+              f['profile'] == 'updates-only'
+                  ? fleetText(context, 'Updates only')
+                  : '${f['profileName']}',
+              accent: true,
+            ),
         ],
       ),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            '${f['status']}',
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(color: tone),
+          Flexible(
+            child: Text(
+              fleetStatusText(context, '${f['status']}'),
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(color: tone),
+            ),
           ),
           PopupMenuButton<String>(
-            tooltip: 'More',
+            tooltip: fleetText(context, 'More'),
             enabled: !_busy,
             onSelected: (v) => _followerAction(f, v),
             itemBuilder: (context) => [
-              const PopupMenuItem(value: 'sync', child: Text('Profile')),
+              PopupMenuItem(
+                value: 'sync',
+                child: Text(fleetText(context, 'Profile')),
+              ),
               if (phase == 'declined' || phase == 'left')
-                const PopupMenuItem(
+                PopupMenuItem(
                   value: 'invite',
-                  child: Text('Invite again'),
+                  child: Text(fleetText(context, 'Invite again')),
                 )
               else
-                const PopupMenuItem(value: 'now', child: Text('Sync now')),
+                PopupMenuItem(
+                  value: 'now',
+                  child: Text(fleetText(context, 'Sync now')),
+                ),
               PopupMenuItem(
                 value: 'remove',
-                child: Text('Remove', style: TextStyle(color: scheme.error)),
+                child: Text(
+                  fleetText(context, 'Remove'),
+                  style: TextStyle(color: scheme.error),
+                ),
               ),
             ],
           ),
@@ -278,9 +309,12 @@ class _FleetSettingsPanelState extends State<FleetSettingsPanel> {
         if (!mounted) return;
         final ok = await showConfirmDialog(
           context,
-          title: 'Remove ${f['name']}?',
-          message: 'It stops following this kiosk and keeps its settings.',
-          confirmLabel: 'Remove',
+          title: l10n(context).fleetRemoveName((f['name']).toString()),
+          message: fleetText(
+            context,
+            'It stops following this kiosk and keeps its settings.',
+          ),
+          confirmLabel: fleetText(context, 'Remove'),
           destructive: true,
         );
         if (ok) await _run('fleetRemove', {'id': id});
@@ -303,7 +337,7 @@ class _FleetSettingsPanelState extends State<FleetSettingsPanel> {
       who: '${picked['name']}',
       profiles: _profiles(),
       selected: SyncProfile.defaultId,
-      confirmLabel: 'Send invitation',
+      confirmLabel: fleetText(context, 'Send invitation'),
     );
     if (profile == null) return;
     await _run('fleetInvite', {'id': picked['id'], 'profile': profile});
@@ -320,20 +354,23 @@ class _FleetSettingsPanelState extends State<FleetSettingsPanel> {
           for (final p in profiles)
             ListTile(
               leading: SubpageGlyph(p.name),
-              title: Text(p.name),
-              subtitle: Text(p.describe()),
+              title: Text(fleetProfileName(context, p)),
+              subtitle: Text(fleetProfileDescription(context, p)),
               trailing: const Icon(Icons.chevron_right),
               onTap: () => openSettingsSubpage(context, c, 'Fleet', p.name),
             ),
           SettingsRow(
-            title: const Text('Add a profile'),
-            subtitle: const Text(
-              'The collection of settings, credentials and exclusions to sync.',
+            title: Text(fleetText(context, 'Add a profile')),
+            subtitle: Text(
+              fleetText(
+                context,
+                'The collection of settings, credentials and exclusions to sync.',
+              ),
             ),
             trailing: OutlinedButton.icon(
               onPressed: _busy ? null : _addProfile,
               icon: const Icon(Icons.add, size: 18),
-              label: const Text('Add'),
+              label: Text(fleetText(context, 'Add')),
             ),
           ),
         ],
@@ -344,7 +381,10 @@ class _FleetSettingsPanelState extends State<FleetSettingsPanel> {
   /// A new profile starts as a copy of the Default under the typed name,
   /// and opens its page.
   Future<void> _addProfile() async {
-    final name = await showNameDialog(context, title: 'New profile');
+    final name = await showNameDialog(
+      context,
+      title: fleetText(context, 'New profile'),
+    );
     if (name == null || !mounted) return;
     final base = _profiles().where((p) => p.isDefault).firstOrNull;
     final made = (base ?? SyncProfile.initial).copyWith(id: '', name: name);
@@ -357,8 +397,8 @@ class _FleetSettingsPanelState extends State<FleetSettingsPanel> {
     if (!r.ok) {
       showToast(
         context,
-        title: 'Fleet Management',
-        message: r.error,
+        title: fleetText(context, 'Fleet Management'),
+        message: r.error == null ? null : fleetStatusText(context, r.error!),
         kind: ToastKind.error,
       );
       return;
@@ -379,11 +419,14 @@ class _FleetSettingsPanelState extends State<FleetSettingsPanel> {
         TextSpan(
           style: muted,
           children: [
-            const TextSpan(
-              text: 'Learn which settings sync and which do not in the ',
+            TextSpan(
+              text: fleetText(
+                context,
+                'Learn which settings sync and which do not in the ',
+              ),
             ),
             TextSpan(
-              text: 'Fleet Management documentation',
+              text: fleetText(context, 'Fleet Management documentation'),
               style: muted?.copyWith(
                 color: theme.colorScheme.primary,
                 fontWeight: FontWeight.w500,
@@ -404,15 +447,17 @@ class _FleetSettingsPanelState extends State<FleetSettingsPanel> {
   }
 
   Widget _updatesCard(Map<String, Object?> status) {
-    const desc =
-        'Update the whole fleet to the Kiosk Satellite version running on '
-        'the leader.';
+    final desc = fleetText(
+      context,
+      'Update the whole fleet to the Kiosk Satellite version running on '
+      'the leader.',
+    );
     return SettingsCard(
       children: [
         SearchLandingTarget(
           id: 'x:fleet_update',
           child: SettingsRow(
-            title: const Text('Update the fleet'),
+            title: Text(fleetText(context, 'Update the fleet')),
             subtitle: Text(desc),
             trailing: FilledButton(
               onPressed: _busy ? null : _updateFleet,
@@ -440,11 +485,15 @@ class _FleetSettingsPanelState extends State<FleetSettingsPanel> {
     final self = data['self'] == true;
     showToast(
       context,
-      title: started.isEmpty && !self ? 'Nothing to update' : 'Updating',
+      title: started.isEmpty && !self
+          ? fleetText(context, 'Nothing to update')
+          : fleetText(context, 'Updating'),
       message: [
-        if (started.isNotEmpty) '${_join(started)} installing.',
-        if (self) 'This kiosk installs last.',
-        for (final e in skipped.entries) '${e.key}: ${e.value}.',
+        if (started.isNotEmpty)
+          l10n(context).fleetNamesInstalling((started.join(', ')).toString()),
+        if (self) fleetText(context, 'This kiosk installs last.'),
+        for (final e in skipped.entries)
+          '${e.key}: ${fleetStatusText(context, '${e.value}')}.',
       ].join(' '),
       kind: started.isEmpty && !self ? ToastKind.info : ToastKind.success,
     );
@@ -458,7 +507,11 @@ class _FleetSettingsPanelState extends State<FleetSettingsPanel> {
     return SettingsCard(
       children: [
         SettingsRow(
-          title: Text('${leader['name']} wants to lead this kiosk'),
+          title: Text(
+            l10n(
+              context,
+            ).fleetNameWantsToLeadThisKiosk((leader['name']).toString()),
+          ),
           subtitle: Wrap(
             spacing: 8,
             runSpacing: 4,
@@ -467,13 +520,16 @@ class _FleetSettingsPanelState extends State<FleetSettingsPanel> {
               Text('${leader['address']}'),
               if ('${leader['version'] ?? ''}'.isNotEmpty)
                 _Tag('${leader['version']}'),
-              const _Tag('Leader', accent: true),
+              _Tag(fleetText(context, 'Leader'), accent: true),
             ],
           ),
         ),
-        const HintRow(
-          "Its settings replace this kiosk's in the categories it syncs, "
-          'from now on. This kiosk keeps its name and identity.',
+        HintRow(
+          fleetText(
+            context,
+            "Its settings replace this kiosk's in the categories it syncs, "
+            'from now on. This kiosk keeps its name and identity.',
+          ),
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 14),
@@ -482,12 +538,12 @@ class _FleetSettingsPanelState extends State<FleetSettingsPanel> {
             children: [
               TextButton(
                 onPressed: _busy ? null : () => _run('fleetDecline'),
-                child: const Text('Decline'),
+                child: Text(fleetText(context, 'Decline')),
               ),
               const SizedBox(width: 10),
               FilledButton(
                 onPressed: _busy ? null : () => _run('fleetAccept'),
-                child: const Text('Accept'),
+                child: Text(fleetText(context, 'Accept')),
               ),
             ],
           ),
@@ -503,20 +559,28 @@ class _FleetSettingsPanelState extends State<FleetSettingsPanel> {
     final lastSyncAt = (following['lastSyncAt'] as num?)?.toInt() ?? 0;
     final synced = [
       for (final t in (following['syncedCategories'] as List? ?? const []))
-        '$t',
+        navigationText(context, '$t'),
     ];
     final status = dirty
-        ? 'Changed here, waiting for the leader'
+        ? fleetText(context, 'Changed here, waiting for the leader')
         : lastSyncAt > 0
-        ? 'Synced ${_ago(lastSyncAt)}'
-        : 'Waiting for the first sync';
+        ? l10n(context).fleetSyncedTime((_ago(context, lastSyncAt)).toString())
+        : fleetText(context, 'Waiting for the first sync');
     final creds = [
-      for (final t in (following['credentials'] as List? ?? const [])) '$t',
+      for (final t in (following['credentials'] as List? ?? const []))
+        fleetText(context, '$t'),
     ];
     final gets = [
-      if (synced.isEmpty) 'Nothing yet' else synced.join(', '),
-      creds.isEmpty ? 'No credentials' : 'With the ${_join(creds)}',
-      following['dashboard'] == true ? 'the dashboard' : 'no dashboard',
+      if (synced.isEmpty)
+        fleetText(context, 'Nothing yet')
+      else
+        synced.join(', '),
+      creds.isEmpty
+          ? fleetText(context, 'No credentials')
+          : l10n(context).fleetWithTheNames((creds.join(', ')).toString()),
+      following['dashboard'] == true
+          ? fleetText(context, 'the dashboard')
+          : fleetText(context, 'no dashboard'),
     ].join('. ');
     return SettingsCard(
       children: [
@@ -531,7 +595,7 @@ class _FleetSettingsPanelState extends State<FleetSettingsPanel> {
               Text('${leader['address']}'),
               if ('${leader['version'] ?? ''}'.isNotEmpty)
                 _Tag('${leader['version']}'),
-              const _Tag('Leader', accent: true),
+              _Tag(fleetText(context, 'Leader'), accent: true),
             ],
           ),
           trailing: Text(
@@ -542,28 +606,31 @@ class _FleetSettingsPanelState extends State<FleetSettingsPanel> {
           ),
         ),
         SettingsRow(
-          title: const Text('Synced from the leader'),
+          title: Text(fleetText(context, 'Synced from the leader')),
           subtitle: Text('$gets.'),
         ),
         SettingsRow(
-          title: const Text('Leave the fleet'),
-          subtitle: const Text('Stops the sync. Settings stay as they are.'),
+          title: Text(fleetText(context, 'Leave the fleet')),
+          subtitle: Text(
+            fleetText(context, 'Stops the sync. Settings stay as they are.'),
+          ),
           trailing: OutlinedButton(
             onPressed: _busy
                 ? null
                 : () async {
                     final ok = await showConfirmDialog(
                       context,
-                      title: 'Leave the fleet?',
-                      message:
-                          '${leader['name']} stops pushing settings here. '
-                          'Everything stays as it is now.',
-                      confirmLabel: 'Leave',
+                      title: fleetText(context, 'Leave the fleet?'),
+                      message: l10n(context)
+                          .fleetNameStopsPushingSettingsHereEverythingStaysAsIt(
+                            (leader['name']).toString(),
+                          ),
+                      confirmLabel: fleetText(context, 'Leave'),
                       destructive: true,
                     );
                     if (ok) await _run('fleetLeave');
                   },
-            child: const Text('Leave'),
+            child: Text(fleetText(context, 'Leave')),
           ),
         ),
       ],
@@ -571,19 +638,14 @@ class _FleetSettingsPanelState extends State<FleetSettingsPanel> {
   }
 }
 
-String _join(List<String> names) {
-  if (names.length <= 1) return names.join();
-  return '${names.sublist(0, names.length - 1).join(', ')} and ${names.last}';
-}
-
-String _ago(int at) {
+String _ago(BuildContext context, int at) {
   final s = ((DateTime.now().millisecondsSinceEpoch - at) / 1000).round();
-  if (s < 60) return 'just now';
+  if (s < 60) return fleetText(context, 'just now');
   final m = s ~/ 60;
-  if (m < 60) return '$m min ago';
+  if (m < 60) return l10n(context).fleetCountMinAgo((m).toString());
   final h = m ~/ 60;
-  if (h < 48) return '$h h ago';
-  return '${h ~/ 24} days ago';
+  if (h < 48) return l10n(context).fleetCountHAgo((h).toString());
+  return l10n(context).fleetCountDaysAgo((h ~/ 24).toString());
 }
 
 /// The small uppercase tag beside a kiosk's address: its version, Custom,
@@ -646,7 +708,7 @@ Future<String?> showProfilePicker(
     context: context,
     builder: (ctx) => StatefulBuilder(
       builder: (ctx, setState) => AlertDialog(
-        title: Text('Sync to $who'),
+        title: Text(l10n(ctx).fleetSyncToName((who).toString())),
         contentPadding: const EdgeInsets.only(top: 8, bottom: 8),
         content: SizedBox(
           width: 480,
@@ -660,8 +722,8 @@ Future<String?> showProfilePicker(
                   for (final p in profiles)
                     RadioListTile<String>(
                       value: p.id,
-                      title: Text(p.name),
-                      subtitle: Text(p.describe()),
+                      title: Text(fleetProfileName(ctx, p)),
+                      subtitle: Text(fleetProfileDescription(ctx, p)),
                     ),
                 ],
               ),
@@ -671,11 +733,11 @@ Future<String?> showProfilePicker(
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancel'),
+            child: Text(fleetText(ctx, 'Cancel')),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(ctx, picked),
-            child: Text(confirmLabel),
+            child: Text(fleetText(ctx, confirmLabel)),
           ),
         ],
       ),
@@ -777,8 +839,8 @@ class _FleetProfilePageState extends State<FleetProfilePage> {
     if (!r.ok) {
       showToast(
         context,
-        title: 'Fleet Management',
-        message: r.error,
+        title: fleetText(context, 'Fleet Management'),
+        message: r.error == null ? null : fleetStatusText(context, r.error!),
         kind: ToastKind.error,
       );
     }
@@ -788,13 +850,17 @@ class _FleetProfilePageState extends State<FleetProfilePage> {
   @override
   Widget build(BuildContext context) {
     final p = _profile;
-    if (_status == null) return const ListTile(title: Text('Loading…'));
+    if (_status == null) {
+      return ListTile(title: Text(fleetText(context, 'Loading…')));
+    }
     if (p == null) {
-      return const SettingsCard(
+      return SettingsCard(
         children: [
           SettingsRow(
-            title: Text('This profile is gone'),
-            subtitle: Text('It was deleted from another page.'),
+            title: Text(fleetText(context, 'This profile is gone')),
+            subtitle: Text(
+              fleetText(context, 'It was deleted from another page.'),
+            ),
           ),
         ],
       );
@@ -804,11 +870,13 @@ class _FleetProfilePageState extends State<FleetProfilePage> {
     final credentials = _list('credentials');
     final catNames = [
       for (final cat in categories)
-        if (p.categories.contains(cat['id'])) '${cat['title']}',
+        if (p.categories.contains(cat['id']))
+          navigationText(context, '${cat['title']}'),
     ];
     final credNames = [
       for (final cr in credentials)
-        if (p.credentials.contains(cr['key'])) '${cr['title']}',
+        if (p.credentials.contains(cr['key']))
+          fleetText(context, '${cr['title']}'),
     ];
     final names = _kioskNames;
     return Column(
@@ -818,15 +886,15 @@ class _FleetProfilePageState extends State<FleetProfilePage> {
           SettingsCard(
             children: [
               SettingsRow(
-                title: const Text('Name'),
-                subtitle: Text(p.name),
+                title: Text(fleetText(context, 'Name')),
+                subtitle: Text(fleetProfileName(context, p)),
                 trailing: OutlinedButton(
                   onPressed: _busy
                       ? null
                       : () async {
                           final name = await showNameDialog(
                             context,
-                            title: 'Rename profile',
+                            title: fleetText(context, 'Rename profile'),
                             initial: p.name,
                           );
                           if (name == null || name == p.name) return;
@@ -835,21 +903,24 @@ class _FleetProfilePageState extends State<FleetProfilePage> {
                           // to the list, which shows the new one.
                           if (context.mounted) closeSettingsSubpage(context);
                         },
-                  child: const Text('Rename'),
+                  child: Text(fleetText(context, 'Rename')),
                 ),
               ),
             ],
           ),
         if (!p.isBuiltIn) const SizedBox(height: 16),
-        const SectionHeading('What it syncs'),
+        SectionHeading(fleetText(context, 'What it syncs')),
         if (p.isUpdatesOnly)
-          const SettingsCard(
+          SettingsCard(
             children: [
               SettingsRow(
-                title: Text('Nothing'),
+                title: Text(fleetText(context, 'Nothing')),
                 subtitle: Text(
-                  'Kiosks on this profile keep every setting of their own. '
-                  'The leader only pushes updates to them.',
+                  fleetText(
+                    context,
+                    'Kiosks on this profile keep every setting of their own. '
+                    'The leader only pushes updates to them.',
+                  ),
                 ),
               ),
             ],
@@ -858,12 +929,15 @@ class _FleetProfilePageState extends State<FleetProfilePage> {
           SettingsCard(
             children: [
               ListTile(
-                title: const Text('Categories'),
+                title: Text(fleetText(context, 'Categories')),
                 subtitle: Text(
                   catNames.isEmpty
-                      ? 'None'
-                      : '${catNames.length} of ${categories.length}: '
-                            '${catNames.join(', ')}',
+                      ? fleetText(context, 'None')
+                      : l10n(context).fleetSelectedOfTotalNames(
+                          (catNames.length).toString(),
+                          (categories.length).toString(),
+                          (catNames.join(', ')).toString(),
+                        ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -881,9 +955,11 @@ class _FleetProfilePageState extends State<FleetProfilePage> {
                       },
               ),
               ListTile(
-                title: const Text('Credentials'),
+                title: Text(fleetText(context, 'Credentials')),
                 subtitle: Text(
-                  credNames.isEmpty ? 'None travel' : credNames.join(', '),
+                  credNames.isEmpty
+                      ? fleetText(context, 'None travel')
+                      : credNames.join(', '),
                 ),
                 trailing: const Icon(Icons.chevron_right),
                 onTap: _busy
@@ -899,9 +975,12 @@ class _FleetProfilePageState extends State<FleetProfilePage> {
                       },
               ),
               SettingsRow(
-                title: const Text('Include the dashboard'),
-                subtitle: const Text(
-                  'The start page and the default dashboard.',
+                title: Text(fleetText(context, 'Include the dashboard')),
+                subtitle: Text(
+                  fleetText(
+                    context,
+                    'The start page and the default dashboard.',
+                  ),
                 ),
                 trailing: Switch(
                   value: p.dashboard,
@@ -911,11 +990,13 @@ class _FleetProfilePageState extends State<FleetProfilePage> {
                 ),
               ),
               ListTile(
-                title: const Text('Excluded settings'),
+                title: Text(fleetText(context, 'Excluded settings')),
                 subtitle: Text(switch (p.excluded.length) {
-                  0 => 'None',
-                  1 => 'One setting left out',
-                  final n => '$n settings left out',
+                  0 => fleetText(context, 'None'),
+                  1 => fleetText(context, 'One setting left out'),
+                  final n => l10n(
+                    context,
+                  ).fleetCountSettingsLeftOut((n).toString()),
                 }),
                 trailing: const Icon(Icons.chevron_right),
                 onTap: _busy
@@ -932,15 +1013,18 @@ class _FleetProfilePageState extends State<FleetProfilePage> {
               ),
             ],
           ),
-        const SectionHeading('Kiosks'),
+        SectionHeading(fleetText(context, 'Kiosks')),
         SettingsCard(
           children: [
             if (names.isEmpty)
-              const SettingsRow(
-                title: Text('No kiosks assigned'),
+              SettingsRow(
+                title: Text(fleetText(context, 'No kiosks assigned')),
                 subtitle: Text(
-                  'Assign this profile to a kiosk on the Fleet Management '
-                  'page.',
+                  fleetText(
+                    context,
+                    'Assign this profile to a kiosk on the Fleet Management '
+                    'page.',
+                  ),
                 ),
               )
             else
@@ -955,30 +1039,37 @@ class _FleetProfilePageState extends State<FleetProfilePage> {
         SettingsCard(
           children: [
             SettingsRow(
-              title: const Text('Duplicate'),
-              subtitle: const Text('Clone this profile into a new one.'),
+              title: Text(fleetText(context, 'Duplicate')),
+              subtitle: Text(
+                fleetText(context, 'Clone this profile into a new one.'),
+              ),
               trailing: OutlinedButton(
                 onPressed: _busy
                     ? null
                     : () async {
                         final name = await showNameDialog(
                           context,
-                          title: 'Duplicate profile',
-                          initial: '${p.name} copy',
+                          title: fleetText(context, 'Duplicate profile'),
+                          initial: l10n(
+                            context,
+                          ).fleetNameCopy((p.name).toString()),
                         );
                         if (name == null) return;
                         await _save(p.copyWith(id: '', name: name));
                       },
-                child: const Text('Duplicate'),
+                child: Text(fleetText(context, 'Duplicate')),
               ),
             ),
             if (!p.isBuiltIn)
               SettingsRow(
-                title: const Text('Delete profile'),
+                title: Text(fleetText(context, 'Delete profile')),
                 subtitle: Text(
                   _kiosks == 0
-                      ? 'No kiosk is on it.'
-                      : 'Kiosks on it get the Default profile.',
+                      ? fleetText(context, 'No kiosk is on it.')
+                      : fleetText(
+                          context,
+                          'Kiosks on it get the Default profile.',
+                        ),
                 ),
                 trailing: OutlinedButton(
                   style: OutlinedButton.styleFrom(
@@ -989,9 +1080,14 @@ class _FleetProfilePageState extends State<FleetProfilePage> {
                       : () async {
                           final ok = await showConfirmDialog(
                             context,
-                            title: 'Delete ${p.name}?',
-                            message: 'Kiosks on it get the Default profile.',
-                            confirmLabel: 'Delete',
+                            title: l10n(
+                              context,
+                            ).fleetDeleteName((p.name).toString()),
+                            message: fleetText(
+                              context,
+                              'Kiosks on it get the Default profile.',
+                            ),
+                            confirmLabel: fleetText(context, 'Delete'),
                             destructive: true,
                           );
                           if (!ok || !mounted) return;
@@ -1005,13 +1101,15 @@ class _FleetProfilePageState extends State<FleetProfilePage> {
                           } else {
                             showToast(
                               context,
-                              title: 'Fleet Management',
-                              message: r.error,
+                              title: fleetText(context, 'Fleet Management'),
+                              message: r.error == null
+                                  ? null
+                                  : fleetStatusText(context, r.error!),
                               kind: ToastKind.error,
                             );
                           }
                         },
-                  child: const Text('Delete'),
+                  child: Text(fleetText(context, 'Delete')),
                 ),
               ),
           ],
@@ -1031,10 +1129,13 @@ void registerProfileGlyphs(Map<String, Object?> status) {
 
 /// A setting's full path: category, page and title, the way the excluded
 /// list and its picker name a setting.
-String settingPath(Map<String, Object?> e) => [
-  e['category'],
-  if (e['subpage'] != null) e['subpage'],
-  e['title'],
+String settingPath(Map<String, Object?> e, [BuildContext? context]) => [
+  context == null ? e['category'] : navigationText(context, '${e['category']}'),
+  if (e['subpage'] != null)
+    context == null
+        ? e['subpage']
+        : settingsPageText(context, '${e['category']}', '${e['subpage']}'),
+  context == null ? e['title'] : _settingTitle(context, e),
 ].join(' \u2192 ');
 
 /// The sort key for those lists: category, then page, then title; a key
@@ -1061,18 +1162,20 @@ Future<String?> showNameDialog(
           controller: ctl,
           autofocus: true,
           textCapitalization: TextCapitalization.sentences,
-          decoration: const InputDecoration(hintText: 'Black screens'),
+          decoration: InputDecoration(
+            hintText: fleetText(ctx, 'Black screens'),
+          ),
           onSubmitted: (v) => Navigator.pop(ctx, v),
         ),
       ),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(ctx),
-          child: const Text('Cancel'),
+          child: Text(fleetText(ctx, 'Cancel')),
         ),
         FilledButton(
           onPressed: () => Navigator.pop(ctx, ctl.text),
-          child: const Text('Save'),
+          child: Text(fleetText(ctx, 'Save')),
         ),
       ],
     ),
@@ -1103,7 +1206,7 @@ Future<Set<String>?> showCategoriesDialog(
     context: context,
     builder: (ctx) => StatefulBuilder(
       builder: (ctx, setState) => AlertDialog(
-        title: const Text('Categories'),
+        title: Text(fleetText(ctx, 'Categories')),
         contentPadding: const EdgeInsets.only(top: 8, bottom: 8),
         content: SizedBox(
           width: 520,
@@ -1115,16 +1218,15 @@ Future<Set<String>?> showCategoriesDialog(
                 for (final cat in categories)
                   CheckboxListTile(
                     value: chosen.contains('${cat['id']}'),
-                    title: Text('${cat['title']}'),
+                    title: Text(navigationText(ctx, '${cat['title']}')),
                     subtitle: '${cat['note'] ?? ''}'.isEmpty
                         ? null
                         : Text(
                             cat['id'] == 'Kiosk'
-                                ? '${cat['note']}'.replaceFirst(
-                                    RegExp('^.'),
-                                    '${cat['note']}'[0].toUpperCase(),
-                                  )
-                                : 'Not synced: ${cat['note']}',
+                                ? fleetText(ctx, '${cat['note']}')
+                                : l10n(ctx).fleetNotSyncedNote(
+                                    fleetText(ctx, '${cat['note']}'),
+                                  ),
                           ),
                     controlAffinity: ListTileControlAffinity.leading,
                     onChanged: (v) => setState(() {
@@ -1142,11 +1244,11 @@ Future<Set<String>?> showCategoriesDialog(
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancel'),
+            child: Text(fleetText(ctx, 'Cancel')),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(ctx, chosen),
-            child: const Text('Save'),
+            child: Text(fleetText(ctx, 'Save')),
           ),
         ],
       ),
@@ -1166,7 +1268,7 @@ Future<Set<String>?> showCredentialsDialog(
     context: context,
     builder: (ctx) => StatefulBuilder(
       builder: (ctx, setState) => AlertDialog(
-        title: const Text('Synced Credentials'),
+        title: Text(fleetText(ctx, 'Synced Credentials')),
         contentPadding: const EdgeInsets.only(top: 8, bottom: 8),
         content: SizedBox(
           width: 520,
@@ -1177,7 +1279,7 @@ Future<Set<String>?> showCredentialsDialog(
               for (final cr in credentials)
                 SwitchListTile(
                   value: chosen.contains('${cr['key']}'),
-                  title: Text('${cr['title']}'),
+                  title: Text(fleetText(ctx, '${cr['title']}')),
                   onChanged: (v) => setState(() {
                     if (v) {
                       chosen.add('${cr['key']}');
@@ -1192,11 +1294,11 @@ Future<Set<String>?> showCredentialsDialog(
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancel'),
+            child: Text(fleetText(ctx, 'Cancel')),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(ctx, chosen),
-            child: const Text('Save'),
+            child: Text(fleetText(ctx, 'Save')),
           ),
         ],
       ),
@@ -1233,7 +1335,7 @@ Future<Set<String>?> showExcludedDialog(
         String where(String key) {
           final e = syncable?[key];
           if (e == null) return key;
-          return settingPath(e);
+          return settingPath(e, ctx);
         }
 
         // Category, then page, then title.
@@ -1246,7 +1348,7 @@ Future<Set<String>?> showExcludedDialog(
           );
 
         return AlertDialog(
-          title: const Text('Excluded settings'),
+          title: Text(fleetText(ctx, 'Excluded settings')),
           contentPadding: const EdgeInsets.only(top: 8, bottom: 8),
           content: SizedBox(
             width: 520,
@@ -1257,22 +1359,27 @@ Future<Set<String>?> showExcludedDialog(
                 children: [
                   _dialogHint(
                     ctx,
-                    'The settings on this list will not be synced to the '
-                    'followers.',
+                    fleetText(
+                      ctx,
+                      'The settings on this list will not be synced to the '
+                      'followers.',
+                    ),
                   ),
                   if (chosen.isEmpty)
-                    const ListTile(
+                    ListTile(
                       dense: true,
-                      title: Text('Nothing left out'),
+                      title: Text(fleetText(ctx, 'Nothing left out')),
                     ),
                   for (final key in ordered)
                     ListTile(
                       dense: true,
                       title: Text(where(key)),
-                      subtitle: Text('${syncable?[key]?['description'] ?? ''}'),
+                      subtitle: Text(
+                        _settingDescription(ctx, syncable?[key] ?? {}),
+                      ),
                       trailing: IconButton(
                         icon: const Icon(Icons.close),
-                        tooltip: 'Sync it again',
+                        tooltip: fleetText(ctx, 'Sync it again'),
                         onPressed: () => setState(() => chosen.remove(key)),
                       ),
                     ),
@@ -1294,19 +1401,19 @@ Future<Set<String>?> showExcludedDialog(
                 if (key != null) setState(() => chosen.add(key));
               },
               icon: const Icon(Icons.add, size: 18),
-              label: const Text('Add a setting'),
+              label: Text(fleetText(ctx, 'Add a setting')),
             ),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextButton(
                   onPressed: () => Navigator.pop(ctx),
-                  child: const Text('Cancel'),
+                  child: Text(fleetText(ctx, 'Cancel')),
                 ),
                 const SizedBox(width: 8),
                 FilledButton(
                   onPressed: () => Navigator.pop(ctx, chosen),
-                  child: const Text('Save'),
+                  child: Text(fleetText(ctx, 'Save')),
                 ),
               ],
             ),
@@ -1336,7 +1443,7 @@ Future<String?> showExcludePicker(
                 if (!already.contains('${e['key']}') &&
                     e['hidden'] != true &&
                     (q.isEmpty ||
-                        '${e['title']} ${e['category']} ${e['subpage'] ?? ''}'
+                        '${settingPath(e, ctx)} ${e['title']} ${e['category']} ${e['subpage'] ?? ''}'
                             .toLowerCase()
                             .contains(q)))
                   e,
@@ -1347,7 +1454,7 @@ Future<String?> showExcludePicker(
               ).compareTo(settingOrder(b, '${b['key']}')),
             );
         return AlertDialog(
-          title: const Text('Exclude a setting'),
+          title: Text(fleetText(ctx, 'Exclude a setting')),
           contentPadding: const EdgeInsets.only(top: 8, bottom: 8),
           content: SizedBox(
             width: 480,
@@ -1358,9 +1465,9 @@ Future<String?> showExcludePicker(
                   padding: const EdgeInsets.fromLTRB(24, 4, 24, 8),
                   child: TextField(
                     autofocus: true,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       prefixIcon: Icon(Icons.search),
-                      hintText: 'Search settings',
+                      hintText: fleetText(ctx, 'Search settings'),
                     ),
                     onChanged: (v) => setState(() => query = v),
                   ),
@@ -1371,8 +1478,8 @@ Future<String?> showExcludePicker(
                       for (final e in rows)
                         ListTile(
                           dense: true,
-                          title: Text(settingPath(e)),
-                          subtitle: Text('${e['description'] ?? ''}'),
+                          title: Text(settingPath(e, ctx)),
+                          subtitle: Text(_settingDescription(ctx, e)),
                           onTap: () => Navigator.pop(ctx, '${e['key']}'),
                         ),
                     ],
@@ -1384,7 +1491,7 @@ Future<String?> showExcludePicker(
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(ctx),
-              child: const Text('Cancel'),
+              child: Text(fleetText(ctx, 'Cancel')),
             ),
           ],
         );
@@ -1431,12 +1538,12 @@ class _AddKioskDialogState extends State<_AddKioskDialog> {
   Widget build(BuildContext context) {
     final list = _candidates;
     return AlertDialog(
-      title: const Text('Add a kiosk'),
+      title: Text(fleetText(context, 'Add a kiosk')),
       contentPadding: const EdgeInsets.only(top: 8, bottom: 8),
       content: SizedBox(
         width: 440,
         child: list == null
-            ? const Padding(
+            ? Padding(
                 padding: EdgeInsets.all(24),
                 child: Row(
                   children: [
@@ -1446,16 +1553,19 @@ class _AddKioskDialogState extends State<_AddKioskDialog> {
                       child: CircularProgressIndicator(strokeWidth: 2),
                     ),
                     SizedBox(width: 12),
-                    Text('Looking for other kiosks…'),
+                    Text(fleetText(context, 'Looking for other kiosks…')),
                   ],
                 ),
               )
             : list.isEmpty
-            ? const Padding(
+            ? Padding(
                 padding: EdgeInsets.fromLTRB(24, 8, 24, 8),
                 child: Text(
-                  'No other kiosk found on this network. A kiosk shows up '
-                  'once its remote admin is on and it shares this Wi-Fi.',
+                  fleetText(
+                    context,
+                    'No other kiosk found on this network. A kiosk shows up '
+                    'once its remote admin is on and it shares this Wi-Fi.',
+                  ),
                 ),
               )
             : Column(
@@ -1476,19 +1586,30 @@ class _AddKioskDialogState extends State<_AddKioskDialog> {
                           Text('${k['address']}'),
                           _Tag('${k['version']}'),
                           if (k['follows'] != null)
-                            _Tag('Follows ${k['follows']}'),
-                          if (k['leader'] == true) const _Tag('Leads a fleet'),
+                            _Tag(
+                              l10n(
+                                context,
+                              ).fleetFollowsName((k['follows']).toString()),
+                            ),
+                          if (k['leader'] == true)
+                            _Tag(fleetText(context, 'Leads a fleet')),
                           if (k['supported'] == false)
-                            const _Tag('No Fleet Management', error: true),
+                            _Tag(
+                              fleetText(context, 'No Fleet Management'),
+                              error: true,
+                            ),
                         ],
                       ),
                       onTap: () => Navigator.pop(context, k),
                     ),
-                  const HintRow(
-                    'Kiosks on this network that do not follow this one. '
-                    'Pick one to choose what it gets, then the invitation '
-                    'goes out. A kiosk on a build without Fleet Management '
-                    'joins once it runs one.',
+                  HintRow(
+                    fleetText(
+                      context,
+                      'Kiosks on this network that do not follow this one. '
+                      'Pick one to choose what it gets, then the invitation '
+                      'goes out. A kiosk on a build without Fleet Management '
+                      'joins once it runs one.',
+                    ),
                   ),
                 ],
               ),
@@ -1496,7 +1617,7 @@ class _AddKioskDialogState extends State<_AddKioskDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('Cancel'),
+          child: Text(fleetText(context, 'Cancel')),
         ),
       ],
     );
@@ -1553,7 +1674,11 @@ class _FleetInviteOverlayState extends State<FleetInviteOverlay> {
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 480),
             child: AlertDialog(
-              title: Text('${leader['name']} wants to lead this kiosk'),
+              title: Text(
+                l10n(
+                  context,
+                ).fleetNameWantsToLeadThisKiosk((leader['name']).toString()),
+              ),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1566,16 +1691,19 @@ class _FleetInviteOverlayState extends State<FleetInviteOverlay> {
                       Text('${leader['address']}'),
                       if ('${leader['version'] ?? ''}'.isNotEmpty)
                         _Tag('${leader['version']}'),
-                      const _Tag('Leader', accent: true),
+                      _Tag(fleetText(context, 'Leader'), accent: true),
                     ],
                   ),
                   const SizedBox(height: 14),
                   Text(
-                    "Its settings replace this kiosk's in the categories it "
-                    'syncs, from now on. This kiosk keeps its name, its Home '
-                    'Assistant, Music Assistant and ESPHome selves and its '
-                    'hardware picks. You can leave the fleet at any time '
-                    'under Settings, Fleet Management.',
+                    fleetText(
+                      context,
+                      "Its settings replace this kiosk's in the categories it "
+                      'syncs, from now on. This kiosk keeps its name, its Home '
+                      'Assistant, Music Assistant and ESPHome selves and its '
+                      'hardware picks. You can leave the fleet at any time '
+                      'under Settings, Fleet Management.',
+                    ),
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
@@ -1585,11 +1713,11 @@ class _FleetInviteOverlayState extends State<FleetInviteOverlay> {
               actions: [
                 TextButton(
                   onPressed: _busy ? null : () => _answer('fleetDecline'),
-                  child: const Text('Decline'),
+                  child: Text(fleetText(context, 'Decline')),
                 ),
                 FilledButton(
                   onPressed: _busy ? null : () => _answer('fleetAccept'),
-                  child: const Text('Accept'),
+                  child: Text(fleetText(context, 'Accept')),
                 ),
               ],
             ),
@@ -1607,8 +1735,8 @@ class _FleetInviteOverlayState extends State<FleetInviteOverlay> {
     if (r.ok && command == 'fleetAccept') {
       showToast(
         context,
-        title: 'Joined the fleet',
-        message: 'Settings from the leader arrive shortly.',
+        title: fleetText(context, 'Joined the fleet'),
+        message: fleetText(context, 'Settings from the leader arrive shortly.'),
         kind: ToastKind.success,
       );
     }
@@ -1617,7 +1745,11 @@ class _FleetInviteOverlayState extends State<FleetInviteOverlay> {
 
 /// The banner a follower's category page wears while the leader syncs it:
 /// who leads it and that a change here is replaced at the next sync.
-List<Widget> fleetManagedBanner(AppContainer container, String category) {
+List<Widget> fleetManagedBanner(
+  BuildContext context,
+  AppContainer container,
+  String category,
+) {
   final fleet = container.fleetSync;
   if (!fleet.following) return const [];
   final synced = fleet.syncedKeys;
@@ -1629,9 +1761,19 @@ List<Widget> fleetManagedBanner(AppContainer container, String category) {
   // The banner carries its own gap below.
   return [
     NoticeBanner(
-      text:
-          '${fleet.leader?['name']} leads these settings. A change here is '
-          'replaced at the next sync.',
+      text: l10n(context).fleetNameLeadsTheseSettingsAChangeHereIsReplaced(
+        (fleet.leader?['name']).toString(),
+      ),
     ),
   ];
+}
+
+String _settingTitle(BuildContext context, Map<String, Object?> entry) {
+  final def = defs.allSettings.where((d) => d.key == entry['key']).firstOrNull;
+  return def?.localizedTitle(context) ?? '${entry['title'] ?? ''}';
+}
+
+String _settingDescription(BuildContext context, Map<String, Object?> entry) {
+  final def = defs.allSettings.where((d) => d.key == entry['key']).firstOrNull;
+  return def?.localizedDescription(context) ?? '${entry['description'] ?? ''}';
 }

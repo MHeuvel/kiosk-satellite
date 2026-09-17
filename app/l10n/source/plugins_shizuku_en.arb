@@ -1,0 +1,81 @@
+{
+  "@@locale": "en",
+  "pluginShizuku13OrLaterIsRequiredTapForSetup": "Shizuku 13 or later is required. Tap for setup instructions.",
+  "@pluginShizuku13OrLaterIsRequiredTapForSetup": {
+    "context": "Settings > Plugin Manager > a plugin > Shizuku access",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Shizuku access"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Shizuku access"
+      ]
+    }
+  },
+  "pluginStartShizukuOnThisDeviceTapForSetupInstructions": "Start Shizuku on this device. Tap for setup instructions.",
+  "@pluginStartShizukuOnThisDeviceTapForSetupInstructions": {
+    "context": "Settings > Plugin Manager > a plugin > Shizuku access",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Shizuku access"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Shizuku access"
+      ]
+    }
+  },
+  "pluginShizukuGrantsKioskSatelliteShellOrRootAccessInstalled": "Shizuku grants Kiosk Satellite shell or root access. Installed plugins run inside KS, so only grant access if you trust them.",
+  "@pluginShizukuGrantsKioskSatelliteShellOrRootAccessInstalled": {
+    "context": "Settings > Plugin Manager > a plugin > Shizuku access",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Shizuku access"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Shizuku access"
+      ]
+    }
+  },
+  "pluginSetUp": "Set up",
+  "@pluginSetUp": {
+    "context": "Settings > Plugin Manager > a plugin > Shizuku access",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Shizuku access"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Shizuku access"
+      ]
+    }
+  },
+  "pluginGrantAccess": "Grant access",
+  "@pluginGrantAccess": {
+    "context": "Settings > Plugin Manager > a plugin > Shizuku access",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Shizuku access"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Shizuku access"
+      ]
+    }
+  },
+  "pluginApproveThePermissionRequestOnTheKiosk": "Approve the permission request on the kiosk.",
+  "@pluginApproveThePermissionRequestOnTheKiosk": {
+    "context": "Settings > Plugin Manager > a plugin > Shizuku access",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Shizuku access"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Shizuku access"
+      ]
+    }
+  }
+}

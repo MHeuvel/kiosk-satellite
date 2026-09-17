@@ -1,4 +1,4 @@
-import { navigationText, t, settingsPageText } from './localization.js';
+import { navigationText, t, settingsPageText, pluginText } from './localization.js';
 import { readRoute } from './routes.js';
 import { $, depSatisfied, state } from './core.js';
 import { permissionSpecs } from './permissions.js';
@@ -179,12 +179,12 @@ export const SEARCH_PAGES = [...document.querySelectorAll('#tabs button')].map((
 function pluginSearchEntries() {
   return (pluginSearchState?.plugins || []).flatMap(plugin => [
     {tab:'plugins', sub:plugin.id, title:plugin.name, desc:plugin.description || '', anchor:`plugin:${plugin.id}:intro`},
-    ...(plugin.capabilities?.includes('shizuku') ? [{tab:'plugins', sub:plugin.id, title:'Shizuku access', desc:'', anchor:`plugin:${plugin.id}:shizuku`}] : []),
+    ...(plugin.capabilities?.includes('shizuku') ? [{tab:'plugins', sub:plugin.id, title:pluginText('Shizuku access'), desc:'', englishAlias:'Shizuku access', anchor:`plugin:${plugin.id}:shizuku`}] : []),
     ...(plugin.settings || []).map(setting => ({tab:'plugins', sub:plugin.id,
       title:setting.title, desc:setting.description || '', anchor:`plugin:${plugin.id}:setting:${setting.key}`})),
     ...(plugin.commands || []).map(action => ({tab:'plugins', sub:plugin.id,
-      title:action.title, desc:['Gestures', plugin.actionOptions?.[action.id]?.drawer && 'Kiosk drawer',
-        plugin.actionOptions?.[action.id]?.homeAssistant && 'Home Assistant'].filter(Boolean).join(' · '),
+      title:action.title, desc:[pluginText('Gestures'), plugin.actionOptions?.[action.id]?.drawer && pluginText('Kiosk drawer'),
+        plugin.actionOptions?.[action.id]?.homeAssistant && pluginText('Home Assistant')].filter(Boolean).join(' · '),
       anchor:`plugin:${plugin.id}:action:${action.id}`})),
   ]);
 }

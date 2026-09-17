@@ -69,11 +69,14 @@ try:
         field.fill('Draft while readings update')
         readings[0]['state'] = 67.891
         page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
         expect(panel.locator('dd').first).to_have_text('67.89 %')
         expect(field).to_have_value('Draft while readings update'); expect(field).to_be_focused()
         assert writes == 0
         plugin['values']['message'] = 'Changed on device'
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugin-settings')")
         plugin['status'] = 'Settings changed on device'
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugin-settings')")
         page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugin-settings')")
         expect(root.locator('.plugin-runtime-status')).to_have_text('Settings changed on device')
         expect(field).to_have_value('Draft while readings update'); expect(field).to_be_focused()
@@ -87,13 +90,17 @@ try:
             page.screenshot(path=f'/tmp/kiosk-plugin-readings-{theme}.png', full_page=True)
         readings[0]['state'] = None
         page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
         readings[1]['state'] = ''
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
         page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
         expect(panel.locator('dd').first).to_have_text('No data')
         expect(panel.locator('dd').nth(1)).to_have_text('Empty')
         readings[0]['state'] = 0
         page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
         readings[1]['state'] = '<img src=x onerror=alert(1)>\n' + 'x' * 480
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
         page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
         expect(panel.locator('dd').first).to_have_text('0.00 %')
         expect(panel.locator('dd').nth(1)).to_have_text(readings[1]['state'])
@@ -104,17 +111,21 @@ try:
             assert row.evaluate('el => el.scrollWidth <= el.clientWidth')
         readings.pop(2)
         page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
         expect(panel.locator('dd')).to_have_count(6)
         readings = []
         page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
         expect(panel).to_be_hidden()
         readings = [dict(type='sensor', key='new', name='New reading', state=1e12, accuracyDecimals=2)]
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
         page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
         expect(panel.locator('dd')).to_have_text('1.00e+12')
         page.evaluate("async () => (await import('/static/tabs.js')).showTab('plugins', {refresh:false})")
         baseline = polls; page.wait_for_timeout(1200); assert polls == baseline
         assert shizuku_polls == 0 and permission_requests == 0
         plugin['capabilities'] = ['shizuku']
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugin-settings')")
         page.evaluate("async () => { await (await import('/static/plugins.js')).loadPlugins(); (await import('/static/tabs.js')).showTab('plugins/hello-world', {refresh:false}); }")
         access = root.locator('.plugin-shizuku')
         expect(access.get_by_role('button', name='Grant access')).to_be_visible()
@@ -124,9 +135,11 @@ try:
         assert permission_requests == 1
         shizuku_state = dict(status='ready', available=True, granted=True, uid=2000)
         page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
         expect(access.get_by_text('Connected with shell access')).to_be_visible()
         expect(access.locator('button')).to_be_hidden()
         shizuku_state = dict(status='unavailable', available=False, granted=False)
+        page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
         page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('plugins')")
         expect(access.get_by_text('Start Shizuku on this device.')).to_be_visible()
         expect(access.get_by_role('button', name='Set up')).to_be_visible()
