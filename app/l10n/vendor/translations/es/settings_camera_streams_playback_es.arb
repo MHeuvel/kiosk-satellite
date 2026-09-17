@@ -1,0 +1,19 @@
+{
+  "@@locale": "es",
+  "settingCameraAllowH265Title": "Permitir transmisiones H.265",
+  "settingCameraAllowH265Description": "Reproduce las transmisiones H.265 sin convertirlas. Si el dispositivo no puede decodificar H.265, muestra una imagen en blanco.",
+  "settingCameraPreferMseTitle": "Preferir MSE en lugar de WebRTC",
+  "settingCameraPreferMseDescription": "Usa MSE primero para las cámaras Go2RTC. Para dispositivos que no pueden reproducir WebRTC. Añade uno o dos segundos de retraso.",
+  "settingCameraPreferHlsTitle": "Preferir HLS en lugar de WebRTC",
+  "settingCameraPreferHlsDescription": "Usa HLS primero para las cámaras de Home Assistant. Para dispositivos que no pueden reproducir WebRTC. Añade unos segundos de retraso.",
+  "settingCameraSingleAudioTitle": "Reproducir sonido con una sola cámara",
+  "settingCameraSingleAudioDescription": "Reproduce el sonido de la cámara cuando solo hay una en pantalla. Las cuadrículas con varias cámaras permanecen en silencio.",
+  "settingCameraPinchZoomTitle": "Pellizcar para ampliar una sola cámara",
+  "settingCameraPinchZoomDescription": "Amplía la imagen con dos dedos cuando solo hay una cámara en pantalla. Arrastra para desplazarte y toca dos veces para restablecer la imagen.",
+  "settingCameraAutoDismissSecondsTitle": "Cerrar automáticamente después de",
+  "settingCameraAutoDismissSecondsDescription": "Cierra automáticamente una vista de cámaras abierta. Con 0 permanece abierta. No afecta al protector de pantalla de cámaras.",
+  "cameraStreamsPlayback": "Reproducción",
+  "cameraStreamsOff": "Desactivado",
+  "cameraStreamsSeconds": "{seconds} s",
+  "cameraStreamsGridHelp": "Las cuadrículas con varias cámaras solo muestran video. En dispositivos de baja potencia, usa transmisiones Go2RTC de menor resolución en las vistas y, si lo deseas, una transmisión diferente para pantalla completa."
+}

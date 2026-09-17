@@ -1074,6 +1074,566 @@
     "translation": "5403a721a8e5dcb7f15baa219c23b5bf75158820f8d1a4e59368bd2ac505ea2d",
     "author": "Xavier Larrea"
   },
+  "cameraStreamsNameRequired": {
+    "source": "74c8af82aa2a0543983718d5ae7020181e150a2aeb5c26f6b2ced0eed48231cf",
+    "translation": "c98a5cf38ee89fdd23106853896c2f567141799fb0a55c107853e727c9717ccf",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsBaseUrlRequired": {
+    "source": "5920403aaacbeef583b2f3e88caa3ac67e6b807983633e490f041033d6800624",
+    "translation": "bc8394275910a1aaa3d3b02b119e74674e3f9d4527355533800d741e191ba801",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsServerNotFound": {
+    "source": "d54e803d98cc4b5a9b1b6ef07efbd3271ff577fdadbf1c1ebb805882448fe442",
+    "translation": "c8d04739811e192f8408dee7e27b4e39672436420747a153fd46ddb758101c6f",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsInvalidStreamList": {
+    "source": "c6fdc6f5ea037fb168eba260a06b8c956cd017c10edeae429eba6f660652b35f",
+    "translation": "6f3ddc2baba6b1aec59d5054e78b955b58efc755cd8dab836301c7c30bdc22aa",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsKindRequired": {
+    "source": "905d33d71fe54e231dc1492c7a19701a5e099027e33f9cf9687fb8197fba8132",
+    "translation": "634e7035aaa4a5c4a962b5e14ab99c8892b8e9f1a4dcda77c64c4b460e642cdc",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsProtocolRequired": {
+    "source": "9a4ad8af67e4be2f00c4c8ce078a96f79c64aace9ce274b5d389fc36b9430b6a",
+    "translation": "76ae3c64b6dbca7bf69a739f4e4a5b9a8377b013202bf5d2a0cf2b714aff2f26",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsServerRequired": {
+    "source": "465f01d1943c5e637f54900b35f80c5944180d80ec741863e57b75cd530aef3d",
+    "translation": "57709beceaa23864a30c0e75a13b987a00973c096fc3fc0d29fed5d978092534",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsStreamRequired": {
+    "source": "df64648926321dca45f7f18cea981a1dc6b63d76f6c60720750bfc2e8efaa066",
+    "translation": "3d3f778ee63524d135b76cabf3d21d19b8d25a6db90a26bdf049e8f8b44f718e",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsEntityRequired": {
+    "source": "ab8073993b36ed8808c104f6999db87c3229143b8d1b8a3aed82c17ef7b3d66c",
+    "translation": "e8927889609b99a46c0443ed82fbaaec23f33c1dbc931fecca971bb87e3f32aa",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsWhepRequired": {
+    "source": "29f0c5073d92b1a17b616ef9e5c5c17470f932c4678af56bd21319a848f10899",
+    "translation": "0e4c6f157ce692f7bae98947dd485a78951dd475d109f89e70b61ad064d54629",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsCameraNotFound": {
+    "source": "6d2d01b448e572c98732e9f34cc977a60b8e5a80a624136070010f67183360a7",
+    "translation": "1417e0cc7d95a21c78f75c6538eb8471dc843e217ae2e44d5a43e20b738678a1",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsListRequired": {
+    "source": "3fe2861d4781eeea0b356edad977f47f0fae7f251756f99023ed325ab0ea5891",
+    "translation": "a8c96358910b74abd45f458e06b26dd0e917d1b2ed4bcf4ab09190e66d406db1",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsViewCount": {
+    "source": "152e68ed28b5b6d396a1ea4413ec019042e5bef827854dd54fd2f1a5767cb3a7",
+    "translation": "34076f52a3a07ad88e127bff0c0371b0b961054475e5b1908444291886e2db23",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsRepeatedCamera": {
+    "source": "d65897f9c106d0b21f2b829ae68463f598b792e9a5ad648923fe547beb5838c3",
+    "translation": "7f9d33c2ab02f2c5f8f1456dbf9f86515d78b310c0cc0a735dc38cefc36786d7",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsUnknownViewCamera": {
+    "source": "809e06dc5587a27568155db51251a3c68e189c72d4d1ca4baad9ba2852bdf3d2",
+    "translation": "ab3895543a289e60517b3904d83b2285ca453a51b55d61abc261d891a747c493",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsUniqueViewName": {
+    "source": "de24d882fa993d95fc029e802c00b383809f483cd56d0a5c3b1193dd149f299a",
+    "translation": "6e3a886be772ce5f4362add4febab9f34b75a900980cb58b303556de8214de62",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsGridRange": {
+    "source": "7b7d21e4ecaacb89fe3e8f31a1e5171820344a141b596be2829747dd5cd17e3d",
+    "translation": "862733ba639bb63286d00957f3bcdc398ac6a70b64b1e13e16328691b36958b8",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsGridTooSmall": {
+    "source": "7999342ef08bad3e3d31f49e59e03cb4b68c9fd53f909c77c016dd53fdd680d3",
+    "translation": "4f3d65a3d8b5bf16a54bd91b1067358498c31b0b5f87b97d20eeee943910776f",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsViewNotFound": {
+    "source": "d0e2f52fa207a6eac4703246b0a14c3e4d93465b40eed09ef6c8d8316596e2f0",
+    "translation": "8e1ee211d692352925a09b4dec293819d028e9e3c6d4be70543cd6e04e3a0a91",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsDefaultViewDelete": {
+    "source": "237075bbecd63908a5c84d01788d0843f00bc05a1f4cfd165baaf40a9c44e48b",
+    "translation": "c5ed42fe82bcf67f2b423c1193669cbd4f510473296eaaf3a88968b77dbd1c43",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsViewEmpty": {
+    "source": "371c2f5528c63cc98b037e034f1f1a08dc98d17b7ec12bc05d91ac25a77b5bb6",
+    "translation": "47b2bc12204dd6f2ea54439ba5ee050d15beea1bbbad2e70b2c19a193891b274",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsHaReadFailed": {
+    "source": "3f80095f2dfd600806ffa3aa2b14e8d0818b92b49828ed61c036416c8488fb8d",
+    "translation": "ea0da7b221cf7019af3ca1d00e4544e4d6c8c365cdce3033680330292303b967",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsConnectFailed": {
+    "source": "98e852d41a42168e419b866cf91ab088b1cc18fd4c2b6406c5ba871df90eff64",
+    "translation": "e5aab3c814fa30248cb5494b1d7b1482eb95c349293515a92a78c4694bf686e6",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsHaUnavailable": {
+    "source": "3ce86c2ee8ca06eacb5a9b21a1280dd8d51064ebef6aaebb8fe4df5011ce75eb",
+    "translation": "c1c1678f55a32387e8afdce730a01706b3287fd2e389f707272aab788f6ddafb",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsHttpError": {
+    "source": "0cea962b49841c6da26d4f5df4527176ce5c9e08660db4656483dde45f4a416f",
+    "translation": "65c1a7276693842c2f02868fae748314fd7c22efde1c7976083a3b4baed240e2",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsImportHa": {
+    "source": "c590251ee4ec803336fd54a02922c9539ad5c6f2f7c9a80c6046d929384e31d6",
+    "translation": "800a67edfc544d46d88abad17a3b4fb4a5bc327e0e97f93f25d2d86d469cb0cb",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsImportHaHelp": {
+    "source": "bb57b1f9ce4d1c602efa1750e1749adcf78328b8cbe69a6e5b34417e9cdfc4f0",
+    "translation": "cf5a63c22899c27c3cbf8e2223cd1141ad8e8505cb572a8cba8c26613b2ef639",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsImportFailed": {
+    "source": "938a8f25b8b590678e75fe8f0cb9ffc40cf1d2edf3f3a215be52bc340e4f9268",
+    "translation": "1b0c3b796a046a212e7ba2fda0b22c453e8908fffa0f9814b4168c9b6ee8d59a",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsImportComplete": {
+    "source": "7018189e81da889f174b276ebb4ace2bf8402803f978e4c31048382376b4dae0",
+    "translation": "0ff259b7145c4350cda0d3da855c3b1379909370b30b479729def71333c06063",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsImportCounts": {
+    "source": "8559314600ca39b3c80db82f4f3207705b3564d553c382e7302080a25e495163",
+    "translation": "1ca8dc39402dd3519596b9ece705110a57d3ffb721ee5b4b00d969b1769293d9",
+    "author": "Xavier Larrea"
+  },
+  "settingCameraAllowH265Title": {
+    "source": "17ed7e6e1894b18285c70b86007810164e2d54357cd5904aab0c9fe11d0c13ca",
+    "translation": "5f258ce2e5b6a62869868a9941167b3fe92dcfca9dad72396011b52eec0b8cbd",
+    "author": "Xavier Larrea"
+  },
+  "settingCameraAllowH265Description": {
+    "source": "7848a8241b76049325a96f0dd7611bf9f766f4951a06309955d9391a69ec77e5",
+    "translation": "dadaa52842d74279bd80f7946d62cbafa440930c4fabceee642d32c0b665cdb9",
+    "author": "Xavier Larrea"
+  },
+  "settingCameraPreferMseTitle": {
+    "source": "52bb38e2b0251d1b844a32c8efaebcce8501e09ea4a5817a31af00e02e94e028",
+    "translation": "38225a4d2dccdb21e2f344b8c636fef86f1eb1f4b01cb7ebebb790739a44c121",
+    "author": "Xavier Larrea"
+  },
+  "settingCameraPreferMseDescription": {
+    "source": "122b7984763aaf05ef0dd9d7f558c6d1ec172e647de59053c88b0c521a46f4ff",
+    "translation": "ad25ba27c2aaf0cd979c0d096f855b2da6c57e22b149576c360b88cdf139cac0",
+    "author": "Xavier Larrea"
+  },
+  "settingCameraPreferHlsTitle": {
+    "source": "e861f1daecbb02201295b0323d35b4a979022ad438f5d5e13d37df3e13a7b4db",
+    "translation": "187c4234d3aa1fd3f6e4d43d124672d5fca41a7e9255c6b27d6e405afc1b410e",
+    "author": "Xavier Larrea"
+  },
+  "settingCameraPreferHlsDescription": {
+    "source": "8a6a00c40541d09339b3be573f66f1d9191b386f206bd93099661e79bc0b31e9",
+    "translation": "5a3dd6c646961ebf1aa12c30f9dff0b713f5f4a3a3b1b13587bf655b496a27fd",
+    "author": "Xavier Larrea"
+  },
+  "settingCameraSingleAudioTitle": {
+    "source": "b8676e7e38ba3b123939c8e1143fc36e3559925d13e24ac322ced4aad3e4a728",
+    "translation": "6afe80622b372a2ba35f03e17cbfdcd675b884d86ca77685db67bc38999105c0",
+    "author": "Xavier Larrea"
+  },
+  "settingCameraSingleAudioDescription": {
+    "source": "b3a20b3dda2c6ef5bc19a32f59df780c385f9120d6afb2763a21760082e1d51f",
+    "translation": "227c0e1e12b67e964733ac57ce065c8d110bf61709ceddcae0f18ddc8b2add2b",
+    "author": "Xavier Larrea"
+  },
+  "settingCameraPinchZoomTitle": {
+    "source": "fe0dac0b651347e37a554851dbb72be3ce0dea977379b1b04d04040e50170fbb",
+    "translation": "544fc3f5135361c8270324172bae2807b6b483d9e7e1a9a00bfdc4097bd0c8f7",
+    "author": "Xavier Larrea"
+  },
+  "settingCameraPinchZoomDescription": {
+    "source": "83e0e6f2f0e781b41d0b05bc19e4d75da0d19229dd0362ce048d7607b0d1f7d3",
+    "translation": "97269028eeb5a8632a1d909ba321a5170ad101528eabb925519186190f2a4a4d",
+    "author": "Xavier Larrea"
+  },
+  "settingCameraAutoDismissSecondsTitle": {
+    "source": "599d10aed660c777acfccaf234f7f8c834f245ce598f6fabd8d05a1232f6fdf7",
+    "translation": "1022df05a808ade4b2faa5ea14ef645805998b6ac07da083beef3341c3d6c0ae",
+    "author": "Xavier Larrea"
+  },
+  "settingCameraAutoDismissSecondsDescription": {
+    "source": "a757ada94877d3052a4cbcc43e0d4652bf8b3b011deec4ecf961fce6cd3af65f",
+    "translation": "fc9761775eabbfd009aeaa7e864a69da68393dbef01c894873f6ab8a1cb332e0",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsPlayback": {
+    "source": "0d120cb38157e2878fbb34c02d205562b1ccfc5d4815e92a684e4804252e2daf",
+    "translation": "320d415f1788cc26d70267f0beb800629b95ab05484f6d479f40e296d7a620ca",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsOff": {
+    "source": "a2ee653abf31903c49453937f95da91c51b0e36034eaff10ff90fdef5b381c52",
+    "translation": "e252efe6974743f63e8e27f312630e1a66d9d794272a90c6f50a7bdbfb45a92d",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsSeconds": {
+    "source": "b487ff43226ea1d56e48393f3b3b7f7a789c2394a6d78683d52e20b64c0e8e22",
+    "translation": "fde82d3dd95e8edbefe2c328e4fbce4802413f212881c673b596ec26b39e655b",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsGridHelp": {
+    "source": "940157729de8fe6cf693ff3f5141d16287fd77d6475b5a8471bd35d03ac55555",
+    "translation": "a5aa4bdde47d043c2a20809cedc5f07ae694001bdf146ccf012012c273499b88",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsServers": {
+    "source": "1e8a1213db8ef159d490114a163b7b47e0bce037ddc80032a784b99ecdb1f98d",
+    "translation": "a68ff71035ef6fbbdd5701f8247ca5f9504182eb9727d4c7f7fe27592a8bc5f3",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsImportStreams": {
+    "source": "bfb6ea36be409edd59fca2a861843913259b0fbd7841edca200f3ac92426a892",
+    "translation": "f74e1c8189c547edef06eca51748d2d5433a01d80e0ac64ea09c74522364829c",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsDeleteServer": {
+    "source": "56681e1bd5f1a5320bbd56aa5f054fa3b9b090ff46115e8468e854f6895c58a2",
+    "translation": "d9efb75ddcc17ab39bea266e0066df969368e4e92801d3599f9c561d7e4f7861",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsAddServer": {
+    "source": "69c5bafaac347e6bdd50769728019afab650c617f6b1b75f1117c84409950992",
+    "translation": "c0657093aef8914cf9ff5058cffd999727ad58c2c59a6deec50a89aea30f2a06",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsAddServerHelp": {
+    "source": "a41d2d508b4d7c8daac4af7b1b8b2d18a9512622f32419f42cab1f1586446e7d",
+    "translation": "47f89ae48f37a47b06740d715034a01582b84017f0f275466d5104b7f28fe032",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsEditServer": {
+    "source": "b8ae15ea8fcc13f2569ed17a1c061fdda976ad93e345f949a2e3d2c8c1b34a23",
+    "translation": "1f2b5584bb662e6b3c8bd67d1c5d54da732a67fd816ce15783cad0225618fa83",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsName": {
+    "source": "74fb92318b9e70f69e53e66ffc32b7b23eb6764bd70fbb67f8b5460779dd5233",
+    "translation": "562bb15757a8b593d6fdc812b0767c0e198bf7d8e19157933110de09c9db9012",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsBaseUrl": {
+    "source": "3ecb24876f8fe2a444c3e2f40b0bd58c67e28e5327d2f4658ff1255490de4051",
+    "translation": "f1a52d70f8c5d169c6e94a65b7c011e547cdc017c230c676c2bdfcf13cc5ea82",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsUsername": {
+    "source": "326eb9502a9bb3b0b08a6347e529260eb7065cce7ef8e98218629d8e5a359034",
+    "translation": "b901e61cc772dbd29baeb24ea1f3efb9106d2401d1a8ce87b3821e8abc9342bc",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsNewPassword": {
+    "source": "893a6c6ac377cdeb3066d12097650d45c7cdb0df08c257796878d17da748bc2f",
+    "translation": "6abe7490aa2b371a9543fb3da8ce87c5c463eef3d78a2b3eec50708aa8293253",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsPassword": {
+    "source": "a9d5946775e78256725f0faaddbdf3257a4ca99b3b7964baa4b9dce2a53b8ea8",
+    "translation": "743d9121f68e5b10f547b462f95c8ffac1ed74ebca90ef1ba516f023e20d0274",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsInvalidCertificate": {
+    "source": "aea8785efdfc365fd417ebab1945af09401bf8129a4ab67da042aa1efd3d9a53",
+    "translation": "85444e13cf0b30451f34405fb9b9252a7b0221503c4a0ec73e0dda47b4cffc8d",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsSaveServerFailed": {
+    "source": "58214db7582b3770df19f3a323194704bbee1216232dc8be1523a4a39af1ee37",
+    "translation": "d41dd7e5d0a17f5fdcb04fdc6a21c59b1cddb974a58b3eeac5c74d02f31122bb",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsDeleteServerHelp": {
+    "source": "17cb85fba03ba8f33fb5b8dd1b96da0f1c39b9f8c92c17759be2ea64844ff997",
+    "translation": "0d1eb37a2bc9db3cabd2772eb15650a53807d6721a5cfd1a5dc1f170d2bf2c34",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsCameras": {
+    "source": "3106ac75515c7a1ea20ab133fc0a0f44ba4b134364554b8153c02a5f32618923",
+    "translation": "4963c01f6c2381703862db5a88c69fdbed29ed89450bc88d23c99d43d3765aa2",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsNoCameras": {
+    "source": "2a349160e14ac0d75da0d22f7afa41d507c9b80721654941eae972b1d81a6e35",
+    "translation": "e023e0f2f2d5d72b72fd6b3614330db708ddca2ce294e2617af72eb97400260d",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsNoCamerasHelp": {
+    "source": "0a582941d8fc1de06032542df0d887053db3d347c9bce51254379c52be019724",
+    "translation": "5c2d7d057c62fc75fd97818b87165e337e2397674c06fb5e31a67820b7fcad94",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsDeleteCamera": {
+    "source": "70650967cef9ec6de1736aff3083e11c440dcf52d3f20805f5eea2b247c62ecd",
+    "translation": "a73059336b4272238a8b61d4dd0b709062637a33c8c27524d3fc983797c018ab",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsAddManually": {
+    "source": "103655be9bd0b5dd69be9f633640d605d722c5cc0c7dbf6a151852c5a0e1f98d",
+    "translation": "2407c8897daee823befd1bcfdc2285b5c7aad218f8c8c039184086f880744023",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsAddManuallyHelp": {
+    "source": "2e58e106d4c0654d5896d513035a10275f47c7b405c6edf8b0a943fd59617db2",
+    "translation": "aac85917cc964bbcd59a92b09f4ed914ec0fb657a2ea823d4066ee65c5ee9c85",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsUnknownCamera": {
+    "source": "491edd6134c4f78d8a747440631e85e61b90e84fe4f07d778ac59991c00721fd",
+    "translation": "02c6e02c3a527de4dc25b3f2d7a22237703b2ea9bd5a325f86488d7236d7e892",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsUnknownServer": {
+    "source": "1b19e16e3918cede207eda156bbad77e6b4426d1ed2276a30b94a358204c7ee8",
+    "translation": "8da6cd987fd6909fa9054fcd5cb1ae311f391343043a951a4d84810d53d901ad",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsMissing": {
+    "source": "21dfc53e7b1058f02d9100659867ec98ba920a18b131f8c6b6eb67eee37c8463",
+    "translation": "e9ac0cbd09534564608f7db57ef96d0785c4bc330003b181f36aee4233d91849",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsAddCamera": {
+    "source": "3c8ed42a0469abf8006c1e3d636a01ef27577de9131720ce61dee7beb5c48846",
+    "translation": "74cdbac2c285ecac0b45aa0a7b5fc58fb46a69d4fb186ee79072cdefe40dda7c",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsEditCamera": {
+    "source": "33460742a51d663cca41ece05a5f0a138192dc71ac0e3de7131c9923f1621623",
+    "translation": "5dd0c98152ec82d32f4c00d18b9db4cfbc134d7235f5ae5d81d20575ef73c167",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsType": {
+    "source": "dd51c1c49e26396234aa20b52db0aedf84de81764bc8391b97bbf59d395a0fb8",
+    "translation": "3868d2843d5924c192e2f8e32700b6df9b50769ab3dcf5839607c4657a1c4162",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsGo2RtcStream": {
+    "source": "1005bdde86f0d60fa5833acf7f258a1ae8656124863b40eeed344fe77387316a",
+    "translation": "df46c6a0d4d10bd55146561f6814ac56aaf57a21b1923c376dcfb876e7b7476a",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsDirectWhep": {
+    "source": "df2fbdb1b01008b26ed6f2702b64258f5cb9222ab510d1c5a6b455ad161de51f",
+    "translation": "90556856ca10817f1ec438d293a43fee3d8f0d87679fe9d2e7a17ba4013acddf",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsHaCamera": {
+    "source": "027625fd3b307ea4dc184a3f7f61bb2fc2bbc6f4b543372397488dc1865aaf7b",
+    "translation": "6daf9c514a3334d71bd44ba84293381416717a0bf4a0a700723e25d9df9bbf6e",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsEntity": {
+    "source": "cf6fac4707a572a7f71c3b0972c85508939632e9be5ed301aa44c730c7747eee",
+    "translation": "a114190ce08f91d03413a39f1d4f970394896851ddfcc203563e74265bcbd1df",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsProtocol": {
+    "source": "0320857bf7aa7a9334a9fc9d6f4cfbfd1b23bfbdba683e3ba7483438b9acf343",
+    "translation": "e24bf7b626d9f67d4622b414f4aebc5776e5d7665cb05d14d49b5a0f9d7a590c",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsAuto": {
+    "source": "d6b7229d605fa567906d70c6d053d0305786c0a9694ef3a2c95a587e29d22366",
+    "translation": "b803f24d52edd7bc295adf4b9d7d325d49ecedc5268041416d1d31821168ffa5",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsServer": {
+    "source": "5b56f908edaf2a551528da56eef59f45dc396e4b27a5da1bb541a042c533fefe",
+    "translation": "05e427a291c27fee42ee968ca48e0a92628821c73ae3c1042cdb31da7efbc66b",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsStreamName": {
+    "source": "6b6a120eb13236398f8691156806d7308dc5ee846790f5a10599bf8f7365d63f",
+    "translation": "d58d569c736e8c9f1aa1b259e3f53f924769b4e7e5b2373ef91e48028ba7dcf9",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsGo2RtcStreamName": {
+    "source": "a48d7c469b07c575a6291717176232cfc2ed4f644f6c8f169b2f5de23c3eea05",
+    "translation": "3022c3568d6386a3782d4cf960a16005f13a439150563f958d88645cfb27563b",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsFullscreen": {
+    "source": "1fc4d3c1a9f89b600371b4cc86eafdcc8b8ffdebffa90198020ff3f9d1c48d58",
+    "translation": "f9bf39a2e535bf687d886ca63ccc9512ce175620fbb5f23acb48d3760e992b7f",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsWhep": {
+    "source": "6e9a1a496e9bdd464109177b0b03d1fea73588b4bbab4c8907cafc7a1b54b6ee",
+    "translation": "833e130d6d87a4510bdd36b9f58a88fc2bfc90bb998d9c07e7d8c169d2f24430",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsSaveCameraFailed": {
+    "source": "d3a93339cb7b48bde954f9bf923a21f0b5449e1f8f1f5ea1be0c3d90d7cf7df8",
+    "translation": "7125c54726e929b8e225fc6a83243f1d2069db5ceb4bd8366df6fd9054d82f5f",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsDeleteCameraHelp": {
+    "source": "c089a3bcff423d90c6369e6c1ce7f94f928ddb31cc7cbd92708f0397bf3e705f",
+    "translation": "f86b11a988a6e851c12f8dca878cf93bda35b266bac9b2318b41b0d32fa1b8bb",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsLoadFailed": {
+    "source": "a9b7990775e5a090f0bc0e7f121c896561b87ead7f01bffa494837458dc19fd6",
+    "translation": "947f1c948d74529c859fe353a85ab90d681cacf5463fb401b5c6895766157211",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsViews": {
+    "source": "6f08ce053d6fa1f51f31154c27d7fd4e5a658457386cdcf83548f9d85070cc7a",
+    "translation": "34ffd63c48729a306c7aeeb60304df59363894ebf512d7f3afc4d0d00a867dbc",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsEmptyView": {
+    "source": "da65c654d13b1f053aa7cf21f563954bcad810b0efc61014efee879d8868b16a",
+    "translation": "fcd334916887f289804b8c0b62eafd94f0cb006cdda8b1a0ea8f6b6d38cd9b19",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsNamesShown": {
+    "source": "cd2ee18df34ca243b225336c6988388ea461fd50203f4fe02c220abfe37c1608",
+    "translation": "abbb64c62e1d572588ddb61797156e03ef650cc8b0ec02d71b937cc953d1935f",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsNamesHidden": {
+    "source": "613b05db919e299057f705789c848dba83be6cece7f0f3fe4a187a287f63ff90",
+    "translation": "00cd711e0dceb98a791bacdc6fcf68701bf0b67345587073fe56b9e21f9372c3",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsShowView": {
+    "source": "b5c257a5ba3f6aef34753c8910061859fd0be2e3e7ae5917fed477e944990feb",
+    "translation": "cd308a5cb3937e50e1fc62fc776f0984400989bc8ee7a6d93b7cb98dd01265e9",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsDeleteView": {
+    "source": "2305a5c9e38cdc1efec562131e99978700cfb187345600043499bbe3ea4ce07e",
+    "translation": "636a7d4575d382fc92ae0a9daea0f6193780b4d18e9f99d74d6cb917062fb79c",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsCreateView": {
+    "source": "aa69d2cbec08943be7048001750c493c6850a32979b7de592787e4724ebfabe8",
+    "translation": "1ba1594eb692d02b9baeee5a2b563e42615cbe0d79dce1a49ef16e508847f19f",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsAddFirst": {
+    "source": "9b5b2a7a5d9765c7bd491e22e88b20174f8ca18e5796391cab469b9fae3bb0b7",
+    "translation": "ed754e556d19ca55c78154b8214b180899eee17c61777ab5629ac81349fea3c3",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsChooseCameras": {
+    "source": "adee9da45d9edf28f4ae977a8109e29841cc08003cb7653868b474f515b8475e",
+    "translation": "42f20620884f6257c0f2c8003a328613c8ad23a6fc2e731d07db1db4416de3ed",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsShowFailed": {
+    "source": "1805620fd91bc770fceb4f87bdd1353f79b533ea16ca4aaaeb95679f5e8a1e99",
+    "translation": "69b5c04d0b3eed16c636071c58acbaf26cb73f6a6b02fc1c33cda8ceec7d4cbe",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsShowFailedRemote": {
+    "source": "fcd3605011a61fa4c83ea7d7009d7a3b170ec8bfff635e619a660acab51f4678",
+    "translation": "69b5c04d0b3eed16c636071c58acbaf26cb73f6a6b02fc1c33cda8ceec7d4cbe",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsEditView": {
+    "source": "440dd80152f0daa7377f5ee7f187bd2d2ad7e17eac866b292513d74e2e4eed8f",
+    "translation": "505484734146f7e741a4b25e42fd959d08df1f7c86bccb4da8a019b58d040e39",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsShowNames": {
+    "source": "1e160616bd48b953f03812b8654ae93b35f8b4a74e0cdf76bcbc3c6f146248d2",
+    "translation": "e5a79299ed167ceadfe03cae7832f77b0e4582435750e24615f2c0f47bc15c82",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsShowNamesHelp": {
+    "source": "740ff2bf6e2875b539c64880b9db39e29e60a5828065e15f3b4546f2688a485c",
+    "translation": "335f9322f080cee0f797b4c9793f2702a624348fbe966b6f7452377f54bfcd95",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsGrid": {
+    "source": "e3131f1e5e32d7723a3e865292cb104a2cc084f32496804db6cd6cc36f96c3fa",
+    "translation": "7e795dd6843abbe40e73aa0a4a143d8b5850f29f87d554cdc1bfbc7e7a1d3bd6",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsOneCamera": {
+    "source": "b6913ed4d2b7c324ee1fdb2712b87693a3b2208a68f43e0f17b7fc323fb0995f",
+    "translation": "db655a12d2cb8860a4566b8db2624e40e54fbefcc8a71589a9e24e021d875f5f",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsManyCameras": {
+    "source": "caef2e20465b391c2f9c8b6bd0611b1aabfc0aff21fffcc94b198694a10e400f",
+    "translation": "4ba2a3291577db124734ebefc383b32c71be51a66a161158ee87fa7ad8bed479",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsInView": {
+    "source": "16f0a4e0b9b35697a067522ea004371075e1c7a0aecde7787453c8121b83a904",
+    "translation": "593fb93a3e8cf59019dae68ddb5d96ea3940b2e978e365961a807b71b438e489",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsAvailable": {
+    "source": "c629a8c3c85df6f18d26029b33a1636d4dd7fb2a4776544fe132459926b02941",
+    "translation": "5d4171b75a0528ced2bc68a3ea160c6f174d87c211df027a761c12924405a05d",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsPosition": {
+    "source": "928581f8d4f8baf2f4315fc9b361bc59c0a01309f00c53ccf8ce8480b538f8d6",
+    "translation": "fc666db037a1430e330fc954400aa5ab626afba3db5058c000e709b9f2b0d2b7",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsMissingGo2Rtc": {
+    "source": "9650344ff9d9011572cbad6e24567120973f731a13e60d2bdb1f499cecb9fdc2",
+    "translation": "956dd4d4cba1d9afc364d15baafc4ab44168d45bf0fd71b3a44f8a3d66a66afd",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsSaveViewFailed": {
+    "source": "4c3299917a525b54bc8cf182a02defe3e9a338e3ab398cb9fa7a66fbec47d695",
+    "translation": "bd29e53d3b6fb5a2bc07a495c70aa6f70999ea782c30955baa3c3dd66705f20e",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsDeleteNamed": {
+    "source": "d7cadeea8e37509ddc593bd5a91b6b7930dca752b4295aaa50e60b124505503a",
+    "translation": "daf8fc35cbb700ccd0bda279a724cd1c9f4e620439b0115f603dee16099ffff5",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsCannotUndo": {
+    "source": "4baf3fcc3a36bf593e97fd029313429b5aa747e6bcb697db721ed099c2d0f87c",
+    "translation": "21ae79dcd38b5caf5bdd5bc0be4f8e2eda0ec73d7a81593e9d0fc49b9c414295",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsShow": {
+    "source": "bbd0eb333cad4e5f3f0784c366a0dd5e973ffc83933be7aa34fa3050d67a9cdc",
+    "translation": "5c492f37a63f6e931b6c5cda3097586fd6f14f3f87a1facb851912291241cf46",
+    "author": "Xavier Larrea"
+  },
+  "cameraStreamsStop": {
+    "source": "598934ae0a967ce2b774877ba2f16185ea37c83046180f83317a7e780aaf2323",
+    "translation": "f463306cc7a60197b27a1c5b2ff6050d9603c1bc9beba76c414c3d1263485799",
+    "author": "Xavier Larrea"
+  },
   "settingAnalyticsBasicTitle": {
     "source": "1d8e39137b1e859570cb69f2e7bcc9857f5d56a2923d4f813aa04cbda3727acf",
     "translation": "b0125f730680488bc8af6bf8e4bb0bd8ef47f21d23eaf42b7367723c61fb9eb3",

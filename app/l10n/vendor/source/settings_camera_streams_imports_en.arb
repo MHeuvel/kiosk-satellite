@@ -1,0 +1,78 @@
+{
+  "@@locale": "en",
+  "cameraStreamsImportHa": "Import cameras from Home Assistant",
+  "@cameraStreamsImportHa": {
+    "context": "Settings > Camera Streams > Home Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Home Assistant"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Home Assistant"
+      ]
+    }
+  },
+  "cameraStreamsImportHaHelp": "Add every camera of the connected Home Assistant, playing over WebRTC, HLS or MJPEG. Importing again merges new cameras.",
+  "@cameraStreamsImportHaHelp": {
+    "context": "Settings > Camera Streams > Home Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Home Assistant"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Home Assistant"
+      ]
+    }
+  },
+  "cameraStreamsImportFailed": "Import failed",
+  "@cameraStreamsImportFailed": {
+    "context": "Settings > Camera Streams > Home Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Home Assistant"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Home Assistant"
+      ]
+    }
+  },
+  "cameraStreamsImportComplete": "Import complete",
+  "@cameraStreamsImportComplete": {
+    "context": "Settings > Camera Streams > Home Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Home Assistant"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Home Assistant"
+      ]
+    }
+  },
+  "cameraStreamsImportCounts": "{added} added, {missing} missing.",
+  "@cameraStreamsImportCounts": {
+    "context": "Settings > Camera Streams > Home Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera Streams > Home Assistant"
+      ],
+      "remoteAdmin": [
+        "Camera Streams > Home Assistant"
+      ]
+    },
+    "placeholders": {
+      "added": {
+        "type": "String",
+        "description": "Value supplied by the app. Keep names, IDs and technical details unchanged."
+      },
+      "missing": {
+        "type": "String",
+        "description": "Value supplied by the app. Keep names, IDs and technical details unchanged."
+      }
+    }
+  }
+}

@@ -2438,7 +2438,7 @@
       ]
     }
   },
-  "cameraStreamsNameRequired": "name required",
+  "cameraStreamsNameRequired": "Escribe un nombre.",
   "@cameraStreamsNameRequired": {
     "context": "Settings > Camera Streams > Server, camera and view editors",
     "description": "Label or guidance in this section.",
@@ -2451,7 +2451,7 @@
       ]
     }
   },
-  "cameraStreamsBaseUrlRequired": "valid HTTP or HTTPS baseUrl required",
+  "cameraStreamsBaseUrlRequired": "Escribe una URL base HTTP o HTTPS válida.",
   "@cameraStreamsBaseUrlRequired": {
     "context": "Settings > Camera Streams > Server, camera and view editors",
     "description": "Label or guidance in this section.",
@@ -2464,7 +2464,7 @@
       ]
     }
   },
-  "cameraStreamsServerNotFound": "server not found",
+  "cameraStreamsServerNotFound": "No se encontró el servidor.",
   "@cameraStreamsServerNotFound": {
     "context": "Settings > Camera Streams > Server, camera and view editors",
     "description": "Label or guidance in this section.",
@@ -2477,7 +2477,7 @@
       ]
     }
   },
-  "cameraStreamsInvalidStreamList": "Go2RTC returned an invalid stream list",
+  "cameraStreamsInvalidStreamList": "Go2RTC devolvió una lista de transmisiones no válida.",
   "@cameraStreamsInvalidStreamList": {
     "context": "Settings > Camera Streams > Server, camera and view editors",
     "description": "Label or guidance in this section.",
@@ -2490,7 +2490,7 @@
       ]
     }
   },
-  "cameraStreamsKindRequired": "kind must be go2rtc, whep or ha",
+  "cameraStreamsKindRequired": "Elige una transmisión Go2RTC, una URL WHEP o una cámara de Home Assistant.",
   "@cameraStreamsKindRequired": {
     "context": "Settings > Camera Streams > Server, camera and view editors",
     "description": "Label or guidance in this section.",
@@ -2503,7 +2503,7 @@
       ]
     }
   },
-  "cameraStreamsProtocolRequired": "preferredProtocol must be auto, webrtc, hls or mjpeg",
+  "cameraStreamsProtocolRequired": "Elige Automático, WebRTC, HLS o MJPEG.",
   "@cameraStreamsProtocolRequired": {
     "context": "Settings > Camera Streams > Server, camera and view editors",
     "description": "Label or guidance in this section.",
@@ -2516,7 +2516,7 @@
       ]
     }
   },
-  "cameraStreamsServerRequired": "valid serverId required",
+  "cameraStreamsServerRequired": "Elige un servidor válido.",
   "@cameraStreamsServerRequired": {
     "context": "Settings > Camera Streams > Server, camera and view editors",
     "description": "Label or guidance in this section.",
@@ -2529,7 +2529,7 @@
       ]
     }
   },
-  "cameraStreamsStreamRequired": "streamName required",
+  "cameraStreamsStreamRequired": "Escribe el nombre de la transmisión.",
   "@cameraStreamsStreamRequired": {
     "context": "Settings > Camera Streams > Server, camera and view editors",
     "description": "Label or guidance in this section.",
@@ -2542,7 +2542,7 @@
       ]
     }
   },
-  "cameraStreamsEntityRequired": "a camera.* entityId is required",
+  "cameraStreamsEntityRequired": "Escribe una entidad que empiece por camera.",
   "@cameraStreamsEntityRequired": {
     "context": "Settings > Camera Streams > Server, camera and view editors",
     "description": "Label or guidance in this section.",
@@ -2555,7 +2555,7 @@
       ]
     }
   },
-  "cameraStreamsWhepRequired": "valid WHEP URL required",
+  "cameraStreamsWhepRequired": "Escribe una URL WHEP válida.",
   "@cameraStreamsWhepRequired": {
     "context": "Settings > Camera Streams > Server, camera and view editors",
     "description": "Label or guidance in this section.",
@@ -2568,7 +2568,7 @@
       ]
     }
   },
-  "cameraStreamsCameraNotFound": "camera not found",
+  "cameraStreamsCameraNotFound": "No se encontró la cámara.",
   "@cameraStreamsCameraNotFound": {
     "context": "Settings > Camera Streams > Server, camera and view editors",
     "description": "Label or guidance in this section.",
@@ -2581,7 +2581,7 @@
       ]
     }
   },
-  "cameraStreamsListRequired": "cameraIds must be a list",
+  "cameraStreamsListRequired": "La selección de cámaras debe ser una lista.",
   "@cameraStreamsListRequired": {
     "context": "Settings > Camera Streams > Server, camera and view editors",
     "description": "Label or guidance in this section.",
@@ -2594,7 +2594,7 @@
       ]
     }
   },
-  "cameraStreamsViewCount": "a view must contain 1 to 12 cameras",
+  "cameraStreamsViewCount": "La vista debe contener entre 1 y 12 cámaras.",
   "@cameraStreamsViewCount": {
     "context": "Settings > Camera Streams > Server, camera and view editors",
     "description": "Label or guidance in this section.",
@@ -2607,7 +2607,7 @@
       ]
     }
   },
-  "cameraStreamsRepeatedCamera": "a camera can appear only once per view",
+  "cameraStreamsRepeatedCamera": "Una cámara solo puede aparecer una vez en cada vista.",
   "@cameraStreamsRepeatedCamera": {
     "context": "Settings > Camera Streams > Server, camera and view editors",
     "description": "Label or guidance in this section.",
@@ -2620,7 +2620,7 @@
       ]
     }
   },
-  "cameraStreamsUnknownViewCamera": "view contains an unknown camera",
+  "cameraStreamsUnknownViewCamera": "La vista contiene una cámara desconocida.",
   "@cameraStreamsUnknownViewCamera": {
     "context": "Settings > Camera Streams > Server, camera and view editors",
     "description": "Label or guidance in this section.",
@@ -2633,7 +2633,7 @@
       ]
     }
   },
-  "cameraStreamsUniqueViewName": "view name must be unique",
+  "cameraStreamsUniqueViewName": "Usa un nombre diferente para la vista.",
   "@cameraStreamsUniqueViewName": {
     "context": "Settings > Camera Streams > Server, camera and view editors",
     "description": "Label or guidance in this section.",
@@ -2646,7 +2646,7 @@
       ]
     }
   },
-  "cameraStreamsGridRange": "grid must be between 1 and 12",
+  "cameraStreamsGridRange": "La cuadrícula debe tener entre 1 y 12 espacios.",
   "@cameraStreamsGridRange": {
     "context": "Settings > Camera Streams > Server, camera and view editors",
     "description": "Label or guidance in this section.",
@@ -2659,7 +2659,7 @@
       ]
     }
   },
-  "cameraStreamsGridTooSmall": "grid is smaller than the camera count",
+  "cameraStreamsGridTooSmall": "La cuadrícula tiene menos espacios que cámaras.",
   "@cameraStreamsGridTooSmall": {
     "context": "Settings > Camera Streams > Server, camera and view editors",
     "description": "Label or guidance in this section.",
@@ -2672,7 +2672,7 @@
       ]
     }
   },
-  "cameraStreamsViewNotFound": "view not found",
+  "cameraStreamsViewNotFound": "No se encontró la vista.",
   "@cameraStreamsViewNotFound": {
     "context": "Settings > Camera Streams > Server, camera and view editors",
     "description": "Label or guidance in this section.",
@@ -2685,7 +2685,7 @@
       ]
     }
   },
-  "cameraStreamsDefaultViewDelete": "the default view cannot be deleted; empty it instead",
+  "cameraStreamsDefaultViewDelete": "No se puede eliminar la vista predeterminada. Quita todas sus cámaras para dejarla vacía.",
   "@cameraStreamsDefaultViewDelete": {
     "context": "Settings > Camera Streams > Server, camera and view editors",
     "description": "Label or guidance in this section.",
@@ -2698,7 +2698,7 @@
       ]
     }
   },
-  "cameraStreamsViewEmpty": "view has no cameras",
+  "cameraStreamsViewEmpty": "La vista no tiene cámaras.",
   "@cameraStreamsViewEmpty": {
     "context": "Settings > Camera Streams > Server, camera and view editors",
     "description": "Label or guidance in this section.",
@@ -2711,7 +2711,7 @@
       ]
     }
   },
-  "cameraStreamsHaReadFailed": "could not read Home Assistant: {error}",
+  "cameraStreamsHaReadFailed": "No se pudo leer Home Assistant: {error}",
   "@cameraStreamsHaReadFailed": {
     "context": "Settings > Camera Streams > Server, camera and view editors",
     "description": "Label or guidance in this section.",
@@ -2730,7 +2730,7 @@
       }
     }
   },
-  "cameraStreamsConnectFailed": "could not connect to {server}: {error}",
+  "cameraStreamsConnectFailed": "No se pudo conectar a {server}: {error}",
   "@cameraStreamsConnectFailed": {
     "context": "Settings > Camera Streams > Server, camera and view editors",
     "description": "Label or guidance in this section.",
@@ -2753,7 +2753,7 @@
       }
     }
   },
-  "cameraStreamsHaUnavailable": "Home Assistant is not configured or unreachable",
+  "cameraStreamsHaUnavailable": "Home Assistant no está configurado o no responde.",
   "@cameraStreamsHaUnavailable": {
     "context": "Settings > Camera Streams > Home Assistant and Go2RTC servers",
     "description": "Import error.",
@@ -2768,7 +2768,7 @@
       ]
     }
   },
-  "cameraStreamsHttpError": "Go2RTC returned HTTP {status}",
+  "cameraStreamsHttpError": "Go2RTC devolvió HTTP {status}",
   "@cameraStreamsHttpError": {
     "context": "Settings > Camera Streams > Home Assistant and Go2RTC servers",
     "description": "Import error.",
@@ -2789,7 +2789,7 @@
       }
     }
   },
-  "cameraStreamsImportHa": "Import cameras from Home Assistant",
+  "cameraStreamsImportHa": "Importar cámaras de Home Assistant",
   "@cameraStreamsImportHa": {
     "context": "Settings > Camera Streams > Home Assistant",
     "description": "Label or guidance in this section.",
@@ -2802,7 +2802,7 @@
       ]
     }
   },
-  "cameraStreamsImportHaHelp": "Add every camera of the connected Home Assistant, playing over WebRTC, HLS or MJPEG. Importing again merges new cameras.",
+  "cameraStreamsImportHaHelp": "Añade todas las cámaras de Home Assistant y las reproduce mediante WebRTC, HLS o MJPEG. Si vuelves a importar, se incorporan las cámaras nuevas.",
   "@cameraStreamsImportHaHelp": {
     "context": "Settings > Camera Streams > Home Assistant",
     "description": "Label or guidance in this section.",
@@ -2815,7 +2815,7 @@
       ]
     }
   },
-  "cameraStreamsImportFailed": "Import failed",
+  "cameraStreamsImportFailed": "No se pudo importar",
   "@cameraStreamsImportFailed": {
     "context": "Settings > Camera Streams > Home Assistant",
     "description": "Label or guidance in this section.",
@@ -2828,7 +2828,7 @@
       ]
     }
   },
-  "cameraStreamsImportComplete": "Import complete",
+  "cameraStreamsImportComplete": "Importación completada",
   "@cameraStreamsImportComplete": {
     "context": "Settings > Camera Streams > Home Assistant",
     "description": "Label or guidance in this section.",
@@ -2841,7 +2841,7 @@
       ]
     }
   },
-  "cameraStreamsImportCounts": "{added} added, {missing} missing.",
+  "cameraStreamsImportCounts": "{added} añadidas, {missing} no disponibles.",
   "@cameraStreamsImportCounts": {
     "context": "Settings > Camera Streams > Home Assistant",
     "description": "Label or guidance in this section.",
@@ -2864,7 +2864,7 @@
       }
     }
   },
-  "settingCameraAllowH265Title": "Allow H.265 streams",
+  "settingCameraAllowH265Title": "Permitir transmisiones H.265",
   "@settingCameraAllowH265Title": {
     "context": "Settings > Camera Streams > Playback",
     "description": "Setting label.",
@@ -2877,7 +2877,7 @@
       ]
     }
   },
-  "settingCameraAllowH265Description": "Play H.265 camera streams as they are. A device that cannot decode H.265 shows a blank image instead.",
+  "settingCameraAllowH265Description": "Reproduce las transmisiones H.265 sin convertirlas. Si el dispositivo no puede decodificar H.265, muestra una imagen en blanco.",
   "@settingCameraAllowH265Description": {
     "context": "Settings > Camera Streams > Playback",
     "description": "Help below this setting.",
@@ -2890,7 +2890,7 @@
       ]
     }
   },
-  "settingCameraPreferMseTitle": "Prefer MSE over WebRTC",
+  "settingCameraPreferMseTitle": "Preferir MSE en lugar de WebRTC",
   "@settingCameraPreferMseTitle": {
     "context": "Settings > Camera Streams > Playback",
     "description": "Setting label.",
@@ -2903,7 +2903,7 @@
       ]
     }
   },
-  "settingCameraPreferMseDescription": "Stream Go2RTC cameras over MSE first. For devices that cannot play WebRTC; adds a second or two of delay.",
+  "settingCameraPreferMseDescription": "Usa MSE primero para las cámaras Go2RTC. Para dispositivos que no pueden reproducir WebRTC. Añade uno o dos segundos de retraso.",
   "@settingCameraPreferMseDescription": {
     "context": "Settings > Camera Streams > Playback",
     "description": "Help below this setting.",
@@ -2916,7 +2916,7 @@
       ]
     }
   },
-  "settingCameraPreferHlsTitle": "Prefer HLS over WebRTC",
+  "settingCameraPreferHlsTitle": "Preferir HLS en lugar de WebRTC",
   "@settingCameraPreferHlsTitle": {
     "context": "Settings > Camera Streams > Playback",
     "description": "Setting label.",
@@ -2929,7 +2929,7 @@
       ]
     }
   },
-  "settingCameraPreferHlsDescription": "Stream Home Assistant cameras over HLS first. For devices that cannot play WebRTC; adds a few seconds of delay.",
+  "settingCameraPreferHlsDescription": "Usa HLS primero para las cámaras de Home Assistant. Para dispositivos que no pueden reproducir WebRTC. Añade unos segundos de retraso.",
   "@settingCameraPreferHlsDescription": {
     "context": "Settings > Camera Streams > Playback",
     "description": "Help below this setting.",
@@ -2942,7 +2942,7 @@
       ]
     }
   },
-  "settingCameraSingleAudioTitle": "Play sound for a single camera",
+  "settingCameraSingleAudioTitle": "Reproducir sonido con una sola cámara",
   "@settingCameraSingleAudioTitle": {
     "context": "Settings > Camera Streams > Playback",
     "description": "Setting label.",
@@ -2955,7 +2955,7 @@
       ]
     }
   },
-  "settingCameraSingleAudioDescription": "Play the camera's sound when only one camera is on screen. Grids with several cameras stay silent.",
+  "settingCameraSingleAudioDescription": "Reproduce el sonido de la cámara cuando solo hay una en pantalla. Las cuadrículas con varias cámaras permanecen en silencio.",
   "@settingCameraSingleAudioDescription": {
     "context": "Settings > Camera Streams > Playback",
     "description": "Help below this setting.",
@@ -2968,7 +2968,7 @@
       ]
     }
   },
-  "settingCameraPinchZoomTitle": "Pinch to zoom a single camera",
+  "settingCameraPinchZoomTitle": "Pellizcar para ampliar una sola cámara",
   "@settingCameraPinchZoomTitle": {
     "context": "Settings > Camera Streams > Playback",
     "description": "Setting label.",
@@ -2981,7 +2981,7 @@
       ]
     }
   },
-  "settingCameraPinchZoomDescription": "Zoom into the picture with two fingers when only one camera is on screen. Drag to move around, double-tap to reset.",
+  "settingCameraPinchZoomDescription": "Amplía la imagen con dos dedos cuando solo hay una cámara en pantalla. Arrastra para desplazarte y toca dos veces para restablecer la imagen.",
   "@settingCameraPinchZoomDescription": {
     "context": "Settings > Camera Streams > Playback",
     "description": "Help below this setting.",
@@ -2994,7 +2994,7 @@
       ]
     }
   },
-  "settingCameraAutoDismissSecondsTitle": "Auto-dismiss after",
+  "settingCameraAutoDismissSecondsTitle": "Cerrar automáticamente después de",
   "@settingCameraAutoDismissSecondsTitle": {
     "context": "Settings > Camera Streams > Playback",
     "description": "Setting label.",
@@ -3007,7 +3007,7 @@
       ]
     }
   },
-  "settingCameraAutoDismissSecondsDescription": "Close an opened camera view on its own; 0 keeps it up. The camera screensaver is unaffected.",
+  "settingCameraAutoDismissSecondsDescription": "Cierra automáticamente una vista de cámaras abierta. Con 0 permanece abierta. No afecta al protector de pantalla de cámaras.",
   "@settingCameraAutoDismissSecondsDescription": {
     "context": "Settings > Camera Streams > Playback",
     "description": "Help below this setting.",
@@ -3020,7 +3020,7 @@
       ]
     }
   },
-  "cameraStreamsPlayback": "Playback",
+  "cameraStreamsPlayback": "Reproducción",
   "@cameraStreamsPlayback": {
     "context": "Settings > Camera Streams > Playback",
     "description": "Label or guidance in this section.",
@@ -3033,7 +3033,7 @@
       ]
     }
   },
-  "cameraStreamsOff": "Off",
+  "cameraStreamsOff": "Desactivado",
   "@cameraStreamsOff": {
     "context": "Settings > Camera Streams > Playback",
     "description": "Label or guidance in this section.",
@@ -3065,7 +3065,7 @@
       }
     }
   },
-  "cameraStreamsGridHelp": "Grids with several cameras are video-only. For low-power devices, use lower resolution Go2RTC streams in views and optionally set a separate fullscreen stream.",
+  "cameraStreamsGridHelp": "Las cuadrículas con varias cámaras solo muestran video. En dispositivos de baja potencia, usa transmisiones Go2RTC de menor resolución en las vistas y, si lo deseas, una transmisión diferente para pantalla completa.",
   "@cameraStreamsGridHelp": {
     "context": "Settings > Camera Streams > Playback",
     "description": "Label or guidance in this section.",
@@ -3078,7 +3078,7 @@
       ]
     }
   },
-  "cameraStreamsServers": "Go2RTC servers",
+  "cameraStreamsServers": "Servidores Go2RTC",
   "@cameraStreamsServers": {
     "context": "Settings > Camera Streams > Go2RTC servers",
     "description": "Label or guidance in this section.",
@@ -3091,7 +3091,7 @@
       ]
     }
   },
-  "cameraStreamsImportStreams": "Import streams",
+  "cameraStreamsImportStreams": "Importar transmisiones",
   "@cameraStreamsImportStreams": {
     "context": "Settings > Camera Streams > Go2RTC servers",
     "description": "Label or guidance in this section.",
@@ -3104,7 +3104,7 @@
       ]
     }
   },
-  "cameraStreamsDeleteServer": "Delete server",
+  "cameraStreamsDeleteServer": "Eliminar servidor",
   "@cameraStreamsDeleteServer": {
     "context": "Settings > Camera Streams > Go2RTC servers",
     "description": "Label or guidance in this section.",
@@ -3117,7 +3117,7 @@
       ]
     }
   },
-  "cameraStreamsAddServer": "Add Go2RTC server",
+  "cameraStreamsAddServer": "Añadir servidor Go2RTC",
   "@cameraStreamsAddServer": {
     "context": "Settings > Camera Streams > Go2RTC servers",
     "description": "Label or guidance in this section.",
@@ -3130,7 +3130,7 @@
       ]
     }
   },
-  "cameraStreamsAddServerHelp": "Connect to a server and import its streams.",
+  "cameraStreamsAddServerHelp": "Conéctate a un servidor e importa sus transmisiones.",
   "@cameraStreamsAddServerHelp": {
     "context": "Settings > Camera Streams > Go2RTC servers",
     "description": "Label or guidance in this section.",
@@ -3143,7 +3143,7 @@
       ]
     }
   },
-  "cameraStreamsEditServer": "Edit server",
+  "cameraStreamsEditServer": "Editar servidor",
   "@cameraStreamsEditServer": {
     "context": "Settings > Camera Streams > Go2RTC servers",
     "description": "Label or guidance in this section.",
@@ -3156,7 +3156,7 @@
       ]
     }
   },
-  "cameraStreamsName": "Name",
+  "cameraStreamsName": "Nombre",
   "@cameraStreamsName": {
     "context": "Settings > Camera Streams > Server, camera and view editors",
     "description": "Label or guidance in this section.",
@@ -3173,7 +3173,7 @@
       ]
     }
   },
-  "cameraStreamsBaseUrl": "Base URL",
+  "cameraStreamsBaseUrl": "URL base",
   "@cameraStreamsBaseUrl": {
     "context": "Settings > Camera Streams > Go2RTC servers",
     "description": "Label or guidance in this section.",
@@ -3186,7 +3186,7 @@
       ]
     }
   },
-  "cameraStreamsUsername": "Username (optional)",
+  "cameraStreamsUsername": "Nombre de usuario (opcional)",
   "@cameraStreamsUsername": {
     "context": "Settings > Camera Streams > Go2RTC servers",
     "description": "Label or guidance in this section.",
@@ -3199,7 +3199,7 @@
       ]
     }
   },
-  "cameraStreamsNewPassword": "New password (leave blank to keep)",
+  "cameraStreamsNewPassword": "Nueva contraseña (dejar en blanco para conservarla)",
   "@cameraStreamsNewPassword": {
     "context": "Settings > Camera Streams > Go2RTC servers",
     "description": "Label or guidance in this section.",
@@ -3212,7 +3212,7 @@
       ]
     }
   },
-  "cameraStreamsPassword": "Password (optional)",
+  "cameraStreamsPassword": "Contraseña (opcional)",
   "@cameraStreamsPassword": {
     "context": "Settings > Camera Streams > Go2RTC servers",
     "description": "Label or guidance in this section.",
@@ -3225,7 +3225,7 @@
       ]
     }
   },
-  "cameraStreamsInvalidCertificate": "Allow invalid TLS certificate",
+  "cameraStreamsInvalidCertificate": "Permitir certificado TLS no válido",
   "@cameraStreamsInvalidCertificate": {
     "context": "Settings > Camera Streams > Go2RTC servers",
     "description": "Label or guidance in this section.",
@@ -3238,7 +3238,7 @@
       ]
     }
   },
-  "cameraStreamsSaveServerFailed": "Could not save the server",
+  "cameraStreamsSaveServerFailed": "No se pudo guardar el servidor",
   "@cameraStreamsSaveServerFailed": {
     "context": "Settings > Camera Streams > Go2RTC servers",
     "description": "Label or guidance in this section.",
@@ -3251,7 +3251,7 @@
       ]
     }
   },
-  "cameraStreamsDeleteServerHelp": "Its cameras will be removed from every view.",
+  "cameraStreamsDeleteServerHelp": "Sus cámaras se eliminarán de todas las vistas.",
   "@cameraStreamsDeleteServerHelp": {
     "context": "Settings > Camera Streams > Go2RTC servers",
     "description": "Label or guidance in this section.",
@@ -3264,7 +3264,7 @@
       ]
     }
   },
-  "cameraStreamsCameras": "Cameras",
+  "cameraStreamsCameras": "Cámaras",
   "@cameraStreamsCameras": {
     "context": "Settings > Camera Streams > Cameras",
     "description": "Label or guidance in this section.",
@@ -3277,7 +3277,7 @@
       ]
     }
   },
-  "cameraStreamsNoCameras": "No cameras configured",
+  "cameraStreamsNoCameras": "No hay cámaras configuradas",
   "@cameraStreamsNoCameras": {
     "context": "Settings > Camera Streams > Cameras",
     "description": "Label or guidance in this section.",
@@ -3290,7 +3290,7 @@
       ]
     }
   },
-  "cameraStreamsNoCamerasHelp": "Import cameras from Home Assistant or Go2RTC, or add one manually.",
+  "cameraStreamsNoCamerasHelp": "Importa cámaras de Home Assistant o Go2RTC, o añade una manualmente.",
   "@cameraStreamsNoCamerasHelp": {
     "context": "Settings > Camera Streams > Cameras",
     "description": "Label or guidance in this section.",
@@ -3303,7 +3303,7 @@
       ]
     }
   },
-  "cameraStreamsDeleteCamera": "Delete camera",
+  "cameraStreamsDeleteCamera": "Eliminar cámara",
   "@cameraStreamsDeleteCamera": {
     "context": "Settings > Camera Streams > Cameras",
     "description": "Label or guidance in this section.",
@@ -3316,7 +3316,7 @@
       ]
     }
   },
-  "cameraStreamsAddManually": "Add camera manually",
+  "cameraStreamsAddManually": "Añadir cámara manualmente",
   "@cameraStreamsAddManually": {
     "context": "Settings > Camera Streams > Cameras",
     "description": "Label or guidance in this section.",
@@ -3329,7 +3329,7 @@
       ]
     }
   },
-  "cameraStreamsAddManuallyHelp": "Use a Go2RTC stream name, a WHEP URL or a Home Assistant camera entity.",
+  "cameraStreamsAddManuallyHelp": "Usa el nombre de una transmisión Go2RTC, una URL WHEP o una entidad de cámara de Home Assistant.",
   "@cameraStreamsAddManuallyHelp": {
     "context": "Settings > Camera Streams > Cameras",
     "description": "Label or guidance in this section.",
@@ -3342,7 +3342,7 @@
       ]
     }
   },
-  "cameraStreamsUnknownCamera": "Unknown camera",
+  "cameraStreamsUnknownCamera": "Cámara desconocida",
   "@cameraStreamsUnknownCamera": {
     "context": "Settings > Camera Streams > Cameras",
     "description": "Label or guidance in this section.",
@@ -3355,7 +3355,7 @@
       ]
     }
   },
-  "cameraStreamsUnknownServer": "Unknown server",
+  "cameraStreamsUnknownServer": "Servidor desconocido",
   "@cameraStreamsUnknownServer": {
     "context": "Settings > Camera Streams > Cameras",
     "description": "Label or guidance in this section.",
@@ -3368,7 +3368,7 @@
       ]
     }
   },
-  "cameraStreamsMissing": " (missing)",
+  "cameraStreamsMissing": " (no disponible)",
   "@cameraStreamsMissing": {
     "context": "Settings > Camera Streams > Cameras",
     "description": "Label or guidance in this section.",
@@ -3381,7 +3381,7 @@
       ]
     }
   },
-  "cameraStreamsAddCamera": "Add camera",
+  "cameraStreamsAddCamera": "Añadir cámara",
   "@cameraStreamsAddCamera": {
     "context": "Settings > Camera Streams > Cameras",
     "description": "Label or guidance in this section.",
@@ -3394,7 +3394,7 @@
       ]
     }
   },
-  "cameraStreamsEditCamera": "Edit camera",
+  "cameraStreamsEditCamera": "Editar cámara",
   "@cameraStreamsEditCamera": {
     "context": "Settings > Camera Streams > Cameras",
     "description": "Label or guidance in this section.",
@@ -3407,7 +3407,7 @@
       ]
     }
   },
-  "cameraStreamsType": "Type",
+  "cameraStreamsType": "Tipo",
   "@cameraStreamsType": {
     "context": "Settings > Camera Streams > Cameras",
     "description": "Label or guidance in this section.",
@@ -3420,7 +3420,7 @@
       ]
     }
   },
-  "cameraStreamsGo2RtcStream": "Go2RTC stream",
+  "cameraStreamsGo2RtcStream": "Transmisión Go2RTC",
   "@cameraStreamsGo2RtcStream": {
     "context": "Settings > Camera Streams > Cameras",
     "description": "Label or guidance in this section.",
@@ -3433,7 +3433,7 @@
       ]
     }
   },
-  "cameraStreamsDirectWhep": "Direct WHEP URL",
+  "cameraStreamsDirectWhep": "URL WHEP directa",
   "@cameraStreamsDirectWhep": {
     "context": "Settings > Camera Streams > Cameras",
     "description": "Label or guidance in this section.",
@@ -3446,7 +3446,7 @@
       ]
     }
   },
-  "cameraStreamsHaCamera": "Home Assistant camera",
+  "cameraStreamsHaCamera": "Cámara de Home Assistant",
   "@cameraStreamsHaCamera": {
     "context": "Settings > Camera Streams > Cameras",
     "description": "Label or guidance in this section.",
@@ -3459,7 +3459,7 @@
       ]
     }
   },
-  "cameraStreamsEntity": "Camera entity",
+  "cameraStreamsEntity": "Entidad de cámara",
   "@cameraStreamsEntity": {
     "context": "Settings > Camera Streams > Cameras",
     "description": "Label or guidance in this section.",
@@ -3472,7 +3472,7 @@
       ]
     }
   },
-  "cameraStreamsProtocol": "Preferred protocol",
+  "cameraStreamsProtocol": "Protocolo preferido",
   "@cameraStreamsProtocol": {
     "context": "Settings > Camera Streams > Cameras",
     "description": "Label or guidance in this section.",
@@ -3485,7 +3485,7 @@
       ]
     }
   },
-  "cameraStreamsAuto": "Auto",
+  "cameraStreamsAuto": "Automático",
   "@cameraStreamsAuto": {
     "context": "Settings > Camera Streams > Cameras",
     "description": "Label or guidance in this section.",
@@ -3498,7 +3498,7 @@
       ]
     }
   },
-  "cameraStreamsServer": "Server",
+  "cameraStreamsServer": "Servidor",
   "@cameraStreamsServer": {
     "context": "Settings > Camera Streams > Cameras",
     "description": "Label or guidance in this section.",
@@ -3511,7 +3511,7 @@
       ]
     }
   },
-  "cameraStreamsStreamName": "Stream name",
+  "cameraStreamsStreamName": "Nombre de la transmisión",
   "@cameraStreamsStreamName": {
     "context": "Settings > Camera Streams > Cameras",
     "description": "Label or guidance in this section.",
@@ -3524,7 +3524,7 @@
       ]
     }
   },
-  "cameraStreamsGo2RtcStreamName": "Go2RTC stream name",
+  "cameraStreamsGo2RtcStreamName": "Nombre de la transmisión Go2RTC",
   "@cameraStreamsGo2RtcStreamName": {
     "context": "Settings > Camera Streams > Cameras",
     "description": "Label or guidance in this section.",
@@ -3537,7 +3537,7 @@
       ]
     }
   },
-  "cameraStreamsFullscreen": "Fullscreen stream (optional)",
+  "cameraStreamsFullscreen": "Transmisión a pantalla completa (opcional)",
   "@cameraStreamsFullscreen": {
     "context": "Settings > Camera Streams > Cameras",
     "description": "Label or guidance in this section.",
@@ -3550,7 +3550,7 @@
       ]
     }
   },
-  "cameraStreamsWhep": "WHEP URL",
+  "cameraStreamsWhep": "URL WHEP",
   "@cameraStreamsWhep": {
     "context": "Settings > Camera Streams > Cameras",
     "description": "Label or guidance in this section.",
@@ -3563,7 +3563,7 @@
       ]
     }
   },
-  "cameraStreamsSaveCameraFailed": "Could not save the camera",
+  "cameraStreamsSaveCameraFailed": "No se pudo guardar la cámara",
   "@cameraStreamsSaveCameraFailed": {
     "context": "Settings > Camera Streams > Cameras",
     "description": "Label or guidance in this section.",
@@ -3576,7 +3576,7 @@
       ]
     }
   },
-  "cameraStreamsDeleteCameraHelp": "It will be removed from every view.",
+  "cameraStreamsDeleteCameraHelp": "Se eliminará de todas las vistas.",
   "@cameraStreamsDeleteCameraHelp": {
     "context": "Settings > Camera Streams > Cameras",
     "description": "Label or guidance in this section.",
@@ -3589,7 +3589,7 @@
       ]
     }
   },
-  "cameraStreamsLoadFailed": "Could not load cameras.",
+  "cameraStreamsLoadFailed": "No se pudieron cargar las cámaras.",
   "@cameraStreamsLoadFailed": {
     "context": "Settings > Camera Streams > Cameras",
     "description": "Label or guidance in this section.",
@@ -3602,7 +3602,7 @@
       ]
     }
   },
-  "cameraStreamsViews": "Views",
+  "cameraStreamsViews": "Vistas",
   "@cameraStreamsViews": {
     "context": "Settings > Camera Streams > Views",
     "description": "Label or guidance in this section.",
@@ -3615,7 +3615,7 @@
       ]
     }
   },
-  "cameraStreamsEmptyView": "No cameras yet",
+  "cameraStreamsEmptyView": "Todavía no hay cámaras",
   "@cameraStreamsEmptyView": {
     "context": "Settings > Camera Streams > Views",
     "description": "Label or guidance in this section.",
@@ -3628,7 +3628,7 @@
       ]
     }
   },
-  "cameraStreamsNamesShown": "Names shown",
+  "cameraStreamsNamesShown": "Nombres visibles",
   "@cameraStreamsNamesShown": {
     "context": "Settings > Camera Streams > Views",
     "description": "Label or guidance in this section.",
@@ -3641,7 +3641,7 @@
       ]
     }
   },
-  "cameraStreamsNamesHidden": "Names hidden",
+  "cameraStreamsNamesHidden": "Nombres ocultos",
   "@cameraStreamsNamesHidden": {
     "context": "Settings > Camera Streams > Views",
     "description": "Label or guidance in this section.",
@@ -3654,7 +3654,7 @@
       ]
     }
   },
-  "cameraStreamsShowView": "Show view",
+  "cameraStreamsShowView": "Mostrar vista",
   "@cameraStreamsShowView": {
     "context": "Settings > Camera Streams > Views",
     "description": "Label or guidance in this section.",
@@ -3667,7 +3667,7 @@
       ]
     }
   },
-  "cameraStreamsDeleteView": "Delete view",
+  "cameraStreamsDeleteView": "Eliminar vista",
   "@cameraStreamsDeleteView": {
     "context": "Settings > Camera Streams > Views",
     "description": "Label or guidance in this section.",
@@ -3680,7 +3680,7 @@
       ]
     }
   },
-  "cameraStreamsCreateView": "Create camera view",
+  "cameraStreamsCreateView": "Crear vista de cámaras",
   "@cameraStreamsCreateView": {
     "context": "Settings > Camera Streams > Views",
     "description": "Label or guidance in this section.",
@@ -3693,7 +3693,7 @@
       ]
     }
   },
-  "cameraStreamsAddFirst": "Add a camera first.",
+  "cameraStreamsAddFirst": "Añade una cámara primero.",
   "@cameraStreamsAddFirst": {
     "context": "Settings > Camera Streams > Views",
     "description": "Label or guidance in this section.",
@@ -3706,7 +3706,7 @@
       ]
     }
   },
-  "cameraStreamsChooseCameras": "Choose and order up to 12 cameras.",
+  "cameraStreamsChooseCameras": "Elige y ordena hasta 12 cámaras.",
   "@cameraStreamsChooseCameras": {
     "context": "Settings > Camera Streams > Views",
     "description": "Label or guidance in this section.",
@@ -3719,7 +3719,7 @@
       ]
     }
   },
-  "cameraStreamsShowFailed": "Could not show the view",
+  "cameraStreamsShowFailed": "No se pudo mostrar la vista",
   "@cameraStreamsShowFailed": {
     "context": "Settings > Camera Streams > Views",
     "description": "Label or guidance in this section.",
@@ -3732,7 +3732,7 @@
       ]
     }
   },
-  "cameraStreamsShowFailedRemote": "Could not show view",
+  "cameraStreamsShowFailedRemote": "No se pudo mostrar la vista",
   "@cameraStreamsShowFailedRemote": {
     "context": "Settings > Camera Streams > Views",
     "description": "Label or guidance in this section.",
@@ -3745,7 +3745,7 @@
       ]
     }
   },
-  "cameraStreamsEditView": "Edit view",
+  "cameraStreamsEditView": "Editar vista",
   "@cameraStreamsEditView": {
     "context": "Settings > Camera Streams > Views",
     "description": "Label or guidance in this section.",
@@ -3758,7 +3758,7 @@
       ]
     }
   },
-  "cameraStreamsShowNames": "Show camera names",
+  "cameraStreamsShowNames": "Mostrar nombres de cámaras",
   "@cameraStreamsShowNames": {
     "context": "Settings > Camera Streams > Views",
     "description": "Label or guidance in this section.",
@@ -3771,7 +3771,7 @@
       ]
     }
   },
-  "cameraStreamsShowNamesHelp": "Display a label over each camera.",
+  "cameraStreamsShowNamesHelp": "Muestra una etiqueta sobre cada cámara.",
   "@cameraStreamsShowNamesHelp": {
     "context": "Settings > Camera Streams > Views",
     "description": "Label or guidance in this section.",
@@ -3784,7 +3784,7 @@
       ]
     }
   },
-  "cameraStreamsGrid": "Grid",
+  "cameraStreamsGrid": "Cuadrícula",
   "@cameraStreamsGrid": {
     "context": "Settings > Camera Streams > Views",
     "description": "Label or guidance in this section.",
@@ -3797,7 +3797,7 @@
       ]
     }
   },
-  "cameraStreamsOneCamera": "{count} Camera",
+  "cameraStreamsOneCamera": "{count} cámara",
   "@cameraStreamsOneCamera": {
     "context": "Settings > Camera Streams > Views",
     "description": "Label or guidance in this section.",
@@ -3816,7 +3816,7 @@
       }
     }
   },
-  "cameraStreamsManyCameras": "{count} Cameras",
+  "cameraStreamsManyCameras": "{count} cámaras",
   "@cameraStreamsManyCameras": {
     "context": "Settings > Camera Streams > Views",
     "description": "Label or guidance in this section.",
@@ -3835,7 +3835,7 @@
       }
     }
   },
-  "cameraStreamsInView": "In this view",
+  "cameraStreamsInView": "En esta vista",
   "@cameraStreamsInView": {
     "context": "Settings > Camera Streams > Views",
     "description": "Label or guidance in this section.",
@@ -3848,7 +3848,7 @@
       ]
     }
   },
-  "cameraStreamsAvailable": "Available",
+  "cameraStreamsAvailable": "Disponibles",
   "@cameraStreamsAvailable": {
     "context": "Settings > Camera Streams > Views",
     "description": "Label or guidance in this section.",
@@ -3861,7 +3861,7 @@
       ]
     }
   },
-  "cameraStreamsPosition": "Position {position}",
+  "cameraStreamsPosition": "Posición {position}",
   "@cameraStreamsPosition": {
     "context": "Settings > Camera Streams > Views",
     "description": "Label or guidance in this section.",
@@ -3880,7 +3880,7 @@
       }
     }
   },
-  "cameraStreamsMissingGo2Rtc": "Missing from Go2RTC",
+  "cameraStreamsMissingGo2Rtc": "No disponible en Go2RTC",
   "@cameraStreamsMissingGo2Rtc": {
     "context": "Settings > Camera Streams > Views",
     "description": "Label or guidance in this section.",
@@ -3893,7 +3893,7 @@
       ]
     }
   },
-  "cameraStreamsSaveViewFailed": "Could not save the view",
+  "cameraStreamsSaveViewFailed": "No se pudo guardar la vista",
   "@cameraStreamsSaveViewFailed": {
     "context": "Settings > Camera Streams > Views",
     "description": "Label or guidance in this section.",
@@ -3906,7 +3906,7 @@
       ]
     }
   },
-  "cameraStreamsDeleteNamed": "Delete {name}?",
+  "cameraStreamsDeleteNamed": "¿Eliminar {name}?",
   "@cameraStreamsDeleteNamed": {
     "context": "Settings > Camera Streams > Views",
     "description": "Label or guidance in this section.",
@@ -3925,7 +3925,7 @@
       }
     }
   },
-  "cameraStreamsCannotUndo": "This cannot be undone.",
+  "cameraStreamsCannotUndo": "Esta acción no se puede deshacer.",
   "@cameraStreamsCannotUndo": {
     "context": "Settings > Camera Streams > Views",
     "description": "Label or guidance in this section.",
@@ -3938,7 +3938,7 @@
       ]
     }
   },
-  "cameraStreamsShow": "Show",
+  "cameraStreamsShow": "Mostrar",
   "@cameraStreamsShow": {
     "context": "Settings > Camera Streams > Views",
     "description": "Label or guidance in this section.",
@@ -3951,7 +3951,7 @@
       ]
     }
   },
-  "cameraStreamsStop": "Stop",
+  "cameraStreamsStop": "Detener",
   "@cameraStreamsStop": {
     "context": "Settings > Camera Streams > Views",
     "description": "Label or guidance in this section.",
