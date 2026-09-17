@@ -1,0 +1,19 @@
+{
+  "@@locale": "es",
+  "pluginAddPlugin": "Añadir plugin",
+  "pluginInstallFromAGithubRepository": "Instalar desde un repositorio de GitHub",
+  "pluginMakeSureYouTrustThePluginSAuthorAnd": "Asegúrate de confiar en el autor del plugin y en su código antes de instalarlo.",
+  "pluginPreview": "Vista previa",
+  "pluginInstalledVersion": "Versión instalada",
+  "pluginAuthor": "Autor",
+  "pluginLicense": "Licencia",
+  "pluginPluginsRunCodeInsideKioskSatelliteAndCanAccess": "Los plugins ejecutan código dentro de Kiosk Satellite y pueden acceder a los datos de la aplicación y a los permisos de Android concedidos. Un plugin defectuoso o malicioso puede exponer información privada o impedir que la aplicación funcione. Instala únicamente plugins de autores en los que confíes.",
+  "pluginNewPluginsStartDisabledUpdatesPreserveTheEnabledState": "Los plugins nuevos se instalan desactivados. Las actualizaciones conservan su estado de activación y reinician automáticamente los plugins en ejecución.",
+  "pluginTrustAndUpdate": "Confiar y actualizar",
+  "pluginTrustAndInstall": "Confiar e instalar",
+  "pluginInstallFromZip": "Instalar desde ZIP",
+  "pluginForDevelopersOnlyTestALocalBuild": "Solo para desarrolladores: probar una compilación local",
+  "pluginPluginZip": "ZIP del plugin",
+  "pluginPluginZipMustBeAtMost4Mb": "El ZIP del plugin debe ocupar como máximo 4 MB",
+  "pluginCouldNotReadTheSelectedZip": "No se pudo leer el ZIP seleccionado"
+}

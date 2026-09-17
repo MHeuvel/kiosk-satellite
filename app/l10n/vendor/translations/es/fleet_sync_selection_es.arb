@@ -1,0 +1,23 @@
+{
+  "@@locale": "es",
+  "fleetSyncedCredentials": "Credenciales sincronizadas",
+  "fleetTheSettingsOnThisListWillNotBeSynced": "Los ajustes de esta lista no se sincronizan con los seguidores.",
+  "fleetNothingLeftOut": "No hay ajustes excluidos",
+  "fleetSyncItAgain": "Volver a sincronizar",
+  "fleetAddASetting": "Añadir un ajuste",
+  "fleetExcludeASetting": "Excluir un ajuste",
+  "fleetSearchSettings": "Buscar ajustes",
+  "fleetCountMoreTypeToNarrowTheList": "{count} más. Escribe para filtrar la lista.",
+  "fleetNotSyncedNote": "No se sincroniza: {note}",
+  "fleetTheAssignedSatellite": "el satélite asignado",
+  "fleetMicrophoneAndSpeakerDevicesMicGain": "los dispositivos de micrófono y altavoz y la ganancia del micrófono",
+  "fleetTheDeviceCamera": "la cámara del dispositivo",
+  "fleetTheFollowedPlayerTheSendspinPlayerId": "el reproductor seguido y el identificador del reproductor Sendspin",
+  "fleetNodeNameMacEncryptionKey": "el nombre del nodo, la MAC y la clave de cifrado",
+  "fleetThePinIsAlsoSynced": "el PIN también se sincroniza",
+  "fleetTheKeyUnlessSyncedAsACredential": "la clave, salvo que se sincronice como credencial",
+  "fleetNameRemoteAdministrationRendererWorkaroundsScale": "el nombre, la administración remota, los ajustes de compatibilidad del renderizador y la escala",
+  "fleetHomeAssistantToken": "Token de Home Assistant",
+  "fleetMusicAssistantToken": "Token de Music Assistant",
+  "fleetImmichApiKey": "Clave de API de Immich"
+}

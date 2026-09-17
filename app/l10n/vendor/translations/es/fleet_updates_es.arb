@@ -1,0 +1,11 @@
+{
+  "@@locale": "es",
+  "fleetUpdateTheFleet": "Actualizar la flota",
+  "fleetUpdateTheWholeFleetToTheKioskSatelliteVersion": "Actualiza toda la flota a la versión de Kiosk Satellite que usa el líder.",
+  "fleetKeepFollowersOnThisVersion": "Mantener a los seguidores en esta versión",
+  "fleetAutomaticallyUpdateAllFollowersToTheKioskSatelliteVersion": "Actualiza automáticamente a todos los seguidores a la versión de Kiosk Satellite que usa el líder.",
+  "fleetNothingToUpdate": "No hay nada que actualizar",
+  "fleetUpdating": "Actualizando",
+  "fleetNamesInstalling": "Instalando en {names}.",
+  "fleetSearchUpdates": "Instala la versión disponible en cada seguidor y luego aquí."
+}

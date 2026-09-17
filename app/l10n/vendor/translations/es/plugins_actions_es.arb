@@ -1,0 +1,13 @@
+{
+  "@@locale": "es",
+  "pluginActions": "Acciones",
+  "pluginKioskDrawer": "Menú del kiosko",
+  "pluginToAssignAGestureOpenGesturesAndChooseRun": "Para asignar un gesto, abre Gestos y selecciona Ejecutar una acción de plugin.",
+  "pluginShowInKioskDrawer": "Mostrar en el menú del kiosko",
+  "pluginAlsoAvailableWhileLockedIfTheKioskDrawerIs": "También está disponible durante el bloqueo si se permite el menú del kiosko.",
+  "pluginExposeToHomeAssistant": "Publicar en Home Assistant",
+  "pluginAddsAButtonToTheKioskEsphomeDeviceRequires": "Añade un botón al dispositivo ESPHome del kiosko. Requiere ESPHome y entidades nativas.",
+  "pluginSelectAnEntity": "Seleccionar una entidad",
+  "pluginChooseName": "Elegir {name}",
+  "pluginConfigureName": "Configurar {name}"
+}

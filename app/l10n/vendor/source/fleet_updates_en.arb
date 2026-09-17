@@ -1,0 +1,113 @@
+{
+  "@@locale": "en",
+  "fleetUpdateTheFleet": "Update the fleet",
+  "@fleetUpdateTheFleet": {
+    "context": "Settings > Fleet Management > Updates",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Updates"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Updates"
+      ]
+    }
+  },
+  "fleetUpdateTheWholeFleetToTheKioskSatelliteVersion": "Update the whole fleet to the Kiosk Satellite version running on the leader.",
+  "@fleetUpdateTheWholeFleetToTheKioskSatelliteVersion": {
+    "context": "Settings > Fleet Management > Updates",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Updates"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Updates"
+      ]
+    }
+  },
+  "fleetKeepFollowersOnThisVersion": "Keep followers on this version",
+  "@fleetKeepFollowersOnThisVersion": {
+    "context": "Settings > Fleet Management > Updates",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Updates"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Updates"
+      ]
+    }
+  },
+  "fleetAutomaticallyUpdateAllFollowersToTheKioskSatelliteVersion": "Automatically update all followers to the Kiosk Satellite version running on the leader.",
+  "@fleetAutomaticallyUpdateAllFollowersToTheKioskSatelliteVersion": {
+    "context": "Settings > Fleet Management > Updates",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Updates"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Updates"
+      ]
+    }
+  },
+  "fleetNothingToUpdate": "Nothing to update",
+  "@fleetNothingToUpdate": {
+    "context": "Settings > Fleet Management > Updates",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Updates"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Updates"
+      ]
+    }
+  },
+  "fleetUpdating": "Updating",
+  "@fleetUpdating": {
+    "context": "Settings > Fleet Management > Updates",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Updates"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Updates"
+      ]
+    }
+  },
+  "fleetNamesInstalling": "{names} installing.",
+  "@fleetNamesInstalling": {
+    "context": "Settings > Fleet Management > Updates",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Updates"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Updates"
+      ]
+    },
+    "placeholders": {
+      "names": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetSearchUpdates": "Install the release offered to each follower, then here.",
+  "@fleetSearchUpdates": {
+    "context": "Settings > Fleet Management",
+    "description": "Search result description.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  }
+}

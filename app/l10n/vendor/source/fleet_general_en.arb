@@ -1,0 +1,159 @@
+{
+  "@@locale": "en",
+  "fleetFleetManagementNeedsTheRemoteAdmin": "Fleet Management needs the remote admin",
+  "@fleetFleetManagementNeedsTheRemoteAdmin": {
+    "context": "Settings > Fleet Management",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetKiosksFindEachOtherThroughItTurnOnRemote": "Kiosks find each other through it. Turn on Remote management and Find other kiosks under Device, then come back.",
+  "@fleetKiosksFindEachOtherThroughItTurnOnRemote": {
+    "context": "Settings > Fleet Management",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetLeadThisFleet": "Lead this fleet",
+  "@fleetLeadThisFleet": {
+    "context": "Settings > Fleet Management",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetSyncThisKioskSSettingsToItsFollowersRequires": "Sync this kiosk's settings to its followers. Requires all kiosks to run the same version.",
+  "@fleetSyncThisKioskSSettingsToItsFollowersRequires": {
+    "context": "Settings > Fleet Management",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetAKioskThatFollowsALeaderCannotLead": "A kiosk that follows a leader cannot lead.",
+  "@fleetAKioskThatFollowsALeaderCannotLead": {
+    "context": "Settings > Fleet Management",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetFollowers": "Followers",
+  "@fleetFollowers": {
+    "context": "Settings > Fleet Management",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetProfiles": "Profiles",
+  "@fleetProfiles": {
+    "context": "Settings > Fleet Management",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetLeader": "Leader",
+  "@fleetLeader": {
+    "context": "Settings > Fleet Management",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetLearnWhichSettingsSyncAndWhichDoNotIn": "Learn which settings sync and which do not in the ",
+  "@fleetLearnWhichSettingsSyncAndWhichDoNotIn": {
+    "context": "Settings > Fleet Management",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetFleetManagementDocumentation": "Fleet Management documentation",
+  "@fleetFleetManagementDocumentation": {
+    "context": "Settings > Fleet Management",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetMore": "More",
+  "@fleetMore": {
+    "context": "Settings > Fleet Management",
+    "description": "Accessible label for the follower actions menu.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetSearchFollowers": "The kiosks this one leads, their state and a way to add one.",
+  "@fleetSearchFollowers": {
+    "context": "Settings > Fleet Management",
+    "description": "Search result description.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  }
+}

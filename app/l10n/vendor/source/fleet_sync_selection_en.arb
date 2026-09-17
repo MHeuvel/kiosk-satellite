@@ -1,0 +1,275 @@
+{
+  "@@locale": "en",
+  "fleetSyncedCredentials": "Synced Credentials",
+  "@fleetSyncedCredentials": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetTheSettingsOnThisListWillNotBeSynced": "The settings on this list will not be synced to the followers.",
+  "@fleetTheSettingsOnThisListWillNotBeSynced": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetNothingLeftOut": "Nothing left out",
+  "@fleetNothingLeftOut": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetSyncItAgain": "Sync it again",
+  "@fleetSyncItAgain": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetAddASetting": "Add a setting",
+  "@fleetAddASetting": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetExcludeASetting": "Exclude a setting",
+  "@fleetExcludeASetting": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetSearchSettings": "Search settings",
+  "@fleetSearchSettings": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetCountMoreTypeToNarrowTheList": "{count} more. Type to narrow the list.",
+  "@fleetCountMoreTypeToNarrowTheList": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetNotSyncedNote": "Not synced: {note}",
+  "@fleetNotSyncedNote": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    },
+    "placeholders": {
+      "note": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetTheAssignedSatellite": "the assigned satellite",
+  "@fleetTheAssignedSatellite": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetMicrophoneAndSpeakerDevicesMicGain": "microphone and speaker devices, mic gain",
+  "@fleetMicrophoneAndSpeakerDevicesMicGain": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetTheDeviceCamera": "the device camera",
+  "@fleetTheDeviceCamera": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetTheFollowedPlayerTheSendspinPlayerId": "the followed player, the Sendspin player id",
+  "@fleetTheFollowedPlayerTheSendspinPlayerId": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetNodeNameMacEncryptionKey": "node name, MAC, encryption key",
+  "@fleetNodeNameMacEncryptionKey": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetThePinIsAlsoSynced": "the PIN is also synced",
+  "@fleetThePinIsAlsoSynced": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetTheKeyUnlessSyncedAsACredential": "the key, unless synced as a credential",
+  "@fleetTheKeyUnlessSyncedAsACredential": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetNameRemoteAdministrationRendererWorkaroundsScale": "name, remote administration, renderer workarounds, scale",
+  "@fleetNameRemoteAdministrationRendererWorkaroundsScale": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetHomeAssistantToken": "Home Assistant token",
+  "@fleetHomeAssistantToken": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetMusicAssistantToken": "Music Assistant token",
+  "@fleetMusicAssistantToken": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
+  "fleetImmichApiKey": "Immich API key",
+  "@fleetImmichApiKey": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  }
+}

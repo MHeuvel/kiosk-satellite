@@ -1160,7 +1160,7 @@
       ]
     }
   },
-  "fleetFleetManagementNeedsTheRemoteAdmin": "Fleet Management needs the remote admin",
+  "fleetFleetManagementNeedsTheRemoteAdmin": "La gestión de flota necesita la administración remota",
   "@fleetFleetManagementNeedsTheRemoteAdmin": {
     "context": "Settings > Fleet Management",
     "description": "Visible label, help or status in this section.",
@@ -1173,7 +1173,7 @@
       ]
     }
   },
-  "fleetKiosksFindEachOtherThroughItTurnOnRemote": "Kiosks find each other through it. Turn on Remote management and Find other kiosks under Device, then come back.",
+  "fleetKiosksFindEachOtherThroughItTurnOnRemote": "Los kioskos se encuentran mediante la administración remota. Activa Administración remota y Buscar otros kioskos en Dispositivo y luego vuelve aquí.",
   "@fleetKiosksFindEachOtherThroughItTurnOnRemote": {
     "context": "Settings > Fleet Management",
     "description": "Visible label, help or status in this section.",
@@ -1186,7 +1186,7 @@
       ]
     }
   },
-  "fleetLeadThisFleet": "Lead this fleet",
+  "fleetLeadThisFleet": "Dirigir esta flota",
   "@fleetLeadThisFleet": {
     "context": "Settings > Fleet Management",
     "description": "Visible label, help or status in this section.",
@@ -1199,7 +1199,7 @@
       ]
     }
   },
-  "fleetSyncThisKioskSSettingsToItsFollowersRequires": "Sync this kiosk's settings to its followers. Requires all kiosks to run the same version.",
+  "fleetSyncThisKioskSSettingsToItsFollowersRequires": "Sincroniza la configuración de este kiosko con los que lo siguen. Todos los kioskos deben usar la misma versión.",
   "@fleetSyncThisKioskSSettingsToItsFollowersRequires": {
     "context": "Settings > Fleet Management",
     "description": "Visible label, help or status in this section.",
@@ -1212,7 +1212,7 @@
       ]
     }
   },
-  "fleetAKioskThatFollowsALeaderCannotLead": "A kiosk that follows a leader cannot lead.",
+  "fleetAKioskThatFollowsALeaderCannotLead": "Un kiosko que sigue a un líder no puede dirigir una flota.",
   "@fleetAKioskThatFollowsALeaderCannotLead": {
     "context": "Settings > Fleet Management",
     "description": "Visible label, help or status in this section.",
@@ -1225,7 +1225,7 @@
       ]
     }
   },
-  "fleetFollowers": "Followers",
+  "fleetFollowers": "Seguidores",
   "@fleetFollowers": {
     "context": "Settings > Fleet Management",
     "description": "Visible label, help or status in this section.",
@@ -1238,7 +1238,7 @@
       ]
     }
   },
-  "fleetProfiles": "Profiles",
+  "fleetProfiles": "Perfiles",
   "@fleetProfiles": {
     "context": "Settings > Fleet Management",
     "description": "Visible label, help or status in this section.",
@@ -1251,7 +1251,7 @@
       ]
     }
   },
-  "fleetLeader": "Leader",
+  "fleetLeader": "Líder",
   "@fleetLeader": {
     "context": "Settings > Fleet Management",
     "description": "Visible label, help or status in this section.",
@@ -1264,7 +1264,7 @@
       ]
     }
   },
-  "fleetLearnWhichSettingsSyncAndWhichDoNotIn": "Learn which settings sync and which do not in the ",
+  "fleetLearnWhichSettingsSyncAndWhichDoNotIn": "Consulta qué ajustes se sincronizan y cuáles no en la ",
   "@fleetLearnWhichSettingsSyncAndWhichDoNotIn": {
     "context": "Settings > Fleet Management",
     "description": "Visible label, help or status in this section.",
@@ -1277,7 +1277,7 @@
       ]
     }
   },
-  "fleetFleetManagementDocumentation": "Fleet Management documentation",
+  "fleetFleetManagementDocumentation": "documentación de gestión de flota",
   "@fleetFleetManagementDocumentation": {
     "context": "Settings > Fleet Management",
     "description": "Visible label, help or status in this section.",
@@ -1290,7 +1290,7 @@
       ]
     }
   },
-  "fleetMore": "More",
+  "fleetMore": "Más",
   "@fleetMore": {
     "context": "Settings > Fleet Management",
     "description": "Accessible label for the follower actions menu.",
@@ -1303,7 +1303,7 @@
       ]
     }
   },
-  "fleetSearchFollowers": "The kiosks this one leads, their state and a way to add one.",
+  "fleetSearchFollowers": "Los kioskos que siguen a este, su estado y la opción de añadir uno.",
   "@fleetSearchFollowers": {
     "context": "Settings > Fleet Management",
     "description": "Search result description.",
@@ -1316,7 +1316,7 @@
       ]
     }
   },
-  "fleetAddAKiosk": "Add a kiosk",
+  "fleetAddAKiosk": "Añadir un kiosko",
   "@fleetAddAKiosk": {
     "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
     "description": "Visible label, help or status in this section.",
@@ -1329,7 +1329,7 @@
       ]
     }
   },
-  "fleetKiosksMemberOfTheFleetAFollowerMustConfirm": "Kiosks member of the fleet. A follower must confirm the invitation on device.",
+  "fleetKiosksMemberOfTheFleetAFollowerMustConfirm": "Kioskos de la flota. Cada seguidor debe confirmar la invitación en su dispositivo.",
   "@fleetKiosksMemberOfTheFleetAFollowerMustConfirm": {
     "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
     "description": "Visible label, help or status in this section.",
@@ -1342,7 +1342,7 @@
       ]
     }
   },
-  "fleetSendInvitation": "Send invitation",
+  "fleetSendInvitation": "Enviar invitación",
   "@fleetSendInvitation": {
     "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
     "description": "Visible label, help or status in this section.",
@@ -1355,7 +1355,7 @@
       ]
     }
   },
-  "fleetInviteAgain": "Invite again",
+  "fleetInviteAgain": "Volver a invitar",
   "@fleetInviteAgain": {
     "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
     "description": "Visible label, help or status in this section.",
@@ -1368,7 +1368,7 @@
       ]
     }
   },
-  "fleetRemoveName": "Remove {name}?",
+  "fleetRemoveName": "¿Eliminar {name}?",
   "@fleetRemoveName": {
     "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
     "description": "Visible label, help or status in this section.",
@@ -1387,7 +1387,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
   },
-  "fleetItStopsFollowingThisKioskAndKeepsItsSettings": "It stops following this kiosk and keeps its settings.",
+  "fleetItStopsFollowingThisKioskAndKeepsItsSettings": "Deja de seguir a este kiosko y conserva su configuración.",
   "@fleetItStopsFollowingThisKioskAndKeepsItsSettings": {
     "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
     "description": "Visible label, help or status in this section.",
@@ -1400,7 +1400,7 @@
       ]
     }
   },
-  "fleetNameWantsToLeadThisKiosk": "{name} wants to lead this kiosk",
+  "fleetNameWantsToLeadThisKiosk": "{name} quiere dirigir este kiosko",
   "@fleetNameWantsToLeadThisKiosk": {
     "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
     "description": "Visible label, help or status in this section.",
@@ -1419,7 +1419,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
   },
-  "fleetItsSettingsReplaceThisKioskSInTheCategories": "Its settings replace this kiosk's in the categories it syncs, from now on. This kiosk keeps its name and identity.",
+  "fleetItsSettingsReplaceThisKioskSInTheCategories": "A partir de ahora, su configuración sustituye a la de este kiosko en las categorías que sincroniza. Este kiosko conserva su nombre e identidad.",
   "@fleetItsSettingsReplaceThisKioskSInTheCategories": {
     "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
     "description": "Visible label, help or status in this section.",
@@ -1432,7 +1432,7 @@
       ]
     }
   },
-  "fleetItsSettingsReplaceThisKioskSInTheCategoriesDetail": "Its settings replace this kiosk's in the categories it syncs, from now on. This kiosk keeps its name, its Home Assistant, Music Assistant and ESPHome selves and its hardware picks. You can leave the fleet at any time under Settings, Fleet Management.",
+  "fleetItsSettingsReplaceThisKioskSInTheCategoriesDetail": "A partir de ahora, su configuración sustituye a la de este kiosko en las categorías que sincroniza. Este kiosko conserva su nombre, sus identidades en Home Assistant, Music Assistant y ESPHome y sus dispositivos seleccionados. Puedes salir de la flota cuando quieras desde Configuración > Gestión de flota.",
   "@fleetItsSettingsReplaceThisKioskSInTheCategoriesDetail": {
     "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
     "description": "Visible label, help or status in this section.",
@@ -1445,7 +1445,7 @@
       ]
     }
   },
-  "fleetConfirmOnTheKioskItselfTheInvitationIsWaiting": "Confirm on the kiosk itself. The invitation is waiting on its screen and under Settings, Fleet Management.",
+  "fleetConfirmOnTheKioskItselfTheInvitationIsWaiting": "Confirma en el propio kiosko. La invitación aparece en su pantalla y en Configuración > Gestión de flota.",
   "@fleetConfirmOnTheKioskItselfTheInvitationIsWaiting": {
     "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
     "description": "Visible label, help or status in this section.",
@@ -1458,7 +1458,7 @@
       ]
     }
   },
-  "fleetAccept": "Accept",
+  "fleetAccept": "Aceptar",
   "@fleetAccept": {
     "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
     "description": "Visible label, help or status in this section.",
@@ -1471,7 +1471,7 @@
       ]
     }
   },
-  "fleetLookingForOtherKiosks": "Looking for other kiosks…",
+  "fleetLookingForOtherKiosks": "Buscando otros kioskos…",
   "@fleetLookingForOtherKiosks": {
     "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
     "description": "Visible label, help or status in this section.",
@@ -1484,7 +1484,7 @@
       ]
     }
   },
-  "fleetNoOtherKioskFoundOnThisNetworkAKiosk": "No other kiosk found on this network. A kiosk shows up once its remote admin is on and it shares this Wi-Fi.",
+  "fleetNoOtherKioskFoundOnThisNetworkAKiosk": "No se encontró otro kiosko en esta red. Aparecerá cuando tenga activada la administración remota y esté conectado a esta red Wi-Fi.",
   "@fleetNoOtherKioskFoundOnThisNetworkAKiosk": {
     "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
     "description": "Visible label, help or status in this section.",
@@ -1497,7 +1497,7 @@
       ]
     }
   },
-  "fleetFollowsName": "Follows {name}",
+  "fleetFollowsName": "Sigue a {name}",
   "@fleetFollowsName": {
     "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
     "description": "Visible label, help or status in this section.",
@@ -1516,7 +1516,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
   },
-  "fleetLeadsAFleet": "Leads a fleet",
+  "fleetLeadsAFleet": "Dirige una flota",
   "@fleetLeadsAFleet": {
     "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
     "description": "Visible label, help or status in this section.",
@@ -1529,7 +1529,7 @@
       ]
     }
   },
-  "fleetNoFleetManagement": "No Fleet Management",
+  "fleetNoFleetManagement": "Sin gestión de flota",
   "@fleetNoFleetManagement": {
     "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
     "description": "Visible label, help or status in this section.",
@@ -1542,7 +1542,7 @@
       ]
     }
   },
-  "fleetKiosksOnThisNetworkThatDoNotFollowThis": "Kiosks on this network that do not follow this one. Pick one to choose what it gets, then the invitation goes out. A kiosk on a build without Fleet Management joins once it runs one.",
+  "fleetKiosksOnThisNetworkThatDoNotFollowThis": "Kioskos de esta red que no siguen a este. Selecciona uno y elige qué recibirá para enviarle la invitación. Si su versión no incluye Gestión de flota, podrá unirse cuando la actualice.",
   "@fleetKiosksOnThisNetworkThatDoNotFollowThis": {
     "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
     "description": "Visible label, help or status in this section.",
@@ -1555,7 +1555,7 @@
       ]
     }
   },
-  "fleetJoinedTheFleet": "Joined the fleet",
+  "fleetJoinedTheFleet": "Te has unido a la flota",
   "@fleetJoinedTheFleet": {
     "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
     "description": "Visible label, help or status in this section.",
@@ -1568,7 +1568,7 @@
       ]
     }
   },
-  "fleetSettingsFromTheLeaderArriveShortly": "Settings from the leader arrive shortly.",
+  "fleetSettingsFromTheLeaderArriveShortly": "La configuración del líder llegará en breve.",
   "@fleetSettingsFromTheLeaderArriveShortly": {
     "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
     "description": "Visible label, help or status in this section.",
@@ -1581,7 +1581,7 @@
       ]
     }
   },
-  "fleetAddAProfile": "Add a profile",
+  "fleetAddAProfile": "Añadir un perfil",
   "@fleetAddAProfile": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -1594,7 +1594,7 @@
       ]
     }
   },
-  "fleetTheCollectionOfSettingsCredentialsAndExclusionsToSync": "The collection of settings, credentials and exclusions to sync.",
+  "fleetTheCollectionOfSettingsCredentialsAndExclusionsToSync": "El conjunto de ajustes, credenciales y exclusiones para sincronizar.",
   "@fleetTheCollectionOfSettingsCredentialsAndExclusionsToSync": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -1607,7 +1607,7 @@
       ]
     }
   },
-  "fleetNewProfile": "New profile",
+  "fleetNewProfile": "Nuevo perfil",
   "@fleetNewProfile": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -1620,7 +1620,7 @@
       ]
     }
   },
-  "fleetProfile": "Profile",
+  "fleetProfile": "Perfil",
   "@fleetProfile": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -1633,7 +1633,7 @@
       ]
     }
   },
-  "fleetUpdatesOnly": "Updates only",
+  "fleetUpdatesOnly": "Solo actualizaciones",
   "@fleetUpdatesOnly": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -1646,7 +1646,7 @@
       ]
     }
   },
-  "fleetNothingSyncsOnlyUpdatesArePushed": "Nothing syncs. Only updates are pushed.",
+  "fleetNothingSyncsOnlyUpdatesArePushed": "No se sincroniza ningún ajuste. Solo se envían actualizaciones.",
   "@fleetNothingSyncsOnlyUpdatesArePushed": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -1659,7 +1659,7 @@
       ]
     }
   },
-  "fleetCategoriesSelectedOfTotalCredentialsCredentialsOfCredentialtotalExcluded": "Categories: {selected} of {total}. Credentials: {credentials} of {credentialTotal}. Excluded: {excluded}.",
+  "fleetCategoriesSelectedOfTotalCredentialsCredentialsOfCredentialtotalExcluded": "Categorías: {selected} de {total}. Credenciales: {credentials} de {credentialTotal}. Excluidos: {excluded}.",
   "@fleetCategoriesSelectedOfTotalCredentialsCredentialsOfCredentialtotalExcluded": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -1690,7 +1690,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
   },
-  "fleetThisProfileIsGone": "This profile is gone",
+  "fleetThisProfileIsGone": "Este perfil ya no existe",
   "@fleetThisProfileIsGone": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -1703,7 +1703,7 @@
       ]
     }
   },
-  "fleetItWasDeletedFromAnotherPage": "It was deleted from another page.",
+  "fleetItWasDeletedFromAnotherPage": "Se eliminó desde otra página.",
   "@fleetItWasDeletedFromAnotherPage": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -1716,7 +1716,7 @@
       ]
     }
   },
-  "fleetName": "Name",
+  "fleetName": "Nombre",
   "@fleetName": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -1729,7 +1729,7 @@
       ]
     }
   },
-  "fleetRename": "Rename",
+  "fleetRename": "Cambiar nombre",
   "@fleetRename": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -1742,7 +1742,7 @@
       ]
     }
   },
-  "fleetRenameProfile": "Rename profile",
+  "fleetRenameProfile": "Cambiar nombre del perfil",
   "@fleetRenameProfile": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -1755,7 +1755,7 @@
       ]
     }
   },
-  "fleetWhatItSyncs": "What it syncs",
+  "fleetWhatItSyncs": "Qué se sincroniza",
   "@fleetWhatItSyncs": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -1768,7 +1768,7 @@
       ]
     }
   },
-  "fleetNothing": "Nothing",
+  "fleetNothing": "Nada",
   "@fleetNothing": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -1781,7 +1781,7 @@
       ]
     }
   },
-  "fleetKiosksOnThisProfileKeepEverySettingOfTheir": "Kiosks on this profile keep every setting of their own. The leader only pushes updates to them.",
+  "fleetKiosksOnThisProfileKeepEverySettingOfTheir": "Los kioskos con este perfil conservan toda su configuración. El líder solo les envía actualizaciones.",
   "@fleetKiosksOnThisProfileKeepEverySettingOfTheir": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -1794,7 +1794,7 @@
       ]
     }
   },
-  "fleetCategories": "Categories",
+  "fleetCategories": "Categorías",
   "@fleetCategories": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -1807,7 +1807,7 @@
       ]
     }
   },
-  "fleetSelectedOfTotalNames": "{selected} of {total}: {names}",
+  "fleetSelectedOfTotalNames": "{selected} de {total}: {names}",
   "@fleetSelectedOfTotalNames": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -1832,7 +1832,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
   },
-  "fleetCredentials": "Credentials",
+  "fleetCredentials": "Credenciales",
   "@fleetCredentials": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -1845,7 +1845,7 @@
       ]
     }
   },
-  "fleetNoneTravel": "None travel",
+  "fleetNoneTravel": "No se envía ninguna",
   "@fleetNoneTravel": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -1858,7 +1858,7 @@
       ]
     }
   },
-  "fleetIncludeTheDashboard": "Include the dashboard",
+  "fleetIncludeTheDashboard": "Incluir el panel de control",
   "@fleetIncludeTheDashboard": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -1871,7 +1871,7 @@
       ]
     }
   },
-  "fleetTheStartPageAndTheDefaultDashboard": "The start page and the default dashboard.",
+  "fleetTheStartPageAndTheDefaultDashboard": "La página de inicio y el panel de control predeterminado.",
   "@fleetTheStartPageAndTheDefaultDashboard": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -1884,7 +1884,7 @@
       ]
     }
   },
-  "fleetExcludedSettings": "Excluded settings",
+  "fleetExcludedSettings": "Ajustes excluidos",
   "@fleetExcludedSettings": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -1897,7 +1897,7 @@
       ]
     }
   },
-  "fleetOneSettingLeftOut": "One setting left out",
+  "fleetOneSettingLeftOut": "Un ajuste excluido",
   "@fleetOneSettingLeftOut": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -1910,7 +1910,7 @@
       ]
     }
   },
-  "fleetCountSettingsLeftOut": "{count} settings left out",
+  "fleetCountSettingsLeftOut": "{count} ajustes excluidos",
   "@fleetCountSettingsLeftOut": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -1929,7 +1929,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
   },
-  "fleetNoKiosksAssigned": "No kiosks assigned",
+  "fleetNoKiosksAssigned": "No hay kioskos asignados",
   "@fleetNoKiosksAssigned": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -1942,7 +1942,7 @@
       ]
     }
   },
-  "fleetAssignThisProfileToAKioskOnTheFleet": "Assign this profile to a kiosk on the Fleet Management page.",
+  "fleetAssignThisProfileToAKioskOnTheFleet": "Asigna este perfil a un kiosko en la página Gestión de flota.",
   "@fleetAssignThisProfileToAKioskOnTheFleet": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -1955,7 +1955,7 @@
       ]
     }
   },
-  "fleetDuplicate": "Duplicate",
+  "fleetDuplicate": "Duplicar",
   "@fleetDuplicate": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -1968,7 +1968,7 @@
       ]
     }
   },
-  "fleetCloneThisProfileIntoANewOne": "Clone this profile into a new one.",
+  "fleetCloneThisProfileIntoANewOne": "Crea un perfil nuevo a partir de este.",
   "@fleetCloneThisProfileIntoANewOne": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -1981,7 +1981,7 @@
       ]
     }
   },
-  "fleetDuplicateProfile": "Duplicate profile",
+  "fleetDuplicateProfile": "Duplicar perfil",
   "@fleetDuplicateProfile": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -1994,7 +1994,7 @@
       ]
     }
   },
-  "fleetNameCopy": "{name} copy",
+  "fleetNameCopy": "Copia de {name}",
   "@fleetNameCopy": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -2013,7 +2013,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
   },
-  "fleetDeleteProfile": "Delete profile",
+  "fleetDeleteProfile": "Eliminar perfil",
   "@fleetDeleteProfile": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -2026,7 +2026,7 @@
       ]
     }
   },
-  "fleetNoKioskIsOnIt": "No kiosk is on it.",
+  "fleetNoKioskIsOnIt": "Ningún kiosko usa este perfil.",
   "@fleetNoKioskIsOnIt": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -2039,7 +2039,7 @@
       ]
     }
   },
-  "fleetKiosksOnItGetTheDefaultProfile": "Kiosks on it get the Default profile.",
+  "fleetKiosksOnItGetTheDefaultProfile": "Los kioskos que lo usan reciben el perfil Predeterminado.",
   "@fleetKiosksOnItGetTheDefaultProfile": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -2052,7 +2052,7 @@
       ]
     }
   },
-  "fleetDeleteName": "Delete {name}?",
+  "fleetDeleteName": "¿Eliminar {name}?",
   "@fleetDeleteName": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -2071,7 +2071,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
   },
-  "fleetBlackScreens": "Black screens",
+  "fleetBlackScreens": "Pantallas negras",
   "@fleetBlackScreens": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -2084,7 +2084,7 @@
       ]
     }
   },
-  "fleetSyncToName": "Sync to {name}",
+  "fleetSyncToName": "Sincronizar con {name}",
   "@fleetSyncToName": {
     "context": "Settings > Fleet Management > Profiles > a profile",
     "description": "Visible label, help or status in this section.",
@@ -2103,7 +2103,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
   },
-  "fleetDefault": "Default",
+  "fleetDefault": "Predeterminado",
   "@fleetDefault": {
     "context": "Settings > Fleet Management",
     "description": "Name of the built-in default profile. Custom names stay unchanged.",
@@ -2116,7 +2116,7 @@
       ]
     }
   },
-  "fleetNone": "None",
+  "fleetNone": "Ninguno",
   "@fleetNone": {
     "context": "Settings > Fleet Management",
     "description": "No categories or excluded settings are selected.",
@@ -2129,7 +2129,7 @@
       ]
     }
   },
-  "fleetSearchProfiles": "The named lists a follower can be given: categories, credentials, the dashboard and the settings left out.",
+  "fleetSearchProfiles": "Los perfiles que se pueden asignar a un seguidor: categorías, credenciales, panel de control y ajustes excluidos.",
   "@fleetSearchProfiles": {
     "context": "Settings > Fleet Management",
     "description": "Search result description.",
@@ -2142,7 +2142,7 @@
       ]
     }
   },
-  "fleetSyncNow": "Sync now",
+  "fleetSyncNow": "Sincronizar ahora",
   "@fleetSyncNow": {
     "context": "Settings > Fleet Management > Followers and Leader",
     "description": "Visible label, help or status in this section.",
@@ -2155,7 +2155,7 @@
       ]
     }
   },
-  "fleetChangedHereWaitingForTheLeader": "Changed here, waiting for the leader",
+  "fleetChangedHereWaitingForTheLeader": "Cambios locales, esperando al líder",
   "@fleetChangedHereWaitingForTheLeader": {
     "context": "Settings > Fleet Management > Followers and Leader",
     "description": "Visible label, help or status in this section.",
@@ -2168,7 +2168,7 @@
       ]
     }
   },
-  "fleetSyncedTime": "Synced {time}",
+  "fleetSyncedTime": "Sincronizado {time}",
   "@fleetSyncedTime": {
     "context": "Settings > Fleet Management > Followers and Leader",
     "description": "Visible label, help or status in this section.",
@@ -2187,7 +2187,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
   },
-  "fleetWaitingForTheFirstSync": "Waiting for the first sync",
+  "fleetWaitingForTheFirstSync": "Esperando la primera sincronización",
   "@fleetWaitingForTheFirstSync": {
     "context": "Settings > Fleet Management > Followers and Leader",
     "description": "Visible label, help or status in this section.",
@@ -2200,7 +2200,7 @@
       ]
     }
   },
-  "fleetNothingYet": "Nothing yet",
+  "fleetNothingYet": "Nada todavía",
   "@fleetNothingYet": {
     "context": "Settings > Fleet Management > Followers and Leader",
     "description": "Visible label, help or status in this section.",
@@ -2213,7 +2213,7 @@
       ]
     }
   },
-  "fleetNoCredentials": "No credentials",
+  "fleetNoCredentials": "Sin credenciales",
   "@fleetNoCredentials": {
     "context": "Settings > Fleet Management > Followers and Leader",
     "description": "Visible label, help or status in this section.",
@@ -2226,7 +2226,7 @@
       ]
     }
   },
-  "fleetWithTheNames": "With the {names}",
+  "fleetWithTheNames": "Con {names}",
   "@fleetWithTheNames": {
     "context": "Settings > Fleet Management > Followers and Leader",
     "description": "Visible label, help or status in this section.",
@@ -2245,7 +2245,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
   },
-  "fleetTheDashboard": "the dashboard",
+  "fleetTheDashboard": "el panel de control",
   "@fleetTheDashboard": {
     "context": "Settings > Fleet Management > Followers and Leader",
     "description": "Visible label, help or status in this section.",
@@ -2258,7 +2258,7 @@
       ]
     }
   },
-  "fleetNoDashboard": "no dashboard",
+  "fleetNoDashboard": "sin panel de control",
   "@fleetNoDashboard": {
     "context": "Settings > Fleet Management > Followers and Leader",
     "description": "Visible label, help or status in this section.",
@@ -2271,7 +2271,7 @@
       ]
     }
   },
-  "fleetTheDashboardDetail": "The dashboard",
+  "fleetTheDashboardDetail": "El panel de control",
   "@fleetTheDashboardDetail": {
     "context": "Settings > Fleet Management > Followers and Leader",
     "description": "Visible label, help or status in this section.",
@@ -2284,7 +2284,7 @@
       ]
     }
   },
-  "fleetNoDashboardDetail": "No dashboard",
+  "fleetNoDashboardDetail": "Sin panel de control",
   "@fleetNoDashboardDetail": {
     "context": "Settings > Fleet Management > Followers and Leader",
     "description": "Visible label, help or status in this section.",
@@ -2297,7 +2297,7 @@
       ]
     }
   },
-  "fleetSyncedFromTheLeader": "Synced from the leader",
+  "fleetSyncedFromTheLeader": "Sincronizado desde el líder",
   "@fleetSyncedFromTheLeader": {
     "context": "Settings > Fleet Management > Followers and Leader",
     "description": "Visible label, help or status in this section.",
@@ -2310,7 +2310,7 @@
       ]
     }
   },
-  "fleetLeaveTheFleet": "Leave the fleet",
+  "fleetLeaveTheFleet": "Salir de la flota",
   "@fleetLeaveTheFleet": {
     "context": "Settings > Fleet Management > Followers and Leader",
     "description": "Visible label, help or status in this section.",
@@ -2323,7 +2323,7 @@
       ]
     }
   },
-  "fleetStopsTheSyncSettingsStayAsTheyAre": "Stops the sync. Settings stay as they are.",
+  "fleetStopsTheSyncSettingsStayAsTheyAre": "Detiene la sincronización. La configuración se conserva tal como está.",
   "@fleetStopsTheSyncSettingsStayAsTheyAre": {
     "context": "Settings > Fleet Management > Followers and Leader",
     "description": "Visible label, help or status in this section.",
@@ -2336,7 +2336,7 @@
       ]
     }
   },
-  "fleetLeaveTheFleetDetail": "Leave the fleet?",
+  "fleetLeaveTheFleetDetail": "¿Salir de la flota?",
   "@fleetLeaveTheFleetDetail": {
     "context": "Settings > Fleet Management > Followers and Leader",
     "description": "Visible label, help or status in this section.",
@@ -2349,7 +2349,7 @@
       ]
     }
   },
-  "fleetNameStopsPushingSettingsHereEverythingStaysAsIt": "{name} stops pushing settings here. Everything stays as it is now.",
+  "fleetNameStopsPushingSettingsHereEverythingStaysAsIt": "{name} deja de enviar ajustes a este kiosko. Todo se conserva tal como está.",
   "@fleetNameStopsPushingSettingsHereEverythingStaysAsIt": {
     "context": "Settings > Fleet Management > Followers and Leader",
     "description": "Visible label, help or status in this section.",
@@ -2368,7 +2368,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
   },
-  "fleetLeave": "Leave",
+  "fleetLeave": "Salir",
   "@fleetLeave": {
     "context": "Settings > Fleet Management > Followers and Leader",
     "description": "Visible label, help or status in this section.",
@@ -2381,7 +2381,7 @@
       ]
     }
   },
-  "fleetJustNow": "just now",
+  "fleetJustNow": "ahora mismo",
   "@fleetJustNow": {
     "context": "Settings > Fleet Management > Followers and Leader",
     "description": "Visible label, help or status in this section.",
@@ -2394,7 +2394,7 @@
       ]
     }
   },
-  "fleetCountMinAgo": "{count} min ago",
+  "fleetCountMinAgo": "hace {count} min",
   "@fleetCountMinAgo": {
     "context": "Settings > Fleet Management > Followers and Leader",
     "description": "Visible label, help or status in this section.",
@@ -2413,7 +2413,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
   },
-  "fleetCountHAgo": "{count} h ago",
+  "fleetCountHAgo": "hace {count} h",
   "@fleetCountHAgo": {
     "context": "Settings > Fleet Management > Followers and Leader",
     "description": "Visible label, help or status in this section.",
@@ -2432,7 +2432,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
   },
-  "fleetCountDaysAgo": "{count} days ago",
+  "fleetCountDaysAgo": "hace {count} días",
   "@fleetCountDaysAgo": {
     "context": "Settings > Fleet Management > Followers and Leader",
     "description": "Visible label, help or status in this section.",
@@ -2451,7 +2451,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
   },
-  "fleetNameLeadsTheseSettingsAChangeHereIsReplaced": "{name} leads these settings. A change here is replaced at the next sync.",
+  "fleetNameLeadsTheseSettingsAChangeHereIsReplaced": "{name} dirige estos ajustes. Los cambios locales se sustituyen en la siguiente sincronización.",
   "@fleetNameLeadsTheseSettingsAChangeHereIsReplaced": {
     "context": "Settings > Fleet Management > Followers and Leader",
     "description": "Visible label, help or status in this section.",
@@ -2470,7 +2470,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
   },
-  "fleetDeclinedOnTheKiosk": "Declined on the kiosk",
+  "fleetDeclinedOnTheKiosk": "Rechazado en el kiosko",
   "@fleetDeclinedOnTheKiosk": {
     "context": "Settings > Fleet Management > Followers and Leader",
     "description": "Visible label, help or status in this section.",
@@ -2483,7 +2483,7 @@
       ]
     }
   },
-  "fleetWaitingForItsOk": "Waiting for its OK",
+  "fleetWaitingForItsOk": "Esperando su confirmación",
   "@fleetWaitingForItsOk": {
     "context": "Settings > Fleet Management > Followers and Leader",
     "description": "Visible label, help or status in this section.",
@@ -2496,7 +2496,7 @@
       ]
     }
   },
-  "fleetLeftTheFleet": "Left the fleet",
+  "fleetLeftTheFleet": "Salió de la flota",
   "@fleetLeftTheFleet": {
     "context": "Settings > Fleet Management > Followers and Leader",
     "description": "Visible label, help or status in this section.",
@@ -2509,7 +2509,7 @@
       ]
     }
   },
-  "fleetSendingPercent": "Sending {percent}%",
+  "fleetSendingPercent": "Enviando {percent}%",
   "@fleetSendingPercent": {
     "context": "Settings > Fleet Management > Followers and Leader",
     "description": "Visible label, help or status in this section.",
@@ -2528,7 +2528,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
   },
-  "fleetInstalling": "Installing",
+  "fleetInstalling": "Instalando",
   "@fleetInstalling": {
     "context": "Settings > Fleet Management > Followers and Leader",
     "description": "Visible label, help or status in this section.",
@@ -2541,7 +2541,7 @@
       ]
     }
   },
-  "fleetRunsVersionThisKioskNeedsAnUpdate": "Runs {version}, this kiosk needs an update",
+  "fleetRunsVersionThisKioskNeedsAnUpdate": "Usa {version}, este kiosko necesita una actualización",
   "@fleetRunsVersionThisKioskNeedsAnUpdate": {
     "context": "Settings > Fleet Management > Followers and Leader",
     "description": "Visible label, help or status in this section.",
@@ -2560,7 +2560,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
   },
-  "fleetNeedsVersion": "Needs {version}",
+  "fleetNeedsVersion": "Necesita {version}",
   "@fleetNeedsVersion": {
     "context": "Settings > Fleet Management > Followers and Leader",
     "description": "Visible label, help or status in this section.",
@@ -2579,7 +2579,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
   },
-  "fleetDownloadingPercent": "Downloading {percent}%",
+  "fleetDownloadingPercent": "Descargando {percent}%",
   "@fleetDownloadingPercent": {
     "context": "Settings > Fleet Management > Followers and Leader",
     "description": "Visible label, help or status in this section.",
@@ -2598,7 +2598,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
   },
-  "fleetSyncing": "Syncing…",
+  "fleetSyncing": "Sincronizando…",
   "@fleetSyncing": {
     "context": "Settings > Fleet Management > Followers and Leader",
     "description": "Visible label, help or status in this section.",
@@ -2611,7 +2611,7 @@
       ]
     }
   },
-  "fleetErrorUnreachable": "Unreachable",
+  "fleetErrorUnreachable": "Inaccesible",
   "@fleetErrorUnreachable": {
     "context": "Settings > Fleet Management > command result or follower status",
     "description": "Reason a fleet action failed or a kiosk update was skipped.",
@@ -2624,7 +2624,7 @@
       ]
     }
   },
-  "fleetErrorBadAnswer": "Bad answer",
+  "fleetErrorBadAnswer": "Respuesta no válida",
   "@fleetErrorBadAnswer": {
     "context": "Settings > Fleet Management > command result or follower status",
     "description": "Reason a fleet action failed or a kiosk update was skipped.",
@@ -2637,7 +2637,7 @@
       ]
     }
   },
-  "fleetErrorThePushFailed": "The push failed",
+  "fleetErrorThePushFailed": "No se pudo enviar la configuración",
   "@fleetErrorThePushFailed": {
     "context": "Settings > Fleet Management > command result or follower status",
     "description": "Reason a fleet action failed or a kiosk update was skipped.",
@@ -2650,7 +2650,7 @@
       ]
     }
   },
-  "fleetErrorLeadThisFleetIsOff": "Lead this fleet is off",
+  "fleetErrorLeadThisFleetIsOff": "Dirigir esta flota está desactivado",
   "@fleetErrorLeadThisFleetIsOff": {
     "context": "Settings > Fleet Management > command result or follower status",
     "description": "Reason a fleet action failed or a kiosk update was skipped.",
@@ -2663,7 +2663,7 @@
       ]
     }
   },
-  "fleetErrorTheRemoteAdminAndFindOtherKiosksMustBeOn": "The remote admin and Find other kiosks must be on",
+  "fleetErrorTheRemoteAdminAndFindOtherKiosksMustBeOn": "La administración remota y Buscar otros kioskos deben estar activados",
   "@fleetErrorTheRemoteAdminAndFindOtherKiosksMustBeOn": {
     "context": "Settings > Fleet Management > command result or follower status",
     "description": "Reason a fleet action failed or a kiosk update was skipped.",
@@ -2676,7 +2676,7 @@
       ]
     }
   },
-  "fleetErrorPickAnotherKiosk": "Pick another kiosk",
+  "fleetErrorPickAnotherKiosk": "Selecciona otro kiosko",
   "@fleetErrorPickAnotherKiosk": {
     "context": "Settings > Fleet Management > command result or follower status",
     "description": "Reason a fleet action failed or a kiosk update was skipped.",
@@ -2689,7 +2689,7 @@
       ]
     }
   },
-  "fleetErrorThatKioskIsNotOnTheNetworkRightNow": "That kiosk is not on the network right now",
+  "fleetErrorThatKioskIsNotOnTheNetworkRightNow": "Ese kiosko no está en la red en este momento",
   "@fleetErrorThatKioskIsNotOnTheNetworkRightNow": {
     "context": "Settings > Fleet Management > command result or follower status",
     "description": "Reason a fleet action failed or a kiosk update was skipped.",
@@ -2702,7 +2702,7 @@
       ]
     }
   },
-  "fleetErrorThatKioskDidNotAnswer": "That kiosk did not answer",
+  "fleetErrorThatKioskDidNotAnswer": "Ese kiosko no respondió",
   "@fleetErrorThatKioskDidNotAnswer": {
     "context": "Settings > Fleet Management > command result or follower status",
     "description": "Reason a fleet action failed or a kiosk update was skipped.",
@@ -2715,7 +2715,7 @@
       ]
     }
   },
-  "fleetErrorThatKioskRefusedTheInvitation": "That kiosk refused the invitation",
+  "fleetErrorThatKioskRefusedTheInvitation": "Ese kiosko rechazó la invitación",
   "@fleetErrorThatKioskRefusedTheInvitation": {
     "context": "Settings > Fleet Management > command result or follower status",
     "description": "Reason a fleet action failed or a kiosk update was skipped.",
@@ -2728,7 +2728,7 @@
       ]
     }
   },
-  "fleetErrorTheDefaultProfileStays": "The Default profile stays",
+  "fleetErrorTheDefaultProfileStays": "El perfil Predeterminado no se puede eliminar",
   "@fleetErrorTheDefaultProfileStays": {
     "context": "Settings > Fleet Management > command result or follower status",
     "description": "Reason a fleet action failed or a kiosk update was skipped.",
@@ -2741,7 +2741,7 @@
       ]
     }
   },
-  "fleetErrorTheUpdatesOnlyProfileStays": "The Updates only profile stays",
+  "fleetErrorTheUpdatesOnlyProfileStays": "El perfil Solo actualizaciones no se puede eliminar",
   "@fleetErrorTheUpdatesOnlyProfileStays": {
     "context": "Settings > Fleet Management > command result or follower status",
     "description": "Reason a fleet action failed or a kiosk update was skipped.",
@@ -2754,7 +2754,7 @@
       ]
     }
   },
-  "fleetErrorNoSuchProfile": "No such profile",
+  "fleetErrorNoSuchProfile": "Ese perfil no existe",
   "@fleetErrorNoSuchProfile": {
     "context": "Settings > Fleet Management > command result or follower status",
     "description": "Reason a fleet action failed or a kiosk update was skipped.",
@@ -2767,7 +2767,7 @@
       ]
     }
   },
-  "fleetErrorNoSuchFollower": "No such follower",
+  "fleetErrorNoSuchFollower": "Ese seguidor no existe",
   "@fleetErrorNoSuchFollower": {
     "context": "Settings > Fleet Management > command result or follower status",
     "description": "Reason a fleet action failed or a kiosk update was skipped.",
@@ -2780,7 +2780,7 @@
       ]
     }
   },
-  "fleetErrorNoInvitationIsWaiting": "No invitation is waiting",
+  "fleetErrorNoInvitationIsWaiting": "No hay invitaciones pendientes",
   "@fleetErrorNoInvitationIsWaiting": {
     "context": "Settings > Fleet Management > command result or follower status",
     "description": "Reason a fleet action failed or a kiosk update was skipped.",
@@ -2793,7 +2793,7 @@
       ]
     }
   },
-  "fleetErrorMalformedInvitation": "Malformed invitation",
+  "fleetErrorMalformedInvitation": "Invitación no válida",
   "@fleetErrorMalformedInvitation": {
     "context": "Settings > Fleet Management > command result or follower status",
     "description": "Reason a fleet action failed or a kiosk update was skipped.",
@@ -2806,7 +2806,7 @@
       ]
     }
   },
-  "fleetErrorCouldNotMintAToken": "Could not mint a token",
+  "fleetErrorCouldNotMintAToken": "No se pudo generar un token",
   "@fleetErrorCouldNotMintAToken": {
     "context": "Settings > Fleet Management > command result or follower status",
     "description": "Reason a fleet action failed or a kiosk update was skipped.",
@@ -2819,7 +2819,7 @@
       ]
     }
   },
-  "fleetErrorNotAFollowerYet": "not a follower yet",
+  "fleetErrorNotAFollowerYet": "aún no es un seguidor",
   "@fleetErrorNotAFollowerYet": {
     "context": "Settings > Fleet Management > command result or follower status",
     "description": "Reason a fleet action failed or a kiosk update was skipped.",
@@ -2832,7 +2832,7 @@
       ]
     }
   },
-  "fleetErrorOffline": "offline",
+  "fleetErrorOffline": "sin conexión",
   "@fleetErrorOffline": {
     "context": "Settings > Fleet Management > command result or follower status",
     "description": "Reason a fleet action failed or a kiosk update was skipped.",
@@ -2845,7 +2845,7 @@
       ]
     }
   },
-  "fleetErrorUpToDate": "up to date",
+  "fleetErrorUpToDate": "actualizado",
   "@fleetErrorUpToDate": {
     "context": "Settings > Fleet Management > command result or follower status",
     "description": "Reason a fleet action failed or a kiosk update was skipped.",
@@ -2858,7 +2858,7 @@
       ]
     }
   },
-  "fleetErrorAlreadyDownloading": "already downloading",
+  "fleetErrorAlreadyDownloading": "ya se está descargando",
   "@fleetErrorAlreadyDownloading": {
     "context": "Settings > Fleet Management > command result or follower status",
     "description": "Reason a fleet action failed or a kiosk update was skipped.",
@@ -2871,7 +2871,7 @@
       ]
     }
   },
-  "fleetErrorDidNotAnswer": "did not answer",
+  "fleetErrorDidNotAnswer": "no respondió",
   "@fleetErrorDidNotAnswer": {
     "context": "Settings > Fleet Management > command result or follower status",
     "description": "Reason a fleet action failed or a kiosk update was skipped.",
@@ -2884,7 +2884,7 @@
       ]
     }
   },
-  "fleetErrorDidNotTakeTheUpload": "did not take the upload",
+  "fleetErrorDidNotTakeTheUpload": "no aceptó el archivo",
   "@fleetErrorDidNotTakeTheUpload": {
     "context": "Settings > Fleet Management > command result or follower status",
     "description": "Reason a fleet action failed or a kiosk update was skipped.",
@@ -2897,7 +2897,7 @@
       ]
     }
   },
-  "fleetProfileNameExists": "A profile named {name} exists",
+  "fleetProfileNameExists": "Ya existe un perfil llamado {name}",
   "@fleetProfileNameExists": {
     "context": "Settings > Fleet Management",
     "description": "Accessible control guidance or action result.",
@@ -2916,7 +2916,7 @@
     },
     "x-notes": "Keep supplied names and version numbers unchanged."
   },
-  "fleetAlreadyOnVersion": "already on {version}",
+  "fleetAlreadyOnVersion": "ya usa {version}",
   "@fleetAlreadyOnVersion": {
     "context": "Settings > Fleet Management",
     "description": "Accessible control guidance or action result.",
@@ -2935,7 +2935,7 @@
     },
     "x-notes": "Keep supplied names and version numbers unchanged."
   },
-  "fleetUnsupportedBuild": "That kiosk runs a build without Fleet Management. It joins once it runs one.",
+  "fleetUnsupportedBuild": "Ese kiosko usa una versión sin Gestión de flota. Podrá unirse cuando la actualice.",
   "@fleetUnsupportedBuild": {
     "context": "Settings > Fleet Management",
     "description": "Accessible control guidance or action result.",
@@ -2948,7 +2948,7 @@
       ]
     }
   },
-  "fleetSwitchKiosk": "Switch kiosk",
+  "fleetSwitchKiosk": "Cambiar de kiosko",
   "@fleetSwitchKiosk": {
     "context": "Remote administration > device name > Switch kiosk",
     "description": "Visible label, help or status in this section.",
@@ -2958,7 +2958,7 @@
       ]
     }
   },
-  "fleetKiosksOnThisNetworkWithTheRemoteAdminOn": "Kiosks on this network with the remote admin on. Picking one opens its admin here, on this same page.",
+  "fleetKiosksOnThisNetworkWithTheRemoteAdminOn": "Kioskos de esta red con la administración remota activada. Selecciona uno para abrir aquí su administración en esta misma página.",
   "@fleetKiosksOnThisNetworkWithTheRemoteAdminOn": {
     "context": "Remote administration > device name > Switch kiosk",
     "description": "Visible label, help or status in this section.",
@@ -2968,7 +2968,7 @@
       ]
     }
   },
-  "fleetNoOtherKioskFoundOnThisNetworkAKioskDetail": "No other kiosk found on this network. A kiosk shows up once its remote admin is on and it shares this network.",
+  "fleetNoOtherKioskFoundOnThisNetworkAKioskDetail": "No se encontró otro kiosko en esta red. Aparecerá cuando tenga activada la administración remota y esté conectado a esta red.",
   "@fleetNoOtherKioskFoundOnThisNetworkAKioskDetail": {
     "context": "Remote administration > device name > Switch kiosk",
     "description": "Visible label, help or status in this section.",
@@ -2978,7 +2978,7 @@
       ]
     }
   },
-  "fleetSyncedCredentials": "Synced Credentials",
+  "fleetSyncedCredentials": "Credenciales sincronizadas",
   "@fleetSyncedCredentials": {
     "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
     "description": "Visible label, help or status in this section.",
@@ -2991,7 +2991,7 @@
       ]
     }
   },
-  "fleetTheSettingsOnThisListWillNotBeSynced": "The settings on this list will not be synced to the followers.",
+  "fleetTheSettingsOnThisListWillNotBeSynced": "Los ajustes de esta lista no se sincronizan con los seguidores.",
   "@fleetTheSettingsOnThisListWillNotBeSynced": {
     "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
     "description": "Visible label, help or status in this section.",
@@ -3004,7 +3004,7 @@
       ]
     }
   },
-  "fleetNothingLeftOut": "Nothing left out",
+  "fleetNothingLeftOut": "No hay ajustes excluidos",
   "@fleetNothingLeftOut": {
     "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
     "description": "Visible label, help or status in this section.",
@@ -3017,7 +3017,7 @@
       ]
     }
   },
-  "fleetSyncItAgain": "Sync it again",
+  "fleetSyncItAgain": "Volver a sincronizar",
   "@fleetSyncItAgain": {
     "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
     "description": "Visible label, help or status in this section.",
@@ -3030,7 +3030,7 @@
       ]
     }
   },
-  "fleetAddASetting": "Add a setting",
+  "fleetAddASetting": "Añadir un ajuste",
   "@fleetAddASetting": {
     "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
     "description": "Visible label, help or status in this section.",
@@ -3043,7 +3043,7 @@
       ]
     }
   },
-  "fleetExcludeASetting": "Exclude a setting",
+  "fleetExcludeASetting": "Excluir un ajuste",
   "@fleetExcludeASetting": {
     "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
     "description": "Visible label, help or status in this section.",
@@ -3056,7 +3056,7 @@
       ]
     }
   },
-  "fleetSearchSettings": "Search settings",
+  "fleetSearchSettings": "Buscar ajustes",
   "@fleetSearchSettings": {
     "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
     "description": "Visible label, help or status in this section.",
@@ -3069,7 +3069,7 @@
       ]
     }
   },
-  "fleetCountMoreTypeToNarrowTheList": "{count} more. Type to narrow the list.",
+  "fleetCountMoreTypeToNarrowTheList": "{count} más. Escribe para filtrar la lista.",
   "@fleetCountMoreTypeToNarrowTheList": {
     "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
     "description": "Visible label, help or status in this section.",
@@ -3088,7 +3088,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
   },
-  "fleetNotSyncedNote": "Not synced: {note}",
+  "fleetNotSyncedNote": "No se sincroniza: {note}",
   "@fleetNotSyncedNote": {
     "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
     "description": "Visible label, help or status in this section.",
@@ -3107,7 +3107,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
   },
-  "fleetTheAssignedSatellite": "the assigned satellite",
+  "fleetTheAssignedSatellite": "el satélite asignado",
   "@fleetTheAssignedSatellite": {
     "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
     "description": "Visible label, help or status in this section.",
@@ -3120,7 +3120,7 @@
       ]
     }
   },
-  "fleetMicrophoneAndSpeakerDevicesMicGain": "microphone and speaker devices, mic gain",
+  "fleetMicrophoneAndSpeakerDevicesMicGain": "los dispositivos de micrófono y altavoz y la ganancia del micrófono",
   "@fleetMicrophoneAndSpeakerDevicesMicGain": {
     "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
     "description": "Visible label, help or status in this section.",
@@ -3133,7 +3133,7 @@
       ]
     }
   },
-  "fleetTheDeviceCamera": "the device camera",
+  "fleetTheDeviceCamera": "la cámara del dispositivo",
   "@fleetTheDeviceCamera": {
     "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
     "description": "Visible label, help or status in this section.",
@@ -3146,7 +3146,7 @@
       ]
     }
   },
-  "fleetTheFollowedPlayerTheSendspinPlayerId": "the followed player, the Sendspin player id",
+  "fleetTheFollowedPlayerTheSendspinPlayerId": "el reproductor seguido y el identificador del reproductor Sendspin",
   "@fleetTheFollowedPlayerTheSendspinPlayerId": {
     "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
     "description": "Visible label, help or status in this section.",
@@ -3159,7 +3159,7 @@
       ]
     }
   },
-  "fleetNodeNameMacEncryptionKey": "node name, MAC, encryption key",
+  "fleetNodeNameMacEncryptionKey": "el nombre del nodo, la MAC y la clave de cifrado",
   "@fleetNodeNameMacEncryptionKey": {
     "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
     "description": "Visible label, help or status in this section.",
@@ -3172,7 +3172,7 @@
       ]
     }
   },
-  "fleetThePinIsAlsoSynced": "the PIN is also synced",
+  "fleetThePinIsAlsoSynced": "el PIN también se sincroniza",
   "@fleetThePinIsAlsoSynced": {
     "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
     "description": "Visible label, help or status in this section.",
@@ -3185,7 +3185,7 @@
       ]
     }
   },
-  "fleetTheKeyUnlessSyncedAsACredential": "the key, unless synced as a credential",
+  "fleetTheKeyUnlessSyncedAsACredential": "la clave, salvo que se sincronice como credencial",
   "@fleetTheKeyUnlessSyncedAsACredential": {
     "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
     "description": "Visible label, help or status in this section.",
@@ -3198,7 +3198,7 @@
       ]
     }
   },
-  "fleetNameRemoteAdministrationRendererWorkaroundsScale": "name, remote administration, renderer workarounds, scale",
+  "fleetNameRemoteAdministrationRendererWorkaroundsScale": "el nombre, la administración remota, los ajustes de compatibilidad del renderizador y la escala",
   "@fleetNameRemoteAdministrationRendererWorkaroundsScale": {
     "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
     "description": "Visible label, help or status in this section.",
@@ -3211,7 +3211,7 @@
       ]
     }
   },
-  "fleetHomeAssistantToken": "Home Assistant token",
+  "fleetHomeAssistantToken": "Token de Home Assistant",
   "@fleetHomeAssistantToken": {
     "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
     "description": "Visible label, help or status in this section.",
@@ -3224,7 +3224,7 @@
       ]
     }
   },
-  "fleetMusicAssistantToken": "Music Assistant token",
+  "fleetMusicAssistantToken": "Token de Music Assistant",
   "@fleetMusicAssistantToken": {
     "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
     "description": "Visible label, help or status in this section.",
@@ -3237,7 +3237,7 @@
       ]
     }
   },
-  "fleetImmichApiKey": "Immich API key",
+  "fleetImmichApiKey": "Clave de API de Immich",
   "@fleetImmichApiKey": {
     "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
     "description": "Visible label, help or status in this section.",
@@ -3250,7 +3250,7 @@
       ]
     }
   },
-  "fleetUpdateTheFleet": "Update the fleet",
+  "fleetUpdateTheFleet": "Actualizar la flota",
   "@fleetUpdateTheFleet": {
     "context": "Settings > Fleet Management > Updates",
     "description": "Visible label, help or status in this section.",
@@ -3263,7 +3263,7 @@
       ]
     }
   },
-  "fleetUpdateTheWholeFleetToTheKioskSatelliteVersion": "Update the whole fleet to the Kiosk Satellite version running on the leader.",
+  "fleetUpdateTheWholeFleetToTheKioskSatelliteVersion": "Actualiza toda la flota a la versión de Kiosk Satellite que usa el líder.",
   "@fleetUpdateTheWholeFleetToTheKioskSatelliteVersion": {
     "context": "Settings > Fleet Management > Updates",
     "description": "Visible label, help or status in this section.",
@@ -3276,7 +3276,7 @@
       ]
     }
   },
-  "fleetKeepFollowersOnThisVersion": "Keep followers on this version",
+  "fleetKeepFollowersOnThisVersion": "Mantener a los seguidores en esta versión",
   "@fleetKeepFollowersOnThisVersion": {
     "context": "Settings > Fleet Management > Updates",
     "description": "Visible label, help or status in this section.",
@@ -3289,7 +3289,7 @@
       ]
     }
   },
-  "fleetAutomaticallyUpdateAllFollowersToTheKioskSatelliteVersion": "Automatically update all followers to the Kiosk Satellite version running on the leader.",
+  "fleetAutomaticallyUpdateAllFollowersToTheKioskSatelliteVersion": "Actualiza automáticamente a todos los seguidores a la versión de Kiosk Satellite que usa el líder.",
   "@fleetAutomaticallyUpdateAllFollowersToTheKioskSatelliteVersion": {
     "context": "Settings > Fleet Management > Updates",
     "description": "Visible label, help or status in this section.",
@@ -3302,7 +3302,7 @@
       ]
     }
   },
-  "fleetNothingToUpdate": "Nothing to update",
+  "fleetNothingToUpdate": "No hay nada que actualizar",
   "@fleetNothingToUpdate": {
     "context": "Settings > Fleet Management > Updates",
     "description": "Visible label, help or status in this section.",
@@ -3315,7 +3315,7 @@
       ]
     }
   },
-  "fleetUpdating": "Updating",
+  "fleetUpdating": "Actualizando",
   "@fleetUpdating": {
     "context": "Settings > Fleet Management > Updates",
     "description": "Visible label, help or status in this section.",
@@ -3328,7 +3328,7 @@
       ]
     }
   },
-  "fleetNamesInstalling": "{names} installing.",
+  "fleetNamesInstalling": "Instalando en {names}.",
   "@fleetNamesInstalling": {
     "context": "Settings > Fleet Management > Updates",
     "description": "Visible label, help or status in this section.",
@@ -3347,7 +3347,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
   },
-  "fleetSearchUpdates": "Install the release offered to each follower, then here.",
+  "fleetSearchUpdates": "Instala la versión disponible en cada seguidor y luego aquí.",
   "@fleetSearchUpdates": {
     "context": "Settings > Fleet Management",
     "description": "Search result description.",
@@ -6884,7 +6884,7 @@
       ]
     }
   },
-  "pluginActions": "Actions",
+  "pluginActions": "Acciones",
   "@pluginActions": {
     "context": "Settings > Plugin Manager > a plugin > Actions",
     "description": "Visible label, help or status in this section.",
@@ -6897,7 +6897,7 @@
       ]
     }
   },
-  "pluginKioskDrawer": "Kiosk drawer",
+  "pluginKioskDrawer": "Menú del kiosko",
   "@pluginKioskDrawer": {
     "context": "Settings > Plugin Manager > a plugin > Actions",
     "description": "Visible label, help or status in this section.",
@@ -6910,7 +6910,7 @@
       ]
     }
   },
-  "pluginToAssignAGestureOpenGesturesAndChooseRun": "To assign a gesture, open Gestures and choose Run a plugin action.",
+  "pluginToAssignAGestureOpenGesturesAndChooseRun": "Para asignar un gesto, abre Gestos y selecciona Ejecutar una acción de plugin.",
   "@pluginToAssignAGestureOpenGesturesAndChooseRun": {
     "context": "Settings > Plugin Manager > a plugin > Actions",
     "description": "Visible label, help or status in this section.",
@@ -6923,7 +6923,7 @@
       ]
     }
   },
-  "pluginShowInKioskDrawer": "Show in kiosk drawer",
+  "pluginShowInKioskDrawer": "Mostrar en el menú del kiosko",
   "@pluginShowInKioskDrawer": {
     "context": "Settings > Plugin Manager > a plugin > Actions",
     "description": "Visible label, help or status in this section.",
@@ -6936,7 +6936,7 @@
       ]
     }
   },
-  "pluginAlsoAvailableWhileLockedIfTheKioskDrawerIs": "Also available while locked if the kiosk drawer is allowed.",
+  "pluginAlsoAvailableWhileLockedIfTheKioskDrawerIs": "También está disponible durante el bloqueo si se permite el menú del kiosko.",
   "@pluginAlsoAvailableWhileLockedIfTheKioskDrawerIs": {
     "context": "Settings > Plugin Manager > a plugin > Actions",
     "description": "Visible label, help or status in this section.",
@@ -6949,7 +6949,7 @@
       ]
     }
   },
-  "pluginExposeToHomeAssistant": "Expose to Home Assistant",
+  "pluginExposeToHomeAssistant": "Publicar en Home Assistant",
   "@pluginExposeToHomeAssistant": {
     "context": "Settings > Plugin Manager > a plugin > Actions",
     "description": "Visible label, help or status in this section.",
@@ -6962,7 +6962,7 @@
       ]
     }
   },
-  "pluginAddsAButtonToTheKioskEsphomeDeviceRequires": "Adds a button to the kiosk ESPHome device. Requires ESPHome and native entities.",
+  "pluginAddsAButtonToTheKioskEsphomeDeviceRequires": "Añade un botón al dispositivo ESPHome del kiosko. Requiere ESPHome y entidades nativas.",
   "@pluginAddsAButtonToTheKioskEsphomeDeviceRequires": {
     "context": "Settings > Plugin Manager > a plugin > Actions",
     "description": "Visible label, help or status in this section.",
@@ -6975,7 +6975,7 @@
       ]
     }
   },
-  "pluginSelectAnEntity": "Select an entity",
+  "pluginSelectAnEntity": "Seleccionar una entidad",
   "@pluginSelectAnEntity": {
     "context": "Settings > Plugin Manager > a plugin > Actions",
     "description": "Visible label, help or status in this section.",
@@ -6988,7 +6988,7 @@
       ]
     }
   },
-  "pluginChooseName": "Choose {name}",
+  "pluginChooseName": "Elegir {name}",
   "@pluginChooseName": {
     "context": "Settings > Plugin Manager > a plugin > Actions",
     "description": "Visible label, help or status in this section.",
@@ -7007,7 +7007,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
   },
-  "pluginConfigureName": "Configure {name}",
+  "pluginConfigureName": "Configurar {name}",
   "@pluginConfigureName": {
     "context": "Settings > Plugin Manager > a plugin > Actions",
     "description": "Visible label, help or status in this section.",
@@ -7039,7 +7039,7 @@
       ]
     }
   },
-  "pluginEnablePlugins": "Enable Plugins",
+  "pluginEnablePlugins": "Activar plugins",
   "@pluginEnablePlugins": {
     "context": "Settings > Plugin Manager",
     "description": "Visible label, help or status in this section.",
@@ -7052,7 +7052,7 @@
       ]
     }
   },
-  "pluginPluginsAddAdditionalCommunityDevelopedFeaturesToKioskSatellite": "Plugins add additional community developed features to Kiosk Satellite.",
+  "pluginPluginsAddAdditionalCommunityDevelopedFeaturesToKioskSatellite": "Los plugins añaden funciones desarrolladas por la comunidad a Kiosk Satellite.",
   "@pluginPluginsAddAdditionalCommunityDevelopedFeaturesToKioskSatellite": {
     "context": "Settings > Plugin Manager",
     "description": "Visible label, help or status in this section.",
@@ -7065,7 +7065,7 @@
       ]
     }
   },
-  "pluginInstalledPlugins": "Installed plugins",
+  "pluginInstalledPlugins": "Plugins instalados",
   "@pluginInstalledPlugins": {
     "context": "Settings > Plugin Manager",
     "description": "Visible label, help or status in this section.",
@@ -7078,7 +7078,7 @@
       ]
     }
   },
-  "pluginNoPluginsInstalledAddARepositoryToGetStarted": "No plugins installed. Add a repository to get started.",
+  "pluginNoPluginsInstalledAddARepositoryToGetStarted": "No hay plugins instalados. Añade un repositorio para empezar.",
   "@pluginNoPluginsInstalledAddARepositoryToGetStarted": {
     "context": "Settings > Plugin Manager",
     "description": "Visible label, help or status in this section.",
@@ -7091,7 +7091,7 @@
       ]
     }
   },
-  "pluginDeveloperTools": "Developer Tools",
+  "pluginDeveloperTools": "Herramientas de desarrollo",
   "@pluginDeveloperTools": {
     "context": "Settings > Plugin Manager",
     "description": "Visible label, help or status in this section.",
@@ -7104,7 +7104,7 @@
       ]
     }
   },
-  "pluginCreateAPlugin": "Create a plugin",
+  "pluginCreateAPlugin": "Crear un plugin",
   "@pluginCreateAPlugin": {
     "context": "Settings > Plugin Manager",
     "description": "Visible label, help or status in this section.",
@@ -7117,7 +7117,7 @@
       ]
     }
   },
-  "pluginLearnHowToCreatePluginsWithTheHelloWorld": "Learn how to create plugins with the Hello World template and documentation.",
+  "pluginLearnHowToCreatePluginsWithTheHelloWorld": "Aprende a crear plugins con la plantilla Hello World y la documentación.",
   "@pluginLearnHowToCreatePluginsWithTheHelloWorld": {
     "context": "Settings > Plugin Manager",
     "description": "Visible label, help or status in this section.",
@@ -7130,7 +7130,7 @@
       ]
     }
   },
-  "pluginThisPluginIsNoLongerInstalled": "This plugin is no longer installed.",
+  "pluginThisPluginIsNoLongerInstalled": "Este plugin ya no está instalado.",
   "@pluginThisPluginIsNoLongerInstalled": {
     "context": "Settings > Plugin Manager",
     "description": "Visible label, help or status in this section.",
@@ -7143,7 +7143,7 @@
       ]
     }
   },
-  "pluginEnablePluginsToRunThisPlugin": "Enable Plugins to run this plugin.",
+  "pluginEnablePluginsToRunThisPlugin": "Activa los plugins para ejecutar este plugin.",
   "@pluginEnablePluginsToRunThisPlugin": {
     "context": "Settings > Plugin Manager",
     "description": "Visible label, help or status in this section.",
@@ -7156,7 +7156,7 @@
       ]
     }
   },
-  "pluginEnableThisPluginFromItsEntryRowToRun": "Enable this plugin from its entry row to run it.",
+  "pluginEnableThisPluginFromItsEntryRowToRun": "Activa este plugin desde su fila en la lista para ejecutarlo.",
   "@pluginEnableThisPluginFromItsEntryRowToRun": {
     "context": "Settings > Plugin Manager",
     "description": "Visible label, help or status in this section.",
@@ -7169,7 +7169,7 @@
       ]
     }
   },
-  "pluginUninstallName": "Uninstall {name}?",
+  "pluginUninstallName": "¿Desinstalar {name}?",
   "@pluginUninstallName": {
     "context": "Settings > Plugin Manager",
     "description": "Visible label, help or status in this section.",
@@ -7188,7 +7188,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
   },
-  "pluginUninstallNameDetail": "Uninstall {name}",
+  "pluginUninstallNameDetail": "Desinstalar {name}",
   "@pluginUninstallNameDetail": {
     "context": "Settings > Plugin Manager",
     "description": "Visible label, help or status in this section.",
@@ -7207,7 +7207,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
   },
-  "pluginCheckForUpdatesForName": "Check for updates for {name}",
+  "pluginCheckForUpdatesForName": "Buscar actualizaciones de {name}",
   "@pluginCheckForUpdatesForName": {
     "context": "Settings > Plugin Manager",
     "description": "Visible label, help or status in this section.",
@@ -7226,7 +7226,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
   },
-  "pluginAboutName": "About {name}",
+  "pluginAboutName": "Acerca de {name}",
   "@pluginAboutName": {
     "context": "Settings > Plugin Manager",
     "description": "Visible label, help or status in this section.",
@@ -7245,7 +7245,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
   },
-  "pluginThisRemovesThePluginAndItsSettings": "This removes the plugin and its settings.",
+  "pluginThisRemovesThePluginAndItsSettings": "Elimina el plugin y su configuración.",
   "@pluginThisRemovesThePluginAndItsSettings": {
     "context": "Settings > Plugin Manager",
     "description": "Visible label, help or status in this section.",
@@ -7258,7 +7258,7 @@
       ]
     }
   },
-  "pluginUninstall": "Uninstall",
+  "pluginUninstall": "Desinstalar",
   "@pluginUninstall": {
     "context": "Settings > Plugin Manager",
     "description": "Visible label, help or status in this section.",
@@ -7271,7 +7271,7 @@
       ]
     }
   },
-  "pluginNoUpdatesAvailable": "No updates available.",
+  "pluginNoUpdatesAvailable": "No hay actualizaciones disponibles.",
   "@pluginNoUpdatesAvailable": {
     "context": "Settings > Plugin Manager",
     "description": "Visible label, help or status in this section.",
@@ -7284,7 +7284,7 @@
       ]
     }
   },
-  "pluginThisPluginWasInstalledFromZipAndHasNo": "This plugin was installed from ZIP and has no repository README.",
+  "pluginThisPluginWasInstalledFromZipAndHasNo": "Este plugin se instaló desde un ZIP y no tiene un README de repositorio.",
   "@pluginThisPluginWasInstalledFromZipAndHasNo": {
     "context": "Settings > Plugin Manager",
     "description": "Visible label, help or status in this section.",
@@ -7297,7 +7297,7 @@
       ]
     }
   },
-  "pluginImageUnavailable": "Image unavailable",
+  "pluginImageUnavailable": "Imagen no disponible",
   "@pluginImageUnavailable": {
     "context": "Settings > Plugin Manager",
     "description": "Visible label, help or status in this section.",
@@ -7310,7 +7310,7 @@
       ]
     }
   },
-  "pluginCouldNotOpenThisLink": "Could not open this link.",
+  "pluginCouldNotOpenThisLink": "No se pudo abrir este enlace.",
   "@pluginCouldNotOpenThisLink": {
     "context": "Settings > Plugin Manager",
     "description": "Visible label, help or status in this section.",
@@ -7323,7 +7323,7 @@
       ]
     }
   },
-  "pluginEnableName": "Enable {name}",
+  "pluginEnableName": "Activar {name}",
   "@pluginEnableName": {
     "context": "Settings > Plugin Manager > select a plugin",
     "description": "Accessible control guidance or action result.",
@@ -7339,7 +7339,7 @@
     },
     "x-notes": "Keep supplied names and version numbers unchanged."
   },
-  "pluginAddPlugin": "Add plugin",
+  "pluginAddPlugin": "Añadir plugin",
   "@pluginAddPlugin": {
     "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
     "description": "Visible label, help or status in this section.",
@@ -7352,7 +7352,7 @@
       ]
     }
   },
-  "pluginInstallFromAGithubRepository": "Install from a GitHub repository",
+  "pluginInstallFromAGithubRepository": "Instalar desde un repositorio de GitHub",
   "@pluginInstallFromAGithubRepository": {
     "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
     "description": "Visible label, help or status in this section.",
@@ -7365,7 +7365,7 @@
       ]
     }
   },
-  "pluginMakeSureYouTrustThePluginSAuthorAnd": "Make sure you trust the plugin's author and its code before installing it.",
+  "pluginMakeSureYouTrustThePluginSAuthorAnd": "Asegúrate de confiar en el autor del plugin y en su código antes de instalarlo.",
   "@pluginMakeSureYouTrustThePluginSAuthorAnd": {
     "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
     "description": "Visible label, help or status in this section.",
@@ -7378,7 +7378,7 @@
       ]
     }
   },
-  "pluginPreview": "Preview",
+  "pluginPreview": "Vista previa",
   "@pluginPreview": {
     "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
     "description": "Visible label, help or status in this section.",
@@ -7391,7 +7391,7 @@
       ]
     }
   },
-  "pluginInstalledVersion": "Installed version",
+  "pluginInstalledVersion": "Versión instalada",
   "@pluginInstalledVersion": {
     "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
     "description": "Visible label, help or status in this section.",
@@ -7404,7 +7404,7 @@
       ]
     }
   },
-  "pluginAuthor": "Author",
+  "pluginAuthor": "Autor",
   "@pluginAuthor": {
     "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
     "description": "Visible label, help or status in this section.",
@@ -7417,7 +7417,7 @@
       ]
     }
   },
-  "pluginLicense": "License",
+  "pluginLicense": "Licencia",
   "@pluginLicense": {
     "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
     "description": "Visible label, help or status in this section.",
@@ -7430,7 +7430,7 @@
       ]
     }
   },
-  "pluginPluginsRunCodeInsideKioskSatelliteAndCanAccess": "Plugins run code inside Kiosk Satellite and can access app data and granted Android permissions. A faulty or malicious plugin can expose private information or stop the app from working. Only install plugins from authors you trust.",
+  "pluginPluginsRunCodeInsideKioskSatelliteAndCanAccess": "Los plugins ejecutan código dentro de Kiosk Satellite y pueden acceder a los datos de la aplicación y a los permisos de Android concedidos. Un plugin defectuoso o malicioso puede exponer información privada o impedir que la aplicación funcione. Instala únicamente plugins de autores en los que confíes.",
   "@pluginPluginsRunCodeInsideKioskSatelliteAndCanAccess": {
     "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
     "description": "Visible label, help or status in this section.",
@@ -7443,7 +7443,7 @@
       ]
     }
   },
-  "pluginNewPluginsStartDisabledUpdatesPreserveTheEnabledState": "New plugins start disabled. Updates preserve the enabled state and automatically restart running plugins.",
+  "pluginNewPluginsStartDisabledUpdatesPreserveTheEnabledState": "Los plugins nuevos se instalan desactivados. Las actualizaciones conservan su estado de activación y reinician automáticamente los plugins en ejecución.",
   "@pluginNewPluginsStartDisabledUpdatesPreserveTheEnabledState": {
     "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
     "description": "Visible label, help or status in this section.",
@@ -7456,7 +7456,7 @@
       ]
     }
   },
-  "pluginTrustAndUpdate": "Trust and update",
+  "pluginTrustAndUpdate": "Confiar y actualizar",
   "@pluginTrustAndUpdate": {
     "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
     "description": "Visible label, help or status in this section.",
@@ -7469,7 +7469,7 @@
       ]
     }
   },
-  "pluginTrustAndInstall": "Trust and install",
+  "pluginTrustAndInstall": "Confiar e instalar",
   "@pluginTrustAndInstall": {
     "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
     "description": "Visible label, help or status in this section.",
@@ -7482,7 +7482,7 @@
       ]
     }
   },
-  "pluginInstallFromZip": "Install from ZIP",
+  "pluginInstallFromZip": "Instalar desde ZIP",
   "@pluginInstallFromZip": {
     "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
     "description": "Visible label, help or status in this section.",
@@ -7495,7 +7495,7 @@
       ]
     }
   },
-  "pluginForDevelopersOnlyTestALocalBuild": "For developers only: test a local build",
+  "pluginForDevelopersOnlyTestALocalBuild": "Solo para desarrolladores: probar una compilación local",
   "@pluginForDevelopersOnlyTestALocalBuild": {
     "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
     "description": "Visible label, help or status in this section.",
@@ -7508,7 +7508,7 @@
       ]
     }
   },
-  "pluginPluginZip": "Plugin ZIP",
+  "pluginPluginZip": "ZIP del plugin",
   "@pluginPluginZip": {
     "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
     "description": "Visible label, help or status in this section.",
@@ -7521,7 +7521,7 @@
       ]
     }
   },
-  "pluginPluginZipMustBeAtMost4Mb": "Plugin ZIP must be at most 4 MB",
+  "pluginPluginZipMustBeAtMost4Mb": "El ZIP del plugin debe ocupar como máximo 4 MB",
   "@pluginPluginZipMustBeAtMost4Mb": {
     "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
     "description": "Visible label, help or status in this section.",
@@ -7534,7 +7534,7 @@
       ]
     }
   },
-  "pluginCouldNotReadTheSelectedZip": "Could not read the selected ZIP",
+  "pluginCouldNotReadTheSelectedZip": "No se pudo leer el ZIP seleccionado",
   "@pluginCouldNotReadTheSelectedZip": {
     "context": "Settings > Plugin Manager > Add plugin or Install from ZIP",
     "description": "Visible label, help or status in this section.",
@@ -7547,7 +7547,7 @@
       ]
     }
   },
-  "pluginCharts": "Charts",
+  "pluginCharts": "Gráficas",
   "@pluginCharts": {
     "context": "Settings > Plugin Manager > a plugin > Charts and Readings",
     "description": "Visible label, help or status in this section.",
@@ -7560,7 +7560,7 @@
       ]
     }
   },
-  "pluginReadings": "Readings",
+  "pluginReadings": "Lecturas",
   "@pluginReadings": {
     "context": "Settings > Plugin Manager > a plugin > Charts and Readings",
     "description": "Visible label, help or status in this section.",
@@ -7573,7 +7573,7 @@
       ]
     }
   },
-  "pluginWaitingForSamples": "Waiting for samples",
+  "pluginWaitingForSamples": "Esperando muestras",
   "@pluginWaitingForSamples": {
     "context": "Settings > Plugin Manager > a plugin > Charts and Readings",
     "description": "Visible label, help or status in this section.",
@@ -7586,7 +7586,7 @@
       ]
     }
   },
-  "pluginLatest": "Latest",
+  "pluginLatest": "Más reciente",
   "@pluginLatest": {
     "context": "Settings > Plugin Manager > a plugin > Charts and Readings",
     "description": "Visible label, help or status in this section.",
@@ -7599,7 +7599,7 @@
       ]
     }
   },
-  "pluginSelected": "Selected",
+  "pluginSelected": "Seleccionada",
   "@pluginSelected": {
     "context": "Settings > Plugin Manager > a plugin > Charts and Readings",
     "description": "Visible label, help or status in this section.",
@@ -7612,7 +7612,7 @@
       ]
     }
   },
-  "pluginNoDataYet": "No data yet",
+  "pluginNoDataYet": "Todavía no hay datos",
   "@pluginNoDataYet": {
     "context": "Settings > Plugin Manager > a plugin > Charts and Readings",
     "description": "Visible label, help or status in this section.",
@@ -7625,7 +7625,7 @@
       ]
     }
   },
-  "pluginTapOrDragToInspectSamplesDoubleTapTo": "Tap or drag to inspect samples. Double-tap to follow the latest.",
+  "pluginTapOrDragToInspectSamplesDoubleTapTo": "Toca o arrastra para examinar las muestras. Toca dos veces para seguir la más reciente.",
   "@pluginTapOrDragToInspectSamplesDoubleTapTo": {
     "context": "Settings > Plugin Manager > a plugin > Charts and Readings",
     "description": "Visible label, help or status in this section.",
@@ -7638,7 +7638,7 @@
       ]
     }
   },
-  "pluginNoData": "No data",
+  "pluginNoData": "Sin datos",
   "@pluginNoData": {
     "context": "Settings > Plugin Manager > a plugin > Charts and Readings",
     "description": "Visible label, help or status in this section.",
@@ -7651,7 +7651,7 @@
       ]
     }
   },
-  "pluginOn": "On",
+  "pluginOn": "Activado",
   "@pluginOn": {
     "context": "Settings > Plugin Manager > a plugin > Charts and Readings",
     "description": "Visible label, help or status in this section.",
@@ -7664,7 +7664,7 @@
       ]
     }
   },
-  "pluginEmpty": "Empty",
+  "pluginEmpty": "Vacío",
   "@pluginEmpty": {
     "context": "Settings > Plugin Manager > a plugin > Charts and Readings",
     "description": "Visible label, help or status in this section.",
@@ -7677,7 +7677,7 @@
       ]
     }
   },
-  "pluginChartKeyboardHelp": "Use arrow keys to inspect samples and End for the latest.",
+  "pluginChartKeyboardHelp": "Usa las flechas para examinar las muestras y Fin para ir a la más reciente.",
   "@pluginChartKeyboardHelp": {
     "context": "Settings > Plugin Manager > select a plugin",
     "description": "Accessible control guidance or action result.",
@@ -7687,7 +7687,7 @@
       ]
     }
   },
-  "pluginShizuku13OrLaterIsRequiredTapForSetup": "Shizuku 13 or later is required. Tap for setup instructions.",
+  "pluginShizuku13OrLaterIsRequiredTapForSetup": "Se requiere Shizuku 13 o posterior. Toca para ver las instrucciones de configuración.",
   "@pluginShizuku13OrLaterIsRequiredTapForSetup": {
     "context": "Settings > Plugin Manager > a plugin > Shizuku access",
     "description": "Visible label, help or status in this section.",
@@ -7700,7 +7700,7 @@
       ]
     }
   },
-  "pluginStartShizukuOnThisDeviceTapForSetupInstructions": "Start Shizuku on this device. Tap for setup instructions.",
+  "pluginStartShizukuOnThisDeviceTapForSetupInstructions": "Inicia Shizuku en este dispositivo. Toca para ver las instrucciones de configuración.",
   "@pluginStartShizukuOnThisDeviceTapForSetupInstructions": {
     "context": "Settings > Plugin Manager > a plugin > Shizuku access",
     "description": "Visible label, help or status in this section.",
@@ -7713,7 +7713,7 @@
       ]
     }
   },
-  "pluginShizukuGrantsKioskSatelliteShellOrRootAccessInstalled": "Shizuku grants Kiosk Satellite shell or root access. Installed plugins run inside KS, so only grant access if you trust them.",
+  "pluginShizukuGrantsKioskSatelliteShellOrRootAccessInstalled": "Shizuku concede a Kiosk Satellite acceso shell o root. Los plugins instalados se ejecutan dentro de KS, así que concede acceso solo si confías en ellos.",
   "@pluginShizukuGrantsKioskSatelliteShellOrRootAccessInstalled": {
     "context": "Settings > Plugin Manager > a plugin > Shizuku access",
     "description": "Visible label, help or status in this section.",
@@ -7726,7 +7726,7 @@
       ]
     }
   },
-  "pluginSetUp": "Set up",
+  "pluginSetUp": "Configurar",
   "@pluginSetUp": {
     "context": "Settings > Plugin Manager > a plugin > Shizuku access",
     "description": "Visible label, help or status in this section.",
@@ -7739,7 +7739,7 @@
       ]
     }
   },
-  "pluginGrantAccess": "Grant access",
+  "pluginGrantAccess": "Conceder acceso",
   "@pluginGrantAccess": {
     "context": "Settings > Plugin Manager > a plugin > Shizuku access",
     "description": "Visible label, help or status in this section.",
@@ -7752,7 +7752,7 @@
       ]
     }
   },
-  "pluginApproveThePermissionRequestOnTheKiosk": "Approve the permission request on the kiosk.",
+  "pluginApproveThePermissionRequestOnTheKiosk": "Aprueba la solicitud de permiso en el kiosko.",
   "@pluginApproveThePermissionRequestOnTheKiosk": {
     "context": "Settings > Plugin Manager > a plugin > Shizuku access",
     "description": "Visible label, help or status in this section.",

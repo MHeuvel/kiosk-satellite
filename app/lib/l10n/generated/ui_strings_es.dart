@@ -409,137 +409,137 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get fleetFleetManagementNeedsTheRemoteAdmin =>
-      'Fleet Management needs the remote admin';
+      'La gestión de flota necesita la administración remota';
 
   @override
   String get fleetKiosksFindEachOtherThroughItTurnOnRemote =>
-      'Kiosks find each other through it. Turn on Remote management and Find other kiosks under Device, then come back.';
+      'Los kioskos se encuentran mediante la administración remota. Activa Administración remota y Buscar otros kioskos en Dispositivo y luego vuelve aquí.';
 
   @override
-  String get fleetLeadThisFleet => 'Lead this fleet';
+  String get fleetLeadThisFleet => 'Dirigir esta flota';
 
   @override
   String get fleetSyncThisKioskSSettingsToItsFollowersRequires =>
-      'Sync this kiosk\'s settings to its followers. Requires all kiosks to run the same version.';
+      'Sincroniza la configuración de este kiosko con los que lo siguen. Todos los kioskos deben usar la misma versión.';
 
   @override
   String get fleetAKioskThatFollowsALeaderCannotLead =>
-      'A kiosk that follows a leader cannot lead.';
+      'Un kiosko que sigue a un líder no puede dirigir una flota.';
 
   @override
-  String get fleetFollowers => 'Followers';
+  String get fleetFollowers => 'Seguidores';
 
   @override
-  String get fleetProfiles => 'Profiles';
+  String get fleetProfiles => 'Perfiles';
 
   @override
-  String get fleetLeader => 'Leader';
+  String get fleetLeader => 'Líder';
 
   @override
   String get fleetLearnWhichSettingsSyncAndWhichDoNotIn =>
-      'Learn which settings sync and which do not in the ';
+      'Consulta qué ajustes se sincronizan y cuáles no en la ';
 
   @override
   String get fleetFleetManagementDocumentation =>
-      'Fleet Management documentation';
+      'documentación de gestión de flota';
 
   @override
-  String get fleetMore => 'More';
+  String get fleetMore => 'Más';
 
   @override
   String get fleetSearchFollowers =>
-      'The kiosks this one leads, their state and a way to add one.';
+      'Los kioskos que siguen a este, su estado y la opción de añadir uno.';
 
   @override
-  String get fleetAddAKiosk => 'Add a kiosk';
+  String get fleetAddAKiosk => 'Añadir un kiosko';
 
   @override
   String get fleetKiosksMemberOfTheFleetAFollowerMustConfirm =>
-      'Kiosks member of the fleet. A follower must confirm the invitation on device.';
+      'Kioskos de la flota. Cada seguidor debe confirmar la invitación en su dispositivo.';
 
   @override
-  String get fleetSendInvitation => 'Send invitation';
+  String get fleetSendInvitation => 'Enviar invitación';
 
   @override
-  String get fleetInviteAgain => 'Invite again';
+  String get fleetInviteAgain => 'Volver a invitar';
 
   @override
   String fleetRemoveName(String name) {
-    return 'Remove $name?';
+    return '¿Eliminar $name?';
   }
 
   @override
   String get fleetItStopsFollowingThisKioskAndKeepsItsSettings =>
-      'It stops following this kiosk and keeps its settings.';
+      'Deja de seguir a este kiosko y conserva su configuración.';
 
   @override
   String fleetNameWantsToLeadThisKiosk(String name) {
-    return '$name wants to lead this kiosk';
+    return '$name quiere dirigir este kiosko';
   }
 
   @override
   String get fleetItsSettingsReplaceThisKioskSInTheCategories =>
-      'Its settings replace this kiosk\'s in the categories it syncs, from now on. This kiosk keeps its name and identity.';
+      'A partir de ahora, su configuración sustituye a la de este kiosko en las categorías que sincroniza. Este kiosko conserva su nombre e identidad.';
 
   @override
   String get fleetItsSettingsReplaceThisKioskSInTheCategoriesDetail =>
-      'Its settings replace this kiosk\'s in the categories it syncs, from now on. This kiosk keeps its name, its Home Assistant, Music Assistant and ESPHome selves and its hardware picks. You can leave the fleet at any time under Settings, Fleet Management.';
+      'A partir de ahora, su configuración sustituye a la de este kiosko en las categorías que sincroniza. Este kiosko conserva su nombre, sus identidades en Home Assistant, Music Assistant y ESPHome y sus dispositivos seleccionados. Puedes salir de la flota cuando quieras desde Configuración > Gestión de flota.';
 
   @override
   String get fleetConfirmOnTheKioskItselfTheInvitationIsWaiting =>
-      'Confirm on the kiosk itself. The invitation is waiting on its screen and under Settings, Fleet Management.';
+      'Confirma en el propio kiosko. La invitación aparece en su pantalla y en Configuración > Gestión de flota.';
 
   @override
-  String get fleetAccept => 'Accept';
+  String get fleetAccept => 'Aceptar';
 
   @override
-  String get fleetLookingForOtherKiosks => 'Looking for other kiosks…';
+  String get fleetLookingForOtherKiosks => 'Buscando otros kioskos…';
 
   @override
   String get fleetNoOtherKioskFoundOnThisNetworkAKiosk =>
-      'No other kiosk found on this network. A kiosk shows up once its remote admin is on and it shares this Wi-Fi.';
+      'No se encontró otro kiosko en esta red. Aparecerá cuando tenga activada la administración remota y esté conectado a esta red Wi-Fi.';
 
   @override
   String fleetFollowsName(String name) {
-    return 'Follows $name';
+    return 'Sigue a $name';
   }
 
   @override
-  String get fleetLeadsAFleet => 'Leads a fleet';
+  String get fleetLeadsAFleet => 'Dirige una flota';
 
   @override
-  String get fleetNoFleetManagement => 'No Fleet Management';
+  String get fleetNoFleetManagement => 'Sin gestión de flota';
 
   @override
   String get fleetKiosksOnThisNetworkThatDoNotFollowThis =>
-      'Kiosks on this network that do not follow this one. Pick one to choose what it gets, then the invitation goes out. A kiosk on a build without Fleet Management joins once it runs one.';
+      'Kioskos de esta red que no siguen a este. Selecciona uno y elige qué recibirá para enviarle la invitación. Si su versión no incluye Gestión de flota, podrá unirse cuando la actualice.';
 
   @override
-  String get fleetJoinedTheFleet => 'Joined the fleet';
+  String get fleetJoinedTheFleet => 'Te has unido a la flota';
 
   @override
   String get fleetSettingsFromTheLeaderArriveShortly =>
-      'Settings from the leader arrive shortly.';
+      'La configuración del líder llegará en breve.';
 
   @override
-  String get fleetAddAProfile => 'Add a profile';
+  String get fleetAddAProfile => 'Añadir un perfil';
 
   @override
   String get fleetTheCollectionOfSettingsCredentialsAndExclusionsToSync =>
-      'The collection of settings, credentials and exclusions to sync.';
+      'El conjunto de ajustes, credenciales y exclusiones para sincronizar.';
 
   @override
-  String get fleetNewProfile => 'New profile';
+  String get fleetNewProfile => 'Nuevo perfil';
 
   @override
-  String get fleetProfile => 'Profile';
+  String get fleetProfile => 'Perfil';
 
   @override
-  String get fleetUpdatesOnly => 'Updates only';
+  String get fleetUpdatesOnly => 'Solo actualizaciones';
 
   @override
   String get fleetNothingSyncsOnlyUpdatesArePushed =>
-      'Nothing syncs. Only updates are pushed.';
+      'No se sincroniza ningún ajuste. Solo se envían actualizaciones.';
 
   @override
   String
@@ -550,37 +550,37 @@ class UiStringsEs extends UiStrings {
     String credentialTotal,
     String excluded,
   ) {
-    return 'Categories: $selected of $total. Credentials: $credentials of $credentialTotal. Excluded: $excluded.';
+    return 'Categorías: $selected de $total. Credenciales: $credentials de $credentialTotal. Excluidos: $excluded.';
   }
 
   @override
-  String get fleetThisProfileIsGone => 'This profile is gone';
+  String get fleetThisProfileIsGone => 'Este perfil ya no existe';
 
   @override
   String get fleetItWasDeletedFromAnotherPage =>
-      'It was deleted from another page.';
+      'Se eliminó desde otra página.';
 
   @override
-  String get fleetName => 'Name';
+  String get fleetName => 'Nombre';
 
   @override
-  String get fleetRename => 'Rename';
+  String get fleetRename => 'Cambiar nombre';
 
   @override
-  String get fleetRenameProfile => 'Rename profile';
+  String get fleetRenameProfile => 'Cambiar nombre del perfil';
 
   @override
-  String get fleetWhatItSyncs => 'What it syncs';
+  String get fleetWhatItSyncs => 'Qué se sincroniza';
 
   @override
-  String get fleetNothing => 'Nothing';
+  String get fleetNothing => 'Nada';
 
   @override
   String get fleetKiosksOnThisProfileKeepEverySettingOfTheir =>
-      'Kiosks on this profile keep every setting of their own. The leader only pushes updates to them.';
+      'Los kioskos con este perfil conservan toda su configuración. El líder solo les envía actualizaciones.';
 
   @override
-  String get fleetCategories => 'Categories';
+  String get fleetCategories => 'Categorías';
 
   @override
   String fleetSelectedOfTotalNames(
@@ -588,398 +588,403 @@ class UiStringsEs extends UiStrings {
     String total,
     String names,
   ) {
-    return '$selected of $total: $names';
+    return '$selected de $total: $names';
   }
 
   @override
-  String get fleetCredentials => 'Credentials';
+  String get fleetCredentials => 'Credenciales';
 
   @override
-  String get fleetNoneTravel => 'None travel';
+  String get fleetNoneTravel => 'No se envía ninguna';
 
   @override
-  String get fleetIncludeTheDashboard => 'Include the dashboard';
+  String get fleetIncludeTheDashboard => 'Incluir el panel de control';
 
   @override
   String get fleetTheStartPageAndTheDefaultDashboard =>
-      'The start page and the default dashboard.';
+      'La página de inicio y el panel de control predeterminado.';
 
   @override
-  String get fleetExcludedSettings => 'Excluded settings';
+  String get fleetExcludedSettings => 'Ajustes excluidos';
 
   @override
-  String get fleetOneSettingLeftOut => 'One setting left out';
+  String get fleetOneSettingLeftOut => 'Un ajuste excluido';
 
   @override
   String fleetCountSettingsLeftOut(String count) {
-    return '$count settings left out';
+    return '$count ajustes excluidos';
   }
 
   @override
-  String get fleetNoKiosksAssigned => 'No kiosks assigned';
+  String get fleetNoKiosksAssigned => 'No hay kioskos asignados';
 
   @override
   String get fleetAssignThisProfileToAKioskOnTheFleet =>
-      'Assign this profile to a kiosk on the Fleet Management page.';
+      'Asigna este perfil a un kiosko en la página Gestión de flota.';
 
   @override
-  String get fleetDuplicate => 'Duplicate';
+  String get fleetDuplicate => 'Duplicar';
 
   @override
   String get fleetCloneThisProfileIntoANewOne =>
-      'Clone this profile into a new one.';
+      'Crea un perfil nuevo a partir de este.';
 
   @override
-  String get fleetDuplicateProfile => 'Duplicate profile';
+  String get fleetDuplicateProfile => 'Duplicar perfil';
 
   @override
   String fleetNameCopy(String name) {
-    return '$name copy';
+    return 'Copia de $name';
   }
 
   @override
-  String get fleetDeleteProfile => 'Delete profile';
+  String get fleetDeleteProfile => 'Eliminar perfil';
 
   @override
-  String get fleetNoKioskIsOnIt => 'No kiosk is on it.';
+  String get fleetNoKioskIsOnIt => 'Ningún kiosko usa este perfil.';
 
   @override
   String get fleetKiosksOnItGetTheDefaultProfile =>
-      'Kiosks on it get the Default profile.';
+      'Los kioskos que lo usan reciben el perfil Predeterminado.';
 
   @override
   String fleetDeleteName(String name) {
-    return 'Delete $name?';
+    return '¿Eliminar $name?';
   }
 
   @override
-  String get fleetBlackScreens => 'Black screens';
+  String get fleetBlackScreens => 'Pantallas negras';
 
   @override
   String fleetSyncToName(String name) {
-    return 'Sync to $name';
+    return 'Sincronizar con $name';
   }
 
   @override
-  String get fleetDefault => 'Default';
+  String get fleetDefault => 'Predeterminado';
 
   @override
-  String get fleetNone => 'None';
+  String get fleetNone => 'Ninguno';
 
   @override
   String get fleetSearchProfiles =>
-      'The named lists a follower can be given: categories, credentials, the dashboard and the settings left out.';
+      'Los perfiles que se pueden asignar a un seguidor: categorías, credenciales, panel de control y ajustes excluidos.';
 
   @override
-  String get fleetSyncNow => 'Sync now';
+  String get fleetSyncNow => 'Sincronizar ahora';
 
   @override
   String get fleetChangedHereWaitingForTheLeader =>
-      'Changed here, waiting for the leader';
+      'Cambios locales, esperando al líder';
 
   @override
   String fleetSyncedTime(String time) {
-    return 'Synced $time';
+    return 'Sincronizado $time';
   }
 
   @override
-  String get fleetWaitingForTheFirstSync => 'Waiting for the first sync';
+  String get fleetWaitingForTheFirstSync =>
+      'Esperando la primera sincronización';
 
   @override
-  String get fleetNothingYet => 'Nothing yet';
+  String get fleetNothingYet => 'Nada todavía';
 
   @override
-  String get fleetNoCredentials => 'No credentials';
+  String get fleetNoCredentials => 'Sin credenciales';
 
   @override
   String fleetWithTheNames(String names) {
-    return 'With the $names';
+    return 'Con $names';
   }
 
   @override
-  String get fleetTheDashboard => 'the dashboard';
+  String get fleetTheDashboard => 'el panel de control';
 
   @override
-  String get fleetNoDashboard => 'no dashboard';
+  String get fleetNoDashboard => 'sin panel de control';
 
   @override
-  String get fleetTheDashboardDetail => 'The dashboard';
+  String get fleetTheDashboardDetail => 'El panel de control';
 
   @override
-  String get fleetNoDashboardDetail => 'No dashboard';
+  String get fleetNoDashboardDetail => 'Sin panel de control';
 
   @override
-  String get fleetSyncedFromTheLeader => 'Synced from the leader';
+  String get fleetSyncedFromTheLeader => 'Sincronizado desde el líder';
 
   @override
-  String get fleetLeaveTheFleet => 'Leave the fleet';
+  String get fleetLeaveTheFleet => 'Salir de la flota';
 
   @override
   String get fleetStopsTheSyncSettingsStayAsTheyAre =>
-      'Stops the sync. Settings stay as they are.';
+      'Detiene la sincronización. La configuración se conserva tal como está.';
 
   @override
-  String get fleetLeaveTheFleetDetail => 'Leave the fleet?';
+  String get fleetLeaveTheFleetDetail => '¿Salir de la flota?';
 
   @override
   String fleetNameStopsPushingSettingsHereEverythingStaysAsIt(String name) {
-    return '$name stops pushing settings here. Everything stays as it is now.';
+    return '$name deja de enviar ajustes a este kiosko. Todo se conserva tal como está.';
   }
 
   @override
-  String get fleetLeave => 'Leave';
+  String get fleetLeave => 'Salir';
 
   @override
-  String get fleetJustNow => 'just now';
+  String get fleetJustNow => 'ahora mismo';
 
   @override
   String fleetCountMinAgo(String count) {
-    return '$count min ago';
+    return 'hace $count min';
   }
 
   @override
   String fleetCountHAgo(String count) {
-    return '$count h ago';
+    return 'hace $count h';
   }
 
   @override
   String fleetCountDaysAgo(String count) {
-    return '$count days ago';
+    return 'hace $count días';
   }
 
   @override
   String fleetNameLeadsTheseSettingsAChangeHereIsReplaced(String name) {
-    return '$name leads these settings. A change here is replaced at the next sync.';
+    return '$name dirige estos ajustes. Los cambios locales se sustituyen en la siguiente sincronización.';
   }
 
   @override
-  String get fleetDeclinedOnTheKiosk => 'Declined on the kiosk';
+  String get fleetDeclinedOnTheKiosk => 'Rechazado en el kiosko';
 
   @override
-  String get fleetWaitingForItsOk => 'Waiting for its OK';
+  String get fleetWaitingForItsOk => 'Esperando su confirmación';
 
   @override
-  String get fleetLeftTheFleet => 'Left the fleet';
+  String get fleetLeftTheFleet => 'Salió de la flota';
 
   @override
   String fleetSendingPercent(String percent) {
-    return 'Sending $percent%';
+    return 'Enviando $percent%';
   }
 
   @override
-  String get fleetInstalling => 'Installing';
+  String get fleetInstalling => 'Instalando';
 
   @override
   String fleetRunsVersionThisKioskNeedsAnUpdate(String version) {
-    return 'Runs $version, this kiosk needs an update';
+    return 'Usa $version, este kiosko necesita una actualización';
   }
 
   @override
   String fleetNeedsVersion(String version) {
-    return 'Needs $version';
+    return 'Necesita $version';
   }
 
   @override
   String fleetDownloadingPercent(String percent) {
-    return 'Downloading $percent%';
+    return 'Descargando $percent%';
   }
 
   @override
-  String get fleetSyncing => 'Syncing…';
+  String get fleetSyncing => 'Sincronizando…';
 
   @override
-  String get fleetErrorUnreachable => 'Unreachable';
+  String get fleetErrorUnreachable => 'Inaccesible';
 
   @override
-  String get fleetErrorBadAnswer => 'Bad answer';
+  String get fleetErrorBadAnswer => 'Respuesta no válida';
 
   @override
-  String get fleetErrorThePushFailed => 'The push failed';
+  String get fleetErrorThePushFailed => 'No se pudo enviar la configuración';
 
   @override
-  String get fleetErrorLeadThisFleetIsOff => 'Lead this fleet is off';
+  String get fleetErrorLeadThisFleetIsOff =>
+      'Dirigir esta flota está desactivado';
 
   @override
   String get fleetErrorTheRemoteAdminAndFindOtherKiosksMustBeOn =>
-      'The remote admin and Find other kiosks must be on';
+      'La administración remota y Buscar otros kioskos deben estar activados';
 
   @override
-  String get fleetErrorPickAnotherKiosk => 'Pick another kiosk';
+  String get fleetErrorPickAnotherKiosk => 'Selecciona otro kiosko';
 
   @override
   String get fleetErrorThatKioskIsNotOnTheNetworkRightNow =>
-      'That kiosk is not on the network right now';
+      'Ese kiosko no está en la red en este momento';
 
   @override
-  String get fleetErrorThatKioskDidNotAnswer => 'That kiosk did not answer';
+  String get fleetErrorThatKioskDidNotAnswer => 'Ese kiosko no respondió';
 
   @override
   String get fleetErrorThatKioskRefusedTheInvitation =>
-      'That kiosk refused the invitation';
+      'Ese kiosko rechazó la invitación';
 
   @override
-  String get fleetErrorTheDefaultProfileStays => 'The Default profile stays';
+  String get fleetErrorTheDefaultProfileStays =>
+      'El perfil Predeterminado no se puede eliminar';
 
   @override
   String get fleetErrorTheUpdatesOnlyProfileStays =>
-      'The Updates only profile stays';
+      'El perfil Solo actualizaciones no se puede eliminar';
 
   @override
-  String get fleetErrorNoSuchProfile => 'No such profile';
+  String get fleetErrorNoSuchProfile => 'Ese perfil no existe';
 
   @override
-  String get fleetErrorNoSuchFollower => 'No such follower';
+  String get fleetErrorNoSuchFollower => 'Ese seguidor no existe';
 
   @override
-  String get fleetErrorNoInvitationIsWaiting => 'No invitation is waiting';
+  String get fleetErrorNoInvitationIsWaiting =>
+      'No hay invitaciones pendientes';
 
   @override
-  String get fleetErrorMalformedInvitation => 'Malformed invitation';
+  String get fleetErrorMalformedInvitation => 'Invitación no válida';
 
   @override
-  String get fleetErrorCouldNotMintAToken => 'Could not mint a token';
+  String get fleetErrorCouldNotMintAToken => 'No se pudo generar un token';
 
   @override
-  String get fleetErrorNotAFollowerYet => 'not a follower yet';
+  String get fleetErrorNotAFollowerYet => 'aún no es un seguidor';
 
   @override
-  String get fleetErrorOffline => 'offline';
+  String get fleetErrorOffline => 'sin conexión';
 
   @override
-  String get fleetErrorUpToDate => 'up to date';
+  String get fleetErrorUpToDate => 'actualizado';
 
   @override
-  String get fleetErrorAlreadyDownloading => 'already downloading';
+  String get fleetErrorAlreadyDownloading => 'ya se está descargando';
 
   @override
-  String get fleetErrorDidNotAnswer => 'did not answer';
+  String get fleetErrorDidNotAnswer => 'no respondió';
 
   @override
-  String get fleetErrorDidNotTakeTheUpload => 'did not take the upload';
+  String get fleetErrorDidNotTakeTheUpload => 'no aceptó el archivo';
 
   @override
   String fleetProfileNameExists(String name) {
-    return 'A profile named $name exists';
+    return 'Ya existe un perfil llamado $name';
   }
 
   @override
   String fleetAlreadyOnVersion(String version) {
-    return 'already on $version';
+    return 'ya usa $version';
   }
 
   @override
   String get fleetUnsupportedBuild =>
-      'That kiosk runs a build without Fleet Management. It joins once it runs one.';
+      'Ese kiosko usa una versión sin Gestión de flota. Podrá unirse cuando la actualice.';
 
   @override
-  String get fleetSwitchKiosk => 'Switch kiosk';
+  String get fleetSwitchKiosk => 'Cambiar de kiosko';
 
   @override
   String get fleetKiosksOnThisNetworkWithTheRemoteAdminOn =>
-      'Kiosks on this network with the remote admin on. Picking one opens its admin here, on this same page.';
+      'Kioskos de esta red con la administración remota activada. Selecciona uno para abrir aquí su administración en esta misma página.';
 
   @override
   String get fleetNoOtherKioskFoundOnThisNetworkAKioskDetail =>
-      'No other kiosk found on this network. A kiosk shows up once its remote admin is on and it shares this network.';
+      'No se encontró otro kiosko en esta red. Aparecerá cuando tenga activada la administración remota y esté conectado a esta red.';
 
   @override
-  String get fleetSyncedCredentials => 'Synced Credentials';
+  String get fleetSyncedCredentials => 'Credenciales sincronizadas';
 
   @override
   String get fleetTheSettingsOnThisListWillNotBeSynced =>
-      'The settings on this list will not be synced to the followers.';
+      'Los ajustes de esta lista no se sincronizan con los seguidores.';
 
   @override
-  String get fleetNothingLeftOut => 'Nothing left out';
+  String get fleetNothingLeftOut => 'No hay ajustes excluidos';
 
   @override
-  String get fleetSyncItAgain => 'Sync it again';
+  String get fleetSyncItAgain => 'Volver a sincronizar';
 
   @override
-  String get fleetAddASetting => 'Add a setting';
+  String get fleetAddASetting => 'Añadir un ajuste';
 
   @override
-  String get fleetExcludeASetting => 'Exclude a setting';
+  String get fleetExcludeASetting => 'Excluir un ajuste';
 
   @override
-  String get fleetSearchSettings => 'Search settings';
+  String get fleetSearchSettings => 'Buscar ajustes';
 
   @override
   String fleetCountMoreTypeToNarrowTheList(String count) {
-    return '$count more. Type to narrow the list.';
+    return '$count más. Escribe para filtrar la lista.';
   }
 
   @override
   String fleetNotSyncedNote(String note) {
-    return 'Not synced: $note';
+    return 'No se sincroniza: $note';
   }
 
   @override
-  String get fleetTheAssignedSatellite => 'the assigned satellite';
+  String get fleetTheAssignedSatellite => 'el satélite asignado';
 
   @override
   String get fleetMicrophoneAndSpeakerDevicesMicGain =>
-      'microphone and speaker devices, mic gain';
+      'los dispositivos de micrófono y altavoz y la ganancia del micrófono';
 
   @override
-  String get fleetTheDeviceCamera => 'the device camera';
+  String get fleetTheDeviceCamera => 'la cámara del dispositivo';
 
   @override
   String get fleetTheFollowedPlayerTheSendspinPlayerId =>
-      'the followed player, the Sendspin player id';
+      'el reproductor seguido y el identificador del reproductor Sendspin';
 
   @override
-  String get fleetNodeNameMacEncryptionKey => 'node name, MAC, encryption key';
+  String get fleetNodeNameMacEncryptionKey =>
+      'el nombre del nodo, la MAC y la clave de cifrado';
 
   @override
-  String get fleetThePinIsAlsoSynced => 'the PIN is also synced';
+  String get fleetThePinIsAlsoSynced => 'el PIN también se sincroniza';
 
   @override
   String get fleetTheKeyUnlessSyncedAsACredential =>
-      'the key, unless synced as a credential';
+      'la clave, salvo que se sincronice como credencial';
 
   @override
   String get fleetNameRemoteAdministrationRendererWorkaroundsScale =>
-      'name, remote administration, renderer workarounds, scale';
+      'el nombre, la administración remota, los ajustes de compatibilidad del renderizador y la escala';
 
   @override
-  String get fleetHomeAssistantToken => 'Home Assistant token';
+  String get fleetHomeAssistantToken => 'Token de Home Assistant';
 
   @override
-  String get fleetMusicAssistantToken => 'Music Assistant token';
+  String get fleetMusicAssistantToken => 'Token de Music Assistant';
 
   @override
-  String get fleetImmichApiKey => 'Immich API key';
+  String get fleetImmichApiKey => 'Clave de API de Immich';
 
   @override
-  String get fleetUpdateTheFleet => 'Update the fleet';
+  String get fleetUpdateTheFleet => 'Actualizar la flota';
 
   @override
   String get fleetUpdateTheWholeFleetToTheKioskSatelliteVersion =>
-      'Update the whole fleet to the Kiosk Satellite version running on the leader.';
+      'Actualiza toda la flota a la versión de Kiosk Satellite que usa el líder.';
 
   @override
   String get fleetKeepFollowersOnThisVersion =>
-      'Keep followers on this version';
+      'Mantener a los seguidores en esta versión';
 
   @override
   String get fleetAutomaticallyUpdateAllFollowersToTheKioskSatelliteVersion =>
-      'Automatically update all followers to the Kiosk Satellite version running on the leader.';
+      'Actualiza automáticamente a todos los seguidores a la versión de Kiosk Satellite que usa el líder.';
 
   @override
-  String get fleetNothingToUpdate => 'Nothing to update';
+  String get fleetNothingToUpdate => 'No hay nada que actualizar';
 
   @override
-  String get fleetUpdating => 'Updating';
+  String get fleetUpdating => 'Actualizando';
 
   @override
   String fleetNamesInstalling(String names) {
-    return '$names installing.';
+    return 'Instalando en $names.';
   }
 
   @override
   String get fleetSearchUpdates =>
-      'Install the release offered to each follower, then here.';
+      'Instala la versión disponible en cada seguidor y luego aquí.';
 
   @override
   String get gestureAction => 'Acción';
@@ -1901,238 +1906,238 @@ class UiStringsEs extends UiStrings {
   String get mediaSpeakerSelection => 'Selección de altavoces';
 
   @override
-  String get pluginActions => 'Actions';
+  String get pluginActions => 'Acciones';
 
   @override
-  String get pluginKioskDrawer => 'Kiosk drawer';
+  String get pluginKioskDrawer => 'Menú del kiosko';
 
   @override
   String get pluginToAssignAGestureOpenGesturesAndChooseRun =>
-      'To assign a gesture, open Gestures and choose Run a plugin action.';
+      'Para asignar un gesto, abre Gestos y selecciona Ejecutar una acción de plugin.';
 
   @override
-  String get pluginShowInKioskDrawer => 'Show in kiosk drawer';
+  String get pluginShowInKioskDrawer => 'Mostrar en el menú del kiosko';
 
   @override
   String get pluginAlsoAvailableWhileLockedIfTheKioskDrawerIs =>
-      'Also available while locked if the kiosk drawer is allowed.';
+      'También está disponible durante el bloqueo si se permite el menú del kiosko.';
 
   @override
-  String get pluginExposeToHomeAssistant => 'Expose to Home Assistant';
+  String get pluginExposeToHomeAssistant => 'Publicar en Home Assistant';
 
   @override
   String get pluginAddsAButtonToTheKioskEsphomeDeviceRequires =>
-      'Adds a button to the kiosk ESPHome device. Requires ESPHome and native entities.';
+      'Añade un botón al dispositivo ESPHome del kiosko. Requiere ESPHome y entidades nativas.';
 
   @override
-  String get pluginSelectAnEntity => 'Select an entity';
+  String get pluginSelectAnEntity => 'Seleccionar una entidad';
 
   @override
   String pluginChooseName(String name) {
-    return 'Choose $name';
+    return 'Elegir $name';
   }
 
   @override
   String pluginConfigureName(String name) {
-    return 'Configure $name';
+    return 'Configurar $name';
   }
 
   @override
   String get pluginPlugin => 'Plugin';
 
   @override
-  String get pluginEnablePlugins => 'Enable Plugins';
+  String get pluginEnablePlugins => 'Activar plugins';
 
   @override
   String
   get pluginPluginsAddAdditionalCommunityDevelopedFeaturesToKioskSatellite =>
-      'Plugins add additional community developed features to Kiosk Satellite.';
+      'Los plugins añaden funciones desarrolladas por la comunidad a Kiosk Satellite.';
 
   @override
-  String get pluginInstalledPlugins => 'Installed plugins';
+  String get pluginInstalledPlugins => 'Plugins instalados';
 
   @override
   String get pluginNoPluginsInstalledAddARepositoryToGetStarted =>
-      'No plugins installed. Add a repository to get started.';
+      'No hay plugins instalados. Añade un repositorio para empezar.';
 
   @override
-  String get pluginDeveloperTools => 'Developer Tools';
+  String get pluginDeveloperTools => 'Herramientas de desarrollo';
 
   @override
-  String get pluginCreateAPlugin => 'Create a plugin';
+  String get pluginCreateAPlugin => 'Crear un plugin';
 
   @override
   String get pluginLearnHowToCreatePluginsWithTheHelloWorld =>
-      'Learn how to create plugins with the Hello World template and documentation.';
+      'Aprende a crear plugins con la plantilla Hello World y la documentación.';
 
   @override
   String get pluginThisPluginIsNoLongerInstalled =>
-      'This plugin is no longer installed.';
+      'Este plugin ya no está instalado.';
 
   @override
   String get pluginEnablePluginsToRunThisPlugin =>
-      'Enable Plugins to run this plugin.';
+      'Activa los plugins para ejecutar este plugin.';
 
   @override
   String get pluginEnableThisPluginFromItsEntryRowToRun =>
-      'Enable this plugin from its entry row to run it.';
+      'Activa este plugin desde su fila en la lista para ejecutarlo.';
 
   @override
   String pluginUninstallName(String name) {
-    return 'Uninstall $name?';
+    return '¿Desinstalar $name?';
   }
 
   @override
   String pluginUninstallNameDetail(String name) {
-    return 'Uninstall $name';
+    return 'Desinstalar $name';
   }
 
   @override
   String pluginCheckForUpdatesForName(String name) {
-    return 'Check for updates for $name';
+    return 'Buscar actualizaciones de $name';
   }
 
   @override
   String pluginAboutName(String name) {
-    return 'About $name';
+    return 'Acerca de $name';
   }
 
   @override
   String get pluginThisRemovesThePluginAndItsSettings =>
-      'This removes the plugin and its settings.';
+      'Elimina el plugin y su configuración.';
 
   @override
-  String get pluginUninstall => 'Uninstall';
+  String get pluginUninstall => 'Desinstalar';
 
   @override
-  String get pluginNoUpdatesAvailable => 'No updates available.';
+  String get pluginNoUpdatesAvailable => 'No hay actualizaciones disponibles.';
 
   @override
   String get pluginThisPluginWasInstalledFromZipAndHasNo =>
-      'This plugin was installed from ZIP and has no repository README.';
+      'Este plugin se instaló desde un ZIP y no tiene un README de repositorio.';
 
   @override
-  String get pluginImageUnavailable => 'Image unavailable';
+  String get pluginImageUnavailable => 'Imagen no disponible';
 
   @override
-  String get pluginCouldNotOpenThisLink => 'Could not open this link.';
+  String get pluginCouldNotOpenThisLink => 'No se pudo abrir este enlace.';
 
   @override
   String pluginEnableName(String name) {
-    return 'Enable $name';
+    return 'Activar $name';
   }
 
   @override
-  String get pluginAddPlugin => 'Add plugin';
+  String get pluginAddPlugin => 'Añadir plugin';
 
   @override
   String get pluginInstallFromAGithubRepository =>
-      'Install from a GitHub repository';
+      'Instalar desde un repositorio de GitHub';
 
   @override
   String get pluginMakeSureYouTrustThePluginSAuthorAnd =>
-      'Make sure you trust the plugin\'s author and its code before installing it.';
+      'Asegúrate de confiar en el autor del plugin y en su código antes de instalarlo.';
 
   @override
-  String get pluginPreview => 'Preview';
+  String get pluginPreview => 'Vista previa';
 
   @override
-  String get pluginInstalledVersion => 'Installed version';
+  String get pluginInstalledVersion => 'Versión instalada';
 
   @override
-  String get pluginAuthor => 'Author';
+  String get pluginAuthor => 'Autor';
 
   @override
-  String get pluginLicense => 'License';
+  String get pluginLicense => 'Licencia';
 
   @override
   String get pluginPluginsRunCodeInsideKioskSatelliteAndCanAccess =>
-      'Plugins run code inside Kiosk Satellite and can access app data and granted Android permissions. A faulty or malicious plugin can expose private information or stop the app from working. Only install plugins from authors you trust.';
+      'Los plugins ejecutan código dentro de Kiosk Satellite y pueden acceder a los datos de la aplicación y a los permisos de Android concedidos. Un plugin defectuoso o malicioso puede exponer información privada o impedir que la aplicación funcione. Instala únicamente plugins de autores en los que confíes.';
 
   @override
   String get pluginNewPluginsStartDisabledUpdatesPreserveTheEnabledState =>
-      'New plugins start disabled. Updates preserve the enabled state and automatically restart running plugins.';
+      'Los plugins nuevos se instalan desactivados. Las actualizaciones conservan su estado de activación y reinician automáticamente los plugins en ejecución.';
 
   @override
-  String get pluginTrustAndUpdate => 'Trust and update';
+  String get pluginTrustAndUpdate => 'Confiar y actualizar';
 
   @override
-  String get pluginTrustAndInstall => 'Trust and install';
+  String get pluginTrustAndInstall => 'Confiar e instalar';
 
   @override
-  String get pluginInstallFromZip => 'Install from ZIP';
+  String get pluginInstallFromZip => 'Instalar desde ZIP';
 
   @override
   String get pluginForDevelopersOnlyTestALocalBuild =>
-      'For developers only: test a local build';
+      'Solo para desarrolladores: probar una compilación local';
 
   @override
-  String get pluginPluginZip => 'Plugin ZIP';
+  String get pluginPluginZip => 'ZIP del plugin';
 
   @override
   String get pluginPluginZipMustBeAtMost4Mb =>
-      'Plugin ZIP must be at most 4 MB';
+      'El ZIP del plugin debe ocupar como máximo 4 MB';
 
   @override
   String get pluginCouldNotReadTheSelectedZip =>
-      'Could not read the selected ZIP';
+      'No se pudo leer el ZIP seleccionado';
 
   @override
-  String get pluginCharts => 'Charts';
+  String get pluginCharts => 'Gráficas';
 
   @override
-  String get pluginReadings => 'Readings';
+  String get pluginReadings => 'Lecturas';
 
   @override
-  String get pluginWaitingForSamples => 'Waiting for samples';
+  String get pluginWaitingForSamples => 'Esperando muestras';
 
   @override
-  String get pluginLatest => 'Latest';
+  String get pluginLatest => 'Más reciente';
 
   @override
-  String get pluginSelected => 'Selected';
+  String get pluginSelected => 'Seleccionada';
 
   @override
-  String get pluginNoDataYet => 'No data yet';
+  String get pluginNoDataYet => 'Todavía no hay datos';
 
   @override
   String get pluginTapOrDragToInspectSamplesDoubleTapTo =>
-      'Tap or drag to inspect samples. Double-tap to follow the latest.';
+      'Toca o arrastra para examinar las muestras. Toca dos veces para seguir la más reciente.';
 
   @override
-  String get pluginNoData => 'No data';
+  String get pluginNoData => 'Sin datos';
 
   @override
-  String get pluginOn => 'On';
+  String get pluginOn => 'Activado';
 
   @override
-  String get pluginEmpty => 'Empty';
+  String get pluginEmpty => 'Vacío';
 
   @override
   String get pluginChartKeyboardHelp =>
-      'Use arrow keys to inspect samples and End for the latest.';
+      'Usa las flechas para examinar las muestras y Fin para ir a la más reciente.';
 
   @override
   String get pluginShizuku13OrLaterIsRequiredTapForSetup =>
-      'Shizuku 13 or later is required. Tap for setup instructions.';
+      'Se requiere Shizuku 13 o posterior. Toca para ver las instrucciones de configuración.';
 
   @override
   String get pluginStartShizukuOnThisDeviceTapForSetupInstructions =>
-      'Start Shizuku on this device. Tap for setup instructions.';
+      'Inicia Shizuku en este dispositivo. Toca para ver las instrucciones de configuración.';
 
   @override
   String get pluginShizukuGrantsKioskSatelliteShellOrRootAccessInstalled =>
-      'Shizuku grants Kiosk Satellite shell or root access. Installed plugins run inside KS, so only grant access if you trust them.';
+      'Shizuku concede a Kiosk Satellite acceso shell o root. Los plugins instalados se ejecutan dentro de KS, así que concede acceso solo si confías en ellos.';
 
   @override
-  String get pluginSetUp => 'Set up';
+  String get pluginSetUp => 'Configurar';
 
   @override
-  String get pluginGrantAccess => 'Grant access';
+  String get pluginGrantAccess => 'Conceder acceso';
 
   @override
   String get pluginApproveThePermissionRequestOnTheKiosk =>
-      'Approve the permission request on the kiosk.';
+      'Aprueba la solicitud de permiso en el kiosko.';
 
   @override
   String get settingLauncherEnabledTitle => 'Activar lanzador de aplicaciones';

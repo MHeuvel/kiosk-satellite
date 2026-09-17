@@ -1,0 +1,145 @@
+{
+  "@@locale": "en",
+  "pluginActions": "Actions",
+  "@pluginActions": {
+    "context": "Settings > Plugin Manager > a plugin > Actions",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Actions"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Actions"
+      ]
+    }
+  },
+  "pluginKioskDrawer": "Kiosk drawer",
+  "@pluginKioskDrawer": {
+    "context": "Settings > Plugin Manager > a plugin > Actions",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Actions"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Actions"
+      ]
+    }
+  },
+  "pluginToAssignAGestureOpenGesturesAndChooseRun": "To assign a gesture, open Gestures and choose Run a plugin action.",
+  "@pluginToAssignAGestureOpenGesturesAndChooseRun": {
+    "context": "Settings > Plugin Manager > a plugin > Actions",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Actions"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Actions"
+      ]
+    }
+  },
+  "pluginShowInKioskDrawer": "Show in kiosk drawer",
+  "@pluginShowInKioskDrawer": {
+    "context": "Settings > Plugin Manager > a plugin > Actions",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Actions"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Actions"
+      ]
+    }
+  },
+  "pluginAlsoAvailableWhileLockedIfTheKioskDrawerIs": "Also available while locked if the kiosk drawer is allowed.",
+  "@pluginAlsoAvailableWhileLockedIfTheKioskDrawerIs": {
+    "context": "Settings > Plugin Manager > a plugin > Actions",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Actions"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Actions"
+      ]
+    }
+  },
+  "pluginExposeToHomeAssistant": "Expose to Home Assistant",
+  "@pluginExposeToHomeAssistant": {
+    "context": "Settings > Plugin Manager > a plugin > Actions",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Actions"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Actions"
+      ]
+    }
+  },
+  "pluginAddsAButtonToTheKioskEsphomeDeviceRequires": "Adds a button to the kiosk ESPHome device. Requires ESPHome and native entities.",
+  "@pluginAddsAButtonToTheKioskEsphomeDeviceRequires": {
+    "context": "Settings > Plugin Manager > a plugin > Actions",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Actions"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Actions"
+      ]
+    }
+  },
+  "pluginSelectAnEntity": "Select an entity",
+  "@pluginSelectAnEntity": {
+    "context": "Settings > Plugin Manager > a plugin > Actions",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Actions"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Actions"
+      ]
+    }
+  },
+  "pluginChooseName": "Choose {name}",
+  "@pluginChooseName": {
+    "context": "Settings > Plugin Manager > a plugin > Actions",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Actions"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Actions"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "pluginConfigureName": "Configure {name}",
+  "@pluginConfigureName": {
+    "context": "Settings > Plugin Manager > a plugin > Actions",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Actions"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Actions"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  }
+}

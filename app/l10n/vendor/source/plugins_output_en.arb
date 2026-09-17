@@ -1,0 +1,143 @@
+{
+  "@@locale": "en",
+  "pluginCharts": "Charts",
+  "@pluginCharts": {
+    "context": "Settings > Plugin Manager > a plugin > Charts and Readings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Charts and Readings"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Charts and Readings"
+      ]
+    }
+  },
+  "pluginReadings": "Readings",
+  "@pluginReadings": {
+    "context": "Settings > Plugin Manager > a plugin > Charts and Readings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Charts and Readings"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Charts and Readings"
+      ]
+    }
+  },
+  "pluginWaitingForSamples": "Waiting for samples",
+  "@pluginWaitingForSamples": {
+    "context": "Settings > Plugin Manager > a plugin > Charts and Readings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Charts and Readings"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Charts and Readings"
+      ]
+    }
+  },
+  "pluginLatest": "Latest",
+  "@pluginLatest": {
+    "context": "Settings > Plugin Manager > a plugin > Charts and Readings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Charts and Readings"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Charts and Readings"
+      ]
+    }
+  },
+  "pluginSelected": "Selected",
+  "@pluginSelected": {
+    "context": "Settings > Plugin Manager > a plugin > Charts and Readings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Charts and Readings"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Charts and Readings"
+      ]
+    }
+  },
+  "pluginNoDataYet": "No data yet",
+  "@pluginNoDataYet": {
+    "context": "Settings > Plugin Manager > a plugin > Charts and Readings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Charts and Readings"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Charts and Readings"
+      ]
+    }
+  },
+  "pluginTapOrDragToInspectSamplesDoubleTapTo": "Tap or drag to inspect samples. Double-tap to follow the latest.",
+  "@pluginTapOrDragToInspectSamplesDoubleTapTo": {
+    "context": "Settings > Plugin Manager > a plugin > Charts and Readings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Charts and Readings"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Charts and Readings"
+      ]
+    }
+  },
+  "pluginNoData": "No data",
+  "@pluginNoData": {
+    "context": "Settings > Plugin Manager > a plugin > Charts and Readings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Charts and Readings"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Charts and Readings"
+      ]
+    }
+  },
+  "pluginOn": "On",
+  "@pluginOn": {
+    "context": "Settings > Plugin Manager > a plugin > Charts and Readings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Charts and Readings"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Charts and Readings"
+      ]
+    }
+  },
+  "pluginEmpty": "Empty",
+  "@pluginEmpty": {
+    "context": "Settings > Plugin Manager > a plugin > Charts and Readings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > a plugin > Charts and Readings"
+      ],
+      "remoteAdmin": [
+        "Plugin Manager > a plugin > Charts and Readings"
+      ]
+    }
+  },
+  "pluginChartKeyboardHelp": "Use arrow keys to inspect samples and End for the latest.",
+  "@pluginChartKeyboardHelp": {
+    "context": "Settings > Plugin Manager > select a plugin",
+    "description": "Accessible control guidance or action result.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Plugin Manager > select a plugin"
+      ]
+    }
+  }
+}

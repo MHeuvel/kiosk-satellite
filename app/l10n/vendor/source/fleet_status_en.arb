@@ -1,0 +1,809 @@
+{
+  "@@locale": "en",
+  "fleetSyncNow": "Sync now",
+  "@fleetSyncNow": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetChangedHereWaitingForTheLeader": "Changed here, waiting for the leader",
+  "@fleetChangedHereWaitingForTheLeader": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetSyncedTime": "Synced {time}",
+  "@fleetSyncedTime": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    },
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetWaitingForTheFirstSync": "Waiting for the first sync",
+  "@fleetWaitingForTheFirstSync": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetNothingYet": "Nothing yet",
+  "@fleetNothingYet": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetNoCredentials": "No credentials",
+  "@fleetNoCredentials": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetWithTheNames": "With the {names}",
+  "@fleetWithTheNames": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    },
+    "placeholders": {
+      "names": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetTheDashboard": "the dashboard",
+  "@fleetTheDashboard": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetNoDashboard": "no dashboard",
+  "@fleetNoDashboard": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetTheDashboardDetail": "The dashboard",
+  "@fleetTheDashboardDetail": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetNoDashboardDetail": "No dashboard",
+  "@fleetNoDashboardDetail": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetSyncedFromTheLeader": "Synced from the leader",
+  "@fleetSyncedFromTheLeader": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetLeaveTheFleet": "Leave the fleet",
+  "@fleetLeaveTheFleet": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetStopsTheSyncSettingsStayAsTheyAre": "Stops the sync. Settings stay as they are.",
+  "@fleetStopsTheSyncSettingsStayAsTheyAre": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetLeaveTheFleetDetail": "Leave the fleet?",
+  "@fleetLeaveTheFleetDetail": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetNameStopsPushingSettingsHereEverythingStaysAsIt": "{name} stops pushing settings here. Everything stays as it is now.",
+  "@fleetNameStopsPushingSettingsHereEverythingStaysAsIt": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetLeave": "Leave",
+  "@fleetLeave": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetJustNow": "just now",
+  "@fleetJustNow": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetCountMinAgo": "{count} min ago",
+  "@fleetCountMinAgo": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetCountHAgo": "{count} h ago",
+  "@fleetCountHAgo": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetCountDaysAgo": "{count} days ago",
+  "@fleetCountDaysAgo": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetNameLeadsTheseSettingsAChangeHereIsReplaced": "{name} leads these settings. A change here is replaced at the next sync.",
+  "@fleetNameLeadsTheseSettingsAChangeHereIsReplaced": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetDeclinedOnTheKiosk": "Declined on the kiosk",
+  "@fleetDeclinedOnTheKiosk": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetWaitingForItsOk": "Waiting for its OK",
+  "@fleetWaitingForItsOk": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetLeftTheFleet": "Left the fleet",
+  "@fleetLeftTheFleet": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetSendingPercent": "Sending {percent}%",
+  "@fleetSendingPercent": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    },
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetInstalling": "Installing",
+  "@fleetInstalling": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetRunsVersionThisKioskNeedsAnUpdate": "Runs {version}, this kiosk needs an update",
+  "@fleetRunsVersionThisKioskNeedsAnUpdate": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    },
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetNeedsVersion": "Needs {version}",
+  "@fleetNeedsVersion": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    },
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetDownloadingPercent": "Downloading {percent}%",
+  "@fleetDownloadingPercent": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    },
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetSyncing": "Syncing…",
+  "@fleetSyncing": {
+    "context": "Settings > Fleet Management > Followers and Leader",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Followers and Leader"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Followers and Leader"
+      ]
+    }
+  },
+  "fleetErrorUnreachable": "Unreachable",
+  "@fleetErrorUnreachable": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorBadAnswer": "Bad answer",
+  "@fleetErrorBadAnswer": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorThePushFailed": "The push failed",
+  "@fleetErrorThePushFailed": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorLeadThisFleetIsOff": "Lead this fleet is off",
+  "@fleetErrorLeadThisFleetIsOff": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorTheRemoteAdminAndFindOtherKiosksMustBeOn": "The remote admin and Find other kiosks must be on",
+  "@fleetErrorTheRemoteAdminAndFindOtherKiosksMustBeOn": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorPickAnotherKiosk": "Pick another kiosk",
+  "@fleetErrorPickAnotherKiosk": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorThatKioskIsNotOnTheNetworkRightNow": "That kiosk is not on the network right now",
+  "@fleetErrorThatKioskIsNotOnTheNetworkRightNow": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorThatKioskDidNotAnswer": "That kiosk did not answer",
+  "@fleetErrorThatKioskDidNotAnswer": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorThatKioskRefusedTheInvitation": "That kiosk refused the invitation",
+  "@fleetErrorThatKioskRefusedTheInvitation": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorTheDefaultProfileStays": "The Default profile stays",
+  "@fleetErrorTheDefaultProfileStays": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorTheUpdatesOnlyProfileStays": "The Updates only profile stays",
+  "@fleetErrorTheUpdatesOnlyProfileStays": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorNoSuchProfile": "No such profile",
+  "@fleetErrorNoSuchProfile": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorNoSuchFollower": "No such follower",
+  "@fleetErrorNoSuchFollower": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorNoInvitationIsWaiting": "No invitation is waiting",
+  "@fleetErrorNoInvitationIsWaiting": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorMalformedInvitation": "Malformed invitation",
+  "@fleetErrorMalformedInvitation": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorCouldNotMintAToken": "Could not mint a token",
+  "@fleetErrorCouldNotMintAToken": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorNotAFollowerYet": "not a follower yet",
+  "@fleetErrorNotAFollowerYet": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorOffline": "offline",
+  "@fleetErrorOffline": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorUpToDate": "up to date",
+  "@fleetErrorUpToDate": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorAlreadyDownloading": "already downloading",
+  "@fleetErrorAlreadyDownloading": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorDidNotAnswer": "did not answer",
+  "@fleetErrorDidNotAnswer": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetErrorDidNotTakeTheUpload": "did not take the upload",
+  "@fleetErrorDidNotTakeTheUpload": {
+    "context": "Settings > Fleet Management > command result or follower status",
+    "description": "Reason a fleet action failed or a kiosk update was skipped.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetProfileNameExists": "A profile named {name} exists",
+  "@fleetProfileNameExists": {
+    "context": "Settings > Fleet Management",
+    "description": "Accessible control guidance or action result.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Fleet Management"
+      ],
+      "device": [
+        "Settings > Fleet Management"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep supplied names and version numbers unchanged."
+  },
+  "fleetAlreadyOnVersion": "already on {version}",
+  "@fleetAlreadyOnVersion": {
+    "context": "Settings > Fleet Management",
+    "description": "Accessible control guidance or action result.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Fleet Management"
+      ],
+      "device": [
+        "Settings > Fleet Management"
+      ]
+    },
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep supplied names and version numbers unchanged."
+  },
+  "fleetUnsupportedBuild": "That kiosk runs a build without Fleet Management. It joins once it runs one.",
+  "@fleetUnsupportedBuild": {
+    "context": "Settings > Fleet Management",
+    "description": "Accessible control guidance or action result.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Fleet Management"
+      ],
+      "device": [
+        "Settings > Fleet Management"
+      ]
+    }
+  }
+}

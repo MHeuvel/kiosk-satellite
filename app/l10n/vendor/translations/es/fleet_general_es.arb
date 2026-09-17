@@ -1,0 +1,15 @@
+{
+  "@@locale": "es",
+  "fleetFleetManagementNeedsTheRemoteAdmin": "La gestión de flota necesita la administración remota",
+  "fleetKiosksFindEachOtherThroughItTurnOnRemote": "Los kioskos se encuentran mediante la administración remota. Activa Administración remota y Buscar otros kioskos en Dispositivo y luego vuelve aquí.",
+  "fleetLeadThisFleet": "Dirigir esta flota",
+  "fleetSyncThisKioskSSettingsToItsFollowersRequires": "Sincroniza la configuración de este kiosko con los que lo siguen. Todos los kioskos deben usar la misma versión.",
+  "fleetAKioskThatFollowsALeaderCannotLead": "Un kiosko que sigue a un líder no puede dirigir una flota.",
+  "fleetFollowers": "Seguidores",
+  "fleetProfiles": "Perfiles",
+  "fleetLeader": "Líder",
+  "fleetLearnWhichSettingsSyncAndWhichDoNotIn": "Consulta qué ajustes se sincronizan y cuáles no en la ",
+  "fleetFleetManagementDocumentation": "documentación de gestión de flota",
+  "fleetMore": "Más",
+  "fleetSearchFollowers": "Los kioskos que siguen a este, su estado y la opción de añadir uno."
+}

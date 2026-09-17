@@ -1,0 +1,22 @@
+{
+  "@@locale": "es",
+  "fleetAddAKiosk": "Añadir un kiosko",
+  "fleetKiosksMemberOfTheFleetAFollowerMustConfirm": "Kioskos de la flota. Cada seguidor debe confirmar la invitación en su dispositivo.",
+  "fleetSendInvitation": "Enviar invitación",
+  "fleetInviteAgain": "Volver a invitar",
+  "fleetRemoveName": "¿Eliminar {name}?",
+  "fleetItStopsFollowingThisKioskAndKeepsItsSettings": "Deja de seguir a este kiosko y conserva su configuración.",
+  "fleetNameWantsToLeadThisKiosk": "{name} quiere dirigir este kiosko",
+  "fleetItsSettingsReplaceThisKioskSInTheCategories": "A partir de ahora, su configuración sustituye a la de este kiosko en las categorías que sincroniza. Este kiosko conserva su nombre e identidad.",
+  "fleetItsSettingsReplaceThisKioskSInTheCategoriesDetail": "A partir de ahora, su configuración sustituye a la de este kiosko en las categorías que sincroniza. Este kiosko conserva su nombre, sus identidades en Home Assistant, Music Assistant y ESPHome y sus dispositivos seleccionados. Puedes salir de la flota cuando quieras desde Configuración > Gestión de flota.",
+  "fleetConfirmOnTheKioskItselfTheInvitationIsWaiting": "Confirma en el propio kiosko. La invitación aparece en su pantalla y en Configuración > Gestión de flota.",
+  "fleetAccept": "Aceptar",
+  "fleetLookingForOtherKiosks": "Buscando otros kioskos…",
+  "fleetNoOtherKioskFoundOnThisNetworkAKiosk": "No se encontró otro kiosko en esta red. Aparecerá cuando tenga activada la administración remota y esté conectado a esta red Wi-Fi.",
+  "fleetFollowsName": "Sigue a {name}",
+  "fleetLeadsAFleet": "Dirige una flota",
+  "fleetNoFleetManagement": "Sin gestión de flota",
+  "fleetKiosksOnThisNetworkThatDoNotFollowThis": "Kioskos de esta red que no siguen a este. Selecciona uno y elige qué recibirá para enviarle la invitación. Si su versión no incluye Gestión de flota, podrá unirse cuando la actualice.",
+  "fleetJoinedTheFleet": "Te has unido a la flota",
+  "fleetSettingsFromTheLeaderArriveShortly": "La configuración del líder llegará en breve."
+}

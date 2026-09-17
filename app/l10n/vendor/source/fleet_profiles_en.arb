@@ -1,0 +1,564 @@
+{
+  "@@locale": "en",
+  "fleetAddAProfile": "Add a profile",
+  "@fleetAddAProfile": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetTheCollectionOfSettingsCredentialsAndExclusionsToSync": "The collection of settings, credentials and exclusions to sync.",
+  "@fleetTheCollectionOfSettingsCredentialsAndExclusionsToSync": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetNewProfile": "New profile",
+  "@fleetNewProfile": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetProfile": "Profile",
+  "@fleetProfile": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetUpdatesOnly": "Updates only",
+  "@fleetUpdatesOnly": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetNothingSyncsOnlyUpdatesArePushed": "Nothing syncs. Only updates are pushed.",
+  "@fleetNothingSyncsOnlyUpdatesArePushed": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetCategoriesSelectedOfTotalCredentialsCredentialsOfCredentialtotalExcluded": "Categories: {selected} of {total}. Credentials: {credentials} of {credentialTotal}. Excluded: {excluded}.",
+  "@fleetCategoriesSelectedOfTotalCredentialsCredentialsOfCredentialtotalExcluded": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    },
+    "placeholders": {
+      "selected": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      },
+      "credentials": {
+        "type": "String"
+      },
+      "credentialTotal": {
+        "type": "String"
+      },
+      "excluded": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetThisProfileIsGone": "This profile is gone",
+  "@fleetThisProfileIsGone": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetItWasDeletedFromAnotherPage": "It was deleted from another page.",
+  "@fleetItWasDeletedFromAnotherPage": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetName": "Name",
+  "@fleetName": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetRename": "Rename",
+  "@fleetRename": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetRenameProfile": "Rename profile",
+  "@fleetRenameProfile": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetWhatItSyncs": "What it syncs",
+  "@fleetWhatItSyncs": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetNothing": "Nothing",
+  "@fleetNothing": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetKiosksOnThisProfileKeepEverySettingOfTheir": "Kiosks on this profile keep every setting of their own. The leader only pushes updates to them.",
+  "@fleetKiosksOnThisProfileKeepEverySettingOfTheir": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetCategories": "Categories",
+  "@fleetCategories": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetSelectedOfTotalNames": "{selected} of {total}: {names}",
+  "@fleetSelectedOfTotalNames": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    },
+    "placeholders": {
+      "selected": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      },
+      "names": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetCredentials": "Credentials",
+  "@fleetCredentials": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetNoneTravel": "None travel",
+  "@fleetNoneTravel": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetIncludeTheDashboard": "Include the dashboard",
+  "@fleetIncludeTheDashboard": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetTheStartPageAndTheDefaultDashboard": "The start page and the default dashboard.",
+  "@fleetTheStartPageAndTheDefaultDashboard": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetExcludedSettings": "Excluded settings",
+  "@fleetExcludedSettings": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetOneSettingLeftOut": "One setting left out",
+  "@fleetOneSettingLeftOut": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetCountSettingsLeftOut": "{count} settings left out",
+  "@fleetCountSettingsLeftOut": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetNoKiosksAssigned": "No kiosks assigned",
+  "@fleetNoKiosksAssigned": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetAssignThisProfileToAKioskOnTheFleet": "Assign this profile to a kiosk on the Fleet Management page.",
+  "@fleetAssignThisProfileToAKioskOnTheFleet": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetDuplicate": "Duplicate",
+  "@fleetDuplicate": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetCloneThisProfileIntoANewOne": "Clone this profile into a new one.",
+  "@fleetCloneThisProfileIntoANewOne": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetDuplicateProfile": "Duplicate profile",
+  "@fleetDuplicateProfile": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetNameCopy": "{name} copy",
+  "@fleetNameCopy": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetDeleteProfile": "Delete profile",
+  "@fleetDeleteProfile": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetNoKioskIsOnIt": "No kiosk is on it.",
+  "@fleetNoKioskIsOnIt": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetKiosksOnItGetTheDefaultProfile": "Kiosks on it get the Default profile.",
+  "@fleetKiosksOnItGetTheDefaultProfile": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetDeleteName": "Delete {name}?",
+  "@fleetDeleteName": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetBlackScreens": "Black screens",
+  "@fleetBlackScreens": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    }
+  },
+  "fleetSyncToName": "Sync to {name}",
+  "@fleetSyncToName": {
+    "context": "Settings > Fleet Management > Profiles > a profile",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Profiles > a profile"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Profiles > a profile"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Names and technical values are supplied by the app."
+  },
+  "fleetDefault": "Default",
+  "@fleetDefault": {
+    "context": "Settings > Fleet Management",
+    "description": "Name of the built-in default profile. Custom names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetNone": "None",
+  "@fleetNone": {
+    "context": "Settings > Fleet Management",
+    "description": "No categories or excluded settings are selected.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
+  "fleetSearchProfiles": "The named lists a follower can be given: categories, credentials, the dashboard and the settings left out.",
+  "@fleetSearchProfiles": {
+    "context": "Settings > Fleet Management",
+    "description": "Search result description.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  }
+}
