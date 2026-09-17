@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:video_player/video_player.dart';
 
 import '../app_container.dart';
+import '../l10n/messages.dart';
 import '../managers/dlna/dlna_manager.dart';
 import 'video_surface.dart';
 
@@ -37,7 +38,8 @@ class DlnaMediaOverlay extends StatelessWidget {
         // Queued-but-not-yet-playing shows the loading screen right away:
         // the controller's buffering window (URI resolution, its can-play
         // poll, stream spin-up) is otherwise dead air on the wall.
-        final loading = media != null && state == 'STOPPED' && dlna.pending.value;
+        final loading =
+            media != null && state == 'STOPPED' && dlna.pending.value;
         if (media == null) return const SizedBox.shrink();
         // Background audio (discussion #153): the screen stays whatever it
         // was, but the player must keep running — it IS the playback, and
@@ -57,37 +59,42 @@ class DlnaMediaOverlay extends StatelessWidget {
           );
         }
         if (!dlna.coversScreen) return const SizedBox.shrink();
-        return GestureDetector(
-          onTap: dlna.userDismiss,
-          child: Container(
-            color: Colors.black,
-            alignment: Alignment.center,
-            child: loading
-                ? _Loading(title: media.title)
-                : switch (media.kind) {
-                    'image' =>
-                      _DlnaImage(key: ValueKey(media.uri), uri: media.uri),
-                    'auto' => _DlnaProbe(
+        return Semantics(
+          button: true,
+          label: l10n(context).dlnaStop,
+          child: GestureDetector(
+            onTap: dlna.userDismiss,
+            child: Container(
+              color: Colors.black,
+              alignment: Alignment.center,
+              child: loading
+                  ? _Loading(title: media.title)
+                  : switch (media.kind) {
+                      'image' => _DlnaImage(
+                        key: ValueKey(media.uri),
+                        uri: media.uri,
+                      ),
+                      'auto' => _DlnaProbe(
                         key: ValueKey(media.uri),
                         dlna: dlna,
                         media: media,
                         paused: state == 'PAUSED_PLAYBACK',
                         mediaGain: container.device.mediaGain,
                       ),
-                    _ => _DlnaPlayer(
+                      _ => _DlnaPlayer(
                         key: ValueKey(media.uri),
                         dlna: dlna,
                         mediaGain: container.device.mediaGain,
                         media: media,
                         paused: state == 'PAUSED_PLAYBACK',
                       ),
-                  },
+                    },
+            ),
           ),
         );
       },
     );
   }
-
 }
 
 /// Undeclared media (generic upnp:class, octet-stream mime): ask the URL
@@ -131,12 +138,13 @@ class _DlnaProbeState extends State<_DlnaProbe> {
       final type = (res.headers['content-type'] ?? '').toLowerCase();
       if (!mounted) return;
       setState(() {
-        _resolved = type.startsWith('image/') ||
+        _resolved =
+            type.startsWith('image/') ||
                 type.startsWith('multipart/x-mixed-replace')
             ? 'image'
             : type.contains('mpegurl')
-                ? 'hls'
-                : 'video';
+            ? 'hls'
+            : 'video';
       });
     } catch (_) {
       if (mounted) setState(() => _failed = true);
@@ -150,27 +158,35 @@ class _DlnaProbeState extends State<_DlnaProbe> {
   @override
   Widget build(BuildContext context) {
     if (_failed) {
-      return const Center(
-        child: Icon(Icons.error_outline, color: Colors.white38, size: 72),
+      return Center(
+        child: Icon(
+          Icons.error_outline,
+          color: Colors.white38,
+          size: 72,
+          semanticLabel: l10n(context).dlnaCannotPlay,
+        ),
       );
     }
     return switch (_resolved) {
-      null => const Center(
-          child: CircularProgressIndicator(color: Colors.white54),
+      null => Center(
+        child: CircularProgressIndicator(
+          color: Colors.white54,
+          semanticsLabel: l10n(context).dlnaLoading,
         ),
+      ),
       'image' => _DlnaImage(uri: widget.media.uri),
       _ => _DlnaPlayer(
-          dlna: widget.dlna,
-          mediaGain: widget.mediaGain,
-          media: DlnaMedia(
-            uri: widget.media.uri,
-            kind: 'video',
-            metadata: widget.media.metadata,
-            title: widget.media.title,
-            hls: _resolved == 'hls',
-          ),
-          paused: widget.paused,
+        dlna: widget.dlna,
+        mediaGain: widget.mediaGain,
+        media: DlnaMedia(
+          uri: widget.media.uri,
+          kind: 'video',
+          metadata: widget.media.metadata,
+          title: widget.media.title,
+          hls: _resolved == 'hls',
         ),
+        paused: widget.paused,
+      ),
     };
   }
 }
@@ -183,22 +199,25 @@ class _Loading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const CircularProgressIndicator(color: Colors.white54),
-          if (title != null && title!.isNotEmpty) ...[
-            const SizedBox(height: 24),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32),
-              child: Text(
-                title!,
-                textAlign: TextAlign.center,
-                style: const TextStyle(color: Colors.white70, fontSize: 20),
-              ),
-            ),
-          ],
-        ],
-      );
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      CircularProgressIndicator(
+        color: Colors.white54,
+        semanticsLabel: l10n(context).dlnaLoading,
+      ),
+      if (title != null && title!.isNotEmpty) ...[
+        const SizedBox(height: 24),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32),
+          child: Text(
+            title!,
+            textAlign: TextAlign.center,
+            style: const TextStyle(color: Colors.white70, fontSize: 20),
+          ),
+        ),
+      ],
+    ],
+  );
 }
 
 /// Image display that handles what HA actually serves. Media files come as
@@ -233,14 +252,13 @@ class _DlnaImageState extends State<_DlnaImage> {
     try {
       final client = http.Client();
       _client = client;
-      final res = await client.send(
-        http.Request('GET', Uri.parse(widget.uri)),
-      );
-      if (res.statusCode != 200) throw http.ClientException('${res.statusCode}');
+      final res = await client.send(http.Request('GET', Uri.parse(widget.uri)));
+      if (res.statusCode != 200) {
+        throw http.ClientException('${res.statusCode}');
+      }
       final type = res.headers['content-type'] ?? '';
       if (type.startsWith('multipart/x-mixed-replace')) {
-        var boundary =
-            RegExp(r'boundary=([^;\s]+)').firstMatch(type)?[1] ?? '';
+        var boundary = RegExp(r'boundary=([^;\s]+)').firstMatch(type)?[1] ?? '';
         // RFC 2045 allows the boundary parameter to be quoted; the quotes
         // are not part of the marker.
         if (boundary.length > 1 &&
@@ -396,9 +414,10 @@ class _DlnaImageState extends State<_DlnaImage> {
   /// decode to the screen instead of the camera's native resolution.
   void _setFrame(Uint8List bytes) {
     if (!mounted) return;
-    final width = (MediaQuery.sizeOf(context).width *
-            MediaQuery.devicePixelRatioOf(context))
-        .round();
+    final width =
+        (MediaQuery.sizeOf(context).width *
+                MediaQuery.devicePixelRatioOf(context))
+            .round();
     final previous = _image;
     setState(() {
       _image = width > 0
@@ -422,9 +441,10 @@ class _DlnaImageState extends State<_DlnaImage> {
   @override
   Widget build(BuildContext context) {
     if (_failed) {
-      return const Center(
+      return Center(
         child: Icon(
           Icons.broken_image_outlined,
+          semanticLabel: l10n(context).dlnaImageFailed,
           color: Colors.white38,
           size: 72,
         ),
@@ -432,8 +452,11 @@ class _DlnaImageState extends State<_DlnaImage> {
     }
     final image = _image;
     if (image == null) {
-      return const Center(
-        child: CircularProgressIndicator(color: Colors.white54),
+      return Center(
+        child: CircularProgressIndicator(
+          color: Colors.white54,
+          semanticsLabel: l10n(context).dlnaLoading,
+        ),
       );
     }
     // gaplessPlayback: a multipart frame update swaps the picture without
@@ -444,9 +467,10 @@ class _DlnaImageState extends State<_DlnaImage> {
       width: double.infinity,
       height: double.infinity,
       gaplessPlayback: true,
-      errorBuilder: (context, error, stack) => const Center(
+      errorBuilder: (context, error, stack) => Center(
         child: Icon(
           Icons.broken_image_outlined,
+          semanticLabel: l10n(context).dlnaImageFailed,
           color: Colors.white38,
           size: 72,
         ),
@@ -616,23 +640,26 @@ class _DlnaPlayerState extends State<_DlnaPlayer> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32),
             child: Text(
-              failure,
+              mediaText(context, failure),
               textAlign: TextAlign.center,
               style: const TextStyle(color: Colors.white54, fontSize: 18),
             ),
           ),
           const SizedBox(height: 8),
-          const Text(
-            'See the App Logs for details',
-            style: TextStyle(color: Colors.white24, fontSize: 14),
+          Text(
+            l10n(context).dlnaSeeLogs,
+            style: const TextStyle(color: Colors.white24, fontSize: 14),
           ),
         ],
       );
     }
     final controller = _controller;
     if (controller == null || !controller.value.isInitialized) {
-      return const Center(
-        child: CircularProgressIndicator(color: Colors.white54),
+      return Center(
+        child: CircularProgressIndicator(
+          color: Colors.white54,
+          semanticsLabel: l10n(context).dlnaLoading,
+        ),
       );
     }
     // Audio (or a video stream with no visual): a simple title card.
@@ -640,7 +667,11 @@ class _DlnaPlayerState extends State<_DlnaPlayer> {
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(Icons.music_note_outlined, color: Colors.white54, size: 96),
+          const Icon(
+            Icons.music_note_outlined,
+            color: Colors.white54,
+            size: 96,
+          ),
           if (widget.media.title != null) ...[
             const SizedBox(height: 24),
             Padding(

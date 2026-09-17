@@ -228,5 +228,9 @@
   "The group could not be read.": "mediaGroupReadFailed",
   "No other players to group with.": "mediaGroupEmpty",
   "Speaker selection": "mediaSpeakerSelection",
-  "command not supported or not sent": "mediaCannotControl"
+  "command not supported or not sent": "mediaCannotControl",
+  "Enter a port between 1024 and 65535, or leave it empty": "dlnaPortInvalid",
+  "This device cannot decode this video.": "dlnaCannotDecode",
+  "This file could not be read.": "dlnaCannotRead",
+  "This media could not be played.": "dlnaCannotPlay"
 }

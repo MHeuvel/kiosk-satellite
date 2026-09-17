@@ -203,6 +203,31 @@ class UiStringsEs extends UiStrings {
   String get commonChoose => 'Elegir';
 
   @override
+  String get dlnaPortInvalid =>
+      'Enter a port between 1024 and 65535, or leave it empty';
+
+  @override
+  String get dlnaCannotDecode => 'This device cannot decode this video.';
+
+  @override
+  String get dlnaCannotRead => 'This file could not be read.';
+
+  @override
+  String get dlnaCannotPlay => 'This media could not be played.';
+
+  @override
+  String get dlnaSeeLogs => 'See the App Logs for details';
+
+  @override
+  String get dlnaLoading => 'Loading media';
+
+  @override
+  String get dlnaImageFailed => 'This image could not be displayed.';
+
+  @override
+  String get dlnaStop => 'Stop playback';
+
+  @override
   String drawerPluginAction(String pluginName, String actionTitle) {
     return '$pluginName: $actionTitle';
   }
@@ -2420,6 +2445,30 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get deviceThemeSystem => 'Sistema';
+
+  @override
+  String get settingDlnaEnabledTitle => 'Enable DLNA renderer';
+
+  @override
+  String get settingDlnaEnabledDescription =>
+      'Show images and play media pushed from Home Assistant or any DLNA app. The device appears as a media player named after the device name.';
+
+  @override
+  String get settingDlnaAudioBackgroundTitle => 'Keep audio in the background';
+
+  @override
+  String get settingDlnaAudioBackgroundDescription =>
+      'Pushed audio plays without taking over the screen.';
+
+  @override
+  String get settingDlnaPortTitle => 'Server port';
+
+  @override
+  String get settingDlnaPortDescription =>
+      'The port the renderer is on, filled in when it starts. Change it to move the renderer, or clear it to let it pick again.';
+
+  @override
+  String get settingDlnaPortPlaceholder => 'Set when the renderer starts';
 
   @override
   String get settingHaHoldModeTitle => 'Modo de pausa';

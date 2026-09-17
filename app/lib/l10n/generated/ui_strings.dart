@@ -445,6 +445,54 @@ abstract class UiStrings {
   /// **'Choose'**
   String get commonChoose;
 
+  /// Validation error for the server port.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a port between 1024 and 65535, or leave it empty'**
+  String get dlnaPortInvalid;
+
+  /// Playback failure caused by the device video decoder.
+  ///
+  /// In en, this message translates to:
+  /// **'This device cannot decode this video.'**
+  String get dlnaCannotDecode;
+
+  /// Playback failure caused by an unreadable file.
+  ///
+  /// In en, this message translates to:
+  /// **'This file could not be read.'**
+  String get dlnaCannotRead;
+
+  /// Playback failure or accessibility label for the failed media icon.
+  ///
+  /// In en, this message translates to:
+  /// **'This media could not be played.'**
+  String get dlnaCannotPlay;
+
+  /// Help below a playback failure.
+  ///
+  /// In en, this message translates to:
+  /// **'See the App Logs for details'**
+  String get dlnaSeeLogs;
+
+  /// Accessibility label for the loading spinner.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading media'**
+  String get dlnaLoading;
+
+  /// Accessibility label for the failed image icon.
+  ///
+  /// In en, this message translates to:
+  /// **'This image could not be displayed.'**
+  String get dlnaImageFailed;
+
+  /// Accessibility label for tapping the overlay to stop playback.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop playback'**
+  String get dlnaStop;
+
   /// Plugin action label. Both values come from the plugin and are kept as supplied.
   ///
   /// In en, this message translates to:
@@ -4254,6 +4302,48 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'System'**
   String get deviceThemeSystem;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable DLNA renderer'**
+  String get settingDlnaEnabledTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Show images and play media pushed from Home Assistant or any DLNA app. The device appears as a media player named after the device name.'**
+  String get settingDlnaEnabledDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep audio in the background'**
+  String get settingDlnaAudioBackgroundTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Pushed audio plays without taking over the screen.'**
+  String get settingDlnaAudioBackgroundDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Server port'**
+  String get settingDlnaPortTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The port the renderer is on, filled in when it starts. Change it to move the renderer, or clear it to let it pick again.'**
+  String get settingDlnaPortDescription;
+
+  /// Placeholder in the empty server port field.
+  ///
+  /// In en, this message translates to:
+  /// **'Set when the renderer starts'**
+  String get settingDlnaPortPlaceholder;
 
   /// Setting label.
   ///

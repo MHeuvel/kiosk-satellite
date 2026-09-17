@@ -121,7 +121,7 @@ function showRowError(row, message, onRetry) {
     el.className = 'row-error';
     row.appendChild(el);
   }
-  el.textContent = cameraError(screensaverError(haText(deviceText(message))));
+  el.textContent = cameraError(screensaverError(haText(deviceText(mediaText(message)))));
   if (onRetry) {
     const retry = document.createElement('button');
     retry.className = 'btn-ghost';

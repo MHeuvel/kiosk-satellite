@@ -10369,7 +10369,10 @@ class SettingTile extends StatelessWidget {
                         context,
                         cameraError(
                           context,
-                          haText(context, deviceText(context, error!)),
+                          haText(
+                            context,
+                            deviceText(context, mediaText(context, error!)),
+                          ),
                         ),
                       ),
               ),

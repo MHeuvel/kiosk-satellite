@@ -206,5 +206,6 @@ const settingPlaceholderMessageIds = <String, String>{
   "screensaver.immich_taken_from": "screensaverMediaAnyTime",
   "screensaver.immich_taken_to": "screensaverMediaToday",
   "browser.inject_js": "browserInjectJsPlaceholder",
-  "browser.inject_js_external": "browserInjectJsExternalPlaceholder"
+  "browser.inject_js_external": "browserInjectJsExternalPlaceholder",
+  "dlna.port": "settingDlnaPortPlaceholder"
 };

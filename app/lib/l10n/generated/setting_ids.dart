@@ -1092,4 +1092,16 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingSendspinLyricsOffsetTitle",
     "description": "settingSendspinLyricsOffsetDescription",
   },
+  "dlna.enabled": {
+    "title": "settingDlnaEnabledTitle",
+    "description": "settingDlnaEnabledDescription",
+  },
+  "dlna.audio_background": {
+    "title": "settingDlnaAudioBackgroundTitle",
+    "description": "settingDlnaAudioBackgroundDescription",
+  },
+  "dlna.port": {
+    "title": "settingDlnaPortTitle",
+    "description": "settingDlnaPortDescription",
+  },
 };

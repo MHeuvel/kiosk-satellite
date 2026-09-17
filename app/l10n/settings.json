@@ -1090,5 +1090,17 @@
   "sendspin.lyrics_offset": {
     "title": "settingSendspinLyricsOffsetTitle",
     "description": "settingSendspinLyricsOffsetDescription"
+  },
+  "dlna.enabled": {
+    "title": "settingDlnaEnabledTitle",
+    "description": "settingDlnaEnabledDescription"
+  },
+  "dlna.audio_background": {
+    "title": "settingDlnaAudioBackgroundTitle",
+    "description": "settingDlnaAudioBackgroundDescription"
+  },
+  "dlna.port": {
+    "title": "settingDlnaPortTitle",
+    "description": "settingDlnaPortDescription"
   }
 }
