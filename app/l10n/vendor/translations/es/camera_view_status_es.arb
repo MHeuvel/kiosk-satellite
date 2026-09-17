@@ -1,0 +1,18 @@
+{
+  "@@locale": "es",
+  "cameraViewerTitle": "Vista de cámaras",
+  "cameraViewerConnecting": "Conectando...",
+  "cameraViewerReconnecting": "Reconectando...",
+  "cameraViewerTrying": "Probando {transport}...",
+  "cameraViewerCannotDecode": "Este dispositivo no puede decodificar {codec}",
+  "cameraViewerCannotPlay": "Este dispositivo no puede reproducir transmisiones {transport}",
+  "cameraViewerCannotDecodeStream": "Este dispositivo no puede decodificar esta transmisión",
+  "cameraViewerHaRetry": "No se puede conectar a Home Assistant. Se reintentará en {seconds} s",
+  "cameraViewerServerRetry": "No se puede conectar al servidor de cámaras. Se reintentará en {seconds} s",
+  "cameraViewerConnectionRetry": "La conexión falló. Se reintentará en {seconds} s",
+  "cameraViewerStartRetry": "El servidor de cámaras no pudo iniciar esta transmisión. Reintentando...",
+  "cameraViewerStartDelayedRetry": "El servidor de cámaras no pudo iniciar esta transmisión. Se reintentará en {seconds} s",
+  "cameraViewerMissingRetry": "No se encontró la transmisión en el servidor de cámaras. Se reintentará en {seconds} s",
+  "cameraViewerLoginRetry": "El servidor de cámaras rechazó el inicio de sesión. Se reintentará en {seconds} s",
+  "cameraViewerMissing": "Transmisión no disponible en Go2RTC"
+}

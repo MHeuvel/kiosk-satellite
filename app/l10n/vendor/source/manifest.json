@@ -1,9 +1,10 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite",
-  "revision": "27934f7f77130edeea334c233086248720ed7326",
+  "revision": "0a308d324ce60dea9231d2f3c8010c1dde9fb727",
   "workingTree": false,
   "files": {
+    "camera_view_status_en.arb": "5c2fdaeb44fc707fa15cfb92a186ff2616e4ea255cd5ea3ff3dac37c532fedbe",
     "common_en.arb": "445e2b0d194c744c2ec3591b9176ff9ef903ab02e38924b80923f86698982e9a",
     "drawer_menu_en.arb": "1ddb021d9c030d046e0368ac9e73e046905fa34138f345f3d767b974c542d9d3",
     "drawer_updates_en.arb": "51e19440c034c4a169b43ff5ff3780c7d762dcf88751c81bf4aef3c04029a956",

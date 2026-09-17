@@ -1,12 +1,13 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite-localization",
-  "revision": "b30af37da173d20f0b5bf8dd2dd7bf825556b744",
+  "revision": "22125ddb95cc44dbcfd4c24123739e3e595827ba",
   "locales": [
     "es"
   ],
   "files": {
-    "source/manifest.json": "866375a9e938ee0ed01a395453e7c0f4f8ccd00cb458ee2248fca5dd1e130911",
+    "source/manifest.json": "b0f4979dc7a5963a8cfafaf359f4cb2184920e530ffd33d4c6458957ab230348",
+    "source/camera_view_status_en.arb": "5c2fdaeb44fc707fa15cfb92a186ff2616e4ea255cd5ea3ff3dac37c532fedbe",
     "source/common_en.arb": "445e2b0d194c744c2ec3591b9176ff9ef903ab02e38924b80923f86698982e9a",
     "source/drawer_menu_en.arb": "1ddb021d9c030d046e0368ac9e73e046905fa34138f345f3d767b974c542d9d3",
     "source/drawer_updates_en.arb": "51e19440c034c4a169b43ff5ff3780c7d762dcf88751c81bf4aef3c04029a956",
@@ -77,6 +78,7 @@
     "source/setup_connect_en.arb": "353cf737e1650b2f9b7b5c5d4e2d7d5f463d012149ba5ec180425b31845a7b2e",
     "source/setup_navigation_en.arb": "71c532e240d4abf6cf53324f583f6a60b8e0999bc26a41cd80de8eb441d564a7",
     "source/setup_welcome_en.arb": "a26a34d1e8f30df984627884b880f4fda8f410e1ad3a21a9b3399499c4d7be50",
+    "translations/es/camera_view_status_es.arb": "19d2bbffcd0417b83ab35884b3980c795816dc9afb0bb63f9b7be14c881923c2",
     "translations/es/common_es.arb": "74ac48e36434eb60cceb292f444fd2a7e00709ba768679fdb4f7b3957a6f67c6",
     "translations/es/drawer_menu_es.arb": "8c41babf08a52afc417a38badc7fe7089085bf40f22c67c1260268e8402a821a",
     "translations/es/drawer_updates_es.arb": "58ae8528f1c179273e595a6adf1b1399d18920bd72b2df8a56857430e6be1e23",
@@ -147,7 +149,7 @@
     "translations/es/setup_connect_es.arb": "f45ffe0a86088030d211b40d2979551f4051c29c5369e86c472c090a64254fa3",
     "translations/es/setup_navigation_es.arb": "7ee26fae39874fe8a9a091522ba676075f21be21bee79737d2d5465eb8ad3acc",
     "translations/es/setup_welcome_es.arb": "5ecd1fef9e8d6b0dd3e085d410941099bb7dd8d4f502e98684fefecaf1663d9c",
-    "metadata/reviews/es.json": "376b0918ae7a52eab86e4651043d29e7c248c994fd85df3f1537f0a3aac924e3",
+    "metadata/reviews/es.json": "e3c014d8e77d381de7262161c2cf0fa9f97b345ca6b2a994352b26b2f6580200",
     "LICENSE": "4d3e371a6b6cabc75b4be46fecce7601556d0eb777ad9dba4b00bc13a61de5fc",
     "CREDITS.md": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "docs/CONTRIBUTOR-AGREEMENT.md": "f17a3cd0ddbab3a6b95c50d98b81d5648cb8feb09fc54e33bcce855e45ddb014"

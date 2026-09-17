@@ -1,0 +1,267 @@
+{
+  "@@locale": "en",
+  "cameraViewerTitle": "Camera view",
+  "@cameraViewerTitle": {
+    "context": "Live camera view and camera screensaver",
+    "description": "Page title.",
+    "x-locations": {
+      "device": [
+        "Drawer > Camera view",
+        "Settings > Camera Streams > Views > Show view",
+        "Settings > Screensaver > Camera Streams"
+      ],
+      "remoteAdmin": []
+    },
+    "x-notes": "Shown on the kiosk, including views opened by commands or gestures. Keep product, protocol and codec names unchanged."
+  },
+  "cameraViewerConnecting": "Connecting...",
+  "@cameraViewerConnecting": {
+    "context": "Live camera view and camera screensaver",
+    "description": "Status shown over a camera tile.",
+    "x-locations": {
+      "device": [
+        "Drawer > Camera view",
+        "Settings > Camera Streams > Views > Show view",
+        "Settings > Screensaver > Camera Streams"
+      ],
+      "remoteAdmin": []
+    },
+    "x-notes": "Shown on the kiosk, including views opened by commands or gestures. Keep product, protocol and codec names unchanged."
+  },
+  "cameraViewerReconnecting": "Reconnecting...",
+  "@cameraViewerReconnecting": {
+    "context": "Live camera view and camera screensaver",
+    "description": "Status shown over a camera tile.",
+    "x-locations": {
+      "device": [
+        "Drawer > Camera view",
+        "Settings > Camera Streams > Views > Show view",
+        "Settings > Screensaver > Camera Streams"
+      ],
+      "remoteAdmin": []
+    },
+    "x-notes": "Shown on the kiosk, including views opened by commands or gestures. Keep product, protocol and codec names unchanged."
+  },
+  "cameraViewerTrying": "Trying {transport}...",
+  "@cameraViewerTrying": {
+    "context": "Live camera view and camera screensaver",
+    "description": "Status shown over a camera tile.",
+    "x-locations": {
+      "device": [
+        "Drawer > Camera view",
+        "Settings > Camera Streams > Views > Show view",
+        "Settings > Screensaver > Camera Streams"
+      ],
+      "remoteAdmin": []
+    },
+    "x-notes": "Shown on the kiosk, including views opened by commands or gestures. Keep product, protocol and codec names unchanged.",
+    "placeholders": {
+      "transport": {
+        "type": "String",
+        "description": "Protocol name such as WebRTC or HLS."
+      }
+    }
+  },
+  "cameraViewerCannotDecode": "This device cannot decode {codec}",
+  "@cameraViewerCannotDecode": {
+    "context": "Live camera view and camera screensaver",
+    "description": "Status shown over a camera tile.",
+    "x-locations": {
+      "device": [
+        "Drawer > Camera view",
+        "Settings > Camera Streams > Views > Show view",
+        "Settings > Screensaver > Camera Streams"
+      ],
+      "remoteAdmin": []
+    },
+    "x-notes": "Shown on the kiosk, including views opened by commands or gestures. Keep product, protocol and codec names unchanged.",
+    "placeholders": {
+      "codec": {
+        "type": "String",
+        "description": "Codec name such as H.264 or H.265."
+      }
+    }
+  },
+  "cameraViewerCannotPlay": "This device cannot play {transport} streams",
+  "@cameraViewerCannotPlay": {
+    "context": "Live camera view and camera screensaver",
+    "description": "Status shown over a camera tile.",
+    "x-locations": {
+      "device": [
+        "Drawer > Camera view",
+        "Settings > Camera Streams > Views > Show view",
+        "Settings > Screensaver > Camera Streams"
+      ],
+      "remoteAdmin": []
+    },
+    "x-notes": "Shown on the kiosk, including views opened by commands or gestures. Keep product, protocol and codec names unchanged.",
+    "placeholders": {
+      "transport": {
+        "type": "String",
+        "description": "Protocol name such as WebRTC or HLS."
+      }
+    }
+  },
+  "cameraViewerCannotDecodeStream": "This device cannot decode this stream",
+  "@cameraViewerCannotDecodeStream": {
+    "context": "Live camera view and camera screensaver",
+    "description": "Status shown over a camera tile.",
+    "x-locations": {
+      "device": [
+        "Drawer > Camera view",
+        "Settings > Camera Streams > Views > Show view",
+        "Settings > Screensaver > Camera Streams"
+      ],
+      "remoteAdmin": []
+    },
+    "x-notes": "Shown on the kiosk, including views opened by commands or gestures. Keep product, protocol and codec names unchanged."
+  },
+  "cameraViewerHaRetry": "Cannot reach Home Assistant. Retrying in {seconds}s",
+  "@cameraViewerHaRetry": {
+    "context": "Live camera view and camera screensaver",
+    "description": "Status shown over a camera tile.",
+    "x-locations": {
+      "device": [
+        "Drawer > Camera view",
+        "Settings > Camera Streams > Views > Show view",
+        "Settings > Screensaver > Camera Streams"
+      ],
+      "remoteAdmin": []
+    },
+    "x-notes": "Shown on the kiosk, including views opened by commands or gestures. Keep product, protocol and codec names unchanged.",
+    "placeholders": {
+      "seconds": {
+        "type": "String",
+        "description": "Number of seconds before the next connection attempt."
+      }
+    }
+  },
+  "cameraViewerServerRetry": "Cannot reach the camera server. Retrying in {seconds}s",
+  "@cameraViewerServerRetry": {
+    "context": "Live camera view and camera screensaver",
+    "description": "Status shown over a camera tile.",
+    "x-locations": {
+      "device": [
+        "Drawer > Camera view",
+        "Settings > Camera Streams > Views > Show view",
+        "Settings > Screensaver > Camera Streams"
+      ],
+      "remoteAdmin": []
+    },
+    "x-notes": "Shown on the kiosk, including views opened by commands or gestures. Keep product, protocol and codec names unchanged.",
+    "placeholders": {
+      "seconds": {
+        "type": "String",
+        "description": "Number of seconds before the next connection attempt."
+      }
+    }
+  },
+  "cameraViewerConnectionRetry": "Connection failed. Retrying in {seconds}s",
+  "@cameraViewerConnectionRetry": {
+    "context": "Live camera view and camera screensaver",
+    "description": "Status shown over a camera tile.",
+    "x-locations": {
+      "device": [
+        "Drawer > Camera view",
+        "Settings > Camera Streams > Views > Show view",
+        "Settings > Screensaver > Camera Streams"
+      ],
+      "remoteAdmin": []
+    },
+    "x-notes": "Shown on the kiosk, including views opened by commands or gestures. Keep product, protocol and codec names unchanged.",
+    "placeholders": {
+      "seconds": {
+        "type": "String",
+        "description": "Number of seconds before the next connection attempt."
+      }
+    }
+  },
+  "cameraViewerStartRetry": "The camera server could not start this stream. Retrying...",
+  "@cameraViewerStartRetry": {
+    "context": "Live camera view and camera screensaver",
+    "description": "Status shown over a camera tile.",
+    "x-locations": {
+      "device": [
+        "Drawer > Camera view",
+        "Settings > Camera Streams > Views > Show view",
+        "Settings > Screensaver > Camera Streams"
+      ],
+      "remoteAdmin": []
+    },
+    "x-notes": "Shown on the kiosk, including views opened by commands or gestures. Keep product, protocol and codec names unchanged."
+  },
+  "cameraViewerStartDelayedRetry": "The camera server could not start this stream. Retrying in {seconds}s",
+  "@cameraViewerStartDelayedRetry": {
+    "context": "Live camera view and camera screensaver",
+    "description": "Status shown over a camera tile.",
+    "x-locations": {
+      "device": [
+        "Drawer > Camera view",
+        "Settings > Camera Streams > Views > Show view",
+        "Settings > Screensaver > Camera Streams"
+      ],
+      "remoteAdmin": []
+    },
+    "x-notes": "Shown on the kiosk, including views opened by commands or gestures. Keep product, protocol and codec names unchanged.",
+    "placeholders": {
+      "seconds": {
+        "type": "String",
+        "description": "Number of seconds before the next connection attempt."
+      }
+    }
+  },
+  "cameraViewerMissingRetry": "Stream not found on the camera server. Retrying in {seconds}s",
+  "@cameraViewerMissingRetry": {
+    "context": "Live camera view and camera screensaver",
+    "description": "Status shown over a camera tile.",
+    "x-locations": {
+      "device": [
+        "Drawer > Camera view",
+        "Settings > Camera Streams > Views > Show view",
+        "Settings > Screensaver > Camera Streams"
+      ],
+      "remoteAdmin": []
+    },
+    "x-notes": "Shown on the kiosk, including views opened by commands or gestures. Keep product, protocol and codec names unchanged.",
+    "placeholders": {
+      "seconds": {
+        "type": "String",
+        "description": "Number of seconds before the next connection attempt."
+      }
+    }
+  },
+  "cameraViewerLoginRetry": "The camera server rejected the login. Retrying in {seconds}s",
+  "@cameraViewerLoginRetry": {
+    "context": "Live camera view and camera screensaver",
+    "description": "Status shown over a camera tile.",
+    "x-locations": {
+      "device": [
+        "Drawer > Camera view",
+        "Settings > Camera Streams > Views > Show view",
+        "Settings > Screensaver > Camera Streams"
+      ],
+      "remoteAdmin": []
+    },
+    "x-notes": "Shown on the kiosk, including views opened by commands or gestures. Keep product, protocol and codec names unchanged.",
+    "placeholders": {
+      "seconds": {
+        "type": "String",
+        "description": "Number of seconds before the next connection attempt."
+      }
+    }
+  },
+  "cameraViewerMissing": "Stream missing from Go2RTC",
+  "@cameraViewerMissing": {
+    "context": "Live camera view and camera screensaver",
+    "description": "Status shown over a camera tile.",
+    "x-locations": {
+      "device": [
+        "Drawer > Camera view",
+        "Settings > Camera Streams > Views > Show view",
+        "Settings > Screensaver > Camera Streams"
+      ],
+      "remoteAdmin": []
+    },
+    "x-notes": "Shown on the kiosk, including views opened by commands or gestures. Keep product, protocol and codec names unchanged."
+  }
+}

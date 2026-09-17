@@ -1,6 +1,6 @@
 {
   "@@locale": "es",
-  "cameraViewerTitle": "Camera view",
+  "cameraViewerTitle": "Vista de cámaras",
   "@cameraViewerTitle": {
     "context": "Live camera view and camera screensaver",
     "description": "Page title.",
@@ -14,7 +14,7 @@
     },
     "x-notes": "Shown on the kiosk, including views opened by commands or gestures. Keep product, protocol and codec names unchanged."
   },
-  "cameraViewerConnecting": "Connecting...",
+  "cameraViewerConnecting": "Conectando...",
   "@cameraViewerConnecting": {
     "context": "Live camera view and camera screensaver",
     "description": "Status shown over a camera tile.",
@@ -28,7 +28,7 @@
     },
     "x-notes": "Shown on the kiosk, including views opened by commands or gestures. Keep product, protocol and codec names unchanged."
   },
-  "cameraViewerReconnecting": "Reconnecting...",
+  "cameraViewerReconnecting": "Reconectando...",
   "@cameraViewerReconnecting": {
     "context": "Live camera view and camera screensaver",
     "description": "Status shown over a camera tile.",
@@ -42,7 +42,7 @@
     },
     "x-notes": "Shown on the kiosk, including views opened by commands or gestures. Keep product, protocol and codec names unchanged."
   },
-  "cameraViewerTrying": "Trying {transport}...",
+  "cameraViewerTrying": "Probando {transport}...",
   "@cameraViewerTrying": {
     "context": "Live camera view and camera screensaver",
     "description": "Status shown over a camera tile.",
@@ -62,7 +62,7 @@
       }
     }
   },
-  "cameraViewerCannotDecode": "This device cannot decode {codec}",
+  "cameraViewerCannotDecode": "Este dispositivo no puede decodificar {codec}",
   "@cameraViewerCannotDecode": {
     "context": "Live camera view and camera screensaver",
     "description": "Status shown over a camera tile.",
@@ -82,7 +82,7 @@
       }
     }
   },
-  "cameraViewerCannotPlay": "This device cannot play {transport} streams",
+  "cameraViewerCannotPlay": "Este dispositivo no puede reproducir transmisiones {transport}",
   "@cameraViewerCannotPlay": {
     "context": "Live camera view and camera screensaver",
     "description": "Status shown over a camera tile.",
@@ -102,7 +102,7 @@
       }
     }
   },
-  "cameraViewerCannotDecodeStream": "This device cannot decode this stream",
+  "cameraViewerCannotDecodeStream": "Este dispositivo no puede decodificar esta transmisión",
   "@cameraViewerCannotDecodeStream": {
     "context": "Live camera view and camera screensaver",
     "description": "Status shown over a camera tile.",
@@ -116,7 +116,7 @@
     },
     "x-notes": "Shown on the kiosk, including views opened by commands or gestures. Keep product, protocol and codec names unchanged."
   },
-  "cameraViewerHaRetry": "Cannot reach Home Assistant. Retrying in {seconds}s",
+  "cameraViewerHaRetry": "No se puede conectar a Home Assistant. Se reintentará en {seconds} s",
   "@cameraViewerHaRetry": {
     "context": "Live camera view and camera screensaver",
     "description": "Status shown over a camera tile.",
@@ -136,7 +136,7 @@
       }
     }
   },
-  "cameraViewerServerRetry": "Cannot reach the camera server. Retrying in {seconds}s",
+  "cameraViewerServerRetry": "No se puede conectar al servidor de cámaras. Se reintentará en {seconds} s",
   "@cameraViewerServerRetry": {
     "context": "Live camera view and camera screensaver",
     "description": "Status shown over a camera tile.",
@@ -156,7 +156,7 @@
       }
     }
   },
-  "cameraViewerConnectionRetry": "Connection failed. Retrying in {seconds}s",
+  "cameraViewerConnectionRetry": "La conexión falló. Se reintentará en {seconds} s",
   "@cameraViewerConnectionRetry": {
     "context": "Live camera view and camera screensaver",
     "description": "Status shown over a camera tile.",
@@ -176,7 +176,7 @@
       }
     }
   },
-  "cameraViewerStartRetry": "The camera server could not start this stream. Retrying...",
+  "cameraViewerStartRetry": "El servidor de cámaras no pudo iniciar esta transmisión. Reintentando...",
   "@cameraViewerStartRetry": {
     "context": "Live camera view and camera screensaver",
     "description": "Status shown over a camera tile.",
@@ -190,7 +190,7 @@
     },
     "x-notes": "Shown on the kiosk, including views opened by commands or gestures. Keep product, protocol and codec names unchanged."
   },
-  "cameraViewerStartDelayedRetry": "The camera server could not start this stream. Retrying in {seconds}s",
+  "cameraViewerStartDelayedRetry": "El servidor de cámaras no pudo iniciar esta transmisión. Se reintentará en {seconds} s",
   "@cameraViewerStartDelayedRetry": {
     "context": "Live camera view and camera screensaver",
     "description": "Status shown over a camera tile.",
@@ -210,7 +210,7 @@
       }
     }
   },
-  "cameraViewerMissingRetry": "Stream not found on the camera server. Retrying in {seconds}s",
+  "cameraViewerMissingRetry": "No se encontró la transmisión en el servidor de cámaras. Se reintentará en {seconds} s",
   "@cameraViewerMissingRetry": {
     "context": "Live camera view and camera screensaver",
     "description": "Status shown over a camera tile.",
@@ -230,7 +230,7 @@
       }
     }
   },
-  "cameraViewerLoginRetry": "The camera server rejected the login. Retrying in {seconds}s",
+  "cameraViewerLoginRetry": "El servidor de cámaras rechazó el inicio de sesión. Se reintentará en {seconds} s",
   "@cameraViewerLoginRetry": {
     "context": "Live camera view and camera screensaver",
     "description": "Status shown over a camera tile.",
@@ -250,7 +250,7 @@
       }
     }
   },
-  "cameraViewerMissing": "Stream missing from Go2RTC",
+  "cameraViewerMissing": "Transmisión no disponible en Go2RTC",
   "@cameraViewerMissing": {
     "context": "Live camera view and camera screensaver",
     "description": "Status shown over a camera tile.",

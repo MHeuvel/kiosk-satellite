@@ -9,69 +9,69 @@ class UiStringsEs extends UiStrings {
   UiStringsEs([String locale = 'es']) : super(locale);
 
   @override
-  String get cameraViewerTitle => 'Camera view';
+  String get cameraViewerTitle => 'Vista de cámaras';
 
   @override
-  String get cameraViewerConnecting => 'Connecting...';
+  String get cameraViewerConnecting => 'Conectando...';
 
   @override
-  String get cameraViewerReconnecting => 'Reconnecting...';
+  String get cameraViewerReconnecting => 'Reconectando...';
 
   @override
   String cameraViewerTrying(String transport) {
-    return 'Trying $transport...';
+    return 'Probando $transport...';
   }
 
   @override
   String cameraViewerCannotDecode(String codec) {
-    return 'This device cannot decode $codec';
+    return 'Este dispositivo no puede decodificar $codec';
   }
 
   @override
   String cameraViewerCannotPlay(String transport) {
-    return 'This device cannot play $transport streams';
+    return 'Este dispositivo no puede reproducir transmisiones $transport';
   }
 
   @override
   String get cameraViewerCannotDecodeStream =>
-      'This device cannot decode this stream';
+      'Este dispositivo no puede decodificar esta transmisión';
 
   @override
   String cameraViewerHaRetry(String seconds) {
-    return 'Cannot reach Home Assistant. Retrying in ${seconds}s';
+    return 'No se puede conectar a Home Assistant. Se reintentará en $seconds s';
   }
 
   @override
   String cameraViewerServerRetry(String seconds) {
-    return 'Cannot reach the camera server. Retrying in ${seconds}s';
+    return 'No se puede conectar al servidor de cámaras. Se reintentará en $seconds s';
   }
 
   @override
   String cameraViewerConnectionRetry(String seconds) {
-    return 'Connection failed. Retrying in ${seconds}s';
+    return 'La conexión falló. Se reintentará en $seconds s';
   }
 
   @override
   String get cameraViewerStartRetry =>
-      'The camera server could not start this stream. Retrying...';
+      'El servidor de cámaras no pudo iniciar esta transmisión. Reintentando...';
 
   @override
   String cameraViewerStartDelayedRetry(String seconds) {
-    return 'The camera server could not start this stream. Retrying in ${seconds}s';
+    return 'El servidor de cámaras no pudo iniciar esta transmisión. Se reintentará en $seconds s';
   }
 
   @override
   String cameraViewerMissingRetry(String seconds) {
-    return 'Stream not found on the camera server. Retrying in ${seconds}s';
+    return 'No se encontró la transmisión en el servidor de cámaras. Se reintentará en $seconds s';
   }
 
   @override
   String cameraViewerLoginRetry(String seconds) {
-    return 'The camera server rejected the login. Retrying in ${seconds}s';
+    return 'El servidor de cámaras rechazó el inicio de sesión. Se reintentará en $seconds s';
   }
 
   @override
-  String get cameraViewerMissing => 'Stream missing from Go2RTC';
+  String get cameraViewerMissing => 'Transmisión no disponible en Go2RTC';
 
   @override
   String get commonImport => 'Importar';
