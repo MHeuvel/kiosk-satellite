@@ -94,5 +94,90 @@
   "@commonClose": {
     "context": "Common:Actions",
     "description": "Close action button."
+  },
+  "commonClear": "Clear",
+  "@commonClear": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonBrowse": "Browse",
+  "@commonBrowse": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonSet": "Set",
+  "@commonSet": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonHour": "Hour",
+  "@commonHour": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonMinute": "Minute",
+  "@commonMinute": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonUp": "Up",
+  "@commonUp": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonDown": "Down",
+  "@commonDown": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonDelete": "Delete",
+  "@commonDelete": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonSaveFailed": "Could not save",
+  "@commonSaveFailed": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonColorWhite": "White",
+  "@commonColorWhite": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonColorWarm": "Warm",
+  "@commonColorWarm": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonColorAmber": "Amber",
+  "@commonColorAmber": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonColorRed": "Red",
+  "@commonColorRed": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonColorGreen": "Green",
+  "@commonColorGreen": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonColorBlue": "Blue",
+  "@commonColorBlue": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonColorCyan": "Cyan",
+  "@commonColorCyan": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
+  },
+  "commonColorDim": "Dim",
+  "@commonColorDim": {
+    "context": "Common:Dialogs",
+    "description": "Shared dialog action, time picker label or color preset."
   }
 }

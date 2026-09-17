@@ -1,0 +1,94 @@
+{
+  "@@locale": "en",
+  "settingScreensaverWebsiteUrlTitle": "Website URL",
+  "@settingScreensaverWebsiteUrlTitle": {
+    "context": "Settings:Screensaver:Website screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Website screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Website screensaver"
+      ]
+    }
+  },
+  "settingScreensaverWebsiteUrlDescription": "A page to show full-screen. It must allow being embedded.",
+  "@settingScreensaverWebsiteUrlDescription": {
+    "context": "Settings:Screensaver:Website screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Website screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Website screensaver"
+      ]
+    }
+  },
+  "settingScreensaverWebsiteZoomTitle": "Zoom level",
+  "@settingScreensaverWebsiteZoomTitle": {
+    "context": "Settings:Screensaver:Website screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Website screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Website screensaver"
+      ]
+    }
+  },
+  "settingScreensaverWebsiteZoomDescription": "Scales the whole external screensaver webview.",
+  "@settingScreensaverWebsiteZoomDescription": {
+    "context": "Settings:Screensaver:Website screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Website screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Website screensaver"
+      ]
+    }
+  },
+  "settingScreensaverWebsiteDoubleTapTitle": "Double tap to dismiss",
+  "@settingScreensaverWebsiteDoubleTapTitle": {
+    "context": "Settings:Screensaver:Website screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Website screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Website screensaver"
+      ]
+    }
+  },
+  "settingScreensaverWebsiteDoubleTapDescription": "Single taps interact with the website instead of dismissing.",
+  "@settingScreensaverWebsiteDoubleTapDescription": {
+    "context": "Settings:Screensaver:Website screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Website screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Website screensaver"
+      ]
+    }
+  },
+  "screensaverWebsiteSection": "Website screensaver",
+  "@screensaverWebsiteSection": {
+    "context": "Settings:Screensaver:Website screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Website screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Website screensaver"
+      ]
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "@@locale": "es",
+  "settingScreensaverWebsiteUrlTitle": "URL del sitio web",
+  "settingScreensaverWebsiteUrlDescription": "Página que se muestra a pantalla completa. Debe permitir que se incruste.",
+  "settingScreensaverWebsiteZoomTitle": "Nivel de zoom",
+  "settingScreensaverWebsiteZoomDescription": "Cambia la escala de toda la vista web del protector de pantalla.",
+  "settingScreensaverWebsiteDoubleTapTitle": "Tocar dos veces para cerrar",
+  "settingScreensaverWebsiteDoubleTapDescription": "Un solo toque permite interactuar con el sitio web en lugar de cerrar el protector de pantalla.",
+  "screensaverWebsiteSection": "Protector de pantalla: Sitio web"
+}

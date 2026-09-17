@@ -95,87 +95,87 @@
     "context": "Common:Actions",
     "description": "Close action button."
   },
-  "commonClear": "Clear",
+  "commonClear": "Borrar",
   "@commonClear": {
     "context": "Common:Dialogs",
     "description": "Shared dialog action, time picker label or color preset."
   },
-  "commonBrowse": "Browse",
+  "commonBrowse": "Examinar",
   "@commonBrowse": {
     "context": "Common:Dialogs",
     "description": "Shared dialog action, time picker label or color preset."
   },
-  "commonSet": "Set",
+  "commonSet": "Establecer",
   "@commonSet": {
     "context": "Common:Dialogs",
     "description": "Shared dialog action, time picker label or color preset."
   },
-  "commonHour": "Hour",
+  "commonHour": "Hora",
   "@commonHour": {
     "context": "Common:Dialogs",
     "description": "Shared dialog action, time picker label or color preset."
   },
-  "commonMinute": "Minute",
+  "commonMinute": "Minuto",
   "@commonMinute": {
     "context": "Common:Dialogs",
     "description": "Shared dialog action, time picker label or color preset."
   },
-  "commonUp": "Up",
+  "commonUp": "Aumentar",
   "@commonUp": {
     "context": "Common:Dialogs",
     "description": "Shared dialog action, time picker label or color preset."
   },
-  "commonDown": "Down",
+  "commonDown": "Disminuir",
   "@commonDown": {
     "context": "Common:Dialogs",
     "description": "Shared dialog action, time picker label or color preset."
   },
-  "commonDelete": "Delete",
+  "commonDelete": "Eliminar",
   "@commonDelete": {
     "context": "Common:Dialogs",
     "description": "Shared dialog action, time picker label or color preset."
   },
-  "commonSaveFailed": "Could not save",
+  "commonSaveFailed": "No se pudo guardar",
   "@commonSaveFailed": {
     "context": "Common:Dialogs",
     "description": "Shared dialog action, time picker label or color preset."
   },
-  "commonColorWhite": "White",
+  "commonColorWhite": "Blanco",
   "@commonColorWhite": {
     "context": "Common:Dialogs",
     "description": "Shared dialog action, time picker label or color preset."
   },
-  "commonColorWarm": "Warm",
+  "commonColorWarm": "Cálido",
   "@commonColorWarm": {
     "context": "Common:Dialogs",
     "description": "Shared dialog action, time picker label or color preset."
   },
-  "commonColorAmber": "Amber",
+  "commonColorAmber": "Ámbar",
   "@commonColorAmber": {
     "context": "Common:Dialogs",
     "description": "Shared dialog action, time picker label or color preset."
   },
-  "commonColorRed": "Red",
+  "commonColorRed": "Rojo",
   "@commonColorRed": {
     "context": "Common:Dialogs",
     "description": "Shared dialog action, time picker label or color preset."
   },
-  "commonColorGreen": "Green",
+  "commonColorGreen": "Verde",
   "@commonColorGreen": {
     "context": "Common:Dialogs",
     "description": "Shared dialog action, time picker label or color preset."
   },
-  "commonColorBlue": "Blue",
+  "commonColorBlue": "Azul",
   "@commonColorBlue": {
     "context": "Common:Dialogs",
     "description": "Shared dialog action, time picker label or color preset."
   },
-  "commonColorCyan": "Cyan",
+  "commonColorCyan": "Cian",
   "@commonColorCyan": {
     "context": "Common:Dialogs",
     "description": "Shared dialog action, time picker label or color preset."
   },
-  "commonColorDim": "Dim",
+  "commonColorDim": "Gris oscuro",
   "@commonColorDim": {
     "context": "Common:Dialogs",
     "description": "Shared dialog action, time picker label or color preset."
@@ -8451,7 +8451,7 @@
       ]
     }
   },
-  "settingScreensaverBlackHideExtrasTitle": "Hide all extras",
+  "settingScreensaverBlackHideExtrasTitle": "Ocultar todos los elementos adicionales",
   "@settingScreensaverBlackHideExtrasTitle": {
     "context": "Settings:Screensaver:Black screensaver",
     "description": "Setting label.",
@@ -8464,7 +8464,7 @@
       ]
     }
   },
-  "settingScreensaverBlackHideExtrasDescription": "Keeps the screen fully black: no small clock, At a Glance entities, or other overlays.",
+  "settingScreensaverBlackHideExtrasDescription": "Mantiene la pantalla completamente negra, sin reloj pequeño, entidades de De un vistazo ni otros elementos superpuestos.",
   "@settingScreensaverBlackHideExtrasDescription": {
     "context": "Settings:Screensaver:Black screensaver",
     "description": "Help below the setting.",
@@ -8477,7 +8477,7 @@
       ]
     }
   },
-  "screensaverBlackSection": "Black screensaver",
+  "screensaverBlackSection": "Protector de pantalla: Negro",
   "@screensaverBlackSection": {
     "context": "Settings:Screensaver:Black screensaver",
     "description": "Label, status or guidance in this section.",
@@ -8490,7 +8490,7 @@
       ]
     }
   },
-  "settingScreensaverClockStyleTitle": "Style",
+  "settingScreensaverClockStyleTitle": "Estilo",
   "@settingScreensaverClockStyleTitle": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Setting label.",
@@ -8503,7 +8503,7 @@
       ]
     }
   },
-  "settingScreensaverClockStyleDescription": "How the clock is drawn.",
+  "settingScreensaverClockStyleDescription": "Cómo se muestra el reloj.",
   "@settingScreensaverClockStyleDescription": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Help below the setting.",
@@ -8516,7 +8516,7 @@
       ]
     }
   },
-  "settingScreensaverClockFontTitle": "Font Family",
+  "settingScreensaverClockFontTitle": "Tipo de letra",
   "@settingScreensaverClockFontTitle": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Setting label.",
@@ -8529,7 +8529,7 @@
       ]
     }
   },
-  "settingScreensaverClockFontDescription": "The typeface the clock is drawn in.",
+  "settingScreensaverClockFontDescription": "Tipo de letra del reloj.",
   "@settingScreensaverClockFontDescription": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Help below the setting.",
@@ -8542,7 +8542,7 @@
       ]
     }
   },
-  "settingScreensaverClockFontWeightTitle": "Font weight",
+  "settingScreensaverClockFontWeightTitle": "Grosor de la letra",
   "@settingScreensaverClockFontWeightTitle": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Setting label.",
@@ -8555,7 +8555,7 @@
       ]
     }
   },
-  "settingScreensaverClockFontWeightDescription": "How heavy the clock's digits are drawn. Default is each face's own weight.",
+  "settingScreensaverClockFontWeightDescription": "Grosor de los dígitos del reloj. Predeterminado usa el grosor propio de cada estilo.",
   "@settingScreensaverClockFontWeightDescription": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Help below the setting.",
@@ -8568,7 +8568,7 @@
       ]
     }
   },
-  "settingScreensaverClock24hTitle": "24-hour clock",
+  "settingScreensaverClock24hTitle": "Reloj de 24 horas",
   "@settingScreensaverClock24hTitle": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Setting label.",
@@ -8581,7 +8581,7 @@
       ]
     }
   },
-  "settingScreensaverClock24hDescription": "Show a 24-hour time instead of AM/PM.",
+  "settingScreensaverClock24hDescription": "Muestra la hora en formato de 24 horas en lugar de AM/PM.",
   "@settingScreensaverClock24hDescription": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Help below the setting.",
@@ -8594,7 +8594,7 @@
       ]
     }
   },
-  "settingScreensaverClockSecondsTitle": "Show seconds",
+  "settingScreensaverClockSecondsTitle": "Mostrar segundos",
   "@settingScreensaverClockSecondsTitle": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Setting label.",
@@ -8607,7 +8607,7 @@
       ]
     }
   },
-  "settingScreensaverClockSecondsDescription": "Include seconds in the clock.",
+  "settingScreensaverClockSecondsDescription": "Incluye los segundos en el reloj.",
   "@settingScreensaverClockSecondsDescription": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Help below the setting.",
@@ -8620,7 +8620,7 @@
       ]
     }
   },
-  "settingScreensaverClockDateTitle": "Show date",
+  "settingScreensaverClockDateTitle": "Mostrar fecha",
   "@settingScreensaverClockDateTitle": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Setting label.",
@@ -8633,7 +8633,7 @@
       ]
     }
   },
-  "settingScreensaverClockDateDescription": "Show the weekday and date under the clock.",
+  "settingScreensaverClockDateDescription": "Muestra el día de la semana y la fecha debajo del reloj.",
   "@settingScreensaverClockDateDescription": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Help below the setting.",
@@ -8646,7 +8646,7 @@
       ]
     }
   },
-  "settingScreensaverClockScaleTitle": "Clock size",
+  "settingScreensaverClockScaleTitle": "Tamaño del reloj",
   "@settingScreensaverClockScaleTitle": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Setting label.",
@@ -8659,7 +8659,7 @@
       ]
     }
   },
-  "settingScreensaverClockScaleDescription": "Scale the clock from 50 to 300 percent for this screen.",
+  "settingScreensaverClockScaleDescription": "Ajusta el tamaño del reloj del 50 al 300 por ciento para esta pantalla.",
   "@settingScreensaverClockScaleDescription": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Help below the setting.",
@@ -8672,7 +8672,7 @@
       ]
     }
   },
-  "settingScreensaverClockColorTitle": "Clock color",
+  "settingScreensaverClockColorTitle": "Color del reloj",
   "@settingScreensaverClockColorTitle": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Setting label.",
@@ -8685,7 +8685,7 @@
       ]
     }
   },
-  "settingScreensaverClockColorDescription": "The color of the clock text.",
+  "settingScreensaverClockColorDescription": "Color del texto del reloj.",
   "@settingScreensaverClockColorDescription": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Help below the setting.",
@@ -8698,7 +8698,7 @@
       ]
     }
   },
-  "settingScreensaverClockBgColorTitle": "Background color",
+  "settingScreensaverClockBgColorTitle": "Color de fondo",
   "@settingScreensaverClockBgColorTitle": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Setting label.",
@@ -8711,7 +8711,7 @@
       ]
     }
   },
-  "settingScreensaverClockBgColorDescription": "The color behind the clock.",
+  "settingScreensaverClockBgColorDescription": "Color detrás del reloj.",
   "@settingScreensaverClockBgColorDescription": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Help below the setting.",
@@ -8724,7 +8724,7 @@
       ]
     }
   },
-  "settingScreensaverClockBackgroundTitle": "Background photo",
+  "settingScreensaverClockBackgroundTitle": "Foto de fondo",
   "@settingScreensaverClockBackgroundTitle": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Setting label.",
@@ -8737,7 +8737,7 @@
       ]
     }
   },
-  "settingScreensaverClockBackgroundDescription": "Show a photo behind the clock instead of the solid color. A path to an image on the device, or an image URL the device fetches.",
+  "settingScreensaverClockBackgroundDescription": "Muestra una foto detrás del reloj en lugar de un color sólido. Puede ser la ruta de una imagen en el dispositivo o una URL desde la que el dispositivo descarga la imagen.",
   "@settingScreensaverClockBackgroundDescription": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Help below the setting.",
@@ -8750,7 +8750,7 @@
       ]
     }
   },
-  "settingScreensaverClockBackgroundRefreshTitle": "Refresh URL background",
+  "settingScreensaverClockBackgroundRefreshTitle": "Actualizar el fondo desde la URL",
   "@settingScreensaverClockBackgroundRefreshTitle": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Setting label.",
@@ -8763,7 +8763,7 @@
       ]
     }
   },
-  "settingScreensaverClockBackgroundRefreshDescription": "Minutes between fetches of a URL background. 0 fetches it only when the setting is written.",
+  "settingScreensaverClockBackgroundRefreshDescription": "Minutos entre descargas de una imagen de fondo desde una URL. Con 0, solo se descarga al guardar esta opción.",
   "@settingScreensaverClockBackgroundRefreshDescription": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Help below the setting.",
@@ -8776,7 +8776,7 @@
       ]
     }
   },
-  "settingScreensaverFlipDigitColorTitle": "Digit color",
+  "settingScreensaverFlipDigitColorTitle": "Color de los dígitos",
   "@settingScreensaverFlipDigitColorTitle": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Setting label.",
@@ -8789,7 +8789,7 @@
       ]
     }
   },
-  "settingScreensaverFlipDigitColorDescription": "The color of the flip digits.",
+  "settingScreensaverFlipDigitColorDescription": "Color de los dígitos del reloj de láminas.",
   "@settingScreensaverFlipDigitColorDescription": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Help below the setting.",
@@ -8802,7 +8802,7 @@
       ]
     }
   },
-  "settingScreensaverFlipBgColorTitle": "Card color",
+  "settingScreensaverFlipBgColorTitle": "Color de las láminas",
   "@settingScreensaverFlipBgColorTitle": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Setting label.",
@@ -8815,7 +8815,7 @@
       ]
     }
   },
-  "settingScreensaverFlipBgColorDescription": "The color of the cards.",
+  "settingScreensaverFlipBgColorDescription": "Color de las láminas del reloj.",
   "@settingScreensaverFlipBgColorDescription": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Help below the setting.",
@@ -8828,7 +8828,7 @@
       ]
     }
   },
-  "settingScreensaverFlipBackdropColorTitle": "Background color",
+  "settingScreensaverFlipBackdropColorTitle": "Color de fondo",
   "@settingScreensaverFlipBackdropColorTitle": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Setting label.",
@@ -8841,7 +8841,7 @@
       ]
     }
   },
-  "settingScreensaverFlipBackdropColorDescription": "The color behind the cards.",
+  "settingScreensaverFlipBackdropColorDescription": "Color detrás de las láminas.",
   "@settingScreensaverFlipBackdropColorDescription": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Help below the setting.",
@@ -8854,7 +8854,7 @@
       ]
     }
   },
-  "settingScreensaverRollerDigitColorTitle": "Digit color",
+  "settingScreensaverRollerDigitColorTitle": "Color de los dígitos",
   "@settingScreensaverRollerDigitColorTitle": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Setting label.",
@@ -8867,7 +8867,7 @@
       ]
     }
   },
-  "settingScreensaverRollerDigitColorDescription": "The color of the rolling digits.",
+  "settingScreensaverRollerDigitColorDescription": "Color de los dígitos del reloj de rodillos.",
   "@settingScreensaverRollerDigitColorDescription": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Help below the setting.",
@@ -8880,7 +8880,7 @@
       ]
     }
   },
-  "settingScreensaverRollerBgColorTitle": "Background color",
+  "settingScreensaverRollerBgColorTitle": "Color de fondo",
   "@settingScreensaverRollerBgColorTitle": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Setting label.",
@@ -8893,7 +8893,7 @@
       ]
     }
   },
-  "settingScreensaverRollerBgColorDescription": "The color behind the digits.",
+  "settingScreensaverRollerBgColorDescription": "Color detrás de los dígitos.",
   "@settingScreensaverRollerBgColorDescription": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Help below the setting.",
@@ -8906,7 +8906,7 @@
       ]
     }
   },
-  "settingScreensaverClockNightTitle": "Night mode",
+  "settingScreensaverClockNightTitle": "Modo nocturno",
   "@settingScreensaverClockNightTitle": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Setting label.",
@@ -8919,7 +8919,7 @@
       ]
     }
   },
-  "settingScreensaverClockNightDescription": "Recolor the clock while the room is dark.",
+  "settingScreensaverClockNightDescription": "Cambia los colores del reloj cuando la habitación está oscura.",
   "@settingScreensaverClockNightDescription": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Help below the setting.",
@@ -8932,7 +8932,7 @@
       ]
     }
   },
-  "settingScreensaverClockNightLuxTitle": "Light level",
+  "settingScreensaverClockNightLuxTitle": "Nivel de luz",
   "@settingScreensaverClockNightLuxTitle": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Setting label.",
@@ -8945,7 +8945,7 @@
       ]
     }
   },
-  "settingScreensaverClockNightLuxDescription": "At or below this light level the clock takes the night color.",
+  "settingScreensaverClockNightLuxDescription": "Con este nivel de luz o uno inferior, el reloj usa el color nocturno.",
   "@settingScreensaverClockNightLuxDescription": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Help below the setting.",
@@ -8958,7 +8958,7 @@
       ]
     }
   },
-  "settingScreensaverClockNightColorTitle": "Night color",
+  "settingScreensaverClockNightColorTitle": "Color nocturno",
   "@settingScreensaverClockNightColorTitle": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Setting label.",
@@ -8971,7 +8971,7 @@
       ]
     }
   },
-  "settingScreensaverClockNightColorDescription": "The color of the clock and the widgets in the dark.",
+  "settingScreensaverClockNightColorDescription": "Color del reloj y los widgets en la oscuridad.",
   "@settingScreensaverClockNightColorDescription": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Help below the setting.",
@@ -8984,7 +8984,7 @@
       ]
     }
   },
-  "settingScreensaverClockNightBgColorTitle": "Night background",
+  "settingScreensaverClockNightBgColorTitle": "Fondo nocturno",
   "@settingScreensaverClockNightBgColorTitle": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Setting label.",
@@ -8997,7 +8997,7 @@
       ]
     }
   },
-  "settingScreensaverClockNightBgColorDescription": "The color behind the clock in the dark.",
+  "settingScreensaverClockNightBgColorDescription": "Color detrás del reloj en la oscuridad.",
   "@settingScreensaverClockNightBgColorDescription": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Help below the setting.",
@@ -9010,7 +9010,7 @@
       ]
     }
   },
-  "settingScreensaverClockNightHideBackgroundTitle": "Hide background photo",
+  "settingScreensaverClockNightHideBackgroundTitle": "Ocultar la foto de fondo",
   "@settingScreensaverClockNightHideBackgroundTitle": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Setting label.",
@@ -9023,7 +9023,7 @@
       ]
     }
   },
-  "settingScreensaverClockNightHideBackgroundDescription": "Use the night background color instead of the photo while Night mode is active.",
+  "settingScreensaverClockNightHideBackgroundDescription": "Usa el color de fondo nocturno en lugar de la foto mientras está activo el modo nocturno.",
   "@settingScreensaverClockNightHideBackgroundDescription": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Help below the setting.",
@@ -9036,7 +9036,7 @@
       ]
     }
   },
-  "settingScreensaverClockNightCardColorTitle": "Night card color",
+  "settingScreensaverClockNightCardColorTitle": "Color nocturno de las láminas",
   "@settingScreensaverClockNightCardColorTitle": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Setting label.",
@@ -9049,7 +9049,7 @@
       ]
     }
   },
-  "settingScreensaverClockNightCardColorDescription": "The color of the flip cards in the dark.",
+  "settingScreensaverClockNightCardColorDescription": "Color de las láminas del reloj en la oscuridad.",
   "@settingScreensaverClockNightCardColorDescription": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Help below the setting.",
@@ -9062,7 +9062,7 @@
       ]
     }
   },
-  "screensaverClockSection": "Clock screensaver",
+  "screensaverClockSection": "Protector de pantalla: Reloj",
   "@screensaverClockSection": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9075,7 +9075,7 @@
       ]
     }
   },
-  "screensaverClockHint": "Style, font, size, colors, night mode, background photo",
+  "screensaverClockHint": "Estilo, tipo de letra, tamaño, colores, modo nocturno y foto de fondo",
   "@screensaverClockHint": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9088,7 +9088,7 @@
       ]
     }
   },
-  "screensaverStyleDigital": "Digital Clock",
+  "screensaverStyleDigital": "Reloj digital",
   "@screensaverStyleDigital": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9101,7 +9101,7 @@
       ]
     }
   },
-  "screensaverStyleFlip": "Flip Clock",
+  "screensaverStyleFlip": "Reloj de láminas",
   "@screensaverStyleFlip": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9114,7 +9114,7 @@
       ]
     }
   },
-  "screensaverStyleRoller": "Roller Clock",
+  "screensaverStyleRoller": "Reloj de rodillos",
   "@screensaverStyleRoller": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9127,7 +9127,7 @@
       ]
     }
   },
-  "screensaverFontDefault": "Default",
+  "screensaverFontDefault": "Predeterminado",
   "@screensaverFontDefault": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9140,7 +9140,7 @@
       ]
     }
   },
-  "screensaverFontLight": "Light",
+  "screensaverFontLight": "Fino",
   "@screensaverFontLight": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9153,7 +9153,7 @@
       ]
     }
   },
-  "screensaverFontRegular": "Regular",
+  "screensaverFontRegular": "Normal",
   "@screensaverFontRegular": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9166,7 +9166,7 @@
       ]
     }
   },
-  "screensaverFontMedium": "Medium",
+  "screensaverFontMedium": "Medio",
   "@screensaverFontMedium": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9179,7 +9179,7 @@
       ]
     }
   },
-  "screensaverFontBold": "Bold",
+  "screensaverFontBold": "Negrita",
   "@screensaverFontBold": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9192,7 +9192,7 @@
       ]
     }
   },
-  "screensaverFontBlack": "Black",
+  "screensaverFontBlack": "Muy grueso",
   "@screensaverFontBlack": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9205,7 +9205,7 @@
       ]
     }
   },
-  "screensaverNoPhoto": "No photo selected",
+  "screensaverNoPhoto": "No se ha seleccionado ninguna foto",
   "@screensaverNoPhoto": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9218,7 +9218,7 @@
       ]
     }
   },
-  "screensaverBackgroundHint": "Path to an image on the device, or an image URL",
+  "screensaverBackgroundHint": "Ruta de una imagen en el dispositivo o URL de una imagen",
   "@screensaverBackgroundHint": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9231,7 +9231,7 @@
       ]
     }
   },
-  "screensaverImageUrlError": "Enter a full image URL",
+  "screensaverImageUrlError": "Introduce la URL completa de una imagen",
   "@screensaverImageUrlError": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9244,7 +9244,7 @@
       ]
     }
   },
-  "screensaverRefreshError": "Enter whole minutes from 0 to 1440",
+  "screensaverRefreshError": "Introduce minutos enteros entre 0 y 1440",
   "@screensaverRefreshError": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9257,7 +9257,7 @@
       ]
     }
   },
-  "screensaverMaxCharacters": "Use at most {count} characters",
+  "screensaverMaxCharacters": "Usa como máximo {count} caracteres",
   "@screensaverMaxCharacters": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Maximum length validation error.",
@@ -9276,7 +9276,7 @@
       }
     }
   },
-  "settingScreensaverEnabledTitle": "Screensaver",
+  "settingScreensaverEnabledTitle": "Protector de pantalla",
   "@settingScreensaverEnabledTitle": {
     "context": "Settings:Screensaver",
     "description": "Setting label.",
@@ -9289,7 +9289,7 @@
       ]
     }
   },
-  "settingScreensaverEnabledDescription": "Dim or blank the screen after a period of inactivity.",
+  "settingScreensaverEnabledDescription": "Atenúa o deja en negro la pantalla tras un periodo de inactividad.",
   "@settingScreensaverEnabledDescription": {
     "context": "Settings:Screensaver",
     "description": "Help below the setting.",
@@ -9302,7 +9302,7 @@
       ]
     }
   },
-  "settingScreensaverTimeoutSecondsTitle": "Idle timeout (seconds)",
+  "settingScreensaverTimeoutSecondsTitle": "Tiempo de inactividad (segundos)",
   "@settingScreensaverTimeoutSecondsTitle": {
     "context": "Settings:Screensaver",
     "description": "Setting label.",
@@ -9315,7 +9315,7 @@
       ]
     }
   },
-  "settingScreensaverTimeoutSecondsDescription": "Inactivity period before the screensaver starts.",
+  "settingScreensaverTimeoutSecondsDescription": "Periodo de inactividad antes de que se active el protector de pantalla.",
   "@settingScreensaverTimeoutSecondsDescription": {
     "context": "Settings:Screensaver",
     "description": "Help below the setting.",
@@ -9328,7 +9328,7 @@
       ]
     }
   },
-  "settingScreensaverModeTitle": "Screensaver mode",
+  "settingScreensaverModeTitle": "Modo del protector de pantalla",
   "@settingScreensaverModeTitle": {
     "context": "Settings:Screensaver",
     "description": "Setting label.",
@@ -9341,7 +9341,7 @@
       ]
     }
   },
-  "settingScreensaverModeDescription": "What the screensaver shows after the idle timeout. Dim only lowers the backlight and leaves the dashboard on screen.",
+  "settingScreensaverModeDescription": "Qué muestra el protector de pantalla tras el tiempo de inactividad. Atenuar solo reduce la iluminación y mantiene visible el panel de control.",
   "@settingScreensaverModeDescription": {
     "context": "Settings:Screensaver",
     "description": "Help below the setting.",
@@ -9354,7 +9354,7 @@
       ]
     }
   },
-  "settingScreensaverPixelShiftTitle": "Pixel shift",
+  "settingScreensaverPixelShiftTitle": "Desplazamiento de píxeles",
   "@settingScreensaverPixelShiftTitle": {
     "context": "Settings:Screensaver",
     "description": "Setting label.",
@@ -9367,7 +9367,7 @@
       ]
     }
   },
-  "settingScreensaverPixelShiftDescription": "Nudge the image every minute to protect OLED panels. Not for the black screensaver, whose pixels are already off.",
+  "settingScreensaverPixelShiftDescription": "Mueve ligeramente la imagen cada minuto para proteger las pantallas OLED. No se aplica al protector de pantalla Negro, cuyos píxeles ya están apagados.",
   "@settingScreensaverPixelShiftDescription": {
     "context": "Settings:Screensaver",
     "description": "Help below the setting.",
@@ -9380,7 +9380,7 @@
       ]
     }
   },
-  "settingScreensaverMenuTitle": "Show in the kiosk menu",
+  "settingScreensaverMenuTitle": "Mostrar en el menú del kiosko",
   "@settingScreensaverMenuTitle": {
     "context": "Settings:Screensaver",
     "description": "Setting label.",
@@ -9393,7 +9393,7 @@
       ]
     }
   },
-  "settingScreensaverMenuDescription": "Add a Start Screensaver entry to the kiosk menu.",
+  "settingScreensaverMenuDescription": "Añade la opción Iniciar protector de pantalla al menú del kiosko.",
   "@settingScreensaverMenuDescription": {
     "context": "Settings:Screensaver",
     "description": "Help below the setting.",
@@ -9406,7 +9406,7 @@
       ]
     }
   },
-  "settingScreensaverDimLevelTitle": "Dim level",
+  "settingScreensaverDimLevelTitle": "Nivel de atenuación",
   "@settingScreensaverDimLevelTitle": {
     "context": "Settings:Screensaver",
     "description": "Setting label.",
@@ -9419,7 +9419,7 @@
       ]
     }
   },
-  "settingScreensaverDimLevelDescription": "Screen brightness while the screensaver is dimming.",
+  "settingScreensaverDimLevelDescription": "Brillo de la pantalla mientras el protector de pantalla la atenúa.",
   "@settingScreensaverDimLevelDescription": {
     "context": "Settings:Screensaver",
     "description": "Help below the setting.",
@@ -9432,7 +9432,7 @@
       ]
     }
   },
-  "settingScreensaverBrightnessEnabledTitle": "Screensaver brightness",
+  "settingScreensaverBrightnessEnabledTitle": "Brillo del protector de pantalla",
   "@settingScreensaverBrightnessEnabledTitle": {
     "context": "Settings:Screensaver",
     "description": "Setting label.",
@@ -9445,7 +9445,7 @@
       ]
     }
   },
-  "settingScreensaverBrightnessEnabledDescription": "Use a separate brightness while the screensaver is showing.",
+  "settingScreensaverBrightnessEnabledDescription": "Usa un brillo diferente mientras se muestra el protector de pantalla.",
   "@settingScreensaverBrightnessEnabledDescription": {
     "context": "Settings:Screensaver",
     "description": "Help below the setting.",
@@ -9458,7 +9458,7 @@
       ]
     }
   },
-  "settingScreensaverBrightnessLevelTitle": "Brightness level",
+  "settingScreensaverBrightnessLevelTitle": "Nivel de brillo",
   "@settingScreensaverBrightnessLevelTitle": {
     "context": "Settings:Screensaver",
     "description": "Setting label.",
@@ -9471,7 +9471,7 @@
       ]
     }
   },
-  "settingScreensaverBrightnessLevelDescription": "Applies to every mode except Dim and Black.",
+  "settingScreensaverBrightnessLevelDescription": "Se aplica a todos los modos excepto Atenuar y Negro.",
   "@settingScreensaverBrightnessLevelDescription": {
     "context": "Settings:Screensaver",
     "description": "Help below the setting.",
@@ -9484,7 +9484,7 @@
       ]
     }
   },
-  "settingScreensaverNotificationBrightnessTitle": "Brighten for notifications",
+  "settingScreensaverNotificationBrightnessTitle": "Aumentar el brillo para las notificaciones",
   "@settingScreensaverNotificationBrightnessTitle": {
     "context": "Settings:Screensaver",
     "description": "Setting label.",
@@ -9497,7 +9497,7 @@
       ]
     }
   },
-  "settingScreensaverNotificationBrightnessDescription": "Lift the screensaver dimming while a notification is on screen.",
+  "settingScreensaverNotificationBrightnessDescription": "Reduce la atenuación del protector de pantalla mientras se muestra una notificación.",
   "@settingScreensaverNotificationBrightnessDescription": {
     "context": "Settings:Screensaver",
     "description": "Help below the setting.",
@@ -9510,7 +9510,7 @@
       ]
     }
   },
-  "settingScreensaverScreenOffMinutesTitle": "Turn screen off after",
+  "settingScreensaverScreenOffMinutesTitle": "Apagar la pantalla después de",
   "@settingScreensaverScreenOffMinutesTitle": {
     "context": "Settings:Screensaver",
     "description": "Setting label.",
@@ -9523,7 +9523,7 @@
       ]
     }
   },
-  "settingScreensaverScreenOffMinutesDescription": "Powers down the display panel once the screensaver has run for the set duration. Set to 0 to keep the screen on indefinitely. Requires Device Administrator permission.",
+  "settingScreensaverScreenOffMinutesDescription": "Apaga la pantalla cuando el protector de pantalla lleva activo el tiempo indicado. Con 0, la pantalla permanece encendida indefinidamente. Requiere permiso de administrador del dispositivo.",
   "@settingScreensaverScreenOffMinutesDescription": {
     "context": "Settings:Screensaver",
     "description": "Help below the setting.",
@@ -9536,7 +9536,7 @@
       ]
     }
   },
-  "settingScreensaverScreenOffWakeToScreensaverTitle": "Wake to screensaver",
+  "settingScreensaverScreenOffWakeToScreensaverTitle": "Volver al protector de pantalla al despertar",
   "@settingScreensaverScreenOffWakeToScreensaverTitle": {
     "context": "Settings:Screensaver",
     "description": "Setting label.",
@@ -9549,7 +9549,7 @@
       ]
     }
   },
-  "settingScreensaverScreenOffWakeToScreensaverDescription": "Motion, face, proximity or person detection after the screen has turned off brings the screensaver back instead of the dashboard, with a fresh Turn screen off after countdown. Touch still opens the dashboard.",
+  "settingScreensaverScreenOffWakeToScreensaverDescription": "Tras apagarse la pantalla, la detección de movimiento, rostros, proximidad o personas muestra el protector de pantalla en lugar del panel de control y reinicia el tiempo para apagar la pantalla. Tocar la pantalla sigue abriendo el panel de control.",
   "@settingScreensaverScreenOffWakeToScreensaverDescription": {
     "context": "Settings:Screensaver",
     "description": "Help below the setting.",
@@ -9562,7 +9562,7 @@
       ]
     }
   },
-  "screensaverModeDim": "Dim",
+  "screensaverModeDim": "Atenuar",
   "@screensaverModeDim": {
     "context": "Settings:Screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9575,7 +9575,7 @@
       ]
     }
   },
-  "screensaverModeBlack": "Black",
+  "screensaverModeBlack": "Negro",
   "@screensaverModeBlack": {
     "context": "Settings:Screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9588,7 +9588,7 @@
       ]
     }
   },
-  "screensaverModeClock": "Clock",
+  "screensaverModeClock": "Reloj",
   "@screensaverModeClock": {
     "context": "Settings:Screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9601,7 +9601,7 @@
       ]
     }
   },
-  "screensaverModeMedia": "Home Assistant Media",
+  "screensaverModeMedia": "Contenido multimedia de Home Assistant",
   "@screensaverModeMedia": {
     "context": "Settings:Screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9614,7 +9614,7 @@
       ]
     }
   },
-  "screensaverModeLocal": "Local Media",
+  "screensaverModeLocal": "Contenido multimedia local",
   "@screensaverModeLocal": {
     "context": "Settings:Screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9627,7 +9627,7 @@
       ]
     }
   },
-  "screensaverModeGallery": "Photo Gallery",
+  "screensaverModeGallery": "Galería de fotos",
   "@screensaverModeGallery": {
     "context": "Settings:Screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9640,7 +9640,7 @@
       ]
     }
   },
-  "screensaverModeImmich": "Immich Media",
+  "screensaverModeImmich": "Contenido multimedia de Immich",
   "@screensaverModeImmich": {
     "context": "Settings:Screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9653,7 +9653,7 @@
       ]
     }
   },
-  "screensaverModeWebsite": "Website",
+  "screensaverModeWebsite": "Sitio web",
   "@screensaverModeWebsite": {
     "context": "Settings:Screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9666,7 +9666,7 @@
       ]
     }
   },
-  "screensaverModeCamera": "Camera Streams",
+  "screensaverModeCamera": "Transmisiones de cámara",
   "@screensaverModeCamera": {
     "context": "Settings:Screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9679,7 +9679,7 @@
       ]
     }
   },
-  "screensaverDimSection": "Dim screensaver",
+  "screensaverDimSection": "Protector de pantalla: Atenuar",
   "@screensaverDimSection": {
     "context": "Settings:Screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9692,7 +9692,7 @@
       ]
     }
   },
-  "screensaverWarningTitle": "WARNING: Please Read!",
+  "screensaverWarningTitle": "ADVERTENCIA: Lee antes de continuar",
   "@screensaverWarningTitle": {
     "context": "Settings:Screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9705,7 +9705,7 @@
       ]
     }
   },
-  "screensaverScreenOffProceed": "Turn screen off anyway",
+  "screensaverScreenOffProceed": "Apagar la pantalla de todos modos",
   "@screensaverScreenOffProceed": {
     "context": "Settings:Screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9718,7 +9718,7 @@
       ]
     }
   },
-  "screensaverAdminMissing": "Not granted, so the screen cannot turn off.",
+  "screensaverAdminMissing": "No se ha concedido el permiso, por lo que la pantalla no puede apagarse.",
   "@screensaverAdminMissing": {
     "context": "Settings:Screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9731,7 +9731,7 @@
       ]
     }
   },
-  "screensaverAdminMissingRemote": "Device admin permission missing",
+  "screensaverAdminMissingRemote": "Falta el permiso de administrador del dispositivo",
   "@screensaverAdminMissingRemote": {
     "context": "Settings:Screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9744,7 +9744,7 @@
       ]
     }
   },
-  "screensaverAdminMissingRemoteHelp": "Without it the screen cannot be turned off. The grant dialog appears on the tablet screen.",
+  "screensaverAdminMissingRemoteHelp": "Sin este permiso no se puede apagar la pantalla. El diálogo para concederlo aparece en la tableta.",
   "@screensaverAdminMissingRemoteHelp": {
     "context": "Settings:Screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9757,7 +9757,7 @@
       ]
     }
   },
-  "screensaverDimWarning": "WARNING: Dim keeps the dashboard visible, so the \"Pause dashboard during screensaver\" optimization will not be applied and the dashboard keeps using CPU, GPU and battery.",
+  "screensaverDimWarning": "ADVERTENCIA: Atenuar mantiene visible el panel de control, por lo que no se aplica la optimización «Pausar el panel de control durante el protector de pantalla». El panel de control sigue usando CPU, GPU y batería.",
   "@screensaverDimWarning": {
     "context": "Settings:Screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9770,7 +9770,7 @@
       ]
     }
   },
-  "screensaverUnavailablePlugin": "Unavailable plugin screensaver",
+  "screensaverUnavailablePlugin": "Protector de pantalla de un plugin no disponible",
   "@screensaverUnavailablePlugin": {
     "context": "Settings:Screensaver",
     "description": "Label, status or guidance in this section.",
@@ -9783,7 +9783,7 @@
       ]
     }
   },
-  "screensaverScreenOffWarning": "Once the display truly powers off, the tablet's own power management takes over, and many Android models misbehave in that state: Wi-Fi naps or drops, the Home Assistant entities go unavailable, the camera can be revoked, and some models kill background apps outright. What happens depends on the manufacturer.\n\nThe reliable alternative is the Black screensaver with this setting left at 0: the panel looks just as dark, and the app keeps full control.",
+  "screensaverScreenOffWarning": "Cuando la pantalla se apaga por completo, la administración de energía de la tableta toma el control. Muchos modelos de Android presentan problemas en ese estado: el Wi-Fi se suspende o se desconecta, las entidades de Home Assistant dejan de estar disponibles, se puede perder el acceso a la cámara y algunos modelos cierran las aplicaciones en segundo plano. El comportamiento depende del fabricante.\n\nLa alternativa fiable es usar el protector de pantalla Negro y dejar esta opción en 0. La pantalla se ve igual de oscura y la aplicación mantiene el control.",
   "@screensaverScreenOffWarning": {
     "context": "Settings:Screensaver",
     "description": "Warning before enabling physical screen power-off.",
@@ -9796,7 +9796,7 @@
       ]
     }
   },
-  "settingScreensaverScheduleEnabledTitle": "Enable scheduled screensavers",
+  "settingScreensaverScheduleEnabledTitle": "Activar los protectores de pantalla programados",
   "@settingScreensaverScheduleEnabledTitle": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Setting label.",
@@ -9809,7 +9809,7 @@
       ]
     }
   },
-  "settingScreensaverScheduleEnabledDescription": "Switch to a different screensaver at set times of day.",
+  "settingScreensaverScheduleEnabledDescription": "Cambia a otro protector de pantalla a determinadas horas del día.",
   "@settingScreensaverScheduleEnabledDescription": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Help below the setting.",
@@ -9822,7 +9822,7 @@
       ]
     }
   },
-  "settingScreensaverScheduleTitle": "Times",
+  "settingScreensaverScheduleTitle": "Horas",
   "@settingScreensaverScheduleTitle": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Setting label.",
@@ -9835,7 +9835,7 @@
       ]
     }
   },
-  "settingScreensaverScheduleDescription": "Each time switches the screensaver from then on.",
+  "settingScreensaverScheduleDescription": "Cada hora indica cuándo empieza a usarse ese protector de pantalla.",
   "@settingScreensaverScheduleDescription": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Help below the setting.",
@@ -9848,7 +9848,7 @@
       ]
     }
   },
-  "screensaverScheduleSection": "Scheduled Screensavers",
+  "screensaverScheduleSection": "Protectores de pantalla programados",
   "@screensaverScheduleSection": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Label, status or guidance in this section.",
@@ -9861,7 +9861,7 @@
       ]
     }
   },
-  "screensaverTime": "Time",
+  "screensaverTime": "Hora",
   "@screensaverTime": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Label, status or guidance in this section.",
@@ -9874,7 +9874,7 @@
       ]
     }
   },
-  "screensaverAddTime": "Add time",
+  "screensaverAddTime": "Añadir hora",
   "@screensaverAddTime": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Label, status or guidance in this section.",
@@ -9887,7 +9887,7 @@
       ]
     }
   },
-  "screensaverRemoveTime": "Remove time",
+  "screensaverRemoveTime": "Eliminar hora",
   "@screensaverRemoveTime": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Label, status or guidance in this section.",
@@ -9900,7 +9900,7 @@
       ]
     }
   },
-  "screensaverNoTimes": "No times yet",
+  "screensaverNoTimes": "Aún no hay horas programadas",
   "@screensaverNoTimes": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Label, status or guidance in this section.",
@@ -9913,7 +9913,7 @@
       ]
     }
   },
-  "screensaverTimeHelp": "A screensaver from that time on.",
+  "screensaverTimeHelp": "Protector de pantalla que se usa a partir de esa hora.",
   "@screensaverTimeHelp": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Label, status or guidance in this section.",
@@ -9926,7 +9926,7 @@
       ]
     }
   },
-  "screensaverPickTime": "Pick a time.",
+  "screensaverPickTime": "Elige una hora.",
   "@screensaverPickTime": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Label, status or guidance in this section.",
@@ -9939,7 +9939,7 @@
       ]
     }
   },
-  "screensaverDefault": "Default",
+  "screensaverDefault": "Predeterminado",
   "@screensaverDefault": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Label, status or guidance in this section.",
@@ -9952,7 +9952,7 @@
       ]
     }
   },
-  "screensaverOn": "On",
+  "screensaverOn": "Activado",
   "@screensaverOn": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Label, status or guidance in this section.",
@@ -9965,7 +9965,7 @@
       ]
     }
   },
-  "screensaverOff": "Off",
+  "screensaverOff": "Desactivado",
   "@screensaverOff": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Label, status or guidance in this section.",
@@ -9978,7 +9978,7 @@
       ]
     }
   },
-  "screensaverBrightness": "Brightness",
+  "screensaverBrightness": "Brillo",
   "@screensaverBrightness": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Label, status or guidance in this section.",
@@ -9991,7 +9991,7 @@
       ]
     }
   },
-  "screensaverBrightnessFollow": "Follows the Screensaver brightness setting.",
+  "screensaverBrightnessFollow": "Sigue la opción Brillo del protector de pantalla.",
   "@screensaverBrightnessFollow": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Label, status or guidance in this section.",
@@ -10004,7 +10004,7 @@
       ]
     }
   },
-  "screensaverBrightnessExceptBlack": "Applies to every mode except Black.",
+  "screensaverBrightnessExceptBlack": "Se aplica a todos los modos excepto Negro.",
   "@screensaverBrightnessExceptBlack": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Label, status or guidance in this section.",
@@ -10017,7 +10017,7 @@
       ]
     }
   },
-  "screensaverScreenOffFollow": "Follows the Turn screen off after setting.",
+  "screensaverScreenOffFollow": "Sigue la opción Apagar la pantalla después de.",
   "@screensaverScreenOffFollow": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Label, status or guidance in this section.",
@@ -10030,7 +10030,7 @@
       ]
     }
   },
-  "screensaverScreenOnHours": "Keeps the screen on during these hours.",
+  "screensaverScreenOnHours": "Mantiene la pantalla encendida durante estas horas.",
   "@screensaverScreenOnHours": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Label, status or guidance in this section.",
@@ -10043,7 +10043,7 @@
       ]
     }
   },
-  "screensaverScreenOffHelp": "Powers down the display once the screensaver has run this long. Requires Device Administrator permission.",
+  "screensaverScreenOffHelp": "Apaga la pantalla cuando el protector de pantalla lleva activo este tiempo. Requiere permiso de administrador del dispositivo.",
   "@screensaverScreenOffHelp": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Label, status or guidance in this section.",
@@ -10056,7 +10056,7 @@
       ]
     }
   },
-  "screensaverScreenOffNever": "Screen off never",
+  "screensaverScreenOffNever": "No apagar la pantalla",
   "@screensaverScreenOffNever": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Label, status or guidance in this section.",
@@ -10069,7 +10069,7 @@
       ]
     }
   },
-  "screensaverMotion": "Dismiss on motion",
+  "screensaverMotion": "Cerrar al detectar movimiento",
   "@screensaverMotion": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Label, status or guidance in this section.",
@@ -10082,7 +10082,7 @@
       ]
     }
   },
-  "screensaverFace": "Dismiss on face",
+  "screensaverFace": "Cerrar al detectar un rostro",
   "@screensaverFace": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Label, status or guidance in this section.",
@@ -10095,7 +10095,7 @@
       ]
     }
   },
-  "screensaverProximity": "Dismiss on proximity",
+  "screensaverProximity": "Cerrar al detectar proximidad",
   "@screensaverProximity": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Label, status or guidance in this section.",
@@ -10108,7 +10108,7 @@
       ]
     }
   },
-  "screensaverPerson": "Dismiss on person",
+  "screensaverPerson": "Cerrar al detectar una persona",
   "@screensaverPerson": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Label, status or guidance in this section.",
@@ -10134,7 +10134,7 @@
       ]
     }
   },
-  "screensaverGlance": "At a glance",
+  "screensaverGlance": "De un vistazo",
   "@screensaverGlance": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Label, status or guidance in this section.",
@@ -10147,7 +10147,7 @@
       ]
     }
   },
-  "screensaverNowPlaying": "Show Now Playing next to the screensaver",
+  "screensaverNowPlaying": "Mostrar En reproducción junto al protector de pantalla",
   "@screensaverNowPlaying": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Label, status or guidance in this section.",
@@ -10160,7 +10160,7 @@
       ]
     }
   },
-  "screensaverNowPlayingHelp": "Default follows the global layout. On uses a shared layout when Now Playing is enabled. Off hides Now Playing during these hours.",
+  "screensaverNowPlayingHelp": "Predeterminado sigue la distribución general. Activado comparte la pantalla cuando En reproducción está habilitado. Desactivado oculta En reproducción durante estas horas.",
   "@screensaverNowPlayingHelp": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Label, status or guidance in this section.",
@@ -10173,7 +10173,7 @@
       ]
     }
   },
-  "screensaverCameraRequired": "Requires the camera. Turn it on in the Camera settings first.",
+  "screensaverCameraRequired": "Requiere la cámara. Actívala primero en la configuración de Cámara.",
   "@screensaverCameraRequired": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Label, status or guidance in this section.",
@@ -10186,7 +10186,7 @@
       ]
     }
   },
-  "screensaverNotAvailable": "Not available on this device.",
+  "screensaverNotAvailable": "No está disponible en este dispositivo.",
   "@screensaverNotAvailable": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Label, status or guidance in this section.",
@@ -10199,7 +10199,7 @@
       ]
     }
   },
-  "screensaverSummaryMotionOn": "Motion on",
+  "screensaverSummaryMotionOn": "Movimiento: activado",
   "@screensaverSummaryMotionOn": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Summary of an explicit schedule override.",
@@ -10212,7 +10212,7 @@
       ]
     }
   },
-  "screensaverSummaryMotionOff": "Motion off",
+  "screensaverSummaryMotionOff": "Movimiento: desactivado",
   "@screensaverSummaryMotionOff": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Summary of an explicit schedule override.",
@@ -10225,7 +10225,7 @@
       ]
     }
   },
-  "screensaverSummaryFaceOn": "Face on",
+  "screensaverSummaryFaceOn": "Rostros: activado",
   "@screensaverSummaryFaceOn": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Summary of an explicit schedule override.",
@@ -10238,7 +10238,7 @@
       ]
     }
   },
-  "screensaverSummaryFaceOff": "Face off",
+  "screensaverSummaryFaceOff": "Rostros: desactivado",
   "@screensaverSummaryFaceOff": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Summary of an explicit schedule override.",
@@ -10251,7 +10251,7 @@
       ]
     }
   },
-  "screensaverSummaryProximityOn": "Proximity on",
+  "screensaverSummaryProximityOn": "Proximidad: activado",
   "@screensaverSummaryProximityOn": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Summary of an explicit schedule override.",
@@ -10264,7 +10264,7 @@
       ]
     }
   },
-  "screensaverSummaryProximityOff": "Proximity off",
+  "screensaverSummaryProximityOff": "Proximidad: desactivado",
   "@screensaverSummaryProximityOff": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Summary of an explicit schedule override.",
@@ -10277,7 +10277,7 @@
       ]
     }
   },
-  "screensaverSummaryPersonOn": "Person on",
+  "screensaverSummaryPersonOn": "Personas: activado",
   "@screensaverSummaryPersonOn": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Summary of an explicit schedule override.",
@@ -10290,7 +10290,7 @@
       ]
     }
   },
-  "screensaverSummaryPersonOff": "Person off",
+  "screensaverSummaryPersonOff": "Personas: desactivado",
   "@screensaverSummaryPersonOff": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Summary of an explicit schedule override.",
@@ -10303,7 +10303,7 @@
       ]
     }
   },
-  "screensaverSummaryWidgetsOn": "Widgets on",
+  "screensaverSummaryWidgetsOn": "Widgets: activado",
   "@screensaverSummaryWidgetsOn": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Summary of an explicit schedule override.",
@@ -10316,7 +10316,7 @@
       ]
     }
   },
-  "screensaverSummaryWidgetsOff": "Widgets off",
+  "screensaverSummaryWidgetsOff": "Widgets: desactivado",
   "@screensaverSummaryWidgetsOff": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Summary of an explicit schedule override.",
@@ -10329,7 +10329,7 @@
       ]
     }
   },
-  "screensaverSummaryGlanceOn": "At a glance on",
+  "screensaverSummaryGlanceOn": "De un vistazo: activado",
   "@screensaverSummaryGlanceOn": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Summary of an explicit schedule override.",
@@ -10342,7 +10342,7 @@
       ]
     }
   },
-  "screensaverSummaryGlanceOff": "At a glance off",
+  "screensaverSummaryGlanceOff": "De un vistazo: desactivado",
   "@screensaverSummaryGlanceOff": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Summary of an explicit schedule override.",
@@ -10355,7 +10355,7 @@
       ]
     }
   },
-  "screensaverSummaryNowPlayingOn": "Now Playing on",
+  "screensaverSummaryNowPlayingOn": "En reproducción: activado",
   "@screensaverSummaryNowPlayingOn": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Summary of an explicit schedule override.",
@@ -10368,7 +10368,7 @@
       ]
     }
   },
-  "screensaverSummaryNowPlayingOff": "Now Playing off",
+  "screensaverSummaryNowPlayingOff": "En reproducción: desactivado",
   "@screensaverSummaryNowPlayingOff": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Summary of an explicit schedule override.",
@@ -10381,7 +10381,7 @@
       ]
     }
   },
-  "screensaverBrightnessPercent": "{percent}% brightness",
+  "screensaverBrightnessPercent": "Brillo del {percent} %",
   "@screensaverBrightnessPercent": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Schedule brightness summary.",
@@ -10400,7 +10400,7 @@
       }
     }
   },
-  "screensaverScreenOffAfter": "Screen off after {minutes} min",
+  "screensaverScreenOffAfter": "Apagar la pantalla después de {minutes} min",
   "@screensaverScreenOffAfter": {
     "context": "Settings:Screensaver:Scheduled Screensavers",
     "description": "Schedule screen-off summary.",
@@ -10419,7 +10419,7 @@
       }
     }
   },
-  "settingScreensaverWebsiteUrlTitle": "Website URL",
+  "settingScreensaverWebsiteUrlTitle": "URL del sitio web",
   "@settingScreensaverWebsiteUrlTitle": {
     "context": "Settings:Screensaver:Website screensaver",
     "description": "Setting label.",
@@ -10432,7 +10432,7 @@
       ]
     }
   },
-  "settingScreensaverWebsiteUrlDescription": "A page to show full-screen. It must allow being embedded.",
+  "settingScreensaverWebsiteUrlDescription": "Página que se muestra a pantalla completa. Debe permitir que se incruste.",
   "@settingScreensaverWebsiteUrlDescription": {
     "context": "Settings:Screensaver:Website screensaver",
     "description": "Help below the setting.",
@@ -10445,7 +10445,7 @@
       ]
     }
   },
-  "settingScreensaverWebsiteZoomTitle": "Zoom level",
+  "settingScreensaverWebsiteZoomTitle": "Nivel de zoom",
   "@settingScreensaverWebsiteZoomTitle": {
     "context": "Settings:Screensaver:Website screensaver",
     "description": "Setting label.",
@@ -10458,7 +10458,7 @@
       ]
     }
   },
-  "settingScreensaverWebsiteZoomDescription": "Scales the whole external screensaver webview.",
+  "settingScreensaverWebsiteZoomDescription": "Cambia la escala de toda la vista web del protector de pantalla.",
   "@settingScreensaverWebsiteZoomDescription": {
     "context": "Settings:Screensaver:Website screensaver",
     "description": "Help below the setting.",
@@ -10471,7 +10471,7 @@
       ]
     }
   },
-  "settingScreensaverWebsiteDoubleTapTitle": "Double tap to dismiss",
+  "settingScreensaverWebsiteDoubleTapTitle": "Tocar dos veces para cerrar",
   "@settingScreensaverWebsiteDoubleTapTitle": {
     "context": "Settings:Screensaver:Website screensaver",
     "description": "Setting label.",
@@ -10484,7 +10484,7 @@
       ]
     }
   },
-  "settingScreensaverWebsiteDoubleTapDescription": "Single taps interact with the website instead of dismissing.",
+  "settingScreensaverWebsiteDoubleTapDescription": "Un solo toque permite interactuar con el sitio web en lugar de cerrar el protector de pantalla.",
   "@settingScreensaverWebsiteDoubleTapDescription": {
     "context": "Settings:Screensaver:Website screensaver",
     "description": "Help below the setting.",
@@ -10497,7 +10497,7 @@
       ]
     }
   },
-  "screensaverWebsiteSection": "Website screensaver",
+  "screensaverWebsiteSection": "Protector de pantalla: Sitio web",
   "@screensaverWebsiteSection": {
     "context": "Settings:Screensaver:Website screensaver",
     "description": "Label, status or guidance in this section.",

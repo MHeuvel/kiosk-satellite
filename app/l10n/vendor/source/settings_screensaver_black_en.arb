@@ -1,0 +1,42 @@
+{
+  "@@locale": "en",
+  "settingScreensaverBlackHideExtrasTitle": "Hide all extras",
+  "@settingScreensaverBlackHideExtrasTitle": {
+    "context": "Settings:Screensaver:Black screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Black screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Black screensaver"
+      ]
+    }
+  },
+  "settingScreensaverBlackHideExtrasDescription": "Keeps the screen fully black: no small clock, At a Glance entities, or other overlays.",
+  "@settingScreensaverBlackHideExtrasDescription": {
+    "context": "Settings:Screensaver:Black screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Black screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Black screensaver"
+      ]
+    }
+  },
+  "screensaverBlackSection": "Black screensaver",
+  "@screensaverBlackSection": {
+    "context": "Settings:Screensaver:Black screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Black screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Black screensaver"
+      ]
+    }
+  }
+}

@@ -18,5 +18,22 @@
   "commonCopy": "Copiar",
   "commonAdd": "Añadir",
   "commonRemove": "Eliminar",
-  "commonClose": "Cerrar"
+  "commonClose": "Cerrar",
+  "commonClear": "Borrar",
+  "commonBrowse": "Examinar",
+  "commonSet": "Establecer",
+  "commonHour": "Hora",
+  "commonMinute": "Minuto",
+  "commonUp": "Aumentar",
+  "commonDown": "Disminuir",
+  "commonDelete": "Eliminar",
+  "commonSaveFailed": "No se pudo guardar",
+  "commonColorWhite": "Blanco",
+  "commonColorWarm": "Cálido",
+  "commonColorAmber": "Ámbar",
+  "commonColorRed": "Rojo",
+  "commonColorGreen": "Verde",
+  "commonColorBlue": "Azul",
+  "commonColorCyan": "Cian",
+  "commonColorDim": "Gris oscuro"
 }

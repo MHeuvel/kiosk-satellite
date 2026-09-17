@@ -1,0 +1,6 @@
+{
+  "@@locale": "es",
+  "settingScreensaverBlackHideExtrasTitle": "Ocultar todos los elementos adicionales",
+  "settingScreensaverBlackHideExtrasDescription": "Mantiene la pantalla completamente negra, sin reloj pequeño, entidades de De un vistazo ni otros elementos superpuestos.",
+  "screensaverBlackSection": "Protector de pantalla: Negro"
+}
