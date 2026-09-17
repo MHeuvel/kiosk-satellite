@@ -1,0 +1,17 @@
+{
+  "@@locale": "es",
+  "gestureTester": "Prueba de gestos con la mano",
+  "gestureOpenTester": "Abrir prueba",
+  "gestureCameraFirst": "Primero activa la cámara en la configuración de Cámara.",
+  "gestureTesterHelp": "Observa qué dedos detecta la cámara para aprender cómo colocar la mano.",
+  "gestureHandHelp": "Levanta la mano a la altura del hombro, con la palma hacia la cámara y los dedos separados. Dobla un dedo por completo para dejar de contarlo. Dobla el pulgar sobre la palma para mostrar cuatro: el pulgar solo cuenta con la mano abierta.",
+  "gestureTesterPaused": "Los gestos no se ejecutan mientras la prueba está abierta.",
+  "gestureShowHand": "Muestra una mano a la cámara.",
+  "gestureTesterTrigger": "Ejecuta: {action}",
+  "gestureNoCount": "Ningún gesto usa esta cantidad de dedos.",
+  "gestureNoHand": "No se ve ninguna mano",
+  "gestureReadingHand": "Detectando la mano",
+  "gestureNoFingers": "Ningún dedo levantado",
+  "gestureHandsCount": "Se ven {count} manos. Se está detectando la más grande.",
+  "gestureTesterSearch": "Muestra en tiempo real los dedos que detecta la cámara."
+}

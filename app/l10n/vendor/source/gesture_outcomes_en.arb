@@ -1,0 +1,191 @@
+{
+  "@@locale": "en",
+  "gestureHaServiceKind": "Home Assistant Service",
+  "@gestureHaServiceKind": {
+    "context": "Device > Gesture action result notification",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Device > Gesture action result notification"
+      ]
+    }
+  },
+  "gestureHaScriptKind": "Home Assistant Script",
+  "@gestureHaScriptKind": {
+    "context": "Device > Gesture action result notification",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Device > Gesture action result notification"
+      ]
+    }
+  },
+  "gestureHaAutomationKind": "Home Assistant Automation",
+  "@gestureHaAutomationKind": {
+    "context": "Device > Gesture action result notification",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Device > Gesture action result notification"
+      ]
+    }
+  },
+  "gestureHaEventKind": "Home Assistant Event",
+  "@gestureHaEventKind": {
+    "context": "Device > Gesture action result notification",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Device > Gesture action result notification"
+      ]
+    }
+  },
+  "gestureRan": "Ran {value}",
+  "@gestureRan": {
+    "context": "Device > Gesture action result notification",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Device > Gesture action result notification"
+      ]
+    },
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
+  },
+  "gestureRunFailed": "Could not run {value}",
+  "@gestureRunFailed": {
+    "context": "Device > Gesture action result notification",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Device > Gesture action result notification"
+      ]
+    },
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
+  },
+  "gestureCalled": "Called {value}",
+  "@gestureCalled": {
+    "context": "Device > Gesture action result notification",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Device > Gesture action result notification"
+      ]
+    },
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
+  },
+  "gestureCallFailed": "Could not call {value}",
+  "@gestureCallFailed": {
+    "context": "Device > Gesture action result notification",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Device > Gesture action result notification"
+      ]
+    },
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
+  },
+  "gestureTriggered": "Triggered {value}",
+  "@gestureTriggered": {
+    "context": "Device > Gesture action result notification",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Device > Gesture action result notification"
+      ]
+    },
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
+  },
+  "gestureTriggerFailed": "Could not trigger {value}",
+  "@gestureTriggerFailed": {
+    "context": "Device > Gesture action result notification",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Device > Gesture action result notification"
+      ]
+    },
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
+  },
+  "gestureFired": "Fired event {value}",
+  "@gestureFired": {
+    "context": "Device > Gesture action result notification",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Device > Gesture action result notification"
+      ]
+    },
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
+  },
+  "gestureFireFailed": "Could not fire event {value}",
+  "@gestureFireFailed": {
+    "context": "Device > Gesture action result notification",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Device > Gesture action result notification"
+      ]
+    },
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
+  },
+  "gestureDone": "Done",
+  "@gestureDone": {
+    "context": "Device > Gesture action result notification",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Device > Gesture action result notification"
+      ]
+    }
+  },
+  "gestureFailed": "Failed",
+  "@gestureFailed": {
+    "context": "Device > Gesture action result notification",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Device > Gesture action result notification"
+      ]
+    }
+  }
+}

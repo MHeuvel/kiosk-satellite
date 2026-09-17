@@ -10,31 +10,33 @@ class UiStringsEs extends UiStrings {
 
   @override
   String launcherOpenFailed(String name) {
-    return 'Could not open $name';
+    return 'No se pudo abrir $name';
   }
 
   @override
-  String get launcherUninstalled => 'It may have been uninstalled.';
+  String get launcherUninstalled => 'Es posible que se haya desinstalado.';
 
   @override
-  String get launcherNoneHelp => 'None yet. Pick the apps the launcher offers.';
+  String get launcherNoneHelp =>
+      'Aún no hay ninguna. Elige las aplicaciones que ofrecerá el lanzador.';
 
   @override
-  String get launcherNone => 'None yet';
+  String get launcherNone => 'Aún no hay ninguna';
 
   @override
-  String get launcherListFailed => 'Could not list the apps';
+  String get launcherListFailed => 'No se pudieron obtener las aplicaciones';
 
   @override
   String launcherListError(String error) {
-    return 'Could not list the apps: $error';
+    return 'No se pudieron obtener las aplicaciones: $error';
   }
 
   @override
-  String get launcherListingFailed => 'listing failed';
+  String get launcherListingFailed => 'no se pudo obtener la lista';
 
   @override
-  String get launcherEmpty => 'No launchable apps found.';
+  String get launcherEmpty =>
+      'No se encontraron aplicaciones que se puedan abrir.';
 
   @override
   String get cameraViewerTitle => 'Vista de cámaras';
@@ -406,520 +408,527 @@ class UiStringsEs extends UiStrings {
   String get drawerNoReleaseNotes => 'No hay notas de la versión.';
 
   @override
-  String get gestureAction => 'Action';
+  String get gestureAction => 'Acción';
 
   @override
-  String get gestureNavigate => 'Go to a dashboard view';
+  String get gestureNavigate => 'Ir a una vista del panel de control';
 
   @override
-  String get gestureUrl => 'Open a web page';
+  String get gestureUrl => 'Abrir una página web';
 
   @override
-  String get gestureCameraView => 'Show a camera view';
+  String get gestureCameraView => 'Mostrar una vista de cámaras';
 
   @override
-  String get gestureLauncher => 'Open the app launcher';
+  String get gestureLauncher => 'Abrir el lanzador de aplicaciones';
 
   @override
-  String get gestureIntercomOpen => 'Open Call a kiosk';
+  String get gestureIntercomOpen => 'Abrir Llamar a un kiosko';
 
   @override
-  String get gestureIntercomCall => 'Call a kiosk';
+  String get gestureIntercomCall => 'Llamar a un kiosko';
 
   @override
-  String get gestureScreensaver => 'Start the screensaver';
+  String get gestureScreensaver => 'Iniciar el protector de pantalla';
 
   @override
-  String get gestureScreensaverStop => 'Stop the screensaver';
+  String get gestureScreensaverStop => 'Detener el protector de pantalla';
 
   @override
-  String get gestureHoldMode => 'Toggle hold mode';
+  String get gestureHoldMode => 'Activar o desactivar el modo de pausa';
 
   @override
-  String get gestureHaKiosk => 'Toggle HA kiosk mode';
+  String get gestureHaKiosk => 'Activar o desactivar el modo kiosko de HA';
 
   @override
-  String get gesturePluginRun => 'Run a plugin action';
+  String get gesturePluginRun => 'Ejecutar una acción de un plugin';
 
   @override
-  String get gestureLaunchApp => 'Open another app';
+  String get gestureLaunchApp => 'Abrir otra aplicación';
 
   @override
-  String get gestureDeepLink => 'Open a deep link';
+  String get gestureDeepLink => 'Abrir un enlace profundo';
 
   @override
-  String get gestureAndroidSettings => 'Open Android Settings';
+  String get gestureAndroidSettings => 'Abrir configuración de Android';
 
   @override
-  String get gestureService => 'Call a service';
+  String get gestureService => 'Llamar a un servicio';
 
   @override
-  String get gestureScript => 'Run a script';
+  String get gestureScript => 'Ejecutar un script';
 
   @override
-  String get gestureAutomation => 'Trigger an automation';
+  String get gestureAutomation => 'Activar una automatización';
 
   @override
-  String get gestureEvent => 'Fire an event';
+  String get gestureEvent => 'Emitir un evento';
 
   @override
-  String get gesturePluginAction => 'Plugin action';
+  String get gesturePluginAction => 'Acción de plugin';
 
   @override
-  String get gesturePluginActions => 'Plugin actions';
+  String get gesturePluginActions => 'Acciones de plugins';
 
   @override
   String get gesturePluginHelp =>
-      'Enable a plugin with actions in Plugin Manager first.';
+      'Primero activa un plugin con acciones en el administrador de plugins.';
 
   @override
-  String get gesturePluginFailed => 'Could not load plugin actions.';
+  String get gesturePluginFailed =>
+      'No se pudieron cargar las acciones de los plugins.';
 
   @override
-  String get gestureUrlError => 'Enter a full http(s) URL.';
+  String get gestureUrlError => 'Introduce una URL http(s) completa.';
 
   @override
-  String get gesturePackage => 'Package name';
+  String get gesturePackage => 'Nombre del paquete';
 
   @override
-  String get gesturePackageError => 'Enter a package name.';
+  String get gesturePackageError => 'Introduce un nombre de paquete.';
 
   @override
-  String get gestureUriError => 'Enter a full URI.';
+  String get gestureUriError => 'Introduce una URI completa.';
 
   @override
-  String get gestureNoDashboards => 'No dashboards';
+  String get gestureNoDashboards => 'No hay paneles de control';
 
   @override
-  String get gestureDashboardsFailed => 'Could not list dashboards';
+  String get gestureDashboardsFailed =>
+      'No se pudieron obtener los paneles de control';
 
   @override
-  String get gestureHaConnected => 'Is Home Assistant connected?';
+  String get gestureHaConnected => '¿Está conectado Home Assistant?';
 
   @override
   String get gestureDashboardsHelp =>
-      'Could not list dashboards. Is Home Assistant connected?';
+      'No se pudieron obtener los paneles de control. ¿Está conectado Home Assistant?';
 
   @override
-  String get gestureCameraTitle => 'Camera view';
+  String get gestureCameraTitle => 'Vista de cámaras';
 
   @override
   String gestureCameraShow(String name) {
-    return 'Show $name';
+    return 'Mostrar $name';
   }
 
   @override
-  String get gestureCameraClose => 'Close the camera view';
+  String get gestureCameraClose => 'Cerrar la vista de cámaras';
 
   @override
-  String get gestureCameraEmpty => 'No camera views configured yet.';
+  String get gestureCameraEmpty => 'Aún no hay vistas de cámaras configuradas.';
 
   @override
-  String get gestureIntercomEmpty => 'No kiosk found on the network yet.';
+  String get gestureIntercomEmpty =>
+      'Aún no se ha encontrado ningún kiosko en la red.';
 
   @override
   String gestureDescribeCornerTaps(String count, String corner) {
-    return '$count taps in the $corner corner';
+    return '$count toques en la esquina $corner';
   }
 
   @override
   String gestureDescribeCornerHold(String corner, String seconds) {
-    return 'Hold the $corner corner for ${seconds}s';
+    return 'Mantener pulsada la esquina $corner durante ${seconds}s';
   }
 
   @override
   String gestureDescribeFingerDouble(String count) {
-    return '$count-finger double tap';
+    return 'Doble toque con $count dedos';
   }
 
   @override
   String gestureDescribeFingerTap(String count) {
-    return '$count-finger tap';
+    return 'Toque con $count dedos';
   }
 
   @override
   String gestureDescribeFingerHold(String count, String seconds) {
-    return '$count-finger hold for ${seconds}s';
+    return 'Mantener pulsado con $count dedos durante ${seconds}s';
   }
 
   @override
   String gestureDescribeSequence(String sequence) {
-    return 'Corner sequence: $sequence';
+    return 'Secuencia de esquinas: $sequence';
   }
 
   @override
   String gestureDescribeClaps(String count) {
-    return '$count claps';
+    return '$count palmadas';
   }
 
   @override
-  String get gestureDescribeOpenHand => 'Show an open hand';
+  String get gestureDescribeOpenHand => 'Mostrar la mano abierta';
 
   @override
   String gestureDescribeOneFinger(String count) {
-    return 'Show $count finger';
+    return 'Mostrar $count dedo';
   }
 
   @override
   String gestureDescribeFingers(String count) {
-    return 'Show $count fingers';
+    return 'Mostrar $count dedos';
   }
 
   @override
-  String get gestureTopLeft => 'top-left';
+  String get gestureTopLeft => 'superior izquierda';
 
   @override
-  String get gestureTopRight => 'top-right';
+  String get gestureTopRight => 'superior derecha';
 
   @override
-  String get gestureBottomLeft => 'bottom-left';
+  String get gestureBottomLeft => 'inferior izquierda';
 
   @override
-  String get gestureBottomRight => 'bottom-right';
+  String get gestureBottomRight => 'inferior derecha';
 
   @override
   String gestureGoTo(String value) {
-    return 'Go to $value';
+    return 'Ir a $value';
   }
 
   @override
   String gestureOpen(String value) {
-    return 'Open $value';
+    return 'Abrir $value';
   }
 
   @override
-  String get gestureCameraToggle => 'Toggle the camera view';
+  String get gestureCameraToggle => 'Mostrar u ocultar la vista de cámaras';
 
   @override
   String gestureCameraToggleName(String name) {
-    return 'Toggle camera view $name';
+    return 'Mostrar u ocultar la vista de cámaras $name';
   }
 
   @override
   String gestureCall(String value) {
-    return 'Call $value';
+    return 'Llamar a $value';
   }
 
   @override
   String gestureOpenApp(String package) {
-    return 'Open app $package';
+    return 'Abrir aplicación $package';
   }
 
   @override
   String gestureRun(String value) {
-    return 'Run $value';
+    return 'Ejecutar $value';
   }
 
   @override
   String gestureTriggerAction(String value) {
-    return 'Trigger $value';
+    return 'Activar $value';
   }
 
   @override
   String gestureFireEvent(String value) {
-    return 'Fire event $value';
+    return 'Emitir evento $value';
   }
 
   @override
-  String get gestureValid => 'Looks good.';
+  String get gestureValid => 'Todo correcto.';
 
   @override
-  String get gestureValidationFailed => 'Could not validate.';
+  String get gestureValidationFailed => 'No se pudo validar.';
 
   @override
   String gestureDomainMissing(String value) {
-    return 'Domain $value not found.';
+    return 'No se encontró el dominio $value.';
   }
 
   @override
   String gestureServiceMissing(String value) {
-    return 'Service $value not found.';
+    return 'No se encontró el servicio $value.';
   }
 
   @override
   String gestureEntityMissing(String value) {
-    return 'Entity $value not found.';
+    return 'No se encontró la entidad $value.';
   }
 
   @override
   String gestureEntityRequired(String domain) {
-    return 'Enter a $domain.* entity.';
+    return 'Introduce una entidad $domain.*.';
   }
 
   @override
-  String get gestureScriptEntity => 'Script entity';
+  String get gestureScriptEntity => 'Entidad del script';
 
   @override
-  String get gestureAutomationEntity => 'Automation entity';
+  String get gestureAutomationEntity => 'Entidad de la automatización';
 
   @override
-  String get gestureDomain => 'Domain';
+  String get gestureDomain => 'Dominio';
 
   @override
-  String get gestureEntityOptional => 'Entity (optional)';
+  String get gestureEntityOptional => 'Entidad (opcional)';
 
   @override
-  String get gestureServiceData => 'Service data (optional)';
+  String get gestureServiceData => 'Datos del servicio (opcional)';
 
   @override
-  String get gestureServiceTitle => 'Call a Home Assistant service';
+  String get gestureServiceTitle => 'Llamar a un servicio de Home Assistant';
 
   @override
-  String get gestureServiceRequired => 'Domain and service are required.';
+  String get gestureServiceRequired =>
+      'El dominio y el servicio son obligatorios.';
 
   @override
-  String get gestureServiceJson => 'Service data must be a JSON object.';
+  String get gestureServiceJson =>
+      'Los datos del servicio deben ser un objeto JSON.';
 
   @override
-  String get gestureEventType => 'Event type';
+  String get gestureEventType => 'Tipo de evento';
 
   @override
-  String get gestureEventData => 'Event data (optional)';
+  String get gestureEventData => 'Datos del evento (opcional)';
 
   @override
-  String get gestureEventTitle => 'Fire a Home Assistant event';
+  String get gestureEventTitle => 'Emitir un evento de Home Assistant';
 
   @override
-  String get gestureEventRequired => 'Event type is required.';
+  String get gestureEventRequired => 'El tipo de evento es obligatorio.';
 
   @override
-  String get gestureEventJson => 'Event data must be a JSON object.';
+  String get gestureEventJson =>
+      'Los datos del evento deben ser un objeto JSON.';
 
   @override
-  String get gestureTester => 'Hand Gesture Tester';
+  String get gestureTester => 'Prueba de gestos con la mano';
 
   @override
-  String get gestureOpenTester => 'Open tester';
+  String get gestureOpenTester => 'Abrir prueba';
 
   @override
   String get gestureCameraFirst =>
-      'Turn on the camera in Camera settings first.';
+      'Primero activa la cámara en la configuración de Cámara.';
 
   @override
   String get gestureTesterHelp =>
-      'Watch which fingers the camera reads, to learn how to hold your hand.';
+      'Observa qué dedos detecta la cámara para aprender cómo colocar la mano.';
 
   @override
   String get gestureHandHelp =>
-      'Hold your hand up at shoulder height, palm to the camera, fingers spread. Curl a finger all the way down to drop it from the count. Tuck the thumb across the palm to show four: the thumb only counts on an open hand.';
+      'Levanta la mano a la altura del hombro, con la palma hacia la cámara y los dedos separados. Dobla un dedo por completo para dejar de contarlo. Dobla el pulgar sobre la palma para mostrar cuatro: el pulgar solo cuenta con la mano abierta.';
 
   @override
   String get gestureTesterPaused =>
-      'Gestures do not fire while the tester is open.';
+      'Los gestos no se ejecutan mientras la prueba está abierta.';
 
   @override
-  String get gestureShowHand => 'Show a hand to the camera.';
+  String get gestureShowHand => 'Muestra una mano a la cámara.';
 
   @override
   String gestureTesterTrigger(String action) {
-    return 'Triggers: $action';
+    return 'Ejecuta: $action';
   }
 
   @override
-  String get gestureNoCount => 'No gesture uses this count.';
+  String get gestureNoCount => 'Ningún gesto usa esta cantidad de dedos.';
 
   @override
-  String get gestureNoHand => 'No hand in view';
+  String get gestureNoHand => 'No se ve ninguna mano';
 
   @override
-  String get gestureReadingHand => 'Reading the hand';
+  String get gestureReadingHand => 'Detectando la mano';
 
   @override
-  String get gestureNoFingers => 'No fingers up';
+  String get gestureNoFingers => 'Ningún dedo levantado';
 
   @override
   String gestureHandsCount(String count) {
-    return '$count hands in view, reading the larger one.';
+    return 'Se ven $count manos. Se está detectando la más grande.';
   }
 
   @override
   String get gestureTesterSearch =>
-      'A live look at the fingers the camera reads.';
+      'Muestra en tiempo real los dedos que detecta la cámara.';
 
   @override
-  String get gestureHaServiceKind => 'Home Assistant Service';
+  String get gestureHaServiceKind => 'Servicio de Home Assistant';
 
   @override
-  String get gestureHaScriptKind => 'Home Assistant Script';
+  String get gestureHaScriptKind => 'Script de Home Assistant';
 
   @override
-  String get gestureHaAutomationKind => 'Home Assistant Automation';
+  String get gestureHaAutomationKind => 'Automatización de Home Assistant';
 
   @override
-  String get gestureHaEventKind => 'Home Assistant Event';
+  String get gestureHaEventKind => 'Evento de Home Assistant';
 
   @override
   String gestureRan(String value) {
-    return 'Ran $value';
+    return 'Se ejecutó $value';
   }
 
   @override
   String gestureRunFailed(String value) {
-    return 'Could not run $value';
+    return 'No se pudo ejecutar $value';
   }
 
   @override
   String gestureCalled(String value) {
-    return 'Called $value';
+    return 'Se llamó a $value';
   }
 
   @override
   String gestureCallFailed(String value) {
-    return 'Could not call $value';
+    return 'No se pudo llamar a $value';
   }
 
   @override
   String gestureTriggered(String value) {
-    return 'Triggered $value';
+    return 'Se activó $value';
   }
 
   @override
   String gestureTriggerFailed(String value) {
-    return 'Could not trigger $value';
+    return 'No se pudo activar $value';
   }
 
   @override
   String gestureFired(String value) {
-    return 'Fired event $value';
+    return 'Se emitió el evento $value';
   }
 
   @override
   String gestureFireFailed(String value) {
-    return 'Could not fire event $value';
+    return 'No se pudo emitir el evento $value';
   }
 
   @override
-  String get gestureDone => 'Done';
+  String get gestureDone => 'Hecho';
 
   @override
-  String get gestureFailed => 'Failed';
+  String get gestureFailed => 'Error';
 
   @override
-  String get gestureEdit => 'Edit gesture';
+  String get gestureEdit => 'Editar gesto';
 
   @override
-  String get gestureTrigger => 'Gesture';
+  String get gestureTrigger => 'Gesto';
 
   @override
-  String get gestureCornerTaps => 'Taps in a corner';
+  String get gestureCornerTaps => 'Toques en una esquina';
 
   @override
-  String get gestureCornerHold => 'Hold a corner';
+  String get gestureCornerHold => 'Mantener pulsada una esquina';
 
   @override
-  String get gestureFingerTaps => 'Multi-finger tap';
+  String get gestureFingerTaps => 'Toque con varios dedos';
 
   @override
-  String get gestureFingerHold => 'Multi-finger hold';
+  String get gestureFingerHold => 'Mantener pulsado con varios dedos';
 
   @override
-  String get gestureSequence => 'Corner sequence';
+  String get gestureSequence => 'Secuencia de esquinas';
 
   @override
-  String get gestureClaps => 'Claps';
+  String get gestureClaps => 'Palmadas';
 
   @override
-  String get gestureShowFingers => 'Show fingers';
+  String get gestureShowFingers => 'Mostrar dedos';
 
   @override
-  String get gestureCorner => 'Corner';
+  String get gestureCorner => 'Esquina';
 
   @override
-  String get gestureCornerTl => 'Top-left corner';
+  String get gestureCornerTl => 'Esquina superior izquierda';
 
   @override
-  String get gestureCornerTr => 'Top-right corner';
+  String get gestureCornerTr => 'Esquina superior derecha';
 
   @override
-  String get gestureCornerBl => 'Bottom-left corner';
+  String get gestureCornerBl => 'Esquina inferior izquierda';
 
   @override
-  String get gestureCornerBr => 'Bottom-right corner';
+  String get gestureCornerBr => 'Esquina inferior derecha';
 
   @override
-  String get gestureTaps => 'Taps';
+  String get gestureTaps => 'Toques';
 
   @override
-  String get gestureTaps2 => '2 taps';
+  String get gestureTaps2 => '2 toques';
 
   @override
-  String get gestureTaps3 => '3 taps';
+  String get gestureTaps3 => '3 toques';
 
   @override
-  String get gestureTaps4 => '4 taps';
+  String get gestureTaps4 => '4 toques';
 
   @override
-  String get gestureFingers => 'Fingers';
+  String get gestureFingers => 'Dedos';
 
   @override
-  String get gestureFinger1 => '1 finger';
+  String get gestureFinger1 => '1 dedo';
 
   @override
-  String get gestureFinger2 => '2 fingers';
+  String get gestureFinger2 => '2 dedos';
 
   @override
-  String get gestureFinger3 => '3 fingers';
+  String get gestureFinger3 => '3 dedos';
 
   @override
-  String get gestureFinger4 => '4 fingers';
+  String get gestureFinger4 => '4 dedos';
 
   @override
-  String get gestureOpenHand5 => 'Open hand (5)';
+  String get gestureOpenHand5 => 'Mano abierta (5)';
 
   @override
-  String get gestureSingleTap => 'Single tap';
+  String get gestureSingleTap => 'Un toque';
 
   @override
-  String get gestureDoubleTap => 'Double tap';
+  String get gestureDoubleTap => 'Doble toque';
 
   @override
   String gestureHoldDuration(String seconds) {
-    return 'Hold for $seconds s';
+    return 'Mantén pulsado durante $seconds s';
   }
 
   @override
   String get gestureCameraHelp =>
-      'Requires the camera enabled and a well lit environment.';
+      'Necesita la cámara activada y un lugar bien iluminado.';
 
   @override
-  String get gestureUnavailable => 'Not available on this device.';
+  String get gestureUnavailable => 'No disponible en este dispositivo.';
 
   @override
-  String get gestureClaps2 => '2 claps';
+  String get gestureClaps2 => '2 palmadas';
 
   @override
-  String get gestureClaps3 => '3 claps';
+  String get gestureClaps3 => '3 palmadas';
 
   @override
-  String get gestureClaps4 => '4 claps';
+  String get gestureClaps4 => '4 palmadas';
 
   @override
   String get gestureClapHelp =>
-      'Claps are heard through the microphone, with or without wake word detection.';
+      'Las palmadas se detectan con el micrófono, con o sin detección de la palabra de activación.';
 
   @override
-  String get gestureSequenceHelp => 'Tap the corners in order (2 to 8 steps).';
+  String get gestureSequenceHelp =>
+      'Toca las esquinas en orden (de 2 a 8 pasos).';
 
   @override
-  String get gestureRemoveStep => 'Remove last step';
+  String get gestureRemoveStep => 'Quitar último paso';
 
   @override
-  String get gestureUndo => 'Undo';
+  String get gestureUndo => 'Deshacer';
 
   @override
-  String get gestureChooseAction => 'Choose an action';
+  String get gestureChooseAction => 'Elige una acción';
 
   @override
-  String get gestureActionHelp => 'What this gesture triggers.';
+  String get gestureActionHelp => 'Lo que ejecuta este gesto.';
 
   @override
-  String get gestureChangeHelp => 'Tap to change.';
+  String get gestureChangeHelp => 'Toca para cambiar.';
 
   @override
-  String get gestureChooseError => 'Choose an action.';
+  String get gestureChooseError => 'Elige una acción.';
 
   @override
-  String get gestureSequenceError => 'Add at least two corners.';
+  String get gestureSequenceError => 'Añade al menos dos esquinas.';
 
   @override
   String get intercomCall => 'Llamar';
@@ -1318,52 +1327,54 @@ class UiStringsEs extends UiStrings {
   String get mediaSpeakerSelection => 'Selección de altavoces';
 
   @override
-  String get settingLauncherEnabledTitle => 'Enable App Launcher';
+  String get settingLauncherEnabledTitle => 'Activar lanzador de aplicaciones';
 
   @override
   String get settingLauncherEnabledDescription =>
-      'Open a picked set of installed apps from the kiosk.';
+      'Abre desde el kiosko una selección de aplicaciones instaladas.';
 
   @override
-  String get settingLauncherAppsDescription => 'The apps the launcher offers.';
+  String get settingLauncherAppsDescription =>
+      'Las aplicaciones que ofrece el lanzador.';
 
   @override
-  String get settingLauncherAutoReturnTitle => 'Return automatically';
+  String get settingLauncherAutoReturnTitle => 'Volver automáticamente';
 
   @override
   String get settingLauncherAutoReturnDescription =>
-      'Come back to the kiosk once the other app has gone untouched for a while.';
+      'Vuelve al kiosko cuando la otra aplicación lleva un tiempo sin recibir toques.';
 
   @override
-  String get settingLauncherAutoReturnSecondsTitle => 'Return after (seconds)';
+  String get settingLauncherAutoReturnSecondsTitle =>
+      'Volver después de (segundos)';
 
   @override
   String get settingLauncherAutoReturnSecondsDescription =>
-      'Time without a touch in the other app before the kiosk comes back.';
+      'Tiempo sin tocar la otra aplicación antes de volver al kiosko.';
 
   @override
   String get launcherOverlayHeld =>
-      'Kiosk Satellite can bring itself back in the foreground and notice touches in the other app.';
+      'Kiosk Satellite puede volver al primer plano y detectar toques en la otra aplicación.';
 
   @override
   String get launcherOverlayMissing =>
-      'Without this the kiosk cannot come back on its own, and touches in the other app go unseen.';
+      'Sin este permiso, el kiosko no puede volver por sí solo ni detectar toques en la otra aplicación.';
 
   @override
   String get launcherOverlayRemote =>
-      'Without this the kiosk cannot come back on its own, and touches in the other app go unseen. The grant screen appears on the tablet.';
+      'Sin este permiso, el kiosko no puede volver por sí solo ni detectar toques en la otra aplicación. La pantalla para concederlo aparece en la tablet.';
 
   @override
   String get launcherBatteryMissing =>
-      'Android may pause the app behind the other one, and a paused clock never brings the kiosk back.';
+      'Android puede pausar la aplicación mientras la otra está abierta. Si el temporizador se pausa, el kiosko no vuelve.';
 
   @override
   String get launcherBatteryRemote =>
-      'Android may pause the app behind the other one, and a paused clock never brings the kiosk back. The grant dialog appears on the tablet.';
+      'Android puede pausar la aplicación mientras la otra está abierta. Si el temporizador se pausa, el kiosko no vuelve. El diálogo para conceder el permiso aparece en la tablet.';
 
   @override
   String get launcherPermissionsSearch =>
-      'The grants Return automatically leans on.';
+      'Los permisos que necesita Volver automáticamente.';
 
   @override
   String get settingCameraEnabledTitle => 'Activar cámara';
@@ -3338,57 +3349,58 @@ class UiStringsEs extends UiStrings {
       'Se establece cuando inicia el receptor';
 
   @override
-  String get settingClapStrictnessTitle => 'Clap detection';
+  String get settingClapStrictnessTitle => 'Detección de palmadas';
 
   @override
   String get settingClapStrictnessDescription =>
-      'Strict needs louder, evenly spaced claps; try it if household noise false-triggers.';
+      'El modo estricto necesita palmadas más fuertes y espaciadas de forma regular. Pruébalo si los ruidos de casa activan los gestos por error.';
 
   @override
-  String get gestureStrictnessStandard => 'Standard';
+  String get gestureStrictnessStandard => 'Estándar';
 
   @override
-  String get gestureStrictnessStrict => 'Strict';
+  String get gestureStrictnessStrict => 'Estricto';
 
   @override
-  String get gestureOff => 'Gestures are off';
+  String get gestureOff => 'Los gestos están desactivados';
 
   @override
-  String get gestureOffHelp => 'Disable Gestures is on in Kiosk Mode settings.';
+  String get gestureOffHelp =>
+      'Desactivar gestos está activado en la configuración del modo kiosko.';
 
   @override
-  String get gestureEmpty => 'No gestures configured';
+  String get gestureEmpty => 'No hay gestos configurados';
 
   @override
   String get gestureEmptyHelp =>
-      'A gesture triggers its action without any visible control.';
+      'Un gesto ejecuta su acción sin ningún control visible.';
 
   @override
-  String get gestureDeleteTooltip => 'Delete gesture';
+  String get gestureDeleteTooltip => 'Eliminar gesto';
 
   @override
-  String get gestureDeleteTitle => 'Delete gesture?';
+  String get gestureDeleteTitle => '¿Eliminar gesto?';
 
   @override
   String gestureDeleteMessage(String trigger, String action) {
-    return 'Remove this gesture? Trigger: $trigger. Action: $action.';
+    return '¿Eliminar este gesto? Gesto: $trigger. Acción: $action.';
   }
 
   @override
-  String get gestureAdd => 'Add gesture';
+  String get gestureAdd => 'Añadir gesto';
 
   @override
-  String get gestureAddHelp => 'Pick a gesture and the action it triggers.';
+  String get gestureAddHelp => 'Elige un gesto y la acción que ejecuta.';
 
   @override
   String get gestureTouchHelp =>
-      'Gestures are observed, not blocked: the taps also reach the dashboard, so corners and multi-finger shapes keep them from firing anything there.';
+      'Los gestos se detectan sin bloquearlos: los toques también llegan al panel de control. Usar esquinas y varios dedos evita activar sus controles por accidente.';
 
   @override
-  String get gestureClapper => 'Clapper';
+  String get gestureClapper => 'Control por palmadas';
 
   @override
-  String get gestureReadFailed => 'Could not read the settings.';
+  String get gestureReadFailed => 'No se pudo leer la configuración.';
 
   @override
   String get settingHaHoldModeTitle => 'Modo de pausa';

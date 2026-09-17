@@ -1,0 +1,19 @@
+{
+  "@@locale": "es",
+  "settingClapStrictnessTitle": "Detección de palmadas",
+  "settingClapStrictnessDescription": "El modo estricto necesita palmadas más fuertes y espaciadas de forma regular. Pruébalo si los ruidos de casa activan los gestos por error.",
+  "gestureStrictnessStandard": "Estándar",
+  "gestureStrictnessStrict": "Estricto",
+  "gestureOff": "Los gestos están desactivados",
+  "gestureOffHelp": "Desactivar gestos está activado en la configuración del modo kiosko.",
+  "gestureEmpty": "No hay gestos configurados",
+  "gestureEmptyHelp": "Un gesto ejecuta su acción sin ningún control visible.",
+  "gestureDeleteTooltip": "Eliminar gesto",
+  "gestureDeleteTitle": "¿Eliminar gesto?",
+  "gestureDeleteMessage": "¿Eliminar este gesto? Gesto: {trigger}. Acción: {action}.",
+  "gestureAdd": "Añadir gesto",
+  "gestureAddHelp": "Elige un gesto y la acción que ejecuta.",
+  "gestureTouchHelp": "Los gestos se detectan sin bloquearlos: los toques también llegan al panel de control. Usar esquinas y varios dedos evita activar sus controles por accidente.",
+  "gestureClapper": "Control por palmadas",
+  "gestureReadFailed": "No se pudo leer la configuración."
+}

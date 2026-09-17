@@ -1,0 +1,542 @@
+{
+  "@@locale": "en",
+  "gestureEdit": "Edit gesture",
+  "@gestureEdit": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureTrigger": "Gesture",
+  "@gestureTrigger": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureCornerTaps": "Taps in a corner",
+  "@gestureCornerTaps": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureCornerHold": "Hold a corner",
+  "@gestureCornerHold": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureFingerTaps": "Multi-finger tap",
+  "@gestureFingerTaps": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureFingerHold": "Multi-finger hold",
+  "@gestureFingerHold": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureSequence": "Corner sequence",
+  "@gestureSequence": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureClaps": "Claps",
+  "@gestureClaps": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureShowFingers": "Show fingers",
+  "@gestureShowFingers": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureCorner": "Corner",
+  "@gestureCorner": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureCornerTl": "Top-left corner",
+  "@gestureCornerTl": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureCornerTr": "Top-right corner",
+  "@gestureCornerTr": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureCornerBl": "Bottom-left corner",
+  "@gestureCornerBl": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureCornerBr": "Bottom-right corner",
+  "@gestureCornerBr": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureTaps": "Taps",
+  "@gestureTaps": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureTaps2": "2 taps",
+  "@gestureTaps2": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureTaps3": "3 taps",
+  "@gestureTaps3": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureTaps4": "4 taps",
+  "@gestureTaps4": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureFingers": "Fingers",
+  "@gestureFingers": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureFinger1": "1 finger",
+  "@gestureFinger1": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureFinger2": "2 fingers",
+  "@gestureFinger2": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureFinger3": "3 fingers",
+  "@gestureFinger3": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureFinger4": "4 fingers",
+  "@gestureFinger4": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureOpenHand5": "Open hand (5)",
+  "@gestureOpenHand5": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureSingleTap": "Single tap",
+  "@gestureSingleTap": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureDoubleTap": "Double tap",
+  "@gestureDoubleTap": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureHoldDuration": "Hold for {seconds} s",
+  "@gestureHoldDuration": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    },
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
+  },
+  "gestureCameraHelp": "Requires the camera enabled and a well lit environment.",
+  "@gestureCameraHelp": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureUnavailable": "Not available on this device.",
+  "@gestureUnavailable": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureClaps2": "2 claps",
+  "@gestureClaps2": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureClaps3": "3 claps",
+  "@gestureClaps3": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureClaps4": "4 claps",
+  "@gestureClaps4": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureClapHelp": "Claps are heard through the microphone, with or without wake word detection.",
+  "@gestureClapHelp": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureSequenceHelp": "Tap the corners in order (2 to 8 steps).",
+  "@gestureSequenceHelp": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureRemoveStep": "Remove last step",
+  "@gestureRemoveStep": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureUndo": "Undo",
+  "@gestureUndo": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureChooseAction": "Choose an action",
+  "@gestureChooseAction": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureActionHelp": "What this gesture triggers.",
+  "@gestureActionHelp": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureChangeHelp": "Tap to change.",
+  "@gestureChangeHelp": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureChooseError": "Choose an action.",
+  "@gestureChooseError": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gestureSequenceError": "Add at least two corners.",
+  "@gestureSequenceError": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  }
+}

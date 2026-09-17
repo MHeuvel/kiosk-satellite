@@ -1,0 +1,29 @@
+{
+  "@@locale": "en",
+  "launcherOpenFailed": "Could not open {name}",
+  "@launcherOpenFailed": {
+    "context": "Device > Menu > Apps",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Device > Menu > Apps"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
+  },
+  "launcherUninstalled": "It may have been uninstalled.",
+  "@launcherUninstalled": {
+    "context": "Device > Menu > Apps",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Device > Menu > Apps"
+      ]
+    }
+  }
+}

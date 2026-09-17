@@ -1,0 +1,9 @@
+{
+  "@@locale": "es",
+  "launcherOverlayHeld": "Kiosk Satellite puede volver al primer plano y detectar toques en la otra aplicación.",
+  "launcherOverlayMissing": "Sin este permiso, el kiosko no puede volver por sí solo ni detectar toques en la otra aplicación.",
+  "launcherOverlayRemote": "Sin este permiso, el kiosko no puede volver por sí solo ni detectar toques en la otra aplicación. La pantalla para concederlo aparece en la tablet.",
+  "launcherBatteryMissing": "Android puede pausar la aplicación mientras la otra está abierta. Si el temporizador se pausa, el kiosko no vuelve.",
+  "launcherBatteryRemote": "Android puede pausar la aplicación mientras la otra está abierta. Si el temporizador se pausa, el kiosko no vuelve. El diálogo para conceder el permiso aparece en la tablet.",
+  "launcherPermissionsSearch": "Los permisos que necesita Volver automáticamente."
+}

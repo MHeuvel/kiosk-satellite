@@ -1,0 +1,274 @@
+{
+  "@@locale": "en",
+  "gestureValid": "Looks good.",
+  "@gestureValid": {
+    "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action > Home Assistant"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action > Home Assistant"
+      ]
+    }
+  },
+  "gestureValidationFailed": "Could not validate.",
+  "@gestureValidationFailed": {
+    "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action > Home Assistant"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action > Home Assistant"
+      ]
+    }
+  },
+  "gestureDomainMissing": "Domain {value} not found.",
+  "@gestureDomainMissing": {
+    "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action > Home Assistant"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action > Home Assistant"
+      ]
+    },
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
+  },
+  "gestureServiceMissing": "Service {value} not found.",
+  "@gestureServiceMissing": {
+    "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action > Home Assistant"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action > Home Assistant"
+      ]
+    },
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
+  },
+  "gestureEntityMissing": "Entity {value} not found.",
+  "@gestureEntityMissing": {
+    "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action > Home Assistant"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action > Home Assistant"
+      ]
+    },
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
+  },
+  "gestureEntityRequired": "Enter a {domain}.* entity.",
+  "@gestureEntityRequired": {
+    "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action > Home Assistant"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action > Home Assistant"
+      ]
+    },
+    "placeholders": {
+      "domain": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
+  },
+  "gestureScriptEntity": "Script entity",
+  "@gestureScriptEntity": {
+    "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action > Home Assistant"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action > Home Assistant"
+      ]
+    }
+  },
+  "gestureAutomationEntity": "Automation entity",
+  "@gestureAutomationEntity": {
+    "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action > Home Assistant"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action > Home Assistant"
+      ]
+    }
+  },
+  "gestureDomain": "Domain",
+  "@gestureDomain": {
+    "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action > Home Assistant"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action > Home Assistant"
+      ]
+    }
+  },
+  "gestureEntityOptional": "Entity (optional)",
+  "@gestureEntityOptional": {
+    "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action > Home Assistant"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action > Home Assistant"
+      ]
+    }
+  },
+  "gestureServiceData": "Service data (optional)",
+  "@gestureServiceData": {
+    "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action > Home Assistant"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action > Home Assistant"
+      ]
+    }
+  },
+  "gestureServiceTitle": "Call a Home Assistant service",
+  "@gestureServiceTitle": {
+    "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action > Home Assistant"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action > Home Assistant"
+      ]
+    }
+  },
+  "gestureServiceRequired": "Domain and service are required.",
+  "@gestureServiceRequired": {
+    "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action > Home Assistant"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action > Home Assistant"
+      ]
+    }
+  },
+  "gestureServiceJson": "Service data must be a JSON object.",
+  "@gestureServiceJson": {
+    "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action > Home Assistant"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action > Home Assistant"
+      ]
+    }
+  },
+  "gestureEventType": "Event type",
+  "@gestureEventType": {
+    "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action > Home Assistant"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action > Home Assistant"
+      ]
+    }
+  },
+  "gestureEventData": "Event data (optional)",
+  "@gestureEventData": {
+    "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action > Home Assistant"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action > Home Assistant"
+      ]
+    }
+  },
+  "gestureEventTitle": "Fire a Home Assistant event",
+  "@gestureEventTitle": {
+    "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action > Home Assistant"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action > Home Assistant"
+      ]
+    }
+  },
+  "gestureEventRequired": "Event type is required.",
+  "@gestureEventRequired": {
+    "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action > Home Assistant"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action > Home Assistant"
+      ]
+    }
+  },
+  "gestureEventJson": "Event data must be a JSON object.",
+  "@gestureEventJson": {
+    "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action > Home Assistant"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action > Home Assistant"
+      ]
+    }
+  }
+}

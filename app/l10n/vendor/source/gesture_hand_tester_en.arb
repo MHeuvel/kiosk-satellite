@@ -1,0 +1,155 @@
+{
+  "@@locale": "en",
+  "gestureTester": "Hand Gesture Tester",
+  "@gestureTester": {
+    "context": "Settings > Gestures > Hand Gesture Tester",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gesture Tester"
+      ]
+    }
+  },
+  "gestureOpenTester": "Open tester",
+  "@gestureOpenTester": {
+    "context": "Settings > Gestures > Hand Gesture Tester",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gesture Tester"
+      ]
+    }
+  },
+  "gestureCameraFirst": "Turn on the camera in Camera settings first.",
+  "@gestureCameraFirst": {
+    "context": "Settings > Gestures > Hand Gesture Tester",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gesture Tester"
+      ]
+    }
+  },
+  "gestureTesterHelp": "Watch which fingers the camera reads, to learn how to hold your hand.",
+  "@gestureTesterHelp": {
+    "context": "Settings > Gestures > Hand Gesture Tester",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gesture Tester"
+      ]
+    }
+  },
+  "gestureHandHelp": "Hold your hand up at shoulder height, palm to the camera, fingers spread. Curl a finger all the way down to drop it from the count. Tuck the thumb across the palm to show four: the thumb only counts on an open hand.",
+  "@gestureHandHelp": {
+    "context": "Settings > Gestures > Hand Gesture Tester",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gesture Tester"
+      ]
+    }
+  },
+  "gestureTesterPaused": "Gestures do not fire while the tester is open.",
+  "@gestureTesterPaused": {
+    "context": "Settings > Gestures > Hand Gesture Tester",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gesture Tester"
+      ]
+    }
+  },
+  "gestureShowHand": "Show a hand to the camera.",
+  "@gestureShowHand": {
+    "context": "Settings > Gestures > Hand Gesture Tester",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gesture Tester"
+      ]
+    }
+  },
+  "gestureTesterTrigger": "Triggers: {action}",
+  "@gestureTesterTrigger": {
+    "context": "Settings > Gestures > Hand Gesture Tester",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gesture Tester"
+      ]
+    },
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
+  },
+  "gestureNoCount": "No gesture uses this count.",
+  "@gestureNoCount": {
+    "context": "Settings > Gestures > Hand Gesture Tester",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gesture Tester"
+      ]
+    }
+  },
+  "gestureNoHand": "No hand in view",
+  "@gestureNoHand": {
+    "context": "Settings > Gestures > Hand Gesture Tester",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gesture Tester"
+      ]
+    }
+  },
+  "gestureReadingHand": "Reading the hand",
+  "@gestureReadingHand": {
+    "context": "Settings > Gestures > Hand Gesture Tester",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gesture Tester"
+      ]
+    }
+  },
+  "gestureNoFingers": "No fingers up",
+  "@gestureNoFingers": {
+    "context": "Settings > Gestures > Hand Gesture Tester",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gesture Tester"
+      ]
+    }
+  },
+  "gestureHandsCount": "{count} hands in view, reading the larger one.",
+  "@gestureHandsCount": {
+    "context": "Settings > Gestures > Hand Gesture Tester",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gesture Tester"
+      ]
+    },
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
+  },
+  "gestureTesterSearch": "A live look at the fingers the camera reads.",
+  "@gestureTesterSearch": {
+    "context": "Settings > Search > Hand Gesture Tester",
+    "description": "Description in settings search results.",
+    "x-locations": {
+      "device": [
+        "Settings > Search > Hand Gesture Tester"
+      ]
+    }
+  }
+}

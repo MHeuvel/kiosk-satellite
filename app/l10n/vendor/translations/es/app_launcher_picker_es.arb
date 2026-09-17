@@ -1,0 +1,9 @@
+{
+  "@@locale": "es",
+  "launcherNoneHelp": "Aún no hay ninguna. Elige las aplicaciones que ofrecerá el lanzador.",
+  "launcherNone": "Aún no hay ninguna",
+  "launcherListFailed": "No se pudieron obtener las aplicaciones",
+  "launcherListError": "No se pudieron obtener las aplicaciones: {error}",
+  "launcherListingFailed": "no se pudo obtener la lista",
+  "launcherEmpty": "No se encontraron aplicaciones que se puedan abrir."
+}

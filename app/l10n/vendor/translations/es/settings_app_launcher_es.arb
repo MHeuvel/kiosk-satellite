@@ -1,0 +1,10 @@
+{
+  "@@locale": "es",
+  "settingLauncherEnabledTitle": "Activar lanzador de aplicaciones",
+  "settingLauncherEnabledDescription": "Abre desde el kiosko una selección de aplicaciones instaladas.",
+  "settingLauncherAppsDescription": "Las aplicaciones que ofrece el lanzador.",
+  "settingLauncherAutoReturnTitle": "Volver automáticamente",
+  "settingLauncherAutoReturnDescription": "Vuelve al kiosko cuando la otra aplicación lleva un tiempo sin recibir toques.",
+  "settingLauncherAutoReturnSecondsTitle": "Volver después de (segundos)",
+  "settingLauncherAutoReturnSecondsDescription": "Tiempo sin tocar la otra aplicación antes de volver al kiosko."
+}

@@ -1,6 +1,6 @@
 {
   "@@locale": "es",
-  "launcherOpenFailed": "Could not open {name}",
+  "launcherOpenFailed": "No se pudo abrir {name}",
   "@launcherOpenFailed": {
     "context": "Device > Menu > Apps",
     "description": "Label or guidance in this section.",
@@ -16,7 +16,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "launcherUninstalled": "It may have been uninstalled.",
+  "launcherUninstalled": "Es posible que se haya desinstalado.",
   "@launcherUninstalled": {
     "context": "Device > Menu > Apps",
     "description": "Label or guidance in this section.",
@@ -26,7 +26,7 @@
       ]
     }
   },
-  "launcherNoneHelp": "None yet. Pick the apps the launcher offers.",
+  "launcherNoneHelp": "Aún no hay ninguna. Elige las aplicaciones que ofrecerá el lanzador.",
   "@launcherNoneHelp": {
     "context": "Settings > App Launcher > Apps",
     "description": "Label or guidance in this section.",
@@ -39,7 +39,7 @@
       ]
     }
   },
-  "launcherNone": "None yet",
+  "launcherNone": "Aún no hay ninguna",
   "@launcherNone": {
     "context": "Settings > App Launcher > Apps",
     "description": "Label or guidance in this section.",
@@ -52,7 +52,7 @@
       ]
     }
   },
-  "launcherListFailed": "Could not list the apps",
+  "launcherListFailed": "No se pudieron obtener las aplicaciones",
   "@launcherListFailed": {
     "context": "Settings > App Launcher > Apps",
     "description": "Label or guidance in this section.",
@@ -65,7 +65,7 @@
       ]
     }
   },
-  "launcherListError": "Could not list the apps: {error}",
+  "launcherListError": "No se pudieron obtener las aplicaciones: {error}",
   "@launcherListError": {
     "context": "Settings > App Launcher > Apps",
     "description": "Label or guidance in this section.",
@@ -84,7 +84,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "launcherListingFailed": "listing failed",
+  "launcherListingFailed": "no se pudo obtener la lista",
   "@launcherListingFailed": {
     "context": "Settings > App Launcher > Apps",
     "description": "Label or guidance in this section.",
@@ -97,7 +97,7 @@
       ]
     }
   },
-  "launcherEmpty": "No launchable apps found.",
+  "launcherEmpty": "No se encontraron aplicaciones que se puedan abrir.",
   "@launcherEmpty": {
     "context": "Settings > App Launcher > Apps",
     "description": "Label or guidance in this section.",
@@ -1160,7 +1160,7 @@
       ]
     }
   },
-  "gestureAction": "Action",
+  "gestureAction": "Acción",
   "@gestureAction": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1173,7 +1173,7 @@
       ]
     }
   },
-  "gestureNavigate": "Go to a dashboard view",
+  "gestureNavigate": "Ir a una vista del panel de control",
   "@gestureNavigate": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1186,7 +1186,7 @@
       ]
     }
   },
-  "gestureUrl": "Open a web page",
+  "gestureUrl": "Abrir una página web",
   "@gestureUrl": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1199,7 +1199,7 @@
       ]
     }
   },
-  "gestureCameraView": "Show a camera view",
+  "gestureCameraView": "Mostrar una vista de cámaras",
   "@gestureCameraView": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1212,7 +1212,7 @@
       ]
     }
   },
-  "gestureLauncher": "Open the app launcher",
+  "gestureLauncher": "Abrir el lanzador de aplicaciones",
   "@gestureLauncher": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1225,7 +1225,7 @@
       ]
     }
   },
-  "gestureIntercomOpen": "Open Call a kiosk",
+  "gestureIntercomOpen": "Abrir Llamar a un kiosko",
   "@gestureIntercomOpen": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1238,7 +1238,7 @@
       ]
     }
   },
-  "gestureIntercomCall": "Call a kiosk",
+  "gestureIntercomCall": "Llamar a un kiosko",
   "@gestureIntercomCall": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1251,7 +1251,7 @@
       ]
     }
   },
-  "gestureScreensaver": "Start the screensaver",
+  "gestureScreensaver": "Iniciar el protector de pantalla",
   "@gestureScreensaver": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1264,7 +1264,7 @@
       ]
     }
   },
-  "gestureScreensaverStop": "Stop the screensaver",
+  "gestureScreensaverStop": "Detener el protector de pantalla",
   "@gestureScreensaverStop": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1277,7 +1277,7 @@
       ]
     }
   },
-  "gestureHoldMode": "Toggle hold mode",
+  "gestureHoldMode": "Activar o desactivar el modo de pausa",
   "@gestureHoldMode": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1290,7 +1290,7 @@
       ]
     }
   },
-  "gestureHaKiosk": "Toggle HA kiosk mode",
+  "gestureHaKiosk": "Activar o desactivar el modo kiosko de HA",
   "@gestureHaKiosk": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1303,7 +1303,7 @@
       ]
     }
   },
-  "gesturePluginRun": "Run a plugin action",
+  "gesturePluginRun": "Ejecutar una acción de un plugin",
   "@gesturePluginRun": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1316,7 +1316,7 @@
       ]
     }
   },
-  "gestureLaunchApp": "Open another app",
+  "gestureLaunchApp": "Abrir otra aplicación",
   "@gestureLaunchApp": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1329,7 +1329,7 @@
       ]
     }
   },
-  "gestureDeepLink": "Open a deep link",
+  "gestureDeepLink": "Abrir un enlace profundo",
   "@gestureDeepLink": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1342,7 +1342,7 @@
       ]
     }
   },
-  "gestureAndroidSettings": "Open Android Settings",
+  "gestureAndroidSettings": "Abrir configuración de Android",
   "@gestureAndroidSettings": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1355,7 +1355,7 @@
       ]
     }
   },
-  "gestureService": "Call a service",
+  "gestureService": "Llamar a un servicio",
   "@gestureService": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1368,7 +1368,7 @@
       ]
     }
   },
-  "gestureScript": "Run a script",
+  "gestureScript": "Ejecutar un script",
   "@gestureScript": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1381,7 +1381,7 @@
       ]
     }
   },
-  "gestureAutomation": "Trigger an automation",
+  "gestureAutomation": "Activar una automatización",
   "@gestureAutomation": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1394,7 +1394,7 @@
       ]
     }
   },
-  "gestureEvent": "Fire an event",
+  "gestureEvent": "Emitir un evento",
   "@gestureEvent": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1407,7 +1407,7 @@
       ]
     }
   },
-  "gesturePluginAction": "Plugin action",
+  "gesturePluginAction": "Acción de plugin",
   "@gesturePluginAction": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1420,7 +1420,7 @@
       ]
     }
   },
-  "gesturePluginActions": "Plugin actions",
+  "gesturePluginActions": "Acciones de plugins",
   "@gesturePluginActions": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1433,7 +1433,7 @@
       ]
     }
   },
-  "gesturePluginHelp": "Enable a plugin with actions in Plugin Manager first.",
+  "gesturePluginHelp": "Primero activa un plugin con acciones en el administrador de plugins.",
   "@gesturePluginHelp": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1446,7 +1446,7 @@
       ]
     }
   },
-  "gesturePluginFailed": "Could not load plugin actions.",
+  "gesturePluginFailed": "No se pudieron cargar las acciones de los plugins.",
   "@gesturePluginFailed": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1459,7 +1459,7 @@
       ]
     }
   },
-  "gestureUrlError": "Enter a full http(s) URL.",
+  "gestureUrlError": "Introduce una URL http(s) completa.",
   "@gestureUrlError": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1472,7 +1472,7 @@
       ]
     }
   },
-  "gesturePackage": "Package name",
+  "gesturePackage": "Nombre del paquete",
   "@gesturePackage": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1485,7 +1485,7 @@
       ]
     }
   },
-  "gesturePackageError": "Enter a package name.",
+  "gesturePackageError": "Introduce un nombre de paquete.",
   "@gesturePackageError": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1498,7 +1498,7 @@
       ]
     }
   },
-  "gestureUriError": "Enter a full URI.",
+  "gestureUriError": "Introduce una URI completa.",
   "@gestureUriError": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1511,7 +1511,7 @@
       ]
     }
   },
-  "gestureNoDashboards": "No dashboards",
+  "gestureNoDashboards": "No hay paneles de control",
   "@gestureNoDashboards": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1524,7 +1524,7 @@
       ]
     }
   },
-  "gestureDashboardsFailed": "Could not list dashboards",
+  "gestureDashboardsFailed": "No se pudieron obtener los paneles de control",
   "@gestureDashboardsFailed": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1537,7 +1537,7 @@
       ]
     }
   },
-  "gestureHaConnected": "Is Home Assistant connected?",
+  "gestureHaConnected": "¿Está conectado Home Assistant?",
   "@gestureHaConnected": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1550,7 +1550,7 @@
       ]
     }
   },
-  "gestureDashboardsHelp": "Could not list dashboards. Is Home Assistant connected?",
+  "gestureDashboardsHelp": "No se pudieron obtener los paneles de control. ¿Está conectado Home Assistant?",
   "@gestureDashboardsHelp": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1563,7 +1563,7 @@
       ]
     }
   },
-  "gestureCameraTitle": "Camera view",
+  "gestureCameraTitle": "Vista de cámaras",
   "@gestureCameraTitle": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1576,7 +1576,7 @@
       ]
     }
   },
-  "gestureCameraShow": "Show {name}",
+  "gestureCameraShow": "Mostrar {name}",
   "@gestureCameraShow": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1595,7 +1595,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureCameraClose": "Close the camera view",
+  "gestureCameraClose": "Cerrar la vista de cámaras",
   "@gestureCameraClose": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1608,7 +1608,7 @@
       ]
     }
   },
-  "gestureCameraEmpty": "No camera views configured yet.",
+  "gestureCameraEmpty": "Aún no hay vistas de cámaras configuradas.",
   "@gestureCameraEmpty": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1621,7 +1621,7 @@
       ]
     }
   },
-  "gestureIntercomEmpty": "No kiosk found on the network yet.",
+  "gestureIntercomEmpty": "Aún no se ha encontrado ningún kiosko en la red.",
   "@gestureIntercomEmpty": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
     "description": "Label or guidance in this section.",
@@ -1634,7 +1634,7 @@
       ]
     }
   },
-  "gestureDescribeCornerTaps": "{count} taps in the {corner} corner",
+  "gestureDescribeCornerTaps": "{count} toques en la esquina {corner}",
   "@gestureDescribeCornerTaps": {
     "context": "Settings > Gestures > Configured gestures",
     "description": "Label or guidance in this section.",
@@ -1656,7 +1656,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureDescribeCornerHold": "Hold the {corner} corner for {seconds}s",
+  "gestureDescribeCornerHold": "Mantener pulsada la esquina {corner} durante {seconds}s",
   "@gestureDescribeCornerHold": {
     "context": "Settings > Gestures > Configured gestures",
     "description": "Label or guidance in this section.",
@@ -1678,7 +1678,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureDescribeFingerDouble": "{count}-finger double tap",
+  "gestureDescribeFingerDouble": "Doble toque con {count} dedos",
   "@gestureDescribeFingerDouble": {
     "context": "Settings > Gestures > Configured gestures",
     "description": "Label or guidance in this section.",
@@ -1697,7 +1697,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureDescribeFingerTap": "{count}-finger tap",
+  "gestureDescribeFingerTap": "Toque con {count} dedos",
   "@gestureDescribeFingerTap": {
     "context": "Settings > Gestures > Configured gestures",
     "description": "Label or guidance in this section.",
@@ -1716,7 +1716,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureDescribeFingerHold": "{count}-finger hold for {seconds}s",
+  "gestureDescribeFingerHold": "Mantener pulsado con {count} dedos durante {seconds}s",
   "@gestureDescribeFingerHold": {
     "context": "Settings > Gestures > Configured gestures",
     "description": "Label or guidance in this section.",
@@ -1738,7 +1738,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureDescribeSequence": "Corner sequence: {sequence}",
+  "gestureDescribeSequence": "Secuencia de esquinas: {sequence}",
   "@gestureDescribeSequence": {
     "context": "Settings > Gestures > Configured gestures",
     "description": "Label or guidance in this section.",
@@ -1757,7 +1757,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureDescribeClaps": "{count} claps",
+  "gestureDescribeClaps": "{count} palmadas",
   "@gestureDescribeClaps": {
     "context": "Settings > Gestures > Configured gestures",
     "description": "Label or guidance in this section.",
@@ -1776,7 +1776,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureDescribeOpenHand": "Show an open hand",
+  "gestureDescribeOpenHand": "Mostrar la mano abierta",
   "@gestureDescribeOpenHand": {
     "context": "Settings > Gestures > Configured gestures",
     "description": "Label or guidance in this section.",
@@ -1789,7 +1789,7 @@
       ]
     }
   },
-  "gestureDescribeOneFinger": "Show {count} finger",
+  "gestureDescribeOneFinger": "Mostrar {count} dedo",
   "@gestureDescribeOneFinger": {
     "context": "Settings > Gestures > Configured gestures",
     "description": "Label or guidance in this section.",
@@ -1808,7 +1808,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureDescribeFingers": "Show {count} fingers",
+  "gestureDescribeFingers": "Mostrar {count} dedos",
   "@gestureDescribeFingers": {
     "context": "Settings > Gestures > Configured gestures",
     "description": "Label or guidance in this section.",
@@ -1827,7 +1827,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureTopLeft": "top-left",
+  "gestureTopLeft": "superior izquierda",
   "@gestureTopLeft": {
     "context": "Settings > Gestures > Configured gestures",
     "description": "Label or guidance in this section.",
@@ -1840,7 +1840,7 @@
       ]
     }
   },
-  "gestureTopRight": "top-right",
+  "gestureTopRight": "superior derecha",
   "@gestureTopRight": {
     "context": "Settings > Gestures > Configured gestures",
     "description": "Label or guidance in this section.",
@@ -1853,7 +1853,7 @@
       ]
     }
   },
-  "gestureBottomLeft": "bottom-left",
+  "gestureBottomLeft": "inferior izquierda",
   "@gestureBottomLeft": {
     "context": "Settings > Gestures > Configured gestures",
     "description": "Label or guidance in this section.",
@@ -1866,7 +1866,7 @@
       ]
     }
   },
-  "gestureBottomRight": "bottom-right",
+  "gestureBottomRight": "inferior derecha",
   "@gestureBottomRight": {
     "context": "Settings > Gestures > Configured gestures",
     "description": "Label or guidance in this section.",
@@ -1879,7 +1879,7 @@
       ]
     }
   },
-  "gestureGoTo": "Go to {value}",
+  "gestureGoTo": "Ir a {value}",
   "@gestureGoTo": {
     "context": "Settings > Gestures > Configured gestures",
     "description": "Label or guidance in this section.",
@@ -1898,7 +1898,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureOpen": "Open {value}",
+  "gestureOpen": "Abrir {value}",
   "@gestureOpen": {
     "context": "Settings > Gestures > Configured gestures",
     "description": "Label or guidance in this section.",
@@ -1917,7 +1917,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureCameraToggle": "Toggle the camera view",
+  "gestureCameraToggle": "Mostrar u ocultar la vista de cámaras",
   "@gestureCameraToggle": {
     "context": "Settings > Gestures > Configured gestures",
     "description": "Label or guidance in this section.",
@@ -1930,7 +1930,7 @@
       ]
     }
   },
-  "gestureCameraToggleName": "Toggle camera view {name}",
+  "gestureCameraToggleName": "Mostrar u ocultar la vista de cámaras {name}",
   "@gestureCameraToggleName": {
     "context": "Settings > Gestures > Configured gestures",
     "description": "Label or guidance in this section.",
@@ -1949,7 +1949,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureCall": "Call {value}",
+  "gestureCall": "Llamar a {value}",
   "@gestureCall": {
     "context": "Settings > Gestures > Configured gestures",
     "description": "Label or guidance in this section.",
@@ -1968,7 +1968,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureOpenApp": "Open app {package}",
+  "gestureOpenApp": "Abrir aplicación {package}",
   "@gestureOpenApp": {
     "context": "Settings > Gestures > Configured gestures",
     "description": "Label or guidance in this section.",
@@ -1987,7 +1987,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureRun": "Run {value}",
+  "gestureRun": "Ejecutar {value}",
   "@gestureRun": {
     "context": "Settings > Gestures > Configured gestures",
     "description": "Label or guidance in this section.",
@@ -2006,7 +2006,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureTriggerAction": "Trigger {value}",
+  "gestureTriggerAction": "Activar {value}",
   "@gestureTriggerAction": {
     "context": "Settings > Gestures > Configured gestures",
     "description": "Label or guidance in this section.",
@@ -2025,7 +2025,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureFireEvent": "Fire event {value}",
+  "gestureFireEvent": "Emitir evento {value}",
   "@gestureFireEvent": {
     "context": "Settings > Gestures > Configured gestures",
     "description": "Label or guidance in this section.",
@@ -2044,7 +2044,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureValid": "Looks good.",
+  "gestureValid": "Todo correcto.",
   "@gestureValid": {
     "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
     "description": "Label or guidance in this section.",
@@ -2057,7 +2057,7 @@
       ]
     }
   },
-  "gestureValidationFailed": "Could not validate.",
+  "gestureValidationFailed": "No se pudo validar.",
   "@gestureValidationFailed": {
     "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
     "description": "Label or guidance in this section.",
@@ -2070,7 +2070,7 @@
       ]
     }
   },
-  "gestureDomainMissing": "Domain {value} not found.",
+  "gestureDomainMissing": "No se encontró el dominio {value}.",
   "@gestureDomainMissing": {
     "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
     "description": "Label or guidance in this section.",
@@ -2089,7 +2089,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureServiceMissing": "Service {value} not found.",
+  "gestureServiceMissing": "No se encontró el servicio {value}.",
   "@gestureServiceMissing": {
     "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
     "description": "Label or guidance in this section.",
@@ -2108,7 +2108,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureEntityMissing": "Entity {value} not found.",
+  "gestureEntityMissing": "No se encontró la entidad {value}.",
   "@gestureEntityMissing": {
     "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
     "description": "Label or guidance in this section.",
@@ -2127,7 +2127,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureEntityRequired": "Enter a {domain}.* entity.",
+  "gestureEntityRequired": "Introduce una entidad {domain}.*.",
   "@gestureEntityRequired": {
     "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
     "description": "Label or guidance in this section.",
@@ -2146,7 +2146,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureScriptEntity": "Script entity",
+  "gestureScriptEntity": "Entidad del script",
   "@gestureScriptEntity": {
     "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
     "description": "Label or guidance in this section.",
@@ -2159,7 +2159,7 @@
       ]
     }
   },
-  "gestureAutomationEntity": "Automation entity",
+  "gestureAutomationEntity": "Entidad de la automatización",
   "@gestureAutomationEntity": {
     "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
     "description": "Label or guidance in this section.",
@@ -2172,7 +2172,7 @@
       ]
     }
   },
-  "gestureDomain": "Domain",
+  "gestureDomain": "Dominio",
   "@gestureDomain": {
     "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
     "description": "Label or guidance in this section.",
@@ -2185,7 +2185,7 @@
       ]
     }
   },
-  "gestureEntityOptional": "Entity (optional)",
+  "gestureEntityOptional": "Entidad (opcional)",
   "@gestureEntityOptional": {
     "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
     "description": "Label or guidance in this section.",
@@ -2198,7 +2198,7 @@
       ]
     }
   },
-  "gestureServiceData": "Service data (optional)",
+  "gestureServiceData": "Datos del servicio (opcional)",
   "@gestureServiceData": {
     "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
     "description": "Label or guidance in this section.",
@@ -2211,7 +2211,7 @@
       ]
     }
   },
-  "gestureServiceTitle": "Call a Home Assistant service",
+  "gestureServiceTitle": "Llamar a un servicio de Home Assistant",
   "@gestureServiceTitle": {
     "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
     "description": "Label or guidance in this section.",
@@ -2224,7 +2224,7 @@
       ]
     }
   },
-  "gestureServiceRequired": "Domain and service are required.",
+  "gestureServiceRequired": "El dominio y el servicio son obligatorios.",
   "@gestureServiceRequired": {
     "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
     "description": "Label or guidance in this section.",
@@ -2237,7 +2237,7 @@
       ]
     }
   },
-  "gestureServiceJson": "Service data must be a JSON object.",
+  "gestureServiceJson": "Los datos del servicio deben ser un objeto JSON.",
   "@gestureServiceJson": {
     "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
     "description": "Label or guidance in this section.",
@@ -2250,7 +2250,7 @@
       ]
     }
   },
-  "gestureEventType": "Event type",
+  "gestureEventType": "Tipo de evento",
   "@gestureEventType": {
     "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
     "description": "Label or guidance in this section.",
@@ -2263,7 +2263,7 @@
       ]
     }
   },
-  "gestureEventData": "Event data (optional)",
+  "gestureEventData": "Datos del evento (opcional)",
   "@gestureEventData": {
     "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
     "description": "Label or guidance in this section.",
@@ -2276,7 +2276,7 @@
       ]
     }
   },
-  "gestureEventTitle": "Fire a Home Assistant event",
+  "gestureEventTitle": "Emitir un evento de Home Assistant",
   "@gestureEventTitle": {
     "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
     "description": "Label or guidance in this section.",
@@ -2289,7 +2289,7 @@
       ]
     }
   },
-  "gestureEventRequired": "Event type is required.",
+  "gestureEventRequired": "El tipo de evento es obligatorio.",
   "@gestureEventRequired": {
     "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
     "description": "Label or guidance in this section.",
@@ -2302,7 +2302,7 @@
       ]
     }
   },
-  "gestureEventJson": "Event data must be a JSON object.",
+  "gestureEventJson": "Los datos del evento deben ser un objeto JSON.",
   "@gestureEventJson": {
     "context": "Settings > Gestures > Add gesture > Choose an action > Home Assistant",
     "description": "Label or guidance in this section.",
@@ -2315,7 +2315,7 @@
       ]
     }
   },
-  "gestureTester": "Hand Gesture Tester",
+  "gestureTester": "Prueba de gestos con la mano",
   "@gestureTester": {
     "context": "Settings > Gestures > Hand Gesture Tester",
     "description": "Label or guidance in this section.",
@@ -2325,7 +2325,7 @@
       ]
     }
   },
-  "gestureOpenTester": "Open tester",
+  "gestureOpenTester": "Abrir prueba",
   "@gestureOpenTester": {
     "context": "Settings > Gestures > Hand Gesture Tester",
     "description": "Label or guidance in this section.",
@@ -2335,7 +2335,7 @@
       ]
     }
   },
-  "gestureCameraFirst": "Turn on the camera in Camera settings first.",
+  "gestureCameraFirst": "Primero activa la cámara en la configuración de Cámara.",
   "@gestureCameraFirst": {
     "context": "Settings > Gestures > Hand Gesture Tester",
     "description": "Label or guidance in this section.",
@@ -2345,7 +2345,7 @@
       ]
     }
   },
-  "gestureTesterHelp": "Watch which fingers the camera reads, to learn how to hold your hand.",
+  "gestureTesterHelp": "Observa qué dedos detecta la cámara para aprender cómo colocar la mano.",
   "@gestureTesterHelp": {
     "context": "Settings > Gestures > Hand Gesture Tester",
     "description": "Label or guidance in this section.",
@@ -2355,7 +2355,7 @@
       ]
     }
   },
-  "gestureHandHelp": "Hold your hand up at shoulder height, palm to the camera, fingers spread. Curl a finger all the way down to drop it from the count. Tuck the thumb across the palm to show four: the thumb only counts on an open hand.",
+  "gestureHandHelp": "Levanta la mano a la altura del hombro, con la palma hacia la cámara y los dedos separados. Dobla un dedo por completo para dejar de contarlo. Dobla el pulgar sobre la palma para mostrar cuatro: el pulgar solo cuenta con la mano abierta.",
   "@gestureHandHelp": {
     "context": "Settings > Gestures > Hand Gesture Tester",
     "description": "Label or guidance in this section.",
@@ -2365,7 +2365,7 @@
       ]
     }
   },
-  "gestureTesterPaused": "Gestures do not fire while the tester is open.",
+  "gestureTesterPaused": "Los gestos no se ejecutan mientras la prueba está abierta.",
   "@gestureTesterPaused": {
     "context": "Settings > Gestures > Hand Gesture Tester",
     "description": "Label or guidance in this section.",
@@ -2375,7 +2375,7 @@
       ]
     }
   },
-  "gestureShowHand": "Show a hand to the camera.",
+  "gestureShowHand": "Muestra una mano a la cámara.",
   "@gestureShowHand": {
     "context": "Settings > Gestures > Hand Gesture Tester",
     "description": "Label or guidance in this section.",
@@ -2385,7 +2385,7 @@
       ]
     }
   },
-  "gestureTesterTrigger": "Triggers: {action}",
+  "gestureTesterTrigger": "Ejecuta: {action}",
   "@gestureTesterTrigger": {
     "context": "Settings > Gestures > Hand Gesture Tester",
     "description": "Label or guidance in this section.",
@@ -2401,7 +2401,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureNoCount": "No gesture uses this count.",
+  "gestureNoCount": "Ningún gesto usa esta cantidad de dedos.",
   "@gestureNoCount": {
     "context": "Settings > Gestures > Hand Gesture Tester",
     "description": "Label or guidance in this section.",
@@ -2411,7 +2411,7 @@
       ]
     }
   },
-  "gestureNoHand": "No hand in view",
+  "gestureNoHand": "No se ve ninguna mano",
   "@gestureNoHand": {
     "context": "Settings > Gestures > Hand Gesture Tester",
     "description": "Label or guidance in this section.",
@@ -2421,7 +2421,7 @@
       ]
     }
   },
-  "gestureReadingHand": "Reading the hand",
+  "gestureReadingHand": "Detectando la mano",
   "@gestureReadingHand": {
     "context": "Settings > Gestures > Hand Gesture Tester",
     "description": "Label or guidance in this section.",
@@ -2431,7 +2431,7 @@
       ]
     }
   },
-  "gestureNoFingers": "No fingers up",
+  "gestureNoFingers": "Ningún dedo levantado",
   "@gestureNoFingers": {
     "context": "Settings > Gestures > Hand Gesture Tester",
     "description": "Label or guidance in this section.",
@@ -2441,7 +2441,7 @@
       ]
     }
   },
-  "gestureHandsCount": "{count} hands in view, reading the larger one.",
+  "gestureHandsCount": "Se ven {count} manos. Se está detectando la más grande.",
   "@gestureHandsCount": {
     "context": "Settings > Gestures > Hand Gesture Tester",
     "description": "Label or guidance in this section.",
@@ -2457,7 +2457,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureTesterSearch": "A live look at the fingers the camera reads.",
+  "gestureTesterSearch": "Muestra en tiempo real los dedos que detecta la cámara.",
   "@gestureTesterSearch": {
     "context": "Settings > Search > Hand Gesture Tester",
     "description": "Description in settings search results.",
@@ -2467,7 +2467,7 @@
       ]
     }
   },
-  "gestureHaServiceKind": "Home Assistant Service",
+  "gestureHaServiceKind": "Servicio de Home Assistant",
   "@gestureHaServiceKind": {
     "context": "Device > Gesture action result notification",
     "description": "Label or guidance in this section.",
@@ -2477,7 +2477,7 @@
       ]
     }
   },
-  "gestureHaScriptKind": "Home Assistant Script",
+  "gestureHaScriptKind": "Script de Home Assistant",
   "@gestureHaScriptKind": {
     "context": "Device > Gesture action result notification",
     "description": "Label or guidance in this section.",
@@ -2487,7 +2487,7 @@
       ]
     }
   },
-  "gestureHaAutomationKind": "Home Assistant Automation",
+  "gestureHaAutomationKind": "Automatización de Home Assistant",
   "@gestureHaAutomationKind": {
     "context": "Device > Gesture action result notification",
     "description": "Label or guidance in this section.",
@@ -2497,7 +2497,7 @@
       ]
     }
   },
-  "gestureHaEventKind": "Home Assistant Event",
+  "gestureHaEventKind": "Evento de Home Assistant",
   "@gestureHaEventKind": {
     "context": "Device > Gesture action result notification",
     "description": "Label or guidance in this section.",
@@ -2507,7 +2507,7 @@
       ]
     }
   },
-  "gestureRan": "Ran {value}",
+  "gestureRan": "Se ejecutó {value}",
   "@gestureRan": {
     "context": "Device > Gesture action result notification",
     "description": "Label or guidance in this section.",
@@ -2523,7 +2523,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureRunFailed": "Could not run {value}",
+  "gestureRunFailed": "No se pudo ejecutar {value}",
   "@gestureRunFailed": {
     "context": "Device > Gesture action result notification",
     "description": "Label or guidance in this section.",
@@ -2539,7 +2539,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureCalled": "Called {value}",
+  "gestureCalled": "Se llamó a {value}",
   "@gestureCalled": {
     "context": "Device > Gesture action result notification",
     "description": "Label or guidance in this section.",
@@ -2555,7 +2555,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureCallFailed": "Could not call {value}",
+  "gestureCallFailed": "No se pudo llamar a {value}",
   "@gestureCallFailed": {
     "context": "Device > Gesture action result notification",
     "description": "Label or guidance in this section.",
@@ -2571,7 +2571,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureTriggered": "Triggered {value}",
+  "gestureTriggered": "Se activó {value}",
   "@gestureTriggered": {
     "context": "Device > Gesture action result notification",
     "description": "Label or guidance in this section.",
@@ -2587,7 +2587,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureTriggerFailed": "Could not trigger {value}",
+  "gestureTriggerFailed": "No se pudo activar {value}",
   "@gestureTriggerFailed": {
     "context": "Device > Gesture action result notification",
     "description": "Label or guidance in this section.",
@@ -2603,7 +2603,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureFired": "Fired event {value}",
+  "gestureFired": "Se emitió el evento {value}",
   "@gestureFired": {
     "context": "Device > Gesture action result notification",
     "description": "Label or guidance in this section.",
@@ -2619,7 +2619,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureFireFailed": "Could not fire event {value}",
+  "gestureFireFailed": "No se pudo emitir el evento {value}",
   "@gestureFireFailed": {
     "context": "Device > Gesture action result notification",
     "description": "Label or guidance in this section.",
@@ -2635,7 +2635,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureDone": "Done",
+  "gestureDone": "Hecho",
   "@gestureDone": {
     "context": "Device > Gesture action result notification",
     "description": "Label or guidance in this section.",
@@ -2645,7 +2645,7 @@
       ]
     }
   },
-  "gestureFailed": "Failed",
+  "gestureFailed": "Error",
   "@gestureFailed": {
     "context": "Device > Gesture action result notification",
     "description": "Label or guidance in this section.",
@@ -2655,7 +2655,7 @@
       ]
     }
   },
-  "gestureEdit": "Edit gesture",
+  "gestureEdit": "Editar gesto",
   "@gestureEdit": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -2668,7 +2668,7 @@
       ]
     }
   },
-  "gestureTrigger": "Gesture",
+  "gestureTrigger": "Gesto",
   "@gestureTrigger": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -2681,7 +2681,7 @@
       ]
     }
   },
-  "gestureCornerTaps": "Taps in a corner",
+  "gestureCornerTaps": "Toques en una esquina",
   "@gestureCornerTaps": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -2694,7 +2694,7 @@
       ]
     }
   },
-  "gestureCornerHold": "Hold a corner",
+  "gestureCornerHold": "Mantener pulsada una esquina",
   "@gestureCornerHold": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -2707,7 +2707,7 @@
       ]
     }
   },
-  "gestureFingerTaps": "Multi-finger tap",
+  "gestureFingerTaps": "Toque con varios dedos",
   "@gestureFingerTaps": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -2720,7 +2720,7 @@
       ]
     }
   },
-  "gestureFingerHold": "Multi-finger hold",
+  "gestureFingerHold": "Mantener pulsado con varios dedos",
   "@gestureFingerHold": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -2733,7 +2733,7 @@
       ]
     }
   },
-  "gestureSequence": "Corner sequence",
+  "gestureSequence": "Secuencia de esquinas",
   "@gestureSequence": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -2746,7 +2746,7 @@
       ]
     }
   },
-  "gestureClaps": "Claps",
+  "gestureClaps": "Palmadas",
   "@gestureClaps": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -2759,7 +2759,7 @@
       ]
     }
   },
-  "gestureShowFingers": "Show fingers",
+  "gestureShowFingers": "Mostrar dedos",
   "@gestureShowFingers": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -2772,7 +2772,7 @@
       ]
     }
   },
-  "gestureCorner": "Corner",
+  "gestureCorner": "Esquina",
   "@gestureCorner": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -2785,7 +2785,7 @@
       ]
     }
   },
-  "gestureCornerTl": "Top-left corner",
+  "gestureCornerTl": "Esquina superior izquierda",
   "@gestureCornerTl": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -2798,7 +2798,7 @@
       ]
     }
   },
-  "gestureCornerTr": "Top-right corner",
+  "gestureCornerTr": "Esquina superior derecha",
   "@gestureCornerTr": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -2811,7 +2811,7 @@
       ]
     }
   },
-  "gestureCornerBl": "Bottom-left corner",
+  "gestureCornerBl": "Esquina inferior izquierda",
   "@gestureCornerBl": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -2824,7 +2824,7 @@
       ]
     }
   },
-  "gestureCornerBr": "Bottom-right corner",
+  "gestureCornerBr": "Esquina inferior derecha",
   "@gestureCornerBr": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -2837,7 +2837,7 @@
       ]
     }
   },
-  "gestureTaps": "Taps",
+  "gestureTaps": "Toques",
   "@gestureTaps": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -2850,7 +2850,7 @@
       ]
     }
   },
-  "gestureTaps2": "2 taps",
+  "gestureTaps2": "2 toques",
   "@gestureTaps2": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -2863,7 +2863,7 @@
       ]
     }
   },
-  "gestureTaps3": "3 taps",
+  "gestureTaps3": "3 toques",
   "@gestureTaps3": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -2876,7 +2876,7 @@
       ]
     }
   },
-  "gestureTaps4": "4 taps",
+  "gestureTaps4": "4 toques",
   "@gestureTaps4": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -2889,7 +2889,7 @@
       ]
     }
   },
-  "gestureFingers": "Fingers",
+  "gestureFingers": "Dedos",
   "@gestureFingers": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -2902,7 +2902,7 @@
       ]
     }
   },
-  "gestureFinger1": "1 finger",
+  "gestureFinger1": "1 dedo",
   "@gestureFinger1": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -2915,7 +2915,7 @@
       ]
     }
   },
-  "gestureFinger2": "2 fingers",
+  "gestureFinger2": "2 dedos",
   "@gestureFinger2": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -2928,7 +2928,7 @@
       ]
     }
   },
-  "gestureFinger3": "3 fingers",
+  "gestureFinger3": "3 dedos",
   "@gestureFinger3": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -2941,7 +2941,7 @@
       ]
     }
   },
-  "gestureFinger4": "4 fingers",
+  "gestureFinger4": "4 dedos",
   "@gestureFinger4": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -2954,7 +2954,7 @@
       ]
     }
   },
-  "gestureOpenHand5": "Open hand (5)",
+  "gestureOpenHand5": "Mano abierta (5)",
   "@gestureOpenHand5": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -2967,7 +2967,7 @@
       ]
     }
   },
-  "gestureSingleTap": "Single tap",
+  "gestureSingleTap": "Un toque",
   "@gestureSingleTap": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -2980,7 +2980,7 @@
       ]
     }
   },
-  "gestureDoubleTap": "Double tap",
+  "gestureDoubleTap": "Doble toque",
   "@gestureDoubleTap": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -2993,7 +2993,7 @@
       ]
     }
   },
-  "gestureHoldDuration": "Hold for {seconds} s",
+  "gestureHoldDuration": "Mantén pulsado durante {seconds} s",
   "@gestureHoldDuration": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -3012,7 +3012,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureCameraHelp": "Requires the camera enabled and a well lit environment.",
+  "gestureCameraHelp": "Necesita la cámara activada y un lugar bien iluminado.",
   "@gestureCameraHelp": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -3025,7 +3025,7 @@
       ]
     }
   },
-  "gestureUnavailable": "Not available on this device.",
+  "gestureUnavailable": "No disponible en este dispositivo.",
   "@gestureUnavailable": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -3038,7 +3038,7 @@
       ]
     }
   },
-  "gestureClaps2": "2 claps",
+  "gestureClaps2": "2 palmadas",
   "@gestureClaps2": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -3051,7 +3051,7 @@
       ]
     }
   },
-  "gestureClaps3": "3 claps",
+  "gestureClaps3": "3 palmadas",
   "@gestureClaps3": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -3064,7 +3064,7 @@
       ]
     }
   },
-  "gestureClaps4": "4 claps",
+  "gestureClaps4": "4 palmadas",
   "@gestureClaps4": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -3077,7 +3077,7 @@
       ]
     }
   },
-  "gestureClapHelp": "Claps are heard through the microphone, with or without wake word detection.",
+  "gestureClapHelp": "Las palmadas se detectan con el micrófono, con o sin detección de la palabra de activación.",
   "@gestureClapHelp": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -3090,7 +3090,7 @@
       ]
     }
   },
-  "gestureSequenceHelp": "Tap the corners in order (2 to 8 steps).",
+  "gestureSequenceHelp": "Toca las esquinas en orden (de 2 a 8 pasos).",
   "@gestureSequenceHelp": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -3103,7 +3103,7 @@
       ]
     }
   },
-  "gestureRemoveStep": "Remove last step",
+  "gestureRemoveStep": "Quitar último paso",
   "@gestureRemoveStep": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -3116,7 +3116,7 @@
       ]
     }
   },
-  "gestureUndo": "Undo",
+  "gestureUndo": "Deshacer",
   "@gestureUndo": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -3129,7 +3129,7 @@
       ]
     }
   },
-  "gestureChooseAction": "Choose an action",
+  "gestureChooseAction": "Elige una acción",
   "@gestureChooseAction": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -3142,7 +3142,7 @@
       ]
     }
   },
-  "gestureActionHelp": "What this gesture triggers.",
+  "gestureActionHelp": "Lo que ejecuta este gesto.",
   "@gestureActionHelp": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -3155,7 +3155,7 @@
       ]
     }
   },
-  "gestureChangeHelp": "Tap to change.",
+  "gestureChangeHelp": "Toca para cambiar.",
   "@gestureChangeHelp": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -3168,7 +3168,7 @@
       ]
     }
   },
-  "gestureChooseError": "Choose an action.",
+  "gestureChooseError": "Elige una acción.",
   "@gestureChooseError": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -3181,7 +3181,7 @@
       ]
     }
   },
-  "gestureSequenceError": "Add at least two corners.",
+  "gestureSequenceError": "Añade al menos dos esquinas.",
   "@gestureSequenceError": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
@@ -4684,7 +4684,7 @@
       ]
     }
   },
-  "settingLauncherEnabledTitle": "Enable App Launcher",
+  "settingLauncherEnabledTitle": "Activar lanzador de aplicaciones",
   "@settingLauncherEnabledTitle": {
     "context": "Settings > App Launcher",
     "description": "Setting label.",
@@ -4697,7 +4697,7 @@
       ]
     }
   },
-  "settingLauncherEnabledDescription": "Open a picked set of installed apps from the kiosk.",
+  "settingLauncherEnabledDescription": "Abre desde el kiosko una selección de aplicaciones instaladas.",
   "@settingLauncherEnabledDescription": {
     "context": "Settings > App Launcher",
     "description": "Help below this setting.",
@@ -4710,7 +4710,7 @@
       ]
     }
   },
-  "settingLauncherAppsDescription": "The apps the launcher offers.",
+  "settingLauncherAppsDescription": "Las aplicaciones que ofrece el lanzador.",
   "@settingLauncherAppsDescription": {
     "context": "Settings > App Launcher",
     "description": "Help below this setting.",
@@ -4723,7 +4723,7 @@
       ]
     }
   },
-  "settingLauncherAutoReturnTitle": "Return automatically",
+  "settingLauncherAutoReturnTitle": "Volver automáticamente",
   "@settingLauncherAutoReturnTitle": {
     "context": "Settings > App Launcher",
     "description": "Setting label.",
@@ -4736,7 +4736,7 @@
       ]
     }
   },
-  "settingLauncherAutoReturnDescription": "Come back to the kiosk once the other app has gone untouched for a while.",
+  "settingLauncherAutoReturnDescription": "Vuelve al kiosko cuando la otra aplicación lleva un tiempo sin recibir toques.",
   "@settingLauncherAutoReturnDescription": {
     "context": "Settings > App Launcher",
     "description": "Help below this setting.",
@@ -4749,7 +4749,7 @@
       ]
     }
   },
-  "settingLauncherAutoReturnSecondsTitle": "Return after (seconds)",
+  "settingLauncherAutoReturnSecondsTitle": "Volver después de (segundos)",
   "@settingLauncherAutoReturnSecondsTitle": {
     "context": "Settings > App Launcher",
     "description": "Setting label.",
@@ -4762,7 +4762,7 @@
       ]
     }
   },
-  "settingLauncherAutoReturnSecondsDescription": "Time without a touch in the other app before the kiosk comes back.",
+  "settingLauncherAutoReturnSecondsDescription": "Tiempo sin tocar la otra aplicación antes de volver al kiosko.",
   "@settingLauncherAutoReturnSecondsDescription": {
     "context": "Settings > App Launcher",
     "description": "Help below this setting.",
@@ -4775,7 +4775,7 @@
       ]
     }
   },
-  "launcherOverlayHeld": "Kiosk Satellite can bring itself back in the foreground and notice touches in the other app.",
+  "launcherOverlayHeld": "Kiosk Satellite puede volver al primer plano y detectar toques en la otra aplicación.",
   "@launcherOverlayHeld": {
     "context": "Settings > App Launcher > Required system permissions",
     "description": "Label or guidance in this section.",
@@ -4788,7 +4788,7 @@
       ]
     }
   },
-  "launcherOverlayMissing": "Without this the kiosk cannot come back on its own, and touches in the other app go unseen.",
+  "launcherOverlayMissing": "Sin este permiso, el kiosko no puede volver por sí solo ni detectar toques en la otra aplicación.",
   "@launcherOverlayMissing": {
     "context": "Settings > App Launcher > Required system permissions",
     "description": "Label or guidance in this section.",
@@ -4801,7 +4801,7 @@
       ]
     }
   },
-  "launcherOverlayRemote": "Without this the kiosk cannot come back on its own, and touches in the other app go unseen. The grant screen appears on the tablet.",
+  "launcherOverlayRemote": "Sin este permiso, el kiosko no puede volver por sí solo ni detectar toques en la otra aplicación. La pantalla para concederlo aparece en la tablet.",
   "@launcherOverlayRemote": {
     "context": "Settings > App Launcher > Required system permissions",
     "description": "Label or guidance in this section.",
@@ -4814,7 +4814,7 @@
       ]
     }
   },
-  "launcherBatteryMissing": "Android may pause the app behind the other one, and a paused clock never brings the kiosk back.",
+  "launcherBatteryMissing": "Android puede pausar la aplicación mientras la otra está abierta. Si el temporizador se pausa, el kiosko no vuelve.",
   "@launcherBatteryMissing": {
     "context": "Settings > App Launcher > Required system permissions",
     "description": "Label or guidance in this section.",
@@ -4827,7 +4827,7 @@
       ]
     }
   },
-  "launcherBatteryRemote": "Android may pause the app behind the other one, and a paused clock never brings the kiosk back. The grant dialog appears on the tablet.",
+  "launcherBatteryRemote": "Android puede pausar la aplicación mientras la otra está abierta. Si el temporizador se pausa, el kiosko no vuelve. El diálogo para conceder el permiso aparece en la tablet.",
   "@launcherBatteryRemote": {
     "context": "Settings > App Launcher > Required system permissions",
     "description": "Label or guidance in this section.",
@@ -4840,7 +4840,7 @@
       ]
     }
   },
-  "launcherPermissionsSearch": "The grants Return automatically leans on.",
+  "launcherPermissionsSearch": "Los permisos que necesita Volver automáticamente.",
   "@launcherPermissionsSearch": {
     "context": "Settings > Search > App Launcher > Required system permissions",
     "description": "Description in settings search results.",
@@ -12295,7 +12295,7 @@
       ]
     }
   },
-  "settingClapStrictnessTitle": "Clap detection",
+  "settingClapStrictnessTitle": "Detección de palmadas",
   "@settingClapStrictnessTitle": {
     "context": "Settings > Gestures",
     "description": "Setting label.",
@@ -12308,7 +12308,7 @@
       ]
     }
   },
-  "settingClapStrictnessDescription": "Strict needs louder, evenly spaced claps; try it if household noise false-triggers.",
+  "settingClapStrictnessDescription": "El modo estricto necesita palmadas más fuertes y espaciadas de forma regular. Pruébalo si los ruidos de casa activan los gestos por error.",
   "@settingClapStrictnessDescription": {
     "context": "Settings > Gestures",
     "description": "Help below this setting.",
@@ -12321,7 +12321,7 @@
       ]
     }
   },
-  "gestureStrictnessStandard": "Standard",
+  "gestureStrictnessStandard": "Estándar",
   "@gestureStrictnessStandard": {
     "context": "Settings > Gestures",
     "description": "Clap detection option.",
@@ -12334,7 +12334,7 @@
       ]
     }
   },
-  "gestureStrictnessStrict": "Strict",
+  "gestureStrictnessStrict": "Estricto",
   "@gestureStrictnessStrict": {
     "context": "Settings > Gestures",
     "description": "Clap detection option.",
@@ -12347,7 +12347,7 @@
       ]
     }
   },
-  "gestureOff": "Gestures are off",
+  "gestureOff": "Los gestos están desactivados",
   "@gestureOff": {
     "context": "Settings > Gestures",
     "description": "Label or guidance in this section.",
@@ -12360,7 +12360,7 @@
       ]
     }
   },
-  "gestureOffHelp": "Disable Gestures is on in Kiosk Mode settings.",
+  "gestureOffHelp": "Desactivar gestos está activado en la configuración del modo kiosko.",
   "@gestureOffHelp": {
     "context": "Settings > Gestures",
     "description": "Label or guidance in this section.",
@@ -12373,7 +12373,7 @@
       ]
     }
   },
-  "gestureEmpty": "No gestures configured",
+  "gestureEmpty": "No hay gestos configurados",
   "@gestureEmpty": {
     "context": "Settings > Gestures",
     "description": "Label or guidance in this section.",
@@ -12386,7 +12386,7 @@
       ]
     }
   },
-  "gestureEmptyHelp": "A gesture triggers its action without any visible control.",
+  "gestureEmptyHelp": "Un gesto ejecuta su acción sin ningún control visible.",
   "@gestureEmptyHelp": {
     "context": "Settings > Gestures",
     "description": "Label or guidance in this section.",
@@ -12399,7 +12399,7 @@
       ]
     }
   },
-  "gestureDeleteTooltip": "Delete gesture",
+  "gestureDeleteTooltip": "Eliminar gesto",
   "@gestureDeleteTooltip": {
     "context": "Settings > Gestures",
     "description": "Label or guidance in this section.",
@@ -12412,7 +12412,7 @@
       ]
     }
   },
-  "gestureDeleteTitle": "Delete gesture?",
+  "gestureDeleteTitle": "¿Eliminar gesto?",
   "@gestureDeleteTitle": {
     "context": "Settings > Gestures",
     "description": "Label or guidance in this section.",
@@ -12425,7 +12425,7 @@
       ]
     }
   },
-  "gestureDeleteMessage": "Remove this gesture? Trigger: {trigger}. Action: {action}.",
+  "gestureDeleteMessage": "¿Eliminar este gesto? Gesto: {trigger}. Acción: {action}.",
   "@gestureDeleteMessage": {
     "context": "Settings > Gestures",
     "description": "Label or guidance in this section.",
@@ -12447,7 +12447,7 @@
     },
     "x-notes": "Keep placeholders unchanged. Supplied names, IDs and values are inserted by the app."
   },
-  "gestureAdd": "Add gesture",
+  "gestureAdd": "Añadir gesto",
   "@gestureAdd": {
     "context": "Settings > Gestures",
     "description": "Label or guidance in this section.",
@@ -12460,7 +12460,7 @@
       ]
     }
   },
-  "gestureAddHelp": "Pick a gesture and the action it triggers.",
+  "gestureAddHelp": "Elige un gesto y la acción que ejecuta.",
   "@gestureAddHelp": {
     "context": "Settings > Gestures",
     "description": "Label or guidance in this section.",
@@ -12473,7 +12473,7 @@
       ]
     }
   },
-  "gestureTouchHelp": "Gestures are observed, not blocked: the taps also reach the dashboard, so corners and multi-finger shapes keep them from firing anything there.",
+  "gestureTouchHelp": "Los gestos se detectan sin bloquearlos: los toques también llegan al panel de control. Usar esquinas y varios dedos evita activar sus controles por accidente.",
   "@gestureTouchHelp": {
     "context": "Settings > Gestures",
     "description": "Label or guidance in this section.",
@@ -12486,7 +12486,7 @@
       ]
     }
   },
-  "gestureClapper": "Clapper",
+  "gestureClapper": "Control por palmadas",
   "@gestureClapper": {
     "context": "Settings > Gestures",
     "description": "Label or guidance in this section.",
@@ -12499,7 +12499,7 @@
       ]
     }
   },
-  "gestureReadFailed": "Could not read the settings.",
+  "gestureReadFailed": "No se pudo leer la configuración.",
   "@gestureReadFailed": {
     "context": "Settings > Gestures",
     "description": "Label or guidance in this section.",

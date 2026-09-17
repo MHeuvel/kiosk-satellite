@@ -1,0 +1,81 @@
+{
+  "@@locale": "en",
+  "launcherOverlayHeld": "Kiosk Satellite can bring itself back in the foreground and notice touches in the other app.",
+  "@launcherOverlayHeld": {
+    "context": "Settings > App Launcher > Required system permissions",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > App Launcher > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "App Launcher > Required system permissions"
+      ]
+    }
+  },
+  "launcherOverlayMissing": "Without this the kiosk cannot come back on its own, and touches in the other app go unseen.",
+  "@launcherOverlayMissing": {
+    "context": "Settings > App Launcher > Required system permissions",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > App Launcher > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "App Launcher > Required system permissions"
+      ]
+    }
+  },
+  "launcherOverlayRemote": "Without this the kiosk cannot come back on its own, and touches in the other app go unseen. The grant screen appears on the tablet.",
+  "@launcherOverlayRemote": {
+    "context": "Settings > App Launcher > Required system permissions",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > App Launcher > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "App Launcher > Required system permissions"
+      ]
+    }
+  },
+  "launcherBatteryMissing": "Android may pause the app behind the other one, and a paused clock never brings the kiosk back.",
+  "@launcherBatteryMissing": {
+    "context": "Settings > App Launcher > Required system permissions",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > App Launcher > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "App Launcher > Required system permissions"
+      ]
+    }
+  },
+  "launcherBatteryRemote": "Android may pause the app behind the other one, and a paused clock never brings the kiosk back. The grant dialog appears on the tablet.",
+  "@launcherBatteryRemote": {
+    "context": "Settings > App Launcher > Required system permissions",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > App Launcher > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "App Launcher > Required system permissions"
+      ]
+    }
+  },
+  "launcherPermissionsSearch": "The grants Return automatically leans on.",
+  "@launcherPermissionsSearch": {
+    "context": "Settings > Search > App Launcher > Required system permissions",
+    "description": "Description in settings search results.",
+    "x-locations": {
+      "device": [
+        "Settings > Search > App Launcher > Required system permissions"
+      ],
+      "remoteAdmin": [
+        "Settings search > App Launcher > Required system permissions"
+      ]
+    }
+  }
+}
