@@ -165,6 +165,10 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'intercomMissedcall' => strings.intercomMissedcall,
       'intercomListening' => strings.intercomListening,
       'intercomAnnouncementsoff' => strings.intercomAnnouncementsoff,
+      'kioskPinTitle' => strings.kioskPinTitle,
+      'kioskPinHint' => strings.kioskPinHint,
+      'kioskWrongPin' => strings.kioskWrongPin,
+      'kioskUnlock' => strings.kioskUnlock,
       'mediaPlay' => strings.mediaPlay,
       'mediaPause' => strings.mediaPause,
       'mediaPreviousTrack' => strings.mediaPreviousTrack,
@@ -928,6 +932,27 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'haVibrationLight' => strings.haVibrationLight,
       'haVibrationMedium' => strings.haVibrationMedium,
       'haVibrationStrong' => strings.haVibrationStrong,
+      'settingHomeLauncherEnabledTitle' =>
+        strings.settingHomeLauncherEnabledTitle,
+      'settingHomeLauncherEnabledDescription' =>
+        strings.settingHomeLauncherEnabledDescription,
+      'settingHomeKeepPinningTitle' => strings.settingHomeKeepPinningTitle,
+      'settingHomeKeepPinningDescription' =>
+        strings.settingHomeKeepPinningDescription,
+      'kioskHomeScreen' => strings.kioskHomeScreen,
+      'kioskCheckingDevice' => strings.kioskCheckingDevice,
+      'kioskFireOs' => strings.kioskFireOs,
+      'kioskUnsupported' => strings.kioskUnsupported,
+      'kioskRecovered' => strings.kioskRecovered,
+      'kioskHeld' => strings.kioskHeld,
+      'kioskDisabled' => strings.kioskDisabled,
+      'kioskWaiting' => strings.kioskWaiting,
+      'kioskOpenHomeSettings' => strings.kioskOpenHomeSettings,
+      'kioskSetDefault' => strings.kioskSetDefault,
+      'kioskActive' => strings.kioskActive,
+      'kioskNotHome' => strings.kioskNotHome,
+      'kioskWaitingRemote' => strings.kioskWaitingRemote,
+      'kioskSetDevice' => strings.kioskSetDevice,
       'settingIntercomAnswerModeTitle' =>
         strings.settingIntercomAnswerModeTitle,
       'settingIntercomAnswerModeDescription' =>
@@ -988,6 +1013,99 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'intercomOptionTalkPtt' => strings.intercomOptionTalkPtt,
       'intercomOptionTalkHandsfree' => strings.intercomOptionTalkHandsfree,
       'intercomTalkSection' => strings.intercomTalkSection,
+      'settingKioskAllowDrawerTitle' => strings.settingKioskAllowDrawerTitle,
+      'settingKioskAllowDrawerDescription' =>
+        strings.settingKioskAllowDrawerDescription,
+      'settingKioskAllowDashboardTitle' =>
+        strings.settingKioskAllowDashboardTitle,
+      'settingKioskAllowDashboardDescription' =>
+        strings.settingKioskAllowDashboardDescription,
+      'settingKioskAllowHaKioskTitle' => strings.settingKioskAllowHaKioskTitle,
+      'settingKioskAllowHaKioskDescription' =>
+        strings.settingKioskAllowHaKioskDescription,
+      'settingKioskAllowCameraTitle' => strings.settingKioskAllowCameraTitle,
+      'settingKioskAllowCameraDescription' =>
+        strings.settingKioskAllowCameraDescription,
+      'settingKioskAllowIntercomTitle' =>
+        strings.settingKioskAllowIntercomTitle,
+      'settingKioskAllowIntercomDescription' =>
+        strings.settingKioskAllowIntercomDescription,
+      'settingKioskAllowMusicTitle' => strings.settingKioskAllowMusicTitle,
+      'settingKioskAllowMusicDescription' =>
+        strings.settingKioskAllowMusicDescription,
+      'settingKioskAllowSendspinPlayerTitle' =>
+        strings.settingKioskAllowSendspinPlayerTitle,
+      'settingKioskAllowSendspinPlayerDescription' =>
+        strings.settingKioskAllowSendspinPlayerDescription,
+      'settingKioskAllowScreensaverTitle' =>
+        strings.settingKioskAllowScreensaverTitle,
+      'settingKioskAllowScreensaverDescription' =>
+        strings.settingKioskAllowScreensaverDescription,
+      'settingKioskAllowHoldTitle' => strings.settingKioskAllowHoldTitle,
+      'settingKioskAllowHoldDescription' =>
+        strings.settingKioskAllowHoldDescription,
+      'settingKioskAllowLockdownTitle' =>
+        strings.settingKioskAllowLockdownTitle,
+      'settingKioskAllowLockdownDescription' =>
+        strings.settingKioskAllowLockdownDescription,
+      'settingKioskAllowThemeTitle' => strings.settingKioskAllowThemeTitle,
+      'settingKioskAllowThemeDescription' =>
+        strings.settingKioskAllowThemeDescription,
+      'settingKioskAllowAppsTitle' => strings.settingKioskAllowAppsTitle,
+      'settingKioskAllowAppsDescription' =>
+        strings.settingKioskAllowAppsDescription,
+      'kioskAllowedActions' => strings.kioskAllowedActions,
+      'kioskAllowedHelp' => strings.kioskAllowedHelp,
+      'settingKioskEnabledTitle' => strings.settingKioskEnabledTitle,
+      'settingKioskEnabledDescription' =>
+        strings.settingKioskEnabledDescription,
+      'settingKioskStartOnBootTitle' => strings.settingKioskStartOnBootTitle,
+      'settingKioskStartOnBootDescription' =>
+        strings.settingKioskStartOnBootDescription,
+      'settingKioskExitGestureTitle' => strings.settingKioskExitGestureTitle,
+      'settingKioskExitGestureDescription' =>
+        strings.settingKioskExitGestureDescription,
+      'settingKioskPinTitle' => strings.settingKioskPinTitle,
+      'settingKioskPinDescription' => strings.settingKioskPinDescription,
+      'settingKioskDisableStatusBarTitle' =>
+        strings.settingKioskDisableStatusBarTitle,
+      'settingKioskDisableStatusBarDescription' =>
+        strings.settingKioskDisableStatusBarDescription,
+      'settingKioskDisableVolumeTitle' =>
+        strings.settingKioskDisableVolumeTitle,
+      'settingKioskDisableVolumeDescription' =>
+        strings.settingKioskDisableVolumeDescription,
+      'settingKioskDisablePowerTitle' => strings.settingKioskDisablePowerTitle,
+      'settingKioskDisablePowerDescription' =>
+        strings.settingKioskDisablePowerDescription,
+      'settingKioskDisableHomeTitle' => strings.settingKioskDisableHomeTitle,
+      'settingKioskDisableHomeDescription' =>
+        strings.settingKioskDisableHomeDescription,
+      'settingKioskDisableContextMenusTitle' =>
+        strings.settingKioskDisableContextMenusTitle,
+      'settingKioskDisableContextMenusDescription' =>
+        strings.settingKioskDisableContextMenusDescription,
+      'settingKioskDisablePullRefreshTitle' =>
+        strings.settingKioskDisablePullRefreshTitle,
+      'settingKioskDisablePullRefreshDescription' =>
+        strings.settingKioskDisablePullRefreshDescription,
+      'settingKioskDisableGesturesTitle' =>
+        strings.settingKioskDisableGesturesTitle,
+      'settingKioskDisableGesturesDescription' =>
+        strings.settingKioskDisableGesturesDescription,
+      'kioskGestureTaps5' => strings.kioskGestureTaps5,
+      'kioskGestureTaps7' => strings.kioskGestureTaps7,
+      'kioskGestureTaps5Hold' => strings.kioskGestureTaps5Hold,
+      'kioskGestureTaps7Hold' => strings.kioskGestureTaps7Hold,
+      'kioskGestureNone' => strings.kioskGestureNone,
+      'kioskForeground' => strings.kioskForeground,
+      'kioskOverlayMissing' => strings.kioskOverlayMissing,
+      'kioskGuardHeld' => strings.kioskGuardHeld,
+      'kioskGuardMissing' => strings.kioskGuardMissing,
+      'kioskOverlayRemote' => strings.kioskOverlayRemote,
+      'kioskGuardRemote' => strings.kioskGuardRemote,
+      'kioskGrantDevice' => strings.kioskGrantDevice,
+      'kioskOpenSettingsDevice' => strings.kioskOpenSettingsDevice,
       'mediaCacheTitle' => strings.mediaCacheTitle,
       'mediaCacheReadFailed' => strings.mediaCacheReadFailed,
       'mediaCacheClearFailed' => strings.mediaCacheClearFailed,

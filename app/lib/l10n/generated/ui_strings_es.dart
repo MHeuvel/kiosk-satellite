@@ -637,6 +637,18 @@ class UiStringsEs extends UiStrings {
   String get intercomAnnouncementsoff => 'Anuncios desactivados';
 
   @override
+  String get kioskPinTitle => 'Kiosk PIN';
+
+  @override
+  String get kioskPinHint => 'PIN';
+
+  @override
+  String get kioskWrongPin => 'Wrong PIN';
+
+  @override
+  String get kioskUnlock => 'Unlock';
+
+  @override
   String get mediaPlay => 'Reproducir';
 
   @override
@@ -3207,6 +3219,68 @@ class UiStringsEs extends UiStrings {
   String get haVibrationStrong => 'Fuerte';
 
   @override
+  String get settingHomeLauncherEnabledTitle => 'Act as the home screen';
+
+  @override
+  String get settingHomeLauncherEnabledDescription =>
+      'Register Kiosk Satellite as the device home screen: the kiosk starts at boot and every home press returns to it. Turns itself off and restores the previous launcher if the app fails to start repeatedly.';
+
+  @override
+  String get settingHomeKeepPinningTitle => 'Keep screen pinning';
+
+  @override
+  String get settingHomeKeepPinningDescription =>
+      'Pin the screen even while Kiosk Satellite is the home screen. Blocks recents and back natively, but brings back the pinning confirmation dialog on devices without device ownership.';
+
+  @override
+  String get kioskHomeScreen => 'Home screen';
+
+  @override
+  String get kioskCheckingDevice => 'Checking the device...';
+
+  @override
+  String get kioskFireOs => 'Fire OS does not allow replacing its launcher.';
+
+  @override
+  String get kioskUnsupported =>
+      'This device does not allow changing the home screen.';
+
+  @override
+  String get kioskRecovered =>
+      'Turned off automatically after repeated failed starts; the previous launcher was restored. Turn the switch back on to try again.';
+
+  @override
+  String get kioskHeld =>
+      'Kiosk Satellite is the home screen. The kiosk starts at boot and every home press returns to it.';
+
+  @override
+  String get kioskDisabled =>
+      'Not the home screen. Turn on Act as the home screen above.';
+
+  @override
+  String get kioskWaiting =>
+      'Not the current home screen yet: the device is waiting for a confirmation.';
+
+  @override
+  String get kioskOpenHomeSettings => 'Open home settings';
+
+  @override
+  String get kioskSetDefault => 'Set as default';
+
+  @override
+  String get kioskActive => 'Active';
+
+  @override
+  String get kioskNotHome => 'Not the home screen.';
+
+  @override
+  String get kioskWaitingRemote =>
+      'Waiting for a confirmation on the device: the system dialog or home settings open there.';
+
+  @override
+  String get kioskSetDevice => 'Set on device';
+
+  @override
   String get settingIntercomAnswerModeTitle => 'Modo de respuesta';
 
   @override
@@ -3371,6 +3445,216 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get intercomTalkSection => 'Conversación';
+
+  @override
+  String get settingKioskAllowDrawerTitle => 'Allow menu with quick actions';
+
+  @override
+  String get settingKioskAllowDrawerDescription =>
+      'An edge swipe opens the menu without the exit gesture or PIN, limited to the actions selected below.';
+
+  @override
+  String get settingKioskAllowDashboardTitle => 'Dashboard';
+
+  @override
+  String get settingKioskAllowDashboardDescription => 'Reload the start page.';
+
+  @override
+  String get settingKioskAllowHaKioskTitle => 'HA Kiosk Mode';
+
+  @override
+  String get settingKioskAllowHaKioskDescription =>
+      'Show or hide the Home Assistant header and sidebar.';
+
+  @override
+  String get settingKioskAllowCameraTitle => 'Camera View';
+
+  @override
+  String get settingKioskAllowCameraDescription =>
+      'Open the default camera view.';
+
+  @override
+  String get settingKioskAllowIntercomTitle => 'Intercom';
+
+  @override
+  String get settingKioskAllowIntercomDescription =>
+      'Call other kiosks from the kiosk menu.';
+
+  @override
+  String get settingKioskAllowMusicTitle => 'Music Assistant';
+
+  @override
+  String get settingKioskAllowMusicDescription =>
+      'Open the Music Assistant web interface.';
+
+  @override
+  String get settingKioskAllowSendspinPlayerTitle => 'Floating Player';
+
+  @override
+  String get settingKioskAllowSendspinPlayerDescription =>
+      'Show or hide the floating player and open Now Playing.';
+
+  @override
+  String get settingKioskAllowScreensaverTitle => 'Start Screensaver';
+
+  @override
+  String get settingKioskAllowScreensaverDescription =>
+      'Start the screensaver now.';
+
+  @override
+  String get settingKioskAllowHoldTitle => 'Hold Mode';
+
+  @override
+  String get settingKioskAllowHoldDescription => 'Turn hold mode on or off.';
+
+  @override
+  String get settingKioskAllowLockdownTitle => 'Lockdown Mode';
+
+  @override
+  String get settingKioskAllowLockdownDescription =>
+      'Lock the screen until the exit gesture or a remote unlock.';
+
+  @override
+  String get settingKioskAllowThemeTitle => 'Theme picker';
+
+  @override
+  String get settingKioskAllowThemeDescription =>
+      'Switch between the light and dark themes.';
+
+  @override
+  String get settingKioskAllowAppsTitle => 'Apps';
+
+  @override
+  String get settingKioskAllowAppsDescription =>
+      'Open the app launcher. With Disable home button on, launching an app unpins the kiosk until it returns.';
+
+  @override
+  String get kioskAllowedActions => 'Allowed Actions';
+
+  @override
+  String get kioskAllowedHelp => 'Which quick actions the kiosk menu offers';
+
+  @override
+  String get settingKioskEnabledTitle => 'Enable kiosk mode';
+
+  @override
+  String get settingKioskEnabledDescription =>
+      'Lock the tablet into Kiosk Satellite. The menu swipe is replaced by the exit gesture, the back button stays inside the kiosk, and the protections below arm.';
+
+  @override
+  String get settingKioskStartOnBootTitle => 'Start on boot';
+
+  @override
+  String get settingKioskStartOnBootDescription =>
+      'Launch Kiosk Satellite when the device powers on. On Android 10+ this needs the display over other apps permission; Android asks on first enable.';
+
+  @override
+  String get settingKioskExitGestureTitle => 'Kiosk exit gesture';
+
+  @override
+  String get settingKioskExitGestureDescription =>
+      'Fast taps anywhere open the menu, after the PIN if one is set. Hold variants need the last tap held down. When disabled, only the remote admin can reach settings.';
+
+  @override
+  String get settingKioskPinTitle => 'Kiosk mode PIN';
+
+  @override
+  String get settingKioskPinDescription =>
+      'Asked after the exit gesture before the menu opens. Leave empty for no PIN.';
+
+  @override
+  String get settingKioskDisableStatusBarTitle => 'Disable status bar';
+
+  @override
+  String get settingKioskDisableStatusBarDescription =>
+      'Block the status bar pull-down with a shield over the top edge. Needs the display over other apps permission; Android asks on first enable.';
+
+  @override
+  String get settingKioskDisableVolumeTitle => 'Disable volume buttons';
+
+  @override
+  String get settingKioskDisableVolumeDescription =>
+      'Swallow the hardware volume keys.';
+
+  @override
+  String get settingKioskDisablePowerTitle => 'Disable power button';
+
+  @override
+  String get settingKioskDisablePowerDescription =>
+      'Android cannot block the power button, so the screen turns right back on when it is pressed. Turning the screen off remotely still works.';
+
+  @override
+  String get settingKioskDisableHomeTitle => 'Disable home button';
+
+  @override
+  String get settingKioskDisableHomeDescription =>
+      'Pin the app with Android screen pinning, which blocks the home and recents buttons. Android asks to confirm the first time.';
+
+  @override
+  String get settingKioskDisableContextMenusTitle => 'Disable context menus';
+
+  @override
+  String get settingKioskDisableContextMenusDescription =>
+      'Suppress long-press menus and text selection inside the web view.';
+
+  @override
+  String get settingKioskDisablePullRefreshTitle => 'Disable pull to refresh';
+
+  @override
+  String get settingKioskDisablePullRefreshDescription =>
+      'Ignore the pull-to-refresh gesture while kiosk mode is on.';
+
+  @override
+  String get settingKioskDisableGesturesTitle => 'Disable Gestures';
+
+  @override
+  String get settingKioskDisableGesturesDescription =>
+      'Ignore the gestures from the Gestures page while kiosk mode is on.';
+
+  @override
+  String get kioskGestureTaps5 => '5 fast taps';
+
+  @override
+  String get kioskGestureTaps7 => '7 fast taps';
+
+  @override
+  String get kioskGestureTaps5Hold => '5 fast taps, holding the last';
+
+  @override
+  String get kioskGestureTaps7Hold => '7 fast taps, holding the last';
+
+  @override
+  String get kioskGestureNone => 'Disabled (remote admin only)';
+
+  @override
+  String get kioskForeground =>
+      'Kiosk Satellite can bring itself back in the foreground.';
+
+  @override
+  String get kioskOverlayMissing =>
+      'Without this the kiosk cannot bring itself back and the lockdown shield only covers the app.';
+
+  @override
+  String get kioskGuardHeld =>
+      'The notification shade and recents close on their own while the screen is protected.';
+
+  @override
+  String get kioskGuardMissing =>
+      'Without this the notification shade and recents stay reachable. Enable Kiosk Satellite under Accessibility.';
+
+  @override
+  String get kioskOverlayRemote =>
+      'Without this the kiosk cannot bring itself back. The grant screen appears on the tablet.';
+
+  @override
+  String get kioskGuardRemote =>
+      'Without this the notification shade and recents stay reachable. Enable Kiosk Satellite under Accessibility on the tablet.';
+
+  @override
+  String get kioskGrantDevice => 'Grant on device';
+
+  @override
+  String get kioskOpenSettingsDevice => 'Open settings on device';
 
   @override
   String get mediaCacheTitle => 'Caché de portadas';

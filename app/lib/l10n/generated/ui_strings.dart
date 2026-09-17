@@ -1219,6 +1219,30 @@ abstract class UiStrings {
   /// **'Announcements off'**
   String get intercomAnnouncementsoff;
 
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosk PIN'**
+  String get kioskPinTitle;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'PIN'**
+  String get kioskPinHint;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong PIN'**
+  String get kioskWrongPin;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock'**
+  String get kioskUnlock;
+
   /// Playback button tooltip and accessibility label.
   ///
   /// In en, this message translates to:
@@ -5578,6 +5602,114 @@ abstract class UiStrings {
   /// Setting label.
   ///
   /// In en, this message translates to:
+  /// **'Act as the home screen'**
+  String get settingHomeLauncherEnabledTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Register Kiosk Satellite as the device home screen: the kiosk starts at boot and every home press returns to it. Turns itself off and restores the previous launcher if the app fails to start repeatedly.'**
+  String get settingHomeLauncherEnabledDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep screen pinning'**
+  String get settingHomeKeepPinningTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Pin the screen even while Kiosk Satellite is the home screen. Blocks recents and back natively, but brings back the pinning confirmation dialog on devices without device ownership.'**
+  String get settingHomeKeepPinningDescription;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Home screen'**
+  String get kioskHomeScreen;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking the device...'**
+  String get kioskCheckingDevice;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Fire OS does not allow replacing its launcher.'**
+  String get kioskFireOs;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'This device does not allow changing the home screen.'**
+  String get kioskUnsupported;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Turned off automatically after repeated failed starts; the previous launcher was restored. Turn the switch back on to try again.'**
+  String get kioskRecovered;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosk Satellite is the home screen. The kiosk starts at boot and every home press returns to it.'**
+  String get kioskHeld;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Not the home screen. Turn on Act as the home screen above.'**
+  String get kioskDisabled;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Not the current home screen yet: the device is waiting for a confirmation.'**
+  String get kioskWaiting;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Open home settings'**
+  String get kioskOpenHomeSettings;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Set as default'**
+  String get kioskSetDefault;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get kioskActive;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Not the home screen.'**
+  String get kioskNotHome;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for a confirmation on the device: the system dialog or home settings open there.'**
+  String get kioskWaitingRemote;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Set on device'**
+  String get kioskSetDevice;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
   /// **'Answer mode'**
   String get settingIntercomAnswerModeTitle;
 
@@ -5874,6 +6006,372 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Talk'**
   String get intercomTalkSection;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow menu with quick actions'**
+  String get settingKioskAllowDrawerTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'An edge swipe opens the menu without the exit gesture or PIN, limited to the actions selected below.'**
+  String get settingKioskAllowDrawerDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Dashboard'**
+  String get settingKioskAllowDashboardTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload the start page.'**
+  String get settingKioskAllowDashboardDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'HA Kiosk Mode'**
+  String get settingKioskAllowHaKioskTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Show or hide the Home Assistant header and sidebar.'**
+  String get settingKioskAllowHaKioskDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera View'**
+  String get settingKioskAllowCameraTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the default camera view.'**
+  String get settingKioskAllowCameraDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Intercom'**
+  String get settingKioskAllowIntercomTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Call other kiosks from the kiosk menu.'**
+  String get settingKioskAllowIntercomDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Music Assistant'**
+  String get settingKioskAllowMusicTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the Music Assistant web interface.'**
+  String get settingKioskAllowMusicDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Floating Player'**
+  String get settingKioskAllowSendspinPlayerTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Show or hide the floating player and open Now Playing.'**
+  String get settingKioskAllowSendspinPlayerDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Screensaver'**
+  String get settingKioskAllowScreensaverTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Start the screensaver now.'**
+  String get settingKioskAllowScreensaverDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold Mode'**
+  String get settingKioskAllowHoldTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn hold mode on or off.'**
+  String get settingKioskAllowHoldDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Lockdown Mode'**
+  String get settingKioskAllowLockdownTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Lock the screen until the exit gesture or a remote unlock.'**
+  String get settingKioskAllowLockdownDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme picker'**
+  String get settingKioskAllowThemeTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch between the light and dark themes.'**
+  String get settingKioskAllowThemeDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Apps'**
+  String get settingKioskAllowAppsTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the app launcher. With Disable home button on, launching an app unpins the kiosk until it returns.'**
+  String get settingKioskAllowAppsDescription;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Allowed Actions'**
+  String get kioskAllowedActions;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Which quick actions the kiosk menu offers'**
+  String get kioskAllowedHelp;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable kiosk mode'**
+  String get settingKioskEnabledTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Lock the tablet into Kiosk Satellite. The menu swipe is replaced by the exit gesture, the back button stays inside the kiosk, and the protections below arm.'**
+  String get settingKioskEnabledDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Start on boot'**
+  String get settingKioskStartOnBootTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Launch Kiosk Satellite when the device powers on. On Android 10+ this needs the display over other apps permission; Android asks on first enable.'**
+  String get settingKioskStartOnBootDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosk exit gesture'**
+  String get settingKioskExitGestureTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Fast taps anywhere open the menu, after the PIN if one is set. Hold variants need the last tap held down. When disabled, only the remote admin can reach settings.'**
+  String get settingKioskExitGestureDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosk mode PIN'**
+  String get settingKioskPinTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Asked after the exit gesture before the menu opens. Leave empty for no PIN.'**
+  String get settingKioskPinDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Disable status bar'**
+  String get settingKioskDisableStatusBarTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Block the status bar pull-down with a shield over the top edge. Needs the display over other apps permission; Android asks on first enable.'**
+  String get settingKioskDisableStatusBarDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Disable volume buttons'**
+  String get settingKioskDisableVolumeTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Swallow the hardware volume keys.'**
+  String get settingKioskDisableVolumeDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Disable power button'**
+  String get settingKioskDisablePowerTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Android cannot block the power button, so the screen turns right back on when it is pressed. Turning the screen off remotely still works.'**
+  String get settingKioskDisablePowerDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Disable home button'**
+  String get settingKioskDisableHomeTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Pin the app with Android screen pinning, which blocks the home and recents buttons. Android asks to confirm the first time.'**
+  String get settingKioskDisableHomeDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Disable context menus'**
+  String get settingKioskDisableContextMenusTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Suppress long-press menus and text selection inside the web view.'**
+  String get settingKioskDisableContextMenusDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Disable pull to refresh'**
+  String get settingKioskDisablePullRefreshTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Ignore the pull-to-refresh gesture while kiosk mode is on.'**
+  String get settingKioskDisablePullRefreshDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Disable Gestures'**
+  String get settingKioskDisableGesturesTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Ignore the gestures from the Gestures page while kiosk mode is on.'**
+  String get settingKioskDisableGesturesDescription;
+
+  /// Exit gesture option. Keep the number of taps unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'5 fast taps'**
+  String get kioskGestureTaps5;
+
+  /// Exit gesture option. Keep the number of taps unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'7 fast taps'**
+  String get kioskGestureTaps7;
+
+  /// Exit gesture option. Keep the number of taps unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'5 fast taps, holding the last'**
+  String get kioskGestureTaps5Hold;
+
+  /// Exit gesture option. Keep the number of taps unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'7 fast taps, holding the last'**
+  String get kioskGestureTaps7Hold;
+
+  /// Exit gesture option. Keep the number of taps unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Disabled (remote admin only)'**
+  String get kioskGestureNone;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosk Satellite can bring itself back in the foreground.'**
+  String get kioskForeground;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Without this the kiosk cannot bring itself back and the lockdown shield only covers the app.'**
+  String get kioskOverlayMissing;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The notification shade and recents close on their own while the screen is protected.'**
+  String get kioskGuardHeld;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Without this the notification shade and recents stay reachable. Enable Kiosk Satellite under Accessibility.'**
+  String get kioskGuardMissing;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Without this the kiosk cannot bring itself back. The grant screen appears on the tablet.'**
+  String get kioskOverlayRemote;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Without this the notification shade and recents stay reachable. Enable Kiosk Satellite under Accessibility on the tablet.'**
+  String get kioskGuardRemote;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Grant on device'**
+  String get kioskGrantDevice;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Open settings on device'**
+  String get kioskOpenSettingsDevice;
 
   /// Label or guidance in this section.
   ///

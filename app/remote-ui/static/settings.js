@@ -1,4 +1,4 @@
-import { intercomText, intercomError, cameraText, cameraError, cameraResolutionNotice, screensaverText, deviceText, haText, screenAudioText, haConnectionError, settingsPageText, t } from './localization.js';
+import { kioskText, intercomText, intercomError, cameraText, cameraError, cameraResolutionNotice, screensaverText, deviceText, haText, screenAudioText, haConnectionError, settingsPageText, t } from './localization.js';
 import { preserveDraft } from './drafts.js';
 import { beginLiveRender, endLiveRender, watchUpdates } from './live.js';
 import {
@@ -458,22 +458,22 @@ async function renderSettings({ cached = false } = {}) {
       const info = document.createElement('div');
       info.className = 'info';
       info.innerHTML = '<div class="name"></div><div class="desc"></div>';
-      info.querySelector('.name').textContent = name;
-      info.querySelector('.desc').textContent = 'Checking...';
+      info.querySelector('.name').textContent = kioskText(name);
+      info.querySelector('.desc').textContent = kioskText("Checking...");
       row.appendChild(info);
       const state = document.createElement('span');
       state.style.whiteSpace = 'nowrap';
       row.appendChild(state);
       const render = (ok) => {
         info.querySelector('.desc').textContent =
-          ok === null ? 'Status unavailable.' : ok ? held : missing;
-        state.textContent = ok === null ? '' : ok ? 'Granted' : 'Missing';
+          ok === null ? kioskText("Status unavailable.") : ok ? kioskText(held) : kioskText(missing);
+        state.textContent = ok === null ? '' : ok ? kioskText("Granted") : kioskText("Missing");
         state.style.color = ok ? 'var(--ok)' : 'var(--error)';
         row.querySelector('button')?.remove();
         if (ok !== false) return;
         const btn = document.createElement('button');
         btn.className = 'btn-ghost';
-        btn.textContent = btnText;
+        btn.textContent = kioskText(btnText);
         btn.style.cssText = 'flex-shrink:0;';
         btn.addEventListener('click', async () => {
           btn.disabled = true;
@@ -490,7 +490,7 @@ async function renderSettings({ cached = false } = {}) {
       const tab = document.getElementById(tabId);
       const h = document.createElement('h2');
       h.className = 'card-title';
-      h.textContent = 'Required system permissions';
+      h.textContent = kioskText("Required system permissions");
       const card = document.createElement('div');
       card.className = 'card';
       rows.forEach((r) => card.appendChild(r));
@@ -578,15 +578,16 @@ async function renderSettings({ cached = false } = {}) {
       if (!tab.querySelector('[data-key]')) tab.innerHTML = '';
       const h = document.createElement('h2');
       h.className = 'card-title';
-      h.textContent = 'Status';
+      h.textContent = kioskText("Status");
       const card = document.createElement('div');
       card.className = 'card';
       const row = document.createElement('div');
       row.className = 'row';
       const info = document.createElement('div');
       info.className = 'info';
-      info.innerHTML = '<div class="name">Home screen</div>'
-        + '<div class="desc">Checking...</div>';
+      info.innerHTML = '<div class="name"></div><div class="desc"></div>';
+      info.querySelector('.name').textContent = kioskText('Home screen');
+      info.querySelector('.desc').textContent = kioskText('Checking...');
       row.appendChild(info);
       const state = document.createElement('span');
       state.style.whiteSpace = 'nowrap';
@@ -605,35 +606,31 @@ async function renderSettings({ cached = false } = {}) {
         const desc = info.querySelector('.desc');
         row.querySelector('button')?.remove();
         state.textContent = '';
-        if (!s) { desc.textContent = 'Status unavailable.'; return; }
+        if (!s) { desc.textContent = kioskText("Status unavailable."); return; }
         if (s.supported !== true) {
           desc.textContent = s.reason === 'fireos'
-            ? 'Fire OS does not allow replacing its launcher.'
-            : 'This device does not allow changing the home screen.';
+            ? kioskText("Fire OS does not allow replacing its launcher.")
+            : kioskText("This device does not allow changing the home screen.");
           return;
         }
         if (s.held === true) {
-          desc.textContent = 'Kiosk Satellite is the home screen. The kiosk '
-            + 'starts at boot and every home press returns to it.';
-          state.textContent = 'Active';
+          desc.textContent = kioskText("Kiosk Satellite is the home screen. The kiosk starts at boot and every home press returns to it.");
+          state.textContent = kioskText("Active");
           state.style.color = 'var(--ok)';
           return;
         }
         if (s.enabled !== true) {
           desc.textContent = s.storedFuseReason
-            ? 'Turned off automatically after repeated failed starts; the '
-              + 'previous launcher was restored. Turn the switch back on '
-              + 'to try again.'
-            : 'Not the home screen.';
+            ? kioskText("Turned off automatically after repeated failed starts; the previous launcher was restored. Turn the switch back on to try again.")
+            : kioskText("Not the home screen.");
           return;
         }
-        desc.textContent = 'Waiting for a confirmation on the device: the '
-          + 'system dialog or home settings open there.';
-        state.textContent = 'Not set';
+        desc.textContent = kioskText("Waiting for a confirmation on the device: the system dialog or home settings open there.");
+        state.textContent = kioskText("Not set");
         state.style.color = 'var(--error)';
         const btn = document.createElement('button');
         btn.className = 'btn-ghost';
-        btn.textContent = 'Set on device';
+        btn.textContent = kioskText("Set on device");
         btn.style.cssText = 'flex-shrink:0;';
         btn.addEventListener('click', async () => {
           btn.disabled = true;

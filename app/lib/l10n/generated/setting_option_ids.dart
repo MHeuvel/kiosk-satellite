@@ -213,6 +213,13 @@ const settingOptionMessageIds = <String, Map<String, String>>{
   "intercom.talk_mode": {
     "ptt": "intercomOptionTalkPtt",
     "handsfree": "intercomOptionTalkHandsfree"
+  },
+  "kiosk.exit_gesture": {
+    "taps5": "kioskGestureTaps5",
+    "taps7": "kioskGestureTaps7",
+    "taps5hold": "kioskGestureTaps5Hold",
+    "taps7hold": "kioskGestureTaps7Hold",
+    "none": "kioskGestureNone"
   }
 };
 const settingPlaceholderMessageIds = <String, String>{

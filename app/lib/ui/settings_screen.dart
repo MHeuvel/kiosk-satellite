@@ -2257,7 +2257,7 @@ class _CategoryContentState extends State<_CategoryContent> {
         // the OS's to give, not ours to set. Always shown - Lockdown Mode
         // has no page on the device, so its grants live here too.
         if (widget.category == 'Kiosk') ...[
-          const SectionHeading('Required system permissions'),
+          SectionHeading(kioskText(context, 'Required system permissions')),
           SearchLandingTarget(
             id: 'x:kiosk_permissions',
             child: SettingsCard(
@@ -2270,7 +2270,7 @@ class _CategoryContentState extends State<_CategoryContent> {
         // tap in a system dialog. This row is where that state is told and
         // finished, and where the crash fuse explains itself.
         if (widget.category == 'Home') ...[
-          const SectionHeading('Status'),
+          SectionHeading(kioskText(context, 'Status')),
           SearchLandingTarget(
             id: 'x:home_role',
             child: SettingsCard(
@@ -3706,11 +3706,11 @@ class _KioskPermissionsTileState extends State<_KioskPermissionsTile>
         granted == true ? Icons.check_circle_outline : missingIcon,
         color: granted == true ? null : theme.colorScheme.error,
       ),
-      title: Text(title),
-      subtitle: Text(granted == true ? held : missing),
+      title: Text(kioskText(context, title)),
+      subtitle: Text(kioskText(context, granted == true ? held : missing)),
       trailing: granted == true
           ? null
-          : TextButton(onPressed: onGrant, child: Text(action)),
+          : TextButton(onPressed: onGrant, child: Text(kioskText(context, action))),
     );
   }
 
@@ -3818,21 +3818,21 @@ class _HomeRoleTileState extends State<_HomeRoleTile>
     final s = _status;
     final muted = theme.colorScheme.onSurface.withValues(alpha: 0.6);
     if (s == null) {
-      return const SettingsRow(
+      return SettingsRow(
         leading: Icon(Icons.home_outlined),
-        title: Text('Home screen'),
-        subtitle: Text('Checking the device...'),
+        title: Text(kioskText(context, "Home screen")),
+        subtitle: Text(kioskText(context, "Checking the device...")),
       );
     }
     if (s['supported'] != true) {
       final fireos = s['reason'] == 'fireos';
       return SettingsRow(
         leading: Icon(Icons.info_outline, color: muted),
-        title: const Text('Home screen'),
+        title: Text(kioskText(context, "Home screen")),
         subtitle: Text(
           fireos
-              ? 'Fire OS does not allow replacing its launcher.'
-              : 'This device does not allow changing the home screen.',
+              ? kioskText(context, "Fire OS does not allow replacing its launcher.")
+              : kioskText(context, "This device does not allow changing the home screen."),
           style: TextStyle(color: muted),
         ),
       );
@@ -3846,30 +3846,27 @@ class _HomeRoleTileState extends State<_HomeRoleTile>
           Icons.warning_amber_outlined,
           color: theme.colorScheme.error,
         ),
-        title: const Text('Home screen'),
+        title: Text(kioskText(context, "Home screen")),
         subtitle: Text(
-          'Turned off automatically after repeated failed starts; the '
-          'previous launcher was restored. Turn the switch back on to try '
-          'again.',
+          kioskText(context, "Turned off automatically after repeated failed starts; the previous launcher was restored. Turn the switch back on to try again."),
         ),
       );
     }
     if (held) {
-      return const SettingsRow(
+      return SettingsRow(
         leading: Icon(Icons.check_circle_outline),
-        title: Text('Home screen'),
+        title: Text(kioskText(context, "Home screen")),
         subtitle: Text(
-          'Kiosk Satellite is the home screen. The kiosk starts at boot and '
-          'every home press returns to it.',
+          kioskText(context, "Kiosk Satellite is the home screen. The kiosk starts at boot and every home press returns to it."),
         ),
       );
     }
     if (!enabled) {
       return SettingsRow(
         leading: Icon(Icons.home_outlined, color: muted),
-        title: const Text('Home screen'),
+        title: Text(kioskText(context, "Home screen")),
         subtitle: Text(
-          'Not the home screen. Turn on Act as the home screen above.',
+          kioskText(context, "Not the home screen. Turn on Act as the home screen above."),
           style: TextStyle(color: muted),
         ),
       );
@@ -3882,16 +3879,15 @@ class _HomeRoleTileState extends State<_HomeRoleTile>
         : false);
     return SettingsRow(
       leading: Icon(Icons.error_outline, color: theme.colorScheme.error),
-      title: const Text('Home screen'),
-      subtitle: const Text(
-        'Not the current home screen yet: the device is waiting for a '
-        'confirmation.',
+      title: Text(kioskText(context, "Home screen")),
+      subtitle: Text(
+        kioskText(context, "Not the current home screen yet: the device is waiting for a confirmation."),
       ),
       trailing: TextButton(
         onPressed: () async {
           await widget.container.commands.execute('acquireHomeRole', const {});
         },
-        child: Text(settingsPath ? 'Open home settings' : 'Set as default'),
+        child: Text(settingsPath ? kioskText(context, "Open home settings") : kioskText(context, "Set as default")),
       ),
     );
   }

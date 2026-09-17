@@ -1,3 +1,4 @@
+import { kioskTextMessageIds } from './kiosk_text_ids.js';
 import { intercomTextMessageIds } from './intercom_text_ids.js';
 import { mediaTextMessageIds } from './media_text_ids.js';
 import { screensaverTextMessageIds } from './screensaver_text_ids.js';
@@ -84,6 +85,7 @@ export function settingsPageText(category, english) {
     : category === 'Screen & Audio' || category === 'screenaudio' ? screenAudioText(english)
     : category === 'Screensaver' || category === 'screensaver' ? screensaverText(english)
     : category === 'Camera' || category === 'camera' ? cameraText(english)
+    : ['Kiosk', 'kiosk', 'Home', 'home'].includes(category) ? kioskText(english)
     : category === 'Intercom' || category === 'intercom' ? (english === 'Answer' ? t('intercomAnswerSection') : english === 'Talk' ? t('intercomTalkSection') : intercomText(english))
     : category === 'Sendspin' || category === 'sendspin' ? mediaText(english) : english;
 }
@@ -221,4 +223,8 @@ export function intercomError(error, status = null) {
 }
 export function intercomAnnouncing(count) {
   return count === 1 ? t('intercomAnnouncingOne') : t('intercomAnnouncingMany', {count});
+}
+
+export function kioskText(english) {
+  return t(kioskTextMessageIds[english], {}, english);
 }

@@ -1,0 +1,158 @@
+{
+  "@@locale": "en",
+  "kioskHomeScreen": "Home screen",
+  "@kioskHomeScreen": {
+    "context": "Settings > Home Launcher > Status",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Launcher > Status"
+      ],
+      "remoteAdmin": [
+        "Home Launcher > Status"
+      ]
+    }
+  },
+  "kioskCheckingDevice": "Checking the device...",
+  "@kioskCheckingDevice": {
+    "context": "Settings > Home Launcher > Status",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Launcher > Status"
+      ]
+    }
+  },
+  "kioskFireOs": "Fire OS does not allow replacing its launcher.",
+  "@kioskFireOs": {
+    "context": "Settings > Home Launcher > Status",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Launcher > Status"
+      ],
+      "remoteAdmin": [
+        "Home Launcher > Status"
+      ]
+    }
+  },
+  "kioskUnsupported": "This device does not allow changing the home screen.",
+  "@kioskUnsupported": {
+    "context": "Settings > Home Launcher > Status",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Launcher > Status"
+      ],
+      "remoteAdmin": [
+        "Home Launcher > Status"
+      ]
+    }
+  },
+  "kioskRecovered": "Turned off automatically after repeated failed starts; the previous launcher was restored. Turn the switch back on to try again.",
+  "@kioskRecovered": {
+    "context": "Settings > Home Launcher > Status",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Launcher > Status"
+      ],
+      "remoteAdmin": [
+        "Home Launcher > Status"
+      ]
+    }
+  },
+  "kioskHeld": "Kiosk Satellite is the home screen. The kiosk starts at boot and every home press returns to it.",
+  "@kioskHeld": {
+    "context": "Settings > Home Launcher > Status",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Launcher > Status"
+      ],
+      "remoteAdmin": [
+        "Home Launcher > Status"
+      ]
+    }
+  },
+  "kioskDisabled": "Not the home screen. Turn on Act as the home screen above.",
+  "@kioskDisabled": {
+    "context": "Settings > Home Launcher > Status",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Launcher > Status"
+      ]
+    }
+  },
+  "kioskWaiting": "Not the current home screen yet: the device is waiting for a confirmation.",
+  "@kioskWaiting": {
+    "context": "Settings > Home Launcher > Status",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Launcher > Status"
+      ]
+    }
+  },
+  "kioskOpenHomeSettings": "Open home settings",
+  "@kioskOpenHomeSettings": {
+    "context": "Settings > Home Launcher > Status",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Launcher > Status"
+      ]
+    }
+  },
+  "kioskSetDefault": "Set as default",
+  "@kioskSetDefault": {
+    "context": "Settings > Home Launcher > Status",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Home Launcher > Status"
+      ]
+    }
+  },
+  "kioskActive": "Active",
+  "@kioskActive": {
+    "context": "Settings > Home Launcher > Status",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Home Launcher > Status"
+      ]
+    }
+  },
+  "kioskNotHome": "Not the home screen.",
+  "@kioskNotHome": {
+    "context": "Settings > Home Launcher > Status",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Home Launcher > Status"
+      ]
+    }
+  },
+  "kioskWaitingRemote": "Waiting for a confirmation on the device: the system dialog or home settings open there.",
+  "@kioskWaitingRemote": {
+    "context": "Settings > Home Launcher > Status",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Home Launcher > Status"
+      ]
+    }
+  },
+  "kioskSetDevice": "Set on device",
+  "@kioskSetDevice": {
+    "context": "Settings > Home Launcher > Status",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Home Launcher > Status"
+      ]
+    }
+  }
+}

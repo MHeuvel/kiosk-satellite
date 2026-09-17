@@ -10,6 +10,7 @@ import 'package:permission_handler/permission_handler.dart';
 import '../core/permissions.dart';
 
 import '../app_container.dart';
+import '../l10n/messages.dart';
 import 'screensaver_view.dart';
 import '../core/events.dart';
 import '../managers/browser/carousel_script.dart';
@@ -1275,19 +1276,19 @@ class _KioskScreenState extends State<KioskScreen>
   Future<bool> _askPin() async {
     final controller = TextEditingController();
     var failed = false;
-    final ok = await showDialog<bool>(
+    final route = DialogRoute<bool>(
       context: context,
       builder: (context) => StatefulBuilder(
         builder: (context, setDialogState) => AlertDialog(
-          title: const Text('Kiosk PIN'),
+          title: Text(kioskText(context, "Kiosk PIN")),
           content: TextField(
             controller: controller,
             autofocus: true,
             obscureText: true,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
-              hintText: 'PIN',
-              errorText: failed ? 'Wrong PIN' : null,
+              hintText: kioskText(context, "PIN"),
+              errorText: failed ? kioskText(context, "Wrong PIN") : null,
             ),
             onSubmitted: (v) {
               if (c.kiosk.pinMatches(v)) {
@@ -1300,7 +1301,7 @@ class _KioskScreenState extends State<KioskScreen>
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context, false),
-              child: const Text('Cancel'),
+              child: Text(kioskText(context, "Cancel")),
             ),
             FilledButton(
               onPressed: () {
@@ -1310,12 +1311,14 @@ class _KioskScreenState extends State<KioskScreen>
                   setDialogState(() => failed = true);
                 }
               },
-              child: const Text('Unlock'),
+              child: Text(kioskText(context, "Unlock")),
             ),
           ],
         ),
       ),
     );
+    final ok = await Navigator.of(context, rootNavigator: true).push(route);
+    await route.completed;
     controller.dispose();
     return ok ?? false;
   }

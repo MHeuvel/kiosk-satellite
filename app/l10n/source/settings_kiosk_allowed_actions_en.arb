@@ -1,0 +1,341 @@
+{
+  "@@locale": "en",
+  "settingKioskAllowDrawerTitle": "Allow menu with quick actions",
+  "@settingKioskAllowDrawerTitle": {
+    "context": "Settings > Kiosk Mode > Allowed Actions",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Allowed Actions > Allow menu with quick actions"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Allowed Actions > Allow menu with quick actions"
+      ]
+    }
+  },
+  "settingKioskAllowDrawerDescription": "An edge swipe opens the menu without the exit gesture or PIN, limited to the actions selected below.",
+  "@settingKioskAllowDrawerDescription": {
+    "context": "Settings > Kiosk Mode > Allowed Actions",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Allowed Actions > Allow menu with quick actions"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Allowed Actions > Allow menu with quick actions"
+      ]
+    }
+  },
+  "settingKioskAllowDashboardTitle": "Dashboard",
+  "@settingKioskAllowDashboardTitle": {
+    "context": "Settings > Kiosk Mode > Allowed Actions",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Allowed Actions > Dashboard"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Allowed Actions > Dashboard"
+      ]
+    }
+  },
+  "settingKioskAllowDashboardDescription": "Reload the start page.",
+  "@settingKioskAllowDashboardDescription": {
+    "context": "Settings > Kiosk Mode > Allowed Actions",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Allowed Actions > Dashboard"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Allowed Actions > Dashboard"
+      ]
+    }
+  },
+  "settingKioskAllowHaKioskTitle": "HA Kiosk Mode",
+  "@settingKioskAllowHaKioskTitle": {
+    "context": "Settings > Kiosk Mode > Allowed Actions",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Allowed Actions > HA Kiosk Mode"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Allowed Actions > HA Kiosk Mode"
+      ]
+    }
+  },
+  "settingKioskAllowHaKioskDescription": "Show or hide the Home Assistant header and sidebar.",
+  "@settingKioskAllowHaKioskDescription": {
+    "context": "Settings > Kiosk Mode > Allowed Actions",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Allowed Actions > HA Kiosk Mode"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Allowed Actions > HA Kiosk Mode"
+      ]
+    }
+  },
+  "settingKioskAllowCameraTitle": "Camera View",
+  "@settingKioskAllowCameraTitle": {
+    "context": "Settings > Kiosk Mode > Allowed Actions",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Allowed Actions > Camera View"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Allowed Actions > Camera View"
+      ]
+    }
+  },
+  "settingKioskAllowCameraDescription": "Open the default camera view.",
+  "@settingKioskAllowCameraDescription": {
+    "context": "Settings > Kiosk Mode > Allowed Actions",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Allowed Actions > Camera View"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Allowed Actions > Camera View"
+      ]
+    }
+  },
+  "settingKioskAllowIntercomTitle": "Intercom",
+  "@settingKioskAllowIntercomTitle": {
+    "context": "Settings > Kiosk Mode > Allowed Actions",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Allowed Actions > Intercom"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Allowed Actions > Intercom"
+      ]
+    }
+  },
+  "settingKioskAllowIntercomDescription": "Call other kiosks from the kiosk menu.",
+  "@settingKioskAllowIntercomDescription": {
+    "context": "Settings > Kiosk Mode > Allowed Actions",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Allowed Actions > Intercom"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Allowed Actions > Intercom"
+      ]
+    }
+  },
+  "settingKioskAllowMusicTitle": "Music Assistant",
+  "@settingKioskAllowMusicTitle": {
+    "context": "Settings > Kiosk Mode > Allowed Actions",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Allowed Actions > Music Assistant"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Allowed Actions > Music Assistant"
+      ]
+    }
+  },
+  "settingKioskAllowMusicDescription": "Open the Music Assistant web interface.",
+  "@settingKioskAllowMusicDescription": {
+    "context": "Settings > Kiosk Mode > Allowed Actions",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Allowed Actions > Music Assistant"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Allowed Actions > Music Assistant"
+      ]
+    }
+  },
+  "settingKioskAllowSendspinPlayerTitle": "Floating Player",
+  "@settingKioskAllowSendspinPlayerTitle": {
+    "context": "Settings > Kiosk Mode > Allowed Actions",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Allowed Actions > Floating Player"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Allowed Actions > Floating Player"
+      ]
+    }
+  },
+  "settingKioskAllowSendspinPlayerDescription": "Show or hide the floating player and open Now Playing.",
+  "@settingKioskAllowSendspinPlayerDescription": {
+    "context": "Settings > Kiosk Mode > Allowed Actions",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Allowed Actions > Floating Player"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Allowed Actions > Floating Player"
+      ]
+    }
+  },
+  "settingKioskAllowScreensaverTitle": "Start Screensaver",
+  "@settingKioskAllowScreensaverTitle": {
+    "context": "Settings > Kiosk Mode > Allowed Actions",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Allowed Actions > Start Screensaver"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Allowed Actions > Start Screensaver"
+      ]
+    }
+  },
+  "settingKioskAllowScreensaverDescription": "Start the screensaver now.",
+  "@settingKioskAllowScreensaverDescription": {
+    "context": "Settings > Kiosk Mode > Allowed Actions",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Allowed Actions > Start Screensaver"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Allowed Actions > Start Screensaver"
+      ]
+    }
+  },
+  "settingKioskAllowHoldTitle": "Hold Mode",
+  "@settingKioskAllowHoldTitle": {
+    "context": "Settings > Kiosk Mode > Allowed Actions",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Allowed Actions > Hold Mode"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Allowed Actions > Hold Mode"
+      ]
+    }
+  },
+  "settingKioskAllowHoldDescription": "Turn hold mode on or off.",
+  "@settingKioskAllowHoldDescription": {
+    "context": "Settings > Kiosk Mode > Allowed Actions",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Allowed Actions > Hold Mode"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Allowed Actions > Hold Mode"
+      ]
+    }
+  },
+  "settingKioskAllowLockdownTitle": "Lockdown Mode",
+  "@settingKioskAllowLockdownTitle": {
+    "context": "Settings > Kiosk Mode > Allowed Actions",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Allowed Actions > Lockdown Mode"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Allowed Actions > Lockdown Mode"
+      ]
+    }
+  },
+  "settingKioskAllowLockdownDescription": "Lock the screen until the exit gesture or a remote unlock.",
+  "@settingKioskAllowLockdownDescription": {
+    "context": "Settings > Kiosk Mode > Allowed Actions",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Allowed Actions > Lockdown Mode"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Allowed Actions > Lockdown Mode"
+      ]
+    }
+  },
+  "settingKioskAllowThemeTitle": "Theme picker",
+  "@settingKioskAllowThemeTitle": {
+    "context": "Settings > Kiosk Mode > Allowed Actions",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Allowed Actions > Theme picker"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Allowed Actions > Theme picker"
+      ]
+    }
+  },
+  "settingKioskAllowThemeDescription": "Switch between the light and dark themes.",
+  "@settingKioskAllowThemeDescription": {
+    "context": "Settings > Kiosk Mode > Allowed Actions",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Allowed Actions > Theme picker"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Allowed Actions > Theme picker"
+      ]
+    }
+  },
+  "settingKioskAllowAppsTitle": "Apps",
+  "@settingKioskAllowAppsTitle": {
+    "context": "Settings > Kiosk Mode > Allowed Actions",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Allowed Actions > Apps"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Allowed Actions > Apps"
+      ]
+    }
+  },
+  "settingKioskAllowAppsDescription": "Open the app launcher. With Disable home button on, launching an app unpins the kiosk until it returns.",
+  "@settingKioskAllowAppsDescription": {
+    "context": "Settings > Kiosk Mode > Allowed Actions",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Allowed Actions > Apps"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Allowed Actions > Apps"
+      ]
+    }
+  },
+  "kioskAllowedActions": "Allowed Actions",
+  "@kioskAllowedActions": {
+    "context": "Settings > Kiosk Mode > Allowed Actions",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Allowed Actions"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Allowed Actions"
+      ]
+    }
+  },
+  "kioskAllowedHelp": "Which quick actions the kiosk menu offers",
+  "@kioskAllowedHelp": {
+    "context": "Settings > Kiosk Mode > Allowed Actions",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Kiosk Mode > Allowed Actions"
+      ],
+      "remoteAdmin": [
+        "Kiosk Mode > Allowed Actions"
+      ]
+    }
+  }
+}

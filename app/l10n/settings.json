@@ -1134,5 +1134,105 @@
   "intercom.talk_mode": {
     "title": "settingIntercomTalkModeTitle",
     "description": "settingIntercomTalkModeDescription"
+  },
+  "kiosk.enabled": {
+    "title": "settingKioskEnabledTitle",
+    "description": "settingKioskEnabledDescription"
+  },
+  "kiosk.start_on_boot": {
+    "title": "settingKioskStartOnBootTitle",
+    "description": "settingKioskStartOnBootDescription"
+  },
+  "kiosk.exit_gesture": {
+    "title": "settingKioskExitGestureTitle",
+    "description": "settingKioskExitGestureDescription"
+  },
+  "kiosk.pin": {
+    "title": "settingKioskPinTitle",
+    "description": "settingKioskPinDescription"
+  },
+  "kiosk.disable_status_bar": {
+    "title": "settingKioskDisableStatusBarTitle",
+    "description": "settingKioskDisableStatusBarDescription"
+  },
+  "kiosk.disable_volume": {
+    "title": "settingKioskDisableVolumeTitle",
+    "description": "settingKioskDisableVolumeDescription"
+  },
+  "kiosk.disable_power": {
+    "title": "settingKioskDisablePowerTitle",
+    "description": "settingKioskDisablePowerDescription"
+  },
+  "kiosk.disable_home": {
+    "title": "settingKioskDisableHomeTitle",
+    "description": "settingKioskDisableHomeDescription"
+  },
+  "kiosk.disable_context_menus": {
+    "title": "settingKioskDisableContextMenusTitle",
+    "description": "settingKioskDisableContextMenusDescription"
+  },
+  "kiosk.disable_pull_to_refresh": {
+    "title": "settingKioskDisablePullRefreshTitle",
+    "description": "settingKioskDisablePullRefreshDescription"
+  },
+  "kiosk.disable_gestures": {
+    "title": "settingKioskDisableGesturesTitle",
+    "description": "settingKioskDisableGesturesDescription"
+  },
+  "kiosk.allow_drawer": {
+    "title": "settingKioskAllowDrawerTitle",
+    "description": "settingKioskAllowDrawerDescription"
+  },
+  "kiosk.allow_dashboard": {
+    "title": "settingKioskAllowDashboardTitle",
+    "description": "settingKioskAllowDashboardDescription"
+  },
+  "kiosk.allow_ha_kiosk": {
+    "title": "settingKioskAllowHaKioskTitle",
+    "description": "settingKioskAllowHaKioskDescription"
+  },
+  "kiosk.allow_camera": {
+    "title": "settingKioskAllowCameraTitle",
+    "description": "settingKioskAllowCameraDescription"
+  },
+  "kiosk.allow_intercom": {
+    "title": "settingKioskAllowIntercomTitle",
+    "description": "settingKioskAllowIntercomDescription"
+  },
+  "kiosk.allow_music": {
+    "title": "settingKioskAllowMusicTitle",
+    "description": "settingKioskAllowMusicDescription"
+  },
+  "kiosk.allow_sendspin_player": {
+    "title": "settingKioskAllowSendspinPlayerTitle",
+    "description": "settingKioskAllowSendspinPlayerDescription"
+  },
+  "kiosk.allow_screensaver": {
+    "title": "settingKioskAllowScreensaverTitle",
+    "description": "settingKioskAllowScreensaverDescription"
+  },
+  "kiosk.allow_hold": {
+    "title": "settingKioskAllowHoldTitle",
+    "description": "settingKioskAllowHoldDescription"
+  },
+  "kiosk.allow_lockdown": {
+    "title": "settingKioskAllowLockdownTitle",
+    "description": "settingKioskAllowLockdownDescription"
+  },
+  "kiosk.allow_theme": {
+    "title": "settingKioskAllowThemeTitle",
+    "description": "settingKioskAllowThemeDescription"
+  },
+  "kiosk.allow_apps": {
+    "title": "settingKioskAllowAppsTitle",
+    "description": "settingKioskAllowAppsDescription"
+  },
+  "home.enabled": {
+    "title": "settingHomeLauncherEnabledTitle",
+    "description": "settingHomeLauncherEnabledDescription"
+  },
+  "home.keep_pinning": {
+    "title": "settingHomeKeepPinningTitle",
+    "description": "settingHomeKeepPinningDescription"
   }
 }

@@ -69,9 +69,9 @@ void main() {
     }
   });
 
-  test('every visible Media Player, DLNA and Intercom setting has catalog messages', () {
+  test('every visible media, Intercom, Kiosk and Home setting has catalog messages', () {
     for (final setting in allSettings.where(
-      (s) => ['Sendspin', 'DLNA', 'Intercom'].contains(s.category) && !s.hidden,
+      (s) => ['Sendspin', 'DLNA', 'Intercom', 'Kiosk', 'Home'].contains(s.category) && !s.hidden,
     )) {
       expect(setting.titleMessageId, isNotNull, reason: setting.key);
       expect(setting.descriptionMessageId, isNotNull, reason: setting.key);
