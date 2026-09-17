@@ -5,6 +5,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ## Unreleased
 
 ### Added
+- **Voice Satellite settings now use translation templates throughout.** Add 64 messages for Wake Word tuning, cached models, the tester, Appearance and search. Language changes preserve model choices, tester history and command values. The tester fits narrow displays.
 - **Voice Satellite main controls use translation templates in both interfaces.** All 2668 catalog messages now have bundled, author-approved Spanish translations. Three templates add 49 messages for setup guidance, engine controls, satellite and pipeline selection, background listening and permissions. Translated controls preserve provider names and Home Assistant commands.
 - **Remaining ESPHome settings use translation templates in both interfaces.** All 2619 catalog messages now have bundled, author-approved Spanish translations. Seven templates add 114 messages for Bluetooth Proxy, nearby devices, Notifications, Announcements, GPS Sensor and permissions. Language changes preserve device data, selected voices and saved values.
 - **ESPHome setup uses translation templates in both interfaces.** All 2505 catalog messages now have bundled, author-approved Spanish translations. Fifty new messages cover server setup, excluded entities and Advanced settings. Language changes preserve selected entities, network identifiers and credentials.

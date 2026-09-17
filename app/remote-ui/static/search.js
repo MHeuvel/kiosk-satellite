@@ -217,10 +217,11 @@ export function searchSettingsIndex(query) {
   [...SEARCH_PAGES.map(page => ({...page, title: navigationText(page.title), desc: navigationText(page.desc), englishAlias: `${page.title} ${page.desc}`})), ...subs, ...defs, ...SEARCH_EXTRAS, ...pluginSearchEntries()].forEach((raw, order) => {
     if (typeof raw.title !== 'string' || !raw.title.trim()) return;
     const e = {...raw, desc: typeof raw.desc === 'string' ? raw.desc : ''};
-    if ((e.tab === 'device' || e.tab === 'homeassistant' || e.tab === 'screenaudio' || e.tab === 'screensaver')) {
+    if ((e.tab === 'device' || e.tab === 'homeassistant' || e.tab === 'screenaudio' || e.tab === 'screensaver' || e.tab === 'voicesatellite')) {
       e.englishAlias = `${e.englishAlias || ''} ${e.title} ${e.desc}`;
       e.title = settingsPageText(e.tab, e.title);
       e.desc = settingsPageText(e.tab, e.desc);
+      if (e.tab === 'voicesatellite' && e.heading) e.heading = settingsPageText(e.tab, e.heading);
     }
     if (e.onlyWith && !shown(e.onlyWith)) return;
     const title = e.title.toLowerCase();

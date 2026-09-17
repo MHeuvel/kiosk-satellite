@@ -15255,6 +15255,78 @@ abstract class UiStrings {
   /// **'No settings match \"{query}\".'**
   String settingsSearchEmpty(String query);
 
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Overlay skin, theme, activity bar, text size'**
+  String get voiceAppearanceHint;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Skin'**
+  String get voiceSkin;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The look of the voice assistant overlay.'**
+  String get voiceSkinHelp;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme mode'**
+  String get voiceTheme;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Light or dark rendering of the overlay.'**
+  String get voiceThemeHelp;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Reactive activity bar'**
+  String get voiceReactive;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The activity bar reacts to audio. NOT RECOMMENDED for low-power devices like the Echo Show.'**
+  String get voiceReactiveHelp;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Reactive bar update rate'**
+  String get voiceRate;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'How often the activity bar redraws. Higher is smoother and uses more CPU.'**
+  String get voiceRateHelp;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The size of the overlay text.'**
+  String get voiceScaleHelp;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Update the Voice Satellite integration in Home Assistant to control these settings from the kiosk.'**
+  String get voiceUpdateIntegration;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Available while the kiosk is showing your Home Assistant dashboard.'**
+  String get voiceDashboardRequired;
+
   /// Label or help shown on the Voice Satellite main page.
   ///
   /// In en, this message translates to:
@@ -15495,6 +15567,12 @@ abstract class UiStrings {
   /// **'Grant these on the device itself: swipe in from the left edge → Settings → Voice Satellite → Required system permissions.'**
   String get voicePermissionDirections;
 
+  /// Search-result description for the permission group.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone and the other grants wake word detection needs.'**
+  String get voicePermissionsSearch;
+
   /// Label or help shown on the Voice Satellite main page.
   ///
   /// In en, this message translates to:
@@ -15548,6 +15626,312 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Loading Voice Satellite controls…'**
   String get voiceLoading;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Wake Word Tester'**
+  String get voiceTester;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch what the engine hears and scores in real time, to see why the wake word is or is not triggering.'**
+  String get voiceTesterHelp;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'A live look at what the engine hears and scores.'**
+  String get voiceTesterSearch;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for Voice Satellite'**
+  String get voiceTesterWaiting;
+
+  /// Marks a spoken word as the stop word in the model picker. Keep {word} unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'{word} (stop word)'**
+  String voiceStopWordNamed(String word);
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Score'**
+  String get voiceScore;
+
+  /// The score needed to trigger detection. Shown in the chart legend.
+  ///
+  /// In en, this message translates to:
+  /// **'Threshold'**
+  String get voiceThreshold;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Hits'**
+  String get voiceHits;
+
+  /// Count of samples close to triggering that did not become detections.
+  ///
+  /// In en, this message translates to:
+  /// **'Near misses'**
+  String get voiceNearMisses;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Peak'**
+  String get voicePeak;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Mic level'**
+  String get voiceMicLevel;
+
+  /// Time to process an audio chunk, summarized as minimum, average and maximum. Keep the three values in that order.
+  ///
+  /// In en, this message translates to:
+  /// **'Chunk processing (min / avg / max)'**
+  String get voiceChunkProcessing;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Log'**
+  String get voiceLog;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Detections and near misses will appear here.'**
+  String get voiceLogEmpty;
+
+  /// Log marker for a successful detection. May be uppercase in the translation.
+  ///
+  /// In en, this message translates to:
+  /// **'HIT'**
+  String get voiceLogHit;
+
+  /// Short log marker for a near miss: the model heard something but did not trigger.
+  ///
+  /// In en, this message translates to:
+  /// **'near'**
+  String get voiceLogNear;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'score'**
+  String get voiceLogScore;
+
+  /// Label before the phonemes decoded by the model. The phonemes themselves must stay unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'decoded'**
+  String get voiceLogDecoded;
+
+  /// Short label before the edit distance between decoded phonemes and the target word. This is a diagnostic label, not a language code.
+  ///
+  /// In en, this message translates to:
+  /// **'ed'**
+  String get voiceLogDistance;
+
+  /// Short label before a matched-confidence measurement in the diagnostic log.
+  ///
+  /// In en, this message translates to:
+  /// **'conf'**
+  String get voiceLogConfidence;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Wake Word'**
+  String get voiceWakePage;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Engine, wake words, sensitivity, cached models'**
+  String get voiceWakeHint;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Wake word'**
+  String get voiceWakeLabel;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Wake word engine'**
+  String get voiceWakeEngine;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Where detection runs and which engine listens.'**
+  String get voiceWakeEngineHelp;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Wake word 1'**
+  String get voiceWake1;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The word that starts a voice command.'**
+  String get voiceWake1Help;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Wake word 2'**
+  String get voiceWake2;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'A second wake word, answered by Assist pipeline 2.'**
+  String get voiceWake2Help;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Wake word sensitivity'**
+  String get voiceSensitivity;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'How easily the wake word triggers.'**
+  String get voiceSensitivityHelp;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Wake word noise gate'**
+  String get voiceNoiseGate;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip local wake word inference while the room is quiet, saving CPU.'**
+  String get voiceNoiseGateHelp;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop word interruption'**
+  String get voiceStopInterruption;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Say the stop word to interrupt responses.'**
+  String get voiceStopInterruptionHelp;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Assign a satellite to control these settings.'**
+  String get voiceAssignFirst;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Cached models'**
+  String get voiceCachedModels;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Re-download from Home Assistant. Use after re-publishing a model.'**
+  String get voiceCachedModelsHelp;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear cache'**
+  String get voiceClearCache;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Clearing…'**
+  String get voiceClearing;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Files cleared: {count}. Downloading again.'**
+  String voiceCacheCleared(String count);
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleared {count}'**
+  String voiceCacheCount(String count);
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Very sensitive'**
+  String get voiceVerySensitive;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Prefer fp32 vsWakeWord models'**
+  String get voiceWakeWordPreferFp32Title;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Uses fp32 models instead of smaller int8 versions. Adds 10-30% more CPU usage while listening to avoid about 2% confidence drift.'**
+  String get voiceWakeWordPreferFp32Description;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Resume timeout (seconds)'**
+  String get voiceWakeWordResumeTimeoutSecondsTitle;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Self-heal: resume listening if the page never calls setWakeWordActive(true) after a handoff. Waits while a voice turn is still streaming audio, so a long turn is never cut short.'**
+  String get voiceWakeWordResumeTimeoutSecondsDescription;
+
+  /// Built-in option label. Keep engine names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Slightly sensitive'**
+  String get voiceSlightlySensitive;
+
+  /// Built-in option label. Keep engine names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Moderately sensitive'**
+  String get voiceModeratelySensitive;
+
+  /// Built-in option label. Keep engine names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'On Device'**
+  String get voiceOnDevice;
+
+  /// Built-in option label. Keep engine names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'On device ({engine})'**
+  String voiceOnDeviceEngine(String engine);
 
   /// Setting label.
   ///

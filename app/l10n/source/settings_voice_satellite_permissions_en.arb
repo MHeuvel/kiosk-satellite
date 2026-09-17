@@ -129,5 +129,18 @@
         "Voice Satellite > Required system permissions"
       ]
     }
+  },
+  "voicePermissionsSearch": "Microphone and the other grants wake word detection needs.",
+  "@voicePermissionsSearch": {
+    "context": "Settings search > Voice Satellite > Required system permissions",
+    "description": "Search-result description for the permission group.",
+    "x-locations": {
+      "device": [
+        "Settings search"
+      ],
+      "remoteAdmin": [
+        "Settings search"
+      ]
+    }
   }
 }

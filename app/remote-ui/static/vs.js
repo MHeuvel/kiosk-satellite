@@ -1,4 +1,4 @@
-import { voiceText, voiceVadOption } from './localization.js';
+import { voiceText, voiceEntityOption, t } from './localization.js';
 import { watchUpdates } from './live.js';
 import { toggleRow } from './audio.js';
 import { cmd, state } from './core.js';
@@ -124,7 +124,7 @@ export async function renderVsControls(root, { auto = false } = {}) {
     return toggleRow(voiceText(title), voiceText(desc), ent.state === 'on',
       (v) => switchEntity(key, v));
   };
-  const entityRow = (key, title, desc, capitalize) => {
+  const entityRow = (key, title, desc) => {
     const ent = entity(key);
     if (!ent) return null;
     if (!ent.available || !(ent.options || []).length) {
@@ -132,8 +132,7 @@ export async function renderVsControls(root, { auto = false } = {}) {
     }
     // Options whose values are bare lowercase words render like Home
     // Assistant shows them; the raw value is what gets written.
-    const label = (o) => key === 'vad_sensitivity' ? voiceVadOption(o)
-      : capitalize && o ? o[0].toUpperCase() + o.slice(1) : o;
+    const label = (o) => voiceEntityOption(key, o);
     return vsSelectRow(voiceText(title), voiceText(desc),
       (ent.options || []).map((o) => ({ value: o, label: label(o) })),
       ent.state, (v) => selectEntity(key, v));
@@ -229,7 +228,7 @@ export async function renderVsControls(root, { auto = false } = {}) {
     entityRow('pipeline_2', 'Assist pipeline 2',
       'The pipeline used when the second wake word triggers.'),
     entityRow('vad_sensitivity', 'Finished speaking detection',
-      'How long a pause ends a voice command.', true),
+      'How long a pause ends a voice command.'),
   ]) if (row) generalCard.appendChild(row);
   // Only offered once the settings hook reports the key: an older Voice
   // Satellite silently drops writes it does not know.
@@ -281,27 +280,28 @@ export async function renderVsControls(root, { auto = false } = {}) {
     if (onDevice) {
       const row = document.createElement('div'); row.className = 'row';
       const info = document.createElement('div'); info.className = 'info';
-      info.innerHTML = `<div class="name">Cached models</div>` +
-        `<div class="desc">Re-download from Home Assistant. Use after re-publishing a model.</div>`;
+      info.innerHTML = `<div class="name"></div><div class="desc"></div>`;
+      info.querySelector('.name').textContent = voiceText('Cached models');
+      info.querySelector('.desc').textContent = voiceText('Re-download from Home Assistant. Use after re-publishing a model.');
       row.appendChild(info);
       const btn = document.createElement('button');
       btn.className = 'btn-ghost';
-      btn.textContent = 'Clear cache';
+      btn.textContent = voiceText('Clear cache');
       btn.addEventListener('click', async () => {
         btn.disabled = true;
-        btn.textContent = 'Clearing…';
+        btn.textContent = voiceText('Clearing…');
         try {
           const r = await cmd('clearWakeWordModels');
-          btn.textContent = r.ok ? `Cleared ${r.data.removed}` : 'Failed';
-        } catch { btn.textContent = 'Failed'; }
-        setTimeout(() => { btn.disabled = false; btn.textContent = 'Clear cache'; }, 1200);
+          btn.textContent = r.ok ? t('voiceCacheCount', {count: String(r.data.removed ?? 0)}) : voiceText('Failed');
+        } catch { btn.textContent = voiceText('Failed'); }
+        setTimeout(() => { btn.disabled = false; btn.textContent = voiceText('Clear cache'); }, 1200);
       });
       row.appendChild(btn);
       wakeCard.appendChild(row);
     }
   } else {
-    wakeCard.appendChild(readOnlyRow('Wake word',
-      'Assign a satellite to control these settings.', ''));
+    wakeCard.appendChild(readOnlyRow(voiceText('Wake word'),
+      voiceText('Assign a satellite to control these settings.'), ''));
   }
 
   // Appearance: browser-local, through the page hook.
@@ -309,34 +309,34 @@ export async function renderVsControls(root, { auto = false } = {}) {
   if (!browser) {
     // An outdated Voice Satellite runs without the settings hook; that
     // asks for an update, not for showing the dashboard.
-    appearanceCard.appendChild(readOnlyRow('Not available',
+    appearanceCard.appendChild(readOnlyRow(voiceText('Not available'),
       data.browserState === 'outdated'
-        ? 'Update the Voice Satellite integration in Home Assistant to control these settings from the kiosk.'
-        : 'Available while the kiosk is showing your Home Assistant dashboard.',
+        ? voiceText('Update the Voice Satellite integration in Home Assistant to control these settings from the kiosk.')
+        : voiceText('Available while the kiosk is showing your Home Assistant dashboard.'),
       ''));
   } else {
     const skins = (data.browser.skins || [])
       .map((s) => ({ value: s.value, label: s.label }));
-    appearanceCard.appendChild(vsSelectRow('Skin',
-      'The look of the voice assistant overlay.', skins,
+    appearanceCard.appendChild(vsSelectRow(voiceText('Skin'),
+      voiceText('The look of the voice assistant overlay.'), skins,
       browser.skin || 'default', (v) => applyBrowser({ skin: v })));
-    appearanceCard.appendChild(vsSelectRow('Theme mode',
-      'Light or dark rendering of the overlay.',
-      [{ value: 'auto', label: 'Auto' }, { value: 'light', label: 'Light' },
-       { value: 'dark', label: 'Dark' }],
+    appearanceCard.appendChild(vsSelectRow(voiceText('Theme mode'),
+      voiceText('Light or dark rendering of the overlay.'),
+      [{ value: 'auto', label: voiceText('Auto') }, { value: 'light', label: voiceText('Light') },
+       { value: 'dark', label: voiceText('Dark') }],
       browser.theme_mode || 'auto', (v) => applyBrowser({ theme_mode: v })));
-    appearanceCard.appendChild(toggleRow('Reactive activity bar',
-      'The activity bar reacts to audio. NOT RECOMMENDED for low-power devices like the Echo Show.',
+    appearanceCard.appendChild(toggleRow(voiceText('Reactive activity bar'),
+      voiceText('The activity bar reacts to audio. NOT RECOMMENDED for low-power devices like the Echo Show.'),
       browser.reactive_bar !== false,
       (v) => applyBrowser({ reactive_bar: v })));
     const fps = Math.min(60, Math.max(5,
       Math.round(1000 / (browser.reactive_bar_update_interval_ms || 33))));
-    appearanceCard.appendChild(vsSliderRow('Reactive bar update rate',
-      'How often the activity bar redraws. Higher is smoother and uses more CPU.',
+    appearanceCard.appendChild(vsSliderRow(voiceText('Reactive bar update rate'),
+      voiceText('How often the activity bar redraws. Higher is smoother and uses more CPU.'),
       5, 60, 1, ' fps', fps,
       (v) => applyBrowser({ reactive_bar_update_interval_ms: Math.round(1000 / v) })));
-    appearanceCard.appendChild(vsSliderRow('Text scale',
-      'The size of the overlay text.', 50, 200, 5, '%',
+    appearanceCard.appendChild(vsSliderRow(voiceText('Text scale'),
+      voiceText('The size of the overlay text.'), 50, 200, 5, '%',
       browser.text_scale || 100, (v) => applyBrowser({ text_scale: v })));
   }
 

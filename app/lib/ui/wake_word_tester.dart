@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../app_container.dart';
+import '../l10n/messages.dart';
 import '../managers/wake_word/engine.dart';
 import 'kit.dart';
 import 'toast.dart';
@@ -20,7 +21,8 @@ class _Sample {
       editDistance = (m['editDistance'] as num?)?.toInt(),
       matchedConfidence = (m['matchedConfidence'] as num?)?.toDouble(),
       decoded = (m['decoded'] as String?) ?? '',
-      latencyUs = ((m['chunkLatencyUs'] ?? m['latencyUs']) as num?)?.toInt() ?? 0;
+      latencyUs =
+          ((m['chunkLatencyUs'] ?? m['latencyUs']) as num?)?.toInt() ?? 0;
 
   final double score;
   final double threshold;
@@ -50,10 +52,12 @@ class WakeWordTesterTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: const Icon(Icons.insights_outlined),
-      title: const Text('Open tester'),
-      subtitle: const Text(
-        'Watch what the engine hears and scores in real time, to see why '
-        'the wake word is or is not triggering.',
+      title: Text(voiceText(context, 'Open tester')),
+      subtitle: Text(
+        voiceText(
+          context,
+          'Watch what the engine hears and scores in real time, to see why the wake word is or is not triggering.',
+        ),
       ),
       trailing: const Icon(Icons.chevron_right),
       onTap: () => showDialog<void>(
@@ -78,7 +82,7 @@ class _WakeWordTesterDialogState extends State<_WakeWordTesterDialog> {
   static const _logCapacity = 200;
 
   final List<_Sample> _samples = [];
-  final List<(String, bool)> _log = []; // (line, isHit)
+  final List<(String, _Sample)> _log = []; // Timestamp and original telemetry.
   final _repaint = _Repaint();
   final _logScroll = ScrollController();
   final _logScrollH = ScrollController();
@@ -90,7 +94,7 @@ class _WakeWordTesterDialogState extends State<_WakeWordTesterDialog> {
   String _engine = '';
   // Every wake word (and the stop word) loaded for this session, so the
   // tester can watch one at a time instead of a blur of all their scores.
-  List<({String id, String label})> _words = const [];
+  List<({String id, String label, bool stop})> _words = const [];
   String? _selectedId;
   bool _dirty = false;
   bool _newSamples = false;
@@ -109,14 +113,8 @@ class _WakeWordTesterDialogState extends State<_WakeWordTesterDialog> {
     if (cfg != null) {
       final stop = cfg.stopModel;
       _words = [
-        for (final m in cfg.models) (id: m.id, label: m.wakeWord),
-        if (stop != null)
-          (
-            id: stop.id,
-            label: stop.wakeWord.isEmpty
-                ? 'Stop word'
-                : '${stop.wakeWord} (stop word)',
-          ),
+        for (final m in cfg.models) (id: m.id, label: m.wakeWord, stop: false),
+        if (stop != null) (id: stop.id, label: stop.wakeWord, stop: true),
       ];
       if (_words.isNotEmpty) _selectedId = _words.first.id;
     }
@@ -162,12 +160,7 @@ class _WakeWordTesterDialogState extends State<_WakeWordTesterDialog> {
     final t = DateTime.now().toIso8601String().substring(11, 19);
     if (s.fired) {
       _hits++;
-      _addLog(
-        '$t  HIT  score ${s.score.toStringAsFixed(3)}'
-        '${s.decoded.isNotEmpty ? '  [${s.decoded}]' : ''}'
-        '${s.editDistance != null && s.editDistance! >= 0 ? '  ed ${s.editDistance}' : ''}',
-        true,
-      );
+      _addLog(t, s);
     } else {
       // Near miss. For vsWakeWord this is the payoff: what phonemes the
       // model decoded, so a miss reads as "heard X, wanted Y". Deduped and
@@ -181,22 +174,34 @@ class _WakeWordTesterDialogState extends State<_WakeWordTesterDialog> {
         _nearMisses++;
         _lastLogged = s.decoded;
         _lastNearMs = nowMs;
-        _addLog(
-          '$t  near  score ${s.score.toStringAsFixed(3)}'
-          '${s.decoded.isNotEmpty ? '  decoded=[${s.decoded}]' : ''}'
-          '${s.editDistance != null && s.editDistance! >= 0 ? '  ed ${s.editDistance}' : ''}'
-          '${s.matchedConfidence != null ? '  conf ${s.matchedConfidence!.toStringAsFixed(2)}' : ''}',
-          false,
-        );
+        _addLog(t, s);
       }
     }
     _dirty = true;
     // No repaint here: the frame timer coalesces repaints to ~30 fps.
   }
 
-  void _addLog(String line, bool hit) {
-    _log.add((line, hit));
+  void _addLog(String time, _Sample sample) {
+    _log.add((time, sample));
     if (_log.length > _logCapacity) _log.removeAt(0);
+  }
+
+  String _logLine(BuildContext context, (String, _Sample) entry) {
+    final (time, sample) = entry;
+    final parts = [
+      time,
+      voiceText(context, sample.fired ? 'HIT' : 'near'),
+      '${voiceText(context, 'score')} ${sample.score.toStringAsFixed(3)}',
+      if (sample.decoded.isNotEmpty)
+        sample.fired
+            ? '[${sample.decoded}]'
+            : '${voiceText(context, 'decoded')}=[${sample.decoded}]',
+      if (sample.editDistance != null && sample.editDistance! >= 0)
+        '${voiceText(context, 'ed')} ${sample.editDistance}',
+      if (!sample.fired && sample.matchedConfidence != null)
+        '${voiceText(context, 'conf')} ${sample.matchedConfidence!.toStringAsFixed(2)}',
+    ];
+    return parts.join('  ');
   }
 
   // Switch which wake word we are watching. Its chart, stats, and log are
@@ -254,259 +259,308 @@ class _WakeWordTesterDialogState extends State<_WakeWordTesterDialog> {
         constraints: const BoxConstraints(maxWidth: 660, maxHeight: 720),
         child: Padding(
           padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                children: [
-                  Icon(
-                    Icons.insights_outlined,
-                    color: theme.colorScheme.primary,
-                  ),
-                  const SizedBox(width: 10),
-                  Text('Wake Word Tester', style: theme.textTheme.titleMedium),
-                  const Spacer(),
-                  IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 6),
-              Row(
-                children: [
-                  Text(
-                    'Wake word',
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: theme.colorScheme.onSurfaceVariant,
+          child: _body(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      Icons.insights_outlined,
+                      color: theme.colorScheme.primary,
                     ),
-                  ),
-                  const SizedBox(width: 12),
-                  if (_words.isEmpty)
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Text(
+                        voiceText(context, 'Wake Word Tester'),
+                        style: theme.textTheme.titleMedium,
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.close),
+                      tooltip: voiceText(context, 'Close'),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 6),
+                Wrap(
+                  spacing: 12,
+                  runSpacing: 6,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
                     Text(
-                      'Waiting for Voice Satellite',
-                      style: theme.textTheme.bodyMedium?.copyWith(
+                      voiceText(context, 'Wake word'),
+                      style: theme.textTheme.bodySmall?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
                       ),
-                    )
-                  else
-                    KsDropdown<String>(
-                      value: _selectedId,
-                      items: [
-                        for (final w in _words)
-                          DropdownMenuItem(value: w.id, child: Text(w.label)),
-                      ],
-                      onChanged: (id) {
-                        if (id != null) _selectWord(id);
-                      },
                     ),
-                  const Spacer(),
-                  if (_engine.isNotEmpty)
-                    Text(
-                      _engine,
-                      style: theme.textTheme.labelMedium?.copyWith(
-                        color: theme.colorScheme.primary,
+                    if (_words.isEmpty)
+                      Text(
+                        voiceText(context, 'Waiting for Voice Satellite'),
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: theme.colorScheme.onSurfaceVariant,
+                        ),
+                      )
+                    else
+                      SizedBox(
+                        width: math.min(
+                          260,
+                          MediaQuery.sizeOf(context).width - 80,
+                        ),
+                        child: KsDropdown<String>(
+                          expand: true,
+                          value: _selectedId,
+                          items: [
+                            for (final w in _words)
+                              DropdownMenuItem(
+                                value: w.id,
+                                child: Text(
+                                  w.stop
+                                      ? (w.label.isEmpty
+                                            ? voiceText(context, 'Stop word')
+                                            : l10n(
+                                                context,
+                                              ).voiceStopWordNamed(w.label))
+                                      : w.label,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                          ],
+                          onChanged: (id) {
+                            if (id != null) _selectWord(id);
+                          },
+                        ),
                       ),
+                    if (_engine.isNotEmpty)
+                      Text(
+                        _engine,
+                        style: theme.textTheme.labelMedium?.copyWith(
+                          color: theme.colorScheme.primary,
+                        ),
+                      ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                // Chart — repaints from [_repaint], not the widget rebuild.
+                SizedBox(
+                  height: 230,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.surfaceContainerHighest,
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                ],
-              ),
-              const SizedBox(height: 12),
-              // Chart — repaints from [_repaint], not the widget rebuild.
-              SizedBox(
-                height: 230,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.surfaceContainerHighest,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  clipBehavior: Clip.antiAlias,
-                  child: RepaintBoundary(
-                    child: CustomPaint(
-                      painter: _ScorePainter(
-                        samples: _samples,
-                        repaint: _repaint,
-                        primary: theme.colorScheme.primary,
-                        threshold: theme.colorScheme.error,
-                        grid: theme.colorScheme.outlineVariant,
-                        label: theme.colorScheme.onSurfaceVariant,
+                    clipBehavior: Clip.antiAlias,
+                    child: RepaintBoundary(
+                      child: CustomPaint(
+                        painter: _ScorePainter(
+                          samples: _samples,
+                          repaint: _repaint,
+                          primary: theme.colorScheme.primary,
+                          threshold: theme.colorScheme.error,
+                          grid: theme.colorScheme.outlineVariant,
+                          label: theme.colorScheme.onSurfaceVariant,
+                        ),
+                        size: Size.infinite,
                       ),
-                      size: Size.infinite,
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 8),
-              Row(
-                children: [
-                  _legend(theme, theme.colorScheme.primary, 'Score'),
-                  const SizedBox(width: 14),
-                  _legend(theme, theme.colorScheme.error, 'Threshold'),
-                ],
-              ),
-              const SizedBox(height: 12),
-              Wrap(
-                spacing: 22,
-                runSpacing: 10,
-                children: [
-                  _stat(theme, 'Hits', '$_hits'),
-                  _stat(theme, 'Near misses', '$_nearMisses'),
-                  _stat(
-                    theme,
-                    'Score',
-                    last == null ? '-' : last.score.toStringAsFixed(3),
-                  ),
-                  _stat(theme, 'Peak', peak.toStringAsFixed(3)),
-                  _stat(
-                    theme,
-                    'Mic level',
-                    last == null ? '-' : last.rms.toStringAsFixed(3),
-                  ),
-                  _stat(
-                    theme,
-                    'Chunk processing (min / avg / max)',
-                    '${lat.min} / ${lat.avg} / ${lat.max} ms',
-                  ),
-                ],
-              ),
-              const SizedBox(height: 12),
-              // The telemetry log: hits and near misses, with the decoded
-              // phonemes for vsWakeWord.
-              Row(
-                children: [
-                  Text(
-                    'Log',
-                    style: theme.textTheme.labelMedium?.copyWith(
-                      color: theme.colorScheme.onSurfaceVariant,
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    _legend(theme, theme.colorScheme.primary, 'Score'),
+                    const SizedBox(width: 14),
+                    _legend(theme, theme.colorScheme.error, 'Threshold'),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                Wrap(
+                  spacing: 22,
+                  runSpacing: 10,
+                  children: [
+                    _stat(theme, 'Hits', '$_hits'),
+                    _stat(theme, 'Near misses', '$_nearMisses'),
+                    _stat(
+                      theme,
+                      'Score',
+                      last == null ? '-' : last.score.toStringAsFixed(3),
                     ),
-                  ),
-                  const Spacer(),
-                  TextButton.icon(
-                    onPressed: _log.isEmpty
-                        ? null
-                        : () async {
-                            await Clipboard.setData(
-                              ClipboardData(
-                                text: _log.map((e) => e.$1).join('\n'),
-                              ),
-                            );
-                            if (!context.mounted) return;
-                            showToast(
-                              context,
-                              title: 'Copied',
-                              message: 'The log is on the clipboard.',
-                              kind: ToastKind.success,
-                              duration: const Duration(seconds: 2),
-                            );
-                          },
-                    icon: const Icon(Icons.copy_outlined, size: 16),
-                    label: const Text('Copy'),
-                    style: TextButton.styleFrom(
-                      visualDensity: VisualDensity.compact,
+                    _stat(theme, 'Peak', peak.toStringAsFixed(3)),
+                    _stat(
+                      theme,
+                      'Mic level',
+                      last == null ? '-' : last.rms.toStringAsFixed(3),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 4),
-              Expanded(
-                child: Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.surface,
-                    border: Border.all(color: theme.colorScheme.outlineVariant),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: LayoutBuilder(
-                    builder: (context, cons) {
-                      final logW = cons.maxWidth;
-                      return _log.isEmpty
-                          ? Text(
-                              'Detections and near misses will appear here.',
-                              style: theme.textTheme.bodySmall?.copyWith(
-                                color: theme.colorScheme.onSurfaceVariant,
-                              ),
-                            )
-                          // No wrap: long lines (a full decoded phoneme run)
-                          // scroll horizontally instead of folding. Both bars
-                          // shown; each scrollbar reacts only to its own axis so
-                          // the nested views do not fight.
-                          : Scrollbar(
-                              controller: _logScroll,
-                              thumbVisibility: true,
-                              notificationPredicate: (n) =>
-                                  n.metrics.axis == Axis.vertical,
-                              child: SingleChildScrollView(
+                    _stat(
+                      theme,
+                      'Chunk processing (min / avg / max)',
+                      '${lat.min} / ${lat.avg} / ${lat.max} ms',
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                // The telemetry log: hits and near misses, with the decoded
+                // phonemes for vsWakeWord.
+                Row(
+                  children: [
+                    Text(
+                      voiceText(context, 'Log'),
+                      style: theme.textTheme.labelMedium?.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                    const Spacer(),
+                    TextButton.icon(
+                      onPressed: _log.isEmpty
+                          ? null
+                          : () async {
+                              await Clipboard.setData(
+                                ClipboardData(
+                                  text: _log
+                                      .map((e) => _logLine(context, e))
+                                      .join('\n'),
+                                ),
+                              );
+                              if (!context.mounted) return;
+                              showToast(
+                                context,
+                                title: voiceText(context, 'Copied'),
+                                message: voiceText(
+                                  context,
+                                  'The log is on the clipboard.',
+                                ),
+                                kind: ToastKind.success,
+                                duration: const Duration(seconds: 2),
+                              );
+                            },
+                      icon: const Icon(Icons.copy_outlined, size: 16),
+                      label: Text(voiceText(context, 'Copy')),
+                      style: TextButton.styleFrom(
+                        visualDensity: VisualDensity.compact,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 4),
+                _logArea(
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.surface,
+                      border: Border.all(
+                        color: theme.colorScheme.outlineVariant,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: LayoutBuilder(
+                      builder: (context, cons) {
+                        final logW = cons.maxWidth;
+                        return _log.isEmpty
+                            ? Text(
+                                voiceText(
+                                  context,
+                                  'Detections and near misses will appear here.',
+                                ),
+                                style: theme.textTheme.bodySmall?.copyWith(
+                                  color: theme.colorScheme.onSurfaceVariant,
+                                ),
+                              )
+                            // No wrap: long lines (a full decoded phoneme run)
+                            // scroll horizontally instead of folding. Both bars
+                            // shown; each scrollbar reacts only to its own axis so
+                            // the nested views do not fight.
+                            : Scrollbar(
                                 controller: _logScroll,
-                                child: Scrollbar(
-                                  controller: _logScrollH,
-                                  thumbVisibility: true,
-                                  notificationPredicate: (n) =>
-                                      n.metrics.axis == Axis.horizontal,
-                                  child: SingleChildScrollView(
+                                thumbVisibility: true,
+                                notificationPredicate: (n) =>
+                                    n.metrics.axis == Axis.vertical,
+                                child: SingleChildScrollView(
+                                  controller: _logScroll,
+                                  child: Scrollbar(
                                     controller: _logScrollH,
-                                    scrollDirection: Axis.horizontal,
-                                    padding: const EdgeInsets.only(bottom: 12),
-                                    // Fill the pane's width so short logs still
-                                    // occupy the whole field and the horizontal
-                                    // bar only appears when a line truly overruns,
-                                    // otherwise the bars jitter as text lands.
-                                    child: ConstrainedBox(
-                                      constraints: BoxConstraints(
-                                        minWidth: logW,
+                                    thumbVisibility: true,
+                                    notificationPredicate: (n) =>
+                                        n.metrics.axis == Axis.horizontal,
+                                    child: SingleChildScrollView(
+                                      controller: _logScrollH,
+                                      scrollDirection: Axis.horizontal,
+                                      padding: const EdgeInsets.only(
+                                        bottom: 12,
                                       ),
-                                      child: SelectableText.rich(
-                                        TextSpan(
-                                          children: [
-                                            for (final (i, entry)
-                                                in _log.indexed)
-                                              TextSpan(
-                                                text:
-                                                    entry.$1 +
-                                                    (i == _log.length - 1
-                                                        ? ''
-                                                        : '\n'),
-                                                style: entry.$2
-                                                    ? TextStyle(
-                                                        color: theme
-                                                            .colorScheme
-                                                            .primary,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                      )
-                                                    : null,
-                                              ),
-                                          ],
+                                      // Fill the pane's width so short logs still
+                                      // occupy the whole field and the horizontal
+                                      // bar only appears when a line truly overruns,
+                                      // otherwise the bars jitter as text lands.
+                                      child: ConstrainedBox(
+                                        constraints: BoxConstraints(
+                                          minWidth: logW,
                                         ),
-                                        maxLines: null,
-                                        style: const TextStyle(
-                                          fontFamily: 'monospace',
-                                          fontSize: 12,
-                                          height: 1.4,
+                                        child: SelectableText.rich(
+                                          TextSpan(
+                                            children: [
+                                              for (final (i, entry)
+                                                  in _log.indexed)
+                                                TextSpan(
+                                                  text:
+                                                      _logLine(context, entry) +
+                                                      (i == _log.length - 1
+                                                          ? ''
+                                                          : '\n'),
+                                                  style: entry.$2.fired
+                                                      ? TextStyle(
+                                                          color: theme
+                                                              .colorScheme
+                                                              .primary,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        )
+                                                      : null,
+                                                ),
+                                            ],
+                                          ),
+                                          maxLines: null,
+                                          style: const TextStyle(
+                                            fontFamily: 'monospace',
+                                            fontSize: 12,
+                                            height: 1.4,
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            );
-                    },
+                              );
+                      },
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
+  bool get _compact =>
+      MediaQuery.sizeOf(context).width < 600 ||
+      MediaQuery.sizeOf(context).height < 800;
+
+  Widget _body({required Widget child}) =>
+      _compact ? SingleChildScrollView(child: child) : child;
+
+  Widget _logArea({required Widget child}) =>
+      _compact ? SizedBox(height: 200, child: child) : Expanded(child: child);
+
   Widget _legend(ThemeData theme, Color color, String label) => Row(
     mainAxisSize: MainAxisSize.min,
     children: [
       Container(width: 12, height: 3, color: color),
       const SizedBox(width: 5),
-      Text(label, style: theme.textTheme.labelSmall),
+      Text(voiceText(context, label), style: theme.textTheme.labelSmall),
     ],
   );
 
@@ -515,7 +569,7 @@ class _WakeWordTesterDialogState extends State<_WakeWordTesterDialog> {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
-        label,
+        voiceText(context, label),
         style: theme.textTheme.labelSmall?.copyWith(
           color: theme.colorScheme.onSurfaceVariant,
         ),

@@ -1,0 +1,228 @@
+{
+  "@@locale": "en",
+  "voiceTester": "Wake Word Tester",
+  "@voiceTester": {
+    "context": "Settings > Voice Satellite > Wake Word Tester",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word Tester"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "voiceTesterHelp": "Watch what the engine hears and scores in real time, to see why the wake word is or is not triggering.",
+  "@voiceTesterHelp": {
+    "context": "Settings > Voice Satellite > Wake Word Tester",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word Tester"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "voiceTesterSearch": "A live look at what the engine hears and scores.",
+  "@voiceTesterSearch": {
+    "context": "Settings > Voice Satellite > Wake Word Tester",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word Tester"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "voiceTesterWaiting": "Waiting for Voice Satellite",
+  "@voiceTesterWaiting": {
+    "context": "Settings > Voice Satellite > Wake Word Tester",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word Tester"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "voiceStopWordNamed": "{word} (stop word)",
+  "@voiceStopWordNamed": {
+    "context": "Settings > Voice Satellite > Wake Word Tester",
+    "description": "Marks a spoken word as the stop word in the model picker. Keep {word} unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word Tester"
+      ],
+      "remoteAdmin": []
+    },
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceScore": "Score",
+  "@voiceScore": {
+    "context": "Settings > Voice Satellite > Wake Word Tester",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word Tester"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "voiceThreshold": "Threshold",
+  "@voiceThreshold": {
+    "context": "Settings > Voice Satellite > Wake Word Tester",
+    "description": "The score needed to trigger detection. Shown in the chart legend.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word Tester"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "voiceHits": "Hits",
+  "@voiceHits": {
+    "context": "Settings > Voice Satellite > Wake Word Tester",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word Tester"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "voiceNearMisses": "Near misses",
+  "@voiceNearMisses": {
+    "context": "Settings > Voice Satellite > Wake Word Tester",
+    "description": "Count of samples close to triggering that did not become detections.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word Tester"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "voicePeak": "Peak",
+  "@voicePeak": {
+    "context": "Settings > Voice Satellite > Wake Word Tester",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word Tester"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "voiceMicLevel": "Mic level",
+  "@voiceMicLevel": {
+    "context": "Settings > Voice Satellite > Wake Word Tester",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word Tester"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "voiceChunkProcessing": "Chunk processing (min / avg / max)",
+  "@voiceChunkProcessing": {
+    "context": "Settings > Voice Satellite > Wake Word Tester",
+    "description": "Time to process an audio chunk, summarized as minimum, average and maximum. Keep the three values in that order.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word Tester"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "voiceLog": "Log",
+  "@voiceLog": {
+    "context": "Settings > Voice Satellite > Wake Word Tester",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word Tester"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "voiceLogEmpty": "Detections and near misses will appear here.",
+  "@voiceLogEmpty": {
+    "context": "Settings > Voice Satellite > Wake Word Tester",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word Tester"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "voiceLogHit": "HIT",
+  "@voiceLogHit": {
+    "context": "Settings > Voice Satellite > Wake Word Tester",
+    "description": "Log marker for a successful detection. May be uppercase in the translation.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word Tester"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "voiceLogNear": "near",
+  "@voiceLogNear": {
+    "context": "Settings > Voice Satellite > Wake Word Tester",
+    "description": "Short log marker for a near miss: the model heard something but did not trigger.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word Tester"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "voiceLogScore": "score",
+  "@voiceLogScore": {
+    "context": "Settings > Voice Satellite > Wake Word Tester",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word Tester"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "voiceLogDecoded": "decoded",
+  "@voiceLogDecoded": {
+    "context": "Settings > Voice Satellite > Wake Word Tester",
+    "description": "Label before the phonemes decoded by the model. The phonemes themselves must stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word Tester"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "voiceLogDistance": "ed",
+  "@voiceLogDistance": {
+    "context": "Settings > Voice Satellite > Wake Word Tester",
+    "description": "Short label before the edit distance between decoded phonemes and the target word. This is a diagnostic label, not a language code.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word Tester"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "voiceLogConfidence": "conf",
+  "@voiceLogConfidence": {
+    "context": "Settings > Voice Satellite > Wake Word Tester",
+    "description": "Short label before a matched-confidence measurement in the diagnostic log.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word Tester"
+      ],
+      "remoteAdmin": []
+    }
+  }
+}

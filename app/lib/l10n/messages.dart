@@ -265,6 +265,7 @@ String settingsPageText(
   String category,
   String english,
 ) => switch (category) {
+  'Voice Satellite' => voiceText(context, english),
   'ESPHome' => esphomeText(context, english),
   'Device' => deviceText(context, english),
   'Home Assistant' => haText(context, english),
@@ -399,3 +400,34 @@ String voiceVadOption(BuildContext context, String value) => switch (value) {
   'aggressive' => voiceText(context, 'Aggressive'),
   _ => value.isEmpty ? value : value[0].toUpperCase() + value.substring(1),
 };
+
+/// Translate only integration-defined options, never user model names.
+String voiceEntityOption(BuildContext context, String key, String value) {
+  if (key == 'vad_sensitivity') return voiceVadOption(context, value);
+  if (key == 'wake_word_sensitivity' &&
+      const [
+        'Slightly sensitive',
+        'Moderately sensitive',
+        'Very sensitive',
+      ].contains(value)) {
+    return voiceText(context, value);
+  }
+  if (key == 'wake_word_detection') {
+    if (value == 'Disabled' || value == 'On Device') {
+      return voiceText(context, value);
+    }
+    for (final engine in const [
+      'microWakeWord',
+      'openWakeWord',
+      'vsWakeWord',
+    ]) {
+      if (value == 'On Device ($engine)') {
+        return l10n(context).voiceOnDeviceEngine(engine);
+      }
+    }
+  }
+  if (key == 'wake_word_model_2' && value == 'Disabled') {
+    return voiceText(context, value);
+  }
+  return value;
+}

@@ -95,7 +95,8 @@ export function screensaverError(error) {
 }
 
 export function settingsPageText(category, english) {
-  return ['ESPHome', 'esphome'].includes(category) ? esphomeText(english)
+  return ['Voice Satellite', 'voicesatellite'].includes(category) ? voiceText(english)
+    : ['ESPHome', 'esphome'].includes(category) ? esphomeText(english)
     : category === 'Device' || category === 'device' ? deviceText(english)
     : category === 'Home Assistant' || category === 'homeassistant' ? haText(english)
     : category === 'Screen & Audio' || category === 'screenaudio' ? screenAudioText(english)
@@ -278,4 +279,18 @@ export function voiceVadOption(value) {
   const labels = {default: 'Default', relaxed: 'Relaxed', aggressive: 'Aggressive'};
   return Object.hasOwn(labels, value) ? voiceText(labels[value])
     : value ? value[0].toUpperCase() + value.slice(1) : value;
+}
+
+
+export function voiceEntityOption(key, value) {
+  if (key === 'vad_sensitivity') return voiceVadOption(value);
+  if (key === 'wake_word_sensitivity' && ['Slightly sensitive', 'Moderately sensitive', 'Very sensitive'].includes(value)) return voiceText(value);
+  if (key === 'wake_word_detection') {
+    if (value === 'Disabled' || value === 'On Device') return voiceText(value);
+    for (const engine of ['microWakeWord', 'openWakeWord', 'vsWakeWord']) {
+      if (value === `On Device (${engine})`) return t('voiceOnDeviceEngine', {engine});
+    }
+  }
+  if (key === 'wake_word_model_2' && value === 'Disabled') return voiceText(value);
+  return value;
 }

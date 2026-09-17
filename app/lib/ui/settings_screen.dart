@@ -3688,7 +3688,7 @@ class _CategoryContentState extends State<_CategoryContent> {
               // The tester: a live look at what the engine hears and scores,
               // for diagnosing "the wake word isn't triggering".
               if (container.settings.get(wakeWordEnabled)) ...[
-                const SectionHeading('Wake Word Tester'),
+                SectionHeading(voiceText(context, 'Wake Word Tester')),
                 SearchLandingTarget(
                   id: 'x:wake_word_tester',
                   child: SettingsCard(
@@ -9447,16 +9447,23 @@ class ClearModelCacheTile extends StatefulWidget {
 
 class _ClearModelCacheTileState extends State<ClearModelCacheTile> {
   bool _busy = false;
-  String? _result;
+  bool? _ok;
+  String _removed = '0';
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: const Icon(Icons.cleaning_services_outlined),
-      title: const Text('Cached models'),
+      title: Text(voiceText(context, 'Cached models')),
       subtitle: Text(
-        _result ??
-            'Re-download from Home Assistant. Use after re-publishing a model.',
+        _ok == true
+            ? l10n(context).voiceCacheCleared(_removed)
+            : _ok == false
+            ? voiceText(context, 'Could not clear the cache.')
+            : voiceText(
+                context,
+                'Re-download from Home Assistant. Use after re-publishing a model.',
+              ),
       ),
       trailing: _busy
           ? const SizedBox(
@@ -9475,12 +9482,11 @@ class _ClearModelCacheTileState extends State<ClearModelCacheTile> {
                 final removed = (result.data as Map?)?['removed'];
                 setState(() {
                   _busy = false;
-                  _result = result.ok
-                      ? 'Cleared $removed file(s); re-downloading.'
-                      : 'Could not clear the cache.';
+                  _ok = result.ok;
+                  _removed = '${removed ?? 0}';
                 });
               },
-              child: const Text('Clear'),
+              child: Text(voiceText(context, 'Clear')),
             ),
     );
   }
@@ -10857,12 +10863,7 @@ class _VsControlsSectionState extends State<VsControlsSection> {
     if (mounted) await _load();
   }
 
-  Widget? _entityRow(
-    String key,
-    String title,
-    String description, {
-    bool capitalize = false,
-  }) {
+  Widget? _entityRow(String key, String title, String description) {
     final entity = _entity(key);
     if (entity == null) return null;
     final options = [
@@ -10881,11 +10882,7 @@ class _VsControlsSectionState extends State<VsControlsSection> {
     }
     // Options whose values are bare lowercase words render like Home
     // Assistant shows them; the raw value is what gets written.
-    String label(String o) => key == 'vad_sensitivity'
-        ? voiceVadOption(context, o)
-        : capitalize && o.isNotEmpty
-        ? o[0].toUpperCase() + o.substring(1)
-        : o;
+    String label(String o) => voiceEntityOption(context, key, o);
     return DropdownRow<String>(
       title: voiceText(context, title),
       description: voiceText(context, description),
@@ -11005,7 +11002,6 @@ class _VsControlsSectionState extends State<VsControlsSection> {
         'vad_sensitivity',
         'Finished speaking detection',
         'How long a pause ends a voice command.',
-        capitalize: true,
       ),
       // Only offered once the settings hook reports the key: an older
       // Voice Satellite silently drops writes it does not know.
@@ -11096,11 +11092,14 @@ class _VsControlsSectionState extends State<VsControlsSection> {
 
     final appearance = <Widget>[
       if (browser == null)
-        HintRow(browserHint)
+        HintRow(voiceText(context, browserHint))
       else ...[
         DropdownRow<String>(
-          title: 'Skin',
-          description: 'The look of the voice assistant overlay.',
+          title: voiceText(context, 'Skin'),
+          description: voiceText(
+            context,
+            'The look of the voice assistant overlay.',
+          ),
           value: '${browser['skin'] ?? 'default'}',
           options: [
             for (final s
@@ -11112,32 +11111,40 @@ class _VsControlsSectionState extends State<VsControlsSection> {
           },
         ),
         DropdownRow<String>(
-          title: 'Theme mode',
-          description: 'Light or dark rendering of the overlay.',
+          title: voiceText(context, 'Theme mode'),
+          description: voiceText(
+            context,
+            'Light or dark rendering of the overlay.',
+          ),
           value: '${browser['theme_mode'] ?? 'auto'}',
-          options: const [
-            ('auto', 'Auto'),
-            ('light', 'Light'),
-            ('dark', 'Dark'),
+          options: [
+            ('auto', voiceText(context, 'Auto')),
+            ('light', voiceText(context, 'Light')),
+            ('dark', voiceText(context, 'Dark')),
           ],
           onChanged: (v) {
             if (v != null) _applyBrowser({'theme_mode': v});
           },
         ),
         SwitchListTile(
-          title: const Text('Reactive activity bar'),
-          subtitle: const Text(
-            'The activity bar reacts to audio. NOT RECOMMENDED for '
-            'low-power devices like the Echo Show.',
+          title: Text(voiceText(context, 'Reactive activity bar')),
+          subtitle: Text(
+            voiceText(
+              context,
+              'The activity bar reacts to audio. NOT RECOMMENDED for '
+              'low-power devices like the Echo Show.',
+            ),
           ),
           value: browser['reactive_bar'] != false,
           onChanged: (v) => _applyBrowser({'reactive_bar': v}),
         ),
         _VsSliderRow(
-          title: 'Reactive bar update rate',
-          description:
-              'How often the activity bar redraws. Higher is smoother and '
-              'uses more CPU.',
+          title: voiceText(context, 'Reactive bar update rate'),
+          description: voiceText(
+            context,
+            'How often the activity bar redraws. Higher is smoother and '
+            'uses more CPU.',
+          ),
           min: 5,
           max: 60,
           step: 1,
@@ -11153,8 +11160,8 @@ class _VsControlsSectionState extends State<VsControlsSection> {
           }),
         ),
         _VsSliderRow(
-          title: 'Text scale',
-          description: 'The size of the overlay text.',
+          title: voiceText(context, 'Text scale'),
+          description: voiceText(context, 'The size of the overlay text.'),
           min: 50,
           max: 200,
           step: 5,
@@ -11178,8 +11185,13 @@ class _VsControlsSectionState extends State<VsControlsSection> {
             id: 'x:vs_wake',
             child: SettingsCard(
               children: wake.isEmpty
-                  ? const [
-                      HintRow('Assign a satellite to control these settings.'),
+                  ? [
+                      HintRow(
+                        voiceText(
+                          context,
+                          'Assign a satellite to control these settings.',
+                        ),
+                      ),
                     ]
                   : wake,
             ),

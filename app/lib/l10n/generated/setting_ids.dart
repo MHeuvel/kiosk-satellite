@@ -1384,4 +1384,12 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingWakeWordBackgroundTitle",
     "description": "settingWakeWordBackgroundDescription",
   },
+  "wake_word.prefer_fp32": {
+    "title": "voiceWakeWordPreferFp32Title",
+    "description": "voiceWakeWordPreferFp32Description",
+  },
+  "wake_word.resume_timeout_seconds": {
+    "title": "voiceWakeWordResumeTimeoutSecondsTitle",
+    "description": "voiceWakeWordResumeTimeoutSecondsDescription",
+  },
 };
