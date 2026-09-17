@@ -1,0 +1,237 @@
+{
+  "@@locale": "en",
+  "screensaverOverlayWeatherEntity": "Weather entity",
+  "@screensaverOverlayWeatherEntity": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayNoWeather": "No weather entities",
+  "@screensaverOverlayNoWeather": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayNoWeatherHelp": "Home Assistant reported none.",
+  "@screensaverOverlayNoWeatherHelp": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayPickWeather": "Pick a weather entity…",
+  "@screensaverOverlayPickWeather": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayWeatherRequired": "Pick a weather entity.",
+  "@screensaverOverlayWeatherRequired": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayLocationName": "Location name",
+  "@screensaverOverlayLocationName": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayLocationHelp": "Leave empty to hide the location line.",
+  "@screensaverOverlayLocationHelp": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayLocation": "Location",
+  "@screensaverOverlayLocation": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayLocationDetail": "The place's name over the temperature.",
+  "@screensaverOverlayLocationDetail": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayFeelsLike": "Feels like",
+  "@screensaverOverlayFeelsLike": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayFeelsLikeHelp": "The apparent temperature after the real one, \"30° / 33°\".",
+  "@screensaverOverlayFeelsLikeHelp": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayFeelsLikeOnly": "Feels like only",
+  "@screensaverOverlayFeelsLikeOnly": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayFeelsLikeOnlyHelp": "The apparent temperature in the real one's place.",
+  "@screensaverOverlayFeelsLikeOnlyHelp": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayForecast": "Forecast",
+  "@screensaverOverlayForecast": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayForecastHelp": "The conditions, with a matching icon.",
+  "@screensaverOverlayForecastHelp": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayHumidity": "Humidity",
+  "@screensaverOverlayHumidity": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayWind": "Wind speed",
+  "@screensaverOverlayWind": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  },
+  "screensaverOverlayVisibility": "Visibility",
+  "@screensaverOverlayVisibility": {
+    "context": "Settings > Screensaver > Widgets > Weather widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Weather widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Weather widget"
+      ]
+    }
+  }
+}

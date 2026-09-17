@@ -1,0 +1,18 @@
+{
+  "@@locale": "es",
+  "settingScreensaverGlanceEnabledTitle": "De un vistazo",
+  "settingScreensaverGlanceEnabledDescription": "Muestra una fila de estados de entidades de Home Assistant en el protector de pantalla.",
+  "settingScreensaverGlanceEntitiesTitle": "Entidades",
+  "settingScreensaverGlanceEntitiesDescription": "Hasta cuatro entidades para mostrar, cada una con un nombre personalizado opcional.",
+  "settingScreensaverGlanceNowPlayingTitle": "Mostrar en Reproduciendo",
+  "settingScreensaverGlanceNowPlayingDescription": "Muestra la fila en la vista Reproduciendo a pantalla completa. Se oculta mientras se muestra la letra.",
+  "screensaverOverlayShowing": "Entidades mostradas",
+  "screensaverOverlayReorder": "Entidades mostradas (arrastra para reordenar)",
+  "screensaverOverlayFull": "La fila ya tiene el máximo de entidades. Quita una para añadir otra.",
+  "screensaverOverlayPickerTitle": "Entidades de un vistazo",
+  "screensaverOverlayGlanceEmpty": "Aún no hay ninguna. Hasta {count} entidades.",
+  "screensaverOverlayNone": "Aún no hay ninguna",
+  "screensaverOverlayLimit": "Hasta {count} entidades.",
+  "screensaverOverlayGlancePage": "De un vistazo",
+  "screensaverOverlayGlanceHint": "Entidades que se muestran sobre el protector de pantalla"
+}

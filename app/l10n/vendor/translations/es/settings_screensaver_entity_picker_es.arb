@@ -1,0 +1,18 @@
+{
+  "@@locale": "es",
+  "screensaverOverlayEntity": "Entidad",
+  "screensaverOverlayNotSet": "Sin configurar",
+  "screensaverOverlayName": "Nombre",
+  "screensaverOverlayNameHelp": "Déjalo vacío para usar el nombre de Home Assistant.",
+  "screensaverOverlayValue": "Valor mostrado",
+  "screensaverOverlayState": "Estado",
+  "screensaverOverlayEntityRequired": "Elige una entidad.",
+  "screensaverOverlaySearchHint": "Nombre o ID de entidad",
+  "screensaverOverlaySearchHintRemote": "Buscar por nombre o ID de entidad",
+  "screensaverOverlaySearchEmpty": "Escribe para buscar entidades.",
+  "screensaverOverlayNoMatches": "No hay coincidencias.",
+  "screensaverOverlaySearching": "Buscando…",
+  "screensaverOverlayUnreachable": "No se pudo conectar con Home Assistant",
+  "screensaverOverlayNoAnswer": "El dispositivo no respondió.",
+  "screensaverOverlaySearchError": "No se pudieron buscar entidades: {error}"
+}

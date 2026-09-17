@@ -1,0 +1,234 @@
+{
+  "@@locale": "en",
+  "screensaverOverlayEntity": "Entity",
+  "@screensaverOverlayEntity": {
+    "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Entity widget > Choose",
+        "Settings > Screensaver > At a Glance > Entities"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Entity widget > Choose",
+        "Screensaver > At a Glance > Entities"
+      ]
+    }
+  },
+  "screensaverOverlayNotSet": "Not set",
+  "@screensaverOverlayNotSet": {
+    "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Entity widget > Choose",
+        "Settings > Screensaver > At a Glance > Entities"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Entity widget > Choose",
+        "Screensaver > At a Glance > Entities"
+      ]
+    }
+  },
+  "screensaverOverlayName": "Name",
+  "@screensaverOverlayName": {
+    "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Entity widget > Choose",
+        "Settings > Screensaver > At a Glance > Entities"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Entity widget > Choose",
+        "Screensaver > At a Glance > Entities"
+      ]
+    }
+  },
+  "screensaverOverlayNameHelp": "Leave empty to use the Home Assistant name.",
+  "@screensaverOverlayNameHelp": {
+    "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Entity widget > Choose",
+        "Settings > Screensaver > At a Glance > Entities"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Entity widget > Choose",
+        "Screensaver > At a Glance > Entities"
+      ]
+    }
+  },
+  "screensaverOverlayValue": "Displayed value",
+  "@screensaverOverlayValue": {
+    "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Entity widget > Choose",
+        "Settings > Screensaver > At a Glance > Entities"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Entity widget > Choose",
+        "Screensaver > At a Glance > Entities"
+      ]
+    }
+  },
+  "screensaverOverlayState": "State",
+  "@screensaverOverlayState": {
+    "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Entity widget > Choose",
+        "Settings > Screensaver > At a Glance > Entities"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Entity widget > Choose",
+        "Screensaver > At a Glance > Entities"
+      ]
+    }
+  },
+  "screensaverOverlayEntityRequired": "Pick an entity.",
+  "@screensaverOverlayEntityRequired": {
+    "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Entity widget > Choose",
+        "Settings > Screensaver > At a Glance > Entities"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Entity widget > Choose",
+        "Screensaver > At a Glance > Entities"
+      ]
+    }
+  },
+  "screensaverOverlaySearchHint": "Name or entity id",
+  "@screensaverOverlaySearchHint": {
+    "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Entity widget > Choose",
+        "Settings > Screensaver > At a Glance > Entities"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Entity widget > Choose",
+        "Screensaver > At a Glance > Entities"
+      ]
+    }
+  },
+  "screensaverOverlaySearchHintRemote": "Search by name or entity id",
+  "@screensaverOverlaySearchHintRemote": {
+    "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Entity widget > Choose",
+        "Settings > Screensaver > At a Glance > Entities"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Entity widget > Choose",
+        "Screensaver > At a Glance > Entities"
+      ]
+    }
+  },
+  "screensaverOverlaySearchEmpty": "Type to search entities.",
+  "@screensaverOverlaySearchEmpty": {
+    "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Entity widget > Choose",
+        "Settings > Screensaver > At a Glance > Entities"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Entity widget > Choose",
+        "Screensaver > At a Glance > Entities"
+      ]
+    }
+  },
+  "screensaverOverlayNoMatches": "Nothing matched.",
+  "@screensaverOverlayNoMatches": {
+    "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Entity widget > Choose",
+        "Settings > Screensaver > At a Glance > Entities"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Entity widget > Choose",
+        "Screensaver > At a Glance > Entities"
+      ]
+    }
+  },
+  "screensaverOverlaySearching": "Searching…",
+  "@screensaverOverlaySearching": {
+    "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Entity widget > Choose",
+        "Settings > Screensaver > At a Glance > Entities"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Entity widget > Choose",
+        "Screensaver > At a Glance > Entities"
+      ]
+    }
+  },
+  "screensaverOverlayUnreachable": "Could not reach Home Assistant",
+  "@screensaverOverlayUnreachable": {
+    "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Entity widget > Choose",
+        "Settings > Screensaver > At a Glance > Entities"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Entity widget > Choose",
+        "Screensaver > At a Glance > Entities"
+      ]
+    }
+  },
+  "screensaverOverlayNoAnswer": "The device did not answer.",
+  "@screensaverOverlayNoAnswer": {
+    "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Entity widget > Choose",
+        "Settings > Screensaver > At a Glance > Entities"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Entity widget > Choose",
+        "Screensaver > At a Glance > Entities"
+      ]
+    }
+  },
+  "screensaverOverlaySearchError": "Could not search entities: {error}",
+  "@screensaverOverlaySearchError": {
+    "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Entity widget > Choose",
+        "Settings > Screensaver > At a Glance > Entities"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Entity widget > Choose",
+        "Screensaver > At a Glance > Entities"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Technical error details. Keep unchanged."
+      }
+    }
+  }
+}

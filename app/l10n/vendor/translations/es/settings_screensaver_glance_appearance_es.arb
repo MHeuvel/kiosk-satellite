@@ -1,0 +1,16 @@
+{
+  "@@locale": "es",
+  "settingScreensaverGlanceScaleTitle": "Escala de la fila",
+  "settingScreensaverGlanceScaleDescription": "Ajusta el tamaño de la fila a la pantalla.",
+  "settingScreensaverGlanceFontTitle": "Fuente",
+  "settingScreensaverGlanceFontDescription": "Fuente que usa la fila.",
+  "settingScreensaverGlanceFontWeightTitle": "Grosor de la fuente",
+  "settingScreensaverGlanceFontWeightDescription": "Grosor del texto de la fila. Predeterminado usa el grosor propio de cada línea: normal para los nombres y seminegrita para los valores.",
+  "settingScreensaverGlanceHideNamesTitle": "Ocultar nombres",
+  "settingScreensaverGlanceHideNamesDescription": "Muestra solo el icono y el valor, con el valor más grande.",
+  "settingScreensaverGlanceBwIconsTitle": "Iconos monocromáticos",
+  "settingScreensaverGlanceBwIconsDescription": "Mantiene todos los iconos en gris neutro en lugar del color de su estado.",
+  "settingScreensaverGlanceTextOnlyTitle": "Estilo de texto flotante",
+  "settingScreensaverGlanceTextOnlyDescription": "Muestra las entidades como texto flotante en lugar de recuadros.",
+  "screensaverOverlayAppearance": "Apariencia"
+}

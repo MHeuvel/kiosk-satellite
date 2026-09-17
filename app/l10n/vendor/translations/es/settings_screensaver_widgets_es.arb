@@ -1,0 +1,20 @@
+{
+  "@@locale": "es",
+  "settingScreensaverWidgetsTitle": "Widgets",
+  "settingScreensaverWidgetsDescription": "Pequeños elementos superpuestos en las esquinas del protector de pantalla.",
+  "settingScreensaverWidgetScaleTitle": "Escala global de los widgets",
+  "settingScreensaverWidgetScaleDescription": "Ajusta el tamaño de todos los widgets a la pantalla. Cada widget conserva su escala con respecto a los demás.",
+  "settingScreensaverWidgetFontTitle": "Fuente global",
+  "settingScreensaverWidgetFontDescription": "Fuente que usan todos los widgets. Cada widget puede elegir la suya.",
+  "settingScreensaverWidgetFontWeightTitle": "Grosor global de la fuente",
+  "settingScreensaverWidgetFontWeightDescription": "Grosor del texto de todos los widgets. Predeterminado usa el grosor propio de cada línea. Cada widget puede elegir el suyo.",
+  "settingScreensaverWidgetTextShadowTitle": "Sombra del texto",
+  "settingScreensaverWidgetTextShadowDescription": "Añade una sombra al texto de los widgets para facilitar su lectura sobre las fotos.",
+  "settingScreensaverVignetteStrengthTitle": "Intensidad del sombreado",
+  "settingScreensaverVignetteStrengthDescription": "Oscuridad del fondo detrás de los widgets para facilitar su lectura sobre fotos claras. El valor 0 lo desactiva.",
+  "screensaverOverlayWidgetsEmpty": "Aún no hay widgets",
+  "screensaverOverlayRemove": "Quitar widget",
+  "screensaverOverlayAdd": "Añadir widget",
+  "screensaverOverlayAddHelp": "Un reloj pequeño, el clima, la batería o una entidad en una esquina.",
+  "screensaverOverlayWidgetsHint": "Elementos en las esquinas y su escala"
+}

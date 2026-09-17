@@ -209,6 +209,11 @@
     "translation": "205443ee88568e8c8320035b2a829e1c1862a66aafbf4f9e940f6278e190187c",
     "author": "Xavier Larrea"
   },
+  "commonChoose": {
+    "source": "2b408c17415537a6aa26da362e4c2087c0111cf0f59d18aee09ed0477669c44c",
+    "translation": "f213c041507fb409851374f7497360806ab87b775207192d17e715dc8f5ace32",
+    "author": "Xavier Larrea"
+  },
   "drawerPluginAction": {
     "source": "89bac3122bad60cc59b58a2baf7af87471a6d8918116bf75ab1b66de0d724b88",
     "translation": "3bfb4e7cada1f48202a0fab90644424c6da719acb6714caa9cc498f11b3a547f",
@@ -3699,6 +3704,81 @@
     "translation": "5e2c85a3aac6eea1b7d2b30d27a1a322cb1a2e96f8ee5721482b78bd46223d03",
     "author": "Xavier Larrea"
   },
+  "screensaverOverlayEntity": {
+    "source": "1df33d9a7383e27ad071173493e44ac16adac139e39ae6adf5aae5af8d3736da",
+    "translation": "f012ff7d112127296bae4aff8d284d4aa5c287b1278f4d3847442c644119ab63",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayNotSet": {
+    "source": "5eb12657ee4ea8b08a624923b6cfb92c62d4df00e2df2de0d046f401566d379b",
+    "translation": "8cbe82eda079e7137c48bd770ec473fafd23a3c347b6f44c032e81737e3bdb26",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayName": {
+    "source": "b6ce5726b9b5e94fcfc4ed7f2a479958b4433f71dc470089b1799ab7d19a14c1",
+    "translation": "562bb15757a8b593d6fdc812b0767c0e198bf7d8e19157933110de09c9db9012",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayNameHelp": {
+    "source": "7b6dfcad9cb260deca8925b3f3b1e0386f402675b845b11f809f776a7705ffe4",
+    "translation": "0ba203ca3e21da1300d9eae626a8149440fbde59362dbe0ad902f7ee2d706004",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayValue": {
+    "source": "6c3fbd94bdb1f82d425a275d8048cc2742bb19c1816325e24100577a3bd7f9a2",
+    "translation": "9b118c7a63cbb270ebc288accb706705820f0bef021db3adf410c96e5b2a8108",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayState": {
+    "source": "4a25cff82cd1f8a673f8ff02b7ceaae6a78ad1a33a5815e6c4c09891ca0c667c",
+    "translation": "98e5acddb6c46a248f96e8a549b4103a91f47299e1dbf508e436d738912c5cbd",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayEntityRequired": {
+    "source": "65ca1d2e52c167112dd7e5eef440f9161642e354b79ad828636df2d7544e6150",
+    "translation": "348d9c2d4fb2b5302ac3d53a30e4af62a64601c0efc2036ad208845a7c1999b5",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlaySearchHint": {
+    "source": "343e544f84fc106eb4fb74f25dc0b6b6fe9b6d8746636dc8da7a57089ae8f4ed",
+    "translation": "fdaab1d099b79460949e742af0e5b880693b2468d8582226e472a88afc5fd5ad",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlaySearchHintRemote": {
+    "source": "31dea978cb4c924a84c8f90d25038c02db37e85341a4e8e14d5a8e0c0632bf30",
+    "translation": "797ebb54e2b263bf77772418a55edd2f04342a6cc4e4e7ceb58cec12419044cb",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlaySearchEmpty": {
+    "source": "d00af59e27f20568b763080b88aafc45bbad10d198c139903761aff15f53c9b2",
+    "translation": "6329e739b3fc618d660eb770fc6de35c02a0837bc603bc43edfd4c66ee66647a",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayNoMatches": {
+    "source": "49867f2b2583bf7be15e3c4f147d8551eccae2288383b44737a730afa79f9d5c",
+    "translation": "26cfdc1e7c6b7e197691cc48202dfb5164aab45e0c7d3d2f86a31726a1a88484",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlaySearching": {
+    "source": "f58dcff389b190af5b0dea0d34995918d9c43aebb440ce2417462ec75cce8c1a",
+    "translation": "82d69149e2c13287824b548c4d3dbae047cfdcbfe367c14ec0999d5544581d42",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayUnreachable": {
+    "source": "25fbab3f7e761725c77d9d522a9c2ad5207e9bf0f2fc05c21f44780cea9ca226",
+    "translation": "8eb1a7b1fbc66512cbaef84bda330b17bfb43c6f655bd1aa68bb86b22b991ca9",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayNoAnswer": {
+    "source": "dad1a9589a18d28ec7eecd6f9e0bb8684b3251c409590f75ca2482ad8ea8ec28",
+    "translation": "8fbcc81e49ce0ae61a2d11f691d2f3665a36cd495f9d162c6f90cef4a1b5274b",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlaySearchError": {
+    "source": "06a12fc30c35079d741a6628dc3853f129202c5fe2bd02a10dd3769a8bc5eccb",
+    "translation": "be37a51a99aa3d793dc731e87adbfdf45dc66f6ef05424ce4f1c3302e14b3abb",
+    "author": "Xavier Larrea"
+  },
   "settingScreensaverEnabledTitle": {
     "source": "4360b684a1ea1e28d3f131ee0b794f18af5475941d37bb6708be8db14517a6ac",
     "translation": "fc5e67c83223638cc931614fef3b0a68dce5861966968034a55d39f57252e1ea",
@@ -3897,6 +3977,146 @@
   "screensaverScreenOffWarning": {
     "source": "914ef1124ed1ea8aa161ad665e1093881725223a20cc8c836270e219a4b0a048",
     "translation": "da0f498da7177bbe3a9353069a9b06a100bcf663e989fa72fc580c383f0d3ae5",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverGlanceScaleTitle": {
+    "source": "7d6cecc9855ff75dccde741db4a2139262fa25b35eee3dcc1e0f06ffbd5847e0",
+    "translation": "3ea82dcf347ce43d8c08cee6f4b860d9f723d239e6933f39e9b9a4c25cb8cad6",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverGlanceScaleDescription": {
+    "source": "802ac0d41966639264f4174fd21b8602ca33413bf85201089361fb9029b54d3d",
+    "translation": "1c15981a66a49ed953fbdfb862a8cdaeb52978d0b30b278902170026b34a1d15",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverGlanceFontTitle": {
+    "source": "281e0997058ce130ce6217453c9e2ff1de9704c717933f72099a84674c65ac20",
+    "translation": "382897b636f37cbb8da2f349b1348d026d4fb023a4eee28e4bc229251e4d4fbe",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverGlanceFontDescription": {
+    "source": "90366cc9b4857e18ba0940c866be4c8e7d9e4f23dbc5f1cf3d920ee0adf152a5",
+    "translation": "cd1080d45bbd44a79142023a1b2d28ae9026d38aa0aaa238a753992a1f5c4a2d",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverGlanceFontWeightTitle": {
+    "source": "dd4e042f707f4e3da0b646b92432fdace8d9492731bed044c6f9d096cf1955d9",
+    "translation": "93fbed35784075f1a529f75b8b36d95caa34074e9f08f7e1e2a45e8a47fb5a8c",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverGlanceFontWeightDescription": {
+    "source": "69bbf163c9decca26f48941fcd759183b16aa9064996382cd971888037fff146",
+    "translation": "9e6f77a6ae90257cac55e6f275d0c882c0466a0a18942bb87f122048e36fa9b4",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverGlanceHideNamesTitle": {
+    "source": "bf785242b7582348bf05239caa9bfe8f8b7ad966ea38ba6b8c8568e475781b25",
+    "translation": "43b6e233bd7e0fd5c1bf0a71599e02b6e75beb88f701c3cdfc2f238771ef0b19",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverGlanceHideNamesDescription": {
+    "source": "f644b21b2c231e4a21fd26a4adea2e236e91965d80d8657849ae436e6c9de98d",
+    "translation": "a4276f263e2a893f32993b4ef31e188496d94d3f1e0f81f92a9669ad54b1cd48",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverGlanceBwIconsTitle": {
+    "source": "fac2dcca4b311f550c739df58e4cb19373dfabd04ac9c371d18f07398efe9e9b",
+    "translation": "95e13443ebf632467178af3ac4ba45e9bce75a776f00558653e62b9e4bc9fbf8",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverGlanceBwIconsDescription": {
+    "source": "e16f8e01f8b01cc832a08275e96f87b3d0a9420e62ea4a1daceae0a13dc7d273",
+    "translation": "cb94195bba1390d37da5bed57923e185f1a52f4b7fba8b8f9e6d0d78ae5ddcbc",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverGlanceTextOnlyTitle": {
+    "source": "91ba4697d61d698cce6b558b7f9e0098f32dde11075c8a87e806c9fd99a30f6f",
+    "translation": "03e3a79509bccbacee3a775f2467b0a4c31fbec53bffe06229f68c10afc2ae17",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverGlanceTextOnlyDescription": {
+    "source": "d0633878e0975168c67d5ccd4aeaafaf7f96b001852d216f0aac0965d4eed0b1",
+    "translation": "9a43ab1d8f3df567bdd7b63a65b1add7b8dedb7f7a4a5fbf798d6b9d35f198f2",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayAppearance": {
+    "source": "40cc9e9f155e250ba98135b63a51f2f881c9a99332e6bb79f4e24e66a72ec801",
+    "translation": "e3e9cbaccaec3d2a1f8ca00870401c1ff2a20885e47e2df64a66d5387b9c4515",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverGlanceEnabledTitle": {
+    "source": "57448c8508a7696bc167becd574c54e1c518788b6f00d415798d03f74e14128f",
+    "translation": "a4d83e776f05d1129238de121b22503f4bbc20eec475e7ad4b2a2617dd2ce453",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverGlanceEnabledDescription": {
+    "source": "cab1875d05710d61522e8fd2a164ac33f63b8f87052cece8480b47c4841b52c0",
+    "translation": "794f32400a945dd8f8dfbb0182abf78e2275eec220e3b37a587b1d9f9e567f21",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverGlanceEntitiesTitle": {
+    "source": "f7a175f5ce400ccfcb82b9d2ed246df7f1b9a948ed0e0c37625374c50b84a2ad",
+    "translation": "a3346c788a2a24be6a3593d03ff10ab0c4bdc6b21f0b5e01ab01c6f6c3ca2975",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverGlanceEntitiesDescription": {
+    "source": "af883f182a200f003a8c394866c8826b2445c08118200c182f7040d3da5ace35",
+    "translation": "83df4693e90406fb080ac96812dc9cffb489662412996420d6b792f7c953d4c4",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverGlanceNowPlayingTitle": {
+    "source": "d809817470a406c4ca7c0b299457bd2494177016d21ea0d76a75ececcb0d83c2",
+    "translation": "89902fd19f7ca268db583ac9a453fc2257c9098099fd38bedb75e695e4c997f5",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverGlanceNowPlayingDescription": {
+    "source": "204d4973cb4ec4948d21a81c8c1eacbeb91ab835ca2aafceab2f9ce70b0c83ed",
+    "translation": "22a4ad6e1373410618c3fbdaec6cc9023620ebfcd54eefb87e440c05f271f92f",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayShowing": {
+    "source": "c43c12551d063f80fb8bbe59bf96745ccb3cf8741df93eb4a2102c06984912f2",
+    "translation": "2e284226cda629c809a82fdd1ccd997c274b40592ef66c5bd8dc6043553951a5",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayReorder": {
+    "source": "5fb81f8c6976e9942ee5cdf98bfc2375c3c9cf69cfb9d8316b8e7dbba6d192d6",
+    "translation": "d80af1a521af886df95ec4b1018be9a0fee819f00213f71cdc12f67a621e221e",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayFull": {
+    "source": "e0f6bb9bd4ef41560a70e85c9592c61a35921772428c500e478c00513e409ef3",
+    "translation": "7b7d7393efa52781c8a0d252b3a4516774c4abd031827ef1f6270c716035603c",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayPickerTitle": {
+    "source": "1228181db8709892a64468cedb4a1b7aa3e89a9b3b7d168a579694ce576f8833",
+    "translation": "0fce8201936b5fac21eabadba81ef01f82323008a7c6c6be200089237abab277",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayGlanceEmpty": {
+    "source": "ff0c863addd9d302aedb6dcdc3f61f98d0a4bdd7daf3f90ec433a3de710d6777",
+    "translation": "006163728975f346201915ed1223afec6e4688dd784b3ef3c500b23ecabaff0c",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayNone": {
+    "source": "7a609b6fae11e9c96d11f6b42a7706748d754ad48c69241dc5a90aff066cafb1",
+    "translation": "0fcfdcdc98695c8a0fcf7c071527f347d5c4d4bff459af379efdf6357cd043ea",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayLimit": {
+    "source": "38bbb8342769f220d8ff01c48b7ab62ab8ea7b11b09393330ddda2ef59439020",
+    "translation": "76d805a582630abfb8a659843e259edd5d3f8c0bc0c1f1bd642d7c3549c551a0",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayGlancePage": {
+    "source": "7d6c0f237efcdf416ec4d57cc27511fc54715142b8ae6a28dc8c048a6fb42357",
+    "translation": "a4d83e776f05d1129238de121b22503f4bbc20eec475e7ad4b2a2617dd2ce453",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayGlanceHint": {
+    "source": "80c2692e925138c5e9e710701095f0216c6a1bea769e53c715599aa885ee4794",
+    "translation": "fe4095b163b8e08594f843a6fcaff6180f2d76efbffb08c8be0617d535516d7d",
     "author": "Xavier Larrea"
   },
   "settingScreensaverImmichUrlTitle": {
@@ -5162,6 +5382,316 @@
   "screensaverWebsiteSection": {
     "source": "16c105c562facf53a5c9bfe8c90101274d4ecbaeec018168b704b7eb537b943a",
     "translation": "178b284df2c6d13f4b4f70f4c67604563dda7e3c38f7300829ce32116163b3f3",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlaySmallClock": {
+    "source": "56cd2003300afbb2606ff58144779f66c45d1f577acd7d6c5e245e7b7a261316",
+    "translation": "0a5d5686923eaf39eadc14f675b267f1a3227e6fec6c713cfb64185752dfa844",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayWeather": {
+    "source": "9a22d6783f7063b78adeb3d87a9fb597e6b43d7e30d16f95d3d25b85d2bfbc16",
+    "translation": "9daf8cd9c532454b4a8e6d91e4d49c56ef91b75c5b1421acece69ce644cc1c9f",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayBattery": {
+    "source": "82bf96ee7d77c2cfcdad0bb6642ab125479b26d6b407b5fb62aa318b787eba29",
+    "translation": "0855954dc5689bae4508c7226954f770429807ea90d2a3d9be5c4186ed52c4fd",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayClockNote": {
+    "source": "088af4e8669c2b39f257b0390d3db55d73246c8e552cb02b19711e0d90d0db0f",
+    "translation": "fe18e75205011cdf17f9e98163924bf545e61bc4c8b97f91c33019f876bb46ab",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayCameraNote": {
+    "source": "a257a053798b85811e3802458401e8d5412c89fb9a3cf864b7999e7aab7b295b",
+    "translation": "f37621a30e06386524bfa1026065f7110b808eb47aed1ef2d66d6baeeb3096ce",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayScale": {
+    "source": "9976edaeb928c332d2ac4d8dfd9b1b8672d0d564e0bff92af6ca757fe2f743ce",
+    "translation": "6432ba75d2571b124db2d0e07d279a0e3528888e0ede4296394175de4377a049",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayScaleHelp": {
+    "source": "bf2d6b3767dae7047b51b11d035269bee5a1602d63a0551d279695c30dafd6f6",
+    "translation": "10c27eed6de472d02ea16423042fd9b97b297fc8f847830fe144c319dbccf76b",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayFont": {
+    "source": "d236d19177fa155bd8a94f1546291aeb7708029bcca9e8578ea5f7e319b2e28b",
+    "translation": "382897b636f37cbb8da2f349b1348d026d4fb023a4eee28e4bc229251e4d4fbe",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayCorner": {
+    "source": "a1f093862c7b28265ab391ee897ad54a6884959e5fe44df0087bb875bf7c488c",
+    "translation": "4297c9e76b69af131e8e9bfd85fcda811d9c0f4e50dfac28e558d9ef2bba9e5d",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayWidget": {
+    "source": "5afe6b5e4f3d07ec6a80ae31b638a66d519672ca1aa365817012ec1b0f68b161",
+    "translation": "7dd7a28c2ff9e308abc831e0a6dce95d11600be10982a969048948a21a40879b",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayClock24": {
+    "source": "306d6dc5dc55adfe3322cb7962ef982b7e0d57c2f412cd9930b5c984bb4e8bf9",
+    "translation": "a9bf6f3a6cf4ca27d45885d8e453442be3538bbd3e83f1ab8a868288ac7ac05e",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayClock24Help": {
+    "source": "faa00fb0406314554f2e4a86d236ec1bb649e5a37ca671c89fcc160321f0edc7",
+    "translation": "a29b0fb425ebd95d70c86bc982e5fa424f9227c94690dbf76e0291f8b94a58fc",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayShowDate": {
+    "source": "2353c1392864c21fafb00d660494477cca7281f3ca04e6bdbc760f7e6e648d03",
+    "translation": "7a5703da654c0c3f41836b5dd9556908d448a9b03982b1fde7f551d5716d464a",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayShowDateHelp": {
+    "source": "fb06ac260de7fc65ccd44a97c767b8b16eb5d6e775cc27173984ba1d2052b224",
+    "translation": "5fe05cd7d39e67c6519234ba3cba6e97656592665138c0405d00808bf10a619e",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayPercentage": {
+    "source": "5a63a986b91640abd98b176a4ff5a9f02f5d960e7c7865a8c7d3b774b10b9449",
+    "translation": "0a78103c14aa1e337099272c8cf3c7e8d908ea4509dc28a062bc6e00b95ae0a0",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayPercentageHelp": {
+    "source": "2f76fffe8061ec48367b19635543a2aadfee480cf77f337dad5fc2b713942455",
+    "translation": "513e36c66c056c903af7cbcc16f05da07890eea83d3de244d0273b6522d857e5",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayLow": {
+    "source": "18648d1848aa84a6281ac93fd53b513986032839ba9845abbade601e5408a335",
+    "translation": "c398f0fad324fdcd4805977c1a6c53274221d232af16f8bb1f9279fe85524147",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayLowHelp": {
+    "source": "0803859420633fc722fd807224e40a70ba33f903bef41c5f1eec4c4c47675411",
+    "translation": "58db8883aed02bdb75822ca5e253bc3d4432723fc0ce45d9503ce735fb2f89b1",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayShowName": {
+    "source": "d675be5729805a29acf9aa5f5e2436560ee94238a65892c5f4c560439f129429",
+    "translation": "32700bc6686d2b9ff92ec6f447b852f6e8037bd3c9b711251c91d6472bd31d8b",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayShowNameHelp": {
+    "source": "7ed824210dacee5714b90e9dd08d643e11cbf8e202b31f54577eee53eca882b1",
+    "translation": "ca9d03f6d8bff7c0a7f863404eb95603c72b8424ba8ba2cddc1749d8ee11b4bb",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayFontSystem": {
+    "source": "9204f86c5d1db3754315763e7ffabb46636a5fb5b93dfb67dfaffc3382c0ebaf",
+    "translation": "f150afd3c5994d185052d4165729e1db8eae6914164b9471c3e583edfb1db020",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayFontSerif": {
+    "source": "9a8af410307d3135616732d54ec3bfa6596ee2ddd82a6c98fd1ae2860dea19e4",
+    "translation": "c8e3f0c0c78fe350a763703e2c77972adc629e7bfde0dab175b08443b20c7038",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayFontCondensed": {
+    "source": "c464b11a88d70651bbf419547cdff6c70aac90d66ad16a24a5b52e3be112582e",
+    "translation": "18ac245c53cab8ce8db76bfb3c7b56e97671df61eac6525f39b397d1fa2b2867",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayFontMonospace": {
+    "source": "ea33113f5a874b42a23cd7a1df5db219bddb30d0bc2aaa498414223689a759a1",
+    "translation": "dce9de44fe9e3a08463b9990df8ebc5a2585097a0bd7d86dfb806591eaa9c272",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayFontCasual": {
+    "source": "13622c9d3a8bb9c949c49b83ec882a55ef42af13a85918e277f11f92e1b242b4",
+    "translation": "6f86bf8a416d216c41b9961979e3a593633346d50cdbc293b8f8e66fa2689257",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayFontCursive": {
+    "source": "cc67553b609aabf5535cbc0abbad6f7f5bc138c70f11a8bd03604a235c4838c8",
+    "translation": "e110e424e492a453d7593b7cb886c8869b792f698817a721c772a079ad0aa978",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayColor": {
+    "source": "cb3abb99594a7a22532b77e3fd07d188fdb8a3498a1cafe1803deabcc63e45a4",
+    "translation": "6b73191a0a4b67420e61d51c9f207c35277eaf18fbbf5beb52a320a23fe09653",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayWeatherEntity": {
+    "source": "9f41266ecac39c8f8129401d857f64b4bf37064591b7f9ad9f2c8cc2088a01c7",
+    "translation": "86ca867385cce31085beb9b84cf8cdcb089bc7f74d4e6efe06edcb08c1e585de",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayNoWeather": {
+    "source": "3d7d50c3e51d2f5782a04c7b4a64e9e5eab374ba30cfed4a2e7e9d2bfab440e6",
+    "translation": "d72873b07e43b0f72b9fa46689fb683e8d57fbbcbd0bf2cfa7f258bb5c7ec26c",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayNoWeatherHelp": {
+    "source": "eeca0f02ab838f99241ebc8266b28d8c2de479b9b9e1486388ac16d20ee16ec9",
+    "translation": "c71190e7e57447dc8f567f9a3252fef194ae908928cfb981b95de42adcc18c2a",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayPickWeather": {
+    "source": "995a68eb149067161b6562103edd65619832207458d583d499c73cf1d6fe6dab",
+    "translation": "82404c65bb9d37640bc0d19f2dc986dbd612176a99af96ef95957a096bc98bbd",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayWeatherRequired": {
+    "source": "fee0ac7977106eab72467563cab75a5867a74680f0e3c9c67cc4d769ae37c713",
+    "translation": "ab2f81ecd355544cdefc8a76ac1f6f2642fa9def1b8c95f10d35868151895622",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayLocationName": {
+    "source": "6900e2e8a044ffbd2e3902f28eb4277194f34970966a6e96f002103ba1794f75",
+    "translation": "281752d6ddeaa9346251a125d4d8825e0c03e90099b70df6c76010261f55588c",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayLocationHelp": {
+    "source": "151605cf891fe87eff1f914fce28ddf5168b74026becbfcdd17c362b0c681c88",
+    "translation": "7a2837803b583bda0d5abf38038883e1158b904aba0fc2836a1461358150340a",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayLocation": {
+    "source": "b818d6e0c1c9164cf597cf0eb254c37243505e57b5d328ad6f95021b2df8daa0",
+    "translation": "73b9189b6c6ef693f13b7d4fd31dc01c94323f44bbb18155bc5045db178c5200",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayLocationDetail": {
+    "source": "3af06e6de4c2333ca4f3b5520368a92ddd27450f87125d96d1aad99bbf9bba6b",
+    "translation": "c302fc72a6496524678976e1eed15b1b1ff66daad13eecf6326e1f5dd984d039",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayFeelsLike": {
+    "source": "7aa3ddd059d3927f295bc35ece4e82c7a2fd967985b835481aed2f4e58b64de5",
+    "translation": "af24d0596446c92b7c9d53d92325f990f3765670980fca41ac7ab2776830b971",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayFeelsLikeHelp": {
+    "source": "79f47f728a13bca2f2e4746783d429bb5d8af91f8303541ceb1e82b2dcfa402a",
+    "translation": "11a9f4cb2ae32cc28502a979b7db60ef116200a06485d5e84eca170dcb57cb5a",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayFeelsLikeOnly": {
+    "source": "c1617ed8067ba3c6d8f16a9c37a3d1ee07a05cb19f885beed0bb3bdd4dde5ceb",
+    "translation": "861946019dbff95c95477ec739ce774e5a5369c35b460d0e9e2bc5004c3eaa86",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayFeelsLikeOnlyHelp": {
+    "source": "f888645dd6c71d7872deb59fe4a97a8e5d18a8111cf3b9f46effb80360326340",
+    "translation": "6803b7c516e2fc66b666b700aa4534de1f9d52b0c21e2fd08246de6fa464d434",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayForecast": {
+    "source": "5a96aa627a377a7772d28a1beafde77a9785e405c37717d18b37a8afeede43e7",
+    "translation": "4052f0ab53f7d86eee79041229d46ffb7d0d91a45d3db8e24e220c58895f3411",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayForecastHelp": {
+    "source": "af340aa23c96fb03f85736a3437bbaeb8bff48f47ae8817664408cb36255ff40",
+    "translation": "29d2b08989eeab515b81f5264c60398d69d2021b84a8ee995d13b6559c680aee",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayHumidity": {
+    "source": "2559df9552fe68aefa38dd481f3e0da83804e28d0a64d19022eb669ef72d90d5",
+    "translation": "c381ee188808afe7cc6401636e661dd1c57e9e68075b93f0e755e6a51f8c6170",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayWind": {
+    "source": "06b1233a7146ae1110151a732866137955e3fed345f204f3630e912f2e204fde",
+    "translation": "c8992593f9511b9db99e394008876a9f5b31afabb968c6de14b9708b1309a510",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayVisibility": {
+    "source": "7d88fd198f0c722751393be8807e2f7c935590b060a77ec2bb0f7bffbd76b8bf",
+    "translation": "60db4134994c8720d05df5e81be0e96db6870281a3a8bfae428e921f4f9a53dd",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverWidgetsTitle": {
+    "source": "2fe13f60fe21b5202c91e518b77658f78fa014376b8b60720d37ad206396fc18",
+    "translation": "1fda79ffb65973572d06d113cb166a10754223f2c0f232b29c79508497e49bdb",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverWidgetsDescription": {
+    "source": "03b38f74716d023b21eddd4ab34b335ad5f87fac2a01b186a05d3729379aced5",
+    "translation": "f9aa5a9738dbb16bec0e6c08d92e578012e16140a0abf18a8aee1b9042544006",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverWidgetScaleTitle": {
+    "source": "ba5a519a372d8f031197347b2f2fa63aee6360801d169acd7a73b62560512e93",
+    "translation": "402aff360d984f033c96d8d158e68a66ae7528671a3170be6a24101ebff8eab6",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverWidgetScaleDescription": {
+    "source": "7a2afe7d187a26419819cbe40e9f0e41545d089cb53ad306ee6835e81f796fa6",
+    "translation": "6e1ced4abb767f11ce44130b957c6fca159a1540fa4e02b2ba794ce4c8d79edf",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverWidgetFontTitle": {
+    "source": "046d3fc4479576d0d6e890eab313549db4477647ba3ec401ff681d69a2de13df",
+    "translation": "7c7849c21b873760d42dd8a79364770f256d15f98bff9544f7d0bfb03e3e9e96",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverWidgetFontDescription": {
+    "source": "833e77e7353be6e3146797b5aad4175718eb0f46ec16cfa37e3275c92c01e1f3",
+    "translation": "536acd487eb98f207475f96fc6ad6dcc1e9e0df0e6aee347696f6c18df6dca1c",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverWidgetFontWeightTitle": {
+    "source": "b2f3fe55001680b5c315383afcbf5b1b47fe756f3aafd03d15a80eab7331ba41",
+    "translation": "a867c6cccbbe821ffda5d76b72fdc71e680d84d6bdcc0764327b17a18845cabb",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverWidgetFontWeightDescription": {
+    "source": "d46ec931433c40ca58b794718ea01fe46ee2cac3d46faed56c0722e5f5818e70",
+    "translation": "69594ae45ca4aab48c3af93f62fb623a744c956e721601581b619098af1a7b3d",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverWidgetTextShadowTitle": {
+    "source": "b839d6813922ffbb99072c33a4e0bd08561a32a7c2fe819c7346b7f4681e3ad7",
+    "translation": "f1a1e7f3cc356f710c5517b77cded3a5511ec6ed10ab2184b24794efc88ac3ee",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverWidgetTextShadowDescription": {
+    "source": "7072512cd611e31db961667c4bb86ef5c13274f88d2c7c535495173348e49d46",
+    "translation": "cc26990a59e9518908dd4422d67f38d86f7bd87d2604801085bf4840d9629cca",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverVignetteStrengthTitle": {
+    "source": "7e556251fac6115253d6426b3625571144a28534bc55dcb2f3b81e4be9c4b918",
+    "translation": "770bd15f38477603ab0c5eab2fcc7ca607aebfdfc6f9670e06ba1d91867c31be",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverVignetteStrengthDescription": {
+    "source": "a472e3967134fe1342733ddb6917d36f4203d2798f56ffb24334c9e03d865f0f",
+    "translation": "43d926a63b230ebb35402b339655b1cefd501bbaaa4ffe83770328223349770c",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayWidgetsEmpty": {
+    "source": "50b506469bd55dd3127776f8ea9a757d07d7e1506975adcf725cd0fa2f0fe639",
+    "translation": "ed8aa097d718534e3d30090018b93f3d6e36c97d8b8ceb8fad9af47a7d0486e1",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayRemove": {
+    "source": "31f72851ca3f310167c56d0402a7f7d9eefe796e13a49020e4b4fbf2f82b3896",
+    "translation": "1bb111ad5d9f8432389d43b55634e46b8b8f85b7cbc340a0c6c14327620509ea",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayAdd": {
+    "source": "1cefee0b71ffac6953d0849c383c25797ef22369110e7c55f21be6f0ec1284f0",
+    "translation": "f0c320698b413d590bfc449405d0a3cdac17dc1eac3833f1d50550682d42a164",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayAddHelp": {
+    "source": "82f0a0a18ac3cd054592fc40bb7582557310f6dfa768e10bc5000cfc2a2ee93d",
+    "translation": "a623120561e86dad843b9b772d8ec45a1cdcf007faf9bfc7c27a704282fdb05a",
+    "author": "Xavier Larrea"
+  },
+  "screensaverOverlayWidgetsHint": {
+    "source": "3bdac90a3b716665cff78917de6755c1ab75d8e713cc78ca8eab466894fb7444",
+    "translation": "fb685e5be9db0c92bc74fb88003d650abd6fd9aee7d82a3c1a5cff440de79809",
     "author": "Xavier Larrea"
   },
   "settingsSearchHint": {

@@ -1,0 +1,354 @@
+{
+  "@@locale": "en",
+  "screensaverOverlaySmallClock": "Small clock",
+  "@screensaverOverlaySmallClock": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayWeather": "Weather",
+  "@screensaverOverlayWeather": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayBattery": "Battery",
+  "@screensaverOverlayBattery": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayClockNote": "Hidden in Digital Clock and Camera Streams screensaver modes.",
+  "@screensaverOverlayClockNote": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayCameraNote": "Hidden in the Camera Streams screensaver mode.",
+  "@screensaverOverlayCameraNote": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayScale": "Scale",
+  "@screensaverOverlayScale": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayScaleHelp": "Scale this widget size to better fit your screen.",
+  "@screensaverOverlayScaleHelp": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayFont": "Font family",
+  "@screensaverOverlayFont": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayCorner": "Corner",
+  "@screensaverOverlayCorner": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayWidget": "Widget",
+  "@screensaverOverlayWidget": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayClock24": "24-hour clock",
+  "@screensaverOverlayClock24": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayClock24Help": "Show a 24-hour time instead of AM/PM.",
+  "@screensaverOverlayClock24Help": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayShowDate": "Show date",
+  "@screensaverOverlayShowDate": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayShowDateHelp": "Add a short date under the clock.",
+  "@screensaverOverlayShowDateHelp": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayPercentage": "Show percentage",
+  "@screensaverOverlayPercentage": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayPercentageHelp": "The charge beside the icon.",
+  "@screensaverOverlayPercentageHelp": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayLow": "Only when low",
+  "@screensaverOverlayLow": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayLowHelp": "Stay hidden until the charge drops to 20 percent.",
+  "@screensaverOverlayLowHelp": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayShowName": "Show name",
+  "@screensaverOverlayShowName": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayShowNameHelp": "The name under the value.",
+  "@screensaverOverlayShowNameHelp": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Label or guidance in this editor.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayFontSystem": "System",
+  "@screensaverOverlayFontSystem": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Generic font family option. Font brand names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayFontSerif": "Serif",
+  "@screensaverOverlayFontSerif": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Generic font family option. Font brand names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayFontCondensed": "Condensed",
+  "@screensaverOverlayFontCondensed": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Generic font family option. Font brand names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayFontMonospace": "Monospace",
+  "@screensaverOverlayFontMonospace": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Generic font family option. Font brand names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayFontCasual": "Casual",
+  "@screensaverOverlayFontCasual": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Generic font family option. Font brand names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayFontCursive": "Cursive",
+  "@screensaverOverlayFontCursive": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Generic font family option. Font brand names stay unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  },
+  "screensaverOverlayColor": "Color",
+  "@screensaverOverlayColor": {
+    "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
+    "description": "Text color picker label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets > Add widget or select a widget"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets > Add widget or select a widget"
+      ]
+    }
+  }
+}

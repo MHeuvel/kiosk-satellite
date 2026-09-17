@@ -210,7 +210,7 @@
     "context": "Common:Dialogs",
     "description": "Shared picker action or loading state."
   },
-  "commonChoose": "Choose",
+  "commonChoose": "Elegir",
   "@commonChoose": {
     "context": "Common:Actions",
     "description": "Button to choose an item."
@@ -9311,7 +9311,7 @@
       }
     }
   },
-  "screensaverOverlayEntity": "Entity",
+  "screensaverOverlayEntity": "Entidad",
   "@screensaverOverlayEntity": {
     "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
     "description": "Label or guidance in this editor.",
@@ -9326,7 +9326,7 @@
       ]
     }
   },
-  "screensaverOverlayNotSet": "Not set",
+  "screensaverOverlayNotSet": "Sin configurar",
   "@screensaverOverlayNotSet": {
     "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
     "description": "Label or guidance in this editor.",
@@ -9341,7 +9341,7 @@
       ]
     }
   },
-  "screensaverOverlayName": "Name",
+  "screensaverOverlayName": "Nombre",
   "@screensaverOverlayName": {
     "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
     "description": "Label or guidance in this editor.",
@@ -9356,7 +9356,7 @@
       ]
     }
   },
-  "screensaverOverlayNameHelp": "Leave empty to use the Home Assistant name.",
+  "screensaverOverlayNameHelp": "Déjalo vacío para usar el nombre de Home Assistant.",
   "@screensaverOverlayNameHelp": {
     "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
     "description": "Label or guidance in this editor.",
@@ -9371,7 +9371,7 @@
       ]
     }
   },
-  "screensaverOverlayValue": "Displayed value",
+  "screensaverOverlayValue": "Valor mostrado",
   "@screensaverOverlayValue": {
     "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
     "description": "Label or guidance in this editor.",
@@ -9386,7 +9386,7 @@
       ]
     }
   },
-  "screensaverOverlayState": "State",
+  "screensaverOverlayState": "Estado",
   "@screensaverOverlayState": {
     "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
     "description": "Label or guidance in this editor.",
@@ -9401,7 +9401,7 @@
       ]
     }
   },
-  "screensaverOverlayEntityRequired": "Pick an entity.",
+  "screensaverOverlayEntityRequired": "Elige una entidad.",
   "@screensaverOverlayEntityRequired": {
     "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
     "description": "Label or guidance in this editor.",
@@ -9416,7 +9416,7 @@
       ]
     }
   },
-  "screensaverOverlaySearchHint": "Name or entity id",
+  "screensaverOverlaySearchHint": "Nombre o ID de entidad",
   "@screensaverOverlaySearchHint": {
     "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
     "description": "Label or guidance in this editor.",
@@ -9431,7 +9431,7 @@
       ]
     }
   },
-  "screensaverOverlaySearchHintRemote": "Search by name or entity id",
+  "screensaverOverlaySearchHintRemote": "Buscar por nombre o ID de entidad",
   "@screensaverOverlaySearchHintRemote": {
     "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
     "description": "Label or guidance in this editor.",
@@ -9446,7 +9446,7 @@
       ]
     }
   },
-  "screensaverOverlaySearchEmpty": "Type to search entities.",
+  "screensaverOverlaySearchEmpty": "Escribe para buscar entidades.",
   "@screensaverOverlaySearchEmpty": {
     "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
     "description": "Label or guidance in this editor.",
@@ -9461,7 +9461,7 @@
       ]
     }
   },
-  "screensaverOverlayNoMatches": "Nothing matched.",
+  "screensaverOverlayNoMatches": "No hay coincidencias.",
   "@screensaverOverlayNoMatches": {
     "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
     "description": "Label or guidance in this editor.",
@@ -9476,7 +9476,7 @@
       ]
     }
   },
-  "screensaverOverlaySearching": "Searching…",
+  "screensaverOverlaySearching": "Buscando…",
   "@screensaverOverlaySearching": {
     "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
     "description": "Label or guidance in this editor.",
@@ -9491,7 +9491,7 @@
       ]
     }
   },
-  "screensaverOverlayUnreachable": "Could not reach Home Assistant",
+  "screensaverOverlayUnreachable": "No se pudo conectar con Home Assistant",
   "@screensaverOverlayUnreachable": {
     "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
     "description": "Label or guidance in this editor.",
@@ -9506,7 +9506,7 @@
       ]
     }
   },
-  "screensaverOverlayNoAnswer": "The device did not answer.",
+  "screensaverOverlayNoAnswer": "El dispositivo no respondió.",
   "@screensaverOverlayNoAnswer": {
     "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
     "description": "Label or guidance in this editor.",
@@ -9521,7 +9521,7 @@
       ]
     }
   },
-  "screensaverOverlaySearchError": "Could not search entities: {error}",
+  "screensaverOverlaySearchError": "No se pudieron buscar entidades: {error}",
   "@screensaverOverlaySearchError": {
     "context": "Settings > Screensaver > Widgets > Entity widget or At a Glance > Entities",
     "description": "Label or guidance in this editor.",
@@ -10062,7 +10062,7 @@
       ]
     }
   },
-  "settingScreensaverGlanceScaleTitle": "Row scaling",
+  "settingScreensaverGlanceScaleTitle": "Escala de la fila",
   "@settingScreensaverGlanceScaleTitle": {
     "context": "Settings > Screensaver > At a Glance > Appearance",
     "description": "Setting label.",
@@ -10075,7 +10075,7 @@
       ]
     }
   },
-  "settingScreensaverGlanceScaleDescription": "Scale the row to better fit your screen size.",
+  "settingScreensaverGlanceScaleDescription": "Ajusta el tamaño de la fila a la pantalla.",
   "@settingScreensaverGlanceScaleDescription": {
     "context": "Settings > Screensaver > At a Glance > Appearance",
     "description": "Help below this setting.",
@@ -10088,7 +10088,7 @@
       ]
     }
   },
-  "settingScreensaverGlanceFontTitle": "Font family",
+  "settingScreensaverGlanceFontTitle": "Fuente",
   "@settingScreensaverGlanceFontTitle": {
     "context": "Settings > Screensaver > At a Glance > Appearance",
     "description": "Setting label.",
@@ -10101,7 +10101,7 @@
       ]
     }
   },
-  "settingScreensaverGlanceFontDescription": "The typeface the row is drawn in.",
+  "settingScreensaverGlanceFontDescription": "Fuente que usa la fila.",
   "@settingScreensaverGlanceFontDescription": {
     "context": "Settings > Screensaver > At a Glance > Appearance",
     "description": "Help below this setting.",
@@ -10114,7 +10114,7 @@
       ]
     }
   },
-  "settingScreensaverGlanceFontWeightTitle": "Font weight",
+  "settingScreensaverGlanceFontWeightTitle": "Grosor de la fuente",
   "@settingScreensaverGlanceFontWeightTitle": {
     "context": "Settings > Screensaver > At a Glance > Appearance",
     "description": "Setting label.",
@@ -10127,7 +10127,7 @@
       ]
     }
   },
-  "settingScreensaverGlanceFontWeightDescription": "How heavy the row's text is drawn. Default is each line's own weight: regular names, semibold values.",
+  "settingScreensaverGlanceFontWeightDescription": "Grosor del texto de la fila. Predeterminado usa el grosor propio de cada línea: normal para los nombres y seminegrita para los valores.",
   "@settingScreensaverGlanceFontWeightDescription": {
     "context": "Settings > Screensaver > At a Glance > Appearance",
     "description": "Help below this setting.",
@@ -10140,7 +10140,7 @@
       ]
     }
   },
-  "settingScreensaverGlanceHideNamesTitle": "Hide names",
+  "settingScreensaverGlanceHideNamesTitle": "Ocultar nombres",
   "@settingScreensaverGlanceHideNamesTitle": {
     "context": "Settings > Screensaver > At a Glance > Appearance",
     "description": "Setting label.",
@@ -10153,7 +10153,7 @@
       ]
     }
   },
-  "settingScreensaverGlanceHideNamesDescription": "Show only the icon and the value, with the value drawn larger.",
+  "settingScreensaverGlanceHideNamesDescription": "Muestra solo el icono y el valor, con el valor más grande.",
   "@settingScreensaverGlanceHideNamesDescription": {
     "context": "Settings > Screensaver > At a Glance > Appearance",
     "description": "Help below this setting.",
@@ -10166,7 +10166,7 @@
       ]
     }
   },
-  "settingScreensaverGlanceBwIconsTitle": "Monochromatic icons",
+  "settingScreensaverGlanceBwIconsTitle": "Iconos monocromáticos",
   "@settingScreensaverGlanceBwIconsTitle": {
     "context": "Settings > Screensaver > At a Glance > Appearance",
     "description": "Setting label.",
@@ -10179,7 +10179,7 @@
       ]
     }
   },
-  "settingScreensaverGlanceBwIconsDescription": "Keep every icon in the neutral grey instead of its state color.",
+  "settingScreensaverGlanceBwIconsDescription": "Mantiene todos los iconos en gris neutro en lugar del color de su estado.",
   "@settingScreensaverGlanceBwIconsDescription": {
     "context": "Settings > Screensaver > At a Glance > Appearance",
     "description": "Help below this setting.",
@@ -10192,7 +10192,7 @@
       ]
     }
   },
-  "settingScreensaverGlanceTextOnlyTitle": "Floating text style",
+  "settingScreensaverGlanceTextOnlyTitle": "Estilo de texto flotante",
   "@settingScreensaverGlanceTextOnlyTitle": {
     "context": "Settings > Screensaver > At a Glance > Appearance",
     "description": "Setting label.",
@@ -10205,7 +10205,7 @@
       ]
     }
   },
-  "settingScreensaverGlanceTextOnlyDescription": "Show the entities as floating text instead of chips.",
+  "settingScreensaverGlanceTextOnlyDescription": "Muestra las entidades como texto flotante en lugar de recuadros.",
   "@settingScreensaverGlanceTextOnlyDescription": {
     "context": "Settings > Screensaver > At a Glance > Appearance",
     "description": "Help below this setting.",
@@ -10218,7 +10218,7 @@
       ]
     }
   },
-  "screensaverOverlayAppearance": "Appearance",
+  "screensaverOverlayAppearance": "Apariencia",
   "@screensaverOverlayAppearance": {
     "context": "Settings > Screensaver > At a Glance > Appearance",
     "description": "Settings group heading.",
@@ -10231,7 +10231,7 @@
       ]
     }
   },
-  "settingScreensaverGlanceEnabledTitle": "At a glance",
+  "settingScreensaverGlanceEnabledTitle": "De un vistazo",
   "@settingScreensaverGlanceEnabledTitle": {
     "context": "Settings > Screensaver > At a Glance",
     "description": "Setting label.",
@@ -10244,7 +10244,7 @@
       ]
     }
   },
-  "settingScreensaverGlanceEnabledDescription": "Show a row of Home Assistant entity states on the screensaver.",
+  "settingScreensaverGlanceEnabledDescription": "Muestra una fila de estados de entidades de Home Assistant en el protector de pantalla.",
   "@settingScreensaverGlanceEnabledDescription": {
     "context": "Settings > Screensaver > At a Glance",
     "description": "Help below this setting.",
@@ -10257,7 +10257,7 @@
       ]
     }
   },
-  "settingScreensaverGlanceEntitiesTitle": "Entities",
+  "settingScreensaverGlanceEntitiesTitle": "Entidades",
   "@settingScreensaverGlanceEntitiesTitle": {
     "context": "Settings > Screensaver > At a Glance",
     "description": "Setting label.",
@@ -10270,7 +10270,7 @@
       ]
     }
   },
-  "settingScreensaverGlanceEntitiesDescription": "Up to four entities to show, each with an optional custom name.",
+  "settingScreensaverGlanceEntitiesDescription": "Hasta cuatro entidades para mostrar, cada una con un nombre personalizado opcional.",
   "@settingScreensaverGlanceEntitiesDescription": {
     "context": "Settings > Screensaver > At a Glance",
     "description": "Help below this setting.",
@@ -10283,7 +10283,7 @@
       ]
     }
   },
-  "settingScreensaverGlanceNowPlayingTitle": "Show on Now Playing",
+  "settingScreensaverGlanceNowPlayingTitle": "Mostrar en Reproduciendo",
   "@settingScreensaverGlanceNowPlayingTitle": {
     "context": "Settings > Screensaver > At a Glance",
     "description": "Setting label.",
@@ -10296,7 +10296,7 @@
       ]
     }
   },
-  "settingScreensaverGlanceNowPlayingDescription": "Show the row on the full-screen Now Playing view. It stays hidden while lyrics are showing.",
+  "settingScreensaverGlanceNowPlayingDescription": "Muestra la fila en la vista Reproduciendo a pantalla completa. Se oculta mientras se muestra la letra.",
   "@settingScreensaverGlanceNowPlayingDescription": {
     "context": "Settings > Screensaver > At a Glance",
     "description": "Help below this setting.",
@@ -10309,7 +10309,7 @@
       ]
     }
   },
-  "screensaverOverlayShowing": "Showing",
+  "screensaverOverlayShowing": "Entidades mostradas",
   "@screensaverOverlayShowing": {
     "context": "Settings > Screensaver > At a Glance",
     "description": "Label or guidance in this editor.",
@@ -10322,7 +10322,7 @@
       ]
     }
   },
-  "screensaverOverlayReorder": "Showing (drag to reorder)",
+  "screensaverOverlayReorder": "Entidades mostradas (arrastra para reordenar)",
   "@screensaverOverlayReorder": {
     "context": "Settings > Screensaver > At a Glance",
     "description": "Label or guidance in this editor.",
@@ -10335,7 +10335,7 @@
       ]
     }
   },
-  "screensaverOverlayFull": "That is the most the row can show. Remove one to add another.",
+  "screensaverOverlayFull": "La fila ya tiene el máximo de entidades. Quita una para añadir otra.",
   "@screensaverOverlayFull": {
     "context": "Settings > Screensaver > At a Glance",
     "description": "Label or guidance in this editor.",
@@ -10348,7 +10348,7 @@
       ]
     }
   },
-  "screensaverOverlayPickerTitle": "At a glance entities",
+  "screensaverOverlayPickerTitle": "Entidades de un vistazo",
   "@screensaverOverlayPickerTitle": {
     "context": "Settings > Screensaver > At a Glance",
     "description": "Label or guidance in this editor.",
@@ -10361,7 +10361,7 @@
       ]
     }
   },
-  "screensaverOverlayGlanceEmpty": "None yet. Up to {count} entities.",
+  "screensaverOverlayGlanceEmpty": "Aún no hay ninguna. Hasta {count} entidades.",
   "@screensaverOverlayGlanceEmpty": {
     "context": "Settings > Screensaver > At a Glance",
     "description": "Label or guidance in this editor.",
@@ -10380,7 +10380,7 @@
       }
     }
   },
-  "screensaverOverlayNone": "None yet",
+  "screensaverOverlayNone": "Aún no hay ninguna",
   "@screensaverOverlayNone": {
     "context": "Settings > Screensaver > At a Glance",
     "description": "Label or guidance in this editor.",
@@ -10393,7 +10393,7 @@
       ]
     }
   },
-  "screensaverOverlayLimit": "Up to {count} entities.",
+  "screensaverOverlayLimit": "Hasta {count} entidades.",
   "@screensaverOverlayLimit": {
     "context": "Settings > Screensaver > At a Glance",
     "description": "Label or guidance in this editor.",
@@ -10412,7 +10412,7 @@
       }
     }
   },
-  "screensaverOverlayGlancePage": "At a Glance",
+  "screensaverOverlayGlancePage": "De un vistazo",
   "@screensaverOverlayGlancePage": {
     "context": "Settings > Screensaver > At a Glance",
     "description": "Subpage navigation title or summary.",
@@ -10425,7 +10425,7 @@
       ]
     }
   },
-  "screensaverOverlayGlanceHint": "Entities shown over the screensaver",
+  "screensaverOverlayGlanceHint": "Entidades que se muestran sobre el protector de pantalla",
   "@screensaverOverlayGlanceHint": {
     "context": "Settings > Screensaver > At a Glance",
     "description": "Subpage navigation title or summary.",
@@ -13893,7 +13893,7 @@
       ]
     }
   },
-  "screensaverOverlaySmallClock": "Small clock",
+  "screensaverOverlaySmallClock": "Reloj pequeño",
   "@screensaverOverlaySmallClock": {
     "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
     "description": "Label or guidance in this editor.",
@@ -13906,7 +13906,7 @@
       ]
     }
   },
-  "screensaverOverlayWeather": "Weather",
+  "screensaverOverlayWeather": "Clima",
   "@screensaverOverlayWeather": {
     "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
     "description": "Label or guidance in this editor.",
@@ -13919,7 +13919,7 @@
       ]
     }
   },
-  "screensaverOverlayBattery": "Battery",
+  "screensaverOverlayBattery": "Batería",
   "@screensaverOverlayBattery": {
     "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
     "description": "Label or guidance in this editor.",
@@ -13932,7 +13932,7 @@
       ]
     }
   },
-  "screensaverOverlayClockNote": "Hidden in Digital Clock and Camera Streams screensaver modes.",
+  "screensaverOverlayClockNote": "Se oculta en los modos Reloj digital y Transmisiones de cámara del protector de pantalla.",
   "@screensaverOverlayClockNote": {
     "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
     "description": "Label or guidance in this editor.",
@@ -13945,7 +13945,7 @@
       ]
     }
   },
-  "screensaverOverlayCameraNote": "Hidden in the Camera Streams screensaver mode.",
+  "screensaverOverlayCameraNote": "Se oculta en el modo Transmisiones de cámara del protector de pantalla.",
   "@screensaverOverlayCameraNote": {
     "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
     "description": "Label or guidance in this editor.",
@@ -13958,7 +13958,7 @@
       ]
     }
   },
-  "screensaverOverlayScale": "Scale",
+  "screensaverOverlayScale": "Escala",
   "@screensaverOverlayScale": {
     "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
     "description": "Label or guidance in this editor.",
@@ -13971,7 +13971,7 @@
       ]
     }
   },
-  "screensaverOverlayScaleHelp": "Scale this widget size to better fit your screen.",
+  "screensaverOverlayScaleHelp": "Ajusta el tamaño de este widget a la pantalla.",
   "@screensaverOverlayScaleHelp": {
     "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
     "description": "Label or guidance in this editor.",
@@ -13984,7 +13984,7 @@
       ]
     }
   },
-  "screensaverOverlayFont": "Font family",
+  "screensaverOverlayFont": "Fuente",
   "@screensaverOverlayFont": {
     "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
     "description": "Label or guidance in this editor.",
@@ -13997,7 +13997,7 @@
       ]
     }
   },
-  "screensaverOverlayCorner": "Corner",
+  "screensaverOverlayCorner": "Esquina",
   "@screensaverOverlayCorner": {
     "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
     "description": "Label or guidance in this editor.",
@@ -14023,7 +14023,7 @@
       ]
     }
   },
-  "screensaverOverlayClock24": "24-hour clock",
+  "screensaverOverlayClock24": "Reloj de 24 horas",
   "@screensaverOverlayClock24": {
     "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
     "description": "Label or guidance in this editor.",
@@ -14036,7 +14036,7 @@
       ]
     }
   },
-  "screensaverOverlayClock24Help": "Show a 24-hour time instead of AM/PM.",
+  "screensaverOverlayClock24Help": "Usa el formato de 24 horas en lugar de AM/PM.",
   "@screensaverOverlayClock24Help": {
     "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
     "description": "Label or guidance in this editor.",
@@ -14049,7 +14049,7 @@
       ]
     }
   },
-  "screensaverOverlayShowDate": "Show date",
+  "screensaverOverlayShowDate": "Mostrar fecha",
   "@screensaverOverlayShowDate": {
     "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
     "description": "Label or guidance in this editor.",
@@ -14062,7 +14062,7 @@
       ]
     }
   },
-  "screensaverOverlayShowDateHelp": "Add a short date under the clock.",
+  "screensaverOverlayShowDateHelp": "Añade una fecha corta debajo del reloj.",
   "@screensaverOverlayShowDateHelp": {
     "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
     "description": "Label or guidance in this editor.",
@@ -14075,7 +14075,7 @@
       ]
     }
   },
-  "screensaverOverlayPercentage": "Show percentage",
+  "screensaverOverlayPercentage": "Mostrar porcentaje",
   "@screensaverOverlayPercentage": {
     "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
     "description": "Label or guidance in this editor.",
@@ -14088,7 +14088,7 @@
       ]
     }
   },
-  "screensaverOverlayPercentageHelp": "The charge beside the icon.",
+  "screensaverOverlayPercentageHelp": "Muestra la carga junto al icono.",
   "@screensaverOverlayPercentageHelp": {
     "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
     "description": "Label or guidance in this editor.",
@@ -14101,7 +14101,7 @@
       ]
     }
   },
-  "screensaverOverlayLow": "Only when low",
+  "screensaverOverlayLow": "Solo con batería baja",
   "@screensaverOverlayLow": {
     "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
     "description": "Label or guidance in this editor.",
@@ -14114,7 +14114,7 @@
       ]
     }
   },
-  "screensaverOverlayLowHelp": "Stay hidden until the charge drops to 20 percent.",
+  "screensaverOverlayLowHelp": "Se oculta hasta que la carga baja al 20 por ciento.",
   "@screensaverOverlayLowHelp": {
     "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
     "description": "Label or guidance in this editor.",
@@ -14127,7 +14127,7 @@
       ]
     }
   },
-  "screensaverOverlayShowName": "Show name",
+  "screensaverOverlayShowName": "Mostrar nombre",
   "@screensaverOverlayShowName": {
     "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
     "description": "Label or guidance in this editor.",
@@ -14140,7 +14140,7 @@
       ]
     }
   },
-  "screensaverOverlayShowNameHelp": "The name under the value.",
+  "screensaverOverlayShowNameHelp": "Muestra el nombre debajo del valor.",
   "@screensaverOverlayShowNameHelp": {
     "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
     "description": "Label or guidance in this editor.",
@@ -14153,7 +14153,7 @@
       ]
     }
   },
-  "screensaverOverlayFontSystem": "System",
+  "screensaverOverlayFontSystem": "Sistema",
   "@screensaverOverlayFontSystem": {
     "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
     "description": "Generic font family option. Font brand names stay unchanged.",
@@ -14166,7 +14166,7 @@
       ]
     }
   },
-  "screensaverOverlayFontSerif": "Serif",
+  "screensaverOverlayFontSerif": "Con remates",
   "@screensaverOverlayFontSerif": {
     "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
     "description": "Generic font family option. Font brand names stay unchanged.",
@@ -14179,7 +14179,7 @@
       ]
     }
   },
-  "screensaverOverlayFontCondensed": "Condensed",
+  "screensaverOverlayFontCondensed": "Condensada",
   "@screensaverOverlayFontCondensed": {
     "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
     "description": "Generic font family option. Font brand names stay unchanged.",
@@ -14192,7 +14192,7 @@
       ]
     }
   },
-  "screensaverOverlayFontMonospace": "Monospace",
+  "screensaverOverlayFontMonospace": "Monoespaciada",
   "@screensaverOverlayFontMonospace": {
     "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
     "description": "Generic font family option. Font brand names stay unchanged.",
@@ -14205,7 +14205,7 @@
       ]
     }
   },
-  "screensaverOverlayFontCasual": "Casual",
+  "screensaverOverlayFontCasual": "Informal",
   "@screensaverOverlayFontCasual": {
     "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
     "description": "Generic font family option. Font brand names stay unchanged.",
@@ -14218,7 +14218,7 @@
       ]
     }
   },
-  "screensaverOverlayFontCursive": "Cursive",
+  "screensaverOverlayFontCursive": "Cursiva",
   "@screensaverOverlayFontCursive": {
     "context": "Settings > Screensaver > Widgets > Add widget or select a widget",
     "description": "Generic font family option. Font brand names stay unchanged.",
@@ -14244,7 +14244,7 @@
       ]
     }
   },
-  "screensaverOverlayWeatherEntity": "Weather entity",
+  "screensaverOverlayWeatherEntity": "Entidad del clima",
   "@screensaverOverlayWeatherEntity": {
     "context": "Settings > Screensaver > Widgets > Weather widget",
     "description": "Label or guidance in this editor.",
@@ -14257,7 +14257,7 @@
       ]
     }
   },
-  "screensaverOverlayNoWeather": "No weather entities",
+  "screensaverOverlayNoWeather": "No hay entidades del clima",
   "@screensaverOverlayNoWeather": {
     "context": "Settings > Screensaver > Widgets > Weather widget",
     "description": "Label or guidance in this editor.",
@@ -14270,7 +14270,7 @@
       ]
     }
   },
-  "screensaverOverlayNoWeatherHelp": "Home Assistant reported none.",
+  "screensaverOverlayNoWeatherHelp": "Home Assistant no devolvió ninguna.",
   "@screensaverOverlayNoWeatherHelp": {
     "context": "Settings > Screensaver > Widgets > Weather widget",
     "description": "Label or guidance in this editor.",
@@ -14283,7 +14283,7 @@
       ]
     }
   },
-  "screensaverOverlayPickWeather": "Pick a weather entity…",
+  "screensaverOverlayPickWeather": "Elige una entidad del clima…",
   "@screensaverOverlayPickWeather": {
     "context": "Settings > Screensaver > Widgets > Weather widget",
     "description": "Label or guidance in this editor.",
@@ -14296,7 +14296,7 @@
       ]
     }
   },
-  "screensaverOverlayWeatherRequired": "Pick a weather entity.",
+  "screensaverOverlayWeatherRequired": "Elige una entidad del clima.",
   "@screensaverOverlayWeatherRequired": {
     "context": "Settings > Screensaver > Widgets > Weather widget",
     "description": "Label or guidance in this editor.",
@@ -14309,7 +14309,7 @@
       ]
     }
   },
-  "screensaverOverlayLocationName": "Location name",
+  "screensaverOverlayLocationName": "Nombre de la ubicación",
   "@screensaverOverlayLocationName": {
     "context": "Settings > Screensaver > Widgets > Weather widget",
     "description": "Label or guidance in this editor.",
@@ -14322,7 +14322,7 @@
       ]
     }
   },
-  "screensaverOverlayLocationHelp": "Leave empty to hide the location line.",
+  "screensaverOverlayLocationHelp": "Déjalo vacío para ocultar la línea de ubicación.",
   "@screensaverOverlayLocationHelp": {
     "context": "Settings > Screensaver > Widgets > Weather widget",
     "description": "Label or guidance in this editor.",
@@ -14335,7 +14335,7 @@
       ]
     }
   },
-  "screensaverOverlayLocation": "Location",
+  "screensaverOverlayLocation": "Ubicación",
   "@screensaverOverlayLocation": {
     "context": "Settings > Screensaver > Widgets > Weather widget",
     "description": "Label or guidance in this editor.",
@@ -14348,7 +14348,7 @@
       ]
     }
   },
-  "screensaverOverlayLocationDetail": "The place's name over the temperature.",
+  "screensaverOverlayLocationDetail": "Muestra el nombre del lugar encima de la temperatura.",
   "@screensaverOverlayLocationDetail": {
     "context": "Settings > Screensaver > Widgets > Weather widget",
     "description": "Label or guidance in this editor.",
@@ -14361,7 +14361,7 @@
       ]
     }
   },
-  "screensaverOverlayFeelsLike": "Feels like",
+  "screensaverOverlayFeelsLike": "Sensación térmica",
   "@screensaverOverlayFeelsLike": {
     "context": "Settings > Screensaver > Widgets > Weather widget",
     "description": "Label or guidance in this editor.",
@@ -14374,7 +14374,7 @@
       ]
     }
   },
-  "screensaverOverlayFeelsLikeHelp": "The apparent temperature after the real one, \"30° / 33°\".",
+  "screensaverOverlayFeelsLikeHelp": "Muestra la sensación térmica después de la temperatura real: \"30° / 33°\".",
   "@screensaverOverlayFeelsLikeHelp": {
     "context": "Settings > Screensaver > Widgets > Weather widget",
     "description": "Label or guidance in this editor.",
@@ -14387,7 +14387,7 @@
       ]
     }
   },
-  "screensaverOverlayFeelsLikeOnly": "Feels like only",
+  "screensaverOverlayFeelsLikeOnly": "Solo sensación térmica",
   "@screensaverOverlayFeelsLikeOnly": {
     "context": "Settings > Screensaver > Widgets > Weather widget",
     "description": "Label or guidance in this editor.",
@@ -14400,7 +14400,7 @@
       ]
     }
   },
-  "screensaverOverlayFeelsLikeOnlyHelp": "The apparent temperature in the real one's place.",
+  "screensaverOverlayFeelsLikeOnlyHelp": "Muestra la sensación térmica en lugar de la temperatura real.",
   "@screensaverOverlayFeelsLikeOnlyHelp": {
     "context": "Settings > Screensaver > Widgets > Weather widget",
     "description": "Label or guidance in this editor.",
@@ -14413,7 +14413,7 @@
       ]
     }
   },
-  "screensaverOverlayForecast": "Forecast",
+  "screensaverOverlayForecast": "Pronóstico",
   "@screensaverOverlayForecast": {
     "context": "Settings > Screensaver > Widgets > Weather widget",
     "description": "Label or guidance in this editor.",
@@ -14426,7 +14426,7 @@
       ]
     }
   },
-  "screensaverOverlayForecastHelp": "The conditions, with a matching icon.",
+  "screensaverOverlayForecastHelp": "Muestra las condiciones con su icono correspondiente.",
   "@screensaverOverlayForecastHelp": {
     "context": "Settings > Screensaver > Widgets > Weather widget",
     "description": "Label or guidance in this editor.",
@@ -14439,7 +14439,7 @@
       ]
     }
   },
-  "screensaverOverlayHumidity": "Humidity",
+  "screensaverOverlayHumidity": "Humedad",
   "@screensaverOverlayHumidity": {
     "context": "Settings > Screensaver > Widgets > Weather widget",
     "description": "Label or guidance in this editor.",
@@ -14452,7 +14452,7 @@
       ]
     }
   },
-  "screensaverOverlayWind": "Wind speed",
+  "screensaverOverlayWind": "Velocidad del viento",
   "@screensaverOverlayWind": {
     "context": "Settings > Screensaver > Widgets > Weather widget",
     "description": "Label or guidance in this editor.",
@@ -14465,7 +14465,7 @@
       ]
     }
   },
-  "screensaverOverlayVisibility": "Visibility",
+  "screensaverOverlayVisibility": "Visibilidad",
   "@screensaverOverlayVisibility": {
     "context": "Settings > Screensaver > Widgets > Weather widget",
     "description": "Label or guidance in this editor.",
@@ -14491,7 +14491,7 @@
       ]
     }
   },
-  "settingScreensaverWidgetsDescription": "Small overlays in the corners of the screensaver.",
+  "settingScreensaverWidgetsDescription": "Pequeños elementos superpuestos en las esquinas del protector de pantalla.",
   "@settingScreensaverWidgetsDescription": {
     "context": "Settings > Screensaver > Widgets",
     "description": "Help below this setting.",
@@ -14504,7 +14504,7 @@
       ]
     }
   },
-  "settingScreensaverWidgetScaleTitle": "Global widget scaling",
+  "settingScreensaverWidgetScaleTitle": "Escala global de los widgets",
   "@settingScreensaverWidgetScaleTitle": {
     "context": "Settings > Screensaver > Widgets",
     "description": "Setting label.",
@@ -14517,7 +14517,7 @@
       ]
     }
   },
-  "settingScreensaverWidgetScaleDescription": "Scale all widgets together to better fit your screen size. Each widget keeps its own scale relative to the others.",
+  "settingScreensaverWidgetScaleDescription": "Ajusta el tamaño de todos los widgets a la pantalla. Cada widget conserva su escala con respecto a los demás.",
   "@settingScreensaverWidgetScaleDescription": {
     "context": "Settings > Screensaver > Widgets",
     "description": "Help below this setting.",
@@ -14530,7 +14530,7 @@
       ]
     }
   },
-  "settingScreensaverWidgetFontTitle": "Global font family",
+  "settingScreensaverWidgetFontTitle": "Fuente global",
   "@settingScreensaverWidgetFontTitle": {
     "context": "Settings > Screensaver > Widgets",
     "description": "Setting label.",
@@ -14543,7 +14543,7 @@
       ]
     }
   },
-  "settingScreensaverWidgetFontDescription": "The typeface every widget is drawn in. A widget can pick its own.",
+  "settingScreensaverWidgetFontDescription": "Fuente que usan todos los widgets. Cada widget puede elegir la suya.",
   "@settingScreensaverWidgetFontDescription": {
     "context": "Settings > Screensaver > Widgets",
     "description": "Help below this setting.",
@@ -14556,7 +14556,7 @@
       ]
     }
   },
-  "settingScreensaverWidgetFontWeightTitle": "Global font weight",
+  "settingScreensaverWidgetFontWeightTitle": "Grosor global de la fuente",
   "@settingScreensaverWidgetFontWeightTitle": {
     "context": "Settings > Screensaver > Widgets",
     "description": "Setting label.",
@@ -14569,7 +14569,7 @@
       ]
     }
   },
-  "settingScreensaverWidgetFontWeightDescription": "How heavy every widget's text is drawn. Default is each line's own weight. A widget can pick its own.",
+  "settingScreensaverWidgetFontWeightDescription": "Grosor del texto de todos los widgets. Predeterminado usa el grosor propio de cada línea. Cada widget puede elegir el suyo.",
   "@settingScreensaverWidgetFontWeightDescription": {
     "context": "Settings > Screensaver > Widgets",
     "description": "Help below this setting.",
@@ -14582,7 +14582,7 @@
       ]
     }
   },
-  "settingScreensaverWidgetTextShadowTitle": "Text drop shadow",
+  "settingScreensaverWidgetTextShadowTitle": "Sombra del texto",
   "@settingScreensaverWidgetTextShadowTitle": {
     "context": "Settings > Screensaver > Widgets",
     "description": "Setting label.",
@@ -14595,7 +14595,7 @@
       ]
     }
   },
-  "settingScreensaverWidgetTextShadowDescription": "Add a drop shadow to widget text for readability on photos.",
+  "settingScreensaverWidgetTextShadowDescription": "Añade una sombra al texto de los widgets para facilitar su lectura sobre las fotos.",
   "@settingScreensaverWidgetTextShadowDescription": {
     "context": "Settings > Screensaver > Widgets",
     "description": "Help below this setting.",
@@ -14608,7 +14608,7 @@
       ]
     }
   },
-  "settingScreensaverVignetteStrengthTitle": "Vignette strength",
+  "settingScreensaverVignetteStrengthTitle": "Intensidad del sombreado",
   "@settingScreensaverVignetteStrengthTitle": {
     "context": "Settings > Screensaver > Widgets",
     "description": "Setting label.",
@@ -14621,7 +14621,7 @@
       ]
     }
   },
-  "settingScreensaverVignetteStrengthDescription": "Darkness of the shading behind the widgets, for readability on bright photos. 0 turns it off.",
+  "settingScreensaverVignetteStrengthDescription": "Oscuridad del fondo detrás de los widgets para facilitar su lectura sobre fotos claras. El valor 0 lo desactiva.",
   "@settingScreensaverVignetteStrengthDescription": {
     "context": "Settings > Screensaver > Widgets",
     "description": "Help below this setting.",
@@ -14634,7 +14634,7 @@
       ]
     }
   },
-  "screensaverOverlayWidgetsEmpty": "No widgets yet",
+  "screensaverOverlayWidgetsEmpty": "Aún no hay widgets",
   "@screensaverOverlayWidgetsEmpty": {
     "context": "Settings > Screensaver > Widgets",
     "description": "Label or guidance in this editor.",
@@ -14647,7 +14647,7 @@
       ]
     }
   },
-  "screensaverOverlayRemove": "Remove widget",
+  "screensaverOverlayRemove": "Quitar widget",
   "@screensaverOverlayRemove": {
     "context": "Settings > Screensaver > Widgets",
     "description": "Label or guidance in this editor.",
@@ -14660,7 +14660,7 @@
       ]
     }
   },
-  "screensaverOverlayAdd": "Add widget",
+  "screensaverOverlayAdd": "Añadir widget",
   "@screensaverOverlayAdd": {
     "context": "Settings > Screensaver > Widgets",
     "description": "Label or guidance in this editor.",
@@ -14673,7 +14673,7 @@
       ]
     }
   },
-  "screensaverOverlayAddHelp": "A small clock, the weather, the battery or an entity in a corner.",
+  "screensaverOverlayAddHelp": "Un reloj pequeño, el clima, la batería o una entidad en una esquina.",
   "@screensaverOverlayAddHelp": {
     "context": "Settings > Screensaver > Widgets",
     "description": "Label or guidance in this editor.",
@@ -14686,7 +14686,7 @@
       ]
     }
   },
-  "screensaverOverlayWidgetsHint": "Corner overlays and their scale",
+  "screensaverOverlayWidgetsHint": "Elementos en las esquinas y su escala",
   "@screensaverOverlayWidgetsHint": {
     "context": "Settings > Screensaver > Widgets",
     "description": "Subpage navigation title or summary.",

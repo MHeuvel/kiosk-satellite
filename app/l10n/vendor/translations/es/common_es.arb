@@ -41,5 +41,6 @@
   "commonMoveDown": "Bajar",
   "commonPreviousMonth": "Mes anterior",
   "commonNextMonth": "Mes siguiente",
-  "commonLoading": "Cargando…"
+  "commonLoading": "Cargando…",
+  "commonChoose": "Elegir"
 }
