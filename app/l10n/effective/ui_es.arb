@@ -25,17 +25,17 @@
     "context": "Common:Actions",
     "description": "Button label while an operation is running."
   },
-  "commonSettings": "Settings",
+  "commonSettings": "Configuración",
   "@commonSettings": {
     "context": "Common:Actions",
     "description": "Heading for Settings and the drawer action that opens it."
   },
-  "commonCancel": "Cancel",
+  "commonCancel": "Cancelar",
   "@commonCancel": {
     "context": "Common:Actions",
     "description": "Button to dismiss a dialog without applying its action."
   },
-  "commonOk": "OK",
+  "commonOk": "Aceptar",
   "@commonOk": {
     "context": "Common:Actions",
     "description": "Button to dismiss a message."
@@ -60,7 +60,7 @@
       }
     }
   },
-  "drawerPluginActionErrorTitle": "Plugin action",
+  "drawerPluginActionErrorTitle": "Acción del plugin",
   "@drawerPluginActionErrorTitle": {
     "context": "Device:Drawer",
     "description": "Error heading after a plugin action fails.",
@@ -70,7 +70,7 @@
       ]
     }
   },
-  "drawerPluginActionError": "Could not run this action.",
+  "drawerPluginActionError": "No se pudo ejecutar esta acción.",
   "@drawerPluginActionError": {
     "context": "Device:Drawer",
     "description": "Fallback error when a plugin provides no error text.",
@@ -80,7 +80,7 @@
       ]
     }
   },
-  "drawerDashboard": "Dashboard",
+  "drawerDashboard": "Panel",
   "@drawerDashboard": {
     "context": "Device:Drawer",
     "description": "Opens the configured Home Assistant dashboard.",
@@ -90,7 +90,7 @@
       ]
     }
   },
-  "drawerHaKiosk": "HA Kiosk Mode",
+  "drawerHaKiosk": "Modo kiosko de HA",
   "@drawerHaKiosk": {
     "context": "Device:Drawer",
     "description": "Toggles the Home Assistant header and sidebar. Shown when the menu shortcut is enabled.",
@@ -100,7 +100,7 @@
       ]
     }
   },
-  "drawerCameraView": "Camera View",
+  "drawerCameraView": "Vista de cámaras",
   "@drawerCameraView": {
     "context": "Device:Drawer",
     "description": "Opens the default camera view. Shown when that view contains cameras.",
@@ -110,7 +110,7 @@
       ]
     }
   },
-  "drawerIntercom": "Intercom",
+  "drawerIntercom": "Intercomunicador",
   "@drawerIntercom": {
     "context": "Device:Drawer",
     "description": "Opens the intercom when it is enabled and available.",
@@ -130,7 +130,7 @@
       ]
     }
   },
-  "drawerHidePlayer": "Hide Floating Player",
+  "drawerHidePlayer": "Ocultar reproductor flotante",
   "@drawerHidePlayer": {
     "context": "Device:Drawer",
     "description": "Shown while the floating player is visible.",
@@ -140,7 +140,7 @@
       ]
     }
   },
-  "drawerShowPlayer": "Show Floating Player",
+  "drawerShowPlayer": "Mostrar reproductor flotante",
   "@drawerShowPlayer": {
     "context": "Device:Drawer",
     "description": "Shown while the floating player is hidden.",
@@ -150,7 +150,7 @@
       ]
     }
   },
-  "drawerNowPlaying": "Now Playing",
+  "drawerNowPlaying": "En reproducción",
   "@drawerNowPlaying": {
     "context": "Device:Drawer",
     "description": "Opens the full-screen player when a track is available and the shortcut is enabled.",
@@ -160,7 +160,7 @@
       ]
     }
   },
-  "drawerScreensaver": "Start Screensaver",
+  "drawerScreensaver": "Iniciar protector de pantalla",
   "@drawerScreensaver": {
     "context": "Device:Drawer",
     "description": "Starts the screensaver when its menu shortcut is enabled.",
@@ -170,7 +170,7 @@
       ]
     }
   },
-  "drawerLockdown": "Lockdown Mode",
+  "drawerLockdown": "Modo de bloqueo",
   "@drawerLockdown": {
     "context": "Device:Drawer",
     "description": "Activates lockdown when its menu shortcut is enabled.",
@@ -180,7 +180,7 @@
       ]
     }
   },
-  "drawerHoldOff": "Turn Off Hold Mode",
+  "drawerHoldOff": "Desactivar modo de pausa",
   "@drawerHoldOff": {
     "context": "Device:Drawer",
     "description": "Releases a hold so screensaver and timers can resume.",
@@ -190,7 +190,7 @@
       ]
     }
   },
-  "drawerHoldOn": "Turn On Hold Mode",
+  "drawerHoldOn": "Activar modo de pausa",
   "@drawerHoldOn": {
     "context": "Device:Drawer",
     "description": "Pauses screensaver and timers to keep the current view on screen.",
@@ -200,7 +200,7 @@
       ]
     }
   },
-  "drawerApps": "Apps",
+  "drawerApps": "Aplicaciones",
   "@drawerApps": {
     "context": "Device:Drawer",
     "description": "Opens the app launcher when it is enabled and has allowed apps.",
@@ -210,7 +210,7 @@
       ]
     }
   },
-  "drawerClearCache": "Clear web cache",
+  "drawerClearCache": "Borrar caché web",
   "@drawerClearCache": {
     "context": "Device:Drawer",
     "description": "Clears the embedded browser cache.",
@@ -220,7 +220,7 @@
       ]
     }
   },
-  "drawerRestartDevice": "Restart Device",
+  "drawerRestartDevice": "Reiniciar dispositivo",
   "@drawerRestartDevice": {
     "context": "Device:Drawer",
     "description": "Shown when device owner or Shizuku access allows a restart. Also the confirmation title.",
@@ -230,7 +230,7 @@
       ]
     }
   },
-  "drawerRestartConfirm": "Restart this device? Kiosk Satellite comes back when it boots.",
+  "drawerRestartConfirm": "¿Reiniciar este dispositivo? Kiosk Satellite volverá a abrirse cuando se inicie.",
   "@drawerRestartConfirm": {
     "context": "Device:Drawer",
     "description": "Confirmation before restarting Android.",
@@ -240,7 +240,7 @@
       ]
     }
   },
-  "drawerRestart": "Restart",
+  "drawerRestart": "Reiniciar",
   "@drawerRestart": {
     "context": "Device:Drawer",
     "description": "Button that confirms the device restart.",
@@ -250,7 +250,7 @@
       ]
     }
   },
-  "drawerExitApplication": "Exit Application",
+  "drawerExitApplication": "Salir de la aplicación",
   "@drawerExitApplication": {
     "context": "Device:Drawer",
     "description": "Hidden when Kiosk Satellite is the home screen. Also the confirmation title.",
@@ -260,7 +260,7 @@
       ]
     }
   },
-  "drawerExitConfirm": "Close Kiosk Satellite?",
+  "drawerExitConfirm": "¿Cerrar Kiosk Satellite?",
   "@drawerExitConfirm": {
     "context": "Device:Drawer",
     "description": "Confirmation before closing the application.",
@@ -270,7 +270,7 @@
       ]
     }
   },
-  "drawerExit": "Exit",
+  "drawerExit": "Salir",
   "@drawerExit": {
     "context": "Device:Drawer",
     "description": "Button that confirms closing the application.",
@@ -280,7 +280,7 @@
       ]
     }
   },
-  "drawerHoldActive": "Hold mode is on",
+  "drawerHoldActive": "El modo de pausa está activado",
   "@drawerHoldActive": {
     "context": "Device:Drawer",
     "description": "Notice below the menu while hold mode is active.",
@@ -290,7 +290,7 @@
       ]
     }
   },
-  "drawerHoldHelp": "Screensaver and timers are paused · tap to turn off",
+  "drawerHoldHelp": "El protector de pantalla y los temporizadores están en pausa · toca para desactivar",
   "@drawerHoldHelp": {
     "context": "Device:Drawer",
     "description": "Tappable notice that releases hold mode.",
@@ -300,7 +300,7 @@
       ]
     }
   },
-  "drawerThemeDark": "Dark",
+  "drawerThemeDark": "Oscuro",
   "@drawerThemeDark": {
     "context": "Device:Drawer",
     "description": "Tooltip for the dark theme button at the bottom of the drawer.",
@@ -310,7 +310,7 @@
       ]
     }
   },
-  "drawerThemeLight": "Light",
+  "drawerThemeLight": "Claro",
   "@drawerThemeLight": {
     "context": "Device:Drawer",
     "description": "Tooltip for the light theme button at the bottom of the drawer.",
@@ -320,7 +320,7 @@
       ]
     }
   },
-  "drawerThemeAndroid": "Follow Android",
+  "drawerThemeAndroid": "Seguir Android",
   "@drawerThemeAndroid": {
     "context": "Device:Drawer",
     "description": "Tooltip for matching the Android theme. This controls appearance, not language.",
@@ -330,7 +330,7 @@
       ]
     }
   },
-  "drawerVersion": "Version {version}",
+  "drawerVersion": "Versión {version}",
   "@drawerVersion": {
     "context": "Device:Drawer:Updates",
     "description": "Current version below the drawer actions. Tap to check for updates.",
@@ -346,7 +346,7 @@
       }
     }
   },
-  "drawerUpdateAvailable": "Update available",
+  "drawerUpdateAvailable": "Actualización disponible",
   "@drawerUpdateAvailable": {
     "context": "Device:Drawer:Updates",
     "description": "Notice shown when a newer version is available.",
@@ -356,7 +356,7 @@
       ]
     }
   },
-  "drawerUpdateInstall": "Version {version} · tap to install",
+  "drawerUpdateInstall": "Versión {version} · toca para instalar",
   "@drawerUpdateInstall": {
     "context": "Device:Drawer:Updates",
     "description": "Tappable update notice below the drawer actions.",
@@ -372,7 +372,7 @@
       }
     }
   },
-  "drawerUpdateChecking": "Checking for updates…",
+  "drawerUpdateChecking": "Buscando actualizaciones…",
   "@drawerUpdateChecking": {
     "context": "Device:Drawer:Updates",
     "description": "Progress notice during a manual update check.",
@@ -382,7 +382,7 @@
       ]
     }
   },
-  "drawerUpdateCurrent": "Up to date",
+  "drawerUpdateCurrent": "Actualizado",
   "@drawerUpdateCurrent": {
     "context": "Device:Drawer:Updates",
     "description": "Heading when the installed version is current.",
@@ -392,7 +392,7 @@
       ]
     }
   },
-  "drawerUpdateCurrentHelp": "You are on the latest version.",
+  "drawerUpdateCurrentHelp": "Tienes la versión más reciente.",
   "@drawerUpdateCurrentHelp": {
     "context": "Device:Drawer:Updates",
     "description": "Result of a successful check with no update.",
@@ -402,7 +402,7 @@
       ]
     }
   },
-  "drawerUpdateCheckFailed": "Update check failed",
+  "drawerUpdateCheckFailed": "No se pudieron buscar actualizaciones",
   "@drawerUpdateCheckFailed": {
     "context": "Device:Drawer:Updates",
     "description": "Heading when the manual update check fails.",
@@ -412,7 +412,7 @@
       ]
     }
   },
-  "drawerUpdateOffline": "Is the device online?",
+  "drawerUpdateOffline": "¿El dispositivo tiene conexión a internet?",
   "@drawerUpdateOffline": {
     "context": "Device:Drawer:Updates",
     "description": "Help after an update check fails.",
@@ -422,7 +422,7 @@
       ]
     }
   },
-  "drawerUpdateTo": "Update to {version}",
+  "drawerUpdateTo": "Actualizar a {version}",
   "@drawerUpdateTo": {
     "context": "Device:Drawer:Updates",
     "description": "Title of the update confirmation dialog.",
@@ -438,7 +438,7 @@
       }
     }
   },
-  "drawerUpdateInstructions": "The download starts on Update. Android asks you to confirm the installation.",
+  "drawerUpdateInstructions": "La descarga comienza al tocar Actualizar. Android te pedirá que confirmes la instalación.",
   "@drawerUpdateInstructions": {
     "context": "Device:Drawer:Updates",
     "description": "Help below the release notes.",
@@ -448,7 +448,7 @@
       ]
     }
   },
-  "drawerUpdateRelaunch": "Without the \"Display over other apps\" permission the app cannot reopen itself after updating.",
+  "drawerUpdateRelaunch": "Sin el permiso \"Mostrar sobre otras aplicaciones\", la aplicación no puede volver a abrirse después de actualizarse.",
   "@drawerUpdateRelaunch": {
     "context": "Device:Drawer:Updates",
     "description": "Notice when the overlay permission is missing.",
@@ -458,7 +458,7 @@
       ]
     }
   },
-  "drawerUpdate": "Update",
+  "drawerUpdate": "Actualizar",
   "@drawerUpdate": {
     "context": "Device:Drawer:Updates",
     "description": "Button that starts downloading an update.",
@@ -468,7 +468,7 @@
       ]
     }
   },
-  "drawerUpdateDownloading": "Downloading update",
+  "drawerUpdateDownloading": "Descargando actualización",
   "@drawerUpdateDownloading": {
     "context": "Device:Drawer:Updates",
     "description": "Title of the download progress dialog.",
@@ -478,7 +478,7 @@
       ]
     }
   },
-  "drawerUpdateStarting": "Starting…",
+  "drawerUpdateStarting": "Iniciando…",
   "@drawerUpdateStarting": {
     "context": "Device:Drawer:Updates",
     "description": "Progress text before a download percentage is available.",
@@ -488,7 +488,7 @@
       ]
     }
   },
-  "drawerUpdateFailed": "Update failed",
+  "drawerUpdateFailed": "No se pudo actualizar",
   "@drawerUpdateFailed": {
     "context": "Device:Drawer:Updates",
     "description": "Title when downloading or installing fails. Technical error details remain as supplied.",
@@ -498,7 +498,7 @@
       ]
     }
   },
-  "drawerUpdates": "Updates",
+  "drawerUpdates": "Actualizaciones",
   "@drawerUpdates": {
     "context": "Device:Drawer:Updates",
     "description": "Dialog title when there is no longer an update to install.",
@@ -508,7 +508,7 @@
       ]
     }
   },
-  "drawerNoReleaseNotes": "No release notes.",
+  "drawerNoReleaseNotes": "No hay notas de la versión.",
   "@drawerNoReleaseNotes": {
     "context": "Device:Drawer:Updates",
     "description": "Placeholder when a release has no notes. Published release notes remain as supplied.",
@@ -623,7 +623,7 @@
       ]
     }
   },
-  "settingUiLanguageTitle": "Language",
+  "settingUiLanguageTitle": "Idioma",
   "@settingUiLanguageTitle": {
     "context": "Settings:Device:User Interface",
     "description": "Language selector label.",
@@ -636,7 +636,7 @@
       ]
     }
   },
-  "settingUiLanguageDescription": "Language for Kiosk Satellite and remote administration. Home Assistant keeps its own language.",
+  "settingUiLanguageDescription": "Idioma de Kiosk Satellite y de la administración remota. Home Assistant conserva su propio idioma.",
   "@settingUiLanguageDescription": {
     "context": "Settings:Device:User Interface",
     "description": "Help below the language selector.",
@@ -703,7 +703,7 @@
       ]
     }
   },
-  "settingsMenuHomeAssistant": "Home Assistant Setup",
+  "settingsMenuHomeAssistant": "Configuración de Home Assistant",
   "@settingsMenuHomeAssistant": {
     "context": "Settings:Menu",
     "description": "Settings menu entry. Product names stay unchanged.",
@@ -716,7 +716,7 @@
       ]
     }
   },
-  "settingsMenuHomeAssistantSummary": "Connection, dashboard, kiosk mode",
+  "settingsMenuHomeAssistantSummary": "Conexión, panel, modo kiosko",
   "@settingsMenuHomeAssistantSummary": {
     "context": "Settings:Menu",
     "description": "Summary below Home Assistant Setup in the Settings menu.",
@@ -742,7 +742,7 @@
       ]
     }
   },
-  "settingsMenuVoiceSatelliteSummary": "Wake word, background listening",
+  "settingsMenuVoiceSatelliteSummary": "Palabra de activación, escucha en segundo plano",
   "@settingsMenuVoiceSatelliteSummary": {
     "context": "Settings:Menu",
     "description": "Summary below Voice Satellite in the Settings menu.",
@@ -768,7 +768,7 @@
       ]
     }
   },
-  "settingsMenuEsphomeSummary": "Native entities and Bluetooth proxy",
+  "settingsMenuEsphomeSummary": "Entidades nativas y proxy Bluetooth",
   "@settingsMenuEsphomeSummary": {
     "context": "Settings:Menu",
     "description": "Summary below ESPHome in the Settings menu.",
@@ -781,7 +781,7 @@
       ]
     }
   },
-  "settingsMenuScreenAudio": "Screen & Audio",
+  "settingsMenuScreenAudio": "Pantalla y audio",
   "@settingsMenuScreenAudio": {
     "context": "Settings:Menu",
     "description": "Settings menu entry. Product names stay unchanged.",
@@ -794,7 +794,7 @@
       ]
     }
   },
-  "settingsMenuScreenAudioSummary": "Brightness, volume, microphone",
+  "settingsMenuScreenAudioSummary": "Brillo, volumen, micrófono",
   "@settingsMenuScreenAudioSummary": {
     "context": "Settings:Menu",
     "description": "Summary below Screen & Audio in the Settings menu.",
@@ -807,7 +807,7 @@
       ]
     }
   },
-  "settingsMenuScreensaver": "Screensaver",
+  "settingsMenuScreensaver": "Protector de pantalla",
   "@settingsMenuScreensaver": {
     "context": "Settings:Menu",
     "description": "Settings menu entry. Product names stay unchanged.",
@@ -820,7 +820,7 @@
       ]
     }
   },
-  "settingsMenuScreensaverSummary": "Idle timeout, modes, motion wake",
+  "settingsMenuScreensaverSummary": "Tiempo de inactividad, modos, activación por movimiento",
   "@settingsMenuScreensaverSummary": {
     "context": "Settings:Menu",
     "description": "Summary below Screensaver in the Settings menu.",
@@ -833,7 +833,7 @@
       ]
     }
   },
-  "settingsMenuBrowser": "Web Browsing",
+  "settingsMenuBrowser": "Navegación web",
   "@settingsMenuBrowser": {
     "context": "Settings:Menu",
     "description": "Settings menu entry. Product names stay unchanged.",
@@ -846,7 +846,7 @@
       ]
     }
   },
-  "settingsMenuBrowserSummary": "Cache, SSL, Zoom level",
+  "settingsMenuBrowserSummary": "Caché, SSL, nivel de zoom",
   "@settingsMenuBrowserSummary": {
     "context": "Settings:Menu",
     "description": "Summary below Web Browsing in the Settings menu.",
@@ -859,7 +859,7 @@
       ]
     }
   },
-  "settingsMenuMediaPlayer": "Media Player",
+  "settingsMenuMediaPlayer": "Reproductor multimedia",
   "@settingsMenuMediaPlayer": {
     "context": "Settings:Menu",
     "description": "Settings menu entry. Product names stay unchanged.",
@@ -885,7 +885,7 @@
       ]
     }
   },
-  "settingsMenuDlna": "DLNA Renderer",
+  "settingsMenuDlna": "Receptor DLNA",
   "@settingsMenuDlna": {
     "context": "Settings:Menu",
     "description": "Settings menu entry. Product names stay unchanged.",
@@ -898,7 +898,7 @@
       ]
     }
   },
-  "settingsMenuDlnaSummary": "Play images, videos and audio remotely",
+  "settingsMenuDlnaSummary": "Reproduce imágenes, videos y audio de forma remota",
   "@settingsMenuDlnaSummary": {
     "context": "Settings:Menu",
     "description": "Summary below DLNA Renderer in the Settings menu.",
@@ -911,7 +911,7 @@
       ]
     }
   },
-  "settingsMenuIntercom": "Intercom",
+  "settingsMenuIntercom": "Intercomunicador",
   "@settingsMenuIntercom": {
     "context": "Settings:Menu",
     "description": "Settings menu entry. Product names stay unchanged.",
@@ -924,7 +924,7 @@
       ]
     }
   },
-  "settingsMenuIntercomSummary": "Talk between kiosks",
+  "settingsMenuIntercomSummary": "Habla entre kioskos",
   "@settingsMenuIntercomSummary": {
     "context": "Settings:Menu",
     "description": "Summary below Intercom in the Settings menu.",
@@ -937,7 +937,7 @@
       ]
     }
   },
-  "settingsMenuCamera": "Camera",
+  "settingsMenuCamera": "Cámara",
   "@settingsMenuCamera": {
     "context": "Settings:Menu",
     "description": "Settings menu entry. Product names stay unchanged.",
@@ -950,7 +950,7 @@
       ]
     }
   },
-  "settingsMenuCameraSummary": "Device camera, motion, streaming",
+  "settingsMenuCameraSummary": "Cámara del dispositivo, movimiento, transmisión",
   "@settingsMenuCameraSummary": {
     "context": "Settings:Menu",
     "description": "Summary below Camera in the Settings menu.",
@@ -963,7 +963,7 @@
       ]
     }
   },
-  "settingsMenuCameraStreams": "Camera Streams",
+  "settingsMenuCameraStreams": "Transmisiones de cámaras",
   "@settingsMenuCameraStreams": {
     "context": "Settings:Menu",
     "description": "Settings menu entry. Product names stay unchanged.",
@@ -976,7 +976,7 @@
       ]
     }
   },
-  "settingsMenuCameraStreamsSummary": "Go2RTC and Home Assistant cameras",
+  "settingsMenuCameraStreamsSummary": "Cámaras de Go2RTC y Home Assistant",
   "@settingsMenuCameraStreamsSummary": {
     "context": "Settings:Menu",
     "description": "Summary below Camera Streams in the Settings menu.",
@@ -989,7 +989,7 @@
       ]
     }
   },
-  "settingsMenuKiosk": "Kiosk Mode",
+  "settingsMenuKiosk": "Modo kiosko",
   "@settingsMenuKiosk": {
     "context": "Settings:Menu",
     "description": "Settings menu entry. Product names stay unchanged.",
@@ -1002,7 +1002,7 @@
       ]
     }
   },
-  "settingsMenuKioskSummary": "Exit gesture, PIN, hardware buttons",
+  "settingsMenuKioskSummary": "Gesto de salida, PIN, botones físicos",
   "@settingsMenuKioskSummary": {
     "context": "Settings:Menu",
     "description": "Summary below Kiosk Mode in the Settings menu.",
@@ -1015,7 +1015,7 @@
       ]
     }
   },
-  "settingsMenuHomeLauncher": "Home Launcher",
+  "settingsMenuHomeLauncher": "Pantalla de inicio",
   "@settingsMenuHomeLauncher": {
     "context": "Settings:Menu",
     "description": "Settings menu entry. Product names stay unchanged.",
@@ -1028,7 +1028,7 @@
       ]
     }
   },
-  "settingsMenuHomeLauncherSummary": "Replace the device home screen",
+  "settingsMenuHomeLauncherSummary": "Reemplaza la pantalla de inicio del dispositivo",
   "@settingsMenuHomeLauncherSummary": {
     "context": "Settings:Menu",
     "description": "Summary below Home Launcher in the Settings menu.",
@@ -1041,7 +1041,7 @@
       ]
     }
   },
-  "settingsMenuAppLauncher": "App Launcher",
+  "settingsMenuAppLauncher": "Lanzador de aplicaciones",
   "@settingsMenuAppLauncher": {
     "context": "Settings:Menu",
     "description": "Settings menu entry. Product names stay unchanged.",
@@ -1054,7 +1054,7 @@
       ]
     }
   },
-  "settingsMenuAppLauncherSummary": "Open other apps from the kiosk",
+  "settingsMenuAppLauncherSummary": "Abre otras aplicaciones desde el kiosko",
   "@settingsMenuAppLauncherSummary": {
     "context": "Settings:Menu",
     "description": "Summary below App Launcher in the Settings menu.",
@@ -1067,7 +1067,7 @@
       ]
     }
   },
-  "settingsMenuGestures": "Gestures",
+  "settingsMenuGestures": "Gestos",
   "@settingsMenuGestures": {
     "context": "Settings:Menu",
     "description": "Settings menu entry. Product names stay unchanged.",
@@ -1080,7 +1080,7 @@
       ]
     }
   },
-  "settingsMenuGesturesSummary": "Touch, palm and clap gestures",
+  "settingsMenuGesturesSummary": "Gestos táctiles, con la palma y con aplausos",
   "@settingsMenuGesturesSummary": {
     "context": "Settings:Menu",
     "description": "Summary below Gestures in the Settings menu.",
@@ -1093,7 +1093,7 @@
       ]
     }
   },
-  "settingsMenuDevice": "Device",
+  "settingsMenuDevice": "Dispositivo",
   "@settingsMenuDevice": {
     "context": "Settings:Menu",
     "description": "Settings menu entry. Product names stay unchanged.",
@@ -1106,7 +1106,7 @@
       ]
     }
   },
-  "settingsMenuDeviceSummary": "Name, app theme, remote access",
+  "settingsMenuDeviceSummary": "Nombre, tema de la aplicación, acceso remoto",
   "@settingsMenuDeviceSummary": {
     "context": "Settings:Menu",
     "description": "Summary below Device in the Settings menu.",
@@ -1119,7 +1119,7 @@
       ]
     }
   },
-  "settingsMenuFleet": "Fleet Management",
+  "settingsMenuFleet": "Gestión de flotas",
   "@settingsMenuFleet": {
     "context": "Settings:Menu",
     "description": "Settings menu entry. Product names stay unchanged.",
@@ -1132,7 +1132,7 @@
       ]
     }
   },
-  "settingsMenuFleetSummary": "Lead or follow other kiosks",
+  "settingsMenuFleetSummary": "Coordina otros kioskos o sigue a uno",
   "@settingsMenuFleetSummary": {
     "context": "Settings:Menu",
     "description": "Summary below Fleet Management in the Settings menu.",
@@ -1145,7 +1145,7 @@
       ]
     }
   },
-  "settingsMenuPlugins": "Plugin Manager",
+  "settingsMenuPlugins": "Gestor de plugins",
   "@settingsMenuPlugins": {
     "context": "Settings:Menu",
     "description": "Settings menu entry. Product names stay unchanged.",
@@ -1158,7 +1158,7 @@
       ]
     }
   },
-  "settingsMenuPluginsSummary": "Install and manage plugins",
+  "settingsMenuPluginsSummary": "Instala y administra plugins",
   "@settingsMenuPluginsSummary": {
     "context": "Settings:Menu",
     "description": "Summary below Plugin Manager in the Settings menu.",
@@ -1171,7 +1171,7 @@
       ]
     }
   },
-  "settingsMenuLogs": "Logs",
+  "settingsMenuLogs": "Registros",
   "@settingsMenuLogs": {
     "context": "Settings:Menu",
     "description": "Settings menu entry. Product names stay unchanged.",
@@ -1184,7 +1184,7 @@
       ]
     }
   },
-  "settingsMenuLogsSummary": "App log and web console",
+  "settingsMenuLogsSummary": "Registro de la aplicación y consola web",
   "@settingsMenuLogsSummary": {
     "context": "Settings:Menu",
     "description": "Summary below Logs in the Settings menu.",
@@ -1197,7 +1197,7 @@
       ]
     }
   },
-  "settingsMenuAbout": "About",
+  "settingsMenuAbout": "Acerca de",
   "@settingsMenuAbout": {
     "context": "Settings:Menu",
     "description": "Settings menu entry. Product names stay unchanged.",
@@ -1210,7 +1210,7 @@
       ]
     }
   },
-  "settingsMenuAboutSummary": "Version, author, license",
+  "settingsMenuAboutSummary": "Versión, autor, licencia",
   "@settingsMenuAboutSummary": {
     "context": "Settings:Menu",
     "description": "Summary below About in the Settings menu.",
@@ -1223,7 +1223,7 @@
       ]
     }
   },
-  "settingsMenuOverview": "Overview",
+  "settingsMenuOverview": "Vista general",
   "@settingsMenuOverview": {
     "context": "Settings:Menu",
     "description": "Settings menu entry. Product names stay unchanged.",
@@ -1236,7 +1236,7 @@
       ]
     }
   },
-  "settingsMenuOverviewSummary": "Screen and quick controls",
+  "settingsMenuOverviewSummary": "Pantalla y controles rápidos",
   "@settingsMenuOverviewSummary": {
     "context": "Settings:Menu",
     "description": "Summary below Overview in the Settings menu.",
@@ -1249,7 +1249,7 @@
       ]
     }
   },
-  "settingsMenuLockdown": "Lockdown Mode",
+  "settingsMenuLockdown": "Modo de bloqueo",
   "@settingsMenuLockdown": {
     "context": "Settings:Menu",
     "description": "Settings menu entry. Product names stay unchanged.",
@@ -1262,7 +1262,7 @@
       ]
     }
   },
-  "settingsMenuLockdownSummary": "Disable screen interactions",
+  "settingsMenuLockdownSummary": "Desactiva las interacciones con la pantalla",
   "@settingsMenuLockdownSummary": {
     "context": "Settings:Menu",
     "description": "Summary below Lockdown Mode in the Settings menu.",
@@ -1275,7 +1275,7 @@
       ]
     }
   },
-  "settingsMenuFiles": "File Manager",
+  "settingsMenuFiles": "Gestor de archivos",
   "@settingsMenuFiles": {
     "context": "Settings:Menu",
     "description": "Settings menu entry. Product names stay unchanged.",
@@ -1288,7 +1288,7 @@
       ]
     }
   },
-  "settingsMenuFilesSummary": "Browse, download and upload files",
+  "settingsMenuFilesSummary": "Explora, descarga y sube archivos",
   "@settingsMenuFilesSummary": {
     "context": "Settings:Menu",
     "description": "Summary below File Manager in the Settings menu.",
@@ -1314,7 +1314,7 @@
       ]
     }
   },
-  "settingsGroupDisplay": "Display",
+  "settingsGroupDisplay": "Pantalla",
   "@settingsGroupDisplay": {
     "context": "Settings:Menu",
     "description": "Heading above a group of Settings menu entries.",
@@ -1327,7 +1327,7 @@
       ]
     }
   },
-  "settingsGroupMediaCameras": "Media & Cameras",
+  "settingsGroupMediaCameras": "Multimedia y cámaras",
   "@settingsGroupMediaCameras": {
     "context": "Settings:Menu",
     "description": "Heading above a group of Settings menu entries.",
@@ -1340,7 +1340,7 @@
       ]
     }
   },
-  "settingsGroupKiosk": "Kiosk",
+  "settingsGroupKiosk": "Kiosko",
   "@settingsGroupKiosk": {
     "context": "Settings:Menu",
     "description": "Heading above a group of Settings menu entries.",
@@ -1353,7 +1353,7 @@
       ]
     }
   },
-  "settingsGroupSystem": "System",
+  "settingsGroupSystem": "Sistema",
   "@settingsGroupSystem": {
     "context": "Settings:Menu",
     "description": "Heading above a group of Settings menu entries.",
@@ -1366,7 +1366,7 @@
       ]
     }
   },
-  "settingsMenuMenu": "Menu",
+  "settingsMenuMenu": "Menú",
   "@settingsMenuMenu": {
     "context": "Settings:Menu",
     "description": "Remote administration sidebar control or accessibility label.",
@@ -1376,7 +1376,7 @@
       ]
     }
   },
-  "settingsMenuTheme": "Theme",
+  "settingsMenuTheme": "Tema",
   "@settingsMenuTheme": {
     "context": "Settings:Menu",
     "description": "Remote administration sidebar control or accessibility label.",
@@ -1386,7 +1386,7 @@
       ]
     }
   },
-  "settingsMenuLogout": "Log out",
+  "settingsMenuLogout": "Cerrar sesión",
   "@settingsMenuLogout": {
     "context": "Settings:Menu",
     "description": "Remote administration sidebar control or accessibility label.",
@@ -1396,7 +1396,7 @@
       ]
     }
   },
-  "settingsMenuSwitchKiosk": "Switch kiosk",
+  "settingsMenuSwitchKiosk": "Cambiar de kiosko",
   "@settingsMenuSwitchKiosk": {
     "context": "Settings:Menu",
     "description": "Remote administration sidebar control or accessibility label.",
@@ -1406,7 +1406,7 @@
       ]
     }
   },
-  "settingsMenuThemeState": "Theme: {theme}",
+  "settingsMenuThemeState": "Tema: {theme}",
   "@settingsMenuThemeState": {
     "context": "Settings:Menu",
     "description": "Tooltip on the remote sidebar theme button. The value is the localized theme name.",
@@ -1422,7 +1422,7 @@
       }
     }
   },
-  "settingsMenuThemeAuto": "Automatic",
+  "settingsMenuThemeAuto": "Automático",
   "@settingsMenuThemeAuto": {
     "context": "Settings:Menu",
     "description": "Theme choice that follows the browser color preference.",
@@ -1432,7 +1432,7 @@
       ]
     }
   },
-  "settingsSearchHint": "Search settings",
+  "settingsSearchHint": "Buscar en la configuración",
   "@settingsSearchHint": {
     "context": "Settings:Search",
     "description": "Placeholder in the Settings search box.",
@@ -1445,7 +1445,7 @@
       ]
     }
   },
-  "settingsSearchClear": "Clear search",
+  "settingsSearchClear": "Borrar búsqueda",
   "@settingsSearchClear": {
     "context": "Settings:Search",
     "description": "Tooltip and accessibility label for the clear button.",
@@ -1458,7 +1458,7 @@
       ]
     }
   },
-  "settingsSearchResults": "Search results",
+  "settingsSearchResults": "Resultados de búsqueda",
   "@settingsSearchResults": {
     "context": "Settings:Search",
     "description": "Heading above matching settings.",
@@ -1471,7 +1471,7 @@
       ]
     }
   },
-  "settingsSearchEmpty": "No settings match \"{query}\".",
+  "settingsSearchEmpty": "No hay opciones que coincidan con \"{query}\".",
   "@settingsSearchEmpty": {
     "context": "Settings:Search",
     "description": "Empty result message. The query is the text entered by the user.",
@@ -1684,7 +1684,7 @@
     "context": "First-time setup:Welcome",
     "description": "Device name field label on the device."
   },
-  "setupDeviceNameHelp": "Nombre con el que se identifica este kiosko en Home Assistant, en la administración remota y en la red. Puedes cambiarlo cuando quieras en Settings > Device.",
+  "setupDeviceNameHelp": "Nombre con el que se identifica este kiosko en Home Assistant, en la administración remota y en la red. Puedes cambiarlo cuando quieras en Configuración > Dispositivo.",
   "@setupDeviceNameHelp": {
     "context": "First-time setup:Welcome",
     "description": "Help below the device name field."

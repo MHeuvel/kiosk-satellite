@@ -4,7 +4,7 @@
   "setupTitle": "Configurar\nKiosk Satellite",
   "setupWelcomeLead": "Convierte esta tableta en un kiosko de Home Assistant. La configuración tarda un par de minutos y este asistente te guía paso a paso.",
   "setupDeviceName": "Nombre del dispositivo",
-  "setupDeviceNameHelp": "Nombre con el que se identifica este kiosko en Home Assistant, en la administración remota y en la red. Puedes cambiarlo cuando quieras en Settings > Device.",
+  "setupDeviceNameHelp": "Nombre con el que se identifica este kiosko en Home Assistant, en la administración remota y en la red. Puedes cambiarlo cuando quieras en Configuración > Dispositivo.",
   "setupEnableRemote": "Activar la administración remota",
   "setupEnableRemoteHelp": "Sigue administrando este kiosko desde un navegador web después de configurarlo. Desde allí es mucho más fácil pegar el token de acceso de Home Assistant.",
   "setupRemotePassword": "Contraseña de administración remota",

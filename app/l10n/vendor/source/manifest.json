@@ -1,16 +1,21 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite",
-  "revision": "84a8a49f5cfa519d11ada0cac872698b99b72d24",
+  "revision": "9630064eb0decbe537c4301485d33e212e923e31",
   "workingTree": false,
   "files": {
-    "common_en.arb": "ebc5e38815bb1daa8ea45d71928e61c9a8d7366bd618fe31d2281414b9f34c09",
+    "common_en.arb": "e23f6aad59837d942c3559f736eaa3b2775cab06308b397e5d687a66548cce62",
+    "drawer_menu_en.arb": "1ddb021d9c030d046e0368ac9e73e046905fa34138f345f3d767b974c542d9d3",
+    "drawer_updates_en.arb": "51e19440c034c4a169b43ff5ff3780c7d762dcf88751c81bf4aef3c04029a956",
     "settings_device_en.arb": "fc259bd2358e9a10989abbbcedf0e9db73fb406a792cb5adddf238047ceb66bd",
     "settings_device_remote_administration_en.arb": "3eee8ec272b630c0b5fbc7d4318744722a15a919b3510aabeea78963a15e2657",
+    "settings_device_user_interface_en.arb": "0038462c29ce8cd76908df29a0eed70948615be1bbdac32710a69a66b75d671b",
     "settings_home_assistant_setup_en.arb": "ca6282beb0baa193e8ba4fd35aa0d451b6c805b23a2e847ea93b1b0c15292cd6",
+    "settings_menu_en.arb": "b2cfb709ab5942d9ac7e9a459938c243d4fbc6963e97d1bbbda1f02db37a0f58",
+    "settings_search_en.arb": "d8ea2b418814f507a28a47cfda97d656d3fdf00962a2817f7f390450a49b5a67",
     "setup_connect_en.arb": "353cf737e1650b2f9b7b5c5d4e2d7d5f463d012149ba5ec180425b31845a7b2e",
     "setup_navigation_en.arb": "71c532e240d4abf6cf53324f583f6a60b8e0999bc26a41cd80de8eb441d564a7",
     "setup_welcome_en.arb": "a26a34d1e8f30df984627884b880f4fda8f410e1ad3a21a9b3399499c4d7be50"
   },
-  "scope": "setup-welcome-connect-and-shared-settings"
+  "scope": "setup-settings-navigation-and-device-drawer"
 }

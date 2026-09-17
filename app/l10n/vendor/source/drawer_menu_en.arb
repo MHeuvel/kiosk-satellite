@@ -1,0 +1,293 @@
+{
+  "@@locale": "en",
+  "drawerPluginAction": "{pluginName}: {actionTitle}",
+  "@drawerPluginAction": {
+    "context": "Device:Drawer",
+    "description": "Plugin action label. Both values come from the plugin and are kept as supplied.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    },
+    "placeholders": {
+      "pluginName": {
+        "type": "String",
+        "example": "Example plugin"
+      },
+      "actionTitle": {
+        "type": "String",
+        "example": "Open view"
+      }
+    }
+  },
+  "drawerPluginActionErrorTitle": "Plugin action",
+  "@drawerPluginActionErrorTitle": {
+    "context": "Device:Drawer",
+    "description": "Error heading after a plugin action fails.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerPluginActionError": "Could not run this action.",
+  "@drawerPluginActionError": {
+    "context": "Device:Drawer",
+    "description": "Fallback error when a plugin provides no error text.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerDashboard": "Dashboard",
+  "@drawerDashboard": {
+    "context": "Device:Drawer",
+    "description": "Opens the configured Home Assistant dashboard.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerHaKiosk": "HA Kiosk Mode",
+  "@drawerHaKiosk": {
+    "context": "Device:Drawer",
+    "description": "Toggles the Home Assistant header and sidebar. Shown when the menu shortcut is enabled.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerCameraView": "Camera View",
+  "@drawerCameraView": {
+    "context": "Device:Drawer",
+    "description": "Opens the default camera view. Shown when that view contains cameras.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerIntercom": "Intercom",
+  "@drawerIntercom": {
+    "context": "Device:Drawer",
+    "description": "Opens the intercom when it is enabled and available.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerMusicAssistant": "Music Assistant",
+  "@drawerMusicAssistant": {
+    "context": "Device:Drawer",
+    "description": "Opens Music Assistant when its address and menu shortcut are configured. Keep the product name.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerHidePlayer": "Hide Floating Player",
+  "@drawerHidePlayer": {
+    "context": "Device:Drawer",
+    "description": "Shown while the floating player is visible.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerShowPlayer": "Show Floating Player",
+  "@drawerShowPlayer": {
+    "context": "Device:Drawer",
+    "description": "Shown while the floating player is hidden.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerNowPlaying": "Now Playing",
+  "@drawerNowPlaying": {
+    "context": "Device:Drawer",
+    "description": "Opens the full-screen player when a track is available and the shortcut is enabled.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerScreensaver": "Start Screensaver",
+  "@drawerScreensaver": {
+    "context": "Device:Drawer",
+    "description": "Starts the screensaver when its menu shortcut is enabled.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerLockdown": "Lockdown Mode",
+  "@drawerLockdown": {
+    "context": "Device:Drawer",
+    "description": "Activates lockdown when its menu shortcut is enabled.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerHoldOff": "Turn Off Hold Mode",
+  "@drawerHoldOff": {
+    "context": "Device:Drawer",
+    "description": "Releases a hold so screensaver and timers can resume.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerHoldOn": "Turn On Hold Mode",
+  "@drawerHoldOn": {
+    "context": "Device:Drawer",
+    "description": "Pauses screensaver and timers to keep the current view on screen.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerApps": "Apps",
+  "@drawerApps": {
+    "context": "Device:Drawer",
+    "description": "Opens the app launcher when it is enabled and has allowed apps.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerClearCache": "Clear web cache",
+  "@drawerClearCache": {
+    "context": "Device:Drawer",
+    "description": "Clears the embedded browser cache.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerRestartDevice": "Restart Device",
+  "@drawerRestartDevice": {
+    "context": "Device:Drawer",
+    "description": "Shown when device owner or Shizuku access allows a restart. Also the confirmation title.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerRestartConfirm": "Restart this device? Kiosk Satellite comes back when it boots.",
+  "@drawerRestartConfirm": {
+    "context": "Device:Drawer",
+    "description": "Confirmation before restarting Android.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerRestart": "Restart",
+  "@drawerRestart": {
+    "context": "Device:Drawer",
+    "description": "Button that confirms the device restart.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerExitApplication": "Exit Application",
+  "@drawerExitApplication": {
+    "context": "Device:Drawer",
+    "description": "Hidden when Kiosk Satellite is the home screen. Also the confirmation title.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerExitConfirm": "Close Kiosk Satellite?",
+  "@drawerExitConfirm": {
+    "context": "Device:Drawer",
+    "description": "Confirmation before closing the application.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerExit": "Exit",
+  "@drawerExit": {
+    "context": "Device:Drawer",
+    "description": "Button that confirms closing the application.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerHoldActive": "Hold mode is on",
+  "@drawerHoldActive": {
+    "context": "Device:Drawer",
+    "description": "Notice below the menu while hold mode is active.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerHoldHelp": "Screensaver and timers are paused · tap to turn off",
+  "@drawerHoldHelp": {
+    "context": "Device:Drawer",
+    "description": "Tappable notice that releases hold mode.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerThemeDark": "Dark",
+  "@drawerThemeDark": {
+    "context": "Device:Drawer",
+    "description": "Tooltip for the dark theme button at the bottom of the drawer.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerThemeLight": "Light",
+  "@drawerThemeLight": {
+    "context": "Device:Drawer",
+    "description": "Tooltip for the light theme button at the bottom of the drawer.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  },
+  "drawerThemeAndroid": "Follow Android",
+  "@drawerThemeAndroid": {
+    "context": "Device:Drawer",
+    "description": "Tooltip for matching the Android theme. This controls appearance, not language.",
+    "x-locations": {
+      "device": [
+        "Swipe from the left edge > drawer menu"
+      ]
+    }
+  }
+}

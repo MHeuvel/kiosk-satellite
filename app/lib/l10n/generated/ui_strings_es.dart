@@ -24,13 +24,13 @@ class UiStringsEs extends UiStrings {
   String get commonWorking => 'Procesando…';
 
   @override
-  String get commonSettings => 'Settings';
+  String get commonSettings => 'Configuración';
 
   @override
-  String get commonCancel => 'Cancel';
+  String get commonCancel => 'Cancelar';
 
   @override
-  String get commonOk => 'OK';
+  String get commonOk => 'Aceptar';
 
   @override
   String drawerPluginAction(String pluginName, String actionTitle) {
@@ -38,146 +38,147 @@ class UiStringsEs extends UiStrings {
   }
 
   @override
-  String get drawerPluginActionErrorTitle => 'Plugin action';
+  String get drawerPluginActionErrorTitle => 'Acción del plugin';
 
   @override
-  String get drawerPluginActionError => 'Could not run this action.';
+  String get drawerPluginActionError => 'No se pudo ejecutar esta acción.';
 
   @override
-  String get drawerDashboard => 'Dashboard';
+  String get drawerDashboard => 'Panel';
 
   @override
-  String get drawerHaKiosk => 'HA Kiosk Mode';
+  String get drawerHaKiosk => 'Modo kiosko de HA';
 
   @override
-  String get drawerCameraView => 'Camera View';
+  String get drawerCameraView => 'Vista de cámaras';
 
   @override
-  String get drawerIntercom => 'Intercom';
+  String get drawerIntercom => 'Intercomunicador';
 
   @override
   String get drawerMusicAssistant => 'Music Assistant';
 
   @override
-  String get drawerHidePlayer => 'Hide Floating Player';
+  String get drawerHidePlayer => 'Ocultar reproductor flotante';
 
   @override
-  String get drawerShowPlayer => 'Show Floating Player';
+  String get drawerShowPlayer => 'Mostrar reproductor flotante';
 
   @override
-  String get drawerNowPlaying => 'Now Playing';
+  String get drawerNowPlaying => 'En reproducción';
 
   @override
-  String get drawerScreensaver => 'Start Screensaver';
+  String get drawerScreensaver => 'Iniciar protector de pantalla';
 
   @override
-  String get drawerLockdown => 'Lockdown Mode';
+  String get drawerLockdown => 'Modo de bloqueo';
 
   @override
-  String get drawerHoldOff => 'Turn Off Hold Mode';
+  String get drawerHoldOff => 'Desactivar modo de pausa';
 
   @override
-  String get drawerHoldOn => 'Turn On Hold Mode';
+  String get drawerHoldOn => 'Activar modo de pausa';
 
   @override
-  String get drawerApps => 'Apps';
+  String get drawerApps => 'Aplicaciones';
 
   @override
-  String get drawerClearCache => 'Clear web cache';
+  String get drawerClearCache => 'Borrar caché web';
 
   @override
-  String get drawerRestartDevice => 'Restart Device';
+  String get drawerRestartDevice => 'Reiniciar dispositivo';
 
   @override
   String get drawerRestartConfirm =>
-      'Restart this device? Kiosk Satellite comes back when it boots.';
+      '¿Reiniciar este dispositivo? Kiosk Satellite volverá a abrirse cuando se inicie.';
 
   @override
-  String get drawerRestart => 'Restart';
+  String get drawerRestart => 'Reiniciar';
 
   @override
-  String get drawerExitApplication => 'Exit Application';
+  String get drawerExitApplication => 'Salir de la aplicación';
 
   @override
-  String get drawerExitConfirm => 'Close Kiosk Satellite?';
+  String get drawerExitConfirm => '¿Cerrar Kiosk Satellite?';
 
   @override
-  String get drawerExit => 'Exit';
+  String get drawerExit => 'Salir';
 
   @override
-  String get drawerHoldActive => 'Hold mode is on';
+  String get drawerHoldActive => 'El modo de pausa está activado';
 
   @override
   String get drawerHoldHelp =>
-      'Screensaver and timers are paused · tap to turn off';
+      'El protector de pantalla y los temporizadores están en pausa · toca para desactivar';
 
   @override
-  String get drawerThemeDark => 'Dark';
+  String get drawerThemeDark => 'Oscuro';
 
   @override
-  String get drawerThemeLight => 'Light';
+  String get drawerThemeLight => 'Claro';
 
   @override
-  String get drawerThemeAndroid => 'Follow Android';
+  String get drawerThemeAndroid => 'Seguir Android';
 
   @override
   String drawerVersion(String version) {
-    return 'Version $version';
+    return 'Versión $version';
   }
 
   @override
-  String get drawerUpdateAvailable => 'Update available';
+  String get drawerUpdateAvailable => 'Actualización disponible';
 
   @override
   String drawerUpdateInstall(String version) {
-    return 'Version $version · tap to install';
+    return 'Versión $version · toca para instalar';
   }
 
   @override
-  String get drawerUpdateChecking => 'Checking for updates…';
+  String get drawerUpdateChecking => 'Buscando actualizaciones…';
 
   @override
-  String get drawerUpdateCurrent => 'Up to date';
+  String get drawerUpdateCurrent => 'Actualizado';
 
   @override
-  String get drawerUpdateCurrentHelp => 'You are on the latest version.';
+  String get drawerUpdateCurrentHelp => 'Tienes la versión más reciente.';
 
   @override
-  String get drawerUpdateCheckFailed => 'Update check failed';
+  String get drawerUpdateCheckFailed => 'No se pudieron buscar actualizaciones';
 
   @override
-  String get drawerUpdateOffline => 'Is the device online?';
+  String get drawerUpdateOffline =>
+      '¿El dispositivo tiene conexión a internet?';
 
   @override
   String drawerUpdateTo(String version) {
-    return 'Update to $version';
+    return 'Actualizar a $version';
   }
 
   @override
   String get drawerUpdateInstructions =>
-      'The download starts on Update. Android asks you to confirm the installation.';
+      'La descarga comienza al tocar Actualizar. Android te pedirá que confirmes la instalación.';
 
   @override
   String get drawerUpdateRelaunch =>
-      'Without the \"Display over other apps\" permission the app cannot reopen itself after updating.';
+      'Sin el permiso \"Mostrar sobre otras aplicaciones\", la aplicación no puede volver a abrirse después de actualizarse.';
 
   @override
-  String get drawerUpdate => 'Update';
+  String get drawerUpdate => 'Actualizar';
 
   @override
-  String get drawerUpdateDownloading => 'Downloading update';
+  String get drawerUpdateDownloading => 'Descargando actualización';
 
   @override
-  String get drawerUpdateStarting => 'Starting…';
+  String get drawerUpdateStarting => 'Iniciando…';
 
   @override
-  String get drawerUpdateFailed => 'Update failed';
+  String get drawerUpdateFailed => 'No se pudo actualizar';
 
   @override
-  String get drawerUpdates => 'Updates';
+  String get drawerUpdates => 'Actualizaciones';
 
   @override
-  String get drawerNoReleaseNotes => 'No release notes.';
+  String get drawerNoReleaseNotes => 'No hay notas de la versión.';
 
   @override
   String get settingDeviceNameTitle => 'Nombre del dispositivo';
@@ -208,11 +209,11 @@ class UiStringsEs extends UiStrings {
       'Necesaria para iniciar sesión en la interfaz remota.';
 
   @override
-  String get settingUiLanguageTitle => 'Language';
+  String get settingUiLanguageTitle => 'Idioma';
 
   @override
   String get settingUiLanguageDescription =>
-      'Language for Kiosk Satellite and remote administration. Home Assistant keeps its own language.';
+      'Idioma de Kiosk Satellite y de la administración remota. Home Assistant conserva su propio idioma.';
 
   @override
   String get settingHaUrlTitle => 'URL base de Home Assistant';
@@ -229,198 +230,204 @@ class UiStringsEs extends UiStrings {
       'Se crea en tu perfil de Home Assistant → Seguridad.';
 
   @override
-  String get settingsMenuHomeAssistant => 'Home Assistant Setup';
+  String get settingsMenuHomeAssistant => 'Configuración de Home Assistant';
 
   @override
-  String get settingsMenuHomeAssistantSummary =>
-      'Connection, dashboard, kiosk mode';
+  String get settingsMenuHomeAssistantSummary => 'Conexión, panel, modo kiosko';
 
   @override
   String get settingsMenuVoiceSatellite => 'Voice Satellite';
 
   @override
   String get settingsMenuVoiceSatelliteSummary =>
-      'Wake word, background listening';
+      'Palabra de activación, escucha en segundo plano';
 
   @override
   String get settingsMenuEsphome => 'ESPHome';
 
   @override
   String get settingsMenuEsphomeSummary =>
-      'Native entities and Bluetooth proxy';
+      'Entidades nativas y proxy Bluetooth';
 
   @override
-  String get settingsMenuScreenAudio => 'Screen & Audio';
+  String get settingsMenuScreenAudio => 'Pantalla y audio';
 
   @override
-  String get settingsMenuScreenAudioSummary => 'Brightness, volume, microphone';
+  String get settingsMenuScreenAudioSummary => 'Brillo, volumen, micrófono';
 
   @override
-  String get settingsMenuScreensaver => 'Screensaver';
+  String get settingsMenuScreensaver => 'Protector de pantalla';
 
   @override
   String get settingsMenuScreensaverSummary =>
-      'Idle timeout, modes, motion wake';
+      'Tiempo de inactividad, modos, activación por movimiento';
 
   @override
-  String get settingsMenuBrowser => 'Web Browsing';
+  String get settingsMenuBrowser => 'Navegación web';
 
   @override
-  String get settingsMenuBrowserSummary => 'Cache, SSL, Zoom level';
+  String get settingsMenuBrowserSummary => 'Caché, SSL, nivel de zoom';
 
   @override
-  String get settingsMenuMediaPlayer => 'Media Player';
+  String get settingsMenuMediaPlayer => 'Reproductor multimedia';
 
   @override
   String get settingsMenuMediaPlayerSummary =>
       'Music Assistant, Sendspin, Sonos';
 
   @override
-  String get settingsMenuDlna => 'DLNA Renderer';
+  String get settingsMenuDlna => 'Receptor DLNA';
 
   @override
   String get settingsMenuDlnaSummary =>
-      'Play images, videos and audio remotely';
+      'Reproduce imágenes, videos y audio de forma remota';
 
   @override
-  String get settingsMenuIntercom => 'Intercom';
+  String get settingsMenuIntercom => 'Intercomunicador';
 
   @override
-  String get settingsMenuIntercomSummary => 'Talk between kiosks';
+  String get settingsMenuIntercomSummary => 'Habla entre kioskos';
 
   @override
-  String get settingsMenuCamera => 'Camera';
+  String get settingsMenuCamera => 'Cámara';
 
   @override
-  String get settingsMenuCameraSummary => 'Device camera, motion, streaming';
+  String get settingsMenuCameraSummary =>
+      'Cámara del dispositivo, movimiento, transmisión';
 
   @override
-  String get settingsMenuCameraStreams => 'Camera Streams';
+  String get settingsMenuCameraStreams => 'Transmisiones de cámaras';
 
   @override
   String get settingsMenuCameraStreamsSummary =>
-      'Go2RTC and Home Assistant cameras';
+      'Cámaras de Go2RTC y Home Assistant';
 
   @override
-  String get settingsMenuKiosk => 'Kiosk Mode';
+  String get settingsMenuKiosk => 'Modo kiosko';
 
   @override
-  String get settingsMenuKioskSummary => 'Exit gesture, PIN, hardware buttons';
+  String get settingsMenuKioskSummary =>
+      'Gesto de salida, PIN, botones físicos';
 
   @override
-  String get settingsMenuHomeLauncher => 'Home Launcher';
+  String get settingsMenuHomeLauncher => 'Pantalla de inicio';
 
   @override
   String get settingsMenuHomeLauncherSummary =>
-      'Replace the device home screen';
+      'Reemplaza la pantalla de inicio del dispositivo';
 
   @override
-  String get settingsMenuAppLauncher => 'App Launcher';
+  String get settingsMenuAppLauncher => 'Lanzador de aplicaciones';
 
   @override
-  String get settingsMenuAppLauncherSummary => 'Open other apps from the kiosk';
+  String get settingsMenuAppLauncherSummary =>
+      'Abre otras aplicaciones desde el kiosko';
 
   @override
-  String get settingsMenuGestures => 'Gestures';
+  String get settingsMenuGestures => 'Gestos';
 
   @override
-  String get settingsMenuGesturesSummary => 'Touch, palm and clap gestures';
+  String get settingsMenuGesturesSummary =>
+      'Gestos táctiles, con la palma y con aplausos';
 
   @override
-  String get settingsMenuDevice => 'Device';
+  String get settingsMenuDevice => 'Dispositivo';
 
   @override
-  String get settingsMenuDeviceSummary => 'Name, app theme, remote access';
+  String get settingsMenuDeviceSummary =>
+      'Nombre, tema de la aplicación, acceso remoto';
 
   @override
-  String get settingsMenuFleet => 'Fleet Management';
+  String get settingsMenuFleet => 'Gestión de flotas';
 
   @override
-  String get settingsMenuFleetSummary => 'Lead or follow other kiosks';
+  String get settingsMenuFleetSummary => 'Coordina otros kioskos o sigue a uno';
 
   @override
-  String get settingsMenuPlugins => 'Plugin Manager';
+  String get settingsMenuPlugins => 'Gestor de plugins';
 
   @override
-  String get settingsMenuPluginsSummary => 'Install and manage plugins';
+  String get settingsMenuPluginsSummary => 'Instala y administra plugins';
 
   @override
-  String get settingsMenuLogs => 'Logs';
+  String get settingsMenuLogs => 'Registros';
 
   @override
-  String get settingsMenuLogsSummary => 'App log and web console';
+  String get settingsMenuLogsSummary =>
+      'Registro de la aplicación y consola web';
 
   @override
-  String get settingsMenuAbout => 'About';
+  String get settingsMenuAbout => 'Acerca de';
 
   @override
-  String get settingsMenuAboutSummary => 'Version, author, license';
+  String get settingsMenuAboutSummary => 'Versión, autor, licencia';
 
   @override
-  String get settingsMenuOverview => 'Overview';
+  String get settingsMenuOverview => 'Vista general';
 
   @override
-  String get settingsMenuOverviewSummary => 'Screen and quick controls';
+  String get settingsMenuOverviewSummary => 'Pantalla y controles rápidos';
 
   @override
-  String get settingsMenuLockdown => 'Lockdown Mode';
+  String get settingsMenuLockdown => 'Modo de bloqueo';
 
   @override
-  String get settingsMenuLockdownSummary => 'Disable screen interactions';
+  String get settingsMenuLockdownSummary =>
+      'Desactiva las interacciones con la pantalla';
 
   @override
-  String get settingsMenuFiles => 'File Manager';
+  String get settingsMenuFiles => 'Gestor de archivos';
 
   @override
-  String get settingsMenuFilesSummary => 'Browse, download and upload files';
+  String get settingsMenuFilesSummary => 'Explora, descarga y sube archivos';
 
   @override
   String get settingsGroupHomeAssistant => 'Home Assistant';
 
   @override
-  String get settingsGroupDisplay => 'Display';
+  String get settingsGroupDisplay => 'Pantalla';
 
   @override
-  String get settingsGroupMediaCameras => 'Media & Cameras';
+  String get settingsGroupMediaCameras => 'Multimedia y cámaras';
 
   @override
-  String get settingsGroupKiosk => 'Kiosk';
+  String get settingsGroupKiosk => 'Kiosko';
 
   @override
-  String get settingsGroupSystem => 'System';
+  String get settingsGroupSystem => 'Sistema';
 
   @override
-  String get settingsMenuMenu => 'Menu';
+  String get settingsMenuMenu => 'Menú';
 
   @override
-  String get settingsMenuTheme => 'Theme';
+  String get settingsMenuTheme => 'Tema';
 
   @override
-  String get settingsMenuLogout => 'Log out';
+  String get settingsMenuLogout => 'Cerrar sesión';
 
   @override
-  String get settingsMenuSwitchKiosk => 'Switch kiosk';
+  String get settingsMenuSwitchKiosk => 'Cambiar de kiosko';
 
   @override
   String settingsMenuThemeState(String theme) {
-    return 'Theme: $theme';
+    return 'Tema: $theme';
   }
 
   @override
-  String get settingsMenuThemeAuto => 'Automatic';
+  String get settingsMenuThemeAuto => 'Automático';
 
   @override
-  String get settingsSearchHint => 'Search settings';
+  String get settingsSearchHint => 'Buscar en la configuración';
 
   @override
-  String get settingsSearchClear => 'Clear search';
+  String get settingsSearchClear => 'Borrar búsqueda';
 
   @override
-  String get settingsSearchResults => 'Search results';
+  String get settingsSearchResults => 'Resultados de búsqueda';
 
   @override
   String settingsSearchEmpty(String query) {
-    return 'No settings match \"$query\".';
+    return 'No hay opciones que coincidan con \"$query\".';
   }
 
   @override
@@ -548,7 +555,7 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get setupDeviceNameHelp =>
-      'Nombre con el que se identifica este kiosko en Home Assistant, en la administración remota y en la red. Puedes cambiarlo cuando quieras en Settings > Device.';
+      'Nombre con el que se identifica este kiosko en Home Assistant, en la administración remota y en la red. Puedes cambiarlo cuando quieras en Configuración > Dispositivo.';
 
   @override
   String get setupEnableRemote => 'Activar la administración remota';

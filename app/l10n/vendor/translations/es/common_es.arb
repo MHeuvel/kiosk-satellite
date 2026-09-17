@@ -4,5 +4,8 @@
   "commonBack": "Atrás",
   "commonNext": "Siguiente",
   "commonFinish": "Finalizar",
-  "commonWorking": "Procesando…"
+  "commonWorking": "Procesando…",
+  "commonSettings": "Configuración",
+  "commonCancel": "Cancelar",
+  "commonOk": "Aceptar"
 }

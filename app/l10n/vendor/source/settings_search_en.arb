@@ -1,0 +1,61 @@
+{
+  "@@locale": "en",
+  "settingsSearchHint": "Search settings",
+  "@settingsSearchHint": {
+    "context": "Settings:Search",
+    "description": "Placeholder in the Settings search box.",
+    "x-locations": {
+      "device": [
+        "Settings > search box"
+      ],
+      "remoteAdmin": [
+        "Sidebar > search box"
+      ]
+    }
+  },
+  "settingsSearchClear": "Clear search",
+  "@settingsSearchClear": {
+    "context": "Settings:Search",
+    "description": "Tooltip and accessibility label for the clear button.",
+    "x-locations": {
+      "device": [
+        "Settings > search box"
+      ],
+      "remoteAdmin": [
+        "Sidebar > search box"
+      ]
+    }
+  },
+  "settingsSearchResults": "Search results",
+  "@settingsSearchResults": {
+    "context": "Settings:Search",
+    "description": "Heading above matching settings.",
+    "x-locations": {
+      "device": [
+        "Settings > search box"
+      ],
+      "remoteAdmin": [
+        "Sidebar > search box"
+      ]
+    }
+  },
+  "settingsSearchEmpty": "No settings match \"{query}\".",
+  "@settingsSearchEmpty": {
+    "context": "Settings:Search",
+    "description": "Empty result message. The query is the text entered by the user.",
+    "x-locations": {
+      "device": [
+        "Settings > search box"
+      ],
+      "remoteAdmin": [
+        "Sidebar > search box"
+      ]
+    },
+    "placeholders": {
+      "query": {
+        "type": "String",
+        "example": "camera"
+      }
+    }
+  }
+}

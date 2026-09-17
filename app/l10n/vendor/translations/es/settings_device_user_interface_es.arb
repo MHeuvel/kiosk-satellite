@@ -1,0 +1,5 @@
+{
+  "@@locale": "es",
+  "settingUiLanguageTitle": "Idioma",
+  "settingUiLanguageDescription": "Idioma de Kiosk Satellite y de la administración remota. Home Assistant conserva su propio idioma."
+}
