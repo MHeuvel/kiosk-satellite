@@ -9871,18 +9871,18 @@ class UiStringsEs extends UiStrings {
       'Introduce solo la URL base, sin nada después del puerto. Ejemplo: https://homeassistant.local:8123';
 
   @override
-  String get setupChooseDashboard => 'Choose a dashboard';
+  String get setupChooseDashboard => 'Elige un panel de control';
 
   @override
   String get setupDashboardHelp =>
-      'This is what the kiosk will show when it starts.';
+      'Esto es lo que mostrará el kiosko al iniciar.';
 
   @override
-  String get setupSelectDashboard => 'Select a dashboard';
+  String get setupSelectDashboard => 'Selecciona un panel de control';
 
   @override
   String get setupSelectDashboardHelp =>
-      'Choose the dashboard the kiosk will display. You can change it later in Settings.';
+      'Elige el panel de control que mostrará el kiosko. Puedes cambiarlo después en Configuración.';
 
   @override
   String get setupWelcome => 'Bienvenido';
@@ -9909,47 +9909,48 @@ class UiStringsEs extends UiStrings {
   String get setupPermissionsSummary => 'Lo necesario para la configuración';
 
   @override
-  String get setupVoiceDetected => 'Voice Satellite detected';
+  String get setupVoiceDetected => 'Voice Satellite detectado';
 
   @override
   String get setupVoiceHelp =>
-      'This Home Assistant instance runs the Voice Satellite integration. Choose which satellite this kiosk is, then review its settings. Everything can be changed later.';
+      'Esta instancia de Home Assistant tiene la integración Voice Satellite. Elige qué satélite corresponde a este kiosko y revisa su configuración. Puedes cambiarlo todo después.';
 
   @override
-  String get setupNoSatellites => 'No satellites found';
+  String get setupNoSatellites => 'No se encontraron satélites';
 
   @override
   String get setupNoSatellitesHelp =>
-      'Add an assist satellite in the Voice Satellite integration, or continue without one and pick it on the dashboard later.';
+      'Agrega un satélite de Assist en la integración Voice Satellite o continúa sin uno y selecciónalo después en el panel de control.';
 
   @override
   String get setupNewSatelliteHelp =>
-      'If this is a new device, create a new satellite entity in Home Assistant first. Settings → Devices & Services → Voice Satellite → Add Entry. IMPORTANT: Two devices cannot share the same entity.';
+      'Si este dispositivo es nuevo, primero crea una entidad de satélite en Home Assistant. Configuración → Dispositivos y servicios → Voice Satellite → Añadir entrada. IMPORTANTE: Dos dispositivos no pueden compartir la misma entidad.';
 
   @override
-  String get setupApplyRecommended => 'Apply all recommended settings';
+  String get setupApplyRecommended => 'Aplicar todos los ajustes recomendados';
 
   @override
   String get setupRecommendedHelp =>
-      'The optimal settings for full Voice Satellite integration and functionality.';
+      'Los ajustes óptimos para aprovechar todas las funciones de la integración Voice Satellite.';
 
   @override
-  String get setupVoiceRequired => 'Required by Voice Satellite';
+  String get setupVoiceRequired => 'Obligatorio para Voice Satellite';
 
   @override
-  String get setupMicrophoneAccess => 'Microphone access';
+  String get setupMicrophoneAccess => 'Acceso al micrófono';
 
   @override
-  String get setupNativeWakeWord => 'Native wake word detection';
+  String get setupNativeWakeWord =>
+      'Detección nativa de palabras de activación';
 
   @override
-  String get setupPullRefresh => 'Pull to refresh';
+  String get setupPullRefresh => 'Deslizar hacia abajo para actualizar';
 
   @override
-  String get setupAutoplay => 'Autoplay audio and video';
+  String get setupAutoplay => 'Reproducir audio y video automáticamente';
 
   @override
-  String get setupVoiceSkipped => 'Not installed, skipped';
+  String get setupVoiceSkipped => 'No instalado, omitido';
 
   @override
   String get setupRemoteHeading => 'Administración remota';

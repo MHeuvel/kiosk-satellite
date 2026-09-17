@@ -1,0 +1,16 @@
+{
+  "@@locale": "es",
+  "setupVoiceDetected": "Voice Satellite detectado",
+  "setupVoiceHelp": "Esta instancia de Home Assistant tiene la integración Voice Satellite. Elige qué satélite corresponde a este kiosko y revisa su configuración. Puedes cambiarlo todo después.",
+  "setupNoSatellites": "No se encontraron satélites",
+  "setupNoSatellitesHelp": "Agrega un satélite de Assist en la integración Voice Satellite o continúa sin uno y selecciónalo después en el panel de control.",
+  "setupNewSatelliteHelp": "Si este dispositivo es nuevo, primero crea una entidad de satélite en Home Assistant. Configuración → Dispositivos y servicios → Voice Satellite → Añadir entrada. IMPORTANTE: Dos dispositivos no pueden compartir la misma entidad.",
+  "setupApplyRecommended": "Aplicar todos los ajustes recomendados",
+  "setupRecommendedHelp": "Los ajustes óptimos para aprovechar todas las funciones de la integración Voice Satellite.",
+  "setupVoiceRequired": "Obligatorio para Voice Satellite",
+  "setupMicrophoneAccess": "Acceso al micrófono",
+  "setupNativeWakeWord": "Detección nativa de palabras de activación",
+  "setupPullRefresh": "Deslizar hacia abajo para actualizar",
+  "setupAutoplay": "Reproducir audio y video automáticamente",
+  "setupVoiceSkipped": "No instalado, omitido"
+}

@@ -1,12 +1,12 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite-localization",
-  "revision": "2454f34aa4575470f83fa4b044283a94a6f68fd6",
+  "revision": "30dc3205adfe5b9516123d814fdb0cdfb68f9292",
   "locales": [
     "es"
   ],
   "files": {
-    "source/manifest.json": "e29ddd2c32a144db30fcefa443c828e09139b7c8cc9edad9957642c1090f4d1e",
+    "source/manifest.json": "701b4ec8adf58de4fe35918d57d63d3144ad006b3a8993cf8594e887ca097798",
     "source/about_identity_en.arb": "dd006567f69f846e2e3b73f09ad13784f0022d282ea3101fa9be7fc95175ec2d",
     "source/about_updates_en.arb": "b41df3870ffb041249448dc4b13b14a9350ab4417510f23e772458dd1e582c85",
     "source/app_launcher_overlay_en.arb": "9598d5f3383b23bed8c34a54795da71f211533160a84417010def4dd54f9a173",
@@ -158,7 +158,9 @@
     "source/settings_web_browsing_navigation_en.arb": "ce4e29dcf1800a203436a4aad1575976dea606df52b005d088f6932886c6495a",
     "source/settings_web_browsing_scripts_en.arb": "90d79b0f38721340dd1b07041ebb40447869c9983daf6e0a772225a3974e3784",
     "source/setup_connect_en.arb": "353cf737e1650b2f9b7b5c5d4e2d7d5f463d012149ba5ec180425b31845a7b2e",
+    "source/setup_dashboard_en.arb": "0e66bb26e0440b47481382c203d07fa309187bd00e4c1ed4082f7be2fba9b9ff",
     "source/setup_navigation_en.arb": "71c532e240d4abf6cf53324f583f6a60b8e0999bc26a41cd80de8eb441d564a7",
+    "source/setup_voice_satellite_en.arb": "bad0ef351bb9e464bda0f6307e8d6cad63a827efb24bcf4c2dbf3d32457e327c",
     "source/setup_welcome_en.arb": "a26a34d1e8f30df984627884b880f4fda8f410e1ad3a21a9b3399499c4d7be50",
     "source/sound_picker_en.arb": "3287a30c9f51f864354862d1208ec5b79e87026b6a5521939f71c944b02bb626",
     "translations/es/about_identity_es.arb": "8f008ead93633e3c5e58cb310ddb950897fc35fef540245b99ec32e8d06d6ec3",
@@ -312,10 +314,12 @@
     "translations/es/settings_web_browsing_navigation_es.arb": "bca84d46cf3f3386231a4765d559403076a06efcbc69dffc23b4e8787732ba16",
     "translations/es/settings_web_browsing_scripts_es.arb": "6c7967b4a3cc702fcf73147d21e9b9a0201a69532a484288a9a3a51058e5e77e",
     "translations/es/setup_connect_es.arb": "f45ffe0a86088030d211b40d2979551f4051c29c5369e86c472c090a64254fa3",
+    "translations/es/setup_dashboard_es.arb": "f7dc6078ac6fed8760eed0552b929946119e7b90665d3b7872513bd765530068",
     "translations/es/setup_navigation_es.arb": "7ee26fae39874fe8a9a091522ba676075f21be21bee79737d2d5465eb8ad3acc",
+    "translations/es/setup_voice_satellite_es.arb": "cebf1183a4976351d85a0d1f001f7eb52310a68c06919bce1cab00dbd7a66f9c",
     "translations/es/setup_welcome_es.arb": "5ecd1fef9e8d6b0dd3e085d410941099bb7dd8d4f502e98684fefecaf1663d9c",
     "translations/es/sound_picker_es.arb": "4b1867bded8d578e13653eb8e62deb55eae9e41167e0702ea5c9c2329a8a665b",
-    "metadata/reviews/es.json": "84ca6a1e64c30915aeb55256d27b86d826eefb3f2f2e22b960d6819c48c7cc82",
+    "metadata/reviews/es.json": "35a3f6a73a5802a1997ea832e9f862ede4b09e8064b86e15dd4148685fee956c",
     "LICENSE": "4d3e371a6b6cabc75b4be46fecce7601556d0eb777ad9dba4b00bc13a61de5fc",
     "CREDITS.md": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "docs/CONTRIBUTOR-AGREEMENT.md": "f17a3cd0ddbab3a6b95c50d98b81d5648cb8feb09fc54e33bcce855e45ddb014"

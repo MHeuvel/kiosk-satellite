@@ -36430,7 +36430,7 @@
     "description": "Validation error for an address containing a query or fragment.",
     "x-notes": "Preserve the example URL exactly."
   },
-  "setupChooseDashboard": "Choose a dashboard",
+  "setupChooseDashboard": "Elige un panel de control",
   "@setupChooseDashboard": {
     "context": "First-time setup > Dashboard",
     "description": "Translate the setup instruction or control label.",
@@ -36443,7 +36443,7 @@
       ]
     }
   },
-  "setupDashboardHelp": "This is what the kiosk will show when it starts.",
+  "setupDashboardHelp": "Esto es lo que mostrará el kiosko al iniciar.",
   "@setupDashboardHelp": {
     "context": "First-time setup > Dashboard",
     "description": "Translate the setup instruction or control label.",
@@ -36456,7 +36456,7 @@
       ]
     }
   },
-  "setupSelectDashboard": "Select a dashboard",
+  "setupSelectDashboard": "Selecciona un panel de control",
   "@setupSelectDashboard": {
     "context": "First-time setup > Dashboard",
     "description": "Translate the setup instruction or control label.",
@@ -36469,7 +36469,7 @@
       ]
     }
   },
-  "setupSelectDashboardHelp": "Choose the dashboard the kiosk will display. You can change it later in Settings.",
+  "setupSelectDashboardHelp": "Elige el panel de control que mostrará el kiosko. Puedes cambiarlo después en Configuración.",
   "@setupSelectDashboardHelp": {
     "context": "First-time setup > Dashboard",
     "description": "Translate the setup instruction or control label.",
@@ -36522,7 +36522,7 @@
     "context": "First-time setup:Navigation",
     "description": "Summary below the permissions step label."
   },
-  "setupVoiceDetected": "Voice Satellite detected",
+  "setupVoiceDetected": "Voice Satellite detectado",
   "@setupVoiceDetected": {
     "context": "First-time setup > Voice Satellite",
     "description": "Translate the setup instruction or control label.",
@@ -36535,7 +36535,7 @@
       ]
     }
   },
-  "setupVoiceHelp": "This Home Assistant instance runs the Voice Satellite integration. Choose which satellite this kiosk is, then review its settings. Everything can be changed later.",
+  "setupVoiceHelp": "Esta instancia de Home Assistant tiene la integración Voice Satellite. Elige qué satélite corresponde a este kiosko y revisa su configuración. Puedes cambiarlo todo después.",
   "@setupVoiceHelp": {
     "context": "First-time setup > Voice Satellite",
     "description": "Translate the setup instruction or control label.",
@@ -36548,7 +36548,7 @@
       ]
     }
   },
-  "setupNoSatellites": "No satellites found",
+  "setupNoSatellites": "No se encontraron satélites",
   "@setupNoSatellites": {
     "context": "First-time setup > Voice Satellite",
     "description": "Translate the setup instruction or control label.",
@@ -36561,7 +36561,7 @@
       ]
     }
   },
-  "setupNoSatellitesHelp": "Add an assist satellite in the Voice Satellite integration, or continue without one and pick it on the dashboard later.",
+  "setupNoSatellitesHelp": "Agrega un satélite de Assist en la integración Voice Satellite o continúa sin uno y selecciónalo después en el panel de control.",
   "@setupNoSatellitesHelp": {
     "context": "First-time setup > Voice Satellite",
     "description": "Translate the setup instruction or control label.",
@@ -36574,7 +36574,7 @@
       ]
     }
   },
-  "setupNewSatelliteHelp": "If this is a new device, create a new satellite entity in Home Assistant first. Settings → Devices & Services → Voice Satellite → Add Entry. IMPORTANT: Two devices cannot share the same entity.",
+  "setupNewSatelliteHelp": "Si este dispositivo es nuevo, primero crea una entidad de satélite en Home Assistant. Configuración → Dispositivos y servicios → Voice Satellite → Añadir entrada. IMPORTANTE: Dos dispositivos no pueden compartir la misma entidad.",
   "@setupNewSatelliteHelp": {
     "context": "First-time setup > Voice Satellite",
     "description": "Translate the setup instruction or control label.",
@@ -36588,7 +36588,7 @@
     },
     "x-notes": "The path refers to Home Assistant. Keep Voice Satellite unchanged."
   },
-  "setupApplyRecommended": "Apply all recommended settings",
+  "setupApplyRecommended": "Aplicar todos los ajustes recomendados",
   "@setupApplyRecommended": {
     "context": "First-time setup > Voice Satellite",
     "description": "Translate the setup instruction or control label.",
@@ -36601,7 +36601,7 @@
       ]
     }
   },
-  "setupRecommendedHelp": "The optimal settings for full Voice Satellite integration and functionality.",
+  "setupRecommendedHelp": "Los ajustes óptimos para aprovechar todas las funciones de la integración Voice Satellite.",
   "@setupRecommendedHelp": {
     "context": "First-time setup > Voice Satellite",
     "description": "Translate the setup instruction or control label.",
@@ -36614,7 +36614,7 @@
       ]
     }
   },
-  "setupVoiceRequired": "Required by Voice Satellite",
+  "setupVoiceRequired": "Obligatorio para Voice Satellite",
   "@setupVoiceRequired": {
     "context": "First-time setup > Voice Satellite",
     "description": "Translate the setup instruction or control label.",
@@ -36627,7 +36627,7 @@
       ]
     }
   },
-  "setupMicrophoneAccess": "Microphone access",
+  "setupMicrophoneAccess": "Acceso al micrófono",
   "@setupMicrophoneAccess": {
     "context": "First-time setup > Voice Satellite",
     "description": "Translate the setup instruction or control label.",
@@ -36640,7 +36640,7 @@
       ]
     }
   },
-  "setupNativeWakeWord": "Native wake word detection",
+  "setupNativeWakeWord": "Detección nativa de palabras de activación",
   "@setupNativeWakeWord": {
     "context": "First-time setup > Voice Satellite",
     "description": "Translate the setup instruction or control label.",
@@ -36653,7 +36653,7 @@
       ]
     }
   },
-  "setupPullRefresh": "Pull to refresh",
+  "setupPullRefresh": "Deslizar hacia abajo para actualizar",
   "@setupPullRefresh": {
     "context": "First-time setup > Voice Satellite",
     "description": "Translate the setup instruction or control label.",
@@ -36666,7 +36666,7 @@
       ]
     }
   },
-  "setupAutoplay": "Autoplay audio and video",
+  "setupAutoplay": "Reproducir audio y video automáticamente",
   "@setupAutoplay": {
     "context": "First-time setup > Voice Satellite",
     "description": "Translate the setup instruction or control label.",
@@ -36679,7 +36679,7 @@
       ]
     }
   },
-  "setupVoiceSkipped": "Not installed, skipped",
+  "setupVoiceSkipped": "No instalado, omitido",
   "@setupVoiceSkipped": {
     "context": "First-time setup > Voice Satellite",
     "description": "Translate the setup instruction or control label.",

@@ -1,0 +1,7 @@
+{
+  "@@locale": "es",
+  "setupChooseDashboard": "Elige un panel de control",
+  "setupDashboardHelp": "Esto es lo que mostrará el kiosko al iniciar.",
+  "setupSelectDashboard": "Selecciona un panel de control",
+  "setupSelectDashboardHelp": "Elige el panel de control que mostrará el kiosko. Puedes cambiarlo después en Configuración."
+}

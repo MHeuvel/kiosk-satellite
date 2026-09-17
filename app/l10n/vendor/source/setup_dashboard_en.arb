@@ -1,0 +1,55 @@
+{
+  "@@locale": "en",
+  "setupChooseDashboard": "Choose a dashboard",
+  "@setupChooseDashboard": {
+    "context": "First-time setup > Dashboard",
+    "description": "Translate the setup instruction or control label.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Dashboard"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Dashboard"
+      ]
+    }
+  },
+  "setupDashboardHelp": "This is what the kiosk will show when it starts.",
+  "@setupDashboardHelp": {
+    "context": "First-time setup > Dashboard",
+    "description": "Translate the setup instruction or control label.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Dashboard"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Dashboard"
+      ]
+    }
+  },
+  "setupSelectDashboard": "Select a dashboard",
+  "@setupSelectDashboard": {
+    "context": "First-time setup > Dashboard",
+    "description": "Translate the setup instruction or control label.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Dashboard"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Dashboard"
+      ]
+    }
+  },
+  "setupSelectDashboardHelp": "Choose the dashboard the kiosk will display. You can change it later in Settings.",
+  "@setupSelectDashboardHelp": {
+    "context": "First-time setup > Dashboard",
+    "description": "Translate the setup instruction or control label.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Dashboard"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Dashboard"
+      ]
+    }
+  }
+}
