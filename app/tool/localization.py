@@ -260,7 +260,9 @@ def git_file(repository, revision, path):
     if not mode.startswith("100644 blob "):
         raise ValueError(f"Snapshot path must be an ordinary file: {path}")
     data = subprocess.check_output(["git", "-C", str(repository), "show", f"{revision}:{path}"])
-    if len(data) > 500_000:
+    # Review records aggregate every section, unlike individual ARB files.
+    limit = 5_000_000 if path == "metadata/reviews/es.json" else 500_000
+    if len(data) > limit:
         raise ValueError(f"Snapshot file too large: {path}")
     return data
 

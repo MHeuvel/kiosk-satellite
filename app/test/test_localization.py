@@ -5,6 +5,7 @@ from pathlib import Path
 import subprocess
 import tempfile
 import unittest
+from unittest.mock import patch
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -32,6 +33,18 @@ class CatalogTests(unittest.TestCase):
         return {key: {"source": catalog.source_digest(self.source, key),
                       "translation": catalog.sha(value.encode()), "author": "Xavier Larrea"}
                 for key, value in catalog.messages(self.translation).items()}
+
+    def test_aggregate_review_file_has_a_separate_bounded_limit(self):
+        def read_file(path, size):
+            with patch.object(catalog.subprocess, "check_output", side_effect=[
+                "100644 blob fixture\t" + path, b"x" * size
+            ]):
+                return catalog.git_file(Path("repo"), "a" * 40, path)
+        self.assertEqual(len(read_file("metadata/reviews/es.json", 512_838)), 512_838)
+        with self.assertRaisesRegex(ValueError, "too large"):
+            read_file("source/common_en.arb", 500_001)
+        with self.assertRaisesRegex(ValueError, "too large"):
+            read_file("metadata/reviews/es.json", 5_000_001)
 
     def test_duplicate_keys_are_rejected(self):
         with self.assertRaisesRegex(ValueError, "Duplicate"):
