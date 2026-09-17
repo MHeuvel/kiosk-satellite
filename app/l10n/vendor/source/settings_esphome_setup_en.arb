@@ -1,0 +1,217 @@
+{
+  "@@locale": "en",
+  "settingEsphomeEnabledTitle": "Enable ESPHome",
+  "@settingEsphomeEnabledTitle": {
+    "context": "Settings > ESPHome",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome"
+      ],
+      "remoteAdmin": [
+        "ESPHome"
+      ]
+    }
+  },
+  "settingEsphomeEnabledDescription": "Serve this kiosk to Home Assistant as an ESPHome device: its sensors and controls as native entities. Discovered automatically.",
+  "@settingEsphomeEnabledDescription": {
+    "context": "Settings > ESPHome",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome"
+      ],
+      "remoteAdmin": [
+        "ESPHome"
+      ]
+    }
+  },
+  "settingEsphomeEntitiesTitle": "Expose kiosk entities",
+  "@settingEsphomeEntitiesTitle": {
+    "context": "Settings > ESPHome",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome"
+      ],
+      "remoteAdmin": [
+        "ESPHome"
+      ]
+    }
+  },
+  "settingEsphomeEntitiesDescription": "Serve the sensors and controls of this device as ESPHome entities.",
+  "@settingEsphomeEntitiesDescription": {
+    "context": "Settings > ESPHome",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome"
+      ],
+      "remoteAdmin": [
+        "ESPHome"
+      ]
+    }
+  },
+  "settingEsphomeExcludedEntitiesTitle": "Excluded entities",
+  "@settingEsphomeExcludedEntitiesTitle": {
+    "context": "Settings > ESPHome",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome"
+      ],
+      "remoteAdmin": [
+        "ESPHome"
+      ]
+    }
+  },
+  "settingEsphomeExcludedEntitiesDescription": "Pick entities to exclude from Home Assistant. All other available entities are exposed. Saving reconnects ESPHome.",
+  "@settingEsphomeExcludedEntitiesDescription": {
+    "context": "Settings > ESPHome",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome"
+      ],
+      "remoteAdmin": [
+        "ESPHome"
+      ]
+    }
+  },
+  "settingEsphomeNodeNameTitle": "Node name",
+  "@settingEsphomeNodeNameTitle": {
+    "context": "Settings > ESPHome",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome"
+      ],
+      "remoteAdmin": [
+        "ESPHome"
+      ]
+    }
+  },
+  "settingEsphomeNodeNameDescription": "Names this kiosk on the network, and Home Assistant builds its action names from it. Renaming it renames those actions.",
+  "@settingEsphomeNodeNameDescription": {
+    "context": "Settings > ESPHome",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome"
+      ],
+      "remoteAdmin": [
+        "ESPHome"
+      ]
+    }
+  },
+  "settingEsphomeNodeNamePlaceholder": "Set on first start",
+  "@settingEsphomeNodeNamePlaceholder": {
+    "context": "Settings > ESPHome",
+    "description": "Placeholder before the server has started.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome"
+      ],
+      "remoteAdmin": [
+        "ESPHome"
+      ]
+    }
+  },
+  "settingBtproxyKeyTitle": "Encryption key",
+  "@settingBtproxyKeyTitle": {
+    "context": "Settings > ESPHome",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome"
+      ],
+      "remoteAdmin": [
+        "ESPHome"
+      ]
+    }
+  },
+  "settingBtproxyKeyDescription": "Paste this key into Home Assistant when it asks for the encryption key. Generated automatically on first start.",
+  "@settingBtproxyKeyDescription": {
+    "context": "Settings > ESPHome",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome"
+      ],
+      "remoteAdmin": [
+        "ESPHome"
+      ]
+    }
+  },
+  "settingBtproxyKeyPlaceholder": "Generated on first start",
+  "@settingBtproxyKeyPlaceholder": {
+    "context": "Settings > ESPHome",
+    "description": "Placeholder before the server has started.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome"
+      ],
+      "remoteAdmin": [
+        "ESPHome"
+      ]
+    }
+  },
+  "settingBtproxyPortTitle": "API port",
+  "@settingBtproxyPortTitle": {
+    "context": "Settings > ESPHome",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome"
+      ],
+      "remoteAdmin": [
+        "ESPHome"
+      ]
+    }
+  },
+  "settingBtproxyPortDescription": "The port Home Assistant connects to. Leave empty for the ESPHome standard, 6053.",
+  "@settingBtproxyPortDescription": {
+    "context": "Settings > ESPHome",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome"
+      ],
+      "remoteAdmin": [
+        "ESPHome"
+      ]
+    }
+  },
+  "esphomeStartFailed": "The ESPHome server failed to start: {error}",
+  "@esphomeStartFailed": {
+    "context": "Settings > ESPHome",
+    "description": "Server startup failure with the original technical detail.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome"
+      ],
+      "remoteAdmin": [
+        "ESPHome"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Original technical error. Keep it unchanged."
+      }
+    }
+  },
+  "esphomeExcludedInvalid": "Choose a list of entity IDs.",
+  "@esphomeExcludedInvalid": {
+    "context": "Settings > ESPHome",
+    "description": "Invalid entity exclusion setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome"
+      ],
+      "remoteAdmin": [
+        "ESPHome"
+      ]
+    }
+  }
+}

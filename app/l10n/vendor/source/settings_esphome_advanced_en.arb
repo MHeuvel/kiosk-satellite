@@ -1,0 +1,145 @@
+{
+  "@@locale": "en",
+  "settingEsphomeRealMacTitle": "Use real Wi-Fi MAC address",
+  "@settingEsphomeRealMacTitle": {
+    "context": "Settings > ESPHome > Advanced settings",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Advanced settings"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Advanced settings"
+      ]
+    }
+  },
+  "settingEsphomeRealMacDescription": "Home Assistant links this kiosk with the same device your network integrations already track. Changing this creates a new ESPHome device in Home Assistant.",
+  "@settingEsphomeRealMacDescription": {
+    "context": "Settings > ESPHome > Advanced settings",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Advanced settings"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Advanced settings"
+      ]
+    }
+  },
+  "settingEsphomeMacOverrideTitle": "Spoof Wi-Fi MAC address",
+  "@settingEsphomeMacOverrideTitle": {
+    "context": "Settings > ESPHome > Advanced settings",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Advanced settings"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Advanced settings"
+      ]
+    }
+  },
+  "settingEsphomeMacOverrideDescription": "Since the MAC address cannot be resolved, you can use this field to enter your own. Changing this creates a new ESPHome device in Home Assistant.",
+  "@settingEsphomeMacOverrideDescription": {
+    "context": "Settings > ESPHome > Advanced settings",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Advanced settings"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Advanced settings"
+      ]
+    }
+  },
+  "esphomeAdvanced": "Advanced settings",
+  "@esphomeAdvanced": {
+    "context": "Settings > ESPHome > Advanced settings",
+    "description": "Advanced identity page link and heading.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Advanced settings"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Advanced settings"
+      ]
+    }
+  },
+  "esphomeAdvancedHelp": "Real or spoofed Wi-Fi MAC address",
+  "@esphomeAdvancedHelp": {
+    "context": "Settings > ESPHome > Advanced settings",
+    "description": "Description below the Advanced settings link.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Advanced settings"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Advanced settings"
+      ]
+    }
+  },
+  "esphomeMacInvalid": "Enter a valid MAC address.",
+  "@esphomeMacInvalid": {
+    "context": "Settings > ESPHome > Advanced settings",
+    "description": "Validation error for a manually entered address.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Advanced settings"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Advanced settings"
+      ]
+    }
+  },
+  "esphomeMacHardware": "Reporting {mac}.",
+  "@esphomeMacHardware": {
+    "context": "Settings > ESPHome > Advanced settings",
+    "description": "Status when the hardware address is used.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Advanced settings"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Advanced settings"
+      ]
+    },
+    "placeholders": {
+      "mac": {
+        "type": "String",
+        "description": "Device MAC address. Keep it unchanged."
+      }
+    }
+  },
+  "esphomeMacManual": "Reporting {mac}, entered below.",
+  "@esphomeMacManual": {
+    "context": "Settings > ESPHome > Advanced settings",
+    "description": "Status when a manually entered address is used.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Advanced settings"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Advanced settings"
+      ]
+    },
+    "placeholders": {
+      "mac": {
+        "type": "String",
+        "description": "Device MAC address. Keep it unchanged."
+      }
+    }
+  },
+  "esphomeMacUnavailable": "Android will not reveal this device's hardware address.",
+  "@esphomeMacUnavailable": {
+    "context": "Settings > ESPHome > Advanced settings",
+    "description": "Status when Android cannot provide the hardware address.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Advanced settings"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Advanced settings"
+      ]
+    }
+  }
+}

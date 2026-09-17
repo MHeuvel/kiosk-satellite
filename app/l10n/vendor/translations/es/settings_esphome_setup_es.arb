@@ -1,0 +1,19 @@
+{
+  "@@locale": "es",
+  "settingEsphomeEnabledTitle": "Activar ESPHome",
+  "settingEsphomeEnabledDescription": "Presenta este kiosko a Home Assistant como un dispositivo ESPHome, con sus sensores y controles como entidades nativas. Se descubre automáticamente.",
+  "settingEsphomeEntitiesTitle": "Exponer las entidades del kiosko",
+  "settingEsphomeEntitiesDescription": "Expone los sensores y controles de este dispositivo como entidades ESPHome.",
+  "settingEsphomeExcludedEntitiesTitle": "Entidades excluidas",
+  "settingEsphomeExcludedEntitiesDescription": "Elige las entidades que quieres excluir de Home Assistant. Se exponen todas las demás entidades disponibles. Al guardar, ESPHome vuelve a conectarse.",
+  "settingEsphomeNodeNameTitle": "Nombre del nodo",
+  "settingEsphomeNodeNameDescription": "Identifica este kiosko en la red. Home Assistant usa este nombre para crear los nombres de sus acciones. Si lo cambias, también cambian los nombres de esas acciones.",
+  "settingEsphomeNodeNamePlaceholder": "Se establece al iniciar por primera vez",
+  "settingBtproxyKeyTitle": "Clave de cifrado",
+  "settingBtproxyKeyDescription": "Pega esta clave en Home Assistant cuando te pida la clave de cifrado. Se genera automáticamente al iniciar por primera vez.",
+  "settingBtproxyKeyPlaceholder": "Se genera al iniciar por primera vez",
+  "settingBtproxyPortTitle": "Puerto de la API",
+  "settingBtproxyPortDescription": "El puerto al que se conecta Home Assistant. Déjalo vacío para usar el puerto estándar de ESPHome, 6053.",
+  "esphomeStartFailed": "El servidor ESPHome no pudo iniciarse: {error}",
+  "esphomeExcludedInvalid": "Elige una lista de identificadores de entidades."
+}

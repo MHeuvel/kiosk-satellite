@@ -429,6 +429,11 @@
     "translation": "5d706b7d4fa100c49b98964872cd6f7191bdfa86c54a79fe8699704e97190e2a",
     "author": "Xavier Larrea"
   },
+  "commonSelectAll": {
+    "source": "059b1672d0a191960b66bf00bc09c1fd5efd03a3091c7cd86dbbe63a1a700cc9",
+    "translation": "f691776fbc8ed6694b5548cb9dd67ab573cba54d50b96d5f417156f0e5f328c6",
+    "author": "Xavier Larrea"
+  },
   "dlnaCannotDecode": {
     "source": "3bab8088285fb79b4a4b2799dca94cb003a680a5f8622acceac77c1c2734b826",
     "translation": "3c745d398874fd4f300bfacc2fb17266186100b70be56246c62bca517c9c865f",
@@ -687,6 +692,121 @@
   "drawerNoReleaseNotes": {
     "source": "d25998565277c4b37c5f0a188324194dd55f63c777d58a28d7d3d7cc57d7a355",
     "translation": "9593bc8d0dae9dde68a7e864aa8b0ba61cb0c6084b804a0ba902bc3a1c2b565b",
+    "author": "Xavier Larrea"
+  },
+  "esphomeAllExposed": {
+    "source": "baf469d11af5565b6e6a7dd3e65f4340b75a02f9d81027e54877a24e5eb3d976",
+    "translation": "6fb72145c3a9db54969c8d178f9660579f77d270443a6c67b49aa53b0b11a2ed",
+    "author": "Xavier Larrea"
+  },
+  "esphomeExcludedCount": {
+    "source": "9845359587848cdad9be6426c256d149682af7462ae8ad2cdfdfa90fe4aa1017",
+    "translation": "8251c9fa99889d819af72e5bc4ebb730a919010f0ee6e3ffe4a0ec68df0e86d8",
+    "author": "Xavier Larrea"
+  },
+  "esphomeEntitySearch": {
+    "source": "459e63f58cde7cdc80aaa57c647718364c70f9cad1bf4ae0e37c156a67dddf61",
+    "translation": "f012d5bb2d76f0e39d51de67eb24f732ab3498513243cb22d62a0629697cec9b",
+    "author": "Xavier Larrea"
+  },
+  "esphomeEntityLoading": {
+    "source": "c372816689b49720205481a5dca58622b692204b9efc51d303e401e6b9e9cd50",
+    "translation": "b8f80de7cda0ab1fdc8f64a46d271e4e745722d3120e1036fe7506eeb1fe97e0",
+    "author": "Xavier Larrea"
+  },
+  "esphomeEntityUnavailable": {
+    "source": "62071a383c15d7e06e52b0a672d6d8fad26965113473f175df3780f2772f53b5",
+    "translation": "1f7d1bfca5fad54bf42ff4cadf4d1bcee6f819550b89b6a0fffd5ee40b9aed32",
+    "author": "Xavier Larrea"
+  },
+  "esphomeEntityNoMatch": {
+    "source": "d96336baf3123e8d657b048c2666ab6aedb132f9cdb2769986b873ee8e7a7255",
+    "translation": "bd73ff9cafc90c5733138d4f6a27914c5d9043de3af549f0dc3a6c9979ffd602",
+    "author": "Xavier Larrea"
+  },
+  "esphomeEntityLoadFailed": {
+    "source": "df8896e4fbb3f1fd6d976c641ba3012a9ecaee0476db980aeb4f51c6d51a1366",
+    "translation": "d87ace738e2ca5c6e747075c655369ea979be53dc3caf17d9805c25e2e34d27b",
+    "author": "Xavier Larrea"
+  },
+  "esphomeEntitySaveFailed": {
+    "source": "0b7c7a9835f8b1725f041ea2ab8e874f31bd52a2c1b0ba8f92caa33a217469dc",
+    "translation": "2117ac126ac6d68678d65c289c52eed6b967436fbbc8f6e6f4d43ddfc7d33074",
+    "author": "Xavier Larrea"
+  },
+  "esphomeTypeConfig": {
+    "source": "d9ab8f7c4f36de11685508105b7d6d14c302d00f094aa2f2cd561d9822701352",
+    "translation": "bb507137e363137915421975ee9fcf5264a60200e5417072bc5e1b9a38e61ba7",
+    "author": "Xavier Larrea"
+  },
+  "esphomeTypeDiagnostics": {
+    "source": "8a9fea4f66ae4fd198e9ec0dc27402b71eba839c6d64097bfe7c6182dcff0bc9",
+    "translation": "e695eb16e81f370456a9375d968aab92dc55e8bf2d1b171f22adc58578690bc6",
+    "author": "Xavier Larrea"
+  },
+  "esphomeTypeSensorGroup": {
+    "source": "2e2878fa67ad55cd1557b1b793a3020af9909c47e6f647110cb9059808888e20",
+    "translation": "162cc64ca1e4ffe9b9064bdd6f53f3d53f8a969199402bbfa61c749aa693ba43",
+    "author": "Xavier Larrea"
+  },
+  "esphomeTypeControl": {
+    "source": "c30f7f624b3b31be92db9aa3c167abda739258ac4bc641b864683694e0bc7e59",
+    "translation": "32d7e82082479b8cb546187ff0af11e4915e4d17bc28e02dca7425288b79badd",
+    "author": "Xavier Larrea"
+  },
+  "esphomeTypeSensor": {
+    "source": "47ce59f0833a8b99992f37af01901f507d9dafe57f1bcb011044020001b1bcb5",
+    "translation": "ca73f61034afc26d96c85c0d2285e1f08b283b891426cef8c05eda5bf3e12ddf",
+    "author": "Xavier Larrea"
+  },
+  "esphomeTypeTextSensor": {
+    "source": "512265fb36837dfdb8125d132a166e4dda0a9db5c32f157e8e54f4a985c40c6d",
+    "translation": "bee4d3bc09126c8702d3c938977bb8ece81bc4b7a10597571de1e166637a0b71",
+    "author": "Xavier Larrea"
+  },
+  "esphomeTypeBinarySensor": {
+    "source": "cd5f98b481a58e2a633e340dc990d14438914c781a9b77dd00d406fce2c05792",
+    "translation": "842226d8aa3278b683ff4fcbd72df527ec9fc19efb3a322152c20b702d5062b1",
+    "author": "Xavier Larrea"
+  },
+  "esphomeTypeCamera": {
+    "source": "a12edbde4aab66ba96024c514d2e6d544957cf05ac52565fe4ef1794924b531f",
+    "translation": "e8a7f5be1c30f1ed0a3ced4768bf54626c3781eac5149cc237dfe3d29c7d7677",
+    "author": "Xavier Larrea"
+  },
+  "esphomeTypeSwitch": {
+    "source": "288b23776a0b0279278397feea416129c6e5bf8916bf4afaa997bd9ba67dbf9f",
+    "translation": "a7332bdad077adff33e10e00283f35b9ff800c7a44672b074c4dc097ac471279",
+    "author": "Xavier Larrea"
+  },
+  "esphomeTypeButton": {
+    "source": "d41f2801a62411561b684e39deeaf23e6ba2e940873dd4117e27a696432f55ee",
+    "translation": "a89daac8e6f7307d242464fe46d6772ee26375f27b3f89f8a16c8484084662fd",
+    "author": "Xavier Larrea"
+  },
+  "esphomeTypeNumber": {
+    "source": "0c03eb95ac78d8ff9234a3599b4862c7a04b8f07a8e59c750d6eacb0733618c7",
+    "translation": "84871a760b20b5c33b2dec8f4c00983bfa996a02076dfc27d9e2f07ba93bc41d",
+    "author": "Xavier Larrea"
+  },
+  "esphomeTypeSelect": {
+    "source": "a5f94694820197219ed935d75e5e9ba5596068386519041970486ef178cc0f0e",
+    "translation": "43d74fc5e4b6ba9d453c34fc1d09e299ce4b008157e368ea4fe7a701c1146d50",
+    "author": "Xavier Larrea"
+  },
+  "esphomeTypeLight": {
+    "source": "b4602f6b4dd3f9cbb7020cb1ccf0a8398964a845fe1e3d862728ca107fca7c86",
+    "translation": "c6ce5f796115921afe158021f045e7c6d6820383191907ff6add8b3f502082a1",
+    "author": "Xavier Larrea"
+  },
+  "esphomeTypeUpdate": {
+    "source": "9d9011cabca6b32a5aaa27d8d8c58afe0b117500270d0f1277b42d28a8c495c7",
+    "translation": "79c225624b9ecaa8f0e30a2ce87c23f34a423acec4e63673bb26e6bd7f25c31f",
+    "author": "Xavier Larrea"
+  },
+  "esphomeTypeText": {
+    "source": "c4d335f2a3990348b1b7c2af09f778507cb8acb33aa1d606be34cfc9c8dd83c8",
+    "translation": "f46e3b17a6b639e5efddc3d1498ad73491599c22220f7ef6e14772f4ee25b913",
     "author": "Xavier Larrea"
   },
   "fleetFleetManagementNeedsTheRemoteAdmin": {
@@ -6107,6 +6227,136 @@
   "settingDlnaPortPlaceholder": {
     "source": "1ff63f633a75d2b43c6782544de575fe20fe1c9701393e3d73326ab290736f47",
     "translation": "5eb6e4be33272c4136a161da4d6e483164198567b4677352b804569dba1c71fc",
+    "author": "Xavier Larrea"
+  },
+  "settingEsphomeRealMacTitle": {
+    "source": "928cd2e5c3c6340cb8599cc4c9a91375c96c8d879e058159a31071d432bc2c93",
+    "translation": "c88a06e78ee955162bd6915b76fa65dd0f7c6024c1be80c7cf2a7279e5b8c483",
+    "author": "Xavier Larrea"
+  },
+  "settingEsphomeRealMacDescription": {
+    "source": "5886653e5d30c26617a9ec264601e93a285bd30dcf6def4ccbcef7de023a11ba",
+    "translation": "4e257fd426e64541af414fc0c90e86807e77d34ae363b7def0e855d5a3233a82",
+    "author": "Xavier Larrea"
+  },
+  "settingEsphomeMacOverrideTitle": {
+    "source": "d3292d1d44cfa506341d03a680dc14be2818731fbf06c3ea3058cd4975e2f5bc",
+    "translation": "2ae304be46cdfd8011c997a6a7cfc17913d385b2eb786f2a534f37b863fb8d62",
+    "author": "Xavier Larrea"
+  },
+  "settingEsphomeMacOverrideDescription": {
+    "source": "3c132a1355bbfd32001c12896431509fd48e84b1a8cb76b7fed2d4195073ba2f",
+    "translation": "819330a47d76963a22171e0ac1f5064892a82a6efc4291bca9b28550cb5e4539",
+    "author": "Xavier Larrea"
+  },
+  "esphomeAdvanced": {
+    "source": "2c5ea6c5d68e3ce4088e259bd394ca501b5ea2a74b3f4bb3e689e6ecdff0c71d",
+    "translation": "6d8d8fbeb0da59c51df08aecd9ead85c9bd0134629391df8e04a521f855edff3",
+    "author": "Xavier Larrea"
+  },
+  "esphomeAdvancedHelp": {
+    "source": "6a7b3448ba435a6b5a3f2f7458a05946cfa1fd8115ece5326e9d448bdc6f90d0",
+    "translation": "24c68bbf770468e0c2cda1a7ca2c918d241273e2d8e89f8d015c05a66a3cf7dc",
+    "author": "Xavier Larrea"
+  },
+  "esphomeMacInvalid": {
+    "source": "d4c753b6524847cc1b98cdc53bcd0491e0c41504bc3c01d38b0fd7aa8d6378b8",
+    "translation": "d860f95cedf1c43dcf37835a71315c52439f56f30225c39cd9a2584af1599772",
+    "author": "Xavier Larrea"
+  },
+  "esphomeMacHardware": {
+    "source": "36bfa393e7af0a39a1a27a3a4828cc96611899a23f343f0b419ac9a7646e0be3",
+    "translation": "6940a5caf7c3d43055e669338dc29d1f3c1cdc04ad05f51bf69e6090120d6f9c",
+    "author": "Xavier Larrea"
+  },
+  "esphomeMacManual": {
+    "source": "702f42d6377e261202231f279180c9a360f23062f5da7634eaba77015c10135f",
+    "translation": "a739792110f331f51e4ed68ec08b6cac93df985037f74f87999ba95e43227159",
+    "author": "Xavier Larrea"
+  },
+  "esphomeMacUnavailable": {
+    "source": "17e4e4b63849e2b8717b5ff4d2d9d72a6abbc1b581f94793722af7ef60af0737",
+    "translation": "4843c34f5188ca016d2aa4b56901be6d621faa2001bbc86294d2ea190b21930b",
+    "author": "Xavier Larrea"
+  },
+  "settingEsphomeEnabledTitle": {
+    "source": "443ae2de424b0310e44b6270fa106908b0d0d35522ce569332549776d0b492be",
+    "translation": "2b1e5162c4a9ad820f74431a2ab5065a3d16c62e91b475c25765bb940fe2cc96",
+    "author": "Xavier Larrea"
+  },
+  "settingEsphomeEnabledDescription": {
+    "source": "658a127eadc701240453a4897aa12d92eb886224daa8555291bdc2a7b945f6a8",
+    "translation": "160ebdb157462795bfdb4c057f9dbde0b6469bb41ebaec4ff433216f4199c106",
+    "author": "Xavier Larrea"
+  },
+  "settingEsphomeEntitiesTitle": {
+    "source": "295c7cc3e4eb17848b4289bfd5fc43c14de77f8e859890cde352448f70377ce9",
+    "translation": "b02f6ea094f3698521ea4f09068143097f115bc1ed6b15e86335df3e9a105de5",
+    "author": "Xavier Larrea"
+  },
+  "settingEsphomeEntitiesDescription": {
+    "source": "6efc59c69817fb6f5d2432330d977ae6465bd7c6f842771004d00baecc04ad82",
+    "translation": "1c5b4b41aca172abfa6aa7add2aa428f802c7cee6736cc5cb04715a6f2e9bfe9",
+    "author": "Xavier Larrea"
+  },
+  "settingEsphomeExcludedEntitiesTitle": {
+    "source": "58eb43391ea42ed805fe3b5ba4dd20e164da8c0b7b74284e3f7178bbe0b223fa",
+    "translation": "5ada4e39631ac5cc4e45d944ed5f5d0d00a003d72f0daaf87a5bd25d09da71bb",
+    "author": "Xavier Larrea"
+  },
+  "settingEsphomeExcludedEntitiesDescription": {
+    "source": "51cceccc64227756ba9459c7fcc79f557d06e2d84cca750ee4762a4839e529cc",
+    "translation": "1d6fa8dd9f3e956f0b69e146e098dc3f1533a09e201f0bf1fe4e0c0aeddfe823",
+    "author": "Xavier Larrea"
+  },
+  "settingEsphomeNodeNameTitle": {
+    "source": "99589afa248a28316c62fa8b38ba86bc478fbba94d623ba84d5467683a182831",
+    "translation": "86a60ac70617d4533ecbcc571b9b322fbdf08c4d8f50f792b5d58b591d7da00e",
+    "author": "Xavier Larrea"
+  },
+  "settingEsphomeNodeNameDescription": {
+    "source": "8f59ac6603edc7b1d651a8471d3dbefcc52e7b3be2752c0c54e8c95573044b15",
+    "translation": "20e30fca6680f715ead261760d0f1923488751ddf4f19ca50dfd64a43de0da96",
+    "author": "Xavier Larrea"
+  },
+  "settingEsphomeNodeNamePlaceholder": {
+    "source": "58610c63dab081b105256af5f50af3318c670aefa544e08c263dd0b7827c55e6",
+    "translation": "45fb4ebdcd0add96c9c03ef8d3e5c855c558e6be99cb029ad1833d0df89e1e96",
+    "author": "Xavier Larrea"
+  },
+  "settingBtproxyKeyTitle": {
+    "source": "6736a8be2c9ff1b4aeb03ade00323f64eed898b47d5cfe2e970668bbd00bc031",
+    "translation": "7b8e165b50509da34d6c52f338daf2f05684bbbbff497c3d9ef4c4edae951425",
+    "author": "Xavier Larrea"
+  },
+  "settingBtproxyKeyDescription": {
+    "source": "9466bc7141ffc81d59b02eb92467fc4761d19ee67917f3f242e94d9106e13b00",
+    "translation": "87d1e05daab0c06720dc2d262fa510d5ef9c9117696160a70dbe3515924ab2b4",
+    "author": "Xavier Larrea"
+  },
+  "settingBtproxyKeyPlaceholder": {
+    "source": "6b149841916d803f6f614101698926efea289a1a3d150b4cc479013fa3d162d6",
+    "translation": "28bcdd29b2b11a8ba9e858bd6bc7db64ce25961d2463ec42dd844d2baaa8631b",
+    "author": "Xavier Larrea"
+  },
+  "settingBtproxyPortTitle": {
+    "source": "b77662a2e81a7a4bbcaa5b407f1938ffa8bdabab88ef60c8e66526e2a33efc45",
+    "translation": "5de30f4d3a75e4a2f39d63be157405c0e5c15827c538e6684f9552c1e6bd43af",
+    "author": "Xavier Larrea"
+  },
+  "settingBtproxyPortDescription": {
+    "source": "44bcc40440a6699480a458028413cb9d5a8ea23b0ecafcc72f3ca667345b9a33",
+    "translation": "66bf01e7da0eba5c196b5c91d7669840dd21b236c46d7e87dca22691d31d72bf",
+    "author": "Xavier Larrea"
+  },
+  "esphomeStartFailed": {
+    "source": "e333e9c36167d0745d0a18811d9b49c8fb3329a0d4ad67765c43e426cba7cfa8",
+    "translation": "f977fbcef92ea79165af6e9366f9a548c17f5c6dc7b7596a828fd34f3a0d2f3d",
+    "author": "Xavier Larrea"
+  },
+  "esphomeExcludedInvalid": {
+    "source": "ddfd8abba99c7bd106213c959ad4f0674ce9c55751aaec5ec7d714e18b597baf",
+    "translation": "4a97b19603d260d5b9f4c48467c68480caf2c6332e299eade82cf433c389eeee",
     "author": "Xavier Larrea"
   },
   "settingClapStrictnessTitle": {

@@ -230,5 +230,10 @@
       ]
     },
     "x-notes": "Empty is a valid choice. Preserve the numeric port bounds."
+  },
+  "commonSelectAll": "Select all",
+  "@commonSelectAll": {
+    "context": "Common:Actions",
+    "description": "Select every item in a multi-selection list."
   }
 }

@@ -5,7 +5,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ## Unreleased
 
 ### Added
-- **ESPHome setup uses translation templates in both interfaces.** Fifty new messages cover server setup, excluded entities and Advanced settings. Language changes preserve selected entities, network identifiers and credentials.
+- **ESPHome setup uses translation templates in both interfaces.** All 2505 catalog messages now have bundled, author-approved Spanish translations. Fifty new messages cover server setup, excluded entities and Advanced settings. Language changes preserve selected entities, network identifiers and credentials.
 - **Lockdown Mode uses translation templates.** All 2455 catalog messages now have bundled, author-approved Spanish translations. Seventeen messages cover remote settings, permissions, search guidance and the locked-screen notice. Both device shields follow the selected language without changing protection flags, PINs or exit gestures.
 - **Logs and About use translation templates in both interfaces.** All 2438 catalog messages now have bundled, author-approved Spanish translations. Five templates add 43 messages for log controls, console notices, app details and update actions. Language changes preserve diagnostic output, typed JavaScript, filters and active downloads. About details fit narrow screens.
 - **Fleet Management and Plugin Manager use translation templates in both interfaces.** All 2395 catalog messages now have bundled, author-approved Spanish translations. Twelve templates add 222 messages for profiles, invitations, fleet updates, plugin installation, actions and outputs. Language changes preserve profile IDs, plugin data and unsaved fields.

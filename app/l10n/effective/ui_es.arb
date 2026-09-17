@@ -841,7 +841,7 @@
     },
     "x-notes": "Empty is a valid choice. Preserve the numeric port bounds."
   },
-  "commonSelectAll": "Select all",
+  "commonSelectAll": "Seleccionar todo",
   "@commonSelectAll": {
     "context": "Common:Actions",
     "description": "Select every item in a multi-selection list."
@@ -1401,7 +1401,7 @@
       ]
     }
   },
-  "esphomeAllExposed": "All available entities exposed",
+  "esphomeAllExposed": "Se exponen todas las entidades disponibles",
   "@esphomeAllExposed": {
     "context": "Settings > ESPHome > Excluded entities",
     "description": "Summary when no entities are excluded.",
@@ -1414,7 +1414,7 @@
       ]
     }
   },
-  "esphomeExcludedCount": "{count} excluded",
+  "esphomeExcludedCount": "{count} excluidas",
   "@esphomeExcludedCount": {
     "context": "Settings > ESPHome > Excluded entities",
     "description": "Number of excluded entities.",
@@ -1433,7 +1433,7 @@
       }
     }
   },
-  "esphomeEntitySearch": "Search entities",
+  "esphomeEntitySearch": "Buscar entidades",
   "@esphomeEntitySearch": {
     "context": "Settings > ESPHome > Excluded entities",
     "description": "Entity search hint and accessibility label.",
@@ -1446,7 +1446,7 @@
       ]
     }
   },
-  "esphomeEntityLoading": "Loading entities…",
+  "esphomeEntityLoading": "Cargando entidades…",
   "@esphomeEntityLoading": {
     "context": "Settings > ESPHome > Excluded entities",
     "description": "Loading notice.",
@@ -1459,7 +1459,7 @@
       ]
     }
   },
-  "esphomeEntityUnavailable": "Currently unavailable",
+  "esphomeEntityUnavailable": "No disponible actualmente",
   "@esphomeEntityUnavailable": {
     "context": "Settings > ESPHome > Excluded entities",
     "description": "An excluded entity that the server no longer reports.",
@@ -1472,7 +1472,7 @@
       ]
     }
   },
-  "esphomeEntityNoMatch": "No matching entities",
+  "esphomeEntityNoMatch": "No hay entidades que coincidan",
   "@esphomeEntityNoMatch": {
     "context": "Settings > ESPHome > Excluded entities",
     "description": "No results for the search.",
@@ -1485,7 +1485,7 @@
       ]
     }
   },
-  "esphomeEntityLoadFailed": "Could not load entities. Close the picker and try again.",
+  "esphomeEntityLoadFailed": "No se pudieron cargar las entidades. Cierra el selector e inténtalo de nuevo.",
   "@esphomeEntityLoadFailed": {
     "context": "Settings > ESPHome > Excluded entities",
     "description": "Entity loading failure.",
@@ -1498,7 +1498,7 @@
       ]
     }
   },
-  "esphomeEntitySaveFailed": "Could not save exclusions. Try again.",
+  "esphomeEntitySaveFailed": "No se pudieron guardar las exclusiones. Inténtalo de nuevo.",
   "@esphomeEntitySaveFailed": {
     "context": "Settings > ESPHome > Excluded entities",
     "description": "Entity selection save failure.",
@@ -1511,7 +1511,7 @@
       ]
     }
   },
-  "esphomeTypeConfig": "Configuration",
+  "esphomeTypeConfig": "Configuración",
   "@esphomeTypeConfig": {
     "context": "Settings > ESPHome > Excluded entities",
     "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
@@ -1524,7 +1524,7 @@
       ]
     }
   },
-  "esphomeTypeDiagnostics": "Diagnostics",
+  "esphomeTypeDiagnostics": "Diagnóstico",
   "@esphomeTypeDiagnostics": {
     "context": "Settings > ESPHome > Excluded entities",
     "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
@@ -1576,7 +1576,7 @@
       ]
     }
   },
-  "esphomeTypeTextSensor": "text sensor",
+  "esphomeTypeTextSensor": "sensor de texto",
   "@esphomeTypeTextSensor": {
     "context": "Settings > ESPHome > Excluded entities",
     "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
@@ -1589,7 +1589,7 @@
       ]
     }
   },
-  "esphomeTypeBinarySensor": "binary sensor",
+  "esphomeTypeBinarySensor": "sensor binario",
   "@esphomeTypeBinarySensor": {
     "context": "Settings > ESPHome > Excluded entities",
     "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
@@ -1602,7 +1602,7 @@
       ]
     }
   },
-  "esphomeTypeCamera": "camera",
+  "esphomeTypeCamera": "cámara",
   "@esphomeTypeCamera": {
     "context": "Settings > ESPHome > Excluded entities",
     "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
@@ -1615,7 +1615,7 @@
       ]
     }
   },
-  "esphomeTypeSwitch": "switch",
+  "esphomeTypeSwitch": "interruptor",
   "@esphomeTypeSwitch": {
     "context": "Settings > ESPHome > Excluded entities",
     "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
@@ -1628,7 +1628,7 @@
       ]
     }
   },
-  "esphomeTypeButton": "button",
+  "esphomeTypeButton": "botón",
   "@esphomeTypeButton": {
     "context": "Settings > ESPHome > Excluded entities",
     "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
@@ -1641,7 +1641,7 @@
       ]
     }
   },
-  "esphomeTypeNumber": "number",
+  "esphomeTypeNumber": "número",
   "@esphomeTypeNumber": {
     "context": "Settings > ESPHome > Excluded entities",
     "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
@@ -1654,7 +1654,7 @@
       ]
     }
   },
-  "esphomeTypeSelect": "select",
+  "esphomeTypeSelect": "selección",
   "@esphomeTypeSelect": {
     "context": "Settings > ESPHome > Excluded entities",
     "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
@@ -1667,7 +1667,7 @@
       ]
     }
   },
-  "esphomeTypeLight": "light",
+  "esphomeTypeLight": "luz",
   "@esphomeTypeLight": {
     "context": "Settings > ESPHome > Excluded entities",
     "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
@@ -1680,7 +1680,7 @@
       ]
     }
   },
-  "esphomeTypeUpdate": "update",
+  "esphomeTypeUpdate": "actualización",
   "@esphomeTypeUpdate": {
     "context": "Settings > ESPHome > Excluded entities",
     "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
@@ -1693,7 +1693,7 @@
       ]
     }
   },
-  "esphomeTypeText": "text",
+  "esphomeTypeText": "texto",
   "@esphomeTypeText": {
     "context": "Settings > ESPHome > Excluded entities",
     "description": "Entity category or type label. Entity names and identifiers remain unchanged.",
@@ -16289,7 +16289,7 @@
       ]
     }
   },
-  "settingEsphomeRealMacTitle": "Use real Wi-Fi MAC address",
+  "settingEsphomeRealMacTitle": "Usar la dirección MAC real del Wi-Fi",
   "@settingEsphomeRealMacTitle": {
     "context": "Settings > ESPHome > Advanced settings",
     "description": "Setting label.",
@@ -16302,7 +16302,7 @@
       ]
     }
   },
-  "settingEsphomeRealMacDescription": "Home Assistant links this kiosk with the same device your network integrations already track. Changing this creates a new ESPHome device in Home Assistant.",
+  "settingEsphomeRealMacDescription": "Home Assistant vincula este kiosko con el mismo dispositivo que tus integraciones de red ya detectan. Si cambias esta opción, se crea un nuevo dispositivo ESPHome en Home Assistant.",
   "@settingEsphomeRealMacDescription": {
     "context": "Settings > ESPHome > Advanced settings",
     "description": "Help below this setting.",
@@ -16315,7 +16315,7 @@
       ]
     }
   },
-  "settingEsphomeMacOverrideTitle": "Spoof Wi-Fi MAC address",
+  "settingEsphomeMacOverrideTitle": "Usar una dirección MAC de Wi-Fi personalizada",
   "@settingEsphomeMacOverrideTitle": {
     "context": "Settings > ESPHome > Advanced settings",
     "description": "Setting label.",
@@ -16328,7 +16328,7 @@
       ]
     }
   },
-  "settingEsphomeMacOverrideDescription": "Since the MAC address cannot be resolved, you can use this field to enter your own. Changing this creates a new ESPHome device in Home Assistant.",
+  "settingEsphomeMacOverrideDescription": "Como no se puede obtener la dirección MAC, puedes introducir una aquí. Si la cambias, se crea un nuevo dispositivo ESPHome en Home Assistant.",
   "@settingEsphomeMacOverrideDescription": {
     "context": "Settings > ESPHome > Advanced settings",
     "description": "Help below this setting.",
@@ -16341,7 +16341,7 @@
       ]
     }
   },
-  "esphomeAdvanced": "Advanced settings",
+  "esphomeAdvanced": "Configuración avanzada",
   "@esphomeAdvanced": {
     "context": "Settings > ESPHome > Advanced settings",
     "description": "Advanced identity page link and heading.",
@@ -16354,7 +16354,7 @@
       ]
     }
   },
-  "esphomeAdvancedHelp": "Real or spoofed Wi-Fi MAC address",
+  "esphomeAdvancedHelp": "Dirección MAC de Wi-Fi real o personalizada",
   "@esphomeAdvancedHelp": {
     "context": "Settings > ESPHome > Advanced settings",
     "description": "Description below the Advanced settings link.",
@@ -16367,7 +16367,7 @@
       ]
     }
   },
-  "esphomeMacInvalid": "Enter a valid MAC address.",
+  "esphomeMacInvalid": "Introduce una dirección MAC válida.",
   "@esphomeMacInvalid": {
     "context": "Settings > ESPHome > Advanced settings",
     "description": "Validation error for a manually entered address.",
@@ -16380,7 +16380,7 @@
       ]
     }
   },
-  "esphomeMacHardware": "Reporting {mac}.",
+  "esphomeMacHardware": "Se está usando {mac}.",
   "@esphomeMacHardware": {
     "context": "Settings > ESPHome > Advanced settings",
     "description": "Status when the hardware address is used.",
@@ -16399,7 +16399,7 @@
       }
     }
   },
-  "esphomeMacManual": "Reporting {mac}, entered below.",
+  "esphomeMacManual": "Se está usando {mac}, introducida abajo.",
   "@esphomeMacManual": {
     "context": "Settings > ESPHome > Advanced settings",
     "description": "Status when a manually entered address is used.",
@@ -16418,7 +16418,7 @@
       }
     }
   },
-  "esphomeMacUnavailable": "Android will not reveal this device's hardware address.",
+  "esphomeMacUnavailable": "Android no permite obtener la dirección de hardware de este dispositivo.",
   "@esphomeMacUnavailable": {
     "context": "Settings > ESPHome > Advanced settings",
     "description": "Status when Android cannot provide the hardware address.",
@@ -16431,7 +16431,7 @@
       ]
     }
   },
-  "settingEsphomeEnabledTitle": "Enable ESPHome",
+  "settingEsphomeEnabledTitle": "Activar ESPHome",
   "@settingEsphomeEnabledTitle": {
     "context": "Settings > ESPHome",
     "description": "Setting label.",
@@ -16444,7 +16444,7 @@
       ]
     }
   },
-  "settingEsphomeEnabledDescription": "Serve this kiosk to Home Assistant as an ESPHome device: its sensors and controls as native entities. Discovered automatically.",
+  "settingEsphomeEnabledDescription": "Presenta este kiosko a Home Assistant como un dispositivo ESPHome, con sus sensores y controles como entidades nativas. Se descubre automáticamente.",
   "@settingEsphomeEnabledDescription": {
     "context": "Settings > ESPHome",
     "description": "Help below this setting.",
@@ -16457,7 +16457,7 @@
       ]
     }
   },
-  "settingEsphomeEntitiesTitle": "Expose kiosk entities",
+  "settingEsphomeEntitiesTitle": "Exponer las entidades del kiosko",
   "@settingEsphomeEntitiesTitle": {
     "context": "Settings > ESPHome",
     "description": "Setting label.",
@@ -16470,7 +16470,7 @@
       ]
     }
   },
-  "settingEsphomeEntitiesDescription": "Serve the sensors and controls of this device as ESPHome entities.",
+  "settingEsphomeEntitiesDescription": "Expone los sensores y controles de este dispositivo como entidades ESPHome.",
   "@settingEsphomeEntitiesDescription": {
     "context": "Settings > ESPHome",
     "description": "Help below this setting.",
@@ -16483,7 +16483,7 @@
       ]
     }
   },
-  "settingEsphomeExcludedEntitiesTitle": "Excluded entities",
+  "settingEsphomeExcludedEntitiesTitle": "Entidades excluidas",
   "@settingEsphomeExcludedEntitiesTitle": {
     "context": "Settings > ESPHome",
     "description": "Setting label.",
@@ -16496,7 +16496,7 @@
       ]
     }
   },
-  "settingEsphomeExcludedEntitiesDescription": "Pick entities to exclude from Home Assistant. All other available entities are exposed. Saving reconnects ESPHome.",
+  "settingEsphomeExcludedEntitiesDescription": "Elige las entidades que quieres excluir de Home Assistant. Se exponen todas las demás entidades disponibles. Al guardar, ESPHome vuelve a conectarse.",
   "@settingEsphomeExcludedEntitiesDescription": {
     "context": "Settings > ESPHome",
     "description": "Help below this setting.",
@@ -16509,7 +16509,7 @@
       ]
     }
   },
-  "settingEsphomeNodeNameTitle": "Node name",
+  "settingEsphomeNodeNameTitle": "Nombre del nodo",
   "@settingEsphomeNodeNameTitle": {
     "context": "Settings > ESPHome",
     "description": "Setting label.",
@@ -16522,7 +16522,7 @@
       ]
     }
   },
-  "settingEsphomeNodeNameDescription": "Names this kiosk on the network, and Home Assistant builds its action names from it. Renaming it renames those actions.",
+  "settingEsphomeNodeNameDescription": "Identifica este kiosko en la red. Home Assistant usa este nombre para crear los nombres de sus acciones. Si lo cambias, también cambian los nombres de esas acciones.",
   "@settingEsphomeNodeNameDescription": {
     "context": "Settings > ESPHome",
     "description": "Help below this setting.",
@@ -16535,7 +16535,7 @@
       ]
     }
   },
-  "settingEsphomeNodeNamePlaceholder": "Set on first start",
+  "settingEsphomeNodeNamePlaceholder": "Se establece al iniciar por primera vez",
   "@settingEsphomeNodeNamePlaceholder": {
     "context": "Settings > ESPHome",
     "description": "Placeholder before the server has started.",
@@ -16548,7 +16548,7 @@
       ]
     }
   },
-  "settingBtproxyKeyTitle": "Encryption key",
+  "settingBtproxyKeyTitle": "Clave de cifrado",
   "@settingBtproxyKeyTitle": {
     "context": "Settings > ESPHome",
     "description": "Setting label.",
@@ -16561,7 +16561,7 @@
       ]
     }
   },
-  "settingBtproxyKeyDescription": "Paste this key into Home Assistant when it asks for the encryption key. Generated automatically on first start.",
+  "settingBtproxyKeyDescription": "Pega esta clave en Home Assistant cuando te pida la clave de cifrado. Se genera automáticamente al iniciar por primera vez.",
   "@settingBtproxyKeyDescription": {
     "context": "Settings > ESPHome",
     "description": "Help below this setting.",
@@ -16574,7 +16574,7 @@
       ]
     }
   },
-  "settingBtproxyKeyPlaceholder": "Generated on first start",
+  "settingBtproxyKeyPlaceholder": "Se genera al iniciar por primera vez",
   "@settingBtproxyKeyPlaceholder": {
     "context": "Settings > ESPHome",
     "description": "Placeholder before the server has started.",
@@ -16587,7 +16587,7 @@
       ]
     }
   },
-  "settingBtproxyPortTitle": "API port",
+  "settingBtproxyPortTitle": "Puerto de la API",
   "@settingBtproxyPortTitle": {
     "context": "Settings > ESPHome",
     "description": "Setting label.",
@@ -16600,7 +16600,7 @@
       ]
     }
   },
-  "settingBtproxyPortDescription": "The port Home Assistant connects to. Leave empty for the ESPHome standard, 6053.",
+  "settingBtproxyPortDescription": "El puerto al que se conecta Home Assistant. Déjalo vacío para usar el puerto estándar de ESPHome, 6053.",
   "@settingBtproxyPortDescription": {
     "context": "Settings > ESPHome",
     "description": "Help below this setting.",
@@ -16613,7 +16613,7 @@
       ]
     }
   },
-  "esphomeStartFailed": "The ESPHome server failed to start: {error}",
+  "esphomeStartFailed": "El servidor ESPHome no pudo iniciarse: {error}",
   "@esphomeStartFailed": {
     "context": "Settings > ESPHome",
     "description": "Server startup failure with the original technical detail.",
@@ -16632,7 +16632,7 @@
       }
     }
   },
-  "esphomeExcludedInvalid": "Choose a list of entity IDs.",
+  "esphomeExcludedInvalid": "Elige una lista de identificadores de entidades.",
   "@esphomeExcludedInvalid": {
     "context": "Settings > ESPHome",
     "description": "Invalid entity exclusion setting.",

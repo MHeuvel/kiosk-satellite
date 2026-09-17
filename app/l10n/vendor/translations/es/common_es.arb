@@ -43,5 +43,6 @@
   "commonNextMonth": "Mes siguiente",
   "commonLoading": "Cargando…",
   "commonChoose": "Elegir",
-  "dlnaPortInvalid": "Introduce un puerto entre 1024 y 65535 o déjalo vacío"
+  "dlnaPortInvalid": "Introduce un puerto entre 1024 y 65535 o déjalo vacío",
+  "commonSelectAll": "Seleccionar todo"
 }
