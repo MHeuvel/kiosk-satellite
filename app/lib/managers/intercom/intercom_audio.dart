@@ -98,15 +98,4 @@ class IntercomAudio {
       return null;
     }
   }
-
-  /// Whether the platform has an echo canceller for the microphone route.
-  /// Without one a hands free call feeds the far voice straight back, so
-  /// the manager forces push to talk.
-  Future<bool> echoCancellerAvailable() async {
-    try {
-      return await invoker('aecAvailable') == true;
-    } catch (_) {
-      return false;
-    }
-  }
 }

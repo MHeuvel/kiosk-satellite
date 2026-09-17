@@ -46,7 +46,7 @@ The **Ring sound** is a built-in telephone ring by default, or a file from the s
 | Talk mode | How it works |
 | --- | --- |
 | Push to talk | The default. One wide **Hold to talk** button and End. Held, this kiosk sends and the far kiosk hears you. Released, this kiosk listens. It never needs echo cancellation to work, so it is the safe choice on every device. |
-| Hands free | The microphone stays open for the whole call with a Mute button. It relies on the platform echo canceller the wake word capture already runs on. A device without one is held to push to talk. |
+| Hands free | The microphone stays open for the whole call with a Mute button. It leans on the same echo canceller the wake word capture runs on. Some devices do their echo cancellation without saying so, so the choice is always there. If the other kiosk hears itself back, use push to talk. |
 
 Each kiosk picks its own talk mode. **Intercom volume** under Screen & Audio, beside the media and assistant volumes, is the share of the master volume the other kiosk's voice and announcements play at.
 

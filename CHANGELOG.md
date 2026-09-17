@@ -7,6 +7,9 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ### Added
 - **Install from file reports its progress across the fleet.** Pushing an uploaded APK to the fleet used to go quiet after the upload to the leader, with no sign of anything happening until the followers restarted. The leader now streams the file to one follower at a time and reports each step as it goes. The Fleet Management page on both the device and the remote admin shows Sending with a percentage on the follower taking the file, then Installing once it started, and the Install on the fleet button on the remote admin reads out the same progress while it waits. A follower still reports Installing between the leader's polls, and a stale Unreachable no longer hides an install that just started (#584).
 
+### Changed
+- **Hands free is available on every device.** The intercom asked Android whether the device had an echo canceller and locked Talk mode to Push to talk when the answer was no. Devices that cancel echo in their own audio hardware, the Meta Portal among them, report nothing and were held to Push to talk even though a hands free call works fine on them. Talk mode is now always the user's choice on the kiosk and the remote admin. Push to talk is still the default and the safe pick if the other kiosk hears itself back.
+
 ## v2026.9.59 - 2026-09-16
 
 ### Added

@@ -277,7 +277,6 @@ class IntercomManager extends Manager {
   int _selfPort = 0;
   String _selfVersion = '';
   bool _fleetEnabled = false;
-  bool _aec = true;
   bool _micGranted = true;
 
   /// The page kept the microphone through [pageMicWait]: a page that does
@@ -388,7 +387,6 @@ class IntercomManager extends Manager {
     // Another Voice Satellite turn or a page taking the microphone ends
     // the call: the page holds the microphone exclusively.
     micHub.browserCapturing.addListener(_onBrowserCapture);
-    _aec = await audio.echoCancellerAvailable();
     await _readFleet();
     if (enabled && key.isEmpty) await _ensureKey();
   }
@@ -579,7 +577,6 @@ class IntercomManager extends Manager {
     'talkMode': talkMode,
     'dnd': dnd,
     'lockdown': _settings.get(defs.lockdownEnabled),
-    'aec': _aec,
     'micGranted': _micGranted,
     'micBusy': _micBusy,
     'self': {'id': _selfId, 'name': _selfName},
@@ -593,9 +590,10 @@ class IntercomManager extends Manager {
           ),
   };
 
-  /// The effective talk mode: the setting, unless the platform has no echo
-  /// canceller, which forces push to talk.
-  String get talkMode => _aec ? _settings.get(defs.intercomTalkMode) : 'ptt';
+  /// The talk mode this kiosk calls with. Hands free leans on the device's
+  /// echo canceller, which plenty of devices have without reporting one, so
+  /// the choice is always the user's.
+  String get talkMode => _settings.get(defs.intercomTalkMode);
 
   void _changed() => bus.publish(IntercomStateChanged(status()));
 

@@ -2649,25 +2649,6 @@ class _CategoryContentState extends State<_CategoryContent> {
       announcementsTtsEngine.key: AnnouncementTtsEngineRow(
         container: container,
       ),
-    // No echo canceller on this platform: hands free would howl, so the
-    // manager forces push to talk and the row says why. Mirrored on the
-    // remote (intercom.js).
-    if (widget.category == 'Intercom' &&
-        container.intercom.status()['aec'] == false)
-      intercomTalkMode.key: SearchLandingTarget(
-        id: intercomTalkMode.key,
-        child: SettingsRow(
-          enabled: false,
-          title: Text(intercomTalkMode.title),
-          subtitle: const Text(
-            'Push to talk only: this device has no echo canceller.',
-          ),
-          trailing: Text(
-            container.settings.optionLabel(intercomTalkMode, 'ptt') ??
-                'Push to talk',
-          ),
-        ),
-      ),
     // The Clock screensaver's Night mode (issue #391) has nothing to
     // watch without the sensor either: same disabled switch, same reason.
     // Mirrored on the remote (notices.js, updateClockNightRows).

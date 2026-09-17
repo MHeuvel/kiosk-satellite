@@ -162,10 +162,9 @@ function openKeyDialog() {
 /* ---- the definition rows ---- */
 
 // The rows the generic renderer drew, made to match the device page: the
-// key as a copy box with a Change row under it, the ring sound as a
-// dropdown over the sounds folder, the talk mode locked to push to talk
-// where the platform has no echo canceller. Each is done once per render
-// of the rows and left alone on a status redraw.
+// key as a copy box with a Change row under it and the ring sound as a
+// dropdown over the sounds folder. Each is done once per render of the
+// rows and left alone on a status redraw.
 function decorateRows(tab) {
   const keyRow = tab.querySelector('[data-key="intercom.key"]');
   const keyInput = keyRow?.querySelector('input');
@@ -185,17 +184,6 @@ function decorateRows(tab) {
     attachSoundUpload(soundRow, attachSoundSelect(soundRow, soundDef));
   }
 
-  const talkRow = tab.querySelector('[data-key="intercom.talk_mode"]');
-  const talkSel = talkRow?.querySelector('select');
-  if (talkSel) {
-    const desc = talkRow.querySelector('.desc');
-    talkRow.dataset.desc ??= desc.textContent;
-    const forced = status?.aec === false;
-    talkSel.disabled = forced;
-    desc.textContent = forced
-      ? 'Push to talk only: this device has no echo canceller.'
-      : talkRow.dataset.desc;
-  }
 }
 
 /* ---- the live call ---- */

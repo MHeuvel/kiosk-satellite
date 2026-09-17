@@ -169,7 +169,6 @@ void main() {
       ..invoker = (method, [args]) async {
         audioCalls.add(method);
         if (method == 'write') audioWritten.add(args as Uint8List);
-        if (method == 'aecAvailable') return true;
         if (method == 'start') return true;
         if (method == 'decode') return Uint8List(32000);
         return null;
@@ -1175,17 +1174,18 @@ void main() {
       expect(intercom.dnd, isFalse);
     });
 
-    test(
-      'the status carries the modes and the platform echo canceller',
-      () async {
-        await build();
-        final status = intercom.status();
-        expect(status['answerMode'], 'ring');
-        expect(status['talkMode'], 'ptt');
-        expect(status['aec'], isTrue);
-        expect(status['state'], 'idle');
-        expect(status['call'], isNull);
-      },
-    );
+    test('the status carries the modes', () async {
+      await build();
+      final status = intercom.status();
+      expect(status['answerMode'], 'ring');
+      expect(status['talkMode'], 'ptt');
+      expect(status['state'], 'idle');
+      expect(status['call'], isNull);
+    });
+
+    test('hands free is the talk mode whatever the device reports', () async {
+      await build(prefs: {'ks.intercom.talk_mode': 'handsfree'});
+      expect(intercom.status()['talkMode'], 'handsfree');
+    });
   });
 }

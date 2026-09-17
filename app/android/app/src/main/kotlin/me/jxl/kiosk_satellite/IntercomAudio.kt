@@ -6,7 +6,6 @@ import android.media.AudioDeviceInfo
 import android.media.AudioFormat
 import android.media.AudioManager
 import android.media.AudioTrack
-import android.media.audiofx.AcousticEchoCanceler
 import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
@@ -34,8 +33,6 @@ import java.util.concurrent.atomic.AtomicInteger
  *    the voice never drifts seconds behind.
  *  - setVolume {volume}: moves the fader live.
  *  - stop: releases the track and the route.
- *  - aecAvailable: whether the platform has an echo canceller, which is
- *    what makes a hands free call possible.
  *
  * The master volume rides in through [VolumeController.communicationGain]
  * like every communication sound, re-read on every fader change.
@@ -103,7 +100,6 @@ class IntercomAudio(context: Context, messenger: BinaryMessenger) {
                         mainHandler.post { result.success(out) }
                     }
                 }
-                "aecAvailable" -> result.success(AcousticEchoCanceler.isAvailable())
                 else -> result.notImplemented()
             }
         }
