@@ -176,11 +176,22 @@ class CameraRtspServer(
                 if (it.groupValues[1].isNotEmpty()) it.groupValues[1] to it.groupValues[2]
                 else it.groupValues[3] to it.groupValues[4]
             }
+        val digestUri = fields["uri"] ?: return false
         if (fields["username"] != username || fields["realm"] != "Kiosk Satellite" ||
-            fields["nonce"] != nonce || fields["uri"] != uri || fields.containsKey("qop") ||
+            fields["nonce"] != nonce || !digestUriMatches(digestUri, method, uri) || fields.containsKey("qop") ||
             (fields["algorithm"] != null && fields["algorithm"] != "MD5")) return false
-        val expected = md5("${md5("$username:Kiosk Satellite:$password")}:$nonce:${md5("$method:$uri")}")
+        val expected = md5("${md5("$username:Kiosk Satellite:$password")}:$nonce:${md5("$method:$digestUri")}")
         return MessageDigest.isEqual(expected.toByteArray(), (fields["response"] ?: "").lowercase().toByteArray())
+    }
+
+    private fun digestUriMatches(digestUri: String, method: String, uri: String): Boolean {
+        if (digestUri == uri) return true
+        // LIVE555 signs SETUP with the presentation URL instead of the track URL.
+        // Accept only the same camera base so other resources cannot share a digest.
+        if (method != "SETUP" || !(uri.endsWith("/camera/trackID=0") ||
+                (audioEnabled && uri.endsWith("/camera/trackID=1")))) return false
+        val base = uri.substringBeforeLast('/')
+        return digestUri == base || digestUri == "$base/"
     }
 
     private fun md5(text: String) = MessageDigest.getInstance("MD5").digest(text.toByteArray())

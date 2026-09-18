@@ -201,6 +201,85 @@ class CameraRtspServerTest {
     private fun md5(s: String) = MessageDigest.getInstance("MD5").digest(s.toByteArray())
         .joinToString("") { "%02x".format(it.toInt() and 255) }
 
+    private fun digest(method: String, uri: String, nonce: String, password: String = "secret"): String {
+        val response = md5("${md5("viewer:Kiosk Satellite:$password")}:$nonce:${md5("$method:$uri")}")
+        return "Authorization: Digest username=\"viewer\", realm=\"Kiosk Satellite\", nonce=\"$nonce\", " +
+            "uri=\"$uri\", response=\"$response\"\r\n"
+    }
+
+    @Test fun authenticatedPlaybackAcceptsTrackAndLive555BaseDigests() {
+        for (style in listOf("track", "base", "content-base")) {
+            val server = CameraRtspServer(0, "viewer", "secret", { Base64.getEncoder().encodeToString(it) },
+                {}, {}, audioEnabled = true)
+            try {
+                server.config(listOf(sps, pps))
+                Peer(server.localPort).use { peer ->
+                    val challenge = peer.request("DESCRIBE")
+                    val nonce = Regex("nonce=\"([^\"]+)\"").find(challenge)!!.groupValues[1]
+                    val describe = peer.request("DESCRIBE", digest("DESCRIBE", peer.uri, nonce))
+                    assertTrue(describe.startsWith("RTSP/1.0 200"))
+                    val base = Regex("Content-Base: ([^\\n]+)").find(describe)!!.groupValues[1]
+                    var session = ""
+                    for (track in 0..1) {
+                        val target = base + "trackID=$track"
+                        val signedUri = when (style) {
+                            "track" -> target
+                            "base" -> peer.uri
+                            else -> base
+                        }
+                        val setup = peer.request("SETUP", digest("SETUP", signedUri, nonce) +
+                            "Transport: RTP/AVP/TCP;unicast;interleaved=${track * 2}-${track * 2 + 1}\r\n", target)
+                        assertTrue("$style track $track: $setup", setup.startsWith("RTSP/1.0 200"))
+                        session = Regex("Session: ([^;\\n]+)").find(setup)!!.groupValues[1]
+                    }
+                    val sessionHeader = "Session: $session\r\n"
+                    assertTrue(peer.request("PLAY", digest("PLAY", base, nonce) + sessionHeader, base)
+                        .startsWith("RTSP/1.0 200"))
+                    server.frame(listOf(byteArrayOf(0x65, 1, 2)), 1_000_000)
+                    assertEquals(1, peer.packet().first)
+                    repeat(3) { assertEquals(0, peer.packet().first) }
+                    server.audioFrame(byteArrayOf(1, 2, 3), 1_000_000)
+                    assertEquals(3, peer.packet().first)
+                    assertEquals(2, peer.packet().first)
+                    for (method in listOf("GET_PARAMETER", "TEARDOWN")) {
+                        assertTrue(peer.request(method, digest(method, base, nonce) + sessionHeader, base)
+                            .startsWith("RTSP/1.0 200"))
+                    }
+                }
+            } finally { server.close() }
+        }
+    }
+
+    @Test fun baseDigestCompatibilityStillRejectsInvalidAuthentication() {
+        val server = server(LinkedBlockingQueue(), true)
+        try {
+            server.config(listOf(sps, pps))
+            Peer(server.localPort).use { peer ->
+                val challenge = peer.request("DESCRIBE")
+                val nonce = Regex("nonce=\"([^\"]+)\"").find(challenge)!!.groupValues[1]
+                assertTrue(peer.request("DESCRIBE", digest("DESCRIBE", peer.uri, nonce)).startsWith("RTSP/1.0 200"))
+                val target = peer.uri + "/trackID=0"
+                val transport = "Transport: RTP/AVP/TCP;interleaved=0-1\r\n"
+                val invalid = listOf(
+                    "",
+                    digest("SETUP", peer.uri, nonce, "wrong"),
+                    digest("SETUP", peer.uri, "wrong-nonce"),
+                    digest("DESCRIBE", peer.uri, nonce),
+                    digest("SETUP", peer.uri.replace("127.0.0.1", "localhost"), nonce),
+                    digest("SETUP", peer.uri + "-other", nonce),
+                    digest("SETUP", peer.uri + "/trackID=1", nonce),
+                )
+                for (auth in invalid) {
+                    assertTrue(peer.request("SETUP", auth + transport, target).startsWith("RTSP/1.0 401"))
+                }
+                assertTrue(peer.request("DESCRIBE", digest("DESCRIBE", peer.uri, nonce), target)
+                    .startsWith("RTSP/1.0 401"))
+                assertTrue(peer.request("SETUP", digest("SETUP", peer.uri, nonce) + transport, peer.uri + "/trackID=1")
+                    .startsWith("RTSP/1.0 401"))
+            }
+        } finally { server.close() }
+    }
+
     @Test fun authenticationPrecedesCameraDemand() {
         val demand = LinkedBlockingQueue<Boolean>()
         val server = server(demand, true)

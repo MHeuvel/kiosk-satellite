@@ -2,6 +2,12 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Fixed
+
+- **RTSP authentication in VLC.** Camera streams with credentials now accept VLC's authentication for video and audio track setup. Previously, VLC could reject both tracks with `401 Unauthorized` even when the username and password were correct.
+
 ## v2026.9.60 - 2026-09-18
 
 ### Added
