@@ -211,6 +211,72 @@ abstract class UiStrings {
   /// **'The download runs on the tablet; the installation must be confirmed on the tablet screen.'**
   String get aboutInstallHelp;
 
+  /// Service description displayed by Android in its own language.
+  ///
+  /// In en, this message translates to:
+  /// **'Closes the notification shade and the recents screen whenever they open while Kiosk Mode or Lockdown Mode is protecting the screen. Kiosk Satellite does not read any screen content.'**
+  String get androidAccessibilityHelp;
+
+  /// Notification channel description in Android Settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Shown while the Kiosk Satellite Service keeps the app running with the screen off or behind another app.'**
+  String get androidServiceChannelHelp;
+
+  /// Wake word listening status.
+  ///
+  /// In en, this message translates to:
+  /// **'listening for a wake word'**
+  String get androidServiceListening;
+
+  /// RTSP microphone status.
+  ///
+  /// In en, this message translates to:
+  /// **'RTSP microphone audio enabled'**
+  String get androidServiceRtspAudio;
+
+  /// ESPHome server status.
+  ///
+  /// In en, this message translates to:
+  /// **'serving ESPHome'**
+  String get androidServiceEsphome;
+
+  /// Bluetooth proxy status.
+  ///
+  /// In en, this message translates to:
+  /// **'relaying Bluetooth devices'**
+  String get androidServiceBluetooth;
+
+  /// Camera monitoring status.
+  ///
+  /// In en, this message translates to:
+  /// **'watching the camera'**
+  String get androidServiceCamera;
+
+  /// Location reporting status.
+  ///
+  /// In en, this message translates to:
+  /// **'reporting the location'**
+  String get androidServiceLocation;
+
+  /// Remote admin server status.
+  ///
+  /// In en, this message translates to:
+  /// **'serving the remote admin'**
+  String get androidServiceRemote;
+
+  /// Kiosk protection status.
+  ///
+  /// In en, this message translates to:
+  /// **'guarding kiosk mode'**
+  String get androidServiceKiosk;
+
+  /// Home Assistant connection status, always present.
+  ///
+  /// In en, this message translates to:
+  /// **'keeping Home Assistant connected'**
+  String get androidServiceSessions;
+
   /// Label or guidance in this section.
   ///
   /// In en, this message translates to:
@@ -17120,6 +17186,36 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Permissions requested on the device'**
   String get setupPermissionsRequested;
+
+  /// Shown when the scanner cannot start its camera.
+  ///
+  /// In en, this message translates to:
+  /// **'The camera could not be started.'**
+  String get setupQrCameraFailed;
+
+  /// Scanner heading. Keep QR unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan the token QR code'**
+  String get setupQrTitle;
+
+  /// Explains where to find the QR code. Keep Home Assistant unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'It appears next to a newly created token in your Home Assistant profile.'**
+  String get setupQrHelp;
+
+  /// Flashlight button label when the light is on.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn off the flashlight'**
+  String get setupQrFlashOff;
+
+  /// Flashlight button label when the light is off.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn on the flashlight'**
+  String get setupQrFlashOn;
 
   /// Error heading when importing before setting an admin password.
   ///

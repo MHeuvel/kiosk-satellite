@@ -1,0 +1,122 @@
+{
+  "@@locale": "en",
+  "androidServiceChannelHelp": "Shown while the Kiosk Satellite Service keeps the app running with the screen off or behind another app.",
+  "@androidServiceChannelHelp": {
+    "context": "Android > notification shade > Kiosk Satellite Service",
+    "description": "Notification channel description in Android Settings.",
+    "x-locations": {
+      "device": [
+        "Android > notification shade > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "androidServiceListening": "listening for a wake word",
+  "@androidServiceListening": {
+    "context": "Android > notification shade > Kiosk Satellite Service",
+    "description": "Wake word listening status.",
+    "x-locations": {
+      "device": [
+        "Android > notification shade > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": []
+    },
+    "x-notes": "Lowercase phrase without final punctuation. Active phrases are joined with commas. The app capitalizes the first letter and adds a final period. Keep product names unchanged."
+  },
+  "androidServiceRtspAudio": "RTSP microphone audio enabled",
+  "@androidServiceRtspAudio": {
+    "context": "Android > notification shade > Kiosk Satellite Service",
+    "description": "RTSP microphone status.",
+    "x-locations": {
+      "device": [
+        "Android > notification shade > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": []
+    },
+    "x-notes": "Lowercase phrase without final punctuation. Active phrases are joined with commas. The app capitalizes the first letter and adds a final period. Keep product names unchanged."
+  },
+  "androidServiceEsphome": "serving ESPHome",
+  "@androidServiceEsphome": {
+    "context": "Android > notification shade > Kiosk Satellite Service",
+    "description": "ESPHome server status.",
+    "x-locations": {
+      "device": [
+        "Android > notification shade > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": []
+    },
+    "x-notes": "Lowercase phrase without final punctuation. Active phrases are joined with commas. The app capitalizes the first letter and adds a final period. Keep product names unchanged."
+  },
+  "androidServiceBluetooth": "relaying Bluetooth devices",
+  "@androidServiceBluetooth": {
+    "context": "Android > notification shade > Kiosk Satellite Service",
+    "description": "Bluetooth proxy status.",
+    "x-locations": {
+      "device": [
+        "Android > notification shade > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": []
+    },
+    "x-notes": "Lowercase phrase without final punctuation. Active phrases are joined with commas. The app capitalizes the first letter and adds a final period. Keep product names unchanged."
+  },
+  "androidServiceCamera": "watching the camera",
+  "@androidServiceCamera": {
+    "context": "Android > notification shade > Kiosk Satellite Service",
+    "description": "Camera monitoring status.",
+    "x-locations": {
+      "device": [
+        "Android > notification shade > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": []
+    },
+    "x-notes": "Lowercase phrase without final punctuation. Active phrases are joined with commas. The app capitalizes the first letter and adds a final period. Keep product names unchanged."
+  },
+  "androidServiceLocation": "reporting the location",
+  "@androidServiceLocation": {
+    "context": "Android > notification shade > Kiosk Satellite Service",
+    "description": "Location reporting status.",
+    "x-locations": {
+      "device": [
+        "Android > notification shade > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": []
+    },
+    "x-notes": "Lowercase phrase without final punctuation. Active phrases are joined with commas. The app capitalizes the first letter and adds a final period. Keep product names unchanged."
+  },
+  "androidServiceRemote": "serving the remote admin",
+  "@androidServiceRemote": {
+    "context": "Android > notification shade > Kiosk Satellite Service",
+    "description": "Remote admin server status.",
+    "x-locations": {
+      "device": [
+        "Android > notification shade > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": []
+    },
+    "x-notes": "Lowercase phrase without final punctuation. Active phrases are joined with commas. The app capitalizes the first letter and adds a final period. Keep product names unchanged."
+  },
+  "androidServiceKiosk": "guarding kiosk mode",
+  "@androidServiceKiosk": {
+    "context": "Android > notification shade > Kiosk Satellite Service",
+    "description": "Kiosk protection status.",
+    "x-locations": {
+      "device": [
+        "Android > notification shade > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": []
+    },
+    "x-notes": "Lowercase phrase without final punctuation. Active phrases are joined with commas. The app capitalizes the first letter and adds a final period. Keep product names unchanged."
+  },
+  "androidServiceSessions": "keeping Home Assistant connected",
+  "@androidServiceSessions": {
+    "context": "Android > notification shade > Kiosk Satellite Service",
+    "description": "Home Assistant connection status, always present.",
+    "x-locations": {
+      "device": [
+        "Android > notification shade > Kiosk Satellite Service"
+      ],
+      "remoteAdmin": []
+    },
+    "x-notes": "Lowercase phrase without final punctuation. Active phrases are joined with commas. The app capitalizes the first letter and adds a final period. Keep product names unchanged."
+  }
+}

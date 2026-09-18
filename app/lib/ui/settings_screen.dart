@@ -793,7 +793,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           ),
                           IconButton(
                             icon: const Icon(Icons.close),
-                            tooltip: 'Close',
+                            tooltip: l10n(context).commonClose,
                             onPressed: () => Navigator.of(context).pop(),
                           ),
                         ],

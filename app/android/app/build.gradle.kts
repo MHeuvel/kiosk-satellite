@@ -26,6 +26,7 @@ android {
     ndkVersion = flutter.ndkVersion
 
     buildFeatures { aidl = true }
+    testOptions.unitTests.isIncludeAndroidResources = true
 
     // Keep the universal download available alongside --split-per-abi builds.
     splits.abi.isUniversalApk = true
@@ -243,4 +244,10 @@ val buildRemoteUi = tasks.register<Exec>("buildRemoteUi") {
 }
 tasks.matching { it.name.startsWith("compileFlutterBuild") }.configureEach {
     dependsOn(buildRemoteUi)
+}
+
+// Resource-backed JVM tests package the assets Flutter contributes.
+tasks.matching { it.name.startsWith("package") && it.name.endsWith("UnitTestForUnitTest") }.configureEach {
+    val variant = name.removePrefix("package").removeSuffix("UnitTestForUnitTest")
+    dependsOn("copyFlutterAssets$variant")
 }

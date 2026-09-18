@@ -461,7 +461,7 @@ class _FleetSettingsPanelState extends State<FleetSettingsPanel> {
             subtitle: Text(desc),
             trailing: FilledButton(
               onPressed: _busy ? null : _updateFleet,
-              child: const Text('Update'),
+              child: Text(l10n(context).drawerUpdate),
             ),
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter/services.dart';
 import 'package:kiosk_satellite/core/command_registry.dart';
 import 'package:kiosk_satellite/core/event_bus.dart';
 import 'package:kiosk_satellite/core/logging.dart';
@@ -172,6 +173,36 @@ void main() {
     final result = await commands.execute('getServiceStatus', const {});
     expect((result.data as Map)['cpuAwake'], isFalse);
   });
+
+  test(
+    'language changes refresh native text with the original service inputs',
+    () async {
+      const channel = MethodChannel('kiosk_satellite/background');
+      final calls = <MethodCall>[];
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, (call) async {
+            calls.add(call);
+            return null;
+          });
+      addTearDown(
+        () => TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+            .setMockMethodCallHandler(channel, null),
+      );
+      await build();
+      final original = calls.single.arguments;
+      calls.clear();
+      await settings.set(defs.uiLanguage, 'es');
+      await Future<void>.delayed(Duration.zero);
+      expect(calls, hasLength(1));
+      expect(calls.single.method, 'setServiceReasons');
+      expect(calls.single.arguments, original);
+      expect(
+        (await SharedPreferences.getInstance()).getString('ks.ui.language'),
+        'es',
+      );
+      await service.dispose();
+    },
+  );
 
   test('the setting lives on the Device page, on the service page', () {
     expect(defs.serviceCpuAwake.category, 'Device');

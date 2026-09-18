@@ -71,6 +71,7 @@ class ServiceManager extends Manager {
 
   /// The settings a reason is read from; a change to any re-syncs.
   static const _watched = {
+    'ui.language',
     'remote.enabled',
     'esphome.enabled',
     'esphome.entities',

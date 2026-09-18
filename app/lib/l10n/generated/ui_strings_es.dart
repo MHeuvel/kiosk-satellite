@@ -75,6 +75,41 @@ class UiStringsEs extends UiStrings {
       'La descarga se realiza en la tablet. Debes confirmar la instalación en su pantalla.';
 
   @override
+  String get androidAccessibilityHelp =>
+      'Closes the notification shade and the recents screen whenever they open while Kiosk Mode or Lockdown Mode is protecting the screen. Kiosk Satellite does not read any screen content.';
+
+  @override
+  String get androidServiceChannelHelp =>
+      'Shown while the Kiosk Satellite Service keeps the app running with the screen off or behind another app.';
+
+  @override
+  String get androidServiceListening => 'listening for a wake word';
+
+  @override
+  String get androidServiceRtspAudio => 'RTSP microphone audio enabled';
+
+  @override
+  String get androidServiceEsphome => 'serving ESPHome';
+
+  @override
+  String get androidServiceBluetooth => 'relaying Bluetooth devices';
+
+  @override
+  String get androidServiceCamera => 'watching the camera';
+
+  @override
+  String get androidServiceLocation => 'reporting the location';
+
+  @override
+  String get androidServiceRemote => 'serving the remote admin';
+
+  @override
+  String get androidServiceKiosk => 'guarding kiosk mode';
+
+  @override
+  String get androidServiceSessions => 'keeping Home Assistant connected';
+
+  @override
   String launcherOpenFailed(String name) {
     return 'No se pudo abrir $name';
   }
@@ -10017,6 +10052,22 @@ class UiStringsEs extends UiStrings {
   @override
   String get setupPermissionsRequested =>
       'Permisos solicitados en el dispositivo';
+
+  @override
+  String get setupQrCameraFailed => 'The camera could not be started.';
+
+  @override
+  String get setupQrTitle => 'Scan the token QR code';
+
+  @override
+  String get setupQrHelp =>
+      'It appears next to a newly created token in your Home Assistant profile.';
+
+  @override
+  String get setupQrFlashOff => 'Turn off the flashlight';
+
+  @override
+  String get setupQrFlashOn => 'Turn on the flashlight';
 
   @override
   String get setupPasswordFirst =>

@@ -689,7 +689,7 @@ class _CopyBoxState extends State<CopyBox> {
               width: 36,
               height: 36,
               child: IconButton(
-                tooltip: 'Copy',
+                tooltip: l10n(context).commonCopy,
                 padding: EdgeInsets.zero,
                 iconSize: 22,
                 color: _copied ? scheme.primary : scheme.onSurfaceVariant,

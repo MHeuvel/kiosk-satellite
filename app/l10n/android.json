@@ -1,0 +1,14 @@
+{
+  "ks_service_title": "deviceServicePage",
+  "ks_service_channel_help": "androidServiceChannelHelp",
+  "ui_guard_description": "androidAccessibilityHelp",
+  "ks_service_listening": "androidServiceListening",
+  "ks_service_rtsp_audio": "androidServiceRtspAudio",
+  "ks_service_esphome": "androidServiceEsphome",
+  "ks_service_bluetooth": "androidServiceBluetooth",
+  "ks_service_camera": "androidServiceCamera",
+  "ks_service_location": "androidServiceLocation",
+  "ks_service_remote": "androidServiceRemote",
+  "ks_service_kiosk": "androidServiceKiosk",
+  "ks_service_sessions": "androidServiceSessions"
+}

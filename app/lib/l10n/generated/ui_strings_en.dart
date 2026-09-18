@@ -75,6 +75,41 @@ class UiStringsEn extends UiStrings {
       'The download runs on the tablet; the installation must be confirmed on the tablet screen.';
 
   @override
+  String get androidAccessibilityHelp =>
+      'Closes the notification shade and the recents screen whenever they open while Kiosk Mode or Lockdown Mode is protecting the screen. Kiosk Satellite does not read any screen content.';
+
+  @override
+  String get androidServiceChannelHelp =>
+      'Shown while the Kiosk Satellite Service keeps the app running with the screen off or behind another app.';
+
+  @override
+  String get androidServiceListening => 'listening for a wake word';
+
+  @override
+  String get androidServiceRtspAudio => 'RTSP microphone audio enabled';
+
+  @override
+  String get androidServiceEsphome => 'serving ESPHome';
+
+  @override
+  String get androidServiceBluetooth => 'relaying Bluetooth devices';
+
+  @override
+  String get androidServiceCamera => 'watching the camera';
+
+  @override
+  String get androidServiceLocation => 'reporting the location';
+
+  @override
+  String get androidServiceRemote => 'serving the remote admin';
+
+  @override
+  String get androidServiceKiosk => 'guarding kiosk mode';
+
+  @override
+  String get androidServiceSessions => 'keeping Home Assistant connected';
+
+  @override
   String launcherOpenFailed(String name) {
     return 'Could not open $name';
   }
@@ -9826,6 +9861,22 @@ class UiStringsEn extends UiStrings {
 
   @override
   String get setupPermissionsRequested => 'Permissions requested on the device';
+
+  @override
+  String get setupQrCameraFailed => 'The camera could not be started.';
+
+  @override
+  String get setupQrTitle => 'Scan the token QR code';
+
+  @override
+  String get setupQrHelp =>
+      'It appears next to a newly created token in your Home Assistant profile.';
+
+  @override
+  String get setupQrFlashOff => 'Turn off the flashlight';
+
+  @override
+  String get setupQrFlashOn => 'Turn on the flashlight';
 
   @override
   String get setupPasswordFirst => 'Set the admin password first';

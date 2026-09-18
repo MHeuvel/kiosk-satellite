@@ -186,6 +186,43 @@ class SnapshotTests(unittest.TestCase):
     def git(self, *args):
         return subprocess.check_output(["git", "-C", str(self.repo), *args], text=True)
 
+    def test_android_generation_uses_reviewed_fallback_and_removes_stale_locales(self):
+        catalog.write(self.app / "l10n/android.json", {"native_welcome": "welcome"})
+        catalog.import_catalog(self.app, self.repo, self.revision, "es")
+        root = self.app / "android/app/src/main/res"
+        spanish = root / "values-b+es/ks_localization.xml"
+        self.assertIn('"TEST welcome"', spanish.read_text())
+        changed = copy.deepcopy(self.source)
+        changed["welcome"] = "Changed English"
+        self.write_sources(self.app / "l10n/source", changed)
+        catalog.generate(self.app)
+        self.assertIn('"Changed English"', spanish.read_text())
+        unrelated = root / "values-b+es/unrelated.xml"
+        unrelated.write_text("Keep this")
+        catalog.generate_android(self.app, {"en": changed})
+        self.assertFalse(spanish.exists())
+        self.assertEqual(unrelated.read_text(), "Keep this")
+
+    def test_android_generation_rejects_placeholders_and_invalid_names(self):
+        for mapping in [{"bad-name": "welcome"}, {"native_response": "response"}, {"native_missing": "missing"}]:
+            with self.subTest(mapping=mapping), self.assertRaisesRegex(ValueError, "Android resource"):
+                catalog.write(self.app / "l10n/android.json", mapping)
+                catalog.generate_android(self.app, {"en": self.source})
+
+    def test_android_xml_preserves_literal_text_and_disables_percent_formatting(self):
+        from xml.etree import ElementTree
+        catalog.write(self.app / "l10n/android.json", {"native_welcome": "welcome"})
+        bundle = {**self.source, "welcome": "  @literal & 100% \"quoted\" 'apostrophe' \\path\nnext  "}
+        catalog.generate_android(self.app, {"en": bundle})
+        path = self.app / "android/app/src/main/res/values/ks_localization.xml"
+        node = ElementTree.parse(path).find("string")
+        self.assertEqual(node.attrib["formatted"], "false")
+        self.assertTrue(node.text.startswith('"  @literal & 100%'))
+        self.assertTrue(node.text.endswith('next  "'))
+        self.assertIn(r'\"quoted\"', node.text)
+        self.assertIn(r"\'apostrophe\'", node.text)
+        self.assertIn(r"\\path\nnext", node.text)
+
     def test_import_reads_the_commit_not_the_working_tree(self):
         catalog.write(self.repo / "translations/es/common_es.arb", {"@@locale": "es", "welcome": "UNCOMMITTED"})
         catalog.import_catalog(self.app, self.repo, self.revision, "es")

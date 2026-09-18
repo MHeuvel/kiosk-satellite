@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 import 'theme.dart';
+import '../l10n/messages.dart';
 
 /// Full-screen scanner for the QR code Home Assistant shows next to a newly
 /// created long-lived access token, so the token never has to be typed on
@@ -56,7 +57,7 @@ class _TokenQrScannerState extends State<TokenQrScanner> {
               child: Padding(
                 padding: const EdgeInsets.all(32),
                 child: Text(
-                  'The camera could not be started.',
+                  l10n(context).setupQrCameraFailed,
                   textAlign: TextAlign.center,
                   style: theme.textTheme.bodyLarge?.copyWith(
                     color: Colors.white,
@@ -83,7 +84,7 @@ class _TokenQrScannerState extends State<TokenQrScanner> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
                   child: Text(
-                    'Scan the token QR code',
+                    l10n(context).setupQrTitle,
                     textAlign: TextAlign.center,
                     style: theme.textTheme.titleLarge?.copyWith(
                       fontFamily: Ks.displayFont,
@@ -94,8 +95,7 @@ class _TokenQrScannerState extends State<TokenQrScanner> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'It appears next to a newly created token in your '
-                  'Home Assistant profile.',
+                  l10n(context).setupQrHelp,
                   textAlign: TextAlign.center,
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: Colors.white70,
@@ -110,7 +110,7 @@ class _TokenQrScannerState extends State<TokenQrScanner> {
                     children: [
                       _RoundAction(
                         icon: Icons.close,
-                        tooltip: 'Cancel',
+                        tooltip: l10n(context).commonCancel,
                         onTap: () => Navigator.of(context).pop(),
                       ),
                       ValueListenableBuilder(
@@ -120,8 +120,8 @@ class _TokenQrScannerState extends State<TokenQrScanner> {
                               ? Icons.flashlight_off_outlined
                               : Icons.flashlight_on_outlined,
                           tooltip: state.torchState == TorchState.on
-                              ? 'Turn off the flashlight'
-                              : 'Turn on the flashlight',
+                              ? l10n(context).setupQrFlashOff
+                              : l10n(context).setupQrFlashOn,
                           onTap: _controller.toggleTorch,
                         ),
                       ),

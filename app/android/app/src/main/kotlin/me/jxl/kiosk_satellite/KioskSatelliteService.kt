@@ -225,6 +225,7 @@ class KioskSatelliteService : Service() {
     private val mainHandler = Handler(Looper.getMainLooper())
     private var cpuLock: PowerManager.WakeLock? = null
     private var screenReceiver: BroadcastReceiver? = null
+    private var channelLanguage: String? = null
 
     override fun onBind(intent: Intent?): IBinder? = null
 
@@ -233,7 +234,6 @@ class KioskSatelliteService : Service() {
         instance = this
         isRunning = true
         startedAt = SystemClock.elapsedRealtime()
-        createChannel()
         // The Wi-Fi hold for the service's lifetime: the service exists
         // precisely while the app must stay reachable without a screen.
         WifiLockHolder.acquire(this)
@@ -262,7 +262,13 @@ class KioskSatelliteService : Service() {
     private fun refresh() {
         val prefs = getSharedPreferences(PREFS, Context.MODE_PRIVATE)
         val reasons = reasonsOf(prefs)
-        val notification = buildNotification(reasons)
+        val localized = NativeMessages.forKiosk(this)
+        val language = localized.resources.configuration.locales[0].toLanguageTag()
+        if (channelLanguage != language) {
+            createChannel(localized)
+            channelLanguage = language
+        }
+        val notification = buildNotification(reasons, localized)
         val wanted = typesFor(reasons)
         val base = typesFor(setOf(REASON_SESSIONS))
         if (!startForegroundWith(notification, wanted, prefs) &&
@@ -472,7 +478,7 @@ class KioskSatelliteService : Service() {
         }
     }
 
-    private fun createChannel() {
+    private fun createChannel(localized: Context) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) return
         val manager = getSystemService(NotificationManager::class.java) ?: return
         // The channels the three earlier services used: gone with them, so
@@ -486,34 +492,33 @@ class KioskSatelliteService : Service() {
         }
         val channel = NotificationChannel(
             CHANNEL_ID,
-            "Kiosk Satellite Service",
+            localized.getString(R.string.ks_service_title),
             // LOW: no sound, no heads-up. It is a permanent status, not news.
             NotificationManager.IMPORTANCE_LOW,
         ).apply {
-            description = "Shown while the Kiosk Satellite Service keeps the " +
-                "app running with the screen off or behind another app."
+            description = localized.getString(R.string.ks_service_channel_help)
             setShowBadge(false)
         }
         manager.createNotificationChannel(channel)
     }
 
     /** What the service is doing, as the notification's one line. */
-    private fun summary(reasons: Set<String>): String {
+    internal fun summary(reasons: Set<String>, localized: Context): String {
         val labels = mutableListOf<String>()
-        if (REASON_LISTENING in reasons) labels.add("listening for a wake word")
-        if (REASON_RTSP_AUDIO in reasons) labels.add("RTSP microphone audio enabled")
-        if (REASON_ESPHOME in reasons) labels.add("serving ESPHome")
-        if (REASON_BLUETOOTH in reasons) labels.add("relaying Bluetooth devices")
-        if (REASON_CAMERA in reasons) labels.add("watching the camera")
-        if (REASON_LOCATION in reasons) labels.add("reporting the location")
-        if (REASON_REMOTE in reasons) labels.add("serving the remote admin")
-        if (REASON_KIOSK in reasons) labels.add("guarding kiosk mode")
-        labels.add("keeping Home Assistant connected")
+        if (REASON_LISTENING in reasons) labels.add(localized.getString(R.string.ks_service_listening))
+        if (REASON_RTSP_AUDIO in reasons) labels.add(localized.getString(R.string.ks_service_rtsp_audio))
+        if (REASON_ESPHOME in reasons) labels.add(localized.getString(R.string.ks_service_esphome))
+        if (REASON_BLUETOOTH in reasons) labels.add(localized.getString(R.string.ks_service_bluetooth))
+        if (REASON_CAMERA in reasons) labels.add(localized.getString(R.string.ks_service_camera))
+        if (REASON_LOCATION in reasons) labels.add(localized.getString(R.string.ks_service_location))
+        if (REASON_REMOTE in reasons) labels.add(localized.getString(R.string.ks_service_remote))
+        if (REASON_KIOSK in reasons) labels.add(localized.getString(R.string.ks_service_kiosk))
+        labels.add(localized.getString(R.string.ks_service_sessions))
         val text = labels.joinToString(", ")
         return text.replaceFirstChar { it.uppercase() } + "."
     }
 
-    private fun buildNotification(reasons: Set<String>): Notification {
+    private fun buildNotification(reasons: Set<String>, localized: Context): Notification {
         val open = PendingIntent.getActivity(
             this,
             0,
@@ -524,8 +529,8 @@ class KioskSatelliteService : Service() {
             PendingIntent.FLAG_IMMUTABLE,
         )
         return NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle("Kiosk Satellite Service")
-            .setContentText(summary(reasons))
+            .setContentTitle(localized.getString(R.string.ks_service_title))
+            .setContentText(summary(reasons, localized))
             .setSmallIcon(R.drawable.ic_stat_service)
             .setContentIntent(open)
             .setOngoing(true)
