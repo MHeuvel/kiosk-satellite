@@ -1,0 +1,224 @@
+{
+  "@@locale": "en",
+  "searchInstallApk": "Upload a Kiosk Satellite APK through the remote admin and install it.",
+  "@searchInstallApk": {
+    "context": "Settings search > Device",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Device"
+      ],
+      "remoteAdmin": [
+        "Settings search > Device"
+      ]
+    }
+  },
+  "searchPermissionsHelp": "Every Android grant the app can use, with its status: microphone, camera, notifications, unrestricted battery, display over other apps, modify system settings, system UI guard, device admin, all files access, usage access and location.",
+  "@searchPermissionsHelp": {
+    "context": "Settings search > Device",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Device"
+      ],
+      "remoteAdmin": [
+        "Settings search > Device"
+      ]
+    }
+  },
+  "searchServiceStatus": "Service status",
+  "@searchServiceStatus": {
+    "context": "Settings search > Device",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Device"
+      ],
+      "remoteAdmin": [
+        "Settings search > Device"
+      ]
+    }
+  },
+  "searchServiceHelp": "Whether the Kiosk Satellite Service is running and what it is keeping alive.",
+  "@searchServiceHelp": {
+    "context": "Settings search > Device",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Device"
+      ],
+      "remoteAdmin": [
+        "Settings search > Device"
+      ]
+    }
+  },
+  "searchServicePermissions": "The grants the Kiosk Satellite Service needs.",
+  "@searchServicePermissions": {
+    "context": "Settings search > Device",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Device"
+      ],
+      "remoteAdmin": [
+        "Settings search > Device"
+      ]
+    }
+  },
+  "searchIntercomKiosks": "The kiosks heard on this network and whether each can take a call.",
+  "@searchIntercomKiosks": {
+    "context": "Settings search > Intercom",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Intercom"
+      ],
+      "remoteAdmin": [
+        "Settings search > Intercom"
+      ]
+    }
+  },
+  "searchHaValidate": "Check the URL and token against your Home Assistant.",
+  "@searchHaValidate": {
+    "context": "Settings search > Home Assistant Setup",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Settings search > Home Assistant Setup"
+      ]
+    }
+  },
+  "searchHaProxy": "Serve a plain-http Home Assistant through a secure proxy inside the app.",
+  "@searchHaProxy": {
+    "context": "Settings search > Home Assistant Setup",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Settings search > Home Assistant Setup"
+      ]
+    }
+  },
+  "searchHaDashboard": "Pick the dashboard and view the kiosk shows.",
+  "@searchHaDashboard": {
+    "context": "Settings search > Home Assistant Setup",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Settings search > Home Assistant Setup"
+      ]
+    }
+  },
+  "searchKioskPermissions": "The grants the kiosk and lockdown protections lean on.",
+  "@searchKioskPermissions": {
+    "context": "Settings search > Kiosk Mode or Home Launcher",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Kiosk Mode or Home Launcher"
+      ],
+      "remoteAdmin": [
+        "Settings search > Kiosk Mode or Home Launcher"
+      ]
+    }
+  },
+  "searchHomeStatus": "Home screen status",
+  "@searchHomeStatus": {
+    "context": "Settings search > Kiosk Mode or Home Launcher",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Kiosk Mode or Home Launcher"
+      ],
+      "remoteAdmin": [
+        "Settings search > Kiosk Mode or Home Launcher"
+      ]
+    }
+  },
+  "searchHomeHelp": "Whether Kiosk Satellite is the device home screen, and where to finish setting it as the default.",
+  "@searchHomeHelp": {
+    "context": "Settings search > Kiosk Mode or Home Launcher",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Kiosk Mode or Home Launcher"
+      ],
+      "remoteAdmin": [
+        "Settings search > Kiosk Mode or Home Launcher"
+      ]
+    }
+  },
+  "searchMasterVolume": "The device volume the media and assistant faders scale under.",
+  "@searchMasterVolume": {
+    "context": "Settings search > Screen & Audio",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Screen & Audio"
+      ],
+      "remoteAdmin": [
+        "Settings search > Screen & Audio"
+      ]
+    }
+  },
+  "searchSmallClock": "A clock widget in a corner of the screensaver.",
+  "@searchSmallClock": {
+    "context": "Settings search > Screensaver",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Settings search > Screensaver"
+      ]
+    }
+  },
+  "searchBattery": "A battery widget in a corner of the screensaver: this device's own charge.",
+  "@searchBattery": {
+    "context": "Settings search > Screensaver",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Settings search > Screensaver"
+      ]
+    }
+  },
+  "searchPersonPermission": "The Log access grant the device's person sensor needs.",
+  "@searchPersonPermission": {
+    "context": "Settings search > Screensaver",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Settings search > Screensaver"
+      ]
+    }
+  },
+  "searchSonosSpeakers": "The Sonos speakers this device knows, a search of the network and an address field.",
+  "@searchSonosSpeakers": {
+    "context": "Settings search > Media Player > Sonos",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Media Player > Sonos"
+      ],
+      "remoteAdmin": [
+        "Settings search > Media Player > Sonos"
+      ]
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "@@locale": "es",
+  "remoteDisableTitle": "¿Desactivar la administración remota?",
+  "remoteDisableHelp": "ADVERTENCIA: Ya no podrás acceder a esta página. Para volver a activarla, usa el dispositivo o el interruptor de administración remota en Home Assistant.",
+  "remoteDisableConfirm": "Desactivar",
+  "remoteCopyHelp": "Selecciona la clave y cópiala manualmente.",
+  "remoteSaveSettingFailed": "No se pudo guardar este ajuste. Inténtalo de nuevo."
+}

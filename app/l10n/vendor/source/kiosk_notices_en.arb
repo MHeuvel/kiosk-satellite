@@ -1,0 +1,179 @@
+{
+  "@@locale": "en",
+  "kioskBackClose": "Press back again to close the app",
+  "@kioskBackClose": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "kioskBackAgain": "Press back again to go back",
+  "@kioskBackAgain": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "kioskHoldOn": "Hold mode on",
+  "@kioskHoldOn": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "kioskHoldOff": "Hold mode off",
+  "@kioskHoldOff": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "kioskHoldNotice": "The current view stays until you turn it off.",
+  "@kioskHoldNotice": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "kioskDownloadComplete": "Download complete",
+  "@kioskDownloadComplete": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "kioskDownloadFailed": "Download failed",
+  "@kioskDownloadFailed": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "kioskDownload": "Download",
+  "@kioskDownload": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "kioskDownloading": "Downloading",
+  "@kioskDownloading": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "kioskOpen": "Open",
+  "@kioskOpen": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "kioskTip": "Tip",
+  "@kioskTip": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "kioskMenuHint": "Swipe from the left edge to open the menu.",
+  "@kioskMenuHint": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "kioskUnknownLink": "Unknown kiosk link",
+  "@kioskUnknownLink": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "kioskOpenAppFailed": "Could not open the app",
+  "@kioskOpenAppFailed": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "kioskWebViewMissing": "Android System WebView is not installed",
+  "@kioskWebViewMissing": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "kioskWebViewMissingHelp": "This device has no WebView provider, so Home Assistant cannot be shown. Install Android System WebView or Chrome, then restart Kiosk Satellite.",
+  "@kioskWebViewMissingHelp": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  }
+}

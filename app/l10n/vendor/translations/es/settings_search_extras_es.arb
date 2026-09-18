@@ -1,0 +1,20 @@
+{
+  "@@locale": "es",
+  "searchInstallApk": "Sube un APK de Kiosk Satellite desde la administración remota e instálalo.",
+  "searchPermissionsHelp": "Todos los permisos de Android que puede usar la aplicación y su estado: micrófono, cámara, notificaciones, batería sin restricciones, mostrar sobre otras aplicaciones, modificar ajustes del sistema, protección de la interfaz del sistema, administrador del dispositivo, acceso a todos los archivos, acceso de uso y ubicación.",
+  "searchServiceStatus": "Estado del servicio",
+  "searchServiceHelp": "Indica si el servicio de Kiosk Satellite está en ejecución y qué mantiene activo.",
+  "searchServicePermissions": "Los permisos que necesita el servicio de Kiosk Satellite.",
+  "searchIntercomKiosks": "Los kioskos detectados en esta red y si pueden recibir una llamada.",
+  "searchHaValidate": "Comprueba la URL y el token con tu Home Assistant.",
+  "searchHaProxy": "Sirve Home Assistant mediante un proxy seguro dentro de la aplicación cuando usa HTTP.",
+  "searchHaDashboard": "Elige el panel de control y la vista que muestra el kiosko.",
+  "searchKioskPermissions": "Los permisos que necesitan las protecciones del modo kiosko y del modo de bloqueo.",
+  "searchHomeStatus": "Estado de la pantalla de inicio",
+  "searchHomeHelp": "Indica si Kiosk Satellite es la pantalla de inicio del dispositivo y dónde establecerlo como opción predeterminada.",
+  "searchMasterVolume": "El volumen del dispositivo que sirve de base para los controles de volumen multimedia y del asistente.",
+  "searchSmallClock": "Un reloj en una esquina del protector de pantalla.",
+  "searchBattery": "Un indicador de batería en una esquina del protector de pantalla con la carga de este dispositivo.",
+  "searchPersonPermission": "El permiso de acceso a registros que necesita el sensor de presencia del dispositivo.",
+  "searchSonosSpeakers": "Los altavoces Sonos que conoce este dispositivo, una búsqueda en la red y un campo de dirección."
+}

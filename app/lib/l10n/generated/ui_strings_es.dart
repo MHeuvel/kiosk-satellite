@@ -587,84 +587,84 @@ class UiStringsEs extends UiStrings {
   String get esphomeTypeText => 'texto';
 
   @override
-  String get filesUpload => 'Upload file';
+  String get filesUpload => 'Subir archivo';
 
   @override
-  String get filesUploading => 'Uploading…';
+  String get filesUploading => 'Subiendo…';
 
   @override
-  String get filesUploadFailed => 'Upload failed';
+  String get filesUploadFailed => 'No se pudo subir el archivo';
 
   @override
-  String get filesUploaded => 'Uploaded';
+  String get filesUploaded => 'Archivo subido';
 
   @override
   String get filesPermissionMissing =>
-      '\"All files access\" permission missing';
+      'Falta el permiso de acceso a todos los archivos';
 
   @override
   String get filesPermissionHelp =>
-      'Without it only the app folder can be browsed. The grant screen opens on the tablet.';
+      'Sin este permiso solo puedes explorar la carpeta de la aplicación. La pantalla de permisos se abre en la tablet.';
 
   @override
-  String get filesGrant => 'Grant on device';
+  String get filesGrant => 'Conceder en el dispositivo';
 
   @override
-  String get filesUp => 'Up one folder';
+  String get filesUp => 'Subir una carpeta';
 
   @override
-  String get filesShared => 'Shared storage';
+  String get filesShared => 'Almacenamiento compartido';
 
   @override
-  String get filesApp => 'App folder';
+  String get filesApp => 'Carpeta de la aplicación';
 
   @override
-  String get filesReadFailed => 'Could not read the folder';
+  String get filesReadFailed => 'No se pudo leer la carpeta';
 
   @override
-  String get filesEmpty => 'Empty folder';
+  String get filesEmpty => 'Carpeta vacía';
 
   @override
-  String get filesEmptyHelp => 'Nothing here yet.';
+  String get filesEmptyHelp => 'Todavía no hay nada aquí.';
 
   @override
-  String get filesFolder => 'Folder';
+  String get filesFolder => 'Carpeta';
 
   @override
-  String get filesDownload => 'Download';
+  String get filesDownload => 'Descargar';
 
   @override
-  String get filesDownloadFailed => 'Download failed';
+  String get filesDownloadFailed => 'No se pudo descargar el archivo';
 
   @override
   String filesDeleteTitle(String name) {
-    return 'Delete $name?';
+    return '¿Eliminar $name?';
   }
 
   @override
-  String get filesDeleteHelp => 'The file is removed from the device.';
+  String get filesDeleteHelp => 'El archivo se eliminará del dispositivo.';
 
   @override
-  String get filesInvalidPath => 'Invalid path';
+  String get filesInvalidPath => 'Ruta no válida';
 
   @override
-  String get filesNoFolder => 'No such folder';
+  String get filesNoFolder => 'La carpeta no existe';
 
   @override
-  String get filesNoFile => 'No such file';
+  String get filesNoFile => 'El archivo no existe';
 
   @override
   String filesReadError(String error) {
-    return 'Cannot read folder: $error';
+    return 'No se puede leer la carpeta: $error';
   }
 
   @override
   String filesWriteError(String error) {
-    return 'Write failed: $error';
+    return 'No se pudo escribir: $error';
   }
 
   @override
-  String get filesDeleteFailed => 'Could not delete the file';
+  String get filesDeleteFailed => 'No se pudo eliminar el archivo';
 
   @override
   String get fleetFleetManagementNeedsTheRemoteAdmin =>
@@ -2028,53 +2028,55 @@ class UiStringsEs extends UiStrings {
   String get intercomAnnouncementsoff => 'Anuncios desactivados';
 
   @override
-  String get kioskBackClose => 'Press back again to close the app';
+  String get kioskBackClose => 'Pulsa Atrás de nuevo para cerrar la aplicación';
 
   @override
-  String get kioskBackAgain => 'Press back again to go back';
+  String get kioskBackAgain => 'Pulsa Atrás de nuevo para retroceder';
 
   @override
-  String get kioskHoldOn => 'Hold mode on';
+  String get kioskHoldOn => 'Modo de pausa activado';
 
   @override
-  String get kioskHoldOff => 'Hold mode off';
+  String get kioskHoldOff => 'Modo de pausa desactivado';
 
   @override
-  String get kioskHoldNotice => 'The current view stays until you turn it off.';
+  String get kioskHoldNotice =>
+      'La vista actual se mantiene hasta que lo desactives.';
 
   @override
-  String get kioskDownloadComplete => 'Download complete';
+  String get kioskDownloadComplete => 'Descarga completada';
 
   @override
-  String get kioskDownloadFailed => 'Download failed';
+  String get kioskDownloadFailed => 'No se pudo descargar el archivo';
 
   @override
-  String get kioskDownload => 'Download';
+  String get kioskDownload => 'Descarga';
 
   @override
-  String get kioskDownloading => 'Downloading';
+  String get kioskDownloading => 'Descargando';
 
   @override
-  String get kioskOpen => 'Open';
+  String get kioskOpen => 'Abrir';
 
   @override
-  String get kioskTip => 'Tip';
+  String get kioskTip => 'Consejo';
 
   @override
-  String get kioskMenuHint => 'Swipe from the left edge to open the menu.';
+  String get kioskMenuHint =>
+      'Desliza desde el borde izquierdo para abrir el menú.';
 
   @override
-  String get kioskUnknownLink => 'Unknown kiosk link';
+  String get kioskUnknownLink => 'Enlace del kiosko desconocido';
 
   @override
-  String get kioskOpenAppFailed => 'Could not open the app';
+  String get kioskOpenAppFailed => 'No se pudo abrir la aplicación';
 
   @override
-  String get kioskWebViewMissing => 'Android System WebView is not installed';
+  String get kioskWebViewMissing => 'Android System WebView no está instalado';
 
   @override
   String get kioskWebViewMissingHelp =>
-      'This device has no WebView provider, so Home Assistant cannot be shown. Install Android System WebView or Chrome, then restart Kiosk Satellite.';
+      'Este dispositivo no tiene un proveedor de WebView, por lo que no se puede mostrar Home Assistant. Instala Android System WebView o Chrome y reinicia Kiosk Satellite.';
 
   @override
   String get kioskPinTitle => 'PIN del kiosko';
@@ -2555,21 +2557,21 @@ class UiStringsEs extends UiStrings {
       'Aprueba la solicitud de permiso en el kiosko.';
 
   @override
-  String get remoteDisableTitle => 'Turn off remote management?';
+  String get remoteDisableTitle => '¿Desactivar la administración remota?';
 
   @override
   String get remoteDisableHelp =>
-      'WARNING: You will no longer be able to access this page. To switch it back on, use the device or the Remote management switch in Home Assistant.';
+      'ADVERTENCIA: Ya no podrás acceder a esta página. Para volver a activarla, usa el dispositivo o el interruptor de administración remota en Home Assistant.';
 
   @override
-  String get remoteDisableConfirm => 'Turn it off';
+  String get remoteDisableConfirm => 'Desactivar';
 
   @override
-  String get remoteCopyHelp => 'Select the key and copy it by hand.';
+  String get remoteCopyHelp => 'Selecciona la clave y cópiala manualmente.';
 
   @override
   String get remoteSaveSettingFailed =>
-      'Could not save this setting. Try again.';
+      'No se pudo guardar este ajuste. Inténtalo de nuevo.';
 
   @override
   String get remoteReconnecting => 'Reconectando…';
@@ -2981,47 +2983,49 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get screensaverNoPhotos =>
-      'No photos selected. Pick some in Settings.';
+      'No hay fotos seleccionadas. Elige algunas en Configuración.';
 
   @override
-  String get screensaverNoFolder => 'No folder selected. Pick one in Settings.';
+  String get screensaverNoFolder =>
+      'No hay ninguna carpeta seleccionada. Elige una en Configuración.';
 
   @override
   String screensaverFolderEmpty(String folder) {
-    return 'No photos or videos in $folder';
+    return 'No hay fotos ni videos en $folder';
   }
 
   @override
   String screensaverFolderUnreadable(String folder) {
-    return 'Could not read $folder. Is the media permission granted?';
+    return 'No se pudo leer $folder. ¿Se ha concedido el permiso de acceso al contenido multimedia?';
   }
 
   @override
-  String get screensaverReadPhotosFailed => 'Could not read photos.';
+  String get screensaverReadPhotosFailed => 'No se pudieron leer las fotos.';
 
   @override
   String get screensaverImmichNotReady =>
-      'Immich is not connected. Validate it in Settings.';
+      'Immich no está conectado. Valídalo en Configuración.';
 
   @override
   String get screensaverNoMediaMatch =>
-      'No media matches the source and filters.';
+      'No hay contenido multimedia que coincida con el origen y los filtros.';
 
   @override
-  String get screensaverNoMediaSource => 'No media in the selected source.';
+  String get screensaverNoMediaSource =>
+      'No hay contenido multimedia en el origen seleccionado.';
 
   @override
   String get screensaverImmichUnreachable =>
-      'Could not reach the Immich server.';
+      'No se pudo conectar con el servidor de Immich.';
 
   @override
   String screensaverRetryNotice(String error) {
-    return '$error Retrying automatically.';
+    return '$error Se reintentará automáticamente.';
   }
 
   @override
   String get screensaverVideosTooLarge =>
-      'Every video in this playlist is too large for this device to play.';
+      'Todos los videos de esta lista son demasiado grandes para que este dispositivo los reproduzca.';
 
   @override
   String get settingLauncherEnabledTitle => 'Activar lanzador de aplicaciones';
@@ -9592,69 +9596,69 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get searchInstallApk =>
-      'Upload a Kiosk Satellite APK through the remote admin and install it.';
+      'Sube un APK de Kiosk Satellite desde la administración remota e instálalo.';
 
   @override
   String get searchPermissionsHelp =>
-      'Every Android grant the app can use, with its status: microphone, camera, notifications, unrestricted battery, display over other apps, modify system settings, system UI guard, device admin, all files access, usage access and location.';
+      'Todos los permisos de Android que puede usar la aplicación y su estado: micrófono, cámara, notificaciones, batería sin restricciones, mostrar sobre otras aplicaciones, modificar ajustes del sistema, protección de la interfaz del sistema, administrador del dispositivo, acceso a todos los archivos, acceso de uso y ubicación.';
 
   @override
-  String get searchServiceStatus => 'Service status';
+  String get searchServiceStatus => 'Estado del servicio';
 
   @override
   String get searchServiceHelp =>
-      'Whether the Kiosk Satellite Service is running and what it is keeping alive.';
+      'Indica si el servicio de Kiosk Satellite está en ejecución y qué mantiene activo.';
 
   @override
   String get searchServicePermissions =>
-      'The grants the Kiosk Satellite Service needs.';
+      'Los permisos que necesita el servicio de Kiosk Satellite.';
 
   @override
   String get searchIntercomKiosks =>
-      'The kiosks heard on this network and whether each can take a call.';
+      'Los kioskos detectados en esta red y si pueden recibir una llamada.';
 
   @override
   String get searchHaValidate =>
-      'Check the URL and token against your Home Assistant.';
+      'Comprueba la URL y el token con tu Home Assistant.';
 
   @override
   String get searchHaProxy =>
-      'Serve a plain-http Home Assistant through a secure proxy inside the app.';
+      'Sirve Home Assistant mediante un proxy seguro dentro de la aplicación cuando usa HTTP.';
 
   @override
   String get searchHaDashboard =>
-      'Pick the dashboard and view the kiosk shows.';
+      'Elige el panel de control y la vista que muestra el kiosko.';
 
   @override
   String get searchKioskPermissions =>
-      'The grants the kiosk and lockdown protections lean on.';
+      'Los permisos que necesitan las protecciones del modo kiosko y del modo de bloqueo.';
 
   @override
-  String get searchHomeStatus => 'Home screen status';
+  String get searchHomeStatus => 'Estado de la pantalla de inicio';
 
   @override
   String get searchHomeHelp =>
-      'Whether Kiosk Satellite is the device home screen, and where to finish setting it as the default.';
+      'Indica si Kiosk Satellite es la pantalla de inicio del dispositivo y dónde establecerlo como opción predeterminada.';
 
   @override
   String get searchMasterVolume =>
-      'The device volume the media and assistant faders scale under.';
+      'El volumen del dispositivo que sirve de base para los controles de volumen multimedia y del asistente.';
 
   @override
   String get searchSmallClock =>
-      'A clock widget in a corner of the screensaver.';
+      'Un reloj en una esquina del protector de pantalla.';
 
   @override
   String get searchBattery =>
-      'A battery widget in a corner of the screensaver: this device\'s own charge.';
+      'Un indicador de batería en una esquina del protector de pantalla con la carga de este dispositivo.';
 
   @override
   String get searchPersonPermission =>
-      'The Log access grant the device\'s person sensor needs.';
+      'El permiso de acceso a registros que necesita el sensor de presencia del dispositivo.';
 
   @override
   String get searchSonosSpeakers =>
-      'The Sonos speakers this device knows, a search of the network and an address field.';
+      'Los altavoces Sonos que conoce este dispositivo, una búsqueda en la red y un campo de dirección.';
 
   @override
   String get voiceAppearanceHint =>

@@ -6,6 +6,8 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ### Added
 
+- **Approved Spanish localization audit translations.** Import the reviewed snapshot with Spanish for all 2997 catalog messages, including the 73 additions from the UI audit.
+
 - **Localization audit covers file actions, kiosk notices and remaining search summaries.** Add 73 messages for File Manager, native feedback, screensaver playback errors, search and remote warnings. Language changes preserve uploads and dialog choices. Confirmations use stable action values so Cancel cannot become approval after a language change. File download and deletion failures show their errors.
 
 - **Approved Spanish footer and plugin-window translations.** Import the reviewed localization snapshot with Spanish for all 2924 catalog messages.

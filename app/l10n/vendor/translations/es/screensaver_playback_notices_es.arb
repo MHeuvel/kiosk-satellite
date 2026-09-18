@@ -1,0 +1,14 @@
+{
+  "@@locale": "es",
+  "screensaverNoPhotos": "No hay fotos seleccionadas. Elige algunas en Configuración.",
+  "screensaverNoFolder": "No hay ninguna carpeta seleccionada. Elige una en Configuración.",
+  "screensaverFolderEmpty": "No hay fotos ni videos en {folder}",
+  "screensaverFolderUnreadable": "No se pudo leer {folder}. ¿Se ha concedido el permiso de acceso al contenido multimedia?",
+  "screensaverReadPhotosFailed": "No se pudieron leer las fotos.",
+  "screensaverImmichNotReady": "Immich no está conectado. Valídalo en Configuración.",
+  "screensaverNoMediaMatch": "No hay contenido multimedia que coincida con el origen y los filtros.",
+  "screensaverNoMediaSource": "No hay contenido multimedia en el origen seleccionado.",
+  "screensaverImmichUnreachable": "No se pudo conectar con el servidor de Immich.",
+  "screensaverRetryNotice": "{error} Se reintentará automáticamente.",
+  "screensaverVideosTooLarge": "Todos los videos de esta lista son demasiado grandes para que este dispositivo los reproduzca."
+}
