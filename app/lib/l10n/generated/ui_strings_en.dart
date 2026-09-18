@@ -1984,6 +1984,25 @@ class UiStringsEn extends UiStrings {
   String get logsUnknown => 'unknown';
 
   @override
+  String get offlineDashboard => 'Dashboard unavailable';
+
+  @override
+  String get offlineNetwork => 'No network connection';
+
+  @override
+  String get offlinePageHelp => 'The page could not be loaded.';
+
+  @override
+  String get offlineNetworkHelp =>
+      'The dashboard will come back when the network does.';
+
+  @override
+  String get offlineLost => 'Network connection lost';
+
+  @override
+  String get offlineRestored => 'Network connection restored';
+
+  @override
   String get mediaPlay => 'Play';
 
   @override
@@ -2340,6 +2359,47 @@ class UiStringsEn extends UiStrings {
   @override
   String get pluginApproveThePermissionRequestOnTheKiosk =>
       'Approve the permission request on the kiosk.';
+
+  @override
+  String get remoteReconnecting => 'Reconnecting…';
+
+  @override
+  String remoteConnectionLost(String name) {
+    return 'The connection to $name was lost. This page resumes on its own when it is back.';
+  }
+
+  @override
+  String get remoteConnectionLostUnnamed =>
+      'The connection to the kiosk was lost. This page resumes on its own when it is back.';
+
+  @override
+  String get remoteReloadPage => 'Reload page';
+
+  @override
+  String get remoteUpdated => 'Kiosk Satellite was updated';
+
+  @override
+  String remoteUpdatedHelp(String version, String build, String seconds) {
+    return 'The device is now running version $version$build. This page belongs to the previous version and will reload in $seconds s.';
+  }
+
+  @override
+  String remoteBuild(String build) {
+    return ' (build $build)';
+  }
+
+  @override
+  String get remoteReloadNow => 'Reload now';
+
+  @override
+  String get remoteLogin => 'Log in';
+
+  @override
+  String get remoteInvalidPassword => 'Invalid password';
+
+  @override
+  String get remoteLoginThrottled =>
+      'Too many attempts. Wait 5 minutes and try again.';
 
   @override
   String get overviewAttention => 'Needs attention';

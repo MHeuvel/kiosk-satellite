@@ -261,7 +261,7 @@ with sync_playwright() as playwright:
     expect(page.locator('#connDot')).to_have_class('dot off')
     # A dropped connection covers the page until the socket is back.
     expect(page.locator('.reconnect-back')).to_be_visible()
-    expect(page.locator('.reconnect-back')).to_contain_text('Reconnecting')
+    expect(page.locator('.reconnect-back .modal-title')).to_have_text(page.evaluate("async () => (await import(performance.getEntriesByType('resource').find(r => new URL(r.name).pathname === '/static/localization.js').name)).t('remoteReconnecting')"))
     expect(page.locator('.reconnect-back')).to_contain_text('Test kiosk')
     # Browser contexts also take their request client offline, so use a
     # separate client while this one has no network.
@@ -309,7 +309,7 @@ with sync_playwright() as playwright:
     }""")
     notice = page.locator('.modal-card')
     expect(notice).to_contain_text('2026.9.59', timeout=15000)
-    expect(notice).to_contain_text('reload in')
+    expect(notice.locator('.modal-title')).to_have_text(page.evaluate("async () => (await import(performance.getEntriesByType('resource').find(r => new URL(r.name).pathname === '/static/localization.js').name)).t('remoteUpdated')"))
     expect(notice).to_have_count(0, timeout=15000)
     expect(page.locator('#app')).to_be_visible(timeout=30000)
     page.wait_for_timeout(2500)

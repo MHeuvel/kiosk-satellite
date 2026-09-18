@@ -1,3 +1,4 @@
+import { setLanguagePreference } from './localization.js';
 import { readRoute, routeHash } from './routes.js';
 import { loadPlugins } from './plugins.js';
 import { api, showView } from './core.js';
@@ -22,6 +23,7 @@ export async function start() {
   // through and opened the full settings UI of a device nobody had set up.
   let setup = null;
   try { setup = await (await fetch('api/setup/status')).json(); } catch (_) {}
+  if (setup?.language !== undefined) setLanguagePreference(setup.language);
   if (setup?.setupNeeded) {
     if (setup.importPending) { showImportPending(setup.language); return; }
     startWizard({ needPassword: false });

@@ -1,3 +1,4 @@
+import { t } from './localization.js';
 import { attachSocket, detachSocket, receiveResult } from './transport.js';
 import { receiveUpdate, syncSubscriptions } from './live.js';
 import { applySettingsUpdate } from './settings.js';
@@ -38,12 +39,10 @@ function showReconnecting() {
   back.className = 'modal-back reconnect-back';
   back.innerHTML = '<div class="card modal-card reconnect-card">'
     + '<span class="splash-spinner"></span>'
-    + '<h3 class="modal-title">Reconnecting…</h3>'
+    + '<h3 class="modal-title"></h3>'
     + '<p class="reconnect-text"></p>'
-    + '<button type="button" class="btn-ghost hidden">Reload page</button></div>';
-  const text = back.querySelector('.reconnect-text');
-  const name = state.device?.name || state.device?.model || 'the kiosk';
-  text.textContent = `The connection to ${name} was lost. This page resumes on its own when it is back.`;
+    + '<button type="button" class="btn-ghost hidden"></button></div>';
+  paintReconnecting(back);
   const reload = back.querySelector('button');
   reload.addEventListener('click', () => location.reload());
   document.body.appendChild(back);
@@ -55,6 +54,15 @@ function showReconnecting() {
   };
   tick();
 }
+function paintReconnecting(back = reconnectOverlay) {
+  if (!back) return;
+  const name = state.device?.name || state.device?.model;
+  back.querySelector('.modal-title').textContent = t('remoteReconnecting');
+  back.querySelector('.reconnect-text').textContent = name
+    ? t('remoteConnectionLost', { name }) : t('remoteConnectionLostUnnamed');
+  back.querySelector('button').textContent = t('remoteReloadPage');
+}
+document.addEventListener('ks-settings-cached', () => paintReconnecting());
 function hideReconnecting() {
   reconnectOverlay?.remove();
   reconnectOverlay = null;
@@ -225,23 +233,25 @@ function versionOf(device) {
 let versionModal = null;
 export function showVersionMismatch(device) {
   if (versionModal) return;
-  const { back, body, foot } = modalShell({ title: 'Kiosk Satellite was updated' });
+  const { back, body, foot } = modalShell({ title: t('remoteUpdated') });
   versionModal = back;
   const p = document.createElement('p');
   p.style.cssText = 'margin:0; color:var(--muted); font-size:15px; line-height:1.5;';
-  const seconds = document.createElement('span');
-  const build = device.buildNumber ? ` (build ${device.buildNumber})` : '';
-  p.append(`The device is now running version ${device.appVersion}${build}. `
-    + 'This page belongs to the previous version and will reload in ', seconds, '.');
   body.appendChild(p);
   const now = document.createElement('button');
   now.className = 'btn-primary';
-  now.textContent = 'Reload now';
+  now.textContent = t('remoteReloadNow');
   now.addEventListener('click', () => location.reload());
   foot.appendChild(now);
   let left = 5;
   const tick = () => {
-    seconds.textContent = `${left} second${left === 1 ? '' : 's'}`;
+    back.querySelector('.modal-title').textContent = t('remoteUpdated');
+    now.textContent = t('remoteReloadNow');
+    p.textContent = t('remoteUpdatedHelp', {
+      version: device.appVersion,
+      build: device.buildNumber ? t('remoteBuild', { build: device.buildNumber }) : '',
+      seconds: left,
+    });
     if (left-- <= 0) { location.reload(); return; }
     setTimeout(tick, 1000);
   };

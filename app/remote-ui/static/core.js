@@ -1,7 +1,7 @@
 import { detachSocket, socketReady, socketRequest } from './transport.js';
 import { start } from './app.js';
 import { startWizard } from './wizard.js';
-import { localizeSetting, setLanguagePreference, themeLabel } from './localization.js';
+import { localizeSetting, setLanguagePreference, themeLabel, t } from './localization.js';
 
 // A function declaration on purpose: several modules use $ at module top
 // level and sit in import cycles with this one, and only hoisted function
@@ -138,7 +138,22 @@ export function gatedOn(all, key) {
   return all.filter((o) => o.dependsOn === key || o.alsoDependsOn === key);
 }
 
+export function paintLogin() {
+  const heading = $('#loginHeading');
+  const password = $('#password');
+  const button = $('#loginBtn');
+  const error = $('#loginError');
+  if (heading) heading.textContent = t('setupRemoteHeading');
+  if (password) {
+    password.placeholder = t('settingRemotePasswordTitle');
+    password.setAttribute('aria-label', password.placeholder);
+  }
+  if (button) button.textContent = t('remoteLogin');
+  if (error?.dataset.messageId) error.textContent = t(error.dataset.messageId);
+}
+
 export function showView(which) {
+  if (which === 'login') paintLogin();
   for (const id of ['splash', 'login', 'wizard', 'app']) {
     $(`#${id}`).classList.toggle('hidden', id !== which);
   }
@@ -147,6 +162,7 @@ export function showView(which) {
 /* ---- Auth ---- */
 export async function login() {
   $('#loginError').textContent = '';
+  delete $('#loginError').dataset.messageId;
   const res = await fetch('/api/login', {
     method: 'POST', body: JSON.stringify({ password: $('#password').value }),
   });
@@ -154,9 +170,9 @@ export async function login() {
     // The throttle rejects even the right password; calling that "Invalid
     // password" convinces someone with a typo behind them that their real
     // password is broken, on every device they try next.
-    $('#loginError').textContent = res.status === 429
-      ? 'Too many attempts. Wait 5 minutes and try again.'
-      : 'Invalid password';
+    $('#loginError').dataset.messageId = res.status === 429
+      ? 'remoteLoginThrottled' : 'remoteInvalidPassword';
+    paintLogin();
     return;
   }
   state.token = (await res.json()).token;
@@ -167,7 +183,6 @@ export async function login() {
   start();
 }
 export function logout() {
-  setLanguagePreference('en');
   state.token = null; localStorage.removeItem('ks_token');
   detachSocket();
   document.dispatchEvent(new CustomEvent('ks-logout'));
@@ -178,6 +193,10 @@ export function logout() {
   // That is exactly when a stale browser token 401s: route back into the
   // wizard instead of stranding the user at login.
   fetch('api/setup/status').then((r) => r.json()).then((setup) => {
+    if (!$('#login').classList.contains('hidden') && setup?.language !== undefined) {
+      setLanguagePreference(setup.language);
+      paintLogin();
+    }
     if (setup && setup.setupNeeded && setup.passwordNeeded) {
       // Already on that wizard: put it back rather than rebuilding it, or
       // any stray 401 from the page it is showing restarts it in a loop.

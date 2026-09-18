@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../app_container.dart';
+import '../l10n/messages.dart';
 import 'theme.dart';
 
 /// What the kiosk shows instead of Chromium's error page.
@@ -139,13 +140,15 @@ class _NetworkToastState extends State<NetworkToast> {
                         color: colors.onInverseSurface,
                       ),
                       const SizedBox(width: 12),
-                      Text(
-                        offline
-                            ? 'Network connection lost'
-                            : 'Network connection restored',
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: colors.onInverseSurface,
+                      Flexible(
+                        child: Text(
+                          offline
+                              ? l10n(context).offlineLost
+                              : l10n(context).offlineRestored,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: colors.onInverseSurface,
+                          ),
                         ),
                       ),
                     ],
@@ -193,7 +196,9 @@ class _Card extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               Text(
-                online ? 'Dashboard unavailable' : 'No network connection',
+                online
+                    ? l10n(context).offlineDashboard
+                    : l10n(context).offlineNetwork,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: Ks.displayFont,
@@ -205,8 +210,8 @@ class _Card extends StatelessWidget {
               const SizedBox(height: 8),
               Text(
                 online
-                    ? 'The page could not be loaded.'
-                    : 'The dashboard will come back when the network does.',
+                    ? l10n(context).offlinePageHelp
+                    : l10n(context).offlineNetworkHelp,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 15, color: colors.onSurfaceVariant),
               ),
@@ -221,7 +226,10 @@ class _Card extends StatelessWidget {
                 ),
               ],
               const SizedBox(height: 24),
-              FilledButton.tonal(onPressed: onRetry, child: const Text('Retry')),
+              FilledButton.tonal(
+                onPressed: onRetry,
+                child: Text(l10n(context).commonRetry),
+              ),
             ],
           ),
         ),

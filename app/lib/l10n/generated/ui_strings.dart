@@ -3530,6 +3530,42 @@ abstract class UiStrings {
   /// **'unknown'**
   String get logsUnknown;
 
+  /// Heading when the device has a network but the dashboard failed to load.
+  ///
+  /// In en, this message translates to:
+  /// **'Dashboard unavailable'**
+  String get offlineDashboard;
+
+  /// Heading when the dashboard load failed and the device is offline.
+  ///
+  /// In en, this message translates to:
+  /// **'No network connection'**
+  String get offlineNetwork;
+
+  /// Explanation below Dashboard unavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'The page could not be loaded.'**
+  String get offlinePageHelp;
+
+  /// Explanation below No network connection.
+  ///
+  /// In en, this message translates to:
+  /// **'The dashboard will come back when the network does.'**
+  String get offlineNetworkHelp;
+
+  /// Persistent notification over the dashboard during an outage.
+  ///
+  /// In en, this message translates to:
+  /// **'Network connection lost'**
+  String get offlineLost;
+
+  /// Brief notification after the network returns.
+  ///
+  /// In en, this message translates to:
+  /// **'Network connection restored'**
+  String get offlineRestored;
+
   /// Playback button tooltip and accessibility label.
   ///
   /// In en, this message translates to:
@@ -4160,6 +4196,72 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Approve the permission request on the kiosk.'**
   String get pluginApproveThePermissionRequestOnTheKiosk;
+
+  /// Heading while reconnecting after losing an established connection.
+  ///
+  /// In en, this message translates to:
+  /// **'Reconnecting…'**
+  String get remoteReconnecting;
+
+  /// Connection notice with the original device name.
+  ///
+  /// In en, this message translates to:
+  /// **'The connection to {name} was lost. This page resumes on its own when it is back.'**
+  String remoteConnectionLost(String name);
+
+  /// Connection notice when the device has no name or model.
+  ///
+  /// In en, this message translates to:
+  /// **'The connection to the kiosk was lost. This page resumes on its own when it is back.'**
+  String get remoteConnectionLostUnnamed;
+
+  /// Reloads remote administration in the browser.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload page'**
+  String get remoteReloadPage;
+
+  /// Heading when the connected device is running a newer build.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosk Satellite was updated'**
+  String get remoteUpdated;
+
+  /// Automatic reload countdown after the device version changes.
+  ///
+  /// In en, this message translates to:
+  /// **'The device is now running version {version}{build}. This page belongs to the previous version and will reload in {seconds} s.'**
+  String remoteUpdatedHelp(String version, String build, String seconds);
+
+  /// Optional build suffix after the app version. Keep the initial space.
+  ///
+  /// In en, this message translates to:
+  /// **' (build {build})'**
+  String remoteBuild(String build);
+
+  /// Reloads remote administration immediately instead of waiting for the countdown.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload now'**
+  String get remoteReloadNow;
+
+  /// Login button.
+  ///
+  /// In en, this message translates to:
+  /// **'Log in'**
+  String get remoteLogin;
+
+  /// Login error after a rejected password.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid password'**
+  String get remoteInvalidPassword;
+
+  /// Login error while the existing rate limit is active.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many attempts. Wait 5 minutes and try again.'**
+  String get remoteLoginThrottled;
 
   /// Translate the interface text. Keep external names, versions and technical details unchanged.
   ///

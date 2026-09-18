@@ -1,0 +1,36 @@
+{
+  "@@locale": "en",
+  "remoteLogin": "Log in",
+  "@remoteLogin": {
+    "context": "Remote admin > Log in",
+    "description": "Login button.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Remote admin > Log in"
+      ]
+    }
+  },
+  "remoteInvalidPassword": "Invalid password",
+  "@remoteInvalidPassword": {
+    "context": "Remote admin > Log in",
+    "description": "Login error after a rejected password.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Remote admin > Log in"
+      ]
+    }
+  },
+  "remoteLoginThrottled": "Too many attempts. Wait 5 minutes and try again.",
+  "@remoteLoginThrottled": {
+    "context": "Remote admin > Log in",
+    "description": "Login error while the existing rate limit is active.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Remote admin > Log in"
+      ]
+    }
+  }
+}

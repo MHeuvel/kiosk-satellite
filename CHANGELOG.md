@@ -5,6 +5,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ## Unreleased
 
 ### Added
+- **Connection and recovery screens use translation templates.** Add 17 messages for remote login, reconnecting, update reload notices and native network errors. Login follows the device language before sign-in. Translated notices preserve authentication, retry URLs and recovery timers.
 - **Setup permissions and restore flows use translation templates.** All 2888 catalog messages now have bundled, author-approved Spanish translations. Add 34 messages for service permissions, final permission guidance, backup validation, import progress and initial password errors. Status refreshes and the remote import waiting screen use the selected language while preserving grant requests and import options.
 - **Setup dashboard and Voice Satellite steps use translation templates.** All 2854 catalog messages now have bundled, author-approved Spanish translations. Seventeen messages cover dashboard selection, satellite assignment, recommended controls and skipped-step guidance. Both interfaces preserve Home Assistant names, selected routes and recommendation values.
 - **Remote Overview uses translation templates.** All 2837 catalog messages now have bundled, author-approved Spanish translations. Five templates add 105 messages for status, attention notices, screenshots, quick controls and dashboard selection. Language changes preserve open dialogs, cached status and active downloads. Quick controls reserve two lines for labels to keep icons aligned.

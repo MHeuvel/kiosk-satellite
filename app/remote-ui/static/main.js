@@ -1,3 +1,4 @@
+import { setLanguagePreference } from './localization.js';
 import { start } from './app.js';
 import { $, login, logout, showView, state } from './core.js';
 import { showImportPending, startWizard } from './wizard.js';
@@ -16,6 +17,7 @@ const boot = () => start().catch((e) => {
 (async () => {
   let setup = null;
   try { setup = await (await fetch('api/setup/status')).json(); } catch (_) {}
+  if (setup?.language !== undefined) setLanguagePreference(setup.language);
   if (setup?.setupNeeded) {
     // An import is finishing on the device (permission prompts); a reload
     // here must keep saying that, not show an empty wizard.

@@ -1,0 +1,117 @@
+{
+  "@@locale": "en",
+  "remoteReconnecting": "Reconnecting…",
+  "@remoteReconnecting": {
+    "context": "Remote admin > Connection and update notices",
+    "description": "Heading while reconnecting after losing an established connection.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Remote admin > Connection and update notices"
+      ]
+    }
+  },
+  "remoteConnectionLost": "The connection to {name} was lost. This page resumes on its own when it is back.",
+  "@remoteConnectionLost": {
+    "context": "Remote admin > Connection and update notices",
+    "description": "Connection notice with the original device name.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Remote admin > Connection and update notices"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "description": "Device name or model, unchanged."
+      }
+    }
+  },
+  "remoteConnectionLostUnnamed": "The connection to the kiosk was lost. This page resumes on its own when it is back.",
+  "@remoteConnectionLostUnnamed": {
+    "context": "Remote admin > Connection and update notices",
+    "description": "Connection notice when the device has no name or model.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Remote admin > Connection and update notices"
+      ]
+    }
+  },
+  "remoteReloadPage": "Reload page",
+  "@remoteReloadPage": {
+    "context": "Remote admin > Connection and update notices",
+    "description": "Reloads remote administration in the browser.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Remote admin > Connection and update notices"
+      ]
+    }
+  },
+  "remoteUpdated": "Kiosk Satellite was updated",
+  "@remoteUpdated": {
+    "context": "Remote admin > Connection and update notices",
+    "description": "Heading when the connected device is running a newer build.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Remote admin > Connection and update notices"
+      ]
+    }
+  },
+  "remoteUpdatedHelp": "The device is now running version {version}{build}. This page belongs to the previous version and will reload in {seconds} s.",
+  "@remoteUpdatedHelp": {
+    "context": "Remote admin > Connection and update notices",
+    "description": "Automatic reload countdown after the device version changes.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Remote admin > Connection and update notices"
+      ]
+    },
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "description": "App version, unchanged."
+      },
+      "build": {
+        "type": "String",
+        "description": "Optional localized build suffix, including its leading space."
+      },
+      "seconds": {
+        "type": "String",
+        "description": "Seconds remaining before reload."
+      }
+    }
+  },
+  "remoteBuild": " (build {build})",
+  "@remoteBuild": {
+    "context": "Remote admin > Connection and update notices",
+    "description": "Optional build suffix after the app version. Keep the initial space.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Remote admin > Connection and update notices"
+      ]
+    },
+    "placeholders": {
+      "build": {
+        "type": "String",
+        "description": "Device build number, unchanged."
+      }
+    }
+  },
+  "remoteReloadNow": "Reload now",
+  "@remoteReloadNow": {
+    "context": "Remote admin > Connection and update notices",
+    "description": "Reloads remote administration immediately instead of waiting for the countdown.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Remote admin > Connection and update notices"
+      ]
+    }
+  }
+}
