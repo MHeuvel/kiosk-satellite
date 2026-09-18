@@ -1,0 +1,16 @@
+{
+  "@@locale": "es",
+  "setupNotBackup": "El archivo no es una copia de seguridad",
+  "setupInvalidBackupHelp": "El archivo no contiene JSON válido. Exporta una configuración desde Configuración en un Kiosk Satellite ya configurado o desde su administración remota.",
+  "setupWrongBackupKind": "Exporta una configuración desde Configuración en un Kiosk Satellite ya configurado.",
+  "setupImportFailedHelp": "No se pudo aplicar el archivo.",
+  "setupBackupNoDashboard": "La copia de seguridad no tiene un panel de control",
+  "setupBackupNoDashboardHelp": "Se aplicaron los ajustes, pero la copia se creó antes de configurar el dispositivo y no hay un panel de control para mostrar. Continúa con el asistente para elegir uno.",
+  "setupImporting": "Importando…",
+  "setupRemoteRestoreHelp": "Importa una configuración exportada de Kiosk Satellite para omitir el resto de este asistente.",
+  "setupFinishOnDevice": "Termina en el dispositivo",
+  "setupFinishOnDeviceHelp": "Se importó la configuración. Responde a las solicitudes de permisos en la pantalla de la tablet. Esta página continuará automáticamente cuando se cargue el panel de control.",
+  "setupBackupObject": "La copia de seguridad debe contener un objeto JSON.",
+  "setupBackupKind": "Este archivo no contiene una configuración de Kiosk Satellite.",
+  "setupBackupSettings": "La copia de seguridad no contiene ajustes."
+}

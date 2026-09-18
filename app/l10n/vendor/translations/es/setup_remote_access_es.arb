@@ -1,0 +1,8 @@
+{
+  "@@locale": "es",
+  "setupPasswordFirst": "Primero establece la contraseña de administración",
+  "setupPasswordBeforeImport": "Escribe arriba una contraseña de administración de al menos 4 caracteres y después importa la copia de seguridad.",
+  "setupPasswordFailed": "No se pudo establecer la contraseña",
+  "setupPasswordExists": "Ya hay una contraseña establecida",
+  "setupPasswordExistsHelp": "Inicia sesión con la contraseña establecida en la tablet para continuar aquí. Recargando…"
+}

@@ -1,0 +1,6 @@
+{
+  "@@locale": "es",
+  "setupServiceHelp": "Mantiene la aplicación activa cuando la pantalla está apagada o hay otra aplicación en primer plano. Así se mantienen la conexión con Home Assistant y funciones como la detección de movimiento y el proxy Bluetooth. Los permisos siguientes son opcionales pero recomendados: cada uno ayuda a mantener el servicio activo con la pantalla apagada.",
+  "setupBatteryMissing": "Android puede pausar la aplicación cuando la pantalla está apagada y cerrar la conexión con Home Assistant.",
+  "setupOverlayMissing": "Sin este permiso, el servicio no puede volver a abrir el kiosko después de un fallo."
+}

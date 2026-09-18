@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite",
-  "revision": "9c67ff0e77e0da0c9bffa3f437663010b674f12c",
+  "revision": "0b8df169be3bea2a49d5c83a4376ca60a2ea8cdb",
   "workingTree": false,
   "files": {
     "about_identity_en.arb": "dd006567f69f846e2e3b73f09ad13784f0022d282ea3101fa9be7fc95175ec2d",
@@ -157,6 +157,10 @@
     "setup_connect_en.arb": "353cf737e1650b2f9b7b5c5d4e2d7d5f463d012149ba5ec180425b31845a7b2e",
     "setup_dashboard_en.arb": "0e66bb26e0440b47481382c203d07fa309187bd00e4c1ed4082f7be2fba9b9ff",
     "setup_navigation_en.arb": "71c532e240d4abf6cf53324f583f6a60b8e0999bc26a41cd80de8eb441d564a7",
+    "setup_permissions_en.arb": "c847d554fd7be0635c8df44be66f85e6bd846b493dcfd3aab9e86226b645507e",
+    "setup_remote_access_en.arb": "b95de023090cc167e61c8d6078399460283948343e7ac71dd77efd38ff8c2454",
+    "setup_restore_en.arb": "3f0fb44b9d8947b07c2ccb942d393e0041b05b92c4fac55d48db24d4bc458cab",
+    "setup_service_en.arb": "8fb1b7c4046403a50155a845faa690ae8d54ca8625250da24223fd52168cdf39",
     "setup_voice_satellite_en.arb": "bad0ef351bb9e464bda0f6307e8d6cad63a827efb24bcf4c2dbf3d32457e327c",
     "setup_welcome_en.arb": "a26a34d1e8f30df984627884b880f4fda8f410e1ad3a21a9b3399499c4d7be50",
     "sound_picker_en.arb": "3287a30c9f51f864354862d1208ec5b79e87026b6a5521939f71c944b02bb626"

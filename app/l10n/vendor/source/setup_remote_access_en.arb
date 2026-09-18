@@ -1,0 +1,58 @@
+{
+  "@@locale": "en",
+  "setupPasswordFirst": "Set the admin password first",
+  "@setupPasswordFirst": {
+    "context": "First-time setup > Welcome > Remote administration",
+    "description": "Error heading when importing before setting an admin password.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "First-time setup > Welcome > Remote administration"
+      ]
+    }
+  },
+  "setupPasswordBeforeImport": "Type an admin password above (at least 4 characters), then import the backup.",
+  "@setupPasswordBeforeImport": {
+    "context": "First-time setup > Welcome > Remote administration",
+    "description": "Recovery instructions referring to the password field above Restore backup.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "First-time setup > Welcome > Remote administration"
+      ]
+    }
+  },
+  "setupPasswordFailed": "Could not set the password",
+  "@setupPasswordFailed": {
+    "context": "First-time setup > Welcome > Remote administration",
+    "description": "Error heading when saving the remote admin password fails.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "First-time setup > Welcome > Remote administration"
+      ]
+    }
+  },
+  "setupPasswordExists": "A password is already set",
+  "@setupPasswordExists": {
+    "context": "First-time setup > Welcome > Remote administration",
+    "description": "Error heading when another session has already set the password.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "First-time setup > Welcome > Remote administration"
+      ]
+    }
+  },
+  "setupPasswordExistsHelp": "Log in with the password set on the tablet to continue here. Reloading…",
+  "@setupPasswordExistsHelp": {
+    "context": "First-time setup > Welcome > Remote administration",
+    "description": "Explains the automatic reload to login after a password was set elsewhere.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "First-time setup > Welcome > Remote administration"
+      ]
+    }
+  }
+}

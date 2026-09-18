@@ -9910,125 +9910,131 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get setupPermissionLead =>
-      'Android will ask for these permissions. Everything is requested up front so the kiosk never interrupts you later.';
+      'Android solicitará estos permisos. Se piden todos al principio para que el kiosko no te interrumpa después.';
 
   @override
   String get setupRemotePermissionLead =>
-      'Android asks for these on the tablet itself. Walk over and accept the prompts, then finish here.';
+      'Android solicita estos permisos en la propia tablet. Acércate y acepta las solicitudes. Después, termina aquí.';
 
   @override
   String get setupMicrophoneHelp =>
-      'Voice Satellite and the intercom need microphone access';
+      'Voice Satellite y el intercomunicador necesitan acceso al micrófono';
 
   @override
   String get setupNotificationListening =>
-      'Allows the Kiosk Satellite Service\'s ongoing notification, which says what it is keeping alive and when the kiosk is listening.';
+      'Permite la notificación permanente del servicio de Kiosk Satellite, que indica qué funciones mantiene activas y cuándo está escuchando el kiosko.';
 
   @override
   String get setupBatteryService =>
-      'Allows the Kiosk Satellite Service to run in the background without being paused or killed.';
+      'Permite que el servicio de Kiosk Satellite se ejecute en segundo plano sin que Android lo pause o lo cierre.';
 
   @override
   String get setupOverlayBoot =>
-      'Lets Kiosk Satellite come back after a crash and start when your device boots.';
+      'Permite que Kiosk Satellite vuelva a abrirse después de un fallo y se inicie al encender el dispositivo.';
 
   @override
   String get setupOverlayCrash =>
-      'Lets Kiosk Satellite come back on screen after a crash.';
+      'Permite que Kiosk Satellite vuelva a mostrarse después de un fallo.';
 
   @override
   String get setupBrightnessHelp =>
-      'Allows Kiosk Satellite to set the panel\'s actual brightness (modify system settings).';
+      'Permite que Kiosk Satellite ajuste el brillo real de la pantalla (modificar ajustes del sistema).';
 
   @override
-  String get setupScreenControl => 'Screen control';
+  String get setupScreenControl => 'Control de pantalla';
 
   @override
   String get setupScreenControlHelp =>
-      'Allows Kiosk Satellite to turn the screen off on request (device admin).';
+      'Permite que Kiosk Satellite apague la pantalla cuando se le solicite (administración del dispositivo).';
 
   @override
-  String get setupGrantPermissions => 'Grant permissions on the device';
+  String get setupGrantPermissions => 'Conceder permisos en el dispositivo';
 
   @override
-  String get setupRequestingPermissions => 'Requesting on the device…';
+  String get setupRequestingPermissions =>
+      'Solicitando permisos en el dispositivo…';
 
   @override
-  String get setupPermissionsRequested => 'Permissions requested on the device';
+  String get setupPermissionsRequested =>
+      'Permisos solicitados en el dispositivo';
 
   @override
-  String get setupPasswordFirst => 'Set the admin password first';
+  String get setupPasswordFirst =>
+      'Primero establece la contraseña de administración';
 
   @override
   String get setupPasswordBeforeImport =>
-      'Type an admin password above (at least 4 characters), then import the backup.';
+      'Escribe arriba una contraseña de administración de al menos 4 caracteres y después importa la copia de seguridad.';
 
   @override
-  String get setupPasswordFailed => 'Could not set the password';
+  String get setupPasswordFailed => 'No se pudo establecer la contraseña';
 
   @override
-  String get setupPasswordExists => 'A password is already set';
+  String get setupPasswordExists => 'Ya hay una contraseña establecida';
 
   @override
   String get setupPasswordExistsHelp =>
-      'Log in with the password set on the tablet to continue here. Reloading…';
+      'Inicia sesión con la contraseña establecida en la tablet para continuar aquí. Recargando…';
 
   @override
-  String get setupNotBackup => 'Not a backup file';
+  String get setupNotBackup => 'El archivo no es una copia de seguridad';
 
   @override
   String get setupInvalidBackupHelp =>
-      'That file is not valid JSON. Export a configuration from Settings on a set-up Kiosk Satellite, or from its remote admin.';
+      'El archivo no contiene JSON válido. Exporta una configuración desde Configuración en un Kiosk Satellite ya configurado o desde su administración remota.';
 
   @override
   String get setupWrongBackupKind =>
-      'Export a configuration from the Settings tab of a set-up Kiosk Satellite.';
+      'Exporta una configuración desde Configuración en un Kiosk Satellite ya configurado.';
 
   @override
-  String get setupImportFailedHelp => 'The file could not be applied.';
+  String get setupImportFailedHelp => 'No se pudo aplicar el archivo.';
 
   @override
-  String get setupBackupNoDashboard => 'Backup has no dashboard';
+  String get setupBackupNoDashboard =>
+      'La copia de seguridad no tiene un panel de control';
 
   @override
   String get setupBackupNoDashboardHelp =>
-      'The settings were applied, but this backup was taken before its device was set up, so there is no dashboard to show. Continue the wizard to pick one.';
+      'Se aplicaron los ajustes, pero la copia se creó antes de configurar el dispositivo y no hay un panel de control para mostrar. Continúa con el asistente para elegir uno.';
 
   @override
-  String get setupImporting => 'Importing…';
+  String get setupImporting => 'Importando…';
 
   @override
   String get setupRemoteRestoreHelp =>
-      'Import a configuration exported from Kiosk Satellite and skip the rest of this wizard.';
+      'Importa una configuración exportada de Kiosk Satellite para omitir el resto de este asistente.';
 
   @override
-  String get setupFinishOnDevice => 'Finish on the device';
+  String get setupFinishOnDevice => 'Termina en el dispositivo';
 
   @override
   String get setupFinishOnDeviceHelp =>
-      'The configuration was imported. Answer the permission prompts on the tablet\'s screen - this page continues automatically when the dashboard loads.';
+      'Se importó la configuración. Responde a las solicitudes de permisos en la pantalla de la tablet. Esta página continuará automáticamente cuando se cargue el panel de control.';
 
   @override
-  String get setupBackupObject => 'The backup must contain a JSON object.';
+  String get setupBackupObject =>
+      'La copia de seguridad debe contener un objeto JSON.';
 
   @override
   String get setupBackupKind =>
-      'This is not a Kiosk Satellite configuration file.';
+      'Este archivo no contiene una configuración de Kiosk Satellite.';
 
   @override
-  String get setupBackupSettings => 'The backup contains no settings.';
+  String get setupBackupSettings =>
+      'La copia de seguridad no contiene ajustes.';
 
   @override
   String get setupServiceHelp =>
-      'Keeps the app alive while the screen is off or another app is in front, so the Home Assistant connection and other features like motion detection and the Bluetooth proxy stay alive. The permissions below are optional but recommended: each one helps it survive the screen being off.';
+      'Mantiene la aplicación activa cuando la pantalla está apagada o hay otra aplicación en primer plano. Así se mantienen la conexión con Home Assistant y funciones como la detección de movimiento y el proxy Bluetooth. Los permisos siguientes son opcionales pero recomendados: cada uno ayuda a mantener el servicio activo con la pantalla apagada.';
 
   @override
   String get setupBatteryMissing =>
-      'Android may pause the app when the screen is off, dropping the Home Assistant connection with it.';
+      'Android puede pausar la aplicación cuando la pantalla está apagada y cerrar la conexión con Home Assistant.';
 
   @override
   String get setupOverlayMissing =>
-      'Without this the service cannot relaunch the kiosk after a crash.';
+      'Sin este permiso, el servicio no puede volver a abrir el kiosko después de un fallo.';
 
   @override
   String get setupVoiceDetected => 'Voice Satellite detectado';

@@ -36522,7 +36522,7 @@
     "context": "First-time setup:Navigation",
     "description": "Summary below the permissions step label."
   },
-  "setupPermissionLead": "Android will ask for these permissions. Everything is requested up front so the kiosk never interrupts you later.",
+  "setupPermissionLead": "Android solicitará estos permisos. Se piden todos al principio para que el kiosko no te interrumpa después.",
   "@setupPermissionLead": {
     "context": "First-time setup > Permissions",
     "description": "Introduction above the permission list on the device.",
@@ -36533,7 +36533,7 @@
       "remoteAdmin": []
     }
   },
-  "setupRemotePermissionLead": "Android asks for these on the tablet itself. Walk over and accept the prompts, then finish here.",
+  "setupRemotePermissionLead": "Android solicita estos permisos en la propia tablet. Acércate y acepta las solicitudes. Después, termina aquí.",
   "@setupRemotePermissionLead": {
     "context": "First-time setup > Permissions",
     "description": "Introduction directing the remote user to the physical device.",
@@ -36544,7 +36544,7 @@
       ]
     }
   },
-  "setupMicrophoneHelp": "Voice Satellite and the intercom need microphone access",
+  "setupMicrophoneHelp": "Voice Satellite y el intercomunicador necesitan acceso al micrófono",
   "@setupMicrophoneHelp": {
     "context": "First-time setup > Permissions",
     "description": "Explanation below Microphone. Keep Voice Satellite unchanged.",
@@ -36557,7 +36557,7 @@
       ]
     }
   },
-  "setupNotificationListening": "Allows the Kiosk Satellite Service's ongoing notification, which says what it is keeping alive and when the kiosk is listening.",
+  "setupNotificationListening": "Permite la notificación permanente del servicio de Kiosk Satellite, que indica qué funciones mantiene activas y cuándo está escuchando el kiosko.",
   "@setupNotificationListening": {
     "context": "First-time setup > Permissions",
     "description": "Notifications explanation when background listening is selected.",
@@ -36570,7 +36570,7 @@
       ]
     }
   },
-  "setupBatteryService": "Allows the Kiosk Satellite Service to run in the background without being paused or killed.",
+  "setupBatteryService": "Permite que el servicio de Kiosk Satellite se ejecute en segundo plano sin que Android lo pause o lo cierre.",
   "@setupBatteryService": {
     "context": "First-time setup > Permissions",
     "description": "Explanation below Unrestricted battery.",
@@ -36583,7 +36583,7 @@
       ]
     }
   },
-  "setupOverlayBoot": "Lets Kiosk Satellite come back after a crash and start when your device boots.",
+  "setupOverlayBoot": "Permite que Kiosk Satellite vuelva a abrirse después de un fallo y se inicie al encender el dispositivo.",
   "@setupOverlayBoot": {
     "context": "First-time setup > Permissions",
     "description": "Overlay explanation when starting at boot is selected.",
@@ -36596,7 +36596,7 @@
       ]
     }
   },
-  "setupOverlayCrash": "Lets Kiosk Satellite come back on screen after a crash.",
+  "setupOverlayCrash": "Permite que Kiosk Satellite vuelva a mostrarse después de un fallo.",
   "@setupOverlayCrash": {
     "context": "First-time setup > Permissions",
     "description": "Overlay explanation when starting at boot is not selected.",
@@ -36609,7 +36609,7 @@
       ]
     }
   },
-  "setupBrightnessHelp": "Allows Kiosk Satellite to set the panel's actual brightness (modify system settings).",
+  "setupBrightnessHelp": "Permite que Kiosk Satellite ajuste el brillo real de la pantalla (modificar ajustes del sistema).",
   "@setupBrightnessHelp": {
     "context": "First-time setup > Permissions",
     "description": "Explanation of Android permission to change screen brightness.",
@@ -36622,7 +36622,7 @@
       ]
     }
   },
-  "setupScreenControl": "Screen control",
+  "setupScreenControl": "Control de pantalla",
   "@setupScreenControl": {
     "context": "First-time setup > Permissions",
     "description": "Permission row title for turning the screen off.",
@@ -36635,7 +36635,7 @@
       ]
     }
   },
-  "setupScreenControlHelp": "Allows Kiosk Satellite to turn the screen off on request (device admin).",
+  "setupScreenControlHelp": "Permite que Kiosk Satellite apague la pantalla cuando se le solicite (administración del dispositivo).",
   "@setupScreenControlHelp": {
     "context": "First-time setup > Permissions",
     "description": "Explanation of Android device admin permission.",
@@ -36648,7 +36648,7 @@
       ]
     }
   },
-  "setupGrantPermissions": "Grant permissions on the device",
+  "setupGrantPermissions": "Conceder permisos en el dispositivo",
   "@setupGrantPermissions": {
     "context": "First-time setup > Permissions",
     "description": "Button that opens permission prompts on the physical device.",
@@ -36659,7 +36659,7 @@
       ]
     }
   },
-  "setupRequestingPermissions": "Requesting on the device…",
+  "setupRequestingPermissions": "Solicitando permisos en el dispositivo…",
   "@setupRequestingPermissions": {
     "context": "First-time setup > Permissions",
     "description": "Disabled button label while permission prompts are being requested.",
@@ -36670,7 +36670,7 @@
       ]
     }
   },
-  "setupPermissionsRequested": "Permissions requested on the device",
+  "setupPermissionsRequested": "Permisos solicitados en el dispositivo",
   "@setupPermissionsRequested": {
     "context": "First-time setup > Permissions",
     "description": "Disabled button label after sending permission requests.",
@@ -36681,7 +36681,7 @@
       ]
     }
   },
-  "setupPasswordFirst": "Set the admin password first",
+  "setupPasswordFirst": "Primero establece la contraseña de administración",
   "@setupPasswordFirst": {
     "context": "First-time setup > Welcome > Remote administration",
     "description": "Error heading when importing before setting an admin password.",
@@ -36692,7 +36692,7 @@
       ]
     }
   },
-  "setupPasswordBeforeImport": "Type an admin password above (at least 4 characters), then import the backup.",
+  "setupPasswordBeforeImport": "Escribe arriba una contraseña de administración de al menos 4 caracteres y después importa la copia de seguridad.",
   "@setupPasswordBeforeImport": {
     "context": "First-time setup > Welcome > Remote administration",
     "description": "Recovery instructions referring to the password field above Restore backup.",
@@ -36703,7 +36703,7 @@
       ]
     }
   },
-  "setupPasswordFailed": "Could not set the password",
+  "setupPasswordFailed": "No se pudo establecer la contraseña",
   "@setupPasswordFailed": {
     "context": "First-time setup > Welcome > Remote administration",
     "description": "Error heading when saving the remote admin password fails.",
@@ -36714,7 +36714,7 @@
       ]
     }
   },
-  "setupPasswordExists": "A password is already set",
+  "setupPasswordExists": "Ya hay una contraseña establecida",
   "@setupPasswordExists": {
     "context": "First-time setup > Welcome > Remote administration",
     "description": "Error heading when another session has already set the password.",
@@ -36725,7 +36725,7 @@
       ]
     }
   },
-  "setupPasswordExistsHelp": "Log in with the password set on the tablet to continue here. Reloading…",
+  "setupPasswordExistsHelp": "Inicia sesión con la contraseña establecida en la tablet para continuar aquí. Recargando…",
   "@setupPasswordExistsHelp": {
     "context": "First-time setup > Welcome > Remote administration",
     "description": "Explains the automatic reload to login after a password was set elsewhere.",
@@ -36736,7 +36736,7 @@
       ]
     }
   },
-  "setupNotBackup": "Not a backup file",
+  "setupNotBackup": "El archivo no es una copia de seguridad",
   "@setupNotBackup": {
     "context": "First-time setup > Welcome > Restore backup",
     "description": "Error heading for a file that cannot be read as a backup.",
@@ -36749,7 +36749,7 @@
       ]
     }
   },
-  "setupInvalidBackupHelp": "That file is not valid JSON. Export a configuration from Settings on a set-up Kiosk Satellite, or from its remote admin.",
+  "setupInvalidBackupHelp": "El archivo no contiene JSON válido. Exporta una configuración desde Configuración en un Kiosk Satellite ya configurado o desde su administración remota.",
   "@setupInvalidBackupHelp": {
     "context": "First-time setup > Welcome > Restore backup",
     "description": "Recovery instructions after JSON decoding fails. Keep JSON unchanged.",
@@ -36760,7 +36760,7 @@
       "remoteAdmin": []
     }
   },
-  "setupWrongBackupKind": "Export a configuration from the Settings tab of a set-up Kiosk Satellite.",
+  "setupWrongBackupKind": "Exporta una configuración desde Configuración en un Kiosk Satellite ya configurado.",
   "@setupWrongBackupKind": {
     "context": "First-time setup > Welcome > Restore backup",
     "description": "Recovery instructions when the remote user selects the wrong file format.",
@@ -36771,7 +36771,7 @@
       ]
     }
   },
-  "setupImportFailedHelp": "The file could not be applied.",
+  "setupImportFailedHelp": "No se pudo aplicar el archivo.",
   "@setupImportFailedHelp": {
     "context": "First-time setup > Welcome > Restore backup",
     "description": "Fallback explanation when the import fails without a specific error.",
@@ -36784,7 +36784,7 @@
       ]
     }
   },
-  "setupBackupNoDashboard": "Backup has no dashboard",
+  "setupBackupNoDashboard": "La copia de seguridad no tiene un panel de control",
   "@setupBackupNoDashboard": {
     "context": "First-time setup > Welcome > Restore backup",
     "description": "Notice heading after applying a backup with no dashboard URL.",
@@ -36795,7 +36795,7 @@
       "remoteAdmin": []
     }
   },
-  "setupBackupNoDashboardHelp": "The settings were applied, but this backup was taken before its device was set up, so there is no dashboard to show. Continue the wizard to pick one.",
+  "setupBackupNoDashboardHelp": "Se aplicaron los ajustes, pero la copia se creó antes de configurar el dispositivo y no hay un panel de control para mostrar. Continúa con el asistente para elegir uno.",
   "@setupBackupNoDashboardHelp": {
     "context": "First-time setup > Welcome > Restore backup",
     "description": "Explains that settings were imported but setup must continue.",
@@ -36806,7 +36806,7 @@
       "remoteAdmin": []
     }
   },
-  "setupImporting": "Importing…",
+  "setupImporting": "Importando…",
   "@setupImporting": {
     "context": "First-time setup > Welcome > Restore backup",
     "description": "Temporary Import button label during an upload.",
@@ -36817,7 +36817,7 @@
       ]
     }
   },
-  "setupRemoteRestoreHelp": "Import a configuration exported from Kiosk Satellite and skip the rest of this wizard.",
+  "setupRemoteRestoreHelp": "Importa una configuración exportada de Kiosk Satellite para omitir el resto de este asistente.",
   "@setupRemoteRestoreHelp": {
     "context": "First-time setup > Welcome > Restore backup",
     "description": "Description beside the backup import action.",
@@ -36828,7 +36828,7 @@
       ]
     }
   },
-  "setupFinishOnDevice": "Finish on the device",
+  "setupFinishOnDevice": "Termina en el dispositivo",
   "@setupFinishOnDevice": {
     "context": "First-time setup > Welcome > Restore backup",
     "description": "Waiting-screen heading after a successful remote import.",
@@ -36839,7 +36839,7 @@
       ]
     }
   },
-  "setupFinishOnDeviceHelp": "The configuration was imported. Answer the permission prompts on the tablet's screen - this page continues automatically when the dashboard loads.",
+  "setupFinishOnDeviceHelp": "Se importó la configuración. Responde a las solicitudes de permisos en la pantalla de la tablet. Esta página continuará automáticamente cuando se cargue el panel de control.",
   "@setupFinishOnDeviceHelp": {
     "context": "First-time setup > Welcome > Restore backup",
     "description": "Waiting-screen instructions while Android permission prompts are open.",
@@ -36850,7 +36850,7 @@
       ]
     }
   },
-  "setupBackupObject": "The backup must contain a JSON object.",
+  "setupBackupObject": "La copia de seguridad debe contener un objeto JSON.",
   "@setupBackupObject": {
     "context": "First-time setup > Welcome > Restore backup",
     "description": "Validation error for JSON that does not contain an object.",
@@ -36863,7 +36863,7 @@
       ]
     }
   },
-  "setupBackupKind": "This is not a Kiosk Satellite configuration file.",
+  "setupBackupKind": "Este archivo no contiene una configuración de Kiosk Satellite.",
   "@setupBackupKind": {
     "context": "First-time setup > Welcome > Restore backup",
     "description": "Validation error for a file from another application.",
@@ -36876,7 +36876,7 @@
       ]
     }
   },
-  "setupBackupSettings": "The backup contains no settings.",
+  "setupBackupSettings": "La copia de seguridad no contiene ajustes.",
   "@setupBackupSettings": {
     "context": "First-time setup > Welcome > Restore backup",
     "description": "Validation error for a backup with no settings.",
@@ -36889,7 +36889,7 @@
       ]
     }
   },
-  "setupServiceHelp": "Keeps the app alive while the screen is off or another app is in front, so the Home Assistant connection and other features like motion detection and the Bluetooth proxy stay alive. The permissions below are optional but recommended: each one helps it survive the screen being off.",
+  "setupServiceHelp": "Mantiene la aplicación activa cuando la pantalla está apagada o hay otra aplicación en primer plano. Así se mantienen la conexión con Home Assistant y funciones como la detección de movimiento y el proxy Bluetooth. Los permisos siguientes son opcionales pero recomendados: cada uno ayuda a mantener el servicio activo con la pantalla apagada.",
   "@setupServiceHelp": {
     "context": "First-time setup > Welcome > Recommended Service Permissions",
     "description": "Introduction to the optional permissions that keep the service running.",
@@ -36902,7 +36902,7 @@
       ]
     }
   },
-  "setupBatteryMissing": "Android may pause the app when the screen is off, dropping the Home Assistant connection with it.",
+  "setupBatteryMissing": "Android puede pausar la aplicación cuando la pantalla está apagada y cerrar la conexión con Home Assistant.",
   "@setupBatteryMissing": {
     "context": "First-time setup > Welcome > Recommended Service Permissions",
     "description": "Battery permission warning when a feature needs the missing permission.",
@@ -36915,7 +36915,7 @@
       ]
     }
   },
-  "setupOverlayMissing": "Without this the service cannot relaunch the kiosk after a crash.",
+  "setupOverlayMissing": "Sin este permiso, el servicio no puede volver a abrir el kiosko después de un fallo.",
   "@setupOverlayMissing": {
     "context": "First-time setup > Welcome > Recommended Service Permissions",
     "description": "Overlay permission warning when crash recovery needs the missing permission.",
