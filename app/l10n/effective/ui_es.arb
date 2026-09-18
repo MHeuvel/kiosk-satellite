@@ -236,7 +236,7 @@
       ]
     }
   },
-  "androidAccessibilityHelp": "Closes the notification shade and the recents screen whenever they open while Kiosk Mode or Lockdown Mode is protecting the screen. Kiosk Satellite does not read any screen content.",
+  "androidAccessibilityHelp": "Cierra el panel de notificaciones y la pantalla de aplicaciones recientes cuando se abren mientras el modo kiosko o el modo de bloqueo protege la pantalla. Kiosk Satellite no lee el contenido de la pantalla.",
   "@androidAccessibilityHelp": {
     "context": "Android Settings > Accessibility > Kiosk Satellite",
     "description": "Service description displayed by Android in its own language.",
@@ -247,7 +247,7 @@
       "remoteAdmin": []
     }
   },
-  "androidServiceChannelHelp": "Shown while the Kiosk Satellite Service keeps the app running with the screen off or behind another app.",
+  "androidServiceChannelHelp": "Se muestra mientras el servicio de Kiosk Satellite mantiene la aplicación activa con la pantalla apagada o detrás de otra aplicación.",
   "@androidServiceChannelHelp": {
     "context": "Android > notification shade > Kiosk Satellite Service",
     "description": "Notification channel description in Android Settings.",
@@ -258,7 +258,7 @@
       "remoteAdmin": []
     }
   },
-  "androidServiceListening": "listening for a wake word",
+  "androidServiceListening": "escuchando una palabra de activación",
   "@androidServiceListening": {
     "context": "Android > notification shade > Kiosk Satellite Service",
     "description": "Wake word listening status.",
@@ -270,7 +270,7 @@
     },
     "x-notes": "Lowercase phrase without final punctuation. Active phrases are joined with commas. The app capitalizes the first letter and adds a final period. Keep product names unchanged."
   },
-  "androidServiceRtspAudio": "RTSP microphone audio enabled",
+  "androidServiceRtspAudio": "audio del micrófono RTSP activado",
   "@androidServiceRtspAudio": {
     "context": "Android > notification shade > Kiosk Satellite Service",
     "description": "RTSP microphone status.",
@@ -282,7 +282,7 @@
     },
     "x-notes": "Lowercase phrase without final punctuation. Active phrases are joined with commas. The app capitalizes the first letter and adds a final period. Keep product names unchanged."
   },
-  "androidServiceEsphome": "serving ESPHome",
+  "androidServiceEsphome": "atendiendo conexiones de ESPHome",
   "@androidServiceEsphome": {
     "context": "Android > notification shade > Kiosk Satellite Service",
     "description": "ESPHome server status.",
@@ -294,7 +294,7 @@
     },
     "x-notes": "Lowercase phrase without final punctuation. Active phrases are joined with commas. The app capitalizes the first letter and adds a final period. Keep product names unchanged."
   },
-  "androidServiceBluetooth": "relaying Bluetooth devices",
+  "androidServiceBluetooth": "transmitiendo datos de dispositivos Bluetooth",
   "@androidServiceBluetooth": {
     "context": "Android > notification shade > Kiosk Satellite Service",
     "description": "Bluetooth proxy status.",
@@ -306,7 +306,7 @@
     },
     "x-notes": "Lowercase phrase without final punctuation. Active phrases are joined with commas. The app capitalizes the first letter and adds a final period. Keep product names unchanged."
   },
-  "androidServiceCamera": "watching the camera",
+  "androidServiceCamera": "supervisando la cámara",
   "@androidServiceCamera": {
     "context": "Android > notification shade > Kiosk Satellite Service",
     "description": "Camera monitoring status.",
@@ -318,7 +318,7 @@
     },
     "x-notes": "Lowercase phrase without final punctuation. Active phrases are joined with commas. The app capitalizes the first letter and adds a final period. Keep product names unchanged."
   },
-  "androidServiceLocation": "reporting the location",
+  "androidServiceLocation": "informando la ubicación",
   "@androidServiceLocation": {
     "context": "Android > notification shade > Kiosk Satellite Service",
     "description": "Location reporting status.",
@@ -330,7 +330,7 @@
     },
     "x-notes": "Lowercase phrase without final punctuation. Active phrases are joined with commas. The app capitalizes the first letter and adds a final period. Keep product names unchanged."
   },
-  "androidServiceRemote": "serving the remote admin",
+  "androidServiceRemote": "atendiendo la administración remota",
   "@androidServiceRemote": {
     "context": "Android > notification shade > Kiosk Satellite Service",
     "description": "Remote admin server status.",
@@ -342,7 +342,7 @@
     },
     "x-notes": "Lowercase phrase without final punctuation. Active phrases are joined with commas. The app capitalizes the first letter and adds a final period. Keep product names unchanged."
   },
-  "androidServiceKiosk": "guarding kiosk mode",
+  "androidServiceKiosk": "protegiendo el modo kiosko",
   "@androidServiceKiosk": {
     "context": "Android > notification shade > Kiosk Satellite Service",
     "description": "Kiosk protection status.",
@@ -354,7 +354,7 @@
     },
     "x-notes": "Lowercase phrase without final punctuation. Active phrases are joined with commas. The app capitalizes the first letter and adds a final period. Keep product names unchanged."
   },
-  "androidServiceSessions": "keeping Home Assistant connected",
+  "androidServiceSessions": "manteniendo la conexión con Home Assistant",
   "@androidServiceSessions": {
     "context": "Android > notification shade > Kiosk Satellite Service",
     "description": "Home Assistant connection status, always present.",
@@ -37024,7 +37024,7 @@
       ]
     }
   },
-  "setupQrCameraFailed": "The camera could not be started.",
+  "setupQrCameraFailed": "No se pudo iniciar la cámara.",
   "@setupQrCameraFailed": {
     "context": "First-time setup > Connect > Scan token QR code",
     "description": "Shown when the scanner cannot start its camera.",
@@ -37035,7 +37035,7 @@
       "remoteAdmin": []
     }
   },
-  "setupQrTitle": "Scan the token QR code",
+  "setupQrTitle": "Escanea el código QR del token",
   "@setupQrTitle": {
     "context": "First-time setup > Connect > Scan token QR code",
     "description": "Scanner heading. Keep QR unchanged.",
@@ -37046,7 +37046,7 @@
       "remoteAdmin": []
     }
   },
-  "setupQrHelp": "It appears next to a newly created token in your Home Assistant profile.",
+  "setupQrHelp": "Aparece junto a un token recién creado en tu perfil de Home Assistant.",
   "@setupQrHelp": {
     "context": "First-time setup > Connect > Scan token QR code",
     "description": "Explains where to find the QR code. Keep Home Assistant unchanged.",
@@ -37057,7 +37057,7 @@
       "remoteAdmin": []
     }
   },
-  "setupQrFlashOff": "Turn off the flashlight",
+  "setupQrFlashOff": "Apagar la linterna",
   "@setupQrFlashOff": {
     "context": "First-time setup > Connect > Scan token QR code",
     "description": "Flashlight button label when the light is on.",
@@ -37068,7 +37068,7 @@
       "remoteAdmin": []
     }
   },
-  "setupQrFlashOn": "Turn on the flashlight",
+  "setupQrFlashOn": "Encender la linterna",
   "@setupQrFlashOn": {
     "context": "First-time setup > Connect > Scan token QR code",
     "description": "Flashlight button label when the light is off.",

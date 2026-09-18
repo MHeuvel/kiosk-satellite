@@ -1,0 +1,58 @@
+{
+  "@@locale": "en",
+  "setupQrCameraFailed": "The camera could not be started.",
+  "@setupQrCameraFailed": {
+    "context": "First-time setup > Connect > Scan token QR code",
+    "description": "Shown when the scanner cannot start its camera.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Connect > Scan token QR code"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "setupQrTitle": "Scan the token QR code",
+  "@setupQrTitle": {
+    "context": "First-time setup > Connect > Scan token QR code",
+    "description": "Scanner heading. Keep QR unchanged.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Connect > Scan token QR code"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "setupQrHelp": "It appears next to a newly created token in your Home Assistant profile.",
+  "@setupQrHelp": {
+    "context": "First-time setup > Connect > Scan token QR code",
+    "description": "Explains where to find the QR code. Keep Home Assistant unchanged.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Connect > Scan token QR code"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "setupQrFlashOff": "Turn off the flashlight",
+  "@setupQrFlashOff": {
+    "context": "First-time setup > Connect > Scan token QR code",
+    "description": "Flashlight button label when the light is on.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Connect > Scan token QR code"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "setupQrFlashOn": "Turn on the flashlight",
+  "@setupQrFlashOn": {
+    "context": "First-time setup > Connect > Scan token QR code",
+    "description": "Flashlight button label when the light is off.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Connect > Scan token QR code"
+      ],
+      "remoteAdmin": []
+    }
+  }
+}

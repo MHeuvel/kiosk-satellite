@@ -1,11 +1,13 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite",
-  "revision": "351f7e3c48170c379659843aa9cb3aea1d780969",
+  "revision": "d3cf29efa8d8759f4c837eecbd59c50207ae3c0b",
   "workingTree": false,
   "files": {
     "about_identity_en.arb": "dd006567f69f846e2e3b73f09ad13784f0022d282ea3101fa9be7fc95175ec2d",
     "about_updates_en.arb": "b41df3870ffb041249448dc4b13b14a9350ab4417510f23e772458dd1e582c85",
+    "android_accessibility_en.arb": "6fe33a6ec23fb984d2c9b695d0dcaa41b8136a83cbedae702ee37e563a9a78a0",
+    "android_service_en.arb": "ad23388106fe8d11bf83f3c1b35d4cc6033f9af2009eb030bb46ac12e2ea7939",
     "app_launcher_overlay_en.arb": "9598d5f3383b23bed8c34a54795da71f211533160a84417010def4dd54f9a173",
     "app_launcher_picker_en.arb": "94a472a1db6ae5f8e0db8825c45e5272c8660bce68a347fa2c92454ec6a2672e",
     "camera_view_status_en.arb": "5c2fdaeb44fc707fa15cfb92a186ff2616e4ea255cd5ea3ff3dac37c532fedbe",
@@ -161,6 +163,7 @@
     "setup_dashboard_en.arb": "0e66bb26e0440b47481382c203d07fa309187bd00e4c1ed4082f7be2fba9b9ff",
     "setup_navigation_en.arb": "71c532e240d4abf6cf53324f583f6a60b8e0999bc26a41cd80de8eb441d564a7",
     "setup_permissions_en.arb": "c847d554fd7be0635c8df44be66f85e6bd846b493dcfd3aab9e86226b645507e",
+    "setup_qr_scanner_en.arb": "3f617f68a1f866602454b760c80c9cb11e8836b52591167b51db290c6a2febb1",
     "setup_remote_access_en.arb": "b95de023090cc167e61c8d6078399460283948343e7ac71dd77efd38ff8c2454",
     "setup_restore_en.arb": "3f0fb44b9d8947b07c2ccb942d393e0041b05b92c4fac55d48db24d4bc458cab",
     "setup_service_en.arb": "8fb1b7c4046403a50155a845faa690ae8d54ca8625250da24223fd52168cdf39",

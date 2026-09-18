@@ -1,0 +1,13 @@
+{
+  "@@locale": "es",
+  "androidServiceChannelHelp": "Se muestra mientras el servicio de Kiosk Satellite mantiene la aplicación activa con la pantalla apagada o detrás de otra aplicación.",
+  "androidServiceListening": "escuchando una palabra de activación",
+  "androidServiceRtspAudio": "audio del micrófono RTSP activado",
+  "androidServiceEsphome": "atendiendo conexiones de ESPHome",
+  "androidServiceBluetooth": "transmitiendo datos de dispositivos Bluetooth",
+  "androidServiceCamera": "supervisando la cámara",
+  "androidServiceLocation": "informando la ubicación",
+  "androidServiceRemote": "atendiendo la administración remota",
+  "androidServiceKiosk": "protegiendo el modo kiosko",
+  "androidServiceSessions": "manteniendo la conexión con Home Assistant"
+}

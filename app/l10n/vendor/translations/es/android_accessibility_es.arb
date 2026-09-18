@@ -1,0 +1,4 @@
+{
+  "@@locale": "es",
+  "androidAccessibilityHelp": "Cierra el panel de notificaciones y la pantalla de aplicaciones recientes cuando se abren mientras el modo kiosko o el modo de bloqueo protege la pantalla. Kiosk Satellite no lee el contenido de la pantalla."
+}

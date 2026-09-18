@@ -1,0 +1,8 @@
+{
+  "@@locale": "es",
+  "setupQrCameraFailed": "No se pudo iniciar la cámara.",
+  "setupQrTitle": "Escanea el código QR del token",
+  "setupQrHelp": "Aparece junto a un token recién creado en tu perfil de Home Assistant.",
+  "setupQrFlashOff": "Apagar la linterna",
+  "setupQrFlashOn": "Encender la linterna"
+}

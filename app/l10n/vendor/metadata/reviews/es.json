@@ -94,6 +94,61 @@
     "translation": "abf92f714e49f1d763c108ebf5cb12578fe7517b68c0da70bb266cf9096c5b09",
     "author": "Xavier Larrea"
   },
+  "androidAccessibilityHelp": {
+    "source": "99ec07623a79f605477b80ae825121d4396d9045eb8f82f40beefd096c55f93d",
+    "translation": "31291240f67111bdb9e6c301e2313abd768b7ce6ddb867f03ffb857129e375b1",
+    "author": "Xavier Larrea"
+  },
+  "androidServiceChannelHelp": {
+    "source": "e191f8c04d0c6db136d9bdcfcb922539aac05e92891ec9441f28ffc3326b9e44",
+    "translation": "b3cf9b88c7ddd2867f070cc6a2d590d46a07176ceb59ceb6eb4b589af7390b84",
+    "author": "Xavier Larrea"
+  },
+  "androidServiceListening": {
+    "source": "46a46565e45bb9d5cf9524399d73242202b3b8bb1e4bad204c47d350ea681873",
+    "translation": "d619ca4602f330ff297d61791104c2af3f6c084884917ae4710b3abd06f00c76",
+    "author": "Xavier Larrea"
+  },
+  "androidServiceRtspAudio": {
+    "source": "0ebb5731ae5b6ee3fb38251beb5ad5c0fec03012df56ca9b9ae3989401711cde",
+    "translation": "110b282badd2ae39db480e25c8ffe7ea65168a0a7eab950636d4beb8c4678e51",
+    "author": "Xavier Larrea"
+  },
+  "androidServiceEsphome": {
+    "source": "7d9b37110f04da273905ff117d233069655cd9d7018683a42aec3df471266238",
+    "translation": "d2d0266a42f1536ec3e1c4dcddb50dba47ec09e23ace57930ba56aee1a4faa86",
+    "author": "Xavier Larrea"
+  },
+  "androidServiceBluetooth": {
+    "source": "0b839999ccd712f38b6d45a7f7ddb220c7df3c4ab4cc47d339926e47ddb8d73f",
+    "translation": "2bde826ff8a1ad49c192cc2f80ecf9403bee0e0ae6cda99b9a9fed103a5ab883",
+    "author": "Xavier Larrea"
+  },
+  "androidServiceCamera": {
+    "source": "055362ff07bfa6c8b30971cada08b00d86406ea438c1681fbf14562f8c0869b3",
+    "translation": "fa073c669cfd0ec6d530ec751e235219d85a554d942c9bc20773c3aa46f051bb",
+    "author": "Xavier Larrea"
+  },
+  "androidServiceLocation": {
+    "source": "266060c9d576368e14e98549addedcb7dc2e4219a99fdae9be4c1b8cc27c6766",
+    "translation": "9a6d74fa3b81787c257e35087b6c632e3b1dee1b0d56aa709a8166ad12461838",
+    "author": "Xavier Larrea"
+  },
+  "androidServiceRemote": {
+    "source": "84244c48cfb35c54356ce0c18cc5a2184693cc3a510195dd0af183ff0fef1cec",
+    "translation": "5c8d7f920c988ccef522cf7293312e5fd4c3407bf806db308ab3ca4c20ab7425",
+    "author": "Xavier Larrea"
+  },
+  "androidServiceKiosk": {
+    "source": "d3966bdcc57cd3b6ff355e4f103bfc11b4be6ef69486bf23299ad95913773671",
+    "translation": "49fe58ec89bb3cdac2d639ee194de3ed7fcbd55640bef4a9a7a90884b69712a4",
+    "author": "Xavier Larrea"
+  },
+  "androidServiceSessions": {
+    "source": "d4b2ed025a920417eefe95f7549ea034b266445e566d3e642482d3c4280e86fc",
+    "translation": "788abd8cf6725ea035be15410ffb63a7d876bf1ee6450676b594da69be980bf8",
+    "author": "Xavier Larrea"
+  },
   "launcherOpenFailed": {
     "source": "364b2189e79a517992c20e9d88785dffe176b009c91908c467bba4383e857786",
     "translation": "e326abc473e58b762464b4cfc13613d9e4f36157da23f2c23c2ac903ebb9b56d",
@@ -14177,6 +14232,31 @@
   "setupPermissionsRequested": {
     "source": "ee06e217f3486873007ffab7f7e330bccdfd25cc6951ea1fa7b9c3b71420164d",
     "translation": "8f56a552b1f94b9122c09c105d6cb952a6ea1bceed7d9ac7ec0b0738a2c73f30",
+    "author": "Xavier Larrea"
+  },
+  "setupQrCameraFailed": {
+    "source": "bff58c001b859816ae925ef086abc752ae90e7c1731d5c2f0fec97616eb39c18",
+    "translation": "a6ce1d51e5cec1776757f52e7301dd932f64c98f98ac070fe38dca22125d5059",
+    "author": "Xavier Larrea"
+  },
+  "setupQrTitle": {
+    "source": "ae82c9d16985dcac585eb38b83b4bca54c5fce33d222c756061dff9e23803bc2",
+    "translation": "739ec80453f449d4ff236de142399f372faa0f6e33c6c7ca6fa0cdf9350eb9fd",
+    "author": "Xavier Larrea"
+  },
+  "setupQrHelp": {
+    "source": "72e76b98b6dd0991df8eb6d7e0e82599ace27062929d775e47c1d3ce03267be3",
+    "translation": "a9b1eb33433086d7c4b5ccfe165a03825233846e0d2c87b4b191d1a3b1817b07",
+    "author": "Xavier Larrea"
+  },
+  "setupQrFlashOff": {
+    "source": "ffdb9f903b5d8b31bd30786d13ac47c77efce6205c3fd1bef558e368215b12b3",
+    "translation": "3e70c74bbc703a81cd1967d51dc6168bd3785397a21f233a882e45b196da5d44",
+    "author": "Xavier Larrea"
+  },
+  "setupQrFlashOn": {
+    "source": "7d6922444fb6480ecc62ee3eec5ab168642d63a43f7ee144cdede24cdb29e36e",
+    "translation": "b45cbdeb1c7bb6a026716d74ef8a7bd6a95c14783f544723ea0db3b7a96c649d",
     "author": "Xavier Larrea"
   },
   "setupPasswordFirst": {

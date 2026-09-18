@@ -76,38 +76,40 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get androidAccessibilityHelp =>
-      'Closes the notification shade and the recents screen whenever they open while Kiosk Mode or Lockdown Mode is protecting the screen. Kiosk Satellite does not read any screen content.';
+      'Cierra el panel de notificaciones y la pantalla de aplicaciones recientes cuando se abren mientras el modo kiosko o el modo de bloqueo protege la pantalla. Kiosk Satellite no lee el contenido de la pantalla.';
 
   @override
   String get androidServiceChannelHelp =>
-      'Shown while the Kiosk Satellite Service keeps the app running with the screen off or behind another app.';
+      'Se muestra mientras el servicio de Kiosk Satellite mantiene la aplicación activa con la pantalla apagada o detrás de otra aplicación.';
 
   @override
-  String get androidServiceListening => 'listening for a wake word';
+  String get androidServiceListening => 'escuchando una palabra de activación';
 
   @override
-  String get androidServiceRtspAudio => 'RTSP microphone audio enabled';
+  String get androidServiceRtspAudio => 'audio del micrófono RTSP activado';
 
   @override
-  String get androidServiceEsphome => 'serving ESPHome';
+  String get androidServiceEsphome => 'atendiendo conexiones de ESPHome';
 
   @override
-  String get androidServiceBluetooth => 'relaying Bluetooth devices';
+  String get androidServiceBluetooth =>
+      'transmitiendo datos de dispositivos Bluetooth';
 
   @override
-  String get androidServiceCamera => 'watching the camera';
+  String get androidServiceCamera => 'supervisando la cámara';
 
   @override
-  String get androidServiceLocation => 'reporting the location';
+  String get androidServiceLocation => 'informando la ubicación';
 
   @override
-  String get androidServiceRemote => 'serving the remote admin';
+  String get androidServiceRemote => 'atendiendo la administración remota';
 
   @override
-  String get androidServiceKiosk => 'guarding kiosk mode';
+  String get androidServiceKiosk => 'protegiendo el modo kiosko';
 
   @override
-  String get androidServiceSessions => 'keeping Home Assistant connected';
+  String get androidServiceSessions =>
+      'manteniendo la conexión con Home Assistant';
 
   @override
   String launcherOpenFailed(String name) {
@@ -10054,20 +10056,20 @@ class UiStringsEs extends UiStrings {
       'Permisos solicitados en el dispositivo';
 
   @override
-  String get setupQrCameraFailed => 'The camera could not be started.';
+  String get setupQrCameraFailed => 'No se pudo iniciar la cámara.';
 
   @override
-  String get setupQrTitle => 'Scan the token QR code';
+  String get setupQrTitle => 'Escanea el código QR del token';
 
   @override
   String get setupQrHelp =>
-      'It appears next to a newly created token in your Home Assistant profile.';
+      'Aparece junto a un token recién creado en tu perfil de Home Assistant.';
 
   @override
-  String get setupQrFlashOff => 'Turn off the flashlight';
+  String get setupQrFlashOff => 'Apagar la linterna';
 
   @override
-  String get setupQrFlashOn => 'Turn on the flashlight';
+  String get setupQrFlashOn => 'Encender la linterna';
 
   @override
   String get setupPasswordFirst =>
