@@ -2615,6 +2615,34 @@ class UiStringsEs extends UiStrings {
       'Demasiados intentos. Espera 5 minutos y vuelve a intentarlo.';
 
   @override
+  String get deviceScreenOffPermission =>
+      'Turning the screen off needs a one-time permission. The tablet is now showing the \"device admin\" grant screen. Approve it there, then try again.';
+
+  @override
+  String get deviceAdminInactive =>
+      'The device admin permission is not active.';
+
+  @override
+  String get deviceRestartOverlay =>
+      'Restarting needs the \"Display over other apps\" permission or the app cannot bring itself back. The grant screen is opening on the device; allow it there and retry.';
+
+  @override
+  String get deviceRebootPermission =>
+      'Restarting the device needs Kiosk Satellite provisioned as the device owner or a granted Shizuku connection.';
+
+  @override
+  String get deviceRestartAndroidOnly =>
+      'Restart is only available on Android.';
+
+  @override
+  String get deviceRestartShizukuRefused => 'Shizuku refused the restart';
+
+  @override
+  String deviceRestartFailed(String error) {
+    return 'Restart failed: $error';
+  }
+
+  @override
   String get overviewAttention => 'Requiere atención';
 
   @override
@@ -10547,16 +10575,14 @@ class UiStringsEs extends UiStrings {
       'Se importó la configuración. Responde a las solicitudes de permisos en la pantalla de la tablet. Esta página continuará automáticamente cuando se cargue el panel de control.';
 
   @override
-  String get setupBackupObject =>
-      'La copia de seguridad debe contener un objeto JSON.';
+  String get setupBackupObject => 'The backup must contain a JSON object.';
 
   @override
   String get setupBackupKind =>
-      'Este archivo no contiene una configuración de Kiosk Satellite.';
+      'This is not a Kiosk Satellite configuration file.';
 
   @override
-  String get setupBackupSettings =>
-      'La copia de seguridad no contiene ajustes.';
+  String get setupBackupSettings => 'The backup contains no settings.';
 
   @override
   String get setupServiceHelp =>

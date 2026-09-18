@@ -13,6 +13,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class _Spanish extends UiStringsEn {
   @override
+  String deviceRestartFailed(String error) => 'No se pudo reiniciar: $error';
+  @override
+  String get deviceRestartAndroidOnly =>
+      'El reinicio solo está disponible en Android.';
+  @override
   String get glanceUnknown => 'Desconocido';
   @override
   String get glanceUnavailable => 'No disponible';
@@ -76,6 +81,14 @@ void main() {
         'Not enough free space: the APK is 132.6 MB and the install needs about 365.2 MB, but the device has 90.1 MB free.',
       ),
       'APK 132.6 MB, necesarios 365.2 MB, libres 90.1 MB',
+    );
+    expect(
+      deviceOperationError(context, 'restart failed: restart is Android-only'),
+      'No se pudo reiniciar: El reinicio solo está disponible en Android.',
+    );
+    expect(
+      deviceOperationError(context, 'restart failed: E_VENDOR <raw>'),
+      'No se pudo reiniciar: E_VENDOR <raw>',
     );
     const detail =
         'PlatformException(E_VENDOR, <original> /data/a.apk, {code: 42}, null)';

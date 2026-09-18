@@ -6,6 +6,11 @@ for (const language of ['en', 'es']) {
   test(`device errors preserve parameters and unknown diagnostics in ${language}`, () => {
     setLanguagePreference(language);
     const cases = [
+      ['the device admin permission is not active', t('deviceAdminInactive')],
+      ['restart is Android-only', t('deviceRestartAndroidOnly')],
+      ['Shizuku refused the restart', t('deviceRestartShizukuRefused')],
+      ['restart failed: E_VENDOR <raw>', t('deviceRestartFailed', {error:'E_VENDOR <raw>'})],
+      ['restart failed: Shizuku refused the restart', t('deviceRestartFailed', {error:t('deviceRestartShizukuRefused')})],
       ['a download is already running', t('updateDownloadBusy')],
       ['Bad state: The file is not an Android APK.', t('updateInvalidApk')],
       ['Not enough free space: the APK is 132.6 MB and the install needs about 365.2 MB, but the device has 90.1 MB free.', t('updateUploadSpace', {size:'132.6',required:'365.2',free:'90.1'})],

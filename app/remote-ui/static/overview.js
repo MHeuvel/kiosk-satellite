@@ -1,5 +1,5 @@
 import { overviewLabel, overviewMessageBox as messageBox, overviewModalShell as modalShell } from './overview_labels.js';
-import { overviewText, overviewStatus, deviceText, mediaText, mediaError, navigationText, t } from './localization.js';
+import { overviewText, overviewStatus, deviceText, deviceOperationError, mediaText, mediaError, navigationText, t } from './localization.js';
 import { watchUpdates } from './live.js';
 import { $, api, cmd, state } from './core.js';
 import { attachUpdateInstall, refreshUpdateBadge } from './device.js';
@@ -616,7 +616,7 @@ $('#tileRestartDevice').addEventListener('click', async () => {
   if (choice !== 'Restart') return;
   const res = await cmd('rebootDevice').catch(() => null);
   if (res && res.ok !== false) showToast({ title: overviewText('Restart device'), kind: 'success' });
-  else showToast({ title: overviewText('Restart device'), message: (res && res.error) || overviewText('The device did not answer.'), kind: 'error' });
+  else showToast({ title: overviewText('Restart device'), message: deviceOperationError(res && res.error) || overviewText('The device did not answer.'), kind: 'error' });
 });
 
 // Do not disturb: only with the intercom on and the remote admin there to

@@ -1,4 +1,4 @@
-import { voiceText, esphomeError, esphomeDeviceIdentity, esphomeText, launcherText, kioskText, intercomText, intercomError, cameraText, cameraError, cameraResolutionNotice, screensaverText, deviceText, haText, screenAudioText, haConnectionError, settingsPageText, t } from './localization.js';
+import { voiceText, esphomeError, esphomeDeviceIdentity, esphomeText, launcherText, kioskText, intercomText, intercomError, cameraText, cameraError, cameraResolutionNotice, screensaverText, deviceText, haText, screenAudioText, haConnectionError, settingsPageText, setupImportError, t } from './localization.js';
 import { preserveDraft } from './drafts.js';
 import { beginLiveRender, endLiveRender, watchUpdates } from './live.js';
 import {
@@ -2271,7 +2271,7 @@ kioskText('Lockdown Mode makes the dashboard non-interactive, arms every ' +
         imp.desc.textContent = deviceText('That file is not valid JSON.'); return;
       }
       const opts = await askImportOptions(
-        config && config.settings && config.settings['device.name']);
+        String(config?.settings?.['device.name'] ?? ''));
       if (!opts) return;
       const res = await api(
         `/api/config/import?adoptIdentity=${opts.adopt ? 1 : 0}&importLocalStorage=${opts.local ? 1 : 0}`,
@@ -2279,7 +2279,7 @@ kioskText('Lockdown Mode makes the dashboard non-interactive, arms every ' +
       const out = await res.json().catch(() => ({}));
       imp.desc.textContent = res.ok
         ? t('deviceAppliedReload', {count: String(out.data && out.data.applied)})
-        : (out.error || deviceText('Import failed.'));
+        : (setupImportError(out.error) || deviceText('Import failed.'));
       if (res.ok) setTimeout(() => location.reload(), 2500);
     });
   }

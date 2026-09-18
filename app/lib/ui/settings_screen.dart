@@ -1666,8 +1666,8 @@ class _CategoryContentState extends State<_CategoryContent> {
     if (!mounted) return;
     final options = await showImportOptionsDialog(
       context,
-      backupDeviceName: config is Map
-          ? '${(config['settings'] as Map?)?['device.name'] ?? ''}'
+      backupDeviceName: config is Map && config['settings'] is Map
+          ? '${config['settings']['device.name'] ?? ''}'
           : null,
     );
     if (options == null) return;
@@ -1688,7 +1688,14 @@ class _CategoryContentState extends State<_CategoryContent> {
       );
       if (mounted) setState(() {});
     } else {
-      _toast('Import failed', message: result.error, kind: ToastKind.error);
+      if (!mounted) return;
+      _toast(
+        'Import failed',
+        message: result.error == null
+            ? null
+            : setupImportError(context, result.error!),
+        kind: ToastKind.error,
+      );
     }
   }
 

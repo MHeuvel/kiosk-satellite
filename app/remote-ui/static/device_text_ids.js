@@ -328,5 +328,11 @@ export const deviceTextMessageIds = {
   "Start Shizuku 13 or later and allow Kiosk Satellite in Shizuku": "shizukuStartRequired",
   "Shizuku connection failed": "shizukuConnectionFailed",
   "Shizuku helper did not connect": "shizukuHelperNotConnected",
-  "Shizuku helper is unavailable": "shizukuHelperUnavailable"
+  "Shizuku helper is unavailable": "shizukuHelperUnavailable",
+  "Turning the screen off needs a one-time permission. The tablet is now showing the \"device admin\" grant screen. Approve it there, then try again.": "deviceScreenOffPermission",
+  "The device admin permission is not active.": "deviceAdminInactive",
+  "Restarting needs the \"Display over other apps\" permission or the app cannot bring itself back. The grant screen is opening on the device; allow it there and retry.": "deviceRestartOverlay",
+  "Restarting the device needs Kiosk Satellite provisioned as the device owner or a granted Shizuku connection.": "deviceRebootPermission",
+  "Restart is only available on Android.": "deviceRestartAndroidOnly",
+  "Shizuku refused the restart": "deviceRestartShizukuRefused"
 };

@@ -2588,6 +2588,34 @@ class UiStringsEn extends UiStrings {
       'Too many attempts. Wait 5 minutes and try again.';
 
   @override
+  String get deviceScreenOffPermission =>
+      'Turning the screen off needs a one-time permission. The tablet is now showing the \"device admin\" grant screen. Approve it there, then try again.';
+
+  @override
+  String get deviceAdminInactive =>
+      'The device admin permission is not active.';
+
+  @override
+  String get deviceRestartOverlay =>
+      'Restarting needs the \"Display over other apps\" permission or the app cannot bring itself back. The grant screen is opening on the device; allow it there and retry.';
+
+  @override
+  String get deviceRebootPermission =>
+      'Restarting the device needs Kiosk Satellite provisioned as the device owner or a granted Shizuku connection.';
+
+  @override
+  String get deviceRestartAndroidOnly =>
+      'Restart is only available on Android.';
+
+  @override
+  String get deviceRestartShizukuRefused => 'Shizuku refused the restart';
+
+  @override
+  String deviceRestartFailed(String error) {
+    return 'Restart failed: $error';
+  }
+
+  @override
   String get overviewAttention => 'Needs attention';
 
   @override

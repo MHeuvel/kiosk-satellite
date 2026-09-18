@@ -232,11 +232,13 @@ export function deviceOperationError(error) {
       const detail = translate(platform[2], depth + 1);
       return detail === null ? null : platform[1] + detail + platform[3];
     }
-    const aliases = {"a download is already running": "A download is running. Wait for it to finish.", "an install is already running": "An install is running. Wait for it to finish.", "An update is being installed. Try again when it finishes.": "An install is running. Wait for it to finish.", "no update available": "No update is available.", "no uploaded APK is waiting": "No uploaded APK is waiting.", "Shizuku command timed out": "Command timed out"};
+    const aliases = {"the device admin permission is not active": "The device admin permission is not active.", "restart is Android-only": "Restart is only available on Android.", "a download is already running": "A download is running. Wait for it to finish.", "an install is already running": "An install is running. Wait for it to finish.", "An update is being installed. Try again when it finishes.": "An install is running. Wait for it to finish.", "no update available": "No update is available.", "no uploaded APK is waiting": "No uploaded APK is waiting.", "Shizuku command timed out": "Command timed out"};
     text = aliases[text] ?? text;
     const id = deviceTextMessageIds[text];
     if (id) return t(id);
     let match;
+    match = /^restart failed: ([\s\S]*)$/.exec(text);
+    if (match) return t('deviceRestartFailed', {error: translate(match[1], depth + 1) ?? match[1]});
     match = /^Not enough free space: the APK is (.+) MB and the install needs about (.+) MB, but the device has (.+) MB free\.$/.exec(text);
     if (match) return t('updateUploadSpace', {size: match[1], required: match[2], free: match[3]});
     match = /^The upload was interrupted after (.+) MB: ([\s\S]*)$/.exec(text);

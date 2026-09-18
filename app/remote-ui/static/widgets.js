@@ -1,4 +1,4 @@
-import { deviceText, t, messageLanguage } from './localization.js';
+import { deviceText, deviceOperationError, t, messageLanguage } from './localization.js';
 import { cmd } from './core.js';
 
 /* ---- Dashboard ---- */
@@ -163,8 +163,8 @@ document.querySelectorAll('.action.tile, .action[data-cmd]').forEach((b) =>
     let res = await cmd(b.dataset.cmd).catch(() => null);
     while (res && res.ok === false && res.error) {
       const choice = await messageBox({
-        title: label,
-        message: res.error,
+        title: () => b.textContent.trim(),
+        message: () => deviceOperationError(res.error),
         buttons: ['Cancel', 'Retry'],
       });
       if (choice !== 'Retry') return;

@@ -4605,6 +4605,48 @@ abstract class UiStrings {
   /// **'Too many attempts. Wait 5 minutes and try again.'**
   String get remoteLoginThrottled;
 
+  /// Explain the failed action and any permission the user must grant on the device. Keep Android and Shizuku names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Turning the screen off needs a one-time permission. The tablet is now showing the \"device admin\" grant screen. Approve it there, then try again.'**
+  String get deviceScreenOffPermission;
+
+  /// Explain the failed action and any permission the user must grant on the device. Keep Android and Shizuku names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The device admin permission is not active.'**
+  String get deviceAdminInactive;
+
+  /// Explain the failed action and any permission the user must grant on the device. Keep Android and Shizuku names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Restarting needs the \"Display over other apps\" permission or the app cannot bring itself back. The grant screen is opening on the device; allow it there and retry.'**
+  String get deviceRestartOverlay;
+
+  /// Explain the failed action and any permission the user must grant on the device. Keep Android and Shizuku names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Restarting the device needs Kiosk Satellite provisioned as the device owner or a granted Shizuku connection.'**
+  String get deviceRebootPermission;
+
+  /// Explain the failed action and any permission the user must grant on the device. Keep Android and Shizuku names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart is only available on Android.'**
+  String get deviceRestartAndroidOnly;
+
+  /// Explain the failed action and any permission the user must grant on the device. Keep Android and Shizuku names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Shizuku refused the restart'**
+  String get deviceRestartShizukuRefused;
+
+  /// Keep {error} unchanged. It contains the failure details.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart failed: {error}'**
+  String deviceRestartFailed(String error);
+
   /// Translate the interface text. Keep external names, versions and technical details unchanged.
   ///
   /// In en, this message translates to:

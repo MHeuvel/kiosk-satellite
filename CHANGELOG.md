@@ -6,6 +6,8 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ### Added
 
+- **Translate quick-control refusals and configuration-import validation.** Remote screen-off and restart errors use catalog messages. Open quick-control dialogs follow language changes without repeating commands. Settings imports reuse translated backup validation on both interfaces and safely handle malformed backup metadata.
+
 - **Approve Spanish translations for remaining device operation errors.** Import the reviewed snapshot with all 3034 Spanish messages approved, including At a Glance states and APK update and Shizuku failures.
 
 - **Translate remaining device status and operation errors.** At a Glance and entity widgets localize unavailable and unknown states. App Launcher reuses the translated battery-permission explanation. APK update and Shizuku failures use catalog messages while preserving technical details. Open remote result dialogs follow language changes without repeating operations.

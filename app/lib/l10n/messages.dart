@@ -91,6 +91,9 @@ String deviceOperationError(BuildContext context, String error) {
           : '${platform.group(1)}$detail${platform.group(3)}';
     }
     const aliases = <String, String>{
+      "the device admin permission is not active":
+          "The device admin permission is not active.",
+      "restart is Android-only": "Restart is only available on Android.",
       "a download is already running":
           "A download is running. Wait for it to finish.",
       "an install is already running":
@@ -105,6 +108,12 @@ String deviceOperationError(BuildContext context, String error) {
     final id = deviceTextMessageIds[text];
     if (id != null) return messageById(strings, id, text);
     RegExpMatch? match;
+    match = RegExp(r'^restart failed: ([\s\S]*)$').firstMatch(text);
+    if (match != null) {
+      return strings.deviceRestartFailed(
+        translate(match.group(1)!, depth + 1) ?? match.group(1)!,
+      );
+    }
     match = RegExp(
       r'^Not enough free space: the APK is (.+) MB and the install needs about (.+) MB, but the device has (.+) MB free\.$',
     ).firstMatch(text);
