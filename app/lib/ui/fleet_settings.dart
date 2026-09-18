@@ -204,8 +204,7 @@ class _FleetSettingsPanelState extends State<FleetSettingsPanel> {
             subtitle: Text(
               fleetText(
                 context,
-                'Kiosks member of the fleet. A follower must confirm the '
-                'invitation on device.',
+                'Add a discovered kiosk or enter its IP address. The follower must accept the invitation on its screen.',
               ),
             ),
             trailing: OutlinedButton.icon(
@@ -253,7 +252,9 @@ class _FleetSettingsPanelState extends State<FleetSettingsPanel> {
           Flexible(
             child: Text(
               fleetStatusText(context, '${f['status']}'),
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(color: tone),
+              style: Theme.of(
+                context,
+              ).textTheme.bodySmall?.copyWith(color: tone),
             ),
           ),
           PopupMenuButton<String>(
@@ -340,7 +341,14 @@ class _FleetSettingsPanelState extends State<FleetSettingsPanel> {
       confirmLabel: fleetText(context, 'Send invitation'),
     );
     if (profile == null) return;
-    await _run('fleetInvite', {'id': picked['id'], 'profile': profile});
+    await _run('fleetInvite', {
+      'id': picked['id'],
+      'profile': profile,
+      if (picked['manual'] == true) ...{
+        'address': picked['address'],
+        'port': picked['port'],
+      },
+    });
   }
 
   Widget _profilesCard(Map<String, Object?> status) {
@@ -1500,8 +1508,7 @@ Future<String?> showExcludePicker(
   );
 }
 
-/// Add a kiosk: the kiosks heard on the network that could follow this
-/// one. A tap picks; the sync dialog follows. Pops with the pick.
+/// Pick a discovered kiosk or look one up by IP before choosing a profile.
 class _AddKioskDialog extends StatefulWidget {
   const _AddKioskDialog({required this.container});
 
@@ -1534,6 +1541,14 @@ class _AddKioskDialogState extends State<_AddKioskDialog> {
     });
   }
 
+  Future<void> _addByIp() async {
+    final kiosk = await showDialog<Map<String, Object?>>(
+      context: context,
+      builder: (_) => FleetAddressDialog(container: widget.container),
+    );
+    if (kiosk != null && mounted) Navigator.pop(context, kiosk);
+  }
+
   @override
   Widget build(BuildContext context) {
     final list = _candidates;
@@ -1563,8 +1578,7 @@ class _AddKioskDialogState extends State<_AddKioskDialog> {
                 child: Text(
                   fleetText(
                     context,
-                    'No other kiosk found on this network. A kiosk shows up '
-                    'once its remote admin is on and it shares this Wi-Fi.',
+                    'No kiosks discovered. Use Add by IP to find one at a known address.',
                   ),
                 ),
               )
@@ -1616,12 +1630,125 @@ class _AddKioskDialogState extends State<_AddKioskDialog> {
       ),
       actions: [
         TextButton(
+          onPressed: _addByIp,
+          child: Text(fleetText(context, 'Add by IP')),
+        ),
+        TextButton(
           onPressed: () => Navigator.pop(context),
           child: Text(fleetText(context, 'Cancel')),
         ),
       ],
     );
   }
+}
+
+/// Look up an address without sending an invitation until a profile is chosen.
+class FleetAddressDialog extends StatefulWidget {
+  const FleetAddressDialog({super.key, required this.container});
+  final AppContainer container;
+
+  @override
+  State<FleetAddressDialog> createState() => _FleetAddressDialogState();
+}
+
+class _FleetAddressDialogState extends State<FleetAddressDialog> {
+  final _address = TextEditingController();
+  final _port = TextEditingController(text: '2324');
+  bool _busy = false;
+  String? _error;
+
+  @override
+  void dispose() {
+    _address.dispose();
+    _port.dispose();
+    super.dispose();
+  }
+
+  Future<void> _find() async {
+    if (_busy) return;
+    setState(() {
+      _busy = true;
+      _error = null;
+    });
+    final result = await widget.container.commands.execute('fleetLookup', {
+      'address': _address.text.trim(),
+      'port': _port.text.trim(),
+    });
+    if (!mounted) return;
+    if (result.ok && result.data is Map) {
+      Navigator.pop(context, (result.data as Map).cast<String, Object?>());
+      return;
+    }
+    setState(() {
+      _busy = false;
+      _error = result.error ?? 'That kiosk did not answer';
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) => AlertDialog(
+    title: Text(fleetText(context, 'Add by IP')),
+    content: SizedBox(
+      width: 440,
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              fleetText(
+                context,
+                'Enter the kiosk IP address and remote admin port.',
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: _address,
+              autofocus: true,
+              enabled: !_busy,
+              autocorrect: false,
+              enableSuggestions: false,
+              keyboardType: TextInputType.url,
+              textInputAction: TextInputAction.next,
+              decoration: InputDecoration(
+                labelText: fleetText(context, 'IP address'),
+              ),
+            ),
+            const SizedBox(height: 12),
+            TextField(
+              controller: _port,
+              enabled: !_busy,
+              keyboardType: TextInputType.number,
+              textInputAction: TextInputAction.done,
+              onSubmitted: (_) => _find(),
+              decoration: InputDecoration(
+                labelText: fleetText(context, 'Remote admin port'),
+              ),
+            ),
+            if (_error != null) ...[
+              const SizedBox(height: 12),
+              Text(
+                fleetStatusText(context, _error!),
+                style: TextStyle(color: Theme.of(context).colorScheme.error),
+              ),
+            ],
+          ],
+        ),
+      ),
+    ),
+    actions: [
+      TextButton(
+        onPressed: () => Navigator.pop(context),
+        child: Text(fleetText(context, 'Cancel')),
+      ),
+      FilledButton(
+        onPressed: _busy ? null : _find,
+        child: Text(
+          fleetText(context, _busy ? 'Finding kiosk…' : 'Find kiosk'),
+        ),
+      ),
+    ],
+  );
 }
 
 /// The invitation as it lands on the kiosk screen: a dialog over whatever

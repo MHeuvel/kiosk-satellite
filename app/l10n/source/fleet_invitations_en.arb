@@ -13,7 +13,7 @@
       ]
     }
   },
-  "fleetKiosksMemberOfTheFleetAFollowerMustConfirm": "Kiosks member of the fleet. A follower must confirm the invitation on device.",
+  "fleetKiosksMemberOfTheFleetAFollowerMustConfirm": "Add a discovered kiosk or enter its IP address. The follower must accept the invitation on its screen.",
   "@fleetKiosksMemberOfTheFleetAFollowerMustConfirm": {
     "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
     "description": "Visible label, help or status in this section.",
@@ -168,7 +168,7 @@
       ]
     }
   },
-  "fleetNoOtherKioskFoundOnThisNetworkAKiosk": "No other kiosk found on this network. A kiosk shows up once its remote admin is on and it shares this Wi-Fi.",
+  "fleetNoOtherKioskFoundOnThisNetworkAKiosk": "No kiosks discovered. Use Add by IP to find one at a known address.",
   "@fleetNoOtherKioskFoundOnThisNetworkAKiosk": {
     "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
     "description": "Visible label, help or status in this section.",
@@ -262,6 +262,84 @@
       ],
       "remoteAdmin": [
         "Fleet Management > Add a kiosk and device invitation prompt"
+      ]
+    }
+  },
+  "fleetAddByIp": "Add by IP",
+  "@fleetAddByIp": {
+    "context": "Settings > Fleet Management > Add a kiosk > Add by IP",
+    "description": "Address lookup label, guidance or validation result before sending an invitation.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk > Add by IP"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk > Add by IP"
+      ]
+    }
+  },
+  "fleetFindKiosk": "Find kiosk",
+  "@fleetFindKiosk": {
+    "context": "Settings > Fleet Management > Add a kiosk > Add by IP",
+    "description": "Address lookup label, guidance or validation result before sending an invitation.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk > Add by IP"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk > Add by IP"
+      ]
+    }
+  },
+  "fleetFindingKiosk": "Finding kiosk…",
+  "@fleetFindingKiosk": {
+    "context": "Settings > Fleet Management > Add a kiosk > Add by IP",
+    "description": "Address lookup label, guidance or validation result before sending an invitation.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk > Add by IP"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk > Add by IP"
+      ]
+    }
+  },
+  "fleetIpAddress": "IP address",
+  "@fleetIpAddress": {
+    "context": "Settings > Fleet Management > Add a kiosk > Add by IP",
+    "description": "Address lookup label, guidance or validation result before sending an invitation.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk > Add by IP"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk > Add by IP"
+      ]
+    }
+  },
+  "fleetRemoteAdminPort": "Remote admin port",
+  "@fleetRemoteAdminPort": {
+    "context": "Settings > Fleet Management > Add a kiosk > Add by IP",
+    "description": "Address lookup label, guidance or validation result before sending an invitation.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk > Add by IP"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk > Add by IP"
+      ]
+    }
+  },
+  "fleetAddressHelp": "Enter the kiosk IP address and remote admin port.",
+  "@fleetAddressHelp": {
+    "context": "Settings > Fleet Management > Add a kiosk > Add by IP",
+    "description": "Address lookup label, guidance or validation result before sending an invitation.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk > Add by IP"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk > Add by IP"
       ]
     }
   }

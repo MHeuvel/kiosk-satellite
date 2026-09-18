@@ -163,6 +163,212 @@ void main() {
     },
   };
 
+  group('manual fleet invitations', () {
+    test(
+      'looks up an IP and invites without discovery or syncing before acceptance',
+      () async {
+        peers.clear();
+        await build(prefs: {'ks.fleet.leader': true});
+        final found = await commands.execute('fleetLookup', {
+          'address': ' 192.168.1.80 ',
+          'port': '2345',
+        });
+        expect(found.ok, isTrue, reason: found.error);
+        final kiosk = found.data as Map;
+        expect(kiosk['id'], 'bed');
+        expect(kiosk['name'], 'Bedroom');
+        expect(kiosk['address'], '192.168.1.80');
+        expect(kiosk['port'], 2345);
+        expect(fleet.followers, isEmpty);
+        expect(sent.every((r) => r.method == 'GET'), isTrue);
+        answers['POST /api/fleet/invite'] = (_) => {
+          'ok': true,
+          'data': {'pending': true},
+        };
+        final invited = await commands.execute('fleetInvite', {
+          'id': kiosk['id'],
+          'address': kiosk['address'],
+          'port': kiosk['port'],
+          'profile': 'updates-only',
+        });
+        expect(invited.ok, isTrue, reason: invited.error);
+        final follower = fleet.followers.single;
+        expect(follower.address, '192.168.1.80');
+        expect(follower.port, 2345);
+        expect(follower.profile, 'updates-only');
+        expect(follower.token, isNull);
+        expect(follower.invite, isNotEmpty);
+        expect(sent.where((r) => r.url.path == '/api/fleet/apply'), isEmpty);
+        expect(
+          sent.where((r) => r.url.path == '/api/fleet/identity'),
+          hasLength(2),
+        );
+        final duplicate = await commands.execute('fleetLookup', {
+          'address': '192.168.1.80',
+        });
+        expect(duplicate.error, 'This kiosk already belongs to this fleet.');
+
+        answers['GET /api/fleet/invite/${follower.invite}'] = (_) => {
+          'status': 'accepted',
+          'token': 'accepted-token',
+        };
+        answers['GET /api/fleet/status'] = (_) => {
+          'id': 'bed',
+          'leaderId': 'me',
+          'version': '2026.9.19',
+        };
+        answers['POST /api/fleet/apply'] = (_) => {
+          'ok': true,
+          'data': {'applied': 0},
+        };
+        await commands.execute('fleetSyncNow', const {});
+        expect(follower.token, 'accepted-token');
+        final push = sent.singleWhere((r) => r.url.path == '/api/fleet/apply');
+        expect((jsonDecode(push.body) as Map)['settings'], isEmpty);
+        expect(push.url.port, 2345);
+      },
+    );
+
+    test('rejects invalid inputs before contacting any host', () async {
+      await build(prefs: {'ks.fleet.leader': true});
+      for (final params in [
+        {'address': ''},
+        {'address': 'http://192.168.1.80'},
+        {'address': 'not-an-ip'},
+        {'address': '192.168.1.80', 'port': 0},
+        {'address': '192.168.1.80', 'port': '65536'},
+        {'address': '192.168.1.80', 'port': 23.5},
+      ]) {
+        expect((await commands.execute('fleetLookup', params)).ok, isFalse);
+      }
+      expect(sent, isEmpty);
+      expect(fleet.followers, isEmpty);
+    });
+
+    test(
+      'IPv6 addresses use bracketed URLs and the default admin port',
+      () async {
+        peers.clear();
+        await build(prefs: {'ks.fleet.leader': true});
+        final found = await commands.execute('fleetLookup', {
+          'address': '2001:db8::80',
+        });
+        expect(found.ok, isTrue, reason: found.error);
+        expect(
+          sent.single.url.toString(),
+          'http://[2001:db8::80]:2324/api/fleet/identity',
+        );
+        answers['POST /api/fleet/invite'] = (_) => {
+          'ok': true,
+          'data': {'pending': true},
+        };
+        final invited = await commands.execute('fleetInvite', {
+          'id': 'bed',
+          'address': '2001:db8::80',
+        });
+        expect(invited.ok, isTrue, reason: invited.error);
+        expect(fleet.followers.single.url, 'http://[2001:db8::80]:2324');
+      },
+    );
+
+    test(
+      'refuses self, malformed identities, leaders and kiosks following another leader',
+      () async {
+        await build(prefs: {'ks.fleet.leader': true});
+        final identity = {
+          'id': 'bed',
+          'name': 'Bedroom',
+          'version': '2026.9.19',
+          'leader': false,
+        };
+        for (final answer in [
+          {},
+          {...identity, 'id': 'me'},
+          {...identity, 'leader': true},
+          {...identity, 'follows': 'Another leader'},
+          http.Response('no fleet endpoint', 404),
+        ]) {
+          answers['GET /api/fleet/identity'] = (_) => answer;
+          expect(
+            (await commands.execute('fleetLookup', {
+              'address': '192.168.1.80',
+            })).ok,
+            isFalse,
+          );
+        }
+        expect(sent.where((r) => r.method == 'POST'), isEmpty);
+        expect(fleet.followers, isEmpty);
+      },
+    );
+
+    test(
+      'rechecks the identity and profile before sending an invitation',
+      () async {
+        await build(prefs: {'ks.fleet.leader': true});
+        final found = await commands.execute('fleetLookup', {
+          'address': '192.168.1.80',
+        });
+        expect(found.ok, isTrue);
+        final invalidProfile = await commands.execute('fleetInvite', {
+          'id': 'bed',
+          'address': '192.168.1.80',
+          'profile': 'removed-profile',
+        });
+        expect(invalidProfile.error, 'No such profile');
+        answers['GET /api/fleet/identity'] = (_) => {
+          'id': 'someone-else',
+          'name': 'Other kiosk',
+          'version': '2026.9.19',
+          'leader': false,
+        };
+        final changed = await commands.execute('fleetInvite', {
+          'id': 'bed',
+          'address': '192.168.1.80',
+        });
+        expect(
+          changed.error,
+          'The address belongs to a different kiosk or fleet',
+        );
+        expect(sent.where((r) => r.method == 'POST'), isEmpty);
+        expect(fleet.followers, isEmpty);
+      },
+    );
+
+    test('Invite again uses a saved address when discovery is empty', () async {
+      peers.clear();
+      await build(
+        prefs: {
+          'ks.fleet.leader': true,
+          'ks.fleet.followers': jsonEncode([
+            {
+              'id': 'bed',
+              'name': 'Bedroom',
+              'address': '192.168.1.80',
+              'port': 2345,
+              'token': 'old-token',
+            },
+          ]),
+        },
+      );
+      answers['GET /api/fleet/identity'] = (_) => {
+        'id': 'bed',
+        'name': 'Bedroom',
+        'version': '2026.9.19',
+        'leader': false,
+        'follows': 'Living Room',
+      };
+      answers['POST /api/fleet/invite'] = (_) => {
+        'ok': true,
+        'data': {'token': 'new-token'},
+      };
+      final result = await commands.execute('fleetInvite', {'id': 'bed'});
+      expect(result.ok, isTrue, reason: result.error);
+      expect(fleet.followers, hasLength(1));
+      expect(fleet.followers.single.token, 'new-token');
+      expect(sent.every((r) => r.url.port == 2345), isTrue);
+    });
+  });
+
   test(
     'polls saved followers and shares membership across versions without mDNS',
     () async {

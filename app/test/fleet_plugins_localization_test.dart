@@ -260,4 +260,98 @@ void main() {
     await container.bus.dispose();
     await container.log.dispose();
   });
+
+  testWidgets(
+    'Add by IP works with no discovered kiosks and preserves the chosen profile',
+    (tester) async {
+      language.value = const Locale('en');
+      tester.view.physicalSize = const Size(390, 1100);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.reset);
+      SharedPreferences.setMockInitialValues({});
+      final container = AppContainer();
+      await container.settings.init();
+      final calls = <(String, Map<String, Object?>)>[];
+      for (final name in [
+        'fleetStatus',
+        'fleetCandidates',
+        'fleetLookup',
+        'fleetInvite',
+      ]) {
+        container.commands.register(
+          Command(
+            name: name,
+            description: 'fixture',
+            handler: (params) async {
+              calls.add((name, params));
+              if (name == 'fleetStatus') {
+                return CommandResult.ok({
+                  'enabled': true,
+                  'leader': true,
+                  'followers': [],
+                  'profiles': [
+                    SyncProfile.initial.toJson(),
+                    SyncProfile.updatesOnly.toJson(),
+                  ],
+                });
+              }
+              if (name == 'fleetCandidates') return const CommandResult.ok([]);
+              if (name == 'fleetLookup') {
+                if (params['address'] == '') {
+                  return const CommandResult.fail('Enter a valid IP address.');
+                }
+                return const CommandResult.ok({
+                  'id': 'bed',
+                  'name': 'Bedroom',
+                  'address': '192.168.1.80',
+                  'port': 2345,
+                  'manual': true,
+                });
+              }
+              return const CommandResult.ok(true);
+            },
+          ),
+        );
+      }
+      await tester.pumpWidget(
+        app(
+          SingleChildScrollView(
+            child: FleetSettingsPanel(container: container),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.widgetWithText(OutlinedButton, 'Add').first);
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Add by IP'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Find kiosk'));
+      await tester.pumpAndSettle();
+      expect(find.text('Enter a valid IP address.'), findsOneWidget);
+      expect(find.byType(TextField), findsNWidgets(2));
+      await tester.enterText(find.byType(TextField).first, '192.168.1.80');
+      await tester.enterText(find.byType(TextField).last, '2345');
+      await tester.tap(find.text('Find kiosk'));
+      await tester.pumpAndSettle();
+      expect(calls.where((c) => c.$1 == 'fleetInvite'), isEmpty);
+      expect(find.text('Sync to Bedroom'), findsOneWidget);
+      await tester.tap(
+        find.widgetWithText(RadioListTile<String>, 'Updates only'),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Send invitation'));
+      await tester.pumpAndSettle();
+      expect(calls.singleWhere((c) => c.$1 == 'fleetInvite').$2, {
+        'id': 'bed',
+        'profile': 'updates-only',
+        'address': '192.168.1.80',
+        'port': 2345,
+      });
+      expect(tester.takeException(), isNull);
+      await tester.pumpWidget(const SizedBox());
+      await container.settings.dispose();
+      await container.bus.dispose();
+      await container.log.dispose();
+    },
+  );
 }

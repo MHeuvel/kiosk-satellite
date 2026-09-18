@@ -714,7 +714,7 @@ class UiStringsEn extends UiStrings {
 
   @override
   String get fleetKiosksMemberOfTheFleetAFollowerMustConfirm =>
-      'Kiosks member of the fleet. A follower must confirm the invitation on device.';
+      'Add a discovered kiosk or enter its IP address. The follower must accept the invitation on its screen.';
 
   @override
   String get fleetSendInvitation => 'Send invitation';
@@ -756,7 +756,7 @@ class UiStringsEn extends UiStrings {
 
   @override
   String get fleetNoOtherKioskFoundOnThisNetworkAKiosk =>
-      'No other kiosk found on this network. A kiosk shows up once its remote admin is on and it shares this Wi-Fi.';
+      'No kiosks discovered. Use Add by IP to find one at a known address.';
 
   @override
   String fleetFollowsName(String name) {
@@ -779,6 +779,25 @@ class UiStringsEn extends UiStrings {
   @override
   String get fleetSettingsFromTheLeaderArriveShortly =>
       'Settings from the leader arrive shortly.';
+
+  @override
+  String get fleetAddByIp => 'Add by IP';
+
+  @override
+  String get fleetFindKiosk => 'Find kiosk';
+
+  @override
+  String get fleetFindingKiosk => 'Finding kiosk…';
+
+  @override
+  String get fleetIpAddress => 'IP address';
+
+  @override
+  String get fleetRemoteAdminPort => 'Remote admin port';
+
+  @override
+  String get fleetAddressHelp =>
+      'Enter the kiosk IP address and remote admin port.';
 
   @override
   String get fleetAddAProfile => 'Add a profile';
@@ -1133,6 +1152,31 @@ class UiStringsEn extends UiStrings {
   @override
   String get fleetErrorAddressMismatch =>
       'The address belongs to a different kiosk or fleet';
+
+  @override
+  String get fleetErrorInvalidIp => 'Enter a valid IP address.';
+
+  @override
+  String get fleetErrorInvalidPort => 'Enter a port from 1 to 65535.';
+
+  @override
+  String get fleetErrorIdentityNotReady =>
+      'This kiosk identity is not ready yet. Try again.';
+
+  @override
+  String get fleetErrorInvalidIdentity =>
+      'That address did not return a valid kiosk identity.';
+
+  @override
+  String get fleetErrorAlreadyMember =>
+      'This kiosk already belongs to this fleet.';
+
+  @override
+  String get fleetErrorIsLeader => 'That kiosk leads a fleet.';
+
+  @override
+  String get fleetErrorOtherLeader =>
+      'That kiosk already follows another leader.';
 
   @override
   String get fleetSwitchKiosk => 'Switch kiosk';

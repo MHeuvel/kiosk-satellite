@@ -6,6 +6,8 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ### Fixed
 
+- **Fleet members can be added by IP address.** Add a kiosk now offers Add by IP on the device and remote admin. Enter the IP address and admin port, verify the kiosk, choose a profile and send the invitation for acceptance on the follower. Invite again also works from saved addresses when discovery is unavailable. Labels, help and validation messages include English and Spanish text (#596).
+
 - **Update release notes match the version shown in the Overview.** Checking for updates after an earlier release was detected now refreshes the version and release notes opened by Install (#607).
 
 ## v2026.9.61 - 2026-09-18

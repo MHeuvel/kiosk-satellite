@@ -1,12 +1,12 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite-localization",
-  "revision": "e16bc9702ee73c1a8c4b31bf31e56fda0c01cd5d",
+  "revision": "1e4575cfb500b5284c1d5d5c556afb856555d7e2",
   "locales": [
     "es"
   ],
   "files": {
-    "source/manifest.json": "ef476f281a2e4ea12bcab57f2084d4c1d009b7c1ab0738a25bc0eeb212e1a286",
+    "source/manifest.json": "836084e712919c47ef498f2b9210be9edb2fdcca039d8e8c830655187f554dc4",
     "source/about_identity_en.arb": "dd006567f69f846e2e3b73f09ad13784f0022d282ea3101fa9be7fc95175ec2d",
     "source/about_updates_en.arb": "b41df3870ffb041249448dc4b13b14a9350ab4417510f23e772458dd1e582c85",
     "source/android_accessibility_en.arb": "6fe33a6ec23fb984d2c9b695d0dcaa41b8136a83cbedae702ee37e563a9a78a0",
@@ -22,9 +22,9 @@
     "source/esphome_entity_picker_en.arb": "43f71f000a352dac8890878ad4f92051b8982f7cb87e404cc133b4d9278ab676",
     "source/file_manager_en.arb": "1d8db3a5e6bd21f7348d53ddba807c4e35f7c2656ba79e669db4fcd17a8bdf24",
     "source/fleet_general_en.arb": "81eedc53b95a855c10d7874fb4c809d08ae5ef0692d011400fa547f841d3a82b",
-    "source/fleet_invitations_en.arb": "00d49b60c572ba929582aaec17f38e2c4dc4c52b29e5fe3fe6855306434bff47",
+    "source/fleet_invitations_en.arb": "25b8e70be2406987a42689bf72baa30573af503f76429eb2981186ed913a75ea",
     "source/fleet_profiles_en.arb": "e9487e27a346f21492ab6a0a6224cf251758965dbfb30bb5a5a8faef94bc3605",
-    "source/fleet_status_en.arb": "6136e13d35c8fdbb334e125a9db4cc84202282cbf8e62d6ce6f8070fd766b9db",
+    "source/fleet_status_en.arb": "a5036bc960e95d661fe0dc330704cc7d335fefa24960810c16e6b7128d9b4e04",
     "source/fleet_switcher_en.arb": "5991593bdda40d6869f6e2c3402a626b4b2ed8846c3c74135a0b7608cdd374d0",
     "source/fleet_sync_selection_en.arb": "4814e772582a33cdc1b62abd21f60930f238a9b1f11ff1d5963bc18d61468941",
     "source/fleet_updates_en.arb": "3b5463bf3e7e96ff4554b313bcfdf836e38df61b1a0a848dc8d386a55615c954",
@@ -201,9 +201,9 @@
     "translations/es/esphome_entity_picker_es.arb": "91a755da651803db139e8b805f249ed9234d98967a8475e417b0b0bf9a933518",
     "translations/es/file_manager_es.arb": "5f403b7e642e36276c7f8be539a2118dd911f4efae845372c2334e9e21cb4220",
     "translations/es/fleet_general_es.arb": "e80cf20bbd98e3f3afe2e70bd86d363caad3b0ede7fa8b4d781f978fd392277f",
-    "translations/es/fleet_invitations_es.arb": "969ac028cf8cd5965427ed874f5c9003123bd06fcde756c8ee24f5d0adad2eac",
+    "translations/es/fleet_invitations_es.arb": "3af4377cd3dc52a80657428b7228fe17d14b49801a6bc1301de92f84ede4eb67",
     "translations/es/fleet_profiles_es.arb": "4b46754b02f7e89938ae5bd66d4c317c8afb61057dd31d121693baf4093576d4",
-    "translations/es/fleet_status_es.arb": "61d8ea541e615f772efa234972ab47d2dde8958700254e338eeda87f54aa4430",
+    "translations/es/fleet_status_es.arb": "dec9583f26e3c74cd15cd6b94f046cc04633e815465f9d61cedb1517b53167fa",
     "translations/es/fleet_switcher_es.arb": "8bd8961498586941ecd1f72aea415855950ca60b086ecbdfa63dae42324061d8",
     "translations/es/fleet_sync_selection_es.arb": "bf81aea126d9ce498d3f5a7df52f0be4f6f2bdf6c6e3f5182d6a9f8bfc670f23",
     "translations/es/fleet_updates_es.arb": "cab978e2771213aaf15b9c93f0364f9e17437410a6b973cf64238a79c89901ee",
@@ -365,7 +365,7 @@
     "translations/es/setup_voice_satellite_es.arb": "cebf1183a4976351d85a0d1f001f7eb52310a68c06919bce1cab00dbd7a66f9c",
     "translations/es/setup_welcome_es.arb": "5ecd1fef9e8d6b0dd3e085d410941099bb7dd8d4f502e98684fefecaf1663d9c",
     "translations/es/sound_picker_es.arb": "4b1867bded8d578e13653eb8e62deb55eae9e41167e0702ea5c9c2329a8a665b",
-    "metadata/reviews/es.json": "a9f2477e5e96886771c52922edc39de8c1226ee542616979867ba614cc144a07",
+    "metadata/reviews/es.json": "8b8aac440e55dcc7394142576b464b00a0804a53f8636a0b604fc26234200f74",
     "LICENSE": "4d3e371a6b6cabc75b4be46fecce7601556d0eb777ad9dba4b00bc13a61de5fc",
     "CREDITS.md": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "docs/CONTRIBUTOR-AGREEMENT.md": "f17a3cd0ddbab3a6b95c50d98b81d5648cb8feb09fc54e33bcce855e45ddb014"

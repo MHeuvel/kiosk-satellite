@@ -30,7 +30,7 @@ class FleetDevice {
   final bool self;
 
   /// Where its remote admin answers.
-  String get url => 'http://$address:$port';
+  String get url => Uri(scheme: 'http', host: address, port: port).toString();
 
   static FleetDevice? fromMap(Map<Object?, Object?>? raw, {bool self = false}) {
     if (raw == null) return null;

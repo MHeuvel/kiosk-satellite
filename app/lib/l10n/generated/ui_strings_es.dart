@@ -723,7 +723,7 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get fleetKiosksMemberOfTheFleetAFollowerMustConfirm =>
-      'Kioskos de la flota. Cada seguidor debe confirmar la invitación en su dispositivo.';
+      'Añade un kiosko encontrado o introduce su dirección IP. El seguidor debe aceptar la invitación en su pantalla.';
 
   @override
   String get fleetSendInvitation => 'Enviar invitación';
@@ -765,7 +765,7 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get fleetNoOtherKioskFoundOnThisNetworkAKiosk =>
-      'No se encontró otro kiosko en esta red. Aparecerá cuando tenga activada la administración remota y esté conectado a esta red Wi-Fi.';
+      'No se encontraron kioskos. Usa Añadir por IP para buscar uno en una dirección conocida.';
 
   @override
   String fleetFollowsName(String name) {
@@ -788,6 +788,25 @@ class UiStringsEs extends UiStrings {
   @override
   String get fleetSettingsFromTheLeaderArriveShortly =>
       'La configuración del líder llegará en breve.';
+
+  @override
+  String get fleetAddByIp => 'Añadir por IP';
+
+  @override
+  String get fleetFindKiosk => 'Buscar kiosko';
+
+  @override
+  String get fleetFindingKiosk => 'Buscando kiosko…';
+
+  @override
+  String get fleetIpAddress => 'Dirección IP';
+
+  @override
+  String get fleetRemoteAdminPort => 'Puerto de administración remota';
+
+  @override
+  String get fleetAddressHelp =>
+      'Introduce la dirección IP del kiosko y su puerto de administración remota.';
 
   @override
   String get fleetAddAProfile => 'Añadir un perfil';
@@ -1146,6 +1165,30 @@ class UiStringsEs extends UiStrings {
   @override
   String get fleetErrorAddressMismatch =>
       'La dirección corresponde a otro kiosko o a otra flota';
+
+  @override
+  String get fleetErrorInvalidIp => 'Introduce una dirección IP válida.';
+
+  @override
+  String get fleetErrorInvalidPort => 'Introduce un puerto entre 1 y 65535.';
+
+  @override
+  String get fleetErrorIdentityNotReady =>
+      'La identidad de este kiosko aún no está lista. Inténtalo de nuevo.';
+
+  @override
+  String get fleetErrorInvalidIdentity =>
+      'Esa dirección no devolvió una identidad de kiosko válida.';
+
+  @override
+  String get fleetErrorAlreadyMember =>
+      'Este kiosko ya pertenece a esta flota.';
+
+  @override
+  String get fleetErrorIsLeader => 'Ese kiosko dirige una flota.';
+
+  @override
+  String get fleetErrorOtherLeader => 'Ese kiosko ya sigue a otro líder.';
 
   @override
   String get fleetSwitchKiosk => 'Cambiar de kiosko';

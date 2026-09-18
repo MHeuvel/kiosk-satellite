@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
-import 'dart:io' show File;
+import 'dart:io' show File, InternetAddress;
 import 'dart:math' show Random;
 
 import 'package:crypto/crypto.dart' show md5;
@@ -216,7 +216,7 @@ class Follower {
   /// own count, so the poll never overwrites it.
   double? sending;
 
-  String get url => 'http://$address:$port';
+  String get url => Uri(scheme: 'http', host: address, port: port).toString();
 
   static Follower? fromJson(Object? raw) {
     if (raw is! Map) return null;
@@ -1044,19 +1044,40 @@ class FleetSyncManager extends Manager {
       )
       ..register(
         Command(
+          name: 'fleetLookup',
+          description: 'Find a kiosk by IP address before inviting it.',
+          params: const {
+            'address': 'The kiosk IP address',
+            'port': 'Its remote admin port, default 2324',
+          },
+          handler: (p) async {
+            final (error, kiosk) = await lookupKiosk(p['address'], p['port']);
+            return error == null
+                ? CommandResult.ok(kiosk)
+                : CommandResult.fail(error);
+          },
+        ),
+      )
+      ..register(
+        Command(
           name: 'fleetInvite',
           description:
-              'Invite a kiosk heard on the network to follow this one. The '
+              'Invite a discovered kiosk or one found by IP address. The '
               'invitation waits on that kiosk\'s screen; nothing is synced '
               'until it is accepted there.',
           params: const {
-            'id': 'The kiosk id, from fleetCandidates',
+            'id': 'The kiosk id, from fleetCandidates or fleetLookup',
+            'address':
+                'The IP address returned by fleetLookup, if entered manually',
+            'port': 'Its remote admin port, default 2324',
             'profile': 'The profile id it gets or omitted for the Default',
           },
           handler: (p) async {
             final r = await inviteKiosk(
               '${p['id'] ?? ''}',
               p['profile'] as String?,
+              address: p['address'],
+              port: p['port'],
             );
             return r == null
                 ? const CommandResult.ok(true)
@@ -1349,7 +1370,11 @@ class FleetSyncManager extends Manager {
         if (!taken.contains(e.key))
           () async {
             final p = e.value;
-            final url = 'http://${p['address']}:${p['port']}';
+            final url = Uri(
+              scheme: 'http',
+              host: '${p['address']}',
+              port: (p['port'] as num).toInt(),
+            ).toString();
             // The status matters: a build without the endpoint answers
             // its login gate with a JSON body of its own.
             final probe = await _get('$url/api/fleet/identity');
@@ -1377,26 +1402,115 @@ class FleetSyncManager extends Manager {
     return out;
   }
 
-  /// Send the invitation. Null on success, else why not.
-  Future<String?> inviteKiosk(String id, String? profile) async {
+  /// Resolve a manual address without sending an invitation or saving a member.
+  Future<(String?, Map<String, Object?>?)> lookupKiosk(
+    Object? address,
+    Object? port, {
+    String? expectedId,
+    bool allowExisting = false,
+  }) async {
+    if (!leading) return ('Lead this fleet is off', null);
+    if (!enabled) {
+      return ('The remote admin and Find other kiosks must be on', null);
+    }
+    final ip = address is String
+        ? InternetAddress.tryParse(address.trim())
+        : null;
+    if (ip == null) return ('Enter a valid IP address.', null);
+    final number = port == null
+        ? 2324
+        : port is int
+        ? port
+        : port is String
+        ? int.tryParse(port.trim())
+        : null;
+    if (number == null || number < 1 || number > 65535) {
+      return ('Enter a port from 1 to 65535.', null);
+    }
+    await _readSelf();
+    if (_selfId.isEmpty) {
+      return ('This kiosk identity is not ready yet. Try again.', null);
+    }
+    final url = Uri(scheme: 'http', host: ip.address, port: number);
+    final probe = await _get('$url/api/fleet/identity');
+    if (probe == null) return ('That kiosk did not answer', null);
+    if (probe.statusCode != 200) {
+      return (
+        'That kiosk runs a build without Fleet Management. It joins once it runs one.',
+        null,
+      );
+    }
+    final identity = _jsonOf(probe);
+    final id = identity?['id'];
+    if (id is! String ||
+        id.isEmpty ||
+        identity?['name'] is! String ||
+        identity?['version'] is! String ||
+        identity?['leader'] is! bool) {
+      return ('That address did not return a valid kiosk identity.', null);
+    }
+    if (id == _selfId) return ('Pick another kiosk', null);
+    if (expectedId != null && id != expectedId) {
+      return ('The address belongs to a different kiosk or fleet', null);
+    }
+    final existing = _follower(id);
+    if (!allowExisting &&
+        existing != null &&
+        (existing.token != null || existing.invite != null)) {
+      return ('This kiosk already belongs to this fleet.', null);
+    }
+    if (identity!['leader'] == true) return ('That kiosk leads a fleet.', null);
+    if (identity['follows'] != null && !(allowExisting && existing != null)) {
+      return ('That kiosk already follows another leader.', null);
+    }
+    return (
+      null,
+      {
+        'id': id,
+        'name': identity['name'],
+        'version': identity['version'],
+        'address': ip.address,
+        'port': number,
+        'supported': true,
+        'manual': true,
+      },
+    );
+  }
+
+  /// Recheck identity before sending the invitation to the selected endpoint.
+  Future<String?> inviteKiosk(
+    String id,
+    String? profile, {
+    Object? address,
+    Object? port,
+  }) async {
     if (!leading) return 'Lead this fleet is off';
     if (!enabled) return 'The remote admin and Find other kiosks must be on';
     if (id.isEmpty || id == _selfId) return 'Pick another kiosk';
-    final peer = (await _peers())[id];
-    if (peer == null) return 'That kiosk is not on the network right now';
-    if (_selfId.isEmpty) await _readSelf();
-    final nonce = _nonce();
-    final address = '${peer['address']}';
-    final port = (peer['port'] as num?)?.toInt() ?? 2324;
-    // Asked first: a kiosk on a build without Fleet Management answers
-    // the invitation with its login gate, and "unauthorized" says nothing.
-    final probe = await _get('http://$address:$port/api/fleet/identity');
-    if (probe == null) return 'That kiosk did not answer';
-    if (probe.statusCode != 200) {
-      return 'That kiosk runs a build without Fleet Management. It joins '
-          'once it runs one.';
+    if (profile != null && !_profiles.any((p) => p.id == profile)) {
+      return 'No such profile';
     }
-    final res = await _post('http://$address:$port/api/fleet/invite', {
+    final manual = address != null;
+    if (!manual) {
+      final peer = (await _peers())[id];
+      final saved = _follower(id);
+      address = peer?['address'] ?? saved?.address;
+      port = peer?['port'] ?? saved?.port;
+      if (address == null) return 'That kiosk is not on the network right now';
+    }
+    final (error, found) = await lookupKiosk(
+      address,
+      port,
+      expectedId: id,
+      allowExisting: !manual,
+    );
+    if (error != null) return error;
+    final peer = found!;
+    final host = peer['address'] as String;
+    final adminPort = peer['port'] as int;
+    final url = Uri(scheme: 'http', host: host, port: adminPort);
+    final nonce = _nonce();
+    final res = await _post('$url/api/fleet/invite', {
       'invite': nonce,
       'leader': {
         'id': _selfId,
@@ -1415,14 +1529,14 @@ class FleetSyncManager extends Manager {
         existing ??
         Follower(
           id: id,
-          name: '${peer['name'] ?? address}',
-          address: address,
-          port: port,
+          name: '${peer['name'] ?? host}',
+          address: host,
+          port: adminPort,
         );
     f
       ..name = '${peer['name'] ?? f.name}'
-      ..address = address
-      ..port = port
+      ..address = host
+      ..port = adminPort
       ..version = '${peer['version'] ?? ''}'
       ..profile = profile == null || profile == SyncProfile.defaultId
           ? null
@@ -1445,7 +1559,7 @@ class FleetSyncManager extends Manager {
     }
     if (existing == null) _followers.add(f);
     await _saveFollowers();
-    log.info(name, 'invited ${f.name} at $address');
+    log.info(name, 'invited ${f.name} at $host');
     _publish();
     _scheduleTick();
     return null;
@@ -1775,7 +1889,14 @@ class FleetSyncManager extends Manager {
     // The kiosk at the address the invitation came from must be the one
     // it claims to be and must lead.
     final identity = _jsonOf(
-      await _get('http://$address:$port/api/fleet/identity'),
+      await _get(
+        Uri(
+          scheme: 'http',
+          host: address,
+          port: port,
+          path: '/api/fleet/identity',
+        ).toString(),
+      ),
     );
     if (identity == null || '${identity['id']}' != leaderId) {
       return ('The invitation does not match the kiosk it came from', null);

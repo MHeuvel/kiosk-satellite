@@ -223,6 +223,12 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'fleetJoinedTheFleet' => strings.fleetJoinedTheFleet,
       'fleetSettingsFromTheLeaderArriveShortly' =>
         strings.fleetSettingsFromTheLeaderArriveShortly,
+      'fleetAddByIp' => strings.fleetAddByIp,
+      'fleetFindKiosk' => strings.fleetFindKiosk,
+      'fleetFindingKiosk' => strings.fleetFindingKiosk,
+      'fleetIpAddress' => strings.fleetIpAddress,
+      'fleetRemoteAdminPort' => strings.fleetRemoteAdminPort,
+      'fleetAddressHelp' => strings.fleetAddressHelp,
       'fleetAddAProfile' => strings.fleetAddAProfile,
       'fleetTheCollectionOfSettingsCredentialsAndExclusionsToSync' =>
         strings.fleetTheCollectionOfSettingsCredentialsAndExclusionsToSync,
@@ -317,6 +323,13 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'fleetErrorDidNotTakeTheUpload' => strings.fleetErrorDidNotTakeTheUpload,
       'fleetUnsupportedBuild' => strings.fleetUnsupportedBuild,
       'fleetErrorAddressMismatch' => strings.fleetErrorAddressMismatch,
+      'fleetErrorInvalidIp' => strings.fleetErrorInvalidIp,
+      'fleetErrorInvalidPort' => strings.fleetErrorInvalidPort,
+      'fleetErrorIdentityNotReady' => strings.fleetErrorIdentityNotReady,
+      'fleetErrorInvalidIdentity' => strings.fleetErrorInvalidIdentity,
+      'fleetErrorAlreadyMember' => strings.fleetErrorAlreadyMember,
+      'fleetErrorIsLeader' => strings.fleetErrorIsLeader,
+      'fleetErrorOtherLeader' => strings.fleetErrorOtherLeader,
       'fleetSwitchKiosk' => strings.fleetSwitchKiosk,
       'fleetKiosksOnThisNetworkWithTheRemoteAdminOn' =>
         strings.fleetKiosksOnThisNetworkWithTheRemoteAdminOn,

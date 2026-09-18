@@ -1372,7 +1372,7 @@ abstract class UiStrings {
   /// Visible label, help or status in this section.
   ///
   /// In en, this message translates to:
-  /// **'Kiosks member of the fleet. A follower must confirm the invitation on device.'**
+  /// **'Add a discovered kiosk or enter its IP address. The follower must accept the invitation on its screen.'**
   String get fleetKiosksMemberOfTheFleetAFollowerMustConfirm;
 
   /// Visible label, help or status in this section.
@@ -1438,7 +1438,7 @@ abstract class UiStrings {
   /// Visible label, help or status in this section.
   ///
   /// In en, this message translates to:
-  /// **'No other kiosk found on this network. A kiosk shows up once its remote admin is on and it shares this Wi-Fi.'**
+  /// **'No kiosks discovered. Use Add by IP to find one at a known address.'**
   String get fleetNoOtherKioskFoundOnThisNetworkAKiosk;
 
   /// Visible label, help or status in this section.
@@ -1476,6 +1476,42 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Settings from the leader arrive shortly.'**
   String get fleetSettingsFromTheLeaderArriveShortly;
+
+  /// Address lookup label, guidance or validation result before sending an invitation.
+  ///
+  /// In en, this message translates to:
+  /// **'Add by IP'**
+  String get fleetAddByIp;
+
+  /// Address lookup label, guidance or validation result before sending an invitation.
+  ///
+  /// In en, this message translates to:
+  /// **'Find kiosk'**
+  String get fleetFindKiosk;
+
+  /// Address lookup label, guidance or validation result before sending an invitation.
+  ///
+  /// In en, this message translates to:
+  /// **'Finding kiosk…'**
+  String get fleetFindingKiosk;
+
+  /// Address lookup label, guidance or validation result before sending an invitation.
+  ///
+  /// In en, this message translates to:
+  /// **'IP address'**
+  String get fleetIpAddress;
+
+  /// Address lookup label, guidance or validation result before sending an invitation.
+  ///
+  /// In en, this message translates to:
+  /// **'Remote admin port'**
+  String get fleetRemoteAdminPort;
+
+  /// Address lookup label, guidance or validation result before sending an invitation.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the kiosk IP address and remote admin port.'**
+  String get fleetAddressHelp;
 
   /// Visible label, help or status in this section.
   ///
@@ -2059,6 +2095,48 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'The address belongs to a different kiosk or fleet'**
   String get fleetErrorAddressMismatch;
+
+  /// Address lookup label, guidance or validation result before sending an invitation.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid IP address.'**
+  String get fleetErrorInvalidIp;
+
+  /// Address lookup label, guidance or validation result before sending an invitation.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a port from 1 to 65535.'**
+  String get fleetErrorInvalidPort;
+
+  /// Address lookup label, guidance or validation result before sending an invitation.
+  ///
+  /// In en, this message translates to:
+  /// **'This kiosk identity is not ready yet. Try again.'**
+  String get fleetErrorIdentityNotReady;
+
+  /// Address lookup label, guidance or validation result before sending an invitation.
+  ///
+  /// In en, this message translates to:
+  /// **'That address did not return a valid kiosk identity.'**
+  String get fleetErrorInvalidIdentity;
+
+  /// Address lookup label, guidance or validation result before sending an invitation.
+  ///
+  /// In en, this message translates to:
+  /// **'This kiosk already belongs to this fleet.'**
+  String get fleetErrorAlreadyMember;
+
+  /// Address lookup label, guidance or validation result before sending an invitation.
+  ///
+  /// In en, this message translates to:
+  /// **'That kiosk leads a fleet.'**
+  String get fleetErrorIsLeader;
+
+  /// Address lookup label, guidance or validation result before sending an invitation.
+  ///
+  /// In en, this message translates to:
+  /// **'That kiosk already follows another leader.'**
+  String get fleetErrorOtherLeader;
 
   /// Visible label, help or status in this section.
   ///

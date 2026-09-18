@@ -34,7 +34,11 @@ def api(route):
     if path=='settings':return route.fulfill(json=dict(settings=settings,subpageHints={}))
     name=path.removeprefix('commands/');params=route.request.post_data_json or {}
     commands.append((name,copy.deepcopy(params)))
-    data={'fleetStatus':fleet,'getPluginState':plugins,'getPluginReadings':readings,'getPluginShizukuState':dict(status='permission_required'),'getPluginCharts':[],'getAudioDevices':dict(inputs=[],outputs=[])}.get(name,{})
+    data={'fleetStatus':fleet,'fleetCandidates':[],'getPluginState':plugins,'getPluginReadings':readings,'getPluginShizukuState':dict(status='permission_required'),'getPluginCharts':[],'getAudioDevices':dict(inputs=[],outputs=[])}.get(name,{})
+    if name=='fleetLookup':
+        if not params.get('address'):
+            return route.fulfill(json=dict(ok=False,error='Enter a valid IP address.'))
+        data=dict(id='manual-id',name='Manual <b>NAME</b>',address='192.0.2.80',port=2345,manual=True)
     if name=='fleetSetProfile':
         profile=params['profile'];profiles[next(i for i,p in enumerate(profiles) if p['id']==profile['id'])]=profile
     if name=='configurePluginAction':plugin['actionOptions'][params['command']]={k:params[k] for k in ['drawer','homeAssistant']}
@@ -61,6 +65,27 @@ try:
         expect(root.get_by_text(tr('fleet','Followers'),exact=True)).to_be_visible()
         expect(root.get_by_text('<b>Keep NAME</b>',exact=True).first).to_be_visible()
         assert root.locator('b').count()==0
+        # Manual lookup stays available with no discovered kiosks and keeps
+        # the address and profile through the invitation confirmation.
+        page.set_viewport_size(dict(width=390,height=1100))
+        root.get_by_role('button',name=tr('fleet','Add'),exact=True).first.click()
+        page.locator('.modal-back').last.get_by_role('button',name=tr('fleet','Add by IP'),exact=True).click()
+        modal=page.locator('.modal-back').last
+        modal.get_by_role('button',name=tr('fleet','Find kiosk'),exact=True).click()
+        expect(modal.get_by_role('alert')).to_have_text(tr('fleet','Enter a valid IP address.'))
+        modal.get_by_label(tr('fleet','IP address'),exact=True).fill('192.0.2.80')
+        modal.get_by_label(tr('fleet','Remote admin port'),exact=True).fill('2345')
+        assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
+        modal.get_by_role('button',name=tr('fleet','Find kiosk'),exact=True).click()
+        modal=page.locator('.modal-back').last
+        expect(modal.get_by_text(translated['fleetSyncToName'].replace('{name}','Manual <b>NAME</b>'),exact=True)).to_be_visible()
+        assert not any(n=='fleetInvite' for n,p in commands)
+        modal.locator('input[type=radio]').nth(1).check()
+        modal.get_by_role('button',name=tr('fleet','Send invitation'),exact=True).click()
+        expect(page.locator('.modal-back')).to_have_count(0)
+        page.wait_for_function("document.querySelector('#tab-fleet').getAttribute('aria-busy') !== 'true'")
+        assert any(n=='fleetInvite' and p==dict(id='manual-id',profile='updates-only',address='192.0.2.80',port=2345) for n,p in commands)
+        page.set_viewport_size(dict(width=1200,height=1400))
         # Built-in profile names translate by ID. An identically named custom profile stays raw.
         names=root.locator('.subpage-entry[data-subpage-entry] .name').all_text_contents()
         assert tr('fleet','Default') in names and 'Default' in names,names

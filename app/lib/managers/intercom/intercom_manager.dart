@@ -44,7 +44,7 @@ class IntercomKiosk {
   DateTime? probedAt;
   bool probeFailed = false;
 
-  String get url => 'http://$address:$port';
+  String get url => Uri(scheme: 'http', host: address, port: port).toString();
 
   /// ready, off, key, dnd, unreachable, offline, unknown. Unreachable is
   /// a known kiosk whose admin port does not answer.
@@ -1556,8 +1556,12 @@ class IntercomManager extends Manager {
   Future<bool> _signalPeer(String action) async {
     final c = _call;
     if (c == null) return false;
-    final url =
-        'http://${c.peer['address']}:${c.peer['port']}/api/intercom/call/${c.id}';
+    final url = Uri(
+      scheme: 'http',
+      host: '${c.peer['address']}',
+      port: (c.peer['port'] as num).toInt(),
+      path: '/api/intercom/call/${c.id}',
+    ).toString();
     final res = await _post(
       url,
       {'action': action},

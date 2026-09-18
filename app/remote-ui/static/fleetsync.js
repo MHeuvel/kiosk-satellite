@@ -517,6 +517,72 @@ function profilePanel(p) {
 
 /* ---- Add a kiosk ---- */
 
+function openAddressDialog() {
+  return new Promise((resolve) => {
+    let closed = false;
+    let pending = false;
+    const finish = (value) => {
+      if (closed) return;
+      closed = true;
+      shell.close();
+      resolve(value);
+    };
+    const shell = modalShell({ title: fleetText('Add by IP'), width: 440,
+      onDismiss: () => finish(null) });
+    shell.body.appendChild(hintRow(fleetText('Enter the kiosk IP address and remote admin port.')));
+    const field = (title, value, type) => {
+      const label = document.createElement('label');
+      label.style.cssText = 'display:block;margin:12px 0;';
+      label.appendChild(document.createTextNode(fleetText(title)));
+      const input = document.createElement('input');
+      input.className = 'field';
+      input.style.cssText = 'display:block;width:100%;margin-top:6px;';
+      input.type = type;
+      input.value = value;
+      input.autocomplete = 'off';
+      input.spellcheck = false;
+      label.appendChild(input);
+      shell.body.appendChild(label);
+      return input;
+    };
+    const address = field('IP address', '', 'text');
+    const port = field('Remote admin port', '2324', 'number');
+    port.min = '1'; port.max = '65535'; port.step = '1';
+    const error = document.createElement('div');
+    error.setAttribute('role', 'alert');
+    error.style.color = 'var(--error)';
+    shell.body.appendChild(error);
+    const find = button(fleetText('Find kiosk'), 'btn-primary', async () => {
+      if (pending || closed) return;
+      pending = true;
+      find.disabled = address.disabled = port.disabled = true;
+      find.textContent = fleetText('Finding kiosk…');
+      error.textContent = '';
+      try {
+        const result = await cmd('fleetLookup', { address: address.value.trim(), port: port.value.trim() });
+        if (closed) return;
+        if (result.ok && result.data) { finish(result.data); return; }
+        error.textContent = fleetStatusText(result.error || 'That kiosk did not answer');
+      } catch (_) {
+        if (!closed) error.textContent = fleetText('That kiosk did not answer');
+      } finally {
+        if (!closed) {
+          pending = false;
+          find.disabled = address.disabled = port.disabled = false;
+          find.textContent = fleetText('Find kiosk');
+        }
+      }
+    });
+    for (const input of [address, port]) {
+      input.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') { event.preventDefault(); find.click(); }
+      });
+    }
+    shell.foot.append(button(fleetText('Cancel'), 'btn-text', () => finish(null)), find);
+    address.focus();
+  });
+}
+
 function openAddDialog() {
   return new Promise((resolve) => {
     const shell = modalShell({ title: fleetText('Add a kiosk'), width: 440,
@@ -525,12 +591,16 @@ function openAddDialog() {
     looking.className = 'hint-row';
     looking.textContent = fleetText('Looking for other kiosks…');
     shell.body.appendChild(looking);
+    shell.foot.appendChild(button(fleetText('Add by IP'), 'btn-text', async () => {
+      shell.close();
+      resolve(await openAddressDialog());
+    }));
     shell.foot.appendChild(button(fleetText('Cancel'), 'btn-text', () => { shell.close(); resolve(null); }));
     cmd('fleetCandidates').then((r) => {
       looking.remove();
       const list = r.ok ? (r.data || []) : [];
       if (!list.length) {
-        shell.body.appendChild(hintRow(fleetText('No other kiosk found on this network. A kiosk shows up once its remote admin is on and it shares this Wi-Fi.')));
+        shell.body.appendChild(hintRow(fleetText('No kiosks discovered. Use Add by IP to find one at a known address.')));
         return;
       }
       for (const k of list) {
@@ -614,13 +684,14 @@ export async function renderFleetPage({ fetch = true } = {}) {
     // Followers.
     const [h, card] = titled(fleetText('Followers'));
     for (const f of status.followers || []) card.appendChild(followerRow(f));
-    const add = infoRow(fleetText('Add a kiosk'), fleetText('Kiosks member of the fleet. A follower must confirm the invitation on device.'));
+    const add = infoRow(fleetText('Add a kiosk'), fleetText('Add a discovered kiosk or enter its IP address. The follower must accept the invitation on its screen.'));
     add.appendChild(button(fleetText('Add'), 'btn-ghost', async () => {
       const k = await openAddDialog();
       if (!k) return;
       const profile = await openProfilePicker({ who: k.name, confirm: fleetText('Send invitation') });
       if (!profile) return;
-      await run('fleetInvite', { id: k.id, profile });
+      await run('fleetInvite', { id: k.id, profile,
+        ...(k.manual ? { address: k.address, port: k.port } : {}) });
     }));
     card.appendChild(add);
     tab.append(h, card);

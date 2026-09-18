@@ -818,5 +818,96 @@
         "Fleet Management"
       ]
     }
+  },
+  "fleetErrorInvalidIp": "Enter a valid IP address.",
+  "@fleetErrorInvalidIp": {
+    "context": "Settings > Fleet Management > Add a kiosk > Add by IP",
+    "description": "Address lookup label, guidance or validation result before sending an invitation.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk > Add by IP"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk > Add by IP"
+      ]
+    }
+  },
+  "fleetErrorInvalidPort": "Enter a port from 1 to 65535.",
+  "@fleetErrorInvalidPort": {
+    "context": "Settings > Fleet Management > Add a kiosk > Add by IP",
+    "description": "Address lookup label, guidance or validation result before sending an invitation.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk > Add by IP"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk > Add by IP"
+      ]
+    }
+  },
+  "fleetErrorIdentityNotReady": "This kiosk identity is not ready yet. Try again.",
+  "@fleetErrorIdentityNotReady": {
+    "context": "Settings > Fleet Management > Add a kiosk > Add by IP",
+    "description": "Address lookup label, guidance or validation result before sending an invitation.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk > Add by IP"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk > Add by IP"
+      ]
+    }
+  },
+  "fleetErrorInvalidIdentity": "That address did not return a valid kiosk identity.",
+  "@fleetErrorInvalidIdentity": {
+    "context": "Settings > Fleet Management > Add a kiosk > Add by IP",
+    "description": "Address lookup label, guidance or validation result before sending an invitation.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk > Add by IP"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk > Add by IP"
+      ]
+    }
+  },
+  "fleetErrorAlreadyMember": "This kiosk already belongs to this fleet.",
+  "@fleetErrorAlreadyMember": {
+    "context": "Settings > Fleet Management > Add a kiosk > Add by IP",
+    "description": "Address lookup label, guidance or validation result before sending an invitation.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk > Add by IP"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk > Add by IP"
+      ]
+    }
+  },
+  "fleetErrorIsLeader": "That kiosk leads a fleet.",
+  "@fleetErrorIsLeader": {
+    "context": "Settings > Fleet Management > Add a kiosk > Add by IP",
+    "description": "Address lookup label, guidance or validation result before sending an invitation.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk > Add by IP"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk > Add by IP"
+      ]
+    }
+  },
+  "fleetErrorOtherLeader": "That kiosk already follows another leader.",
+  "@fleetErrorOtherLeader": {
+    "context": "Settings > Fleet Management > Add a kiosk > Add by IP",
+    "description": "Address lookup label, guidance or validation result before sending an invitation.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > Add a kiosk > Add by IP"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > Add a kiosk > Add by IP"
+      ]
+    }
   }
 }

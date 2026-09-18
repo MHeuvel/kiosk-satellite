@@ -18,12 +18,14 @@ It is perfectly fine to have multiple fleets on a single network. A kiosk that n
 
 ## Adding a Kiosk
 
-1. On the leader device, tap **Add a kiosk** to view available network devices not currently following it. Kiosks already following another leader will appear dimmed and must leave their current fleet first. If a kiosk is on a different version, it can still be added but will sync only after it updates.
+1. On the leader device, tap **Add a kiosk** to view discovered devices. If the kiosk is not discovered, choose **Add by IP**, enter its IP address and remote admin port (2324 by default) then tap **Find kiosk**. This option is also available in remote administration and works without mDNS advertisements. The leader verifies the kiosk before you continue. Kiosks already following another leader must leave that fleet first. A kiosk on a different version can join but settings sync waits until its version matches.
 2. Select a kiosk, assign it a profile, and tap **Send invitation**.
 3. The invitation will overlay on the target kiosk's screen, staying under its Settings, Fleet Management until answered. You must tap **Accept** directly on that device. (While the remote admin shows the invite, it cannot accept it. No passwords are required.)
 4. The leader's dashboard will display **Waiting for its OK** until accepted, after which it syncs immediately.
 
 Accepting an invitation grants the leader a token valid only for fleet endpoints, which is honored as long as the kiosk remains in the fleet. Tapping **Leave the fleet** forgets the leader and revokes the token.
+
+To keep each follower's settings, choose the **Updates only** profile before sending its invitation. Entering an IP address does not bypass the on-device acceptance step or make an unreachable address accessible. Both kiosks must be able to reach each other's remote admin ports. IPv4 and IPv6 addresses are supported.
 
 ## Profiles
 
@@ -129,5 +131,7 @@ Files referenced by settings (like notification chimes, gallery photos, or local
 | `/api/fleet/roster` | POST | fleet | `{devices: [{id, name, version, address, port}]}`: Replaces the saved member directory independently of settings sync. Contains no fleet tokens. |
 
 The status response includes `rosterRevision` on releases that support the directory. The leader sends a roster only when that revision differs from its current member list.
+
+For manual invitations, call `fleetLookup` with `{address, port}` to verify the target. It returns the kiosk identity and normalized endpoint without saving a member. Pass its `id`, `address` and `port` to `fleetInvite` with the chosen `profile`. The leader verifies the identity again before sending the invitation. Omitting `address` keeps the discovered or saved address path.
 
 A fleet token also grants access to `getUpdateStatus`, `checkUpdateNow`, `installUpdate` and `installUploadedApk` under `/api/commands/` and to `POST /api/update/upload`, but nothing else. Both pages utilize commands like: `fleetStatus`, `fleetCandidates`, `fleetInvite`, `fleetSetProfile`, `fleetDeleteProfile`, `fleetAssignProfile`, `fleetSyncable`, `fleetRemove`, `fleetSyncNow`, `fleetUpdate`, `fleetInstallUploaded`, and `fleetLeave`. Note that `fleetAccept` and `fleetDecline` are rejected if sent over the remote API. The WebSocket broadcast includes a `fleetsync` event upon any change.

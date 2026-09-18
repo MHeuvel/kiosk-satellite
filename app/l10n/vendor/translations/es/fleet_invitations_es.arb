@@ -1,7 +1,7 @@
 {
   "@@locale": "es",
   "fleetAddAKiosk": "Añadir un kiosko",
-  "fleetKiosksMemberOfTheFleetAFollowerMustConfirm": "Kioskos de la flota. Cada seguidor debe confirmar la invitación en su dispositivo.",
+  "fleetKiosksMemberOfTheFleetAFollowerMustConfirm": "Añade un kiosko encontrado o introduce su dirección IP. El seguidor debe aceptar la invitación en su pantalla.",
   "fleetSendInvitation": "Enviar invitación",
   "fleetInviteAgain": "Volver a invitar",
   "fleetRemoveName": "¿Eliminar {name}?",
@@ -12,11 +12,17 @@
   "fleetConfirmOnTheKioskItselfTheInvitationIsWaiting": "Confirma en el propio kiosko. La invitación aparece en su pantalla y en Configuración > Gestión de flota.",
   "fleetAccept": "Aceptar",
   "fleetLookingForOtherKiosks": "Buscando otros kioskos…",
-  "fleetNoOtherKioskFoundOnThisNetworkAKiosk": "No se encontró otro kiosko en esta red. Aparecerá cuando tenga activada la administración remota y esté conectado a esta red Wi-Fi.",
+  "fleetNoOtherKioskFoundOnThisNetworkAKiosk": "No se encontraron kioskos. Usa Añadir por IP para buscar uno en una dirección conocida.",
   "fleetFollowsName": "Sigue a {name}",
   "fleetLeadsAFleet": "Dirige una flota",
   "fleetNoFleetManagement": "Sin gestión de flota",
   "fleetKiosksOnThisNetworkThatDoNotFollowThis": "Kioskos de esta red que no siguen a este. Selecciona uno y elige qué recibirá para enviarle la invitación. Si su versión no incluye Gestión de flota, podrá unirse cuando la actualice.",
   "fleetJoinedTheFleet": "Te has unido a la flota",
-  "fleetSettingsFromTheLeaderArriveShortly": "La configuración del líder llegará en breve."
+  "fleetSettingsFromTheLeaderArriveShortly": "La configuración del líder llegará en breve.",
+  "fleetAddByIp": "Añadir por IP",
+  "fleetFindKiosk": "Buscar kiosko",
+  "fleetFindingKiosk": "Buscando kiosko…",
+  "fleetIpAddress": "Dirección IP",
+  "fleetRemoteAdminPort": "Puerto de administración remota",
+  "fleetAddressHelp": "Introduce la dirección IP del kiosko y su puerto de administración remota."
 }
