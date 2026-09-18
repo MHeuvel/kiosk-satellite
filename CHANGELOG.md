@@ -6,6 +6,8 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ### Added
 
+- **TTS playback diagnostics separate transfer and playback completion.** App Logs record HTTP completion, decoder selection, audio position advancement and end-of-stream handling for native streamed sounds. The `soundDiagnostics` command can capture one response on request and replay its exact bytes through Android ExoPlayer with default or software decoders. Capture stays in memory with an 8 MiB limit and can be exported or cleared (#575, #598).
+
 - **Return to the previous app after voice interactions.** Voice Satellite can automatically return to the previous app or home screen after a conversation or announcement brings Kiosk Satellite forward. The new switch is on by default and appears below **Keep listening in the background** while that setting is enabled. Both settings interfaces include English and Spanish text (#593).
 
 - **Localization framework and Spanish support.** Shared translation catalogs support community translations for the device interface and remote administration, with Spanish included. Choose English or Español during setup or under Settings > Device > User Interface.

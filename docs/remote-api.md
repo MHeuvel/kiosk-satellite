@@ -126,6 +126,9 @@ needs the "All files access" grant (a settings screen on the device, offered
 from the tab); the `app` root is the app's own folder and always works. Paths
 are canonicalized against their root, so `..` cannot escape it.
 
+The `soundDiagnostics` command captures and replays a TTS response for Android
+playback troubleshooting. See [TTS playback diagnostics](tts-diagnostics.md).
+
 Representative commands (`POST /api/commands/<name>`): `loadUrl {url}`,
 `loadDashboard {dashboard}`, `loadStartUrl` (back to the configured
 Start URL), `reload`, `screenOn` / `screenOff` / `isScreenOn` (`screenOn {path: "activity"}`

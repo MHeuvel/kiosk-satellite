@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
@@ -8,6 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import '../../core/command_registry.dart';
 import '../../core/events.dart';
 import '../../core/manager.dart';
+import 'sound_capture.dart';
 
 /// Page-delegated sound playback (Voice Satellite chimes and TTS).
 ///
@@ -50,8 +52,11 @@ class SoundManager extends Manager {
 
   /// Loopback relay for stream plays: token -> upstream URL, id -> token.
   HttpServer? _relay;
-  final _relayTargets = <String, String>{};
+  final _relayTargets = <String, _SoundRelayTarget>{};
   final _streamTokens = <String, String>{};
+  bool _captureArmed = false;
+  SoundCapture? _capture;
+  String? _diagnosticReplayId;
 
   int _nextId = 0;
 
@@ -61,6 +66,8 @@ class SoundManager extends Manager {
       final args = (call.arguments as Map).cast<String, Object?>();
       final id = '${args['id']}';
       switch (call.method) {
+        case 'diagnostic':
+          log.debug(name, 'sound $id: ${args['message']}');
         case 'started':
           bus.publish(SoundStarted(id: id));
         case 'level':
@@ -69,6 +76,12 @@ class SoundManager extends Manager {
           );
         case 'ended':
           final error = args['error'] as String?;
+          if (_diagnosticReplayId == id) _diagnosticReplayId = null;
+          if (_capture?.id == id) {
+            _capture!
+              ..playbackEnded = true
+              ..playbackError = error;
+          }
           if (error != null) log.warn(name, 'sound $id failed: $error');
           final stale = _ephemeral.remove(id);
           if (stale != null) {
@@ -84,6 +97,22 @@ class SoundManager extends Manager {
     });
 
     commands
+      ..register(
+        Command(
+          name: 'soundDiagnostics',
+          description:
+              'Capture the next streamed sound in memory for diagnosis, '
+              'inspect it or replay its exact bytes through Android ExoPlayer',
+          quiet: true,
+          params: const {
+            'action': 'arm, status (default), export, replay or clear',
+            'decoder': 'default or software for replay (default: default)',
+            'volume':
+                '0..1 for replay, relative to assistant volume (default 1)',
+          },
+          handler: _soundDiagnostics,
+        ),
+      )
       ..register(
         Command(
           name: 'playSound',
@@ -222,6 +251,88 @@ class SoundManager extends Manager {
       );
   }
 
+  Future<CommandResult> _soundDiagnostics(Map<String, Object?> p) async {
+    final capture = _capture;
+    switch (p['action'] ?? 'status') {
+      case 'arm':
+        capture?.discard('Replaced by a new capture');
+        _capture = null;
+        _captureArmed = true;
+        log.info(
+          name,
+          'Capture armed for the next streamed sound (8 MiB limit)',
+        );
+        return const CommandResult.ok({'armed': true});
+      case 'clear':
+        _captureArmed = false;
+        capture?.discard('Capture cleared');
+        _capture = null;
+        return const CommandResult.ok({'armed': false});
+      case 'status':
+        return CommandResult.ok({
+          'armed': _captureArmed,
+          'capture': capture?.status,
+          'replayId': _diagnosticReplayId,
+        });
+      case 'export':
+        if (capture == null || !capture.ready) {
+          return const CommandResult.fail('No complete capture available');
+        }
+        return CommandResult.ok({
+          ...capture.status,
+          'base64': base64Encode(capture.audio),
+        });
+      case 'replay':
+        if (_diagnosticReplayId != null) {
+          return const CommandResult.fail(
+            'A diagnostic replay is still active',
+          );
+        }
+        if (capture == null || !capture.ready || !capture.playbackEnded) {
+          return const CommandResult.fail(
+            'Wait for a complete capture and the original playback to end',
+          );
+        }
+        final decoder = p['decoder'] ?? 'default';
+        if (decoder != 'default' && decoder != 'software') {
+          return const CommandResult.fail(
+            'decoder must be default or software',
+          );
+        }
+        final id = 'snd${++_nextId}';
+        final bytes = capture.audio;
+        _diagnosticReplayId = id;
+        File? file;
+        try {
+          final dir = await getTemporaryDirectory();
+          file = File('${dir.path}/ks_sound_capture_$id');
+          await file.writeAsBytes(bytes, flush: true);
+          _ephemeral[id] = file.path;
+          final ok = await _channel.invokeMethod<bool>('playDiagnostic', {
+            'id': id,
+            'source': file.path,
+            'volume': (p['volume'] as num?)?.toDouble() ?? 1.0,
+            // Local files normally use the short-clip path. Both comparison
+            // runs must use the same ExoPlayer path as streamed TTS.
+            'exoDecoder': decoder,
+          });
+          if (ok != true) throw StateError('Native replay refused');
+        } catch (_) {
+          if (_diagnosticReplayId == id) _diagnosticReplayId = null;
+          _ephemeral.remove(id);
+          if (file != null && await file.exists()) await file.delete();
+          rethrow;
+        }
+        log.info(
+          name,
+          'Replaying capture ${capture.id} as $id decoder=$decoder',
+        );
+        return CommandResult.ok({'id': id, 'captureId': capture.id});
+      default:
+        return const CommandResult.fail('Unknown sound diagnostics action');
+    }
+  }
+
   /// The first of [candidates] that exists on disk, the bundled chime when
   /// none does. Files only, and local ones: the notification sounds live
   /// in a folder on the device (NotificationSounds), and the native clip
@@ -276,7 +387,12 @@ class SoundManager extends Manager {
   Future<String> _relayUrlFor(String id, String url) async {
     final relay = _relay ??= await _startRelay();
     final token = 'r${++_nextId}';
-    _relayTargets[token] = url;
+    SoundCapture? capture;
+    if (_captureArmed) {
+      _captureArmed = false;
+      capture = _capture = SoundCapture(id);
+    }
+    _relayTargets[token] = _SoundRelayTarget(id, url, capture);
     _streamTokens[id] = token;
     return 'http://127.0.0.1:${relay.port}/s/$token';
   }
@@ -304,21 +420,73 @@ class SoundManager extends Manager {
       return;
     }
     final client = HttpClient();
+    final elapsed = Stopwatch()..start();
+    var bytes = 0;
+    // ExoPlayer may retry a request. Keep one response per capture, never
+    // append a second response to the first clip.
+    final capture = target.captureClaimed ? null : target.capture;
+    target.captureClaimed = true;
+    log.debug(name, 'sound ${target.id}: HTTP request started');
     try {
-      final out = await client.getUrl(Uri.parse(target));
+      final out = await client.getUrl(Uri.parse(target.url));
       final upstream = await out.close();
       final res = req.response;
       res.statusCode = upstream.statusCode;
       final type = upstream.headers.contentType;
       if (type != null) res.headers.contentType = type;
+      capture
+        ?..statusCode = upstream.statusCode
+        ..contentType = type?.toString();
+      log.debug(
+        name,
+        'sound ${target.id}: HTTP headers '
+        'status=${upstream.statusCode} length=${upstream.contentLength} '
+        'type=$type elapsed=${elapsed.elapsedMilliseconds}ms',
+      );
       // Chunked passthrough, no length: the upstream is typically still
       // being synthesized, and the player reads until the stream closes.
-      await res.addStream(upstream);
+      await res.addStream(
+        upstream.transform(
+          StreamTransformer<List<int>, List<int>>.fromHandlers(
+            handleData: (chunk, sink) {
+              if (bytes == 0) {
+                log.debug(
+                  name,
+                  'sound ${target.id}: HTTP first bytes '
+                  'elapsed=${elapsed.elapsedMilliseconds}ms',
+                );
+              }
+              bytes += chunk.length;
+              capture?.add(chunk);
+              sink.add(chunk);
+            },
+            handleDone: (sink) {
+              // Only the upstream's end event proves EOF. A downstream
+              // cancellation must not make a partial capture replayable.
+              if (capture != null) capture.httpComplete = true;
+              log.debug(
+                name,
+                'sound ${target.id}: HTTP upstream complete '
+                'bytes=$bytes elapsed=${elapsed.elapsedMilliseconds}ms',
+              );
+              sink.close();
+            },
+          ),
+        ),
+      );
       await res.close();
+      log.debug(name, 'sound ${target.id}: HTTP relay closed');
     } catch (e) {
-      log.warn(name, 'sound relay failed for $target: $e');
+      capture?.discard('HTTP transfer failed');
+      log.warn(
+        name,
+        'sound ${target.id}: HTTP relay failed '
+        'bytes=$bytes elapsed=${elapsed.elapsedMilliseconds}ms: $e',
+      );
       try {
         req.response.statusCode = HttpStatus.badGateway;
+      } catch (_) {}
+      try {
         await req.response.close();
       } catch (_) {}
     } finally {
@@ -328,7 +496,19 @@ class SoundManager extends Manager {
 
   @override
   Future<void> dispose() async {
+    _captureArmed = false;
+    _capture?.discard('Sound manager disposed');
+    _capture = null;
     await _relay?.close(force: true);
     _relay = null;
   }
+}
+
+class _SoundRelayTarget {
+  _SoundRelayTarget(this.id, this.url, this.capture);
+
+  final String id;
+  final String url;
+  final SoundCapture? capture;
+  bool captureClaimed = false;
 }
