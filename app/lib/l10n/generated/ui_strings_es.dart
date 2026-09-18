@@ -4304,7 +4304,7 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get deviceBatteryHeld =>
-      'Permite que el proceso se ejecute en segundo plano sin que se pause ni se cierre.';
+      'Allows the process to run in the background without being paused or killed.';
 
   @override
   String get deviceCamera => 'Cámara';
@@ -4816,6 +4816,60 @@ class UiStringsEs extends UiStrings {
   }
 
   @override
+  String get shizukuPermissionUnconfirmed =>
+      'Android has not confirmed this permission. Check Permissions Manager on the device.';
+
+  @override
+  String get shizukuPermissionReadFailed =>
+      'Could not read current permissions. Try again.';
+
+  @override
+  String get shizukuRestartTimedOut => 'The restart command timed out';
+
+  @override
+  String get shizukuRestartRefused => 'Android refused the restart';
+
+  @override
+  String get shizukuCommandTimedOut => 'Command timed out';
+
+  @override
+  String get shizukuRequestRejected => 'Android rejected the request';
+
+  @override
+  String get deviceDisconnectedError => 'Device disconnected';
+
+  @override
+  String get deviceResponseTimedOut => 'Device response timed out';
+
+  @override
+  String get deviceRequestAborted => 'Request aborted';
+
+  @override
+  String get shizukuActionBusy => 'A Shizuku device action is already running';
+
+  @override
+  String get shizukuGrantFirst => 'Grant Shizuku access first';
+
+  @override
+  String get shizukuNoResponse => 'Shizuku command did not respond';
+
+  @override
+  String get shizukuCommandFailed => 'Shizuku command failed';
+
+  @override
+  String get shizukuStartRequired =>
+      'Start Shizuku 13 or later and allow Kiosk Satellite in Shizuku';
+
+  @override
+  String get shizukuConnectionFailed => 'Shizuku connection failed';
+
+  @override
+  String get shizukuHelperNotConnected => 'Shizuku helper did not connect';
+
+  @override
+  String get shizukuHelperUnavailable => 'Shizuku helper is unavailable';
+
+  @override
   String get deviceHelperPage => 'Asistente de actualización opcional';
 
   @override
@@ -4989,6 +5043,86 @@ class UiStringsEs extends UiStrings {
   @override
   String get deviceUpdateUrlPath =>
       'Introduce solo la URL de la carpeta, sin nada después de la ruta. Ejemplo: http://nas.local/kiosk-satellite';
+
+  @override
+  String get updateDownloadBusy =>
+      'A download is running. Wait for it to finish.';
+
+  @override
+  String get updateInstallBusy =>
+      'An install is running. Wait for it to finish.';
+
+  @override
+  String get updateNoAvailable => 'No update is available.';
+
+  @override
+  String get updateNoUploaded => 'No uploaded APK is waiting.';
+
+  @override
+  String get updateUploadEmpty => 'The upload was empty.';
+
+  @override
+  String get updateInvalidApk => 'The file is not an Android APK.';
+
+  @override
+  String get updateUploadedGone => 'The uploaded APK is gone. Upload it again.';
+
+  @override
+  String get updateShizukuInstallerFailed =>
+      'Shizuku could not install the update. No confirmation installer was opened.';
+
+  @override
+  String updateUploadSpace(String size, String required, String free) {
+    return 'Not enough free space: the APK is $size MB and the install needs about $required MB, but the device has $free MB free.';
+  }
+
+  @override
+  String updateUploadInterrupted(String size, String error) {
+    return 'The upload was interrupted after $size MB: $error';
+  }
+
+  @override
+  String updateUploadEarly(String received, String expected) {
+    return 'The upload ended early: $received of $expected MB arrived.';
+  }
+
+  @override
+  String updateWrongPackage(String package, String expected) {
+    return 'The APK is $package, not Kiosk Satellite ($expected).';
+  }
+
+  @override
+  String updateOlderBuild(
+    String version,
+    String build,
+    String currentVersion,
+    String currentBuild,
+  ) {
+    return 'The APK is version $version (build $build), older than the running $currentVersion (build $currentBuild). Downgrades are refused: Android would not install one either.';
+  }
+
+  @override
+  String updateDownloadHttpFailed(String status) {
+    return 'Download failed (HTTP $status).';
+  }
+
+  @override
+  String updateDownloadStalled(String seconds) {
+    return 'The download stalled: no data arrived for $seconds seconds.';
+  }
+
+  @override
+  String deviceUpdateFailedDetail(String error) {
+    return 'Update failed: $error';
+  }
+
+  @override
+  String deviceInstallFailedDetail(String error) {
+    return 'Install failed: $error';
+  }
+
+  @override
+  String get updateAnotherPackage => 'another package';
 
   @override
   String get settingUiLanguageTitle => 'Idioma';
@@ -8271,6 +8405,12 @@ class UiStringsEs extends UiStrings {
   @override
   String get screensaverOverlayGlanceHint =>
       'Entidades que se muestran sobre el protector de pantalla';
+
+  @override
+  String get glanceUnavailable => 'Unavailable';
+
+  @override
+  String get glanceUnknown => 'Unknown';
 
   @override
   String get settingScreensaverImmichUrlTitle => 'Dirección del servidor';

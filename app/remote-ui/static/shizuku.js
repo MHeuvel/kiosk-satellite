@@ -1,4 +1,4 @@
-import { deviceText, t } from './localization.js';
+import { deviceText, deviceOperationError, t } from './localization.js';
 import { watchUpdates } from './live.js';
 import { settingRow } from './rows.js';
 import { cmd, state as appState } from './core.js';
@@ -62,10 +62,10 @@ async function run(action, button) {
       await messageBox({ title: deviceText('Connection test'), message: data.exitCode === 0 && !data.timedOut ? t('deviceShizukuTestOk', {access: state.uid === 0 ? 'root' : 'shell'}) : deviceText('Shizuku could not complete the connection test.') });
     } else {
       const rows = result.data.results || [], failed = rows.filter(row => !row.ok);
-      const message = !rows.length ? deviceText('All permissions are already granted.') : !failed.length ? deviceText('Android confirmed the requested permissions.') : failed.map(row => `${deviceText(permissionNames[row.key] || row.key)}: ${row.error}`).join('\n');
-      await messageBox({ title: deviceText('Permission results'), message });
+      const message = () => !rows.length ? deviceText('All permissions are already granted.') : !failed.length ? deviceText('Android confirmed the requested permissions.') : failed.map(row => `${deviceText(permissionNames[row.key] || row.key)}: ${deviceOperationError(row.error)}`).join('\n');
+      await messageBox({ title: () => deviceText('Permission results'), message });
     }
-  } catch (error) { showToast({ title: 'Shizuku', message: error.message, kind: 'error' }); }
+  } catch (error) { showToast({ title: 'Shizuku', message: deviceOperationError(error.message), kind: 'error' }); }
   finally { busy = false; button.classList.remove('plugin-busy'); paint(); await refresh(); }
 }
 export function renderShizukuPage(container) {

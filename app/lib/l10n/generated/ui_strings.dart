@@ -8337,6 +8337,108 @@ abstract class UiStrings {
   /// **'Shizuku successfully ran a command with {access} access.'**
   String deviceShizukuTestOk(String access);
 
+  /// Explanation when a device operation fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Android has not confirmed this permission. Check Permissions Manager on the device.'**
+  String get shizukuPermissionUnconfirmed;
+
+  /// Explanation when a device operation fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not read current permissions. Try again.'**
+  String get shizukuPermissionReadFailed;
+
+  /// Explanation when a device operation fails.
+  ///
+  /// In en, this message translates to:
+  /// **'The restart command timed out'**
+  String get shizukuRestartTimedOut;
+
+  /// Explanation when a device operation fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Android refused the restart'**
+  String get shizukuRestartRefused;
+
+  /// Explanation when a device operation fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Command timed out'**
+  String get shizukuCommandTimedOut;
+
+  /// Explanation when a device operation fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Android rejected the request'**
+  String get shizukuRequestRejected;
+
+  /// Explanation when a device operation fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Device disconnected'**
+  String get deviceDisconnectedError;
+
+  /// Explanation when a device operation fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Device response timed out'**
+  String get deviceResponseTimedOut;
+
+  /// Explanation when a device operation fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Request aborted'**
+  String get deviceRequestAborted;
+
+  /// Explanation when a Shizuku device action fails.
+  ///
+  /// In en, this message translates to:
+  /// **'A Shizuku device action is already running'**
+  String get shizukuActionBusy;
+
+  /// Explanation when a Shizuku device action fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Grant Shizuku access first'**
+  String get shizukuGrantFirst;
+
+  /// Explanation when a Shizuku device action fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Shizuku command did not respond'**
+  String get shizukuNoResponse;
+
+  /// Explanation when a Shizuku device action fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Shizuku command failed'**
+  String get shizukuCommandFailed;
+
+  /// Explanation when a Shizuku device action fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Shizuku 13 or later and allow Kiosk Satellite in Shizuku'**
+  String get shizukuStartRequired;
+
+  /// Explanation when a Shizuku device action fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Shizuku connection failed'**
+  String get shizukuConnectionFailed;
+
+  /// Explanation when a Shizuku device action fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Shizuku helper did not connect'**
+  String get shizukuHelperNotConnected;
+
+  /// Explanation when a Shizuku device action fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Shizuku helper is unavailable'**
+  String get shizukuHelperUnavailable;
+
   /// Label or explanation on this Device settings page.
   ///
   /// In en, this message translates to:
@@ -8618,6 +8720,119 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Enter only the folder URL, without anything after the path. Example: http://nas.local/kiosk-satellite'**
   String get deviceUpdateUrlPath;
+
+  /// Explanation when a device operation fails.
+  ///
+  /// In en, this message translates to:
+  /// **'A download is running. Wait for it to finish.'**
+  String get updateDownloadBusy;
+
+  /// Explanation when a device operation fails.
+  ///
+  /// In en, this message translates to:
+  /// **'An install is running. Wait for it to finish.'**
+  String get updateInstallBusy;
+
+  /// Explanation when a device operation fails.
+  ///
+  /// In en, this message translates to:
+  /// **'No update is available.'**
+  String get updateNoAvailable;
+
+  /// Explanation when a device operation fails.
+  ///
+  /// In en, this message translates to:
+  /// **'No uploaded APK is waiting.'**
+  String get updateNoUploaded;
+
+  /// Explanation when a device operation fails.
+  ///
+  /// In en, this message translates to:
+  /// **'The upload was empty.'**
+  String get updateUploadEmpty;
+
+  /// Explanation when a device operation fails.
+  ///
+  /// In en, this message translates to:
+  /// **'The file is not an Android APK.'**
+  String get updateInvalidApk;
+
+  /// Explanation when a device operation fails.
+  ///
+  /// In en, this message translates to:
+  /// **'The uploaded APK is gone. Upload it again.'**
+  String get updateUploadedGone;
+
+  /// Explanation when a device operation fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Shizuku could not install the update. No confirmation installer was opened.'**
+  String get updateShizukuInstallerFailed;
+
+  /// Explanation when a device operation fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough free space: the APK is {size} MB and the install needs about {required} MB, but the device has {free} MB free.'**
+  String updateUploadSpace(String size, String required, String free);
+
+  /// Explanation when a device operation fails.
+  ///
+  /// In en, this message translates to:
+  /// **'The upload was interrupted after {size} MB: {error}'**
+  String updateUploadInterrupted(String size, String error);
+
+  /// Explanation when a device operation fails.
+  ///
+  /// In en, this message translates to:
+  /// **'The upload ended early: {received} of {expected} MB arrived.'**
+  String updateUploadEarly(String received, String expected);
+
+  /// Explanation when a device operation fails.
+  ///
+  /// In en, this message translates to:
+  /// **'The APK is {package}, not Kiosk Satellite ({expected}).'**
+  String updateWrongPackage(String package, String expected);
+
+  /// Explanation when a device operation fails.
+  ///
+  /// In en, this message translates to:
+  /// **'The APK is version {version} (build {build}), older than the running {currentVersion} (build {currentBuild}). Downgrades are refused: Android would not install one either.'**
+  String updateOlderBuild(
+    String version,
+    String build,
+    String currentVersion,
+    String currentBuild,
+  );
+
+  /// Explanation when a device operation fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Download failed (HTTP {status}).'**
+  String updateDownloadHttpFailed(String status);
+
+  /// Explanation when a device operation fails.
+  ///
+  /// In en, this message translates to:
+  /// **'The download stalled: no data arrived for {seconds} seconds.'**
+  String updateDownloadStalled(String seconds);
+
+  /// Explanation when a device operation fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Update failed: {error}'**
+  String deviceUpdateFailedDetail(String error);
+
+  /// Explanation when a device operation fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Install failed: {error}'**
+  String deviceInstallFailedDetail(String error);
+
+  /// Replacement for an unknown package name in an APK rejection message.
+  ///
+  /// In en, this message translates to:
+  /// **'another package'**
+  String get updateAnotherPackage;
 
   /// Language selector label.
   ///
@@ -14180,6 +14395,18 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Entities shown over the screensaver'**
   String get screensaverOverlayGlanceHint;
+
+  /// Reserved entity state when Home Assistant cannot report a value.
+  ///
+  /// In en, this message translates to:
+  /// **'Unavailable'**
+  String get glanceUnavailable;
+
+  /// Reserved entity state when Home Assistant cannot report a value.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown'**
+  String get glanceUnknown;
 
   /// Setting label.
   ///

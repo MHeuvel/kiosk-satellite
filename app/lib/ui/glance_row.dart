@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import '../app_container.dart';
+import '../l10n/messages.dart';
+import '../l10n/generated/ui_strings.dart';
 import '../managers/glance/glance_manager.dart';
 import '../managers/settings/definitions.dart' as defs;
 import 'clock_faces.dart';
@@ -128,7 +130,7 @@ class GlanceRow extends StatelessWidget {
             // the grid's edges line up instead of reading as rags.
             final widths = [
               for (final entity in entities)
-                _chipWidth(entity, scale, font, hideNames: hideNames),
+                _chipWidth(context, entity, scale, font, hideNames: hideNames),
             ];
             final total =
                 widths.fold(0.0, (a, b) => a + b) +
@@ -270,6 +272,7 @@ class GlanceRow extends StatelessWidget {
 /// the uniform grid without laying anything out twice; keep the sizes here
 /// in lockstep with _GlanceCard's.
 double _chipWidth(
+  BuildContext context,
   GlanceEntity entity,
   double scale,
   GlanceFont font, {
@@ -289,13 +292,17 @@ double _chipWidth(
 
   final text = hideNames
       ? line(
-          glanceStateText(entity),
+          glanceStateText(entity, strings: l10n(context)),
           _GlanceCard.valueAloneSize * scale,
           FontWeight.w600,
         )
       : max(
           line(entity.displayName, 13 * scale, FontWeight.w400),
-          line(glanceStateText(entity), 17 * scale, FontWeight.w600),
+          line(
+            glanceStateText(entity, strings: l10n(context)),
+            17 * scale,
+            FontWeight.w600,
+          ),
         );
   // 6 + 40 + 10 + 18: left pad, circle, gap, right pad; +2 for the border.
   return min(text + 74 * scale + 2, 250 * scale);
@@ -497,7 +504,7 @@ class _GlanceCard extends StatelessWidget {
                     ),
                   ),
                 Text(
-                  glanceStateText(entity),
+                  glanceStateText(entity, strings: l10n(context)),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: font.style(
@@ -563,7 +570,7 @@ class _GlanceItem extends StatelessWidget {
                   ),
                 ),
               Text(
-                glanceStateText(entity),
+                glanceStateText(entity, strings: l10n(context)),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: font.style(
@@ -583,10 +590,12 @@ class _GlanceItem extends StatelessWidget {
 
 /// The state as a person reads it: Home Assistant's raw values are lowercase
 /// slugs, and a numeric sensor means nothing without its unit.
-String glanceStateText(GlanceEntity entity) {
+String glanceStateText(GlanceEntity entity, {UiStrings? strings}) {
   final state = entity.state;
   if (state == null || state.isEmpty) return '…';
-  if (state == 'unavailable') return 'Unavailable';
+  if (state == 'unavailable') {
+    return strings?.glanceUnavailable ?? 'Unavailable';
+  }
   // An entity configured to show an attribute (issue #132) shows that
   // instead of the state. Slug-like values get the same prettifying the
   // state would; units and precision do not apply, they are state-only.
@@ -597,7 +606,7 @@ String glanceStateText(GlanceEntity entity) {
     if (double.tryParse(value) != null) return value;
     return _pretty(value);
   }
-  if (state == 'unknown') return 'Unknown';
+  if (state == 'unknown') return strings?.glanceUnknown ?? 'Unknown';
   final unit = entity.unit;
   // A numeric state rounds to the entity's Display precision, padded the
   // same way Home Assistant's own cards pad it, so the row and the

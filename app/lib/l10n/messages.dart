@@ -71,6 +71,115 @@ String navigationText(BuildContext context, String english) =>
 String deviceText(BuildContext context, String english) =>
     messageById(l10n(context), deviceTextMessageIds[english], english);
 
+/// Translate known device failures while preserving unknown diagnostic details.
+String deviceOperationError(BuildContext context, String error) {
+  final strings = l10n(context);
+  String? translate(String text, int depth) {
+    if (depth > 8) return null;
+    for (final prefix in ['Bad state: ', 'Exception: ']) {
+      if (text.startsWith(prefix)) {
+        return translate(text.substring(prefix.length), depth + 1);
+      }
+    }
+    final platform = RegExp(
+      r'^(PlatformException\([^,]+, )([\s\S]*)(, null, null\))$',
+    ).firstMatch(text);
+    if (platform != null) {
+      final detail = translate(platform.group(2)!, depth + 1);
+      return detail == null
+          ? null
+          : '${platform.group(1)}$detail${platform.group(3)}';
+    }
+    const aliases = <String, String>{
+      "a download is already running":
+          "A download is running. Wait for it to finish.",
+      "an install is already running":
+          "An install is running. Wait for it to finish.",
+      "An update is being installed. Try again when it finishes.":
+          "An install is running. Wait for it to finish.",
+      "no update available": "No update is available.",
+      "no uploaded APK is waiting": "No uploaded APK is waiting.",
+      "Shizuku command timed out": "Command timed out",
+    };
+    text = aliases[text] ?? text;
+    final id = deviceTextMessageIds[text];
+    if (id != null) return messageById(strings, id, text);
+    RegExpMatch? match;
+    match = RegExp(
+      r'^Not enough free space: the APK is (.+) MB and the install needs about (.+) MB, but the device has (.+) MB free\.$',
+    ).firstMatch(text);
+    if (match != null) {
+      return strings.updateUploadSpace(
+        match.group(1)!,
+        match.group(2)!,
+        match.group(3)!,
+      );
+    }
+    match = RegExp(
+      r'^The upload was interrupted after (.+) MB: ([\s\S]*)$',
+    ).firstMatch(text);
+    if (match != null) {
+      return strings.updateUploadInterrupted(
+        match.group(1)!,
+        translate(match.group(2)!, depth + 1) ?? match.group(2)!,
+      );
+    }
+    match = RegExp(
+      r'^The upload ended early: (.+) of (.+) MB arrived\.$',
+    ).firstMatch(text);
+    if (match != null) {
+      return strings.updateUploadEarly(match.group(1)!, match.group(2)!);
+    }
+    match = RegExp(
+      r'^The APK is (.+), not Kiosk Satellite \((.+)\)\.$',
+    ).firstMatch(text);
+    if (match != null) {
+      return strings.updateWrongPackage(
+        match.group(1) == 'another package'
+            ? strings.updateAnotherPackage
+            : match.group(1)!,
+        match.group(2)!,
+      );
+    }
+    match = RegExp(
+      r'^The APK is version (.+) \(build (.+)\), older than the running (.+) \(build (.+)\). Downgrades are refused: Android would not install one either\.$',
+    ).firstMatch(text);
+    if (match != null) {
+      return strings.updateOlderBuild(
+        match.group(1)!,
+        match.group(2)!,
+        match.group(3)!,
+        match.group(4)!,
+      );
+    }
+    match = RegExp(r'^Download failed \(HTTP ([0-9]+)\)\.$').firstMatch(text);
+    if (match != null) {
+      return strings.updateDownloadHttpFailed(match.group(1)!);
+    }
+    match = RegExp(
+      r'^The download stalled: no data arrived for ([0-9]+) seconds\.$',
+    ).firstMatch(text);
+    if (match != null) {
+      return strings.updateDownloadStalled(match.group(1)!);
+    }
+    match = RegExp(r'^Update failed: ([\s\S]*)$').firstMatch(text);
+    if (match != null) {
+      return strings.deviceUpdateFailedDetail(
+        translate(match.group(1)!, depth + 1) ?? match.group(1)!,
+      );
+    }
+    match = RegExp(r'^Install failed: ([\s\S]*)$').firstMatch(text);
+    if (match != null) {
+      return strings.deviceInstallFailedDetail(
+        translate(match.group(1)!, depth + 1) ?? match.group(1)!,
+      );
+    }
+    return null;
+  }
+
+  return translate(error, 0) ?? error;
+}
+
 /// Resolve fixed Home Assistant settings wording, never supplied names or paths.
 String haText(BuildContext context, String english) =>
     messageById(l10n(context), haTextMessageIds[english], english);

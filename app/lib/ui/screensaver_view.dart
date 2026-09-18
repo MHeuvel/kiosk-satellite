@@ -1887,7 +1887,7 @@ class _EntityWidgetOverlayState extends State<EntityWidgetOverlay> {
       color: color,
     );
     final value = Text(
-      glanceStateText(_entity),
+      glanceStateText(_entity, strings: l10n(context)),
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
       style: TextStyle(

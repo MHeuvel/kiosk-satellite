@@ -1,6 +1,6 @@
 import { deviceTextMessageIds } from './device_text_ids.js';
 import { supportTextMessageIds } from './support_text_ids.js';
-import { voiceText, deviceText, supportText, t } from './localization.js';
+import { voiceText, deviceText, deviceOperationError, supportText, t } from './localization.js';
 import { $, api, cmd, state } from './core.js';
 import { watchUpdates } from './live.js';
 import { copyBox, hintRow, messageBox, modalShell, showToast } from './widgets.js';
@@ -176,7 +176,7 @@ function renderUploadInstall(panel) {
       const out = await cmd('installUploadedApk').catch(() => null);
       if (!out?.ok) {
         inst.disabled = false;
-        await messageBox({ title: deviceText('Uploaded APK'), message: out?.error || deviceText('The device did not answer.') });
+        await messageBox({ title: () => deviceText('Uploaded APK'), message: () => deviceOperationError(out?.error || deviceText('The device did not answer.')) });
         return;
       }
       await rideUploadedInstall(inst, idle);
@@ -344,7 +344,7 @@ function settleInstall(btn, st, idleLabel) {
   if (st?.lastOutcome === 'failed') {
     btn.disabled = false;
     btn.textContent = idleLabel;
-    alert(st.lastError || deviceText('Update failed. Check the device logs.'));
+    messageBox({title: () => deviceText('Updates'), message: () => deviceOperationError(st.lastError || deviceText('Update failed. Check the device logs.'))});
     return;
   }
   if (st?.lastOutcome === 'silent') {
@@ -416,8 +416,8 @@ export function attachUploadInstall(btn) {
     if (!res?.ok) {
       btn.disabled = false;
       btn.textContent = idleLabel;
-      await messageBox({ title: deviceText('Install from file'),
-        message: res?.error || deviceText('The upload failed.') });
+      await messageBox({ title: () => deviceText('Install from file'),
+        message: () => deviceOperationError(res?.error || deviceText('The upload failed.')) });
       return;
     }
     const d = res.data || {};
@@ -458,8 +458,8 @@ export function attachUploadInstall(btn) {
       if (!out?.ok) {
         btn.disabled = false;
         btn.textContent = idleLabel;
-        await messageBox({ title: deviceText('Install on the fleet'),
-          message: out?.error || deviceText('The device did not answer.') });
+        await messageBox({ title: () => deviceText('Install on the fleet'),
+          message: () => deviceOperationError(out?.error || deviceText('The device did not answer.')) });
         return;
       }
       const data = out.data || {};
@@ -479,8 +479,8 @@ export function attachUploadInstall(btn) {
       if (!out?.ok) {
         btn.disabled = false;
         btn.textContent = idleLabel;
-        await messageBox({ title: deviceText('Install from file'),
-          message: out?.error || deviceText('The device did not answer.') });
+        await messageBox({ title: () => deviceText('Install from file'),
+          message: () => deviceOperationError(out?.error || deviceText('The device did not answer.')) });
         return;
       }
     }
@@ -508,7 +508,7 @@ export function attachUpdateInstall(btn, upd) {
     // stalled) instead of erroring beside it (#272).
     if (!res?.ok && !/already running/.test(res?.error || '')) {
       btn.disabled = false;
-      alert(t('aboutDownloadFailed', {error: res?.error || supportText('device unreachable')}));
+      await messageBox({title: () => deviceText('Updates'), message: () => t('aboutDownloadFailed', {error: deviceOperationError(res?.error || supportText('device unreachable'))})});
       return;
     }
     const cancelBtn = document.createElement('button');

@@ -89,18 +89,30 @@ export function modalShell({ title, width, onDismiss }) {
 // choice; this box is for answers that need a button.
 export function messageBox({ title, message, buttons = ['OK'] }) {
   return new Promise((resolve) => {
-    const { back, body, foot } = modalShell({ title });
+    const { back, head, body, foot } = modalShell({ title: typeof title === 'function' ? title() : title });
     const p = document.createElement('p');
-    p.textContent = message;
+    p.textContent = typeof message === 'function' ? message() : message;
     p.style.cssText = 'margin:0; color:var(--muted); font-size:15px; line-height:1.5; white-space:pre-line;';
     body.appendChild(p);
     buttons.forEach((label, i) => {
       const btn = document.createElement('button');
       btn.textContent = deviceText(label);
       btn.className = i === buttons.length - 1 ? 'btn-primary' : 'btn-text';
-      btn.addEventListener('click', () => { back.remove(); resolve(label); });
+      btn.addEventListener('click', () => { document.removeEventListener('ks-settings-cached', render); back.remove(); resolve(label); });
       foot.appendChild(btn);
     });
+    function render() {
+      if (!back.isConnected) {
+        document.removeEventListener('ks-settings-cached', render);
+        return;
+      }
+      head.textContent = typeof title === 'function' ? title() : title;
+      p.textContent = typeof message === 'function' ? message() : message;
+      [...foot.children].forEach((button, index) => { button.textContent = deviceText(buttons[index]); });
+    }
+    if (typeof title === 'function' || typeof message === 'function') {
+      document.addEventListener('ks-settings-cached', render);
+    }
   });
 }
 

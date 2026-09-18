@@ -987,7 +987,7 @@ class KioskDrawer extends StatelessWidget {
                 ? l10n(context).drawerUpdateFailed
                 : l10n(context).drawerUpdates,
           ),
-          content: Text(error),
+          content: Text(deviceOperationError(context, error)),
           actions: [
             FilledButton(
               onPressed: () => Navigator.pop(context),

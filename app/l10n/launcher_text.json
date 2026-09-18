@@ -65,5 +65,6 @@
   "Without this the kiosk cannot come back on its own, and touches in the other app go unseen. The grant screen appears on the tablet.": "launcherOverlayRemote",
   "Android may pause the app behind the other one, and a paused clock never brings the kiosk back.": "launcherBatteryMissing",
   "Android may pause the app behind the other one, and a paused clock never brings the kiosk back. The grant dialog appears on the tablet.": "launcherBatteryRemote",
-  "The grants Return automatically leans on.": "launcherPermissionsSearch"
+  "The grants Return automatically leans on.": "launcherPermissionsSearch",
+  "Allows the process to run in the background without being paused or killed.": "deviceBatteryHeld"
 }

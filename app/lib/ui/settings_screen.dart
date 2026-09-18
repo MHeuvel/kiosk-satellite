@@ -11557,7 +11557,9 @@ class _UploadedApkRowState extends State<_UploadedApkRow> {
       showToast(
         context,
         title: deviceText(context, 'Install from file'),
-        message: r.error,
+        message: r.error == null
+            ? null
+            : deviceOperationError(context, r.error!),
         kind: ToastKind.error,
       );
     }

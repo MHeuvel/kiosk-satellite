@@ -82,35 +82,37 @@ class _ShizukuSettingsPanelState extends State<ShizukuSettingsPanel>
               .whereType<Map>()
               .toList();
           final failed = rows.where((row) => row['ok'] != true).toList();
-          final names = {
-            for (final entry in devicePermissionDescriptions.entries)
-              entry.key: deviceText(context, entry.value.title),
-          };
-          final message = rows.isEmpty
-              ? deviceText(context, 'All permissions are already granted.')
-              : failed.isEmpty
-              ? deviceText(
-                  context,
-                  'Android confirmed the requested permissions.',
-                )
-              : failed
-                    .map(
-                      (row) =>
-                          '${names[row['key']] ?? row['key']}: ${row['error']}',
-                    )
-                    .join('\n');
           await showDialog<void>(
             context: context,
-            builder: (context) => AlertDialog(
-              title: Text(deviceText(context, 'Permission results')),
-              content: SingleChildScrollView(child: Text(message)),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: Text(deviceText(context, 'OK')),
-                ),
-              ],
-            ),
+            builder: (context) {
+              final names = {
+                for (final entry in devicePermissionDescriptions.entries)
+                  entry.key: deviceText(context, entry.value.title),
+              };
+              final message = rows.isEmpty
+                  ? deviceText(context, 'All permissions are already granted.')
+                  : failed.isEmpty
+                  ? deviceText(
+                      context,
+                      'Android confirmed the requested permissions.',
+                    )
+                  : failed
+                        .map(
+                          (row) =>
+                              '${names[row['key']] ?? row['key']}: ${deviceOperationError(context, '${row['error']}')}',
+                        )
+                        .join('\n');
+              return AlertDialog(
+                title: Text(deviceText(context, 'Permission results')),
+                content: SingleChildScrollView(child: Text(message)),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text(deviceText(context, 'OK')),
+                  ),
+                ],
+              );
+            },
           );
         }
       }
@@ -119,7 +121,7 @@ class _ShizukuSettingsPanelState extends State<ShizukuSettingsPanel>
         showToast(
           context,
           title: 'Shizuku',
-          message: '$error',
+          message: deviceOperationError(context, '$error'),
           kind: ToastKind.error,
         );
       }

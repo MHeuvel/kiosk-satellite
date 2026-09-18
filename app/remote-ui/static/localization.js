@@ -219,6 +219,47 @@ export function deviceText(english) {
   return typeof english === 'string' ? t(deviceTextMessageIds[english], {}, english) : english;
 }
 
+// Resolve owned error messages without translating server or OS diagnostics.
+export function deviceOperationError(error) {
+  if (typeof error !== 'string') return error;
+  function translate(text, depth) {
+    if (depth > 8) return null;
+    for (const prefix of ['Bad state: ', 'Exception: ']) {
+      if (text.startsWith(prefix)) return translate(text.slice(prefix.length), depth + 1);
+    }
+    const platform = /^(PlatformException\([^,]+, )([\s\S]*)(, null, null\))$/.exec(text);
+    if (platform) {
+      const detail = translate(platform[2], depth + 1);
+      return detail === null ? null : platform[1] + detail + platform[3];
+    }
+    const aliases = {"a download is already running": "A download is running. Wait for it to finish.", "an install is already running": "An install is running. Wait for it to finish.", "An update is being installed. Try again when it finishes.": "An install is running. Wait for it to finish.", "no update available": "No update is available.", "no uploaded APK is waiting": "No uploaded APK is waiting.", "Shizuku command timed out": "Command timed out"};
+    text = aliases[text] ?? text;
+    const id = deviceTextMessageIds[text];
+    if (id) return t(id);
+    let match;
+    match = /^Not enough free space: the APK is (.+) MB and the install needs about (.+) MB, but the device has (.+) MB free\.$/.exec(text);
+    if (match) return t('updateUploadSpace', {size: match[1], required: match[2], free: match[3]});
+    match = /^The upload was interrupted after (.+) MB: ([\s\S]*)$/.exec(text);
+    if (match) return t('updateUploadInterrupted', {size: match[1], error: translate(match[2], depth + 1) ?? match[2]});
+    match = /^The upload ended early: (.+) of (.+) MB arrived\.$/.exec(text);
+    if (match) return t('updateUploadEarly', {received: match[1], expected: match[2]});
+    match = /^The APK is (.+), not Kiosk Satellite \((.+)\)\.$/.exec(text);
+    if (match) return t('updateWrongPackage', {package: match[1] === 'another package' ? t('updateAnotherPackage') : match[1], expected: match[2]});
+    match = /^The APK is version (.+) \(build (.+)\), older than the running (.+) \(build (.+)\). Downgrades are refused: Android would not install one either\.$/.exec(text);
+    if (match) return t('updateOlderBuild', {version: match[1], build: match[2], currentVersion: match[3], currentBuild: match[4]});
+    match = /^Download failed \(HTTP ([0-9]+)\)\.$/.exec(text);
+    if (match) return t('updateDownloadHttpFailed', {status: match[1]});
+    match = /^The download stalled: no data arrived for ([0-9]+) seconds\.$/.exec(text);
+    if (match) return t('updateDownloadStalled', {seconds: match[1]});
+    match = /^Update failed: ([\s\S]*)$/.exec(text);
+    if (match) return t('deviceUpdateFailedDetail', {error: translate(match[1], depth + 1) ?? match[1]});
+    match = /^Install failed: ([\s\S]*)$/.exec(text);
+    if (match) return t('deviceInstallFailedDetail', {error: translate(match[1], depth + 1) ?? match[1]});
+    return null;
+  }
+  return translate(error, 0) ?? error;
+}
+
 export function messageLanguage() { return languagePreference; }
 
 export function immichError(error) {

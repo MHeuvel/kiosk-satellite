@@ -6,6 +6,8 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ### Added
 
+- **Translate remaining device status and operation errors.** At a Glance and entity widgets localize unavailable and unknown states. App Launcher reuses the translated battery-permission explanation. APK update and Shizuku failures use catalog messages while preserving technical details. Open remote result dialogs follow language changes without repeating operations.
+
 - **Approve Spanish labels for onboarding language selection.** Import the reviewed catalog snapshot with all 2997 Spanish messages approved, including the existing Language title and description used on Welcome.
 
 - **Choose a language on the first onboarding step.** Welcome starts with an English or Español selector on the device and in remote administration. The choice saves immediately and preserves the name and password being typed.
