@@ -2616,30 +2616,30 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get deviceScreenOffPermission =>
-      'Turning the screen off needs a one-time permission. The tablet is now showing the \"device admin\" grant screen. Approve it there, then try again.';
+      'Para apagar la pantalla, debes conceder un permiso una sola vez. La tableta está mostrando la pantalla para activar el administrador del dispositivo. Concede el permiso allí y vuelve a intentarlo.';
 
   @override
   String get deviceAdminInactive =>
-      'The device admin permission is not active.';
+      'El permiso de administrador del dispositivo no está activo.';
 
   @override
   String get deviceRestartOverlay =>
-      'Restarting needs the \"Display over other apps\" permission or the app cannot bring itself back. The grant screen is opening on the device; allow it there and retry.';
+      'Para reiniciar, se necesita el permiso «Mostrar sobre otras aplicaciones» para que la aplicación pueda volver a abrirse. La pantalla para concederlo se está abriendo en el dispositivo. Concede el permiso allí y vuelve a intentarlo.';
 
   @override
   String get deviceRebootPermission =>
-      'Restarting the device needs Kiosk Satellite provisioned as the device owner or a granted Shizuku connection.';
+      'Para reiniciar el dispositivo, Kiosk Satellite debe estar configurado como propietario del dispositivo o tener una conexión autorizada con Shizuku.';
 
   @override
   String get deviceRestartAndroidOnly =>
-      'Restart is only available on Android.';
+      'El reinicio solo está disponible en Android.';
 
   @override
-  String get deviceRestartShizukuRefused => 'Shizuku refused the restart';
+  String get deviceRestartShizukuRefused => 'Shizuku rechazó el reinicio';
 
   @override
   String deviceRestartFailed(String error) {
-    return 'Restart failed: $error';
+    return 'No se pudo reiniciar: $error';
   }
 
   @override
@@ -10575,14 +10575,16 @@ class UiStringsEs extends UiStrings {
       'Se importó la configuración. Responde a las solicitudes de permisos en la pantalla de la tablet. Esta página continuará automáticamente cuando se cargue el panel de control.';
 
   @override
-  String get setupBackupObject => 'The backup must contain a JSON object.';
+  String get setupBackupObject =>
+      'La copia de seguridad debe contener un objeto JSON.';
 
   @override
   String get setupBackupKind =>
-      'This is not a Kiosk Satellite configuration file.';
+      'Este archivo no contiene una configuración de Kiosk Satellite.';
 
   @override
-  String get setupBackupSettings => 'The backup contains no settings.';
+  String get setupBackupSettings =>
+      'La copia de seguridad no contiene ajustes.';
 
   @override
   String get setupServiceHelp =>

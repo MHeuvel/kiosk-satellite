@@ -1,0 +1,86 @@
+{
+  "@@locale": "en",
+  "deviceScreenOffPermission": "Turning the screen off needs a one-time permission. The tablet is now showing the \"device admin\" grant screen. Approve it there, then try again.",
+  "@deviceScreenOffPermission": {
+    "context": "Remote admin > Overview > Quick controls > Screen off or restart failure",
+    "description": "Explain the failed action and any permission the user must grant on the device. Keep Android and Shizuku names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "deviceAdminInactive": "The device admin permission is not active.",
+  "@deviceAdminInactive": {
+    "context": "Remote admin > Overview > Quick controls > Screen off or restart failure",
+    "description": "Explain the failed action and any permission the user must grant on the device. Keep Android and Shizuku names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "deviceRestartOverlay": "Restarting needs the \"Display over other apps\" permission or the app cannot bring itself back. The grant screen is opening on the device; allow it there and retry.",
+  "@deviceRestartOverlay": {
+    "context": "Remote admin > Overview > Quick controls > Screen off or restart failure",
+    "description": "Explain the failed action and any permission the user must grant on the device. Keep Android and Shizuku names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "deviceRebootPermission": "Restarting the device needs Kiosk Satellite provisioned as the device owner or a granted Shizuku connection.",
+  "@deviceRebootPermission": {
+    "context": "Remote admin > Overview > Quick controls > Screen off or restart failure",
+    "description": "Explain the failed action and any permission the user must grant on the device. Keep Android and Shizuku names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "deviceRestartAndroidOnly": "Restart is only available on Android.",
+  "@deviceRestartAndroidOnly": {
+    "context": "Remote admin > Overview > Quick controls > Screen off or restart failure",
+    "description": "Explain the failed action and any permission the user must grant on the device. Keep Android and Shizuku names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "deviceRestartShizukuRefused": "Shizuku refused the restart",
+  "@deviceRestartShizukuRefused": {
+    "context": "Remote admin > Overview > Quick controls > Screen off or restart failure",
+    "description": "Explain the failed action and any permission the user must grant on the device. Keep Android and Shizuku names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    }
+  },
+  "deviceRestartFailed": "Restart failed: {error}",
+  "@deviceRestartFailed": {
+    "context": "Remote admin > Overview > Quick controls > Screen off or restart failure",
+    "description": "Keep {error} unchanged. It contains the failure details.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Quick controls"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "E_VENDOR: restart unavailable"
+      }
+    }
+  }
+}

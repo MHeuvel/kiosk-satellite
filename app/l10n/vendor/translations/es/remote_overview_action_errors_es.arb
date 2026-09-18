@@ -1,0 +1,10 @@
+{
+  "@@locale": "es",
+  "deviceScreenOffPermission": "Para apagar la pantalla, debes conceder un permiso una sola vez. La tableta está mostrando la pantalla para activar el administrador del dispositivo. Concede el permiso allí y vuelve a intentarlo.",
+  "deviceAdminInactive": "El permiso de administrador del dispositivo no está activo.",
+  "deviceRestartOverlay": "Para reiniciar, se necesita el permiso «Mostrar sobre otras aplicaciones» para que la aplicación pueda volver a abrirse. La pantalla para concederlo se está abriendo en el dispositivo. Concede el permiso allí y vuelve a intentarlo.",
+  "deviceRebootPermission": "Para reiniciar el dispositivo, Kiosk Satellite debe estar configurado como propietario del dispositivo o tener una conexión autorizada con Shizuku.",
+  "deviceRestartAndroidOnly": "El reinicio solo está disponible en Android.",
+  "deviceRestartShizukuRefused": "Shizuku rechazó el reinicio",
+  "deviceRestartFailed": "No se pudo reiniciar: {error}"
+}

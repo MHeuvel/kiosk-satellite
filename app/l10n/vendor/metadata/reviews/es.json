@@ -3749,6 +3749,41 @@
     "translation": "ebb682b2737783bfb27d9d218420d959218fc0f10c373bbbf6610b52f0759032",
     "author": "Xavier Larrea"
   },
+  "deviceScreenOffPermission": {
+    "source": "4fa9782ea5786d8c4cd15ecfbb2d329bd8622811982daeb8041796545038c3e1",
+    "translation": "b92926a9fb518b28a20276d796715785f752d64397e5998b06684d65a8e9b2a6",
+    "author": "Xavier Larrea"
+  },
+  "deviceAdminInactive": {
+    "source": "c5d9dd468957663fb29ff80bf1a8adeb2e9fa959cdd49e4c9472455294c6ce1b",
+    "translation": "cb060ab85c03be39196c7a8d2afa677a6e0d04dd587a46f32c6b3bfd8f443392",
+    "author": "Xavier Larrea"
+  },
+  "deviceRestartOverlay": {
+    "source": "ec74537a534cfe7bf650c3511c84e6814e3b69d347b3e810818a2f41d800b206",
+    "translation": "da18a80876a5c7a76fb2fcc71ae012d1530211973a971c3075015d507caf9b4f",
+    "author": "Xavier Larrea"
+  },
+  "deviceRebootPermission": {
+    "source": "a32fcc4c424252847e2d7b17fdf0738267c56069d845a1ccd24c585c482e44c4",
+    "translation": "890ab90868b818b6755aca1afd0543f26eaf2dba5ec94abfb6664cf7b355bfb4",
+    "author": "Xavier Larrea"
+  },
+  "deviceRestartAndroidOnly": {
+    "source": "fa4f732de2ec338c04ed721dfa0c10fa146fbd547aaa2f963a54527b8eb09b22",
+    "translation": "81096edf515e5b03ba0e359475f576c04f4551c05a498368dbffba431c270903",
+    "author": "Xavier Larrea"
+  },
+  "deviceRestartShizukuRefused": {
+    "source": "012b900066fd0f789f82c77ac00d4a658781fe671783861b0100dc4a63b3872d",
+    "translation": "14b927d8fb91280da2fe5848a6bac1be6ab98176a63f85448a29db667aa683ab",
+    "author": "Xavier Larrea"
+  },
+  "deviceRestartFailed": {
+    "source": "4dbdfb50d7c1e084f361d01bb819d3e02ee6646a4c440e7ec13b9cdb1fb4c0d7",
+    "translation": "0c9ac73267dc8e65fd90d65bb13c9188d7003cb2ac39d8d6b2d347c0d1c4459d",
+    "author": "Xavier Larrea"
+  },
   "overviewAttention": {
     "source": "039a816ad68e517c726eb67fd908e48f32934926a7ee415692c7d9bdf21860ec",
     "translation": "5d265f2433957c4ddab4fb0b32478bfe8bb85c1e79f8137f911573b094375b55",
@@ -14900,17 +14935,17 @@
     "author": "Xavier Larrea"
   },
   "setupBackupObject": {
-    "source": "81077ef1ac8be5d4d1ba7556c00f5f9ddbe876520bfc4bc6519473a856782532",
+    "source": "19d4acb5699c40e0709d38506f9a94518153f702caaffccca0429a0df6d95835",
     "translation": "0c636d73c65d7c61ede244ec6ff3650395bf0e0d1f739d83541721f3312a2488",
     "author": "Xavier Larrea"
   },
   "setupBackupKind": {
-    "source": "646a3ebb705d493c7980544a197affbe9585ff8cb8ca747a4cab932938844596",
+    "source": "d15b0dff2dc0839cfaefefbc8bbcc8c5ebe973eb8b981dda62fd6162c359f462",
     "translation": "96222288446dac9399dd83ac58f8da9cccd1571fe560c9a23a63dee2818dd5ac",
     "author": "Xavier Larrea"
   },
   "setupBackupSettings": {
-    "source": "0f8e1e61543c5add1954c0167d598bb96196914d69353d8e8383384492db3fc9",
+    "source": "09f619542ab092609b98b6a71501b77d4f26074f77b92062166cef983f536d8c",
     "translation": "5f8822e8502f382cc36df24067103f26820e5cd4a4982480d4cc72943b084908",
     "author": "Xavier Larrea"
   },

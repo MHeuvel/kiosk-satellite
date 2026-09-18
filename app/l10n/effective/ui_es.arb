@@ -9548,7 +9548,7 @@
       ]
     }
   },
-  "deviceScreenOffPermission": "Turning the screen off needs a one-time permission. The tablet is now showing the \"device admin\" grant screen. Approve it there, then try again.",
+  "deviceScreenOffPermission": "Para apagar la pantalla, debes conceder un permiso una sola vez. La tableta está mostrando la pantalla para activar el administrador del dispositivo. Concede el permiso allí y vuelve a intentarlo.",
   "@deviceScreenOffPermission": {
     "context": "Remote admin > Overview > Quick controls > Screen off or restart failure",
     "description": "Explain the failed action and any permission the user must grant on the device. Keep Android and Shizuku names unchanged.",
@@ -9559,7 +9559,7 @@
       ]
     }
   },
-  "deviceAdminInactive": "The device admin permission is not active.",
+  "deviceAdminInactive": "El permiso de administrador del dispositivo no está activo.",
   "@deviceAdminInactive": {
     "context": "Remote admin > Overview > Quick controls > Screen off or restart failure",
     "description": "Explain the failed action and any permission the user must grant on the device. Keep Android and Shizuku names unchanged.",
@@ -9570,7 +9570,7 @@
       ]
     }
   },
-  "deviceRestartOverlay": "Restarting needs the \"Display over other apps\" permission or the app cannot bring itself back. The grant screen is opening on the device; allow it there and retry.",
+  "deviceRestartOverlay": "Para reiniciar, se necesita el permiso «Mostrar sobre otras aplicaciones» para que la aplicación pueda volver a abrirse. La pantalla para concederlo se está abriendo en el dispositivo. Concede el permiso allí y vuelve a intentarlo.",
   "@deviceRestartOverlay": {
     "context": "Remote admin > Overview > Quick controls > Screen off or restart failure",
     "description": "Explain the failed action and any permission the user must grant on the device. Keep Android and Shizuku names unchanged.",
@@ -9581,7 +9581,7 @@
       ]
     }
   },
-  "deviceRebootPermission": "Restarting the device needs Kiosk Satellite provisioned as the device owner or a granted Shizuku connection.",
+  "deviceRebootPermission": "Para reiniciar el dispositivo, Kiosk Satellite debe estar configurado como propietario del dispositivo o tener una conexión autorizada con Shizuku.",
   "@deviceRebootPermission": {
     "context": "Remote admin > Overview > Quick controls > Screen off or restart failure",
     "description": "Explain the failed action and any permission the user must grant on the device. Keep Android and Shizuku names unchanged.",
@@ -9592,7 +9592,7 @@
       ]
     }
   },
-  "deviceRestartAndroidOnly": "Restart is only available on Android.",
+  "deviceRestartAndroidOnly": "El reinicio solo está disponible en Android.",
   "@deviceRestartAndroidOnly": {
     "context": "Remote admin > Overview > Quick controls > Screen off or restart failure",
     "description": "Explain the failed action and any permission the user must grant on the device. Keep Android and Shizuku names unchanged.",
@@ -9603,7 +9603,7 @@
       ]
     }
   },
-  "deviceRestartShizukuRefused": "Shizuku refused the restart",
+  "deviceRestartShizukuRefused": "Shizuku rechazó el reinicio",
   "@deviceRestartShizukuRefused": {
     "context": "Remote admin > Overview > Quick controls > Screen off or restart failure",
     "description": "Explain the failed action and any permission the user must grant on the device. Keep Android and Shizuku names unchanged.",
@@ -9614,7 +9614,7 @@
       ]
     }
   },
-  "deviceRestartFailed": "Restart failed: {error}",
+  "deviceRestartFailed": "No se pudo reiniciar: {error}",
   "@deviceRestartFailed": {
     "context": "Remote admin > Overview > Quick controls > Screen off or restart failure",
     "description": "Keep {error} unchanged. It contains the failure details.",
@@ -38816,7 +38816,7 @@
       ]
     }
   },
-  "setupBackupObject": "The backup must contain a JSON object.",
+  "setupBackupObject": "La copia de seguridad debe contener un objeto JSON.",
   "@setupBackupObject": {
     "context": "Backup import in first-time setup or Settings > Device > Configuration",
     "description": "Validation error for JSON that does not contain an object.",
@@ -38831,7 +38831,7 @@
       ]
     }
   },
-  "setupBackupKind": "This is not a Kiosk Satellite configuration file.",
+  "setupBackupKind": "Este archivo no contiene una configuración de Kiosk Satellite.",
   "@setupBackupKind": {
     "context": "Backup import in first-time setup or Settings > Device > Configuration",
     "description": "Validation error for a file from another application.",
@@ -38846,7 +38846,7 @@
       ]
     }
   },
-  "setupBackupSettings": "The backup contains no settings.",
+  "setupBackupSettings": "La copia de seguridad no contiene ajustes.",
   "@setupBackupSettings": {
     "context": "Backup import in first-time setup or Settings > Device > Configuration",
     "description": "Validation error for a backup with no settings.",

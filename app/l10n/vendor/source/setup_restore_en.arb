@@ -116,40 +116,46 @@
   },
   "setupBackupObject": "The backup must contain a JSON object.",
   "@setupBackupObject": {
-    "context": "First-time setup > Welcome > Restore backup",
+    "context": "Backup import in first-time setup or Settings > Device > Configuration",
     "description": "Validation error for JSON that does not contain an object.",
     "x-locations": {
       "device": [
-        "First-time setup > Welcome > Restore backup"
+        "First-time setup > Welcome > Restore backup",
+        "Settings > Device > Configuration > Import configuration"
       ],
       "remoteAdmin": [
-        "First-time setup > Welcome > Restore backup"
+        "First-time setup > Welcome > Restore backup",
+        "Settings > Device > Configuration > Import configuration"
       ]
     }
   },
   "setupBackupKind": "This is not a Kiosk Satellite configuration file.",
   "@setupBackupKind": {
-    "context": "First-time setup > Welcome > Restore backup",
+    "context": "Backup import in first-time setup or Settings > Device > Configuration",
     "description": "Validation error for a file from another application.",
     "x-locations": {
       "device": [
-        "First-time setup > Welcome > Restore backup"
+        "First-time setup > Welcome > Restore backup",
+        "Settings > Device > Configuration > Import configuration"
       ],
       "remoteAdmin": [
-        "First-time setup > Welcome > Restore backup"
+        "First-time setup > Welcome > Restore backup",
+        "Settings > Device > Configuration > Import configuration"
       ]
     }
   },
   "setupBackupSettings": "The backup contains no settings.",
   "@setupBackupSettings": {
-    "context": "First-time setup > Welcome > Restore backup",
+    "context": "Backup import in first-time setup or Settings > Device > Configuration",
     "description": "Validation error for a backup with no settings.",
     "x-locations": {
       "device": [
-        "First-time setup > Welcome > Restore backup"
+        "First-time setup > Welcome > Restore backup",
+        "Settings > Device > Configuration > Import configuration"
       ],
       "remoteAdmin": [
-        "First-time setup > Welcome > Restore backup"
+        "First-time setup > Welcome > Restore backup",
+        "Settings > Device > Configuration > Import configuration"
       ]
     }
   }

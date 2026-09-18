@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite",
-  "revision": "e9b2658e2485547e7c57d57366b9f8f4f68ebbd2",
+  "revision": "e730bd3819d611b12fea0e734d3df213883271c9",
   "workingTree": false,
   "files": {
     "about_identity_en.arb": "dd006567f69f846e2e3b73f09ad13784f0022d282ea3101fa9be7fc95175ec2d",
@@ -51,6 +51,7 @@
     "remote_action_notices_en.arb": "451564a1630a15d123233a90e97cfef33a6687095c4e7625b4eed21f21e2a0ee",
     "remote_connection_en.arb": "d438faa4ded295302c4ef4ffc76ef2725bd24cdf12aec5b1ed322ba9474c4c15",
     "remote_login_en.arb": "41f863e4bcc35fd32888b1098539a67b31c40f06f0bf9dbd27c754caf74f8fbf",
+    "remote_overview_action_errors_en.arb": "0ebf16c341b25d428f293a81781741b12acc7ec85ab8d9faec03ded19f4dad7c",
     "remote_overview_attention_en.arb": "3854fcd0c487604b337723f6978646821a29ea01288e3e38f7928b01fa51e87c",
     "remote_overview_controls_en.arb": "3d7577c8816f1e5279142f158432401f6374eee5079a4595ef0a4fde4109dc29",
     "remote_overview_health_en.arb": "1698515ca2328e602781b1a71b1fa4cfff60a8bbb7a93aa7bffeba3187a8ac49",
@@ -172,7 +173,7 @@
     "setup_permissions_en.arb": "c847d554fd7be0635c8df44be66f85e6bd846b493dcfd3aab9e86226b645507e",
     "setup_qr_scanner_en.arb": "3f617f68a1f866602454b760c80c9cb11e8836b52591167b51db290c6a2febb1",
     "setup_remote_access_en.arb": "b95de023090cc167e61c8d6078399460283948343e7ac71dd77efd38ff8c2454",
-    "setup_restore_en.arb": "3f0fb44b9d8947b07c2ccb942d393e0041b05b92c4fac55d48db24d4bc458cab",
+    "setup_restore_en.arb": "8785584b9ecfa0e754c01bbf03eec74321310c94dabab3d81bd3e3d565e638d2",
     "setup_service_en.arb": "8fb1b7c4046403a50155a845faa690ae8d54ca8625250da24223fd52168cdf39",
     "setup_voice_satellite_en.arb": "bad0ef351bb9e464bda0f6307e8d6cad63a827efb24bcf4c2dbf3d32457e327c",
     "setup_welcome_en.arb": "a26a34d1e8f30df984627884b880f4fda8f410e1ad3a21a9b3399499c4d7be50",
