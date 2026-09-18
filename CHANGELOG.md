@@ -6,6 +6,8 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ### Added
 
+- **Settings footer and plugin-window controls use translation templates.** Add three messages for the maker credit, coffee support link and named Close tooltip. Translations can reorder the heart and author while preserving links, keyboard focus and plugin events.
+
 - **Approved Spanish Android and QR scanner translations.** Import the reviewed localization snapshot with Spanish for all 2921 catalog messages, including native service status and scanner controls.
 - **Android service notifications and QR scanner controls use translation templates.** Add 16 messages for native service status, the Android Accessibility description and scanner instructions. Notifications follow the saved KS language across live changes and restarts. Android resources share the reviewed catalog pipeline. Copy, Close and fleet Update reuse existing translations.
 - **Connection and recovery screens use translation templates.** All 2905 catalog messages now have bundled, author-approved Spanish translations. Add 17 messages for remote login, reconnecting, update reload notices and native network errors. Login follows the device language before sign-in. Translated notices preserve authentication, retry URLs and recovery timers.

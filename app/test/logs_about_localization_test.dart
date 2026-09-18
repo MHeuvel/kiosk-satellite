@@ -13,6 +13,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class _Messages extends UiStringsEn {
   @override
+  String settingsMadeBy(String heart, String author) => '$author con $heart';
+  @override
+  String get settingsBuyCoffee => 'Invítame a un café';
+  @override
   String get aboutAttribution => 'Créditos';
   @override
   String get aboutVersion => 'Versión de la aplicación';
@@ -88,9 +92,24 @@ void main() {
     expect(find.text('Créditos'), findsOneWidget);
     expect(find.text('Xavier Larrea'), findsNWidgets(2));
     expect(find.text('CC BY-NC-ND 4.0'), findsOneWidget);
+    final author = find.text('Xavier Larrea').last;
+    final heart = find.byIcon(Icons.favorite);
+    await tester.ensureVisible(author);
+    expect(tester.getTopLeft(author).dx, lessThan(tester.getTopLeft(heart).dx));
+    expect(find.text('Invítame a un café'), findsOneWidget);
+    await tester.tap(author);
+    expect(container.browser.overlayUrl.value, 'https://github.com/jxlarrea');
+    await tester.tap(find.text('Invítame a un café'));
+    expect(
+      container.browser.overlayUrl.value,
+      'https://buymeacoffee.com/jxlarrea',
+    );
+    expect(container.browser.overlayDismissible.value, isTrue);
     language.value = const Locale('en');
     await tester.pumpAndSettle();
     expect(find.text('Attribution'), findsOneWidget);
+    expect(find.text('Buy me a coffee'), findsOneWidget);
+    expect(tester.getTopLeft(heart).dx, lessThan(tester.getTopLeft(author).dx));
     expect(find.text('Xavier Larrea'), findsNWidgets(2));
     expect(tester.takeException(), isNull);
     await tester.pumpWidget(const SizedBox.shrink());

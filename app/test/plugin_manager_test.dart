@@ -4,6 +4,10 @@ import 'dart:convert';
 import 'package:file_picker/file_picker.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'package:kiosk_satellite/core/app_locales.dart';
+import 'package:kiosk_satellite/l10n/generated/ui_strings.dart';
+import 'package:kiosk_satellite/l10n/generated/ui_strings_en.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kiosk_satellite/core/command_registry.dart';
@@ -14,6 +18,23 @@ import 'package:kiosk_satellite/managers/plugins/plugin_manager.dart';
 import 'package:kiosk_satellite/ui/plugin_overlay.dart';
 import 'package:kiosk_satellite/ui/kit.dart';
 import 'package:kiosk_satellite/ui/plugin_settings.dart';
+
+class _WindowMessages extends UiStringsEn {
+  @override
+  String pluginCloseWindow(String name) => 'Cerrar $name';
+}
+
+class _WindowDelegate extends LocalizationsDelegate<UiStrings> {
+  const _WindowDelegate();
+  @override
+  bool isSupported(Locale locale) => true;
+  @override
+  Future<UiStrings> load(Locale locale) => SynchronousFuture(
+    locale.languageCode == 'es' ? _WindowMessages() : UiStringsEn(),
+  );
+  @override
+  bool shouldReload(_WindowDelegate old) => false;
+}
 
 class _ZipPicker extends FilePicker {
   FilePickerResult? result;
@@ -1039,6 +1060,48 @@ void main() {
       expect(after.dx, lessThan(before.dx));
       await tester.tap(find.byTooltip('Close Hello World'));
       await tester.pump();
+      expect(plugins.windows.value, isEmpty);
+      expect(calls.last.arguments, {
+        'id': 'hello-world',
+        'event': 'window.closed',
+      });
+      expect(tester.takeException(), isNull);
+    },
+  );
+  testWidgets(
+    'window close follows language without changing plugin content or events',
+    (tester) async {
+      final language = ValueNotifier(const Locale('en'));
+      addTearDown(language.dispose);
+      await tester.pumpWidget(
+        ValueListenableBuilder<Locale>(
+          valueListenable: language,
+          builder: (_, locale, _) => MaterialApp(
+            locale: locale,
+            supportedLocales: const [Locale('en'), Locale('es')],
+            localizationsDelegates: const [
+              _WindowDelegate(),
+              ...appLocalizationsDelegates,
+            ],
+            home: Scaffold(body: PluginOverlay(plugins: plugins)),
+          ),
+        ),
+      );
+      await window(message: 'Original plugin text');
+      await tester.pumpAndSettle();
+      expect(find.byTooltip('Close Hello World'), findsOneWidget);
+      await tester.drag(find.text('Hello World'), const Offset(-40, 30));
+      await tester.pumpAndSettle();
+      final position = tester.getTopLeft(find.text('Hello World'));
+      final count = calls.length;
+      language.value = const Locale('es');
+      await tester.pumpAndSettle();
+      expect(find.text('Original plugin text'), findsOneWidget);
+      expect(find.text('Say hello'), findsOneWidget);
+      expect(tester.getTopLeft(find.text('Hello World')), position);
+      expect(calls.length, count);
+      await tester.tap(find.byTooltip('Cerrar Hello World'));
+      await tester.pumpAndSettle();
       expect(plugins.windows.value, isEmpty);
       expect(calls.last.arguments, {
         'id': 'hello-world',

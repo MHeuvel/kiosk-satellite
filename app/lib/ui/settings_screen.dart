@@ -7718,7 +7718,7 @@ class _RotationCardState extends State<_RotationCard> {
 /// The maker's mark, closing every settings page: centered, quiet, with
 /// the name linking to GitHub and the coffee cup to the tip jar. Links
 /// open in the link overlay above the dashboard, like a dashboard link
-/// does — loading them into the kiosk view itself replaced the dashboard
+/// does. Loading them into the kiosk view itself replaced the dashboard
 /// page and took the Voice Satellite session down with it.
 class _MadeByFooter extends StatelessWidget {
   const _MadeByFooter({required this.container});
@@ -7749,25 +7749,36 @@ class _MadeByFooter extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('Made with ', style: muted),
-            // An icon, not the \u2665 character: Android renders that
-            // codepoint as the emoji glyph, which ignores text color
-            // entirely and always shows its own saturated red.
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 1),
-              child: Icon(Icons.favorite, size: 15, color: Color(0xFFE86A6A)),
-            ),
-            Text(' by ', style: muted),
-            InkWell(
-              borderRadius: BorderRadius.circular(6),
-              onTap: () => _open(context, 'https://github.com/jxlarrea'),
-              child: Text('Xavier Larrea', style: link),
-            ),
+            ...l10n(context)
+                .settingsMadeBy('{heart}', '{author}')
+                .split(
+                  RegExp(r'(?=\{heart\}|\{author\})|(?<=\{heart\}|\{author\})'),
+                )
+                .where((part) => part.isNotEmpty)
+                .map(
+                  (part) => switch (part) {
+                    '{heart}' => const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 1),
+                      child: Icon(
+                        Icons.favorite,
+                        size: 15,
+                        color: Color(0xFFE86A6A),
+                      ),
+                    ),
+                    '{author}' => InkWell(
+                      borderRadius: BorderRadius.circular(6),
+                      onTap: () =>
+                          _open(context, 'https://github.com/jxlarrea'),
+                      child: Text('Xavier Larrea', style: link),
+                    ),
+                    _ => Text(part, style: muted),
+                  },
+                ),
             Text(' \u00b7 \u2615 ', style: muted),
             InkWell(
               borderRadius: BorderRadius.circular(6),
               onTap: () => _open(context, 'https://buymeacoffee.com/jxlarrea'),
-              child: Text('Buy me a coffee', style: link),
+              child: Text(l10n(context).settingsBuyCoffee, style: link),
             ),
           ],
         ),

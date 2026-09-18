@@ -12,6 +12,7 @@ ROOT = APP / 'remote-ui'
 english = {k: v for p in (APP / 'l10n/source').glob('*_en.arb')
            for k, v in json.loads(p.read_text()).items() if not k.startswith('@')}
 translated = {k: 'TEST ' + v for k, v in english.items()}
+translated['settingsMadeBy'] = '{author} <b>con</b> {heart}'
 if os.environ.get('KS_TEST_SPANISH'):
     translated = {k: v for p in (APP.parents[1] / 'kiosk-satellite-localization/translations/es').glob('*_es.arb')
                   for k, v in json.loads(p.read_text()).items() if not k.startswith('@')}
@@ -81,6 +82,31 @@ try:
               document.getElementById('tab-about').classList.add('active');
               await (await import('/static/device.js')).loadAboutInfo();
             }""")
+
+        footer = page.locator('.made-by')
+        credit = footer.locator('.made-by-credit')
+        author = footer.get_by_role('link', name='Xavier Larrea', exact=True)
+        coffee = footer.locator(':scope > a')
+        page.evaluate("window.footerAuthor = document.querySelector('.made-by-credit a')")
+        author.focus()
+        before = len(commands)
+        for locale, catalog in [('es', translated), ('en', english), ('es', translated)]:
+            language(locale)
+            expect(credit).to_have_text(catalog['settingsMadeBy'].replace('{heart}', '♥').replace('{author}', 'Xavier Larrea'))
+            expect(coffee).to_have_text(catalog['settingsBuyCoffee'])
+            expect(author).to_have_attribute('href', 'https://github.com/jxlarrea')
+            expect(coffee).to_have_attribute('href', 'https://buymeacoffee.com/jxlarrea')
+            for link in [author, coffee]:
+                expect(link).to_have_attribute('target', '_blank')
+                expect(link).to_have_attribute('rel', 'noreferrer')
+            assert page.evaluate("window.footerAuthor === document.querySelector('.made-by-credit a')")
+            expect(author).to_be_focused()
+            assert credit.locator('b').count() == 0
+        assert len(commands) == before
+        for width in [390, 768]:
+            page.set_viewport_size(dict(width=width, height=1000))
+            assert footer.evaluate('(el) => el.scrollWidth <= el.clientWidth'), width
+        page.set_viewport_size(dict(width=1100, height=1000))
 
         expect(page.locator('#logMeta')).to_have_text(translated['logsEntries'].replace('{count}', '1'))
         expect(page.locator('#logsOut')).to_contain_text('RawTag: <b>Original log</b>')

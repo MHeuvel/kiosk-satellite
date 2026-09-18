@@ -1515,6 +1515,7 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'settingBtproxyPortTitle' => strings.settingBtproxyPortTitle,
       'settingBtproxyPortDescription' => strings.settingBtproxyPortDescription,
       'esphomeExcludedInvalid' => strings.esphomeExcludedInvalid,
+      'settingsBuyCoffee' => strings.settingsBuyCoffee,
       'settingClapStrictnessTitle' => strings.settingClapStrictnessTitle,
       'settingClapStrictnessDescription' =>
         strings.settingClapStrictnessDescription,

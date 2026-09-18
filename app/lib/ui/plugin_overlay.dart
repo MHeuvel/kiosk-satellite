@@ -4,6 +4,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../managers/plugins/plugin_manager.dart';
+import '../l10n/messages.dart';
 
 /// Floating plugin windows stay below the kiosk drawer and ambient overlays.
 class PluginOverlay extends StatelessWidget {
@@ -106,7 +107,7 @@ class _FloatingWindowState extends State<_FloatingWindow> {
                       ),
                     ),
                     IconButton(
-                      tooltip: 'Close ${window.title}',
+                      tooltip: l10n(context).pluginCloseWindow(window.title),
                       icon: const Icon(Icons.close),
                       onPressed: () => unawaited(
                         widget.plugins.windowEvent(window.id, closed: true),

@@ -2162,6 +2162,11 @@ class UiStringsEn extends UiStrings {
   String get mediaSpeakerSelection => 'Speaker selection';
 
   @override
+  String pluginCloseWindow(String name) {
+    return 'Close $name';
+  }
+
+  @override
   String get pluginActions => 'Actions';
 
   @override
@@ -5266,6 +5271,14 @@ class UiStringsEn extends UiStrings {
 
   @override
   String get esphomeExcludedInvalid => 'Choose a list of entity IDs.';
+
+  @override
+  String settingsMadeBy(String heart, String author) {
+    return 'Made with $heart by $author';
+  }
+
+  @override
+  String get settingsBuyCoffee => 'Buy me a coffee';
 
   @override
   String get settingClapStrictnessTitle => 'Clap detection';

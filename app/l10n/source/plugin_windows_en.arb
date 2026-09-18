@@ -1,0 +1,20 @@
+{
+  "@@locale": "en",
+  "pluginCloseWindow": "Close {name}",
+  "@pluginCloseWindow": {
+    "context": "Kiosk screen > floating plugin window > Close button",
+    "description": "Close button tooltip and accessibility label. The placeholder is the window title supplied by the plugin.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > floating plugin window > Close button"
+      ],
+      "remoteAdmin": []
+    },
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Hello World"
+      }
+    }
+  }
+}

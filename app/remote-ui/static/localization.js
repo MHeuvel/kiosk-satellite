@@ -123,7 +123,26 @@ let languagePreference = 'en';
 
 export function setLanguagePreference(value) {
   languagePreference = Object.hasOwn(catalogs, value) ? value : 'en';
-  if (globalThis.document) document.documentElement.lang = languagePreference;
+  if (globalThis.document) {
+    document.documentElement.lang = languagePreference;
+    localizeFooter();
+  }
+}
+
+// Keep the linked author and heart as nodes while translators order the sentence.
+function localizeFooter() {
+  const credit = document.querySelector('.made-by-credit');
+  if (!credit || credit.dataset.language === languagePreference) return;
+  const focused = credit.contains(document.activeElement) ? document.activeElement : null;
+  const heart = credit.querySelector('.heart');
+  const author = credit.querySelector('a');
+  const parts = t('settingsMadeBy', {heart: '{heart}', author: '{author}'})
+    .split(/(\{heart\}|\{author\})/);
+  credit.replaceChildren(...parts.map(part => part === '{heart}' ? heart
+    : part === '{author}' ? author : document.createTextNode(part)));
+  document.querySelector('.made-by > a').textContent = t('settingsBuyCoffee');
+  credit.dataset.language = languagePreference;
+  focused?.focus({preventScroll: true});
 }
 
 export function formatMessage(pattern, values = {}) {

@@ -3872,6 +3872,12 @@ abstract class UiStrings {
   /// **'Speaker selection'**
   String get mediaSpeakerSelection;
 
+  /// Close button tooltip and accessibility label. The placeholder is the window title supplied by the plugin.
+  ///
+  /// In en, this message translates to:
+  /// **'Close {name}'**
+  String pluginCloseWindow(String name);
+
   /// Visible label, help or status in this section.
   ///
   /// In en, this message translates to:
@@ -9218,6 +9224,18 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Choose a list of entity IDs.'**
   String get esphomeExcludedInvalid;
+
+  /// Footer credit. Keep both placeholders. They become a heart icon and the linked author name. Reorder them as your language needs.
+  ///
+  /// In en, this message translates to:
+  /// **'Made with {heart} by {author}'**
+  String settingsMadeBy(String heart, String author);
+
+  /// Link beside the footer credit that opens the author's support page.
+  ///
+  /// In en, this message translates to:
+  /// **'Buy me a coffee'**
+  String get settingsBuyCoffee;
 
   /// Setting label.
   ///
