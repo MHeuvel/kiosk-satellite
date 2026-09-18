@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite",
-  "revision": "d3cf29efa8d8759f4c837eecbd59c50207ae3c0b",
+  "revision": "701ef84ddf470d27d93e3ab3817f006c4f9e4ae5",
   "workingTree": false,
   "files": {
     "about_identity_en.arb": "dd006567f69f846e2e3b73f09ad13784f0022d282ea3101fa9be7fc95175ec2d",
@@ -40,6 +40,7 @@
     "player_controls_en.arb": "61e81ca8c32de2c69557ea016c96174f8b06651c3a6afc6081e3b9b08f3942f1",
     "player_queue_en.arb": "2b9d165ec8649eab92534fc486a92172ba186e89d4f1632b6b2845d825796cda",
     "player_speaker_groups_en.arb": "4ee28b50a4e886608c7ea76afe271ae9c677460ec9c72e8b14fccd7706cda2c0",
+    "plugin_windows_en.arb": "6b369caa6e2aed463334e86ed925b16f2b4e70ac047a96a94a576b0682927ae8",
     "plugins_actions_en.arb": "a2967cfef4cf06104cc64fae59ae88c00f8cffe914131e307f3f4bb71b282c36",
     "plugins_general_en.arb": "f28ec45a8bbee50dc344672cc49ce301b0c33a282c7f6e4f3f3f6b829e63a3d8",
     "plugins_install_en.arb": "5fd03be0947474fedc6ed3a9264013c6419b5e98d40806402ace289184b227f3",
@@ -87,6 +88,7 @@
     "settings_esphome_notifications_en.arb": "6be8d759f1f1583db99ff5c95159ad87120285a7fb6dc02f73c2f2094e00d1b0",
     "settings_esphome_permissions_en.arb": "1a19be1dcdff6f5cd9f1353fc3fa33fdbc37241b378926995b421b1230b08cb5",
     "settings_esphome_setup_en.arb": "c4c7a944ea206ffc62f04ecfb5936b9d17eaf0a85abee2222cdd2ae74cf5bb90",
+    "settings_footer_en.arb": "2b6279c9f3a304b5ad3fe7aec3e8dcd07ada7704de51489dc2f6866d147950a4",
     "settings_gestures_en.arb": "bc3fdd09b3b680b4d3a0b52279b3acd9af06584e2245e22f2d0cdb1d1b2dd1cc",
     "settings_home_assistant_hold_en.arb": "e8cd71bd923d73e86036647b3e06d953b0521c46f44ee317c1c810c34eb8cc97",
     "settings_home_assistant_optimizations_en.arb": "e7066d9b1609841aecba03c4815a26773d3bb5e681a505924dcbffae15fa3d07",

@@ -2188,7 +2188,7 @@ class UiStringsEs extends UiStrings {
 
   @override
   String pluginCloseWindow(String name) {
-    return 'Close $name';
+    return 'Cerrar $name';
   }
 
   @override
@@ -5357,11 +5357,11 @@ class UiStringsEs extends UiStrings {
 
   @override
   String settingsMadeBy(String heart, String author) {
-    return 'Made with $heart by $author';
+    return 'Hecho con $heart por $author';
   }
 
   @override
-  String get settingsBuyCoffee => 'Buy me a coffee';
+  String get settingsBuyCoffee => 'Invítame a un café';
 
   @override
   String get settingClapStrictnessTitle => 'Detección de palmadas';

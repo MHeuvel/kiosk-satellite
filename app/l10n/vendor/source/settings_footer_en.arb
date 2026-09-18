@@ -1,0 +1,39 @@
+{
+  "@@locale": "en",
+  "settingsMadeBy": "Made with {heart} by {author}",
+  "@settingsMadeBy": {
+    "context": "Settings > bottom of every page",
+    "description": "Footer credit. Keep both placeholders. They become a heart icon and the linked author name. Reorder them as your language needs.",
+    "x-locations": {
+      "device": [
+        "Settings > bottom of every page"
+      ],
+      "remoteAdmin": [
+        "Bottom of every remote admin page"
+      ]
+    },
+    "placeholders": {
+      "heart": {
+        "type": "String",
+        "example": "♥"
+      },
+      "author": {
+        "type": "String",
+        "example": "Xavier Larrea"
+      }
+    }
+  },
+  "settingsBuyCoffee": "Buy me a coffee",
+  "@settingsBuyCoffee": {
+    "context": "Settings > bottom of every page",
+    "description": "Link beside the footer credit that opens the author's support page.",
+    "x-locations": {
+      "device": [
+        "Settings > bottom of every page"
+      ],
+      "remoteAdmin": [
+        "Bottom of every remote admin page"
+      ]
+    }
+  }
+}

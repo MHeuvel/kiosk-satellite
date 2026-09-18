@@ -6,6 +6,8 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ### Added
 
+- **Approved Spanish footer and plugin-window translations.** Import the reviewed localization snapshot with Spanish for all 2924 catalog messages.
+
 - **Settings footer and plugin-window controls use translation templates.** Add three messages for the maker credit, coffee support link and named Close tooltip. Translations can reorder the heart and author while preserving links, keyboard focus and plugin events.
 
 - **Approved Spanish Android and QR scanner translations.** Import the reviewed localization snapshot with Spanish for all 2921 catalog messages, including native service status and scanner controls.

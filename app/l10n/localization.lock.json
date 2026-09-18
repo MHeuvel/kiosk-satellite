@@ -1,12 +1,12 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite-localization",
-  "revision": "218192a9dd1cd0e2e75336d57251bfa5ed2ba864",
+  "revision": "c5479716a44723ffd253b95e4ac196307a760675",
   "locales": [
     "es"
   ],
   "files": {
-    "source/manifest.json": "d3536c22db764e2f9da5ffd0beb8e5ae9bcf08a5953c53bb64c6e24bfe4922ff",
+    "source/manifest.json": "2c0fbad4bacdf6e9883c823b17808ccc907b738b040c5e6341d6a276f9f40ef4",
     "source/about_identity_en.arb": "dd006567f69f846e2e3b73f09ad13784f0022d282ea3101fa9be7fc95175ec2d",
     "source/about_updates_en.arb": "b41df3870ffb041249448dc4b13b14a9350ab4417510f23e772458dd1e582c85",
     "source/android_accessibility_en.arb": "6fe33a6ec23fb984d2c9b695d0dcaa41b8136a83cbedae702ee37e563a9a78a0",
@@ -43,6 +43,7 @@
     "source/player_controls_en.arb": "61e81ca8c32de2c69557ea016c96174f8b06651c3a6afc6081e3b9b08f3942f1",
     "source/player_queue_en.arb": "2b9d165ec8649eab92534fc486a92172ba186e89d4f1632b6b2845d825796cda",
     "source/player_speaker_groups_en.arb": "4ee28b50a4e886608c7ea76afe271ae9c677460ec9c72e8b14fccd7706cda2c0",
+    "source/plugin_windows_en.arb": "6b369caa6e2aed463334e86ed925b16f2b4e70ac047a96a94a576b0682927ae8",
     "source/plugins_actions_en.arb": "a2967cfef4cf06104cc64fae59ae88c00f8cffe914131e307f3f4bb71b282c36",
     "source/plugins_general_en.arb": "f28ec45a8bbee50dc344672cc49ce301b0c33a282c7f6e4f3f3f6b829e63a3d8",
     "source/plugins_install_en.arb": "5fd03be0947474fedc6ed3a9264013c6419b5e98d40806402ace289184b227f3",
@@ -90,6 +91,7 @@
     "source/settings_esphome_notifications_en.arb": "6be8d759f1f1583db99ff5c95159ad87120285a7fb6dc02f73c2f2094e00d1b0",
     "source/settings_esphome_permissions_en.arb": "1a19be1dcdff6f5cd9f1353fc3fa33fdbc37241b378926995b421b1230b08cb5",
     "source/settings_esphome_setup_en.arb": "c4c7a944ea206ffc62f04ecfb5936b9d17eaf0a85abee2222cdd2ae74cf5bb90",
+    "source/settings_footer_en.arb": "2b6279c9f3a304b5ad3fe7aec3e8dcd07ada7704de51489dc2f6866d147950a4",
     "source/settings_gestures_en.arb": "bc3fdd09b3b680b4d3a0b52279b3acd9af06584e2245e22f2d0cdb1d1b2dd1cc",
     "source/settings_home_assistant_hold_en.arb": "e8cd71bd923d73e86036647b3e06d953b0521c46f44ee317c1c810c34eb8cc97",
     "source/settings_home_assistant_optimizations_en.arb": "e7066d9b1609841aecba03c4815a26773d3bb5e681a505924dcbffae15fa3d07",
@@ -209,6 +211,7 @@
     "translations/es/player_controls_es.arb": "bf0bb6b976a586b5195ffd15246978ff894fbc3e65a3eda16c42b5c06d0f57f9",
     "translations/es/player_queue_es.arb": "54e243794273a57af4a41dd7d3c26f06b007d955b1b92272688506f7b841e853",
     "translations/es/player_speaker_groups_es.arb": "b117f260f19444ac331c25b4b8a8ecee12224daf0fbc7242cc14d07715cc81ad",
+    "translations/es/plugin_windows_es.arb": "fff7ff8f28bc5245d923008917c90df99a03eee966575691d757f6732b1bdca6",
     "translations/es/plugins_actions_es.arb": "168eb0e6a9de0d53e40e9672db10fa48f5b4aad47671f7c9d33a77a33f976cfd",
     "translations/es/plugins_general_es.arb": "9b32ade319d411a29ea1c4ea71e5a9a8dd2cb7df5131865f33b518c542012b51",
     "translations/es/plugins_install_es.arb": "a93dcc51139390e804486736f2d31b000c8c3345333f3f39eaedad56f35cc525",
@@ -256,6 +259,7 @@
     "translations/es/settings_esphome_notifications_es.arb": "4e2dc06a93902722ad4626d1a09e22c38ea86d14101dafaf710d97c5fb728b17",
     "translations/es/settings_esphome_permissions_es.arb": "f0436f04dbe90a04e315a60ece0241afeaf380f8792f2b5e33553017511865ee",
     "translations/es/settings_esphome_setup_es.arb": "af5eb75098a96afd3e54af73d872314f7f3ba671bcaacf8e18a412e7dc38defd",
+    "translations/es/settings_footer_es.arb": "ab4ec82ecac1648687256ad8c8cd9e16c344b239ba5e0ed75a10d7228f7dc650",
     "translations/es/settings_gestures_es.arb": "000536c32a24bb87146b402afdc470c5bacda545845e51cbeb451398aec43990",
     "translations/es/settings_home_assistant_hold_es.arb": "40f260988d5362d3b973fe4f5fe5b6ce2f32f66d04ffc9a7685601d9bd64bc5b",
     "translations/es/settings_home_assistant_optimizations_es.arb": "366163096ba0f46f86cb940a8e4bf4442a91fd62d3ad93566113ef29079414f9",
@@ -339,7 +343,7 @@
     "translations/es/setup_voice_satellite_es.arb": "cebf1183a4976351d85a0d1f001f7eb52310a68c06919bce1cab00dbd7a66f9c",
     "translations/es/setup_welcome_es.arb": "5ecd1fef9e8d6b0dd3e085d410941099bb7dd8d4f502e98684fefecaf1663d9c",
     "translations/es/sound_picker_es.arb": "4b1867bded8d578e13653eb8e62deb55eae9e41167e0702ea5c9c2329a8a665b",
-    "metadata/reviews/es.json": "b2703a9c0b6b71c752188bd23c9b2fcbba05ae11c5702641d852249d61c40f31",
+    "metadata/reviews/es.json": "f95da651cefd77ed652b455b0b642430ac179ae665e2d6385023e1052c9f9dde",
     "LICENSE": "4d3e371a6b6cabc75b4be46fecce7601556d0eb777ad9dba4b00bc13a61de5fc",
     "CREDITS.md": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "docs/CONTRIBUTOR-AGREEMENT.md": "f17a3cd0ddbab3a6b95c50d98b81d5648cb8feb09fc54e33bcce855e45ddb014"

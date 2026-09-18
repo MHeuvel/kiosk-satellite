@@ -7993,7 +7993,7 @@
       ]
     }
   },
-  "pluginCloseWindow": "Close {name}",
+  "pluginCloseWindow": "Cerrar {name}",
   "@pluginCloseWindow": {
     "context": "Kiosk screen > floating plugin window > Close button",
     "description": "Close button tooltip and accessibility label. The placeholder is the window title supplied by the plugin.",
@@ -19782,7 +19782,7 @@
       ]
     }
   },
-  "settingsMadeBy": "Made with {heart} by {author}",
+  "settingsMadeBy": "Hecho con {heart} por {author}",
   "@settingsMadeBy": {
     "context": "Settings > bottom of every page",
     "description": "Footer credit. Keep both placeholders. They become a heart icon and the linked author name. Reorder them as your language needs.",
@@ -19805,7 +19805,7 @@
       }
     }
   },
-  "settingsBuyCoffee": "Buy me a coffee",
+  "settingsBuyCoffee": "Invítame a un café",
   "@settingsBuyCoffee": {
     "context": "Settings > bottom of every page",
     "description": "Link beside the footer credit that opens the author's support page.",
