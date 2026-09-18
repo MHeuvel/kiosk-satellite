@@ -2,15 +2,15 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.9.60 - 2026-09-18
 
 ### Added
 
+- **New localization framework with full Spanish localization.** Kiosk Satellite now supports community translations across the device interface and remote administration. This release includes full Spanish localization. Choose English or Español during setup or under Settings > Device > User Interface. If you want Kiosk Satellite in your language, consider contributing to the [localization repository](https://github.com/jxlarrea/kiosk-satellite-localization).
 - **TTS playback diagnostics separate transfer and playback completion.** App Logs record HTTP completion, decoder selection, audio position advancement and end-of-stream handling for native streamed sounds. The `soundDiagnostics` command can capture one response on request and replay its exact bytes through Android ExoPlayer with default or software decoders. Capture stays in memory with an 8 MiB limit and can be exported or cleared (#575, #598).
 
 - **Return to the previous app after voice interactions.** Voice Satellite can automatically return to the previous app or home screen after a conversation or announcement brings Kiosk Satellite forward. The new switch is on by default and appears below **Keep listening in the background** while that setting is enabled. Both settings interfaces include English and Spanish text (#593).
 
-- **Localization framework and Spanish support.** Shared translation catalogs support community translations for the device interface and remote administration, with Spanish included. Choose English or Español during setup or under Settings > Device > User Interface.
 - **Camera streaming lists usable resolutions for each device.** The device and remote admin check camera capture combinations and H.264 encoder support at the selected frame rate and bitrate instead of offering fixed tiers or every sensor size. A notice below Resolution explains excluded encoder sizes and lists any extra sizes available with **Motion analysis while streaming** turned off. That mode pauses motion detection, face detection and hand gestures while viewers are connected and takes snapshots from video frames at the streaming resolution. Detection resumes when streaming ends. Existing settings and imported sizes map to the closest available size. Resolution and analysis mode stay local to each device. Stream Status identifies the actual video size and any recovery fallback. Video setting changes keep the listening port open and reconnect viewers, avoiding the Portal port reuse failure. Exact resolution selection also fixes the Portal Go remaining at 640 × 480 despite supporting 1280 × 720 (#585).
 - **Install from file reports its progress across the fleet.** Pushing an uploaded APK to the fleet used to go quiet after the upload to the leader, with no sign of anything happening until the followers restarted. The leader now streams the file to one follower at a time and reports each step as it goes. The Fleet Management page on both the device and the remote admin shows Sending with a percentage on the follower taking the file, then Installing once it started, and the Install on the fleet button on the remote admin reads out the same progress while it waits. A follower still reports Installing between the leader's polls, and a stale Unreachable no longer hides an install that just started (#584).
 
