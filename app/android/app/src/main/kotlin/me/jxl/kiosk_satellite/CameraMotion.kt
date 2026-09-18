@@ -567,6 +567,13 @@ class CameraMotion(
             return
         }
         val existing = rtsp
+        if (existing?.listening == true && sameRtspVideoConfiguration(rtspConfig, config)) {
+            rtspConfig = config
+            if (boundRtsp) boundVideoConfig = config
+            rtspEncoder?.updateOverlay(config["dateTime"] == true, config["dateTimeBackground"] == true)
+            result.success(rtspStatus())
+            return
+        }
         if (existing?.listening == true && config["enabled"] == true && sameRtspEndpoint(rtspConfig, config)) {
             setRtspAudio(false)
             if (boundRtsp) releaseCamera()
@@ -1093,7 +1100,10 @@ class CameraMotion(
                                         if (!includeAnalysis) lastFrameAtMs = SystemClock.elapsedRealtime()
                                         server.frame(units, time)
                                     } },
-                                    diagnosticSession = diagnosticId) { message ->
+                                    diagnosticSession = diagnosticId,
+                                    overlayContext = context.applicationContext,
+                                    dateTime = rtspConfig["dateTime"] == true,
+                                    dateTimeBackground = rtspConfig["dateTimeBackground"] == true) { message ->
                                     mainHandler.post { if (session == mySession) server.fail(message) }
                                 }
                                 try {

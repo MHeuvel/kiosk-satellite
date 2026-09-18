@@ -1084,6 +1084,15 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'cameraSupportedSizes' => strings.cameraSupportedSizes,
       'cameraAnalysisOff' => strings.cameraAnalysisOff,
       'cameraCaptureRejected' => strings.cameraCaptureRejected,
+      'cameraOverlaysHeading' => strings.cameraOverlaysHeading,
+      'settingCameraRtspDateTimeTitle' =>
+        strings.settingCameraRtspDateTimeTitle,
+      'settingCameraRtspDateTimeDescription' =>
+        strings.settingCameraRtspDateTimeDescription,
+      'settingCameraRtspDateTimeBackgroundTitle' =>
+        strings.settingCameraRtspDateTimeBackgroundTitle,
+      'settingCameraRtspDateTimeBackgroundDescription' =>
+        strings.settingCameraRtspDateTimeBackgroundDescription,
       'cameraStreamsNameRequired' => strings.cameraStreamsNameRequired,
       'cameraStreamsBaseUrlRequired' => strings.cameraStreamsBaseUrlRequired,
       'cameraStreamsServerNotFound' => strings.cameraStreamsServerNotFound,

@@ -50,5 +50,6 @@ export const navigationMessageIds = {
   "Display": "settingsGroupDisplay",
   "Media & Cameras": "settingsGroupMediaCameras",
   "Kiosk": "settingsGroupKiosk",
-  "System": "settingsGroupSystem"
+  "System": "settingsGroupSystem",
+  "Overlays": "cameraOverlaysHeading"
 };

@@ -1,12 +1,12 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite-localization",
-  "revision": "1e4575cfb500b5284c1d5d5c556afb856555d7e2",
+  "revision": "55ba3cf932dde9d4ec68718d2cc37f085a32e9ac",
   "locales": [
     "es"
   ],
   "files": {
-    "source/manifest.json": "836084e712919c47ef498f2b9210be9edb2fdcca039d8e8c830655187f554dc4",
+    "source/manifest.json": "e0ba7f6ef3af8a553b8c4e27b319310fa0873162fd1fb7364fc5e3ae2de3a574",
     "source/about_identity_en.arb": "dd006567f69f846e2e3b73f09ad13784f0022d282ea3101fa9be7fc95175ec2d",
     "source/about_updates_en.arb": "b41df3870ffb041249448dc4b13b14a9350ab4417510f23e772458dd1e582c85",
     "source/android_accessibility_en.arb": "6fe33a6ec23fb984d2c9b695d0dcaa41b8136a83cbedae702ee37e563a9a78a0",
@@ -73,7 +73,7 @@
     "source/settings_camera_permissions_en.arb": "af1f4abccaf91497313d69f836cf52fad5396437ee97554c472c4949e7462cbb",
     "source/settings_camera_snapshot_en.arb": "df01d8263c7598d75619263228b9259db6823d2d0f744bc1c392bdbc32b2972e",
     "source/settings_camera_status_en.arb": "a82c1661ece636cba1c7bfe091e73627932b2005ce1fd3401097441a88fdb6ef",
-    "source/settings_camera_streaming_en.arb": "b852584d882c29da93f0a7a4e255f95d25070ea9988915e8789b37bb1a397e47",
+    "source/settings_camera_streaming_en.arb": "abb78a28b6b6e88b205b4a2a498aa2a7a3f01e74570340d1439456a53ebc3e41",
     "source/settings_camera_streams_errors_en.arb": "6d5c95e55b74e9e05a4a5510859926dfa3197b9c433d1cd623d1d681dd06b680",
     "source/settings_camera_streams_imports_en.arb": "cc2d60fc2fc24843121590e1a38a99f24c5f62c8cadb8328a9d4943243df8520",
     "source/settings_camera_streams_playback_en.arb": "e97207dbcc80942f39836b6e2a2d9f57e1dd93f1a5d59d8ddacfd3c7f26b239c",
@@ -252,7 +252,7 @@
     "translations/es/settings_camera_permissions_es.arb": "191027da6304671a6d4c3307bab7e4b752792964c2af574cee3068ca7b9517c3",
     "translations/es/settings_camera_snapshot_es.arb": "0eb390490afb07e78e02ac3fa3ce917b86fdc8671634e67a0521f13a27404994",
     "translations/es/settings_camera_status_es.arb": "7288416d18698e8851ad19ea4d70fdef4c0185f76d6101898033077a6ffaea8f",
-    "translations/es/settings_camera_streaming_es.arb": "1e849d14bc3a1c4b75b735a90ef28a1ac0e5900f33e988af10b508a7f3e6d7f8",
+    "translations/es/settings_camera_streaming_es.arb": "70791ae0c658d40f2ef2cec7b515ce93f614b23659ab76b23eee6095f4e34d92",
     "translations/es/settings_camera_streams_errors_es.arb": "314b51a635b93ec168101ffc3cf0be53a06c420ec7a940d50d6542a2e0154ecc",
     "translations/es/settings_camera_streams_imports_es.arb": "ee14136605cf4ced134150634a5e97d2816bb09cbebafd7d69ce3a3ef77aa456",
     "translations/es/settings_camera_streams_playback_es.arb": "3128f15708b5099201faaa96b3da191a302f17fa6902449b8c5b18441b2562ea",
@@ -365,7 +365,7 @@
     "translations/es/setup_voice_satellite_es.arb": "cebf1183a4976351d85a0d1f001f7eb52310a68c06919bce1cab00dbd7a66f9c",
     "translations/es/setup_welcome_es.arb": "5ecd1fef9e8d6b0dd3e085d410941099bb7dd8d4f502e98684fefecaf1663d9c",
     "translations/es/sound_picker_es.arb": "4b1867bded8d578e13653eb8e62deb55eae9e41167e0702ea5c9c2329a8a665b",
-    "metadata/reviews/es.json": "8b8aac440e55dcc7394142576b464b00a0804a53f8636a0b604fc26234200f74",
+    "metadata/reviews/es.json": "67bd8fd36ba69d14f628f47e386989313075ddfffeb8385e6c2f0e33b3e4285a",
     "LICENSE": "4d3e371a6b6cabc75b4be46fecce7601556d0eb777ad9dba4b00bc13a61de5fc",
     "CREDITS.md": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "docs/CONTRIBUTOR-AGREEMENT.md": "f17a3cd0ddbab3a6b95c50d98b81d5648cb8feb09fc54e33bcce855e45ddb014"

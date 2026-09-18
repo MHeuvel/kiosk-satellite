@@ -109,6 +109,8 @@ class MotionManager extends Manager {
       'protocol': _settings.get(defs.cameraStreamingProtocol),
       'name': _settings.get(defs.deviceName),
       'audio': _settings.get(defs.cameraRtspAudio),
+      'dateTime': _settings.get(defs.cameraRtspDateTime),
+      'dateTimeBackground': _settings.get(defs.cameraRtspDateTimeBackground),
       'port': _settings
           .get(
             _settings.get(defs.cameraStreamingProtocol) == 'onvif'
@@ -126,10 +128,23 @@ class MotionManager extends Manager {
       'password': _settings.get(defs.cameraRtspPassword),
     };
     if (!force && mapEquals(config, _lastRtspConfig)) return;
+    final overlayOnly =
+        !force &&
+        _lastRtspConfig != null &&
+        mapEquals(
+          Map.of(config)
+            ..remove('dateTime')
+            ..remove('dateTimeBackground'),
+          Map.of(_lastRtspConfig!)
+            ..remove('dateTime')
+            ..remove('dateTimeBackground'),
+        );
     _lastRtspConfig = config;
-    _rtspDemand = false;
-    _rtspAudio.demand(false);
-    _sync();
+    if (!overlayOnly) {
+      _rtspDemand = false;
+      _rtspAudio.demand(false);
+      _sync();
+    }
     _rtspConfiguration = _rtspConfiguration.then((_) async {
       if (_disposed) return;
       try {

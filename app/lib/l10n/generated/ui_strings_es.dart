@@ -4028,6 +4028,23 @@ class UiStringsEs extends UiStrings {
       'Otros tamaños de cámara no están disponibles con la configuración actual de captura.';
 
   @override
+  String get cameraOverlaysHeading => 'Superposiciones';
+
+  @override
+  String get settingCameraRtspDateTimeTitle => 'Mostrar fecha y hora';
+
+  @override
+  String get settingCameraRtspDateTimeDescription =>
+      'Muestra la fecha y hora del dispositivo en la esquina superior izquierda del video con su formato de fecha y de 12 o 24 horas.';
+
+  @override
+  String get settingCameraRtspDateTimeBackgroundTitle => 'Fondo negro';
+
+  @override
+  String get settingCameraRtspDateTimeBackgroundDescription =>
+      'Agrega un fondo negro detrás de la fecha y hora para facilitar la lectura.';
+
+  @override
   String get cameraStreamsNameRequired => 'Escribe un nombre.';
 
   @override

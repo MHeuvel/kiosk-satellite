@@ -5669,6 +5669,31 @@
     "translation": "5403a721a8e5dcb7f15baa219c23b5bf75158820f8d1a4e59368bd2ac505ea2d",
     "author": "Xavier Larrea"
   },
+  "cameraOverlaysHeading": {
+    "source": "32d61067978ce1433de6cba989bff247b93f67ea4405d76e3fb15b2aa8518d08",
+    "translation": "c4bd0b673bb3334bb3275b46a6040255e0d5f144770ea4e1f3e41459ad28c29d",
+    "author": "Xavier Larrea"
+  },
+  "settingCameraRtspDateTimeTitle": {
+    "source": "9e013ad67dd4acd35f171a967c7db87077a8cfdcbe3961028068cdea5d328b30",
+    "translation": "e321a181ce2a7d0d31e66b668a66751374c9c0662ad9523bb15a3adc8b20c49e",
+    "author": "Xavier Larrea"
+  },
+  "settingCameraRtspDateTimeDescription": {
+    "source": "e146ec65df00527831179552a558c32de3d81c073c60db9da80197a85ef4509e",
+    "translation": "466058a0291337e95b90cfe4f4606c0a8aec5520a5aa6896ce95b0b15aa212dd",
+    "author": "Xavier Larrea"
+  },
+  "settingCameraRtspDateTimeBackgroundTitle": {
+    "source": "1aec721c3c53d44dab923ae8ba40e5f4fe7ad88972e1245759a17f4fc460fb4e",
+    "translation": "50372ba25a089942098b958d4e918591938656c7de7965af0db49d628ccf8444",
+    "author": "Xavier Larrea"
+  },
+  "settingCameraRtspDateTimeBackgroundDescription": {
+    "source": "c4a3caf308f6ebdab461e807209b06e6b608b8fc0427b840db31237a1da669b6",
+    "translation": "9506cea209d1ca00fb402c20c60d8deb3f5cd6768960d59f0fbc16e010d3ab17",
+    "author": "Xavier Larrea"
+  },
   "cameraStreamsNameRequired": {
     "source": "74c8af82aa2a0543983718d5ae7020181e150a2aeb5c26f6b2ced0eed48231cf",
     "translation": "c98a5cf38ee89fdd23106853896c2f567141799fb0a55c107853e727c9717ccf",

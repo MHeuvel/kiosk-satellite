@@ -1394,5 +1394,13 @@
   "wake_word.return_to_background": {
     "title": "settingWakeWordReturnToBackgroundTitle",
     "description": "settingWakeWordReturnToBackgroundDescription"
+  },
+  "camera.rtsp.datetime": {
+    "title": "settingCameraRtspDateTimeTitle",
+    "description": "settingCameraRtspDateTimeDescription"
+  },
+  "camera.rtsp.datetime_background": {
+    "title": "settingCameraRtspDateTimeBackgroundTitle",
+    "description": "settingCameraRtspDateTimeBackgroundDescription"
   }
 }

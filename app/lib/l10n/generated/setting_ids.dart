@@ -1396,4 +1396,12 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingWakeWordReturnToBackgroundTitle",
     "description": "settingWakeWordReturnToBackgroundDescription",
   },
+  "camera.rtsp.datetime": {
+    "title": "settingCameraRtspDateTimeTitle",
+    "description": "settingCameraRtspDateTimeDescription",
+  },
+  "camera.rtsp.datetime_background": {
+    "title": "settingCameraRtspDateTimeBackgroundTitle",
+    "description": "settingCameraRtspDateTimeBackgroundDescription",
+  },
 };

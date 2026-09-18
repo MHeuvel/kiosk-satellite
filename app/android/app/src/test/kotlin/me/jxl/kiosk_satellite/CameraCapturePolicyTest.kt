@@ -13,6 +13,16 @@ class CameraCapturePolicyTest {
         assertFalse(sameRtspEndpoint(config, config + ("enabled" to false)))
     }
 
+    @Test fun overlaysKeepTheEncoderButVideoAndEndpointChangesDoNot() {
+        val config = mapOf("enabled" to true, "port" to 8554, "width" to 640, "audio" to true)
+        val overlay = config + mapOf("dateTime" to true, "dateTimeBackground" to true)
+        assertTrue(sameRtspVideoConfiguration(config, overlay))
+        assertTrue(sameRtspEndpoint(config, overlay))
+        for ((key, value) in mapOf("width" to 1280, "port" to 8080, "enabled" to false, "audio" to false)) {
+            assertFalse(sameRtspVideoConfiguration(config, overlay + (key to value)))
+        }
+    }
+
     @Test fun variableSensorRangeIsNotTurnedIntoUnsupportedFixedRate() {
         val ranges = listOf(5..30, 15..30, 30..30)
         assertEquals(5..30, streamingFpsRange(ranges, 10))

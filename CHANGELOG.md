@@ -4,6 +4,10 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ## Unreleased
 
+### Added
+
+- **Camera streams can show the device date and time.** RTSP & ONVIF Streaming now has an Overlays group with an optional timestamp and a separate black background switch. The timestamp follows the device date format and 12/24-hour preference. The black background starts at the top-left corner with padding around the text. Overlay changes apply without reconnecting viewers. Both settings interfaces include English and Spanish text (#609).
+
 ### Fixed
 
 - **Fleet members can be added by IP address.** Add a kiosk now offers Add by IP on the device and remote admin. Enter the IP address and admin port, verify the kiosk, choose a profile and send the invitation for acceptance on the follower. Invite again also works from saved addresses when discovery is unavailable. Labels, help and validation messages include English and Spanish text (#596).

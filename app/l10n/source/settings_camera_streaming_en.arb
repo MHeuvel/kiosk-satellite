@@ -511,5 +511,70 @@
         "Camera > RTSP & ONVIF Streaming"
       ]
     }
+  },
+  "cameraOverlaysHeading": "Overlays",
+  "@cameraOverlaysHeading": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Overlays",
+    "description": "Section heading.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Overlays"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Overlays"
+      ]
+    }
+  },
+  "settingCameraRtspDateTimeTitle": "Show date and time",
+  "@settingCameraRtspDateTimeTitle": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Overlays",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Overlays"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Overlays"
+      ]
+    }
+  },
+  "settingCameraRtspDateTimeDescription": "Show the device date and time in the upper-left corner of the video using its date format and 12/24-hour setting.",
+  "@settingCameraRtspDateTimeDescription": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Overlays",
+    "description": "Help for the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Overlays"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Overlays"
+      ]
+    }
+  },
+  "settingCameraRtspDateTimeBackgroundTitle": "Black background",
+  "@settingCameraRtspDateTimeBackgroundTitle": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Overlays",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Overlays"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Overlays"
+      ]
+    }
+  },
+  "settingCameraRtspDateTimeBackgroundDescription": "Add a black background behind the date and time for visibility.",
+  "@settingCameraRtspDateTimeBackgroundDescription": {
+    "context": "Settings > Camera > RTSP & ONVIF Streaming > Overlays",
+    "description": "Help for the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming > Overlays"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming > Overlays"
+      ]
+    }
   }
 }

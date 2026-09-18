@@ -6909,6 +6909,36 @@ abstract class UiStrings {
   /// **'Other camera sizes are unavailable in the current capture setup.'**
   String get cameraCaptureRejected;
 
+  /// Section heading.
+  ///
+  /// In en, this message translates to:
+  /// **'Overlays'**
+  String get cameraOverlaysHeading;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Show date and time'**
+  String get settingCameraRtspDateTimeTitle;
+
+  /// Help for the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Show the device date and time in the upper-left corner of the video using its date format and 12/24-hour setting.'**
+  String get settingCameraRtspDateTimeDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Black background'**
+  String get settingCameraRtspDateTimeBackgroundTitle;
+
+  /// Help for the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a black background behind the date and time for visibility.'**
+  String get settingCameraRtspDateTimeBackgroundDescription;
+
   /// Label or guidance in this section.
   ///
   /// In en, this message translates to:

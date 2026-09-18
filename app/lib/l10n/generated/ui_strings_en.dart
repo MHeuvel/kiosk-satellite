@@ -3959,6 +3959,23 @@ class UiStringsEn extends UiStrings {
       'Other camera sizes are unavailable in the current capture setup.';
 
   @override
+  String get cameraOverlaysHeading => 'Overlays';
+
+  @override
+  String get settingCameraRtspDateTimeTitle => 'Show date and time';
+
+  @override
+  String get settingCameraRtspDateTimeDescription =>
+      'Show the device date and time in the upper-left corner of the video using its date format and 12/24-hour setting.';
+
+  @override
+  String get settingCameraRtspDateTimeBackgroundTitle => 'Black background';
+
+  @override
+  String get settingCameraRtspDateTimeBackgroundDescription =>
+      'Add a black background behind the date and time for visibility.';
+
+  @override
   String get cameraStreamsNameRequired => 'name required';
 
   @override

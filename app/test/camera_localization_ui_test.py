@@ -43,6 +43,8 @@ notice = ('Only sizes supported by the camera and H.264 encoder at the current s
           'The encoder cannot use 3840 × 2160 at these settings.')
 setting('camera.rtsp.resolution', '640x480', 'select', options=['640x480', '1280x720'],
         optionLabels={'640x480':'640 × 480', '1280x720':'1280 × 720'}, notice=notice)
+setting('camera.rtsp.datetime', False, 'boolean', section='Overlays', dependsOn='camera.rtsp.enabled')
+setting('camera.rtsp.datetime_background', False, 'boolean', section='Overlays', dependsOn='camera.rtsp.datetime')
 setting('motion.sensor', True, 'boolean', subpage='Motion Sensor')
 requests = []
 status = dict(protocol='rtsp', encoding=True, clients=1, listening=True, resolution='640x480',
@@ -113,6 +115,20 @@ try:
         assert root.locator('img[src="x"]').count() == 0
         root.locator('[data-subpage-entry="RTSP & ONVIF Streaming"]').click()
         expect(page.locator('#pageTitle')).to_contain_text('TEST RTSP & ONVIF Streaming')
+        expect(root.get_by_text('TEST Overlays', exact=True)).to_be_visible()
+        timestamp = root.locator('[data-key="camera.rtsp.datetime"]')
+        background = root.locator('[data-key="camera.rtsp.datetime_background"]')
+        expect(timestamp.get_by_text('TEST Show date and time', exact=True)).to_be_visible()
+        expect(background).to_be_hidden()
+        with page.expect_response('**/api/settings'):
+            timestamp.locator('label').click()
+        expect(background.get_by_text('TEST Black background', exact=True)).to_be_visible()
+        with page.expect_response('**/api/settings'):
+            background.locator('label').click()
+        assert requests[-1] == {'camera.rtsp.datetime_background': True}
+        with page.expect_response('**/api/settings'):
+            timestamp.locator('label').click()
+        expect(background).to_be_hidden()
         expect(root.get_by_text('rtsp://192.0.2.5:8554/live',exact=True)).to_be_visible()
         expect(root.get_by_text('TEST 1 connected viewer. Actual video: 640x480.',exact=False)).to_be_visible()
         expect(root.get_by_text('TEST Requested 1280x720, camera supplied 640x480.',exact=False)).to_be_visible()

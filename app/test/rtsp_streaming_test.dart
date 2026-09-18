@@ -109,6 +109,29 @@ void main() {
   });
 
   test(
+    'overlay toggles reach native without interrupting camera demand',
+    () async {
+      expect(configurations.last['dateTime'], false);
+      expect(configurations.last['dateTimeBackground'], false);
+      await demand(true);
+      final activeStream = stream;
+      expect(activeStream, isNotNull);
+      await settings.set(defs.cameraRtspDateTime, true);
+      await settle();
+      expect(configurations.last['dateTime'], true);
+      expect(identical(stream, activeStream), true);
+      await settings.set(defs.cameraRtspDateTimeBackground, true);
+      await settle();
+      expect(configurations.last['dateTimeBackground'], true);
+      expect(identical(stream, activeStream), true);
+      await settings.set(defs.cameraRtspDateTime, false);
+      await settle();
+      expect(configurations.last['dateTime'], false);
+      expect(identical(stream, activeStream), true);
+    },
+  );
+
+  test(
     'exact camera dimensions and facing reach the native stream configuration',
     () async {
       await settings.setFromJson(defs.cameraRtspResolution.key, '1280x720');
@@ -510,8 +533,16 @@ void main() {
     await settings.set(defs.cameraRtspEnabled, false);
     expect(settings.visible(defs.cameraRtspEnabled), true);
     expect(settings.visible(defs.cameraRtspPort), false);
+    expect(settings.visible(defs.cameraRtspDateTime), false);
+    expect(settings.visible(defs.cameraRtspDateTimeBackground), false);
     await settings.set(defs.cameraRtspEnabled, true);
     expect(settings.visible(defs.cameraRtspPort), true);
+    expect(settings.visible(defs.cameraRtspDateTime), true);
+    expect(settings.visible(defs.cameraRtspDateTimeBackground), false);
+    await settings.set(defs.cameraRtspDateTime, true);
+    expect(settings.visible(defs.cameraRtspDateTimeBackground), true);
+    await settings.set(defs.cameraRtspDateTime, false);
+    expect(settings.visible(defs.cameraRtspDateTimeBackground), false);
     expect(settings.visible(defs.cameraRtspUsername), false);
     await settings.set(defs.cameraRtspAuth, true);
     expect(settings.visible(defs.cameraRtspUsername), true);

@@ -32,6 +32,9 @@ class CameraRtspEncoder(
     private val onConfig: (List<ByteArray>) -> Unit,
     private val onFrame: (List<ByteArray>, Long) -> Unit,
     private val diagnosticSession: String = "encoder",
+    private val overlayContext: android.content.Context? = null,
+    private val dateTime: Boolean = false,
+    private val dateTimeBackground: Boolean = false,
     private val onError: (String) -> Unit,
 ) {
     @Volatile private var running = true
@@ -72,6 +75,7 @@ class CameraRtspEncoder(
                 val bridge = CameraRtspGlBridge(output, inputSize, size, transform, fps, diagnosticSession, onError)
                     .also { attemptGraphics = it }
                 val cameraInput = bridge.surface()
+                bridge.updateOverlay(overlayContext, dateTime, dateTimeBackground)
                 codec = encoder
                 input = output
                 graphics = bridge
@@ -95,6 +99,10 @@ class CameraRtspEncoder(
         }
         isClosed = true
         throw IllegalStateException("No H.264 encoder could start at $size and $fps fps", lastFailure)
+    }
+
+    internal fun updateOverlay(enabled: Boolean, background: Boolean) {
+        graphics?.updateOverlay(overlayContext, enabled, background)
     }
 
     internal fun updateTransform(transform: RtspVideoTransform) {

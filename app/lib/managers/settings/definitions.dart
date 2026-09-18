@@ -4187,6 +4187,32 @@ const cameraRtspPassword = SettingDef<String>(
   secret: true,
 );
 
+const cameraRtspDateTime = SettingDef<bool>(
+  key: 'camera.rtsp.datetime',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Show date and time',
+  description:
+      'Show the device date and time in the upper-left corner of the video using its date format and 12/24-hour setting.',
+  category: 'Camera',
+  section: 'Overlays',
+  subpage: 'RTSP & ONVIF Streaming',
+  dependsOn: 'camera.rtsp.enabled',
+);
+
+const cameraRtspDateTimeBackground = SettingDef<bool>(
+  key: 'camera.rtsp.datetime_background',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Black background',
+  description:
+      'Add a black background behind the date and time for visibility.',
+  category: 'Camera',
+  section: 'Overlays',
+  subpage: 'RTSP & ONVIF Streaming',
+  dependsOn: 'camera.rtsp.datetime',
+);
+
 String? validateRtspPort(Object? value) {
   final port = value is num ? value : num.tryParse('$value');
   return port == null ||
@@ -7746,6 +7772,8 @@ const List<SettingDef<Object>> allSettings = [
   cameraRtspAuth,
   cameraRtspUsername,
   cameraRtspPassword,
+  cameraRtspDateTime,
+  cameraRtspDateTimeBackground,
   screensaverScheduleEnabled,
   screensaverSchedule,
   wakeWordEnabled,

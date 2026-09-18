@@ -52,6 +52,7 @@ internal class CameraRtspGlBridge(
                 -1f, 1f, 0f, 1f, 1f, 1f, 1f, 1f))
             position(0)
         }
+    private var overlay: RtspDateTimeOverlay? = null
     private var first = true
     private var lastPresentationNs = 0L
     private var failed = false
@@ -183,6 +184,19 @@ internal class CameraRtspGlBridge(
             "cameraInput=SurfaceTexture, encoderInput=EGL, input=$inputSize, output=$size")
     }
 
+    fun updateOverlay(context: android.content.Context?, enabled: Boolean, background: Boolean) {
+        if (!closing.get()) handler.post {
+            if (closing.get() || failed) return@post
+            if (enabled && context != null) {
+                if (overlay == null) overlay = RtspDateTimeOverlay(context, size)
+                overlay?.background = background
+            } else {
+                overlay?.close()
+                overlay = null
+            }
+        }
+    }
+
     fun updateTransform(value: RtspVideoTransform) {
         if (!closing.get()) handler.post { if (!closing.get()) applyTransform(value) }
     }
@@ -225,6 +239,7 @@ internal class CameraRtspGlBridge(
             GLES20.glEnableVertexAttribArray(coordinates)
             GLES20.glUniformMatrix4fv(transform, 1, false, matrix, 0)
             GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4)
+            overlay?.draw(System.currentTimeMillis())
             val glError = GLES20.glGetError()
             check(glError == GLES20.GL_NO_ERROR) { "RTSP graphics error 0x${glError.toString(16)}" }
             captureSnapshot()
@@ -266,6 +281,8 @@ internal class CameraRtspGlBridge(
         texture?.release()
         texture = null
         if (context != EGL14.EGL_NO_CONTEXT) {
+            overlay?.close()
+            overlay = null
             if (program != 0) GLES20.glDeleteProgram(program)
             if (textureId != 0) GLES20.glDeleteTextures(1, intArrayOf(textureId), 0)
         }

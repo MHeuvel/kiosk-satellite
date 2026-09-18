@@ -50,5 +50,6 @@ const navigationMessageIds = <String, String>{
   "Display": "settingsGroupDisplay",
   "Media & Cameras": "settingsGroupMediaCameras",
   "Kiosk": "settingsGroupKiosk",
-  "System": "settingsGroupSystem"
+  "System": "settingsGroupSystem",
+  "Overlays": "cameraOverlaysHeading"
 };

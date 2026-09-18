@@ -37,5 +37,10 @@
   "cameraAnalysisOff": "La detección de movimiento, rostros y gestos de manos se pausa mientras hay espectadores conectados. Las capturas usan cuadros de video con la resolución de transmisión.",
   "cameraRejectedSizes": "El codificador no puede usar {sizes} con esta configuración.",
   "cameraRejectedCount": "Se excluyen {count} tamaños de cámara porque el codificador no puede usarlos con esta configuración.",
-  "cameraCaptureRejected": "Otros tamaños de cámara no están disponibles con la configuración actual de captura."
+  "cameraCaptureRejected": "Otros tamaños de cámara no están disponibles con la configuración actual de captura.",
+  "cameraOverlaysHeading": "Superposiciones",
+  "settingCameraRtspDateTimeTitle": "Mostrar fecha y hora",
+  "settingCameraRtspDateTimeDescription": "Muestra la fecha y hora del dispositivo en la esquina superior izquierda del video con su formato de fecha y de 12 o 24 horas.",
+  "settingCameraRtspDateTimeBackgroundTitle": "Fondo negro",
+  "settingCameraRtspDateTimeBackgroundDescription": "Agrega un fondo negro detrás de la fecha y hora para facilitar la lectura."
 }

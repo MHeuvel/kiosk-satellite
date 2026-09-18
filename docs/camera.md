@@ -105,6 +105,8 @@ Tap the **Stream URL** or **ONVIF URL** field below **Port** to copy it. Only th
 | Include microphone audio | off | Add 16 kHz mono AAC audio at 32 kbps. Continues when Voice Satellite is muted or Lockdown Mode is on. |
 | Require authentication | off | Reveals Username and Password. Both must be set before an authenticated listener starts. |
 
+**Overlays** contains **Show date and time**, off by default. It adds the device date and time, including seconds, to the upper-left corner of the video using the device date format and 12/24-hour setting. Enabling it reveals **Black background**, also off by default, for a solid background that starts at the top-left corner with padding around the text. Both switches apply to a live stream without reconnecting viewers. Video-frame snapshots include the overlay. Separate camera snapshots and detection images do not.
+
 Resolution stays local to each device because cameras in a fleet can support different sizes. Existing preset values and imported sizes map to the closest supported streaming size.
 
 Use RTSP over TCP in your viewer. The stream contains H.264 video and optional AAC microphone audio. For go2rtc, add the URL as a stream source. Frigate can record the H.264 stream without transcoding it. Authentication uses RTSP Digest. Enter the credentials in your client or use `rtsp://USERNAME:PASSWORD@DEVICE_IP:8554/camera`, with URL encoding for special characters.
