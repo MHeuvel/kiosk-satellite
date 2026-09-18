@@ -188,6 +188,24 @@ class SoundManager extends Manager {
       )
       ..register(
         Command(
+          name: 'playTimerChime',
+          description: 'Play the bundled Voice Satellite timer alert locally.',
+          handler: (_) async {
+            final id = 'timer${++_nextId}';
+            final source = await _bundled('assets/sounds/timer-alert.mp3');
+            final ok = await _channel.invokeMethod<bool>('play', {
+              'id': id,
+              'source': source,
+              'volume': 1.0,
+            });
+            return ok == true
+                ? CommandResult.ok({'id': id})
+                : const CommandResult.fail('native playback failed');
+          },
+        ),
+      )
+      ..register(
+        Command(
           name: 'playChime',
           description:
               'Play the notification chime natively (honors the speaker '

@@ -1,0 +1,11 @@
+{
+  "@@locale": "es",
+  "voiceTimerDefaultName": "Temporizador",
+  "voiceTimerDrag": "Arrastra para mover los temporizadores",
+  "voiceTimerPauseHint": "Toca para pausar. Toca dos veces para cancelar. Arrastra para mover.",
+  "voiceTimerResumeHint": "Toca para reanudar. Toca dos veces para cancelar. Arrastra para mover.",
+  "voiceTimerCancel": "Cancelar temporizador",
+  "voiceTimerActionError": "No se pudo cambiar el temporizador. Comprueba la conexión y actualiza Voice Satellite si es necesario.",
+  "voiceTimerFinished": "Finalizado",
+  "voiceTimerDismissHint": "Toca para cerrar la alerta del temporizador."
+}

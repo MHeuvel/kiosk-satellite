@@ -35,6 +35,9 @@ class JsApiManager extends Manager {
   /// listed here is not reachable from page JS regardless of registry
   /// contents (pages are less trusted than the authenticated remote API).
   static const _exposedMethods = <String, String>{
+    'setVoiceTimers': 'setVoiceTimers',
+    'setVoiceTimerAlert': 'setVoiceTimerAlert',
+    'voiceTimerActionFailed': 'voiceTimerActionFailed',
     'getDeviceInfo': 'getDeviceInfo',
     'getBrightness': 'getBrightness',
     'setBrightness': 'setBrightness',
@@ -167,6 +170,7 @@ class JsApiManager extends Manager {
 
   /// A full navigation replaces the document. SPA view switches do not.
   void onPageStarted() {
+    bus.publish(const VoiceTimersCleared());
     _browserMicrophones.clear();
     unawaited(MicHub.instance.setBrowserCapturing(false));
     if (_pageInteractions.isEmpty) return;

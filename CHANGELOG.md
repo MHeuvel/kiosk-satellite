@@ -6,6 +6,8 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ### Added
 
+- **Voice timers stay visible across kiosk views.** Multiple named timers use floating pills styled like At a Glance above the dashboard, screensaver, Now Playing and cameras. Drag the group to save its position on this device. Tap to pause or resume and double tap to cancel. Finished timers show an alert pill and play the bundled Voice Satellite alert sound locally at the assistant volume. Tap to dismiss the alert. Timer labels and controls include English and Spanish text from the localization repository. Requires the companion Voice Satellite timer handoff update (#612).
+
 - **Camera streams can show the device date and time.** RTSP & ONVIF Streaming now has an Overlays group with an optional timestamp and a separate black background switch. The timestamp follows the device date format and 12/24-hour preference. The black background starts at the top-left corner with padding around the text. Overlay changes apply without reconnecting viewers. Both settings interfaces include English and Spanish text (#609).
 
 ### Fixed

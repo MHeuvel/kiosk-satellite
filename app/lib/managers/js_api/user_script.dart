@@ -32,6 +32,12 @@ String buildKioskSatelliteScript({
     version: '$version',
     os: '$os',
 
+    setVoiceTimerAlert: function (snapshot) { return call('setVoiceTimerAlert', snapshot); },
+    setVoiceTimers: function (snapshot) { return call('setVoiceTimers', snapshot); },
+    voiceTimerActionFailed: function (entityId) {
+      return call('voiceTimerActionFailed', { entityId: entityId });
+    },
+
     getDeviceInfo: function () { return call('getDeviceInfo'); },
     getBrightness: function () { return call('getBrightness'); },
     setBrightness: function (level) { return call('setBrightness', { level: level }); },

@@ -15843,5 +15843,45 @@
     "source": "e37c46de5b8ea0ad0e6041283a78460cdaa6e49cdb33d4c8a3c40b1dc20f73fb",
     "translation": "3e617a6da9a9fc263e29060ab4249eeb4571df922eb23695c33d9d925f254df1",
     "author": "Xavier Larrea"
+  },
+  "voiceTimerDefaultName": {
+    "source": "d86e81ceba7c2b02eba33c5b62a5437b91f4f8e7cb9e3654ee4766c514bd7dbf",
+    "translation": "9e2ffdc192ef9bdf06d05f849c09ffe69072cf4784cdf8aba87212f80dca35fb",
+    "author": "Xavier Larrea"
+  },
+  "voiceTimerDrag": {
+    "source": "3b7e3bd4b7d7fc6c68ff0a051a00cb3e286de7afdd8abc18cdde26622560680d",
+    "translation": "fe0bd2ddc44454fd7f5c34d11b31cb0b29ad4b9b018e4ce93bbc2234230ab521",
+    "author": "Xavier Larrea"
+  },
+  "voiceTimerPauseHint": {
+    "source": "bcbeccfa76468f374cb207c1222c46253aa31cc89bb351a96ba7f12e3f9885cc",
+    "translation": "35785afc5928aeabc0f1160976001c9bc9814c9c5ca90c9de1c9e6ab8d14368f",
+    "author": "Xavier Larrea"
+  },
+  "voiceTimerResumeHint": {
+    "source": "2d9fdc15c6d3067d29b6c65393198c1c7dbe752e6903bd26ecf9934d301a5059",
+    "translation": "9a625f67e4e96fcaacaf42d88766e8529d85621fc0283a980cdc6760c2d031f0",
+    "author": "Xavier Larrea"
+  },
+  "voiceTimerCancel": {
+    "source": "7abfaa99b3b9c6e0d63ae2028716659519402bd39113a7bb84ddd9752c7d9f35",
+    "translation": "e652244a1b0269a6f15cf258477ce7f99a6d4d2aa9207e78e0e639b8b32bebf5",
+    "author": "Xavier Larrea"
+  },
+  "voiceTimerActionError": {
+    "source": "21eebb592ebc91eec665b843d77ce9a54f3c3015e6200352676d3257bfe56493",
+    "translation": "3c4e0ed774155a076e133eaafd07fa36f22c70a2440a95fc50875d4727dda254",
+    "author": "Xavier Larrea"
+  },
+  "voiceTimerFinished": {
+    "source": "ad3cea9f0faacc52780505db39db0e30cb4da6d28ba63087f7c934427079ce31",
+    "translation": "a5affa11a6a58adf29db70d7bbffab1f2cd5f73c8f2fd8ac3b80bcbc108b0cac",
+    "author": "Xavier Larrea"
+  },
+  "voiceTimerDismissHint": {
+    "source": "d669c493471fa0c2d4f535986f90b3994e524776d005a6ddee8cb131151b5026",
+    "translation": "f9109056339cc111a444238c20281f1c48edb71bbd7d52db675cc09f8bcfaec1",
+    "author": "Xavier Larrea"
   }
 }

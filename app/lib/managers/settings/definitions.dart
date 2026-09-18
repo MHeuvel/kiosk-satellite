@@ -6030,6 +6030,19 @@ const sendspinLyricsOffset = SettingDef<num>(
   unit: 's',
 );
 
+/// Timer group position as "x,y" fractions of the free area.
+/// Saved by dragging and kept local to this device.
+const voiceTimerPosition = SettingDef<String>(
+  key: 'voice.timer_position',
+  type: SettingType.string,
+  defaultValue: '0.5,0.08',
+  title: 'Timer pill position',
+  description: 'Saved position of the floating timer pills.',
+  category: 'Voice Satellite',
+  hidden: true,
+  perDevice: true,
+);
+
 /// The floating player's position as "x,y" fractions of the free area.
 /// Hidden: owned by the drag gesture, not a settings row.
 const sendspinPlayerPos = SettingDef<String>(
@@ -7873,6 +7886,7 @@ const List<SettingDef<Object>> allSettings = [
   sendspinLyricsFallback,
   sendspinLyricsOffset,
   sendspinPlayerPos,
+  voiceTimerPosition,
   sendspinClientId,
   sendspinPlayerActive,
   sendspinLocalPlayerName,

@@ -3169,7 +3169,15 @@ export const catalogs = {
     "intercomUploadFailed": "Upload failed: {error}",
     "intercomSaveFailed": "Not saved: {error}",
     "intercomSoundFilename": "Enter a file name, not a path.",
-    "intercomSoundFormats": "Pick an MP3, OGG, WAV, FLAC, M4A or AAC file."
+    "intercomSoundFormats": "Pick an MP3, OGG, WAV, FLAC, M4A or AAC file.",
+    "voiceTimerDefaultName": "Timer",
+    "voiceTimerDrag": "Drag to move timers",
+    "voiceTimerPauseHint": "Tap to pause. Double tap to cancel. Drag to move.",
+    "voiceTimerResumeHint": "Tap to resume. Double tap to cancel. Drag to move.",
+    "voiceTimerCancel": "Cancel timer",
+    "voiceTimerActionError": "Could not change the timer. Check the connection and update Voice Satellite if needed.",
+    "voiceTimerFinished": "Timer finished",
+    "voiceTimerDismissHint": "Tap to dismiss the timer alert."
   },
   "es": {
     "aboutApp": "Aplicación",
@@ -6340,6 +6348,14 @@ export const catalogs = {
     "intercomUploadFailed": "No se pudo subir: {error}",
     "intercomSaveFailed": "No se guardó: {error}",
     "intercomSoundFilename": "Introduce un nombre de archivo, no una ruta.",
-    "intercomSoundFormats": "Elige un archivo MP3, OGG, WAV, FLAC, M4A o AAC."
+    "intercomSoundFormats": "Elige un archivo MP3, OGG, WAV, FLAC, M4A o AAC.",
+    "voiceTimerDefaultName": "Temporizador",
+    "voiceTimerDrag": "Arrastra para mover los temporizadores",
+    "voiceTimerPauseHint": "Toca para pausar. Toca dos veces para cancelar. Arrastra para mover.",
+    "voiceTimerResumeHint": "Toca para reanudar. Toca dos veces para cancelar. Arrastra para mover.",
+    "voiceTimerCancel": "Cancelar temporizador",
+    "voiceTimerActionError": "No se pudo cambiar el temporizador. Comprueba la conexión y actualiza Voice Satellite si es necesario.",
+    "voiceTimerFinished": "Finalizado",
+    "voiceTimerDismissHint": "Toca para cerrar la alerta del temporizador."
   }
 };

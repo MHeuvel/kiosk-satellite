@@ -919,3 +919,30 @@ class RemoteObserversChanged extends AppEvent {
   const RemoteObserversChanged(this.topics);
   final Set<String> topics;
 }
+
+/// The dashboard document was replaced or detached.
+class VoiceTimersCleared extends AppEvent {
+  const VoiceTimersCleared();
+}
+
+/// A gesture on a native timer pill, routed to its owning integration.
+class VoiceTimerAction extends AppEvent {
+  const VoiceTimerAction({
+    required this.entityId,
+    required this.id,
+    required this.action,
+  });
+  final String entityId;
+  final String id;
+  final String action;
+
+  @override
+  String get wireName => 'timer-action';
+
+  @override
+  Map<String, Object?> toJson() => {
+    'entityId': entityId,
+    'id': id,
+    'action': action,
+  };
+}

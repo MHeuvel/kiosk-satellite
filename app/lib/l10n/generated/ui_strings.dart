@@ -19123,6 +19123,54 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Pick an MP3, OGG, WAV, FLAC, M4A or AAC file.'**
   String get intercomSoundFormats;
+
+  /// Label for a timer that has no custom name.
+  ///
+  /// In en, this message translates to:
+  /// **'Timer'**
+  String get voiceTimerDefaultName;
+
+  /// Tooltip on the handle that moves all timer pills together.
+  ///
+  /// In en, this message translates to:
+  /// **'Drag to move timers'**
+  String get voiceTimerDrag;
+
+  /// Tooltip for a running countdown. One tap pauses it, two taps cancel it and dragging moves the group.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to pause. Double tap to cancel. Drag to move.'**
+  String get voiceTimerPauseHint;
+
+  /// Tooltip for a paused countdown. One tap resumes it, two taps cancel it and dragging moves the group.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to resume. Double tap to cancel. Drag to move.'**
+  String get voiceTimerResumeHint;
+
+  /// Accessible action that cancels a timer.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel timer'**
+  String get voiceTimerCancel;
+
+  /// Error shown when pausing, resuming or canceling a timer fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not change the timer. Check the connection and update Voice Satellite if needed.'**
+  String get voiceTimerActionError;
+
+  /// Status shown in place of the countdown after a timer finishes.
+  ///
+  /// In en, this message translates to:
+  /// **'Timer finished'**
+  String get voiceTimerFinished;
+
+  /// Tooltip for a finished timer. Tapping stops the local alert sound and dismisses its pills.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to dismiss the timer alert.'**
+  String get voiceTimerDismissHint;
 }
 
 class _UiStringsDelegate extends LocalizationsDelegate<UiStrings> {

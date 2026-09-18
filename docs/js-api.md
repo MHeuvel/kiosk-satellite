@@ -196,3 +196,12 @@ function ksPresent() {
 ```
 
 It requires an additional VS-side hook (sitting outside the current surface of the kiosk wrapper): it must listen for `kiosksatellite:wakeword` to trigger `triggerWake(session)`, and it must explicitly call `setWakeWordActive(true)` upon returning to `State.IDLE`.
+## Voice Satellite timers
+
+`setVoiceTimers({entityId, timers})` hands countdown pills to Kiosk. Each timer contains `id`, `name`, `totalSeconds`, `startedAt` and `isActive`. `startedAt` is epoch milliseconds. For paused timers, `totalSeconds` is the remaining time and the start timestamp is ignored. An empty array clears the countdown pills. The integration hides its browser pills only after this method resolves `true`.
+
+`setVoiceTimerAlert({entityId, timers, muted})` shows finished timers and plays the bundled Voice Satellite alert locally every three seconds unless muted. It uses the same timer shape. An empty array dismisses the alert and stops its sound. Alerts and countdowns are separate snapshots so finishing one timer does not remove the others. The integration keeps its interaction hold and stop word handling until dismissal.
+
+`kiosksatellite:timer-action` carries `{entityId, id, action}`. Actions are `pause`, `resume`, `cancel` and `dismiss`. The integration applies running timer actions to Home Assistant and sends the resulting snapshot. `dismiss` clears the finished alert. `voiceTimerActionFailed(entityId)` shows a local error if an action fails.
+
+Document replacement clears native timer presentation and stops alert audio. The new document restores countdowns from the satellite state. Timer positions remain stored per device.

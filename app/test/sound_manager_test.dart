@@ -6,6 +6,15 @@ import 'package:kiosk_satellite/core/command_registry.dart';
 import 'package:kiosk_satellite/core/event_bus.dart';
 import 'package:kiosk_satellite/core/logging.dart';
 import 'package:kiosk_satellite/managers/sound/sound_manager.dart';
+// ignore: depend_on_referenced_packages
+import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
+
+class _TimerSoundPaths extends PathProviderPlatform {
+  _TimerSoundPaths(this.path);
+  final String path;
+  @override
+  Future<String?> getTemporaryPath() async => path;
+}
 
 /// Volume is a native concern (the mixer model, issues #62/#69/#79): the
 /// platform side composes master, media and assistant. This side must pass
@@ -56,6 +65,32 @@ void main() {
       await dir.delete(recursive: true);
     }
   });
+
+  test(
+    'timer chime uses bundled Voice Satellite audio at assistant volume',
+    () async {
+      await build();
+      final dir = await Directory.systemTemp.createTemp('ks_timer_sound');
+      final oldPaths = PathProviderPlatform.instance;
+      PathProviderPlatform.instance = _TimerSoundPaths(dir.path);
+      try {
+        final result = await commands.execute('playTimerChime', const {});
+        expect(result.ok, true);
+        final args =
+            sent.singleWhere((c) => c.method == 'play').arguments as Map;
+        expect(args['id'], (result.data as Map)['id']);
+        expect(args['volume'], 1.0);
+        expect(args['absolute'], isNot(true));
+        expect(
+          await File(args['source'] as String).readAsBytes(),
+          await File('assets/sounds/timer-alert.mp3').readAsBytes(),
+        );
+      } finally {
+        PathProviderPlatform.instance = oldPaths;
+        await dir.delete(recursive: true);
+      }
+    },
+  );
 
   test('sound volumes pass through unscaled - native owns the mixer', () async {
     await build();

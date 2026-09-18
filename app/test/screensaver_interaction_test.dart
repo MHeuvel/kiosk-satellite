@@ -72,6 +72,22 @@ void main() {
     expect(saver.activeView.value, isNotNull);
   }
 
+  test(
+    'timer controls leave a screensaver visible while ordinary touch dismisses it',
+    () async {
+      await build();
+      var now = DateTime(2026, 9, 18);
+      saver.clock = () => now;
+      await saver.start();
+      saver.markControlTouch();
+      saver.notifyActivity('touch');
+      expect(saver.isActive, true);
+      now = now.add(const Duration(milliseconds: 200));
+      saver.notifyActivity('touch');
+      expect(saver.isActive, false);
+    },
+  );
+
   for (final reason in ['voice', 'start_conversation', '']) {
     test('Now Playing returns after a page interaction ($reason)', () async {
       await showNowPlaying();

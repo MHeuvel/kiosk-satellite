@@ -3593,5 +3593,13 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'intercomCopyFailed' => strings.intercomCopyFailed,
       'intercomSoundFilename' => strings.intercomSoundFilename,
       'intercomSoundFormats' => strings.intercomSoundFormats,
+      'voiceTimerDefaultName' => strings.voiceTimerDefaultName,
+      'voiceTimerDrag' => strings.voiceTimerDrag,
+      'voiceTimerPauseHint' => strings.voiceTimerPauseHint,
+      'voiceTimerResumeHint' => strings.voiceTimerResumeHint,
+      'voiceTimerCancel' => strings.voiceTimerCancel,
+      'voiceTimerActionError' => strings.voiceTimerActionError,
+      'voiceTimerFinished' => strings.voiceTimerFinished,
+      'voiceTimerDismissHint' => strings.voiceTimerDismissHint,
       _ => fallback,
     };

@@ -11250,4 +11250,32 @@ class UiStringsEs extends UiStrings {
   @override
   String get intercomSoundFormats =>
       'Elige un archivo MP3, OGG, WAV, FLAC, M4A o AAC.';
+
+  @override
+  String get voiceTimerDefaultName => 'Temporizador';
+
+  @override
+  String get voiceTimerDrag => 'Arrastra para mover los temporizadores';
+
+  @override
+  String get voiceTimerPauseHint =>
+      'Toca para pausar. Toca dos veces para cancelar. Arrastra para mover.';
+
+  @override
+  String get voiceTimerResumeHint =>
+      'Toca para reanudar. Toca dos veces para cancelar. Arrastra para mover.';
+
+  @override
+  String get voiceTimerCancel => 'Cancelar temporizador';
+
+  @override
+  String get voiceTimerActionError =>
+      'No se pudo cambiar el temporizador. Comprueba la conexión y actualiza Voice Satellite si es necesario.';
+
+  @override
+  String get voiceTimerFinished => 'Finalizado';
+
+  @override
+  String get voiceTimerDismissHint =>
+      'Toca para cerrar la alerta del temporizador.';
 }

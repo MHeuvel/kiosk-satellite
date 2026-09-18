@@ -11014,4 +11014,31 @@ class UiStringsEn extends UiStrings {
   @override
   String get intercomSoundFormats =>
       'Pick an MP3, OGG, WAV, FLAC, M4A or AAC file.';
+
+  @override
+  String get voiceTimerDefaultName => 'Timer';
+
+  @override
+  String get voiceTimerDrag => 'Drag to move timers';
+
+  @override
+  String get voiceTimerPauseHint =>
+      'Tap to pause. Double tap to cancel. Drag to move.';
+
+  @override
+  String get voiceTimerResumeHint =>
+      'Tap to resume. Double tap to cancel. Drag to move.';
+
+  @override
+  String get voiceTimerCancel => 'Cancel timer';
+
+  @override
+  String get voiceTimerActionError =>
+      'Could not change the timer. Check the connection and update Voice Satellite if needed.';
+
+  @override
+  String get voiceTimerFinished => 'Timer finished';
+
+  @override
+  String get voiceTimerDismissHint => 'Tap to dismiss the timer alert.';
 }

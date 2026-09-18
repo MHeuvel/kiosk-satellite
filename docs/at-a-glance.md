@@ -66,3 +66,14 @@ When the screensaver is active, Kiosk Satellite subscribes *only* to these speci
 Crucially, it does *not* read these states from the currently displayed dashboard. The **Filter dashboard updates** feature (Settings → Home Assistant Setup → Optimizations) exists to prevent lower-end devices from processing entity updates they aren't actively displaying. If the At a Glance row relied on the dashboard connection, it would defeat the purpose of that filter—a rapidly updating entity (like a power meter) would force the dashboard to constantly process new data in the background. Therefore, the status row operates entirely independently of the dashboard filter.
 
 This separate connection also means the At a Glance row continues to work perfectly even if the kiosk is currently pointed at a non-Home Assistant webpage, or if the main dashboard page is in the middle of reloading.
+## Voice timers
+
+Voice Satellite timers appear in separate floating pills with the same rounded style. They stay visible over the dashboard, screensaver, Now Playing and camera views without taking a slot from At a Glance.
+
+- Tap a running timer to pause it. Tap a paused timer to resume it.
+- Double tap a timer to cancel it.
+- Drag a pill or the small handle above the group to move all timers. Kiosk saves the position on this device and keeps the pills within the screen after rotation.
+- When many timers fill the screen, scroll through the pills and use the handle to move the group.
+- Finished timers show an alert pill and repeat the bundled Voice Satellite alert sound locally every three seconds. Kiosk uses its selected speaker and assistant volume. Tap a finished timer or use the configured stop word to dismiss the alert. Voice Satellite's Mute timers switch still silences the sound.
+
+The handoff requires matching support in Voice Satellite. Older kiosk apps keep Voice Satellite's browser interface. Voice Satellite's Hide on-screen countdown setting also hides the native countdown pills.

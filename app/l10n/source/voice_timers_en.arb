@@ -1,0 +1,83 @@
+{
+  "@@locale": "en",
+  "voiceTimerDefaultName": "Timer",
+  "voiceTimerDrag": "Drag to move timers",
+  "voiceTimerPauseHint": "Tap to pause. Double tap to cancel. Drag to move.",
+  "voiceTimerResumeHint": "Tap to resume. Double tap to cancel. Drag to move.",
+  "voiceTimerCancel": "Cancel timer",
+  "voiceTimerActionError": "Could not change the timer. Check the connection and update Voice Satellite if needed.",
+  "@voiceTimerDefaultName": {
+    "context": "Floating Voice Satellite timer pills above the dashboard, screensaver, Now Playing and camera views",
+    "description": "Label for a timer that has no custom name.",
+    "x-locations": {
+      "device": [
+        "Floating timer overlay"
+      ]
+    }
+  },
+  "@voiceTimerDrag": {
+    "context": "Floating Voice Satellite timer pills above the dashboard, screensaver, Now Playing and camera views",
+    "description": "Tooltip on the handle that moves all timer pills together.",
+    "x-locations": {
+      "device": [
+        "Floating timer overlay"
+      ]
+    }
+  },
+  "@voiceTimerPauseHint": {
+    "context": "Floating Voice Satellite timer pills above the dashboard, screensaver, Now Playing and camera views",
+    "description": "Tooltip for a running countdown. One tap pauses it, two taps cancel it and dragging moves the group.",
+    "x-locations": {
+      "device": [
+        "Floating timer overlay"
+      ]
+    }
+  },
+  "@voiceTimerResumeHint": {
+    "context": "Floating Voice Satellite timer pills above the dashboard, screensaver, Now Playing and camera views",
+    "description": "Tooltip for a paused countdown. One tap resumes it, two taps cancel it and dragging moves the group.",
+    "x-locations": {
+      "device": [
+        "Floating timer overlay"
+      ]
+    }
+  },
+  "@voiceTimerCancel": {
+    "context": "Floating Voice Satellite timer pills above the dashboard, screensaver, Now Playing and camera views",
+    "description": "Accessible action that cancels a timer.",
+    "x-locations": {
+      "device": [
+        "Floating timer overlay"
+      ]
+    }
+  },
+  "@voiceTimerActionError": {
+    "context": "Floating Voice Satellite timer pills above the dashboard, screensaver, Now Playing and camera views",
+    "description": "Error shown when pausing, resuming or canceling a timer fails.",
+    "x-locations": {
+      "device": [
+        "Floating timer overlay"
+      ]
+    }
+  },
+  "voiceTimerFinished": "Timer finished",
+  "voiceTimerDismissHint": "Tap to dismiss the timer alert.",
+  "@voiceTimerFinished": {
+    "context": "Floating Voice Satellite timer pills above the dashboard, screensaver, Now Playing and camera views",
+    "description": "Status shown in place of the countdown after a timer finishes.",
+    "x-locations": {
+      "device": [
+        "Floating timer overlay"
+      ]
+    }
+  },
+  "@voiceTimerDismissHint": {
+    "context": "Floating Voice Satellite timer pills above the dashboard, screensaver, Now Playing and camera views",
+    "description": "Tooltip for a finished timer. Tapping stops the local alert sound and dismisses its pills.",
+    "x-locations": {
+      "device": [
+        "Floating timer overlay"
+      ]
+    }
+  }
+}

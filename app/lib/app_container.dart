@@ -40,6 +40,7 @@ import 'managers/sound/sound_manager.dart';
 import 'managers/settings/provisioning.dart';
 import 'managers/settings/settings_manager.dart';
 import 'managers/update/update_manager.dart';
+import 'managers/voice_timers/voice_timer_manager.dart';
 import 'managers/wake_word/wake_word_manager.dart';
 
 /// Composition root. Construction does no work; [init] brings managers up in
@@ -105,6 +106,7 @@ class AppContainer {
     dlna.pending.addListener(syncDlnaCover);
     files = FilesManager(bus, commands, log);
     sound = SoundManager(bus, commands, log);
+    voiceTimers = VoiceTimerManager(bus, commands, log);
     notifications = NotificationManager(bus, commands, log, settings);
     update = UpdateManager(
       bus,
@@ -161,6 +163,7 @@ class AppContainer {
   late final FilesManager files;
   late final GlanceManager glance;
   late final SoundManager sound;
+  late final VoiceTimerManager voiceTimers;
   late final NotificationManager notifications;
   late final UpdateManager update;
   late final ShizukuManager shizuku;
@@ -214,6 +217,7 @@ class AppContainer {
     files,
     glance,
     sound,
+    voiceTimers,
     notifications,
     update,
     shizuku,

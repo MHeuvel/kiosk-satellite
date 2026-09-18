@@ -54,6 +54,7 @@ import 'kiosk_drawer.dart';
 import 'sendspin_player_overlay.dart';
 import 'toast.dart';
 import 'settings_screen.dart';
+import 'voice_timer_overlay.dart';
 import 'web_console_panel.dart';
 
 /// Watches the navigator for the kiosk screen (issue #377): a dialog
@@ -1552,6 +1553,7 @@ class _KioskScreenState extends State<KioskScreen>
                   // display, drawer open or not.
                   ScreensaverOverlay(container: c),
                   CameraViewOverlay(container: c),
+                  VoiceTimerOverlay(container: c),
                   // The camera preview a face wake leaves behind
                   // (discussion #371): over the screensaver, whose fade
                   // out it appears through, and answering no touch.

@@ -106,6 +106,7 @@ flutter:
     - assets/branding/hacs.svg
     - assets/branding/mark.svg
     - assets/sounds/notification.ogg
+    - assets/sounds/timer-alert.mp3
     - assets/camera/camera_off.jpg
     - assets/mdi/
   fonts:

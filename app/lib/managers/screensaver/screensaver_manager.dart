@@ -295,7 +295,7 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
           !nowPlayingShared &&
           _settings.get(defs.sendspinFullscreenDoubleTap));
 
-  /// When a touch last landed on one of the Now Playing view's controls,
+  /// When a touch last landed on a timer pill or a Now Playing control,
   /// the transport, the toggles or a queue row. The view reports it from
   /// the pointer's way down, ahead of the kiosk screen's own report of
   /// the same touch, so the double-tap chain can leave that touch alone:
@@ -838,6 +838,11 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
   }
 
   void notifyActivity(String source) {
+    // Overlay controls consume their touch without dismissing the view.
+    if (_touchOnControl &&
+        (source == 'touch' || source == 'touch_page' || source == 'tap')) {
+      return;
+    }
     // Shared layouts dismiss through the screensaver panel. Generic touch
     // reports include player buttons and must leave the combined view up.
     if (nowPlayingShared &&

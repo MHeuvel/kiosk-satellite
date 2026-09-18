@@ -1,12 +1,12 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite-localization",
-  "revision": "55ba3cf932dde9d4ec68718d2cc37f085a32e9ac",
+  "revision": "a4f31a6a3339753bb327bd6a42c394b0fe831f1f",
   "locales": [
     "es"
   ],
   "files": {
-    "source/manifest.json": "e0ba7f6ef3af8a553b8c4e27b319310fa0873162fd1fb7364fc5e3ae2de3a574",
+    "source/manifest.json": "60a6d97be364a0ef7c95a80806046017d47cedda02ca9d696430769e1ab3244c",
     "source/about_identity_en.arb": "dd006567f69f846e2e3b73f09ad13784f0022d282ea3101fa9be7fc95175ec2d",
     "source/about_updates_en.arb": "b41df3870ffb041249448dc4b13b14a9350ab4417510f23e772458dd1e582c85",
     "source/android_accessibility_en.arb": "6fe33a6ec23fb984d2c9b695d0dcaa41b8136a83cbedae702ee37e563a9a78a0",
@@ -186,6 +186,7 @@
     "source/setup_voice_satellite_en.arb": "bad0ef351bb9e464bda0f6307e8d6cad63a827efb24bcf4c2dbf3d32457e327c",
     "source/setup_welcome_en.arb": "a26a34d1e8f30df984627884b880f4fda8f410e1ad3a21a9b3399499c4d7be50",
     "source/sound_picker_en.arb": "3287a30c9f51f864354862d1208ec5b79e87026b6a5521939f71c944b02bb626",
+    "source/voice_timers_en.arb": "fa73895ba659a16453e17103ea93e933b025fe296cff067a6191e0a7b52ebab4",
     "translations/es/about_identity_es.arb": "8f008ead93633e3c5e58cb310ddb950897fc35fef540245b99ec32e8d06d6ec3",
     "translations/es/about_updates_es.arb": "e2b279908d8f7c898eedac5cda4be7ebf2e22617f13ce8dd2cd676bf06d5bda8",
     "translations/es/android_accessibility_es.arb": "59fb987cdef6188db6ae243796cfc3d81f94acfd2fd52dca1b0ffd64794b5627",
@@ -365,7 +366,8 @@
     "translations/es/setup_voice_satellite_es.arb": "cebf1183a4976351d85a0d1f001f7eb52310a68c06919bce1cab00dbd7a66f9c",
     "translations/es/setup_welcome_es.arb": "5ecd1fef9e8d6b0dd3e085d410941099bb7dd8d4f502e98684fefecaf1663d9c",
     "translations/es/sound_picker_es.arb": "4b1867bded8d578e13653eb8e62deb55eae9e41167e0702ea5c9c2329a8a665b",
-    "metadata/reviews/es.json": "67bd8fd36ba69d14f628f47e386989313075ddfffeb8385e6c2f0e33b3e4285a",
+    "translations/es/voice_timers_es.arb": "7cdeeac038ccf5ecbedf5f1d54c16d11ab817e1af9429e64eb7f2c2a575c2182",
+    "metadata/reviews/es.json": "41fd707398feb986bbaaa558f84469873c37d9ca799399828c0bc4a4ce933b4d",
     "LICENSE": "4d3e371a6b6cabc75b4be46fecce7601556d0eb777ad9dba4b00bc13a61de5fc",
     "CREDITS.md": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "docs/CONTRIBUTOR-AGREEMENT.md": "f17a3cd0ddbab3a6b95c50d98b81d5648cb8feb09fc54e33bcce855e45ddb014"

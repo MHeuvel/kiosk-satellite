@@ -25,6 +25,9 @@ void main() {
     await api.init();
     seen = {};
     for (final name in [
+      'setVoiceTimers',
+      'setVoiceTimerAlert',
+      'voiceTimerActionFailed',
       'playSound',
       'setSoundVolume',
       'setBrightness',
@@ -64,6 +67,35 @@ void main() {
       api.onPageStarted();
       expect(hub.browserCapturing.value, false);
       await api.dispose();
+    },
+  );
+
+  test(
+    'timer snapshots cross the public bridge with names and pause state',
+    () async {
+      await build();
+      final snapshot = {
+        'entityId': 'assist_satellite.kitchen',
+        'timers': [
+          {
+            'id': 'pasta',
+            'name': 'Pasta',
+            'totalSeconds': 30,
+            'startedAt': 1,
+            'isActive': false,
+          },
+        ],
+      };
+      expect(await api.handleCall(['setVoiceTimers', snapshot]), true);
+      expect(seen, snapshot);
+      expect(
+        await api.handleCall([
+          'setVoiceTimerAlert',
+          {...snapshot, 'muted': true},
+        ]),
+        true,
+      );
+      expect(seen['muted'], true);
     },
   );
 
