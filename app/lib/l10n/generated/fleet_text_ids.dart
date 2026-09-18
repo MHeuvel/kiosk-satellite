@@ -111,8 +111,8 @@ const fleetTextMessageIds = <String, String>{
   "This kiosk installs last.": "deviceSelfLast",
   "This device": "mediaThisDevice",
   "Switch kiosk": "fleetSwitchKiosk",
-  "Kiosks on this network with the remote admin on. Picking one opens its admin here, on this same page.": "fleetKiosksOnThisNetworkWithTheRemoteAdminOn",
-  "No other kiosk found on this network. A kiosk shows up once its remote admin is on and it shares this network.": "fleetNoOtherKioskFoundOnThisNetworkAKioskDetail",
+  "Discovered kiosks and saved fleet members. Picking one opens its remote admin here, on this same page.": "fleetKiosksOnThisNetworkWithTheRemoteAdminOn",
+  "No other kiosks found. Kiosks appear through network discovery or saved fleet membership.": "fleetNoOtherKioskFoundOnThisNetworkAKioskDetail",
   "Cancel": "commonCancel",
   "Save": "commonSave",
   "Delete": "commonDelete",
@@ -148,5 +148,6 @@ const fleetTextMessageIds = <String, String>{
   "The kiosks this one leads, their state and a way to add one.": "fleetSearchFollowers",
   "The named lists a follower can be given: categories, credentials, the dashboard and the settings left out.": "fleetSearchProfiles",
   "Install the release offered to each follower, then here.": "fleetSearchUpdates",
-  "That kiosk runs a build without Fleet Management. It joins once it runs one.": "fleetUnsupportedBuild"
+  "That kiosk runs a build without Fleet Management. It joins once it runs one.": "fleetUnsupportedBuild",
+  "The address belongs to a different kiosk or fleet": "fleetErrorAddressMismatch"
 };

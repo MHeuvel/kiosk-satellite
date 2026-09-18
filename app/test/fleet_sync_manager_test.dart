@@ -163,6 +163,145 @@ void main() {
     },
   };
 
+  test(
+    'polls saved followers and shares membership across versions without mDNS',
+    () async {
+      peers.clear();
+      final bedroom = {
+        'id': 'bed',
+        'name': 'Bedroom',
+        'address': '192.168.1.71',
+        'port': 2324,
+        'token': 'private-token',
+      };
+      await build(
+        prefs: {
+          'ks.fleet.leader': true,
+          'ks.fleet.followers': jsonEncode([
+            bedroom,
+            {...bedroom, 'id': 'pending', 'invite': 'private-nonce'},
+            {...bedroom, 'id': 'left', 'token': null},
+          ]),
+        },
+      );
+      var reachable = true;
+      var revision = '';
+      answers['GET /api/fleet/status'] = (_) => reachable
+          ? {
+              'id': 'bed',
+              'name': 'New bedroom name',
+              'version': '2026.9.20',
+              'leaderId': 'me',
+              'rosterRevision': revision,
+            }
+          : http.Response('unreachable', 503);
+      answers['POST /api/fleet/roster'] = (_) => {'ok': true};
+      await commands.execute('fleetSyncNow', const {});
+      final follower = fleet.followers.first;
+      expect(follower.online, isTrue);
+      expect(follower.version, '2026.9.20');
+      expect(sent.where((r) => r.url.path == '/api/fleet/apply'), isEmpty);
+      final request = sent.singleWhere(
+        (r) => r.url.path == '/api/fleet/roster',
+      );
+      expect(request.headers['authorization'], 'Bearer private-token');
+      final roster = (jsonDecode(request.body) as Map)['devices'] as List;
+      expect(roster.map((d) => d['id']), ['bed', 'me']);
+      expect(roster.first['name'], 'New bedroom name');
+      expect(request.body, isNot(contains('private-token')));
+      expect(request.body, isNot(contains('private-nonce')));
+      final saved = jsonDecode(settings.get(defs.fleetFollowers)) as List;
+      expect(saved.first['name'], 'New bedroom name');
+      revision = follower.rosterRevision!;
+
+      // An acknowledged directory does not need to be sent on every poll.
+      sent.clear();
+      await commands.execute('fleetSyncNow', const {});
+      expect(sent.where((r) => r.url.path == '/api/fleet/roster'), isEmpty);
+
+      reachable = false;
+      await commands.execute('fleetSyncNow', const {});
+      expect(follower.online, isFalse);
+      reachable = true;
+      await commands.execute('fleetSyncNow', const {});
+      expect(follower.online, isTrue);
+
+      // The saved IP now answers as another kiosk with the same leader.
+      answers['GET /api/fleet/status'] = (_) => {
+        'id': 'another-kiosk',
+        'leaderId': 'me',
+        'version': '2026.9.19',
+        'rosterRevision': '',
+      };
+      sent.clear();
+      await commands.execute('fleetSyncNow', const {});
+      expect(follower.online, isFalse);
+      expect(follower.token, 'private-token');
+      expect(sent.where((r) => r.method == 'POST'), isEmpty);
+    },
+  );
+
+  test(
+    'the follower stores only directory fields and clears them on leaving',
+    () async {
+      const leader = {
+        'id': 'lead',
+        'name': 'Leader',
+        'version': '2026.9.99',
+        'address': '192.168.1.1',
+        'port': 2324,
+      };
+      final sibling = {...leader, 'id': 'sibling', 'name': 'Bedroom'};
+      await build(prefs: {'ks.fleet.leader_info': jsonEncode(leader)});
+      final result = await commands.execute('fleetRosterReceived', {
+        'devices': [
+          {...sibling, 'token': 'must-not-travel', 'self': true},
+          leader,
+        ],
+      });
+      expect(result.ok, isTrue, reason: result.error);
+      final stored = settings.get(defs.fleetRoster);
+      expect(stored, isNot(contains('must-not-travel')));
+      expect(stored, isNot(contains('self')));
+      expect((jsonDecode(stored) as List).map((d) => d['id']), [
+        'lead',
+        'sibling',
+      ]);
+      expect(settings.get(defs.fleetAppliedRevision), isEmpty);
+      expect(settings.get(defs.fleetSyncedKeys), isEmpty);
+      final status = await fleet.followerStatus();
+      expect(status['rosterRevision'], isNotEmpty);
+
+      for (final devices in [
+        [sibling],
+        [leader, leader],
+        [
+          leader,
+          {...sibling, 'port': 0},
+        ],
+      ]) {
+        final invalid = await commands.execute('fleetRosterReceived', {
+          'devices': devices,
+        });
+        expect(invalid.ok, isFalse);
+        expect(settings.get(defs.fleetRoster), stored);
+      }
+
+      await commands.execute('fleetRosterReceived', {
+        'devices': [leader],
+      });
+      expect(jsonDecode(settings.get(defs.fleetRoster)), hasLength(1));
+      await fleet.leave();
+      expect(settings.get(defs.fleetRoster), isEmpty);
+      expect(
+        (await commands.execute('fleetRosterReceived', {
+          'devices': [leader],
+        })).ok,
+        isFalse,
+      );
+    },
+  );
+
   group('plugins stay local', () {
     test(
       'plugin screensaver choices and schedules never travel or get overwritten',

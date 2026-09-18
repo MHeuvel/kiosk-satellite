@@ -665,6 +665,11 @@ class RemoteManager extends Manager {
       case ('POST', 'api/fleet/leave'):
         final r = await commands.execute('fleetLeaderLeft', const {});
         return _json(200, r.toJson());
+      case ('POST', 'api/fleet/roster'):
+        final body = await _body(request);
+        if (body == null) return _json(400, {'error': 'invalid JSON'});
+        final r = await commands.execute('fleetRosterReceived', body);
+        return _json(r.ok ? 200 : 400, r.toJson());
       case ('GET', 'api/files/download'):
         return _fileDownload(request);
       case ('POST', 'api/files/upload'):
@@ -895,6 +900,7 @@ class RemoteManager extends Manager {
     'api/fleet/status',
     'api/fleet/apply',
     'api/fleet/leave',
+    'api/fleet/roster',
     'api/commands/getUpdateStatus',
     'api/commands/checkUpdateNow',
     'api/commands/installUpdate',

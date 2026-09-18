@@ -316,6 +316,7 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'fleetErrorDidNotAnswer' => strings.fleetErrorDidNotAnswer,
       'fleetErrorDidNotTakeTheUpload' => strings.fleetErrorDidNotTakeTheUpload,
       'fleetUnsupportedBuild' => strings.fleetUnsupportedBuild,
+      'fleetErrorAddressMismatch' => strings.fleetErrorAddressMismatch,
       'fleetSwitchKiosk' => strings.fleetSwitchKiosk,
       'fleetKiosksOnThisNetworkWithTheRemoteAdminOn' =>
         strings.fleetKiosksOnThisNetworkWithTheRemoteAdminOn,

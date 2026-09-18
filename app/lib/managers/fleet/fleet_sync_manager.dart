@@ -14,6 +14,7 @@ import '../../core/manager.dart';
 import '../gestures/gesture_mappings.dart';
 import '../settings/definitions.dart' as defs;
 import '../settings/settings_manager.dart';
+import 'fleet_manager.dart';
 
 /// A profile: what a follower assigned to it gets from its leader. The
 /// categories, which of the credentials, whether the dashboard and the
@@ -207,6 +208,9 @@ class Follower {
   Map<String, Object?>? update;
   String? error;
 
+  /// Null on older kiosks that do not support the member directory.
+  String? rosterRevision;
+
   /// How much of the uploaded APK the leader has streamed to this kiosk,
   /// 0 to 1 while a fleet install sends it, null otherwise. The leader's
   /// own count, so the poll never overwrites it.
@@ -294,6 +298,7 @@ class FleetSyncManager extends Manager {
   String _selfId = '';
   String _selfName = '';
   String _selfVersion = '';
+  FleetDevice? _self;
 
   Timer? _timer;
   Timer? _bump;
@@ -516,6 +521,7 @@ class FleetSyncManager extends Manager {
     if (data is! Map) return;
     for (final d in (data['devices'] as List? ?? const [])) {
       if (d is Map && d['self'] == true) {
+        _self = FleetDevice.directoryEntry(d);
         _selfId = '${d['id'] ?? ''}';
         _selfName = '${d['name'] ?? ''}';
         _selfVersion = '${d['version'] ?? ''}';
@@ -630,13 +636,12 @@ class FleetSyncManager extends Manager {
     try {
       if (_selfId.isEmpty) await _readSelf();
       final peers = await _peers();
-      final listening = peers.isNotEmpty || await _discoveryListening();
+      final before = jsonEncode([for (final f in _followers) f.toJson()]);
       var changed = false;
       for (final f in _followers) {
         if (only != null && f.id != only) continue;
         final peer = peers[f.id];
         if (peer != null) {
-          f.online = true;
           final address = '${peer['address'] ?? f.address}';
           final port = (peer['port'] as num?)?.toInt() ?? f.port;
           final version = '${peer['version'] ?? f.version}';
@@ -652,12 +657,9 @@ class FleetSyncManager extends Manager {
               ..name = peerName;
             changed = true;
           }
-        } else if (listening) {
-          // Heard nothing from it: not there. Where this kiosk cannot
-          // hear (the mDNS port is taken), every follower is tried.
-          f.online = false;
-          continue;
         }
+        // Membership survives missing multicast. Try the saved endpoint
+        // and let its answer determine whether this follower is online.
         if (f.invite != null) {
           changed = await _pollInvite(f) || changed;
           continue;
@@ -676,26 +678,25 @@ class FleetSyncManager extends Manager {
           changed = await _push(f) || changed;
         }
       }
-      if (changed) await _saveFollowers();
+      if (changed ||
+          before != jsonEncode([for (final f in _followers) f.toJson()])) {
+        await _saveFollowers();
+      }
+      await _shareRoster();
     } finally {
       _ticking = false;
       _publish();
     }
   }
 
-  /// Whether this kiosk hears the others at all (the mDNS port could be
-  /// taken); a deaf kiosk polls every follower instead of trusting an
-  /// empty list.
-  Future<bool> _discoveryListening() async {
-    final r = await commands.execute('fleet', const {});
-    final data = r.data;
-    return data is Map && data['enabled'] == true && data['listening'] != false;
-  }
-
   Future<bool> _pollInvite(Follower f) async {
     final res = await _get('${f.url}/api/fleet/invite/${f.invite}');
     final body = _jsonOf(res);
-    if (body == null) return false;
+    if (res?.statusCode != 200 || body == null) {
+      f.online = false;
+      return false;
+    }
+    f.online = true;
     switch (body['status']) {
       case 'accepted':
         final token = body['token'];
@@ -731,6 +732,8 @@ class FleetSyncManager extends Manager {
   }
 
   Future<void> _pollStatus(Follower f) async {
+    f.online = false;
+    f.rosterRevision = null;
     final res = await _get('${f.url}/api/fleet/status', token: f.token);
     if (res == null) {
       f.error = 'Unreachable';
@@ -746,19 +749,98 @@ class FleetSyncManager extends Manager {
       return;
     }
     final body = _jsonOf(res);
-    if (body == null) {
+    if (res.statusCode != 200 || body == null) {
       f.error = 'Bad answer';
+      return;
+    }
+    // A saved address can be reassigned to another kiosk by DHCP.
+    if (body['id'] != f.id || body['leaderId'] != _selfId) {
+      f.error = 'The address belongs to a different kiosk or fleet';
       return;
     }
     f
       ..error = null
       ..online = true
+      ..rosterRevision = body['rosterRevision'] is String
+          ? body['rosterRevision'] as String
+          : null
       ..version = '${body['version'] ?? f.version}'
       ..appliedRevision = body['appliedRevision'] as String?
       ..dirty = body['dirty'] == true
       ..update = (body['update'] as Map?)?.cast<String, Object?>();
     final peerName = body['name'];
     if (peerName is String && peerName.isNotEmpty) f.name = peerName;
+  }
+
+  /// Send membership independently of settings and version compatibility.
+  /// A status response advertises support and acknowledges the stored list.
+  Future<void> _shareRoster() async {
+    if (!leading || _self == null) return;
+    final members = [
+      _self!,
+      for (final f in _followers)
+        if (f.token != null && f.invite == null && !f.declined)
+          FleetDevice(
+            id: f.id,
+            name: f.name,
+            version: f.version,
+            address: f.address,
+            port: f.port,
+          ),
+    ]..sort((a, b) => a.id.compareTo(b.id));
+    final devices = [for (final member in members) member.toDirectory()];
+    final revision = _rosterRevision(jsonEncode(devices));
+    for (final f in _followers.toList()) {
+      if (!leading) return;
+      if (f.token == null ||
+          !f.online ||
+          f.rosterRevision == null ||
+          f.rosterRevision == revision) {
+        continue;
+      }
+      final response = await _post('${f.url}/api/fleet/roster', {
+        'devices': devices,
+      }, token: f.token);
+      final body = _jsonOf(response);
+      if (response?.statusCode == 200 && body?['ok'] == true) {
+        f.rosterRevision = revision;
+      }
+    }
+  }
+
+  static String _rosterRevision(String roster) =>
+      roster.isEmpty ? '' : md5.convert(utf8.encode(roster)).toString();
+
+  Future<String?> receiveRoster(Map<String, Object?> p) async {
+    if (!following) return 'This kiosk follows nobody';
+    final raw = p['devices'];
+    if (raw is! List) return 'devices must be a list';
+    final members = <String, FleetDevice>{};
+    for (final item in raw) {
+      final member = FleetDevice.directoryEntry(item);
+      if (member == null || members.containsKey(member.id)) {
+        return 'Invalid fleet member';
+      }
+      members[member.id] = member;
+    }
+    final currentLeader = leader!;
+    final updatedLeader = members[currentLeader['id']];
+    if (updatedLeader == null) {
+      return 'The roster must include this kiosk\'s leader';
+    }
+    final sorted = members.values.toList()
+      ..sort((a, b) => a.id.compareTo(b.id));
+    final roster = jsonEncode([
+      for (final member in sorted) member.toDirectory(),
+    ]);
+    final leaderInfo = jsonEncode(updatedLeader.toDirectory());
+    if (_settings.get(defs.fleetLeaderInfo) != leaderInfo) {
+      await _settings.set(defs.fleetLeaderInfo, leaderInfo);
+    }
+    if (_settings.get(defs.fleetRoster) != roster) {
+      await _settings.set(defs.fleetRoster, roster);
+    }
+    return null;
   }
 
   /// Push a follower everything its list allows. The full set every time,
@@ -1226,6 +1308,20 @@ class FleetSyncManager extends Manager {
       )
       ..register(
         Command(
+          name: 'fleetRosterReceived',
+          description:
+              'Store the member directory sent by this kiosk\'s leader.',
+          params: const {'devices': 'Fleet members and their admin addresses'},
+          handler: (p) async {
+            final error = await receiveRoster(p);
+            return error == null
+                ? const CommandResult.ok(true)
+                : CommandResult.fail(error);
+          },
+        ),
+      )
+      ..register(
+        Command(
           name: 'fleetLeaderLeft',
           description: 'The leader removed this kiosk: forget it.',
           handler: (_) async {
@@ -1459,6 +1555,7 @@ class FleetSyncManager extends Manager {
       unawaited(_post('${f.url}/api/fleet/leave', {}, token: f.token));
     }
     log.info(name, 'removed ${f.name} from the fleet');
+    _scheduleTick();
     _publish();
     return null;
   }
@@ -1753,6 +1850,7 @@ class FleetSyncManager extends Manager {
     final token = await _mintToken('${leaderInfo['id']}');
     if (token == null) return 'Could not mint a token';
     await _settings.set(defs.fleetLeaderInfo, jsonEncode(leaderInfo));
+    await _settings.set(defs.fleetRoster, '');
     await _settings.set(defs.fleetAppliedRevision, '');
     await _settings.set(defs.fleetSyncedKeys, '');
     await _settings.set(defs.fleetLastSyncAt, 0);
@@ -1784,6 +1882,7 @@ class FleetSyncManager extends Manager {
 
   Future<void> _forgetLeader() async {
     await _settings.set(defs.fleetLeaderInfo, '');
+    await _settings.set(defs.fleetRoster, '');
     await _settings.set(defs.fleetSyncedKeys, '');
     await _settings.set(defs.fleetAppliedRevision, '');
     await _settings.set(defs.fleetLastSyncAt, 0);
@@ -1800,6 +1899,7 @@ class FleetSyncManager extends Manager {
       'name': _selfName,
       'version': _selfVersion,
       'leaderId': leader?['id'],
+      'rosterRevision': _rosterRevision(_settings.get(defs.fleetRoster)),
       'appliedRevision': applied.isEmpty ? null : applied,
       'dirty': applied.isEmpty && syncedKeys.isNotEmpty,
       'update': u is Map

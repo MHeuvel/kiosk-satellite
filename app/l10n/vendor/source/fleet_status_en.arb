@@ -805,5 +805,18 @@
         "Settings > Fleet Management"
       ]
     }
+  },
+  "fleetErrorAddressMismatch": "The address belongs to a different kiosk or fleet",
+  "@fleetErrorAddressMismatch": {
+    "context": "Settings > Fleet Management > follower status",
+    "description": "The saved address answers as another kiosk or a member of another fleet.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
   }
 }

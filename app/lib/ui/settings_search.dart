@@ -162,7 +162,7 @@ const List<SettingsSearchEntry> handBuiltSearchEntries = [
     category: 'Intercom',
     title: 'Kiosks',
     description:
-        'The kiosks heard on this network and whether each can take a call.',
+        'Known kiosks and whether each can take a call.',
     anchorId: 'x:intercom_kiosks',
   ),
   SettingsSearchEntry(

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:flutter/services.dart' show EventChannel, MethodChannel;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
@@ -11,6 +12,7 @@ import 'package:kiosk_satellite/core/event_bus.dart';
 import 'package:kiosk_satellite/core/events.dart';
 import 'package:kiosk_satellite/core/logging.dart';
 import 'package:kiosk_satellite/managers/audio/mic_hub.dart';
+import 'package:kiosk_satellite/managers/fleet/fleet_manager.dart';
 import 'package:kiosk_satellite/managers/intercom/intercom_audio.dart';
 import 'package:kiosk_satellite/managers/btproxy/esp_entities.dart';
 import 'package:kiosk_satellite/managers/intercom/intercom_manager.dart';
@@ -81,7 +83,10 @@ void main() {
         claims: {'intercom': callId, 'from': 'kitchen', 'n': 'x'},
       );
 
-  Future<void> build({Map<String, Object> prefs = const {}}) async {
+  Future<void> build({
+    Map<String, Object> prefs = const {},
+    bool stubFleet = true,
+  }) async {
     SharedPreferences.setMockInitialValues({
       'ks.intercom.enabled': true,
       'ks.intercom.key': key,
@@ -119,13 +124,15 @@ void main() {
       },
     };
     bus.on<IntercomStateChanged>().listen((e) => states.add(e.status));
-    commands.register(
-      Command(
-        name: 'fleet',
-        description: 'discovery stub',
-        handler: (_) async => CommandResult.ok(fleetSnapshot()),
-      ),
-    );
+    if (stubFleet) {
+      commands.register(
+        Command(
+          name: 'fleet',
+          description: 'discovery stub',
+          handler: (_) async => CommandResult.ok(fleetSnapshot()),
+        ),
+      );
+    }
     for (final name in ['playChime', 'screenOn']) {
       commands.register(
         Command(
@@ -215,6 +222,93 @@ void main() {
       )).cast<String, Object?>();
 
   group('the roster', () {
+    test(
+      'the shared directory supplies intercom members with no mDNS peers',
+      () async {
+        peers.clear();
+        await build(stubFleet: false);
+        await settings.set(defs.fleetLeader, true);
+        await settings.set(
+          defs.fleetFollowers,
+          jsonEncode([
+            {
+              'id': 'bedroom',
+              'name': 'Bedroom',
+              'version': '2026.9.50',
+              'address': '192.168.1.71',
+              'port': 2324,
+              'token': 'private-token',
+            },
+          ]),
+        );
+        final nativeSnapshot = {
+          'self': (fleetSnapshot()['devices'] as List).first,
+          'peers': const [],
+          'listening': true,
+        };
+        final messenger =
+            TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+        const methods = MethodChannel('kiosk_satellite/fleet');
+        const stream = EventChannel('kiosk_satellite/fleet_stream');
+        messenger.setMockMethodCallHandler(
+          methods,
+          (call) async => call.method == 'snapshot' ? nativeSnapshot : null,
+        );
+        messenger.setMockStreamHandler(
+          stream,
+          MockStreamHandler.inline(
+            onListen: (_, events) => events.success(nativeSnapshot),
+          ),
+        );
+        final directory = FleetManager(bus, commands, log, settings);
+        addTearDown(() async {
+          await directory.dispose();
+          messenger.setMockMethodCallHandler(methods, null);
+          messenger.setMockStreamHandler(stream, null);
+        });
+        await directory.init();
+        await commands.execute('intercomKiosks', {'probe': true});
+        expect(directory.devices.map((d) => d.id), ['self', 'bedroom']);
+        expect(kiosk(intercom.status(), 'bedroom')['status'], 'ready');
+        expect(intercom.kiosks, hasLength(1));
+
+        await settings.set(defs.fleetFollowers, '');
+        await settle();
+        expect(kiosk(intercom.status(), 'bedroom')['status'], 'offline');
+      },
+    );
+
+    test(
+      'known members become unreachable after a failed probe and recover',
+      () async {
+        await build();
+        await settle();
+        expect(kiosk(intercom.status(), 'kitchen')['status'], 'ready');
+        final answer = answers['GET /api/intercom/identity']!;
+        answers['GET /api/intercom/identity'] = (_) =>
+            http.Response('unavailable', 503);
+        await commands.execute('intercomKiosks', {'probe': true});
+        expect(kiosk(intercom.status(), 'kitchen')['status'], 'unreachable');
+        expect(intercom.kiosks, hasLength(2));
+        answers['GET /api/intercom/identity'] = answer;
+        await commands.execute('intercomKiosks', {'probe': true});
+        expect(kiosk(intercom.status(), 'kitchen')['status'], 'ready');
+      },
+    );
+
+    test('a member address change triggers a fresh identity probe', () async {
+      await build();
+      await settle();
+      sent.clear();
+      peers.first['address'] = '192.168.1.90';
+      answers['GET /api/intercom/identity'] = (_) =>
+          http.Response('unavailable', 503);
+      bus.publish(FleetChanged(devices: peers));
+      await settle();
+      expect(sent.any((r) => r.url.host == '192.168.1.90'), isTrue);
+      expect(kiosk(intercom.status(), 'kitchen')['status'], 'unreachable');
+    });
+
     test('a kiosk with the same key and its intercom on is ready', () async {
       await build();
       await settle();

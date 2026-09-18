@@ -1144,15 +1144,19 @@ class UiStringsEs extends UiStrings {
       'Ese kiosko usa una versión sin Gestión de flota. Podrá unirse cuando la actualice.';
 
   @override
+  String get fleetErrorAddressMismatch =>
+      'La dirección corresponde a otro kiosko o a otra flota';
+
+  @override
   String get fleetSwitchKiosk => 'Cambiar de kiosko';
 
   @override
   String get fleetKiosksOnThisNetworkWithTheRemoteAdminOn =>
-      'Kioskos de esta red con la administración remota activada. Selecciona uno para abrir aquí su administración en esta misma página.';
+      'Kioskos encontrados y miembros guardados de la flota. Selecciona uno para abrir aquí su administración remota en esta misma página.';
 
   @override
   String get fleetNoOtherKioskFoundOnThisNetworkAKioskDetail =>
-      'No se encontró otro kiosko en esta red. Aparecerá cuando tenga activada la administración remota y esté conectado a esta red.';
+      'No se encontraron otros kioskos. Los kioskos aparecen al encontrarlos en la red o al estar guardados como miembros de la flota.';
 
   @override
   String get fleetSyncedCredentials => 'Credenciales sincronizadas';
@@ -6842,10 +6846,10 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get intercomRosterHelp =>
-      'Kioskos encontrados en esta red. Un kiosko está listo cuando su intercomunicador está activado y usa la misma clave.';
+      'Kioskos encontrados y miembros guardados de la flota. Un kiosko está listo cuando se puede conectar con él, tiene el intercomunicador activado y usa la misma clave.';
 
   @override
-  String get intercomNoOther => 'No se encontró otro kiosko';
+  String get intercomNoOther => 'No se encontraron otros kioskos';
 
   @override
   String get intercomRosterDeviceHelp =>
@@ -6856,7 +6860,7 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get intercomRosterRemoteHelp =>
-      'Un kiosko aparece cuando su administración remota está activada y está en esta red.';
+      'Los kioskos aparecen al encontrarlos en la red o al estar guardados como miembros de la flota. Administración remota y Buscar otros kioskos deben estar activados.';
 
   @override
   String get intercomReady => 'Listo';
@@ -10201,7 +10205,7 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get searchIntercomKiosks =>
-      'Los kioskos detectados en esta red y si pueden recibir una llamada.';
+      'Kioskos conocidos y si cada uno puede recibir una llamada.';
 
   @override
   String get searchHaValidate =>

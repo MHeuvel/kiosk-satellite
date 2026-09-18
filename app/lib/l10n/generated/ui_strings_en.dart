@@ -1131,15 +1131,19 @@ class UiStringsEn extends UiStrings {
       'That kiosk runs a build without Fleet Management. It joins once it runs one.';
 
   @override
+  String get fleetErrorAddressMismatch =>
+      'The address belongs to a different kiosk or fleet';
+
+  @override
   String get fleetSwitchKiosk => 'Switch kiosk';
 
   @override
   String get fleetKiosksOnThisNetworkWithTheRemoteAdminOn =>
-      'Kiosks on this network with the remote admin on. Picking one opens its admin here, on this same page.';
+      'Discovered kiosks and saved fleet members. Picking one opens its remote admin here, on this same page.';
 
   @override
   String get fleetNoOtherKioskFoundOnThisNetworkAKioskDetail =>
-      'No other kiosk found on this network. A kiosk shows up once its remote admin is on and it shares this network.';
+      'No other kiosks found. Kiosks appear through network discovery or saved fleet membership.';
 
   @override
   String get fleetSyncedCredentials => 'Synced Credentials';
@@ -6708,21 +6712,21 @@ class UiStringsEn extends UiStrings {
 
   @override
   String get intercomRosterHelp =>
-      'Kiosks discovered on this network. A kiosk is ready once its intercom is on with the same key.';
+      'Discovered kiosks and saved fleet members. A kiosk is ready when it is reachable with intercom on and the same key.';
 
   @override
-  String get intercomNoOther => 'No other kiosk heard';
+  String get intercomNoOther => 'No other kiosks found';
 
   @override
   String get intercomRosterDeviceHelp =>
       'Kiosks with Remote management and Find other kiosks on show up here.';
 
   @override
-  String get intercomNoneHeard => 'No kiosks heard';
+  String get intercomNoneHeard => 'No kiosks found';
 
   @override
   String get intercomRosterRemoteHelp =>
-      'A kiosk shows up once its remote admin is on and it shares this network.';
+      'Kiosks appear through network discovery or saved fleet membership. Remote management and Find other kiosks must be on.';
 
   @override
   String get intercomReady => 'Ready';
@@ -9985,7 +9989,7 @@ class UiStringsEn extends UiStrings {
 
   @override
   String get searchIntercomKiosks =>
-      'The kiosks heard on this network and whether each can take a call.';
+      'Known kiosks and whether each can take a call.';
 
   @override
   String get searchHaValidate =>

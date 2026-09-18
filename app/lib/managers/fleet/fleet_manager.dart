@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/services.dart';
 
@@ -8,7 +9,7 @@ import '../../core/manager.dart';
 import '../settings/definitions.dart' as defs;
 import '../settings/settings_manager.dart';
 
-/// One kiosk on the network, as it announced itself.
+/// One kiosk discovered on the network or saved in the fleet directory.
 class FleetDevice {
   const FleetDevice({
     required this.id,
@@ -55,14 +56,42 @@ class FleetDevice {
     'url': url,
     'self': self,
   };
+
+  /// Public directory fields only. Fleet credentials never travel here.
+  Map<String, Object?> toDirectory() => {
+    'id': id,
+    'name': name,
+    'version': version,
+    'address': address,
+    'port': port,
+  };
+
+  static FleetDevice? directoryEntry(Object? raw) {
+    if (raw is! Map ||
+        raw['id'] is! String ||
+        raw['address'] is! String ||
+        raw['port'] is! int) {
+      return null;
+    }
+    final device = fromMap(raw.cast<Object?, Object?>());
+    if (device == null ||
+        device.id.isEmpty ||
+        device.address.isEmpty ||
+        device.port < 1 ||
+        device.port > 65535) {
+      return null;
+    }
+    return device;
+  }
 }
 
 /// The kiosks on this network, for the remote admin's kiosk switcher.
 ///
 /// While the remote admin server is up (remote management on, with a
 /// password) and Find other kiosks is on, the native `FleetDiscovery`
-/// announces this device over mDNS and listens for the others. Every
-/// change to the set of peers is published as [FleetChanged], which the
+/// announces this device over mDNS and listens for the others.
+/// Saved fleet members are merged with discovered peers. Every change
+/// to the combined list is published as [FleetChanged], which the
 /// remote admin page hears over its socket, and the `fleet` command
 /// answers the list on demand: this device first, then the others by
 /// name.
@@ -131,6 +160,7 @@ class FleetManager extends Manager {
   /// The list as last heard: this device first, the rest by name.
   List<FleetDevice> get devices => List.unmodifiable(_devices);
   List<FleetDevice> _devices = const [];
+  List<FleetDevice> _discovered = const [];
 
   StreamSubscription<Object?>? _sub;
   final _subs = <StreamSubscription<Object?>>[];
@@ -142,7 +172,7 @@ class FleetManager extends Manager {
         name: 'fleet',
         description:
             'The kiosks on this network with their remote admin on, as '
-            'heard over mDNS: this device first, then the others by name, '
+            'discovered or saved in the fleet: this device first, then the others by name, '
             'each with its name, address, admin port, version and url.',
         quiet: true,
         handler: (_) async {
@@ -164,6 +194,12 @@ class FleetManager extends Manager {
 
     _subs.add(
       bus.on<SettingChanged>().listen((e) {
+        if (e.key == defs.fleetLeader.key ||
+            e.key == defs.fleetFollowers.key ||
+            e.key == defs.fleetLeaderInfo.key ||
+            e.key == defs.fleetRoster.key) {
+          _mergeDirectory();
+        }
         if (e.key == defs.remoteEnabled.key ||
             e.key == defs.remotePassword.key ||
             e.key == defs.remotePort.key ||
@@ -191,6 +227,7 @@ class FleetManager extends Manager {
     );
     await _seed();
     await _sync();
+    _mergeDirectory();
   }
 
   /// Fills an empty mDNS name from the device name. Nothing to write
@@ -215,6 +252,7 @@ class FleetManager extends Manager {
     } else if (running) {
       await _stop();
     }
+    _mergeDirectory();
   }
 
   Future<void> _start() async {
@@ -263,7 +301,8 @@ class FleetManager extends Manager {
     } catch (e) {
       log.warn(name, 'could not stop discovery: $e');
     }
-    _apply(const []);
+    _discovered = const [];
+    _mergeDirectory();
     log.info(name, 'stopped');
   }
 
@@ -320,8 +359,72 @@ class FleetManager extends Manager {
       final d = FleetDevice.fromMap(p.cast<Object?, Object?>());
       if (d != null) peers.add(d);
     }
-    peers.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
-    _apply([?self, ...peers]);
+    _discovered = [?self, ...peers];
+    _mergeDirectory();
+  }
+
+  Object? _stored(String raw) {
+    try {
+      return jsonDecode(raw);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  void _mergeDirectory() {
+    if (!serving) {
+      _apply(const []);
+      return;
+    }
+    final byId = <String, FleetDevice>{};
+    final selfId = _discovered.where((d) => d.self).firstOrNull?.id;
+    void add(Object? raw) {
+      final device = FleetDevice.directoryEntry(raw);
+      if (device != null) byId[device.id] = device;
+    }
+
+    if (enabled) {
+      if (_settings.get(defs.fleetLeader)) {
+        final followers = _stored(_settings.get(defs.fleetFollowers));
+        if (followers is List) {
+          for (final follower in followers) {
+            if (follower is Map &&
+                follower['token'] is String &&
+                (follower['token'] as String).isNotEmpty &&
+                follower['invite'] == null &&
+                follower['declined'] != true) {
+              add(follower);
+            }
+          }
+        }
+      } else {
+        final leader = FleetDevice.directoryEntry(
+          _stored(_settings.get(defs.fleetLeaderInfo)),
+        );
+        if (leader != null) {
+          final roster = _stored(_settings.get(defs.fleetRoster));
+          // Wait for local identity before loading a roster that includes
+          // this kiosk, so intercom never mistakes itself for a peer.
+          if (roster is List && selfId != null) {
+            for (final member in roster) {
+              if (member is Map && member['id'] != selfId) add(member);
+            }
+          }
+          // The invitation records the address that reached this kiosk.
+          byId[leader.id] = leader;
+        }
+      }
+    }
+    // Fresh discovery wins over saved addresses and identifies this kiosk.
+    for (final device in _discovered) {
+      byId[device.id] = device;
+    }
+    final list = byId.values.toList()
+      ..sort((a, b) {
+        if (a.self != b.self) return a.self ? -1 : 1;
+        return a.name.toLowerCase().compareTo(b.name.toLowerCase());
+      });
+    _apply(list);
   }
 
   void _apply(List<FleetDevice> list) {

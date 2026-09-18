@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kiosk_satellite/core/command_registry.dart';
@@ -381,4 +383,83 @@ void main() {
     expect((r.data as Map)['devices'], isEmpty);
     expect(events.last.toJson()['devices'], isEmpty);
   });
+
+  test('saved members survive missing mDNS without exposing tokens', () async {
+    final bedroom = {
+      'id': 'bbbb',
+      'name': 'Bedroom',
+      'version': '2026.9.18',
+      'address': '192.168.1.71',
+      'port': 2324,
+      'token': 'private-fleet-token',
+    };
+    await build({
+      ...serving,
+      'ks.fleet.leader': true,
+      'ks.fleet.followers': jsonEncode([
+        bedroom,
+        {...bedroom, 'id': 'pending', 'invite': 'nonce'},
+        {...bedroom, 'id': 'declined', 'declined': true},
+        {...bedroom, 'id': 'left', 'token': null},
+      ]),
+    });
+    snapshot = {'self': self, 'peers': const []};
+    var result = await commands.execute('fleet', const {});
+    expect(fleet.devices.map((d) => d.id), ['aaaa', 'bbbb']);
+    expect(jsonEncode(result.data), isNot(contains('private-fleet-token')));
+    expect(jsonEncode(result.data), isNot(contains('nonce')));
+
+    // Discovery supplies a fresh address without making a duplicate.
+    snapshot = {
+      'self': self,
+      'peers': [
+        {...bedroom, 'address': '192.168.1.72'},
+      ],
+    };
+    await commands.execute('fleet', const {});
+    expect(fleet.devices.last.address, '192.168.1.72');
+    expect(fleet.devices, hasLength(2));
+
+    // The leader saves the new address after polling the member.
+    await settings.set(
+      defs.fleetFollowers,
+      jsonEncode([
+        {...bedroom, 'address': '192.168.1.72'},
+      ]),
+    );
+    snapshot = {'self': self, 'peers': const []};
+    result = await commands.execute('fleet', const {});
+    expect(fleet.devices.last.address, '192.168.1.72');
+    expect((result.data as Map)['devices'], hasLength(2));
+    await settings.set(defs.fleetFollowers, '');
+    await pump();
+    expect(fleet.devices.map((d) => d.id), ['aaaa']);
+    expect(events.last.devices, hasLength(1));
+  });
+
+  test(
+    'a follower restores its leader and siblings without discovery',
+    () async {
+      final leader = {...self, 'id': 'lead', 'name': 'Leader'};
+      final sibling = {...self, 'id': 'sibling', 'name': 'Bedroom'};
+      await build({
+        ...serving,
+        'ks.fleet.leader_info': jsonEncode(leader),
+        'ks.fleet.roster': jsonEncode([self, leader, sibling]),
+      });
+      expect(fleet.devices.map((d) => d.id), ['lead']);
+      snapshot = {'self': self, 'peers': const []};
+      await commands.execute('fleet', const {});
+      expect(fleet.devices.map((d) => d.id), ['aaaa', 'sibling', 'lead']);
+      expect(fleet.devices.where((d) => d.self), hasLength(1));
+
+      await settings.set(defs.fleetRoster, jsonEncode([self, leader]));
+      await pump();
+      expect(fleet.devices.map((d) => d.id), ['aaaa', 'lead']);
+      // A stale roster cannot keep a former fleet in the switcher.
+      await settings.set(defs.fleetLeaderInfo, '');
+      await pump();
+      expect(fleet.devices.map((d) => d.id), ['aaaa']);
+    },
+  );
 }

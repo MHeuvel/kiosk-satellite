@@ -268,7 +268,7 @@ export async function renderIntercomPage({ fetch = true } = {}) {
     const [h, card] = titled(intercomText("Kiosks"));
     const kiosks = status.kiosks || [];
     if (!kiosks.length) {
-      card.appendChild(infoRow(intercomText("No kiosks heard"), intercomText("A kiosk shows up once its remote admin is on and it shares this network.")));
+      card.appendChild(infoRow(intercomText("No kiosks found"), intercomText("Kiosks appear through network discovery or saved fleet membership. Remote management and Find other kiosks must be on.")));
     }
     for (const k of kiosks) {
       const row = kioskRow({ name: k.name, address: k.address, version: k.version, dim: k.status === 'offline' });
@@ -278,7 +278,7 @@ export async function renderIntercomPage({ fetch = true } = {}) {
       row.appendChild(st);
       card.appendChild(row);
     }
-    card.appendChild(hintRow(intercomText("Kiosks discovered on this network. A kiosk is ready once its intercom is on with the same key.")));
+    card.appendChild(hintRow(intercomText("Discovered kiosks and saved fleet members. A kiosk is ready when it is reachable with intercom on and the same key.")));
     tab.append(h, card);
   }
 }

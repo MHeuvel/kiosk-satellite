@@ -3935,6 +3935,19 @@
       ]
     }
   },
+  "fleetErrorAddressMismatch": "La dirección corresponde a otro kiosko o a otra flota",
+  "@fleetErrorAddressMismatch": {
+    "context": "Settings > Fleet Management > follower status",
+    "description": "The saved address answers as another kiosk or a member of another fleet.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management"
+      ],
+      "remoteAdmin": [
+        "Fleet Management"
+      ]
+    }
+  },
   "fleetSwitchKiosk": "Cambiar de kiosko",
   "@fleetSwitchKiosk": {
     "context": "Remote administration > device name > Switch kiosk",
@@ -3945,7 +3958,7 @@
       ]
     }
   },
-  "fleetKiosksOnThisNetworkWithTheRemoteAdminOn": "Kioskos de esta red con la administración remota activada. Selecciona uno para abrir aquí su administración en esta misma página.",
+  "fleetKiosksOnThisNetworkWithTheRemoteAdminOn": "Kioskos encontrados y miembros guardados de la flota. Selecciona uno para abrir aquí su administración remota en esta misma página.",
   "@fleetKiosksOnThisNetworkWithTheRemoteAdminOn": {
     "context": "Remote administration > device name > Switch kiosk",
     "description": "Visible label, help or status in this section.",
@@ -3955,7 +3968,7 @@
       ]
     }
   },
-  "fleetNoOtherKioskFoundOnThisNetworkAKioskDetail": "No se encontró otro kiosko en esta red. Aparecerá cuando tenga activada la administración remota y esté conectado a esta red.",
+  "fleetNoOtherKioskFoundOnThisNetworkAKioskDetail": "No se encontraron otros kioskos. Los kioskos aparecen al encontrarlos en la red o al estar guardados como miembros de la flota.",
   "@fleetNoOtherKioskFoundOnThisNetworkAKioskDetail": {
     "context": "Remote administration > device name > Switch kiosk",
     "description": "Visible label, help or status in this section.",
@@ -25171,7 +25184,7 @@
       ]
     }
   },
-  "intercomRosterHelp": "Kioskos encontrados en esta red. Un kiosko está listo cuando su intercomunicador está activado y usa la misma clave.",
+  "intercomRosterHelp": "Kioskos encontrados y miembros guardados de la flota. Un kiosko está listo cuando se puede conectar con él, tiene el intercomunicador activado y usa la misma clave.",
   "@intercomRosterHelp": {
     "context": "Settings > Intercom > Kiosks",
     "description": "Label or guidance in this section.",
@@ -25184,7 +25197,7 @@
       ]
     }
   },
-  "intercomNoOther": "No se encontró otro kiosko",
+  "intercomNoOther": "No se encontraron otros kioskos",
   "@intercomNoOther": {
     "context": "Settings > Intercom > Kiosks",
     "description": "Label or guidance in this section.",
@@ -25214,7 +25227,7 @@
       ]
     }
   },
-  "intercomRosterRemoteHelp": "Un kiosko aparece cuando su administración remota está activada y está en esta red.",
+  "intercomRosterRemoteHelp": "Los kioskos aparecen al encontrarlos en la red o al estar guardados como miembros de la flota. Administración remota y Buscar otros kioskos deben estar activados.",
   "@intercomRosterRemoteHelp": {
     "context": "Settings > Intercom > Kiosks",
     "description": "Label or guidance in this section.",
@@ -37736,7 +37749,7 @@
       ]
     }
   },
-  "searchIntercomKiosks": "Los kioskos detectados en esta red y si pueden recibir una llamada.",
+  "searchIntercomKiosks": "Kioskos conocidos y si cada uno puede recibir una llamada.",
   "@searchIntercomKiosks": {
     "context": "Settings search > Intercom",
     "description": "Search result title or summary for this section.",

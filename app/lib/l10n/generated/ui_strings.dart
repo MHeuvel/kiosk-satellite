@@ -2054,6 +2054,12 @@ abstract class UiStrings {
   /// **'That kiosk runs a build without Fleet Management. It joins once it runs one.'**
   String get fleetUnsupportedBuild;
 
+  /// The saved address answers as another kiosk or a member of another fleet.
+  ///
+  /// In en, this message translates to:
+  /// **'The address belongs to a different kiosk or fleet'**
+  String get fleetErrorAddressMismatch;
+
   /// Visible label, help or status in this section.
   ///
   /// In en, this message translates to:
@@ -2063,13 +2069,13 @@ abstract class UiStrings {
   /// Visible label, help or status in this section.
   ///
   /// In en, this message translates to:
-  /// **'Kiosks on this network with the remote admin on. Picking one opens its admin here, on this same page.'**
+  /// **'Discovered kiosks and saved fleet members. Picking one opens its remote admin here, on this same page.'**
   String get fleetKiosksOnThisNetworkWithTheRemoteAdminOn;
 
   /// Visible label, help or status in this section.
   ///
   /// In en, this message translates to:
-  /// **'No other kiosk found on this network. A kiosk shows up once its remote admin is on and it shares this network.'**
+  /// **'No other kiosks found. Kiosks appear through network discovery or saved fleet membership.'**
   String get fleetNoOtherKioskFoundOnThisNetworkAKioskDetail;
 
   /// Visible label, help or status in this section.
@@ -11657,13 +11663,13 @@ abstract class UiStrings {
   /// Label or guidance in this section.
   ///
   /// In en, this message translates to:
-  /// **'Kiosks discovered on this network. A kiosk is ready once its intercom is on with the same key.'**
+  /// **'Discovered kiosks and saved fleet members. A kiosk is ready when it is reachable with intercom on and the same key.'**
   String get intercomRosterHelp;
 
   /// Label or guidance in this section.
   ///
   /// In en, this message translates to:
-  /// **'No other kiosk heard'**
+  /// **'No other kiosks found'**
   String get intercomNoOther;
 
   /// Label or guidance in this section.
@@ -11675,13 +11681,13 @@ abstract class UiStrings {
   /// Label or guidance in this section.
   ///
   /// In en, this message translates to:
-  /// **'No kiosks heard'**
+  /// **'No kiosks found'**
   String get intercomNoneHeard;
 
   /// Label or guidance in this section.
   ///
   /// In en, this message translates to:
-  /// **'A kiosk shows up once its remote admin is on and it shares this network.'**
+  /// **'Kiosks appear through network discovery or saved fleet membership. Remote management and Find other kiosks must be on.'**
   String get intercomRosterRemoteHelp;
 
   /// Label or guidance in this section.
@@ -17351,7 +17357,7 @@ abstract class UiStrings {
   /// Search result title or summary for this section.
   ///
   /// In en, this message translates to:
-  /// **'The kiosks heard on this network and whether each can take a call.'**
+  /// **'Known kiosks and whether each can take a call.'**
   String get searchIntercomKiosks;
 
   /// Search result title or summary for this section.

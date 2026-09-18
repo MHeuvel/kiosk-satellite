@@ -10,7 +10,7 @@
       ]
     }
   },
-  "fleetKiosksOnThisNetworkWithTheRemoteAdminOn": "Kiosks on this network with the remote admin on. Picking one opens its admin here, on this same page.",
+  "fleetKiosksOnThisNetworkWithTheRemoteAdminOn": "Discovered kiosks and saved fleet members. Picking one opens its remote admin here, on this same page.",
   "@fleetKiosksOnThisNetworkWithTheRemoteAdminOn": {
     "context": "Remote administration > device name > Switch kiosk",
     "description": "Visible label, help or status in this section.",
@@ -20,7 +20,7 @@
       ]
     }
   },
-  "fleetNoOtherKioskFoundOnThisNetworkAKioskDetail": "No other kiosk found on this network. A kiosk shows up once its remote admin is on and it shares this network.",
+  "fleetNoOtherKioskFoundOnThisNetworkAKioskDetail": "No other kiosks found. Kiosks appear through network discovery or saved fleet membership.",
   "@fleetNoOtherKioskFoundOnThisNetworkAKioskDetail": {
     "context": "Remote administration > device name > Switch kiosk",
     "description": "Visible label, help or status in this section.",

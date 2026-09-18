@@ -1,6 +1,6 @@
 {
   "@@locale": "es",
   "fleetSwitchKiosk": "Cambiar de kiosko",
-  "fleetKiosksOnThisNetworkWithTheRemoteAdminOn": "Kioskos de esta red con la administración remota activada. Selecciona uno para abrir aquí su administración en esta misma página.",
-  "fleetNoOtherKioskFoundOnThisNetworkAKioskDetail": "No se encontró otro kiosko en esta red. Aparecerá cuando tenga activada la administración remota y esté conectado a esta red."
+  "fleetKiosksOnThisNetworkWithTheRemoteAdminOn": "Kioskos encontrados y miembros guardados de la flota. Selecciona uno para abrir aquí su administración remota en esta misma página.",
+  "fleetNoOtherKioskFoundOnThisNetworkAKioskDetail": "No se encontraron otros kioskos. Los kioskos aparecen al encontrarlos en la red o al estar guardados como miembros de la flota."
 }

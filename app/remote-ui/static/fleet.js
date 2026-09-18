@@ -116,7 +116,7 @@ export function openFleetPicker() {
     body.innerHTML = '';
     devices.forEach((d) => body.appendChild(deviceRow(d)));
     if (others().length) {
-      body.appendChild(hintRow(fleetText("Kiosks on this network with the remote admin on. Picking one opens its admin here, on this same page.")));
+      body.appendChild(hintRow(fleetText("Discovered kiosks and saved fleet members. Picking one opens its remote admin here, on this same page.")));
     } else if (Date.now() - openedAt < 6000) {
       // A query went out when this device started; give the answers a
       // moment before calling the network empty.
@@ -128,7 +128,7 @@ export function openFleetPicker() {
       clearTimeout(lookTimer);
       lookTimer = setTimeout(render, 6000 - (Date.now() - openedAt) + 50);
     } else {
-      body.appendChild(hintRow(fleetText("No other kiosk found on this network. A kiosk shows up once its remote admin is on and it shares this network.")));
+      body.appendChild(hintRow(fleetText("No other kiosks found. Kiosks appear through network discovery or saved fleet membership.")));
     }
   }
 

@@ -5,7 +5,7 @@
   "searchServiceStatus": "Estado del servicio",
   "searchServiceHelp": "Indica si el servicio de Kiosk Satellite está en ejecución y qué mantiene activo.",
   "searchServicePermissions": "Los permisos que necesita el servicio de Kiosk Satellite.",
-  "searchIntercomKiosks": "Los kioskos detectados en esta red y si pueden recibir una llamada.",
+  "searchIntercomKiosks": "Kioskos conocidos y si cada uno puede recibir una llamada.",
   "searchHaValidate": "Comprueba la URL y el token con tu Home Assistant.",
   "searchHaProxy": "Sirve Home Assistant mediante un proxy seguro dentro de la aplicación cuando usa HTTP.",
   "searchHaDashboard": "Elige el panel de control y la vista que muestra el kiosko.",

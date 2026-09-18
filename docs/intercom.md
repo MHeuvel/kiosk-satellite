@@ -8,7 +8,7 @@ Configure it under **Settings, Intercom** on the kiosk, or the **Intercom** tab 
 
 1. Turn on **Enable intercom**. The kiosk makes an **Intercom key** the first time.
 2. Give every other kiosk the same key. In a fleet the leader syncs it as a credential and nothing needs typing. Outside a fleet, copy the key from the box and paste it on the other kiosk through **Change key**.
-3. The **Kiosks** card lists every kiosk discovered on the network with a status word. A kiosk reads **Ready** once its intercom is on with the same key.
+3. The **Kiosks** list includes discovered kiosks and saved fleet members with a status word. A kiosk reads **Ready** once its admin endpoint answers with intercom on and the same key. Saved fleet members remain listed and are probed even when their mDNS advertisements are missing.
 
 | Status | Meaning |
 | --- | --- |
@@ -16,8 +16,8 @@ Configure it under **Settings, Intercom** on the kiosk, or the **Intercom** tab 
 | Intercom off | The kiosk is on the network but its intercom is off, or it runs a version without one. |
 | Different key | Its intercom is on with another key. Paste this kiosk's key there, or the other way around. |
 | Do not disturb | It is on the intercom but refuses calls right now. |
-| Unreachable | It announces itself, but its admin port does not answer from here. Behind an mDNS reflector this is a VLAN the firewall does not route into. |
-| Offline | It was heard before and has gone quiet for over a minute and a half. |
+| Unreachable | The kiosk is discovered or saved in the fleet but its admin port does not answer from here. It remains listed so later probes can detect its return. |
+| Offline | The kiosk is no longer discovered and is not in the saved fleet directory. |
 
 **Change key** opens a dialog to paste a key from another kiosk or **Regenerate** a fresh one. A new key cuts this kiosk off from the others until they get it too.
 

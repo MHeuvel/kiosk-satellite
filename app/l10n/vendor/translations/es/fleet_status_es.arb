@@ -55,5 +55,6 @@
   "fleetErrorDidNotTakeTheUpload": "no aceptó el archivo",
   "fleetProfileNameExists": "Ya existe un perfil llamado {name}",
   "fleetAlreadyOnVersion": "ya usa {version}",
-  "fleetUnsupportedBuild": "Ese kiosko usa una versión sin Gestión de flota. Podrá unirse cuando la actualice."
+  "fleetUnsupportedBuild": "Ese kiosko usa una versión sin Gestión de flota. Podrá unirse cuando la actualice.",
+  "fleetErrorAddressMismatch": "La dirección corresponde a otro kiosko o a otra flota"
 }

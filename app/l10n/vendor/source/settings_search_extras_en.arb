@@ -65,7 +65,7 @@
       ]
     }
   },
-  "searchIntercomKiosks": "The kiosks heard on this network and whether each can take a call.",
+  "searchIntercomKiosks": "Known kiosks and whether each can take a call.",
   "@searchIntercomKiosks": {
     "context": "Settings search > Intercom",
     "description": "Search result title or summary for this section.",

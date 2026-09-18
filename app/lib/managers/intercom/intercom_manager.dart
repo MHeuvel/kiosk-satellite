@@ -34,7 +34,7 @@ class IntercomKiosk {
   int port;
   String version;
 
-  /// Whether the kiosk was in the last mDNS snapshot.
+  /// Whether the kiosk is discovered or remains in the saved fleet.
   bool heard = true;
 
   /// What `GET /api/intercom/identity` answered, or null before a probe.
@@ -47,9 +47,7 @@ class IntercomKiosk {
   String get url => 'http://$address:$port';
 
   /// ready, off, key, dnd, unreachable, offline, unknown. Unreachable is
-  /// a kiosk heard over mDNS whose admin port does not answer: a
-  /// reflector carried its announcement across a VLAN the firewall does
-  /// not route into.
+  /// a known kiosk whose admin port does not answer.
   String status(String ourFingerprint) {
     if (!heard) return 'offline';
     if (enabled == null) return probeFailed ? 'unreachable' : 'unknown';
@@ -464,6 +462,14 @@ class IntercomManager extends Manager {
             version: '${d['version'] ?? ''}',
           );
         } else {
+          if (k.address != '${d['address'] ?? ''}' ||
+              k.port != ((d['port'] as num?)?.toInt() ?? k.port)) {
+            k
+              ..enabled = null
+              ..keyFingerprint = null
+              ..probedAt = null
+              ..probeFailed = false;
+          }
           k
             ..name = '${d['name'] ?? ''}'
             ..address = '${d['address'] ?? ''}'
@@ -515,14 +521,14 @@ class IntercomManager extends Manager {
   }
 
   Future<void> _probe(IntercomKiosk k) async {
-    final res = await _get(
-      '${k.url}/api/intercom/identity',
-      timeout: probeTimeout,
-    );
+    final url = k.url;
+    final res = await _get('$url/api/intercom/identity', timeout: probeTimeout);
+    if (k.url != url) return;
     k.probedAt = DateTime.now();
     final data = _jsonOf(res);
     if (res == null || res.statusCode != 200 || data == null) {
       k.probeFailed = true;
+      k.enabled = null;
       // An older build without the route: the intercom is off there.
       if (res != null && res.statusCode == 404) {
         k.probeFailed = false;

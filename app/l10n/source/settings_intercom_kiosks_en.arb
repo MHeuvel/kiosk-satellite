@@ -13,7 +13,7 @@
       ]
     }
   },
-  "intercomRosterHelp": "Kiosks discovered on this network. A kiosk is ready once its intercom is on with the same key.",
+  "intercomRosterHelp": "Discovered kiosks and saved fleet members. A kiosk is ready when it is reachable with intercom on and the same key.",
   "@intercomRosterHelp": {
     "context": "Settings > Intercom > Kiosks",
     "description": "Label or guidance in this section.",
@@ -26,7 +26,7 @@
       ]
     }
   },
-  "intercomNoOther": "No other kiosk heard",
+  "intercomNoOther": "No other kiosks found",
   "@intercomNoOther": {
     "context": "Settings > Intercom > Kiosks",
     "description": "Label or guidance in this section.",
@@ -46,7 +46,7 @@
       ]
     }
   },
-  "intercomNoneHeard": "No kiosks heard",
+  "intercomNoneHeard": "No kiosks found",
   "@intercomNoneHeard": {
     "context": "Settings > Intercom > Kiosks",
     "description": "Label or guidance in this section.",
@@ -56,7 +56,7 @@
       ]
     }
   },
-  "intercomRosterRemoteHelp": "A kiosk shows up once its remote admin is on and it shares this network.",
+  "intercomRosterRemoteHelp": "Kiosks appear through network discovery or saved fleet membership. Remote management and Find other kiosks must be on.",
   "@intercomRosterRemoteHelp": {
     "context": "Settings > Intercom > Kiosks",
     "description": "Label or guidance in this section.",

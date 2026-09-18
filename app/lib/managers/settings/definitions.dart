@@ -7293,6 +7293,18 @@ const fleetLeaderInfo = SettingDef<String>(
   perDevice: true,
 );
 
+/// The member directory last received from this kiosk's leader.
+const fleetRoster = SettingDef<String>(
+  key: 'fleet.roster',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Fleet roster',
+  description: 'Internal: known fleet members and their admin addresses.',
+  category: 'Fleet',
+  hidden: true,
+  perDevice: true,
+);
+
 /// The leader revision this kiosk last applied in full or empty while
 /// dirty (a synced setting changed here since), which the leader answers
 /// with a fresh push.
@@ -7894,6 +7906,7 @@ const List<SettingDef<Object>> allSettings = [
   fleetFollowers,
   fleetInvite,
   fleetLeaderInfo,
+  fleetRoster,
   fleetAppliedRevision,
   fleetSyncedKeys,
   fleetLastSyncAt,

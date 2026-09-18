@@ -63,7 +63,7 @@ export const SEARCH_EXTRAS = [
     heading: 'Updates' },
   // Intercom: the hand-built roster under the definition rows.
   { tab: 'intercom', title: 'Kiosks',
-    desc: 'The kiosks heard on this network and whether each can take a call.',
+    desc: 'Known kiosks and whether each can take a call.',
     heading: 'Kiosks' },
   { tab: 'sendspin', title: 'Speakers', sub: 'Sonos',
     desc: 'The Sonos speakers this device knows, a search of the network and an address field.' },

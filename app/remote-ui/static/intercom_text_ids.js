@@ -81,11 +81,11 @@ export const intercomTextMessageIds = {
   "Key changed": "intercomKeyChanged",
   "Not set": "intercomNotSet",
   "Kiosks": "intercomKiosks",
-  "Kiosks discovered on this network. A kiosk is ready once its intercom is on with the same key.": "intercomRosterHelp",
-  "No other kiosk heard": "intercomNoOther",
+  "Discovered kiosks and saved fleet members. A kiosk is ready when it is reachable with intercom on and the same key.": "intercomRosterHelp",
+  "No other kiosks found": "intercomNoOther",
   "Kiosks with Remote management and Find other kiosks on show up here.": "intercomRosterDeviceHelp",
-  "No kiosks heard": "intercomNoneHeard",
-  "A kiosk shows up once its remote admin is on and it shares this network.": "intercomRosterRemoteHelp",
+  "No kiosks found": "intercomNoneHeard",
+  "Kiosks appear through network discovery or saved fleet membership. Remote management and Find other kiosks must be on.": "intercomRosterRemoteHelp",
   "Ready": "intercomReady",
   "Intercom off": "intercomOff",
   "Different key": "intercomDifferentKey",
@@ -168,5 +168,5 @@ export const intercomTextMessageIds = {
   "Open": "intercomOpen",
   "Enter a file name, not a path.": "intercomSoundFilename",
   "Pick an MP3, OGG, WAV, FLAC, M4A or AAC file.": "intercomSoundFormats",
-  "The kiosks heard on this network and whether each can take a call.": "searchIntercomKiosks"
+  "Known kiosks and whether each can take a call.": "searchIntercomKiosks"
 };

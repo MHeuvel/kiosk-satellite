@@ -123,7 +123,7 @@ class _IntercomSettingsPanelState extends State<IntercomSettingsPanel> {
                 HintRow(
                   intercomText(
                     context,
-                    "Kiosks discovered on this network. A kiosk is ready once its intercom is on with the same key.",
+                    "Discovered kiosks and saved fleet members. A kiosk is ready when it is reachable with intercom on and the same key.",
                   ),
                 ),
               ],
@@ -142,7 +142,7 @@ class _IntercomSettingsPanelState extends State<IntercomSettingsPanel> {
     if (kiosks.isEmpty) {
       return [
         SettingsRow(
-          title: Text(intercomText(context, "No other kiosk heard")),
+          title: Text(intercomText(context, "No other kiosks found")),
           subtitle: Text(
             intercomText(
               context,

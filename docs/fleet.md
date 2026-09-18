@@ -4,6 +4,8 @@ In a fleet setup, one kiosk acts as the leader while the others follow. The lead
 
 You can access these controls via **Settings, Fleet Management** on the kiosk, or the **Fleet Management** tab in the remote admin interface. Both devices must have **Remote management** and **Find other kiosks** enabled (located under Settings, Device, Remote Administration). Kiosks use the remote admin to discover and communicate with each other.
 
+Once a kiosk joins, its membership survives missing mDNS advertisements. The leader keeps follower addresses and shares the member directory with followers so they can list the leader and each other in the remote admin switcher and intercom. The directory survives app restarts and updates separately from settings, including when versions differ. Discovery refreshes addresses when available. Saved addresses still need to be reachable from the device opening them. Fleet membership does not provide a network relay.
+
 ## Roles
 
 | Role | How to Assign | Limitations |
@@ -86,7 +88,9 @@ Settings that scale the UI, control screen brightness, or manage volume often de
 | Versions | Syncing only occurs between kiosks with matching version names (build numbers are ignored). The leader flags required updates and resumes automatically once matched. |
 | Drift | If a synced setting is changed locally on a follower, the leader overwrites it during the next sync (a banner warns of this on the category page). |
 | Cadence | Devices are polled every 30 seconds if the Fleet Management menu is open, and every 5 minutes otherwise (or instantly on any change). |
-| Offline | Followers disconnected from the network are marked **Offline** and ignored until they reconnect. |
+| Offline | Followers whose admin endpoints do not answer are marked **Offline** and retried on later polls. |
+
+Every poll tries known followers at their saved addresses even if mDNS has not heard them. Removing a member updates the directory on reachable followers at the next poll. A follower clears its saved directory when it leaves. Older releases keep their discovery behavior until upgraded.
 
 ## Updates
 
@@ -122,5 +126,8 @@ Files referenced by settings (like notification chimes, gallery photos, or local
 | `/api/fleet/status` | GET | fleet | Returns the version, applied revision, local changes to synced settings, and update status. |
 | `/api/fleet/apply` | POST | fleet | `{revision, version, settings}`. Held in queue if versions differ. |
 | `/api/fleet/leave` | POST | fleet | Notifies the kiosk that the leader removed it from the fleet. |
+| `/api/fleet/roster` | POST | fleet | `{devices: [{id, name, version, address, port}]}`: Replaces the saved member directory independently of settings sync. Contains no fleet tokens. |
+
+The status response includes `rosterRevision` on releases that support the directory. The leader sends a roster only when that revision differs from its current member list.
 
 A fleet token also grants access to `getUpdateStatus`, `checkUpdateNow`, `installUpdate` and `installUploadedApk` under `/api/commands/` and to `POST /api/update/upload`, but nothing else. Both pages utilize commands like: `fleetStatus`, `fleetCandidates`, `fleetInvite`, `fleetSetProfile`, `fleetDeleteProfile`, `fleetAssignProfile`, `fleetSyncable`, `fleetRemove`, `fleetSyncNow`, `fleetUpdate`, `fleetInstallUploaded`, and `fleetLeave`. Note that `fleetAccept` and `fleetDecline` are rejected if sent over the remote API. The WebSocket broadcast includes a `fleetsync` event upon any change.

@@ -48,6 +48,7 @@ void main() {
       'fleetFollowerStatus',
       'fleetApply',
       'fleetLeaderLeft',
+      'fleetRosterReceived',
       'fleetAccept',
       'fleetDecline',
       'getUpdateStatus',
@@ -200,7 +201,40 @@ void main() {
     expect((await call('GET', '/api/fleet/status')).$1, 401);
     expect((await call('POST', '/api/fleet/apply', body: {})).$1, 401);
     expect((await call('POST', '/api/fleet/leave')).$1, 401);
+    expect((await call('POST', '/api/fleet/roster', body: {})).$1, 401);
   });
+
+  test(
+    'only the current leader fleet token can update the directory',
+    () async {
+      final token = await fleetToken('lead');
+      final other = await fleetToken('someone');
+      await settings.set(defs.fleetLeaderInfo, jsonEncode({'id': 'lead'}));
+      final body = {
+        'devices': [
+          {'id': 'bed', 'address': '192.168.1.71', 'port': 2324},
+        ],
+      };
+      expect(
+        (await call('POST', '/api/fleet/roster', body: body, token: other)).$1,
+        403,
+      );
+      final (status, result) = await call(
+        'POST',
+        '/api/fleet/roster',
+        body: body,
+        token: token,
+      );
+      expect(status, 200);
+      expect((result['data'] as Map)['from'], 'fleetRosterReceived');
+      expect((result['data'] as Map)['devices'], body['devices']);
+      await settings.set(defs.fleetLeaderInfo, '');
+      expect(
+        (await call('POST', '/api/fleet/roster', body: body, token: token)).$1,
+        403,
+      );
+    },
+  );
 
   test("a fleet token works only while it names this kiosk's leader", () async {
     final token = await fleetToken('lead');
