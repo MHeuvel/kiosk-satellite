@@ -1,4 +1,5 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../l10n/generated/ui_strings.dart';
@@ -12,24 +13,68 @@ Locale appLocaleForLanguage(String language) {
   return const Locale('en');
 }
 
-/// Localization setup for the root MaterialApp (issue #551).
-///
-/// Rubik has no CJK glyphs, so those characters fall back to system fonts.
-/// The engine picks the fallback face by the locale it resolved for the
-/// paragraph, and without delegates every device resolved to en_US, which
-/// made a Japanese kiosk draw its clock and lyrics with Chinese-style
-/// glyphs. CJK Unified Ideographs share code points across Chinese,
-/// Japanese and Korean, so only the locale tells the font which shape to
-/// use. Listing the CJK locales lets the device locale win that pick.
-///
-/// Reviewed message catalogs add their locales to this list. Other languages
-/// fall back to English. The HA dashboard keeps its own locale pipeline.
+/// Preserve regional CJK glyphs when the interface uses a non-CJK language.
+/// Rubik falls back to system fonts for CJK text, including device-language
+/// dates and media titles. Those fonts use the paragraph locale to select
+/// regional character shapes (#551, #601). The HA WebView is independent.
+Locale appRenderingLocale(Locale uiLocale, List<Locale> deviceLocales) {
+  const cjk = {'ja', 'ko', 'zh'};
+  if (!cjk.contains(uiLocale.languageCode) &&
+      deviceLocales.isNotEmpty &&
+      cjk.contains(deviceLocales.first.languageCode)) {
+    return basicLocaleListResolution([
+      deviceLocales.first,
+    ], appSupportedLocales);
+  }
+  return uiLocale;
+}
+
+/// Defaults for widgets that follow the inherited locale.
 const List<LocalizationsDelegate<dynamic>> appLocalizationsDelegates = [
   MessageDelegate(),
   GlobalMaterialLocalizations.delegate,
   GlobalWidgetsLocalizations.delegate,
   GlobalCupertinoLocalizations.delegate,
 ];
+
+/// The root app chooses messages separately from the rendering locale.
+/// Bind all resources to the selected language so Flutter controls and text
+/// direction follow it too. Reload even when the CJK rendering locale stays
+/// the same during a live language change.
+List<LocalizationsDelegate<dynamic>> appLocalizationsForUiLocale(
+  Locale locale,
+) => [
+  _UiLocaleDelegate<UiStrings>(const MessageDelegate(), locale),
+  _UiLocaleDelegate<MaterialLocalizations>(
+    GlobalMaterialLocalizations.delegate,
+    locale,
+  ),
+  _UiLocaleDelegate<WidgetsLocalizations>(
+    GlobalWidgetsLocalizations.delegate,
+    locale,
+  ),
+  _UiLocaleDelegate<CupertinoLocalizations>(
+    GlobalCupertinoLocalizations.delegate,
+    locale,
+  ),
+];
+
+class _UiLocaleDelegate<T> extends LocalizationsDelegate<T> {
+  const _UiLocaleDelegate(this.delegate, this.uiLocale);
+
+  final LocalizationsDelegate<T> delegate;
+  final Locale uiLocale;
+
+  @override
+  bool isSupported(Locale locale) => delegate.isSupported(uiLocale);
+
+  @override
+  Future<T> load(Locale locale) => delegate.load(uiLocale);
+
+  @override
+  bool shouldReload(_UiLocaleDelegate<T> old) =>
+      uiLocale != old.uiLocale || delegate.shouldReload(old.delegate);
+}
 
 /// Language-only entries catch generic device locales, the region and script
 /// entries keep an exact match so zh-Hant-TW is not collapsed to zh.

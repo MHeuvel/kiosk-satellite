@@ -6,6 +6,21 @@ import 'package:kiosk_satellite/core/app_locales.dart';
 /// draws with, so a device locale has to survive resolution instead of being
 /// collapsed to en_US or to a bare language.
 void main() {
+  test('rendering follows the UI unless the primary device locale is CJK', () {
+    const spanish = Locale('es');
+    expect(appRenderingLocale(spanish, []), spanish);
+    expect(
+      appRenderingLocale(spanish, const [
+        Locale('en', 'US'),
+        Locale('ja', 'JP'),
+      ]),
+      spanish,
+    );
+    // A future CJK interface language must retain its own character shapes.
+    const japanese = Locale('ja', 'JP');
+    expect(appRenderingLocale(japanese, const [Locale('zh', 'CN')]), japanese);
+  });
+
   Future<Locale> resolve(WidgetTester tester, Locale device) async {
     tester.platformDispatcher.localesTestValue = [device];
     addTearDown(tester.platformDispatcher.clearLocalesTestValue);

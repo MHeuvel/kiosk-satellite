@@ -6,6 +6,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ### Fixed
 
+- **CJK character shapes follow the device locale again.** Selecting English or Spanish no longer replaces Japanese, Chinese or Korean glyph selection in Flutter text. Interface messages and built-in controls keep the selected language, including after live language changes (#601).
 - **RTSP authentication in VLC.** Camera streams with credentials now accept VLC's authentication for video and audio track setup. Previously, VLC could reject both tracks with `401 Unauthorized` even when the username and password were correct.
 
 ## v2026.9.60 - 2026-09-18

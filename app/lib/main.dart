@@ -175,6 +175,12 @@ class _KioskSatelliteAppState extends State<KioskSatelliteApp>
   final _returned = ReturnWatch();
 
   @override
+  void didChangeLocales(List<Locale>? locales) {
+    // Refresh glyph selection without changing the saved interface language.
+    setState(() {});
+  }
+
+  @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     final returned = _returned.returned(state);
     if (state == AppLifecycleState.paused) {
@@ -239,12 +245,18 @@ class _KioskSatelliteAppState extends State<KioskSatelliteApp>
   Widget build(BuildContext context) {
     final container = widget.container;
     final configured = container.settings.get(defs.startUrl).isNotEmpty;
+    final uiLocale = appLocaleForLanguage(
+      container.settings.get(defs.uiLanguage),
+    );
     return MaterialApp(
       title: 'Kiosk Satellite',
       debugShowCheckedModeBanner: false,
-      localizationsDelegates: appLocalizationsDelegates,
+      localizationsDelegates: appLocalizationsForUiLocale(uiLocale),
       supportedLocales: appSupportedLocales,
-      locale: appLocaleForLanguage(container.settings.get(defs.uiLanguage)),
+      locale: appRenderingLocale(
+        uiLocale,
+        WidgetsBinding.instance.platformDispatcher.locales,
+      ),
       theme: buildTheme(Brightness.light),
       darkTheme: buildTheme(Brightness.dark),
       themeMode: switch (container.settings.get(defs.uiTheme)) {
