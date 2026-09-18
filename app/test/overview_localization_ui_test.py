@@ -47,6 +47,7 @@ def api(route):
     if name == 'installUpdate': status['getUpdateStatus']['progress'] = 0.3
     if name == 'cancelUpdateDownload': status['getUpdateStatus']['progress'] = None
     result = status.get(name, {})
+    if name == 'checkUpdateNow': result = dict(status['getUpdateStatus'], reachable=True)
     if name == 'haListDashboardViews': result = [dict(title='Default view', route='raw-view')] if params['url_path'] == 'raw-dashboard' else []
     route.fulfill(json=dict(ok=True, data=result))
 
@@ -148,8 +149,22 @@ try:
         expect(modal.locator('img')).to_have_attribute('alt', label('Camera snapshot'))
         language('en'); expect(modal.locator('img')).to_have_attribute('alt', 'Camera snapshot')
         language('es'); modal.get_by_role('button', name=label('Close'), exact=True).click()
+        # Checking again refreshes the retained Install button's release notes.
+        install = root.locator('#attentionCard [data-key="update"] button')
+        install.click()
+        expect(modal.locator('.modal-title')).to_have_text(msg('drawerUpdateTo', version='2.0-raw'))
+        expect(modal).to_contain_text('Original release notes')
+        modal.get_by_role('button', name=translated['commonCancel'], exact=True).click()
+        status['getUpdateStatus'].update(availableVersion='3.0-raw', availableNotes='Latest release notes')
+        root.locator('#tileCheckUpdate').click()
+        expect(tile('update')).to_contain_text(msg('overviewNewVersion', version='3.0-raw'))
+        expect(root.locator('#attentionCard [data-key="update"] .desc')).to_have_text(msg('overviewInstallHelp', version='3.0-raw'))
+        assert page.evaluate("originalInstall===document.querySelector('#attentionCard [data-key=update] button')")
         # The existing update controller keeps ownership of download progress.
         root.locator('#attentionCard [data-key="update"] button').click()
+        expect(modal.locator('.modal-title')).to_have_text(msg('drawerUpdateTo', version='3.0-raw'))
+        expect(modal).to_contain_text('Latest release notes')
+        expect(modal).not_to_contain_text('Original release notes')
         with page.expect_response('**/api/commands/installUpdate'):
             modal.get_by_role('button', name=translated['drawerUpdate'], exact=True).click()
         progress = root.locator('#attentionCard [data-key="update"] button').first

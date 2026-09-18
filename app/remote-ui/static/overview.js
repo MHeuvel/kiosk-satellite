@@ -362,7 +362,7 @@ function paintHealth({ filter = true } = {}) {
       key: 'update',
       name: overviewText('Update available'),
       desc: t('overviewInstallHelp', {version: upd.availableVersion}),
-      action: (btn) => { overviewLabel(btn, 'Install'); attachUpdateInstall(btn, upd); },
+      action: (btn) => { overviewLabel(btn, 'Install'); attachUpdateInstall(btn, () => health.upd); },
     });
   }
   if (ha && !ha.configured) {

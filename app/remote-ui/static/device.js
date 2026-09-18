@@ -491,10 +491,11 @@ export function attachUploadInstall(btn) {
 /* The Install button's whole life, shared by the About page and the
    Overview's Needs attention row: release notes, then the download on the
    tablet, ridden by polling until the installer has it. `btn` carries its
-   idle label already. */
-export function attachUpdateInstall(btn, upd) {
-  const idleLabel = () => t('deviceInstallVersion', {version: upd.availableVersion});
-  const run = async () => {
+   idle label already. Read the current status when clicked because the
+   Overview keeps the button when a newer release becomes available. */
+export function attachUpdateInstall(btn, getUpdate) {
+  const run = async (upd) => {
+    const idleLabel = () => t('deviceInstallVersion', {version: upd.availableVersion});
     // One riding loop at a time: a re-rendered About tab (or a second
     // click) starts a fresh one and this token retires the old, which
     // would otherwise keep polling a detached button for the rest of
@@ -550,6 +551,8 @@ export function attachUpdateInstall(btn, upd) {
   // Release notes first, then the download: the same flow as the
   // drawer's dialog on the device.
   btn.onclick = () => {
+    const upd = getUpdate();
+    if (!upd?.availableVersion) return;
     const shell = modalShell({
       title: t('drawerUpdateTo', {version: upd.availableVersion}),
       width: 520,
@@ -596,13 +599,14 @@ export function attachUpdateInstall(btn, upd) {
     const ok = document.createElement('button');
     ok.className = 'btn-primary';
     setAboutLabel(ok, 'drawerUpdate');
-    ok.addEventListener('click', () => { back.remove(); run(); });
+    ok.addEventListener('click', () => { back.remove(); run(upd); });
     shell.foot.append(cancel, ok);
   };
   // A download already in flight when this tab renders (started from the
   // device, or the page reloaded mid-download): attach to it right away
   // rather than offering an Install button that would only error (#272).
-  if (upd.progress !== null && upd.progress !== undefined) run();
+  const upd = getUpdate();
+  if (upd?.progress !== null && upd?.progress !== undefined) run(upd);
 }
 
 export async function loadAboutInfo() {
@@ -689,7 +693,7 @@ export async function loadAboutInfo() {
     const btn = document.createElement('button');
     btn.className = 'btn-ghost';
     setAboutLabel(btn, 'deviceInstallVersion', { version: upd.availableVersion });
-    attachUpdateInstall(btn, upd);
+    attachUpdateInstall(btn, () => upd);
     const updRows = [['Update available', btn]];
     // No draw-over-apps grant means the relaunch receiver's activity start
     // is a background launch Android will abort: the update installs but

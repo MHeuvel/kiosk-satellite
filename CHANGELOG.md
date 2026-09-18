@@ -2,6 +2,12 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Fixed
+
+- **Update release notes match the version shown in the Overview.** Checking for updates after an earlier release was detected now refreshes the version and release notes opened by Install (#607).
+
 ## v2026.9.61 - 2026-09-18
 
 ### Fixed
