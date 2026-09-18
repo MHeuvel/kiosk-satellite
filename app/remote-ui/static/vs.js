@@ -70,11 +70,11 @@ export async function renderVsControls(root, { auto = false } = {}) {
     vsControlsJson = JSON.stringify(data);
   }
   // Re-render in place: writes rebuild these three cards only, never the
-  // whole settings page. The adopted "Keep listening in the background"
-  // row (a declarative setting the General card borrows) must survive the
-  // rebuild: park it back on the detection card before its host goes.
-  const parked = root.querySelector('#vsGeneralCard [data-key="wake_word.background"]');
-  if (parked) {
+  // whole settings page. Keep the background listening rows alive while
+  // rebuilding their General section so their save handlers stay attached.
+  for (const parked of root.querySelectorAll(
+    '#vsGeneralCard [data-key="wake_word.background"], '
+    + '#vsGeneralCard [data-key="wake_word.return_to_background"]')) {
     // Somewhere that survives the three removals below, so the adoption
     // further down can find it again: the detection card its own definition
     // belongs to, else the page that card is on. NOT #vsWakeCard, which is
@@ -208,11 +208,11 @@ export async function renderVsControls(root, { auto = false } = {}) {
       voiceText('Auto start Voice Satellite on dashboard load.'),
       browser.auto_start !== false, (v) => applyBrowser({ auto_start: v })));
   }
-  // Adopt the declarative "Keep listening in the background" row out of the
-  // detection card: important enough to sit with the important rows, and
-  // moving the live node keeps its save wiring and gating intact.
-  const bgRow = root.querySelector('[data-key="wake_word.background"]');
-  if (bgRow) {
+  // Move background listening and its dependent switch into General.
+  // Keeping the live nodes preserves their save handlers and visibility.
+  for (const key of ['wake_word.background', 'wake_word.return_to_background']) {
+    const bgRow = root.querySelector(`[data-key="${key}"]`);
+    if (!bgRow) continue;
     const host = bgRow.parentNode;
     generalCard.appendChild(bgRow);
     // Its card existed only to carry it now that the rest of the detection

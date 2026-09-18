@@ -1390,5 +1390,9 @@
   "wake_word.resume_timeout_seconds": {
     "title": "voiceWakeWordResumeTimeoutSecondsTitle",
     "description": "voiceWakeWordResumeTimeoutSecondsDescription"
+  },
+  "wake_word.return_to_background": {
+    "title": "settingWakeWordReturnToBackgroundTitle",
+    "description": "settingWakeWordReturnToBackgroundDescription"
   }
 }

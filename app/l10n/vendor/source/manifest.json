@@ -1,8 +1,8 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite",
-  "revision": "5d02c18a10d6f4713c2dd5c479a4374015a5c321",
-  "workingTree": false,
+  "revision": "71f43a039f2f727860662498535bb70cdfa1eb3c",
+  "workingTree": true,
   "files": {
     "about_identity_en.arb": "dd006567f69f846e2e3b73f09ad13784f0022d282ea3101fa9be7fc95175ec2d",
     "about_updates_en.arb": "b41df3870ffb041249448dc4b13b14a9350ab4417510f23e772458dd1e582c85",
@@ -164,7 +164,7 @@
     "settings_search_en.arb": "d8ea2b418814f507a28a47cfda97d656d3fdf00962a2817f7f390450a49b5a67",
     "settings_search_extras_en.arb": "51a666b8ecb53d49e02aad9170636b80fde61da24e3de04c1a362b1ba5504423",
     "settings_voice_satellite_appearance_en.arb": "d203816605c64eb35b1258d4cc954e9eba46f73cdab05b5b4e5320380c7990a7",
-    "settings_voice_satellite_general_en.arb": "af550c9f44403bfe636eb88aaa7954ee4098616629a116c3c35a0455ee29964b",
+    "settings_voice_satellite_general_en.arb": "afc32a1f596b52d32633979008ce70e0a2542daadf6ed3d236b9acb6faed313e",
     "settings_voice_satellite_permissions_en.arb": "96fc7cab269a286bfa12be9adc861941c3548cc41b45195d828d739610441f5e",
     "settings_voice_satellite_setup_en.arb": "5d6e328bc7d48614c3b6af3e3ee2ecd16c9e36b38991a5f2e9477b2ac0584874",
     "settings_voice_satellite_tester_en.arb": "5095ee019367fd3163be847817ca6f29d97d91b94cdb2785a96023307e914f01",

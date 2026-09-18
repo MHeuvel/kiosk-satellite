@@ -17672,6 +17672,18 @@ abstract class UiStrings {
   /// **'Keep hearing the wake word while another app is in front, and return on a detection. Needs a permanent notification and display over other apps.'**
   String get settingWakeWordBackgroundDescription;
 
+  /// Return to the previous app after a background voice interaction. Only shown while background listening is enabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Return to the previous app'**
+  String get settingWakeWordReturnToBackgroundTitle;
+
+  /// Return to the previous app after a background voice interaction. Only shown while background listening is enabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Return to the previous app or home screen after a voice interaction brings Kiosk Satellite forward and finishes.'**
+  String get settingWakeWordReturnToBackgroundDescription;
+
   /// Label or help shown on the Voice Satellite main page.
   ///
   /// In en, this message translates to:

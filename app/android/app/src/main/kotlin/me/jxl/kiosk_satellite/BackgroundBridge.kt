@@ -433,6 +433,7 @@ class BackgroundBridge(
                 "canRequestBatteryUnrestricted" ->
                     result.success(resolves(batteryIntent()))
                 "bringToFront" -> result.success(bringToFront())
+                "isBehindAnotherApp" -> result.success(!ActivityState.frontmost)
                 // "Screen on" from the admin or the screensaver: light a
                 // genuinely sleeping panel. Brightness restore alone cannot.
                 "wakeScreen" -> result.success(wakeScreen())

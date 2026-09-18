@@ -3688,10 +3688,19 @@ class _CategoryContentState extends State<_CategoryContent> {
                 // An important switch lives with the important rows: pulled
                 // out of the detection card into General, below Auto start.
                 backgroundTile: container.settings.visible(wakeWordBackground)
-                    ? SettingTile(
-                        container: container,
-                        def: wakeWordBackground,
-                        onChanged: () => setState(() {}),
+                    ? Column(
+                        children: [
+                          for (final def in [
+                            wakeWordBackground,
+                            wakeWordReturnToBackground,
+                          ])
+                            if (container.settings.visible(def))
+                              SettingTile(
+                                container: container,
+                                def: def,
+                                onChanged: () => setState(() {}),
+                              ),
+                        ],
                       )
                     : null,
               ),
@@ -10674,8 +10683,8 @@ class VsControlsSection extends StatefulWidget {
   /// rows on the Wake Word page. Only that page passes one.
   final Widget? detectionCard;
 
-  /// The "Keep listening in the background" setting tile, shown in the
-  /// General card below Auto start; null while its dependency hides it.
+  /// Background listening settings shown below Auto start in General.
+  /// Null while their dependency hides them.
   final Widget? backgroundTile;
 
   @override

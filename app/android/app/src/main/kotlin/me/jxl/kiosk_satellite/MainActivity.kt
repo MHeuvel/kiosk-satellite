@@ -26,6 +26,8 @@ import io.flutter.plugin.common.MethodChannel
  *  not trustworthy across a failed re-attach — these callbacks are. */
 object ActivityState {
     @Volatile var resumed = false
+    // Stays true when the foreground app pauses because the screen went off.
+    @Volatile var frontmost = true
 
     /** Whether an Activity is attached to the cached engine right now.
      *  Platform views can only be created while this holds — the engine's
@@ -152,6 +154,7 @@ class MainActivity : FlutterActivity() {
     override fun onResume() {
         super.onResume()
         ActivityState.resumed = true
+        ActivityState.frontmost = true
         // Persisted so the crash self-heal (CrashSelfHeal) can tell "died
         // while on screen" from "user left for another app": only the former
         // may bring the kiosk back on its own. A clean exit and a Home press
@@ -174,7 +177,10 @@ class MainActivity : FlutterActivity() {
         // while the service keeps the device "online" in Home Assistant.
         // A Home press or an app switch happens on a lit screen.
         val power = getSystemService(Context.POWER_SERVICE) as PowerManager
-        if (power.isInteractive) setWasForeground(false)
+        if (power.isInteractive) {
+            ActivityState.frontmost = false
+            setWasForeground(false)
+        }
     }
 
     private fun setWasForeground(value: Boolean) {

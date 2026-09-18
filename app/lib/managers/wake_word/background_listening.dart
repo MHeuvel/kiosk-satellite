@@ -61,6 +61,17 @@ class BackgroundListening {
   static Future<bool> bringToFront() async =>
       await _channel.invokeMethod<bool>('bringToFront') ?? false;
 
+  /// A sleeping foreground activity does not count as another app.
+  static Future<bool> isBehindAnotherApp() async =>
+      await _channel.invokeMethod<bool>('isBehindAnotherApp') ?? false;
+
+  /// Reveal the previous task without closing the dashboard or its session.
+  static Future<bool> returnToBackground() async =>
+      await const MethodChannel(
+        'kiosk_satellite/admin',
+      ).invokeMethod<bool>('moveTaskToBack') ??
+      false;
+
   static Future<bool> isBatteryUnrestricted() async =>
       await _channel.invokeMethod<bool>('isBatteryUnrestricted') ?? false;
 

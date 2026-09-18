@@ -14634,6 +14634,16 @@
     "translation": "74324d6679c0f6cd5363a3d590476569ec1dd7f9681d419c600261a1bb180af6",
     "author": "Xavier Larrea"
   },
+  "settingWakeWordReturnToBackgroundTitle": {
+    "source": "f05c45e15ccc8282da21478e8dd7b289b2a4deb1552777c47b883f1af235d11b",
+    "translation": "a988d6a62a6ddc852f31ca011afaa7037961bb41d84895aa52e57aabf03bfc09",
+    "author": "Xavier Larrea"
+  },
+  "settingWakeWordReturnToBackgroundDescription": {
+    "source": "ed73e3219b1fdcc00f2f0664ff4f8198ae2d972693c5878e79065a5ce0565db4",
+    "translation": "7e11994ed4dbcf33a6c0163c4dd026936b2d4272a5f80e8881381644f772e8d7",
+    "author": "Xavier Larrea"
+  },
   "voiceMicHeld": {
     "source": "650e00ac0819d0321fc20bc55ad4eb2cddf52b3092a22ec240da9036018baf45",
     "translation": "09c2381bc7d6ebce7b525b066b5123951986960cfcc71330ea455ec020284bd1",

@@ -7,6 +7,7 @@ import 'package:kiosk_satellite/core/app_locales.dart';
 import 'package:kiosk_satellite/core/command_registry.dart';
 import 'package:kiosk_satellite/l10n/generated/ui_strings.dart';
 import 'package:kiosk_satellite/l10n/generated/ui_strings_en.dart';
+import 'package:kiosk_satellite/managers/settings/definitions.dart';
 import 'package:kiosk_satellite/ui/settings_screen.dart';
 import 'package:kiosk_satellite/ui/settings_search.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -147,6 +148,44 @@ void main() {
       home: Scaffold(body: SingleChildScrollView(child: child)),
     ),
   );
+
+  testWidgets('return setting uses the shipped English and Spanish catalogs', (
+    tester,
+  ) async {
+    for (final language in ['en', 'es']) {
+      await tester.pumpWidget(
+        MaterialApp(
+          locale: Locale(language),
+          supportedLocales: UiStrings.supportedLocales,
+          localizationsDelegates: appLocalizationsDelegates,
+          home: Scaffold(
+            body: SettingTile(
+              container: c,
+              def: wakeWordReturnToBackground,
+              onChanged: () {},
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(
+        find.text(
+          language == 'en'
+              ? 'Return to the previous app'
+              : 'Volver a la aplicación anterior',
+        ),
+        findsOneWidget,
+      );
+      expect(
+        find.text(
+          language == 'en'
+              ? 'Return to the previous app or home screen after a voice interaction brings Kiosk Satellite forward and finishes.'
+              : 'Vuelve a la aplicación anterior o a la pantalla de inicio cuando termine la interacción de voz que trajo Kiosk Satellite al primer plano.',
+        ),
+        findsOneWidget,
+      );
+    }
+  });
 
   testWidgets(
     'live controls follow language without changing names or writes',

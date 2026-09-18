@@ -247,7 +247,10 @@ class JsApiManager extends Manager {
     if (method == 'playSound' || method == 'setSoundVolume') {
       params.remove('volume');
     }
-    final result = await commands.execute(commandName, params);
+    final result = await commands.execute(
+      commandName,
+      method == 'bringToFront' ? {...params, 'voiceInteraction': true} : params,
+    );
     // Queries resolve to their data; commands resolve to true/false. Never
     // reject — matching the defensive style of the VS kiosk wrapper.
     if (!result.ok) return result.data == null ? false : null;

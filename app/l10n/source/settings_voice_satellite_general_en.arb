@@ -389,5 +389,31 @@
         "Voice Satellite"
       ]
     }
+  },
+  "settingWakeWordReturnToBackgroundTitle": "Return to the previous app",
+  "@settingWakeWordReturnToBackgroundTitle": {
+    "context": "Settings > Voice Satellite",
+    "description": "Return to the previous app after a background voice interaction. Only shown while background listening is enabled.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "settingWakeWordReturnToBackgroundDescription": "Return to the previous app or home screen after a voice interaction brings Kiosk Satellite forward and finishes.",
+  "@settingWakeWordReturnToBackgroundDescription": {
+    "context": "Settings > Voice Satellite",
+    "description": "Return to the previous app after a background voice interaction. Only shown while background listening is enabled.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
   }
 }

@@ -10389,6 +10389,14 @@ class UiStringsEs extends UiStrings {
       'Sigue escuchando la palabra de activación mientras otra aplicación está en primer plano y vuelve al detectarla. Requiere una notificación permanente y el permiso para mostrar sobre otras aplicaciones.';
 
   @override
+  String get settingWakeWordReturnToBackgroundTitle =>
+      'Volver a la aplicación anterior';
+
+  @override
+  String get settingWakeWordReturnToBackgroundDescription =>
+      'Vuelve a la aplicación anterior o a la pantalla de inicio cuando termine la interacción de voz que trajo Kiosk Satellite al primer plano.';
+
+  @override
   String get voiceMicHeld =>
       'La detección de palabras de activación puede escucharte.';
 

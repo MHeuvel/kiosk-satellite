@@ -10172,6 +10172,14 @@ class UiStringsEn extends UiStrings {
       'Keep hearing the wake word while another app is in front, and return on a detection. Needs a permanent notification and display over other apps.';
 
   @override
+  String get settingWakeWordReturnToBackgroundTitle =>
+      'Return to the previous app';
+
+  @override
+  String get settingWakeWordReturnToBackgroundDescription =>
+      'Return to the previous app or home screen after a voice interaction brings Kiosk Satellite forward and finishes.';
+
+  @override
   String get voiceMicHeld => 'Wake word detection can hear you.';
 
   @override

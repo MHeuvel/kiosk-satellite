@@ -3338,6 +3338,10 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingWakeWordBackgroundTitle,
       'settingWakeWordBackgroundDescription' =>
         strings.settingWakeWordBackgroundDescription,
+      'settingWakeWordReturnToBackgroundTitle' =>
+        strings.settingWakeWordReturnToBackgroundTitle,
+      'settingWakeWordReturnToBackgroundDescription' =>
+        strings.settingWakeWordReturnToBackgroundDescription,
       'voiceMicHeld' => strings.voiceMicHeld,
       'voiceMicBlocked' => strings.voiceMicBlocked,
       'voiceMicMissing' => strings.voiceMicMissing,

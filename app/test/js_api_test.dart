@@ -24,7 +24,12 @@ void main() {
     api = JsApiManager(EventBus(), commands, log, '1.0.0');
     await api.init();
     seen = {};
-    for (final name in ['playSound', 'setSoundVolume', 'setBrightness']) {
+    for (final name in [
+      'playSound',
+      'setSoundVolume',
+      'setBrightness',
+      'bringToFront',
+    ]) {
       commands.register(
         Command(
           name: name,
@@ -81,6 +86,12 @@ void main() {
     ]);
     expect(seen, isNot(contains('volume')));
     expect(seen['id'], 'snd1');
+  });
+
+  test('page foreground requests identify a voice interaction', () async {
+    await build();
+    await api.handleCall(['bringToFront']);
+    expect(seen, {'voiceInteraction': true});
   });
 
   test('other methods pass their params through untouched', () async {

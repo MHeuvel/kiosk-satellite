@@ -1392,4 +1392,8 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "voiceWakeWordResumeTimeoutSecondsTitle",
     "description": "voiceWakeWordResumeTimeoutSecondsDescription",
   },
+  "wake_word.return_to_background": {
+    "title": "settingWakeWordReturnToBackgroundTitle",
+    "description": "settingWakeWordReturnToBackgroundDescription",
+  },
 };

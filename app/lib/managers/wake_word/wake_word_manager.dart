@@ -43,7 +43,9 @@ import 'package:kiosk_satellite/core/lifecycle.dart';
 /// Ordering contract: on detection the engine is stopped *before*
 /// WakeWordDetected is published, so the page may open getUserMedia the
 /// moment its event listener fires.
-class WakeWordManager extends Manager implements NativeAudioSource {
+class WakeWordManager extends Manager
+    with WidgetsBindingObserver
+    implements NativeAudioSource {
   /// [engines] pre-seeds the per-runner engine map: a test hands in a fake
   /// that runs without models or a microphone. Production leaves it empty
   /// and the real engines are created lazily below.
@@ -96,6 +98,117 @@ class WakeWordManager extends Manager implements NativeAudioSource {
   WakeWordConfig? _config;
   bool _active = true;
   Timer? _resumeTimer;
+  Timer? _backgroundReturnTimer;
+  StreamSubscription<VoiceInteractionChanged>? _backgroundInteractionSub;
+  final _pageInteractions = <String>{};
+  bool _returnToBackground = false;
+  bool _voiceInteractionSeen = false;
+  bool _returnedToScreen = false;
+  int _backgroundReturnGeneration = 0;
+
+  bool get _backgroundReturnEnabled =>
+      _settings.get(defs.wakeWordBackground) &&
+      _settings.get(defs.wakeWordReturnToBackground);
+
+  void _cancelBackgroundReturn() {
+    _backgroundReturnGeneration++;
+    _backgroundReturnTimer?.cancel();
+    _returnToBackground = false;
+    _voiceInteractionSeen = false;
+    _returnedToScreen = false;
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (!_returnToBackground) return;
+    if (!Lifecycle.offScreen(state)) {
+      _returnedToScreen = true;
+    } else if (_returnedToScreen) {
+      // The user left during the interaction. A later manual return stays up.
+      _cancelBackgroundReturn();
+    }
+  }
+
+  void _onBackgroundInteraction(VoiceInteractionChanged event) {
+    if (event.source != InteractionSource.page) return;
+    if (event.active) {
+      _pageInteractions.add(event.reason);
+      _backgroundReturnTimer?.cancel();
+      if (const {
+        '',
+        'voice',
+        'announcement',
+        'ask_question',
+        'start_conversation',
+      }.contains(event.reason)) {
+        _voiceInteractionSeen = true;
+      }
+    } else {
+      _pageInteractions.remove(event.reason);
+      if (_pageInteractions.isEmpty && !_voiceInteractionSeen) {
+        _cancelBackgroundReturn();
+        return;
+      }
+      _scheduleBackgroundReturn();
+    }
+  }
+
+  void _scheduleBackgroundReturn() {
+    if (!_returnToBackground ||
+        !_voiceInteractionSeen ||
+        _pageInteractions.isNotEmpty) {
+      return;
+    }
+    _backgroundReturnTimer?.cancel();
+    // Let a follow-up turn or another queued interaction claim the screen.
+    _backgroundReturnTimer = Timer(const Duration(milliseconds: 300), () async {
+      final shouldReturn =
+          _backgroundReturnEnabled && Lifecycle.onScreen && !_intercomHold;
+      _cancelBackgroundReturn();
+      if (!shouldReturn) return;
+      try {
+        if (await BackgroundListening.returnToBackground()) {
+          log.info(
+            name,
+            'voice interaction finished, returned to previous app',
+          );
+        }
+      } catch (e) {
+        log.warn(name, 'could not return to previous app: $e');
+      }
+    });
+  }
+
+  Future<bool> _bringToFront({required bool voiceInteraction}) async {
+    if (!voiceInteraction) _cancelBackgroundReturn();
+    if (Lifecycle.onScreen) return true;
+    if (!_returnToBackground) {
+      _voiceInteractionSeen = _pageInteractions.any(
+        const {
+          '',
+          'voice',
+          'announcement',
+          'ask_question',
+          'start_conversation',
+        }.contains,
+      );
+    }
+    final generation = _backgroundReturnGeneration;
+    final remember =
+        voiceInteraction &&
+        _backgroundReturnEnabled &&
+        await BackgroundListening.isBehindAnotherApp();
+    final broughtForward = await BackgroundListening.bringToFront();
+    if (remember &&
+        broughtForward &&
+        generation == _backgroundReturnGeneration &&
+        _backgroundReturnEnabled) {
+      _returnToBackground = true;
+      _returnedToScreen = Lifecycle.onScreen;
+      _scheduleBackgroundReturn();
+    }
+    return broughtForward;
+  }
 
   /// The page handed the mic back (it muted the satellite, or switched to an
   /// engine we cannot run). Distinct from `active:false`, which keeps the mic
@@ -546,6 +659,10 @@ class WakeWordManager extends Manager implements NativeAudioSource {
 
   @override
   Future<void> init() async {
+    WidgetsBinding.instance.addObserver(this);
+    _backgroundInteractionSub = bus.on<VoiceInteractionChanged>().listen(
+      _onBackgroundInteraction,
+    );
     _remoteObservers = bus.on<RemoteObserversChanged>().listen((event) {
       final observed = event.topics.contains('micLevel');
       if (observed == _remoteMicObserved) return;
@@ -568,6 +685,11 @@ class WakeWordManager extends Manager implements NativeAudioSource {
       _sync();
     });
     bus.on<SettingChanged>().listen((e) {
+      if ((e.key == defs.wakeWordBackground.key ||
+              e.key == defs.wakeWordReturnToBackground.key) &&
+          !_backgroundReturnEnabled) {
+        _cancelBackgroundReturn();
+      }
       if (e.key == defs.wakeWordEnabled.key ||
           e.key == defs.wakeWordBackground.key ||
           e.key == defs.lockdownEnabled.key) {
@@ -740,14 +862,17 @@ class WakeWordManager extends Manager implements NativeAudioSource {
               'apps" grant). The app must be running to receive the trigger at '
               'all, which is what keeping the wake word alive in the background '
               'ensures.',
-          handler: (_) async {
+          handler: (p) async {
             // Already in front: do nothing and report success. Relaunching a
             // foreground Activity recreates the WebView and reloads the page —
             // dropping the card session in the middle of the very interaction
             // this was meant to reveal. Only come forward when actually behind
             // something (same guard as the native wake path).
-            if (Lifecycle.onScreen) return const CommandResult.ok(true);
-            return CommandResult.ok(await BackgroundListening.bringToFront());
+            return CommandResult.ok(
+              await _bringToFront(
+                voiceInteraction: p['voiceInteraction'] == true,
+              ),
+            );
           },
         ),
       )
@@ -1318,7 +1443,7 @@ class WakeWordManager extends Manager implements NativeAudioSource {
     // then needs the overlay grant to actually switch tasks.
     if (Lifecycle.onScreen) return;
     try {
-      if (await BackgroundListening.bringToFront()) {
+      if (await _bringToFront(voiceInteraction: true)) {
         log.info(name, 'woke the screen / brought the app forward');
       } else if (_settings.get(defs.wakeWordBackground)) {
         log.error(
@@ -1419,6 +1544,9 @@ class WakeWordManager extends Manager implements NativeAudioSource {
 
   @override
   Future<void> dispose() async {
+    WidgetsBinding.instance.removeObserver(this);
+    await _backgroundInteractionSub?.cancel();
+    _cancelBackgroundReturn();
     await _remoteObservers?.cancel();
     _stopMicLevelWatch();
     _resumeTimer?.cancel();

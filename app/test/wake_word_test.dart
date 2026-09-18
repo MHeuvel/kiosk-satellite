@@ -290,6 +290,136 @@ void main() {
       return (state.data as Map)['active'] as bool;
     }
 
+    for (final scenario in [
+      'wake word',
+      'announcement',
+      'ask_question',
+      'start_conversation',
+      'foreground',
+      'screen off',
+      'disabled',
+      'background disabled',
+      'failed front',
+      'ordinary front',
+      'manual return',
+      'disabled mid-turn',
+      'follow-up',
+      'overlapping media',
+      'timer only',
+    ]) {
+      test('return to previous app: $scenario', () async {
+        await settings.set(
+          defs.wakeWordBackground,
+          scenario != 'background disabled',
+        );
+        await settings.set(
+          defs.wakeWordReturnToBackground,
+          scenario != 'disabled',
+        );
+        var minimized = 0;
+        final messenger =
+            TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+        messenger.setMockMethodCallHandler(
+          const MethodChannel('kiosk_satellite/background'),
+          (call) async => switch (call.method) {
+            'isBehindAnotherApp' => scenario != 'screen off',
+            'bringToFront' => scenario != 'failed front',
+            _ => null,
+          },
+        );
+        messenger.setMockMethodCallHandler(
+          const MethodChannel('kiosk_satellite/admin'),
+          (call) async {
+            if (call.method == 'moveTaskToBack') minimized++;
+            return true;
+          },
+        );
+        addTearDown(
+          () => messenger.setMockMethodCallHandler(
+            const MethodChannel('kiosk_satellite/admin'),
+            null,
+          ),
+        );
+        final binding = TestWidgetsFlutterBinding.instance;
+        {
+          Future<void> interaction(bool active, String reason) async {
+            bus.publish(
+              VoiceInteractionChanged(
+                active: active,
+                reason: reason,
+                source: InteractionSource.page,
+              ),
+            );
+            await Future<void>.delayed(Duration.zero);
+          }
+
+          binding.handleAppLifecycleStateChanged(
+            scenario == 'foreground'
+                ? AppLifecycleState.resumed
+                : AppLifecycleState.paused,
+          );
+          if (scenario == 'wake word') {
+            await commands.execute('simulateWakeWord', const {});
+          } else {
+            await commands.execute('bringToFront', {
+              'voiceInteraction': scenario != 'ordinary front',
+            });
+          }
+          await Future<void>.delayed(Duration.zero);
+          binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+          final reason = switch (scenario) {
+            'announcement' ||
+            'ask_question' ||
+            'start_conversation' => scenario,
+            'timer only' => 'timer',
+            _ => 'voice',
+          };
+          await interaction(true, reason);
+          // Resuming detection can happen before playback finishes.
+          await commands.execute('setWakeWordActive', const {'active': true});
+          await Future<void>.delayed(const Duration(milliseconds: 350));
+          expect(minimized, 0);
+          if (scenario == 'manual return') {
+            binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
+            binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+          }
+          if (scenario == 'disabled mid-turn') {
+            await settings.set(defs.wakeWordReturnToBackground, false);
+            await Future<void>.delayed(Duration.zero);
+          }
+          if (scenario == 'overlapping media') await interaction(true, 'media');
+          await interaction(false, reason);
+          if (scenario == 'follow-up') {
+            await Future<void>.delayed(const Duration(milliseconds: 100));
+            await interaction(true, reason);
+            await Future<void>.delayed(const Duration(milliseconds: 350));
+            expect(minimized, 0);
+            await interaction(false, reason);
+          }
+          if (scenario == 'overlapping media') {
+            await Future<void>.delayed(const Duration(milliseconds: 350));
+            expect(minimized, 0);
+            await interaction(false, 'media');
+          }
+          await Future<void>.delayed(const Duration(milliseconds: 350));
+          final shouldReturn = const {
+            'wake word',
+            'announcement',
+            'ask_question',
+            'start_conversation',
+            'follow-up',
+            'overlapping media',
+          }.contains(scenario);
+          expect(minimized, shouldReturn ? 1 : 0);
+          // A later foreground interaction must never inherit the old return.
+          await interaction(true, 'voice');
+          await interaction(false, 'voice');
+          await Future<void>.delayed(const Duration(milliseconds: 350));
+          expect(minimized, shouldReturn ? 1 : 0);
+        }
+      });
+    }
+
     test('an app on screen without the input focus is not fronted', () {
       // Android reports an Activity resumed under a focus-holding window
       // as inactive, never resumed (issue #560). Fronting it anyway would

@@ -38438,6 +38438,32 @@
       ]
     }
   },
+  "settingWakeWordReturnToBackgroundTitle": "Volver a la aplicación anterior",
+  "@settingWakeWordReturnToBackgroundTitle": {
+    "context": "Settings > Voice Satellite",
+    "description": "Return to the previous app after a background voice interaction. Only shown while background listening is enabled.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
+  "settingWakeWordReturnToBackgroundDescription": "Vuelve a la aplicación anterior o a la pantalla de inicio cuando termine la interacción de voz que trajo Kiosk Satellite al primer plano.",
+  "@settingWakeWordReturnToBackgroundDescription": {
+    "context": "Settings > Voice Satellite",
+    "description": "Return to the previous app after a background voice interaction. Only shown while background listening is enabled.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite"
+      ]
+    }
+  },
   "voiceMicHeld": "La detección de palabras de activación puede escucharte.",
   "@voiceMicHeld": {
     "context": "Settings > Voice Satellite > Required system permissions",

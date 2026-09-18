@@ -29,5 +29,7 @@
   "voiceNotavailable": "No disponible",
   "voiceDisabled": "Desactivado",
   "settingWakeWordBackgroundTitle": "Seguir escuchando en segundo plano",
-  "settingWakeWordBackgroundDescription": "Sigue escuchando la palabra de activación mientras otra aplicación está en primer plano y vuelve al detectarla. Requiere una notificación permanente y el permiso para mostrar sobre otras aplicaciones."
+  "settingWakeWordBackgroundDescription": "Sigue escuchando la palabra de activación mientras otra aplicación está en primer plano y vuelve al detectarla. Requiere una notificación permanente y el permiso para mostrar sobre otras aplicaciones.",
+  "settingWakeWordReturnToBackgroundTitle": "Volver a la aplicación anterior",
+  "settingWakeWordReturnToBackgroundDescription": "Vuelve a la aplicación anterior o a la pantalla de inicio cuando termine la interacción de voz que trajo Kiosk Satellite al primer plano."
 }

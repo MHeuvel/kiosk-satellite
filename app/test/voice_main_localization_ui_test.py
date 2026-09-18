@@ -15,6 +15,7 @@ if os.environ.get('KS_TEST_SPANISH'):
 ids=json.loads((APP/'l10n/voice_text.json').read_text());mapping=json.loads((APP/'l10n/settings.json').read_text())
 settings=[dict(key='ui.language',value='es',type='string',category='Device',hidden=True),dict(key='ha.url',value='http://ha.example:8123',type='string',category='Home Assistant',title='Home Assistant URL',description=''),dict(key='wake_word.enabled',value=True,type='boolean',category='Voice Satellite',hidden=True),dict(key='wake_word.prefer_fp32',value=False,type='boolean',category='Voice Satellite',subpage='Wake Word',title='Prefer fp32 vsWakeWord models',description='')]
 bg=mapping['wake_word.background'];settings.append(dict(key='wake_word.background',value=True,type='boolean',category='Voice Satellite',title=english[bg['title']],description=english[bg['description']],titleMessageId=bg['title'],descriptionMessageId=bg['description'],dependsOn='wake_word.enabled'))
+auto_return=mapping['wake_word.return_to_background'];settings.append(dict(key='wake_word.return_to_background',value=True,type='boolean',category='Voice Satellite',title=english[auto_return['title']],description=english[auto_return['description']],titleMessageId=auto_return['title'],descriptionMessageId=auto_return['description'],dependsOn='wake_word.background'))
 data=dict(satellite='assist_satellite.original',satellites=[dict(entity_id='assist_satellite.original',name='Disabled'),dict(entity_id='assist_satellite.other',name='<b>Original satellite</b>')],version='9.8.7-raw',browser=dict(engine=dict(running=False,canStart=True),config=dict(auto_start=True,disable_muted_microphone_warning=False,debug=False),skins=[]),entities={})
 for key,options in [('pipeline',['Default','<b>Original pipeline</b>']),('pipeline_2',['Second voice']),('vad_sensitivity',['default','relaxed','aggressive'])]:
     data['entities'][key]=dict(entity_id='select.raw_'+key,available=True,state=options[0],options=options)
@@ -61,6 +62,11 @@ try:
             page.evaluate("async s=>(await import('/static/settings.js')).applySettingsUpdate({settings:[s]})",copy.deepcopy(settings[0]))
             page.wait_for_function("async language=>(await import('/static/localization.js')).messageLanguage()===language",arg=value)
         def refresh():page.evaluate("async()=>await(await import('/static/vs.js')).renderVsControls(document.querySelector('#tab-voicesatellite'),{auto:true})")
+        return_row=general.locator('[data-key="wake_word.return_to_background"]')
+        expect(return_row).to_contain_text(translated[auto_return['title']])
+        expect(return_row).to_contain_text(translated[auto_return['description']])
+        expect(return_row.locator('input')).to_be_checked()
+        assert return_row.evaluate('(row) => row.previousElementSibling.dataset.key')=='wake_word.background'
         expect(exact_row('Engine')).to_contain_text(label('Stopped'))
         expect(exact_row('Assigned satellite').locator('select option:checked')).to_have_text('Disabled')
         expect(exact_row('Assist pipeline 1').locator('select option:checked')).to_have_text('Default')
@@ -92,6 +98,21 @@ try:
         with page.expect_response('**/api/settings'):
             general.locator('[data-key="wake_word.background"] label.switch').click()
         assert writes[-1]=={'wake_word.background':False}
+        expect(return_row).to_be_hidden()
+        with page.expect_response('**/api/settings'):
+            general.locator('[data-key="wake_word.background"] label.switch').click()
+        expect(return_row).to_be_visible()
+        with page.expect_response('**/api/settings'):
+            return_row.locator('label.switch').click()
+        assert writes[-1]=={'wake_word.return_to_background':False}
+        data['version']='9.8.8-raw'
+        page.locator('#pageTitle').click();refresh()
+        expect(return_row).to_have_count(1)
+        expect(return_row.locator('input')).not_to_be_checked()
+        language('en');expect(return_row).to_contain_text(english[auto_return['title']])
+        expect(return_row).to_contain_text(english[auto_return['description']])
+        language('es');expect(return_row).to_contain_text(translated[auto_return['title']])
+
         with page.expect_response('**/api/commands/vsSetSatellite'):
             exact_row('Assigned satellite').locator('select').select_option('assist_satellite.other')
         assert ('vsSetSatellite',dict(entity_id='assist_satellite.other')) in commands

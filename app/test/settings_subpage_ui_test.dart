@@ -1008,6 +1008,19 @@ void main() {
       // "Keep listening in the background" stays in General, where the page
       // adopts it out of the detection card.
       expect(find.text(wakeWordBackground.title), findsOneWidget);
+      expect(container.settings.get(wakeWordReturnToBackground), isTrue);
+      expect(find.text(wakeWordReturnToBackground.title), findsNothing);
+      await container.settings.set(wakeWordBackground, true);
+      await settle(tester);
+      expect(find.text(wakeWordReturnToBackground.title), findsOneWidget);
+      expect(
+        tester.getTopLeft(find.text(wakeWordReturnToBackground.title)).dy,
+        greaterThan(tester.getTopLeft(find.text(wakeWordBackground.title)).dy),
+      );
+      await container.settings.set(wakeWordBackground, false);
+      await settle(tester);
+      expect(find.text(wakeWordReturnToBackground.title), findsNothing);
+
       await drain(tester);
     });
 

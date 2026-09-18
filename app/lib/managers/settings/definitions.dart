@@ -4451,6 +4451,18 @@ const wakeWordBackground = SettingDef<bool>(
   dependsOn: 'wake_word.enabled',
 );
 
+const wakeWordReturnToBackground = SettingDef<bool>(
+  key: 'wake_word.return_to_background',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Return to the previous app',
+  description:
+      'Return to the previous app or home screen after a voice interaction '
+      'brings Kiosk Satellite forward and finishes.',
+  category: 'Voice Satellite',
+  dependsOn: 'wake_word.background',
+);
+
 const wakeWordResumeTimeoutSeconds = SettingDef<num>(
   key: 'wake_word.resume_timeout_seconds',
   type: SettingType.number,
@@ -7727,6 +7739,7 @@ const List<SettingDef<Object>> allSettings = [
   wakeWordEnabled,
   wakeWordPreferFp32,
   wakeWordBackground,
+  wakeWordReturnToBackground,
   wakeWordResumeTimeoutSeconds,
   vsNativePipeline,
   haUrl,
