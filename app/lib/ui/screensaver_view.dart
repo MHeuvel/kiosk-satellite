@@ -13,6 +13,7 @@ import 'package:http/http.dart' as http;
 import 'package:video_player/video_player.dart';
 
 import '../app_container.dart';
+import '../l10n/messages.dart';
 import '../core/events.dart';
 import '../core/locale_dates.dart';
 import '../managers/browser/ha_session_script.dart';
@@ -3290,7 +3291,7 @@ class _LocalMediaScreensaverState extends State<LocalMediaScreensaver>
     if (_problem != null) {
       body = Center(
         child: Text(
-          _problem!,
+          screensaverPlaybackNotice(context, _problem!),
           textAlign: TextAlign.center,
           style: const TextStyle(color: Colors.white54, fontSize: 16),
         ),
@@ -4084,7 +4085,7 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
     if (_problem != null) {
       body = Center(
         child: Text(
-          _problem!,
+          screensaverPlaybackNotice(context, _problem!),
           textAlign: TextAlign.center,
           style: const TextStyle(color: Colors.white54, fontSize: 16),
         ),

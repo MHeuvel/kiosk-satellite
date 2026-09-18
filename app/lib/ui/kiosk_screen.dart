@@ -231,8 +231,8 @@ class _KioskScreenState extends State<KioskScreen>
           showToast(
             context,
             title: _backWouldLeaveApp
-                ? 'Press back again to close the app'
-                : 'Press back again to go back',
+                ? l10n(context).kioskBackClose
+                : l10n(context).kioskBackAgain,
             duration: _backAgainWindow,
           );
         }
@@ -490,11 +490,11 @@ class _KioskScreenState extends State<KioskScreen>
       if (e.value == true) {
         showToast(
           context,
-          title: 'Hold mode on',
-          message: 'The current view stays until you turn it off.',
+          title: l10n(context).kioskHoldOn,
+          message: l10n(context).kioskHoldNotice,
         );
       } else {
-        showToast(context, title: 'Hold mode off');
+        showToast(context, title: l10n(context).kioskHoldOff);
       }
       return;
     }
@@ -716,22 +716,22 @@ class _KioskScreenState extends State<KioskScreen>
     BackgroundListening.onDownloadComplete = (id, success, filename) {
       if (!mounted) return;
       final name = (filename == null || filename.isEmpty)
-          ? 'Download'
+          ? l10n(context).kioskDownload
           : filename;
       if (success) {
         showToast(
           context,
-          title: 'Download complete',
+          title: l10n(context).kioskDownloadComplete,
           message: name,
           kind: ToastKind.success,
           duration: const Duration(seconds: 10),
-          actionLabel: 'Open',
+          actionLabel: l10n(context).kioskOpen,
           onAction: () => BackgroundListening.openDownload(id),
         );
       } else {
         showToast(
           context,
-          title: 'Download failed',
+          title: l10n(context).kioskDownloadFailed,
           message: name,
           kind: ToastKind.error,
           duration: const Duration(seconds: 6),
@@ -744,8 +744,8 @@ class _KioskScreenState extends State<KioskScreen>
         if (!mounted) return;
         showToast(
           context,
-          title: 'Tip',
-          message: 'Swipe from the left edge to open the menu.',
+          title: l10n(context).kioskTip,
+          message: l10n(context).kioskMenuHint,
           duration: const Duration(seconds: 10),
         );
       });
@@ -1725,7 +1725,7 @@ class _KioskScreenState extends State<KioskScreen>
           if (mounted) {
             showToast(
               context,
-              title: 'Unknown kiosk link',
+              title: l10n(context).kioskUnknownLink,
               message: url.toString(),
               kind: ToastKind.error,
             );
@@ -1737,7 +1737,7 @@ class _KioskScreenState extends State<KioskScreen>
           showToast(
             context,
             title: localizedGestureAction(context, action),
-            message: result.error ?? 'Failed',
+            message: gestureError(context, result.error ?? 'Failed'),
             kind: ToastKind.error,
           );
         }
@@ -1758,8 +1758,8 @@ class _KioskScreenState extends State<KioskScreen>
       if (!result.ok && mounted) {
         showToast(
           context,
-          title: 'Could not open the app',
-          message: result.error ?? package,
+          title: l10n(context).kioskOpenAppFailed,
+          message: launcherText(context, result.error ?? package),
           kind: ToastKind.error,
         );
       }
@@ -1902,7 +1902,11 @@ class _KioskScreenState extends State<KioskScreen>
       }
       c.browser.log.info('browser', 'downloading $name (${request.url})');
       if (mounted) {
-        showToast(context, title: 'Downloading', message: name);
+        showToast(
+          context,
+          title: l10n(context).kioskDownloading,
+          message: name,
+        );
       }
       await BackgroundListening.download(
         url: request.url.toString(),
@@ -2466,28 +2470,26 @@ class _WebViewMissingNotice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ColoredBox(
+    return ColoredBox(
       color: Colors.black,
       child: Center(
         child: Padding(
-          padding: EdgeInsets.all(32),
+          padding: const EdgeInsets.all(32),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.web_asset_off, color: Colors.white54, size: 48),
+              const Icon(Icons.web_asset_off, color: Colors.white54, size: 48),
               SizedBox(height: 16),
               Text(
-                'Android System WebView is not installed',
+                l10n(context).kioskWebViewMissing,
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white, fontSize: 20),
+                style: const TextStyle(color: Colors.white, fontSize: 20),
               ),
               SizedBox(height: 8),
               Text(
-                'This device has no WebView provider, so Home Assistant '
-                'cannot be shown. Install Android System WebView or Chrome, '
-                'then restart Kiosk Satellite.',
+                l10n(context).kioskWebViewMissingHelp,
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white54, fontSize: 16),
+                style: const TextStyle(color: Colors.white54, fontSize: 16),
               ),
             ],
           ),

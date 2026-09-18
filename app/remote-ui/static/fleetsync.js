@@ -6,7 +6,7 @@ import { settingRow } from './rows.js';
 import { SEARCH_CATEGORY_TABS } from './search.js';
 import { applySubpageView, currentPath, refreshNavigationText, setCurrentPath, showTab } from './tabs.js';
 import { SUBPAGE_ICONS } from './icons.js';
-import { banner, hintRow, messageBox, modalShell, showToast } from './widgets.js';
+import { banner, hintRow, messageBox, localizedMessageBox, modalShell, showToast } from './widgets.js';
 
 /* ---- Fleet Management ----
    One kiosk leads, the others follow. Everything on this tab is drawn from
@@ -501,9 +501,9 @@ function profilePanel(p) {
   if (!fixed) {
     const del = infoRow(fleetText('Delete profile'), names.length ? fleetText('Kiosks on it get the Default profile.') : fleetText('No kiosk is on it.'));
     const b = button(fleetText('Delete'), 'btn-ghost', async () => {
-      const pick = await messageBox({ title: t("fleetDeleteName", {name: profileName(p)}),
-        message: fleetText('Kiosks on it get the Default profile.'), buttons: [fleetText('Cancel'), fleetText('Delete')] });
-      if (pick !== fleetText('Delete')) return;
+      const pick = await localizedMessageBox({titleId:'fleetDeleteName', messageId:'fleetKiosksOnItGetTheDefaultProfile', values:() => ({name:profileName(p)}),
+        buttons:[{id:'commonCancel', value:'Cancel'}, {id:'commonDelete', value:'Delete'}]});
+      if (pick !== 'Delete') return;
       const out = await run('fleetDeleteProfile', { id: p.id }, { reload: false });
       if (out?.ok) { showTab('fleet'); await loadStatus(); renderFleetPage({ fetch: false }); }
     });
@@ -700,10 +700,10 @@ export async function renderFleetPage({ fetch = true } = {}) {
       [cats.length ? cats.map(navigationText).join(', ') : fleetText('Nothing yet'), creds.length ? t("fleetWithTheNames", {names: creds.map(fleetText).join(', ')}) : fleetText('No credentials'), fleetText(following.dashboard ? fleetText('The dashboard') : fleetText('No dashboard'))].join('. ') + '.'));
     const leave = infoRow(fleetText('Leave the fleet'), fleetText('Stops the sync. Settings stay as they are.'));
     leave.appendChild(button(fleetText('Leave'), 'btn-ghost', async () => {
-      const pick = await messageBox({ title: fleetText('Leave the fleet?'),
-        message: t("fleetNameStopsPushingSettingsHereEverythingStaysAsIt", {name: l.name}),
-        buttons: [fleetText('Cancel'), fleetText('Leave')] });
-      if (pick !== fleetText('Leave')) return;
+      const pick = await localizedMessageBox({titleId:'fleetLeaveTheFleetDetail',
+        messageId:'fleetNameStopsPushingSettingsHereEverythingStaysAsIt', values:{name:l.name},
+        buttons:[{id:'commonCancel', value:'Cancel'}, {id:'fleetLeave', value:'Leave'}]});
+      if (pick !== 'Leave') return;
       await run('fleetLeave');
     }));
     card.appendChild(leave);
@@ -739,10 +739,9 @@ function followerRow(f) {
       ? { label: fleetText('Invite again'), run: () => run('fleetInvite', { id: f.id, profile: f.profile }) }
       : { label: fleetText('Sync now'), run: () => run('fleetSyncNow', { id: f.id }) },
     { label: fleetText('Remove'), danger: true, run: async () => {
-      const pick = await messageBox({ title: t("fleetRemoveName", {name: f.name}),
-        message: fleetText('It stops following this kiosk and keeps its settings.'),
-        buttons: [fleetText('Cancel'), fleetText('Remove')] });
-      if (pick === fleetText('Remove')) await run('fleetRemove', { id: f.id });
+      const pick = await localizedMessageBox({titleId:'fleetRemoveName', messageId:'fleetItStopsFollowingThisKioskAndKeepsItsSettings', values:() => ({name:f.name}),
+        buttons:[{id:'commonCancel', value:'Cancel'}, {id:'commonRemove', value:'Remove'}]});
+      if (pick === 'Remove') await run('fleetRemove', { id: f.id });
     } },
   ]));
   // Two loose trailing controls overlap on a phone: one wrapper.

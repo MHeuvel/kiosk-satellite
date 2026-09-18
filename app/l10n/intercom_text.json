@@ -166,5 +166,6 @@
   "Announcements off": "intercomAnnouncementsoff",
   "Open": "intercomOpen",
   "Enter a file name, not a path.": "intercomSoundFilename",
-  "Pick an MP3, OGG, WAV, FLAC, M4A or AAC file.": "intercomSoundFormats"
+  "Pick an MP3, OGG, WAV, FLAC, M4A or AAC file.": "intercomSoundFormats",
+  "The kiosks heard on this network and whether each can take a call.": "searchIntercomKiosks"
 }

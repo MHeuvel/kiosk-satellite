@@ -104,6 +104,39 @@ export function messageBox({ title, message, buttons = ['OK'] }) {
   });
 }
 
+// Localize application prompts while retaining the caller's stable button values.
+export function localizedMessageBox({titleId, messageId, values = {}, buttons}) {
+  return new Promise(resolve => {
+    const {back, head, body, foot} = modalShell({title: ''});
+    const message = document.createElement('p');
+    message.style.cssText = 'margin:0;color:var(--muted);white-space:pre-line;';
+    body.appendChild(message);
+    const controls = buttons.map(({id, value}, index) => {
+      const button = document.createElement('button');
+      button.className = index === buttons.length - 1 ? 'btn-primary' : 'btn-text';
+      button.addEventListener('click', () => {
+        document.removeEventListener('ks-settings-cached', render);
+        back.remove();
+        resolve(value);
+      });
+      foot.appendChild(button);
+      return {button, id};
+    });
+    function render() {
+      if (!back.isConnected) {
+        document.removeEventListener('ks-settings-cached', render);
+        return;
+      }
+      const parameters = typeof values === 'function' ? values() : values;
+      head.textContent = t(titleId, parameters);
+      message.textContent = t(messageId, parameters);
+      controls.forEach(({button, id}) => {button.textContent = t(id);});
+    }
+    document.addEventListener('ks-settings-cached', render);
+    render();
+  });
+}
+
 // Bound to every tile, including the quick-control ones whose command
 // changes with the device's state (the camera tile drops its command
 // altogether while its own picker owns the click), so the command is read
@@ -772,8 +805,8 @@ export function copyBox(value, { placeholder = 'Not set' } = {}) {
     disc.innerHTML = ok ? CHECK_ICON : COPY_ICON;
     disc.classList.toggle('done', ok);
     showToast({
-      title: ok ? 'Copied' : 'Could not copy',
-      message: ok ? '' : 'Select the key and copy it by hand.',
+      title: t(ok ? 'logsCopied' : 'logsCopyFailed'),
+      message: ok ? '' : t('remoteCopyHelp'),
       kind: ok ? 'success' : 'error',
       duration: 2000,
     });

@@ -120,5 +120,8 @@ const haTextMessageIds = <String, String>{
   "OK": "commonOk",
   "Enter a valid URL, for example https://homeassistant.local:8123": "baseUrlInvalid",
   "Enter only the base URL, without a dashboard path. Example: https://homeassistant.local:8123": "baseUrlPath",
-  "Enter only the base URL, without anything after the port. Example: https://homeassistant.local:8123": "baseUrlQuery"
+  "Enter only the base URL, without anything after the port. Example: https://homeassistant.local:8123": "baseUrlQuery",
+  "Check the URL and token against your Home Assistant.": "searchHaValidate",
+  "Serve a plain-http Home Assistant through a secure proxy inside the app.": "searchHaProxy",
+  "Pick the dashboard and view the kiosk shows.": "searchHaDashboard"
 };

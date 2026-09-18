@@ -25,6 +25,7 @@ import {
   attachSlider,
   dateBox,
   messageBox,
+  localizedMessageBox,
   swatch,
   timeBox,
 } from './widgets.js';
@@ -32,16 +33,6 @@ import {
 // The Immich name-picker rows (albums, people, tags): which command lists
 // the choices, and the words for an empty pick and an empty list, the same
 // as the device's.
-/* The warning that stands before real screen-off, on the slider and on a
-   schedule entry's own, word-for-word with the device's dialog. */
-const SCREEN_OFF_WARNING = "Once the display truly powers off, the tablet's own "
-  + 'power management takes over, and many Android models misbehave in that '
-  + 'state: Wi-Fi naps or drops, the Home Assistant entities go unavailable, '
-  + 'the camera can be revoked, and some models kill background apps '
-  + 'outright. What happens depends on the manufacturer.\n\n'
-  + 'The reliable alternative is the Black screensaver with this setting '
-  + 'left at 0: the panel looks just as dark, and the app keeps full control.';
-
 const IMMICH_NAMED_ROWS = {
   'screensaver.immich_album': {
     command: 'immichAlbums', empty: 'All media',
@@ -606,12 +597,11 @@ export function settingRow(s) {
       offRng.addEventListener('change', async () => {
         const next = +offRng.value;
         if (offBefore === 0 && next > 0) {
-          const pick = await messageBox({
-            title: screensaverText('WARNING: Please Read!'),
-            message: screensaverText(SCREEN_OFF_WARNING),
-            buttons: [screensaverText('Cancel'), screensaverText('Turn screen off anyway')],
+          const pick = await localizedMessageBox({
+            titleId: 'screensaverWarningTitle', messageId: 'screensaverScreenOffWarning',
+            buttons: [{id:'commonCancel', value:'Cancel'}, {id:'screensaverScreenOffProceed', value:'Proceed'}],
           });
-          if (pick === screensaverText('Cancel')) { offRng.value = '0'; offPaint(); return; }
+          if (pick === 'Cancel') { offRng.value = '0'; offPaint(); return; }
         }
         offBefore = next;
       });
@@ -1452,12 +1442,11 @@ export function settingRow(s) {
       // call, and the Black screensaver avoids the whole regime.
       if (s.key === 'screensaver.screen_off_minutes' &&
           Number(s.value || 0) === 0 && next > 0) {
-        const pick = await messageBox({
-          title: screensaverText('WARNING: Please Read!'),
-          message: screensaverText(SCREEN_OFF_WARNING),
-          buttons: [screensaverText('Cancel'), screensaverText('Turn screen off anyway')],
+        const pick = await localizedMessageBox({
+          titleId: 'screensaverWarningTitle', messageId: 'screensaverScreenOffWarning',
+          buttons: [{id:'commonCancel', value:'Cancel'}, {id:'screensaverScreenOffProceed', value:'Proceed'}],
         });
-        if (pick === screensaverText('Cancel')) {
+        if (pick === 'Cancel') {
           slider.set(0);
           return;
         }
@@ -1482,12 +1471,10 @@ export function settingRow(s) {
       // The one switch here that takes away the thing you are using. Nothing
       // on this page can undo it, because this page is what it serves.
       if (s.key === 'remote.enabled' && !cb.checked) {
-        const pick = await messageBox({
-          title: 'Turn off remote management?',
-          message: 'WARNING: You will no longer be able to access this page. '
-            + 'To switch it back on, use the device or the Remote management '
-            + 'switch in Home Assistant.',
-          buttons: ['Cancel', 'Turn it off'],
+        const pick = await localizedMessageBox({
+          titleId: 'remoteDisableTitle', messageId: 'remoteDisableHelp',
+          buttons: [{id: 'commonCancel', value: 'Cancel'},
+            {id: 'remoteDisableConfirm', value: 'Turn it off'}],
         });
         if (pick !== 'Turn it off') { cb.checked = true; return; }
       }

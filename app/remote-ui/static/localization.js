@@ -104,6 +104,7 @@ export function settingsPageText(category, english) {
     : category === 'Screen & Audio' || category === 'screenaudio' ? screenAudioText(english)
     : category === 'Screensaver' || category === 'screensaver' ? screensaverText(english)
     : category === 'Camera' || category === 'camera' ? cameraText(english)
+    : ['Cameras', 'cameras'].includes(category) ? cameraStreamsText(english)
     : ['Launcher', 'launcher'].includes(category) ? launcherText(english)
     : ['Gestures', 'gestures'].includes(category) ? gestureText(english)
     : ['Fleet', 'fleet'].includes(category) ? fleetText(english)

@@ -1135,6 +1135,150 @@ abstract class UiStrings {
   /// **'text'**
   String get esphomeTypeText;
 
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload file'**
+  String get filesUpload;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploading…'**
+  String get filesUploading;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload failed'**
+  String get filesUploadFailed;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploaded'**
+  String get filesUploaded;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'\"All files access\" permission missing'**
+  String get filesPermissionMissing;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Without it only the app folder can be browsed. The grant screen opens on the tablet.'**
+  String get filesPermissionHelp;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Grant on device'**
+  String get filesGrant;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Up one folder'**
+  String get filesUp;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Shared storage'**
+  String get filesShared;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'App folder'**
+  String get filesApp;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not read the folder'**
+  String get filesReadFailed;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Empty folder'**
+  String get filesEmpty;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing here yet.'**
+  String get filesEmptyHelp;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Folder'**
+  String get filesFolder;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Download'**
+  String get filesDownload;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Download failed'**
+  String get filesDownloadFailed;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete {name}?'**
+  String filesDeleteTitle(String name);
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The file is removed from the device.'**
+  String get filesDeleteHelp;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid path'**
+  String get filesInvalidPath;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'No such folder'**
+  String get filesNoFolder;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'No such file'**
+  String get filesNoFile;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot read folder: {error}'**
+  String filesReadError(String error);
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Write failed: {error}'**
+  String filesWriteError(String error);
+
+  /// Shown if deleting the selected file fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete the file'**
+  String get filesDeleteFailed;
+
   /// Visible label, help or status in this section.
   ///
   /// In en, this message translates to:
@@ -3422,6 +3566,102 @@ abstract class UiStrings {
   /// **'Announcements off'**
   String get intercomAnnouncementsoff;
 
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Press back again to close the app'**
+  String get kioskBackClose;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Press back again to go back'**
+  String get kioskBackAgain;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold mode on'**
+  String get kioskHoldOn;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold mode off'**
+  String get kioskHoldOff;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The current view stays until you turn it off.'**
+  String get kioskHoldNotice;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Download complete'**
+  String get kioskDownloadComplete;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Download failed'**
+  String get kioskDownloadFailed;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Download'**
+  String get kioskDownload;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloading'**
+  String get kioskDownloading;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get kioskOpen;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Tip'**
+  String get kioskTip;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Swipe from the left edge to open the menu.'**
+  String get kioskMenuHint;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown kiosk link'**
+  String get kioskUnknownLink;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open the app'**
+  String get kioskOpenAppFailed;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Android System WebView is not installed'**
+  String get kioskWebViewMissing;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'This device has no WebView provider, so Home Assistant cannot be shown. Install Android System WebView or Chrome, then restart Kiosk Satellite.'**
+  String get kioskWebViewMissingHelp;
+
   /// Label or guidance in this section.
   ///
   /// In en, this message translates to:
@@ -4269,6 +4509,36 @@ abstract class UiStrings {
   /// **'Approve the permission request on the kiosk.'**
   String get pluginApproveThePermissionRequestOnTheKiosk;
 
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn off remote management?'**
+  String get remoteDisableTitle;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'WARNING: You will no longer be able to access this page. To switch it back on, use the device or the Remote management switch in Home Assistant.'**
+  String get remoteDisableHelp;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn it off'**
+  String get remoteDisableConfirm;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Select the key and copy it by hand.'**
+  String get remoteCopyHelp;
+
+  /// Shown if the device rejects or cannot save a setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save this setting. Try again.'**
+  String get remoteSaveSettingFailed;
+
   /// Heading while reconnecting after losing an established connection.
   ///
   /// In en, this message translates to:
@@ -4964,6 +5234,72 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Views unavailable'**
   String get overviewViewsUnavailable;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'No photos selected. Pick some in Settings.'**
+  String get screensaverNoPhotos;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'No folder selected. Pick one in Settings.'**
+  String get screensaverNoFolder;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'No photos or videos in {folder}'**
+  String screensaverFolderEmpty(String folder);
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not read {folder}. Is the media permission granted?'**
+  String screensaverFolderUnreadable(String folder);
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not read photos.'**
+  String get screensaverReadPhotosFailed;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Immich is not connected. Validate it in Settings.'**
+  String get screensaverImmichNotReady;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'No media matches the source and filters.'**
+  String get screensaverNoMediaMatch;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'No media in the selected source.'**
+  String get screensaverNoMediaSource;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not reach the Immich server.'**
+  String get screensaverImmichUnreachable;
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'{error} Retrying automatically.'**
+  String screensaverRetryNotice(String error);
+
+  /// Translate the visible message. Keep placeholders and any technical names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Every video in this playlist is too large for this device to play.'**
+  String get screensaverVideosTooLarge;
 
   /// Setting label.
   ///
@@ -16070,6 +16406,108 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'No settings match \"{query}\".'**
   String settingsSearchEmpty(String query);
+
+  /// Search result title or summary for this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload a Kiosk Satellite APK through the remote admin and install it.'**
+  String get searchInstallApk;
+
+  /// Search result title or summary for this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Every Android grant the app can use, with its status: microphone, camera, notifications, unrestricted battery, display over other apps, modify system settings, system UI guard, device admin, all files access, usage access and location.'**
+  String get searchPermissionsHelp;
+
+  /// Search result title or summary for this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Service status'**
+  String get searchServiceStatus;
+
+  /// Search result title or summary for this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Whether the Kiosk Satellite Service is running and what it is keeping alive.'**
+  String get searchServiceHelp;
+
+  /// Search result title or summary for this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The grants the Kiosk Satellite Service needs.'**
+  String get searchServicePermissions;
+
+  /// Search result title or summary for this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The kiosks heard on this network and whether each can take a call.'**
+  String get searchIntercomKiosks;
+
+  /// Search result title or summary for this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Check the URL and token against your Home Assistant.'**
+  String get searchHaValidate;
+
+  /// Search result title or summary for this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Serve a plain-http Home Assistant through a secure proxy inside the app.'**
+  String get searchHaProxy;
+
+  /// Search result title or summary for this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick the dashboard and view the kiosk shows.'**
+  String get searchHaDashboard;
+
+  /// Search result title or summary for this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The grants the kiosk and lockdown protections lean on.'**
+  String get searchKioskPermissions;
+
+  /// Search result title or summary for this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Home screen status'**
+  String get searchHomeStatus;
+
+  /// Search result title or summary for this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Whether Kiosk Satellite is the device home screen, and where to finish setting it as the default.'**
+  String get searchHomeHelp;
+
+  /// Search result title or summary for this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The device volume the media and assistant faders scale under.'**
+  String get searchMasterVolume;
+
+  /// Search result title or summary for this section.
+  ///
+  /// In en, this message translates to:
+  /// **'A clock widget in a corner of the screensaver.'**
+  String get searchSmallClock;
+
+  /// Search result title or summary for this section.
+  ///
+  /// In en, this message translates to:
+  /// **'A battery widget in a corner of the screensaver: this device\'s own charge.'**
+  String get searchBattery;
+
+  /// Search result title or summary for this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The Log access grant the device\'s person sensor needs.'**
+  String get searchPersonPermission;
+
+  /// Search result title or summary for this section.
+  ///
+  /// In en, this message translates to:
+  /// **'The Sonos speakers this device knows, a search of the network and an address field.'**
+  String get searchSonosSpeakers;
 
   /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
   ///

@@ -2,7 +2,39 @@ import { cameraAction, cameraListRow } from './cameras.js';
 import { api, cmd } from './core.js';
 import { readOnlyRow } from './device.js';
 import { filesState } from './notices.js';
-import { messageBox, showToast } from './widgets.js';
+import { localizedMessageBox, showToast } from './widgets.js';
+import { t, messageLanguage } from './localization.js';
+
+// Refresh visible labels in place, including uploads and open folder contents.
+const labels = new WeakMap();
+function fileLabel(element, render, property = 'textContent') {
+  const record = labels.get(element) || {};
+  record[property] = render;
+  labels.set(element, record);
+  element.dataset.fileLabel = '';
+  element[property] = render();
+  if (property === 'title') element.setAttribute('aria-label', element.title);
+  return element;
+}
+function textLabel(element, id) { return fileLabel(element, () => t(id)); }
+function fileError(error) {
+  const fixed = {'invalid path':'filesInvalidPath', 'no such folder':'filesNoFolder',
+    'no such file':'filesNoFile', 'could not read the folder':'filesReadFailed',
+    'device unreachable':'logsDeviceUnreachable'};
+  if (Object.hasOwn(fixed, error)) return t(fixed[error]);
+  for (const [prefix, id] of [['cannot read folder: ', 'filesReadError'], ['write failed: ', 'filesWriteError']]) {
+    if (error.startsWith(prefix)) return t(id, {error:error.slice(prefix.length)});
+  }
+  return error;
+}
+document.addEventListener('ks-settings-cached', () => {
+  document.querySelectorAll('[data-file-label]').forEach(element => {
+    for (const [property, render] of Object.entries(labels.get(element) || {})) {
+      element[property] = render();
+      if (property === 'title') element.setAttribute('aria-label', element.title);
+    }
+  });
+});
 
 export function fileSizeLabel(bytes) {
   if (bytes >= 1073741824) return (bytes / 1073741824).toFixed(1) + ' GB';
@@ -36,7 +68,7 @@ function buildShell(tab) {
   pick.appendChild(segScroll);
   const uploadBtn = document.createElement('button');
   uploadBtn.className = 'btn-ghost';
-  uploadBtn.textContent = 'Upload file';
+  textLabel(uploadBtn, 'filesUpload');
   uploadBtn.style.cssText = 'flex-shrink:0; margin-left:auto;';
   const picker = document.createElement('input');
   picker.type = 'file';
@@ -45,24 +77,24 @@ function buildShell(tab) {
     const file = picker.files && picker.files[0];
     if (!file) return;
     uploadBtn.disabled = true;
-    uploadBtn.textContent = 'Uploading…';
+    textLabel(uploadBtn, 'filesUploading');
     const target = [...filesState.crumbs, file.name].join('/');
     try {
       const q = `root=${encodeURIComponent(filesState.root)}&path=${encodeURIComponent(target)}`;
       const res = await api(`/api/files/upload?${q}`, { method: 'POST', body: file });
       if (!res.ok) {
-        showToast({ title: 'Upload failed',
-          message: (((await res.json()) || {}).error || String(res.status)),
+        showToast({ title: t('filesUploadFailed'),
+          message: fileError(((await res.json()) || {}).error || String(res.status)),
           kind: 'error' });
       } else {
-        showToast({ title: 'Uploaded', message: file.name, kind: 'success' });
+        showToast({ title: t('filesUploaded'), message: file.name, kind: 'success' });
       }
     } catch (e) {
-      showToast({ title: 'Upload failed', message: String(e), kind: 'error' });
+      showToast({ title: t('filesUploadFailed'), message: String(e), kind: 'error' });
     }
     picker.value = '';
     uploadBtn.disabled = false;
-    uploadBtn.textContent = 'Upload file';
+    textLabel(uploadBtn, 'filesUpload');
     refreshList();
   });
   uploadBtn.addEventListener('click', () => picker.click());
@@ -74,11 +106,12 @@ function buildShell(tab) {
   const grantCard = document.createElement('div');
   grantCard.className = 'card';
   grantCard.style.display = 'none';
-  const grantRow = readOnlyRow('"All files access" permission missing',
-    'Without it only the app folder can be browsed. The grant screen opens on the tablet.', '');
+  const grantRow = readOnlyRow('', '', '', false);
+  textLabel(grantRow.querySelector('.name'), 'filesPermissionMissing');
+  textLabel(grantRow.querySelector('.desc'), 'filesPermissionHelp');
   const grantBtn = document.createElement('button');
   grantBtn.className = 'btn-ghost';
-  grantBtn.textContent = 'Grant on device';
+  textLabel(grantBtn, 'filesGrant');
   grantBtn.style.cssText = 'flex-shrink:0;';
   grantBtn.addEventListener('click', async () => {
     grantBtn.disabled = true;
@@ -108,6 +141,7 @@ function buildShell(tab) {
     filesState.crumbs.pop();
     refreshList();
   }, false, 'up');
+  fileLabel(up, () => t('filesUp'), 'title');
   head.append(path, up);
   const list = document.createElement('div');
   list.className = 'file-list edge-fade';
@@ -126,7 +160,8 @@ function paintRoots(roots) {
     buttons.clear();
     for (const r of roots) {
       const b = document.createElement('button');
-      b.textContent = r.label;
+      fileLabel(b, () => r.id === 'shared' ? t('filesShared')
+        : r.id === 'app' ? t('filesApp') : r.label);
       b.addEventListener('click', () => {
         if (filesState.root === r.id) return;
         filesState.root = r.id;
@@ -172,18 +207,25 @@ async function refreshList() {
   list.style.opacity = '';
   list.innerHTML = '';
   if (listErr) {
-    list.appendChild(readOnlyRow(listErr, '', ''));
+    const row = readOnlyRow('', '', '', false);
+    fileLabel(row.querySelector('.name'), () => fileError(listErr));
+    list.appendChild(row);
   } else if (!entries.length) {
-    list.appendChild(readOnlyRow('Empty folder', 'Nothing here yet.', ''));
+    const row = readOnlyRow('', '', '', false);
+    textLabel(row.querySelector('.name'), 'filesEmpty');
+    textLabel(row.querySelector('.desc'), 'filesEmptyHelp');
+    list.appendChild(row);
   } else {
     for (const e of entries) {
       const desc = e.dir ? 'Folder'
         : `${fileSizeLabel(e.size || 0)} · ${new Date(e.modified || 0).toLocaleString()}`;
       if (e.dir) {
-        list.appendChild(cameraListRow(e.name, desc, [], {
+        const row = cameraListRow(e.name, desc, [], {
           icon: 'folder',
           onClick: () => { filesState.crumbs.push(e.name); refreshList(); },
-        }));
+        });
+        textLabel(row.querySelector('.desc'), 'filesFolder');
+        list.appendChild(row);
         continue;
       }
       const rel = [...filesState.crumbs, e.name].join('/');
@@ -192,6 +234,7 @@ async function refreshList() {
         try {
           const q = `root=${encodeURIComponent(filesState.root)}&path=${encodeURIComponent(rel)}`;
           const res = await api(`/api/files/download?${q}`);
+          if (!res.ok) throw new Error(((await res.json()) || {}).error || String(res.status));
           const blob = await res.blob();
           const a = document.createElement('a');
           a.href = URL.createObjectURL(blob);
@@ -199,21 +242,29 @@ async function refreshList() {
           a.click();
           URL.revokeObjectURL(a.href);
         } catch (err) {
-          showToast({ title: 'Download failed', message: String(err), kind: 'error' });
+          showToast({ title: t('filesDownloadFailed'), message: fileError(String(err.message || err)), kind: 'error' });
         }
         dl.disabled = false;
       }, false, 'download');
       const del = cameraAction('Delete', async () => {
-        const choice = await messageBox({
-          title: `Delete ${e.name}?`,
-          message: 'The file is removed from the device.',
-          buttons: ['Cancel', 'Delete'],
+        const choice = await localizedMessageBox({
+          titleId: 'filesDeleteTitle', messageId: 'filesDeleteHelp', values: {name:e.name},
+          buttons: [{id:'commonCancel', value:'Cancel'}, {id:'commonDelete', value:'Delete'}],
         });
         if (choice !== 'Delete') return;
-        await cmd('fileDelete', { root: filesState.root, path: rel });
-        refreshList();
+        try {
+          const result = await cmd('fileDelete', { root: filesState.root, path: rel });
+          if (!result.ok) throw new Error(result.error || t('filesDeleteFailed'));
+          refreshList();
+        } catch (error) {
+          showToast({title:t('filesDeleteFailed'), message:fileError(String(error.message || error)), kind:'error'});
+        }
       }, false, 'delete');
-      list.appendChild(cameraListRow(e.name, desc, [dl, del], { icon: 'doc' }));
+      fileLabel(dl, () => t('filesDownload'), 'title');
+      fileLabel(del, () => t('commonDelete'), 'title');
+      const row = cameraListRow(e.name, desc, [dl, del], { icon: 'doc' });
+      fileLabel(row.querySelector('.desc'), () => `${fileSizeLabel(e.size || 0)} · ${new Date(e.modified || 0).toLocaleString(messageLanguage())}`);
+      list.appendChild(row);
     }
   }
   list.scrollTop = 0;

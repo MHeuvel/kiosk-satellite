@@ -23,6 +23,37 @@ List<String> get _order => [for (final p in _pages) p.$1];
 void main() {
   final index = buildSettingsSearchIndex(_pages);
 
+  test(
+    'translated media and intercom search entries retain English aliases and destinations',
+    () {
+      final entries = buildSettingsSearchIndex(
+        [..._pages, ('Intercom', 'Intercom', '')],
+        mediaTextFor: (text) => text == 'Speakers' ? 'Altavoces' : text,
+        intercomTextFor: (text) => text == 'Kiosks' ? 'Kioskos' : text,
+      );
+      final speakers = searchSettings('Altavoces', entries, [
+        ..._order,
+        'Intercom',
+      ]).single;
+      expect(speakers.anchorId, 'x:sonos_speakers');
+      expect(speakers.subpage, 'Sonos');
+      expect(
+        searchSettings(
+          'Speakers',
+          entries,
+          _order,
+        ).any((entry) => entry.anchorId == speakers.anchorId),
+        isTrue,
+      );
+      final kiosks = searchSettings('Kioskos', entries, [
+        ..._order,
+        'Intercom',
+      ]).single;
+      expect(kiosks.category, 'Intercom');
+      expect(kiosks.englishAlias, contains('Kiosks'));
+    },
+  );
+
   group('buildSettingsSearchIndex', () {
     test('carries every non-hidden definition of a registered category', () {
       final keys = index.map((e) => e.defKey).whereType<String>().toSet();

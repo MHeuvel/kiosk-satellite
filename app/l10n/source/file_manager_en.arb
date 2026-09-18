@@ -1,0 +1,282 @@
+{
+  "@@locale": "en",
+  "filesUpload": "Upload file",
+  "@filesUpload": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesUploading": "Uploading…",
+  "@filesUploading": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesUploadFailed": "Upload failed",
+  "@filesUploadFailed": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesUploaded": "Uploaded",
+  "@filesUploaded": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesPermissionMissing": "\"All files access\" permission missing",
+  "@filesPermissionMissing": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesPermissionHelp": "Without it only the app folder can be browsed. The grant screen opens on the tablet.",
+  "@filesPermissionHelp": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesGrant": "Grant on device",
+  "@filesGrant": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesUp": "Up one folder",
+  "@filesUp": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesShared": "Shared storage",
+  "@filesShared": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesApp": "App folder",
+  "@filesApp": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesReadFailed": "Could not read the folder",
+  "@filesReadFailed": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesEmpty": "Empty folder",
+  "@filesEmpty": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesEmptyHelp": "Nothing here yet.",
+  "@filesEmptyHelp": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesFolder": "Folder",
+  "@filesFolder": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesDownload": "Download",
+  "@filesDownload": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesDownloadFailed": "Download failed",
+  "@filesDownloadFailed": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesDeleteTitle": "Delete {name}?",
+  "@filesDeleteTitle": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "filesDeleteHelp": "The file is removed from the device.",
+  "@filesDeleteHelp": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesInvalidPath": "Invalid path",
+  "@filesInvalidPath": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesNoFolder": "No such folder",
+  "@filesNoFolder": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesNoFile": "No such file",
+  "@filesNoFile": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesReadError": "Cannot read folder: {error}",
+  "@filesReadError": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "filesWriteError": "Write failed: {error}",
+  "@filesWriteError": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "filesDeleteFailed": "Could not delete the file",
+  "@filesDeleteFailed": {
+    "context": "Remote admin > File Manager > delete a file",
+    "description": "Shown if deleting the selected file fails.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > Delete"
+      ]
+    }
+  }
+}

@@ -587,6 +587,86 @@ class UiStringsEs extends UiStrings {
   String get esphomeTypeText => 'texto';
 
   @override
+  String get filesUpload => 'Upload file';
+
+  @override
+  String get filesUploading => 'Uploading…';
+
+  @override
+  String get filesUploadFailed => 'Upload failed';
+
+  @override
+  String get filesUploaded => 'Uploaded';
+
+  @override
+  String get filesPermissionMissing =>
+      '\"All files access\" permission missing';
+
+  @override
+  String get filesPermissionHelp =>
+      'Without it only the app folder can be browsed. The grant screen opens on the tablet.';
+
+  @override
+  String get filesGrant => 'Grant on device';
+
+  @override
+  String get filesUp => 'Up one folder';
+
+  @override
+  String get filesShared => 'Shared storage';
+
+  @override
+  String get filesApp => 'App folder';
+
+  @override
+  String get filesReadFailed => 'Could not read the folder';
+
+  @override
+  String get filesEmpty => 'Empty folder';
+
+  @override
+  String get filesEmptyHelp => 'Nothing here yet.';
+
+  @override
+  String get filesFolder => 'Folder';
+
+  @override
+  String get filesDownload => 'Download';
+
+  @override
+  String get filesDownloadFailed => 'Download failed';
+
+  @override
+  String filesDeleteTitle(String name) {
+    return 'Delete $name?';
+  }
+
+  @override
+  String get filesDeleteHelp => 'The file is removed from the device.';
+
+  @override
+  String get filesInvalidPath => 'Invalid path';
+
+  @override
+  String get filesNoFolder => 'No such folder';
+
+  @override
+  String get filesNoFile => 'No such file';
+
+  @override
+  String filesReadError(String error) {
+    return 'Cannot read folder: $error';
+  }
+
+  @override
+  String filesWriteError(String error) {
+    return 'Write failed: $error';
+  }
+
+  @override
+  String get filesDeleteFailed => 'Could not delete the file';
+
+  @override
   String get fleetFleetManagementNeedsTheRemoteAdmin =>
       'La gestión de flota necesita la administración remota';
 
@@ -1948,6 +2028,55 @@ class UiStringsEs extends UiStrings {
   String get intercomAnnouncementsoff => 'Anuncios desactivados';
 
   @override
+  String get kioskBackClose => 'Press back again to close the app';
+
+  @override
+  String get kioskBackAgain => 'Press back again to go back';
+
+  @override
+  String get kioskHoldOn => 'Hold mode on';
+
+  @override
+  String get kioskHoldOff => 'Hold mode off';
+
+  @override
+  String get kioskHoldNotice => 'The current view stays until you turn it off.';
+
+  @override
+  String get kioskDownloadComplete => 'Download complete';
+
+  @override
+  String get kioskDownloadFailed => 'Download failed';
+
+  @override
+  String get kioskDownload => 'Download';
+
+  @override
+  String get kioskDownloading => 'Downloading';
+
+  @override
+  String get kioskOpen => 'Open';
+
+  @override
+  String get kioskTip => 'Tip';
+
+  @override
+  String get kioskMenuHint => 'Swipe from the left edge to open the menu.';
+
+  @override
+  String get kioskUnknownLink => 'Unknown kiosk link';
+
+  @override
+  String get kioskOpenAppFailed => 'Could not open the app';
+
+  @override
+  String get kioskWebViewMissing => 'Android System WebView is not installed';
+
+  @override
+  String get kioskWebViewMissingHelp =>
+      'This device has no WebView provider, so Home Assistant cannot be shown. Install Android System WebView or Chrome, then restart Kiosk Satellite.';
+
+  @override
   String get kioskPinTitle => 'PIN del kiosko';
 
   @override
@@ -2426,6 +2555,23 @@ class UiStringsEs extends UiStrings {
       'Aprueba la solicitud de permiso en el kiosko.';
 
   @override
+  String get remoteDisableTitle => 'Turn off remote management?';
+
+  @override
+  String get remoteDisableHelp =>
+      'WARNING: You will no longer be able to access this page. To switch it back on, use the device or the Remote management switch in Home Assistant.';
+
+  @override
+  String get remoteDisableConfirm => 'Turn it off';
+
+  @override
+  String get remoteCopyHelp => 'Select the key and copy it by hand.';
+
+  @override
+  String get remoteSaveSettingFailed =>
+      'Could not save this setting. Try again.';
+
+  @override
   String get remoteReconnecting => 'Reconectando…';
 
   @override
@@ -2832,6 +2978,50 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get overviewViewsUnavailable => 'Vistas no disponibles';
+
+  @override
+  String get screensaverNoPhotos =>
+      'No photos selected. Pick some in Settings.';
+
+  @override
+  String get screensaverNoFolder => 'No folder selected. Pick one in Settings.';
+
+  @override
+  String screensaverFolderEmpty(String folder) {
+    return 'No photos or videos in $folder';
+  }
+
+  @override
+  String screensaverFolderUnreadable(String folder) {
+    return 'Could not read $folder. Is the media permission granted?';
+  }
+
+  @override
+  String get screensaverReadPhotosFailed => 'Could not read photos.';
+
+  @override
+  String get screensaverImmichNotReady =>
+      'Immich is not connected. Validate it in Settings.';
+
+  @override
+  String get screensaverNoMediaMatch =>
+      'No media matches the source and filters.';
+
+  @override
+  String get screensaverNoMediaSource => 'No media in the selected source.';
+
+  @override
+  String get screensaverImmichUnreachable =>
+      'Could not reach the Immich server.';
+
+  @override
+  String screensaverRetryNotice(String error) {
+    return '$error Retrying automatically.';
+  }
+
+  @override
+  String get screensaverVideosTooLarge =>
+      'Every video in this playlist is too large for this device to play.';
 
   @override
   String get settingLauncherEnabledTitle => 'Activar lanzador de aplicaciones';
@@ -9399,6 +9589,72 @@ class UiStringsEs extends UiStrings {
   String settingsSearchEmpty(String query) {
     return 'No hay opciones que coincidan con \"$query\".';
   }
+
+  @override
+  String get searchInstallApk =>
+      'Upload a Kiosk Satellite APK through the remote admin and install it.';
+
+  @override
+  String get searchPermissionsHelp =>
+      'Every Android grant the app can use, with its status: microphone, camera, notifications, unrestricted battery, display over other apps, modify system settings, system UI guard, device admin, all files access, usage access and location.';
+
+  @override
+  String get searchServiceStatus => 'Service status';
+
+  @override
+  String get searchServiceHelp =>
+      'Whether the Kiosk Satellite Service is running and what it is keeping alive.';
+
+  @override
+  String get searchServicePermissions =>
+      'The grants the Kiosk Satellite Service needs.';
+
+  @override
+  String get searchIntercomKiosks =>
+      'The kiosks heard on this network and whether each can take a call.';
+
+  @override
+  String get searchHaValidate =>
+      'Check the URL and token against your Home Assistant.';
+
+  @override
+  String get searchHaProxy =>
+      'Serve a plain-http Home Assistant through a secure proxy inside the app.';
+
+  @override
+  String get searchHaDashboard =>
+      'Pick the dashboard and view the kiosk shows.';
+
+  @override
+  String get searchKioskPermissions =>
+      'The grants the kiosk and lockdown protections lean on.';
+
+  @override
+  String get searchHomeStatus => 'Home screen status';
+
+  @override
+  String get searchHomeHelp =>
+      'Whether Kiosk Satellite is the device home screen, and where to finish setting it as the default.';
+
+  @override
+  String get searchMasterVolume =>
+      'The device volume the media and assistant faders scale under.';
+
+  @override
+  String get searchSmallClock =>
+      'A clock widget in a corner of the screensaver.';
+
+  @override
+  String get searchBattery =>
+      'A battery widget in a corner of the screensaver: this device\'s own charge.';
+
+  @override
+  String get searchPersonPermission =>
+      'The Log access grant the device\'s person sensor needs.';
+
+  @override
+  String get searchSonosSpeakers =>
+      'The Sonos speakers this device knows, a search of the network and an address field.';
 
   @override
   String get voiceAppearanceHint =>

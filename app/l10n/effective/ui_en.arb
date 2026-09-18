@@ -1836,6 +1836,285 @@
       ]
     }
   },
+  "filesUpload": "Upload file",
+  "@filesUpload": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesUploading": "Uploading…",
+  "@filesUploading": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesUploadFailed": "Upload failed",
+  "@filesUploadFailed": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesUploaded": "Uploaded",
+  "@filesUploaded": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesPermissionMissing": "\"All files access\" permission missing",
+  "@filesPermissionMissing": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesPermissionHelp": "Without it only the app folder can be browsed. The grant screen opens on the tablet.",
+  "@filesPermissionHelp": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesGrant": "Grant on device",
+  "@filesGrant": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesUp": "Up one folder",
+  "@filesUp": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesShared": "Shared storage",
+  "@filesShared": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesApp": "App folder",
+  "@filesApp": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesReadFailed": "Could not read the folder",
+  "@filesReadFailed": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesEmpty": "Empty folder",
+  "@filesEmpty": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesEmptyHelp": "Nothing here yet.",
+  "@filesEmptyHelp": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesFolder": "Folder",
+  "@filesFolder": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesDownload": "Download",
+  "@filesDownload": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesDownloadFailed": "Download failed",
+  "@filesDownloadFailed": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesDeleteTitle": "Delete {name}?",
+  "@filesDeleteTitle": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "filesDeleteHelp": "The file is removed from the device.",
+  "@filesDeleteHelp": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesInvalidPath": "Invalid path",
+  "@filesInvalidPath": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesNoFolder": "No such folder",
+  "@filesNoFolder": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesNoFile": "No such file",
+  "@filesNoFile": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    }
+  },
+  "filesReadError": "Cannot read folder: {error}",
+  "@filesReadError": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "filesWriteError": "Write failed: {error}",
+  "@filesWriteError": {
+    "context": "File Manager > folders, uploads and file actions",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > folders, uploads and file actions"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "filesDeleteFailed": "Could not delete the file",
+  "@filesDeleteFailed": {
+    "context": "Remote admin > File Manager > delete a file",
+    "description": "Shown if deleting the selected file fails.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "File Manager > Delete"
+      ]
+    }
+  },
   "fleetFleetManagementNeedsTheRemoteAdmin": "Fleet Management needs the remote admin",
   "@fleetFleetManagementNeedsTheRemoteAdmin": {
     "context": "Settings > Fleet Management",
@@ -7065,6 +7344,182 @@
       ]
     }
   },
+  "kioskBackClose": "Press back again to close the app",
+  "@kioskBackClose": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "kioskBackAgain": "Press back again to go back",
+  "@kioskBackAgain": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "kioskHoldOn": "Hold mode on",
+  "@kioskHoldOn": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "kioskHoldOff": "Hold mode off",
+  "@kioskHoldOff": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "kioskHoldNotice": "The current view stays until you turn it off.",
+  "@kioskHoldNotice": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "kioskDownloadComplete": "Download complete",
+  "@kioskDownloadComplete": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "kioskDownloadFailed": "Download failed",
+  "@kioskDownloadFailed": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "kioskDownload": "Download",
+  "@kioskDownload": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "kioskDownloading": "Downloading",
+  "@kioskDownloading": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "kioskOpen": "Open",
+  "@kioskOpen": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "kioskTip": "Tip",
+  "@kioskTip": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "kioskMenuHint": "Swipe from the left edge to open the menu.",
+  "@kioskMenuHint": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "kioskUnknownLink": "Unknown kiosk link",
+  "@kioskUnknownLink": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "kioskOpenAppFailed": "Could not open the app",
+  "@kioskOpenAppFailed": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "kioskWebViewMissing": "Android System WebView is not installed",
+  "@kioskWebViewMissing": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "kioskWebViewMissingHelp": "This device has no WebView provider, so Home Assistant cannot be shown. Install Android System WebView or Chrome, then restart Kiosk Satellite.",
+  "@kioskWebViewMissingHelp": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
   "kioskPinTitle": "Kiosk PIN",
   "@kioskPinTitle": {
     "context": "Device > Kiosk exit gesture > PIN dialog",
@@ -8891,6 +9346,61 @@
       ]
     }
   },
+  "remoteDisableTitle": "Turn off remote management?",
+  "@remoteDisableTitle": {
+    "context": "Remote admin > Device > Remote management, or any copy button",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Remote admin > Device > Remote management, or any copy button"
+      ]
+    }
+  },
+  "remoteDisableHelp": "WARNING: You will no longer be able to access this page. To switch it back on, use the device or the Remote management switch in Home Assistant.",
+  "@remoteDisableHelp": {
+    "context": "Remote admin > Device > Remote management, or any copy button",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Remote admin > Device > Remote management, or any copy button"
+      ]
+    }
+  },
+  "remoteDisableConfirm": "Turn it off",
+  "@remoteDisableConfirm": {
+    "context": "Remote admin > Device > Remote management, or any copy button",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Remote admin > Device > Remote management, or any copy button"
+      ]
+    }
+  },
+  "remoteCopyHelp": "Select the key and copy it by hand.",
+  "@remoteCopyHelp": {
+    "context": "Remote admin > Device > Remote management, or any copy button",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Remote admin > Device > Remote management, or any copy button"
+      ]
+    }
+  },
+  "remoteSaveSettingFailed": "Could not save this setting. Try again.",
+  "@remoteSaveSettingFailed": {
+    "context": "Remote admin > any setting > save error",
+    "description": "Shown if the device rejects or cannot save a setting.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Any setting > save error"
+      ]
+    }
+  },
   "remoteReconnecting": "Reconnecting…",
   "@remoteReconnecting": {
     "context": "Remote admin > Connection and update notices",
@@ -10279,6 +10789,142 @@
       "remoteAdmin": [
         "Overview > Quick controls > Go to view"
       ]
+    }
+  },
+  "screensaverNoPhotos": "No photos selected. Pick some in Settings.",
+  "@screensaverNoPhotos": {
+    "context": "Screensaver > local media or Immich > playback errors",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Screensaver > local media or Immich > playback errors"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "screensaverNoFolder": "No folder selected. Pick one in Settings.",
+  "@screensaverNoFolder": {
+    "context": "Screensaver > local media or Immich > playback errors",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Screensaver > local media or Immich > playback errors"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "screensaverFolderEmpty": "No photos or videos in {folder}",
+  "@screensaverFolderEmpty": {
+    "context": "Screensaver > local media or Immich > playback errors",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Screensaver > local media or Immich > playback errors"
+      ],
+      "remoteAdmin": []
+    },
+    "placeholders": {
+      "folder": {
+        "type": "String"
+      }
+    }
+  },
+  "screensaverFolderUnreadable": "Could not read {folder}. Is the media permission granted?",
+  "@screensaverFolderUnreadable": {
+    "context": "Screensaver > local media or Immich > playback errors",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Screensaver > local media or Immich > playback errors"
+      ],
+      "remoteAdmin": []
+    },
+    "placeholders": {
+      "folder": {
+        "type": "String"
+      }
+    }
+  },
+  "screensaverReadPhotosFailed": "Could not read photos.",
+  "@screensaverReadPhotosFailed": {
+    "context": "Screensaver > local media or Immich > playback errors",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Screensaver > local media or Immich > playback errors"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "screensaverImmichNotReady": "Immich is not connected. Validate it in Settings.",
+  "@screensaverImmichNotReady": {
+    "context": "Screensaver > local media or Immich > playback errors",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Screensaver > local media or Immich > playback errors"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "screensaverNoMediaMatch": "No media matches the source and filters.",
+  "@screensaverNoMediaMatch": {
+    "context": "Screensaver > local media or Immich > playback errors",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Screensaver > local media or Immich > playback errors"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "screensaverNoMediaSource": "No media in the selected source.",
+  "@screensaverNoMediaSource": {
+    "context": "Screensaver > local media or Immich > playback errors",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Screensaver > local media or Immich > playback errors"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "screensaverImmichUnreachable": "Could not reach the Immich server.",
+  "@screensaverImmichUnreachable": {
+    "context": "Screensaver > local media or Immich > playback errors",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Screensaver > local media or Immich > playback errors"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "screensaverRetryNotice": "{error} Retrying automatically.",
+  "@screensaverRetryNotice": {
+    "context": "Screensaver > local media or Immich > playback errors",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Screensaver > local media or Immich > playback errors"
+      ],
+      "remoteAdmin": []
+    },
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "screensaverVideosTooLarge": "Every video in this playlist is too large for this device to play.",
+  "@screensaverVideosTooLarge": {
+    "context": "Screensaver > local media or Immich > playback errors",
+    "description": "Translate the visible message. Keep placeholders and any technical names unchanged.",
+    "x-locations": {
+      "device": [
+        "Screensaver > local media or Immich > playback errors"
+      ],
+      "remoteAdmin": []
     }
   },
   "settingLauncherEnabledTitle": "Enable App Launcher",
@@ -34899,6 +35545,227 @@
         "type": "String",
         "example": "camera"
       }
+    }
+  },
+  "searchInstallApk": "Upload a Kiosk Satellite APK through the remote admin and install it.",
+  "@searchInstallApk": {
+    "context": "Settings search > Device",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Device"
+      ],
+      "remoteAdmin": [
+        "Settings search > Device"
+      ]
+    }
+  },
+  "searchPermissionsHelp": "Every Android grant the app can use, with its status: microphone, camera, notifications, unrestricted battery, display over other apps, modify system settings, system UI guard, device admin, all files access, usage access and location.",
+  "@searchPermissionsHelp": {
+    "context": "Settings search > Device",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Device"
+      ],
+      "remoteAdmin": [
+        "Settings search > Device"
+      ]
+    }
+  },
+  "searchServiceStatus": "Service status",
+  "@searchServiceStatus": {
+    "context": "Settings search > Device",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Device"
+      ],
+      "remoteAdmin": [
+        "Settings search > Device"
+      ]
+    }
+  },
+  "searchServiceHelp": "Whether the Kiosk Satellite Service is running and what it is keeping alive.",
+  "@searchServiceHelp": {
+    "context": "Settings search > Device",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Device"
+      ],
+      "remoteAdmin": [
+        "Settings search > Device"
+      ]
+    }
+  },
+  "searchServicePermissions": "The grants the Kiosk Satellite Service needs.",
+  "@searchServicePermissions": {
+    "context": "Settings search > Device",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Device"
+      ],
+      "remoteAdmin": [
+        "Settings search > Device"
+      ]
+    }
+  },
+  "searchIntercomKiosks": "The kiosks heard on this network and whether each can take a call.",
+  "@searchIntercomKiosks": {
+    "context": "Settings search > Intercom",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Intercom"
+      ],
+      "remoteAdmin": [
+        "Settings search > Intercom"
+      ]
+    }
+  },
+  "searchHaValidate": "Check the URL and token against your Home Assistant.",
+  "@searchHaValidate": {
+    "context": "Settings search > Home Assistant Setup",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Settings search > Home Assistant Setup"
+      ]
+    }
+  },
+  "searchHaProxy": "Serve a plain-http Home Assistant through a secure proxy inside the app.",
+  "@searchHaProxy": {
+    "context": "Settings search > Home Assistant Setup",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Settings search > Home Assistant Setup"
+      ]
+    }
+  },
+  "searchHaDashboard": "Pick the dashboard and view the kiosk shows.",
+  "@searchHaDashboard": {
+    "context": "Settings search > Home Assistant Setup",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Home Assistant Setup"
+      ],
+      "remoteAdmin": [
+        "Settings search > Home Assistant Setup"
+      ]
+    }
+  },
+  "searchKioskPermissions": "The grants the kiosk and lockdown protections lean on.",
+  "@searchKioskPermissions": {
+    "context": "Settings search > Kiosk Mode or Home Launcher",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Kiosk Mode or Home Launcher"
+      ],
+      "remoteAdmin": [
+        "Settings search > Kiosk Mode or Home Launcher"
+      ]
+    }
+  },
+  "searchHomeStatus": "Home screen status",
+  "@searchHomeStatus": {
+    "context": "Settings search > Kiosk Mode or Home Launcher",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Kiosk Mode or Home Launcher"
+      ],
+      "remoteAdmin": [
+        "Settings search > Kiosk Mode or Home Launcher"
+      ]
+    }
+  },
+  "searchHomeHelp": "Whether Kiosk Satellite is the device home screen, and where to finish setting it as the default.",
+  "@searchHomeHelp": {
+    "context": "Settings search > Kiosk Mode or Home Launcher",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Kiosk Mode or Home Launcher"
+      ],
+      "remoteAdmin": [
+        "Settings search > Kiosk Mode or Home Launcher"
+      ]
+    }
+  },
+  "searchMasterVolume": "The device volume the media and assistant faders scale under.",
+  "@searchMasterVolume": {
+    "context": "Settings search > Screen & Audio",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Screen & Audio"
+      ],
+      "remoteAdmin": [
+        "Settings search > Screen & Audio"
+      ]
+    }
+  },
+  "searchSmallClock": "A clock widget in a corner of the screensaver.",
+  "@searchSmallClock": {
+    "context": "Settings search > Screensaver",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Settings search > Screensaver"
+      ]
+    }
+  },
+  "searchBattery": "A battery widget in a corner of the screensaver: this device's own charge.",
+  "@searchBattery": {
+    "context": "Settings search > Screensaver",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Settings search > Screensaver"
+      ]
+    }
+  },
+  "searchPersonPermission": "The Log access grant the device's person sensor needs.",
+  "@searchPersonPermission": {
+    "context": "Settings search > Screensaver",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Settings search > Screensaver"
+      ]
+    }
+  },
+  "searchSonosSpeakers": "The Sonos speakers this device knows, a search of the network and an address field.",
+  "@searchSonosSpeakers": {
+    "context": "Settings search > Media Player > Sonos",
+    "description": "Search result title or summary for this section.",
+    "x-locations": {
+      "device": [
+        "Settings search > Media Player > Sonos"
+      ],
+      "remoteAdmin": [
+        "Settings search > Media Player > Sonos"
+      ]
     }
   },
   "voiceAppearanceHint": "Overlay skin, theme, activity bar, text size",

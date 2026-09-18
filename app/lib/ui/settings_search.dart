@@ -514,6 +514,9 @@ List<SettingsSearchEntry> buildSettingsSearchIndex(
   String Function(String)? gestureTextFor,
   String Function(String)? fleetTextFor,
   String Function(String)? pluginTextFor,
+  String Function(String)? intercomTextFor,
+  String Function(String)? mediaTextFor,
+  String Function(String)? cameraStreamsTextFor,
   String Function(SettingDef<Object>)? titleFor,
   String Function(SettingDef<Object>)? descriptionFor,
 }) {
@@ -593,6 +596,12 @@ List<SettingsSearchEntry> buildSettingsSearchIndex(
         ? fleetTextFor
         : entry.category == 'Plugins'
         ? pluginTextFor
+        : entry.category == 'Intercom'
+        ? intercomTextFor
+        : entry.category == 'Sendspin'
+        ? mediaTextFor
+        : entry.category == 'Cameras'
+        ? cameraStreamsTextFor
         : null;
     if (translate == null) return entry;
     return SettingsSearchEntry(

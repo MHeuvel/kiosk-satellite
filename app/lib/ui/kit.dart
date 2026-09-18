@@ -651,7 +651,7 @@ class _CopyBoxState extends State<CopyBox> {
     });
     showToast(
       context,
-      title: 'Copied',
+      title: l10n(context).logsCopied,
       kind: ToastKind.success,
       duration: const Duration(seconds: 2),
     );

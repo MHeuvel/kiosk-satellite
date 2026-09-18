@@ -285,7 +285,7 @@ export const deviceTextMessageIds = {
   "Retry": "commonRetry",
   "Copy": "commonCopy",
   "•••••• (set)": "devicePasswordSet",
-  "Could not save this setting. Try again.": "deviceSaveFailed",
+  "Could not save this setting. Try again.": "remoteSaveSettingFailed",
   "Open settings on device": "deviceOpenSettingsDevice",
   "Set an admin password below to start the server.": "devicePasswordNeeded",
   "The server is not running.": "deviceServerStopped",
@@ -298,5 +298,10 @@ export const deviceTextMessageIds = {
   "Working…": "commonWorking",
   "Cancel": "commonCancel",
   "OK": "commonOk",
-  "Device name": "settingDeviceNameTitle"
+  "Device name": "settingDeviceNameTitle",
+  "Upload a Kiosk Satellite APK through the remote admin and install it.": "searchInstallApk",
+  "Every Android grant the app can use, with its status: microphone, camera, notifications, unrestricted battery, display over other apps, modify system settings, system UI guard, device admin, all files access, usage access and location.": "searchPermissionsHelp",
+  "Service status": "searchServiceStatus",
+  "Whether the Kiosk Satellite Service is running and what it is keeping alive.": "searchServiceHelp",
+  "The grants the Kiosk Satellite Service needs.": "searchServicePermissions"
 };

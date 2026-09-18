@@ -452,6 +452,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
         gestureTextFor: (text) => gestureText(context, text),
         fleetTextFor: (text) => fleetText(context, text),
         pluginTextFor: (text) => pluginText(context, text),
+        intercomTextFor: (text) => intercomText(context, text),
+        mediaTextFor: (text) => mediaText(context, text),
+        cameraStreamsTextFor: (text) => cameraStreamsText(context, text),
         titleFor: (def) => def.localizedTitle(context),
         descriptionFor: (def) => def.localizedDescription(context),
       );

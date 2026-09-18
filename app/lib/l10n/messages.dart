@@ -83,6 +83,29 @@ String screenAudioText(BuildContext context, String english) =>
 String screensaverText(BuildContext context, String english) =>
     messageById(l10n(context), screensaverTextMessageIds[english], english);
 
+/// Translate playback notices when rendered, preserving paths and server details.
+String screensaverPlaybackNotice(BuildContext context, String error) {
+  final strings = l10n(context);
+  const retry = ' Retrying automatically.';
+  if (error.endsWith(retry)) {
+    return strings.screensaverRetryNotice(
+      immichError(context, error.substring(0, error.length - retry.length)),
+    );
+  }
+  const empty = 'No photos or videos in ';
+  if (error.startsWith(empty)) {
+    return strings.screensaverFolderEmpty(error.substring(empty.length));
+  }
+  const unreadable = 'Could not read ';
+  const permission = '. Is the media permission granted?';
+  if (error.startsWith(unreadable) && error.endsWith(permission)) {
+    return strings.screensaverFolderUnreadable(
+      error.substring(unreadable.length, error.length - permission.length),
+    );
+  }
+  return immichError(context, error);
+}
+
 /// Resolve camera presentation while preserving addresses and hardware names.
 String cameraText(BuildContext context, String english) =>
     messageById(l10n(context), cameraTextMessageIds[english], english);
@@ -330,6 +353,9 @@ String commonColorName(BuildContext context, String english) =>
 
 String immichError(BuildContext context, String error) {
   final strings = l10n(context);
+  if (error == 'Could not reach the Immich server.') {
+    return strings.screensaverImmichUnreachable;
+  }
   final scope = RegExp(
     r'^The API key is missing the (.+) permission\.$',
   ).firstMatch(error);

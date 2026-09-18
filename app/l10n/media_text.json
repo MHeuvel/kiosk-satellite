@@ -232,5 +232,6 @@
   "Enter a port between 1024 and 65535, or leave it empty": "dlnaPortInvalid",
   "This device cannot decode this video.": "dlnaCannotDecode",
   "This file could not be read.": "dlnaCannotRead",
-  "This media could not be played.": "dlnaCannotPlay"
+  "This media could not be played.": "dlnaCannotPlay",
+  "The Sonos speakers this device knows, a search of the network and an address field.": "searchSonosSpeakers"
 }

@@ -12,7 +12,7 @@ import { api, cmd, state } from './core.js';
 import { applyManagedBanners } from './fleetsync.js';
 import { settingRow } from './rows.js';
 import { fetchViews, radioRow } from './views.js';
-import { messageBox, modalShell } from './widgets.js';
+import { messageBox, localizedMessageBox, modalShell } from './widgets.js';
 
 /* ---- Gestures (issue #99) ----
    Mirror of the device's Gestures page (ui/gesture_settings.dart): the
@@ -719,12 +719,12 @@ export async function loadGestures() {
       describeGestureAction(mapping.action),
       [
         cameraAction(gestureText('Delete'), async () => {
-          const choice = await messageBox({
-            title: gestureText('Delete gesture?'),
-            message: t('gestureDeleteMessage', {trigger: describeGestureTrigger(mapping.trigger), action: describeGestureAction(mapping.action)}),
-            buttons: [gestureText('Cancel'), gestureText('Delete')],
+          const choice = await localizedMessageBox({
+            titleId:'gestureDeleteTitle', messageId:'gestureDeleteMessage',
+            values:() => ({trigger:describeGestureTrigger(mapping.trigger), action:describeGestureAction(mapping.action)}),
+            buttons:[{id:'commonCancel', value:'Cancel'}, {id:'commonDelete', value:'Delete'}],
           });
-          if (choice !== gestureText('Delete')) return;
+          if (choice !== 'Delete') return;
           await saveGestureMappings(
             readGestureMappings().filter((m) => m.id !== mapping.id));
           refresh();

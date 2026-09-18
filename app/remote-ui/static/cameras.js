@@ -3,7 +3,7 @@ import { watchUpdates } from './live.js';
 import { api, cmd, state } from './core.js';
 import { applyManagedBanners } from './fleetsync.js';
 import { settingRow } from './rows.js';
-import { messageBox, modalShell } from './widgets.js';
+import { messageBox, localizedMessageBox, modalShell } from './widgets.js';
 
 export function cameraField(label, value = '', type = 'text') {
   const wrap = document.createElement('label');
@@ -1082,12 +1082,11 @@ export async function loadCameras() {
         refresh();
       }, false, 'download'),
       cameraAction(cameraStreamsText('Delete'), async () => {
-        const choice = await messageBox({
-          title: t('cameraStreamsDeleteNamed', {name: server.name}),
-          message: cameraStreamsText('Its cameras will be removed from every view.'),
-          buttons: [cameraStreamsText('Cancel'), cameraStreamsText('Delete')],
+        const choice = await localizedMessageBox({
+          titleId: 'cameraStreamsDeleteNamed', messageId: 'cameraStreamsDeleteServerHelp', values: {name:server.name},
+          buttons: [{id:'commonCancel', value:'Cancel'}, {id:'commonDelete', value:'Delete'}],
         });
-        if (choice !== cameraStreamsText('Delete')) return;
+        if (choice !== 'Delete') return;
         await cmd('cameraDeleteServer', { id: server.id });
         refresh();
       }, false, 'delete'),
@@ -1144,12 +1143,11 @@ export async function loadCameras() {
           + (camera.missing ? cameraStreamsText(' (missing)') : '') + formats;
     camerasCard.appendChild(cameraListRow(camera.name, description, [
       cameraAction(cameraStreamsText('Delete'), async () => {
-        const choice = await messageBox({
-          title: t('cameraStreamsDeleteNamed', {name: camera.name}),
-          message: cameraStreamsText('It will be removed from every view.'),
-          buttons: [cameraStreamsText('Cancel'), cameraStreamsText('Delete')],
+        const choice = await localizedMessageBox({
+          titleId: 'cameraStreamsDeleteNamed', messageId: 'cameraStreamsDeleteCameraHelp', values: {name:camera.name},
+          buttons: [{id:'commonCancel', value:'Cancel'}, {id:'commonDelete', value:'Delete'}],
         });
-        if (choice !== cameraStreamsText('Delete')) return;
+        if (choice !== 'Delete') return;
         await cmd('cameraDeleteSource', { id: camera.id });
         refresh();
       }, false, 'delete'),
@@ -1191,12 +1189,11 @@ export async function loadCameras() {
     // The default view is permanent: emptying it retires it.
     if (!view.isDefault) {
       actions.push(cameraAction(cameraStreamsText('Delete'), async () => {
-        const choice = await messageBox({
-          title: t('cameraStreamsDeleteNamed', {name: view.name}),
-          message: cameraStreamsText('This cannot be undone.'),
-          buttons: [cameraStreamsText('Cancel'), cameraStreamsText('Delete')],
+        const choice = await localizedMessageBox({
+          titleId: 'cameraStreamsDeleteNamed', messageId: 'cameraStreamsCannotUndo', values: {name:view.name},
+          buttons: [{id:'commonCancel', value:'Cancel'}, {id:'commonDelete', value:'Delete'}],
         });
-        if (choice !== cameraStreamsText('Delete')) return;
+        if (choice !== 'Delete') return;
         await cmd('cameraDeleteView', { id: view.id });
         refresh();
       }, false, 'delete'));

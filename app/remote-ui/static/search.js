@@ -217,7 +217,7 @@ export function searchSettingsIndex(query) {
   [...SEARCH_PAGES.map(page => ({...page, title: navigationText(page.title), desc: navigationText(page.desc), englishAlias: `${page.title} ${page.desc}`})), ...subs, ...defs, ...SEARCH_EXTRAS, ...pluginSearchEntries()].forEach((raw, order) => {
     if (typeof raw.title !== 'string' || !raw.title.trim()) return;
     const e = {...raw, desc: typeof raw.desc === 'string' ? raw.desc : ''};
-    if ((e.tab === 'device' || e.tab === 'homeassistant' || e.tab === 'screenaudio' || e.tab === 'screensaver' || e.tab === 'voicesatellite')) {
+    if (SEARCH_EXTRAS.includes(raw) || subs.includes(raw)) {
       e.englishAlias = `${e.englishAlias || ''} ${e.title} ${e.desc}`;
       e.title = settingsPageText(e.tab, e.title);
       e.desc = settingsPageText(e.tab, e.desc);

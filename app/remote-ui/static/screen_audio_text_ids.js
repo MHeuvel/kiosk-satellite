@@ -89,5 +89,6 @@ export const screenAudioTextMessageIds = {
   "Microphone level": "screenAudioMicrophoneLevel",
   "Speak from where you use the device; adjust the gain until normal speech tops out around the end of the green.": "screenAudioMicrophoneLevelHelp",
   "Grant": "commonGrant",
-  "Grant on device": "deviceGrantOnDevice"
+  "Grant on device": "deviceGrantOnDevice",
+  "The device volume the media and assistant faders scale under.": "searchMasterVolume"
 };
