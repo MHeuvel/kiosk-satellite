@@ -12429,6 +12429,16 @@
     "translation": "da0f498da7177bbe3a9353069a9b06a100bcf663e989fa72fc580c383f0d3ae5",
     "author": "Xavier Larrea"
   },
+  "settingScreensaverScreenOffBlackTitle": {
+    "source": "73714dafb2bf1b812b0b7f20499add1682261de7a269fe78750a6575af99dfe2",
+    "translation": "a5acf4642b71db29d20d5d0fbc43dea33fb7f65e3f9638de0853dfeddfbd023d",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverScreenOffBlackDescription": {
+    "source": "68b83985ee46413a85d213eb2880d8b9a9acf186b4293e695ed68db3c45eaa09",
+    "translation": "81c748bd55321df14f9faa8edba9d6593c0861621a10c05ccd06953bfe94e9c4",
+    "author": "Xavier Larrea"
+  },
   "settingScreensaverGlanceScaleTitle": {
     "source": "7d6cecc9855ff75dccde741db4a2139262fa25b35eee3dcc1e0f06ffbd5847e0",
     "translation": "3ea82dcf347ce43d8c08cee6f4b860d9f723d239e6933f39e9b9a4c25cb8cad6",

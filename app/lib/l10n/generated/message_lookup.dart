@@ -2715,6 +2715,10 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'screensaverDimWarning' => strings.screensaverDimWarning,
       'screensaverUnavailablePlugin' => strings.screensaverUnavailablePlugin,
       'screensaverScreenOffWarning' => strings.screensaverScreenOffWarning,
+      'settingScreensaverScreenOffBlackTitle' =>
+        strings.settingScreensaverScreenOffBlackTitle,
+      'settingScreensaverScreenOffBlackDescription' =>
+        strings.settingScreensaverScreenOffBlackDescription,
       'settingScreensaverGlanceScaleTitle' =>
         strings.settingScreensaverGlanceScaleTitle,
       'settingScreensaverGlanceScaleDescription' =>

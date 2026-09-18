@@ -14,7 +14,7 @@ import {
 import { api, depSatisfied, gatedOn, state } from './core.js';
 import { readOnlyRow } from './device.js';
 import { openEspHomeEntityPicker } from './esphome.js';
-import { updateAdaptiveBrightnessRows, updateFaceRows } from './notices.js';
+import { updateAdaptiveBrightnessRows, updateFaceRows, syncScreenOffAdminNotice } from './notices.js';
 import {
   openImmichNamesPicker,
   openLauncherAppsPicker,
@@ -269,6 +269,9 @@ export function settingRow(s) {
     // whole page reloading under the switch just flipped.
     if (gatedOn(state.settings || [], s.key).length) {
       if (!syncGatedRows(s.key, row)) await loadSettings();
+    }
+    if (s.key === 'screensaver.screen_off_black' || s.key === 'screensaver.screen_off_minutes') {
+      syncScreenOffAdminNotice();
     }
     // The face detection notes answer for Dismiss on motion as it is now
     // (issue #304): motion takes precedence, and the warning under
@@ -604,7 +607,8 @@ export function settingRow(s) {
       // Leaving 0 gets the same warning as the slider outside the schedule.
       offRng.addEventListener('change', async () => {
         const next = +offRng.value;
-        if (offBefore === 0 && next > 0) {
+        if (offBefore === 0 && next > 0 &&
+            !state.settings.some(s => s.key === 'screensaver.screen_off_black' && s.value === true)) {
           const pick = await localizedMessageBox({
             titleId: 'screensaverWarningTitle', messageId: 'screensaverScreenOffWarning',
             buttons: [{id:'commonCancel', value:'Cancel'}, {id:'screensaverScreenOffProceed', value:'Proceed'}],
@@ -1449,7 +1453,8 @@ export function settingRow(s) {
       // does to Wi-Fi, the camera and the app itself is the manufacturer's
       // call, and the Black screensaver avoids the whole regime.
       if (s.key === 'screensaver.screen_off_minutes' &&
-          Number(s.value || 0) === 0 && next > 0) {
+          Number(s.value || 0) === 0 && next > 0 &&
+          !state.settings.some(s => s.key === 'screensaver.screen_off_black' && s.value === true)) {
         const pick = await localizedMessageBox({
           titleId: 'screensaverWarningTitle', messageId: 'screensaverScreenOffWarning',
           buttons: [{id:'commonCancel', value:'Cancel'}, {id:'screensaverScreenOffProceed', value:'Proceed'}],

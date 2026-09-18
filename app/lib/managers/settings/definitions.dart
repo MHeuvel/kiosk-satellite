@@ -100,14 +100,21 @@ class SettingDef<T> {
   /// boolean-switch case; set to a string to gate on a mode select, or to a
   /// list of them for a row that belongs to more than one mode (the Immich
   /// From date, which both Since and Timeframe want).
+  /// A map with `gt` gates on a number greater than the supplied value.
   final Object dependsOnValue;
 
   /// Whether [value] satisfies [dependsOnValue], which is a list when the
   /// row belongs to several modes. Both UIs ask this same question, the
   /// remote's over the serialized definition.
-  bool dependsSatisfiedBy(Object? value) => dependsOnValue is List
-      ? (dependsOnValue as List).contains(value)
-      : value == dependsOnValue;
+  bool dependsSatisfiedBy(Object? value) => _satisfies(value, dependsOnValue);
+
+  static bool _satisfies(Object? value, Object wanted) {
+    if (wanted is List) return wanted.contains(value);
+    if (wanted is Map && wanted['gt'] is num) {
+      return value is num && value > (wanted['gt'] as num);
+    }
+    return value == wanted;
+  }
 
   /// A second gate, for a row that only means anything under two settings
   /// at once (the flip clock's night card color: Night mode on AND the
@@ -119,9 +126,8 @@ class SettingDef<T> {
   /// The value [alsoDependsOn] must hold, the shape of [dependsOnValue].
   final Object alsoDependsOnValue;
 
-  bool alsoDependsSatisfiedBy(Object? value) => alsoDependsOnValue is List
-      ? (alsoDependsOnValue as List).contains(value)
-      : value == alsoDependsOnValue;
+  bool alsoDependsSatisfiedBy(Object? value) =>
+      _satisfies(value, alsoDependsOnValue);
 
   /// Persisted and readable, but never shown as a settings row. For state the
   /// app tracks on the user's behalf — e.g. whether the chosen media is a
@@ -3287,6 +3293,20 @@ const screensaverScreenOffMinutes = SettingDef<num>(
       'set duration. Set to 0 to keep the screen on indefinitely. Requires '
       'Device Administrator permission.',
   category: 'Screensaver',
+);
+
+const screensaverScreenOffBlack = SettingDef<bool>(
+  key: 'screensaver.screen_off_black',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Use a black screen instead',
+  description:
+      'Show a plain black screen at zero brightness instead of powering off '
+      'the display. Hides widgets and Now Playing. No Device Administrator '
+      'permission is needed.',
+  category: 'Screensaver',
+  dependsOn: 'screensaver.screen_off_minutes',
+  dependsOnValue: {'gt': 0},
 );
 
 // Every detection wake from a dark panel lands on the dashboard, which is
@@ -7625,6 +7645,7 @@ const List<SettingDef<Object>> allSettings = [
   screensaverBrightnessLevel,
   screensaverNotificationBrightness,
   screensaverScreenOffMinutes,
+  screensaverScreenOffBlack,
   screensaverScreenOffWakeToScreensaver,
   // Pixel shift sits with the general controls: it applies to every mode.
   screensaverPixelShift,

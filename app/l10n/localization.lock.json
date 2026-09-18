@@ -1,12 +1,12 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite-localization",
-  "revision": "a4f31a6a3339753bb327bd6a42c394b0fe831f1f",
+  "revision": "efc831ebd2c77b590670e7485a55eda29c732968",
   "locales": [
     "es"
   ],
   "files": {
-    "source/manifest.json": "60a6d97be364a0ef7c95a80806046017d47cedda02ca9d696430769e1ab3244c",
+    "source/manifest.json": "bd5935c76a743e7d7b44899a9c4786476dbf8a8058a24bd6213b036f37b5500a",
     "source/about_identity_en.arb": "dd006567f69f846e2e3b73f09ad13784f0022d282ea3101fa9be7fc95175ec2d",
     "source/about_updates_en.arb": "b41df3870ffb041249448dc4b13b14a9350ab4417510f23e772458dd1e582c85",
     "source/android_accessibility_en.arb": "6fe33a6ec23fb984d2c9b695d0dcaa41b8136a83cbedae702ee37e563a9a78a0",
@@ -142,7 +142,7 @@
     "source/settings_screensaver_entity_picker_en.arb": "0691aa0bca520dce916ead490a20861eccd930958c5adb667cde11497d7b7ce5",
     "source/settings_screensaver_face_detection_en.arb": "498665376d9b47d83f4932baf0952dfff3807f4510fea02f0a930f764f1dd932",
     "source/settings_screensaver_face_preview_en.arb": "9f75439ce71a8947426a0f382eb06632a74c2c145a5642918065e40ae91f9957",
-    "source/settings_screensaver_general_en.arb": "1b31d73cb07b2aa976b6e98ccbbc23ea5f39b7a01b55fcafb618b5bfabb35f3f",
+    "source/settings_screensaver_general_en.arb": "6d6c0eff1c082f8681466b6ca825b6d6e4ee9814e8124e7f005709cf4e7745cf",
     "source/settings_screensaver_glance_appearance_en.arb": "b574a776553d61438bb268830e45cdcb30aa79995d3a865aa3caab8c741d628e",
     "source/settings_screensaver_glance_en.arb": "ddbf6677ec95e43efea0a88994a113685f6d48f67a250ae2859258793a59a688",
     "source/settings_screensaver_immich_connection_en.arb": "37d7fc4fcf77e70ee6ab180a6af3a6f703180ced7ea9e1e7037b6188b735f289",
@@ -322,7 +322,7 @@
     "translations/es/settings_screensaver_entity_picker_es.arb": "a450214fc023af466543183b661b56d3254b97e27c239ea1392100fee8769850",
     "translations/es/settings_screensaver_face_detection_es.arb": "b007daba8cf4317965454c585fe2d6d7a75c8ea189de0c147beff289c22c1a0a",
     "translations/es/settings_screensaver_face_preview_es.arb": "f2926d9904b301b2f095558c3b5e2af6bfe407ba30cdf75d11db9c68db9231ac",
-    "translations/es/settings_screensaver_general_es.arb": "69217851490ad6703106ffa63629e473b8670ebd7fe6bf228a4498c196b38cd0",
+    "translations/es/settings_screensaver_general_es.arb": "4a5cdf63745abcf44a52b3833a55ca954d6af503ab85d6572eb93852dacbfb7e",
     "translations/es/settings_screensaver_glance_appearance_es.arb": "98cdff2716094f93f2d47812e9976ad5563fad4d7252209517ab4e41eb900a29",
     "translations/es/settings_screensaver_glance_es.arb": "41b0783c1e2106126da329ad93517dea132b750c779a85aea2f333c7b236c6a5",
     "translations/es/settings_screensaver_immich_connection_es.arb": "c6918fa241ad6ea1218fd982ffab78c1b2fe25092711ce49849d401d3dfc1539",
@@ -367,7 +367,7 @@
     "translations/es/setup_welcome_es.arb": "5ecd1fef9e8d6b0dd3e085d410941099bb7dd8d4f502e98684fefecaf1663d9c",
     "translations/es/sound_picker_es.arb": "4b1867bded8d578e13653eb8e62deb55eae9e41167e0702ea5c9c2329a8a665b",
     "translations/es/voice_timers_es.arb": "7cdeeac038ccf5ecbedf5f1d54c16d11ab817e1af9429e64eb7f2c2a575c2182",
-    "metadata/reviews/es.json": "41fd707398feb986bbaaa558f84469873c37d9ca799399828c0bc4a4ce933b4d",
+    "metadata/reviews/es.json": "6c1a44db1bb95b4eba74b78861ebf77be4685c1eb46b7b1650efc49e6bd08f6f",
     "LICENSE": "4d3e371a6b6cabc75b4be46fecce7601556d0eb777ad9dba4b00bc13a61de5fc",
     "CREDITS.md": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "docs/CONTRIBUTOR-AGREEMENT.md": "f17a3cd0ddbab3a6b95c50d98b81d5648cb8feb09fc54e33bcce855e45ddb014"

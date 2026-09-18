@@ -27,6 +27,7 @@ import {
   updateNoCameraNotice,
   updateProximityRows,
   updateScreenOffAdminNotice,
+  syncScreenOffAdminNotice,
 } from './notices.js';
 import {
   loadViewJump,
@@ -206,6 +207,16 @@ async function flushSettingsUpdates() {
     if (!shapeChanged && setting.key === 'wake_word.background' && rows.length
         && rows.every(row => row.updateSetting?.() && syncGatedRows(setting.key, row))) {
       continue;
+    }
+    // These controls only reveal one child and change the permission note.
+    // Preserve their DOM nodes when the device echoes a local save too.
+    if (!shapeChanged && ['screensaver.screen_off_minutes', 'screensaver.screen_off_black'].includes(setting.key)) {
+      const byKey = Object.fromEntries(state.settings.map(s => [s.key, s]));
+      if ((!rows.length && !depSatisfied(setting, byKey)) || (rows.length
+          && rows.every(row => row.updateSetting?.() && syncGatedRows(setting.key, row)))) {
+        syncScreenOffAdminNotice();
+        continue;
+      }
     }
     // Custom renderers own their controls and any stored picker state.
     // A replaced generic input cannot stand in for a custom picker.

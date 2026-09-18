@@ -32,6 +32,7 @@ setting('screensaver.clock_font_weight','black','select','Clock screensaver',opt
 setting('screensaver.clock_color','250,250,250','string','Clock screensaver')
 setting('screensaver.clock_background_refresh',0,'number','Clock screensaver')
 setting('screensaver.screen_off_minutes',0,'number',min=0,max=60,step=1)
+setting('screensaver.screen_off_black',False,dependsOn='screensaver.screen_off_minutes',dependsOnValue={'gt':0})
 setting('screensaver.schedule_enabled',True,subpage='Scheduled Screensavers')
 original={'at':'19:00','mode':'black','brightness':.2,'motion':False,'screen_off':5,'person':True}
 setting('screensaver.schedule',json.dumps([original]),'string','Scheduled Screensavers')
@@ -50,7 +51,7 @@ def api(route):
   return route.fulfill(json={'settings':settings,'subpageHints':{}})
  name=path.removeprefix('commands/')
  data={'listPlugins':[], 'listFiles':[], 'mediaPlayers':{'players':[]},
-       'getAudioDevices':{'inputs':[],'outputs':[]},'getSystemPermissions':{'deviceAdmin':True}}.get(name,{})
+       'getAudioDevices':{'inputs':[],'outputs':[]},'getSystemPermissions':{'deviceAdmin':False}}.get(name,{})
  route.fulfill(json={'ok':True,'data':data})
 class Handler(SimpleHTTPRequestHandler):
  def log_message(self,*_):pass
@@ -102,11 +103,59 @@ try:
   assert saved==[{**original,'at':'21:35','now_playing':True}],saved
   page.evaluate("(async () => (await import('/static/tabs.js')).showTab('screensaver',{refresh:false}))()")
   slider=root.locator('[data-key="screensaver.screen_off_minutes"] input[type="range"]')
+  slider.evaluate("el => el.dataset.preserved = 'yes'")
+  notice=root.locator('.screen-off-admin-notice')
+  expect(notice).to_be_visible()
+  def echo(key):
+   page.evaluate("""async setting => {
+    (await import('/static/settings.js')).applySettingsUpdate({settings:[setting]});
+    await new Promise(resolve => setTimeout(resolve, 50));
+   }""", next(item for item in settings if item['key']==key))
+   expect(slider).to_have_attribute('data-preserved','yes')
   slider.evaluate("el => {el.value='5';el.dispatchEvent(new Event('input'));el.dispatchEvent(new Event('change'));}")
   expect(page.get_by_text('TEST warning',exact=True)).to_be_visible()
   page.get_by_role('button',name='TEST cancel',exact=True).click()
   expect(slider).to_have_value('0')
   assert not any('screensaver.screen_off_minutes' in item for item in requests)
+  blank=root.locator('[data-key="screensaver.screen_off_black"] input[type="checkbox"]')
+  expect(blank).to_have_count(0)
+  slider.evaluate("el => {el.value='5';el.dispatchEvent(new Event('input'));el.dispatchEvent(new Event('change'));}")
+  with page.expect_response('**/api/settings'):
+   page.get_by_role('button',name='TEST proceed',exact=True).click()
+  expect(root.locator('[data-key="screensaver.screen_off_black"]')).to_be_visible()
+  echo('screensaver.screen_off_minutes')
+  blank_row=root.locator('[data-key="screensaver.screen_off_black"]')
+  blank_row.evaluate("el => el.dataset.preserved = 'yes'")
+  blank_y=blank_row.bounding_box()['y']
+  assert notice.bounding_box()['y'] > blank_y
+  with page.expect_response('**/api/settings'):
+   root.locator('[data-key="screensaver.screen_off_black"] label.switch').click()
+  expect(blank).to_be_checked()
+  echo('screensaver.screen_off_black')
+  expect(blank_row).to_have_attribute('data-preserved','yes')
+  assert blank_row.bounding_box()['y']==blank_y
+  expect(root.locator('.screen-off-admin-notice')).to_have_count(0)
+  with page.expect_response('**/api/settings'):
+   slider.evaluate("el => {el.value='0';el.dispatchEvent(new Event('input'));el.dispatchEvent(new Event('change'));}")
+  expect(blank).to_have_count(0)
+  with page.expect_response('**/api/settings'):
+   slider.evaluate("el => {el.value='5';el.dispatchEvent(new Event('input'));el.dispatchEvent(new Event('change'));}")
+  expect(blank).to_be_checked()
+  expect(page.get_by_text('TEST warning',exact=True)).to_have_count(0)
+  echo('screensaver.screen_off_minutes')
+  blank_y=blank_row.bounding_box()['y']
+  with page.expect_response('**/api/settings'):
+   blank_row.locator('label.switch').click()
+  echo('screensaver.screen_off_black')
+  expect(notice).to_be_visible()
+  assert blank_row.bounding_box()['y']==blank_y
+  notice.evaluate("el => el.dataset.preserved = 'yes'")
+  # A device-side slider update must preserve the controls and permission notice.
+  next(item for item in settings if item['key']=='screensaver.screen_off_minutes')['value']=10
+  echo('screensaver.screen_off_minutes')
+  expect(slider).to_have_value('10')
+  expect(notice).to_have_attribute('data-preserved','yes')
+  assert blank_row.bounding_box()['y']==blank_y
   assert page.evaluate("(async () => (await import('/static/search.js')).searchSettingsIndex('TEST schedule').some(row=>row.entry==='Scheduled Screensavers'))()")
   assert not errors,errors
   browser.close()

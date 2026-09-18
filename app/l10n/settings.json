@@ -1402,5 +1402,9 @@
   "camera.rtsp.datetime_background": {
     "title": "settingCameraRtspDateTimeBackgroundTitle",
     "description": "settingCameraRtspDateTimeBackgroundDescription"
+  },
+  "screensaver.screen_off_black": {
+    "title": "settingScreensaverScreenOffBlackTitle",
+    "description": "settingScreensaverScreenOffBlackDescription"
   }
 }

@@ -2998,11 +2998,12 @@ class _CategoryContentState extends State<_CategoryContent> {
           textAlign: TextAlign.end,
         ),
       ),
-    // The screen-off timer fails quietly without device admin;
-    // this row is what says so, right where the slider is.
+    // Keep the permission notice below the action toggle so it stays put.
     if (widget.category == 'Screensaver')
-      screensaverScreenOffMinutes.key: _ScreenOffAdminRow(
-        key: UniqueKey(),
+      (container.settings.visible(screensaverScreenOffBlack)
+          ? screensaverScreenOffBlack.key
+          : screensaverScreenOffMinutes.key): _ScreenOffAdminRow(
+        key: const ValueKey('screensaver-screen-off-admin'),
         container: container,
       ),
     // Dim is the one mode the pause-dashboard optimization cannot
@@ -4298,7 +4299,10 @@ class _ScreenOffAdminRowState extends State<_ScreenOffAdminRow>
 
   @override
   Widget build(BuildContext context) {
-    if (_granted != false) return const SizedBox.shrink();
+    if (_granted != false ||
+        widget.container.settings.get(screensaverScreenOffBlack)) {
+      return const SizedBox.shrink();
+    }
     final theme = Theme.of(context);
     return SettingsRow(
       leading: Icon(
@@ -4728,7 +4732,11 @@ class _ScheduleEditorState extends State<_ScheduleEditor> {
                               // Leaving 0 gets the same warning as the
                               // slider outside the schedule.
                               onChangeEnd: (v) async {
-                                if (screenOffBefore > 0 || v.round() == 0) {
+                                if (screenOffBefore > 0 ||
+                                    v.round() == 0 ||
+                                    widget.container.settings.get(
+                                      screensaverScreenOffBlack,
+                                    )) {
                                   return;
                                 }
                                 if (!await confirmScreenOff(context)) {
@@ -9687,7 +9695,8 @@ class _SliderTileState extends State<_SliderTile> {
               // and the Black screensaver avoids the whole regime.
               if (def.key == screensaverScreenOffMinutes.key &&
                   (widget.container.settings.get(def) as num) == 0 &&
-                  parsed > 0) {
+                  parsed > 0 &&
+                  !widget.container.settings.get(screensaverScreenOffBlack)) {
                 final go = await confirmScreenOff(context);
                 if (!go) {
                   // The slider snaps back to the stored 0.

@@ -6,11 +6,15 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ### Added
 
+- **Screen-off timers can use a plain black screen.** Enable **Use a black screen instead** below **Turn screen off after** to show a black screen at zero brightness without powering off the display. Widgets, timers, notifications and Now Playing stay hidden. Detection and touch wake the screen with the existing wake settings. Available in English and Spanish in the app and Remote Admin (#614).
+
 - **Voice timers stay visible across kiosk views.** Multiple named timers use floating pills styled like At a Glance above the dashboard, screensaver, Now Playing and cameras. Drag the group to save its position on this device. Tap to pause or resume and double tap to cancel. Finished timers show an alert pill and play the bundled Voice Satellite alert sound locally at the assistant volume. Tap to dismiss the alert. Timer labels and controls include English and Spanish text from the localization repository. Requires the companion Voice Satellite timer handoff update (#612).
 
 - **Camera streams can show the device date and time.** RTSP & ONVIF Streaming now has an Overlays group with an optional timestamp and a separate black background switch. The timestamp follows the device date format and 12/24-hour preference. The black background starts at the top-left corner with padding around the text. Overlay changes apply without reconnecting viewers. Both settings interfaces include English and Spanish text (#609).
 
 ### Fixed
+
+- **Screen-off settings stay in place while editing.** Changing the countdown or black-screen toggle updates the affected rows without rebuilding Remote Admin. The device keeps the permission notice state and both interfaces place it below the toggle (#614).
 
 - **Fleet members can be added by IP address.** Add a kiosk now offers Add by IP on the device and remote admin. Enter the IP address and admin port, verify the kiosk, choose a profile and send the invitation for acceptance on the follower. Invite again also works from saved addresses when discovery is unavailable. Labels, help and validation messages include English and Spanish text (#596).
 

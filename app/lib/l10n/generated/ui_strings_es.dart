@@ -8815,6 +8815,14 @@ class UiStringsEs extends UiStrings {
       'Cuando la pantalla se apaga por completo, la administración de energía de la tableta toma el control. Muchos modelos de Android presentan problemas en ese estado: el Wi-Fi se suspende o se desconecta, las entidades de Home Assistant dejan de estar disponibles, se puede perder el acceso a la cámara y algunos modelos cierran las aplicaciones en segundo plano. El comportamiento depende del fabricante.\n\nLa alternativa fiable es usar el protector de pantalla Negro y dejar esta opción en 0. La pantalla se ve igual de oscura y la aplicación mantiene el control.';
 
   @override
+  String get settingScreensaverScreenOffBlackTitle =>
+      'Usar una pantalla negra en su lugar';
+
+  @override
+  String get settingScreensaverScreenOffBlackDescription =>
+      'Muestra una pantalla negra con el brillo a cero en lugar de apagarla. Oculta los widgets y Reproduciendo Ahora. No requiere permiso de administrador del dispositivo.';
+
+  @override
   String get settingScreensaverGlanceScaleTitle => 'Escala de la fila';
 
   @override

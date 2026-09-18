@@ -15029,6 +15029,18 @@ abstract class UiStrings {
   /// Setting label.
   ///
   /// In en, this message translates to:
+  /// **'Use a black screen instead'**
+  String get settingScreensaverScreenOffBlackTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Show a plain black screen at zero brightness instead of powering off the display. Hides widgets and Now Playing. No Device Administrator permission is needed.'**
+  String get settingScreensaverScreenOffBlackDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
   /// **'Row scaling'**
   String get settingScreensaverGlanceScaleTitle;
 

@@ -111,6 +111,9 @@ export async function cmd(name, params = {}, { timeoutMs = 0 } = {}) {
 // Immich From date, which both Since and Timeframe want), a bare value
 // means equality, and an absent one the common boolean switch.
 export function dependsSatisfiedBy(value, want) {
+  if (want && typeof want === 'object' && typeof want.gt === 'number') {
+    return typeof value === 'number' && value > want.gt;
+  }
   return Array.isArray(want) ? want.includes(value) : value === (want ?? true);
 }
 

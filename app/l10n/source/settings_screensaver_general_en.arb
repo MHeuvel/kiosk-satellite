@@ -519,5 +519,31 @@
         "Screensaver"
       ]
     }
+  },
+  "settingScreensaverScreenOffBlackTitle": "Use a black screen instead",
+  "@settingScreensaverScreenOffBlackTitle": {
+    "context": "Settings:Screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverScreenOffBlackDescription": "Show a plain black screen at zero brightness instead of powering off the display. Hides widgets and Now Playing. No Device Administrator permission is needed.",
+  "@settingScreensaverScreenOffBlackDescription": {
+    "context": "Settings:Screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
   }
 }

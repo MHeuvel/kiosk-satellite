@@ -200,16 +200,33 @@ export async function updateCameraSnapshotPanel() {
 /* The Device admin grant, surfaced right under "Turn screen off after",
    mirroring the device row: the screen-off timer fails quietly without
    the grant, so this row is what says why nothing turned off. */
+let screenOffAdminGranted;
 export async function updateScreenOffAdminNotice() {
-  let granted;
+  syncScreenOffAdminNotice();
   try {
     const res = await (await api('/api/commands/getSystemPermissions', { method: 'POST', body: '{}' })).json();
-    granted = !!(res.data || {}).deviceAdmin;
+    screenOffAdminGranted = !!(res.data || {}).deviceAdmin;
   } catch (_) { return; }
-  if (granted) return;
+  syncScreenOffAdminNotice();
+}
+
+// Keep the notice below the action toggle so showing it never moves that toggle.
+export function syncScreenOffAdminNotice() {
   const tab = document.getElementById('tab-screensaver');
-  const anchor = tab.querySelector('[data-key="screensaver.screen_off_minutes"]');
-  if (!anchor || tab.querySelector('.screen-off-admin-notice')) return;
+  if (!tab) return;
+  const existing = tab.querySelector('.screen-off-admin-notice');
+  const blank = state.settings?.some(s => s.key === 'screensaver.screen_off_black' && s.value === true);
+  if (blank || screenOffAdminGranted !== false) {
+    existing?.remove();
+    return;
+  }
+  const anchor = tab.querySelector('[data-key="screensaver.screen_off_black"]')
+    || tab.querySelector('[data-key="screensaver.screen_off_minutes"]');
+  if (!anchor) return;
+  if (existing) {
+    if (anchor.nextElementSibling !== existing) anchor.after(existing);
+    return;
+  }
   const row = readOnlyRow(screensaverText('Device admin permission missing'),
     screensaverText('Without it the screen cannot be turned off. The grant dialog appears '
     + 'on the tablet screen.'), '');
@@ -228,7 +245,11 @@ export async function updateScreenOffAdminNotice() {
       await new Promise((r) => setTimeout(r, 2500));
       try {
         const res = await (await api('/api/commands/getSystemPermissions', { method: 'POST', body: '{}' })).json();
-        if ((res.data || {}).deviceAdmin) { row.remove(); return; }
+        if ((res.data || {}).deviceAdmin) {
+          screenOffAdminGranted = true;
+          syncScreenOffAdminNotice();
+          return;
+        }
       } catch (_) {}
     }
     btn.disabled = false;

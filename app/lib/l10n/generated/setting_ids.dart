@@ -1404,4 +1404,8 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingCameraRtspDateTimeBackgroundTitle",
     "description": "settingCameraRtspDateTimeBackgroundDescription",
   },
+  "screensaver.screen_off_black": {
+    "title": "settingScreensaverScreenOffBlackTitle",
+    "description": "settingScreensaverScreenOffBlackDescription",
+  },
 };

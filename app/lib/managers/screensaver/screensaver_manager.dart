@@ -193,6 +193,16 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
   /// useful, and the wake paths re-arm on their own.
   bool _panelDark = false;
 
+  // The timeout can cover the app without powering off the physical panel.
+  bool _blanked = false;
+  bool get _screenDark => _panelDark || _blanked;
+
+  Future<void> _wakeFromBlank() async {
+    _blanked = false;
+    _armScreenOffTimer();
+    await _applyVisuals();
+  }
+
   /// Another app is in front of the kiosk (an app from the launcher, a
   /// gesture or Home Assistant, Home pressed without kiosk mode). The
   /// screensaver stands down entirely: brightness is the device's, so a
@@ -229,8 +239,8 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
 
   /// The visual overlay the UI should render, or null for none.
   ///
-  /// One of 'black' | 'clock' | 'media' | 'website'. The 'dim' mode sets no
-  /// view — it only lowers the backlight — so this stays null there.
+  /// One of 'blank' | 'black' | 'clock' | 'media' | 'website'. Dim only
+  /// lowers the backlight, so this stays null there.
   final ValueNotifier<String?> activeView = ValueNotifier(null);
 
   bool get isActive => _active;
@@ -403,7 +413,11 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
         notifyActivity('screen on');
         return;
       }
-      _armScreenOffTimer();
+      if (_blanked) {
+        unawaited(_wakeFromBlank());
+      } else {
+        _armScreenOffTimer();
+      }
     });
     bus.on<NotificationsChanged>().listen((e) {
       unawaited(_onNotificationsChanged(e.showing));
@@ -449,7 +463,7 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
         }
         return;
       }
-      if (!_panelDark &&
+      if (!_screenDark &&
           _settings.get(defs.screensaverDismissOnMotionScreenOffOnly)) {
         return;
       }
@@ -485,7 +499,7 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
         }
         return;
       }
-      if (!_panelDark &&
+      if (!_screenDark &&
           _settings.get(defs.screensaverDismissOnFaceScreenOffOnly)) {
         return;
       }
@@ -526,7 +540,7 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
         }
         return;
       }
-      if (!_panelDark &&
+      if (!_screenDark &&
           _settings.get(defs.screensaverDismissOnPersonScreenOffOnly)) {
         return;
       }
@@ -564,7 +578,7 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
         }
         return;
       }
-      if (!_panelDark &&
+      if (!_screenDark &&
           _settings.get(defs.screensaverDismissOnProximityScreenOffOnly)) {
         return;
       }
@@ -663,6 +677,12 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
       // reaches.
       if (_active && e.key == defs.screensaverScreenOffMinutes.key) {
         _syncScreenOffTimer();
+      }
+      if (_active &&
+          e.key == defs.screensaverScreenOffBlack.key &&
+          e.value == false &&
+          _blanked) {
+        unawaited(_wakeFromBlank());
       }
       // Moving the screensaver-brightness controls while the screensaver is
       // showing applies immediately: the slider doubles as a live preview.
@@ -828,12 +848,16 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
   /// Screen light takes. Returns whether it took the event; a lit panel
   /// or the switch off leaves the dismiss to the caller.
   bool _wakeToScreensaver(String source) {
-    if (!_panelDark ||
+    if (!_screenDark ||
         !_settings.get(defs.screensaverScreenOffWakeToScreensaver)) {
       return false;
     }
     log.info(name, 'woken by $source; screen on, screensaver stays');
-    unawaited(commands.execute('screenOn', const {}));
+    if (_blanked && !_panelDark) {
+      unawaited(_wakeFromBlank());
+    } else {
+      unawaited(commands.execute('screenOn', const {}));
+    }
     return true;
   }
 
@@ -1018,6 +1042,7 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
   /// Whether the Sendspin "Now Playing" view is what the screensaver slot
   /// actually shows right now.
   bool get _nowPlayingTakeover =>
+      !_blanked &&
       _sendspinNowPlaying &&
       _settings.get(defs.sendspinFullscreen) &&
       allowsNowPlaying;
@@ -1189,6 +1214,7 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     }
     _active = true;
     _panelDark = false;
+    _blanked = false;
     // A fresh session starts with no half-open double-tap chain.
     _tapChainStart = null;
     // Hold the panel on for the whole screensaver, every mode. The screensaver
@@ -1210,8 +1236,8 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
   }
 
   /// "Turn screen off after": once the screensaver has been up this long,
-  /// truly power the panel off (device-admin lockNow via the screenOff
-  /// command). The session stays active behind the dark panel — that is
+  /// cover the app at zero brightness when requested or power the panel
+  /// off with the screenOff command. The session stays active. That is
   /// what lets motion, the ESPHome dismiss and the wake word wake it through
   /// the normal [stop] path. Quiet on a missing device admin grant: a
   /// timer firing overnight must never put Android's permission screen up.
@@ -1224,6 +1250,16 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     _screenOffTimer = Timer(_screenOffUnit * minutes, () async {
       _screenOffTimer = null;
       if (!_active) return;
+      if (_settings.get(defs.screensaverScreenOffBlack)) {
+        log.info(name, 'up for ${minutes}m; blanking the screen');
+        _blanked = true;
+        _nowPlayingShared = false;
+        _tapChainStart = null;
+        _controlTouchAt = null;
+        _slideTouchAt = null;
+        await _applyVisuals();
+        return;
+      }
       log.info(name, 'up for ${minutes}m; powering the panel off');
       final r = await commands.execute('screenOff', const {'prompt': false});
       if (!r.ok) {
@@ -1244,7 +1280,7 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
   /// value, the schedule edited live, or the slider moved. Never under a
   /// dark panel, and never for a reapply that leaves the value alone.
   void _syncScreenOffTimer() {
-    if (!_active || _panelDark) return;
+    if (!_active || _screenDark) return;
     if (_effectiveScreenOffMinutes == _armedScreenOffMinutes) return;
     _armScreenOffTimer();
   }
@@ -1278,7 +1314,7 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     _notificationShowing = showing;
     // Nothing to lift unless a session is running and it dimmed something
     // (_savedBrightness is the level it will go back to).
-    if (!_active || _savedBrightness == null) return;
+    if (!_active || _blanked || _savedBrightness == null) return;
     if (!_settings.get(defs.screensaverNotificationBrightness)) return;
     if (showing) {
       await commands.execute('setBrightness', {
@@ -1321,6 +1357,13 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     scheduleWidgets.value = entry?['widgets'] as bool?;
     scheduleGlance.value = entry?['glance'] as bool?;
     _syncScreenOffTimer();
+    if (_blanked) {
+      await _ensureSavedBrightness();
+      if (!_active || !_blanked) return;
+      _setView('blank');
+      await commands.execute('setBrightness', {'level': 0, 'ceiling': true});
+      return;
+    }
     // Modes that change brightness save their restore point first.
     if (mode == 'dim' || mode == 'black' || _contentDimEnabled(mode)) {
       await _ensureSavedBrightness();
@@ -1408,6 +1451,7 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
   /// restore point first when the toggle just turned on; turning it off
   /// restores the pre-screensaver brightness right away.
   Future<void> _onBrightnessSettingChanged() async {
+    if (_blanked) return;
     final mode = _effectiveMode;
     if (mode == 'dim' || mode == 'black' || _nowPlayingNormalBrightness) {
       return;
@@ -1442,6 +1486,7 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     _screenOffTimer = null;
     _armedScreenOffMinutes = null;
     _panelDark = false;
+    _blanked = false;
     log.info(name, 'stop');
     // Thaw the dashboard while the overlay still covers it, so the wake
     // never shows a blank hole where the page is (a no-op unless the

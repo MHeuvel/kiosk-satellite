@@ -208,7 +208,7 @@ class _ScreensaverOverlayState extends State<ScreensaverOverlay> {
     return ValueListenableBuilder<String?>(
       valueListenable: container.screensaver.activeView,
       builder: (context, view, _) {
-        if (view == null) return const SizedBox.shrink();
+        if (view == null || view == 'blank') return const SizedBox.shrink();
         // A Black screensaver asked to look off (issue #151): one switch
         // blanks the overlays instead of asking people to unconfigure the
         // small clock and At a Glance row for the night.
@@ -617,6 +617,26 @@ class _Dismissable extends StatelessWidget {
     behavior: HitTestBehavior.opaque,
     onTap: () => container.screensaver.notifyActivity('tap'),
     child: child,
+  );
+}
+
+/// A timeout cover above widgets, timers and notifications.
+class ScreensaverBlankOverlay extends StatelessWidget {
+  const ScreensaverBlankOverlay({super.key, required this.container});
+
+  final AppContainer container;
+
+  @override
+  Widget build(BuildContext context) => ValueListenableBuilder<String?>(
+    valueListenable: container.screensaver.activeView,
+    builder: (context, view, _) => view == 'blank'
+        ? Positioned.fill(
+            child: _Dismissable(
+              container: container,
+              child: const ColoredBox(color: Colors.black),
+            ),
+          )
+        : const SizedBox.shrink(),
   );
 }
 

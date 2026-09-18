@@ -8637,6 +8637,14 @@ class UiStringsEn extends UiStrings {
       'Once the display truly powers off, the tablet\'s own power management takes over, and many Android models misbehave in that state: Wi-Fi naps or drops, the Home Assistant entities go unavailable, the camera can be revoked, and some models kill background apps outright. What happens depends on the manufacturer.\n\nThe reliable alternative is the Black screensaver with this setting left at 0: the panel looks just as dark, and the app keeps full control.';
 
   @override
+  String get settingScreensaverScreenOffBlackTitle =>
+      'Use a black screen instead';
+
+  @override
+  String get settingScreensaverScreenOffBlackDescription =>
+      'Show a plain black screen at zero brightness instead of powering off the display. Hides widgets and Now Playing. No Device Administrator permission is needed.';
+
+  @override
   String get settingScreensaverGlanceScaleTitle => 'Row scaling';
 
   @override
