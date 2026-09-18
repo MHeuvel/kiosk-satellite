@@ -112,11 +112,12 @@ class UiStringsEs extends UiStrings {
       'manteniendo la conexión con Home Assistant';
 
   @override
-  String get launcherErrorAndroidOnly => 'listing apps is Android-only';
+  String get launcherErrorAndroidOnly =>
+      'La lista de aplicaciones solo está disponible en Android';
 
   @override
   String launcherErrorListDetail(String error) {
-    return 'could not list apps: $error';
+    return 'No se pudo obtener la lista de aplicaciones: $error';
   }
 
   @override
@@ -2543,286 +2544,299 @@ class UiStringsEs extends UiStrings {
       'Usa las flechas para examinar las muestras y Fin para ir a la más reciente.';
 
   @override
-  String get pluginErrorAssetPath => 'Invalid asset path';
+  String get pluginErrorAssetPath => 'La ruta del archivo no es válida';
 
   @override
   String get pluginErrorAssetMissing =>
-      'Asset is missing or outside its package';
+      'El archivo no existe o está fuera de su paquete';
 
   @override
   String get pluginErrorAssetSymlink =>
-      'Asset directory cannot be a symbolic link';
+      'El directorio de archivos no puede ser un enlace simbólico';
 
   @override
   String get pluginErrorAssetSymlinks =>
-      'Asset directories cannot be symbolic links';
+      'Los directorios de archivos no pueden ser enlaces simbólicos';
 
   @override
   String get pluginErrorAssetsIntegrity =>
-      'Installed assets failed their integrity check';
+      'Los archivos instalados no pasaron la verificación de integridad';
 
   @override
   String get pluginErrorAssetIntegrity =>
-      'Installed asset failed its integrity check';
+      'El archivo instalado no pasó la verificación de integridad';
 
   @override
   String get pluginErrorManifestMismatch =>
-      'Package manifest does not match the reviewed release manifest';
+      'El manifiesto del paquete no coincide con el de la versión revisada';
 
   @override
-  String get pluginErrorStagingExists => 'Staging directory already exists';
+  String get pluginErrorStagingExists =>
+      'El directorio de preparación ya existe';
 
   @override
-  String get pluginErrorCreateDirectory => 'Cannot create plugin directory';
+  String get pluginErrorCreateDirectory =>
+      'No se puede crear el directorio del plugin';
 
   @override
-  String get pluginErrorFileCount => 'At most 512 package files are supported';
+  String get pluginErrorFileCount =>
+      'Se admiten hasta 512 archivos por paquete';
 
   @override
-  String get pluginErrorProtectFile => 'Cannot protect plugin file';
+  String get pluginErrorProtectFile =>
+      'No se puede proteger el archivo del plugin';
 
   @override
-  String get pluginErrorExpandedSize => 'Expanded plugin exceeds 4 MB';
+  String get pluginErrorExpandedSize =>
+      'El plugin descomprimido supera los 4 MB';
 
   @override
-  String get pluginErrorManifestSize => 'Manifest exceeds 32 KB';
+  String get pluginErrorManifestSize => 'El manifiesto supera los 32 KB';
 
   @override
   String get pluginErrorRequiredFiles =>
-      'Package needs kiosk-satellite-plugin.json, plugin.jar and LICENSE';
+      'El paquete necesita kiosk-satellite-plugin.json, plugin.jar y LICENSE';
 
   @override
   String get pluginErrorNativeCapability =>
-      'Native libraries require native capability';
+      'Las bibliotecas nativas requieren la capacidad native';
 
   @override
-  String get pluginErrorNativeElf => 'Invalid native ELF library';
+  String get pluginErrorNativeElf => 'La biblioteca ELF nativa no es válida';
 
   @override
   String get pluginErrorNativeAbi =>
-      'Native library ABI does not match its directory';
+      'La ABI de la biblioteca nativa no coincide con su directorio';
 
   @override
-  String get pluginErrorDexOnly => 'plugin.jar must contain only DEX files';
+  String get pluginErrorDexOnly => 'plugin.jar solo debe contener archivos DEX';
 
   @override
-  String get pluginErrorDexHeader => 'Invalid DEX header';
+  String get pluginErrorDexHeader => 'La cabecera DEX no es válida';
 
   @override
-  String get pluginErrorDexSize => 'Expanded DEX exceeds 4 MB';
+  String get pluginErrorDexSize => 'El DEX descomprimido supera los 4 MB';
 
   @override
-  String get pluginErrorDexEmpty => 'Empty DEX file';
+  String get pluginErrorDexEmpty => 'El archivo DEX está vacío';
 
   @override
-  String get pluginErrorDexMissing => 'plugin.jar has no classes.dex';
+  String get pluginErrorDexMissing => 'plugin.jar no contiene classes.dex';
 
   @override
   String pluginErrorZipEntry(String name) {
-    return 'Unexpected or duplicate ZIP entry: $name';
+    return 'Entrada ZIP inesperada o duplicada: $name';
   }
 
   @override
   String get pluginErrorRepositoryMismatch =>
-      'The repository release belongs to a different plugin.';
+      'La versión publicada del repositorio pertenece a otro plugin.';
 
   @override
   String get pluginErrorRepositoryUrl =>
-      'Enter a public https://github.com/owner/repository URL';
+      'Ingresa la URL de un repositorio público con el formato https://github.com/owner/repository';
 
   @override
   String get pluginErrorRepositoryPath =>
-      'Use the repository URL without a file or branch path';
+      'Usa la URL del repositorio sin la ruta de un archivo o una rama';
 
   @override
   String get pluginErrorDownloadOutsideGithub =>
-      'Plugin download redirected outside GitHub';
+      'La descarga del plugin se redirigió fuera de GitHub';
 
   @override
-  String get pluginErrorInvalidRedirect => 'Invalid GitHub redirect';
+  String get pluginErrorInvalidRedirect =>
+      'La redirección de GitHub no es válida';
 
   @override
   String get pluginErrorRepositoryNotFound =>
-      'Public repository, stable release, kiosk-satellite-plugin.json, README.md or release asset was not found.';
+      'No se encontró el repositorio público, la versión estable, kiosk-satellite-plugin.json, README.md o un archivo de la versión publicada.';
 
   @override
   String get pluginErrorGithubLimited =>
-      'GitHub denied the request or its request limit was reached. Try again later.';
+      'GitHub rechazó la solicitud o se alcanzó su límite de solicitudes. Vuelve a intentarlo más tarde.';
 
   @override
   String get pluginErrorRepositorySize =>
-      'Repository file exceeds the size limit';
+      'El archivo del repositorio supera el límite de tamaño';
 
   @override
-  String get pluginErrorTooManyRedirects => 'Too many GitHub redirects';
+  String get pluginErrorTooManyRedirects =>
+      'Demasiadas redirecciones de GitHub';
 
   @override
   String get pluginErrorStableRelease =>
-      'GitHub did not return a published stable release';
+      'GitHub no devolvió una versión estable publicada';
 
   @override
-  String get pluginErrorReleaseTag => 'Invalid release tag';
+  String get pluginErrorReleaseTag => 'La etiqueta de la versión no es válida';
 
   @override
   String get pluginErrorManifestFile =>
-      'Invalid kiosk-satellite-plugin.json manifest';
+      'El manifiesto kiosk-satellite-plugin.json no es válido';
 
   @override
-  String get pluginErrorIdVersion => 'Invalid plugin ID or version';
+  String get pluginErrorIdVersion =>
+      'El ID o la versión del plugin no es válido';
 
   @override
   String get pluginErrorChecksumFilename =>
-      'Invalid release checksum or package filename';
+      'La suma de verificación de la versión o el nombre del paquete no es válido';
 
   @override
   String get pluginErrorGithubDigest =>
-      'The release checksum must match GitHub asset SHA-256 digest';
+      'La suma de verificación de la versión debe coincidir con el SHA-256 del archivo en GitHub';
 
   @override
   String get pluginErrorTagRevision =>
-      'GitHub did not return the release tag revision';
+      'GitHub no devolvió la revisión de la etiqueta de la versión';
 
   @override
   String get pluginErrorTrustAuthor =>
-      'Confirm that you trust the plugin author';
+      'Confirma que confías en el autor del plugin';
 
   @override
   String get pluginErrorPreviewExpired =>
-      'This preview expired. Preview the repository again before installing.';
+      'Esta vista previa caducó. Vuelve a consultar la vista previa del repositorio antes de instalar.';
 
   @override
   String get pluginErrorReviewedChecksum =>
-      'Package SHA-256 does not match the reviewed release';
+      'El SHA-256 del paquete no coincide con la versión revisada';
 
   @override
-  String get pluginErrorNotInstalled => 'Plugin is not installed';
+  String get pluginErrorNotInstalled => 'El plugin no está instalado';
 
   @override
   String get pluginErrorUpdateZip =>
-      'This plugin was installed from ZIP. Use Install from ZIP to update it.';
+      'Este plugin se instaló desde un ZIP. Usa Instalar desde ZIP para actualizarlo.';
 
   @override
-  String get pluginErrorAndroidOnly => 'Plugins are available on Android.';
+  String get pluginErrorAndroidOnly =>
+      'Los plugins están disponibles en Android.';
 
   @override
   String pluginErrorGithubRequest(String status) {
-    return 'GitHub request failed ($status)';
+    return 'La solicitud a GitHub falló ($status)';
   }
 
   @override
   String pluginErrorReleaseAsset(String name) {
-    return 'Release needs exactly one uploaded $name asset';
+    return 'La versión debe tener exactamente un archivo $name subido';
   }
 
   @override
   String pluginErrorAssetPublisher(String name) {
-    return 'Release asset $name must be published by GitHub Actions. Manually uploaded files are not supported.';
+    return 'GitHub Actions debe publicar el archivo $name de la versión. No se admiten archivos subidos manualmente.';
   }
 
   @override
   String pluginErrorAssetSize(String name) {
-    return 'Release asset $name exceeds the size limit or is empty';
+    return 'El archivo $name de la versión supera el límite de tamaño o está vacío';
   }
 
   @override
   String pluginErrorAssetUrl(String name) {
-    return 'Invalid release URL for $name';
+    return 'La URL de la versión para $name no es válida';
   }
 
   @override
   String get pluginErrorNativeLibrary =>
-      'Plugin has no native library for this device ABI';
+      'El plugin no tiene una biblioteca nativa para la ABI de este dispositivo';
 
   @override
   String get pluginErrorCallbackTimeout =>
-      'Plugin callback timed out. Restart Kiosk if the plugin left work running.';
+      'La respuesta del plugin tardó demasiado. Reinicia el kiosko si el plugin dejó tareas en ejecución.';
 
   @override
-  String get pluginErrorEnableFirst => 'Enable the plugin first';
+  String get pluginErrorEnableFirst => 'Activa primero el plugin';
 
   @override
-  String get pluginErrorSaveState => 'Cannot save plugin state';
+  String get pluginErrorSaveState => 'No se puede guardar el estado del plugin';
 
   @override
-  String get pluginErrorPackageHash => 'Invalid installed package hash';
+  String get pluginErrorPackageHash =>
+      'El hash del paquete instalado no es válido';
 
   @override
-  String get pluginErrorChecksum => 'Package SHA-256 does not match';
+  String get pluginErrorChecksum => 'El SHA-256 del paquete no coincide';
 
   @override
   String get pluginErrorDifferentRepository =>
-      'This plugin ID belongs to another repository. Uninstall it before changing sources.';
+      'Este ID de plugin pertenece a otro repositorio. Desinstálalo antes de cambiar de origen.';
 
   @override
   String get pluginErrorRestartReplace =>
-      'This plugin did not stop cleanly. Restart Kiosk Satellite before replacing it.';
+      'Este plugin no se detuvo correctamente. Reinicia Kiosk Satellite antes de reemplazarlo.';
 
   @override
-  String get pluginErrorPluginLimit => 'At most 8 plugins can be installed';
+  String get pluginErrorPluginLimit => 'Se pueden instalar hasta 8 plugins';
 
   @override
-  String get pluginErrorAlreadyInstalled => 'This package is already installed';
+  String get pluginErrorAlreadyInstalled => 'Este paquete ya está instalado';
 
   @override
   String get pluginErrorLoadedIntegrity =>
-      'Previously loaded package failed its integrity check. Restart Kiosk Satellite before reinstalling it.';
+      'El paquete cargado anteriormente no pasó la verificación de integridad. Reinicia Kiosk Satellite antes de reinstalarlo.';
 
   @override
-  String get pluginErrorRemovePackage => 'Cannot remove unused package';
+  String get pluginErrorRemovePackage =>
+      'No se puede eliminar el paquete sin usar';
 
   @override
-  String get pluginErrorInstallPackage => 'Cannot install plugin package';
+  String get pluginErrorInstallPackage =>
+      'No se puede instalar el paquete del plugin';
 
   @override
   String get pluginErrorUpdateCanceled =>
-      'Update canceled because the plugin did not stop cleanly. Restart Kiosk Satellite before trying again.';
+      'Se canceló la actualización porque el plugin no se detuvo correctamente. Reinicia Kiosk Satellite antes de volver a intentarlo.';
 
   @override
-  String get pluginErrorVersionRetained => 'The previous version was retained.';
+  String get pluginErrorVersionRetained => 'Se conservó la versión anterior.';
 
   @override
   String get pluginErrorRetainedDisabled =>
-      'The previous version was retained but is disabled. Restart Kiosk Satellite before enabling it.';
+      'Se conservó la versión anterior, pero está desactivada. Reinicia Kiosk Satellite antes de activarla.';
 
   @override
   String get pluginErrorVersionRunning =>
-      'The previous version is running again.';
+      'La versión anterior vuelve a estar en ejecución.';
 
   @override
-  String get pluginErrorEnablePlugins => 'Enable Plugins first';
+  String get pluginErrorEnablePlugins => 'Activa primero los plugins';
 
   @override
   String get pluginErrorRestartEnable =>
-      'This plugin did not stop cleanly. Restart Kiosk Satellite before enabling it.';
+      'Este plugin no se detuvo correctamente. Reinicia Kiosk Satellite antes de activarlo.';
 
   @override
   String get pluginErrorInstalledIntegrity =>
-      'Installed plugin failed its integrity check. Reinstall it.';
+      'El plugin instalado no pasó la verificación de integridad. Reinstálalo.';
 
   @override
-  String get pluginErrorAndroidOld => 'Android version is too old';
+  String get pluginErrorAndroidOld =>
+      'La versión de Android es demasiado antigua';
 
   @override
   String get pluginErrorNativeIntegrity =>
-      'Installed native libraries failed their integrity check';
+      'Las bibliotecas nativas instaladas no pasaron la verificación de integridad';
 
   @override
   String get pluginErrorNativeFileIntegrity =>
-      'Installed native library failed its integrity check';
+      'La biblioteca nativa instalada no pasó la verificación de integridad';
 
   @override
   String pluginErrorReadInstalled(String error) {
-    return 'Cannot read installed plugin: $error';
+    return 'No se puede leer el plugin instalado: $error';
   }
 
   @override
   String pluginErrorPreviousRestart(String error) {
-    return 'The previous version could not restart: $error';
+    return 'No se pudo reiniciar la versión anterior: $error';
   }
 
   @override
   String pluginErrorUpdateFailed(String error, String recovery) {
-    return 'Plugin update failed: $error. $recovery';
+    return 'La actualización del plugin falló: $error. $recovery';
   }
 
   @override
@@ -2848,98 +2862,108 @@ class UiStringsEs extends UiStrings {
       'Aprueba la solicitud de permiso en el kiosko.';
 
   @override
-  String get pluginErrorInvalidId => 'Invalid plugin ID';
+  String get pluginErrorInvalidId => 'El ID del plugin no es válido';
 
   @override
-  String get pluginErrorInvalidVersion => 'Invalid version';
+  String get pluginErrorInvalidVersion => 'La versión no es válida';
 
   @override
-  String get pluginErrorEntryClass => 'Invalid entry class';
+  String get pluginErrorEntryClass => 'La clase de entrada no es válida';
 
   @override
-  String get pluginErrorManifestSchema => 'Unsupported manifest schema';
+  String get pluginErrorManifestSchema =>
+      'El esquema del manifiesto no es compatible';
 
   @override
   String get pluginErrorSdkVersion =>
-      'This plugin needs a different SDK version';
+      'Este plugin necesita otra versión del SDK';
 
   @override
-  String get pluginErrorMinimumSdk => 'Minimum Android SDK must be at least 24';
+  String get pluginErrorMinimumSdk =>
+      'El SDK mínimo de Android debe ser al menos 24';
 
   @override
-  String get pluginErrorCapability => 'Unsupported plugin capability';
+  String get pluginErrorCapability =>
+      'La capacidad del plugin no es compatible';
 
   @override
-  String get pluginErrorTooManySettings => 'Too many settings or commands';
+  String get pluginErrorTooManySettings => 'Demasiados ajustes o comandos';
 
   @override
-  String get pluginErrorSettingKey => 'Invalid or duplicate setting key';
+  String get pluginErrorSettingKey =>
+      'La clave del ajuste no es válida o está duplicada';
 
   @override
-  String get pluginErrorGroupsArray => 'Display groups must be an array';
+  String get pluginErrorGroupsArray =>
+      'Los grupos de visualización deben ser una lista';
 
   @override
-  String get pluginErrorTooManyGroups => 'Too many display groups';
+  String get pluginErrorTooManyGroups => 'Demasiados grupos de visualización';
 
   @override
   String get pluginErrorUniqueGroups =>
-      'Display groups must name unique settings groups';
+      'Los grupos de visualización deben referirse a grupos de ajustes únicos';
 
   @override
-  String get pluginErrorGroupReferences => 'Too many group references';
+  String get pluginErrorGroupReferences => 'Demasiadas referencias en el grupo';
 
   @override
   String get pluginErrorDuplicateReference =>
-      'Invalid or duplicate group reference';
+      'La referencia del grupo no es válida o está duplicada';
 
   @override
-  String get pluginErrorCommandId => 'Invalid or duplicate command ID';
+  String get pluginErrorCommandId =>
+      'El ID del comando no es válido o está duplicado';
 
   @override
-  String get pluginErrorUnknownSetting => 'Unknown plugin setting';
+  String get pluginErrorUnknownSetting => 'El ajuste del plugin es desconocido';
 
   @override
   String get pluginErrorTextLength =>
-      'Text settings must be at most 512 characters';
+      'Los ajustes de texto no deben superar los 512 caracteres';
 
   @override
-  String get pluginErrorEntityId => 'Expected a Home Assistant entity ID';
+  String get pluginErrorEntityId =>
+      'Se esperaba un ID de entidad de Home Assistant';
 
   @override
-  String get pluginErrorBoolean => 'Expected a boolean setting';
+  String get pluginErrorBoolean => 'Se esperaba un ajuste booleano';
 
   @override
-  String get pluginErrorColor => 'Expected an RGB hex color';
+  String get pluginErrorColor => 'Se esperaba un color RGB hexadecimal';
 
   @override
-  String get pluginErrorNumber => 'Expected a numeric setting';
+  String get pluginErrorNumber => 'Se esperaba un ajuste numérico';
 
   @override
-  String get pluginErrorRange => 'Numeric setting is outside its range';
+  String get pluginErrorRange => 'El ajuste numérico está fuera de su rango';
 
   @override
-  String get pluginErrorStep => 'Numeric setting does not match its step';
+  String get pluginErrorStep =>
+      'El ajuste numérico no coincide con su incremento';
 
   @override
-  String get pluginErrorSelection => 'Invalid selection setting';
+  String get pluginErrorSelection => 'El ajuste de selección no es válido';
 
   @override
-  String get pluginErrorSelectionOption => 'Unknown selection option';
+  String get pluginErrorSelectionOption =>
+      'La opción de selección es desconocida';
 
   @override
-  String get pluginErrorSettingType => 'Unsupported setting type';
+  String get pluginErrorSettingType => 'El tipo de ajuste no es compatible';
 
   @override
-  String get pluginErrorInvalidManifest => 'Invalid plugin manifest';
+  String get pluginErrorInvalidManifest =>
+      'El manifiesto del plugin no es válido';
 
   @override
   String pluginErrorAndroidApi(String version) {
-    return 'Plugin needs Android API $version';
+    return 'El plugin necesita la API $version de Android';
   }
 
   @override
   String pluginErrorInvalidField(String field) {
-    return 'Invalid $field';
+    return 'El campo $field no es válido';
   }
 
   @override
@@ -3631,32 +3655,33 @@ class UiStringsEs extends UiStrings {
 
   @override
   String cameraSnapshotError(String error) {
-    return 'Snapshot failed: $error';
+    return 'No se pudo tomar la captura: $error';
   }
 
   @override
   String get cameraCameraDisabled =>
-      'The camera is disabled in the Camera settings.';
+      'La cámara está desactivada en la configuración de Cámara.';
 
   @override
-  String get cameraSnapshotBusy => 'A snapshot is already in progress.';
+  String get cameraSnapshotBusy => 'Ya hay una captura en curso.';
 
   @override
-  String get cameraPermissionDenied => 'Camera permission not granted.';
+  String get cameraPermissionDenied =>
+      'No se ha concedido el permiso de cámara.';
 
   @override
   String get cameraDetectionDisabled =>
       'Las capturas por detección están desactivadas.';
 
   @override
-  String get cameraNoImage => 'The camera returned no image.';
+  String get cameraNoImage => 'La cámara no devolvió ninguna imagen.';
 
   @override
-  String get cameraTimedOut => 'The camera did not answer in time.';
+  String get cameraTimedOut => 'La cámara no respondió a tiempo.';
 
   @override
   String get cameraBackground =>
-      'The camera is unavailable while the app is in the background.';
+      'La cámara no está disponible mientras la aplicación está en segundo plano.';
 
   @override
   String get cameraJustNow => 'hace un momento';
@@ -4023,14 +4048,14 @@ class UiStringsEs extends UiStrings {
       'La cuadrícula tiene menos espacios que cámaras.';
 
   @override
-  String get cameraStreamsViewNotFound => 'view not found';
+  String get cameraStreamsViewNotFound => 'No se encontró la vista.';
 
   @override
   String get cameraStreamsDefaultViewDelete =>
       'No se puede eliminar la vista predeterminada. Quita todas sus cámaras para dejarla vacía.';
 
   @override
-  String get cameraStreamsViewEmpty => 'view has no cameras';
+  String get cameraStreamsViewEmpty => 'La vista no tiene cámaras.';
 
   @override
   String cameraStreamsHaReadFailed(String error) {

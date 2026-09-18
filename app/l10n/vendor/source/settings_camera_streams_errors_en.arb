@@ -243,7 +243,8 @@
         "Settings > Camera Streams > Server, camera and view editors"
       ],
       "remoteAdmin": [
-        "Camera Streams > Server, camera and view editors"
+        "Camera Streams > Server, camera and view editors",
+        "Overview > Quick controls > Take snapshot or Show camera view"
       ]
     }
   },
@@ -269,7 +270,8 @@
         "Settings > Camera Streams > Server, camera and view editors"
       ],
       "remoteAdmin": [
-        "Camera Streams > Server, camera and view editors"
+        "Camera Streams > Server, camera and view editors",
+        "Overview > Quick controls > Take snapshot or Show camera view"
       ]
     }
   },

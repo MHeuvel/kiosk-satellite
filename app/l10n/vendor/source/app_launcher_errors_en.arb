@@ -1,0 +1,35 @@
+{
+  "@@locale": "en",
+  "launcherErrorAndroidOnly": "listing apps is Android-only",
+  "@launcherErrorAndroidOnly": {
+    "context": "Settings > App Launcher > Apps",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > App Launcher > Apps"
+      ],
+      "remoteAdmin": [
+        "Settings > App Launcher > Apps"
+      ]
+    }
+  },
+  "launcherErrorListDetail": "could not list apps: {error}",
+  "@launcherErrorListDetail": {
+    "context": "Settings > App Launcher > Apps",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > App Launcher > Apps"
+      ],
+      "remoteAdmin": [
+        "Settings > App Launcher > Apps"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "E_VENDOR: original details"
+      }
+    }
+  }
+}

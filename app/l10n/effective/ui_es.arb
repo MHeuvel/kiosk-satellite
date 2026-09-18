@@ -366,7 +366,7 @@
     },
     "x-notes": "Lowercase phrase without final punctuation. Active phrases are joined with commas. The app capitalizes the first letter and adds a final period. Keep product names unchanged."
   },
-  "launcherErrorAndroidOnly": "listing apps is Android-only",
+  "launcherErrorAndroidOnly": "La lista de aplicaciones solo está disponible en Android",
   "@launcherErrorAndroidOnly": {
     "context": "Settings > App Launcher > Apps",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -379,7 +379,7 @@
       ]
     }
   },
-  "launcherErrorListDetail": "could not list apps: {error}",
+  "launcherErrorListDetail": "No se pudo obtener la lista de aplicaciones: {error}",
   "@launcherErrorListDetail": {
     "context": "Settings > App Launcher > Apps",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9300,7 +9300,7 @@
       ]
     }
   },
-  "pluginErrorAssetPath": "Invalid asset path",
+  "pluginErrorAssetPath": "La ruta del archivo no es válida",
   "@pluginErrorAssetPath": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9313,7 +9313,7 @@
       ]
     }
   },
-  "pluginErrorAssetMissing": "Asset is missing or outside its package",
+  "pluginErrorAssetMissing": "El archivo no existe o está fuera de su paquete",
   "@pluginErrorAssetMissing": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9326,7 +9326,7 @@
       ]
     }
   },
-  "pluginErrorAssetSymlink": "Asset directory cannot be a symbolic link",
+  "pluginErrorAssetSymlink": "El directorio de archivos no puede ser un enlace simbólico",
   "@pluginErrorAssetSymlink": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9339,7 +9339,7 @@
       ]
     }
   },
-  "pluginErrorAssetSymlinks": "Asset directories cannot be symbolic links",
+  "pluginErrorAssetSymlinks": "Los directorios de archivos no pueden ser enlaces simbólicos",
   "@pluginErrorAssetSymlinks": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9352,7 +9352,7 @@
       ]
     }
   },
-  "pluginErrorAssetsIntegrity": "Installed assets failed their integrity check",
+  "pluginErrorAssetsIntegrity": "Los archivos instalados no pasaron la verificación de integridad",
   "@pluginErrorAssetsIntegrity": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9365,7 +9365,7 @@
       ]
     }
   },
-  "pluginErrorAssetIntegrity": "Installed asset failed its integrity check",
+  "pluginErrorAssetIntegrity": "El archivo instalado no pasó la verificación de integridad",
   "@pluginErrorAssetIntegrity": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9378,7 +9378,7 @@
       ]
     }
   },
-  "pluginErrorManifestMismatch": "Package manifest does not match the reviewed release manifest",
+  "pluginErrorManifestMismatch": "El manifiesto del paquete no coincide con el de la versión revisada",
   "@pluginErrorManifestMismatch": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9391,7 +9391,7 @@
       ]
     }
   },
-  "pluginErrorStagingExists": "Staging directory already exists",
+  "pluginErrorStagingExists": "El directorio de preparación ya existe",
   "@pluginErrorStagingExists": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9404,7 +9404,7 @@
       ]
     }
   },
-  "pluginErrorCreateDirectory": "Cannot create plugin directory",
+  "pluginErrorCreateDirectory": "No se puede crear el directorio del plugin",
   "@pluginErrorCreateDirectory": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9417,7 +9417,7 @@
       ]
     }
   },
-  "pluginErrorFileCount": "At most 512 package files are supported",
+  "pluginErrorFileCount": "Se admiten hasta 512 archivos por paquete",
   "@pluginErrorFileCount": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9430,7 +9430,7 @@
       ]
     }
   },
-  "pluginErrorProtectFile": "Cannot protect plugin file",
+  "pluginErrorProtectFile": "No se puede proteger el archivo del plugin",
   "@pluginErrorProtectFile": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9443,7 +9443,7 @@
       ]
     }
   },
-  "pluginErrorExpandedSize": "Expanded plugin exceeds 4 MB",
+  "pluginErrorExpandedSize": "El plugin descomprimido supera los 4 MB",
   "@pluginErrorExpandedSize": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9456,7 +9456,7 @@
       ]
     }
   },
-  "pluginErrorManifestSize": "Manifest exceeds 32 KB",
+  "pluginErrorManifestSize": "El manifiesto supera los 32 KB",
   "@pluginErrorManifestSize": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9469,7 +9469,7 @@
       ]
     }
   },
-  "pluginErrorRequiredFiles": "Package needs kiosk-satellite-plugin.json, plugin.jar and LICENSE",
+  "pluginErrorRequiredFiles": "El paquete necesita kiosk-satellite-plugin.json, plugin.jar y LICENSE",
   "@pluginErrorRequiredFiles": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9482,7 +9482,7 @@
       ]
     }
   },
-  "pluginErrorNativeCapability": "Native libraries require native capability",
+  "pluginErrorNativeCapability": "Las bibliotecas nativas requieren la capacidad native",
   "@pluginErrorNativeCapability": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9495,7 +9495,7 @@
       ]
     }
   },
-  "pluginErrorNativeElf": "Invalid native ELF library",
+  "pluginErrorNativeElf": "La biblioteca ELF nativa no es válida",
   "@pluginErrorNativeElf": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9508,7 +9508,7 @@
       ]
     }
   },
-  "pluginErrorNativeAbi": "Native library ABI does not match its directory",
+  "pluginErrorNativeAbi": "La ABI de la biblioteca nativa no coincide con su directorio",
   "@pluginErrorNativeAbi": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9521,7 +9521,7 @@
       ]
     }
   },
-  "pluginErrorDexOnly": "plugin.jar must contain only DEX files",
+  "pluginErrorDexOnly": "plugin.jar solo debe contener archivos DEX",
   "@pluginErrorDexOnly": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9534,7 +9534,7 @@
       ]
     }
   },
-  "pluginErrorDexHeader": "Invalid DEX header",
+  "pluginErrorDexHeader": "La cabecera DEX no es válida",
   "@pluginErrorDexHeader": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9547,7 +9547,7 @@
       ]
     }
   },
-  "pluginErrorDexSize": "Expanded DEX exceeds 4 MB",
+  "pluginErrorDexSize": "El DEX descomprimido supera los 4 MB",
   "@pluginErrorDexSize": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9560,7 +9560,7 @@
       ]
     }
   },
-  "pluginErrorDexEmpty": "Empty DEX file",
+  "pluginErrorDexEmpty": "El archivo DEX está vacío",
   "@pluginErrorDexEmpty": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9573,7 +9573,7 @@
       ]
     }
   },
-  "pluginErrorDexMissing": "plugin.jar has no classes.dex",
+  "pluginErrorDexMissing": "plugin.jar no contiene classes.dex",
   "@pluginErrorDexMissing": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9586,7 +9586,7 @@
       ]
     }
   },
-  "pluginErrorZipEntry": "Unexpected or duplicate ZIP entry: {name}",
+  "pluginErrorZipEntry": "Entrada ZIP inesperada o duplicada: {name}",
   "@pluginErrorZipEntry": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9605,7 +9605,7 @@
       }
     }
   },
-  "pluginErrorRepositoryMismatch": "The repository release belongs to a different plugin.",
+  "pluginErrorRepositoryMismatch": "La versión publicada del repositorio pertenece a otro plugin.",
   "@pluginErrorRepositoryMismatch": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9618,7 +9618,7 @@
       ]
     }
   },
-  "pluginErrorRepositoryUrl": "Enter a public https://github.com/owner/repository URL",
+  "pluginErrorRepositoryUrl": "Ingresa la URL de un repositorio público con el formato https://github.com/owner/repository",
   "@pluginErrorRepositoryUrl": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9631,7 +9631,7 @@
       ]
     }
   },
-  "pluginErrorRepositoryPath": "Use the repository URL without a file or branch path",
+  "pluginErrorRepositoryPath": "Usa la URL del repositorio sin la ruta de un archivo o una rama",
   "@pluginErrorRepositoryPath": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9644,7 +9644,7 @@
       ]
     }
   },
-  "pluginErrorDownloadOutsideGithub": "Plugin download redirected outside GitHub",
+  "pluginErrorDownloadOutsideGithub": "La descarga del plugin se redirigió fuera de GitHub",
   "@pluginErrorDownloadOutsideGithub": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9657,7 +9657,7 @@
       ]
     }
   },
-  "pluginErrorInvalidRedirect": "Invalid GitHub redirect",
+  "pluginErrorInvalidRedirect": "La redirección de GitHub no es válida",
   "@pluginErrorInvalidRedirect": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9670,7 +9670,7 @@
       ]
     }
   },
-  "pluginErrorRepositoryNotFound": "Public repository, stable release, kiosk-satellite-plugin.json, README.md or release asset was not found.",
+  "pluginErrorRepositoryNotFound": "No se encontró el repositorio público, la versión estable, kiosk-satellite-plugin.json, README.md o un archivo de la versión publicada.",
   "@pluginErrorRepositoryNotFound": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9683,7 +9683,7 @@
       ]
     }
   },
-  "pluginErrorGithubLimited": "GitHub denied the request or its request limit was reached. Try again later.",
+  "pluginErrorGithubLimited": "GitHub rechazó la solicitud o se alcanzó su límite de solicitudes. Vuelve a intentarlo más tarde.",
   "@pluginErrorGithubLimited": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9696,7 +9696,7 @@
       ]
     }
   },
-  "pluginErrorRepositorySize": "Repository file exceeds the size limit",
+  "pluginErrorRepositorySize": "El archivo del repositorio supera el límite de tamaño",
   "@pluginErrorRepositorySize": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9709,7 +9709,7 @@
       ]
     }
   },
-  "pluginErrorTooManyRedirects": "Too many GitHub redirects",
+  "pluginErrorTooManyRedirects": "Demasiadas redirecciones de GitHub",
   "@pluginErrorTooManyRedirects": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9722,7 +9722,7 @@
       ]
     }
   },
-  "pluginErrorStableRelease": "GitHub did not return a published stable release",
+  "pluginErrorStableRelease": "GitHub no devolvió una versión estable publicada",
   "@pluginErrorStableRelease": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9735,7 +9735,7 @@
       ]
     }
   },
-  "pluginErrorReleaseTag": "Invalid release tag",
+  "pluginErrorReleaseTag": "La etiqueta de la versión no es válida",
   "@pluginErrorReleaseTag": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9748,7 +9748,7 @@
       ]
     }
   },
-  "pluginErrorManifestFile": "Invalid kiosk-satellite-plugin.json manifest",
+  "pluginErrorManifestFile": "El manifiesto kiosk-satellite-plugin.json no es válido",
   "@pluginErrorManifestFile": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9761,7 +9761,7 @@
       ]
     }
   },
-  "pluginErrorIdVersion": "Invalid plugin ID or version",
+  "pluginErrorIdVersion": "El ID o la versión del plugin no es válido",
   "@pluginErrorIdVersion": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9774,7 +9774,7 @@
       ]
     }
   },
-  "pluginErrorChecksumFilename": "Invalid release checksum or package filename",
+  "pluginErrorChecksumFilename": "La suma de verificación de la versión o el nombre del paquete no es válido",
   "@pluginErrorChecksumFilename": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9787,7 +9787,7 @@
       ]
     }
   },
-  "pluginErrorGithubDigest": "The release checksum must match GitHub asset SHA-256 digest",
+  "pluginErrorGithubDigest": "La suma de verificación de la versión debe coincidir con el SHA-256 del archivo en GitHub",
   "@pluginErrorGithubDigest": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9800,7 +9800,7 @@
       ]
     }
   },
-  "pluginErrorTagRevision": "GitHub did not return the release tag revision",
+  "pluginErrorTagRevision": "GitHub no devolvió la revisión de la etiqueta de la versión",
   "@pluginErrorTagRevision": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9813,7 +9813,7 @@
       ]
     }
   },
-  "pluginErrorTrustAuthor": "Confirm that you trust the plugin author",
+  "pluginErrorTrustAuthor": "Confirma que confías en el autor del plugin",
   "@pluginErrorTrustAuthor": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9826,7 +9826,7 @@
       ]
     }
   },
-  "pluginErrorPreviewExpired": "This preview expired. Preview the repository again before installing.",
+  "pluginErrorPreviewExpired": "Esta vista previa caducó. Vuelve a consultar la vista previa del repositorio antes de instalar.",
   "@pluginErrorPreviewExpired": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9839,7 +9839,7 @@
       ]
     }
   },
-  "pluginErrorReviewedChecksum": "Package SHA-256 does not match the reviewed release",
+  "pluginErrorReviewedChecksum": "El SHA-256 del paquete no coincide con la versión revisada",
   "@pluginErrorReviewedChecksum": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9852,7 +9852,7 @@
       ]
     }
   },
-  "pluginErrorNotInstalled": "Plugin is not installed",
+  "pluginErrorNotInstalled": "El plugin no está instalado",
   "@pluginErrorNotInstalled": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9865,7 +9865,7 @@
       ]
     }
   },
-  "pluginErrorUpdateZip": "This plugin was installed from ZIP. Use Install from ZIP to update it.",
+  "pluginErrorUpdateZip": "Este plugin se instaló desde un ZIP. Usa Instalar desde ZIP para actualizarlo.",
   "@pluginErrorUpdateZip": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9878,7 +9878,7 @@
       ]
     }
   },
-  "pluginErrorAndroidOnly": "Plugins are available on Android.",
+  "pluginErrorAndroidOnly": "Los plugins están disponibles en Android.",
   "@pluginErrorAndroidOnly": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9891,7 +9891,7 @@
       ]
     }
   },
-  "pluginErrorGithubRequest": "GitHub request failed ({status})",
+  "pluginErrorGithubRequest": "La solicitud a GitHub falló ({status})",
   "@pluginErrorGithubRequest": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9910,7 +9910,7 @@
       }
     }
   },
-  "pluginErrorReleaseAsset": "Release needs exactly one uploaded {name} asset",
+  "pluginErrorReleaseAsset": "La versión debe tener exactamente un archivo {name} subido",
   "@pluginErrorReleaseAsset": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9929,7 +9929,7 @@
       }
     }
   },
-  "pluginErrorAssetPublisher": "Release asset {name} must be published by GitHub Actions. Manually uploaded files are not supported.",
+  "pluginErrorAssetPublisher": "GitHub Actions debe publicar el archivo {name} de la versión. No se admiten archivos subidos manualmente.",
   "@pluginErrorAssetPublisher": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9948,7 +9948,7 @@
       }
     }
   },
-  "pluginErrorAssetSize": "Release asset {name} exceeds the size limit or is empty",
+  "pluginErrorAssetSize": "El archivo {name} de la versión supera el límite de tamaño o está vacío",
   "@pluginErrorAssetSize": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9967,7 +9967,7 @@
       }
     }
   },
-  "pluginErrorAssetUrl": "Invalid release URL for {name}",
+  "pluginErrorAssetUrl": "La URL de la versión para {name} no es válida",
   "@pluginErrorAssetUrl": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -9986,7 +9986,7 @@
       }
     }
   },
-  "pluginErrorNativeLibrary": "Plugin has no native library for this device ABI",
+  "pluginErrorNativeLibrary": "El plugin no tiene una biblioteca nativa para la ABI de este dispositivo",
   "@pluginErrorNativeLibrary": {
     "context": "Settings > Plugin Manager > Install, update or enable a plugin",
     "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
@@ -9999,7 +9999,7 @@
       ]
     }
   },
-  "pluginErrorCallbackTimeout": "Plugin callback timed out. Restart Kiosk if the plugin left work running.",
+  "pluginErrorCallbackTimeout": "La respuesta del plugin tardó demasiado. Reinicia el kiosko si el plugin dejó tareas en ejecución.",
   "@pluginErrorCallbackTimeout": {
     "context": "Settings > Plugin Manager > Install, update or enable a plugin",
     "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
@@ -10012,7 +10012,7 @@
       ]
     }
   },
-  "pluginErrorEnableFirst": "Enable the plugin first",
+  "pluginErrorEnableFirst": "Activa primero el plugin",
   "@pluginErrorEnableFirst": {
     "context": "Settings > Plugin Manager > Install, update or enable a plugin",
     "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
@@ -10025,7 +10025,7 @@
       ]
     }
   },
-  "pluginErrorSaveState": "Cannot save plugin state",
+  "pluginErrorSaveState": "No se puede guardar el estado del plugin",
   "@pluginErrorSaveState": {
     "context": "Settings > Plugin Manager > Install, update or enable a plugin",
     "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
@@ -10038,7 +10038,7 @@
       ]
     }
   },
-  "pluginErrorPackageHash": "Invalid installed package hash",
+  "pluginErrorPackageHash": "El hash del paquete instalado no es válido",
   "@pluginErrorPackageHash": {
     "context": "Settings > Plugin Manager > Install, update or enable a plugin",
     "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
@@ -10051,7 +10051,7 @@
       ]
     }
   },
-  "pluginErrorChecksum": "Package SHA-256 does not match",
+  "pluginErrorChecksum": "El SHA-256 del paquete no coincide",
   "@pluginErrorChecksum": {
     "context": "Settings > Plugin Manager > Install, update or enable a plugin",
     "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
@@ -10064,7 +10064,7 @@
       ]
     }
   },
-  "pluginErrorDifferentRepository": "This plugin ID belongs to another repository. Uninstall it before changing sources.",
+  "pluginErrorDifferentRepository": "Este ID de plugin pertenece a otro repositorio. Desinstálalo antes de cambiar de origen.",
   "@pluginErrorDifferentRepository": {
     "context": "Settings > Plugin Manager > Install, update or enable a plugin",
     "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
@@ -10077,7 +10077,7 @@
       ]
     }
   },
-  "pluginErrorRestartReplace": "This plugin did not stop cleanly. Restart Kiosk Satellite before replacing it.",
+  "pluginErrorRestartReplace": "Este plugin no se detuvo correctamente. Reinicia Kiosk Satellite antes de reemplazarlo.",
   "@pluginErrorRestartReplace": {
     "context": "Settings > Plugin Manager > Install, update or enable a plugin",
     "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
@@ -10090,7 +10090,7 @@
       ]
     }
   },
-  "pluginErrorPluginLimit": "At most 8 plugins can be installed",
+  "pluginErrorPluginLimit": "Se pueden instalar hasta 8 plugins",
   "@pluginErrorPluginLimit": {
     "context": "Settings > Plugin Manager > Install, update or enable a plugin",
     "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
@@ -10103,7 +10103,7 @@
       ]
     }
   },
-  "pluginErrorAlreadyInstalled": "This package is already installed",
+  "pluginErrorAlreadyInstalled": "Este paquete ya está instalado",
   "@pluginErrorAlreadyInstalled": {
     "context": "Settings > Plugin Manager > Install, update or enable a plugin",
     "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
@@ -10116,7 +10116,7 @@
       ]
     }
   },
-  "pluginErrorLoadedIntegrity": "Previously loaded package failed its integrity check. Restart Kiosk Satellite before reinstalling it.",
+  "pluginErrorLoadedIntegrity": "El paquete cargado anteriormente no pasó la verificación de integridad. Reinicia Kiosk Satellite antes de reinstalarlo.",
   "@pluginErrorLoadedIntegrity": {
     "context": "Settings > Plugin Manager > Install, update or enable a plugin",
     "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
@@ -10129,7 +10129,7 @@
       ]
     }
   },
-  "pluginErrorRemovePackage": "Cannot remove unused package",
+  "pluginErrorRemovePackage": "No se puede eliminar el paquete sin usar",
   "@pluginErrorRemovePackage": {
     "context": "Settings > Plugin Manager > Install, update or enable a plugin",
     "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
@@ -10142,7 +10142,7 @@
       ]
     }
   },
-  "pluginErrorInstallPackage": "Cannot install plugin package",
+  "pluginErrorInstallPackage": "No se puede instalar el paquete del plugin",
   "@pluginErrorInstallPackage": {
     "context": "Settings > Plugin Manager > Install, update or enable a plugin",
     "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
@@ -10155,7 +10155,7 @@
       ]
     }
   },
-  "pluginErrorUpdateCanceled": "Update canceled because the plugin did not stop cleanly. Restart Kiosk Satellite before trying again.",
+  "pluginErrorUpdateCanceled": "Se canceló la actualización porque el plugin no se detuvo correctamente. Reinicia Kiosk Satellite antes de volver a intentarlo.",
   "@pluginErrorUpdateCanceled": {
     "context": "Settings > Plugin Manager > Install, update or enable a plugin",
     "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
@@ -10168,7 +10168,7 @@
       ]
     }
   },
-  "pluginErrorVersionRetained": "The previous version was retained.",
+  "pluginErrorVersionRetained": "Se conservó la versión anterior.",
   "@pluginErrorVersionRetained": {
     "context": "Settings > Plugin Manager > Install, update or enable a plugin",
     "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
@@ -10181,7 +10181,7 @@
       ]
     }
   },
-  "pluginErrorRetainedDisabled": "The previous version was retained but is disabled. Restart Kiosk Satellite before enabling it.",
+  "pluginErrorRetainedDisabled": "Se conservó la versión anterior, pero está desactivada. Reinicia Kiosk Satellite antes de activarla.",
   "@pluginErrorRetainedDisabled": {
     "context": "Settings > Plugin Manager > Install, update or enable a plugin",
     "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
@@ -10194,7 +10194,7 @@
       ]
     }
   },
-  "pluginErrorVersionRunning": "The previous version is running again.",
+  "pluginErrorVersionRunning": "La versión anterior vuelve a estar en ejecución.",
   "@pluginErrorVersionRunning": {
     "context": "Settings > Plugin Manager > Install, update or enable a plugin",
     "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
@@ -10207,7 +10207,7 @@
       ]
     }
   },
-  "pluginErrorEnablePlugins": "Enable Plugins first",
+  "pluginErrorEnablePlugins": "Activa primero los plugins",
   "@pluginErrorEnablePlugins": {
     "context": "Settings > Plugin Manager > Install, update or enable a plugin",
     "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
@@ -10220,7 +10220,7 @@
       ]
     }
   },
-  "pluginErrorRestartEnable": "This plugin did not stop cleanly. Restart Kiosk Satellite before enabling it.",
+  "pluginErrorRestartEnable": "Este plugin no se detuvo correctamente. Reinicia Kiosk Satellite antes de activarlo.",
   "@pluginErrorRestartEnable": {
     "context": "Settings > Plugin Manager > Install, update or enable a plugin",
     "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
@@ -10233,7 +10233,7 @@
       ]
     }
   },
-  "pluginErrorInstalledIntegrity": "Installed plugin failed its integrity check. Reinstall it.",
+  "pluginErrorInstalledIntegrity": "El plugin instalado no pasó la verificación de integridad. Reinstálalo.",
   "@pluginErrorInstalledIntegrity": {
     "context": "Settings > Plugin Manager > Install, update or enable a plugin",
     "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
@@ -10246,7 +10246,7 @@
       ]
     }
   },
-  "pluginErrorAndroidOld": "Android version is too old",
+  "pluginErrorAndroidOld": "La versión de Android es demasiado antigua",
   "@pluginErrorAndroidOld": {
     "context": "Settings > Plugin Manager > Install, update or enable a plugin",
     "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
@@ -10259,7 +10259,7 @@
       ]
     }
   },
-  "pluginErrorNativeIntegrity": "Installed native libraries failed their integrity check",
+  "pluginErrorNativeIntegrity": "Las bibliotecas nativas instaladas no pasaron la verificación de integridad",
   "@pluginErrorNativeIntegrity": {
     "context": "Settings > Plugin Manager > Install, update or enable a plugin",
     "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
@@ -10272,7 +10272,7 @@
       ]
     }
   },
-  "pluginErrorNativeFileIntegrity": "Installed native library failed its integrity check",
+  "pluginErrorNativeFileIntegrity": "La biblioteca nativa instalada no pasó la verificación de integridad",
   "@pluginErrorNativeFileIntegrity": {
     "context": "Settings > Plugin Manager > Install, update or enable a plugin",
     "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
@@ -10285,7 +10285,7 @@
       ]
     }
   },
-  "pluginErrorReadInstalled": "Cannot read installed plugin: {error}",
+  "pluginErrorReadInstalled": "No se puede leer el plugin instalado: {error}",
   "@pluginErrorReadInstalled": {
     "context": "Settings > Plugin Manager > Install, update or enable a plugin",
     "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
@@ -10304,7 +10304,7 @@
       }
     }
   },
-  "pluginErrorPreviousRestart": "The previous version could not restart: {error}",
+  "pluginErrorPreviousRestart": "No se pudo reiniciar la versión anterior: {error}",
   "@pluginErrorPreviousRestart": {
     "context": "Settings > Plugin Manager > Install, update or enable a plugin",
     "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
@@ -10323,7 +10323,7 @@
       }
     }
   },
-  "pluginErrorUpdateFailed": "Plugin update failed: {error}. {recovery}",
+  "pluginErrorUpdateFailed": "La actualización del plugin falló: {error}. {recovery}",
   "@pluginErrorUpdateFailed": {
     "context": "Settings > Plugin Manager > Install, update or enable a plugin",
     "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
@@ -10424,7 +10424,7 @@
       ]
     }
   },
-  "pluginErrorInvalidId": "Invalid plugin ID",
+  "pluginErrorInvalidId": "El ID del plugin no es válido",
   "@pluginErrorInvalidId": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -10437,7 +10437,7 @@
       ]
     }
   },
-  "pluginErrorInvalidVersion": "Invalid version",
+  "pluginErrorInvalidVersion": "La versión no es válida",
   "@pluginErrorInvalidVersion": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -10450,7 +10450,7 @@
       ]
     }
   },
-  "pluginErrorEntryClass": "Invalid entry class",
+  "pluginErrorEntryClass": "La clase de entrada no es válida",
   "@pluginErrorEntryClass": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -10463,7 +10463,7 @@
       ]
     }
   },
-  "pluginErrorManifestSchema": "Unsupported manifest schema",
+  "pluginErrorManifestSchema": "El esquema del manifiesto no es compatible",
   "@pluginErrorManifestSchema": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -10476,7 +10476,7 @@
       ]
     }
   },
-  "pluginErrorSdkVersion": "This plugin needs a different SDK version",
+  "pluginErrorSdkVersion": "Este plugin necesita otra versión del SDK",
   "@pluginErrorSdkVersion": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -10489,7 +10489,7 @@
       ]
     }
   },
-  "pluginErrorMinimumSdk": "Minimum Android SDK must be at least 24",
+  "pluginErrorMinimumSdk": "El SDK mínimo de Android debe ser al menos 24",
   "@pluginErrorMinimumSdk": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -10502,7 +10502,7 @@
       ]
     }
   },
-  "pluginErrorCapability": "Unsupported plugin capability",
+  "pluginErrorCapability": "La capacidad del plugin no es compatible",
   "@pluginErrorCapability": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -10515,7 +10515,7 @@
       ]
     }
   },
-  "pluginErrorTooManySettings": "Too many settings or commands",
+  "pluginErrorTooManySettings": "Demasiados ajustes o comandos",
   "@pluginErrorTooManySettings": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -10528,7 +10528,7 @@
       ]
     }
   },
-  "pluginErrorSettingKey": "Invalid or duplicate setting key",
+  "pluginErrorSettingKey": "La clave del ajuste no es válida o está duplicada",
   "@pluginErrorSettingKey": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -10541,7 +10541,7 @@
       ]
     }
   },
-  "pluginErrorGroupsArray": "Display groups must be an array",
+  "pluginErrorGroupsArray": "Los grupos de visualización deben ser una lista",
   "@pluginErrorGroupsArray": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -10554,7 +10554,7 @@
       ]
     }
   },
-  "pluginErrorTooManyGroups": "Too many display groups",
+  "pluginErrorTooManyGroups": "Demasiados grupos de visualización",
   "@pluginErrorTooManyGroups": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -10567,7 +10567,7 @@
       ]
     }
   },
-  "pluginErrorUniqueGroups": "Display groups must name unique settings groups",
+  "pluginErrorUniqueGroups": "Los grupos de visualización deben referirse a grupos de ajustes únicos",
   "@pluginErrorUniqueGroups": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -10580,7 +10580,7 @@
       ]
     }
   },
-  "pluginErrorGroupReferences": "Too many group references",
+  "pluginErrorGroupReferences": "Demasiadas referencias en el grupo",
   "@pluginErrorGroupReferences": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -10593,7 +10593,7 @@
       ]
     }
   },
-  "pluginErrorDuplicateReference": "Invalid or duplicate group reference",
+  "pluginErrorDuplicateReference": "La referencia del grupo no es válida o está duplicada",
   "@pluginErrorDuplicateReference": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -10606,7 +10606,7 @@
       ]
     }
   },
-  "pluginErrorCommandId": "Invalid or duplicate command ID",
+  "pluginErrorCommandId": "El ID del comando no es válido o está duplicado",
   "@pluginErrorCommandId": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -10619,7 +10619,7 @@
       ]
     }
   },
-  "pluginErrorUnknownSetting": "Unknown plugin setting",
+  "pluginErrorUnknownSetting": "El ajuste del plugin es desconocido",
   "@pluginErrorUnknownSetting": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -10632,7 +10632,7 @@
       ]
     }
   },
-  "pluginErrorTextLength": "Text settings must be at most 512 characters",
+  "pluginErrorTextLength": "Los ajustes de texto no deben superar los 512 caracteres",
   "@pluginErrorTextLength": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -10645,7 +10645,7 @@
       ]
     }
   },
-  "pluginErrorEntityId": "Expected a Home Assistant entity ID",
+  "pluginErrorEntityId": "Se esperaba un ID de entidad de Home Assistant",
   "@pluginErrorEntityId": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -10658,7 +10658,7 @@
       ]
     }
   },
-  "pluginErrorBoolean": "Expected a boolean setting",
+  "pluginErrorBoolean": "Se esperaba un ajuste booleano",
   "@pluginErrorBoolean": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -10671,7 +10671,7 @@
       ]
     }
   },
-  "pluginErrorColor": "Expected an RGB hex color",
+  "pluginErrorColor": "Se esperaba un color RGB hexadecimal",
   "@pluginErrorColor": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -10684,7 +10684,7 @@
       ]
     }
   },
-  "pluginErrorNumber": "Expected a numeric setting",
+  "pluginErrorNumber": "Se esperaba un ajuste numérico",
   "@pluginErrorNumber": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -10697,7 +10697,7 @@
       ]
     }
   },
-  "pluginErrorRange": "Numeric setting is outside its range",
+  "pluginErrorRange": "El ajuste numérico está fuera de su rango",
   "@pluginErrorRange": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -10710,7 +10710,7 @@
       ]
     }
   },
-  "pluginErrorStep": "Numeric setting does not match its step",
+  "pluginErrorStep": "El ajuste numérico no coincide con su incremento",
   "@pluginErrorStep": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -10723,7 +10723,7 @@
       ]
     }
   },
-  "pluginErrorSelection": "Invalid selection setting",
+  "pluginErrorSelection": "El ajuste de selección no es válido",
   "@pluginErrorSelection": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -10736,7 +10736,7 @@
       ]
     }
   },
-  "pluginErrorSelectionOption": "Unknown selection option",
+  "pluginErrorSelectionOption": "La opción de selección es desconocida",
   "@pluginErrorSelectionOption": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -10749,7 +10749,7 @@
       ]
     }
   },
-  "pluginErrorSettingType": "Unsupported setting type",
+  "pluginErrorSettingType": "El tipo de ajuste no es compatible",
   "@pluginErrorSettingType": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -10762,7 +10762,7 @@
       ]
     }
   },
-  "pluginErrorInvalidManifest": "Invalid plugin manifest",
+  "pluginErrorInvalidManifest": "El manifiesto del plugin no es válido",
   "@pluginErrorInvalidManifest": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -10775,7 +10775,7 @@
       ]
     }
   },
-  "pluginErrorAndroidApi": "Plugin needs Android API {version}",
+  "pluginErrorAndroidApi": "El plugin necesita la API {version} de Android",
   "@pluginErrorAndroidApi": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -10794,7 +10794,7 @@
       }
     }
   },
-  "pluginErrorInvalidField": "Invalid {field}",
+  "pluginErrorInvalidField": "El campo {field} no es válido",
   "@pluginErrorInvalidField": {
     "context": "Settings > Plugin Manager > Add plugin, preview or install",
     "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
@@ -13156,7 +13156,7 @@
       ]
     }
   },
-  "cameraSnapshotError": "Snapshot failed: {error}",
+  "cameraSnapshotError": "No se pudo tomar la captura: {error}",
   "@cameraSnapshotError": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
@@ -13174,7 +13174,7 @@
       }
     }
   },
-  "cameraCameraDisabled": "The camera is disabled in the Camera settings.",
+  "cameraCameraDisabled": "La cámara está desactivada en la configuración de Cámara.",
   "@cameraCameraDisabled": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
@@ -13186,7 +13186,7 @@
       ]
     }
   },
-  "cameraSnapshotBusy": "A snapshot is already in progress.",
+  "cameraSnapshotBusy": "Ya hay una captura en curso.",
   "@cameraSnapshotBusy": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
@@ -13198,7 +13198,7 @@
       ]
     }
   },
-  "cameraPermissionDenied": "Camera permission not granted.",
+  "cameraPermissionDenied": "No se ha concedido el permiso de cámara.",
   "@cameraPermissionDenied": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
@@ -13221,7 +13221,7 @@
       ]
     }
   },
-  "cameraNoImage": "The camera returned no image.",
+  "cameraNoImage": "La cámara no devolvió ninguna imagen.",
   "@cameraNoImage": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
@@ -13233,7 +13233,7 @@
       ]
     }
   },
-  "cameraTimedOut": "The camera did not answer in time.",
+  "cameraTimedOut": "La cámara no respondió a tiempo.",
   "@cameraTimedOut": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
@@ -13245,7 +13245,7 @@
       ]
     }
   },
-  "cameraBackground": "The camera is unavailable while the app is in the background.",
+  "cameraBackground": "La cámara no está disponible mientras la aplicación está en segundo plano.",
   "@cameraBackground": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
@@ -14632,7 +14632,7 @@
       ]
     }
   },
-  "cameraStreamsViewNotFound": "view not found",
+  "cameraStreamsViewNotFound": "No se encontró la vista.",
   "@cameraStreamsViewNotFound": {
     "context": "Settings > Camera Streams > Server, camera and view editors",
     "description": "Label or guidance in this section.",
@@ -14659,7 +14659,7 @@
       ]
     }
   },
-  "cameraStreamsViewEmpty": "view has no cameras",
+  "cameraStreamsViewEmpty": "La vista no tiene cámaras.",
   "@cameraStreamsViewEmpty": {
     "context": "Settings > Camera Streams > Server, camera and view editors",
     "description": "Label or guidance in this section.",
