@@ -73,6 +73,48 @@ try:
         expect(exact_row('Finished speaking detection').locator('select option:checked')).to_have_text(label('Default'))
         expect(root.locator('#permsCard')).to_contain_text(label('Blocked. Android will not ask again, so allow it in the app settings.'))
         expect(root.locator('#permsCard')).to_contain_text(label('Grant these on the device itself: swipe in from the left edge → Settings → Voice Satellite → Required system permissions.'))
+        # Saved values arrive over the settings subscription even when this
+        # browser made the write. Neither that echo nor a device-side change
+        # should replace the controls or repeat unrelated device probes.
+        def push_setting(key, value):
+            item=next(s for s in settings if s['key']==key)
+            item['value']=value
+            page.evaluate("""async setting => {
+                const {applySettingsUpdate} = await import('/static/settings.js');
+                await new Promise(resolve => {
+                    document.addEventListener('ks-settings', () => setTimeout(resolve, 100), {once:true});
+                    applySettingsUpdate({settings:[setting]});
+                });
+            }""",copy.deepcopy(item))
+        for locale in ['en','es']:
+            language(locale)
+            expect(general.get_by_text(english[ids['Assigned satellite']] if locale=='en' else label('Assigned satellite'),exact=True)).to_be_visible()
+            expect(return_row).to_be_visible()
+            general.evaluate('el => window.keptVoiceControls = el')
+            page.locator('[data-key="ha.url"]').evaluate('el => window.keptHaControl = el')
+            probes_before=len(commands)
+            with page.expect_response('**/api/settings'):
+                general.locator('[data-key="wake_word.background"] label.switch').click()
+            expect(return_row).to_be_hidden()
+            push_setting('wake_word.background',False)
+            assert page.evaluate('window.keptVoiceControls === document.querySelector("#vsGeneralCard")')
+            # A device-side change takes the same path without a local save.
+            push_setting('wake_word.background',True)
+            expect(return_row).to_be_visible()
+            expect(general.locator('[data-key="wake_word.background"] input')).to_be_checked()
+            assert return_row.evaluate('(row) => row.previousElementSibling.dataset.key')=='wake_word.background'
+            assert page.evaluate('window.keptVoiceControls === document.querySelector("#vsGeneralCard")')
+            assert page.locator('[data-key="ha.url"]').evaluate('el => el === window.keptHaControl')
+            assert len(commands)==probes_before,commands[probes_before:]
+            # A local enable must use the same placement as a live update.
+            push_setting('wake_word.background',False)
+            with page.expect_response('**/api/settings'):
+                general.locator('[data-key="wake_word.background"] label.switch').click()
+            expect(return_row).to_be_visible()
+            assert return_row.evaluate('(row) => row.previousElementSibling.dataset.key')=='wake_word.background'
+            push_setting('wake_word.background',True)
+            assert page.evaluate('window.keptVoiceControls === document.querySelector("#vsGeneralCard")')
+            assert len(commands)==probes_before,commands[probes_before:]
         for title,option,entity in [('Assist pipeline 1','<b>Original pipeline</b>','select.raw_pipeline'),('Finished speaking detection','relaxed','select.raw_vad_sensitivity')]:
             with page.expect_response('**/api/commands/haCallService'):
                 exact_row(title).locator('select').select_option(option)

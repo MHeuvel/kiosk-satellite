@@ -98,6 +98,14 @@ export function syncGatedRows(key, anchorRow) {
     for (let i = order.indexOf(o) + 1; i < order.length && !before; i++) {
       before = card.querySelector(`[data-key="${order[i].key}"]`);
     }
+    // Custom controls can follow the schema rows, as in Voice Satellite's
+    // General section. Keep a revealed child beside its preceding setting.
+    if (!before) {
+      for (let i = order.indexOf(o) - 1; i >= 0; i--) {
+        const previous = card.querySelector(`[data-key="${order[i].key}"]`);
+        if (previous) { before = previous.nextSibling; break; }
+      }
+    }
     card.insertBefore(settingRow(o), before);
   }
   return true;

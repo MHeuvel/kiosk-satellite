@@ -1,4 +1,4 @@
-import { voiceText, esphomeError, esphomeDeviceIdentity, esphomeText, launcherText, kioskText, intercomText, intercomError, cameraText, cameraError, cameraResolutionNotice, screensaverText, deviceText, haText, screenAudioText, haConnectionError, settingsPageText, setupImportError, t } from './localization.js';
+import { localizeSetting, voiceText, esphomeError, esphomeDeviceIdentity, esphomeText, launcherText, kioskText, intercomText, intercomError, cameraText, cameraError, cameraResolutionNotice, screensaverText, deviceText, haText, screenAudioText, haConnectionError, settingsPageText, setupImportError, t } from './localization.js';
 import { preserveDraft } from './drafts.js';
 import { beginLiveRender, endLiveRender, watchUpdates } from './live.js';
 import {
@@ -41,7 +41,7 @@ import {
 import { renderFleetPage } from './fleetsync.js';
 import { decorateAnnouncementsPage, renderIntercomPage } from './intercom.js';
 import { askImportOptions } from './pickers.js';
-import { settingRow } from './rows.js';
+import { settingRow, syncGatedRows } from './rows.js';
 import { applySubpageView, currentPath, setCurrentPath, subpageEntry, refreshNavigationText } from './tabs.js';
 import {
   fetchViews,
@@ -183,7 +183,9 @@ async function flushSettingsUpdates() {
   if (document.hidden || liveSettingsRendering || settingsRenders || !state.settings) return;
   const changed = [];
   for (const setting of state.settings) {
-    const update = liveSettings.get(setting.key);
+    const pending = liveSettings.get(setting.key);
+    // Compare the same translated schema that the controls were built from.
+    const update = pending && localizeSetting(pending);
     if (update && JSON.stringify(update) !== renderedSettings.get(setting.key)) {
       Object.assign(setting, update);
       changed.push(setting);
@@ -199,6 +201,12 @@ async function flushSettingsUpdates() {
     const shapeChanged = JSON.stringify({ ...previous, value: null })
       !== JSON.stringify({ ...setting, value: null });
     const hasDependants = state.settings.some(s => s.dependsOn === setting.key || s.alsoDependsOn === setting.key);
+    // Background listening has one declarative child in General. Its live
+    // update can use the same dependency placement as a local save.
+    if (!shapeChanged && setting.key === 'wake_word.background' && rows.length
+        && rows.every(row => row.updateSetting?.() && syncGatedRows(setting.key, row))) {
+      continue;
+    }
     // Custom renderers own their controls and any stored picker state.
     // A replaced generic input cannot stand in for a custom picker.
     if (shapeChanged || hasDependants || layoutSettings.has(setting.key)) {
@@ -256,9 +264,9 @@ async function renderSettings({ cached = false } = {}) {
     if (update) Object.assign(setting, update);
   }
   const helperStatus = installerResult?.ok ? installerResult.data : null;
+  settings = cacheSettings(settings);
   renderedSettings.clear();
   for (const setting of settings) renderedSettings.set(setting.key, JSON.stringify(setting));
-  settings = cacheSettings(settings);
   refreshNavigationText();
   // Named once for every second-level page, including the ones with no
   // settings of their own (Voice Satellite's are live entity rows).
