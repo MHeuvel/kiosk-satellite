@@ -2,6 +2,12 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Changed
+
+- **Community translation review and import.** Maintainers can preview additional languages, record reviews against retained contributor acceptance and merge evidence and import complete reviewed languages without replacing existing ones. Language selectors use native language names and accepted translation credits are bundled with the app.
+
 ## v2026.9.62 - 2026-09-18
 
 ### Added

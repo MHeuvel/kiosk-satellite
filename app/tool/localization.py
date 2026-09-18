@@ -2,6 +2,7 @@
 """Validate catalogs and exchange pinned localization snapshots."""
 
 import argparse
+import base64
 import hashlib
 import json
 import re
@@ -49,7 +50,9 @@ def read(path):
 
 def file_limit(path):
     # Review records aggregate every section, unlike individual ARB files.
-    return 5_000_000 if Path(path).parts[-3:] == ("metadata", "reviews", "es.json") else 500_000
+    return 5_000_000 if "metadata" in Path(path).parts and any(
+        part in Path(path).parts for part in ("reviews", "provenance")
+    ) else 500_000
 
 
 def read_bytes(path):
@@ -188,17 +191,181 @@ def validate_manifest(manifest, files):
         raise ValueError("Source manifest does not match the English catalogs")
 
 
-def effective(source, catalog, reviews):
+def canonical_digest(value):
+    return sha(json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode())
+
+
+def verify_provenance(proof, locale):
+    """Verify retained acceptance and merge evidence before trusting review metadata."""
+    try:
+        record, outcome = proof["record"], proof["outcome"]
+        context = record["context"]
+        identity = context["id"]
+        if (record["repository"] != REPOSITORY.removeprefix("https://github.com/")
+                or record["kind"] != "contributor_acceptance" or record["schema"] != 1
+                or identity != canonical_digest({k: v for k, v in context.items() if k != "id"})
+                or record["actor"]["id"] != context["author_id"] or record["actor"]["type"] != "User"
+                or record["event_action"] != "edited"
+                or sha(record["agreement_text"].encode()) != context["agreement"]["sha256"]
+                or "- [x]" not in record["declaration"].lower()
+                or "- [ ]" not in record["previous_declaration"]
+                or context["head"] not in record["declaration"]
+                or identity not in record["declaration"]
+                or outcome["kind"] != "pr_closed" or outcome["merged"] is not True
+                or outcome["covered"] is not True or outcome["matches_merge"] is not True
+                or outcome["merged_by"] != proof["owner_id"]
+                or outcome["number"] != context["number"] or outcome["head"] != context["head"]
+                or outcome["acceptance"]["sha256"] != canonical_digest(record)
+                or not re.fullmatch(r"[a-f0-9]{40}", proof["records_revision"])):
+            raise ValueError("Community acceptance or merge evidence is invalid")
+        if "disclosures_sha256" in context:
+            description = re.sub(
+                r"<!-- ks-contributor-acceptance:start -->.*?<!-- ks-contributor-acceptance:end -->",
+                "", record["pr_description"], flags=re.DOTALL,
+            ).replace("\r\n", "\n").strip()
+            if sha(description.encode()) != context["disclosures_sha256"]:
+                raise ValueError("Community disclosures do not match the accepted reference")
+        if [entry["file"] for entry in record["snapshot"]] != context["files"]:
+            raise ValueError("Community evidence omits contribution files")
+        changed = {}
+        for entry in record["snapshot"]:
+            path = entry["file"]["filename"]
+            if not path.startswith(f"translations/{locale}/"):
+                raise ValueError("Community evidence covers another language")
+            versions = {}
+            for version in ("before", "after"):
+                if version not in entry:
+                    continue
+                data = base64.b64decode(entry[version]["base64"], validate=True)
+                blob = sha(data)
+                git_blob = hashlib.sha1(b"blob " + str(len(data)).encode() + b"\0" + data).hexdigest()
+                if blob != entry[version]["sha256"] or git_blob != entry[version]["sha"]:
+                    raise ValueError("Community evidence contains altered translation bytes")
+                if version == "after" and git_blob != entry["file"]["sha"]:
+                    raise ValueError("Community evidence does not match its manifest")
+                versions[version] = messages(decode(data))
+            for key, value in versions.get("after", {}).items():
+                if versions.get("before", {}).get(key) != value:
+                    changed[key] = value
+        return identity, record["actor"]["login"], changed
+    except (KeyError, TypeError) as error:
+        raise ValueError("Community provenance is incomplete") from error
+
+
+def community_review_valid(key, value, review, proofs):
+    if not isinstance(review, dict) or review.get("provenance") not in proofs:
+        return False
+    _, author, changed = proofs[review["provenance"]]
+    return review.get("author") == author and changed.get(key) == value
+
+
+def load_proofs(files, locale):
+    proofs = {}
+    for path, raw in files.items():
+        if path.startswith(f"metadata/provenance/{locale}/"):
+            proof = decode(raw)
+            identity, author, changed = verify_provenance(proof, locale)
+            if Path(path).stem != identity:
+                raise ValueError("Community provenance filename does not match its acceptance reference")
+            proofs[identity] = (identity, author, changed)
+    return proofs
+
+
+def github_json(path):
+    return decode(subprocess.check_output(["gh", "api", path]))
+
+
+def github_record(path, revision):
+    from urllib.parse import quote
+    prefix = "repos/" + REPOSITORY.removeprefix("https://github.com/")
+    obj = github_json(prefix + "/contents/" + quote(path, safe="/") + "?ref=" + revision)
+    if obj.get("encoding") == "none":
+        obj = github_json(prefix + "/git/blobs/" + obj["sha"])
+    if obj.get("encoding") != "base64":
+        raise ValueError("GitHub did not return the complete acceptance evidence")
+    return decode(base64.b64decode(obj["content"]))
+
+
+def review_community(repository, locale, pr_number, credit, language_name, confirmed):
+    if not TAG.fullmatch(locale) or locale in ("en", "es"):
+        raise ValueError("Choose a community language tag")
+    if not confirmed:
+        raise ValueError("Confirm fluent wording review and device and remote rendering review with --confirm-reviewed")
+    for label in (credit, language_name):
+        if not label or len(label) > 120 or re.search(r"[\x00-\x1f<>\[\]`\\\u2013\u2014]", label):
+            raise ValueError("Use a short plain-text credit and native language name")
+    source = validate_repository(repository)
+    prefix = "repos/" + REPOSITORY.removeprefix("https://github.com/")
+    repo = github_json(prefix)
+    pr = github_json(prefix + f"/pulls/{pr_number}")
+    if (not pr.get("merged") or (pr.get("merged_by") or {}).get("id") != repo["owner"]["id"]
+            or pr["base"]["ref"] != repo["default_branch"]):
+        raise ValueError("Community review requires a PR merged by the repository owner")
+    subprocess.run(["git", "-C", str(repository), "merge-base", "--is-ancestor", pr["merge_commit_sha"], "HEAD"], check=True)
+    revision = github_json(prefix + "/git/ref/heads/contributor-records")["object"]["sha"]
+    tree = github_json(prefix + "/git/trees/" + revision + "?recursive=1")
+    if tree.get("truncated"):
+        raise ValueError("Acceptance records tree is incomplete")
+    outcomes = [entry["path"] for entry in tree["tree"]
+                if entry["path"].startswith(f"outcomes/{repo['id']}/{pr_number}/") and entry["type"] == "blob"]
+    proof = None
+    for path in sorted(outcomes, reverse=True):
+        outcome = github_record(path, revision)
+        if outcome.get("merge_commit") != pr["merge_commit_sha"] or not outcome.get("acceptance"):
+            continue
+        record = github_record(outcome["acceptance"]["path"], revision)
+        candidate = {"records_revision": revision, "outcome_path": path,
+                     "owner_id": repo["owner"]["id"], "record": record, "outcome": outcome}
+        if record.get("repository_id") != repo["id"] or record.get("context", {}).get("head") != pr["head"]["sha"]:
+            continue
+        verify_provenance(candidate, locale)
+        proof = candidate
+        break
+    if proof is None:
+        raise ValueError("No verified merge outcome is available on contributor-records yet")
+    identity, author, changed = verify_provenance(proof, locale)
+    translated = translation_catalog(load_sources(repository / "source"),
+                                     bundle_files(repository / "translations" / locale), locale)
+    review_path = repository / f"metadata/reviews/{locale}.json"
+    reviews = read(review_path) if review_path.exists() else {}
+    count = 0
+    for key, value in changed.items():
+        if key in messages(source) and translated.get(key) == value:
+            reviews[key] = {"source": source_digest(source, key), "translation": sha(value.encode()),
+                            "author": author, "provenance": identity}
+            count += 1
+    if not count:
+        raise ValueError("No current translation matches the accepted contribution")
+    write(repository / f"metadata/provenance/{locale}/{identity}.json", proof)
+    write(review_path, reviews)
+    credits_path = repository / "metadata/credits.json"
+    credits = read(credits_path) if credits_path.exists() else {}
+    entries = credits.setdefault(locale, {})
+    entries[str(record["actor"]["id"])] = {"name": credit, "login": author}
+    write(credits_path, credits)
+    lines = ["# Translation credits", ""]
+    for tag, authors in sorted(credits.items()):
+        lines.extend(f"- {entry['name']} ({tag})" for _, entry in sorted(authors.items()))
+    (repository / "CREDITS.md").write_text("\n".join(lines) + "\n")
+    names_path = repository / "metadata/languages.json"
+    names = read(names_path) if names_path.exists() else {"en": "English", "es": "Español"}
+    names[locale] = language_name
+    write(names_path, names)
+    print(f"Recorded {count} reviewed {locale} messages from PR #{pr_number}. Commit reviews, evidence and credits before import.")
+
+
+def effective(source, catalog, reviews, proofs=None):
     result = dict(source)
     result["@@locale"] = catalog["@@locale"]
     counts = {"reviewed": 0, "missing": 0, "stale": 0}
     for key in messages(source):
         if key not in catalog:
             counts["missing"] += 1
-        elif reviews.get(key) != {
-            "source": source_digest(source, key), "translation": sha(catalog[key].encode()),
-            "author": "Xavier Larrea",
-        }:
+        elif (not isinstance(reviews.get(key), dict)
+              or reviews[key].get("source") != source_digest(source, key)
+              or reviews[key].get("translation") != sha(catalog[key].encode())
+              or (reviews[key].get("author") != "Xavier Larrea" if proofs is None
+                  else not community_review_valid(key, catalog[key], reviews[key], proofs))):
             counts["stale"] += 1
         else:
             result[key] = catalog[key]
@@ -221,6 +388,54 @@ def validate_repository(root):
             print(f"{locale}/{name}: {len(messages(decode(raw)))}/{len(messages(bundles[source_name]))} translated")
         print(f"{locale}: {len(messages(catalog))}/{len(messages(source))} translated")
     return source
+
+
+def git_paths(repository, revision, prefix):
+    if not re.fullmatch(r"[a-f0-9]{40}", revision):
+        raise ValueError("Use a full 40-character commit SHA")
+    return subprocess.check_output([
+        "git", "-C", str(repository), "ls-tree", "-r", "--name-only", revision, "--", prefix
+    ], text=True).splitlines()
+
+
+def git_sources(repository, revision):
+    return source_bundles({Path(path).name: git_file(repository, revision, path)
+                          for path in git_paths(repository, revision, "source/") if path.endswith(".arb")})
+
+
+def validate_pr(repository, base_revision, head_revision):
+    """Require full new languages against the target source, allowing small updates."""
+    base = git_sources(repository, base_revision)
+    head = git_sources(repository, head_revision)
+    current = merge_bundles(base, "en")
+    previous = merge_bundles(head, "en")
+    if load_sources(repository / "source") != base:
+        raise ValueError("Translation PRs cannot change the English source. Sync with main.")
+    base_paths = git_paths(repository, base_revision, "translations/")
+    changed_paths = subprocess.check_output([
+        "git", "-C", str(repository), "diff", "--name-only", f"{base_revision}...{head_revision}", "--", "translations/"
+    ], text=True).splitlines()
+    existing = {Path(path).parts[1] for path in base_paths}
+    failures = []
+    for locale in sorted({Path(path).parts[1] for path in changed_paths}):
+        directory = repository / "translations" / locale
+        if not directory.exists():
+            continue
+        translated = translation_catalog(base, bundle_files(directory), locale)
+        missing = sorted(set(messages(current)) - set(messages(translated)))
+        changed = sorted(key for key in messages(current) if key in previous
+                         and source_digest(current, key) != source_digest(previous, key))
+        new = locale not in existing
+        print(f"{locale}: {'new language' if new else 'existing language'}; "
+              f"{len(missing)} missing; {len(changed)} source changes need review")
+        for name, bundle in base.items():
+            for key in sorted(set(missing + changed) & set(messages(bundle))):
+                reason = "missing" if key in missing else "source changed; sync and review"
+                print(f"  {locale}/{translation_name(name, locale)}: {key}: {reason}")
+        if new and (missing or changed):
+            failures.append(locale)
+    if failures:
+        raise ValueError("New languages must be complete against current main: " + ", ".join(failures))
 
 
 def export_catalog(app, repository):
@@ -274,8 +489,8 @@ def git_file(repository, revision, path):
 
 
 def import_catalog(app, repository, revision, locale):
-    if locale != "es":
-        raise ValueError("This first import cycle supports owner-authored Spanish. Community imports require PR provenance support.")
+    if not TAG.fullmatch(locale) or locale == "en":
+        raise ValueError("Choose a non-English language tag")
     if not re.fullmatch(r"[a-f0-9]{40}", revision):
         raise ValueError("Import requires a full 40-character commit SHA")
     manifest = decode(git_file(repository, revision, "source/manifest.json"))
@@ -284,14 +499,25 @@ def import_catalog(app, repository, revision, locale):
         not BUNDLE.fullmatch(name) for name in names
     ):
         raise ValueError("Source manifest is invalid")
-    translations = subprocess.check_output([
-        "git", "-C", str(repository), "ls-tree", "-r", "--name-only", revision, "--", "translations/es/"
-    ], text=True).splitlines()
-    expected = {f"translations/es/{translation_name(name, locale)}" for name in names}
-    if set(translations) - expected:
-        raise ValueError("Unexpected translation path in snapshot")
-    paths = ["source/manifest.json", *("source/" + name for name in names), *translations,
-             "metadata/reviews/es.json", "LICENSE", "CREDITS.md", "docs/CONTRIBUTOR-AGREEMENT.md"]
+    lock_path = app / "l10n/localization.lock.json"
+    previous = read(lock_path) if lock_path.exists() else {}
+    locales = sorted(set(previous.get("locales", [])) | {locale})
+    paths = ["source/manifest.json", *("source/" + name for name in names),
+             "LICENSE", "CREDITS.md", "docs/CONTRIBUTOR-AGREEMENT.md"]
+    metadata = git_paths(repository, revision, "metadata/")
+    for optional in ("metadata/languages.json", "metadata/credits.json"):
+        if optional in metadata:
+            paths.append(optional)
+    for tag in locales:
+        if not TAG.fullmatch(tag) or tag == "en":
+            raise ValueError("Invalid installed language")
+        translations = git_paths(repository, revision, f"translations/{tag}/")
+        expected = {f"translations/{tag}/{translation_name(name, tag)}" for name in names}
+        if set(translations) - expected:
+            raise ValueError("Unexpected translation path in snapshot")
+        paths.extend(translations)
+        paths.append(f"metadata/reviews/{tag}.json")
+        paths.extend(path for path in metadata if path.startswith(f"metadata/provenance/{tag}/"))
     files = {path: git_file(repository, revision, path) for path in paths}
     source_files = {name: files["source/" + name] for name in names}
     validate_manifest(manifest, source_files)
@@ -299,19 +525,24 @@ def import_catalog(app, repository, revision, locale):
     source = merge_bundles(bundles, "en")
     if bundles != load_sources(app / "l10n/source"):
         raise ValueError("Export the current app source before importing translations")
-    catalog = translation_catalog(bundles, {Path(path).name: files[path] for path in translations}, locale)
-    reviews = decode(files["metadata/reviews/es.json"])
-    _, counts = effective(source, catalog, reviews)
-    lock_path = app / "l10n/localization.lock.json"
-    previous = read(lock_path) if lock_path.exists() else {}
-    if locale not in previous.get("locales", []) and (counts["missing"] or counts["stale"]):
-        raise ValueError("The initial Spanish scope must be complete and reviewed before activation")
+    for tag in locales:
+        catalog = translation_catalog(bundles, {Path(path).name: raw for path, raw in files.items()
+                                              if path.startswith(f"translations/{tag}/")}, tag)
+        reviews = decode(files[f"metadata/reviews/{tag}.json"])
+        proofs = None if tag == "es" else load_proofs(files, tag)
+        _, counts = effective(source, catalog, reviews, proofs)
+        if tag not in previous.get("locales", []) and (counts["missing"] or counts["stale"]):
+            raise ValueError(f"The initial {tag} scope must be complete and reviewed before activation")
+        if tag != "es":
+            credits = decode(files.get("metadata/credits.json", b"{}"))
+            if not credits.get(tag) or not files["CREDITS.md"].strip():
+                raise ValueError(f"Community language {tag} needs public translation credits")
     for path, data in files.items():
         target = app / "l10n/vendor" / path
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_bytes(data)
     write(lock_path, {"schema": SCHEMA, "repository": REPOSITORY, "revision": revision,
-                      "locales": [locale], "files": {path: sha(data) for path, data in files.items()}})
+                      "locales": locales, "files": {path: sha(data) for path, data in files.items()}})
     generate(app)
 
 
@@ -358,7 +589,7 @@ def generate_android(app, catalogs):
             path.unlink()
 
 
-def generate(app, preview_repo=None):
+def generate(app, preview_repo=None, preview_locale="es"):
     source = merge_bundles(load_sources(app / "l10n/source"), "en")
     settings = read(app / "l10n/settings.json")
     for setting, fields in settings.items():
@@ -371,7 +602,8 @@ def generate(app, preview_repo=None):
     lock_path = app / "l10n/localization.lock.json"
     if lock_path.exists():
         lock = read(lock_path)
-        if lock.get("schema") != SCHEMA or lock.get("locales") != ["es"]:
+        if (lock.get("schema") != SCHEMA or not isinstance(lock.get("locales"), list)
+                or any(not TAG.fullmatch(tag) or tag == "en" for tag in lock["locales"])):
             raise ValueError("Unsupported localization lock schema or languages")
         for path, digest in lock["files"].items():
             if Path(path).is_absolute() or ".." in Path(path).parts:
@@ -381,37 +613,43 @@ def generate(app, preview_repo=None):
         source_files = {Path(path).name: read_bytes(app / "l10n/vendor" / path)
                         for path in lock["files"] if path.startswith("source/") and path.endswith(".arb")}
         validate_manifest(read(app / "l10n/vendor/source/manifest.json"), source_files)
-        catalog = translation_catalog(source_bundles(source_files), {
-            Path(path).name: read_bytes(app / "l10n/vendor" / path)
-            for path in lock["files"] if path.startswith("translations/es/")
-        }, "es")
-        # Removed IDs belong to the old snapshot and are never generated.
-        catalog = {key: value for key, value in catalog.items() if key == "@@locale" or key in messages(source)}
-        reviews = read(app / "l10n/vendor/metadata/reviews/es.json")
-        catalogs["es"], counts = effective(source, catalog, reviews)
-        print(f"es: {counts}")
+        vendor_files = {path: read_bytes(app / "l10n/vendor" / path) for path in lock["files"]}
+        for locale in lock["locales"]:
+            catalog = translation_catalog(source_bundles(source_files), {
+                Path(path).name: raw for path, raw in vendor_files.items()
+                if path.startswith(f"translations/{locale}/")
+            }, locale)
+            # Removed IDs belong to the old snapshot and are never generated.
+            catalog = {key: value for key, value in catalog.items() if key == "@@locale" or key in messages(source)}
+            reviews = decode(vendor_files[f"metadata/reviews/{locale}.json"])
+            proofs = None if locale == "es" else load_proofs(vendor_files, locale)
+            catalogs[locale], counts = effective(source, catalog, reviews, proofs)
+            print(f"{locale}: {counts}")
         notices = app / "assets/l10n"
         notices.mkdir(parents=True, exist_ok=True)
         for name, path in {"LICENSE.txt": "LICENSE", "CREDITS.md": "CREDITS.md",
                            "CONTRIBUTOR-AGREEMENT.md": "docs/CONTRIBUTOR-AGREEMENT.md"}.items():
             (notices / name).write_bytes((app / "l10n/vendor" / path).read_bytes())
     if preview_repo is not None:
+        if not TAG.fullmatch(preview_locale) or preview_locale == "en":
+            raise ValueError("Choose a non-English preview language tag")
         # Drafts are only for a local test build. Never create review evidence.
         validate_repository(preview_repo)
         bundles = load_sources(app / "l10n/source")
         if bundles != load_sources(preview_repo / "source"):
             raise ValueError("Export the current source before previewing translations")
-        draft = translation_catalog(bundles, bundle_files(preview_repo / "translations/es"), "es")
-        catalogs["es"] = {**source, **draft, "@@locale": "es"}
-        print("PREVIEW: includes unreviewed Spanish. Run generate without --preview-repo before committing.")
+        draft = translation_catalog(bundles, bundle_files(preview_repo / "translations" / preview_locale), preview_locale)
+        catalogs[preview_locale] = {**source, **draft, "@@locale": preview_locale.replace("-", "_")}
+        print(f"PREVIEW: includes unreviewed {preview_locale}. Run generate without --preview-repo before committing.")
     generate_android(app, catalogs)
     out = app / "l10n/effective"
     out.mkdir(parents=True, exist_ok=True)
     for path in out.glob("ui_*.arb"):
-        if path.stem[3:] not in catalogs:
+        if path.stem[3:] not in {tag.replace("-", "_") for tag in catalogs}:
             path.unlink()
     for locale, catalog in catalogs.items():
-        write(out / f"ui_{locale}.arb", catalog)
+        filename_locale = locale.replace("-", "_")
+        write(out / f"ui_{filename_locale}.arb", catalog)
     output = app / "lib/l10n/generated"
     viewer_path = app / "l10n/source/camera_view_status_en.arb"
     if viewer_path.exists():
@@ -424,11 +662,22 @@ def generate(app, preview_repo=None):
             + json.dumps({key: viewer[key] for key in messages(viewer)}, ensure_ascii=False, indent=2)
             + ";\n")
     output.mkdir(parents=True, exist_ok=True)
+    language_names = {"en": "English", "es": "Español", "de": "Deutsch", "fr": "Français", "ja": "日本語"}
+    if lock_path.exists() and "metadata/languages.json" in lock["files"]:
+        language_names.update(read(app / "l10n/vendor/metadata/languages.json"))
+    if preview_repo is not None and (preview_repo / "metadata/languages.json").exists():
+        language_names.update(read(preview_repo / "metadata/languages.json"))
+    for tag, name in language_names.items():
+        if not TAG.fullmatch(tag) or not isinstance(name, str) or not name.strip() or len(name) > 120:
+            raise ValueError("Invalid native language name")
     (output / "language_codes.dart").write_text(
         "// Generated by tool/localization.py. Do not edit.\n"
         + "const messageLanguageOptions = <String>[\n"
         + "".join(f"  '{locale.replace('_', '-')}',\n" for locale in catalogs)
-        + "];\n")
+        + "];\n"
+        + "const messageLanguageLabels = <String, String>"
+        + json.dumps({tag: language_names.get(tag, tag) for tag in catalogs}, ensure_ascii=False).replace("$", r"\$")
+        + ";\n")
     for filename, variable in [("navigation", "navigationMessageIds"), ("device_text", "deviceTextMessageIds"), ("ha_text", "haTextMessageIds"), ("screen_audio_text", "screenAudioTextMessageIds"), ("screensaver_text", "screensaverTextMessageIds"), ("camera_text", "cameraTextMessageIds"), ("camera_streams_text", "cameraStreamsTextMessageIds"), ("media_text", "mediaTextMessageIds"), ("intercom_text", "intercomTextMessageIds"), ("kiosk_text", "kioskTextMessageIds"), ("launcher_text", "launcherTextMessageIds"), ("gesture_text", "gestureTextMessageIds"), ("fleet_text", "fleetTextMessageIds"), ("plugin_text", "pluginTextMessageIds"), ("support_text", "supportTextMessageIds"), ("esphome_text", "esphomeTextMessageIds"), ("voice_text", "voiceTextMessageIds"), ("overview_text", "overviewTextMessageIds"), ("setup_text", "setupTextMessageIds")]:
         path = app / f"l10n/{filename}.json"
         mapping = read(path) if path.exists() else {}
@@ -486,19 +735,36 @@ def main():
         cmd.add_argument("--repo", type=Path, default=Path(__file__).resolve().parents[1])
         if name == "review-owner":
             cmd.add_argument("--locale", default="es")
+        if name == "validate":
+            cmd.add_argument("--base-ref", help="Target commit for new-language completeness checks")
+            cmd.add_argument("--head-ref", help="Contributor commit whose English source was reviewed")
     for name in ("export", "import", "generate"):
         cmd = commands.add_parser(name)
         cmd.add_argument("--app", type=Path, default=Path(__file__).resolve().parents[1])
         if name == "generate":
-            cmd.add_argument("--preview-repo", type=Path, help="Include unreviewed Spanish in a local test build only")
+            cmd.add_argument("--preview-repo", type=Path, help="Include an unreviewed language in a local test build only")
+            cmd.add_argument("--preview-locale", default="es")
         if name != "generate":
             cmd.add_argument("--repo", type=Path, required=True)
         if name == "import":
             cmd.add_argument("--revision", required=True)
             cmd.add_argument("--locale", default="es")
+    cmd = commands.add_parser("review-community")
+    cmd.add_argument("--repo", type=Path, default=Path(__file__).resolve().parents[1])
+    cmd.add_argument("--locale", required=True)
+    cmd.add_argument("--pr", type=int, required=True)
+    cmd.add_argument("--credit", required=True)
+    cmd.add_argument("--language-name", required=True)
+    cmd.add_argument("--confirm-reviewed", action="store_true")
     args = parser.parse_args()
     if args.command == "validate":
         validate_repository(args.repo)
+        if args.base_ref or args.head_ref:
+            if not args.base_ref or not args.head_ref:
+                raise ValueError("Pass both --base-ref and --head-ref")
+            validate_pr(args.repo, args.base_ref, args.head_ref)
+    elif args.command == "review-community":
+        review_community(args.repo, args.locale, args.pr, args.credit, args.language_name, args.confirm_reviewed)
     elif args.command == "review-owner":
         review_owner(args.repo, args.locale)
     elif args.command == "export":
@@ -506,7 +772,7 @@ def main():
     elif args.command == "import":
         import_catalog(args.app, args.repo, args.revision, args.locale)
     elif args.command == "generate":
-        generate(args.app, args.preview_repo)
+        generate(args.app, args.preview_repo, args.preview_locale)
 
 
 if __name__ == "__main__":

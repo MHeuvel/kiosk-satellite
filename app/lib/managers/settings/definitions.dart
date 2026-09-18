@@ -7469,7 +7469,7 @@ const uiLanguage = SettingDef<String>(
   category: 'Device',
   section: 'User Interface',
   options: messageLanguageOptions,
-  optionLabels: {'en': 'English', 'es': 'Español'},
+  optionLabels: messageLanguageLabels,
   perDevice: true,
 );
 

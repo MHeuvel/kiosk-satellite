@@ -1,4 +1,6 @@
 import copy
+import base64
+import hashlib
 import importlib.util
 import json
 from pathlib import Path
@@ -361,6 +363,197 @@ class SnapshotTests(unittest.TestCase):
                 with self.subTest(filename=filename, identifier=identifier), self.assertRaisesRegex(ValueError, "option or placeholder"):
                     catalog.generate(self.app)
                 path.unlink()
+
+
+
+class CommunityTests(unittest.TestCase):
+    setUp = SnapshotTests.setUp
+    write_sources = SnapshotTests.write_sources
+    commit = SnapshotTests.commit
+    git = SnapshotTests.git
+    review = SnapshotTests.review
+
+    def add_language(self, locale="de"):
+        for name, source in catalog.load_sources(self.repo / "source").items():
+            catalog.write(self.repo / "translations" / locale / catalog.translation_name(name, locale),
+                          {"@@locale": locale.replace("-", "_"),
+                           **{key: value.replace("TEST", locale.upper()) for key, value in catalog.messages(self.translation).items()
+                              if key in source}})
+
+    def proof(self, locale="de"):
+        files, snapshot = [], []
+        for path in sorted((self.repo / "translations" / locale).glob("*.arb")):
+            raw = path.read_bytes()
+            blob = hashlib.sha1(b"blob " + str(len(raw)).encode() + b"\0" + raw).hexdigest()
+            entry = {"filename": str(path.relative_to(self.repo)), "previous_filename": None,
+                     "status": "added", "sha": blob}
+            files.append(entry)
+            snapshot.append({"file": entry, "after": {"sha": blob, "sha256": catalog.sha(raw),
+                                                       "base64": base64.b64encode(raw).decode()}})
+        context = {"schema": 1, "number": 3, "author_id": 2, "head": self.revision, "merge_base": "d" * 40,
+                   "files": files, "agreement": {"version": "1.1", "commit": "a" * 40,
+                                                 "sha256": catalog.sha(b"Agreement"), "url": "https://example.test"}}
+        context["id"] = catalog.canonical_digest(context)
+        record = {"schema": 1, "kind": "contributor_acceptance", "repository_id": 10,
+                  "repository": "jxlarrea/kiosk-satellite-localization", "context": context,
+                  "agreement_text": "Agreement", "declaration": f"- [x] {self.revision} {context['id']}",
+                  "previous_declaration": "- [ ]", "actor": {"id": 2, "login": "translator", "type": "User"},
+                  "event_action": "edited", "snapshot": snapshot}
+        outcome = {"kind": "pr_closed", "number": 3, "head": self.revision, "merged": True,
+                   "covered": True, "matches_merge": True, "merged_by": 1, "merge_commit": self.revision,
+                   "acceptance": {"path": "records/10/3/record.json", "sha256": catalog.canonical_digest(record)}}
+        return {"owner_id": 1, "records_revision": "b" * 40, "record": record, "outcome": outcome}
+
+    def approve_fixture(self, locale="de"):
+        proof = self.proof(locale)
+        identity, author, changed = catalog.verify_provenance(proof, locale)
+        catalog.write(self.repo / f"metadata/provenance/{locale}/{identity}.json", proof)
+        catalog.write(self.repo / f"metadata/reviews/{locale}.json", {
+            key: {"source": catalog.source_digest(self.source, key), "translation": catalog.sha(value.encode()),
+                  "author": author, "provenance": identity} for key, value in changed.items()})
+        credit_path = self.repo / "metadata/credits.json"
+        credits = catalog.read(credit_path) if credit_path.exists() else {}
+        credits[locale] = {"2": {"name": "Translator", "login": author}}
+        catalog.write(credit_path, credits)
+        (self.repo / "CREDITS.md").write_text(f"# Translation credits\n\n- Translator ({locale})\n")
+        return proof
+
+    def test_new_language_reports_missing_but_existing_language_allows_small_corrections(self):
+        self.add_language()
+        (self.repo / "translations/de/setup_de.arb").unlink()
+        head = self.commit()
+        with self.assertRaisesRegex(ValueError, "New languages must be complete"):
+            catalog.validate_pr(self.repo, self.revision, head)
+        catalog.write(self.repo / "translations/de/common_de.arb", {"@@locale": "de", "welcome": "Small correction"})
+        catalog.validate_pr(self.repo, head, self.commit())
+
+    def test_new_language_can_be_complete(self):
+        self.add_language()
+        head = self.commit()
+        catalog.validate_pr(self.repo, self.revision, head)
+
+    def test_new_language_must_sync_changed_source_context(self):
+        self.add_language()
+        head = self.commit()
+        self.git("checkout", "-q", self.revision)
+        self.source["@welcome"]["description"] = "Updated context"
+        self.write_sources(self.repo / "source", self.source)
+        base = self.commit()
+        self.add_language()
+        with self.assertRaisesRegex(ValueError, "complete against current main"):
+            catalog.validate_pr(self.repo, base, head)
+        catalog.validate_pr(self.repo, base, self.commit())
+
+    def test_preview_supports_community_without_approval_or_activation(self):
+        catalog.import_catalog(self.app, self.repo, self.revision, "es")
+        self.add_language()
+        lock = (self.app / "l10n/localization.lock.json").read_bytes()
+        catalog.generate(self.app, self.repo, "de")
+        self.assertEqual(catalog.read(self.app / "l10n/effective/ui_de.arb")["welcome"], "DE welcome")
+        self.assertEqual((self.app / "l10n/localization.lock.json").read_bytes(), lock)
+        self.assertIn('"de": "Deutsch"', (self.app / "lib/l10n/generated/language_codes.dart").read_text())
+        self.assertIn('"de"', (self.app / "remote-ui/static/catalogs.js").read_text())
+        catalog.generate(self.app)
+        self.assertFalse((self.app / "l10n/effective/ui_de.arb").exists())
+
+    def test_community_import_requires_provenance_and_preserves_spanish(self):
+        catalog.import_catalog(self.app, self.repo, self.revision, "es")
+        self.add_language()
+        catalog.write(self.repo / "metadata/reviews/de.json", self.review())
+        with self.assertRaisesRegex(ValueError, "complete and reviewed"):
+            catalog.import_catalog(self.app, self.repo, self.commit(), "de")
+        self.approve_fixture()
+        catalog.import_catalog(self.app, self.repo, self.commit(), "de")
+        self.assertEqual(catalog.read(self.app / "l10n/localization.lock.json")["locales"], ["de", "es"])
+        self.assertEqual(catalog.read(self.app / "l10n/effective/ui_es.arb")["welcome"], "TEST welcome")
+        self.assertEqual(catalog.read(self.app / "l10n/effective/ui_de.arb")["welcome"], "DE welcome")
+        self.assertIn("Translator (de)", (self.app / "assets/l10n/CREDITS.md").read_text())
+        # A later Spanish import must also retain the community language.
+        catalog.import_catalog(self.app, self.repo, self.git("rev-parse", "HEAD").strip(), "es")
+        self.assertTrue((self.app / "l10n/effective/ui_de.arb").exists())
+
+    def test_importing_french_preserves_german_and_spanish(self):
+        catalog.import_catalog(self.app, self.repo, self.revision, "es")
+        for language in ("de", "fr"):
+            self.add_language(language)
+            self.approve_fixture(language)
+            catalog.import_catalog(self.app, self.repo, self.commit(), language)
+        self.assertEqual(catalog.read(self.app / "l10n/localization.lock.json")["locales"], ["de", "es", "fr"])
+        for language, label in (("de", "DE"), ("fr", "FR"), ("es", "TEST")):
+            self.assertEqual(catalog.read(self.app / f"l10n/effective/ui_{language}.arb")["welcome"], label + " welcome")
+
+    def test_community_source_changes_fall_back_until_reviewed(self):
+        self.add_language()
+        self.approve_fixture()
+        catalog.import_catalog(self.app, self.repo, self.commit(), "de")
+        self.source["welcome"] = "Updated English"
+        self.write_sources(self.app / "l10n/source", self.source)
+        catalog.generate(self.app)
+        self.assertEqual(catalog.read(self.app / "l10n/effective/ui_de.arb")["welcome"], "Updated English")
+
+    def test_unmerged_wrong_author_or_tampered_evidence_is_rejected(self):
+        self.add_language()
+        for case in ("unmerged", "owner", "actor", "bytes", "incomplete", "digest"):
+            proof = self.proof()
+            if case == "unmerged": proof["outcome"]["merged"] = False
+            elif case == "owner": proof["outcome"]["merged_by"] = 3
+            elif case == "actor": proof["record"]["actor"]["id"] = 3
+            elif case == "bytes":
+                proof["record"]["snapshot"][0]["after"]["base64"] = base64.b64encode(b"changed").decode()
+                proof["outcome"]["acceptance"]["sha256"] = catalog.canonical_digest(proof["record"])
+            elif case == "incomplete":
+                proof["record"]["snapshot"].pop()
+                proof["outcome"]["acceptance"]["sha256"] = catalog.canonical_digest(proof["record"])
+            else: proof["outcome"]["acceptance"]["sha256"] = "0" * 64
+            with self.subTest(case=case), self.assertRaises(ValueError):
+                catalog.verify_provenance(proof, "de")
+
+    def test_retained_disclosures_must_match_the_accepted_reference(self):
+        self.add_language()
+        proof = self.proof()
+        context = proof["record"]["context"]
+        context["disclosures_sha256"] = catalog.sha(b"Provider: Example")
+        context["id"] = catalog.canonical_digest({k: v for k, v in context.items() if k != "id"})
+        proof["record"]["declaration"] = f"- [x] {self.revision} {context['id']}"
+        proof["record"]["pr_description"] = "Provider: Example"
+        proof["outcome"]["acceptance"]["sha256"] = catalog.canonical_digest(proof["record"])
+        catalog.verify_provenance(proof, "de")
+        proof["record"]["pr_description"] = "Different rights disclosure"
+        proof["outcome"]["acceptance"]["sha256"] = catalog.canonical_digest(proof["record"])
+        with self.assertRaisesRegex(ValueError, "disclosures"):
+            catalog.verify_provenance(proof, "de")
+
+    def test_unchanged_text_does_not_change_authorship(self):
+        self.add_language()
+        proof = self.proof()
+        entry = proof["record"]["snapshot"][0]
+        entry["before"] = copy.deepcopy(entry["after"])
+        proof["outcome"]["acceptance"]["sha256"] = catalog.canonical_digest(proof["record"])
+        _, _, changed = catalog.verify_provenance(proof, "de")
+        self.assertNotIn("welcome", changed)
+        self.assertIn("response", changed)
+
+    def test_community_review_reads_pinned_evidence_and_generates_credit(self):
+        self.add_language()
+        proof = self.proof()
+        repo = {"id": 10, "owner": {"id": 1}, "default_branch": "main"}
+        pr = {"merged": True, "merged_by": {"id": 1}, "merge_commit_sha": self.revision,
+              "base": {"ref": "main"}, "head": {"sha": self.revision}}
+        outcome_path = "outcomes/10/3/outcome.json"
+        with patch.object(catalog, "github_json", side_effect=[repo, pr, {"object": {"sha": "b" * 40}},
+                          {"truncated": False, "tree": [{"type": "blob", "path": outcome_path}]}]), \
+                patch.object(catalog, "github_record", side_effect=[proof["outcome"], proof["record"]]) as records:
+            catalog.review_community(self.repo, "de", 3, "Translator", "Deutsch", True)
+        self.assertTrue(all(call.args[1] == "b" * 40 for call in records.call_args_list))
+        reviews = catalog.read(self.repo / "metadata/reviews/de.json")
+        self.assertEqual(reviews["welcome"]["author"], "translator")
+        self.assertEqual(catalog.read(self.repo / "metadata/languages.json")["de"], "Deutsch")
+        catalog.import_catalog(self.app, self.repo, self.commit(), "de")
+
+    def test_regional_community_preview_uses_flutter_filename(self):
+        self.add_language("pt-BR")
+        catalog.generate(self.app, self.repo, "pt-BR")
+        self.assertEqual(catalog.read(self.app / "l10n/effective/ui_pt_BR.arb")["@@locale"], "pt_BR")
 
 
 if __name__ == "__main__":
