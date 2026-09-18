@@ -14,5 +14,7 @@
   "screensaverOverlayNone": "Aún no hay ninguna",
   "screensaverOverlayLimit": "Hasta {count} entidades.",
   "screensaverOverlayGlancePage": "De un vistazo",
-  "screensaverOverlayGlanceHint": "Entidades que se muestran sobre el protector de pantalla"
+  "screensaverOverlayGlanceHint": "Entidades que se muestran sobre el protector de pantalla",
+  "glanceUnavailable": "No disponible",
+  "glanceUnknown": "Desconocido"
 }

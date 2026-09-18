@@ -6150,7 +6150,7 @@
     "author": "Xavier Larrea"
   },
   "deviceBatteryHeld": {
-    "source": "16247a8cbf08eaeb86c273e6c6605e546a4a63b9ebe698e87fc8d4d84aa6141f",
+    "source": "4e29a8ff0558675a4d3fa6185243b489e6600af5fe5d376a756c7fc18cd170a9",
     "translation": "f15df24d967b30daea05ee840c4878b845d58467bb6a91a004c5959200e4c713",
     "author": "Xavier Larrea"
   },
@@ -6859,6 +6859,91 @@
     "translation": "51444b78a3f3348fe58d735d87cddafad3a2b45fdaf8d18f6ae19e92b7ec8979",
     "author": "Xavier Larrea"
   },
+  "shizukuPermissionUnconfirmed": {
+    "source": "87ea9f0ea654e4cc26c0834e3dc6eb52d4f154a8ed77afd08358ad32608a69c0",
+    "translation": "b162eba1641d78cd0fc55f6b7a1912882d24375a1420df5700149093b05a9130",
+    "author": "Xavier Larrea"
+  },
+  "shizukuPermissionReadFailed": {
+    "source": "a49e97cb23211b95606a99c211759e104ba9acadfa236e2ac9e4c0bdf7252ccd",
+    "translation": "5b0c6264495529488d2e7d57e6a4bff4db0312af097bad30f8b1a57eedb7e34e",
+    "author": "Xavier Larrea"
+  },
+  "shizukuRestartTimedOut": {
+    "source": "34a761f6055e9ecc60f5ead642096ea0f0e06a4cb9b3e0ae0cb8c1c15f5ffd9f",
+    "translation": "a344cd694afc719b2e38337cf1b37d79e62fcaa9fa904ab7073bc26a16f4adff",
+    "author": "Xavier Larrea"
+  },
+  "shizukuRestartRefused": {
+    "source": "3bf593a75d08c0a28f2c6fd355518d178906a3aacae352d8d406d2472e2a435d",
+    "translation": "e079968c712d8fa8eccfa19c661a2a10b41bdb9fb9abe33a86c94e81799151e6",
+    "author": "Xavier Larrea"
+  },
+  "shizukuCommandTimedOut": {
+    "source": "b02dc1ead055f011903daa904172b838c00f615e12edf5ca6ccfe9f552050e2d",
+    "translation": "ac71cf7f38c1078d218ce5cd414d177c3c0d5988ddee7c65eaba093461beaa5b",
+    "author": "Xavier Larrea"
+  },
+  "shizukuRequestRejected": {
+    "source": "96779288936e244d8b9558b76c2c6fa06977c355c0260b742e63bd647867c162",
+    "translation": "f6be16adaee4d46891a86cf8980b9dabfd10403e9cf0a4d4e3aac7d39f2699f6",
+    "author": "Xavier Larrea"
+  },
+  "deviceDisconnectedError": {
+    "source": "347ac724e75b39093e450425bbd957186f480b331698d684a2e4daa57ec3cd8b",
+    "translation": "f27f65f3f680ee7428f0a6a54584ec018fd4531b7abef3ddf9047796ba8f392a",
+    "author": "Xavier Larrea"
+  },
+  "deviceResponseTimedOut": {
+    "source": "dd09611a52bac530ba42efac4fb9a1568b66e64e95d82a153b573a112de380f9",
+    "translation": "630bc433dc68548ae30473006364abfd2d36fc0be181fd70f37751bb2a71ba44",
+    "author": "Xavier Larrea"
+  },
+  "deviceRequestAborted": {
+    "source": "0cb8e20ca1fc9a702d51a98dec9e624a26cc6e4b6fef62b0e2c8c0387d9033b8",
+    "translation": "e075f56997a31c988d99433a4f6b6d1cece6c472a8ae310792a6e055b255ba5c",
+    "author": "Xavier Larrea"
+  },
+  "shizukuActionBusy": {
+    "source": "406ebc93291795dab8ba01f3c433affb35ab1827f7ec14172d82032e618c570d",
+    "translation": "1f37c0cc958e33a05d7a57315b8b1a7bcb98bef3aac90956a65f1813ce3aa7ac",
+    "author": "Xavier Larrea"
+  },
+  "shizukuGrantFirst": {
+    "source": "705a13ab326997ce59f65c1408c281530164e872de9389c37df208672f3395f7",
+    "translation": "fb28b617443b8e8cc04c18b07ddae2e9498f38babb2dc89fa63f0b66a2439005",
+    "author": "Xavier Larrea"
+  },
+  "shizukuNoResponse": {
+    "source": "2da35b6ad8a5602093cc23dd2dbc22322f9f79ced5d59428209b9e9eb299bead",
+    "translation": "a4cbaae670a00f13e2064b1ad8f6585e48ecfef5f14581fdcfe7498c368f7355",
+    "author": "Xavier Larrea"
+  },
+  "shizukuCommandFailed": {
+    "source": "bad44a68f93df25f4dacb1532b509b19e70096ad469c60dd819837263bc62506",
+    "translation": "eaa6d96b78004824220189720992a9261beace3d2cf3b7eb8485e8f45790940c",
+    "author": "Xavier Larrea"
+  },
+  "shizukuStartRequired": {
+    "source": "503532525a6e71b76d85b9680e884bd6541e87527f8de6d7e80d1c1cf7693234",
+    "translation": "d4507f72c9e89602119b91777b473252f02ee9a748038a458cc4536622fc4d27",
+    "author": "Xavier Larrea"
+  },
+  "shizukuConnectionFailed": {
+    "source": "bafac3bade1c52eafcea137388747eec47abe9717d0b23a4ba66fdde04056966",
+    "translation": "bb172006de5ed49b21de7de4f48530ade8b880850fd99dc37cf78928e72de412",
+    "author": "Xavier Larrea"
+  },
+  "shizukuHelperNotConnected": {
+    "source": "5e1c3f4a2cc7eee4b8c2c38c444b3de65634ac7b1dc656af7fea77f2a129e8ec",
+    "translation": "0971ccd90742f1603ca688b2aed2f600149eaae438dfbadfa3bf411a94b43d3c",
+    "author": "Xavier Larrea"
+  },
+  "shizukuHelperUnavailable": {
+    "source": "3df5590dec32b4039fdf56de9592f306ec2a208291647c3bed1e492f8b204301",
+    "translation": "3bf8e20ad9028650269141a31202878b74b8be41537f95d49761e3d24991ac5d",
+    "author": "Xavier Larrea"
+  },
   "deviceHelperPage": {
     "source": "0a6c2a4126fb0020a931b0a342b6b4bc73a6200981e5f8c11d1e731646c62468",
     "translation": "40f2f77814ef3cec9ee067824b8c128e8a4802f4916ac83c3775af1b85f4faf3",
@@ -7092,6 +7177,96 @@
   "deviceUpdateUrlPath": {
     "source": "1c09bd89a6397faa3214b7c224de1c4b020173ec0fa8282af26ae47597329fce",
     "translation": "ab29d47aadcbe041f67d64b7faab33ccf0b49a2a337f26569839fef4bcca4d09",
+    "author": "Xavier Larrea"
+  },
+  "updateDownloadBusy": {
+    "source": "159530bd813f7bc9d202a250fc4b50cbea661bbddc5ae0e043fcbf5a6d6bba3b",
+    "translation": "9ac3d0cfa38829ce865e3e35b6da8bcc4680f15b50cf37a1e2575f2fd8e11ee5",
+    "author": "Xavier Larrea"
+  },
+  "updateInstallBusy": {
+    "source": "1ccdd7e3f21128b81391a4c9c2a13398ee90405633915ebcd50dcc84dceb9d0a",
+    "translation": "92fbda0e29487ca31b0b4e9485388e41d8926f95171ab88f66f5f0096cd49445",
+    "author": "Xavier Larrea"
+  },
+  "updateNoAvailable": {
+    "source": "f6c8a6201efc2cb782e123d71309a754b596879c31e558195a0fde67fd1a0237",
+    "translation": "1ea967e5149b3670697054027675726b681d2e0ee68dc7c919eacb236c9d88a4",
+    "author": "Xavier Larrea"
+  },
+  "updateNoUploaded": {
+    "source": "f4f86985e2e738cdf3e850700b26c3693b9427da8e541ac95e1c72369c5ccb0e",
+    "translation": "9796e565d907204a8a7affffde4d4f38f21f3770d132625a53f0fb91bf76ac17",
+    "author": "Xavier Larrea"
+  },
+  "updateUploadEmpty": {
+    "source": "bb1f87f74138965bef7914189fdc80d82a7ac7c15698530d988035af08e8b42c",
+    "translation": "acca1202c4e23db890d6668e4c2351709d6dd6db55377d4c2ab424b017421414",
+    "author": "Xavier Larrea"
+  },
+  "updateInvalidApk": {
+    "source": "a4ff29d387908cd2f402e0fa36b36dd3b15c048d4b0d275c2af0133b6f9d8e11",
+    "translation": "0843c88bef66c1040a7a7b0bbff91061ebb3bb52f30d3fccc6f2cd3afa7f2e15",
+    "author": "Xavier Larrea"
+  },
+  "updateUploadedGone": {
+    "source": "2b0c6354a3bf9f4e01bca06e262db7a7847c3d06305f944dd8f6d7519f19a834",
+    "translation": "ff7b3075c7ea49ac02df8f01a685ddf0558e4a318c806d85a79c65909215376f",
+    "author": "Xavier Larrea"
+  },
+  "updateShizukuInstallerFailed": {
+    "source": "2d40aac9ee01021e2f062927dc602b161b4a07c5608c8c973550f4a540cf51ba",
+    "translation": "4d2047238f4677dac89e701c07761c350e3be4efdddb4bdbc0a47a43c39dbad7",
+    "author": "Xavier Larrea"
+  },
+  "updateUploadSpace": {
+    "source": "200fafc258eaf31c2f4f9bb0a9dfe041b9719464f8fe9231c6f1d146ec0da526",
+    "translation": "9f7b02ef457084ab3e6a21aee7a7f5da0a875fd60888d3c35a401f04fad31e88",
+    "author": "Xavier Larrea"
+  },
+  "updateUploadInterrupted": {
+    "source": "b76758001fa40de737ce90ec88ddf7fb7fab25bc50834e2aa5c30a8c1f11f1dd",
+    "translation": "7a5483c16bfea5f702f7d4c3d979061741edd3e84ab39ebef19812c34c65940b",
+    "author": "Xavier Larrea"
+  },
+  "updateUploadEarly": {
+    "source": "ba066d0cdeb7e248ad7c65962e8a15feedd977e26bafe97da0167d52547eb27c",
+    "translation": "8c64924c742ff0bb73e3ef5e4c24616dd42c268e91310e8626c44767b796bd17",
+    "author": "Xavier Larrea"
+  },
+  "updateWrongPackage": {
+    "source": "1d8f336197e1d955de928983958dd4bb24f86b357b48bc5c37e62d6ddf9e6968",
+    "translation": "d3fa0fe59a335381afb7d24bd84b46a377ba855c348d4c017667a49df4598176",
+    "author": "Xavier Larrea"
+  },
+  "updateOlderBuild": {
+    "source": "e1fa409a36195207222ef714a9be1bd6e0fa9b22e8b0623ab5a971dee440fe7e",
+    "translation": "1574cf8a57dfbd43d4be3ddc8c98f61f9942a8d4b2924d9208b5702ce4837ff9",
+    "author": "Xavier Larrea"
+  },
+  "updateDownloadHttpFailed": {
+    "source": "2a7a6f5fe38174c58287512cd9f463c03a3a06a9aa2ce66762b41e8428b53b9a",
+    "translation": "f9e7a3c06b6434e875e0334ce5fec223bc00260e066333f6305335baf1d491f9",
+    "author": "Xavier Larrea"
+  },
+  "updateDownloadStalled": {
+    "source": "6413bbe5f5974f707f3c8eeccd8dacc260ad4ff21c386004d5ca2a3e5a4a480f",
+    "translation": "c5098d98e61cce51412232a8264ce3805612d5fe2398b4b49a68eed3d1da6d6a",
+    "author": "Xavier Larrea"
+  },
+  "deviceUpdateFailedDetail": {
+    "source": "30f9a7b3f8e5162b995d1f61e7067b27dcdd797f3126a28adc05d9370d16c744",
+    "translation": "028c0c94c16c62d5804a1c5388660d76a6a715cb0a9e931c6588d48884f79c8d",
+    "author": "Xavier Larrea"
+  },
+  "deviceInstallFailedDetail": {
+    "source": "8509a3565fe5675bc8a9031c6fe07d63842fcf9de330e3d7f9ac8dc4972e59a9",
+    "translation": "ec1983c4397b7e1e2a1177740ed5e7dc733f4d9d8ef9b86ee0c856444494395c",
+    "author": "Xavier Larrea"
+  },
+  "updateAnotherPackage": {
+    "source": "7ddb909021bff3d006ae623d51f6b7acc76b6bfb5dbb39fb8f5bbf3e80b89de4",
+    "translation": "b5dfb1cd006544d3082002b2fd4f56c08a24f8e71dd5fc8a22a2d0c852c9ab1d",
     "author": "Xavier Larrea"
   },
   "settingUiLanguageTitle": {
@@ -11727,6 +11902,16 @@
   "screensaverOverlayGlanceHint": {
     "source": "80c2692e925138c5e9e710701095f0216c6a1bea769e53c715599aa885ee4794",
     "translation": "fe4095b163b8e08594f843a6fcaff6180f2d76efbffb08c8be0617d535516d7d",
+    "author": "Xavier Larrea"
+  },
+  "glanceUnavailable": {
+    "source": "6a8e95df3fe0236fd8e83bf18c8524caa2948b954432a039efdbe48151f14df3",
+    "translation": "b781f6bd9b98e43d557bc80c4c6838cc1130b1db4f687d2e39f4396f482a642b",
+    "author": "Xavier Larrea"
+  },
+  "glanceUnknown": {
+    "source": "fa65a8110de224ba6bea070ceb2efa08635d1092e471de86c2309919b066bb5a",
+    "translation": "2669e033a1213e64066c7dae4bf54c2ad82db2bf4cea7a05f5883edb32a6d409",
     "author": "Xavier Larrea"
   },
   "settingScreensaverImmichUrlTitle": {

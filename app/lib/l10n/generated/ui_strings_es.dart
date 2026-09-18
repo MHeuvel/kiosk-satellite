@@ -4304,7 +4304,7 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get deviceBatteryHeld =>
-      'Allows the process to run in the background without being paused or killed.';
+      'Permite que el proceso se ejecute en segundo plano sin que se pause ni se cierre.';
 
   @override
   String get deviceCamera => 'Cámara';
@@ -4817,57 +4817,63 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get shizukuPermissionUnconfirmed =>
-      'Android has not confirmed this permission. Check Permissions Manager on the device.';
+      'Android no ha confirmado este permiso. Revisa el Administrador de permisos en el dispositivo.';
 
   @override
   String get shizukuPermissionReadFailed =>
-      'Could not read current permissions. Try again.';
+      'No se pudieron consultar los permisos actuales. Inténtalo de nuevo.';
 
   @override
-  String get shizukuRestartTimedOut => 'The restart command timed out';
+  String get shizukuRestartTimedOut =>
+      'Se agotó el tiempo de espera del comando de reinicio';
 
   @override
-  String get shizukuRestartRefused => 'Android refused the restart';
+  String get shizukuRestartRefused => 'Android rechazó el reinicio';
 
   @override
-  String get shizukuCommandTimedOut => 'Command timed out';
+  String get shizukuCommandTimedOut =>
+      'Se agotó el tiempo de espera del comando';
 
   @override
-  String get shizukuRequestRejected => 'Android rejected the request';
+  String get shizukuRequestRejected => 'Android rechazó la solicitud';
 
   @override
-  String get deviceDisconnectedError => 'Device disconnected';
+  String get deviceDisconnectedError => 'El dispositivo se desconectó';
 
   @override
-  String get deviceResponseTimedOut => 'Device response timed out';
+  String get deviceResponseTimedOut =>
+      'Se agotó el tiempo de espera de la respuesta del dispositivo';
 
   @override
-  String get deviceRequestAborted => 'Request aborted';
+  String get deviceRequestAborted => 'Solicitud cancelada';
 
   @override
-  String get shizukuActionBusy => 'A Shizuku device action is already running';
+  String get shizukuActionBusy =>
+      'Ya hay una acción de Shizuku en curso en el dispositivo';
 
   @override
-  String get shizukuGrantFirst => 'Grant Shizuku access first';
+  String get shizukuGrantFirst => 'Primero concede acceso a Shizuku';
 
   @override
-  String get shizukuNoResponse => 'Shizuku command did not respond';
+  String get shizukuNoResponse => 'El comando de Shizuku no respondió';
 
   @override
-  String get shizukuCommandFailed => 'Shizuku command failed';
+  String get shizukuCommandFailed => 'El comando de Shizuku falló';
 
   @override
   String get shizukuStartRequired =>
-      'Start Shizuku 13 or later and allow Kiosk Satellite in Shizuku';
+      'Inicia Shizuku 13 o posterior y autoriza Kiosk Satellite en Shizuku';
 
   @override
-  String get shizukuConnectionFailed => 'Shizuku connection failed';
+  String get shizukuConnectionFailed => 'La conexión con Shizuku falló';
 
   @override
-  String get shizukuHelperNotConnected => 'Shizuku helper did not connect';
+  String get shizukuHelperNotConnected =>
+      'El asistente de Shizuku no se conectó';
 
   @override
-  String get shizukuHelperUnavailable => 'Shizuku helper is unavailable';
+  String get shizukuHelperUnavailable =>
+      'El asistente de Shizuku no está disponible';
 
   @override
   String get deviceHelperPage => 'Asistente de actualización opcional';
@@ -5046,49 +5052,51 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get updateDownloadBusy =>
-      'A download is running. Wait for it to finish.';
+      'Hay una descarga en curso. Espera a que termine.';
 
   @override
   String get updateInstallBusy =>
-      'An install is running. Wait for it to finish.';
+      'Hay una instalación en curso. Espera a que termine.';
 
   @override
-  String get updateNoAvailable => 'No update is available.';
+  String get updateNoAvailable => 'No hay actualizaciones disponibles.';
 
   @override
-  String get updateNoUploaded => 'No uploaded APK is waiting.';
+  String get updateNoUploaded =>
+      'No hay ningún APK cargado pendiente de instalación.';
 
   @override
-  String get updateUploadEmpty => 'The upload was empty.';
+  String get updateUploadEmpty => 'El archivo cargado estaba vacío.';
 
   @override
-  String get updateInvalidApk => 'The file is not an Android APK.';
+  String get updateInvalidApk => 'El archivo no es un APK de Android.';
 
   @override
-  String get updateUploadedGone => 'The uploaded APK is gone. Upload it again.';
+  String get updateUploadedGone =>
+      'El APK cargado ya no está disponible. Vuelve a cargarlo.';
 
   @override
   String get updateShizukuInstallerFailed =>
-      'Shizuku could not install the update. No confirmation installer was opened.';
+      'Shizuku no pudo instalar la actualización. No se abrió el instalador que solicita confirmación.';
 
   @override
   String updateUploadSpace(String size, String required, String free) {
-    return 'Not enough free space: the APK is $size MB and the install needs about $required MB, but the device has $free MB free.';
+    return 'No hay suficiente espacio libre: el APK ocupa $size MB y la instalación necesita unos $required MB, pero el dispositivo solo tiene $free MB libres.';
   }
 
   @override
   String updateUploadInterrupted(String size, String error) {
-    return 'The upload was interrupted after $size MB: $error';
+    return 'La carga se interrumpió después de $size MB: $error';
   }
 
   @override
   String updateUploadEarly(String received, String expected) {
-    return 'The upload ended early: $received of $expected MB arrived.';
+    return 'La carga terminó antes de completarse: se recibieron $received de $expected MB.';
   }
 
   @override
   String updateWrongPackage(String package, String expected) {
-    return 'The APK is $package, not Kiosk Satellite ($expected).';
+    return 'El APK corresponde a $package, no a Kiosk Satellite ($expected).';
   }
 
   @override
@@ -5098,31 +5106,31 @@ class UiStringsEs extends UiStrings {
     String currentVersion,
     String currentBuild,
   ) {
-    return 'The APK is version $version (build $build), older than the running $currentVersion (build $currentBuild). Downgrades are refused: Android would not install one either.';
+    return 'El APK es la versión $version (compilación $build), anterior a la versión instalada $currentVersion (compilación $currentBuild). No se permite instalar versiones anteriores. Android tampoco las instalaría.';
   }
 
   @override
   String updateDownloadHttpFailed(String status) {
-    return 'Download failed (HTTP $status).';
+    return 'La descarga falló (HTTP $status).';
   }
 
   @override
   String updateDownloadStalled(String seconds) {
-    return 'The download stalled: no data arrived for $seconds seconds.';
+    return 'La descarga se detuvo: no se recibieron datos durante $seconds segundos.';
   }
 
   @override
   String deviceUpdateFailedDetail(String error) {
-    return 'Update failed: $error';
+    return 'La actualización falló: $error';
   }
 
   @override
   String deviceInstallFailedDetail(String error) {
-    return 'Install failed: $error';
+    return 'La instalación falló: $error';
   }
 
   @override
-  String get updateAnotherPackage => 'another package';
+  String get updateAnotherPackage => 'otro paquete';
 
   @override
   String get settingUiLanguageTitle => 'Idioma';
@@ -8407,10 +8415,10 @@ class UiStringsEs extends UiStrings {
       'Entidades que se muestran sobre el protector de pantalla';
 
   @override
-  String get glanceUnavailable => 'Unavailable';
+  String get glanceUnavailable => 'No disponible';
 
   @override
-  String get glanceUnknown => 'Unknown';
+  String get glanceUnknown => 'Desconocido';
 
   @override
   String get settingScreensaverImmichUrlTitle => 'Dirección del servidor';

@@ -206,5 +206,27 @@
         "Screensaver > At a Glance"
       ]
     }
+  },
+  "glanceUnavailable": "Unavailable",
+  "@glanceUnavailable": {
+    "context": "Screensaver > At a Glance and entity widgets",
+    "description": "Reserved entity state when Home Assistant cannot report a value.",
+    "x-locations": {
+      "device": [
+        "Screensaver > At a Glance",
+        "Screensaver > Entity widget"
+      ]
+    }
+  },
+  "glanceUnknown": "Unknown",
+  "@glanceUnknown": {
+    "context": "Screensaver > At a Glance and entity widgets",
+    "description": "Reserved entity state when Home Assistant cannot report a value.",
+    "x-locations": {
+      "device": [
+        "Screensaver > At a Glance",
+        "Screensaver > Entity widget"
+      ]
+    }
   }
 }

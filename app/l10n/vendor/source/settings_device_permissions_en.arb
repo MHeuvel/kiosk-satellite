@@ -84,7 +84,8 @@
     "description": "Label or explanation on this Device settings page.",
     "x-locations": {
       "device": [
-        "Settings > Device > Permissions Manager"
+        "Settings > Device > Permissions Manager",
+        "Settings > App Launcher > Required system permissions"
       ],
       "remoteAdmin": [
         "Device > Permissions Manager"

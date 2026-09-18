@@ -532,5 +532,322 @@
         "Device > Updates"
       ]
     }
+  },
+  "updateDownloadBusy": "A download is running. Wait for it to finish.",
+  "@updateDownloadBusy": {
+    "context": "Settings > Device > Updates",
+    "description": "Explanation when a device operation fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "updateInstallBusy": "An install is running. Wait for it to finish.",
+  "@updateInstallBusy": {
+    "context": "Settings > Device > Updates",
+    "description": "Explanation when a device operation fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "updateNoAvailable": "No update is available.",
+  "@updateNoAvailable": {
+    "context": "Settings > Device > Updates",
+    "description": "Explanation when a device operation fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "updateNoUploaded": "No uploaded APK is waiting.",
+  "@updateNoUploaded": {
+    "context": "Settings > Device > Updates",
+    "description": "Explanation when a device operation fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "updateUploadEmpty": "The upload was empty.",
+  "@updateUploadEmpty": {
+    "context": "Settings > Device > Updates",
+    "description": "Explanation when a device operation fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "updateInvalidApk": "The file is not an Android APK.",
+  "@updateInvalidApk": {
+    "context": "Settings > Device > Updates",
+    "description": "Explanation when a device operation fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "updateUploadedGone": "The uploaded APK is gone. Upload it again.",
+  "@updateUploadedGone": {
+    "context": "Settings > Device > Updates",
+    "description": "Explanation when a device operation fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "updateShizukuInstallerFailed": "Shizuku could not install the update. No confirmation installer was opened.",
+  "@updateShizukuInstallerFailed": {
+    "context": "Settings > Device > Updates",
+    "description": "Explanation when a device operation fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    }
+  },
+  "updateUploadSpace": "Not enough free space: the APK is {size} MB and the install needs about {required} MB, but the device has {free} MB free.",
+  "@updateUploadSpace": {
+    "context": "Settings > Device > Updates",
+    "description": "Explanation when a device operation fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    },
+    "placeholders": {
+      "size": {
+        "type": "String",
+        "description": "Original size value reported by the device."
+      },
+      "required": {
+        "type": "String",
+        "description": "Original required value reported by the device."
+      },
+      "free": {
+        "type": "String",
+        "description": "Original free value reported by the device."
+      }
+    }
+  },
+  "updateUploadInterrupted": "The upload was interrupted after {size} MB: {error}",
+  "@updateUploadInterrupted": {
+    "context": "Settings > Device > Updates",
+    "description": "Explanation when a device operation fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    },
+    "placeholders": {
+      "size": {
+        "type": "String",
+        "description": "Original size value reported by the device."
+      },
+      "error": {
+        "type": "String",
+        "description": "Original technical detail, unchanged."
+      }
+    }
+  },
+  "updateUploadEarly": "The upload ended early: {received} of {expected} MB arrived.",
+  "@updateUploadEarly": {
+    "context": "Settings > Device > Updates",
+    "description": "Explanation when a device operation fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    },
+    "placeholders": {
+      "received": {
+        "type": "String",
+        "description": "Original received value reported by the device."
+      },
+      "expected": {
+        "type": "String",
+        "description": "Original expected value reported by the device."
+      }
+    }
+  },
+  "updateWrongPackage": "The APK is {package}, not Kiosk Satellite ({expected}).",
+  "@updateWrongPackage": {
+    "context": "Settings > Device > Updates",
+    "description": "Explanation when a device operation fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    },
+    "placeholders": {
+      "package": {
+        "type": "String",
+        "description": "Original package value reported by the device."
+      },
+      "expected": {
+        "type": "String",
+        "description": "Original expected value reported by the device."
+      }
+    }
+  },
+  "updateOlderBuild": "The APK is version {version} (build {build}), older than the running {currentVersion} (build {currentBuild}). Downgrades are refused: Android would not install one either.",
+  "@updateOlderBuild": {
+    "context": "Settings > Device > Updates",
+    "description": "Explanation when a device operation fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    },
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "description": "Original version value reported by the device."
+      },
+      "build": {
+        "type": "String",
+        "description": "Original build value reported by the device."
+      },
+      "currentVersion": {
+        "type": "String",
+        "description": "Original currentVersion value reported by the device."
+      },
+      "currentBuild": {
+        "type": "String",
+        "description": "Original currentBuild value reported by the device."
+      }
+    }
+  },
+  "updateDownloadHttpFailed": "Download failed (HTTP {status}).",
+  "@updateDownloadHttpFailed": {
+    "context": "Settings > Device > Updates",
+    "description": "Explanation when a device operation fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    },
+    "placeholders": {
+      "status": {
+        "type": "String",
+        "description": "Original status value reported by the device."
+      }
+    }
+  },
+  "updateDownloadStalled": "The download stalled: no data arrived for {seconds} seconds.",
+  "@updateDownloadStalled": {
+    "context": "Settings > Device > Updates",
+    "description": "Explanation when a device operation fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    },
+    "placeholders": {
+      "seconds": {
+        "type": "String",
+        "description": "Original seconds value reported by the device."
+      }
+    }
+  },
+  "deviceUpdateFailedDetail": "Update failed: {error}",
+  "@deviceUpdateFailedDetail": {
+    "context": "Settings > Device > Updates",
+    "description": "Explanation when a device operation fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Original technical detail, unchanged."
+      }
+    }
+  },
+  "deviceInstallFailedDetail": "Install failed: {error}",
+  "@deviceInstallFailedDetail": {
+    "context": "Settings > Device > Updates",
+    "description": "Explanation when a device operation fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Updates"
+      ],
+      "remoteAdmin": [
+        "Device > Updates"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Original technical detail, unchanged."
+      }
+    }
+  },
+  "updateAnotherPackage": "another package",
+  "@updateAnotherPackage": {
+    "context": "Settings > Device > Updates",
+    "description": "Replacement for an unknown package name in an APK rejection message.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Device > Updates > Install from file"
+      ]
+    }
   }
 }

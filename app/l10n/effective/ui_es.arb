@@ -15752,7 +15752,7 @@
       ]
     }
   },
-  "deviceBatteryHeld": "Allows the process to run in the background without being paused or killed.",
+  "deviceBatteryHeld": "Permite que el proceso se ejecute en segundo plano sin que se pause ni se cierre.",
   "@deviceBatteryHeld": {
     "context": "Settings:Device:Permissions Manager",
     "description": "Label or explanation on this Device settings page.",
@@ -17629,7 +17629,7 @@
       }
     }
   },
-  "shizukuPermissionUnconfirmed": "Android has not confirmed this permission. Check Permissions Manager on the device.",
+  "shizukuPermissionUnconfirmed": "Android no ha confirmado este permiso. Revisa el Administrador de permisos en el dispositivo.",
   "@shizukuPermissionUnconfirmed": {
     "context": "Settings > Device > Shizuku",
     "description": "Explanation when a device operation fails.",
@@ -17642,7 +17642,7 @@
       ]
     }
   },
-  "shizukuPermissionReadFailed": "Could not read current permissions. Try again.",
+  "shizukuPermissionReadFailed": "No se pudieron consultar los permisos actuales. Inténtalo de nuevo.",
   "@shizukuPermissionReadFailed": {
     "context": "Settings > Device > Shizuku",
     "description": "Explanation when a device operation fails.",
@@ -17655,7 +17655,7 @@
       ]
     }
   },
-  "shizukuRestartTimedOut": "The restart command timed out",
+  "shizukuRestartTimedOut": "Se agotó el tiempo de espera del comando de reinicio",
   "@shizukuRestartTimedOut": {
     "context": "Settings > Device > Shizuku",
     "description": "Explanation when a device operation fails.",
@@ -17668,7 +17668,7 @@
       ]
     }
   },
-  "shizukuRestartRefused": "Android refused the restart",
+  "shizukuRestartRefused": "Android rechazó el reinicio",
   "@shizukuRestartRefused": {
     "context": "Settings > Device > Shizuku",
     "description": "Explanation when a device operation fails.",
@@ -17681,7 +17681,7 @@
       ]
     }
   },
-  "shizukuCommandTimedOut": "Command timed out",
+  "shizukuCommandTimedOut": "Se agotó el tiempo de espera del comando",
   "@shizukuCommandTimedOut": {
     "context": "Settings > Device > Shizuku",
     "description": "Explanation when a device operation fails.",
@@ -17694,7 +17694,7 @@
       ]
     }
   },
-  "shizukuRequestRejected": "Android rejected the request",
+  "shizukuRequestRejected": "Android rechazó la solicitud",
   "@shizukuRequestRejected": {
     "context": "Settings > Device > Shizuku",
     "description": "Explanation when a device operation fails.",
@@ -17707,7 +17707,7 @@
       ]
     }
   },
-  "deviceDisconnectedError": "Device disconnected",
+  "deviceDisconnectedError": "El dispositivo se desconectó",
   "@deviceDisconnectedError": {
     "context": "Settings > Device > Shizuku",
     "description": "Explanation when a device operation fails.",
@@ -17720,7 +17720,7 @@
       ]
     }
   },
-  "deviceResponseTimedOut": "Device response timed out",
+  "deviceResponseTimedOut": "Se agotó el tiempo de espera de la respuesta del dispositivo",
   "@deviceResponseTimedOut": {
     "context": "Settings > Device > Shizuku",
     "description": "Explanation when a device operation fails.",
@@ -17733,7 +17733,7 @@
       ]
     }
   },
-  "deviceRequestAborted": "Request aborted",
+  "deviceRequestAborted": "Solicitud cancelada",
   "@deviceRequestAborted": {
     "context": "Settings > Device > Shizuku",
     "description": "Explanation when a device operation fails.",
@@ -17746,7 +17746,7 @@
       ]
     }
   },
-  "shizukuActionBusy": "A Shizuku device action is already running",
+  "shizukuActionBusy": "Ya hay una acción de Shizuku en curso en el dispositivo",
   "@shizukuActionBusy": {
     "context": "Settings > Device > Shizuku",
     "description": "Explanation when a Shizuku device action fails.",
@@ -17759,7 +17759,7 @@
       ]
     }
   },
-  "shizukuGrantFirst": "Grant Shizuku access first",
+  "shizukuGrantFirst": "Primero concede acceso a Shizuku",
   "@shizukuGrantFirst": {
     "context": "Settings > Device > Shizuku",
     "description": "Explanation when a Shizuku device action fails.",
@@ -17772,7 +17772,7 @@
       ]
     }
   },
-  "shizukuNoResponse": "Shizuku command did not respond",
+  "shizukuNoResponse": "El comando de Shizuku no respondió",
   "@shizukuNoResponse": {
     "context": "Settings > Device > Shizuku",
     "description": "Explanation when a Shizuku device action fails.",
@@ -17785,7 +17785,7 @@
       ]
     }
   },
-  "shizukuCommandFailed": "Shizuku command failed",
+  "shizukuCommandFailed": "El comando de Shizuku falló",
   "@shizukuCommandFailed": {
     "context": "Settings > Device > Shizuku",
     "description": "Explanation when a Shizuku device action fails.",
@@ -17798,7 +17798,7 @@
       ]
     }
   },
-  "shizukuStartRequired": "Start Shizuku 13 or later and allow Kiosk Satellite in Shizuku",
+  "shizukuStartRequired": "Inicia Shizuku 13 o posterior y autoriza Kiosk Satellite en Shizuku",
   "@shizukuStartRequired": {
     "context": "Settings > Device > Shizuku",
     "description": "Explanation when a Shizuku device action fails.",
@@ -17811,7 +17811,7 @@
       ]
     }
   },
-  "shizukuConnectionFailed": "Shizuku connection failed",
+  "shizukuConnectionFailed": "La conexión con Shizuku falló",
   "@shizukuConnectionFailed": {
     "context": "Settings > Device > Shizuku",
     "description": "Explanation when a Shizuku device action fails.",
@@ -17824,7 +17824,7 @@
       ]
     }
   },
-  "shizukuHelperNotConnected": "Shizuku helper did not connect",
+  "shizukuHelperNotConnected": "El asistente de Shizuku no se conectó",
   "@shizukuHelperNotConnected": {
     "context": "Settings > Device > Shizuku",
     "description": "Explanation when a Shizuku device action fails.",
@@ -17837,7 +17837,7 @@
       ]
     }
   },
-  "shizukuHelperUnavailable": "Shizuku helper is unavailable",
+  "shizukuHelperUnavailable": "El asistente de Shizuku no está disponible",
   "@shizukuHelperUnavailable": {
     "context": "Settings > Device > Shizuku",
     "description": "Explanation when a Shizuku device action fails.",
@@ -18539,7 +18539,7 @@
       ]
     }
   },
-  "updateDownloadBusy": "A download is running. Wait for it to finish.",
+  "updateDownloadBusy": "Hay una descarga en curso. Espera a que termine.",
   "@updateDownloadBusy": {
     "context": "Settings > Device > Updates",
     "description": "Explanation when a device operation fails.",
@@ -18552,7 +18552,7 @@
       ]
     }
   },
-  "updateInstallBusy": "An install is running. Wait for it to finish.",
+  "updateInstallBusy": "Hay una instalación en curso. Espera a que termine.",
   "@updateInstallBusy": {
     "context": "Settings > Device > Updates",
     "description": "Explanation when a device operation fails.",
@@ -18565,7 +18565,7 @@
       ]
     }
   },
-  "updateNoAvailable": "No update is available.",
+  "updateNoAvailable": "No hay actualizaciones disponibles.",
   "@updateNoAvailable": {
     "context": "Settings > Device > Updates",
     "description": "Explanation when a device operation fails.",
@@ -18578,7 +18578,7 @@
       ]
     }
   },
-  "updateNoUploaded": "No uploaded APK is waiting.",
+  "updateNoUploaded": "No hay ningún APK cargado pendiente de instalación.",
   "@updateNoUploaded": {
     "context": "Settings > Device > Updates",
     "description": "Explanation when a device operation fails.",
@@ -18591,7 +18591,7 @@
       ]
     }
   },
-  "updateUploadEmpty": "The upload was empty.",
+  "updateUploadEmpty": "El archivo cargado estaba vacío.",
   "@updateUploadEmpty": {
     "context": "Settings > Device > Updates",
     "description": "Explanation when a device operation fails.",
@@ -18604,7 +18604,7 @@
       ]
     }
   },
-  "updateInvalidApk": "The file is not an Android APK.",
+  "updateInvalidApk": "El archivo no es un APK de Android.",
   "@updateInvalidApk": {
     "context": "Settings > Device > Updates",
     "description": "Explanation when a device operation fails.",
@@ -18617,7 +18617,7 @@
       ]
     }
   },
-  "updateUploadedGone": "The uploaded APK is gone. Upload it again.",
+  "updateUploadedGone": "El APK cargado ya no está disponible. Vuelve a cargarlo.",
   "@updateUploadedGone": {
     "context": "Settings > Device > Updates",
     "description": "Explanation when a device operation fails.",
@@ -18630,7 +18630,7 @@
       ]
     }
   },
-  "updateShizukuInstallerFailed": "Shizuku could not install the update. No confirmation installer was opened.",
+  "updateShizukuInstallerFailed": "Shizuku no pudo instalar la actualización. No se abrió el instalador que solicita confirmación.",
   "@updateShizukuInstallerFailed": {
     "context": "Settings > Device > Updates",
     "description": "Explanation when a device operation fails.",
@@ -18643,7 +18643,7 @@
       ]
     }
   },
-  "updateUploadSpace": "Not enough free space: the APK is {size} MB and the install needs about {required} MB, but the device has {free} MB free.",
+  "updateUploadSpace": "No hay suficiente espacio libre: el APK ocupa {size} MB y la instalación necesita unos {required} MB, pero el dispositivo solo tiene {free} MB libres.",
   "@updateUploadSpace": {
     "context": "Settings > Device > Updates",
     "description": "Explanation when a device operation fails.",
@@ -18670,7 +18670,7 @@
       }
     }
   },
-  "updateUploadInterrupted": "The upload was interrupted after {size} MB: {error}",
+  "updateUploadInterrupted": "La carga se interrumpió después de {size} MB: {error}",
   "@updateUploadInterrupted": {
     "context": "Settings > Device > Updates",
     "description": "Explanation when a device operation fails.",
@@ -18693,7 +18693,7 @@
       }
     }
   },
-  "updateUploadEarly": "The upload ended early: {received} of {expected} MB arrived.",
+  "updateUploadEarly": "La carga terminó antes de completarse: se recibieron {received} de {expected} MB.",
   "@updateUploadEarly": {
     "context": "Settings > Device > Updates",
     "description": "Explanation when a device operation fails.",
@@ -18716,7 +18716,7 @@
       }
     }
   },
-  "updateWrongPackage": "The APK is {package}, not Kiosk Satellite ({expected}).",
+  "updateWrongPackage": "El APK corresponde a {package}, no a Kiosk Satellite ({expected}).",
   "@updateWrongPackage": {
     "context": "Settings > Device > Updates",
     "description": "Explanation when a device operation fails.",
@@ -18739,7 +18739,7 @@
       }
     }
   },
-  "updateOlderBuild": "The APK is version {version} (build {build}), older than the running {currentVersion} (build {currentBuild}). Downgrades are refused: Android would not install one either.",
+  "updateOlderBuild": "El APK es la versión {version} (compilación {build}), anterior a la versión instalada {currentVersion} (compilación {currentBuild}). No se permite instalar versiones anteriores. Android tampoco las instalaría.",
   "@updateOlderBuild": {
     "context": "Settings > Device > Updates",
     "description": "Explanation when a device operation fails.",
@@ -18770,7 +18770,7 @@
       }
     }
   },
-  "updateDownloadHttpFailed": "Download failed (HTTP {status}).",
+  "updateDownloadHttpFailed": "La descarga falló (HTTP {status}).",
   "@updateDownloadHttpFailed": {
     "context": "Settings > Device > Updates",
     "description": "Explanation when a device operation fails.",
@@ -18789,7 +18789,7 @@
       }
     }
   },
-  "updateDownloadStalled": "The download stalled: no data arrived for {seconds} seconds.",
+  "updateDownloadStalled": "La descarga se detuvo: no se recibieron datos durante {seconds} segundos.",
   "@updateDownloadStalled": {
     "context": "Settings > Device > Updates",
     "description": "Explanation when a device operation fails.",
@@ -18808,7 +18808,7 @@
       }
     }
   },
-  "deviceUpdateFailedDetail": "Update failed: {error}",
+  "deviceUpdateFailedDetail": "La actualización falló: {error}",
   "@deviceUpdateFailedDetail": {
     "context": "Settings > Device > Updates",
     "description": "Explanation when a device operation fails.",
@@ -18827,7 +18827,7 @@
       }
     }
   },
-  "deviceInstallFailedDetail": "Install failed: {error}",
+  "deviceInstallFailedDetail": "La instalación falló: {error}",
   "@deviceInstallFailedDetail": {
     "context": "Settings > Device > Updates",
     "description": "Explanation when a device operation fails.",
@@ -18846,7 +18846,7 @@
       }
     }
   },
-  "updateAnotherPackage": "another package",
+  "updateAnotherPackage": "otro paquete",
   "@updateAnotherPackage": {
     "context": "Settings > Device > Updates",
     "description": "Replacement for an unknown package name in an APK rejection message.",
@@ -31071,7 +31071,7 @@
       ]
     }
   },
-  "glanceUnavailable": "Unavailable",
+  "glanceUnavailable": "No disponible",
   "@glanceUnavailable": {
     "context": "Screensaver > At a Glance and entity widgets",
     "description": "Reserved entity state when Home Assistant cannot report a value.",
@@ -31082,7 +31082,7 @@
       ]
     }
   },
-  "glanceUnknown": "Unknown",
+  "glanceUnknown": "Desconocido",
   "@glanceUnknown": {
     "context": "Screensaver > At a Glance and entity widgets",
     "description": "Reserved entity state when Home Assistant cannot report a value.",

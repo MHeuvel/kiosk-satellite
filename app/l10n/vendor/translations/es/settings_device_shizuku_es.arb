@@ -25,5 +25,22 @@
   "deviceShizukuLifetime": "Si inicias Shizuku mediante ADB, debes volver a iniciarlo después de reiniciar el dispositivo. El acceso shell no proporciona permisos root.",
   "deviceShizukuFailed": "Falló la solicitud de Shizuku",
   "deviceShizukuApprove": "Aprueba la solicitud en el kiosko.",
-  "deviceShizukuTestOk": "Shizuku ejecutó un comando correctamente con acceso {access}."
+  "deviceShizukuTestOk": "Shizuku ejecutó un comando correctamente con acceso {access}.",
+  "shizukuPermissionUnconfirmed": "Android no ha confirmado este permiso. Revisa el Administrador de permisos en el dispositivo.",
+  "shizukuPermissionReadFailed": "No se pudieron consultar los permisos actuales. Inténtalo de nuevo.",
+  "shizukuRestartTimedOut": "Se agotó el tiempo de espera del comando de reinicio",
+  "shizukuRestartRefused": "Android rechazó el reinicio",
+  "shizukuCommandTimedOut": "Se agotó el tiempo de espera del comando",
+  "shizukuRequestRejected": "Android rechazó la solicitud",
+  "deviceDisconnectedError": "El dispositivo se desconectó",
+  "deviceResponseTimedOut": "Se agotó el tiempo de espera de la respuesta del dispositivo",
+  "deviceRequestAborted": "Solicitud cancelada",
+  "shizukuActionBusy": "Ya hay una acción de Shizuku en curso en el dispositivo",
+  "shizukuGrantFirst": "Primero concede acceso a Shizuku",
+  "shizukuNoResponse": "El comando de Shizuku no respondió",
+  "shizukuCommandFailed": "El comando de Shizuku falló",
+  "shizukuStartRequired": "Inicia Shizuku 13 o posterior y autoriza Kiosk Satellite en Shizuku",
+  "shizukuConnectionFailed": "La conexión con Shizuku falló",
+  "shizukuHelperNotConnected": "El asistente de Shizuku no se conectó",
+  "shizukuHelperUnavailable": "El asistente de Shizuku no está disponible"
 }

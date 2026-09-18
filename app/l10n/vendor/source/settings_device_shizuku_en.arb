@@ -343,5 +343,226 @@
         "example": "shell"
       }
     }
+  },
+  "shizukuPermissionUnconfirmed": "Android has not confirmed this permission. Check Permissions Manager on the device.",
+  "@shizukuPermissionUnconfirmed": {
+    "context": "Settings > Device > Shizuku",
+    "description": "Explanation when a device operation fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "shizukuPermissionReadFailed": "Could not read current permissions. Try again.",
+  "@shizukuPermissionReadFailed": {
+    "context": "Settings > Device > Shizuku",
+    "description": "Explanation when a device operation fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "shizukuRestartTimedOut": "The restart command timed out",
+  "@shizukuRestartTimedOut": {
+    "context": "Settings > Device > Shizuku",
+    "description": "Explanation when a device operation fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "shizukuRestartRefused": "Android refused the restart",
+  "@shizukuRestartRefused": {
+    "context": "Settings > Device > Shizuku",
+    "description": "Explanation when a device operation fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "shizukuCommandTimedOut": "Command timed out",
+  "@shizukuCommandTimedOut": {
+    "context": "Settings > Device > Shizuku",
+    "description": "Explanation when a device operation fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "shizukuRequestRejected": "Android rejected the request",
+  "@shizukuRequestRejected": {
+    "context": "Settings > Device > Shizuku",
+    "description": "Explanation when a device operation fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceDisconnectedError": "Device disconnected",
+  "@deviceDisconnectedError": {
+    "context": "Settings > Device > Shizuku",
+    "description": "Explanation when a device operation fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceResponseTimedOut": "Device response timed out",
+  "@deviceResponseTimedOut": {
+    "context": "Settings > Device > Shizuku",
+    "description": "Explanation when a device operation fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "deviceRequestAborted": "Request aborted",
+  "@deviceRequestAborted": {
+    "context": "Settings > Device > Shizuku",
+    "description": "Explanation when a device operation fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "shizukuActionBusy": "A Shizuku device action is already running",
+  "@shizukuActionBusy": {
+    "context": "Settings > Device > Shizuku",
+    "description": "Explanation when a Shizuku device action fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "shizukuGrantFirst": "Grant Shizuku access first",
+  "@shizukuGrantFirst": {
+    "context": "Settings > Device > Shizuku",
+    "description": "Explanation when a Shizuku device action fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "shizukuNoResponse": "Shizuku command did not respond",
+  "@shizukuNoResponse": {
+    "context": "Settings > Device > Shizuku",
+    "description": "Explanation when a Shizuku device action fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "shizukuCommandFailed": "Shizuku command failed",
+  "@shizukuCommandFailed": {
+    "context": "Settings > Device > Shizuku",
+    "description": "Explanation when a Shizuku device action fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "shizukuStartRequired": "Start Shizuku 13 or later and allow Kiosk Satellite in Shizuku",
+  "@shizukuStartRequired": {
+    "context": "Settings > Device > Shizuku",
+    "description": "Explanation when a Shizuku device action fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "shizukuConnectionFailed": "Shizuku connection failed",
+  "@shizukuConnectionFailed": {
+    "context": "Settings > Device > Shizuku",
+    "description": "Explanation when a Shizuku device action fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "shizukuHelperNotConnected": "Shizuku helper did not connect",
+  "@shizukuHelperNotConnected": {
+    "context": "Settings > Device > Shizuku",
+    "description": "Explanation when a Shizuku device action fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
+  },
+  "shizukuHelperUnavailable": "Shizuku helper is unavailable",
+  "@shizukuHelperUnavailable": {
+    "context": "Settings > Device > Shizuku",
+    "description": "Explanation when a Shizuku device action fails.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Shizuku"
+      ],
+      "remoteAdmin": [
+        "Device > Shizuku"
+      ]
+    }
   }
 }
