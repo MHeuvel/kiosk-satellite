@@ -64,6 +64,7 @@ is available. The decoder name in App Logs identifies what actually ran.
 | `audio position advancing` | The audio sink reported advancing playback position. This still does not prove sound reached the selected speaker. |
 | `renderer requested sink end of stream` | The renderer reached its end-of-stream path and asked the sink to drain. |
 | `audio sink ended` | The sink reported completion after that request. |
+| `discarded incomplete final PCM frame bytes=N` | The decoded stream ended with a partial PCM frame. The frame guard discarded those trailing bytes so AudioTrack can finish. Complete frames are preserved, including frames split across decoder buffers. |
 | Timeout with `loadComplete=true sinkEos=false` | Focus on the renderer or decoder failing to reach end of stream after loading. |
 | Timeout with `sinkEos=true sinkEnded=false` | Focus on draining the audio processor and output path. |
 | Local default replay fails but software replay succeeds | Decoder selection affects the failure. Compare decoder names before attributing it to hardware. |
@@ -72,3 +73,32 @@ is available. The decoder name in App Logs identifies what actually ran.
 The error includes a snapshot of the decoder and completion flags. Collect App
 Logs promptly because the shared log buffer is bounded. These diagnostics do
 not change the player timeout or automatically retry silent playback.
+
+## Acknowledgement sound investigation (#600)
+
+The failed capture attached to [#600](https://github.com/jxlarrea/kiosk-satellite/issues/600)
+is byte-for-byte identical to Home Assistant 2026.9.2's
+[`acknowledge.mp3`](https://github.com/home-assistant/core/blob/2026.9.2/homeassistant/components/assist_pipeline/acknowledge.mp3):
+50,991 bytes with SHA-256
+`88762f0f72e04bab3b545d4852d0badd017bb4a8799cc4f3ef0cb4fc8e7ecdae`.
+Home Assistant can substitute that sound for speech after an action on targets
+in the satellite's area. Hearing a short acknowledgement instead of spoken text
+is separate from playback failing to end.
+
+The reporter's logs show completed HTTP delivery and decoder end of stream,
+followed by `sinkEos=true sinkEnded=false`. The native decoder was
+`OMX.MTK.AUDIO.DECODER.MP3`. The available Echo Show test device runs Android 11
+and exposes Google's MP3 decoder instead, so it cannot reproduce that decoder's
+behavior. The unchanged acknowledgement finishes on that device.
+
+With Media3 1.10.1, an injected two-byte tail after stereo 16-bit PCM
+reproduces a drain hang:
+AudioTrack accepts only complete four-byte frames, leaving the final two bytes
+unwritten while the sink continues waiting to finish. The unguarded test reaches
+`ERROR_CODE_TIMEOUT` with `Player stuck playing without ending for 60000 ms`
+at a playback position of 61,600 ms. With the frame guard, the same test discards
+those two bytes and reaches the ended state at 1,593 ms. Both original samples
+also finish with the guard enabled and no discarded bytes. This
+establishes a possible cause of the reported symptoms, not confirmation of the
+reporter's decoder output. Check for the incomplete-frame diagnostic and normal
+completion when testing the acknowledgement on the affected device.

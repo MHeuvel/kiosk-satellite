@@ -6,6 +6,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ### Fixed
 
+- **Native streamed audio handles incomplete final PCM frames.** Playback now carries split frames across decoder buffers and discards only an incomplete final frame, with its byte count in App Logs. This prevents a reproduced audio sink drain hang where AudioTrack repeatedly rejects a partial stereo frame. Confirmation on the device reported in #600 is still pending.
 - **CJK character shapes follow the device locale again.** Selecting English or Spanish no longer replaces Japanese, Chinese or Korean glyph selection in Flutter text. Interface messages and built-in controls keep the selected language, including after live language changes (#601).
 - **RTSP authentication in VLC.** Camera streams with credentials now accept VLC's authentication for video and audio track setup. Previously, VLC could reject both tracks with `401 Unauthorized` even when the username and password were correct.
 

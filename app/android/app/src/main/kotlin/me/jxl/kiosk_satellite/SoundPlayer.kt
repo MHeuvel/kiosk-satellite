@@ -658,7 +658,13 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
                 enableAudioTrackPlaybackParams: Boolean,
             ): AudioSink = object : ForwardingAudioSink(
                 DefaultAudioSink.Builder(context)
-                    .setAudioProcessors(arrayOf(levelTap(id)))
+                    .setAudioProcessors(arrayOf(
+                        FrameAlignedAudioProcessor { bytes ->
+                            diagnostics.incompletePcmBytes += bytes
+                            diagnostic(id, "discarded incomplete final PCM frame bytes=$bytes")
+                        },
+                        levelTap(id),
+                    ))
                     .build(),
             ) {
                 override fun playToEndOfStream() {
@@ -695,9 +701,11 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
         var underrun = false
         @Volatile var sinkEosRequested = false
         @Volatile var sinkEnded = false
+        @Volatile var incompletePcmBytes = 0
 
         fun summary(): String = "decoder=$decoder loadComplete=$loadCompleted " +
-            "positionAdvanced=$positionAdvanced sinkEos=$sinkEosRequested sinkEnded=$sinkEnded"
+            "positionAdvanced=$positionAdvanced sinkEos=$sinkEosRequested sinkEnded=$sinkEnded " +
+            "incompletePcmBytes=$incompletePcmBytes"
     }
 
     private fun diagnostic(id: String, message: String) {
