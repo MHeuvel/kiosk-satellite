@@ -135,6 +135,69 @@ void main() {
     expect(remote.stoppedReason.value, isNull);
   });
 
+  test(
+    'onboarding language is validated, persisted and limited to setup access',
+    () async {
+      Future<(int, Map<String, dynamic>)> post(
+        String path,
+        Map<String, Object?> data, [
+        String? token,
+      ]) async {
+        final client = HttpClient();
+        final request = await client.postUrl(
+          Uri.parse('http://127.0.0.1:$port/api/$path'),
+        );
+        request.headers.contentType = ContentType.json;
+        if (token != null) {
+          request.headers.set('Authorization', 'Bearer $token');
+        }
+        request.write(jsonEncode(data));
+        final response = await request.close();
+        final body =
+            jsonDecode(await response.transform(utf8.decoder).join())
+                as Map<String, dynamic>;
+        client.close();
+        return (response.statusCode, body);
+      }
+
+      expect((await post('setup/language', {'language': 'es'})).$1, 403);
+      await settings.set(defs.startUrl, '');
+      await settle();
+      expect((await post('setup/language', {'language': 'es'})).$1, 403);
+      final login = await post('login', {'password': 'secret'});
+      final token = login.$2['token'] as String;
+      expect((await post('setup/language', {'language': 'es'}, token)).$1, 200);
+      expect(settings.get(defs.uiLanguage), 'es');
+      expect(
+        (await SharedPreferences.getInstance()).getString('ks.ui.language'),
+        'es',
+      );
+      for (final value in <Object?>['system', 'unknown', null, 4]) {
+        expect(
+          (await post('setup/language', {'language': value}, token)).$1,
+          400,
+        );
+        expect(settings.get(defs.uiLanguage), 'es');
+      }
+      await settings.set(defs.remotePassword, '');
+      await settle();
+      expect(
+        (await post('setup/language', {
+          'language': 'en',
+          'remote.password': 'injected',
+        })).$1,
+        200,
+      );
+      expect(settings.get(defs.remotePassword), isEmpty);
+      expect(settings.get(defs.uiLanguage), 'en');
+      await settings.set(defs.remotePassword, 'secret');
+      await settings.set(defs.startUrl, 'http://ha.local/');
+      await settle();
+      expect((await post('setup/language', {'language': 'es'}, token)).$1, 403);
+      expect(settings.get(defs.uiLanguage), 'en');
+    },
+  );
+
   test('setting the onboarding password answers, and keeps serving', () async {
     // Setup mode: no start URL, no password, the server up for the wizard.
     await settings.set(defs.remoteEnabled, false);

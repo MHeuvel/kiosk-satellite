@@ -7,12 +7,18 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kiosk_satellite/app_container.dart';
 import 'package:kiosk_satellite/core/app_locales.dart';
+import 'package:kiosk_satellite/core/events.dart';
+import 'package:kiosk_satellite/managers/settings/definitions.dart' as defs;
 import 'package:kiosk_satellite/l10n/generated/ui_strings.dart';
 import 'package:kiosk_satellite/l10n/generated/ui_strings_en.dart';
 import 'package:kiosk_satellite/ui/setup_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class _Spanish extends UiStringsEn {
+  @override
+  String get settingUiLanguageTitle => 'Idioma';
+  @override
+  String get setupWelcome => 'Bienvenido';
   @override
   String get setupPermissionLead => 'Android solicitará estos permisos.';
   @override
@@ -118,6 +124,64 @@ void main() {
       messenger.setMockMethodCallHandler(info, null);
     });
   }
+
+  testWidgets(
+    'Welcome language persists immediately and retains unsaved fields',
+    (tester) async {
+      await boot();
+      tester.view.physicalSize = const Size(390, 1100);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.reset);
+      final locale = ValueNotifier(const Locale('en'));
+      final sub = container.bus.on<SettingChanged>().listen((event) {
+        if (event.key == defs.uiLanguage.key) {
+          locale.value = appLocaleForLanguage(event.value as String);
+        }
+      });
+      addTearDown(sub.cancel);
+      addTearDown(locale.dispose);
+      await tester.pumpWidget(
+        ValueListenableBuilder<Locale>(
+          valueListenable: locale,
+          builder: (_, value, _) => MaterialApp(
+            locale: value,
+            supportedLocales: const [Locale('en'), Locale('es')],
+            localizationsDelegates: const [
+              _Delegate(),
+              ...appLocalizationsDelegates,
+            ],
+            home: SetupScreen(container: container),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      final fields = find.byType(TextField);
+      await tester.enterText(fields.at(0), 'My unsaved kiosk');
+      await tester.enterText(fields.at(1), 'Unsaved-password');
+      final picker = find.byType(DropdownButtonFormField<String>);
+      await tester.ensureVisible(picker);
+      await tester.tap(picker);
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Español').last);
+      await tester.pumpAndSettle();
+      expect(find.text('Idioma'), findsOneWidget);
+      await tester.drag(find.byType(ListView).first, const Offset(0, 1000));
+      await tester.pumpAndSettle();
+      expect(find.text('Bienvenido'), findsOneWidget);
+      expect(container.settings.get(defs.uiLanguage), 'es');
+      expect(
+        tester.widget<TextField>(fields.at(0)).controller!.text,
+        'My unsaved kiosk',
+      );
+      expect(
+        tester.widget<TextField>(fields.at(1)).controller!.text,
+        'Unsaved-password',
+      );
+      expect(container.settings.get(defs.startUrl), isEmpty);
+      expect(container.settings.get(defs.remotePassword), isEmpty);
+      expect(tester.takeException(), isNull);
+    },
+  );
 
   for (final integrationPresent in [true, false]) {
     testWidgets(

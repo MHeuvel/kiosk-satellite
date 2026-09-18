@@ -385,6 +385,13 @@ class RemoteManager extends Manager {
         'passwordNeeded': _settings.get(defs.remotePassword).isEmpty,
         'deviceName': deviceName is String ? deviceName : '',
         'language': _settings.get(defs.uiLanguage),
+        'languages': [
+          for (final language in defs.uiLanguage.options!)
+            {
+              'value': language,
+              'label': defs.uiLanguage.optionLabels?[language] ?? language,
+            },
+        ],
         // An import applied its settings but the OS permission prompts are
         // still being answered on the device; the start URL (what ends
         // setup) lands after them. The UI shows "finish on the device"
@@ -399,6 +406,21 @@ class RemoteManager extends Manager {
     // exists the page logs in and uses the gated commands like the rest.
     final passwordless =
         _setupMode && _settings.get(defs.remotePassword).isEmpty;
+    // Before the first password, setup may change only the bundled UI language.
+    // Once a password exists, the same choice requires its authenticated session.
+    if (path == 'api/setup/language' && request.method == 'POST') {
+      if (!_setupMode ||
+          (!passwordless && !_auth.validate(_bearerToken(request)))) {
+        return _json(403, {'error': 'setup language change not allowed'});
+      }
+      final body = await _body(request);
+      final language = body?['language'];
+      if (language is! String || !defs.uiLanguage.options!.contains(language)) {
+        return _json(400, {'error': 'unsupported language'});
+      }
+      await _settings.set(defs.uiLanguage, language);
+      return _json(200, {'language': _settings.get(defs.uiLanguage)});
+    }
     if (path == 'api/setup/grants' && request.method == 'GET') {
       if (!passwordless) return _json(403, {'error': 'setup already done'});
       final perms = await commands.execute('getSystemPermissions', const {});

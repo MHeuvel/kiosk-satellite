@@ -82,6 +82,7 @@ class _SetupScreenState extends State<SetupScreen> {
 
   int _step = 0;
   bool _busy = false;
+  bool _changingLanguage = false;
   String? _error;
   String? _errorHint;
 
@@ -227,6 +228,7 @@ class _SetupScreenState extends State<SetupScreen> {
     // The remote wizard may configure this device while this screen is up;
     // the moment a start URL exists, onboarding is done wherever it happened.
     _sub = c.bus.on<SettingChanged>().listen((e) {
+      if (e.key == defs.uiLanguage.key && mounted) setState(() {});
       if (e.key == defs.startUrl.key &&
           e.value is String &&
           (e.value as String).isNotEmpty) {
@@ -796,6 +798,53 @@ class _SetupScreenState extends State<SetupScreen> {
         return withError([
           heading(l10n(context).setupWelcome),
           lead(l10n(context).setupWelcomeLead),
+          _Card([
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
+              child: LabeledField(
+                label: l10n(context).settingUiLanguageTitle,
+                helper: l10n(context).settingUiLanguageDescription,
+                child: DropdownButtonFormField<String>(
+                  key: ValueKey((
+                    c.settings.get(defs.uiLanguage),
+                    _changingLanguage,
+                  )),
+                  initialValue: c.settings.get(defs.uiLanguage),
+                  isExpanded: true,
+                  items: [
+                    for (final language in defs.uiLanguage.options!)
+                      DropdownMenuItem(
+                        value: language,
+                        child: Text(
+                          defs.uiLanguage.optionLabels?[language] ?? language,
+                        ),
+                      ),
+                  ],
+                  onChanged: _busy || _changingLanguage
+                      ? null
+                      : (value) async {
+                          if (value == null) return;
+                          setState(() => _changingLanguage = true);
+                          try {
+                            await c.settings.set(defs.uiLanguage, value);
+                          } catch (_) {
+                            if (mounted) {
+                              showToast(
+                                context,
+                                title: l10n(context).commonSaveFailed,
+                                kind: ToastKind.error,
+                              );
+                            }
+                          } finally {
+                            if (mounted) {
+                              setState(() => _changingLanguage = false);
+                            }
+                          }
+                        },
+                ),
+              ),
+            ),
+          ]),
           // No group heading: the field's own label says all there is.
           _Card([
             Padding(
@@ -1078,14 +1127,14 @@ class _SetupScreenState extends State<SetupScreen> {
             // Beside Next and dressed like it — the pair reads as one
             // control group, tonal vs filled carrying the hierarchy.
             FilledButton.tonal(
-              onPressed: _busy ? null : _back,
+              onPressed: _busy || _changingLanguage ? null : _back,
               style: FilledButton.styleFrom(padding: buttonPadding),
               child: Text(l10n(context).commonBack),
             ),
             const SizedBox(width: 12),
           ],
           FilledButton(
-            onPressed: _busy ? null : _next,
+            onPressed: _busy || _changingLanguage ? null : _next,
             style: FilledButton.styleFrom(padding: buttonPadding),
             child: Text(
               _busy

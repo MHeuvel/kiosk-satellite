@@ -18317,29 +18317,33 @@
       ]
     }
   },
-  "settingUiLanguageTitle": "Idioma",
+  "settingUiLanguageTitle": "Language",
   "@settingUiLanguageTitle": {
     "context": "Settings:Device:User Interface",
     "description": "Language selector label.",
     "x-locations": {
       "device": [
-        "Settings > Device > User Interface > Language"
+        "Settings > Device > User Interface > Language",
+        "First-time setup > Welcome > Language"
       ],
       "remoteAdmin": [
-        "Device > User Interface > Language"
+        "Device > User Interface > Language",
+        "First-time setup > Welcome > Language"
       ]
     }
   },
-  "settingUiLanguageDescription": "Idioma de Kiosk Satellite y de la administración remota. Home Assistant conserva su propio idioma.",
+  "settingUiLanguageDescription": "Language for Kiosk Satellite and remote administration. Home Assistant keeps its own language.",
   "@settingUiLanguageDescription": {
     "context": "Settings:Device:User Interface",
     "description": "Help below the language selector.",
     "x-locations": {
       "device": [
-        "Settings > Device > User Interface > Language"
+        "Settings > Device > User Interface > Language",
+        "First-time setup > Welcome > Language"
       ],
       "remoteAdmin": [
-        "Device > User Interface > Language"
+        "Device > User Interface > Language",
+        "First-time setup > Welcome > Language"
       ]
     }
   },

@@ -1,4 +1,4 @@
-import { setupText, setupImportError, themeLabel, setLanguagePreference, t } from './localization.js';
+import { setupText, setupImportError, themeLabel, messageLanguage, setLanguagePreference, t } from './localization.js';
 import { WIZ_LOCKED, WIZ_OPTIONAL, wizard } from './app.js';
 import { $, THEME_ICONS, api, showView, state } from './core.js';
 import { readOnlyRow } from './device.js';
@@ -371,6 +371,60 @@ export async function wizardRestore(file, btn) {
   }
 }
 
+function wizardLanguageRow(body) {
+  const card = wizardCard(body);
+  const label = document.createElement('label');
+  label.className = 'form-field';
+  const title = document.createElement('span');
+  title.textContent = t('settingUiLanguageTitle');
+  const select = document.createElement('select');
+  select.id = 'wzLanguage';
+  for (const language of wizard.languages || []) {
+    const option = document.createElement('option');
+    option.value = language.value;
+    option.textContent = language.label;
+    select.appendChild(option);
+  }
+  select.value = messageLanguage();
+  label.append(title, select);
+  const help = document.createElement('div');
+  help.className = 'desc';
+  help.textContent = t('settingUiLanguageDescription');
+  card.append(label, help);
+  select.addEventListener('change', async () => {
+    const previous = messageLanguage();
+    select.disabled = true;
+    const next = $('#wizardNext');
+    const wasDisabled = next.disabled;
+    next.disabled = true;
+    try {
+      const res = await fetch('/api/setup/language', {
+        method: 'POST', headers: {'Content-Type':'application/json',
+          ...(state.token ? {Authorization: 'Bearer ' + state.token} : {})},
+        body: JSON.stringify({language: select.value}),
+      });
+      if (!res.ok) throw new Error(t('commonSaveFailed'));
+      const result = await res.json();
+      // Keep unsaved credentials and the name when rebuilding translated labels.
+      const drafts = ['wzDeviceName', 'wzPassword'].map(id => [id, document.getElementById(id)?.value]);
+      setLanguagePreference(result.language);
+      wizard.steps = wizardSteps();
+      wizardRender();
+      for (const [id, value] of drafts) {
+        if (value !== undefined) document.getElementById(id).value = value;
+      }
+      wizardApplyTheme(document.documentElement.dataset.theme || 'light');
+      $('#wzLanguage')?.focus({preventScroll:true});
+    } catch (_) {
+      select.value = previous;
+      wizardShowError(new Error(t('commonSaveFailed')));
+    } finally {
+      select.disabled = false;
+      next.disabled = wasDisabled;
+    }
+  });
+}
+
 export function wizardSteps() {
   const steps = [];
   // The same first page as the device wizard, always: the admin password
@@ -385,7 +439,8 @@ export function wizardSteps() {
       ? t('remoteWelcomePassword')
       : t('remoteWelcomeReady'),
     body: (b) => {
-      // The device name first, seeded with what the device calls itself
+      wizardLanguageRow(b);
+      // The device name, seeded with what the device calls itself
       // (the model, until someone names it): the ESPHome node name is
       // taken from it at the server's first start, so a name given here
       // reads as ks-kitchen-tablet in Home Assistant rather than a
@@ -715,6 +770,7 @@ export async function startWizard({ needPassword }) {
   try {
     const setup = await (await fetch('api/setup/status')).json();
     wizard.deviceName = setup?.deviceName || '';
+    wizard.languages = setup?.languages || [{value:'en', label:'English'}, {value:'es', label:'Español'}];
     setLanguagePreference(setup?.language);
   } catch (_) { wizard.deviceName = ''; }
   wizard.i = 0;

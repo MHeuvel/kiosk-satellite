@@ -4991,11 +4991,11 @@ class UiStringsEs extends UiStrings {
       'Introduce solo la URL de la carpeta, sin nada después de la ruta. Ejemplo: http://nas.local/kiosk-satellite';
 
   @override
-  String get settingUiLanguageTitle => 'Idioma';
+  String get settingUiLanguageTitle => 'Language';
 
   @override
   String get settingUiLanguageDescription =>
-      'Idioma de Kiosk Satellite y de la administración remota. Home Assistant conserva su propio idioma.';
+      'Language for Kiosk Satellite and remote administration. Home Assistant keeps its own language.';
 
   @override
   String get settingUiThemeTitle => 'Tema de la aplicación';

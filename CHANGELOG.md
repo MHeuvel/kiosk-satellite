@@ -6,6 +6,8 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ### Added
 
+- **Choose a language on the first onboarding step.** Welcome starts with an English or Español selector on the device and in remote administration. The choice saves immediately and preserves the name and password being typed.
+
 - **Approved Spanish localization audit translations.** Import the reviewed snapshot with Spanish for all 2997 catalog messages, including the 73 additions from the UI audit.
 
 - **Localization audit covers file actions, kiosk notices and remaining search summaries.** Add 73 messages for File Manager, native feedback, screensaver playback errors, search and remote warnings. Language changes preserve uploads and dialog choices. Confirmations use stable action values so Cancel cannot become approval after a language change. File download and deletion failures show their errors.
