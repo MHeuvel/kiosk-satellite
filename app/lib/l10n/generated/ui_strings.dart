@@ -16941,6 +16941,210 @@ abstract class UiStrings {
   /// **'What the setup needs'**
   String get setupPermissionsSummary;
 
+  /// Introduction above the permission list on the device.
+  ///
+  /// In en, this message translates to:
+  /// **'Android will ask for these permissions. Everything is requested up front so the kiosk never interrupts you later.'**
+  String get setupPermissionLead;
+
+  /// Introduction directing the remote user to the physical device.
+  ///
+  /// In en, this message translates to:
+  /// **'Android asks for these on the tablet itself. Walk over and accept the prompts, then finish here.'**
+  String get setupRemotePermissionLead;
+
+  /// Explanation below Microphone. Keep Voice Satellite unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice Satellite and the intercom need microphone access'**
+  String get setupMicrophoneHelp;
+
+  /// Notifications explanation when background listening is selected.
+  ///
+  /// In en, this message translates to:
+  /// **'Allows the Kiosk Satellite Service\'s ongoing notification, which says what it is keeping alive and when the kiosk is listening.'**
+  String get setupNotificationListening;
+
+  /// Explanation below Unrestricted battery.
+  ///
+  /// In en, this message translates to:
+  /// **'Allows the Kiosk Satellite Service to run in the background without being paused or killed.'**
+  String get setupBatteryService;
+
+  /// Overlay explanation when starting at boot is selected.
+  ///
+  /// In en, this message translates to:
+  /// **'Lets Kiosk Satellite come back after a crash and start when your device boots.'**
+  String get setupOverlayBoot;
+
+  /// Overlay explanation when starting at boot is not selected.
+  ///
+  /// In en, this message translates to:
+  /// **'Lets Kiosk Satellite come back on screen after a crash.'**
+  String get setupOverlayCrash;
+
+  /// Explanation of Android permission to change screen brightness.
+  ///
+  /// In en, this message translates to:
+  /// **'Allows Kiosk Satellite to set the panel\'s actual brightness (modify system settings).'**
+  String get setupBrightnessHelp;
+
+  /// Permission row title for turning the screen off.
+  ///
+  /// In en, this message translates to:
+  /// **'Screen control'**
+  String get setupScreenControl;
+
+  /// Explanation of Android device admin permission.
+  ///
+  /// In en, this message translates to:
+  /// **'Allows Kiosk Satellite to turn the screen off on request (device admin).'**
+  String get setupScreenControlHelp;
+
+  /// Button that opens permission prompts on the physical device.
+  ///
+  /// In en, this message translates to:
+  /// **'Grant permissions on the device'**
+  String get setupGrantPermissions;
+
+  /// Disabled button label while permission prompts are being requested.
+  ///
+  /// In en, this message translates to:
+  /// **'Requesting on the device…'**
+  String get setupRequestingPermissions;
+
+  /// Disabled button label after sending permission requests.
+  ///
+  /// In en, this message translates to:
+  /// **'Permissions requested on the device'**
+  String get setupPermissionsRequested;
+
+  /// Error heading when importing before setting an admin password.
+  ///
+  /// In en, this message translates to:
+  /// **'Set the admin password first'**
+  String get setupPasswordFirst;
+
+  /// Recovery instructions referring to the password field above Restore backup.
+  ///
+  /// In en, this message translates to:
+  /// **'Type an admin password above (at least 4 characters), then import the backup.'**
+  String get setupPasswordBeforeImport;
+
+  /// Error heading when saving the remote admin password fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not set the password'**
+  String get setupPasswordFailed;
+
+  /// Error heading when another session has already set the password.
+  ///
+  /// In en, this message translates to:
+  /// **'A password is already set'**
+  String get setupPasswordExists;
+
+  /// Explains the automatic reload to login after a password was set elsewhere.
+  ///
+  /// In en, this message translates to:
+  /// **'Log in with the password set on the tablet to continue here. Reloading…'**
+  String get setupPasswordExistsHelp;
+
+  /// Error heading for a file that cannot be read as a backup.
+  ///
+  /// In en, this message translates to:
+  /// **'Not a backup file'**
+  String get setupNotBackup;
+
+  /// Recovery instructions after JSON decoding fails. Keep JSON unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'That file is not valid JSON. Export a configuration from Settings on a set-up Kiosk Satellite, or from its remote admin.'**
+  String get setupInvalidBackupHelp;
+
+  /// Recovery instructions when the remote user selects the wrong file format.
+  ///
+  /// In en, this message translates to:
+  /// **'Export a configuration from the Settings tab of a set-up Kiosk Satellite.'**
+  String get setupWrongBackupKind;
+
+  /// Fallback explanation when the import fails without a specific error.
+  ///
+  /// In en, this message translates to:
+  /// **'The file could not be applied.'**
+  String get setupImportFailedHelp;
+
+  /// Notice heading after applying a backup with no dashboard URL.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup has no dashboard'**
+  String get setupBackupNoDashboard;
+
+  /// Explains that settings were imported but setup must continue.
+  ///
+  /// In en, this message translates to:
+  /// **'The settings were applied, but this backup was taken before its device was set up, so there is no dashboard to show. Continue the wizard to pick one.'**
+  String get setupBackupNoDashboardHelp;
+
+  /// Temporary Import button label during an upload.
+  ///
+  /// In en, this message translates to:
+  /// **'Importing…'**
+  String get setupImporting;
+
+  /// Description beside the backup import action.
+  ///
+  /// In en, this message translates to:
+  /// **'Import a configuration exported from Kiosk Satellite and skip the rest of this wizard.'**
+  String get setupRemoteRestoreHelp;
+
+  /// Waiting-screen heading after a successful remote import.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish on the device'**
+  String get setupFinishOnDevice;
+
+  /// Waiting-screen instructions while Android permission prompts are open.
+  ///
+  /// In en, this message translates to:
+  /// **'The configuration was imported. Answer the permission prompts on the tablet\'s screen - this page continues automatically when the dashboard loads.'**
+  String get setupFinishOnDeviceHelp;
+
+  /// Validation error for JSON that does not contain an object.
+  ///
+  /// In en, this message translates to:
+  /// **'The backup must contain a JSON object.'**
+  String get setupBackupObject;
+
+  /// Validation error for a file from another application.
+  ///
+  /// In en, this message translates to:
+  /// **'This is not a Kiosk Satellite configuration file.'**
+  String get setupBackupKind;
+
+  /// Validation error for a backup with no settings.
+  ///
+  /// In en, this message translates to:
+  /// **'The backup contains no settings.'**
+  String get setupBackupSettings;
+
+  /// Introduction to the optional permissions that keep the service running.
+  ///
+  /// In en, this message translates to:
+  /// **'Keeps the app alive while the screen is off or another app is in front, so the Home Assistant connection and other features like motion detection and the Bluetooth proxy stay alive. The permissions below are optional but recommended: each one helps it survive the screen being off.'**
+  String get setupServiceHelp;
+
+  /// Battery permission warning when a feature needs the missing permission.
+  ///
+  /// In en, this message translates to:
+  /// **'Android may pause the app when the screen is off, dropping the Home Assistant connection with it.'**
+  String get setupBatteryMissing;
+
+  /// Overlay permission warning when crash recovery needs the missing permission.
+  ///
+  /// In en, this message translates to:
+  /// **'Without this the service cannot relaunch the kiosk after a crash.'**
+  String get setupOverlayMissing;
+
   /// Translate the setup instruction or control label.
   ///
   /// In en, this message translates to:

@@ -1,4 +1,4 @@
-import { setupText, setLanguagePreference, t } from './localization.js';
+import { setupText, setupImportError, themeLabel, setLanguagePreference, t } from './localization.js';
 import { WIZ_LOCKED, WIZ_OPTIONAL, wizard } from './app.js';
 import { $, THEME_ICONS, api, showView, state } from './core.js';
 import { readOnlyRow } from './device.js';
@@ -22,21 +22,27 @@ export function wizFail(title, hint) {
 // until the device reports itself configured. Shown right after an import
 // and on page load while the device says importPending, so a mid-wait
 // reload does not present an empty wizard as if nothing was imported.
-export function showImportPending() {
+export function showImportPending(language) {
+  if (language !== undefined) setLanguagePreference(language);
   if (document.getElementById('importPending')) return;
   const ov = document.createElement('div');
   ov.id = 'importPending';
   ov.style.cssText = 'position:fixed; inset:0; background:var(--bg);'
     + 'z-index:1200; display:grid; place-items:center; padding:24px; text-align:center';
   ov.innerHTML = '<div style="max-width:440px">'
-    + '<h2 style="font-size:21px; font-weight:700; margin-bottom:10px">Finish on the device</h2>'
-    + '<div style="font-size:14px; line-height:1.6; color:var(--muted)">The configuration was imported. '
-    + "Answer the permission prompts on the tablet's screen - this page continues automatically "
-    + 'when the dashboard loads.</div></div>';
+    + '<h2 style="font-size:21px; font-weight:700; margin-bottom:10px"></h2>'
+    + '<div class="import-pending-help" style="font-size:14px; line-height:1.6; color:var(--muted)"></div></div>';
+  const paint = () => {
+    ov.querySelector('h2').textContent = t('setupFinishOnDevice');
+    ov.querySelector('.import-pending-help').textContent = t('setupFinishOnDeviceHelp');
+  };
+  paint();
   document.body.appendChild(ov);
   const poll = setInterval(async () => {
     try {
       const setup = await (await fetch('api/setup/status')).json();
+      if (setup.language !== undefined) setLanguagePreference(setup.language);
+      paint();
       if (!setup.setupNeeded) { clearInterval(poll); location.reload(); }
     } catch (_) { /* device may be busy applying; keep polling */ }
   }, 2000);
@@ -71,8 +77,8 @@ export function wizardApplyTheme(theme) {
   document.documentElement.dataset.theme = theme;
   const btn = $('#wizardThemeBtn');
   btn.innerHTML = THEME_ICONS[theme];
-  btn.title = `Theme: ${theme}`;
-  btn.setAttribute('aria-label', `Theme: ${theme}`);
+  btn.title = themeLabel(theme);
+  btn.setAttribute('aria-label', btn.title);
 }
 
 export function wizardShow() {
@@ -171,12 +177,7 @@ export function wizardToggleRow(label, desc, on, locked, onClick) {
 // dialog on the tablet and polls until the grant lands.
 export function wizardServiceCard(b) {
   const card = wizardCard(b, true);
-  const intro = readOnlyRow('Kiosk Satellite Service',
-    'Keeps the app alive while the screen is off or another app is in '
-      + 'front, so the Home Assistant connection and other features like '
-      + 'motion detection and the Bluetooth proxy stay alive. The permissions '
-      + 'below are optional but recommended: each one helps it survive the '
-      + 'screen being off.', '');
+  const intro = readOnlyRow(t('deviceServicePage'), t('setupServiceHelp'), '');
   intro.querySelector('span').remove();
   card.appendChild(intro);
   // Before a password exists there is no token, and an api() call would
@@ -199,24 +200,25 @@ export function wizardServiceCard(b) {
     : post('requestOsPermissions', { which: ask });
 
   const grantRow = (key, name, held, missing, idle, ask) => {
-    const row = readOnlyRow(name, 'Checking\u2026', '');
+    const row = readOnlyRow(setupText(name), setupText('Checking…'), '');
     const span = row.querySelector('span');
     row._render = (granted, needed, adbHint) => {
       const ok = granted === true;
+      row.querySelector('.name').textContent = setupText(name);
       // The device has no screen for the grant: the adb command stands in
       // for the button, and the row is not an error nobody can fix.
       const urgent = needed && !adbHint;
       row.querySelector('.desc').textContent =
-        granted == null ? 'Status unavailable.' : ok ? held : adbHint || (needed ? missing : idle);
-      span.textContent = granted == null ? '' : ok ? 'Granted'
-        : adbHint ? 'Not offered' : needed ? 'Missing' : 'Not granted';
+        setupText(granted == null ? 'Status unavailable.' : ok ? held : adbHint || (needed ? missing : idle));
+      span.textContent = granted == null ? '' : ok ? setupText("Granted")
+        : adbHint ? setupText("Not offered") : needed ? setupText("Missing") : setupText("Not granted");
       span.style.cssText = 'white-space:nowrap; color:'
         + (ok ? 'var(--ok)' : urgent ? 'var(--error)' : 'var(--muted)');
       row.querySelector('button')?.remove();
       if (ok || granted == null || adbHint) return;
       const btn = document.createElement('button');
       btn.className = 'btn-ghost';
-      btn.textContent = 'Grant on device';
+      btn.textContent = setupText("Grant on device");
       btn.style.cssText = 'flex-shrink:0;';
       btn.addEventListener('click', async () => {
         btn.disabled = true;
@@ -289,7 +291,7 @@ export function wizardRestoreCard(b) {
   // group than its neighbours.
   const card = wizardCard(b, true);
   const row = readOnlyRow(t('setupRestore'),
-    'Import a configuration exported from Kiosk Satellite and skip the rest of this wizard.', '');
+    setupText("Import a configuration exported from Kiosk Satellite and skip the rest of this wizard."), '');
   row.querySelector('span').remove();
   const file = document.createElement('input');
   file.type = 'file';
@@ -313,12 +315,12 @@ export async function wizardRestore(file, btn) {
   try {
     config = JSON.parse(await f.text());
   } catch (_) {
-    wizardShowError(wizFail('Not a backup file', 'That file is not valid JSON.'));
+    wizardShowError(wizFail(setupText("Not a backup file"), setupText("That file is not valid JSON.")));
     return;
   }
   if (!config || config.kind !== 'kiosk-satellite-config') {
-    wizardShowError(wizFail('Not a backup file',
-      'Export a configuration from the Settings tab of a set-up Kiosk Satellite.'));
+    wizardShowError(wizFail(setupText("Not a backup file"),
+      setupText("Export a configuration from the Settings tab of a set-up Kiosk Satellite.")));
     return;
   }
   if (config.settings) {
@@ -329,7 +331,7 @@ export async function wizardRestore(file, btn) {
     config.settings && config.settings['device.name']);
   if (!opts) return;
   btn.disabled = true;
-  btn.textContent = 'Importing…';
+  btn.textContent = setupText("Importing…");
   try {
     // On the password screen the import runs authenticated, so the typed
     // password is minted first. needPassword overrides a lingering token
@@ -339,12 +341,12 @@ export async function wizardRestore(file, btn) {
     if (!state.token || wizard.needPassword) {
       const password = $('#wzPassword') ? $('#wzPassword').value : '';
       if (password.length < 4) {
-        throw wizFail('Set the admin password first',
-          'Type an admin password above (at least 4 characters), then import the backup.');
+        throw wizFail(setupText("Set the admin password first"),
+          setupText("Type an admin password above (at least 4 characters), then import the backup."));
       }
       const res = await fetch('api/setup/password', { method: 'POST', body: JSON.stringify({ password }) });
       const out = await res.json();
-      if (!res.ok) throw wizFail('Could not set the password', out.error || '');
+      if (!res.ok) throw wizFail(setupText("Could not set the password"), out.error || '');
       state.token = out.token;
       localStorage.setItem('ks_token', state.token);
     }
@@ -352,7 +354,7 @@ export async function wizardRestore(file, btn) {
       `/api/config/import?adoptIdentity=${opts.adopt ? 1 : 0}&importLocalStorage=${opts.local ? 1 : 0}`,
       { method: 'POST', body: JSON.stringify(config) });
     const out = await res.json();
-    if (!res.ok) throw wizFail('Import failed', out.error || 'The file could not be applied.');
+    if (!res.ok) throw wizFail(setupText("Import failed"), out.error ? setupImportError(out.error) : setupText("The file could not be applied."));
     if (out.data && out.data.pendingSetup) {
       // The settings are in, but the OS permission prompts run on the
       // DEVICE and the dashboard loads after they are answered there.
@@ -435,10 +437,10 @@ export function wizardSteps() {
         // view is where that password is useful, so go there.
         if (res.status === 403) {
           setTimeout(() => location.reload(), 2500);
-          throw wizFail('A password is already set',
-            'Log in with the password set on the tablet to continue here. Reloading\u2026');
+          throw wizFail(setupText("A password is already set"),
+            setupText("Log in with the password set on the tablet to continue here. Reloading…"));
         }
-        throw wizFail('Could not set the password', out.error || '');
+        throw wizFail(setupText("Could not set the password"), out.error || '');
       }
       state.token = out.token; localStorage.setItem('ks_token', state.token);
     },
@@ -599,7 +601,7 @@ export function wizardSteps() {
   steps.push({
     railTitle: t('setupPermissions'), railSub: t('setupPermissionsSummary'),
     title: t('setupPermissions'),
-    lead: 'Android asks for these on the tablet itself. Walk over and accept the prompts, then finish here.',
+    lead: setupText("Android asks for these on the tablet itself. Walk over and accept the prompts, then finish here."),
     nextLabel: t('commonFinish'),
     body: (b) => {
       const background = wizard.vsDetected && wizard.rec['wake_word.background'];
@@ -610,35 +612,35 @@ export function wizardSteps() {
       // device and re-read after the prompts run.
       const statusSpans = {};
       const addRow = (key, name, desc) => {
-        const row = readOnlyRow(name, desc, '\u2026');
+        const row = readOnlyRow(setupText(name), setupText(desc), '\u2026');
         statusSpans[key] = row.querySelector('span');
         list.appendChild(row);
       };
-      addRow('microphone', 'Microphone',
-        'Voice Satellite and the intercom need microphone access');
+      addRow('microphone', "Microphone",
+        "Voice Satellite and the intercom need microphone access");
       // The Kiosk Satellite Service's two, on every install: its
       // notification, and the exemption that keeps it running.
-      addRow('notification', 'Notifications',
+      addRow('notification', "Notifications",
         background
           ? "Allows the Kiosk Satellite Service's ongoing notification, which says what it is keeping alive and when the kiosk is listening."
           : "Allows the Kiosk Satellite Service's ongoing notification, which says what it is keeping alive.");
-      addRow('batteryUnrestricted', 'Unrestricted battery',
-        'Allows the Kiosk Satellite Service to run in the background without being paused or killed.');
-      addRow('displayOverOtherApps', 'Display over other apps',
+      addRow('batteryUnrestricted', "Unrestricted battery",
+        "Allows the Kiosk Satellite Service to run in the background without being paused or killed.");
+      addRow('displayOverOtherApps', "Display over other apps",
         bootStart
-          ? 'Lets Kiosk Satellite come back after a crash and start when your device boots.'
-          : 'Lets Kiosk Satellite come back on screen after a crash.');
-      addRow('writeSettings', 'Screen brightness',
+          ? "Lets Kiosk Satellite come back after a crash and start when your device boots."
+          : "Lets Kiosk Satellite come back on screen after a crash.");
+      addRow('writeSettings', "Screen brightness",
         "Allows Kiosk Satellite to set the panel's actual brightness (modify system settings).");
-      addRow('deviceAdmin', 'Screen control',
-        'Allows Kiosk Satellite to turn the screen off on request (device admin).');
+      addRow('deviceAdmin', "Screen control",
+        "Allows Kiosk Satellite to turn the screen off on request (device admin).");
       const refreshStatus = async () => {
         try {
           const res = await (await api('/api/commands/getSystemPermissions', { method: 'POST', body: '{}' })).json();
           const p = res.data || {};
           for (const [key, span] of Object.entries(statusSpans)) {
             const ok = !!p[key];
-            span.textContent = ok ? 'Granted' : 'Not granted';
+            span.textContent = ok ? setupText("Granted") : setupText("Not granted");
             span.style.cssText =
               'white-space:nowrap; color:' + (ok ? 'var(--ok)' : 'var(--error)');
           }
@@ -651,11 +653,11 @@ export function wizardSteps() {
       const btn = document.createElement('button');
       btn.className = 'btn-ghost';
       btn.style.cssText = 'padding:12px 24px; margin:2px 0 12px';
-      btn.textContent = 'Grant permissions on the device';
+      btn.textContent = setupText("Grant permissions on the device");
       btn.addEventListener('click', async () => {
         btn.disabled = true;
         btn.style.opacity = '.6';
-        btn.textContent = 'Requesting on the device\u2026';
+        btn.textContent = setupText("Requesting on the device…");
         await api('/api/commands/requestOsPermissions', { method: 'POST',
           body: JSON.stringify({ which: [
             'microphone',
@@ -667,7 +669,7 @@ export function wizardSteps() {
             'writeSettings',
             'deviceAdmin',
           ] }) });
-        btn.textContent = 'Permissions requested on the device';
+        btn.textContent = setupText("Permissions requested on the device");
         // The runtime dialogs are awaited by the request, but the device
         // admin activation is a full screen the request only LAUNCHES: the
         // user taps Activate after this returns. Keep re-reading until the

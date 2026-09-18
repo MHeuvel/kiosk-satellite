@@ -436,3 +436,13 @@ String voiceEntityOption(BuildContext context, String key, String value) {
 /// Setup instructions and built-in options, excluding Home Assistant names.
 String setupText(BuildContext context, String english) =>
     messageById(l10n(context), setupTextMessageIds[english], english);
+
+String setupImportError(BuildContext context, String error) {
+  final english = const {
+    'config must be an object': 'The backup must contain a JSON object.',
+    'not a Kiosk Satellite configuration file':
+        'This is not a Kiosk Satellite configuration file.',
+    'no settings in file': 'The backup contains no settings.',
+  }[error];
+  return english == null ? error : setupText(context, english);
+}

@@ -9909,6 +9909,128 @@ class UiStringsEs extends UiStrings {
   String get setupPermissionsSummary => 'Lo necesario para la configuración';
 
   @override
+  String get setupPermissionLead =>
+      'Android will ask for these permissions. Everything is requested up front so the kiosk never interrupts you later.';
+
+  @override
+  String get setupRemotePermissionLead =>
+      'Android asks for these on the tablet itself. Walk over and accept the prompts, then finish here.';
+
+  @override
+  String get setupMicrophoneHelp =>
+      'Voice Satellite and the intercom need microphone access';
+
+  @override
+  String get setupNotificationListening =>
+      'Allows the Kiosk Satellite Service\'s ongoing notification, which says what it is keeping alive and when the kiosk is listening.';
+
+  @override
+  String get setupBatteryService =>
+      'Allows the Kiosk Satellite Service to run in the background without being paused or killed.';
+
+  @override
+  String get setupOverlayBoot =>
+      'Lets Kiosk Satellite come back after a crash and start when your device boots.';
+
+  @override
+  String get setupOverlayCrash =>
+      'Lets Kiosk Satellite come back on screen after a crash.';
+
+  @override
+  String get setupBrightnessHelp =>
+      'Allows Kiosk Satellite to set the panel\'s actual brightness (modify system settings).';
+
+  @override
+  String get setupScreenControl => 'Screen control';
+
+  @override
+  String get setupScreenControlHelp =>
+      'Allows Kiosk Satellite to turn the screen off on request (device admin).';
+
+  @override
+  String get setupGrantPermissions => 'Grant permissions on the device';
+
+  @override
+  String get setupRequestingPermissions => 'Requesting on the device…';
+
+  @override
+  String get setupPermissionsRequested => 'Permissions requested on the device';
+
+  @override
+  String get setupPasswordFirst => 'Set the admin password first';
+
+  @override
+  String get setupPasswordBeforeImport =>
+      'Type an admin password above (at least 4 characters), then import the backup.';
+
+  @override
+  String get setupPasswordFailed => 'Could not set the password';
+
+  @override
+  String get setupPasswordExists => 'A password is already set';
+
+  @override
+  String get setupPasswordExistsHelp =>
+      'Log in with the password set on the tablet to continue here. Reloading…';
+
+  @override
+  String get setupNotBackup => 'Not a backup file';
+
+  @override
+  String get setupInvalidBackupHelp =>
+      'That file is not valid JSON. Export a configuration from Settings on a set-up Kiosk Satellite, or from its remote admin.';
+
+  @override
+  String get setupWrongBackupKind =>
+      'Export a configuration from the Settings tab of a set-up Kiosk Satellite.';
+
+  @override
+  String get setupImportFailedHelp => 'The file could not be applied.';
+
+  @override
+  String get setupBackupNoDashboard => 'Backup has no dashboard';
+
+  @override
+  String get setupBackupNoDashboardHelp =>
+      'The settings were applied, but this backup was taken before its device was set up, so there is no dashboard to show. Continue the wizard to pick one.';
+
+  @override
+  String get setupImporting => 'Importing…';
+
+  @override
+  String get setupRemoteRestoreHelp =>
+      'Import a configuration exported from Kiosk Satellite and skip the rest of this wizard.';
+
+  @override
+  String get setupFinishOnDevice => 'Finish on the device';
+
+  @override
+  String get setupFinishOnDeviceHelp =>
+      'The configuration was imported. Answer the permission prompts on the tablet\'s screen - this page continues automatically when the dashboard loads.';
+
+  @override
+  String get setupBackupObject => 'The backup must contain a JSON object.';
+
+  @override
+  String get setupBackupKind =>
+      'This is not a Kiosk Satellite configuration file.';
+
+  @override
+  String get setupBackupSettings => 'The backup contains no settings.';
+
+  @override
+  String get setupServiceHelp =>
+      'Keeps the app alive while the screen is off or another app is in front, so the Home Assistant connection and other features like motion detection and the Bluetooth proxy stay alive. The permissions below are optional but recommended: each one helps it survive the screen being off.';
+
+  @override
+  String get setupBatteryMissing =>
+      'Android may pause the app when the screen is off, dropping the Home Assistant connection with it.';
+
+  @override
+  String get setupOverlayMissing =>
+      'Without this the service cannot relaunch the kiosk after a crash.';
+
+  @override
   String get setupVoiceDetected => 'Voice Satellite detectado';
 
   @override

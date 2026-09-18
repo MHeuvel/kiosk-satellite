@@ -1,0 +1,162 @@
+{
+  "@@locale": "en",
+  "setupPermissionLead": "Android will ask for these permissions. Everything is requested up front so the kiosk never interrupts you later.",
+  "@setupPermissionLead": {
+    "context": "First-time setup > Permissions",
+    "description": "Introduction above the permission list on the device.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Permissions"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "setupRemotePermissionLead": "Android asks for these on the tablet itself. Walk over and accept the prompts, then finish here.",
+  "@setupRemotePermissionLead": {
+    "context": "First-time setup > Permissions",
+    "description": "Introduction directing the remote user to the physical device.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "First-time setup > Permissions"
+      ]
+    }
+  },
+  "setupMicrophoneHelp": "Voice Satellite and the intercom need microphone access",
+  "@setupMicrophoneHelp": {
+    "context": "First-time setup > Permissions",
+    "description": "Explanation below Microphone. Keep Voice Satellite unchanged.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Permissions"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Permissions"
+      ]
+    }
+  },
+  "setupNotificationListening": "Allows the Kiosk Satellite Service's ongoing notification, which says what it is keeping alive and when the kiosk is listening.",
+  "@setupNotificationListening": {
+    "context": "First-time setup > Permissions",
+    "description": "Notifications explanation when background listening is selected.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Permissions"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Permissions"
+      ]
+    }
+  },
+  "setupBatteryService": "Allows the Kiosk Satellite Service to run in the background without being paused or killed.",
+  "@setupBatteryService": {
+    "context": "First-time setup > Permissions",
+    "description": "Explanation below Unrestricted battery.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Permissions"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Permissions"
+      ]
+    }
+  },
+  "setupOverlayBoot": "Lets Kiosk Satellite come back after a crash and start when your device boots.",
+  "@setupOverlayBoot": {
+    "context": "First-time setup > Permissions",
+    "description": "Overlay explanation when starting at boot is selected.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Permissions"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Permissions"
+      ]
+    }
+  },
+  "setupOverlayCrash": "Lets Kiosk Satellite come back on screen after a crash.",
+  "@setupOverlayCrash": {
+    "context": "First-time setup > Permissions",
+    "description": "Overlay explanation when starting at boot is not selected.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Permissions"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Permissions"
+      ]
+    }
+  },
+  "setupBrightnessHelp": "Allows Kiosk Satellite to set the panel's actual brightness (modify system settings).",
+  "@setupBrightnessHelp": {
+    "context": "First-time setup > Permissions",
+    "description": "Explanation of Android permission to change screen brightness.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Permissions"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Permissions"
+      ]
+    }
+  },
+  "setupScreenControl": "Screen control",
+  "@setupScreenControl": {
+    "context": "First-time setup > Permissions",
+    "description": "Permission row title for turning the screen off.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Permissions"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Permissions"
+      ]
+    }
+  },
+  "setupScreenControlHelp": "Allows Kiosk Satellite to turn the screen off on request (device admin).",
+  "@setupScreenControlHelp": {
+    "context": "First-time setup > Permissions",
+    "description": "Explanation of Android device admin permission.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Permissions"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Permissions"
+      ]
+    }
+  },
+  "setupGrantPermissions": "Grant permissions on the device",
+  "@setupGrantPermissions": {
+    "context": "First-time setup > Permissions",
+    "description": "Button that opens permission prompts on the physical device.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "First-time setup > Permissions"
+      ]
+    }
+  },
+  "setupRequestingPermissions": "Requesting on the device…",
+  "@setupRequestingPermissions": {
+    "context": "First-time setup > Permissions",
+    "description": "Disabled button label while permission prompts are being requested.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "First-time setup > Permissions"
+      ]
+    }
+  },
+  "setupPermissionsRequested": "Permissions requested on the device",
+  "@setupPermissionsRequested": {
+    "context": "First-time setup > Permissions",
+    "description": "Disabled button label after sending permission requests.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "First-time setup > Permissions"
+      ]
+    }
+  }
+}

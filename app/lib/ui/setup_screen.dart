@@ -276,18 +276,14 @@ class _SetupScreenState extends State<SetupScreen> {
       allowedExtensions: const ['json'],
       withData: true,
     );
+    if (!mounted) return;
     final bytes = picked?.files.single.bytes;
     if (bytes == null) return;
     Object? config;
     try {
       config = jsonDecode(utf8.decode(bytes));
     } catch (_) {
-      _fail(
-        'Not a backup file',
-        'That file is not valid JSON. Export a configuration from '
-            'Settings on a set-up Kiosk Satellite, or from its remote '
-            'admin.',
-      );
+      _fail(l10n(context).setupNotBackup, l10n(context).setupInvalidBackupHelp);
       return;
     }
     if (!mounted) return;
@@ -310,7 +306,12 @@ class _SetupScreenState extends State<SetupScreen> {
     if (!mounted) return;
     setState(() => _busy = false);
     if (!result.ok) {
-      _fail('Import failed', result.error ?? 'The file could not be applied.');
+      _fail(
+        l10n(context).deviceImportFailed,
+        result.error == null
+            ? l10n(context).setupImportFailedHelp
+            : setupImportError(context, result.error!),
+      );
       return;
     }
     // pendingSetup: the permission prompts are running and the start URL
@@ -319,10 +320,8 @@ class _SetupScreenState extends State<SetupScreen> {
     if ((result.data as Map?)?['pendingSetup'] == true) return;
     if (c.settings.get(defs.startUrl).isEmpty) {
       _fail(
-        'Backup has no dashboard',
-        'The settings were applied, but this backup was taken before its '
-            'device was set up, so there is no dashboard to show. Continue '
-            'the wizard to pick one.',
+        l10n(context).setupBackupNoDashboard,
+        l10n(context).setupBackupNoDashboardHelp,
       );
     }
   }
@@ -1019,68 +1018,48 @@ class _SetupScreenState extends State<SetupScreen> {
         final bootStart = _vsStepActive && _recommended['kiosk.start_on_boot']!;
         return withError([
           heading(l10n(context).setupPermissions),
-          lead(
-            'Android will ask for these permissions. Everything is '
-            'requested up front so the kiosk never interrupts you later.',
-          ),
+          lead(l10n(context).setupPermissionLead),
           _Card([
-            const ListTile(
+            ListTile(
               leading: Icon(Icons.mic_none),
-              title: Text('Microphone'),
-              subtitle: Text(
-                'Voice Satellite and the intercom need microphone access',
-              ),
+              title: Text(l10n(context).deviceMicrophone),
+              subtitle: Text(l10n(context).setupMicrophoneHelp),
             ),
             // The Kiosk Satellite Service's two, on every install: its
             // notification, and the exemption that keeps it running.
             ListTile(
               leading: const Icon(Icons.notifications_none),
-              title: const Text('Notifications'),
+              title: Text(l10n(context).deviceNotifications),
               subtitle: Text(
                 background
-                    ? "Allows the Kiosk Satellite Service's ongoing "
-                          'notification, which says what it is keeping '
-                          'alive and when the kiosk is listening.'
-                    : "Allows the Kiosk Satellite Service's ongoing "
-                          'notification, which says what it is keeping '
-                          'alive.',
+                    ? l10n(context).setupNotificationListening
+                    : l10n(context).deviceNotificationsHeld,
               ),
             ),
-            const ListTile(
+            ListTile(
               leading: Icon(Icons.battery_saver),
-              title: Text('Unrestricted battery'),
-              subtitle: Text(
-                'Allows the Kiosk Satellite Service to run in the '
-                'background without being paused or killed.',
-              ),
+              title: Text(l10n(context).deviceBattery),
+              subtitle: Text(l10n(context).setupBatteryService),
             ),
             if (bootStart || c.settings.get(defs.autoReloadOnError))
               ListTile(
                 leading: const Icon(Icons.layers_outlined),
-                title: const Text('Display over other apps'),
+                title: Text(l10n(context).deviceOverlay),
                 subtitle: Text(
                   bootStart
-                      ? 'Lets Kiosk Satellite come back after a crash and '
-                            'start when your device boots.'
-                      : 'Lets Kiosk Satellite come back on screen after a '
-                            'crash.',
+                      ? l10n(context).setupOverlayBoot
+                      : l10n(context).setupOverlayCrash,
                 ),
               ),
-            const ListTile(
+            ListTile(
               leading: Icon(Icons.brightness_6_outlined),
-              title: Text('Screen brightness'),
-              subtitle: Text(
-                "Allows Kiosk Satellite to set the panel's actual "
-                'brightness (modify system settings).',
-              ),
+              title: Text(l10n(context).deviceScreenBrightness),
+              subtitle: Text(l10n(context).setupBrightnessHelp),
             ),
-            const ListTile(
+            ListTile(
               leading: Icon(Icons.power_settings_new_outlined),
-              title: Text('Screen control'),
-              subtitle: Text(
-                'Allows Kiosk Satellite to turn the screen off on request '
-                '(device admin).',
-              ),
+              title: Text(l10n(context).setupScreenControl),
+              subtitle: Text(l10n(context).setupScreenControlHelp),
             ),
           ]),
         ]);
@@ -1256,9 +1235,9 @@ class _ServiceSetupCardState extends State<_ServiceSetupCard>
             ? theme.colorScheme.error
             : muted,
       ),
-      title: Text(title),
+      title: Text(setupText(context, title)),
       subtitle: Text(
-        ok ? held : adbHint ?? (needed ? missing : idle),
+        setupText(context, ok ? held : adbHint ?? (needed ? missing : idle)),
         style: ok || (needed && adbHint == null)
             ? null
             : TextStyle(color: muted),
@@ -1270,7 +1249,7 @@ class _ServiceSetupCardState extends State<_ServiceSetupCard>
                 await onGrant();
                 await _refresh();
               },
-              child: const Text('Grant'),
+              child: Text(l10n(context).commonGrant),
             ),
     );
   }
@@ -1281,16 +1260,10 @@ class _ServiceSetupCardState extends State<_ServiceSetupCard>
     final perms = _perms;
     final needed = c.service.neededGrants();
     return _Card([
-      const ListTile(
+      ListTile(
         leading: Icon(Icons.security_outlined),
-        title: Text('Kiosk Satellite Service'),
-        subtitle: Text(
-          'Keeps the app alive while the screen is off or another app is '
-          'in front, so the Home Assistant connection and other features '
-          'like motion detection and the Bluetooth proxy stay alive. The '
-          'permissions below are optional but recommended: each one helps '
-          'it survive the screen being off.',
-        ),
+        title: Text(l10n(context).deviceServicePage),
+        subtitle: Text(l10n(context).setupServiceHelp),
       ),
       _row(
         granted: perms?.batteryUnrestricted,

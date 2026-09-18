@@ -14,6 +14,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class _Spanish extends UiStringsEn {
   @override
+  String get setupPermissionLead => 'Android solicitará estos permisos.';
+  @override
+  String get setupNotificationListening => 'Notificación mientras escucha';
+  @override
+  String get setupOverlayBoot => 'Volver a abrir y arrancar con el dispositivo';
+  @override
+  String get setupOverlayCrash => 'Volver a abrir después de un fallo';
+
+  @override
   String get setupVoiceSkipped => 'No instalado, omitido';
   @override
   String get setupChooseDashboard => 'Elige un panel de control';
@@ -242,12 +251,34 @@ void main() {
         await settle();
         if (!integrationPresent) {
           expect(find.text('No instalado, omitido'), findsOneWidget);
+          expect(
+            find.text('Android solicitará estos permisos.'),
+            findsOneWidget,
+          );
+          expect(
+            find.text('Volver a abrir después de un fallo'),
+            findsOneWidget,
+          );
           expect(find.text('Voice Satellite detectado'), findsNothing);
           await tester.pumpWidget(const SizedBox());
           await settle();
           return;
         }
         expect(find.text('Voice Satellite detectado'), findsOneWidget);
+        await tester.tap(find.text('Next'));
+        await settle();
+        expect(find.text('Notificación mientras escucha'), findsOneWidget);
+        expect(
+          find.text('Volver a abrir y arrancar con el dispositivo'),
+          findsOneWidget,
+        );
+        language.value = const Locale('en');
+        await settle();
+        language.value = const Locale('es');
+        await settle();
+        expect(find.text('Notificación mientras escucha'), findsOneWidget);
+        await tester.tap(find.text('Back'));
+        await settle();
         await tester.tap(find.text('Original second satellite'));
         final master = find.widgetWithText(
           SwitchListTile,

@@ -310,3 +310,12 @@ export function overviewStatus(english) {
 }
 
 export function setupText(english) { return t(setupTextMessageIds[english], {}, english); }
+
+export function setupImportError(error) {
+  const english = new Map([
+    ['config must be an object', 'The backup must contain a JSON object.'],
+    ['not a Kiosk Satellite configuration file', 'This is not a Kiosk Satellite configuration file.'],
+    ['no settings in file', 'The backup contains no settings.'],
+  ]).get(error);
+  return english === undefined ? error : setupText(english);
+}

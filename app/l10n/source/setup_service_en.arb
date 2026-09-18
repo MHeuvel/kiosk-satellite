@@ -1,0 +1,42 @@
+{
+  "@@locale": "en",
+  "setupServiceHelp": "Keeps the app alive while the screen is off or another app is in front, so the Home Assistant connection and other features like motion detection and the Bluetooth proxy stay alive. The permissions below are optional but recommended: each one helps it survive the screen being off.",
+  "@setupServiceHelp": {
+    "context": "First-time setup > Welcome > Recommended Service Permissions",
+    "description": "Introduction to the optional permissions that keep the service running.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Welcome > Recommended Service Permissions"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Welcome > Recommended Service Permissions"
+      ]
+    }
+  },
+  "setupBatteryMissing": "Android may pause the app when the screen is off, dropping the Home Assistant connection with it.",
+  "@setupBatteryMissing": {
+    "context": "First-time setup > Welcome > Recommended Service Permissions",
+    "description": "Battery permission warning when a feature needs the missing permission.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Welcome > Recommended Service Permissions"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Welcome > Recommended Service Permissions"
+      ]
+    }
+  },
+  "setupOverlayMissing": "Without this the service cannot relaunch the kiosk after a crash.",
+  "@setupOverlayMissing": {
+    "context": "First-time setup > Welcome > Recommended Service Permissions",
+    "description": "Overlay permission warning when crash recovery needs the missing permission.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Welcome > Recommended Service Permissions"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Welcome > Recommended Service Permissions"
+      ]
+    }
+  }
+}

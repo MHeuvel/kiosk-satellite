@@ -1,0 +1,156 @@
+{
+  "@@locale": "en",
+  "setupNotBackup": "Not a backup file",
+  "@setupNotBackup": {
+    "context": "First-time setup > Welcome > Restore backup",
+    "description": "Error heading for a file that cannot be read as a backup.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Welcome > Restore backup"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Welcome > Restore backup"
+      ]
+    }
+  },
+  "setupInvalidBackupHelp": "That file is not valid JSON. Export a configuration from Settings on a set-up Kiosk Satellite, or from its remote admin.",
+  "@setupInvalidBackupHelp": {
+    "context": "First-time setup > Welcome > Restore backup",
+    "description": "Recovery instructions after JSON decoding fails. Keep JSON unchanged.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Welcome > Restore backup"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "setupWrongBackupKind": "Export a configuration from the Settings tab of a set-up Kiosk Satellite.",
+  "@setupWrongBackupKind": {
+    "context": "First-time setup > Welcome > Restore backup",
+    "description": "Recovery instructions when the remote user selects the wrong file format.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "First-time setup > Welcome > Restore backup"
+      ]
+    }
+  },
+  "setupImportFailedHelp": "The file could not be applied.",
+  "@setupImportFailedHelp": {
+    "context": "First-time setup > Welcome > Restore backup",
+    "description": "Fallback explanation when the import fails without a specific error.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Welcome > Restore backup"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Welcome > Restore backup"
+      ]
+    }
+  },
+  "setupBackupNoDashboard": "Backup has no dashboard",
+  "@setupBackupNoDashboard": {
+    "context": "First-time setup > Welcome > Restore backup",
+    "description": "Notice heading after applying a backup with no dashboard URL.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Welcome > Restore backup"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "setupBackupNoDashboardHelp": "The settings were applied, but this backup was taken before its device was set up, so there is no dashboard to show. Continue the wizard to pick one.",
+  "@setupBackupNoDashboardHelp": {
+    "context": "First-time setup > Welcome > Restore backup",
+    "description": "Explains that settings were imported but setup must continue.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Welcome > Restore backup"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "setupImporting": "Importing…",
+  "@setupImporting": {
+    "context": "First-time setup > Welcome > Restore backup",
+    "description": "Temporary Import button label during an upload.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "First-time setup > Welcome > Restore backup"
+      ]
+    }
+  },
+  "setupRemoteRestoreHelp": "Import a configuration exported from Kiosk Satellite and skip the rest of this wizard.",
+  "@setupRemoteRestoreHelp": {
+    "context": "First-time setup > Welcome > Restore backup",
+    "description": "Description beside the backup import action.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "First-time setup > Welcome > Restore backup"
+      ]
+    }
+  },
+  "setupFinishOnDevice": "Finish on the device",
+  "@setupFinishOnDevice": {
+    "context": "First-time setup > Welcome > Restore backup",
+    "description": "Waiting-screen heading after a successful remote import.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "First-time setup > Welcome > Restore backup"
+      ]
+    }
+  },
+  "setupFinishOnDeviceHelp": "The configuration was imported. Answer the permission prompts on the tablet's screen - this page continues automatically when the dashboard loads.",
+  "@setupFinishOnDeviceHelp": {
+    "context": "First-time setup > Welcome > Restore backup",
+    "description": "Waiting-screen instructions while Android permission prompts are open.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "First-time setup > Welcome > Restore backup"
+      ]
+    }
+  },
+  "setupBackupObject": "The backup must contain a JSON object.",
+  "@setupBackupObject": {
+    "context": "First-time setup > Welcome > Restore backup",
+    "description": "Validation error for JSON that does not contain an object.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Welcome > Restore backup"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Welcome > Restore backup"
+      ]
+    }
+  },
+  "setupBackupKind": "This is not a Kiosk Satellite configuration file.",
+  "@setupBackupKind": {
+    "context": "First-time setup > Welcome > Restore backup",
+    "description": "Validation error for a file from another application.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Welcome > Restore backup"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Welcome > Restore backup"
+      ]
+    }
+  },
+  "setupBackupSettings": "The backup contains no settings.",
+  "@setupBackupSettings": {
+    "context": "First-time setup > Welcome > Restore backup",
+    "description": "Validation error for a backup with no settings.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Welcome > Restore backup"
+      ],
+      "remoteAdmin": [
+        "First-time setup > Welcome > Restore backup"
+      ]
+    }
+  }
+}

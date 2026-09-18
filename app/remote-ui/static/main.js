@@ -19,7 +19,7 @@ const boot = () => start().catch((e) => {
   if (setup?.setupNeeded) {
     // An import is finishing on the device (permission prompts); a reload
     // here must keep saying that, not show an empty wizard.
-    if (setup.importPending) { showImportPending(); return; }
+    if (setup.importPending) { showImportPending(setup.language); return; }
     if (setup.passwordNeeded) { startWizard({ needPassword: true }); return; }
     // A password exists (set in the device wizard's first step): log in
     // first. start() asks again and continues the setup here.

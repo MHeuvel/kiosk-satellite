@@ -23,7 +23,7 @@ export async function start() {
   let setup = null;
   try { setup = await (await fetch('api/setup/status')).json(); } catch (_) {}
   if (setup?.setupNeeded) {
-    if (setup.importPending) { showImportPending(); return; }
+    if (setup.importPending) { showImportPending(setup.language); return; }
     startWizard({ needPassword: false });
     return;
   }
