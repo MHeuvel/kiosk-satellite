@@ -3485,13 +3485,17 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
   /// off: there would be nothing under the photos to protect.
   bool get _metadataOn => immichMetadataVisible(c.settings);
 
+  Set<String>? _claimedCorners;
+
   /// Tell the widget layer which corners this slide has taken. A pair puts
   /// a metadata panel under each half, so both bottom corners are spoken
   /// for; anything else leaves every corner to the widgets.
   void _claimCorners() {
-    c.screensaver.claimedCorners.value = _pairIndex != null && _metadataOn
-        ? const {'bottom_left', 'bottom_right'}
-        : const {};
+    final corners = <String>{
+      if (_pairIndex != null && _metadataOn) ...['bottom_left', 'bottom_right'],
+    };
+    _claimedCorners = corners;
+    c.screensaver.claimedCorners.value = corners;
   }
 
   /// Consecutive fetch failures; a whole playlist of them means the server
@@ -3984,8 +3988,16 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
     _prepared.clear();
     _photo?.dispose();
     _pairPhoto?.dispose();
-    // The corners go back to the widgets with the screensaver.
-    c.screensaver.claimedCorners.value = const {};
+    // Disposal runs while Flutter locks the widget tree. Notify the corner
+    // widgets after the frame so their rebuild can schedule another frame.
+    // A replacement slideshow may already have claimed its own corners.
+    final corners = c.screensaver.claimedCorners;
+    final claimed = _claimedCorners;
+    scheduleMicrotask(() {
+      if (claimed != null && identical(corners.value, claimed)) {
+        corners.value = const {};
+      }
+    });
     super.dispose();
   }
 

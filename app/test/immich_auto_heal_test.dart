@@ -215,4 +215,71 @@ void main() {
       });
     },
   );
+  testWidgets('scheduled switch from paired Immich to clock keeps rendering', (
+    tester,
+  ) async {
+    await tester.runAsync(() async {
+      portraitPair = true;
+      await container.settings.set(defs.screensaverImmichPairPortrait, true);
+      await container.settings.set(defs.screensaverImmichMetadata, true);
+      tester.view.physicalSize = const Size(1280, 800);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.reset);
+      await container.settings.set(defs.screensaverMode, 'immich');
+      await container.screensaver.start();
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Stack(children: [ScreensaverOverlay(container: container)]),
+        ),
+      );
+      await pumpUntil(
+        tester,
+        () => container.screensaver.claimedCorners.value.isNotEmpty,
+      );
+      expect(container.screensaver.claimedCorners.value, isNotEmpty);
+      container.screensaver.activeView.value = 'clock';
+      await tester.pump();
+      expect(tester.takeException(), isNull);
+      await tester.pump();
+      expect(find.byType(ClockScreensaver), findsOneWidget);
+      expect(container.screensaver.claimedCorners.value, isEmpty);
+      expect(tester.binding.hasScheduledFrame, isFalse);
+      await container.settings.set(defs.screensaverClockBgColor, '0,128,0');
+      await Future<void>.delayed(Duration.zero);
+      expect(tester.binding.hasScheduledFrame, isTrue);
+      await tester.pump();
+      await tester.tap(find.byType(ClockScreensaver));
+      await Future<void>.delayed(Duration.zero);
+      await tester.pump();
+      expect(find.byType(ClockScreensaver), findsNothing);
+      await tester.pumpWidget(const SizedBox());
+      await container.screensaver.dispose();
+    });
+  });
+
+  testWidgets('deferred Immich cleanup preserves a replacement corner claim', (
+    tester,
+  ) async {
+    await tester.runAsync(() async {
+      portraitPair = true;
+      await container.settings.set(defs.screensaverImmichPairPortrait, true);
+      await container.settings.set(defs.screensaverImmichMetadata, true);
+      tester.view.physicalSize = const Size(1280, 800);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.reset);
+      await mount(tester);
+      await pumpUntil(
+        tester,
+        () => container.screensaver.claimedCorners.value.isNotEmpty,
+      );
+      expect(container.screensaver.claimedCorners.value, isNotEmpty);
+      final replacement = <String>{'bottom_left', 'bottom_right'};
+      tester.binding.addPostFrameCallback((_) {
+        container.screensaver.claimedCorners.value = replacement;
+      });
+      await tester.pumpWidget(const SizedBox());
+      await Future<void>.delayed(Duration.zero);
+      expect(container.screensaver.claimedCorners.value, same(replacement));
+    });
+  });
 }
