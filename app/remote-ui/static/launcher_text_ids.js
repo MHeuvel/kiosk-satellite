@@ -67,5 +67,6 @@ export const launcherTextMessageIds = {
   "Android may pause the app behind the other one, and a paused clock never brings the kiosk back.": "launcherBatteryMissing",
   "Android may pause the app behind the other one, and a paused clock never brings the kiosk back. The grant dialog appears on the tablet.": "launcherBatteryRemote",
   "The grants Return automatically leans on.": "launcherPermissionsSearch",
-  "Allows the process to run in the background without being paused or killed.": "deviceBatteryHeld"
+  "Allows the process to run in the background without being paused or killed.": "deviceBatteryHeld",
+  "listing apps is Android-only": "launcherErrorAndroidOnly"
 };

@@ -366,6 +366,38 @@
     },
     "x-notes": "Lowercase phrase without final punctuation. Active phrases are joined with commas. The app capitalizes the first letter and adds a final period. Keep product names unchanged."
   },
+  "launcherErrorAndroidOnly": "listing apps is Android-only",
+  "@launcherErrorAndroidOnly": {
+    "context": "Settings > App Launcher > Apps",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > App Launcher > Apps"
+      ],
+      "remoteAdmin": [
+        "Settings > App Launcher > Apps"
+      ]
+    }
+  },
+  "launcherErrorListDetail": "could not list apps: {error}",
+  "@launcherErrorListDetail": {
+    "context": "Settings > App Launcher > Apps",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > App Launcher > Apps"
+      ],
+      "remoteAdmin": [
+        "Settings > App Launcher > Apps"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "E_VENDOR: original details"
+      }
+    }
+  },
   "launcherOpenFailed": "No se pudo abrir {name}",
   "@launcherOpenFailed": {
     "context": "Device > Menu > Apps",
@@ -9268,6 +9300,1052 @@
       ]
     }
   },
+  "pluginErrorAssetPath": "Invalid asset path",
+  "@pluginErrorAssetPath": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorAssetMissing": "Asset is missing or outside its package",
+  "@pluginErrorAssetMissing": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorAssetSymlink": "Asset directory cannot be a symbolic link",
+  "@pluginErrorAssetSymlink": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorAssetSymlinks": "Asset directories cannot be symbolic links",
+  "@pluginErrorAssetSymlinks": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorAssetsIntegrity": "Installed assets failed their integrity check",
+  "@pluginErrorAssetsIntegrity": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorAssetIntegrity": "Installed asset failed its integrity check",
+  "@pluginErrorAssetIntegrity": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorManifestMismatch": "Package manifest does not match the reviewed release manifest",
+  "@pluginErrorManifestMismatch": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorStagingExists": "Staging directory already exists",
+  "@pluginErrorStagingExists": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorCreateDirectory": "Cannot create plugin directory",
+  "@pluginErrorCreateDirectory": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorFileCount": "At most 512 package files are supported",
+  "@pluginErrorFileCount": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorProtectFile": "Cannot protect plugin file",
+  "@pluginErrorProtectFile": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorExpandedSize": "Expanded plugin exceeds 4 MB",
+  "@pluginErrorExpandedSize": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorManifestSize": "Manifest exceeds 32 KB",
+  "@pluginErrorManifestSize": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorRequiredFiles": "Package needs kiosk-satellite-plugin.json, plugin.jar and LICENSE",
+  "@pluginErrorRequiredFiles": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorNativeCapability": "Native libraries require native capability",
+  "@pluginErrorNativeCapability": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorNativeElf": "Invalid native ELF library",
+  "@pluginErrorNativeElf": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorNativeAbi": "Native library ABI does not match its directory",
+  "@pluginErrorNativeAbi": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorDexOnly": "plugin.jar must contain only DEX files",
+  "@pluginErrorDexOnly": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorDexHeader": "Invalid DEX header",
+  "@pluginErrorDexHeader": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorDexSize": "Expanded DEX exceeds 4 MB",
+  "@pluginErrorDexSize": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorDexEmpty": "Empty DEX file",
+  "@pluginErrorDexEmpty": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorDexMissing": "plugin.jar has no classes.dex",
+  "@pluginErrorDexMissing": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorZipEntry": "Unexpected or duplicate ZIP entry: {name}",
+  "@pluginErrorZipEntry": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "example-1.0.zip"
+      }
+    }
+  },
+  "pluginErrorRepositoryMismatch": "The repository release belongs to a different plugin.",
+  "@pluginErrorRepositoryMismatch": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorRepositoryUrl": "Enter a public https://github.com/owner/repository URL",
+  "@pluginErrorRepositoryUrl": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorRepositoryPath": "Use the repository URL without a file or branch path",
+  "@pluginErrorRepositoryPath": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorDownloadOutsideGithub": "Plugin download redirected outside GitHub",
+  "@pluginErrorDownloadOutsideGithub": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorInvalidRedirect": "Invalid GitHub redirect",
+  "@pluginErrorInvalidRedirect": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorRepositoryNotFound": "Public repository, stable release, kiosk-satellite-plugin.json, README.md or release asset was not found.",
+  "@pluginErrorRepositoryNotFound": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorGithubLimited": "GitHub denied the request or its request limit was reached. Try again later.",
+  "@pluginErrorGithubLimited": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorRepositorySize": "Repository file exceeds the size limit",
+  "@pluginErrorRepositorySize": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorTooManyRedirects": "Too many GitHub redirects",
+  "@pluginErrorTooManyRedirects": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorStableRelease": "GitHub did not return a published stable release",
+  "@pluginErrorStableRelease": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorReleaseTag": "Invalid release tag",
+  "@pluginErrorReleaseTag": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorManifestFile": "Invalid kiosk-satellite-plugin.json manifest",
+  "@pluginErrorManifestFile": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorIdVersion": "Invalid plugin ID or version",
+  "@pluginErrorIdVersion": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorChecksumFilename": "Invalid release checksum or package filename",
+  "@pluginErrorChecksumFilename": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorGithubDigest": "The release checksum must match GitHub asset SHA-256 digest",
+  "@pluginErrorGithubDigest": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorTagRevision": "GitHub did not return the release tag revision",
+  "@pluginErrorTagRevision": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorTrustAuthor": "Confirm that you trust the plugin author",
+  "@pluginErrorTrustAuthor": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorPreviewExpired": "This preview expired. Preview the repository again before installing.",
+  "@pluginErrorPreviewExpired": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorReviewedChecksum": "Package SHA-256 does not match the reviewed release",
+  "@pluginErrorReviewedChecksum": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorNotInstalled": "Plugin is not installed",
+  "@pluginErrorNotInstalled": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorUpdateZip": "This plugin was installed from ZIP. Use Install from ZIP to update it.",
+  "@pluginErrorUpdateZip": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorAndroidOnly": "Plugins are available on Android.",
+  "@pluginErrorAndroidOnly": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorGithubRequest": "GitHub request failed ({status})",
+  "@pluginErrorGithubRequest": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    },
+    "placeholders": {
+      "status": {
+        "type": "String",
+        "example": "503"
+      }
+    }
+  },
+  "pluginErrorReleaseAsset": "Release needs exactly one uploaded {name} asset",
+  "@pluginErrorReleaseAsset": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "example-1.0.zip"
+      }
+    }
+  },
+  "pluginErrorAssetPublisher": "Release asset {name} must be published by GitHub Actions. Manually uploaded files are not supported.",
+  "@pluginErrorAssetPublisher": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "example-1.0.zip"
+      }
+    }
+  },
+  "pluginErrorAssetSize": "Release asset {name} exceeds the size limit or is empty",
+  "@pluginErrorAssetSize": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "example-1.0.zip"
+      }
+    }
+  },
+  "pluginErrorAssetUrl": "Invalid release URL for {name}",
+  "@pluginErrorAssetUrl": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    },
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "example-1.0.zip"
+      }
+    }
+  },
+  "pluginErrorNativeLibrary": "Plugin has no native library for this device ABI",
+  "@pluginErrorNativeLibrary": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorCallbackTimeout": "Plugin callback timed out. Restart Kiosk if the plugin left work running.",
+  "@pluginErrorCallbackTimeout": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorEnableFirst": "Enable the plugin first",
+  "@pluginErrorEnableFirst": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorSaveState": "Cannot save plugin state",
+  "@pluginErrorSaveState": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorPackageHash": "Invalid installed package hash",
+  "@pluginErrorPackageHash": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorChecksum": "Package SHA-256 does not match",
+  "@pluginErrorChecksum": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorDifferentRepository": "This plugin ID belongs to another repository. Uninstall it before changing sources.",
+  "@pluginErrorDifferentRepository": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorRestartReplace": "This plugin did not stop cleanly. Restart Kiosk Satellite before replacing it.",
+  "@pluginErrorRestartReplace": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorPluginLimit": "At most 8 plugins can be installed",
+  "@pluginErrorPluginLimit": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorAlreadyInstalled": "This package is already installed",
+  "@pluginErrorAlreadyInstalled": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorLoadedIntegrity": "Previously loaded package failed its integrity check. Restart Kiosk Satellite before reinstalling it.",
+  "@pluginErrorLoadedIntegrity": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorRemovePackage": "Cannot remove unused package",
+  "@pluginErrorRemovePackage": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorInstallPackage": "Cannot install plugin package",
+  "@pluginErrorInstallPackage": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorUpdateCanceled": "Update canceled because the plugin did not stop cleanly. Restart Kiosk Satellite before trying again.",
+  "@pluginErrorUpdateCanceled": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorVersionRetained": "The previous version was retained.",
+  "@pluginErrorVersionRetained": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorRetainedDisabled": "The previous version was retained but is disabled. Restart Kiosk Satellite before enabling it.",
+  "@pluginErrorRetainedDisabled": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorVersionRunning": "The previous version is running again.",
+  "@pluginErrorVersionRunning": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorEnablePlugins": "Enable Plugins first",
+  "@pluginErrorEnablePlugins": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorRestartEnable": "This plugin did not stop cleanly. Restart Kiosk Satellite before enabling it.",
+  "@pluginErrorRestartEnable": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorInstalledIntegrity": "Installed plugin failed its integrity check. Reinstall it.",
+  "@pluginErrorInstalledIntegrity": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorAndroidOld": "Android version is too old",
+  "@pluginErrorAndroidOld": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorNativeIntegrity": "Installed native libraries failed their integrity check",
+  "@pluginErrorNativeIntegrity": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorNativeFileIntegrity": "Installed native library failed its integrity check",
+  "@pluginErrorNativeFileIntegrity": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorReadInstalled": "Cannot read installed plugin: {error}",
+  "@pluginErrorReadInstalled": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "E_VENDOR"
+      }
+    }
+  },
+  "pluginErrorPreviousRestart": "The previous version could not restart: {error}",
+  "@pluginErrorPreviousRestart": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "E_VENDOR"
+      }
+    }
+  },
+  "pluginErrorUpdateFailed": "Plugin update failed: {error}. {recovery}",
+  "@pluginErrorUpdateFailed": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "E_VENDOR"
+      },
+      "recovery": {
+        "type": "String",
+        "example": "The previous version was retained."
+      }
+    }
+  },
   "pluginShizuku13OrLaterIsRequiredTapForSetup": "Se requiere Shizuku 13 o posterior. Toca para ver las instrucciones de configuración.",
   "@pluginShizuku13OrLaterIsRequiredTapForSetup": {
     "context": "Settings > Plugin Manager > a plugin > Shizuku access",
@@ -9344,6 +10422,395 @@
       "remoteAdmin": [
         "Plugin Manager > a plugin > Shizuku access"
       ]
+    }
+  },
+  "pluginErrorInvalidId": "Invalid plugin ID",
+  "@pluginErrorInvalidId": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorInvalidVersion": "Invalid version",
+  "@pluginErrorInvalidVersion": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorEntryClass": "Invalid entry class",
+  "@pluginErrorEntryClass": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorManifestSchema": "Unsupported manifest schema",
+  "@pluginErrorManifestSchema": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorSdkVersion": "This plugin needs a different SDK version",
+  "@pluginErrorSdkVersion": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorMinimumSdk": "Minimum Android SDK must be at least 24",
+  "@pluginErrorMinimumSdk": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorCapability": "Unsupported plugin capability",
+  "@pluginErrorCapability": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorTooManySettings": "Too many settings or commands",
+  "@pluginErrorTooManySettings": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorSettingKey": "Invalid or duplicate setting key",
+  "@pluginErrorSettingKey": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorGroupsArray": "Display groups must be an array",
+  "@pluginErrorGroupsArray": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorTooManyGroups": "Too many display groups",
+  "@pluginErrorTooManyGroups": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorUniqueGroups": "Display groups must name unique settings groups",
+  "@pluginErrorUniqueGroups": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorGroupReferences": "Too many group references",
+  "@pluginErrorGroupReferences": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorDuplicateReference": "Invalid or duplicate group reference",
+  "@pluginErrorDuplicateReference": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorCommandId": "Invalid or duplicate command ID",
+  "@pluginErrorCommandId": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorUnknownSetting": "Unknown plugin setting",
+  "@pluginErrorUnknownSetting": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorTextLength": "Text settings must be at most 512 characters",
+  "@pluginErrorTextLength": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorEntityId": "Expected a Home Assistant entity ID",
+  "@pluginErrorEntityId": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorBoolean": "Expected a boolean setting",
+  "@pluginErrorBoolean": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorColor": "Expected an RGB hex color",
+  "@pluginErrorColor": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorNumber": "Expected a numeric setting",
+  "@pluginErrorNumber": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorRange": "Numeric setting is outside its range",
+  "@pluginErrorRange": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorStep": "Numeric setting does not match its step",
+  "@pluginErrorStep": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorSelection": "Invalid selection setting",
+  "@pluginErrorSelection": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorSelectionOption": "Unknown selection option",
+  "@pluginErrorSelectionOption": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorSettingType": "Unsupported setting type",
+  "@pluginErrorSettingType": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorInvalidManifest": "Invalid plugin manifest",
+  "@pluginErrorInvalidManifest": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorAndroidApi": "Plugin needs Android API {version}",
+  "@pluginErrorAndroidApi": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    },
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "35"
+      }
+    }
+  },
+  "pluginErrorInvalidField": "Invalid {field}",
+  "@pluginErrorInvalidField": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    },
+    "placeholders": {
+      "field": {
+        "type": "String",
+        "example": "entryClass"
+      }
     }
   },
   "remoteDisableTitle": "¿Desactivar la administración remota?",
@@ -11689,14 +13156,15 @@
       ]
     }
   },
-  "cameraSnapshotError": "No se pudo tomar la captura: {error}",
+  "cameraSnapshotError": "Snapshot failed: {error}",
   "@cameraSnapshotError": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
     "x-locations": {
       "device": [],
       "remoteAdmin": [
-        "Camera > Latest snapshot"
+        "Camera > Latest snapshot",
+        "Overview > Quick controls > Take snapshot or Show camera view"
       ]
     },
     "placeholders": {
@@ -11706,36 +13174,39 @@
       }
     }
   },
-  "cameraCameraDisabled": "La cámara está desactivada en la configuración de Cámara.",
+  "cameraCameraDisabled": "The camera is disabled in the Camera settings.",
   "@cameraCameraDisabled": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
     "x-locations": {
       "device": [],
       "remoteAdmin": [
-        "Camera > Latest snapshot"
+        "Camera > Latest snapshot",
+        "Overview > Quick controls > Take snapshot or Show camera view"
       ]
     }
   },
-  "cameraSnapshotBusy": "Ya hay una captura en curso.",
+  "cameraSnapshotBusy": "A snapshot is already in progress.",
   "@cameraSnapshotBusy": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
     "x-locations": {
       "device": [],
       "remoteAdmin": [
-        "Camera > Latest snapshot"
+        "Camera > Latest snapshot",
+        "Overview > Quick controls > Take snapshot or Show camera view"
       ]
     }
   },
-  "cameraPermissionDenied": "No se ha concedido el permiso de cámara.",
+  "cameraPermissionDenied": "Camera permission not granted.",
   "@cameraPermissionDenied": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
     "x-locations": {
       "device": [],
       "remoteAdmin": [
-        "Camera > Latest snapshot"
+        "Camera > Latest snapshot",
+        "Overview > Quick controls > Take snapshot or Show camera view"
       ]
     }
   },
@@ -11750,36 +13221,39 @@
       ]
     }
   },
-  "cameraNoImage": "La cámara no devolvió ninguna imagen.",
+  "cameraNoImage": "The camera returned no image.",
   "@cameraNoImage": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
     "x-locations": {
       "device": [],
       "remoteAdmin": [
-        "Camera > Latest snapshot"
+        "Camera > Latest snapshot",
+        "Overview > Quick controls > Take snapshot or Show camera view"
       ]
     }
   },
-  "cameraTimedOut": "La cámara no respondió a tiempo.",
+  "cameraTimedOut": "The camera did not answer in time.",
   "@cameraTimedOut": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
     "x-locations": {
       "device": [],
       "remoteAdmin": [
-        "Camera > Latest snapshot"
+        "Camera > Latest snapshot",
+        "Overview > Quick controls > Take snapshot or Show camera view"
       ]
     }
   },
-  "cameraBackground": "La cámara no está disponible mientras la aplicación está en segundo plano.",
+  "cameraBackground": "The camera is unavailable while the app is in the background.",
   "@cameraBackground": {
     "context": "Settings > Camera > Latest snapshot",
     "description": "Label or guidance in this section.",
     "x-locations": {
       "device": [],
       "remoteAdmin": [
-        "Camera > Latest snapshot"
+        "Camera > Latest snapshot",
+        "Overview > Quick controls > Take snapshot or Show camera view"
       ]
     }
   },
@@ -13158,7 +14632,7 @@
       ]
     }
   },
-  "cameraStreamsViewNotFound": "No se encontró la vista.",
+  "cameraStreamsViewNotFound": "view not found",
   "@cameraStreamsViewNotFound": {
     "context": "Settings > Camera Streams > Server, camera and view editors",
     "description": "Label or guidance in this section.",
@@ -13167,7 +14641,8 @@
         "Settings > Camera Streams > Server, camera and view editors"
       ],
       "remoteAdmin": [
-        "Camera Streams > Server, camera and view editors"
+        "Camera Streams > Server, camera and view editors",
+        "Overview > Quick controls > Take snapshot or Show camera view"
       ]
     }
   },
@@ -13184,7 +14659,7 @@
       ]
     }
   },
-  "cameraStreamsViewEmpty": "La vista no tiene cámaras.",
+  "cameraStreamsViewEmpty": "view has no cameras",
   "@cameraStreamsViewEmpty": {
     "context": "Settings > Camera Streams > Server, camera and view editors",
     "description": "Label or guidance in this section.",
@@ -13193,7 +14668,8 @@
         "Settings > Camera Streams > Server, camera and view editors"
       ],
       "remoteAdmin": [
-        "Camera Streams > Server, camera and view editors"
+        "Camera Streams > Server, camera and view editors",
+        "Overview > Quick controls > Take snapshot or Show camera view"
       ]
     }
   },

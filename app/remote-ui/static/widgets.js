@@ -87,7 +87,7 @@ export function modalShell({ title, width, onDismiss }) {
 // the label of the pressed button; no backdrop dismiss, an alert is answered.
 // For the result of a command the user just issued, showToast is the first
 // choice; this box is for answers that need a button.
-export function messageBox({ title, message, buttons = ['OK'] }) {
+export function messageBox({ title, message, buttons = ['OK'], buttonText = deviceText }) {
   return new Promise((resolve) => {
     const { back, head, body, foot } = modalShell({ title: typeof title === 'function' ? title() : title });
     const p = document.createElement('p');
@@ -96,7 +96,7 @@ export function messageBox({ title, message, buttons = ['OK'] }) {
     body.appendChild(p);
     buttons.forEach((label, i) => {
       const btn = document.createElement('button');
-      btn.textContent = deviceText(label);
+      btn.textContent = buttonText(label);
       btn.className = i === buttons.length - 1 ? 'btn-primary' : 'btn-text';
       btn.addEventListener('click', () => { document.removeEventListener('ks-settings-cached', render); back.remove(); resolve(label); });
       foot.appendChild(btn);
@@ -108,7 +108,7 @@ export function messageBox({ title, message, buttons = ['OK'] }) {
       }
       head.textContent = typeof title === 'function' ? title() : title;
       p.textContent = typeof message === 'function' ? message() : message;
-      [...foot.children].forEach((button, index) => { button.textContent = deviceText(buttons[index]); });
+      [...foot.children].forEach((button, index) => { button.textContent = buttonText(buttons[index]); });
     }
     if (typeof title === 'function' || typeof message === 'function') {
       document.addEventListener('ks-settings-cached', render);

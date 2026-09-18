@@ -382,3 +382,64 @@ export function setupImportError(error) {
   ]).get(error);
   return english === undefined ? error : setupText(english);
 }
+
+function ownedError(error, lookup) {
+  if (typeof error !== 'string') return error;
+  function translate(text, depth) {
+    if (depth > 8) return null;
+    const direct = lookup(text);
+    if (direct !== null) return direct;
+    for (const prefix of ['Bad state: ', 'FormatException: ', 'Exception: ', 'Error: ']) {
+      if (text.startsWith(prefix)) return translate(text.slice(prefix.length), depth + 1);
+    }
+    const platform = /^(PlatformException\([^,]+, )([\s\S]*)(, null, null\))$/.exec(text);
+    if (platform) {
+      const detail = translate(platform[2], depth + 1);
+      return detail === null ? null : platform[1] + detail + platform[3];
+    }
+    return null;
+  }
+  return translate(error, 0) ?? error;
+}
+
+export function launcherError(error) {
+  return ownedError(error, text => {
+    const id = launcherTextMessageIds[text] || deviceTextMessageIds[text];
+    if (id) return t(id);
+    const match = /^could not list apps: ([\s\S]*)$/.exec(text);
+    return match ? t('launcherErrorListDetail', {error: match[1]}) : null;
+  });
+}
+
+export function pluginError(error) {
+  return ownedError(error, text => {
+    const id = pluginTextMessageIds[text] || deviceTextMessageIds[text];
+    if (id) return t(id);
+
+    const update = /^Plugin update failed: ([\s\S]*?)\. (The previous version [\s\S]*)$/.exec(text);
+    if (update) {
+      const failed = /^The previous version could not restart: ([\s\S]*)$/.exec(update[2]);
+      return t('pluginErrorUpdateFailed', {error: update[1], recovery: failed ? t('pluginErrorPreviousRestart', {error: failed[1]}) : pluginText(update[2])});
+    }
+    const read = /^Cannot read installed plugin: ([\s\S]*)$/.exec(text);
+    if (read) return t('pluginErrorReadInstalled', {error: read[1]});
+    let match;
+    match = /^GitHub request failed \(([0-9]+)\)$/.exec(text);
+    if (match) return t('pluginErrorGithubRequest', {status: match[1]});
+    match = /^Release needs exactly one uploaded (.+) asset$/.exec(text);
+    if (match) return t('pluginErrorReleaseAsset', {name: match[1]});
+    match = /^Release asset (.+) must be published by GitHub Actions\. Manually uploaded files are not supported\.$/.exec(text);
+    if (match) return t('pluginErrorAssetPublisher', {name: match[1]});
+    match = /^Release asset (.+) exceeds the size limit or is empty$/.exec(text);
+    if (match) return t('pluginErrorAssetSize', {name: match[1]});
+    match = /^Invalid release URL for (.+)$/.exec(text);
+    if (match) return t('pluginErrorAssetUrl', {name: match[1]});
+    match = /^Plugin needs Android API ([0-9]+)$/.exec(text);
+    if (match) return t('pluginErrorAndroidApi', {version: match[1]});
+    match = /^Invalid (id|name|version|entryClass|description|author|license|key|title|group|readingsTitle)$/.exec(text);
+    if (match) return t('pluginErrorInvalidField', {field: match[1]});
+    match = /^Unexpected or duplicate ZIP entry: ([\s\S]*)$/.exec(text);
+    if (match) return t('pluginErrorZipEntry', {name: match[1]});
+    return null;
+  });
+}

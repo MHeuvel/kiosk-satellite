@@ -10290,7 +10290,9 @@ class SettingTile extends StatelessWidget {
       showToast(
         context,
         title: launcherText(context, 'Could not list the apps'),
-        message: result.error,
+        message: result.error == null
+            ? null
+            : launcherError(context, result.error!),
         kind: ToastKind.error,
       );
       return;

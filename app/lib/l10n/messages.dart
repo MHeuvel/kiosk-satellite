@@ -590,3 +590,102 @@ String setupImportError(BuildContext context, String error) {
   }[error];
   return english == null ? error : setupText(context, english);
 }
+
+/// Unwrap only recognized application errors and preserve other diagnostics.
+String _ownedError(String error, String? Function(String) lookup) {
+  String? translate(String text, int depth) {
+    if (depth > 8) return null;
+    final direct = lookup(text);
+    if (direct != null) return direct;
+    for (final prefix in [
+      'Bad state: ',
+      'FormatException: ',
+      'Exception: ',
+      'Error: ',
+    ]) {
+      if (text.startsWith(prefix)) {
+        return translate(text.substring(prefix.length), depth + 1);
+      }
+    }
+    final platform = RegExp(
+      r'^(PlatformException\([^,]+, )([\s\S]*)(, null, null\))$',
+    ).firstMatch(text);
+    if (platform != null) {
+      final detail = translate(platform.group(2)!, depth + 1);
+      return detail == null
+          ? null
+          : '${platform.group(1)}$detail${platform.group(3)}';
+    }
+    return null;
+  }
+
+  return translate(error, 0) ?? error;
+}
+
+String launcherError(BuildContext context, String error) => _ownedError(error, (
+  text,
+) {
+  final strings = l10n(context);
+  final id = launcherTextMessageIds[text] ?? deviceTextMessageIds[text];
+  if (id != null) return messageById(strings, id, text);
+  final match = RegExp(r'^could not list apps: ([\s\S]*)$').firstMatch(text);
+  return match == null
+      ? null
+      : strings.launcherErrorListDetail(match.group(1)!);
+});
+
+String pluginError(BuildContext context, String error) => _ownedError(error, (
+  text,
+) {
+  final strings = l10n(context);
+  final id = pluginTextMessageIds[text] ?? deviceTextMessageIds[text];
+  if (id != null) return messageById(strings, id, text);
+
+  final update = RegExp(
+    r'^Plugin update failed: ([\s\S]*?)\. (The previous version [\s\S]*)$',
+  ).firstMatch(text);
+  if (update != null) {
+    final recovery = update.group(2)!;
+    final failed = RegExp(
+      r'^The previous version could not restart: ([\s\S]*)$',
+    ).firstMatch(recovery);
+    return strings.pluginErrorUpdateFailed(
+      update.group(1)!,
+      failed == null
+          ? pluginText(context, recovery)
+          : strings.pluginErrorPreviousRestart(failed.group(1)!),
+    );
+  }
+  final read = RegExp(
+    r'^Cannot read installed plugin: ([\s\S]*)$',
+  ).firstMatch(text);
+  if (read != null) return strings.pluginErrorReadInstalled(read.group(1)!);
+  RegExpMatch? match;
+  match = RegExp(r'^GitHub request failed \(([0-9]+)\)$').firstMatch(text);
+  if (match != null) return strings.pluginErrorGithubRequest(match.group(1)!);
+  match = RegExp(
+    r'^Release needs exactly one uploaded (.+) asset$',
+  ).firstMatch(text);
+  if (match != null) return strings.pluginErrorReleaseAsset(match.group(1)!);
+  match = RegExp(
+    r'^Release asset (.+) must be published by GitHub Actions\. Manually uploaded files are not supported\.$',
+  ).firstMatch(text);
+  if (match != null) return strings.pluginErrorAssetPublisher(match.group(1)!);
+  match = RegExp(
+    r'^Release asset (.+) exceeds the size limit or is empty$',
+  ).firstMatch(text);
+  if (match != null) return strings.pluginErrorAssetSize(match.group(1)!);
+  match = RegExp(r'^Invalid release URL for (.+)$').firstMatch(text);
+  if (match != null) return strings.pluginErrorAssetUrl(match.group(1)!);
+  match = RegExp(r'^Plugin needs Android API ([0-9]+)$').firstMatch(text);
+  if (match != null) return strings.pluginErrorAndroidApi(match.group(1)!);
+  match = RegExp(
+    r'^Invalid (id|name|version|entryClass|description|author|license|key|title|group|readingsTitle)$',
+  ).firstMatch(text);
+  if (match != null) return strings.pluginErrorInvalidField(match.group(1)!);
+  match = RegExp(
+    r'^Unexpected or duplicate ZIP entry: ([\s\S]*)$',
+  ).firstMatch(text);
+  if (match != null) return strings.pluginErrorZipEntry(match.group(1)!);
+  return null;
+});

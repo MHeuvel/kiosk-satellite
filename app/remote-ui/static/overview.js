@@ -1,5 +1,5 @@
 import { overviewLabel, overviewMessageBox as messageBox, overviewModalShell as modalShell } from './overview_labels.js';
-import { overviewText, overviewStatus, deviceText, deviceOperationError, mediaText, mediaError, navigationText, t } from './localization.js';
+import { overviewText, overviewStatus, cameraError, deviceText, deviceOperationError, mediaText, mediaError, navigationText, t } from './localization.js';
 import { watchUpdates } from './live.js';
 import { $, api, cmd, state } from './core.js';
 import { attachUpdateInstall, refreshUpdateBadge } from './device.js';
@@ -664,7 +664,7 @@ $('#tileSnapshot').addEventListener('click', async () => {
     const res = await cmd('takeCameraSnapshot').catch(() => null);
     if (!res || res.ok === false) {
       await messageBox({ title: 'Take snapshot',
-        message: res?.error || 'The device did not answer.' });
+        message: res?.error || 'The device did not answer.' }, error => cameraError(overviewText(error)));
       return;
     }
     const r = await api('/api/camera/snapshot');

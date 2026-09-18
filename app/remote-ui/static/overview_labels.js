@@ -33,16 +33,10 @@ export function overviewModalShell(options) {
   overviewLabel(shell.head, options.title);
   return shell;
 }
-export function overviewMessageBox(options) {
-  // Keep the original button values used by the caller's command logic.
-  const result = messageBox(options);
-  const shell = document.querySelector('.modal-back:last-child');
-  overviewLabel(shell?.querySelector('.modal-title'), options.title);
-  overviewLabel(shell?.querySelector('.modal-body p'), options.message);
-  shell?.querySelectorAll('.modal-foot button').forEach((el, i) => {
-    overviewLabel(el, (options.buttons || ['OK'])[i]);
-  });
-  return result;
+export function overviewMessageBox(options, formatMessage = overviewText) {
+  // Button labels may change language while their returned values stay stable.
+  return messageBox({...options, title: () => overviewText(options.title),
+    message: () => formatMessage(options.message), buttonText: overviewText});
 }
 document.addEventListener('ks-settings-cached', refreshOverviewLabels);
 refreshOverviewLabels();

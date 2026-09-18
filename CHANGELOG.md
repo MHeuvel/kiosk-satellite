@@ -6,6 +6,8 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ### Added
 
+- **Translate camera, app-list and plugin failures.** Overview reuses Camera and Camera Streams errors. App selection and plugin repository, package, compatibility and update failures use shared error formatters on the device and in remote administration. Open remote error dialogs follow language changes without repeating actions or enabling incompatible installs.
+
 - **Approve Spanish quick-control and backup-validation translations.** Import the reviewed snapshot with all 3041 messages approved and no missing or stale Spanish entries.
 
 - **Translate quick-control refusals and configuration-import validation.** Remote screen-off and restart errors use catalog messages. Open quick-control dialogs follow language changes without repeating commands. Settings imports reuse translated backup validation on both interfaces and safely handle malformed backup metadata.

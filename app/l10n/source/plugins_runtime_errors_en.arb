@@ -1,0 +1,363 @@
+{
+  "@@locale": "en",
+  "pluginErrorNativeLibrary": "Plugin has no native library for this device ABI",
+  "@pluginErrorNativeLibrary": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorCallbackTimeout": "Plugin callback timed out. Restart Kiosk if the plugin left work running.",
+  "@pluginErrorCallbackTimeout": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorEnableFirst": "Enable the plugin first",
+  "@pluginErrorEnableFirst": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorSaveState": "Cannot save plugin state",
+  "@pluginErrorSaveState": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorPackageHash": "Invalid installed package hash",
+  "@pluginErrorPackageHash": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorChecksum": "Package SHA-256 does not match",
+  "@pluginErrorChecksum": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorDifferentRepository": "This plugin ID belongs to another repository. Uninstall it before changing sources.",
+  "@pluginErrorDifferentRepository": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorRestartReplace": "This plugin did not stop cleanly. Restart Kiosk Satellite before replacing it.",
+  "@pluginErrorRestartReplace": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorPluginLimit": "At most 8 plugins can be installed",
+  "@pluginErrorPluginLimit": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorAlreadyInstalled": "This package is already installed",
+  "@pluginErrorAlreadyInstalled": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorLoadedIntegrity": "Previously loaded package failed its integrity check. Restart Kiosk Satellite before reinstalling it.",
+  "@pluginErrorLoadedIntegrity": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorRemovePackage": "Cannot remove unused package",
+  "@pluginErrorRemovePackage": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorInstallPackage": "Cannot install plugin package",
+  "@pluginErrorInstallPackage": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorUpdateCanceled": "Update canceled because the plugin did not stop cleanly. Restart Kiosk Satellite before trying again.",
+  "@pluginErrorUpdateCanceled": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorVersionRetained": "The previous version was retained.",
+  "@pluginErrorVersionRetained": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorRetainedDisabled": "The previous version was retained but is disabled. Restart Kiosk Satellite before enabling it.",
+  "@pluginErrorRetainedDisabled": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorVersionRunning": "The previous version is running again.",
+  "@pluginErrorVersionRunning": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorEnablePlugins": "Enable Plugins first",
+  "@pluginErrorEnablePlugins": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorRestartEnable": "This plugin did not stop cleanly. Restart Kiosk Satellite before enabling it.",
+  "@pluginErrorRestartEnable": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorInstalledIntegrity": "Installed plugin failed its integrity check. Reinstall it.",
+  "@pluginErrorInstalledIntegrity": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorAndroidOld": "Android version is too old",
+  "@pluginErrorAndroidOld": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorNativeIntegrity": "Installed native libraries failed their integrity check",
+  "@pluginErrorNativeIntegrity": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorNativeFileIntegrity": "Installed native library failed its integrity check",
+  "@pluginErrorNativeFileIntegrity": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    }
+  },
+  "pluginErrorReadInstalled": "Cannot read installed plugin: {error}",
+  "@pluginErrorReadInstalled": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "E_VENDOR"
+      }
+    }
+  },
+  "pluginErrorPreviousRestart": "The previous version could not restart: {error}",
+  "@pluginErrorPreviousRestart": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "E_VENDOR"
+      }
+    }
+  },
+  "pluginErrorUpdateFailed": "Plugin update failed: {error}. {recovery}",
+  "@pluginErrorUpdateFailed": {
+    "context": "Settings > Plugin Manager > Install, update or enable a plugin",
+    "description": "Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager"
+      ]
+    },
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "E_VENDOR"
+      },
+      "recovery": {
+        "type": "String",
+        "example": "The previous version was retained."
+      }
+    }
+  }
+}

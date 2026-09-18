@@ -134,7 +134,7 @@ class _PluginSettingsPanelState extends State<PluginSettingsPanel> {
         showToast(
           context,
           title: pluginText(context, 'Plugin Manager'),
-          message: '$error',
+          message: pluginError(context, '$error'),
           kind: ToastKind.error,
         );
       }
@@ -239,7 +239,7 @@ class _PluginSettingsPanelState extends State<PluginSettingsPanel> {
                 ),
                 if (preview['compatible'] != true)
                   Text(
-                    '${preview['compatibilityError']}',
+                    pluginError(context, '${preview['compatibilityError']}'),
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.error,
                     ),
@@ -444,8 +444,9 @@ class _PluginSettingsPanelState extends State<PluginSettingsPanel> {
           SectionHeading(pluginText(context, 'Installed plugins')),
           ValueListenableBuilder<String>(
             valueListenable: widget.plugins.status,
-            builder: (_, status, _) =>
-                status.isEmpty ? const SizedBox.shrink() : WarnRow(status),
+            builder: (_, status, _) => status.isEmpty
+                ? const SizedBox.shrink()
+                : WarnRow(pluginError(context, status)),
           ),
           ValueListenableBuilder<List<Map<String, Object?>>>(
             valueListenable: widget.plugins.installed,
@@ -650,7 +651,7 @@ class _PluginDetailPanelState extends State<PluginDetailPanel> {
         showToast(
           context,
           title: pluginText(context, 'Plugin'),
-          message: '$error',
+          message: pluginError(context, '$error'),
           kind: ToastKind.error,
         );
       }
@@ -699,7 +700,7 @@ class _PluginDetailPanelState extends State<PluginDetailPanel> {
                   ),
                 ),
               if ('${plugin['error'] ?? ''}'.isNotEmpty)
-                WarnRow('${plugin['error']}'),
+                WarnRow(pluginError(context, '${plugin['error']}')),
             ],
           ),
           if ((plugin['capabilities'] as List? ?? const []).contains('shizuku'))

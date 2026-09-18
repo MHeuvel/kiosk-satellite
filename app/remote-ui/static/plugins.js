@@ -1,3 +1,4 @@
+import { pluginError } from './localization.js';
 import { pluginText, t, messageLanguage } from './localization.js';
 import { preserveDraft } from './drafts.js';
 import { watchUpdates, receiveUpdate } from './live.js';
@@ -66,7 +67,7 @@ export async function loadPlugins() {
   try {
     render(root, await refreshPluginSearchState());
   } catch (error) {
-    showToast({ title: pluginText('Plugin Manager'), message: error.message, kind: 'error' });
+    showToast({ title: pluginText('Plugin Manager'), message: pluginError(error.message), kind: 'error' });
   } finally { busy = false; }
 }
 
@@ -90,7 +91,12 @@ function repositoryDialog() {
 function confirmPreview(preview) {
   return new Promise((resolve) => {
     const plugin = preview.manifest;
-    const modal = modalShell({ title: plugin.name, width: 760 });
+    const close = value => { document.removeEventListener('ks-settings-cached', renderError); modal.close(); resolve(value); };
+    const modal = modalShell({ title: plugin.name, width: 760, onDismiss: () => close(false) });
+    let compatibilityRow;
+    function renderError() {
+      if (compatibilityRow) compatibilityRow.replaceWith(compatibilityRow = hintRow(pluginError(preview.compatibilityError), { warn: true }));
+    }
     modal.body.append(hintRow(plugin.description));
     for (const [title, value] of Object.entries({ ...(preview.installedVersion ? { 'Installed version': preview.installedVersion } : {}), Version: plugin.version, Author: plugin.author, License: plugin.license })) {
       const row = element('div', undefined, 'row');
@@ -98,12 +104,16 @@ function confirmPreview(preview) {
     }
     modal.body.append(pluginReadme(preview), hintRow(pluginText(trustNotice), { warn: true }),
       hintRow(pluginText('New plugins start disabled. Updates preserve the enabled state and automatically restart running plugins.')));
-    if (!preview.compatible) modal.body.append(hintRow(preview.compatibilityError, { warn: true }));
+    if (!preview.compatible) {
+      compatibilityRow = hintRow(pluginError(preview.compatibilityError), { warn: true });
+      modal.body.append(compatibilityRow);
+      document.addEventListener('ks-settings-cached', renderError);
+    }
     const cancel = element('button', pluginText('Cancel'), 'btn-text');
-    cancel.onclick = () => { modal.close(); resolve(false); };
+    cancel.onclick = () => close(false);
     const install = element('button', preview.installedVersion ? pluginText('Trust and update') : pluginText('Trust and install'), 'btn-primary');
     install.disabled = !preview.compatible;
-    install.onclick = () => { modal.close(); resolve(true); };
+    install.onclick = () => close(true);
     modal.foot.append(cancel, install);
   });
 }
@@ -221,7 +231,7 @@ function render(root, state) {
     root.querySelectorAll('button,input,select').forEach((el) => { el.disabled = true; });
     trigger.classList.add('plugin-busy');
     try { await action(); }
-    catch (failure) { showToast({ title: pluginText('Plugin Manager'), message: failure.message, kind: 'error' }); }
+    catch (failure) { showToast({ title: pluginText('Plugin Manager'), message: pluginError(failure.message), kind: 'error' }); }
     finally {
       trigger.classList.remove('plugin-busy'); busy = false;
       root.removeAttribute('aria-busy');
@@ -328,7 +338,7 @@ function render(root, state) {
       const status = hintRow(plugin.status, { warn: plugin.statusError === true });
       status.classList.add('plugin-runtime-status'); description.append(status);
     }
-    if (plugin.error) description.append(hintRow(plugin.error, { warn: true }));
+    if (plugin.error) description.append(hintRow(pluginError(plugin.error), { warn: true }));
     if (!pluginsEnabled) description.append(hintRow(pluginText('Enable Plugins to run this plugin.')));
     else if (!plugin.enabled) description.append(hintRow(pluginText('Enable this plugin from its entry row to run it.')));
     page.append(description);

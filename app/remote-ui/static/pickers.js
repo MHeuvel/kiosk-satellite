@@ -1,4 +1,4 @@
-import { launcherText } from './localization.js';
+import { launcherText, launcherError } from './localization.js';
 import { deviceText, screensaverText, immichError, t } from './localization.js';
 import { cmd } from './core.js';
 import { modalShell } from './widgets.js';
@@ -150,13 +150,17 @@ export function openMediaBrowser() {
 export function openLauncherAppsPicker(current) {
   return new Promise((resolve) => {
     const selected = new Set((current || []).map((a) => a.package));
+    let failure = null;
+    const renderError = () => {
+      if (failure !== null) list.firstChild.textContent = t('launcherListError', {error: launcherError(failure)});
+    };
 
     const shell = modalShell({
       title: launcherText('Apps'),
       width: 520,
       onDismiss: () => close(null),
     });
-    const close = (val) => { shell.close(); resolve(val); };
+    const close = (val) => { document.removeEventListener('ks-settings-cached', renderError); shell.close(); resolve(val); };
     const list = shell.body;
     list.innerHTML = '<div class="desc" style="color:var(--muted)"></div>';
     list.firstChild.textContent = launcherText('Loading…');
@@ -176,7 +180,9 @@ export function openLauncherAppsPicker(current) {
         apps = r.data || [];
       } catch (e) {
         list.innerHTML = '<div class="desc" style="color:var(--error)"></div>';
-        list.firstChild.textContent = t('launcherListError', {error: String(e)});
+        failure = String(e);
+        document.addEventListener('ks-settings-cached', renderError);
+        renderError();
         return;
       }
       list.innerHTML = '';

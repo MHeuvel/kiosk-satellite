@@ -277,6 +277,18 @@ abstract class UiStrings {
   /// **'keeping Home Assistant connected'**
   String get androidServiceSessions;
 
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'listing apps is Android-only'**
+  String get launcherErrorAndroidOnly;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'could not list apps: {error}'**
+  String launcherErrorListDetail(String error);
+
   /// Label or guidance in this section.
   ///
   /// In en, this message translates to:
@@ -4473,6 +4485,462 @@ abstract class UiStrings {
   /// **'Use arrow keys to inspect samples and End for the latest.'**
   String get pluginChartKeyboardHelp;
 
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid asset path'**
+  String get pluginErrorAssetPath;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Asset is missing or outside its package'**
+  String get pluginErrorAssetMissing;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Asset directory cannot be a symbolic link'**
+  String get pluginErrorAssetSymlink;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Asset directories cannot be symbolic links'**
+  String get pluginErrorAssetSymlinks;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Installed assets failed their integrity check'**
+  String get pluginErrorAssetsIntegrity;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Installed asset failed its integrity check'**
+  String get pluginErrorAssetIntegrity;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Package manifest does not match the reviewed release manifest'**
+  String get pluginErrorManifestMismatch;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Staging directory already exists'**
+  String get pluginErrorStagingExists;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot create plugin directory'**
+  String get pluginErrorCreateDirectory;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'At most 512 package files are supported'**
+  String get pluginErrorFileCount;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot protect plugin file'**
+  String get pluginErrorProtectFile;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Expanded plugin exceeds 4 MB'**
+  String get pluginErrorExpandedSize;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Manifest exceeds 32 KB'**
+  String get pluginErrorManifestSize;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Package needs kiosk-satellite-plugin.json, plugin.jar and LICENSE'**
+  String get pluginErrorRequiredFiles;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Native libraries require native capability'**
+  String get pluginErrorNativeCapability;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid native ELF library'**
+  String get pluginErrorNativeElf;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Native library ABI does not match its directory'**
+  String get pluginErrorNativeAbi;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'plugin.jar must contain only DEX files'**
+  String get pluginErrorDexOnly;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid DEX header'**
+  String get pluginErrorDexHeader;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Expanded DEX exceeds 4 MB'**
+  String get pluginErrorDexSize;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Empty DEX file'**
+  String get pluginErrorDexEmpty;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'plugin.jar has no classes.dex'**
+  String get pluginErrorDexMissing;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Unexpected or duplicate ZIP entry: {name}'**
+  String pluginErrorZipEntry(String name);
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The repository release belongs to a different plugin.'**
+  String get pluginErrorRepositoryMismatch;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a public https://github.com/owner/repository URL'**
+  String get pluginErrorRepositoryUrl;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the repository URL without a file or branch path'**
+  String get pluginErrorRepositoryPath;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Plugin download redirected outside GitHub'**
+  String get pluginErrorDownloadOutsideGithub;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid GitHub redirect'**
+  String get pluginErrorInvalidRedirect;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Public repository, stable release, kiosk-satellite-plugin.json, README.md or release asset was not found.'**
+  String get pluginErrorRepositoryNotFound;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'GitHub denied the request or its request limit was reached. Try again later.'**
+  String get pluginErrorGithubLimited;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Repository file exceeds the size limit'**
+  String get pluginErrorRepositorySize;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many GitHub redirects'**
+  String get pluginErrorTooManyRedirects;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'GitHub did not return a published stable release'**
+  String get pluginErrorStableRelease;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid release tag'**
+  String get pluginErrorReleaseTag;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid kiosk-satellite-plugin.json manifest'**
+  String get pluginErrorManifestFile;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid plugin ID or version'**
+  String get pluginErrorIdVersion;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid release checksum or package filename'**
+  String get pluginErrorChecksumFilename;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The release checksum must match GitHub asset SHA-256 digest'**
+  String get pluginErrorGithubDigest;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'GitHub did not return the release tag revision'**
+  String get pluginErrorTagRevision;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm that you trust the plugin author'**
+  String get pluginErrorTrustAuthor;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'This preview expired. Preview the repository again before installing.'**
+  String get pluginErrorPreviewExpired;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Package SHA-256 does not match the reviewed release'**
+  String get pluginErrorReviewedChecksum;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Plugin is not installed'**
+  String get pluginErrorNotInstalled;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'This plugin was installed from ZIP. Use Install from ZIP to update it.'**
+  String get pluginErrorUpdateZip;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Plugins are available on Android.'**
+  String get pluginErrorAndroidOnly;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'GitHub request failed ({status})'**
+  String pluginErrorGithubRequest(String status);
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Release needs exactly one uploaded {name} asset'**
+  String pluginErrorReleaseAsset(String name);
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Release asset {name} must be published by GitHub Actions. Manually uploaded files are not supported.'**
+  String pluginErrorAssetPublisher(String name);
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Release asset {name} exceeds the size limit or is empty'**
+  String pluginErrorAssetSize(String name);
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid release URL for {name}'**
+  String pluginErrorAssetUrl(String name);
+
+  /// Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Plugin has no native library for this device ABI'**
+  String get pluginErrorNativeLibrary;
+
+  /// Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Plugin callback timed out. Restart Kiosk if the plugin left work running.'**
+  String get pluginErrorCallbackTimeout;
+
+  /// Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable the plugin first'**
+  String get pluginErrorEnableFirst;
+
+  /// Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot save plugin state'**
+  String get pluginErrorSaveState;
+
+  /// Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid installed package hash'**
+  String get pluginErrorPackageHash;
+
+  /// Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Package SHA-256 does not match'**
+  String get pluginErrorChecksum;
+
+  /// Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'This plugin ID belongs to another repository. Uninstall it before changing sources.'**
+  String get pluginErrorDifferentRepository;
+
+  /// Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'This plugin did not stop cleanly. Restart Kiosk Satellite before replacing it.'**
+  String get pluginErrorRestartReplace;
+
+  /// Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'At most 8 plugins can be installed'**
+  String get pluginErrorPluginLimit;
+
+  /// Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'This package is already installed'**
+  String get pluginErrorAlreadyInstalled;
+
+  /// Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Previously loaded package failed its integrity check. Restart Kiosk Satellite before reinstalling it.'**
+  String get pluginErrorLoadedIntegrity;
+
+  /// Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot remove unused package'**
+  String get pluginErrorRemovePackage;
+
+  /// Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot install plugin package'**
+  String get pluginErrorInstallPackage;
+
+  /// Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Update canceled because the plugin did not stop cleanly. Restart Kiosk Satellite before trying again.'**
+  String get pluginErrorUpdateCanceled;
+
+  /// Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The previous version was retained.'**
+  String get pluginErrorVersionRetained;
+
+  /// Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The previous version was retained but is disabled. Restart Kiosk Satellite before enabling it.'**
+  String get pluginErrorRetainedDisabled;
+
+  /// Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The previous version is running again.'**
+  String get pluginErrorVersionRunning;
+
+  /// Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Plugins first'**
+  String get pluginErrorEnablePlugins;
+
+  /// Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'This plugin did not stop cleanly. Restart Kiosk Satellite before enabling it.'**
+  String get pluginErrorRestartEnable;
+
+  /// Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Installed plugin failed its integrity check. Reinstall it.'**
+  String get pluginErrorInstalledIntegrity;
+
+  /// Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Android version is too old'**
+  String get pluginErrorAndroidOld;
+
+  /// Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Installed native libraries failed their integrity check'**
+  String get pluginErrorNativeIntegrity;
+
+  /// Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Installed native library failed its integrity check'**
+  String get pluginErrorNativeFileIntegrity;
+
+  /// Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot read installed plugin: {error}'**
+  String pluginErrorReadInstalled(String error);
+
+  /// Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The previous version could not restart: {error}'**
+  String pluginErrorPreviousRestart(String error);
+
+  /// Explain the failure and recovery action. Keep plugin identifiers and diagnostic details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Plugin update failed: {error}. {recovery}'**
+  String pluginErrorUpdateFailed(String error, String recovery);
+
   /// Visible label, help or status in this section.
   ///
   /// In en, this message translates to:
@@ -4508,6 +4976,180 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Approve the permission request on the kiosk.'**
   String get pluginApproveThePermissionRequestOnTheKiosk;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid plugin ID'**
+  String get pluginErrorInvalidId;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid version'**
+  String get pluginErrorInvalidVersion;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid entry class'**
+  String get pluginErrorEntryClass;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Unsupported manifest schema'**
+  String get pluginErrorManifestSchema;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'This plugin needs a different SDK version'**
+  String get pluginErrorSdkVersion;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum Android SDK must be at least 24'**
+  String get pluginErrorMinimumSdk;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Unsupported plugin capability'**
+  String get pluginErrorCapability;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many settings or commands'**
+  String get pluginErrorTooManySettings;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid or duplicate setting key'**
+  String get pluginErrorSettingKey;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Display groups must be an array'**
+  String get pluginErrorGroupsArray;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many display groups'**
+  String get pluginErrorTooManyGroups;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Display groups must name unique settings groups'**
+  String get pluginErrorUniqueGroups;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many group references'**
+  String get pluginErrorGroupReferences;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid or duplicate group reference'**
+  String get pluginErrorDuplicateReference;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid or duplicate command ID'**
+  String get pluginErrorCommandId;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown plugin setting'**
+  String get pluginErrorUnknownSetting;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Text settings must be at most 512 characters'**
+  String get pluginErrorTextLength;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Expected a Home Assistant entity ID'**
+  String get pluginErrorEntityId;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Expected a boolean setting'**
+  String get pluginErrorBoolean;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Expected an RGB hex color'**
+  String get pluginErrorColor;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Expected a numeric setting'**
+  String get pluginErrorNumber;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Numeric setting is outside its range'**
+  String get pluginErrorRange;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Numeric setting does not match its step'**
+  String get pluginErrorStep;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid selection setting'**
+  String get pluginErrorSelection;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown selection option'**
+  String get pluginErrorSelectionOption;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Unsupported setting type'**
+  String get pluginErrorSettingType;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid plugin manifest'**
+  String get pluginErrorInvalidManifest;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Plugin needs Android API {version}'**
+  String pluginErrorAndroidApi(String version);
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid {field}'**
+  String pluginErrorInvalidField(String field);
 
   /// Translate the visible message. Keep placeholders and any technical names unchanged.
   ///

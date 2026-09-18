@@ -1,3 +1,4 @@
+import { cameraStreamsError } from './localization.js';
 import { overviewLabel, overviewMessageBox, overviewModalShell } from './overview_labels.js';
 import { mediaText, mediaError, deviceText, t, screenAudioText, screensaverText, immichError } from './localization.js';
 import { receiveUpdate, watchUpdates } from './live.js';
@@ -594,7 +595,7 @@ async function showCameraViewFromTile() {
   }
   const shown = await cmd('showCameraView', { viewId }).catch(() => null);
   if (shown && shown.ok === false && shown.error) {
-    await overviewMessageBox({ title: 'Could not show view', message: shown.error });
+    await overviewMessageBox({ title: 'Could not show view', message: shown.error }, cameraStreamsError);
   }
 }
 document.getElementById('tileCameraView')?.addEventListener('click', () => {

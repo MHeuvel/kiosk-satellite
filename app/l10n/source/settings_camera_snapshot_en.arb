@@ -62,7 +62,8 @@
     "x-locations": {
       "device": [],
       "remoteAdmin": [
-        "Camera > Latest snapshot"
+        "Camera > Latest snapshot",
+        "Overview > Quick controls > Take snapshot or Show camera view"
       ]
     },
     "placeholders": {
@@ -79,7 +80,8 @@
     "x-locations": {
       "device": [],
       "remoteAdmin": [
-        "Camera > Latest snapshot"
+        "Camera > Latest snapshot",
+        "Overview > Quick controls > Take snapshot or Show camera view"
       ]
     }
   },
@@ -90,7 +92,8 @@
     "x-locations": {
       "device": [],
       "remoteAdmin": [
-        "Camera > Latest snapshot"
+        "Camera > Latest snapshot",
+        "Overview > Quick controls > Take snapshot or Show camera view"
       ]
     }
   },
@@ -101,7 +104,8 @@
     "x-locations": {
       "device": [],
       "remoteAdmin": [
-        "Camera > Latest snapshot"
+        "Camera > Latest snapshot",
+        "Overview > Quick controls > Take snapshot or Show camera view"
       ]
     }
   },
@@ -123,7 +127,8 @@
     "x-locations": {
       "device": [],
       "remoteAdmin": [
-        "Camera > Latest snapshot"
+        "Camera > Latest snapshot",
+        "Overview > Quick controls > Take snapshot or Show camera view"
       ]
     }
   },
@@ -134,7 +139,8 @@
     "x-locations": {
       "device": [],
       "remoteAdmin": [
-        "Camera > Latest snapshot"
+        "Camera > Latest snapshot",
+        "Overview > Quick controls > Take snapshot or Show camera view"
       ]
     }
   },
@@ -145,7 +151,8 @@
     "x-locations": {
       "device": [],
       "remoteAdmin": [
-        "Camera > Latest snapshot"
+        "Camera > Latest snapshot",
+        "Overview > Quick controls > Take snapshot or Show camera view"
       ]
     }
   },

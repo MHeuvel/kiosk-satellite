@@ -110,6 +110,14 @@ class UiStringsEn extends UiStrings {
   String get androidServiceSessions => 'keeping Home Assistant connected';
 
   @override
+  String get launcherErrorAndroidOnly => 'listing apps is Android-only';
+
+  @override
+  String launcherErrorListDetail(String error) {
+    return 'could not list apps: $error';
+  }
+
+  @override
   String launcherOpenFailed(String name) {
     return 'Could not open $name';
   }
@@ -2508,6 +2516,289 @@ class UiStringsEn extends UiStrings {
       'Use arrow keys to inspect samples and End for the latest.';
 
   @override
+  String get pluginErrorAssetPath => 'Invalid asset path';
+
+  @override
+  String get pluginErrorAssetMissing =>
+      'Asset is missing or outside its package';
+
+  @override
+  String get pluginErrorAssetSymlink =>
+      'Asset directory cannot be a symbolic link';
+
+  @override
+  String get pluginErrorAssetSymlinks =>
+      'Asset directories cannot be symbolic links';
+
+  @override
+  String get pluginErrorAssetsIntegrity =>
+      'Installed assets failed their integrity check';
+
+  @override
+  String get pluginErrorAssetIntegrity =>
+      'Installed asset failed its integrity check';
+
+  @override
+  String get pluginErrorManifestMismatch =>
+      'Package manifest does not match the reviewed release manifest';
+
+  @override
+  String get pluginErrorStagingExists => 'Staging directory already exists';
+
+  @override
+  String get pluginErrorCreateDirectory => 'Cannot create plugin directory';
+
+  @override
+  String get pluginErrorFileCount => 'At most 512 package files are supported';
+
+  @override
+  String get pluginErrorProtectFile => 'Cannot protect plugin file';
+
+  @override
+  String get pluginErrorExpandedSize => 'Expanded plugin exceeds 4 MB';
+
+  @override
+  String get pluginErrorManifestSize => 'Manifest exceeds 32 KB';
+
+  @override
+  String get pluginErrorRequiredFiles =>
+      'Package needs kiosk-satellite-plugin.json, plugin.jar and LICENSE';
+
+  @override
+  String get pluginErrorNativeCapability =>
+      'Native libraries require native capability';
+
+  @override
+  String get pluginErrorNativeElf => 'Invalid native ELF library';
+
+  @override
+  String get pluginErrorNativeAbi =>
+      'Native library ABI does not match its directory';
+
+  @override
+  String get pluginErrorDexOnly => 'plugin.jar must contain only DEX files';
+
+  @override
+  String get pluginErrorDexHeader => 'Invalid DEX header';
+
+  @override
+  String get pluginErrorDexSize => 'Expanded DEX exceeds 4 MB';
+
+  @override
+  String get pluginErrorDexEmpty => 'Empty DEX file';
+
+  @override
+  String get pluginErrorDexMissing => 'plugin.jar has no classes.dex';
+
+  @override
+  String pluginErrorZipEntry(String name) {
+    return 'Unexpected or duplicate ZIP entry: $name';
+  }
+
+  @override
+  String get pluginErrorRepositoryMismatch =>
+      'The repository release belongs to a different plugin.';
+
+  @override
+  String get pluginErrorRepositoryUrl =>
+      'Enter a public https://github.com/owner/repository URL';
+
+  @override
+  String get pluginErrorRepositoryPath =>
+      'Use the repository URL without a file or branch path';
+
+  @override
+  String get pluginErrorDownloadOutsideGithub =>
+      'Plugin download redirected outside GitHub';
+
+  @override
+  String get pluginErrorInvalidRedirect => 'Invalid GitHub redirect';
+
+  @override
+  String get pluginErrorRepositoryNotFound =>
+      'Public repository, stable release, kiosk-satellite-plugin.json, README.md or release asset was not found.';
+
+  @override
+  String get pluginErrorGithubLimited =>
+      'GitHub denied the request or its request limit was reached. Try again later.';
+
+  @override
+  String get pluginErrorRepositorySize =>
+      'Repository file exceeds the size limit';
+
+  @override
+  String get pluginErrorTooManyRedirects => 'Too many GitHub redirects';
+
+  @override
+  String get pluginErrorStableRelease =>
+      'GitHub did not return a published stable release';
+
+  @override
+  String get pluginErrorReleaseTag => 'Invalid release tag';
+
+  @override
+  String get pluginErrorManifestFile =>
+      'Invalid kiosk-satellite-plugin.json manifest';
+
+  @override
+  String get pluginErrorIdVersion => 'Invalid plugin ID or version';
+
+  @override
+  String get pluginErrorChecksumFilename =>
+      'Invalid release checksum or package filename';
+
+  @override
+  String get pluginErrorGithubDigest =>
+      'The release checksum must match GitHub asset SHA-256 digest';
+
+  @override
+  String get pluginErrorTagRevision =>
+      'GitHub did not return the release tag revision';
+
+  @override
+  String get pluginErrorTrustAuthor =>
+      'Confirm that you trust the plugin author';
+
+  @override
+  String get pluginErrorPreviewExpired =>
+      'This preview expired. Preview the repository again before installing.';
+
+  @override
+  String get pluginErrorReviewedChecksum =>
+      'Package SHA-256 does not match the reviewed release';
+
+  @override
+  String get pluginErrorNotInstalled => 'Plugin is not installed';
+
+  @override
+  String get pluginErrorUpdateZip =>
+      'This plugin was installed from ZIP. Use Install from ZIP to update it.';
+
+  @override
+  String get pluginErrorAndroidOnly => 'Plugins are available on Android.';
+
+  @override
+  String pluginErrorGithubRequest(String status) {
+    return 'GitHub request failed ($status)';
+  }
+
+  @override
+  String pluginErrorReleaseAsset(String name) {
+    return 'Release needs exactly one uploaded $name asset';
+  }
+
+  @override
+  String pluginErrorAssetPublisher(String name) {
+    return 'Release asset $name must be published by GitHub Actions. Manually uploaded files are not supported.';
+  }
+
+  @override
+  String pluginErrorAssetSize(String name) {
+    return 'Release asset $name exceeds the size limit or is empty';
+  }
+
+  @override
+  String pluginErrorAssetUrl(String name) {
+    return 'Invalid release URL for $name';
+  }
+
+  @override
+  String get pluginErrorNativeLibrary =>
+      'Plugin has no native library for this device ABI';
+
+  @override
+  String get pluginErrorCallbackTimeout =>
+      'Plugin callback timed out. Restart Kiosk if the plugin left work running.';
+
+  @override
+  String get pluginErrorEnableFirst => 'Enable the plugin first';
+
+  @override
+  String get pluginErrorSaveState => 'Cannot save plugin state';
+
+  @override
+  String get pluginErrorPackageHash => 'Invalid installed package hash';
+
+  @override
+  String get pluginErrorChecksum => 'Package SHA-256 does not match';
+
+  @override
+  String get pluginErrorDifferentRepository =>
+      'This plugin ID belongs to another repository. Uninstall it before changing sources.';
+
+  @override
+  String get pluginErrorRestartReplace =>
+      'This plugin did not stop cleanly. Restart Kiosk Satellite before replacing it.';
+
+  @override
+  String get pluginErrorPluginLimit => 'At most 8 plugins can be installed';
+
+  @override
+  String get pluginErrorAlreadyInstalled => 'This package is already installed';
+
+  @override
+  String get pluginErrorLoadedIntegrity =>
+      'Previously loaded package failed its integrity check. Restart Kiosk Satellite before reinstalling it.';
+
+  @override
+  String get pluginErrorRemovePackage => 'Cannot remove unused package';
+
+  @override
+  String get pluginErrorInstallPackage => 'Cannot install plugin package';
+
+  @override
+  String get pluginErrorUpdateCanceled =>
+      'Update canceled because the plugin did not stop cleanly. Restart Kiosk Satellite before trying again.';
+
+  @override
+  String get pluginErrorVersionRetained => 'The previous version was retained.';
+
+  @override
+  String get pluginErrorRetainedDisabled =>
+      'The previous version was retained but is disabled. Restart Kiosk Satellite before enabling it.';
+
+  @override
+  String get pluginErrorVersionRunning =>
+      'The previous version is running again.';
+
+  @override
+  String get pluginErrorEnablePlugins => 'Enable Plugins first';
+
+  @override
+  String get pluginErrorRestartEnable =>
+      'This plugin did not stop cleanly. Restart Kiosk Satellite before enabling it.';
+
+  @override
+  String get pluginErrorInstalledIntegrity =>
+      'Installed plugin failed its integrity check. Reinstall it.';
+
+  @override
+  String get pluginErrorAndroidOld => 'Android version is too old';
+
+  @override
+  String get pluginErrorNativeIntegrity =>
+      'Installed native libraries failed their integrity check';
+
+  @override
+  String get pluginErrorNativeFileIntegrity =>
+      'Installed native library failed its integrity check';
+
+  @override
+  String pluginErrorReadInstalled(String error) {
+    return 'Cannot read installed plugin: $error';
+  }
+
+  @override
+  String pluginErrorPreviousRestart(String error) {
+    return 'The previous version could not restart: $error';
+  }
+
+  @override
+  String pluginErrorUpdateFailed(String error, String recovery) {
+    return 'Plugin update failed: $error. $recovery';
+  }
+
+  @override
   String get pluginShizuku13OrLaterIsRequiredTapForSetup =>
       'Shizuku 13 or later is required. Tap for setup instructions.';
 
@@ -2528,6 +2819,101 @@ class UiStringsEn extends UiStrings {
   @override
   String get pluginApproveThePermissionRequestOnTheKiosk =>
       'Approve the permission request on the kiosk.';
+
+  @override
+  String get pluginErrorInvalidId => 'Invalid plugin ID';
+
+  @override
+  String get pluginErrorInvalidVersion => 'Invalid version';
+
+  @override
+  String get pluginErrorEntryClass => 'Invalid entry class';
+
+  @override
+  String get pluginErrorManifestSchema => 'Unsupported manifest schema';
+
+  @override
+  String get pluginErrorSdkVersion =>
+      'This plugin needs a different SDK version';
+
+  @override
+  String get pluginErrorMinimumSdk => 'Minimum Android SDK must be at least 24';
+
+  @override
+  String get pluginErrorCapability => 'Unsupported plugin capability';
+
+  @override
+  String get pluginErrorTooManySettings => 'Too many settings or commands';
+
+  @override
+  String get pluginErrorSettingKey => 'Invalid or duplicate setting key';
+
+  @override
+  String get pluginErrorGroupsArray => 'Display groups must be an array';
+
+  @override
+  String get pluginErrorTooManyGroups => 'Too many display groups';
+
+  @override
+  String get pluginErrorUniqueGroups =>
+      'Display groups must name unique settings groups';
+
+  @override
+  String get pluginErrorGroupReferences => 'Too many group references';
+
+  @override
+  String get pluginErrorDuplicateReference =>
+      'Invalid or duplicate group reference';
+
+  @override
+  String get pluginErrorCommandId => 'Invalid or duplicate command ID';
+
+  @override
+  String get pluginErrorUnknownSetting => 'Unknown plugin setting';
+
+  @override
+  String get pluginErrorTextLength =>
+      'Text settings must be at most 512 characters';
+
+  @override
+  String get pluginErrorEntityId => 'Expected a Home Assistant entity ID';
+
+  @override
+  String get pluginErrorBoolean => 'Expected a boolean setting';
+
+  @override
+  String get pluginErrorColor => 'Expected an RGB hex color';
+
+  @override
+  String get pluginErrorNumber => 'Expected a numeric setting';
+
+  @override
+  String get pluginErrorRange => 'Numeric setting is outside its range';
+
+  @override
+  String get pluginErrorStep => 'Numeric setting does not match its step';
+
+  @override
+  String get pluginErrorSelection => 'Invalid selection setting';
+
+  @override
+  String get pluginErrorSelectionOption => 'Unknown selection option';
+
+  @override
+  String get pluginErrorSettingType => 'Unsupported setting type';
+
+  @override
+  String get pluginErrorInvalidManifest => 'Invalid plugin manifest';
+
+  @override
+  String pluginErrorAndroidApi(String version) {
+    return 'Plugin needs Android API $version';
+  }
+
+  @override
+  String pluginErrorInvalidField(String field) {
+    return 'Invalid $field';
+  }
 
   @override
   String get remoteDisableTitle => 'Turn off remote management?';
