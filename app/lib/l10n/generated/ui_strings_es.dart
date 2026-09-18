@@ -2006,23 +2006,23 @@ class UiStringsEs extends UiStrings {
   String get logsUnknown => 'desconocido';
 
   @override
-  String get offlineDashboard => 'Dashboard unavailable';
+  String get offlineDashboard => 'Panel de control no disponible';
 
   @override
-  String get offlineNetwork => 'No network connection';
+  String get offlineNetwork => 'Sin conexión de red';
 
   @override
-  String get offlinePageHelp => 'The page could not be loaded.';
+  String get offlinePageHelp => 'No se pudo cargar la página.';
 
   @override
   String get offlineNetworkHelp =>
-      'The dashboard will come back when the network does.';
+      'El panel de control volverá cuando se restablezca la conexión de red.';
 
   @override
-  String get offlineLost => 'Network connection lost';
+  String get offlineLost => 'Se perdió la conexión de red';
 
   @override
-  String get offlineRestored => 'Network connection restored';
+  String get offlineRestored => 'Se restableció la conexión de red';
 
   @override
   String get mediaPlay => 'Reproducir';
@@ -2384,45 +2384,45 @@ class UiStringsEs extends UiStrings {
       'Aprueba la solicitud de permiso en el kiosko.';
 
   @override
-  String get remoteReconnecting => 'Reconnecting…';
+  String get remoteReconnecting => 'Reconectando…';
 
   @override
   String remoteConnectionLost(String name) {
-    return 'The connection to $name was lost. This page resumes on its own when it is back.';
+    return 'Se perdió la conexión con $name. Esta página continuará automáticamente cuando se restablezca.';
   }
 
   @override
   String get remoteConnectionLostUnnamed =>
-      'The connection to the kiosk was lost. This page resumes on its own when it is back.';
+      'Se perdió la conexión con el kiosko. Esta página continuará automáticamente cuando se restablezca.';
 
   @override
-  String get remoteReloadPage => 'Reload page';
+  String get remoteReloadPage => 'Recargar página';
 
   @override
-  String get remoteUpdated => 'Kiosk Satellite was updated';
+  String get remoteUpdated => 'Kiosk Satellite se actualizó';
 
   @override
   String remoteUpdatedHelp(String version, String build, String seconds) {
-    return 'The device is now running version $version$build. This page belongs to the previous version and will reload in $seconds s.';
+    return 'El dispositivo ahora usa la versión $version$build. Esta página corresponde a la versión anterior y se recargará en $seconds s.';
   }
 
   @override
   String remoteBuild(String build) {
-    return ' (build $build)';
+    return ' (compilación $build)';
   }
 
   @override
-  String get remoteReloadNow => 'Reload now';
+  String get remoteReloadNow => 'Recargar ahora';
 
   @override
-  String get remoteLogin => 'Log in';
+  String get remoteLogin => 'Iniciar sesión';
 
   @override
-  String get remoteInvalidPassword => 'Invalid password';
+  String get remoteInvalidPassword => 'Contraseña incorrecta';
 
   @override
   String get remoteLoginThrottled =>
-      'Too many attempts. Wait 5 minutes and try again.';
+      'Demasiados intentos. Espera 5 minutos y vuelve a intentarlo.';
 
   @override
   String get overviewAttention => 'Requiere atención';

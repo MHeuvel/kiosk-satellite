@@ -1,0 +1,69 @@
+{
+  "@@locale": "en",
+  "offlineDashboard": "Dashboard unavailable",
+  "@offlineDashboard": {
+    "context": "Kiosk dashboard > Connection notices",
+    "description": "Heading when the device has a network but the dashboard failed to load.",
+    "x-locations": {
+      "device": [
+        "Kiosk dashboard > Connection notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "offlineNetwork": "No network connection",
+  "@offlineNetwork": {
+    "context": "Kiosk dashboard > Connection notices",
+    "description": "Heading when the dashboard load failed and the device is offline.",
+    "x-locations": {
+      "device": [
+        "Kiosk dashboard > Connection notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "offlinePageHelp": "The page could not be loaded.",
+  "@offlinePageHelp": {
+    "context": "Kiosk dashboard > Connection notices",
+    "description": "Explanation below Dashboard unavailable.",
+    "x-locations": {
+      "device": [
+        "Kiosk dashboard > Connection notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "offlineNetworkHelp": "The dashboard will come back when the network does.",
+  "@offlineNetworkHelp": {
+    "context": "Kiosk dashboard > Connection notices",
+    "description": "Explanation below No network connection.",
+    "x-locations": {
+      "device": [
+        "Kiosk dashboard > Connection notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "offlineLost": "Network connection lost",
+  "@offlineLost": {
+    "context": "Kiosk dashboard > Connection notices",
+    "description": "Persistent notification over the dashboard during an outage.",
+    "x-locations": {
+      "device": [
+        "Kiosk dashboard > Connection notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "offlineRestored": "Network connection restored",
+  "@offlineRestored": {
+    "context": "Kiosk dashboard > Connection notices",
+    "description": "Brief notification after the network returns.",
+    "x-locations": {
+      "device": [
+        "Kiosk dashboard > Connection notices"
+      ],
+      "remoteAdmin": []
+    }
+  }
+}

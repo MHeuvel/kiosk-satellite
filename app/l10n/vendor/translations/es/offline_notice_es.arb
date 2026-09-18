@@ -1,0 +1,9 @@
+{
+  "@@locale": "es",
+  "offlineDashboard": "Panel de control no disponible",
+  "offlineNetwork": "Sin conexión de red",
+  "offlinePageHelp": "No se pudo cargar la página.",
+  "offlineNetworkHelp": "El panel de control volverá cuando se restablezca la conexión de red.",
+  "offlineLost": "Se perdió la conexión de red",
+  "offlineRestored": "Se restableció la conexión de red"
+}

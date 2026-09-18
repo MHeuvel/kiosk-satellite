@@ -1,0 +1,6 @@
+{
+  "@@locale": "es",
+  "remoteLogin": "Iniciar sesión",
+  "remoteInvalidPassword": "Contraseña incorrecta",
+  "remoteLoginThrottled": "Demasiados intentos. Espera 5 minutos y vuelve a intentarlo."
+}
