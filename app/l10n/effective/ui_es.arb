@@ -18317,7 +18317,7 @@
       ]
     }
   },
-  "settingUiLanguageTitle": "Language",
+  "settingUiLanguageTitle": "Idioma",
   "@settingUiLanguageTitle": {
     "context": "Settings:Device:User Interface",
     "description": "Language selector label.",
@@ -18332,7 +18332,7 @@
       ]
     }
   },
-  "settingUiLanguageDescription": "Language for Kiosk Satellite and remote administration. Home Assistant keeps its own language.",
+  "settingUiLanguageDescription": "Idioma de Kiosk Satellite y de la administración remota. Home Assistant conserva su propio idioma.",
   "@settingUiLanguageDescription": {
     "context": "Settings:Device:User Interface",
     "description": "Help below the language selector.",

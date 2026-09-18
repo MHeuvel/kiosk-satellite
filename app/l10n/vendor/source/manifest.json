@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite",
-  "revision": "4a2727d0ad3e505b73828454453c0811d3339334",
+  "revision": "5f78385dfcff2b88b2524132cc11fc7cf6dd0283",
   "workingTree": false,
   "files": {
     "about_identity_en.arb": "dd006567f69f846e2e3b73f09ad13784f0022d282ea3101fa9be7fc95175ec2d",
@@ -81,7 +81,7 @@
     "settings_device_shizuku_en.arb": "e5e78926dcb6a09e8eb0c9f6ff655e7842ed3d2ca0ae145fbb5e798959906a6b",
     "settings_device_update_helper_en.arb": "bc1bba53c0f381b8b4ba7f8ed0b09ef427c9536965e71486c21f360257323f5e",
     "settings_device_updates_en.arb": "0f2dce196c07a62a187ddca3d3375ec6131ade726b09ec054164e11c2e28b1bd",
-    "settings_device_user_interface_en.arb": "b8141baf2e9d4eb042665651a396fb361744a96db84e2a63c8844827d7eae7ca",
+    "settings_device_user_interface_en.arb": "69131be8206cc3895dcc4e00a1b186952b1f56ce3abe3805bafe14eebff115f0",
     "settings_dlna_en.arb": "f9d6e9fb2ad0c96ed584d8fd07d555a7f57ac348943847128a0d8054f95f20f4",
     "settings_esphome_advanced_en.arb": "251f43eed162c28a37ac8378d8818dfbe256d508a68a47b0ae787dd2be6f2d9a",
     "settings_esphome_announcements_en.arb": "ef72e7ed22b9dbb876d786530a79dc2c779ffd8362a6bdde066d53ce20d8fa61",

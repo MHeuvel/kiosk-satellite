@@ -6,10 +6,12 @@
     "description": "Language selector label.",
     "x-locations": {
       "device": [
-        "Settings > Device > User Interface > Language"
+        "Settings > Device > User Interface > Language",
+        "First-time setup > Welcome > Language"
       ],
       "remoteAdmin": [
-        "Device > User Interface > Language"
+        "Device > User Interface > Language",
+        "First-time setup > Welcome > Language"
       ]
     }
   },
@@ -19,10 +21,12 @@
     "description": "Help below the language selector.",
     "x-locations": {
       "device": [
-        "Settings > Device > User Interface > Language"
+        "Settings > Device > User Interface > Language",
+        "First-time setup > Welcome > Language"
       ],
       "remoteAdmin": [
-        "Device > User Interface > Language"
+        "Device > User Interface > Language",
+        "First-time setup > Welcome > Language"
       ]
     }
   },
