@@ -2,6 +2,12 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Changed
+
+- **Timer pills are 20% larger.** Increased pill dimensions, text, icons and spacing for easier reading while keeping saved positions and narrow-screen layouts (#612).
+
 ## v2026.9.63 - 2026-09-19
 
 ### Fixed
