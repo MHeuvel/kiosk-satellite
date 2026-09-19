@@ -77,7 +77,12 @@ try:
             panel = page.locator('#tab-voicesatellite .subpage[data-subpage="Chimes"]')
             expect(panel).to_be_visible()
             expect(page.locator('#pageTitle')).to_contain_text(catalog['voiceChimesPage'])
-            expect(panel).to_contain_text(catalog['voiceChimesHelp'])
+            expect(panel).not_to_contain_text(catalog['voiceChimesHelp'])
+            expect(panel.locator(':scope > .hint-row')).to_have_count(0)
+            expect(panel.locator('.row')).to_have_count(5)
+            entries = page.locator('#tab-voicesatellite [data-subpage-entry]').evaluate_all(
+                '(rows) => rows.map((row) => row.dataset.subpageEntry)')
+            assert entries.index('Appearance') < entries.index('Chimes'), entries
             for kind in ['wake', 'done', 'error', 'alert', 'announce']:
                 row = panel.locator(f'[data-key="voice_chimes.{kind}"]')
                 expect(row).to_contain_text(catalog[mapping['voice_chimes.' + kind]['title']])
@@ -86,6 +91,19 @@ try:
             panel.get_by_role('button', name=catalog['voiceChimesPreview'], exact=True).first.click()
             page.wait_for_timeout(50)
             assert ('previewVoiceChime', {'kind': 'wake'}) in commands
+            expect(panel.locator('.chime-controls')).to_have_count(5)
+            panel.locator('.chime-controls > button').first.click()
+            page.wait_for_timeout(50)
+            assert commands[-1] == ('stopSound', {'id': 'voice-preview'})
+            expect(panel.get_by_role('button', name=catalog['voiceChimesPreview'], exact=True)).to_have_count(5)
+            panel.get_by_role('button', name=catalog['voiceChimesPreview'], exact=True).first.click()
+            page.wait_for_timeout(50)
+            page.evaluate("document.dispatchEvent(new CustomEvent('ks-event', {detail: {event: 'sound-ended', data: {id: 'voice-preview'}}}))")
+            expect(panel.get_by_role('button', name=catalog['voiceChimesPreview'], exact=True)).to_have_count(5)
+            page.screenshot(path=f'/tmp/chimes-remote-{language}-phone.png', full_page=True)
+            page.set_viewport_size(dict(width=1440, height=1000))
+            page.screenshot(path=f'/tmp/chimes-remote-{language}-desktop.png', full_page=True)
+            page.set_viewport_size(dict(width=390, height=1000))
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
         row = panel.locator('[data-key="voice_chimes.alert"]')
         row.locator('select').select_option('siren.mp3')
@@ -94,6 +112,8 @@ try:
         panel.locator('input[type=file]').nth(3).set_input_files(dict(name='new.mp3', mimeType='audio/mpeg', buffer=b'test'))
         expect(row.locator('select')).to_have_value('new.mp3')
         assert uploads and 'sounds%2Fnew.mp3' in uploads[-1]
+        for select in panel.locator('select').all():
+            expect(select.locator('option[value="new.mp3"]')).to_have_count(1)
         assert ('getVoiceChimeDurations', {}) in commands
         assert not errors, errors
         browser.close()

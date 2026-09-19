@@ -14,6 +14,8 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ### Changed
 
+- **Chime settings fit into compact rows.** Each sound has its selector, playback control and upload button together on the kiosk and in Remote Admin. Preview changes to Stop while playing and uploaded files appear in every selector. Remote Admin lists Chimes after Appearance and the Chimes page opens directly with the sound settings.
+
 - **Timer pills are 20% larger.** Increased pill dimensions, text, icons and spacing for easier reading while keeping saved positions and narrow-screen layouts (#612).
 
 ## v2026.9.63 - 2026-09-19

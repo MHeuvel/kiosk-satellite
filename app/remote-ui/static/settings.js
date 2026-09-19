@@ -67,13 +67,23 @@ import { banner, copyBox, messageBox, showToast } from './widgets.js';
 // supported Android decodes natively, no video containers. The accept list
 // steers the chooser; the check here and the device's validator are what
 // actually hold. The upload becomes the pick, as it does on the device.
-export function attachSoundUpload(fileRow, { refresh, write }) {
+export function attachSoundUpload(fileRow, { refresh, write }, { inline = false } = {}) {
   const SOUND_EXTENSIONS = ['mp3', 'ogg', 'oga', 'wav', 'flac', 'm4a', 'aac'];
-  const addRow = readOnlyRow(intercomText("Add a sound"),
-    intercomText("Upload a sound file from this computer into the sounds folder."), '');
+  const addRow = inline ? document.createElement('div')
+    : readOnlyRow(intercomText("Add a sound"),
+      intercomText("Upload a sound file from this computer into the sounds folder."), '');
+  if (inline) addRow.className = 'chime-upload';
   const upload = document.createElement('button');
   upload.className = 'btn-ghost';
-  upload.textContent = intercomText("Upload");
+  const uploadLabel = () => {
+    if (inline) {
+      upload.classList.add('chime-icon');
+      upload.title = intercomText('Add a sound');
+      upload.setAttribute('aria-label', upload.title);
+      upload.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 16h2V8l3.5 3.5 1.42-1.42L12 4.17l-5.92 5.91 1.42 1.42L11 8v8zm-6 2v2h14v-2H5z"/></svg>';
+    } else upload.textContent = intercomText("Upload");
+  };
+  uploadLabel();
   upload.style.cssText = 'flex-shrink:0;';
   const picker = document.createElement('input');
   picker.type = 'file'; picker.hidden = true;
@@ -87,7 +97,8 @@ export function attachSoundUpload(fileRow, { refresh, write }) {
       alert(intercomText("Not a supported sound: pick an MP3, OGG, WAV, FLAC, M4A or AAC file."));
       return;
     }
-    upload.disabled = true; upload.textContent = intercomText("Uploading…");
+    upload.disabled = true;
+    if (!inline) upload.textContent = intercomText("Uploading…");
     try {
       const q = `root=app&path=${encodeURIComponent(`sounds/${file.name}`)}`;
       const res = await api(`/api/files/upload?${q}`, { method: 'POST', body: file });
@@ -98,11 +109,12 @@ export function attachSoundUpload(fileRow, { refresh, write }) {
       await refresh();
     } catch (e) { alert(t('intercomUploadFailed', {error: intercomError(String(e.message || e))})); }
     picker.value = '';
-    upload.disabled = false; upload.textContent = intercomText("Upload");
+    upload.disabled = false; uploadLabel();
   });
   upload.addEventListener('click', () => picker.click());
   addRow.append(upload, picker);
-  fileRow.insertAdjacentElement('afterend', addRow);
+  if (inline) fileRow.querySelector('.chime-controls').appendChild(addRow);
+  else fileRow.insertAdjacentElement('afterend', addRow);
   return addRow;
 }
 
@@ -147,6 +159,30 @@ export function attachSoundSelect(row, setting) {
   refresh();
   return { sel, refresh, write };
 }
+
+let chimePreview = null;
+let chimePreviewBusy = false;
+function paintChimePreview(button, playing) {
+  button.title = voiceText(playing ? 'Stop' : 'Preview on kiosk');
+  button.setAttribute('aria-label', button.title);
+  button.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="'
+    + (playing ? 'M6 6h12v12H6z' : 'M8 5v14l11-7z') + '"/></svg>';
+}
+function resetChimePreview() {
+  if (chimePreview) paintChimePreview(chimePreview, false);
+  chimePreview = null;
+}
+document.addEventListener('ks-event', ({detail}) => {
+  if (detail?.event === 'sound-ended' && detail.data?.id === 'voice-preview') {
+    resetChimePreview();
+  }
+});
+document.addEventListener('ks-route', () => {
+  if (chimePreview && (!chimePreview.isConnected || !chimePreview.getClientRects().length)) {
+    resetChimePreview();
+    cmd('stopSound', {id: 'voice-preview'}).catch(() => {});
+  }
+});
 
 const liveSettings = new Map();
 // Save handlers sometimes update the cache before the WebSocket echo.
@@ -1574,36 +1610,52 @@ kioskText('Lockdown Mode makes the dashboard non-interactive, arms every ' +
       // renderVsControls then puts into both panels.
       render(root, ['Voice Satellite'].filter((c) => (byCat[c] || []).length),
         { extra: ['Appearance'] });
+      // Match the kiosk's page order: Wake Word, Appearance, Chimes.
+      const appearanceEntry = root.querySelector('[data-subpage-entry="Appearance"]')?.closest('.card');
+      const chimesEntry = root.querySelector('[data-subpage-entry="Chimes"]')?.closest('.card');
+      if (appearanceEntry && chimesEntry) appearanceEntry.after(chimesEntry);
       // Page-local controls can be unavailable while the dashboard recovers.
       // Keep the rest of Remote Admin accessible during that wait.
-      const chimesPanel = document.querySelector('[data-key="voice_chimes.wake"]')?.closest('.subpage');
-      if (chimesPanel) chimesPanel.prepend(readOnlyRow(voiceText('Chimes'),
-        voiceText('Choose sounds for this kiosk. Upload custom files here. Sounds stored in Home Assistant are not used for local chimes.'), ''));
+      const soundSelectors = [];
       for (const kind of ['wake', 'done', 'error', 'alert', 'announce']) {
         const key = `voice_chimes.${kind}`;
         const row = document.querySelector(`[data-key="${key}"]`);
         if (!row || !byKey[key]) continue;
-        attachSoundUpload(row, attachSoundSelect(row, byKey[key]));
+        row.classList.add('chime-row');
+        const sound = attachSoundSelect(row, byKey[key]);
+        soundSelectors.push(sound);
+        const controls = document.createElement('div');
+        controls.className = 'chime-controls';
         const preview = document.createElement('button');
-        preview.className = 'btn-ghost';
-        preview.textContent = voiceText('Preview on kiosk');
+        preview.className = 'btn-ghost chime-icon';
+        paintChimePreview(preview, false);
         preview.addEventListener('click', async () => {
+          if (chimePreviewBusy) return;
+          chimePreviewBusy = true;
           preview.disabled = true;
+          const stop = chimePreview === preview;
           try {
+            await cmd('stopSound', {id: 'voice-preview'});
+            resetChimePreview();
+            if (stop || !preview.isConnected) return;
+            chimePreview = preview;
+            paintChimePreview(preview, true);
             const result = await cmd('previewVoiceChime', {kind});
             if (!result.ok) throw new Error();
-          } catch (_) { alert(voiceText('Could not play the sound.')); }
-          finally { preview.disabled = false; }
+          } catch (_) {
+            resetChimePreview();
+            alert(voiceText('Could not play the sound.'));
+          } finally {
+            preview.disabled = false;
+            chimePreviewBusy = false;
+          }
         });
-        const stop = document.createElement('button');
-        stop.className = 'btn-ghost';
-        stop.textContent = voiceText('Stop');
-        stop.addEventListener('click', () => cmd('stopSound', {id: 'voice-preview'}));
-        const actions = document.createElement('div');
-        actions.className = 'row';
-        actions.style.justifyContent = 'flex-end';
-        actions.append(preview, stop);
-        row.insertAdjacentElement('afterend', actions);
+        controls.append(sound.sel, preview);
+        row.appendChild(controls);
+        attachSoundUpload(row, {
+          write: sound.write,
+          refresh: () => Promise.all(soundSelectors.map((selector) => selector.refresh())),
+        }, {inline: true});
       }
       renderVsControls(root).catch((error) => console.warn('Voice Satellite controls failed', error));
     }

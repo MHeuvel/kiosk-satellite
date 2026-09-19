@@ -3427,15 +3427,7 @@ class _CategoryContentState extends State<_CategoryContent> {
     }
 
     if (widget.category == 'Voice Satellite' && subpage == 'Chimes') {
-      return [
-        HintRow(
-          voiceText(
-            context,
-            'Choose sounds for this kiosk. Upload custom files here. Sounds stored in Home Assistant are not used for local chimes.',
-          ),
-        ),
-        ...sectioned(voiceChimeSettings.values.toList()),
-      ];
+      return [...sectioned(voiceChimeSettings.values.toList())];
     }
 
     // Voice Satellite's two pages are almost entirely live rows from the
@@ -5804,11 +5796,27 @@ class _NotificationSoundTile extends StatefulWidget {
 
 class _NotificationSoundTileState extends State<_NotificationSoundTile> {
   List<String> _sounds = const [];
+  StreamSubscription<SoundEnded>? _ended;
+  StreamSubscription<VoiceChimesChanged>? _chimes;
+  bool _previewing = false;
+  bool _previewBusy = false;
+
+  bool get _isChime => widget.def.key.startsWith('voice_chimes.');
 
   @override
   void initState() {
     super.initState();
     unawaited(_refresh());
+    if (_isChime) {
+      _ended = widget.container.bus.on<SoundEnded>().listen((event) {
+        if (event.id == 'voice-preview' && mounted) {
+          setState(() => _previewing = false);
+        }
+      });
+      _chimes = widget.container.bus.on<VoiceChimesChanged>().listen((_) {
+        unawaited(_refresh());
+      });
+    }
   }
 
   Future<void> _refresh() async {
@@ -5862,7 +5870,9 @@ class _NotificationSoundTileState extends State<_NotificationSoundTile> {
 
   @override
   void dispose() {
-    if (widget.def.key.startsWith('voice_chimes.')) {
+    unawaited(_ended?.cancel());
+    unawaited(_chimes?.cancel());
+    if (_isChime) {
       unawaited(
         widget.container.commands.execute('stopSound', {'id': 'voice-preview'}),
       );
@@ -5871,16 +5881,30 @@ class _NotificationSoundTileState extends State<_NotificationSoundTile> {
   }
 
   Future<void> _preview() async {
-    final result = await widget.container.commands.execute(
-      'previewVoiceChime',
-      {'kind': widget.def.key.split('.').last},
-    );
-    if (!result.ok && mounted) {
-      showToast(
-        context,
-        title: voiceText(context, 'Could not play the sound.'),
-        kind: ToastKind.error,
+    if (_previewBusy) return;
+    final stop = _previewing;
+    setState(() => _previewBusy = true);
+    try {
+      await widget.container.commands.execute('stopSound', {
+        'id': 'voice-preview',
+      });
+      if (!mounted) return;
+      setState(() => _previewing = !stop);
+      if (stop) return;
+      final result = await widget.container.commands.execute(
+        'previewVoiceChime',
+        {'kind': widget.def.key.split('.').last},
       );
+      if (!result.ok && mounted) {
+        setState(() => _previewing = false);
+        showToast(
+          context,
+          title: voiceText(context, 'Could not play the sound.'),
+          kind: ToastKind.error,
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _previewBusy = false);
     }
   }
 
@@ -5901,6 +5925,58 @@ class _NotificationSoundTileState extends State<_NotificationSoundTile> {
       if (current.isNotEmpty && !_sounds.contains(current))
         (current, l10n(context).intercomMissingFile(current)),
     ];
+    if (_isChime) {
+      return SettingsRow(
+        title: Text(def.localizedTitle(context)),
+        subtitle: Text(def.localizedDescription(context)),
+        stack: true,
+        trailing: SizedBox(
+          width: tightPane(context) ? double.infinity : 300,
+          child: Row(
+            children: [
+              Expanded(
+                child: KsDropdown<String>(
+                  value: current,
+                  expand: true,
+                  items: [
+                    for (final (value, label) in options)
+                      DropdownMenuItem(
+                        value: value,
+                        child: Text(
+                          label,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                  ],
+                  onChanged: (value) async {
+                    if (value == null) return;
+                    await widget.container.settings.setFromJson(def.key, value);
+                    widget.onChanged();
+                  },
+                ),
+              ),
+              const SizedBox(width: 4),
+              IconButton(
+                tooltip: voiceText(
+                  context,
+                  _previewing ? 'Stop' : 'Preview on kiosk',
+                ),
+                onPressed: _previewBusy ? null : _preview,
+                icon: Icon(
+                  _previewing ? Icons.stop_rounded : Icons.play_arrow_rounded,
+                ),
+              ),
+              IconButton(
+                tooltip: intercomText(context, 'Add a sound'),
+                onPressed: _browse,
+                icon: const Icon(Icons.upload_file_outlined),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
     return Column(
       children: [
         DropdownRow<String>(
@@ -5914,24 +5990,6 @@ class _NotificationSoundTileState extends State<_NotificationSoundTile> {
             widget.onChanged();
           },
         ),
-        if (def.key.startsWith('voice_chimes.'))
-          Wrap(
-            alignment: WrapAlignment.end,
-            spacing: 8,
-            children: [
-              TextButton(
-                onPressed: _preview,
-                child: Text(voiceText(context, 'Preview on kiosk')),
-              ),
-              TextButton(
-                onPressed: () => widget.container.commands.execute(
-                  'stopSound',
-                  {'id': 'voice-preview'},
-                ),
-                child: Text(voiceText(context, 'Stop')),
-              ),
-            ],
-          ),
         ListTile(
           title: Text(intercomText(context, "Add a sound")),
           subtitle: Text(

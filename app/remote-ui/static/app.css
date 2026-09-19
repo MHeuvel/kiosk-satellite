@@ -1201,3 +1201,17 @@
   .reconnect-card .modal-title { margin: 0; }
   .reconnect-card .reconnect-text { margin: 0; color: var(--muted);
     font-size: 14.5px; line-height: 1.5; }
+
+  .row.chime-row { flex-wrap: wrap; gap: 12px 20px; }
+  .row.chime-row .info { display: block; flex: 1 1 240px; }
+  .chime-controls { display: flex; align-items: center; gap: 4px;
+    flex: 0 1 300px; min-width: 0; }
+  .row .chime-controls select { flex: 1 1 0; width: 0; min-width: 0;
+    max-width: none; text-overflow: ellipsis; }
+  .chime-upload { display: flex; flex: none; }
+  .chime-icon { display: inline-flex; align-items: center; justify-content: center;
+    flex: none; width: 44px; min-width: 44px; height: 44px; padding: 10px; border: none; }
+  .chime-icon svg { width: 24px; height: 24px; fill: currentColor; }
+  @media (max-width: 640px) {
+    .chime-controls { flex-basis: 100%; }
+  }
