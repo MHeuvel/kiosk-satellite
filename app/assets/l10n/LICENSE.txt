@@ -1,5 +1,5 @@
 Kiosk Satellite Localization License
-Version 1.0
+Version 1.1
 
 Copyright (c) 2026 Xavier Larrea
 All rights reserved except as expressly permitted below.
@@ -32,6 +32,16 @@ modify catalogs, use repository tooling and share proposed changes through
 forks, patches and pull requests. You may collaborate with other contributors
 and retain the resulting contribution and review history. You may prepare
 local previews and test resources for Kiosk Satellite localization.
+
+For preparing a contribution, you may submit relevant project source strings
+and context to an AI or translation service under the contributor rules.
+You may permit that provider to process, transmit and store the submitted
+material to operate and secure the service, prevent abuse and comply with
+legal obligations, including associated retention. Disable optional training
+and content sharing before submitting project material. Broader provider
+rights require Xavier Larrea's explicit written permission. This permission
+covers only rights Xavier Larrea holds or is authorized to license and does
+not permit unrelated redistribution or use in another product.
 
 You may read the public documentation and retain copies of the license,
 Contributor Agreement and related notices for reference and legal records.

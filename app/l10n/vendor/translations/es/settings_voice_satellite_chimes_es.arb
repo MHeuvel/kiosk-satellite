@@ -1,0 +1,18 @@
+{
+  "@@locale": "es",
+  "voiceChimesPage": "Sonidos",
+  "voiceChimesHint": "Sonidos de activación, finalización, error, temporizadores y anuncios",
+  "voiceChimesPreview": "Reproducir en el kiosco",
+  "voiceChimesPreviewFailed": "No se pudo reproducir el sonido.",
+  "voiceChimesHelp": "Elige los sonidos de este kiosco. Sube aquí tus archivos personalizados. Los sonidos guardados en Home Assistant no se usan para los avisos locales.",
+  "voiceChimeWakeTitle": "Sonido de activación",
+  "voiceChimeWakeDescription": "Se reproduce cuando Voice Satellite empieza a escuchar.",
+  "voiceChimeDoneTitle": "Sonido de finalización",
+  "voiceChimeDoneDescription": "Se reproduce cuando termina una interacción de voz.",
+  "voiceChimeErrorTitle": "Sonido de error",
+  "voiceChimeErrorDescription": "Se reproduce cuando falla una interacción de voz.",
+  "voiceChimeTimerTitle": "Sonido del temporizador",
+  "voiceChimeTimerDescription": "Se repite cuando termina un temporizador hasta que lo cierres.",
+  "voiceChimeAnnounceTitle": "Sonido de anuncio",
+  "voiceChimeAnnounceDescription": "Se reproduce antes de un anuncio de Voice Satellite, salvo que el anuncio incluya su propio sonido."
+}

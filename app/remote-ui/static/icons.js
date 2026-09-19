@@ -34,6 +34,7 @@ export const SUBPAGE_ICONS = {
     + '<path d="M12 15 16.5 9"/><circle cx="12" cy="15" r="1.5"/>'
     + '<path d="M4 19h16"/>'),
   // Voice Satellite.
+  'Chimes': svg('<path d="M10 18V4l10-2v14"/><circle cx="7" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>'),
   'Wake Word': svg('<path d="M6 8.5a6 6 0 0 1 12 0c0 3-1.5 4-2.5 5.5S14 17 14 18.5'
     + 'a2.5 2.5 0 0 1-5 0"/><path d="M10 8.5a2 2 0 0 1 4 0c0 1.2-.7 1.8-1.3 2.6'
     + '-.4.5-.7 1-.7 1.9"/>'),

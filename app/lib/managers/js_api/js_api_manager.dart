@@ -36,6 +36,7 @@ class JsApiManager extends Manager {
   /// contents (pages are less trusted than the authenticated remote API).
   static const _exposedMethods = <String, String>{
     'setVoiceTimers': 'setVoiceTimers',
+    'getVoiceChimeDurations': 'getVoiceChimeDurations',
     'setVoiceTimerAlert': 'setVoiceTimerAlert',
     'voiceTimerActionFailed': 'voiceTimerActionFailed',
     'getDeviceInfo': 'getDeviceInfo',

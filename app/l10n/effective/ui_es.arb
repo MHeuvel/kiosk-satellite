@@ -38321,6 +38321,201 @@
       ]
     }
   },
+  "voiceChimesPage": "Sonidos",
+  "@voiceChimesPage": {
+    "context": "Settings > Voice Satellite > Chimes",
+    "description": "Chime selection, playback or help shown on the device and in Remote Admin.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Chimes"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Chimes"
+      ]
+    }
+  },
+  "voiceChimesHint": "Sonidos de activación, finalización, error, temporizadores y anuncios",
+  "@voiceChimesHint": {
+    "context": "Settings > Voice Satellite > Chimes",
+    "description": "Chime selection, playback or help shown on the device and in Remote Admin.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Chimes"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Chimes"
+      ]
+    }
+  },
+  "voiceChimesPreview": "Reproducir en el kiosco",
+  "@voiceChimesPreview": {
+    "context": "Settings > Voice Satellite > Chimes",
+    "description": "Chime selection, playback or help shown on the device and in Remote Admin.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Chimes"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Chimes"
+      ]
+    }
+  },
+  "voiceChimesPreviewFailed": "No se pudo reproducir el sonido.",
+  "@voiceChimesPreviewFailed": {
+    "context": "Settings > Voice Satellite > Chimes",
+    "description": "Chime selection, playback or help shown on the device and in Remote Admin.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Chimes"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Chimes"
+      ]
+    }
+  },
+  "voiceChimesHelp": "Elige los sonidos de este kiosco. Sube aquí tus archivos personalizados. Los sonidos guardados en Home Assistant no se usan para los avisos locales.",
+  "@voiceChimesHelp": {
+    "context": "Settings > Voice Satellite > Chimes",
+    "description": "Chime selection, playback or help shown on the device and in Remote Admin.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Chimes"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Chimes"
+      ]
+    }
+  },
+  "voiceChimeWakeTitle": "Sonido de activación",
+  "@voiceChimeWakeTitle": {
+    "context": "Settings > Voice Satellite > Chimes",
+    "description": "Chime selection, playback or help shown on the device and in Remote Admin.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Chimes"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Chimes"
+      ]
+    }
+  },
+  "voiceChimeWakeDescription": "Se reproduce cuando Voice Satellite empieza a escuchar.",
+  "@voiceChimeWakeDescription": {
+    "context": "Settings > Voice Satellite > Chimes",
+    "description": "Chime selection, playback or help shown on the device and in Remote Admin.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Chimes"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Chimes"
+      ]
+    }
+  },
+  "voiceChimeDoneTitle": "Sonido de finalización",
+  "@voiceChimeDoneTitle": {
+    "context": "Settings > Voice Satellite > Chimes",
+    "description": "Chime selection, playback or help shown on the device and in Remote Admin.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Chimes"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Chimes"
+      ]
+    }
+  },
+  "voiceChimeDoneDescription": "Se reproduce cuando termina una interacción de voz.",
+  "@voiceChimeDoneDescription": {
+    "context": "Settings > Voice Satellite > Chimes",
+    "description": "Chime selection, playback or help shown on the device and in Remote Admin.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Chimes"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Chimes"
+      ]
+    }
+  },
+  "voiceChimeErrorTitle": "Sonido de error",
+  "@voiceChimeErrorTitle": {
+    "context": "Settings > Voice Satellite > Chimes",
+    "description": "Chime selection, playback or help shown on the device and in Remote Admin.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Chimes"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Chimes"
+      ]
+    }
+  },
+  "voiceChimeErrorDescription": "Se reproduce cuando falla una interacción de voz.",
+  "@voiceChimeErrorDescription": {
+    "context": "Settings > Voice Satellite > Chimes",
+    "description": "Chime selection, playback or help shown on the device and in Remote Admin.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Chimes"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Chimes"
+      ]
+    }
+  },
+  "voiceChimeTimerTitle": "Sonido del temporizador",
+  "@voiceChimeTimerTitle": {
+    "context": "Settings > Voice Satellite > Chimes",
+    "description": "Chime selection, playback or help shown on the device and in Remote Admin.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Chimes"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Chimes"
+      ]
+    }
+  },
+  "voiceChimeTimerDescription": "Se repite cuando termina un temporizador hasta que lo cierres.",
+  "@voiceChimeTimerDescription": {
+    "context": "Settings > Voice Satellite > Chimes",
+    "description": "Chime selection, playback or help shown on the device and in Remote Admin.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Chimes"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Chimes"
+      ]
+    }
+  },
+  "voiceChimeAnnounceTitle": "Sonido de anuncio",
+  "@voiceChimeAnnounceTitle": {
+    "context": "Settings > Voice Satellite > Chimes",
+    "description": "Chime selection, playback or help shown on the device and in Remote Admin.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Chimes"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Chimes"
+      ]
+    }
+  },
+  "voiceChimeAnnounceDescription": "Se reproduce antes de un anuncio de Voice Satellite, salvo que el anuncio incluya su propio sonido.",
+  "@voiceChimeAnnounceDescription": {
+    "context": "Settings > Voice Satellite > Chimes",
+    "description": "Chime selection, playback or help shown on the device and in Remote Admin.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Chimes"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Chimes"
+      ]
+    }
+  },
   "voiceEngine": "Motor",
   "@voiceEngine": {
     "context": "Settings > Voice Satellite",

@@ -94,6 +94,7 @@ export function attachSoundUpload(fileRow, { refresh, write }) {
       const out = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(out.error || `HTTP ${res.status}`);
       await write(file.name);
+      if (fileRow.dataset.key?.startsWith('voice_chimes.')) await cmd('getVoiceChimeDurations');
       await refresh();
     } catch (e) { alert(t('intercomUploadFailed', {error: intercomError(String(e.message || e))})); }
     picker.value = '';
@@ -1575,6 +1576,35 @@ kioskText('Lockdown Mode makes the dashboard non-interactive, arms every ' +
         { extra: ['Appearance'] });
       // Page-local controls can be unavailable while the dashboard recovers.
       // Keep the rest of Remote Admin accessible during that wait.
+      const chimesPanel = document.querySelector('[data-key="voice_chimes.wake"]')?.closest('.subpage');
+      if (chimesPanel) chimesPanel.prepend(readOnlyRow(voiceText('Chimes'),
+        voiceText('Choose sounds for this kiosk. Upload custom files here. Sounds stored in Home Assistant are not used for local chimes.'), ''));
+      for (const kind of ['wake', 'done', 'error', 'alert', 'announce']) {
+        const key = `voice_chimes.${kind}`;
+        const row = document.querySelector(`[data-key="${key}"]`);
+        if (!row || !byKey[key]) continue;
+        attachSoundUpload(row, attachSoundSelect(row, byKey[key]));
+        const preview = document.createElement('button');
+        preview.className = 'btn-ghost';
+        preview.textContent = voiceText('Preview on kiosk');
+        preview.addEventListener('click', async () => {
+          preview.disabled = true;
+          try {
+            const result = await cmd('previewVoiceChime', {kind});
+            if (!result.ok) throw new Error();
+          } catch (_) { alert(voiceText('Could not play the sound.')); }
+          finally { preview.disabled = false; }
+        });
+        const stop = document.createElement('button');
+        stop.className = 'btn-ghost';
+        stop.textContent = voiceText('Stop');
+        stop.addEventListener('click', () => cmd('stopSound', {id: 'voice-preview'}));
+        const actions = document.createElement('div');
+        actions.className = 'row';
+        actions.style.justifyContent = 'flex-end';
+        actions.append(preview, stop);
+        row.insertAdjacentElement('afterend', actions);
+      }
       renderVsControls(root).catch((error) => console.warn('Voice Satellite controls failed', error));
     }
   }

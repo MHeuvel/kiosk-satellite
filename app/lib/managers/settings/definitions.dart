@@ -212,6 +212,7 @@ const Map<String, String> subpageHints = {
   // Voice Satellite. Both pages are mostly live rows from the
   // integration rather than settings, so the pages themselves are
   // placed by the Voice Satellite page; only their names live here.
+  'Chimes': 'Wake, done, error, timer and announcement sounds',
   'Wake Word': 'Engine, wake words, sensitivity, cached models',
   'Appearance': 'Overlay skin, theme, activity bar, text size',
   // Screen & Audio.
@@ -4523,6 +4524,76 @@ const wakeWordResumeTimeoutSeconds = SettingDef<num>(
   dependsOn: 'wake_word.enabled',
 );
 
+// Sounds stored on this kiosk, shared by the device and Remote Admin.
+const voiceChimeWake = SettingDef<String>(
+  key: 'voice_chimes.wake',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Wake sound',
+  description: 'Plays when Voice Satellite starts listening.',
+  category: 'Voice Satellite',
+  subpage: 'Chimes',
+  perDevice: true,
+  validator: validateNotificationSound,
+);
+
+const voiceChimeDone = SettingDef<String>(
+  key: 'voice_chimes.done',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Done sound',
+  description: 'Plays when a voice interaction finishes.',
+  category: 'Voice Satellite',
+  subpage: 'Chimes',
+  perDevice: true,
+  validator: validateNotificationSound,
+);
+
+const voiceChimeError = SettingDef<String>(
+  key: 'voice_chimes.error',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Error sound',
+  description: 'Plays when a voice interaction fails.',
+  category: 'Voice Satellite',
+  subpage: 'Chimes',
+  perDevice: true,
+  validator: validateNotificationSound,
+);
+
+const voiceChimeTimer = SettingDef<String>(
+  key: 'voice_chimes.alert',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Timer sound',
+  description: 'Repeats when a timer finishes until you dismiss it.',
+  category: 'Voice Satellite',
+  subpage: 'Chimes',
+  perDevice: true,
+  validator: validateNotificationSound,
+);
+
+const voiceChimeAnnounce = SettingDef<String>(
+  key: 'voice_chimes.announce',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Announcement sound',
+  description:
+      'Plays before a Voice Satellite announcement unless it supplies its own sound.',
+  category: 'Voice Satellite',
+  subpage: 'Chimes',
+  perDevice: true,
+  validator: validateNotificationSound,
+);
+
+const voiceChimeSettings = <String, SettingDef<String>>{
+  'wake': voiceChimeWake,
+  'done': voiceChimeDone,
+  'error': voiceChimeError,
+  'alert': voiceChimeTimer,
+  'announce': voiceChimeAnnounce,
+};
+
 // Hidden: rendered as hand-built dropdowns (device settings screen and the
 // remote UI both) because the option lists are live hardware, not constants.
 // Value is AudioRouting's stable selector "type|address|name"; empty means
@@ -7923,6 +7994,11 @@ const List<SettingDef<Object>> allSettings = [
   // The Notifications page sits above the Bluetooth Proxy one.
   notificationsTransparency,
   notificationsBlur,
+  voiceChimeWake,
+  voiceChimeDone,
+  voiceChimeError,
+  voiceChimeTimer,
+  voiceChimeAnnounce,
   notificationsChimeFile,
   notificationsVolume,
   announcementsEnabled,

@@ -335,6 +335,18 @@ class SoundEnded extends AppEvent {
   };
 }
 
+/// The durations of the sounds selected on this kiosk, in seconds.
+class VoiceChimesChanged extends AppEvent {
+  const VoiceChimesChanged(this.durations);
+  final Map<String, double> durations;
+
+  @override
+  String get wireName => 'voice-chimes-changed';
+
+  @override
+  Map<String, Object?> toJson() => durations;
+}
+
 /// Any user/motion/page activity that should reset the idle timer.
 class ActivityDetected extends AppEvent {
   const ActivityDetected({required this.source});

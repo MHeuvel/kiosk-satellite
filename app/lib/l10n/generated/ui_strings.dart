@@ -17618,6 +17618,96 @@ abstract class UiStrings {
   /// **'Available while the kiosk is showing your Home Assistant dashboard.'**
   String get voiceDashboardRequired;
 
+  /// Chime selection, playback or help shown on the device and in Remote Admin.
+  ///
+  /// In en, this message translates to:
+  /// **'Chimes'**
+  String get voiceChimesPage;
+
+  /// Chime selection, playback or help shown on the device and in Remote Admin.
+  ///
+  /// In en, this message translates to:
+  /// **'Wake, done, error, timer and announcement sounds'**
+  String get voiceChimesHint;
+
+  /// Chime selection, playback or help shown on the device and in Remote Admin.
+  ///
+  /// In en, this message translates to:
+  /// **'Preview on kiosk'**
+  String get voiceChimesPreview;
+
+  /// Chime selection, playback or help shown on the device and in Remote Admin.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not play the sound.'**
+  String get voiceChimesPreviewFailed;
+
+  /// Chime selection, playback or help shown on the device and in Remote Admin.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose sounds for this kiosk. Upload custom files here. Sounds stored in Home Assistant are not used for local chimes.'**
+  String get voiceChimesHelp;
+
+  /// Chime selection, playback or help shown on the device and in Remote Admin.
+  ///
+  /// In en, this message translates to:
+  /// **'Wake sound'**
+  String get voiceChimeWakeTitle;
+
+  /// Chime selection, playback or help shown on the device and in Remote Admin.
+  ///
+  /// In en, this message translates to:
+  /// **'Plays when Voice Satellite starts listening.'**
+  String get voiceChimeWakeDescription;
+
+  /// Chime selection, playback or help shown on the device and in Remote Admin.
+  ///
+  /// In en, this message translates to:
+  /// **'Done sound'**
+  String get voiceChimeDoneTitle;
+
+  /// Chime selection, playback or help shown on the device and in Remote Admin.
+  ///
+  /// In en, this message translates to:
+  /// **'Plays when a voice interaction finishes.'**
+  String get voiceChimeDoneDescription;
+
+  /// Chime selection, playback or help shown on the device and in Remote Admin.
+  ///
+  /// In en, this message translates to:
+  /// **'Error sound'**
+  String get voiceChimeErrorTitle;
+
+  /// Chime selection, playback or help shown on the device and in Remote Admin.
+  ///
+  /// In en, this message translates to:
+  /// **'Plays when a voice interaction fails.'**
+  String get voiceChimeErrorDescription;
+
+  /// Chime selection, playback or help shown on the device and in Remote Admin.
+  ///
+  /// In en, this message translates to:
+  /// **'Timer sound'**
+  String get voiceChimeTimerTitle;
+
+  /// Chime selection, playback or help shown on the device and in Remote Admin.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeats when a timer finishes until you dismiss it.'**
+  String get voiceChimeTimerDescription;
+
+  /// Chime selection, playback or help shown on the device and in Remote Admin.
+  ///
+  /// In en, this message translates to:
+  /// **'Announcement sound'**
+  String get voiceChimeAnnounceTitle;
+
+  /// Chime selection, playback or help shown on the device and in Remote Admin.
+  ///
+  /// In en, this message translates to:
+  /// **'Plays before a Voice Satellite announcement unless it supplies its own sound.'**
+  String get voiceChimeAnnounceDescription;
+
   /// Label or help shown on the Voice Satellite main page.
   ///
   /// In en, this message translates to:

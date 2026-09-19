@@ -7,6 +7,7 @@ import android.media.AudioFormat
 import android.media.AudioManager
 import android.media.AudioTrack
 import android.media.AudioTimestamp
+import android.media.MediaMetadataRetriever
 import android.media.MediaPlayer
 import android.media.audiofx.Visualizer
 import android.os.Build
@@ -175,6 +176,22 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
     init {
         channel.setMethodCallHandler { call, result ->
             when (call.method) {
+                "duration" -> {
+                    val source = call.argument<String>("source") ?: ""
+                    workerHandler.post {
+                        val reader = MediaMetadataRetriever()
+                        val seconds = try {
+                            reader.setDataSource(source)
+                            reader.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
+                                ?.toDoubleOrNull()?.div(1000.0)
+                        } catch (_: Exception) {
+                            null
+                        } finally {
+                            try { reader.release() } catch (_: Exception) {}
+                        }
+                        mainHandler.post { result.success(seconds) }
+                    }
+                }
                 "play", "playDiagnostic" -> result.success(
                     play(
                         call.argument<String>("id") ?: "",

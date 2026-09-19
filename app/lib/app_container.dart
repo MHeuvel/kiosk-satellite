@@ -105,7 +105,7 @@ class AppContainer {
     dlna.transportState.addListener(syncDlnaCover);
     dlna.pending.addListener(syncDlnaCover);
     files = FilesManager(bus, commands, log);
-    sound = SoundManager(bus, commands, log);
+    sound = SoundManager(bus, commands, log, settings: settings);
     voiceTimers = VoiceTimerManager(bus, commands, log);
     notifications = NotificationManager(bus, commands, log, settings);
     update = UpdateManager(

@@ -22,6 +22,7 @@ const Map<String, Object> subpageIcons = {
   'Hold mode': Icons.push_pin_outlined,
   'Optimizations': Icons.speed_outlined,
   // Voice Satellite.
+  'Chimes': Icons.music_note_outlined,
   'Wake Word': Icons.hearing_outlined,
   'Appearance': Icons.brush_outlined,
   // Screen & Audio.

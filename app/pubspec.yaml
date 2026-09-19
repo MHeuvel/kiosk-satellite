@@ -107,6 +107,10 @@ flutter:
     - assets/branding/mark.svg
     - assets/sounds/notification.ogg
     - assets/sounds/timer-alert.mp3
+    - assets/sounds/voice-wake.mp3
+    - assets/sounds/voice-done.mp3
+    - assets/sounds/voice-error.mp3
+    - assets/sounds/voice-announce.mp3
     - assets/camera/camera_off.jpg
     - assets/mdi/
   fonts:

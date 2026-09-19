@@ -4,6 +4,14 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ## Unreleased
 
+### Added
+
+- **Choose Voice Satellite chimes on each kiosk.** The new Chimes group offers wake, done, error, timer and announcement sounds with file selection, upload and preview on the device and in Remote Admin. Custom files stay on the kiosk and bundled sounds remain available as defaults. All new controls include English and Spanish text (voice-satellite-card-integration#179).
+
+### Fixed
+
+- **Long timer sounds finish before repeating.** Native alerts wait for playback completion and stop when muted or dismissed. Kiosk reports selected chime durations to Voice Satellite so longer wake sounds keep the microphone muted for their full duration (voice-satellite-card-integration#179).
+
 ### Changed
 
 - **Timer pills are 20% larger.** Increased pill dimensions, text, icons and spacing for easier reading while keeping saved positions and narrow-screen layouts (#612).

@@ -32,6 +32,7 @@ String buildKioskSatelliteScript({
     version: '$version',
     os: '$os',
 
+    getVoiceChimeDurations: function () { return call('getVoiceChimeDurations'); },
     setVoiceTimerAlert: function (snapshot) { return call('setVoiceTimerAlert', snapshot); },
     setVoiceTimers: function (snapshot) { return call('setVoiceTimers', snapshot); },
     voiceTimerActionFailed: function (entityId) {

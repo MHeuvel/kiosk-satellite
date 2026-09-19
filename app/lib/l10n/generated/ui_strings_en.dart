@@ -10145,6 +10145,58 @@ class UiStringsEn extends UiStrings {
       'Available while the kiosk is showing your Home Assistant dashboard.';
 
   @override
+  String get voiceChimesPage => 'Chimes';
+
+  @override
+  String get voiceChimesHint =>
+      'Wake, done, error, timer and announcement sounds';
+
+  @override
+  String get voiceChimesPreview => 'Preview on kiosk';
+
+  @override
+  String get voiceChimesPreviewFailed => 'Could not play the sound.';
+
+  @override
+  String get voiceChimesHelp =>
+      'Choose sounds for this kiosk. Upload custom files here. Sounds stored in Home Assistant are not used for local chimes.';
+
+  @override
+  String get voiceChimeWakeTitle => 'Wake sound';
+
+  @override
+  String get voiceChimeWakeDescription =>
+      'Plays when Voice Satellite starts listening.';
+
+  @override
+  String get voiceChimeDoneTitle => 'Done sound';
+
+  @override
+  String get voiceChimeDoneDescription =>
+      'Plays when a voice interaction finishes.';
+
+  @override
+  String get voiceChimeErrorTitle => 'Error sound';
+
+  @override
+  String get voiceChimeErrorDescription =>
+      'Plays when a voice interaction fails.';
+
+  @override
+  String get voiceChimeTimerTitle => 'Timer sound';
+
+  @override
+  String get voiceChimeTimerDescription =>
+      'Repeats when a timer finishes until you dismiss it.';
+
+  @override
+  String get voiceChimeAnnounceTitle => 'Announcement sound';
+
+  @override
+  String get voiceChimeAnnounceDescription =>
+      'Plays before a Voice Satellite announcement unless it supplies its own sound.';
+
+  @override
   String get voiceEngine => 'Engine';
 
   @override

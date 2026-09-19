@@ -1,5 +1,10 @@
-`timer-alert.mp3` is the bundled timer alert from Voice Satellite:
-`custom_components/voice_satellite/sounds/alert.mp3` in
-https://github.com/jxlarrea/voice-satellite-card-integration.
+The Voice Satellite defaults are bundled from
+`custom_components/voice_satellite/sounds/` in the Voice Satellite integration.
 
-Kiosk plays this local copy through the selected speaker at the assistant volume.
+- `timer-alert.mp3` is `alert.mp3`.
+- `voice-wake.mp3`, `voice-done.mp3`, `voice-error.mp3` and `voice-announce.mp3`
+  keep their corresponding sounds with a `voice-` prefix.
+
+Custom sounds are selected under Settings > Voice Satellite > Chimes and stored
+in the app's `sounds` folder. They survive app updates. Home Assistant sound
+replacements do not change the sounds played locally by Kiosk Satellite.

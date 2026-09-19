@@ -76,6 +76,7 @@ class VoiceTimerManager extends Manager {
   String? _soundId;
   int _soundGeneration = 0;
   bool _playing = false;
+  Completer<void>? _soundDone;
   final error = ValueNotifier<int>(0);
   String _entity = '';
   StreamSubscription<VoiceTimersCleared>? _clearSub;
@@ -186,24 +187,44 @@ class VoiceTimerManager extends Manager {
     if (_muted || alerts.value.isEmpty || _playing) return;
     final generation = _soundGeneration;
     _playing = true;
+    final done = Completer<void>();
+    _soundDone = done;
+    final ended = <String>{};
+    String? playingId;
+    final subscription = bus.on<SoundEnded>().listen((event) {
+      ended.add(event.id);
+      if (event.id == playingId && !done.isCompleted) done.complete();
+    });
     try {
       final result = await commands.execute('playTimerChime', const {});
       final data = result.data;
       if (data is Map && data['id'] is String) {
         final id = data['id'] as String;
+        playingId = id;
         if (generation != _soundGeneration || _muted || alerts.value.isEmpty) {
           await commands.execute('stopSound', {'id': id});
         } else {
           _soundId = id;
+          if (ended.contains(id) && !done.isCompleted) done.complete();
+          await done.future;
         }
       }
     } finally {
-      _playing = false;
+      if (generation == _soundGeneration) {
+        _playing = false;
+        _soundId = null;
+        _soundDone = null;
+      }
+      await subscription.cancel();
     }
   }
 
   void _stopSound() {
     _soundGeneration++;
+    final done = _soundDone;
+    _soundDone = null;
+    if (done != null && !done.isCompleted) done.complete();
+    _playing = false;
     final id = _soundId;
     _soundId = null;
     if (id != null) unawaited(commands.execute('stopSound', {'id': id}));

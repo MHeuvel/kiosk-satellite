@@ -101,6 +101,7 @@ This handles the output half of the audio handoff. The web page passes a URL ove
 | Method | Returns | Description |
 |---|---|---|
 | `playSound(url, {volume, cache, stream})` | `{id}` or `false` | Plays the `url` natively. Sounds handed over by the page always play at the app's Assistant volume setting. The `volume` option is accepted for API compatibility but completely ignored, preventing the page from stacking extra attenuation on top of the app's fader. Setting `cache: true` saves the download so subsequent replays start instantly, which is ideal for fixed assets like chimes. Setting `stream: true` plays the audio through a loopback relay while it is still downloading. This is necessary for server generated sources like TTS; waiting for the whole file to download would artificially delay speech by the synthesis tail duration. Resolving `false` means the app refused the request (fetch failed, playback error, etc.), prompting Voice Satellite to fall back to browser audio. |
+| `getVoiceChimeDurations()` | `object` or `false` | Returns the durations in seconds of the five locally selected Voice Satellite sounds, keyed by `wake.mp3`, `done.mp3`, `error.mp3`, `alert.mp3` and `announce.mp3`. Missing or unreadable selections use bundled defaults. |
 | `prefetchSound(url)` | `boolean` | Warms the cache so the very first `playSound` call for that `url` starts with zero fetch delay. |
 | `stopSound(id)` | `boolean` | Stops a playing sound early. A `sound-ended` event will still fire. |
 | `setSoundVolume(id, volume)` | `boolean` | Accepted for compatibility, but the `volume` value is strictly ignored. The app's Assistant volume fader dictates loudness and applies live to playing sounds automatically. |
@@ -139,6 +140,7 @@ The API dispatches `CustomEvent`s directly on the `window` object:
 | `kiosksatellite:screensaverstart` / `:screensaverstop` | `{}` | The screensaver state changed. |
 | `kiosksatellite:sound-started` | `{id}` | A `playSound` request actually began playing (audio is physically leaving the speaker). You should time stop word arming and UI state changes off this event, not off the `playSound` resolution. |
 | `kiosksatellite:sound-level` | `{id, level}` | Provides the playback level of a playing sound (the mean absolute amplitude from 0 to 1, updating at most ~20 times per second, with near duplicate samples skipped). This allows a page visualizer to animate to audio it never actually touches. Note: This is best-effort and will be absent on devices lacking a functional hardware `Visualizer`. |
+| `kiosksatellite:voice-chimes-changed` | `{filename: seconds}` | Selected local chime durations changed. Use these values for local microphone timing. Remote speakers continue to use Home Assistant sounds. |
 | `kiosksatellite:sound-ended` | `{id, error?}` | A `playSound` request naturally finished, failed (with the `error` string detailing why), or was manually stopped. This fires exactly once per sound. |
 | `kiosksatellite:intercom` | the `intercomStatus` shape | The intercom changed: a call placed, ringing, answered or ended, a broadcast coming in, the kiosks on the network. |
 | `kiosksatellite:intercom-mic` | `{hold}` | With `hold` true the intercom wants the microphone the page holds through `getUserMedia`, for a call or a broadcast, and waits two seconds for the page to stop its tracks before the call goes on listen only. With `hold` false the call is over and the page may open its capture again. Voice Satellite lets go of its own capture on this event and brings it back after. |
@@ -205,3 +207,14 @@ It requires an additional VS-side hook (sitting outside the current surface of t
 `kiosksatellite:timer-action` carries `{entityId, id, action}`. Actions are `pause`, `resume`, `cancel` and `dismiss`. The integration applies running timer actions to Home Assistant and sends the resulting snapshot. `dismiss` clears the finished alert. `voiceTimerActionFailed(entityId)` shows a local error if an action fails.
 
 Document replacement clears native timer presentation and stops alert audio. The new document restores countdowns from the satellite state. Timer positions remain stored per device.
+
+### Local Voice Satellite chimes
+
+The five canonical `/voice_satellite/sounds/` MP3 URLs passed to `playSound`
+and `prefetchSound` resolve to the selections under Voice Satellite > Chimes.
+Kiosk uses its bundled defaults when no custom file is selected. Other URLs,
+including custom preannouncement media, keep their normal playback behavior.
+Use `getVoiceChimeDurations()` before starting voice interactions and listen
+for `kiosksatellite:voice-chimes-changed` to keep local microphone timing current.
+Native timer alerts use the same timer sound and wait for its completion before
+repeating. Preview commands play on the kiosk at its assistant volume.

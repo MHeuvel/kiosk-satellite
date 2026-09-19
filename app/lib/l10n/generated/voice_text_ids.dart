@@ -133,5 +133,20 @@ const voiceTextMessageIds = <String, String>{
   "Slightly sensitive": "voiceSlightlySensitive",
   "Moderately sensitive": "voiceModeratelySensitive",
   "On Device": "voiceOnDevice",
-  "Microphone and the other grants wake word detection needs.": "voicePermissionsSearch"
+  "Microphone and the other grants wake word detection needs.": "voicePermissionsSearch",
+  "Chimes": "voiceChimesPage",
+  "Wake, done, error, timer and announcement sounds": "voiceChimesHint",
+  "Preview on kiosk": "voiceChimesPreview",
+  "Could not play the sound.": "voiceChimesPreviewFailed",
+  "Choose sounds for this kiosk. Upload custom files here. Sounds stored in Home Assistant are not used for local chimes.": "voiceChimesHelp",
+  "Wake sound": "voiceChimeWakeTitle",
+  "Plays when Voice Satellite starts listening.": "voiceChimeWakeDescription",
+  "Done sound": "voiceChimeDoneTitle",
+  "Plays when a voice interaction finishes.": "voiceChimeDoneDescription",
+  "Error sound": "voiceChimeErrorTitle",
+  "Plays when a voice interaction fails.": "voiceChimeErrorDescription",
+  "Timer sound": "voiceChimeTimerTitle",
+  "Repeats when a timer finishes until you dismiss it.": "voiceChimeTimerDescription",
+  "Announcement sound": "voiceChimeAnnounceTitle",
+  "Plays before a Voice Satellite announcement unless it supplies its own sound.": "voiceChimeAnnounceDescription"
 };

@@ -110,7 +110,8 @@ Certain settings remain unique to each kiosk regardless of the profile configura
 | Remote admin & fleet | `remote.enabled`, `remote.port`, `remote.password`, `remote.fleet_discovery`, `fleet.*` |
 | Hardware picks | `camera.device`, `camera.rtsp.resolution`, `camera.rtsp.analysis`, `motion.camera`, `audio.mic_device`, `audio.speaker_device`, `audio.mic_channel`, `audio.mic_source`, `audio.mic_echo_cancellation`, `audio.mic_gain_db`, `audio.mic_agc`, `audio.mic_noise_suppression`, `audio.mic_capture_format`, `render.disable_impeller`, `render.legacy_webview`, `ui.scale`, `screen.ambient_display` |
 | Followed player | `sendspin.player`, `sendspin.player_source`, `sendspin.player_name` |
-| Local state | `screensaver.saved_brightness`, `screensaver.immich_validated`, `sendspin.player_active`, `sendspin.player_pos`, `sendspin.sonos_hosts` |
+| Voice Satellite chimes | `voice_chimes.wake`, `voice_chimes.done`, `voice_chimes.error`, `voice_chimes.alert`, `voice_chimes.announce` |
+| Local state | `voice.timer_position`, `screensaver.saved_brightness`, `screensaver.immich_validated`, `sendspin.player_active`, `sendspin.player_pos`, `sendspin.sonos_hosts` |
 
 Plugin Manager stays entirely local. Runtime chart data, history and plugin entity declarations and readings are never synchronized. Plugin entity exclusions stay local even when ordinary ESPHome exclusions are synced. Fleet sync does not copy installed plugins, packages, plugin settings, per-plugin enabled states, drawer or Home Assistant action placements or the **Enable Plugins** master switch. A fleet token cannot call plugin management commands.
 

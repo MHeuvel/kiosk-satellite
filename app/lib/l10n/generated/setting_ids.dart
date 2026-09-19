@@ -1408,4 +1408,24 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingScreensaverScreenOffBlackTitle",
     "description": "settingScreensaverScreenOffBlackDescription",
   },
+  "voice_chimes.wake": {
+    "title": "voiceChimeWakeTitle",
+    "description": "voiceChimeWakeDescription",
+  },
+  "voice_chimes.done": {
+    "title": "voiceChimeDoneTitle",
+    "description": "voiceChimeDoneDescription",
+  },
+  "voice_chimes.error": {
+    "title": "voiceChimeErrorTitle",
+    "description": "voiceChimeErrorDescription",
+  },
+  "voice_chimes.alert": {
+    "title": "voiceChimeTimerTitle",
+    "description": "voiceChimeTimerDescription",
+  },
+  "voice_chimes.announce": {
+    "title": "voiceChimeAnnounceTitle",
+    "description": "voiceChimeAnnounceDescription",
+  },
 };

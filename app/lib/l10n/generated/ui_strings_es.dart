@@ -10360,6 +10360,58 @@ class UiStringsEs extends UiStrings {
       'Disponible mientras el kiosko muestra tu panel de control de Home Assistant.';
 
   @override
+  String get voiceChimesPage => 'Sonidos';
+
+  @override
+  String get voiceChimesHint =>
+      'Sonidos de activación, finalización, error, temporizadores y anuncios';
+
+  @override
+  String get voiceChimesPreview => 'Reproducir en el kiosco';
+
+  @override
+  String get voiceChimesPreviewFailed => 'No se pudo reproducir el sonido.';
+
+  @override
+  String get voiceChimesHelp =>
+      'Elige los sonidos de este kiosco. Sube aquí tus archivos personalizados. Los sonidos guardados en Home Assistant no se usan para los avisos locales.';
+
+  @override
+  String get voiceChimeWakeTitle => 'Sonido de activación';
+
+  @override
+  String get voiceChimeWakeDescription =>
+      'Se reproduce cuando Voice Satellite empieza a escuchar.';
+
+  @override
+  String get voiceChimeDoneTitle => 'Sonido de finalización';
+
+  @override
+  String get voiceChimeDoneDescription =>
+      'Se reproduce cuando termina una interacción de voz.';
+
+  @override
+  String get voiceChimeErrorTitle => 'Sonido de error';
+
+  @override
+  String get voiceChimeErrorDescription =>
+      'Se reproduce cuando falla una interacción de voz.';
+
+  @override
+  String get voiceChimeTimerTitle => 'Sonido del temporizador';
+
+  @override
+  String get voiceChimeTimerDescription =>
+      'Se repite cuando termina un temporizador hasta que lo cierres.';
+
+  @override
+  String get voiceChimeAnnounceTitle => 'Sonido de anuncio';
+
+  @override
+  String get voiceChimeAnnounceDescription =>
+      'Se reproduce antes de un anuncio de Voice Satellite, salvo que el anuncio incluya su propio sonido.';
+
+  @override
   String get voiceEngine => 'Motor';
 
   @override

@@ -873,7 +873,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   storageKey:
                                       'settings-sub-$category-$_subpage',
                                   title:
-                                      (category == 'ESPHome' ||
+                                      (category == 'Voice Satellite' ||
+                                          category == 'ESPHome' ||
                                           category == 'Device' ||
                                           category == 'Home Assistant' ||
                                           category == 'Screen & Audio' ||
@@ -1388,7 +1389,8 @@ class SubpageSettingsScreen extends StatelessWidget {
             const SizedBox(width: 12),
             Flexible(
               child: Text(
-                (category == 'ESPHome' ||
+                (category == 'Voice Satellite' ||
+                        category == 'ESPHome' ||
                         category == 'Device' ||
                         category == 'Home Assistant' ||
                         category == 'Screen & Audio' ||
@@ -3421,6 +3423,18 @@ class _CategoryContentState extends State<_CategoryContent> {
               MicLevelTile(container: container),
           ],
         ),
+      ];
+    }
+
+    if (widget.category == 'Voice Satellite' && subpage == 'Chimes') {
+      return [
+        HintRow(
+          voiceText(
+            context,
+            'Choose sounds for this kiosk. Upload custom files here. Sounds stored in Home Assistant are not used for local chimes.',
+          ),
+        ),
+        ...sectioned(voiceChimeSettings.values.toList()),
       ];
     }
 
@@ -5836,8 +5850,38 @@ class _NotificationSoundTileState extends State<_NotificationSoundTile> {
       return;
     }
     await widget.container.settings.setFromJson(widget.def.key, name);
+    if (widget.def.key.startsWith('voice_chimes.')) {
+      await widget.container.commands.execute(
+        'getVoiceChimeDurations',
+        const {},
+      );
+    }
     await _refresh();
     widget.onChanged();
+  }
+
+  @override
+  void dispose() {
+    if (widget.def.key.startsWith('voice_chimes.')) {
+      unawaited(
+        widget.container.commands.execute('stopSound', {'id': 'voice-preview'}),
+      );
+    }
+    super.dispose();
+  }
+
+  Future<void> _preview() async {
+    final result = await widget.container.commands.execute(
+      'previewVoiceChime',
+      {'kind': widget.def.key.split('.').last},
+    );
+    if (!result.ok && mounted) {
+      showToast(
+        context,
+        title: voiceText(context, 'Could not play the sound.'),
+        kind: ToastKind.error,
+      );
+    }
   }
 
   @override
@@ -5870,6 +5914,24 @@ class _NotificationSoundTileState extends State<_NotificationSoundTile> {
             widget.onChanged();
           },
         ),
+        if (def.key.startsWith('voice_chimes.'))
+          Wrap(
+            alignment: WrapAlignment.end,
+            spacing: 8,
+            children: [
+              TextButton(
+                onPressed: _preview,
+                child: Text(voiceText(context, 'Preview on kiosk')),
+              ),
+              TextButton(
+                onPressed: () => widget.container.commands.execute(
+                  'stopSound',
+                  {'id': 'voice-preview'},
+                ),
+                child: Text(voiceText(context, 'Stop')),
+              ),
+            ],
+          ),
         ListTile(
           title: Text(intercomText(context, "Add a sound")),
           subtitle: Text(
@@ -10023,7 +10085,8 @@ class SettingTile extends StatelessWidget {
         // The notification sound (issue #320): a dropdown over the sounds
         // folder, and a row to put a file of this device's into it. The
         // intercom's ring sound is picked from the same folder.
-        if (def.key == notificationsChimeFile.key ||
+        if (voiceChimeSettings.values.any((sound) => sound.key == def.key) ||
+            def.key == notificationsChimeFile.key ||
             def.key == intercomRingSound.key ||
             def.key == announcementsChimeFile.key) {
           return _NotificationSoundTile(
@@ -11260,10 +11323,9 @@ class _VsControlsSectionState extends State<VsControlsSection> {
     );
   }
 
-  /// The rows opening this page's two second-level pages, each on a card of
-  /// its own, where the two groups used to sit.
+  /// Entries for the Voice Satellite settings groups.
   List<Widget> _vsPageEntries() => [
-    for (final page in const ['Wake Word', 'Appearance'])
+    for (final page in const ['Wake Word', 'Appearance', 'Chimes'])
       _subpageEntryCard(widget.container, 'Voice Satellite', page),
   ];
 }

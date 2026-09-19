@@ -9,6 +9,8 @@ import 'package:path_provider/path_provider.dart';
 import '../../core/command_registry.dart';
 import '../../core/events.dart';
 import '../../core/manager.dart';
+import '../notifications/notification_sounds.dart';
+import '../settings/settings_manager.dart';
 import 'sound_capture.dart';
 
 /// Page-delegated sound playback (Voice Satellite chimes and TTS).
@@ -30,7 +32,80 @@ import 'sound_capture.dart';
 ///    relay here, which pipes the remote response through as it arrives
 ///    (same certificate story as downloads).
 class SoundManager extends Manager {
-  SoundManager(super.bus, super.commands, super.log);
+  SoundManager(super.bus, super.commands, super.log, {this.settings});
+
+  final SettingsManager? settings;
+  int _previewGeneration = 0;
+  int _refreshGeneration = 0;
+  StreamSubscription<SettingChanged>? _settingsSub;
+  final _voiceDurations = <String, (int, int, double)>{};
+  static const _voiceDefaults = <String, double>{
+    'wake': 0.29,
+    'done': 0.29,
+    'error': 0.19,
+    'alert': 0.63,
+    'announce': 1.0,
+  };
+
+  static String? voiceChimeKind(String url) {
+    final path = Uri.tryParse(url)?.path;
+    final match = RegExp(
+      r'^/voice_satellite/sounds/(wake|done|error|alert|announce)\.mp3$',
+    ).firstMatch(path ?? '');
+    return match?.group(1);
+  }
+
+  Future<double?> _voiceDuration(String source) async {
+    final stat = await File(source).stat();
+    final cached = _voiceDurations[source];
+    if (cached != null &&
+        cached.$1 == stat.size &&
+        cached.$2 == stat.modified.microsecondsSinceEpoch) {
+      return cached.$3;
+    }
+    try {
+      final duration = await _channel.invokeMethod<num>('duration', {
+        'source': source,
+      });
+      if (duration != null && duration.isFinite && duration > 0) {
+        final seconds = duration.toDouble();
+        _voiceDurations[source] = (
+          stat.size,
+          stat.modified.microsecondsSinceEpoch,
+          seconds,
+        );
+        return seconds;
+      }
+    } catch (e) {
+      log.warn(name, 'Cannot read chime duration: $e');
+    }
+    return null;
+  }
+
+  Future<(String, double)> _voiceChime(String kind) async {
+    final def = voiceChimeSettings[kind]!;
+    final custom = await NotificationSounds.resolve(settings?.get(def) ?? '');
+    if (custom != null) {
+      final duration = await _voiceDuration(custom);
+      if (duration != null) return (custom, duration);
+      log.warn(name, 'Unreadable $kind chime, using the bundled sound');
+    }
+    final asset = kind == 'alert' ? 'timer-alert' : 'voice-$kind';
+    final source = await _bundled('assets/sounds/$asset.mp3');
+    return (source, await _voiceDuration(source) ?? _voiceDefaults[kind]!);
+  }
+
+  Future<Map<String, double>> _refreshVoiceChimes() async {
+    final generation = ++_refreshGeneration;
+    final durations = <String, double>{};
+    for (final kind in voiceChimeSettings.keys) {
+      durations['$kind.mp3'] = (await _voiceChime(kind)).$2;
+    }
+    if (generation == _refreshGeneration) {
+      bus.publish(VoiceChimesChanged(durations));
+    }
+    return durations;
+  }
 
   static const _channel = MethodChannel('kiosk_satellite/sound');
 
@@ -96,7 +171,52 @@ class SoundManager extends Manager {
       return null;
     });
 
+    _settingsSub = bus.on<SettingChanged>().listen((event) {
+      if (voiceChimeSettings.values.any((def) => def.key == event.key)) {
+        unawaited(
+          _refreshVoiceChimes().catchError((Object error) {
+            log.warn(name, 'Cannot refresh voice chimes: $error');
+            return <String, double>{};
+          }),
+        );
+      }
+    });
     commands
+      ..register(
+        Command(
+          name: 'getVoiceChimeDurations',
+          description:
+              'Read the durations of the Voice Satellite chimes on this kiosk.',
+          handler: (_) async => CommandResult.ok(await _refreshVoiceChimes()),
+        ),
+      )
+      ..register(
+        Command(
+          name: 'previewVoiceChime',
+          description:
+              'Preview a selected Voice Satellite chime on this kiosk.',
+          params: const {'kind': 'wake, done, error, alert or announce'},
+          handler: (p) async {
+            final kind = p['kind'];
+            if (kind is! String || !voiceChimeSettings.containsKey(kind)) {
+              return const CommandResult.fail('Unknown chime');
+            }
+            final generation = ++_previewGeneration;
+            final source = (await _voiceChime(kind)).$1;
+            if (generation != _previewGeneration) {
+              return const CommandResult.ok();
+            }
+            final ok = await _channel.invokeMethod<bool>('play', {
+              'id': 'voice-preview',
+              'source': source,
+              'volume': 1.0,
+            });
+            return ok == true
+                ? const CommandResult.ok()
+                : const CommandResult.fail('Playback failed');
+          },
+        ),
+      )
       ..register(
         Command(
           name: 'soundDiagnostics',
@@ -135,7 +255,10 @@ class SoundManager extends Manager {
             }
             final id = 'snd${++_nextId}';
             final String source;
-            if (p['stream'] == true) {
+            final chime = voiceChimeKind(url);
+            if (chime != null) {
+              source = (await _voiceChime(chime)).$1;
+            } else if (p['stream'] == true) {
               try {
                 source = await _relayUrlFor(id, url);
               } catch (e) {
@@ -178,7 +301,12 @@ class SoundManager extends Manager {
               return const CommandResult.fail('url required');
             }
             try {
-              await _fetch(url, cache: true);
+              final kind = voiceChimeKind(url);
+              if (kind != null) {
+                await _voiceChime(kind);
+              } else {
+                await _fetch(url, cache: true);
+              }
               return const CommandResult.ok();
             } catch (e) {
               return CommandResult.fail('sound fetch failed: $e');
@@ -189,10 +317,10 @@ class SoundManager extends Manager {
       ..register(
         Command(
           name: 'playTimerChime',
-          description: 'Play the bundled Voice Satellite timer alert locally.',
+          description: 'Play the selected Voice Satellite timer alert locally.',
           handler: (_) async {
             final id = 'timer${++_nextId}';
-            final source = await _bundled('assets/sounds/timer-alert.mp3');
+            final source = (await _voiceChime('alert')).$1;
             final ok = await _channel.invokeMethod<bool>('play', {
               'id': id,
               'source': source,
@@ -243,6 +371,7 @@ class SoundManager extends Manager {
           description: 'Stop a playing sound by its playSound id',
           params: const {'id': 'id returned by playSound'},
           handler: (p) async {
+            if (p['id'] == 'voice-preview') _previewGeneration++;
             await _channel.invokeMethod<void>('stop', {'id': '${p['id']}'});
             return const CommandResult.ok();
           },
@@ -514,6 +643,7 @@ class SoundManager extends Manager {
 
   @override
   Future<void> dispose() async {
+    await _settingsSub?.cancel();
     _captureArmed = false;
     _capture?.discard('Sound manager disposed');
     _capture = null;

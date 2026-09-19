@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite",
-  "revision": "e16df7a50be60bc8c0b3290bafe8c2801f2e6cf8",
+  "revision": "92774e65b4e1d8e5891f18d7942ff489fa7e0424",
   "workingTree": true,
   "files": {
     "about_identity_en.arb": "dd006567f69f846e2e3b73f09ad13784f0022d282ea3101fa9be7fc95175ec2d",
@@ -164,6 +164,7 @@
     "settings_search_en.arb": "d8ea2b418814f507a28a47cfda97d656d3fdf00962a2817f7f390450a49b5a67",
     "settings_search_extras_en.arb": "bbc4b15014e794b22b5b6e6dd4181d3820c400f172e54ac0fb5c13e42fbadee1",
     "settings_voice_satellite_appearance_en.arb": "d203816605c64eb35b1258d4cc954e9eba46f73cdab05b5b4e5320380c7990a7",
+    "settings_voice_satellite_chimes_en.arb": "d985122cd10ce3a7748b54d7903e1416ded9cd6e0e601d0e99d23d4ef62f1c3d",
     "settings_voice_satellite_general_en.arb": "afc32a1f596b52d32633979008ce70e0a2542daadf6ed3d236b9acb6faed313e",
     "settings_voice_satellite_permissions_en.arb": "96fc7cab269a286bfa12be9adc861941c3548cc41b45195d828d739610441f5e",
     "settings_voice_satellite_setup_en.arb": "5d6e328bc7d48614c3b6af3e3ee2ecd16c9e36b38991a5f2e9477b2ac0584874",

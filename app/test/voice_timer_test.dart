@@ -190,6 +190,8 @@ void main() {
     await tester.pump();
     expect(sounds, ['play']);
     expect(find.text('Timer finished'), findsOneWidget);
+    c.bus.publish(const SoundEnded(id: 'sound1'));
+    await tester.pump();
     await tester.pump(const Duration(seconds: 3));
     expect(sounds.where((s) => s == 'play').length, 2);
     await alert([timer('done')], muted: true);
@@ -242,5 +244,40 @@ void main() {
     started.complete(const CommandResult.ok({'id': 'late'}));
     await tester.pump();
     expect(sounds, ['stop:late']);
+  });
+
+  testWidgets('long timer sounds do not overlap and can be dismissed', (
+    tester,
+  ) async {
+    await alert([timer('long')]);
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 6));
+    expect(sounds, ['play']);
+    c.bus.publish(const SoundEnded(id: 'unrelated'));
+    await tester.pump(const Duration(seconds: 3));
+    expect(sounds, ['play']);
+    c.bus.publish(const SoundEnded(id: 'sound1'));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 3));
+    expect(sounds, ['play', 'play']);
+    await alert([]);
+    await tester.pump(const Duration(seconds: 9));
+    expect(sounds, ['play', 'play', 'stop:sound2']);
+  });
+
+  testWidgets('completion before the command response releases playback', (
+    tester,
+  ) async {
+    final result = Completer<CommandResult>();
+    pendingSound = result;
+    await alert([timer('early')]);
+    c.bus.publish(const SoundEnded(id: 'early'));
+    await tester.pump();
+    result.complete(const CommandResult.ok({'id': 'early'}));
+    await tester.pump();
+    pendingSound = null;
+    await tester.pump(const Duration(seconds: 3));
+    expect(sounds, ['play']);
+    await alert([]);
   });
 }
