@@ -2,6 +2,12 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Fixed
+
+- **A missing or blocked media picker no longer crashes KS.** Failed photo and video picker launches clear the pending request before reporting the error. A later Android cancellation cannot reply to that request twice and the picker can be tried again.
+
 ## v2026.9.64 - 2026-09-19
 
 ### Added
