@@ -129,6 +129,7 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
     @Volatile private var recording = false
     private var record: AudioRecord? = null
     private var worker: Thread? = null
+    private var delivery: PcmDelivery? = null
     private var aec: AcousticEchoCanceler? = null
     private var ns: NoiseSuppressor? = null
     private var agc: AutomaticGainControl? = null
@@ -202,6 +203,12 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         )
         applyPreferredDevice(opened, selector)
         applyDsp(opened.audioSessionId, wantAec, wantAgc, wantNs)
+        // Four 80 ms chunks cover ordinary scheduling jitter. A stalled
+        // platform thread must not retain an unlimited history of audio.
+        val frames = PcmDelivery(
+            CHUNK_BYTES * 4, mainHandler::post, mainHandler::removeCallbacks,
+        ) { sink.success(it) }
+        delivery = frames
         recording = true
         opened.startRecording()
         CommunicationPlayback.get(appContext).captureStarted()
@@ -230,8 +237,9 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
             // The next rung of the ladder that opens, or nothing when it is
             // exhausted: the capture in hand then stays, whatever it is.
             fun advance(why: String) {
+                if (!frames.isOpen) return
                 var next: AudioRecord? = null
-                while (next == null && step + 1 < ladder.size) {
+                while (frames.isOpen && next == null && step + 1 < ladder.size) {
                     step++
                     next = try {
                         openRecord(source, ladder[step], indexed)
@@ -239,6 +247,10 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
                         null
                     }
                     if (next == null) Log.w(TAG, "$why; ${ladder[step]} refused")
+                }
+                if (!frames.isOpen) {
+                    next?.release()
+                    return
                 }
                 if (next == null) {
                     Log.w(TAG, "$why and no other capture format is left; keeping $shape")
@@ -270,15 +282,16 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
                 buf = ByteArray(shape.chunkBytes)
             }
 
-            while (recording) {
+            while (frames.isOpen) {
                 val readStartNs = System.nanoTime()
                 val read = cur.read(buf, 0, buf.size)
+                if (!frames.isOpen) break
                 if (read == 0) continue
                 if (read < 0) {
                     // ERROR_DEAD_OBJECT and friends come back on every call:
                     // a track the server side gave up on. Pace the loop and
                     // let the watchdog treat the wait as silence.
-                    if (!recording) break
+                    if (!frames.isOpen) break
                     Thread.sleep(20)
                     zeroRun += SAMPLE_RATE * 2 / 50
                     if (zeroRun >= SILENT_FALLBACK_BYTES) {
@@ -341,9 +354,7 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
                 if (chunk.isEmpty()) continue
                 if (gain != 1.0) amplify(chunk, chunk.size, gain)
                 rtspAudioTap?.invoke(chunk, System.nanoTime() / 1000 - chunk.size * 1_000_000L / 32000)
-                mainHandler.post {
-                    if (recording) sink.success(chunk)
-                }
+                frames.offer(chunk)
             }
         }
     }
@@ -625,6 +636,11 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
     }
 
     private fun stop() {
+        delivery?.let {
+            it.close()
+            if (it.droppedChunks > 0) Log.w(TAG, "capture delivery dropped ${it.droppedChunks} stale chunks")
+        }
+        delivery = null
         recording = false
         worker?.let { try { it.join(500) } catch (_: InterruptedException) {} }
         worker = null
