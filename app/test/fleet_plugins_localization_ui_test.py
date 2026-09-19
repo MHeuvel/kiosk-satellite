@@ -24,6 +24,13 @@ for key,value in [('fleet.leader',True),('fleet.auto_update',False)]:
 profiles=[dict(id='default',name='Default',categories=['Kiosk'],credentials=['ha.token'],excluded=[],dashboard=False),
           dict(id='updates-only',name='Updates only',categories=[],credentials=[],excluded=[],dashboard=False),
           dict(id='own',name='Default',categories=[],credentials=[],excluded=[],dashboard=False)]
+syncable=[]
+for key in ['kiosk.enabled','kiosk.start_on_boot']:
+    ids=mapping[key]
+    entry=dict(key=key,title=english[ids['title']],description=english[ids['description']],category='Kiosk Mode',hidden=False)
+    syncable.append(entry)
+    settings.append(dict(entry,value=False,type='boolean',category='Kiosk',titleMessageId=ids['title'],descriptionMessageId=ids['description']))
+profiles[0]['excluded']=['kiosk.enabled']
 fleet=dict(enabled=True,leader=True,profiles=profiles,categories=[dict(id='Kiosk',title='Kiosk Mode',note='the PIN is also synced'),dict(id='Camera',title='Camera',note='the device camera')],credentials=[dict(key='ha.token',title='Home Assistant token')],followers=[dict(id='remote-id',name='<b>Keep NAME</b>',address='192.0.2.5',version='2026.9.59',profile='updates-only',profileName='Updates only',phase='synced',status='Synced just now',tone='ok')])
 plugin=dict(id='raw-plugin',name='Original <b>NAME</b>',version='1.0.0',enabled=True,running=True,description='Community description',status='Community status',capabilities=['shizuku'],commands=[dict(id='raw-action',title='Raw Action')],actionOptions={},values={'raw-setting':'Original Value'},settings=[dict(key='raw-setting',title='Raw Setting',type='string',default='Default Value')])
 plugins=dict(enabled=True,plugins=[plugin])
@@ -34,7 +41,7 @@ def api(route):
     if path=='settings':return route.fulfill(json=dict(settings=settings,subpageHints={}))
     name=path.removeprefix('commands/');params=route.request.post_data_json or {}
     commands.append((name,copy.deepcopy(params)))
-    data={'fleetStatus':fleet,'fleetCandidates':[],'getPluginState':plugins,'getPluginReadings':readings,'getPluginShizukuState':dict(status='permission_required'),'getPluginCharts':[],'getAudioDevices':dict(inputs=[],outputs=[])}.get(name,{})
+    data={'fleetStatus':fleet,'fleetSyncable':syncable,'fleetCandidates':[],'getPluginState':plugins,'getPluginReadings':readings,'getPluginShizukuState':dict(status='permission_required'),'getPluginCharts':[],'getAudioDevices':dict(inputs=[],outputs=[])}.get(name,{})
     if name=='fleetLookup':
         if not params.get('address'):
             return route.fulfill(json=dict(ok=False,error='Enter a valid IP address.'))
@@ -104,6 +111,45 @@ try:
         modal.get_by_role('button',name=tr('fleet','Save'),exact=True).click()
         page.wait_for_function("!document.querySelector('.modal-back')")
         assert any(n=='fleetSetProfile' and p['profile']['id']=='default' and p['profile']['categories']==['Kiosk','Camera'] for n,p in commands)
+        # Settings without a subpage must render in both exclusion dialogs.
+        for locale,catalog in [('en',english),('es',translated)]:
+            page.evaluate("""async locale=>{const core=await import('/static/core.js');core.cacheSettings(core.state.settings.map(s=>s.key==='ui.language'?{...s,value:locale}:s));}""",locale)
+            label=lambda text:catalog[maps['fleet'][text]]
+            path=lambda key:catalog['settingsMenuKiosk']+' → '+catalog[mapping[key]['title']]
+            panel.get_by_text(label('Excluded settings'),exact=True).click()
+            modal=page.locator('.modal-back').first
+            expect(modal.get_by_text(path('kiosk.enabled'),exact=True)).to_be_visible()
+            expect(modal.get_by_text(catalog[mapping['kiosk.enabled']['description']],exact=True)).to_be_visible()
+            modal.get_by_role('button',name=label('Sync it again'),exact=True).click()
+            expect(modal.get_by_text(label('Nothing left out'),exact=True)).to_be_visible()
+            modal.get_by_role('button',name=label('Add a setting'),exact=True).click()
+            picker=page.locator('.modal-back').last
+            expect(picker.get_by_text(path('kiosk.start_on_boot'),exact=True)).to_be_visible()
+            picker.get_by_role('searchbox').fill(catalog[mapping['kiosk.enabled']['title']])
+            expect(picker.locator('.fleet-row')).to_have_count(1)
+            picker.get_by_text(path('kiosk.enabled'),exact=True).click()
+            expect(page.locator('.modal-back')).to_have_count(1)
+            expect(modal.get_by_text(path('kiosk.enabled'),exact=True)).to_be_visible()
+            modal.get_by_role('button',name=label('Add a setting'),exact=True).click()
+            picker=page.locator('.modal-back').last
+            expect(picker.get_by_text(path('kiosk.enabled'),exact=True)).to_have_count(0)
+            picker.get_by_text(path('kiosk.start_on_boot'),exact=True).click()
+            writes=sum(n=='fleetSetProfile' for n,_ in commands)
+            modal.get_by_role('button',name=label('Cancel'),exact=True).click()
+            assert sum(n=='fleetSetProfile' for n,_ in commands)==writes
+            panel.get_by_text(label('Excluded settings'),exact=True).click()
+            expect(modal.get_by_text(path('kiosk.start_on_boot'),exact=True)).to_have_count(0)
+            modal.get_by_role('button',name=label('Sync it again'),exact=True).click()
+            modal.get_by_role('button',name=label('Save'),exact=True).click()
+            expect(panel.get_by_text(label('None'),exact=True)).to_be_visible()
+            assert profiles[0]['excluded']==[]
+            panel.get_by_text(label('Excluded settings'),exact=True).click()
+            expect(modal.get_by_text(label('Nothing left out'),exact=True)).to_be_visible()
+            modal.get_by_role('button',name=label('Add a setting'),exact=True).click()
+            page.locator('.modal-back').last.get_by_text(path('kiosk.enabled'),exact=True).click()
+            modal.get_by_role('button',name=label('Save'),exact=True).click()
+            expect(panel.get_by_text(label('One setting left out'),exact=True)).to_be_visible()
+            assert profiles[0]['excluded']==['kiosk.enabled']
         # Live status updates never replace the chosen language or fetch settings again.
         fleet['followers'][0]['status']='Sending 25%';fleet['followers'][0]['phase']='updating'
         page.evaluate("async()=>{(await import('/static/tabs.js')).showTab('fleet',{refresh:false});(await import('/static/live.js')).receiveUpdate('fleetsync');}")

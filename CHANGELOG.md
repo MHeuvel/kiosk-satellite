@@ -4,6 +4,10 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ## Unreleased
 
+### Fixed
+
+- **Fleet excluded settings work in Remote Admin again.** Settings without a subpage no longer leave the exclusion list or setting picker blank. Existing exclusions can be viewed, added and removed (#622).
+
 ### Changed
 
 - **Community translation review and import.** Maintainers can preview additional languages, record reviews against retained contributor acceptance and merge evidence and import complete reviewed languages without replacing existing ones. Language selectors use native language names and accepted translation credits are bundled with the app.

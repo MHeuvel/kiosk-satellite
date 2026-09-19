@@ -188,7 +188,7 @@ function openProfilePicker({ who, selected = 'default', confirm = fleetText('Sav
 
 // The full path to a setting: category, page, title.
 const settingPresentation = (e) => localizeSetting({...e, titleMessageId: byKey(e.key)?.titleMessageId, descriptionMessageId: byKey(e.key)?.descriptionMessageId});
-const pathOf = (e) => [navigationText(e.category), navigationText(e.subpage), settingPresentation(e).title].filter(Boolean).join(' \u2192 ');
+const pathOf = (e) => [...[e.category, e.subpage].filter(Boolean).map(navigationText), settingPresentation(e).title].filter(Boolean).join(' \u2192 ');
 // Category, then page, then title; a key the list does not know last.
 const orderOf = (e, key) => (e ? `${e.category}\u0000${e.subpage || ''}\u0000${e.title}` : `~${key}`).toLowerCase();
 
