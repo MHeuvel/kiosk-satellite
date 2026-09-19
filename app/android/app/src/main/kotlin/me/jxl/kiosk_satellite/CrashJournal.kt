@@ -27,8 +27,10 @@ object CrashJournal {
     /** Keep the journal from growing without bound: the newest crashes
      *  matter, and one trace is a few KB. */
     private const val MAX_BYTES = 64 * 1024
+    private const val RESOURCE_BYTES = 4 * 1024
 
     fun install(context: Context) {
+        CrashResources.initialize()
         val app = context.applicationContext
         val previous = Thread.getDefaultUncaughtExceptionHandler()
         Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
@@ -41,7 +43,13 @@ object CrashJournal {
         }
     }
 
-    private fun record(context: Context, thread: Thread, throwable: Throwable) {
+    @Synchronized
+    internal fun record(
+        context: Context,
+        thread: Thread,
+        throwable: Throwable,
+        resources: () -> String = { CrashResources.snapshot() },
+    ) {
         val file = File(context.filesDir, FILE)
         val stamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
             .format(Date())
@@ -59,10 +67,18 @@ object CrashJournal {
         }
         val existing = if (file.exists()) file.readText() else ""
         var combined = existing + entry
-        if (combined.length > MAX_BYTES) {
-            combined = combined.substring(combined.length - MAX_BYTES)
+        val traceLimit = MAX_BYTES - RESOURCE_BYTES
+        if (combined.length > traceLimit) {
+            combined = combined.substring(combined.length - traceLimit)
         }
         file.writeText(combined)
+        // Save the exception first. Resource collection may itself fail
+        // when this process has run out of memory or native threads.
+        try {
+            file.appendText(resources().take(RESOURCE_BYTES - 1) + "\n")
+        } catch (_: Throwable) {
+            // The original crash is already on disk.
+        }
     }
 
     /** A deliberate abnormal end (the frame watchdog's process restart):

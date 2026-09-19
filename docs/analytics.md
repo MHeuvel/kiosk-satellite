@@ -10,7 +10,7 @@ Everything on this page is optional. Open **Settings > Device > Kiosk Satellite 
 |---|---|---|
 | **Basic analytics** | Device model and manufacturer, Android version, app version, CPU architecture, memory size, screen size and density, system language, time zone and the system WebView package and version. | Tells us which devices and Android releases to test on. |
 | **Usage** | Which features are turned on, as switches, picks, counts and kinds only.| Shows which features people use so work goes where it matters. |
-| **Diagnostics** | A crash report when the app stops unexpectedly: the stack trace and the app and Android versions. Restarts the app's own frame watchdog forced after the screen stopped drawing are reported the same way. Restarts you asked for are not. Each report goes out once, on the next start. | Lets us fix crashes nobody reported. |
+| **Diagnostics** | A crash report when the app stops unexpectedly: the stack trace, app and Android versions, process memory figures, thread count and a capped sample of known thread families. Unknown thread names are grouped as other. Restarts the app's own frame watchdog forced after the screen stopped drawing are reported the same way. Restarts you asked for are not. Each report goes out once, on the next start. | Lets us fix crashes nobody reported. |
 
 Basic analytics and Usage are sent together, at most once a day, and only while the app is running. Diagnostics are sent on the next start after a crash.
  

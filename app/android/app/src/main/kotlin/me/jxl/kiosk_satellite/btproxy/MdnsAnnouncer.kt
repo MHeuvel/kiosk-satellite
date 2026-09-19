@@ -11,6 +11,7 @@ import java.net.InetAddress
 import java.net.Inet4Address
 import java.net.MulticastSocket
 import java.net.NetworkInterface
+import me.jxl.kiosk_satellite.BoundedWorker
 
 /**
  * Announces the proxy as `<name>._esphomelib._tcp.local` so Home Assistant's
@@ -37,9 +38,11 @@ internal class MdnsAnnouncer(
     private val identity: ProxyIdentity,
     private val port: Int,
     private val onLog: (String) -> Unit = {},
+    private val openSocket: (Int) -> MulticastSocket = { MulticastSocket(it) },
 ) {
     private companion object {
         const val TAG = "KsEsphome"
+        val io = BoundedWorker("btproxy-mdns-tx", capacity = 32)
         const val ANNOUNCE_INTERVAL_MS = 30_000L
         val GROUP: InetAddress = InetAddress.getByName("224.0.0.251")
         const val MDNS_PORT = 5353
@@ -49,6 +52,7 @@ internal class MdnsAnnouncer(
     private var socket: MulticastSocket? = null
     private var multicastLock: WifiManager.MulticastLock? = null
     private var running = false
+    private var generation = 0L
     // Logged on change only: announcements repeat every 30 seconds and the
     // ring log holds 50 lines. Which address Home Assistant is told to
     // connect to is THE question when discovery finds a device that then
@@ -73,37 +77,50 @@ internal class MdnsAnnouncer(
                 .createMulticastLock("ks:btproxy-mdns")
                 .also { it.setReferenceCounted(false); it.acquire() }
         }
-        Thread({
-            // Source port 5353 is not a nicety: RFC 6762 has receivers
-            // silently ignore responses from any other port, and Home
-            // Assistant's zeroconf does exactly that, so an announcer on an
-            // ephemeral port is invisible however perfect its packets. The
-            // fallback stays for devices where something already holds the
-            // port exclusively; direct-IP setup still works there. TTL 255
-            // is the mDNS convention (the default of 1 dies at the first
-            // multicast reflector between VLANs).
-            socket = runCatching { MulticastSocket(MDNS_PORT) }
+        val run = ++generation
+        if (!io.execute {
+            val opened = runCatching { openSocket(MDNS_PORT) }
                 .getOrElse {
                     Log.w(TAG, "mDNS port 5353 unavailable, announcing from an ephemeral port")
-                    runCatching { MulticastSocket() }.getOrNull()
+                    runCatching { openSocket(0) }.getOrNull()
                 }
-            runCatching { socket?.timeToLive = 255 }
-            // Burst of three announcements a second apart (per RFC 6762),
-            // then the steady 30s cadence.
-            handler.post(announcer)
-            handler.postDelayed({ if (running) sendAnnouncement(4500, 120) }, 1_000)
-            handler.postDelayed({ if (running) sendAnnouncement(4500, 120) }, 2_000)
-        }, "btproxy-mdns-init").start()
+            runCatching { opened?.timeToLive = 255 }
+            handler.post {
+                if (!running || generation != run) {
+                    opened?.close()
+                    return@post
+                }
+                if (opened == null) {
+                    stop()
+                    return@post
+                }
+                socket = opened
+                handler.post(announcer)
+                for (delay in listOf(1_000L, 2_000L)) {
+                    handler.postDelayed({
+                        if (running && generation == run) sendAnnouncement(4500, 120)
+                    }, delay)
+                }
+            }
+        }) {
+            Log.w(TAG, "mDNS worker unavailable")
+            stop()
+        }
     }
 
     fun stop() {
         if (!running) return
         running = false
+        ++generation
         handler.removeCallbacks(announcer)
-        // Goodbye: TTL 0 retracts the records from every cache.
         sendAnnouncement(ttl = 0, hostTtl = 0)
-        runCatching { socket?.close() }
+        val oldSocket = socket
         socket = null
+        if (oldSocket != null) {
+            val close = Runnable { runCatching { oldSocket.close() } }
+            handler.postDelayed(close, 300)
+            if (!io.execute { close.run(); handler.removeCallbacks(close) }) close.run()
+        }
         multicastLock?.let { runCatching { if (it.isHeld) it.release() } }
         multicastLock = null
     }
@@ -130,13 +147,14 @@ internal class MdnsAnnouncer(
             }
         }
         val packet = buildPacket(address, ttl, hostTtl)
-        Thread({
+        val target = socket ?: return
+        io.execute {
             try {
-                socket?.send(DatagramPacket(packet, packet.size, GROUP, MDNS_PORT))
+                if (!target.isClosed) target.send(DatagramPacket(packet, packet.size, GROUP, MDNS_PORT))
             } catch (e: Exception) {
                 Log.w(TAG, "mDNS send failed: $e")
             }
-        }, "btproxy-mdns-tx").start()
+        }
     }
 
     /**

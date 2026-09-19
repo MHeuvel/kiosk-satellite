@@ -6,6 +6,8 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ### Fixed
 
+- **Reduce thread creation during long kiosk sessions.** Foreground-app checks, CPU sampling and mDNS announcements reuse workers with bounded queues. Rapid discovery restarts close the old socket without touching its replacement. Crash records now include memory figures and thread counts to help diagnose resource exhaustion that remains.
+
 - **A missing or blocked media picker no longer crashes KS.** Failed photo and video picker launches clear the pending request before reporting the error. A later Android cancellation cannot reply to that request twice and the picker can be tried again.
 
 ## v2026.9.64 - 2026-09-19

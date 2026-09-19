@@ -13,6 +13,8 @@ import java.net.Inet4Address
 import java.net.InetAddress
 import java.net.InetSocketAddress
 import java.net.NetworkInterface
+import java.net.MulticastSocket
+import me.jxl.kiosk_satellite.BoundedWorker
 import me.jxl.kiosk_satellite.fleet.MdnsPackets.DnsReader
 import me.jxl.kiosk_satellite.fleet.MdnsPackets.buildHostAnswer
 import me.jxl.kiosk_satellite.fleet.MdnsPackets.hostRecords
@@ -84,6 +86,7 @@ import me.jxl.kiosk_satellite.fleet.MdnsPackets.u32
  */
 class FleetDiscovery(
     private val context: Context,
+    private val openSocket: (Int) -> MulticastSocket = { MdnsSocket(it) },
     private val onChange: (Snapshot) -> Unit,
 ) {
     data class Peer(
@@ -128,6 +131,7 @@ class FleetDiscovery(
 
     private companion object {
         const val TAG = "KsFleet"
+        val io = BoundedWorker("fleet-mdns-tx", capacity = 32)
         const val SERVICE = "_kiosk-satellite._tcp.local"
         const val ANNOUNCE_INTERVAL_MS = 30_000L
         // Three announcements missed and a peer is gone.
@@ -147,7 +151,9 @@ class FleetDiscovery(
     }
 
     private val handler = Handler(Looper.getMainLooper())
-    private var socket: MdnsSocket? = null
+    @Volatile private var socket: MulticastSocket? = null
+    @Volatile private var generation = 0L
+    private val receiver = BoundedWorker("fleet-mdns-rx", capacity = 1)
     private var multicastLock: WifiManager.MulticastLock? = null
     @Volatile private var running = false
 
@@ -232,50 +238,71 @@ class FleetDiscovery(
                 .createMulticastLock("ks:fleet-mdns")
                 .also { it.setReferenceCounted(false); it.acquire() }
         }
-        Thread({
-            // Port 5353 or nothing to hear: multicast answers go to 5353,
-            // and a socket bound anywhere else only ever sends. The
-            // ephemeral fallback keeps this kiosk announcing (the others
-            // read the sender's address, not the port) even where something
-            // holds 5353 exclusively.
-            val s = runCatching { MdnsSocket(MDNS_PORT).also { listening = true } }
-                .getOrElse {
-                    Log.w(TAG, "mDNS port 5353 unavailable, announce only")
-                    listening = false
-                    runCatching { MdnsSocket() }.getOrNull()
-                }
-            if (s == null) {
-                Log.w(TAG, "no multicast socket, fleet discovery off")
-                return@Thread
+        val run = ++generation
+        if (!io.execute {
+            var canListen = true
+            val s = runCatching { openSocket(MDNS_PORT) }.getOrElse {
+                Log.w(TAG, "mDNS port 5353 unavailable, announce only")
+                canListen = false
+                runCatching { openSocket(0) }.getOrNull()
             }
-            runCatching { s.timeToLive = 255 }
-            runCatching { s.setUnicastTtl() }
-                .onFailure { Log.w(TAG, "unicast TTL not set: $it") }
-            socket = s
-            joinGroups()
-            if (listening) Thread(::receiveLoop, "fleet-mdns-rx").start()
-            handler.post(announcer)
-            // The burst of three a second apart per RFC 6762, and a query
-            // so the kiosks already running answer now instead of at
-            // their next tick.
-            handler.postDelayed({ if (running) sendAnnouncement(RECORD_TTL, HOST_TTL) }, 1_000)
-            handler.postDelayed({ if (running) sendAnnouncement(RECORD_TTL, HOST_TTL) }, 2_000)
-            if (fleet) sendQuery()
-            handler.post { publish() }
-        }, "fleet-mdns-init").start()
+            if (s != null) {
+                runCatching { s.timeToLive = 255 }
+                runCatching { (s as? MdnsSocket)?.setUnicastTtl() }
+                    .onFailure { Log.w(TAG, "unicast TTL not set: $it") }
+            }
+            handler.post {
+                if (!running || generation != run) {
+                    s?.close()
+                    return@post
+                }
+                if (s == null) {
+                    Log.w(TAG, "no multicast socket, fleet discovery off")
+                    stop()
+                    return@post
+                }
+                socket = s
+                listening = canListen
+                joinGroups()
+                if (canListen && !receiver.execute { receiveLoop(s, run) }) {
+                    Log.w(TAG, "mDNS receive worker unavailable")
+                    stop()
+                    return@post
+                }
+                handler.post(announcer)
+                // Startup bursts belong only to this socket generation.
+                for (delay in listOf(1_000L, 2_000L)) {
+                    handler.postDelayed({
+                        if (running && generation == run) sendAnnouncement(RECORD_TTL, HOST_TTL)
+                    }, delay)
+                }
+                if (fleet) sendQuery()
+                publish()
+            }
+        }) {
+            Log.w(TAG, "mDNS worker unavailable")
+            stop()
+        }
     }
 
     fun stop() {
         if (!running) return
         running = false
+        ++generation
+        receiver.discardPending()
         handler.removeCallbacks(announcer)
         sendAnnouncement(ttl = 0, hostTtl = 0)
-        // After the goodbye left: the send runs on its own thread.
-        handler.postDelayed({
-            runCatching { socket?.close() }
-            socket = null
-            synchronized(joined) { joined.clear() }
-        }, 300)
+        val oldSocket = socket
+        socket = null
+        listening = false
+        synchronized(joined) { joined.clear() }
+        // Queue cleanup after the goodbye. The deadline also wakes a
+        // blocked sender or receiver and only ever closes the old socket.
+        if (oldSocket != null) {
+            val close = Runnable { runCatching { oldSocket.close() } }
+            handler.postDelayed(close, 300)
+            if (!io.execute { close.run(); handler.removeCallbacks(close) }) close.run()
+        }
         multicastLock?.let { runCatching { if (it.isHeld) it.release() } }
         multicastLock = null
         synchronized(peers) { peers.clear() }
@@ -372,17 +399,17 @@ class FleetDiscovery(
 
     // ── Receiving ─────────────────────────────────────────────────────
 
-    private fun receiveLoop() {
+    private fun receiveLoop(s: MulticastSocket, run: Long) {
         val buf = ByteArray(9000)
-        while (running) {
-            val s = socket ?: break
+        while (running && generation == run) {
             val packet = DatagramPacket(buf, buf.size)
             try {
                 s.receive(packet)
             } catch (e: Exception) {
-                if (running) Log.w(TAG, "receive failed: $e")
+                if (running && generation == run) Log.w(TAG, "receive failed: $e")
                 break
             }
+            if (!running || generation != run) break
             try {
                 handle(packet)
             } catch (e: Exception) {
@@ -524,6 +551,7 @@ class FleetDiscovery(
      *  - Anything else is answered multicast, at most once a second.
      */
     private fun handleQuery(packet: DatagramPacket, r: DnsReader, qd: Int, qid: Int) {
+        val run = generation
         var asked = false
         var wantsUnicast = false
         val hosts = LinkedHashSet<String>()
@@ -548,7 +576,9 @@ class FleetDiscovery(
         val now = System.currentTimeMillis()
         if (asked && now - lastAnsweredAt > 1_000) {
             lastAnsweredAt = now
-            handler.postDelayed({ if (running) sendAnnouncement(RECORD_TTL, HOST_TTL) }, 200)
+            handler.postDelayed({
+                if (running && generation == run) sendAnnouncement(RECORD_TTL, HOST_TTL)
+            }, 200)
         }
         if (hosts.isEmpty()) return
         val legacy = packet.port != MDNS_PORT
@@ -577,13 +607,15 @@ class FleetDiscovery(
     // ── Sending ───────────────────────────────────────────────────────
 
     private fun send(packet: ByteArray, to: InetAddress = GROUP, port: Int = MDNS_PORT) {
-        Thread({
+        val target = socket ?: return
+        // Keep the socket that owned this packet even if discovery restarts.
+        io.execute {
             try {
-                socket?.send(DatagramPacket(packet, packet.size, to, port))
+                if (!target.isClosed) target.send(DatagramPacket(packet, packet.size, to, port))
             } catch (e: Exception) {
                 Log.w(TAG, "mDNS send failed: $e")
             }
-        }, "fleet-mdns-tx").start()
+        }
     }
 
     private fun sendQuery() {

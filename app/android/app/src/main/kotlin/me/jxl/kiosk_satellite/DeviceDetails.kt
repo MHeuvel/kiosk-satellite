@@ -84,6 +84,7 @@ class DeviceDetails(
     messenger: BinaryMessenger,
 ) {
     private val channel = MethodChannel(messenger, "kiosk_satellite/device_details")
+    private val cpuWorker = MethodWorker("ks-cpu")
 
     /**
      * When the current default network came up, on the elapsedRealtime clock,
@@ -191,16 +192,14 @@ class DeviceDetails(
                 // Dozens of sysfs reads, polled every few seconds while an
                 // admin tab is open — off the main thread, so a stats tick
                 // can never cost the UI a frame.
-                "cpu" -> Thread {
-                    val data = cpu()
-                    Handler(Looper.getMainLooper()).post { result.success(data) }
-                }.start()
+                "cpu" -> cpuWorker.read(result) { cpu() }
                 else -> result.notImplemented()
             }
         }
     }
 
     fun dispose() {
+        cpuWorker.shutdown()
         channel.setMethodCallHandler(null)
         try {
             context.unregisterReceiver(aclReceiver)

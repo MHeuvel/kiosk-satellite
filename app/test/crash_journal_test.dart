@@ -17,6 +17,11 @@ java.lang.RuntimeException: process restarted deliberately: restart requested (k
 java.lang.IllegalStateException: WebView gone
 	at me.jxl.kiosk_satellite.MainActivity.onCreate(MainActivity.kt:42)
 	at android.app.Activity.performCreate(Activity.java:8000)
+Resource snapshot (best effort):
+java_heap_bytes: used=123 committed=456 max=789
+Threads: 120
+native_thread_sample: read=120 listed=120 limit=256
+  fleet-mdns: 2
 ''';
 
   test('entries come out in order, with the truncated head dropped', () {
@@ -28,6 +33,7 @@ java.lang.IllegalStateException: WebView gone
     expect(entries.first.thread, 'main');
     expect(entries.last.appVersion, '2026.9.41');
     expect(entries.last.text, contains('MainActivity.onCreate'));
+    expect(entries.last.text, contains('Threads: 120'));
     expect(entries.last.text, isNot(contains('restarted deliberately')));
     expect(
       entries.last.headline,
