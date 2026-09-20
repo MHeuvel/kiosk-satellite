@@ -129,7 +129,9 @@ internal class CameraStreamCapabilities(
         } catch (_: IllegalArgumentException) {
             false
         } finally {
-            provider.unbind(*uses.toTypedArray())
+            // Destruction releases this owner's use cases, including a failed bind.
+            // CameraX 1.5 retains destroyed owners' keys in the provider, so an
+            // explicit unbind scans stale entries and logs a warning for each one.
             owner.registry.currentState = Lifecycle.State.DESTROYED
         }
     }

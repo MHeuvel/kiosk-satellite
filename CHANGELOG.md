@@ -6,6 +6,8 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ### Fixed
 
+- **Camera cleanup no longer floods the Android log.** Resolution checks and standalone snapshots release their camera sessions through lifecycle destruction without redundant unbind calls that repeatedly warn about stale CameraX entries (#633).
+
 - **Remote Admin brightness slider.** With adaptive brightness enabled, the slider keeps showing and adjusting Maximum brightness instead of jumping to the current panel brightness after an update (#632).
 
 ## v2026.9.66 - 2026-09-20

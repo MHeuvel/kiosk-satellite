@@ -321,12 +321,10 @@ class DeviceCamera(
             val capture = buildCapture(target)
             val owner = CameraLifecycle()
             // Parked before the bind: whichever way this attempt ends,
-            // done() tears the session down (unbinding a use case that
-            // never bound is a no-op).
-            cleanup = {
-                owner.destroy()
-                provider.unbind(capture)
-            }
+            // done() destroys the owner and releases its use cases. Calling
+            // provider.unbind afterward scans CameraX 1.5's stale owner keys
+            // and logs an invalid-camera warning for each one.
+            cleanup = { owner.destroy() }
             try {
                 provider.bindToLifecycle(owner, selector, capture)
                 owner.resume()
