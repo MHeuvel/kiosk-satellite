@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -189,6 +190,57 @@ void main() {
         final response = await request.close();
         expect(response.statusCode, 200);
         expectStates(jsonDecode(await utf8.decodeStream(response)) as Map);
+      },
+    );
+
+    test(
+      'brightness updates preserve the adaptive maximum while the panel dims',
+      () async {
+        final token = await login();
+        final ws = await WebSocket.connect(
+          'ws://127.0.0.1:$port/api/ws?token=$token',
+        );
+        final messages = StreamIterator<Map>(
+          ws
+              .map((raw) => jsonDecode(raw as String) as Map)
+              .where(
+                (message) => ['state', 'brightness'].contains(message['type']),
+              ),
+        );
+        try {
+          ws.add(
+            jsonEncode({
+              'type': 'subscribe',
+              'topics': ['state', 'brightness'],
+            }),
+          );
+          expect(
+            await messages.moveNext().timeout(const Duration(seconds: 5)),
+            isTrue,
+          );
+          expect(messages.current['type'], 'state');
+          expect((messages.current['device'] as Map)['brightness'], 0.5);
+
+          for (final change in [
+            // Moving the slider changes the maximum, even in a dim room.
+            const BrightnessChanged(level: 0.8, panel: 0.35),
+            // Ambient dimming must leave that maximum on the slider.
+            const BrightnessChanged(level: 0.8, panel: 0.2),
+            // Manual mode still reports the current brightness.
+            const BrightnessChanged(level: 0.45),
+          ]) {
+            bus.publish(change);
+            expect(
+              await messages.moveNext().timeout(const Duration(seconds: 5)),
+              isTrue,
+            );
+            expect(messages.current['type'], 'brightness');
+            expect(messages.current['level'], change.level);
+          }
+        } finally {
+          await messages.cancel();
+          await ws.close();
+        }
       },
     );
 

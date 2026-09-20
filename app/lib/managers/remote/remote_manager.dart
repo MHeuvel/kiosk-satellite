@@ -178,13 +178,12 @@ class RemoteManager extends Manager {
       }),
     );
 
-    // Brightness, which the screensaver and the Voice Satellite card both
-    // change behind the admin's back. No wireName either, so the generic feed
-    // skips it and the dashboard's slider sat at whatever it was born with.
+    // Match getBrightness: the slider controls Maximum brightness in adaptive
+    // mode, so ambient dimming must not replace it with the panel's level.
     _subscriptions.add(
       bus.on<BrightnessChanged>().listen((e) {
         if (_wsClients.isEmpty) return;
-        _broadcast({'type': 'brightness', 'level': e.panel});
+        _broadcast({'type': 'brightness', 'level': e.level});
       }),
     );
 

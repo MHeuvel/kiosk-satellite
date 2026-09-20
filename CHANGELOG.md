@@ -2,6 +2,12 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Fixed
+
+- **Remote Admin brightness slider.** With adaptive brightness enabled, the slider keeps showing and adjusting Maximum brightness instead of jumping to the current panel brightness after an update (#632).
+
 ## v2026.9.66 - 2026-09-20
 
 ### Added
