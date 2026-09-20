@@ -1,0 +1,18 @@
+{
+  "@@locale": "de",
+  "voiceChimesPage": "Töne",
+  "voiceChimesHint": "Aktivierungs-, Abschluss-, Fehler-, Timer- und Ansagetöne",
+  "voiceChimesPreview": "Auf dem Kiosk abspielen",
+  "voiceChimesPreviewFailed": "Der Ton konnte nicht abgespielt werden.",
+  "voiceChimesHelp": "Wähle die Töne für diesen Kiosk aus. Lade hier eigene Audiodateien hoch. In Home Assistant gespeicherte Töne werden für lokale Hinweise nicht verwendet.",
+  "voiceChimeWakeTitle": "Aktivierungston",
+  "voiceChimeWakeDescription": "Wird abgespielt, wenn Voice Satellite beginnt zuzuhören.",
+  "voiceChimeDoneTitle": "Abschlusston",
+  "voiceChimeDoneDescription": "Wird abgespielt, wenn eine Sprachinteraktion beendet ist.",
+  "voiceChimeErrorTitle": "Fehlerton",
+  "voiceChimeErrorDescription": "Wird abgespielt, wenn eine Sprachinteraktion fehlschlägt.",
+  "voiceChimeTimerTitle": "Timer-Ton",
+  "voiceChimeTimerDescription": "Wird wiederholt abgespielt, wenn ein Timer abläuft, bis du ihn schließt.",
+  "voiceChimeAnnounceTitle": "Ansageton",
+  "voiceChimeAnnounceDescription": "Wird vor einer Voice-Satellite-Ansage abgespielt, außer die Ansage enthält bereits einen eigenen Ton."
+}

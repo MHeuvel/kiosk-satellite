@@ -1,0 +1,23 @@
+{
+  "@@locale": "de",
+  "setupRemoteHeading": "Fernverwaltung",
+  "setupTitle": "Kiosk Satellite\nEinrichten",
+  "setupWelcomeLead": "Verwandle dieses Tablet in einen Home-Assistant-Kiosk. Die Einrichtung dauert nur wenige Minuten und dieser Assistent führt dich Schritt für Schritt durch den Prozess.",
+  "setupDeviceName": "Gerätename",
+  "setupDeviceNameHelp": "Name, unter dem sich dieser Kiosk in Home Assistant, der Fernverwaltung und im Netzwerk identifiziert. Du kannst ihn jederzeit unter Einstellungen > Gerät ändern.",
+  "setupEnableRemote": "Fernverwaltung aktivieren",
+  "setupEnableRemoteHelp": "Verwalte diesen Kiosk auch nach der Einrichtung über einen Webbrowser. Dort lässt sich das Home-Assistant-Zugriffstoken deutlich einfacher einfügen.",
+  "setupRemotePassword": "Passwort für die Fernverwaltung",
+  "setupRestoreHeading": "Sicherung wiederherstellen",
+  "setupRestore": "Aus Konfigurationsdatei wiederherstellen",
+  "setupRestoreHelp": "Importiert eine aus Kiosk Satellite exportierte Konfiguration und überspringt den restlichen Assistenten. Einstellungen, Dashboard und Anmeldedaten werden übernommen.",
+  "setupServicePermissions": "Empfohlene Berechtigungen für den Dienst",
+  "setupPasswordShort": "Das Passwort ist zu kurz",
+  "setupPasswordMinimum": "Bitte mindestens 4 Zeichen verwenden.",
+  "setupRemoteAddress": "Du kannst diese Einrichtung auch über einen Webbrowser unter {address} fortsetzen, selbst wenn der obige Schalter deaktiviert ist.",
+  "remoteWelcomeTitle": "Willkommen bei Kiosk Satellite",
+  "remoteWelcomePassword": "Dieses Tablet wartet noch auf die Einrichtung. Schütze zuerst die Fernverwaltung mit einem Passwort.",
+  "remoteWelcomeReady": "Dieses Tablet wartet noch auf die Einrichtung. Das Passwort für die Fernverwaltung ist bereits festgelegt. Um es zu ändern, gib hier ein neues Passwort ein.",
+  "remoteInitialPassword": "Administrationspasswort (mindestens 4 Zeichen)",
+  "remoteNewPassword": "Neues Administrationspasswort (leer lassen, um das aktuelle beizubehalten)"
+}

@@ -1,0 +1,9 @@
+{
+  "@@locale": "de",
+  "launcherOverlayHeld": "Kiosk Satellite kann wieder in den Vordergrund wechseln und Berührungen in der anderen App erkennen.",
+  "launcherOverlayMissing": "Ohne diese Berechtigung kann der Kiosk nicht selbstständig zurückkehren oder Berührungen in der anderen App erkennen.",
+  "launcherOverlayRemote": "Ohne diese Berechtigung kann der Kiosk nicht selbstständig zurückkehren oder Berührungen in der anderen App erkennen. Die Seite zum Erteilen der Berechtigung wird auf dem Tablet angezeigt.",
+  "launcherBatteryMissing": "Android kann die Anwendung pausieren, während die andere App geöffnet ist. Wenn der Timer pausiert wird, kehrt der Kiosk nicht zurück.",
+  "launcherBatteryRemote": "Android kann die Anwendung pausieren, während die andere App geöffnet ist. Wenn der Timer pausiert wird, kehrt der Kiosk nicht zurück. Der Dialog zum Erteilen der Berechtigung wird auf dem Tablet angezeigt.",
+  "launcherPermissionsSearch": "Die Berechtigungen, die für die Funktion „Automatisch zurückkehren“ benötigt werden."
+}

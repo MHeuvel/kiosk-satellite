@@ -1,0 +1,18 @@
+{
+  "@@locale": "de",
+  "intercomBuiltinRing": "Integrierter Klingelton",
+  "intercomBuiltinChime": "Integrierter Signalton",
+  "intercomMissingFile": "{file} (nicht gefunden)",
+  "intercomAddSound": "Ton hinzufügen",
+  "intercomCopySoundHelp": "Kopiert eine Audiodatei von diesem Gerät in den Sound-Ordner.",
+  "intercomUploadSoundHelp": "Lädt eine Audiodatei von diesem Computer in den Sound-Ordner hoch.",
+  "intercomUpload": "Hochladen",
+  "intercomUploading": "Wird hochgeladen...",
+  "intercomUnsupportedSound": "Nicht unterstützter Ton",
+  "intercomChooseSound": "Nicht unterstützter Ton: Bitte eine MP3-, OGG-, WAV-, FLAC-, M4A- oder AAC-Datei auswählen.",
+  "intercomCopyFailed": "Die Datei konnte nicht kopiert werden",
+  "intercomUploadFailed": "Hochladen fehlgeschlagen: {error}",
+  "intercomSaveFailed": "Speichern fehlgeschlagen: {error}",
+  "intercomSoundFilename": "Bitte nur einen Dateinamen und keinen Pfad eingeben.",
+  "intercomSoundFormats": "Bitte eine MP3-, OGG-, WAV-, FLAC-, M4A- oder AAC-Datei auswählen."
+}

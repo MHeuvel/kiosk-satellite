@@ -1,0 +1,23 @@
+{
+  "@@locale": "de",
+  "esphomeIdentityBthome": "BTHome-Sensor",
+  "esphomeIdentityXiaomi": "Xiaomi-Sensor",
+  "esphomeIdentityQingping": "Qingping-Sensor",
+  "esphomeIdentityGoogleNest": "Google-/Nest-Gerät",
+  "esphomeIdentityEddystone": "Eddystone-Beacon",
+  "esphomeIdentityGoogleFastPair": "Google-Fast-Pair-Gerät",
+  "esphomeIdentityAppleFindMy": "Apple-Find-My-Gerät",
+  "esphomeIdentityExposure": "Expositionsbenachrichtigung (Telefon)",
+  "esphomeIdentityAugustYale": "August-/Yale-Schloss",
+  "esphomeIdentityAmazon": "Amazon-Gerät",
+  "esphomeIdentityTile": "Tile-Tracker",
+  "esphomeIdentityInput": "Eingabegerät (Fernbedienung/Tastatur)",
+  "esphomeIdentityHeartRate": "Herzfrequenzsensor",
+  "esphomeIdentityEnvironmental": "Umweltsensor",
+  "esphomeIdentityApple": "Apple-Gerät",
+  "esphomeIdentityWindows": "Windows-PC",
+  "esphomeIdentitySamsung": "Samsung-Gerät",
+  "esphomeIdentityGoogle": "Google-Gerät",
+  "esphomeIdentityUnknown": "Unbekanntes Gerät",
+  "esphomeIdentityVendor": "{vendor}-Gerät"
+}

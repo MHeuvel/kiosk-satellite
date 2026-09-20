@@ -1,0 +1,6 @@
+{
+  "@@locale": "de",
+  "setupServiceHelp": "Hält die Anwendung aktiv, wenn der Bildschirm ausgeschaltet ist oder eine andere App im Vordergrund läuft. Dadurch bleiben die Verbindung zu Home Assistant sowie Funktionen wie Bewegungserkennung und Bluetooth-Proxy aktiv. Die folgenden Berechtigungen sind optional, werden jedoch empfohlen: Jede einzelne hilft dabei, den Dienst auch bei ausgeschaltetem Bildschirm aktiv zu halten.",
+  "setupBatteryMissing": "Android kann die Anwendung bei ausgeschaltetem Bildschirm pausieren und die Verbindung zu Home Assistant trennen.",
+  "setupOverlayMissing": "Ohne diese Berechtigung kann der Dienst den Kiosk nach einem Absturz nicht erneut öffnen."
+}

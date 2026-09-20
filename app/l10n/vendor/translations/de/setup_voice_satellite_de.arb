@@ -1,0 +1,16 @@
+{
+  "@@locale": "de",
+  "setupVoiceDetected": "Voice Satellite erkannt",
+  "setupVoiceHelp": "In dieser Home-Assistant-Instanz ist die Voice-Satellite-Integration installiert. Wähle aus, welcher Satellit zu diesem Kiosk gehört, und überprüfe seine Einstellungen. Du kannst alles später noch ändern.",
+  "setupNoSatellites": "Keine Satelliten gefunden",
+  "setupNoSatellitesHelp": "Füge in der Voice-Satellite-Integration einen Assist-Satelliten hinzu oder fahre ohne Auswahl fort und wähle ihn später im Dashboard aus.",
+  "setupNewSatelliteHelp": "Wenn dieses Gerät neu ist, erstelle zuerst eine Satelliten-Entität in Home Assistant. Einstellungen → Geräte und Dienste → Voice Satellite → Eintrag hinzufügen. WICHTIG: Zwei Geräte dürfen nicht dieselbe Entität verwenden.",
+  "setupApplyRecommended": "Alle empfohlenen Einstellungen anwenden",
+  "setupRecommendedHelp": "Die optimalen Einstellungen, um alle Funktionen der Voice-Satellite-Integration zu nutzen.",
+  "setupVoiceRequired": "Für Voice Satellite erforderlich",
+  "setupMicrophoneAccess": "Mikrofonzugriff",
+  "setupNativeWakeWord": "Native Aktivierungswort-Erkennung",
+  "setupPullRefresh": "Zum Aktualisieren nach unten ziehen",
+  "setupAutoplay": "Audio und Video automatisch wiedergeben",
+  "setupVoiceSkipped": "Nicht installiert, übersprungen"
+}

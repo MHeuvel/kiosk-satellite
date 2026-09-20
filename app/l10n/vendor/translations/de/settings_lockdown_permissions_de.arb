@@ -1,0 +1,6 @@
+{
+  "@@locale": "de",
+  "lockdownOverlayHeld": "Der Sperrmodus kann den gesamten Bildschirm überdecken.",
+  "lockdownOverlayMissing": "Ohne diese Berechtigung deckt der Sperrmodus nur die Anwendung ab. Die Seite zum Erteilen der Berechtigung wird auf dem Tablet angezeigt.",
+  "lockdownPermissionsSearch": "Die Berechtigungen, die für die Schutzfunktionen des Sperrmodus benötigt werden."
+}

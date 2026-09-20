@@ -1,0 +1,18 @@
+{
+  "@@locale": "de",
+  "settingAutoReloadOnErrorTitle": "Bei Fehler automatisch neu laden",
+  "settingAutoReloadOnErrorDescription": "Stellt die Seite nach einem Ladefehler oder einem unerwarteten Absturz der Anwendung automatisch wieder her.",
+  "settingPullToRefreshTitle": "Zum Aktualisieren herunterziehen aktivieren",
+  "settingPullToRefreshDescription": "Ziehe die Seite von oben nach unten, um sie neu zu laden. Standardmäßig deaktiviert, da dies beim Scrollen durch ein Dashboard leicht versehentlich ausgelöst werden kann.",
+  "settingPullToRefreshClearCacheTitle": "Cache beim Herunterziehen zum Aktualisieren löschen",
+  "settingPullToRefreshClearCacheDescription": "Beim Herunterziehen werden vor dem Neuladen zusätzlich der Web-Cache und die Aktivierungswort-Modelle gelöscht. Sitzung und gespeicherte Seitendaten bleiben erhalten.",
+  "settingBrowserZoomTitle": "Zoomstufe",
+  "settingBrowserZoomDescription": "Ändert die Skalierung der gesamten Seite. Ein Wert über 1x erleichtert die Lesbarkeit aus größerer Entfernung auf einem Wand-Tablet. Ein Wert unter 1x ermöglicht die Anzeige von mehr Dashboard-Inhalten auf kleinen Bildschirmen.",
+  "settingPinchToZoomTitle": "Zwei-Finger-Zoom aktivieren",
+  "settingPinchToZoomDescription": "Vergrößert oder verkleinert die Seite mit zwei Fingern. Standardmäßig deaktiviert, damit versehentliche Berührungen das Kiosk-Dashboard nicht verändern.",
+  "settingDisableScrollingTitle": "Scrollen deaktivieren",
+  "settingDisableScrollingDescription": "Fixiert die Seite, sodass sie in keine Richtung mehr gescrollt werden kann. Tippen und Schaltflächen funktionieren weiterhin.",
+  "browserCrashPermissionHelp": "Ohne diese Berechtigung kann der Kiosk nach einem unerwarteten Absturz nicht automatisch erneut geöffnet werden.",
+  "browserCrashPermissionMissing": "Die Berechtigung „Über anderen Apps anzeigen“ fehlt",
+  "browserCrashPermissionRemoteHelp": "Ohne diese Berechtigung kann der Kiosk nach einem unerwarteten Absturz nicht automatisch erneut geöffnet werden. Die Seite zum Erteilen der Berechtigung wird auf dem Tablet angezeigt."
+}

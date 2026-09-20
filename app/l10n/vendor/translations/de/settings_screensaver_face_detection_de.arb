@@ -1,0 +1,17 @@
+{
+  "@@locale": "de",
+  "settingScreensaverDismissOnFaceTitle": "Bei Gesichtserkennung schließen",
+  "settingScreensaverDismissOnFaceDescription": "Aktiviert den Bildschirm, wenn jemand den Kiosk ansieht, nicht nur bei Bewegung. Die Kamera wird dabei nur während des Bildschirmschoners verwendet. WARNUNG: Erfordert ein ausreichend beleuchtetes Gesicht. In dunklen Umgebungen stattdessen die Bewegungserkennung verwenden.",
+  "settingScreensaverDismissOnFaceScreenOffOnlyTitle": "Nur bei ausgeschaltetem Bildschirm",
+  "settingScreensaverDismissOnFaceScreenOffOnlyDescription": "Lässt den Bildschirmschoner sichtbar, wenn bei eingeschaltetem Bildschirm ein Gesicht erkannt wird. Ist der Bildschirm ausgeschaltet, öffnet die Erkennung das Dashboard. Durch Berühren des Bildschirms wird der Bildschirmschoner weiterhin geschlossen.",
+  "settingScreensaverPostponeOnFaceTitle": "Bildschirmschoner bei Gesichtserkennung verschieben",
+  "settingScreensaverPostponeOnFaceDescription": "Verzögert die Aktivierung des Bildschirmschoners, solange jemand den Kiosk ansieht. WARNUNG: Die Kamera bleibt dauerhaft aktiv, einschließlich der zusätzlichen CPU-Auslastung durch die Gesichtserkennung.",
+  "settingFaceSensitivityTitle": "Empfindlichkeit der Gesichtserkennung",
+  "settingFaceSensitivityDescription": "Höhere Werte erkennen kleinere und weiter entfernte Gesichter. Der Wert 1 erfordert ein Gesicht nahe am Bildschirm. Der Wert 100 reagiert auf jedes Gesicht, das die Kamera erkennen kann.",
+  "screensaverDetectionFacePage": "Gesichtserkennung",
+  "screensaverDetectionFaceHint": "Schließt den Bildschirmschoner, wenn ihn jemand ansieht",
+  "screensaverDetectionMotionPrecedence": "„Bei Bewegung schließen“ ist aktiviert und hat Vorrang. Die Gesichtserkennung bleibt deaktiviert, bis diese Funktion ausgeschaltet wird.",
+  "screensaverDetectionFaceTuning": "Bildrate, Kamera und Startverzögerung werden in den Kamera-Einstellungen konfiguriert.",
+  "screensaverDetectionAndroidUnsupported": "Auf dieser Android-Version nicht verfügbar.",
+  "screensaverDetectionX86Unsupported": "Auf x86-Geräten nicht verfügbar."
+}

@@ -1,0 +1,10 @@
+{
+  "@@locale": "de",
+  "deviceScreenOffPermission": "Um den Bildschirm auszuschalten, musst du einmalig eine Berechtigung erteilen. Auf dem Tablet wird aktuell die Seite zum Aktivieren der Geräteadministratorrechte angezeigt. Erteile dort die Berechtigung und versuche es anschließend erneut.",
+  "deviceAdminInactive": "Die Geräteadministrator-Berechtigung ist nicht aktiv.",
+  "deviceRestartOverlay": "Für einen Neustart wird die Berechtigung „Über anderen Apps anzeigen“ benötigt, damit die Anwendung anschließend wieder geöffnet werden kann. Die entsprechende Berechtigungsseite wird auf dem Gerät geöffnet. Erteile dort die Berechtigung und versuche es erneut.",
+  "deviceRebootPermission": "Um das Gerät neu zu starten, muss Kiosk Satellite als Gerätebesitzer eingerichtet sein oder über eine autorisierte Shizuku-Verbindung verfügen.",
+  "deviceRestartAndroidOnly": "Ein Neustart ist nur auf Android verfügbar.",
+  "deviceRestartShizukuRefused": "Shizuku hat den Neustart abgelehnt",
+  "deviceRestartFailed": "Neustart fehlgeschlagen: {error}"
+}

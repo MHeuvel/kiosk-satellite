@@ -1,0 +1,17 @@
+{
+  "@@locale": "de",
+  "gestureHaServiceKind": "Home-Assistant-Dienst",
+  "gestureHaScriptKind": "Home-Assistant-Skript",
+  "gestureHaAutomationKind": "Home-Assistant-Automatisierung",
+  "gestureHaEventKind": "Home-Assistant-Ereignis",
+  "gestureRan": "{value} wurde ausgeführt",
+  "gestureRunFailed": "{value} konnte nicht ausgeführt werden",
+  "gestureCalled": "{value} wurde aufgerufen",
+  "gestureCallFailed": "{value} konnte nicht aufgerufen werden",
+  "gestureTriggered": "{value} wurde ausgelöst",
+  "gestureTriggerFailed": "{value} konnte nicht ausgelöst werden",
+  "gestureFired": "Ereignis {value} wurde ausgelöst",
+  "gestureFireFailed": "Ereignis {value} konnte nicht ausgelöst werden",
+  "gestureDone": "Fertig",
+  "gestureFailed": "Fehler"
+}

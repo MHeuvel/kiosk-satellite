@@ -1,0 +1,18 @@
+{
+  "@@locale": "de",
+  "settingCameraEnabledTitle": "Kamera aktivieren",
+  "settingCameraEnabledDescription": "Die Verwendung der Kamera erhöht die CPU-Auslastung und die Wärmeentwicklung, was die Lebensdauer von Akku und Gerät verkürzen kann.",
+  "settingCameraDeviceTitle": "Kamera",
+  "settingCameraDeviceDescription": "Die zu verwendende Kamera.",
+  "settingCameraSnapshotResolutionTitle": "Auflösung der Schnappschüsse",
+  "settingCameraSnapshotResolutionDescription": "Eine höhere Auflösung verbessert die Bildschärfe, benötigt jedoch mehr CPU-Leistung und Bandbreite.",
+  "settingCameraDisableDetectionSnapshotsTitle": "Schnappschüsse bei Aktivitätserkennung deaktivieren",
+  "settingCameraDisableDetectionSnapshotsDescription": "Verhindert automatische Schnappschüsse durch die Erkennung. Bewegungs-, Gesichts-, Präsenz- und Gestenerkennung funktionieren weiterhin. Manuelle Anfragen und kontinuierliche Aufnahmen können weiterhin Bilder erfassen.",
+  "settingCameraSnapshotsTitle": "Kontinuierliche Schnappschüsse",
+  "settingCameraSnapshotsDescription": "Veröffentlicht in festen Intervallen einen neuen Kamera-Schnappschuss in Home Assistant.",
+  "settingCameraSnapshotIntervalTitle": "Intervall zwischen Schnappschüssen",
+  "settingCameraSnapshotIntervalDescription": "Sekunden zwischen den Schnappschüssen.",
+  "cameraFront": "Vorderkamera",
+  "cameraBack": "Rückkamera",
+  "cameraOnlyCamera": "Die einzige Kamera dieses Geräts."
+}

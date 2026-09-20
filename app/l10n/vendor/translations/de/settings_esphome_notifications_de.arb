@@ -1,0 +1,19 @@
+{
+  "@@locale": "de",
+  "settingNotificationsTransparencyTitle": "Transparenz",
+  "settingNotificationsTransparencyDescription": "Ermöglicht es, den Bildschirm durch die Benachrichtigungskarten hindurch zu sehen. Text und Symbole bleiben dabei undurchsichtig.",
+  "settingNotificationsBlurTitle": "Hintergrundunschärfe",
+  "settingNotificationsBlurDescription": "Verwischt den Hintergrund, der durch eine transparente Benachrichtigungskarte sichtbar ist. Hinweis: Die Unschärfe kann nicht über das Home-Assistant-Dashboard angewendet werden.",
+  "settingNotificationsChimeFileTitle": "Benachrichtigungston",
+  "settingNotificationsChimeFileDescription": "Audiodateien werden aus Android/data/me.jxl.kiosk_satellite/files/sounds auf dem Gerät geladen. Auf diesen Ordner kann auch über den Dateimanager zugegriffen werden.",
+  "settingNotificationsVolumeTitle": "Benachrichtigungslautstärke",
+  "settingNotificationsVolumeDescription": "Lautstärke des Benachrichtigungstons, unabhängig von der Medien- und Assistentenlautstärke.",
+  "esphomeNotifications": "Benachrichtigungen",
+  "esphomeNotificationsHelp": "Transparenz, Unschärfe, Ton und Testbenachrichtigung",
+  "esphomeAppearance": "Darstellung",
+  "esphomeSound": "Ton",
+  "esphomeNotificationTest": "Testbenachrichtigung",
+  "esphomeNotificationHelp": "Benachrichtigungen werden von Home Assistant über die Aktion {action} gesendet. Der Test zeigt eine Benachrichtigung über dem Dashboard an.",
+  "esphomeNotificationBody": "So sieht eine Benachrichtigung von Home Assistant aus und so klingt sie.",
+  "esphomeNotificationSearch": "Die Home-Assistant-Aktion zum Senden von Benachrichtigungen sowie eine Schaltfläche zum Anzeigen einer Testbenachrichtigung."
+}

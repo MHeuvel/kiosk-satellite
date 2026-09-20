@@ -1,0 +1,8 @@
+{
+  "@@locale": "de",
+  "settingIntercomTalkModeTitle": "Gesprächsmodus",
+  "settingIntercomTalkModeDescription": "Bei „Drücken zum Sprechen“ wird deine Stimme übertragen, solange die Taste gedrückt gehalten wird. Im Freisprechmodus bleibt das Mikrofon während des gesamten Gesprächs geöffnet.",
+  "intercomOptionTalkPtt": "Drücken zum Sprechen",
+  "intercomOptionTalkHandsfree": "Freisprechen",
+  "intercomTalkSection": "Gespräch"
+}

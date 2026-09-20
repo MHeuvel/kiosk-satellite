@@ -1,0 +1,16 @@
+{
+  "@@locale": "de",
+  "setupNotBackup": "Die Datei ist keine Sicherung",
+  "setupInvalidBackupHelp": "Die Datei enthält kein gültiges JSON. Exportiere eine Konfiguration aus den Einstellungen eines bereits eingerichteten Kiosk Satellite oder aus dessen Fernverwaltung.",
+  "setupWrongBackupKind": "Exportiere eine Konfiguration aus den Einstellungen eines bereits eingerichteten Kiosk Satellite.",
+  "setupImportFailedHelp": "Die Datei konnte nicht angewendet werden.",
+  "setupBackupNoDashboard": "Die Sicherung enthält kein Dashboard",
+  "setupBackupNoDashboardHelp": "Die Einstellungen wurden übernommen, aber die Sicherung wurde erstellt, bevor das Gerät eingerichtet war, und enthält kein Dashboard zur Anzeige. Fahre mit dem Assistenten fort, um eines auszuwählen.",
+  "setupImporting": "Importiere...",
+  "setupRemoteRestoreHelp": "Importiere eine exportierte Kiosk-Satellite-Konfiguration, um den restlichen Assistenten zu überspringen.",
+  "setupFinishOnDevice": "Auf dem Gerät abschließen",
+  "setupFinishOnDeviceHelp": "Die Konfiguration wurde importiert. Bestätige die Berechtigungsanfragen auf dem Bildschirm des Tablets. Diese Seite wird automatisch fortgesetzt, sobald das Dashboard geladen wurde.",
+  "setupBackupObject": "Die Sicherung muss ein JSON-Objekt enthalten.",
+  "setupBackupKind": "Diese Datei enthält keine Kiosk-Satellite-Konfiguration.",
+  "setupBackupSettings": "Die Sicherung enthält keine Einstellungen."
+}

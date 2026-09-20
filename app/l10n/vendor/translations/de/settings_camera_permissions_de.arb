@@ -1,0 +1,11 @@
+{
+  "@@locale": "de",
+  "cameraNoCamera": "Keine Kamera erkannt",
+  "cameraNoCameraHelp": "Dieses Gerät meldet keine verwendbare Kamera.",
+  "cameraCameraPermission": "Kameraberechtigung fehlt",
+  "cameraCameraPermissionHelp": "Ohne diese Berechtigung kann die Kamera nicht verwendet werden. Der Dialog zum Erteilen der Berechtigung wird auf dem Bildschirm des Tablets angezeigt.",
+  "cameraGrantOnDevice": "Auf dem Gerät erteilen",
+  "cameraCameraBlocked": "Blockiert. Android wird nicht erneut nachfragen. Erteile die Berechtigung in den App-Einstellungen.",
+  "cameraCameraNeeded": "Ohne diese Berechtigung kann die Kamera nicht verwendet werden.",
+  "cameraAppSettings": "App-Einstellungen"
+}

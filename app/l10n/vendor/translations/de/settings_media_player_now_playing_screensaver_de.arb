@@ -1,0 +1,16 @@
+{
+  "@@locale": "de",
+  "settingSendspinFullscreenTitle": "„Jetzt läuft“ anstelle des Bildschirmschoners",
+  "settingSendspinFullscreenDescription": "Während Musik wiedergegeben wird, wird der Bildschirmschoner durch die Vollbildansicht „Jetzt läuft“ mit dem Albumcover ersetzt. Wenn nichts wiedergegeben wird, wird der normale Bildschirmschoner verwendet.",
+  "settingSendspinFullscreenSplitTitle": "Neben dem Bildschirmschoner anzeigen",
+  "settingSendspinFullscreenSplitDescription": "Lässt den Bildschirmschoner neben „Jetzt läuft“ sichtbar. Auf Hochformat-Bildschirmen wird der Bildschirmschoner über dem Player angezeigt. Auf kleinen Bildschirmen bleibt der Player im Vollbildmodus.",
+  "settingSendspinFullscreenPhotoFillTitle": "Bildschirm ausfüllen",
+  "settingSendspinFullscreenPhotoFillDescription": "Legt fest, wie Fotos angepasst werden, wenn der Bildschirmschoner gemeinsam mit „Jetzt läuft“ angezeigt wird. Standard verwendet die Einstellung des jeweiligen Bildschirmschoners. Deaktiviert zeigt das vollständige Foto mit schwarzen Balken. Intelligent vergrößert Fotos mit ähnlichem Seitenverhältnis wie der Bildschirm und zeigt andere auf einem unscharfen Hintergrund an. Immer vergrößert alle Fotos und schneidet überstehende Bereiche ab.",
+  "settingSendspinFullscreenOverrideBrightnessTitle": "Bildschirmschoner-Helligkeit überschreiben",
+  "settingSendspinFullscreenOverrideBrightnessDescription": "Verwendet die normale Bildschirmhelligkeit anstelle der Bildschirmschoner-Helligkeit, solange „Jetzt läuft“ daneben angezeigt wird. Überschreibt auch die Helligkeit zeitgesteuerter Bildschirmschoner.",
+  "mediaScreensaverHeading": "Bildschirmschoner",
+  "mediaDefaultFill": "Standard",
+  "mediaFillOff": "Deaktiviert",
+  "mediaFillSmart": "Intelligent",
+  "mediaFillAlways": "Immer"
+}

@@ -1,0 +1,9 @@
+{
+  "@@locale": "de",
+  "launcherNoneHelp": "Derzeit sind keine vorhanden. Wähle die Apps aus, die der Launcher anbieten soll.",
+  "launcherNone": "Derzeit sind keine vorhanden",
+  "launcherListFailed": "Die Apps konnten nicht abgerufen werden",
+  "launcherListError": "Die Apps konnten nicht abgerufen werden: {error}",
+  "launcherListingFailed": "Liste konnte nicht abgerufen werden",
+  "launcherEmpty": "Es wurden keine startbaren Apps gefunden."
+}

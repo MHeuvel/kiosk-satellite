@@ -1,0 +1,19 @@
+{
+  "@@locale": "de",
+  "settingCameraAllowH265Title": "H.265-Streams zulassen",
+  "settingCameraAllowH265Description": "Gibt H.265-Streams ohne Umwandlung wieder. Wenn das Gerät H.265 nicht dekodieren kann, wird nur ein leeres Bild angezeigt.",
+  "settingCameraPreferMseTitle": "MSE gegenüber WebRTC bevorzugen",
+  "settingCameraPreferMseDescription": "Verwendet für Go2RTC-Kameras bevorzugt MSE. Für Geräte, die WebRTC nicht wiedergeben können. Fügt ein bis zwei Sekunden Verzögerung hinzu.",
+  "settingCameraPreferHlsTitle": "HLS gegenüber WebRTC bevorzugen",
+  "settingCameraPreferHlsDescription": "Verwendet für Home-Assistant-Kameras bevorzugt HLS. Für Geräte, die WebRTC nicht wiedergeben können. Fügt einige Sekunden Verzögerung hinzu.",
+  "settingCameraSingleAudioTitle": "Ton nur bei einer einzelnen Kamera wiedergeben",
+  "settingCameraSingleAudioDescription": "Gibt den Kameraton wieder, wenn nur eine Kamera angezeigt wird. Rasteransichten mit mehreren Kameras bleiben stumm.",
+  "settingCameraPinchZoomTitle": "Zwei-Finger-Zoom für Einzelkamera",
+  "settingCameraPinchZoomDescription": "Vergrößert das Bild mit zwei Fingern, wenn nur eine Kamera angezeigt wird. Zum Verschieben ziehen und zum Zurücksetzen doppeltippen.",
+  "settingCameraAutoDismissSecondsTitle": "Automatisch schließen nach",
+  "settingCameraAutoDismissSecondsDescription": "Schließt eine geöffnete Kameraansicht automatisch. Bei 0 bleibt sie dauerhaft geöffnet. Hat keinen Einfluss auf den Kamera-Bildschirmschoner.",
+  "cameraStreamsPlayback": "Wiedergabe",
+  "cameraStreamsOff": "Deaktiviert",
+  "cameraStreamsSeconds": "{seconds} Sek.",
+  "cameraStreamsGridHelp": "Rasteransichten mit mehreren Kameras zeigen nur Video an. Auf leistungsschwachen Geräten sollten in den Ansichten Go2RTC-Streams mit niedrigerer Auflösung verwendet werden. Für die Vollbildansicht kann bei Bedarf ein anderer Stream genutzt werden."
+}

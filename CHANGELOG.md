@@ -4,6 +4,10 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ## v2026.9.66 - 2026-09-20
 
+### Added
+
+- **German localization.** Deutsch is available during onboarding and in Settings on the device and in Remote Admin. All 3,195 current messages are translated, with Dee-san credited under Settings > About > Localization Credits.
+
 ### Changed
 
 - **Maintainer corrections retain translation credit.** Localization review tooling records corrections separately from the accepted community text while preserving its contributor evidence and public credit.

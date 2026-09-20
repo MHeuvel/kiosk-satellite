@@ -1,0 +1,4 @@
+{
+  "@@locale": "de",
+  "androidAccessibilityHelp": "Schließt das Benachrichtigungsfeld und den Bildschirm der zuletzt verwendeten Apps, wenn diese geöffnet werden, während der Kioskmodus oder der Sperrmodus den Bildschirm schützt. Kiosk Satellite liest den Inhalt des Bildschirms nicht."
+}

@@ -1,0 +1,19 @@
+{
+  "@@locale": "de",
+  "settingRemoteEnabledTitle": "Fernverwaltung",
+  "settingRemoteEnabledDescription": "Aktiviert den integrierten Webserver zur Verwaltung des Geräts.",
+  "settingRemotePortTitle": "Server-Port",
+  "settingRemotePortDescription": "Port der Fernverwaltungsoberfläche.",
+  "settingRemotePasswordTitle": "Administrationspasswort",
+  "settingRemotePasswordDescription": "Erforderlich für die Anmeldung an der Fernverwaltungsoberfläche.",
+  "settingRemoteFleetDiscoveryTitle": "Andere Kiosks finden",
+  "settingRemoteFleetDiscoveryDescription": "Macht dieses Gerät im Netzwerk sichtbar und zeigt andere Kiosks in der Fernverwaltung an, damit zwischen ihnen gewechselt werden kann.",
+  "deviceRemotePage": "Fernverwaltung",
+  "deviceAdminAddress": "Verwaltungsadresse",
+  "deviceAdminAddressHelp": "Öffne diese Adresse in einem Browser auf deinem Computer.",
+  "deviceByName": "Über Namen",
+  "deviceByNameHelp": "Dieselbe Adresse über den Gerätenamen in Netzwerken, die .local-Namen auflösen.",
+  "devicePasswordNeeded": "Lege unten ein Administrationspasswort fest, um den Server zu starten.",
+  "deviceServerStopped": "Der Server wird nicht ausgeführt.",
+  "devicePortError": "Der Port {port} konnte nicht geöffnet werden: {error}"
+}

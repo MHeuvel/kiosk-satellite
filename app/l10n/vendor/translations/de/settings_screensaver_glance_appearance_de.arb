@@ -1,0 +1,16 @@
+{
+  "@@locale": "de",
+  "settingScreensaverGlanceScaleTitle": "Skalierung der Leiste",
+  "settingScreensaverGlanceScaleDescription": "Passt die Größe der Leiste an den Bildschirm an.",
+  "settingScreensaverGlanceFontTitle": "Schriftart",
+  "settingScreensaverGlanceFontDescription": "Schriftart der Leiste.",
+  "settingScreensaverGlanceFontWeightTitle": "Schriftstärke",
+  "settingScreensaverGlanceFontWeightDescription": "Schriftstärke des Textes in der Leiste. Standard verwendet die jeweilige Stärke der einzelnen Zeilen: normal für Namen und halbfett für Werte.",
+  "settingScreensaverGlanceHideNamesTitle": "Namen ausblenden",
+  "settingScreensaverGlanceHideNamesDescription": "Zeigt nur Symbol und Wert an, wobei der Wert größer dargestellt wird.",
+  "settingScreensaverGlanceBwIconsTitle": "Einfarbige Symbole",
+  "settingScreensaverGlanceBwIconsDescription": "Zeigt alle Symbole in neutralem Grau statt in ihrer statusabhängigen Farbe an.",
+  "settingScreensaverGlanceTextOnlyTitle": "Schwebender Textstil",
+  "settingScreensaverGlanceTextOnlyDescription": "Zeigt Entitäten als schwebenden Text statt in Karten an.",
+  "screensaverOverlayAppearance": "Darstellung"
+}

@@ -1,0 +1,11 @@
+{
+  "@@locale": "de",
+  "kioskForeground": "Kiosk Satellite kann wieder in den Vordergrund wechseln.",
+  "kioskOverlayMissing": "Ohne diese Berechtigung kann der Kiosk nicht in den Vordergrund zurückkehren und der Sperrmodus-Schutz deckt nur die Anwendung ab.",
+  "kioskGuardHeld": "Die Benachrichtigungsleiste und die Übersicht der zuletzt verwendeten Apps werden automatisch geschlossen, solange der Bildschirm geschützt ist.",
+  "kioskGuardMissing": "Ohne diese Berechtigung bleiben die Benachrichtigungsleiste und die Übersicht der zuletzt verwendeten Apps zugänglich. Aktiviere Kiosk Satellite unter Bedienungshilfen.",
+  "kioskOverlayRemote": "Ohne diese Berechtigung kann der Kiosk nicht in den Vordergrund zurückkehren. Die Seite zum Erteilen der Berechtigung wird auf dem Tablet angezeigt.",
+  "kioskGuardRemote": "Ohne diese Berechtigung bleiben die Benachrichtigungsleiste und die Übersicht der zuletzt verwendeten Apps zugänglich. Aktiviere Kiosk Satellite unter Bedienungshilfen auf dem Tablet.",
+  "kioskGrantDevice": "Auf dem Gerät erteilen",
+  "kioskOpenSettingsDevice": "Einstellungen auf dem Gerät öffnen"
+}

@@ -1,0 +1,15 @@
+{
+  "@@locale": "de",
+  "intercomKiosks": "Kiosks",
+  "intercomRosterHelp": "Gefundene Kiosks und gespeicherte Mitglieder der Flotte. Ein Kiosk ist bereit, wenn eine Verbindung zu ihm möglich ist, die Gegensprechanlage aktiviert ist und derselbe Schlüssel verwendet wird.",
+  "intercomNoOther": "Keine weiteren Kiosks gefunden",
+  "intercomRosterDeviceHelp": "Hier werden Kiosks angezeigt, bei denen Fernverwaltung und „Andere Kiosks finden“ aktiviert sind.",
+  "intercomNoneHeard": "Keine Kiosks gefunden",
+  "intercomRosterRemoteHelp": "Kiosks werden angezeigt, sobald sie im Netzwerk erkannt wurden oder als Mitglieder der Flotte gespeichert sind. Fernverwaltung und „Andere Kiosks finden“ müssen aktiviert sein.",
+  "intercomReady": "Bereit",
+  "intercomOff": "Gegensprechanlage deaktiviert",
+  "intercomDifferentKey": "Anderer Schlüssel",
+  "intercomUnreachable": "Nicht erreichbar",
+  "intercomOffline": "Offline",
+  "intercomChecking": "Wird geprüft..."
+}

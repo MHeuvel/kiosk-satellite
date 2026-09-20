@@ -1,0 +1,5 @@
+{
+  "@@locale": "de",
+  "launcherOpenFailed": "{name} konnte nicht geöffnet werden.",
+  "launcherUninstalled": "Möglicherweise wurde die App deinstalliert."
+}

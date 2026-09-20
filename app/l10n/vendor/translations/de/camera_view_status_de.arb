@@ -1,0 +1,18 @@
+{
+  "@@locale": "de",
+  "cameraViewerTitle": "Kameraansicht",
+  "cameraViewerConnecting": "Verbindung wird hergestellt...",
+  "cameraViewerReconnecting": "Verbindung wird wiederhergestellt...",
+  "cameraViewerTrying": "{transport} wird versucht...",
+  "cameraViewerCannotDecode": "Dieses Gerät kann {codec} nicht dekodieren",
+  "cameraViewerCannotPlay": "Dieses Gerät kann keine {transport}-Streams wiedergeben",
+  "cameraViewerCannotDecodeStream": "Dieses Gerät kann diesen Stream nicht dekodieren",
+  "cameraViewerHaRetry": "Verbindung zu Home Assistant nicht möglich. Neuer Versuch in {seconds} Sek.",
+  "cameraViewerServerRetry": "Verbindung zum Kameraserver nicht möglich. Neuer Versuch in {seconds} Sek.",
+  "cameraViewerConnectionRetry": "Die Verbindung ist fehlgeschlagen. Neuer Versuch in {seconds} Sek.",
+  "cameraViewerStartRetry": "Der Kameraserver konnte diesen Stream nicht starten. Erneuter Versuch...",
+  "cameraViewerStartDelayedRetry": "Der Kameraserver konnte diesen Stream nicht starten. Neuer Versuch in {seconds} Sek.",
+  "cameraViewerMissingRetry": "Der Stream wurde auf dem Kameraserver nicht gefunden. Neuer Versuch in {seconds} Sek.",
+  "cameraViewerLoginRetry": "Der Kameraserver hat die Anmeldung abgelehnt. Neuer Versuch in {seconds} Sek.",
+  "cameraViewerMissing": "Stream in Go2RTC nicht verfügbar"
+}

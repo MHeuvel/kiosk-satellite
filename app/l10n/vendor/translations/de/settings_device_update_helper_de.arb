@@ -1,0 +1,15 @@
+{
+  "@@locale": "de",
+  "deviceHelperPage": "Optionaler Update-Assistent",
+  "deviceHelperStatus": "Status des Assistenten",
+  "deviceHelperError": "Der Update-Assistent konnte nicht abgefragt werden.",
+  "deviceHelperUnneeded": "Android kann Updates bereits ohne Bestätigung installieren. Der Assistent wird nicht benötigt.",
+  "deviceHelperIntro": "Auf diesem Gerät muss die Installation von Updates auf dem Bildschirm bestätigt werden. Mit dem optionalen Assistenten kann Kiosk Satellite Updates ohne Bildschirminteraktion installieren.",
+  "deviceHelperBusy": "Ein Update wird installiert.",
+  "deviceHelperReady": "Bereit. Updates werden ohne Bestätigung installiert.",
+  "deviceHelperUnavailable": "Nicht verfügbar. Starte den Assistenten per ADB, um Updates ohne Bestätigung zu ermöglichen.",
+  "deviceHelperLifetime": "Der Assistent bleibt auch nach einem Neustart oder Update der Anwendung aktiv, wird jedoch beim Neustart des Geräts beendet. Führe den Befehl auf einem Computer mit ADB erneut aus, um ihn wieder zu starten. Danach kann der Computer getrennt werden.",
+  "deviceHelperStart": "Über ADB starten",
+  "deviceHelperGuide": "Einrichtungsanleitung",
+  "deviceHelperGuideHelp": "Zeigt die Anweisungen und Voraussetzungen für den Update-Assistenten an."
+}

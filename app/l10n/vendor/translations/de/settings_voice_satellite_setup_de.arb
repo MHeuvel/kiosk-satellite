@@ -1,0 +1,12 @@
+{
+  "@@locale": "de",
+  "voiceDisconnected": "Home Assistant ist nicht verbunden",
+  "voiceValidate": "Bitte zuerst die Verbindung in den Home-Assistant-Einstellungen validieren.",
+  "voiceChecking": "Suche nach Voice Satellite...",
+  "voiceMissing": "Voice Satellite ist nicht in Home Assistant installiert",
+  "voiceInstallHelp": "Voice Satellite verwandelt diesen Kiosk in einen freihändig nutzbaren Sprachassistenten für Home Assistant: Aktivierungswort-Erkennung, Sprachdialoge, Timer und Durchsagen direkt im Dashboard.\n\nDie Integration ist im Standard-Repository von HACS verfügbar. Installiere sie in deiner Home-Assistant-Instanz und kehre anschließend hierher zurück.",
+  "voiceLearnMore": "Mehr erfahren über ",
+  "voiceGithub": "Voice Satellite auf GitHub",
+  "voiceHacs": "HACS-Repository öffnen",
+  "voiceLoading": "Voice-Satellite-Steuerelemente werden geladen..."
+}

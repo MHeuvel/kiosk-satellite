@@ -1,0 +1,19 @@
+{
+  "@@locale": "de",
+  "settingScreensaverLocalFolderTitle": "Lokaler Ordner",
+  "settingScreensaverLocalFolderDescription": "Ordner auf diesem Gerät, dessen Fotos und Videos vom Bildschirmschoner angezeigt werden. Die Auswahl erfolgt auf dem Gerät. Über die Fernverwaltung kann auch ein Pfad eingegeben werden.",
+  "settingScreensaverLocalIntervalTitle": "Sekunden pro Foto",
+  "settingScreensaverLocalIntervalDescription": "Wie lange jedes Foto angezeigt wird, bevor zum nächsten gewechselt wird. Videos werden vollständig abgespielt.",
+  "settingScreensaverLocalShuffleTitle": "Zufällige Reihenfolge",
+  "settingScreensaverLocalShuffleDescription": "Durchläuft den Ordner in zufälliger Reihenfolge, anstatt nach Namen zu sortieren.",
+  "settingScreensaverLocalRecursiveTitle": "Unterordner einbeziehen",
+  "settingScreensaverLocalRecursiveDescription": "Bezieht auch Fotos und Videos aus Unterordnern mit ein.",
+  "settingScreensaverLocalTransitionTitle": "Übergang",
+  "settingScreensaverLocalTransitionDescription": "Legt fest, wie von einem Foto zum nächsten gewechselt wird.",
+  "settingScreensaverLocalFillTitle": "Bildschirm ausfüllen",
+  "settingScreensaverLocalFillDescription": "Deaktiviert zeigt das vollständige Foto mit schwarzen Balken an. Intelligent vergrößert Fotos mit einem ähnlichen Seitenverhältnis wie der Bildschirm und zeigt andere auf einem unscharfen Hintergrund an. Immer vergrößert alle Fotos und schneidet überstehende Bereiche ab.",
+  "settingScreensaverLocalEdgeTapsTitle": "Zum Bildwechsel auf die Bildschirmränder tippen",
+  "settingScreensaverLocalEdgeTapsDescription": "Ein Tippen auf das linke oder rechte Fünftel des Bildschirms zeigt das vorherige bzw. nächste Bild an, anstatt den Bildschirmschoner zu schließen.",
+  "screensaverMediaLocalPage": "Bildschirmschoner: Lokale Medien",
+  "screensaverMediaLocalHint": "Ordner, Anzeigedauer, Zufallswiedergabe und Übergänge"
+}

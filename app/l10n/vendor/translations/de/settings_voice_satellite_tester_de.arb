@@ -1,0 +1,23 @@
+{
+  "@@locale": "de",
+  "voiceTester": "Aktivierungswort-Test",
+  "voiceTesterHelp": "Beobachte in Echtzeit, was die Engine hört und bewertet, um zu verstehen, warum das Aktivierungswort erkannt wird oder nicht.",
+  "voiceTesterSearch": "Eine Echtzeitansicht dessen, was die Engine hört und bewertet.",
+  "voiceTesterWaiting": "Warte auf Voice Satellite",
+  "voiceStopWordNamed": "{word} (Stoppwort)",
+  "voiceScore": "Bewertung",
+  "voiceThreshold": "Schwellenwert",
+  "voiceHits": "Erkennungen",
+  "voiceNearMisses": "Beinahe-Erkennungen",
+  "voicePeak": "Höchstwert",
+  "voiceMicLevel": "Mikrofonpegel",
+  "voiceChunkProcessing": "Blockverarbeitung (Min. / Durchschnitt / Max.)",
+  "voiceLog": "Protokoll",
+  "voiceLogEmpty": "Erkennungen und Beinahe-Erkennungen werden hier angezeigt.",
+  "voiceLogHit": "ERKANNT",
+  "voiceLogNear": "beinahe",
+  "voiceLogScore": "Bewertung",
+  "voiceLogDecoded": "dekodiert",
+  "voiceLogDistance": "dist.",
+  "voiceLogConfidence": "conf."
+}

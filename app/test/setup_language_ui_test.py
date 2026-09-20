@@ -7,8 +7,10 @@ from threading import Thread
 from playwright.sync_api import sync_playwright, expect
 APP=Path(__file__).resolve().parents[1]
 ROOT=APP/'remote-ui'
-en={k:v for p in (APP/'l10n/source').glob('*.arb') for k,v in json.loads(p.read_text()).items() if not k.startswith('@')}
-es={k:v for p in (APP.parents[1]/'kiosk-satellite-localization/translations/es').glob('*.arb') for k,v in json.loads(p.read_text()).items() if not k.startswith('@')}
+catalogs={p.stem.removeprefix('ui_'):{k:v for k,v in json.loads(p.read_text()).items() if not k.startswith('@')} for p in (APP/'l10n/effective').glob('ui_*.arb')}
+names=json.loads((APP/'l10n/vendor/metadata/languages.json').read_text())
+languages=[{'value':tag,'label':names[tag]} for tag in sorted(catalogs)]
+en=catalogs['en'];es=catalogs['es']
 requests=[];saved='en';failure=False
 class Handler(SimpleHTTPRequestHandler):
     def log_message(self,*_):pass
@@ -19,7 +21,7 @@ def api(route):
     path=route.request.url.split('/api/',1)[1]
     data=route.request.post_data_json or {}
     requests.append((path,data,route.request.headers.get('authorization')))
-    if path=='setup/status':return route.fulfill(json={'setupNeeded':True,'passwordNeeded':True,'language':saved,'deviceName':'Original device','languages':[{'value':'en','label':'English'},{'value':'es','label':'Español'}]})
+    if path=='setup/status':return route.fulfill(json={'setupNeeded':True,'passwordNeeded':True,'language':saved,'deviceName':'Original device','languages':languages})
     if path=='setup/language':
         assert data.keys()=={'language'}
         if failure:return route.fulfill(status=500,json={'error':'internal error'})
@@ -33,16 +35,23 @@ try:
         errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
         html=(ROOT/'index.html').read_text().replace('<script type="module" src="static/main.js?v=__KSV__"></script>','')
         page.route(base+'/',lambda r:r.fulfill(body=html,content_type='text/html'))
-        page.route('**/static/catalogs.js',lambda r:r.fulfill(body='export const catalogs = '+json.dumps({'en':en,'es':es})+';',content_type='text/javascript'))
         page.route('**/api/**',api)
         page.goto(base+'/')
         page.evaluate("async()=>await (await import('/static/wizard.js')).startWizard({needPassword:true})")
         select=page.locator('#wzLanguage')
         expect(select).to_have_value('en')
-        assert select.locator('option').all_text_contents()==['English','Español']
+        assert select.locator('option').all_text_contents()==[language['label'] for language in languages]
         assert select.bounding_box()['y']<page.locator('#wzDeviceName').bounding_box()['y']
         page.locator('#wzDeviceName').fill('Unsaved <device>')
         page.locator('#wzPassword').fill('Unsaved-password')
+        for tag in ['de','fr']:
+            select.select_option(tag)
+            expect(page.locator('#wizardTitle')).to_have_text(catalogs[tag]['remoteWelcomeTitle'])
+            expect(select).to_have_value(tag)
+            expect(page.locator('#wzDeviceName')).to_have_value('Unsaved <device>')
+            expect(page.locator('#wzPassword')).to_have_value('Unsaved-password')
+            assert ('setup/language',{'language':tag},None) in requests
+            assert page.evaluate('document.documentElement.scrollWidth<=innerWidth')
         select.select_option('es')
         expect(page.locator('#wizardTitle')).to_have_text(es['remoteWelcomeTitle'])
         expect(select).to_have_value('es')

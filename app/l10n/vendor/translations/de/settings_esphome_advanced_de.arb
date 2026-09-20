@@ -1,0 +1,13 @@
+{
+  "@@locale": "de",
+  "settingEsphomeRealMacTitle": "Reale WLAN-MAC-Adresse verwenden",
+  "settingEsphomeRealMacDescription": "Home Assistant verknüpft diesen Kiosk mit demselben Gerät, das bereits von deinen Netzwerkintegrationen erkannt wird. Wenn du diese Einstellung änderst, wird in Home Assistant ein neues ESPHome-Gerät erstellt.",
+  "settingEsphomeMacOverrideTitle": "Benutzerdefinierte WLAN-MAC-Adresse verwenden",
+  "settingEsphomeMacOverrideDescription": "Da die MAC-Adresse nicht ermittelt werden kann, kannst du hier eine manuell eingeben. Wenn du sie änderst, wird in Home Assistant ein neues ESPHome-Gerät erstellt.",
+  "esphomeAdvanced": "Erweiterte Einstellungen",
+  "esphomeAdvancedHelp": "Reale oder benutzerdefinierte WLAN-MAC-Adresse",
+  "esphomeMacInvalid": "Bitte eine gültige MAC-Adresse eingeben.",
+  "esphomeMacHardware": "{mac} wird verwendet.",
+  "esphomeMacManual": "{mac} wird verwendet und unten manuell eingetragen.",
+  "esphomeMacUnavailable": "Android erlaubt auf diesem Gerät keinen Zugriff auf die Hardware-MAC-Adresse."
+}

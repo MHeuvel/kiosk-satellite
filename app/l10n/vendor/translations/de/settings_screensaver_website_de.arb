@@ -1,0 +1,10 @@
+{
+  "@@locale": "de",
+  "settingScreensaverWebsiteUrlTitle": "Website-URL",
+  "settingScreensaverWebsiteUrlDescription": "Seite, die im Vollbildmodus angezeigt wird. Sie muss das Einbetten erlauben.",
+  "settingScreensaverWebsiteZoomTitle": "Zoomstufe",
+  "settingScreensaverWebsiteZoomDescription": "Ändert die Skalierung der gesamten Webansicht des Bildschirmschoners.",
+  "settingScreensaverWebsiteDoubleTapTitle": "Zum Schließen doppeltippen",
+  "settingScreensaverWebsiteDoubleTapDescription": "Ein einfacher Tipp ermöglicht die Interaktion mit der Website, anstatt den Bildschirmschoner zu schließen.",
+  "screensaverWebsiteSection": "Bildschirmschoner: Website"
+}

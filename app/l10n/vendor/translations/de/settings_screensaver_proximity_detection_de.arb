@@ -1,0 +1,14 @@
+{
+  "@@locale": "de",
+  "settingScreensaverDismissOnProximityTitle": "Bei Annäherung schließen",
+  "settingScreensaverDismissOnProximityDescription": "Verwendet den Näherungssensor, während der Bildschirmschoner aktiv ist, und aktiviert den Bildschirm, wenn sich etwas dem Gerät nähert. Sensoren, die nur für Anrufe gedacht sind, wie „palm“ oder „touch“, eignen sich nicht für diese Funktion.",
+  "settingScreensaverDismissOnProximityScreenOffOnlyTitle": "Nur bei ausgeschaltetem Bildschirm",
+  "settingScreensaverDismissOnProximityScreenOffOnlyDescription": "Lässt den Bildschirmschoner sichtbar, wenn sich bei eingeschaltetem Bildschirm etwas nähert. Ist der Bildschirm ausgeschaltet, öffnet die Erkennung das Dashboard. Durch Berühren des Bildschirms wird der Bildschirmschoner weiterhin geschlossen.",
+  "settingScreensaverPostponeOnProximityTitle": "Bildschirmschoner bei Annäherung verschieben",
+  "settingScreensaverPostponeOnProximityDescription": "Verzögert die Aktivierung des Bildschirmschoners, solange sich etwas in der Nähe des Sensors befindet.",
+  "screensaverDetectionProximityPage": "Näherungserkennung",
+  "screensaverDetectionProximityHint": "Schließt oder verzögert den Bildschirmschoner mithilfe des Näherungssensors",
+  "screensaverDetectionNoProximity": "Auf diesem Gerät nicht verfügbar: Es besitzt keinen Näherungssensor.",
+  "screensaverDetectionSensor": "Sensor",
+  "screensaverDetectionSensorHelp": "Der vom Gerät gemeldete Näherungssensor. Ein für Telefongespräche vorgesehener Sensor mit der Bezeichnung „palm“ oder „touch“ eignet sich nicht für diese Funktion."
+}

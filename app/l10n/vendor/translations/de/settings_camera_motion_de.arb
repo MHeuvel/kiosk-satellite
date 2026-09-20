@@ -1,0 +1,15 @@
+{
+  "@@locale": "de",
+  "settingMotionSensorTitle": "Bewegungssensor",
+  "settingMotionSensorDescription": "Veröffentlicht Bewegungen als Home-Assistant-Sensor. WARNUNG: Die Kamera bleibt dadurch dauerhaft eingeschaltet, auch wenn der Bildschirm ausgeschaltet ist.",
+  "settingMotionSensorOffDelayTitle": "Bewegungsstatus zurücksetzen nach",
+  "settingMotionSensorOffDelayDescription": "Sekunden ohne Bewegung, bevor der Sensor keine Bewegung mehr meldet.",
+  "settingMotionFpsTitle": "Bildrate für Bewegungserkennung",
+  "settingMotionFpsDescription": "Bilder pro Sekunde, die von der Kamera zur Bewegungserkennung ausgewertet werden. Niedrigere Werte benötigen weniger CPU-Leistung. Ein Wert von 2 reicht aus, um zu erkennen, dass sich jemand nähert.",
+  "settingMotionStartDelayTitle": "Startverzögerung",
+  "settingMotionStartDelayDescription": "Ignoriert Bewegungen für diese Zeit nach dem Start der Kamera. Nützlich bei Geräten, deren Kamera beim Öffnen mechanisch bewegt wird.",
+  "settingMotionSensitivityTitle": "Bewegungsempfindlichkeit",
+  "settingMotionSensitivityDescription": "Höhere Werte erkennen kleinere Bewegungen. Der Wert 1 erfordert eine große Bildänderung. Der Wert 100 reagiert bereits auf die kleinste Bewegung.",
+  "cameraMotionPage": "Bewegungssensor",
+  "cameraMotionHint": "Home-Assistant-Bewegungssensor und gemeinsame Erkennungseinstellungen"
+}

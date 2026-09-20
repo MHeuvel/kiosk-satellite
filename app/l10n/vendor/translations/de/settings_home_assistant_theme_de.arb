@@ -1,0 +1,17 @@
+{
+  "@@locale": "de",
+  "settingHaThemeTitle": "Design",
+  "settingHaThemeDescription": "Helles oder dunkles Design für das Home-Assistant-Dashboard. Kann auch über die Home-Assistant-Entität „Design“ ausgewählt werden. „Automatisch“ folgt den untenstehenden Einstellungen.",
+  "settingThemeMatchAppTitle": "Home-Assistant-Design mit Kiosk Satellite synchronisieren",
+  "settingThemeMatchAppDescription": "Passt das Home-Assistant-Design automatisch an das Design der Kiosk-Satellite-Benutzeroberfläche an.",
+  "settingThemeAutoTitle": "Design zeitgesteuert wechseln",
+  "settingThemeAutoDescription": "Wechselt Home Assistant nach einem Zeitplan zwischen hellem und dunklem Design. Das gewählte Design bleibt erhalten, lediglich die helle bzw. dunkle Variante wird umgeschaltet.",
+  "settingThemeDarkAtTitle": "Dunkles Design um",
+  "settingThemeDarkAtDescription": "Ortszeit für den Wechsel zum dunklen Design.",
+  "settingThemeLightAtTitle": "Helles Design um",
+  "settingThemeLightAtDescription": "Ortszeit für die Rückkehr zum hellen Design.",
+  "settingThemeAutoAppTitle": "Auch das App-Design wechseln",
+  "settingThemeAutoAppDescription": "Wechselt zusätzlich das Design von Kiosk Satellite (Menü und Einstellungen) zusammen mit dem geplanten Home-Assistant-Designwechsel.",
+  "haThemeHint": "Mit der App synchronisieren oder nach Zeitplan zwischen hellem und dunklem Design wechseln",
+  "haThemeAuto": "Automatisch"
+}

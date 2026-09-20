@@ -1,0 +1,20 @@
+{
+  "@@locale": "de",
+  "searchInstallApk": "Lade eine Kiosk-Satellite-APK über die Fernverwaltung hoch und installiere sie.",
+  "searchPermissionsHelp": "Alle Android-Berechtigungen, die die Anwendung verwenden kann, sowie deren Status: Mikrofon, Kamera, Benachrichtigungen, Akku ohne Einschränkungen, Über anderen Apps anzeigen, Systemeinstellungen ändern, Schutz der Systemoberfläche, Geräteadministrator, Zugriff auf alle Dateien, Nutzungszugriff und Standort.",
+  "searchServiceStatus": "Dienststatus",
+  "searchServiceHelp": "Zeigt an, ob der Kiosk-Satellite-Dienst ausgeführt wird und welche Funktionen er aktiv hält.",
+  "searchServicePermissions": "Die Berechtigungen, die der Kiosk-Satellite-Dienst benötigt.",
+  "searchIntercomKiosks": "Bekannte Kiosks und ob jeder von ihnen Anrufe empfangen kann.",
+  "searchHaValidate": "Prüft die URL und das Token mit deinem Home Assistant.",
+  "searchHaProxy": "Stellt Home Assistant über einen sicheren Proxy innerhalb der Anwendung bereit, wenn Home Assistant HTTP verwendet.",
+  "searchHaDashboard": "Wähle das Dashboard und die Ansicht aus, die der Kiosk anzeigen soll.",
+  "searchKioskPermissions": "Die Berechtigungen, die für die Schutzfunktionen des Kioskmodus und des Sperrmodus benötigt werden.",
+  "searchHomeStatus": "Status des Startbildschirms",
+  "searchHomeHelp": "Zeigt an, ob Kiosk Satellite der Startbildschirm des Geräts ist und wo er als Standard festgelegt werden kann.",
+  "searchMasterVolume": "Die Gerätelautstärke, die als Grundlage für die Lautstärkeregelung von Medien und Assistent dient.",
+  "searchSmallClock": "Eine kleine Uhr in einer Ecke des Bildschirmschoners.",
+  "searchBattery": "Eine Akkuanzeige in einer Ecke des Bildschirmschoners mit dem Ladezustand dieses Geräts.",
+  "searchPersonPermission": "Die Berechtigung für den Protokollzugriff, die vom Anwesenheitssensor des Geräts benötigt wird.",
+  "searchSonosSpeakers": "Die Sonos-Lautsprecher, die diesem Gerät bekannt sind, einschließlich Netzwerksuche und Eingabefeld für Adressen."
+}

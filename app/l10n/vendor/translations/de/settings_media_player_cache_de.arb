@@ -1,0 +1,9 @@
+{
+  "@@locale": "de",
+  "mediaCacheTitle": "Cover-Cache",
+  "mediaCacheReadFailed": "Die Cache-Größe konnte nicht gelesen werden.",
+  "mediaCacheClearFailed": "Der Cache konnte nicht gelöscht werden.",
+  "mediaCacheChecking": "Cache-Größe wird überprüft...",
+  "mediaCacheClearing": "Wird gelöscht...",
+  "mediaCacheUsage": "{used} von {limit} verwendet. Warteschlangen-Miniaturansichten werden automatisch zwischengespeichert."
+}

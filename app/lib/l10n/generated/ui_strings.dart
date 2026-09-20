@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'ui_strings_de.dart';
 import 'ui_strings_en.dart';
 import 'ui_strings_es.dart';
 import 'ui_strings_fr.dart';
@@ -94,6 +95,7 @@ abstract class UiStrings {
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
+    Locale('de'),
     Locale('en'),
     Locale('es'),
     Locale('fr'),
@@ -19293,7 +19295,7 @@ class _UiStringsDelegate extends LocalizationsDelegate<UiStrings> {
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['en', 'es', 'fr'].contains(locale.languageCode);
+      <String>['de', 'en', 'es', 'fr'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_UiStringsDelegate old) => false;
@@ -19302,6 +19304,8 @@ class _UiStringsDelegate extends LocalizationsDelegate<UiStrings> {
 UiStrings lookupUiStrings(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'de':
+      return UiStringsDe();
     case 'en':
       return UiStringsEn();
     case 'es':

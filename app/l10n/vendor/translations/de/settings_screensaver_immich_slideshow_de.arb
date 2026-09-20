@@ -1,0 +1,16 @@
+{
+  "@@locale": "de",
+  "settingScreensaverImmichIntervalTitle": "Sekunden pro Bild",
+  "settingScreensaverImmichIntervalDescription": "Wie lange jedes Bild angezeigt wird, bevor zum nächsten gewechselt wird. Videos werden vollständig abgespielt.",
+  "settingScreensaverImmichShuffleTitle": "Zufällige Reihenfolge",
+  "settingScreensaverImmichShuffleDescription": "Durchläuft die Medieninhalte in zufälliger Reihenfolge.",
+  "settingScreensaverImmichTransitionTitle": "Übergang",
+  "settingScreensaverImmichTransitionDescription": "Legt fest, wie von einem Inhalt zum nächsten gewechselt wird.",
+  "settingScreensaverImmichFillTitle": "Bildschirm ausfüllen",
+  "settingScreensaverImmichFillDescription": "Deaktiviert zeigt das vollständige Foto mit schwarzen Balken an. Intelligent vergrößert Fotos mit einem ähnlichen Seitenverhältnis wie der Bildschirm und zeigt andere auf einem unscharfen Hintergrund an. Immer vergrößert alle Fotos und schneidet überstehende Bereiche ab.",
+  "settingScreensaverImmichPairPortraitTitle": "Hochformatfotos kombinieren",
+  "settingScreensaverImmichPairPortraitDescription": "Zeigt zwei Hochformatfotos nebeneinander an, um den Bildschirm besser auszufüllen.",
+  "settingScreensaverImmichEdgeTapsTitle": "Zum Bildwechsel auf die Bildschirmränder tippen",
+  "settingScreensaverImmichEdgeTapsDescription": "Ein Tippen auf das linke oder rechte Fünftel des Bildschirms zeigt das vorherige bzw. nächste Bild an, anstatt den Bildschirmschoner zu schließen.",
+  "screensaverMediaSlideshow": "Diashow"
+}

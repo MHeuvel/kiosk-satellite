@@ -1,0 +1,19 @@
+{
+  "@@locale": "de",
+  "settingIntercomAnswerModeTitle": "Anrufmodus",
+  "settingIntercomAnswerModeDescription": "Klingeln erfordert eine Annahme auf dem Bildschirm. Automatisch annehmen öffnet den Anruf nach einem Signalton.",
+  "settingIntercomRingSecondsTitle": "Klingeldauer",
+  "settingIntercomRingSecondsDescription": "Wie lange ein Anruf klingelt, bevor er als verpasst markiert wird.",
+  "settingIntercomRingSoundTitle": "Klingelton",
+  "settingIntercomRingSoundDescription": "Wird mit der Benachrichtigungslautstärke wiedergegeben.",
+  "settingIntercomAcceptAnnouncementsTitle": "Durchsagen annehmen",
+  "settingIntercomAcceptAnnouncementsDescription": "Gibt Durchsagen wieder, die von anderen Kiosks an alle gesendet werden.",
+  "intercomOptionAnswerRing": "Klingeln",
+  "intercomOptionAnswerAuto": "Automatisch annehmen",
+  "intercomOptionAnswerDnd": "Nicht stören",
+  "intercomOptionAnswer15": "15 Sekunden",
+  "intercomOptionAnswer30": "30 Sekunden",
+  "intercomOptionAnswer45": "45 Sekunden",
+  "intercomOptionAnswer60": "60 Sekunden",
+  "intercomAnswerSection": "Anrufannahme"
+}

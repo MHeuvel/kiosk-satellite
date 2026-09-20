@@ -1,0 +1,12 @@
+{
+  "@@locale": "de",
+  "settingScreensaverDismissOnMotionTitle": "Bei Bewegungserkennung schließen",
+  "settingScreensaverDismissOnMotionDescription": "Verwendet die Kamera, während der Bildschirmschoner angezeigt wird, und aktiviert den Bildschirm, wenn sich jemand nähert. Die Kamera ist nur während des Bildschirmschoners aktiv.",
+  "settingScreensaverDismissOnMotionScreenOffOnlyTitle": "Nur bei ausgeschaltetem Bildschirm",
+  "settingScreensaverDismissOnMotionScreenOffOnlyDescription": "Lässt den Bildschirmschoner sichtbar, wenn bei eingeschaltetem Bildschirm eine Bewegung erkannt wird. Ist der Bildschirm ausgeschaltet, öffnet die Erkennung das Dashboard. Durch Berühren des Bildschirms wird der Bildschirmschoner weiterhin geschlossen.",
+  "settingScreensaverPostponeOnMotionTitle": "Bildschirmschoner bei Bewegungserkennung verschieben",
+  "settingScreensaverPostponeOnMotionDescription": "Verzögert die Aktivierung des Bildschirmschoners, wenn Bewegung erkannt wird. WARNUNG: Die Kamera bleibt dadurch dauerhaft eingeschaltet.",
+  "screensaverDetectionMotionPage": "Bewegungserkennung",
+  "screensaverDetectionMotionHint": "Bildschirmschoner bei Bewegungserkennung schließen oder verzögern",
+  "screensaverDetectionMotionTuning": "Die Bewegungserkennung wird in den Kamera-Einstellungen konfiguriert."
+}

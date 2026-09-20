@@ -1,0 +1,20 @@
+{
+  "@@locale": "de",
+  "settingScreensaverGlanceEnabledTitle": "Auf einen Blick",
+  "settingScreensaverGlanceEnabledDescription": "Zeigt eine Zeile mit Home-Assistant-Entitätsstatus auf dem Bildschirmschoner an.",
+  "settingScreensaverGlanceEntitiesTitle": "Entitäten",
+  "settingScreensaverGlanceEntitiesDescription": "Bis zu vier anzuzeigende Entitäten, jeweils mit optionalem benutzerdefiniertem Namen.",
+  "settingScreensaverGlanceNowPlayingTitle": "In „Jetzt läuft“ anzeigen",
+  "settingScreensaverGlanceNowPlayingDescription": "Zeigt die Leiste in der Vollbildansicht „Jetzt läuft“ an. Sie wird ausgeblendet, während Songtexte angezeigt werden.",
+  "screensaverOverlayShowing": "Angezeigte Entitäten",
+  "screensaverOverlayReorder": "Angezeigte Entitäten (zum Neuordnen ziehen)",
+  "screensaverOverlayFull": "Die Leiste enthält bereits die maximale Anzahl an Entitäten. Entferne eine, um eine weitere hinzuzufügen.",
+  "screensaverOverlayPickerTitle": "„Auf einen Blick“-Entitäten",
+  "screensaverOverlayGlanceEmpty": "Noch keine vorhanden. Bis zu {count} Entitäten.",
+  "screensaverOverlayNone": "Noch keine vorhanden",
+  "screensaverOverlayLimit": "Bis zu {count} Entitäten.",
+  "screensaverOverlayGlancePage": "Auf einen Blick",
+  "screensaverOverlayGlanceHint": "Entitäten, die über dem Bildschirmschoner angezeigt werden",
+  "glanceUnavailable": "Nicht verfügbar",
+  "glanceUnknown": "Unbekannt"
+}

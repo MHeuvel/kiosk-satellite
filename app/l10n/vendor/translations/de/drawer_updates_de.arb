@@ -1,0 +1,20 @@
+{
+  "@@locale": "de",
+  "drawerVersion": "Version {version}",
+  "drawerUpdateAvailable": "Update verfügbar",
+  "drawerUpdateInstall": "Version {version} · Tippen zum Installieren",
+  "drawerUpdateChecking": "Suche nach Updates…",
+  "drawerUpdateCurrent": "Aktuell",
+  "drawerUpdateCurrentHelp": "Du verwendest die neueste Version.",
+  "drawerUpdateCheckFailed": "Es konnte nicht nach Updates gesucht werden",
+  "drawerUpdateOffline": "Hat das Gerät eine Internetverbindung?",
+  "drawerUpdateTo": "Auf {version} aktualisieren",
+  "drawerUpdateInstructions": "Der Download beginnt, sobald du auf „Aktualisieren“ tippst. Android wird dich anschließend auffordern, die Installation zu bestätigen.",
+  "drawerUpdateRelaunch": "Ohne die Berechtigung „Über anderen Apps anzeigen“ kann die Anwendung nach dem Update nicht automatisch neu gestartet werden.",
+  "drawerUpdate": "Aktualisieren",
+  "drawerUpdateDownloading": "Update wird heruntergeladen",
+  "drawerUpdateStarting": "Wird gestartet...",
+  "drawerUpdateFailed": "Aktualisierung fehlgeschlagen",
+  "drawerUpdates": "Updates",
+  "drawerNoReleaseNotes": "Keine Versionshinweise verfügbar."
+}

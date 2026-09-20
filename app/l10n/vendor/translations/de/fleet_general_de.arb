@@ -1,0 +1,15 @@
+{
+  "@@locale": "de",
+  "fleetFleetManagementNeedsTheRemoteAdmin": "Für die Flottenverwaltung ist die Fernverwaltung erforderlich",
+  "fleetKiosksFindEachOtherThroughItTurnOnRemote": "Kiosks finden sich über die Fernverwaltung. Aktiviere unter „Gerät“ die Optionen „Fernverwaltung“ und „Andere Kiosks finden“ und kehre anschließend hierher zurück.",
+  "fleetLeadThisFleet": "Diese Flotte anführen",
+  "fleetSyncThisKioskSSettingsToItsFollowersRequires": "Synchronisiert die Einstellungen dieses Kiosks mit seinen Followern. Alle Kiosks müssen dieselbe Version verwenden.",
+  "fleetAKioskThatFollowsALeaderCannotLead": "Ein Kiosk, der einem Leiter folgt, kann keine Flotte anführen.",
+  "fleetFollowers": "Follower",
+  "fleetProfiles": "Profile",
+  "fleetLeader": "Leiter",
+  "fleetLearnWhichSettingsSyncAndWhichDoNotIn": "Welche Einstellungen synchronisiert werden und welche nicht, erfährst du in der ",
+  "fleetFleetManagementDocumentation": "Dokumentation zur Flottenverwaltung",
+  "fleetMore": "Mehr",
+  "fleetSearchFollowers": "Die Kiosks, die diesem folgen, ihr Status sowie die Möglichkeit, einen weiteren hinzuzufügen."
+}

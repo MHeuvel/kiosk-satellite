@@ -1,0 +1,20 @@
+{
+  "@@locale": "de",
+  "settingScreensaverCameraViewsTitle": "Kameraansichten",
+  "settingScreensaverCameraViewsDescription": "Kameraansichten, die vom Bildschirmschoner in dieser Reihenfolge angezeigt werden.",
+  "settingScreensaverCameraViewSecondsTitle": "Sekunden pro Kameraansicht",
+  "settingScreensaverCameraViewSecondsDescription": "Wie lange jede Ansicht angezeigt wird, bevor zur nächsten gewechselt wird. Wenn nur eine Ansicht ausgewählt ist, findet keine Rotation statt.",
+  "settingScreensaverCameraMuteTitle": "Alle Ansichten stummschalten",
+  "settingScreensaverCameraMuteDescription": "Hält alle Ansichten stumm, auch Einzelkamera-Ansichten.",
+  "screensaverMediaCameraPage": "Bildschirmschoner: Kamerastreams",
+  "screensaverMediaCameraHint": "Angezeigte Ansichten, Anzeigedauer pro Ansicht und Ton",
+  "screensaverMediaNoCameras": "Noch keine Ansicht enthält Kameras. Füge eine unter „Kamerastreams“ hinzu.",
+  "screensaverMediaNoCamerasRemote": "Noch keine Ansicht enthält Kameras",
+  "screensaverMediaAddCameras": "Füge eine unter „Kamerastreams“ hinzu.",
+  "screensaverMediaNoViews": "Es wurden noch keine Ansichten ausgewählt. Wähle die Ansichten aus, die der Bildschirmschoner durchlaufen soll.",
+  "screensaverMediaRotation": "In der Rotation (zum Neuordnen ziehen)",
+  "screensaverMediaAvailable": "Verfügbar",
+  "screensaverMediaOneCamera": "{count} Kamera",
+  "screensaverMediaCameras": "{count} Kameras",
+  "screensaverMediaPosition": "Position {index} · {cameras}"
+}

@@ -1,0 +1,17 @@
+{
+  "@@locale": "de",
+  "kioskHomeScreen": "Startbildschirm",
+  "kioskCheckingDevice": "Gerät wird überprüft...",
+  "kioskFireOs": "Fire OS erlaubt nicht, den Standard-Launcher zu ersetzen.",
+  "kioskUnsupported": "Auf diesem Gerät kann der Startbildschirm nicht geändert werden.",
+  "kioskRecovered": "Wurde nach mehreren Startfehlern automatisch deaktiviert und der vorherige Launcher wurde wiederhergestellt. Aktiviere den Schalter erneut, um es noch einmal zu versuchen.",
+  "kioskHeld": "Kiosk Satellite ist der Startbildschirm. Der Kiosk wird beim Einschalten des Geräts geöffnet und jede Betätigung der Home-Taste führt zu ihm zurück.",
+  "kioskDisabled": "Nicht als Startbildschirm eingerichtet. Aktiviere oben „Als Startbildschirm verwenden“.",
+  "kioskWaiting": "Noch nicht als aktueller Startbildschirm festgelegt. Das Gerät wartet auf eine Bestätigung.",
+  "kioskOpenHomeSettings": "Startbildschirm-Einstellungen öffnen",
+  "kioskSetDefault": "Als Standard festlegen",
+  "kioskActive": "Aktiv",
+  "kioskNotHome": "Nicht der Startbildschirm.",
+  "kioskWaitingRemote": "Warte auf Bestätigung am Gerät. Dort wird der Systemdialog oder die Startbildschirm-Einstellung geöffnet.",
+  "kioskSetDevice": "Auf dem Gerät einrichten"
+}

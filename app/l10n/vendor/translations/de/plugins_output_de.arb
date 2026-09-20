@@ -1,0 +1,14 @@
+{
+  "@@locale": "de",
+  "pluginCharts": "Diagramme",
+  "pluginReadings": "Messwerte",
+  "pluginWaitingForSamples": "Warte auf Messwerte",
+  "pluginLatest": "Neueste",
+  "pluginSelected": "Ausgewählt",
+  "pluginNoDataYet": "Noch keine Daten verfügbar",
+  "pluginTapOrDragToInspectSamplesDoubleTapTo": "Tippe oder ziehe, um Messwerte zu prüfen. Doppeltippen, um dem neuesten Messwert zu folgen.",
+  "pluginNoData": "Keine Daten",
+  "pluginOn": "Ein",
+  "pluginEmpty": "Leer",
+  "pluginChartKeyboardHelp": "Verwende die Pfeiltasten, um Messwerte zu durchsuchen, und die Ende-Taste, um zum neuesten Messwert zu springen."
+}

@@ -1,0 +1,23 @@
+{
+  "@@locale": "de",
+  "fleetSyncedCredentials": "Synchronisierte Anmeldedaten",
+  "fleetTheSettingsOnThisListWillNotBeSynced": "Die Einstellungen in dieser Liste werden nicht mit den Followern synchronisiert.",
+  "fleetNothingLeftOut": "Keine Einstellungen ausgeschlossen",
+  "fleetSyncItAgain": "Erneut synchronisieren",
+  "fleetAddASetting": "Einstellung hinzufügen",
+  "fleetExcludeASetting": "Einstellung ausschließen",
+  "fleetSearchSettings": "Einstellungen suchen",
+  "fleetCountMoreTypeToNarrowTheList": "{count} weitere. Tippe, um die Liste zu filtern.",
+  "fleetNotSyncedNote": "Nicht synchronisiert: {note}",
+  "fleetTheAssignedSatellite": "der zugewiesene Satellit",
+  "fleetMicrophoneAndSpeakerDevicesMicGain": "die Mikrofon- und Lautsprechergeräte sowie die Mikrofonverstärkung",
+  "fleetTheDeviceCamera": "die Gerätekamera",
+  "fleetTheFollowedPlayerTheSendspinPlayerId": "der verfolgte Player und die Sendspin-Player-ID",
+  "fleetNodeNameMacEncryptionKey": "der Knotenname, die MAC-Adresse und der Verschlüsselungsschlüssel",
+  "fleetThePinIsAlsoSynced": "die PIN wird ebenfalls synchronisiert",
+  "fleetTheKeyUnlessSyncedAsACredential": "der Schlüssel, sofern er nicht als Anmeldedaten synchronisiert wird",
+  "fleetNameRemoteAdministrationRendererWorkaroundsScale": "der Name, die Fernverwaltung, Renderer-Kompatibilitätseinstellungen und die Skalierung",
+  "fleetHomeAssistantToken": "Home-Assistant-Token",
+  "fleetMusicAssistantToken": "Music-Assistant-Token",
+  "fleetImmichApiKey": "Immich-API-Schlüssel"
+}

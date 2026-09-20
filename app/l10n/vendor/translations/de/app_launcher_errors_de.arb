@@ -1,0 +1,5 @@
+{
+  "@@locale": "de",
+  "launcherErrorAndroidOnly": "Die Anwendungsliste ist nur auf Android verfügbar.",
+  "launcherErrorListDetail": "Die Anwendungsliste konnte nicht abgerufen werden: {error}"
+}

@@ -1,0 +1,14 @@
+{
+  "@@locale": "de",
+  "voiceMicHeld": "Die Aktivierungswort-Erkennung kann auf deine Stimme hören.",
+  "voiceMicBlocked": "Blockiert. Android wird die Berechtigung nicht erneut anfordern. Erteile sie in den App-Einstellungen.",
+  "voiceMicMissing": "Ohne diese Berechtigung kann kein Aktivierungswort erkannt werden.",
+  "voiceForegroundHeld": "Kiosk Satellite kann in den Vordergrund wechseln, wenn es dich hört.",
+  "voiceForegroundMissing": "Ohne diese Berechtigung wird das Aktivierungswort erkannt, aber es passiert nichts.",
+  "voiceNotificationHeld": "Die permanente Benachrichtigung ermöglicht das Zuhören im Hintergrund.",
+  "voiceNotificationMissing": "Erforderlich, damit das Hintergrundabhören zuverlässig funktioniert.",
+  "voiceBatteryHeld": "Android hält die Hintergrundabhörung aktiv.",
+  "voiceBatteryMissing": "Ohne diese Berechtigung wird das Zuhören nach einigen Stunden beendet.",
+  "voicePermissionDirections": "Erteile diese Berechtigungen auf dem Gerät: Vom linken Bildschirmrand wischen → Einstellungen → Voice Satellite → Erforderliche Systemberechtigungen.",
+  "voicePermissionsSearch": "Mikrofon und weitere Berechtigungen, die für die Aktivierungswort-Erkennung benötigt werden."
+}

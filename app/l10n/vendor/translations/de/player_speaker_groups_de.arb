@@ -1,0 +1,7 @@
+{
+  "@@locale": "de",
+  "mediaGroupLead": "Leitet die Gruppe",
+  "mediaGroupReadFailed": "Die Gruppe konnte nicht abgefragt werden.",
+  "mediaGroupEmpty": "Es sind keine weiteren Player zum Gruppieren verfügbar.",
+  "mediaSpeakerSelection": "Lautsprecherauswahl"
+}

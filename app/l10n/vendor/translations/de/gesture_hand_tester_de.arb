@@ -1,0 +1,17 @@
+{
+  "@@locale": "de",
+  "gestureTester": "Handgesten-Test",
+  "gestureOpenTester": "Test öffnen",
+  "gestureCameraFirst": "Aktiviere zuerst die Kamera in den Kamera-Einstellungen.",
+  "gestureTesterHelp": "Beobachte, welche Finger von der Kamera erkannt werden, um zu lernen, wie du deine Hand halten musst.",
+  "gestureHandHelp": "Halte deine Hand auf Schulterhöhe mit der Handfläche zur Kamera und gespreizten Fingern. Beuge einen Finger vollständig, damit er nicht mehr gezählt wird. Lege den Daumen auf die Handfläche, um vier Finger anzuzeigen. Der Daumen wird nur bei einer offenen Hand gezählt.",
+  "gestureTesterPaused": "Während der Test geöffnet ist, werden keine Gesten ausgeführt.",
+  "gestureShowHand": "Zeige der Kamera eine Hand.",
+  "gestureTesterTrigger": "Ausführen: {action}",
+  "gestureNoCount": "Keine Geste verwendet diese Anzahl an Fingern.",
+  "gestureNoHand": "Keine Hand erkannt",
+  "gestureReadingHand": "Hand wird erkannt",
+  "gestureNoFingers": "Kein Finger ausgestreckt",
+  "gestureHandsCount": "{count} Hände erkannt. Die größte Hand wird ausgewertet.",
+  "gestureTesterSearch": "Zeigt in Echtzeit die Finger an, die von der Kamera erkannt werden."
+}

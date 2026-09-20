@@ -1,0 +1,10 @@
+{
+  "@@locale": "de",
+  "settingLauncherEnabledTitle": "App-Launcher aktivieren",
+  "settingLauncherEnabledDescription": "Ermöglicht das Öffnen ausgewählter installierter Apps aus dem Kiosk heraus.",
+  "settingLauncherAppsDescription": "Die Apps, die im Launcher angeboten werden.",
+  "settingLauncherAutoReturnTitle": "Automatisch zurückkehren",
+  "settingLauncherAutoReturnDescription": "Kehrt zum Kiosk zurück, wenn die andere App für eine gewisse Zeit nicht berührt wurde.",
+  "settingLauncherAutoReturnSecondsTitle": "Zurückkehren nach (Sekunden)",
+  "settingLauncherAutoReturnSecondsDescription": "Zeit ohne Interaktion mit der anderen App, bevor zum Kiosk zurückgekehrt wird."
+}

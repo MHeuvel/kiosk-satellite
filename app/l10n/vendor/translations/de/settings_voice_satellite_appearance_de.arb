@@ -1,0 +1,15 @@
+{
+  "@@locale": "de",
+  "voiceAppearanceHint": "Design, Thema, Aktivitätsleiste und Textgröße des Assistenten",
+  "voiceSkin": "Design",
+  "voiceSkinHelp": "Das Erscheinungsbild des Sprachassistenten auf dem Bildschirm.",
+  "voiceTheme": "Designmodus",
+  "voiceThemeHelp": "Zeigt den Assistenten im hellen oder dunklen Design an.",
+  "voiceReactive": "Reaktive Aktivitätsleiste",
+  "voiceReactiveHelp": "Die Aktivitätsleiste reagiert auf Audiosignale. FÜR LEISTUNGSSCHWACHE GERÄTE wie den Echo Show NICHT EMPFOHLEN.",
+  "voiceRate": "Aktualisierungsrate der reaktiven Leiste",
+  "voiceRateHelp": "Legt fest, wie häufig die Aktivitätsleiste aktualisiert wird. Höhere Werte wirken flüssiger, benötigen aber mehr CPU-Leistung.",
+  "voiceScaleHelp": "Die Größe des Assistententextes auf dem Bildschirm.",
+  "voiceUpdateIntegration": "Aktualisiere die Voice-Satellite-Integration in Home Assistant, um diese Einstellungen vom Kiosk aus steuern zu können.",
+  "voiceDashboardRequired": "Verfügbar, solange der Kiosk dein Home-Assistant-Dashboard anzeigt."
+}

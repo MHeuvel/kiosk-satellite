@@ -1,0 +1,10 @@
+{
+  "@@locale": "de",
+  "settingDlnaEnabledTitle": "DLNA-Empfänger aktivieren",
+  "settingDlnaEnabledDescription": "Zeigt Bilder an und gibt Inhalte wieder, die von Home Assistant oder einer beliebigen DLNA-Anwendung gesendet werden. Das Gerät wird als Medienplayer unter dem Gerätenamen angezeigt.",
+  "settingDlnaAudioBackgroundTitle": "Audio im Hintergrund wiedergeben",
+  "settingDlnaAudioBackgroundDescription": "Empfangenes Audio wird wiedergegeben, ohne den Bildschirm zu belegen.",
+  "settingDlnaPortTitle": "Server-Port",
+  "settingDlnaPortDescription": "Der vom Empfänger verwendete Port wird beim Start automatisch eingetragen. Ändere ihn, um einen anderen Port zu verwenden, oder lasse das Feld leer, damit der Empfänger erneut einen Port auswählt.",
+  "settingDlnaPortPlaceholder": "Wird beim Start des Empfängers festgelegt"
+}

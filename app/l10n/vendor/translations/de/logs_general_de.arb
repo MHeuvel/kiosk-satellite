@@ -1,0 +1,10 @@
+{
+  "@@locale": "de",
+  "logsEntries": "{count} Einträge",
+  "logsCopyLog": "Protokoll kopieren",
+  "logsShareLog": "Protokoll teilen",
+  "logsCopied": "Kopiert",
+  "logsCopyFailed": "Kopieren fehlgeschlagen",
+  "logsOnClipboard": "Das Protokoll wurde in die Zwischenablage kopiert.",
+  "logsConsoleOnClipboard": "Das Konsolenprotokoll wurde in die Zwischenablage kopiert."
+}

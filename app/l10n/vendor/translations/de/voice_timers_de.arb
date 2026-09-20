@@ -1,0 +1,11 @@
+{
+  "@@locale": "de",
+  "voiceTimerDefaultName": "Timer",
+  "voiceTimerDrag": "Zum Verschieben der Timer ziehen",
+  "voiceTimerPauseHint": "Tippen zum Pausieren. Doppeltippen zum Abbrechen. Zum Verschieben ziehen.",
+  "voiceTimerResumeHint": "Tippen zum Fortsetzen. Doppeltippen zum Abbrechen. Zum Verschieben ziehen.",
+  "voiceTimerCancel": "Timer abbrechen",
+  "voiceTimerActionError": "Der Timer konnte nicht geändert werden. Bitte überprüfe die Verbindung und aktualisiere Voice Satellite bei Bedarf.",
+  "voiceTimerFinished": "Timer beendet",
+  "voiceTimerDismissHint": "Tippen, um den Timer-Alarm zu schließen."
+}

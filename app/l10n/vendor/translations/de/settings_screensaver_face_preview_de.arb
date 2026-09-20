@@ -1,0 +1,12 @@
+{
+  "@@locale": "de",
+  "settingFacePreviewTitle": "Kameravorschau anzeigen",
+  "settingFacePreviewDescription": "Zeigt für einige Sekunden eine kleine, runde Live-Vorschau der Kamera in einer Ecke an, wenn ein Gesicht den Kiosk aktiviert.",
+  "settingFacePreviewSecondsTitle": "Dauer der Vorschau",
+  "settingFacePreviewSecondsDescription": "Wie lange die Vorschau auf dem Bildschirm angezeigt wird.",
+  "settingFacePreviewScaleTitle": "Skalierung der Vorschau",
+  "settingFacePreviewScaleDescription": "Passt die Größe der Vorschau an den Bildschirm an.",
+  "settingFacePreviewPositionTitle": "Position der Vorschau",
+  "settingFacePreviewPositionDescription": "Die Ecke, in der die Vorschau angezeigt wird.",
+  "screensaverDetectionPreviewSection": "Kameravorschau"
+}

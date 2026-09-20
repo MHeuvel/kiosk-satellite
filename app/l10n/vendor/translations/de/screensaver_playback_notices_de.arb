@@ -1,0 +1,14 @@
+{
+  "@@locale": "de",
+  "screensaverNoPhotos": "Es wurden keine Fotos ausgewählt. Bitte wähle einige in den Einstellungen aus.",
+  "screensaverNoFolder": "Es wurde kein Ordner ausgewählt. Bitte wähle einen in den Einstellungen aus.",
+  "screensaverFolderEmpty": "In {folder} sind keine Fotos oder Videos vorhanden",
+  "screensaverFolderUnreadable": "{folder} konnte nicht gelesen werden. Wurde die Berechtigung für den Zugriff auf Medieninhalte erteilt?",
+  "screensaverReadPhotosFailed": "Die Fotos konnten nicht gelesen werden.",
+  "screensaverImmichNotReady": "Immich ist nicht verbunden. Bitte überprüfe die Verbindung in den Einstellungen.",
+  "screensaverNoMediaMatch": "Es wurden keine Medien gefunden, die den ausgewählten Quellen und Filtern entsprechen.",
+  "screensaverNoMediaSource": "In der ausgewählten Quelle sind keine Medien vorhanden.",
+  "screensaverImmichUnreachable": "Verbindung zum Immich-Server nicht möglich.",
+  "screensaverRetryNotice": "{error} Es wird automatisch erneut versucht.",
+  "screensaverVideosTooLarge": "Alle Videos in dieser Liste sind zu groß, um auf diesem Gerät wiedergegeben zu werden."
+}

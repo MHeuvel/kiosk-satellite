@@ -1,0 +1,12 @@
+{
+  "@@locale": "de",
+  "logsWebConsole": "Web-Konsole",
+  "logsDock": "Über der aktuellen Seite andocken",
+  "logsNoOutput": "Die Konsole enthält noch keine Meldungen",
+  "logsShareSubject": "Kiosk-Satellite-Konsolenprotokoll",
+  "logsInput": "JavaScript auf der Seite ausführen",
+  "logsInputHistory": "JavaScript auf der Seite ausführen (Eingabe zum Ausführen, Hoch/Runter für den Verlauf)",
+  "logsRun": "Ausführen",
+  "logsEvaluationFailed": "Ausführung fehlgeschlagen",
+  "logsDeviceUnreachable": "Verbindung zum Gerät nicht möglich"
+}

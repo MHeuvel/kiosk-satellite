@@ -1,0 +1,10 @@
+{
+  "@@locale": "de",
+  "settingAudioMicDeviceTitle": "Mikrofon",
+  "settingAudioMicDeviceDescription": "Das Mikrofon, das für die Aktivierungswort-Erkennung und die Erfassung von Sprachinteraktionen verwendet wird.",
+  "settingAudioSpeakerDeviceTitle": "Lautsprecher",
+  "settingAudioSpeakerDeviceDescription": "Ausgabegerät für die Töne von Voice Satellite. Die Medienwiedergabe folgt weiterhin der Systemausgabe. Die Echounterdrückung funktioniert nur, wenn Mikrofon und Lautsprecher zum selben Gerät gehören.",
+  "screenAudioDevices": "Audiogeräte",
+  "screenAudioSelectedDevice": "Ausgewähltes Gerät",
+  "screenAudioDisconnected": "{name} (nicht verbunden)"
+}

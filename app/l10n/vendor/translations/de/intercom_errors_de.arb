@@ -1,0 +1,22 @@
+{
+  "@@locale": "de",
+  "intercomCallFailed": "Anruf konnte nicht gestartet werden",
+  "intercomKeyFailed": "Der Schlüssel konnte nicht geändert werden",
+  "intercomBroadcastFailed": "Durchsage an alle fehlgeschlagen",
+  "intercomDeviceNoAnswer": "Das Gerät hat nicht geantwortet.",
+  "intercomUnknownKiosk": "unbekannter Kiosk",
+  "intercomNothingRinging": "es klingelt kein Anruf",
+  "intercomNoCall": "kein aktiver Anruf",
+  "intercomDisabled": "die Gegensprechanlage ist deaktiviert",
+  "intercomNeedsRemote": "Fernverwaltung wird benötigt",
+  "intercomNeedsDiscovery": "die Gegensprechanlage benötigt Fernverwaltung und „Andere Kiosks finden“",
+  "intercomAlreadyCalling": "es läuft bereits ein Anruf",
+  "intercomNoReadyError": "keine Kiosks bereit",
+  "intercomKeyLength": "der Schlüssel muss mindestens 16 Zeichen lang sein",
+  "intercomMicHeld": "die Seite verwendet das Mikrofon",
+  "intercomMicPermission": "Mikrofonzugriff wurde nicht gewährt",
+  "intercomCallerNoAnswer": "der anrufende Kiosk hat nicht geantwortet",
+  "intercomMissedcall": "Verpasster Anruf",
+  "intercomListening": "Hört zu",
+  "intercomAnnouncementsoff": "Durchsagen deaktiviert"
+}

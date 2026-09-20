@@ -1,0 +1,12 @@
+{
+  "@@locale": "de",
+  "aboutCheckNow": "Jetzt nach Updates suchen",
+  "aboutChecking": "Prüfe ...",
+  "aboutCheckFailed": "Die Suche nach Updates ist fehlgeschlagen. Kann das Gerät GitHub erreichen?",
+  "aboutOverlayMissing": "Berechtigung „Über anderen Apps anzeigen“ fehlt",
+  "aboutOverlayHelp": "Ohne diese Berechtigung kann die Anwendung nach einem Update nicht erneut geöffnet werden. Der Bildschirm zur Erteilung der Berechtigung wird auf dem Tablet angezeigt.",
+  "aboutDownloadProgress": "Wird heruntergeladen ... {percent}%",
+  "aboutDownloadFailed": "Update fehlgeschlagen: {error}",
+  "aboutAlreadyCurrent": "Die Anwendung ist bereits auf dem neuesten Stand",
+  "aboutInstallHelp": "Der Download erfolgt auf dem Tablet. Die Installation muss auf dem Tablet bestätigt werden."
+}

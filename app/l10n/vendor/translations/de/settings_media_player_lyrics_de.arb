@@ -1,0 +1,13 @@
+{
+  "@@locale": "de",
+  "settingSendspinLyricsEnabledTitle": "Songtexte aktivieren",
+  "settingSendspinLyricsEnabledDescription": "Synchronisierte Songtexte in „Jetzt läuft“ für alle Player-Quellen.",
+  "settingSendspinLyricsSourceTitle": "Quelle der Songtexte",
+  "settingSendspinLyricsSourceDescription": "Legt fest, woher die Songtexte bezogen werden. Für Music Assistant werden die Serveradresse und das Token auf dessen Einstellungsseite benötigt.",
+  "settingSendspinLyricsFallbackTitle": "Music Assistant als Alternative verwenden",
+  "settingSendspinLyricsFallbackDescription": "Falls keine Verbindung zu LRCLIB hergestellt werden kann, wird Music Assistant abgefragt. Erfordert eine Verbindung zu Music Assistant.",
+  "settingSendspinLyricsOffsetTitle": "Synchronisierung der Songtexte",
+  "settingSendspinLyricsOffsetDescription": "Passt die Songtexte zeitlich an die Musik an. Ein positiver Wert zeigt jede Zeile früher an, ein negativer Wert später. Nützlich, wenn die Songtexte eines Titels stets zeitlich versetzt erscheinen.",
+  "mediaLyricsPage": "Songtexte",
+  "mediaLyricsHint": "Synchronisierte Songtexte, deren Quelle und zeitliche Abstimmung"
+}

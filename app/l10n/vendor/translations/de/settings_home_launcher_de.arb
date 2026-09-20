@@ -1,0 +1,7 @@
+{
+  "@@locale": "de",
+  "settingHomeLauncherEnabledTitle": "Als Startbildschirm verwenden",
+  "settingHomeLauncherEnabledDescription": "Registriert Kiosk Satellite als Startbildschirm des Geräts. Der Kiosk wird beim Einschalten automatisch geöffnet und jede Betätigung der Home-Taste führt zurück zum Kiosk. Bei wiederholten Startfehlern wird die Funktion deaktiviert und der vorherige Launcher wiederhergestellt.",
+  "settingHomeKeepPinningTitle": "Bildschirmfixierung beibehalten",
+  "settingHomeKeepPinningDescription": "Hält die Bildschirmfixierung aktiv, auch wenn Kiosk Satellite als Startbildschirm verwendet wird. Sperrt die Tasten „Zuletzt verwendete Apps“ und „Zurück“ auf Systemebene, zeigt jedoch auf Geräten, bei denen die Anwendung nicht Gerätebesitzer ist, erneut die Bestätigung für die Bildschirmfixierung an."
+}

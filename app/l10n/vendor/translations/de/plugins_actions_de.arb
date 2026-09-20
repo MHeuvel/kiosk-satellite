@@ -1,0 +1,13 @@
+{
+  "@@locale": "de",
+  "pluginActions": "Aktionen",
+  "pluginKioskDrawer": "Kiosk-Menü",
+  "pluginToAssignAGestureOpenGesturesAndChooseRun": "Um eine Geste zuzuweisen, öffne „Gesten“ und wähle „Plugin-Aktion ausführen“ aus.",
+  "pluginShowInKioskDrawer": "Im Kiosk-Menü anzeigen",
+  "pluginAlsoAvailableWhileLockedIfTheKioskDrawerIs": "Auch im Sperrmodus verfügbar, wenn das Kiosk-Menü erlaubt ist.",
+  "pluginExposeToHomeAssistant": "In Home Assistant veröffentlichen",
+  "pluginAddsAButtonToTheKioskEsphomeDeviceRequires": "Fügt dem ESPHome-Gerät des Kiosks eine Schaltfläche hinzu. Erfordert ESPHome und native Entitäten.",
+  "pluginSelectAnEntity": "Eine Entität auswählen",
+  "pluginChooseName": "{name} auswählen",
+  "pluginConfigureName": "{name} konfigurieren"
+}

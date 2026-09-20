@@ -1,0 +1,9 @@
+{
+  "@@locale": "de",
+  "settingDisableCacheTitle": "Cache deaktivieren",
+  "settingDisableCacheDescription": "Lädt Inhalte immer aus dem Netzwerk und verwirft beim Laden zwischengespeicherte Seitendaten, damit stets die aktuellste Version des Dashboards angezeigt wird. Dies verlangsamt den Seitenaufbau. Nützlich als Hilfe während der Entwicklung.",
+  "settingAllowMixedContentTitle": "Gemischte Inhalte zulassen",
+  "settingAllowMixedContentDescription": "Erlaubt HTTPS-Seiten das Laden unsicherer HTTP-Ressourcen. Nützlich, wenn Home Assistant Inhalte mit http:// in einem Dashboard einbindet, das über https:// aufgerufen wird.",
+  "settingIgnoreSslErrorsTitle": "SSL-Fehler ignorieren",
+  "settingIgnoreSslErrorsDescription": "Akzeptiert nicht vertrauenswürdige oder selbst signierte Zertifikate. Nur im eigenen Netzwerk verwenden, da dadurch die Zertifikatsprüfung deaktiviert wird."
+}

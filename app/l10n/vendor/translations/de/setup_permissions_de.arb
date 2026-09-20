@@ -1,0 +1,16 @@
+{
+  "@@locale": "de",
+  "setupPermissionLead": "Android wird diese Berechtigungen anfordern. Sie werden alle zu Beginn abgefragt, damit der Kiosk dich später nicht mehr unterbricht.",
+  "setupRemotePermissionLead": "Android fordert diese Berechtigungen direkt auf dem Tablet an. Gehe zum Gerät und bestätige die Anfragen. Anschließend kannst du hier fortfahren.",
+  "setupMicrophoneHelp": "Voice Satellite und die Gegensprechanlage benötigen Zugriff auf das Mikrofon.",
+  "setupNotificationListening": "Erlaubt die permanente Benachrichtigung des Kiosk-Satellite-Dienstes, die anzeigt, welche Funktionen aktiv gehalten werden und wann der Kiosk zuhört.",
+  "setupBatteryService": "Erlaubt dem Kiosk-Satellite-Dienst, im Hintergrund zu laufen, ohne von Android pausiert oder beendet zu werden.",
+  "setupOverlayBoot": "Erlaubt Kiosk Satellite, sich nach einem Absturz erneut zu öffnen und beim Einschalten des Geräts zu starten.",
+  "setupOverlayCrash": "Erlaubt Kiosk Satellite, nach einem Absturz wieder angezeigt zu werden.",
+  "setupBrightnessHelp": "Erlaubt Kiosk Satellite, die tatsächliche Bildschirmhelligkeit anzupassen (Systemeinstellungen ändern).",
+  "setupScreenControl": "Bildschirmsteuerung",
+  "setupScreenControlHelp": "Erlaubt Kiosk Satellite, den Bildschirm auf Anforderung auszuschalten (Geräteadministrator).",
+  "setupGrantPermissions": "Berechtigungen auf dem Gerät erteilen",
+  "setupRequestingPermissions": "Berechtigungen werden auf dem Gerät angefordert...",
+  "setupPermissionsRequested": "Berechtigungen wurden auf dem Gerät angefordert"
+}

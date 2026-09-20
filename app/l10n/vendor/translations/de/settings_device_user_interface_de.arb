@@ -1,0 +1,13 @@
+{
+  "@@locale": "de",
+  "settingUiLanguageTitle": "Sprache",
+  "settingUiLanguageDescription": "Sprache von Kiosk Satellite und der Fernverwaltung. Home Assistant verwendet weiterhin seine eigene Sprache.",
+  "settingUiThemeTitle": "App-Design",
+  "settingUiThemeDescription": "Hell oder dunkel für die App-Oberflächen: Menü, Einstellungen und Dialoge. „System“ übernimmt die Android-Einstellung.",
+  "settingUiScaleTitle": "Skalierung der Benutzeroberfläche",
+  "settingUiScaleDescription": "Größe der App-Oberflächen: Menü, Einstellungen und Dialoge. Für Displays mit hoher Pixeldichte. Webinhalte behalten ihre eigene Größe.",
+  "deviceUserInterface": "Benutzeroberfläche",
+  "deviceThemeDark": "Dunkel",
+  "deviceThemeLight": "Hell",
+  "deviceThemeSystem": "System"
+}

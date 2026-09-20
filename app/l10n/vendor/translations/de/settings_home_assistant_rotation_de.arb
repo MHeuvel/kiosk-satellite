@@ -1,0 +1,19 @@
+{
+  "@@locale": "de",
+  "settingHaRotationEnabledTitle": "Dashboard-Ansichtsrotation aktivieren",
+  "settingHaRotationEnabledDescription": "Durchläuft die ausgewählten Dashboard-Ansichten in einer Endlosschleife und zeigt jede Ansicht für die festgelegte Anzahl von Sekunden an.",
+  "settingHaRotationSecondsTitle": "Sekunden pro Ansicht",
+  "settingHaRotationSecondsDescription": "Wie lange jede Ansicht angezeigt wird.",
+  "settingHaRotationPauseSecondsTitle": "Rotation bei Interaktion pausieren (Sekunden)",
+  "settingHaRotationPauseSecondsDescription": "Eine Bildschirmberührung pausiert die Rotation für diese Zeit. Jede weitere Berührung startet den Timer neu. Sprachinteraktionen pausieren die Rotation bis zu ihrem Ende. Bei 0 pausieren Berührungen die Rotation nicht.",
+  "settingHaRotationCrossfadeTitle": "Überblendung zwischen Ansichten",
+  "settingHaRotationCrossfadeDescription": "Blendet zunächst zum Hintergrund aus und anschließend die nächste Ansicht ein, anstatt sofort umzuschalten. Wechsel zu einem anderen Dashboard oder einer externen Seite erfolgen weiterhin ohne Überblendung.",
+  "settingHaRotationFadeSecondsTitle": "Dauer der Überblendung (Sekunden)",
+  "settingHaRotationFadeSecondsDescription": "Gesamtdauer für Aus- und Einblenden. Das Laden der nächsten Ansicht kann zusätzliche Zeit benötigen, insbesondere beim ersten Öffnen.",
+  "haRotation": "Dashboard-Ansichtsrotation",
+  "haRotationHint": "Durchläuft Ansichten, Anzeigedauer je Ansicht und Überblendungseffekt",
+  "haDefaultView": "Standardansicht",
+  "haExternalPages": "Externe Seiten",
+  "haFadeError": "Bitte eine Überblendungsdauer zwischen 0,2 und 5 Sekunden wählen.",
+  "haPauseRemoteHelp": "Eine Bildschirmberührung pausiert die Rotation für diese Zeit. Jede weitere Berührung startet den Timer neu. Sprachinteraktionen pausieren die Rotation bis zu ihrem Ende. Bei 0 pausieren Berührungen die Rotation nicht."
+}

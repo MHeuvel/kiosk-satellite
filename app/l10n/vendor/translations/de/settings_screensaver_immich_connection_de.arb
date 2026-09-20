@@ -1,0 +1,22 @@
+{
+  "@@locale": "de",
+  "settingScreensaverImmichUrlTitle": "Serveradresse",
+  "settingScreensaverImmichUrlDescription": "Adresse des Immich-Servers einschließlich Port.",
+  "settingScreensaverImmichApiKeyTitle": "API-Schlüssel",
+  "settingScreensaverImmichApiKeyDescription": "Wird in Immich unter Kontoeinstellungen → API-Schlüssel erstellt.",
+  "screensaverMediaImmichPage": "Bildschirmschoner: Immich",
+  "screensaverMediaImmichHint": "Server, Medieninhalte, Diashow, Metadaten und Filter",
+  "screensaverMediaServerConnection": "Serververbindung",
+  "screensaverMediaValidateFailedLog": "Die Validierung ist fehlgeschlagen. Sieh im Anwendungsprotokoll nach, welcher Aufruf fehlgeschlagen ist.",
+  "screensaverMediaValidateFailed": "Die Validierung ist fehlgeschlagen.",
+  "screensaverMediaNoAnswer": "Das Gerät hat nicht geantwortet.",
+  "screensaverMediaAddressFirst": "Bitte zuerst die Serveradresse eingeben.",
+  "screensaverMediaKeyFirst": "Bitte zuerst einen API-Schlüssel eingeben.",
+  "screensaverMediaBadAddress": "Die Serveradresse ist keine gültige URL.",
+  "screensaverMediaKeyRejected": "Der API-Schlüssel wurde abgelehnt.",
+  "screensaverMediaScopeMissing": "Dem API-Schlüssel fehlt die Berechtigung {scope}.",
+  "screensaverMediaPermissionMissing": "Dem API-Schlüssel fehlt eine Berechtigung: {error}",
+  "screensaverMediaServerError": "Der Server antwortete mit {status}: {error}",
+  "screensaverMediaUnreachable": "Verbindung zu {url} nicht möglich.",
+  "screensaverMediaTalkError": "Kommunikation mit dem Server fehlgeschlagen: {error}"
+}

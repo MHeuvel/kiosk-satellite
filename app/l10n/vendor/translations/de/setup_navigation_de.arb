@@ -1,0 +1,11 @@
+{
+  "@@locale": "de",
+  "setupWelcome": "Willkommen",
+  "setupConnect": "Verbinden",
+  "setupConnectSummary": "Home-Assistant-URL und Token",
+  "setupDashboard": "Dashboard",
+  "setupDashboardSummary": "Was der Kiosk anzeigt",
+  "setupRecommendedSummary": "Empfohlene Einstellungen",
+  "setupPermissions": "Berechtigungen",
+  "setupPermissionsSummary": "Erforderlich für die Einrichtung"
+}

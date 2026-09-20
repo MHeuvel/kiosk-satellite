@@ -1,0 +1,20 @@
+{
+  "@@locale": "de",
+  "settingScreensaverWidgetsTitle": "Widgets",
+  "settingScreensaverWidgetsDescription": "Kleine Elemente, die in den Ecken des Bildschirmschoners eingeblendet werden.",
+  "settingScreensaverWidgetScaleTitle": "Globale Widget-Skalierung",
+  "settingScreensaverWidgetScaleDescription": "Passt die Größe aller Widgets an den Bildschirm an. Jedes Widget behält dabei seine Größe im Verhältnis zu den anderen Widgets.",
+  "settingScreensaverWidgetFontTitle": "Globale Schriftart",
+  "settingScreensaverWidgetFontDescription": "Schriftart, die von allen Widgets verwendet wird. Jedes Widget kann jedoch seine eigene Schriftart wählen.",
+  "settingScreensaverWidgetFontWeightTitle": "Globale Schriftstärke",
+  "settingScreensaverWidgetFontWeightDescription": "Schriftstärke für den Text aller Widgets. Standard verwendet die jeweilige Schriftstärke jeder Zeile. Jedes Widget kann seine eigene Schriftstärke festlegen.",
+  "settingScreensaverWidgetTextShadowTitle": "Textschatten",
+  "settingScreensaverWidgetTextShadowDescription": "Fügt dem Widget-Text einen Schatten hinzu, damit er auf Fotos besser lesbar ist.",
+  "settingScreensaverVignetteStrengthTitle": "Intensität der Abdunklung",
+  "settingScreensaverVignetteStrengthDescription": "Stärke der Hintergrundabdunklung hinter den Widgets, um die Lesbarkeit auf hellen Fotos zu verbessern. Der Wert 0 deaktiviert die Funktion.",
+  "screensaverOverlayWidgetsEmpty": "Noch keine Widgets vorhanden",
+  "screensaverOverlayRemove": "Widget entfernen",
+  "screensaverOverlayAdd": "Widget hinzufügen",
+  "screensaverOverlayAddHelp": "Eine kleine Uhr, Wetterinformationen, Akkustand oder eine Entität in einer Ecke.",
+  "screensaverOverlayWidgetsHint": "Elemente in den Ecken und deren Skalierung"
+}

@@ -1,0 +1,19 @@
+{
+  "@@locale": "de",
+  "settingEsphomeEnabledTitle": "ESPHome aktivieren",
+  "settingEsphomeEnabledDescription": "Stellt diesen Kiosk Home Assistant als ESPHome-Gerät bereit, einschließlich seiner Sensoren und Steuerungen als native Entitäten. Die Erkennung erfolgt automatisch.",
+  "settingEsphomeEntitiesTitle": "Kiosk-Entitäten freigeben",
+  "settingEsphomeEntitiesDescription": "Stellt die Sensoren und Steuerungen dieses Geräts als ESPHome-Entitäten bereit.",
+  "settingEsphomeExcludedEntitiesTitle": "Ausgeschlossene Entitäten",
+  "settingEsphomeExcludedEntitiesDescription": "Wähle die Entitäten aus, die in Home Assistant nicht angezeigt werden sollen. Alle anderen verfügbaren Entitäten werden freigegeben. Beim Speichern verbindet sich ESPHome erneut.",
+  "settingEsphomeNodeNameTitle": "Knotenname",
+  "settingEsphomeNodeNameDescription": "Identifiziert diesen Kiosk im Netzwerk. Home Assistant verwendet diesen Namen, um die Namen seiner Aktionen zu erstellen. Wenn du ihn änderst, ändern sich auch die Namen dieser Aktionen.",
+  "settingEsphomeNodeNamePlaceholder": "Wird beim ersten Start festgelegt",
+  "settingBtproxyKeyTitle": "Verschlüsselungsschlüssel",
+  "settingBtproxyKeyDescription": "Füge diesen Schlüssel in Home Assistant ein, wenn nach dem Verschlüsselungsschlüssel gefragt wird. Er wird beim ersten Start automatisch erzeugt.",
+  "settingBtproxyKeyPlaceholder": "Wird beim ersten Start erzeugt",
+  "settingBtproxyPortTitle": "API-Port",
+  "settingBtproxyPortDescription": "Der Port, mit dem sich Home Assistant verbindet. Leer lassen, um den ESPHome-Standardport 6053 zu verwenden.",
+  "esphomeStartFailed": "Der ESPHome-Server konnte nicht gestartet werden: {error}",
+  "esphomeExcludedInvalid": "Bitte eine Liste von Entitäts-IDs auswählen."
+}

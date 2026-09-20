@@ -1,0 +1,16 @@
+{
+  "@@locale": "de",
+  "settingLocationEnabledTitle": "Standort melden",
+  "settingLocationEnabledDescription": "Liest die GPS-Position aus und stellt sie in Home Assistant als Sensoren für Breiten- und Längengrad, Genauigkeit, Höhe und Geschwindigkeit bereit. Das Aktivieren oder Deaktivieren dieser Option registriert das ESPHome-Gerät erneut.",
+  "settingLocationIntervalTitle": "Aktualisierungsintervall",
+  "settingLocationIntervalDescription": "Sekunden zwischen den Standortabfragen.",
+  "esphomeGps": "GPS-Sensor",
+  "esphomeGpsHelp": "Stellt GPS-Sensordaten in Home Assistant bereit",
+  "esphomeLocationOff": "Deaktiviert.",
+  "esphomeLocationWaiting": "Warte auf die erste Positionsbestimmung. Ein Kaltstart unter freiem Himmel kann einige Minuten dauern.",
+  "esphomeCoordinates": "Letzte Koordinaten",
+  "esphomeLocationDenied": "Die Standortberechtigung wurde nicht erteilt.",
+  "esphomeLocationAbsent": "Kein GPS-Empfänger vorhanden.",
+  "esphomeLocationError": "GPS nicht verfügbar: {error}",
+  "esphomeLocationUnsupported": "Auf diesem Gerät nicht verfügbar: Es verfügt über keinen GPS-Empfänger."
+}

@@ -1,0 +1,20 @@
+{
+  "@@locale": "de",
+  "settingIntercomEnabledTitle": "Gegensprechanlage aktivieren",
+  "settingIntercomEnabledDescription": "Rufe andere Kiosks in diesem Netzwerk an und empfange deren Anrufe.",
+  "settingIntercomKeyTitle": "Intercom-Schlüssel",
+  "settingIntercomKeyDescription": "Kiosks mit demselben Schlüssel können miteinander kommunizieren. Die Flottenverwaltung kann diesen Schlüssel synchronisieren.",
+  "settingIntercomKeyPlaceholder": "Wird beim Aktivieren der Gegensprechanlage erstellt",
+  "settingIntercomMenuTitle": "Im Kiosk-Menü anzeigen",
+  "settingIntercomMenuDescription": "Fügt dem Kiosk-Menü den Eintrag „Gegensprechanlage“ hinzu.",
+  "intercomNeedsAdmin": "Die Gegensprechanlage benötigt die Fernverwaltung",
+  "intercomAdminHelp": "Kiosks finden und verbinden sich darüber. Aktiviere unter „Gerät“ die Optionen „Fernverwaltung“ und „Andere Kiosks finden“ und kehre anschließend hierher zurück.",
+  "intercomChangeKey": "Schlüssel ändern",
+  "intercomChangeKeyHelp": "Füge den Schlüssel eines anderen Kiosks ein oder erstelle einen neuen.",
+  "intercomChange": "Ändern",
+  "intercomKeyWarning": "Kiosks mit diesem Schlüssel können miteinander kommunizieren. Ein neuer Schlüssel trennt diesen Kiosk von den anderen, bis diese ebenfalls den neuen Schlüssel verwenden.",
+  "intercomRegenerate": "Neu generieren",
+  "intercomKeyChanged": "Schlüssel geändert",
+  "intercomNotSet": "Nicht eingerichtet",
+  "intercomOpen": "Öffnen"
+}

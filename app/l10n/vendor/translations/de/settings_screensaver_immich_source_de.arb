@@ -1,0 +1,19 @@
+{
+  "@@locale": "de",
+  "settingScreensaverImmichAlbumTitle": "Medienquelle",
+  "settingScreensaverImmichAlbumDescription": "Die gesamte Bibliothek oder die von dir ausgewählten Alben.",
+  "settingScreensaverImmichPhotosOnlyTitle": "Nur Fotos",
+  "settingScreensaverImmichPhotosOnlyDescription": "Überspringt Videos in der Diashow.",
+  "settingScreensaverImmichCacheTitle": "Inhalte lokal zwischenspeichern",
+  "settingScreensaverImmichCacheDescription": "Speichert Kopien auf dem Gerät, damit Bilder sofort geladen werden.",
+  "settingScreensaverImmichCacheMaxTitle": "Cache-Größe (Elemente)",
+  "settingScreensaverImmichCacheMaxDescription": "Entfernt die ältesten Elemente, wenn der Cache voll ist.",
+  "screensaverMediaAll": "Alle Inhalte",
+  "screensaverMediaAllDevice": "Alle Inhalte.",
+  "screensaverMediaNoAlbums": "Es sind noch keine Alben vorhanden. Erstelle zuerst ein Album in Immich.",
+  "screensaverMediaAlbumsFailed": "Die Alben konnten nicht aufgelistet werden",
+  "screensaverMediaListError": "Die Elemente konnten nicht aufgelistet werden: {error}",
+  "screensaverMediaListingFailed": "Die Elemente konnten nicht aufgelistet werden",
+  "screensaverMediaItems": "{count} Elemente",
+  "screensaverMediaCached": "{count} im Cache, {size}"
+}

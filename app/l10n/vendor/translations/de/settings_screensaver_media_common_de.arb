@@ -1,0 +1,12 @@
+{
+  "@@locale": "de",
+  "screensaverMediaTransitionNone": "Keine",
+  "screensaverMediaTransitionFade": "Überblendung",
+  "screensaverMediaTransitionSlide": "Verschieben",
+  "screensaverMediaTransitionZoom": "Zoom",
+  "screensaverMediaTransitionKenBurns": "Ken-Burns-Effekt",
+  "screensaverMediaTransitionRandom": "Zufällig",
+  "screensaverMediaFillOff": "Deaktiviert",
+  "screensaverMediaFillSmart": "Intelligent",
+  "screensaverMediaFillAlways": "Immer"
+}

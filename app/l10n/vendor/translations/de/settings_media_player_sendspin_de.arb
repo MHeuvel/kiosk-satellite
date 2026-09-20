@@ -1,0 +1,16 @@
+{
+  "@@locale": "de",
+  "settingSendspinEnabledTitle": "Sendspin-Player aktivieren",
+  "settingSendspinEnabledDescription": "Verwandelt dieses Gerät in einen synchronisierten Sendspin-Player. Er erscheint in Music Assistant unter dem Gerätenamen und wird mit anderen Sendspin-Lautsprechern synchronisiert.",
+  "settingSendspinServerTitle": "Server",
+  "settingSendspinServerDescription": "Adresse des Sendspin-Servers, z. B. 192.168.1.10:8927. Lasse das Feld leer, um den Server automatisch im Netzwerk zu suchen.",
+  "settingSendspinCodecTitle": "Bevorzugter Audio-Codec",
+  "settingSendspinCodecDescription": "FLAC ist verlustfrei und ideal für WLAN oder Ethernet. Der Server wählt den Codec aus den von diesem Gerät unterstützten Codecs aus.",
+  "settingSendspinSyncOffsetTitle": "Audio-Synchronisationskorrektur (ms)",
+  "settingSendspinSyncOffsetDescription": "Ein negativer Wert lässt dieses Gerät früher wiedergeben, um Lautsprecher auszugleichen, die gegenüber der Gruppe verzögert sind, beispielsweise Bluetooth-Lautsprecher. Nach Gehör anpassen. Wird sofort angewendet.",
+  "mediaSendspinPage": "Sendspin-Player",
+  "mediaSendspinHint": "Verwandelt dieses Gerät in einen synchronisierten Music-Assistant-Player",
+  "mediaFlac": "FLAC (verlustfrei)",
+  "mediaOpus": "Opus (effizient)",
+  "mediaPcm": "PCM (unkomprimiert)"
+}

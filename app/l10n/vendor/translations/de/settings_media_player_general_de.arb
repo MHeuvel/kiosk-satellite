@@ -1,0 +1,20 @@
+{
+  "@@locale": "de",
+  "settingSendspinPlayerSourceTitle": "Player-Quelle",
+  "settingSendspinPlayerSourceDescription": "Legt fest, was der schwebende Player und „Jetzt läuft“ anzeigen und steuern: dieses Gerät oder einen Player an einem anderen Ort.",
+  "settingSendspinPlayerTitle": "Player",
+  "settingSendspinPlayerDescription": "Der Player dieser Quelle, der angezeigt und gesteuert werden soll.",
+  "settingSendspinDuckPercentTitle": "Lautstärke während Sprachinteraktionen reduzieren",
+  "settingSendspinDuckPercentDescription": "Während Sprachinteraktionen und Intercom-Anrufen wird die Musik auf diesen Prozentsatz ihrer ursprünglichen Lautstärke abgesenkt. Anschließend wird die vorherige Lautstärke wiederhergestellt.",
+  "settingSendspinVolumeKeysTitle": "Player mit den Lautstärketasten steuern",
+  "settingSendspinVolumeKeysDescription": "Die Lautstärketasten dieses Geräts ändern die Lautstärke des gesteuerten Players. Dies gilt entweder nur, solange „Jetzt läuft“ angezeigt wird, oder immer während der Player Musik wiedergibt.",
+  "settingSendspinVolumeKeyStepTitle": "Schrittweite der Lautstärketasten",
+  "settingSendspinVolumeKeyStepDescription": "Wie stark sich die Lautstärke des Players pro Tastendruck verändert.",
+  "mediaIntro": "Der schwebende Player und „Jetzt läuft“ erscheinen nur, wenn der ausgewählte Player aktuell einen Titel wiedergibt oder eine Warteschlange geladen hat. Wenn nichts wiedergegeben wird und keine Warteschlange vorhanden ist, werden sie nicht angezeigt.",
+  "mediaThisDevice": "Dieses Gerät",
+  "mediaOff": "Deaktiviert",
+  "mediaKeysNowPlaying": "Während „Jetzt läuft“ angezeigt wird",
+  "mediaKeysPlaying": "Während der Player wiedergibt",
+  "mediaAnotherPlayer": "anderer Player",
+  "mediaLocalOffline": "Der Sendspin-Player dieses Geräts bleibt getrennt, während {player} gesteuert wird."
+}

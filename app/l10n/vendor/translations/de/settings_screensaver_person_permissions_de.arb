@@ -1,0 +1,16 @@
+{
+  "@@locale": "de",
+  "screensaverDetectionPermissions": "Erforderliche Systemberechtigungen",
+  "screensaverDetectionLogAccess": "Zugriff auf Protokolle",
+  "screensaverDetectionChecking": "Wird geprüft...",
+  "screensaverDetectionReadable": "Der Anwesenheitssensor des Geräts kann ausgelesen werden.",
+  "screensaverDetectionRestartRequired": "Erteilt. Starte Kiosk Satellite neu, damit die Änderung wirksam wird.",
+  "screensaverDetectionGrantHelp": "Diese Berechtigung kann nur per ADB erteilt werden. Die Meta-Portal-Dokumentation enthält den vollständigen Befehl. Starte anschließend Kiosk Satellite neu.",
+  "screensaverDetectionGrantRemoteHelp": "Diese Berechtigung kann nur per ADB erteilt werden. Unten findest du den vollständigen Befehl zum Kopieren. Starte anschließend Kiosk Satellite neu.",
+  "screensaverDetectionGranted": "Erteilt",
+  "screensaverDetectionMissing": "Berechtigung fehlt",
+  "screensaverDetectionRestart": "Neu starten",
+  "screensaverDetectionRestartRemote": "Kiosk Satellite auf dem Gerät neu starten",
+  "screensaverDetectionLogRestart": "Der Protokollzugriff wurde erteilt, wird aber erst nach einem Neustart von Kiosk Satellite wirksam.",
+  "screensaverDetectionLogMissing": "Der Zugriff auf die Protokolle wurde nicht erteilt."
+}

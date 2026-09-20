@@ -1,0 +1,8 @@
+{
+  "@@locale": "de",
+  "remoteDisableTitle": "Fernverwaltung deaktivieren?",
+  "remoteDisableHelp": "WARNUNG: Auf diese Seite kann dann nicht mehr zugegriffen werden. Um die Fernverwaltung wieder zu aktivieren, verwende das Gerät selbst oder den Schalter für die Fernverwaltung in Home Assistant.",
+  "remoteDisableConfirm": "Deaktivieren",
+  "remoteCopyHelp": "Wähle den Schlüssel aus und kopiere ihn manuell.",
+  "remoteSaveSettingFailed": "Diese Einstellung konnte nicht gespeichert werden. Bitte versuche es erneut."
+}

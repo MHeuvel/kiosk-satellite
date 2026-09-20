@@ -1,0 +1,8 @@
+{
+  "@@locale": "de",
+  "cameraStreamsImportHa": "Kameras aus Home Assistant importieren",
+  "cameraStreamsImportHaHelp": "Fügt alle Kameras aus Home Assistant hinzu und gibt sie über WebRTC, HLS oder MJPEG wieder. Bei einem erneuten Import werden neue Kameras ergänzt.",
+  "cameraStreamsImportFailed": "Import fehlgeschlagen",
+  "cameraStreamsImportComplete": "Import abgeschlossen",
+  "cameraStreamsImportCounts": "{added} hinzugefügt, {missing} nicht verfügbar."
+}

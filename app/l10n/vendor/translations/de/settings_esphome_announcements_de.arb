@@ -1,0 +1,16 @@
+{
+  "@@locale": "de",
+  "settingAnnouncementsEnabledTitle": "Durchsagen aktivieren",
+  "settingAnnouncementsEnabledDescription": "Gibt Durchsagen wieder, die Home Assistant über die Aktion „announce“ sendet.",
+  "settingAnnouncementsTtsEngineTitle": "Text-zu-Sprache-Engine",
+  "settingAnnouncementsTtsEngineDescription": "Die Text-zu-Sprache-Entität von Home Assistant, die die Durchsagen vorliest.",
+  "esphomeTtsFirst": "Erste verfügbare",
+  "settingAnnouncementsChimeTitle": "Vorher einen Signalton abspielen",
+  "settingAnnouncementsChimeDescription": "Spielt vor der Durchsage einen Signalton ab.",
+  "settingAnnouncementsChimeFileTitle": "Signalton",
+  "settingAnnouncementsChimeFileDescription": "Wird mit der Benachrichtigungslautstärke wiedergegeben.",
+  "esphomeAnnouncements": "Durchsagen",
+  "esphomeAnnouncementsHelp": "Sprachdurchsagen von Home Assistant",
+  "esphomeChime": "Signalton",
+  "esphomeTtsUnavailable": "Verbindung zu Home Assistant konnte nicht hergestellt werden"
+}

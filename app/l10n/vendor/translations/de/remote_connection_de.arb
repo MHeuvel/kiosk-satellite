@@ -1,0 +1,11 @@
+{
+  "@@locale": "de",
+  "remoteReconnecting": "Verbindung wird wiederhergestellt…",
+  "remoteConnectionLost": "Die Verbindung zu {name} wurde unterbrochen. Diese Seite wird automatisch fortgesetzt, sobald die Verbindung wiederhergestellt ist.",
+  "remoteConnectionLostUnnamed": "Die Verbindung zum Kiosk wurde unterbrochen. Diese Seite wird automatisch fortgesetzt, sobald die Verbindung wiederhergestellt ist.",
+  "remoteReloadPage": "Seite neu laden",
+  "remoteUpdated": "Kiosk Satellite wurde aktualisiert",
+  "remoteUpdatedHelp": "Das Gerät verwendet jetzt Version {version}{build}. Diese Seite gehört zur vorherigen Version und wird in {seconds} Sek. neu geladen.",
+  "remoteBuild": " (Build {build})",
+  "remoteReloadNow": "Jetzt neu laden"
+}

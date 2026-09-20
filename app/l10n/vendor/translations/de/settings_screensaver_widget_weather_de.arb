@@ -1,0 +1,21 @@
+{
+  "@@locale": "de",
+  "screensaverOverlayWeatherEntity": "Wetter-Entität",
+  "screensaverOverlayNoWeather": "Keine Wetter-Entitäten vorhanden",
+  "screensaverOverlayNoWeatherHelp": "Home Assistant hat keine Wetter-Entitäten zurückgegeben.",
+  "screensaverOverlayPickWeather": "Wähle eine Wetter-Entität aus...",
+  "screensaverOverlayWeatherRequired": "Bitte eine Wetter-Entität auswählen.",
+  "screensaverOverlayLocationName": "Standortname",
+  "screensaverOverlayLocationHelp": "Leer lassen, um die Standortzeile auszublenden.",
+  "screensaverOverlayLocation": "Standort",
+  "screensaverOverlayLocationDetail": "Zeigt den Ortsnamen über der Temperatur an.",
+  "screensaverOverlayFeelsLike": "Gefühlte Temperatur",
+  "screensaverOverlayFeelsLikeHelp": "Zeigt die gefühlte Temperatur nach der tatsächlichen Temperatur an, z. B. „30° / 33°“.",
+  "screensaverOverlayFeelsLikeOnly": "Nur gefühlte Temperatur",
+  "screensaverOverlayFeelsLikeOnlyHelp": "Zeigt die gefühlte Temperatur anstelle der tatsächlichen Temperatur an.",
+  "screensaverOverlayForecast": "Wetterlage",
+  "screensaverOverlayForecastHelp": "Zeigt die Wetterbedingungen mit dem entsprechenden Symbol an.",
+  "screensaverOverlayHumidity": "Luftfeuchtigkeit",
+  "screensaverOverlayWind": "Windgeschwindigkeit",
+  "screensaverOverlayVisibility": "Sichtweite"
+}

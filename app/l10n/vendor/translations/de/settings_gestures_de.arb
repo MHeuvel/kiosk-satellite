@@ -1,0 +1,19 @@
+{
+  "@@locale": "de",
+  "settingClapStrictnessTitle": "Klatscherkennung",
+  "settingClapStrictnessDescription": "Der strikte Modus erfordert lautere und gleichmäßiger verteilte Klatscher. Probiere ihn aus, wenn Haushaltsgeräusche die Gesten versehentlich auslösen.",
+  "gestureStrictnessStandard": "Standard",
+  "gestureStrictnessStrict": "Strikt",
+  "gestureOff": "Gesten sind deaktiviert",
+  "gestureOffHelp": "Die Option „Gesten deaktivieren“ ist in den Kioskmodus-Einstellungen aktiviert.",
+  "gestureEmpty": "Keine Gesten konfiguriert",
+  "gestureEmptyHelp": "Eine Geste führt ihre Aktion ohne sichtbare Bedienelemente aus.",
+  "gestureDeleteTooltip": "Geste löschen",
+  "gestureDeleteTitle": "Geste löschen?",
+  "gestureDeleteMessage": "Diese Geste löschen? Geste: {trigger}. Aktion: {action}.",
+  "gestureAdd": "Geste hinzufügen",
+  "gestureAddHelp": "Wähle eine Geste und die Aktion aus, die sie ausführen soll.",
+  "gestureTouchHelp": "Gesten werden erkannt, ohne Berührungen zu blockieren. Berührungen werden weiterhin an das Dashboard weitergegeben. Die Verwendung von Ecken und mehreren Fingern hilft, Bedienelemente nicht versehentlich auszulösen.",
+  "gestureClapper": "Klatschsteuerung",
+  "gestureReadFailed": "Die Konfiguration konnte nicht gelesen werden."
+}

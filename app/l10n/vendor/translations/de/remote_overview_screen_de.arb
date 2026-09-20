@@ -1,0 +1,12 @@
+{
+  "@@locale": "de",
+  "overviewNoScreenshot": "Kein Bildschirmfoto verfügbar",
+  "overviewStill": "Standbild",
+  "overviewLive": "Live",
+  "overviewFullSize": "Originalgröße",
+  "overviewLiveInterval": "Live, alle 5 Sekunden",
+  "overviewTaken": "Aufgenommen: {age}",
+  "overviewCameraViewNamed": "Kameraansicht: {name}",
+  "overviewCameraView": "Kameraansicht",
+  "overviewScreenOffState": "Bildschirm ausgeschaltet"
+}

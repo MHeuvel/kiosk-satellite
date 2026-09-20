@@ -1,0 +1,16 @@
+{
+  "@@locale": "de",
+  "mediaPickPlayer": "Player auswählen",
+  "mediaMaPlayer": "Music-Assistant-Player",
+  "mediaHaPlayer": "Home-Assistant-Medienplayer",
+  "mediaSonosRoom": "Sonos-Raum",
+  "mediaSearchPlayers": "Player suchen",
+  "mediaOffline": "Offline",
+  "mediaOfflineName": "{name} (offline)",
+  "mediaSetUpMa": "Richte Music Assistant ein, um dessen Player anzuzeigen.",
+  "mediaSetUpHa": "Verbinde Home Assistant, um dessen Medienplayer anzuzeigen.",
+  "mediaSetUpSonos": "Es sind noch keine Sonos-Lautsprecher registriert. Suche oder füge einen auf der Sonos-Seite hinzu.",
+  "mediaHaFailed": "Home Assistant hat nicht geantwortet: {error}",
+  "mediaSaveFailed": "Der Player konnte nicht gespeichert werden.",
+  "mediaSelectFailed": "Der Player konnte nicht ausgewählt werden"
+}

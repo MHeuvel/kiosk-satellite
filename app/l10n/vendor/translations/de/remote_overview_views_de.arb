@@ -1,0 +1,9 @@
+{
+  "@@locale": "de",
+  "overviewGoView": "Zu einer Ansicht wechseln",
+  "overviewLoadingViews": "Ansichten werden geladen...",
+  "overviewPickView": "Wähle eine Dashboard-Ansicht aus...",
+  "overviewDefaultView": "Standardansicht",
+  "overviewNoDashboards": "Keine Dashboards gefunden",
+  "overviewViewsUnavailable": "Ansichten nicht verfügbar"
+}

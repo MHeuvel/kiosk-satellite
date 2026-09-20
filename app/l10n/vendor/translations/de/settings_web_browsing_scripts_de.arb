@@ -1,0 +1,9 @@
+{
+  "@@locale": "de",
+  "settingBrowserInjectJsTitle": "JavaScript in das HA-Dashboard einfügen",
+  "settingBrowserInjectJsDescription": "Führt diesen JavaScript-Code nach jedem Laden des Dashboards aus. Nützlich, um störende Elemente auszublenden oder ein Dashboard anzupassen, das du nicht selbst verwaltest.",
+  "settingBrowserInjectJsExternalTitle": "JavaScript in externe Seiten einfügen",
+  "settingBrowserInjectJsExternalDescription": "Führt diesen JavaScript-Code nach dem Laden jeder externen Seite aus: Seiten, die über einen Dashboard-Link geöffnet werden, Seiten der Dashboard-Rotation sowie Website-Bildschirmschoner. Gilt nicht für die Music-Assistant-Seite.",
+  "browserInjectJsPlaceholder": "// Beispiel: störendes Element ausblenden\ndocument.querySelector('#banner').style.display = 'none';",
+  "browserInjectJsExternalPlaceholder": "// Beispiel: eine Website vergrößern, die die Zoomstufe des Dashboards ignoriert\ndocument.documentElement.style.zoom = '1.25';"
+}

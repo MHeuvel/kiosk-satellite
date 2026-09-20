@@ -1,0 +1,16 @@
+{
+  "@@locale": "de",
+  "esphomeLocation": "Standort",
+  "esphomeLocationSearch": "Die Standortberechtigung, die von den Standortsensoren benötigt wird.",
+  "esphomeBluetoothSearch": "Die Berechtigung „Geräte in der Nähe“, die der Bluetooth-Proxy zum Scannen benötigt.",
+  "esphomeLocationMissing": "Ohne diese Berechtigung kann der GPS-Empfänger nicht ausgelesen werden und die Standortsensoren erhalten keine Daten.",
+  "esphomeLocationServicesOff": "Der Standortdienst ist in den Geräteeinstellungen deaktiviert, sodass der Empfänger keine Daten liefert.",
+  "esphomeLocationGranted": "Die Standortsensoren können den GPS-Empfänger auslesen.",
+  "esphomeBluetoothGranted": "Der Proxy kann nach Bluetooth-Geräten in der Nähe suchen.",
+  "esphomeBluetoothMissing": "Ohne diese Berechtigung kann der Proxy keine Geräte suchen.",
+  "esphomeBluetoothLocationMissing": "Android liefert Bluetooth-Scanergebnisse, einschließlich Beacons, nur wenn die Standortberechtigung erteilt wurde. Der Proxy liest dabei niemals den Standort des Geräts aus.",
+  "esphomeBluetoothLocationOff": "Der Standortdienst ist in den Geräteeinstellungen deaktiviert, daher findet der Bluetooth-Scan keine Geräte.",
+  "esphomeBluetoothBeacons": "Der Bluetooth-Scan kann Beacons erkennen.",
+  "esphomeSent": "Gesendet",
+  "esphomeNotsaved": "Nicht gespeichert"
+}

@@ -1,0 +1,11 @@
+{
+  "@@locale": "de",
+  "logsSystemLog": "Android-Systemprotokoll für diese Anwendung (einschließlich Abstürzen)",
+  "logsErrors": "Fehler und Abstürze",
+  "logsWarnings": "Warnungen",
+  "logsInfo": "Informationen und Debug-Ausgaben",
+  "logsNoMatches": "Keine passenden Einträge gefunden. Aktiviere oben weitere Typen, um das vollständige Protokoll anzuzeigen.",
+  "logsUnavailable": "Logcat nicht verfügbar",
+  "logsReadFailed": "Logcat konnte nicht gelesen werden: {error}",
+  "logsUnknown": "unbekannt"
+}
