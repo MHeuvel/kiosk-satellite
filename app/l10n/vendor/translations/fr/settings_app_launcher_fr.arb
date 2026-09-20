@@ -1,0 +1,10 @@
+{
+  "@@locale": "fr",
+  "settingLauncherEnabledTitle": "Activer le lanceur d'applications",
+  "settingLauncherEnabledDescription": "Ouvrir un ensemble choisi d'applications installées depuis le kiosque.",
+  "settingLauncherAppsDescription": "Les applications que le lanceur propose.",
+  "settingLauncherAutoReturnTitle": "Retour automatique",
+  "settingLauncherAutoReturnDescription": "Revenir au kiosque une fois que l'autre application est restée inutilisée un moment.",
+  "settingLauncherAutoReturnSecondsTitle": "Retour après (secondes)",
+  "settingLauncherAutoReturnSecondsDescription": "Durée sans interaction dans l'autre application avant que le kiosque revienne."
+}

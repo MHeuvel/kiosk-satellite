@@ -13,6 +13,7 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'aboutSourceCode' => strings.aboutSourceCode,
       'aboutLicense' => strings.aboutLicense,
       'aboutLicenseSummary' => strings.aboutLicenseSummary,
+      'aboutLocalizationCredits' => strings.aboutLocalizationCredits,
       'aboutCheckNow' => strings.aboutCheckNow,
       'aboutChecking' => strings.aboutChecking,
       'aboutCheckFailed' => strings.aboutCheckFailed,

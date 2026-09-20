@@ -253,6 +253,8 @@ def verify_provenance(proof, locale):
 
 
 def community_review_valid(key, value, review, proofs):
+    if isinstance(review, dict) and review.get("author") == "Xavier Larrea" and review.get("ownerAuthored") is True:
+        return "provenance" not in review and not any(key in changed for _, _, changed in proofs.values())
     if not isinstance(review, dict) or review.get("provenance") not in proofs:
         return False
     _, author, changed = proofs[review["provenance"]]
@@ -463,17 +465,32 @@ def export_catalog(app, repository):
     print(f"Exported {len(messages(source))} messages. Source includes uncommitted catalog changes: {dirty}")
 
 
-def review_owner(repository, locale):
-    # Community imports need verified PR provenance before they can be enabled.
-    if locale != "es":
-        raise ValueError("Owner review currently supports Xavier's Spanish catalog only")
+def review_owner(repository, locale, message_ids=None):
+    # Community contributions retain their PR evidence. Only explicitly named
+    # maintainer additions can use owner review in a community language.
+    if not TAG.fullmatch(locale) or locale == "en":
+        raise ValueError("Choose a non-English language tag")
+    if locale != "es" and not message_ids:
+        raise ValueError("Owner-authored additions require explicit --message-id values")
     source = validate_repository(repository)
     catalog = translation_catalog(load_sources(repository / "source"),
-                                  bundle_files(repository / "translations/es"), locale)
-    write(repository / "metadata/reviews/es.json", {
-        key: {"source": source_digest(source, key), "translation": sha(value.encode()), "author": "Xavier Larrea"}
-        for key, value in messages(catalog).items()
-    })
+                                  bundle_files(repository / "translations" / locale), locale)
+    path = repository / f"metadata/reviews/{locale}.json"
+    reviews = read(path) if path.exists() else {}
+    selected = set(message_ids) if message_ids else set(messages(catalog))
+    if not selected <= messages(catalog).keys():
+        raise ValueError("Owner review contains untranslated or unknown message IDs")
+    if any(reviews.get(key, {}).get("provenance") for key in selected):
+        raise ValueError("Community translations must retain their contributor provenance")
+    if locale != "es":
+        proofs = load_proofs({str(path.relative_to(repository)): path.read_bytes()
+                              for path in (repository / "metadata/provenance" / locale).glob("*.json")}, locale)
+        if any(selected.intersection(changed) for _, _, changed in proofs.values()):
+            raise ValueError("Community translations must retain their contributor provenance")
+    for key in selected:
+        reviews[key] = {"source": source_digest(source, key), "translation": sha(catalog[key].encode()),
+                        "author": "Xavier Larrea", **({"ownerAuthored": True} if locale != "es" else {})}
+    write(path, reviews)
     print("Recorded owner review. Commit the translations and review metadata before importing.")
 
 
@@ -678,6 +695,39 @@ def generate(app, preview_repo=None, preview_locale="es"):
         + "const messageLanguageLabels = <String, String>"
         + json.dumps({tag: language_names.get(tag, tag) for tag in catalogs}, ensure_ascii=False).replace("$", r"\$")
         + ";\n")
+    credits = {}
+    if lock_path.exists() and "metadata/credits.json" in lock["files"]:
+        credits = read(app / "l10n/vendor/metadata/credits.json")
+    if preview_repo is not None and (preview_repo / "metadata/credits.json").exists():
+        credits = read(preview_repo / "metadata/credits.json")
+    # Original English and Spanish catalogs predate the community registry.
+    for tag in ("en", "es"):
+        credits.setdefault(tag, {"owner": {"name": "Xavier Larrea", "login": "jxlarrea"}})
+    public_credits = {}
+    for tag in sorted(catalogs):
+        authors = credits.get(tag, {})
+        if not isinstance(authors, dict):
+            raise ValueError("Invalid localization credits")
+        contributors = {}
+        for author in authors.values():
+            name = author.get("name") if isinstance(author, dict) else None
+            if not isinstance(name, str) or not name.strip() or len(name) > 120 or re.search(r"[\x00-\x1f<>]", name):
+                raise ValueError("Invalid localization contributor name")
+            login = author.get("login", "")
+            if not isinstance(login, str) or (login and not re.fullmatch(r"[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?", login)):
+                raise ValueError("Invalid localization contributor GitHub username")
+            contributors[(name, login)] = {"name": name, "login": login}
+        if contributors:
+            public_credits[tag] = sorted(contributors.values(), key=lambda person: (person["name"].casefold(), person["login"].casefold()))
+    payload = json.dumps(public_credits, ensure_ascii=False, indent=2)
+    (output / "localization_credits.dart").write_text(
+        "// Generated by tool/localization.py. Do not edit.\n"
+        + "const localizationCredits = <String, List<Map<String, String>>>" + payload.replace("$", r"\$") + ";\n")
+    (app / "remote-ui/static/localization_credits.js").write_text(
+        "// Generated by tool/localization.py. Do not edit.\n"
+        + "export const localizationCredits = " + payload + ";\n"
+        + "export const localizationLanguageNames = "
+        + json.dumps({tag: language_names.get(tag, tag) for tag in public_credits}, ensure_ascii=False) + ";\n")
     for filename, variable in [("navigation", "navigationMessageIds"), ("device_text", "deviceTextMessageIds"), ("ha_text", "haTextMessageIds"), ("screen_audio_text", "screenAudioTextMessageIds"), ("screensaver_text", "screensaverTextMessageIds"), ("camera_text", "cameraTextMessageIds"), ("camera_streams_text", "cameraStreamsTextMessageIds"), ("media_text", "mediaTextMessageIds"), ("intercom_text", "intercomTextMessageIds"), ("kiosk_text", "kioskTextMessageIds"), ("launcher_text", "launcherTextMessageIds"), ("gesture_text", "gestureTextMessageIds"), ("fleet_text", "fleetTextMessageIds"), ("plugin_text", "pluginTextMessageIds"), ("support_text", "supportTextMessageIds"), ("esphome_text", "esphomeTextMessageIds"), ("voice_text", "voiceTextMessageIds"), ("overview_text", "overviewTextMessageIds"), ("setup_text", "setupTextMessageIds")]:
         path = app / f"l10n/{filename}.json"
         mapping = read(path) if path.exists() else {}
@@ -735,6 +785,7 @@ def main():
         cmd.add_argument("--repo", type=Path, default=Path(__file__).resolve().parents[1])
         if name == "review-owner":
             cmd.add_argument("--locale", default="es")
+            cmd.add_argument("--message-id", action="append", help="Explicit owner-authored addition to review")
         if name == "validate":
             cmd.add_argument("--base-ref", help="Target commit for new-language completeness checks")
             cmd.add_argument("--head-ref", help="Contributor commit whose English source was reviewed")
@@ -766,7 +817,7 @@ def main():
     elif args.command == "review-community":
         review_community(args.repo, args.locale, args.pr, args.credit, args.language_name, args.confirm_reviewed)
     elif args.command == "review-owner":
-        review_owner(args.repo, args.locale)
+        review_owner(args.repo, args.locale, args.message_id)
     elif args.command == "export":
         export_catalog(args.app, args.repo)
     elif args.command == "import":

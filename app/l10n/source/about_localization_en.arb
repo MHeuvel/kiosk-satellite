@@ -1,0 +1,16 @@
+{
+  "@@locale": "en",
+  "aboutLocalizationCredits": "Localization Credits",
+  "@aboutLocalizationCredits": {
+    "context": "Settings > About > Localization Credits",
+    "description": "Title of the page listing translation contributors, and the About row that opens it.",
+    "x-locations": {
+      "device": [
+        "Settings > About > Localization Credits"
+      ],
+      "remoteAdmin": [
+        "About > Localization Credits"
+      ]
+    }
+  }
+}

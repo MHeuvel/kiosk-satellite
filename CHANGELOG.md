@@ -4,6 +4,10 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ## Unreleased
 
+### Added
+
+- **French localization and translation credits.** French is available in the language selector. Settings > About > Localization Credits lists contributors by language with GitHub profile links on the device and in Remote Admin.
+
 ### Fixed
 
 - **Camera views recover from stalled WebRTC startup.** If no video frame is decoded within 10 seconds, the view logs the timeout and retries with the existing transport fallback. Connection status stays visible until decoding starts and late responses from an abandoned attempt cannot interrupt its replacement (#629).

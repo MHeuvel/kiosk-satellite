@@ -1,0 +1,14 @@
+{
+  "@@locale": "fr",
+  "pluginCharts": "Graphiques",
+  "pluginReadings": "Relevés",
+  "pluginWaitingForSamples": "En attente d'échantillons",
+  "pluginLatest": "Dernier",
+  "pluginSelected": "Sélectionné",
+  "pluginNoDataYet": "Pas encore de données",
+  "pluginTapOrDragToInspectSamplesDoubleTapTo": "Appuyez ou faites glisser pour inspecter les échantillons. Appuyez deux fois pour suivre le plus récent.",
+  "pluginNoData": "Aucune donnée",
+  "pluginOn": "Activé",
+  "pluginEmpty": "Vide",
+  "pluginChartKeyboardHelp": "Utilisez les touches fléchées pour inspecter les échantillons et Fin pour le plus récent."
+}

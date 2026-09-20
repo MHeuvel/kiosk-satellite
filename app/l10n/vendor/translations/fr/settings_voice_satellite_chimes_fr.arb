@@ -1,0 +1,18 @@
+{
+  "@@locale": "fr",
+  "voiceChimesPage": "Carillons",
+  "voiceChimesHint": "Sons de réveil, de fin, d'erreur, de minuteur et d'annonce",
+  "voiceChimesPreview": "Écouter sur le kiosque",
+  "voiceChimesPreviewFailed": "Impossible de lire le son.",
+  "voiceChimesHelp": "Choisissez les sons de ce kiosque. Envoyez ici vos fichiers personnalisés. Les sons enregistrés dans Home Assistant ne sont pas utilisés pour les carillons locaux.",
+  "voiceChimeWakeTitle": "Son de réveil",
+  "voiceChimeWakeDescription": "Joué quand Voice Satellite commence à écouter.",
+  "voiceChimeDoneTitle": "Son de fin",
+  "voiceChimeDoneDescription": "Joué quand une interaction vocale se termine.",
+  "voiceChimeErrorTitle": "Son d'erreur",
+  "voiceChimeErrorDescription": "Joué quand une interaction vocale échoue.",
+  "voiceChimeTimerTitle": "Son du minuteur",
+  "voiceChimeTimerDescription": "Répété à la fin d'un minuteur jusqu'à ce que vous le fermiez.",
+  "voiceChimeAnnounceTitle": "Son d'annonce",
+  "voiceChimeAnnounceDescription": "Joué avant une annonce de Voice Satellite, sauf si l'annonce fournit son propre son."
+}

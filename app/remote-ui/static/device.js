@@ -3,6 +3,8 @@ import { supportTextMessageIds } from './support_text_ids.js';
 import { voiceText, deviceText, deviceOperationError, supportText, t } from './localization.js';
 import { $, api, cmd, state } from './core.js';
 import { watchUpdates } from './live.js';
+import { subpageEntry } from './tabs.js';
+import { localizationCredits, localizationLanguageNames } from './localization_credits.js';
 import { copyBox, hintRow, messageBox, modalShell, showToast } from './widgets.js';
 
 // The helper group belongs only on devices without native silent installation.
@@ -609,8 +611,21 @@ export function attachUpdateInstall(btn, getUpdate) {
   if (upd?.progress !== null && upd?.progress !== undefined) run(upd);
 }
 
+const githubMark = '<svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 ' +
+    '3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015' +
+    '-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695' +
+    '-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 ' +
+    '2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335' +
+    '-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 ' +
+    '1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295' +
+    '-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 ' +
+    '1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 ' +
+    '0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 ' +
+    '24 12c0-6.63-5.37-12-12-12z"/></svg>';
+
 export async function loadAboutInfo() {
   const root = $('#about-info');
+  renderLocalizationCredits();
   // Everything is fetched before the container is cleared: an await between
   // clear and append lets a second invocation interleave and the tab ends up
   // rendered twice.
@@ -729,18 +744,7 @@ export async function loadAboutInfo() {
 
   const repo = link('jxlarrea/kiosk-satellite',
     'https://github.com/jxlarrea/kiosk-satellite');
-  repo.insertAdjacentHTML('afterbegin',
-    '<svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 ' +
-    '3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015' +
-    '-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695' +
-    '-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 ' +
-    '2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335' +
-    '-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 ' +
-    '1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295' +
-    '-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 ' +
-    '1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 ' +
-    '0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 ' +
-    '24 12c0-6.63-5.37-12-12-12z"/></svg>');
+  repo.insertAdjacentHTML('afterbegin', githubMark);
 
   card('Attribution', [
     ['Author', link('Xavier Larrea', 'https://github.com/jxlarrea')],
@@ -753,7 +757,51 @@ export async function loadAboutInfo() {
   const p = document.createElement('p');
   p.style.cssText = 'color:var(--muted); font-size:.85rem; margin:4px 4px 0; line-height:1.5;';
   setAboutLabel(p, 'aboutLicenseSummary');
+  const credits = document.createElement('div');
+  credits.className = 'card';
+  const entry = subpageEntry('about', 'Localization Credits');
+  setAboutLabel(entry.querySelector('.name'), 'aboutLocalizationCredits');
+  entry.querySelector('.desc').remove();
+  credits.appendChild(entry);
+  root.appendChild(credits);
   root.appendChild(p);
+}
+
+export function renderLocalizationCredits() {
+  const root = $('#localization-credits');
+  if (!root) return;
+  root.replaceChildren();
+  for (const [locale, contributors] of Object.entries(localizationCredits)) {
+    const heading = document.createElement('h2');
+    heading.className = 'card-title';
+    heading.textContent = localizationLanguageNames[locale] || locale;
+    const group = document.createElement('div');
+    group.className = 'card';
+    for (const contributor of contributors) {
+      const row = document.createElement('div');
+      row.className = 'row';
+      const info = document.createElement('div');
+      info.className = 'info';
+      const label = document.createElement('div');
+      label.className = 'name';
+      label.textContent = contributor.name;
+      info.appendChild(label);
+      row.appendChild(info);
+      if (contributor.login) {
+        const profile = document.createElement('a');
+        profile.href = `https://github.com/${contributor.login}`;
+        profile.target = '_blank';
+        profile.rel = 'noreferrer';
+        profile.innerHTML = githubMark;
+        const username = document.createElement('span');
+        username.textContent = contributor.login;
+        profile.appendChild(username);
+        row.appendChild(profile);
+      }
+      group.appendChild(row);
+    }
+    root.append(heading, group);
+  }
 }
 
 // A dot on the About nav item when the device reports a newer release —

@@ -1,0 +1,8 @@
+{
+  "@@locale": "fr",
+  "settingIntercomTalkModeTitle": "Mode de conversation",
+  "settingIntercomTalkModeDescription": "Avec « Appuyer pour parler », la voix est transmise tant que le bouton est maintenu. Avec « Mains libres », le microphone reste ouvert pendant tout l'appel.",
+  "intercomOptionTalkPtt": "Appuyer pour parler",
+  "intercomOptionTalkHandsfree": "Mains libres",
+  "intercomTalkSection": "Conversation"
+}

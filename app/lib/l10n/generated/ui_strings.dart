@@ -7,6 +7,7 @@ import 'package:intl/intl.dart' as intl;
 
 import 'ui_strings_en.dart';
 import 'ui_strings_es.dart';
+import 'ui_strings_fr.dart';
 
 // ignore_for_file: type=lint
 
@@ -95,6 +96,7 @@ abstract class UiStrings {
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
     Locale('es'),
+    Locale('fr'),
   ];
 
   /// App information group heading.
@@ -156,6 +158,12 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Kiosk Satellite is free for personal, non-commercial use. It is licensed under CC BY-NC-ND 4.0: you may use and share it, but commercial use of the app and redistribution of modified app builds are not permitted. Independent plugins have additional permission under PLUGIN-EXCEPTION.md.'**
   String get aboutLicenseSummary;
+
+  /// Title of the page listing translation contributors, and the About row that opens it.
+  ///
+  /// In en, this message translates to:
+  /// **'Localization Credits'**
+  String get aboutLocalizationCredits;
 
   /// Tooltip on the clickable version number in remote administration.
   ///
@@ -19285,7 +19293,7 @@ class _UiStringsDelegate extends LocalizationsDelegate<UiStrings> {
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['en', 'es'].contains(locale.languageCode);
+      <String>['en', 'es', 'fr'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_UiStringsDelegate old) => false;
@@ -19298,6 +19306,8 @@ UiStrings lookupUiStrings(Locale locale) {
       return UiStringsEn();
     case 'es':
       return UiStringsEs();
+    case 'fr':
+      return UiStringsFr();
   }
 
   throw FlutterError(

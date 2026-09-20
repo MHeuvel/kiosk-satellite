@@ -15,6 +15,7 @@ const svg = (body, attrs = STROKE, viewBox = '0 0 24 24') =>
 export const SUBPAGE_ICONS = {
   'Plugins': svg('<path d="M20 11h-1V7a2 2 0 0 0-2-2h-4V4a3 3 0 0 0-6 0v1H3a2 2 0 0 0-2 2v3.8h1.5a3.25 3.25 0 0 1 0 6.5H1V21a2 2 0 0 0 2 2h3.8v-1.5a3.25 3.25 0 0 1 6.5 0V23H17a2 2 0 0 0 2-2v-4h1a3 3 0 0 0 0-6z"/>', 'fill="currentColor"'),
   // Home Assistant.
+  'Localization Credits': svg('<path d="M3 5h12M9 3v2M5 5c0 6 6 10 6 10M13 5c0 5-4 9-9 11M13 21l4-10 4 10M14.5 17h5"/>'),
   'User Interface': svg('<rect x="3" y="3" width="7" height="9" rx="1.5"/>'
     + '<rect x="14" y="3" width="7" height="5" rx="1.5"/>'
     + '<rect x="14" y="12" width="7" height="9" rx="1.5"/>'

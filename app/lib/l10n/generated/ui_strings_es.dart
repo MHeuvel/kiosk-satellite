@@ -40,6 +40,9 @@ class UiStringsEs extends UiStrings {
       'Kiosk Satellite es gratuito para uso personal y no comercial. Se distribuye bajo la licencia CC BY-NC-ND 4.0: puedes usarlo y compartirlo, pero no se permite el uso comercial de la aplicación ni la redistribución de versiones modificadas. Los plugins independientes tienen permisos adicionales según PLUGIN-EXCEPTION.md.';
 
   @override
+  String get aboutLocalizationCredits => 'Créditos de traducción';
+
+  @override
   String get aboutCheckNow => 'Buscar actualizaciones ahora';
 
   @override

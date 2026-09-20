@@ -4,6 +4,7 @@
     <string-array name="ks_message_languages" translatable="false">
         <item>en</item>
         <item>es</item>
+        <item>fr</item>
     </string-array>
     <string name="ks_service_title" formatted="false">"Kiosk Satellite Service"</string>
     <string name="ks_service_channel_help" formatted="false">"Shown while the Kiosk Satellite Service keeps the app running with the screen off or behind another app."</string>

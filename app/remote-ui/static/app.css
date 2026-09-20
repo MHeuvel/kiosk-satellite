@@ -1064,6 +1064,17 @@
   #about-info a:hover { text-decoration: underline; }
   #about-info a svg { width: 15px; height: 15px; fill: currentColor;
     vertical-align: -2px; margin-right: 5px; }
+  #localization-credits .row { flex-wrap: nowrap; }
+  #localization-credits .row .info { display: block; }
+  #localization-credits .name { overflow-wrap: anywhere; }
+  #localization-credits a { display: inline-flex; align-items: center;
+    gap: 6px; max-width: 45%; flex: none; color: var(--primary);
+    font-size: 14px; font-weight: 600; text-decoration: none; }
+  #localization-credits a:hover { text-decoration: underline; }
+  #localization-credits a svg { width: 15px; height: 15px;
+    fill: currentColor; flex: none; }
+  #localization-credits a span { min-width: 0; overflow: hidden;
+    text-overflow: ellipsis; white-space: nowrap; }
   .made-by .heart { color: #e86a6a; }
   @media (max-width: 719px) {
     .wizard-rail { display: none; }

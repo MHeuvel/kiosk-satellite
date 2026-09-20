@@ -14,6 +14,7 @@ import '../managers/settings/definitions.dart' show subpageHints;
 /// colored discs on the first level, and a second level that repeated them
 /// would flatten the hierarchy.
 const Map<String, Object> subpageIcons = {
+  'Localization Credits': Icons.translate_outlined,
   // Home Assistant.
   'User Interface': Icons.dashboard_customize_outlined,
   'Theme': Icons.palette_outlined,

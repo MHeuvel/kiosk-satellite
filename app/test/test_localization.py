@@ -373,6 +373,70 @@ class CommunityTests(unittest.TestCase):
     git = SnapshotTests.git
     review = SnapshotTests.review
 
+    def test_owner_additions_do_not_replace_community_provenance(self):
+        self.add_language()
+        self.approve_fixture()
+        path = self.repo / "metadata/reviews/de.json"
+        before = path.read_bytes()
+        with self.assertRaisesRegex(ValueError, "explicit"):
+            catalog.review_owner(self.repo, "de")
+        with self.assertRaisesRegex(ValueError, "provenance"):
+            catalog.review_owner(self.repo, "de", ["welcome"])
+        self.assertEqual(path.read_bytes(), before)
+        catalog.write(path, {})
+        with self.assertRaisesRegex(ValueError, "provenance"):
+            catalog.review_owner(self.repo, "de", ["welcome"])
+
+    def test_explicit_owner_addition_can_be_imported_with_community_messages(self):
+        self.add_language()
+        self.approve_fixture()
+        path = self.repo / "metadata/reviews/de.json"
+        reviews = catalog.read(path)
+        self.source.update({"credits": "Credits", "@credits": {"context": "About", "description": "Page title"}})
+        self.write_sources(self.app / "l10n/source", self.source)
+        self.write_sources(self.repo / "source", self.source)
+        catalog.write(self.repo / "source/manifest.json", {
+            "schema": catalog.SCHEMA, "files": {
+                path.name: catalog.sha(path.read_bytes()) for path in (self.repo / "source").glob("*.arb")}})
+        target = self.repo / "translations/de/common_de.arb"
+        translated = catalog.read(target)
+        translated["credits"] = "DE credits"
+        catalog.write(target, translated)
+        catalog.review_owner(self.repo, "de", ["credits"])
+        updated = catalog.read(path)
+        self.assertEqual(updated["welcome"], reviews["welcome"])
+        self.assertTrue(updated["credits"]["ownerAuthored"])
+        catalog.import_catalog(self.app, self.repo, self.commit(), "de")
+        self.assertEqual(catalog.read(self.app / "l10n/effective/ui_de.arb")["credits"], "DE credits")
+
+    def test_credits_follow_enabled_languages_and_preserve_public_names(self):
+        self.add_language()
+        self.approve_fixture()
+        path = self.repo / "metadata/credits.json"
+        credits = catalog.read(path)
+        credits["de"]["3"] = {"name": "Zoë $Name", "login": "another"}
+        credits["fr"] = {"4": {"name": "Not imported", "login": "inactive"}}
+        catalog.write(path, credits)
+        catalog.import_catalog(self.app, self.repo, self.commit(), "de")
+        js = (self.app / "remote-ui/static/localization_credits.js").read_text()
+        dart = (self.app / "lib/l10n/generated/localization_credits.dart").read_text()
+        self.assertIn('"Translator"', js)
+        self.assertIn('"Zoë $Name"', js)
+        self.assertIn('"Zoë \\$Name"', dart)
+        self.assertNotIn("Not imported", js)
+        self.assertIn('"login": "another"', js)
+        self.assertIn("Xavier Larrea", js)
+
+    def test_credits_reject_a_username_that_could_change_the_profile_url(self):
+        self.add_language()
+        self.approve_fixture()
+        path = self.repo / "metadata/credits.json"
+        credits = catalog.read(path)
+        credits["de"]["2"]["login"] = "someone/other"
+        catalog.write(path, credits)
+        with self.assertRaisesRegex(ValueError, "GitHub username"):
+            catalog.generate(self.app, self.repo, "de")
+
     def add_language(self, locale="de"):
         for name, source in catalog.load_sources(self.repo / "source").items():
             catalog.write(self.repo / "translations" / locale / catalog.translation_name(name, locale),

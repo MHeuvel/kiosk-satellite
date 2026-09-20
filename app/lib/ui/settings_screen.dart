@@ -15,6 +15,8 @@ import 'package:flutter/services.dart';
 import '../app_container.dart';
 import '../core/events.dart';
 import '../l10n/messages.dart';
+import '../l10n/generated/language_codes.dart';
+import '../l10n/generated/localization_credits.dart';
 import '../core/logging.dart';
 import '../managers/btproxy/ble_identity.dart' show rssiTier, sortNearbyJson;
 import '../managers/camera/models.dart'
@@ -873,7 +875,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   storageKey:
                                       'settings-sub-$category-$_subpage',
                                   title:
-                                      (category == 'Voice Satellite' ||
+                                      (category == 'About' ||
+                                          category == 'Voice Satellite' ||
                                           category == 'ESPHome' ||
                                           category == 'Device' ||
                                           category == 'Home Assistant' ||
@@ -1389,7 +1392,8 @@ class SubpageSettingsScreen extends StatelessWidget {
             const SizedBox(width: 12),
             Flexible(
               child: Text(
-                (category == 'Voice Satellite' ||
+                (category == 'About' ||
+                        category == 'Voice Satellite' ||
                         category == 'ESPHome' ||
                         category == 'Device' ||
                         category == 'Home Assistant' ||
@@ -2172,6 +2176,15 @@ class _CategoryContentState extends State<_CategoryContent> {
             onTap: () => _openLink(
               'https://github.com/jxlarrea/kiosk-satellite/blob/main/LICENSE',
             ),
+          ),
+        ],
+      ),
+      SettingsCard(
+        children: [
+          _SubpageEntryTile(
+            container: container,
+            category: 'About',
+            subpage: 'Localization Credits',
           ),
         ],
       ),
@@ -3090,6 +3103,56 @@ class _CategoryContentState extends State<_CategoryContent> {
   /// dashboard list, a cross-group disabled state, telemetry under a toggle)
   /// and simply moved with their group.
   List<Widget> _subpageCards(AppContainer container, String subpage) {
+    if (widget.category == 'About' && subpage == 'Localization Credits') {
+      return [
+        for (final entry in localizationCredits.entries) ...[
+          SectionHeading(messageLanguageLabels[entry.key] ?? entry.key),
+          SettingsCard(
+            children: [
+              for (final contributor in entry.value)
+                ListTile(
+                  title: Text(contributor['name']!),
+                  trailing: contributor['login']!.isEmpty
+                      ? null
+                      : ConstrainedBox(
+                          constraints: BoxConstraints(
+                            maxWidth: MediaQuery.sizeOf(context).width * .45,
+                          ),
+                          child: TextButton(
+                            onPressed: () => _openLink(
+                              'https://github.com/${contributor['login']}',
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SvgPicture.string(
+                                  _githubMark,
+                                  width: 15,
+                                  height: 15,
+                                  excludeFromSemantics: true,
+                                  colorFilter: ColorFilter.mode(
+                                    Theme.of(context).colorScheme.primary,
+                                    BlendMode.srcIn,
+                                  ),
+                                ),
+                                const SizedBox(width: 6),
+                                Flexible(
+                                  child: Text(
+                                    contributor['login']!,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                ),
+            ],
+          ),
+        ],
+        _MadeByFooter(container: container),
+      ];
+    }
     if (widget.category == 'Plugins') {
       return [
         PluginDetailPanel(

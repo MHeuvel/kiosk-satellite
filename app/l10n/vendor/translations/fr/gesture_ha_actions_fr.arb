@@ -1,0 +1,22 @@
+{
+  "@@locale": "fr",
+  "gestureValid": "Tout semble correct.",
+  "gestureValidationFailed": "Impossible de valider.",
+  "gestureDomainMissing": "Domaine {value} introuvable.",
+  "gestureServiceMissing": "Service {value} introuvable.",
+  "gestureEntityMissing": "Entité {value} introuvable.",
+  "gestureEntityRequired": "Saisissez une entité {domain}.*.",
+  "gestureScriptEntity": "Entité de script",
+  "gestureAutomationEntity": "Entité d'automatisation",
+  "gestureDomain": "Domaine",
+  "gestureEntityOptional": "Entité (facultative)",
+  "gestureServiceData": "Données du service (facultatives)",
+  "gestureServiceTitle": "Appeler un service Home Assistant",
+  "gestureServiceRequired": "Le domaine et le service sont requis.",
+  "gestureServiceJson": "Les données du service doivent être un objet JSON.",
+  "gestureEventType": "Type d'événement",
+  "gestureEventData": "Données de l'événement (facultatives)",
+  "gestureEventTitle": "Déclencher un événement Home Assistant",
+  "gestureEventRequired": "Le type d'événement est requis.",
+  "gestureEventJson": "Les données de l'événement doivent être un objet JSON."
+}

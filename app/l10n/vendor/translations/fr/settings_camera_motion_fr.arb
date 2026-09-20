@@ -1,0 +1,15 @@
+{
+  "@@locale": "fr",
+  "settingMotionSensorTitle": "Capteur de mouvement",
+  "settingMotionSensorDescription": "Exposer le mouvement comme capteur Home Assistant. ATTENTION : garde la caméra en fonctionnement en permanence, même lorsque l'écran est éteint.",
+  "settingMotionSensorOffDelayTitle": "Retour à l'état inactif après",
+  "settingMotionSensorOffDelayDescription": "Secondes sans mouvement avant que le capteur repasse à l'état inactif.",
+  "settingMotionFpsTitle": "Fréquence d'images pour la détection de mouvement",
+  "settingMotionFpsDescription": "Nombre d'images par seconde analysées pour détecter un mouvement. Une valeur plus basse ménage le CPU ; 2 suffit largement pour remarquer quelqu'un qui approche.",
+  "settingMotionStartDelayTitle": "Délai de démarrage",
+  "settingMotionStartDelayDescription": "Ignorer le mouvement pendant cette durée après le démarrage de la caméra, pour les appareils dont la caméra bouge physiquement à l'ouverture.",
+  "settingMotionSensitivityTitle": "Sensibilité au mouvement",
+  "settingMotionSensitivityDescription": "Une valeur plus élevée se déclenche pour des mouvements plus petits. 1 exige un grand changement dans l'image ; 100 réagit au moindre mouvement.",
+  "cameraMotionPage": "Capteur de mouvement",
+  "cameraMotionHint": "Capteur de mouvement Home Assistant et paramètres de détection partagés"
+}

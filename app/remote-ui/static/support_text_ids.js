@@ -46,5 +46,6 @@ export const supportTextMessageIds = {
   "Already up to date": "aboutAlreadyCurrent",
   "No release notes.": "drawerNoReleaseNotes",
   "Update": "drawerUpdate",
-  "The download runs on the tablet; the installation must be confirmed on the tablet screen.": "aboutInstallHelp"
+  "The download runs on the tablet; the installation must be confirmed on the tablet screen.": "aboutInstallHelp",
+  "Localization Credits": "aboutLocalizationCredits"
 };

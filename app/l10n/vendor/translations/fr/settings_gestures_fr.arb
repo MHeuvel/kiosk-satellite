@@ -1,0 +1,19 @@
+{
+  "@@locale": "fr",
+  "settingClapStrictnessTitle": "Détection des claquements",
+  "settingClapStrictnessDescription": "Le mode Strict exige des claquements plus forts et régulièrement espacés ; essayez-le si le bruit ambiant provoque de faux déclenchements.",
+  "gestureStrictnessStandard": "Standard",
+  "gestureStrictnessStrict": "Strict",
+  "gestureOff": "Les gestes sont désactivés",
+  "gestureOffHelp": "L'option « Désactiver les gestes » est activée dans les paramètres du Mode kiosque.",
+  "gestureEmpty": "Aucun geste configuré",
+  "gestureEmptyHelp": "Un geste déclenche son action sans aucun contrôle visible.",
+  "gestureDeleteTooltip": "Supprimer le geste",
+  "gestureDeleteTitle": "Supprimer le geste ?",
+  "gestureDeleteMessage": "Retirer ce geste ? Déclencheur : {trigger}. Action : {action}.",
+  "gestureAdd": "Ajouter un geste",
+  "gestureAddHelp": "Choisissez un geste et l'action qu'il déclenche.",
+  "gestureTouchHelp": "Les gestes sont observés, pas bloqués : les appuis atteignent aussi le tableau de bord. Les coins et les gestes à plusieurs doigts évitent donc d'y déclencher quoi que ce soit.",
+  "gestureClapper": "Détecteur de claquements",
+  "gestureReadFailed": "Impossible de lire les paramètres."
+}

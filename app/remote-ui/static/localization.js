@@ -97,7 +97,8 @@ export function screensaverError(error) {
 }
 
 export function settingsPageText(category, english) {
-  return ['Voice Satellite', 'voicesatellite'].includes(category) ? voiceText(english)
+  return ['About', 'about'].includes(category) ? supportText(english)
+    : ['Voice Satellite', 'voicesatellite'].includes(category) ? voiceText(english)
     : ['ESPHome', 'esphome'].includes(category) ? esphomeText(english)
     : category === 'Device' || category === 'device' ? deviceText(english)
     : category === 'Home Assistant' || category === 'homeassistant' ? haText(english)

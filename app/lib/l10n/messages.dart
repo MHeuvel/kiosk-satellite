@@ -407,6 +407,7 @@ String settingsPageText(
   String category,
   String english,
 ) => switch (category) {
+  'About' => supportText(context, english),
   'Voice Satellite' => voiceText(context, english),
   'ESPHome' => esphomeText(context, english),
   'Device' => deviceText(context, english),
