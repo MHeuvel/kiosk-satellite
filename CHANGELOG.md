@@ -6,6 +6,8 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ### Fixed
 
+- **Camera views recover from stalled WebRTC startup.** If no video frame is decoded within 10 seconds, the view logs the timeout and retries with the existing transport fallback. Connection status stays visible until decoding starts and late responses from an abandoned attempt cannot interrupt its replacement (#629).
+
 - **Microphone audio no longer builds up without a limit during UI stalls.** Native capture keeps at most 320 ms of pending audio and discards older queued chunks if delivery falls behind. Canceling capture clears queued audio and prevents an old capture worker from resuming into the next session.
 
 - **Reduce thread creation during long kiosk sessions.** Foreground-app checks, CPU sampling and mDNS announcements reuse workers with bounded queues. Rapid discovery restarts close the old socket without touching its replacement. Crash records now include memory figures and thread counts to help diagnose resource exhaustion that remains.

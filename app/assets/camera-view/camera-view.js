@@ -39,6 +39,8 @@ const DISCONNECT_GRACE_MS = 4000;
 // frame before the tile says so. Long enough to cover a slow first keyframe.
 const DECODE_POLL_MS = 2500;
 const DECODE_GRACE_MS = 10000;
+// Bound the whole WebRTC startup, including signaling and the first frame.
+const WEBRTC_STARTUP_MS = 10000;
 // Android WebViews advertise H.265 receive support whether or not anything
 // can decode it, so the offer leaves it out unless the setting says the
 // device really plays it (issue #160).
@@ -250,6 +252,8 @@ function stop(cameraId) {
   session.wanted = false;
   clearTimeout(session.retry);
   clearTimeout(session.grace);
+  if (session.startup) clearTimeout(session.startup.timer);
+  session.startup = null;
   clearInterval(session.decode);
   clearInterval(session.stallWatch);
   if (session.hls) {
@@ -331,7 +335,7 @@ async function start(cameraId, fullscreen) {
   const session = {
     wanted: true, pc: null, ws: null, hls: null, mediaSource: null,
     sourceBuffer: null, queue: [], video: null, img: null, retry: null,
-    grace: null, decode: null, stallWatch: null, attempt: 0, modes,
+    grace: null, decode: null, stallWatch: null, startup: null, attempt: 0, modes,
     modeIndex: 0, modeFailures: 0, undecoded: null, fullscreen: !!fullscreen,
     audio: audioFor(cameraId),
   };
@@ -385,6 +389,8 @@ async function start(cameraId, fullscreen) {
   // Drop the current attempt's transport (never the video element: a black
   // flash between retries reads as worse than a frozen last frame).
   const releaseTransport = () => {
+    if (session.startup) clearTimeout(session.startup.timer);
+    session.startup = null;
     clearInterval(session.decode);
     session.decode = null;
     clearInterval(session.stallWatch);
@@ -423,7 +429,24 @@ async function start(cameraId, fullscreen) {
   // all: the device accepted a codec it cannot actually play, and no error is
   // raised anywhere - it just stays black. Watch the decoder and say what
   // happened, on the tile and in the app log (issue #160).
-  const watchDecode = (pc) => {
+  const decodeFailed = (inbound, codec) => {
+    log(`${cameraId}: ${codec} stream connected `
+      + `(${inbound.packetsReceived} packets, ${inbound.framesReceived} `
+      + 'frames) but decoded 0 frames; this device cannot play it'
+      + decodeHint(codec), 'warn');
+    undecodable(codec);
+  };
+
+  const videoReady = (startup) => {
+    clearTimeout(startup.timer);
+    startup.timer = null;
+    session.undecoded = null;
+    session.attempt = 0;
+    session.modeFailures = 0;
+    setStatus(cameraId, '');
+  };
+
+  const watchDecode = (pc, startup) => {
     clearInterval(session.decode);
     let waited = 0;
     session.decode = setInterval(async () => {
@@ -435,6 +458,7 @@ async function start(cameraId, fullscreen) {
       waited += DECODE_POLL_MS;
       let stats;
       try { stats = await pc.getStats(); } catch (_) { return; }
+      if (!session.wanted || session.pc !== pc || session.startup !== startup) return;
       let inbound = null;
       let inboundAudio = null;
       const codecs = new Map();
@@ -449,10 +473,12 @@ async function start(cameraId, fullscreen) {
       });
       if (!inbound) return;
       const codec = codecLabel(codecs.get(inbound.codecId));
+      startup.inbound = inbound;
+      startup.codec = codec;
       if (inbound.framesDecoded > 0) {
+        videoReady(startup);
         clearInterval(session.decode);
         session.decode = null;
-        session.undecoded = null;
         // A session carrying sound says what its microphone track is doing:
         // "no audio received" is the answer to the first question a silent
         // baby monitor raises (issue #235).
@@ -469,11 +495,7 @@ async function start(cameraId, fullscreen) {
       if (waited < DECODE_GRACE_MS || !inbound.packetsReceived) return;
       clearInterval(session.decode);
       session.decode = null;
-      log(`${cameraId}: ${codec} stream connected `
-        + `(${inbound.packetsReceived} packets, ${inbound.framesReceived} `
-        + 'frames) but decoded 0 frames; this device cannot play it'
-        + decodeHint(codec), 'warn');
-      undecodable(codec);
+      decodeFailed(inbound, codec);
     }, DECODE_POLL_MS);
   };
 
@@ -960,88 +982,106 @@ async function start(cameraId, fullscreen) {
       }
       return;
     }
+    const startup = { timer: null, inbound: null, codec: null };
+    session.startup = startup;
+    const stale = () => !session.wanted || sessions.get(cameraId) !== session
+      || session.startup !== startup;
+    startup.timer = setTimeout(() => {
+      if (stale()) return;
+      const pc = session.pc;
+      log(`${cameraId}: WebRTC connect timeout (no decoded video frame after `
+        + `${WEBRTC_STARTUP_MS / 1000}s, connection=${pc ? pc.connectionState : 'config'}, `
+        + `ice=${pc ? pc.iceConnectionState : 'not started'})`, 'warn');
+      if (startup.inbound && startup.inbound.packetsReceived) {
+        decodeFailed(startup.inbound, startup.codec);
+      } else {
+        retry((seconds) => viewStatus('cameraViewerConnectionRetry', { seconds }));
+      }
+    }, WEBRTC_STARTUP_MS);
     // Home Assistant cameras carry the ICE servers HA's backend expects
     // (TURN for cloud setups); everything else answers null and streams
     // with browser defaults, which is what a LAN Go2RTC needs.
     let rtcConfig = null;
     try { rtcConfig = await bridge('cameraRtcConfig', { cameraId }); } catch (_) {}
-    if (!session.wanted || sessions.get(cameraId) !== session) return;
-    const pc = new RTCPeerConnection(
-      rtcConfig && rtcConfig.iceServers ? { iceServers: rtcConfig.iceServers } : {});
-    session.pc = pc;
-    const transceiver = pc.addTransceiver('video', { direction: 'recvonly' });
-    if (session.audio) pc.addTransceiver('audio', { direction: 'recvonly' });
-    // Leaving H.265 out of the offer costs nothing where a stream is H.264
-    // already, and turns an undecodable H.265 camera into either a Go2RTC
-    // transcode (servers that carry ffmpeg) or a visible signaling error.
-    if (!ALLOW_H265 && transceiver.setCodecPreferences &&
-        window.RTCRtpReceiver && RTCRtpReceiver.getCapabilities) {
-      try {
-        const capabilities = RTCRtpReceiver.getCapabilities('video');
-        const usable = (capabilities ? capabilities.codecs : [])
-          .filter((codec) => !/h265|hevc/i.test(codec.mimeType));
-        if (usable.length) transceiver.setCodecPreferences(usable);
-      } catch (error) {
-        log(`codecs ${cameraId}: ${error}`);
-      }
-    }
-    pc.ontrack = (event) => {
-      if (!session.wanted || !event.streams.length) return;
-      const video = ensureVideo();
-      if (!video) return;
-      // With sound negotiated this fires once per track for the same
-      // stream; reattaching it would restart the element's load and abort
-      // the play() already in flight.
-      if (video.srcObject === event.streams[0]) return;
-      // The tile may have carried an MSE source on a previous attempt.
-      if (video.src) {
-        video.removeAttribute('src');
-        video.load();
-      }
-      video.srcObject = event.streams[0];
-      video.play().catch((error) => log(`play ${cameraId}: ${error}`));
-      setStatus(cameraId, '');
-    };
-    pc.onconnectionstatechange = () => {
-      if (!session.wanted || session.pc !== pc) return;
-      const state = pc.connectionState;
-      if (state === 'failed' || state === 'closed') {
-        retry(() => viewStatus('cameraViewerReconnecting'));
-      } else if (state === 'disconnected') {
-        // Ride it out: WebRTC recovers most of these on its own, and a
-        // renegotiation costs a visibly black tile for a second or two.
-        if (session.grace) return;
-        setStatus(cameraId, viewStatus('cameraViewerReconnecting'));
-        session.grace = setTimeout(() => {
-          session.grace = null;
-          if (session.wanted && session.pc === pc &&
-              pc.connectionState === 'disconnected') {
-            retry(() => viewStatus('cameraViewerReconnecting'));
-          }
-        }, DISCONNECT_GRACE_MS);
-      } else if (state === 'connected') {
-        clearTimeout(session.grace);
-        session.grace = null;
-        session.attempt = 0;
-        session.modeFailures = 0;
-        setStatus(cameraId, '');
-        watchDecode(pc);
-      }
-    };
+    if (stale()) return;
     let signaling = null;
     try {
+      const pc = new RTCPeerConnection(
+        rtcConfig && rtcConfig.iceServers ? { iceServers: rtcConfig.iceServers } : {});
+      session.pc = pc;
+      const transceiver = pc.addTransceiver('video', { direction: 'recvonly' });
+      if (session.audio) pc.addTransceiver('audio', { direction: 'recvonly' });
+      // Leaving H.265 out of the offer costs nothing where a stream is H.264
+      // already, and turns an undecodable H.265 camera into either a Go2RTC
+      // transcode (servers that carry ffmpeg) or a visible signaling error.
+      if (!ALLOW_H265 && transceiver.setCodecPreferences &&
+          window.RTCRtpReceiver && RTCRtpReceiver.getCapabilities) {
+        try {
+          const capabilities = RTCRtpReceiver.getCapabilities('video');
+          const usable = (capabilities ? capabilities.codecs : [])
+            .filter((codec) => !/h265|hevc/i.test(codec.mimeType));
+          if (usable.length) transceiver.setCodecPreferences(usable);
+        } catch (error) {
+          log(`codecs ${cameraId}: ${error}`);
+        }
+      }
+      pc.ontrack = (event) => {
+        if (stale() || !event.streams.length) return;
+        const video = ensureVideo();
+        if (!video) return;
+        // With sound negotiated this fires once per track for the same
+        // stream; reattaching it would restart the element's load and abort
+        // the play() already in flight.
+        if (video.srcObject === event.streams[0]) return;
+        // The tile may have carried an MSE source on a previous attempt.
+        if (video.src) {
+          video.removeAttribute('src');
+          video.load();
+        }
+        video.srcObject = event.streams[0];
+        video.play().then(() => {
+          // Playback can start between stats polls, just before the deadline.
+          // Audio alone must not count as a working camera picture.
+          if (!stale() && video.videoWidth > 0) videoReady(startup);
+        }).catch((error) => {
+          if (!stale()) log(`play ${cameraId}: ${error}`);
+        });
+      };
+      pc.onconnectionstatechange = () => {
+        if (stale()) return;
+        const state = pc.connectionState;
+        if (state === 'failed' || state === 'closed') {
+          retry(() => viewStatus('cameraViewerReconnecting'));
+        } else if (state === 'disconnected') {
+          // Ride it out: WebRTC recovers most of these on its own, and a
+          // renegotiation costs a visibly black tile for a second or two.
+          if (session.grace) return;
+          setStatus(cameraId, viewStatus('cameraViewerReconnecting'));
+          session.grace = setTimeout(() => {
+            session.grace = null;
+            if (session.wanted && session.pc === pc &&
+                pc.connectionState === 'disconnected') {
+              retry(() => viewStatus('cameraViewerReconnecting'));
+            }
+          }, DISCONNECT_GRACE_MS);
+        } else if (state === 'connected') {
+          clearTimeout(session.grace);
+          session.grace = null;
+          watchDecode(pc, startup);
+        }
+      };
       const offer = await pc.createOffer();
+      if (stale()) return;
       await pc.setLocalDescription(offer);
+      if (stale()) return;
       await waitForIce(pc);
+      if (stale()) return;
       signaling = await bridge('cameraOffer', {
         cameraId,
         offer: pc.localDescription.sdp,
         fullscreen,
       });
-      if (!session.wanted) {
-        pc.close();
-        return;
-      }
+      if (stale()) return;
       if (!signaling || signaling.ok !== true) {
         throw new Error(signaling && signaling.error || 'signaling failed');
       }
@@ -1050,6 +1090,7 @@ async function start(cameraId, fullscreen) {
         sdp: sanitizeAnswer(signaling.answer, cameraId),
       });
     } catch (error) {
+      if (stale()) return;
       log(`connect ${cameraId}: ${error}`);
       const headline = signalingFailure(signaling);
       // A server that answered and refused has told this transport no;
