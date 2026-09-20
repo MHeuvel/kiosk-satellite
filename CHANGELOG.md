@@ -6,6 +6,8 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ### Fixed
 
+- **Video decoder cleanup no longer overwhelms the logcat viewer.** Repeated warnings about unused buffer slots on temporary codec surfaces appear as counted entries on the device and in Remote Admin. Each group retains its original timestamp and severity while other errors and crash traces remain unchanged.
+
 - **Camera cleanup no longer floods the Android log.** Resolution checks and standalone snapshots release their camera sessions through lifecycle destruction without redundant unbind calls that repeatedly warn about stale CameraX entries (#633).
 
 - **Remote Admin brightness slider.** With adaptive brightness enabled, the slider keeps showing and adjusting Maximum brightness instead of jumping to the current panel brightness after an update (#632).

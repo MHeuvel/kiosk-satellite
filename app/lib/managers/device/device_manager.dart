@@ -18,6 +18,7 @@ import '../settings/settings_manager.dart';
 import '../settings/definitions.dart' as defs;
 import '../wake_word/background_listening.dart';
 import 'device_details.dart';
+import 'logcat.dart';
 
 /// Device identity and status: model, OS, app version, battery.
 class DeviceManager extends Manager {
@@ -420,13 +421,14 @@ class DeviceManager extends Manager {
               // allowMalformed: logcat buffers carry whatever bytes apps and
               // the platform wrote; one truncated sequence must not void the
               // whole dump (issue #404, FydeOS).
-              proc.stdout
-                  .transform(const Utf8Decoder(allowMalformed: true))
-                  .transform(const LineSplitter())
-                  .forEach((line) {
-                    if (tail.length >= lines) tail.removeFirst();
-                    tail.add(line);
-                  }),
+              compactLogcat(
+                proc.stdout
+                    .transform(const Utf8Decoder(allowMalformed: true))
+                    .transform(const LineSplitter()),
+              ).forEach((line) {
+                if (tail.length >= lines) tail.removeFirst();
+                tail.add(line);
+              }),
               proc.stderr
                   .transform(const Utf8Decoder(allowMalformed: true))
                   .forEach(stderrTail.write),
