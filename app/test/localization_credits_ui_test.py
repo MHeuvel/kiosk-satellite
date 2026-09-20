@@ -46,9 +46,14 @@ try:
         }""")
         credits = page.locator("#localization-credits")
         expect(credits).to_be_visible()
-        expect(credits.locator("h2")).to_have_text(["English", "Español", "Français"])
-        expect(credits.locator(".card").nth(2).locator(".name")).to_have_text(["Limoniak"])
-        for index, login in enumerate(["jxlarrea", "jxlarrea", "Limoniak"]):
+        german = page.evaluate("async () => 'de' in (await import('/static/catalogs.js')).catalogs")
+        languages = [("English", "jxlarrea"), ("Español", "jxlarrea"), ("Français", "Limoniak")]
+        if german:
+            languages.insert(0, ("Deutsch", "Dee-san"))
+        expect(credits.locator("h2")).to_have_text([name for name, _ in languages])
+        for index, (_, login) in enumerate(languages):
+            names = ["Xavier Larrea"] if login == "jxlarrea" else [login]
+            expect(credits.locator(".card").nth(index).locator(".name")).to_have_text(names)
             profile = credits.locator(".card").nth(index).get_by_role("link", name=login, exact=True)
             expect(profile).to_have_attribute("href", f"https://github.com/{login}")
             expect(profile).to_have_attribute("target", "_blank")
@@ -57,6 +62,8 @@ try:
         locales = [("fr", "Crédits de traduction"), ("en", "Localization Credits")]
         if not os.environ.get("KS_FRENCH_PREVIEW"):
             locales.append(("es", "Créditos de traducción"))
+        if german:
+            locales.append(("de", "Mitwirkende an der Übersetzung"))
         locales.append(("fr", "Crédits de traduction"))
         for locale, title in locales:
             page.evaluate("""async locale => {
@@ -80,6 +87,12 @@ try:
             expect(page.locator("#pageTitle")).to_have_text(title)
         for width in (320, 390, 768, 1200):
             page.set_viewport_size({"width": width, "height": 1000})
+            if german:
+                page.evaluate("""async () => {
+                  (await import('/static/core.js')).cacheSettings([{key:'ui.language',value:'de'}]);
+                  (await import('/static/tabs.js')).refreshNavigationText();
+                }""")
+                expect(page.locator("#pageTitle")).to_have_text("Mitwirkende an der Übersetzung")
             assert credits.evaluate("el => el.scrollWidth <= el.clientWidth"), width
             for row in credits.locator(".row").all():
                 name = row.locator(".name").bounding_box()

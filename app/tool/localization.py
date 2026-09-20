@@ -254,11 +254,24 @@ def verify_provenance(proof, locale):
 
 def community_review_valid(key, value, review, proofs):
     if isinstance(review, dict) and review.get("author") == "Xavier Larrea" and review.get("ownerAuthored") is True:
-        return "provenance" not in review and not any(key in changed for _, _, changed in proofs.values())
+        return ("provenance" not in review and "maintainerCorrection" not in review
+                and not any(key in changed for _, _, changed in proofs.values()))
     if not isinstance(review, dict) or review.get("provenance") not in proofs:
         return False
     _, author, changed = proofs[review["provenance"]]
-    return review.get("author") == author and changed.get(key) == value
+    if review.get("author") != author or key not in changed or review.get("ownerAuthored"):
+        return False
+    if "maintainerCorrection" not in review:
+        return changed[key] == value
+    correction = review["maintainerCorrection"]
+    return (isinstance(correction, dict) and correction.get("reviewer") == "Xavier Larrea"
+            and correction.get("originalTranslation") == sha(changed[key].encode())
+            and valid_correction_reason(correction.get("reason")) and changed[key] != value)
+
+
+def valid_correction_reason(reason):
+    return (isinstance(reason, str) and bool(reason.strip()) and len(reason) <= 1000
+            and not re.search(r"[\x00-\x1f\x7f]", reason))
 
 
 def load_proofs(files, locale):
@@ -354,6 +367,45 @@ def review_community(repository, locale, pr_number, credit, language_name, confi
     names[locale] = language_name
     write(names_path, names)
     print(f"Recorded {count} reviewed {locale} messages from PR #{pr_number}. Commit reviews, evidence and credits before import.")
+
+
+def review_corrections(repository, locale, pr_number, message_ids, reason, confirmed):
+    """Review explicit maintainer edits while retaining the accepted original."""
+    if not TAG.fullmatch(locale) or locale in ("en", "es"):
+        raise ValueError("Choose a community language tag")
+    if not confirmed or not message_ids:
+        raise ValueError("Confirm wording review and supply explicit --message-id values")
+    if not valid_correction_reason(reason):
+        raise ValueError("Supply a short plain-text correction reason")
+    source = validate_repository(repository)
+    translated = translation_catalog(load_sources(repository / "source"),
+                                     bundle_files(repository / "translations" / locale), locale)
+    candidates = []
+    for path in (repository / "metadata/provenance" / locale).glob("*.json"):
+        proof = read(path)
+        identity, author, changed = verify_provenance(proof, locale)
+        if path.stem != identity:
+            raise ValueError("Community provenance filename does not match its acceptance reference")
+        if proof["outcome"]["number"] == pr_number:
+            candidates.append((identity, author, changed))
+    if len(candidates) != 1:
+        raise ValueError("Corrections require one retained verified contribution for this PR")
+    identity, author, changed = candidates[0]
+    selected = set(message_ids)
+    if not selected <= changed.keys() or not selected <= messages(translated).keys():
+        raise ValueError("Every correction must name a translated message covered by this PR")
+    if any(translated[key] == changed[key] for key in selected):
+        raise ValueError("Correction must differ from its accepted original")
+    review_path = repository / f"metadata/reviews/{locale}.json"
+    reviews = read(review_path) if review_path.exists() else {}
+    for key in sorted(selected):
+        reviews[key] = {"source": source_digest(source, key), "translation": sha(translated[key].encode()),
+                        "author": author, "provenance": identity,
+                        "maintainerCorrection": {"reviewer": "Xavier Larrea",
+                                                 "originalTranslation": sha(changed[key].encode()),
+                                                 "reason": reason.strip()}}
+    write(review_path, reviews)
+    print(f"Recorded {len(selected)} maintainer corrections to PR #{pr_number}. Original evidence and public credits are unchanged.")
 
 
 def effective(source, catalog, reviews, proofs=None):
@@ -807,6 +859,13 @@ def main():
     cmd.add_argument("--credit", required=True)
     cmd.add_argument("--language-name", required=True)
     cmd.add_argument("--confirm-reviewed", action="store_true")
+    cmd = commands.add_parser("review-corrections")
+    cmd.add_argument("--repo", type=Path, default=Path(__file__).resolve().parents[1])
+    cmd.add_argument("--locale", required=True)
+    cmd.add_argument("--pr", type=int, required=True)
+    cmd.add_argument("--message-id", action="append", required=True)
+    cmd.add_argument("--reason", required=True)
+    cmd.add_argument("--confirm-reviewed", action="store_true", help="Confirm review of the corrected wording")
     args = parser.parse_args()
     if args.command == "validate":
         validate_repository(args.repo)
@@ -816,6 +875,8 @@ def main():
             validate_pr(args.repo, args.base_ref, args.head_ref)
     elif args.command == "review-community":
         review_community(args.repo, args.locale, args.pr, args.credit, args.language_name, args.confirm_reviewed)
+    elif args.command == "review-corrections":
+        review_corrections(args.repo, args.locale, args.pr, args.message_id, args.reason, args.confirm_reviewed)
     elif args.command == "review-owner":
         review_owner(args.repo, args.locale, args.message_id)
     elif args.command == "export":

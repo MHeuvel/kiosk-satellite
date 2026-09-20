@@ -81,68 +81,78 @@ void main() {
     category: category,
   );
 
-  testWidgets(
-    'French credits opens by language and follows live locale changes',
-    (tester) async {
-      tester.view.physicalSize = const Size(390, 1000);
-      tester.view.devicePixelRatio = 1;
-      addTearDown(tester.view.reset);
-      language.value = const Locale('fr');
-      await tester.pumpWidget(
-        ValueListenableBuilder<Locale>(
-          valueListenable: language,
-          builder: (_, locale, _) => MaterialApp(
-            locale: locale,
-            supportedLocales: UiStrings.supportedLocales,
-            localizationsDelegates: appLocalizationsDelegates,
-            home: page('About'),
+  for (final tag in [
+    'fr',
+    if (UiStrings.supportedLocales.contains(const Locale('de'))) 'de',
+  ]) {
+    final credit = tag == 'de' ? 'Dee-san' : 'Limoniak';
+    final title = lookupUiStrings(Locale(tag)).aboutLocalizationCredits;
+    testWidgets(
+      '$tag credits opens by language and follows live locale changes',
+      (tester) async {
+        tester.view.physicalSize = const Size(390, 1000);
+        tester.view.devicePixelRatio = 1;
+        addTearDown(tester.view.reset);
+        language.value = Locale(tag);
+        await tester.pumpWidget(
+          ValueListenableBuilder<Locale>(
+            valueListenable: language,
+            builder: (_, locale, _) => MaterialApp(
+              locale: locale,
+              supportedLocales: UiStrings.supportedLocales,
+              localizationsDelegates: appLocalizationsDelegates,
+              home: page('About'),
+            ),
           ),
-        ),
-      );
-      await tester.pumpAndSettle();
-      final entry = find.text('Crédits de traduction');
-      final tile = tester.widget<ListTile>(
-        find.ancestor(of: entry, matching: find.byType(ListTile)),
-      );
-      expect(tile.subtitle, isNull);
-      final notice = find.text(
-        lookupUiStrings(const Locale('fr')).aboutLicenseSummary,
-      );
-      expect(
-        tester.getTopLeft(entry).dy,
-        lessThan(tester.getTopLeft(notice).dy),
-      );
-      await tester.ensureVisible(entry);
-      await tester.pumpAndSettle();
-      await tester.tap(entry);
-      await tester.pumpAndSettle();
-      for (final name in ['English', 'Español', 'Français']) {
-        expect(find.text(name), findsOneWidget);
-      }
-      expect(find.text('Limoniak'), findsNWidgets(2));
-      expect(find.byIcon(Icons.favorite), findsOneWidget);
-      expect(
-        find.text(lookupUiStrings(const Locale('fr')).settingsBuyCoffee),
-        findsOneWidget,
-      );
-      expect(tester.takeException(), isNull);
-      language.value = const Locale('en');
-      await tester.pumpAndSettle();
-      expect(find.text('Localization Credits'), findsOneWidget);
-      expect(find.text('Buy me a coffee'), findsOneWidget);
-      expect(find.text('Limoniak'), findsNWidgets(2));
-      language.value = const Locale('fr');
-      await tester.pumpAndSettle();
-      expect(find.text('Crédits de traduction'), findsOneWidget);
-      await tester.tap(find.widgetWithText(TextButton, 'Limoniak'));
-      await tester.pumpAndSettle();
-      expect(container.browser.overlayUrl.value, 'https://github.com/Limoniak');
-      expect(find.text('Limoniak'), findsNothing);
-      expect(find.text('Crédits de traduction'), findsOneWidget);
-      expect(tester.takeException(), isNull);
-      await tester.pumpWidget(const SizedBox.shrink());
-    },
-  );
+        );
+        await tester.pumpAndSettle();
+        final entry = find.text(title);
+        final tile = tester.widget<ListTile>(
+          find.ancestor(of: entry, matching: find.byType(ListTile)),
+        );
+        expect(tile.subtitle, isNull);
+        final notice = find.text(
+          lookupUiStrings(Locale(tag)).aboutLicenseSummary,
+        );
+        expect(
+          tester.getTopLeft(entry).dy,
+          lessThan(tester.getTopLeft(notice).dy),
+        );
+        await tester.ensureVisible(entry);
+        await tester.pumpAndSettle();
+        await tester.tap(entry);
+        await tester.pumpAndSettle();
+        for (final name in ['English', 'Español', 'Français']) {
+          expect(find.text(name), findsOneWidget);
+        }
+        expect(find.text(credit), findsNWidgets(2));
+        expect(find.byIcon(Icons.favorite), findsOneWidget);
+        expect(
+          find.text(lookupUiStrings(Locale(tag)).settingsBuyCoffee),
+          findsOneWidget,
+        );
+        expect(tester.takeException(), isNull);
+        language.value = const Locale('en');
+        await tester.pumpAndSettle();
+        expect(find.text('Localization Credits'), findsOneWidget);
+        expect(find.text('Buy me a coffee'), findsOneWidget);
+        expect(find.text(credit), findsNWidgets(2));
+        language.value = Locale(tag);
+        await tester.pumpAndSettle();
+        expect(find.text(title), findsOneWidget);
+        await tester.tap(find.widgetWithText(TextButton, credit));
+        await tester.pumpAndSettle();
+        expect(
+          container.browser.overlayUrl.value,
+          'https://github.com/$credit',
+        );
+        expect(find.text(credit), findsNothing);
+        expect(find.text(title), findsOneWidget);
+        expect(tester.takeException(), isNull);
+        await tester.pumpWidget(const SizedBox.shrink());
+      },
+    );
+  }
 
   testWidgets('About preserves attribution and links at narrow widths', (
     tester,

@@ -27,9 +27,12 @@ void main() {
           .toList();
       expect(group.first, uiLanguage);
       expect(uiLanguage.perDevice, isTrue);
-      expect(uiLanguage.options, [
-        ...UiStrings.supportedLocales.map((locale) => locale.toLanguageTag()),
-      ]);
+      expect(
+        uiLanguage.options,
+        unorderedEquals(
+          UiStrings.supportedLocales.map((locale) => locale.toLanguageTag()),
+        ),
+      );
       expect(uiLanguage.optionLabels!['es'], 'Español');
       expect(appLocaleForLanguage('es'), const Locale('es'));
       expect(uiLanguage.defaultValue, 'en');
@@ -216,7 +219,12 @@ void main() {
         final definition = container.settings.describe().firstWhere(
           (def) => def['key'] == 'ui.language',
         );
-        expect(definition['options'], ['en', 'es']);
+        expect(
+          definition['options'],
+          unorderedEquals(
+            UiStrings.supportedLocales.map((locale) => locale.toLanguageTag()),
+          ),
+        );
         expect((definition['optionLabels'] as Map)['es'], 'Español');
         await tester.pumpWidget(const SizedBox.shrink());
       },

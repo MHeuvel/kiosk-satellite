@@ -373,6 +373,83 @@ class CommunityTests(unittest.TestCase):
     git = SnapshotTests.git
     review = SnapshotTests.review
 
+    def corrected_fixture(self):
+        self.add_language()
+        self.approve_fixture()
+        target = self.repo / "translations/de/common_de.arb"
+        translated = catalog.read(target)
+        translated["welcome"] = "DE corrected welcome"
+        catalog.write(target, translated)
+
+    def test_maintainer_correction_imports_without_replacing_contributor_evidence(self):
+        self.corrected_fixture()
+        proof_path = next((self.repo / "metadata/provenance/de").glob("*.json"))
+        original = proof_path.read_bytes()
+        credits = (self.repo / "metadata/credits.json").read_bytes()
+        review_path = self.repo / "metadata/reviews/de.json"
+        before = catalog.read(review_path)
+        with self.assertRaisesRegex(ValueError, "complete and reviewed"):
+            catalog.import_catalog(self.app, self.repo, self.commit(), "de")
+        catalog.review_corrections(self.repo, "de", 3, ["welcome"], "Correct the heading", True)
+        after = catalog.read(review_path)
+        self.assertEqual(after["response"], before["response"])
+        self.assertEqual(after["welcome"]["author"], "translator")
+        self.assertEqual(after["welcome"]["provenance"], before["welcome"]["provenance"])
+        self.assertEqual(after["welcome"]["maintainerCorrection"]["originalTranslation"],
+                         catalog.sha(b"DE welcome"))
+        self.assertEqual(proof_path.read_bytes(), original)
+        self.assertEqual((self.repo / "metadata/credits.json").read_bytes(), credits)
+        catalog.import_catalog(self.app, self.repo, self.commit(), "de")
+        self.assertEqual(catalog.read(self.app / "l10n/effective/ui_de.arb")["welcome"], "DE corrected welcome")
+
+    def test_correction_requires_explicit_review_and_matching_contribution(self):
+        self.corrected_fixture()
+        path = self.repo / "metadata/reviews/de.json"
+        before = path.read_bytes()
+        cases = [(3, ["welcome"], "Fix", False), (3, [], "Fix", True),
+                 (3, ["welcome"], " ", True), (4, ["welcome"], "Fix", True),
+                 (3, ["unknown"], "Fix", True), (3, ["welcome", "response"], "Fix", True)]
+        for pr, ids, reason, confirmed in cases:
+            with self.subTest(pr=pr, ids=ids, reason=reason, confirmed=confirmed), self.assertRaises(ValueError):
+                catalog.review_corrections(self.repo, "de", pr, ids, reason, confirmed)
+            self.assertEqual(path.read_bytes(), before)
+
+    def test_invalid_correction_records_cannot_enable_modified_community_text(self):
+        self.corrected_fixture()
+        catalog.review_corrections(self.repo, "de", 3, ["welcome"], "Correct the heading", True)
+        path = self.repo / "metadata/reviews/de.json"
+        valid = catalog.read(path)
+        for case in ("reviewer", "original", "reason", "missing", "author", "owner", "provenance"):
+            reviews = copy.deepcopy(valid)
+            item = reviews["welcome"]
+            if case == "reviewer": item["maintainerCorrection"]["reviewer"] = "someone else"
+            elif case == "original": item["maintainerCorrection"]["originalTranslation"] = "0" * 64
+            elif case == "reason": item["maintainerCorrection"]["reason"] = ""
+            elif case == "missing": del item["maintainerCorrection"]
+            elif case == "author": item["author"] = "Xavier Larrea"
+            elif case == "owner": item["ownerAuthored"] = True
+            else: item["provenance"] = "0" * 64
+            catalog.write(path, reviews)
+            with self.subTest(case=case), self.assertRaisesRegex(ValueError, "complete and reviewed"):
+                catalog.import_catalog(self.app, self.repo, self.commit(), "de")
+
+    def test_correction_review_expires_when_wording_or_context_changes(self):
+        self.corrected_fixture()
+        catalog.review_corrections(self.repo, "de", 3, ["welcome"], "Correct the heading", True)
+        catalog.import_catalog(self.app, self.repo, self.commit(), "de")
+        target = self.repo / "translations/de/common_de.arb"
+        translated = catalog.read(target)
+        translated["welcome"] = "DE not reviewed"
+        catalog.write(target, translated)
+        catalog.import_catalog(self.app, self.repo, self.commit(), "de")
+        self.assertEqual(catalog.read(self.app / "l10n/effective/ui_de.arb")["welcome"], "Welcome")
+        catalog.review_corrections(self.repo, "de", 3, ["welcome"], "Revise the heading again", True)
+        catalog.import_catalog(self.app, self.repo, self.commit(), "de")
+        self.source["@welcome"]["context"] = "Different screen"
+        self.write_sources(self.app / "l10n/source", self.source)
+        catalog.generate(self.app)
+        self.assertEqual(catalog.read(self.app / "l10n/effective/ui_de.arb")["welcome"], "Welcome")
+
     def test_owner_additions_do_not_replace_community_provenance(self):
         self.add_language()
         self.approve_fixture()

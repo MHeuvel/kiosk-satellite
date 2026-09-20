@@ -2,6 +2,12 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Changed
+
+- **Maintainer corrections retain translation credit.** Localization review tooling records corrections separately from the accepted community text while preserving its contributor evidence and public credit.
+
 ## v2026.9.65 - 2026-09-20
 
 ### Added
