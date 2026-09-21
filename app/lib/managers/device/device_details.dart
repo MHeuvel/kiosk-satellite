@@ -68,6 +68,16 @@ class DeviceDetails {
     }
   }
 
+  /// Free (the kernel's MemAvailable) and total memory in bytes, plus the
+  /// low-memory flag: `free`, `total`, `low`. Empty off-Android.
+  static Future<Map<String, Object?>> ram() async {
+    try {
+      return await _channel.invokeMapMethod<String, Object?>('ram') ?? const {};
+    } catch (_) {
+      return const {};
+    }
+  }
+
   /// Whether external power is connected, from the charger's own online flag
   /// (EXTRA_PLUGGED) rather than the battery status — some kernels report a
   /// status of "charging" forever (issue #205). Null off Android or when the

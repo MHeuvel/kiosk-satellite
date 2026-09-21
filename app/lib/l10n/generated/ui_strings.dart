@@ -5926,6 +5926,42 @@ abstract class UiStrings {
   /// Translate the interface text. Keep external names, versions and technical details unchanged.
   ///
   /// In en, this message translates to:
+  /// **'CPU'**
+  String get overviewCpu;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Memory'**
+  String get overviewMemory;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Temperature'**
+  String get overviewTemperature;
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} GB free'**
+  String overviewMemoryFree(String amount);
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'{value}%'**
+  String overviewMetricPercent(String value);
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'{value}°C'**
+  String overviewMetricDegrees(String value);
+
+  /// Translate the interface text. Keep external names, versions and technical details unchanged.
+  ///
+  /// In en, this message translates to:
   /// **'No screenshot'**
   String get overviewNoScreenshot;
 

@@ -108,5 +108,8 @@ const overviewTextMessageIds = <String, String>{
   "Default view": "overviewDefaultView",
   "No dashboards found": "overviewNoDashboards",
   "Views unavailable": "overviewViewsUnavailable",
-  "Screen is off": "overviewScreenOffState"
+  "Screen is off": "overviewScreenOffState",
+  "CPU": "overviewCpu",
+  "Memory": "overviewMemory",
+  "Temperature": "overviewTemperature"
 };

@@ -1109,6 +1109,41 @@
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .status.warn .s-sub { color: var(--warn); }
   .status.error .s-sub { color: var(--error); }
+  /* Metric tiles (CPU, memory, temperature): the text stack keeps the
+     left and a terminal style LED stack fills the right, its ceiling and
+     floor labelled beside it. Cells are colored by their band, not by the
+     current value, so a climbing column goes green, amber, red; unlit
+     cells stay as faint dots so the scale shows on an idle kiosk. */
+  .status.metric { cursor: default; }
+  .status.metric:hover { border-color: transparent; }
+  .status.metric .s-text { flex: 0 1 auto; }
+  .status .s-chart { flex: 1 1 60px; min-width: 60px; display: flex; align-items: stretch;
+    justify-content: flex-end; gap: 5px; height: 31px; }
+  .status .s-led { flex: 1 1 0; min-width: 0; display: flex; justify-content: flex-end;
+    overflow: hidden; }
+  .status .s-led svg { display: block; }
+  .status .s-led rect.ok { fill: var(--ok); }
+  .status .s-led rect.warn { fill: var(--warn); }
+  .status .s-led rect.off { fill: var(--error); }
+  .status .s-led rect.dim { fill: var(--outline); opacity: .45; }
+  .status .s-axis { display: flex; flex-direction: column; justify-content: space-between;
+    font-size: 9.5px; line-height: 1; color: var(--muted); white-space: nowrap;
+    font-variant-numeric: tabular-nums; }
+  /* A tile narrower than about 235px (three columns in a window under
+     730px, or a phone's two) has no room beside the text: the stack drops
+     under it, shorter and as wide as the text, lined up past the dot,
+     with the ceiling label alone since two do not fit that height. The
+     grid's width decides, not the viewport: the rail's 360px makes a
+     1000px window narrower here than a 900px one. */
+  .health { container: health / inline-size; }
+  @container health (max-width: 730px) {
+    .status.metric { flex-wrap: wrap; }
+    .status.metric .s-text { flex: 1 1 auto; }
+    .status .s-chart { flex: 0 0 calc(100% - 22px); min-width: 0; height: 19px;
+      margin-left: 22px; }
+    .status .s-axis { justify-content: center; }
+    .status .s-axis .lo { display: none; }
+  }
   /* A plugin's tile carries its plugin's name under the state line. */
   .status .s-from { font-size: 11px; color: var(--muted); opacity: .75; line-height: 1.3;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -1142,6 +1177,8 @@
     .status { padding: 10px 12px; gap: 9px; align-items: flex-start; }
     .status .dot { margin-top: 5px; }
     .status .s-sub { white-space: normal; }
+    /* The phone tile's tighter gap moves the stacked chart's inset. */
+    .status .s-chart { flex-basis: calc(100% - 19px); margin-left: 19px; }
     /* The toggle and the icons share the top line; when it was taken
        goes under them on its own line. */
     .shot-bar { flex-wrap: wrap; row-gap: 6px; }

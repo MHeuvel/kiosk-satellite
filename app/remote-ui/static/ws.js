@@ -301,6 +301,8 @@ export function renderStats(o) {
       ? '' : `${batterySvg(o.battery, o.charging)}${o.battery}%`;
   });
   setStat('.js-cpu', o.cpu != null ? `CPU ${Math.round(o.cpu)}%` : '');
+  // The Overview's metric tiles read the same numbers (overview.js).
+  document.dispatchEvent(new CustomEvent('ks-stats', { detail: o }));
   if (o.temp == null) { setStat('.js-temp', ''); return; }
   const t = Math.round(o.temp);
   setStat('.js-temp', `${t}°C`,

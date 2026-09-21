@@ -473,5 +473,86 @@
         "Overview > Status"
       ]
     }
+  },
+  "overviewCpu": "CPU",
+  "@overviewCpu": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewMemory": "Memory",
+  "@overviewMemory": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewTemperature": "Temperature",
+  "@overviewTemperature": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    }
+  },
+  "overviewMemoryFree": "{amount} GB free",
+  "@overviewMemoryFree": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    },
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "overviewMetricPercent": "{value}%",
+  "@overviewMetricPercent": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    },
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "overviewMetricDegrees": "{value}°C",
+  "@overviewMetricDegrees": {
+    "context": "Remote admin > Overview > Status",
+    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
+    "x-locations": {
+      "device": [],
+      "remoteAdmin": [
+        "Overview > Status"
+      ]
+    },
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
   }
 }

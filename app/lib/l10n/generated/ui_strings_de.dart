@@ -3449,6 +3449,30 @@ class UiStringsDe extends UiStrings {
       'Bereit (während einer Sprachinteraktion pausiert)';
 
   @override
+  String get overviewCpu => 'CPU';
+
+  @override
+  String get overviewMemory => 'Memory';
+
+  @override
+  String get overviewTemperature => 'Temperature';
+
+  @override
+  String overviewMemoryFree(String amount) {
+    return '$amount GB free';
+  }
+
+  @override
+  String overviewMetricPercent(String value) {
+    return '$value%';
+  }
+
+  @override
+  String overviewMetricDegrees(String value) {
+    return '$value°C';
+  }
+
+  @override
   String get overviewNoScreenshot => 'Kein Bildschirmfoto verfügbar';
 
   @override

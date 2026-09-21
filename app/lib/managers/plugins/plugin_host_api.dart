@@ -155,7 +155,7 @@ class PluginHostApi {
   ];
   static const _fields = {
     'getLightLevel': ['present', 'lux', 'live'],
-    'getStats': ['battery', 'charging', 'cpu', 'temp'],
+    'getStats': ['battery', 'charging', 'cpu', 'temp', 'memFree', 'memTotal'],
     'getUptime': ['app', 'network'],
     'getDeviceInfo': [
       'name',

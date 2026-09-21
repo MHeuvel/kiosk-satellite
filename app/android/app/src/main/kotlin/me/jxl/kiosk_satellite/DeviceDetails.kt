@@ -193,6 +193,10 @@ class DeviceDetails(
                 // admin tab is open — off the main thread, so a stats tick
                 // can never cost the UI a frame.
                 "cpu" -> cpuWorker.read(result) { cpu() }
+                // Free and total memory alone, for the stats tick and its
+                // history: the full read walks storage, the screen and the
+                // WebView to answer a question asked every few seconds.
+                "ram" -> result.success(ram())
                 else -> result.notImplemented()
             }
         }

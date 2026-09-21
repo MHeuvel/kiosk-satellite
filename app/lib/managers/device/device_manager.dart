@@ -2,7 +2,7 @@ import 'dart:collection' show ListQueue;
 import 'dart:convert' show LineSplitter, Utf8Decoder;
 import 'dart:io';
 
-import 'dart:async' show StreamSubscription, unawaited;
+import 'dart:async' show StreamSubscription, Timer, unawaited;
 
 import 'package:flutter/foundation.dart' show ValueNotifier, kDebugMode;
 import 'package:flutter/services.dart' show EventChannel, MethodChannel;
@@ -18,6 +18,7 @@ import '../settings/settings_manager.dart';
 import '../settings/definitions.dart' as defs;
 import '../wake_word/background_listening.dart';
 import 'device_details.dart';
+import 'stats_history.dart';
 import 'logcat.dart';
 
 /// Device identity and status: model, OS, app version, battery.
@@ -496,6 +497,24 @@ class DeviceManager extends Manager {
         handler: (_) async => CommandResult.ok(await stats()),
       ),
     );
+    commands.register(
+      Command(
+        name: 'getStatsHistory',
+        description:
+            'The last fifteen minutes of CPU load, memory use (percent) '
+            'and temperature, one sample every fifteen seconds, oldest '
+            'first. Null where the platform declined that read.',
+        quiet: true,
+        handler: (_) async => CommandResult.ok(history.toJson()),
+      ),
+    );
+    // The first CPU read only primes the load delta; the second is the
+    // first real sample.
+    unawaited(_sampleHistory());
+    _historyTimer = Timer.periodic(
+      history.interval,
+      (_) => _sampleHistory(),
+    );
 
     _watchPower();
   }
@@ -602,6 +621,7 @@ class DeviceManager extends Manager {
     final level = await _batteryLevel();
     final charging = await _chargingNow();
     final cpu = await DeviceDetails.cpu();
+    final ram = await DeviceDetails.ram();
     if (!_thermalLogged && cpu.containsKey('temp') && cpu['temp'] == null) {
       _thermalLogged = true;
       log.info(
@@ -614,7 +634,33 @@ class DeviceManager extends Manager {
       'charging': charging,
       'cpu': cpu['usage'],
       'temp': cpu['temp'],
+      // Bytes. The kernel's MemAvailable, not availMem (see DeviceDetails.kt).
+      'memFree': ram['free'],
+      'memTotal': ram['total'],
     };
+  }
+
+  /// The metric tiles' history, sampled on its own clock whether or not an
+  /// admin page is open: a sample costs a handful of sysfs reads, and a
+  /// chart that only starts when someone looks shows them nothing.
+  final history = StatsHistory();
+  Timer? _historyTimer;
+
+  Future<void> _sampleHistory() async {
+    try {
+      final s = await stats();
+      final free = (s['memFree'] as num?)?.toDouble();
+      final total = (s['memTotal'] as num?)?.toDouble();
+      history.add(
+        cpu: (s['cpu'] as num?)?.toDouble(),
+        memory: free != null && total != null && total > 0
+            ? (100 * (1 - free / total)).clamp(0, 100).toDouble()
+            : null,
+        temp: (s['temp'] as num?)?.toDouble(),
+      );
+    } catch (_) {
+      // A read that fails leaves a gap rather than a stopped clock.
+    }
   }
 
   /// Every non-loopback address of [type], keyed by interface name in
@@ -744,6 +790,7 @@ class DeviceManager extends Manager {
 
   @override
   Future<void> dispose() async {
+    _historyTimer?.cancel();
     await _powerSub?.cancel();
     await _lightSub?.cancel();
     _lightMethods.setMethodCallHandler(null);

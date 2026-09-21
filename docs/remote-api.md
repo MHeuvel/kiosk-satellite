@@ -312,7 +312,12 @@ Assistant connection or a stopped wake word engine, hidden while there is
 nothing; the screenshot with a badge while the panel is dark, on the
 screensaver or showing a camera view, a Still or Live toggle, full size and
 download; status tiles for Home Assistant, Voice Satellite, ESPHome, Media
-Player, the service and updates, each opening its page; a Now playing card
+Player, the service and updates, each opening its page, and CPU, memory and
+temperature tiles with the last fifteen minutes as a stack of cells per
+sample, colored by height band and labelled with the scale's ceiling and
+floor (the device samples every fifteen seconds whether or not a page is
+open, `getStatsHistory`, and the `stats` push carries `memFree` and
+`memTotal` beside the CPU load and temperature); a Now playing card
 while the media player has a track; quick controls, brightness and master
 volume. The screen, screensaver and camera view controls are one tile each,
 relabelled by the device's state, **Screen off** while the panel is lit and

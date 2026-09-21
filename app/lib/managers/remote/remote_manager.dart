@@ -264,6 +264,8 @@ class RemoteManager extends Manager {
           'charging': data['charging'],
           'cpu': data['cpu'],
           'temp': data['temp'],
+          'memFree': data['memFree'],
+          'memTotal': data['memTotal'],
         });
       } finally {
         _statsReading = false;

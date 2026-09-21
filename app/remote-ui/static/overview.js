@@ -81,6 +81,154 @@ function paintTile(id, level, text) {
 }
 const LEVELS = new Set(['', 'on', 'warn', 'off']);
 
+/* ---- Metric tiles ----
+   CPU, memory and temperature as terminal style LED stacks: one column a
+   sample, lit from the bottom up to the value, each cell colored by the
+   band it sits in so a climbing column goes green, amber, red. The device
+   keeps the last fifteen minutes (getStatsHistory), so the stack is full
+   at connect; the four second stats push moves the value and the dot and
+   adds a column every interval while the page stays open. Fixed scales,
+   so a lit cell always means the same thing, with the ceiling and floor
+   labelled beside the stack. Memory is the used share, so a taller stack
+   is more pressure, while the state line says what is free. */
+const METRICS = [
+  { id: 'cpu', name: 'CPU', lo: 0, hi: 100, warn: 70, err: 90, unit: '%' },
+  { id: 'memory', name: 'Memory', lo: 0, hi: 100, warn: 80, err: 92, unit: '%' },
+  // The header's own thresholds for the temperature tint.
+  { id: 'temp', name: 'Temperature', lo: 20, hi: 90, warn: 65, err: 80, unit: '°C' },
+];
+const METRIC_CAPACITY = 60;
+const metricHistory = { intervalMs: 15000, at: 0, cpu: [], memory: [], temp: [] };
+const metricNow = { cpu: null, memory: null, temp: null, memFree: null };
+let metricsRead = false;
+
+// The stack as data: `columns` columns of `rows` cells, bottom to top, the
+// newest sample in the last column and history too short for the width
+// padded with unlit columns on the left. A cell is null (unlit) or the
+// band of its midpoint: ok, warn or off (the dot's own levels).
+export function ledCells(values, spec, columns, rows) {
+  const span = spec.hi - spec.lo;
+  const tail = values.slice(-columns);
+  const cols = [];
+  for (let i = tail.length; i < columns; i++) cols.push(Array(rows).fill(null));
+  for (const v of tail) {
+    const lit = v == null ? 0
+      : Math.max(0, Math.min(rows, Math.ceil(rows * (v - spec.lo) / span - 1e-9)));
+    const col = [];
+    for (let k = 0; k < rows; k++) {
+      const mid = spec.lo + span * (k + 0.5) / rows;
+      col.push(k < lit ? (mid >= spec.err ? 'off' : mid >= spec.warn ? 'warn' : 'ok') : null);
+    }
+    cols.push(col);
+  }
+  return cols;
+}
+// 2 by 3 cells with a 1px gap, as many as the slot holds up to the history
+// the device keeps; the slot's own size decides the columns and rows so a
+// shorter, wider slot draws more columns of fewer cells without a second
+// code path. The stack sits at the slot's right, the newest sample last.
+function ledSvg(values, spec, width, height) {
+  const colW = 2, cellH = 3, gap = 1;
+  const columns = Math.max(1, Math.min(METRIC_CAPACITY, Math.floor((width + gap) / (colW + gap))));
+  const rows = Math.max(1, Math.floor((height + gap) / (cellH + gap)));
+  const w = columns * (colW + gap) - gap, h = rows * (cellH + gap) - gap;
+  let out = '';
+  ledCells(values, spec, columns, rows).forEach((col, i) => col.forEach((band, k) => {
+    out += `<rect x="${i * (colW + gap)}" y="${h - (k + 1) * cellH - k * gap}" width="${colW}" height="${cellH}" class="${band || 'dim'}"/>`;
+  }));
+  return `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" aria-hidden="true">${out}</svg>`;
+}
+function buildMetricTiles() {
+  const grid = $('#statusGrid');
+  for (const spec of METRICS) {
+    if (grid.querySelector(`[data-status="${spec.id}"]`)) continue;
+    // A reading, not a control: no page to open and nothing to press.
+    const b = document.createElement('div');
+    b.className = 'status metric';
+    b.dataset.status = spec.id;
+    b.innerHTML = '<span class="dot"></span><span class="s-text">'
+      + '<span class="s-name"></span><span class="s-sub"></span></span>'
+      + '<span class="s-chart"><span class="s-led"></span>'
+      + '<span class="s-axis"><span class="hi"></span><span class="lo"></span></span></span>';
+    overviewLabel(b.querySelector('.s-name'), spec.name);
+    overviewLabel(b.querySelector('.s-sub'), 'Checking…');
+    b.querySelector('.hi').textContent = `${spec.hi}${spec.unit}`;
+    b.querySelector('.lo').textContent = `${spec.lo}${spec.unit}`;
+    grid.insertBefore(b, grid.querySelector('.status.plugin'));
+  }
+}
+const metricLevel = (spec, v) => (v == null ? '' : v >= spec.err ? 'off' : v >= spec.warn ? 'warn' : 'on');
+function metricText(spec, v) {
+  if (v == null) return overviewText('Status unavailable');
+  if (spec.id === 'memory' && metricNow.memFree != null) {
+    return t('overviewMemoryFree', {amount: (metricNow.memFree / 1073741824).toFixed(1)});
+  }
+  if (spec.id === 'temp') return t('overviewMetricDegrees', {value: String(Math.round(v))});
+  return t('overviewMetricPercent', {value: String(Math.round(v))});
+}
+function paintMetricTiles() {
+  for (const spec of METRICS) {
+    const b = document.querySelector(`#statusGrid [data-status="${spec.id}"]`);
+    if (!b) continue;
+    const v = metricNow[spec.id];
+    const history = metricHistory[spec.id];
+    // A host that declines the read (no thermal zone, no Android) gets no
+    // tile rather than one that says unavailable forever; a tile only
+    // goes once the first history read has confirmed there is nothing.
+    const known = v != null || history.some((x) => x != null);
+    b.classList.toggle('hidden', metricsRead && !known);
+    if (!known) continue;
+    paintTile(spec.id, metricLevel(spec, v), metricText(spec, v));
+    const led = b.querySelector('.s-led');
+    if (!led.clientWidth) continue; // Hidden tab: the resize that shows it repaints.
+    led.innerHTML = ledSvg(history, spec, led.clientWidth, led.clientHeight);
+  }
+}
+function applyMetricHistory(h) {
+  if (!h || typeof h !== 'object') return;
+  const list = (key) => (Array.isArray(h[key]) ? h[key].slice(-METRIC_CAPACITY).map((x) => (typeof x === 'number' ? x : null)) : []);
+  metricHistory.cpu = list('cpu');
+  metricHistory.memory = list('memory');
+  metricHistory.temp = list('temp');
+  if (typeof h.intervalSeconds === 'number' && h.intervalSeconds > 0) metricHistory.intervalMs = h.intervalSeconds * 1000;
+  // Ages the device's last sample on our clock, so the next column lands
+  // one interval after it rather than one interval after the fetch.
+  metricHistory.at = typeof h.at === 'number' ? Math.min(Date.now(), h.at) : Date.now();
+}
+async function readMetricHistory() {
+  const h = await ask('getStatsHistory');
+  if (h) applyMetricHistory(h);
+  metricsRead = true;
+  paintMetricTiles();
+}
+// Every stats push: the live value, and a new column once an interval has
+// passed since the last one, on the device's cadence.
+document.addEventListener('ks-stats', (e) => {
+  const o = e.detail || {};
+  metricNow.cpu = typeof o.cpu === 'number' ? o.cpu : null;
+  metricNow.temp = typeof o.temp === 'number' ? o.temp : null;
+  const free = typeof o.memFree === 'number' ? o.memFree : typeof o.ramFree === 'number' ? o.ramFree : null;
+  const total = typeof o.memTotal === 'number' ? o.memTotal : typeof o.ramTotal === 'number' ? o.ramTotal : null;
+  metricNow.memFree = free;
+  metricNow.memory = free != null && total > 0 ? Math.max(0, Math.min(100, 100 * (1 - free / total))) : null;
+  const now = Date.now();
+  if (now - metricHistory.at >= metricHistory.intervalMs) {
+    for (const spec of METRICS) {
+      metricHistory[spec.id].push(metricNow[spec.id]);
+      if (metricHistory[spec.id].length > METRIC_CAPACITY) metricHistory[spec.id].shift();
+    }
+    metricHistory.at = now;
+  }
+  if (onOverview()) paintMetricTiles();
+});
+// A reconnect brings the device's history back in place of ours, which
+// stopped while the socket was down.
+document.addEventListener('ks-connected', () => { if (metricsRead) readMetricHistory(); });
+{
+  const grid = $('#statusGrid');
+  if (grid) new ResizeObserver(() => paintMetricTiles()).observe(grid);
+}
+
 /* ---- Plugin tiles ----
    Tiles a running plugin publishes through the SDK. They sit after the
    built-in six and name their plugin, so a plugin's tile never reads as a
@@ -765,10 +913,11 @@ document.addEventListener('visibilitychange', () => { if (onOverview()) overview
 // opens populated rather than filling in.
 export async function initOverview() {
   buildTiles();
+  buildMetricTiles();
   paintShotMode();
   paintShotBadge();
   paintSnapshotTile();
-  await Promise.all([refreshHealth(), refreshVolume(), paintRestartDeviceTile(), refreshDndTile()]);
+  await Promise.all([refreshHealth(), refreshVolume(), paintRestartDeviceTile(), refreshDndTile(), readMetricHistory()]);
 }
 
 document.addEventListener('ks-settings-cached', () => {
