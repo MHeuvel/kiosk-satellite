@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.9.71 - 2026-09-21
 
 ### Added
 - **CPU, memory and temperature tiles on the Overview.** Three new tiles in the Status card, CPU, RAM and Temp, show the last fifteen minutes of CPU load, memory use and CPU temperature as a terminal style stack of cells, one column per sample, lit up to the value and colored green, amber or red by the band each cell sits in, with the scale's ceiling and floor beside it. The device samples every fifteen seconds whether or not an admin page is open, so the chart is full the moment the page connects. The state line carries the live value, free memory in GB for the memory tile, and the dot follows the same thresholds as the header's temperature tint. The `stats` push and `getStats` now include free and total memory and `getStatsHistory` returns the samples.
