@@ -8,6 +8,8 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 - **Wake-word listening uses less CPU on Android.** vsWakeWord and microWakeWord run their audio transforms in native code with reusable buffers. Both engines retain a Dart fallback when the native library is unavailable.
 
+- **openWakeWord uses faster CPU inference.** Its models prefer single-threaded XNNPACK and fall back to the standard ONNX CPU backend if provider registration or session setup fails.
+
 ## v2026.9.67 - 2026-09-20
 
 ### Fixed

@@ -25,9 +25,8 @@ import '../vsww/ort_float_runner.dart';
 /// trained on int16 PCM cast to float, so feeding +/-1 underflows its
 /// calibrated convolution kernels and the whole chain reads as silence.
 ///
-/// The card runs this on WebGPU because its embedding model takes ~80 ms per
-/// chunk in pure JS. Natively on the CPU the whole chain is ~3.8 ms, so there
-/// is nothing to accelerate.
+/// All three stages run through native ONNX sessions. Processing cost depends
+/// on the device, execution provider and selected classifiers.
 class OwwPipeline {
   OwwPipeline({required this.melSession, required this.embeddingSession});
 

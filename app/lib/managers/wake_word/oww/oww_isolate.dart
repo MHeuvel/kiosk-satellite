@@ -9,6 +9,7 @@ import '../vsww/ort_tensor_io.dart';
 import '../vsww/ort_float_runner.dart';
 import 'oww_gate.dart';
 import 'oww_pipeline.dart';
+import 'oww_session_loader.dart';
 import '../wake_msg.dart';
 import '../pcm16.dart';
 import '../chunk_telemetry.dart';
@@ -99,16 +100,12 @@ class _OwwWorker {
         _sleepAfterChunks = (gate['sleepAfterChunks'] as num).toInt();
       }
 
+      final loader = OwwSessionLoader(
+        onFallback: (error) =>
+            _log('info', 'XNNPACK session unavailable, using CPU: $error'),
+      );
       OrtSession load(Uint8List bytes) {
-        final opts = OrtSessionOptions()
-          ..setIntraOpNumThreads(1)
-          ..setInterOpNumThreads(1);
-        final OrtSession s;
-        try {
-          s = OrtSession.fromBuffer(bytes, opts);
-        } finally {
-          opts.release();
-        }
+        final s = loader.load(bytes);
         _sharedSessions.add(s);
         return s;
       }
