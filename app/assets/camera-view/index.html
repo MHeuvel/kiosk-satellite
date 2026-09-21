@@ -47,7 +47,7 @@
      a camera stream carries. Deferred: parsing a third of a megabyte
      blocks the page's first paint, which showed as a white flash while
      the view slid up. Only connectHls needs it, and it waits for
-     DOMContentLoaded. -->
+     the load event when the library has not run yet. -->
 <script src="messages.js"></script>
 <script defer src="hls.light.min.js"></script>
 <!-- The config arrives as an AT_DOCUMENT_START UserScript, but WebViews

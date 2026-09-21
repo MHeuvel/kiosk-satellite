@@ -323,6 +323,17 @@ function closeView() {
   bridge('cameraClose');
 }
 
+// hls.js loads deferred (see the script tag) while this script is appended
+// by the page's bootstrap and runs as soon as it arrives, which nothing
+// orders after the deferred scripts: on a slow start a connect can find
+// parsing over and the player library still loading, and would misread
+// that as a device with no HLS. The load event fires only once every
+// deferred script has run, so a missing library waits for it.
+function waitForHlsLibrary() {
+  if (window.Hls || document.readyState === 'complete') return Promise.resolve();
+  return new Promise((resolve) => addEventListener('load', resolve, { once: true }));
+}
+
 async function start(cameraId, fullscreen) {
   stop(cameraId);
   const camera = CFG.cameras.find((candidate) => candidate.id === cameraId);
@@ -863,16 +874,13 @@ async function start(cameraId, fullscreen) {
   // whether it leads or follows WebRTC.
   const connectHls = async () => {
     setStatus(cameraId, viewStatus('cameraViewerConnecting'));
-    // hls.js loads deferred (see the script tag); it has run by
-    // DOMContentLoaded, so a connect racing the page load waits rather
-    // than misreading a still-parsing player as HLS-incapable.
-    if (!window.Hls && document.readyState === 'loading') {
-      await new Promise((resolve) =>
-        document.addEventListener('DOMContentLoaded', resolve, { once: true }));
+    if (!window.Hls) {
+      await waitForHlsLibrary();
       if (!session.wanted || sessions.get(cameraId) !== session) return;
     }
     if (!window.Hls || !Hls.isSupported()) {
-      log(`${cameraId}: HLS unavailable (no MediaSource)`, 'warn');
+      const reason = window.Hls ? 'no MediaSource' : 'player library did not load';
+      log(`${cameraId}: HLS unavailable (${reason})`, 'warn');
       if (session.modes.length > 1) {
         retry(viewStatus('cameraViewerTrying', { transport: nextModeLabel() }), true);
       } else {

@@ -149,7 +149,8 @@ function playbackHarness({ transports = ['webrtc'], handler = () => undefined } 
   const constants = source.slice(source.indexOf('const DISCONNECT_GRACE_MS'),
     source.indexOf('// Sound is opt-in'));
   vm.runInContext(constants + ['viewStatus', 'codecLabel', 'decodeHint',
-    'signalingFailure', 'sanitizeAnswer', 'waitForIce', 'stop', 'start']
+    'signalingFailure', 'sanitizeAnswer', 'waitForIce', 'waitForHlsLibrary', 'stop',
+    'start']
     .map(lift).join('\n'), context);
   const flush = async () => { for (let i = 0; i < 20; i++) await Promise.resolve(); };
   async function advance(ms) {
@@ -323,4 +324,42 @@ test('closing during startup cancels timers and ignores the pending play rejecti
   assert.equal(h.timers.size, 0);
   assert.equal(h.peers.length, 1);
   assert.equal(h.logged.length, 0);
+});
+
+// The bootstrap appends the page script, which runs as soon as it loads
+// and can beat the deferred hls.js on a slow start (issue #643).
+function hlsWait(win) {
+  const listeners = [];
+  const context = vm.createContext({
+    window: win,
+    document: { readyState: win.readyState },
+    addEventListener: (name, handler) => listeners.push({ name, handler }),
+  });
+  vm.runInContext(lift('waitForHlsLibrary'), context);
+  return { listeners, wait: context.waitForHlsLibrary };
+}
+
+test('waitForHlsLibrary resolves at once when the library is there', async () => {
+  const { listeners, wait } = hlsWait({ Hls: {}, readyState: 'interactive' });
+  await wait();
+  assert.equal(listeners.length, 0);
+});
+
+test('waitForHlsLibrary resolves at once once the page has loaded', async () => {
+  const { listeners, wait } = hlsWait({ readyState: 'complete' });
+  await wait();
+  assert.equal(listeners.length, 0);
+});
+
+test('waitForHlsLibrary waits for the load event while parsing is over but the library is not', async () => {
+  const { listeners, wait } = hlsWait({ readyState: 'interactive' });
+  let settled = false;
+  const pending = wait().then(() => { settled = true; });
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.equal(settled, false);
+  assert.equal(listeners.length, 1);
+  assert.equal(listeners[0].name, 'load');
+  listeners[0].handler();
+  await pending;
+  assert.equal(settled, true);
 });
