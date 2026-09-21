@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Changed
+- **Quick controls on the Overview are wide tiles.** The icon now sits beside a left-aligned label instead of above it, so a label that wraps to two lines, Postpone screensaver or a longer translation, no longer stretches the row and leaves its one-line neighbors with more room under the text than above the icon. Every tile in the grid keeps the same inset, four fit across the desktop column and a phone keeps two per row. The icon colors now step through the accents by row and column rather than in markup order, so a column is never one color top to bottom.
+
 ## v2026.9.70 - 2026-09-21
 
 ### Fixed

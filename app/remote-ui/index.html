@@ -277,10 +277,12 @@
       </div>
       <h2 class="card-title" data-overview-text="Quick controls">Quick controls</h2>
       <div class="card">
-        <div class="grid">
+        <div class="grid tiles">
           <!-- Icon discs cycle the brand accents like the nav rail; the
-               refusal dialog titles itself from textContent, which the svg
-               spans leave untouched. -->
+               classes here are the markup-order fallback, overview.js
+               repaints them from each tile's visible row and column so no
+               column ends up one color. The refusal dialog titles itself
+               from textContent, which the svg spans leave untouched. -->
           <button class="action tile" data-cmd="reload"><span class="disc d1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4v6h-6"/><path d="M20.5 15a9 9 0 1 1-2.1-9.4L21 10"/></svg></span><span data-overview-text="Reload page">Reload page</span></button>
           <button class="action tile" data-cmd="clearWebCache"><span class="disc d2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M9.5 7V4h5v3M6.5 7l1 13.5h9l1-13.5"/><path d="M10 11v6M14 11v6"/></svg></span><span data-overview-text="Clear cache">Clear cache</span></button>
           <!-- The screen, screensaver and camera view tiles are one tile

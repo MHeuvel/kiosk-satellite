@@ -541,16 +541,25 @@
     border-radius: var(--radius-sm); color: var(--text); text-align: center;
     font-size: 13.5px; font-weight: 600; }
   .action:hover { border-color: var(--primary-fill); }
-  /* Quick controls variant: an icon disc over the label, the quick-settings
-     tile shape. Only the dashboard grid opts in; the plain .action buttons
-     elsewhere (Import, camera views) keep the text-only look. */
-  .action.tile { display: flex; flex-direction: column; align-items: center;
-    gap: 7px; padding: 10px 8px 9px; font-size: 12.5px; font-weight: 500;
-    line-height: 1.3; }
-  .action.tile .disc { width: 28px; height: 28px; transition: transform .12s; }
-  .action.tile .disc svg { width: 15px; height: 15px; }
-  .action.tile > .disc + span { min-height: 2.6em; flex: 1; align-self: stretch;
-    display: flex; align-items: center; justify-content: center; }
+  /* Quick controls variant: an icon disc beside a left-aligned label, the
+     wide quick-settings tile. The disc is centered on the tile and the
+     label wraps next to it, so a two-line label in the row leaves every
+     tile with the same top and bottom inset instead of a label box that
+     stretches to the tallest neighbor. Only the dashboard grid opts in;
+     the plain .action buttons elsewhere (Import, camera views) keep the
+     text-only look. */
+  .grid.tiles { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+  /* A phone keeps two columns; the labels wrap beside the disc instead of
+     the card growing into a twelve-row list. */
+  @media (max-width: 640px) {
+    .grid.tiles { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  }
+  .action.tile { display: flex; align-items: center; gap: 10px; min-height: 56px;
+    padding: 10px 12px 10px 10px; font-size: 13px; font-weight: 500;
+    line-height: 1.3; text-align: left; }
+  .action.tile .disc { width: 32px; height: 32px; transition: transform .12s; }
+  .action.tile .disc svg { width: 16px; height: 16px; }
+  .action.tile > .disc + span { min-width: 0; }
   .action.tile:active .disc { transform: scale(.92); }
   /* A tile that is a state (Do not disturb) reads on with the soft tint. */
   .action.tile.active { background: var(--primary-soft); color: var(--primary); }

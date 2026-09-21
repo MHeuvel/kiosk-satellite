@@ -599,6 +599,37 @@ document.addEventListener('ks-wakeword', () => {
 });
 
 /* ---- Quick controls ---- */
+// The discs cycle the brand accents like the nav rail, but a grid is not a
+// list: painted in markup order, four colors over four columns put one
+// color in each column. So the color comes from where a tile lands, its
+// visible row plus column, which runs the cycle diagonally at any column
+// count. Repainted when a tile shows or hides and when the grid reflows.
+const DISC_CYCLE = ['d1', 'd2', 'd3', 'd4'];
+function paintTileDiscs() {
+  const grid = $('.grid.tiles');
+  if (!grid) return;
+  const tracks = getComputedStyle(grid).gridTemplateColumns;
+  // A grid inside a hidden tab reports its authored tracks, not resolved
+  // ones; the resize that shows it brings us back.
+  if (!tracks || tracks.includes('repeat')) return;
+  const columns = Math.max(1, tracks.split(' ').length);
+  const tiles = [...grid.querySelectorAll('.action.tile')].filter((t) => !t.classList.contains('hidden'));
+  tiles.forEach((tile, i) => {
+    const disc = tile.querySelector('.disc');
+    if (!disc) return;
+    const want = DISC_CYCLE[(Math.floor(i / columns) + (i % columns)) % DISC_CYCLE.length];
+    if (disc.classList.contains(want)) return;
+    disc.classList.remove(...DISC_CYCLE);
+    disc.classList.add(want);
+  });
+}
+{
+  const grid = $('.grid.tiles');
+  if (grid) {
+    new MutationObserver(paintTileDiscs).observe(grid, { attributes: true, attributeFilter: ['class'], subtree: true });
+    new ResizeObserver(paintTileDiscs).observe(grid);
+  }
+}
 // Restart device: only where a restart can land (device owner, or a granted
 // Shizuku connection), so the tile never promises what the device refuses.
 // Confirmed first like the drawer's entry: a reboot has no Retry.
