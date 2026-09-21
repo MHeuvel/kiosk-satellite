@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.9.70 - 2026-09-21
 
 ### Fixed
 - **Refreshing the Home Assistant Update entity now checks for a release.** Calling `homeassistant.update_entity` on the kiosk's Update entity used to be logged and ignored, so a release that had already landed in a custom repository stayed hidden until the next scheduled check or an app restart. It now runs the same immediate check as tapping the version line in the remote admin and the entity refreshes when the answer differs (#635).
