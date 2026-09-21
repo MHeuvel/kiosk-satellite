@@ -1680,8 +1680,15 @@ class EspEntitySurface {
       case 'default_dashboard':
         await _setDefaultDashboard('$value');
       case 'update':
+        // Home Assistant sends "check" for homeassistant.update_entity
+        // and "install" for update.install. A check queries the release
+        // source right away, the same as tapping the version line in the
+        // remote admin (issue #635); a changed result republishes the
+        // entity through UpdateStateChanged.
         if ('$value' == 'install') {
           await commands.execute('installUpdate', const {});
+        } else if ('$value' == 'check') {
+          await commands.execute('checkUpdateNow', const {});
         }
       case 'clock_background':
         // Through the validator (issue #464): the 255 character cap and

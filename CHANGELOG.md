@@ -5,6 +5,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ## Unreleased
 
 ### Fixed
+- **Refreshing the Home Assistant Update entity now checks for a release.** Calling `homeassistant.update_entity` on the kiosk's Update entity used to be logged and ignored, so a release that had already landed in a custom repository stayed hidden until the next scheduled check or an app restart. It now runs the same immediate check as tapping the version line in the remote admin and the entity refreshes when the answer differs (#635).
 - **Quiet microphones no longer end up on the wrong capture format.** Some microphones hand over exact zeros whenever the room is quiet, and two seconds of that used to walk capture down the format ladder and leave it on 48 kHz mono for good, where voice stopped working on Lenovo M10 tablets. A format that has delivered audio is now trusted through thirty seconds of silence, and when every format reads silence capture returns to the one that worked, retrying the ladder after a wait that doubles up to ten minutes instead of logging a warning every two seconds (#638).
 
 ## v2026.9.69 - 2026-09-21
