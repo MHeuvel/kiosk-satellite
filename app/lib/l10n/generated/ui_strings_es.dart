@@ -3424,14 +3424,14 @@ class UiStringsEs extends UiStrings {
   String get overviewCpu => 'CPU';
 
   @override
-  String get overviewMemory => 'Memory';
+  String get overviewMemory => 'Memoria';
 
   @override
-  String get overviewTemperature => 'Temperature';
+  String get overviewTemperature => 'Temperatura';
 
   @override
   String overviewMemoryFree(String amount) {
-    return '$amount GB free';
+    return '$amount GB libres';
   }
 
   @override

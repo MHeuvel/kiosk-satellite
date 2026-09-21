@@ -38,5 +38,11 @@
   "overviewWakeFailed": "No se pudo iniciar el motor de palabras de activación. Vuelve a intentarlo o recarga la página.",
   "overviewNativeUnavailable": "No hay un motor nativo para {engine}. Voice Satellite mantiene la detección en el navegador.",
   "overviewNativeListening": "Escuchando con el motor nativo",
-  "overviewSuspended": "Listo (en pausa durante una interacción de voz)"
+  "overviewSuspended": "Listo (en pausa durante una interacción de voz)",
+  "overviewCpu": "CPU",
+  "overviewMemory": "Memoria",
+  "overviewTemperature": "Temperatura",
+  "overviewMemoryFree": "{amount} GB libres",
+  "overviewMetricPercent": "{value}%",
+  "overviewMetricDegrees": "{value}°C"
 }

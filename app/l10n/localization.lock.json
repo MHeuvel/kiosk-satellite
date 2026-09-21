@@ -1,14 +1,14 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite-localization",
-  "revision": "855b7d891325d736b6e7b48ba6900b27afa84aec",
+  "revision": "aa32349be6588d087b9f3415601d5328901e21a2",
   "locales": [
     "de",
     "es",
     "fr"
   ],
   "files": {
-    "source/manifest.json": "932802bea1bfc8efd517edb8e61ee3cac22b249756e1410d7de6464aec448e56",
+    "source/manifest.json": "21a77b0cf822b4ad2ea766d1ea86a1317576afc517eed80883c60f084cd4e7a5",
     "source/about_identity_en.arb": "dd006567f69f846e2e3b73f09ad13784f0022d282ea3101fa9be7fc95175ec2d",
     "source/about_localization_en.arb": "3961448d194816d0040fe875cb1eaa5e6a3c1f7214874cbdd4e7e486aa060824",
     "source/about_updates_en.arb": "b41df3870ffb041249448dc4b13b14a9350ab4417510f23e772458dd1e582c85",
@@ -65,7 +65,7 @@
     "source/remote_overview_action_errors_en.arb": "0ebf16c341b25d428f293a81781741b12acc7ec85ab8d9faec03ded19f4dad7c",
     "source/remote_overview_attention_en.arb": "3854fcd0c487604b337723f6978646821a29ea01288e3e38f7928b01fa51e87c",
     "source/remote_overview_controls_en.arb": "3d7577c8816f1e5279142f158432401f6374eee5079a4595ef0a4fde4109dc29",
-    "source/remote_overview_health_en.arb": "1698515ca2328e602781b1a71b1fa4cfff60a8bbb7a93aa7bffeba3187a8ac49",
+    "source/remote_overview_health_en.arb": "4dffc14541bf76d498946d6cccda04e60b4de8932837f6b59452e0c5cec85c27",
     "source/remote_overview_screen_en.arb": "8a3fd605d0d74a4cedf1ad25e63d7e9edbf7aef47e0fd1603aee7ec50356d8a6",
     "source/remote_overview_views_en.arb": "deaa735cf85667db613813c4cb18d6f9ceb93b609dccfc507092321338ac1c39",
     "source/screensaver_playback_notices_en.arb": "f523a3bc4ccafa2ae5f7765ecfd623a32ebd30a75c59add860b2e606c26ba7a1",
@@ -436,7 +436,7 @@
     "translations/es/remote_overview_action_errors_es.arb": "6017be771dcb4ccca8acb1fe87d9eeb44b910a64abbed4a35f439e27c6dbef07",
     "translations/es/remote_overview_attention_es.arb": "3b719fb30d9c2f96512b90b10b32e6f2ad3d7b4613034c2cc4679ef110b076a6",
     "translations/es/remote_overview_controls_es.arb": "8e06a492dd6e49e79bde9f206af2143c981b095d2480ebcb991f8b9a1a0f7f46",
-    "translations/es/remote_overview_health_es.arb": "28cf10ad9f7b27a0500848b18d988989e6bf08e0deaa37347884a6b296b0cb07",
+    "translations/es/remote_overview_health_es.arb": "8c011a22f7e9a1d58340caf3d5414d82dbf358a09df5399e83dda14e9199d3e1",
     "translations/es/remote_overview_screen_es.arb": "a75b6029a433492f651f39200233579eb1a3a51f05ac0321c29ec6b2531d3727",
     "translations/es/remote_overview_views_es.arb": "95ea87f945fec838f8e5107717b8fb2b4792797db3d30412740877223dffa99e",
     "translations/es/screensaver_playback_notices_es.arb": "044bbd79e8bb055713f9e12fa397a0fc2f5691771594f1f3348bde30a00c98ad",
@@ -562,7 +562,7 @@
     "translations/es/setup_welcome_es.arb": "5ecd1fef9e8d6b0dd3e085d410941099bb7dd8d4f502e98684fefecaf1663d9c",
     "translations/es/sound_picker_es.arb": "4b1867bded8d578e13653eb8e62deb55eae9e41167e0702ea5c9c2329a8a665b",
     "translations/es/voice_timers_es.arb": "7cdeeac038ccf5ecbedf5f1d54c16d11ab817e1af9429e64eb7f2c2a575c2182",
-    "metadata/reviews/es.json": "7298d3272510a8d55cbafbd09590c1982524ac0b24086c27c8e9c3c38b538d15",
+    "metadata/reviews/es.json": "97852cefce41f69ba6d7e09b4228ad4b2454b8056e8ac6ca0ed163edad6c4e6f",
     "translations/fr/about_identity_fr.arb": "e6a9e2ec89bfbd98152d9dcef19f1423960d952ce4f0ce0f75a568199ca1a944",
     "translations/fr/about_localization_fr.arb": "7851fdac28d45765d2ada2ee7de2bda900c0fa5af359951a120ed30ffc29f963",
     "translations/fr/about_updates_fr.arb": "cd2fe9c95627ddcddb3579aa8f500ad8be7e5c9229ba699e8aac3f364f79a0f3",
