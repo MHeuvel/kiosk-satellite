@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite-localization",
-  "revision": "aa32349be6588d087b9f3415601d5328901e21a2",
+  "revision": "7a25917600b51ea51d686f35c21e64ee5b1d03b0",
   "locales": [
     "de",
     "es",
@@ -252,7 +252,7 @@
     "translations/de/remote_overview_action_errors_de.arb": "c514baf95333d67879cfb3e8e8bc8f1a0cc3f62cdba2b4f765e74eaba0434ad8",
     "translations/de/remote_overview_attention_de.arb": "f21636a936cb24b969b1b65d59bf9a8920a93892229cca68b9a16195fea3f349",
     "translations/de/remote_overview_controls_de.arb": "b04c080c3da56bcb785f0673c2b1ff12f30b12614fe15e8667a5ee3f8f9a8c83",
-    "translations/de/remote_overview_health_de.arb": "228af9bbd52688411690219fc253d886078a14a3ed010bff7873bd2a2e7515a4",
+    "translations/de/remote_overview_health_de.arb": "9f462012a6db5cafc6e4a1d69d89e20b0e89127b7c88c9d54c03d3ae229fa82b",
     "translations/de/remote_overview_screen_de.arb": "4974d04ebb88e45d059c9629f7ca7ab71db2475a4c1fbc27ffa3c59121b9f14c",
     "translations/de/remote_overview_views_de.arb": "f2935813b068304ad7bdad1f1a6b95e25da29dc65d3f208811e3bf2eccc5e5de",
     "translations/de/screensaver_playback_notices_de.arb": "d4b839714c2c67c1eada8607e54af8a64561658777fc90784dc4837fc54ad6ca",
@@ -378,7 +378,7 @@
     "translations/de/setup_welcome_de.arb": "07f231d4cd22c5d210e267c829115b0ef86fcef2f4ef304c13998893c0dbf0a6",
     "translations/de/sound_picker_de.arb": "1a554c4d0944e374ca24fd381f91532faca4af2d2c6e24c957efee2b9220761a",
     "translations/de/voice_timers_de.arb": "e9b3f56cfef170d8d66ddfb455521a894bddfd8b815dd0a08c8bbe54ba8638c1",
-    "metadata/reviews/de.json": "586b8d817bf75a2cbfcc94c6444f538d4457b8200dc85d10fab3485f5670c78e",
+    "metadata/reviews/de.json": "eefd7a060f6d169ad477a5618f27607b01b7edf73543d25c0ec4751495cf8912",
     "metadata/provenance/de/e69b7988f2fca16116639e0fd6a63d4430c75f4c4c7ad86d875642d5cdf89b58.json": "afa4b89b919c03eb8e68a7c62bef1149483bfe6ac9ca94b652c20d05dd8034a2",
     "translations/es/about_identity_es.arb": "8f008ead93633e3c5e58cb310ddb950897fc35fef540245b99ec32e8d06d6ec3",
     "translations/es/about_localization_es.arb": "08612508853c12a640a1fc19c8ca69003920107949be65e5c59dee9ba03d0e9a",
@@ -619,7 +619,7 @@
     "translations/fr/remote_overview_action_errors_fr.arb": "c848e7ad4c69fc6d5d527f260c01deaf9487f1eb665c8c1821b3fe0b0fa0f8ac",
     "translations/fr/remote_overview_attention_fr.arb": "bdc963901f996fe04a8caf38b2aea312d5b5970d8e98c325953a7c7d7ac0e75a",
     "translations/fr/remote_overview_controls_fr.arb": "584bd7ab84109602e68c1c893d6ade48fe4c7607c74b91fb32d099efa2094f4d",
-    "translations/fr/remote_overview_health_fr.arb": "4270d73301417249e4534e084f502eb572f300994dde7602d0149258bf0dcb74",
+    "translations/fr/remote_overview_health_fr.arb": "b30f49b8c4a5881781b6cf044f78c99fb941755f5f81df9bb366c7459a9efab9",
     "translations/fr/remote_overview_screen_fr.arb": "ab753d35093b28c29c5063b200073f590efd9fc1ed9f009bc8ebe57231bca80a",
     "translations/fr/remote_overview_views_fr.arb": "986e87f961dff72fcbb82bcf74eaf3c448e7e5afdaa4656c8a450da70c9de847",
     "translations/fr/screensaver_playback_notices_fr.arb": "68221b514807180eca9a5391f4a35e4bf9b228450551744f27fc2ef2e3ab5a6a",
@@ -745,7 +745,7 @@
     "translations/fr/setup_welcome_fr.arb": "99849ca02015151b0d5a3bf65573c4fde0cdd24e33fae0b3c3264c3effb7f903",
     "translations/fr/sound_picker_fr.arb": "a95e4a70bb648d73f1c958c88fb8590f7b4c3ad84951f637504c03548989928c",
     "translations/fr/voice_timers_fr.arb": "980a84440fff8d767f25cb75604b2d83fa6b21055fe1a39aa93657789587adf3",
-    "metadata/reviews/fr.json": "1a782901d82a581d21c5d93c292519049b7bc3d6ca7c4ede1c63341800014b3d",
+    "metadata/reviews/fr.json": "f4ef33cee25cecf0efefdfb13a160ef8e0ecfa861ec62fec9895059737c0700f",
     "metadata/provenance/fr/50a40b9b0f2cc752c88ccaa455255d187c5d5a9594152fadced57a7289592afd.json": "ca74da318b181a9585dbc18ff2b3573f22dc5e1764767abb87e4ba16ee4803e0"
   }
 }

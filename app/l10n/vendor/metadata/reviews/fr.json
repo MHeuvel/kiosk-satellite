@@ -19168,5 +19168,41 @@
     "translation": "9f389c599bcf301ad3f50038f2c0619fc9a0c4640e3d1b4a4cfb5c0375efd0e9",
     "author": "Xavier Larrea",
     "ownerAuthored": true
+  },
+  "overviewMemory": {
+    "source": "25c8c733370df5231edb8dd36d1056fe81844a6f6b59b998742faa7ef6b9dc1f",
+    "translation": "bf4b0c03c646add9b518fc4f658deba189e5bc4918607186e4570472bf6cb19f",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "overviewMetricPercent": {
+    "source": "8786841db645fe9adc038109cac5aefc86b415c9a4553251be864227a54d4cf8",
+    "translation": "8bf4695dc384ec63619c2e38d1ac360736885094213bb081778f27f8130e14b8",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "overviewMetricDegrees": {
+    "source": "f286eb37a36ded11f7df452c60f96fc734a636e46cf0303ad323ced807c7dcb0",
+    "translation": "ed9f177eaaa026a5f2fbdc65ad23e3ecfc63cd5c6c9a091a28fb70327cbb7355",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "overviewCpu": {
+    "source": "47a5a812f7ddfb61fec277300c25dac68f21db965821d38093ec744cb3aed92f",
+    "translation": "db9a4c7d4c195ebf80068dd04120accce1cbfbef342bb43a53cbd651eb96e37b",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "overviewTemperature": {
+    "source": "3cf8118dfd985b0e986af44b160e3133535157808da4d9acd8b84ba6b51ff45b",
+    "translation": "a7d165e8b0d6f290c6b950060e9465c96431acdcd6c1e82aa6b9712583021f3e",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "overviewMemoryFree": {
+    "source": "b012d52cd357871e4bbfe0a9a90dd04058c1fb46936fde5eb0266526458b24a6",
+    "translation": "53cd1ec27fc20b5245ce9b1ee4d4124e9402f67829bb19d9d6161aee530cee0e",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
   }
 }

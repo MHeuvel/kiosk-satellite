@@ -3452,24 +3452,24 @@ class UiStringsDe extends UiStrings {
   String get overviewCpu => 'CPU';
 
   @override
-  String get overviewMemory => 'Memory';
+  String get overviewMemory => 'RAM';
 
   @override
-  String get overviewTemperature => 'Temperature';
+  String get overviewTemperature => 'Temperatur';
 
   @override
   String overviewMemoryFree(String amount) {
-    return '$amount GB free';
+    return '$amount GB frei';
   }
 
   @override
   String overviewMetricPercent(String value) {
-    return '$value%';
+    return '$value %';
   }
 
   @override
   String overviewMetricDegrees(String value) {
-    return '$value°C';
+    return '$value °C';
   }
 
   @override

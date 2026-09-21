@@ -38,5 +38,11 @@
   "overviewWakeFailed": "Die Aktivierungswort-Engine konnte nicht gestartet werden. Versuche es erneut oder lade die Seite neu.",
   "overviewNativeUnavailable": "Für {engine} ist keine native Engine verfügbar. Voice Satellite verwendet weiterhin die Erkennung im Browser.",
   "overviewNativeListening": "Hört mit der nativen Engine zu",
-  "overviewSuspended": "Bereit (während einer Sprachinteraktion pausiert)"
+  "overviewSuspended": "Bereit (während einer Sprachinteraktion pausiert)",
+  "overviewCpu": "CPU",
+  "overviewMemory": "RAM",
+  "overviewTemperature": "Temperatur",
+  "overviewMemoryFree": "{amount} GB frei",
+  "overviewMetricPercent": "{value} %",
+  "overviewMetricDegrees": "{value} °C"
 }
