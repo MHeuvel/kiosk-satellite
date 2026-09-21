@@ -140,10 +140,10 @@ class _LauncherScreenState extends State<_LauncherScreen> {
         child: Listener(
           onPointerDown: (_) => _keysDriving.value = false,
           child: GestureDetector(
-            // The empty ground dismisses, same as the old modal's scrim; the
-            // tiles swallow their own taps.
+            // The ground only shields the dashboard underneath: a tap on it
+            // does nothing. The wall closes with the X, back or a back
+            // swipe, never by a stray touch.
             behavior: HitTestBehavior.opaque,
-            onTap: _close,
             child: DecoratedBox(
               decoration: BoxDecoration(
                 gradient: ksGroundGradient(

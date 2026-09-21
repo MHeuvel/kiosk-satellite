@@ -642,10 +642,10 @@ class _RosterScreenState extends State<_RosterScreen> {
         child: Listener(
           onPointerDown: (_) => _rosterKeysDriving.value = false,
           child: GestureDetector(
-            // The empty ground dismisses, as the launcher's does; the rows
-            // swallow their own taps.
+            // The ground only shields the dashboard underneath: a tap on it
+            // does nothing. The screen closes with the X, back or a back
+            // swipe, never by a stray touch.
             behavior: HitTestBehavior.opaque,
-            onTap: _close,
             child: DecoratedBox(
               decoration: BoxDecoration(
                 gradient: ksGroundGradient(scheme.surface, theme.brightness),
