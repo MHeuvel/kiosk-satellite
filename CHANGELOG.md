@@ -4,6 +4,10 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ## Unreleased
 
+### Added
+
+- **Android process exit diagnostics.** App Logs and Remote Admin logs show up to five recent process exits on Android 11 and newer, including Android's reason, signal or exit status and last sampled memory use. Low-memory kills are identified when Android reports them. SIGKILL remains inconclusive on devices that cannot report low-memory kills explicitly. Helps investigate update and restart loops such as #637.
+
 ### Fixed
 
 - **Push-to-talk call controls fit when vertical space is limited.** The end or done button moves to the right of the talk button to leave more room for call details. Taller screens keep the existing layout (#636).

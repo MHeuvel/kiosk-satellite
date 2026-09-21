@@ -100,7 +100,7 @@ class BackgroundBridge(
     }
 
     private val channel = MethodChannel(messenger, CHANNEL)
-    private val foregroundWorker = MethodWorker("ks-foregroundApp")
+    private val readWorker = MethodWorker("ks-backgroundRead")
     private var lastTouchSeen = 0L
 
     init {
@@ -275,7 +275,7 @@ class BackgroundBridge(
                 // The app on screen right now, as usage events report it.
                 // Off the main thread: the first query walks hours of
                 // events. Null without the grant.
-                "foregroundApp" -> foregroundWorker.read(result) { foregroundApp() }
+                "foregroundApp" -> readWorker.read(result) { foregroundApp() }
                 // MASTER volume: no permission involved. The ESPHome volume
                 // entity reads and writes through these. VolumeController
                 // decides whether that means STREAM_MUSIC or, on
@@ -375,6 +375,9 @@ class BackgroundBridge(
                 // across the restart that follows them, surfaced into the
                 // app log at boot so reporters can paste them at leisure.
                 "getLastCrash" -> result.success(CrashJournal.read(context))
+                "getProcessExitHistory" -> readWorker.read(result) {
+                    ProcessExitHistory.read(context)
+                }
                 "clearLastCrash" -> {
                     CrashJournal.clear(context)
                     result.success(null)
@@ -1263,7 +1266,7 @@ class BackgroundBridge(
     }
 
     fun dispose() {
-        foregroundWorker.shutdown()
+        readWorker.shutdown()
         channel.setMethodCallHandler(null)
         CameraDiagnostics.detach()
         try {

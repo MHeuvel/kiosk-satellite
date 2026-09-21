@@ -10,7 +10,7 @@ internal object CrashResources {
     private val statusFields = setOf("Threads", "VmPeak", "VmSize", "VmRSS", "VmData", "VmStk", "VmSwap")
     private val families = listOf(
         "fleet-mdns", "btproxy-mdns", "btproxy-r-", "btproxy-w-", "btproxy-tick", "btproxy-accept",
-        "ks-foregroundApp", "ks-cpu", "ks-sound", "ks-intercom", "ks-aec-release",
+        "ks-backgroundRead", "ks-cpu", "ks-sound", "ks-intercom", "ks-aec-release",
         "camera-rtsp", "camera-video", "screen-capture", "vsww", "Sendspin", "CameraX",
         "Chrome", "Cr", "RenderThread", "Dart", "flutter", "io.flutter", "tflite", "TfLite",
         "NNAPI", "Binder:", "HwBinder:", "pool-", "Thread-", "HeapTaskDaemon",

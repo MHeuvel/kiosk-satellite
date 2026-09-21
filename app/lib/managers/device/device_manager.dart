@@ -158,6 +158,22 @@ class DeviceManager extends Manager {
           }
         } catch (_) {}
       }());
+      // System kills cannot write the exception journal. Keep Android's
+      // retained history separate so updates and force stops are not
+      // submitted as crash reports by the analytics manager.
+      unawaited(() async {
+        try {
+          const background = MethodChannel('kiosk_satellite/background');
+          final exits = await background.invokeMethod<String>(
+            'getProcessExitHistory',
+          );
+          if (exits != null && exits.trim().isNotEmpty) {
+            log.info(name, exits);
+          }
+        } catch (e) {
+          log.warn(name, 'could not read Android process exit history: $e');
+        }
+      }());
     }
 
     final deviceInfo = DeviceInfoPlugin();
