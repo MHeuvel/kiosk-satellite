@@ -93,9 +93,11 @@ const LEVELS = new Set(['', 'on', 'warn', 'off']);
    is more pressure, while the state line says what is free. */
 const METRICS = [
   { id: 'cpu', name: 'CPU', lo: 0, hi: 100, warn: 70, err: 90, unit: '%' },
-  { id: 'memory', name: 'Memory', lo: 0, hi: 100, warn: 80, err: 92, unit: '%' },
+  // Short names on purpose: every letter of the name is a column the
+  // stack cannot have.
+  { id: 'memory', name: 'RAM', lo: 0, hi: 100, warn: 80, err: 92, unit: '%' },
   // The header's own thresholds for the temperature tint.
-  { id: 'temp', name: 'Temperature', lo: 20, hi: 90, warn: 65, err: 80, unit: '°C' },
+  { id: 'temp', name: 'Temp', lo: 20, hi: 90, warn: 65, err: 80, unit: '°C' },
 ];
 const METRIC_CAPACITY = 60;
 const metricHistory = { intervalMs: 15000, at: 0, cpu: [], memory: [], temp: [] };

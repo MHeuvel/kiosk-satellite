@@ -5932,13 +5932,13 @@ abstract class UiStrings {
   /// Translate the interface text. Keep external names, versions and technical details unchanged.
   ///
   /// In en, this message translates to:
-  /// **'Memory'**
+  /// **'RAM'**
   String get overviewMemory;
 
   /// Translate the interface text. Keep external names, versions and technical details unchanged.
   ///
   /// In en, this message translates to:
-  /// **'Temperature'**
+  /// **'Temp'**
   String get overviewTemperature;
 
   /// Translate the interface text. Keep external names, versions and technical details unchanged.

@@ -40,8 +40,8 @@
   "overviewNativeListening": "Escuchando con el motor nativo",
   "overviewSuspended": "Listo (en pausa durante una interacción de voz)",
   "overviewCpu": "CPU",
-  "overviewMemory": "Memoria",
-  "overviewTemperature": "Temperatura",
+  "overviewMemory": "RAM",
+  "overviewTemperature": "Temp.",
   "overviewMemoryFree": "{amount} GB libres",
   "overviewMetricPercent": "{value}%",
   "overviewMetricDegrees": "{value}°C"

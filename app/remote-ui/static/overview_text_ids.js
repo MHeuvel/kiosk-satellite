@@ -110,6 +110,6 @@ export const overviewTextMessageIds = {
   "Views unavailable": "overviewViewsUnavailable",
   "Screen is off": "overviewScreenOffState",
   "CPU": "overviewCpu",
-  "Memory": "overviewMemory",
-  "Temperature": "overviewTemperature"
+  "RAM": "overviewMemory",
+  "Temp": "overviewTemperature"
 };

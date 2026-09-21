@@ -110,6 +110,6 @@ const overviewTextMessageIds = <String, String>{
   "Views unavailable": "overviewViewsUnavailable",
   "Screen is off": "overviewScreenOffState",
   "CPU": "overviewCpu",
-  "Memory": "overviewMemory",
-  "Temperature": "overviewTemperature"
+  "RAM": "overviewMemory",
+  "Temp": "overviewTemperature"
 };

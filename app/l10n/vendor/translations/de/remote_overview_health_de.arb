@@ -41,7 +41,7 @@
   "overviewSuspended": "Bereit (während einer Sprachinteraktion pausiert)",
   "overviewCpu": "CPU",
   "overviewMemory": "RAM",
-  "overviewTemperature": "Temperatur",
+  "overviewTemperature": "Temp.",
   "overviewMemoryFree": "{amount} GB frei",
   "overviewMetricPercent": "{value} %",
   "overviewMetricDegrees": "{value} °C"

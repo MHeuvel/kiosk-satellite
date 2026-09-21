@@ -3371,10 +3371,10 @@ class UiStringsEn extends UiStrings {
   String get overviewCpu => 'CPU';
 
   @override
-  String get overviewMemory => 'Memory';
+  String get overviewMemory => 'RAM';
 
   @override
-  String get overviewTemperature => 'Temperature';
+  String get overviewTemperature => 'Temp';
 
   @override
   String overviewMemoryFree(String amount) {

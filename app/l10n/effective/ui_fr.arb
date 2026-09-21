@@ -12383,7 +12383,7 @@
       ]
     }
   },
-  "overviewTemperature": "Température",
+  "overviewTemperature": "Temp.",
   "@overviewTemperature": {
     "context": "Remote admin > Overview > Status",
     "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",

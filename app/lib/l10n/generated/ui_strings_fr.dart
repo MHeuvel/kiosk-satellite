@@ -3426,7 +3426,7 @@ class UiStringsFr extends UiStrings {
   String get overviewMemory => 'RAM';
 
   @override
-  String get overviewTemperature => 'Température';
+  String get overviewTemperature => 'Temp.';
 
   @override
   String overviewMemoryFree(String amount) {
