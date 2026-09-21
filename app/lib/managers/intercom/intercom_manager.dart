@@ -4,6 +4,7 @@ import 'dart:math' show Random, sqrt;
 import 'dart:typed_data';
 
 import 'package:crypto/crypto.dart' show sha256;
+import 'package:flutter/foundation.dart' show ValueNotifier;
 import 'package:http/http.dart' as http;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -267,6 +268,13 @@ class IntercomManager extends Manager {
 
   String _state = 'idle';
   IntercomCall? _call;
+
+  /// Whether the full screen roster (Call a kiosk) is up on the kiosk
+  /// screen. Set by `intercomOpen`, cleared by the close button, back, a
+  /// call starting, the screensaver, Lockdown Mode or the intercom going
+  /// off, so every opener and every closer meet at one place, the way the
+  /// app launcher's [visible] works.
+  final rosterVisible = ValueNotifier<bool>(false);
   final _links = <String, _Link>{};
   final _kiosks = <String, IntercomKiosk>{};
   String _selfId = '';
@@ -364,9 +372,20 @@ class IntercomManager extends Manager {
       }),
     );
     _subs.add(bus.on<FleetChanged>().listen((_) => _readFleet()));
+    // An abandoned roster gives way to the screensaver, as the launcher
+    // does.
+    _subs.add(
+      bus.on<ScreensaverStateChanged>().listen((e) {
+        if (e.active) rosterVisible.value = false;
+      }),
+    );
     _subs.add(
       bus.on<SettingChanged>().listen((e) {
+        if (e.key == defs.lockdownEnabled.key && e.value == true) {
+          rosterVisible.value = false;
+        }
         if (e.key == defs.intercomEnabled.key) {
+          if (e.value != true) rosterVisible.value = false;
           unawaited(_onEnabledChanged());
         } else if (e.key == defs.intercomVolume.key) {
           unawaited(audio.setVolume(_playbackGain()));
@@ -400,6 +419,7 @@ class IntercomManager extends Manager {
     _cancelTimers();
     _holdTimer?.cancel();
     _missedTimer?.cancel();
+    rosterVisible.dispose();
   }
 
   Future<void> _onEnabledChanged() async {
@@ -759,7 +779,7 @@ class IntercomManager extends Manager {
       ..register(
         Command(
           name: 'intercomOpen',
-          description: 'Open the sheet of kiosks to call on the kiosk screen.',
+          description: 'Open the Call a kiosk screen on the kiosk.',
           handler: (_) async {
             if (!enabled) return const CommandResult.fail('intercom is off');
             if (!available) {
@@ -767,7 +787,17 @@ class IntercomManager extends Manager {
                 'the intercom needs the remote admin and Find other kiosks',
               );
             }
-            bus.publish(const IntercomOpenRequested());
+            // The screen has nothing to say during a call: the call
+            // screen is already up.
+            if (_state != 'idle' && _state != 'missed') {
+              return const CommandResult.fail('in a call');
+            }
+            // Same choreography as the app launcher: an ESPHome or
+            // gesture open lands on a lit, frontmost kiosk.
+            await commands.execute('screenOn', const {});
+            await commands.execute('bringToFront', const {});
+            await commands.execute('stopScreensaver', const {});
+            rosterVisible.value = true;
             return const CommandResult.ok();
           },
         ),
@@ -1905,6 +1935,8 @@ class IntercomManager extends Manager {
       return;
     }
     _state = next;
+    // The call screen takes over from the roster.
+    if (next != 'idle' && next != 'missed') rosterVisible.value = false;
     // The card's last words hold nothing: the screensaver and the wake
     // word come back the moment the voice stops.
     final holds = next != 'idle' && next != 'missed' && next != 'ended';

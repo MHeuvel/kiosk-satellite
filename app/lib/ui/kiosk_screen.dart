@@ -117,7 +117,6 @@ class _KioskScreenState extends State<KioskScreen>
   StreamSubscription<ScreensaverStateChanged>? _saverSub;
   StreamSubscription<WebViewRebuildRequested>? _rebuildSub;
   StreamSubscription<WebViewMissing>? _missingSub;
-  StreamSubscription<IntercomOpenRequested>? _intercomSub;
 
   /// Whether the Activity has attached to the process-wide engine. The
   /// dashboard WebView build waits for this: the Dart isolate boots in
@@ -172,6 +171,7 @@ class _KioskScreenState extends State<KioskScreen>
     if (_drawer.value == 0 &&
         !c.screensaver.isActive &&
         !c.launcher.visible.value &&
+        !c.intercom.rosterVisible.value &&
         c.camera.activeViewId.value == null &&
         !c.kiosk.lockdownActive &&
         c.plugins.windows.value.isNotEmpty) {
@@ -186,7 +186,8 @@ class _KioskScreenState extends State<KioskScreen>
     final action = decideBack(
       drawerOpen: _drawer.value > 0,
       armed: armed,
-      launcherVisible: c.launcher.visible.value,
+      launcherVisible:
+          c.launcher.visible.value || c.intercom.rosterVisible.value,
       overlayUp: c.browser.overlayUrl.value != null,
       cameraViewUp: c.camera.activeViewId.value != null,
       cameraFocused: c.camera.focusedCameraId.value != null,
@@ -211,6 +212,7 @@ class _KioskScreenState extends State<KioskScreen>
         _backArmedUntil = DateTime.now().add(_backAgainWindow);
       case BackAction.hideLauncher:
         c.launcher.visible.value = false;
+        c.intercom.rosterVisible.value = false;
       case BackAction.dismissOverlay:
         // A link or rotation page covers the dashboard: back uncovers it.
         c.browser.dismissOverlay();
@@ -526,6 +528,7 @@ class _KioskScreenState extends State<KioskScreen>
         if (_drawer.value > 0) _closeDrawer();
         if (_settingsOpen) Navigator.of(context).popUntil((r) => r.isFirst);
         c.launcher.visible.value = false;
+        c.intercom.rosterVisible.value = false;
       }
       return;
     }
@@ -682,11 +685,6 @@ class _KioskScreenState extends State<KioskScreen>
       if (!mounted || _settingsOpen) return;
       _handleBack();
     });
-    // The kiosk menu entry, a gesture or the intercomOpen command asked
-    // for the sheet of kiosks to call.
-    _intercomSub = c.bus.on<IntercomOpenRequested>().listen((_) {
-      if (mounted) unawaited(showIntercomSheet(context, c));
-    });
     // A HOME press with the kiosk as the device's home screen and already in
     // front (issue #219): what every launcher's HOME means, close what is
     // open and land on the dashboard. One sweep rather than back's one
@@ -696,6 +694,7 @@ class _KioskScreenState extends State<KioskScreen>
       if (_drawer.value > 0) _closeDrawer();
       if (_settingsOpen) Navigator.of(context).popUntil((r) => r.isFirst);
       c.launcher.visible.value = false;
+      c.intercom.rosterVisible.value = false;
       if (c.browser.overlayUrl.value != null) c.browser.dismissOverlay();
       if (c.camera.activeViewId.value != null) c.camera.hideView();
       unawaited(c.commands.execute('stopScreensaver', const {}));
@@ -707,6 +706,7 @@ class _KioskScreenState extends State<KioskScreen>
     // The build and the native key routing both follow these surfaces.
     c.browser.overlayUrl.addListener(_onOverlayChanged);
     c.launcher.visible.addListener(_onOverlayChanged);
+    c.intercom.rosterVisible.addListener(_onOverlayChanged);
     c.plugins.windows.addListener(_onOverlayChanged);
     c.plugins.installed.addListener(_onOverlayChanged);
     c.homeLauncher.roleHeld.addListener(_onOverlayChanged);
@@ -1060,6 +1060,7 @@ class _KioskScreenState extends State<KioskScreen>
         c.screensaver.isActive ||
         c.kiosk.lockdownActive ||
         c.launcher.visible.value ||
+        c.intercom.rosterVisible.value ||
         c.camera.activeViewId.value != null ||
         c.plugins.windows.value.isNotEmpty;
     if (capture == _lastNavCapture) return;
@@ -1170,6 +1171,7 @@ class _KioskScreenState extends State<KioskScreen>
       nowPlayingControls: c.screensaver.nowPlayingControlsUp,
       overlayUp:
           c.launcher.visible.value ||
+          c.intercom.rosterVisible.value ||
           c.browser.overlayUrl.value != null ||
           c.camera.activeViewId.value != null,
       // Any route above this one: settings, and every dialog — the exit
@@ -1342,7 +1344,6 @@ class _KioskScreenState extends State<KioskScreen>
     _missingSub?.cancel();
     _backSub?.cancel();
     _homeSub?.cancel();
-    _intercomSub?.cancel();
     _wakeSub?.cancel();
     kioskRouteObserver.unsubscribe(this);
     _cameraSub?.cancel();
@@ -1351,6 +1352,7 @@ class _KioskScreenState extends State<KioskScreen>
     c.screensaver.activeView.removeListener(_syncVolumeKeys);
     c.browser.overlayUrl.removeListener(_onOverlayChanged);
     c.launcher.visible.removeListener(_onOverlayChanged);
+    c.intercom.rosterVisible.removeListener(_onOverlayChanged);
     c.plugins.windows.removeListener(_onOverlayChanged);
     c.plugins.installed.removeListener(_onOverlayChanged);
     c.homeLauncher.roleHeld.removeListener(_onOverlayChanged);
@@ -1549,6 +1551,10 @@ class _KioskScreenState extends State<KioskScreen>
                   // Below the screensaver: an abandoned launcher gives way
                   // to it (the manager also closes on screensaver start).
                   AppLauncherOverlay(container: c),
+                  // The intercom's Call a kiosk screen, the launcher's
+                  // twin: full screen, below the screensaver, closed by
+                  // the manager when a call starts.
+                  IntercomRosterOverlay(container: c),
                   // The screensaver covers both planes — it owns the whole
                   // display, drawer open or not.
                   ScreensaverOverlay(container: c),

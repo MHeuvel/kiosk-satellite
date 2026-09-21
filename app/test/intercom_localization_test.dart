@@ -238,16 +238,9 @@ void main() {
     tester,
   ) async {
     await tester.pumpWidget(
-      localized(
-        Builder(
-          builder: (context) => TextButton(
-            onPressed: () => showIntercomSheet(context, c),
-            child: const Text('Open picker'),
-          ),
-        ),
-      ),
+      localized(Stack(children: [IntercomRosterOverlay(container: c)])),
     );
-    await tester.tap(find.text('Open picker'));
+    c.intercom.rosterVisible.value = true;
     await tester.pumpAndSettle();
     c.bus.publish(IntercomStateChanged(status));
     await tester.pumpAndSettle();

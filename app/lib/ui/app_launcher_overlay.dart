@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../app_container.dart';
 import '../l10n/messages.dart';
 import '../managers/launcher/app_launcher_manager.dart';
+import 'kit.dart';
 import 'theme.dart';
 import 'toast.dart';
 
@@ -125,6 +126,8 @@ class _LauncherScreenState extends State<_LauncherScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final apps = container.launcher.apps;
+    final size = MediaQuery.sizeOf(context);
+    final compact = size.height < 480 || size.width < 600;
     return Focus(
       canRequestFocus: false,
       skipTraversal: true,
@@ -143,7 +146,7 @@ class _LauncherScreenState extends State<_LauncherScreen> {
             onTap: _close,
             child: DecoratedBox(
               decoration: BoxDecoration(
-                gradient: _groundGradient(
+                gradient: ksGroundGradient(
                   theme.colorScheme.surface,
                   theme.brightness,
                 ),
@@ -162,9 +165,14 @@ class _LauncherScreenState extends State<_LauncherScreen> {
                             ),
                             child: Center(
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 48,
-                                  vertical: 56,
+                                // More above than below: the wall centers
+                                // in the band under the eyebrow, not in
+                                // the whole screen.
+                                padding: EdgeInsets.fromLTRB(
+                                  48,
+                                  compact ? 64 : 96,
+                                  48,
+                                  compact ? 20 : 56,
                                 ),
                                 child: Wrap(
                                   alignment: WrapAlignment.center,
@@ -187,6 +195,15 @@ class _LauncherScreenState extends State<_LauncherScreen> {
                             ),
                           ),
                         ),
+                      ),
+                    ),
+                    // The mark and the screen's name, the intercom's twin.
+                    Positioned(
+                      top: compact ? 12 : 20,
+                      left: compact ? 16 : 28,
+                      child: KsEyebrow(
+                        label: l10n(context).settingsMenuAppLauncher,
+                        compact: compact,
                       ),
                     ),
                     Positioned(
@@ -473,27 +490,5 @@ LinearGradient _tileGradient(Color tint, Brightness brightness) {
     colors: dark
         ? [tone(0.42).toColor(), tone(0.24).toColor()]
         : [tone(0.56).toColor(), tone(0.38).toColor()],
-  );
-}
-
-/// The wall's ground: the theme surface as an unmistakable vertical
-/// gradient, lit at the top and settling deeper below, in both themes.
-/// The light theme pins its own endpoints instead of offsetting the
-/// surface: the paper tone sits so close to white that a relative lift
-/// clamps flat and the wall read as a plain sheet.
-LinearGradient _groundGradient(Color surface, Brightness brightness) {
-  final hsl = HSLColor.fromColor(surface);
-  final dark = brightness == Brightness.dark;
-  HSLColor tone(double lightness) =>
-      hsl.withLightness(lightness.clamp(0.0, 1.0));
-  return LinearGradient(
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-    colors: dark
-        ? [
-            tone(hsl.lightness + 0.08).toColor(),
-            tone(hsl.lightness - 0.06).toColor(),
-          ]
-        : [tone(0.99).toColor(), tone(0.78).toColor()],
   );
 }

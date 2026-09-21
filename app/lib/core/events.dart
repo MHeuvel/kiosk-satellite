@@ -420,12 +420,6 @@ class IntercomLevel extends AppEvent {
   final double far;
 }
 
-/// The kiosk menu entry, a gesture or the `intercomOpen` command asked for
-/// the sheet of kiosks to call. The kiosk screen shows it.
-class IntercomOpenRequested extends AppEvent {
-  const IntercomOpenRequested();
-}
-
 // ── Motion ─────────────────────────────────────────────────────────────
 
 class MotionDetected extends AppEvent {

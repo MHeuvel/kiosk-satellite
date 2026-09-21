@@ -7,11 +7,12 @@ import 'package:kiosk_satellite/ui/intercom_settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-  for (final (size, compact) in [
-    (const Size(320, 480), true),
-    (const Size(360, 640), false),
-    (const Size(640, 360), true),
-    (const Size(240, 427), true),
+  for (final size in [
+    const Size(320, 480),
+    const Size(360, 640),
+    const Size(640, 360),
+    const Size(240, 427),
+    const Size(1280, 800),
   ]) {
     for (final broadcast in [false, true]) {
       testWidgets('push to talk and hangup stay reachable at $size '
@@ -80,13 +81,16 @@ void main() {
           of: talk,
           matching: find.byType(AnimatedContainer),
         );
+        // End sits under the pill, except on a short screen where it sits
+        // beside it.
         final talkRect = tester.getRect(talkButton);
         final endRect = tester.getRect(endButton);
-        if (compact) {
+        if (size.height < 480) {
           expect(endRect.left, greaterThan(talkRect.right));
-          expect(endRect.top, closeTo(talkRect.top, 1));
+          expect(endRect.center.dy, closeTo(talkRect.center.dy, 3));
         } else {
           expect(endRect.top, greaterThan(talkRect.bottom));
+          expect((endRect.center.dx - talkRect.center.dx).abs(), lessThan(1));
         }
         final press = await tester.startGesture(tester.getCenter(talk));
         await tester.pump();

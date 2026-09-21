@@ -14,9 +14,10 @@ import 'toast.dart';
 
 /// The Intercom pieces the definitions cannot draw: the setup card the
 /// page opens with when the remote admin is off, the Change key row and
-/// its dialog, the Kiosks card, the sheet the kiosk menu opens and the
-/// call overlay. The remote admin mirrors the page (intercom.js); the
-/// sheet and the overlay are the kiosk's alone, a browser cannot talk.
+/// its dialog, the Kiosks card, the Call a kiosk screen the kiosk menu
+/// opens and the call screen. The remote admin mirrors the page
+/// (intercom.js); the two screens are the kiosk's alone, a browser cannot
+/// talk.
 
 // ── The page ───────────────────────────────────────────────────────────
 
@@ -512,232 +513,287 @@ class _AnnouncementTtsEngineRowState extends State<AnnouncementTtsEngineRow> {
   }
 }
 
-/// The sheet the kiosk menu, a gesture or `intercomOpen` opens: Announce
-/// to all first, then every kiosk that is ready, by name. A tap calls and
-/// closes.
-Future<void> showIntercomSheet(BuildContext context, AppContainer c) async {
-  final overlay = Overlay.of(context, rootOverlay: true);
-  await showDialog<void>(
-    context: context,
-    builder: (ctx) => _IntercomSheet(
-      container: c,
-      onPick: (command, params) async {
-        Navigator.pop(ctx);
-        final r = await c.commands.execute(command, params);
-        if (r.ok || !context.mounted) return;
-        showToastIn(
-          overlay,
-          title: command == 'intercomBroadcast'
-              ? intercomText(context, "Could not talk to everyone")
-              : intercomText(context, "Could not call"),
-          message: r.error == null
-              ? null
-              : intercomError(context, r.error!, status: c.intercom.status()),
-          kind: ToastKind.error,
-        );
-      },
-    ),
+// ── The Call a kiosk screen ────────────────────────────────────────────
+
+/// The Call a kiosk screen the kiosk menu, a gesture or `intercomOpen`
+/// opens: the app launcher's ground and close disc, the title with the
+/// ready count, Announce to all and the roster as hairline rows, two
+/// columns on a wide screen. A ready kiosk's row calls it; the others stay
+/// on the list dimmed with their reason. Shown and hidden through the
+/// manager's [IntercomManager.rosterVisible], so the menu, a gesture, the
+/// remote admin, back, HOME, a call starting and the screensaver all meet
+/// at one place.
+class IntercomRosterOverlay extends StatelessWidget {
+  const IntercomRosterOverlay({super.key, required this.container});
+
+  final AppContainer container;
+
+  @override
+  Widget build(BuildContext context) => ValueListenableBuilder<bool>(
+    valueListenable: container.intercom.rosterVisible,
+    builder: (context, visible, _) {
+      if (!visible) return const SizedBox.shrink();
+      return Positioned.fill(child: _RosterScreen(container: container));
+    },
   );
 }
 
-class _IntercomSheet extends StatefulWidget {
-  const _IntercomSheet({required this.container, required this.onPick});
+/// Whether the roster is being driven by dpad or keyboard keys: a key
+/// arms the focus highlight, a touch stands it down, every open starts
+/// without it. Same reasoning as the app launcher's wall (issue #377).
+final _rosterKeysDriving = ValueNotifier<bool>(false);
+
+class _RosterScreen extends StatefulWidget {
+  const _RosterScreen({required this.container});
 
   final AppContainer container;
-  final void Function(String command, Map<String, Object?> params) onPick;
 
   @override
-  State<_IntercomSheet> createState() => _IntercomSheetState();
+  State<_RosterScreen> createState() => _RosterScreenState();
 }
 
-class _IntercomSheetState extends State<_IntercomSheet> {
-  late Map<String, Object?> _status = widget.container.intercom.status();
+class _RosterScreenState extends State<_RosterScreen> {
+  AppContainer get c => widget.container;
+
+  late Map<String, Object?> _status = c.intercom.status();
   StreamSubscription<IntercomStateChanged>? _sub;
+
+  /// The roster's own focus scope, so a directional search never wanders
+  /// out to the dashboard's platform view underneath.
+  final _scope = FocusScopeNode(debugLabel: 'intercom roster');
+  final _first = FocusNode(debugLabel: 'intercom roster first');
 
   @override
   void initState() {
     super.initState();
-    _sub = widget.container.bus.on<IntercomStateChanged>().listen((e) {
+    _rosterKeysDriving.value = false;
+    _sub = c.bus.on<IntercomStateChanged>().listen((e) {
       if (mounted) setState(() => _status = e.status);
     });
     // Asks the manager to probe whatever has gone stale.
-    unawaited(widget.container.commands.execute('intercomStatus', const {}));
+    unawaited(c.commands.execute('intercomStatus', const {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) _first.requestFocus();
+    });
   }
 
   @override
   void dispose() {
     _sub?.cancel();
+    _first.dispose();
+    _scope.dispose();
     super.dispose();
+  }
+
+  void _close() => c.intercom.rosterVisible.value = false;
+
+  /// Places the call or starts the announcement. A call that starts takes
+  /// the roster down through the manager; one refused leaves it up with
+  /// the reason as a toast.
+  Future<void> _pick(String command, Map<String, Object?> params) async {
+    final r = await c.commands.execute(command, params);
+    if (r.ok || !mounted) return;
+    showToast(
+      context,
+      title: command == 'intercomBroadcast'
+          ? intercomText(context, "Could not talk to everyone")
+          : intercomText(context, "Could not call"),
+      message: r.error == null
+          ? null
+          : intercomError(context, r.error!, status: c.intercom.status()),
+      kind: ToastKind.error,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    final ready = [
+    final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
+    final all = [
       for (final k in (_status['kiosks'] as List? ?? const []))
-        if (k is Map && k['status'] == 'ready') k.cast<String, Object?>(),
+        if (k is Map) k.cast<String, Object?>(),
     ];
+    // Ready kiosks first, in the roster's order, then the rest with
+    // their reasons.
+    final ready = [
+      for (final k in all)
+        if (k['status'] == 'ready') k,
+    ];
+    final rest = [
+      for (final k in all)
+        if (k['status'] != 'ready') k,
+    ];
+    final kiosks = [...ready, ...rest];
     final count = ready.length;
     final line = switch (count) {
       0 => intercomText(context, "No kiosk is ready."),
       1 => intercomText(context, "1 kiosk is ready."),
       _ => l10n(context).intercomManyReady('$count'),
     };
-    return Dialog(
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 480),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // The title and the count stay put, the list scrolls.
-            Padding(
-              padding: const EdgeInsets.fromLTRB(24, 24, 24, 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    intercomText(context, "Call a kiosk"),
-                    style: Theme.of(context).dialogTheme.titleTextStyle,
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    line,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: scheme.onSurfaceVariant,
-                    ),
-                  ),
-                ],
+    return Focus(
+      canRequestFocus: false,
+      skipTraversal: true,
+      onKeyEvent: (_, event) {
+        _rosterKeysDriving.value = true;
+        return KeyEventResult.ignored;
+      },
+      child: FocusScope(
+        node: _scope,
+        child: Listener(
+          onPointerDown: (_) => _rosterKeysDriving.value = false,
+          child: GestureDetector(
+            // The empty ground dismisses, as the launcher's does; the rows
+            // swallow their own taps.
+            behavior: HitTestBehavior.opaque,
+            onTap: _close,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: ksGroundGradient(scheme.surface, theme.brightness),
               ),
-            ),
-            if (count > 0)
-              Flexible(
-                child: EdgeFade(
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+              child: SafeArea(
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    final width = constraints.maxWidth;
+                    final compact = width < 600;
+                    // Two columns only where a name still has room: a phone
+                    // on its side keeps one column and scrolls.
+                    final twoColumns = width >= 960;
+                    final inset = compact ? 24.0 : (twoColumns ? 64.0 : 32.0);
+                    final announce = count == 0
+                        ? null
+                        : _AnnouncePill(
+                            compact: compact,
+                            focusNode: _first,
+                            onTap: () => _pick('intercomBroadcast', const {}),
+                          );
+                    final title = Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        _AnnounceTile(
-                          onTap: () =>
-                              widget.onPick('intercomBroadcast', const {}),
+                        Text(
+                          intercomText(context, "Call a kiosk"),
+                          style: TextStyle(
+                            fontSize: compact ? 30 : 44,
+                            fontWeight: FontWeight.w600,
+                            height: 1.1,
+                            color: scheme.onSurface,
+                          ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(4, 20, 4, 8),
-                          child: Text(
-                            intercomText(context, "Kiosks").toUpperCase(),
-                            style: TextStyle(
-                              fontSize: 12.5,
-                              fontWeight: FontWeight.w600,
-                              letterSpacing: .8,
-                              color: scheme.onSurfaceVariant,
+                        const SizedBox(height: 6),
+                        Text(
+                          line,
+                          style: TextStyle(
+                            fontSize: compact ? 15 : 17,
+                            height: 1.4,
+                            color: scheme.onSurfaceVariant,
+                          ),
+                        ),
+                      ],
+                    );
+                    final rows = <Widget>[];
+                    for (
+                      var i = 0;
+                      i < kiosks.length;
+                      i += twoColumns ? 2 : 1
+                    ) {
+                      Widget row(int j) => j < kiosks.length
+                          ? _KioskRow(
+                              key: ValueKey('kiosk-${kiosks[j]['id']}'),
+                              kiosk: kiosks[j],
+                              compact: compact,
+                              focusNode: announce == null && j == 0
+                                  ? _first
+                                  : null,
+                              onTap: () => _pick('intercomCall', {
+                                'id': '${kiosks[j]['id']}',
+                              }),
+                            )
+                          : const SizedBox.shrink();
+                      rows.add(
+                        twoColumns
+                            ? Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(child: row(i)),
+                                  const SizedBox(width: 64),
+                                  Expanded(child: row(i + 1)),
+                                ],
+                              )
+                            : row(i),
+                      );
+                    }
+                    return Stack(
+                      children: [
+                        Positioned.fill(
+                          child: SingleChildScrollView(
+                            padding: EdgeInsets.fromLTRB(
+                              inset,
+                              compact ? 24 : 32,
+                              inset,
+                              40,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                // The mark and the screen's name lead the
+                                // list and scroll with it, the way a page
+                                // title does; only the close disc stays put.
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                    bottom: compact ? 20 : 28,
+                                  ),
+                                  child: KsEyebrow(
+                                    label: intercomText(context, "Intercom"),
+                                    compact: compact,
+                                  ),
+                                ),
+                                if (compact) ...[
+                                  title,
+                                  if (announce != null) ...[
+                                    const SizedBox(height: 20),
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: announce,
+                                    ),
+                                  ],
+                                ] else
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Expanded(child: title),
+                                      if (announce != null) ...[
+                                        const SizedBox(width: 32),
+                                        announce,
+                                      ],
+                                    ],
+                                  ),
+                                SizedBox(height: compact ? 24 : 32),
+                                Divider(
+                                  height: 1,
+                                  color: scheme.outlineVariant,
+                                ),
+                                ...rows,
+                              ],
                             ),
                           ),
                         ),
-                        Material(
-                          color: scheme.surfaceContainerHigh,
-                          borderRadius: BorderRadius.circular(Ks.radiusRow),
-                          clipBehavior: Clip.antiAlias,
-                          child: Column(
-                            children: [
-                              for (final (i, k) in ready.indexed) ...[
-                                if (i > 0)
-                                  const Divider(
-                                    height: 1,
-                                    indent: 16,
-                                    endIndent: 16,
-                                  ),
-                                _KioskRow(
-                                  key: ValueKey('kiosk-$i'),
-                                  name: '${k['name']}',
-                                  onTap: () => widget.onPick('intercomCall', {
-                                    'id': '${k['id']}',
-                                  }),
-                                ),
-                              ],
-                            ],
+                        Positioned(
+                          top: 8,
+                          right: 8,
+                          child: IconButton(
+                            icon: const Icon(Icons.close),
+                            tooltip: l10n(context).commonClose,
+                            iconSize: 28,
+                            color: scheme.onSurfaceVariant,
+                            onPressed: _close,
                           ),
                         ),
-                        const SizedBox(height: 4),
                       ],
-                    ),
-                  ),
-                ),
-              ),
-            // A way out that is not a tap outside: the quiet text button the
-            // kit's dialogs use.
-            Padding(
-              padding: const EdgeInsets.fromLTRB(24, 8, 16, 12),
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: Text(intercomText(context, "Cancel")),
+                    );
+                  },
                 ),
               ),
             ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/// The one way broadcast, its own card above the kiosk list with the
-/// campaign disc on the right.
-class _AnnounceTile extends StatelessWidget {
-  const _AnnounceTile({required this.onTap});
-
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    return Material(
-      color: scheme.surfaceContainerHigh,
-      borderRadius: BorderRadius.circular(Ks.radiusRow),
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 14, 12, 14),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      intercomText(context, "Announce to all"),
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: scheme.onSurface,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      intercomText(
-                        context,
-                        "Talk to every kiosk. One way only.",
-                      ),
-                      style: TextStyle(
-                        fontSize: 13.5,
-                        height: 1.3,
-                        color: scheme.onSurfaceVariant,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 12),
-              _ActionDisc(
-                icon: Icons.campaign_outlined,
-                background: scheme.primary,
-                foreground: scheme.onPrimary,
-              ),
-            ],
           ),
         ),
       ),
@@ -745,76 +801,238 @@ class _AnnounceTile extends StatelessWidget {
   }
 }
 
-/// One ready kiosk: its name and a call disc, the whole row tappable.
-class _KioskRow extends StatelessWidget {
-  const _KioskRow({super.key, required this.name, required this.onTap});
+/// Announce to all: the one filled pill on the roster, the megaphone and
+/// the label.
+class _AnnouncePill extends StatefulWidget {
+  const _AnnouncePill({
+    required this.compact,
+    required this.focusNode,
+    required this.onTap,
+  });
 
-  final String name;
+  final bool compact;
+  final FocusNode focusNode;
   final VoidCallback onTap;
+
+  @override
+  State<_AnnouncePill> createState() => _AnnouncePillState();
+}
+
+class _AnnouncePillState extends State<_AnnouncePill> {
+  bool _focused = false;
+
+  void _onKeys() {
+    if (mounted) setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _rosterKeysDriving.addListener(_onKeys);
+  }
+
+  @override
+  void dispose() {
+    _rosterKeysDriving.removeListener(_onKeys);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    return InkWell(
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 10, 12, 10),
-        child: Row(
-          children: [
-            Expanded(
-              child: Text(
-                name,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: scheme.onSurface,
+    final ring = _focused && _rosterKeysDriving.value;
+    final height = widget.compact ? 56.0 : 72.0;
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 120),
+      height: height,
+      decoration: BoxDecoration(
+        color: scheme.primary,
+        borderRadius: BorderRadius.circular(100),
+        border: Border.all(
+          color: ring ? scheme.onSurface : Colors.transparent,
+          width: 3,
+        ),
+      ),
+      child: Material(
+        type: MaterialType.transparency,
+        borderRadius: BorderRadius.circular(100),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: widget.onTap,
+          focusNode: widget.focusNode,
+          onFocusChange: (f) => setState(() => _focused = f),
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(
+              widget.compact ? 18 : 24,
+              0,
+              widget.compact ? 24 : 32,
+              0,
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.campaign_outlined,
+                  size: widget.compact ? 26 : 30,
+                  color: scheme.onPrimary,
                 ),
-              ),
+                const SizedBox(width: 14),
+                Text(
+                  intercomText(context, "Announce to all"),
+                  style: TextStyle(
+                    fontSize: widget.compact ? 17 : 20,
+                    fontWeight: FontWeight.w600,
+                    color: scheme.onPrimary,
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(width: 12),
-            _ActionDisc(
-              icon: Icons.phone_outlined,
-              background: scheme.primary,
-              foreground: scheme.onPrimary,
-            ),
-          ],
+          ),
         ),
       ),
     );
   }
 }
 
-/// The 40 disc at the end of a sheet row. Not a button of its own, the row
-/// around it takes the tap.
-class _ActionDisc extends StatelessWidget {
-  const _ActionDisc({
-    required this.icon,
-    required this.background,
-    required this.foreground,
+/// One kiosk on the roster: the tablet glyph, the name over its status
+/// and a call disc, under a hairline. A kiosk that cannot take a call
+/// keeps its row dimmed, the reason where Ready would be and no disc.
+class _KioskRow extends StatefulWidget {
+  const _KioskRow({
+    super.key,
+    required this.kiosk,
+    required this.compact,
+    required this.focusNode,
+    required this.onTap,
   });
 
-  final IconData icon;
-  final Color background;
-  final Color foreground;
+  final Map<String, Object?> kiosk;
+  final bool compact;
+  final FocusNode? focusNode;
+  final VoidCallback onTap;
 
   @override
-  Widget build(BuildContext context) => Container(
-    width: 40,
-    height: 40,
-    decoration: BoxDecoration(color: background, shape: BoxShape.circle),
-    child: Icon(icon, size: 20, color: foreground),
-  );
+  State<_KioskRow> createState() => _KioskRowState();
 }
 
-// ── The call overlay ───────────────────────────────────────────────────
+class _KioskRowState extends State<_KioskRow> {
+  bool _focused = false;
 
-/// The call card over the kiosk screen: calling, ringing (with the auto
-/// answer countdown), in a call with push to talk or hands free, a
-/// broadcast going out or coming in, and the ended card. Nothing for idle
-/// and missed, which is a toast with Call back instead. Sits in the outer
-/// Stack after the notifications and under the Lockdown shield.
+  void _onKeys() {
+    if (mounted) setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _rosterKeysDriving.addListener(_onKeys);
+  }
+
+  @override
+  void dispose() {
+    _rosterKeysDriving.removeListener(_onKeys);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
+    final ready = widget.kiosk['status'] == 'ready';
+    final highlight = _focused && _rosterKeysDriving.value;
+    final okColor = theme.brightness == Brightness.dark
+        ? ksSage
+        : ksSageOnLight;
+    final compact = widget.compact;
+    return Opacity(
+      opacity: ready ? 1 : 0.55,
+      child: Material(
+        type: MaterialType.transparency,
+        child: InkWell(
+          onTap: ready ? widget.onTap : null,
+          focusNode: widget.focusNode,
+          canRequestFocus: ready,
+          onFocusChange: (f) => setState(() => _focused = f),
+          borderRadius: BorderRadius.circular(Ks.radiusRow),
+          child: Container(
+            height: compact ? 76 : 96,
+            padding: const EdgeInsets.fromLTRB(4, 0, 8, 0),
+            decoration: BoxDecoration(
+              color: highlight ? scheme.surfaceContainerHigh : null,
+              borderRadius: highlight
+                  ? BorderRadius.circular(Ks.radiusRow)
+                  : null,
+              border: Border(bottom: BorderSide(color: scheme.outlineVariant)),
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.tablet_android_outlined,
+                  size: compact ? 28 : 34,
+                  color: scheme.onSurfaceVariant,
+                ),
+                SizedBox(width: compact ? 16 : 20),
+                Expanded(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${widget.kiosk['name']}',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: compact ? 20 : 24,
+                          fontWeight: FontWeight.w500,
+                          height: 1.2,
+                          color: scheme.onSurface,
+                        ),
+                      ),
+                      const SizedBox(height: 3),
+                      Text(
+                        intercomText(context, '${widget.kiosk['statusText']}'),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 14,
+                          height: 1.3,
+                          color: ready ? okColor : scheme.onSurfaceVariant,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                if (ready) ...[
+                  const SizedBox(width: 16),
+                  Container(
+                    width: compact ? 48 : 56,
+                    height: compact ? 48 : 56,
+                    decoration: BoxDecoration(
+                      color: scheme.primary,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.call,
+                      size: compact ? 22 : 26,
+                      color: scheme.onPrimary,
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// The call screen over the kiosk screen, full screen on the launcher's
+/// ground: calling, ringing (with the auto answer countdown), in a call
+/// with push to talk or hands free, a broadcast going out or coming in,
+/// and the ended screen. Nothing for idle and missed, which is a toast
+/// with Call back instead. Sits in the outer Stack after the
+/// notifications and under the Lockdown shield.
 class IntercomCallOverlay extends StatefulWidget {
   const IntercomCallOverlay({super.key, required this.container});
 
@@ -984,33 +1202,27 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
     if (_call['automated'] == true && _call['outgoing'] != true) {
       return const SizedBox.shrink();
     }
-    final scheme = Theme.of(context).colorScheme;
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        const ModalBarrier(color: Colors.black54, dismissible: false),
-        Center(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 480),
-              child: Material(
-                color: scheme.surfaceContainer,
-                borderRadius: BorderRadius.circular(Ks.radiusCard),
-                clipBehavior: Clip.antiAlias,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(28, 28, 28, 24),
-                  child: LayoutBuilder(builder: _card),
-                ),
-              ),
-            ),
+    final theme = Theme.of(context);
+    return SizedBox.expand(
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          gradient: ksGroundGradient(
+            theme.colorScheme.surface,
+            theme.brightness,
           ),
         ),
-      ],
+        child: SafeArea(child: LayoutBuilder(builder: _screen)),
+      ),
     );
   }
 
-  Widget _card(BuildContext context, BoxConstraints constraints) {
+  /// The whole screen: the mark and the talk mode top left, then one
+  /// centered column on one rhythm: the name block, the meter, the
+  /// controls and, with push to talk, End or Done under the pill. A phone
+  /// or a short landscape gets the compact sizes so the column still fits
+  /// without a scroll; the scroll view is the fallback for a translation
+  /// or a name that runs long.
+  Widget _screen(BuildContext context, BoxConstraints constraints) {
     final scheme = Theme.of(context).colorScheme;
     final state = _state;
     final call = _call;
@@ -1020,11 +1232,17 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
     final peerName = '${_peer['name'] ?? ''}';
     final talkMode = '${_status['talkMode'] ?? 'ptt'}';
     final reason = '${call['reason'] ?? ''}';
+    final automated = call['automated'] == true;
+    final width = constraints.maxWidth;
+    final height = constraints.maxHeight;
+    final compact = height < 480 || width < 600;
+    // A short landscape (a phone on its side) has no room for a disc
+    // under the pill: End sits beside it there, under it everywhere else.
+    final short = height < 480;
 
     // The name and the line under it.
     var name = peerName;
     String? sub;
-    final automated = call['automated'] == true;
     if (broadcast && outgoing && state == 'ended') {
       name = intercomText(context, "Announcement");
     } else if (broadcast && outgoing) {
@@ -1042,7 +1260,8 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
       sub = intercomText(context, "is announcing");
     }
 
-    // The state line.
+    // The state line: the timer, or who hears you while the talk button
+    // is held.
     String stateLine;
     var stateColor = scheme.onSurfaceVariant;
     switch (state) {
@@ -1059,11 +1278,18 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
           stateLine = intercomText(context, "Ringing");
         }
       case 'in_call' || 'broadcasting':
-        final elapsed = _elapsed();
-        stateLine = elapsed < 0
-            ? intercomText(context, "Connecting…")
-            : _mmss(elapsed);
-        if (elapsed >= 0) stateColor = scheme.onSurface;
+        if (_held) {
+          stateLine = state == 'broadcasting'
+              ? l10n(context).intercomAllHearYou
+              : l10n(context).intercomHearsYou(peerName);
+          stateColor = scheme.primary;
+        } else {
+          final elapsed = _elapsed();
+          stateLine = elapsed < 0
+              ? intercomText(context, "Connecting…")
+              : _mmss(elapsed);
+          if (elapsed >= 0) stateColor = scheme.onSurface;
+        }
       case 'listening':
         stateLine = '';
       case 'ended':
@@ -1092,117 +1318,128 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
         (_status['micGranted'] == false || micBusy) &&
         (state == 'in_call' || state == 'broadcasting');
 
-    final pushToTalk =
-        !automated &&
-        talkMode == 'ptt' &&
-        (state == 'in_call' || state == 'broadcasting');
-    final compactControls = pushToTalk && constraints.maxHeight < 480;
-    final width = constraints.maxWidth;
-    final pillWidth = math.min(width, width < 400 ? 240.0 : 320.0);
-    final talkHelp = Text(
-      _held
-          ? (state == 'broadcasting'
-                ? l10n(context).intercomAllHearYou
-                : l10n(context).intercomHearsYou(peerName))
-          : intercomText(context, "Hold to talk, let go to listen"),
-      textAlign: TextAlign.center,
-      style: TextStyle(fontSize: 13, color: scheme.onSurfaceVariant),
+    // The controls row and, for push to talk, the disc under the pill.
+    final pillWidth = math.min(
+      compact ? 360.0 : 480.0,
+      short ? width - 48 - 88 - 28 : width - 48,
     );
     final controls = <Widget>[];
+    final below = <Widget>[];
+    _Disc disc(IconData icon, String label, _DiscKind kind, String command) =>
+        _Disc(
+          icon: icon,
+          label: label,
+          kind: kind,
+          compact: compact,
+          onTap: () => _run(command),
+        );
     switch (state) {
       case 'calling':
         controls.add(
-          _Disc(
-            icon: Icons.call_end,
-            label: intercomText(context, "Cancel"),
-            kind: _DiscKind.end,
-            onTap: () => _run('intercomHangup'),
+          disc(
+            Icons.call_end,
+            intercomText(context, "Cancel"),
+            _DiscKind.end,
+            'intercomHangup',
           ),
         );
       case 'ringing':
         controls.addAll([
-          _Disc(
-            icon: Icons.call_end,
-            label: intercomText(context, "Decline"),
-            kind: _DiscKind.end,
-            onTap: () => _run('intercomDecline'),
+          disc(
+            Icons.call_end,
+            intercomText(context, "Decline"),
+            _DiscKind.end,
+            'intercomDecline',
           ),
-          _Disc(
-            icon: Icons.call,
-            label: intercomText(context, "Answer"),
-            kind: _DiscKind.primary,
-            onTap: () => _run('intercomAnswer'),
+          disc(
+            Icons.call,
+            intercomText(context, "Answer"),
+            _DiscKind.primary,
+            'intercomAnswer',
           ),
         ]);
       case 'in_call' || 'broadcasting':
+        final end = state == 'broadcasting'
+            ? disc(
+                Icons.close,
+                intercomText(context, "Done"),
+                _DiscKind.plain,
+                'intercomHangup',
+              )
+            : disc(
+                Icons.call_end,
+                intercomText(context, "End"),
+                _DiscKind.end,
+                'intercomHangup',
+              );
         if (automated) {
           // A clip from Home Assistant plays: nothing to hold or mute.
           controls.add(
-            _Disc(
-              icon: Icons.stop,
-              label: intercomText(context, "Stop"),
-              kind: _DiscKind.plain,
-              onTap: () => _run('intercomHangup'),
+            disc(
+              Icons.stop,
+              intercomText(context, "Stop"),
+              _DiscKind.plain,
+              'intercomHangup',
             ),
           );
-          break;
-        }
-        if (talkMode == 'ptt') {
+        } else if (talkMode == 'ptt') {
           final pill = _TalkPill(
             held: _held,
             width: pillWidth,
+            compact: compact,
             onDown: () => _talk(true),
             onUp: () => _talk(false),
           );
-          controls.add(
-            compactControls
-                ? pill
-                : Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [pill, const SizedBox(height: 10), talkHelp],
+          if (short) {
+            controls.add(
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // The pill centers on the disc itself, not on the disc
+                  // plus its label, so the two read as one row.
+                  Padding(
+                    padding: EdgeInsets.only(bottom: compact ? 24 : 28),
+                    child: pill,
                   ),
-          );
+                  const SizedBox(width: 28),
+                  end,
+                ],
+              ),
+            );
+          } else {
+            controls.add(pill);
+            below.add(end);
+          }
         } else {
           final muted = call['muted'] == true;
-          controls.add(
+          controls.addAll([
             _Disc(
               icon: muted ? Icons.mic_off : Icons.mic,
               label: muted
                   ? intercomText(context, "Muted")
                   : intercomText(context, "Mute"),
               kind: muted ? _DiscKind.dark : _DiscKind.plain,
+              compact: compact,
               onTap: () => _run('intercomMute', {'on': !muted}),
             ),
-          );
+            end,
+          ]);
         }
-        controls.add(
-          state == 'broadcasting'
-              ? _Disc(
-                  icon: Icons.close,
-                  label: intercomText(context, "Done"),
-                  kind: _DiscKind.plain,
-                  onTap: () => _run('intercomHangup'),
-                )
-              : _Disc(
-                  icon: Icons.call_end,
-                  label: intercomText(context, "End"),
-                  kind: _DiscKind.end,
-                  onTap: () => _run('intercomHangup'),
-                ),
-        );
       case 'listening':
         controls.addAll([
           _Disc(
             icon: Icons.call,
             label: intercomText(context, "Reply"),
             kind: _DiscKind.primary,
+            compact: compact,
             onTap: () => _run('intercomCall', {'id': '${_peer['id']}'}),
           ),
-          _Disc(
-            icon: Icons.close,
-            label: intercomText(context, "Dismiss"),
-            kind: _DiscKind.plain,
-            onTap: () => _run('intercomHangup'),
+          disc(
+            Icons.close,
+            intercomText(context, "Dismiss"),
+            _DiscKind.plain,
+            'intercomHangup',
           ),
         ]);
       case 'ended':
@@ -1213,20 +1450,33 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
               icon: Icons.call,
               label: intercomText(context, "Call again"),
               kind: _DiscKind.primary,
+              compact: compact,
               onTap: () => _run('intercomCall', {'id': '${_peer['id']}'}),
             ),
           );
         }
         controls.add(
-          _Disc(
-            icon: Icons.close,
-            label: intercomText(context, "Close"),
-            kind: _DiscKind.plain,
-            onTap: () => _run('intercomDismiss'),
+          disc(
+            Icons.close,
+            intercomText(context, "Close"),
+            _DiscKind.plain,
+            'intercomDismiss',
           ),
         );
     }
 
+    // A short landscape with room across (a phone on its side) keeps the
+    // full rhythm and a mid-size name; only a tiny screen packs tight.
+    final roomy = width >= 600;
+    final gap = compact ? (roomy ? 36.0 : 16.0) : 40.0;
+    final nameSize = compact
+        ? (roomy ? 40.0 : 30.0)
+        : (width < 900 ? 48.0 : 64.0);
+    final meterScale = compact ? (roomy ? 1.2 : 0.9) : 1.8;
+    // The name block and the meter scroll when a name or a translation
+    // runs long; the controls never do, so End stays under a thumb
+    // whatever the screen (and a scroll view ignores taps under it while
+    // the talk button is held, which the controls must not).
     final details = Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -1234,14 +1484,18 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.campaign_outlined, size: 16, color: scheme.primary),
+              Icon(
+                Icons.campaign_outlined,
+                size: compact ? 16 : 18,
+                color: scheme.primary,
+              ),
               const SizedBox(width: 8),
               Flexible(
                 child: Text(
                   intercomText(context, "Announcement").toUpperCase(),
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 12.5,
+                    fontSize: compact ? 12.5 : 14,
                     fontWeight: FontWeight.w600,
                     letterSpacing: .8,
                     color: scheme.primary,
@@ -1250,7 +1504,7 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
               ),
             ],
           ),
-          const SizedBox(height: 6),
+          SizedBox(height: compact ? 10 : 16),
         ],
         Text(
           name,
@@ -1258,39 +1512,45 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
           style: TextStyle(
-            fontSize: 30,
+            fontSize: nameSize,
             fontWeight: FontWeight.w600,
-            height: 1.2,
+            height: 1.1,
+            letterSpacing: -0.5,
             color: scheme.onSurface,
           ),
         ),
         if (sub != null && sub.isNotEmpty) ...[
-          const SizedBox(height: 6),
+          const SizedBox(height: 8),
           Text(
             sub,
             textAlign: TextAlign.center,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
             style: TextStyle(
-              fontSize: 15,
-              height: 1.4,
+              fontSize: compact ? 16 : 22,
+              height: 1.3,
               color: scheme.onSurfaceVariant,
             ),
           ),
         ],
         if (stateLine.isNotEmpty) ...[
-          const SizedBox(height: 8),
+          SizedBox(height: compact ? 8 : 12),
           Text(
             stateLine,
             textAlign: TextAlign.center,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
             style: TextStyle(
-              fontSize: 17,
+              fontSize: compact ? 17 : 24,
               fontWeight: FontWeight.w500,
+              height: 1.3,
               fontFeatures: const [FontFeature.tabularFigures()],
               color: stateColor,
             ),
           ),
         ],
-        const SizedBox(height: 12),
-        _Meter(level: level, live: live),
+        SizedBox(height: gap),
+        _Meter(level: level, live: live, scale: meterScale),
         if (micDenied) ...[
           const SizedBox(height: 12),
           Text(
@@ -1304,88 +1564,128 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
                     "Microphone not granted, listening only.",
                   ),
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 13, color: scheme.onSurfaceVariant),
+            style: TextStyle(
+              fontSize: compact ? 13 : 15,
+              color: scheme.onSurfaceVariant,
+            ),
           ),
         ],
       ],
     );
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
+    return Stack(
       children: [
-        // Keep the call controls visible when the details exceed the screen.
-        Flexible(child: SingleChildScrollView(child: details)),
-        const SizedBox(height: 16),
-        if (compactControls) ...[
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(child: controls.first),
-              const SizedBox(width: 12),
-              SizedBox(width: 64, child: controls.last),
-            ],
+        Positioned.fill(
+          child: Padding(
+            // The column centers in the band under the eyebrow, not in
+            // the whole screen, so the name never crowds the mark while
+            // the bottom margin sits empty.
+            padding: EdgeInsets.fromLTRB(
+              24,
+              compact ? 64 : 96,
+              24,
+              compact ? 20 : 64,
+            ),
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Flexible(child: SingleChildScrollView(child: details)),
+                  SizedBox(height: gap),
+                  Wrap(
+                    spacing: compact ? 28 : 56,
+                    runSpacing: 16,
+                    alignment: WrapAlignment.center,
+                    crossAxisAlignment: WrapCrossAlignment.start,
+                    children: controls,
+                  ),
+                  if (below.isNotEmpty) ...[
+                    SizedBox(height: compact ? 16 : 28),
+                    Wrap(
+                      spacing: compact ? 28 : 56,
+                      runSpacing: 16,
+                      alignment: WrapAlignment.center,
+                      children: below,
+                    ),
+                  ],
+                ],
+              ),
+            ),
           ),
-          const SizedBox(height: 10),
-          talkHelp,
-        ] else
-          Wrap(
-            spacing: 28,
-            runSpacing: 16,
-            alignment: WrapAlignment.center,
-            crossAxisAlignment: WrapCrossAlignment.start,
-            children: controls,
+        ),
+        Positioned(
+          top: compact ? 12 : 20,
+          left: compact ? 16 : 28,
+          child: KsEyebrow(
+            label: intercomText(context, "Intercom"),
+            trail: automated
+                ? null
+                : talkMode == 'handsfree'
+                ? intercomText(context, "Hands free")
+                : intercomText(context, "Push to talk"),
+            compact: compact,
           ),
+        ),
       ],
     );
   }
 }
 
-/// Fifteen level bars: at rest 6 px in the outline color, live they rise
-/// with the voice, each a little differently so the meter reads as sound
+/// Twelve level bars. At rest every bar is one short stub in the outline
+/// color. Live they take the text color and rise with the voice toward
+/// their own heights, the logo's four bars in the middle and shorter ones
+/// out to the sides, each a little differently so the row reads as sound
 /// rather than a gauge.
 class _Meter extends StatelessWidget {
-  const _Meter({required this.level, required this.live});
+  const _Meter({required this.level, required this.live, required this.scale});
 
   final double level;
   final bool live;
 
+  /// Pixels per logo unit: 1.8 on a tablet (the tallest bar 77 px), less
+  /// on a phone.
+  final double scale;
+
+  /// Full heights in the logo's units: its house bars are 26.6, 22, 42.6
+  /// and 22.6 tall on an 8.6 wide bar with a 4 gap.
   static const _shape = [
-    10.0,
-    18.0,
-    28.0,
-    36.0,
-    22.0,
-    30.0,
-    16.0,
-    26.0,
-    34.0,
-    20.0,
-    12.0,
-    24.0,
-    30.0,
     14.0,
-    8.0,
+    22.0,
+    17.0,
+    25.0,
+    26.6,
+    22.0,
+    42.6,
+    22.6,
+    28.0,
+    16.0,
+    23.0,
+    14.0,
   ];
+  static const _rest = 8.0;
 
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final on = live && level > 0.02;
+    final k = scale;
+    final w = 8.6 * k;
+    final rise = math.min(1.0, level * 1.6);
     return SizedBox(
-      height: 40,
+      height: 42.6 * k,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           for (var i = 0; i < _shape.length; i++) ...[
-            if (i > 0) const SizedBox(width: 5),
+            if (i > 0) SizedBox(width: 4 * k),
             AnimatedContainer(
               duration: const Duration(milliseconds: 80),
-              width: 5,
-              height: on ? 6 + (_shape[i] - 6) * math.min(1, level * 1.6) : 6,
+              width: w,
+              height: (on ? _rest + (_shape[i] - _rest) * rise : _rest) * k,
               decoration: BoxDecoration(
-                color: on ? scheme.primary : scheme.outline,
-                borderRadius: BorderRadius.circular(3),
+                color: on ? scheme.onSurface : scheme.outline,
+                borderRadius: BorderRadius.circular(w / 2),
               ),
             ),
           ],
@@ -1397,18 +1697,21 @@ class _Meter extends StatelessWidget {
 
 enum _DiscKind { plain, primary, end, dark }
 
-/// A 64 px round call button with its label beneath.
+/// A round call button with its label beneath: 96 on the tablet, 64 on
+/// a phone or a short landscape.
 class _Disc extends StatelessWidget {
   const _Disc({
     required this.icon,
     required this.label,
     required this.kind,
+    required this.compact,
     required this.onTap,
   });
 
   final IconData icon;
   final String label;
   final _DiscKind kind;
+  final bool compact;
   final VoidCallback onTap;
 
   @override
@@ -1420,8 +1723,9 @@ class _Disc extends StatelessWidget {
       _DiscKind.end => (scheme.error, scheme.onError),
       _DiscKind.dark => (scheme.onSurface, scheme.surface),
     };
+    final d = compact ? 64.0 : 96.0;
     return SizedBox(
-      width: 88,
+      width: compact ? 88 : 128,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -1432,18 +1736,18 @@ class _Disc extends StatelessWidget {
             child: InkWell(
               onTap: onTap,
               child: SizedBox(
-                width: 64,
-                height: 64,
-                child: Icon(icon, size: 27, color: fg),
+                width: d,
+                height: d,
+                child: Icon(icon, size: compact ? 27 : 40, color: fg),
               ),
             ),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: compact ? 8 : 12),
           Text(
             label,
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 13,
+              fontSize: compact ? 13 : 16,
               fontWeight: FontWeight.w500,
               color: scheme.onSurfaceVariant,
             ),
@@ -1455,17 +1759,20 @@ class _Disc extends StatelessWidget {
 }
 
 /// Push to talk: one wide pill held down for as long as the kiosk should
-/// send. Held, it fills primary with a soft ring around it.
+/// send. Held, it fills primary with a soft ring around it; the line
+/// under the name says who hears you.
 class _TalkPill extends StatelessWidget {
   const _TalkPill({
     required this.held,
     required this.width,
+    required this.compact,
     required this.onDown,
     required this.onUp,
   });
 
   final bool held;
   final double width;
+  final bool compact;
   final VoidCallback onDown;
   final VoidCallback onUp;
 
@@ -1480,7 +1787,7 @@ class _TalkPill extends StatelessWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 120),
         width: width,
-        height: 72,
+        height: compact ? 60 : 96,
         decoration: BoxDecoration(
           color: held ? scheme.primary : scheme.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(999),
@@ -1489,7 +1796,7 @@ class _TalkPill extends StatelessWidget {
               ? [
                   BoxShadow(
                     color: scheme.primary.withValues(alpha: 0.28),
-                    spreadRadius: 6,
+                    spreadRadius: compact ? 6 : 10,
                   ),
                 ]
               : null,
@@ -1497,14 +1804,14 @@ class _TalkPill extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.mic, size: 26, color: fg),
-            const SizedBox(width: 12),
+            Icon(Icons.mic, size: compact ? 26 : 32, color: fg),
+            SizedBox(width: compact ? 12 : 16),
             Flexible(
               child: Text(
                 intercomText(context, "Hold to talk"),
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: compact ? 18 : 22,
                   fontWeight: FontWeight.w600,
                   color: fg,
                 ),
@@ -1636,6 +1943,7 @@ class _AnnouncementOverlayState extends State<AnnouncementOverlay> {
                         icon: Icons.close,
                         label: intercomText(context, "Dismiss"),
                         kind: _DiscKind.plain,
+                        compact: true,
                         onTap: () => widget.container.commands.execute(
                           playing ? 'intercomHangup' : 'intercomDismiss',
                           const {},

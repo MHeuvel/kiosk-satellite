@@ -23,18 +23,18 @@ Configure it under **Settings, Intercom** on the kiosk, or the **Intercom** tab 
 
 ## Placing a call
 
-The **Intercom** entry in the kiosk menu opens the **Call a kiosk** sheet: **Announce to all** first, then the kiosks that are Ready. A tap calls. Kiosks with the intercom off, another key or offline are not listed. The settings page is where they show up with a reason.
+The **Intercom** entry in the kiosk menu opens the **Call a kiosk** screen, full screen like the app launcher: **Announce to all** at the top, then every kiosk as a row with its name and status. A tap on a Ready kiosk calls it. Kiosks with the intercom off, on Do not disturb, on another key or offline stay on the list dimmed with the reason and take no tap. The X, back or HOME closes the screen, and so does the screensaver.
 
-The card names the kiosk, says Calling and offers Cancel. Nothing plays until the other side answers. Busy, Do not disturb, no answer and a different key end the call with one line on the card.
+The call takes the whole screen: the kiosk's name, Calling and Cancel. Nothing plays until the other side answers. Busy, Do not disturb, no answer and a different key end the call with one line on the screen.
 
-The **Open Call a kiosk** [gesture action](gestures.md) opens the same sheet, and **Call a kiosk** rings one kiosk picked when the gesture was set up. **Show in the kiosk menu** on the Intercom page takes the entry out of the menu altogether, and the restricted menu has its own Intercom switch under **Kiosk Mode, Allowed Actions**, so a wall panel can keep the entry off while a gesture still opens the sheet.
+The **Open Call a kiosk** [gesture action](gestures.md) opens the same screen, and **Call a kiosk** rings one kiosk picked when the gesture was set up. **Show in the kiosk menu** on the Intercom page takes the entry out of the menu altogether, and the restricted menu has its own Intercom switch under **Kiosk Mode, Allowed Actions**, so a wall panel can keep the entry off while a gesture still opens the screen.
 
 ## A call coming in
 
 | Answer mode | What happens |
 | --- | --- |
 | Ring | The ring sound plays every four seconds with Decline and Answer on screen for as long as **Ring for** says. Then the call counts as missed and a toast offers Call back. |
-| Answer automatically | One chime, a three second countdown with Decline on screen, then the call opens on its own. The card is always on screen: nobody is listened to without the kiosk saying who is there. |
+| Answer automatically | One chime, a three second countdown with Decline on screen, then the call opens on its own. The call screen always shows: nobody is listened to without the kiosk saying who is there. |
 | Do not disturb | Nothing rings. The caller sees Do not disturb. |
 
 A kiosk in [Lockdown Mode](kiosk.md#lockdown-mode) answers as Do not disturb. A kiosk already in a call answers Busy. A call wakes a dark screen and draws over the screensaver, which picks up where it was once the call ends.
@@ -50,15 +50,15 @@ The **Ring sound** is a built-in telephone ring by default, or a file from the s
 
 Each kiosk picks its own talk mode. **Intercom volume** under Screen & Audio, beside the media and assistant volumes, is the share of the master volume the other kiosk's voice and announcements play at.
 
-During a call the kiosk holds the screensaver, the dashboard rotation and the return to home timer the way a voice turn does, ducks the music the same way and pauses wake word detection, so neither voice triggers the assistant. End on either side closes both. The card shows the call's length for ten seconds with Call again and Close.
+During a call the kiosk holds the screensaver, the dashboard rotation and the return to home timer the way a voice turn does, ducks the music the same way and pauses wake word detection, so neither voice triggers the assistant. End on either side closes both. The screen shows the call's length for ten seconds with Call again and Close.
 
 Voice is raw 16 kHz audio over one WebSocket per call, about 256 kbit/s each way on the local network, and reaches the other kiosk in roughly a quarter of a second.
 
 ## Announce to all
 
-**Announce to all** is one way: every Ready kiosk gets your voice at once, whatever its own talk mode, and nothing comes back. With push to talk you hold, speak and let go. With hands free the microphone stays open, with Mute, until Done. Kiosks on Do not disturb, with Accept announcements off or in a call are skipped and the card names who is getting it.
+**Announce to all** is one way: every Ready kiosk gets your voice at once, whatever its own talk mode, and nothing comes back. With push to talk you hold, speak and let go, and the line under the name says who hears you. With hands free the microphone stays open, with Mute, until Done. Kiosks on Do not disturb, with Accept announcements off or in a call are skipped and the screen names who is getting it.
 
-On the receiving kiosks the card says who is announcing. The ring plays once before the voice. **Reply** calls the sender back as a normal call, **Dismiss** closes the card, which also closes on its own a few seconds after the sender is done. Receivers do not hear each other: an announcement is not a group call.
+On the receiving kiosks the screen says who is announcing. The ring plays once before the voice. **Reply** calls the sender back as a normal call, **Dismiss** closes it, and it also closes on its own a few seconds after the sender is done. Receivers do not hear each other: an announcement is not a group call.
 
 **Accept announcements** under Answer, on by default, is the receiver's switch. Off, the kiosk refuses Announce to all. Spoken announcements from Home Assistant are a feature of their own under [ESPHome, Announcements](esphome.md#announcements), and need no other kiosk.
 
@@ -107,6 +107,6 @@ Both pages use the commands `intercomStatus`, `intercomKiosks`, `intercomCall {i
 ## Notes
 
 - One call at a time per kiosk. A second caller gets Busy. A broadcast reaching a kiosk in a call skips that kiosk.
-- Without the microphone permission a kiosk still takes calls and hears the other side. The card says it is listening only.
-- A dashboard that holds the microphone itself, such as Voice Satellite streaming to Home Assistant for its wake word, is asked to let go for the call and gets it back when the call ends. Voice Satellite 2026.9.7 and later do that. An older one keeps it and the call is listen only, which the card says. A page that takes the microphone during a call ends the call.
+- Without the microphone permission a kiosk still takes calls and hears the other side. The screen says it is listening only.
+- A dashboard that holds the microphone itself, such as Voice Satellite streaming to Home Assistant for its wake word, is asked to let go for the call and gets it back when the call ends. Voice Satellite 2026.9.7 and later do that. An older one keeps it and the call is listen only, which the screen says. A page that takes the microphone during a call ends the call.
 - Voice is not compressed in this version. That keeps every Android the app runs on, Android 7 included, on the same footing.

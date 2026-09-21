@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../l10n/messages.dart';
 import 'theme.dart';
@@ -1067,3 +1068,52 @@ Future<T?> showRadioPicker<T>(
     ],
   ),
 );
+
+/// The mark and a screen's name in small caps, top left of a full screen
+/// overlay (the app launcher, the intercom), with an optional word after a
+/// dot (the intercom's talk mode). The caps sit a touch below the mark's
+/// center line so they read level with the house.
+class KsEyebrow extends StatelessWidget {
+  const KsEyebrow({
+    super.key,
+    required this.label,
+    this.trail,
+    this.compact = false,
+  });
+
+  final String label;
+  final String? trail;
+  final bool compact;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final style = TextStyle(
+      fontSize: 12.5,
+      fontWeight: FontWeight.w600,
+      letterSpacing: .8,
+      color: scheme.onSurfaceVariant,
+    );
+    final size = compact ? 24.0 : 28.0;
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SvgPicture.asset('assets/branding/mark.svg', width: size, height: size),
+        const SizedBox(width: 10),
+        Padding(
+          padding: const EdgeInsets.only(top: 3),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(label.toUpperCase(), style: style),
+              if (trail != null) ...[
+                Text('  ·  ', style: style.copyWith(color: scheme.outline)),
+                Text(trail!.toUpperCase(), style: style),
+              ],
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
