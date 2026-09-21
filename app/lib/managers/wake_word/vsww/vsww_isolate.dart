@@ -544,6 +544,8 @@ class _IsolateWorker {
       if (!k.dead) k.session.release(); // dead models released at drop time
     }
     _kws.clear();
+    _extractor?.dispose();
+    _extractor = null;
     _input?.release();
     _input = null;
     _runOptions?.release();

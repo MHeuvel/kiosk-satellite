@@ -24,8 +24,11 @@
 ///    Int16List assignment reproduces C's int16 wrap for free.
 library;
 
+import 'dart:ffi' show DynamicLibrary;
 import 'dart:math' as math;
 import 'dart:typed_data';
+
+import 'native_micro_fft.dart';
 
 const int kSampleRate = 16000;
 const int kWindowSizeMs = 30;
@@ -618,9 +621,21 @@ void _kissFftr(Int16List timedata, Int16List outR, Int16List outI, FftPlan plan)
 /// Stateful: keeps the sample window, the noise estimate, and PCAN gain state
 /// across calls, exactly like the C frontend. One per audio stream.
 class MicroFrontend {
-  MicroFrontend() : _tables = sharedTables();
+  MicroFrontend({bool useNativeFft = true, DynamicLibrary? fftLibrary})
+      : _tables = sharedTables() {
+    final plan = _tables.fftPlan;
+    _nativeFft = useNativeFft && plan.nfftReal == 512
+        ? NativeMicroFft.tryCreate(plan.twCos, plan.twSin, plan.stCos, plan.stSin,
+            library: fftLibrary)
+        : null;
+  }
 
   final MicroFrontendTables _tables;
+  late final NativeMicroFft? _nativeFft;
+
+  bool get usesNativeFft => _nativeFft != null;
+
+  void dispose() => _nativeFft?.release();
 
   final Int16List _input = Int16List(kWindowSize);
   int _inputUsed = 0;
@@ -721,7 +736,12 @@ class MicroFrontend {
       _fftTime[i] = 0;
     }
 
-    _kissFftr(_fftTime, _fftOutR, _fftOutI, fftPlan);
+    final native = _nativeFft;
+    if (native == null) {
+      _kissFftr(_fftTime, _fftOutR, _fftOutI, fftPlan);
+    } else {
+      native.forward(_fftTime, _fftOutR, _fftOutI);
+    }
 
     var weightAccumulator = 0.0;
     var unweightAccumulator = 0.0;

@@ -431,6 +431,8 @@ class _MwwWorker {
       k.delegate?.delete();
     }
     _kws.clear();
+    _frontend?.dispose();
+    _frontend = null;
     _main.send({'type': WakeMsg.stopped});
   }
 }

@@ -83,6 +83,8 @@ class VswwBenchmark {
         double.parse((median(fullSamples) / 1000.0).toStringAsFixed(2));
     results['featureExtractIncrementalMs'] =
         double.parse((median(incSamples) / 1000.0).toStringAsFixed(2));
+    results['nativeFft'] = extractor.usesNativeFft;
+    extractor.dispose();
 
     // Equivalence check for the streaming loop's zero-copy tensor I/O
     // (ort_tensor_io.dart): the same features through the plugin's boxed-list

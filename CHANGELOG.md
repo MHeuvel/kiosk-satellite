@@ -2,6 +2,12 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Changed
+
+- **Wake-word listening uses less CPU on Android.** vsWakeWord and microWakeWord run their audio transforms in native code with reusable buffers. Both engines retain a Dart fallback when the native library is unavailable.
+
 ## v2026.9.67 - 2026-09-20
 
 ### Fixed

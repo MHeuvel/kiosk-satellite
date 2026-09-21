@@ -1,7 +1,9 @@
+import 'dart:ffi' show DynamicLibrary;
 import 'dart:math' as math;
 import 'dart:typed_data';
 
 import 'manifest.dart';
+import 'native_fft.dart';
 
 /// Log-mel feature extractor for `vs-wake-word-ctc-v1`, ported bit-close from
 /// Voice Satellite's `inference.js:_extractLogMel`.
@@ -21,8 +23,9 @@ import 'manifest.dart';
 /// the JS Float64 power/mel math. Window and filter coefficients are quantized
 /// to float32 first (as JS stores them) before double accumulation.
 class LogMelExtractor {
-  LogMelExtractor(this.feature)
-      : _fft = _Fft(feature.nFft),
+  LogMelExtractor(this.feature,
+      {bool useNativeFft = true, DynamicLibrary? fftLibrary})
+      : _fft = _Fft(feature.nFft, useNativeFft: useNativeFft, library: fftLibrary),
         _window = _makeHannWindow(feature.frameSamples),
         _filters = _makeMelFilterbank(feature) {
     _halfBins = feature.nFft ~/ 2 + 1; // 257 for nFft 512
@@ -41,6 +44,10 @@ class LogMelExtractor {
   late final Float64List _im = Float64List(feature.nFft);
   late final Float64List _power = Float64List(_halfBins);
   bool _primed = false;
+
+  bool get usesNativeFft => _fft._native != null;
+
+  void dispose() => _fft._native?.release();
 
   /// Extract [frames * nMels] log-mel features from a full window of
   /// [windowSamples] float samples (time order). Returns the internal feature
@@ -186,7 +193,7 @@ class _MelFilter {
 /// Minimal unnormalized radix-2 real FFT, sign exp(-2πi k/N), matching the
 /// JS `FFT` class (no 1/N scaling). Size must be a power of two.
 class _Fft {
-  _Fft(this.n)
+  _Fft(this.n, {required bool useNativeFft, DynamicLibrary? library})
       : _cos = Float64List(n),
         _sin = Float64List(n),
         _rev = Uint32List(n) {
@@ -207,15 +214,24 @@ class _Fft {
       }
       _rev[i] = r;
     }
+    _native = useNativeFft
+        ? NativeFft.tryCreate(_cos, _sin, _rev, library: library)
+        : null;
   }
 
   final int n;
   final Float64List _cos;
   final Float64List _sin;
   final Uint32List _rev;
+  late final NativeFft? _native;
 
   /// In-place forward DFT of complex arrays re/im (length n).
   void forward(Float64List re, Float64List im) {
+    final native = _native;
+    if (native != null) {
+      native.forward(re, im);
+      return;
+    }
     // bit-reversal permutation
     for (var i = 0; i < n; i++) {
       final j = _rev[i];
