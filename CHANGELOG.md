@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.9.72 - 2026-09-21
 
 ### Fixed
 - **Camera views no longer skip HLS on a slow start.** The camera page loads its HLS player separately, and on a slow open the page could start connecting before the player had finished loading, log "HLS unavailable (no MediaSource)" and move on to WebRTC and MJPEG as if the device could not play HLS at all. A Home Assistant camera whose WebRTC path delivers nothing then sat on retries for half a minute before a picture appeared. The page now waits for the player to load before deciding, and the warning names a player that did not load separately from a device with no MediaSource (#643).
