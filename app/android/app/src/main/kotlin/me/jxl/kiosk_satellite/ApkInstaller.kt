@@ -48,7 +48,7 @@ class ApkInstaller(private val context: Context, messenger: BinaryMessenger) {
     private val channel = MethodChannel(messenger, "kiosk_satellite/installer")
     private val helper = UpdateHelperClient(context)
     private val shizuku = ShizukuUpdateClient(context)
-    private val worker = Executors.newFixedThreadPool(2)
+    private val worker = Executors.newFixedThreadPool(2) { task -> Thread(task, "ks-apk-installer") }
     private val main = Handler(Looper.getMainLooper())
     private val installing = AtomicBoolean(false)
 

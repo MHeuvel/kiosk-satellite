@@ -28,3 +28,13 @@
 
 # Shizuku loads the self-update service in a process that survives replacement.
 -keep class me.jxl.kiosk_satellite.ShizukuUpdateService { *; }
+
+# The source is public, so renaming classes buys nothing, and every crash
+# report that reaches analytics arrived as `s8.h.a(r8-map-id-...:182)`: a
+# frame nobody can read without the mapping file of that exact build,
+# which the releases do not carry. Shrinking stays (unused code is still
+# dropped); only the renaming stops, and the file and line attributes stay
+# so a frame reads `CameraDiagnostics.kt:49`.
+-dontobfuscate
+-keepattributes SourceFile,LineNumberTable
+

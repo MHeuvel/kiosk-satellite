@@ -294,7 +294,14 @@ class MainActivity : FlutterActivity() {
         }
         // Last, with every bridge above in place: Dart rebinds what the
         // evicted Activity took with it (the camera session) on this.
-        BackgroundBridge.notifyActivityAttached(messenger)
+        // With what launched it: a kiosk that attaches twice a second is
+        // being relaunched by something, and the note that reports it
+        // should say by which component and intent.
+        BackgroundBridge.notifyActivityAttached(
+            messenger,
+            "${intent?.component?.shortClassName ?: "?"} action=${intent?.action ?: "?"} " +
+                "flags=0x${Integer.toHexString(intent?.flags ?: 0)} task=$taskId",
+        )
     }
 
     override fun cleanUpFlutterEngine(flutterEngine: FlutterEngine) {

@@ -1204,7 +1204,18 @@ double immichVideoBufferBytes(int bytes, double? durationSeconds) {
   return bytes * immichVideoBufferWindowSeconds / durationSeconds;
 }
 
-double immichVideoBudget(int heapMax) => heapMax * immichVideoHeapShare;
+/// Heaps this small (an Echo Show's 80 MB) carry the whole app in the
+/// other sixty percent already; with the camera, the Bluetooth proxy and
+/// the wake word on, a forty percent video ran them into GC thrash and
+/// finalizer timeouts. They get a quarter instead.
+const immichSmallHeapBytes = 96 * 1024 * 1024;
+const immichSmallHeapShare = 0.25;
+
+double immichVideoBudget(int heapMax) =>
+    heapMax *
+    (heapMax <= immichSmallHeapBytes
+        ? immichSmallHeapShare
+        : immichVideoHeapShare);
 
 /// Whether a video's buffering fits the heap budget.
 bool immichVideoFits({

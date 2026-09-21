@@ -141,9 +141,9 @@ class BackgroundListening {
   /// A kiosk Activity attached to the engine, pushed from its
   /// configureFlutterEngine: the first at start, or a replacement for one
   /// that was evicted while this isolate kept running.
-  static void Function()? _onActivityAttached;
+  static void Function(String detail)? _onActivityAttached;
 
-  static set onActivityAttached(void Function()? handler) {
+  static set onActivityAttached(void Function(String detail)? handler) {
     _onActivityAttached = handler;
     _installHandler();
   }
@@ -214,7 +214,9 @@ class BackgroundListening {
       }
       if (call.method == 'volumeChanged') _onVolumeChanged?.call();
       if (call.method == 'touchSeen') _onTouchSeen?.call();
-      if (call.method == 'activityAttached') _onActivityAttached?.call();
+      if (call.method == 'activityAttached') {
+        _onActivityAttached?.call('${call.arguments ?? ''}');
+      }
       if (call.method == 'screenStateChanged') {
         final args = (call.arguments as Map?) ?? const {};
         _onScreenStateChanged?.call(args['on'] == true);

@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicLong
 
 /** Low-volume lifecycle records. Disk access never runs on a camera or UI thread. */
 internal object CameraDiagnostics {
-    private val worker = Executors.newSingleThreadExecutor()
+    private val worker = Executors.newSingleThreadExecutor { task -> Thread(task, "ks-camera-diagnostics").apply { isDaemon = true } }
     private val main = Handler(Looper.getMainLooper())
     private val sequence = AtomicLong()
     private val run = java.lang.Long.toString(System.currentTimeMillis(), 36)

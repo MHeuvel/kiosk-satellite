@@ -39,8 +39,10 @@ void main() {
     expect(immichVideoBufferBytes(60 * mb, null), 60 * mb);
   });
 
-  test('forty percent of the heap is the budget', () {
-    expect(immichVideoBudget(80 * mb), 32 * mb);
+  test('forty percent of the heap is the budget, a quarter of a small one', () {
+    expect(immichVideoBudget(80 * mb), 20 * mb);
+    expect(immichVideoBudget(128 * mb), closeTo(51.2 * mb, 1));
+    expect(immichVideoBudget(512 * mb), closeTo(204.8 * mb, 1));
     expect(
       immichVideoFits(bytes: 14 * mb, durationSeconds: 21, heapMax: 80 * mb),
       isTrue,

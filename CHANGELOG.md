@@ -2,6 +2,13 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Changed
+- **Crash reports carry real class names.** The release build no longer renames classes and methods, so a native stack frame reads as the file and line it came from instead of a two-letter name that only the mapping file of that exact build could decode. The source is public, so the renaming protected nothing, and unused code is still stripped as before. The app's own worker threads are named too, so a crash on one says which helper it belongs to rather than a pool number.
+- **Watchdog restart notes fold repeated log lines.** A line repeating in the last seconds before a restart, such as an Activity attaching twice a second, used to fill the whole tail with itself. It now folds into one line with its count, so the lines around it survive. The attach line itself now names the component and intent that launched the Activity, and five attaches within ten seconds log an activity churn warning once a minute, since analytics showed 1 GB Echo Show 5 kiosks relaunching until the watchdog restarted them.
+- **Immich videos get a quarter of a small heap.** On a device whose Java heap is 96 MB or less, an Echo Show's 80 MB among them, the size check now allows a video to buffer a quarter of the heap rather than forty percent. With the camera, the Bluetooth proxy and the wake word on, the larger share left the heap near full and the app died in garbage collection stalls.
+
 ## v2026.9.68 - 2026-09-20
 
 ### Added

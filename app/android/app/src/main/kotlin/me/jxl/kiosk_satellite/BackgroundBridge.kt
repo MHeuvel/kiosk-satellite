@@ -94,8 +94,8 @@ class BackgroundBridge(
          *  configureFlutterEngine once every Activity-scoped bridge is
          *  registered. Dart's handler is per channel name, so a channel
          *  built here reaches it like this bridge's own. */
-        fun notifyActivityAttached(messenger: BinaryMessenger) {
-            MethodChannel(messenger, CHANNEL).invokeMethod("activityAttached", null)
+        fun notifyActivityAttached(messenger: BinaryMessenger, detail: String) {
+            MethodChannel(messenger, CHANNEL).invokeMethod("activityAttached", detail)
         }
     }
 

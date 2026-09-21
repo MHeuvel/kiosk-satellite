@@ -22,6 +22,12 @@ import 'logcat.dart';
 
 /// Device identity and status: model, OS, app version, battery.
 class DeviceManager extends Manager {
+  /// Recent Activity attaches, for the churn warning.
+  final _attaches = <DateTime>[];
+  DateTime? _churnWarnedAt;
+  static const _churnWindow = Duration(seconds: 10);
+  static const _churnCount = 5;
+
   DeviceManager(super.bus, super.commands, super.log, this._settings);
 
   final SettingsManager _settings;
@@ -317,8 +323,24 @@ class DeviceManager extends Manager {
     // Activity-scoped native bridges go with it (the camera session among
     // them) while this isolate never noticed. Managers holding such a
     // session rebind on this.
-    BackgroundListening.onActivityAttached = () {
-      log.info(name, 'activity attached');
+    BackgroundListening.onActivityAttached = (detail) {
+      log.info(name, 'activity attached${detail.isEmpty ? '' : ' ($detail)'}');
+      // Analytics showed 1 GB Echo Shows attaching a new Activity twice a
+      // second until the watchdog restarted them; the churn is named
+      // once a minute so a report says so without reading the tail.
+      final now = DateTime.now();
+      _attaches.add(now);
+      _attaches.removeWhere((t) => now.difference(t) > _churnWindow);
+      if (_attaches.length >= _churnCount &&
+          (_churnWarnedAt == null ||
+              now.difference(_churnWarnedAt!) > const Duration(minutes: 1))) {
+        _churnWarnedAt = now;
+        log.warn(
+          name,
+          'activity churn: ${_attaches.length} attaches in '
+          '${_churnWindow.inSeconds}s, something keeps relaunching the kiosk',
+        );
+      }
       bus.publish(const ActivityAttached());
     };
 

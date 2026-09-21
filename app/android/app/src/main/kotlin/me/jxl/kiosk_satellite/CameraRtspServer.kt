@@ -44,7 +44,7 @@ class CameraRtspServer(
     private val clockNs = System.nanoTime()
     private val clockMs = System.currentTimeMillis()
     private val clients = CopyOnWriteArrayList<Client>()
-    private val scheduler = Executors.newSingleThreadScheduledExecutor()
+    private val scheduler = Executors.newSingleThreadScheduledExecutor { task -> Thread(task, "ks-rtsp-scheduler").apply { isDaemon = true } }
     private var idleTask: java.util.concurrent.ScheduledFuture<*>? = null
     private val server = ServerSocket().apply {
         reuseAddress = true

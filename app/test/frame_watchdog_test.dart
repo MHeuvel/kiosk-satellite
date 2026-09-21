@@ -6,6 +6,7 @@ import 'package:kiosk_satellite/core/logging.dart';
 /// crash dashboard groups on, then the facts that separate a dead engine
 /// from a platform view that never came.
 void main() {
+  foldedTailTests();
   pacedStrikeTests();
   LogEntry entry(String tag, String message, {int second = 0}) => LogEntry(
     DateTime.utc(2026, 9, 13, 12, 0, second),
@@ -134,5 +135,36 @@ void pacedStrikeTests() {
       ),
       2,
     );
+  });
+}
+
+/// A line repeating fills a twelve-line tail with itself; folded, the tail
+/// keeps the lines around it and says how often it repeated.
+void foldedTailTests() {
+  LogEntry entry(String tag, String message, {int second = 0}) => LogEntry(
+    DateTime.utc(2026, 9, 21, 12, 0, second),
+    LogLevel.info,
+    tag,
+    message,
+  );
+  test('a repeating line folds into one entry with its count', () {
+    final note = describeWatchdogTrip(
+      seconds: 30,
+      framesDuringWait: 400,
+      rebuildRequested: true,
+      device: const {},
+      impellerDisabled: false,
+      legacyWebView: false,
+      recentLog: [
+        entry('browser', 'loaded <url>', second: 1),
+        for (var i = 2; i < 40; i++)
+          entry('device', 'activity attached (HomeAlias)', second: i),
+        entry('watchdog', 'strike 6/6: resumed with no WebView', second: 40),
+      ],
+    );
+    expect(note, contains('12:00:01 browser: loaded <url>'));
+    expect(note, contains('device: activity attached (HomeAlias) (x38)'));
+    expect(note, contains('12:00:40 watchdog: strike 6/6'));
+    expect('activity attached'.allMatches(note), hasLength(1));
   });
 }

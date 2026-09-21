@@ -267,16 +267,27 @@ String describeWatchdogTrip({
         'uptime ${uptime(device['uptime'])}',
     'recent log:',
   ];
-  final tail = [
-    for (final e in recentLog)
-      if (watchdogLogTags.contains(e.tag)) e,
-  ];
+  // A run of one line repeating (an Activity attaching twice a second
+  // pushed everything else out of a 12-line tail) folds into one entry
+  // with its count, so the tail still shows what happened around it.
+  final tail = <(LogEntry, int)>[];
+  for (final e in recentLog) {
+    if (!watchdogLogTags.contains(e.tag)) continue;
+    if (tail.isNotEmpty &&
+        tail.last.$1.tag == e.tag &&
+        tail.last.$1.message == e.message) {
+      tail[tail.length - 1] = (e, tail.last.$2 + 1);
+    } else {
+      tail.add((e, 1));
+    }
+  }
   final from = tail.length > logLines ? tail.length - logLines : 0;
-  for (final e in tail.sublist(from)) {
+  for (final (e, n) in tail.sublist(from)) {
     final t = e.time.toIso8601String().substring(11, 19);
     final msg = e.message.replaceAll('\n', ' ');
     lines.add(
-      '  $t ${e.tag}: ${msg.length > 160 ? msg.substring(0, 160) : msg}',
+      '  $t ${e.tag}: ${msg.length > 160 ? msg.substring(0, 160) : msg}'
+      '${n > 1 ? ' (x$n)' : ''}',
     );
   }
   return lines.join('\n');
