@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Added
+- **Exclude tags on the Immich Media screensaver.** A new filter next to Tags, mirroring Exclude people: any asset carrying one of the selected tags stays out of the playlist, whatever albums, people or other tags it matches. Excluding a parent tag covers its child tags too. Tag the few photos that do not belong on a shared screen and the rest of the library keeps flowing in without curation (#645).
+
 ## v2026.9.72 - 2026-09-21
 
 ### Fixed

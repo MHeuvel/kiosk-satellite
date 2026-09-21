@@ -78,6 +78,32 @@
       ]
     }
   },
+  "settingScreensaverImmichExcludeTagsTitle": "Exclude tags",
+  "@settingScreensaverImmichExcludeTagsTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "settingScreensaverImmichExcludeTagsDescription": "Skip media with any of these tags.",
+  "@settingScreensaverImmichExcludeTagsDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
   "settingScreensaverImmichFavoritesOnlyTitle": "Favorites only",
   "@settingScreensaverImmichFavoritesOnlyTitle": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
@@ -262,6 +288,32 @@
   },
   "screensaverMediaAnyDevice": "Any.",
   "@screensaverMediaAnyDevice": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaNoTagsChosen": "No tags",
+  "@screensaverMediaNoTagsChosen": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Filters",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Filters"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Filters"
+      ]
+    }
+  },
+  "screensaverMediaNoTagsChosenDevice": "No tags.",
+  "@screensaverMediaNoTagsChosenDevice": {
     "context": "Settings:Screensaver:Immich Media screensaver:Filters",
     "description": "Label or guidance in this section.",
     "x-locations": {

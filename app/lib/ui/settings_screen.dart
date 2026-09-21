@@ -10595,6 +10595,13 @@ class SettingTile extends StatelessWidget {
       none: 'No tags yet. Create them in Immich first.',
       errorTitle: 'Could not list the tags',
     ),
+    screensaverImmichExcludeTags.key: const _ImmichNamedRow(
+      def: screensaverImmichExcludeTags,
+      command: 'immichTags',
+      empty: 'No tags.',
+      none: 'No tags yet. Create them in Immich first.',
+      errorTitle: 'Could not list the tags',
+    ),
   };
 
   Future<void> _pickImmichNamed(

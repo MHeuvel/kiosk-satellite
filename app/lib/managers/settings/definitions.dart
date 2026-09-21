@@ -3002,6 +3002,18 @@ const screensaverImmichTags = SettingDef<String>(
   dependsOn: 'screensaver.immich_validated',
 );
 
+const screensaverImmichExcludeTags = SettingDef<String>(
+  key: 'screensaver.immich_exclude_tags',
+  type: SettingType.string,
+  defaultValue: '[]',
+  title: 'Exclude tags',
+  description: 'Skip media with any of these tags.',
+  category: 'Screensaver',
+  section: 'Filters',
+  subpage: 'Immich Media screensaver',
+  dependsOn: 'screensaver.immich_validated',
+);
+
 const screensaverImmichFavoritesOnly = SettingDef<bool>(
   key: 'screensaver.immich_favorites_only',
   type: SettingType.boolean,
@@ -7804,6 +7816,7 @@ const List<SettingDef<Object>> allSettings = [
   screensaverImmichPeople,
   screensaverImmichExcludePeople,
   screensaverImmichTags,
+  screensaverImmichExcludeTags,
   screensaverImmichFavoritesOnly,
   screensaverImmichTakenWithin,
   screensaverImmichTakenFrom,

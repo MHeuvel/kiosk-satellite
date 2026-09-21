@@ -76,6 +76,9 @@ bool immichFiltersActive(SettingsManager settings) =>
       settings.get(defs.screensaverImmichExcludePeople),
     ).isNotEmpty ||
     decodeImmichNamed(settings.get(defs.screensaverImmichTags)).isNotEmpty ||
+    decodeImmichNamed(
+      settings.get(defs.screensaverImmichExcludeTags),
+    ).isNotEmpty ||
     settings.get(defs.screensaverImmichFavoritesOnly) ||
     immichTakenAfter(settings) != null ||
     immichTakenBefore(settings) != null;
@@ -720,7 +723,10 @@ class ImmichManager extends Manager {
   /// by id, then put back in newest-first order since each run was sorted
   /// on its own. Excluded people cannot be asked of the server on this API,
   /// so every asset comes back with its people and the ones carrying an
-  /// excluded person are dropped here (issue #345).
+  /// excluded person are dropped here (issue #345). Excluded tags cannot be
+  /// asked of it either, and an asset's tags do not come back with a
+  /// search, so the assets carrying each excluded tag are listed first and
+  /// dropped by id (issue #645). Exclusion wins over every other filter.
   Future<List<ImmichAsset>> listAssets() async {
     final albums = _albumPicks;
     final photosOnly = _settings.get(defs.screensaverImmichPhotosOnly);
@@ -738,9 +744,18 @@ class ImmichManager extends Manager {
         p.id,
     };
     final tags = decodeImmichNamed(_settings.get(defs.screensaverImmichTags));
+    final excludedTags = decodeImmichNamed(
+      _settings.get(defs.screensaverImmichExcludeTags),
+    );
     final favorite = _settings.get(defs.screensaverImmichFavoritesOnly);
     final takenAfter = immichTakenAfter(_settings);
     final takenBefore = immichTakenBefore(_settings);
+    final hiddenByTag = await _assetsTagged(
+      excludedTags,
+      favorite: favorite,
+      takenAfter: takenAfter,
+      takenBefore: takenBefore,
+    );
     final albumIds = albums.isEmpty
         ? <String?>[null]
         : <String?>[for (final a in albums) a.id];
@@ -773,6 +788,7 @@ class ImmichManager extends Manager {
             for (final item in (result['items'] as List).cast<Map>()) {
               final id = item['id'] as String;
               if (created.containsKey(id)) continue;
+              if (hiddenByTag.contains(id)) continue;
               final isVideo = item['type'] == 'VIDEO';
               if (photosOnly && isVideo) continue;
               if (excluded.isNotEmpty &&
@@ -807,6 +823,55 @@ class ImmichManager extends Manager {
     }
     return assets;
   }
+
+  /// The ids of every asset carrying any of [tags]: one search per tag,
+  /// which Immich answers for the tag and its children alike, so excluding
+  /// a parent tag covers the whole branch. The searches take the same
+  /// favorite and date window as the playlist's own, since an asset outside
+  /// it is never shown anyway. The album, people and tag picks are OR-ed
+  /// combinations that cannot narrow a single search, and exclusion has to
+  /// win over all of them regardless.
+  Future<Set<String>> _assetsTagged(
+    List<ImmichNamed> tags, {
+    required bool favorite,
+    DateTime? takenAfter,
+    DateTime? takenBefore,
+  }) async {
+    final ids = <String>{};
+    for (final tag in tags) {
+      var page = 1;
+      for (var pages = 0; pages < _maxExcludedPages; pages++) {
+        final result = await _search(
+          page: page,
+          size: 500,
+          tagId: tag.id,
+          favorite: favorite,
+          takenAfter: takenAfter,
+          takenBefore: takenBefore,
+        );
+        for (final item in (result['items'] as List).cast<Map>()) {
+          ids.add(item['id'] as String);
+        }
+        final next = result['nextPage'];
+        if (next == null) break;
+        page = next is num ? next.toInt() : int.tryParse('$next') ?? page + 1;
+        if (pages == _maxExcludedPages - 1) {
+          log.warn(
+            name,
+            'excluded tag "${tag.name}" has more assets than the '
+            '${_maxExcludedPages * 500} the exclusion reads, so the rest '
+            'may still show',
+          );
+        }
+      }
+    }
+    return ids;
+  }
+
+  /// Pages of five hundred an excluded tag's listing stops after. That is
+  /// the playlist's own ceiling, and a tag meant to hide a few unsuitable
+  /// photos never comes close.
+  static const _maxExcludedPages = 20;
 
   /// Whether an asset's `people` list (present with `withPeople`) names
   /// anyone in [ids].

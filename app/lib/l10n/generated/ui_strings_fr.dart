@@ -9047,6 +9047,14 @@ class UiStringsFr extends UiStrings {
       'Afficher uniquement les médias portant l\'une de ces étiquettes.';
 
   @override
+  String get settingScreensaverImmichExcludeTagsTitle =>
+      'Exclure des étiquettes';
+
+  @override
+  String get settingScreensaverImmichExcludeTagsDescription =>
+      'Ignorer les médias portant l\'une de ces étiquettes.';
+
+  @override
   String get settingScreensaverImmichFavoritesOnlyTitle => 'Favoris uniquement';
 
   @override
@@ -9095,6 +9103,12 @@ class UiStringsFr extends UiStrings {
 
   @override
   String get screensaverMediaAnyDevice => 'N\'importe laquelle.';
+
+  @override
+  String get screensaverMediaNoTagsChosen => 'Aucune étiquette';
+
+  @override
+  String get screensaverMediaNoTagsChosenDevice => 'Aucune étiquette.';
 
   @override
   String get screensaverMediaNoPeople =>

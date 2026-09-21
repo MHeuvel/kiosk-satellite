@@ -31,6 +31,7 @@ The settings page is organized into five main sections: Server Connection, Media
 | Filters | People | Anyone | Filter by specific recognized individuals. |
 | Filters | Exclude people | No one | Exclude media containing specific individuals. |
 | Filters | Tags | Any | Filter by specific Immich tags. |
+| Filters | Exclude tags | No tags | Exclude media carrying specific Immich tags. |
 | Filters | Favorites only | off | Limits the slideshow to photos marked as favorites in Immich. |
 | Filters | Taken within | Any time | Restricts photos based on a rolling or pinned timeframe. |
 | Filters | From | Any time | Defines the starting date for Since or Timeframe filters. |
@@ -45,6 +46,7 @@ A full phone backup often contains receipts, documents, and screenshots alongsid
 * **People:** Displays media containing any of the selected individuals. Tap the row to select recognized people from your Immich library. Be sure to name your recognized face clusters in Immich first, as unnamed clusters will not appear in the picker. Individuals you have hidden in Immich will appear marked as **Hidden** with a struck out eye icon. Hiding someone in Immich only removes them from Immich's internal views, so both filters still work as expected.
 * **Exclude people:** Automatically skips any media containing the specified people, regardless of who else is in the shot. Because Immich cannot perform this check directly, the kiosk requests person data for each asset and filters out matches locally.
 * **Tags:** Limits media to assets tagged with specific keywords using full path names (e.g., `Family/Kids`).
+* **Exclude tags:** Skips any media carrying one of the selected tags, no matter which albums, people or other tags it matches. Tag the handful of photos that do not belong on a shared screen (a `kiosk-hide` tag, say) and leave the rest of the library alone, so new uploads show up without any curation step. Immich tags are hierarchical, and excluding a parent tag also excludes everything under it. The search API cannot exclude by tag, so the kiosk lists the assets behind each excluded tag first and drops them from the playlist locally.
 * **Favorites only:** Restricts playback to items you have starred or favorited in Immich. This is often the easiest way to curate a display list.
 * **Taken within:** Filters photos outside a specific time window. Rolling options include the past month, 3 months, 1 year, 2 years, 5 years, or 10 years, moving along automatically with the calendar. Selecting **Since** or **Timeframe** pins a fixed window instead. **Since** reveals a **From** date to display everything taken from that point forward. **Timeframe** reveals both **From** and **To** dates, displaying photos taken between those dates inclusive. You can select dates directly from the calendar picker or tap the month header to jump straight to a year. Tapping **Clear** in the picker leaves an end open, while choosing **Any time** removes the filter entirely. Fixed date ranges work best for events like weddings or births where you want a consistent starting point.
 

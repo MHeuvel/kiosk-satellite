@@ -306,6 +306,68 @@ void main() {
     expect(searches.single.keys, isNot(contains('personIds')));
   });
 
+  test('excluded tags are listed first and dropped from the answer', () async {
+    await settings.set(
+      defs.screensaverImmichExcludeTags,
+      jsonEncode([
+        {'id': 't2', 'name': 'Family/Kids'},
+      ]),
+    );
+    expect(ids(await immich.listAssets()), ['a', 'b', 'd']);
+    // The API cannot exclude by tag and a search does not say which tags
+    // an asset carries: one search lists the tag's assets, then the plain
+    // playlist search runs and those ids are dropped from it.
+    expect(searches, hasLength(2));
+    expect(searches.first['tagIds'], ['t2']);
+    expect(searches.last.keys, isNot(contains('tagIds')));
+    expect(immichFiltersActive(settings), isTrue);
+  });
+
+  test('an excluded tag wins over the album, people and tag picks', () async {
+    // c is in alb1, shows Alice and carries t2: every include matches it.
+    await settings.set(
+      defs.screensaverImmichAlbum,
+      jsonEncode([
+        {'id': 'alb1', 'name': 'One'},
+      ]),
+    );
+    await settings.set(
+      defs.screensaverImmichPeople,
+      jsonEncode([
+        {'id': 'alice', 'name': 'Alice'},
+      ]),
+    );
+    await settings.set(
+      defs.screensaverImmichTags,
+      jsonEncode([
+        {'id': 't1', 'name': 'Family'},
+        {'id': 't2', 'name': 'Family/Kids'},
+      ]),
+    );
+    await settings.set(
+      defs.screensaverImmichExcludeTags,
+      jsonEncode([
+        {'id': 't2', 'name': 'Family/Kids'},
+      ]),
+    );
+    expect(ids(await immich.listAssets()), ['a']);
+  });
+
+  test('the excluded tag listing takes the playlist\'s own window', () async {
+    await settings.set(defs.screensaverImmichFavoritesOnly, true);
+    await settings.set(
+      defs.screensaverImmichExcludeTags,
+      jsonEncode([
+        {'id': 't1', 'name': 'Family'},
+      ]),
+    );
+    expect(ids(await immich.listAssets()), ['d']);
+    // Favorites only and the dates narrow every search the same way, so an
+    // excluded tag's listing does not page through years the frame never
+    // shows.
+    expect(searches.map((s) => s['isFavorite']), [true, true]);
+  });
+
   test('tags combine with people, still any of each', () async {
     await settings.set(
       defs.screensaverImmichPeople,
@@ -469,9 +531,9 @@ void main() {
       expect(to.dependsSatisfiedBy(defs.immichTakenRange), isTrue);
       expect(to.dependsSatisfiedBy(defs.immichTakenSince), isFalse);
       // The remote admin renders from this, and must gate on the same list.
-      final described = settings
-          .describe()
-          .firstWhere((d) => d['key'] == from.key);
+      final described = settings.describe().firstWhere(
+        (d) => d['key'] == from.key,
+      );
       expect(described['dependsOn'], defs.screensaverImmichTakenWithin.key);
       expect(described['dependsOnValue'], [
         defs.immichTakenSince,

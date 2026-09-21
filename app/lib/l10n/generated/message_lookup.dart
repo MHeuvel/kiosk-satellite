@@ -2802,6 +2802,10 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingScreensaverImmichTagsTitle,
       'settingScreensaverImmichTagsDescription' =>
         strings.settingScreensaverImmichTagsDescription,
+      'settingScreensaverImmichExcludeTagsTitle' =>
+        strings.settingScreensaverImmichExcludeTagsTitle,
+      'settingScreensaverImmichExcludeTagsDescription' =>
+        strings.settingScreensaverImmichExcludeTagsDescription,
       'settingScreensaverImmichFavoritesOnlyTitle' =>
         strings.settingScreensaverImmichFavoritesOnlyTitle,
       'settingScreensaverImmichFavoritesOnlyDescription' =>
@@ -2825,6 +2829,9 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'screensaverMediaNoOneDevice' => strings.screensaverMediaNoOneDevice,
       'screensaverMediaAny' => strings.screensaverMediaAny,
       'screensaverMediaAnyDevice' => strings.screensaverMediaAnyDevice,
+      'screensaverMediaNoTagsChosen' => strings.screensaverMediaNoTagsChosen,
+      'screensaverMediaNoTagsChosenDevice' =>
+        strings.screensaverMediaNoTagsChosenDevice,
       'screensaverMediaNoPeople' => strings.screensaverMediaNoPeople,
       'screensaverMediaNoTags' => strings.screensaverMediaNoTags,
       'screensaverMediaPeopleFailed' => strings.screensaverMediaPeopleFailed,

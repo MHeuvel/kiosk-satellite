@@ -50,6 +50,10 @@ const IMMICH_NAMED_ROWS = {
     command: 'immichTags', empty: 'Any',
     none: 'No tags yet. Create them in Immich first.',
   },
+  'screensaver.immich_exclude_tags': {
+    command: 'immichTags', empty: 'No tags',
+    none: 'No tags yet. Create them in Immich first.',
+  },
 };
 
 // Bring the rows gated on `key` (dependsOn, transitively) in or out of the

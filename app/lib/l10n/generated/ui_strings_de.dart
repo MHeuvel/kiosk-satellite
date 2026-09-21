@@ -9095,6 +9095,13 @@ class UiStringsDe extends UiStrings {
       'Zeigt nur Inhalte mit mindestens einem dieser Tags an.';
 
   @override
+  String get settingScreensaverImmichExcludeTagsTitle => 'Tags ausschließen';
+
+  @override
+  String get settingScreensaverImmichExcludeTagsDescription =>
+      'Überspringt Inhalte mit mindestens einem dieser Tags.';
+
+  @override
   String get settingScreensaverImmichFavoritesOnlyTitle => 'Nur Favoriten';
 
   @override
@@ -9142,6 +9149,12 @@ class UiStringsDe extends UiStrings {
 
   @override
   String get screensaverMediaAnyDevice => 'Beliebig.';
+
+  @override
+  String get screensaverMediaNoTagsChosen => 'Keine Tags';
+
+  @override
+  String get screensaverMediaNoTagsChosenDevice => 'Keine Tags.';
 
   @override
   String get screensaverMediaNoPeople =>

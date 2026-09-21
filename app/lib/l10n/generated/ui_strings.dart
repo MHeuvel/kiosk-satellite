@@ -15417,6 +15417,18 @@ abstract class UiStrings {
   /// Setting label.
   ///
   /// In en, this message translates to:
+  /// **'Exclude tags'**
+  String get settingScreensaverImmichExcludeTagsTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip media with any of these tags.'**
+  String get settingScreensaverImmichExcludeTagsDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
   /// **'Favorites only'**
   String get settingScreensaverImmichFavoritesOnlyTitle;
 
@@ -15503,6 +15515,18 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Any.'**
   String get screensaverMediaAnyDevice;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No tags'**
+  String get screensaverMediaNoTagsChosen;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'No tags.'**
+  String get screensaverMediaNoTagsChosenDevice;
 
   /// Label or guidance in this section.
   ///

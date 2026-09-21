@@ -8870,6 +8870,13 @@ class UiStringsEn extends UiStrings {
       'Show only media with any of these tags.';
 
   @override
+  String get settingScreensaverImmichExcludeTagsTitle => 'Exclude tags';
+
+  @override
+  String get settingScreensaverImmichExcludeTagsDescription =>
+      'Skip media with any of these tags.';
+
+  @override
   String get settingScreensaverImmichFavoritesOnlyTitle => 'Favorites only';
 
   @override
@@ -8917,6 +8924,12 @@ class UiStringsEn extends UiStrings {
 
   @override
   String get screensaverMediaAnyDevice => 'Any.';
+
+  @override
+  String get screensaverMediaNoTagsChosen => 'No tags';
+
+  @override
+  String get screensaverMediaNoTagsChosenDevice => 'No tags.';
 
   @override
   String get screensaverMediaNoPeople =>

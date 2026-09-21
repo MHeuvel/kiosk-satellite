@@ -9052,6 +9052,13 @@ class UiStringsEs extends UiStrings {
       'Muestra solo contenido con alguna de estas etiquetas.';
 
   @override
+  String get settingScreensaverImmichExcludeTagsTitle => 'Excluir etiquetas';
+
+  @override
+  String get settingScreensaverImmichExcludeTagsDescription =>
+      'Omite el contenido que tenga alguna de estas etiquetas.';
+
+  @override
   String get settingScreensaverImmichFavoritesOnlyTitle => 'Solo favoritos';
 
   @override
@@ -9099,6 +9106,12 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get screensaverMediaAnyDevice => 'Cualquiera.';
+
+  @override
+  String get screensaverMediaNoTagsChosen => 'Ninguna etiqueta';
+
+  @override
+  String get screensaverMediaNoTagsChosenDevice => 'Ninguna etiqueta.';
 
   @override
   String get screensaverMediaNoPeople =>

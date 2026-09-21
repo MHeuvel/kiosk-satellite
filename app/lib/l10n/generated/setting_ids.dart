@@ -616,6 +616,10 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingScreensaverImmichTagsTitle",
     "description": "settingScreensaverImmichTagsDescription",
   },
+  "screensaver.immich_exclude_tags": {
+    "title": "settingScreensaverImmichExcludeTagsTitle",
+    "description": "settingScreensaverImmichExcludeTagsDescription",
+  },
   "screensaver.immich_favorites_only": {
     "title": "settingScreensaverImmichFavoritesOnlyTitle",
     "description": "settingScreensaverImmichFavoritesOnlyDescription",
