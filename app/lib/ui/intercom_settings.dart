@@ -1000,10 +1000,7 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
                 clipBehavior: Clip.antiAlias,
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(28, 28, 28, 24),
-                  child: LayoutBuilder(
-                    builder: (context, constraints) =>
-                        _card(context, constraints.maxWidth < 400),
-                  ),
+                  child: LayoutBuilder(builder: _card),
                 ),
               ),
             ),
@@ -1013,7 +1010,7 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
     );
   }
 
-  Widget _card(BuildContext context, bool tight) {
+  Widget _card(BuildContext context, BoxConstraints constraints) {
     final scheme = Theme.of(context).colorScheme;
     final state = _state;
     final call = _call;
@@ -1095,7 +1092,22 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
         (_status['micGranted'] == false || micBusy) &&
         (state == 'in_call' || state == 'broadcasting');
 
-    final pillWidth = tight ? 240.0 : 320.0;
+    final pushToTalk =
+        !automated &&
+        talkMode == 'ptt' &&
+        (state == 'in_call' || state == 'broadcasting');
+    final compactControls = pushToTalk && constraints.maxHeight < 480;
+    final width = constraints.maxWidth;
+    final pillWidth = math.min(width, width < 400 ? 240.0 : 320.0);
+    final talkHelp = Text(
+      _held
+          ? (state == 'broadcasting'
+                ? l10n(context).intercomAllHearYou
+                : l10n(context).intercomHearsYou(peerName))
+          : intercomText(context, "Hold to talk, let go to listen"),
+      textAlign: TextAlign.center,
+      style: TextStyle(fontSize: 13, color: scheme.onSurfaceVariant),
+    );
     final controls = <Widget>[];
     switch (state) {
       case 'calling':
@@ -1136,30 +1148,19 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
           break;
         }
         if (talkMode == 'ptt') {
+          final pill = _TalkPill(
+            held: _held,
+            width: pillWidth,
+            onDown: () => _talk(true),
+            onUp: () => _talk(false),
+          );
           controls.add(
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _TalkPill(
-                  held: _held,
-                  width: pillWidth,
-                  onDown: () => _talk(true),
-                  onUp: () => _talk(false),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  _held
-                      ? (state == 'broadcasting'
-                            ? l10n(context).intercomAllHearYou
-                            : l10n(context).intercomHearsYou(peerName))
-                      : intercomText(context, "Hold to talk, let go to listen"),
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: scheme.onSurfaceVariant,
+            compactControls
+                ? pill
+                : Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [pill, const SizedBox(height: 10), talkHelp],
                   ),
-                ),
-              ],
-            ),
           );
         } else {
           final muted = call['muted'] == true;
@@ -1226,7 +1227,7 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
         );
     }
 
-    return Column(
+    final details = Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         if (broadcast) ...[
@@ -1235,13 +1236,16 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
             children: [
               Icon(Icons.campaign_outlined, size: 16, color: scheme.primary),
               const SizedBox(width: 8),
-              Text(
-                intercomText(context, "Announcement").toUpperCase(),
-                style: TextStyle(
-                  fontSize: 12.5,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: .8,
-                  color: scheme.primary,
+              Flexible(
+                child: Text(
+                  intercomText(context, "Announcement").toUpperCase(),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: .8,
+                    color: scheme.primary,
+                  ),
                 ),
               ),
             ],
@@ -1287,14 +1291,6 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
         ],
         const SizedBox(height: 12),
         _Meter(level: level, live: live),
-        const SizedBox(height: 16),
-        Wrap(
-          spacing: 28,
-          runSpacing: 16,
-          alignment: WrapAlignment.center,
-          crossAxisAlignment: WrapCrossAlignment.start,
-          children: controls,
-        ),
         if (micDenied) ...[
           const SizedBox(height: 12),
           Text(
@@ -1311,6 +1307,34 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
             style: TextStyle(fontSize: 13, color: scheme.onSurfaceVariant),
           ),
         ],
+      ],
+    );
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        // Keep the call controls visible when the details exceed the screen.
+        Flexible(child: SingleChildScrollView(child: details)),
+        const SizedBox(height: 16),
+        if (compactControls) ...[
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(child: controls.first),
+              const SizedBox(width: 12),
+              SizedBox(width: 64, child: controls.last),
+            ],
+          ),
+          const SizedBox(height: 10),
+          talkHelp,
+        ] else
+          Wrap(
+            spacing: 28,
+            runSpacing: 16,
+            alignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.start,
+            children: controls,
+          ),
       ],
     );
   }

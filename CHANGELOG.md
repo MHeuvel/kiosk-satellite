@@ -4,6 +4,10 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ## Unreleased
 
+### Fixed
+
+- **Push-to-talk call controls fit when vertical space is limited.** The end or done button moves to the right of the talk button to leave more room for call details. Taller screens keep the existing layout (#636).
+
 ### Changed
 
 - **Wake-word listening uses less CPU on Android.** vsWakeWord and microWakeWord run their audio transforms in native code with reusable buffers. Both engines retain a Dart fallback when the native library is unavailable.
