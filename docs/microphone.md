@@ -64,6 +64,8 @@ The app consumes 16 kHz mono audio and by default asks Android for exactly that,
 
 Capture therefore walks a short ladder of formats: 16 kHz mono, then 48 kHz stereo, then 48 kHz mono. It steps to the next one when an open is refused, when the capture reads nothing but zeros or errors for two seconds, or when the delivered frame rate does not match the rate it was opened at. That last check is what catches a format lie: a capture opened at 16 kHz mono that is really fed 48 kHz stereo arrives six times too fast, and an old HAL that hands over mono under a stereo label arrives at half speed with the pitch doubled. Each step is logged with the rate it delivers, so the log says which format the device ended on and why.
 
+Silence alone proves little, since some microphones hand over exact zeros whenever the room is quiet. A format that has delivered audio is trusted and is only questioned after thirty seconds of silence. When every format on the ladder reads silence, capture returns to the one that delivered audio earlier, or to the first one when none did, and waits a minute before trying the ladder again, doubling that wait up to ten minutes. A microphone that really stopped is retried within minutes, while one that is merely quiet is not reopened every two seconds.
+
 * **Automatic** (Default): Starts at 16 kHz mono. Most devices never leave it.
 * **48 kHz stereo**: Starts at 48 kHz stereo, the sound card's own format, and keeps 16 kHz mono as the last resort. Pick this when the microphone works in other apps but the wake word tester shows nothing, or a level that never becomes a detection.
 

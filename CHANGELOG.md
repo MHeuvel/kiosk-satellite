@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Fixed
+- **Quiet microphones no longer end up on the wrong capture format.** Some microphones hand over exact zeros whenever the room is quiet, and two seconds of that used to walk capture down the format ladder and leave it on 48 kHz mono for good, where voice stopped working on Lenovo M10 tablets. A format that has delivered audio is now trusted through thirty seconds of silence, and when every format reads silence capture returns to the one that worked, retrying the ladder after a wait that doubles up to ten minutes instead of logging a warning every two seconds (#638).
+
 ## v2026.9.69 - 2026-09-21
 
 ### Changed

@@ -67,10 +67,13 @@ import kotlin.math.max
  * open, reads nothing but errors or delivers the card's frames misread as
  * 16 kHz mono. Capture therefore walks a ladder of shapes ([captureLadder])
  * and steps down it when an open is refused, when reads return only errors
- * or zeros for two seconds, or when the delivered frame rate does not match
- * the rate opened (the format under the label is not the one asked for).
- * Anything but 16 kHz mono is converted here ([CaptureConvert]). A `format`
- * argument of "hardware" starts the ladder at the card's 48 kHz stereo.
+ * or zeros, or when the delivered frame rate does not match the rate opened
+ * (the format under the label is not the one asked for). Silence is weak
+ * evidence, so [CaptureWalk] decides how much of it a rung gets, where
+ * capture lands when the whole ladder has been tried and when it may walk
+ * again. Anything but 16 kHz mono is converted here ([CaptureConvert]). A
+ * `format` argument of "hardware" starts the ladder at the card's 48 kHz
+ * stereo.
  */
 class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.StreamHandler {
     companion object {
@@ -88,11 +91,13 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
          * a capture stuck on all-zero frames or read errors (a wedged
          * AudioRecord after an audioserver death, a ROM whose direct 16 kHz
          * record path is broken, a HAL that could not open the card at
-         * 16 kHz mono) cannot be fixed in place, so it is reopened once at
-         * this format - the mismatch against a 16 kHz device forces
+         * 16 kHz mono) cannot be fixed in place, so it is reopened at this
+         * format - the mismatch against a 16 kHz device forces
          * AudioFlinger's record converter path and a fresh server-side
          * track, and a 48 kHz card gets the format it wanted - and
-         * converted back to 16 kHz mono here.
+         * converted back to 16 kHz mono here. Echo cancellation can
+         * produce exact silence, so communication playback and its
+         * settling time are excluded from the silence watchdog.
          */
         private const val HARDWARE_RATE = 48000
         private const val HARDWARE_CHANNELS = 2
@@ -113,13 +118,6 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         private const val RATE_BLOCKED_READ_NS = 20_000_000L
         private const val RATE_WINDOW_AFTER_READS = 8
 
-        /**
-         * How much all-zero audio after open before concluding the capture
-         * is broken (2 s at 16 kHz). Echo cancellation can produce exact
-         * silence, so communication playback and its settling time are
-         * excluded from this watchdog.
-         */
-        private const val SILENT_FALLBACK_BYTES = 2L * SAMPLE_RATE * 2
     }
 
     private val appContext = context.applicationContext
@@ -215,13 +213,16 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         val channelIdx = wantChannel - 1
         worker = thread(name = "vsww-mic") {
             var cur = opened
-            var shape = ladder[step]
+            val walk = CaptureWalk(ladder.size, step)
+            var shape = ladder[walk.step]
             var decimator = if (shape.rateHz == HARDWARE_RATE) CaptureConvert.Decimator3() else null
             var announcedAudio = false
             // Rolling, not since-open: a capture can emit a startup
             // transient before going silent, so any single nonzero frame
-            // must not disarm the watchdog for good.
+            // must not disarm the watchdog for good. Both runs count 16 kHz
+            // mono bytes whatever the shape.
             var zeroRun = 0L
+            var errorRun = 0L
             // Delivered-rate check, once per open: frames read against the
             // wall clock. The window opens at the first read that blocked
             // (the backlog since startRecording has drained) or after a
@@ -234,30 +235,13 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
             var rateChecked = false
             var buf = ByteArray(shape.chunkBytes)
 
-            // The next rung of the ladder that opens, or nothing when it is
-            // exhausted: the capture in hand then stays, whatever it is.
-            fun advance(why: String) {
-                if (!frames.isOpen) return
-                var next: AudioRecord? = null
-                while (frames.isOpen && next == null && step + 1 < ladder.size) {
-                    step++
-                    next = try {
-                        openRecord(source, ladder[step], indexed)
-                    } catch (_: SecurityException) {
-                        null
-                    }
-                    if (next == null) Log.w(TAG, "$why; ${ladder[step]} refused")
-                }
-                if (!frames.isOpen) {
-                    next?.release()
-                    return
-                }
-                if (next == null) {
-                    Log.w(TAG, "$why and no other capture format is left; keeping $shape")
-                    rateChecked = true
-                    return
-                }
-                Log.w(TAG, "$why - reopening at ${ladder[step]}")
+            fun tryOpen(rung: Int): AudioRecord? = try {
+                openRecord(source, ladder[rung], indexed)
+            } catch (_: SecurityException) {
+                null
+            }
+
+            fun swapTo(next: AudioRecord, rung: Int) {
                 aec?.release()
                 ns?.release()
                 agc?.release()
@@ -271,15 +255,62 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
                 next.startRecording()
                 cur = next
                 record = next
-                shape = ladder[step]
+                walk.opened(rung)
+                shape = ladder[rung]
                 decimator = if (shape.rateHz == HARDWARE_RATE) CaptureConvert.Decimator3() else null
                 zeroRun = 0
+                errorRun = 0
                 windowNs = 0
                 framesRead = 0
                 reads = 0
                 rateChecked = false
                 announcedAudio = false
                 buf = ByteArray(shape.chunkBytes)
+            }
+
+            // The next rung of the ladder that opens. When the ladder is
+            // exhausted, back to the rung that delivered audio (the first
+            // rung when none did), with the next walk held off by the
+            // backoff. False when no walk is allowed yet: the capture in
+            // hand stays, whatever it is.
+            fun advance(why: String): Boolean {
+                if (!frames.isOpen) return false
+                val now = System.nanoTime()
+                if (!walk.mayWalk(now)) return false
+                var next: AudioRecord? = null
+                var rung = walk.step
+                while (frames.isOpen && next == null && rung + 1 < ladder.size) {
+                    rung++
+                    next = tryOpen(rung)
+                    if (next == null) Log.w(TAG, "$why; ${ladder[rung]} refused")
+                }
+                if (!frames.isOpen) {
+                    next?.release()
+                    return false
+                }
+                if (next == null) {
+                    rung = walk.exhausted(now)
+                    val wait = "next check in ${walk.waitSeconds}s"
+                    next = tryOpen(rung)
+                    if (next == null) {
+                        Log.w(TAG, "$why and no other capture format is left; keeping $shape, $wait")
+                        return true
+                    }
+                    Log.w(
+                        TAG,
+                        "$why and no other capture format is left; back to ${ladder[rung]}" +
+                            (if (walk.audibleStep == rung) ", which delivered audio earlier" else "") +
+                            ", $wait",
+                    )
+                } else {
+                    Log.w(TAG, "$why - reopening at ${ladder[rung]}")
+                }
+                if (!frames.isOpen) {
+                    next.release()
+                    return false
+                }
+                swapTo(next, rung)
+                return true
             }
 
             while (frames.isOpen) {
@@ -293,13 +324,14 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
                     // let the watchdog treat the wait as silence.
                     if (!frames.isOpen) break
                     Thread.sleep(20)
-                    zeroRun += SAMPLE_RATE * 2 / 50
-                    if (zeroRun >= SILENT_FALLBACK_BYTES) {
-                        zeroRun = 0
+                    errorRun += SAMPLE_RATE * 2 / 50
+                    if (errorRun >= CaptureWalk.FRESH_ZERO_BYTES) {
+                        errorRun = 0
                         advance("capture read only errors for 2s ($read)")
                     }
                     continue
                 }
+                errorRun = 0
                 if (windowNs == 0L) {
                     reads++
                     val blocked = System.nanoTime() - readStartNs >= RATE_BLOCKED_READ_NS
@@ -314,10 +346,9 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
                         val ratio = framesRead * 1e9 / elapsedNs / shape.rateHz
                         Log.i(TAG, "capture delivers ${(ratio * 100).toInt()}% of ${shape.rateHz} Hz")
                         if (ratio < RATE_RATIO_MIN || ratio > RATE_RATIO_MAX) {
-                            advance(
-                                "capture delivers ${(ratio * 100).toInt()}% of the " +
-                                    "${shape.rateHz} Hz it was opened at (wrong format under the label)",
-                            )
+                            val why = "capture delivers ${(ratio * 100).toInt()}% of the " +
+                                "${shape.rateHz} Hz it was opened at (wrong format under the label)"
+                            if (!advance(why)) Log.w(TAG, "$why; keeping $shape until the next check")
                             continue
                         }
                     }
@@ -334,16 +365,22 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
                 val silent = allZero(mono ?: buf, monoLen)
                 if (silent && !CommunicationPlayback.maySuppressCapture()) {
                     zeroRun += monoLen * SAMPLE_RATE / shape.rateHz
-                    if (zeroRun >= SILENT_FALLBACK_BYTES) {
+                    val limit = walk.zeroLimitBytes
+                    if (zeroRun >= limit) {
                         zeroRun = 0
-                        advance("capture read only zeros for 2s")
+                        // Held off (a trusted rung in a quiet room inside
+                        // the backoff): nothing to say, silence is not news.
+                        advance("capture read only zeros for ${limit / (SAMPLE_RATE * 2)}s")
                         continue
                     }
                 } else {
                     zeroRun = 0
-                    if (!silent && step > 0 && !announcedAudio) {
-                        announcedAudio = true
-                        Log.i(TAG, "$shape capture is delivering audio")
+                    if (!silent) {
+                        walk.audible()
+                        if (walk.step > 0 && !announcedAudio) {
+                            announcedAudio = true
+                            Log.i(TAG, "$shape capture is delivering audio")
+                        }
                     }
                 }
                 val chunk = when {
