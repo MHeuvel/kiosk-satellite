@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.9.69 - 2026-09-21
 
 ### Changed
 - **Crash reports carry real class names.** The release build no longer renames classes and methods, so a native stack frame reads as the file and line it came from instead of a two-letter name that only the mapping file of that exact build could decode. The source is public, so the renaming protected nothing, and unused code is still stripped as before. The app's own worker threads are named too, so a crash on one says which helper it belongs to rather than a pool number.
