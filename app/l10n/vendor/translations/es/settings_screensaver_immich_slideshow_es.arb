@@ -10,6 +10,8 @@
   "settingScreensaverImmichFillDescription": "Desactivado mantiene la foto completa entre franjas negras. Inteligente amplía las fotos de proporciones similares a la pantalla y muestra las demás sobre un fondo desenfocado. Siempre amplía todas las fotos y recorta lo que no cabe.",
   "settingScreensaverImmichPairPortraitTitle": "Combinar fotos verticales",
   "settingScreensaverImmichPairPortraitDescription": "Muestra dos fotos verticales una junto a la otra para llenar la pantalla.",
+  "settingScreensaverImmichPairLandscapeTitle": "Combinar fotos horizontales",
+  "settingScreensaverImmichPairLandscapeDescription": "Muestra dos fotos horizontales una sobre la otra para llenar una pantalla vertical.",
   "settingScreensaverImmichEdgeTapsTitle": "Tocar los bordes para cambiar de imagen",
   "settingScreensaverImmichEdgeTapsDescription": "Tocar el quinto izquierdo o derecho de la pantalla muestra la imagen anterior o siguiente en lugar de cerrar el protector de pantalla.",
   "screensaverMediaSlideshow": "Presentación"

@@ -27,15 +27,15 @@ import '../managers/home_assistant/home_assistant_manager.dart'
 import '../managers/screensaver/immich_manager.dart'
     show
         ImmichAsset,
+        ImmichPairing,
         arrangeImmichPairs,
         immichFiltersActive,
         immichMetadataCorner,
         immichMetadataFieldOn,
         immichMetadataFields,
         immichMetadataVisible,
-        immichPairableScreen,
-        immichPairsPortrait,
-        immichPortraitPhoto;
+        immichPairPhoto,
+        immichPairingFor;
 import '../managers/camera/models.dart'
     show CameraViewConfig, decodeCameraViewIds;
 import '../managers/device/haptics.dart';
@@ -3456,10 +3456,13 @@ class ImmichScreensaver extends StatefulWidget {
 }
 
 class _ImmichSlide {
-  _ImmichSlide(this.photo, this.pair, this.pairIndex);
+  _ImmichSlide(this.photo, this.pair, this.pairIndex, this.pairing);
   final PreparedPhoto photo;
   final PreparedPhoto? pair;
   final int? pairIndex;
+
+  /// How the two halves share the screen, null without a pair.
+  final ImmichPairing? pairing;
   void dispose() {
     photo.dispose();
     pair?.dispose();
@@ -3484,13 +3487,19 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
   /// the fill-the-screen decision.
   double? _imageAspect;
 
-  /// The second half of a pair of portrait photos: the playlist index right
-  /// after [_index], its decoded provider and its aspect. Null whenever one
-  /// photo (or a video) has the screen to itself, which is every landscape
-  /// slide and every slide at all with "Pair portrait photos" off.
+  /// The second half of a pair of photos: the playlist index right after
+  /// [_index], its decoded provider and its aspect. Null whenever one photo
+  /// (or a video) has the screen to itself, which is every slide that does
+  /// not fit the panel's pairing and every slide at all with both pairing
+  /// settings off.
   int? _pairIndex;
   ImageProvider? _pairImage;
   double? _pairAspect;
+
+  /// Whether the showing pair sits side by side (two portrait photos on a
+  /// landscape panel) or one above the other (two landscape photos on a
+  /// portrait panel). Null without a pair.
+  ImmichPairing? _pairing;
 
   /// How many playlist entries the current slide consumed, so the advance
   /// steps over both halves of a pair.
@@ -3507,12 +3516,31 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
 
   Set<String>? _claimedCorners;
 
+  /// The corners a pair's two metadata panels take, first half first: both
+  /// bottom corners for photos side by side, so each panel sits under its
+  /// own photo. Photos one above the other both use the bottom corner on
+  /// the overlay's own side, the top photo's panel in the bottom corner of
+  /// its own half (see the build), so the screen's top corners stay free
+  /// for the widgets.
+  List<String> get _pairCorners {
+    if (_pairing == ImmichPairing.stacked) {
+      final side =
+          c.settings
+              .get(defs.screensaverImmichMetadataPosition)
+              .endsWith('right')
+          ? 'right'
+          : 'left';
+      return ['bottom_$side', 'bottom_$side'];
+    }
+    return const ['bottom_left', 'bottom_right'];
+  }
+
   /// Tell the widget layer which corners this slide has taken. A pair puts
-  /// a metadata panel under each half, so both bottom corners are spoken
+  /// a metadata panel on each half, so the corners those sit in are spoken
   /// for; anything else leaves every corner to the widgets.
   void _claimCorners() {
     final corners = <String>{
-      if (_pairIndex != null && _metadataOn) ...['bottom_left', 'bottom_right'],
+      if (_pairIndex != null && _metadataOn) ..._pairCorners,
     };
     _claimedCorners = corners;
     c.screensaver.claimedCorners.value = corners;
@@ -3563,6 +3591,7 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
       defs.screensaverImmichTransition.key,
       defs.screensaverImmichInterval.key,
       defs.screensaverImmichPairPortrait.key,
+      defs.screensaverImmichPairLandscape.key,
     }, _refreshPhoto);
 
     c.screensaver.attachSlides(_step);
@@ -3610,12 +3639,18 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
         assets.shuffle(Random());
       }
       if (!mounted) return;
-      // After the shuffle, so a portrait photo reaches for its partner in
-      // the order the slideshow will actually run in.
+      // After the shuffle, so a photo reaches for its partner in the
+      // order the slideshow will actually run in.
       final size = MediaQuery.of(context).size;
-      final arranged =
-          c.settings.get(defs.screensaverImmichPairPortrait) && size.height > 0
-          ? arrangeImmichPairs(assets, screenAspect: size.width / size.height)
+      final pairPortrait = c.settings.get(defs.screensaverImmichPairPortrait);
+      final pairLandscape = c.settings.get(defs.screensaverImmichPairLandscape);
+      final arranged = (pairPortrait || pairLandscape) && size.height > 0
+          ? arrangeImmichPairs(
+              assets,
+              screenAspect: size.width / size.height,
+              portrait: pairPortrait,
+              landscape: pairLandscape,
+            )
           : assets;
       // A reload after an outage: the server is back, so the message goes
       // and the backoff starts over for the next one.
@@ -3738,6 +3773,7 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
           _pairIndex = null;
           _pairImage = null;
           _pairAspect = null;
+          _pairing = null;
         });
         _claimCorners();
         _retirePhoto(oldPhoto);
@@ -3792,6 +3828,7 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
         _pairIndex = slide.pairIndex;
         _pairImage = slide.pair?.image;
         _pairAspect = slide.pair?.aspect;
+        _pairing = slide.pairing;
       });
       _claimCorners();
       _retirePhoto(oldPhoto);
@@ -3813,23 +3850,23 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
   }
 
   /// The photo that should share the screen with the one at [index], or
-  /// null when this slide stands alone: pairing off, panel too narrow,
-  /// either photo not portrait, the next entry a video, a playlist with
-  /// nothing else in it, or a fetch that failed (a pair is a bonus, never
-  /// a reason to stall the slideshow).
-  Future<({int index, Uint8List bytes, double? aspect})?> _pairFor(
-    int index,
-    double? aspect,
-    Size screen,
-  ) async {
-    if (!c.settings.get(defs.screensaverImmichPairPortrait)) return null;
+  /// null when this slide stands alone: pairing off, a panel with no room
+  /// for the pairing it is set to, either photo the wrong shape for it, the
+  /// next entry a video, a playlist with nothing else in it, or a fetch
+  /// that failed (a pair is a bonus, never a reason to stall the
+  /// slideshow).
+  Future<({int index, Uint8List bytes, double? aspect, ImmichPairing pairing})?>
+  _pairFor(int index, double? aspect, Size screen) async {
     if (_assets.length < 2) return null;
     final screenAspect = screen.height == 0
         ? 0.0
         : screen.width / screen.height;
-    if (!immichPairableScreen(screenAspect) || !immichPortraitPhoto(aspect)) {
-      return null;
-    }
+    final pairing = immichPairingFor(
+      screenAspect,
+      portrait: c.settings.get(defs.screensaverImmichPairPortrait),
+      landscape: c.settings.get(defs.screensaverImmichPairLandscape),
+    );
+    if (pairing == null || !immichPairPhoto(pairing, aspect)) return null;
     final candidate = (index + 1) % _assets.length;
     final asset = _assets[candidate];
     if (asset.isVideo) return null;
@@ -3839,14 +3876,13 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
     try {
       final bytes = await c.immich.imageBytes(asset);
       final pairAspect = await _aspectOf(bytes);
-      if (!immichPairsPortrait(
-        screenAspect: screenAspect,
-        first: aspect,
-        second: pairAspect,
-      )) {
-        return null;
-      }
-      return (index: candidate, bytes: bytes, aspect: pairAspect);
+      if (!immichPairPhoto(pairing, pairAspect)) return null;
+      return (
+        index: candidate,
+        bytes: bytes,
+        aspect: pairAspect,
+        pairing: pairing,
+      );
     } catch (e) {
       // The second half is optional; the first photo shows on its own and
       // the failing asset gets its own turn (and its own error handling)
@@ -3872,6 +3908,7 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
     ),
     c.settings.get(defs.screensaverImmichTransition),
     c.settings.get(defs.screensaverImmichPairPortrait),
+    c.settings.get(defs.screensaverImmichPairLandscape),
   );
 
   Future<_ImmichSlide> _prepareSlide(int index, bool Function() valid) async {
@@ -3887,8 +3924,15 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
     if (!mounted || !valid()) throw PhotoPreparationCancelled();
     await _waitForPhotoScreen();
     if (!mounted || !valid()) throw PhotoPreparationCancelled();
+    // Each half decodes for the half it will fill: the left or right half
+    // of the width side by side, the top or bottom half of the height
+    // stacked.
     final frame =
-        Size(mq.size.width / (pair == null ? 1 : 2), mq.size.height) *
+        switch (pair?.pairing) {
+          null => mq.size,
+          ImmichPairing.sideBySide => Size(mq.size.width / 2, mq.size.height),
+          ImmichPairing.stacked => Size(mq.size.width, mq.size.height / 2),
+        } *
         mq.devicePixelRatio;
     final fill = PhotoFillOverride.resolve(
       context,
@@ -3923,7 +3967,7 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
               valid: current,
               beforeDecode: _waitForPhotoScreen,
             );
-      return _ImmichSlide(photo, partner, pair?.index);
+      return _ImmichSlide(photo, partner, pair?.index, pair?.pairing);
     } catch (e) {
       photo.dispose();
       if (e is PhotoPreparationCancelled || !mounted || !valid()) rethrow;
@@ -3939,7 +3983,7 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
         valid: current,
         beforeDecode: _waitForPhotoScreen,
       );
-      return _ImmichSlide(single, null, null);
+      return _ImmichSlide(single, null, null, null);
     }
   }
 
@@ -4153,35 +4197,41 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
           transition: transition,
         );
       } else {
-        // Two portrait photos, half the panel each: no gutter between them,
-        // since the whole point is that no screen goes to waste. Each half
-        // makes its own fill decision against its half-width frame, so an
-        // ordinary portrait shot covers its side completely.
-        final half = size.height == 0 ? 1.0 : size.width / 2 / size.height;
-        inner = Row(
-          children: [
-            Expanded(
-              child: _photoBlock(
-                image: _image!,
-                background: _photo?.background,
-                aspect: _imageAspect,
-                frameAspect: half,
-                index: _index,
-                transition: transition,
-              ),
+        // Two photos, half the panel each: no gutter between them, since
+        // the whole point is that no screen goes to waste. Portrait photos
+        // split the width, landscape photos the height. Each half makes
+        // its own fill decision against its half frame, so an ordinary
+        // portrait shot covers its side completely and an ordinary
+        // landscape shot its band.
+        final stacked = _pairing == ImmichPairing.stacked;
+        final half = size.height == 0
+            ? 1.0
+            : stacked
+            ? size.width / (size.height / 2)
+            : size.width / 2 / size.height;
+        final halves = [
+          Expanded(
+            child: _photoBlock(
+              image: _image!,
+              background: _photo?.background,
+              aspect: _imageAspect,
+              frameAspect: half,
+              index: _index,
+              transition: transition,
             ),
-            Expanded(
-              child: _photoBlock(
-                image: _pairImage!,
-                background: _pairPhoto?.background,
-                aspect: _pairAspect,
-                frameAspect: half,
-                index: pairIndex,
-                transition: transition,
-              ),
+          ),
+          Expanded(
+            child: _photoBlock(
+              image: _pairImage!,
+              background: _pairPhoto?.background,
+              aspect: _pairAspect,
+              frameAspect: half,
+              index: pairIndex,
+              transition: transition,
             ),
-          ],
-        );
+          ),
+        ];
+        inner = stacked ? Column(children: halves) : Row(children: halves);
       }
       final Widget slide = KeyedSubtree(key: key, child: inner);
       body = transition == 'none'
@@ -4214,22 +4264,39 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
               fit: StackFit.expand,
               children: [
                 body,
-                // A pair gets a panel per photo, each under its own half,
+                // A pair gets a panel per photo, each on its own half,
                 // rather than one panel speaking for a photo it may not
-                // even be next to. The corners are fixed here — the widget
-                // layer stands down from both while the pair holds them.
+                // even be next to. The corners are fixed here (the widget
+                // layer stands down from both while the pair holds them).
                 if (pairIndex == null)
                   _ImmichMetadata(container: c, asset: _assets[_index])
                 else ...[
-                  _ImmichMetadata(
-                    container: c,
-                    asset: _assets[_index],
-                    corner: 'bottom_left',
-                  ),
+                  if (_pairing == ImmichPairing.stacked)
+                    // The top photo's panel lives in the top half, so its
+                    // bottom corner is the middle of the screen: the photo
+                    // keeps its details under it, and the screen's top
+                    // corners stay the widgets'.
+                    Positioned(
+                      left: 0,
+                      top: 0,
+                      right: 0,
+                      height: MediaQuery.sizeOf(context).height / 2,
+                      child: _ImmichMetadata(
+                        container: c,
+                        asset: _assets[_index],
+                        corner: _pairCorners[0],
+                      ),
+                    )
+                  else
+                    _ImmichMetadata(
+                      container: c,
+                      asset: _assets[_index],
+                      corner: _pairCorners[0],
+                    ),
                   _ImmichMetadata(
                     container: c,
                     asset: _assets[pairIndex],
-                    corner: 'bottom_right',
+                    corner: _pairCorners[1],
                   ),
                 ],
               ],

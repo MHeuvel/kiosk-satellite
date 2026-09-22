@@ -10,6 +10,8 @@
   "settingScreensaverImmichFillDescription": "Deaktiviert zeigt das vollständige Foto mit schwarzen Balken an. Intelligent vergrößert Fotos mit einem ähnlichen Seitenverhältnis wie der Bildschirm und zeigt andere auf einem unscharfen Hintergrund an. Immer vergrößert alle Fotos und schneidet überstehende Bereiche ab.",
   "settingScreensaverImmichPairPortraitTitle": "Hochformatfotos kombinieren",
   "settingScreensaverImmichPairPortraitDescription": "Zeigt zwei Hochformatfotos nebeneinander an, um den Bildschirm besser auszufüllen.",
+  "settingScreensaverImmichPairLandscapeTitle": "Querformatfotos kombinieren",
+  "settingScreensaverImmichPairLandscapeDescription": "Zeigt zwei Querformatfotos übereinander an, um einen Bildschirm im Hochformat besser auszufüllen.",
   "settingScreensaverImmichEdgeTapsTitle": "Zum Bildwechsel auf die Bildschirmränder tippen",
   "settingScreensaverImmichEdgeTapsDescription": "Ein Tippen auf das linke oder rechte Fünftel des Bildschirms zeigt das vorherige bzw. nächste Bild an, anstatt den Bildschirmschoner zu schließen.",
   "screensaverMediaSlideshow": "Diashow"

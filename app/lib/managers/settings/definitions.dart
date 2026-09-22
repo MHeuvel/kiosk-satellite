@@ -2790,6 +2790,23 @@ const screensaverImmichPairPortrait = SettingDef<bool>(
   dependsOn: 'screensaver.immich_validated',
 );
 
+// The same for a portrait panel: two landscape photos one above the other
+// (issue #644). Each setting only ever acts on the panel shape it names,
+// so both stay on by default and the frame does the right thing whichever
+// way it is mounted.
+const screensaverImmichPairLandscape = SettingDef<bool>(
+  key: 'screensaver.immich_pair_landscape',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Pair landscape photos',
+  description:
+      'Show two landscape photos one above the other so they fill a portrait screen.',
+  category: 'Screensaver',
+  section: 'Slideshow',
+  subpage: 'Immich Media screensaver',
+  dependsOn: 'screensaver.immich_validated',
+);
+
 const screensaverImmichEdgeTaps = SettingDef<bool>(
   key: 'screensaver.immich_edge_taps',
   type: SettingType.boolean,
@@ -7803,6 +7820,7 @@ const List<SettingDef<Object>> allSettings = [
   screensaverImmichTransition,
   screensaverImmichFill,
   screensaverImmichPairPortrait,
+  screensaverImmichPairLandscape,
   screensaverImmichEdgeTaps,
   screensaverImmichMetadata,
   screensaverImmichMetadataAlbum,

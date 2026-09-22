@@ -34275,6 +34275,32 @@
       ]
     }
   },
+  "settingScreensaverImmichPairLandscapeTitle": "Combinar fotos horizontales",
+  "@settingScreensaverImmichPairLandscapeTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Slideshow",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
+  "settingScreensaverImmichPairLandscapeDescription": "Muestra dos fotos horizontales una sobre la otra para llenar una pantalla vertical.",
+  "@settingScreensaverImmichPairLandscapeDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Slideshow",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
   "settingScreensaverImmichEdgeTapsTitle": "Tocar los bordes para cambiar de imagen",
   "@settingScreensaverImmichEdgeTapsTitle": {
     "context": "Settings:Screensaver:Immich Media screensaver:Slideshow",

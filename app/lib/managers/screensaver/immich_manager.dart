@@ -177,14 +177,59 @@ const _portraitAspect = 0.95;
 /// pairing exists to avoid.
 const _pairableScreenAspect = 1.2;
 
+/// The mirror image for a portrait panel: a photo counts as landscape
+/// above this (the square band excluded for the same reason), and a screen
+/// this tall (or taller) has room for two landscape photos one above the
+/// other (issue #644).
+const _landscapeAspect = 1 / _portraitAspect;
+const _stackableScreenAspect = 1 / _pairableScreenAspect;
+
 /// Whether a photo of this shape (width over height, null when the decoder
 /// could not say) is portrait. An unmeasurable photo never pairs.
 bool immichPortraitPhoto(double? aspect) =>
     aspect != null && aspect < _portraitAspect;
 
+/// Whether a photo of this shape is landscape, square excluded.
+bool immichLandscapePhoto(double? aspect) =>
+    aspect != null && aspect > _landscapeAspect;
+
 /// Whether a panel of this shape has room for a pair.
 bool immichPairableScreen(double screenAspect) =>
     screenAspect >= _pairableScreenAspect;
+
+/// Whether a panel of this shape has room for two landscape photos stacked.
+bool immichStackableScreen(double screenAspect) =>
+    screenAspect > 0 && screenAspect <= _stackableScreenAspect;
+
+/// How two photos share a screen: side by side (two portrait photos on a
+/// landscape panel) or one above the other (two landscape photos on a
+/// portrait panel).
+enum ImmichPairing { sideBySide, stacked }
+
+/// The pairing a panel of this shape gets, with "Pair portrait photos" and
+/// "Pair landscape photos" as given, or null when neither applies: the
+/// panel decides which of the two can fill it, and a squarish one takes
+/// neither, since two halves of it would be slivers either way.
+ImmichPairing? immichPairingFor(
+  double screenAspect, {
+  required bool portrait,
+  required bool landscape,
+}) {
+  if (portrait && immichPairableScreen(screenAspect)) {
+    return ImmichPairing.sideBySide;
+  }
+  if (landscape && immichStackableScreen(screenAspect)) {
+    return ImmichPairing.stacked;
+  }
+  return null;
+}
+
+/// Whether a photo of this shape takes part in [pairing].
+bool immichPairPhoto(ImmichPairing pairing, double? aspect) =>
+    switch (pairing) {
+      ImmichPairing.sideBySide => immichPortraitPhoto(aspect),
+      ImmichPairing.stacked => immichLandscapePhoto(aspect),
+    };
 
 /// Whether two consecutive photos should share the screen: both portrait,
 /// on a landscape panel.
@@ -196,6 +241,17 @@ bool immichPairsPortrait({
     immichPairableScreen(screenAspect) &&
     immichPortraitPhoto(first) &&
     immichPortraitPhoto(second);
+
+/// Whether two consecutive photos should share the screen one above the
+/// other: both landscape, on a portrait panel.
+bool immichPairsLandscape({
+  required double screenAspect,
+  required double? first,
+  required double? second,
+}) =>
+    immichStackableScreen(screenAspect) &&
+    immichLandscapePhoto(first) &&
+    immichLandscapePhoto(second);
 
 /// The shape a photo will appear in, from an Immich `exifInfo` block:
 /// width over height, with the axes swapped when the orientation tag says
@@ -216,8 +272,10 @@ double? exifAspect(Object? exifInfo) {
   return turned ? height / width : width / height;
 }
 
-/// [assets] reordered so every portrait photo is followed by the portrait
-/// photo that will share the screen with it.
+/// [assets] reordered so every photo that pairs on this panel is followed
+/// by the photo that will share the screen with it: portrait photos on a
+/// landscape panel, landscape photos on a portrait one when [landscape]
+/// asks for it.
 ///
 /// Pairing at display time can only look at the next entry, so a portrait
 /// photo between two landscape ones would never find a partner however many
@@ -232,20 +290,26 @@ double? exifAspect(Object? exifInfo) {
 List<ImmichAsset> arrangeImmichPairs(
   List<ImmichAsset> assets, {
   required double screenAspect,
+  bool portrait = true,
+  bool landscape = false,
 }) {
-  if (!immichPairableScreen(screenAspect)) return assets;
+  final pairing = immichPairingFor(
+    screenAspect,
+    portrait: portrait,
+    landscape: landscape,
+  );
+  if (pairing == null) return assets;
+  bool pairs(ImmichAsset a) => !a.isVideo && immichPairPhoto(pairing, a.aspect);
   final remaining = [...assets];
   final out = <ImmichAsset>[];
   while (remaining.isNotEmpty) {
     final asset = remaining.removeAt(0);
     out.add(asset);
-    if (asset.isVideo || !immichPortraitPhoto(asset.aspect)) continue;
-    // The next portrait photo anywhere ahead, pulled back to sit beside
+    if (!pairs(asset)) continue;
+    // The next pairable photo anywhere ahead, pulled back to sit beside
     // this one. None left means this photo shows on its own, which is the
     // honest answer at the tail of the playlist.
-    final partner = remaining.indexWhere(
-      (a) => !a.isVideo && immichPortraitPhoto(a.aspect),
-    );
+    final partner = remaining.indexWhere(pairs);
     if (partner >= 0) out.add(remaining.removeAt(partner));
   }
   return out;
@@ -730,10 +794,12 @@ class ImmichManager extends Manager {
   Future<List<ImmichAsset>> listAssets() async {
     final albums = _albumPicks;
     final photosOnly = _settings.get(defs.screensaverImmichPhotosOnly);
-    // The EXIF comes along only when something wants it: pairing portrait
-    // photos needs every photo's shape up front to arrange the playlist,
-    // and it is the one feature that does.
-    final withExif = _settings.get(defs.screensaverImmichPairPortrait);
+    // The EXIF comes along only when something wants it: pairing photos
+    // needs every photo's shape up front to arrange the playlist, and it
+    // is the one feature that does.
+    final withExif =
+        _settings.get(defs.screensaverImmichPairPortrait) ||
+        _settings.get(defs.screensaverImmichPairLandscape);
     final people = decodeImmichNamed(
       _settings.get(defs.screensaverImmichPeople),
     );

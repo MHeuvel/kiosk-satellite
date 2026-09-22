@@ -9102,6 +9102,14 @@ class UiStringsEn extends UiStrings {
       'Show two portrait photos side by side so they fill the screen.';
 
   @override
+  String get settingScreensaverImmichPairLandscapeTitle =>
+      'Pair landscape photos';
+
+  @override
+  String get settingScreensaverImmichPairLandscapeDescription =>
+      'Show two landscape photos one above the other so they fill a portrait screen.';
+
+  @override
   String get settingScreensaverImmichEdgeTapsTitle =>
       'Tap edges to change slides';
 

@@ -9287,6 +9287,14 @@ class UiStringsFr extends UiStrings {
       'Afficher deux photos portrait côte à côte pour qu\'elles remplissent l\'écran.';
 
   @override
+  String get settingScreensaverImmichPairLandscapeTitle =>
+      'Associer les photos paysage';
+
+  @override
+  String get settingScreensaverImmichPairLandscapeDescription =>
+      'Afficher deux photos paysage l\'une au-dessus de l\'autre pour qu\'elles remplissent un écran en portrait.';
+
+  @override
   String get settingScreensaverImmichEdgeTapsTitle =>
       'Appuyer sur les bords pour changer de diapositive';
 

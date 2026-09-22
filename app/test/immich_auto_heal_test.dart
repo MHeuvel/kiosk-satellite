@@ -27,6 +27,12 @@ void main() {
     '60e6kgAAAABJRU5ErkJggg==',
   );
 
+  // A 40x30 PNG: a landscape photo, for the stacked pair.
+  final landscapePng = base64Decode(
+    'iVBORw0KGgoAAAANSUhEUgAAACgAAAAeCAIAAADRv8uKAAAAJ0lEQVR42u3NMQEAAAwCIKMb'
+    '3RjbAQVIj0QsFovFYrFYLBaLxX/jAbISCGrMduzCAAAAAElFTkSuQmCC',
+  );
+
   late HttpServer server;
   late AppContainer container;
 
@@ -38,6 +44,7 @@ void main() {
   var thumbnailsDown = false;
   var listings = 0;
   var portraitPair = false;
+  var landscapePair = false;
   var imageRequests = 0;
 
   setUp(() async {
@@ -45,6 +52,7 @@ void main() {
     thumbnailsDown = false;
     listings = 0;
     portraitPair = false;
+    landscapePair = false;
     imageRequests = 0;
     server = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
     server.listen((request) {
@@ -83,7 +91,9 @@ void main() {
           response.headers.contentType = ContentType('image', 'png');
           imageRequests++;
           response.add(
-            portraitPair
+            landscapePair
+                ? landscapePng
+                : portraitPair
                 ? base64Decode(
                     'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAoCAIAAABmcd1FAAAALklEQVR4nO3MQQEAQAQAsHMttJJYNil4bQEWXfl2/KVXrVar1Wq1Wq1Wq9WH9QCo5QF3BVxaYAAAAABJRU5ErkJggg==',
                   )
@@ -215,6 +225,33 @@ void main() {
       });
     },
   );
+  testWidgets('two landscape photos stack on a portrait panel', (tester) async {
+    await tester.runAsync(() async {
+      landscapePair = true;
+      await container.settings.set(defs.screensaverImmichPairLandscape, true);
+      await container.settings.set(defs.screensaverImmichInterval, 2);
+      tester.view.physicalSize = const Size(800, 1280);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.reset);
+      var changes = 0;
+      final sub = container.bus.on<ScreensaverSlideChanged>().listen(
+        (_) => changes++,
+      );
+      await mount(tester);
+      await pumpUntil(tester, () => changes == 1);
+      expect(find.byType(Image), findsNWidgets(2));
+      expect(imageRequests, 2);
+      // One above the other, each the full width and half the height.
+      final top = tester.getRect(find.byType(Image).first);
+      final bottom = tester.getRect(find.byType(Image).last);
+      expect(top.left, bottom.left);
+      expect(top.width, bottom.width);
+      expect(top.bottom, closeTo(bottom.top, 1));
+      expect(top.height, closeTo(640, 1));
+      await tester.pumpWidget(const SizedBox());
+      await sub.cancel();
+    });
+  });
   testWidgets('scheduled switch from paired Immich to clock keeps rendering', (
     tester,
   ) async {

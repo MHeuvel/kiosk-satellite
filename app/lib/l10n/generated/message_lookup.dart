@@ -2910,6 +2910,10 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingScreensaverImmichPairPortraitTitle,
       'settingScreensaverImmichPairPortraitDescription' =>
         strings.settingScreensaverImmichPairPortraitDescription,
+      'settingScreensaverImmichPairLandscapeTitle' =>
+        strings.settingScreensaverImmichPairLandscapeTitle,
+      'settingScreensaverImmichPairLandscapeDescription' =>
+        strings.settingScreensaverImmichPairLandscapeDescription,
       'settingScreensaverImmichEdgeTapsTitle' =>
         strings.settingScreensaverImmichEdgeTapsTitle,
       'settingScreensaverImmichEdgeTapsDescription' =>

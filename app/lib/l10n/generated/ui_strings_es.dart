@@ -9287,6 +9287,14 @@ class UiStringsEs extends UiStrings {
       'Muestra dos fotos verticales una junto a la otra para llenar la pantalla.';
 
   @override
+  String get settingScreensaverImmichPairLandscapeTitle =>
+      'Combinar fotos horizontales';
+
+  @override
+  String get settingScreensaverImmichPairLandscapeDescription =>
+      'Muestra dos fotos horizontales una sobre la otra para llenar una pantalla vertical.';
+
+  @override
   String get settingScreensaverImmichEdgeTapsTitle =>
       'Tocar los bordes para cambiar de imagen';
 

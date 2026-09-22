@@ -192,6 +192,8 @@
   "Cycle the media in random order.": "settingScreensaverImmichShuffleDescription",
   "Pair portrait photos": "settingScreensaverImmichPairPortraitTitle",
   "Show two portrait photos side by side so they fill the screen.": "settingScreensaverImmichPairPortraitDescription",
+  "Pair landscape photos": "settingScreensaverImmichPairLandscapeTitle",
+  "Show two landscape photos one above the other so they fill a portrait screen.": "settingScreensaverImmichPairLandscapeDescription",
   "Cache media locally": "settingScreensaverImmichCacheTitle",
   "Keep copies on the device so images load instantly.": "settingScreensaverImmichCacheDescription",
   "Cache size (items)": "settingScreensaverImmichCacheMaxTitle",

@@ -15831,6 +15831,18 @@ abstract class UiStrings {
   /// Setting label.
   ///
   /// In en, this message translates to:
+  /// **'Pair landscape photos'**
+  String get settingScreensaverImmichPairLandscapeTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Show two landscape photos one above the other so they fill a portrait screen.'**
+  String get settingScreensaverImmichPairLandscapeDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
   /// **'Tap edges to change slides'**
   String get settingScreensaverImmichEdgeTapsTitle;
 

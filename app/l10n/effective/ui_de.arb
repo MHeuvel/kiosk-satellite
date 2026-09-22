@@ -34275,6 +34275,32 @@
       ]
     }
   },
+  "settingScreensaverImmichPairLandscapeTitle": "Querformatfotos kombinieren",
+  "@settingScreensaverImmichPairLandscapeTitle": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Slideshow",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
+  "settingScreensaverImmichPairLandscapeDescription": "Zeigt zwei Querformatfotos übereinander an, um einen Bildschirm im Hochformat besser auszufüllen.",
+  "@settingScreensaverImmichPairLandscapeDescription": {
+    "context": "Settings:Screensaver:Immich Media screensaver:Slideshow",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Immich Media screensaver > Slideshow"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Immich Media screensaver > Slideshow"
+      ]
+    }
+  },
   "settingScreensaverImmichEdgeTapsTitle": "Zum Bildwechsel auf die Bildschirmränder tippen",
   "@settingScreensaverImmichEdgeTapsTitle": {
     "context": "Settings:Screensaver:Immich Media screensaver:Slideshow",

@@ -5,6 +5,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ## Unreleased
 
 ### Added
+- **Pair landscape photos on the Immich Media screensaver.** The mirror of Pair portrait photos for a portrait mounted tablet: two landscape photos stack one above the other and fill the screen instead of sitting small between blurred bands or losing their subject to a crop. It works the same way, one slide for the pair, the playlist rearranged so each landscape photo reaches ahead for the next, square photos and videos left alone, and it only acts on a portrait screen, so both settings can stay on and the frame does the right thing whichever way it is mounted. With the metadata overlay on, each photo gets its own panel in its own bottom corner on the overlay's side, so the screen's top corners stay free for widgets (#644).
 - **Exclude tags on the Immich Media screensaver.** A new filter next to Tags, mirroring Exclude people: any asset carrying one of the selected tags stays out of the playlist, whatever albums, people or other tags it matches. Excluding a parent tag covers its child tags too. Tag the few photos that do not belong on a shared screen and the rest of the library keeps flowing in without curation (#645).
 
 ## v2026.9.72 - 2026-09-21

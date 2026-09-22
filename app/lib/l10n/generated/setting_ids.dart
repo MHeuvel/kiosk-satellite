@@ -556,6 +556,10 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingScreensaverImmichPairPortraitTitle",
     "description": "settingScreensaverImmichPairPortraitDescription",
   },
+  "screensaver.immich_pair_landscape": {
+    "title": "settingScreensaverImmichPairLandscapeTitle",
+    "description": "settingScreensaverImmichPairLandscapeDescription",
+  },
   "screensaver.immich_edge_taps": {
     "title": "settingScreensaverImmichEdgeTapsTitle",
     "description": "settingScreensaverImmichEdgeTapsDescription",

@@ -10,6 +10,8 @@
   "settingScreensaverImmichFillDescription": "« Désactivé » garde la photo entière entre des bandes noires. « Intelligent » agrandit les photos dont la forme est proche de celle de l'écran et encadre les autres sur un arrière-plan flouté. « Toujours » agrandit chaque photo en coupant ce qui dépasse.",
   "settingScreensaverImmichPairPortraitTitle": "Associer les photos portrait",
   "settingScreensaverImmichPairPortraitDescription": "Afficher deux photos portrait côte à côte pour qu'elles remplissent l'écran.",
+  "settingScreensaverImmichPairLandscapeTitle": "Associer les photos paysage",
+  "settingScreensaverImmichPairLandscapeDescription": "Afficher deux photos paysage l'une au-dessus de l'autre pour qu'elles remplissent un écran en portrait.",
   "settingScreensaverImmichEdgeTapsTitle": "Appuyer sur les bords pour changer de diapositive",
   "settingScreensaverImmichEdgeTapsDescription": "Un appui sur le cinquième gauche ou droit de l'écran affiche la diapositive précédente ou suivante au lieu de fermer l'économiseur d'écran.",
   "screensaverMediaSlideshow": "Diaporama"

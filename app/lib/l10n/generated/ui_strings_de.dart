@@ -9328,6 +9328,14 @@ class UiStringsDe extends UiStrings {
       'Zeigt zwei Hochformatfotos nebeneinander an, um den Bildschirm besser auszufüllen.';
 
   @override
+  String get settingScreensaverImmichPairLandscapeTitle =>
+      'Querformatfotos kombinieren';
+
+  @override
+  String get settingScreensaverImmichPairLandscapeDescription =>
+      'Zeigt zwei Querformatfotos übereinander an, um einen Bildschirm im Hochformat besser auszufüllen.';
+
+  @override
   String get settingScreensaverImmichEdgeTapsTitle =>
       'Zum Bildwechsel auf die Bildschirmränder tippen';
 
