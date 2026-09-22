@@ -1,4 +1,5 @@
 {
   "@@locale": "es",
-  "aboutLocalizationCredits": "Créditos de traducción"
+  "aboutLocalizationCredits": "Créditos de traducción",
+  "aboutLocalizationCreditsHint": "Colaboradores por idioma"
 }

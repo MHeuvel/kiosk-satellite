@@ -43,6 +43,9 @@ class UiStringsEs extends UiStrings {
   String get aboutLocalizationCredits => 'Créditos de traducción';
 
   @override
+  String get aboutLocalizationCreditsHint => 'Colaboradores por idioma';
+
+  @override
   String get aboutCheckNow => 'Buscar actualizaciones ahora';
 
   @override

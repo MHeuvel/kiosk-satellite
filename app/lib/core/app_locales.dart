@@ -77,19 +77,32 @@ class _UiLocaleDelegate<T> extends LocalizationsDelegate<T> {
 }
 
 /// Language-only entries catch generic device locales, the region and script
-/// entries keep an exact match so zh-Hant-TW is not collapsed to zh.
-const List<Locale> appSupportedLocales = [
-  ...UiStrings.supportedLocales,
-  Locale('ja'),
-  Locale('ja', 'JP'),
-  Locale('ko'),
-  Locale('ko', 'KR'),
-  Locale('zh'),
-  Locale('zh', 'CN'),
-  Locale('zh', 'TW'),
-  Locale('zh', 'HK'),
-  Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
-  Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
-  Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant', countryCode: 'TW'),
-  Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant', countryCode: 'HK'),
+/// entries keep an exact match so zh-Hant-TW is not collapsed to zh. English
+/// comes first: Flutter falls back to the first entry for a language the app
+/// does not ship, and the generated list sorts alphabetically, which would
+/// hand an Italian device a German interface.
+final List<Locale> appSupportedLocales = [
+  const Locale('en'),
+  for (final locale in UiStrings.supportedLocales)
+    if (locale.languageCode != 'en') locale,
+  const Locale('ja'),
+  const Locale('ja', 'JP'),
+  const Locale('ko'),
+  const Locale('ko', 'KR'),
+  const Locale('zh'),
+  const Locale('zh', 'CN'),
+  const Locale('zh', 'TW'),
+  const Locale('zh', 'HK'),
+  const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
+  const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
+  const Locale.fromSubtags(
+    languageCode: 'zh',
+    scriptCode: 'Hant',
+    countryCode: 'TW',
+  ),
+  const Locale.fromSubtags(
+    languageCode: 'zh',
+    scriptCode: 'Hant',
+    countryCode: 'HK',
+  ),
 ];

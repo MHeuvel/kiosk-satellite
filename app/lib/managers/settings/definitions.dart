@@ -202,6 +202,7 @@ class SettingDef<T> {
 final Set<String> deviceHiddenKeys = {};
 
 const Map<String, String> subpageHints = {
+  'Localization Credits': 'Contributors by language',
   'User Interface': 'Kiosk mode, dashboard carousel, haptics, tap sounds',
   'Theme': 'Match the app, or switch dark and light on a schedule',
   'Dashboard View Rotation': 'Cycle through views, dwell time, fade',

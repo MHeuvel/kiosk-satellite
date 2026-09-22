@@ -167,6 +167,12 @@ abstract class UiStrings {
   /// **'Localization Credits'**
   String get aboutLocalizationCredits;
 
+  /// Hint under the About row that opens the Localization Credits page.
+  ///
+  /// In en, this message translates to:
+  /// **'Contributors by language'**
+  String get aboutLocalizationCreditsHint;
+
   /// Tooltip on the clickable version number in remote administration.
   ///
   /// In en, this message translates to:

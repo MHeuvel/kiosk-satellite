@@ -43,6 +43,9 @@ class UiStringsFr extends UiStrings {
   String get aboutLocalizationCredits => 'Crédits de traduction';
 
   @override
+  String get aboutLocalizationCreditsHint => 'Contributeurs par langue';
+
+  @override
   String get aboutCheckNow => 'Vérifier les mises à jour maintenant';
 
   @override

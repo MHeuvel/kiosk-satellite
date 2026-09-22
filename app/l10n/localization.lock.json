@@ -1,16 +1,16 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite-localization",
-  "revision": "a38cec78eba8ffdd961d93e70e9d91eca45d758e",
+  "revision": "c7b889fa8d71c023e608bf8c4452a381a69a3f4f",
   "locales": [
     "de",
     "es",
     "fr"
   ],
   "files": {
-    "source/manifest.json": "358ba71933e71340b1dfaf39bd04ac81162cbc2c4a493df0f47af342ea7a4f8c",
+    "source/manifest.json": "587f0cf47e43a2fed6bc93d86efd1b592e3b29f3cfc1e8fcfd8600ff97c7c1b1",
     "source/about_identity_en.arb": "dd006567f69f846e2e3b73f09ad13784f0022d282ea3101fa9be7fc95175ec2d",
-    "source/about_localization_en.arb": "3961448d194816d0040fe875cb1eaa5e6a3c1f7214874cbdd4e7e486aa060824",
+    "source/about_localization_en.arb": "392f1bf170bf4813161cd780bf14e68fbd3caa79e16699f6c5a7891529fdbe6a",
     "source/about_updates_en.arb": "b41df3870ffb041249448dc4b13b14a9350ab4417510f23e772458dd1e582c85",
     "source/android_accessibility_en.arb": "6fe33a6ec23fb984d2c9b695d0dcaa41b8136a83cbedae702ee37e563a9a78a0",
     "source/android_service_en.arb": "ad23388106fe8d11bf83f3c1b35d4cc6033f9af2009eb030bb46ac12e2ea7939",
@@ -198,7 +198,7 @@
     "metadata/languages.json": "4567bf7a5e3a86df44adc26be36b874d3ca65ec8e7a33514756f52bcaf5f4502",
     "metadata/credits.json": "3bf32110e209c814146f77b3320b34d8f9d783274fe931877912c8b525786061",
     "translations/de/about_identity_de.arb": "9021ec693580170266c8ff00b704a50c13faebc19a6a048be51d7cbc5effeadc",
-    "translations/de/about_localization_de.arb": "72c7dd0d8a404b561f812fd4abf4253e31ce3bcea516506c0f5c936b4bcf5e33",
+    "translations/de/about_localization_de.arb": "17b6a104168d810e1866aac6394c7e708c90f3b716076e03e5af68e3d5d9e609",
     "translations/de/about_updates_de.arb": "f5ea0ffe31183f4c89e085555f318ab3a3990bfd031f9c778d3b634f4eba61fc",
     "translations/de/android_accessibility_de.arb": "1393d10637042f7d6ad2c1c433dba50a8a59a5d1c7df956b3184c1d174de8111",
     "translations/de/android_service_de.arb": "d9b99ac4f443db43f8866fa72c5dfe70f8ff273e98a4378a532dfe1f40bf68ff",
@@ -380,10 +380,10 @@
     "translations/de/setup_welcome_de.arb": "07f231d4cd22c5d210e267c829115b0ef86fcef2f4ef304c13998893c0dbf0a6",
     "translations/de/sound_picker_de.arb": "1a554c4d0944e374ca24fd381f91532faca4af2d2c6e24c957efee2b9220761a",
     "translations/de/voice_timers_de.arb": "e9b3f56cfef170d8d66ddfb455521a894bddfd8b815dd0a08c8bbe54ba8638c1",
-    "metadata/reviews/de.json": "73ffee7bf0ce0d3e3b64a41f461deed858539d92c6c0d34725b20016cc13bde7",
+    "metadata/reviews/de.json": "d3c09d2f8b9071392449bb1882233d3e34c2cf7210af60c914435f51668495d6",
     "metadata/provenance/de/e69b7988f2fca16116639e0fd6a63d4430c75f4c4c7ad86d875642d5cdf89b58.json": "afa4b89b919c03eb8e68a7c62bef1149483bfe6ac9ca94b652c20d05dd8034a2",
     "translations/es/about_identity_es.arb": "8f008ead93633e3c5e58cb310ddb950897fc35fef540245b99ec32e8d06d6ec3",
-    "translations/es/about_localization_es.arb": "08612508853c12a640a1fc19c8ca69003920107949be65e5c59dee9ba03d0e9a",
+    "translations/es/about_localization_es.arb": "02ab44cc200f327fa60713123445b23ff42baeb3c9260e9b1ca9094b2898e668",
     "translations/es/about_updates_es.arb": "e2b279908d8f7c898eedac5cda4be7ebf2e22617f13ce8dd2cd676bf06d5bda8",
     "translations/es/android_accessibility_es.arb": "59fb987cdef6188db6ae243796cfc3d81f94acfd2fd52dca1b0ffd64794b5627",
     "translations/es/android_service_es.arb": "3b6f15812b36ea95ec881b959713826d33971c1cf7866a6e6594ca232d1b4bda",
@@ -565,9 +565,9 @@
     "translations/es/setup_welcome_es.arb": "5ecd1fef9e8d6b0dd3e085d410941099bb7dd8d4f502e98684fefecaf1663d9c",
     "translations/es/sound_picker_es.arb": "4b1867bded8d578e13653eb8e62deb55eae9e41167e0702ea5c9c2329a8a665b",
     "translations/es/voice_timers_es.arb": "7cdeeac038ccf5ecbedf5f1d54c16d11ab817e1af9429e64eb7f2c2a575c2182",
-    "metadata/reviews/es.json": "f01d4cd03a8edfbeaee6ec1223a44459288c26061e4fe9d7bf4969bd84357120",
+    "metadata/reviews/es.json": "65e9da13b3b5b311a74dae34a20a17afbf107fb1b5f2cb507bd083807fdc859e",
     "translations/fr/about_identity_fr.arb": "e6a9e2ec89bfbd98152d9dcef19f1423960d952ce4f0ce0f75a568199ca1a944",
-    "translations/fr/about_localization_fr.arb": "7851fdac28d45765d2ada2ee7de2bda900c0fa5af359951a120ed30ffc29f963",
+    "translations/fr/about_localization_fr.arb": "e56dd01130d3e2aaf4ee561c724a509cb06b6964b3846a31777d10625a78b355",
     "translations/fr/about_updates_fr.arb": "cd2fe9c95627ddcddb3579aa8f500ad8be7e5c9229ba699e8aac3f364f79a0f3",
     "translations/fr/android_accessibility_fr.arb": "a56171f229b34b4e3844f84d552ce2e003468c9ea2fa765d76e09ac02eb56d55",
     "translations/fr/android_service_fr.arb": "92d53ebb2e0b564619d08ca46e40832fde33dc1fc343385f31c113e5b4b001e5",
@@ -749,7 +749,7 @@
     "translations/fr/setup_welcome_fr.arb": "99849ca02015151b0d5a3bf65573c4fde0cdd24e33fae0b3c3264c3effb7f903",
     "translations/fr/sound_picker_fr.arb": "a95e4a70bb648d73f1c958c88fb8590f7b4c3ad84951f637504c03548989928c",
     "translations/fr/voice_timers_fr.arb": "980a84440fff8d767f25cb75604b2d83fa6b21055fe1a39aa93657789587adf3",
-    "metadata/reviews/fr.json": "45b143c75651962397b34c3bed3d8741669dfd6402ca87b0b033849df19707bd",
+    "metadata/reviews/fr.json": "ec00ff7f16d2c160c455871d15477930cbf9450dc92368334b1e6e3f503ef204",
     "metadata/provenance/fr/50a40b9b0f2cc752c88ccaa455255d187c5d5a9594152fadced57a7289592afd.json": "ca74da318b181a9585dbc18ff2b3573f22dc5e1764767abb87e4ba16ee4803e0"
   }
 }
