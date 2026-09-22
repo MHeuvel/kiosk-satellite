@@ -3,10 +3,15 @@ name: Build debug IPA (unsigned)
 # Builds an UNSIGNED iOS .ipa on a macOS runner, on demand from the
 # Actions tab. It cannot be installed as-is: sign it afterwards with a
 # free tool such as Sideloadly (or AltStore), using your own Apple ID,
-# with the device connected over USB. That signing step is what
-# registers the device and creates the 7-day certificate — GitHub
-# Actions has no Mac-with-Xcode-and-your-Apple-ID-signed-in to do that
-# part for you.
+# with the device connected over USB.
+#
+# Unlike `flutter build ios --no-codesign` (which only patches the
+# Runner target and left some plugins -- onnxruntime, tflite_flutter --
+# still demanding a Development Team), this drives xcodebuild directly
+# with command-line signing overrides. Command-line build settings beat
+# every project/target/pod setting, so this reliably produces an
+# unsigned build regardless of what any individual plugin's Xcode
+# project asks for.
 
 on:
   workflow_dispatch:
@@ -30,24 +35,42 @@ jobs:
         with:
           node-version: 20
 
-      # Generates assets/remote-ui/ before the Flutter/Xcode build runs.
+      # Generates assets/remote-ui/ before the Xcode build runs.
       - name: Install the remote-ui build tool
         run: npm install
 
       - name: Get Flutter dependencies
         run: flutter pub get
 
-      # --no-codesign: no certificate/provisioning profile exists on this
-      # runner (and none should be uploaded here), so this produces a
-      # plain, unsigned Runner.app instead of failing on missing signing.
-      - name: Build the iOS app (unsigned)
-        run: flutter build ios --release --no-codesign
+      # Prepares the Xcode project (Generated.xcconfig, pod install,
+      # Flutter.framework) without invoking xcodebuild itself, so the
+      # actual build below is fully under our control.
+      - name: Prepare the Xcode project (no build)
+        run: flutter build ios --release --no-codesign --config-only
+
+      # DEVELOPMENT_TEAM="" plus the three signing flags below are passed
+      # as command-line build settings, which override the project file,
+      # every target, and every pod -- this is what actually gets past
+      # "requires a selected Development Team" for plugins that ignore
+      # Podfile post_install overrides.
+      - name: Archive with Xcode (unsigned)
+        run: |
+          xcodebuild archive \
+            -workspace ios/Runner.xcworkspace \
+            -scheme Runner \
+            -configuration Release \
+            -sdk iphoneos \
+            -archivePath build/ios/archive/Runner.xcarchive \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            DEVELOPMENT_TEAM=""
 
       # Sideloadly/AltStore expect a .ipa (a zip with a top-level
-      # Payload/ folder), not the raw .app bundle Flutter produces.
+      # Payload/ folder), not the raw .app bundle inside the archive.
       - name: Package into an unsigned .ipa
         run: |
-          cd build/ios/iphoneos
+          cd build/ios/archive/Runner.xcarchive/Products/Applications
           mkdir Payload
           cp -r Runner.app Payload/
           zip -r kiosk-satellite-unsigned.ipa Payload
@@ -55,4 +78,4 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: kiosk-satellite-unsigned-ipa
-          path: app/build/ios/iphoneos/kiosk-satellite-unsigned.ipa
+          path: app/build/ios/archive/Runner.xcarchive/Products/Applications/kiosk-satellite-unsigned.ipa
