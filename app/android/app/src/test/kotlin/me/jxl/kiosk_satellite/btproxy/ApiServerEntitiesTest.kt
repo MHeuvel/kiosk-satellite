@@ -5,6 +5,7 @@ import java.net.Socket
 import java.util.concurrent.CopyOnWriteArrayList
 import kotlin.test.AfterTest
 import kotlin.test.Test
+import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
@@ -277,6 +278,88 @@ class ApiServerEntitiesTest {
             ),
             commands.toList(),
         )
+    }
+
+    @Test
+    fun largeCameraImagesKeepStatesAndPingsAlive() {
+        val camera = EspEntity.Camera("camera", "Camera")
+        val screenshot = EspEntity.Camera("screenshot", "Screenshot")
+        val backend = object : ScannerBackend {
+            override fun onScanDemand(mode: ScannerMode) {}
+            override fun onScanRelease() {}
+        }
+        val requests = java.util.concurrent.LinkedBlockingQueue<String>()
+        val hub = EntityHub(catalog + listOf(camera, screenshot), onCommand = { id, _ ->
+            requests.add(id)
+        })
+        val s = ApiServer(identity, "02:AA:BB:CC:DD:EE", 0, null, backend,
+            log = {}, entities = hub)
+        server = s
+        s.start()
+        val c = connectClient(s)
+        c.send(Msg.SUBSCRIBE_STATES_REQUEST)
+        c.send(Msg.PING_REQUEST)
+        c.readUntil(Msg.PING_RESPONSE)
+
+        // More than the socket buffer and the entire 256-frame queue.
+        // Do not read until publication returns, like a slow receiver.
+        val jpeg = ByteArray(12 * 1024 * 1024) { (it % 251).toByte() }
+        repeat(2) { round ->
+            c.send(Msg.CAMERA_IMAGE_REQUEST)
+            c.send(Msg.PING_REQUEST)
+            c.readUntil(Msg.PING_RESPONSE)
+            s.publishCameraImage("camera", jpeg)
+            // Another preview refresh must not splice a new capture into
+            // the image that the slow receiver is still downloading.
+            requests.clear()
+            c.send(Msg.CAMERA_IMAGE_REQUEST)
+            repeat(2) {
+                assertTrue(requests.poll(5, java.util.concurrent.TimeUnit.SECONDS) != null)
+            }
+            s.publishCameraImage("camera", byteArrayOf(99))
+            val shot = if (round == 0) byteArrayOf(1, 2, 3) else ByteArray(0)
+            s.publishCameraImage("screenshot", shot)
+            hub.updateState("battery", 80 + round)
+            c.send(Msg.PING_REQUEST)
+
+            val received = mutableMapOf(
+                camera.key to java.io.ByteArrayOutputStream(),
+                screenshot.key to java.io.ByteArrayOutputStream(),
+            )
+            val done = mutableSetOf<Int>()
+            var pong = false
+            var state = false
+            while (done.size < 2 || !pong || !state) {
+                val frame = c.read()
+                when (frame.type) {
+                    Msg.PING_RESPONSE -> pong = true
+                    Msg.SENSOR_STATE_RESPONSE -> state = true
+                    Msg.CAMERA_IMAGE_RESPONSE -> {
+                        var key = 0
+                        var bytes = ByteArray(0)
+                        var last = false
+                        val r = ProtoReader(frame.payload)
+                        while (r.next()) when (r.field) {
+                            1 -> key = r.asFixed32()
+                            2 -> bytes = r.asBytes()
+                            3 -> last = r.asBool()
+                        }
+                        assertTrue(key !in done, "No chunks after the final chunk")
+                        received.getValue(key).write(bytes)
+                        if (last) {
+                            done.add(key)
+                            if (key == camera.key) {
+                                assertTrue(pong, "Ping must arrive before the large image finishes")
+                                assertTrue(state, "Sensor updates must arrive during image transfer")
+                            }
+                        }
+                    }
+                }
+            }
+            assertContentEquals(jpeg, received.getValue(camera.key).toByteArray())
+            assertContentEquals(shot, received.getValue(screenshot.key).toByteArray())
+            assertEquals(1, s.stateClientCount())
+        }
     }
 
     @Test

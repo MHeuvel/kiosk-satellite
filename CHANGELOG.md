@@ -8,6 +8,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 - **Internal storage sensors in ESPHome.** Internal storage free and Internal storage total appear alongside the RAM diagnostics in Home Assistant. They report the available space and capacity of Android's internal data partition in MiB and refresh every minute (#650).
 
 ### Fixed
+- **ESPHome camera previews keep entities online.** Large camera images now send in chunks as the connection drains instead of filling the outgoing message queue and disconnecting Home Assistant. Opening a camera preview or refreshing the device page no longer interrupts sensor updates on affected devices such as the Portal Go.
 - **Weather Mood skies render on affected Android GPUs.** The sky texture is now allocated before it is attached to the render target and attached again after resizing. This fixes a black background with only precipitation visible on devices such as the Galaxy Tab S8, including missing clouds, sun and moon.
 
 ## v2026.9.74 - 2026-09-22

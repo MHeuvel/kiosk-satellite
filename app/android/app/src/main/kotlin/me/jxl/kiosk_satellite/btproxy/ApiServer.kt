@@ -6,6 +6,7 @@ import java.net.Socket
 import java.util.concurrent.ArrayBlockingQueue
 import java.util.concurrent.CopyOnWriteArrayList
 import java.util.concurrent.Executors
+import java.util.concurrent.Semaphore
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
@@ -318,32 +319,18 @@ internal class ApiServer(
     }
 
     /**
-     * A fresh frame from the capture side for the camera [objectId]: chunked to every session
-     * with an outstanding image request (16KB chunks stay far under the
-     * Noise transport's 65535-byte frame ceiling), done flag on the last.
+     * A fresh frame for sessions with an outstanding image request.
+     * Each writer chunks its image as the connection drains so a large
+     * capture cannot fill the queue used for states and control messages.
      */
     fun publishCameraImage(objectId: String, jpeg: ByteArray) {
         val cameraKey = entities?.cameraFor(objectId)?.key ?: return
-        val waiting = sessions.filter { it.takeCameraRequest(cameraKey) }
-        if (waiting.isEmpty()) return
-        val chunks = ArrayList<Pair<ByteArray, Boolean>>()
-        var offset = 0
-        while (offset < jpeg.size) {
-            val end = minOf(offset + 16_384, jpeg.size)
-            chunks.add(jpeg.copyOfRange(offset, end) to (end == jpeg.size))
-            offset = end
-        }
-        if (chunks.isEmpty()) chunks.add(ByteArray(0) to true)
-        for (session in waiting) {
-            for ((data, done) in chunks) {
-                val w = ProtoWriter()
-                w.fixed32(1, cameraKey)
-                w.bytes(2, data)
-                w.bool(3, done)
-                session.enqueue(Msg.CAMERA_IMAGE_RESPONSE, w.toByteArray())
-            }
+        for (session in sessions) {
+            session.enqueueCameraImage(cameraKey, jpeg)
         }
     }
+
+    private class CameraTransfer(val jpeg: ByteArray, var offset: Int = 0)
 
     /** Android layer reports scanner lifecycle; broadcast to subscribers. */
     fun reportScannerState(state: ScannerState, mode: ScannerMode) {
@@ -498,19 +485,45 @@ internal class ApiServer(
          * key clears as its frame ships.
          */
         private val pendingCameraKeys = HashSet<Int>()
+        // At most one image per camera. Never replace a partial image:
+        // the receiver joins chunks until it sees the final flag.
+        private val cameraTransfers = LinkedHashMap<Int, CameraTransfer>()
 
         fun requestCameraFrames(keys: Collection<Int>) {
             synchronized(pendingCameraKeys) { pendingCameraKeys.addAll(keys) }
         }
 
-        /** True, once, while a frame for [key] is owed to this session. */
-        fun takeCameraRequest(key: Int): Boolean =
-            synchronized(pendingCameraKeys) { pendingCameraKeys.remove(key) }
+        fun enqueueCameraImage(key: Int, jpeg: ByteArray) {
+            synchronized(pendingCameraKeys) {
+                if (closed.get() || !pendingCameraKeys.remove(key)) return
+                if (!cameraTransfers.containsKey(key)) {
+                    cameraTransfers[key] = CameraTransfer(jpeg)
+                    writerWake.release()
+                }
+            }
+        }
+
+        private fun nextCameraChunk(): ByteArray? = synchronized(pendingCameraKeys) {
+            val key = cameraTransfers.keys.firstOrNull() ?: return@synchronized null
+            val transfer = cameraTransfers.remove(key)!!
+            val end = minOf(transfer.offset + 16_384, transfer.jpeg.size)
+            val done = end == transfer.jpeg.size
+            val payload = ProtoWriter().apply {
+                fixed32(1, key)
+                bytes(2, transfer.jpeg.copyOfRange(transfer.offset, end))
+                bool(3, done)
+            }.toByteArray()
+            transfer.offset = end
+            // Rotate cameras so a large photo does not hold up a screenshot.
+            if (!done) cameraTransfers[key] = transfer
+            payload
+        }
         @Volatile var handshaken = false
         @Volatile var lastInboundAt = clock()
         @Volatile var lastPingSentAt = 0L
         private val closed = AtomicBoolean(false)
         private val writeQueue = ArrayBlockingQueue<Pair<Int, ByteArray>>(WRITE_QUEUE_FRAMES)
+        private val writerWake = Semaphore(0)
         private var transport: ApiTransport? = null
         private var writerThread: Thread? = null
         private val peer: String = socket.inetAddress?.hostAddress ?: "?"
@@ -528,6 +541,8 @@ internal class ApiServer(
                 // The peer stopped draining; treat as dead rather than block.
                 log("session #$id ($peer) write queue full, closing")
                 close("write queue overflow")
+            } else {
+                writerWake.release()
             }
         }
 
@@ -535,6 +550,10 @@ internal class ApiServer(
             if (!closed.compareAndSet(false, true)) return
             runCatching { socket.close() }
             writerThread?.interrupt()
+            synchronized(pendingCameraKeys) {
+                pendingCameraKeys.clear()
+                cameraTransfers.clear()
+            }
             sessions.remove(this)
             if (wantsAdvertisements) {
                 wantsAdvertisements = false
@@ -669,11 +688,15 @@ internal class ApiServer(
         private fun writerLoop(t: ApiTransport) {
             try {
                 while (!closed.get()) {
-                    val (type, payload) = writeQueue.poll(1, TimeUnit.SECONDS) ?: continue
-                    t.writeFrame(type, payload)
+                    writerWake.drainPermits()
+                    val frame = writeQueue.poll()
+                    if (frame != null) t.writeFrame(frame.first, frame.second)
+                    val camera = nextCameraChunk()
+                    if (camera != null) t.writeFrame(Msg.CAMERA_IMAGE_RESPONSE, camera)
+                    if (frame == null && camera == null) writerWake.acquire()
                 }
             } catch (_: InterruptedException) {
-                // close() interrupting a blocked poll; done.
+                // close() interrupting the idle writer.
             } catch (e: Exception) {
                 close("write failed: ${e.message}")
             }
