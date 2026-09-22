@@ -176,12 +176,63 @@ class _SendspinFullscreenViewState extends State<SendspinFullscreenView> {
   /// view's own buttons or either settings surface rebuilds it.
   StreamSubscription<SettingChanged>? _settingsSub;
 
+  /// The volume slider standing in for the seek bar in the horizontal
+  /// layout's full-width bottom bar: lifted up here because the bar and
+  /// its toggle button live in different panes ([_NowPlayingBar] below
+  /// the row, the toggle inside [_NowPlayingControls] in the details
+  /// pane) and need to share this state. Opened by the toggle, closed by
+  /// a second tap or a few seconds after the last touch. The dragged
+  /// level holds for a moment after release, until the source reports
+  /// the new level back.
+  bool _volumeOpen = false;
+  double? _volumeDrag;
+  Timer? _volumeCloseTimer;
+  Timer? _volumeHoldTimer;
+
+  void _armVolumeClose() {
+    _volumeCloseTimer?.cancel();
+    _volumeCloseTimer = Timer(const Duration(seconds: 4), () {
+      _volumeCloseTimer = null;
+      if (!mounted || !_volumeOpen) return;
+      setState(() => _volumeOpen = false);
+    });
+  }
+
+  void _toggleVolumeOpen() {
+    setState(() => _volumeOpen = !_volumeOpen);
+    if (_volumeOpen) {
+      _armVolumeClose();
+    } else {
+      _volumeCloseTimer?.cancel();
+      _volumeCloseTimer = null;
+    }
+  }
+
+  /// A hardware volume key moved the player (issue #544): show the
+  /// slider for a moment, the way the system shows its own volume.
+  void _onVolumeNudge() {
+    if (!mounted || !c.sendspin.volumeAvailable) return;
+    if (!_volumeOpen) setState(() => _volumeOpen = true);
+    _armVolumeClose();
+  }
+
+  Future<void> _setVolume(double level) async {
+    _armVolumeClose();
+    _volumeHoldTimer?.cancel();
+    _volumeHoldTimer = Timer(const Duration(seconds: 3), () {
+      _volumeHoldTimer = null;
+      if (mounted) setState(() => _volumeDrag = null);
+    });
+    await c.sendspin.setVolume(level.round());
+  }
+
   @override
   void initState() {
     super.initState();
     c.sendspin.nowPlaying.addListener(_onNowPlaying);
     c.sendspin.lyrics.addListener(_onLayoutChanged);
     c.sendspin.lyricsPending.addListener(_onLayoutChanged);
+    c.sendspin.volumeNudge.addListener(_onVolumeNudge);
     _settingsSub = c.bus.on<SettingChanged>().listen((e) {
       if (e.key == defs.sendspinLyrics.key ||
           e.key == defs.sendspinFullscreenQueue.key ||
@@ -204,8 +255,11 @@ class _SendspinFullscreenViewState extends State<SendspinFullscreenView> {
     c.sendspin.nowPlaying.removeListener(_onNowPlaying);
     c.sendspin.lyrics.removeListener(_onLayoutChanged);
     c.sendspin.lyricsPending.removeListener(_onLayoutChanged);
+    c.sendspin.volumeNudge.removeListener(_onVolumeNudge);
     c.glance.entities.removeListener(_onLayoutChanged);
     _settingsSub?.cancel();
+    _volumeCloseTimer?.cancel();
+    _volumeHoldTimer?.cancel();
     super.dispose();
   }
 
@@ -333,10 +387,22 @@ class _SendspinFullscreenViewState extends State<SendspinFullscreenView> {
           );
 
     Widget horizontalContent() {
+      // The outer margin: the artwork pane's left edge and the details
+      // pane's right edge, and the same margin the full-width seek/
+      // volume bar lines up with below both panes.
       final horizontalPadding = (screen.width * 0.04).clamp(32.0, 48.0);
+      // The gap between the two panes only: kept apart from
+      // [horizontalPadding] so it can be tightened without touching the
+      // outer margins.
+      final innerGap = (screen.width * 0.015).clamp(12.0, 20.0);
       // Only the close button needs clearance. The speaker pill floats
       // over the content briefly after interaction.
       final verticalPadding = showClose ? 64.0 : 24.0;
+      // The title reads smaller and the artist/album line(s) larger than
+      // the shared sizes used elsewhere (side-by-side, stacked, plain),
+      // which this layout alone should not affect.
+      final horizontalTitleSize = titleSize * 0.72;
+      final horizontalArtistSize = artistSize * 1.15;
       Widget details() => Column(
         key: const ValueKey('horizontal-track-details'),
         mainAxisSize: MainAxisSize.min,
@@ -348,7 +414,7 @@ class _SendspinFullscreenViewState extends State<SendspinFullscreenView> {
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.white,
-              fontSize: titleSize,
+              fontSize: horizontalTitleSize,
               fontWeight: FontWeight.w700,
               height: 1.15,
             ),
@@ -362,20 +428,35 @@ class _SendspinFullscreenViewState extends State<SendspinFullscreenView> {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white70, fontSize: artistSize),
+                  style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: horizontalArtistSize,
+                  ),
                 ),
               ),
         ],
       );
 
-      Widget half(String key, Widget child, {bool centered = true}) => Expanded(
+      // left/right take the pane's own outer and inner edge separately,
+      // so the gap between the two panes (innerGap) can differ from the
+      // margin against the screen edge (horizontalPadding), and flex
+      // lets the two panes split unevenly instead of always 50/50.
+      Widget half(
+        String key,
+        Widget child, {
+        bool centered = true,
+        required double left,
+        required double right,
+        int flex = 1,
+      }) => Expanded(
+        flex: flex,
         child: SizedBox.expand(
           key: ValueKey(key),
           child: Padding(
             padding: EdgeInsets.fromLTRB(
-              horizontalPadding,
+              left,
               verticalPadding + MediaQuery.paddingOf(context).top,
-              horizontalPadding,
+              right,
               (centered ? verticalPadding : 24) +
                   MediaQuery.paddingOf(context).bottom,
             ),
@@ -384,13 +465,25 @@ class _SendspinFullscreenViewState extends State<SendspinFullscreenView> {
         ),
       );
 
-      return Row(
+      // The artwork pane at roughly a third of the width, the details
+      // pane the rest: on a wide/short screen the square cover was
+      // capped by the height anyway, so it just moves left into its
+      // narrower pane instead of shrinking, freeing width for the text.
+      const artworkFlex = 35;
+      const detailsFlex = 65;
+
+      final panes = Row(
         children: [
           half(
             'horizontal-artwork-half',
             LayoutBuilder(
               builder: (context, box) {
-                final detailsHeight = havePanel
+                // Reserves room for the details() block below the cover
+                // only when it will actually be drawn there (havePanel
+                // and not specifically the queue — the queue panel
+                // already shows the track, so this duplicate stays out
+                // of the way there and the cover keeps its full size).
+                final detailsHeight = havePanel && !queue
                     ? titleSize * 2.3 + artistSize * 2.8 + 16 + gap * 0.5
                     : 0.0;
                 final coverSize = min(
@@ -435,7 +528,11 @@ class _SendspinFullscreenViewState extends State<SendspinFullscreenView> {
                                   ),
                           ),
                         ),
-                        if (havePanel) ...[
+                        // The queue panel already shows what's playing in
+                        // its own heading, so repeating title/artist/
+                        // album under the (now narrower) cover here is
+                        // redundant. Lyrics keeps this as before.
+                        if (havePanel && !queue) ...[
                           SizedBox(height: gap * 0.5),
                           details(),
                         ],
@@ -446,6 +543,9 @@ class _SendspinFullscreenViewState extends State<SendspinFullscreenView> {
                 );
               },
             ),
+            left: horizontalPadding,
+            right: innerGap,
+            flex: artworkFlex,
           ),
           half(
             'horizontal-controls-half',
@@ -458,6 +558,12 @@ class _SendspinFullscreenViewState extends State<SendspinFullscreenView> {
                     width: box.maxWidth,
                     scale: controlsScale,
                     maxHeight: box.maxHeight * (havePanel ? 0.6 : 0.65),
+                    volumeOpen: _volumeOpen,
+                    onToggleVolume: _toggleVolumeOpen,
+                    // Previous/pause/next give room to the queue list
+                    // while it's open; the row below (volume, favorite,
+                    // shuffle, repeat, queue) always stays.
+                    hideTransport: queue,
                   ),
                 );
                 if (havePanel) {
@@ -495,7 +601,47 @@ class _SendspinFullscreenViewState extends State<SendspinFullscreenView> {
               },
             ),
             centered: !havePanel,
+            left: innerGap,
+            right: horizontalPadding,
+            flex: detailsFlex,
           ),
+        ],
+      );
+
+      // The seek/volume bar runs the full width below both panes instead
+      // of sitting inside the controls pane alone, so it lines up with
+      // the artwork pane's own outer margin on the left and keeps the
+      // same margin on the right.
+      return Column(
+        children: [
+          Expanded(child: panes),
+          if (controls && now != null)
+            Padding(
+              padding: EdgeInsets.fromLTRB(
+                horizontalPadding,
+                0,
+                horizontalPadding,
+                16 + MediaQuery.paddingOf(context).bottom,
+              ),
+              child: _NowPlayingBar(
+                container: c,
+                scale: controlsScale,
+                volumeOpen: _volumeOpen && c.sendspin.volumeAvailable,
+                volumeLevel:
+                    _volumeDrag ??
+                    c.sendspin.volumeLevel?.toDouble().clamp(0.0, 100.0),
+                onVolumeChanged: (v) {
+                  _armVolumeClose();
+                  setState(() => _volumeDrag = v);
+                },
+                onVolumeChangeEnd: _setVolume,
+                onToggleMute: () async {
+                  _armVolumeClose();
+                  await c.sendspin.toggleMute();
+                  if (mounted) setState(() {});
+                },
+              ),
+            ),
         ],
       );
     }
@@ -663,18 +809,53 @@ class _SendspinFullscreenViewState extends State<SendspinFullscreenView> {
                     (screen.height * 0.03).clamp(8.0, 24.0),
                   ),
                   child: Center(
-                    child: _ControlTouch(
-                      container: c,
-                      child: _NowPlayingControls(
-                        container: c,
-                        // A wide bar: most of the screen, so the thumb has
-                        // room to land and the times can read at a distance.
-                        width: min(
-                          max(artSize * 1.4, screen.width * 0.62),
-                          screen.width - 32,
-                        ),
-                        scale: controlsScale,
-                        maxHeight: screen.height * 0.5,
+                    child: SizedBox(
+                      // A wide bar: most of the screen, so the thumb has
+                      // room to land and the times can read at a distance.
+                      width: min(
+                        max(artSize * 1.4, screen.width * 0.62),
+                        screen.width - 32,
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          _NowPlayingBar(
+                            container: c,
+                            scale: controlsScale,
+                            volumeOpen:
+                                _volumeOpen && c.sendspin.volumeAvailable,
+                            volumeLevel:
+                                _volumeDrag ??
+                                c.sendspin.volumeLevel?.toDouble().clamp(
+                                  0.0,
+                                  100.0,
+                                ),
+                            onVolumeChanged: (v) {
+                              _armVolumeClose();
+                              setState(() => _volumeDrag = v);
+                            },
+                            onVolumeChangeEnd: _setVolume,
+                            onToggleMute: () async {
+                              _armVolumeClose();
+                              await c.sendspin.toggleMute();
+                              if (mounted) setState(() {});
+                            },
+                          ),
+                          _ControlTouch(
+                            container: c,
+                            child: _NowPlayingControls(
+                              container: c,
+                              width: min(
+                                max(artSize * 1.4, screen.width * 0.62),
+                                screen.width - 32,
+                              ),
+                              scale: controlsScale,
+                              maxHeight: screen.height * 0.5,
+                              volumeOpen: _volumeOpen,
+                              onToggleVolume: _toggleVolumeOpen,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -2088,6 +2269,9 @@ class _NowPlayingControls extends StatefulWidget {
     required this.width,
     required this.scale,
     required this.maxHeight,
+    required this.volumeOpen,
+    required this.onToggleVolume,
+    this.hideTransport = false,
   });
 
   final AppContainer container;
@@ -2099,6 +2283,20 @@ class _NowPlayingControls extends StatefulWidget {
   final double scale;
 
   final double maxHeight;
+
+  /// Whether the seek bar's slot currently shows the volume slider
+  /// instead of the progress bar. That bar lives elsewhere ([_NowPlayingBar]);
+  /// this widget only needs the flag to draw its own toggle button's icon
+  /// correctly.
+  final bool volumeOpen;
+
+  /// Flips [volumeOpen] in the shared, lifted state.
+  final VoidCallback onToggleVolume;
+
+  /// Collapses the previous/pause/next row, e.g. while the queue panel
+  /// (in the horizontal layout) is open and wants the space. The row
+  /// below (volume, favorite, shuffle, repeat, queue) is unaffected.
+  final bool hideTransport;
 
   @override
   State<_NowPlayingControls> createState() => _NowPlayingControlsState();
@@ -2122,52 +2320,6 @@ class _NowPlayingControlsState extends State<_NowPlayingControls> {
   /// middle of the transport, so left and right reach everything else.
   final _playFocus = FocusNode(debugLabel: 'now playing play');
 
-  /// The volume slider standing in for the seek bar: opened by its
-  /// toggle, closed by a second tap or a few seconds after the last
-  /// touch. The dragged level holds for a moment after release, until
-  /// the source reports the new level back.
-  bool _volumeOpen = false;
-  double? _volumeDrag;
-  Timer? _volumeClose;
-  Timer? _volumeHold;
-
-  void _armVolumeClose() {
-    _volumeClose?.cancel();
-    _volumeClose = Timer(const Duration(seconds: 4), () {
-      _volumeClose = null;
-      if (!mounted || !_volumeOpen) return;
-      setState(() => _volumeOpen = false);
-    });
-  }
-
-  void _toggleVolume() {
-    setState(() => _volumeOpen = !_volumeOpen);
-    if (_volumeOpen) {
-      _armVolumeClose();
-    } else {
-      _volumeClose?.cancel();
-      _volumeClose = null;
-    }
-  }
-
-  /// A hardware volume key moved the player (issue #544): show the
-  /// slider for a moment, the way the system shows its own volume.
-  void _onVolumeNudge() {
-    if (!mounted || !c.sendspin.volumeAvailable) return;
-    if (!_volumeOpen) setState(() => _volumeOpen = true);
-    _armVolumeClose();
-  }
-
-  Future<void> _setVolume(double level) async {
-    _armVolumeClose();
-    _volumeHold?.cancel();
-    _volumeHold = Timer(const Duration(seconds: 3), () {
-      _volumeHold = null;
-      if (mounted) setState(() => _volumeDrag = null);
-    });
-    await c.sendspin.setVolume(level.round());
-  }
-
   /// The lyrics and queue toggles read settings, so they follow the
   /// setting bus.
   StreamSubscription<SettingChanged>? _settingsSub;
@@ -2177,7 +2329,6 @@ class _NowPlayingControlsState extends State<_NowPlayingControls> {
     super.initState();
     c.sendspin.nowPlaying.addListener(_onNowPlaying);
     c.sendspin.favorite.addListener(_rebuild);
-    c.sendspin.volumeNudge.addListener(_onVolumeNudge);
     // Nothing else on the view takes focus, so without this a dpad had
     // nothing to walk from.
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -2196,10 +2347,7 @@ class _NowPlayingControlsState extends State<_NowPlayingControls> {
   void dispose() {
     c.sendspin.nowPlaying.removeListener(_onNowPlaying);
     c.sendspin.favorite.removeListener(_rebuild);
-    c.sendspin.volumeNudge.removeListener(_onVolumeNudge);
     _settingsSub?.cancel();
-    _volumeClose?.cancel();
-    _volumeHold?.cancel();
     _playFocus.dispose();
     super.dispose();
   }
@@ -2272,11 +2420,6 @@ class _NowPlayingControlsState extends State<_NowPlayingControls> {
         (now['supportedCommands'] as List?)?.map((e) => '$e').toList() ??
         const <String>[];
     bool has(String cmd) => supported.isEmpty || supported.contains(cmd);
-    final timeStyle = TextStyle(
-      color: Colors.white70,
-      fontSize: 17 * scale,
-      fontFeatures: const [FontFeature.tabularFigures()],
-    );
 
     Widget btn(
       IconData icon,
@@ -2394,10 +2537,10 @@ class _NowPlayingControlsState extends State<_NowPlayingControls> {
         : toggleBlank;
     // The volume toggle leads the left cluster; the right one keeps a
     // blank so the transport stays centered with three slots a side.
+    // The slider itself lives outside this widget now ([_NowPlayingBar]);
+    // this button only flips the shared, lifted open state.
     final volumeAvailable = c.sendspin.volumeAvailable;
-    final volumeOpen = _volumeOpen && volumeAvailable;
-    final level =
-        _volumeDrag ?? c.sendspin.volumeLevel?.toDouble().clamp(0.0, 100.0);
+    final volumeOpen = widget.volumeOpen && volumeAvailable;
     final muted = c.sendspin.muted;
     final volume = volumeAvailable
         ? btn(
@@ -2408,7 +2551,7 @@ class _NowPlayingControlsState extends State<_NowPlayingControls> {
                 : (volumeOpen
                       ? Icons.volume_up_rounded
                       : Icons.volume_up_outlined),
-            _toggleVolume,
+            widget.onToggleVolume,
             label: volumeOpen
                 ? l10n(context).mediaHideVolume
                 : l10n(context).mediaShowVolume,
@@ -2484,95 +2627,19 @@ class _NowPlayingControlsState extends State<_NowPlayingControls> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (volumeOpen) ...[
-            // The volume in the seek bar's place, the same two rows the
-            // seek bar takes (the bar, then the times' line with the level
-            // at the right), so the block keeps its height and nothing
-            // above it moves.
-            SizedBox(
-              height: 24 * scale,
-              child: Row(
-                children: [
-                  // The speaker beside the slider mutes: lit and crossed
-                  // while it is.
-                  btn(
-                    muted ? Icons.volume_off_rounded : Icons.volume_up_rounded,
-                    () async {
-                      _armVolumeClose();
-                      await c.sendspin.toggleMute();
-                      // The local mute is the manager's alone; a followed
-                      // player reports its own back through the snapshot.
-                      if (mounted) setState(() {});
-                    },
-                    size: 32,
-                    label: muted
-                        ? l10n(context).mediaUnmute
-                        : l10n(context).mediaMute,
-                    color: muted ? Colors.white : Colors.white70,
-                  ),
-                  Expanded(
-                    child: SliderTheme(
-                      data: SliderThemeData(
-                        trackHeight: 4 * scale,
-                        activeTrackColor: Colors.white,
-                        inactiveTrackColor: Colors.white30,
-                        thumbColor: Colors.white,
-                        overlayColor: Colors.white24,
-                        thumbShape: RoundSliderThumbShape(
-                          enabledThumbRadius: 7 * scale,
-                        ),
-                        overlayShape: RoundSliderOverlayShape(
-                          overlayRadius: 16 * scale,
-                        ),
-                        trackShape: const RectangularSliderTrackShape(),
-                      ),
-                      child: Slider(
-                        semanticFormatterCallback: (value) =>
-                            '${l10n(context).mediaVolume}: ${value.round()}%',
-                        value: level ?? 0,
-                        max: 100,
-                        onChanged: level == null
-                            ? null
-                            : (v) {
-                                _armVolumeClose();
-                                setState(() => _volumeDrag = v);
-                              },
-                        onChangeEnd: level == null ? null : _setVolume,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('', style: timeStyle),
-                Text(
-                  level == null ? '' : '${level.round()}%',
-                  style: timeStyle,
-                ),
-              ],
-            ),
-          ],
-          Offstage(
-            key: const ValueKey('now-playing-progress'),
-            offstage: volumeOpen,
-            child: _NowPlayingProgress(
-              container: c,
-              scale: scale,
-              active: !volumeOpen,
-            ),
-          ),
+          // The seek/volume bar itself now lives outside this widget,
+          // full width below both panes ([_NowPlayingBar]). Only its
+          // toggle button (above, in `volume`) stays here.
           if (compact) ...[
-            FittedBox(
-              fit: BoxFit.scaleDown,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: transportButtons,
+            if (!widget.hideTransport)
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: transportButtons,
+                ),
               ),
-            ),
             FittedBox(
               fit: BoxFit.scaleDown,
               child: SizedBox(
@@ -2602,8 +2669,10 @@ class _NowPlayingControlsState extends State<_NowPlayingControls> {
                       ('heart', heart),
                       ('shuffle', shuffle),
                     ], left: true),
-                    SizedBox(width: 20 * scale),
-                    ...transportButtons,
+                    if (!widget.hideTransport) ...[
+                      SizedBox(width: 20 * scale),
+                      ...transportButtons,
+                    ],
                     SizedBox(width: 20 * scale),
                     ...cluster([
                       ('repeat', repeat),
@@ -2621,6 +2690,125 @@ class _NowPlayingControlsState extends State<_NowPlayingControls> {
 }
 
 /// Owns progress ticks and optimistic seeking without rebuilding transport.
+/// The seek bar's slot: the playback progress bar normally, or the
+/// volume slider while its toggle is open. Split out of
+/// [_NowPlayingControls] so it can be placed independently of the
+/// transport and toggle buttons — in the horizontal layout it runs the
+/// full width below both panes, rather than sitting inside the details
+/// pane alone. The open/drag state lives one level up
+/// ([_SendspinFullscreenViewState]) since the toggle button that flips
+/// it is drawn by [_NowPlayingControls], elsewhere in the tree.
+class _NowPlayingBar extends StatelessWidget {
+  const _NowPlayingBar({
+    required this.container,
+    required this.scale,
+    required this.volumeOpen,
+    required this.volumeLevel,
+    required this.onVolumeChanged,
+    required this.onVolumeChangeEnd,
+    required this.onToggleMute,
+  });
+
+  final AppContainer container;
+  final double scale;
+  final bool volumeOpen;
+
+  /// The level to show, already resolved (a drag in progress, or the
+  /// last reported level).
+  final double? volumeLevel;
+  final ValueChanged<double> onVolumeChanged;
+  final ValueChanged<double> onVolumeChangeEnd;
+  final VoidCallback onToggleMute;
+
+  @override
+  Widget build(BuildContext context) {
+    if (container.sendspin.nowPlaying.value == null) {
+      return const SizedBox.shrink();
+    }
+    if (!volumeOpen) {
+      return _NowPlayingProgress(
+        container: container,
+        scale: scale,
+        active: true,
+      );
+    }
+    final muted = container.sendspin.muted;
+    final timeStyle = TextStyle(
+      color: Colors.white70,
+      fontSize: 17 * scale,
+      fontFeatures: const [FontFeature.tabularFigures()],
+    );
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SizedBox(
+          height: 24 * scale,
+          child: Row(
+            children: [
+              // The speaker beside the slider mutes: lit and crossed
+              // while it is.
+              IconButton(
+                icon: Icon(
+                  muted ? Icons.volume_off_rounded : Icons.volume_up_rounded,
+                  size: 32 * scale,
+                ),
+                tooltip: muted
+                    ? l10n(context).mediaUnmute
+                    : l10n(context).mediaMute,
+                color: muted ? Colors.white : Colors.white70,
+                padding: EdgeInsets.zero,
+                constraints: BoxConstraints(
+                  minWidth: 48 * scale,
+                  minHeight: 48 * scale,
+                ),
+                onPressed: onToggleMute,
+              ),
+              Expanded(
+                child: SliderTheme(
+                  data: SliderThemeData(
+                    trackHeight: 4 * scale,
+                    activeTrackColor: Colors.white,
+                    inactiveTrackColor: Colors.white30,
+                    thumbColor: Colors.white,
+                    overlayColor: Colors.white24,
+                    thumbShape: RoundSliderThumbShape(
+                      enabledThumbRadius: 7 * scale,
+                    ),
+                    overlayShape: RoundSliderOverlayShape(
+                      overlayRadius: 16 * scale,
+                    ),
+                    trackShape: const RectangularSliderTrackShape(),
+                  ),
+                  child: Slider(
+                    semanticFormatterCallback: (value) =>
+                        '${l10n(context).mediaVolume}: ${value.round()}%',
+                    value: volumeLevel ?? 0,
+                    max: 100,
+                    onChanged: volumeLevel == null ? null : onVolumeChanged,
+                    onChangeEnd: volumeLevel == null
+                        ? null
+                        : onVolumeChangeEnd,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('', style: timeStyle),
+            Text(
+              volumeLevel == null ? '' : '${volumeLevel!.round()}%',
+              style: timeStyle,
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
 class _NowPlayingProgress extends StatefulWidget {
   const _NowPlayingProgress({
     required this.container,
