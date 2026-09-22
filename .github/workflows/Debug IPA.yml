@@ -1,0 +1,58 @@
+name: Build debug IPA (unsigned)
+
+# Builds an UNSIGNED iOS .ipa on a macOS runner, on demand from the
+# Actions tab. It cannot be installed as-is: sign it afterwards with a
+# free tool such as Sideloadly (or AltStore), using your own Apple ID,
+# with the device connected over USB. That signing step is what
+# registers the device and creates the 7-day certificate — GitHub
+# Actions has no Mac-with-Xcode-and-your-Apple-ID-signed-in to do that
+# part for you.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  ipa:
+    runs-on: macos-14
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.44.6
+          cache: true
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Generates assets/remote-ui/ before the Flutter/Xcode build runs.
+      - name: Install the remote-ui build tool
+        run: npm install
+
+      - name: Get Flutter dependencies
+        run: flutter pub get
+
+      # --no-codesign: no certificate/provisioning profile exists on this
+      # runner (and none should be uploaded here), so this produces a
+      # plain, unsigned Runner.app instead of failing on missing signing.
+      - name: Build the iOS app (unsigned)
+        run: flutter build ios --release --no-codesign
+
+      # Sideloadly/AltStore expect a .ipa (a zip with a top-level
+      # Payload/ folder), not the raw .app bundle Flutter produces.
+      - name: Package into an unsigned .ipa
+        run: |
+          cd build/ios/iphoneos
+          mkdir Payload
+          cp -r Runner.app Payload/
+          zip -r kiosk-satellite-unsigned.ipa Payload
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: kiosk-satellite-unsigned-ipa
+          path: app/build/ios/iphoneos/kiosk-satellite-unsigned.ipa
