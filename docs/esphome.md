@@ -112,6 +112,7 @@ Every item in this list corresponds directly to a kiosk setting. They are fully 
 | **CPU usage** | sensor | Reports current CPU load as a percentage. |
 | **CPU temperature** | sensor | Only available on devices that report thermal data. |
 | **RAM available**, **RAM total** | sensor | Reported in Megabytes (MB). |
+| **Internal storage free**, **Internal storage total** | sensor | Available space and capacity of Android's internal data partition in mebibytes (MiB). Refresh every minute. Free space includes a valid zero when the partition is full. |
 | **Current page** | text sensor | Displays the URL currently on screen, perfectly tracking Single Page Application (SPA) navigations. |
 | **Foreground app** | text sensor | Identifies the package name of the app currently running in front. |
 | **Bluetooth devices nearby** | sensor | Requires the Bluetooth proxy to be enabled. See the [Nearby devices](#nearby-devices) section. |

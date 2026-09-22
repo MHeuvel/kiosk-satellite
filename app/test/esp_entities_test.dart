@@ -33,6 +33,7 @@ void main() {
   var dashboardsUnreachable = false;
   var catalogChanges = 0;
   var updateStatus = <String, Object?>{};
+  Map<String, Object?>? storage;
   // The restart support ask (issue #528): null answers like a kiosk with
   // no owner and no Shizuku, where the command exists but says no.
   Map<String, Object?>? rebootSupport;
@@ -47,6 +48,7 @@ void main() {
       'releaseUrl': 'https://example/r',
     };
     battery = 73;
+    storage = {'free': 16384 * 1024 * 1024, 'total': 32768 * 1024 * 1024};
     dashboardsUnreachable = false;
     catalogChanges = 0;
     cameraFacings = ['front', 'back'];
@@ -175,10 +177,17 @@ void main() {
       {'route': 'home'},
       {'route': 'cameras'},
     ]);
-    stub('getDeviceDetails', {
-      'ram': {'free': 512 * 1024 * 1024, 'total': 4096 * 1024 * 1024},
-      'androidBuild': 'TP1A.220624.014',
-    });
+    commands.register(
+      Command(
+        name: 'getDeviceDetails',
+        description: 'stub',
+        handler: (_) async => CommandResult.ok({
+          'ram': {'free': 512 * 1024 * 1024, 'total': 4096 * 1024 * 1024},
+          'storage': storage,
+          'androidBuild': 'TP1A.220624.014',
+        }),
+      ),
+    );
     stub('getUptime', {'app': 4200, 'network': 100});
     commands.register(
       Command(
@@ -629,6 +638,8 @@ void main() {
         'cpu_temp',
         'ram_free',
         'ram_total',
+        'storage_free',
+        'storage_total',
         'url',
         'foreground_app',
         'btproxy_nearby',
@@ -659,6 +670,14 @@ void main() {
     expect(ids, contains('bt_devices_connected'));
     expect(ids, contains('last_seen'));
     final byId = {for (final d in catalog) d['objectId']: d};
+    for (final id in ['storage_free', 'storage_total']) {
+      expect(byId[id]!['type'], 'sensor');
+      expect(byId[id]!['category'], 2);
+      expect(byId[id]!['deviceClass'], 'data_size');
+      expect(byId[id]!['unit'], 'MiB');
+    }
+    expect(byId['storage_free']!['stateClass'], 1);
+    expect(byId['storage_total']!['stateClass'], 0);
     // Only views with cameras become options; 'Closed' leads. The
     // per-view show buttons ride along.
     expect(byId['camera_view']!['options'], ['Closed', 'Front door']);
@@ -950,6 +969,8 @@ void main() {
     expect(byId['cpu_temp'], 41);
     expect(byId['ram_free'], 512);
     expect(byId['ram_total'], 4096);
+    expect(byId['storage_free'], 16384);
+    expect(byId['storage_total'], 32768);
     expect(byId['ipv4_address'], '192.168.1.5');
     expect(byId['ipv6_address'], 'fe80::1');
     // Uptimes are timestamp anchors: the moment the
@@ -987,6 +1008,39 @@ void main() {
     expect(byId['dashboard_view'], 'lovelace/home');
     // The start URL names the dashboard alone, which is its first view.
     expect(byId['default_dashboard'], 'lovelace/home');
+  });
+
+  test('storage poll reports full disks and clears missing readings', () {
+    fakeAsync((async) {
+      surface.build();
+      async.flushMicrotasks();
+      surface.attach(
+        (objectId, value) async => pushed.add((objectId, value)),
+        (objectId, jpeg) async => images.add((objectId, jpeg)),
+      );
+      async.flushMicrotasks();
+
+      void poll(Map<String, Object?>? reading, Object? free, Object? total) {
+        storage = reading;
+        pushed.clear();
+        async.elapse(const Duration(seconds: 60));
+        final byId = {for (final (id, value) in pushed) id: value};
+        expect(byId, containsPair('storage_free', free));
+        expect(byId, containsPair('storage_total', total));
+      }
+
+      poll({'free': 0, 'total': 32768 * 1024 * 1024}, 0, 32768);
+      poll(null, null, null);
+      poll({'free': null, 'total': null}, null, null);
+      poll({'free': -1, 'total': 0}, null, null);
+      poll({'free': 512 * 1024, 'total': 32768 * 1024 * 1024}, 0, 32768);
+      poll(
+        {'free': 8192 * 1024 * 1024, 'total': 32768 * 1024 * 1024},
+        8192,
+        32768,
+      );
+      surface.detach();
+    });
   });
 
   test('a re-attach sends the uptime anchors again', () async {

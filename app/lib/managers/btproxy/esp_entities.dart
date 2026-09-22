@@ -870,6 +870,21 @@ class EspEntitySurface {
         deviceClass: 'data_size',
         unit: 'MB',
       ),
+      diagnostic(
+        'storage_free',
+        'Internal storage free',
+        icon: 'mdi:harddisk',
+        deviceClass: 'data_size',
+        unit: 'MiB',
+        stateClass: 1,
+      ),
+      diagnostic(
+        'storage_total',
+        'Internal storage total',
+        icon: 'mdi:harddisk',
+        deviceClass: 'data_size',
+        unit: 'MiB',
+      ),
       diagnostic('url', 'Current page', icon: 'mdi:web', type: 'text_sensor'),
       diagnostic(
         'foreground_app',
@@ -2343,6 +2358,23 @@ class EspEntitySurface {
       if (freeMb > 0) await _send('ram_free', freeMb);
       if (totalMb > 0) await _send('ram_total', totalMb);
     }
+    final storage = details.ok && details.data is Map
+        ? ((details.data as Map)['storage'] as Map?)
+        : null;
+    final storageFree = storage?['free'] as num?;
+    final storageTotal = storage?['total'] as num?;
+    await _send(
+      'storage_free',
+      storageFree != null && storageFree >= 0
+          ? storageFree ~/ (1024 * 1024)
+          : null,
+    );
+    await _send(
+      'storage_total',
+      storageTotal != null && storageTotal > 0
+          ? storageTotal ~/ (1024 * 1024)
+          : null,
+    );
     final up = await commands.execute('getUptime', const {});
     if (up.ok && up.data is Map) {
       final uptime = up.data as Map;
