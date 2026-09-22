@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Fixed
+- **Weather Mood skies render on affected Android GPUs.** The sky texture is now allocated before it is attached to the render target and attached again after resizing. This fixes a black background with only precipitation visible on devices such as the Galaxy Tab S8, including missing clouds, sun and moon.
+
 ## v2026.9.74 - 2026-09-22
 
 ### Added

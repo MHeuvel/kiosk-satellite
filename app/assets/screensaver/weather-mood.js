@@ -232,9 +232,6 @@
   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
   const sceneFramebuffer=gl.createFramebuffer();
-  gl.bindFramebuffer(gl.FRAMEBUFFER,sceneFramebuffer);
-  gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,sceneTexture,0);
-  gl.bindFramebuffer(gl.FRAMEBUFFER,null);
   gl.activeTexture(gl.TEXTURE0);
   let sceneWidth=0,sceneHeight=0;
   // Paired channels provide adjacent slices of repeatable volume noise.
@@ -592,6 +589,10 @@
     gl.activeTexture(gl.TEXTURE1);
     gl.bindTexture(gl.TEXTURE_2D,sceneTexture);
     gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,sceneWidth,sceneHeight,0,gl.RGBA,gl.UNSIGNED_BYTE,null);
+    // Attach allocated storage and refresh it after resizing for Android GPUs.
+    gl.bindFramebuffer(gl.FRAMEBUFFER,sceneFramebuffer);
+    gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,sceneTexture,0);
+    gl.bindFramebuffer(gl.FRAMEBUFFER,null);
     gl.activeTexture(gl.TEXTURE0);
     if(drawFrame) draw();
   }

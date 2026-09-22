@@ -154,5 +154,48 @@ with sync_playwright() as playwright:
     assert startup.evaluate('weatherMood.getPerformance().frames') > 0
     assert startup.evaluate("document.querySelector('#scene').getContext('webgl').getError()") == 0
     startup.close()
+    # Some Android GPUs keep a framebuffer incomplete when its texture storage
+    # is allocated or replaced after attachment. Model that driver behavior.
+    storage = browser.new_page(viewport={'width': 640, 'height': 360})
+    storage.set_content('<canvas id="scene"></canvas><canvas id="particles"></canvas>')
+    storage.evaluate('''() => {
+      window.__weatherMoodLowPower=true;
+      const gl=document.querySelector('#scene').getContext('webgl');
+      const allocated=new Set(),attachments=new Map();
+      const attach=gl.framebufferTexture2D.bind(gl),allocate=gl.texImage2D.bind(gl);
+      gl.framebufferTexture2D=(target,point,type,texture,level)=>{
+        attachments.set(gl.getParameter(gl.FRAMEBUFFER_BINDING),texture);
+        attach(target,point,type,allocated.has(texture)?texture:null,level);
+      };
+      gl.texImage2D=(...args)=>{
+        const texture=gl.getParameter(gl.TEXTURE_BINDING_2D);
+        const current=gl.getParameter(gl.FRAMEBUFFER_BINDING);
+        for(const [framebuffer,attached] of attachments) {
+          if(attached===texture) {
+            gl.bindFramebuffer(gl.FRAMEBUFFER,framebuffer);
+            attach(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,null,0);
+          }
+        }
+        gl.bindFramebuffer(gl.FRAMEBUFFER,current);
+        allocate(...args);
+        allocated.add(texture);
+      };
+    }''')
+    storage.add_script_tag(path=str(APP / 'assets/screensaver/weather-mood.js'))
+    storage.evaluate('weatherMood.setActive(false)')
+    for width, height in [(640, 360), (360, 640), (1280, 720)]:
+        storage.set_viewport_size({'width': width, 'height': height})
+        result = storage.evaluate('''() => {
+          dispatchEvent(new Event('resize'));
+          weatherMood.update({condition:'sunny',night:false,immediate:true});
+          const gl=document.querySelector('#scene').getContext('webgl');
+          const pixel=new Uint8Array(4);
+          gl.readPixels(gl.canvas.width>>1,gl.canvas.height>>1,1,1,
+            gl.RGBA,gl.UNSIGNED_BYTE,pixel);
+          return {error:gl.getError(),pixel:Array.from(pixel)};
+        }''')
+        assert result['error'] == 0, result
+        assert sum(result['pixel'][:3]) > 0, result
+    storage.close()
     browser.close()
-print('Weather Mood: 30 day/night combinations, weather effects, fallback, lightning toggle, pause, resize and native moon detail passed')
+print('Weather Mood: 30 day/night combinations, weather effects, fallback, lightning toggle, pause, resize, native moon detail and Android framebuffer storage passed')
