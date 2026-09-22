@@ -1,0 +1,73 @@
+name: Build debug APK (signed)
+
+# Builds a release-mode APK on demand from the Actions tab, signed with
+# your own personal keystore (stored as repo secrets, see the setup
+# steps) instead of a fresh random debug key each run. Because the
+# signature stays the same across runs -- and across a full delete +
+# refork, as long as you re-add the same 4 secrets from your own saved
+# .jks file -- a new build can be installed as an UPDATE over the
+# previous one, instead of needing an uninstall first.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.44.6
+          cache: true
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Generates assets/remote-ui/ before the Flutter/Gradle build runs.
+      - name: Install the remote-ui build tool
+        run: npm install
+
+      - name: Get Flutter dependencies
+        run: flutter pub get
+
+      # Restores the personal keystore from the repo secrets and writes
+      # android/key.properties, which app/android/app/build.gradle.kts
+      # already knows how to pick up (same mechanism release.yml uses,
+      # just with your own keystore instead of the project's release one).
+      - name: Restore the signing identity
+        env:
+          KEYSTORE_BASE64: ${{ secrets.MY_KEYSTORE_BASE64 }}
+          STORE_PASSWORD: ${{ secrets.MY_STORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.MY_KEY_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.MY_KEY_ALIAS }}
+        run: |
+          echo "$KEYSTORE_BASE64" | base64 -d > android/app/upload-keystore.jks
+          cat > android/key.properties <<PROPS
+          storePassword=$STORE_PASSWORD
+          keyPassword=$KEY_PASSWORD
+          keyAlias=$KEY_ALIAS
+          storeFile=upload-keystore.jks
+          PROPS
+
+      # Universal build: covers every ABI, so it installs regardless of
+      # the device's architecture (bigger file than a split-per-abi
+      # build; switch to --split-per-abi later if size matters more).
+      - name: Build APK
+        run: flutter build apk --release
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: kiosk-satellite-apk
+          path: app/build/app/outputs/flutter-apk/app-release.apk
