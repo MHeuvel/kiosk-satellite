@@ -26,7 +26,7 @@
       ]
     }
   },
-  "screensaverWeatherMoodSummary": "Weather entity, lightning",
+  "screensaverWeatherMoodSummary": "Weather entity, lightning, preview",
   "@screensaverWeatherMoodSummary": {
     "context": "Settings:Screensaver:Weather Mood screensaver",
     "description": "Weather Mood setting, guidance or weather condition.",
@@ -95,5 +95,304 @@
   "@screensaverWeatherMoodSelectEntity": {
     "context": "Screensaver:Weather Mood",
     "description": "Prompt shown on a black screen until a weather entity is selected."
+  },
+  "screensaverWeatherPreviewGroup": "Weather Preview",
+  "@screensaverWeatherPreviewGroup": {
+    "context": "Settings:Screensaver:Weather Mood screensaver:Weather Preview",
+    "description": "Weather preview control, group heading or scene choice.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver > Weather Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver > Weather Preview"
+      ]
+    }
+  },
+  "settingScreensaverWeatherPreviewTitle": "Enable weather preview",
+  "@settingScreensaverWeatherPreviewTitle": {
+    "context": "Settings:Screensaver:Weather Mood screensaver:Weather Preview",
+    "description": "Weather preview control, group heading or scene choice.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver > Weather Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver > Weather Preview"
+      ]
+    }
+  },
+  "settingScreensaverWeatherPreviewDescription": "Show the selected scene instead of live weather. Turn off to follow Home Assistant again.",
+  "@settingScreensaverWeatherPreviewDescription": {
+    "context": "Settings:Screensaver:Weather Mood screensaver:Weather Preview",
+    "description": "Weather preview control, group heading or scene choice.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver > Weather Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver > Weather Preview"
+      ]
+    }
+  },
+  "settingScreensaverWeatherPreviewConditionTitle": "Weather type",
+  "@settingScreensaverWeatherPreviewConditionTitle": {
+    "context": "Settings:Screensaver:Weather Mood screensaver:Weather Preview",
+    "description": "Weather preview control, group heading or scene choice.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver > Weather Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver > Weather Preview"
+      ]
+    }
+  },
+  "settingScreensaverWeatherPreviewConditionDescription": "The animated weather scene to preview.",
+  "@settingScreensaverWeatherPreviewConditionDescription": {
+    "context": "Settings:Screensaver:Weather Mood screensaver:Weather Preview",
+    "description": "Weather preview control, group heading or scene choice.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver > Weather Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver > Weather Preview"
+      ]
+    }
+  },
+  "settingScreensaverWeatherPreviewPeriodTitle": "Time of day",
+  "@settingScreensaverWeatherPreviewPeriodTitle": {
+    "context": "Settings:Screensaver:Weather Mood screensaver:Weather Preview",
+    "description": "Weather preview control, group heading or scene choice.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver > Weather Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver > Weather Preview"
+      ]
+    }
+  },
+  "settingScreensaverWeatherPreviewPeriodDescription": "Choose the day or night version of the scene.",
+  "@settingScreensaverWeatherPreviewPeriodDescription": {
+    "context": "Settings:Screensaver:Weather Mood screensaver:Weather Preview",
+    "description": "Weather preview control, group heading or scene choice.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver > Weather Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver > Weather Preview"
+      ]
+    }
+  },
+  "screensaverWeatherPreviewSunny": "Clear",
+  "@screensaverWeatherPreviewSunny": {
+    "context": "Settings:Screensaver:Weather Mood screensaver:Weather Preview",
+    "description": "Weather preview control, group heading or scene choice.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver > Weather Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver > Weather Preview"
+      ]
+    }
+  },
+  "screensaverWeatherPreviewPartlycloudy": "Partly cloudy",
+  "@screensaverWeatherPreviewPartlycloudy": {
+    "context": "Settings:Screensaver:Weather Mood screensaver:Weather Preview",
+    "description": "Weather preview control, group heading or scene choice.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver > Weather Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver > Weather Preview"
+      ]
+    }
+  },
+  "screensaverWeatherPreviewCloudy": "Cloudy",
+  "@screensaverWeatherPreviewCloudy": {
+    "context": "Settings:Screensaver:Weather Mood screensaver:Weather Preview",
+    "description": "Weather preview control, group heading or scene choice.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver > Weather Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver > Weather Preview"
+      ]
+    }
+  },
+  "screensaverWeatherPreviewRainy": "Rain",
+  "@screensaverWeatherPreviewRainy": {
+    "context": "Settings:Screensaver:Weather Mood screensaver:Weather Preview",
+    "description": "Weather preview control, group heading or scene choice.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver > Weather Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver > Weather Preview"
+      ]
+    }
+  },
+  "screensaverWeatherPreviewPouring": "Heavy rain",
+  "@screensaverWeatherPreviewPouring": {
+    "context": "Settings:Screensaver:Weather Mood screensaver:Weather Preview",
+    "description": "Weather preview control, group heading or scene choice.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver > Weather Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver > Weather Preview"
+      ]
+    }
+  },
+  "screensaverWeatherPreviewSnowy": "Snow",
+  "@screensaverWeatherPreviewSnowy": {
+    "context": "Settings:Screensaver:Weather Mood screensaver:Weather Preview",
+    "description": "Weather preview control, group heading or scene choice.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver > Weather Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver > Weather Preview"
+      ]
+    }
+  },
+  "screensaverWeatherPreviewSnowyRainy": "Snow and rain",
+  "@screensaverWeatherPreviewSnowyRainy": {
+    "context": "Settings:Screensaver:Weather Mood screensaver:Weather Preview",
+    "description": "Weather preview control, group heading or scene choice.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver > Weather Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver > Weather Preview"
+      ]
+    }
+  },
+  "screensaverWeatherPreviewFog": "Fog",
+  "@screensaverWeatherPreviewFog": {
+    "context": "Settings:Screensaver:Weather Mood screensaver:Weather Preview",
+    "description": "Weather preview control, group heading or scene choice.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver > Weather Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver > Weather Preview"
+      ]
+    }
+  },
+  "screensaverWeatherPreviewHail": "Hail",
+  "@screensaverWeatherPreviewHail": {
+    "context": "Settings:Screensaver:Weather Mood screensaver:Weather Preview",
+    "description": "Weather preview control, group heading or scene choice.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver > Weather Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver > Weather Preview"
+      ]
+    }
+  },
+  "screensaverWeatherPreviewLightning": "Lightning",
+  "@screensaverWeatherPreviewLightning": {
+    "context": "Settings:Screensaver:Weather Mood screensaver:Weather Preview",
+    "description": "Weather preview control, group heading or scene choice.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver > Weather Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver > Weather Preview"
+      ]
+    }
+  },
+  "screensaverWeatherPreviewLightningRainy": "Lightning and rain",
+  "@screensaverWeatherPreviewLightningRainy": {
+    "context": "Settings:Screensaver:Weather Mood screensaver:Weather Preview",
+    "description": "Weather preview control, group heading or scene choice.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver > Weather Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver > Weather Preview"
+      ]
+    }
+  },
+  "screensaverWeatherPreviewWindy": "Wind",
+  "@screensaverWeatherPreviewWindy": {
+    "context": "Settings:Screensaver:Weather Mood screensaver:Weather Preview",
+    "description": "Weather preview control, group heading or scene choice.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver > Weather Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver > Weather Preview"
+      ]
+    }
+  },
+  "screensaverWeatherPreviewWindyVariant": "Wind and clouds",
+  "@screensaverWeatherPreviewWindyVariant": {
+    "context": "Settings:Screensaver:Weather Mood screensaver:Weather Preview",
+    "description": "Weather preview control, group heading or scene choice.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver > Weather Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver > Weather Preview"
+      ]
+    }
+  },
+  "screensaverWeatherPreviewExceptional": "Exceptional weather",
+  "@screensaverWeatherPreviewExceptional": {
+    "context": "Settings:Screensaver:Weather Mood screensaver:Weather Preview",
+    "description": "Weather preview control, group heading or scene choice.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver > Weather Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver > Weather Preview"
+      ]
+    }
+  },
+  "screensaverWeatherPreviewDay": "Day",
+  "@screensaverWeatherPreviewDay": {
+    "context": "Settings:Screensaver:Weather Mood screensaver:Weather Preview",
+    "description": "Weather preview control, group heading or scene choice.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver > Weather Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver > Weather Preview"
+      ]
+    }
+  },
+  "screensaverWeatherPreviewNight": "Night",
+  "@screensaverWeatherPreviewNight": {
+    "context": "Settings:Screensaver:Weather Mood screensaver:Weather Preview",
+    "description": "Weather preview control, group heading or scene choice.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver > Weather Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver > Weather Preview"
+      ]
+    }
   }
 }

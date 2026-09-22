@@ -12,6 +12,7 @@ import '../l10n/messages.dart';
 import '../managers/home_assistant/home_assistant_manager.dart'
     show GlanceSubscription;
 import '../managers/settings/definitions.dart' as defs;
+import '../managers/settings/settings_manager.dart';
 
 /// The sun entity takes precedence over a weather provider's day/night label.
 bool weatherMoodNight(String? sun, DateTime localTime) => switch (sun) {
@@ -19,6 +20,22 @@ bool weatherMoodNight(String? sun, DateTime localTime) => switch (sun) {
   'below_horizon' => true,
   _ => localTime.hour < 6 || localTime.hour >= 18,
 };
+
+bool weatherMoodHasScene(SettingsManager settings) =>
+    settings.get(defs.screensaverWeatherPreview) ||
+    settings.get(defs.screensaverWeatherEntity).trim().isNotEmpty;
+
+({String condition, bool night}) weatherMoodScene(
+  SettingsManager settings,
+  String condition,
+  String? sun,
+  DateTime localTime,
+) => settings.get(defs.screensaverWeatherPreview)
+    ? (
+        condition: settings.get(defs.screensaverWeatherPreviewCondition),
+        night: settings.get(defs.screensaverWeatherPreviewPeriod) == 'night',
+      )
+    : (condition: condition, night: weatherMoodNight(sun, localTime));
 
 const weatherMoodConditions = {
   'sunny',
@@ -90,16 +107,23 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
           event.key == defs.haUrl.key ||
           event.key == defs.haToken.key) {
         if (event.key == defs.screensaverWeatherEntity.key) {
-          if (widget.container.settings
-              .get(defs.screensaverWeatherEntity)
-              .trim()
-              .isEmpty) {
+          if (!weatherMoodHasScene(widget.container.settings)) {
             _controller = null;
             _loaded = false;
           }
           setState(() {});
         }
         unawaited(_subscribe(reset: true));
+      } else if (event.key == defs.screensaverWeatherPreview.key) {
+        if (!weatherMoodHasScene(widget.container.settings)) {
+          _controller = null;
+          _loaded = false;
+        }
+        setState(() {});
+        unawaited(_update(immediate: true));
+      } else if (event.key == defs.screensaverWeatherPreviewCondition.key ||
+          event.key == defs.screensaverWeatherPreviewPeriod.key) {
+        unawaited(_update(immediate: true));
       } else if (event.key == defs.screensaverWeatherLightning.key) {
         unawaited(_update());
       }
@@ -165,9 +189,15 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
 
   Future<void> _update({bool immediate = false}) async {
     if (!_loaded) return;
+    final scene = weatherMoodScene(
+      widget.container.settings,
+      _condition,
+      _sun,
+      DateTime.now(),
+    );
     final data = jsonEncode({
-      'condition': _condition,
-      'night': weatherMoodNight(_sun, DateTime.now()),
+      'condition': scene.condition,
+      'night': scene.night,
       'lightning': widget.container.settings.get(
         defs.screensaverWeatherLightning,
       ),
@@ -218,10 +248,7 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.container.settings
-        .get(defs.screensaverWeatherEntity)
-        .trim()
-        .isEmpty) {
+    if (!weatherMoodHasScene(widget.container.settings)) {
       return ColoredBox(
         color: Colors.black,
         child: Center(

@@ -250,6 +250,26 @@ const settingOptionMessageIds = <String, Map<String, String>>{
     "-80": "esphomeOption80Dbm",
     "-85": "esphomeOption85Dbm",
     "-90": "esphomeOption90DbmEdgeOfRange"
+  },
+  "screensaver.weather_preview_condition": {
+    "sunny": "screensaverWeatherPreviewSunny",
+    "partlycloudy": "screensaverWeatherPreviewPartlycloudy",
+    "cloudy": "screensaverWeatherPreviewCloudy",
+    "rainy": "screensaverWeatherPreviewRainy",
+    "pouring": "screensaverWeatherPreviewPouring",
+    "snowy": "screensaverWeatherPreviewSnowy",
+    "snowy-rainy": "screensaverWeatherPreviewSnowyRainy",
+    "fog": "screensaverWeatherPreviewFog",
+    "hail": "screensaverWeatherPreviewHail",
+    "lightning": "screensaverWeatherPreviewLightning",
+    "lightning-rainy": "screensaverWeatherPreviewLightningRainy",
+    "windy": "screensaverWeatherPreviewWindy",
+    "windy-variant": "screensaverWeatherPreviewWindyVariant",
+    "exceptional": "screensaverWeatherPreviewExceptional"
+  },
+  "screensaver.weather_preview_period": {
+    "day": "screensaverWeatherPreviewDay",
+    "night": "screensaverWeatherPreviewNight"
   }
 };
 const settingPlaceholderMessageIds = <String, String>{

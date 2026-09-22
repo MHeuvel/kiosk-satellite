@@ -10058,7 +10058,7 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get screensaverWeatherMoodSummary =>
-      'Entidad meteorológica, relámpagos';
+      'Entidad meteorológica, rayos, vista previa';
 
   @override
   String get settingScreensaverWeatherEntityTitle => 'Entidad meteorológica';
@@ -10078,6 +10078,79 @@ class UiStringsEs extends UiStrings {
   @override
   String get screensaverWeatherMoodSelectEntity =>
       'Selecciona una entidad meteorológica en Ajustes > Salvapantallas > Ambiente meteorológico.';
+
+  @override
+  String get screensaverWeatherPreviewGroup => 'Vista previa del tiempo';
+
+  @override
+  String get settingScreensaverWeatherPreviewTitle =>
+      'Activar vista previa del tiempo';
+
+  @override
+  String get settingScreensaverWeatherPreviewDescription =>
+      'Muestra la escena seleccionada en lugar del tiempo actual. Desactívala para volver a seguir Home Assistant.';
+
+  @override
+  String get settingScreensaverWeatherPreviewConditionTitle => 'Tipo de tiempo';
+
+  @override
+  String get settingScreensaverWeatherPreviewConditionDescription =>
+      'Escena meteorológica animada que se mostrará en la vista previa.';
+
+  @override
+  String get settingScreensaverWeatherPreviewPeriodTitle => 'Momento del día';
+
+  @override
+  String get settingScreensaverWeatherPreviewPeriodDescription =>
+      'Selecciona la versión diurna o nocturna de la escena.';
+
+  @override
+  String get screensaverWeatherPreviewSunny => 'Despejado';
+
+  @override
+  String get screensaverWeatherPreviewPartlycloudy => 'Parcialmente nublado';
+
+  @override
+  String get screensaverWeatherPreviewCloudy => 'Nublado';
+
+  @override
+  String get screensaverWeatherPreviewRainy => 'Lluvia';
+
+  @override
+  String get screensaverWeatherPreviewPouring => 'Lluvia intensa';
+
+  @override
+  String get screensaverWeatherPreviewSnowy => 'Nieve';
+
+  @override
+  String get screensaverWeatherPreviewSnowyRainy => 'Nieve y lluvia';
+
+  @override
+  String get screensaverWeatherPreviewFog => 'Niebla';
+
+  @override
+  String get screensaverWeatherPreviewHail => 'Granizo';
+
+  @override
+  String get screensaverWeatherPreviewLightning => 'Rayos';
+
+  @override
+  String get screensaverWeatherPreviewLightningRainy => 'Rayos y lluvia';
+
+  @override
+  String get screensaverWeatherPreviewWindy => 'Viento';
+
+  @override
+  String get screensaverWeatherPreviewWindyVariant => 'Viento y nubes';
+
+  @override
+  String get screensaverWeatherPreviewExceptional => 'Tiempo excepcional';
+
+  @override
+  String get screensaverWeatherPreviewDay => 'Día';
+
+  @override
+  String get screensaverWeatherPreviewNight => 'Noche';
 
   @override
   String get settingScreensaverWebsiteUrlTitle => 'URL del sitio web';

@@ -41,6 +41,7 @@ import '../core/permissions.dart';
 import '../managers/wake_word/background_listening.dart';
 import '../managers/wake_word/system_permissions.dart';
 import 'color_picker.dart';
+import 'weather_mood_settings.dart';
 import 'date_picker.dart';
 import 'gesture_settings.dart';
 import 'entity_picker.dart';
@@ -10263,31 +10264,7 @@ class SettingTile extends StatelessWidget {
           );
         }
         if (def.key == screensaverWeatherEntity.key) {
-          return ListTile(
-            title: Text(def.localizedTitle(context)),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  value.toString().isEmpty
-                      ? screensaverText(context, 'Pick a weather entity…')
-                      : value.toString(),
-                ),
-                Text(def.localizedDescription(context)),
-              ],
-            ),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () async {
-              final picked = await pickScreensaverWeatherEntity(
-                context,
-                c,
-                value.toString(),
-              );
-              if (picked == null) return;
-              await c.settings.setFromJson(def.key, picked.$1);
-              onChanged();
-            },
-          );
+          return WeatherMoodEntityRow(container: c);
         }
         // The screensaver's media is picked from Home Assistant, not typed.
         if (def.key == screensaverMediaId.key) {

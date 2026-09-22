@@ -1444,4 +1444,16 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingScreensaverWeatherLightningTitle",
     "description": "settingScreensaverWeatherLightningDescription",
   },
+  "screensaver.weather_preview": {
+    "title": "settingScreensaverWeatherPreviewTitle",
+    "description": "settingScreensaverWeatherPreviewDescription",
+  },
+  "screensaver.weather_preview_condition": {
+    "title": "settingScreensaverWeatherPreviewConditionTitle",
+    "description": "settingScreensaverWeatherPreviewConditionDescription",
+  },
+  "screensaver.weather_preview_period": {
+    "title": "settingScreensaverWeatherPreviewPeriodTitle",
+    "description": "settingScreensaverWeatherPreviewPeriodDescription",
+  },
 };

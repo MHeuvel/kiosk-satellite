@@ -8,7 +8,7 @@
   const lowPower=window.__weatherMoodLowPower===true || /Mali[- ]T\d/i.test(renderer)
     || (navigator.hardwareConcurrency>0 && navigator.hardwareConcurrency<=4);
   // Start within the budget of older GPUs before submitting the first frame.
-  const quality=lowPower?{width:480,height:300,steps:32,fps:15}:{width:1100,height:720,steps:96,fps:30};
+  const quality=lowPower?{width:560,height:350,steps:40,fps:15}:{width:1100,height:720,steps:96,fps:30};
   let resolutionScale=1,slowFrames=0;
   const vertex = `
     attribute vec2 position;
@@ -19,6 +19,7 @@
     precision highp float;
     varying vec2 uv;
     uniform sampler2D noiseMap;
+    uniform sampler2D sceneLayer;
     uniform vec2 resolution;
     uniform float time;
     uniform vec4 weather;
@@ -28,6 +29,7 @@
     uniform float windTime;
     uniform float flash;
     uniform vec2 flashPosition;
+    uniform float patchRadius;
     float cloudFootprint;
     float hash(vec2 p) { return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453); }
     float noise(vec3 p) {
@@ -106,7 +108,6 @@
       float halo=exp(-sunDistance*sunDistance/.008)*.48*sunVisibility*warmth;
       sky=mix(sky,vec3(1.,.95,.82),halo);
       float sun=exp(-sunDistance*sunDistance/.0016)*sunVisibility;
-      sky=mix(sky,vec3(1.,.99,.94),sun);
       // Only a subset of stars twinkle, each at its own speed and phase.
       vec2 starP=screen*175.;
       vec2 starCell=floor(starP);
@@ -127,7 +128,14 @@
       float moonLight=clamp(dot(normal,normalize(vec3(-.55,.15,1.))),0.,1.);
       vec3 moonColor=vec3(.98,.99,1.)*(.83+crater*.17)*(.78+moonLight*.22);
       sky+=vec3(.47,.48,.52)*exp(-moonDistance*.82)*night*.48;
-      sky=mix(sky,moonColor,moonMask*night);
+      if(patchRadius>0.) {
+        vec3 celestial=mix(sky,vec3(1.,.99,.94),sun);
+        celestial=mix(celestial,moonColor,moonMask*night);
+        float coverage=texture2D(sceneLayer,uv).a;
+        float feather=1.-smoothstep(.70,1.,sunDistance*resolution.y/patchRadius);
+        gl_FragColor=vec4(max(vec3(0.),celestial-sky)*coverage*feather,0.);
+        return;
+      }
       vec3 color=sky;
       float transmission=1.;
       float start=1.16/ray.y;
@@ -173,7 +181,9 @@
       color=mix(color,mix(vec3(.41,.49,.57),vec3(.174,.181,.196),night),rainVeil);
       color=clamp(color,0.,1.);
       color+=(hash(gl_FragCoord.xy+13.)-.5)/255.;
-      gl_FragColor=vec4(color,1.);
+      // Carry atmospheric visibility for the sharp celestial pass.
+      float visibility=transmission*(1.-veil)*(1.-illumination)*(1.-effects.w*(.17+.12*mist))*(1.-rainVeil);
+      gl_FragColor=vec4(color,visibility);
     }
   `;
   function compile(type,source) {
@@ -188,6 +198,7 @@
     program=gl.createProgram();
     gl.attachShader(program,compile(gl.VERTEX_SHADER,vertex));
     gl.attachShader(program,compile(gl.FRAGMENT_SHADER,fragment));
+    gl.bindAttribLocation(program,0,'position');
     gl.linkProgram(program);
     if(!gl.getProgramParameter(program,gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(program));
   } catch(error) { console.error(error); return; }
@@ -198,6 +209,34 @@
   const position=gl.getAttribLocation(program,'position');
   gl.enableVertexAttribArray(position);
   gl.vertexAttribPointer(position,2,gl.FLOAT,false,0,0);
+  // Upscale the inexpensive scene, then refine only the small celestial area.
+  const composite=gl.createProgram();
+  gl.attachShader(composite,compile(gl.VERTEX_SHADER,vertex));
+  gl.attachShader(composite,compile(gl.FRAGMENT_SHADER,`
+    precision mediump float;
+    varying vec2 uv;
+    uniform sampler2D scene;
+    void main() { gl_FragColor=vec4(texture2D(scene,uv).rgb,1.); }
+  `));
+  gl.bindAttribLocation(composite,0,'position');
+  gl.linkProgram(composite);
+  if(!gl.getProgramParameter(composite,gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(composite));
+  gl.useProgram(composite);
+  gl.uniform1i(gl.getUniformLocation(composite,'scene'),1);
+  gl.useProgram(program);
+  const sceneTexture=gl.createTexture();
+  gl.activeTexture(gl.TEXTURE1);
+  gl.bindTexture(gl.TEXTURE_2D,sceneTexture);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+  const sceneFramebuffer=gl.createFramebuffer();
+  gl.bindFramebuffer(gl.FRAMEBUFFER,sceneFramebuffer);
+  gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,sceneTexture,0);
+  gl.bindFramebuffer(gl.FRAMEBUFFER,null);
+  gl.activeTexture(gl.TEXTURE0);
+  let sceneWidth=0,sceneHeight=0;
   // Paired channels provide adjacent slices of repeatable volume noise.
   let seed=71;
   const values=new Uint8Array(256*256);
@@ -217,8 +256,9 @@
   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.REPEAT);
   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.REPEAT);
-  const uniforms=Object.fromEntries(['resolution','time','weather','snowfall','effects','storm','windTime','flash','flashPosition','noiseMap'].map(name=>[name,gl.getUniformLocation(program,name)]));
+  const uniforms=Object.fromEntries(['resolution','time','weather','snowfall','effects','storm','windTime','flash','flashPosition','noiseMap','sceneLayer','patchRadius'].map(name=>[name,gl.getUniformLocation(program,name)]));
   gl.uniform1i(uniforms.noiseMap,0);
+  gl.uniform1i(uniforms.sceneLayer,1);
   const presets={
     clear:{values:[0,0,0,0,0]},
     partlycloudy:{values:[.065,0,0,0,0]},
@@ -492,7 +532,14 @@
   function targetWeather() { const values=[...presets[state.mode].values]; values[1]=state.period==='night'?1:0; if(!lightningEnabled) values[7]=0; return values; }
   let last=0,frame=0;
   function draw() {
-    gl.uniform2f(uniforms.resolution,canvas.width,canvas.height);
+    if(!sceneWidth||!sceneHeight) return;
+    // Do not sample the scene texture while it is attached for rendering.
+    gl.activeTexture(gl.TEXTURE1);
+    gl.bindTexture(gl.TEXTURE_2D,texture);
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindFramebuffer(gl.FRAMEBUFFER,sceneFramebuffer);
+    gl.viewport(0,0,sceneWidth,sceneHeight);
+    gl.uniform2f(uniforms.resolution,sceneWidth,sceneHeight);
     gl.uniform1f(uniforms.time,state.time);
     gl.uniform4fv(uniforms.weather,state.current.slice(0,4));
     gl.uniform1f(uniforms.snowfall,state.current[4]);
@@ -503,16 +550,49 @@
     gl.uniform1f(uniforms.flash,lightning.strength);
     gl.uniform2f(uniforms.flashPosition,lightning.x,1-(lightning.y+.20));
     gl.drawArrays(gl.TRIANGLES,0,6);
+    gl.bindFramebuffer(gl.FRAMEBUFFER,null);
+    gl.activeTexture(gl.TEXTURE1);
+    gl.bindTexture(gl.TEXTURE_2D,sceneTexture);
+    gl.activeTexture(gl.TEXTURE0);
+    gl.viewport(0,0,canvas.width,canvas.height);
+    gl.useProgram(composite);
+    gl.drawArrays(gl.TRIANGLES,0,6);
+    gl.useProgram(program);
+    // Reuse cloud coverage and refine only the celestial body, with a soft edge.
+    const night=state.current[1];
+    const sunVisible=(1-night)*(1-state.current[2])*(1-state.current[4])*(1-state.current[9]);
+    if(night>.001||sunVisible>.001) {
+      const radius=Math.ceil(canvas.height*(.11*(1-night)+.048*night));
+      gl.uniform2f(uniforms.resolution,canvas.width,canvas.height);
+      gl.uniform1f(uniforms.patchRadius,radius);
+      gl.enable(gl.SCISSOR_TEST);
+      gl.scissor(Math.floor(canvas.width*.67-radius),Math.floor(canvas.height*.76-radius),radius*2+2,radius*2+2);
+      gl.enable(gl.BLEND);
+      gl.blendFunc(gl.ONE,gl.ONE);
+      gl.drawArrays(gl.TRIANGLES,0,6);
+      gl.disable(gl.BLEND);
+      gl.disable(gl.SCISSOR_TEST);
+      gl.uniform1f(uniforms.patchRadius,0);
+      gl.uniform2f(uniforms.resolution,sceneWidth,sceneHeight);
+    }
     drawParticles();
     state.frames++;
   }
   function resize(drawFrame=true) {
+    // Android can load the document before the platform view has a size.
+    if(innerWidth<1||innerHeight<1) {sceneWidth=sceneHeight=0;return;}
     const scale=Math.min(devicePixelRatio||1,quality.width*resolutionScale/innerWidth,quality.height*resolutionScale/innerHeight);
-    canvas.width=Math.round(innerWidth*scale);
-    canvas.height=Math.round(innerHeight*scale);
-    particleCanvas.width=canvas.width;
-    particleCanvas.height=canvas.height;
-    gl.viewport(0,0,canvas.width,canvas.height);
+    sceneWidth=Math.max(1,Math.round(innerWidth*scale));
+    sceneHeight=Math.max(1,Math.round(innerHeight*scale));
+    const outputScale=Math.min(devicePixelRatio||1,1920/innerWidth,1920/innerHeight);
+    canvas.width=Math.max(1,Math.round(innerWidth*outputScale));
+    canvas.height=Math.max(1,Math.round(innerHeight*outputScale));
+    particleCanvas.width=sceneWidth;
+    particleCanvas.height=sceneHeight;
+    gl.activeTexture(gl.TEXTURE1);
+    gl.bindTexture(gl.TEXTURE_2D,sceneTexture);
+    gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,sceneWidth,sceneHeight,0,gl.RGBA,gl.UNSIGNED_BYTE,null);
+    gl.activeTexture(gl.TEXTURE0);
     if(drawFrame) draw();
   }
   function tick(now) {
@@ -560,6 +640,6 @@
     event.preventDefault();state.ready=false;cancelAnimationFrame(frame);frame=0;
   });
   canvas.addEventListener('webglcontextrestored',()=>location.reload());
-  window.weatherMood={update,setActive,getPerformance:()=>({lowPower,steps:quality.steps,targetFps:quality.fps,width:canvas.width,height:canvas.height,resolutionScale,frames:state.frames,paused:state.paused})};
+  window.weatherMood={update,setActive,getPerformance:()=>({lowPower,steps:quality.steps,targetFps:quality.fps,width:sceneWidth,height:sceneHeight,outputWidth:canvas.width,outputHeight:canvas.height,resolutionScale,frames:state.frames,paused:state.paused})};
   resize();schedule();
 })();

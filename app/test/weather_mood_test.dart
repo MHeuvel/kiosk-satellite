@@ -7,6 +7,7 @@ import 'package:kiosk_satellite/core/command_registry.dart';
 import 'package:kiosk_satellite/managers/settings/definitions.dart' as defs;
 import 'package:kiosk_satellite/managers/screensaver/screensaver_widgets.dart';
 import 'package:kiosk_satellite/ui/settings_screen.dart';
+import 'package:kiosk_satellite/ui/kit.dart';
 import 'package:kiosk_satellite/ui/screensaver_view.dart';
 import 'package:kiosk_satellite/ui/weather_mood_screensaver.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -90,6 +91,106 @@ void main() {
   });
 
   test(
+    'preview overrides live weather and restores it when disabled',
+    () async {
+      SharedPreferences.setMockInitialValues({});
+      final container = AppContainer();
+      await container.settings.init();
+      final settings = container.settings;
+      final noon = DateTime(2026, 9, 22, 12);
+      expect(weatherMoodHasScene(settings), false);
+      await settings.set(defs.screensaverWeatherPreview, true);
+      expect(weatherMoodHasScene(settings), true);
+      await settings.set(defs.screensaverWeatherPreviewPeriod, 'night');
+      for (final condition
+          in defs.screensaverWeatherPreviewCondition.options!) {
+        expect(weatherMoodConditions, contains(condition));
+        await settings.set(defs.screensaverWeatherPreviewCondition, condition);
+        expect(weatherMoodScene(settings, 'rainy', 'above_horizon', noon), (
+          condition: condition,
+          night: true,
+        ));
+      }
+      await settings.set(defs.screensaverWeatherPreviewPeriod, 'day');
+      expect(
+        weatherMoodScene(settings, 'rainy', 'below_horizon', noon).night,
+        false,
+      );
+      await settings.set(defs.screensaverWeatherPreview, false);
+      expect(weatherMoodHasScene(settings), false);
+      await settings.set(defs.screensaverWeatherEntity, 'weather.home');
+      expect(weatherMoodHasScene(settings), true);
+      expect(weatherMoodScene(settings, 'snowy', 'below_horizon', noon), (
+        condition: 'snowy',
+        night: true,
+      ));
+    },
+  );
+
+  testWidgets(
+    'Weather Preview reveals and saves both dropdowns on the device',
+    (tester) async {
+      SharedPreferences.setMockInitialValues({
+        'ks.screensaver.mode': 'weather_mood',
+      });
+      final container = AppContainer();
+      await container.settings.init();
+      tester.view.physicalSize = const Size(1000, 1400);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.reset);
+      await tester.pumpWidget(
+        MaterialApp(
+          home: SubpageSettingsScreen(
+            container: container,
+            category: 'Screensaver',
+            subpage: 'Weather Mood screensaver',
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('Weather Preview'), findsOneWidget);
+      expect(find.text('Weather type'), findsNothing);
+      expect(find.text('Time of day'), findsNothing);
+      await tester.tap(find.text('Enable weather preview'));
+      await tester.pumpAndSettle();
+      expect(find.text('Weather type'), findsOneWidget);
+      expect(find.text('Time of day'), findsOneWidget);
+      for (final choice in [
+        (defs.screensaverWeatherPreviewCondition, 'Snow', 'snowy'),
+        (defs.screensaverWeatherPreviewPeriod, 'Night', 'night'),
+      ]) {
+        final row = find.byWidgetPredicate(
+          (widget) => widget is SettingTile && widget.def.key == choice.$1.key,
+        );
+        await tester.tap(
+          find.descendant(
+            of: row,
+            matching: find.byType(DropdownButton<String>),
+          ),
+        );
+        await tester.pumpAndSettle();
+        await tester.tap(find.text(choice.$2).last);
+        await tester.pumpAndSettle();
+        expect(container.settings.get(choice.$1), choice.$3);
+      }
+      await tester.tap(find.text('Enable weather preview'));
+      await tester.pumpAndSettle();
+      expect(find.text('Weather type'), findsNothing);
+      expect(find.text('Time of day'), findsNothing);
+      expect(container.settings.get(defs.screensaverWeatherPreview), false);
+      expect(
+        container.settings.get(defs.screensaverWeatherPreviewCondition),
+        'snowy',
+      );
+      expect(
+        container.settings.get(defs.screensaverWeatherPreviewPeriod),
+        'night',
+      );
+      await tester.pumpWidget(const SizedBox.shrink());
+    },
+  );
+
+  test(
     'settings persist and scheduled Weather Mood carries overlays',
     () async {
       SharedPreferences.setMockInitialValues({});
@@ -124,20 +225,25 @@ void main() {
     },
   );
 
-  testWidgets('mode picker lists weather entities by name and saves the ID', (
+  testWidgets('weather entity uses the announcement-style control and picker', (
     tester,
   ) async {
-    SharedPreferences.setMockInitialValues({});
+    SharedPreferences.setMockInitialValues({
+      'ks.screensaver.weather_entity': 'weather.home',
+    });
     final container = AppContainer();
     await container.settings.init();
+    var failSearch = false;
     container.commands.register(
       Command(
         name: 'haSearchEntities',
         description: 'Test entity search',
         handler: (params) async {
           expect(params['query'], 'weather.');
+          if (failSearch) return const CommandResult.fail('Unavailable');
           return const CommandResult.ok([
             {'entity_id': 'weather.home', 'name': 'Garden weather'},
+            {'entity_id': 'weather.coast', 'name': 'Coastal weather'},
             {
               'entity_id': 'sensor.weather_temperature',
               'name': 'Excluded sensor',
@@ -157,15 +263,42 @@ void main() {
         ),
       ),
     );
-    await tester.tap(find.text('Weather entity'));
     await tester.pumpAndSettle();
-    expect(find.text('Garden weather'), findsOneWidget);
+    final control = find.byType(ControlBox);
+    expect(
+      find.descendant(of: control, matching: find.text('Garden weather')),
+      findsOneWidget,
+    );
+    await tester.tap(control);
+    await tester.pumpAndSettle();
+    expect(find.byType(SimpleDialog), findsOneWidget);
+    expect(find.text('weather.home'), findsOneWidget);
     expect(find.text('Excluded sensor'), findsNothing);
-    await tester.tap(find.text('Garden weather'));
+    await tester.tap(find.text('Coastal weather'));
     await tester.pumpAndSettle();
     expect(
       container.settings.get(defs.screensaverWeatherEntity),
-      'weather.home',
+      'weather.coast',
     );
+    expect(find.text('Coastal weather'), findsOneWidget);
+    expect(find.text('weather.coast'), findsNothing);
+    failSearch = true;
+    await tester.tap(control);
+    await tester.pumpAndSettle();
+    expect(find.byType(SimpleDialog), findsNothing);
+    expect(find.text('Coastal weather'), findsOneWidget);
+    expect(
+      container.settings.get(defs.screensaverWeatherEntity),
+      'weather.coast',
+    );
+    await tester.pump(const Duration(seconds: 4));
+    failSearch = false;
+    await tester.tap(control);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Not set'));
+    await tester.pumpAndSettle();
+    expect(container.settings.get(defs.screensaverWeatherEntity), '');
+    expect(find.text('Pick a weather entity…'), findsOneWidget);
+    await tester.pumpWidget(const SizedBox.shrink());
   });
 }

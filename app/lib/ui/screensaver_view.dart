@@ -120,6 +120,7 @@ class _ScreensaverOverlayState extends State<ScreensaverOverlay> {
     final live = {
       defs.screensaverWidgets.key,
       defs.screensaverWeatherEntity.key,
+      defs.screensaverWeatherPreview.key,
       defs.screensaverWidgetScale.key,
       defs.screensaverWidgetFont.key,
       defs.screensaverWidgetFontWeight.key,
@@ -215,11 +216,7 @@ class _ScreensaverOverlayState extends State<ScreensaverOverlay> {
         // blanks the overlays instead of asking people to unconfigure the
         // small clock and At a Glance row for the night.
         final weatherUnset =
-            view == 'weather_mood' &&
-            container.settings
-                .get(defs.screensaverWeatherEntity)
-                .trim()
-                .isEmpty;
+            view == 'weather_mood' && !weatherMoodHasScene(container.settings);
         final blackBare =
             view == 'black' &&
             container.settings.get(defs.screensaverBlackHideExtras);

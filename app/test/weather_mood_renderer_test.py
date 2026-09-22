@@ -22,8 +22,8 @@ with sync_playwright() as playwright:
     page.add_script_tag(path=str(APP / 'assets/screensaver/weather-mood.js'))
     if low_power:
         performance = page.evaluate('window.weatherMood.getPerformance()')
-        assert performance['lowPower'] and performance['steps'] == 32
-        assert performance['width'] <= 480 and performance['height'] <= 300
+        assert performance['lowPower'] and performance['steps'] == 40
+        assert performance['width'] <= 560 and performance['height'] <= 350
         assert performance['targetFps'] == 15
     page.evaluate('window.weatherMood.setActive(false)')
 
@@ -97,6 +97,18 @@ with sync_playwright() as playwright:
       window.cancelAnimationFrame=()=>{window.nextWeatherFrame=null;};
     }""")
     adaptive.add_script_tag(path=str(APP / 'assets/screensaver/weather-mood.js'))
+    adaptive.evaluate("window.weatherMood.update({condition:'clear-night',night:true,immediate:true})")
+    # The moon's native-resolution edge must survive a drop in cloud resolution.
+    def moon_edge():
+        return adaptive.evaluate('''() => {
+          window.weatherMood.update({condition:'clear-night',night:true,immediate:true});
+          const canvas=document.querySelector('#scene'),gl=canvas.getContext('webgl');
+          const width=Math.floor(canvas.height*.066),pixels=new Uint8Array(width*4);
+          gl.readPixels(Math.floor(canvas.width*.67-width/2),Math.floor(canvas.height*.76),
+            width,1,gl.RGBA,gl.UNSIGNED_BYTE,pixels);
+          return Array.from(pixels);
+        }''')
+    initial_moon = moon_edge()
     start = adaptive.evaluate('window.weatherMood.getPerformance()')
     for frame in range(13):
         adaptive.evaluate('time=>window.nextWeatherFrame(time)', 1000+frame*200)
@@ -104,6 +116,43 @@ with sync_playwright() as playwright:
     assert end['width'] < start['width'] and end['height'] < start['height']
     assert .5 <= end['resolutionScale'] < 1
     assert end['frames'] > start['frames']
+    assert end['outputWidth'] == start['outputWidth'] == 640
+    assert end['outputHeight'] == start['outputHeight'] == 360
+    assert end['outputWidth'] > end['width']
+    assert max(abs(a-b) for a, b in zip(initial_moon, moon_edge())) <= 2
+    # The sharper moon must still disappear behind dense fog and clouds.
+    fog_moon = adaptive.evaluate('''() => {
+      window.weatherMood.update({condition:'fog',night:true,immediate:true});
+      const canvas=document.querySelector('#scene'),gl=canvas.getContext('webgl');
+      const pixel=new Uint8Array(4);
+      gl.readPixels(Math.floor(canvas.width*.67),Math.floor(canvas.height*.76),
+        1,1,gl.RGBA,gl.UNSIGNED_BYTE,pixel);
+      return pixel[0]+pixel[1]+pixel[2];
+    }''')
+    middle = (len(initial_moon)//8)*4
+    assert fog_moon < sum(initial_moon[middle:middle+3])*.6
     adaptive.close()
+    # Android may load the page before its platform view has been laid out.
+    startup = browser.new_page(viewport={'width': 640, 'height': 360})
+    startup.set_content('<canvas id="scene"></canvas><canvas id="particles"></canvas>')
+    startup.evaluate('''() => {
+      window.__weatherMoodLowPower=true;
+      Object.defineProperty(window,'innerWidth',{value:0,configurable:true});
+      Object.defineProperty(window,'innerHeight',{value:0,configurable:true});
+    }''')
+    startup.add_script_tag(path=str(APP / 'assets/screensaver/weather-mood.js'))
+    assert startup.evaluate('''() => {
+      weatherMood.update({condition:'sunny',night:false,immediate:true});
+      return document.querySelector('#scene').getContext('webgl').getError();
+    }''') == 0
+    assert startup.evaluate('weatherMood.getPerformance().frames') == 0
+    startup.evaluate('''() => {
+      Object.defineProperty(window,'innerWidth',{value:640,configurable:true});
+      Object.defineProperty(window,'innerHeight',{value:360,configurable:true});
+      dispatchEvent(new Event('resize'));
+    }''')
+    assert startup.evaluate('weatherMood.getPerformance().frames') > 0
+    assert startup.evaluate("document.querySelector('#scene').getContext('webgl').getError()") == 0
+    startup.close()
     browser.close()
-print('Weather Mood: 30 day/night combinations, weather effects, fallback, lightning toggle, pause and resize passed')
+print('Weather Mood: 30 day/night combinations, weather effects, fallback, lightning toggle, pause, resize and native moon detail passed')

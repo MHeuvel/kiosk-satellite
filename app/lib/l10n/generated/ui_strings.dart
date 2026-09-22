@@ -17103,7 +17103,7 @@ abstract class UiStrings {
   /// Weather Mood setting, guidance or weather condition.
   ///
   /// In en, this message translates to:
-  /// **'Weather entity, lightning'**
+  /// **'Weather entity, lightning, preview'**
   String get screensaverWeatherMoodSummary;
 
   /// Weather Mood setting, guidance or weather condition.
@@ -17135,6 +17135,144 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Select a weather entity in Settings > Screensaver > Weather Mood.'**
   String get screensaverWeatherMoodSelectEntity;
+
+  /// Weather preview control, group heading or scene choice.
+  ///
+  /// In en, this message translates to:
+  /// **'Weather Preview'**
+  String get screensaverWeatherPreviewGroup;
+
+  /// Weather preview control, group heading or scene choice.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable weather preview'**
+  String get settingScreensaverWeatherPreviewTitle;
+
+  /// Weather preview control, group heading or scene choice.
+  ///
+  /// In en, this message translates to:
+  /// **'Show the selected scene instead of live weather. Turn off to follow Home Assistant again.'**
+  String get settingScreensaverWeatherPreviewDescription;
+
+  /// Weather preview control, group heading or scene choice.
+  ///
+  /// In en, this message translates to:
+  /// **'Weather type'**
+  String get settingScreensaverWeatherPreviewConditionTitle;
+
+  /// Weather preview control, group heading or scene choice.
+  ///
+  /// In en, this message translates to:
+  /// **'The animated weather scene to preview.'**
+  String get settingScreensaverWeatherPreviewConditionDescription;
+
+  /// Weather preview control, group heading or scene choice.
+  ///
+  /// In en, this message translates to:
+  /// **'Time of day'**
+  String get settingScreensaverWeatherPreviewPeriodTitle;
+
+  /// Weather preview control, group heading or scene choice.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the day or night version of the scene.'**
+  String get settingScreensaverWeatherPreviewPeriodDescription;
+
+  /// Weather preview control, group heading or scene choice.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get screensaverWeatherPreviewSunny;
+
+  /// Weather preview control, group heading or scene choice.
+  ///
+  /// In en, this message translates to:
+  /// **'Partly cloudy'**
+  String get screensaverWeatherPreviewPartlycloudy;
+
+  /// Weather preview control, group heading or scene choice.
+  ///
+  /// In en, this message translates to:
+  /// **'Cloudy'**
+  String get screensaverWeatherPreviewCloudy;
+
+  /// Weather preview control, group heading or scene choice.
+  ///
+  /// In en, this message translates to:
+  /// **'Rain'**
+  String get screensaverWeatherPreviewRainy;
+
+  /// Weather preview control, group heading or scene choice.
+  ///
+  /// In en, this message translates to:
+  /// **'Heavy rain'**
+  String get screensaverWeatherPreviewPouring;
+
+  /// Weather preview control, group heading or scene choice.
+  ///
+  /// In en, this message translates to:
+  /// **'Snow'**
+  String get screensaverWeatherPreviewSnowy;
+
+  /// Weather preview control, group heading or scene choice.
+  ///
+  /// In en, this message translates to:
+  /// **'Snow and rain'**
+  String get screensaverWeatherPreviewSnowyRainy;
+
+  /// Weather preview control, group heading or scene choice.
+  ///
+  /// In en, this message translates to:
+  /// **'Fog'**
+  String get screensaverWeatherPreviewFog;
+
+  /// Weather preview control, group heading or scene choice.
+  ///
+  /// In en, this message translates to:
+  /// **'Hail'**
+  String get screensaverWeatherPreviewHail;
+
+  /// Weather preview control, group heading or scene choice.
+  ///
+  /// In en, this message translates to:
+  /// **'Lightning'**
+  String get screensaverWeatherPreviewLightning;
+
+  /// Weather preview control, group heading or scene choice.
+  ///
+  /// In en, this message translates to:
+  /// **'Lightning and rain'**
+  String get screensaverWeatherPreviewLightningRainy;
+
+  /// Weather preview control, group heading or scene choice.
+  ///
+  /// In en, this message translates to:
+  /// **'Wind'**
+  String get screensaverWeatherPreviewWindy;
+
+  /// Weather preview control, group heading or scene choice.
+  ///
+  /// In en, this message translates to:
+  /// **'Wind and clouds'**
+  String get screensaverWeatherPreviewWindyVariant;
+
+  /// Weather preview control, group heading or scene choice.
+  ///
+  /// In en, this message translates to:
+  /// **'Exceptional weather'**
+  String get screensaverWeatherPreviewExceptional;
+
+  /// Weather preview control, group heading or scene choice.
+  ///
+  /// In en, this message translates to:
+  /// **'Day'**
+  String get screensaverWeatherPreviewDay;
+
+  /// Weather preview control, group heading or scene choice.
+  ///
+  /// In en, this message translates to:
+  /// **'Night'**
+  String get screensaverWeatherPreviewNight;
 
   /// Setting label.
   ///

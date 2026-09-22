@@ -3226,6 +3226,49 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingScreensaverWeatherLightningDescription,
       'screensaverWeatherMoodSelectEntity' =>
         strings.screensaverWeatherMoodSelectEntity,
+      'screensaverWeatherPreviewGroup' =>
+        strings.screensaverWeatherPreviewGroup,
+      'settingScreensaverWeatherPreviewTitle' =>
+        strings.settingScreensaverWeatherPreviewTitle,
+      'settingScreensaverWeatherPreviewDescription' =>
+        strings.settingScreensaverWeatherPreviewDescription,
+      'settingScreensaverWeatherPreviewConditionTitle' =>
+        strings.settingScreensaverWeatherPreviewConditionTitle,
+      'settingScreensaverWeatherPreviewConditionDescription' =>
+        strings.settingScreensaverWeatherPreviewConditionDescription,
+      'settingScreensaverWeatherPreviewPeriodTitle' =>
+        strings.settingScreensaverWeatherPreviewPeriodTitle,
+      'settingScreensaverWeatherPreviewPeriodDescription' =>
+        strings.settingScreensaverWeatherPreviewPeriodDescription,
+      'screensaverWeatherPreviewSunny' =>
+        strings.screensaverWeatherPreviewSunny,
+      'screensaverWeatherPreviewPartlycloudy' =>
+        strings.screensaverWeatherPreviewPartlycloudy,
+      'screensaverWeatherPreviewCloudy' =>
+        strings.screensaverWeatherPreviewCloudy,
+      'screensaverWeatherPreviewRainy' =>
+        strings.screensaverWeatherPreviewRainy,
+      'screensaverWeatherPreviewPouring' =>
+        strings.screensaverWeatherPreviewPouring,
+      'screensaverWeatherPreviewSnowy' =>
+        strings.screensaverWeatherPreviewSnowy,
+      'screensaverWeatherPreviewSnowyRainy' =>
+        strings.screensaverWeatherPreviewSnowyRainy,
+      'screensaverWeatherPreviewFog' => strings.screensaverWeatherPreviewFog,
+      'screensaverWeatherPreviewHail' => strings.screensaverWeatherPreviewHail,
+      'screensaverWeatherPreviewLightning' =>
+        strings.screensaverWeatherPreviewLightning,
+      'screensaverWeatherPreviewLightningRainy' =>
+        strings.screensaverWeatherPreviewLightningRainy,
+      'screensaverWeatherPreviewWindy' =>
+        strings.screensaverWeatherPreviewWindy,
+      'screensaverWeatherPreviewWindyVariant' =>
+        strings.screensaverWeatherPreviewWindyVariant,
+      'screensaverWeatherPreviewExceptional' =>
+        strings.screensaverWeatherPreviewExceptional,
+      'screensaverWeatherPreviewDay' => strings.screensaverWeatherPreviewDay,
+      'screensaverWeatherPreviewNight' =>
+        strings.screensaverWeatherPreviewNight,
       'settingScreensaverWebsiteUrlTitle' =>
         strings.settingScreensaverWebsiteUrlTitle,
       'settingScreensaverWebsiteUrlDescription' =>
