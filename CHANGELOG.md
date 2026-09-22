@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.9.77 - 2026-09-22
 
 ### Changed
 - **The About page's Localization Credits row now carries a hint.** The row reads "Contributors by language" under its name on the device and in Remote Admin, in English, Spanish, German and French, like every other page entry.
