@@ -3587,7 +3587,7 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
       if (!mounted) return;
       _failures = 0;
       _lastFailure = null;
-      unawaited(_load());
+      unawaited(_load(fresh: true));
     }, paused: !_awake);
     _retryDelay = delay * 2 > _retryCeiling ? _retryCeiling : delay * 2;
   }
@@ -3628,7 +3628,10 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
     return pending.whenComplete(() => _stepping = null);
   }
 
-  Future<void> _load() async {
+  /// [fresh] asks the server for the playlist again, dropping the one the
+  /// manager kept: a retry after every photo failed to fetch may be
+  /// looking at deleted assets.
+  Future<void> _load({bool fresh = false}) async {
     await _waitForPhotoScreen();
     if (!mounted) return;
     if (!c.settings.get(defs.screensaverImmichValidated)) {
@@ -3637,8 +3640,12 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
       );
       return;
     }
+    final started = Stopwatch()..start();
     try {
-      final assets = await c.immich.listAssets();
+      // The manager keeps the playlist between sessions and readies the
+      // first photo ahead of the idle clock (issue #659), so this waits on
+      // the server only when nothing was kept.
+      final assets = await c.immich.startOrder(fresh: fresh);
       if (assets.isEmpty) {
         setState(
           () => _problem = immichFiltersActive(c.settings)
@@ -3647,11 +3654,8 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
         );
         return;
       }
-      if (c.settings.get(defs.screensaverImmichShuffle)) {
-        assets.shuffle(Random());
-      }
       if (!mounted) return;
-      // After the shuffle, so a photo reaches for its partner in the
+      // On the shuffled order, so a photo reaches for its partner in the
       // order the slideshow will actually run in.
       final size = MediaQuery.of(context).size;
       final pairPortrait = c.settings.get(defs.screensaverImmichPairPortrait);
@@ -3673,7 +3677,16 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
         _assets = arranged;
         _problem = null;
       });
-      unawaited(_go(0));
+      unawaited(
+        _go(0).then((_) {
+          if (mounted && _image != null) {
+            c.log.info(
+              'screensaver',
+              'immich first slide in ${started.elapsedMilliseconds} ms',
+            );
+          }
+        }),
+      );
     } catch (e) {
       c.log.warn('screensaver', 'immich listing failed: $e');
       if (mounted) {

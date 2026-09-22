@@ -18,6 +18,7 @@ void main() {
   late CommandRegistry commands;
   late ScreensaverManager saver;
   late List<DateTime?> announced;
+  late List<String?> modes;
 
   Future<void> build(Map<String, Object> initial) async {
     SharedPreferences.setMockInitialValues(initial);
@@ -28,8 +29,30 @@ void main() {
     await settings.init();
     saver = ScreensaverManager(bus, commands, log, settings);
     announced = [];
-    bus.on<ScreensaverCountdownChanged>().listen((e) => announced.add(e.due));
+    modes = [];
+    bus.on<ScreensaverCountdownChanged>().listen((e) {
+      announced.add(e.due);
+      modes.add(e.mode);
+    });
   }
+
+  test('the announcement names the mode due, and none once it fires', () {
+    fakeAsync((async) {
+      build({
+        'ks.screensaver.enabled': true,
+        'ks.screensaver.timeout_seconds': 30,
+        'ks.screensaver.mode': 'immich',
+      });
+      async.flushMicrotasks();
+      saver.init();
+      async.flushMicrotasks();
+      expect(modes, ['immich']);
+      async.elapse(const Duration(seconds: 30));
+      async.flushMicrotasks();
+      expect(announced.last, isNull);
+      expect(modes.last, isNull);
+    });
+  });
 
   test('the due moment follows the clock: armed at init, moved by a touch, '
       'cleared when it fires', () {

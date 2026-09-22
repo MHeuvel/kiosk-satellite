@@ -1036,8 +1036,20 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
   void _setIdleDue(DateTime? due) {
     if (due == _idleDue) return;
     _idleDue = due;
-    bus.publish(ScreensaverCountdownChanged(due: due));
+    bus.publish(
+      ScreensaverCountdownChanged(
+        due: due,
+        mode: due == null ? null : _modeAt(due),
+      ),
+    );
   }
+
+  /// The mode a session starting at [at] would show: the schedule entry in
+  /// force then, the configured mode otherwise.
+  String _modeAt(DateTime at) =>
+      (currentScreensaverScheduleEntry(_settings, now: at)?['mode']
+          as String?) ??
+      _settings.get(defs.screensaverMode);
 
   /// Whether the Sendspin "Now Playing" view is what the screensaver slot
   /// actually shows right now.

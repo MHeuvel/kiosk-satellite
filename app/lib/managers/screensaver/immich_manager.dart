@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math' show Random;
 import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart' show visibleForTesting;
@@ -354,9 +355,66 @@ class ImmichManager extends Manager {
       _base.isNotEmpty &&
       _settings.get(defs.screensaverImmichApiKey).isNotEmpty;
 
+  /// Wall clock for the playlist's age and the warm-up lead.
+  DateTime Function() clock = DateTime.now;
+
+  /// The playlist as the server last answered it, kept between sessions so
+  /// a start does not wait on the listing: on a large library that is
+  /// seconds of paged searches behind a black screen. Ids only, and capped
+  /// by [_maxPlaylist]. An empty answer is never kept, so an album that
+  /// gets its first photos is seen on the next start.
+  List<ImmichAsset>? _playlist;
+  DateTime? _playlistAt;
+  Future<List<ImmichAsset>>? _playlistRefresh;
+
+  /// How old the kept playlist may get before a start refreshes it in the
+  /// background for the one after: the session in hand still starts on the
+  /// kept list. New uploads show within this plus one session.
+  static const playlistTtl = Duration(minutes: 10);
+
+  /// The next session, readied ahead of the idle clock (issue #659): the
+  /// order it will run in and the bytes of its first photo, so the start
+  /// pays only the decode. One photo, a preview of a few hundred KB, which
+  /// a 1 GB device can afford to hold between sessions.
+  List<ImmichAsset>? _warmOrder;
+  (String, Uint8List)? _warmImage;
+  Future<void>? _warming;
+  Timer? _warmTimer;
+
+  /// How long before the idle clock fires the warm-up starts. Long enough
+  /// for a listing and a preview fetch on a slow link; a shorter idle
+  /// timeout warms as soon as the clock arms.
+  @visibleForTesting
+  Duration warmLead = const Duration(seconds: 15);
+
+  /// The settings whose change makes the kept playlist and the warm start
+  /// wrong. The rest (transition, fill, metadata, cache size) leave the
+  /// listing and its order alone.
+  static final _playlistKeys = {
+    defs.screensaverImmichUrl.key,
+    defs.screensaverImmichApiKey.key,
+    defs.screensaverImmichValidated.key,
+    defs.screensaverImmichAlbum.key,
+    defs.screensaverImmichAlbumName.key,
+    defs.screensaverImmichPhotosOnly.key,
+    defs.screensaverImmichShuffle.key,
+    defs.screensaverImmichPairPortrait.key,
+    defs.screensaverImmichPairLandscape.key,
+    defs.screensaverImmichPeople.key,
+    defs.screensaverImmichExcludePeople.key,
+    defs.screensaverImmichTags.key,
+    defs.screensaverImmichExcludeTags.key,
+    defs.screensaverImmichFavoritesOnly.key,
+    defs.screensaverImmichTakenWithin.key,
+    defs.screensaverImmichTakenFrom.key,
+    defs.screensaverImmichTakenTo.key,
+  };
+
   @override
   Future<void> init() async {
+    bus.on<ScreensaverCountdownChanged>().listen(_onCountdown);
     bus.on<SettingChanged>().listen((e) {
+      if (_playlistKeys.contains(e.key)) _forgetPlaylist();
       // A changed server or key invalidates the validation — and with it
       // every dependent row, until the user validates again. NOT during an
       // import: the backup's validated flag arrives together with the very
@@ -471,6 +529,125 @@ class ImmichManager extends Manager {
       ),
     );
   }
+
+  @override
+  Future<void> dispose() async {
+    _warmTimer?.cancel();
+    _warmTimer = null;
+  }
+
+  void _forgetPlaylist() {
+    _playlist = null;
+    _playlistAt = null;
+    _warmOrder = null;
+    _warmImage = null;
+  }
+
+  /// The idle clock moved. With the Immich slideshow due, get the next
+  /// session ready [warmLead] ahead of it; a clock that is closer than that
+  /// or already past warms right away. Any other mode due drops what was
+  /// readied, so a device switched to the clock does not keep a photo in
+  /// memory for nothing.
+  void _onCountdown(ScreensaverCountdownChanged e) {
+    _warmTimer?.cancel();
+    _warmTimer = null;
+    final due = e.due;
+    if (due == null) return;
+    if (e.mode != 'immich') {
+      _warmOrder = null;
+      _warmImage = null;
+      return;
+    }
+    final wait = due.difference(clock()) - warmLead;
+    if (wait <= Duration.zero) {
+      unawaited(warmUp());
+    } else {
+      _warmTimer = Timer(wait, () {
+        _warmTimer = null;
+        unawaited(warmUp());
+      });
+    }
+  }
+
+  /// Ready the next session: the playlist (listed if not kept), its start
+  /// order and the first photo's bytes. Idempotent while a readied start is
+  /// waiting. Never throws: a warm-up that fails leaves the start to the
+  /// slideshow's own path, which reports the failure.
+  Future<void> warmUp() {
+    if (!configured || !_settings.get(defs.screensaverImmichValidated)) {
+      return Future.value();
+    }
+    return _warming ??= _warm().whenComplete(() => _warming = null);
+  }
+
+  Future<void> _warm() async {
+    try {
+      final order = _warmOrder ?? await _startOrder();
+      if (order.isEmpty) return;
+      _warmOrder = order;
+      final first = order.first;
+      if (first.isVideo || _warmImage?.$1 == first.id) return;
+      final bytes = await imageBytes(first);
+      // The settings may have moved while the fetch ran; a start readied
+      // for the old ones was dropped, and this photo goes with it.
+      if (!identical(_warmOrder, order)) return;
+      _warmImage = (first.id, bytes);
+      log.debug(
+        name,
+        'warm-up ready: ${order.length} assets, first ${first.id}',
+      );
+    } catch (e) {
+      log.debug(name, 'warm-up skipped: $e');
+    }
+  }
+
+  /// The playlist in the order the next session runs it: the readied start
+  /// when one is waiting, else the kept playlist (listed when there is
+  /// none), shuffled when the setting says so. The readied start is
+  /// consumed: the session after this one gets its own. [fresh] drops the
+  /// kept playlist and the readied start first and lists again.
+  Future<List<ImmichAsset>> startOrder({bool fresh = false}) {
+    if (fresh) _forgetPlaylist();
+    final warm = _warmOrder;
+    _warmOrder = null;
+    if (warm != null) return Future.value(warm);
+    return _startOrder();
+  }
+
+  Future<List<ImmichAsset>> _startOrder() async {
+    final assets = await playlist();
+    if (!_settings.get(defs.screensaverImmichShuffle)) return assets;
+    return [...assets]..shuffle(Random());
+  }
+
+  /// The kept playlist, listed from the server when there is none. A kept
+  /// list older than [playlistTtl] is answered as it is and refreshed in
+  /// the background for the next start.
+  Future<List<ImmichAsset>> playlist() {
+    final kept = _playlist;
+    final at = _playlistAt;
+    if (kept != null && at != null) {
+      if (clock().difference(at) > playlistTtl) {
+        unawaited(_refreshPlaylist().catchError((_) => const <ImmichAsset>[]));
+      }
+      return Future.value(kept);
+    }
+    return _refreshPlaylist();
+  }
+
+  Future<List<ImmichAsset>> _refreshPlaylist() =>
+      _playlistRefresh ??= () async {
+        try {
+          final assets = await listAssets();
+          if (assets.isNotEmpty) {
+            _playlist = List.unmodifiable(assets);
+            _playlistAt = clock();
+          }
+          return assets;
+        } finally {
+          _playlistRefresh = null;
+        }
+      }();
 
   /// The chosen albums, none meaning the whole library.
   List<ImmichNamed> get _albumPicks =>
@@ -1021,6 +1198,11 @@ class ImmichManager extends Manager {
   final _imageRequests = <(String, String, String), Future<Uint8List>>{};
 
   Future<Uint8List> imageBytes(ImmichAsset asset) {
+    final warm = _warmImage;
+    if (warm != null && warm.$1 == asset.id) {
+      _warmImage = null;
+      return Future.value(warm.$2);
+    }
     final key = (_base, _settings.get(defs.screensaverImmichApiKey), asset.id);
     return _imageRequests.putIfAbsent(key, () async {
       try {

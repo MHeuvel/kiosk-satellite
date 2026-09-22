@@ -108,6 +108,8 @@ When a pair of portrait photos is on screen, the overlay overrides your corner s
 
 With **Cache media locally** enabled, every displayed photo is stored directly on the device. Subsequent playlist loops load images directly from local storage instead of downloading them over the network again. The app caches Immich's screen sized previews rather than full resolution originals, keeping individual file sizes down to a few hundred kilobytes instead of tens of megabytes. When the cache reaches its configured limit, the oldest and least recently viewed items are automatically purged. Lowering the cache limit triggers an immediate cleanup. Videos are never cached locally and will always stream directly from the server.
 
+The playlist itself is kept in memory between sessions, so a start does not wait on the server listing. It is refreshed in the background once it is ten minutes old, which is how long a new upload can take to appear, and it is rebuilt right away when you change the source or the filters. While the idle timer counts down toward the Immich screensaver the app also fetches the first photo ahead of time, so the screensaver opens on a photo instead of a black screen.
+
 ## Troubleshooting
 
 * **Validation fails with a permission message:** Your API key is restricted. Ensure it has `album.read`, `asset.read`, and `asset.view` permissions enabled in Immich.
