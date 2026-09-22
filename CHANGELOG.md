@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Fixed
+- **No more 125 °C spikes from the CPU temperature sensor on MediaTek tablets.** When a device has a CPU thermal zone that returns a bad reading for one poll, the sensor now skips that update instead of falling back to a board sensor. On the Fire HD 8 the fallback landed on an unwired sensor parked at 125 °C several times a day. Readings of 125 °C or more are also dropped as sensor placeholders (#654).
+
 ## v2026.9.76 - 2026-09-22
 
 ### Changed
