@@ -366,5 +366,31 @@ void main() {
       await Future<void>.delayed(const Duration(milliseconds: 1300));
       expect(browser.renderingFrozen, isTrue);
     });
+
+    test(
+      'Weather Mood painting follows confirmed freeze and screen state',
+      () async {
+        await build({'ks.browser.freeze_on_screensaver': true});
+        final states = <bool>[];
+        void changed() => states.add(browser.renderingFrozenState.value);
+        browser.renderingFrozenState.addListener(changed);
+        addTearDown(() => browser.renderingFrozenState.removeListener(changed));
+        browser.onPageLoaded('http://ha.local:8123/lovelace/0');
+        bus.publish(const ScreensaverViewChanged(view: 'weather_mood'));
+        bus.publish(const ScreensaverStateChanged(active: true));
+        expect(browser.renderingFrozenState.value, isFalse);
+        await Future<void>.delayed(const Duration(milliseconds: 1300));
+        expect(states, [true]);
+        bus.publish(const ScreenStateChanged(on: false));
+        await pumpEventQueue();
+        expect(states, [true, false]);
+        bus.publish(const ScreenStateChanged(on: true));
+        await Future<void>.delayed(const Duration(milliseconds: 1300));
+        expect(states, [true, false, true]);
+        await settings.set(defs.freezeOnScreensaver, false);
+        await pumpEventQueue();
+        expect(states, [true, false, true, false]);
+      },
+    );
   });
 }

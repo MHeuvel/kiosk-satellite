@@ -2,6 +2,12 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Changed
+- **Weather Mood renders directly in Flutter.** Native GPU shaders draw the sky and clouds while Flutter draws rain, snow, hail and lightning. The screensaver no longer needs a WebView. The sun, moon and stars stay sharp as cloud resolution adjusts on slower devices. Weather entities, day and night scenes, previews, widgets and At a Glance work as before.
+- **Weather Mood reuses backgrounds on older devices.** The sky stays cached at the display's resolution and clouds update separately from precipitation. Rain, snow, stars and lightning can animate more often without reducing cloud detail further. Preview changes still update immediately.
+
 ## v2026.9.75 - 2026-09-22
 
 ### Added

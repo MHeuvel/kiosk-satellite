@@ -93,6 +93,10 @@ flutter_launcher_icons:
 flutter:
   generate: true
   uses-material-design: true
+  shaders:
+    - shaders/weather_mood_sky.frag
+    - shaders/weather_mood_clouds.frag
+    - shaders/weather_mood_clouds_low.frag
   assets:
     - assets/l10n/
     - assets/remote-ui/index.html
@@ -100,7 +104,6 @@ flutter:
     - assets/remote-ui/static/
     - assets/screensaver/index.html
     - assets/screensaver/screensaver.js
-    - assets/screensaver/weather-mood.js
     - assets/camera-view/index.html
     - assets/camera-view/camera-view.js
     - assets/camera-view/messages.js

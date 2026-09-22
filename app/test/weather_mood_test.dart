@@ -10,6 +10,7 @@ import 'package:kiosk_satellite/ui/settings_screen.dart';
 import 'package:kiosk_satellite/ui/kit.dart';
 import 'package:kiosk_satellite/ui/screensaver_view.dart';
 import 'package:kiosk_satellite/ui/weather_mood_screensaver.dart';
+import 'package:kiosk_satellite/ui/weather_mood_renderer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -48,6 +49,7 @@ void main() {
         await tester.pumpAndSettle();
         expect(find.text(language.value), findsOneWidget);
         expect(find.byType(InAppWebView), findsNothing);
+        expect(find.byType(WeatherMoodRenderer), findsNothing);
         expect(find.byType(WeatherWidgetOverlay), findsNothing);
         expect(find.byType(ClockWidgetOverlay), findsNothing);
         final background = tester.widget<ColoredBox>(
@@ -66,6 +68,7 @@ void main() {
         await tester.pumpAndSettle();
         expect(find.text(language.value), findsOneWidget);
         expect(find.byType(InAppWebView), findsNothing);
+        expect(find.byType(WeatherMoodRenderer), findsNothing);
         await tester.pumpWidget(const SizedBox.shrink());
       },
     );
