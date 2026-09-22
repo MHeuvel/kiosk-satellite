@@ -43,6 +43,9 @@ class UiStringsEn extends UiStrings {
   String get aboutLocalizationCredits => 'Localization Credits';
 
   @override
+  String get aboutLocalizationCreditsHint => 'Contributors by language';
+
+  @override
   String get aboutCheckNow => 'Check for updates now';
 
   @override

@@ -14,6 +14,7 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'aboutLicense' => strings.aboutLicense,
       'aboutLicenseSummary' => strings.aboutLicenseSummary,
       'aboutLocalizationCredits' => strings.aboutLocalizationCredits,
+      'aboutLocalizationCreditsHint' => strings.aboutLocalizationCreditsHint,
       'aboutCheckNow' => strings.aboutCheckNow,
       'aboutChecking' => strings.aboutChecking,
       'aboutCheckFailed' => strings.aboutCheckFailed,

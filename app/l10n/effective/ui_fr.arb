@@ -143,6 +143,19 @@
       ]
     }
   },
+  "aboutLocalizationCreditsHint": "Contributeurs par langue",
+  "@aboutLocalizationCreditsHint": {
+    "context": "Settings > About > Localization Credits",
+    "description": "Hint under the About row that opens the Localization Credits page.",
+    "x-locations": {
+      "device": [
+        "Settings > About > Localization Credits"
+      ],
+      "remoteAdmin": [
+        "About > Localization Credits"
+      ]
+    }
+  },
   "aboutCheckNow": "Vérifier les mises à jour maintenant",
   "@aboutCheckNow": {
     "context": "Remote administration > About > Updates",

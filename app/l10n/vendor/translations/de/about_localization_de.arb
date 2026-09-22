@@ -1,4 +1,5 @@
 {
   "@@locale": "de",
-  "aboutLocalizationCredits": "Mitwirkende an der Übersetzung"
+  "aboutLocalizationCredits": "Mitwirkende an der Übersetzung",
+  "aboutLocalizationCreditsHint": "Mitwirkende nach Sprache"
 }

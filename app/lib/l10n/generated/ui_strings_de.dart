@@ -43,6 +43,9 @@ class UiStringsDe extends UiStrings {
   String get aboutLocalizationCredits => 'Mitwirkende an der Übersetzung';
 
   @override
+  String get aboutLocalizationCreditsHint => 'Mitwirkende nach Sprache';
+
+  @override
   String get aboutCheckNow => 'Jetzt nach Updates suchen';
 
   @override

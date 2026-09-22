@@ -65,6 +65,55 @@ private val NOT_CPU_ZONE = listOf(
     "gpu", "cam", "flash", "modem", "mdpa", "nrpa", "dram",
 )
 
+/** One thermal zone as read from sysfs: its lowercased `type` and the raw
+ *  `temp` value, null when the file could not be read. */
+internal data class ThermalZone(val type: String, val raw: Long?)
+
+/**
+ * The hottest CPU thermal zone in °C, or null when none gives a usable
+ * reading. Zones are matched by `type`, never by index: the numbering
+ * differs per device (an S8 and an S8+ disagree). Values are milli-°C on
+ * these SoCs; a few report plain °C, so both scales are accepted and
+ * implausible readings dropped.
+ *
+ * Matching is two-tier (issue #138): zones naming "cpu" first, and only
+ * when a device has none of those, zones whose type is a known SoC
+ * spelling. Exynos names its clusters BIG/MID/LITTLE, Qualcomm has
+ * tsens/cpuss, MediaTek mtkts* and soc_max, and a package sensor is the
+ * same reading under a different label. Never both: on a device with real
+ * cpu zones the extras could only replace a right answer with a hotter
+ * wrong one.
+ *
+ * The tier is chosen by which zones exist, not by which ones happen to
+ * read plausibly right now (issue #654). The Fire HD 8's mtktscpu returns
+ * 0 on the odd read, and falling through to the MediaTek hints on that
+ * poll picked mtkts_bts1, an unwired board sensor parked at 125000. The
+ * sensor spiked to 125 °C for one update several times a day. A cpu zone
+ * that reads nonsense this poll now yields null: the ESPHome sensor skips
+ * the update so Home Assistant keeps the previous value, and the admin
+ * pages show a gap.
+ */
+internal fun pickCpuTemp(zones: List<ThermalZone>): Double? {
+    // Pseudo-zones and lookalike sensors. trip/limit report the constant
+    // throttle threshold (105°C on Snapdragon phones), and the hottest-zone
+    // pick would return it forever; the rest are real sensors of the wrong
+    // thing (battery, radios, connector, case surface), several of which
+    // sit inside the plausibility window below.
+    val candidates = zones.filter { z -> NOT_CPU_ZONE.none { z.type.contains(it) } }
+    val cpu = candidates.filter { it.type.contains("cpu") }
+    val tier = if (cpu.isNotEmpty()) cpu
+    else candidates.filter { z -> SOC_ZONE_HINTS.any { z.type.contains(it) } }
+    var max: Double? = null
+    for (z in tier) {
+        val raw = z.raw ?: continue
+        val c = if (raw > 1000) raw / 1000.0 else raw.toDouble()
+        // 125 is where MediaTek parks an NTC input with nothing wired to
+        // it, and no CPU runs there: the SoC shuts down first.
+        if (c in 20.0..<125.0 && (max == null || c > max)) max = c
+    }
+    return max
+}
+
 /** Netlink ABI numbers (linux/netlink.h, rtnetlink.h, if_addr.h). Kernel
  *  ABI, fixed forever; several are missing from OsConstants on the older
  *  API levels this app still runs on, so they are spelled out here. */
@@ -753,32 +802,8 @@ class DeviceDetails(
         return if (n == 0) null else sum / n * 100.0
     }
 
-    /**
-     * The hottest CPU thermal zone, in °C. Zones are matched by `type`,
-     * never by index — the numbering differs per device (an S8 and an S8+
-     * disagree). Values are milli-°C on these SoCs; a few report plain °C,
-     * so both scales are accepted and implausible readings dropped.
-     *
-     * Matching is two-tier (issue #138): zones naming "cpu" first, and only
-     * when a device has none of those, zones whose type is a known SoC
-     * spelling — Exynos names its clusters BIG/MID/LITTLE, Qualcomm has
-     * tsens/cpuss, MediaTek mtkts* and soc_max — since a package sensor is
-     * the same reading under a different label. Never both: on a device
-     * with real cpu zones the extras could only replace a right answer
-     * with a hotter wrong one.
-     */
-    private fun cpuTemp(): Double? =
-        hottest { it.contains("cpu") }
-            ?: hottest { type -> SOC_ZONE_HINTS.any { type.contains(it) } }
-
-    /** Latched once /sys/class/thermal fails to enumerate: some OEM SELinux
-     *  policies (Lenovo, issue #138) deny untrusted apps the directory read
-     *  outright, and retrying on every stats poll would spray avc denials
-     *  into logcat forever. Never unlatched: a policy does not change while
-     *  the process lives. */
-    private var thermalBlocked = false
-
-    private fun hottest(wanted: (String) -> Boolean): Double? {
+    /** The hottest CPU thermal zone in °C, see [pickCpuTemp]. */
+    private fun cpuTemp(): Double? {
         if (thermalBlocked) return null
         val zones = File("/sys/class/thermal")
             .listFiles { f -> f.name.startsWith("thermal_zone") }
@@ -786,23 +811,20 @@ class DeviceDetails(
             thermalBlocked = true
             return null
         }
-        var max: Double? = null
-        for (z in zones) {
-            val type = readText(File(z, "type"))?.lowercase() ?: continue
-            if (!wanted(type)) continue
-            // Pseudo-zones and lookalike sensors. trip/limit report the
-            // constant throttle threshold (105°C on Snapdragon phones), and
-            // the hottest-zone pick would return it forever; the rest are
-            // real sensors of the wrong thing (battery, radios, connector,
-            // case surface), several of which sit inside the plausibility
-            // window below.
-            if (NOT_CPU_ZONE.any { type.contains(it) }) continue
-            val raw = readLong(File(z, "temp")) ?: continue
-            val c = if (raw > 1000) raw / 1000.0 else raw.toDouble()
-            if (c in 20.0..130.0 && (max == null || c > max)) max = c
-        }
-        return max
+        return pickCpuTemp(
+            zones.mapNotNull { z ->
+                val type = readText(File(z, "type"))?.lowercase() ?: return@mapNotNull null
+                ThermalZone(type, readLong(File(z, "temp")))
+            },
+        )
     }
+
+    /** Latched once /sys/class/thermal fails to enumerate: some OEM SELinux
+     *  policies (Lenovo, issue #138) deny untrusted apps the directory read
+     *  outright, and retrying on every stats poll would spray avc denials
+     *  into logcat forever. Never unlatched: a policy does not change while
+     *  the process lives. */
+    private var thermalBlocked = false
 
     private fun readText(file: File): String? = try {
         if (file.canRead()) file.readText().trim() else null

@@ -110,7 +110,12 @@ void main() {
         final tile = tester.widget<ListTile>(
           find.ancestor(of: entry, matching: find.byType(ListTile)),
         );
-        expect(tile.subtitle, isNull);
+        // The row wears its hint in the page's language, like every other
+        // page entry.
+        expect(
+          (tile.subtitle! as Text).data,
+          lookupUiStrings(Locale(tag)).aboutLocalizationCreditsHint,
+        );
         final notice = find.text(
           lookupUiStrings(Locale(tag)).aboutLicenseSummary,
         );

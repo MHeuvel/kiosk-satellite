@@ -87,8 +87,13 @@ class ScreensaverStateChanged extends AppEvent {
 /// Next screensaver sensor rides it, as a single timestamp Home Assistant
 /// can trigger on rather than a seconds counter churning the recorder.
 class ScreensaverCountdownChanged extends AppEvent {
-  const ScreensaverCountdownChanged({required this.due});
+  const ScreensaverCountdownChanged({required this.due, this.mode});
   final DateTime? due;
+
+  /// The mode the idle clock will start at [due], schedule included, so a
+  /// screensaver that can get ready ahead of time knows whether it is the
+  /// one due. Null with a null [due].
+  final String? mode;
 }
 
 /// The motion policy the active screensaver schedule entry imposes (issue

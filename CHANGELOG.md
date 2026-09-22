@@ -2,6 +2,15 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## v2026.9.77 - 2026-09-22
+
+### Changed
+- **The About page's Localization Credits row now carries a hint.** The row reads "Contributors by language" under its name on the device and in Remote Admin, in English, Spanish, German and French, like every other page entry.
+
+### Fixed
+- **The Immich screensaver no longer opens on a black screen.** Every start listed the library from the server and then fetched and decoded the first photo, all behind a black screen that could last several seconds on a large library or a slow link. The playlist is now kept between sessions and refreshed in the background once it is ten minutes old, and while the idle clock counts down toward the Immich screensaver the app fetches the first photo ahead of time, so the start pays only the decode. One preview is held, a few hundred kilobytes, and it is dropped when the filters change or another screensaver is due. Photo to photo transitions already held the current photo until the next one was decoded (#659).
+- **No more 125 °C spikes from the CPU temperature sensor on MediaTek tablets.** When a device has a CPU thermal zone that returns a bad reading for one poll, the sensor now skips that update instead of falling back to a board sensor. On the Fire HD 8 the fallback landed on an unwired sensor parked at 125 °C several times a day. Readings of 125 °C or more are also dropped as sensor placeholders (#654).
+
 ## v2026.9.76 - 2026-09-22
 
 ### Changed
