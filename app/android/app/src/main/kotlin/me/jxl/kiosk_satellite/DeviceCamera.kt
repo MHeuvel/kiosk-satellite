@@ -380,9 +380,9 @@ class DeviceCamera(
     private fun jpegBytes(image: ImageProxy): ByteArray? {
         if (image.format != android.graphics.ImageFormat.JPEG) return null
         val buffer = image.planes[0].buffer
-        val bytes = ByteArray(buffer.remaining())
-        buffer.get(bytes)
-        return bytes
+        // Some camera drivers expose the entire allocated JPEG buffer,
+        // including megabytes of padding after the encoded image.
+        return JpegData.read(buffer)
     }
 
     private fun displayRotation(): Int = try {
