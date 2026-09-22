@@ -849,7 +849,9 @@ class BrowserManager extends Manager with WidgetsBindingObserver {
   /// Whether the panel is lit, for the freeze gate in [_wantFrozen].
   bool _screenIsOn = true;
   final _coveredBy = <String>{};
-  bool _frozen = false;
+  final _renderingFrozenState = ValueNotifier<bool>(false);
+  bool get _frozen => _renderingFrozenState.value;
+  set _frozen(bool value) => _renderingFrozenState.value = value;
 
   /// What the last sync wanted, so the next one can tell a thaw edge from
   /// a steady "not frozen" (see _syncFreeze).
@@ -926,6 +928,10 @@ class BrowserManager extends Manager with WidgetsBindingObserver {
   /// Whether the WebView's rendering is currently paused under the
   /// screensaver.
   bool get renderingFrozen => _frozen;
+
+  /// Lets native overlays skip the covered platform view's paint work while
+  /// preserving the existing screen-off, connection and user preference rules.
+  ValueListenable<bool> get renderingFrozenState => _renderingFrozenState;
 
   final _returned = ReturnWatch();
 

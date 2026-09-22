@@ -1,9 +1,7 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'weather_mood_renderer.dart';
 
 import '../app_container.dart';
 import '../core/events.dart';
@@ -55,16 +53,6 @@ const weatherMoodConditions = {
   'exceptional',
 };
 
-/// An offline rendering document. Only weather states cross into JavaScript.
-String weatherMoodDocument(String script, {bool lowPower = false}) =>
-    '''<!doctype html>
-<html><head><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'none'">
-<style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(#445366,#9da8b2)}canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}</style>
-</head><body><canvas id="scene"></canvas><canvas id="particles"></canvas>
-<script>window.__weatherMoodLowPower=$lowPower;
-$script</script></body></html>''';
-
 class WeatherMoodScreensaver extends StatefulWidget {
   const WeatherMoodScreensaver({super.key, required this.container});
   final AppContainer container;
@@ -75,10 +63,6 @@ class WeatherMoodScreensaver extends StatefulWidget {
 
 class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
     with WidgetsBindingObserver {
-  static final _script = rootBundle.loadString(
-    'assets/screensaver/weather-mood.js',
-  );
-  InAppWebViewController? _controller;
   GlanceSubscription? _live;
   StreamSubscription<SettingChanged>? _settings;
   StreamSubscription<ScreenStateChanged>? _screen;
@@ -89,8 +73,7 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
   String? _sun;
   bool _screenOn = true;
   bool _foreground = true;
-  bool _loaded = false;
-  bool _rendererFailed = false;
+  bool _immediate = false;
 
   @override
   void initState() {
@@ -107,18 +90,10 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
           event.key == defs.haUrl.key ||
           event.key == defs.haToken.key) {
         if (event.key == defs.screensaverWeatherEntity.key) {
-          if (!weatherMoodHasScene(widget.container.settings)) {
-            _controller = null;
-            _loaded = false;
-          }
           setState(() {});
         }
         unawaited(_subscribe(reset: true));
       } else if (event.key == defs.screensaverWeatherPreview.key) {
-        if (!weatherMoodHasScene(widget.container.settings)) {
-          _controller = null;
-          _loaded = false;
-        }
         setState(() {});
         unawaited(_update(immediate: true));
       } else if (event.key == defs.screensaverWeatherPreviewCondition.key ||
@@ -188,28 +163,8 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
   }
 
   Future<void> _update({bool immediate = false}) async {
-    if (!_loaded) return;
-    final scene = weatherMoodScene(
-      widget.container.settings,
-      _condition,
-      _sun,
-      DateTime.now(),
-    );
-    final data = jsonEncode({
-      'condition': scene.condition,
-      'night': scene.night,
-      'lightning': widget.container.settings.get(
-        defs.screensaverWeatherLightning,
-      ),
-      'immediate': immediate,
-    });
-    try {
-      await _controller?.evaluateJavascript(
-        source: 'window.weatherMood?.update($data)',
-      );
-    } catch (_) {
-      // A dismissed WebView can finish a pending state update after disposal.
-    }
+    if (!mounted) return;
+    setState(() => _immediate = immediate);
   }
 
   @override
@@ -219,18 +174,7 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
   }
 
   Future<void> _activity() async {
-    final active = _screenOn && _foreground;
-    try {
-      if (active) await _controller?.resume();
-      if (_loaded) {
-        await _controller?.evaluateJavascript(
-          source: 'window.weatherMood?.setActive($active)',
-        );
-      }
-      if (!active) await _controller?.pause();
-    } catch (_) {
-      // The platform view may have been removed during the lifecycle change.
-    }
+    if (mounted) setState(() {});
   }
 
   @override
@@ -242,7 +186,6 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
     _retry?.cancel();
     _clock?.cancel();
     unawaited(_live?.close());
-    _controller = null;
     super.dispose();
   }
 
@@ -269,56 +212,27 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
         ),
       );
     }
-    if (_rendererFailed) {
-      return const ColoredBox(color: Color(0xFF151820));
-    }
-    return FutureBuilder<String>(
-      future: _script,
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return const ColoredBox(color: Color(0xFF445366));
-        }
-        return IgnorePointer(
-          child: InAppWebView(
-            initialData: InAppWebViewInitialData(
-              data: weatherMoodDocument(
-                snapshot.data!,
-                lowPower:
-                    widget.container.device.abis.isNotEmpty &&
-                    !widget.container.device.abis.any(
-                      (abi) => abi.contains('64'),
-                    ),
-              ),
-            ),
-            initialSettings: InAppWebViewSettings(
-              javaScriptEnabled: true,
-              javaScriptBridgeEnabled: false,
-              blockNetworkLoads: true,
-              allowFileAccess: false,
-              allowContentAccess: false,
-              domStorageEnabled: false,
-              supportZoom: false,
-              disableDefaultErrorPage: true,
-            ),
-            onWebViewCreated: (controller) => _controller = controller,
-            onRenderProcessGone: (_, detail) {
-              _controller = null;
-              _loaded = false;
-              widget.container.log.warn(
-                'screensaver',
-                'Weather Mood renderer stopped (crashed: ${detail.didCrash})',
-              );
-              if (mounted) setState(() => _rendererFailed = true);
-            },
-            onLoadStart: (_, _) => _loaded = false,
-            onLoadStop: (_, _) async {
-              _loaded = true;
-              await _update(immediate: true);
-              await _activity();
-            },
-          ),
-        );
-      },
+    final scene = weatherMoodScene(
+      widget.container.settings,
+      _condition,
+      _sun,
+      DateTime.now(),
+    );
+    return WeatherMoodRenderer(
+      condition: scene.condition,
+      night: scene.night,
+      lightning: widget.container.settings.get(
+        defs.screensaverWeatherLightning,
+      ),
+      active: _screenOn && _foreground,
+      immediate: _immediate,
+      lowPower:
+          widget.container.device.abis.isNotEmpty &&
+          !widget.container.device.abis.any((abi) => abi.contains('64')),
+      onError: (error) => widget.container.log.warn(
+        'screensaver',
+        'Weather Mood renderer stopped: $error',
+      ),
     );
   }
 }

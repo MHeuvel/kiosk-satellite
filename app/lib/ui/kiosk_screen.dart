@@ -1482,7 +1482,21 @@ class _KioskScreenState extends State<KioskScreen>
                     top: 0,
                     width: size.width + overdraw,
                     height: size.height + overdraw,
-                    child: kioskPlane,
+                    child: ValueListenableBuilder<String?>(
+                      valueListenable: c.screensaver.activeView,
+                      child: kioskPlane,
+                      builder: (context, view, child) =>
+                          ValueListenableBuilder<bool>(
+                            valueListenable: c.browser.renderingFrozenState,
+                            child: child,
+                            builder: (context, frozen, child) => Offstage(
+                              // Skip platform view compositing only after the
+                              // browser confirms it is safe to hide the dashboard.
+                              offstage: view == 'weather_mood' && frozen,
+                              child: child,
+                            ),
+                          ),
+                    ),
                   ),
                   // The drawer plane, sliding in from the same seam. While
                   // fully closed its entries sit just offscreen, still

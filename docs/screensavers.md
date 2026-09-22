@@ -34,7 +34,9 @@ Weather Mood displays only the animated scene. Add a weather widget under **Widg
 
 The **Weather Preview** group on the device and in Remote Admin lets you try any scene. Turn on **Enable weather preview** to reveal **Weather type** and **Time of day**. The active Weather Mood screensaver changes immediately to your selection, including when no weather entity is configured. Turn preview off to follow Home Assistant again. Preview changes only the animated background, so weather widgets continue showing their own entity readings. Preview settings stay local to each kiosk.
 
-Turn off **Lightning flashes** to keep thunderstorm clouds and rain without the flashes. The renderer works from bundled assets, pauses when the display turns off or the app goes into the background and respects reduced motion. Older devices use fewer cloud samples, a smaller render surface and a lower frame rate. The resolution decreases further when frames remain slow. A separate pass adds detail around the sun and moon so their shapes stay smooth as cloud detail decreases. If weather data becomes unavailable, the scene retains its last known condition. Before the first valid reading it shows a neutral cloudy sky.
+Turn off **Lightning flashes** to keep thunderstorm clouds and rain without the flashes. The renderer uses Flutter GPU shaders and canvas drawing from bundled assets. It pauses when the display turns off or the app goes into the background and respects reduced motion. If weather data becomes unavailable, the scene retains its last known condition. Before the first valid reading it shows a neutral cloudy sky.
+
+Older devices use fewer cloud samples and a smaller cloud image that adjusts when frames remain slow. The renderer caches the sky at the display's resolution and updates clouds up to five times per second. Precipitation, twinkling stars and lightning animate separately at up to 20 frames per second. This reduces repeated GPU work while keeping the sun, moon and stars sharp. Weather Preview changes refresh the background immediately.
 
 ### Dim
 
