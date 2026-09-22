@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Changed
+- **A cleaner full screen intercom kiosk list.** Rounded rows use one call icon per kiosk with consistent spacing and larger status text. Smaller headings and a more compact Announce to all button keep the list in focus. Long names can wrap and unavailable kiosks keep their status readable.
+
 ## v2026.9.73 - 2026-09-21
 
 ### Added

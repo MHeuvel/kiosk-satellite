@@ -517,9 +517,9 @@ class _AnnouncementTtsEngineRowState extends State<AnnouncementTtsEngineRow> {
 
 /// The Call a kiosk screen the kiosk menu, a gesture or `intercomOpen`
 /// opens: the app launcher's ground and close disc, the title with the
-/// ready count, Announce to all and the roster as hairline rows, two
+/// ready count, Announce to all and the roster as rounded rows, two
 /// columns on a wide screen. A ready kiosk's row calls it; the others stay
-/// on the list dimmed with their reason. Shown and hidden through the
+/// on the list with their reason. Shown and hidden through the
 /// manager's [IntercomManager.rosterVisible], so the menu, a gesture, the
 /// remote admin, back, HOME, a call starting and the screensaver all meet
 /// at one place.
@@ -655,14 +655,19 @@ class _RosterScreenState extends State<_RosterScreen> {
                   builder: (context, constraints) {
                     final width = constraints.maxWidth;
                     final compact = width < 600;
+                    final stackedHeader =
+                        width < 800 ||
+                        MediaQuery.textScalerOf(context).scale(16) > 20;
                     // Two columns only where a name still has room: a phone
                     // on its side keeps one column and scrolls.
                     final twoColumns = width >= 960;
-                    final inset = compact ? 24.0 : (twoColumns ? 64.0 : 32.0);
+                    final inset = math.max(
+                      compact ? 20.0 : 40.0,
+                      (width - 1120) / 2,
+                    );
                     final announce = count == 0
                         ? null
                         : _AnnouncePill(
-                            compact: compact,
                             focusNode: _first,
                             onTap: () => _pick('intercomBroadcast', const {}),
                           );
@@ -673,7 +678,7 @@ class _RosterScreenState extends State<_RosterScreen> {
                         Text(
                           intercomText(context, "Call a kiosk"),
                           style: TextStyle(
-                            fontSize: compact ? 30 : 44,
+                            fontSize: compact ? 28 : 36,
                             fontWeight: FontWeight.w600,
                             height: 1.1,
                             color: scheme.onSurface,
@@ -683,7 +688,7 @@ class _RosterScreenState extends State<_RosterScreen> {
                         Text(
                           line,
                           style: TextStyle(
-                            fontSize: compact ? 15 : 17,
+                            fontSize: 15,
                             height: 1.4,
                             color: scheme.onSurfaceVariant,
                           ),
@@ -709,13 +714,16 @@ class _RosterScreenState extends State<_RosterScreen> {
                               }),
                             )
                           : const SizedBox.shrink();
+                      if (rows.isNotEmpty) {
+                        rows.add(const SizedBox(height: 12));
+                      }
                       rows.add(
                         twoColumns
                             ? Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Expanded(child: row(i)),
-                                  const SizedBox(width: 64),
+                                  const SizedBox(width: 16),
                                   Expanded(child: row(i + 1)),
                                 ],
                               )
@@ -747,18 +755,20 @@ class _RosterScreenState extends State<_RosterScreen> {
                                     compact: compact,
                                   ),
                                 ),
-                                if (compact) ...[
+                                if (stackedHeader) ...[
                                   title,
                                   if (announce != null) ...[
                                     const SizedBox(height: 20),
                                     Align(
-                                      alignment: Alignment.centerLeft,
+                                      alignment:
+                                          AlignmentDirectional.centerStart,
                                       child: announce,
                                     ),
                                   ],
                                 ] else
                                   Row(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Expanded(child: title),
                                       if (announce != null) ...[
@@ -768,10 +778,6 @@ class _RosterScreenState extends State<_RosterScreen> {
                                     ],
                                   ),
                                 SizedBox(height: compact ? 24 : 32),
-                                Divider(
-                                  height: 1,
-                                  color: scheme.outlineVariant,
-                                ),
                                 ...rows,
                               ],
                             ),
@@ -804,13 +810,8 @@ class _RosterScreenState extends State<_RosterScreen> {
 /// Announce to all: the one filled pill on the roster, the megaphone and
 /// the label.
 class _AnnouncePill extends StatefulWidget {
-  const _AnnouncePill({
-    required this.compact,
-    required this.focusNode,
-    required this.onTap,
-  });
+  const _AnnouncePill({required this.focusNode, required this.onTap});
 
-  final bool compact;
   final FocusNode focusNode;
   final VoidCallback onTap;
 
@@ -841,10 +842,9 @@ class _AnnouncePillState extends State<_AnnouncePill> {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final ring = _focused && _rosterKeysDriving.value;
-    final height = widget.compact ? 56.0 : 72.0;
     return AnimatedContainer(
       duration: const Duration(milliseconds: 120),
-      height: height,
+      constraints: const BoxConstraints(minHeight: 52),
       decoration: BoxDecoration(
         color: scheme.primary,
         borderRadius: BorderRadius.circular(100),
@@ -862,27 +862,24 @@ class _AnnouncePillState extends State<_AnnouncePill> {
           focusNode: widget.focusNode,
           onFocusChange: (f) => setState(() => _focused = f),
           child: Padding(
-            padding: EdgeInsets.fromLTRB(
-              widget.compact ? 18 : 24,
-              0,
-              widget.compact ? 24 : 32,
-              0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(
                   Icons.campaign_outlined,
-                  size: widget.compact ? 26 : 30,
+                  size: 24,
                   color: scheme.onPrimary,
                 ),
-                const SizedBox(width: 14),
-                Text(
-                  intercomText(context, "Announce to all"),
-                  style: TextStyle(
-                    fontSize: widget.compact ? 17 : 20,
-                    fontWeight: FontWeight.w600,
-                    color: scheme.onPrimary,
+                const SizedBox(width: 12),
+                Flexible(
+                  child: Text(
+                    intercomText(context, "Announce to all"),
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: scheme.onPrimary,
+                    ),
                   ),
                 ),
               ],
@@ -894,9 +891,9 @@ class _AnnouncePillState extends State<_AnnouncePill> {
   }
 }
 
-/// One kiosk on the roster: the tablet glyph, the name over its status
-/// and a call disc, under a hairline. A kiosk that cannot take a call
-/// keeps its row dimmed, the reason where Ready would be and no disc.
+/// One kiosk on the roster, with a single call glyph and a readable
+/// status. The whole row is the touch target. Unavailable kiosks keep
+/// their names and reasons legible without looking actionable.
 class _KioskRow extends StatefulWidget {
   const _KioskRow({
     super.key,
@@ -944,81 +941,113 @@ class _KioskRowState extends State<_KioskRow> {
         ? ksSage
         : ksSageOnLight;
     final compact = widget.compact;
-    return Opacity(
-      opacity: ready ? 1 : 0.55,
+    final radius = BorderRadius.circular(Ks.radiusCard);
+    return Semantics(
+      button: true,
+      enabled: ready,
       child: Material(
-        type: MaterialType.transparency,
+        color: ready
+            ? scheme.surfaceContainerLow
+            : scheme.surfaceContainerLow.withValues(alpha: 0.5),
+        shape: RoundedRectangleBorder(
+          borderRadius: radius,
+          side: BorderSide(
+            color: highlight ? scheme.primary : scheme.outlineVariant,
+            width: highlight ? 2 : 1,
+          ),
+        ),
+        clipBehavior: Clip.antiAlias,
         child: InkWell(
           onTap: ready ? widget.onTap : null,
           focusNode: widget.focusNode,
           canRequestFocus: ready,
           onFocusChange: (f) => setState(() => _focused = f),
-          borderRadius: BorderRadius.circular(Ks.radiusRow),
-          child: Container(
-            height: compact ? 76 : 96,
-            padding: const EdgeInsets.fromLTRB(4, 0, 8, 0),
-            decoration: BoxDecoration(
-              color: highlight ? scheme.surfaceContainerHigh : null,
-              borderRadius: highlight
-                  ? BorderRadius.circular(Ks.radiusRow)
-                  : null,
-              border: Border(bottom: BorderSide(color: scheme.outlineVariant)),
-            ),
-            child: Row(
-              children: [
-                Icon(
-                  Icons.tablet_android_outlined,
-                  size: compact ? 28 : 34,
-                  color: scheme.onSurfaceVariant,
-                ),
-                SizedBox(width: compact ? 16 : 20),
-                Expanded(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '${widget.kiosk['name']}',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: compact ? 20 : 24,
-                          fontWeight: FontWeight.w500,
-                          height: 1.2,
-                          color: scheme.onSurface,
-                        ),
-                      ),
-                      const SizedBox(height: 3),
-                      Text(
-                        intercomText(context, '${widget.kiosk['statusText']}'),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 14,
-                          height: 1.3,
-                          color: ready ? okColor : scheme.onSurfaceVariant,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                if (ready) ...[
-                  const SizedBox(width: 16),
+          borderRadius: radius,
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minHeight: compact ? 88 : 96),
+            child: Padding(
+              padding: EdgeInsets.all(compact ? 16 : 20),
+              child: Row(
+                children: [
                   Container(
-                    width: compact ? 48 : 56,
-                    height: compact ? 48 : 56,
+                    width: 48,
+                    height: 48,
                     decoration: BoxDecoration(
-                      color: scheme.primary,
-                      shape: BoxShape.circle,
+                      color: ready
+                          ? scheme.primaryContainer
+                          : scheme.surfaceContainerHigh,
+                      borderRadius: BorderRadius.circular(Ks.radiusRow),
                     ),
                     child: Icon(
-                      Icons.call,
-                      size: compact ? 22 : 26,
-                      color: scheme.onPrimary,
+                      Icons.call_outlined,
+                      size: 24,
+                      color: ready
+                          ? scheme.onPrimaryContainer
+                          : scheme.onSurfaceVariant,
                     ),
                   ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${widget.kiosk['name']}',
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: compact ? 18 : 20,
+                            fontWeight: FontWeight.w500,
+                            height: 1.3,
+                            color: ready
+                                ? scheme.onSurface
+                                : scheme.onSurfaceVariant,
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        Row(
+                          children: [
+                            Container(
+                              width: 6,
+                              height: 6,
+                              decoration: BoxDecoration(
+                                color: ready ? okColor : scheme.outline,
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                intercomText(
+                                  context,
+                                  '${widget.kiosk['statusText']}',
+                                ),
+                                style: TextStyle(
+                                  fontSize: compact ? 16 : 18,
+                                  height: 1.3,
+                                  color: scheme.onSurfaceVariant,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  SizedBox(
+                    width: 20,
+                    child: ready
+                        ? Icon(
+                            Icons.chevron_right,
+                            size: 20,
+                            color: scheme.onSurfaceVariant,
+                          )
+                        : null,
+                  ),
                 ],
-              ],
+              ),
             ),
           ),
         ),
