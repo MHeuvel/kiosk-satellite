@@ -9844,6 +9844,33 @@ class UiStringsEn extends UiStrings {
   }
 
   @override
+  String get screensaverWeatherMood => 'Weather Mood';
+
+  @override
+  String get screensaverWeatherMoodPage => 'Weather Mood screensaver';
+
+  @override
+  String get screensaverWeatherMoodSummary => 'Weather entity, lightning';
+
+  @override
+  String get settingScreensaverWeatherEntityTitle => 'Weather entity';
+
+  @override
+  String get settingScreensaverWeatherEntityDescription =>
+      'The Home Assistant weather entity that controls the animated scene. Day and night follow sun.sun, with local time as a fallback.';
+
+  @override
+  String get settingScreensaverWeatherLightningTitle => 'Lightning flashes';
+
+  @override
+  String get settingScreensaverWeatherLightningDescription =>
+      'Show lightning strikes and cloud flashes during thunderstorms.';
+
+  @override
+  String get screensaverWeatherMoodSelectEntity =>
+      'Select a weather entity in Settings > Screensaver > Weather Mood.';
+
+  @override
   String get settingScreensaverWebsiteUrlTitle => 'Website URL';
 
   @override

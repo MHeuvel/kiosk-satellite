@@ -1,0 +1,11 @@
+{
+  "@@locale": "es",
+  "screensaverWeatherMood": "Ambiente meteorológico",
+  "screensaverWeatherMoodPage": "Salvapantallas de ambiente meteorológico",
+  "screensaverWeatherMoodSummary": "Entidad meteorológica, relámpagos",
+  "settingScreensaverWeatherEntityTitle": "Entidad meteorológica",
+  "settingScreensaverWeatherEntityDescription": "La entidad meteorológica de Home Assistant que controla la escena animada. El día y la noche siguen a sun.sun, con la hora local como alternativa.",
+  "settingScreensaverWeatherLightningTitle": "Destellos de relámpagos",
+  "settingScreensaverWeatherLightningDescription": "Muestra rayos y destellos en las nubes durante las tormentas.",
+  "screensaverWeatherMoodSelectEntity": "Selecciona una entidad meteorológica en Ajustes > Salvapantallas > Ambiente meteorológico."
+}

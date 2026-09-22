@@ -1,0 +1,11 @@
+{
+  "@@locale": "de",
+  "screensaverWeatherMood": "Wetterstimmung",
+  "screensaverWeatherMoodPage": "Bildschirmschoner Wetterstimmung",
+  "screensaverWeatherMoodSummary": "Wetterentität, Blitze",
+  "settingScreensaverWeatherEntityTitle": "Wetterentität",
+  "settingScreensaverWeatherEntityDescription": "Die Wetterentität aus Home Assistant steuert die animierte Szene. Tag und Nacht richten sich nach sun.sun. Falls nicht verfügbar, wird die Ortszeit verwendet.",
+  "settingScreensaverWeatherLightningTitle": "Blitze",
+  "settingScreensaverWeatherLightningDescription": "Blitze und aufleuchtende Wolken bei Gewittern anzeigen.",
+  "screensaverWeatherMoodSelectEntity": "Wähle eine Wetterentität unter Einstellungen > Bildschirmschoner > Wetterstimmung aus."
+}

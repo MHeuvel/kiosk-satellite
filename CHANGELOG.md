@@ -4,8 +4,14 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ## Unreleased
 
+### Added
+- **Weather Mood screensaver.** Animated skies follow a Home Assistant weather entity, with day and night scenes controlled by `sun.sun` and local time as a fallback. Clouds, rain, snow, fog, hail and thunderstorms support all corner widgets and At a Glance pills. Pick the weather entity and control lightning flashes from the device or Remote Admin, with English, German, Spanish and French translations. Until an entity is selected, a black screen explains where to choose one. Older devices use fewer cloud samples, a lower frame rate and adaptive resolution to keep the dashboard responsive, with a quiet background if the weather renderer stops.
+
 ### Changed
 - **A cleaner full screen intercom kiosk list.** Rounded rows use one call icon per kiosk with consistent spacing and larger status text. Smaller headings and a more compact Announce to all button keep the list in focus. Long names can wrap and unavailable kiosks keep their status readable.
+
+### Fixed
+- **Unsupported device languages fall back to English.** Generated translation catalogs no longer cause the app to choose German when the device language is unavailable.
 
 ## v2026.9.73 - 2026-09-21
 

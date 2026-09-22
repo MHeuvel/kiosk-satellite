@@ -47,7 +47,11 @@ class MessageDelegate extends LocalizationsDelegate<UiStrings> {
   @override
   Future<UiStrings> load(Locale locale) => SynchronousFuture(
     lookupUiStrings(
-      basicLocaleListResolution([locale], UiStrings.supportedLocales),
+      basicLocaleListResolution([locale], const [
+        // Generated locales are alphabetical. Keep English as the fallback.
+        Locale('en'),
+        ...UiStrings.supportedLocales,
+      ]),
     ),
   );
 

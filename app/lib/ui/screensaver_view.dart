@@ -47,6 +47,7 @@ import 'camera_view_overlay.dart' show ClosingCameraPlayer;
 import 'clock_faces.dart';
 import 'photo_frames.dart';
 import 'plugin_screensaver.dart';
+import 'weather_mood_screensaver.dart';
 
 import 'glance_row.dart';
 import 'sendspin_player_overlay.dart' show SendspinFullscreenView;
@@ -118,6 +119,7 @@ class _ScreensaverOverlayState extends State<ScreensaverOverlay> {
     // read at build by the overlay row the photo and web modes carry.
     final live = {
       defs.screensaverWidgets.key,
+      defs.screensaverWeatherEntity.key,
       defs.screensaverWidgetScale.key,
       defs.screensaverWidgetFont.key,
       defs.screensaverWidgetFontWeight.key,
@@ -212,6 +214,12 @@ class _ScreensaverOverlayState extends State<ScreensaverOverlay> {
         // A Black screensaver asked to look off (issue #151): one switch
         // blanks the overlays instead of asking people to unconfigure the
         // small clock and At a Glance row for the night.
+        final weatherUnset =
+            view == 'weather_mood' &&
+            container.settings
+                .get(defs.screensaverWeatherEntity)
+                .trim()
+                .isEmpty;
         final blackBare =
             view == 'black' &&
             container.settings.get(defs.screensaverBlackHideExtras);
@@ -260,6 +268,12 @@ class _ScreensaverOverlayState extends State<ScreensaverOverlay> {
                         ),
                       ),
                     ),
+                  'weather_mood' => _Dismissable(
+                    container: container,
+                    child: UiScaleExempt(
+                      child: WeatherMoodScreensaver(container: container),
+                    ),
+                  ),
                   'clock' => _Dismissable(
                     container: container,
                     child: ClockScreensaver(
@@ -321,6 +335,7 @@ class _ScreensaverOverlayState extends State<ScreensaverOverlay> {
                 // taps falling through to the mode underneath: dismissal
                 // for the native modes, the page for the web ones.
                 if (!blackBare &&
+                    !weatherUnset &&
                     view != 'black' &&
                     view != 'clock' &&
                     view != 'camera')
@@ -364,7 +379,7 @@ class _ScreensaverOverlayState extends State<ScreensaverOverlay> {
                 // which is why they hang off their own listenable: a
                 // boundary between two entries of the same mode changes
                 // nothing else this widget rebuilds on.
-                if (!blackBare)
+                if (!blackBare && !weatherUnset)
                   ValueListenableBuilder<bool?>(
                     valueListenable: container.screensaver.scheduleWidgets,
                     // A mode can also claim corners for itself while it

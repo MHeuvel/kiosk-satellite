@@ -10050,6 +10050,36 @@ class UiStringsEs extends UiStrings {
   }
 
   @override
+  String get screensaverWeatherMood => 'Ambiente meteorológico';
+
+  @override
+  String get screensaverWeatherMoodPage =>
+      'Salvapantallas de ambiente meteorológico';
+
+  @override
+  String get screensaverWeatherMoodSummary =>
+      'Entidad meteorológica, relámpagos';
+
+  @override
+  String get settingScreensaverWeatherEntityTitle => 'Entidad meteorológica';
+
+  @override
+  String get settingScreensaverWeatherEntityDescription =>
+      'La entidad meteorológica de Home Assistant que controla la escena animada. El día y la noche siguen a sun.sun, con la hora local como alternativa.';
+
+  @override
+  String get settingScreensaverWeatherLightningTitle =>
+      'Destellos de relámpagos';
+
+  @override
+  String get settingScreensaverWeatherLightningDescription =>
+      'Muestra rayos y destellos en las nubes durante las tormentas.';
+
+  @override
+  String get screensaverWeatherMoodSelectEntity =>
+      'Selecciona una entidad meteorológica en Ajustes > Salvapantallas > Ambiente meteorológico.';
+
+  @override
   String get settingScreensaverWebsiteUrlTitle => 'URL del sitio web';
 
   @override

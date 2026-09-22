@@ -37161,6 +37161,102 @@
       }
     }
   },
+  "screensaverWeatherMood": "Ambiente meteorológico",
+  "@screensaverWeatherMood": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood setting, guidance or weather condition.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "screensaverWeatherMoodPage": "Salvapantallas de ambiente meteorológico",
+  "@screensaverWeatherMoodPage": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood setting, guidance or weather condition.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "screensaverWeatherMoodSummary": "Entidad meteorológica, relámpagos",
+  "@screensaverWeatherMoodSummary": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood setting, guidance or weather condition.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "settingScreensaverWeatherEntityTitle": "Entidad meteorológica",
+  "@settingScreensaverWeatherEntityTitle": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood setting, guidance or weather condition.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "settingScreensaverWeatherEntityDescription": "La entidad meteorológica de Home Assistant que controla la escena animada. El día y la noche siguen a sun.sun, con la hora local como alternativa.",
+  "@settingScreensaverWeatherEntityDescription": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood setting, guidance or weather condition.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "settingScreensaverWeatherLightningTitle": "Destellos de relámpagos",
+  "@settingScreensaverWeatherLightningTitle": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood setting, guidance or weather condition.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "settingScreensaverWeatherLightningDescription": "Muestra rayos y destellos en las nubes durante las tormentas.",
+  "@settingScreensaverWeatherLightningDescription": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood setting, guidance or weather condition.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "screensaverWeatherMoodSelectEntity": "Selecciona una entidad meteorológica en Ajustes > Salvapantallas > Ambiente meteorológico.",
+  "@screensaverWeatherMoodSelectEntity": {
+    "context": "Screensaver:Weather Mood",
+    "description": "Prompt shown on a black screen until a weather entity is selected."
+  },
   "settingScreensaverWebsiteUrlTitle": "URL del sitio web",
   "@settingScreensaverWebsiteUrlTitle": {
     "context": "Settings:Screensaver:Website screensaver",

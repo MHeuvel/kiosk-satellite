@@ -1436,4 +1436,12 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "voiceChimeAnnounceTitle",
     "description": "voiceChimeAnnounceDescription",
   },
+  "screensaver.weather_entity": {
+    "title": "settingScreensaverWeatherEntityTitle",
+    "description": "settingScreensaverWeatherEntityDescription",
+  },
+  "screensaver.weather_lightning": {
+    "title": "settingScreensaverWeatherLightningTitle",
+    "description": "settingScreensaverWeatherLightningDescription",
+  },
 };

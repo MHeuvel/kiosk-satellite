@@ -499,5 +499,12 @@ const screensaverTextMessageIds = <String, String>{
   "Every video in this playlist is too large for this device to play.": "screensaverVideosTooLarge",
   "A clock widget in a corner of the screensaver.": "searchSmallClock",
   "A battery widget in a corner of the screensaver: this device's own charge.": "searchBattery",
-  "The Log access grant the device's person sensor needs.": "searchPersonPermission"
+  "The Log access grant the device's person sensor needs.": "searchPersonPermission",
+  "Weather Mood": "screensaverWeatherMood",
+  "Weather Mood screensaver": "screensaverWeatherMoodPage",
+  "Lightning flashes": "settingScreensaverWeatherLightningTitle",
+  "Show lightning strikes and cloud flashes during thunderstorms.": "settingScreensaverWeatherLightningDescription",
+  "Weather entity, lightning": "screensaverWeatherMoodSummary",
+  "The Home Assistant weather entity that controls the animated scene. Day and night follow sun.sun, with local time as a fallback.": "settingScreensaverWeatherEntityDescription",
+  "Select a weather entity in Settings > Screensaver > Weather Mood.": "screensaverWeatherMoodSelectEntity"
 };

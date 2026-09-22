@@ -4952,9 +4952,52 @@ class _ScheduleEditorState extends State<_ScheduleEditor> {
   }
 }
 
-/// The screensaver Widgets editor (mirrored in the remote UI): one row per
-/// widget — its type and corner — plus an add button. A widget's own
-/// settings live in a dialog, so every type can carry different ones.
+/// The weather.* entities, picked from Home Assistant by friendly name.
+/// Returns (entity_id, name), or null when dismissed or unreachable.
+Future<(String, String)?> pickScreensaverWeatherEntity(
+  BuildContext context,
+  AppContainer container,
+  String current,
+) async {
+  final result = await container.commands.execute('haSearchEntities', const {
+    'query': 'weather.',
+  });
+  final data = result.data;
+  if (!result.ok || data is! List) {
+    if (context.mounted) {
+      showToast(
+        context,
+        title: screensaverText(context, 'Could not reach Home Assistant'),
+        kind: ToastKind.error,
+      );
+    }
+    return null;
+  }
+  final entities = [
+    for (final e in data)
+      if (e is Map && '${e['entity_id']}'.startsWith('weather.'))
+        ('${e['entity_id']}', '${e['name'] ?? e['entity_id']}'),
+  ];
+  if (entities.isEmpty) {
+    if (context.mounted) {
+      showToast(
+        context,
+        title: screensaverText(context, 'No weather entities'),
+        message: screensaverText(context, 'Home Assistant reported none.'),
+        kind: ToastKind.warning,
+      );
+    }
+    return null;
+  }
+  if (!context.mounted) return null;
+  return showRadioPicker<(String, String)>(
+    context,
+    title: screensaverText(context, 'Weather entity'),
+    options: [for (final e in entities) PickerOption(e, e.$2, detail: e.$1)],
+    selected: entities.where((e) => e.$1 == current).firstOrNull,
+  );
+}
+
 class _WidgetsEditor extends StatefulWidget {
   const _WidgetsEditor({required this.container, required this.onChanged});
 
@@ -5008,52 +5051,6 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
     ),
     _ => null,
   };
-
-  /// The weather.* entities, picked from Home Assistant by friendly name.
-  /// Returns (entity_id, name), or null when dismissed or unreachable.
-  Future<(String, String)?> _pickWeatherEntity(
-    BuildContext context,
-    String current,
-  ) async {
-    final result = await widget.container.commands.execute(
-      'haSearchEntities',
-      const {'query': 'weather.'},
-    );
-    final data = result.data;
-    if (!result.ok || data is! List) {
-      if (context.mounted) {
-        showToast(
-          context,
-          title: screensaverText(context, 'Could not reach Home Assistant'),
-          kind: ToastKind.error,
-        );
-      }
-      return null;
-    }
-    final entities = [
-      for (final e in data)
-        if (e is Map && '${e['entity_id']}'.startsWith('weather.'))
-          ('${e['entity_id']}', '${e['name'] ?? e['entity_id']}'),
-    ];
-    if (entities.isEmpty) {
-      if (context.mounted) {
-        showToast(
-          context,
-          title: screensaverText(context, 'No weather entities'),
-          message: screensaverText(context, 'Home Assistant reported none.'),
-          kind: ToastKind.warning,
-        );
-      }
-      return null;
-    }
-    if (!context.mounted) return null;
-    return showRadioPicker<(String, String)>(
-      context,
-      title: screensaverText(context, 'Weather entity'),
-      options: [for (final e in entities) PickerOption(e, e.$2, detail: e.$1)],
-      selected: entities.where((e) => e.$1 == current).firstOrNull,
-    );
-  }
 
   Future<void> _edit(BuildContext context, ScreensaverWidget? existing) async {
     final others = [
@@ -5315,8 +5312,9 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
                         ),
                         trailing: TextButton(
                           onPressed: () async {
-                            final picked = await _pickWeatherEntity(
+                            final picked = await pickScreensaverWeatherEntity(
                               context,
+                              widget.container,
                               weatherEntity,
                             );
                             if (picked != null) {
@@ -9931,6 +9929,7 @@ class SettingTile extends StatelessWidget {
     final options = List<String>.from(c.settings.optionsFor(def));
     if (def.key == screensaverMode.key && !c.homeAssistant.configured) {
       options.remove('media');
+      options.remove('weather_mood');
     }
     return options;
   }
@@ -10261,6 +10260,33 @@ class SettingTile extends StatelessWidget {
               },
               child: Text(screensaverText(context, 'Browse')),
             ),
+          );
+        }
+        if (def.key == screensaverWeatherEntity.key) {
+          return ListTile(
+            title: Text(def.localizedTitle(context)),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  value.toString().isEmpty
+                      ? screensaverText(context, 'Pick a weather entity…')
+                      : value.toString(),
+                ),
+                Text(def.localizedDescription(context)),
+              ],
+            ),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () async {
+              final picked = await pickScreensaverWeatherEntity(
+                context,
+                c,
+                value.toString(),
+              );
+              if (picked == null) return;
+              await c.settings.setFromJson(def.key, picked.$1);
+              onChanged();
+            },
           );
         }
         // The screensaver's media is picked from Home Assistant, not typed.

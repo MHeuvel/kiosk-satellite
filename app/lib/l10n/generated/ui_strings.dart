@@ -17088,6 +17088,54 @@ abstract class UiStrings {
   /// **'Screen off after {minutes} min'**
   String screensaverScreenOffAfter(String minutes);
 
+  /// Weather Mood setting, guidance or weather condition.
+  ///
+  /// In en, this message translates to:
+  /// **'Weather Mood'**
+  String get screensaverWeatherMood;
+
+  /// Weather Mood setting, guidance or weather condition.
+  ///
+  /// In en, this message translates to:
+  /// **'Weather Mood screensaver'**
+  String get screensaverWeatherMoodPage;
+
+  /// Weather Mood setting, guidance or weather condition.
+  ///
+  /// In en, this message translates to:
+  /// **'Weather entity, lightning'**
+  String get screensaverWeatherMoodSummary;
+
+  /// Weather Mood setting, guidance or weather condition.
+  ///
+  /// In en, this message translates to:
+  /// **'Weather entity'**
+  String get settingScreensaverWeatherEntityTitle;
+
+  /// Weather Mood setting, guidance or weather condition.
+  ///
+  /// In en, this message translates to:
+  /// **'The Home Assistant weather entity that controls the animated scene. Day and night follow sun.sun, with local time as a fallback.'**
+  String get settingScreensaverWeatherEntityDescription;
+
+  /// Weather Mood setting, guidance or weather condition.
+  ///
+  /// In en, this message translates to:
+  /// **'Lightning flashes'**
+  String get settingScreensaverWeatherLightningTitle;
+
+  /// Weather Mood setting, guidance or weather condition.
+  ///
+  /// In en, this message translates to:
+  /// **'Show lightning strikes and cloud flashes during thunderstorms.'**
+  String get settingScreensaverWeatherLightningDescription;
+
+  /// Prompt shown on a black screen until a weather entity is selected.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a weather entity in Settings > Screensaver > Weather Mood.'**
+  String get screensaverWeatherMoodSelectEntity;
+
   /// Setting label.
   ///
   /// In en, this message translates to:

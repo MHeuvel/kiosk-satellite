@@ -100,6 +100,7 @@ flutter:
     - assets/remote-ui/static/
     - assets/screensaver/index.html
     - assets/screensaver/screensaver.js
+    - assets/screensaver/weather-mood.js
     - assets/camera-view/index.html
     - assets/camera-view/camera-view.js
     - assets/camera-view/messages.js

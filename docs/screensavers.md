@@ -26,6 +26,14 @@ The **Widgets** configuration group sits directly beneath the mode settings, all
 
 ## The Modes
 
+### Weather Mood
+
+Choose **Weather Mood** and open its subpage to pick a Home Assistant `weather.*` entity. Animated skies follow all 15 Home Assistant weather conditions, including rain, snow, fog, hail, wind and thunderstorms. The scene changes between day and night using `sun.sun`. If that entity is unavailable, local time supplies daytime from 6 AM to 6 PM.
+
+Weather Mood displays only the animated scene. Add a weather widget under **Widgets** to show weather information. All widget types can use any corner, and At a Glance pills remain available. If no weather entity is selected for Weather Mood, a black screen asks you to select one in its settings. Widgets and At a Glance stay hidden until an entity is selected.
+
+Turn off **Lightning flashes** to keep thunderstorm clouds and rain without the flashes. The renderer works from bundled assets, pauses when the display turns off or the app goes into the background and respects reduced motion. Older devices use fewer cloud samples, a smaller render surface and a lower frame rate. The resolution decreases further when frames remain slow. If weather data becomes unavailable, the scene retains its last known condition. Before the first valid reading it shows a neutral cloudy sky.
+
 ### Dim
 
 Reduces the display backlight to the configured **Dim level** while keeping the live Home Assistant dashboard visible underneath. Because the dashboard remains visible, the **Pause dashboard during screensaver** optimization cannot be applied in this mode. As a result, the browser process continues to consume CPU, GPU, and battery power.

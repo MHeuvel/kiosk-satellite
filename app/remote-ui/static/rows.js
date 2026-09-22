@@ -334,6 +334,41 @@ export function settingRow(s) {
     return row;
   }
 
+  // Weather Mood uses the same weather entity search as the widget editor.
+  if (s.key === 'screensaver.weather_entity') {
+    const select = document.createElement('select');
+    const paint = () => {
+      if (![...select.options].some(option => option.value === (s.value || ''))) {
+        select.add(new Option(s.value || screensaverText('Pick a weather entity…'), s.value || ''));
+      }
+      select.value = s.value || '';
+    };
+    paint();
+    select.addEventListener('change', () => save(select.value));
+    row.appendChild(select);
+    bindUpdate(select, paint);
+    const load = async () => {
+      try {
+        const response = await api('/api/commands/haSearchEntities', {
+          method: 'POST', body: JSON.stringify({ query: 'weather.' }),
+        });
+        const result = await response.json();
+        if (!response.ok || !result.ok || !Array.isArray(result.data)) {
+          throw new Error(screensaverText('Could not reach Home Assistant'));
+        }
+        const entities = result.data.filter(entity => String(entity.entity_id || '').startsWith('weather.'));
+        select.replaceChildren(new Option(screensaverText('Pick a weather entity…'), ''));
+        for (const entity of entities) select.add(new Option(entity.name || entity.entity_id, entity.entity_id));
+        paint();
+        clearRowError(row);
+        if (!entities.length) showRowError(row, screensaverText('No weather entities'), load);
+      } catch (_) {
+        showRowError(row, screensaverText('Could not reach Home Assistant'), load);
+      }
+    };
+    load();
+    return row;
+  }
   // The screensaver's media is browsed from Home Assistant, not typed, the
   // same picker the device offers, so the two stay in step.
   if (s.key === 'screensaver.media_id') {
@@ -1510,7 +1545,7 @@ export function settingRow(s) {
       sel.disabled = true;
     }
     if (s.key === 'screensaver.mode' && !state.haConfigured)
-      opts = opts.filter((o) => o !== 'media');
+      opts = opts.filter((o) => o !== 'media' && o !== 'weather_mood');
     opts.forEach((o) => {
       const opt = document.createElement('option');
       opt.value = o;

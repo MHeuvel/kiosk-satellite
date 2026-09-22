@@ -10046,6 +10046,33 @@ class UiStringsFr extends UiStrings {
   }
 
   @override
+  String get screensaverWeatherMood => 'Ambiance météo';
+
+  @override
+  String get screensaverWeatherMoodPage => 'Économiseur d’écran Ambiance météo';
+
+  @override
+  String get screensaverWeatherMoodSummary => 'Entité météo, éclairs';
+
+  @override
+  String get settingScreensaverWeatherEntityTitle => 'Entité météo';
+
+  @override
+  String get settingScreensaverWeatherEntityDescription =>
+      'L’entité météo Home Assistant qui contrôle la scène animée. Le jour et la nuit suivent sun.sun, avec l’heure locale comme solution de repli.';
+
+  @override
+  String get settingScreensaverWeatherLightningTitle => 'Éclairs';
+
+  @override
+  String get settingScreensaverWeatherLightningDescription =>
+      'Afficher les éclairs et l’illumination des nuages pendant les orages.';
+
+  @override
+  String get screensaverWeatherMoodSelectEntity =>
+      'Sélectionnez une entité météo dans Paramètres > Économiseur d’écran > Ambiance météo.';
+
+  @override
   String get settingScreensaverWebsiteUrlTitle => 'URL du site web';
 
   @override

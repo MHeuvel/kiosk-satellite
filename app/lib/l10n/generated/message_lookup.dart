@@ -3213,6 +3213,19 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.screensaverSummaryNowPlayingOn,
       'screensaverSummaryNowPlayingOff' =>
         strings.screensaverSummaryNowPlayingOff,
+      'screensaverWeatherMood' => strings.screensaverWeatherMood,
+      'screensaverWeatherMoodPage' => strings.screensaverWeatherMoodPage,
+      'screensaverWeatherMoodSummary' => strings.screensaverWeatherMoodSummary,
+      'settingScreensaverWeatherEntityTitle' =>
+        strings.settingScreensaverWeatherEntityTitle,
+      'settingScreensaverWeatherEntityDescription' =>
+        strings.settingScreensaverWeatherEntityDescription,
+      'settingScreensaverWeatherLightningTitle' =>
+        strings.settingScreensaverWeatherLightningTitle,
+      'settingScreensaverWeatherLightningDescription' =>
+        strings.settingScreensaverWeatherLightningDescription,
+      'screensaverWeatherMoodSelectEntity' =>
+        strings.screensaverWeatherMoodSelectEntity,
       'settingScreensaverWebsiteUrlTitle' =>
         strings.settingScreensaverWebsiteUrlTitle,
       'settingScreensaverWebsiteUrlDescription' =>

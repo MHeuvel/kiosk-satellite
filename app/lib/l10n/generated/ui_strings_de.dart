@@ -10088,6 +10088,33 @@ class UiStringsDe extends UiStrings {
   }
 
   @override
+  String get screensaverWeatherMood => 'Wetterstimmung';
+
+  @override
+  String get screensaverWeatherMoodPage => 'Bildschirmschoner Wetterstimmung';
+
+  @override
+  String get screensaverWeatherMoodSummary => 'Wetterentität, Blitze';
+
+  @override
+  String get settingScreensaverWeatherEntityTitle => 'Wetterentität';
+
+  @override
+  String get settingScreensaverWeatherEntityDescription =>
+      'Die Wetterentität aus Home Assistant steuert die animierte Szene. Tag und Nacht richten sich nach sun.sun. Falls nicht verfügbar, wird die Ortszeit verwendet.';
+
+  @override
+  String get settingScreensaverWeatherLightningTitle => 'Blitze';
+
+  @override
+  String get settingScreensaverWeatherLightningDescription =>
+      'Blitze und aufleuchtende Wolken bei Gewittern anzeigen.';
+
+  @override
+  String get screensaverWeatherMoodSelectEntity =>
+      'Wähle eine Wetterentität unter Einstellungen > Bildschirmschoner > Wetterstimmung aus.';
+
+  @override
   String get settingScreensaverWebsiteUrlTitle => 'Website-URL';
 
   @override

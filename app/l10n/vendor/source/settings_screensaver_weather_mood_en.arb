@@ -1,0 +1,99 @@
+{
+  "@@locale": "en",
+  "screensaverWeatherMood": "Weather Mood",
+  "@screensaverWeatherMood": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood setting, guidance or weather condition.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "screensaverWeatherMoodPage": "Weather Mood screensaver",
+  "@screensaverWeatherMoodPage": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood setting, guidance or weather condition.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "screensaverWeatherMoodSummary": "Weather entity, lightning",
+  "@screensaverWeatherMoodSummary": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood setting, guidance or weather condition.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "settingScreensaverWeatherEntityTitle": "Weather entity",
+  "@settingScreensaverWeatherEntityTitle": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood setting, guidance or weather condition.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "settingScreensaverWeatherEntityDescription": "The Home Assistant weather entity that controls the animated scene. Day and night follow sun.sun, with local time as a fallback.",
+  "@settingScreensaverWeatherEntityDescription": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood setting, guidance or weather condition.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "settingScreensaverWeatherLightningTitle": "Lightning flashes",
+  "@settingScreensaverWeatherLightningTitle": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood setting, guidance or weather condition.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "settingScreensaverWeatherLightningDescription": "Show lightning strikes and cloud flashes during thunderstorms.",
+  "@settingScreensaverWeatherLightningDescription": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood setting, guidance or weather condition.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "screensaverWeatherMoodSelectEntity": "Select a weather entity in Settings > Screensaver > Weather Mood.",
+  "@screensaverWeatherMoodSelectEntity": {
+    "context": "Screensaver:Weather Mood",
+    "description": "Prompt shown on a black screen until a weather entity is selected."
+  }
+}

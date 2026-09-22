@@ -51,6 +51,7 @@ export const SUBPAGE_ICONS = {
     + 'M4.9 19.1l1.4-1.4m11.4-11.4 1.4-1.4"/>'
     + '<path d="m10.2 14.5 1.8-5 1.8 5m-3-1.6h2.4" stroke-width="1.6"/>'),
   // Screensaver.
+  'Weather Mood screensaver': svg('<path d="M7 18a5 5 0 1 1 1-10 6 6 0 0 1 11 3 3.5 3.5 0 0 1-1 7Z"/>'),
   'Clock screensaver': svg('<circle cx="12" cy="12" r="9"/>'
     + '<path d="M12 7v5l3.5 2"/>'),
   'Home Assistant Media screensaver': svg('<circle cx="12" cy="12" r="9"/>'

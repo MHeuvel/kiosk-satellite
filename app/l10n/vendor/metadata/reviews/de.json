@@ -19425,5 +19425,53 @@
     "translation": "ff09e8b7dfa2edbae488ac7a73e80d605642f07d551dfbc35c20cf37af1e2b29",
     "author": "Xavier Larrea",
     "ownerAuthored": true
+  },
+  "settingScreensaverWeatherLightningDescription": {
+    "source": "2df4e852ac19a9a1b6be88b8de9e533830ff122f9a8deff3af4299a7112f3cfb",
+    "translation": "90d47cf997834dbf22eae653b69db57825299239a3a758c03c31aa9ab60878a8",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "screensaverWeatherMoodSummary": {
+    "source": "27debc20c620e6b3c20c032b1758fc5ec6eee6649aeffb554a6ea0ce368d5bb4",
+    "translation": "52f2d8070176edcb64fa5fa4d7fdb0b999f831c7989e2624e35d97b00560b102",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "screensaverWeatherMoodPage": {
+    "source": "ffd03527408e45c1de1a2ce89e9ff322e4b8015f0c54bd890d772192cc774370",
+    "translation": "e894d25962a7590d12cafef827b871aac08e749ba6f1ca989d39097942f93f1b",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingScreensaverWeatherLightningTitle": {
+    "source": "c028ebae7c42803191ba8f8f59bfb0db19d009283013b7ad39e81b55c6f8f555",
+    "translation": "cfa8b4f40ca4147d62f96add2325fda78018a6be149545415bfb9fc15a35d005",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "screensaverWeatherMood": {
+    "source": "bbda8e41cb13e5d6adfb816ca35825206d16dd1456a9a81001b23376788e11af",
+    "translation": "88a693c5c01450472ccf46c91bd8746368256c3bee0f9a0fcaa6f38fea309a8d",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingScreensaverWeatherEntityTitle": {
+    "source": "f825dfb0d7652e2b9238f4627b4f5a52aae2c02da61cc65e4c9499d94db5d7e8",
+    "translation": "39baee2a4382aed9486cee12063af509be25d5d935eb950e57cfc5592b4f4780",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingScreensaverWeatherEntityDescription": {
+    "source": "174ea857e44d70ad87b4500b6bc1e1c91f2164ffaf2a5ddf7ae7c02e9e8d36a5",
+    "translation": "c70841f0a868aad30e004a1f6a301181ac3c6d139de666e50c6b7db0dde8251b",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "screensaverWeatherMoodSelectEntity": {
+    "source": "7bb83abae8325c44fe9936ace10800464d42c55b110e7df5110a0be21f370949",
+    "translation": "b1671e8d9a68d0b181afcb1dd15a348fac7319bde7044425ef633e223eeeb626",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
   }
 }

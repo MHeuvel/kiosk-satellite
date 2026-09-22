@@ -1,0 +1,11 @@
+{
+  "@@locale": "fr",
+  "screensaverWeatherMood": "Ambiance météo",
+  "screensaverWeatherMoodPage": "Économiseur d’écran Ambiance météo",
+  "screensaverWeatherMoodSummary": "Entité météo, éclairs",
+  "settingScreensaverWeatherEntityTitle": "Entité météo",
+  "settingScreensaverWeatherEntityDescription": "L’entité météo Home Assistant qui contrôle la scène animée. Le jour et la nuit suivent sun.sun, avec l’heure locale comme solution de repli.",
+  "settingScreensaverWeatherLightningTitle": "Éclairs",
+  "settingScreensaverWeatherLightningDescription": "Afficher les éclairs et l’illumination des nuages pendant les orages.",
+  "screensaverWeatherMoodSelectEntity": "Sélectionnez une entité météo dans Paramètres > Économiseur d’écran > Ambiance météo."
+}

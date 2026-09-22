@@ -227,6 +227,7 @@ const Map<String, String> subpageHints = {
   'Photo Gallery screensaver': 'Photos, timing, shuffle, transition',
   'Immich Media screensaver': 'Server, media, slideshow, metadata, filters',
   'Camera Streams screensaver': 'Views to show, seconds per view, sound',
+  'Weather Mood screensaver': 'Weather entity, lightning',
   'Widgets': 'Corner overlays and their scale',
   'At a Glance': 'Entities shown over the screensaver',
   'RTSP & ONVIF Streaming': 'Share the device camera via RTSP or ONVIF',
@@ -1713,6 +1714,7 @@ const screensaverMode = SettingDef<String>(
     'dim',
     'black',
     'clock',
+    'weather_mood',
     'media',
     'local',
     'gallery',
@@ -1724,6 +1726,7 @@ const screensaverMode = SettingDef<String>(
     'dim': 'Dim',
     'black': 'Black',
     'clock': 'Clock',
+    'weather_mood': 'Weather Mood',
     'media': 'Home Assistant Media',
     'local': 'Local Media',
     'gallery': 'Photo Gallery',
@@ -1731,6 +1734,34 @@ const screensaverMode = SettingDef<String>(
     'website': 'Website',
     'camera': 'Camera Streams',
   },
+);
+
+// Weather Mood follows the selected weather entity and sun.sun.
+const screensaverWeatherEntity = SettingDef<String>(
+  key: 'screensaver.weather_entity',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Weather entity',
+  description:
+      'The Home Assistant weather entity that controls the animated scene. Day and night follow sun.sun, with local time as a fallback.',
+  category: 'Screensaver',
+  section: 'Weather Mood screensaver',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.mode',
+  dependsOnValue: 'weather_mood',
+);
+
+const screensaverWeatherLightning = SettingDef<bool>(
+  key: 'screensaver.weather_lightning',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Lightning flashes',
+  description: 'Show lightning strikes and cloud flashes during thunderstorms.',
+  category: 'Screensaver',
+  section: 'Weather Mood screensaver',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.mode',
+  dependsOnValue: 'weather_mood',
 );
 
 // ── Black (mode: black) ──
@@ -7758,6 +7789,8 @@ const List<SettingDef<Object>> allSettings = [
   screensaverMiniClock24h,
   screensaverMiniClockDate,
   screensaverMode,
+  screensaverWeatherEntity,
+  screensaverWeatherLightning,
   // One titled panel per mode, in the dropdown's order; only the panel of
   // the selected mode is visible (each setting depends on the mode).
   screensaverDimLevel,

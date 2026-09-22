@@ -16033,5 +16033,45 @@
     "source": "f8298970268e22af02d2e1f75d72b6b421f0f844b11a8ef62b89920107d031c9",
     "translation": "096d2d0bd3ec2e266869f107a8144ca7dc1b6a6cf3adfc18dd9fab23a4f5d0ec",
     "author": "Xavier Larrea"
+  },
+  "screensaverWeatherMoodPage": {
+    "source": "ffd03527408e45c1de1a2ce89e9ff322e4b8015f0c54bd890d772192cc774370",
+    "translation": "024d5f4737570ef1249fa0f4809c0fde726a71b766e4809e8365952960115dd6",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverWeatherLightningDescription": {
+    "source": "2df4e852ac19a9a1b6be88b8de9e533830ff122f9a8deff3af4299a7112f3cfb",
+    "translation": "b1364040ab483275c8a70edca3aaab42257c8a97da75271eee19ab7d00fac455",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverWeatherEntityDescription": {
+    "source": "174ea857e44d70ad87b4500b6bc1e1c91f2164ffaf2a5ddf7ae7c02e9e8d36a5",
+    "translation": "9d5da3d18647329ea07db70b161437278fe1f31936d10d0b2f06126bcd18672e",
+    "author": "Xavier Larrea"
+  },
+  "screensaverWeatherMood": {
+    "source": "bbda8e41cb13e5d6adfb816ca35825206d16dd1456a9a81001b23376788e11af",
+    "translation": "ca2a6b294076c79b4a84d02ee5fcd59f6308837d6792da75eb522cdd3a2a19a7",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverWeatherEntityTitle": {
+    "source": "f825dfb0d7652e2b9238f4627b4f5a52aae2c02da61cc65e4c9499d94db5d7e8",
+    "translation": "ee13ac175d44e834980d39d919d58b7c72ac40c7cd90e55abd78aab33a80f4e0",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverWeatherLightningTitle": {
+    "source": "c028ebae7c42803191ba8f8f59bfb0db19d009283013b7ad39e81b55c6f8f555",
+    "translation": "a33d08f6c0343467596153b679b700fbe4846c600b84313f9a17f762c132bd0c",
+    "author": "Xavier Larrea"
+  },
+  "screensaverWeatherMoodSummary": {
+    "source": "27debc20c620e6b3c20c032b1758fc5ec6eee6649aeffb554a6ea0ce368d5bb4",
+    "translation": "afa6c26a4ac108a874e688ba296bfb2f1fa005117a1c7c9c25f3654df54096e4",
+    "author": "Xavier Larrea"
+  },
+  "screensaverWeatherMoodSelectEntity": {
+    "source": "7bb83abae8325c44fe9936ace10800464d42c55b110e7df5110a0be21f370949",
+    "translation": "9462a844bb333be64804858f6a6d8e0b6dde6dfa37d068d14ed85d43ee1c9e57",
+    "author": "Xavier Larrea"
   }
 }
