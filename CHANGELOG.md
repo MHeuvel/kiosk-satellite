@@ -5,6 +5,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ## Unreleased
 
 ### Added
+- **Adjustable hand gesture hold duration.** Require the same finger gesture for 0.5 to 3 seconds to reduce accidental triggers in busy rooms. The default is 1 second, with Instant available for immediate actions. The new Hand Gestures group appears below Clapper on the device and in Remote Admin. The Hand Gesture Tester shows confirmation progress. All new controls and feedback are localized in English, German, Spanish and French.
 - **Set brightness through ESPHome actions.** The new `set_brightness` and `set_screensaver_brightness` actions accept a brightness percentage from 0 to 100, including 0% for devices that can turn off their backlight. They update Default brightness or the screensaver brightness level and require adaptive brightness to be off (#670).
 - **Dawn and dusk in Weather Mood.** A third time-of-day variant keeps blue skies overhead with a soft peach horizon, a lower warm sun and subtle warm cloud lighting across every weather type. It follows solar elevation near sunrise and sunset, falls back to local time and is available in Weather Preview in all supported languages.
 - **A built-in clock for Weather Mood.** The Clock group shows the digital Clock screensaver face over the weather scene and is enabled by default. Its independent font family, font weight, 24-hour format, date, size and color controls use the same defaults as the Clock screensaver. Text drop shadow helps the digits stand out against the sky.

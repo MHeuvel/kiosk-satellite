@@ -1654,6 +1654,19 @@ class UiStringsDe extends UiStrings {
       'Zeigt in Echtzeit die Finger an, die von der Kamera erkannt werden.';
 
   @override
+  String get gestureHoldConfirmed => 'Haltedauer erreicht';
+
+  @override
+  String gestureHoldProgress(String progress) {
+    return 'Haltefortschritt: $progress';
+  }
+
+  @override
+  String gestureTesterHoldDuration(String duration) {
+    return 'Haltedauer: $duration';
+  }
+
+  @override
   String get gestureHaServiceKind => 'Home-Assistant-Dienst';
 
   @override
@@ -6322,6 +6335,24 @@ class UiStringsDe extends UiStrings {
   @override
   String get gestureReadFailed =>
       'Die Konfiguration konnte nicht gelesen werden.';
+
+  @override
+  String get gestureHandGestures => 'Handgesten';
+
+  @override
+  String get settingHandGestureHoldSecondsTitle => 'Haltedauer';
+
+  @override
+  String get settingHandGestureHoldSecondsDescription =>
+      'Halte dieselbe Fingergeste so lange, bevor die Aktion ausgeführt wird. Erhöhe die Dauer, um versehentliches Auslösen zu reduzieren.';
+
+  @override
+  String get gestureHoldInstant => 'Sofort';
+
+  @override
+  String gestureHoldSeconds(String seconds) {
+    return '$seconds s';
+  }
 
   @override
   String get settingHaHoldModeTitle => 'Pausenmodus';

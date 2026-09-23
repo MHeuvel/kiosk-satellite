@@ -1,10 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../app_container.dart';
 import '../l10n/messages.dart';
 import '../l10n/gesture_messages.dart';
 import '../managers/gestures/gesture_mappings.dart';
+import '../managers/gestures/hand_gesture_hold.dart';
 import '../managers/motion/motion_manager.dart';
 import '../managers/settings/definitions.dart' as defs;
 import 'kit.dart';
@@ -59,6 +63,11 @@ class HandGestureTesterTile extends StatelessWidget {
                   context: context,
                   builder: (_) => HandGestureTesterDialog(
                     reading: c.motion.handTest,
+                    hold: Duration(
+                      milliseconds:
+                          (c.settings.get(defs.handGestureHoldSeconds) * 1000)
+                              .round(),
+                    ),
                     mappings: decodeGestureMappings(
                       c.settings.get(defs.gestureMappings),
                     ),
@@ -75,15 +84,78 @@ class HandGestureTesterTile extends StatelessWidget {
 
 /// The modal: a hand whose digits light up as the tracker reads them,
 /// the count and the gesture it would trigger, and how to hold the hand.
-class HandGestureTesterDialog extends StatelessWidget {
+class HandGestureTesterDialog extends StatefulWidget {
   const HandGestureTesterDialog({
     super.key,
     required this.reading,
     required this.mappings,
+    this.hold = Duration.zero,
+    this.handClock,
   });
 
   final ValueListenable<HandTestReading?> reading;
   final List<GestureMapping> mappings;
+  final Duration hold;
+  final Duration Function()? handClock;
+
+  @override
+  State<HandGestureTesterDialog> createState() =>
+      _HandGestureTesterDialogState();
+}
+
+class _HandGestureTesterDialogState extends State<HandGestureTesterDialog> {
+  final _hold = HandGestureHold();
+  final _clock = Stopwatch()..start();
+  Timer? _expiry;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.reading.addListener(_onReading);
+    _updateHold();
+  }
+
+  @override
+  void didUpdateWidget(HandGestureTesterDialog oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.reading != widget.reading || oldWidget.hold != widget.hold) {
+      oldWidget.reading.removeListener(_onReading);
+      widget.reading.addListener(_onReading);
+      _hold.reset();
+      _updateHold();
+    }
+  }
+
+  void _onReading() => setState(_updateHold);
+
+  void _updateHold() {
+    final reading = widget.reading.value;
+    _hold.update(
+      hands: reading?.hands ?? 0,
+      fingers: reading?.fingers,
+      now: widget.handClock?.call() ?? _clock.elapsed,
+      hold: widget.hold,
+    );
+    // Only fresh valid readings extend the display's lifetime.
+    if (reading == null || reading.fingers != null) {
+      _expiry?.cancel();
+      if (widget.hold > Duration.zero && _hold.count != null) {
+        _expiry = Timer(
+          HandGestureHold.maxGap + const Duration(milliseconds: 1),
+          () {
+            if (mounted) setState(_hold.reset);
+          },
+        );
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    widget.reading.removeListener(_onReading);
+    _expiry?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -131,10 +203,37 @@ class HandGestureTesterDialog extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        ValueListenableBuilder<HandTestReading?>(
-                          valueListenable: reading,
-                          builder: (context, r, _) =>
-                              _Reading(reading: r, mappings: mappings),
+                        _Reading(
+                          reading: widget.reading.value,
+                          mappings: widget.mappings,
+                        ),
+                        if (widget.hold > Duration.zero) ...[
+                          const SizedBox(height: 12),
+                          LinearProgressIndicator(value: _hold.progress),
+                          const SizedBox(height: 8),
+                          Text(
+                            _hold.progress == 1
+                                ? l10n(context).gestureHoldConfirmed
+                                : l10n(context).gestureHoldProgress(
+                                    NumberFormat.percentPattern(
+                                      Localizations.localeOf(
+                                        context,
+                                      ).toString(),
+                                    ).format(_hold.progress),
+                                  ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                        const SizedBox(height: 8),
+                        Text(
+                          l10n(context).gestureTesterHoldDuration(
+                            localizedHandHoldDuration(
+                              context,
+                              widget.hold.inMilliseconds / 1000,
+                            ),
+                          ),
+                          textAlign: TextAlign.center,
+                          style: muted,
                         ),
                         const SizedBox(height: 20),
                         Text(

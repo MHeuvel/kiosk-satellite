@@ -1536,4 +1536,8 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingScreensaverWeatherBlurTitle",
     "description": "settingScreensaverWeatherBlurDescription",
   },
+  "gestures.hand_hold_seconds": {
+    "title": "settingHandGestureHoldSecondsTitle",
+    "description": "settingHandGestureHoldSecondsDescription",
+  },
 };

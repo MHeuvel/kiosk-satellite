@@ -1534,5 +1534,9 @@
   "screensaver.weather_blur": {
     "title": "settingScreensaverWeatherBlurTitle",
     "description": "settingScreensaverWeatherBlurDescription"
+  },
+  "gestures.hand_hold_seconds": {
+    "title": "settingHandGestureHoldSecondsTitle",
+    "description": "settingHandGestureHoldSecondsDescription"
   }
 }

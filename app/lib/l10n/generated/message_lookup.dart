@@ -438,6 +438,7 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'gestureReadingHand' => strings.gestureReadingHand,
       'gestureNoFingers' => strings.gestureNoFingers,
       'gestureTesterSearch' => strings.gestureTesterSearch,
+      'gestureHoldConfirmed' => strings.gestureHoldConfirmed,
       'gestureHaServiceKind' => strings.gestureHaServiceKind,
       'gestureHaScriptKind' => strings.gestureHaScriptKind,
       'gestureHaAutomationKind' => strings.gestureHaAutomationKind,
@@ -1740,6 +1741,12 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'gestureTouchHelp' => strings.gestureTouchHelp,
       'gestureClapper' => strings.gestureClapper,
       'gestureReadFailed' => strings.gestureReadFailed,
+      'gestureHandGestures' => strings.gestureHandGestures,
+      'settingHandGestureHoldSecondsTitle' =>
+        strings.settingHandGestureHoldSecondsTitle,
+      'settingHandGestureHoldSecondsDescription' =>
+        strings.settingHandGestureHoldSecondsDescription,
+      'gestureHoldInstant' => strings.gestureHoldInstant,
       'settingHaHoldModeTitle' => strings.settingHaHoldModeTitle,
       'settingHaHoldModeDescription' => strings.settingHaHoldModeDescription,
       'settingHaHoldReleaseMinutesTitle' =>

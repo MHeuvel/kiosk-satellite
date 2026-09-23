@@ -2892,6 +2892,24 @@ abstract class UiStrings {
   /// **'A live look at the fingers the camera reads.'**
   String get gestureTesterSearch;
 
+  /// Hand gesture hold setting or confirmation feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold confirmed'**
+  String get gestureHoldConfirmed;
+
+  /// Hand gesture hold setting or confirmation feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold progress: {progress}'**
+  String gestureHoldProgress(String progress);
+
+  /// Hand gesture hold setting or confirmation feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold duration: {duration}'**
+  String gestureTesterHoldDuration(String duration);
+
   /// Label or guidance in this section.
   ///
   /// In en, this message translates to:
@@ -10733,6 +10751,36 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Could not read the settings.'**
   String get gestureReadFailed;
+
+  /// Hand gesture hold setting or confirmation feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Hand Gestures'**
+  String get gestureHandGestures;
+
+  /// Hand gesture hold setting or confirmation feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold duration'**
+  String get settingHandGestureHoldSecondsTitle;
+
+  /// Hand gesture hold setting or confirmation feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold the same finger gesture for this long before its action runs. Increase this to reduce accidental triggers.'**
+  String get settingHandGestureHoldSecondsDescription;
+
+  /// Hand gesture hold setting or confirmation feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Instant'**
+  String get gestureHoldInstant;
+
+  /// Hand gesture hold setting or confirmation feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'{seconds} s'**
+  String gestureHoldSeconds(String seconds);
 
   /// Setting label.
   ///

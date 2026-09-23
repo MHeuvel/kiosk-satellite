@@ -99,4 +99,60 @@ void main() {
     expect(find.text('No fingers up'), findsOneWidget);
     expect(find.text('No gesture uses this count.'), findsNothing);
   });
+
+  testWidgets(
+    'hold progress uses readings and expires when the camera goes quiet',
+    (tester) async {
+      var now = Duration.zero;
+      reading.value = null;
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: HandGestureTesterDialog(
+              reading: reading,
+              mappings: mappings,
+              hold: const Duration(seconds: 1),
+              handClock: () => now,
+            ),
+          ),
+        ),
+      );
+      expect(find.text('Hold duration: 1 s'), findsOneWidget);
+      Future<void> show(int ms) async {
+        now = Duration(milliseconds: ms);
+        reading.value = HandTestReading(hands: 1, fingers: 5);
+        await tester.pump();
+      }
+
+      await show(0);
+      await show(500);
+      expect(
+        tester
+            .widget<LinearProgressIndicator>(
+              find.byType(LinearProgressIndicator),
+            )
+            .value,
+        0.5,
+      );
+      expect(find.text('Hold progress: 50%'), findsOneWidget);
+      await show(1000);
+      expect(find.text('Hold confirmed'), findsOneWidget);
+      await tester.pump(const Duration(milliseconds: 751));
+      expect(find.text('Hold confirmed'), findsNothing);
+      expect(
+        tester
+            .widget<LinearProgressIndicator>(
+              find.byType(LinearProgressIndicator),
+            )
+            .value,
+        0,
+      );
+      await show(2000);
+      expect(find.text('Hold progress: 0%'), findsOneWidget);
+      reading.value = null;
+      await tester.pump();
+      expect(find.text('No hand in view'), findsOneWidget);
+      await tester.pumpWidget(const SizedBox.shrink());
+    },
+  );
 }

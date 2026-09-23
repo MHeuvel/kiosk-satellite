@@ -19562,5 +19562,53 @@
     "translation": "fa4162e7bf9917bffa9e170fbec57f90c9f5fffc5126f8b2c1b170f454f44b59",
     "author": "Xavier Larrea",
     "ownerAuthored": true
+  },
+  "gestureHandGestures": {
+    "source": "3d3cd25f937a0c609d7bb0616c15e3f374ce22dec1ce52a43c2d8f7810633afb",
+    "translation": "e5724e8090fef001db10dfb0ba40a8166ebcb451de85c32fa634a0336000ced6",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "gestureHoldConfirmed": {
+    "source": "b5b873dd2063478bb71a8bf1537127161ff919abd6a13a8ec108d226a764b7c2",
+    "translation": "cd099a524093da472798267db09ecb72662eaed681d9cce4e6b475b46b6ca62b",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "gestureHoldProgress": {
+    "source": "abbb2ed79fae1fe89f2f4f1558902d9f76bf9dacec57997316b5978eed1fa7b8",
+    "translation": "7d77c538f85b0aa38b472b286f8cfddad005bd70303d0701ce6319e71ae3cf97",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingHandGestureHoldSecondsTitle": {
+    "source": "e33d080a4cafb83c6b24c25fc20dadfe323e83f19f7734e2ab83c5053c04d5c9",
+    "translation": "4149f9dde359d57d65b25015ec7585ba4ae14913ab99902d462eaf3eae1c9c1b",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingHandGestureHoldSecondsDescription": {
+    "source": "67ea58f90fb222752a91176da907d42b33f5ad5832ded70ecdbd2546f01ec5b2",
+    "translation": "9ebc86f69a5dd6383c21a525bcd27364755a7ff987d9d09889a5f7bd6a61e5b6",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "gestureHoldInstant": {
+    "source": "36b7934b21e2696f84906445db2c78fd6e728bb44d5ea6511f2c9489b48f6c7a",
+    "translation": "dff9453366bf7fd9f73a7b9a7192b65616748ff0d1f90be7fbde75764fe5e983",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "gestureTesterHoldDuration": {
+    "source": "a0c7cee0c1580528bdd1f3af9783c2b006ff2950832f9dff6003594982237dfe",
+    "translation": "a5326bca50e1b9f39d4a458ae6d1c931dfcfba465c83c82bda0cda6746f9598f",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "gestureHoldSeconds": {
+    "source": "3a8b7dc2c2f40a61b7f8b13e78c84bfa26e740b8b9678db4e2baf476dac7968d",
+    "translation": "fde82d3dd95e8edbefe2c328e4fbce4802413f212881c673b596ec26b39e655b",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
   }
 }

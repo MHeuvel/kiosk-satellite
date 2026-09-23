@@ -872,6 +872,7 @@ class MotionManager extends Manager {
     _endPreview();
     handTest.value = null;
     if (_camera == null) return;
+    bus.publish(const PalmDetected(hands: 0, fingers: null));
     _camera!.cancel();
     _camera = null;
     log.info(name, 'camera off');
@@ -917,6 +918,7 @@ class MotionManager extends Manager {
   void startHandTest() {
     if (_handTesting) return;
     _handTesting = true;
+    bus.publish(const PalmDetected(hands: 0, fingers: null));
     log.info(name, 'hand gesture tester open');
     _sync();
   }
@@ -926,6 +928,7 @@ class MotionManager extends Manager {
   void stopHandTest() {
     if (!_handTesting) return;
     _handTesting = false;
+    bus.publish(const PalmDetected(hands: 0, fingers: null));
     handTest.value = null;
     log.info(name, 'hand gesture tester closed');
     _sync();

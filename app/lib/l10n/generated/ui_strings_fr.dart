@@ -1645,6 +1645,19 @@ class UiStringsFr extends UiStrings {
       'Un aperçu en direct des doigts que la caméra détecte.';
 
   @override
+  String get gestureHoldConfirmed => 'Maintien confirmé';
+
+  @override
+  String gestureHoldProgress(String progress) {
+    return 'Progression du maintien : $progress';
+  }
+
+  @override
+  String gestureTesterHoldDuration(String duration) {
+    return 'Durée de maintien : $duration';
+  }
+
+  @override
   String get gestureHaServiceKind => 'Service Home Assistant';
 
   @override
@@ -6275,6 +6288,24 @@ class UiStringsFr extends UiStrings {
 
   @override
   String get gestureReadFailed => 'Impossible de lire les paramètres.';
+
+  @override
+  String get gestureHandGestures => 'Gestes de la main';
+
+  @override
+  String get settingHandGestureHoldSecondsTitle => 'Durée de maintien';
+
+  @override
+  String get settingHandGestureHoldSecondsDescription =>
+      'Maintenez le même geste des doigts pendant cette durée avant de lancer son action. Augmentez-la pour réduire les déclenchements accidentels.';
+
+  @override
+  String get gestureHoldInstant => 'Immédiat';
+
+  @override
+  String gestureHoldSeconds(String seconds) {
+    return '$seconds s';
+  }
 
   @override
   String get settingHaHoldModeTitle => 'Mode maintien';

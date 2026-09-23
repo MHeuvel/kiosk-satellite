@@ -151,5 +151,45 @@
         "Settings > Search > Hand Gesture Tester"
       ]
     }
+  },
+  "gestureHoldConfirmed": "Hold confirmed",
+  "@gestureHoldConfirmed": {
+    "context": "Settings > Gestures > Hand Gesture Tester",
+    "description": "Hand gesture hold setting or confirmation feedback.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gesture Tester"
+      ]
+    }
+  },
+  "gestureHoldProgress": "Hold progress: {progress}",
+  "@gestureHoldProgress": {
+    "context": "Settings > Gestures > Hand Gesture Tester",
+    "description": "Hand gesture hold setting or confirmation feedback.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gesture Tester"
+      ]
+    },
+    "placeholders": {
+      "progress": {
+        "type": "String"
+      }
+    }
+  },
+  "gestureTesterHoldDuration": "Hold duration: {duration}",
+  "@gestureTesterHoldDuration": {
+    "context": "Settings > Gestures > Hand Gesture Tester",
+    "description": "Hand gesture hold setting or confirmation feedback.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gesture Tester"
+      ]
+    },
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
   }
 }

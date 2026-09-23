@@ -1,5 +1,16 @@
 {
   "@@locale": "en",
+  "setupQrFlipCamera": "Flip camera",
+  "@setupQrFlipCamera": {
+    "context": "First-time setup > Connect > Scan token QR code",
+    "description": "Button that switches between the front and back cameras.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Connect > Scan token QR code"
+      ],
+      "remoteAdmin": []
+    }
+  },
   "setupQrCameraFailed": "The camera could not be started.",
   "@setupQrCameraFailed": {
     "context": "First-time setup > Connect > Scan token QR code",

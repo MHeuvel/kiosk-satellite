@@ -902,6 +902,25 @@ const clapStrictness = SettingDef<String>(
   category: 'Gestures',
 );
 
+const handGestureHoldSeconds = SettingDef<num>(
+  key: 'gestures.hand_hold_seconds',
+  type: SettingType.number,
+  defaultValue: 1,
+  min: 0,
+  max: 3,
+  step: 0.5,
+  unit: 's',
+  normalizer: normalizeHandGestureHold,
+  title: 'Hold duration',
+  description:
+      'Hold the same finger gesture for this long before its action runs. '
+      'Increase this to reduce accidental triggers.',
+  category: 'Gestures',
+);
+
+Object normalizeHandGestureHold(Object value) =>
+    value is num && value.isFinite ? (value.clamp(0, 3) * 2).round() / 2 : 0;
+
 // The quick-actions escape hatch (issue #64): a wall-mounted kiosk in
 // lockdown still wants "back to the dashboard" and "show the camera" to
 // be one swipe away. Off by default — kiosk mode keeps its full lock
@@ -8062,6 +8081,7 @@ const List<SettingDef<Object>> allSettings = [
   kioskDisableGestures,
   gestureMappings,
   clapStrictness,
+  handGestureHoldSeconds,
   kioskAllowDrawer,
   kioskAllowDashboard,
   kioskAllowHaKiosk,

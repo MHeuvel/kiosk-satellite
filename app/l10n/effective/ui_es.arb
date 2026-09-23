@@ -5862,6 +5862,46 @@
       ]
     }
   },
+  "gestureHoldConfirmed": "Gesto confirmado",
+  "@gestureHoldConfirmed": {
+    "context": "Settings > Gestures > Hand Gesture Tester",
+    "description": "Hand gesture hold setting or confirmation feedback.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gesture Tester"
+      ]
+    }
+  },
+  "gestureHoldProgress": "Progreso del gesto: {progress}",
+  "@gestureHoldProgress": {
+    "context": "Settings > Gestures > Hand Gesture Tester",
+    "description": "Hand gesture hold setting or confirmation feedback.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gesture Tester"
+      ]
+    },
+    "placeholders": {
+      "progress": {
+        "type": "String"
+      }
+    }
+  },
+  "gestureTesterHoldDuration": "Tiempo de espera: {duration}",
+  "@gestureTesterHoldDuration": {
+    "context": "Settings > Gestures > Hand Gesture Tester",
+    "description": "Hand gesture hold setting or confirmation feedback.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gesture Tester"
+      ]
+    },
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
   "gestureHaServiceKind": "Servicio de Home Assistant",
   "@gestureHaServiceKind": {
     "context": "Device > Gesture action result notification",
@@ -23135,6 +23175,76 @@
       "remoteAdmin": [
         "Gestures"
       ]
+    }
+  },
+  "gestureHandGestures": "Gestos de la mano",
+  "@gestureHandGestures": {
+    "context": "Settings > Gestures > Hand Gestures",
+    "description": "Hand gesture hold setting or confirmation feedback.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gestures"
+      ],
+      "remoteAdmin": [
+        "Gestures > Hand Gestures"
+      ]
+    }
+  },
+  "settingHandGestureHoldSecondsTitle": "Tiempo de espera",
+  "@settingHandGestureHoldSecondsTitle": {
+    "context": "Settings > Gestures > Hand Gestures",
+    "description": "Hand gesture hold setting or confirmation feedback.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gestures"
+      ],
+      "remoteAdmin": [
+        "Gestures > Hand Gestures"
+      ]
+    }
+  },
+  "settingHandGestureHoldSecondsDescription": "Mantén el mismo gesto de los dedos durante este tiempo antes de ejecutar la acción. Auméntalo para reducir las activaciones accidentales.",
+  "@settingHandGestureHoldSecondsDescription": {
+    "context": "Settings > Gestures > Hand Gestures",
+    "description": "Hand gesture hold setting or confirmation feedback.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gestures"
+      ],
+      "remoteAdmin": [
+        "Gestures > Hand Gestures"
+      ]
+    }
+  },
+  "gestureHoldInstant": "Al instante",
+  "@gestureHoldInstant": {
+    "context": "Settings > Gestures > Hand Gestures",
+    "description": "Hand gesture hold setting or confirmation feedback.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gestures"
+      ],
+      "remoteAdmin": [
+        "Gestures > Hand Gestures"
+      ]
+    }
+  },
+  "gestureHoldSeconds": "{seconds} s",
+  "@gestureHoldSeconds": {
+    "context": "Settings > Gestures > Hand Gestures",
+    "description": "Hand gesture hold setting or confirmation feedback.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gestures"
+      ],
+      "remoteAdmin": [
+        "Gestures > Hand Gestures"
+      ]
+    },
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
     }
   },
   "settingHaHoldModeTitle": "Modo de pausa",

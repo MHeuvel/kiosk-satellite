@@ -1,4 +1,4 @@
-import { esphomeText, launcherText } from './localization.js';
+import { esphomeText, launcherText, messageLanguage } from './localization.js';
 import { intercomError, mediaText, cameraText, cameraError, deviceText, haText, screensaverText, screensaverError, t } from './localization.js';
 import { watchUpdates } from './live.js';
 import {
@@ -1468,6 +1468,12 @@ export function settingRow(s) {
   // shows. Label updates live; the value saves once, on release.
   if (s.type === 'number' && s.min != null && s.max != null) {
     const label = (v) => {
+      if (s.key === 'gestures.hand_hold_seconds') {
+        return Number(v) === 0 ? t('gestureHoldInstant')
+          : t('gestureHoldSeconds', {seconds: new Intl.NumberFormat(messageLanguage(), {
+            maximumFractionDigits: 1,
+          }).format(v)});
+      }
       // Hold mode's auto-release reads as a clock: 0 is "Never" and 90 is
       // "1 h 30 min". Kept identical to the device's copy.
       if (s.key === 'ha.hold_release_minutes') {

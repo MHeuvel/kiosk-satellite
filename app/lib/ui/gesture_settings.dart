@@ -80,6 +80,7 @@ const _triggerTypes = <(String, String)>[
 
 class _GestureSettingsPanelState extends State<GestureSettingsPanel> {
   AppContainer get c => widget.container;
+  double? _handHoldDrag;
 
   List<GestureMapping> get _mappings =>
       decodeGestureMappings(c.settings.get(defs.gestureMappings));
@@ -188,6 +189,56 @@ class _GestureSettingsPanelState extends State<GestureSettingsPanel> {
                   await c.settings.setFromJson(defs.clapStrictness.key, value);
                   if (mounted) setState(() {});
                 },
+              ),
+            ),
+          ],
+        ),
+        SectionHeading(gestureText(context, 'Hand Gestures')),
+        SettingsCard(
+          children: [
+            SearchLandingTarget(
+              id: defs.handGestureHoldSeconds.key,
+              child: Column(
+                children: [
+                  ListTile(
+                    title: Text(
+                      defs.handGestureHoldSeconds.localizedTitle(context),
+                    ),
+                    subtitle: Text(
+                      defs.handGestureHoldSeconds.localizedDescription(context),
+                    ),
+                    trailing: Text(
+                      localizedHandHoldDuration(
+                        context,
+                        _handHoldDrag ??
+                            c.settings.get(defs.handGestureHoldSeconds),
+                      ),
+                    ),
+                  ),
+                  Slider(
+                    value:
+                        _handHoldDrag ??
+                        c.settings
+                            .get(defs.handGestureHoldSeconds)
+                            .toDouble()
+                            .clamp(0, 3),
+                    min: 0,
+                    max: 3,
+                    divisions: 6,
+                    label: localizedHandHoldDuration(
+                      context,
+                      _handHoldDrag ??
+                          c.settings.get(defs.handGestureHoldSeconds),
+                    ),
+                    semanticFormatterCallback: (value) =>
+                        localizedHandHoldDuration(context, value),
+                    onChanged: (value) => setState(() => _handHoldDrag = value),
+                    onChangeEnd: (value) async {
+                      await c.settings.set(defs.handGestureHoldSeconds, value);
+                      if (mounted) setState(() => _handHoldDrag = null);
+                    },
+                  ),
+                ],
               ),
             ),
           ],

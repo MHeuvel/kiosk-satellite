@@ -1626,6 +1626,19 @@ class UiStringsEn extends UiStrings {
       'A live look at the fingers the camera reads.';
 
   @override
+  String get gestureHoldConfirmed => 'Hold confirmed';
+
+  @override
+  String gestureHoldProgress(String progress) {
+    return 'Hold progress: $progress';
+  }
+
+  @override
+  String gestureTesterHoldDuration(String duration) {
+    return 'Hold duration: $duration';
+  }
+
+  @override
   String get gestureHaServiceKind => 'Home Assistant Service';
 
   @override
@@ -6165,6 +6178,24 @@ class UiStringsEn extends UiStrings {
 
   @override
   String get gestureReadFailed => 'Could not read the settings.';
+
+  @override
+  String get gestureHandGestures => 'Hand Gestures';
+
+  @override
+  String get settingHandGestureHoldSecondsTitle => 'Hold duration';
+
+  @override
+  String get settingHandGestureHoldSecondsDescription =>
+      'Hold the same finger gesture for this long before its action runs. Increase this to reduce accidental triggers.';
+
+  @override
+  String get gestureHoldInstant => 'Instant';
+
+  @override
+  String gestureHoldSeconds(String seconds) {
+    return '$seconds s';
+  }
 
   @override
   String get settingHaHoldModeTitle => 'Hold mode';

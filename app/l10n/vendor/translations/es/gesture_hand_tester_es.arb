@@ -13,5 +13,8 @@
   "gestureReadingHand": "Detectando la mano",
   "gestureNoFingers": "Ningún dedo levantado",
   "gestureHandsCount": "Se ven {count} manos. Se está detectando la más grande.",
-  "gestureTesterSearch": "Muestra en tiempo real los dedos que detecta la cámara."
+  "gestureTesterSearch": "Muestra en tiempo real los dedos que detecta la cámara.",
+  "gestureHoldConfirmed": "Gesto confirmado",
+  "gestureHoldProgress": "Progreso del gesto: {progress}",
+  "gestureTesterHoldDuration": "Tiempo de espera: {duration}"
 }

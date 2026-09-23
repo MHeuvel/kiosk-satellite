@@ -323,7 +323,11 @@ void main() {
       'up': [true, true, true, true, true],
     });
     await pump();
-    expect(palms, isEmpty, reason: 'a tested hand fires nothing');
+    expect(
+      palms.map((e) => e.hands),
+      [0],
+      reason: 'opening the tester clears a pending gesture hold',
+    );
     expect(motion.handTest.value?.hands, 1);
     expect(motion.handTest.value?.fingers, 5);
     expect(motion.handTest.value?.fingersUp, everyElement(isTrue));
@@ -356,7 +360,7 @@ void main() {
         'up': [false, true, true, false, false],
       });
       await pump();
-      expect(palms, isEmpty);
+      expect(palms.map((e) => e.hands), [0]);
       expect(motion.handTest.value?.fingers, 2);
 
       motion.stopHandTest();
@@ -369,8 +373,12 @@ void main() {
         'up': [false, true, true, false, false],
       });
       await pump();
-      expect(palms, hasLength(1));
-      expect(palms.single.fingersUp, [false, true, true, false, false]);
+      expect(
+        palms.map((e) => e.hands),
+        [0, 0, 1],
+        reason: 'closing the tester starts a new gesture hold',
+      );
+      expect(palms.last.fingersUp, [false, true, true, false, false]);
     },
   );
 

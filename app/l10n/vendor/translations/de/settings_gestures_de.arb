@@ -15,5 +15,10 @@
   "gestureAddHelp": "Wähle eine Geste und die Aktion aus, die sie ausführen soll.",
   "gestureTouchHelp": "Gesten werden erkannt, ohne Berührungen zu blockieren. Berührungen werden weiterhin an das Dashboard weitergegeben. Die Verwendung von Ecken und mehreren Fingern hilft, Bedienelemente nicht versehentlich auszulösen.",
   "gestureClapper": "Klatschsteuerung",
-  "gestureReadFailed": "Die Konfiguration konnte nicht gelesen werden."
+  "gestureReadFailed": "Die Konfiguration konnte nicht gelesen werden.",
+  "gestureHandGestures": "Handgesten",
+  "settingHandGestureHoldSecondsTitle": "Haltedauer",
+  "settingHandGestureHoldSecondsDescription": "Halte dieselbe Fingergeste so lange, bevor die Aktion ausgeführt wird. Erhöhe die Dauer, um versehentliches Auslösen zu reduzieren.",
+  "gestureHoldInstant": "Sofort",
+  "gestureHoldSeconds": "{seconds} s"
 }

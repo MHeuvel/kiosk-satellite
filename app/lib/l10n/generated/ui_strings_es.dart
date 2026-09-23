@@ -1645,6 +1645,19 @@ class UiStringsEs extends UiStrings {
       'Muestra en tiempo real los dedos que detecta la cámara.';
 
   @override
+  String get gestureHoldConfirmed => 'Gesto confirmado';
+
+  @override
+  String gestureHoldProgress(String progress) {
+    return 'Progreso del gesto: $progress';
+  }
+
+  @override
+  String gestureTesterHoldDuration(String duration) {
+    return 'Tiempo de espera: $duration';
+  }
+
+  @override
   String get gestureHaServiceKind => 'Servicio de Home Assistant';
 
   @override
@@ -6284,6 +6297,24 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get gestureReadFailed => 'No se pudo leer la configuración.';
+
+  @override
+  String get gestureHandGestures => 'Gestos de la mano';
+
+  @override
+  String get settingHandGestureHoldSecondsTitle => 'Tiempo de espera';
+
+  @override
+  String get settingHandGestureHoldSecondsDescription =>
+      'Mantén el mismo gesto de los dedos durante este tiempo antes de ejecutar la acción. Auméntalo para reducir las activaciones accidentales.';
+
+  @override
+  String get gestureHoldInstant => 'Al instante';
+
+  @override
+  String gestureHoldSeconds(String seconds) {
+    return '$seconds s';
+  }
 
   @override
   String get settingHaHoldModeTitle => 'Modo de pausa';

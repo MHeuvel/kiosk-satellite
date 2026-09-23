@@ -13,5 +13,8 @@
   "gestureReadingHand": "Hand wird erkannt",
   "gestureNoFingers": "Kein Finger ausgestreckt",
   "gestureHandsCount": "{count} Hände erkannt. Die größte Hand wird ausgewertet.",
-  "gestureTesterSearch": "Zeigt in Echtzeit die Finger an, die von der Kamera erkannt werden."
+  "gestureTesterSearch": "Zeigt in Echtzeit die Finger an, die von der Kamera erkannt werden.",
+  "gestureHoldConfirmed": "Haltedauer erreicht",
+  "gestureHoldProgress": "Haltefortschritt: {progress}",
+  "gestureTesterHoldDuration": "Haltedauer: {duration}"
 }

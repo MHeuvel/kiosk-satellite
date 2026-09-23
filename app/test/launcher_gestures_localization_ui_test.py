@@ -14,12 +14,13 @@ mapping = json.loads((APP/'l10n/settings.json').read_text())
 options = json.loads((APP/'l10n/setting_options.json').read_text())
 settings = [dict(key='ui.language',value='es',type='string',category='Device',hidden=True),
             dict(key='gestures.mappings',value='[]',type='string',category='Gestures',hidden=True)]
-for key,value in [('launcher.enabled',True),('launcher.auto_return',True),('launcher.auto_return_seconds',300),('launcher.apps','[]'),('gestures.clap_strictness','standard')]:
+for key,value in [('launcher.enabled',True),('launcher.auto_return',True),('launcher.auto_return_seconds',300),('launcher.apps','[]'),('gestures.clap_strictness','standard'),('gestures.hand_hold_seconds',0)]:
     ids=mapping[key]
     settings.append(dict(key=key,value=value,type='select' if key in options else 'boolean' if type(value)==bool else 'number' if type(value)==int else 'string',
         category='Gestures' if key.startswith('gestures') else 'Launcher',title=english[ids['title']],description=english[ids['description']],
         titleMessageId=ids['title'],descriptionMessageId=ids['description'],options=list(options.get(key,{})),
         optionLabels={v:english[k] for v,k in options.get(key,{}).items()},optionMessageIds=options.get(key,{})))
+next(s for s in settings if s['key']=='gestures.hand_hold_seconds').update(min=0,max=3,step=0.5,unit='s')
 apps=[{'package':'com.example.raw','label':'<b>Original App</b>'}]
 commands=[];writes=[]
 settings_reads=[]
@@ -82,6 +83,17 @@ try:
         strictness.select_option('strict')
         page.wait_for_timeout(100)
         assert writes[-1]=={'gestures.clap_strictness':'strict'}
+        hold=gestures.locator('[data-key="gestures.hand_hold_seconds"]')
+        expect(gestures.get_by_text(translated['gestureHandGestures'],exact=True)).to_be_visible()
+        expect(hold.get_by_text(translated['gestureHoldInstant'],exact=True)).to_be_visible()
+        slider=hold.locator('input[type="range"]')
+        expect(slider).to_have_attribute('min','0')
+        expect(slider).to_have_attribute('max','3')
+        expect(slider).to_have_attribute('step','0.5')
+        slider.fill('1.5');slider.dispatch_event('change')
+        page.wait_for_timeout(150)
+        assert writes[-1]=={'gestures.hand_hold_seconds':1.5}
+        expect(hold.get_by_text(translated['gestureHoldSeconds'].replace('{seconds}','1,5'),exact=True)).to_be_visible()
         # A localized hold editor preserves canonical type, corner and milliseconds.
         page.evaluate("async()=>{window.editor=(await import('/static/gestures.js')).editGesture({id:'raw-1',trigger:{type:'corner_hold',corner:'br',holdMs:1750},action:{type:'launch_app',package:'com.example.raw'}});}")
         dialog=page.locator('.modal-back').last
