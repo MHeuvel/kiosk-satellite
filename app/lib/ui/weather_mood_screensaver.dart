@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'weather_mood_renderer.dart';
+import 'weather_mood_information.dart';
 
 import '../app_container.dart';
 import '../core/events.dart';
@@ -71,6 +73,8 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
   int _generation = 0;
   String _condition = 'exceptional';
   String? _sun;
+  WeatherMoodReadings _readings = WeatherMoodReadings();
+  Map<String, String> _translations = const {};
   bool _screenOn = true;
   bool _foreground = true;
   bool _immediate = false;
@@ -101,6 +105,12 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
         unawaited(_update(immediate: true));
       } else if (event.key == defs.screensaverWeatherLightning.key) {
         unawaited(_update());
+      } else if (event.key.startsWith('screensaver.weather_') ||
+          event.key.startsWith('screensaver.glance_')) {
+        if (event.key == defs.screensaverWeatherBar.key) {
+          unawaited(_loadTranslations());
+        }
+        setState(() {});
       }
     });
     _clock = Timer.periodic(
@@ -108,6 +118,15 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
       (_) => unawaited(_update()),
     );
     unawaited(_subscribe());
+    unawaited(_loadTranslations());
+  }
+
+  Future<void> _loadTranslations() async {
+    if (!widget.container.settings.get(defs.screensaverWeatherBar)) return;
+    final translations = await widget.container.homeAssistant.stateTranslations(
+      'weather',
+    );
+    if (mounted) setState(() => _translations = translations);
   }
 
   Future<void> _subscribe({bool reset = false}) async {
@@ -120,6 +139,7 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
     if (reset) {
       _condition = 'exceptional';
       _sun = null;
+      _readings = WeatherMoodReadings();
       unawaited(_update());
     }
     final entity = widget.container.settings
@@ -133,8 +153,11 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
         final value = state['state'];
         if (id == 'sun.sun') {
           if (value is String) _sun = value;
-        } else if (id == entity && weatherMoodConditions.contains(value)) {
-          _condition = value as String;
+        } else if (id == entity) {
+          _readings.update(state);
+          if (weatherMoodConditions.contains(value)) {
+            _condition = value as String;
+          }
         }
         unawaited(_update());
       },
@@ -218,21 +241,47 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
       _sun,
       DateTime.now(),
     );
-    return WeatherMoodRenderer(
-      condition: scene.condition,
-      night: scene.night,
-      lightning: widget.container.settings.get(
-        defs.screensaverWeatherLightning,
-      ),
-      active: _screenOn && _foreground,
-      immediate: _immediate,
-      lowPower:
-          widget.container.device.abis.isNotEmpty &&
-          !widget.container.device.abis.any((abi) => abi.contains('64')),
-      onError: (error) => widget.container.log.warn(
-        'screensaver',
-        'Weather Mood renderer stopped: $error',
-      ),
+    final blur = widget.container.settings
+        .get(defs.screensaverWeatherBlur)
+        .toDouble()
+        .clamp(0.0, 30.0);
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        ClipRect(
+          child: ImageFiltered(
+            enabled: blur > 0,
+            imageFilter: ui.ImageFilter.blur(
+              sigmaX: blur,
+              sigmaY: blur,
+              tileMode: TileMode.clamp,
+            ),
+            child: WeatherMoodRenderer(
+              condition: scene.condition,
+              night: scene.night,
+              lightning: widget.container.settings.get(
+                defs.screensaverWeatherLightning,
+              ),
+              active: _screenOn && _foreground,
+              immediate: _immediate,
+              lowPower:
+                  widget.container.device.abis.isNotEmpty &&
+                  !widget.container.device.abis.any(
+                    (abi) => abi.contains('64'),
+                  ),
+              onError: (error) => widget.container.log.warn(
+                'screensaver',
+                'Weather Mood renderer stopped: $error',
+              ),
+            ),
+          ),
+        ),
+        WeatherMoodInformation(
+          container: widget.container,
+          readings: _readings,
+          translations: _translations,
+        ),
+      ],
     );
   }
 }

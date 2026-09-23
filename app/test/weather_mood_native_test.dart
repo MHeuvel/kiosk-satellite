@@ -154,18 +154,23 @@ void main() {
 
     final clear = await render('sunny', false);
     expect(luminance(clear, 320, 180), greaterThan(100));
+    expect(luminance(clear, 538, 86), greaterThan(luminance(clear, 429, 86)));
     final night = await render('sunny', true);
-    expect(luminance(night, 429, 86), greaterThan(500));
+    expect(luminance(night, 538, 86), greaterThan(500));
     expect(luminance(night, 320, 180), lessThan(luminance(clear, 320, 180)));
+    expect(
+      luminance(night, 516, 86),
+      greaterThan(luminance(night, 429, 86) + 80),
+    );
     // Changing display density must rebuild the cached sky at physical
     // resolution and keep the moon in the same place on the panel.
     tester.view.devicePixelRatio = 2;
     final denseNight = await render('sunny', true);
     expect(denseNight.length, night.length);
-    expect(luminance(denseNight, 429, 86), greaterThan(500));
+    expect(luminance(denseNight, 538, 86), greaterThan(500));
     tester.view.devicePixelRatio = 1;
     final fog = await render('fog', true);
-    expect(luminance(fog, 429, 86), lessThan(luminance(night, 429, 86) * .6));
+    expect(luminance(fog, 538, 86), lessThan(luminance(night, 538, 86) * .6));
     final clouds = await render('cloudy', false, lowPower: false);
     expect(clouds, isNot(equals(clear)));
     expect(luminance(clouds, 320, 180), greaterThan(20));

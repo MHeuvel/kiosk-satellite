@@ -1765,6 +1765,290 @@ const screensaverWeatherLightning = SettingDef<bool>(
   dependsOnValue: 'weather_mood',
 );
 
+const screensaverWeatherBlur = SettingDef<num>(
+  key: 'screensaver.weather_blur',
+  type: SettingType.number,
+  defaultValue: 0,
+  title: 'Scene blur',
+  description:
+      'Soften the animated weather scene while keeping the clock, weather bar and widgets sharp.',
+  category: 'Screensaver',
+  section: 'Weather Mood screensaver',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.mode',
+  dependsOnValue: 'weather_mood',
+  min: 0,
+  max: 30,
+  step: 1,
+  unit: 'px',
+);
+
+const screensaverWeatherClock = SettingDef<bool>(
+  key: 'screensaver.weather_clock',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: "Enable clock",
+  description: "Show a digital clock over the weather scene.",
+  category: 'Screensaver',
+  section: 'Clock',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.mode',
+  dependsOnValue: 'weather_mood',
+);
+
+const screensaverWeatherClockFont = SettingDef<String>(
+  key: 'screensaver.weather_clock_font',
+  type: SettingType.select,
+  defaultValue: 'rubik',
+  title: 'Font Family',
+  description: 'The typeface the clock is drawn in.',
+  category: 'Screensaver',
+  section: 'Clock',
+  subpage: 'Weather Mood screensaver',
+  options: fontFamilyOptions,
+  optionLabels: fontFamilyLabels,
+  dependsOn: 'screensaver.weather_clock',
+);
+
+const screensaverWeatherClockFontWeight = SettingDef<String>(
+  key: 'screensaver.weather_clock_font_weight',
+  type: SettingType.select,
+  defaultValue: 'default',
+  title: 'Font weight',
+  description:
+      "How heavy the clock's digits are drawn. Default is each face's own "
+      'weight.',
+  category: 'Screensaver',
+  section: 'Clock',
+  subpage: 'Weather Mood screensaver',
+  options: fontWeightOptions,
+  optionLabels: fontWeightLabels,
+  dependsOn: 'screensaver.weather_clock',
+);
+
+const screensaverWeatherClock24h = SettingDef<bool>(
+  key: 'screensaver.weather_clock_24h',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: '24-hour clock',
+  description: 'Show a 24-hour time instead of AM/PM.',
+  category: 'Screensaver',
+  section: 'Clock',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.weather_clock',
+);
+
+const screensaverWeatherClockDate = SettingDef<bool>(
+  key: 'screensaver.weather_clock_show_date',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Show date',
+  description: 'Show the weekday and date under the clock.',
+  category: 'Screensaver',
+  section: 'Clock',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.weather_clock',
+);
+
+const screensaverWeatherClockScale = SettingDef<num>(
+  key: 'screensaver.weather_clock_scale',
+  type: SettingType.number,
+  defaultValue: 100,
+  title: 'Clock size',
+  description: 'Scale the clock from 50 to 300 percent for this screen.',
+  category: 'Screensaver',
+  section: 'Clock',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.weather_clock',
+  min: 50,
+  max: 300,
+  step: 5,
+  unit: '%',
+);
+
+const screensaverWeatherClockColor = SettingDef<String>(
+  key: 'screensaver.weather_clock_color',
+  type: SettingType.string,
+  // Stored as "r,g,b"; both UIs render a real color picker for it.
+  defaultValue: '250,250,250',
+  title: 'Clock color',
+  description: 'The color of the clock text.',
+  category: 'Screensaver',
+  section: 'Clock',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.weather_clock',
+);
+
+const screensaverWeatherClockShadow = SettingDef<bool>(
+  key: 'screensaver.weather_clock_shadow',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: "Text drop shadow",
+  description:
+      "Add a drop shadow to text for readability over the weather scene.",
+  category: 'Screensaver',
+  section: 'Clock',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.weather_clock',
+);
+
+const screensaverWeatherBar = SettingDef<bool>(
+  key: 'screensaver.weather_bar',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: "Enable weather bar",
+  description: "Show live weather information along the bottom of the screen.",
+  category: 'Screensaver',
+  section: 'Weather information',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.mode',
+  dependsOnValue: 'weather_mood',
+);
+
+const screensaverWeatherBarScale = SettingDef<num>(
+  key: 'screensaver.weather_bar_scale',
+  type: SettingType.number,
+  defaultValue: 100,
+  title: "Text scale",
+  description: "Scale the weather information from 50 to 200 percent.",
+  category: 'Screensaver',
+  section: 'Weather information',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.weather_bar',
+
+  min: 50,
+  max: 200,
+  step: 5,
+  unit: '%',
+);
+
+const screensaverWeatherBarColor = SettingDef<String>(
+  key: 'screensaver.weather_bar_color',
+  type: SettingType.string,
+  defaultValue: '255,255,255',
+  title: "Text color",
+  description: "The color of the weather information.",
+  category: 'Screensaver',
+  section: 'Weather information',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.weather_bar',
+);
+
+const screensaverWeatherBarOpacity = SettingDef<num>(
+  key: 'screensaver.weather_bar_opacity',
+  type: SettingType.number,
+  defaultValue: 35,
+  title: "Background opacity",
+  description: "Darken the bottom bar to keep weather information readable.",
+  category: 'Screensaver',
+  section: 'Weather information',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.weather_bar',
+
+  min: 0,
+  max: 100,
+  step: 5,
+  unit: '%',
+);
+
+const screensaverWeatherBarShadow = SettingDef<bool>(
+  key: 'screensaver.weather_bar_shadow',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: "Text drop shadow",
+  description:
+      "Add a drop shadow to text for readability over the weather scene.",
+  category: 'Screensaver',
+  section: 'Weather information',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.weather_bar',
+);
+
+const screensaverWeatherBarLocation = SettingDef<String>(
+  key: 'screensaver.weather_bar_location',
+  type: SettingType.string,
+  defaultValue: '',
+  title: "Location name",
+  description: "Leave empty to hide the location line.",
+  category: 'Screensaver',
+  section: 'Weather information',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.weather_bar',
+);
+
+const screensaverWeatherBarFeelsLike = SettingDef<bool>(
+  key: 'screensaver.weather_bar_feels_like',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: "Feels like",
+  description:
+      "The apparent temperature after the real one, \"30\u00b0 / 33\u00b0\".",
+  category: 'Screensaver',
+  section: 'Weather information',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.weather_bar',
+);
+
+const screensaverWeatherBarFeelsLikeOnly = SettingDef<bool>(
+  key: 'screensaver.weather_bar_feels_like_only',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: "Feels like only",
+  description: "The apparent temperature in the real one's place.",
+  category: 'Screensaver',
+  section: 'Weather information',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.weather_bar',
+);
+
+const screensaverWeatherBarForecast = SettingDef<bool>(
+  key: 'screensaver.weather_bar_forecast',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: "Forecast",
+  description: "The conditions, with a matching icon.",
+  category: 'Screensaver',
+  section: 'Weather information',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.weather_bar',
+);
+
+const screensaverWeatherBarHumidity = SettingDef<bool>(
+  key: 'screensaver.weather_bar_humidity',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: "Humidity",
+  description: "Show humidity when the weather entity reports it.",
+  category: 'Screensaver',
+  section: 'Weather information',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.weather_bar',
+);
+
+const screensaverWeatherBarWind = SettingDef<bool>(
+  key: 'screensaver.weather_bar_wind',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: "Wind speed",
+  description: "Show wind speed when the weather entity reports it.",
+  category: 'Screensaver',
+  section: 'Weather information',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.weather_bar',
+);
+
+const screensaverWeatherBarVisibility = SettingDef<bool>(
+  key: 'screensaver.weather_bar_visibility',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: "Visibility",
+  description: "Show visibility when the weather entity reports it.",
+  category: 'Screensaver',
+  section: 'Weather information',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.weather_bar',
+);
+
 const screensaverWeatherPreview = SettingDef<bool>(
   key: 'screensaver.weather_preview',
   type: SettingType.boolean,
@@ -7867,6 +8151,27 @@ const List<SettingDef<Object>> allSettings = [
   screensaverMode,
   screensaverWeatherEntity,
   screensaverWeatherLightning,
+  screensaverWeatherBlur,
+  screensaverWeatherClock,
+  screensaverWeatherClockFont,
+  screensaverWeatherClockFontWeight,
+  screensaverWeatherClock24h,
+  screensaverWeatherClockDate,
+  screensaverWeatherClockScale,
+  screensaverWeatherClockColor,
+  screensaverWeatherClockShadow,
+  screensaverWeatherBar,
+  screensaverWeatherBarScale,
+  screensaverWeatherBarColor,
+  screensaverWeatherBarOpacity,
+  screensaverWeatherBarShadow,
+  screensaverWeatherBarLocation,
+  screensaverWeatherBarFeelsLike,
+  screensaverWeatherBarFeelsLikeOnly,
+  screensaverWeatherBarForecast,
+  screensaverWeatherBarHumidity,
+  screensaverWeatherBarWind,
+  screensaverWeatherBarVisibility,
   screensaverWeatherPreview,
   screensaverWeatherPreviewCondition,
   screensaverWeatherPreviewPeriod,

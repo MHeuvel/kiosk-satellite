@@ -10191,6 +10191,68 @@ class UiStringsDe extends UiStrings {
   String get screensaverWeatherPreviewNight => 'Nacht';
 
   @override
+  String get settingScreensaverWeatherClockTitle => 'Uhr aktivieren';
+
+  @override
+  String get settingScreensaverWeatherClockDescription =>
+      'Eine digitale Uhr über der Wetterszene anzeigen.';
+
+  @override
+  String get screensaverWeatherTextShadowDescription =>
+      'Einen Textschatten hinzufügen, damit der Text über der Wetterszene besser lesbar ist.';
+
+  @override
+  String get screensaverWeatherBarGroup => 'Wetterinformationen';
+
+  @override
+  String get settingScreensaverWeatherBarTitle => 'Wetterleiste aktivieren';
+
+  @override
+  String get settingScreensaverWeatherBarDescription =>
+      'Aktuelle Wetterinformationen am unteren Bildschirmrand anzeigen.';
+
+  @override
+  String get settingScreensaverWeatherBarScaleTitle => 'Textgröße';
+
+  @override
+  String get settingScreensaverWeatherBarScaleDescription =>
+      'Die Wetterinformationen auf 50 bis 200 Prozent skalieren.';
+
+  @override
+  String get settingScreensaverWeatherBarColorTitle => 'Textfarbe';
+
+  @override
+  String get settingScreensaverWeatherBarColorDescription =>
+      'Die Farbe der Wetterinformationen.';
+
+  @override
+  String get settingScreensaverWeatherBarOpacityTitle =>
+      'Deckkraft des Hintergrunds';
+
+  @override
+  String get settingScreensaverWeatherBarOpacityDescription =>
+      'Die untere Leiste abdunkeln, damit die Wetterinformationen gut lesbar bleiben.';
+
+  @override
+  String get screensaverWeatherBarHumidityDescription =>
+      'Die Luftfeuchtigkeit anzeigen, wenn die Wetterentität sie meldet.';
+
+  @override
+  String get screensaverWeatherBarWindDescription =>
+      'Die Windgeschwindigkeit anzeigen, wenn die Wetterentität sie meldet.';
+
+  @override
+  String get screensaverWeatherBarVisibilityDescription =>
+      'Die Sichtweite anzeigen, wenn die Wetterentität sie meldet.';
+
+  @override
+  String get settingScreensaverWeatherBlurTitle => 'Szenenunschärfe';
+
+  @override
+  String get settingScreensaverWeatherBlurDescription =>
+      'Die animierte Wetterszene weichzeichnen, während Uhr, Wetterleiste und Widgets scharf bleiben.';
+
+  @override
   String get settingScreensaverWebsiteUrlTitle => 'Website-URL';
 
   @override

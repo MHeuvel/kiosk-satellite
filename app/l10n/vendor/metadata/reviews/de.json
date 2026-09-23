@@ -19617,5 +19617,107 @@
     "translation": "f8418724345e364ce0c79ffd27d55fc30827969a8d108cae74309bf377c270c7",
     "author": "Xavier Larrea",
     "ownerAuthored": true
+  },
+  "settingScreensaverWeatherBarColorTitle": {
+    "source": "650cb730bcc9a24210bfe39d18eab5dfda52c153cc9df9c2c20a3a2bbd5432d3",
+    "translation": "230c152d29c19b370bdbabb807564e7b0bac9d122ef09fc5a64461e9c1e3b1bc",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingScreensaverWeatherBarScaleTitle": {
+    "source": "8d5963907eab87452ad59db5d39c5fb2589589a13125b0cfc2836aec788cb8b3",
+    "translation": "116b9fef3fb3a4a9e0103c2b5a5122c02ce3eb5641a702db6cd419d5c3ce0e1b",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingScreensaverWeatherBarDescription": {
+    "source": "953e33f18361a14f99704a50e8f5870ccf7cfbbb14d2a883436fa3bffc81d0dd",
+    "translation": "97da0aac65c564ce28589dea04567715ec50a599b3d1b9ecdcd6f72e1571c4f5",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "screensaverWeatherBarVisibilityDescription": {
+    "source": "781830e631164652d2640f49de0b0cf3cf0c63c8f0be756e4c76f430e5d1b1ce",
+    "translation": "f15c7050b679f8a234e7b8e3eddb664c44156c05e6999400759bcc11763b57c4",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingScreensaverWeatherBarOpacityTitle": {
+    "source": "97a38798c5631a80f323bfc144342f2b8ab44fad4cafadfc9a5544d7d1a2b0d8",
+    "translation": "3081325cd42cf7bc058eb961f128da30fc1a4f7662515a4ccc06cf0eeea5ab78",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "screensaverWeatherTextShadowDescription": {
+    "source": "cef218594bca4eb2be8d2cbfc8b6d2eb21d710c32ca8e3db260a9189fe7cb546",
+    "translation": "e10a52c11bdccb2ec7b2cd2d60475d568a35377f50288b6304e30e2a0ecde575",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "screensaverWeatherBarWindDescription": {
+    "source": "bcb7ce0f22972659399559efd7abf6bdb1cc06980d18274c6ccc41b29cbcf2d5",
+    "translation": "101caf649a455afc32cab4b72190f062d24d26bc8cdc2e529d5acd91ac7c8cd5",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingScreensaverWeatherBarOpacityDescription": {
+    "source": "8397c48568a6571541b16989b139ec6252d7c54fe71d66923a5bd02c710d0f33",
+    "translation": "fa52f088b1eeb6751cbc614fdea11d304afecced170c5e4c8cb2bf4236cfbe0c",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "screensaverWeatherBarHumidityDescription": {
+    "source": "1acd35205d39284b4d3cbac7685a2498e0963686a97450dffcfee5fda584b96b",
+    "translation": "4732153a23b97909b5e3e3075819b01d6624ebf49fd1b0bf593b45b5e069a55d",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingScreensaverWeatherBarColorDescription": {
+    "source": "87d9fb68e97a64f8d74086e6b4d5f7ea9d81bfe9d754dc55e0ea9b679d429409",
+    "translation": "70c96cc36ffd85224e5682230ea103235c68d79df0a22fbbd23b4b56ac56fb41",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingScreensaverWeatherClockTitle": {
+    "source": "deb04059436364fa6fed0058e619a6de0ce404f9b2fee278acb856a88ba0c39c",
+    "translation": "0039e52ee49195f53226c3f8cc3e926ec60276967458c6ba504a1f599d63efbf",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingScreensaverWeatherBarTitle": {
+    "source": "556384e2a839b4149924be8dfbe67c9ae36572c170f1a4f305cdf0b9e4344f35",
+    "translation": "37c9a6a3cbd02a7b0c4e141bb0430e9b055e9be007124d591d7642b6234cbec6",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingScreensaverWeatherBarScaleDescription": {
+    "source": "ca8ced0743ad13cba85c4726523d2b5cda0ff6b40e7e6be5635dbf7b77d3185d",
+    "translation": "89b4022ffab5b3236aecad31c648ffdd81f165dbd9dda2c11f9b6ca5fdc6b612",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "screensaverWeatherBarGroup": {
+    "source": "d2df7c313d7a5b8cc0aa3ac2e01b0652c088a49549369f8ba4da5b05e5615ae1",
+    "translation": "d1266549a3bc21973ac231c0fc0a01284e2ee7e71d97151fc4b4c3a5ccc27518",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingScreensaverWeatherClockDescription": {
+    "source": "21e24871b2674d05166dc4d12a0456400b59e182256cd03160c2718e0ee80af3",
+    "translation": "f4cfdbb658f362e3634ebd5dbe37ce54e64e8a9e890b33048da5106d58d3c7e7",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingScreensaverWeatherBlurDescription": {
+    "source": "1d8e164fbbc394d76a8efbe9860352ba75deb311ec1bc05cce5b9a8d7bf63295",
+    "translation": "3effaceb363f3ca06c5d2cd8ffaaf2f0597e5e45992c36356ff070d2f8a6e362",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingScreensaverWeatherBlurTitle": {
+    "source": "1901ab06616591865737f2cb23e39126068284788728c796f801a12d571f5788",
+    "translation": "a71f40c9644d54a944cb72794c92420fe35a3ecf24c23b41cf85ba2b6ae71aab",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
   }
 }

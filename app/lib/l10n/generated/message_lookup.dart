@@ -3270,6 +3270,39 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'screensaverWeatherPreviewDay' => strings.screensaverWeatherPreviewDay,
       'screensaverWeatherPreviewNight' =>
         strings.screensaverWeatherPreviewNight,
+      'settingScreensaverWeatherClockTitle' =>
+        strings.settingScreensaverWeatherClockTitle,
+      'settingScreensaverWeatherClockDescription' =>
+        strings.settingScreensaverWeatherClockDescription,
+      'screensaverWeatherTextShadowDescription' =>
+        strings.screensaverWeatherTextShadowDescription,
+      'screensaverWeatherBarGroup' => strings.screensaverWeatherBarGroup,
+      'settingScreensaverWeatherBarTitle' =>
+        strings.settingScreensaverWeatherBarTitle,
+      'settingScreensaverWeatherBarDescription' =>
+        strings.settingScreensaverWeatherBarDescription,
+      'settingScreensaverWeatherBarScaleTitle' =>
+        strings.settingScreensaverWeatherBarScaleTitle,
+      'settingScreensaverWeatherBarScaleDescription' =>
+        strings.settingScreensaverWeatherBarScaleDescription,
+      'settingScreensaverWeatherBarColorTitle' =>
+        strings.settingScreensaverWeatherBarColorTitle,
+      'settingScreensaverWeatherBarColorDescription' =>
+        strings.settingScreensaverWeatherBarColorDescription,
+      'settingScreensaverWeatherBarOpacityTitle' =>
+        strings.settingScreensaverWeatherBarOpacityTitle,
+      'settingScreensaverWeatherBarOpacityDescription' =>
+        strings.settingScreensaverWeatherBarOpacityDescription,
+      'screensaverWeatherBarHumidityDescription' =>
+        strings.screensaverWeatherBarHumidityDescription,
+      'screensaverWeatherBarWindDescription' =>
+        strings.screensaverWeatherBarWindDescription,
+      'screensaverWeatherBarVisibilityDescription' =>
+        strings.screensaverWeatherBarVisibilityDescription,
+      'settingScreensaverWeatherBlurTitle' =>
+        strings.settingScreensaverWeatherBlurTitle,
+      'settingScreensaverWeatherBlurDescription' =>
+        strings.settingScreensaverWeatherBlurDescription,
       'settingScreensaverWebsiteUrlTitle' =>
         strings.settingScreensaverWebsiteUrlTitle,
       'settingScreensaverWebsiteUrlDescription' =>

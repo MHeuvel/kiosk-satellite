@@ -5,7 +5,7 @@ import 'dart:math' as math;
 const weatherMoodPresets = <String, List<double>>{
   'sunny': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   'clear-night': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  'partlycloudy': [.065, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  'partlycloudy': [.10, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   'cloudy': [.68, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   'rainy': [.95, 0, 1, 0, 0, 0, 0, 0, 0, 0],
   'snowy': [.77, 0, 0, 0, 1, 0, 0, 0, 0, 0],

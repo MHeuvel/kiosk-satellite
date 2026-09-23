@@ -30,5 +30,22 @@
   "screensaverWeatherPreviewWindyVariant": "Viento y nubes",
   "screensaverWeatherPreviewExceptional": "Tiempo excepcional",
   "screensaverWeatherPreviewDay": "Día",
-  "screensaverWeatherPreviewNight": "Noche"
+  "screensaverWeatherPreviewNight": "Noche",
+  "settingScreensaverWeatherClockTitle": "Activar reloj",
+  "settingScreensaverWeatherClockDescription": "Mostrar un reloj digital sobre la escena meteorológica.",
+  "screensaverWeatherTextShadowDescription": "Añadir una sombra al texto para facilitar su lectura sobre la escena meteorológica.",
+  "screensaverWeatherBarGroup": "Información meteorológica",
+  "settingScreensaverWeatherBarTitle": "Activar barra del tiempo",
+  "settingScreensaverWeatherBarDescription": "Mostrar información meteorológica en tiempo real en la parte inferior de la pantalla.",
+  "settingScreensaverWeatherBarScaleTitle": "Escala del texto",
+  "settingScreensaverWeatherBarScaleDescription": "Ajustar la información meteorológica entre el 50 y el 200 por ciento.",
+  "settingScreensaverWeatherBarColorTitle": "Color del texto",
+  "settingScreensaverWeatherBarColorDescription": "El color de la información meteorológica.",
+  "settingScreensaverWeatherBarOpacityTitle": "Opacidad del fondo",
+  "settingScreensaverWeatherBarOpacityDescription": "Oscurecer la barra inferior para facilitar la lectura de la información meteorológica.",
+  "screensaverWeatherBarHumidityDescription": "Mostrar la humedad cuando la entidad meteorológica la proporcione.",
+  "screensaverWeatherBarWindDescription": "Mostrar la velocidad del viento cuando la entidad meteorológica la proporcione.",
+  "screensaverWeatherBarVisibilityDescription": "Mostrar la visibilidad cuando la entidad meteorológica la proporcione.",
+  "settingScreensaverWeatherBlurTitle": "Desenfoque de la escena",
+  "settingScreensaverWeatherBlurDescription": "Suavizar la escena meteorológica animada manteniendo nítidos el reloj, la barra del tiempo y los widgets."
 }

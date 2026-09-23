@@ -8,7 +8,7 @@
       vec2 screen=vec2((uv.x-.5)*resolution.x/resolution.y,uv.y);
       vec3 ray=normalize(vec3(screen.x*.9,.28+uv.y*.9,1.35));
       float aspect=resolution.x/resolution.y;
-      vec2 lightCenter=vec2(.17*aspect,.76);
+      vec2 lightCenter=vec2(.34*aspect,.76);
       vec3 sunDir=normalize(vec3(lightCenter.x*.9,.28+lightCenter.y*.9,1.35));
       float sunDistance=length(screen-lightCenter);
       vec3 color=vec3(0.);
@@ -18,6 +18,9 @@
       float stride=(end-start)/float(CLOUD_STEPS);
       cloudFootprint=stride*2.1;
       vec3 cloudColor=vec3(0.);
+      float exposedCloud=0.;
+      float fairCloud=(1.-smoothstep(.10,.40,weather.x))*(1.-wet)*(1.-fog);
+      float backlight=.18+.82*exp(-sunDistance*sunDistance/.65);
       for(int i=0;i<CLOUD_STEPS;i++) {
         if(weather.x<.001) break;
         // Independently stagger each sample to break coherent cloud bands.
@@ -31,15 +34,23 @@
           ambient=mix(ambient,vec3(.68,.73,.79),(1.-smoothstep(.10,.40,weather.x))*.75);
           vec3 direct=vec3(1.0,.94,.83)*light*.56;
           vec3 lit=ambient+direct;
+          // Backlit interiors stay shaded so thin edges can catch the light.
+          lit*=1.-fairCloud*backlight*.26;
           lit=mix(lit,lit*vec3(.48,.56,.66),wet*.7);
           lit=mix(lit,lit*vec3(.185,.195,.215),night);
           lit*=1.-storm*.36;
           float alpha=1.-exp(-d*stride*3.2);
           cloudColor+=transmission*alpha*lit;
+          exposedCloud+=transmission*alpha*light;
           transmission*=1.-alpha;
           if(transmission<.012) break;
         }
       }
+      // Reuse the light samples and accumulated depth for a soft silver lining.
+      // Thin cloud lets light through, while dense interiors suppress the glow.
+      float silver=exposedCloud*pow(transmission,1.4)*fairCloud*backlight;
+      vec3 rimColor=mix(vec3(1.,.94,.80),vec3(.96,.97,1.),night);
+      cloudColor+=rimColor*silver*mix(1.8,.85,night);
       color=cloudColor;
       // Fog fills the view with overlapping banks instead of a flat tint.
       float mist=fbm(vec3(screen.x*2.-time*.018,uv.y*3.,time*.009));

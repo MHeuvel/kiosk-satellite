@@ -2,6 +2,15 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Added
+- **A built-in clock for Weather Mood.** Enable the Clock group to show the digital Clock screensaver face over the weather scene. Its independent font family, font weight, 24-hour format, date, size and color controls use the same defaults as the Clock screensaver. Text drop shadow helps the digits stand out against the sky.
+- **A weather information bar for Weather Mood.** Enable Weather information to show live readings from the selected weather entity along the bottom. Control text scale, color, background opacity, shadow, location name and optional weather readings. The bar adapts to narrow screens and leaves room for widgets and At a Glance pills. All new controls are available on the device and in Remote Admin in English, Spanish, German and French.
+
+### Changed
+- **Weather Mood is easier to read.** Partly cloudy scenes have slightly more cloud coverage and soft silver linings from the sun or moon. The sun and moon sit farther right and the moon has a soft bloom. The sun is slightly larger with the same soft edges. The clock and date sit closer together and use the same color. The weather readings form a group at the right edge of the bar, with wider gaps that adapt to the screen width. Larger titles sit centered above their readings and use fully opaque text. The bar defaults to white text without a drop shadow and uses reduced vertical padding. A localized Scene blur slider softens only the animated background.
+
 ## v2026.9.77 - 2026-09-22
 
 ### Changed

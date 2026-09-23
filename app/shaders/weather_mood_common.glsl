@@ -50,9 +50,10 @@ out vec4 fragColor;
       if(weather.x<.40) {
         vec3 drift=p-vec3(sin((time-18.)*.016)*.65,0.,sin((time-18.)*.009)*.17);
         drift.x=mod(drift.x+windTime*.085+8.,16.)-8.;
-        sparse=cumulus(drift,vec3(-1.18,1.55,3.5),.62,vec3(1.18,.61,.92));
-        sparse+=cumulus(drift,vec3(1.65,1.52,5.7),.74,vec3(1.36,.38,.76));
-        sparse+=cumulus(drift,vec3(.72,1.52,2.6),.37,vec3(.88,.96,1.05));
+        float spread=1.+.12*smoothstep(.065,.10,weather.x);
+        sparse=cumulus(drift,vec3(-1.18,1.55,3.5),.62*spread,vec3(1.18,.61,.92));
+        sparse+=cumulus(drift,vec3(1.65,1.52,5.7),.74*spread,vec3(1.36,.38,.76));
+        sparse+=cumulus(drift,vec3(.72,1.52,2.6),.37*spread,vec3(.88,.96,1.05));
         sparse*=smoothstep(0.,.05,weather.x);
         if(weather.x<=.10) return sparse;
       }

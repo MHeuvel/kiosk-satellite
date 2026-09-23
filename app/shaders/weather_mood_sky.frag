@@ -9,7 +9,7 @@
       vec2 screen=vec2((uv.x-.5)*resolution.x/resolution.y,uv.y);
       vec3 ray=normalize(vec3(screen.x*.9,.28+uv.y*.9,1.35));
       float aspect=resolution.x/resolution.y;
-      vec2 lightCenter=vec2(.17*aspect,.76);
+      vec2 lightCenter=vec2(.34*aspect,.76);
       vec3 sunDir=normalize(vec3(lightCenter.x*.9,.28+lightCenter.y*.9,1.35));
       float sunDistance=length(screen-lightCenter);
       vec3 sky=mix(vec3(.60,.78,.91),vec3(.075,.32,.63),pow(uv.y,.55));
@@ -19,10 +19,10 @@
       sky*=1.-storm*.30;
       float sunVisibility=(1.-night)*(1.-wet)*(1.-snowfall)*(1.-storm);
       float warmth=.985+.015*sin(time*.21);
-      sky+=vec3(1.,.76,.43)*exp(-sunDistance*sunDistance/.065)*.12*sunVisibility;
-      float halo=exp(-sunDistance*sunDistance/.008)*.48*sunVisibility*warmth;
+      sky+=vec3(1.,.76,.43)*exp(-sunDistance*sunDistance/.086)*.12*sunVisibility;
+      float halo=exp(-sunDistance*sunDistance/.0106)*.48*sunVisibility*warmth;
       sky=mix(sky,vec3(1.,.95,.82),halo);
-      float sun=exp(-sunDistance*sunDistance/.0016)*sunVisibility;
+      float sun=exp(-sunDistance*sunDistance/.00212)*sunVisibility;
       vec2 moonP=(screen-lightCenter)/.032;
       float moonDistance=length(moonP);
       float moonMask=1.-smoothstep(.97,1.02,moonDistance);
@@ -33,7 +33,9 @@
       float moonLight=clamp(dot(normal,normalize(vec3(-.55,.15,1.))),0.,1.);
       moonColor=vec3(.98,.99,1.)*(.83+crater*.17)*(.78+moonLight*.22);
       }
-      sky+=vec3(.47,.48,.52)*exp(-moonDistance*.82)*night*.48;
+      float moonBloom=exp(-sunDistance*sunDistance/.009)*.28
+        +exp(-sunDistance*sunDistance/.055)*.065;
+      sky+=vec3(.96,.97,1.)*moonBloom*night;
       vec3 celestial=mix(sky,vec3(1.,.99,.94),sun);
       celestial=mix(celestial,moonColor,moonMask*night);
       fragColor=vec4(clamp(celestial,0.,1.),1.);

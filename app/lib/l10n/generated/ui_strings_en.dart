@@ -9947,6 +9947,67 @@ class UiStringsEn extends UiStrings {
   String get screensaverWeatherPreviewNight => 'Night';
 
   @override
+  String get settingScreensaverWeatherClockTitle => 'Enable clock';
+
+  @override
+  String get settingScreensaverWeatherClockDescription =>
+      'Show a digital clock over the weather scene.';
+
+  @override
+  String get screensaverWeatherTextShadowDescription =>
+      'Add a drop shadow to text for readability over the weather scene.';
+
+  @override
+  String get screensaverWeatherBarGroup => 'Weather information';
+
+  @override
+  String get settingScreensaverWeatherBarTitle => 'Enable weather bar';
+
+  @override
+  String get settingScreensaverWeatherBarDescription =>
+      'Show live weather information along the bottom of the screen.';
+
+  @override
+  String get settingScreensaverWeatherBarScaleTitle => 'Text scale';
+
+  @override
+  String get settingScreensaverWeatherBarScaleDescription =>
+      'Scale the weather information from 50 to 200 percent.';
+
+  @override
+  String get settingScreensaverWeatherBarColorTitle => 'Text color';
+
+  @override
+  String get settingScreensaverWeatherBarColorDescription =>
+      'The color of the weather information.';
+
+  @override
+  String get settingScreensaverWeatherBarOpacityTitle => 'Background opacity';
+
+  @override
+  String get settingScreensaverWeatherBarOpacityDescription =>
+      'Darken the bottom bar to keep weather information readable.';
+
+  @override
+  String get screensaverWeatherBarHumidityDescription =>
+      'Show humidity when the weather entity reports it.';
+
+  @override
+  String get screensaverWeatherBarWindDescription =>
+      'Show wind speed when the weather entity reports it.';
+
+  @override
+  String get screensaverWeatherBarVisibilityDescription =>
+      'Show visibility when the weather entity reports it.';
+
+  @override
+  String get settingScreensaverWeatherBlurTitle => 'Scene blur';
+
+  @override
+  String get settingScreensaverWeatherBlurDescription =>
+      'Soften the animated weather scene while keeping the clock, weather bar and widgets sharp.';
+
+  @override
   String get settingScreensaverWebsiteUrlTitle => 'Website URL';
 
   @override

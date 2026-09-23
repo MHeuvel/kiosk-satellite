@@ -1,3 +1,4 @@
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -11,6 +12,7 @@ import 'package:kiosk_satellite/ui/kit.dart';
 import 'package:kiosk_satellite/ui/screensaver_view.dart';
 import 'package:kiosk_satellite/ui/weather_mood_screensaver.dart';
 import 'package:kiosk_satellite/ui/weather_mood_renderer.dart';
+import 'package:kiosk_satellite/ui/weather_mood_information.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -32,6 +34,8 @@ void main() {
           'ks.screensaver.widgets':
               '[{"type":"clock","position":"top_left","config":{}}]',
           'ks.screensaver.glance_enabled': true,
+          'ks.screensaver.weather_clock': true,
+          'ks.screensaver.weather_bar': true,
         });
         final container = AppContainer();
         await container.settings.init();
@@ -73,6 +77,56 @@ void main() {
       },
     );
   }
+
+  testWidgets('scene blur updates live and keeps information sharp', (
+    tester,
+  ) async {
+    SharedPreferences.setMockInitialValues({
+      'ks.screensaver.weather_preview': true,
+      'ks.screensaver.weather_clock': true,
+    });
+    final c = AppContainer();
+    await c.settings.init();
+    await tester.pumpWidget(
+      MaterialApp(home: WeatherMoodScreensaver(container: c)),
+    );
+    await tester.pump();
+    expect(
+      tester.widget<ImageFiltered>(find.byType(ImageFiltered)).enabled,
+      false,
+    );
+    await c.settings.set(defs.screensaverWeatherBlur, 12);
+    await tester.pump();
+    await tester.pump();
+    final filter = tester.widget<ImageFiltered>(find.byType(ImageFiltered));
+    expect(filter.enabled, true);
+    expect(
+      filter.imageFilter,
+      ui.ImageFilter.blur(sigmaX: 12, sigmaY: 12, tileMode: TileMode.clamp),
+    );
+    expect(
+      find.descendant(
+        of: find.byType(ImageFiltered),
+        matching: find.byType(WeatherMoodRenderer),
+      ),
+      findsOneWidget,
+    );
+    expect(
+      find.descendant(
+        of: find.byType(ImageFiltered),
+        matching: find.byType(WeatherMoodInformation),
+      ),
+      findsNothing,
+    );
+    await c.settings.set(defs.screensaverWeatherBlur, 0);
+    await tester.pump();
+    await tester.pump();
+    expect(
+      tester.widget<ImageFiltered>(find.byType(ImageFiltered)).enabled,
+      false,
+    );
+    await tester.pumpWidget(const SizedBox.shrink());
+  });
 
   test('sun state overrides local time and missing sun uses 6 AM to 6 PM', () {
     expect(weatherMoodNight('above_horizon', DateTime(2026, 9, 21, 23)), false);

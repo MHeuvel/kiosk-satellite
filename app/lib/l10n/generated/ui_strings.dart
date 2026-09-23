@@ -17280,6 +17280,108 @@ abstract class UiStrings {
   /// **'Night'**
   String get screensaverWeatherPreviewNight;
 
+  /// Weather Mood clock or weather information bar control.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable clock'**
+  String get settingScreensaverWeatherClockTitle;
+
+  /// Weather Mood clock or weather information bar control.
+  ///
+  /// In en, this message translates to:
+  /// **'Show a digital clock over the weather scene.'**
+  String get settingScreensaverWeatherClockDescription;
+
+  /// Weather Mood clock or weather information bar control.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a drop shadow to text for readability over the weather scene.'**
+  String get screensaverWeatherTextShadowDescription;
+
+  /// Weather Mood clock or weather information bar control.
+  ///
+  /// In en, this message translates to:
+  /// **'Weather information'**
+  String get screensaverWeatherBarGroup;
+
+  /// Weather Mood clock or weather information bar control.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable weather bar'**
+  String get settingScreensaverWeatherBarTitle;
+
+  /// Weather Mood clock or weather information bar control.
+  ///
+  /// In en, this message translates to:
+  /// **'Show live weather information along the bottom of the screen.'**
+  String get settingScreensaverWeatherBarDescription;
+
+  /// Weather Mood clock or weather information bar control.
+  ///
+  /// In en, this message translates to:
+  /// **'Text scale'**
+  String get settingScreensaverWeatherBarScaleTitle;
+
+  /// Weather Mood clock or weather information bar control.
+  ///
+  /// In en, this message translates to:
+  /// **'Scale the weather information from 50 to 200 percent.'**
+  String get settingScreensaverWeatherBarScaleDescription;
+
+  /// Weather Mood clock or weather information bar control.
+  ///
+  /// In en, this message translates to:
+  /// **'Text color'**
+  String get settingScreensaverWeatherBarColorTitle;
+
+  /// Weather Mood clock or weather information bar control.
+  ///
+  /// In en, this message translates to:
+  /// **'The color of the weather information.'**
+  String get settingScreensaverWeatherBarColorDescription;
+
+  /// Weather Mood clock or weather information bar control.
+  ///
+  /// In en, this message translates to:
+  /// **'Background opacity'**
+  String get settingScreensaverWeatherBarOpacityTitle;
+
+  /// Weather Mood clock or weather information bar control.
+  ///
+  /// In en, this message translates to:
+  /// **'Darken the bottom bar to keep weather information readable.'**
+  String get settingScreensaverWeatherBarOpacityDescription;
+
+  /// Weather Mood clock or weather information bar control.
+  ///
+  /// In en, this message translates to:
+  /// **'Show humidity when the weather entity reports it.'**
+  String get screensaverWeatherBarHumidityDescription;
+
+  /// Weather Mood clock or weather information bar control.
+  ///
+  /// In en, this message translates to:
+  /// **'Show wind speed when the weather entity reports it.'**
+  String get screensaverWeatherBarWindDescription;
+
+  /// Weather Mood clock or weather information bar control.
+  ///
+  /// In en, this message translates to:
+  /// **'Show visibility when the weather entity reports it.'**
+  String get screensaverWeatherBarVisibilityDescription;
+
+  /// Weather Mood setting, guidance or weather condition.
+  ///
+  /// In en, this message translates to:
+  /// **'Scene blur'**
+  String get settingScreensaverWeatherBlurTitle;
+
+  /// Weather Mood setting, guidance or weather condition.
+  ///
+  /// In en, this message translates to:
+  /// **'Soften the animated weather scene while keeping the clock, weather bar and widgets sharp.'**
+  String get settingScreensaverWeatherBlurDescription;
+
   /// Setting label.
   ///
   /// In en, this message translates to:

@@ -10156,6 +10156,67 @@ class UiStringsEs extends UiStrings {
   String get screensaverWeatherPreviewNight => 'Noche';
 
   @override
+  String get settingScreensaverWeatherClockTitle => 'Activar reloj';
+
+  @override
+  String get settingScreensaverWeatherClockDescription =>
+      'Mostrar un reloj digital sobre la escena meteorológica.';
+
+  @override
+  String get screensaverWeatherTextShadowDescription =>
+      'Añadir una sombra al texto para facilitar su lectura sobre la escena meteorológica.';
+
+  @override
+  String get screensaverWeatherBarGroup => 'Información meteorológica';
+
+  @override
+  String get settingScreensaverWeatherBarTitle => 'Activar barra del tiempo';
+
+  @override
+  String get settingScreensaverWeatherBarDescription =>
+      'Mostrar información meteorológica en tiempo real en la parte inferior de la pantalla.';
+
+  @override
+  String get settingScreensaverWeatherBarScaleTitle => 'Escala del texto';
+
+  @override
+  String get settingScreensaverWeatherBarScaleDescription =>
+      'Ajustar la información meteorológica entre el 50 y el 200 por ciento.';
+
+  @override
+  String get settingScreensaverWeatherBarColorTitle => 'Color del texto';
+
+  @override
+  String get settingScreensaverWeatherBarColorDescription =>
+      'El color de la información meteorológica.';
+
+  @override
+  String get settingScreensaverWeatherBarOpacityTitle => 'Opacidad del fondo';
+
+  @override
+  String get settingScreensaverWeatherBarOpacityDescription =>
+      'Oscurecer la barra inferior para facilitar la lectura de la información meteorológica.';
+
+  @override
+  String get screensaverWeatherBarHumidityDescription =>
+      'Mostrar la humedad cuando la entidad meteorológica la proporcione.';
+
+  @override
+  String get screensaverWeatherBarWindDescription =>
+      'Mostrar la velocidad del viento cuando la entidad meteorológica la proporcione.';
+
+  @override
+  String get screensaverWeatherBarVisibilityDescription =>
+      'Mostrar la visibilidad cuando la entidad meteorológica la proporcione.';
+
+  @override
+  String get settingScreensaverWeatherBlurTitle => 'Desenfoque de la escena';
+
+  @override
+  String get settingScreensaverWeatherBlurDescription =>
+      'Suavizar la escena meteorológica animada manteniendo nítidos el reloj, la barra del tiempo y los widgets.';
+
+  @override
   String get settingScreensaverWebsiteUrlTitle => 'URL del sitio web';
 
   @override

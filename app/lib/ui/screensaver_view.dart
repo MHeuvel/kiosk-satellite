@@ -45,6 +45,9 @@ import '../managers/settings/settings_manager.dart';
 
 import 'camera_view_overlay.dart' show ClosingCameraPlayer;
 import 'clock_faces.dart';
+import 'digital_clock_face.dart';
+import 'weather_readings.dart';
+import 'weather_mood_information.dart';
 import 'photo_frames.dart';
 import 'plugin_screensaver.dart';
 import 'weather_mood_screensaver.dart';
@@ -121,6 +124,8 @@ class _ScreensaverOverlayState extends State<ScreensaverOverlay> {
       defs.screensaverWidgets.key,
       defs.screensaverWeatherEntity.key,
       defs.screensaverWeatherPreview.key,
+      defs.screensaverWeatherBar.key,
+      defs.screensaverWeatherBarScale.key,
       defs.screensaverWidgetScale.key,
       defs.screensaverWidgetFont.key,
       defs.screensaverWidgetFontWeight.key,
@@ -335,6 +340,7 @@ class _ScreensaverOverlayState extends State<ScreensaverOverlay> {
                     !weatherUnset &&
                     view != 'black' &&
                     view != 'clock' &&
+                    view != 'weather_mood' &&
                     view != 'camera')
                   ValueListenableBuilder<bool?>(
                     valueListenable: container.screensaver.scheduleGlance,
@@ -387,44 +393,54 @@ class _ScreensaverOverlayState extends State<ScreensaverOverlay> {
                     builder: (context, scheduled, _) =>
                         ValueListenableBuilder<Set<String>>(
                           valueListenable: container.screensaver.claimedCorners,
-                          builder: (context, claimed, _) => Stack(
-                            fit: StackFit.expand,
-                            children: [
-                              if (scheduled ?? true)
-                                for (final spec in decodeScreensaverWidgets(
-                                  container.settings.get(
-                                    defs.screensaverWidgets,
-                                  ),
-                                ))
-                                  if (screensaverWidgetAllowedOnMode(
-                                        spec.type,
-                                        view,
-                                      ) &&
-                                      !claimed.contains(spec.position))
-                                    switch (spec.type) {
-                                      'clock' => ClockWidgetOverlay(
-                                        container: container,
-                                        spec: spec,
-                                        nightColor: _widgetNightColor(view),
-                                      ),
-                                      'weather' => WeatherWidgetOverlay(
-                                        container: container,
-                                        spec: spec,
-                                        nightColor: _widgetNightColor(view),
-                                      ),
-                                      'battery' => BatteryWidgetOverlay(
-                                        container: container,
-                                        spec: spec,
-                                        nightColor: _widgetNightColor(view),
-                                      ),
-                                      'entity' => EntityWidgetOverlay(
-                                        container: container,
-                                        spec: spec,
-                                        nightColor: _widgetNightColor(view),
-                                      ),
-                                      _ => const SizedBox.shrink(),
-                                    },
-                            ],
+                          builder: (context, claimed, _) => Padding(
+                            padding: EdgeInsets.only(
+                              bottom: view == 'weather_mood'
+                                  ? weatherMoodBarHeight(
+                                      MediaQuery.sizeOf(context),
+                                      container.settings,
+                                    )
+                                  : 0,
+                            ),
+                            child: Stack(
+                              fit: StackFit.expand,
+                              children: [
+                                if (scheduled ?? true)
+                                  for (final spec in decodeScreensaverWidgets(
+                                    container.settings.get(
+                                      defs.screensaverWidgets,
+                                    ),
+                                  ))
+                                    if (screensaverWidgetAllowedOnMode(
+                                          spec.type,
+                                          view,
+                                        ) &&
+                                        !claimed.contains(spec.position))
+                                      switch (spec.type) {
+                                        'clock' => ClockWidgetOverlay(
+                                          container: container,
+                                          spec: spec,
+                                          nightColor: _widgetNightColor(view),
+                                        ),
+                                        'weather' => WeatherWidgetOverlay(
+                                          container: container,
+                                          spec: spec,
+                                          nightColor: _widgetNightColor(view),
+                                        ),
+                                        'battery' => BatteryWidgetOverlay(
+                                          container: container,
+                                          spec: spec,
+                                          nightColor: _widgetNightColor(view),
+                                        ),
+                                        'entity' => EntityWidgetOverlay(
+                                          container: container,
+                                          spec: spec,
+                                          nightColor: _widgetNightColor(view),
+                                        ),
+                                        _ => const SizedBox.shrink(),
+                                      },
+                              ],
+                            ),
                           ),
                         ),
                   ),
@@ -1178,39 +1194,15 @@ class _ClockScreensaverState extends State<ClockScreensaver>
               offset: _offset,
               child: style != 'digital'
                   ? _styledFace(style, scale * clockShrink, font)
-                  : Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          _time(),
-                          style: TextStyle(
-                            fontFamily: font,
-                            color: color,
-                            fontSize: clockSize,
-                            fontWeight: timeWeight,
-                            fontVariations: clockFontVariations(
-                              opticalSize,
-                              timeWeight,
-                            ),
-                            letterSpacing: clockSize * 0.02,
-                            fontFeatures: const [FontFeature.tabularFigures()],
-                            height: 1.0,
-                          ),
-                        ),
-                        if (s.get(defs.screensaverClockDate)) ...[
-                          SizedBox(height: clockSize * 0.1),
-                          Text(
-                            _date(),
-                            style: TextStyle(
-                              fontFamily: font,
-                              // The date sits back a little, as in VS (~65% of the clock).
-                              color: color.withValues(alpha: 0.65),
-                              fontSize: dateSize,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ],
+                  : DigitalClockFace(
+                      time: _time(),
+                      date: s.get(defs.screensaverClockDate) ? _date() : null,
+                      fontFamily: font,
+                      color: color,
+                      clockSize: clockSize,
+                      dateSize: dateSize,
+                      weight: timeWeight,
+                      opticalSize: opticalSize,
                     ),
             ),
           ),
@@ -2277,7 +2269,7 @@ class _WeatherWidgetOverlayState extends State<WeatherWidgetOverlay> {
               (_forecastText.isNotEmpty
                   ? _sentenceCase(_forecastText)
                   : _conditionLabel(_condition)),
-          _conditionIcon(_condition),
+          weatherConditionIcon(_condition),
         ),
       if (_on('humidity') && humidity != null)
         detail('${humidity.round()}%', Icons.water_drop_outlined),
@@ -2385,26 +2377,6 @@ String _conditionLabel(String condition) => switch (condition) {
   'windy' => 'Windy',
   'windy-variant' => 'Windy',
   _ => _sentenceCase(condition).replaceAll('-', ' '),
-};
-
-/// Monochrome Material glyphs for the conditions, tinted with the widget
-/// color exactly like the text.
-IconData _conditionIcon(String condition) => switch (condition) {
-  'clear-night' => Icons.nights_stay,
-  'cloudy' => Icons.cloud,
-  'exceptional' => Icons.storm,
-  'fog' => Icons.foggy,
-  'hail' => Icons.grain,
-  'lightning' => Icons.bolt,
-  'lightning-rainy' => Icons.thunderstorm,
-  'partlycloudy' => Icons.wb_cloudy,
-  'pouring' => Icons.umbrella,
-  'rainy' => Icons.umbrella,
-  'snowy' => Icons.ac_unit,
-  'snowy-rainy' => Icons.ac_unit,
-  'sunny' => Icons.wb_sunny,
-  'windy' || 'windy-variant' => Icons.air,
-  _ => Icons.cloud,
 };
 
 /// Media and website, rendered in their own WebView.
