@@ -327,6 +327,18 @@ Replace `kitchen_tablet` with your kiosk's node name, using underscores in place
 
 The value is saved as **Default brightness** and follows the same behavior as its slider. If a screensaver controls the brightness, the new value applies when it ends. Setting 0% changes brightness without turning the screen off.
 
+## Set screensaver brightness
+
+`esphome.<node name>_set_screensaver_brightness` sets **Screensaver > Brightness level** from 0% to 100%, including decimals. It requires **Expose kiosk entities** to be enabled and adaptive brightness to be off, just like `set_brightness`.
+
+```yaml
+action: esphome.kitchen_tablet_set_screensaver_brightness
+data:
+  brightness: 0
+```
+
+The action saves the level without enabling **Screensaver brightness**. When that switch is on, the level applies to content screensavers and updates one already showing. Dim and Black keep their own brightness behavior and schedule entries with their own brightness keep that override. Default brightness stays unchanged.
+
 ## Media player actions
 
 Two actions follow a player from an automation, the way the Media Player page's Player source and Player rows do by hand. Both come with **Expose kiosk entities**, under the same device as the notification action.

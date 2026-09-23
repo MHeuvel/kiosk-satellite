@@ -1197,6 +1197,13 @@ class EspEntitySurface {
         {'name': 'brightness', 'type': 'float'},
       ],
     },
+    {
+      'name': 'set_screensaver_brightness',
+      'supportsResponse': true,
+      'args': [
+        {'name': 'brightness', 'type': 'float'},
+      ],
+    },
   ];
 
   /// An action call from Home Assistant landed (via the native hub). The
@@ -1208,6 +1215,7 @@ class EspEntitySurface {
   ) async {
     switch (name) {
       case 'set_brightness':
+      case 'set_screensaver_brightness':
         final brightness = args['brightness'];
         if (brightness is! num ||
             !brightness.isFinite ||
@@ -1217,6 +1225,14 @@ class EspEntitySurface {
         }
         if (_settings.get(defs.adaptiveBrightness)) {
           throw StateError('Turn off adaptive brightness to set brightness');
+        }
+        if (name == 'set_screensaver_brightness') {
+          await _settings.set(
+            defs.screensaverBrightnessLevel,
+            brightness / 100.0,
+            source: 'esphome',
+          );
+          return const {};
         }
         final result = await commands.execute('setBrightness', {
           'level': brightness / 100.0,
