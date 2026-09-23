@@ -10,12 +10,13 @@
   "screensaverOverlayLocation": "Ubicación",
   "screensaverOverlayLocationDetail": "Muestra el nombre del lugar encima de la temperatura.",
   "screensaverOverlayFeelsLike": "Sensación térmica",
-  "screensaverOverlayFeelsLikeHelp": "Muestra la sensación térmica después de la temperatura real: \"30° / 33°\".",
+  "screensaverOverlayFeelsLikeHelp": "Muestra la sensación térmica en una línea etiquetada debajo de la temperatura real.",
   "screensaverOverlayFeelsLikeOnly": "Solo sensación térmica",
-  "screensaverOverlayFeelsLikeOnlyHelp": "Muestra la sensación térmica en lugar de la temperatura real.",
+  "screensaverOverlayFeelsLikeOnlyHelp": "Muestra la sensación térmica con su etiqueta en lugar de la temperatura real.",
   "screensaverOverlayForecast": "Pronóstico",
   "screensaverOverlayForecastHelp": "Muestra las condiciones con su icono correspondiente.",
   "screensaverOverlayHumidity": "Humedad",
   "screensaverOverlayWind": "Velocidad del viento",
-  "screensaverOverlayVisibility": "Visibilidad"
+  "screensaverOverlayVisibility": "Visibilidad",
+  "screensaverWeatherFeelsLikeValue": "Sensación térmica: {temperature}"
 }

@@ -1468,7 +1468,7 @@ class _ClockWidgetOverlayState extends State<ClockWidgetOverlay> {
                           style: TextStyle(
                             fontFamily: font.family,
                             color: color.withValues(alpha: 0.75),
-                            fontSize: clockSize * 0.42,
+                            fontSize: clockSize * 0.52,
                             fontWeight: font.weight ?? FontWeight.w400,
                             shadows: shadows,
                           ),
@@ -2007,14 +2007,8 @@ GlanceEntity entityWidgetEntity(Map<String, Object?> config) {
   );
 }
 
-/// The weather widget: one Home Assistant weather entity in a corner —
-/// the location name, a big temperature (with the apparent temperature
-/// after it when the Feels like toggle is on), the forecast with its
-/// icon, and optional humidity, wind and visibility lines, each shown
-/// only when its toggle is on AND the entity actually carries the
-/// reading. Fed by its
-/// own subscribe_entities socket while the screensaver shows (the At a
-/// Glance pattern), so the readings stay live without polling.
+/// A Home Assistant weather entity with a prominent temperature, a labeled
+/// apparent temperature and optional condition, humidity, wind and visibility.
 class WeatherWidgetOverlay extends StatefulWidget {
   const WeatherWidgetOverlay({
     super.key,
@@ -2177,11 +2171,8 @@ class _WeatherWidgetOverlayState extends State<WeatherWidgetOverlay> {
 
   num? _num(String key) {
     final value = _attributes[key];
-    return value is num ? value : null;
+    return value is num && value.isFinite ? value : null;
   }
-
-  String _degrees(num value) =>
-      '${value.round()}${_attributes['temperature_unit'] ?? '°'}';
 
   @override
   Widget build(BuildContext context) {
@@ -2193,10 +2184,6 @@ class _WeatherWidgetOverlayState extends State<WeatherWidgetOverlay> {
     final corner = _cornerAlignment(widget.spec.position);
     final color = widget.nightColor ?? _widgetRgb(widget.spec.config['color']);
     final size = MediaQuery.of(context).size;
-    // The temperature is exactly the small clock's size, and the location
-    // and detail lines take the Immich metadata panel's fixed sizes, so
-    // the corner overlays all read as one family. The scale sliders then
-    // correct everything for the screen.
     final scale = _widgetScale(widget.container, widget.spec);
     final tempSize = max(min(size.width, size.height) * 0.063, 44.0) * scale;
     final font = _widgetFont(widget.container, widget.spec);
@@ -2204,30 +2191,27 @@ class _WeatherWidgetOverlayState extends State<WeatherWidgetOverlay> {
 
     // A picked weight wins over the line's own: the location line is
     // semibold by design, and Default keeps it so.
-    TextStyle line({
-      double size = 16,
-      FontWeight? weight,
-      double alpha = 0.9,
-    }) => TextStyle(
-      fontFamily: font.family,
-      color: color.withValues(alpha: alpha),
-      fontSize: size * scale,
-      fontWeight: font.weight ?? weight ?? FontWeight.w400,
-      shadows: shadows,
-      // The Immich metadata panel's line height: the two blocks share a
-      // corner vocabulary, and the tighter 1.2 read as cramped beside it.
-      height: 1.35,
-    );
+    TextStyle line({double? size, FontWeight? weight, double alpha = 0.9}) =>
+        TextStyle(
+          fontFamily: font.family,
+          color: color.withValues(alpha: alpha),
+          fontSize: size ?? tempSize * .48,
+          fontWeight: font.weight ?? weight ?? FontWeight.w400,
+          shadows: shadows,
+          // The Immich metadata panel's line height: the two blocks share a
+          // corner vocabulary, and the tighter 1.2 read as cramped beside it.
+          height: 1.35,
+        );
 
     // One reading with its monochrome icon, tinted like the text. The
-    // icon sits on the corner's outer edge — left corners lead with it,
-    // right corners trail — so the icon column stays flush however long
+    // icon sits on the corner's outer edge. Left corners lead with it and
+    // right corners trail so the icon column stays flush however long
     // the readings run.
     final right = corner.x > 0;
     Widget detail(String value, IconData icon) {
       final glyph = Icon(
         icon,
-        size: 16 * scale,
+        size: tempSize * .43,
         color: color.withValues(alpha: 0.85),
         shadows: shadows,
       );
@@ -2244,8 +2228,11 @@ class _WeatherWidgetOverlayState extends State<WeatherWidgetOverlay> {
       return unit.isEmpty ? '${value.round()}' : '${value.round()} $unit';
     }
 
-    final temperature = _num('temperature');
-    final feelsLike = _num('apparent_temperature');
+    final temperature = WeatherTemperatureReading.fromAttributes(
+      _attributes,
+      feelsLike: _on('feels_like'),
+      feelsLikeOnly: _on('feels_like_only'),
+    );
     final humidity = _num('humidity');
     final wind = _num('wind_speed');
     final visibility = _num('visibility');
@@ -2285,28 +2272,14 @@ class _WeatherWidgetOverlayState extends State<WeatherWidgetOverlay> {
       if (_on('location') && location.isNotEmpty)
         Text(
           location,
-          style: line(size: 18, weight: FontWeight.w600, alpha: 1),
+          style: line(size: tempSize * .50, weight: FontWeight.w600, alpha: 1),
         ),
       if (temperature != null)
-        Text(
-          // The apparent temperature rides the temperature line rather
-          // than taking a detail row of its own: "30°C / 33°C" reads as
-          // one fact, the real reading and what it feels like. When both
-          // round to the same number the pair would say nothing, so the
-          // single reading shows. Feels like only goes further and puts
-          // the apparent temperature in the real one's place; an entity
-          // without the reading keeps the real one either way.
-          feelsLike == null
-              ? _degrees(temperature)
-              : _on('feels_like_only')
-              ? _degrees(feelsLike)
-              : _on('feels_like') && feelsLike.round() != temperature.round()
-              ? '${_degrees(temperature)} / ${_degrees(feelsLike)}'
-              : _degrees(temperature),
-          // Proportional figures, not tabular: the block hugs its corner,
-          // so a leading 1's tabular side-bearing would only read as the
-          // number sitting off the lines around it.
-          style: TextStyle(
+        WeatherTemperature(
+          reading: temperature,
+          alignment: align,
+          secondaryStyle: line(size: tempSize * .40),
+          primaryStyle: TextStyle(
             fontFamily: font.family,
             color: color,
             fontSize: tempSize,
@@ -2340,11 +2313,15 @@ class _WeatherWidgetOverlayState extends State<WeatherWidgetOverlay> {
               padding: const EdgeInsets.all(28),
               child: Transform.translate(
                 offset: _offset,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  spacing: 6,
-                  crossAxisAlignment: align,
-                  children: lines,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: corner,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    spacing: 6,
+                    crossAxisAlignment: align,
+                    children: lines,
+                  ),
                 ),
               ),
             ),

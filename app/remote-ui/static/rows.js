@@ -1142,10 +1142,10 @@ export function settingRow(s) {
           config.location === true, screensaverText("The place's name over the temperature."));
         refs.feelsLike = cameraToggle(screensaverText('Feels like'),
           config.feels_like === true,
-          screensaverText('The apparent temperature after the real one, "30° / 33°".'));
+          screensaverText('Show the apparent temperature on a labeled line below the actual temperature.'));
         refs.feelsLikeOnly = cameraToggle(screensaverText('Feels like only'),
           config.feels_like_only === true,
-          screensaverText("The apparent temperature in the real one's place."));
+          screensaverText("Show the apparent temperature with a Feels like label instead of the actual temperature."));
         refs.forecast = cameraToggle(screensaverText('Forecast'),
           config.forecast === true, screensaverText('The conditions, with a matching icon.'));
         refs.humidity = cameraToggle(screensaverText('Humidity'), config.humidity === true);

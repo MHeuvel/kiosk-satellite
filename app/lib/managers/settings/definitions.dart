@@ -1982,7 +1982,7 @@ const screensaverWeatherBarFeelsLike = SettingDef<bool>(
   defaultValue: false,
   title: "Feels like",
   description:
-      "The apparent temperature after the real one, \"30\u00b0 / 33\u00b0\".",
+      "Show the apparent temperature on a labeled line below the actual temperature.",
   category: 'Screensaver',
   section: 'Weather information',
   subpage: 'Weather Mood screensaver',
@@ -1994,7 +1994,8 @@ const screensaverWeatherBarFeelsLikeOnly = SettingDef<bool>(
   type: SettingType.boolean,
   defaultValue: false,
   title: "Feels like only",
-  description: "The apparent temperature in the real one's place.",
+  description:
+      "Show the apparent temperature with a Feels like label instead of the actual temperature.",
   category: 'Screensaver',
   section: 'Weather information',
   subpage: 'Weather Mood screensaver',

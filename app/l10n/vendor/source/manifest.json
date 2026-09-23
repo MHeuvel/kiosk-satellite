@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite",
-  "revision": "0f0b64abb469910d8a1e7140f8b2391085153549",
+  "revision": "b0715c12d06ca9094149eb21b56bff5bec6c03db",
   "workingTree": true,
   "files": {
     "about_identity_en.arb": "dd006567f69f846e2e3b73f09ad13784f0022d282ea3101fa9be7fc95175ec2d",
@@ -161,7 +161,7 @@
     "settings_screensaver_weather_mood_en.arb": "f9e0c8504f8af9856149b49e3f918e4c2173f1c74a13e297f4e2376947fdabd1",
     "settings_screensaver_website_en.arb": "9852330f7c384c850507318a5bcab08a8d38221d2fd696a1fbc74e2f047c64b8",
     "settings_screensaver_widget_editor_en.arb": "eb2f23ff178b3d812ab77755abc6a32dd043a4266cbe2fb382b3720c63337737",
-    "settings_screensaver_widget_weather_en.arb": "d04d3d37a8475c0c471cd7e3fbb17d91fb9bb4446d428280a1b6be54d2b19155",
+    "settings_screensaver_widget_weather_en.arb": "a93891ecf75a74e54327063b48ad88a48eeebf532873cf06af654444f62e51a6",
     "settings_screensaver_widgets_en.arb": "59206df222f4f667a15dce7a4a9837c3fcb51596a5131c7549fb4c73f0654366",
     "settings_search_en.arb": "d8ea2b418814f507a28a47cfda97d656d3fdf00962a2817f7f390450a49b5a67",
     "settings_search_extras_en.arb": "bbc4b15014e794b22b5b6e6dd4181d3820c400f172e54ac0fb5c13e42fbadee1",

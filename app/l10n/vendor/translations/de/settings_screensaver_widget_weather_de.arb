@@ -10,12 +10,13 @@
   "screensaverOverlayLocation": "Standort",
   "screensaverOverlayLocationDetail": "Zeigt den Ortsnamen über der Temperatur an.",
   "screensaverOverlayFeelsLike": "Gefühlte Temperatur",
-  "screensaverOverlayFeelsLikeHelp": "Zeigt die gefühlte Temperatur nach der tatsächlichen Temperatur an, z. B. „30° / 33°“.",
+  "screensaverOverlayFeelsLikeHelp": "Zeigt die gefühlte Temperatur mit einer Beschriftung unter der tatsächlichen Temperatur.",
   "screensaverOverlayFeelsLikeOnly": "Nur gefühlte Temperatur",
-  "screensaverOverlayFeelsLikeOnlyHelp": "Zeigt die gefühlte Temperatur anstelle der tatsächlichen Temperatur an.",
+  "screensaverOverlayFeelsLikeOnlyHelp": "Zeigt die gefühlte Temperatur mit der Beschriftung „Gefühlte Temperatur“ anstelle der tatsächlichen Temperatur.",
   "screensaverOverlayForecast": "Wetterlage",
   "screensaverOverlayForecastHelp": "Zeigt die Wetterbedingungen mit dem entsprechenden Symbol an.",
   "screensaverOverlayHumidity": "Luftfeuchtigkeit",
   "screensaverOverlayWind": "Windgeschwindigkeit",
-  "screensaverOverlayVisibility": "Sichtweite"
+  "screensaverOverlayVisibility": "Sichtweite",
+  "screensaverWeatherFeelsLikeValue": "Gefühlt {temperature}"
 }

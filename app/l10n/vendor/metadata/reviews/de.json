@@ -17357,10 +17357,15 @@
     "provenance": "e69b7988f2fca16116639e0fd6a63d4430c75f4c4c7ad86d875642d5cdf89b58"
   },
   "screensaverOverlayFeelsLikeHelp": {
-    "source": "79f47f728a13bca2f2e4746783d429bb5d8af91f8303541ceb1e82b2dcfa402a",
-    "translation": "ea796771f4cd260b83309dabf25bb7fa9d7f79c58882dae45ec054c01c31e4b8",
+    "source": "971ddd02886f68ba8b94597b956a64826c4a294ae532ff32df5e082c389b2743",
+    "translation": "a9c9e0fd5d11f5387ced1cbf2738222111832b427615a97c9e3c48103542056b",
     "author": "Dee-san",
-    "provenance": "e69b7988f2fca16116639e0fd6a63d4430c75f4c4c7ad86d875642d5cdf89b58"
+    "provenance": "e69b7988f2fca16116639e0fd6a63d4430c75f4c4c7ad86d875642d5cdf89b58",
+    "maintainerCorrection": {
+      "reviewer": "Xavier Larrea",
+      "originalTranslation": "ea796771f4cd260b83309dabf25bb7fa9d7f79c58882dae45ec054c01c31e4b8",
+      "reason": "Describe the labeled apparent temperature layout."
+    }
   },
   "screensaverOverlayFeelsLikeOnly": {
     "source": "c1617ed8067ba3c6d8f16a9c37a3d1ee07a05cb19f885beed0bb3bdd4dde5ceb",
@@ -17369,10 +17374,15 @@
     "provenance": "e69b7988f2fca16116639e0fd6a63d4430c75f4c4c7ad86d875642d5cdf89b58"
   },
   "screensaverOverlayFeelsLikeOnlyHelp": {
-    "source": "f888645dd6c71d7872deb59fe4a97a8e5d18a8111cf3b9f46effb80360326340",
-    "translation": "244126dd67618fd4a3b5e4c7fecf7e4f70e71dead6ec71ebb7173ca0773d06bf",
+    "source": "6389cbdc5d80073f68a9aac95219f1d58b826a6c86a1b3e8e524eccc162d4c09",
+    "translation": "ba1c06a202080d4fa4d046d9ce8108723cd1510cfb514250eda69769e7801d05",
     "author": "Dee-san",
-    "provenance": "e69b7988f2fca16116639e0fd6a63d4430c75f4c4c7ad86d875642d5cdf89b58"
+    "provenance": "e69b7988f2fca16116639e0fd6a63d4430c75f4c4c7ad86d875642d5cdf89b58",
+    "maintainerCorrection": {
+      "reviewer": "Xavier Larrea",
+      "originalTranslation": "244126dd67618fd4a3b5e4c7fecf7e4f70e71dead6ec71ebb7173ca0773d06bf",
+      "reason": "Describe the labeled apparent temperature layout."
+    }
   },
   "screensaverOverlayForecast": {
     "source": "5a96aa627a377a7772d28a1beafde77a9785e405c37717d18b37a8afeede43e7",
@@ -19723,6 +19733,12 @@
   "screensaverWeatherPreviewTwilight": {
     "source": "e78a4a873bf8f43219a25ff1bf8a40658041dd613e0e8b37e2949cd4cfe8f6a9",
     "translation": "7c98d51d89ce400139a2d9cf49a8d0f00049ddd69be999338aa91f589ad9ec8b",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "screensaverWeatherFeelsLikeValue": {
+    "source": "b42965b441cff79d251f861da2fbbcb73384064f15688094bfb4d1ddd9461507",
+    "translation": "de3d992556d6c91c291dd50af0c46e433b18785158201a9aa6107914eba90ea6",
     "author": "Xavier Larrea",
     "ownerAuthored": true
   }

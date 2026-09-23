@@ -14300,8 +14300,8 @@
     "author": "Xavier Larrea"
   },
   "screensaverOverlayFeelsLikeHelp": {
-    "source": "79f47f728a13bca2f2e4746783d429bb5d8af91f8303541ceb1e82b2dcfa402a",
-    "translation": "11a9f4cb2ae32cc28502a979b7db60ef116200a06485d5e84eca170dcb57cb5a",
+    "source": "971ddd02886f68ba8b94597b956a64826c4a294ae532ff32df5e082c389b2743",
+    "translation": "3addbe7c33e8825e3cea5ede11cf4ea8983b2d64a1f4056667a8e06fefc84b89",
     "author": "Xavier Larrea"
   },
   "screensaverOverlayFeelsLikeOnly": {
@@ -14310,8 +14310,8 @@
     "author": "Xavier Larrea"
   },
   "screensaverOverlayFeelsLikeOnlyHelp": {
-    "source": "f888645dd6c71d7872deb59fe4a97a8e5d18a8111cf3b9f46effb80360326340",
-    "translation": "6803b7c516e2fc66b666b700aa4534de1f9d52b0c21e2fd08246de6fa464d434",
+    "source": "6389cbdc5d80073f68a9aac95219f1d58b826a6c86a1b3e8e524eccc162d4c09",
+    "translation": "9eb42365e3c6c509a3b037787e235373dd67eb4d170c4e50ff315be06eb83a95",
     "author": "Xavier Larrea"
   },
   "screensaverOverlayForecast": {
@@ -16282,6 +16282,11 @@
   "screensaverWeatherPreviewTwilight": {
     "source": "e78a4a873bf8f43219a25ff1bf8a40658041dd613e0e8b37e2949cd4cfe8f6a9",
     "translation": "0cef32b9082844976278a798c78a21ec230b0dc49968e1c51af39dcfedf4fb5a",
+    "author": "Xavier Larrea"
+  },
+  "screensaverWeatherFeelsLikeValue": {
+    "source": "b42965b441cff79d251f861da2fbbcb73384064f15688094bfb4d1ddd9461507",
+    "translation": "2f83abdff431241e3a95b68bc7bc58be962bab1b87e22466744a171e0d953fec",
     "author": "Xavier Larrea"
   }
 }

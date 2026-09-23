@@ -17655,7 +17655,7 @@ abstract class UiStrings {
   /// Label or guidance in this editor.
   ///
   /// In en, this message translates to:
-  /// **'The apparent temperature after the real one, \"30° / 33°\".'**
+  /// **'Show the apparent temperature on a labeled line below the actual temperature.'**
   String get screensaverOverlayFeelsLikeHelp;
 
   /// Label or guidance in this editor.
@@ -17667,7 +17667,7 @@ abstract class UiStrings {
   /// Label or guidance in this editor.
   ///
   /// In en, this message translates to:
-  /// **'The apparent temperature in the real one\'s place.'**
+  /// **'Show the apparent temperature with a Feels like label instead of the actual temperature.'**
   String get screensaverOverlayFeelsLikeOnlyHelp;
 
   /// Label or guidance in this editor.
@@ -17699,6 +17699,12 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Visibility'**
   String get screensaverOverlayVisibility;
+
+  /// Secondary line below the actual temperature. Includes the formatted apparent temperature and its unit.
+  ///
+  /// In en, this message translates to:
+  /// **'Feels like {temperature}'**
+  String screensaverWeatherFeelsLikeValue(String temperature);
 
   /// Setting label.
   ///

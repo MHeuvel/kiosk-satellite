@@ -10155,14 +10155,14 @@ class UiStringsEn extends UiStrings {
 
   @override
   String get screensaverOverlayFeelsLikeHelp =>
-      'The apparent temperature after the real one, \"30° / 33°\".';
+      'Show the apparent temperature on a labeled line below the actual temperature.';
 
   @override
   String get screensaverOverlayFeelsLikeOnly => 'Feels like only';
 
   @override
   String get screensaverOverlayFeelsLikeOnlyHelp =>
-      'The apparent temperature in the real one\'s place.';
+      'Show the apparent temperature with a Feels like label instead of the actual temperature.';
 
   @override
   String get screensaverOverlayForecast => 'Forecast';
@@ -10179,6 +10179,11 @@ class UiStringsEn extends UiStrings {
 
   @override
   String get screensaverOverlayVisibility => 'Visibility';
+
+  @override
+  String screensaverWeatherFeelsLikeValue(String temperature) {
+    return 'Feels like $temperature';
+  }
 
   @override
   String get settingScreensaverWidgetsTitle => 'Widgets';

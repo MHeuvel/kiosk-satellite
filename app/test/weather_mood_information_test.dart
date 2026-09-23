@@ -72,18 +72,27 @@ void main() {
         'attributes': {'apparent_temperature': 24.7},
       });
       expect(
-        r.temperature(feelsLike: true, feelsLikeOnly: false),
-        '22°C / 25°C',
+        r.temperature(feelsLike: true, feelsLikeOnly: false)?.primary,
+        '22°C',
       );
-      expect(r.temperature(feelsLike: true, feelsLikeOnly: true), '25°C');
+      expect(
+        r.temperature(feelsLike: true, feelsLikeOnly: true)?.primary,
+        '25°C',
+      );
       r.update({
         'attributes': {'apparent_temperature': 22.4},
       });
-      expect(r.temperature(feelsLike: true, feelsLikeOnly: false), '22°C');
+      expect(
+        r.temperature(feelsLike: true, feelsLikeOnly: false)?.apparent,
+        '22°C',
+      );
       r.update({
         'attributes': {'apparent_temperature': null, 'visibility': double.nan},
       });
-      expect(r.temperature(feelsLike: true, feelsLikeOnly: true), '22°C');
+      expect(
+        r.temperature(feelsLike: true, feelsLikeOnly: true)?.primary,
+        '22°C',
+      );
       expect(r.number('visibility'), isNull);
       expect(r.reading(r.number('wind_speed')!, 'wind_speed_unit'), '12 km/h');
       r.update({'state': 'unavailable'});
@@ -234,7 +243,15 @@ void main() {
           reason: '$size, $scale, $locale',
         );
         expect(find.byType(DigitalClockFace), findsOneWidget);
-        expect(find.text('26°C / 29°C'), findsOneWidget);
+        expect(find.text('26°C'), findsOneWidget);
+        expect(
+          find.text(
+            lookupUiStrings(
+              Locale(locale),
+            ).screensaverWeatherFeelsLikeValue('29°C'),
+          ),
+          findsOneWidget,
+        );
         expect(
           find.text(
             lookupUiStrings(

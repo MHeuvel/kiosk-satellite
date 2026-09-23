@@ -38375,7 +38375,7 @@
       ]
     }
   },
-  "screensaverOverlayFeelsLikeHelp": "La température ressentie à la suite de la température réelle, par exemple « 30° / 33° ».",
+  "screensaverOverlayFeelsLikeHelp": "Affiche la température ressentie sur une ligne avec un libellé sous la température réelle.",
   "@screensaverOverlayFeelsLikeHelp": {
     "context": "Settings > Screensaver > Widgets > Weather widget",
     "description": "Label or guidance in this editor.",
@@ -38401,7 +38401,7 @@
       ]
     }
   },
-  "screensaverOverlayFeelsLikeOnlyHelp": "La température ressentie à la place de la température réelle.",
+  "screensaverOverlayFeelsLikeOnlyHelp": "Affiche la température ressentie avec le libellé « Ressenti » à la place de la température réelle.",
   "@screensaverOverlayFeelsLikeOnlyHelp": {
     "context": "Settings > Screensaver > Widgets > Weather widget",
     "description": "Label or guidance in this editor.",
@@ -38477,6 +38477,17 @@
       "remoteAdmin": [
         "Screensaver > Widgets > Weather widget"
       ]
+    }
+  },
+  "screensaverWeatherFeelsLikeValue": "Ressenti : {temperature}",
+  "@screensaverWeatherFeelsLikeValue": {
+    "context": "Screensaver > Weather widget and Weather Mood information bar",
+    "description": "Secondary line below the actual temperature. Includes the formatted apparent temperature and its unit.",
+    "placeholders": {
+      "temperature": {
+        "type": "String",
+        "description": "Formatted apparent temperature including its unit."
+      }
     }
   },
   "settingScreensaverWidgetsTitle": "Widgets",
