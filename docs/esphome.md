@@ -313,6 +313,20 @@ Replace `kitchen_tablet` with your kiosk's node name, using underscores in place
 
 The action uses the same launch behavior as the App launcher and gestures, including unpinning before launch and the configured auto-return behavior. On the [remote API](remote-api.md), the equivalent command is `launchApp` with a `package` argument.
 
+## Set brightness
+
+`esphome.<node name>_set_brightness` sets **Default brightness** from 0% to 100%, including 0% for devices that can turn off their backlight. Enable **Expose kiosk entities** under **Settings > ESPHome** to make the action available.
+
+```yaml
+action: esphome.kitchen_tablet_set_brightness
+data:
+  brightness: 0
+```
+
+Replace `kitchen_tablet` with your kiosk's node name, using underscores in place of hyphens. `brightness` is a required percentage from 0 to 100 and accepts decimals. Adaptive brightness must be off. The action reports an error if adaptive brightness is on or the value is outside that range.
+
+The value is saved as **Default brightness** and follows the same behavior as its slider. If a screensaver controls the brightness, the new value applies when it ends. Setting 0% changes brightness without turning the screen off.
+
 ## Media player actions
 
 Two actions follow a player from an automation, the way the Media Player page's Player source and Player rows do by hand. Both come with **Expose kiosk entities**, under the same device as the notification action.
