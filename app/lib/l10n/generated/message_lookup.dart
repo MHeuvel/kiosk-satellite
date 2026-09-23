@@ -3651,6 +3651,7 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'setupGrantPermissions' => strings.setupGrantPermissions,
       'setupRequestingPermissions' => strings.setupRequestingPermissions,
       'setupPermissionsRequested' => strings.setupPermissionsRequested,
+      'setupQrFlipCamera' => strings.setupQrFlipCamera,
       'setupQrCameraFailed' => strings.setupQrCameraFailed,
       'setupQrTitle' => strings.setupQrTitle,
       'setupQrHelp' => strings.setupQrHelp,

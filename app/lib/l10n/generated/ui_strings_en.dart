@@ -11043,6 +11043,9 @@ class UiStringsEn extends UiStrings {
   String get setupPermissionsRequested => 'Permissions requested on the device';
 
   @override
+  String get setupQrFlipCamera => 'Flip camera';
+
+  @override
   String get setupQrCameraFailed => 'The camera could not be started.';
 
   @override

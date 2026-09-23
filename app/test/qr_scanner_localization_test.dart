@@ -21,6 +21,8 @@ class _Spanish extends UiStringsEn {
   @override
   String get setupQrFlashOn => 'Encender la linterna';
   @override
+  String get setupQrFlipCamera => 'Cambiar de cámara';
+  @override
   String get commonCancel => 'Cancelar';
 }
 
@@ -42,6 +44,10 @@ class _Scanner extends MobileScannerPlatform {
   var starts = 0;
   var toggles = 0;
   var failed = false;
+  final directions = <CameraFacing>[];
+  var cameras = 2;
+  final missing = <CameraFacing>{};
+  Completer<void>? startGate;
   @override
   Stream<BarcodeCapture?> get barcodesStream => captures.stream;
   @override
@@ -53,16 +59,26 @@ class _Scanner extends MobileScannerPlatform {
   @override
   Future<MobileScannerViewAttributes> start(StartOptions options) async {
     starts++;
-    expect(options.formats, [BarcodeFormat.qrCode]);
+    directions.add(options.cameraDirection);
+    expectSync(options.formats, [BarcodeFormat.qrCode]);
+    await startGate?.future;
     if (failed) {
       throw const MobileScannerException(
         errorCode: MobileScannerErrorCode.permissionDenied,
       );
     }
-    return const MobileScannerViewAttributes(
-      cameraDirection: CameraFacing.back,
-      currentTorchMode: TorchState.off,
-      size: Size(320, 600),
+    if (missing.contains(options.cameraDirection)) {
+      throw const MobileScannerException(
+        errorCode: MobileScannerErrorCode.unsupported,
+      );
+    }
+    return MobileScannerViewAttributes(
+      cameraDirection: options.cameraDirection,
+      numberOfCameras: cameras,
+      currentTorchMode: options.cameraDirection == CameraFacing.front
+          ? TorchState.unavailable
+          : TorchState.off,
+      size: const Size(320, 600),
     );
   }
 
@@ -78,6 +94,10 @@ class _Scanner extends MobileScannerPlatform {
     torch.add(TorchState.on);
   }
 }
+
+Finder action(String tooltip) => find.byWidgetPredicate(
+  (widget) => widget is IconButton && widget.tooltip == tooltip,
+);
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -137,16 +157,28 @@ void main() {
       });
       expect(find.text('Escanea el código QR del token'), findsOneWidget);
       expect(tester.takeException(), isNull);
-      await tester.tap(find.byTooltip('Encender la linterna'));
+      expect(scanner.directions, [CameraFacing.front]);
+      expect(
+        tester.widget<IconButton>(action('Encender la linterna')).onPressed,
+        isNull,
+      );
+      await tester.tap(action('Cambiar de cámara'));
+      await tester.pumpAndSettle();
+      expect(scanner.directions, [CameraFacing.front, CameraFacing.back]);
+      await tester.tap(action('Encender la linterna'));
       await tester.pumpAndSettle();
       expect(find.byTooltip('Apagar la linterna'), findsOneWidget);
       expect(scanner.toggles, 1);
       language.value = const Locale('en');
       await tester.pumpAndSettle();
       expect(find.byTooltip('Turn off the flashlight'), findsOneWidget);
+      expect(find.byTooltip('Flip camera'), findsOneWidget);
       language.value = const Locale('es');
       await tester.pumpAndSettle();
-      expect(scanner.starts, 1);
+      expect(scanner.starts, 2);
+      await tester.tap(action('Cambiar de cámara'));
+      await tester.pumpAndSettle();
+      expect(scanner.directions.last, CameraFacing.front);
       scanner.captures.add(
         const BarcodeCapture(
           barcodes: [
@@ -161,6 +193,70 @@ void main() {
       await tester.pumpWidget(const SizedBox());
     },
   );
+  testWidgets('a rear-only device falls back and disables camera switching', (
+    tester,
+  ) async {
+    scanner.cameras = 1;
+    scanner.missing.add(CameraFacing.front);
+    await show(tester, (_) {});
+    expect(scanner.directions, [CameraFacing.front, CameraFacing.back]);
+    expect(find.text('No se pudo iniciar la cámara.'), findsNothing);
+    expect(
+      tester.widget<IconButton>(action('Cambiar de cámara')).onPressed,
+      isNull,
+    );
+    await tester.tap(action('Encender la linterna'));
+    await tester.pumpAndSettle();
+    expect(scanner.toggles, 1);
+    await tester.pumpWidget(const SizedBox());
+  });
+  testWidgets('a front-only device scans without offering a camera switch', (
+    tester,
+  ) async {
+    scanner.cameras = 1;
+    await show(tester, (_) {});
+    expect(scanner.directions, [CameraFacing.front]);
+    expect(
+      tester.widget<IconButton>(action('Cambiar de cámara')).onPressed,
+      isNull,
+    );
+    await tester.pumpWidget(const SizedBox());
+  });
+  testWidgets('switching is guarded and cancel works while a camera starts', (
+    tester,
+  ) async {
+    var returned = false;
+    await show(tester, (_) => returned = true);
+    scanner.startGate = Completer<void>();
+    final flip = tester.widget<IconButton>(action('Cambiar de cámara'));
+    flip.onPressed!();
+    flip.onPressed!();
+    await tester.pump();
+    expect(scanner.directions, [CameraFacing.front, CameraFacing.back]);
+    expect(
+      tester.widget<IconButton>(action('Cambiar de cámara')).onPressed,
+      isNull,
+    );
+    await tester.tap(find.byTooltip('Cancelar'));
+    await tester.pumpAndSettle();
+    scanner.startGate!.complete();
+    await tester.pumpAndSettle();
+    expect(returned, isTrue);
+    expect(tester.takeException(), isNull);
+    await tester.pumpWidget(const SizedBox());
+  });
+  testWidgets('no available camera stops after one fallback attempt', (
+    tester,
+  ) async {
+    scanner.missing.addAll([CameraFacing.front, CameraFacing.back]);
+    await show(tester, (_) {});
+    expect(scanner.directions, [CameraFacing.front, CameraFacing.back]);
+    expect(find.text('No se pudo iniciar la cámara.'), findsOneWidget);
+    await tester.tap(find.byTooltip('Cancelar'));
+    await tester.pumpAndSettle();
+    expect(tester.takeException(), isNull);
+    await tester.pumpWidget(const SizedBox());
+  });
   testWidgets('camera failure and cancel remain usable in Spanish', (
     tester,
   ) async {
@@ -171,6 +267,7 @@ void main() {
       returned = true;
     });
     expect(find.text('No se pudo iniciar la cámara.'), findsOneWidget);
+    expect(scanner.directions, [CameraFacing.front]);
     await tester.tap(find.byTooltip('Cancelar'));
     await tester.pumpAndSettle();
     expect(returned, isTrue);

@@ -19176,6 +19176,12 @@ abstract class UiStrings {
   /// **'Permissions requested on the device'**
   String get setupPermissionsRequested;
 
+  /// Button that switches between the front and back cameras.
+  ///
+  /// In en, this message translates to:
+  /// **'Flip camera'**
+  String get setupQrFlipCamera;
+
   /// Shown when the scanner cannot start its camera.
   ///
   /// In en, this message translates to:
