@@ -3303,6 +3303,8 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingScreensaverWeatherBlurTitle,
       'settingScreensaverWeatherBlurDescription' =>
         strings.settingScreensaverWeatherBlurDescription,
+      'screensaverWeatherPreviewTwilight' =>
+        strings.screensaverWeatherPreviewTwilight,
       'settingScreensaverWebsiteUrlTitle' =>
         strings.settingScreensaverWebsiteUrlTitle,
       'settingScreensaverWebsiteUrlDescription' =>

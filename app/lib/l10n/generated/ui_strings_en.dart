@@ -9861,7 +9861,7 @@ class UiStringsEn extends UiStrings {
 
   @override
   String get settingScreensaverWeatherEntityDescription =>
-      'The Home Assistant weather entity that controls the animated scene. Day and night follow sun.sun, with local time as a fallback.';
+      'The Home Assistant weather entity that controls the animated scene. Day, dawn/dusk and night follow sun.sun, with local time as a fallback.';
 
   @override
   String get settingScreensaverWeatherLightningTitle => 'Lightning flashes';
@@ -9896,7 +9896,7 @@ class UiStringsEn extends UiStrings {
 
   @override
   String get settingScreensaverWeatherPreviewPeriodDescription =>
-      'Choose the day or night version of the scene.';
+      'Choose the day, dawn/dusk or night version of the scene.';
 
   @override
   String get screensaverWeatherPreviewSunny => 'Clear';
@@ -10006,6 +10006,9 @@ class UiStringsEn extends UiStrings {
   @override
   String get settingScreensaverWeatherBlurDescription =>
       'Soften the animated weather scene while keeping the clock, weather bar and widgets sharp.';
+
+  @override
+  String get screensaverWeatherPreviewTwilight => 'Dawn/Dusk';
 
   @override
   String get settingScreensaverWebsiteUrlTitle => 'Website URL';

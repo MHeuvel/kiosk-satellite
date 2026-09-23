@@ -37,6 +37,7 @@ class WeatherMoodScene {
   List<double> values = [...weatherMoodPresets['exceptional']!];
   List<double> _target = [...weatherMoodPresets['exceptional']!];
   double time = 18, windTime = 0;
+  double twilight = 0, _targetTwilight = 0;
   double _stormStart = 18, _strikeTime = 1.2, _nextStrike = 1.2;
   int _strikeId = -1;
 
@@ -44,6 +45,7 @@ class WeatherMoodScene {
     required String condition,
     required bool night,
     required bool lightning,
+    double twilight = 0,
     bool immediate = false,
   }) {
     if (weatherMoodPresets.containsKey(condition)) {
@@ -58,13 +60,18 @@ class WeatherMoodScene {
       _strikeId = -1;
     }
     _target = next;
+    _targetTwilight = twilight.clamp(0.0, 1.0);
     if (!lightning) values[7] = 0;
-    if (immediate) values = [...next];
+    if (immediate) {
+      values = [...next];
+      this.twilight = _targetTwilight;
+    }
   }
 
   void advance(double seconds) {
     final dt = seconds.clamp(0.0, .15);
     time += dt;
+    twilight += (_targetTwilight - twilight) * math.min(1, dt * 1.1);
     for (var i = 0; i < values.length; i++) {
       values[i] += (_target[i] - values[i]) * math.min(1, dt * 1.1);
     }

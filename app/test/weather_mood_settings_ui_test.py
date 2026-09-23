@@ -107,7 +107,7 @@ try:
                         min=50, max=300, step=5,
                         options=list(choices), optionMessageIds={k:v for k,v in choices.items() if v},
                         optionLabels={value: english[identifier] if identifier else value.capitalize() for value, identifier in choices.items()})
-            for suffix, value, kind in [('scale',100,'number'), ('opacity',35,'number'),
+            for suffix, value, kind in [('scale',100,'number'), ('opacity',50,'number'),
                                         ('color','255,255,255','string'), ('shadow',False,'boolean')]:
                 setting('screensaver.weather_bar_'+suffix, value, kind,
                         subpage='Weather Mood screensaver', section='Weather information',
@@ -159,9 +159,9 @@ try:
             with page.expect_response('**/api/settings'):
                 weather.select_option('snowy')
             with page.expect_response('**/api/settings'):
-                period.select_option('night')
+                period.select_option('twilight')
             assert {'screensaver.weather_preview_condition': 'snowy'} in requests
-            assert {'screensaver.weather_preview_period': 'night'} in requests
+            assert {'screensaver.weather_preview_period': 'twilight'} in requests
             with page.expect_response('**/api/settings'):
                 preview.click()
             expect(weather).to_have_count(0)
@@ -169,7 +169,7 @@ try:
             with page.expect_response('**/api/settings'):
                 preview.click()
             expect(weather).to_have_value('snowy')
-            expect(period).to_have_value('night')
+            expect(period).to_have_value('twilight')
             clock = root.locator('[data-key="screensaver.weather_clock"] .switch')
             bar = root.locator('[data-key="screensaver.weather_bar"] .switch')
             font = root.locator('[data-key="screensaver.weather_clock_font"] select')

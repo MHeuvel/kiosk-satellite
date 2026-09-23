@@ -52,9 +52,15 @@ void main() {
       lightning: true,
       immediate: true,
     );
-    scene.update(condition: 'lightning-rainy', night: true, lightning: true);
+    scene.update(
+      condition: 'lightning-rainy',
+      night: true,
+      twilight: 1,
+      lightning: true,
+    );
     scene.advance(.1);
     expect(scene.values[0], inExclusiveRange(0, 1));
+    expect(scene.twilight, inExclusiveRange(0, 1));
     scene.update(
       condition: 'lightning-rainy',
       night: true,
@@ -98,6 +104,7 @@ void main() {
     Future<List<int>> render(
       String condition,
       bool night, {
+      double twilight = 0,
       bool lowPower = true,
       bool active = false,
       bool reduced = false,
@@ -112,6 +119,7 @@ void main() {
                 key: ValueKey(lowPower),
                 condition: condition,
                 night: night,
+                twilight: twilight,
                 lightning: false,
                 active: active,
                 lowPower: lowPower,
@@ -181,6 +189,35 @@ void main() {
           luminance(pixels, 320, 180),
           greaterThan(0),
           reason: '$condition, night=$isNight',
+        );
+      }
+    }
+    // Check both shader variants and cached-sky invalidation on a period change.
+    for (final lowPower in [false, true]) {
+      final dawn = await render(
+        'sunny',
+        false,
+        twilight: 1,
+        lowPower: lowPower,
+      );
+      final i = (345 * 640 + 320) * 4;
+      final upper = (60 * 640 + 320) * 4;
+      expect(dawn[i], greaterThan(dawn[i + 2] * 1.1));
+      expect(dawn[upper + 2], greaterThan(dawn[upper] * 1.5));
+      expect(dawn, isNot(equals(clear)));
+      final day = await render('sunny', false, lowPower: lowPower);
+      expect(day[i + 2], greaterThan(day[i]));
+      for (final condition in weatherMoodConditions) {
+        final pixels = await render(
+          condition,
+          false,
+          twilight: 1,
+          lowPower: lowPower,
+        );
+        expect(
+          luminance(pixels, 320, 180),
+          greaterThan(0),
+          reason: '$condition at dawn/dusk, lowPower=$lowPower',
         );
       }
     }

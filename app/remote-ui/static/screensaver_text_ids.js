@@ -504,7 +504,6 @@ export const screensaverTextMessageIds = {
   "Weather Mood screensaver": "screensaverWeatherMoodPage",
   "Lightning flashes": "settingScreensaverWeatherLightningTitle",
   "Show lightning strikes and cloud flashes during thunderstorms.": "settingScreensaverWeatherLightningDescription",
-  "The Home Assistant weather entity that controls the animated scene. Day and night follow sun.sun, with local time as a fallback.": "settingScreensaverWeatherEntityDescription",
   "Select a weather entity in Settings > Screensaver > Weather Mood.": "screensaverWeatherMoodSelectEntity",
   "Weather entity, lightning, preview": "screensaverWeatherMoodSummary",
   "Weather Preview": "screensaverWeatherPreviewGroup",
@@ -524,5 +523,8 @@ export const screensaverTextMessageIds = {
   "Show wind speed when the weather entity reports it.": "screensaverWeatherBarWindDescription",
   "Show visibility when the weather entity reports it.": "screensaverWeatherBarVisibilityDescription",
   "Scene blur": "settingScreensaverWeatherBlurTitle",
-  "Soften the animated weather scene while keeping the clock, weather bar and widgets sharp.": "settingScreensaverWeatherBlurDescription"
+  "Soften the animated weather scene while keeping the clock, weather bar and widgets sharp.": "settingScreensaverWeatherBlurDescription",
+  "The Home Assistant weather entity that controls the animated scene. Day, dawn/dusk and night follow sun.sun, with local time as a fallback.": "settingScreensaverWeatherEntityDescription",
+  "Choose the day, dawn/dusk or night version of the scene.": "settingScreensaverWeatherPreviewPeriodDescription",
+  "Dawn/Dusk": "screensaverWeatherPreviewTwilight"
 };

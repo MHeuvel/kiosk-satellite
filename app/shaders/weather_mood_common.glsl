@@ -8,9 +8,13 @@ uniform float storm;
 uniform float windTime;
 uniform float flash;
 uniform vec2 flashPosition;
+uniform float twilight;
 uniform sampler2D noiseMap;
 out vec4 fragColor;
     float cloudFootprint;
+    vec2 weatherLightCenter(float aspect) {
+      return vec2(.34*aspect,mix(.76,.28,twilight));
+    }
     float hash(vec2 p) { return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453); }
     float noise(vec3 p) {
       vec3 i=floor(p), f=fract(p);

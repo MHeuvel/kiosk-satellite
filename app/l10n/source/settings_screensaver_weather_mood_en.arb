@@ -52,7 +52,7 @@
       ]
     }
   },
-  "settingScreensaverWeatherEntityDescription": "The Home Assistant weather entity that controls the animated scene. Day and night follow sun.sun, with local time as a fallback.",
+  "settingScreensaverWeatherEntityDescription": "The Home Assistant weather entity that controls the animated scene. Day, dawn/dusk and night follow sun.sun, with local time as a fallback.",
   "@settingScreensaverWeatherEntityDescription": {
     "context": "Settings:Screensaver:Weather Mood screensaver",
     "description": "Weather Mood setting, guidance or weather condition.",
@@ -174,7 +174,7 @@
       ]
     }
   },
-  "settingScreensaverWeatherPreviewPeriodDescription": "Choose the day or night version of the scene.",
+  "settingScreensaverWeatherPreviewPeriodDescription": "Choose the day, dawn/dusk or night version of the scene.",
   "@settingScreensaverWeatherPreviewPeriodDescription": {
     "context": "Settings:Screensaver:Weather Mood screensaver:Weather Preview",
     "description": "Weather preview control, group heading or scene choice.",
@@ -613,6 +613,19 @@
       ],
       "remoteAdmin": [
         "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "screensaverWeatherPreviewTwilight": "Dawn/Dusk",
+  "@screensaverWeatherPreviewTwilight": {
+    "context": "Settings:Screensaver:Weather Mood screensaver:Weather Preview",
+    "description": "Weather preview control, group heading or scene choice.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver > Weather Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver > Weather Preview"
       ]
     }
   }

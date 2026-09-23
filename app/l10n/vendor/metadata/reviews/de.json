@@ -19463,8 +19463,8 @@
     "ownerAuthored": true
   },
   "settingScreensaverWeatherEntityDescription": {
-    "source": "174ea857e44d70ad87b4500b6bc1e1c91f2164ffaf2a5ddf7ae7c02e9e8d36a5",
-    "translation": "c70841f0a868aad30e004a1f6a301181ac3c6d139de666e50c6b7db0dde8251b",
+    "source": "d5ab7d4ed788ae8b01ca2d3029945a71953e499eb17f6d5df04ba98d8949ef14",
+    "translation": "08b26fdb8addaa4ad42632a64c878eaac54d14c2b367cfb6a190478c21e12763",
     "author": "Xavier Larrea",
     "ownerAuthored": true
   },
@@ -19553,8 +19553,8 @@
     "ownerAuthored": true
   },
   "settingScreensaverWeatherPreviewPeriodDescription": {
-    "source": "69591813d28d169c8b9b6e7bacb5eb37b973b9749c16c6847cd5a4fa72cc1182",
-    "translation": "e728618fdacb29fc946b954d0c310ac125f0ae97ebf3373fa3c006a1094bddf5",
+    "source": "fb3a0781eece5f8671cb557b1df9bca97e5ffb3d901faad80eb7539cb66f2660",
+    "translation": "5cad092cd9fad9ecd2e705d12774a8058668cd803d7abc8fe1cc3dc95c56ab54",
     "author": "Xavier Larrea",
     "ownerAuthored": true
   },
@@ -19717,6 +19717,12 @@
   "settingScreensaverWeatherBlurTitle": {
     "source": "1901ab06616591865737f2cb23e39126068284788728c796f801a12d571f5788",
     "translation": "a71f40c9644d54a944cb72794c92420fe35a3ecf24c23b41cf85ba2b6ae71aab",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "screensaverWeatherPreviewTwilight": {
+    "source": "e78a4a873bf8f43219a25ff1bf8a40658041dd613e0e8b37e2949cd4cfe8f6a9",
+    "translation": "7c98d51d89ce400139a2d9cf49a8d0f00049ddd69be999338aa91f589ad9ec8b",
     "author": "Xavier Larrea",
     "ownerAuthored": true
   }

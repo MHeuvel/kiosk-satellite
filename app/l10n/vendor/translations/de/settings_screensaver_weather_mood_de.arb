@@ -4,7 +4,7 @@
   "screensaverWeatherMoodPage": "Bildschirmschoner Wetterstimmung",
   "screensaverWeatherMoodSummary": "Wetterentität, Blitze, Vorschau",
   "settingScreensaverWeatherEntityTitle": "Wetterentität",
-  "settingScreensaverWeatherEntityDescription": "Die Wetterentität aus Home Assistant steuert die animierte Szene. Tag und Nacht richten sich nach sun.sun. Falls nicht verfügbar, wird die Ortszeit verwendet.",
+  "settingScreensaverWeatherEntityDescription": "Die Home Assistant-Wetterentität, die die animierte Szene steuert. Tag, Morgen-/Abenddämmerung und Nacht richten sich nach sun.sun. Als Ersatz dient die lokale Uhrzeit.",
   "settingScreensaverWeatherLightningTitle": "Blitze",
   "settingScreensaverWeatherLightningDescription": "Blitze und aufleuchtende Wolken bei Gewittern anzeigen.",
   "screensaverWeatherMoodSelectEntity": "Wähle eine Wetterentität unter Einstellungen > Bildschirmschoner > Wetterstimmung aus.",
@@ -14,7 +14,7 @@
   "settingScreensaverWeatherPreviewConditionTitle": "Wettertyp",
   "settingScreensaverWeatherPreviewConditionDescription": "Die animierte Wetterszene für die Vorschau.",
   "settingScreensaverWeatherPreviewPeriodTitle": "Tageszeit",
-  "settingScreensaverWeatherPreviewPeriodDescription": "Wähle die Tag- oder Nachtversion der Szene.",
+  "settingScreensaverWeatherPreviewPeriodDescription": "Die Szene bei Tag, in der Morgen-/Abenddämmerung oder bei Nacht anzeigen.",
   "screensaverWeatherPreviewSunny": "Klar",
   "screensaverWeatherPreviewPartlycloudy": "Teilweise bewölkt",
   "screensaverWeatherPreviewCloudy": "Bewölkt",
@@ -47,5 +47,6 @@
   "screensaverWeatherBarWindDescription": "Die Windgeschwindigkeit anzeigen, wenn die Wetterentität sie meldet.",
   "screensaverWeatherBarVisibilityDescription": "Die Sichtweite anzeigen, wenn die Wetterentität sie meldet.",
   "settingScreensaverWeatherBlurTitle": "Szenenunschärfe",
-  "settingScreensaverWeatherBlurDescription": "Die animierte Wetterszene weichzeichnen, während Uhr, Wetterleiste und Widgets scharf bleiben."
+  "settingScreensaverWeatherBlurDescription": "Die animierte Wetterszene weichzeichnen, während Uhr, Wetterleiste und Widgets scharf bleiben.",
+  "screensaverWeatherPreviewTwilight": "Morgen-/Abenddämmerung"
 }

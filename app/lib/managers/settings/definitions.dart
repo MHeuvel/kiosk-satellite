@@ -1744,7 +1744,7 @@ const screensaverWeatherEntity = SettingDef<String>(
   defaultValue: '',
   title: 'Weather entity',
   description:
-      'The Home Assistant weather entity that controls the animated scene. Day and night follow sun.sun, with local time as a fallback.',
+      'The Home Assistant weather entity that controls the animated scene. Day, dawn/dusk and night follow sun.sun, with local time as a fallback.',
   category: 'Screensaver',
   section: 'Weather Mood screensaver',
   subpage: 'Weather Mood screensaver',
@@ -1937,7 +1937,7 @@ const screensaverWeatherBarColor = SettingDef<String>(
 const screensaverWeatherBarOpacity = SettingDef<num>(
   key: 'screensaver.weather_bar_opacity',
   type: SettingType.number,
-  defaultValue: 35,
+  defaultValue: 50,
   title: "Background opacity",
   description: "Darken the bottom bar to keep weather information readable.",
   category: 'Screensaver',
@@ -2114,14 +2114,14 @@ const screensaverWeatherPreviewPeriod = SettingDef<String>(
   type: SettingType.select,
   defaultValue: 'day',
   title: 'Time of day',
-  description: 'Choose the day or night version of the scene.',
+  description: 'Choose the day, dawn/dusk or night version of the scene.',
   category: 'Screensaver',
   section: 'Weather Preview',
   subpage: 'Weather Mood screensaver',
   dependsOn: 'screensaver.weather_preview',
   perDevice: true,
-  options: ['day', 'night'],
-  optionLabels: {'day': 'Day', 'night': 'Night'},
+  options: ['day', 'twilight', 'night'],
+  optionLabels: {'day': 'Day', 'twilight': 'Dawn/Dusk', 'night': 'Night'},
 );
 
 // ── Black (mode: black) ──

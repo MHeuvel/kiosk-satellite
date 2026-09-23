@@ -269,6 +269,7 @@ const settingOptionMessageIds = <String, Map<String, String>>{
   },
   "screensaver.weather_preview_period": {
     "day": "screensaverWeatherPreviewDay",
+    "twilight": "screensaverWeatherPreviewTwilight",
     "night": "screensaverWeatherPreviewNight"
   },
   "screensaver.weather_clock_font_weight": {

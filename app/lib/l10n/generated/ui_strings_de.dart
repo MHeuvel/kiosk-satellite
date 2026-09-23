@@ -10104,7 +10104,7 @@ class UiStringsDe extends UiStrings {
 
   @override
   String get settingScreensaverWeatherEntityDescription =>
-      'Die Wetterentität aus Home Assistant steuert die animierte Szene. Tag und Nacht richten sich nach sun.sun. Falls nicht verfügbar, wird die Ortszeit verwendet.';
+      'Die Home Assistant-Wetterentität, die die animierte Szene steuert. Tag, Morgen-/Abenddämmerung und Nacht richten sich nach sun.sun. Als Ersatz dient die lokale Uhrzeit.';
 
   @override
   String get settingScreensaverWeatherLightningTitle => 'Blitze';
@@ -10140,7 +10140,7 @@ class UiStringsDe extends UiStrings {
 
   @override
   String get settingScreensaverWeatherPreviewPeriodDescription =>
-      'Wähle die Tag- oder Nachtversion der Szene.';
+      'Die Szene bei Tag, in der Morgen-/Abenddämmerung oder bei Nacht anzeigen.';
 
   @override
   String get screensaverWeatherPreviewSunny => 'Klar';
@@ -10251,6 +10251,9 @@ class UiStringsDe extends UiStrings {
   @override
   String get settingScreensaverWeatherBlurDescription =>
       'Die animierte Wetterszene weichzeichnen, während Uhr, Wetterleiste und Widgets scharf bleiben.';
+
+  @override
+  String get screensaverWeatherPreviewTwilight => 'Morgen-/Abenddämmerung';
 
   @override
   String get settingScreensaverWebsiteUrlTitle => 'Website-URL';

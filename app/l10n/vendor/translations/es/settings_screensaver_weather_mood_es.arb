@@ -4,7 +4,7 @@
   "screensaverWeatherMoodPage": "Salvapantallas de ambiente meteorológico",
   "screensaverWeatherMoodSummary": "Entidad meteorológica, rayos, vista previa",
   "settingScreensaverWeatherEntityTitle": "Entidad meteorológica",
-  "settingScreensaverWeatherEntityDescription": "La entidad meteorológica de Home Assistant que controla la escena animada. El día y la noche siguen a sun.sun, con la hora local como alternativa.",
+  "settingScreensaverWeatherEntityDescription": "La entidad meteorológica de Home Assistant que controla la escena animada. El día, el amanecer/atardecer y la noche siguen sun.sun, con la hora local como alternativa.",
   "settingScreensaverWeatherLightningTitle": "Destellos de relámpagos",
   "settingScreensaverWeatherLightningDescription": "Muestra rayos y destellos en las nubes durante las tormentas.",
   "screensaverWeatherMoodSelectEntity": "Selecciona una entidad meteorológica en Ajustes > Salvapantallas > Ambiente meteorológico.",
@@ -14,7 +14,7 @@
   "settingScreensaverWeatherPreviewConditionTitle": "Tipo de tiempo",
   "settingScreensaverWeatherPreviewConditionDescription": "Escena meteorológica animada que se mostrará en la vista previa.",
   "settingScreensaverWeatherPreviewPeriodTitle": "Momento del día",
-  "settingScreensaverWeatherPreviewPeriodDescription": "Selecciona la versión diurna o nocturna de la escena.",
+  "settingScreensaverWeatherPreviewPeriodDescription": "Elige la versión de día, amanecer/atardecer o noche de la escena.",
   "screensaverWeatherPreviewSunny": "Despejado",
   "screensaverWeatherPreviewPartlycloudy": "Parcialmente nublado",
   "screensaverWeatherPreviewCloudy": "Nublado",
@@ -47,5 +47,6 @@
   "screensaverWeatherBarWindDescription": "Mostrar la velocidad del viento cuando la entidad meteorológica la proporcione.",
   "screensaverWeatherBarVisibilityDescription": "Mostrar la visibilidad cuando la entidad meteorológica la proporcione.",
   "settingScreensaverWeatherBlurTitle": "Desenfoque de la escena",
-  "settingScreensaverWeatherBlurDescription": "Suavizar la escena meteorológica animada manteniendo nítidos el reloj, la barra del tiempo y los widgets."
+  "settingScreensaverWeatherBlurDescription": "Suavizar la escena meteorológica animada manteniendo nítidos el reloj, la barra del tiempo y los widgets.",
+  "screensaverWeatherPreviewTwilight": "Amanecer/Atardecer"
 }

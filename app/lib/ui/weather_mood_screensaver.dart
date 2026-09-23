@@ -21,21 +21,59 @@ bool weatherMoodNight(String? sun, DateTime localTime) => switch (sun) {
   _ => localTime.hour < 6 || localTime.hour >= 18,
 };
 
+/// Warmth peaks near the horizon and fades into the existing day/night scenes.
+double weatherMoodTwilight(
+  String? sun,
+  DateTime localTime, {
+  double? elevation,
+}) {
+  final validSun = sun == 'above_horizon' || sun == 'below_horizon';
+  if (validSun &&
+      elevation != null &&
+      elevation.isFinite &&
+      elevation.abs() <= 90) {
+    final fade = ((elevation.abs() - 2) / 4).clamp(0.0, 1.0);
+    return 1 - fade * fade * (3 - 2 * fade);
+  }
+  // Without elevation, use one hour around the local 6 AM / 6 PM fallback.
+  // A valid sun state still prevents a warm scene in the wrong half of the day.
+  final minutes =
+      localTime.hour * 60 + localTime.minute + localTime.second / 60;
+  final morning = (minutes - 360).abs();
+  final evening = (minutes - 1080).abs();
+  final distance = morning < evening ? morning : evening;
+  if (validSun &&
+      weatherMoodNight(sun, localTime) != weatherMoodNight(null, localTime)) {
+    return 0;
+  }
+  final fade = ((distance - 10) / 20).clamp(0.0, 1.0);
+  return 1 - fade * fade * (3 - 2 * fade);
+}
+
 bool weatherMoodHasScene(SettingsManager settings) =>
     settings.get(defs.screensaverWeatherPreview) ||
     settings.get(defs.screensaverWeatherEntity).trim().isNotEmpty;
 
-({String condition, bool night}) weatherMoodScene(
+({String condition, bool night, double twilight}) weatherMoodScene(
   SettingsManager settings,
   String condition,
   String? sun,
-  DateTime localTime,
-) => settings.get(defs.screensaverWeatherPreview)
+  DateTime localTime, {
+  double? elevation,
+}) => settings.get(defs.screensaverWeatherPreview)
     ? (
         condition: settings.get(defs.screensaverWeatherPreviewCondition),
         night: settings.get(defs.screensaverWeatherPreviewPeriod) == 'night',
+        twilight:
+            settings.get(defs.screensaverWeatherPreviewPeriod) == 'twilight'
+            ? 1.0
+            : 0.0,
       )
-    : (condition: condition, night: weatherMoodNight(sun, localTime));
+    : (
+        condition: condition,
+        night: weatherMoodNight(sun, localTime),
+        twilight: weatherMoodTwilight(sun, localTime, elevation: elevation),
+      );
 
 const weatherMoodConditions = {
   'sunny',
@@ -73,6 +111,7 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
   int _generation = 0;
   String _condition = 'exceptional';
   String? _sun;
+  double? _sunElevation;
   WeatherMoodReadings _readings = WeatherMoodReadings();
   Map<String, String> _translations = const {};
   bool _screenOn = true;
@@ -139,6 +178,7 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
     if (reset) {
       _condition = 'exceptional';
       _sun = null;
+      _sunElevation = null;
       _readings = WeatherMoodReadings();
       unawaited(_update());
     }
@@ -153,6 +193,15 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
         final value = state['state'];
         if (id == 'sun.sun') {
           if (value is String) _sun = value;
+          final attrs = state['attributes'];
+          if (_sun != 'above_horizon' && _sun != 'below_horizon') {
+            _sunElevation = null;
+          } else if (attrs is Map && attrs.containsKey('elevation')) {
+            final elevation = attrs['elevation'];
+            _sunElevation = elevation is num && elevation.isFinite
+                ? elevation.toDouble()
+                : null;
+          }
         } else if (id == entity) {
           _readings.update(state);
           if (weatherMoodConditions.contains(value)) {
@@ -170,6 +219,7 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
     void retry() {
       if (!mounted || generation != _generation) return;
       _sun = null;
+      _sunElevation = null;
       unawaited(_update());
       _retry?.cancel();
       _retry = Timer(
@@ -240,6 +290,7 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
       _condition,
       _sun,
       DateTime.now(),
+      elevation: _sunElevation,
     );
     final blur = widget.container.settings
         .get(defs.screensaverWeatherBlur)
@@ -259,6 +310,7 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
             child: WeatherMoodRenderer(
               condition: scene.condition,
               night: scene.night,
+              twilight: scene.twilight,
               lightning: widget.container.settings.get(
                 defs.screensaverWeatherLightning,
               ),

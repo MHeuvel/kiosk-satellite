@@ -10062,7 +10062,7 @@ class UiStringsFr extends UiStrings {
 
   @override
   String get settingScreensaverWeatherEntityDescription =>
-      'L’entité météo Home Assistant qui contrôle la scène animée. Le jour et la nuit suivent sun.sun, avec l’heure locale comme solution de repli.';
+      'L’entité météo Home Assistant qui contrôle la scène animée. Le jour, l’aube/crépuscule et la nuit suivent sun.sun, avec l’heure locale comme solution de repli.';
 
   @override
   String get settingScreensaverWeatherLightningTitle => 'Éclairs';
@@ -10098,7 +10098,7 @@ class UiStringsFr extends UiStrings {
 
   @override
   String get settingScreensaverWeatherPreviewPeriodDescription =>
-      'Choisissez la version de jour ou de nuit de la scène.';
+      'Choisir la version de jour, d’aube/crépuscule ou de nuit de la scène.';
 
   @override
   String get screensaverWeatherPreviewSunny => 'Ciel dégagé';
@@ -10209,6 +10209,9 @@ class UiStringsFr extends UiStrings {
   @override
   String get settingScreensaverWeatherBlurDescription =>
       'Adoucir la scène météo animée tout en gardant l’horloge, la barre météo et les widgets nets.';
+
+  @override
+  String get screensaverWeatherPreviewTwilight => 'Aube/Crépuscule';
 
   @override
   String get settingScreensaverWebsiteUrlTitle => 'URL du site web';

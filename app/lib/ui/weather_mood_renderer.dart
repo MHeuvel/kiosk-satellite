@@ -14,6 +14,7 @@ class WeatherMoodRenderer extends StatefulWidget {
     super.key,
     required this.condition,
     required this.night,
+    this.twilight = 0,
     required this.lightning,
     required this.active,
     required this.lowPower,
@@ -21,6 +22,7 @@ class WeatherMoodRenderer extends StatefulWidget {
     this.onError,
   });
   final String condition;
+  final double twilight;
   final bool night, lightning, active, lowPower, immediate;
   final void Function(Object error)? onError;
 
@@ -173,6 +175,7 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.condition != widget.condition ||
         oldWidget.night != widget.night ||
+        oldWidget.twilight != widget.twilight ||
         oldWidget.lightning != widget.lightning ||
         oldWidget.immediate != widget.immediate) {
       _update(immediate: widget.immediate || !_animate);
@@ -188,6 +191,7 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
     _scene.update(
       condition: widget.condition,
       night: widget.night,
+      twilight: widget.twilight,
       lightning: widget.lightning,
       immediate: immediate,
     );
@@ -217,6 +221,7 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
       _scene.time,
       _scene.windTime,
       _scene.lightning,
+      _scene.twilight,
     );
     ui.Image? image, skyImage;
     try {
@@ -382,11 +387,12 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
 }
 
 class _Frame {
-  _Frame(this.values, this.time, this.windTime, this.lightning);
+  _Frame(this.values, this.time, this.windTime, this.lightning, this.twilight);
   final List<double> values;
-  final double time, windTime;
+  final double time, windTime, twilight;
   final WeatherMoodLightning lightning;
   bool skyChangedSince(_Frame previous) {
+    if ((twilight - previous.twilight).abs() > .002) return true;
     for (final i in [0, 1, 2, 4, 9]) {
       if ((values[i] - previous.values[i]).abs() > .002) return true;
     }
@@ -410,6 +416,7 @@ class _Frame {
       includeFlash ? lightning.strength : 0.0,
       lightning.x,
       1 - (lightning.y + .20),
+      twilight,
     ];
     for (var i = 0; i < uniforms.length; i++) {
       shader.setFloat(i, uniforms[i]);
@@ -449,7 +456,12 @@ class _WeatherPainter extends CustomPainter {
       frame.configure(sky, size);
       canvas.drawRect(Offset.zero & size, Paint()..shader = sky);
     }
-    owner._particles.paintStars(canvas, size, frame.values[1], frame.time);
+    owner._particles.paintStars(
+      canvas,
+      size,
+      frame.values[1] * (1 - frame.twilight),
+      frame.time,
+    );
     if (cloud != null) {
       canvas.drawImageRect(
         cloud,

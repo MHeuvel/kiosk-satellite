@@ -17121,7 +17121,7 @@ abstract class UiStrings {
   /// Weather Mood setting, guidance or weather condition.
   ///
   /// In en, this message translates to:
-  /// **'The Home Assistant weather entity that controls the animated scene. Day and night follow sun.sun, with local time as a fallback.'**
+  /// **'The Home Assistant weather entity that controls the animated scene. Day, dawn/dusk and night follow sun.sun, with local time as a fallback.'**
   String get settingScreensaverWeatherEntityDescription;
 
   /// Weather Mood setting, guidance or weather condition.
@@ -17181,7 +17181,7 @@ abstract class UiStrings {
   /// Weather preview control, group heading or scene choice.
   ///
   /// In en, this message translates to:
-  /// **'Choose the day or night version of the scene.'**
+  /// **'Choose the day, dawn/dusk or night version of the scene.'**
   String get settingScreensaverWeatherPreviewPeriodDescription;
 
   /// Weather preview control, group heading or scene choice.
@@ -17381,6 +17381,12 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Soften the animated weather scene while keeping the clock, weather bar and widgets sharp.'**
   String get settingScreensaverWeatherBlurDescription;
+
+  /// Weather preview control, group heading or scene choice.
+  ///
+  /// In en, this message translates to:
+  /// **'Dawn/Dusk'**
+  String get screensaverWeatherPreviewTwilight;
 
   /// Setting label.
   ///

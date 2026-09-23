@@ -16045,8 +16045,8 @@
     "author": "Xavier Larrea"
   },
   "settingScreensaverWeatherEntityDescription": {
-    "source": "174ea857e44d70ad87b4500b6bc1e1c91f2164ffaf2a5ddf7ae7c02e9e8d36a5",
-    "translation": "9d5da3d18647329ea07db70b161437278fe1f31936d10d0b2f06126bcd18672e",
+    "source": "d5ab7d4ed788ae8b01ca2d3029945a71953e499eb17f6d5df04ba98d8949ef14",
+    "translation": "22d507579dcaca10d74bbbd4070bec7863b660e53849172ea79b454043cd1a03",
     "author": "Xavier Larrea"
   },
   "screensaverWeatherMood": {
@@ -16100,8 +16100,8 @@
     "author": "Xavier Larrea"
   },
   "settingScreensaverWeatherPreviewPeriodDescription": {
-    "source": "69591813d28d169c8b9b6e7bacb5eb37b973b9749c16c6847cd5a4fa72cc1182",
-    "translation": "f8007e929ae20df837a05ba5d32ee249097b7fe657d2a47f32605e80108ffc11",
+    "source": "fb3a0781eece5f8671cb557b1df9bca97e5ffb3d901faad80eb7539cb66f2660",
+    "translation": "ec19cddbef24cac917d0008f116a1e8a9ed9c4845080e25f0e0ff44790c3fae6",
     "author": "Xavier Larrea"
   },
   "settingScreensaverWeatherPreviewDescription": {
@@ -16277,6 +16277,11 @@
   "settingScreensaverWeatherBlurTitle": {
     "source": "1901ab06616591865737f2cb23e39126068284788728c796f801a12d571f5788",
     "translation": "1d20cbcf232431b324adc039314bcdf69ecdad19f2dcde187b5176ceb5d50365",
+    "author": "Xavier Larrea"
+  },
+  "screensaverWeatherPreviewTwilight": {
+    "source": "e78a4a873bf8f43219a25ff1bf8a40658041dd613e0e8b37e2949cd4cfe8f6a9",
+    "translation": "0cef32b9082844976278a798c78a21ec230b0dc49968e1c51af39dcfedf4fb5a",
     "author": "Xavier Larrea"
   }
 }

@@ -37226,7 +37226,7 @@
       ]
     }
   },
-  "settingScreensaverWeatherEntityDescription": "L’entité météo Home Assistant qui contrôle la scène animée. Le jour et la nuit suivent sun.sun, avec l’heure locale comme solution de repli.",
+  "settingScreensaverWeatherEntityDescription": "L’entité météo Home Assistant qui contrôle la scène animée. Le jour, l’aube/crépuscule et la nuit suivent sun.sun, avec l’heure locale comme solution de repli.",
   "@settingScreensaverWeatherEntityDescription": {
     "context": "Settings:Screensaver:Weather Mood screensaver",
     "description": "Weather Mood setting, guidance or weather condition.",
@@ -37348,7 +37348,7 @@
       ]
     }
   },
-  "settingScreensaverWeatherPreviewPeriodDescription": "Choisissez la version de jour ou de nuit de la scène.",
+  "settingScreensaverWeatherPreviewPeriodDescription": "Choisir la version de jour, d’aube/crépuscule ou de nuit de la scène.",
   "@settingScreensaverWeatherPreviewPeriodDescription": {
     "context": "Settings:Screensaver:Weather Mood screensaver:Weather Preview",
     "description": "Weather preview control, group heading or scene choice.",
@@ -37787,6 +37787,19 @@
       ],
       "remoteAdmin": [
         "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "screensaverWeatherPreviewTwilight": "Aube/Crépuscule",
+  "@screensaverWeatherPreviewTwilight": {
+    "context": "Settings:Screensaver:Weather Mood screensaver:Weather Preview",
+    "description": "Weather preview control, group heading or scene choice.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver > Weather Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver > Weather Preview"
       ]
     }
   },

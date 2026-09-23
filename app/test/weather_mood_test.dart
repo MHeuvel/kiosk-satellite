@@ -139,6 +139,56 @@ void main() {
     }
   });
 
+  test('dawn and dusk follow elevation and fall back safely to local time', () {
+    final noon = DateTime(2026, 9, 23, 12);
+    for (final elevation in [-90.0, -6.0, 6.0, 90.0]) {
+      expect(
+        weatherMoodTwilight('above_horizon', noon, elevation: elevation),
+        0,
+      );
+    }
+    for (final elevation in [-2.0, 0.0, 2.0]) {
+      expect(
+        weatherMoodTwilight('below_horizon', noon, elevation: elevation),
+        1,
+      );
+    }
+    expect(weatherMoodTwilight('above_horizon', noon, elevation: 4), .5);
+    expect(weatherMoodTwilight('below_horizon', noon, elevation: -4), .5);
+    for (final hour in [6, 18]) {
+      final horizon = DateTime(2026, 9, 23, hour);
+      for (final sun in [null, 'unknown', 'unavailable']) {
+        expect(weatherMoodTwilight(sun, horizon, elevation: 70), 1);
+      }
+      expect(
+        weatherMoodTwilight(
+          null,
+          horizon.subtract(const Duration(minutes: 30)),
+        ),
+        0,
+      );
+      expect(
+        weatherMoodTwilight(null, horizon.add(const Duration(minutes: 30))),
+        0,
+      );
+      expect(
+        weatherMoodTwilight(null, horizon.add(const Duration(minutes: 20))),
+        .5,
+      );
+    }
+    for (final elevation in [null, double.nan, double.infinity, 200.0]) {
+      expect(
+        weatherMoodTwilight('above_horizon', noon, elevation: elevation),
+        0,
+      );
+    }
+    expect(
+      weatherMoodTwilight('above_horizon', DateTime(2026, 9, 23, 18, 10)),
+      0,
+    );
+    expect(weatherMoodTwilight(null, DateTime(2026, 9, 23, 23, 59)), 0);
+  });
+
   test('Weather Mood supports every widget type', () {
     expect(screensaverWidgetAllowedOnMode('weather', 'weather_mood'), true);
     for (final type in ['clock', 'battery', 'entity']) {
@@ -166,8 +216,24 @@ void main() {
         expect(weatherMoodScene(settings, 'rainy', 'above_horizon', noon), (
           condition: condition,
           night: true,
+          twilight: 0.0,
         ));
       }
+      await settings.set(defs.screensaverWeatherPreviewPeriod, 'twilight');
+      expect(
+        weatherMoodScene(
+          settings,
+          'rainy',
+          'below_horizon',
+          noon,
+          elevation: -30,
+        ).twilight,
+        1,
+      );
+      expect(
+        weatherMoodScene(settings, 'rainy', 'below_horizon', noon).night,
+        false,
+      );
       await settings.set(defs.screensaverWeatherPreviewPeriod, 'day');
       expect(
         weatherMoodScene(settings, 'rainy', 'below_horizon', noon).night,
@@ -180,6 +246,7 @@ void main() {
       expect(weatherMoodScene(settings, 'snowy', 'below_horizon', noon), (
         condition: 'snowy',
         night: true,
+        twilight: 0.0,
       ));
     },
   );
@@ -215,6 +282,7 @@ void main() {
       for (final choice in [
         (defs.screensaverWeatherPreviewCondition, 'Snow', 'snowy'),
         (defs.screensaverWeatherPreviewPeriod, 'Night', 'night'),
+        (defs.screensaverWeatherPreviewPeriod, 'Dawn/Dusk', 'twilight'),
       ]) {
         final row = find.byWidgetPredicate(
           (widget) => widget is SettingTile && widget.def.key == choice.$1.key,
@@ -241,7 +309,7 @@ void main() {
       );
       expect(
         container.settings.get(defs.screensaverWeatherPreviewPeriod),
-        'night',
+        'twilight',
       );
       await tester.pumpWidget(const SizedBox.shrink());
     },

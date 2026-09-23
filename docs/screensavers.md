@@ -28,7 +28,7 @@ The **Widgets** configuration group sits directly beneath the mode settings, all
 
 ### Weather Mood
 
-Choose **Weather Mood** and open its subpage to pick a Home Assistant `weather.*` entity. Animated skies follow all 15 Home Assistant weather conditions, including rain, snow, fog, hail, wind and thunderstorms. The scene changes between day and night using `sun.sun`. If that entity is unavailable, local time supplies daytime from 6 AM to 6 PM.
+Choose **Weather Mood** and open its subpage to pick a Home Assistant `weather.*` entity. Animated skies follow all 15 Home Assistant weather conditions, including rain, snow, fog, hail, wind and thunderstorms. The scene changes between day, dawn/dusk and night using `sun.sun`. Soft peach tones fade in near the horizon while the upper sky stays blue. The warmth reaches full strength between -2 and +2 degrees and fades out at -6 and +6 degrees. If elevation is unavailable, local time supplies dawn/dusk from 5:30 to 6:30 AM and 5:30 to 6:30 PM. The sun state still controls day and night when available. Otherwise daytime runs from 6 AM to 6 PM.
 
 Use **Scene blur** in the main group to soften the weather scene from 0 to 30 pixels. The clock, weather bar, widgets and At a Glance pills stay sharp.
 

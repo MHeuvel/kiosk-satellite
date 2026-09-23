@@ -10068,7 +10068,7 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get settingScreensaverWeatherEntityDescription =>
-      'La entidad meteorológica de Home Assistant que controla la escena animada. El día y la noche siguen a sun.sun, con la hora local como alternativa.';
+      'La entidad meteorológica de Home Assistant que controla la escena animada. El día, el amanecer/atardecer y la noche siguen sun.sun, con la hora local como alternativa.';
 
   @override
   String get settingScreensaverWeatherLightningTitle =>
@@ -10105,7 +10105,7 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get settingScreensaverWeatherPreviewPeriodDescription =>
-      'Selecciona la versión diurna o nocturna de la escena.';
+      'Elige la versión de día, amanecer/atardecer o noche de la escena.';
 
   @override
   String get screensaverWeatherPreviewSunny => 'Despejado';
@@ -10215,6 +10215,9 @@ class UiStringsEs extends UiStrings {
   @override
   String get settingScreensaverWeatherBlurDescription =>
       'Suavizar la escena meteorológica animada manteniendo nítidos el reloj, la barra del tiempo y los widgets.';
+
+  @override
+  String get screensaverWeatherPreviewTwilight => 'Amanecer/Atardecer';
 
   @override
   String get settingScreensaverWebsiteUrlTitle => 'URL del sitio web';
