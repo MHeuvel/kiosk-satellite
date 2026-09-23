@@ -37,9 +37,10 @@ Future<Uint8List> screenOffPlaceholder({int width = 1280}) async {
   return bytes!.buffer.asUint8List();
 }
 
-/// What the display is actually showing — WebView, menus, screensaver and
-/// all — captured natively via PixelCopy on a background thread (see
-/// ScreenCapture.kt). Null when there is no live Activity window (the app is
+/// What the display is actually showing, including the WebView, menus and
+/// screensaver, captured via PixelCopy from the active Flutter surface or
+/// the composed Android window on a background thread (see ScreenCapture.kt).
+/// Null when there is no live Activity window (the app is
 /// backgrounded), on Android < 8, or when the platform declines; callers
 /// fall back to the WebView's own main-thread, page-only capture.
 class ScreenCapture {

@@ -7,13 +7,17 @@ import android.os.Handler
 import android.os.HandlerThread
 import android.os.Looper
 import android.view.PixelCopy
+import android.view.View
+import android.view.ViewGroup
+import io.flutter.embedding.android.FlutterSurfaceView
+import io.flutter.embedding.android.FlutterView
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodChannel
 import java.io.ByteArrayOutputStream
 
 /**
- * Captures what the window is actually showing — WebView, menus, screensaver
- * and all — via [PixelCopy]: a GPU blit from the composited surface that
+ * Captures the active Flutter surface or the composed Android window via
+ * [PixelCopy], including the WebView, menus and screensaver. The GPU copy
  * never draws on the main thread. The WebView plugin's takeScreenshot renders
  * the view hierarchy into a bitmap *on* the UI thread, which the remote
  * admin's auto-refresh turned into a visible stutter every few seconds.
@@ -24,7 +28,7 @@ import java.io.ByteArrayOutputStream
  *
  * Activity-scoped (a window is required): registered and torn down by
  * MainActivity alongside the other Activity bridges. Returns null rather
- * than failing when there is nothing to capture — the Dart side falls back
+ * than failing when there is nothing to capture. The Dart side falls back
  * to the WebView's own page capture.
  */
 class ScreenCapture(
@@ -65,27 +69,66 @@ class ScreenCapture(
             result.success(null)
             return
         }
-        val w = width.coerceIn(16, view.width)
-        val h = (view.height.toLong() * w / view.width).toInt().coerceAtLeast(16)
+        // Hybrid composition puts Flutter and the WebView in the window.
+        // Once Weather Mood hides the dashboard, Flutter returns to its
+        // separate SurfaceView. Copying the window then succeeds with black.
+        val flutterSurface = flutterScreenshotSurface(view)
+        if (flutterSurface != null && !flutterSurface.holder.surface.isValid) {
+            result.success(null)
+            return
+        }
+        val source = flutterSurface ?: view
+        val w = width.coerceIn(16, source.width.coerceAtLeast(16))
+        val h = (source.height.toLong() * w / source.width).toInt().coerceAtLeast(16)
         val bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
         val main = Handler(Looper.getMainLooper())
         try {
-            PixelCopy.request(window, bitmap, { status ->
+            val copied = PixelCopy.OnPixelCopyFinishedListener { status ->
                 // On the capture thread: encode here, answer on the platform
                 // thread (MethodChannel results must come from there).
                 if (status != PixelCopy.SUCCESS) {
                     bitmap.recycle()
                     main.post { result.success(null) }
-                    return@request
+                    return@OnPixelCopyFinishedListener
                 }
                 val out = ByteArrayOutputStream()
                 bitmap.compress(Bitmap.CompressFormat.JPEG, quality.coerceIn(1, 100), out)
                 bitmap.recycle()
                 main.post { result.success(out.toByteArray()) }
-            }, handler)
+            }
+            if (flutterSurface != null) {
+                PixelCopy.request(flutterSurface, bitmap, copied, handler)
+            } else {
+                PixelCopy.request(window, bitmap, copied, handler)
+            }
         } catch (_: Exception) {
             bitmap.recycle()
             result.success(null)
         }
     }
+}
+
+/** Select the standalone Flutter surface only while it supplies the picture.
+ * During hybrid composition and its transition back, the visible image
+ * surface belongs to the window and must be captured with the platform views.
+ */
+internal fun flutterScreenshotSurface(root: View): FlutterSurfaceView? {
+    if (!root.isShown || root.alpha <= 0f) return null
+    if (root is FlutterView) {
+        val image = root.currentImageSurface
+        if (image != null && image.isShown && image.alpha > 0f) return null
+        for (index in 0 until root.childCount) {
+            val child = root.getChildAt(index)
+            if (child is FlutterSurfaceView && child.isShown && child.alpha > 0f &&
+                child.width > 0 && child.height > 0
+            ) return child
+        }
+        return null
+    }
+    if (root is ViewGroup) {
+        for (index in 0 until root.childCount) {
+            flutterScreenshotSurface(root.getChildAt(index))?.let { return it }
+        }
+    }
+    return null
 }

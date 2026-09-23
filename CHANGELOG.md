@@ -14,6 +14,9 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 - **Clearer weather temperatures and larger widget details.** The Weather widget shows the apparent temperature on a separate localized Feels like line. Its Feels like only option labels the apparent reading beneath its value. The Weather Mood bar uses a single temperature and its Feels like toggle substitutes the apparent reading when available. Weather widget conditions, readings and icons are larger relative to the temperature and the Clock widget date is larger.
 - **Weather Mood is easier to read.** Partly cloudy scenes have slightly more cloud coverage and soft silver linings from the sun or moon. The sun and moon sit farther right and the moon has a soft bloom. The sun is larger with the same soft edges. The clock and date sit closer together and use the same color. The weather readings form a group at the right edge of the bar, with wider gaps that adapt to the screen width. Larger titles sit centered above their readings and use fully opaque text. The bar defaults to white text without a drop shadow over a 50% opaque black background and uses reduced vertical padding. A localized Scene blur slider softens only the animated background.
 
+### Fixed
+- **Fresh screenshots show Weather Mood.** Overview captures Flutter's active surface after the dashboard stops rendering behind Weather Mood. Refreshing the preview no longer returns a black image while the screensaver remains visible on the device.
+
 ## v2026.9.77 - 2026-09-22
 
 ### Changed
