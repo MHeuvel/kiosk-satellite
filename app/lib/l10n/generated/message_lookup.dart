@@ -3305,6 +3305,8 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingScreensaverWeatherBlurDescription,
       'screensaverWeatherPreviewTwilight' =>
         strings.screensaverWeatherPreviewTwilight,
+      'screensaverWeatherBarFeelsLikeDescription' =>
+        strings.screensaverWeatherBarFeelsLikeDescription,
       'settingScreensaverWebsiteUrlTitle' =>
         strings.settingScreensaverWebsiteUrlTitle,
       'settingScreensaverWebsiteUrlDescription' =>

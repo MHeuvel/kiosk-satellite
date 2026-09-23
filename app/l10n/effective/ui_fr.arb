@@ -37803,6 +37803,19 @@
       ]
     }
   },
+  "screensaverWeatherBarFeelsLikeDescription": "Affiche la température ressentie à la place de la température réelle lorsqu’elle est disponible.",
+  "@screensaverWeatherBarFeelsLikeDescription": {
+    "context": "Settings:Screensaver:Weather Mood screensaver:Weather information",
+    "description": "Help for the weather bar Feels like toggle. The bar shows one temperature without a separate label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver > Weather information"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver > Weather information"
+      ]
+    }
+  },
   "settingScreensaverWebsiteUrlTitle": "URL du site web",
   "@settingScreensaverWebsiteUrlTitle": {
     "context": "Settings:Screensaver:Website screensaver",

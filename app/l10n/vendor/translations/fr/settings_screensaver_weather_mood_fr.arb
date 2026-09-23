@@ -48,5 +48,6 @@
   "screensaverWeatherBarVisibilityDescription": "Afficher la visibilité lorsque l’entité météo la fournit.",
   "settingScreensaverWeatherBlurTitle": "Flou de la scène",
   "settingScreensaverWeatherBlurDescription": "Adoucir la scène météo animée tout en gardant l’horloge, la barre météo et les widgets nets.",
-  "screensaverWeatherPreviewTwilight": "Aube/Crépuscule"
+  "screensaverWeatherPreviewTwilight": "Aube/Crépuscule",
+  "screensaverWeatherBarFeelsLikeDescription": "Affiche la température ressentie à la place de la température réelle lorsqu’elle est disponible."
 }

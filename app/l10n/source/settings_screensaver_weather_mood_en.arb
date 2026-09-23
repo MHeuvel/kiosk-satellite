@@ -628,5 +628,18 @@
         "Screensaver > Weather Mood screensaver > Weather Preview"
       ]
     }
+  },
+  "screensaverWeatherBarFeelsLikeDescription": "Show the apparent temperature instead of the actual temperature when available.",
+  "@screensaverWeatherBarFeelsLikeDescription": {
+    "context": "Settings:Screensaver:Weather Mood screensaver:Weather information",
+    "description": "Help for the weather bar Feels like toggle. The bar shows one temperature without a separate label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver > Weather information"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver > Weather information"
+      ]
+    }
   }
 }

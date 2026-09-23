@@ -19741,5 +19741,11 @@
     "translation": "de3d992556d6c91c291dd50af0c46e433b18785158201a9aa6107914eba90ea6",
     "author": "Xavier Larrea",
     "ownerAuthored": true
+  },
+  "screensaverWeatherBarFeelsLikeDescription": {
+    "source": "40176df1c149d06cb6d5e116aebd632d509e6a1e214dd490e290e65e48541f55",
+    "translation": "5b6ece37aa8c39cc959488b13dc17c13865cff5b9c2e3182abfa056e781eddcd",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
   }
 }

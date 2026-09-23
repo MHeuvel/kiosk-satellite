@@ -49,8 +49,8 @@ void main() {
         expect(mood.options, clock.options);
         expect(mood.optionMessageIds, clock.optionMessageIds);
       }
-      expect(defs.screensaverWeatherClock.defaultValue, false);
-      expect(defs.screensaverWeatherBar.defaultValue, false);
+      expect(defs.screensaverWeatherClock.defaultValue, true);
+      expect(defs.screensaverWeatherBar.defaultValue, true);
       expect(defs.screensaverWeatherClockShadow.defaultValue, true);
     },
   );
@@ -71,28 +71,16 @@ void main() {
       r.update({
         'attributes': {'apparent_temperature': 24.7},
       });
-      expect(
-        r.temperature(feelsLike: true, feelsLikeOnly: false)?.primary,
-        '22°C',
-      );
-      expect(
-        r.temperature(feelsLike: true, feelsLikeOnly: true)?.primary,
-        '25°C',
-      );
+      expect(r.temperature(feelsLike: false), '22°C');
+      expect(r.temperature(feelsLike: true), '25°C');
       r.update({
         'attributes': {'apparent_temperature': 22.4},
       });
-      expect(
-        r.temperature(feelsLike: true, feelsLikeOnly: false)?.apparent,
-        '22°C',
-      );
+      expect(r.temperature(feelsLike: true), '22°C');
       r.update({
         'attributes': {'apparent_temperature': null, 'visibility': double.nan},
       });
-      expect(
-        r.temperature(feelsLike: true, feelsLikeOnly: true)?.primary,
-        '22°C',
-      );
+      expect(r.temperature(feelsLike: true), '22°C');
       expect(r.number('visibility'), isNull);
       expect(r.reading(r.number('wind_speed')!, 'wind_speed_unit'), '12 km/h');
       r.update({'state': 'unavailable'});
@@ -103,7 +91,10 @@ void main() {
     testWidgets('clock and bar controls reveal and save in $language', (
       tester,
     ) async {
-      final c = await container();
+      final c = await container({
+        'ks.screensaver.weather_clock': false,
+        'ks.screensaver.weather_bar': false,
+      });
       tester.view.physicalSize = const Size(1000, 6000);
       tester.view.devicePixelRatio = 1;
       addTearDown(tester.view.reset);
@@ -161,6 +152,14 @@ void main() {
         find.text(strings.settingScreensaverWidgetTextShadowTitle),
         findsNWidgets(2),
       );
+      expect(find.text(strings.screensaverOverlayFeelsLikeOnly), findsNothing);
+      expect(
+        find.text(strings.screensaverWeatherBarFeelsLikeDescription),
+        findsOneWidget,
+      );
+      await tester.tap(find.text(strings.screensaverOverlayFeelsLike));
+      await tester.pumpAndSettle();
+      expect(c.settings.get(defs.screensaverWeatherBarFeelsLike), true);
       await tester.tap(find.text(strings.settingScreensaverWeatherClockTitle));
       await tester.pumpAndSettle();
       expect(
@@ -243,14 +242,15 @@ void main() {
           reason: '$size, $scale, $locale',
         );
         expect(find.byType(DigitalClockFace), findsOneWidget);
-        expect(find.text('26°C'), findsOneWidget);
+        expect(find.text('29°C'), findsOneWidget);
+        expect(find.text('26°C'), findsNothing);
         expect(
           find.text(
             lookupUiStrings(
               Locale(locale),
             ).screensaverWeatherFeelsLikeValue('29°C'),
           ),
-          findsOneWidget,
+          findsNothing,
         );
         expect(
           find.text(

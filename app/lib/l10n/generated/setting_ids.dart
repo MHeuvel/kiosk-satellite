@@ -1514,11 +1514,7 @@ const settingMessageIds = <String, Map<String, String>>{
   },
   "screensaver.weather_bar_feels_like": {
     "title": "screensaverOverlayFeelsLike",
-    "description": "screensaverOverlayFeelsLikeHelp",
-  },
-  "screensaver.weather_bar_feels_like_only": {
-    "title": "screensaverOverlayFeelsLikeOnly",
-    "description": "screensaverOverlayFeelsLikeOnlyHelp",
+    "description": "screensaverWeatherBarFeelsLikeDescription",
   },
   "screensaver.weather_bar_forecast": {
     "title": "screensaverOverlayForecast",

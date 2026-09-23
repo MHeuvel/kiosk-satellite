@@ -108,7 +108,8 @@ try:
                         options=list(choices), optionMessageIds={k:v for k,v in choices.items() if v},
                         optionLabels={value: english[identifier] if identifier else value.capitalize() for value, identifier in choices.items()})
             for suffix, value, kind in [('scale',100,'number'), ('opacity',50,'number'),
-                                        ('color','255,255,255','string'), ('shadow',False,'boolean')]:
+                                        ('color','255,255,255','string'), ('shadow',False,'boolean'),
+                                        ('feels_like',False,'boolean')]:
                 setting('screensaver.weather_bar_'+suffix, value, kind,
                         subpage='Weather Mood screensaver', section='Weather information',
                         dependsOn='screensaver.weather_bar', dependsOnValue=True,
@@ -187,6 +188,13 @@ try:
                 bar.click()
             expect(root.locator('[data-key="screensaver.weather_bar_scale"] .name')).to_have_text(strings['settingScreensaverWeatherBarScaleTitle'])
             expect(root.locator('.card-title', has_text=strings['screensaverWeatherBarGroup'])).to_be_visible()
+            feels_like = root.locator('[data-key="screensaver.weather_bar_feels_like"]')
+            expect(feels_like).to_contain_text(strings['screensaverWeatherBarFeelsLikeDescription'])
+            with page.expect_response('**/api/settings'):
+                feels_like.locator('.switch').click()
+            assert {'screensaver.weather_bar_feels_like': True} in requests
+            assert 'screensaver.weather_bar_feels_like_only' not in mapping
+
             with page.expect_response('**/api/settings'):
                 clock.click()
             expect(font).to_have_count(0)

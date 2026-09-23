@@ -48,5 +48,6 @@
   "screensaverWeatherBarVisibilityDescription": "Mostrar la visibilidad cuando la entidad meteorológica la proporcione.",
   "settingScreensaverWeatherBlurTitle": "Desenfoque de la escena",
   "settingScreensaverWeatherBlurDescription": "Suavizar la escena meteorológica animada manteniendo nítidos el reloj, la barra del tiempo y los widgets.",
-  "screensaverWeatherPreviewTwilight": "Amanecer/Atardecer"
+  "screensaverWeatherPreviewTwilight": "Amanecer/Atardecer",
+  "screensaverWeatherBarFeelsLikeDescription": "Muestra la sensación térmica en lugar de la temperatura real cuando está disponible."
 }

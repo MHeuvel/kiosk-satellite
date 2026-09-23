@@ -48,5 +48,6 @@
   "screensaverWeatherBarVisibilityDescription": "Die Sichtweite anzeigen, wenn die Wetterentität sie meldet.",
   "settingScreensaverWeatherBlurTitle": "Szenenunschärfe",
   "settingScreensaverWeatherBlurDescription": "Die animierte Wetterszene weichzeichnen, während Uhr, Wetterleiste und Widgets scharf bleiben.",
-  "screensaverWeatherPreviewTwilight": "Morgen-/Abenddämmerung"
+  "screensaverWeatherPreviewTwilight": "Morgen-/Abenddämmerung",
+  "screensaverWeatherBarFeelsLikeDescription": "Zeigt die gefühlte Temperatur anstelle der tatsächlichen Temperatur, sofern verfügbar."
 }

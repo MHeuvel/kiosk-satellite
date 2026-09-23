@@ -10011,6 +10011,10 @@ class UiStringsEn extends UiStrings {
   String get screensaverWeatherPreviewTwilight => 'Dawn/Dusk';
 
   @override
+  String get screensaverWeatherBarFeelsLikeDescription =>
+      'Show the apparent temperature instead of the actual temperature when available.';
+
+  @override
   String get settingScreensaverWebsiteUrlTitle => 'Website URL';
 
   @override

@@ -17388,6 +17388,12 @@ abstract class UiStrings {
   /// **'Dawn/Dusk'**
   String get screensaverWeatherPreviewTwilight;
 
+  /// Help for the weather bar Feels like toggle. The bar shows one temperature without a separate label.
+  ///
+  /// In en, this message translates to:
+  /// **'Show the apparent temperature instead of the actual temperature when available.'**
+  String get screensaverWeatherBarFeelsLikeDescription;
+
   /// Setting label.
   ///
   /// In en, this message translates to:

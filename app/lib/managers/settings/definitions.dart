@@ -1786,7 +1786,7 @@ const screensaverWeatherBlur = SettingDef<num>(
 const screensaverWeatherClock = SettingDef<bool>(
   key: 'screensaver.weather_clock',
   type: SettingType.boolean,
-  defaultValue: false,
+  defaultValue: true,
   title: "Enable clock",
   description: "Show a digital clock over the weather scene.",
   category: 'Screensaver',
@@ -1895,7 +1895,7 @@ const screensaverWeatherClockShadow = SettingDef<bool>(
 const screensaverWeatherBar = SettingDef<bool>(
   key: 'screensaver.weather_bar',
   type: SettingType.boolean,
-  defaultValue: false,
+  defaultValue: true,
   title: "Enable weather bar",
   description: "Show live weather information along the bottom of the screen.",
   category: 'Screensaver',
@@ -1982,20 +1982,7 @@ const screensaverWeatherBarFeelsLike = SettingDef<bool>(
   defaultValue: false,
   title: "Feels like",
   description:
-      "Show the apparent temperature on a labeled line below the actual temperature.",
-  category: 'Screensaver',
-  section: 'Weather information',
-  subpage: 'Weather Mood screensaver',
-  dependsOn: 'screensaver.weather_bar',
-);
-
-const screensaverWeatherBarFeelsLikeOnly = SettingDef<bool>(
-  key: 'screensaver.weather_bar_feels_like_only',
-  type: SettingType.boolean,
-  defaultValue: false,
-  title: "Feels like only",
-  description:
-      "Show the apparent temperature with a Feels like label instead of the actual temperature.",
+      "Show the apparent temperature instead of the actual temperature when available.",
   category: 'Screensaver',
   section: 'Weather information',
   subpage: 'Weather Mood screensaver',
@@ -8168,7 +8155,6 @@ const List<SettingDef<Object>> allSettings = [
   screensaverWeatherBarShadow,
   screensaverWeatherBarLocation,
   screensaverWeatherBarFeelsLike,
-  screensaverWeatherBarFeelsLikeOnly,
   screensaverWeatherBarForecast,
   screensaverWeatherBarHumidity,
   screensaverWeatherBarWind,

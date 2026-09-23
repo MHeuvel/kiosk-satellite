@@ -75,14 +75,12 @@ class WeatherMoodReadings {
     return unit.isEmpty ? '${value.round()}' : '${value.round()} $unit';
   }
 
-  WeatherTemperatureReading? temperature({
-    required bool feelsLike,
-    required bool feelsLikeOnly,
-  }) => WeatherTemperatureReading.fromAttributes(
-    attributes,
-    feelsLike: feelsLike,
-    feelsLikeOnly: feelsLikeOnly,
-  );
+  String? temperature({required bool feelsLike}) =>
+      WeatherTemperatureReading.fromAttributes(
+        attributes,
+        feelsLike: false,
+        feelsLikeOnly: feelsLike,
+      )?.primary;
 }
 
 /// Static text repaints independently of the animated GPU background.
@@ -341,7 +339,6 @@ class WeatherMoodBar extends StatelessWidget {
         weatherMoodConditionText(context, readings.condition);
     final temperature = readings.temperature(
       feelsLike: s.get(defs.screensaverWeatherBarFeelsLike),
-      feelsLikeOnly: s.get(defs.screensaverWeatherBarFeelsLikeOnly),
     );
     final forecast = s.get(defs.screensaverWeatherBarForecast);
     final horizontalHeader = Row(
@@ -359,13 +356,9 @@ class WeatherMoodBar extends StatelessWidget {
           Flexible(
             child: FittedBox(
               fit: BoxFit.scaleDown,
-              child: WeatherTemperature(
-                reading: temperature,
-                primaryStyle: style(
-                  42,
-                  weight: FontWeight.w300,
-                ).copyWith(height: 1),
-                secondaryStyle: style(20),
+              child: Text(
+                temperature,
+                style: style(42, weight: FontWeight.w300),
               ),
             ),
           ),
@@ -417,13 +410,9 @@ class WeatherMoodBar extends StatelessWidget {
                       child: FittedBox(
                         fit: BoxFit.scaleDown,
                         alignment: Alignment.centerLeft,
-                        child: WeatherTemperature(
-                          reading: temperature,
-                          primaryStyle: style(
-                            42,
-                            weight: FontWeight.w300,
-                          ).copyWith(height: 1),
-                          secondaryStyle: style(20),
+                        child: Text(
+                          temperature,
+                          style: style(42, weight: FontWeight.w300),
                         ),
                       ),
                     ),

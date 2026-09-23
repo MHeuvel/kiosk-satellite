@@ -16288,5 +16288,10 @@
     "source": "b42965b441cff79d251f861da2fbbcb73384064f15688094bfb4d1ddd9461507",
     "translation": "2f83abdff431241e3a95b68bc7bc58be962bab1b87e22466744a171e0d953fec",
     "author": "Xavier Larrea"
+  },
+  "screensaverWeatherBarFeelsLikeDescription": {
+    "source": "40176df1c149d06cb6d5e116aebd632d509e6a1e214dd490e290e65e48541f55",
+    "translation": "503d033eaefe124ffc8c27c5721b0a4ed235d79d9af13009cc97f8e0fd1f841e",
+    "author": "Xavier Larrea"
   }
 }

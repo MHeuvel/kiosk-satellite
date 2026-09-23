@@ -10214,6 +10214,10 @@ class UiStringsFr extends UiStrings {
   String get screensaverWeatherPreviewTwilight => 'Aube/Crépuscule';
 
   @override
+  String get screensaverWeatherBarFeelsLikeDescription =>
+      'Affiche la température ressentie à la place de la température réelle lorsqu’elle est disponible.';
+
+  @override
   String get settingScreensaverWebsiteUrlTitle => 'URL du site web';
 
   @override
