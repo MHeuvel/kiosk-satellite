@@ -44,6 +44,8 @@
 
 <p align="center">
   <a href="assets/screenshots/screensaver-np.png"><img src="assets/screenshots/screensaver-np.png" alt="Settings in Kiosk Satellite" width="650" /></a>
+  <a href="assets/screenshots/clock_flip.png"><img src="assets/screenshots/clock_flip.png" alt="Flip Clock Screensaver in  Kiosk Satellite" width="320" /></a>
+  <a href="assets/screenshots/weather_cloudy.png"><img src="assets/screenshots/weather_cloudy.png" alt="Weather Mood Screensaver in Kiosk Satellite" width="320" /></a>
 </p>
 
 &bull; **Screensavers:** [Immich albums](https://kiosksatellite.com/docs/immich/), local photos and clocks, with motion, face or presence detection to wake the kiosk.
