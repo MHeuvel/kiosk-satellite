@@ -48,7 +48,7 @@
   <a href="assets/screenshots/weather_cloudy.png"><img src="assets/screenshots/weather_cloudy.png" alt="Weather Mood Screensaver in Kiosk Satellite" width="320" /></a>
 </p>
 
-&bull; **Screensavers:** [Immich albums](https://kiosksatellite.com/docs/immich/), local photos and clocks, with motion, face or presence detection to wake the kiosk.
+&bull; **Screensavers:** [Immich albums](https://kiosksatellite.com/docs/immich/), local photos, clocks and weather mood, with motion, face or presence detection to wake the kiosk.
 
 &bull; **Home Assistant integration:** The built-in [ESPHome connection](https://kiosksatellite.com/docs/esphome/) exposes screen controls, volume and device sensors. An optional Bluetooth proxy relays nearby Bluetooth devices to Home Assistant.
 
