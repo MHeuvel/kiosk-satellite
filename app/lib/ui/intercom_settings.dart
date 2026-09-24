@@ -1792,8 +1792,8 @@ class _Disc extends StatelessWidget {
 }
 
 /// Push to talk: one wide pill held down for as long as the kiosk should
-/// send. Held, it fills primary with a soft ring around it; the line
-/// under the name says who hears you.
+/// send. Idle, it fills primary. Held, it uses a tinted fill, outline and
+/// soft ring. The line under the name says who hears you.
 class _TalkPill extends StatelessWidget {
   const _TalkPill({
     required this.held,
@@ -1812,7 +1812,7 @@ class _TalkPill extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    final fg = held ? scheme.onPrimary : scheme.onSurface;
+    final fg = held ? scheme.onPrimaryContainer : scheme.onPrimary;
     return Listener(
       onPointerDown: (_) => onDown(),
       onPointerUp: (_) => onUp(),
@@ -1822,9 +1822,9 @@ class _TalkPill extends StatelessWidget {
         width: width,
         height: compact ? 60 : 96,
         decoration: BoxDecoration(
-          color: held ? scheme.primary : scheme.surfaceContainerHighest,
+          color: held ? scheme.primaryContainer : scheme.primary,
           borderRadius: BorderRadius.circular(999),
-          border: held ? null : Border.all(color: scheme.outlineVariant),
+          border: held ? Border.all(color: scheme.primary) : null,
           boxShadow: held
               ? [
                   BoxShadow(
