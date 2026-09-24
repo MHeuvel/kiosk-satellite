@@ -22,6 +22,14 @@ A browser may ask you to accept the self-signed certificate. You may also need t
 
 **Encrypt stream** in the **TLS** group works with both streaming protocols. In RTSP mode it changes the stream to `rtsps://DEVICE_IP:8554/camera`, using your configured streaming port. Commands, video and audio travel through TLS. Use a viewer that supports RTSPS with interleaved TCP media.
 
+VLC 3.0.x, including 3.0.23, cannot open `rtsps://` URLs. VideoLAN lists RTSP over TLS under its [VLC 4.0 development changes](https://github.com/videolan/vlc/blob/master/NEWS). For encrypted playback, use an FFmpeg build with TLS support:
+
+```sh
+ffplay -rtsp_transport tcp "rtsps://DEVICE_IP:8554/camera"
+```
+
+To use VLC 3.0.x, turn off **Encrypt stream** and open the `rtsp://` address instead. That connection is unencrypted. Changing only the URL scheme while encryption is enabled will not work.
+
 In ONVIF mode the service URL becomes `https://DEVICE_IP:8080/onvif/device_service` and the media profile returns `rtsps://DEVICE_IP:8080/camera`. Both use the configured ONVIF port. Discovery advertises the HTTPS address. WS-Discovery itself still uses unencrypted UDP multicast on port 3702 and carries device metadata, not video or audio.
 
 The viewer must support HTTPS ONVIF services and RTSPS media and accept the device certificate. Clients that only support HTTP or plain RTSP cannot connect while encryption is enabled. RTSP tunneling over HTTP or HTTPS is not supported. Camera authentication remains a separate setting. Changing Remote Administration encryption does not change camera streaming.

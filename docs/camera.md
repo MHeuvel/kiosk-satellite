@@ -177,6 +177,8 @@ The remote admin's Camera tab mirrors every setting available on the device and 
 
 In RTSP mode, **Encrypt stream** under **Camera > RTSP & ONVIF Streaming** changes the stream URL to `rtsps://DEVICE_IP:8554/camera`, using your configured port. Commands and interleaved video and audio all travel through TLS. Keep the viewer configured for TCP. Authentication remains a separate setting. Without authentication, anyone who can connect can still request the encrypted stream.
 
+VLC 3.0.x supports the unencrypted RTSP stream but cannot open RTSPS URLs. See [TLS viewer compatibility](tls.md#camera-streaming) for an encrypted playback example with FFplay.
+
 HTTPS and RTSPS use the same certificate. Manage it under **Device > TLS**, even when remote administration is off. Clients must support RTSPS and trust the certificate or verify its fingerprint. Certificate renewal or replacement disconnects encrypted viewers so they can reconnect with the new certificate. A certificate failure stops encrypted streaming instead of falling back to RTSP.
 
 In ONVIF mode, the same switch enables HTTPS for the ONVIF service and RTSPS for its media stream. Both use the configured ONVIF port, 8080 by default. Discovery advertises the HTTPS service address. WS-Discovery metadata remains unencrypted on UDP port 3702. The viewer must support HTTPS ONVIF and RTSPS and accept the device certificate. RTSP tunneling over HTTP or HTTPS is not supported. The stream status and copied URL show the active protocol.
