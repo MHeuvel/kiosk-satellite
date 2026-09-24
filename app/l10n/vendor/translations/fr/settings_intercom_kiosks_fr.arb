@@ -1,7 +1,7 @@
 {
   "@@locale": "fr",
   "intercomKiosks": "Kiosques",
-  "intercomRosterHelp": "Kiosques détectés et membres de flotte enregistrés. Un kiosque est prêt lorsqu'il est joignable, que son interphone est activé et qu'il utilise la même clé.",
+  "intercomRosterHelp": "Kiosques détectés et membres enregistrés de la flotte. Un kiosque est prêt lorsqu’il est joignable, que l’intercom est activé et qu’il utilise la même clé et les mêmes paramètres de chiffrement.",
   "intercomNoOther": "Aucun autre kiosque trouvé",
   "intercomRosterDeviceHelp": "Les kiosques avec Gestion à distance et Trouver d'autres kiosques activés apparaissent ici.",
   "intercomNoneHeard": "Aucun kiosque trouvé",

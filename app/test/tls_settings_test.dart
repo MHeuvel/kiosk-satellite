@@ -108,77 +108,111 @@ void main() {
     );
   }
 
-  for (final brightness in Brightness.values) {
-    testWidgets(
-      'TLS controls and import dialog fit a narrow $brightness screen',
-      (tester) async {
-        tester.view.physicalSize = const Size(360, 800);
-        tester.view.devicePixelRatio = 1;
-        addTearDown(tester.view.reset);
-        SharedPreferences.setMockInitialValues({
-          'ks.camera.enabled': true,
-          'ks.camera.rtsp.enabled': true,
-        });
-        final container = AppContainer();
-        await container.settings.init();
-        container.commands.register(
-          Command(
-            name: 'tlsCertificate',
-            description: '',
-            handler: (_) async => CommandResult.ok({
-              'certificate': 'public certificate',
-              'fingerprint': 'abcdef01' * 8,
-              'expires': '2027-09-23T12:00:00Z',
-              'imported': false,
-              'expired': false,
-            }),
-          ),
-        );
-        addTearDown(() async {
-          await container.settings.dispose();
-          await container.bus.dispose();
-          await container.log.dispose();
-        });
-        await tester.pumpWidget(
-          MaterialApp(
-            theme: buildTheme(brightness),
-            localizationsDelegates: UiStrings.localizationsDelegates,
-            supportedLocales: UiStrings.supportedLocales,
-            home: SubpageSettingsScreen(
-              container: container,
-              category: 'Device',
-              subpage: 'TLS',
+  for (final locale in UiStrings.supportedLocales) {
+    final strings = lookupUiStrings(locale);
+    for (final brightness in Brightness.values) {
+      testWidgets(
+        'TLS controls and import dialog fit a narrow $brightness screen in $locale',
+        (tester) async {
+          tester.view.physicalSize = const Size(360, 800);
+          tester.view.devicePixelRatio = 1;
+          addTearDown(tester.view.reset);
+          SharedPreferences.setMockInitialValues({
+            'ks.camera.enabled': true,
+            'ks.camera.rtsp.enabled': true,
+          });
+          final container = AppContainer();
+          await container.settings.init();
+          container.commands.register(
+            Command(
+              name: 'importTlsCertificate',
+              description: '',
+              handler: (_) async => const CommandResult.fail(
+                'PlatformException(tls, Certificate and private key do not match., null, null)',
+              ),
             ),
-          ),
-        );
-        await tester.pumpAndSettle();
-        expect(find.text('Certificate type'), findsOneWidget);
-        expect(find.textContaining('2027'), findsOneWidget);
-        expect(find.text('Trusted kiosks'), findsNothing);
-        expect(find.text('Use HTTPS'), findsNothing);
-        expect(find.text('Encrypt stream'), findsNothing);
-        expect(find.text('Certificate'), findsNothing);
-        expect(find.text('Certificate Management'), findsOneWidget);
-        expect(
-          find.text('HTTPS and encrypted RTSP share this certificate.'),
-          findsNothing,
-        );
-        expect(tester.takeException(), isNull);
-        await tester.ensureVisible(find.text('Import certificate'));
-        await tester.pumpAndSettle();
-        await tester.tap(find.text('Import certificate'));
-        await tester.pumpAndSettle();
-        expect(find.byType(AlertDialog), findsOneWidget);
-        expect(find.byType(TextFormField), findsNWidgets(2));
-        expect(find.widgetWithText(FilledButton, 'Import'), findsOneWidget);
-        expect(tester.takeException(), isNull);
-        await tester.tap(find.widgetWithText(FilledButton, 'Import'));
-        await tester.pumpAndSettle();
-        expect(find.text('This field is required.'), findsNWidgets(2));
-        expect(tester.takeException(), isNull);
-        await tester.tap(find.widgetWithText(TextButton, 'Cancel'));
-        await tester.pumpAndSettle();
-      },
-    );
+          );
+          container.commands.register(
+            Command(
+              name: 'tlsCertificate',
+              description: '',
+              handler: (_) async => CommandResult.ok({
+                'certificate': 'public certificate',
+                'fingerprint': 'abcdef01' * 8,
+                'expires': '2027-09-23T12:00:00Z',
+                'imported': false,
+                'expired': false,
+              }),
+            ),
+          );
+          addTearDown(() async {
+            await container.settings.dispose();
+            await container.bus.dispose();
+            await container.log.dispose();
+          });
+          await tester.pumpWidget(
+            MaterialApp(
+              theme: buildTheme(brightness),
+              locale: locale,
+              localizationsDelegates: UiStrings.localizationsDelegates,
+              supportedLocales: UiStrings.supportedLocales,
+              home: SubpageSettingsScreen(
+                container: container,
+                category: 'Device',
+                subpage: 'TLS',
+              ),
+            ),
+          );
+          await tester.pumpAndSettle();
+          expect(find.text(strings.tlsCertificateType), findsOneWidget);
+          expect(find.textContaining('2027'), findsOneWidget);
+          expect(find.text('Trusted kiosks'), findsNothing);
+          expect(find.text('Use HTTPS'), findsNothing);
+          expect(find.text('Encrypt stream'), findsNothing);
+          expect(find.text('Certificate'), findsNothing);
+          expect(find.text(strings.tlsCertificateManagement), findsOneWidget);
+          expect(
+            find.text('HTTPS and encrypted RTSP share this certificate.'),
+            findsNothing,
+          );
+          expect(tester.takeException(), isNull);
+          await tester.ensureVisible(find.text(strings.tlsImportCertificate));
+          await tester.pumpAndSettle();
+          await tester.tap(find.text(strings.tlsImportCertificate));
+          await tester.pumpAndSettle();
+          expect(find.byType(AlertDialog), findsOneWidget);
+          expect(find.byType(TextFormField), findsNWidgets(2));
+          expect(
+            find.widgetWithText(FilledButton, strings.commonImport),
+            findsOneWidget,
+          );
+          expect(tester.takeException(), isNull);
+          await tester.tap(
+            find.widgetWithText(FilledButton, strings.commonImport),
+          );
+          await tester.pumpAndSettle();
+          expect(find.text(strings.tlsThisFieldIsRequired), findsNWidgets(2));
+          expect(tester.takeException(), isNull);
+          await tester.enterText(
+            find.byType(TextFormField).at(0),
+            'certificate',
+          );
+          await tester.enterText(
+            find.byType(TextFormField).at(1),
+            'private key',
+          );
+          await tester.tap(
+            find.widgetWithText(FilledButton, strings.commonImport),
+          );
+          await tester.pumpAndSettle();
+          expect(find.textContaining(strings.tlsKeyMismatch), findsOneWidget);
+          expect(tester.takeException(), isNull);
+          await tester.tap(
+            find.widgetWithText(TextButton, strings.commonCancel),
+          );
+          await tester.pumpAndSettle();
+        },
+      );
+    }
   }
 }

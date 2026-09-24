@@ -19,7 +19,7 @@
   "settingCameraRtspAudioTitle": "Incluir audio del micrófono",
   "settingCameraRtspAudioDescription": "Incluye audio del micrófono en la transmisión de la cámara. Usa la configuración del micrófono. ADVERTENCIA: Aumenta el consumo de CPU.",
   "settingCameraRtspAuthTitle": "Exigir autenticación",
-  "settingCameraRtspAuthDescription": "Exige un nombre de usuario y una contraseña para ver la transmisión. El tráfico de la transmisión no está cifrado.",
+  "settingCameraRtspAuthDescription": "Requiere un nombre de usuario y una contraseña para ver la transmisión. La autenticación no activa el cifrado.",
   "settingCameraRtspUsernameTitle": "Nombre de usuario",
   "settingCameraRtspUsernameDescription": "Nombre de usuario para los clientes de transmisión.",
   "settingCameraRtspPasswordTitle": "Contraseña",
@@ -42,5 +42,7 @@
   "settingCameraRtspDateTimeTitle": "Mostrar fecha y hora",
   "settingCameraRtspDateTimeDescription": "Muestra la fecha y hora del dispositivo en la esquina superior izquierda del video con su formato de fecha y de 12 o 24 horas.",
   "settingCameraRtspDateTimeBackgroundTitle": "Fondo negro",
-  "settingCameraRtspDateTimeBackgroundDescription": "Agrega un fondo negro detrás de la fecha y hora para facilitar la lectura."
+  "settingCameraRtspDateTimeBackgroundDescription": "Agrega un fondo negro detrás de la fecha y hora para facilitar la lectura.",
+  "settingCameraRtspTlsTitle": "Cifrar transmisión",
+  "settingCameraRtspTlsDescription": "Usa TLS para cifrar el video y el audio. Requiere un visor compatible."
 }

@@ -18,5 +18,7 @@
   "intercomCallerNoAnswer": "el kiosko que llama no respondió",
   "intercomMissedcall": "Llamada perdida",
   "intercomListening": "Escuchando",
-  "intercomAnnouncementsoff": "Anuncios desactivados"
+  "intercomAnnouncementsoff": "Anuncios desactivados",
+  "intercomEncryptionMismatch": "El cifrado no coincide",
+  "intercomEncryptionMismatchHelp": "El cifrado no coincide. Activa Cifrar comunicaciones en todos los kioscos de la llamada."
 }

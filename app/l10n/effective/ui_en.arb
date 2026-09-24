@@ -20231,6 +20231,66 @@
       ]
     }
   },
+  "tlsServerCertificateRequired": "Use a server certificate, not a CA certificate.",
+  "@tlsServerCertificateRequired": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsServerAuthenticationRequired": "Certificate does not allow server authentication.",
+  "@tlsServerAuthenticationRequired": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsKeyAlgorithmRequired": "Use an EC or RSA private key.",
+  "@tlsKeyAlgorithmRequired": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsKeyMismatch": "Certificate and private key do not match.",
+  "@tlsKeyMismatch": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsMaterialTooLarge": "Certificate or key is too large.",
+  "@tlsMaterialTooLarge": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsPemCertificatesRequired": "Expected PEM certificates.",
+  "@tlsPemCertificatesRequired": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsCertificateMissing": "No certificate found.",
+  "@tlsCertificateMissing": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsUnencryptedKeyRequired": "Use an unencrypted PEM private key.",
+  "@tlsUnencryptedKeyRequired": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsHostnameRequired": "A hostname or IP address is required.",
+  "@tlsHostnameRequired": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsIssuerRenewalRequired": "Import a renewed certificate from its issuer.",
+  "@tlsIssuerRenewalRequired": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsStoredIdentityDamaged": "Stored TLS identity is damaged.",
+  "@tlsStoredIdentityDamaged": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsExpiredCertificate": "The TLS certificate has expired. Renew or import its replacement.",
+  "@tlsExpiredCertificate": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
   "deviceHelperPage": "Optional update helper",
   "@deviceHelperPage": {
     "context": "Settings:Device:Optional update helper",

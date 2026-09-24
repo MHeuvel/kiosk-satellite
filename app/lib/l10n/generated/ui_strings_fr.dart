@@ -2102,11 +2102,11 @@ class UiStringsFr extends UiStrings {
   String get intercomAnnouncementsoff => 'Annonces désactivées';
 
   @override
-  String get intercomEncryptionMismatch => 'Encryption mismatch';
+  String get intercomEncryptionMismatch => 'Chiffrement incompatible';
 
   @override
   String get intercomEncryptionMismatchHelp =>
-      'Encryption mismatch. Enable Encrypt communications on all kiosks in the call.';
+      'Les paramètres de chiffrement ne correspondent pas. Activez Chiffrer les communications sur tous les kiosques participant à l’appel.';
 
   @override
   String get kioskBackClose =>
@@ -4001,7 +4001,7 @@ class UiStringsFr extends UiStrings {
 
   @override
   String get settingCameraRtspAuthDescription =>
-      'Require a username and password to view the stream. Authentication does not enable encryption.';
+      'Exige un nom d’utilisateur et un mot de passe pour regarder le flux. L’authentification n’active pas le chiffrement.';
 
   @override
   String get settingCameraRtspUsernameTitle => 'Nom d\'utilisateur';
@@ -4091,11 +4091,11 @@ class UiStringsFr extends UiStrings {
       'Ajouter un fond noir derrière la date et l\'heure pour une meilleure visibilité.';
 
   @override
-  String get settingCameraRtspTlsTitle => 'Encrypt stream';
+  String get settingCameraRtspTlsTitle => 'Chiffrer le flux';
 
   @override
   String get settingCameraRtspTlsDescription =>
-      'Use TLS to encrypt video and audio. Requires a compatible viewer.';
+      'Utilise TLS pour chiffrer la vidéo et l’audio. Nécessite un lecteur compatible.';
 
   @override
   String get cameraStreamsNameRequired => 'nom requis';
@@ -5105,11 +5105,11 @@ class UiStringsFr extends UiStrings {
   }
 
   @override
-  String get settingRemoteTlsTitle => 'Use HTTPS';
+  String get settingRemoteTlsTitle => 'Utiliser HTTPS';
 
   @override
   String get settingRemoteTlsDescription =>
-      'Encrypt the remote admin, API and WebSocket. Your browser may ask you to accept the device certificate.';
+      'Chiffre l’administration à distance, l’API et les connexions WebSocket. Votre navigateur pourra vous demander d’accepter le certificat de l’appareil.';
 
   @override
   String get settingServiceCpuAwakeTitle =>
@@ -5439,102 +5439,148 @@ class UiStringsFr extends UiStrings {
 
   @override
   String get tlsConnectionEncryptionAndCertificates =>
-      'Connection encryption and certificates';
+      'Chiffrement des connexions et certificats';
 
   @override
-  String get tlsCertificateType => 'Certificate type';
+  String get tlsCertificateType => 'Type de certificat';
 
   @override
-  String get tlsImported => 'Imported';
+  String get tlsImported => 'Importé';
 
   @override
-  String get tlsSelfSigned => 'Self-signed';
+  String get tlsSelfSigned => 'Autosigné';
 
   @override
-  String get tlsExpires => 'Expires';
+  String get tlsExpires => 'Expire le';
 
   @override
-  String get tlsSHA256Fingerprint => 'SHA-256 fingerprint';
+  String get tlsSHA256Fingerprint => 'Empreinte SHA-256';
 
   @override
   String get tlsCertificateExpiredRenewOrImportAReplacement =>
-      'Certificate expired. Renew or import a replacement.';
+      'Le certificat a expiré. Renouvelez-le ou importez-en un nouveau.';
 
   @override
-  String get tlsCopyPublicCertificate => 'Copy public certificate';
+  String get tlsCopyPublicCertificate => 'Copier le certificat public';
 
   @override
-  String get tlsDownloadPublicCertificate => 'Download public certificate';
+  String get tlsDownloadPublicCertificate => 'Télécharger le certificat public';
 
   @override
   String get tlsUseThisCertificateInBrowsersAndStreamingClients =>
-      'Use this certificate in browsers and streaming clients.';
+      'Utilisez ce certificat dans les navigateurs et les clients de streaming.';
 
   @override
-  String get tlsRenewCertificate => 'Renew certificate';
+  String get tlsRenewCertificate => 'Renouveler le certificat';
 
   @override
   String get tlsKeepTheCurrentPrivateKeyAndUpdateTheCertificateDates =>
-      'Keep the current private key and update the certificate dates.';
+      'Conserve la clé privée actuelle et met à jour les dates de validité du certificat.';
 
   @override
-  String get tlsImportCertificate => 'Import certificate';
+  String get tlsImportCertificate => 'Importer un certificat';
 
   @override
   String get tlsUseACertificateIssuedForThisDevice =>
-      'Use a certificate issued for this device.';
+      'Utilisez un certificat émis pour cet appareil.';
 
   @override
-  String get tlsReplaceCertificate => 'Replace certificate';
+  String get tlsReplaceCertificate => 'Remplacer le certificat';
 
   @override
   String get tlsGenerateANewPrivateKeyAndSelfSignedCertificate =>
-      'Generate a new private key and self-signed certificate.';
+      'Génère une nouvelle clé privée et un certificat autosigné.';
 
   @override
   String
   get tlsGenerateANewPrivateKeyAndCertificateActiveEncryptedConnectionsWillCloseBrowsersMayAskYouToAcceptTheNewCertificate =>
-      'Generate a new private key and certificate? Active encrypted connections will close. Browsers may ask you to accept the new certificate.';
+      'Générer une nouvelle clé privée et un nouveau certificat ? Les connexions chiffrées actives seront fermées. Les navigateurs pourront vous demander d’accepter le nouveau certificat.';
 
   @override
   String
   get tlsPasteThePEMCertificateChainAndItsUnencryptedPrivateKeyTheyAreValidatedBeforeReplacingTheCurrentCertificate =>
-      'Paste the PEM certificate chain and its unencrypted private key. They are validated before replacing the current certificate.';
+      'Collez la chaîne de certificats PEM et sa clé privée non chiffrée. Elles seront vérifiées avant de remplacer le certificat actuel.';
 
   @override
-  String get tlsCertificateChainPEM => 'Certificate chain (PEM)';
+  String get tlsCertificateChainPEM => 'Chaîne de certificats (PEM)';
 
   @override
-  String get tlsPrivateKeyPEM => 'Private key (PEM)';
+  String get tlsPrivateKeyPEM => 'Clé privée (PEM)';
 
   @override
-  String get tlsThisFieldIsRequired => 'This field is required.';
+  String get tlsThisFieldIsRequired => 'Ce champ est obligatoire.';
 
   @override
-  String get tlsReplace => 'Replace';
+  String get tlsReplace => 'Remplacer';
 
   @override
-  String get tlsRenew => 'Renew';
+  String get tlsRenew => 'Renouveler';
 
   @override
   String get tlsEnableHTTPSBeforeImportingAPrivateKeyRemotely =>
-      'Enable HTTPS before importing a private key remotely.';
+      'Activez HTTPS avant d’importer une clé privée à distance.';
 
   @override
-  String get tlsCertificateOperationFailed => 'Certificate operation failed.';
+  String get tlsCertificateOperationFailed =>
+      'L’opération sur le certificat a échoué.';
 
   @override
-  String get tlsChangeConnectionProtocol => 'Change connection protocol';
+  String get tlsChangeConnectionProtocol => 'Changer le protocole de connexion';
 
   @override
   String get tlsConnectionProtocolHelp =>
-      'The current remote connection will close. Reconnect using the address below. You may need to sign in again.';
+      'La connexion à distance actuelle sera fermée. Reconnectez-vous avec l’adresse ci-dessous. Vous devrez peut-être vous identifier à nouveau.';
 
   @override
-  String get tlsConfirm => 'Confirm';
+  String get tlsConfirm => 'Confirmer';
 
   @override
-  String get tlsCertificateManagement => 'Certificate Management';
+  String get tlsCertificateManagement => 'Gestion des certificats';
+
+  @override
+  String get tlsServerCertificateRequired =>
+      'Utilisez un certificat de serveur, pas un certificat d’autorité de certification.';
+
+  @override
+  String get tlsServerAuthenticationRequired =>
+      'Le certificat n’autorise pas l’authentification du serveur.';
+
+  @override
+  String get tlsKeyAlgorithmRequired => 'Utilisez une clé privée EC ou RSA.';
+
+  @override
+  String get tlsKeyMismatch =>
+      'Le certificat et la clé privée ne correspondent pas.';
+
+  @override
+  String get tlsMaterialTooLarge =>
+      'Le certificat ou la clé est trop volumineux.';
+
+  @override
+  String get tlsPemCertificatesRequired => 'Des certificats PEM sont attendus.';
+
+  @override
+  String get tlsCertificateMissing => 'Aucun certificat trouvé.';
+
+  @override
+  String get tlsUnencryptedKeyRequired =>
+      'Utilisez une clé privée PEM non chiffrée.';
+
+  @override
+  String get tlsHostnameRequired =>
+      'Un nom d’hôte ou une adresse IP est nécessaire.';
+
+  @override
+  String get tlsIssuerRenewalRequired =>
+      'Importez un certificat renouvelé par son émetteur.';
+
+  @override
+  String get tlsStoredIdentityDamaged =>
+      'L’identité TLS enregistrée est endommagée.';
+
+  @override
+  String get tlsExpiredCertificate =>
+      'Le certificat TLS a expiré. Renouvelez-le ou importez-en un nouveau.';
 
   @override
   String get deviceHelperPage => 'Assistant de mise à jour optionnel';
@@ -7074,18 +7120,18 @@ class UiStringsFr extends UiStrings {
   String get intercomOpen => 'Ouvrir';
 
   @override
-  String get settingIntercomTlsTitle => 'Encrypt communications';
+  String get settingIntercomTlsTitle => 'Chiffrer les communications';
 
   @override
   String get settingIntercomTlsDescription =>
-      'Use TLS to encrypt intercom calls between kiosks. All kiosks in the call need this enabled.';
+      'Utilise TLS pour chiffrer les appels intercom entre kiosques. Cette option doit être activée sur tous les kiosques participant à l’appel.';
 
   @override
   String get intercomKiosks => 'Kiosques';
 
   @override
   String get intercomRosterHelp =>
-      'Discovered kiosks and saved fleet members. A kiosk is ready when it is reachable with intercom on, the same key and matching encryption settings.';
+      'Kiosques détectés et membres enregistrés de la flotte. Un kiosque est prêt lorsqu’il est joignable, que l’intercom est activé et qu’il utilise la même clé et les mêmes paramètres de chiffrement.';
 
   @override
   String get intercomNoOther => 'Aucun autre kiosque trouvé';

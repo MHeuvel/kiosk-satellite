@@ -7624,12 +7624,12 @@
       ]
     }
   },
-  "intercomEncryptionMismatch": "Encryption mismatch",
+  "intercomEncryptionMismatch": "Chiffrement incompatible",
   "@intercomEncryptionMismatch": {
     "context": "Intercom",
     "description": "Shown when kiosks have different intercom encryption settings."
   },
-  "intercomEncryptionMismatchHelp": "Encryption mismatch. Enable Encrypt communications on all kiosks in the call.",
+  "intercomEncryptionMismatchHelp": "Les paramètres de chiffrement ne correspondent pas. Activez Chiffrer les communications sur tous les kiosques participant à l’appel.",
   "@intercomEncryptionMismatchHelp": {
     "context": "Intercom",
     "description": "Shown when kiosks have different intercom encryption settings."
@@ -14472,7 +14472,7 @@
       ]
     }
   },
-  "settingCameraRtspAuthDescription": "Require a username and password to view the stream. Authentication does not enable encryption.",
+  "settingCameraRtspAuthDescription": "Exige un nom d’utilisateur et un mot de passe pour regarder le flux. L’authentification n’active pas le chiffrement.",
   "@settingCameraRtspAuthDescription": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Help below this setting.",
@@ -14802,7 +14802,7 @@
       ]
     }
   },
-  "settingCameraRtspTlsTitle": "Encrypt stream",
+  "settingCameraRtspTlsTitle": "Chiffrer le flux",
   "@settingCameraRtspTlsTitle": {
     "context": "Settings:Camera:RTSP & ONVIF Streaming",
     "description": "TLS encryption setting, certificate action or help text.",
@@ -14815,7 +14815,7 @@
       ]
     }
   },
-  "settingCameraRtspTlsDescription": "Use TLS to encrypt video and audio. Requires a compatible viewer.",
+  "settingCameraRtspTlsDescription": "Utilise TLS pour chiffrer la vidéo et l’audio. Nécessite un lecteur compatible.",
   "@settingCameraRtspTlsDescription": {
     "context": "Settings:Camera:RTSP & ONVIF Streaming",
     "description": "TLS encryption setting, certificate action or help text.",
@@ -18612,7 +18612,7 @@
       }
     }
   },
-  "settingRemoteTlsTitle": "Use HTTPS",
+  "settingRemoteTlsTitle": "Utiliser HTTPS",
   "@settingRemoteTlsTitle": {
     "context": "Settings:Device:Remote Administration",
     "description": "TLS encryption setting, certificate action or help text.",
@@ -18625,7 +18625,7 @@
       ]
     }
   },
-  "settingRemoteTlsDescription": "Encrypt the remote admin, API and WebSocket. Your browser may ask you to accept the device certificate.",
+  "settingRemoteTlsDescription": "Chiffre l’administration à distance, l’API et les connexions WebSocket. Votre navigateur pourra vous demander d’accepter le certificat de l’appareil.",
   "@settingRemoteTlsDescription": {
     "context": "Settings:Device:Remote Administration",
     "description": "TLS encryption setting, certificate action or help text.",
@@ -19878,7 +19878,7 @@
       ]
     }
   },
-  "tlsConnectionEncryptionAndCertificates": "Connection encryption and certificates",
+  "tlsConnectionEncryptionAndCertificates": "Chiffrement des connexions et certificats",
   "@tlsConnectionEncryptionAndCertificates": {
     "context": "Settings:Device:TLS",
     "description": "TLS encryption setting, certificate action or help text.",
@@ -19891,7 +19891,7 @@
       ]
     }
   },
-  "tlsCertificateType": "Certificate type",
+  "tlsCertificateType": "Type de certificat",
   "@tlsCertificateType": {
     "context": "Settings:Device:TLS",
     "description": "TLS encryption setting, certificate action or help text.",
@@ -19904,7 +19904,7 @@
       ]
     }
   },
-  "tlsImported": "Imported",
+  "tlsImported": "Importé",
   "@tlsImported": {
     "context": "Settings:Device:TLS",
     "description": "TLS encryption setting, certificate action or help text.",
@@ -19917,7 +19917,7 @@
       ]
     }
   },
-  "tlsSelfSigned": "Self-signed",
+  "tlsSelfSigned": "Autosigné",
   "@tlsSelfSigned": {
     "context": "Settings:Device:TLS",
     "description": "TLS encryption setting, certificate action or help text.",
@@ -19930,7 +19930,7 @@
       ]
     }
   },
-  "tlsExpires": "Expires",
+  "tlsExpires": "Expire le",
   "@tlsExpires": {
     "context": "Settings:Device:TLS",
     "description": "TLS encryption setting, certificate action or help text.",
@@ -19943,7 +19943,7 @@
       ]
     }
   },
-  "tlsSHA256Fingerprint": "SHA-256 fingerprint",
+  "tlsSHA256Fingerprint": "Empreinte SHA-256",
   "@tlsSHA256Fingerprint": {
     "context": "Settings:Device:TLS",
     "description": "TLS encryption setting, certificate action or help text.",
@@ -19956,7 +19956,7 @@
       ]
     }
   },
-  "tlsCertificateExpiredRenewOrImportAReplacement": "Certificate expired. Renew or import a replacement.",
+  "tlsCertificateExpiredRenewOrImportAReplacement": "Le certificat a expiré. Renouvelez-le ou importez-en un nouveau.",
   "@tlsCertificateExpiredRenewOrImportAReplacement": {
     "context": "Settings:Device:TLS",
     "description": "TLS encryption setting, certificate action or help text.",
@@ -19969,7 +19969,7 @@
       ]
     }
   },
-  "tlsCopyPublicCertificate": "Copy public certificate",
+  "tlsCopyPublicCertificate": "Copier le certificat public",
   "@tlsCopyPublicCertificate": {
     "context": "Settings:Device:TLS",
     "description": "TLS encryption setting, certificate action or help text.",
@@ -19982,7 +19982,7 @@
       ]
     }
   },
-  "tlsDownloadPublicCertificate": "Download public certificate",
+  "tlsDownloadPublicCertificate": "Télécharger le certificat public",
   "@tlsDownloadPublicCertificate": {
     "context": "Settings:Device:TLS",
     "description": "TLS encryption setting, certificate action or help text.",
@@ -19995,7 +19995,7 @@
       ]
     }
   },
-  "tlsUseThisCertificateInBrowsersAndStreamingClients": "Use this certificate in browsers and streaming clients.",
+  "tlsUseThisCertificateInBrowsersAndStreamingClients": "Utilisez ce certificat dans les navigateurs et les clients de streaming.",
   "@tlsUseThisCertificateInBrowsersAndStreamingClients": {
     "context": "Settings:Device:TLS",
     "description": "TLS encryption setting, certificate action or help text.",
@@ -20008,7 +20008,7 @@
       ]
     }
   },
-  "tlsRenewCertificate": "Renew certificate",
+  "tlsRenewCertificate": "Renouveler le certificat",
   "@tlsRenewCertificate": {
     "context": "Settings:Device:TLS",
     "description": "TLS encryption setting, certificate action or help text.",
@@ -20021,7 +20021,7 @@
       ]
     }
   },
-  "tlsKeepTheCurrentPrivateKeyAndUpdateTheCertificateDates": "Keep the current private key and update the certificate dates.",
+  "tlsKeepTheCurrentPrivateKeyAndUpdateTheCertificateDates": "Conserve la clé privée actuelle et met à jour les dates de validité du certificat.",
   "@tlsKeepTheCurrentPrivateKeyAndUpdateTheCertificateDates": {
     "context": "Settings:Device:TLS",
     "description": "TLS encryption setting, certificate action or help text.",
@@ -20034,7 +20034,7 @@
       ]
     }
   },
-  "tlsImportCertificate": "Import certificate",
+  "tlsImportCertificate": "Importer un certificat",
   "@tlsImportCertificate": {
     "context": "Settings:Device:TLS",
     "description": "TLS encryption setting, certificate action or help text.",
@@ -20047,7 +20047,7 @@
       ]
     }
   },
-  "tlsUseACertificateIssuedForThisDevice": "Use a certificate issued for this device.",
+  "tlsUseACertificateIssuedForThisDevice": "Utilisez un certificat émis pour cet appareil.",
   "@tlsUseACertificateIssuedForThisDevice": {
     "context": "Settings:Device:TLS",
     "description": "TLS encryption setting, certificate action or help text.",
@@ -20060,7 +20060,7 @@
       ]
     }
   },
-  "tlsReplaceCertificate": "Replace certificate",
+  "tlsReplaceCertificate": "Remplacer le certificat",
   "@tlsReplaceCertificate": {
     "context": "Settings:Device:TLS",
     "description": "TLS encryption setting, certificate action or help text.",
@@ -20073,7 +20073,7 @@
       ]
     }
   },
-  "tlsGenerateANewPrivateKeyAndSelfSignedCertificate": "Generate a new private key and self-signed certificate.",
+  "tlsGenerateANewPrivateKeyAndSelfSignedCertificate": "Génère une nouvelle clé privée et un certificat autosigné.",
   "@tlsGenerateANewPrivateKeyAndSelfSignedCertificate": {
     "context": "Settings:Device:TLS",
     "description": "TLS encryption setting, certificate action or help text.",
@@ -20086,7 +20086,7 @@
       ]
     }
   },
-  "tlsGenerateANewPrivateKeyAndCertificateActiveEncryptedConnectionsWillCloseBrowsersMayAskYouToAcceptTheNewCertificate": "Generate a new private key and certificate? Active encrypted connections will close. Browsers may ask you to accept the new certificate.",
+  "tlsGenerateANewPrivateKeyAndCertificateActiveEncryptedConnectionsWillCloseBrowsersMayAskYouToAcceptTheNewCertificate": "Générer une nouvelle clé privée et un nouveau certificat ? Les connexions chiffrées actives seront fermées. Les navigateurs pourront vous demander d’accepter le nouveau certificat.",
   "@tlsGenerateANewPrivateKeyAndCertificateActiveEncryptedConnectionsWillCloseBrowsersMayAskYouToAcceptTheNewCertificate": {
     "context": "Settings:Device:TLS",
     "description": "TLS encryption setting, certificate action or help text.",
@@ -20099,7 +20099,7 @@
       ]
     }
   },
-  "tlsPasteThePEMCertificateChainAndItsUnencryptedPrivateKeyTheyAreValidatedBeforeReplacingTheCurrentCertificate": "Paste the PEM certificate chain and its unencrypted private key. They are validated before replacing the current certificate.",
+  "tlsPasteThePEMCertificateChainAndItsUnencryptedPrivateKeyTheyAreValidatedBeforeReplacingTheCurrentCertificate": "Collez la chaîne de certificats PEM et sa clé privée non chiffrée. Elles seront vérifiées avant de remplacer le certificat actuel.",
   "@tlsPasteThePEMCertificateChainAndItsUnencryptedPrivateKeyTheyAreValidatedBeforeReplacingTheCurrentCertificate": {
     "context": "Settings:Device:TLS",
     "description": "TLS encryption setting, certificate action or help text.",
@@ -20112,7 +20112,7 @@
       ]
     }
   },
-  "tlsCertificateChainPEM": "Certificate chain (PEM)",
+  "tlsCertificateChainPEM": "Chaîne de certificats (PEM)",
   "@tlsCertificateChainPEM": {
     "context": "Settings:Device:TLS",
     "description": "TLS encryption setting, certificate action or help text.",
@@ -20125,7 +20125,7 @@
       ]
     }
   },
-  "tlsPrivateKeyPEM": "Private key (PEM)",
+  "tlsPrivateKeyPEM": "Clé privée (PEM)",
   "@tlsPrivateKeyPEM": {
     "context": "Settings:Device:TLS",
     "description": "TLS encryption setting, certificate action or help text.",
@@ -20138,7 +20138,7 @@
       ]
     }
   },
-  "tlsThisFieldIsRequired": "This field is required.",
+  "tlsThisFieldIsRequired": "Ce champ est obligatoire.",
   "@tlsThisFieldIsRequired": {
     "context": "Settings:Device:TLS",
     "description": "TLS encryption setting, certificate action or help text.",
@@ -20151,7 +20151,7 @@
       ]
     }
   },
-  "tlsReplace": "Replace",
+  "tlsReplace": "Remplacer",
   "@tlsReplace": {
     "context": "Settings:Device:TLS",
     "description": "TLS encryption setting, certificate action or help text.",
@@ -20164,7 +20164,7 @@
       ]
     }
   },
-  "tlsRenew": "Renew",
+  "tlsRenew": "Renouveler",
   "@tlsRenew": {
     "context": "Settings:Device:TLS",
     "description": "TLS encryption setting, certificate action or help text.",
@@ -20177,7 +20177,7 @@
       ]
     }
   },
-  "tlsEnableHTTPSBeforeImportingAPrivateKeyRemotely": "Enable HTTPS before importing a private key remotely.",
+  "tlsEnableHTTPSBeforeImportingAPrivateKeyRemotely": "Activez HTTPS avant d’importer une clé privée à distance.",
   "@tlsEnableHTTPSBeforeImportingAPrivateKeyRemotely": {
     "context": "Settings:Device:TLS",
     "description": "TLS encryption setting, certificate action or help text.",
@@ -20190,7 +20190,7 @@
       ]
     }
   },
-  "tlsCertificateOperationFailed": "Certificate operation failed.",
+  "tlsCertificateOperationFailed": "L’opération sur le certificat a échoué.",
   "@tlsCertificateOperationFailed": {
     "context": "Settings:Device:TLS",
     "description": "TLS encryption setting, certificate action or help text.",
@@ -20203,22 +20203,22 @@
       ]
     }
   },
-  "tlsChangeConnectionProtocol": "Change connection protocol",
+  "tlsChangeConnectionProtocol": "Changer le protocole de connexion",
   "@tlsChangeConnectionProtocol": {
     "context": "Settings:Device:Remote Administration",
     "description": "Confirmation before changing the remote administration protocol."
   },
-  "tlsConnectionProtocolHelp": "The current remote connection will close. Reconnect using the address below. You may need to sign in again.",
+  "tlsConnectionProtocolHelp": "La connexion à distance actuelle sera fermée. Reconnectez-vous avec l’adresse ci-dessous. Vous devrez peut-être vous identifier à nouveau.",
   "@tlsConnectionProtocolHelp": {
     "context": "Settings:Device:Remote Administration",
     "description": "Confirmation before changing the remote administration protocol."
   },
-  "tlsConfirm": "Confirm",
+  "tlsConfirm": "Confirmer",
   "@tlsConfirm": {
     "context": "Settings:Device:Remote Administration",
     "description": "Confirmation before changing the remote administration protocol."
   },
-  "tlsCertificateManagement": "Certificate Management",
+  "tlsCertificateManagement": "Gestion des certificats",
   "@tlsCertificateManagement": {
     "context": "Settings:Device:TLS",
     "description": "TLS encryption setting, certificate action or help text.",
@@ -20230,6 +20230,66 @@
         "Device > TLS"
       ]
     }
+  },
+  "tlsServerCertificateRequired": "Utilisez un certificat de serveur, pas un certificat d’autorité de certification.",
+  "@tlsServerCertificateRequired": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsServerAuthenticationRequired": "Le certificat n’autorise pas l’authentification du serveur.",
+  "@tlsServerAuthenticationRequired": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsKeyAlgorithmRequired": "Utilisez une clé privée EC ou RSA.",
+  "@tlsKeyAlgorithmRequired": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsKeyMismatch": "Le certificat et la clé privée ne correspondent pas.",
+  "@tlsKeyMismatch": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsMaterialTooLarge": "Le certificat ou la clé est trop volumineux.",
+  "@tlsMaterialTooLarge": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsPemCertificatesRequired": "Des certificats PEM sont attendus.",
+  "@tlsPemCertificatesRequired": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsCertificateMissing": "Aucun certificat trouvé.",
+  "@tlsCertificateMissing": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsUnencryptedKeyRequired": "Utilisez une clé privée PEM non chiffrée.",
+  "@tlsUnencryptedKeyRequired": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsHostnameRequired": "Un nom d’hôte ou une adresse IP est nécessaire.",
+  "@tlsHostnameRequired": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsIssuerRenewalRequired": "Importez un certificat renouvelé par son émetteur.",
+  "@tlsIssuerRenewalRequired": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsStoredIdentityDamaged": "L’identité TLS enregistrée est endommagée.",
+  "@tlsStoredIdentityDamaged": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsExpiredCertificate": "Le certificat TLS a expiré. Renouvelez-le ou importez-en un nouveau.",
+  "@tlsExpiredCertificate": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
   },
   "deviceHelperPage": "Assistant de mise à jour optionnel",
   "@deviceHelperPage": {
@@ -26050,7 +26110,7 @@
       ]
     }
   },
-  "settingIntercomTlsTitle": "Encrypt communications",
+  "settingIntercomTlsTitle": "Chiffrer les communications",
   "@settingIntercomTlsTitle": {
     "context": "Settings:Intercom",
     "description": "Intercom encryption setting.",
@@ -26063,7 +26123,7 @@
       ]
     }
   },
-  "settingIntercomTlsDescription": "Use TLS to encrypt intercom calls between kiosks. All kiosks in the call need this enabled.",
+  "settingIntercomTlsDescription": "Utilise TLS pour chiffrer les appels intercom entre kiosques. Cette option doit être activée sur tous les kiosques participant à l’appel.",
   "@settingIntercomTlsDescription": {
     "context": "Settings:Intercom",
     "description": "Intercom encryption setting.",
@@ -26089,7 +26149,7 @@
       ]
     }
   },
-  "intercomRosterHelp": "Discovered kiosks and saved fleet members. A kiosk is ready when it is reachable with intercom on, the same key and matching encryption settings.",
+  "intercomRosterHelp": "Kiosques détectés et membres enregistrés de la flotte. Un kiosque est prêt lorsqu’il est joignable, que l’intercom est activé et qu’il utilise la même clé et les mêmes paramètres de chiffrement.",
   "@intercomRosterHelp": {
     "context": "Settings > Intercom > Kiosks",
     "description": "Label or guidance in this section.",

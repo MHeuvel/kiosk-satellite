@@ -284,5 +284,15 @@
         "Intercom"
       ]
     }
+  },
+  "intercomEncryptionMismatch": "Encryption mismatch",
+  "@intercomEncryptionMismatch": {
+    "context": "Intercom",
+    "description": "Shown when kiosks have different intercom encryption settings."
+  },
+  "intercomEncryptionMismatchHelp": "Encryption mismatch. Enable Encrypt communications on all kiosks in the call.",
+  "@intercomEncryptionMismatchHelp": {
+    "context": "Intercom",
+    "description": "Shown when kiosks have different intercom encryption settings."
   }
 }

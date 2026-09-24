@@ -16,5 +16,7 @@
   "intercomRegenerate": "Generar de nuevo",
   "intercomKeyChanged": "Clave cambiada",
   "intercomNotSet": "Sin configurar",
-  "intercomOpen": "Abrir"
+  "intercomOpen": "Abrir",
+  "settingIntercomTlsTitle": "Cifrar comunicaciones",
+  "settingIntercomTlsDescription": "Usa TLS para cifrar las llamadas de intercomunicación entre kioscos. Todos los kioscos de la llamada deben tener esta opción activada."
 }

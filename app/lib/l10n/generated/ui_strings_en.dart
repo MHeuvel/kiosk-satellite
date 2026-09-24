@@ -5442,6 +5442,46 @@ class UiStringsEn extends UiStrings {
   String get tlsCertificateManagement => 'Certificate Management';
 
   @override
+  String get tlsServerCertificateRequired =>
+      'Use a server certificate, not a CA certificate.';
+
+  @override
+  String get tlsServerAuthenticationRequired =>
+      'Certificate does not allow server authentication.';
+
+  @override
+  String get tlsKeyAlgorithmRequired => 'Use an EC or RSA private key.';
+
+  @override
+  String get tlsKeyMismatch => 'Certificate and private key do not match.';
+
+  @override
+  String get tlsMaterialTooLarge => 'Certificate or key is too large.';
+
+  @override
+  String get tlsPemCertificatesRequired => 'Expected PEM certificates.';
+
+  @override
+  String get tlsCertificateMissing => 'No certificate found.';
+
+  @override
+  String get tlsUnencryptedKeyRequired => 'Use an unencrypted PEM private key.';
+
+  @override
+  String get tlsHostnameRequired => 'A hostname or IP address is required.';
+
+  @override
+  String get tlsIssuerRenewalRequired =>
+      'Import a renewed certificate from its issuer.';
+
+  @override
+  String get tlsStoredIdentityDamaged => 'Stored TLS identity is damaged.';
+
+  @override
+  String get tlsExpiredCertificate =>
+      'The TLS certificate has expired. Renew or import its replacement.';
+
+  @override
   String get deviceHelperPage => 'Optional update helper';
 
   @override

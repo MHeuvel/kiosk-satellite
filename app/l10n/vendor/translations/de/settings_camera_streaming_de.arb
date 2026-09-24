@@ -19,7 +19,7 @@
   "settingCameraRtspAudioTitle": "Mikrofon-Audio einschließen",
   "settingCameraRtspAudioDescription": "Fügt dem Kamerastream Mikrofon-Audio hinzu. Verwendet die Mikrofoneinstellungen. WARNUNG: Erhöht die CPU-Auslastung.",
   "settingCameraRtspAuthTitle": "Authentifizierung erzwingen",
-  "settingCameraRtspAuthDescription": "Erfordert einen Benutzernamen und ein Passwort zum Anzeigen des Streams. Der Stream-Datenverkehr wird nicht verschlüsselt.",
+  "settingCameraRtspAuthDescription": "Erfordert einen Benutzernamen und ein Passwort zum Ansehen des Streams. Die Authentifizierung aktiviert keine Verschlüsselung.",
   "settingCameraRtspUsernameTitle": "Benutzername",
   "settingCameraRtspUsernameDescription": "Benutzername für Streaming-Clients.",
   "settingCameraRtspPasswordTitle": "Passwort",
@@ -42,5 +42,7 @@
   "settingCameraRtspDateTimeTitle": "Datum und Uhrzeit anzeigen",
   "settingCameraRtspDateTimeDescription": "Zeigt Datum und Uhrzeit des Geräts in der oberen linken Ecke des Videos an, unter Verwendung des Geräte-Datumsformats sowie des 12- oder 24-Stunden-Formats.",
   "settingCameraRtspDateTimeBackgroundTitle": "Schwarzer Hintergrund",
-  "settingCameraRtspDateTimeBackgroundDescription": "Fügt hinter Datum und Uhrzeit einen schwarzen Hintergrund ein, um die Lesbarkeit zu verbessern."
+  "settingCameraRtspDateTimeBackgroundDescription": "Fügt hinter Datum und Uhrzeit einen schwarzen Hintergrund ein, um die Lesbarkeit zu verbessern.",
+  "settingCameraRtspTlsTitle": "Stream verschlüsseln",
+  "settingCameraRtspTlsDescription": "Verschlüsselt Video und Audio mit TLS. Erfordert einen kompatiblen Player."
 }

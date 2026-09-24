@@ -364,5 +364,17 @@ export const deviceTextMessageIds = {
   "Change connection protocol": "tlsChangeConnectionProtocol",
   "The current remote connection will close. Reconnect using the address below. You may need to sign in again.": "tlsConnectionProtocolHelp",
   "Confirm": "tlsConfirm",
-  "Certificate Management": "tlsCertificateManagement"
+  "Certificate Management": "tlsCertificateManagement",
+  "Use a server certificate, not a CA certificate.": "tlsServerCertificateRequired",
+  "Certificate does not allow server authentication.": "tlsServerAuthenticationRequired",
+  "Use an EC or RSA private key.": "tlsKeyAlgorithmRequired",
+  "Certificate and private key do not match.": "tlsKeyMismatch",
+  "Certificate or key is too large.": "tlsMaterialTooLarge",
+  "Expected PEM certificates.": "tlsPemCertificatesRequired",
+  "No certificate found.": "tlsCertificateMissing",
+  "Use an unencrypted PEM private key.": "tlsUnencryptedKeyRequired",
+  "A hostname or IP address is required.": "tlsHostnameRequired",
+  "Import a renewed certificate from its issuer.": "tlsIssuerRenewalRequired",
+  "Stored TLS identity is damaged.": "tlsStoredIdentityDamaged",
+  "The TLS certificate has expired. Renew or import its replacement.": "tlsExpiredCertificate"
 };

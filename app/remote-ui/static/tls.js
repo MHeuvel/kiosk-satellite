@@ -1,5 +1,5 @@
 import { cmd } from './core.js';
-import { deviceText } from './localization.js';
+import { deviceOperationError, deviceText, messageLanguage } from './localization.js';
 import { banner, copyBox, hintRow, messageBox, modalShell } from './widgets.js';
 
 const text = deviceText;
@@ -35,7 +35,7 @@ export function renderTlsSettings(root) {
     panel.querySelectorAll('button').forEach(node => node.disabled = true);
     error.replaceChildren();
     try { await action(); }
-    catch (e) { error.replaceChildren(banner(e.message, { error: true })); }
+    catch (e) { error.replaceChildren(banner(deviceOperationError(e.message), { error: true })); }
     finally { busy = false; if (panel.isConnected) draw(); }
   }
   function actionRow(title, description, label, action, disabled = false) {
@@ -101,7 +101,7 @@ export function renderTlsSettings(root) {
         shell.close();
         if (panel.isConnected) draw();
       } catch (e) {
-        issue.replaceChildren(banner(e.message, { error: true }));
+        issue.replaceChildren(banner(deviceOperationError(e.message), { error: true }));
       } finally {
         pending = false;
         cancel.disabled = save.disabled = certificate.disabled = privateKey.disabled = false;
@@ -122,7 +122,7 @@ export function renderTlsSettings(root) {
     if (info) {
       const details = element('div', '', 'card');
       details.append(valueRow('Certificate type', text(info.imported ? 'Imported' : 'Self-signed')),
-        valueRow('Expires', new Date(info.expires).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })));
+        valueRow('Expires', new Date(info.expires).toLocaleDateString(messageLanguage(), { year: 'numeric', month: 'short', day: 'numeric' })));
       if (info.expired) details.append(hintRow(text('Certificate expired. Renew or import a replacement.'), { warn: true }));
       const fingerprint = element('div', '', 'row tls-fingerprint');
       const label = element('div', '', 'info');

@@ -247,7 +247,7 @@
       ]
     }
   },
-  "settingCameraRtspAuthDescription": "Require a username and password to view the stream. Streaming traffic is not encrypted.",
+  "settingCameraRtspAuthDescription": "Require a username and password to view the stream. Authentication does not enable encryption.",
   "@settingCameraRtspAuthDescription": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Help below this setting.",
@@ -574,6 +574,32 @@
       ],
       "remoteAdmin": [
         "Camera > RTSP & ONVIF Streaming > Overlays"
+      ]
+    }
+  },
+  "settingCameraRtspTlsTitle": "Encrypt stream",
+  "@settingCameraRtspTlsTitle": {
+    "context": "Settings:Camera:RTSP & ONVIF Streaming",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspTlsDescription": "Use TLS to encrypt video and audio. Requires a compatible viewer.",
+  "@settingCameraRtspTlsDescription": {
+    "context": "Settings:Camera:RTSP & ONVIF Streaming",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
       ]
     }
   }

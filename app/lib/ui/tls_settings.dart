@@ -52,7 +52,7 @@ class _TlsSettingsPanelState extends State<TlsSettingsPanel> {
     try {
       await action();
     } catch (e) {
-      if (mounted) setState(() => _error = '$e');
+      if (mounted) setState(() => _error = deviceOperationError(context, '$e'));
     } finally {
       if (mounted) setState(() => _busy = false);
     }
@@ -171,7 +171,7 @@ class _TlsSettingsPanelState extends State<TlsSettingsPanel> {
                       } catch (e) {
                         if (context.mounted) {
                           update(() {
-                            error = '$e';
+                            error = deviceOperationError(context, '$e');
                             pending = false;
                           });
                         }

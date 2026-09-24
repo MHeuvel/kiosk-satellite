@@ -9525,6 +9525,78 @@ abstract class UiStrings {
   /// **'Certificate Management'**
   String get tlsCertificateManagement;
 
+  /// Certificate validation or management error shown on the device and in remote administration.
+  ///
+  /// In en, this message translates to:
+  /// **'Use a server certificate, not a CA certificate.'**
+  String get tlsServerCertificateRequired;
+
+  /// Certificate validation or management error shown on the device and in remote administration.
+  ///
+  /// In en, this message translates to:
+  /// **'Certificate does not allow server authentication.'**
+  String get tlsServerAuthenticationRequired;
+
+  /// Certificate validation or management error shown on the device and in remote administration.
+  ///
+  /// In en, this message translates to:
+  /// **'Use an EC or RSA private key.'**
+  String get tlsKeyAlgorithmRequired;
+
+  /// Certificate validation or management error shown on the device and in remote administration.
+  ///
+  /// In en, this message translates to:
+  /// **'Certificate and private key do not match.'**
+  String get tlsKeyMismatch;
+
+  /// Certificate validation or management error shown on the device and in remote administration.
+  ///
+  /// In en, this message translates to:
+  /// **'Certificate or key is too large.'**
+  String get tlsMaterialTooLarge;
+
+  /// Certificate validation or management error shown on the device and in remote administration.
+  ///
+  /// In en, this message translates to:
+  /// **'Expected PEM certificates.'**
+  String get tlsPemCertificatesRequired;
+
+  /// Certificate validation or management error shown on the device and in remote administration.
+  ///
+  /// In en, this message translates to:
+  /// **'No certificate found.'**
+  String get tlsCertificateMissing;
+
+  /// Certificate validation or management error shown on the device and in remote administration.
+  ///
+  /// In en, this message translates to:
+  /// **'Use an unencrypted PEM private key.'**
+  String get tlsUnencryptedKeyRequired;
+
+  /// Certificate validation or management error shown on the device and in remote administration.
+  ///
+  /// In en, this message translates to:
+  /// **'A hostname or IP address is required.'**
+  String get tlsHostnameRequired;
+
+  /// Certificate validation or management error shown on the device and in remote administration.
+  ///
+  /// In en, this message translates to:
+  /// **'Import a renewed certificate from its issuer.'**
+  String get tlsIssuerRenewalRequired;
+
+  /// Certificate validation or management error shown on the device and in remote administration.
+  ///
+  /// In en, this message translates to:
+  /// **'Stored TLS identity is damaged.'**
+  String get tlsStoredIdentityDamaged;
+
+  /// Certificate validation or management error shown on the device and in remote administration.
+  ///
+  /// In en, this message translates to:
+  /// **'The TLS certificate has expired. Renew or import its replacement.'**
+  String get tlsExpiredCertificate;
+
   /// Label or explanation on this Device settings page.
   ///
   /// In en, this message translates to:

@@ -15,5 +15,7 @@
   "deviceByNameHelp": "La même adresse par nom d'hôte, sur les réseaux qui résolvent les noms .local.",
   "devicePasswordNeeded": "Définissez un mot de passe d'administration ci-dessous pour démarrer le serveur.",
   "deviceServerStopped": "Le serveur n'est pas en cours d'exécution.",
-  "devicePortError": "Impossible d'écouter sur le port {port} : {error}"
+  "devicePortError": "Impossible d'écouter sur le port {port} : {error}",
+  "settingRemoteTlsTitle": "Utiliser HTTPS",
+  "settingRemoteTlsDescription": "Chiffre l’administration à distance, l’API et les connexions WebSocket. Votre navigateur pourra vous demander d’accepter le certificat de l’appareil."
 }

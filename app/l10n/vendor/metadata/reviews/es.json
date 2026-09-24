@@ -5575,8 +5575,8 @@
     "author": "Xavier Larrea"
   },
   "settingCameraRtspAuthDescription": {
-    "source": "5fa12aa1ddcf9999e2b89853add1a1970e07031baed152d10b57b42971dcb5a9",
-    "translation": "c76e8f5f7c946e60a5f50a926cfdffdedce5eba62e1278aa91abef1515d756b8",
+    "source": "69c17ea1c5be25f3b990dc2dbbee903966b533eb9b1a97542196270f9f85050f",
+    "translation": "381b70f5323b17505d6a186a4e0eafb7f53cdc6fdd8a7a1e7aa7035d6f7756f2",
     "author": "Xavier Larrea"
   },
   "settingCameraRtspUsernameTitle": {
@@ -9715,8 +9715,8 @@
     "author": "Xavier Larrea"
   },
   "intercomRosterHelp": {
-    "source": "163630a3732efc4f7a5bf7cb9afb8a738a9d4d96aece4249513502c8cf2ef701",
-    "translation": "7e41b0810d424a9d5fb9df4bc3ccf8248ac65ccaf696e4efbfd3f36818b5a887",
+    "source": "0282dbb98195d34924c5f60edb5aaf23c99330e0bdb80f4f836a79b266472608",
+    "translation": "3f9d11f9f0c0e2fca7b684eb02819776979ade308637429b9228cdcd772e5874",
     "author": "Xavier Larrea"
   },
   "intercomNoOther": {
@@ -16332,6 +16332,256 @@
   "gestureHoldSeconds": {
     "source": "3a8b7dc2c2f40a61b7f8b13e78c84bfa26e740b8b9678db4e2baf476dac7968d",
     "translation": "fde82d3dd95e8edbefe2c328e4fbce4802413f212881c673b596ec26b39e655b",
+    "author": "Xavier Larrea"
+  },
+  "tlsPasteThePEMCertificateChainAndItsUnencryptedPrivateKeyTheyAreValidatedBeforeReplacingTheCurrentCertificate": {
+    "source": "807a8a33394ebed2cbbd06b4827bff335bca74591399fd6524c43ac7c85d8a3e",
+    "translation": "39af27e55593518585f2b4cd125647595706c1b389d872ffc17f6bdf377d8106",
+    "author": "Xavier Larrea"
+  },
+  "tlsUnencryptedKeyRequired": {
+    "source": "222bbbd71078f97d40bb8e59a322ce3d914d9974514f9e0fdcbacced9fce99eb",
+    "translation": "029a324ec9973baecb7cb4f4dc07232add1916628784a07ac5af460e05a7d936",
+    "author": "Xavier Larrea"
+  },
+  "tlsCopyPublicCertificate": {
+    "source": "097c129c046f29c6a39c8674e389fcb9cefb16f54b02ed644a1c669bab094300",
+    "translation": "ab2e0662f5b3067371ed41204b9728d3ada25f7963945c577e8ba885ba198649",
+    "author": "Xavier Larrea"
+  },
+  "settingCameraRtspTlsDescription": {
+    "source": "e00e30ec27e658de25f48d860e5fe9a44e751939ba351db1f2a9f9710be610b9",
+    "translation": "20a5ba1b6f5b6ceb78e489eb58e345e7d9848d77a04093138fb4e519e9905406",
+    "author": "Xavier Larrea"
+  },
+  "tlsCertificateManagement": {
+    "source": "8800cc561b79da6df30c973aaa45eedf6f5d8b471759bdb2b4096bccfa7effe6",
+    "translation": "a18e593bf578bdb31bbcad6f1ee65ea38a9184f4b616a4961e13345d4049842f",
+    "author": "Xavier Larrea"
+  },
+  "tlsServerAuthenticationRequired": {
+    "source": "d5a3ea934c72eb54a290739483c45529eb9b6a1232afdf9b3bc035f8d08cfa36",
+    "translation": "ed342d262324ab15256538d065dc1a4e2a2f560737b06abd47fc15a50533c8a2",
+    "author": "Xavier Larrea"
+  },
+  "intercomEncryptionMismatchHelp": {
+    "source": "c2ccf3413c63a6a55f5a9e82fad5fc8d2bd510ef7a22da7a0c1566d42fcac02a",
+    "translation": "2af323d7291d1681edbd6c3b96517d2ff45cc1274b1bca258f1ee28ffa07a0b5",
+    "author": "Xavier Larrea"
+  },
+  "settingIntercomTlsDescription": {
+    "source": "7ad40209c9c0a965913e1ea83751f88f4b095593e96767bea19aba3122a61569",
+    "translation": "692f4d331749ea7e3cce369ce05440bed88baeb48a10c89bea916260bd764012",
+    "author": "Xavier Larrea"
+  },
+  "tlsUseACertificateIssuedForThisDevice": {
+    "source": "9d5a04be9dc7daf0e2656fdf62198586d4de4e0d4d2a8e1a22cea478b8cf477e",
+    "translation": "d2d7f80a6fe06dbd64de4921ee1f24a00ee74dd9632d2058c198dbc0c6ffdc9d",
+    "author": "Xavier Larrea"
+  },
+  "tlsConnectionProtocolHelp": {
+    "source": "13ba952d45242ae2905170f9acd394bad78a5378fd0158ae306cb312c3f33a78",
+    "translation": "d9320f34905aaeacc65be81ea5edaff3ecc1c2bee4f1b443d368bce40e010340",
+    "author": "Xavier Larrea"
+  },
+  "tlsImportCertificate": {
+    "source": "f40212c86f386ba77c1aedb9a0e87831299bb174182beea906b33aa5b5c4aec9",
+    "translation": "20df774eeb1e16bc85517dc95041f2c91eef25848a938383f4081a15264aa78f",
+    "author": "Xavier Larrea"
+  },
+  "tlsUseThisCertificateInBrowsersAndStreamingClients": {
+    "source": "bf27cf23a5e3fe398ccee07a28cdd82b00f27edfb7c7de27c534b20c17eb4f3a",
+    "translation": "de231e5c546d6c2cca93ccd555f58cd362166902d09f6338ed646db8bf777b89",
+    "author": "Xavier Larrea"
+  },
+  "tlsConfirm": {
+    "source": "de399cd75cdf32f9874f26b3c84c0bb35ce76140b5210f4341a315a8d65e4938",
+    "translation": "717bedea36fcffd9afb66b1f1ee13c074d57153c4827407715f819607c8a5752",
+    "author": "Xavier Larrea"
+  },
+  "tlsCertificateMissing": {
+    "source": "338fe055a47b4edefb7a6e45afea5eeb5120301d0af9bf6a911fd10c03d8538b",
+    "translation": "3848b49d2d61205b6dec3f5ed2ff98e0d77b5d2c15ccb42696145d5a1c97cae0",
+    "author": "Xavier Larrea"
+  },
+  "tlsStoredIdentityDamaged": {
+    "source": "4951a5d9d3c2f1df8c12ef1a7c6242ae7ecda90d2540a24803bdc47aa388065f",
+    "translation": "1cfd5696836cd36ef4da66b2432de66e0b64d683727eb415c77a643e5ed10b01",
+    "author": "Xavier Larrea"
+  },
+  "tlsPemCertificatesRequired": {
+    "source": "d0106a593cc223d4fb866313f09adc768f3e17fdca41c205e4a840aa9e810c04",
+    "translation": "b129168c3ac0b7281ec7903e33e48045327e9b928982ca5ca3cb863bf2032706",
+    "author": "Xavier Larrea"
+  },
+  "tlsSHA256Fingerprint": {
+    "source": "88fc738292ccdf1bb01374880d8f9633875dbc8226a851ca68b0ecee14073d85",
+    "translation": "65d2cad4dc62237712f108e507a0e8d5818794f68af5ad1dd8d7210aaa4710d5",
+    "author": "Xavier Larrea"
+  },
+  "tlsExpiredCertificate": {
+    "source": "fd9109a6e51b1e135257ba443fe638c33920a96faefc222fe89ab95ef388c98a",
+    "translation": "d2e0d2c9c420c706139b1c821fbe5edd9ce0713f44a418617822290c202f8711",
+    "author": "Xavier Larrea"
+  },
+  "intercomEncryptionMismatch": {
+    "source": "0ed2f91d051747caccd5129a7ed962de17140a625bf39ca41cb2b3a7755b0f15",
+    "translation": "f583adafb2a449e1bd8e4b3862c68f031723ee204e9d31f7e5e16937c81dcf50",
+    "author": "Xavier Larrea"
+  },
+  "tlsCertificateChainPEM": {
+    "source": "ec2fe833849981beb5194f34d1a4b50872561a6937f14249e3b73b957a206d3b",
+    "translation": "a9117ac76b5bf329fdaa4e07068bd08af52f101ad2bb1632da8c502a4b3b1f15",
+    "author": "Xavier Larrea"
+  },
+  "tlsGenerateANewPrivateKeyAndCertificateActiveEncryptedConnectionsWillCloseBrowsersMayAskYouToAcceptTheNewCertificate": {
+    "source": "e8a950e05fa0da6646adc179d7d2685b1cde2d4ea831d473769abdb4b6acef87",
+    "translation": "24a11026cecec27e4209c41c299e7a0f35139ecc1036686645afabf7e186e371",
+    "author": "Xavier Larrea"
+  },
+  "tlsRenew": {
+    "source": "904794391c80d642a4025b8caf830a4272e58a1c901e191b6ba2e30d5b442250",
+    "translation": "75e8e825d399a2e0de2c44321b1c09d70c8e15bf33f6f049b6a6a3f68598a862",
+    "author": "Xavier Larrea"
+  },
+  "tlsMaterialTooLarge": {
+    "source": "07b00e7bceef0fd4df761c39562f9515a5018a417489b55b6a856945325030b8",
+    "translation": "ab86399be37b5ce44fbb50e1e8268c7831286eb74034238f8366aea735fc9df5",
+    "author": "Xavier Larrea"
+  },
+  "tlsIssuerRenewalRequired": {
+    "source": "8b11aaaf371fc62373f032fbf2c5c3022fd6f6b69cf06c0168ff719e549f4dda",
+    "translation": "2a484a3fd8108c65b30d0a54a490a889cc7fcc49dc4a0d539f75d507a671e42b",
+    "author": "Xavier Larrea"
+  },
+  "tlsSelfSigned": {
+    "source": "48a45c394dbd43132226162676a7c37e9e5f0a431848487a38dccb6ef37387bd",
+    "translation": "44246c535062de3cabb1a94d98a29c48d4186354e3551f47071f55fde298cafe",
+    "author": "Xavier Larrea"
+  },
+  "tlsThisFieldIsRequired": {
+    "source": "5d6f829d0db0fdb4794a90acc1b3908110d1b2f29345b1f76b5360199f27ca8b",
+    "translation": "da0986902b185fa2664173fc69475c930efafd8632e837f768ab6bf45651321a",
+    "author": "Xavier Larrea"
+  },
+  "tlsCertificateOperationFailed": {
+    "source": "f75f9e1d09ec011a3b5eb944e38192b1b213b862953aaebb8ef6762ebbc2b789",
+    "translation": "fc3766de9722952b52474524306d77022575de3aa6df7dfec32ccc0d5d2f72ca",
+    "author": "Xavier Larrea"
+  },
+  "tlsGenerateANewPrivateKeyAndSelfSignedCertificate": {
+    "source": "eafe91cff97d77ed90b9e7c47ace99baa384d767f55f58e9ff1b71210dc7a378",
+    "translation": "02343a6262f954ccbbdc0b3f32e7fb7289172274651e30cf99b2d1862ff34805",
+    "author": "Xavier Larrea"
+  },
+  "tlsPrivateKeyPEM": {
+    "source": "b212189dd42dcd0dca10bfee9dfab38740eebd9341becddbc2323417a84541d3",
+    "translation": "42dbb399c8db106eb3f163374d27d726584b1f0ca0579b33ae991e3e7425804c",
+    "author": "Xavier Larrea"
+  },
+  "tlsReplaceCertificate": {
+    "source": "e685cc37e4326fcb9c6425dce101f55aaddeb19e0947ef38082396218e57c8af",
+    "translation": "4b0dd635976e1c9ac32e563c2dfb839072304f31eb81a2cccc9a8f941f3d44fb",
+    "author": "Xavier Larrea"
+  },
+  "tlsEnableHTTPSBeforeImportingAPrivateKeyRemotely": {
+    "source": "5d4fdc351da9a5c3bae719423dfed10c8c632458b9eb86d627117345f6d3cb05",
+    "translation": "9e0ef61c1b962f92ae85a5926111648e234ad9202424145ead04e9369a96de72",
+    "author": "Xavier Larrea"
+  },
+  "settingRemoteTlsTitle": {
+    "source": "f9be29105c6817a451a08147a81603fe6bb10a27096016a2a06d44a688b2c69c",
+    "translation": "85af9a9d569f4bd73f70fa7b2185f579b8f1d83f7dbdd8cbe46b69dbf2a86721",
+    "author": "Xavier Larrea"
+  },
+  "tlsImported": {
+    "source": "10964fb652c21b7e7ae962c78174710debedc1b784e65414cd9619fcc2797cfb",
+    "translation": "c4c924457dc196126e8ff43110e7d27f3926ba19b236f13cb7b0d9fa087e08ce",
+    "author": "Xavier Larrea"
+  },
+  "tlsConnectionEncryptionAndCertificates": {
+    "source": "40206c8a84c89229187c734dde6472e96a6f8afaba157ccbdeafc55941cb51b2",
+    "translation": "3d2d3db84c4677b5ae7f8716cda1c73f42e64be5cced4d223eb4d46e79fbc578",
+    "author": "Xavier Larrea"
+  },
+  "tlsServerCertificateRequired": {
+    "source": "889a4c663b667f70572c70f18d372fee451c74857e6380257f50460ec3019bb1",
+    "translation": "7b08a5aa4d2178ce370b381b05335c57b8709298df78d81cd572970b071ac8ec",
+    "author": "Xavier Larrea"
+  },
+  "settingCameraRtspTlsTitle": {
+    "source": "cae0edb96cfd26cb783436555279ca399342696e2e48040423760eb190b25e10",
+    "translation": "6a89ffa9f97e05013c3551e4a751209a01c1ee15fb95e90be84ea610055e6860",
+    "author": "Xavier Larrea"
+  },
+  "tlsCertificateType": {
+    "source": "1c6bec91e84a2cb541329448a1c03ded8ca413c51b2903b6ccdd2ceb3a110d8c",
+    "translation": "ffe3979246373539a146e4373783c9b915947c7cc052f75382ccb117a60b4564",
+    "author": "Xavier Larrea"
+  },
+  "tlsChangeConnectionProtocol": {
+    "source": "15221d8a6d592fc69c05cf72c1c6d04b1130317079215255e64b116c8d68f228",
+    "translation": "f77855a36274f723cdb08105b61ab1e1931a5cbfd3771d82184e04a1ed6262d2",
+    "author": "Xavier Larrea"
+  },
+  "tlsCertificateExpiredRenewOrImportAReplacement": {
+    "source": "63d7c504d2ba4e9d7443b72da027024e1261b6b7f4a1f46ed39a1ddba6d0b265",
+    "translation": "25cff6cd1c3f599466b801f7f857e0400ea21f98d741151f38e1fe383bb969f2",
+    "author": "Xavier Larrea"
+  },
+  "tlsKeyAlgorithmRequired": {
+    "source": "eac3a715a22c6ab9c95a9194cf31c49eaffd7abb619910c6ac23fcd6fc8d082a",
+    "translation": "adedf8b2f2e0012ab5b6345dcdc42c5256c4388db9fb8f5c039a5455a59ebee6",
+    "author": "Xavier Larrea"
+  },
+  "tlsKeyMismatch": {
+    "source": "65274b65eff182d46ef9691097f9014529ab4ff6c9fea2788d159a4566cf874b",
+    "translation": "44e18db73d8b317745699b1fbe684056b6f168570b84615f33fdb110a3d6cd26",
+    "author": "Xavier Larrea"
+  },
+  "tlsReplace": {
+    "source": "e4bf742167a386974aeb2b4147c5b75d192b91629332682169aea326014a3f56",
+    "translation": "74e59f0166de0061bdeb9e7c658d3449d22d163dad2a18ae403b1a716145cb2c",
+    "author": "Xavier Larrea"
+  },
+  "tlsHostnameRequired": {
+    "source": "afc3b89b3f229c87aabc29db74ef8fb3003dcf21617ea964d69056f7769d330f",
+    "translation": "dd934a936464a577f7f74fa70fc7cd014b398139aa70192d28f850d01f0bb064",
+    "author": "Xavier Larrea"
+  },
+  "tlsTLS": {
+    "source": "9c86780b1d9655c693e5db4a0c598a6c0c41186f24e5bb7c626080f294dbbfff",
+    "translation": "d1c18ec0b109268324269c2da5f0c0dfafbe1058ea4af5653284d714064904a1",
+    "author": "Xavier Larrea"
+  },
+  "tlsKeepTheCurrentPrivateKeyAndUpdateTheCertificateDates": {
+    "source": "f21071cc083816d4203cca2e136ced163497fa362e6614abd7f19015ac9333bd",
+    "translation": "89939d2fb6de4d16cd608fab088b5dce0a972f586c9987dac104da6e3d390ed3",
+    "author": "Xavier Larrea"
+  },
+  "tlsRenewCertificate": {
+    "source": "3cf9b29c46a869f1c93d84387cdbf369d1a0ec141f7aa08a8254d35f41da33e9",
+    "translation": "00422725227308c301c355a1d7ddc642065d6493b0a42b7e9d466e7544abeaf0",
+    "author": "Xavier Larrea"
+  },
+  "settingIntercomTlsTitle": {
+    "source": "22f69ac97b748f7de154b80b90c86fd8c4fba49862d268797e851728979f0f2a",
+    "translation": "0f6af46d2e7a209684c28417b6058ce3667e5a9c982e3eef2b4c5c592da97d00",
+    "author": "Xavier Larrea"
+  },
+  "tlsExpires": {
+    "source": "2221258964502c858c9acc091ca196cf9dcbb76bf5aa602d67dda929f5ab3f6e",
+    "translation": "704b31ddcdd03f62cc51e4fbe7aac28336ccd0cceeb1590dd6140184baabfc34",
+    "author": "Xavier Larrea"
+  },
+  "settingRemoteTlsDescription": {
+    "source": "78e0147ec51e9d95d4a7d72943cfedcb4c30d8d48e201858177dfa32abf332cc",
+    "translation": "2dae18c0271fa258453f7bf7c9a30aafecda344735a706fdbaad0946ebf6f7bb",
+    "author": "Xavier Larrea"
+  },
+  "tlsDownloadPublicCertificate": {
+    "source": "8ab44f79e6a54a3391170334b83aa2b14c778b6016f05b68eb14679ef4d7a03f",
+    "translation": "bf95e9cfab665ac2ffba68cb72d2909db4a4ac2f10e1ca56437a2d056eeeaa54",
     "author": "Xavier Larrea"
   }
 }
