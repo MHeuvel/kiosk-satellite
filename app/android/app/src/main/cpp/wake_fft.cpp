@@ -4,8 +4,10 @@
 // The Dart frontend supplies its own tables so both paths use identical
 // coefficients and operation order. Keep contraction and fast math disabled.
 extern "C" __attribute__((visibility("default")))
-void ks_wake_fft(int32_t n, double* re, double* im, const double* cosine,
-                 const double* sine, const uint32_t* reverse) {
+void ks_wake_fft(int32_t n, double* __restrict re, double* __restrict im,
+                 const double* __restrict cosine,
+                 const double* __restrict sine,
+                 const uint32_t* __restrict reverse) {
     for (int32_t i = 0; i < n; ++i) {
         const auto j = reverse[i];
         if (j > static_cast<uint32_t>(i)) {

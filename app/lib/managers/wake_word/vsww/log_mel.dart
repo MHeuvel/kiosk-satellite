@@ -3,7 +3,7 @@ import 'dart:math' as math;
 import 'dart:typed_data';
 
 import 'manifest.dart';
-import 'native_fft.dart';
+import 'native_log_mel.dart';
 
 /// Log-mel feature extractor for `vs-wake-word-ctc-v1`, ported bit-close from
 /// Voice Satellite's `inference.js:_extractLogMel`.
@@ -24,11 +24,12 @@ import 'native_fft.dart';
 /// to float32 first (as JS stores them) before double accumulation.
 class LogMelExtractor {
   LogMelExtractor(this.feature,
-      {bool useNativeFft = true, DynamicLibrary? fftLibrary})
-      : _fft = _Fft(feature.nFft, useNativeFft: useNativeFft, library: fftLibrary),
+      {bool useNative = true, DynamicLibrary? nativeLibrary})
+      : _fft = _Fft(feature.nFft),
         _window = _makeHannWindow(feature.frameSamples),
         _filters = _makeMelFilterbank(feature) {
     _halfBins = feature.nFft ~/ 2 + 1; // 257 for nFft 512
+    _native = useNative ? _createNative(nativeLibrary) : null;
   }
 
   final VswwFeatureConfig feature;
@@ -36,18 +37,70 @@ class LogMelExtractor {
   final Float32List _window; // length frameSamples, symmetric Hann
   final List<_MelFilter> _filters; // length nMels
   late final int _halfBins;
+  late final NativeLogMel? _native;
+
+  NativeLogMel? _createNative(DynamicLibrary? library) {
+    final lo = Int32List(_filters.length);
+    final hi = Int32List(_filters.length);
+    var total = 0;
+    for (var m = 0; m < _filters.length; m++) {
+      lo[m] = _filters[m].lo;
+      hi[m] = _filters[m].hi;
+      total += _filters[m].coeff.length;
+    }
+    final coeffs = Float32List(total);
+    var at = 0;
+    for (final f in _filters) {
+      coeffs.setAll(at, f.coeff);
+      at += f.coeff.length;
+    }
+    return NativeLogMel.tryCreate(
+      windowSamples: feature.windowSamples,
+      frameSamples: feature.frameSamples,
+      hopSamples: feature.hopSamples,
+      nFft: feature.nFft,
+      frames: feature.frames,
+      nMels: feature.nMels,
+      logFloor: feature.logFloor,
+      window: _window,
+      filterLo: lo,
+      filterHi: hi,
+      filterCoefficients: coeffs,
+      cosine: _fft._cos,
+      sine: _fft._sin,
+      reverse: _fft._rev,
+      library: library,
+    );
+  }
 
   // Reused scratch + the persistent feature buffer for incremental extraction.
   late final Float32List _featBuf =
-      Float32List(feature.frames * feature.nMels);
+      _native?.features ?? Float32List(feature.frames * feature.nMels);
   late final Float64List _re = Float64List(feature.nFft);
   late final Float64List _im = Float64List(feature.nFft);
   late final Float64List _power = Float64List(_halfBins);
   bool _primed = false;
 
-  bool get usesNativeFft => _fft._native != null;
+  bool get usesNative => _native != null;
 
-  void dispose() => _fft._native?.release();
+  /// A ring of [VswwFeatureConfig.windowSamples] for [extractRing] and
+  /// [sumSquares]. Any ring works, but this one lives where the native path
+  /// reads, so passing it back saves copying the window on every call.
+  late final Float32List ringBuffer =
+      _native?.ring ?? Float32List(feature.windowSamples);
+
+  bool _disposed = false;
+
+  /// Frees the native plan. [ringBuffer] and the returned features may point
+  /// into it, so neither may be used afterwards.
+  void dispose() {
+    _disposed = true;
+    _native?.release();
+  }
+
+  void _checkLive() {
+    if (_disposed && _native != null) throw StateError('log-mel released');
+  }
 
   /// Extract [frames * nMels] log-mel features from a full window of
   /// [windowSamples] float samples (time order). Returns the internal feature
@@ -59,7 +112,14 @@ class LogMelExtractor {
   /// frame j (float32) becomes new frame j - newFrames, which is *bit-identical*
   /// to recomputing it (same audio, same math). Pass -1 (default) or a
   /// non-hop-aligned value to force a full recompute (e.g. the first window).
-  Float32List extract(Float32List window, {int newSamples = -1}) {
+  Float32List extract(Float32List window, {int newSamples = -1}) =>
+      extractRing(window, 0, newSamples: newSamples);
+
+  /// [extract] over a ring buffer of [windowSamples] whose oldest sample is at
+  /// [head]: the window runs from `ring[head]` to the end and wraps to the
+  /// start. Saves the caller unrolling the ring into a scratch window.
+  Float32List extractRing(Float32List ring, int head, {int newSamples = -1}) {
+    _checkLive();
     final frames = feature.frames;
     final mels = feature.nMels;
     final hop = feature.hopSamples;
@@ -72,29 +132,58 @@ class LogMelExtractor {
       if (newFrames > frames) newFrames = frames;
     }
 
-    if (newFrames >= frames) {
-      for (var f = 0; f < frames; f++) {
-        _computeFrame(window, f);
-      }
-    } else {
+    var first = 0;
+    if (newFrames < frames) {
       // shift the retained frames down by newFrames, then recompute the tail
       final shift = newFrames * mels;
       _featBuf.setRange(0, frames * mels - shift, _featBuf, shift);
-      for (var f = frames - newFrames; f < frames; f++) {
-        _computeFrame(window, f);
+      first = frames - newFrames;
+    }
+    final native = _stage(ring);
+    if (native != null) {
+      native.frames(head, first);
+    } else {
+      for (var f = first; f < frames; f++) {
+        _computeFrame(ring, head, f);
       }
     }
     _primed = true;
     return _featBuf;
   }
 
-  void _computeFrame(Float32List window, int f) {
+  /// Sum of squared samples over the window [extractRing] would read, in
+  /// window order (so the rounding matches a straight pass over a copy).
+  double sumSquares(Float32List ring, int head) {
+    _checkLive();
+    final native = _stage(ring);
+    if (native != null) return native.sumSquares(head);
+    var sum = 0.0;
+    for (var i = head; i < ring.length; i++) {
+      sum += ring[i] * ring[i];
+    }
+    for (var i = 0; i < head; i++) {
+      sum += ring[i] * ring[i];
+    }
+    return sum;
+  }
+
+  /// The native plan with [ring]'s samples in place, or null for the Dart path.
+  NativeLogMel? _stage(Float32List ring) {
+    final native = _native;
+    if (native == null || ring.length != native.ring.length) return null;
+    if (!identical(ring, native.ring)) native.ring.setAll(0, ring);
+    return native;
+  }
+
+  void _computeFrame(Float32List ring, int head, int f) {
     final frameLen = feature.frameSamples;
     final nFft = feature.nFft;
     final mels = feature.nMels;
-    final base = f * feature.hopSamples;
+    final n = ring.length;
+    var idx = (head + f * feature.hopSamples) % n;
     for (var i = 0; i < frameLen; i++) {
-      _re[i] = window[base + i] * _window[i];
+      _re[i] = ring[idx] * _window[i];
+      if (++idx == n) idx = 0;
     }
     for (var i = frameLen; i < nFft; i++) {
       _re[i] = 0.0;
@@ -193,7 +282,7 @@ class _MelFilter {
 /// Minimal unnormalized radix-2 real FFT, sign exp(-2πi k/N), matching the
 /// JS `FFT` class (no 1/N scaling). Size must be a power of two.
 class _Fft {
-  _Fft(this.n, {required bool useNativeFft, DynamicLibrary? library})
+  _Fft(this.n)
       : _cos = Float64List(n),
         _sin = Float64List(n),
         _rev = Uint32List(n) {
@@ -214,24 +303,15 @@ class _Fft {
       }
       _rev[i] = r;
     }
-    _native = useNativeFft
-        ? NativeFft.tryCreate(_cos, _sin, _rev, library: library)
-        : null;
   }
 
   final int n;
   final Float64List _cos;
   final Float64List _sin;
   final Uint32List _rev;
-  late final NativeFft? _native;
 
   /// In-place forward DFT of complex arrays re/im (length n).
   void forward(Float64List re, Float64List im) {
-    final native = _native;
-    if (native != null) {
-      native.forward(re, im);
-      return;
-    }
     // bit-reversal permutation
     for (var i = 0; i < n; i++) {
       final j = _rev[i];

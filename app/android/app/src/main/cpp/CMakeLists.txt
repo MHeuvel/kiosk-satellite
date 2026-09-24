@@ -31,7 +31,8 @@ target_compile_options(sendspin_jni PRIVATE -Wall -Wextra)
 find_library(log-lib log)
 target_link_libraries(sendspin_jni PRIVATE sendspin ${log-lib})
 
-add_library(kiosk_wake_fft SHARED wake_fft.cpp micro_fft.cpp)
+add_library(kiosk_wake_fft SHARED
+    wake_fft.cpp micro_fft.cpp log_mel.cpp micro_frontend.cpp)
 target_compile_features(kiosk_wake_fft PRIVATE cxx_std_17)
 target_compile_options(kiosk_wake_fft PRIVATE
     -Wall -Wextra -fno-fast-math -ffp-contract=off)

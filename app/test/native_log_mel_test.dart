@@ -6,14 +6,13 @@ import 'dart:typed_data';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kiosk_satellite/managers/wake_word/vsww/log_mel.dart';
 import 'package:kiosk_satellite/managers/wake_word/vsww/manifest.dart';
-import 'package:kiosk_satellite/managers/wake_word/vsww/native_fft.dart';
 
 void main() {
   late Directory directory;
   late DynamicLibrary library;
 
   setUpAll(() async {
-    directory = await Directory.systemTemp.createTemp('kiosk-native-fft-');
+    directory = await Directory.systemTemp.createTemp('kiosk-native-log-mel-');
     final path = '${directory.path}/libkiosk_wake_fft.so';
     final result = await Process.run('g++', [
       '-shared',
@@ -22,6 +21,7 @@ void main() {
       '-fno-fast-math',
       '-ffp-contract=off',
       'android/app/src/main/cpp/wake_fft.cpp',
+      'android/app/src/main/cpp/log_mel.cpp',
       '-o',
       path,
     ]);
@@ -46,9 +46,9 @@ void main() {
           windowSamples: fftSize == 256 ? 20520 : 20800,
           frames: 128,
         );
-        final reference = LogMelExtractor(config, useNativeFft: false);
-        final native = LogMelExtractor(config, fftLibrary: library);
-        expect(native.usesNativeFft, isTrue);
+        final reference = LogMelExtractor(config, useNative: false);
+        final native = LogMelExtractor(config, nativeLibrary: library);
+        expect(native.usesNative, isTrue);
         final random = math.Random(53);
         final audio = Float32List(config.windowSamples);
         for (var signal = 0; signal < 6; signal++) {
@@ -109,38 +109,69 @@ void main() {
     );
     final extractor = LogMelExtractor(
       config,
-      fftLibrary: DynamicLibrary.process(),
+      nativeLibrary: DynamicLibrary.process(),
     );
-    expect(extractor.usesNativeFft, isFalse);
+    expect(extractor.usesNative, isFalse);
     expect(extractor.extract(Float32List(20800)), hasLength(5120));
     extractor.dispose();
   });
 
-  test('native input sizes and released memory are guarded', () {
-    final cosine = Float64List(512);
-    final sine = Float64List(512);
-    final reverse = Uint32List(512);
-    final native = NativeFft.tryCreate(
-      cosine,
-      sine,
-      reverse,
-      library: library,
-    )!;
-    expect(
-      () => native.forward(Float64List(511), Float64List(512)),
-      throwsArgumentError,
+  test('ring windows match the unrolled window in both paths', () {
+    const config = VswwFeatureConfig(
+      sampleRate: 16000,
+      nFft: 512,
+      nMels: 40,
+      fMin: 80,
+      fMax: 7600,
+      logFloor: 1e-6,
+      frameSamples: 400,
+      hopSamples: 160,
+      windowSamples: 20800,
+      frames: 128,
     );
-    native.release();
-    native.release();
-    expect(() => native.forward(cosine, sine), throwsStateError);
-    expect(
-      NativeFft.tryCreate(
-        Float64List(3),
-        Float64List(3),
-        Uint32List(3),
-        library: library,
-      ),
-      isNull,
-    );
+    final n = config.windowSamples;
+    final unrolled = LogMelExtractor(config, useNative: false);
+    final dartRing = LogMelExtractor(config, useNative: false);
+    final nativeRing = LogMelExtractor(config, nativeLibrary: library);
+    expect(nativeRing.usesNative, isTrue);
+    final random = math.Random(91);
+    final ring = Float32List(n);
+    final window = Float32List(n);
+    var head = 0;
+    for (var chunk = 0; chunk < 40; chunk++) {
+      // Chunks of 1280 walk the head through every hop phase of the ring.
+      for (var i = 0; i < 1280; i++) {
+        ring[head] = chunk % 5 == 0
+            ? 0
+            : (random.nextDouble() * 2 - 1) * (chunk.isEven ? 1 : 0.001);
+        head = (head + 1) % n;
+      }
+      window.setRange(0, n - head, ring, head);
+      window.setRange(n - head, n, ring, 0);
+      final newSamples = chunk == 0 ? -1 : 1280;
+      final expected = unrolled.extract(window, newSamples: newSamples);
+      final dart = dartRing.extractRing(ring, head, newSamples: newSamples);
+      final native = nativeRing.extractRing(ring, head, newSamples: newSamples);
+      expect(
+        dart.buffer.asUint8List(),
+        expected.buffer.asUint8List(),
+        reason: 'Dart ring, chunk $chunk',
+      );
+      expect(
+        native.buffer.asUint8List(),
+        expected.buffer.asUint8List(),
+        reason: 'native ring, chunk $chunk',
+      );
+
+      var sum = 0.0;
+      for (var i = 0; i < n; i++) {
+        sum += window[i] * window[i];
+      }
+      expect(dartRing.sumSquares(ring, head), sum, reason: 'chunk $chunk');
+      expect(nativeRing.sumSquares(ring, head), sum, reason: 'chunk $chunk');
+    }
+    unrolled.dispose();
+    dartRing.dispose();
+    nativeRing.dispose();
   });
 }

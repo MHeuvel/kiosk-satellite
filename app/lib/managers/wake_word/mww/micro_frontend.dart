@@ -28,7 +28,7 @@ import 'dart:ffi' show DynamicLibrary;
 import 'dart:math' as math;
 import 'dart:typed_data';
 
-import 'native_micro_fft.dart';
+import 'native_micro_frontend.dart';
 
 const int kSampleRate = 16000;
 const int kWindowSizeMs = 30;
@@ -621,21 +621,55 @@ void _kissFftr(Int16List timedata, Int16List outR, Int16List outI, FftPlan plan)
 /// Stateful: keeps the sample window, the noise estimate, and PCAN gain state
 /// across calls, exactly like the C frontend. One per audio stream.
 class MicroFrontend {
-  MicroFrontend({bool useNativeFft = true, DynamicLibrary? fftLibrary})
+  MicroFrontend({bool useNative = true, DynamicLibrary? nativeLibrary})
       : _tables = sharedTables() {
-    final plan = _tables.fftPlan;
-    _nativeFft = useNativeFft && plan.nfftReal == 512
-        ? NativeMicroFft.tryCreate(plan.twCos, plan.twSin, plan.stCos, plan.stSin,
-            library: fftLibrary)
-        : null;
+    _native = useNative ? _createNative(nativeLibrary) : null;
   }
 
   final MicroFrontendTables _tables;
-  late final NativeMicroFft? _nativeFft;
+  late final NativeMicroFrontend? _native;
 
-  bool get usesNativeFft => _nativeFft != null;
+  /// Whether the native frontend does the work; the Dart below is then only
+  /// the reference it was validated against.
+  bool get usesNative => _native != null;
 
-  void dispose() => _nativeFft?.release();
+  void dispose() => _native?.release();
+
+  NativeMicroFrontend? _createNative(DynamicLibrary? library) {
+    final plan = _tables.fftPlan;
+    final fb = _tables.filterbank;
+    // The native side hardcodes the 512-point, 40-channel layout.
+    if (plan.nfftReal != 512 ||
+        kWindowSize != 480 ||
+        kStepSize != 160 ||
+        kFeatureSize != 40 ||
+        kInputCorrectionBits != 3 ||
+        kSnrShift != 6) {
+      return null;
+    }
+    final fftTables = Int16List(768)
+      ..setAll(0, plan.twCos)
+      ..setAll(256, plan.twSin)
+      ..setAll(512, plan.stCos)
+      ..setAll(640, plan.stSin);
+    return NativeMicroFrontend.tryCreate(
+      window: _tables.windowCoefficients,
+      channelFrequencyStarts: fb.channelFrequencyStarts,
+      channelWeightStarts: fb.channelWeightStarts,
+      channelWidths: fb.channelWidths,
+      weights: fb.weights,
+      unweights: fb.unweights,
+      fftTables: fftTables,
+      gainLut: _tables.gainLut,
+      logLut: kLogLut,
+      evenSmoothing: kNoiseReductionEvenSmoothing,
+      oddSmoothing: kNoiseReductionOddSmoothing,
+      minSignal: kNoiseReductionMinSignal,
+      featureSize: kFeatureSize,
+      stepSize: kStepSize,
+      library: library,
+    );
+  }
 
   final Int16List _input = Int16List(kWindowSize);
   int _inputUsed = 0;
@@ -670,6 +704,10 @@ class MicroFrontend {
 
   List<Float32List> _feed(int length, {List<double>? floats, Int16List? pcm}) {
     if (length == 0) return const [];
+    final native = _native;
+    if (native != null) {
+      return native.feed(pcm ?? _toPcm16(floats!));
+    }
     _framesUsed = 0;
     _results.clear();
     var offset = 0;
@@ -696,7 +734,16 @@ class MicroFrontend {
     return _results;
   }
 
+  Int16List _toPcm16(List<double> floats) {
+    final pcm = Int16List(floats.length);
+    for (var i = 0; i < floats.length; i++) {
+      pcm[i] = _floatToInt16(floats[i]);
+    }
+    return pcm;
+  }
+
   void reset() {
+    _native?.reset();
     _input.fillRange(0, _input.length, 0);
     _windowed.fillRange(0, _windowed.length, 0);
     _fftTime.fillRange(0, _fftTime.length, 0);
@@ -736,12 +783,7 @@ class MicroFrontend {
       _fftTime[i] = 0;
     }
 
-    final native = _nativeFft;
-    if (native == null) {
-      _kissFftr(_fftTime, _fftOutR, _fftOutI, fftPlan);
-    } else {
-      native.forward(_fftTime, _fftOutR, _fftOutI);
-    }
+    _kissFftr(_fftTime, _fftOutR, _fftOutI, fftPlan);
 
     var weightAccumulator = 0.0;
     var unweightAccumulator = 0.0;
