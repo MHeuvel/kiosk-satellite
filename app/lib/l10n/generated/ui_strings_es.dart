@@ -11481,7 +11481,7 @@ class UiStringsEs extends UiStrings {
       'Permisos solicitados en el dispositivo';
 
   @override
-  String get setupQrFlipCamera => 'Flip camera';
+  String get setupQrFlipCamera => 'Cambiar de cámara';
 
   @override
   String get setupQrCameraFailed => 'No se pudo iniciar la cámara.';
