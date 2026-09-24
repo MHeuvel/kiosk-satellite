@@ -2,14 +2,18 @@ package me.jxl.kiosk_satellite
 
 import android.app.Activity
 import android.app.Application
+import android.graphics.Bitmap
+import android.graphics.Color
 import android.view.SurfaceView
 import android.view.View
 import android.widget.FrameLayout
 import io.flutter.embedding.android.FlutterSurfaceView
 import io.flutter.embedding.android.FlutterView
 import org.junit.After
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertSame
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -43,36 +47,46 @@ class ScreenCaptureSourceTest {
         controller.pause().stop().destroy()
     }
 
-    @Test fun standaloneFlutterUsesItsSurface() {
-        assertSame(surface, flutterScreenshotSurface(root))
+    @Test fun findsTheFlutterSurface() {
+        assertSame(surface, flutterSurface(root))
     }
 
-    @Test fun hybridCompositionKeepsTheWindowUntilItsImageIsGone() {
+    @Test fun hybridCompositionStillOffersTheSurface() {
+        // The window copy decides whether it shows: an opaque window from
+        // hybrid composition covers it completely.
         flutter.convertToImageView()
-        val image = flutter.currentImageSurface!!
-        image.alpha = 1f
-        assertNull(flutterScreenshotSurface(root))
-
-        image.alpha = 0f
-        assertSame(surface, flutterScreenshotSurface(root))
+        assertSame(surface, flutterSurface(root))
     }
 
     @Test fun hiddenFlutterAndUnpaintedSurfacesAreNotCaptured() {
         flutter.visibility = View.INVISIBLE
-        assertNull(flutterScreenshotSurface(root))
+        assertNull(flutterSurface(root))
         flutter.visibility = View.VISIBLE
         surface.alpha = 0f
-        assertNull(flutterScreenshotSurface(root))
+        assertNull(flutterSurface(root))
         surface.alpha = 1f
         surface.layout(0, 0, 0, 0)
-        assertNull(flutterScreenshotSurface(root))
+        assertNull(flutterSurface(root))
     }
 
-    @Test fun unrelatedSurfaceViewsDoNotReplaceTheWindow() {
+    @Test fun unrelatedSurfaceViewsAreIgnored() {
         root.removeAllViews()
         val video = SurfaceView(root.context)
         root.addView(video)
         video.layout(0, 0, 1280, 800)
-        assertNull(flutterScreenshotSurface(root))
+        assertNull(flutterSurface(root))
+    }
+
+    @Test fun opaqueWindowNeedsNoUnderlay() {
+        val bitmap = Bitmap.createBitmap(32, 20, Bitmap.Config.ARGB_8888)
+        bitmap.eraseColor(Color.BLACK)
+        assertFalse(hasTransparency(bitmap))
+    }
+
+    @Test fun anyTransparentPixelNeedsTheUnderlay() {
+        val bitmap = Bitmap.createBitmap(32, 20, Bitmap.Config.ARGB_8888)
+        bitmap.eraseColor(Color.BLACK)
+        bitmap.setPixel(31, 19, Color.TRANSPARENT)
+        assertTrue(hasTransparency(bitmap))
     }
 }

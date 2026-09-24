@@ -6,6 +6,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ### Fixed
 - **The ADB update helper no longer fills storage on Android 10 and older.** Android kept every downloaded update open after the helper deleted it, so each update held on to about 190 MB of storage until the helper stopped or the device restarted. The helper now releases each update file before deleting it.
+- **Screenshots match the screen again.** Since v2026.9.78 the remote admin preview and the Screenshot camera could miss live video and show dashboards with squashed or shifted cards. On Android 16 the capture mistook the dashboard for a hidden one, the copy failed and the app fell back to the WebView's own page capture. Screenshots now always copy the window, which holds the dashboard with its video, and fill any transparent area from Flutter's surface, which is where Weather Mood draws once the dashboard is hidden.
 
 ## v2026.9.80 - 2026-09-24
 
