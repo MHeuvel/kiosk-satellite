@@ -367,13 +367,14 @@ void main() {
         await c.settings.set(defs.screensaverWeatherBarOpacity, opacity);
         await show(const Size(1280, 800), 100, 'fr');
         expect(chips(), hasLength(4));
-        // Frosted glass behind every chip, gone with the tint at 0%.
+        // The test renderer has no backdrop shaders, so the chips are the
+        // plain tinted fallback: no per-frame backdrop blur.
         expect(
           find.descendant(
             of: find.byType(WeatherMoodBar),
             matching: find.byType(BackdropFilter),
           ),
-          opacity == 0 ? findsNothing : findsNWidgets(4),
+          findsNothing,
         );
         for (final chip in chips()) {
           final tint = (chip.gradient! as LinearGradient).colors.last;

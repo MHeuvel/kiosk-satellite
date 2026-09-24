@@ -265,9 +265,6 @@ class WeatherMoodBar extends StatelessWidget {
     final circle = Colors.white.withValues(
       alpha: .14 * (opacity / .7).clamp(0.0, 1.0),
     );
-    // Frosted glass: the scene behind each chip is blurred, so the chips
-    // take on the colors of every sky. It fades out with the tint.
-    final frost = 14 * (opacity / .3).clamp(0.0, 1.0);
     TextStyle style(
       double fontSize, {
       FontWeight weight = FontWeight.w400,
@@ -296,21 +293,13 @@ class WeatherMoodBar extends StatelessWidget {
         ),
         child: child,
       );
-      if (frost < .5) return glass;
+      if (opacity <= 0) return glass;
+      // Without backdrop shaders the tinted chip stands alone: a blurred
+      // copy of the scene behind every chip costs the legacy renderer a
+      // backdrop read and blur per chip on every frame.
       return _GlassChip(
         tint: opacity,
-        fallback: ClipPath(
-          clipper: const ShapeBorderClipper(shape: StadiumBorder()),
-          // Grouped, so every chip shares one read of the scene behind them.
-          child: BackdropFilter.grouped(
-            filter: ui.ImageFilter.blur(
-              sigmaX: frost,
-              sigmaY: frost,
-              tileMode: TileMode.clamp,
-            ),
-            child: glass,
-          ),
-        ),
+        fallback: glass,
         child: Padding(padding: padding * scale, child: child),
       );
     }
@@ -571,7 +560,13 @@ class _GlassChip extends StatelessWidget {
       if (program == null) return fallback;
       return ClipPath(
         clipper: const ShapeBorderClipper(shape: StadiumBorder()),
-        child: _GlassBackdrop(program: program, tint: tint, child: child),
+        // One read of the scene behind serves every chip in the group.
+        child: _GlassBackdrop(
+          program: program,
+          tint: tint,
+          backdropKey: BackdropGroup.of(context)?.backdropKey,
+          child: child,
+        ),
       );
     },
   );
@@ -581,28 +576,39 @@ class _GlassBackdrop extends SingleChildRenderObjectWidget {
   const _GlassBackdrop({
     required this.program,
     required this.tint,
+    required this.backdropKey,
     super.child,
   });
   final ui.FragmentProgram program;
   final double tint;
+  final BackdropKey? backdropKey;
 
   @override
   RenderObject createRenderObject(BuildContext context) =>
-      _RenderGlassBackdrop(program.fragmentShader(), tint);
+      _RenderGlassBackdrop(program.fragmentShader(), tint, backdropKey);
 
   @override
   void updateRenderObject(
     BuildContext context,
     _RenderGlassBackdrop renderObject,
-  ) => renderObject.tint = tint;
+  ) => renderObject
+    ..tint = tint
+    ..backdropKey = backdropKey;
 }
 
 /// Paints its child over the glass. The shader needs the chip's place on
 /// screen, which is only known once it paints.
 class _RenderGlassBackdrop extends RenderProxyBox {
-  _RenderGlassBackdrop(this._shader, this._tint);
+  _RenderGlassBackdrop(this._shader, this._tint, this._backdropKey);
   final ui.FragmentShader _shader;
   double _tint;
+  BackdropKey? _backdropKey;
+
+  set backdropKey(BackdropKey? value) {
+    if (value == _backdropKey) return;
+    _backdropKey = value;
+    markNeedsPaint();
+  }
 
   set tint(double value) {
     if (value == _tint) return;
@@ -637,7 +643,9 @@ class _RenderGlassBackdrop extends RenderProxyBox {
       ..setFloat(6, _tint)
       ..setFloat(7, rect.height / size.height * ratio);
     final layer = (this.layer as BackdropFilterLayer?) ?? BackdropFilterLayer();
-    layer.filter = ui.ImageFilter.shader(_shader);
+    layer
+      ..filter = ui.ImageFilter.shader(_shader)
+      ..backdropKey = _backdropKey;
     this.layer = layer;
     context.pushLayer(layer, super.paint, offset);
   }

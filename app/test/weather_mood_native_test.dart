@@ -85,9 +85,12 @@ void main() {
     final quality = WeatherMoodQuality(lowPower: true);
     expect(quality.steps, 40);
     expect(quality.fps, 20);
-    expect(quality.tiles, 12);
+    expect(quality.tiles, 6);
+    // A band every other frame halves the offscreen passes, which Mali
+    // drivers charge a fixed CPU cost for.
+    expect(quality.bandEvery, 2);
     quality.wind = 1;
-    expect(quality.maxTiles, 12);
+    expect(quality.maxTiles, 6);
     quality.wind = 0;
     expect(quality.width, lessThanOrEqualTo(360));
     const slow = Duration(milliseconds: 180), fast = Duration(milliseconds: 50);
@@ -95,7 +98,7 @@ void main() {
       quality.recordTick(slow);
     }
     // One window at a third of the target rate spreads clouds much further.
-    expect(quality.tiles, 24);
+    expect(quality.tiles, 12);
     expect(quality.tiles, quality.maxTiles);
     expect(quality.scale, .64);
     for (var i = 0; i < 100; i++) {
@@ -116,6 +119,7 @@ void main() {
     expect(next.scale, .5);
     final high = WeatherMoodQuality(lowPower: false);
     expect(high.tiles, 1);
+    expect(high.bandEvery, 1);
     // No band may be large enough to trip a GPU hang reset: a full-size
     // Portal Go keyframe splits into 13 bands, an Echo Show one needs none.
     expect(high.minimumTiles(1100, 688), 13);

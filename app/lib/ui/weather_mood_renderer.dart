@@ -154,7 +154,7 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
   // Transparent stand-in for the first fade, so clouds appear gradually.
   ui.Image? _clear;
   _BandBuild? _build;
-  int _cloudTick = 0, _cycleTiles = 1;
+  int _cloudTick = 0, _cycleTiles = 1, _bandWait = 0;
   double _cloudMix = 1;
   _Frame? _frame;
   Timer? _timer;
@@ -418,10 +418,12 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
         (current.width != width || current.height != height)) {
       _clearClouds();
     }
-    // The controller adapts upward from the floor, not from below it.
+    // The controller adapts upward from the floor, not from below it, and
+    // no further than the longest keyframe interval allows.
+    final floor = _quality.minimumTiles(width, height);
     final bands = _quality.tiles = math.max(
-      _quality.tiles,
-      _quality.minimumTiles(width, height),
+      floor,
+      math.min(_quality.tiles, _quality.maxTiles),
     );
     if (!_animate) {
       // Paused scenes still render everything at once, but as separate
@@ -442,6 +444,16 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
       _build?.dispose();
       _build = null;
     }
+    // Frames between bands, spent crossfading toward the keyframe already
+    // on screen.
+    final every = _quality.bandEvery;
+    if (_cloudNext != null && _bandWait < every - 1) {
+      _bandWait++;
+      _cloudTick++;
+      _cloudMix = math.min(1, (_cloudTick + 1) / (_cycleTiles * every));
+      return;
+    }
+    _bandWait = 0;
     var build = _build;
     if (build != null && (build.width != width || build.height != height)) {
       build.dispose();
@@ -471,7 +483,7 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
     }
     _cloudMix = _cloudNext == null
         ? 1
-        : math.min(1, (_cloudTick + 1) / _cycleTiles);
+        : math.min(1, (_cloudTick + 1) / (_cycleTiles * every));
   }
 
   void _renderBand(ui.FragmentShader shader, _BandBuild build) {
