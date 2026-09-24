@@ -1,0 +1,7 @@
+{
+  "@@locale": "uk",
+  "mediaGroupLead": "Очолює групу",
+  "mediaGroupReadFailed": "Не вдалося прочитати групу.",
+  "mediaGroupEmpty": "Немає інших плеєрів для групування.",
+  "mediaSpeakerSelection": "Вибір динаміків"
+}

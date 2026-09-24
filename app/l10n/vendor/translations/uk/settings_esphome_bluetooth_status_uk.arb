@@ -1,0 +1,13 @@
+{
+  "@@locale": "uk",
+  "esphomeNearby": "Сусідні пристрої",
+  "esphomeNearbySearch": "Пристрої Bluetooth, які фіксує цей кіоск, із відомими назвами.",
+  "esphomeNearbyEmpty": "Поки нічого не виявлено.",
+  "esphomeNearbyWaiting": "Поки нічого не виявлено. Пристрої з'являться тут, коли проксі розпочне сканування.",
+  "esphomeRotating": "(змінна адреса)",
+  "esphomeNearbyCount": "Показано перші {count} з {total}.",
+  "esphomeSlots": "Через цей проксі можна одночасно підключити до {count} пристроїв. Home Assistant спрямовує інші пристрої через інші проксі.",
+  "esphomeSecondsAgo": "{count} с тому",
+  "esphomeMinutesAgo": "{count} хв тому",
+  "esphomeHoursAgo": "{count} год тому"
+}

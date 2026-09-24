@@ -1,0 +1,18 @@
+{
+  "@@locale": "uk",
+  "settingCameraEnabledTitle": "Увімкнути камеру",
+  "settingCameraEnabledDescription": "Використання камери збільшує навантаження на процесор і нагрівання, що може скоротити термін служби батареї та пристрою.",
+  "settingCameraDeviceTitle": "Камера",
+  "settingCameraDeviceDescription": "Яку камеру використовувати.",
+  "settingCameraSnapshotResolutionTitle": "Роздільність знімка",
+  "settingCameraSnapshotResolutionDescription": "Вища роздільність виглядає чіткіше, але споживає більше ресурсів процесора та мережі.",
+  "settingCameraDisableDetectionSnapshotsTitle": "Вимкнути знімки під час виявлення",
+  "settingCameraDisableDetectionSnapshotsDescription": "Запобігати автоматичним знімкам, викликаним виявленням. Виявлення руху, обличчя, присутності та жестів продовжує працювати. Ручні запити та безперервні знімки все ще можуть робити зображення.",
+  "settingCameraSnapshotsTitle": "Безперервні знімки",
+  "settingCameraSnapshotsDescription": "Публікувати свіжі знімки камери в Home Assistant із фіксованим інтервалом.",
+  "settingCameraSnapshotIntervalTitle": "Інтервал знімків",
+  "settingCameraSnapshotIntervalDescription": "Секунди між знімками.",
+  "cameraFront": "Передня",
+  "cameraBack": "Задня",
+  "cameraOnlyCamera": "Єдина камера на цьому пристрої."
+}

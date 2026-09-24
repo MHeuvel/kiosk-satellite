@@ -1,0 +1,18 @@
+{
+  "@@locale": "uk",
+  "voiceChimesPage": "Звукові сигнали",
+  "voiceChimesHint": "Звуки активації, завершення, помилки, таймера та оголошень",
+  "voiceChimesPreview": "Прослухати на кіоску",
+  "voiceChimesPreviewFailed": "Не вдалося відтворити звук.",
+  "voiceChimesHelp": "Виберіть звуки для цього кіоска. Тут можна завантажити власні файли. Звуки, збережені в Home Assistant, не використовуються для локальних сигналів.",
+  "voiceChimeWakeTitle": "Звук активації",
+  "voiceChimeWakeDescription": "Відтворюється, коли Voice Satellite починає слухати.",
+  "voiceChimeDoneTitle": "Звук завершення",
+  "voiceChimeDoneDescription": "Відтворюється після завершення голосової взаємодії.",
+  "voiceChimeErrorTitle": "Звук помилки",
+  "voiceChimeErrorDescription": "Відтворюється при збої голосової взаємодії.",
+  "voiceChimeTimerTitle": "Звук таймера",
+  "voiceChimeTimerDescription": "Повторюється після завершення таймера, доки ви його не вимкнете.",
+  "voiceChimeAnnounceTitle": "Звук оголошення",
+  "voiceChimeAnnounceDescription": "Відтворюється перед оголошенням Voice Satellite, якщо воно не містить власного звуку."
+}

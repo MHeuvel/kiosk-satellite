@@ -1,0 +1,21 @@
+{
+  "@@locale": "uk",
+  "settingRemoteEnabledTitle": "Віддалене керування",
+  "settingRemoteEnabledDescription": "Запустити вбудований вебсервер адміністрування.",
+  "settingRemotePortTitle": "Порт сервера",
+  "settingRemotePortDescription": "Порт інтерфейсу віддаленого адміністратора.",
+  "settingRemotePasswordTitle": "Пароль адміністратора",
+  "settingRemotePasswordDescription": "Необхідний для входу у віддалений інтерфейс.",
+  "settingRemoteFleetDiscoveryTitle": "Пошук інших кіосків",
+  "settingRemoteFleetDiscoveryDescription": "Оголошувати цей пристрій у мережі та відображати інші кіоски у віддаленому адмініструванні для перемикання між ними.",
+  "deviceRemotePage": "Віддалене адміністрування",
+  "deviceAdminAddress": "Адреса адміністратора",
+  "deviceAdminAddressHelp": "Відкрийте цю адресу в браузері на вашому компʼютері.",
+  "deviceByName": "За назвою",
+  "deviceByNameHelp": "Та сама адреса за назвою хоста в мережах, що підтримують домен .local.",
+  "devicePasswordNeeded": "Встановіть пароль адміністратора нижче, щоб запустити сервер.",
+  "deviceServerStopped": "Сервер не запущено.",
+  "devicePortError": "Не вдалося прослуховувати порт {port}: {error}",
+  "settingRemoteTlsTitle": "Використовувати HTTPS",
+  "settingRemoteTlsDescription": "Шифрувати віддалене адміністрування, API та WebSocket. Ваш браузер може запропонувати прийняти сертифікат пристрою."
+}

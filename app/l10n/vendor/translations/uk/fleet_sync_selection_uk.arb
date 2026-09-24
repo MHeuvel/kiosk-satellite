@@ -1,0 +1,23 @@
+{
+  "@@locale": "uk",
+  "fleetSyncedCredentials": "Синхронізовані облікові дані",
+  "fleetTheSettingsOnThisListWillNotBeSynced": "Налаштування з цього списку не будуть синхронізуватися з підпорядкованими кіосками.",
+  "fleetNothingLeftOut": "Нічого не пропущено",
+  "fleetSyncItAgain": "Синхронізувати знову",
+  "fleetAddASetting": "Додати налаштування",
+  "fleetExcludeASetting": "Виключити налаштування",
+  "fleetSearchSettings": "Пошук налаштувань",
+  "fleetCountMoreTypeToNarrowTheList": "Ще {count}. Введіть текст, щоб звузити список.",
+  "fleetNotSyncedNote": "Не синхронізується: {note}",
+  "fleetTheAssignedSatellite": "призначений голосовий сателіт",
+  "fleetMicrophoneAndSpeakerDevicesMicGain": "пристрої мікрофона та динаміка, підсилення мікрофона",
+  "fleetTheDeviceCamera": "камера пристрою",
+  "fleetTheFollowedPlayerTheSendspinPlayerId": "відстежуваний плеєр, ідентифікатор плеєра Sendspin",
+  "fleetNodeNameMacEncryptionKey": "назва вузла, MAC, ключ шифрування",
+  "fleetThePinIsAlsoSynced": "PIN-код також синхронізується",
+  "fleetTheKeyUnlessSyncedAsACredential": "ключ, якщо він не синхронізується як облікові дані",
+  "fleetNameRemoteAdministrationRendererWorkaroundsScale": "ім'я, віддалене керування, виправлення рендерера, масштаб",
+  "fleetHomeAssistantToken": "Токен Home Assistant",
+  "fleetMusicAssistantToken": "Токен Music Assistant",
+  "fleetImmichApiKey": "Ключ API Immich"
+}

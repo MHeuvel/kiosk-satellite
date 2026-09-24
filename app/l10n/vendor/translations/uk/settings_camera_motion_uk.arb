@@ -1,0 +1,15 @@
+{
+  "@@locale": "uk",
+  "settingMotionSensorTitle": "Датчик руху",
+  "settingMotionSensorDescription": "Надавати датчик руху в Home Assistant. ПОПЕРЕДЖЕННЯ: Камера працює постійно, навіть із вимкненим екраном.",
+  "settingMotionSensorOffDelayTitle": "Скидати через",
+  "settingMotionSensorOffDelayDescription": "Секунди без руху до скидання датчика.",
+  "settingMotionFpsTitle": "Частота кадрів руху",
+  "settingMotionFpsDescription": "Кадри за секунду, які камера перевіряє на наявність руху. Менше значення знижує навантаження на процесор; 2 цілком достатньо, щоб помітити наближення людини.",
+  "settingMotionStartDelayTitle": "Затримка під час запуску",
+  "settingMotionStartDelayDescription": "Ігнорувати рух протягом цього часу після запуску камери, корисно для пристроїв, чия камера фізично рухається під час відкриття.",
+  "settingMotionSensitivityTitle": "Чутливість до руху",
+  "settingMotionSensitivityDescription": "Більше значення реагує на менші рухи. 1 вимагає значних змін у кадрі; 100 реагує на найменший рух.",
+  "cameraMotionPage": "Датчик руху",
+  "cameraMotionHint": "Датчик руху Home Assistant і спільні налаштування виявлення"
+}

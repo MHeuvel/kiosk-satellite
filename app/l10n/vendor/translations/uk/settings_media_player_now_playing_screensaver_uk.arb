@@ -1,0 +1,16 @@
+{
+  "@@locale": "uk",
+  "settingSendspinFullscreenTitle": "«Зараз грає» замість заставки",
+  "settingSendspinFullscreenDescription": "Поки грає музика, заставка стає повноекранним режимом «Зараз грає» з обкладинкою альбому. Коли нічого не грає, працює звичайна заставка.",
+  "settingSendspinFullscreenSplitTitle": "Показувати поруч із заставкою",
+  "settingSendspinFullscreenSplitDescription": "Залишати заставку видимою поруч із «Зараз грає». На вертикальних екранах заставка розташовується над плеєром. Малі екрани залишають повноекранний плеєр.",
+  "settingSendspinFullscreenPhotoFillTitle": "Заповнювати екран",
+  "settingSendspinFullscreenPhotoFillDescription": "Перевизначає заповнення фото, поки заставка поділяє екран із «Зараз грає». «За замовчуванням» використовує власне налаштування кожної заставки. «Вимкнено» залишає ціле фото між чорними смугами. «Розумно» збільшує фото, за формою близькі до екрана, а решту рамкою над розмитим тлом. «Завжди» збільшує кожне фото, обрізаючи те, що не вміщується.",
+  "settingSendspinFullscreenOverrideBrightnessTitle": "Перевизначати яскравість заставки",
+  "settingSendspinFullscreenOverrideBrightnessDescription": "Використовувати звичайну яскравість екрана замість яскравості заставки, поки «Зараз грає» показано поруч із заставкою. Це також перевизначає заплановану яскравість заставки.",
+  "mediaScreensaverHeading": "Заставка",
+  "mediaDefaultFill": "За замовчуванням",
+  "mediaFillOff": "Вимкнено",
+  "mediaFillSmart": "Розумно",
+  "mediaFillAlways": "Завжди"
+}

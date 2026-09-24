@@ -1,0 +1,12 @@
+{
+  "@@locale": "uk",
+  "logsWebConsole": "Веб-консоль",
+  "logsDock": "Закріпити над поточною сторінкою",
+  "logsNoOutput": "Виводу консолі ще немає",
+  "logsShareSubject": "Журнал консолі Kiosk Satellite",
+  "logsInput": "Виконати JavaScript на сторінці",
+  "logsInputHistory": "Виконати JavaScript на сторінці (Enter для запуску, Вгору/Вниз для історії)",
+  "logsRun": "Запустити",
+  "logsEvaluationFailed": "помилка обчислення",
+  "logsDeviceUnreachable": "пристрій недоступний"
+}

@@ -1,0 +1,20 @@
+{
+  "@@locale": "uk",
+  "settingScreensaverWidgetsTitle": "Віджети",
+  "settingScreensaverWidgetsDescription": "Невеликі накладення в кутах заставки.",
+  "settingScreensaverWidgetScaleTitle": "Загальне масштабування віджетів",
+  "settingScreensaverWidgetScaleDescription": "Масштабувати всі віджети разом відповідно до розміру екрана. Кожен віджет зберігає свій власний відносний масштаб.",
+  "settingScreensaverWidgetFontTitle": "Загальний шрифт",
+  "settingScreensaverWidgetFontDescription": "Гарнітура для всіх віджетів. Віджет може використовувати власний шрифт.",
+  "settingScreensaverWidgetFontWeightTitle": "Загальна товщина шрифту",
+  "settingScreensaverWidgetFontWeightDescription": "Товщина тексту для всіх віджетів. За замовчуванням визначається кожним рядком окремо. Віджет може задавати власну товщину.",
+  "settingScreensaverWidgetTextShadowTitle": "Тінь тексту",
+  "settingScreensaverWidgetTextShadowDescription": "Додати тінь до тексту віджетів для читабельності на фотографіях.",
+  "settingScreensaverVignetteStrengthTitle": "Інтенсивність віньєтування",
+  "settingScreensaverVignetteStrengthDescription": "Затемнення фону за віджетами для читабельності на яскравих фото. 0 вимикає його.",
+  "screensaverOverlayWidgetsEmpty": "Віджетів ще немає",
+  "screensaverOverlayRemove": "Видалити віджет",
+  "screensaverOverlayAdd": "Додати віджет",
+  "screensaverOverlayAddHelp": "Маленький годинник, погода, акумулятор або об'єкт у кутку.",
+  "screensaverOverlayWidgetsHint": "Накладення в кутах та їх масштаб"
+}

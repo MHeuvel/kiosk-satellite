@@ -1,0 +1,13 @@
+{
+  "@@locale": "uk",
+  "settingAnalyticsBasicTitle": "Базова аналітика",
+  "settingAnalyticsBasicDescription": "Інформація про ваш пристрій, як-от модель, версія Android, версія застосунку, розмір екрана та мова.",
+  "settingAnalyticsUsageTitle": "Використання",
+  "settingAnalyticsUsageDescription": "Деталі того, що ви використовуєте в Kiosk Satellite.",
+  "settingAnalyticsDiagnosticsTitle": "Діагностика",
+  "settingAnalyticsDiagnosticsDescription": "Надсилати звіти про збої в разі виникнення несподіваних помилок.",
+  "deviceAnalyticsPage": "Аналітика Kiosk Satellite",
+  "deviceAnalyticsIntro": "Діліться анонімізованою інформацією вашого встановлення, щоб допомогти зробити Kiosk Satellite кращим і визначити, які пристрої та функції потребують уваги.",
+  "deviceAnalyticsLearn": "Дізнайтеся, як ми обробляємо ваші дані",
+  "deviceAnalyticsLearnHelp": "Що надсилає аналітика Kiosk Satellite і що вона ніколи не передає."
+}

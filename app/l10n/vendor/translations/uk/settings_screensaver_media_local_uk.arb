@@ -1,0 +1,19 @@
+{
+  "@@locale": "uk",
+  "settingScreensaverLocalFolderTitle": "Локальна папка",
+  "settingScreensaverLocalFolderDescription": "Папка на цьому пристрої, фотографії та відео з якої циклічно показує заставка. Вибирається на пристрої; шлях також можна ввести тут віддалено.",
+  "settingScreensaverLocalIntervalTitle": "Секунд на фото",
+  "settingScreensaverLocalIntervalDescription": "Скільки часу кожне фото показується перед наступним. Відео відтворюються повністю.",
+  "settingScreensaverLocalShuffleTitle": "Випадковий порядок",
+  "settingScreensaverLocalShuffleDescription": "Показувати вміст папки у випадковому порядку замість сортування за назвою.",
+  "settingScreensaverLocalRecursiveTitle": "Включати вкладені папки",
+  "settingScreensaverLocalRecursiveDescription": "Також показувати фотографії та відео у вкладених папках.",
+  "settingScreensaverLocalTransitionTitle": "Перехід",
+  "settingScreensaverLocalTransitionDescription": "Як одне фото змінює інше.",
+  "settingScreensaverLocalFillTitle": "Заповнювати екран",
+  "settingScreensaverLocalFillDescription": "Вимкнено залишає фото повністю між чорними смугами. Розумне збільшує фото, близькі за пропорціями до екрана, розміщуючи решту на розмитому фоні. Завжди масштабує кожне фото, обрізаючи зайве.",
+  "settingScreensaverLocalEdgeTapsTitle": "Торкання країв для зміни слайдів",
+  "settingScreensaverLocalEdgeTapsDescription": "Торкання лівої або правої п'ятої частини екрана показує попередній або наступний слайд замість закриття заставки.",
+  "screensaverMediaLocalPage": "Заставка локальних медіа",
+  "screensaverMediaLocalHint": "Папка, тривалість, випадковий порядок, перехід"
+}

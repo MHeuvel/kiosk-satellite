@@ -5,6 +5,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ## Unreleased
 
 ### Added
+- **Ukrainian localization.** Українська is available during onboarding and in Settings on the device and in Remote Admin. All 3,318 current messages are translated. Localization Credits lists kdinya with a GitHub profile link.
 - **Rain on the glass in Weather Mood.** Rainy, pouring, snowy-rainy and thunderstorm scenes show drops landing on the glass in front of the sky. Drops vary in outline and proportion, including a few that have run together. Larger drops slide down and leave a wet trail with small beads behind. Heavier rain brings more drops, and they catch the light of lightning flashes. Falling rain is lighter to make room for them.
 
 ### Changed

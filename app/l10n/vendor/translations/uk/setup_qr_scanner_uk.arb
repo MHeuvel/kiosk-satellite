@@ -1,0 +1,9 @@
+{
+  "@@locale": "uk",
+  "setupQrCameraFailed": "Не вдалося запустити камеру.",
+  "setupQrTitle": "Скануйте QR-код токена",
+  "setupQrHelp": "Він відображається поруч із щойно створеним токеном у вашому профілі Home Assistant.",
+  "setupQrFlashOff": "Вимкнути ліхтарик",
+  "setupQrFlashOn": "Увімкнути ліхтарик",
+  "setupQrFlipCamera": "Перемкнути камеру"
+}

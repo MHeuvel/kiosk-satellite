@@ -1,0 +1,19 @@
+{
+  "@@locale": "uk",
+  "settingScreensaverImmichAlbumTitle": "Джерело медіа",
+  "settingScreensaverImmichAlbumDescription": "Уся бібліотека або вибрані вами альбоми.",
+  "settingScreensaverImmichPhotosOnlyTitle": "Лише фото",
+  "settingScreensaverImmichPhotosOnlyDescription": "Пропускати відео в слайд-шоу.",
+  "settingScreensaverImmichCacheTitle": "Кешувати медіа локально",
+  "settingScreensaverImmichCacheDescription": "Зберігати копії на пристрої для миттєвого завантаження зображень.",
+  "settingScreensaverImmichCacheMaxTitle": "Розмір кешу (елементів)",
+  "settingScreensaverImmichCacheMaxDescription": "Найстаріші елементи видаляються після заповнення кешу.",
+  "screensaverMediaAll": "Усі медіа",
+  "screensaverMediaAllDevice": "Усі медіа.",
+  "screensaverMediaNoAlbums": "Ще немає альбомів. Спочатку створіть альбом в Immich.",
+  "screensaverMediaAlbumsFailed": "Не вдалося отримати список альбомів",
+  "screensaverMediaListError": "Не вдалося отримати список: {error}",
+  "screensaverMediaListingFailed": "не вдалося отримати список",
+  "screensaverMediaItems": "{count} елементів",
+  "screensaverMediaCached": "{count} у кеші, {size}"
+}

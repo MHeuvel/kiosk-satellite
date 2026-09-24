@@ -1,0 +1,22 @@
+{
+  "@@locale": "uk",
+  "settingScreensaverImmichUrlTitle": "Адреса сервера",
+  "settingScreensaverImmichUrlDescription": "Адреса вашого сервера Immich разом із портом.",
+  "settingScreensaverImmichApiKeyTitle": "Ключ API",
+  "settingScreensaverImmichApiKeyDescription": "Створюється в Immich у розділі Account Settings → API Keys.",
+  "screensaverMediaImmichPage": "Заставка медіа Immich",
+  "screensaverMediaImmichHint": "Сервер, медіа, слайд-шоу, метадані, фільтри",
+  "screensaverMediaServerConnection": "Підключення до сервера",
+  "screensaverMediaValidateFailedLog": "Помилка перевірки. Дивіться журнал програми щодо невдалого виклику.",
+  "screensaverMediaValidateFailed": "Помилка перевірки.",
+  "screensaverMediaNoAnswer": "Пристрій не відповів.",
+  "screensaverMediaAddressFirst": "Спочатку введіть адресу сервера.",
+  "screensaverMediaKeyFirst": "Спочатку введіть ключ API.",
+  "screensaverMediaBadAddress": "Адреса сервера не є дійсною URL-адресою.",
+  "screensaverMediaKeyRejected": "Ключ API відхилено.",
+  "screensaverMediaScopeMissing": "У ключі API відсутній дозвіл {scope}.",
+  "screensaverMediaPermissionMissing": "У ключі API відсутній дозвіл: {error}",
+  "screensaverMediaServerError": "Сервер відповів {status}: {error}",
+  "screensaverMediaUnreachable": "Не вдалося зв'язатися з {url}.",
+  "screensaverMediaTalkError": "Не вдалося зв'язатися з сервером: {error}"
+}

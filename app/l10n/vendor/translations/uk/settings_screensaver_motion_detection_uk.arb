@@ -1,0 +1,12 @@
+{
+  "@@locale": "uk",
+  "settingScreensaverDismissOnMotionTitle": "Вихід за рухом",
+  "settingScreensaverDismissOnMotionDescription": "Відстежувати камеру під час заставки та вмикати екран при наближенні людини. Камера працює лише під час заставки.",
+  "settingScreensaverDismissOnMotionScreenOffOnlyTitle": "Лише коли екран вимкнено",
+  "settingScreensaverDismissOnMotionScreenOffOnlyDescription": "Залишати заставку видимою, коли виявлено рух при увімкненому екрані. Після вимкнення екрана виявлення активує панель. Дотик все одно закриває заставку.",
+  "settingScreensaverPostponeOnMotionTitle": "Відкладати заставку при русі",
+  "settingScreensaverPostponeOnMotionDescription": "Відкладати запуск заставки при виявленні руху. ПОПЕРЕДЖЕННЯ: камера працюватиме постійно.",
+  "screensaverDetectionMotionPage": "Виявлення руху",
+  "screensaverDetectionMotionHint": "Закриття або відкладання заставки за рухом",
+  "screensaverDetectionMotionTuning": "Чутливість виявлення руху налаштовується в параметрах Камери."
+}

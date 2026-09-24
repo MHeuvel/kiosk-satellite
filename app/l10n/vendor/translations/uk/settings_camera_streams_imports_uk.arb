@@ -1,0 +1,8 @@
+{
+  "@@locale": "uk",
+  "cameraStreamsImportHa": "Імпортувати камери з Home Assistant",
+  "cameraStreamsImportHaHelp": "Додати кожну камеру з підключеного Home Assistant, що відтворюється через WebRTC, HLS або MJPEG. Повторний імпорт додає нові камери.",
+  "cameraStreamsImportFailed": "Імпорт не вдався",
+  "cameraStreamsImportComplete": "Імпорт завершено",
+  "cameraStreamsImportCounts": "{added} додано, {missing} відсутньо."
+}

@@ -1,0 +1,11 @@
+{
+  "@@locale": "uk",
+  "remoteReconnecting": "Повторне підключення…",
+  "remoteConnectionLost": "Зв'язок із {name} втрачено. Ця сторінка відновиться автоматично, коли пристрій повернеться.",
+  "remoteConnectionLostUnnamed": "Зв'язок із кіоском втрачено. Ця сторінка відновиться автоматично, коли пристрій повернеться.",
+  "remoteReloadPage": "Оновити сторінку",
+  "remoteUpdated": "Kiosk Satellite оновлено",
+  "remoteUpdatedHelp": "Пристрій тепер працює на версії {version}{build}. Ця сторінка належить до попередньої версії та перезавантажиться через {seconds} с.",
+  "remoteBuild": " (збірка {build})",
+  "remoteReloadNow": "Оновити зараз"
+}

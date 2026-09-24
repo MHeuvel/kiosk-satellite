@@ -1,0 +1,16 @@
+{
+  "@@locale": "uk",
+  "setupPermissionLead": "Android запитає ці дозволи. Усі запити здійснюються заздалегідь, щоб кіоск не відволікав вас надалі.",
+  "setupRemotePermissionLead": "Android запитує їх безпосередньо на планшеті. Підійдіть до пристрою та підтвердьте запити, а потім поверніться сюди для завершення.",
+  "setupMicrophoneHelp": "Для Voice Satellite та інтеркому потрібен доступ до мікрофона",
+  "setupNotificationListening": "Дозволяє постійне сповіщення служби Kiosk Satellite Service, яке вказує на її активність та коли кіоск веде прослуховування.",
+  "setupBatteryService": "Дозволяє службі Kiosk Satellite Service працювати у фоновому режимі без призупинення чи примусового закриття.",
+  "setupOverlayBoot": "Дозволяє Kiosk Satellite відновлювати роботу після збоїв та запускатися під час завантаження пристрою.",
+  "setupOverlayCrash": "Дозволяє Kiosk Satellite повертатися на екран після збою.",
+  "setupBrightnessHelp": "Дозволяє Kiosk Satellite регулювати фактичну яскравість екрана (зміна системних налаштувань).",
+  "setupScreenControl": "Керування екраном",
+  "setupScreenControlHelp": "Дозволяє Kiosk Satellite вимикати екран за запитом (адміністратор пристрою).",
+  "setupGrantPermissions": "Надати дозволи на пристрої",
+  "setupRequestingPermissions": "Запит на пристрої…",
+  "setupPermissionsRequested": "Дозволи запитано на пристрої"
+}

@@ -1,0 +1,20 @@
+{
+  "@@locale": "uk",
+  "settingScreensaverGlanceEnabledTitle": "Короткий огляд",
+  "settingScreensaverGlanceEnabledDescription": "Показувати рядок зі станом сутностей Home Assistant на заставці.",
+  "settingScreensaverGlanceEntitiesTitle": "Сутності",
+  "settingScreensaverGlanceEntitiesDescription": "До чотирьох сутностей для показу, кожна з можливістю власної назви.",
+  "settingScreensaverGlanceNowPlayingTitle": "Показувати у \"Зараз грає\"",
+  "settingScreensaverGlanceNowPlayingDescription": "Показувати рядок на повноекранному вигляді \"Зараз грає\". Він залишається прихованим під час показу тексту пісні.",
+  "screensaverOverlayShowing": "Відображається",
+  "screensaverOverlayReorder": "Відображається (перетягніть для зміни порядку)",
+  "screensaverOverlayFull": "Це максимальна кількість сутностей у рядку. Видаліть одну, щоб додати іншу.",
+  "screensaverOverlayPickerTitle": "Сутності короткого огляду",
+  "screensaverOverlayGlanceEmpty": "Ще немає. Щонайбільше {count} сутностей.",
+  "screensaverOverlayNone": "Ще немає",
+  "screensaverOverlayLimit": "До {count} сутностей.",
+  "screensaverOverlayGlancePage": "Короткий огляд",
+  "screensaverOverlayGlanceHint": "Сутності, що показуються поверх заставки",
+  "glanceUnavailable": "Недоступно",
+  "glanceUnknown": "Невідомо"
+}

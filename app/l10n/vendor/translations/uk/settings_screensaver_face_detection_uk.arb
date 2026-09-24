@@ -1,0 +1,17 @@
+{
+  "@@locale": "uk",
+  "settingScreensaverDismissOnFaceTitle": "Вимикати під час виявлення обличчя",
+  "settingScreensaverDismissOnFaceDescription": "Пробуджувати екран, коли хтось дивиться на кіоск, а не просто при будь-якому русі. Камера активна лише під час заставки. ПОПЕРЕДЖЕННЯ: Потребує освітленого обличчя; у темряві налаштуйте виявлення руху за розкладом.",
+  "settingScreensaverDismissOnFaceScreenOffOnlyTitle": "Лише коли екран вимкнено",
+  "settingScreensaverDismissOnFaceScreenOffOnlyDescription": "Залишати заставку видимою при виявленні обличчя, якщо екран світиться. Після вимкнення екрана розпізнавання повертає панель керування. Дотик до екрана все одно закриває заставку.",
+  "settingScreensaverPostponeOnFaceTitle": "Відкладати заставку при виявленні обличчя",
+  "settingScreensaverPostponeOnFaceDescription": "Відкладати запуск заставки, поки перед кіоском перебуває людина. ПОПЕРЕДЖЕННЯ: Камера працюватиме постійно, що спричиняє додаткове навантаження на процесор через розпізнавання облич.",
+  "settingFaceSensitivityTitle": "Чутливість до обличчя",
+  "settingFaceSensitivityDescription": "Більше значення дозволяє розпізнавати менші та віддаленіші обличчя. 1 вимагає перебування близько до екрана; 100 реагує на будь-яке обличчя, яке бачить камера.",
+  "screensaverDetectionFacePage": "Розпізнавання обличчя",
+  "screensaverDetectionFaceHint": "Закривати заставку, коли хтось дивиться на екран",
+  "screensaverDetectionMotionPrecedence": "Вимикання під час руху активне та має пріоритет, тому розпізнавання облич не діятиме, доки виявлення руху не вимкнено.",
+  "screensaverDetectionFaceTuning": "Частота кадрів, вибір камери та затримка запуску налаштовуються у параметрах камери.",
+  "screensaverDetectionAndroidUnsupported": "Не підтримується на цій версії Android.",
+  "screensaverDetectionX86Unsupported": "Не підтримується на пристроях з архітектурою x86."
+}

@@ -1,0 +1,16 @@
+{
+  "@@locale": "uk",
+  "esphomeLocation": "Місцезнаходження",
+  "esphomeLocationSearch": "Дозвіл на доступ до місцезнаходження, необхідний датчикам положення.",
+  "esphomeBluetoothSearch": "Дозвіл на пошук пристроїв поблизу, необхідний проксі Bluetooth для сканування.",
+  "esphomeLocationMissing": "Без цього неможливо зчитати GPS-приймач, і датчики положення залишатимуться в невідомому стані.",
+  "esphomeLocationServicesOff": "Геолокацію вимкнено в налаштуваннях пристрою, тому приймач не передає даних.",
+  "esphomeLocationGranted": "Датчики місцезнаходження можуть зчитувати дані GPS-приймача.",
+  "esphomeBluetoothGranted": "Проксі може сканувати сусідні пристрої Bluetooth.",
+  "esphomeBluetoothMissing": "Без цього проксі не може сканувати пристрої.",
+  "esphomeBluetoothLocationMissing": "Android надає результати сканування Bluetooth, включно з маячками, лише якщо надано дозвіл на доступ до місцезнаходження. Проксі ніколи не зчитує координати пристрою.",
+  "esphomeBluetoothLocationOff": "Геолокацію вимкнено в налаштуваннях пристрою, тому сканування Bluetooth нічого не знаходить.",
+  "esphomeBluetoothBeacons": "Сканування Bluetooth може виявляти маячки.",
+  "esphomeSent": "Надіслано",
+  "esphomeNotsaved": "Не збережено"
+}

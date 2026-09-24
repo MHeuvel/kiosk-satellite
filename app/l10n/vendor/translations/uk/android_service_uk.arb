@@ -1,0 +1,13 @@
+{
+  "@@locale": "uk",
+  "androidServiceChannelHelp": "Відображається, коли служба Kiosk Satellite підтримує роботу програми з вимкненим екраном або у фоновому режимі.",
+  "androidServiceListening": "очікування слова активації",
+  "androidServiceRtspAudio": "RTSP-аудіо мікрофона ввімкнено",
+  "androidServiceEsphome": "робота сервера ESPHome",
+  "androidServiceBluetooth": "ретрансляція Bluetooth-пристроїв",
+  "androidServiceCamera": "спостереження через камеру",
+  "androidServiceLocation": "передача місцезнаходження",
+  "androidServiceRemote": "робота віддаленого адміністрування",
+  "androidServiceKiosk": "захист режиму кіоска",
+  "androidServiceSessions": "підтримка з'єднання з Home Assistant"
+}

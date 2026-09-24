@@ -1,0 +1,13 @@
+{
+  "@@locale": "uk",
+  "settingUiLanguageTitle": "Мова",
+  "settingUiLanguageDescription": "Мова для Kiosk Satellite та віддаленого адміністрування. Home Assistant зберігає власну мову.",
+  "settingUiThemeTitle": "Тема застосунку",
+  "settingUiThemeDescription": "Світла чи темна для власних екранів застосунку: меню, налаштування, діалогові вікна. Варіант «Системна» відповідає налаштуванням Android.",
+  "settingUiScaleTitle": "Масштаб інтерфейсу",
+  "settingUiScaleDescription": "Розмір власних екранів застосунку: меню, налаштування, діалогові вікна. Для екранів із високою щільністю пікселів. Вебвміст зберігає свій розмір.",
+  "deviceUserInterface": "Інтерфейс користувача",
+  "deviceThemeDark": "Темна",
+  "deviceThemeLight": "Світла",
+  "deviceThemeSystem": "Системна"
+}

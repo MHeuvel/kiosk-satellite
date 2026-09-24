@@ -1,0 +1,6 @@
+{
+  "@@locale": "uk",
+  "fleetSwitchKiosk": "Перемкнути кіоск",
+  "fleetKiosksOnThisNetworkWithTheRemoteAdminOn": "Виявлені кіоски та збережені учасники групи. Вибір одного з них відкриє його віддалене адміністрування тут, на цій самій сторінці.",
+  "fleetNoOtherKioskFoundOnThisNetworkAKioskDetail": "Інших кіосків не знайдено. Кіоски з'являються за допомогою мережевого виявлення або через членство у групі."
+}

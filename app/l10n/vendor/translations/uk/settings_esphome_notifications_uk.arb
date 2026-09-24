@@ -1,0 +1,19 @@
+{
+  "@@locale": "uk",
+  "settingNotificationsTransparencyTitle": "Прозорість",
+  "settingNotificationsTransparencyDescription": "Дозволяє екрану позаду просвічувати крізь картки сповіщень. Текст та іконки залишаються непрозорими.",
+  "settingNotificationsBlurTitle": "Розмиття фону",
+  "settingNotificationsBlurDescription": "Розмиває те, що просвічує крізь прозору картку сповіщення. Примітка: розмиття не можна застосувати над панеллю керування Home Assistant.",
+  "settingNotificationsChimeFileTitle": "Звук сповіщення",
+  "settingNotificationsChimeFileDescription": "Звукові файли зчитуються з Android/data/me.jxl.kiosk_satellite/files/sounds на пристрої, також доступні через файловий менеджер.",
+  "settingNotificationsVolumeTitle": "Гучність сповіщень",
+  "settingNotificationsVolumeDescription": "Гучність відтворення звуку сповіщень окремо від гучності медіа та асистента.",
+  "esphomeNotifications": "Сповіщення",
+  "esphomeNotificationsHelp": "Прозорість, розмиття, звук сповіщення, тестове сповіщення",
+  "esphomeAppearance": "Зовнішній вигляд",
+  "esphomeSound": "Звук",
+  "esphomeNotificationTest": "Тестове сповіщення",
+  "esphomeNotificationHelp": "Сповіщення надсилаються з Home Assistant дією {action}. Тест показує одне поверх панелі керування.",
+  "esphomeNotificationBody": "Ось так виглядає і звучить сповіщення від Home Assistant.",
+  "esphomeNotificationSearch": "Дія Home Assistant для надсилання сповіщень і кнопка для тестового показу."
+}

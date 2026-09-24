@@ -1,0 +1,11 @@
+{
+  "@@locale": "uk",
+  "settingHaReturnHomeEnabledTitle": "Повернення на головний вигляд панелі керування",
+  "settingHaReturnHomeEnabledDescription": "Повертатися до панелі керування, налаштованої вище, після періоду бездіяльності.",
+  "settingHaReturnHomeSecondsTitle": "Повернення через (секунди)",
+  "settingHaReturnHomeSecondsDescription": "Період бездіяльності перед поверненням кіоска.",
+  "haReturnHint": "Повертатися на головний вигляд при бездіяльності",
+  "haReturnDisabled": "Вимкнено, доки увімкнено Ротацію видів панелі керування.",
+  "haReturnNoPath": "У налаштованій панелі керування немає шляху виду для повернення.",
+  "haReturnPath": "Повертається до \"{path}\" після завершення тайм-ауту."
+}

@@ -1,0 +1,11 @@
+{
+  "@@locale": "uk",
+  "logsSystemLog": "Системний журнал Android для цієї програми (сюди записуються збої)",
+  "logsErrors": "Помилки та збої",
+  "logsWarnings": "Попередження",
+  "logsInfo": "Інформація та налагодження",
+  "logsNoMatches": "Немає відповідних рядків. Увімкніть більше типів вище, щоб побачити повний журнал.",
+  "logsUnavailable": "logcat недоступний",
+  "logsReadFailed": "Не вдалося прочитати logcat: {error}",
+  "logsUnknown": "невідомо"
+}

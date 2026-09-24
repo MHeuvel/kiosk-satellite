@@ -1,0 +1,14 @@
+{
+  "@@locale": "uk",
+  "settingMediaVolumeTitle": "Гучність медіа",
+  "settingMediaVolumeDescription": "Музика та відео відтворюються на цій частці головної гучності. Гучність програвача Sendspin у Music Assistant переміщує цей повзунок.",
+  "settingAssistantVolumeTitle": "Гучність асистента",
+  "settingAssistantVolumeDescription": "Голосові відповіді та сигнали відтворюються на цій частці головної гучності, незалежно від гучності медіа.",
+  "settingAssistantFullVolumeRangeTitle": "Повний діапазон гучності асистента",
+  "settingAssistantFullVolumeRangeDescription": "Ініціалізувати гучність виклику вбудованого динаміка на 100%, коли аудіо асистента запускається вперше. Головна гучність та гучність асистента все одно застосовуються. Інші програми спільно використовують цю гучність виклику, і вона не відновлюється згодом.",
+  "settingIntercomVolumeTitle": "Гучність домофона",
+  "settingIntercomVolumeDescription": "Голос та сповіщення іншого кіоска відтворюються на цій частці головної гучності.",
+  "screenAudioVolume": "Гучність звуку",
+  "screenAudioMasterVolume": "Головна гучність",
+  "screenAudioMasterHelp": "Гучність пристрою. Гучність медіа, домофона та асистента масштабується відносно неї."
+}

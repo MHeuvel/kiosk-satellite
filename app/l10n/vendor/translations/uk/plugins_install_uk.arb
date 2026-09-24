@@ -1,0 +1,19 @@
+{
+  "@@locale": "uk",
+  "pluginAddPlugin": "Додати плагін",
+  "pluginInstallFromAGithubRepository": "Встановити з репозиторію GitHub",
+  "pluginMakeSureYouTrustThePluginSAuthorAnd": "Переконайтеся, що ви довіряєте автору плагіна та його коду перед встановленням.",
+  "pluginPreview": "Попередній перегляд",
+  "pluginInstalledVersion": "Встановлена версія",
+  "pluginAuthor": "Автор",
+  "pluginLicense": "Ліцензія",
+  "pluginPluginsRunCodeInsideKioskSatelliteAndCanAccess": "Плагіни виконують код всередині Kiosk Satellite і можуть мати доступ до даних програми та наданих дозволів Android. Несправний або зловмисний плагін може розкрити конфіденційні дані або порушити роботу програми. Встановлюйте плагіни лише від перевірених авторів.",
+  "pluginNewPluginsStartDisabledUpdatesPreserveTheEnabledState": "Нові плагіни спочатку вимкнені. Оновлення зберігають стан увімкнення та автоматично перезапускають активні плагіни.",
+  "pluginTrustAndUpdate": "Довіряти та оновити",
+  "pluginTrustAndInstall": "Довіряти та встановити",
+  "pluginInstallFromZip": "Встановити з ZIP",
+  "pluginForDevelopersOnlyTestALocalBuild": "Лише для розробників: тестування локальної збірки",
+  "pluginPluginZip": "ZIP-архів плагіна",
+  "pluginPluginZipMustBeAtMost4Mb": "Розмір ZIP-архіву плагіна не повинен перевищувати 4 МБ",
+  "pluginCouldNotReadTheSelectedZip": "Не вдалося прочитати вибраний ZIP-архів"
+}

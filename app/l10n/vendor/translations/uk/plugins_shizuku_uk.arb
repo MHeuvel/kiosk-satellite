@@ -1,0 +1,9 @@
+{
+  "@@locale": "uk",
+  "pluginShizuku13OrLaterIsRequiredTapForSetup": "Потрібен Shizuku 13 або новіший. Торкніться для інструкцій з налаштування.",
+  "pluginStartShizukuOnThisDeviceTapForSetupInstructions": "Запустіть Shizuku на цьому пристрої. Торкніться для інструкцій з налаштування.",
+  "pluginShizukuGrantsKioskSatelliteShellOrRootAccessInstalled": "Shizuku надає Kiosk Satellite доступ shell або root. Встановлені плагіни працюють всередині KS, тому надавайте доступ лише тим, кому довіряєте.",
+  "pluginSetUp": "Налаштувати",
+  "pluginGrantAccess": "Надати доступ",
+  "pluginApproveThePermissionRequestOnTheKiosk": "Підтвердьте запит дозволів на кіоску."
+}

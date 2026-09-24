@@ -36,6 +36,8 @@ void main() {
       expect(uiLanguage.optionLabels!['es'], 'Español');
       expect(uiLanguage.optionLabels!['de'], 'Deutsch');
       expect(uiLanguage.optionLabels!['fr'], 'Français');
+      expect(uiLanguage.optionLabels!['uk'], 'Українська');
+      expect(appLocaleForLanguage('uk'), const Locale('uk'));
       expect(appLocaleForLanguage('de'), const Locale('de'));
       expect(appLocaleForLanguage('fr'), const Locale('fr'));
       expect(appLocaleForLanguage('es'), const Locale('es'));

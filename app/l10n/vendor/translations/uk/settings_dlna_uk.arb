@@ -1,0 +1,10 @@
+{
+  "@@locale": "uk",
+  "settingDlnaEnabledTitle": "Увімкнути рендерер DLNA",
+  "settingDlnaEnabledDescription": "Показувати зображення та відтворювати медіафайли, надіслані з Home Assistant або будь-якого застосунку DLNA. Пристрій з'явиться як медіаплеєр із назвою пристрою.",
+  "settingDlnaAudioBackgroundTitle": "Фонове відтворення аудіо",
+  "settingDlnaAudioBackgroundDescription": "Надіслане аудіо відтворюється у фоні, не перекриваючи екран.",
+  "settingDlnaPortTitle": "Порт сервера",
+  "settingDlnaPortDescription": "Порт, на якому працює рендерер, заповнюється під час його запуску. Змініть його, щоб перенести рендерер, або очистьте, щоб дозволити вибрати його знову.",
+  "settingDlnaPortPlaceholder": "Встановлюється під час запуску рендерера"
+}

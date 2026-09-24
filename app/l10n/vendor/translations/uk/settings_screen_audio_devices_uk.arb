@@ -1,0 +1,10 @@
+{
+  "@@locale": "uk",
+  "settingAudioMicDeviceTitle": "Мікрофон",
+  "settingAudioMicDeviceDescription": "Мікрофон, з якого здійснюється розпізнавання слова активації та запис голосових команд.",
+  "settingAudioSpeakerDeviceTitle": "Динамік",
+  "settingAudioSpeakerDeviceDescription": "Вихід для звуків Voice Satellite; відтворення медіа слідує системному маршруту. Ехопоглинання працює лише тоді, коли мікрофон і динамік на одному пристрої.",
+  "screenAudioDevices": "Аудіопристрої",
+  "screenAudioSelectedDevice": "Вибраний пристрій",
+  "screenAudioDisconnected": "{name} (не підключено)"
+}

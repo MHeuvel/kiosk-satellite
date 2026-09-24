@@ -1,0 +1,22 @@
+{
+  "@@locale": "uk",
+  "gestureValid": "Виглядає добре.",
+  "gestureValidationFailed": "Не вдалося перевірити.",
+  "gestureDomainMissing": "Домен {value} не знайдено.",
+  "gestureServiceMissing": "Службу {value} не знайдено.",
+  "gestureEntityMissing": "Сутність {value} не знайдено.",
+  "gestureEntityRequired": "Введіть сутність {domain}.*",
+  "gestureScriptEntity": "Сутність скрипту",
+  "gestureAutomationEntity": "Сутність автоматизації",
+  "gestureDomain": "Домен",
+  "gestureEntityOptional": "Сутність (необов'язково)",
+  "gestureServiceData": "Дані служби (необов'язково)",
+  "gestureServiceTitle": "Викликати службу Home Assistant",
+  "gestureServiceRequired": "Домен та служба є обов'язковими.",
+  "gestureServiceJson": "Дані служби мають бути об'єктом JSON.",
+  "gestureEventType": "Тип події",
+  "gestureEventData": "Дані події (необов'язково)",
+  "gestureEventTitle": "Надіслати подію Home Assistant",
+  "gestureEventRequired": "Тип події є обов'язковим.",
+  "gestureEventJson": "Дані події мають бути об'єктом JSON."
+}

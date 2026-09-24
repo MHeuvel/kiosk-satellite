@@ -1,0 +1,22 @@
+{
+  "@@locale": "uk",
+  "settingIntercomEnabledTitle": "Увімкнути інтерком",
+  "settingIntercomEnabledDescription": "Викликати інші кіоски в цій мережі та приймати їхні дзвінки.",
+  "settingIntercomKeyTitle": "Ключ інтеркому",
+  "settingIntercomKeyDescription": "Кіоски з однаковим ключем можуть викликати один одного. Fleet Management може синхронізувати його.",
+  "settingIntercomKeyPlaceholder": "Створюється під час увімкнення інтеркому",
+  "settingIntercomMenuTitle": "Показувати в меню кіоска",
+  "settingIntercomMenuDescription": "Додати пункт «Інтерком» до меню кіоска.",
+  "intercomNeedsAdmin": "Інтеркому потрібне віддалене адміністрування",
+  "intercomAdminHelp": "Кіоски знаходять і зв'язуються один з одним через нього. Увімкніть «Віддалене керування» та «Знаходити інші кіоски» в розділі «Пристрій», а потім поверніться сюди.",
+  "intercomChangeKey": "Змінити ключ",
+  "intercomChangeKeyHelp": "Вставте ключ з іншого кіоска або створіть новий.",
+  "intercomChange": "Змінити",
+  "intercomKeyWarning": "Кіоски з цим ключем можуть викликати один одного. Новий ключ від'єднає цей кіоск від інших, доки вони також його не отримають.",
+  "intercomRegenerate": "Згенерувати заново",
+  "intercomKeyChanged": "Ключ змінено",
+  "intercomNotSet": "Не встановлено",
+  "intercomOpen": "Відкрити",
+  "settingIntercomTlsTitle": "Шифрувати зв'язок",
+  "settingIntercomTlsDescription": "Використовувати TLS для шифрування викликів інтеркому між кіосками. Це має бути увімкнено на всіх кіосках у виклику."
+}

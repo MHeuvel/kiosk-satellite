@@ -6,6 +6,7 @@
         <item>de</item>
         <item>es</item>
         <item>fr</item>
+        <item>uk</item>
     </string-array>
     <string name="ks_service_title" formatted="false">"Kiosk Satellite Service"</string>
     <string name="ks_service_channel_help" formatted="false">"Shown while the Kiosk Satellite Service keeps the app running with the screen off or behind another app."</string>

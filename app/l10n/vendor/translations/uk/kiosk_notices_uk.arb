@@ -1,0 +1,19 @@
+{
+  "@@locale": "uk",
+  "kioskBackClose": "Натисніть «Назад» ще раз, щоб закрити застосунок",
+  "kioskBackAgain": "Натисніть «Назад» ще раз, щоб повернутися",
+  "kioskHoldOn": "Режим утримання увімкнено",
+  "kioskHoldOff": "Режим утримання вимкнено",
+  "kioskHoldNotice": "Поточний екран залишатиметься активним, доки ви його не вимкнете.",
+  "kioskDownloadComplete": "Завантаження завершено",
+  "kioskDownloadFailed": "Завантаження не вдалося",
+  "kioskDownload": "Завантажити",
+  "kioskDownloading": "Завантаження…",
+  "kioskOpen": "Відкрити",
+  "kioskTip": "Підказка",
+  "kioskMenuHint": "Проведіть від лівого краю, щоб відкрити меню.",
+  "kioskUnknownLink": "Невідоме посилання кіоска",
+  "kioskOpenAppFailed": "Не вдалося відкрити застосунок",
+  "kioskWebViewMissing": "Android System WebView відсутній або вимкнений",
+  "kioskWebViewMissingHelp": "На цьому пристрої немає провайдера WebView, тому неможливо відобразити Home Assistant. Встановіть Android System WebView або Chrome, а потім перезапустіть Kiosk Satellite."
+}

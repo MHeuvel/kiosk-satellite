@@ -1,0 +1,11 @@
+{
+  "@@locale": "uk",
+  "fleetUpdateTheFleet": "Оновити групу",
+  "fleetUpdateTheWholeFleetToTheKioskSatelliteVersion": "Оновити всю групу до версії Kiosk Satellite, встановленої на головному пристрої.",
+  "fleetKeepFollowersOnThisVersion": "Залишати підпорядковані кіоски на цій версії",
+  "fleetAutomaticallyUpdateAllFollowersToTheKioskSatelliteVersion": "Автоматично оновлювати всі підпорядковані кіоски до версії Kiosk Satellite, що працює на головному пристрої.",
+  "fleetNothingToUpdate": "Нічого оновлювати",
+  "fleetUpdating": "Оновлення",
+  "fleetNamesInstalling": "Встановлення {names}.",
+  "fleetSearchUpdates": "Встановіть реліз спочатку на кожен підпорядкований кіоск, а потім тут."
+}

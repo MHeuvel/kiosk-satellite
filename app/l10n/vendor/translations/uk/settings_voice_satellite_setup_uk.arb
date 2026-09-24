@@ -1,0 +1,12 @@
+{
+  "@@locale": "uk",
+  "voiceDisconnected": "Home Assistant не підключено",
+  "voiceValidate": "Спочатку перевірте підключення в меню Налаштування Home Assistant.",
+  "voiceChecking": "Перевірка наявності Voice Satellite…",
+  "voiceMissing": "Voice Satellite не встановлено в Home Assistant",
+  "voiceInstallHelp": "Voice Satellite перетворює цей кіоск на повноцінний голосовий асистент для Home Assistant: виявлення слова активації, бесіди, таймери та оголошення прямо на панелі керування.\n\nІнтеграція доступна в стандартному репозиторії HACS. Встановіть її на ваш сервер Home Assistant, а потім поверніться сюди.",
+  "voiceLearnMore": "Дізнатися більше про ",
+  "voiceGithub": "Voice Satellite на GitHub",
+  "voiceHacs": "Відкрити репозиторій HACS",
+  "voiceLoading": "Завантаження елементів керування Voice Satellite…"
+}

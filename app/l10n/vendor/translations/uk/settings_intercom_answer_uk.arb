@@ -1,0 +1,19 @@
+{
+  "@@locale": "uk",
+  "settingIntercomAnswerModeTitle": "Режим відповіді",
+  "settingIntercomAnswerModeDescription": "«Дзвінок» запитує на екрані. «Відповідати автоматично» відкриває виклик після звукового сигналу.",
+  "settingIntercomRingSecondsTitle": "Тривалість дзвінка",
+  "settingIntercomRingSecondsDescription": "Скільки часу триває виклик, перш ніж він вважатиметься пропущеним.",
+  "settingIntercomRingSoundTitle": "Звук дзвінка",
+  "settingIntercomRingSoundDescription": "Відтворюється з гучністю сповіщень.",
+  "settingIntercomAcceptAnnouncementsTitle": "Приймати оголошення",
+  "settingIntercomAcceptAnnouncementsDescription": "Відтворювати оголошення для всіх з інших кіосків.",
+  "intercomOptionAnswerRing": "Дзвінок",
+  "intercomOptionAnswerAuto": "Відповідати автоматично",
+  "intercomOptionAnswerDnd": "Не турбувати",
+  "intercomOptionAnswer15": "15 секунд",
+  "intercomOptionAnswer30": "30 секунд",
+  "intercomOptionAnswer45": "45 секунд",
+  "intercomOptionAnswer60": "60 секунд",
+  "intercomAnswerSection": "Відповідь"
+}

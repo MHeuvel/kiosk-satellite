@@ -44,7 +44,7 @@ try:
         assert select.bounding_box()['y']<page.locator('#wzDeviceName').bounding_box()['y']
         page.locator('#wzDeviceName').fill('Unsaved <device>')
         page.locator('#wzPassword').fill('Unsaved-password')
-        for tag in ['de','fr']:
+        for tag in ['de','fr','uk']:
             select.select_option(tag)
             expect(page.locator('#wizardTitle')).to_have_text(catalogs[tag]['remoteWelcomeTitle'])
             expect(select).to_have_value(tag)

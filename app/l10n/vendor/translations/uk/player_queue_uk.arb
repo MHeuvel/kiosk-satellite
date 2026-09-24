@@ -1,0 +1,8 @@
+{
+  "@@locale": "uk",
+  "mediaNothingQueued": "У черзі нічого немає",
+  "mediaChapters": "Розділи",
+  "mediaNowPlaying": "Зараз відтворюється",
+  "mediaUpNext": "Далі",
+  "mediaUnnamedChapter": "Розділ {number}"
+}

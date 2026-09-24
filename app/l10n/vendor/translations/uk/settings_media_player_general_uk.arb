@@ -1,0 +1,20 @@
+{
+  "@@locale": "uk",
+  "settingSendspinPlayerSourceTitle": "Джерело плеєра",
+  "settingSendspinPlayerSourceDescription": "Що показує та керує плаваючий плеєр і режим «Зараз грає»: цей пристрій або плеєр деінде.",
+  "settingSendspinPlayerTitle": "Плеєр",
+  "settingSendspinPlayerDescription": "Плеєр цього джерела для показу та керування.",
+  "settingSendspinDuckPercentTitle": "Зменшувати гучність під час голосових взаємодій",
+  "settingSendspinDuckPercentDescription": "Музика знижується до цієї частки своєї гучності під час голосових взаємодій і викликів інтеркому, а потім повертається.",
+  "settingSendspinVolumeKeysTitle": "Кнопки гучності керують плеєром",
+  "settingSendspinVolumeKeysDescription": "Кнопки гучності цього пристрою змінюють гучність плеєра, за яким слідують, замість власної. Лише поки на екрані режим «Зараз грає», або завжди, коли плеєр відтворює.",
+  "settingSendspinVolumeKeyStepTitle": "Крок кнопки гучності",
+  "settingSendspinVolumeKeyStepDescription": "Наскільки одне натискання кнопки гучності зсуває гучність плеєра.",
+  "mediaIntro": "Плаваючий плеєр і режим «Зараз грає» з'являються, лише коли у вибраного плеєра грає трек або завантажена черга. Якщо нічого не відтворюється і черга порожня, жоден із них не з'явиться.",
+  "mediaThisDevice": "Цей пристрій",
+  "mediaOff": "Вимкнено",
+  "mediaKeysNowPlaying": "Поки показано «Зараз грає»",
+  "mediaKeysPlaying": "Поки плеєр відтворює",
+  "mediaAnotherPlayer": "інший плеєр",
+  "mediaLocalOffline": "Власний плеєр Sendspin цього пристрою залишається офлайн, доки керується {player}."
+}

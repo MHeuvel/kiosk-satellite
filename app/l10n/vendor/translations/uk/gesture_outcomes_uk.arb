@@ -1,0 +1,17 @@
+{
+  "@@locale": "uk",
+  "gestureHaServiceKind": "Служба Home Assistant",
+  "gestureHaScriptKind": "Скрипт Home Assistant",
+  "gestureHaAutomationKind": "Автоматизація Home Assistant",
+  "gestureHaEventKind": "Подія Home Assistant",
+  "gestureRan": "Виконано {value}",
+  "gestureRunFailed": "Не вдалося виконати {value}",
+  "gestureCalled": "Викликано {value}",
+  "gestureCallFailed": "Не вдалося викликати {value}",
+  "gestureTriggered": "Запущено {value}",
+  "gestureTriggerFailed": "Не вдалося запустити {value}",
+  "gestureFired": "Надіслано подію {value}",
+  "gestureFireFailed": "Не вдалося надіслати подію {value}",
+  "gestureDone": "Готово",
+  "gestureFailed": "Не вдалося"
+}

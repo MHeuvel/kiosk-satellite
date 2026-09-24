@@ -1,0 +1,9 @@
+{
+  "@@locale": "uk",
+  "overviewGoView": "Перейти до вигляду",
+  "overviewLoadingViews": "Завантаження виглядів…",
+  "overviewPickView": "Оберіть вигляд панелі…",
+  "overviewDefaultView": "Стандартний вигляд",
+  "overviewNoDashboards": "Панелей керування не знайдено",
+  "overviewViewsUnavailable": "Вигляди недоступні"
+}

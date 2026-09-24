@@ -1,0 +1,20 @@
+{
+  "@@locale": "uk",
+  "drawerVersion": "Версія {version}",
+  "drawerUpdateAvailable": "Доступне оновлення",
+  "drawerUpdateInstall": "Версія {version} · торкніться для встановлення",
+  "drawerUpdateChecking": "Перевірка оновлень…",
+  "drawerUpdateCurrent": "Остання версія",
+  "drawerUpdateCurrentHelp": "Ви використовуєте найновішу версію.",
+  "drawerUpdateCheckFailed": "Помилка перевірки оновлення",
+  "drawerUpdateOffline": "Чи пристрій підключений до мережі?",
+  "drawerUpdateTo": "Оновити до версії {version}",
+  "drawerUpdateInstructions": "Завантаження починається після натискання «Оновити». Android попросить вас підтвердити встановлення.",
+  "drawerUpdateRelaunch": "Без дозволу \"Показ поверх інших додатків\" застосунок не зможе відкритися знову після оновлення.",
+  "drawerUpdate": "Оновити",
+  "drawerUpdateDownloading": "Завантаження оновлення…",
+  "drawerUpdateStarting": "Запуск встановлення…",
+  "drawerUpdateFailed": "Помилка оновлення",
+  "drawerUpdates": "Оновлення",
+  "drawerNoReleaseNotes": "Примітки до випуску відсутні."
+}
