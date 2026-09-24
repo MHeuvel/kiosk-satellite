@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.9.80 - 2026-09-24
 
 ### Changed
 - **microWakeWord uses about a third of the CPU it did.** The whole audio frontend now runs in native code, with results identical to before. On an Echo Show 8 the wake word thread dropped from 5.7% to 2.1% of a CPU core while listening.
