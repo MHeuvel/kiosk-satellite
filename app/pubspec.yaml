@@ -98,6 +98,7 @@ flutter:
     - shaders/weather_mood_clouds.frag
     - shaders/weather_mood_clouds_low.frag
     - shaders/weather_mood_blend.frag
+    - shaders/weather_mood_glass.frag
   assets:
     - assets/l10n/
     - assets/remote-ui/index.html

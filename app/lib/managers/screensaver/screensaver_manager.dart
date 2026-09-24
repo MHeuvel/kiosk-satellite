@@ -1116,6 +1116,11 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
   /// rest of the time, so widgets behave exactly as before.
   final ValueNotifier<Set<String>> claimedCorners = ValueNotifier(const {});
 
+  /// The height the Weather Mood chips take at the bottom of the screen,
+  /// measured after layout, so bottom corner widgets sit just above them.
+  /// Zero whenever the chips are not showing.
+  final ValueNotifier<double> weatherChipsHeight = ValueNotifier(0);
+
   /// The slideshow on screen, when the running mode is one. Home Assistant
   /// Media, Local Media, Photo Gallery and Immich Media register on mount
   /// and stand down on unmount, and so does the Camera Streams rotation,
@@ -1521,6 +1526,7 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     scheduleWidgets.value = null;
     scheduleGlance.value = null;
     claimedCorners.value = const {};
+    weatherChipsHeight.value = 0;
     _slides = null;
     bus.publish(const ScreensaverStateChanged(active: false));
   }

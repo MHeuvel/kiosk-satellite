@@ -1974,7 +1974,7 @@ const screensaverWeatherBarOpacity = SettingDef<num>(
 const screensaverWeatherBarShadow = SettingDef<bool>(
   key: 'screensaver.weather_bar_shadow',
   type: SettingType.boolean,
-  defaultValue: false,
+  defaultValue: true,
   title: "Text drop shadow",
   description:
       "Add a drop shadow to text for readability over the weather scene.",

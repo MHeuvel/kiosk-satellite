@@ -54,6 +54,8 @@ void main() {
       expect(defs.screensaverWeatherClock.defaultValue, true);
       expect(defs.screensaverWeatherBar.defaultValue, true);
       expect(defs.screensaverWeatherClockShadow.defaultValue, true);
+      expect(defs.screensaverWeatherBarShadow.defaultValue, true);
+      expect(defs.screensaverWeatherBarOpacity.defaultValue, 50);
     },
   );
   test(
@@ -347,25 +349,107 @@ void main() {
       expect(face.date, isNull);
       expect(face.shadows, isEmpty);
       expect(face.time, matches(RegExp(r'^\d{2}:\d{2}$')));
-      BoxDecoration bar() =>
-          tester
-                  .widget<DecoratedBox>(
-                    find
-                        .descendant(
-                          of: find.byType(WeatherMoodBar),
-                          matching: find.byType(DecoratedBox),
-                        )
-                        .first,
-                  )
-                  .decoration
-              as BoxDecoration;
-      // The top edge fades with the background instead of staying visible.
-      for (final (opacity, edge) in [(0, 0.0), (50, .10), (100, .20)]) {
+      List<ShapeDecoration> chips() => [
+        for (final box in tester.widgetList<DecoratedBox>(
+          find.descendant(
+            of: find.byType(WeatherMoodBar),
+            matching: find.byType(DecoratedBox),
+          ),
+        ))
+          if (box.decoration case final ShapeDecoration decoration) decoration,
+      ];
+      await c.settings.set(defs.screensaverWeatherBarHumidity, true);
+      readings.update({
+        'attributes': {'wind_speed': 12.3, 'visibility': 10},
+      });
+      // The fill and edge of every chip fade with Background opacity.
+      for (final (opacity, edge) in [(0, 0.0), (50, .08), (100, .16)]) {
         await c.settings.set(defs.screensaverWeatherBarOpacity, opacity);
         await show(const Size(1280, 800), 100, 'fr');
-        expect(bar().color!.a, closeTo(opacity / 100, .01));
-        expect((bar().border! as Border).top.color.a, closeTo(edge, .01));
+        expect(chips(), hasLength(4));
+        // Frosted glass behind every chip, gone with the tint at 0%.
+        expect(
+          find.descendant(
+            of: find.byType(WeatherMoodBar),
+            matching: find.byType(BackdropFilter),
+          ),
+          opacity == 0 ? findsNothing : findsNWidgets(4),
+        );
+        for (final chip in chips()) {
+          final tint = (chip.gradient! as LinearGradient).colors.last;
+          expect(tint.a, closeTo(opacity / 100, .01));
+          expect(
+            (chip.shape as StadiumBorder).side.color.a,
+            closeTo(edge, .01),
+          );
+        }
       }
+      List<Rect> chipRects() => [
+        for (final element
+            in find
+                .descendant(
+                  of: find.byType(WeatherMoodBar),
+                  matching: find.byType(Container),
+                )
+                .evaluate())
+          if ((element.widget as Container).decoration is ShapeDecoration)
+            tester.getRect(find.byWidget(element.widget)),
+      ]..sort((a, b) => a.left.compareTo(b.left));
+      // Wide screens put the conditions chip at the bottom left and the
+      // readings against the right edge on the same baseline, including a
+      // 1205 pixel wide Tab S8 at 135% where the chips still fit one row.
+      for (final (width, scale) in [
+        (1280.0, 100.0),
+        (1205.0, 135.0),
+        (1205.0, 155.0),
+      ]) {
+        await show(Size(width, 800), scale, 'en');
+        final rects = chipRects();
+        expect(rects.first.left, closeTo(12 * scale / 100, 1));
+        expect(rects.last.right, closeTo(width - 12 * scale / 100, 1));
+        for (final rect in rects) {
+          // Every chip shares one height and one row.
+          expect(rect.height, closeTo(rects.first.height, .5));
+          expect(rect.bottom, closeTo(rects.first.bottom, 1));
+        }
+        // The chips take only their own height, which the corner widgets
+        // are told after layout, and leave the rest to the clock.
+        final bar = tester.getRect(
+          find.byKey(const ValueKey('weather-mood-bar')),
+        );
+        expect(bar.height, closeTo(rects.first.height + 12 * scale / 100, 1));
+        expect(c.screensaver.weatherChipsHeight.value, closeTo(bar.height, .5));
+      }
+      // Under a UI scale exemption the MediaQuery size is the scaled one,
+      // smaller than the space the chips get. They still reach both edges.
+      tester.view.physicalSize = const Size(1280, 800);
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Builder(
+            builder: (context) => MediaQuery(
+              data: MediaQuery.of(
+                context,
+              ).copyWith(size: const Size(1113, 696)),
+              child: Material(
+                child: WeatherMoodInformation(container: c, readings: readings),
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      final exempt = chipRects();
+      // Still at 155% text scale from the loop above.
+      expect(exempt.first.left, closeTo(12 * 1.55, 1));
+      expect(exempt.last.right, closeTo(1280 - 12 * 1.55, 1));
+      // A phone-width screen stacks the readings above the main chip.
+      await show(const Size(360, 800), 100, 'en');
+      final stacked = chipRects();
+      final main = stacked.reduce((a, b) => a.bottom > b.bottom ? a : b);
+      expect(
+        stacked.where((rect) => rect != main).every((r) => r.bottom < main.top),
+        isTrue,
+      );
       readings.update({'state': 'unavailable'});
       await tester.pumpWidget(
         MaterialApp(

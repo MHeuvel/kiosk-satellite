@@ -1,13 +1,15 @@
 import 'dart:async';
 import 'dart:math' as math;
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/scheduler.dart';
 
 import '../app_container.dart';
 import '../core/locale_dates.dart';
 import '../l10n/messages.dart';
 import '../managers/settings/definitions.dart' as defs;
-import '../managers/settings/settings_manager.dart';
 import 'clock_faces.dart';
 import 'digital_clock_face.dart';
 import 'glance_row.dart';
@@ -27,26 +29,6 @@ Color _color(String value) {
     parts[0]!.clamp(0, 255),
     parts[1]!.clamp(0, 255),
     parts[2]!.clamp(0, 255),
-  );
-}
-
-/// Reserve the bar's space for corner widgets as well as the central clock.
-double weatherMoodBarHeight(Size size, SettingsManager settings) {
-  if (!settings.get(defs.screensaverWeatherBar)) return 0;
-  final scale = (settings.get(defs.screensaverWeatherBarScale) / 100).clamp(
-    .5,
-    2.0,
-  );
-  final narrow = size.width < 720 * scale;
-  final compact = size.width < 400 * scale;
-  return math.min(
-    (compact
-            ? 224
-            : narrow
-            ? 148
-            : 80) *
-        scale,
-    size.height * .38,
   );
 }
 
@@ -240,6 +222,11 @@ class _WeatherMoodInformationState extends State<WeatherMoodInformation> {
   }
 }
 
+/// Weather readings as chips floating over the scene: a large chip with
+/// the conditions and temperature at the bottom left and one small chip
+/// per reading at the bottom right. Translucent dark pills with a faint
+/// edge read against every sky, from bright day to dusk to night, and
+/// match the At a Glance pills.
 class WeatherMoodBar extends StatelessWidget {
   const WeatherMoodBar({
     super.key,
@@ -261,55 +248,113 @@ class WeatherMoodBar extends StatelessWidget {
     final shadows = s.get(defs.screensaverWeatherBarShadow)
         ? _textShadows
         : const <Shadow>[];
-    final narrow = size.width < 720 * scale;
-    final compact = size.width < 400 * scale;
-    final width = math.max(180.0, size.width / scale - 64);
-    TextStyle style(double fontSize, {FontWeight weight = FontWeight.w400}) =>
-        TextStyle(
-          fontFamily: 'Rubik',
-          fontSize: fontSize,
-          color: color,
-          fontWeight: weight,
-          shadows: shadows,
-          height: 1.2,
-        );
-    Widget metric(String title, String value, IconData icon) => compact
-        ? Row(
-            children: [
-              Icon(icon, color: color, size: 21, shadows: shadows),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Text(
+    final opacity = (s.get(defs.screensaverWeatherBarOpacity) / 100).clamp(
+      0.0,
+      1.0,
+    );
+    // The fill follows Background opacity. The edge and icon circles fade
+    // with it, so a fully transparent chip leaves only its text.
+    final fill = const Color(0xFF1C1C1E).withValues(alpha: opacity);
+    // Light catching the top of the glass: a faint sheen that fades out
+    // toward the bottom of each chip.
+    final sheen = Color.alphaBlend(
+      Colors.white.withValues(alpha: .12 * (opacity / .5).clamp(0.0, 1.0)),
+      fill,
+    );
+    final edge = Colors.white.withValues(alpha: .16 * opacity);
+    final circle = Colors.white.withValues(
+      alpha: .14 * (opacity / .7).clamp(0.0, 1.0),
+    );
+    // Frosted glass: the scene behind each chip is blurred, so the chips
+    // take on the colors of every sky. It fades out with the tint.
+    final frost = 14 * (opacity / .3).clamp(0.0, 1.0);
+    TextStyle style(
+      double fontSize, {
+      FontWeight weight = FontWeight.w400,
+      double alpha = 1,
+    }) => TextStyle(
+      fontFamily: 'Rubik',
+      fontSize: fontSize * scale,
+      color: color.withValues(alpha: alpha),
+      fontWeight: weight,
+      shadows: shadows,
+      height: 1.2,
+    );
+    // A StadiumBorder keeps the radius at half the chip's own height; an
+    // oversized corner radius once froze Impeller's raster thread.
+    Widget chip(Widget child, EdgeInsets padding) {
+      final glass = Container(
+        padding: padding * scale,
+        decoration: ShapeDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [sheen, fill],
+            stops: const [0, .6],
+          ),
+          shape: StadiumBorder(side: BorderSide(color: edge)),
+        ),
+        child: child,
+      );
+      if (frost < .5) return glass;
+      return _GlassChip(
+        tint: opacity,
+        fallback: ClipPath(
+          clipper: const ShapeBorderClipper(shape: StadiumBorder()),
+          // Grouped, so every chip shares one read of the scene behind them.
+          child: BackdropFilter.grouped(
+            filter: ui.ImageFilter.blur(
+              sigmaX: frost,
+              sigmaY: frost,
+              tileMode: TileMode.clamp,
+            ),
+            child: glass,
+          ),
+        ),
+        child: Padding(padding: padding * scale, child: child),
+      );
+    }
+
+    Widget disc(double diameter, Widget icon) => Container(
+      width: diameter * scale,
+      height: diameter * scale,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(color: circle, shape: BoxShape.circle),
+      child: icon,
+    );
+    Widget metric(String title, String value, IconData icon) => chip(
+      Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          disc(
+            40,
+            Icon(icon, color: color, size: 22 * scale, shadows: shadows),
+          ),
+          SizedBox(width: 10 * scale),
+          Flexible(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
                   screensaverText(context, title),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: style(20),
+                  style: style(13, alpha: .8),
                 ),
-              ),
-              const SizedBox(width: 10),
-              Text(value, style: style(23)),
-            ],
-          )
-        : Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                screensaverText(context, title),
-                textAlign: TextAlign.center,
-                style: style(20),
-              ),
-              const SizedBox(height: 6),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(icon, color: color, size: 21, shadows: shadows),
-                  const SizedBox(width: 7),
-                  Text(value, style: style(23)),
-                ],
-              ),
-            ],
-          );
+                Text(
+                  value,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: style(17, weight: FontWeight.w600),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      const EdgeInsets.fromLTRB(6, 6, 18, 6),
+    );
     final metrics = <Widget>[
       if (s.get(defs.screensaverWeatherBarHumidity) &&
           readings.number('humidity') != null)
@@ -341,180 +386,265 @@ class WeatherMoodBar extends StatelessWidget {
       feelsLike: s.get(defs.screensaverWeatherBarFeelsLike),
     );
     final forecast = s.get(defs.screensaverWeatherBarForecast);
-    final horizontalHeader = Row(
-      children: [
-        if (forecast) ...[
-          WeatherConditionIcon(
-            readings.condition,
-            size: 40,
-            color: color,
-            shadows: shadows,
-          ),
-          const SizedBox(width: 16),
-        ],
-        if (temperature != null) ...[
-          Flexible(
-            child: FittedBox(
-              fit: BoxFit.scaleDown,
-              child: Text(
-                temperature,
-                style: style(42, weight: FontWeight.w300),
+    // The same height and type as the reading chips, so every chip in
+    // the row matches. The temperature takes the value size and the
+    // location and conditions stack beside it like a reading's title.
+    final main = chip(
+      Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // Holds the chip at the reading chips' height without an icon.
+          SizedBox(height: 40 * scale),
+          if (forecast)
+            disc(
+              40,
+              WeatherConditionIcon(
+                readings.condition,
+                size: 24 * scale,
+                color: color,
+                shadows: shadows,
               ),
             ),
-          ),
-          const SizedBox(width: 20),
-        ],
-        if (location.isNotEmpty || forecast)
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (location.isNotEmpty)
-                  Text(
-                    location,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: style(21, weight: FontWeight.w500),
-                  ),
-                if (forecast)
-                  Text(
-                    condition,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: style(21),
-                  ),
-              ],
+          if (temperature != null) ...[
+            SizedBox(width: (forecast ? 10 : 6) * scale),
+            Flexible(
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  temperature,
+                  style: style(24, weight: FontWeight.w600),
+                ),
+              ),
             ),
-          ),
-      ],
-    );
-    final header = compact
-        ? Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
+          ],
+          if (location.isNotEmpty || forecast) ...[
+            SizedBox(width: 12 * scale),
+            Flexible(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (forecast) ...[
-                    WeatherConditionIcon(
-                      readings.condition,
-                      size: 40,
-                      color: color,
-                      shadows: shadows,
+                  if (location.isNotEmpty)
+                    Text(
+                      location,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: style(13, alpha: .8),
                     ),
-                    const SizedBox(width: 16),
-                  ],
-                  if (temperature != null)
-                    Expanded(
-                      child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          temperature,
-                          style: style(42, weight: FontWeight.w300),
-                        ),
-                      ),
+                  if (forecast)
+                    Text(
+                      condition,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: style(17, weight: FontWeight.w600),
                     ),
                 ],
               ),
-              if (location.isNotEmpty || forecast) const SizedBox(height: 8),
-              if (location.isNotEmpty)
-                Text(
-                  location,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: style(21, weight: FontWeight.w500),
-                ),
-              if (forecast)
-                Text(
-                  condition,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: style(21),
-                ),
-            ],
-          )
-        : horizontalHeader;
-    final details = compact
-        ? Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              for (final metric in metrics)
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5),
-                  child: metric,
-                ),
-            ],
-          )
-        : Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              for (var i = 0; i < metrics.length; i++)
-                Flexible(
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      left: i == 0 ? 0 : (width * .05).clamp(24.0, 64.0),
-                    ),
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      alignment: Alignment.centerRight,
-                      child: metrics[i],
-                    ),
-                  ),
-                ),
-            ],
-          );
-    final opacity = (s.get(defs.screensaverWeatherBarOpacity) / 100).clamp(
-      0.0,
-      1.0,
-    );
-    return SizedBox(
-      key: const ValueKey('weather-mood-bar'),
-      height: weatherMoodBarHeight(size, s),
-      width: double.infinity,
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: Colors.black.withValues(alpha: opacity),
-          // The edge fades with the background and matches the original
-          // look at the default 50%.
-          border: Border(
-            top: BorderSide(color: color.withValues(alpha: .20 * opacity)),
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 6),
-          child: Transform.translate(
-            offset: offset,
-            child: FittedBox(
-              fit: BoxFit.contain,
-              child: SizedBox(
-                width: width,
-                child: narrow
-                    ? Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          header,
-                          if (metrics.isNotEmpty) ...[
-                            const SizedBox(height: 12),
-                            details,
-                          ],
-                        ],
-                      )
-                    : Row(
-                        children: [
-                          Expanded(flex: 5, child: header),
-                          if (metrics.isNotEmpty) ...[
-                            const SizedBox(width: 24),
-                            Expanded(flex: 6, child: details),
-                          ],
-                        ],
-                      ),
-              ),
             ),
-          ),
+          ],
+        ],
+      ),
+      const EdgeInsets.fromLTRB(6, 6, 18, 6),
+    );
+    final gap = 12 * scale;
+    // One row when the chips' real widths fit: conditions at the left and
+    // readings at the right. Otherwise the readings stack above the main
+    // chip and wrap as needed.
+    final content = Padding(
+      padding: EdgeInsets.fromLTRB(12 * scale, 0, 12 * scale, 12 * scale),
+      child: Transform.translate(
+        offset: offset,
+        child: OverflowBar(
+          spacing: gap * 2,
+          overflowSpacing: gap,
+          alignment: MainAxisAlignment.spaceBetween,
+          overflowAlignment: OverflowBarAlignment.start,
+          overflowDirection: VerticalDirection.up,
+          children: [
+            main,
+            if (metrics.isNotEmpty)
+              Wrap(spacing: gap, runSpacing: gap, children: metrics),
+          ],
         ),
       ),
     );
+    // The chips take their natural height, so the clock above keeps all
+    // the room they leave. They shrink only when many wrapped readings on a
+    // small screen would take more than a third of it.
+    // The width the chips actually get. Under a UI scale exemption the
+    // MediaQuery size is the scaled one, not the space laid out here.
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final width = constraints.hasBoundedWidth
+            ? constraints.maxWidth
+            : size.width;
+        return _ReportHeight(
+          key: const ValueKey('weather-mood-bar'),
+          onHeight: (height) =>
+              container.screensaver.weatherChipsHeight.value = height,
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxHeight: size.height * width / size.width * .38,
+            ),
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: Alignment.bottomLeft,
+              child: BackdropGroup(
+                child: SizedBox(width: width, child: content),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+/// Reports its child's laid-out height after the frame, for layouts that
+/// depend on it elsewhere.
+class _ReportHeight extends SingleChildRenderObjectWidget {
+  const _ReportHeight({super.key, required this.onHeight, super.child});
+  final ValueChanged<double> onHeight;
+
+  @override
+  RenderObject createRenderObject(BuildContext context) =>
+      _RenderReportHeight(onHeight);
+
+  @override
+  void updateRenderObject(
+    BuildContext context,
+    _RenderReportHeight renderObject,
+  ) => renderObject.onHeight = onHeight;
+}
+
+class _RenderReportHeight extends RenderProxyBox {
+  _RenderReportHeight(this.onHeight);
+  ValueChanged<double> onHeight;
+  double? _reported;
+
+  @override
+  void performLayout() {
+    super.performLayout();
+    final height = size.height;
+    if (height == _reported) return;
+    _reported = height;
+    // Listeners rebuild other widgets, which cannot happen mid-layout.
+    SchedulerBinding.instance.addPostFrameCallback((_) => onHeight(height));
+  }
+
+  @override
+  void detach() {
+    if (_reported != null) {
+      _reported = null;
+      SchedulerBinding.instance.addPostFrameCallback((_) => onHeight(0));
+    }
+    super.detach();
+  }
+}
+
+/// The glass shader, on renderers that can run it as a backdrop filter.
+final Future<ui.FragmentProgram?> _glassProgram =
+    ui.ImageFilter.isShaderFilterSupported
+    ? ui.FragmentProgram.fromAsset(
+        'shaders/weather_mood_glass.frag',
+      ).then<ui.FragmentProgram?>((program) => program, onError: (_) => null)
+    : Future.value(null);
+
+/// A chip of clear glass over the scene: the backdrop refracts at the
+/// rounded edge under a bright rim. Renderers without backdrop shaders, and
+/// the moments before the shader loads, show [fallback] instead.
+class _GlassChip extends StatelessWidget {
+  const _GlassChip({
+    required this.tint,
+    required this.fallback,
+    required this.child,
+  });
+  final double tint;
+  final Widget fallback;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) => FutureBuilder<ui.FragmentProgram?>(
+    future: _glassProgram,
+    builder: (context, snapshot) {
+      final program = snapshot.data;
+      if (program == null) return fallback;
+      return ClipPath(
+        clipper: const ShapeBorderClipper(shape: StadiumBorder()),
+        child: _GlassBackdrop(program: program, tint: tint, child: child),
+      );
+    },
+  );
+}
+
+class _GlassBackdrop extends SingleChildRenderObjectWidget {
+  const _GlassBackdrop({
+    required this.program,
+    required this.tint,
+    super.child,
+  });
+  final ui.FragmentProgram program;
+  final double tint;
+
+  @override
+  RenderObject createRenderObject(BuildContext context) =>
+      _RenderGlassBackdrop(program.fragmentShader(), tint);
+
+  @override
+  void updateRenderObject(
+    BuildContext context,
+    _RenderGlassBackdrop renderObject,
+  ) => renderObject.tint = tint;
+}
+
+/// Paints its child over the glass. The shader needs the chip's place on
+/// screen, which is only known once it paints.
+class _RenderGlassBackdrop extends RenderProxyBox {
+  _RenderGlassBackdrop(this._shader, this._tint);
+  final ui.FragmentShader _shader;
+  double _tint;
+
+  set tint(double value) {
+    if (value == _tint) return;
+    _tint = value;
+    markNeedsPaint();
+  }
+
+  @override
+  bool get alwaysNeedsCompositing => true;
+
+  @override
+  void paint(PaintingContext context, Offset offset) {
+    // The backdrop is in the view's device pixels. The root view's own
+    // ratio applies here: the MediaQuery ratio below a UI scale exemption
+    // differs from it.
+    RenderObject root = this;
+    while (root.parent != null) {
+      root = root.parent!;
+    }
+    final ratio = root is RenderView
+        ? root.configuration.devicePixelRatio
+        : 1.0;
+    final rect = MatrixUtils.transformRect(
+      getTransformTo(null),
+      Offset.zero & size,
+    );
+    _shader
+      ..setFloat(2, rect.left * ratio)
+      ..setFloat(3, rect.top * ratio)
+      ..setFloat(4, rect.width * ratio)
+      ..setFloat(5, rect.height * ratio)
+      ..setFloat(6, _tint)
+      ..setFloat(7, rect.height / size.height * ratio);
+    final layer = (this.layer as BackdropFilterLayer?) ?? BackdropFilterLayer();
+    layer.filter = ui.ImageFilter.shader(_shader);
+    this.layer = layer;
+    context.pushLayer(layer, super.paint, offset);
+  }
+
+  @override
+  void dispose() {
+    _shader.dispose();
+    super.dispose();
   }
 }
