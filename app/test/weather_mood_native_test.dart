@@ -79,18 +79,65 @@ void main() {
     expect(scene.values[2], 1);
   });
 
-  test('quality reduces sustained GPU load and stays bounded', () {
+  test('quality spreads clouds over frames before shrinking them', () {
+    WeatherMoodQuality.resetLearned();
+    addTearDown(WeatherMoodQuality.resetLearned);
     final quality = WeatherMoodQuality(lowPower: true);
     expect(quality.steps, 40);
     expect(quality.fps, 20);
-    expect(quality.cloudFps, 5);
+    expect(quality.tiles, 12);
+    quality.wind = 1;
+    expect(quality.maxTiles, 12);
+    quality.wind = 0;
     expect(quality.width, lessThanOrEqualTo(360));
+    const slow = Duration(milliseconds: 180), fast = Duration(milliseconds: 50);
+    for (var i = 0; i < 10; i++) {
+      quality.recordTick(slow);
+    }
+    // One window at a third of the target rate spreads clouds much further.
+    expect(quality.tiles, 24);
+    expect(quality.tiles, quality.maxTiles);
+    expect(quality.scale, .64);
     for (var i = 0; i < 100; i++) {
-      quality.recordFrame(const Duration(milliseconds: 180));
+      quality.recordTick(slow);
     }
     expect(quality.scale, .5);
     expect(quality.width, 280);
     expect(quality.height, 175);
+    // A band count that proved too slow is never used again.
+    for (var i = 0; i < 400; i++) {
+      quality.recordFrame(const Duration(milliseconds: 5));
+      quality.recordTick(fast);
+    }
+    expect(quality.tiles, quality.maxTiles);
+    // Later sessions start from what this device sustained.
+    final next = WeatherMoodQuality(lowPower: true);
+    expect(next.tiles, quality.maxTiles);
+    expect(next.scale, .5);
+    final high = WeatherMoodQuality(lowPower: false);
+    expect(high.tiles, 1);
+    expect(high.fps, 30);
+    // Deliberate one-off work, such as a full image after a settings
+    // change, does not count against the device.
+    high.skipTick();
+    for (var i = 0; i < 3; i++) {
+      high.recordTick(const Duration(milliseconds: 200));
+    }
+    expect(high.tiles, 1);
+    // A 60 Hz display shows a 30 fps scene on every second refresh.
+    expect(high.vsyncs, 2);
+    high.period = const Duration(microseconds: 8333);
+    expect(high.vsyncs, 4);
+    high.period = const Duration(microseconds: 16667);
+    for (var i = 0; i < 10; i++) {
+      high.recordTick(const Duration(milliseconds: 50));
+    }
+    expect(high.tiles, 2);
+    for (var i = 0; i < 400; i++) {
+      high.recordFrame(const Duration(milliseconds: 3));
+      high.recordTick(const Duration(milliseconds: 33));
+    }
+    expect(high.tiles, 2);
   });
 
   testWidgets('native shaders preserve skies and moon occlusion', (

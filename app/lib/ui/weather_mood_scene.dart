@@ -1,5 +1,7 @@
 import 'dart:math' as math;
 
+import 'package:flutter/foundation.dart';
+
 /// Values match the approved scenes: clouds, night, rain, fog, snow, wind,
 /// downpour, lightning, hail and storm darkness.
 const weatherMoodPresets = <String, List<double>>{
@@ -116,28 +118,112 @@ class WeatherMoodScene {
   }
 }
 
-/// Bounds GPU work before the first frame and reduces it after sustained load.
+/// Bounds GPU work per frame. Clouds are built in bands over several frames
+/// so no single frame waits for a whole cloud image, and the band count
+/// follows the frame rate this device actually reaches.
 class WeatherMoodQuality {
-  WeatherMoodQuality({required this.lowPower}) : scale = lowPower ? .64 : 1;
+  WeatherMoodQuality({required this.lowPower})
+    : scale = _learnedScale[lowPower] ?? (lowPower ? .64 : 1),
+      tiles = _learnedTiles[lowPower] ?? (lowPower ? 12 : 1),
+      _slowAt = _learnedSlowAt[lowPower] ?? 0;
+  // Later screensaver sessions start where the previous one settled.
+  static final _learnedTiles = <bool, int>{};
+  static final _learnedScale = <bool, double>{};
+  static final _learnedSlowAt = <bool, int>{};
   final bool lowPower;
   // Start older GPUs near their sustainable size instead of making the first
   // several cloud frames stall while the adaptive limit catches up.
   double scale;
-  int _slowFrames = 0;
+
+  /// Frames spent building each cloud keyframe, one band per frame.
+  int tiles;
+  int _slowAt;
+  int _ticks = 0, _slow = 0, _quiet = 0, _slowWindows = 0;
+  int _skip = 0;
+  Duration _spent = Duration.zero, _raster = Duration.zero;
+  int _frames = 0;
   int get fps => lowPower ? 20 : 30;
-  int get cloudFps => lowPower ? 5 : fps;
   int get steps => lowPower ? 40 : 96;
   double get width => (lowPower ? 560 : 1100) * scale;
   double get height => (lowPower ? 350 : 720) * scale;
-  void recordFrame(Duration duration) {
-    if (duration.inMicroseconds > 1000000 / fps * 1.8) {
-      _slowFrames++;
+
+  /// The display's refresh period. Frames land on every [vsyncs]th refresh
+  /// so motion keeps an even cadence.
+  Duration period = const Duration(microseconds: 16667);
+  int get vsyncs =>
+      math.max(1, (1000000 / fps / period.inMicroseconds).round());
+  Duration get interval => period * vsyncs;
+
+  /// Scene wind from 0 to 1, set by the renderer.
+  double wind = 0;
+
+  /// Slow clouds hide a long crossfade, while wind-driven clouds would show
+  /// it, so keyframes come closer together as the wind picks up.
+  int get maxTiles => math.max(
+    1,
+    (1200000 * (1 - wind.clamp(0.0, 1.0) * .5) / interval.inMicroseconds)
+        .round(),
+  );
+
+  /// Leaves out the next few frame intervals, which carry deliberate one-off
+  /// work such as the first full cloud image after a settings change.
+  void skipTick() => _skip = 3;
+
+  /// Records the time between two animation frames.
+  void recordTick(Duration elapsed) {
+    if (_skip > 0) {
+      _skip--;
+      return;
+    }
+    _ticks++;
+    _spent += elapsed;
+    // A frame that missed its refresh shows a whole period late.
+    if (elapsed > interval + period ~/ 2) _slow++;
+    if (_ticks < 10) return;
+    final average = _spent ~/ _ticks;
+    final raster = _frames == 0 ? Duration.zero : _raster ~/ _frames;
+    if (_slow >= 4) {
+      _quiet = 0;
+      _slowAt = math.max(_slowAt, tiles);
+      _slowWindows++;
+      if (tiles < maxTiles) {
+        final ratio = (average.inMicroseconds / interval.inMicroseconds).clamp(
+          1.5,
+          4.0,
+        );
+        tiles = math.min(maxTiles, (tiles * ratio).ceil());
+      } else if (scale > .5 && _slowWindows >= 3) {
+        // Resolution is the last resort, after sustained slow frames.
+        scale = math.max(.5, scale * .8);
+        _slowWindows = 0;
+      }
+    } else if (_slow == 0 && raster < interval * .4 && tiles - 1 > _slowAt) {
+      // Only give back frames that never proved too slow on this device.
+      if (++_quiet >= 3) {
+        tiles--;
+        _quiet = 0;
+      }
     } else {
-      _slowFrames = math.max(0, _slowFrames - 1);
+      _quiet = 0;
     }
-    if (_slowFrames >= 8 && scale > .5) {
-      scale = math.max(.5, scale * .8);
-      _slowFrames = 0;
-    }
+    if (_slow < 4) _slowWindows = 0;
+    _ticks = _slow = _frames = 0;
+    _spent = _raster = Duration.zero;
+    _learnedTiles[lowPower] = tiles;
+    _learnedScale[lowPower] = scale;
+    _learnedSlowAt[lowPower] = _slowAt;
+  }
+
+  /// Records the raster time of a rendered frame.
+  void recordFrame(Duration raster) {
+    _frames++;
+    _raster += raster;
+  }
+
+  @visibleForTesting
+  static void resetLearned() {
+    _learnedTiles.clear();
+    _learnedScale.clear();
+    _learnedSlowAt.clear();
   }
 }

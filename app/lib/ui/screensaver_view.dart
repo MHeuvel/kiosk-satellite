@@ -2208,13 +2208,20 @@ class _WeatherWidgetOverlayState extends State<WeatherWidgetOverlay> {
     // right corners trail so the icon column stays flush however long
     // the readings run.
     final right = corner.x > 0;
-    Widget detail(String value, IconData icon) {
-      final glyph = Icon(
-        icon,
-        size: tempSize * .43,
-        color: color.withValues(alpha: 0.85),
-        shadows: shadows,
-      );
+    Widget detail(String value, IconData icon, {String? condition}) {
+      final glyph = condition != null
+          ? WeatherConditionIcon(
+              condition,
+              size: tempSize * .43,
+              color: color.withValues(alpha: 0.85),
+              shadows: shadows,
+            )
+          : Icon(
+              icon,
+              size: tempSize * .43,
+              color: color.withValues(alpha: 0.85),
+              shadows: shadows,
+            );
       final text = Text(value, style: line());
       final gap = SizedBox(width: 9 * scale);
       return Row(
@@ -2257,6 +2264,7 @@ class _WeatherWidgetOverlayState extends State<WeatherWidgetOverlay> {
                   ? _sentenceCase(_forecastText)
                   : _conditionLabel(_condition)),
           weatherConditionIcon(_condition),
+          condition: _condition,
         ),
       if (_on('humidity') && humidity != null)
         detail('${humidity.round()}%', Icons.water_drop_outlined),

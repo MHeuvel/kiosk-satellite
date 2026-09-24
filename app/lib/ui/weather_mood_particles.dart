@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 import 'dart:typed_data';
@@ -37,6 +38,7 @@ class WeatherMoodParticles {
     _wind = field(80);
     _nearHail = field(32);
     _stars = field(700);
+    _glass = field(140);
   }
   late final List<_Particle> _rain,
       _snow,
@@ -46,7 +48,7 @@ class WeatherMoodParticles {
       _hail,
       _wind,
       _nearHail;
-  late final List<_Particle> _stars;
+  late final List<_Particle> _stars, _glass;
   Float32List _starTransforms = Float32List(0), _starRects = Float32List(0);
   Int32List _starColors = Int32List(0);
   final _starPaint = ui.Paint()..filterQuality = ui.FilterQuality.low;
@@ -56,12 +58,17 @@ class WeatherMoodParticles {
   Uint16List _rainIndices = Uint16List(0);
   ui.ImageShader? _rainShader;
   final _rainPaint = ui.Paint()..filterQuality = ui.FilterQuality.low;
-  final _paint = ui.Paint()..filterQuality = ui.FilterQuality.low;
   final _stroke = ui.Paint()
     ..style = ui.PaintingStyle.stroke
     ..strokeCap = ui.StrokeCap.round;
-  final _dot = ui.Paint();
   final _sprites = <ui.Image>[];
+  // Snow, hail, close rain and drops on the glass share one texture, so each
+  // frame draws all of them in a single call.
+  ui.Image? _atlas;
+  ui.ImageShader? _atlasShader;
+  final _atlasPaint = ui.Paint()..filterQuality = ui.FilterQuality.low;
+  final _batch = _SpriteBatch();
+
   int _boltId = -1;
   double _boltWidth = 0;
   List<ui.Path> _bolts = [];
@@ -120,6 +127,184 @@ class WeatherMoodParticles {
       }
     }
 
+    final drop = await _pixels(64, 64, (u, v) => _glassDrop(0, u, v));
+    final shapes = [
+      for (var i = 0; i < _dropShapes.length; i++)
+        await _pixels(64, 64, (u, v) => _glassDrop(i, u, v)),
+    ];
+    final trail = await _pixels(24, 96, _glassTrail);
+    // A plain Gaussian with no core, for motes seen out of focus.
+    final mote = await _pixels(64, 64, (u, v) {
+      final x = (u - .5) * 2, y = (v - .5) * 2;
+      final a = math.exp(-(x * x + y * y) / (2 * .3 * .3));
+      return [a, a, a, a];
+    });
+    final recorder = ui.PictureRecorder();
+    final canvas = ui.Canvas(recorder);
+    for (var i = 0; i < 4; i++) {
+      canvas.drawImage(_sprites[i], ui.Offset(i * 96.0, 0), ui.Paint());
+    }
+    canvas.drawImage(drop, _dropCell.topLeft, ui.Paint());
+    canvas.drawImage(trail, _trailCell.topLeft, ui.Paint());
+    for (var i = 0; i < shapes.length; i++) {
+      canvas.drawImage(shapes[i], _shapeCell(i).topLeft, ui.Paint());
+      shapes[i].dispose();
+    }
+    canvas.drawImage(mote, _moteCell.topLeft, ui.Paint());
+    drop.dispose();
+    trail.dispose();
+    mote.dispose();
+    final atlasPicture = recorder.endRecording();
+    try {
+      _atlas = await atlasPicture.toImage(512, 164);
+    } finally {
+      atlasPicture.dispose();
+    }
+    _atlasShader = ui.ImageShader(
+      _atlas!,
+      ui.TileMode.clamp,
+      ui.TileMode.clamp,
+      Float64List.fromList([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]),
+      filterQuality: ui.FilterQuality.low,
+    );
+    _atlasPaint.shader = _atlasShader;
+    await _loadRain();
+  }
+
+  static const _dropCell = ui.Rect.fromLTWH(388, 0, 64, 64);
+  static const _trailCell = ui.Rect.fromLTWH(460, 0, 24, 96);
+  static const _moteCell = ui.Rect.fromLTWH(416, 100, 64, 64);
+  static ui.Rect _shapeCell(int i) =>
+      ui.Rect.fromLTWH(4 + i * 68.0, 100, 64, 64);
+
+  /// Soft lobes (center x, center y, radius x, radius y) that merge into
+  /// the outline of each drop shape, in a box from -1 to 1.
+  static const _dropShapes = <List<List<double>>>[
+    [
+      [0, 0, .9, .9],
+    ],
+    [
+      [0, .06, .94, .74],
+    ],
+    // Fuller at the bottom where water gathers, narrowing toward the top.
+    [
+      [0, .14, .76, .8],
+      [0, -.3, .46, .5],
+    ],
+    // Two drops that just ran together.
+    [
+      [-.24, .06, .66, .68],
+      [.42, .16, .46, .48],
+    ],
+    [
+      [.04, 0, .7, .92],
+    ],
+    [
+      [-.1, .08, .8, .76],
+      [.46, -.34, .3, .32],
+    ],
+  ];
+
+  static Future<ui.Image> _pixels(
+    int width,
+    int height,
+    List<double> Function(double u, double v) shade,
+  ) {
+    final pixels = Uint8List(width * height * 4);
+    for (var y = 0; y < height; y++) {
+      for (var x = 0; x < width; x++) {
+        final color = shade((x + .5) / width, (y + .5) / height);
+        final i = (y * width + x) * 4;
+        for (var c = 0; c < 4; c++) {
+          pixels[i + c] = (color[c].clamp(0.0, 1.0) * 255).round();
+        }
+      }
+    }
+    final result = Completer<ui.Image>();
+    ui.decodeImageFromPixels(
+      pixels,
+      width,
+      height,
+      ui.PixelFormat.rgba8888,
+      result.complete,
+    );
+    return result.future;
+  }
+
+  /// A water bead seen against the sky, as premultiplied RGBA: a darker rim
+  /// that is strongest along the top, light gathered in the lower half and a
+  /// bright highlight. The sprite is white, so the scene can tint the light.
+  /// Shape [shape] merges the lobes of [_dropShapes] with a slightly uneven
+  /// outline, and its shading follows the merged surface.
+  static List<double> _glassDrop(int shape, double u, double v) {
+    final lobes = _dropShapes[shape];
+    // Dome height at a point: 1 at a lobe's center, 0 on the outline. Lobes
+    // join smoothly so merged drops read as one surface.
+    double height(double x, double y) {
+      var sum = 0.0;
+      for (var i = 0; i < lobes.length; i++) {
+        final l = lobes[i];
+        final dx = (x - l[0]) / l[2], dy = (y - l[1]) / l[3];
+        final angle = math.atan2(dy, dx);
+        final wobble =
+            1 +
+            (shape == 0 ? .015 : .05) * math.sin(3 * angle + shape * 1.7 + i) +
+            (shape == 0 ? .01 : .03) * math.sin(5 * angle + shape * 2.9);
+        final rho = math.sqrt(dx * dx + dy * dy) / wobble;
+        sum += math.exp(8 * (1 - rho * rho));
+      }
+      return math.log(sum) / 8;
+    }
+
+    final x = (u - .5) * 2, y = (v - .5) * 2;
+    // Supersample the outline so every shape keeps a clean edge.
+    var inside = 0;
+    for (var sy = 0; sy < 4; sy++) {
+      for (var sx = 0; sx < 4; sx++) {
+        if (height(x + (sx - 1.5) / 128, y + (sy - 1.5) / 128) > 0) inside++;
+      }
+    }
+    if (inside == 0) return const [0, 0, 0, 0];
+    final edge = inside / 16;
+    final r = math.sqrt(1 - height(x, y).clamp(0.0, 1.0));
+    double smooth(double a, double b, double t) {
+      final k = ((t - a) / (b - a)).clamp(0.0, 1.0);
+      return k * k * (3 - 2 * k);
+    }
+
+    final main = lobes.first;
+    double spot(double cx, double cy, double size) {
+      final dx = x - (main[0] + cx * main[2]),
+          dy = y - (main[1] + cy * main[3]);
+      final scale = math.min(main[2], main[3]);
+      return math.exp(-(dx * dx + dy * dy) / (2 * size * size * scale * scale));
+    }
+
+    final rim = smooth(.5, 1, r) * (.46 - .26 * smooth(-1, 1, y));
+    final glow = smooth(.15, .85, y) * smooth(1, .62, r) * .38;
+    final light =
+        (.06 + glow + spot(-.36, -.44, .14) * .95 + spot(.3, .6, .1) * .3)
+            .clamp(0.0, 1.0);
+    final alpha = (light + rim * (1 - light)) * edge;
+    return [light * edge, light * edge, light * edge, alpha];
+  }
+
+  /// The wet path a sliding drop leaves: a faint light core between darker
+  /// edges that fades out toward the top, where the drop started.
+  static List<double> _glassTrail(double u, double v) {
+    final x = (u - .5) * 2;
+    final across = 1 - x.abs();
+    if (across <= 0) return const [0, 0, 0, 0];
+    final along = v * v * (3 - 2 * v);
+    final light = math.exp(-x * x / .08) * .16 * along;
+    final dark =
+        math.exp(-(x.abs() - .62) * (x.abs() - .62) / .03) * .2 * along;
+    final edge = math.min(1.0, across * 6);
+    final alpha = (light + dark * (1 - light)) * edge;
+    return [light * edge, light * edge, light * edge, alpha];
+  }
+
+  Future<void> _loadRain() async {
     // A shared streak texture lets all distant rain use one draw call.
     final recorder = ui.PictureRecorder();
     final canvas = ui.Canvas(recorder);
@@ -172,6 +357,11 @@ class WeatherMoodParticles {
   }
 
   void dispose() {
+    _atlasPaint.shader = null;
+    _atlasShader?.dispose();
+    _atlasShader = null;
+    _atlas?.dispose();
+    _atlas = null;
     _rainPaint.shader = null;
     _rainShader?.dispose();
     _rainShader = null;
@@ -182,7 +372,6 @@ class WeatherMoodParticles {
   }
 
   void _sprite(
-    ui.Canvas canvas,
     int image,
     double x,
     double y,
@@ -191,18 +380,15 @@ class WeatherMoodParticles {
     double angle,
     double opacity,
   ) {
-    if (_sprites.length < 4) return;
-    _paint.color = ui.Color.fromRGBO(255, 255, 255, opacity.clamp(0, 1));
-    canvas.save();
-    canvas.translate(x, y);
-    canvas.rotate(angle);
-    canvas.drawImageRect(
-      _sprites[image],
-      const ui.Rect.fromLTWH(0, 0, 96, 96),
-      ui.Rect.fromLTWH(-width / 2, -height / 2, width, height),
-      _paint,
+    _batch.add(
+      ui.Rect.fromLTWH(image * 96.0, 0, 96, 96),
+      x,
+      y,
+      width,
+      height,
+      angle,
+      ((opacity.clamp(0.0, 1.0) * 255).round() << 24) | 0xFFFFFF,
     );
-    canvas.restore();
   }
 
   /// Batch the small star sprites instead of evaluating random star cells at
@@ -258,12 +444,14 @@ class WeatherMoodParticles {
     List<double> values,
     double t,
     double windTime,
-    WeatherMoodLightning lightning,
-  ) {
+    WeatherMoodLightning lightning, {
+    double twilight = 0,
+  }) {
     final scale = size.height / 720, width = size.width / scale;
     const height = 720.0;
     canvas.save();
     canvas.scale(scale);
+    _batch.clear();
     _lightning(canvas, width, lightning);
     final windStrength = values[5],
         downpour = values[6],
@@ -273,7 +461,8 @@ class WeatherMoodParticles {
     final windTravel = windTime * 95;
     final gust = math.sin(t * .17) * .022 + math.sin(t * .39) * .012;
     if (rainStrength > .002) {
-      final count = (440 * math.min(1.4, width / 1280) * (1 + downpour * .90))
+      // Lighter falling rain leaves room for the drops on the glass.
+      final count = (250 * math.min(1.4, width / 1280) * (1 + downpour * .90))
           .round();
       if (_rainColors.length != count * 4) {
         _rainPositions = Float32List(count * 8);
@@ -352,7 +541,7 @@ class WeatherMoodParticles {
         mesh.dispose();
       }
       final countNear =
-          (20 * math.min(1.4, width / 1280) * (1 + downpour * .75)).round();
+          (12 * math.min(1.4, width / 1280) * (1 + downpour * .75)).round();
       for (final p in _nearRain.take(countNear)) {
         final length = 65 + p.depth * 95,
             breadth = 7 + p.depth * 12,
@@ -366,7 +555,6 @@ class WeatherMoodParticles {
         final x =
             (p.x * (width + 360) + y * tilt + t * 14) % (width + 360) - 180;
         _sprite(
-          canvas,
           1,
           x,
           y,
@@ -394,7 +582,6 @@ class WeatherMoodParticles {
                 (width + 110) -
             55;
         _sprite(
-          canvas,
           0,
           x,
           y,
@@ -422,7 +609,6 @@ class WeatherMoodParticles {
                 (width + 180) -
             90;
         _sprite(
-          canvas,
           1,
           x,
           y,
@@ -445,7 +631,6 @@ class WeatherMoodParticles {
                 (width + 180) -
             90;
         _sprite(
-          canvas,
           2,
           x,
           y,
@@ -470,7 +655,6 @@ class WeatherMoodParticles {
                 (width + 200) -
             100;
         _sprite(
-          canvas,
           3,
           x,
           y,
@@ -518,37 +702,188 @@ class WeatherMoodParticles {
         (1 - snowStrength) *
         (1 - values[3]);
     if (clear > .002) {
-      for (final p in _motes) {
+      // Every mote owns one cell of an even grid and reappears somewhere
+      // inside it, so motes stay spread out instead of clumping.
+      // A few motes out of the generated field keep the sky uncluttered.
+      final count = _motes.length * 3 ~/ 8;
+      final columns = math.max(1, math.sqrt(count * width / height).round());
+      final rows = (count / columns).ceil();
+      final cellWidth = width / columns, cellHeight = height / rows;
+      for (var i = 0; i < count; i++) {
+        final p = _motes[i];
+        // Each mote glows for a few seconds, fades out, rests unseen and
+        // appears again somewhere else. Cycles are staggered per mote.
+        final period = 10 + p.drift * 10;
+        final cycle = t / period + p.phase / (math.pi * 2);
+        final k = cycle.floorToDouble(), age = cycle - k;
+        double smooth(double a, double b, double v) {
+          final s = ((v - a) / (b - a)).clamp(0.0, 1.0);
+          return s * s * (3 - 2 * s);
+        }
+
+        final blink = smooth(0, .18, age) * (1 - smooth(.6, .8, age));
+        if (blink <= 0) continue;
+        final seconds = age * period;
+        // Each appearance drifts its own way, so the field as a whole never
+        // slides toward one side.
+        final heading = weatherMoodRandom(i * 3.7 + k * 5.3) * math.pi * 2;
+        final speed = 1.5 + weatherMoodRandom(i * 8.1 + k * 2.9) * 3;
         final x =
-            (p.x * (width + 70) +
-                    t * (1.7 + p.drift * 3.5) +
-                    math.sin(t * .19 + p.phase) * 9) %
-                (width + 70) -
-            35;
+            (i % columns + .15 + weatherMoodRandom(i * 7.3 + k * 3.1) * .7) *
+                cellWidth +
+            math.cos(heading) * speed * seconds +
+            math.sin(t * .19 + p.phase) * 9;
         final y =
-            (p.y * (height + 60) -
-                    t * (1.5 + p.depth * 2.5) +
-                    math.sin(t * .23 + p.phase) * 8) %
-                (height + 60) -
-            30;
+            (i ~/ columns + .15 + weatherMoodRandom(i * 5.9 + k * 4.7) * .7) *
+                cellHeight +
+            math.sin(heading) * speed * seconds +
+            math.sin(t * .23 + p.phase) * 8;
+        // The sun's glare outshines motes that drift close to it. Matches
+        // the sun position in the sky shader, lower at dawn and dusk.
+        final sunX = width * .84, sunY = height * (.24 + .48 * twilight);
         final light =
-            .5 +
-            .5 *
-                math.exp(
-                  -(math.pow(x - width * .67, 2) +
-                          math.pow(y - height * .24, 2)) /
-                      80000,
-                );
-        _dot.color = ui.Color.fromRGBO(
-          255,
-          233,
-          181,
-          clear * (.07 + p.variation * .10) * light,
+            1 -
+            math.exp(-(math.pow(x - sunX, 2) + math.pow(y - sunY, 2)) / 14000);
+        final alpha = clear * (.2 + p.variation * .2) * light * blink;
+        // Blurred specks rather than flat dots. The Gaussian fades out well
+        // inside its bounds, so the quad is larger than the mote.
+        final size = (3.2 + p.depth * 1.6) * 4.4;
+        _batch.add(
+          _moteCell,
+          x,
+          y,
+          size,
+          size,
+          0,
+          ((alpha.clamp(0.0, 1.0) * 255).round() << 24) | 0xFFE9B5,
         );
-        canvas.drawCircle(ui.Offset(x, y), .7 + p.depth * 1.6, _dot);
       }
     }
+    _paintGlass(width, values, t, windStrength, lightning);
+    final atlas = _atlasShader;
+    if (atlas != null && _batch.isNotEmpty) {
+      final mesh = _batch.vertices();
+      canvas.drawVertices(mesh, ui.BlendMode.modulate, _atlasPaint);
+      mesh.dispose();
+    }
     canvas.restore();
+  }
+
+  /// Rain collects on the glass in front of the scene. Each slot repeats a
+  /// deterministic life: a drop lands, rests, and larger ones may slide down
+  /// and leave a wet trail with a few small beads before the next one lands.
+  void _paintGlass(
+    double width,
+    List<double> values,
+    double t,
+    double wind,
+    WeatherMoodLightning lightning,
+  ) {
+    final rain = values[2], downpour = values[6];
+    if (rain <= .002) return;
+    const height = 720.0;
+    final intensity = rain * (.55 + .45 * downpour);
+    // Drops pass on what they refract: dimmer at night, and bright white for
+    // an instant when lightning strikes.
+    final night = values[1];
+    final flash = lightning.strength.clamp(0.0, 1.0);
+    int channel(double day, double dark) =>
+        (day +
+                (dark - day) * night +
+                (255 - day - (dark - day) * night) * flash)
+            .round()
+            .clamp(0, 255);
+    final tint =
+        (channel(240, 190) << 16) |
+        (channel(246, 200) << 8) |
+        channel(255, 222);
+    final opacity = math.min(1.0, rain * 1.4) * .9;
+    final slots = (_glass.length * math.min(1.2, width / 1280)).round().clamp(
+      0,
+      _glass.length,
+    );
+    int color(double alpha) =>
+        ((alpha.clamp(0.0, 1.0) * 255).round() << 24) | tint;
+    for (var i = 0; i < slots; i++) {
+      final p = _glass[i];
+      // Slots join in order of their variation as the rain gets heavier.
+      final presence = ((intensity - p.variation * .95) * 10).clamp(0.0, 1.0);
+      if (presence <= 0) continue;
+      final period = 7 + p.drift * 9;
+      final cycle = t + p.phase / (math.pi * 2) * period;
+      final k = (cycle / period).floorToDouble();
+      final age = cycle - k * period;
+      final seed = i * 7.13 + k * 13.7;
+      final x0 = weatherMoodRandom(seed + 1) * (width + 40) - 20;
+      final y0 = weatherMoodRandom(seed + 2) * (height - 40) + 10;
+      var radius = 2.6 + math.pow(weatherMoodRandom(seed + 3), 1.8) * 10.5;
+      final slides =
+          radius > 7 && weatherMoodRandom(seed + 4) < .45 + .35 * downpour;
+      final slideStart = 1.2 + weatherMoodRandom(seed + 5) * period * .4;
+      final pop = math.min(1.0, age / .12);
+      final life =
+          presence *
+          opacity *
+          math.min(1.0, age / .06) *
+          ((period - age) / 1.2).clamp(0.0, 1.0);
+      var x = x0, y = y0, stretch = 1.0;
+      if (slides && age > slideStart) {
+        final s = age - slideStart;
+        final distance = 38 * s + 60 * s * s;
+        radius *= math.max(.72, 1 - distance / 900);
+        y = y0 + distance;
+        x =
+            x0 +
+            distance * wind * .12 +
+            math.sin(s * 2.3 + seed) * 1.4 * math.min(1.0, s);
+        stretch = 1 + math.min(.5, (38 + 120 * s) / 420);
+        final trailAlpha = life * .85;
+        final trailWidth = radius * 1.1;
+        final top = y0 - radius * .4, bottom = y - radius * .3;
+        if (bottom > top + 2) {
+          _batch.segment(
+            _trailCell,
+            x0,
+            top,
+            x,
+            bottom,
+            trailWidth,
+            color(trailAlpha),
+          );
+        }
+        // Small beads stay behind where the drop has already passed.
+        for (var j = 0; j < 4; j++) {
+          final at = (j + .35 + weatherMoodRandom(seed + 20 + j) * .5) * 34;
+          if (y0 + at > y - radius * 1.5) break;
+          final along = at / math.max(1, y - y0);
+          final bead = radius * (.2 + weatherMoodRandom(seed + 30 + j) * .14);
+          _batch.add(
+            _dropCell,
+            x0 + (x - x0) * along,
+            y0 + at,
+            bead * 2,
+            bead * 2,
+            0,
+            color(life * .9),
+          );
+        }
+        if (y - radius * 2 > height) continue;
+      }
+      final size = radius * 2 * (.7 + .3 * pop);
+      // Resting drops vary in outline and proportion. Sliding ones round
+      // out as they run.
+      final shape = (weatherMoodRandom(seed + 6) * _dropShapes.length).floor();
+      final aspect = .86 + weatherMoodRandom(seed + 7) * .28;
+      _batch.add(
+        stretch > 1 ? _shapeCell(4) : _shapeCell(shape),
+        x,
+        y,
+        size * aspect / math.sqrt(stretch),
+        size / aspect * stretch,
+        0,
+        color(life),
+      );
+    }
   }
 
   List<ui.Offset> _path(
@@ -654,4 +989,131 @@ class WeatherMoodParticles {
       ..blendMode = ui.BlendMode.srcOver
       ..shader = null;
   }
+}
+
+/// Collects textured quads so a whole layer of sprites draws in one call.
+class _SpriteBatch {
+  Float32List _positions = Float32List(0), _coordinates = Float32List(0);
+  Int32List _colors = Int32List(0);
+  Uint16List _indices = Uint16List(0);
+  int _count = 0;
+
+  bool get isNotEmpty => _count > 0;
+
+  void clear() => _count = 0;
+
+  /// Adds a [width] by [height] quad centered on [x], [y] and rotated by
+  /// [angle], textured with [source] from the atlas.
+  void add(
+    ui.Rect source,
+    double x,
+    double y,
+    double width,
+    double height,
+    double angle,
+    int color,
+  ) {
+    final c = math.cos(angle), s = math.sin(angle);
+    final ax = c * width / 2, ay = s * width / 2;
+    final bx = -s * height / 2, by = c * height / 2;
+    _quad(
+      source,
+      x - ax - bx,
+      y - ay - by,
+      x + ax - bx,
+      y + ay - by,
+      x - ax + bx,
+      y - ay + by,
+      x + ax + bx,
+      y + ay + by,
+      color,
+    );
+  }
+
+  /// Adds a quad of [width] stretched from ([x0], [y0]) at the top of
+  /// [source] to ([x1], [y1]) at its bottom.
+  void segment(
+    ui.Rect source,
+    double x0,
+    double y0,
+    double x1,
+    double y1,
+    double width,
+    int color,
+  ) {
+    final dx = x1 - x0, dy = y1 - y0;
+    final length = math.sqrt(dx * dx + dy * dy);
+    final nx = -dy / length * width / 2, ny = dx / length * width / 2;
+    _quad(
+      source,
+      x0 + nx,
+      y0 + ny,
+      x0 - nx,
+      y0 - ny,
+      x1 + nx,
+      y1 + ny,
+      x1 - nx,
+      y1 - ny,
+      color,
+    );
+  }
+
+  /// Corners in order: top left, top right, bottom left, bottom right.
+  void _quad(
+    ui.Rect source,
+    double x0,
+    double y0,
+    double x1,
+    double y1,
+    double x2,
+    double y2,
+    double x3,
+    double y3,
+    int color,
+  ) {
+    if (_count * 4 + 4 > 65535) return;
+    _reserve(_count + 1);
+    final at = _count * 8;
+    _positions
+      ..[at] = x0
+      ..[at + 1] = y0
+      ..[at + 2] = x1
+      ..[at + 3] = y1
+      ..[at + 4] = x2
+      ..[at + 5] = y2
+      ..[at + 6] = x3
+      ..[at + 7] = y3;
+    _coordinates
+      ..[at] = source.left
+      ..[at + 1] = source.top
+      ..[at + 2] = source.right
+      ..[at + 3] = source.top
+      ..[at + 4] = source.left
+      ..[at + 5] = source.bottom
+      ..[at + 6] = source.right
+      ..[at + 7] = source.bottom;
+    _colors.fillRange(_count * 4, _count * 4 + 4, color);
+    _count++;
+  }
+
+  void _reserve(int quads) {
+    if (_colors.length >= quads * 4) return;
+    final capacity = math.max(quads, _colors.length ~/ 4 * 2 + 64);
+    _positions = Float32List(capacity * 8)..setAll(0, _positions);
+    _coordinates = Float32List(capacity * 8)..setAll(0, _coordinates);
+    _colors = Int32List(capacity * 4)..setAll(0, _colors);
+    _indices = Uint16List(capacity * 6);
+    for (var i = 0; i < capacity; i++) {
+      final v = i * 4;
+      _indices.setAll(i * 6, [v, v + 1, v + 2, v + 1, v + 3, v + 2]);
+    }
+  }
+
+  ui.Vertices vertices() => ui.Vertices.raw(
+    ui.VertexMode.triangles,
+    Float32List.sublistView(_positions, 0, _count * 8),
+    textureCoordinates: Float32List.sublistView(_coordinates, 0, _count * 8),
+    colors: Int32List.sublistView(_colors, 0, _count * 4),
+    indices: Uint16List.sublistView(_indices, 0, _count * 6),
+  );
 }

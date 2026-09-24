@@ -1,7 +1,7 @@
 #version 460 core
 #include "weather_mood_common.glsl"
     void main() {
-      vec2 pixel=FlutterFragCoord().xy;
+      vec2 pixel=FlutterFragCoord().xy+tileOffset;
       vec2 uv=vec2(pixel.x/resolution.x,1.-pixel.y/resolution.y);
       float night=weather.y*(1.-twilight);
       float wet=weather.z;
@@ -28,10 +28,17 @@
       sky*=1.-storm*.30;
       float sunVisibility=(1.-night)*(1.-wet)*(1.-snowfall)*(1.-storm);
       float warmth=.985+.015*sin(time*.21);
+      // Forward scattering pales the sky around the sun.
+      sky=mix(sky,mix(vec3(.92,.96,1.),vec3(1.,.87,.68),twilight),exp(-sunDistance/.2)*.28*sunVisibility);
       sky+=mix(vec3(1.,.76,.43),vec3(1.,.68,.38),twilight)*exp(-sunDistance*sunDistance/.108)*.12*sunVisibility;
-      float halo=exp(-sunDistance*sunDistance/.0133)*.48*sunVisibility*warmth;
-      sky=mix(sky,mix(vec3(1.,.95,.82),vec3(1.,.81,.54),twilight),halo);
-      float sun=exp(-sunDistance*sunDistance/.00266)*sunVisibility;
+      // Glare keeps a long faint tail around the sun.
+      float halo=exp(-sunDistance/.065)*.34*sunVisibility*warmth;
+      sky=mix(sky,mix(vec3(1.,.96,.86),vec3(1.,.81,.54),twilight),halo);
+      // Light clips to white at the disk and falls off steeply but without
+      // a visible edge, like an overexposed photo.
+      float bloom=exp(-max(sunDistance-.016,0.)/.013)*sunVisibility*warmth;
+      sky+=mix(vec3(1.,.95,.84),vec3(1.,.84,.6),twilight)*bloom*1.1;
+      float sun=(1.-smoothstep(.009,.021,sunDistance))*sunVisibility;
       vec2 moonP=(screen-lightCenter)/.032;
       float moonDistance=length(moonP);
       float moonMask=1.-smoothstep(.97,1.02,moonDistance);
@@ -45,7 +52,9 @@
       float moonBloom=exp(-sunDistance*sunDistance/.009)*.28
         +exp(-sunDistance*sunDistance/.055)*.065;
       sky+=vec3(.96,.97,1.)*moonBloom*night;
-      vec3 celestial=mix(sky,mix(vec3(1.,.99,.94),vec3(1.,.92,.73),twilight),sun);
+      // The disk is never dimmer than the bloom it sits in, which already clips
+      // to white near a low sun.
+      vec3 celestial=mix(sky,max(sky,mix(vec3(1.,1.,.98),vec3(1.,.93,.76),twilight)),sun);
       celestial=mix(celestial,moonColor,moonMask*night);
       fragColor=vec4(clamp(celestial,0.,1.),1.);
     }

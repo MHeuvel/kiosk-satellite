@@ -13,6 +13,8 @@ import 'package:kiosk_satellite/ui/digital_clock_face.dart';
 import 'package:kiosk_satellite/ui/glance_row.dart';
 import 'package:kiosk_satellite/ui/settings_screen.dart';
 import 'package:kiosk_satellite/ui/weather_mood_information.dart';
+import 'package:kiosk_satellite/ui/weather_readings.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -87,6 +89,34 @@ void main() {
       expect(r.available, false);
     },
   );
+  testWidgets('rain uses a rain cloud icon with the text shadow', (
+    tester,
+  ) async {
+    Future<void> show(String condition, List<Shadow> shadows) =>
+        tester.pumpWidget(
+          MaterialApp(
+            home: WeatherConditionIcon(
+              condition,
+              size: 40,
+              color: Colors.white,
+              shadows: shadows,
+            ),
+          ),
+        );
+    const shadow = [Shadow(offset: Offset(0, 2), blurRadius: 4)];
+    for (final condition in ['rainy', 'pouring']) {
+      await show(condition, const []);
+      expect(find.byType(SvgPicture), findsOneWidget);
+      expect(find.byType(Icon), findsNothing);
+      await show(condition, shadow);
+      // The glyph plus a blurred copy underneath for the shadow.
+      expect(find.byType(SvgPicture), findsNWidgets(2));
+      expect(find.byType(ImageFiltered), findsOneWidget);
+    }
+    await show('sunny', shadow);
+    expect(find.byType(SvgPicture), findsNothing);
+    expect(tester.widget<Icon>(find.byType(Icon)).icon, Icons.wb_sunny);
+  });
   for (final language in ['en', 'es', 'de', 'fr']) {
     testWidgets('clock and bar controls reveal and save in $language', (
       tester,
@@ -317,6 +347,25 @@ void main() {
       expect(face.date, isNull);
       expect(face.shadows, isEmpty);
       expect(face.time, matches(RegExp(r'^\d{2}:\d{2}$')));
+      BoxDecoration bar() =>
+          tester
+                  .widget<DecoratedBox>(
+                    find
+                        .descendant(
+                          of: find.byType(WeatherMoodBar),
+                          matching: find.byType(DecoratedBox),
+                        )
+                        .first,
+                  )
+                  .decoration
+              as BoxDecoration;
+      // The top edge fades with the background instead of staying visible.
+      for (final (opacity, edge) in [(0, 0.0), (50, .10), (100, .20)]) {
+        await c.settings.set(defs.screensaverWeatherBarOpacity, opacity);
+        await show(const Size(1280, 800), 100, 'fr');
+        expect(bar().color!.a, closeTo(opacity / 100, .01));
+        expect((bar().border! as Border).top.color.a, closeTo(edge, .01));
+      }
       readings.update({'state': 'unavailable'});
       await tester.pumpWidget(
         MaterialApp(

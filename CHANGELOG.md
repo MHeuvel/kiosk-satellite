@@ -2,6 +2,21 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Added
+- **Rain on the glass in Weather Mood.** Rainy, pouring, snowy-rainy and thunderstorm scenes show drops landing on the glass in front of the sky. Drops vary in outline and proportion, including a few that have run together. Larger drops slide down and leave a wet trail with small beads behind. Heavier rain brings more drops, and they catch the light of lightning flashes. Falling rain is lighter to make room for them.
+
+### Changed
+- **Weather Mood runs smoothly on older devices.** Clouds now render a few rows per frame and crossfade between cloud images, so no single frame stalls while a whole cloud layer renders. Frames follow the display's refresh rate for even motion. The number of rows per frame adapts to what each device sustains, and cloud resolution drops only as a last resort. The Meta Portal Go went from 3 to 8 frames per second to a steady 30 with full-quality clouds. The Echo Show 8 no longer freezes for 140 ms several times per second. Cached skies, batched snow and hail and a lighter cloud shader reduce the work on every device.
+- **Smoother clouds on low-power devices.** Clouds on 32-bit devices no longer show a grainy texture.
+- **A more realistic sun in Weather Mood.** The sun is a larger overexposed disk that fades into a bright bloom without a hard edge, with a paler sky around it. Dawn and dusk keep their warm tones.
+- **Livelier clear skies in Weather Mood.** Fewer, softer and more visible motes float in clear weather, spread evenly across the sky. Each one glows for a few seconds, fades away and reappears somewhere else. Motes fade out near the sun instead of competing with it.
+
+### Fixed
+- **The Weather Mood bar edge follows its opacity.** The thin line along the top of the weather bar now fades with the Background opacity slider instead of staying visible over a transparent bar.
+- **Rain icons in the weather bar and Weather widget.** Rainy and pouring conditions show the rain cloud icons Home Assistant uses instead of an umbrella.
+
 ## v2026.9.78 - 2026-09-23
 
 ### Added

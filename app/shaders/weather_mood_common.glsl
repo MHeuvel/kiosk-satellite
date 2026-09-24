@@ -9,6 +9,8 @@ uniform float windTime;
 uniform float flash;
 uniform vec2 flashPosition;
 uniform float twilight;
+// Offsets a band rendered on its own so it lines up with the full image.
+uniform vec2 tileOffset;
 uniform sampler2D noiseMap;
 out vec4 fragColor;
     float cloudFootprint;

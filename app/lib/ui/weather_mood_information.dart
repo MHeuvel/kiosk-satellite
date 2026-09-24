@@ -344,8 +344,8 @@ class WeatherMoodBar extends StatelessWidget {
     final horizontalHeader = Row(
       children: [
         if (forecast) ...[
-          Icon(
-            weatherConditionIcon(readings.condition),
+          WeatherConditionIcon(
+            readings.condition,
             size: 40,
             color: color,
             shadows: shadows,
@@ -397,8 +397,8 @@ class WeatherMoodBar extends StatelessWidget {
               Row(
                 children: [
                   if (forecast) ...[
-                    Icon(
-                      weatherConditionIcon(readings.condition),
+                    WeatherConditionIcon(
+                      readings.condition,
                       size: 40,
                       color: color,
                       shadows: shadows,
@@ -465,16 +465,22 @@ class WeatherMoodBar extends StatelessWidget {
                 ),
             ],
           );
+    final opacity = (s.get(defs.screensaverWeatherBarOpacity) / 100).clamp(
+      0.0,
+      1.0,
+    );
     return SizedBox(
       key: const ValueKey('weather-mood-bar'),
       height: weatherMoodBarHeight(size, s),
       width: double.infinity,
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Colors.black.withValues(
-            alpha: (s.get(defs.screensaverWeatherBarOpacity) / 100).clamp(0, 1),
+          color: Colors.black.withValues(alpha: opacity),
+          // The edge fades with the background and matches the original
+          // look at the default 50%.
+          border: Border(
+            top: BorderSide(color: color.withValues(alpha: .20 * opacity)),
           ),
-          border: Border(top: BorderSide(color: color.withValues(alpha: .10))),
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 6),
