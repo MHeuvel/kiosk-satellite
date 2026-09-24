@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.9.78 - 2026-09-23
 
 ### Added
 - **Optional TLS encryption.** Protect remote administration, the API, WebSockets, ONVIF services and RTSP video and audio with a shared device certificate. Each feature has its own encryption switch, including independent intercom encryption. Intercom refuses calls between kiosks with different encryption settings and skips incompatible announcement targets. Manage certificates under Device > TLS. Remote Administration protocol changes show a copyable address and require confirmation before reconnecting. Fleet and intercom connections work with self-signed certificates automatically. Private keys stay encrypted on the device and are excluded from configuration exports and fleet synchronization (#672). Certificate controls, dialogs, errors and encryption guidance are localized in English, German, Spanish and French.
