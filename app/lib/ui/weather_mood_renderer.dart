@@ -615,8 +615,8 @@ class _BandBuild {
           Offset.zero,
           Paint()
             ..imageFilter = ui.ImageFilter.blur(
-              sigmaX: .75,
-              sigmaY: .75,
+              sigmaX: 1.1,
+              sigmaY: 1.1,
               tileMode: TileMode.clamp,
             ),
         ),

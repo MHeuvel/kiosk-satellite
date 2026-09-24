@@ -31,10 +31,21 @@
       tint*=mix(vec3(1.),vec3(.185,.195,.215),night);
       tint*=mix(vec3(1.),vec3(1.04,.83,.71),twilightLight);
       tint*=1.-storm*.36;
+#ifdef CLOUD_LOW_NOISE
+      // Few steps leave visible grain. Interleaved gradient noise with a
+      // golden ratio step spreads each pixel's samples evenly through the
+      // cloud and pushes the remaining error to fine detail the keyframe
+      // blur removes.
+      float dither=fract(52.9829189*fract(dot(pixel,vec2(.06711056,.00583715))));
+#endif
       if(weather.x>=.001) {
         for(int i=0;i<CLOUD_STEPS;i++) {
           // Independently stagger each sample to break coherent cloud bands.
-          float offset=hash(vec2(pixel.x,resolution.y-pixel.y)+vec2(float(i)*31.7,float(i)*17.3));
+  #ifdef CLOUD_LOW_NOISE
+        float offset=fract(dither+float(i)*.618034);
+#else
+        float offset=hash(vec2(pixel.x,resolution.y-pixel.y)+vec2(float(i)*31.7,float(i)*17.3));
+#endif
           vec3 p=ray*(start+(float(i)+offset)*stride);
           float d=density(p);
           if(d>.005) {
