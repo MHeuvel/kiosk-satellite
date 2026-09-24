@@ -86,8 +86,24 @@ With the switcher in place, one kiosk can lead the others: it pushes the setting
 - `GET /api/health` is the one unauthenticated endpoint: it exists for
   external monitoring to poll, and a monitor cannot do a login dance. It
   serves read-only hardware facts only.
-- Optional TLS with a self-signed cert (off by default; LAN-only assumption
-  documented).
+- Optional HTTPS with a device certificate. Off by default. Plain HTTP is intended for a trusted LAN.
+
+## HTTPS and certificates
+
+Turn on **Use HTTPS** in **Device > Remote Administration** to encrypt the admin page, REST API and WebSocket on the existing admin port. A confirmation dialog shows the new address in a copyable box before either protocol change. **Confirm** applies it and reloads the browser at that address. **Cancel** keeps the current protocol. A self-signed certificate produces a browser warning until you trust it. You may need to log in again because HTTP and HTTPS have separate browser storage. The WebSocket uses `wss://` automatically. The Home Assistant Admin URL sensor reports HTTPS. The ESPHome Visit link is omitted because that link assumes HTTP.
+
+The **Device > TLS** page manages the device certificate. Encryption switches live on their feature pages. See [TLS encryption](tls.md) for Remote Administration, camera and intercom setup:
+
+- **Download public certificate** in the remote admin or **Copy public certificate** on the device exports only the public certificate.
+- **Renew certificate** renews the built-in certificate with the same private key and current hostname and IP addresses. Browsers that trust a specific certificate may need the renewed certificate installed.
+- **Import certificate** accepts a PEM server certificate chain and its matching unencrypted EC or RSA private key. Import from the device screen or through HTTPS. The app validates the material before replacing the current identity. Imported certificates are renewed by their issuer and must be imported again before they expire.
+- **Replace certificate** generates a new private key and certificate. Browsers may ask you to accept the new certificate. Other kiosks reconnect automatically.
+
+On Android, private keys are encrypted with an Android Keystore key and stored outside Android backup. They are never returned by the remote API or included in configuration exports. Each device keeps its own identity when a configuration is cloned. The generated certificate lasts one year. While any TLS setting is on, the app checks every six hours and renews generated certificates within 30 days of expiration. Renew manually after changing the hostname or when you need a new IP address included in the certificate.
+
+Certificate changes restart encrypted listeners and disconnect active encrypted viewers. Plain listeners are unaffected. Failed certificate loading leaves the encrypted listener stopped with an error. It never opens a plaintext replacement. The device's local settings remain available for recovery.
+
+The authenticated command API exposes `tlsCertificate`, `renewTlsCertificate`, `replaceTlsIdentity` and `importTlsCertificate`. Certificate status includes the PEM certificate, SHA-256 certificate fingerprint and expiration. Import accepts `certificate` and `privateKey`.
 
 ## REST surface
 

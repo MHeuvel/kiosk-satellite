@@ -1,3 +1,4 @@
+import { confirmRemoteProtocol } from './tls.js';
 import { esphomeText, launcherText, messageLanguage } from './localization.js';
 import { intercomError, mediaText, cameraText, cameraError, deviceText, haText, screensaverText, screensaverError, t } from './localization.js';
 import { watchUpdates } from './live.js';
@@ -1526,6 +1527,16 @@ export function settingRow(s) {
     const lbl = document.createElement('label'); lbl.className = 'switch';
     const cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = !!s.value;
     cb.addEventListener('change', async () => {
+      if (s.key === 'remote.tls') {
+        const wanted = cb.checked;
+        cb.checked = !!s.value;
+        cb.disabled = true;
+        try {
+          if (!await confirmRemoteProtocol(wanted)) return;
+          await save(wanted);
+        } finally { cb.disabled = false; }
+        return;
+      }
       // The one switch here that takes away the thing you are using. Nothing
       // on this page can undo it, because this page is what it serves.
       if (s.key === 'remote.enabled' && !cb.checked) {

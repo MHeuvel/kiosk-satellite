@@ -636,7 +636,11 @@ class CameraMotion(
                     { android.util.Base64.decode(it, android.util.Base64.DEFAULT) },
                     deviceId, context.packageManager.getPackageInfo(context.packageName, 0).versionName ?: "",
                     deviceName = deviceName,
+                    tls = config["tls"] == true,
                 ) else null
+                val tls = if (config["tls"] == true) {
+                    TlsMaterial.parse(config["certificate"] as? String ?: "", config["privateKey"] as? String ?: "").sslContext()
+                } else null
                 rtsp = CameraRtspServer(
                     (config["port"] as? Number)?.toInt()?.coerceIn(1024, 65535) ?: 8554,
                     if (auth) user else null, password,
@@ -648,6 +652,7 @@ class CameraMotion(
                     { event, message, cause -> CameraDiagnostics.record(listenerId, event, message,
                         failure = cause != null, cause = cause) },
                     onvif = onvif,
+                    tls = tls,
                     streamName = deviceName,
                     audioEnabled = config["audio"] == true,
                     onAudioDemand = { wanted -> mainHandler.post {
@@ -657,7 +662,7 @@ class CameraMotion(
                         }
                     } },
                 )
-                if (onvif != null) startOnvifDiscovery(deviceId, rtsp!!.localPort, deviceName)
+                if (onvif != null) startOnvifDiscovery(deviceId, rtsp!!.localPort, deviceName, tls != null)
                 rtspError = null
                 CameraDiagnostics.record(listenerId, "listening", "port=${rtsp?.localPort}")
             } catch (e: Exception) {
@@ -679,11 +684,11 @@ class CameraMotion(
         bind(0)
     }
 
-    private fun startOnvifDiscovery(deviceId: String, port: Int, deviceName: String) {
+    private fun startOnvifDiscovery(deviceId: String, port: Int, deviceName: String, tls: Boolean) {
         try {
             val wifi = context.applicationContext.getSystemService(android.content.Context.WIFI_SERVICE) as? android.net.wifi.WifiManager
             onvifMulticastLock = wifi?.createMulticastLock("camera-onvif")?.apply { setReferenceCounted(false); acquire() }
-            onvifDiscovery = CameraOnvifDiscovery(deviceId, port, deviceName).also { it.start() }
+            onvifDiscovery = CameraOnvifDiscovery(deviceId, port, deviceName, tls).also { it.start() }
             onvifDiscoveryError = onvifDiscovery?.error
             if (onvifDiscoveryError != null) {
                 onvifMulticastLock?.let { if (it.isHeld) it.release() }
@@ -740,15 +745,16 @@ class CameraMotion(
         "cameraInput" to if (rtspEncoder != null) "SurfaceTexture" else null, "error" to (rtspError ?: rtsp?.error),
         "port" to (rtspConfig["port"] ?: 8554),
         "protocol" to (rtspConfig["protocol"] ?: "rtsp"),
+        "tls" to (rtspConfig["tls"] == true),
         "onvifDiscoveryError" to (onvifDiscoveryError ?: onvifDiscovery?.error),
         "onvifUrls" to if (rtspConfig["protocol"] == "onvif" && rtsp?.listening == true)
-            CameraOnvifDiscovery.localAddresses().map { "http://$it:${rtsp?.localPort}/onvif/device_service" }
+            CameraOnvifDiscovery.localAddresses().map { "${if (rtspConfig["tls"] == true) "https" else "http"}://$it:${rtsp?.localPort}/onvif/device_service" }
             else emptyList<String>(),
         "urls" to try {
             java.util.Collections.list(java.net.NetworkInterface.getNetworkInterfaces())
                 .flatMap { java.util.Collections.list(it.inetAddresses) }
                 .filter { !it.isLoopbackAddress && it is java.net.Inet4Address }
-                .map { "rtsp://${it.hostAddress}:${rtspConfig["port"] ?: 8554}/camera" }
+                .map { "${if (rtspConfig["tls"] == true) "rtsps" else "rtsp"}://${it.hostAddress}:${rtspConfig["port"] ?: 8554}/camera" }
         } catch (_: Exception) { emptyList<String>() },
     )
 

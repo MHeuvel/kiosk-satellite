@@ -47,11 +47,14 @@ class MessageDelegate extends LocalizationsDelegate<UiStrings> {
   @override
   Future<UiStrings> load(Locale locale) => SynchronousFuture(
     lookupUiStrings(
-      basicLocaleListResolution([locale], const [
-        // Generated locales are alphabetical. Keep English as the fallback.
-        Locale('en'),
-        ...UiStrings.supportedLocales,
-      ]),
+      basicLocaleListResolution(
+        [locale],
+        const [
+          // Generated locales are alphabetical. Keep English as the fallback.
+          Locale('en'),
+          ...UiStrings.supportedLocales,
+        ],
+      ),
     ),
   );
 
@@ -268,6 +271,8 @@ String intercomError(
           'off': 'intercom off',
           'refused': 'announcements off',
           'key': 'a different key',
+          'tls':
+              'Encryption mismatch. Enable Encrypt communications on all kiosks in the call.',
           'unreachable': 'unreachable',
           'left': 'done',
         }['$value'] ??

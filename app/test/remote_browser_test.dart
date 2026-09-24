@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:kiosk_satellite/core/tls_identity.dart';
 import 'package:kiosk_satellite/core/command_registry.dart';
 import 'package:kiosk_satellite/core/event_bus.dart';
 import 'package:kiosk_satellite/core/events.dart';
@@ -45,6 +46,16 @@ void main() {
       final commands = CommandRegistry(log);
       final settings = SettingsManager(bus, commands, log);
       await settings.init();
+      commands.register(
+        Command(
+          name: 'testSlowCommand',
+          description: '',
+          handler: (_) async {
+            await Future<void>.delayed(const Duration(seconds: 3));
+            return const CommandResult.ok();
+          },
+        ),
+      );
       var appVersion = '2026.9.58';
       commands.register(
         Command(
@@ -151,6 +162,19 @@ void main() {
       );
       final remote = RemoteManager(bus, commands, log, settings);
       await remote.init();
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(
+            TlsIdentity.channel,
+            (_) async => {
+              'certificate': File(
+                'test/fixtures/tls/cert.pem',
+              ).readAsStringSync(),
+              'privateKey': File(
+                'test/fixtures/tls/key.pem',
+              ).readAsStringSync(),
+              'notAfter': DateTime.utc(2036).millisecondsSinceEpoch,
+            },
+          );
       try {
         final result = await Process.run('python', [
           'test/remote_live_ui_test.py',
@@ -162,6 +186,8 @@ void main() {
           reason: '${result.stdout}\n${result.stderr}',
         );
       } finally {
+        TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+            .setMockMethodCallHandler(TlsIdentity.channel, null);
         await remote.dispose();
         await settings.dispose();
         await bus.dispose();

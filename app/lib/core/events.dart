@@ -957,3 +957,8 @@ class VoiceTimerAction extends AppEvent {
     'action': action,
   };
 }
+
+/// The device certificate was replaced or renewed.
+class TlsIdentityChanged extends AppEvent {
+  const TlsIdentityChanged();
+}

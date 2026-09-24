@@ -1,3 +1,4 @@
+import { renderTlsSettings } from './tls.js';
 import { localizeSetting, voiceText, esphomeError, esphomeDeviceIdentity, esphomeText, launcherText, kioskText, intercomText, intercomError, cameraText, cameraError, cameraResolutionNotice, screensaverText, deviceText, haText, screenAudioText, haConnectionError, settingsPageText, setupImportError, t } from './localization.js';
 import { preserveDraft } from './drafts.js';
 import { beginLiveRender, endLiveRender, watchUpdates } from './live.js';
@@ -467,9 +468,13 @@ async function renderSettings({ cached = false } = {}) {
     if (tabId === 'tab-voicesatellite') continue; // custom render below
     const helperPage = tabId === 'device-settings' && helperStatus?.nativeSilent === false;
     const panels = render(document.getElementById(tabId), cats.filter((c) => byCat[c]),
-      tabId === 'device-settings' ? { ...opts, handBuilt: ['Shizuku'], extra: [...(helperPage ? ['Optional update helper'] : []), ...(opts?.extra || [])] } : opts);
+      tabId === 'device-settings' ? { ...opts, handBuilt: ['Shizuku'], extra: ['TLS', ...(helperPage ? ['Optional update helper'] : []), ...(opts?.extra || [])] } : opts);
     if (tabId === 'device-settings') {
       renderShizukuPage(panels.get('Shizuku'));
+      const adminEntry = document.querySelector('#device-pages [data-subpage-entry="Remote Administration"]');
+      const tlsEntry = document.querySelector('#device-pages [data-subpage-entry="TLS"]');
+      if (adminEntry && tlsEntry) adminEntry.closest('.card').after(tlsEntry.closest('.card'));
+
       // Kiosk Satellite Analytics closes the Device page, after the grants,
       // as on the device: its entry row moves out of the gathered pages
       // into its own container, and its page opens with the intro.
@@ -1401,6 +1406,9 @@ kioskText('Lockdown Mode makes the dashboard non-interactive, arms every ' +
   await renderIntercomPage();
   decorateAnnouncementsPage();
 
+  const tlsPanel = document.querySelector('#tab-device .subpage[data-subpage="TLS"]');
+  if (tlsPanel) renderTlsSettings(tlsPanel);
+
   // Mirror of the device's Access card, under the Remote Administration
   // group on the Device tab. Here the address is simply where this page
   // came from.
@@ -1415,7 +1423,7 @@ kioskText('Lockdown Mode makes the dashboard non-interactive, arms every ' +
     card.className = 'card';
     card.appendChild(readOnlyRow(deviceText('Admin address'),
       deviceText('Open this address in a browser on your computer.'),
-      `http://${location.host}`));
+      `${location.protocol}//${location.host}`));
     root.append(heading, card);
     // The same admin by name (issue #470), once the device says what it
     // answers to: the Hostname setting, or the device name as a DNS

@@ -62,6 +62,48 @@ const SOCKET_READS = {
   '/api/logs': 'logs',
 };
 export async function api(path, opts = {}) {
+  const response = await requestApi(path, opts);
+  if (path === '/api/settings' && opts.method === 'PATCH') {
+    const changes = JSON.parse(opts.body || '{}');
+    if (Object.prototype.hasOwnProperty.call(changes, 'remote.tls')) {
+      const result = await response.clone().json();
+      if (response.ok && result.ok !== false && !result.rejected?.includes('remote.tls')) {
+        const target = new URL(location.href);
+        target.protocol = changes['remote.tls'] ? 'https:' : 'http:';
+        if (target.protocol !== location.protocol) redirectAfterProtocolChange(target);
+      }
+    }
+  }
+  return response;
+}
+
+// The listener waits for active requests before changing protocol. A fixed
+// delay can navigate too early when one of those requests is slow.
+function redirectAfterProtocolChange(target) {
+  const navigate = () => setTimeout(() => location.assign(target.href), 750);
+  const current = state.ws;
+  if (current?.readyState === WebSocket.OPEN) {
+    current.addEventListener('close', navigate, { once: true });
+    return;
+  }
+  // HTTP fallback: probe the old origin until its listener closes. Reading
+  // the new origin here would hit browser mixed-content restrictions.
+  void (async () => {
+    for (;;) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 1500);
+      try {
+        await fetch('/api/commands', { method: 'HEAD', cache: 'no-store',
+          headers: { Authorization: `Bearer ${state.token}` }, signal: controller.signal });
+      } catch (error) {
+        if (error.name !== 'AbortError') { navigate(); return; }
+      } finally { clearTimeout(timer); }
+      await new Promise(resolve => setTimeout(resolve, 250));
+    }
+  })();
+}
+
+async function requestApi(path, opts = {}) {
   if (socketReady() && opts.method === 'POST' && path.startsWith('/api/commands/')) {
     const result = await socketRequest({ type: 'command',
       name: path.slice('/api/commands/'.length), params: JSON.parse(opts.body || '{}') }, opts);

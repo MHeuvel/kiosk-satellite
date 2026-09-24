@@ -10,6 +10,8 @@ import 'package:http/testing.dart';
 import 'package:kiosk_satellite/core/command_registry.dart';
 import 'package:kiosk_satellite/core/event_bus.dart';
 import 'package:kiosk_satellite/core/events.dart';
+import 'package:kiosk_satellite/core/kiosk_http_client.dart';
+import 'package:kiosk_satellite/core/tls_identity.dart';
 import 'package:kiosk_satellite/core/logging.dart';
 import 'package:kiosk_satellite/managers/audio/mic_hub.dart';
 import 'package:kiosk_satellite/managers/fleet/fleet_manager.dart';
@@ -220,6 +222,343 @@ void main() {
       ((status['kiosks'] as List).cast<Map>().firstWhere(
         (k) => k['id'] == id,
       )).cast<String, Object?>();
+
+  void mockTls() {
+    final messenger =
+        TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+    messenger.setMockMethodCallHandler(
+      TlsIdentity.channel,
+      (_) async => {
+        'certificate': File('test/fixtures/tls/cert.pem').readAsStringSync(),
+        'privateKey': File('test/fixtures/tls/key.pem').readAsStringSync(),
+        'notAfter': DateTime.now()
+            .add(const Duration(days: 90))
+            .millisecondsSinceEpoch,
+        'imported': false,
+      },
+    );
+    addTearDown(
+      () => messenger.setMockMethodCallHandler(TlsIdentity.channel, null),
+    );
+  }
+
+  for (final localTls in [false, true]) {
+    for (final peerTls in [false, true]) {
+      test(
+        'outgoing encryption local=$localTls peer=$peerTls refuses mismatches before sending credentials',
+        () async {
+          mockTls();
+          await build(prefs: {'ks.intercom.tls': localTls});
+          final identity = answers['GET /api/intercom/identity']!;
+          answers['GET /api/intercom/identity'] = (r) => {
+            ...identity(r) as Map,
+            'endpoint': {'port': 34567, 'tls': peerTls},
+          };
+          answers['POST /api/intercom/call'] = (_) => {'status': 'ringing'};
+          final result = await commands.execute('intercomCall', {
+            'id': 'kitchen',
+          });
+          final posts = sent.where((r) => r.method == 'POST');
+          expect(result.ok, localTls == peerTls);
+          expect(
+            kiosk(intercom.status(), 'kitchen')['status'],
+            localTls == peerTls ? 'ready' : 'tls',
+          );
+          if (localTls == peerTls) {
+            expect(posts.single.url.scheme, localTls ? 'https' : 'http');
+            expect(posts.single.followRedirects, false);
+          } else {
+            expect(result.error, contains('Encryption mismatch'));
+            expect(posts, isEmpty);
+            expect(intercom.state, 'idle');
+            expect(audioCalls, isNot(contains('start')));
+          }
+        },
+      );
+
+      test(
+        'incoming encryption local=$localTls peer=$peerTls checks callback protection before ringing',
+        () async {
+          mockTls();
+          await build(prefs: {'ks.intercom.tls': localTls});
+          final result = await commands.execute('intercomIncoming', {
+            'call': 'mixed',
+            'token': tokenFor('mixed'),
+            'from': {
+              'id': 'kitchen',
+              'name': 'Kitchen',
+              'address': '192.168.1.70',
+              'port': 34567,
+              'tls': peerTls,
+            },
+          });
+          expect(
+            (result.data as Map)['status'],
+            localTls == peerTls ? 'ringing' : 'tls',
+          );
+          if (localTls != peerTls) {
+            expect(intercom.state, 'idle');
+            expect(executed, isEmpty);
+            expect(sent.where((r) => r.method == 'POST'), isEmpty);
+          }
+        },
+      );
+    }
+  }
+
+  test(
+    'encrypted broadcast skips plaintext kiosks and reports when none match',
+    () async {
+      mockTls();
+      await build(prefs: {'ks.intercom.tls': true});
+      final identity = answers['GET /api/intercom/identity']!;
+      var secureKitchen = true;
+      answers['GET /api/intercom/identity'] = (r) => {
+        ...identity(r) as Map,
+        'endpoint': {
+          'port': 34567,
+          'tls': secureKitchen && r.url.host == '192.168.1.70',
+        },
+      };
+      answers['POST /api/intercom/call'] = (_) => {'status': 'dnd'};
+      await commands.execute('intercomBroadcast', const {});
+      final posts = sent.where((r) => r.method == 'POST').toList();
+      expect(posts, hasLength(1));
+      expect(posts.single.url.scheme, 'https');
+      expect(posts.single.url.host, '192.168.1.70');
+      expect(intercom.call!.targets.containsKey('bedroom'), false);
+      await commands.execute('intercomDismiss', const {});
+      secureKitchen = false;
+      await commands.execute('intercomKiosks', {'probe': true});
+      sent.clear();
+      final result = await commands.execute('intercomBroadcast', const {});
+      expect(result.ok, false);
+      expect(result.error, contains('Encryption mismatch'));
+      expect(sent.where((r) => r.method == 'POST'), isEmpty);
+    },
+  );
+
+  test(
+    'encrypted callbacks refuse a plaintext endpoint even after accepting a call',
+    () async {
+      mockTls();
+      await build(prefs: {'ks.intercom.tls': true});
+      await commands.execute('intercomIncoming', {
+        'call': 'callback',
+        'token': tokenFor('callback'),
+        'from': {
+          'id': 'kitchen',
+          'address': '192.168.1.70',
+          'port': 34567,
+          'tls': true,
+        },
+      });
+      intercom.call!.peer['tls'] = false;
+      sent.clear();
+      final result = await commands.execute('intercomAnswer', const {});
+      expect(result.ok, false);
+      expect(sent.where((r) => r.method == 'POST'), isEmpty);
+    },
+  );
+
+  test(
+    'a peer disabling encryption while ringing never gets a plaintext audio socket',
+    () async {
+      mockTls();
+      await build(prefs: {'ks.intercom.tls': true});
+      final identity = answers['GET /api/intercom/identity']!;
+      var secure = true;
+      answers['GET /api/intercom/identity'] = (r) => {
+        ...identity(r) as Map,
+        'endpoint': {'port': 34567, 'tls': secure},
+      };
+      answers['POST /api/intercom/call'] = (_) => {'status': 'ringing'};
+      expect(
+        (await commands.execute('intercomCall', {'id': 'kitchen'})).ok,
+        true,
+      );
+      final id = intercom.call!.id;
+      secure = false;
+      await commands.execute('intercomKiosks', {'probe': true});
+      var sockets = 0;
+      intercom.socketFactory = (_) {
+        sockets++;
+        throw StateError('Unexpected audio connection');
+      };
+      await commands.execute('intercomSignal', {
+        'call': id,
+        'action': 'answer',
+        'token': tokenFor(id),
+      });
+      await settle(30);
+      expect(sockets, 0);
+      expect(intercom.call?.reason, 'tls');
+      expect(intercom.state, 'ended');
+    },
+  );
+
+  test('secure audio redirects cannot open a plaintext socket', () async {
+    await build();
+    final plain = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
+    var plaintextRequests = 0;
+    plain.listen((request) {
+      plaintextRequests++;
+      request.response.close();
+    });
+    final context = SecurityContext()
+      ..useCertificateChain('test/fixtures/tls/cert.pem')
+      ..usePrivateKey('test/fixtures/tls/key.pem');
+    final secure = await HttpServer.bindSecure(
+      InternetAddress.loopbackIPv4,
+      0,
+      context,
+    );
+    var secureRequests = 0;
+    secure.listen((request) {
+      secureRequests++;
+      request.response.statusCode = 302;
+      request.response.headers.set(
+        'Location',
+        'http://127.0.0.1:${plain.port}/audio?token=secret',
+      );
+      request.response.close();
+    });
+    addTearDown(() async {
+      await secure.close(force: true);
+      await plain.close(force: true);
+    });
+    final channel = intercom.socketFactory(
+      Uri.parse('wss://127.0.0.1:${secure.port}/audio'),
+    );
+    channel.stream.listen((_) {}, onError: (Object _) {});
+    await expectLater(channel.ready, throwsA(isA<Exception>()));
+    expect(secureRequests, 1);
+    expect(plaintextRequests, 0);
+  });
+
+  test(
+    'secure audio connects and exchanges frames with a self-signed kiosk',
+    () async {
+      await build();
+      final context = SecurityContext()
+        ..useCertificateChain('test/fixtures/tls/cert.pem')
+        ..usePrivateKey('test/fixtures/tls/key.pem');
+      final server = await HttpServer.bindSecure(
+        InternetAddress.loopbackIPv4,
+        0,
+        context,
+      );
+      final received = Completer<Object>();
+      server.listen((request) async {
+        final socket = await WebSocketTransformer.upgrade(request);
+        socket.listen((data) {
+          received.complete(data);
+          socket.close();
+        });
+      });
+      addTearDown(() => server.close(force: true));
+      final channel = intercom.socketFactory(
+        Uri.parse('wss://127.0.0.1:${server.port}/audio'),
+      );
+      channel.stream.listen((_) {}, onError: (Object _) {});
+      await channel.ready.timeout(const Duration(seconds: 3));
+      channel.sink.add(Uint8List.fromList([1, 2, 3, 4]));
+      expect(await received.future.timeout(const Duration(seconds: 3)), [
+        1,
+        2,
+        3,
+        4,
+      ]);
+      await channel.sink.close();
+    },
+  );
+
+  test(
+    'intercom listener encryption is independent and advertises its endpoint',
+    () async {
+      final messenger =
+          TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+      messenger.setMockMethodCallHandler(
+        TlsIdentity.channel,
+        (_) async => {
+          'certificate': File('test/fixtures/tls/cert.pem').readAsStringSync(),
+          'privateKey': File('test/fixtures/tls/key.pem').readAsStringSync(),
+          'notAfter': DateTime.now()
+              .add(const Duration(days: 90))
+              .millisecondsSinceEpoch,
+          'imported': false,
+        },
+      );
+      addTearDown(
+        () => messenger.setMockMethodCallHandler(TlsIdentity.channel, null),
+      );
+      await build(prefs: {'ks.remote.tls': true});
+      Future<Map> endpoint() async =>
+          ((await commands.execute('intercomIdentity', const {})).data
+                  as Map)['endpoint']
+              as Map;
+      final plain = await endpoint();
+      expect(plain['tls'], false);
+      final client = kioskPeerHttpClient();
+      addTearDown(() => client.close(force: true));
+      Future<HttpClientResponse> get(
+        String scheme,
+        int port,
+        String path,
+      ) async => (await client.getUrl(
+        Uri.parse('$scheme://127.0.0.1:$port$path'),
+      )).close();
+      final identity = await get(
+        'http',
+        plain['port'],
+        '/api/intercom/identity',
+      );
+      expect(identity.statusCode, 200);
+      await identity.drain<void>();
+      final other = await get('http', plain['port'], '/api/info');
+      expect(other.statusCode, 404);
+      await other.drain<void>();
+      await settings.set(defs.remoteTls, false);
+      expect(await endpoint(), plain);
+      await settings.set(defs.intercomTls, true);
+      for (var i = 0; i < 100; i++) {
+        await settle(20);
+        final data =
+            (await commands.execute('intercomIdentity', const {})).data as Map;
+        if ((data['endpoint'] as Map?)?['tls'] == true) break;
+      }
+      final secure = await endpoint();
+      expect(secure['tls'], true);
+      expect(settings.get(defs.remoteTls), false);
+      await settle(1100);
+      final encrypted = await get(
+        'https',
+        secure['port'],
+        '/api/intercom/identity',
+      );
+      expect(encrypted.statusCode, 200);
+      await encrypted.drain<void>();
+      await expectLater(
+        get('http', secure['port'], '/api/intercom/identity'),
+        throwsA(isA<Exception>()),
+      );
+      final advertised = answers['GET /api/intercom/identity']!;
+      answers['GET /api/intercom/identity'] = (request) => {
+        ...advertised(request) as Map,
+        'endpoint': {'port': 34567, 'tls': true},
+      };
+      answers['POST /api/intercom/call'] = (_) => {'status': 'ringing'};
+      await commands.execute('intercomCall', {'id': 'kitchen'});
+      final call = sent.lastWhere(
+        (r) => r.method == 'POST' && r.url.path == '/api/intercom/call',
+      );
+      expect(call.url.scheme, 'https');
+      expect(call.url.port, 34567);
+      final from = (jsonDecode(call.body) as Map)['from'] as Map;
+      expect(from['port'], secure['port']);
+      expect(from['tls'], true);
+    },
+  );
 
   group('the roster', () {
     test(

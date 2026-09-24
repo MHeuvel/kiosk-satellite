@@ -1869,7 +1869,9 @@ class EspEntitySurface {
     if (e.key == defs.screensaverClockBackground.key) {
       _send('clock_background', '${e.value}');
     }
-    if (e.key == defs.remoteEnabled.key || e.key == defs.remotePort.key) {
+    if (e.key == defs.remoteEnabled.key ||
+        e.key == defs.remotePort.key ||
+        e.key == defs.remoteTls.key) {
       _sendAdminUrl();
     }
   }
@@ -2179,7 +2181,7 @@ class EspEntitySurface {
     if (ip == null || ip.isEmpty) return;
     await _send(
       'admin_url',
-      'http://$ip:${_settings.get(defs.remotePort).toInt()}',
+      '${_settings.get(defs.remoteTls) ? 'https' : 'http'}://$ip:${_settings.get(defs.remotePort).toInt()}',
     );
   }
 

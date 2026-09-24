@@ -81,7 +81,7 @@ export const intercomTextMessageIds = {
   "Key changed": "intercomKeyChanged",
   "Not set": "intercomNotSet",
   "Kiosks": "intercomKiosks",
-  "Discovered kiosks and saved fleet members. A kiosk is ready when it is reachable with intercom on and the same key.": "intercomRosterHelp",
+  "Discovered kiosks and saved fleet members. A kiosk is ready when it is reachable with intercom on, the same key and matching encryption settings.": "intercomRosterHelp",
   "No other kiosks found": "intercomNoOther",
   "Kiosks with Remote management and Find other kiosks on show up here.": "intercomRosterDeviceHelp",
   "No kiosks found": "intercomNoneHeard",
@@ -168,5 +168,7 @@ export const intercomTextMessageIds = {
   "Open": "intercomOpen",
   "Enter a file name, not a path.": "intercomSoundFilename",
   "Pick an MP3, OGG, WAV, FLAC, M4A or AAC file.": "intercomSoundFormats",
-  "Known kiosks and whether each can take a call.": "searchIntercomKiosks"
+  "Known kiosks and whether each can take a call.": "searchIntercomKiosks",
+  "Encryption mismatch": "intercomEncryptionMismatch",
+  "Encryption mismatch. Enable Encrypt communications on all kiosks in the call.": "intercomEncryptionMismatchHelp"
 };

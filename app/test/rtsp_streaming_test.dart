@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:kiosk_satellite/managers/audio/mic_hub.dart';
@@ -107,6 +108,71 @@ void main() {
     await settings.dispose();
     await bus.dispose();
   });
+
+  test('certificate changes leave plaintext viewers alone', () async {
+    final before = configurations.length;
+    bus.publish(const TlsIdentityChanged());
+    await settle();
+    expect(configurations.length, before);
+  });
+
+  test(
+    'encrypted RTSP and ONVIF share the identity and renew together',
+    () async {
+      const tlsChannel = MethodChannel('kiosk_satellite/tls');
+      messenger.setMockMethodCallHandler(
+        tlsChannel,
+        (_) async => {
+          'certificate': File('test/fixtures/tls/cert.pem').readAsStringSync(),
+          'privateKey': File('test/fixtures/tls/key.pem').readAsStringSync(),
+          'notAfter': DateTime.utc(2036).millisecondsSinceEpoch,
+        },
+      );
+      addTearDown(() => messenger.setMockMethodCallHandler(tlsChannel, null));
+      await settings.set(defs.cameraRtspTls, true);
+      await settle();
+      expect(configurations.last['enabled'], true);
+      expect(configurations.last['tls'], true);
+      expect(configurations.last['privateKey'], contains('PRIVATE KEY'));
+      final before = configurations.length;
+      bus.publish(const TlsIdentityChanged());
+      await settle();
+      expect(configurations.length, before + 1);
+      await settings.set(defs.cameraStreamingProtocol, 'onvif');
+      await settle();
+      expect(configurations.last['tls'], true);
+      expect(configurations.last['privateKey'], contains('PRIVATE KEY'));
+      expect(settings.visible(defs.cameraRtspTls), true);
+      await settings.set(defs.cameraRtspTls, false);
+      await settle();
+      expect(configurations.last['tls'], false);
+      expect(configurations.last.containsKey('privateKey'), false);
+    },
+  );
+
+  test(
+    'damaged identity stops encrypted streaming without plaintext fallback',
+    () async {
+      const tlsChannel = MethodChannel('kiosk_satellite/tls');
+      messenger.setMockMethodCallHandler(
+        tlsChannel,
+        (_) async =>
+            throw PlatformException(code: 'tls', message: 'Damaged identity'),
+      );
+      addTearDown(() => messenger.setMockMethodCallHandler(tlsChannel, null));
+      // Simulate a persisted TLS preference whose native key cannot be loaded.
+      await (await SharedPreferences.getInstance()).setBool(
+        'ks.camera.rtsp.tls',
+        true,
+      );
+      bus.publish(const SettingChanged(key: 'camera.rtsp.tls', value: true));
+      await settle();
+      expect(configurations.last['enabled'], false);
+      expect(configurations.last['tls'], true);
+      final status = await commands.execute('getRtspStatus', {});
+      expect((status.data as Map)['error'], contains('Damaged identity'));
+    },
+  );
 
   test(
     'overlay toggles reach native without interrupting camera demand',

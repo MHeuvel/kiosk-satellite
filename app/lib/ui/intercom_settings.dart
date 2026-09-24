@@ -124,7 +124,7 @@ class _IntercomSettingsPanelState extends State<IntercomSettingsPanel> {
                 HintRow(
                   intercomText(
                     context,
-                    "Discovered kiosks and saved fleet members. A kiosk is ready when it is reachable with intercom on and the same key.",
+                    "Discovered kiosks and saved fleet members. A kiosk is ready when it is reachable with intercom on, the same key and matching encryption settings.",
                   ),
                 ),
               ],
@@ -207,7 +207,7 @@ Color intercomStatusColor(BuildContext context, String status) {
   final theme = Theme.of(context);
   return switch (status) {
     'ready' => theme.brightness == Brightness.dark ? ksSage : ksSageOnLight,
-    'key' || 'unreachable' => theme.colorScheme.tertiary,
+    'key' || 'tls' || 'unreachable' => theme.colorScheme.tertiary,
     _ => theme.colorScheme.onSurfaceVariant,
   };
 }
@@ -1213,6 +1213,10 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
     'dnd' => intercomText(context, "Do not disturb"),
     'off' => intercomText(context, "Its intercom is off"),
     'key' => intercomText(context, "Different intercom key"),
+    'tls' => intercomText(
+      context,
+      'Encryption mismatch. Enable Encrypt communications on all kiosks in the call.',
+    ),
     'no_answer' => intercomText(context, "No answer"),
     'unreachable' => intercomText(context, "Did not answer"),
     'failed' => intercomText(context, "The voice link failed"),

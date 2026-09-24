@@ -260,6 +260,7 @@ const Map<String, String> subpageHints = {
   'Kiosk Satellite Service':
       'Status, what keeps it running, required permissions',
   'Remote Administration': 'Manage this kiosk from a browser on your network',
+  'TLS': 'Connection encryption and certificates',
   'Updates': 'Where the app looks for new releases',
   'Shizuku': 'Connection, Android permissions and setup',
   'Optional update helper': 'Silent update status, ADB setup and instructions',
@@ -4491,6 +4492,20 @@ const cameraStreamingProtocol = SettingDef<String>(
   optionLabels: {'rtsp': 'RTSP', 'onvif': 'ONVIF'},
 );
 
+const cameraRtspTls = SettingDef<bool>(
+  key: 'camera.rtsp.tls',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Encrypt stream',
+  description:
+      'Use TLS to encrypt video and audio. Requires a compatible viewer.',
+  category: 'Camera',
+  section: 'TLS',
+  subpage: 'RTSP & ONVIF Streaming',
+  dependsOn: 'camera.rtsp.enabled',
+  perDevice: true,
+);
+
 const cameraRtspPort = SettingDef<num>(
   key: 'camera.rtsp.port',
   type: SettingType.number,
@@ -4602,7 +4617,7 @@ const cameraRtspAuth = SettingDef<bool>(
   defaultValue: false,
   title: 'Require authentication',
   description:
-      'Require a username and password to view the stream. Streaming traffic is not encrypted.',
+      'Require a username and password to view the stream. Authentication does not enable encryption.',
   category: 'Camera',
   section: 'RTSP & ONVIF Streaming',
   subpage: 'RTSP & ONVIF Streaming',
@@ -7248,6 +7263,19 @@ const remoteEnabled = SettingDef<bool>(
   perDevice: true,
 );
 
+const remoteTls = SettingDef<bool>(
+  key: 'remote.tls',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Use HTTPS',
+  description:
+      'Encrypt the remote admin, API and WebSocket. Your browser may ask you to accept the device certificate.',
+  category: 'Device',
+  section: 'Remote Administration',
+  subpage: 'Remote Administration',
+  perDevice: true,
+);
+
 const remotePort = SettingDef<num>(
   key: 'remote.port',
   type: SettingType.number,
@@ -7392,6 +7420,19 @@ const intercomEnabled = SettingDef<bool>(
   title: 'Enable intercom',
   description: 'Call the other kiosks on this network and take their calls.',
   category: 'Intercom',
+);
+
+const intercomTls = SettingDef<bool>(
+  key: 'intercom.tls',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Encrypt communications',
+  description:
+      'Use TLS to encrypt intercom calls between kiosks. All kiosks in the call need this enabled.',
+  category: 'Intercom',
+  section: 'TLS',
+  dependsOn: 'intercom.enabled',
+  perDevice: true,
 );
 
 /// The shared secret every kiosk on the intercom holds: made on the first
@@ -8334,6 +8375,7 @@ const List<SettingDef<Object>> allSettings = [
   cameraRtspPassword,
   cameraRtspDateTime,
   cameraRtspDateTimeBackground,
+  cameraRtspTls,
   screensaverScheduleEnabled,
   screensaverSchedule,
   wakeWordEnabled,
@@ -8484,6 +8526,7 @@ const List<SettingDef<Object>> allSettings = [
   serviceCpuAwake,
   remoteEnabled,
   remotePort,
+  remoteTls,
   remotePassword,
   remoteFleetDiscovery,
   updateSource,
@@ -8512,4 +8555,5 @@ const List<SettingDef<Object>> allSettings = [
   intercomRingSound,
   intercomAcceptAnnouncements,
   intercomTalkMode,
+  intercomTls,
 ];

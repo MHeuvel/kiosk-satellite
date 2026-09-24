@@ -1540,4 +1540,16 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingHandGestureHoldSecondsTitle",
     "description": "settingHandGestureHoldSecondsDescription",
   },
+  "remote.tls": {
+    "title": "settingRemoteTlsTitle",
+    "description": "settingRemoteTlsDescription",
+  },
+  "camera.rtsp.tls": {
+    "title": "settingCameraRtspTlsTitle",
+    "description": "settingCameraRtspTlsDescription",
+  },
+  "intercom.tls": {
+    "title": "settingIntercomTlsTitle",
+    "description": "settingIntercomTlsDescription",
+  },
 };

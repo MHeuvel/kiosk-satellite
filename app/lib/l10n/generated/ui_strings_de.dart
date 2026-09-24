@@ -2115,6 +2115,13 @@ class UiStringsDe extends UiStrings {
   String get intercomAnnouncementsoff => 'Durchsagen deaktiviert';
 
   @override
+  String get intercomEncryptionMismatch => 'Encryption mismatch';
+
+  @override
+  String get intercomEncryptionMismatchHelp =>
+      'Encryption mismatch. Enable Encrypt communications on all kiosks in the call.';
+
+  @override
   String get kioskBackClose =>
       'Drücke „Zurück“ erneut, um die App zu schließen';
 
@@ -4028,7 +4035,7 @@ class UiStringsDe extends UiStrings {
 
   @override
   String get settingCameraRtspAuthDescription =>
-      'Erfordert einen Benutzernamen und ein Passwort zum Anzeigen des Streams. Der Stream-Datenverkehr wird nicht verschlüsselt.';
+      'Require a username and password to view the stream. Authentication does not enable encryption.';
 
   @override
   String get settingCameraRtspUsernameTitle => 'Benutzername';
@@ -4117,6 +4124,13 @@ class UiStringsDe extends UiStrings {
   @override
   String get settingCameraRtspDateTimeBackgroundDescription =>
       'Fügt hinter Datum und Uhrzeit einen schwarzen Hintergrund ein, um die Lesbarkeit zu verbessern.';
+
+  @override
+  String get settingCameraRtspTlsTitle => 'Encrypt stream';
+
+  @override
+  String get settingCameraRtspTlsDescription =>
+      'Use TLS to encrypt video and audio. Requires a compatible viewer.';
 
   @override
   String get cameraStreamsNameRequired => 'Bitte einen Namen eingeben.';
@@ -5130,6 +5144,13 @@ class UiStringsDe extends UiStrings {
   }
 
   @override
+  String get settingRemoteTlsTitle => 'Use HTTPS';
+
+  @override
+  String get settingRemoteTlsDescription =>
+      'Encrypt the remote admin, API and WebSocket. Your browser may ask you to accept the device certificate.';
+
+  @override
   String get settingServiceCpuAwakeTitle =>
       'CPU bei ausgeschaltetem Bildschirm aktiv halten';
 
@@ -5454,6 +5475,108 @@ class UiStringsDe extends UiStrings {
   @override
   String get shizukuHelperUnavailable =>
       'Der Shizuku-Helfer ist nicht verfügbar';
+
+  @override
+  String get tlsTLS => 'TLS';
+
+  @override
+  String get tlsConnectionEncryptionAndCertificates =>
+      'Connection encryption and certificates';
+
+  @override
+  String get tlsCertificateType => 'Certificate type';
+
+  @override
+  String get tlsImported => 'Imported';
+
+  @override
+  String get tlsSelfSigned => 'Self-signed';
+
+  @override
+  String get tlsExpires => 'Expires';
+
+  @override
+  String get tlsSHA256Fingerprint => 'SHA-256 fingerprint';
+
+  @override
+  String get tlsCertificateExpiredRenewOrImportAReplacement =>
+      'Certificate expired. Renew or import a replacement.';
+
+  @override
+  String get tlsCopyPublicCertificate => 'Copy public certificate';
+
+  @override
+  String get tlsDownloadPublicCertificate => 'Download public certificate';
+
+  @override
+  String get tlsUseThisCertificateInBrowsersAndStreamingClients =>
+      'Use this certificate in browsers and streaming clients.';
+
+  @override
+  String get tlsRenewCertificate => 'Renew certificate';
+
+  @override
+  String get tlsKeepTheCurrentPrivateKeyAndUpdateTheCertificateDates =>
+      'Keep the current private key and update the certificate dates.';
+
+  @override
+  String get tlsImportCertificate => 'Import certificate';
+
+  @override
+  String get tlsUseACertificateIssuedForThisDevice =>
+      'Use a certificate issued for this device.';
+
+  @override
+  String get tlsReplaceCertificate => 'Replace certificate';
+
+  @override
+  String get tlsGenerateANewPrivateKeyAndSelfSignedCertificate =>
+      'Generate a new private key and self-signed certificate.';
+
+  @override
+  String
+  get tlsGenerateANewPrivateKeyAndCertificateActiveEncryptedConnectionsWillCloseBrowsersMayAskYouToAcceptTheNewCertificate =>
+      'Generate a new private key and certificate? Active encrypted connections will close. Browsers may ask you to accept the new certificate.';
+
+  @override
+  String
+  get tlsPasteThePEMCertificateChainAndItsUnencryptedPrivateKeyTheyAreValidatedBeforeReplacingTheCurrentCertificate =>
+      'Paste the PEM certificate chain and its unencrypted private key. They are validated before replacing the current certificate.';
+
+  @override
+  String get tlsCertificateChainPEM => 'Certificate chain (PEM)';
+
+  @override
+  String get tlsPrivateKeyPEM => 'Private key (PEM)';
+
+  @override
+  String get tlsThisFieldIsRequired => 'This field is required.';
+
+  @override
+  String get tlsReplace => 'Replace';
+
+  @override
+  String get tlsRenew => 'Renew';
+
+  @override
+  String get tlsEnableHTTPSBeforeImportingAPrivateKeyRemotely =>
+      'Enable HTTPS before importing a private key remotely.';
+
+  @override
+  String get tlsCertificateOperationFailed => 'Certificate operation failed.';
+
+  @override
+  String get tlsChangeConnectionProtocol => 'Change connection protocol';
+
+  @override
+  String get tlsConnectionProtocolHelp =>
+      'The current remote connection will close. Reconnect using the address below. You may need to sign in again.';
+
+  @override
+  String get tlsConfirm => 'Confirm';
+
+  @override
+  String get tlsCertificateManagement => 'Certificate Management';
 
   @override
   String get deviceHelperPage => 'Optionaler Update-Assistent';
@@ -7002,11 +7125,18 @@ class UiStringsDe extends UiStrings {
   String get intercomOpen => 'Öffnen';
 
   @override
+  String get settingIntercomTlsTitle => 'Encrypt communications';
+
+  @override
+  String get settingIntercomTlsDescription =>
+      'Use TLS to encrypt intercom calls between kiosks. All kiosks in the call need this enabled.';
+
+  @override
   String get intercomKiosks => 'Kiosks';
 
   @override
   String get intercomRosterHelp =>
-      'Gefundene Kiosks und gespeicherte Mitglieder der Flotte. Ein Kiosk ist bereit, wenn eine Verbindung zu ihm möglich ist, die Gegensprechanlage aktiviert ist und derselbe Schlüssel verwendet wird.';
+      'Discovered kiosks and saved fleet members. A kiosk is ready when it is reachable with intercom on, the same key and matching encryption settings.';
 
   @override
   String get intercomNoOther => 'Keine weiteren Kiosks gefunden';

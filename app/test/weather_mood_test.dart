@@ -275,6 +275,8 @@ void main() {
       expect(find.text('Weather Preview'), findsOneWidget);
       expect(find.text('Weather type'), findsNothing);
       expect(find.text('Time of day'), findsNothing);
+      await tester.ensureVisible(find.text('Enable weather preview'));
+      await tester.pumpAndSettle();
       await tester.tap(find.text('Enable weather preview'));
       await tester.pumpAndSettle();
       expect(find.text('Weather type'), findsOneWidget);
@@ -287,6 +289,8 @@ void main() {
         final row = find.byWidgetPredicate(
           (widget) => widget is SettingTile && widget.def.key == choice.$1.key,
         );
+        await tester.ensureVisible(row);
+        await tester.pumpAndSettle();
         await tester.tap(
           find.descendant(
             of: row,
@@ -298,6 +302,8 @@ void main() {
         await tester.pumpAndSettle();
         expect(container.settings.get(choice.$1), choice.$3);
       }
+      await tester.ensureVisible(find.text('Enable weather preview'));
+      await tester.pumpAndSettle();
       await tester.tap(find.text('Enable weather preview'));
       await tester.pumpAndSettle();
       expect(find.text('Weather type'), findsNothing);

@@ -18,6 +18,7 @@ class CameraOnvifDiscovery(
     private val deviceId: String,
     private val port: Int,
     deviceName: String = "Kiosk Satellite",
+    private val tls: Boolean = false,
 ) : AutoCloseable {
     private val scopes = CameraOnvifService.scopes(deviceName)
     @Volatile private var socket: MulticastSocket? = null
@@ -112,7 +113,7 @@ class CameraOnvifDiscovery(
     private fun endpoint() = "<a:EndpointReference><a:Address>urn:uuid:${CameraOnvifService.xml(deviceId)}</a:Address></a:EndpointReference>"
 
     private fun description(addresses: List<String>): String {
-        val xaddrs = addresses.take(8).joinToString(" ") { "http://${CameraOnvifService.xml(it)}:$port/onvif/device_service" }
+        val xaddrs = addresses.take(8).joinToString(" ") { "${if (tls) "https" else "http"}://${CameraOnvifService.xml(it)}:$port/onvif/device_service" }
         return endpoint() + "<d:Types>dn:NetworkVideoTransmitter</d:Types><d:Scopes>$scopes</d:Scopes>" +
             "<d:XAddrs>$xaddrs</d:XAddrs><d:MetadataVersion>1</d:MetadataVersion>"
     }

@@ -287,6 +287,7 @@ export function intercomError(error, status = null) {
   if (Array.isArray(targets) && targets.length) {
     const statuses = {listening:'listening', busy:'busy', dnd:'do not disturb',
       off:'intercom off', refused:'announcements off', key:'a different key',
+      tls:'Encryption mismatch. Enable Encrypt communications on all kiosks in the call.',
       unreachable:'unreachable', left:'done'};
     const label = (value) => Object.hasOwn(statuses, value) ? statuses[value] : value;
     const original = targets.map((target) => `${target.name}: ${label(target.status)}`).join(', ');

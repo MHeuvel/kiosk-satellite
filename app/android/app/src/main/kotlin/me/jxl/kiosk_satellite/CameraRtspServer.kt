@@ -27,6 +27,7 @@ class CameraRtspServer(
     private val onAudioDemand: (Boolean) -> Unit = {},
     private val onvif: CameraOnvifService? = null,
     streamName: String = "Kiosk Satellite camera",
+    private val tls: javax.net.ssl.SSLContext? = null,
 ) {
     private val sessionName = streamName.replace('\r', ' ').replace('\n', ' ')
     @Volatile private var running = true
@@ -46,7 +47,8 @@ class CameraRtspServer(
     private val clients = CopyOnWriteArrayList<Client>()
     private val scheduler = Executors.newSingleThreadScheduledExecutor { task -> Thread(task, "ks-rtsp-scheduler").apply { isDaemon = true } }
     private var idleTask: java.util.concurrent.ScheduledFuture<*>? = null
-    private val server = ServerSocket().apply {
+    private val server = (tls?.serverSocketFactory?.createServerSocket() ?: ServerSocket()).apply {
+        if (this is javax.net.ssl.SSLServerSocket) enabledProtocols = supportedProtocols.filter { it == "TLSv1.2" || it == "TLSv1.3" }.toTypedArray()
         reuseAddress = true
         try { bind(InetSocketAddress(port), 4) } catch (e: Exception) { close(); throw e }
     }
@@ -225,8 +227,8 @@ class CameraRtspServer(
         private var sequence = 0
         private var channel = 0
         private val queue = ArrayBlockingQueue<Frame>(40)
-        private val output = socket.getOutputStream()
-        private val input = BufferedInputStream(socket.getInputStream())
+        private lateinit var output: java.io.OutputStream
+        private lateinit var input: BufferedInputStream
         private val session = java.util.UUID.randomUUID().toString().replace("-", "")
         private val ssrc = session.hashCode()
 
@@ -278,6 +280,9 @@ class CameraRtspServer(
             try {
                 socket.tcpNoDelay = true
                 socket.soTimeout = 15_000
+                (socket as? javax.net.ssl.SSLSocket)?.startHandshake()
+                output = socket.getOutputStream()
+                input = BufferedInputStream(socket.getInputStream())
                 while (open) {
                     val request = line() ?: break
                     if (request.isBlank()) continue

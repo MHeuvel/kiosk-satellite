@@ -58,6 +58,12 @@ class SettingsSearchEntry {
 /// admin's SEARCH_EXTRAS; keep the two lists in step.
 const List<SettingsSearchEntry> handBuiltSearchEntries = [
   SettingsSearchEntry(
+    category: 'Device',
+    title: 'TLS',
+    description: 'Connection encryption and certificates',
+    subpage: 'TLS',
+  ),
+  SettingsSearchEntry(
     category: "Plugins",
     title: "Enable Plugins",
     description:
@@ -161,8 +167,7 @@ const List<SettingsSearchEntry> handBuiltSearchEntries = [
   SettingsSearchEntry(
     category: 'Intercom',
     title: 'Kiosks',
-    description:
-        'Known kiosks and whether each can take a call.',
+    description: 'Known kiosks and whether each can take a call.',
     anchorId: 'x:intercom_kiosks',
   ),
   SettingsSearchEntry(

@@ -1,6 +1,6 @@
 # Intercom
 
-Kiosks on the same network can talk to each other. Pick a kiosk from the kiosk menu and it rings there, or announce to every kiosk at once. Each kiosk decides how it answers: ring, answer on its own after a chime, or not at all. Voice travels straight between the two kiosks over the remote admin port. No server and no Home Assistant sit in the path, and Home Assistant sees the state through ESPHome.
+Kiosks on the same network can talk to each other. Pick a kiosk from the kiosk menu and it rings there, or announce to every kiosk at once. Each kiosk decides how it answers: ring, answer on its own after a chime, or not at all. Voice travels straight between the two kiosks through a dedicated intercom listener. Older kiosks use their remote admin port. No server and no Home Assistant sit in the path, and Home Assistant sees the state through ESPHome.
 
 Configure it under **Settings, Intercom** on the kiosk, or the **Intercom** tab in the remote admin. Every kiosk on the intercom needs **Remote management** and **Find other kiosks** on (under Settings, Device, Remote Administration). Kiosks find and reach each other through the remote admin, the same way [Fleet Management](fleet.md) does.
 
@@ -8,13 +8,14 @@ Configure it under **Settings, Intercom** on the kiosk, or the **Intercom** tab 
 
 1. Turn on **Enable intercom**. The kiosk makes an **Intercom key** the first time.
 2. Give every other kiosk the same key. In a fleet the leader syncs it as a credential and nothing needs typing. Outside a fleet, copy the key from the box and paste it on the other kiosk through **Change key**.
-3. The **Kiosks** list includes discovered kiosks and saved fleet members with a status word. A kiosk reads **Ready** once its admin endpoint answers with intercom on and the same key. Saved fleet members remain listed and are probed even when their mDNS advertisements are missing.
+3. The **Kiosks** list includes discovered kiosks and saved fleet members with a status word. A kiosk reads **Ready** once its admin endpoint answers with intercom on, the same key and matching encryption settings. Saved fleet members remain listed and are probed even when their mDNS advertisements are missing.
 
 | Status | Meaning |
 | --- | --- |
 | Ready | The intercom is on there with the same key. |
 | Intercom off | The kiosk is on the network but its intercom is off, or it runs a version without one. |
 | Different key | Its intercom is on with another key. Paste this kiosk's key there, or the other way around. |
+| Encryption mismatch | The kiosks have different encryption settings. Enable **Encrypt communications** on both kiosks for encrypted calls. |
 | Do not disturb | It is on the intercom but refuses calls right now. |
 | Unreachable | The kiosk is discovered or saved in the fleet but its admin port does not answer from here. It remains listed so later probes can detect its return. |
 | Offline | The kiosk is no longer discovered and is not in the saved fleet directory. |
@@ -97,8 +98,8 @@ The intercom's routes sit in front of the admin login. Every one of them except 
 
 | Endpoint | Method | Description |
 | --- | --- | --- |
-| `/api/intercom/identity` | GET | `{id, name, version, enabled, key, dnd}`. `key` is the first eight hex digits of the key's SHA-256, what the status words compare. Public, one probe a second per client. |
-| `/api/intercom/call` | POST | `{call, kind: call or broadcast, from: {id, name, address, port, version}}` answers `{status}`: `ringing`, `auto`, `listening`, `busy`, `dnd`, `off`, or 403 for another key. |
+| `/api/intercom/identity` | GET | `{id, name, version, enabled, key, dnd, endpoint: {port, tls}}`. `key` is the first eight hex digits of the key's SHA-256, what the status words compare. Public, one probe a second per client. |
+| `/api/intercom/call` | POST | `{call, kind: call or broadcast, from: {id, name, address, port, version, tls}}` answers `{status}`: `ringing`, `auto`, `listening`, `busy`, `dnd`, `off`, 409 with `status: tls` for incompatible encryption or 403 for another key. Plaintext requests are refused with 426 when encryption is required. |
 | `/api/intercom/call/<id>` | POST | `{action}`: `answer`, `decline`, `missed` from the callee, `cancel` and `hangup` from the caller. |
 | `/api/intercom/audio/<id>` | WebSocket | `?token=` as above. Binary frames are 80 ms of PCM16 mono 16 kHz from the sender's microphone. Text frames: `{"type": "talk", "on": true}` and `{"type": "end"}`. |
 
@@ -110,3 +111,9 @@ Both pages use the commands `intercomStatus`, `intercomKiosks`, `intercomCall {i
 - Without the microphone permission a kiosk still takes calls and hears the other side. The screen says it is listening only.
 - A dashboard that holds the microphone itself, such as Voice Satellite streaming to Home Assistant for its wake word, is asked to let go for the call and gets it back when the call ends. Voice Satellite 2026.9.7 and later do that. An older one keeps it and the call is listen only, which the screen says. A page that takes the microphone during a call ends the call.
 - Voice is not compressed in this version. That keeps every Android the app runs on, Android 7 included, on the same footing.
+
+## Encryption
+
+Turn on **Encrypt communications** under **Settings > Intercom > TLS** on each participating kiosk. This uses a separate HTTPS and WSS listener without changing Remote Administration. Kiosks discover its port automatically. Changing this setting ends active calls. See [TLS encryption](tls.md) for connection behavior, network requirements and certificate management.
+
+Kiosks with different intercom encryption settings show **Encryption mismatch** and cannot call each other. Enable **Encrypt communications** on all participating kiosks for encrypted calls. **Announce to all** skips kiosks with incompatible encryption settings. The app never sends intercom credentials or audio over plaintext when encryption is enabled. Home Assistant announcements that play only on this kiosk keep their existing behavior.

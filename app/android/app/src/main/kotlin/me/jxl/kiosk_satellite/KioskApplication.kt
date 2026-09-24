@@ -138,6 +138,7 @@ class KioskApplication : Application(), CameraXConfig.Provider {
         haptics = HapticsBridge(applicationContext, messenger)
         tapSound = TapSoundBridge(applicationContext, messenger)
         bluetoothProxy = BluetoothProxyBridge(applicationContext, messenger)
+        TlsBridge(applicationContext, messenger)
         fleet = FleetBridge(applicationContext, messenger)
         intercomAudio = IntercomAudio(applicationContext, messenger)
         plugins = me.jxl.kiosk_satellite.plugins.PluginBridge(applicationContext, messenger)

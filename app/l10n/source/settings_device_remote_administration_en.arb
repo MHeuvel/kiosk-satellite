@@ -217,5 +217,31 @@
         "example": "Connection refused"
       }
     }
+  },
+  "settingRemoteTlsTitle": "Use HTTPS",
+  "@settingRemoteTlsTitle": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration"
+      ]
+    }
+  },
+  "settingRemoteTlsDescription": "Encrypt the remote admin, API and WebSocket. Your browser may ask you to accept the device certificate.",
+  "@settingRemoteTlsDescription": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration"
+      ]
+    }
   }
 }

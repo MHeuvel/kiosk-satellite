@@ -1,12 +1,15 @@
 """Browser checks against the server started by remote_browser_test.dart."""
 import json
+import hashlib
+import ssl
+from pathlib import Path
 import sys
 from playwright.sync_api import sync_playwright, expect
 
 base = sys.argv[1]
 with sync_playwright() as playwright:
     browser = playwright.chromium.launch(headless=True)
-    context = browser.new_context(viewport={"width": 1400, "height": 1000}, locale='en-US')
+    context = browser.new_context(viewport={"width": 1400, "height": 1000}, locale='en-US', ignore_https_errors=True)
     response = context.request.post(base + '/api/login', data=json.dumps({'password': 'secret'}))
     token = response.json()['token']
     context.add_init_script('localStorage.setItem("ks_token", ' + json.dumps(token) + ')')
@@ -298,6 +301,28 @@ with sync_playwright() as playwright:
     page.wait_for_timeout(1500)
     assert [f.get('name') for f in frames if f.get('type') == 'command'] == ['haStatus'], frames
 
+    # TLS has its own Device page and uses the shared copy control and dialog.
+    page.locator('#tabs button[data-tab="device"]').click()
+    entries = page.locator('#device-pages [data-subpage-entry]').evaluate_all(
+        '(nodes) => nodes.map(node => node.dataset.subpageEntry)')
+    assert entries[entries.index('Remote Administration') + 1] == 'TLS', entries
+    page.locator('#device-pages [data-subpage-entry="TLS"]').click()
+    expect(page).to_have_url(base + '/#device/tls')
+    tls = page.locator('#tab-device .subpage[data-subpage="TLS"]')
+    fingerprint = hashlib.sha256(ssl.PEM_cert_to_DER_cert(Path('test/fixtures/tls/cert.pem').read_text())).hexdigest()
+    expect(tls.locator('.copy-box .copy-value')).to_have_text(fingerprint)
+    assert '[object Object]' not in tls.inner_text()
+    assert 'Trusted kiosks' not in tls.inner_text()
+    assert 'Use HTTPS' not in tls.inner_text()
+    assert 'Encrypt camera stream' not in tls.inner_text()
+    assert 'HTTPS and encrypted RTSP share this certificate.' not in tls.inner_text()
+    expect(tls.get_by_role('button', name='Import', exact=True)).to_be_disabled()
+    tls.get_by_role('button', name='Replace', exact=True).click()
+    confirm = page.locator('.modal-card')
+    expect(confirm.locator('.modal-title')).to_have_text('Replace certificate')
+    expect(confirm.locator('.btn-primary')).to_have_text('Replace')
+    confirm.get_by_role('button', name='Cancel', exact=True).click()
+
     # The app restarted on a new build: the reconnect's snapshot names it,
     # the page says so and reloads itself onto the new bundle.
     context.request.post(base + '/api/commands/testSetVersion',
@@ -319,6 +344,45 @@ with sync_playwright() as playwright:
         .find(entry => new URL(entry.name).pathname === '/static/core.js').name;
       return (await import(url)).state.appVersion;
     }""") == '2026.9.59+259'
+    # Protocol changes wait for confirmation, then navigate both directions.
+    peer.close()
+    route('device/remote-administration')
+    https_toggle = page.locator('[data-key="remote.tls"] input')
+    page.locator('[data-key="remote.tls"] .switch').click()
+    dialog = page.locator('.modal-card')
+    secure_url = base.replace('http:', 'https:') + '/#device/remote-administration'
+    expect(dialog.locator('.copy-value')).to_have_text(secure_url)
+    assert dialog.locator('.copy-value').evaluate('(n) => n.scrollWidth <= n.clientWidth'), 'Destination address is clipped'
+    expect(dialog.get_by_role('button', name='Confirm', exact=True)).to_be_visible()
+    dialog.get_by_role('button', name='Cancel', exact=True).click()
+    expect(https_toggle).not_to_be_checked()
+    expect(page).to_have_url(base + '/#device/remote-administration')
+    page.evaluate("""() => {
+      const url = performance.getEntriesByType('resource')
+        .find(entry => new URL(entry.name).pathname === '/static/core.js').name;
+      import(url).then(module => module.cmd('testSlowCommand'));
+    }""")
+    page.wait_for_timeout(100)
+    page.locator('[data-key="remote.tls"] .switch').click()
+    page.locator('.modal-card').get_by_role('button', name='Confirm', exact=True).click()
+    expect(page).to_have_url(secure_url, timeout=15000)
+    expect(page.locator('#app')).to_be_visible(timeout=30000)
+    expect(page.locator('[data-key="remote.tls"] input')).to_be_checked()
+    page.wait_for_timeout(1000)
+    # Exercise protocol changes over the HTTP fallback as well as WebSocket.
+    page.evaluate("""async () => {
+      const resource = name => performance.getEntriesByType('resource')
+        .find(entry => new URL(entry.name).pathname === '/static/' + name + '.js').name;
+      (await import(resource('transport'))).detachSocket();
+      (await import(resource('core'))).state.ws = null;
+    }""")
+    page.locator('[data-key="remote.tls"] .switch').click()
+    dialog = page.locator('.modal-card')
+    expect(dialog.locator('.copy-value')).to_have_text(base + '/#device/remote-administration')
+    dialog.get_by_role('button', name='Confirm', exact=True).click()
+    expect(page).to_have_url(base + '/#device/remote-administration', timeout=15000)
+    expect(page.locator('#app')).to_be_visible(timeout=30000)
+    expect(page.locator('[data-key="remote.tls"] input')).not_to_be_checked()
     assert not errors, errors
     browser.close()
     print('Live settings across Media Player and other sections, peer writes, audio events, drafts, reconnects and idle traffic passed')

@@ -3696,6 +3696,18 @@ abstract class UiStrings {
   /// **'Announcements off'**
   String get intercomAnnouncementsoff;
 
+  /// Shown when kiosks have different intercom encryption settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Encryption mismatch'**
+  String get intercomEncryptionMismatch;
+
+  /// Shown when kiosks have different intercom encryption settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Encryption mismatch. Enable Encrypt communications on all kiosks in the call.'**
+  String get intercomEncryptionMismatchHelp;
+
   /// Translate the visible message. Keep placeholders and any technical names unchanged.
   ///
   /// In en, this message translates to:
@@ -6868,7 +6880,7 @@ abstract class UiStrings {
   /// Help below this setting.
   ///
   /// In en, this message translates to:
-  /// **'Require a username and password to view the stream. Streaming traffic is not encrypted.'**
+  /// **'Require a username and password to view the stream. Authentication does not enable encryption.'**
   String get settingCameraRtspAuthDescription;
 
   /// Setting label.
@@ -7008,6 +7020,18 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Add a black background behind the date and time for visibility.'**
   String get settingCameraRtspDateTimeBackgroundDescription;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Encrypt stream'**
+  String get settingCameraRtspTlsTitle;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Use TLS to encrypt video and audio. Requires a compatible viewer.'**
+  String get settingCameraRtspTlsDescription;
 
   /// Label or guidance in this section.
   ///
@@ -8749,6 +8773,18 @@ abstract class UiStrings {
   /// **'Could not listen on port {port}: {error}'**
   String devicePortError(String port, String error);
 
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Use HTTPS'**
+  String get settingRemoteTlsTitle;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Encrypt the remote admin, API and WebSocket. Your browser may ask you to accept the device certificate.'**
+  String get settingRemoteTlsDescription;
+
   /// Setting label.
   ///
   /// In en, this message translates to:
@@ -9306,6 +9342,188 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Shizuku helper is unavailable'**
   String get shizukuHelperUnavailable;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'TLS'**
+  String get tlsTLS;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection encryption and certificates'**
+  String get tlsConnectionEncryptionAndCertificates;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Certificate type'**
+  String get tlsCertificateType;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Imported'**
+  String get tlsImported;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Self-signed'**
+  String get tlsSelfSigned;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Expires'**
+  String get tlsExpires;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'SHA-256 fingerprint'**
+  String get tlsSHA256Fingerprint;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Certificate expired. Renew or import a replacement.'**
+  String get tlsCertificateExpiredRenewOrImportAReplacement;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy public certificate'**
+  String get tlsCopyPublicCertificate;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Download public certificate'**
+  String get tlsDownloadPublicCertificate;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Use this certificate in browsers and streaming clients.'**
+  String get tlsUseThisCertificateInBrowsersAndStreamingClients;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Renew certificate'**
+  String get tlsRenewCertificate;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep the current private key and update the certificate dates.'**
+  String get tlsKeepTheCurrentPrivateKeyAndUpdateTheCertificateDates;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Import certificate'**
+  String get tlsImportCertificate;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Use a certificate issued for this device.'**
+  String get tlsUseACertificateIssuedForThisDevice;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace certificate'**
+  String get tlsReplaceCertificate;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate a new private key and self-signed certificate.'**
+  String get tlsGenerateANewPrivateKeyAndSelfSignedCertificate;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate a new private key and certificate? Active encrypted connections will close. Browsers may ask you to accept the new certificate.'**
+  String
+  get tlsGenerateANewPrivateKeyAndCertificateActiveEncryptedConnectionsWillCloseBrowsersMayAskYouToAcceptTheNewCertificate;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste the PEM certificate chain and its unencrypted private key. They are validated before replacing the current certificate.'**
+  String
+  get tlsPasteThePEMCertificateChainAndItsUnencryptedPrivateKeyTheyAreValidatedBeforeReplacingTheCurrentCertificate;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Certificate chain (PEM)'**
+  String get tlsCertificateChainPEM;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Private key (PEM)'**
+  String get tlsPrivateKeyPEM;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'This field is required.'**
+  String get tlsThisFieldIsRequired;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace'**
+  String get tlsReplace;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Renew'**
+  String get tlsRenew;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable HTTPS before importing a private key remotely.'**
+  String get tlsEnableHTTPSBeforeImportingAPrivateKeyRemotely;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Certificate operation failed.'**
+  String get tlsCertificateOperationFailed;
+
+  /// Confirmation before changing the remote administration protocol.
+  ///
+  /// In en, this message translates to:
+  /// **'Change connection protocol'**
+  String get tlsChangeConnectionProtocol;
+
+  /// Confirmation before changing the remote administration protocol.
+  ///
+  /// In en, this message translates to:
+  /// **'The current remote connection will close. Reconnect using the address below. You may need to sign in again.'**
+  String get tlsConnectionProtocolHelp;
+
+  /// Confirmation before changing the remote administration protocol.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get tlsConfirm;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Certificate Management'**
+  String get tlsCertificateManagement;
 
   /// Label or explanation on this Device settings page.
   ///
@@ -11862,6 +12080,18 @@ abstract class UiStrings {
   /// **'Open'**
   String get intercomOpen;
 
+  /// Intercom encryption setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Encrypt communications'**
+  String get settingIntercomTlsTitle;
+
+  /// Intercom encryption setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Use TLS to encrypt intercom calls between kiosks. All kiosks in the call need this enabled.'**
+  String get settingIntercomTlsDescription;
+
   /// Label or guidance in this section.
   ///
   /// In en, this message translates to:
@@ -11871,7 +12101,7 @@ abstract class UiStrings {
   /// Label or guidance in this section.
   ///
   /// In en, this message translates to:
-  /// **'Discovered kiosks and saved fleet members. A kiosk is ready when it is reachable with intercom on and the same key.'**
+  /// **'Discovered kiosks and saved fleet members. A kiosk is ready when it is reachable with intercom on, the same key and matching encryption settings.'**
   String get intercomRosterHelp;
 
   /// Label or guidance in this section.

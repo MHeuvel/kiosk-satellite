@@ -44,7 +44,7 @@ class NativeMessagesTest {
     }
 
     @Test fun missingAndUnsupportedPreferencesUseEnglish() {
-        for (language in listOf(null, "system", "de", "es-MX")) {
+        for (language in listOf(null, "system", "xx", "es-MX")) {
             save(language)
             val strings = NativeMessages.forKiosk(device("es"))
             assertEquals("en", strings.resources.configuration.locales[0].language)
