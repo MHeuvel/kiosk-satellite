@@ -8,6 +8,9 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 - **microWakeWord uses about a third of the CPU it did.** The whole audio frontend now runs in native code, with results identical to before. On an Echo Show 8 the wake word thread dropped from 5.7% to 2.1% of a CPU core while listening.
 - **vsWakeWord listening is lighter.** Audio features are computed natively straight from the audio buffer, and the silence check only runs when a wake word matches. On an Echo Show 8 each 80 ms of audio takes 18% less processing, with identical detections.
 
+### Fixed
+- **Weather Mood no longer restarts the app in a loop on the Meta Portal Go.** Cloud images could render in one long GPU draw when the screensaver started. On a busy Portal Go that draw ran long enough for the graphics driver to reset the GPU and close the app, and each relaunch did it again about 17 seconds later. Clouds now always render in small pieces and fade in over the sky.
+
 ## v2026.9.79 - 2026-09-24
 
 ### Added

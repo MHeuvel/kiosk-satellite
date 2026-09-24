@@ -154,6 +154,16 @@ class WeatherMoodQuality {
       math.max(1, (1000000 / fps / period.inMicroseconds).round());
   Duration get interval => period * vsyncs;
 
+  /// Ray samples a single band may take. One draw over the whole cloud
+  /// image ran long enough on a busy Portal Go for the GPU driver to reset
+  /// the GPU and kill the app, so every device splits keyframes at least
+  /// this finely, whatever the frame rate allows.
+  static const maxBandSamples = 6000000;
+
+  /// The fewest bands a [width] by [height] cloud image may render in.
+  int minimumTiles(int width, int height) =>
+      math.max(1, (width * height * steps / maxBandSamples).ceil());
+
   /// Scene wind from 0 to 1, set by the renderer.
   double wind = 0;
 

@@ -116,6 +116,10 @@ void main() {
     expect(next.scale, .5);
     final high = WeatherMoodQuality(lowPower: false);
     expect(high.tiles, 1);
+    // No band may be large enough to trip a GPU hang reset: a full-size
+    // Portal Go keyframe splits into 13 bands, an Echo Show one needs none.
+    expect(high.minimumTiles(1100, 688), 13);
+    expect(quality.minimumTiles(358, 224), 1);
     expect(high.fps, 30);
     // Deliberate one-off work, such as a full image after a settings
     // change, does not count against the device.
