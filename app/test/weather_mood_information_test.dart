@@ -55,7 +55,7 @@ void main() {
       expect(defs.screensaverWeatherBar.defaultValue, true);
       expect(defs.screensaverWeatherClockShadow.defaultValue, true);
       expect(defs.screensaverWeatherBarShadow.defaultValue, true);
-      expect(defs.screensaverWeatherBarOpacity.defaultValue, 50);
+      expect(defs.screensaverWeatherBarOpacity.defaultValue, 60);
     },
   );
   test(
@@ -451,6 +451,14 @@ void main() {
         stacked.where((rect) => rect != main).every((r) => r.bottom < main.top),
         isTrue,
       );
+      // With every reading off, the lone conditions chip sits centered.
+      await c.settings.set(defs.screensaverWeatherBarHumidity, false);
+      await c.settings.set(defs.screensaverWeatherBarWind, false);
+      await c.settings.set(defs.screensaverWeatherBarVisibility, false);
+      await show(const Size(1280, 800), 100, 'en');
+      final lone = chipRects();
+      expect(lone, hasLength(1));
+      expect(lone.single.center.dx, closeTo(640, 1));
       readings.update({'state': 'unavailable'});
       await tester.pumpWidget(
         MaterialApp(

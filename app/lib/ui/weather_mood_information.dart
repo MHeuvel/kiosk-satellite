@@ -443,18 +443,21 @@ class WeatherMoodBar extends StatelessWidget {
       padding: EdgeInsets.fromLTRB(12 * scale, 0, 12 * scale, 12 * scale),
       child: Transform.translate(
         offset: offset,
-        child: OverflowBar(
-          spacing: gap * 2,
-          overflowSpacing: gap,
-          alignment: MainAxisAlignment.spaceBetween,
-          overflowAlignment: OverflowBarAlignment.start,
-          overflowDirection: VerticalDirection.up,
-          children: [
-            main,
-            if (metrics.isNotEmpty)
-              Wrap(spacing: gap, runSpacing: gap, children: metrics),
-          ],
-        ),
+        // A lone conditions chip sits centered; with readings it anchors
+        // the bottom left.
+        child: metrics.isEmpty
+            ? Center(child: main)
+            : OverflowBar(
+                spacing: gap * 2,
+                overflowSpacing: gap,
+                alignment: MainAxisAlignment.spaceBetween,
+                overflowAlignment: OverflowBarAlignment.start,
+                overflowDirection: VerticalDirection.up,
+                children: [
+                  main,
+                  Wrap(spacing: gap, runSpacing: gap, children: metrics),
+                ],
+              ),
       ),
     );
     // The chips take their natural height, so the clock above keeps all
