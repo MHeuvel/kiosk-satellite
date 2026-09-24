@@ -361,6 +361,33 @@ class IntercomManager extends Manager {
   /// off, so every opener and every closer meet at one place, the way the
   /// app launcher's [visible] works.
   final rosterVisible = ValueNotifier<bool>(false);
+
+  /// The states the full screen call card shows in, its last words
+  /// included.
+  static const callScreenStates = {
+    'calling',
+    'ringing',
+    'in_call',
+    'broadcasting',
+    'listening',
+    'ended',
+  };
+
+  /// Whether the roster or the call card fills the kiosk screen. An
+  /// announcement from Home Assistant has a card of its own.
+  bool get screenShown =>
+      rosterVisible.value ||
+      (callScreenStates.contains(_state) &&
+          !(_call?.automated == true && _call?.outgoing != true));
+  bool _screenShown = false;
+
+  void _syncScreenShown() {
+    final shown = screenShown;
+    if (shown == _screenShown) return;
+    _screenShown = shown;
+    bus.publish(FullscreenViewChanged(view: 'intercom', shown: shown));
+  }
+
   final _links = <String, _Link>{};
   final _kiosks = <String, IntercomKiosk>{};
   String _selfId = '';
@@ -457,6 +484,7 @@ class IntercomManager extends Manager {
         }
       }),
     );
+    rosterVisible.addListener(_syncScreenShown);
     _subs.add(bus.on<FleetChanged>().listen((_) => _readFleet()));
     _subs.add(
       bus.on<TlsIdentityChanged>().listen((_) {
@@ -2131,6 +2159,7 @@ class IntercomManager extends Manager {
         ),
       );
     }
+    _syncScreenShown();
     if (notify) _changed();
   }
 

@@ -427,6 +427,7 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
       _sendspinPlaying = e.playing;
       final changed = _sendspinNowPlaying != e.active;
       _sendspinNowPlaying = e.active;
+      _syncNowPlayingShown();
       // Mid-session flip: music started (dim gives way to Now Playing at
       // full brightness) or stopped (the configured mode re-asserts).
       if (_active) {
@@ -1351,6 +1352,19 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
   void _setView(String? view) {
     activeView.value = view;
     bus.publish(ScreensaverViewChanged(view: view));
+    _syncNowPlayingShown();
+  }
+
+  /// Whether the Now Playing view is on screen, as the screensaver overlay
+  /// draws it: a session with a visible view that the takeover fills.
+  bool _nowPlayingShown = false;
+
+  void _syncNowPlayingShown() {
+    final view = activeView.value;
+    final shown = view != null && view != 'blank' && _nowPlayingTakeover;
+    if (shown == _nowPlayingShown) return;
+    _nowPlayingShown = shown;
+    bus.publish(FullscreenViewChanged(view: 'nowPlaying', shown: shown));
   }
 
   /// Apply what the screensaver session should currently look like: the

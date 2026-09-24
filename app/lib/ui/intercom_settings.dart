@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../app_container.dart';
 import '../l10n/messages.dart';
 import '../core/events.dart';
+import '../managers/intercom/intercom_manager.dart' show IntercomManager;
 import '../managers/settings/definitions.dart' as defs;
 import 'kit.dart';
 import 'settings_search.dart';
@@ -1088,14 +1089,7 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
   Map<String, Object?> get _peer =>
       (_call['peer'] as Map?)?.cast<String, Object?>() ?? const {};
 
-  static const _shown = {
-    'calling',
-    'ringing',
-    'in_call',
-    'broadcasting',
-    'listening',
-    'ended',
-  };
+  static const _shown = IntercomManager.callScreenStates;
 
   @override
   void initState() {

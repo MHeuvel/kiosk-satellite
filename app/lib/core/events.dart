@@ -133,6 +133,17 @@ class ScreensaverViewChanged extends AppEvent {
   final String? view;
 }
 
+/// A full screen view came up or went: the Now Playing view in the
+/// screensaver slot (`nowPlaying`) or the intercom's roster or call screen
+/// (`intercom`). Internal: the remote admin labels its screenshot by it and
+/// takes a fresh one.
+class FullscreenViewChanged extends AppEvent {
+  const FullscreenViewChanged({required this.view, required this.shown});
+
+  final String view;
+  final bool shown;
+}
+
 /// A slideshow screensaver swapped to its next slide. Internal: the motion
 /// manager treats it like every other self-inflicted light change — a
 /// dark-to-bright photo relights the room exactly like the screensaver

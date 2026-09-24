@@ -1,5 +1,5 @@
 import { overviewLabel, overviewMessageBox as messageBox, overviewModalShell as modalShell } from './overview_labels.js';
-import { overviewText, overviewStatus, cameraError, deviceText, deviceOperationError, mediaText, mediaError, navigationText, t } from './localization.js';
+import { overviewText, overviewStatus, cameraError, deviceText, deviceOperationError, intercomText, mediaText, mediaError, navigationText, t } from './localization.js';
 import { watchUpdates } from './live.js';
 import { $, api, cmd, state } from './core.js';
 import { attachUpdateInstall, refreshUpdateBadge } from './device.js';
@@ -40,6 +40,8 @@ const ICONS = {
   camera: `<svg ${STROKE}><rect x="3" y="6.5" width="12.5" height="11" rx="2.5"/><path d="m15.5 10.5 5.5-3v9l-5.5-3"/></svg>`,
   play: `<svg ${STROKE}><path d="M8 5l10 7-10 7z"/></svg>`,
   pause: `<svg ${STROKE}><path d="M8 5v14M16 5v14"/></svg>`,
+  media: `<svg ${STROKE}><circle cx="12" cy="12" r="10"/><path d="m9.75 7.5 7 4.5-7 4.5z"/></svg>`,
+  intercom: `<svg ${STROKE}><rect x="3" y="3" width="11" height="18" rx="2.5"/><circle cx="8.5" cy="9" r="2.2"/><path d="M6.5 15.5h4"/><path d="M17.5 8.5a5 5 0 0 1 0 7M20 6a8.5 8.5 0 0 1 0 12"/></svg>`,
 };
 
 /* ---- Status tiles ----
@@ -603,11 +605,15 @@ export function paintShotBadge() {
   const el = $('#shotBadge');
   let icon = '';
   let text = '';
+  // Topmost first, the way the kiosk stacks them: the call card covers
+  // a camera wall, which covers the screensaver Now Playing fills.
   if (quick.screenOn === false) { icon = ICONS.screenOff; text = t('overviewScreenOffState'); }
+  else if (quick.intercom === true) { icon = ICONS.intercom; text = intercomText('Intercom'); }
   else if (quick.cameraView?.active) {
     icon = ICONS.camera;
     text = quick.cameraView.viewName ? t('overviewCameraViewNamed', {name: quick.cameraView.viewName}) : overviewText('Camera view');
-  } else if (quick.screensaverActive === true) { icon = ICONS.moon; text = overviewText('Screensaver'); }
+  } else if (quick.nowPlaying === true) { icon = ICONS.media; text = mediaText('Now playing'); }
+  else if (quick.screensaverActive === true) { icon = ICONS.moon; text = overviewText('Screensaver'); }
   el.classList.toggle('hidden', !text);
   el.innerHTML = icon;
   el.appendChild(document.createTextNode(text));

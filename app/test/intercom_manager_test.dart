@@ -882,6 +882,30 @@ void main() {
       expect(intercom.call, isNull);
     });
 
+    test('the roster and the call card report the screen they fill', () async {
+      await build();
+      final views = <bool>[];
+      bus.on<FullscreenViewChanged>().listen((e) {
+        if (e.view == 'intercom') views.add(e.shown);
+      });
+      intercom.rosterVisible.value = true;
+      intercom.rosterVisible.value = false;
+      await commands.execute('intercomIncoming', {
+        'call': 'c1',
+        'kind': 'call',
+        'from': {'id': 'kitchen', 'name': 'Kitchen', 'port': 2324},
+        'address': '192.168.1.70',
+        'token': tokenFor('c1'),
+      });
+      answers['POST /api/intercom/call/c1'] = (_) => {'ok': true};
+      await commands.execute('intercomDecline', const {});
+      await pumpEventQueue();
+      // The card holds its last words, then goes.
+      expect(views, [true, false, true]);
+      await settle(200);
+      expect(views, [true, false, true, false]);
+    });
+
     test('answering opens playback and tells the caller', () async {
       await build();
       answers['POST /api/intercom/call/c1'] = (_) => {'ok': true};

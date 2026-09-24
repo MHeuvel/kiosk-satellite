@@ -244,7 +244,11 @@ carries a **Bring to front** button entity.
 Connect to `/api/ws?token=<admin-token>`. Messages are JSON objects with a
 `type`. Fleet tokens cannot use this endpoint. The server sends a `state`
 snapshot on connection with device identity, battery, brightness,
-`screenOn`, `screensaverActive`, `cameraView` and `currentUrl`.
+`screenOn`, `screensaverActive`, `cameraView`, `nowPlayingShown`,
+`intercomShown` and `currentUrl`. Subscribers to `events` also get
+`{"type":"fullscreen-view","view":"nowPlaying","shown":true}` whenever the
+Now Playing view (`nowPlaying`) or the intercom's roster or call screen
+(`intercom`) comes up or goes.
 
 Subscribe to the data this client needs. Each `subscribe` replaces the
 previous topic set. An empty list unsubscribes from all live data. Clients
@@ -326,7 +330,8 @@ adding a module is just adding the file. Tabs: Overview (a Needs attention card 
 to install, a missing grant a switched-on feature needs, a lost Home
 Assistant connection or a stopped wake word engine, hidden while there is
 nothing; the screenshot with a badge while the panel is dark, on the
-screensaver or showing a camera view, a Still or Live toggle, full size and
+screensaver, showing Now Playing, the intercom or a camera view, taken again
+a second after any of those changes, a Still or Live toggle, full size and
 download; status tiles for Home Assistant, Voice Satellite, ESPHome, Media
 Player, the service and updates, each opening its page, and CPU, memory and
 temperature tiles with the last fifteen minutes as a stack of cells per

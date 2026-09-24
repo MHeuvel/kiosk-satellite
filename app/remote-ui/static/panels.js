@@ -484,7 +484,9 @@ $('#viewJump').addEventListener('change', async (e) => {
    is the device's: the state snapshot at connect (and /api/info at boot)
    seeds it, the event feed moves it, and a command this page sent is not
    assumed to have worked; the tile flips when the device says so. */
-export const quick = { screenOn: null, screensaverActive: null, cameraView: null };
+export const quick = {
+  screenOn: null, screensaverActive: null, cameraView: null, nowPlaying: null, intercom: null,
+};
 
 const STROKE = 'viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
 // The off/dismiss face of each pair is the on face with a slash, the
@@ -522,7 +524,7 @@ export function renderQuickControls() {
   setTile('tileCameraView', quick.cameraView?.active
     ? { icon: 'cameraHide', label: 'Dismiss camera view', command: 'hideCameraView' }
     : { icon: 'cameraShow', label: 'Show camera view', command: null });
-  // The Overview's screenshot badge reads the same three states.
+  // The Overview's screenshot badge reads the same states.
   document.dispatchEvent(new CustomEvent('ks-quick'));
 }
 
@@ -537,6 +539,8 @@ export function applyQuickState(device, keep = {}) {
     quick.screensaverActive = device.screensaverActive;
   }
   if ('cameraView' in device && !keep.cameraView) quick.cameraView = device.cameraView;
+  if ('nowPlayingShown' in device && !keep.nowPlaying) quick.nowPlaying = device.nowPlayingShown;
+  if ('intercomShown' in device && !keep.intercom) quick.intercom = device.intercomShown;
   renderQuickControls();
 }
 
@@ -557,6 +561,14 @@ export function applyQuickEvent(event, data) {
   else if (event === 'cameraview') quick.cameraView = data || { active: false };
   else return;
   renderQuickControls();
+}
+
+// Now Playing or the intercom filling the screen: no tile of their own,
+// only the screenshot badge.
+export function applyFullscreenView(view, shown) {
+  if (view !== 'nowPlaying' && view !== 'intercom') return;
+  quick[view] = shown;
+  document.dispatchEvent(new CustomEvent('ks-quick'));
 }
 
 // "Show camera view" has a question the other tiles do not: which one.

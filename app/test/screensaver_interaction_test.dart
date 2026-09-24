@@ -132,6 +132,32 @@ void main() {
     );
   }
 
+  test('Now Playing reports the screen it fills', () async {
+    await build(nowPlaying: true);
+    final views = <bool>[];
+    bus.on<FullscreenViewChanged>().listen((e) {
+      if (e.view == 'nowPlaying') views.add(e.shown);
+    });
+    // Playing behind the dashboard fills nothing yet.
+    bus.publish(const SendspinNowPlayingChanged(active: true, playing: true));
+    await pumpEventQueue();
+    expect(views, isEmpty);
+    await saver.start();
+    await pumpEventQueue();
+    expect(views, [true]);
+    // Music stopping under the screensaver gives the slot back to its mode.
+    bus.publish(const SendspinNowPlayingChanged(active: false));
+    await pumpEventQueue();
+    expect(views, [true, false]);
+    expect(saver.isActive, isTrue);
+    bus.publish(const SendspinNowPlayingChanged(active: true, playing: true));
+    await pumpEventQueue();
+    expect(views, [true, false, true]);
+    await saver.stop();
+    await pumpEventQueue();
+    expect(views, [true, false, true, false]);
+  });
+
   test(
     'Now Playing returns when a wake turn ends without a page signal',
     () async {

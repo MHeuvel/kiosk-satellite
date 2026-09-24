@@ -48,6 +48,9 @@ class RemoteManager extends Manager {
   @override
   String get commandSource => 'remote admin';
 
+  /// The full screen views up right now, from [FullscreenViewChanged].
+  final _fullscreenViews = <String>{};
+
   late final _intercomRoutes = IntercomRoutes(
     commands,
     requiresTls: () => _settings.get(defs.intercomTls),
@@ -259,6 +262,25 @@ class RemoteManager extends Manager {
       bus.on<MicLevelSample>().listen((e) {
         if (_wsClients.isEmpty) return;
         _broadcast({'type': 'micLevel', 'rms': e.rms});
+      }),
+    );
+
+    // Now Playing and the intercom screens, likewise internal: the
+    // Overview labels its screenshot by them and takes a fresh one.
+    _subscriptions.add(
+      bus.on<FullscreenViewChanged>().listen((e) {
+        if (e.shown) {
+          _fullscreenViews.add(e.view);
+        } else {
+          _fullscreenViews.remove(e.view);
+        }
+        if (_wsClients.isEmpty) return;
+        // With the screen events: the same clients redraw from both.
+        _broadcast({
+          'type': 'fullscreen-view',
+          'view': e.view,
+          'shown': e.shown,
+        }, topic: 'events');
       }),
     );
 
@@ -822,8 +844,9 @@ class RemoteManager extends Manager {
   /// "Screen off" or "Screen on" by what the panel is doing, and a tile
   /// born saying one of them before anyone asked would be guessing. Live
   /// changes reach the client through the event feed (screenon/screenoff,
-  /// screensaverstart/screensaverstop, cameraview); this is the snapshot
-  /// they diff against.
+  /// screensaverstart/screensaverstop, cameraview, and fullscreen-view
+  /// messages for Now Playing and the intercom screens); this is the
+  /// snapshot they diff against.
   Future<Map<String, Object?>> _deviceState() async {
     final device = await commands.execute('getDeviceInfo', const {});
     final brightness = await commands.execute('getBrightness', const {});
@@ -836,6 +859,8 @@ class RemoteManager extends Manager {
       'screenOn': screenOn.ok ? screenOn.data as bool? : null,
       'screensaverActive': screensaver.ok ? screensaver.data as bool? : null,
       'cameraView': cameraView.ok ? cameraView.data : null,
+      'nowPlayingShown': _fullscreenViews.contains('nowPlaying'),
+      'intercomShown': _fullscreenViews.contains('intercom'),
       'currentUrl': _currentUrl,
     };
   }
