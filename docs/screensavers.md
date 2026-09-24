@@ -202,6 +202,8 @@ Displays a single Home Assistant entity in a display corner over any mode except
 | Color | White | Applies to icon, value, and label text. |
 | Show name | On | Disabling this hides the bottom label, displaying only the icon and value. |
 
+The widget hides completely, vignette included, while the value is blank. A text sensor that clears when an alert ends takes the widget with it and brings it back with the next alert. Unknown and Unavailable still display.
+
 Entity formatting matches At a Glance rules: custom Home Assistant icons display when set (falling back to domain defaults), numeric states round to configured precision with units, and state strings convert to clean text. Values update in real time over a live Home Assistant subscription and persist through brief network drops.
 
 ## Brightness

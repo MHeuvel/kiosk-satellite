@@ -14,6 +14,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 - **Immich Media leaves out archived media.** Photos and videos archived in Immich no longer show in the slideshow, including ones inside a selected album. Immich keeps archived media out of the timeline, and the screensaver now does the same.
 
 ### Fixed
+- **Blank values hide the entity widget and At a Glance chips.** A text sensor with no value showed "…", over a corner vignette on the entity widget. The entity widget now disappears completely and its At a Glance chip drops out of the row while the state, or the chosen attribute, is blank. Both return with the next value.
 - **Do not disturb no longer follows the fleet leader.** Turning on Do not disturb on a leader put every follower on Do not disturb too, because the intercom answer mode synced with the Intercom category. The answer mode now joins the settings new profiles leave out, and profiles whose exclusions were never edited pick it up automatically. Add **Answer mode** back to a profile to share it across the fleet.
 - **Weather Mood no longer restarts the app in a loop on the Meta Portal Go.** Cloud images could render in one long GPU draw when the screensaver started. On a busy Portal Go that draw ran long enough for the graphics driver to reset the GPU and close the app, and each relaunch did it again about 17 seconds later. Clouds now always render in small pieces and fade in over the sky.
 

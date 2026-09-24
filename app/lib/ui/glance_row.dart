@@ -94,7 +94,14 @@ class GlanceRow extends StatelessWidget {
     BuildContext context,
   ) => ValueListenableBuilder<List<GlanceEntity>>(
     valueListenable: container.glance.entities,
-    builder: (context, entities, _) {
+    builder: (context, all, _) {
+      // A chip whose value is blank has nothing to say (issue #691): a
+      // text sensor that empties once its alert clears drops out of the
+      // row and comes back with the next value.
+      final entities = [
+        for (final entity in all)
+          if (!glanceValueBlank(entity)) entity,
+      ];
       if (entities.isEmpty) return const SizedBox.shrink();
       final cards = !container.settings.get(defs.screensaverGlanceTextOnly);
       // Hide names: icon and value only, the value grown into the
@@ -622,6 +629,19 @@ String glanceStateText(GlanceEntity entity, {UiStrings? strings}) {
   }
   final pretty = _pretty(state);
   return unit == null || unit.isEmpty ? pretty : '$pretty $unit';
+}
+
+/// Whether an entity's reading is in but blank (issue #691): an empty
+/// state, or an empty or missing attribute when it shows one. The row
+/// leaves the chip out and the entity widget hides rather than showing
+/// "…". Unavailable still reads.
+bool glanceValueBlank(GlanceEntity entity) {
+  final state = entity.state;
+  if (state == null) return false;
+  if (state.trim().isEmpty) return true;
+  if (state == 'unavailable') return false;
+  if (entity.attribute == null) return false;
+  return (entity.attributeValue ?? '').trim().isEmpty;
 }
 
 String _pretty(String value) => value

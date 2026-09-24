@@ -1885,9 +1885,11 @@ class _EntityWidgetOverlayState extends State<EntityWidgetOverlay> {
 
   @override
   Widget build(BuildContext context) {
-    // Nothing until the first reading: an empty corner beats a widget that
-    // says "…" on the way in.
-    if (_entity.state == null) return const SizedBox.shrink();
+    // Nothing until the first reading, and nothing while the value is
+    // blank: an empty corner beats a widget that says "…".
+    if (_entity.state == null || glanceValueBlank(_entity)) {
+      return const SizedBox.shrink();
+    }
     final corner = _cornerAlignment(widget.spec.position);
     final color = widget.nightColor ?? _widgetRgb(widget.spec.config['color']);
     final size = MediaQuery.of(context).size;
