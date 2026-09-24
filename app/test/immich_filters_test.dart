@@ -60,6 +60,11 @@ void main() {
   ];
   var peopleStatus = 200;
   var peopleWithHidden = '';
+
+  /// Whether the fake server honors the search's `visibility` field the
+  /// way Immich does. Off, it answers archived assets anyway, like a
+  /// server from before the field.
+  var honorsVisibility = true;
   var peoplePages = <List<Map<String, Object?>>>[
     [
       {'id': 'bob', 'name': 'Bob'},
@@ -71,6 +76,7 @@ void main() {
 
   setUp(() async {
     searches.clear();
+    honorsVisibility = true;
     peopleStatus = 200;
     peopleWithHidden = '';
     server = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
@@ -107,11 +113,16 @@ void main() {
               (wantTags == null || wantTags.every(tags.contains)) &&
               (body['isFavorite'] != true || asset['favorite'] == true) &&
               (after == null || taken.isAfter(after)) &&
-              (before == null || taken.isBefore(before));
+              (before == null || taken.isBefore(before)) &&
+              (!honorsVisibility ||
+                  body['visibility'] == null ||
+                  body['visibility'] ==
+                      (asset['archived'] == true ? 'archive' : 'timeline'));
           if (matches) {
             items.add({
               'id': asset['id'],
               'type': 'IMAGE',
+              'visibility': asset['archived'] == true ? 'archive' : 'timeline',
               'fileCreatedAt':
                   '2026-01-${(30 - index).toString().padLeft(2, '0')}T00:00:00.000Z',
               if (body['withPeople'] == true)
@@ -193,6 +204,52 @@ void main() {
     expect(searches.single.keys, isNot(contains('isFavorite')));
     expect(searches.single.keys, isNot(contains('takenAfter')));
     expect(searches.single.keys, isNot(contains('withPeople')));
+  });
+
+  group('archived media (issue #681)', () {
+    setUp(() {
+      library = [
+        ...library,
+        {
+          'id': 'archived',
+          'people': <String>[],
+          'tags': <String>[],
+          'albums': <String>['alb1'],
+          'archived': true,
+        },
+      ];
+    });
+    tearDown(() {
+      library = [
+        for (final asset in library)
+          if (asset['id'] != 'archived') asset,
+      ];
+    });
+
+    test('every search asks for the timeline only, in both generations\' '
+        'fields', () async {
+      expect(ids(await immich.listAssets()), ['a', 'b', 'c', 'd']);
+      expect(searches.single['visibility'], 'timeline');
+      expect(searches.single['isArchived'], isFalse);
+    });
+
+    test('an album pick still leaves archived media out', () async {
+      await settings.set(
+        defs.screensaverImmichAlbum,
+        jsonEncode([
+          {'id': 'alb1', 'name': 'One'},
+        ]),
+      );
+      expect(ids(await immich.listAssets()), ['a', 'c']);
+    });
+
+    test(
+      'a server that answers archived media anyway has it dropped',
+      () async {
+        honorsVisibility = false;
+        expect(ids(await immich.listAssets()), ['a', 'b', 'c', 'd']);
+      },
+    );
   });
 
   test('several albums mean any of them: one search each, merged', () async {

@@ -42,7 +42,7 @@ Your playlist refreshes from the server every time the screensaver starts. Any n
 
 ## Filters
 
-A full phone backup often contains receipts, documents, and screenshots alongside family memories. The **Filters** settings let you refine your source media so your screen displays only what belongs on a photo frame. Every active filter must be satisfied for a photo to appear, and photos are never duplicated.
+A full phone backup often contains receipts, documents, and screenshots alongside family memories. The **Filters** settings let you refine your source media so your screen displays only what belongs on a photo frame. Every active filter must be satisfied for a photo to appear, and photos are never duplicated. Archived media never appears, even inside a selected album, since Immich keeps it out of the timeline too.
 
 * **People:** Displays media containing any of the selected individuals. Tap the row to select recognized people from your Immich library. Be sure to name your recognized face clusters in Immich first, as unnamed clusters will not appear in the picker. Individuals you have hidden in Immich will appear marked as **Hidden** with a struck out eye icon. Hiding someone in Immich only removes them from Immich's internal views, so both filters still work as expected.
 * **Exclude people:** Automatically skips any media containing the specified people, regardless of who else is in the shot. Because Immich cannot perform this check directly, the kiosk requests person data for each asset and filters out matches locally.

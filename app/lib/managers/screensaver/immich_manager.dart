@@ -898,6 +898,11 @@ class ImmichManager extends Manager {
   /// several as "all of them in the same photo", and a frame set to show
   /// the kids wants either of them. [withPeople] asks for each asset's
   /// people, which the exclusion filter reads.
+  ///
+  /// Archived media never shows (issue #681): Immich keeps it out of the
+  /// timeline, and a frame should respect that. `visibility` is how
+  /// Immich asks for it today and `isArchived` is how older servers did.
+  /// Each generation drops the field it does not know, so both go along.
   Future<Map<String, dynamic>> _search({
     required int page,
     required int size,
@@ -918,6 +923,8 @@ class ImmichManager extends Manager {
             'page': page,
             'size': size,
             'withExif': withExif,
+            'visibility': 'timeline',
+            'isArchived': false,
             if (withPeople) 'withPeople': true,
             if (albumId != null && albumId.isNotEmpty) 'albumIds': [albumId],
             if (personId != null) 'personIds': [personId],
@@ -1032,6 +1039,7 @@ class ImmichManager extends Manager {
               final id = item['id'] as String;
               if (created.containsKey(id)) continue;
               if (hiddenByTag.contains(id)) continue;
+              if (_isArchived(item)) continue;
               final isVideo = item['type'] == 'VIDEO';
               if (photosOnly && isVideo) continue;
               if (excluded.isNotEmpty &&
@@ -1115,6 +1123,11 @@ class ImmichManager extends Manager {
   /// the playlist's own ceiling, and a tag meant to hide a few unsuitable
   /// photos never comes close.
   static const _maxExcludedPages = 20;
+
+  /// Whether a search answer marks the asset as archived, in either
+  /// generation's field, for a server that ignored the search's own ask.
+  static bool _isArchived(Map item) =>
+      item['visibility'] == 'archive' || item['isArchived'] == true;
 
   /// Whether an asset's `people` list (present with `withPeople`) names
   /// anyone in [ids].
