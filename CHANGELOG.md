@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Fixed
+- **The ADB update helper no longer fills storage on Android 10 and older.** Android kept every downloaded update open after the helper deleted it, so each update held on to about 190 MB of storage until the helper stopped or the device restarted. The helper now releases each update file before deleting it.
+
 ## v2026.9.80 - 2026-09-24
 
 ### Changed

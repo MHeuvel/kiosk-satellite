@@ -202,8 +202,21 @@ public final class UpdateHelper {
             catch (IOException ignored) { }
             throw e;
         } finally {
-            if (apk != null) apk.delete();
+            if (apk != null) {
+                releaseArchive();
+                apk.delete();
+            }
         }
+    }
+
+    /**
+     * getPackageArchiveInfo leaves the APK open until its ApkAssets are
+     * finalized (Android 10 and older). This process rarely collects, so
+     * each deleted upload kept its disk space until the helper exited.
+     */
+    private static void releaseArchive() {
+        System.gc();
+        System.runFinalization();
     }
 
     private static long version(PackageInfo info) {
