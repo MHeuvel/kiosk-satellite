@@ -7680,6 +7680,8 @@ const fleetDefaultExcluded = {
   'screen.orientation',
   // The intercom volume: every speaker is its own, like the other volumes.
   'intercom.volume',
+  // The answer mode carries Do not disturb, which each room sets for itself.
+  'intercom.answer_mode',
 };
 
 /// What [fleetDefaultExcluded] used to be, oldest first: a profile still on
@@ -7781,6 +7783,40 @@ const fleetFormerDefaultExcluded = <Set<String>>[
     'camera.snapshot_resolution',
     'browser.cutout_mode',
     'screen.orientation',
+  },
+  // Before the intercom answer mode joined (2026.9.80).
+  {
+    'browser.zoom',
+    'screensaver.website_zoom',
+    'screensaver.clock_scale',
+    'screensaver.widget_scale',
+    'screensaver.immich_metadata_scale',
+    'screensaver.glance_scale',
+    'face.preview_scale',
+    'sendspin.player_size',
+    'screen.default_brightness',
+    'screen.adaptive_min_brightness',
+    'screen.adaptive_max_brightness',
+    'screen.adaptive_dark_lux',
+    'screen.adaptive_bright_lux',
+    'screensaver.brightness_level',
+    'screensaver.dim_level',
+    'audio.media_volume',
+    'audio.assistant_volume',
+    'notifications.volume',
+    'ha.tap_sound_volume',
+    'screensaver.gallery_items',
+    'screensaver.local_folder',
+    'screensaver.clock_background',
+    'notifications.chime_file',
+    'launcher.apps',
+    'motion.sensitivity',
+    'motion.fps',
+    'face.sensitivity',
+    'camera.snapshot_resolution',
+    'browser.cutout_mode',
+    'screen.orientation',
+    'intercom.volume',
   },
 ];
 

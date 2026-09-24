@@ -90,7 +90,7 @@ Home Assistant cannot talk on a call: the kiosks hold the microphones. To speak 
 
 ## Fleet Management
 
-The Intercom category syncs like the others. The key travels only as a credential, on by default in new profiles, so a fleet shares one key without anyone typing it. The intercom volume stays out of new profiles like the other volumes.
+The Intercom category syncs like the others. The key travels only as a credential, on by default in new profiles, so a fleet shares one key without anyone typing it. The intercom volume stays out of new profiles like the other volumes. So does the answer mode, so Do not disturb on one kiosk never mutes the rest of the fleet. Add **Answer mode** back to a profile to share it.
 
 ## Remote API
 

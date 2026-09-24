@@ -889,7 +889,7 @@ void main() {
             'categories': [],
             'credentials': ['ha.token', 'bogus'],
           })!.describe(),
-          'Categories: 0 of 17. Credentials: 1 of 4. Excluded: 31.',
+          'Categories: 0 of 17. Credentials: 1 of 4. Excluded: 32.',
         );
         expect(
           withCreds['browser.start_url'],
@@ -1855,11 +1855,11 @@ void main() {
       expect(former.containsAll(previous), isTrue);
       previous = former;
     }
-    // The intercom volume joined last: the newest former list is the
+    // The intercom answer mode joined last: the newest former list is the
     // current one without it.
     expect(
       defs.fleetFormerDefaultExcluded.last,
-      defs.fleetDefaultExcluded.difference({'intercom.volume'}),
+      defs.fleetDefaultExcluded.difference({'intercom.answer_mode'}),
     );
   });
 

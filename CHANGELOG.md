@@ -13,6 +13,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 - **More open skies in the Cloudy scene.** Weather Mood's Cloudy scene has a quarter less cloud cover, so more of the sky shows between the clouds.
 
 ### Fixed
+- **Do not disturb no longer follows the fleet leader.** Turning on Do not disturb on a leader put every follower on Do not disturb too, because the intercom answer mode synced with the Intercom category. The answer mode now joins the settings new profiles leave out, and profiles whose exclusions were never edited pick it up automatically. Add **Answer mode** back to a profile to share it across the fleet.
 - **Weather Mood no longer restarts the app in a loop on the Meta Portal Go.** Cloud images could render in one long GPU draw when the screensaver started. On a busy Portal Go that draw ran long enough for the graphics driver to reset the GPU and close the app, and each relaunch did it again about 17 seconds later. Clouds now always render in small pieces and fade in over the sky.
 
 ## v2026.9.79 - 2026-09-24
