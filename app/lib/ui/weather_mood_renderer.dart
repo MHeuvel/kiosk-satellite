@@ -19,16 +19,37 @@ class WeatherMoodRenderer extends StatefulWidget {
     required this.active,
     required this.lowPower,
     this.immediate = false,
+    this.revealed = true,
+    this.revealToken = 0,
+    this.onReady,
     this.onError,
   });
   final String condition;
   final double twilight;
   final bool night, lightning, active, lowPower, immediate;
+
+  /// Whether the scene is on screen yet. Hidden, a finished cloud image
+  /// replaces the previous one instead of fading in over it.
+  final bool revealed;
+
+  /// Passed back through [onReady], so a caller can tell which change the
+  /// finished scene reflects.
+  final int revealToken;
+
+  /// Called once the sky and a full cloud image for the latest immediate
+  /// change are on screen, with the [revealToken] current at that change.
+  final void Function(int token)? onReady;
   final void Function(Object error)? onError;
 
   @override
   State<WeatherMoodRenderer> createState() => _WeatherMoodRendererState();
 }
+
+/// Forgets the loaded shader programs. Each widget test has its own
+/// binding, and programs and textures loaded in one are not usable in the
+/// next.
+@visibleForTesting
+void resetWeatherMoodPrograms() => _Programs._cache.clear();
 
 class _Programs {
   _Programs(this.sky, this.clouds, this.blend, this.noise, this.flipBlend);
@@ -172,6 +193,9 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
           true;
   double? _lastTime;
   double _pixelRatio = 1;
+  // Set by every immediate change until the scene it asked for is complete.
+  bool _awaitingReady = true, _keyframeSinceSnap = false;
+  int _readyToken = 0;
   int _diagnosticFrames = 0;
   int _diagnosticClouds = 0;
   double _diagnosticTime = 0;
@@ -253,7 +277,9 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
   @override
   void didUpdateWidget(WeatherMoodRenderer oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.condition != widget.condition ||
+    if (oldWidget.revealToken != widget.revealToken) {
+      _update(immediate: true);
+    } else if (oldWidget.condition != widget.condition ||
         oldWidget.night != widget.night ||
         oldWidget.twilight != widget.twilight ||
         oldWidget.lightning != widget.lightning ||
@@ -325,9 +351,22 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
       _scene.twilight,
     );
     try {
+      if (_snap) {
+        _awaitingReady = true;
+        _keyframeSinceSnap = false;
+        _readyToken = widget.revealToken;
+      }
       _renderSky(frame, size);
       _renderClouds(frame, size);
       _snap = false;
+      if (_awaitingReady && (!frame.hasClouds || _keyframeSinceSnap)) {
+        _awaitingReady = false;
+        final token = _readyToken;
+        // After the frame that shows it.
+        SchedulerBinding.instance.addPostFrameCallback((_) {
+          if (mounted) widget.onReady?.call(token);
+        });
+      }
       _frame = frame;
       _repaint.value++;
       if (const bool.fromEnvironment('WEATHER_MOOD_DIAGNOSTICS')) {
@@ -435,6 +474,7 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
         _renderBand(_cloudShader!, build);
       }
       _cloudNext = build.compose();
+      _keyframeSinceSnap = true;
       _diagnosticClouds++;
       return;
     }
@@ -472,9 +512,16 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
     if (build.done) {
       final shown = _cloudNext;
       if (_cloudPrevious != _clear) _cloudPrevious?.dispose();
-      // The first clouds fade in from the bare sky.
-      _cloudPrevious = shown ?? _clear;
+      if (widget.revealed) {
+        // The first clouds fade in from the bare sky.
+        _cloudPrevious = shown ?? _clear;
+      } else {
+        // Nobody sees the scene yet, so it starts on the finished clouds.
+        _cloudPrevious = null;
+        shown?.dispose();
+      }
       _cloudNext = build.compose();
+      _keyframeSinceSnap = true;
       _build = null;
       _cloudTick = 0;
       _diagnosticClouds++;

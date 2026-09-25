@@ -117,12 +117,39 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
   bool _screenOn = true;
   bool _foreground = true;
   bool _immediate = false;
+  // The scene stays black until the first weather reaches it and its
+  // first full frame is ready, so it never morphs out of a placeholder.
+  bool _dataReady = false, _revealed = false;
+  // Flutter switches from its image view back to its own surface once the
+  // dashboard stops rendering behind the screensaver, and that switch can
+  // show one blank frame. Revealing only after it keeps that frame black.
+  bool _sceneDone = false, _surfaceSettled = false;
+  Timer? _surfaceTimer;
+  bool _gotEntity = false, _gotSun = false;
+  int _revealToken = 0;
+  Timer? _sunGrace, _revealTimeout;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     _foreground = Lifecycle.onScreen;
+    // Previews and missing entities have nothing to wait for.
+    _dataReady =
+        widget.container.settings.get(defs.screensaverWeatherPreview) ||
+        widget.container.settings
+            .get(defs.screensaverWeatherEntity)
+            .trim()
+            .isEmpty;
+    // Without Home Assistant, the neutral scene appears after a moment.
+    _revealTimeout = Timer(const Duration(seconds: 4), () {
+      if (mounted && !_revealed) setState(() => _revealed = true);
+    });
+    final frozen = widget.container.browser.renderingFrozenState;
+    frozen.addListener(_dashboardFrozen);
+    // Without a dashboard to pause there is no switch to wait for.
+    _surfaceTimer = Timer(const Duration(seconds: 2), _settleSurface);
+    _dashboardFrozen();
     _screenOn = widget.container.screen.isScreenOn;
     _screen = widget.container.bus.on<ScreenStateChanged>().listen((event) {
       _screenOn = event.on;
@@ -208,7 +235,18 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
             _condition = value as String;
           }
         }
-        unawaited(_update());
+        if (_dataReady) {
+          unawaited(_update());
+          return;
+        }
+        if (id == 'sun.sun') _gotSun = true;
+        if (id == entity) _gotEntity = true;
+        if (_gotEntity && _gotSun) {
+          _markDataReady();
+        } else if (_gotEntity) {
+          // The sun usually follows at once; not every install has one.
+          _sunGrace ??= Timer(const Duration(seconds: 1), _markDataReady);
+        }
       },
     );
     if (!mounted || generation != _generation) {
@@ -235,6 +273,44 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
     }
   }
 
+  /// The first real weather lands at once instead of transitioning from
+  /// the placeholder scene.
+  void _markDataReady() {
+    if (!mounted || _dataReady) return;
+    _sunGrace?.cancel();
+    _dataReady = true;
+    _revealToken++;
+    unawaited(_update(immediate: true));
+  }
+
+  void _sceneFinished(int token) {
+    // A placeholder scene finishing before the weather arrives carries an
+    // older token, or arrives while the data is still missing.
+    if (!mounted || token != _revealToken || !_dataReady) return;
+    _sceneDone = true;
+    _maybeReveal();
+  }
+
+  void _dashboardFrozen() {
+    if (!mounted || _surfaceSettled) return;
+    if (widget.container.browser.renderingFrozenState.value) {
+      // The switch completes within a couple of frames of the freeze.
+      _surfaceTimer?.cancel();
+      _surfaceTimer = Timer(const Duration(milliseconds: 250), _settleSurface);
+    }
+  }
+
+  void _settleSurface() {
+    if (!mounted) return;
+    _surfaceSettled = true;
+    _maybeReveal();
+  }
+
+  void _maybeReveal() {
+    if (_revealed || !_sceneDone || !_surfaceSettled) return;
+    setState(() => _revealed = true);
+  }
+
   Future<void> _update({bool immediate = false}) async {
     if (!mounted) return;
     setState(() => _immediate = immediate);
@@ -258,6 +334,12 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
     _screen?.cancel();
     _retry?.cancel();
     _clock?.cancel();
+    _sunGrace?.cancel();
+    _revealTimeout?.cancel();
+    _surfaceTimer?.cancel();
+    widget.container.browser.renderingFrozenState.removeListener(
+      _dashboardFrozen,
+    );
     unawaited(_live?.close());
     super.dispose();
   }
@@ -316,6 +398,9 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
               ),
               active: _screenOn && _foreground,
               immediate: _immediate,
+              revealed: _revealed,
+              revealToken: _revealToken,
+              onReady: _sceneFinished,
               lowPower:
                   widget.container.device.abis.isNotEmpty &&
                   !widget.container.device.abis.any(
@@ -328,10 +413,24 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
             ),
           ),
         ),
-        WeatherMoodInformation(
-          container: widget.container,
-          readings: _readings,
-          translations: _translations,
+        // Black until the scene is ready, then a quick fade into it. The
+        // clock and weather chips join the scene, so the screen stays fully
+        // black through the surface switch.
+        IgnorePointer(
+          child: AnimatedOpacity(
+            opacity: _revealed ? 0 : 1,
+            duration: const Duration(milliseconds: 350),
+            child: const ColoredBox(color: Colors.black),
+          ),
+        ),
+        AnimatedOpacity(
+          opacity: _revealed ? 1 : 0,
+          duration: const Duration(milliseconds: 350),
+          child: WeatherMoodInformation(
+            container: widget.container,
+            readings: _readings,
+            translations: _translations,
+          ),
         ),
       ],
     );

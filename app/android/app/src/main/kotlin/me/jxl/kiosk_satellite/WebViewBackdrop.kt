@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.webkit.WebView
 import io.flutter.embedding.android.FlutterImageView
+import io.flutter.embedding.android.FlutterSurfaceView
 import io.flutter.embedding.android.FlutterView
 
 /** Avoid sampling Flutter's background while the dashboard covers it. */
@@ -17,6 +18,7 @@ class WebViewBackdrop(activity: Activity) : ViewTreeObserver.OnPreDrawListener {
     private val viewport = Rect()
     private val pageBounds = Rect()
     private var hidden: FlutterImageView? = null
+    private var staleSurface: FlutterSurfaceView? = null
     private var backedPage: WebView? = null
 
     init {
@@ -51,13 +53,56 @@ class WebViewBackdrop(activity: Activity) : ViewTreeObserver.OnPreDrawListener {
         val next = if (covers && opaque) image else null
         if (page == null) backedPage = null
         if (hidden !== next) {
-            hidden?.alpha = 1f
+            hidden?.let(::reveal)
             hidden = next
         }
         // Flutter can replace or reattach its image surface after a route
         // transition. Reassert only when necessary to avoid redraw loops.
         if (next != null && next.alpha != 0f) next.alpha = 0f
+        discardStaleSurface(flutter, next != null)
         return true
+    }
+
+    /**
+     * While the dashboard covers the window Flutter draws into its image
+     * view, and its paused SurfaceView keeps the last frame from before,
+     * such as the end of the previous screensaver. When Flutter switches
+     * back, it drops the image view as soon as the surface's first frame is
+     * submitted, which can be a refresh before that frame is on screen, so
+     * the old frame flashed. Hiding the surface while it is covered discards
+     * that buffer; shown again, it starts empty behind the image view.
+     * Flutter ignores the surface being destroyed and recreated while it is
+     * paused, and connects to the new one when it resumes.
+     */
+    private fun discardStaleSurface(flutter: FlutterView?, covered: Boolean) {
+        val surface = flutter?.let { findSurface(it) } ?: return
+        if (covered && staleSurface !== surface) {
+            staleSurface?.visibility = View.VISIBLE
+            surface.visibility = View.INVISIBLE
+            staleSurface = surface
+        } else if (!covered && staleSurface != null) {
+            staleSurface?.visibility = View.VISIBLE
+            staleSurface = null
+        }
+    }
+
+    private fun findSurface(view: View): FlutterSurfaceView? {
+        if (view is FlutterSurfaceView) return view
+        if (view is ViewGroup) for (i in 0 until view.childCount) {
+            findSurface(view.getChildAt(i))?.let { return it }
+        }
+        return null
+    }
+
+    /**
+     * An alpha change reuses the view's last recorded drawing, and the image
+     * view has not drawn since it was hidden: showing it that way flashes
+     * whatever Flutter drew before the dashboard covered it, such as the end
+     * of the previous screensaver. Redraw it with its current frame.
+     */
+    private fun reveal(image: FlutterImageView) {
+        image.invalidate()
+        image.alpha = 1f
     }
 
     private fun unblended(view: View, flutter: FlutterView): Boolean {
@@ -91,8 +136,10 @@ class WebViewBackdrop(activity: Activity) : ViewTreeObserver.OnPreDrawListener {
         if (root.viewTreeObserver.isAlive) {
             root.viewTreeObserver.removeOnPreDrawListener(this)
         }
-        hidden?.alpha = 1f
+        hidden?.let(::reveal)
         hidden = null
+        staleSurface?.visibility = View.VISIBLE
+        staleSurface = null
         backedPage = null
     }
 }

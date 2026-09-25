@@ -148,6 +148,51 @@ void main() {
     expect(high.tiles, 2);
   });
 
+  testWidgets('a hidden scene reports ready for the change it reflects', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(96, 54);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    // Test frames all read as slow, and what the renderer learns from them
+    // would carry into later tests.
+    addTearDown(WeatherMoodQuality.resetLearned);
+    addTearDown(resetWeatherMoodPrograms);
+    final ready = <int>[];
+    Future<void> show(String condition, int token) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: WeatherMoodRenderer(
+            condition: condition,
+            night: false,
+            lightning: false,
+            active: true,
+            lowPower: true,
+            revealed: false,
+            revealToken: token,
+            onReady: ready.add,
+          ),
+        ),
+      );
+      for (var i = 0; i < 40; i++) {
+        await tester.runAsync(
+          () => Future<void>.delayed(const Duration(milliseconds: 30)),
+        );
+        await tester.pump(const Duration(milliseconds: 60));
+      }
+    }
+
+    await show('exceptional', 0);
+    expect(ready, [0]);
+    // The first real weather arrives with a new token and snaps the scene.
+    await show('cloudy', 1);
+    expect(ready, [0, 1]);
+    await tester.pumpWidget(const SizedBox.shrink());
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 100)),
+    );
+  });
+
   testWidgets('native shaders preserve skies and moon occlusion', (
     tester,
   ) async {
