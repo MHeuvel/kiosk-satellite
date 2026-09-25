@@ -11,6 +11,11 @@ uniform vec2 flashPosition;
 uniform float twilight;
 // Offsets a band rendered on its own so it lines up with the full image.
 uniform vec2 tileOffset;
+// Where the scene has carried each scattered cumulus from its resting spot,
+// in xyz. Impeller pads a vec3 uniform to four floats, so this is a vec4.
+uniform vec4 cumulusSlide;
+// The same for the second clouds in the left and near lanes, in xy.
+uniform vec4 cumulusCopy;
 uniform sampler2D noiseMap;
 out vec4 fragColor;
     float cloudFootprint;
@@ -32,34 +37,45 @@ out vec4 fragColor;
       float h=max(.30-abs(a-b),0.)/.30;
       return min(a,b)-h*h*.075;
     }
-    float cumulus(vec3 p,vec3 center,float size,vec3 proportions) {
+    // A cumulus at center. Its seed picks its shape, so two clouds of the
+    // same size can differ.
+    float cumulus(vec3 p,vec3 center,float size,vec3 proportions,vec3 seed) {
       vec3 q=(p-center)/(size*proportions);
       if(any(greaterThan(abs(q),vec3(1.9,1.6,1.5)))) return 0.;
-      float variation=hash(center.xz);
-      float leftShape=hash(center.xz+13.);
-      float rightShape=hash(center.xz+39.);
+      float variation=hash(seed.xz);
+      float leftShape=hash(seed.xz+13.);
+      float rightShape=hash(seed.xz+39.);
       float evolution=time*.009;
-      q.x+=(noise(q*1.7+center+evolution)-.5)*.30;
-      q.y+=(noise(q*2.1+center*3.-evolution)-.5)*.18;
+      q.x+=(noise(q*1.7+seed+evolution)-.5)*.30;
+      q.y+=(noise(q*2.1+seed*3.-evolution)-.5)*.18;
       float base=length(q/vec3(1.0,.29,.55))-1.;
       float left=length((q-vec3(-.60+leftShape*.18,.08+leftShape*.31,.02))/vec3(.37+leftShape*.28,.29+leftShape*.31,.53))-1.;
       float top=length((q-vec3(-.35+variation*.65,.20+variation*.20,-.03))/vec3(.39+variation*.20,.38+variation*.26,.59))-1.;
       float right=length((q-vec3(.43+rightShape*.22,.06+rightShape*.30,.04))/vec3(.34+rightShape*.31,.26+rightShape*.26,.49))-1.;
       float shape=softUnion(softUnion(base,left),softUnion(top,right));
-      float detail=noise(q*4.3+center*7.)*.65+noise(q*8.1+23.)*.35;
+      float detail=noise(q*4.3+seed*7.)*.65+noise(q*8.1+23.)*.35;
       shape+=(detail-.5)*.85;
-      float billows=.20+noise(q*3.1+center*5.)*.95;
+      float billows=.20+noise(q*3.1+seed*5.)*.95;
       return (1.-smoothstep(-.42,.34,shape))*smoothstep(-.44,-.12,q.y)*billows;
     }
     float density(vec3 p) {
       float sparse=0.;
       if(weather.x<.40) {
-        vec3 drift=p-vec3(sin((time-18.)*.016)*.65,0.,sin((time-18.)*.009)*.17);
-        drift.x=mod(drift.x+windTime*.085+8.,16.)-8.;
+        vec3 drift=p-vec3(0.,0.,sin((time-18.)*.009)*.17);
         float spread=1.+.12*smoothstep(.065,.10,weather.x);
-        sparse=cumulus(drift,vec3(-1.18,1.55,3.5),.62*spread,vec3(1.18,.61,.92));
-        sparse+=cumulus(drift,vec3(1.65,1.52,5.7),.74*spread,vec3(1.36,.38,.76));
-        sparse+=cumulus(drift,vec3(.72,1.52,2.6),.37*spread,vec3(.88,.96,1.05));
+        vec3 left=vec3(-1.18,1.55,3.5),far=vec3(1.65,1.52,5.7),near=vec3(.72,1.52,2.6);
+        sparse=cumulus(drift-vec3(cumulusSlide.x,0.,0.),left,.62*spread,vec3(1.18,.61,.92),left);
+        sparse+=cumulus(drift-vec3(cumulusSlide.y,0.,0.),far,.74*spread,vec3(1.36,.38,.76),far);
+        sparse+=cumulus(drift-vec3(cumulusSlide.z,0.,0.),near,.37*spread,vec3(.88,.96,1.05),near);
+        // A windy sky carries a second cloud half a loop behind the first in
+        // the two lanes above the weather bar, so one always comes in as the
+        // other leaves. Fuller skies drop them for the calm layout.
+        float windy=1.-smoothstep(.065,.10,weather.x);
+        if(windy>.001) {
+          float extra=cumulus(drift-vec3(cumulusCopy.x,0.,0.),left,.62*spread,vec3(1.18,.61,.92),left+vec3(7.3,0.,3.1));
+          extra+=cumulus(drift-vec3(cumulusCopy.y,0.,0.),near,.37*spread,vec3(.88,.96,1.05),near+vec3(5.9,0.,2.3));
+          sparse+=extra*windy;
+        }
         sparse*=smoothstep(0.,.05,weather.x);
         if(weather.x<=.10) return sparse;
       }

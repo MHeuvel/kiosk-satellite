@@ -2,19 +2,24 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
-
-### Fixed
-- **Screensavers no longer freeze the app with the Impeller renderer on OpenGL ES.** Since v2026.9.81, starting a screensaver over a dashboard could stop the app from drawing for good on devices that run Impeller on OpenGL ES, such as the Echo Show 8 and the Meta Portal Go. The log filled with EGL_BAD_ACCESS errors. The fix for the Weather Mood start flash briefly hid Flutter's surface and brought it back after Flutter had resumed, which rebuilt the renderer on the wrong thread. The surface now comes back while Flutter is still paused.
-
 ## v2026.9.82 - 2026-09-25
 
 ### Added
 - **More device facts in `/api/health`.** The health endpoint now reports the system WebView package and version, the network link type with the Wi-Fi signal, link speed and frequency, the time since the device booted and the screen orientation and rotation. The Wi-Fi fields need no location permission and leave out the network name. The new `getNetworkLink` command returns the same link details (#696).
 
+### Changed
+- **Wind driven clouds glide in Weather Mood.** Clouds render a new image about once a second and used to fade from one position to the next, which looked like a slideshow whenever they moved fast. Each cloud image now slides along with the wind on every frame until the next one is ready, low clouds faster than high ones.
+- **Steadier Weather Mood frame pacing on 32-bit devices.** Clouds render a small piece on every frame again instead of a larger piece on every other frame. The heavy frames reached the screen unevenly, which showed as judder in moving clouds.
+- **More open skies in more Weather Mood scenes.** The Rainy, Snowy and Windy with clouds scenes have about a quarter less cloud cover, like Cloudy. Pouring and Snowy with rain keep their full cover.
+- **A fuller sky in the Windy scene.** The two cloud lanes above the weather chips each carry a second cloud, so one drifts in as the other leaves.
+
 ### Fixed
 - **Only adb can provision a kiosk.** Any app on the device could send the `ks.provision` intent and change any setting, including turning on the remote admin with a password of its choosing. Provisioning now goes to `.ProvisionActivity`, which Android opens only for the adb shell. `.MainActivity` ignores the extra and logs a warning. Scripts that provision over adb need the new activity name. See the [Remote API](docs/remote-api.md) guide (#695).
 - **Immich Media shows every photo before repeating one.** Each screensaver session used to shuffle the whole playlist again and start from the top, so a frame that goes in and out of the screensaver all day kept bringing back photos it had already shown while most of the library never came up. Sessions now pick up where the last one stopped and show the photos not yet seen first. Once every photo has had its turn the order is shuffled again and a new pass begins. New uploads join the current pass at random spots. With Shuffle off, the slideshow resumes where it stopped instead of starting over at the newest photo (#699).
+- **Clouds no longer go missing in Partly cloudy and Windy.** Wind could carry the clouds out of view for minutes, and a calm scene after a windy one could stay empty until the next screensaver. Each cloud now comes back at the other edge as soon as it leaves, and clouds glide back to their usual spots once the wind drops.
+- **Weather Mood clouds no longer reset while quality adjusts.** When a device lowered the cloud resolution to keep up, the clouds vanished and faded back in.
+- **Lightning no longer drops Weather Mood to a few frames per second.** On devices that run Impeller on OpenGL ES, such as the Echo Show 8, every strike slowed the scene for up to three seconds. The bolt now uses an additive blend that looks the same over storm clouds.
+- **Screensavers no longer freeze the app with the Impeller renderer on OpenGL ES.** Since v2026.9.81, starting a screensaver over a dashboard could stop the app from drawing for good on devices that run Impeller on OpenGL ES, such as the Echo Show 8 and the Meta Portal Go. The log filled with EGL_BAD_ACCESS errors. The fix for the Weather Mood start flash briefly hid Flutter's surface and brought it back after Flutter had resumed, which rebuilt the renderer on the wrong thread. The surface now comes back while Flutter is still paused.
 
 ## v2026.9.81 - 2026-09-24
 

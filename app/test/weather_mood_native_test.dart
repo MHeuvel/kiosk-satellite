@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
@@ -79,6 +80,83 @@ void main() {
     expect(scene.values[2], 1);
   });
 
+  test('cumulus the wind carried off glide back once it drops', () {
+    final scene = WeatherMoodScene()..aspect = 1.6;
+    scene.update(
+      condition: 'windy',
+      night: false,
+      lightning: false,
+      immediate: true,
+    );
+    final start = scene.cumulus;
+    for (var i = 0; i < 100; i++) {
+      scene.advance(.1);
+    }
+    // Ten seconds of full wind carry every cloud left.
+    for (var i = 0; i < 3; i++) {
+      expect(scene.cumulus[i], lessThan(start[i] - .5));
+    }
+    scene.update(condition: 'partlycloudy', night: false, lightning: false);
+    for (var i = 0; i < 3000; i++) {
+      scene.advance(.1);
+    }
+    // In calm air they end up where a fresh calm scene has them.
+    final rest = .65 * math.sin((scene.time - 18) * .016);
+    for (final offset in scene.cumulus) {
+      expect(offset, closeTo(rest, 1e-6));
+    }
+    scene.update(condition: 'windy', night: false, lightning: false);
+    for (var i = 0; i < 300; i++) {
+      scene.advance(.1);
+    }
+    // A scene that starts over starts them at rest too.
+    scene.update(
+      condition: 'partlycloudy',
+      night: false,
+      lightning: false,
+      immediate: true,
+    );
+    final settled = .65 * math.sin((scene.time - 18) * .016);
+    for (final offset in scene.cumulus) {
+      expect(offset, closeTo(settled, 1e-6));
+    }
+  });
+
+  test('cloud keyframes slide with the wind', () {
+    ({double x, double y, double z}) shift(double clouds, double wind) =>
+        weatherMoodCloudShift(
+          fromTime: 100,
+          fromWind: 50,
+          toTime: 100,
+          toWind: 50 + wind,
+          clouds: clouds,
+        );
+    // No time and no wind, no movement: the view samples itself.
+    final still = weatherMoodCloudSource(.3, .7, shift(.5, 0), 1.6);
+    expect(still.x, closeTo(.3, 1e-9));
+    expect(still.y, closeTo(.7, 1e-9));
+    // Wind carries scattered cumulus to the left, so the screen shows what
+    // the keyframe had further right, and more so near the top, where the
+    // cloud layer is closer.
+    final sparse = shift(.065, 1);
+    expect(sparse.x, closeTo(-.085, 1e-9));
+    expect(sparse.y, 0);
+    final low = weatherMoodCloudSource(.5, .1, sparse, 1.6),
+        high = weatherMoodCloudSource(.5, .9, sparse, 1.6);
+    expect(low.x, greaterThan(.5));
+    expect(high.x - .5, greaterThan(2 * (low.x - .5)));
+    expect(high.y, closeTo(.9, 1e-9));
+    // Low clouds cross the screen faster than high ones.
+    final near = weatherMoodCloudSource(.5, .5, sparse, 1.6, height: 1.2),
+        far = weatherMoodCloudSource(.5, .5, sparse, 1.6, height: 2.4);
+    expect(near.x - .5, closeTo(2 * (far.x - .5), 1e-9));
+    // Overcast noise also sinks, so its keyframes need room above.
+    final overcast = shift(.65, 1);
+    expect(overcast.x, lessThan(0));
+    expect(overcast.y, lessThan(0));
+    expect(weatherMoodCloudSource(.5, .9, overcast, 1.6).y, greaterThan(.9));
+  });
+
   test('quality spreads clouds over frames before shrinking them', () {
     WeatherMoodQuality.resetLearned();
     addTearDown(WeatherMoodQuality.resetLearned);
@@ -86,11 +164,10 @@ void main() {
     expect(quality.steps, 40);
     expect(quality.fps, 20);
     expect(quality.tiles, 6);
-    // A band every other frame halves the offscreen passes, which Mali
-    // drivers charge a fixed CPU cost for.
-    expect(quality.bandEvery, 2);
+    // Up to 1.2 seconds per keyframe, half that in full wind.
+    expect(quality.maxTiles, 24);
     quality.wind = 1;
-    expect(quality.maxTiles, 6);
+    expect(quality.maxTiles, 12);
     quality.wind = 0;
     expect(quality.width, lessThanOrEqualTo(360));
     const slow = Duration(milliseconds: 180), fast = Duration(milliseconds: 50);
@@ -98,12 +175,12 @@ void main() {
       quality.recordTick(slow);
     }
     // One window at a third of the target rate spreads clouds much further.
-    expect(quality.tiles, 12);
-    expect(quality.tiles, quality.maxTiles);
+    expect(quality.tiles, 22);
     expect(quality.scale, .64);
     for (var i = 0; i < 100; i++) {
       quality.recordTick(slow);
     }
+    expect(quality.tiles, quality.maxTiles);
     expect(quality.scale, .5);
     expect(quality.width, 280);
     expect(quality.height, 175);
@@ -119,7 +196,6 @@ void main() {
     expect(next.scale, .5);
     final high = WeatherMoodQuality(lowPower: false);
     expect(high.tiles, 1);
-    expect(high.bandEvery, 1);
     // No band may be large enough to trip a GPU hang reset: a full-size
     // Portal Go keyframe splits into 13 bands, an Echo Show one needs none.
     expect(high.minimumTiles(1100, 688), 13);

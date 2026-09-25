@@ -52,8 +52,15 @@ class WeatherMoodRenderer extends StatefulWidget {
 void resetWeatherMoodPrograms() => _Programs._cache.clear();
 
 class _Programs {
-  _Programs(this.sky, this.clouds, this.blend, this.noise, this.flipBlend);
-  final ui.FragmentProgram sky, clouds, blend;
+  _Programs(
+    this.sky,
+    this.clouds,
+    this.height,
+    this.blend,
+    this.noise,
+    this.flipBlend,
+  );
+  final ui.FragmentProgram sky, clouds, height, blend;
   final ui.Image noise;
   final bool flipBlend;
   static final _cache = <bool, Future<_Programs>>{};
@@ -68,12 +75,16 @@ class _Programs {
                 ? 'shaders/weather_mood_clouds_low.frag'
                 : 'shaders/weather_mood_clouds.frag',
           );
+          final height = await ui.FragmentProgram.fromAsset(
+            'shaders/weather_mood_clouds_height.frag',
+          );
           final blend = await ui.FragmentProgram.fromAsset(
             'shaders/weather_mood_blend.frag',
           );
           return _Programs(
             sky,
             clouds,
+            height,
             blend,
             await _noise(),
             await _samplesFlipped(blend),
@@ -101,9 +112,12 @@ class _Programs {
       ..setFloat(0, 4)
       ..setFloat(1, 4)
       ..setFloat(2, 1)
-      ..setFloat(3, 0)
-      ..setImageSampler(0, source)
-      ..setImageSampler(1, source);
+      ..setFloat(3, 0);
+    _setStill(shader, 4);
+    _setStill(shader, 12);
+    for (var i = 0; i < 4; i++) {
+      shader.setImageSampler(i, source);
+    }
     final recorder = ui.PictureRecorder();
     Canvas(
       recorder,
@@ -118,6 +132,14 @@ class _Programs {
       result.dispose();
       shader.dispose();
       source.dispose();
+    }
+  }
+
+  /// A keyframe that has not moved and fills the screen exactly.
+  static void _setStill(ui.FragmentShader shader, int index) {
+    const still = [0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0];
+    for (final (i, value) in still.indexed) {
+      shader.setFloat(index + i, value);
     }
   }
 
@@ -165,17 +187,17 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
   final _particles = WeatherMoodParticles();
   final _clock = Stopwatch()..start();
   late final _quality = WeatherMoodQuality(lowPower: widget.lowPower);
-  ui.FragmentShader? _skyShader, _cloudShader, _blendShader;
+  ui.FragmentShader? _skyShader, _cloudShader, _heightShader, _blendShader;
   ui.Image? _skyImage;
   _Frame? _skyFrame;
   _BandBuild? _skyBuild;
   // The painter crossfades from the previous cloud keyframe to the next one
   // while the following keyframe is built one band per frame.
-  ui.Image? _cloudPrevious, _cloudNext;
+  _Keyframe? _cloudPrevious, _cloudNext;
   // Transparent stand-in for the first fade, so clouds appear gradually.
-  ui.Image? _clear;
+  _Keyframe? _clear;
   _BandBuild? _build;
-  int _cloudTick = 0, _cycleTiles = 1, _bandWait = 0;
+  int _cloudTick = 0, _cycleTiles = 1;
   double _cloudMix = 1;
   _Frame? _frame;
   Timer? _timer;
@@ -216,13 +238,15 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
         ..setImageSampler(0, programs.noise, filterQuality: FilterQuality.low);
       _cloudShader = programs.clouds.fragmentShader()
         ..setImageSampler(0, programs.noise, filterQuality: FilterQuality.low);
+      _heightShader = programs.height.fragmentShader()
+        ..setImageSampler(0, programs.noise, filterQuality: FilterQuality.low);
       _blendShader = programs.blend.fragmentShader()
         ..setFloat(3, programs.flipBlend ? 1 : 0);
       await _particles.load();
       final recorder = ui.PictureRecorder();
       Canvas(recorder);
       final empty = recorder.endRecording();
-      _clear = empty.toImageSync(1, 1);
+      _clear = _Keyframe(empty.toImageSync(1, 1), null, 1, 1);
       empty.dispose();
       if (!mounted) {
         _release();
@@ -341,6 +365,7 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
     final size = _size;
     final now = _clock.elapsed.inMicroseconds / 1000000;
     if (!_animate) _lastFrame = null;
+    _scene.aspect = size.width / size.height;
     if (_animate && _lastTime != null) _scene.advance(now - _lastTime!);
     _lastTime = _animate ? now : null;
     final frame = _Frame(
@@ -349,6 +374,7 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
       _scene.windTime,
       _scene.lightning,
       _scene.twilight,
+      [..._scene.cumulus, 0, ..._scene.cumulusCopies, 0, 0],
     );
     try {
       if (_snap) {
@@ -374,7 +400,7 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
         if (now - _diagnosticTime >= 15) {
           final seconds = now - _diagnosticTime;
           debugPrint(
-            'WeatherMoodNative fps=${(_diagnosticFrames / seconds).toStringAsFixed(1)} cloudFps=${(_diagnosticClouds / seconds).toStringAsFixed(1)} clouds=${_cloudNext?.width}x${_cloudNext?.height} tiles=${_quality.tiles} scale=${_quality.scale.toStringAsFixed(2)} steps=${_quality.steps}',
+            'WeatherMoodNative fps=${(_diagnosticFrames / seconds).toStringAsFixed(1)} cloudFps=${(_diagnosticClouds / seconds).toStringAsFixed(1)} clouds=${_cloudNext?.image.width}x${_cloudNext?.image.height} tiles=${_quality.tiles} scale=${_quality.scale.toStringAsFixed(2)} steps=${_quality.steps}',
           );
           _diagnosticTime = now;
           _diagnosticFrames = 0;
@@ -425,7 +451,7 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
       )..frame = frame;
       if (build.tiles == 1) _quality.skipTick();
     }
-    _renderBand(_skyShader!, build);
+    _renderBand(_skyShader!, build, clouds: false);
     if (!build.done) {
       _skyBuild = build;
       return;
@@ -452,11 +478,6 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
     );
     final width = math.max(1, (size.width * scale).round()),
         height = math.max(1, (size.height * scale).round());
-    final current = _cloudNext;
-    if (current != null &&
-        (current.width != width || current.height != height)) {
-      _clearClouds();
-    }
     // The controller adapts upward from the floor, not from below it, and
     // no further than the longest keyframe interval allows.
     final floor = _quality.minimumTiles(width, height);
@@ -473,7 +494,7 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
       while (!build.done) {
         _renderBand(_cloudShader!, build);
       }
-      _cloudNext = build.compose();
+      _cloudNext = _Keyframe.compose(build, null);
       _keyframeSinceSnap = true;
       _diagnosticClouds++;
       return;
@@ -484,27 +505,29 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
       _build?.dispose();
       _build = null;
     }
-    // Frames between bands, spent crossfading toward the keyframe already
-    // on screen.
-    final every = _quality.bandEvery;
-    if (_cloudNext != null && _bandWait < every - 1) {
-      _bandWait++;
-      _cloudTick++;
-      _cloudMix = math.min(1, (_cloudTick + 1) / (_cycleTiles * every));
-      return;
-    }
-    _bandWait = 0;
     var build = _build;
-    if (build != null && (build.width != width || build.height != height)) {
+    if (build != null &&
+        (build.viewWidth != width || build.viewHeight != height)) {
       build.dispose();
       build = _build = null;
     }
     if (build == null) {
+      final margins = _margins(frame, width, height, bands);
       build = _build = _BandBuild(
         width,
         height,
-        bands,
+        math.max(
+          bands,
+          _quality.minimumTiles(
+            width + margins.left + margins.right,
+            height + margins.top + margins.bottom,
+          ),
+        ),
         denoise: widget.lowPower,
+        left: margins.left,
+        top: margins.top,
+        right: margins.right,
+        bottom: margins.bottom,
       )..frame = frame;
       _cycleTiles = build.tiles;
     }
@@ -520,7 +543,7 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
         _cloudPrevious = null;
         shown?.dispose();
       }
-      _cloudNext = build.compose();
+      _cloudNext = _Keyframe.compose(build, _renderHeight(build));
       _keyframeSinceSnap = true;
       _build = null;
       _cloudTick = 0;
@@ -530,18 +553,84 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
     }
     _cloudMix = _cloudNext == null
         ? 1
-        : math.min(1, (_cloudTick + 1) / (_cycleTiles * every));
+        : math.min(1, (_cloudTick + 1) / _cycleTiles);
   }
 
-  void _renderBand(ui.FragmentShader shader, _BandBuild build) {
+  /// Keyframes stay on screen for about three keyframe periods: while the
+  /// next one builds, as the one fading in and as the one fading out. Slid
+  /// along with their clouds, they need this much room past each edge
+  /// where clouds come in.
+  ({int left, int top, int right, int bottom}) _margins(
+    _Frame frame,
+    int width,
+    int height,
+    int bands,
+  ) {
+    final life = _quality.interval.inMicroseconds / 1000000 * bands * 3.5;
+    final shift = weatherMoodCloudShift(
+      fromTime: frame.time,
+      fromWind: frame.windTime,
+      toTime: frame.time + life,
+      toWind: frame.windTime + life * frame.values[5],
+      clouds: frame.values[0],
+    );
+    var left = 0.0, right = 0.0, bottom = 0.0, top = 0.0;
+    for (final x in const [0.0, .5, 1.0]) {
+      for (final y in const [0.0, .5, 1.0]) {
+        final source = weatherMoodCloudSource(
+          x,
+          y,
+          shift,
+          width / height,
+          height: 1.16,
+        );
+        left = math.max(left, -source.x);
+        right = math.max(right, source.x - 1);
+        bottom = math.max(bottom, -source.y);
+        top = math.max(top, source.y - 1);
+      }
+    }
+    int pixels(double amount, int size) => (math.min(amount, .3) * size).ceil();
+    return (
+      left: pixels(left, width),
+      top: pixels(top, height),
+      right: pixels(right, width),
+      bottom: pixels(bottom, height),
+    );
+  }
+
+  /// A small image of how high the clouds in [build] sit, which the blend
+  /// shader uses to slide each part of the keyframe at its own speed. It
+  /// costs a few percent of a band.
+  ui.Image _renderHeight(_BandBuild build) {
+    const scale = .25;
+    final width = math.max(1, (build.width * scale).ceil()),
+        height = math.max(1, (build.height * scale).ceil());
+    return _shaderImage(
+      _heightShader!,
+      build.frame!,
+      Size(build.viewWidth * scale, build.viewHeight * scale),
+      width: width,
+      rows: height,
+      offset: Offset(-build.left * scale, -build.top * scale),
+    );
+  }
+
+  void _renderBand(
+    ui.FragmentShader shader,
+    _BandBuild build, {
+    bool clouds = true,
+  }) {
     final top = build.rowStart(build.parts.length);
     build.parts.add(
       _shaderImage(
         shader,
         build.frame!,
-        Size(build.width.toDouble(), build.height.toDouble()),
-        top: top,
+        Size(build.viewWidth.toDouble(), build.viewHeight.toDouble()),
+        width: build.width,
         rows: build.rowStart(build.parts.length + 1) - top,
+        offset: Offset(-build.left.toDouble(), (top - build.top).toDouble()),
+        clouds: clouds,
       ),
     );
   }
@@ -557,23 +646,26 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
     _cloudMix = 1;
   }
 
+  /// Renders [rows] rows [width] pixels wide of a [resolution] sized view,
+  /// starting at [offset] in the view's pixels.
   ui.Image _shaderImage(
     ui.FragmentShader shader,
     _Frame frame,
-    Size size, {
-    int top = 0,
-    int? rows,
+    Size resolution, {
+    required int width,
+    required int rows,
+    Offset offset = Offset.zero,
+    bool clouds = true,
   }) {
-    final height = rows ?? size.height.ceil();
     final recorder = ui.PictureRecorder();
-    frame.configure(shader, size, top: top);
+    frame.configure(shader, resolution, offset: offset, clouds: clouds);
     Canvas(recorder).drawRect(
-      Rect.fromLTWH(0, 0, size.width, height.toDouble()),
+      Rect.fromLTWH(0, 0, width.toDouble(), rows.toDouble()),
       Paint()..shader = shader,
     );
     final picture = recorder.endRecording();
     try {
-      return picture.toImageSync(size.width.ceil(), height);
+      return picture.toImageSync(width, rows);
     } finally {
       picture.dispose();
     }
@@ -591,6 +683,8 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
     _skyShader = null;
     _cloudShader?.dispose();
     _cloudShader = null;
+    _heightShader?.dispose();
+    _heightShader = null;
     _blendShader?.dispose();
     _blendShader = null;
     _clearClouds();
@@ -639,9 +733,22 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
 /// Every band uses the same scene snapshot, so the joined image matches a
 /// single full render.
 class _BandBuild {
-  _BandBuild(this.width, this.height, int tiles, {this.denoise = false})
-    : tiles = math.max(1, math.min(tiles, height));
-  final int width, height, tiles;
+  _BandBuild(
+    this.viewWidth,
+    this.viewHeight,
+    int tiles, {
+    this.denoise = false,
+    this.left = 0,
+    this.top = 0,
+    int right = 0,
+    int bottom = 0,
+  }) : width = viewWidth + left + right,
+       height = viewHeight + top + bottom,
+       tiles = math.max(1, math.min(tiles, viewHeight + top + bottom));
+
+  /// The view the shader renders, and the image, which reaches [left] and
+  /// [top] pixels past the view's top left corner.
+  final int viewWidth, viewHeight, width, height, left, top, tiles;
 
   /// Fewer ray steps leave grain in every texel, which the upscale to the
   /// screen magnifies. A blur under one texel removes it once per keyframe.
@@ -704,9 +811,88 @@ class _BandBuild {
   }
 }
 
+/// A finished cloud image and the scene moment it shows. It can reach past
+/// the screen on the sides the clouds move in from.
+class _Keyframe {
+  _Keyframe(this.image, this.frame, this.viewWidth, this.viewHeight)
+    : height = null,
+      window = [viewWidth / image.width, viewHeight / image.height, 0, 0];
+
+  _Keyframe._(this.image, this.height, _BandBuild build)
+    : frame = build.frame,
+      viewWidth = build.viewWidth,
+      viewHeight = build.viewHeight,
+      window = [
+        build.viewWidth / build.width,
+        build.viewHeight / build.height,
+        build.left / build.width,
+        build.top / build.height,
+      ];
+
+  factory _Keyframe.compose(_BandBuild build, ui.Image? height) =>
+      _Keyframe._(build.compose(), height, build);
+
+  final ui.Image image;
+
+  /// How high the clouds sit, as (height - 1) / 2, over the same area as
+  /// [image]. Only a keyframe that never moves goes without.
+  final ui.Image? height;
+  final _Frame? frame;
+  final int viewWidth, viewHeight;
+
+  /// Where the view sits in the image: scale, then offset, in texture
+  /// coordinates.
+  final List<double> window;
+
+  Rect get view => Rect.fromLTWH(
+    window[2] * image.width,
+    window[3] * image.height,
+    viewWidth.toDouble(),
+    viewHeight.toDouble(),
+  );
+
+  /// Sets the blend shader's shift and window uniforms from [index] for
+  /// showing this keyframe at [now].
+  void configure(ui.FragmentShader shader, int index, _Frame now) {
+    final from = frame;
+    final shift = from == null
+        ? (x: 0.0, y: 0.0, z: 0.0)
+        : weatherMoodCloudShift(
+            fromTime: from.time,
+            fromWind: from.windTime,
+            toTime: now.time,
+            toWind: now.windTime,
+            clouds: now.values[0],
+          );
+    shader
+      ..setFloat(index, shift.x)
+      ..setFloat(index + 1, shift.y)
+      ..setFloat(index + 2, shift.z)
+      ..setFloat(index + 3, 0);
+    for (var i = 0; i < 4; i++) {
+      shader.setFloat(index + 4 + i, window[i]);
+    }
+  }
+
+  void dispose() {
+    image.dispose();
+    height?.dispose();
+  }
+}
+
 class _Frame {
-  _Frame(this.values, this.time, this.windTime, this.lightning, this.twilight);
+  _Frame(
+    this.values,
+    this.time,
+    this.windTime,
+    this.lightning,
+    this.twilight,
+    this.cumulus,
+  );
   final List<double> values;
+
+  /// The cumulusSlide and cumulusCopy uniforms, padded to two vec4s.
+  final List<double> cumulus;
   final double time, windTime, twilight;
   final WeatherMoodLightning lightning;
 
@@ -730,7 +916,14 @@ class _Frame {
     return values[1] < .999 && (_warmth - previous._warmth).abs() > .006;
   }
 
-  void configure(ui.FragmentShader shader, Size size, {int top = 0}) {
+  /// Sets the uniforms weather_mood_common.glsl declares. The sky shader
+  /// never uses the cumulus, so its compiled form has no room for them.
+  void configure(
+    ui.FragmentShader shader,
+    Size size, {
+    Offset offset = Offset.zero,
+    bool clouds = true,
+  }) {
     final uniforms = [
       size.width,
       size.height,
@@ -744,8 +937,9 @@ class _Frame {
       lightning.x,
       1 - (lightning.y + .20),
       twilight,
-      0.0,
-      top.toDouble(),
+      offset.dx,
+      offset.dy,
+      if (clouds) ...cumulus,
     ];
     for (var i = 0; i < uniforms.length; i++) {
       shader.setFloat(i, uniforms[i]);
@@ -782,7 +976,7 @@ class _WeatherPainter extends CustomPainter {
         Paint()..filterQuality = FilterQuality.low,
       );
     } else {
-      frame.configure(sky, size);
+      frame.configure(sky, size, clouds: false);
       canvas.drawRect(Offset.zero & size, Paint()..shader = sky);
     }
     owner._particles.paintStars(
@@ -791,22 +985,36 @@ class _WeatherPainter extends CustomPainter {
       frame.values[1] * (1 - frame.twilight),
       frame.time,
     );
-    final previous = owner._cloudPrevious, blend = owner._blendShader;
-    if (cloud != null &&
-        previous != null &&
-        blend != null &&
-        owner._cloudMix < 1) {
+    final blend = owner._blendShader;
+    if (cloud != null && blend != null) {
+      // Always through the blend shader, which slides each keyframe to
+      // where its clouds are now.
+      final previous = owner._cloudPrevious ?? cloud;
+      final mix = owner._cloudPrevious == null ? 1.0 : owner._cloudMix;
       blend
         ..setFloat(0, size.width)
         ..setFloat(1, size.height)
-        ..setFloat(2, owner._cloudMix)
-        ..setImageSampler(0, previous, filterQuality: FilterQuality.low)
-        ..setImageSampler(1, cloud, filterQuality: FilterQuality.low);
+        ..setFloat(2, mix);
+      previous.configure(blend, 4, frame);
+      cloud.configure(blend, 12, frame);
+      blend
+        ..setImageSampler(0, previous.image, filterQuality: FilterQuality.low)
+        ..setImageSampler(1, cloud.image, filterQuality: FilterQuality.low)
+        ..setImageSampler(
+          2,
+          previous.height ?? previous.image,
+          filterQuality: FilterQuality.low,
+        )
+        ..setImageSampler(
+          3,
+          cloud.height ?? cloud.image,
+          filterQuality: FilterQuality.low,
+        );
       canvas.drawRect(Offset.zero & size, Paint()..shader = blend);
     } else if (cloud != null) {
       canvas.drawImageRect(
-        cloud,
-        Rect.fromLTWH(0, 0, cloud.width.toDouble(), cloud.height.toDouble()),
+        cloud.image,
+        cloud.view,
         Offset.zero & size,
         Paint()..filterQuality = FilterQuality.low,
       );

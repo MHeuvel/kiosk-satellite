@@ -9,13 +9,13 @@ const weatherMoodPresets = <String, List<double>>{
   'clear-night': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   'partlycloudy': [.10, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   'cloudy': [.51, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  'rainy': [.95, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-  'snowy': [.77, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+  'rainy': [.71, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+  'snowy': [.58, 0, 0, 0, 1, 0, 0, 0, 0, 0],
   'fog': [.7, 0, 0, 1, 0, 0, 0, 0, 0, 0],
   'pouring': [1, 0, 1, 0, 0, .24, 1, 0, 0, .55],
   'snowy-rainy': [.88, 0, .62, 0, .75, .08, 0, 0, 0, .12],
   'windy': [.065, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-  'windy-variant': [.87, 0, 0, 0, 0, 1, 0, 0, 0, .12],
+  'windy-variant': [.65, 0, 0, 0, 0, 1, 0, 0, 0, .12],
   'lightning': [.98, 0, 0, 0, 0, .20, 0, 1, 0, .68],
   'lightning-rainy': [1, 0, 1, 0, 0, .32, .36, 1, 0, .68],
   'hail': [.94, 0, 0, 0, 0, .14, 0, 0, 1, .44],
@@ -27,6 +27,59 @@ double weatherMoodRandom(double value) {
   return n - n.floorToDouble();
 }
 
+/// How far the cloud shader's volume moves from one moment to another, in
+/// the shader's world units. The renderer slides cached cloud keyframes by
+/// this much, so moving clouds glide between keyframes instead of fading
+/// from one place to the next. Mirrors density() in
+/// weather_mood_common.glsl.
+({double x, double y, double z}) weatherMoodCloudShift({
+  required double fromTime,
+  required double fromWind,
+  required double toTime,
+  required double toWind,
+  required double clouds,
+}) {
+  // Scattered cumulus drift slowly and ride the wind sideways.
+  double sparseX(double time, double wind) =>
+      .65 * math.sin((time - 18) * .016) - .085 * wind;
+  double sparseZ(double time) => .17 * math.sin((time - 18) * .009);
+  final sparseDx = sparseX(toTime, toWind) - sparseX(fromTime, fromWind),
+      sparseDz = sparseZ(toTime) - sparseZ(fromTime);
+  // Overcast noise moves in a rotated space. Turned back, its drift also
+  // sinks a little.
+  final dt = toTime - fromTime;
+  final ax = .032 * dt + .17 * (toWind - fromWind), az = .014 * dt;
+  final overcastDx = -(.8 * ax + .36 * az) / 2.1,
+      overcastDy = -(.6 * ax - .48 * az) / 2.1,
+      overcastDz = -.8 * az / 2.1;
+  final t = ((clouds - .10) / .30).clamp(0.0, 1.0);
+  final k = t * t * (3 - 2 * t);
+  return (
+    x: sparseDx + (overcastDx - sparseDx) * k,
+    y: overcastDy * k,
+    z: sparseDz + (overcastDz - sparseDz) * k,
+  );
+}
+
+/// Where the cloud keyframe saw what [viewX], [viewY] shows once cloud at
+/// [height] has moved by [shift]. Positions are screen fractions with y
+/// pointing up. Mirrors weather_mood_blend.frag.
+({double x, double y}) weatherMoodCloudSource(
+  double viewX,
+  double viewY,
+  ({double x, double y, double z}) shift,
+  double aspect, {
+  double height = 1.5,
+}) {
+  final rayX = (viewX - .5) * aspect * .9, rayY = .28 + viewY * .9;
+  final reach = height / rayY;
+  final x = rayX * reach - shift.x,
+      y = rayY * reach - shift.y,
+      z = 1.35 * reach - shift.z;
+  final scale = 1.35 / z;
+  return (x: x * scale / (.9 * aspect) + .5, y: (y * scale - .28) / .9);
+}
+
 class WeatherMoodLightning {
   const WeatherMoodLightning(this.strength, this.x, this.y, this.id);
   static const none = WeatherMoodLightning(0, .5, 0, -1);
@@ -34,11 +87,26 @@ class WeatherMoodLightning {
   final int id;
 }
 
+/// The scattered cumulus in weather_mood_common.glsl: center, size and
+/// proportions.
+const _cumulus = [
+  (x: -1.18, z: 3.5, size: .62, width: 1.18, depth: .92),
+  (x: 1.65, z: 5.7, size: .74, width: 1.36, depth: .76),
+  (x: .72, z: 2.6, size: .37, width: .88, depth: 1.05),
+];
+
 class WeatherMoodScene {
   String condition = 'exceptional';
   List<double> values = [...weatherMoodPresets['exceptional']!];
   List<double> _target = [...weatherMoodPresets['exceptional']!];
   double time = 18, windTime = 0;
+
+  /// The view's width over its height, which sets how far the cumulus
+  /// travel before they come around again.
+  double aspect = 16 / 9;
+
+  /// How far wind has carried each cumulus from its resting spot.
+  final _carried = [0.0, 0.0, 0.0];
   double twilight = 0, _targetTwilight = 0;
   double _stormStart = 18, _strikeTime = 1.2, _nextStrike = 1.2;
   int _strikeId = -1;
@@ -67,6 +135,7 @@ class WeatherMoodScene {
     if (immediate) {
       values = [...next];
       this.twilight = _targetTwilight;
+      _carried.fillRange(0, _carried.length, 0);
     }
   }
 
@@ -78,6 +147,55 @@ class WeatherMoodScene {
       values[i] += (_target[i] - values[i]) * math.min(1, dt * 1.1);
     }
     windTime += dt * values[5];
+    // Wind carries the cumulus away. Once it drops, they glide back to
+    // where a calm scene has them, since wherever the wind left them could
+    // be out of view.
+    final calm = (1 - values[5] / .25).clamp(0.0, 1.0);
+    for (var i = 0; i < _carried.length; i++) {
+      final loop = _loop(i);
+      final away = _wrap(_carried[i], loop);
+      final glide = -away.sign * math.min(.04, away.abs() * .2);
+      _carried[i] = _wrap(
+        away + dt * (-values[5] * .085 * (1 - calm) + glide * calm),
+        loop,
+      );
+    }
+  }
+
+  /// Each cumulus travels a loop centered on the view, as wide as the view
+  /// at its far side plus the reach of its edges, so it never shows twice
+  /// and leaves one edge just as it comes back at the other.
+  double _loop(int i) {
+    final cloud = _cumulus[i];
+    // The widest the clouds grow, when the sky is fullest.
+    final size = cloud.size * 1.12;
+    return aspect * (cloud.z + 1.5 * size * cloud.depth) / 1.5 +
+        2 * 1.9 * size * cloud.width;
+  }
+
+  static double _wrap(double value, double loop) =>
+      value - loop * ((value + loop / 2) / loop).floorToDouble();
+
+  /// Where each cumulus sits right now, as an offset from its resting spot
+  /// that keeps it inside its loop.
+  List<double> get cumulus => [
+    for (var i = 0; i < _carried.length; i++) _slide(i, 0),
+  ];
+
+  /// The same for the windy sky's second clouds in the left and near lanes,
+  /// half a loop behind the first.
+  List<double> get cumulusCopies => [_slide(0, .5), _slide(2, .5)];
+
+  double _slide(int i, double behind) {
+    final loop = _loop(i);
+    return _wrap(
+          _cumulus[i].x +
+              .65 * math.sin((time - 18) * .016) +
+              _carried[i] +
+              behind * loop,
+          loop,
+        ) -
+        _cumulus[i].x;
   }
 
   WeatherMoodLightning get lightning {
@@ -167,22 +285,16 @@ class WeatherMoodQuality {
   /// Scene wind from 0 to 1, set by the renderer.
   double wind = 0;
 
-  /// Slow clouds hide a long crossfade, while wind-driven clouds would show
-  /// it, so keyframes come closer together as the wind picks up.
+  /// Keyframes slide along with the wind, but a keyframe slid for long
+  /// smears thick cloud, so keyframes come closer together as the wind
+  /// picks up. A band on every frame keeps each frame's GPU work alike: a
+  /// heavy band every other frame made frames reach the screen one or two
+  /// refreshes apart from an even render cadence, which showed as judder.
   int get maxTiles => math.max(
     1,
-    (1200000 *
-            (1 - wind.clamp(0.0, 1.0) * .5) /
-            (interval.inMicroseconds * bandEvery))
+    (1200000 * (1 - wind.clamp(0.0, 1.0) * .5) / interval.inMicroseconds)
         .round(),
   );
-
-  /// Frames per cloud band. Mali drivers spend a fixed amount of CPU on
-  /// every offscreen render pass, about one percent of a core per pass per
-  /// second on an Echo Show 8, so low-power devices render a band on every
-  /// other frame. Wider spacing makes each band heavy enough to miss
-  /// refreshes.
-  int get bandEvery => lowPower ? 2 : 1;
 
   /// Leaves out the next few frame intervals, which carry deliberate one-off
   /// work such as the first full cloud image after a settings change.

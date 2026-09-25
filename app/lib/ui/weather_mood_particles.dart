@@ -948,8 +948,11 @@ class WeatherMoodParticles {
       _boltId = event.id;
       _boltWidth = width;
     }
+    // Additive, like light. Screen looks the same over storm clouds, but
+    // Impeller copies the whole screen for every screen blended draw on
+    // OpenGL ES, which dropped a strike to a few frames per second.
     _stroke
-      ..blendMode = ui.BlendMode.screen
+      ..blendMode = ui.BlendMode.plus
       ..strokeJoin = ui.StrokeJoin.round;
     final glow = ui.Gradient.linear(
       ui.Offset.zero,
