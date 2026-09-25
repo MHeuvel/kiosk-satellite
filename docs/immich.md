@@ -19,7 +19,7 @@ The settings page is organized into five main sections: Server Connection, Media
 | Media | Cache media locally | on | Stores previews on the device for faster loading. |
 | Media | Cache size (items) | 500 | Automatically purges the oldest cached files when full. Current usage displays beneath this field. |
 | Slideshow | Seconds per image | 10 | Sets photo display duration. Videos ignore this setting and play through to completion. |
-| Slideshow | Shuffle | off | Displays media in random order instead of the server default (newest first). |
+| Slideshow | Shuffle | off | Displays media in random order instead of the server default (newest first). Each session picks up where the last one stopped, so every item shows once before any repeats. |
 | Slideshow | Transition | Crossfade | Options include none, crossfade, slide, zoom, Ken Burns, or random. |
 | Slideshow | Fill the screen | Smart | Controls how aggressively photos are cropped to fit the screen. |
 | Slideshow | Pair portrait photos | on | Displays two portrait photos side by side in landscape mode. |

@@ -3674,6 +3674,9 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
     }
     final next = index % _assets.length;
     final asset = _assets[next];
+    // Its turn in the lap came, whether it shows or has to be passed over,
+    // so the next session starts with what this one did not reach.
+    c.immich.markShown(asset);
     if (asset.isVideo) {
       // A video the device cannot afford to buffer is passed over, and
       // remembered so a lap of the playlist asks the server only once. A
@@ -3793,6 +3796,7 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
       }
       _failures = 0;
       _lastFailure = null;
+      if (slide.pairIndex case final i?) c.immich.markShown(_assets[i]);
       final oldPhoto = _photo;
       final oldPairPhoto = _pairPhoto;
       c.screensaver.notifySlideChanged();

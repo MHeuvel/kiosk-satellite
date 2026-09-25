@@ -9,6 +9,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ### Fixed
 - **Only adb can provision a kiosk.** Any app on the device could send the `ks.provision` intent and change any setting, including turning on the remote admin with a password of its choosing. Provisioning now goes to `.ProvisionActivity`, which Android opens only for the adb shell. `.MainActivity` ignores the extra and logs a warning. Scripts that provision over adb need the new activity name. See the [Remote API](docs/remote-api.md) guide (#695).
+- **Immich Media shows every photo before repeating one.** Each screensaver session used to shuffle the whole playlist again and start from the top, so a frame that goes in and out of the screensaver all day kept bringing back photos it had already shown while most of the library never came up. Sessions now pick up where the last one stopped and show the photos not yet seen first. Once every photo has had its turn the order is shuffled again and a new pass begins. New uploads join the current pass at random spots. With Shuffle off, the slideshow resumes where it stopped instead of starting over at the newest photo (#699).
 
 ## v2026.9.81 - 2026-09-24
 

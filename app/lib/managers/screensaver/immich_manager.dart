@@ -387,6 +387,19 @@ class ImmichManager extends Manager {
   @visibleForTesting
   Duration warmLead = const Duration(seconds: 15);
 
+  /// The order sessions walk the playlist in, and the entries that had
+  /// their turn in this lap of it (issue #699). Every session used to
+  /// shuffle the whole playlist again and start at the top, so a frame that
+  /// goes in and out of the screensaver all day drew from the pool with
+  /// replacement and brought photos back long before the rest had shown.
+  /// A start now leads with the entries this lap has not reached, and the
+  /// next lap, shuffled again, begins once every entry had its turn.
+  List<ImmichAsset>? _deck;
+  List<ImmichAsset>? _deckSource;
+  Set<String> _deckIds = const {};
+  final _shown = <String>{};
+  final _random = Random();
+
   /// The settings whose change makes the kept playlist and the warm start
   /// wrong. The rest (transition, fill, metadata, cache size) leave the
   /// listing and its order alone.
@@ -414,7 +427,10 @@ class ImmichManager extends Manager {
   Future<void> init() async {
     bus.on<ScreensaverCountdownChanged>().listen(_onCountdown);
     bus.on<SettingChanged>().listen((e) {
-      if (_playlistKeys.contains(e.key)) _forgetPlaylist();
+      if (_playlistKeys.contains(e.key)) {
+        _forgetPlaylist();
+        _forgetDeck();
+      }
       // A changed server or key invalidates the validation — and with it
       // every dependent row, until the user validates again. NOT during an
       // import: the backup's validated flag arrives together with the very
@@ -543,6 +559,16 @@ class ImmichManager extends Manager {
     _warmImage = null;
   }
 
+  /// A different pool or order: the lap starts over on the next listing.
+  /// A fresh listing of the same settings keeps it, so a retry after an
+  /// outage does not bring back what already showed.
+  void _forgetDeck() {
+    _deck = null;
+    _deckSource = null;
+    _deckIds = const {};
+    _shown.clear();
+  }
+
   /// The idle clock moved. With the Immich slideshow due, get the next
   /// session ready [warmLead] ahead of it; a clock that is closer than that
   /// or already past warms right away. Any other mode due drops what was
@@ -603,9 +629,10 @@ class ImmichManager extends Manager {
 
   /// The playlist in the order the next session runs it: the readied start
   /// when one is waiting, else the kept playlist (listed when there is
-  /// none), shuffled when the setting says so. The readied start is
-  /// consumed: the session after this one gets its own. [fresh] drops the
-  /// kept playlist and the readied start first and lists again.
+  /// none), shuffled when the setting says so, with the entries this lap
+  /// has not shown yet first. The readied start is consumed: the session
+  /// after this one gets its own. [fresh] drops the kept playlist and the
+  /// readied start first and lists again.
   Future<List<ImmichAsset>> startOrder({bool fresh = false}) {
     if (fresh) _forgetPlaylist();
     final warm = _warmOrder;
@@ -615,9 +642,60 @@ class ImmichManager extends Manager {
   }
 
   Future<List<ImmichAsset>> _startOrder() async {
-    final assets = await playlist();
-    if (!_settings.get(defs.screensaverImmichShuffle)) return assets;
-    return [...assets]..shuffle(Random());
+    final deck = _dealt(await playlist());
+    return [
+      for (final a in deck)
+        if (!_shown.contains(a.id)) a,
+      for (final a in deck)
+        if (_shown.contains(a.id)) a,
+    ];
+  }
+
+  /// The deck for [assets], kept while the listing is the same one. A new
+  /// listing keeps the lap's order and progress: entries the server no
+  /// longer lists leave, and new uploads land at random places in it when
+  /// shuffling, so they do not wait for the end of the lap.
+  List<ImmichAsset> _dealt(List<ImmichAsset> assets) {
+    final deck = _deck;
+    if (deck != null && identical(_deckSource, assets)) return deck;
+    final shuffle = _settings.get(defs.screensaverImmichShuffle);
+    final List<ImmichAsset> next;
+    if (!shuffle) {
+      next = assets;
+    } else if (deck == null) {
+      next = [...assets]..shuffle(_random);
+    } else {
+      final listed = {for (final a in assets) a.id: a};
+      next = [for (final a in deck) ?listed[a.id]];
+      for (final a in assets) {
+        if (_deckIds.contains(a.id)) continue;
+        next.insert(_random.nextInt(next.length + 1), a);
+      }
+    }
+    _deck = next;
+    _deckSource = assets;
+    _deckIds = {for (final a in next) a.id};
+    _shown.retainAll(_deckIds);
+    return next;
+  }
+
+  /// [asset] had its turn in this lap: shown, or passed over because it
+  /// could not be. Once every entry had one the next lap starts, shuffled
+  /// again when the setting says so.
+  void markShown(ImmichAsset asset) {
+    final deck = _deck;
+    if (deck == null || !_deckIds.contains(asset.id)) return;
+    if (!_shown.add(asset.id)) return;
+    // A start readied before this showed would lead with it again.
+    if (_warmOrder != null) {
+      _warmOrder = null;
+      _warmImage = null;
+    }
+    if (_shown.length < _deckIds.length) return;
+    _shown.clear();
+    if (_settings.get(defs.screensaverImmichShuffle)) {
+      _deck = [...deck]..shuffle(_random);
+    }
   }
 
   /// The kept playlist, listed from the server when there is none. A kept
