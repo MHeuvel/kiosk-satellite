@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.9.82 - 2026-09-25
 
 ### Added
 - **More device facts in `/api/health`.** The health endpoint now reports the system WebView package and version, the network link type with the Wi-Fi signal, link speed and frequency, the time since the device booted and the screen orientation and rotation. The Wi-Fi fields need no location permission and leave out the network name. The new `getNetworkLink` command returns the same link details (#696).
