@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.9.81 - 2026-09-24
 
 ### Added
 - **The Overview screenshot follows Now Playing and the intercom.** The remote admin takes a fresh screenshot when the Now Playing view or the intercom's Call a kiosk or call screen opens or closes, the way it already did for the screensaver and camera views. A Now playing or Intercom badge sits at the top right of the screenshot while either one fills the screen.
