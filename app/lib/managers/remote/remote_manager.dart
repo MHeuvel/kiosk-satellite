@@ -806,6 +806,7 @@ class RemoteManager extends Manager {
     final details = await commands.execute('getDeviceDetails', const {});
     final screenOn = await commands.execute('isScreenOn', const {});
     final brightness = await commands.execute('getBrightness', const {});
+    final link = await commands.execute('getNetworkLink', const {});
     final info = (device.data as Map?)?.cast<String, Object?>() ?? const {};
     final det = (details.data as Map?)?.cast<String, Object?>() ?? const {};
     return _json(200, {
@@ -826,6 +827,11 @@ class RemoteManager extends Manager {
       'ram': det['ram'],
       'storage': det['storage'],
       'cpu': {'usage': info['cpu'], 'temp': info['temp']},
+      // The system WebView updates itself out from under the app, so it is
+      // the first suspect when one panel renders unlike its neighbors.
+      'webview': det['webview'],
+      // Null while offline. Wi-Fi adds signal, link speed and frequency.
+      'link': link.ok ? link.data : null,
       // Seconds. `network` is null while offline; its clock starts at app
       // start at the earliest (see DeviceDetails.uptime).
       'uptime': info['uptime'],
