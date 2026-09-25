@@ -214,5 +214,31 @@
         "Intercom"
       ]
     }
+  },
+  "settingIntercomTlsTitle": "Encrypt communications",
+  "@settingIntercomTlsTitle": {
+    "context": "Settings:Intercom",
+    "description": "Intercom encryption setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "settingIntercomTlsDescription": "Use TLS to encrypt intercom calls between kiosks. All kiosks in the call need this enabled.",
+  "@settingIntercomTlsDescription": {
+    "context": "Settings:Intercom",
+    "description": "Intercom encryption setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
   }
 }

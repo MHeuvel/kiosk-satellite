@@ -1,0 +1,9 @@
+{
+  "@@locale": "uk",
+  "settingDisableCacheTitle": "Вимкнути кеш",
+  "settingDisableCacheDescription": "Завжди завантажувати дані з мережі та скидати кеш сторінки під час завантаження, щоб оновлена панель керування завжди показувалася актуальною. Працює повільніше; призначено для розробки.",
+  "settingAllowMixedContentTitle": "Дозволити змішаний вміст",
+  "settingAllowMixedContentDescription": "Дозволити сторінкам HTTPS завантажувати незахищені ресурси HTTP. Корисно, коли Home Assistant включає вміст з http:// у панель керування через https:// для підключення.",
+  "settingIgnoreSslErrorsTitle": "Ігнорувати помилки SSL",
+  "settingIgnoreSslErrorsDescription": "Приймати ненадійні або самопідписані сертифікати. Використовуйте лише у власній мережі, оскільки це вимикає перевірку сертифікатів."
+}

@@ -45,6 +45,8 @@ import '../managers/settings/settings_manager.dart';
 
 import 'camera_view_overlay.dart' show ClosingCameraPlayer;
 import 'clock_faces.dart';
+import 'digital_clock_face.dart';
+import 'weather_readings.dart';
 import 'photo_frames.dart';
 import 'plugin_screensaver.dart';
 import 'weather_mood_screensaver.dart';
@@ -121,6 +123,8 @@ class _ScreensaverOverlayState extends State<ScreensaverOverlay> {
       defs.screensaverWidgets.key,
       defs.screensaverWeatherEntity.key,
       defs.screensaverWeatherPreview.key,
+      defs.screensaverWeatherBar.key,
+      defs.screensaverWeatherBarScale.key,
       defs.screensaverWidgetScale.key,
       defs.screensaverWidgetFont.key,
       defs.screensaverWidgetFontWeight.key,
@@ -335,6 +339,7 @@ class _ScreensaverOverlayState extends State<ScreensaverOverlay> {
                     !weatherUnset &&
                     view != 'black' &&
                     view != 'clock' &&
+                    view != 'weather_mood' &&
                     view != 'camera')
                   ValueListenableBuilder<bool?>(
                     valueListenable: container.screensaver.scheduleGlance,
@@ -387,44 +392,48 @@ class _ScreensaverOverlayState extends State<ScreensaverOverlay> {
                     builder: (context, scheduled, _) =>
                         ValueListenableBuilder<Set<String>>(
                           valueListenable: container.screensaver.claimedCorners,
-                          builder: (context, claimed, _) => Stack(
-                            fit: StackFit.expand,
-                            children: [
-                              if (scheduled ?? true)
-                                for (final spec in decodeScreensaverWidgets(
-                                  container.settings.get(
-                                    defs.screensaverWidgets,
-                                  ),
-                                ))
-                                  if (screensaverWidgetAllowedOnMode(
-                                        spec.type,
-                                        view,
-                                      ) &&
-                                      !claimed.contains(spec.position))
-                                    switch (spec.type) {
-                                      'clock' => ClockWidgetOverlay(
-                                        container: container,
-                                        spec: spec,
-                                        nightColor: _widgetNightColor(view),
-                                      ),
-                                      'weather' => WeatherWidgetOverlay(
-                                        container: container,
-                                        spec: spec,
-                                        nightColor: _widgetNightColor(view),
-                                      ),
-                                      'battery' => BatteryWidgetOverlay(
-                                        container: container,
-                                        spec: spec,
-                                        nightColor: _widgetNightColor(view),
-                                      ),
-                                      'entity' => EntityWidgetOverlay(
-                                        container: container,
-                                        spec: spec,
-                                        nightColor: _widgetNightColor(view),
-                                      ),
-                                      _ => const SizedBox.shrink(),
-                                    },
-                            ],
+                          builder: (context, claimed, _) => _AboveWeatherChips(
+                            container: container,
+                            enabled: view == 'weather_mood',
+                            child: Stack(
+                              fit: StackFit.expand,
+                              children: [
+                                if (scheduled ?? true)
+                                  for (final spec in decodeScreensaverWidgets(
+                                    container.settings.get(
+                                      defs.screensaverWidgets,
+                                    ),
+                                  ))
+                                    if (screensaverWidgetAllowedOnMode(
+                                          spec.type,
+                                          view,
+                                        ) &&
+                                        !claimed.contains(spec.position))
+                                      switch (spec.type) {
+                                        'clock' => ClockWidgetOverlay(
+                                          container: container,
+                                          spec: spec,
+                                          nightColor: _widgetNightColor(view),
+                                        ),
+                                        'weather' => WeatherWidgetOverlay(
+                                          container: container,
+                                          spec: spec,
+                                          nightColor: _widgetNightColor(view),
+                                        ),
+                                        'battery' => BatteryWidgetOverlay(
+                                          container: container,
+                                          spec: spec,
+                                          nightColor: _widgetNightColor(view),
+                                        ),
+                                        'entity' => EntityWidgetOverlay(
+                                          container: container,
+                                          spec: spec,
+                                          nightColor: _widgetNightColor(view),
+                                        ),
+                                        _ => const SizedBox.shrink(),
+                                      },
+                              ],
+                            ),
                           ),
                         ),
                   ),
@@ -1178,39 +1187,15 @@ class _ClockScreensaverState extends State<ClockScreensaver>
               offset: _offset,
               child: style != 'digital'
                   ? _styledFace(style, scale * clockShrink, font)
-                  : Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          _time(),
-                          style: TextStyle(
-                            fontFamily: font,
-                            color: color,
-                            fontSize: clockSize,
-                            fontWeight: timeWeight,
-                            fontVariations: clockFontVariations(
-                              opticalSize,
-                              timeWeight,
-                            ),
-                            letterSpacing: clockSize * 0.02,
-                            fontFeatures: const [FontFeature.tabularFigures()],
-                            height: 1.0,
-                          ),
-                        ),
-                        if (s.get(defs.screensaverClockDate)) ...[
-                          SizedBox(height: clockSize * 0.1),
-                          Text(
-                            _date(),
-                            style: TextStyle(
-                              fontFamily: font,
-                              // The date sits back a little, as in VS (~65% of the clock).
-                              color: color.withValues(alpha: 0.65),
-                              fontSize: dateSize,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ],
+                  : DigitalClockFace(
+                      time: _time(),
+                      date: s.get(defs.screensaverClockDate) ? _date() : null,
+                      fontFamily: font,
+                      color: color,
+                      clockSize: clockSize,
+                      dateSize: dateSize,
+                      weight: timeWeight,
+                      opticalSize: opticalSize,
                     ),
             ),
           ),
@@ -1476,7 +1461,7 @@ class _ClockWidgetOverlayState extends State<ClockWidgetOverlay> {
                           style: TextStyle(
                             fontFamily: font.family,
                             color: color.withValues(alpha: 0.75),
-                            fontSize: clockSize * 0.42,
+                            fontSize: clockSize * 0.52,
                             fontWeight: font.weight ?? FontWeight.w400,
                             shadows: shadows,
                           ),
@@ -1900,9 +1885,11 @@ class _EntityWidgetOverlayState extends State<EntityWidgetOverlay> {
 
   @override
   Widget build(BuildContext context) {
-    // Nothing until the first reading: an empty corner beats a widget that
-    // says "…" on the way in.
-    if (_entity.state == null) return const SizedBox.shrink();
+    // Nothing until the first reading, and nothing while the value is
+    // blank: an empty corner beats a widget that says "…".
+    if (_entity.state == null || glanceValueBlank(_entity)) {
+      return const SizedBox.shrink();
+    }
     final corner = _cornerAlignment(widget.spec.position);
     final color = widget.nightColor ?? _widgetRgb(widget.spec.config['color']);
     final size = MediaQuery.of(context).size;
@@ -2015,14 +2002,8 @@ GlanceEntity entityWidgetEntity(Map<String, Object?> config) {
   );
 }
 
-/// The weather widget: one Home Assistant weather entity in a corner —
-/// the location name, a big temperature (with the apparent temperature
-/// after it when the Feels like toggle is on), the forecast with its
-/// icon, and optional humidity, wind and visibility lines, each shown
-/// only when its toggle is on AND the entity actually carries the
-/// reading. Fed by its
-/// own subscribe_entities socket while the screensaver shows (the At a
-/// Glance pattern), so the readings stay live without polling.
+/// A Home Assistant weather entity with a prominent temperature, a labeled
+/// apparent temperature and optional condition, humidity, wind and visibility.
 class WeatherWidgetOverlay extends StatefulWidget {
   const WeatherWidgetOverlay({
     super.key,
@@ -2185,11 +2166,8 @@ class _WeatherWidgetOverlayState extends State<WeatherWidgetOverlay> {
 
   num? _num(String key) {
     final value = _attributes[key];
-    return value is num ? value : null;
+    return value is num && value.isFinite ? value : null;
   }
-
-  String _degrees(num value) =>
-      '${value.round()}${_attributes['temperature_unit'] ?? '°'}';
 
   @override
   Widget build(BuildContext context) {
@@ -2201,10 +2179,6 @@ class _WeatherWidgetOverlayState extends State<WeatherWidgetOverlay> {
     final corner = _cornerAlignment(widget.spec.position);
     final color = widget.nightColor ?? _widgetRgb(widget.spec.config['color']);
     final size = MediaQuery.of(context).size;
-    // The temperature is exactly the small clock's size, and the location
-    // and detail lines take the Immich metadata panel's fixed sizes, so
-    // the corner overlays all read as one family. The scale sliders then
-    // correct everything for the screen.
     final scale = _widgetScale(widget.container, widget.spec);
     final tempSize = max(min(size.width, size.height) * 0.063, 44.0) * scale;
     final font = _widgetFont(widget.container, widget.spec);
@@ -2212,33 +2186,37 @@ class _WeatherWidgetOverlayState extends State<WeatherWidgetOverlay> {
 
     // A picked weight wins over the line's own: the location line is
     // semibold by design, and Default keeps it so.
-    TextStyle line({
-      double size = 16,
-      FontWeight? weight,
-      double alpha = 0.9,
-    }) => TextStyle(
-      fontFamily: font.family,
-      color: color.withValues(alpha: alpha),
-      fontSize: size * scale,
-      fontWeight: font.weight ?? weight ?? FontWeight.w400,
-      shadows: shadows,
-      // The Immich metadata panel's line height: the two blocks share a
-      // corner vocabulary, and the tighter 1.2 read as cramped beside it.
-      height: 1.35,
-    );
+    TextStyle line({double? size, FontWeight? weight, double alpha = 0.9}) =>
+        TextStyle(
+          fontFamily: font.family,
+          color: color.withValues(alpha: alpha),
+          fontSize: size ?? tempSize * .48,
+          fontWeight: font.weight ?? weight ?? FontWeight.w400,
+          shadows: shadows,
+          // The Immich metadata panel's line height: the two blocks share a
+          // corner vocabulary, and the tighter 1.2 read as cramped beside it.
+          height: 1.35,
+        );
 
     // One reading with its monochrome icon, tinted like the text. The
-    // icon sits on the corner's outer edge — left corners lead with it,
-    // right corners trail — so the icon column stays flush however long
+    // icon sits on the corner's outer edge. Left corners lead with it and
+    // right corners trail so the icon column stays flush however long
     // the readings run.
     final right = corner.x > 0;
-    Widget detail(String value, IconData icon) {
-      final glyph = Icon(
-        icon,
-        size: 16 * scale,
-        color: color.withValues(alpha: 0.85),
-        shadows: shadows,
-      );
+    Widget detail(String value, IconData icon, {String? condition}) {
+      final glyph = condition != null
+          ? WeatherConditionIcon(
+              condition,
+              size: tempSize * .43,
+              color: color.withValues(alpha: 0.85),
+              shadows: shadows,
+            )
+          : Icon(
+              icon,
+              size: tempSize * .43,
+              color: color.withValues(alpha: 0.85),
+              shadows: shadows,
+            );
       final text = Text(value, style: line());
       final gap = SizedBox(width: 9 * scale);
       return Row(
@@ -2252,8 +2230,11 @@ class _WeatherWidgetOverlayState extends State<WeatherWidgetOverlay> {
       return unit.isEmpty ? '${value.round()}' : '${value.round()} $unit';
     }
 
-    final temperature = _num('temperature');
-    final feelsLike = _num('apparent_temperature');
+    final temperature = WeatherTemperatureReading.fromAttributes(
+      _attributes,
+      feelsLike: _on('feels_like'),
+      feelsLikeOnly: _on('feels_like_only'),
+    );
     final humidity = _num('humidity');
     final wind = _num('wind_speed');
     final visibility = _num('visibility');
@@ -2277,7 +2258,8 @@ class _WeatherWidgetOverlayState extends State<WeatherWidgetOverlay> {
               (_forecastText.isNotEmpty
                   ? _sentenceCase(_forecastText)
                   : _conditionLabel(_condition)),
-          _conditionIcon(_condition),
+          weatherConditionIcon(_condition),
+          condition: _condition,
         ),
       if (_on('humidity') && humidity != null)
         detail('${humidity.round()}%', Icons.water_drop_outlined),
@@ -2293,28 +2275,14 @@ class _WeatherWidgetOverlayState extends State<WeatherWidgetOverlay> {
       if (_on('location') && location.isNotEmpty)
         Text(
           location,
-          style: line(size: 18, weight: FontWeight.w600, alpha: 1),
+          style: line(size: tempSize * .50, weight: FontWeight.w600, alpha: 1),
         ),
       if (temperature != null)
-        Text(
-          // The apparent temperature rides the temperature line rather
-          // than taking a detail row of its own: "30°C / 33°C" reads as
-          // one fact, the real reading and what it feels like. When both
-          // round to the same number the pair would say nothing, so the
-          // single reading shows. Feels like only goes further and puts
-          // the apparent temperature in the real one's place; an entity
-          // without the reading keeps the real one either way.
-          feelsLike == null
-              ? _degrees(temperature)
-              : _on('feels_like_only')
-              ? _degrees(feelsLike)
-              : _on('feels_like') && feelsLike.round() != temperature.round()
-              ? '${_degrees(temperature)} / ${_degrees(feelsLike)}'
-              : _degrees(temperature),
-          // Proportional figures, not tabular: the block hugs its corner,
-          // so a leading 1's tabular side-bearing would only read as the
-          // number sitting off the lines around it.
-          style: TextStyle(
+        WeatherTemperature(
+          reading: temperature,
+          alignment: align,
+          secondaryStyle: line(size: tempSize * .40),
+          primaryStyle: TextStyle(
             fontFamily: font.family,
             color: color,
             fontSize: tempSize,
@@ -2348,11 +2316,15 @@ class _WeatherWidgetOverlayState extends State<WeatherWidgetOverlay> {
               padding: const EdgeInsets.all(28),
               child: Transform.translate(
                 offset: _offset,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  spacing: 6,
-                  crossAxisAlignment: align,
-                  children: lines,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: corner,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    spacing: 6,
+                    crossAxisAlignment: align,
+                    children: lines,
+                  ),
                 ),
               ),
             ),
@@ -2385,26 +2357,6 @@ String _conditionLabel(String condition) => switch (condition) {
   'windy' => 'Windy',
   'windy-variant' => 'Windy',
   _ => _sentenceCase(condition).replaceAll('-', ' '),
-};
-
-/// Monochrome Material glyphs for the conditions, tinted with the widget
-/// color exactly like the text.
-IconData _conditionIcon(String condition) => switch (condition) {
-  'clear-night' => Icons.nights_stay,
-  'cloudy' => Icons.cloud,
-  'exceptional' => Icons.storm,
-  'fog' => Icons.foggy,
-  'hail' => Icons.grain,
-  'lightning' => Icons.bolt,
-  'lightning-rainy' => Icons.thunderstorm,
-  'partlycloudy' => Icons.wb_cloudy,
-  'pouring' => Icons.umbrella,
-  'rainy' => Icons.umbrella,
-  'snowy' => Icons.ac_unit,
-  'snowy-rainy' => Icons.ac_unit,
-  'sunny' => Icons.wb_sunny,
-  'windy' || 'windy-variant' => Icons.air,
-  _ => Icons.cloud,
 };
 
 /// Media and website, rendered in their own WebView.
@@ -3722,6 +3674,9 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
     }
     final next = index % _assets.length;
     final asset = _assets[next];
+    // Its turn in the lap came, whether it shows or has to be passed over,
+    // so the next session starts with what this one did not reach.
+    c.immich.markShown(asset);
     if (asset.isVideo) {
       // A video the device cannot afford to buffer is passed over, and
       // remembered so a lap of the playlist asks the server only once. A
@@ -3841,6 +3796,7 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
       }
       _failures = 0;
       _lastFailure = null;
+      if (slide.pairIndex case final i?) c.immich.markShown(_assets[i]);
       final oldPhoto = _photo;
       final oldPairPhoto = _pairPhoto;
       c.screensaver.notifySlideChanged();
@@ -4893,4 +4849,30 @@ class _CameraScreensaverState extends State<CameraScreensaver>
             ),
     ),
   );
+}
+
+/// Lifts the bottom corner widgets just above the Weather Mood chips, by
+/// the height the chips measured after layout.
+class _AboveWeatherChips extends StatelessWidget {
+  const _AboveWeatherChips({
+    required this.container,
+    required this.enabled,
+    required this.child,
+  });
+  final AppContainer container;
+  final bool enabled;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    if (!enabled) return child;
+    return ValueListenableBuilder<double>(
+      valueListenable: container.screensaver.weatherChipsHeight,
+      builder: (context, height, child) => Padding(
+        padding: EdgeInsets.only(bottom: height),
+        child: child,
+      ),
+      child: child,
+    );
+  }
 }

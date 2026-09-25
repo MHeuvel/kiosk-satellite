@@ -1,0 +1,23 @@
+{
+  "@@locale": "uk",
+  "voiceTester": "Тестер слова активації",
+  "voiceTesterHelp": "Відстежуйте в реальному часі, що чує рушій та як він оцінює звук, щоб з'ясувати причини спрацьовування або неспрацьовування слова активації.",
+  "voiceTesterSearch": "Перегляд у реальному часі того, що чує та оцінює рушій.",
+  "voiceTesterWaiting": "Очікування Voice Satellite",
+  "voiceStopWordNamed": "{word} (стоп-слово)",
+  "voiceScore": "Оцінка",
+  "voiceThreshold": "Поріг",
+  "voiceHits": "Спрацьовування",
+  "voiceNearMisses": "Близькі збіги",
+  "voicePeak": "Пік",
+  "voiceMicLevel": "Рівень мікрофона",
+  "voiceChunkProcessing": "Обробка фрагментів (мін / сер / макс)",
+  "voiceLog": "Журнал",
+  "voiceLogEmpty": "Спрацьовування та близькі збіги з'являтимуться тут.",
+  "voiceLogHit": "ТОЧНО",
+  "voiceLogNear": "близько",
+  "voiceLogScore": "оцінка",
+  "voiceLogDecoded": "розпізнано",
+  "voiceLogConfidence": "впевненість",
+  "voiceLogDistance": "відстань"
+}

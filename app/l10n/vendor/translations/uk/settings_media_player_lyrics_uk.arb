@@ -1,0 +1,13 @@
+{
+  "@@locale": "uk",
+  "settingSendspinLyricsEnabledTitle": "Увімкнути тексти пісень",
+  "settingSendspinLyricsEnabledDescription": "Синхронізовані тексти у режимі «Зараз грає», для кожного джерела плеєра.",
+  "settingSendspinLyricsSourceTitle": "Джерело текстів",
+  "settingSendspinLyricsSourceDescription": "Звідки беруться тексти. Music Assistant потребує адресу сервера та токен на своїй сторінці.",
+  "settingSendspinLyricsFallbackTitle": "Резервне джерело Music Assistant",
+  "settingSendspinLyricsFallbackDescription": "Якщо LRCLIB недоступний, замість нього запитується Music Assistant. Потребує з'єднання з Music Assistant.",
+  "settingSendspinLyricsOffsetTitle": "Синхронізація тексту",
+  "settingSendspinLyricsOffsetDescription": "Зсувати текст відносно музики. Додатне значення показує кожен рядок раніше, від'ємне - пізніше. Варто трохи підкоригувати для треків, де текст стабільно розбігається.",
+  "mediaLyricsPage": "Тексти пісень",
+  "mediaLyricsHint": "Синхронізовані тексти, їхнє джерело й синхронізація"
+}

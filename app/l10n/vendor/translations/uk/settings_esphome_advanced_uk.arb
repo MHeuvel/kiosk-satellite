@@ -1,0 +1,13 @@
+{
+  "@@locale": "uk",
+  "settingEsphomeRealMacTitle": "Використовувати справжню MAC-адресу Wi-Fi",
+  "settingEsphomeRealMacDescription": "Home Assistant пов'язує цей кіоск із тим самим пристроєм, який уже відстежують ваші мережеві інтеграції. Зміна цього параметра створює новий пристрій ESPHome у Home Assistant.",
+  "settingEsphomeMacOverrideTitle": "Підмінити MAC-адресу Wi-Fi",
+  "settingEsphomeMacOverrideDescription": "Оскільки MAC-адресу не вдалося визначити, ви можете ввести власну у цьому полі. Зміна цього параметра створює новий пристрій ESPHome у Home Assistant.",
+  "esphomeAdvanced": "Розширені налаштування",
+  "esphomeAdvancedHelp": "Справжня або підмінена MAC-адреса Wi-Fi",
+  "esphomeMacInvalid": "Введіть дійсну MAC-адресу.",
+  "esphomeMacHardware": "Повідомляється {mac}.",
+  "esphomeMacManual": "Повідомляється {mac}, введена нижче.",
+  "esphomeMacUnavailable": "Android не надає апаратну адресу цього пристрою."
+}

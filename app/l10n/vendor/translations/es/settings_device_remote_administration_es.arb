@@ -15,5 +15,7 @@
   "deviceByNameHelp": "La misma dirección mediante el nombre del equipo, en redes que resuelven nombres .local.",
   "devicePasswordNeeded": "Define una contraseña de administración abajo para iniciar el servidor.",
   "deviceServerStopped": "El servidor no está en ejecución.",
-  "devicePortError": "No se pudo escuchar en el puerto {port}: {error}"
+  "devicePortError": "No se pudo escuchar en el puerto {port}: {error}",
+  "settingRemoteTlsTitle": "Usar HTTPS",
+  "settingRemoteTlsDescription": "Cifra la administración remota, la API y WebSocket. El navegador puede pedirte que aceptes el certificado del dispositivo."
 }

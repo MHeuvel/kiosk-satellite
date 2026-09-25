@@ -16,5 +16,7 @@
   "intercomRegenerate": "Régénérer",
   "intercomKeyChanged": "Clé modifiée",
   "intercomNotSet": "Non définie",
-  "intercomOpen": "Ouvrir"
+  "intercomOpen": "Ouvrir",
+  "settingIntercomTlsTitle": "Chiffrer les communications",
+  "settingIntercomTlsDescription": "Utilise TLS pour chiffrer les appels intercom entre kiosques. Cette option doit être activée sur tous les kiosques participant à l’appel."
 }

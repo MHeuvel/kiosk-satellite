@@ -48,6 +48,7 @@ import 'entity_picker.dart';
 import 'esphome_entity_picker.dart';
 import 'glance_entity_picker.dart';
 import 'camera_settings.dart';
+import 'tls_settings.dart';
 import 'fleet_settings.dart';
 import 'camera_views_picker.dart';
 import 'import_options_dialog.dart';
@@ -121,6 +122,17 @@ List<Widget> _sectionedCards(
             subpage: def.subpage!,
           ),
         );
+        if (def.category == 'Device' &&
+            def.subpage == 'Remote Administration') {
+          flush();
+          buffer.add(
+            _SubpageEntryTile(
+              container: container,
+              category: 'Device',
+              subpage: 'TLS',
+            ),
+          );
+        }
       }
       continue;
     }
@@ -3441,6 +3453,10 @@ class _CategoryContentState extends State<_CategoryContent> {
           ],
         ),
       ];
+    }
+
+    if (widget.category == 'Device' && subpage == 'TLS') {
+      return [TlsSettingsPanel(container: container)];
     }
 
     if (widget.category == 'Device' && subpage == 'Remote Administration') {
@@ -6936,7 +6952,8 @@ class _AdminAddressCardState extends State<_AdminAddressCard> {
   @override
   Widget build(BuildContext context) {
     final port = widget.container.settings.get(remotePort).toInt();
-    final address = 'http://${_ip ?? '…'}:$port';
+    final address =
+        '${widget.container.settings.get(remoteTls) ? 'https' : 'http'}://${_ip ?? '…'}:$port';
     // The same admin by name (issue #470), while the kiosk has one: the
     // Hostname setting or the device name as a DNS label.
     final hostUrl = widget.container.fleet.hostUrl;
@@ -10045,6 +10062,10 @@ class SettingTile extends StatelessWidget {
           subtitle: Text(def.localizedDescription(context)),
           value: c.settings.get(def) as bool,
           onChanged: (v) async {
+            if (def.key == remoteTls.key &&
+                !await confirmRemoteProtocol(context, c, v)) {
+              return;
+            }
             await c.settings.setFromJson(def.key, v);
             onChanged();
           },

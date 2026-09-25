@@ -12,6 +12,7 @@ import org.junit.Test
 class CameraOnvifServiceTest {
     private fun service(
         auth: Boolean = false,
+        tls: Boolean = false,
         audio: Boolean = false,
         deviceName: String = "Kiosk Satellite",
         networkInfo: (String) -> CameraOnvifService.NetworkInfo? = {
@@ -19,7 +20,7 @@ class CameraOnvifServiceTest {
         },
     ) = CameraOnvifService(
         1280, 720, 15, 800_000, audio, if (auth) "viewer" else null, "secret",
-        { Base64.getEncoder().encodeToString(it) }, { Base64.getDecoder().decode(it) }, "device-id", "test&version", networkInfo, deviceName,
+        { Base64.getEncoder().encodeToString(it) }, { Base64.getDecoder().decode(it) }, "device-id", "test&version", networkInfo, deviceName, tls,
     )
 
     private fun request(operation: String, header: String = "") = """
@@ -72,6 +73,20 @@ class CameraOnvifServiceTest {
         assertTrue(response(s, streamRequest("missing")).body.contains("ter:NoProfile"))
         assertTrue(response(s, streamRequest().replace(">RTSP<", ">UDP<")).body.contains("ter:InvalidStreamSetup"))
         assertTrue(response(s, "<trt:SetVideoEncoderConfiguration/>").body.contains("ter:ActionNotSupported"))
+    }
+
+    @Test fun encryptedServicesAdvertiseHttpsAndRtspsAndKeepAuthentication() {
+        val s = service(auth = true, tls = true)
+        assertTrue(response(s, "<tds:GetServices/>").body.contains("ter:NotAuthorized"))
+        val services = response(s, "<tds:GetServices><tds:IncludeCapability>true</tds:IncludeCapability></tds:GetServices>", token()).body
+        assertTrue(services.contains("https://192.168.1.5:8554/onvif/device_service"))
+        assertTrue(services.contains("https://192.168.1.5:8554/onvif/media_service"))
+        assertTrue(services.contains("TLS1.2=\"true\""))
+        val capabilities = response(s, "<tds:GetCapabilities/>", token()).body
+        assertTrue(capabilities.contains("<tt:TLS1.2>true</tt:TLS1.2>"))
+        assertTrue(capabilities.contains("https://192.168.1.5:8554/onvif/media_service"))
+        assertTrue(response(s, streamRequest(), token()).body.contains("rtsps://192.168.1.5:8554/camera"))
+        assertTrue(response(service(), "<tds:GetCapabilities/>").body.contains("<tt:TLS1.2>false</tt:TLS1.2>"))
     }
 
     @Test fun homeAssistantCanReadInterfacesAndFallBackToTheStableSerial() {
@@ -171,6 +186,15 @@ class CameraOnvifServiceTest {
         assertTrue(reply.contains("<a:RelatesTo>urn:uuid:probe-id</a:RelatesTo>"))
         assertTrue(reply.contains("http://192.168.1.5:8554/onvif/device_service"))
         assertTrue(reply.contains("urn:uuid:device-id"))
+        val secure = CameraOnvifDiscovery("device-id", 8554, tls = true)
+        for (message in listOf(
+            secure.probeReply(probe("dn:NetworkVideoTransmitter"), listOf("192.168.1.5"))!!,
+            secure.announcement(listOf("192.168.1.5")),
+        )) {
+            val document = CameraOnvifService.parse(message.toByteArray())
+            assertEquals("https://192.168.1.5:8554/onvif/device_service",
+                document.getElementsByTagNameNS(CameraOnvifDiscovery.DISCOVERY, "XAddrs").item(0).textContent)
+        }
         CameraOnvifService.parse(reply.toByteArray())
         assertNull(discovery.probeReply(probe("dn:Printer"), listOf("192.168.1.5")))
         assertNull(discovery.probeReply(probe("", "onvif://www.onvif.org/name/Other"), listOf("192.168.1.5")))

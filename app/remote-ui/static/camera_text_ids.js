@@ -83,7 +83,7 @@ export const cameraTextMessageIds = {
   "Include microphone audio": "settingCameraRtspAudioTitle",
   "Include microphone audio in the camera stream. Shares your microphone settings. WARNING: Increased CPU usage.": "settingCameraRtspAudioDescription",
   "Require authentication": "settingCameraRtspAuthTitle",
-  "Require a username and password to view the stream. Streaming traffic is not encrypted.": "settingCameraRtspAuthDescription",
+  "Require a username and password to view the stream. Authentication does not enable encryption.": "settingCameraRtspAuthDescription",
   "Username": "settingCameraRtspUsernameTitle",
   "Username for streaming clients.": "settingCameraRtspUsernameDescription",
   "Password": "settingCameraRtspPasswordTitle",

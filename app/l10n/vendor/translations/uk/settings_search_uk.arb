@@ -1,0 +1,7 @@
+{
+  "@@locale": "uk",
+  "settingsSearchHint": "Пошук у налаштуваннях",
+  "settingsSearchClear": "Очистити пошук",
+  "settingsSearchResults": "Результати пошуку",
+  "settingsSearchEmpty": "Немає налаштувань, що відповідають \"{query}\"."
+}

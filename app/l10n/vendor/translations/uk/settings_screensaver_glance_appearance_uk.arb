@@ -1,0 +1,16 @@
+{
+  "@@locale": "uk",
+  "settingScreensaverGlanceScaleTitle": "Масштаб рядка",
+  "settingScreensaverGlanceScaleDescription": "Масштабуйте рядок відповідно до розміру вашого екрана.",
+  "settingScreensaverGlanceFontTitle": "Шрифт",
+  "settingScreensaverGlanceFontDescription": "Гарнітура шрифту для відображення рядка.",
+  "settingScreensaverGlanceFontWeightTitle": "Товщина шрифту",
+  "settingScreensaverGlanceFontWeightDescription": "Товщина тексту рядка. За замовчуванням використовуються звичайні назви та напівжирні значення.",
+  "settingScreensaverGlanceHideNamesTitle": "Приховати назви",
+  "settingScreensaverGlanceHideNamesDescription": "Показувати лише піктограму та значення збільшеним розміром.",
+  "settingScreensaverGlanceBwIconsTitle": "Монохромні піктограми",
+  "settingScreensaverGlanceBwIconsDescription": "Відображати всі піктограми нейтральним сірим кольором замість кольору їхнього стану.",
+  "settingScreensaverGlanceTextOnlyTitle": "Стиль плаваючого тексту",
+  "settingScreensaverGlanceTextOnlyDescription": "Показувати сутності простим текстом замість плашок.",
+  "screensaverOverlayAppearance": "Зовнішній вигляд"
+}

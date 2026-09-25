@@ -13,7 +13,7 @@
       ]
     }
   },
-  "intercomRosterHelp": "Discovered kiosks and saved fleet members. A kiosk is ready when it is reachable with intercom on and the same key.",
+  "intercomRosterHelp": "Discovered kiosks and saved fleet members. A kiosk is ready when it is reachable with intercom on, the same key and matching encryption settings.",
   "@intercomRosterHelp": {
     "context": "Settings > Intercom > Kiosks",
     "description": "Label or guidance in this section.",

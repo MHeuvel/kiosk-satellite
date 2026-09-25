@@ -164,6 +164,45 @@ void main() {
   };
 
   group('manual fleet invitations', () {
+    test('finds HTTPS without discovery and never sends credentials', () async {
+      peers.clear();
+      await build(prefs: {'ks.fleet.leader': true});
+      final identity = answers['GET /api/fleet/identity']!;
+      answers['GET /api/fleet/identity'] = (request) {
+        if (request.url.scheme == 'http') {
+          throw const SocketException(
+            'HTTPS listener closed plaintext request',
+          );
+        }
+        return identity(request);
+      };
+      final found = await commands.execute('fleetLookup', {
+        'address': '192.168.1.80',
+      });
+      expect(found.ok, isTrue, reason: found.error);
+      expect((found.data as Map)['tls'], isTrue);
+      expect(sent.map((r) => r.url.scheme), ['http', 'https']);
+      expect(sent.every((r) => r.method == 'GET'), isTrue);
+      expect(
+        sent.every((r) => !r.headers.containsKey('authorization')),
+        isTrue,
+      );
+      expect(fleet.followers, isEmpty);
+    });
+
+    test('does not retry an advertised HTTPS kiosk over HTTP', () async {
+      peers.single['tls'] = true;
+      await build(prefs: {'ks.fleet.leader': true});
+      answers['GET /api/fleet/identity'] = (_) =>
+          throw const SocketException('Kiosk unavailable');
+      final found = await commands.execute('fleetLookup', {
+        'address': '192.168.1.71',
+      });
+      expect(found.ok, isFalse);
+      expect(sent.map((r) => r.url.scheme), ['https']);
+      expect(fleet.followers, isEmpty);
+    });
+
     test(
       'looks up an IP and invites without discovery or syncing before acceptance',
       () async {
@@ -850,7 +889,7 @@ void main() {
             'categories': [],
             'credentials': ['ha.token', 'bogus'],
           })!.describe(),
-          'Categories: 0 of 17. Credentials: 1 of 4. Excluded: 31.',
+          'Categories: 0 of 17. Credentials: 1 of 4. Excluded: 32.',
         );
         expect(
           withCreds['browser.start_url'],
@@ -1816,11 +1855,11 @@ void main() {
       expect(former.containsAll(previous), isTrue);
       previous = former;
     }
-    // The intercom volume joined last: the newest former list is the
+    // The intercom answer mode joined last: the newest former list is the
     // current one without it.
     expect(
       defs.fleetFormerDefaultExcluded.last,
-      defs.fleetDefaultExcluded.difference({'intercom.volume'}),
+      defs.fleetDefaultExcluded.difference({'intercom.answer_mode'}),
     );
   });
 

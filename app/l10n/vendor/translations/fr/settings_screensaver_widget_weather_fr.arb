@@ -10,12 +10,13 @@
   "screensaverOverlayLocation": "Lieu",
   "screensaverOverlayLocationDetail": "Le nom du lieu au-dessus de la température.",
   "screensaverOverlayFeelsLike": "Ressenti",
-  "screensaverOverlayFeelsLikeHelp": "La température ressentie à la suite de la température réelle, par exemple « 30° / 33° ».",
+  "screensaverOverlayFeelsLikeHelp": "Affiche la température ressentie sur une ligne avec un libellé sous la température réelle.",
   "screensaverOverlayFeelsLikeOnly": "Ressenti uniquement",
-  "screensaverOverlayFeelsLikeOnlyHelp": "La température ressentie à la place de la température réelle.",
+  "screensaverOverlayFeelsLikeOnlyHelp": "Affiche la température ressentie avec le libellé « Ressenti » à la place de la température réelle.",
   "screensaverOverlayForecast": "Prévisions",
   "screensaverOverlayForecastHelp": "Les conditions météo, avec l'icône correspondante.",
   "screensaverOverlayHumidity": "Humidité",
   "screensaverOverlayWind": "Vitesse du vent",
-  "screensaverOverlayVisibility": "Visibilité"
+  "screensaverOverlayVisibility": "Visibilité",
+  "screensaverWeatherFeelsLikeValue": "Ressenti : {temperature}"
 }

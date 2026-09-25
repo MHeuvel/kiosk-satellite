@@ -61,7 +61,7 @@ void main() {
       expect(defs.allSettings, contains(def));
     }
     expect(defs.subpageHints, contains('Updates'));
-    // The entry row sits right after Remote Administration on the page.
+    // The certificate page is inserted between these definition groups.
     final keys = defs.allSettings.map((d) => d.key).toList();
     expect(
       keys.indexOf(defs.updateSource.key),

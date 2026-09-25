@@ -18,5 +18,7 @@
   "intercomCallerNoAnswer": "der anrufende Kiosk hat nicht geantwortet",
   "intercomMissedcall": "Verpasster Anruf",
   "intercomListening": "Hört zu",
-  "intercomAnnouncementsoff": "Durchsagen deaktiviert"
+  "intercomAnnouncementsoff": "Durchsagen deaktiviert",
+  "intercomEncryptionMismatch": "Verschlüsselung stimmt nicht überein",
+  "intercomEncryptionMismatchHelp": "Die Verschlüsselungseinstellungen stimmen nicht überein. Aktiviere Kommunikation verschlüsseln auf allen Kiosken im Anruf."
 }

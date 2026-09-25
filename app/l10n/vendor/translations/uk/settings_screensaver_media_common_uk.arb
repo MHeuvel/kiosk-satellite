@@ -1,0 +1,12 @@
+{
+  "@@locale": "uk",
+  "screensaverMediaTransitionNone": "Немає",
+  "screensaverMediaTransitionFade": "Плавне згасання",
+  "screensaverMediaTransitionSlide": "Зсув",
+  "screensaverMediaTransitionZoom": "Масштабування",
+  "screensaverMediaTransitionKenBurns": "Ефект Кена Бернса",
+  "screensaverMediaTransitionRandom": "Випадковий",
+  "screensaverMediaFillOff": "Вимкнено",
+  "screensaverMediaFillSmart": "Розумне",
+  "screensaverMediaFillAlways": "Завжди"
+}

@@ -1456,4 +1456,100 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingScreensaverWeatherPreviewPeriodTitle",
     "description": "settingScreensaverWeatherPreviewPeriodDescription",
   },
+  "screensaver.weather_clock": {
+    "title": "settingScreensaverWeatherClockTitle",
+    "description": "settingScreensaverWeatherClockDescription",
+  },
+  "screensaver.weather_clock_font": {
+    "title": "settingScreensaverClockFontTitle",
+    "description": "settingScreensaverClockFontDescription",
+  },
+  "screensaver.weather_clock_font_weight": {
+    "title": "settingScreensaverClockFontWeightTitle",
+    "description": "settingScreensaverClockFontWeightDescription",
+  },
+  "screensaver.weather_clock_24h": {
+    "title": "settingScreensaverClock24hTitle",
+    "description": "settingScreensaverClock24hDescription",
+  },
+  "screensaver.weather_clock_show_date": {
+    "title": "settingScreensaverClockDateTitle",
+    "description": "settingScreensaverClockDateDescription",
+  },
+  "screensaver.weather_clock_scale": {
+    "title": "settingScreensaverClockScaleTitle",
+    "description": "settingScreensaverClockScaleDescription",
+  },
+  "screensaver.weather_clock_color": {
+    "title": "settingScreensaverClockColorTitle",
+    "description": "settingScreensaverClockColorDescription",
+  },
+  "screensaver.weather_clock_shadow": {
+    "title": "settingScreensaverWidgetTextShadowTitle",
+    "description": "screensaverWeatherTextShadowDescription",
+  },
+  "screensaver.weather_bar": {
+    "title": "settingScreensaverWeatherBarTitle",
+    "description": "settingScreensaverWeatherBarDescription",
+  },
+  "screensaver.weather_bar_scale": {
+    "title": "settingScreensaverWeatherBarScaleTitle",
+    "description": "settingScreensaverWeatherBarScaleDescription",
+  },
+  "screensaver.weather_bar_color": {
+    "title": "settingScreensaverWeatherBarColorTitle",
+    "description": "settingScreensaverWeatherBarColorDescription",
+  },
+  "screensaver.weather_bar_opacity": {
+    "title": "settingScreensaverWeatherBarOpacityTitle",
+    "description": "settingScreensaverWeatherBarOpacityDescription",
+  },
+  "screensaver.weather_bar_shadow": {
+    "title": "settingScreensaverWidgetTextShadowTitle",
+    "description": "screensaverWeatherTextShadowDescription",
+  },
+  "screensaver.weather_bar_location": {
+    "title": "screensaverOverlayLocationName",
+    "description": "screensaverOverlayLocationHelp",
+  },
+  "screensaver.weather_bar_feels_like": {
+    "title": "screensaverOverlayFeelsLike",
+    "description": "screensaverWeatherBarFeelsLikeDescription",
+  },
+  "screensaver.weather_bar_forecast": {
+    "title": "screensaverOverlayForecast",
+    "description": "screensaverOverlayForecastHelp",
+  },
+  "screensaver.weather_bar_humidity": {
+    "title": "screensaverOverlayHumidity",
+    "description": "screensaverWeatherBarHumidityDescription",
+  },
+  "screensaver.weather_bar_wind": {
+    "title": "screensaverOverlayWind",
+    "description": "screensaverWeatherBarWindDescription",
+  },
+  "screensaver.weather_bar_visibility": {
+    "title": "screensaverOverlayVisibility",
+    "description": "screensaverWeatherBarVisibilityDescription",
+  },
+  "screensaver.weather_blur": {
+    "title": "settingScreensaverWeatherBlurTitle",
+    "description": "settingScreensaverWeatherBlurDescription",
+  },
+  "gestures.hand_hold_seconds": {
+    "title": "settingHandGestureHoldSecondsTitle",
+    "description": "settingHandGestureHoldSecondsDescription",
+  },
+  "remote.tls": {
+    "title": "settingRemoteTlsTitle",
+    "description": "settingRemoteTlsDescription",
+  },
+  "camera.rtsp.tls": {
+    "title": "settingCameraRtspTlsTitle",
+    "description": "settingCameraRtspTlsDescription",
+  },
+  "intercom.tls": {
+    "title": "settingIntercomTlsTitle",
+    "description": "settingIntercomTlsDescription",
+  },
 };

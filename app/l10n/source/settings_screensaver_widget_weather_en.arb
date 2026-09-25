@@ -130,7 +130,7 @@
       ]
     }
   },
-  "screensaverOverlayFeelsLikeHelp": "The apparent temperature after the real one, \"30° / 33°\".",
+  "screensaverOverlayFeelsLikeHelp": "Show the apparent temperature on a labeled line below the actual temperature.",
   "@screensaverOverlayFeelsLikeHelp": {
     "context": "Settings > Screensaver > Widgets > Weather widget",
     "description": "Label or guidance in this editor.",
@@ -156,7 +156,7 @@
       ]
     }
   },
-  "screensaverOverlayFeelsLikeOnlyHelp": "The apparent temperature in the real one's place.",
+  "screensaverOverlayFeelsLikeOnlyHelp": "Show the apparent temperature with a Feels like label instead of the actual temperature.",
   "@screensaverOverlayFeelsLikeOnlyHelp": {
     "context": "Settings > Screensaver > Widgets > Weather widget",
     "description": "Label or guidance in this editor.",
@@ -232,6 +232,17 @@
       "remoteAdmin": [
         "Screensaver > Widgets > Weather widget"
       ]
+    }
+  },
+  "screensaverWeatherFeelsLikeValue": "Feels like {temperature}",
+  "@screensaverWeatherFeelsLikeValue": {
+    "context": "Screensaver > Weather widget and Weather Mood information bar",
+    "description": "Secondary line below the actual temperature. Includes the formatted apparent temperature and its unit.",
+    "placeholders": {
+      "temperature": {
+        "type": "String",
+        "description": "Formatted apparent temperature including its unit."
+      }
     }
   }
 }

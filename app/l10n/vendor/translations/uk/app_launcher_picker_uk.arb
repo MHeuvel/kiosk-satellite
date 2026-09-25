@@ -1,0 +1,9 @@
+{
+  "@@locale": "uk",
+  "launcherNoneHelp": "Поки що немає. Виберіть програми, які пропонує лаунчер.",
+  "launcherNone": "Поки що немає",
+  "launcherListFailed": "Не вдалося отримати список програм",
+  "launcherListError": "Не вдалося отримати список програм: {error}",
+  "launcherListingFailed": "помилка отримання списку",
+  "launcherEmpty": "Програм для запуску не знайдено."
+}

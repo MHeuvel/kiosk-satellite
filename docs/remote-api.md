@@ -20,9 +20,14 @@ the left edge → Settings),
 or an Android provisioning intent:
 
 ```sh
-adb shell am start -n me.jxl.kiosk_satellite/.MainActivity \
+adb shell am start -n me.jxl.kiosk_satellite/.ProvisionActivity \
   --es ks.provision '"{\"remote.enabled\":true,\"remote.password\":\"secret\"}"'
 ```
+
+The payload takes any setting, in the same JSON the settings import
+accepts. Only the adb shell can send it: Android refuses the intent from
+other apps on the device. Older builds took the extra on
+`.MainActivity`, which now ignores it.
 
 ## Reaching a kiosk by name
 
@@ -86,8 +91,24 @@ With the switcher in place, one kiosk can lead the others: it pushes the setting
 - `GET /api/health` is the one unauthenticated endpoint: it exists for
   external monitoring to poll, and a monitor cannot do a login dance. It
   serves read-only hardware facts only.
-- Optional TLS with a self-signed cert (off by default; LAN-only assumption
-  documented).
+- Optional HTTPS with a device certificate. Off by default. Plain HTTP is intended for a trusted LAN.
+
+## HTTPS and certificates
+
+Turn on **Use HTTPS** in **Device > Remote Administration** to encrypt the admin page, REST API and WebSocket on the existing admin port. A confirmation dialog shows the new address in a copyable box before either protocol change. **Confirm** applies it and reloads the browser at that address. **Cancel** keeps the current protocol. A self-signed certificate produces a browser warning until you trust it. You may need to log in again because HTTP and HTTPS have separate browser storage. The WebSocket uses `wss://` automatically. The Home Assistant Admin URL sensor reports HTTPS. The ESPHome Visit link is omitted because that link assumes HTTP.
+
+The **Device > TLS** page manages the device certificate. Encryption switches live on their feature pages. See [TLS encryption](tls.md) for Remote Administration, camera and intercom setup:
+
+- **Download public certificate** in the remote admin or **Copy public certificate** on the device exports only the public certificate.
+- **Renew certificate** renews the built-in certificate with the same private key and current hostname and IP addresses. Browsers that trust a specific certificate may need the renewed certificate installed.
+- **Import certificate** accepts a PEM server certificate chain and its matching unencrypted EC or RSA private key. Import from the device screen or through HTTPS. The app validates the material before replacing the current identity. Imported certificates are renewed by their issuer and must be imported again before they expire.
+- **Replace certificate** generates a new private key and certificate. Browsers may ask you to accept the new certificate. Other kiosks reconnect automatically.
+
+On Android, private keys are encrypted with an Android Keystore key and stored outside Android backup. They are never returned by the remote API or included in configuration exports. Each device keeps its own identity when a configuration is cloned. The generated certificate lasts one year. While any TLS setting is on, the app checks every six hours and renews generated certificates within 30 days of expiration. Renew manually after changing the hostname or when you need a new IP address included in the certificate.
+
+Certificate changes restart encrypted listeners and disconnect active encrypted viewers. Plain listeners are unaffected. Failed certificate loading leaves the encrypted listener stopped with an error. It never opens a plaintext replacement. The device's local settings remain available for recovery.
+
+The authenticated command API exposes `tlsCertificate`, `renewTlsCertificate`, `replaceTlsIdentity` and `importTlsCertificate`. Certificate status includes the PEM certificate, SHA-256 certificate fingerprint and expiration. Import accepts `certificate` and `privateKey`.
 
 ## REST surface
 
@@ -99,7 +120,7 @@ is administrable here by construction.
 |---|---|---|
 | `/api/login` | POST | `{password}` → `{token}`. Optional `ttl_days` for a long-lived automation token (max 3650) |
 | `/api/info` | GET | Device info, app version, battery, screen, current URL |
-| `/api/health` | GET | The Device Info tab's Hardware section as one JSON object: identity, addresses, battery (null on a device without one), screen, RAM, storage, CPU usage and temperature, and uptimes (`uptime.app` and `uptime.network`, seconds; `network` is null while offline and starts counting at app start at the earliest). Meant for external monitoring to poll, so it is the one endpoint that needs no token |
+| `/api/health` | GET | The Device Info tab's Hardware section as one JSON object: identity, addresses, battery (null on a device without one), screen (`width`, `height`, `density`, `orientation` and `rotation` in degrees from the panel's natural orientation), RAM, storage, CPU usage and temperature, the system WebView (`webview.package` and `webview.version`), the network link and uptimes. `link.type` is `ethernet`, `wifi`, `cellular`, `vpn` or `other`, and on Wi-Fi `link` adds `rssi` (dBm), `speedMbps` and `frequencyMhz`, each null when Android does not know it. `link` is null while offline and never carries the network name, which needs a location permission. `uptime.app`, `uptime.device` and `uptime.network` are in seconds since the app started, the device booted and the network came up. `network` is null while offline and starts counting at app start at the earliest. Meant for external monitoring to poll, so it is the one endpoint that needs no token |
 | `/api/settings` | GET | All setting definitions + current values |
 | `/api/settings` | PATCH | `{key: value, ...}` partial update |
 | `/api/settings/export` | GET | Full config as JSON (for provisioning) |
@@ -228,7 +249,11 @@ carries a **Bring to front** button entity.
 Connect to `/api/ws?token=<admin-token>`. Messages are JSON objects with a
 `type`. Fleet tokens cannot use this endpoint. The server sends a `state`
 snapshot on connection with device identity, battery, brightness,
-`screenOn`, `screensaverActive`, `cameraView` and `currentUrl`.
+`screenOn`, `screensaverActive`, `cameraView`, `nowPlayingShown`,
+`intercomShown` and `currentUrl`. Subscribers to `events` also get
+`{"type":"fullscreen-view","view":"nowPlaying","shown":true}` whenever the
+Now Playing view (`nowPlaying`) or the intercom's roster or call screen
+(`intercom`) comes up or goes.
 
 Subscribe to the data this client needs. Each `subscribe` replaces the
 previous topic set. An empty list unsubscribes from all live data. Clients
@@ -310,7 +335,8 @@ adding a module is just adding the file. Tabs: Overview (a Needs attention card 
 to install, a missing grant a switched-on feature needs, a lost Home
 Assistant connection or a stopped wake word engine, hidden while there is
 nothing; the screenshot with a badge while the panel is dark, on the
-screensaver or showing a camera view, a Still or Live toggle, full size and
+screensaver, showing Now Playing, the intercom or a camera view, taken again
+a second after any of those changes, a Still or Live toggle, full size and
 download; status tiles for Home Assistant, Voice Satellite, ESPHome, Media
 Player, the service and updates, each opening its page, and CPU, memory and
 temperature tiles with the last fifteen minutes as a stack of cells per

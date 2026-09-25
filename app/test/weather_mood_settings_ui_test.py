@@ -74,6 +74,9 @@ try:
                 setting('screensaver.weather_'+key, value, kind,
                         subpage='Weather Mood screensaver', section='Weather Mood screensaver',
                         dependsOn='screensaver.mode', dependsOnValue='weather_mood')
+            setting('screensaver.weather_blur', 0, 'number',
+                    subpage='Weather Mood screensaver', section='Weather Mood screensaver',
+                    min=0, max=30, step=1, unit='px')
             setting('screensaver.weather_preview', False, 'boolean',
                     subpage='Weather Mood screensaver', section='Weather Preview',
                     dependsOn='screensaver.mode', dependsOnValue='weather_mood')
@@ -84,6 +87,33 @@ try:
                         dependsOn='screensaver.weather_preview', dependsOnValue=True,
                         options=list(option_ids[key]), optionMessageIds=option_ids[key],
                         optionLabels={value: english[identifier] for value, identifier in option_ids[key].items()})
+            for group, master in [('Clock', 'clock'), ('Weather information', 'bar')]:
+                setting('screensaver.weather_'+master, False, 'boolean',
+                        subpage='Weather Mood screensaver', section=group,
+                        dependsOn='screensaver.mode', dependsOnValue='weather_mood')
+            for suffix, value, kind in [('font', 'rubik', 'select'),
+                                        ('font_weight', 'default', 'select'),
+                                        ('24h', False, 'boolean'),
+                                        ('show_date', True, 'boolean'),
+                                        ('scale', 100, 'number'),
+                                        ('color', '250,250,250', 'string'),
+                                        ('shadow', True, 'boolean')]:
+                key = 'screensaver.weather_clock_'+suffix
+                choices = option_ids.get(key, {})
+                if suffix == 'font':
+                    choices = {'rubik': None, 'nunito': None}
+                setting(key, value, kind, subpage='Weather Mood screensaver', section='Clock',
+                        dependsOn='screensaver.weather_clock', dependsOnValue=True,
+                        min=50, max=300, step=5,
+                        options=list(choices), optionMessageIds={k:v for k,v in choices.items() if v},
+                        optionLabels={value: english[identifier] if identifier else value.capitalize() for value, identifier in choices.items()})
+            for suffix, value, kind in [('scale',100,'number'), ('opacity',50,'number'),
+                                        ('color','255,255,255','string'), ('shadow',False,'boolean'),
+                                        ('feels_like',False,'boolean')]:
+                setting('screensaver.weather_bar_'+suffix, value, kind,
+                        subpage='Weather Mood screensaver', section='Weather information',
+                        dependsOn='screensaver.weather_bar', dependsOnValue=True,
+                        min=0, max=200, step=5)
             page = browser.new_page(viewport={'width': 1200, 'height': 1000})
             errors = []
             page.on('pageerror', lambda error: errors.append(str(error)))
@@ -102,6 +132,8 @@ try:
             root.locator('[data-subpage-entry="Weather Mood screensaver"]').click()
             expect(page.locator('#pageTitle')).to_contain_text(strings['screensaverWeatherMoodPage'])
             expect(root.locator('[data-key="screensaver.weather_lightning"] .name')).to_have_text(strings['settingScreensaverWeatherLightningTitle'])
+            expect(root.locator('[data-key="screensaver.weather_blur"] .name')).to_have_text(strings['settingScreensaverWeatherBlurTitle'])
+            expect(root.locator('[data-key="screensaver.weather_blur"] input[type="range"]')).to_be_visible()
             picker = root.locator('[data-key="screensaver.weather_entity"] select')
             expect(picker.locator('option[value="weather.coast"]')).to_have_text('Coastal weather')
             expect(picker.locator('option[value^="sensor."]')).to_have_count(0)
@@ -128,9 +160,9 @@ try:
             with page.expect_response('**/api/settings'):
                 weather.select_option('snowy')
             with page.expect_response('**/api/settings'):
-                period.select_option('night')
+                period.select_option('twilight')
             assert {'screensaver.weather_preview_condition': 'snowy'} in requests
-            assert {'screensaver.weather_preview_period': 'night'} in requests
+            assert {'screensaver.weather_preview_period': 'twilight'} in requests
             with page.expect_response('**/api/settings'):
                 preview.click()
             expect(weather).to_have_count(0)
@@ -138,7 +170,35 @@ try:
             with page.expect_response('**/api/settings'):
                 preview.click()
             expect(weather).to_have_value('snowy')
-            expect(period).to_have_value('night')
+            expect(period).to_have_value('twilight')
+            clock = root.locator('[data-key="screensaver.weather_clock"] .switch')
+            bar = root.locator('[data-key="screensaver.weather_bar"] .switch')
+            font = root.locator('[data-key="screensaver.weather_clock_font"] select')
+            expect(font).to_have_count(0)
+            expect(root.locator('[data-key="screensaver.weather_bar_scale"]')).to_have_count(0)
+            with page.expect_response('**/api/settings'):
+                clock.click()
+            expect(font).to_be_visible()
+            expect(root.locator('[data-key="screensaver.weather_clock_scale"] .name')).to_have_text(strings['settingScreensaverClockScaleTitle'])
+            expect(root.locator('[data-key="screensaver.weather_clock_color"]')).to_be_visible()
+            with page.expect_response('**/api/settings'):
+                font.select_option('nunito')
+            assert {'screensaver.weather_clock_font': 'nunito'} in requests
+            with page.expect_response('**/api/settings'):
+                bar.click()
+            expect(root.locator('[data-key="screensaver.weather_bar_scale"] .name')).to_have_text(strings['settingScreensaverWeatherBarScaleTitle'])
+            expect(root.locator('.card-title', has_text=strings['screensaverWeatherBarGroup'])).to_be_visible()
+            feels_like = root.locator('[data-key="screensaver.weather_bar_feels_like"]')
+            expect(feels_like).to_contain_text(strings['screensaverWeatherBarFeelsLikeDescription'])
+            with page.expect_response('**/api/settings'):
+                feels_like.locator('.switch').click()
+            assert {'screensaver.weather_bar_feels_like': True} in requests
+            assert 'screensaver.weather_bar_feels_like_only' not in mapping
+
+            with page.expect_response('**/api/settings'):
+                clock.click()
+            expect(font).to_have_count(0)
+            expect(root.locator('[data-key="screensaver.weather_bar_scale"]')).to_be_visible()
             # A missing entity remains selected so transient HA failures cannot erase it.
             fail_search = True
             next(item for item in settings if item['key']=='screensaver.weather_entity')['value']='weather.missing'

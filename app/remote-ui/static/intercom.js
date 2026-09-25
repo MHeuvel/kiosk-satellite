@@ -273,12 +273,12 @@ export async function renderIntercomPage({ fetch = true } = {}) {
     for (const k of kiosks) {
       const row = kioskRow({ name: k.name, address: k.address, version: k.version, dim: k.status === 'offline' });
       const st = document.createElement('span');
-      st.className = 'fleet-status' + (k.status === 'ready' ? ' ok' : k.status === 'key' || k.status === 'unreachable' ? ' warn' : '');
+      st.className = 'fleet-status' + (k.status === 'ready' ? ' ok' : k.status === 'key' || k.status === 'tls' || k.status === 'unreachable' ? ' warn' : '');
       st.textContent = intercomText(k.statusText || '');
       row.appendChild(st);
       card.appendChild(row);
     }
-    card.appendChild(hintRow(intercomText("Discovered kiosks and saved fleet members. A kiosk is ready when it is reachable with intercom on and the same key.")));
+    card.appendChild(hintRow(intercomText("Discovered kiosks and saved fleet members. A kiosk is ready when it is reachable with intercom on, the same key and matching encryption settings.")));
     tab.append(h, card);
   }
 }

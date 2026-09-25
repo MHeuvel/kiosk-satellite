@@ -1,0 +1,11 @@
+{
+  "@@locale": "uk",
+  "setupWelcome": "Вітаємо",
+  "setupConnect": "Підключення",
+  "setupConnectSummary": "URL та токен Home Assistant",
+  "setupDashboard": "Панель керування",
+  "setupDashboardSummary": "Що показує кіоск",
+  "setupRecommendedSummary": "Рекомендовані налаштування",
+  "setupPermissions": "Дозволи",
+  "setupPermissionsSummary": "Системні доступи планшета"
+}

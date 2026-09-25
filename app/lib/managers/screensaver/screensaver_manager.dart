@@ -427,6 +427,7 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
       _sendspinPlaying = e.playing;
       final changed = _sendspinNowPlaying != e.active;
       _sendspinNowPlaying = e.active;
+      _syncNowPlayingShown();
       // Mid-session flip: music started (dim gives way to Now Playing at
       // full brightness) or stopped (the configured mode re-asserts).
       if (_active) {
@@ -1116,6 +1117,11 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
   /// rest of the time, so widgets behave exactly as before.
   final ValueNotifier<Set<String>> claimedCorners = ValueNotifier(const {});
 
+  /// The height the Weather Mood chips take at the bottom of the screen,
+  /// measured after layout, so bottom corner widgets sit just above them.
+  /// Zero whenever the chips are not showing.
+  final ValueNotifier<double> weatherChipsHeight = ValueNotifier(0);
+
   /// The slideshow on screen, when the running mode is one. Home Assistant
   /// Media, Local Media, Photo Gallery and Immich Media register on mount
   /// and stand down on unmount, and so does the Camera Streams rotation,
@@ -1346,6 +1352,19 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
   void _setView(String? view) {
     activeView.value = view;
     bus.publish(ScreensaverViewChanged(view: view));
+    _syncNowPlayingShown();
+  }
+
+  /// Whether the Now Playing view is on screen, as the screensaver overlay
+  /// draws it: a session with a visible view that the takeover fills.
+  bool _nowPlayingShown = false;
+
+  void _syncNowPlayingShown() {
+    final view = activeView.value;
+    final shown = view != null && view != 'blank' && _nowPlayingTakeover;
+    if (shown == _nowPlayingShown) return;
+    _nowPlayingShown = shown;
+    bus.publish(FullscreenViewChanged(view: 'nowPlaying', shown: shown));
   }
 
   /// Apply what the screensaver session should currently look like: the
@@ -1521,6 +1540,7 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     scheduleWidgets.value = null;
     scheduleGlance.value = null;
     claimedCorners.value = const {};
+    weatherChipsHeight.value = 0;
     _slides = null;
     bus.publish(const ScreensaverStateChanged(active: false));
   }

@@ -50,6 +50,7 @@ try:
         languages = [("English", "jxlarrea"), ("Español", "jxlarrea"), ("Français", "Limoniak")]
         if german:
             languages.insert(0, ("Deutsch", "Dee-san"))
+        languages.append(("Українська", "kdinya"))
         expect(credits.locator("h2")).to_have_text([name for name, _ in languages])
         for index, (_, login) in enumerate(languages):
             names = ["Xavier Larrea"] if login == "jxlarrea" else [login]
@@ -64,6 +65,7 @@ try:
             locales.append(("es", "Créditos de traducción"))
         if german:
             locales.append(("de", "Mitwirkende an der Übersetzung"))
+        locales.append(("uk", "Автори перекладу"))
         locales.append(("fr", "Crédits de traduction"))
         for locale, title in locales:
             page.evaluate("""async locale => {
@@ -85,20 +87,23 @@ try:
             expect(page.locator("#pageTitle")).to_have_text(title)
             page.wait_for_timeout(350)
             expect(page.locator("#pageTitle")).to_have_text(title)
-        for width in (320, 390, 768, 1200):
-            page.set_viewport_size({"width": width, "height": 1000})
-            if german:
-                page.evaluate("""async () => {
-                  (await import('/static/core.js')).cacheSettings([{key:'ui.language',value:'de'}]);
+        layout_locales = [("uk", "Автори перекладу")]
+        if german:
+            layout_locales.insert(0, ("de", "Mitwirkende an der Übersetzung"))
+        for locale, title in layout_locales:
+            for width in (320, 390, 768, 1200):
+                page.set_viewport_size({"width": width, "height": 1000})
+                page.evaluate("""async locale => {
+                  (await import('/static/core.js')).cacheSettings([{key:'ui.language',value:locale}]);
                   (await import('/static/tabs.js')).refreshNavigationText();
-                }""")
-                expect(page.locator("#pageTitle")).to_have_text("Mitwirkende an der Übersetzung")
-            assert credits.evaluate("el => el.scrollWidth <= el.clientWidth"), width
-            for row in credits.locator(".row").all():
-                name = row.locator(".name").bounding_box()
-                link = row.locator("a").bounding_box()
-                assert link["x"] >= name["x"] + name["width"], width
-                assert abs((name["y"] + name["height"] / 2) - (link["y"] + link["height"] / 2)) < 2, width
+                }""", locale)
+                expect(page.locator("#pageTitle")).to_have_text(title)
+                assert credits.evaluate("el => el.scrollWidth <= el.clientWidth"), width
+                for row in credits.locator(".row").all():
+                    name = row.locator(".name").bounding_box()
+                    link = row.locator("a").bounding_box()
+                    assert link["x"] >= name["x"] + name["width"], width
+                    assert abs((name["y"] + name["height"] / 2) - (link["y"] + link["height"] / 2)) < 2, width
         output = os.environ.get("KS_CREDITS_SCREENSHOT")
         if output:
             page.set_viewport_size({"width": 390, "height": 1000})

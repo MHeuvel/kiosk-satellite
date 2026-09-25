@@ -184,7 +184,12 @@ class BtProxyManager extends Manager {
     };
     // The remote admin server's settings, which decide the web page port
     // reported to Home Assistant (the device page's Visit link).
-    const remoteKeys = {'remote.enabled', 'remote.port', 'remote.password'};
+    const remoteKeys = {
+      'remote.enabled',
+      'remote.port',
+      'remote.password',
+      'remote.tls',
+    };
     // The Restart device button follows the Shizuku connection on a kiosk
     // that is not the device owner (issue #528): a grant made after the
     // catalog was served, or a Shizuku that stopped, changes what exists,
@@ -503,6 +508,7 @@ class BtProxyManager extends Manager {
   /// no link at all.
   int _webserverPort() {
     if (!_settings.get(defs.remoteEnabled) ||
+        _settings.get(defs.remoteTls) ||
         _settings.get(defs.remotePassword).isEmpty) {
       return 0;
     }

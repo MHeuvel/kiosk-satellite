@@ -1,0 +1,6 @@
+{
+  "@@locale": "uk",
+  "remoteLogin": "Увійти",
+  "remoteInvalidPassword": "Невірний пароль",
+  "remoteLoginThrottled": "Забагато спроб. Зачекайте 5 хвилин і спробуйте знову."
+}

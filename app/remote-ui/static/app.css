@@ -1272,3 +1272,14 @@
   @media (max-width: 640px) {
     .chime-controls { flex-basis: 100%; }
   }
+
+.tls-panel .group-note { margin: 0 20px 12px; }
+.tls-fingerprint { flex-direction: column; align-items: stretch; }
+.tls-fingerprint .copy-box { max-width: none; width: 100%; }
+.tls-import textarea.field { height: auto; min-height: 112px; padding: 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13.5px; line-height: 1.5; resize: vertical; }
+
+.tls-address.copy-box { max-width: none; width: 100%; height: auto; min-height: 44px;
+  padding-top: 8px; padding-bottom: 8px; }
+.tls-address .copy-value { white-space: normal; overflow-wrap: anywhere; }

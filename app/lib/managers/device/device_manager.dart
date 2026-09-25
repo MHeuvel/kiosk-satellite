@@ -258,10 +258,22 @@ class DeviceManager extends Manager {
 
     commands.register(
       Command(
+        name: 'getNetworkLink',
+        description:
+            'The default network: type (ethernet, wifi, cellular, vpn or '
+            'other) and, on Wi-Fi, rssi (dBm), speedMbps and frequencyMhz. '
+            'Null while offline.',
+        handler: (_) async => CommandResult.ok(await DeviceDetails.link()),
+      ),
+    );
+
+    commands.register(
+      Command(
         name: 'getUptime',
         description:
-            'Seconds since the app process started (app) and since the '
-            'default network last came up (network, null while offline).',
+            'Seconds since the app process started (app), since the device '
+            'booted (device) and since the default network last came up '
+            '(network, null while offline).',
         handler: (_) async {
           final data = await DeviceDetails.uptime();
           // Once per run: whether the kernel's address timestamp answered

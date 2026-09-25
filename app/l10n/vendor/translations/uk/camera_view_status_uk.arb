@@ -1,0 +1,18 @@
+{
+  "@@locale": "uk",
+  "cameraViewerTitle": "Перегляд камери",
+  "cameraViewerConnecting": "З'єднання...",
+  "cameraViewerReconnecting": "Повторне з'єднання...",
+  "cameraViewerTrying": "Спроба {transport}...",
+  "cameraViewerCannotDecode": "Цей пристрій не може декодувати {codec}",
+  "cameraViewerCannotPlay": "Цей пристрій не підтримує відтворення потоків {transport}",
+  "cameraViewerCannotDecodeStream": "Цей пристрій не може декодувати цей потік",
+  "cameraViewerHaRetry": "Немає зв'язку з Home Assistant. Повторна спроба через {seconds} с",
+  "cameraViewerServerRetry": "Немає зв'язку з сервером камери. Повторна спроба через {seconds} с",
+  "cameraViewerConnectionRetry": "Збій з'єднання. Повторна спроба через {seconds} с",
+  "cameraViewerStartRetry": "Сервер камери не зміг запустити цей потік. Повторна спроба...",
+  "cameraViewerStartDelayedRetry": "Сервер камери не зміг запустити цей потік. Повторна спроба через {seconds} с",
+  "cameraViewerMissingRetry": "Потік не знайдено на сервері камери. Повторна спроба через {seconds} с",
+  "cameraViewerLoginRetry": "Сервер камери відхилив вхід. Повторна спроба через {seconds} с",
+  "cameraViewerMissing": "Потік відсутній у Go2RTC"
+}

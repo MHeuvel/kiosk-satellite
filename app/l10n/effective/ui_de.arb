@@ -5862,6 +5862,46 @@
       ]
     }
   },
+  "gestureHoldConfirmed": "Haltedauer erreicht",
+  "@gestureHoldConfirmed": {
+    "context": "Settings > Gestures > Hand Gesture Tester",
+    "description": "Hand gesture hold setting or confirmation feedback.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gesture Tester"
+      ]
+    }
+  },
+  "gestureHoldProgress": "Haltefortschritt: {progress}",
+  "@gestureHoldProgress": {
+    "context": "Settings > Gestures > Hand Gesture Tester",
+    "description": "Hand gesture hold setting or confirmation feedback.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gesture Tester"
+      ]
+    },
+    "placeholders": {
+      "progress": {
+        "type": "String"
+      }
+    }
+  },
+  "gestureTesterHoldDuration": "Haltedauer: {duration}",
+  "@gestureTesterHoldDuration": {
+    "context": "Settings > Gestures > Hand Gesture Tester",
+    "description": "Hand gesture hold setting or confirmation feedback.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gesture Tester"
+      ]
+    },
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
   "gestureHaServiceKind": "Home-Assistant-Dienst",
   "@gestureHaServiceKind": {
     "context": "Device > Gesture action result notification",
@@ -7583,6 +7623,16 @@
         "Intercom"
       ]
     }
+  },
+  "intercomEncryptionMismatch": "Verschlüsselung stimmt nicht überein",
+  "@intercomEncryptionMismatch": {
+    "context": "Intercom",
+    "description": "Shown when kiosks have different intercom encryption settings."
+  },
+  "intercomEncryptionMismatchHelp": "Die Verschlüsselungseinstellungen stimmen nicht überein. Aktiviere Kommunikation verschlüsseln auf allen Kiosken im Anruf.",
+  "@intercomEncryptionMismatchHelp": {
+    "context": "Intercom",
+    "description": "Shown when kiosks have different intercom encryption settings."
   },
   "kioskBackClose": "Drücke „Zurück“ erneut, um die App zu schließen",
   "@kioskBackClose": {
@@ -14422,7 +14472,7 @@
       ]
     }
   },
-  "settingCameraRtspAuthDescription": "Erfordert einen Benutzernamen und ein Passwort zum Anzeigen des Streams. Der Stream-Datenverkehr wird nicht verschlüsselt.",
+  "settingCameraRtspAuthDescription": "Erfordert einen Benutzernamen und ein Passwort zum Ansehen des Streams. Die Authentifizierung aktiviert keine Verschlüsselung.",
   "@settingCameraRtspAuthDescription": {
     "context": "Settings > Camera > RTSP & ONVIF Streaming",
     "description": "Help below this setting.",
@@ -14749,6 +14799,32 @@
       ],
       "remoteAdmin": [
         "Camera > RTSP & ONVIF Streaming > Overlays"
+      ]
+    }
+  },
+  "settingCameraRtspTlsTitle": "Stream verschlüsseln",
+  "@settingCameraRtspTlsTitle": {
+    "context": "Settings:Camera:RTSP & ONVIF Streaming",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
+      ]
+    }
+  },
+  "settingCameraRtspTlsDescription": "Verschlüsselt Video und Audio mit TLS. Erfordert einen kompatiblen Player.",
+  "@settingCameraRtspTlsDescription": {
+    "context": "Settings:Camera:RTSP & ONVIF Streaming",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > RTSP & ONVIF Streaming"
+      ],
+      "remoteAdmin": [
+        "Camera > RTSP & ONVIF Streaming"
       ]
     }
   },
@@ -18536,6 +18612,32 @@
       }
     }
   },
+  "settingRemoteTlsTitle": "HTTPS verwenden",
+  "@settingRemoteTlsTitle": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration"
+      ]
+    }
+  },
+  "settingRemoteTlsDescription": "Verschlüsselt die Fernverwaltung, API und WebSocket-Verbindungen. Dein Browser kann dich auffordern, das Gerätezertifikat zu akzeptieren.",
+  "@settingRemoteTlsDescription": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration"
+      ]
+    }
+  },
   "settingServiceCpuAwakeTitle": "CPU bei ausgeschaltetem Bildschirm aktiv halten",
   "@settingServiceCpuAwakeTitle": {
     "context": "Settings:Device:Kiosk Satellite Service",
@@ -19762,6 +19864,432 @@
         "Device > Shizuku"
       ]
     }
+  },
+  "tlsTLS": "TLS",
+  "@tlsTLS": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsConnectionEncryptionAndCertificates": "Verbindungsverschlüsselung und Zertifikate",
+  "@tlsConnectionEncryptionAndCertificates": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsCertificateType": "Zertifikatstyp",
+  "@tlsCertificateType": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsImported": "Importiert",
+  "@tlsImported": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsSelfSigned": "Selbstsigniert",
+  "@tlsSelfSigned": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsExpires": "Gültig bis",
+  "@tlsExpires": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsSHA256Fingerprint": "SHA-256-Fingerabdruck",
+  "@tlsSHA256Fingerprint": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsCertificateExpiredRenewOrImportAReplacement": "Das Zertifikat ist abgelaufen. Erneuere es oder importiere ein neues.",
+  "@tlsCertificateExpiredRenewOrImportAReplacement": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsCopyPublicCertificate": "Öffentliches Zertifikat kopieren",
+  "@tlsCopyPublicCertificate": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsDownloadPublicCertificate": "Öffentliches Zertifikat herunterladen",
+  "@tlsDownloadPublicCertificate": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsUseThisCertificateInBrowsersAndStreamingClients": "Verwende dieses Zertifikat in Browsern und Streaming-Clients.",
+  "@tlsUseThisCertificateInBrowsersAndStreamingClients": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsRenewCertificate": "Zertifikat erneuern",
+  "@tlsRenewCertificate": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsKeepTheCurrentPrivateKeyAndUpdateTheCertificateDates": "Behält den aktuellen privaten Schlüssel bei und aktualisiert die Gültigkeitsdauer des Zertifikats.",
+  "@tlsKeepTheCurrentPrivateKeyAndUpdateTheCertificateDates": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsImportCertificate": "Zertifikat importieren",
+  "@tlsImportCertificate": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsUseACertificateIssuedForThisDevice": "Verwende ein für dieses Gerät ausgestelltes Zertifikat.",
+  "@tlsUseACertificateIssuedForThisDevice": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsReplaceCertificate": "Zertifikat ersetzen",
+  "@tlsReplaceCertificate": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsGenerateANewPrivateKeyAndSelfSignedCertificate": "Erstellt einen neuen privaten Schlüssel und ein selbstsigniertes Zertifikat.",
+  "@tlsGenerateANewPrivateKeyAndSelfSignedCertificate": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsGenerateANewPrivateKeyAndCertificateActiveEncryptedConnectionsWillCloseBrowsersMayAskYouToAcceptTheNewCertificate": "Neuen privaten Schlüssel und neues Zertifikat erstellen? Aktive verschlüsselte Verbindungen werden geschlossen. Browser können dich auffordern, das neue Zertifikat zu akzeptieren.",
+  "@tlsGenerateANewPrivateKeyAndCertificateActiveEncryptedConnectionsWillCloseBrowsersMayAskYouToAcceptTheNewCertificate": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsPasteThePEMCertificateChainAndItsUnencryptedPrivateKeyTheyAreValidatedBeforeReplacingTheCurrentCertificate": "Füge die PEM-Zertifikatskette und den zugehörigen unverschlüsselten privaten Schlüssel ein. Beide werden geprüft, bevor das aktuelle Zertifikat ersetzt wird.",
+  "@tlsPasteThePEMCertificateChainAndItsUnencryptedPrivateKeyTheyAreValidatedBeforeReplacingTheCurrentCertificate": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsCertificateChainPEM": "Zertifikatskette (PEM)",
+  "@tlsCertificateChainPEM": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsPrivateKeyPEM": "Privater Schlüssel (PEM)",
+  "@tlsPrivateKeyPEM": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsThisFieldIsRequired": "Dieses Feld ist erforderlich.",
+  "@tlsThisFieldIsRequired": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsReplace": "Ersetzen",
+  "@tlsReplace": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsRenew": "Erneuern",
+  "@tlsRenew": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsEnableHTTPSBeforeImportingAPrivateKeyRemotely": "Aktiviere HTTPS, bevor du einen privaten Schlüssel über die Fernverwaltung importierst.",
+  "@tlsEnableHTTPSBeforeImportingAPrivateKeyRemotely": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsCertificateOperationFailed": "Zertifikatsvorgang fehlgeschlagen.",
+  "@tlsCertificateOperationFailed": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsChangeConnectionProtocol": "Verbindungsprotokoll ändern",
+  "@tlsChangeConnectionProtocol": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Confirmation before changing the remote administration protocol."
+  },
+  "tlsConnectionProtocolHelp": "Die aktuelle Fernverbindung wird geschlossen. Verbinde dich über die unten angegebene Adresse erneut. Möglicherweise musst du dich erneut anmelden.",
+  "@tlsConnectionProtocolHelp": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Confirmation before changing the remote administration protocol."
+  },
+  "tlsConfirm": "Bestätigen",
+  "@tlsConfirm": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Confirmation before changing the remote administration protocol."
+  },
+  "tlsCertificateManagement": "Zertifikatsverwaltung",
+  "@tlsCertificateManagement": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsServerCertificateRequired": "Verwende ein Serverzertifikat, kein CA-Zertifikat.",
+  "@tlsServerCertificateRequired": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsServerAuthenticationRequired": "Das Zertifikat erlaubt keine Serverauthentifizierung.",
+  "@tlsServerAuthenticationRequired": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsKeyAlgorithmRequired": "Verwende einen privaten EC- oder RSA-Schlüssel.",
+  "@tlsKeyAlgorithmRequired": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsKeyMismatch": "Zertifikat und privater Schlüssel passen nicht zusammen.",
+  "@tlsKeyMismatch": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsMaterialTooLarge": "Das Zertifikat oder der Schlüssel ist zu groß.",
+  "@tlsMaterialTooLarge": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsPemCertificatesRequired": "PEM-Zertifikate erwartet.",
+  "@tlsPemCertificatesRequired": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsCertificateMissing": "Kein Zertifikat gefunden.",
+  "@tlsCertificateMissing": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsUnencryptedKeyRequired": "Verwende einen unverschlüsselten privaten PEM-Schlüssel.",
+  "@tlsUnencryptedKeyRequired": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsHostnameRequired": "Ein Hostname oder eine IP-Adresse ist erforderlich.",
+  "@tlsHostnameRequired": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsIssuerRenewalRequired": "Importiere ein vom Aussteller erneuertes Zertifikat.",
+  "@tlsIssuerRenewalRequired": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsStoredIdentityDamaged": "Die gespeicherte TLS-Identität ist beschädigt.",
+  "@tlsStoredIdentityDamaged": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsExpiredCertificate": "Das TLS-Zertifikat ist abgelaufen. Erneuere es oder importiere ein neues.",
+  "@tlsExpiredCertificate": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
   },
   "deviceHelperPage": "Optionaler Update-Assistent",
   "@deviceHelperPage": {
@@ -23137,6 +23665,76 @@
       ]
     }
   },
+  "gestureHandGestures": "Handgesten",
+  "@gestureHandGestures": {
+    "context": "Settings > Gestures > Hand Gestures",
+    "description": "Hand gesture hold setting or confirmation feedback.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gestures"
+      ],
+      "remoteAdmin": [
+        "Gestures > Hand Gestures"
+      ]
+    }
+  },
+  "settingHandGestureHoldSecondsTitle": "Haltedauer",
+  "@settingHandGestureHoldSecondsTitle": {
+    "context": "Settings > Gestures > Hand Gestures",
+    "description": "Hand gesture hold setting or confirmation feedback.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gestures"
+      ],
+      "remoteAdmin": [
+        "Gestures > Hand Gestures"
+      ]
+    }
+  },
+  "settingHandGestureHoldSecondsDescription": "Halte dieselbe Fingergeste so lange, bevor die Aktion ausgeführt wird. Erhöhe die Dauer, um versehentliches Auslösen zu reduzieren.",
+  "@settingHandGestureHoldSecondsDescription": {
+    "context": "Settings > Gestures > Hand Gestures",
+    "description": "Hand gesture hold setting or confirmation feedback.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gestures"
+      ],
+      "remoteAdmin": [
+        "Gestures > Hand Gestures"
+      ]
+    }
+  },
+  "gestureHoldInstant": "Sofort",
+  "@gestureHoldInstant": {
+    "context": "Settings > Gestures > Hand Gestures",
+    "description": "Hand gesture hold setting or confirmation feedback.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gestures"
+      ],
+      "remoteAdmin": [
+        "Gestures > Hand Gestures"
+      ]
+    }
+  },
+  "gestureHoldSeconds": "{seconds} s",
+  "@gestureHoldSeconds": {
+    "context": "Settings > Gestures > Hand Gestures",
+    "description": "Hand gesture hold setting or confirmation feedback.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gestures"
+      ],
+      "remoteAdmin": [
+        "Gestures > Hand Gestures"
+      ]
+    },
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
   "settingHaHoldModeTitle": "Pausenmodus",
   "@settingHaHoldModeTitle": {
     "context": "Settings:Home Assistant Setup:Hold mode",
@@ -25512,6 +26110,32 @@
       ]
     }
   },
+  "settingIntercomTlsTitle": "Kommunikation verschlüsseln",
+  "@settingIntercomTlsTitle": {
+    "context": "Settings:Intercom",
+    "description": "Intercom encryption setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
+  "settingIntercomTlsDescription": "Verschlüsselt Gegensprechanrufe zwischen Kiosken mit TLS. Diese Option muss auf allen Kiosken im Anruf aktiviert sein.",
+  "@settingIntercomTlsDescription": {
+    "context": "Settings:Intercom",
+    "description": "Intercom encryption setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom"
+      ],
+      "remoteAdmin": [
+        "Intercom"
+      ]
+    }
+  },
   "intercomKiosks": "Kiosks",
   "@intercomKiosks": {
     "context": "Settings > Intercom > Kiosks",
@@ -25525,7 +26149,7 @@
       ]
     }
   },
-  "intercomRosterHelp": "Gefundene Kiosks und gespeicherte Mitglieder der Flotte. Ein Kiosk ist bereit, wenn eine Verbindung zu ihm möglich ist, die Gegensprechanlage aktiviert ist und derselbe Schlüssel verwendet wird.",
+  "intercomRosterHelp": "Erkannte Kioske und gespeicherte Flottenmitglieder. Ein Kiosk ist bereit, wenn er erreichbar ist, die Gegensprechanlage aktiviert ist und Schlüssel sowie Verschlüsselungseinstellungen übereinstimmen.",
   "@intercomRosterHelp": {
     "context": "Settings > Intercom > Kiosks",
     "description": "Label or guidance in this section.",
@@ -37226,7 +37850,7 @@
       ]
     }
   },
-  "settingScreensaverWeatherEntityDescription": "Die Wetterentität aus Home Assistant steuert die animierte Szene. Tag und Nacht richten sich nach sun.sun. Falls nicht verfügbar, wird die Ortszeit verwendet.",
+  "settingScreensaverWeatherEntityDescription": "Die Home Assistant-Wetterentität, die die animierte Szene steuert. Tag, Morgen-/Abenddämmerung und Nacht richten sich nach sun.sun. Als Ersatz dient die lokale Uhrzeit.",
   "@settingScreensaverWeatherEntityDescription": {
     "context": "Settings:Screensaver:Weather Mood screensaver",
     "description": "Weather Mood setting, guidance or weather condition.",
@@ -37348,7 +37972,7 @@
       ]
     }
   },
-  "settingScreensaverWeatherPreviewPeriodDescription": "Wähle die Tag- oder Nachtversion der Szene.",
+  "settingScreensaverWeatherPreviewPeriodDescription": "Die Szene bei Tag, in der Morgen-/Abenddämmerung oder bei Nacht anzeigen.",
   "@settingScreensaverWeatherPreviewPeriodDescription": {
     "context": "Settings:Screensaver:Weather Mood screensaver:Weather Preview",
     "description": "Weather preview control, group heading or scene choice.",
@@ -37566,6 +38190,253 @@
       ],
       "remoteAdmin": [
         "Screensaver > Weather Mood screensaver > Weather Preview"
+      ]
+    }
+  },
+  "settingScreensaverWeatherClockTitle": "Uhr aktivieren",
+  "@settingScreensaverWeatherClockTitle": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood clock or weather information bar control.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "settingScreensaverWeatherClockDescription": "Eine digitale Uhr über der Wetterszene anzeigen.",
+  "@settingScreensaverWeatherClockDescription": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood clock or weather information bar control.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "screensaverWeatherTextShadowDescription": "Einen Textschatten hinzufügen, damit der Text über der Wetterszene besser lesbar ist.",
+  "@screensaverWeatherTextShadowDescription": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood clock or weather information bar control.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "screensaverWeatherBarGroup": "Wetterinformationen",
+  "@screensaverWeatherBarGroup": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood clock or weather information bar control.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "settingScreensaverWeatherBarTitle": "Wetterleiste aktivieren",
+  "@settingScreensaverWeatherBarTitle": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood clock or weather information bar control.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "settingScreensaverWeatherBarDescription": "Aktuelle Wetterinformationen am unteren Bildschirmrand anzeigen.",
+  "@settingScreensaverWeatherBarDescription": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood clock or weather information bar control.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "settingScreensaverWeatherBarScaleTitle": "Textgröße",
+  "@settingScreensaverWeatherBarScaleTitle": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood clock or weather information bar control.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "settingScreensaverWeatherBarScaleDescription": "Die Wetterinformationen auf 50 bis 200 Prozent skalieren.",
+  "@settingScreensaverWeatherBarScaleDescription": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood clock or weather information bar control.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "settingScreensaverWeatherBarColorTitle": "Textfarbe",
+  "@settingScreensaverWeatherBarColorTitle": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood clock or weather information bar control.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "settingScreensaverWeatherBarColorDescription": "Die Farbe der Wetterinformationen.",
+  "@settingScreensaverWeatherBarColorDescription": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood clock or weather information bar control.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "settingScreensaverWeatherBarOpacityTitle": "Deckkraft des Hintergrunds",
+  "@settingScreensaverWeatherBarOpacityTitle": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood clock or weather information bar control.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "settingScreensaverWeatherBarOpacityDescription": "Die untere Leiste abdunkeln, damit die Wetterinformationen gut lesbar bleiben.",
+  "@settingScreensaverWeatherBarOpacityDescription": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood clock or weather information bar control.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "screensaverWeatherBarHumidityDescription": "Die Luftfeuchtigkeit anzeigen, wenn die Wetterentität sie meldet.",
+  "@screensaverWeatherBarHumidityDescription": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood clock or weather information bar control.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "screensaverWeatherBarWindDescription": "Die Windgeschwindigkeit anzeigen, wenn die Wetterentität sie meldet.",
+  "@screensaverWeatherBarWindDescription": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood clock or weather information bar control.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "screensaverWeatherBarVisibilityDescription": "Die Sichtweite anzeigen, wenn die Wetterentität sie meldet.",
+  "@screensaverWeatherBarVisibilityDescription": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood clock or weather information bar control.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "settingScreensaverWeatherBlurTitle": "Szenenunschärfe",
+  "@settingScreensaverWeatherBlurTitle": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood setting, guidance or weather condition.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "settingScreensaverWeatherBlurDescription": "Die animierte Wetterszene weichzeichnen, während Uhr, Wetterleiste und Widgets scharf bleiben.",
+  "@settingScreensaverWeatherBlurDescription": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood setting, guidance or weather condition.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "screensaverWeatherPreviewTwilight": "Morgen-/Abenddämmerung",
+  "@screensaverWeatherPreviewTwilight": {
+    "context": "Settings:Screensaver:Weather Mood screensaver:Weather Preview",
+    "description": "Weather preview control, group heading or scene choice.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver > Weather Preview"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver > Weather Preview"
+      ]
+    }
+  },
+  "screensaverWeatherBarFeelsLikeDescription": "Zeigt die gefühlte Temperatur anstelle der tatsächlichen Temperatur, sofern verfügbar.",
+  "@screensaverWeatherBarFeelsLikeDescription": {
+    "context": "Settings:Screensaver:Weather Mood screensaver:Weather information",
+    "description": "Help for the weather bar Feels like toggle. The bar shows one temperature without a separate label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver > Weather information"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver > Weather information"
       ]
     }
   },
@@ -38141,7 +39012,7 @@
       ]
     }
   },
-  "screensaverOverlayFeelsLikeHelp": "Zeigt die gefühlte Temperatur nach der tatsächlichen Temperatur an, z. B. „30° / 33°“.",
+  "screensaverOverlayFeelsLikeHelp": "Zeigt die gefühlte Temperatur mit einer Beschriftung unter der tatsächlichen Temperatur.",
   "@screensaverOverlayFeelsLikeHelp": {
     "context": "Settings > Screensaver > Widgets > Weather widget",
     "description": "Label or guidance in this editor.",
@@ -38167,7 +39038,7 @@
       ]
     }
   },
-  "screensaverOverlayFeelsLikeOnlyHelp": "Zeigt die gefühlte Temperatur anstelle der tatsächlichen Temperatur an.",
+  "screensaverOverlayFeelsLikeOnlyHelp": "Zeigt die gefühlte Temperatur mit der Beschriftung „Gefühlte Temperatur“ anstelle der tatsächlichen Temperatur.",
   "@screensaverOverlayFeelsLikeOnlyHelp": {
     "context": "Settings > Screensaver > Widgets > Weather widget",
     "description": "Label or guidance in this editor.",
@@ -38243,6 +39114,17 @@
       "remoteAdmin": [
         "Screensaver > Widgets > Weather widget"
       ]
+    }
+  },
+  "screensaverWeatherFeelsLikeValue": "Gefühlt {temperature}",
+  "@screensaverWeatherFeelsLikeValue": {
+    "context": "Screensaver > Weather widget and Weather Mood information bar",
+    "description": "Secondary line below the actual temperature. Includes the formatted apparent temperature and its unit.",
+    "placeholders": {
+      "temperature": {
+        "type": "String",
+        "description": "Formatted apparent temperature including its unit."
+      }
     }
   },
   "settingScreensaverWidgetsTitle": "Widgets",
@@ -41140,6 +42022,17 @@
       "remoteAdmin": [
         "First-time setup > Permissions"
       ]
+    }
+  },
+  "setupQrFlipCamera": "Kamera wechseln",
+  "@setupQrFlipCamera": {
+    "context": "First-time setup > Connect > Scan token QR code",
+    "description": "Button that switches between the front and back cameras.",
+    "x-locations": {
+      "device": [
+        "First-time setup > Connect > Scan token QR code"
+      ],
+      "remoteAdmin": []
     }
   },
   "setupQrCameraFailed": "Die Kamera konnte nicht gestartet werden.",

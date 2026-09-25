@@ -41,7 +41,8 @@
 ///      by hand; the Home Assistant name when empty), attribute (the
 ///      attribute shown instead of the state; the state when empty),
 ///      show_name (the name line under the value) and color ("r,g,b" icon
-///      and text color).
+///      and text color). A blank value hides the whole widget, vignette
+///      included (issue #691).
 /// - config: the type's own settings; missing keys read as the type's
 ///   defaults, so entries survive new keys being added. Every type also
 ///   carries scale, this widget's own size correction in percent from

@@ -1,0 +1,16 @@
+{
+  "@@locale": "uk",
+  "mediaPickPlayer": "Виберіть плеєр",
+  "mediaMaPlayer": "Плеєр Music Assistant",
+  "mediaHaPlayer": "Медіаплеєр Home Assistant",
+  "mediaSonosRoom": "Кімната Sonos",
+  "mediaSearchPlayers": "Пошук плеєрів",
+  "mediaOffline": "Офлайн",
+  "mediaOfflineName": "{name} (офлайн)",
+  "mediaSetUpMa": "Налаштуйте Music Assistant, щоб перелічити його плеєри.",
+  "mediaSetUpHa": "Під'єднайте Home Assistant, щоб перелічити його медіаплеєри.",
+  "mediaSetUpSonos": "Відомих гучномовців Sonos ще немає. Знайдіть або додайте один на сторінці Sonos.",
+  "mediaHaFailed": "Home Assistant не відповів: {error}",
+  "mediaSaveFailed": "Не вдалося зберегти плеєр.",
+  "mediaSelectFailed": "Не вдалося вибрати плеєр"
+}

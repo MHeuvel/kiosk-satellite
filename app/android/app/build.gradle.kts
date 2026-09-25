@@ -27,6 +27,10 @@ android {
 
     buildFeatures { aidl = true }
     testOptions.unitTests.isIncludeAndroidResources = true
+    // Robolectric installs Conscrypt, whose JVM socket implementation reads InetAddress internals.
+    testOptions.unitTests.all {
+        it.jvmArgs("--add-opens=java.base/java.net=ALL-UNNAMED")
+    }
 
     // Keep the universal download available alongside --split-per-abi builds.
     splits.abi.isUniversalApk = true
@@ -218,6 +222,7 @@ dependencies {
     // supported level; R8 strips all but the referenced primitives from the
     // release build.
     implementation("org.bouncycastle:bcprov-jdk18on:1.78.1")
+    implementation("org.bouncycastle:bcpkix-jdk18on:1.78.1")
 
     // The btproxy protocol layer is deliberately Android-free so it runs
     // under plain JVM unit tests, where a real aioesphomeapi client can

@@ -1213,27 +1213,6 @@ class _KioskScreenState extends State<KioskScreen>
     });
   }
 
-  /// Whether a WebView permission request may be granted: its Web Content
-  /// toggle must be on and the OS runtime grant must be held (requested
-  /// lazily here — never all-at-once at launch).
-  Future<bool> _resourceAllowed(PermissionResourceType resource) async {
-    if (resource == PermissionResourceType.MICROPHONE) {
-      return c.settings.get(defs.webMicrophone) &&
-          await ensureOsPermission(Permission.microphone);
-    }
-    if (resource == PermissionResourceType.CAMERA) {
-      return c.settings.get(defs.webCamera) &&
-          await ensureOsPermission(Permission.camera);
-    }
-    if (resource == PermissionResourceType.GEOLOCATION) {
-      return c.settings.get(defs.webGeolocation) &&
-          await ensureOsPermission(Permission.location);
-    }
-    // Anything else the page asks for (e.g. protected media id) follows the
-    // camera/mic decision conservatively: deny unless explicitly handled.
-    return false;
-  }
-
   /// The kiosk exit gesture: N fast taps (optionally holding the last),
   /// counted natively so they land even though the WebView swallows its
   /// pointers. PIN first when one is set; the prize is just the menu —
@@ -1967,20 +1946,8 @@ class _KioskScreenState extends State<KioskScreen>
         _ => 'log',
       }, message.message);
     },
-    onPermissionRequest: (controller, request) async {
-      // Fully-Kiosk-style: grant a resource only if its Web Content
-      // toggle is on, ensuring the OS runtime grant lazily.
-      final granted = <PermissionResourceType>[];
-      for (final resource in request.resources) {
-        if (await _resourceAllowed(resource)) granted.add(resource);
-      }
-      return PermissionResponse(
-        resources: granted,
-        action: granted.isEmpty
-            ? PermissionResponseAction.DENY
-            : PermissionResponseAction.GRANT,
-      );
-    },
+    onPermissionRequest: (controller, request) =>
+        _webPermissionResponse(c, request),
   );
 }
 
@@ -1995,6 +1962,47 @@ class _KioskScreenState extends State<KioskScreen>
 /// button, back, a wake word — destroys the WebView outright. Nothing will
 /// re-show that page, and keeping a spare renderer warm is exactly what a
 /// low-RAM device cannot afford.
+/// Fully-Kiosk-style WebView permissions, shared by the dashboard and the
+/// overlay: a resource is granted only if its Web Content toggle is on and
+/// the OS runtime grant is held (requested lazily here, never all at once at
+/// launch).
+Future<PermissionResponse> _webPermissionResponse(
+  AppContainer c,
+  PermissionRequest request,
+) async {
+  final granted = <PermissionResourceType>[];
+  for (final resource in request.resources) {
+    if (await _webResourceAllowed(c, resource)) granted.add(resource);
+  }
+  return PermissionResponse(
+    resources: granted,
+    action: granted.isEmpty
+        ? PermissionResponseAction.DENY
+        : PermissionResponseAction.GRANT,
+  );
+}
+
+Future<bool> _webResourceAllowed(
+  AppContainer c,
+  PermissionResourceType resource,
+) async {
+  if (resource == PermissionResourceType.MICROPHONE) {
+    return c.settings.get(defs.webMicrophone) &&
+        await ensureOsPermission(Permission.microphone);
+  }
+  if (resource == PermissionResourceType.CAMERA) {
+    return c.settings.get(defs.webCamera) &&
+        await ensureOsPermission(Permission.camera);
+  }
+  if (resource == PermissionResourceType.GEOLOCATION) {
+    return c.settings.get(defs.webGeolocation) &&
+        await ensureOsPermission(Permission.location);
+  }
+  // Anything else the page asks for (e.g. protected media id) follows the
+  // camera/mic decision conservatively: deny unless explicitly handled.
+  return false;
+}
+
 class _OverlayHost extends StatefulWidget {
   const _OverlayHost({required this.container});
 
@@ -2431,6 +2439,14 @@ class _OverlayWebViewState extends State<_OverlayWebView> {
           hardwareAcceleration: false,
           transparentBackground: false,
           supportZoom: false,
+          // A call or camera page opened here gets the dashboard's media
+          // policy (issue #700): autoplay with sound and mic/camera access
+          // follow the same Web Content settings.
+          mediaPlaybackRequiresUserGesture: !widget.container.settings.get(
+            defs.webAutoplay,
+          ),
+          allowsInlineMediaPlayback: true,
+          iframeAllow: 'camera; microphone',
         ),
         onWebViewCreated: (controller) {
           _controller = controller;
@@ -2478,6 +2494,8 @@ class _OverlayWebViewState extends State<_OverlayWebView> {
             _scheduleRetry();
           }
         },
+        onPermissionRequest: (controller, request) =>
+            _webPermissionResponse(widget.container, request),
         onRenderProcessGone: (controller, detail) =>
             widget.onRenderGone?.call(),
       ),

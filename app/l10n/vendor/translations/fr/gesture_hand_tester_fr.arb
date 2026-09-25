@@ -13,5 +13,8 @@
   "gestureReadingHand": "Lecture de la main",
   "gestureNoFingers": "Aucun doigt levé",
   "gestureHandsCount": "{count} mains visibles, lecture de la plus grande.",
-  "gestureTesterSearch": "Un aperçu en direct des doigts que la caméra détecte."
+  "gestureTesterSearch": "Un aperçu en direct des doigts que la caméra détecte.",
+  "gestureHoldConfirmed": "Maintien confirmé",
+  "gestureHoldProgress": "Progression du maintien : {progress}",
+  "gestureTesterHoldDuration": "Durée de maintien : {duration}"
 }

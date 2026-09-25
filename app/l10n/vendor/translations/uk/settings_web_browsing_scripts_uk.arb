@@ -1,0 +1,9 @@
+{
+  "@@locale": "uk",
+  "settingBrowserInjectJsTitle": "Впровадження JavaScript на панелі керування HA",
+  "settingBrowserInjectJsDescription": "Виконувати цей код JavaScript після кожного завантаження сторінки панелі керування. Корисно для приховування зайвих елементів або налаштування чужої панелі.",
+  "settingBrowserInjectJsExternalTitle": "Впровадження JavaScript на зовнішніх сторінках",
+  "settingBrowserInjectJsExternalDescription": "Виконувати цей код JavaScript після завантаження кожної зовнішньої сторінки: сторінок за посиланнями з панелі, сторінок ротації та заставки вебсайту. Сторінка Music Assistant залишається без змін.",
+  "browserInjectJsPlaceholder": "// Приклад: приховати зайвий елемент\ndocument.querySelector('#banner').style.display = 'none';",
+  "browserInjectJsExternalPlaceholder": "// Приклад: масштабувати сайт, який ігнорує масштаб панелі керування\ndocument.documentElement.style.zoom = '1.25';"
+}

@@ -59,6 +59,8 @@ Enabling **Floating text style** reverts the row to its original, minimalist loo
 
 States are displayed exactly as they appear in Home Assistant, capitalized (e.g., `Open`, `Locked`, `Closed`), with the appropriate unit appended for numeric sensors.
 
+An entity whose value is blank drops out of the row until it has a value again. A text sensor that clears when an alert ends takes its chip with it. Unknown and Unavailable still display.
+
 ## How It Stays Current
 
 When the screensaver is active, Kiosk Satellite subscribes *only* to these specific At a Glance entities via its own Home Assistant connection. When the screensaver closes, it kills that connection. Because Home Assistant's subscription allows for an entity list, this connection handles just these few entities and costs essentially nothing when the kiosk is in normal use.

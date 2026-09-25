@@ -1,0 +1,16 @@
+{
+  "@@locale": "uk",
+  "settingSendspinEnabledTitle": "Увімкнути плеєр Sendspin",
+  "settingSendspinEnabledDescription": "Перетворити цей пристрій на синхронізований плеєр Sendspin. Він з'явиться у Music Assistant під назвою пристрою, синхронізовано з кожним іншим гучномовцем Sendspin.",
+  "settingSendspinServerTitle": "Сервер",
+  "settingSendspinServerDescription": "Адреса сервера Sendspin, наприклад 192.168.1.10:8927. Залиште порожнім, щоб знайти сервер у мережі автоматично.",
+  "settingSendspinCodecTitle": "Бажаний аудіокодек",
+  "settingSendspinCodecDescription": "FLAC - без втрат, ідеально для Wi-Fi або Ethernet. Сервер робить остаточний вибір з того, що пропонує цей пристрій.",
+  "settingSendspinSyncOffsetTitle": "Зсув синхронізації аудіо (мс)",
+  "settingSendspinSyncOffsetDescription": "Від'ємне значення відтворює на цьому пристрої раніше, для гучномовців, що відстають від групи (Bluetooth). Підлаштовуйте на слух; застосовується негайно.",
+  "mediaSendspinPage": "Плеєр Sendspin",
+  "mediaSendspinHint": "Зробити цей пристрій синхронізованим плеєром Music Assistant",
+  "mediaFlac": "FLAC (без втрат)",
+  "mediaOpus": "Opus (економний)",
+  "mediaPcm": "PCM (без стиснення)"
+}

@@ -1,7 +1,17 @@
 import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 
 import '../managers/gestures/gesture_mappings.dart';
 import 'messages.dart';
+
+String localizedHandHoldDuration(BuildContext context, num seconds) {
+  if (seconds == 0) return l10n(context).gestureHoldInstant;
+  final number = NumberFormat(
+    '0.#',
+    Localizations.localeOf(context).toString(),
+  );
+  return l10n(context).gestureHoldSeconds(number.format(seconds));
+}
 
 String localizedGestureCorner(BuildContext context, String corner) {
   final name = cornerNames[corner];

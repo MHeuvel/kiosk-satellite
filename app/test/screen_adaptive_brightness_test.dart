@@ -4,6 +4,7 @@ import 'package:kiosk_satellite/core/command_registry.dart';
 import 'package:kiosk_satellite/core/event_bus.dart';
 import 'package:kiosk_satellite/core/events.dart';
 import 'package:kiosk_satellite/core/logging.dart';
+import 'package:kiosk_satellite/managers/btproxy/esp_entities.dart';
 import 'package:kiosk_satellite/managers/screen/screen_manager.dart';
 import 'package:kiosk_satellite/managers/settings/definitions.dart' as defs;
 import 'package:kiosk_satellite/managers/settings/settings_manager.dart';
@@ -216,6 +217,21 @@ void main() {
     expect(writes.last, closeTo(0.3, 0.001));
     expect(await knob(), closeTo(0.3, 0.001));
   });
+
+  test(
+    'ESPHome can save zero brightness and write zero to the panel',
+    () async {
+      await build({});
+      final surface = EspEntitySurface(bus, commands, Logger(), settings);
+      await surface.handleService('set_brightness', {'brightness': 0});
+      await settle();
+      expect(settings.get(defs.defaultBrightness), 0.0);
+      expect(writes.last, 0.0);
+      expect(await knob(), 0.0);
+      expect(published.last.level, 0.0);
+      expect(published.last.panel, 0.0);
+    },
+  );
 
   test('a knob turned under a screensaver that leaves brightness alone '
       'lands at once', () async {

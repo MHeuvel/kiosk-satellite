@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
@@ -18,14 +20,50 @@ class TokenQrScanner extends StatefulWidget {
 
 class _TokenQrScannerState extends State<TokenQrScanner> {
   final _controller = MobileScannerController(
+    facing: CameraFacing.front,
     formats: const [BarcodeFormat.qrCode],
   );
 
   /// A capture can carry several frames' worth of hits; pop exactly once.
   bool _done = false;
+  bool _switching = false;
+  bool _initialCamera = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.addListener(_onCameraChanged);
+  }
+
+  void _onCameraChanged() {
+    if (!_initialCamera) return;
+    final state = _controller.value;
+    if (state.isRunning) {
+      _initialCamera = false;
+    } else if (state.error?.errorCode == MobileScannerErrorCode.unsupported) {
+      // A device with only a rear camera must still be able to scan.
+      _initialCamera = false;
+      scheduleMicrotask(() {
+        if (mounted && !_done) {
+          unawaited(_controller.start(cameraDirection: CameraFacing.back));
+        }
+      });
+    }
+  }
+
+  Future<void> _flipCamera() async {
+    if (_switching || _done || !_controller.value.isRunning) return;
+    setState(() => _switching = true);
+    try {
+      await _controller.switchCamera();
+    } finally {
+      if (mounted) setState(() => _switching = false);
+    }
+  }
 
   @override
   void dispose() {
+    _controller.removeListener(_onCameraChanged);
     _controller.dispose();
     super.dispose();
   }
@@ -116,13 +154,36 @@ class _TokenQrScannerState extends State<TokenQrScanner> {
                       ValueListenableBuilder(
                         valueListenable: _controller,
                         builder: (context, state, _) => _RoundAction(
+                          icon: Icons.flip_camera_android_outlined,
+                          tooltip: l10n(context).setupQrFlipCamera,
+                          onTap:
+                              state.isRunning &&
+                                  !_switching &&
+                                  (state.availableCameras == null ||
+                                      state.availableCameras! > 1) &&
+                                  (state.cameraDirection ==
+                                          CameraFacing.front ||
+                                      state.cameraDirection ==
+                                          CameraFacing.back)
+                              ? _flipCamera
+                              : null,
+                        ),
+                      ),
+                      ValueListenableBuilder(
+                        valueListenable: _controller,
+                        builder: (context, state, _) => _RoundAction(
                           icon: state.torchState == TorchState.on
                               ? Icons.flashlight_off_outlined
                               : Icons.flashlight_on_outlined,
                           tooltip: state.torchState == TorchState.on
                               ? l10n(context).setupQrFlashOff
                               : l10n(context).setupQrFlashOn,
-                          onTap: _controller.toggleTorch,
+                          onTap:
+                              state.isRunning &&
+                                  !_switching &&
+                                  state.torchState != TorchState.unavailable
+                              ? _controller.toggleTorch
+                              : null,
                         ),
                       ),
                     ],
@@ -147,7 +208,7 @@ class _RoundAction extends StatelessWidget {
 
   final IconData icon;
   final String tooltip;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) => Material(
@@ -158,6 +219,7 @@ class _RoundAction extends StatelessWidget {
       iconSize: 26,
       padding: const EdgeInsets.all(14),
       color: Colors.white,
+      disabledColor: Colors.white38,
       icon: Icon(icon),
       tooltip: tooltip,
       onPressed: onTap,

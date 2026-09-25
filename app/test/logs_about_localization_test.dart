@@ -84,8 +84,9 @@ void main() {
   for (final tag in [
     'fr',
     if (UiStrings.supportedLocales.contains(const Locale('de'))) 'de',
+    'uk',
   ]) {
-    final credit = tag == 'de' ? 'Dee-san' : 'Limoniak';
+    final credit = {'de': 'Dee-san', 'fr': 'Limoniak', 'uk': 'kdinya'}[tag]!;
     final title = lookupUiStrings(Locale(tag)).aboutLocalizationCredits;
     testWidgets(
       '$tag credits opens by language and follows live locale changes',

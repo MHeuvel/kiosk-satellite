@@ -1,0 +1,16 @@
+{
+  "@@locale": "uk",
+  "setupVoiceDetected": "Виявлено Voice Satellite",
+  "setupVoiceHelp": "У цьому екземплярі Home Assistant працює інтеграція Voice Satellite. Виберіть, яким сателітом є цей кіоск, та перевірте його налаштування. Усе це можна змінити пізніше.",
+  "setupNoSatellites": "Сателітів не знайдено",
+  "setupNoSatellitesHelp": "Додайте асистент-сателіт в інтеграції Voice Satellite або продовжте без нього та виберіть його на панелі керування пізніше.",
+  "setupNewSatelliteHelp": "Якщо це новий пристрій, спочатку створіть нову сутність сателіта в Home Assistant. Налаштування → Пристрої та служби → Voice Satellite → Додати запис. ВАЖЛИВО: два пристрої не можуть використовувати одну й ту саму сутність.",
+  "setupApplyRecommended": "Застосувати всі рекомендовані налаштування",
+  "setupRecommendedHelp": "Оптимальні налаштування для повної інтеграції та функціональності Voice Satellite.",
+  "setupVoiceRequired": "Потрібно для Voice Satellite",
+  "setupMicrophoneAccess": "Доступ до мікрофона",
+  "setupNativeWakeWord": "Вбудоване розпізнавання слова активації",
+  "setupPullRefresh": "Потягніть для оновлення",
+  "setupAutoplay": "Автовідтворення аудіо та відео",
+  "setupVoiceSkipped": "Не встановлено, пропущено"
+}

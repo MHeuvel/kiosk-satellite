@@ -1190,6 +1190,20 @@ class EspEntitySurface {
     },
     // Drops that page, whoever put it up; nothing up is not an error.
     {'name': 'close_url', 'supportsResponse': true, 'args': []},
+    {
+      'name': 'set_brightness',
+      'supportsResponse': true,
+      'args': [
+        {'name': 'brightness', 'type': 'float'},
+      ],
+    },
+    {
+      'name': 'set_screensaver_brightness',
+      'supportsResponse': true,
+      'args': [
+        {'name': 'brightness', 'type': 'float'},
+      ],
+    },
   ];
 
   /// An action call from Home Assistant landed (via the native hub). The
@@ -1200,6 +1214,31 @@ class EspEntitySurface {
     Map<String, Object?> args,
   ) async {
     switch (name) {
+      case 'set_brightness':
+      case 'set_screensaver_brightness':
+        final brightness = args['brightness'];
+        if (brightness is! num ||
+            !brightness.isFinite ||
+            brightness < 0 ||
+            brightness > 100) {
+          throw StateError('brightness must be a percentage from 0 to 100');
+        }
+        if (_settings.get(defs.adaptiveBrightness)) {
+          throw StateError('Turn off adaptive brightness to set brightness');
+        }
+        if (name == 'set_screensaver_brightness') {
+          await _settings.set(
+            defs.screensaverBrightnessLevel,
+            brightness / 100.0,
+            source: 'esphome',
+          );
+          return const {};
+        }
+        final result = await commands.execute('setBrightness', {
+          'level': brightness / 100.0,
+        });
+        if (!result.ok) throw StateError(result.error ?? 'brightness not set');
+        return const {};
       case 'notification':
         final result = await commands.execute('showNotification', {
           'message': '${args['message'] ?? ''}',
@@ -1830,7 +1869,9 @@ class EspEntitySurface {
     if (e.key == defs.screensaverClockBackground.key) {
       _send('clock_background', '${e.value}');
     }
-    if (e.key == defs.remoteEnabled.key || e.key == defs.remotePort.key) {
+    if (e.key == defs.remoteEnabled.key ||
+        e.key == defs.remotePort.key ||
+        e.key == defs.remoteTls.key) {
       _sendAdminUrl();
     }
   }
@@ -2140,7 +2181,7 @@ class EspEntitySurface {
     if (ip == null || ip.isEmpty) return;
     await _send(
       'admin_url',
-      'http://$ip:${_settings.get(defs.remotePort).toInt()}',
+      '${_settings.get(defs.remoteTls) ? 'https' : 'http'}://$ip:${_settings.get(defs.remotePort).toInt()}',
     );
   }
 

@@ -15,5 +15,7 @@
   "deviceByNameHelp": "Dieselbe Adresse über den Gerätenamen in Netzwerken, die .local-Namen auflösen.",
   "devicePasswordNeeded": "Lege unten ein Administrationspasswort fest, um den Server zu starten.",
   "deviceServerStopped": "Der Server wird nicht ausgeführt.",
-  "devicePortError": "Der Port {port} konnte nicht geöffnet werden: {error}"
+  "devicePortError": "Der Port {port} konnte nicht geöffnet werden: {error}",
+  "settingRemoteTlsTitle": "HTTPS verwenden",
+  "settingRemoteTlsDescription": "Verschlüsselt die Fernverwaltung, API und WebSocket-Verbindungen. Dein Browser kann dich auffordern, das Gerätezertifikat zu akzeptieren."
 }

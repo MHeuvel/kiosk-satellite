@@ -1,0 +1,16 @@
+{
+  "@@locale": "uk",
+  "settingAnnouncementsEnabledTitle": "Увімкнути оголошення",
+  "settingAnnouncementsEnabledDescription": "Відтворювати оголошення, які Home Assistant надсилає дією announce.",
+  "settingAnnouncementsTtsEngineTitle": "Рушій синтезу мовлення",
+  "settingAnnouncementsTtsEngineDescription": "Сутність синтезу мовлення Home Assistant, яка озвучує оголошення.",
+  "esphomeTtsFirst": "Перший доступний",
+  "settingAnnouncementsChimeTitle": "Звуковий сигнал перед оголошенням",
+  "settingAnnouncementsChimeDescription": "Відтворювати звуковий сигнал перед оголошенням.",
+  "settingAnnouncementsChimeFileTitle": "Звук сигналу",
+  "settingAnnouncementsChimeFileDescription": "Відтворюється з гучністю сповіщень.",
+  "esphomeAnnouncements": "Оголошення",
+  "esphomeAnnouncementsHelp": "Голосові оголошення від Home Assistant",
+  "esphomeChime": "Звуковий сигнал",
+  "esphomeTtsUnavailable": "Не вдалося зв'язатися з Home Assistant"
+}

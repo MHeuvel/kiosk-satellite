@@ -2,7 +2,7 @@ name: kiosk_satellite
 description: "Modern kiosk browser for Home Assistant — companion app for Voice Satellite."
 publish_to: 'none'
 
-version: 2026.9.77+276
+version: 2026.9.82+281
 
 environment:
   sdk: ^3.12.2
@@ -97,6 +97,9 @@ flutter:
     - shaders/weather_mood_sky.frag
     - shaders/weather_mood_clouds.frag
     - shaders/weather_mood_clouds_low.frag
+    - shaders/weather_mood_clouds_height.frag
+    - shaders/weather_mood_blend.frag
+    - shaders/weather_mood_glass.frag
   assets:
     - assets/l10n/
     - assets/remote-ui/index.html

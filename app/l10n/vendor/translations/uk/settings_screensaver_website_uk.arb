@@ -1,0 +1,10 @@
+{
+  "@@locale": "uk",
+  "settingScreensaverWebsiteUrlTitle": "URL-адреса вебсайту",
+  "settingScreensaverWebsiteUrlDescription": "Сторінка для повноекранного показу. Вона має підтримувати вбудовування.",
+  "settingScreensaverWebsiteZoomTitle": "Рівень масштабування",
+  "settingScreensaverWebsiteZoomDescription": "Масштабує всю зовнішню вебсторінку заставки.",
+  "settingScreensaverWebsiteDoubleTapTitle": "Подвійний дотик для закриття",
+  "settingScreensaverWebsiteDoubleTapDescription": "Одинарні дотики взаємодіють із сайтом замість закриття заставки.",
+  "screensaverWebsiteSection": "Заставка вебсайту"
+}

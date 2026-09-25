@@ -9,6 +9,7 @@ import 'ui_strings_de.dart';
 import 'ui_strings_en.dart';
 import 'ui_strings_es.dart';
 import 'ui_strings_fr.dart';
+import 'ui_strings_uk.dart';
 
 // ignore_for_file: type=lint
 
@@ -99,6 +100,7 @@ abstract class UiStrings {
     Locale('en'),
     Locale('es'),
     Locale('fr'),
+    Locale('uk'),
   ];
 
   /// App information group heading.
@@ -2892,6 +2894,24 @@ abstract class UiStrings {
   /// **'A live look at the fingers the camera reads.'**
   String get gestureTesterSearch;
 
+  /// Hand gesture hold setting or confirmation feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold confirmed'**
+  String get gestureHoldConfirmed;
+
+  /// Hand gesture hold setting or confirmation feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold progress: {progress}'**
+  String gestureHoldProgress(String progress);
+
+  /// Hand gesture hold setting or confirmation feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold duration: {duration}'**
+  String gestureTesterHoldDuration(String duration);
+
   /// Label or guidance in this section.
   ///
   /// In en, this message translates to:
@@ -3677,6 +3697,18 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Announcements off'**
   String get intercomAnnouncementsoff;
+
+  /// Shown when kiosks have different intercom encryption settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Encryption mismatch'**
+  String get intercomEncryptionMismatch;
+
+  /// Shown when kiosks have different intercom encryption settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Encryption mismatch. Enable Encrypt communications on all kiosks in the call.'**
+  String get intercomEncryptionMismatchHelp;
 
   /// Translate the visible message. Keep placeholders and any technical names unchanged.
   ///
@@ -6850,7 +6882,7 @@ abstract class UiStrings {
   /// Help below this setting.
   ///
   /// In en, this message translates to:
-  /// **'Require a username and password to view the stream. Streaming traffic is not encrypted.'**
+  /// **'Require a username and password to view the stream. Authentication does not enable encryption.'**
   String get settingCameraRtspAuthDescription;
 
   /// Setting label.
@@ -6990,6 +7022,18 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Add a black background behind the date and time for visibility.'**
   String get settingCameraRtspDateTimeBackgroundDescription;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Encrypt stream'**
+  String get settingCameraRtspTlsTitle;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Use TLS to encrypt video and audio. Requires a compatible viewer.'**
+  String get settingCameraRtspTlsDescription;
 
   /// Label or guidance in this section.
   ///
@@ -8731,6 +8775,18 @@ abstract class UiStrings {
   /// **'Could not listen on port {port}: {error}'**
   String devicePortError(String port, String error);
 
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Use HTTPS'**
+  String get settingRemoteTlsTitle;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Encrypt the remote admin, API and WebSocket. Your browser may ask you to accept the device certificate.'**
+  String get settingRemoteTlsDescription;
+
   /// Setting label.
   ///
   /// In en, this message translates to:
@@ -9288,6 +9344,260 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Shizuku helper is unavailable'**
   String get shizukuHelperUnavailable;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'TLS'**
+  String get tlsTLS;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection encryption and certificates'**
+  String get tlsConnectionEncryptionAndCertificates;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Certificate type'**
+  String get tlsCertificateType;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Imported'**
+  String get tlsImported;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Self-signed'**
+  String get tlsSelfSigned;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Expires'**
+  String get tlsExpires;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'SHA-256 fingerprint'**
+  String get tlsSHA256Fingerprint;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Certificate expired. Renew or import a replacement.'**
+  String get tlsCertificateExpiredRenewOrImportAReplacement;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy public certificate'**
+  String get tlsCopyPublicCertificate;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Download public certificate'**
+  String get tlsDownloadPublicCertificate;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Use this certificate in browsers and streaming clients.'**
+  String get tlsUseThisCertificateInBrowsersAndStreamingClients;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Renew certificate'**
+  String get tlsRenewCertificate;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep the current private key and update the certificate dates.'**
+  String get tlsKeepTheCurrentPrivateKeyAndUpdateTheCertificateDates;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Import certificate'**
+  String get tlsImportCertificate;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Use a certificate issued for this device.'**
+  String get tlsUseACertificateIssuedForThisDevice;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace certificate'**
+  String get tlsReplaceCertificate;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate a new private key and self-signed certificate.'**
+  String get tlsGenerateANewPrivateKeyAndSelfSignedCertificate;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate a new private key and certificate? Active encrypted connections will close. Browsers may ask you to accept the new certificate.'**
+  String
+  get tlsGenerateANewPrivateKeyAndCertificateActiveEncryptedConnectionsWillCloseBrowsersMayAskYouToAcceptTheNewCertificate;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste the PEM certificate chain and its unencrypted private key. They are validated before replacing the current certificate.'**
+  String
+  get tlsPasteThePEMCertificateChainAndItsUnencryptedPrivateKeyTheyAreValidatedBeforeReplacingTheCurrentCertificate;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Certificate chain (PEM)'**
+  String get tlsCertificateChainPEM;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Private key (PEM)'**
+  String get tlsPrivateKeyPEM;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'This field is required.'**
+  String get tlsThisFieldIsRequired;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace'**
+  String get tlsReplace;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Renew'**
+  String get tlsRenew;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable HTTPS before importing a private key remotely.'**
+  String get tlsEnableHTTPSBeforeImportingAPrivateKeyRemotely;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Certificate operation failed.'**
+  String get tlsCertificateOperationFailed;
+
+  /// Confirmation before changing the remote administration protocol.
+  ///
+  /// In en, this message translates to:
+  /// **'Change connection protocol'**
+  String get tlsChangeConnectionProtocol;
+
+  /// Confirmation before changing the remote administration protocol.
+  ///
+  /// In en, this message translates to:
+  /// **'The current remote connection will close. Reconnect using the address below. You may need to sign in again.'**
+  String get tlsConnectionProtocolHelp;
+
+  /// Confirmation before changing the remote administration protocol.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get tlsConfirm;
+
+  /// TLS encryption setting, certificate action or help text.
+  ///
+  /// In en, this message translates to:
+  /// **'Certificate Management'**
+  String get tlsCertificateManagement;
+
+  /// Certificate validation or management error shown on the device and in remote administration.
+  ///
+  /// In en, this message translates to:
+  /// **'Use a server certificate, not a CA certificate.'**
+  String get tlsServerCertificateRequired;
+
+  /// Certificate validation or management error shown on the device and in remote administration.
+  ///
+  /// In en, this message translates to:
+  /// **'Certificate does not allow server authentication.'**
+  String get tlsServerAuthenticationRequired;
+
+  /// Certificate validation or management error shown on the device and in remote administration.
+  ///
+  /// In en, this message translates to:
+  /// **'Use an EC or RSA private key.'**
+  String get tlsKeyAlgorithmRequired;
+
+  /// Certificate validation or management error shown on the device and in remote administration.
+  ///
+  /// In en, this message translates to:
+  /// **'Certificate and private key do not match.'**
+  String get tlsKeyMismatch;
+
+  /// Certificate validation or management error shown on the device and in remote administration.
+  ///
+  /// In en, this message translates to:
+  /// **'Certificate or key is too large.'**
+  String get tlsMaterialTooLarge;
+
+  /// Certificate validation or management error shown on the device and in remote administration.
+  ///
+  /// In en, this message translates to:
+  /// **'Expected PEM certificates.'**
+  String get tlsPemCertificatesRequired;
+
+  /// Certificate validation or management error shown on the device and in remote administration.
+  ///
+  /// In en, this message translates to:
+  /// **'No certificate found.'**
+  String get tlsCertificateMissing;
+
+  /// Certificate validation or management error shown on the device and in remote administration.
+  ///
+  /// In en, this message translates to:
+  /// **'Use an unencrypted PEM private key.'**
+  String get tlsUnencryptedKeyRequired;
+
+  /// Certificate validation or management error shown on the device and in remote administration.
+  ///
+  /// In en, this message translates to:
+  /// **'A hostname or IP address is required.'**
+  String get tlsHostnameRequired;
+
+  /// Certificate validation or management error shown on the device and in remote administration.
+  ///
+  /// In en, this message translates to:
+  /// **'Import a renewed certificate from its issuer.'**
+  String get tlsIssuerRenewalRequired;
+
+  /// Certificate validation or management error shown on the device and in remote administration.
+  ///
+  /// In en, this message translates to:
+  /// **'Stored TLS identity is damaged.'**
+  String get tlsStoredIdentityDamaged;
+
+  /// Certificate validation or management error shown on the device and in remote administration.
+  ///
+  /// In en, this message translates to:
+  /// **'The TLS certificate has expired. Renew or import its replacement.'**
+  String get tlsExpiredCertificate;
 
   /// Label or explanation on this Device settings page.
   ///
@@ -10734,6 +11044,36 @@ abstract class UiStrings {
   /// **'Could not read the settings.'**
   String get gestureReadFailed;
 
+  /// Hand gesture hold setting or confirmation feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Hand Gestures'**
+  String get gestureHandGestures;
+
+  /// Hand gesture hold setting or confirmation feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold duration'**
+  String get settingHandGestureHoldSecondsTitle;
+
+  /// Hand gesture hold setting or confirmation feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold the same finger gesture for this long before its action runs. Increase this to reduce accidental triggers.'**
+  String get settingHandGestureHoldSecondsDescription;
+
+  /// Hand gesture hold setting or confirmation feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Instant'**
+  String get gestureHoldInstant;
+
+  /// Hand gesture hold setting or confirmation feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'{seconds} s'**
+  String gestureHoldSeconds(String seconds);
+
   /// Setting label.
   ///
   /// In en, this message translates to:
@@ -11814,6 +12154,18 @@ abstract class UiStrings {
   /// **'Open'**
   String get intercomOpen;
 
+  /// Intercom encryption setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Encrypt communications'**
+  String get settingIntercomTlsTitle;
+
+  /// Intercom encryption setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Use TLS to encrypt intercom calls between kiosks. All kiosks in the call need this enabled.'**
+  String get settingIntercomTlsDescription;
+
   /// Label or guidance in this section.
   ///
   /// In en, this message translates to:
@@ -11823,7 +12175,7 @@ abstract class UiStrings {
   /// Label or guidance in this section.
   ///
   /// In en, this message translates to:
-  /// **'Discovered kiosks and saved fleet members. A kiosk is ready when it is reachable with intercom on and the same key.'**
+  /// **'Discovered kiosks and saved fleet members. A kiosk is ready when it is reachable with intercom on, the same key and matching encryption settings.'**
   String get intercomRosterHelp;
 
   /// Label or guidance in this section.
@@ -17121,7 +17473,7 @@ abstract class UiStrings {
   /// Weather Mood setting, guidance or weather condition.
   ///
   /// In en, this message translates to:
-  /// **'The Home Assistant weather entity that controls the animated scene. Day and night follow sun.sun, with local time as a fallback.'**
+  /// **'The Home Assistant weather entity that controls the animated scene. Day, dawn/dusk and night follow sun.sun, with local time as a fallback.'**
   String get settingScreensaverWeatherEntityDescription;
 
   /// Weather Mood setting, guidance or weather condition.
@@ -17181,7 +17533,7 @@ abstract class UiStrings {
   /// Weather preview control, group heading or scene choice.
   ///
   /// In en, this message translates to:
-  /// **'Choose the day or night version of the scene.'**
+  /// **'Choose the day, dawn/dusk or night version of the scene.'**
   String get settingScreensaverWeatherPreviewPeriodDescription;
 
   /// Weather preview control, group heading or scene choice.
@@ -17279,6 +17631,120 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Night'**
   String get screensaverWeatherPreviewNight;
+
+  /// Weather Mood clock or weather information bar control.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable clock'**
+  String get settingScreensaverWeatherClockTitle;
+
+  /// Weather Mood clock or weather information bar control.
+  ///
+  /// In en, this message translates to:
+  /// **'Show a digital clock over the weather scene.'**
+  String get settingScreensaverWeatherClockDescription;
+
+  /// Weather Mood clock or weather information bar control.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a drop shadow to text for readability over the weather scene.'**
+  String get screensaverWeatherTextShadowDescription;
+
+  /// Weather Mood clock or weather information bar control.
+  ///
+  /// In en, this message translates to:
+  /// **'Weather information'**
+  String get screensaverWeatherBarGroup;
+
+  /// Weather Mood clock or weather information bar control.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable weather bar'**
+  String get settingScreensaverWeatherBarTitle;
+
+  /// Weather Mood clock or weather information bar control.
+  ///
+  /// In en, this message translates to:
+  /// **'Show live weather information along the bottom of the screen.'**
+  String get settingScreensaverWeatherBarDescription;
+
+  /// Weather Mood clock or weather information bar control.
+  ///
+  /// In en, this message translates to:
+  /// **'Text scale'**
+  String get settingScreensaverWeatherBarScaleTitle;
+
+  /// Weather Mood clock or weather information bar control.
+  ///
+  /// In en, this message translates to:
+  /// **'Scale the weather information from 50 to 200 percent.'**
+  String get settingScreensaverWeatherBarScaleDescription;
+
+  /// Weather Mood clock or weather information bar control.
+  ///
+  /// In en, this message translates to:
+  /// **'Text color'**
+  String get settingScreensaverWeatherBarColorTitle;
+
+  /// Weather Mood clock or weather information bar control.
+  ///
+  /// In en, this message translates to:
+  /// **'The color of the weather information.'**
+  String get settingScreensaverWeatherBarColorDescription;
+
+  /// Weather Mood clock or weather information bar control.
+  ///
+  /// In en, this message translates to:
+  /// **'Background opacity'**
+  String get settingScreensaverWeatherBarOpacityTitle;
+
+  /// Weather Mood clock or weather information bar control.
+  ///
+  /// In en, this message translates to:
+  /// **'Darken the bottom bar to keep weather information readable.'**
+  String get settingScreensaverWeatherBarOpacityDescription;
+
+  /// Weather Mood clock or weather information bar control.
+  ///
+  /// In en, this message translates to:
+  /// **'Show humidity when the weather entity reports it.'**
+  String get screensaverWeatherBarHumidityDescription;
+
+  /// Weather Mood clock or weather information bar control.
+  ///
+  /// In en, this message translates to:
+  /// **'Show wind speed when the weather entity reports it.'**
+  String get screensaverWeatherBarWindDescription;
+
+  /// Weather Mood clock or weather information bar control.
+  ///
+  /// In en, this message translates to:
+  /// **'Show visibility when the weather entity reports it.'**
+  String get screensaverWeatherBarVisibilityDescription;
+
+  /// Weather Mood setting, guidance or weather condition.
+  ///
+  /// In en, this message translates to:
+  /// **'Scene blur'**
+  String get settingScreensaverWeatherBlurTitle;
+
+  /// Weather Mood setting, guidance or weather condition.
+  ///
+  /// In en, this message translates to:
+  /// **'Soften the animated weather scene while keeping the clock, weather bar and widgets sharp.'**
+  String get settingScreensaverWeatherBlurDescription;
+
+  /// Weather preview control, group heading or scene choice.
+  ///
+  /// In en, this message translates to:
+  /// **'Dawn/Dusk'**
+  String get screensaverWeatherPreviewTwilight;
+
+  /// Help for the weather bar Feels like toggle. The bar shows one temperature without a separate label.
+  ///
+  /// In en, this message translates to:
+  /// **'Show the apparent temperature instead of the actual temperature when available.'**
+  String get screensaverWeatherBarFeelsLikeDescription;
 
   /// Setting label.
   ///
@@ -17547,7 +18013,7 @@ abstract class UiStrings {
   /// Label or guidance in this editor.
   ///
   /// In en, this message translates to:
-  /// **'The apparent temperature after the real one, \"30° / 33°\".'**
+  /// **'Show the apparent temperature on a labeled line below the actual temperature.'**
   String get screensaverOverlayFeelsLikeHelp;
 
   /// Label or guidance in this editor.
@@ -17559,7 +18025,7 @@ abstract class UiStrings {
   /// Label or guidance in this editor.
   ///
   /// In en, this message translates to:
-  /// **'The apparent temperature in the real one\'s place.'**
+  /// **'Show the apparent temperature with a Feels like label instead of the actual temperature.'**
   String get screensaverOverlayFeelsLikeOnlyHelp;
 
   /// Label or guidance in this editor.
@@ -17591,6 +18057,12 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Visibility'**
   String get screensaverOverlayVisibility;
+
+  /// Secondary line below the actual temperature. Includes the formatted apparent temperature and its unit.
+  ///
+  /// In en, this message translates to:
+  /// **'Feels like {temperature}'**
+  String screensaverWeatherFeelsLikeValue(String temperature);
 
   /// Setting label.
   ///
@@ -19056,6 +19528,12 @@ abstract class UiStrings {
   /// **'Permissions requested on the device'**
   String get setupPermissionsRequested;
 
+  /// Button that switches between the front and back cameras.
+  ///
+  /// In en, this message translates to:
+  /// **'Flip camera'**
+  String get setupQrFlipCamera;
+
   /// Shown when the scanner cannot start its camera.
   ///
   /// In en, this message translates to:
@@ -19559,7 +20037,7 @@ class _UiStringsDelegate extends LocalizationsDelegate<UiStrings> {
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['de', 'en', 'es', 'fr'].contains(locale.languageCode);
+      <String>['de', 'en', 'es', 'fr', 'uk'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_UiStringsDelegate old) => false;
@@ -19576,6 +20054,8 @@ UiStrings lookupUiStrings(Locale locale) {
       return UiStringsEs();
     case 'fr':
       return UiStringsFr();
+    case 'uk':
+      return UiStringsUk();
   }
 
   throw FlutterError(

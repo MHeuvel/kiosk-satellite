@@ -15,5 +15,10 @@
   "gestureAddHelp": "Choisissez un geste et l'action qu'il déclenche.",
   "gestureTouchHelp": "Les gestes sont observés, pas bloqués : les appuis atteignent aussi le tableau de bord. Les coins et les gestes à plusieurs doigts évitent donc d'y déclencher quoi que ce soit.",
   "gestureClapper": "Détecteur de claquements",
-  "gestureReadFailed": "Impossible de lire les paramètres."
+  "gestureReadFailed": "Impossible de lire les paramètres.",
+  "gestureHandGestures": "Gestes de la main",
+  "settingHandGestureHoldSecondsTitle": "Durée de maintien",
+  "settingHandGestureHoldSecondsDescription": "Maintenez le même geste des doigts pendant cette durée avant de lancer son action. Augmentez-la pour réduire les déclenchements accidentels.",
+  "gestureHoldInstant": "Immédiat",
+  "gestureHoldSeconds": "{seconds} s"
 }

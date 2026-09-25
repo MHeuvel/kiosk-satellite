@@ -146,6 +146,34 @@ void main() {
     return body['token'] as String;
   }
 
+  test(
+    'encrypted intercom refuses legacy plaintext calls without changing admin',
+    () async {
+      // This test exercises the route gate, not native certificate loading.
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('ks.intercom.tls', true);
+      final (identity, _) = await call('GET', '/api/intercom/identity');
+      expect(identity, 200);
+      final (incoming, _) = await call(
+        'POST',
+        '/api/intercom/call',
+        body: {'call': 'c'},
+      );
+      expect(incoming, 426);
+      final (signal, _) = await call(
+        'POST',
+        '/api/intercom/call/c',
+        body: {'action': 'answer'},
+      );
+      expect(signal, 426);
+      final (audio, _) = await call('GET', '/api/intercom/audio/c');
+      expect(audio, 426);
+      expect(executed.where((e) => e.$1 == 'intercomIncoming'), isEmpty);
+      expect(await login(), isNotEmpty);
+      expect(settings.get(defs.remoteTls), false);
+    },
+  );
+
   test('identity is public and rate limited per client', () async {
     final (s1, b1) = await call('GET', '/api/intercom/identity');
     expect(s1, 200);

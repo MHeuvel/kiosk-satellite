@@ -1,7 +1,7 @@
 {
   "@@locale": "es",
   "intercomKiosks": "Kioskos",
-  "intercomRosterHelp": "Kioskos encontrados y miembros guardados de la flota. Un kiosko está listo cuando se puede conectar con él, tiene el intercomunicador activado y usa la misma clave.",
+  "intercomRosterHelp": "Kioscos detectados y miembros guardados de la flota. Un kiosco está listo cuando es accesible, tiene la intercomunicación activada y usa la misma clave y los mismos ajustes de cifrado.",
   "intercomNoOther": "No se encontraron otros kioskos",
   "intercomRosterDeviceHelp": "Aquí aparecen los kioskos que tienen activadas Administración remota y Buscar otros kioskos.",
   "intercomNoneHeard": "No se encontraron kioskos",

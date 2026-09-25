@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.PowerManager
+import android.util.Log
 import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
@@ -244,7 +245,7 @@ class MainActivity : FlutterActivity() {
         provisionChannel = MethodChannel(messenger, "kiosk_satellite/provision")
         provisionChannel?.setMethodCallHandler { call, result ->
             when (call.method) {
-                "getProvisionJson" -> result.success(intent?.getStringExtra("ks.provision"))
+                "getProvisionJson" -> result.success(ProvisionInbox.take())
                 else -> result.notImplemented()
             }
         }
@@ -288,10 +289,8 @@ class MainActivity : FlutterActivity() {
             }
         }
         // Cold launch: Dart's provisioning pull runs at process start, before
-        // this Activity exists, so push the launch-intent extra now.
-        intent?.getStringExtra("ks.provision")?.let {
-            provisionChannel?.invokeMethod("provision", it)
-        }
+        // this Activity exists, so push what ProvisionActivity left now.
+        deliverProvisioning(intent)
         // Last, with every bridge above in place: Dart rebinds what the
         // evicted Activity took with it (the camera session) on this.
         // With what launched it: a kiosk that attaches twice a second is
@@ -441,13 +440,23 @@ class MainActivity : FlutterActivity() {
         return super.dispatchTouchEvent(ev)
     }
 
+    // Payloads come only through ProvisionActivity, which the system gates
+    // to the adb shell (issue #695). The extra on this exported launcher
+    // Activity could come from any app, so it is refused, loudly enough
+    // for an old adb script to find out why nothing applied.
+    private fun deliverProvisioning(intent: Intent?) {
+        if (intent?.hasExtra(ProvisionInbox.EXTRA) == true) {
+            Log.w("Provision", "ignored ks.provision sent to MainActivity; send it to .ProvisionActivity")
+        }
+        val channel = provisionChannel ?: return
+        ProvisionInbox.take()?.let { channel.invokeMethod("provision", it) }
+    }
+
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
         // Activity already running: push instead of pull.
-        intent.getStringExtra("ks.provision")?.let {
-            provisionChannel?.invokeMethod("provision", it)
-        }
+        deliverProvisioning(intent)
         // A HOME press while the kiosk is the home app and already in
         // front lands here. Everywhere else HOME means "back to the start
         // screen", so the kiosk honors that: Dart closes whatever is open

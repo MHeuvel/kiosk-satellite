@@ -1,0 +1,10 @@
+{
+  "@@locale": "uk",
+  "logsEntries": "Записів: {count}",
+  "logsCopyLog": "Копіювати журнал",
+  "logsShareLog": "Поділитися журналом",
+  "logsCopied": "Скопійовано",
+  "logsCopyFailed": "Не вдалося скопіювати",
+  "logsOnClipboard": "Журнал скопійовано до буфера обміну.",
+  "logsConsoleOnClipboard": "Журнал консолі скопійовано до буфера обміну."
+}

@@ -17,6 +17,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 import '../../core/command_registry.dart';
 import '../../core/events.dart';
 import '../../core/manager.dart';
+import '../intercom/intercom_routes.dart';
 import '../settings/definitions.dart' as defs;
 import '../settings/settings_manager.dart';
 import 'auth.dart';
@@ -47,7 +48,51 @@ class RemoteManager extends Manager {
   @override
   String get commandSource => 'remote admin';
 
+  /// The full screen views up right now, from [FullscreenViewChanged].
+  final _fullscreenViews = <String>{};
+
+  late final _intercomRoutes = IntercomRoutes(
+    commands,
+    requiresTls: () => _settings.get(defs.intercomTls),
+  );
+
   HttpServer? _server;
+  bool _runningTls = false;
+  bool _renewed = false;
+  Timer? _tlsRestart;
+  Timer? _certificateCheck;
+  Future<void>? _syncQueue;
+  int _activeMutations = 0;
+
+  void _scheduleTlsRestart() {
+    _tlsRestart?.cancel();
+    _tlsRestart = Timer(const Duration(milliseconds: 750), () {
+      if (_activeMutations > 0) {
+        _scheduleTlsRestart();
+      } else {
+        unawaited(_sync());
+      }
+    });
+  }
+
+  Future<void> _checkCertificate() async {
+    if (!_settings.get(defs.remoteTls) &&
+        !_settings.get(defs.cameraRtspTls) &&
+        !_settings.get(defs.intercomTls)) {
+      return;
+    }
+    try {
+      final material = await _settings.tls.load();
+      if (!material.imported &&
+          material.expires.difference(DateTime.now()).inDays < 30) {
+        await _settings.tls.change('renew');
+      } else if (!material.expires.isAfter(DateTime.now())) {
+        bus.publish(const TlsIdentityChanged());
+      }
+    } catch (e) {
+      log.warn(name, 'TLS certificate check failed: $e');
+    }
+  }
 
   /// Why the server is not listening, or null when it is (or when it is off
   /// on purpose). "Remote management" being on is not the same as the server
@@ -99,6 +144,18 @@ class RemoteManager extends Manager {
 
   @override
   Future<void> init() async {
+    _settings.tls.registerCommands();
+    _subscriptions.add(
+      bus.on<TlsIdentityChanged>().listen((_) {
+        _renewed = true;
+        _scheduleTlsRestart();
+      }),
+    );
+    _certificateCheck = Timer.periodic(
+      const Duration(hours: 6),
+      (_) => unawaited(_checkCertificate()),
+    );
+    await _checkCertificate();
     // Persistent signing secret → tokens survive app restarts.
     final secret = await _settings.secret('remote_auth', () {
       final random = Random.secure();
@@ -208,6 +265,25 @@ class RemoteManager extends Manager {
       }),
     );
 
+    // Now Playing and the intercom screens, likewise internal: the
+    // Overview labels its screenshot by them and takes a fresh one.
+    _subscriptions.add(
+      bus.on<FullscreenViewChanged>().listen((e) {
+        if (e.shown) {
+          _fullscreenViews.add(e.view);
+        } else {
+          _fullscreenViews.remove(e.view);
+        }
+        if (_wsClients.isEmpty) return;
+        // With the screen events: the same clients redraw from both.
+        _broadcast({
+          'type': 'fullscreen-view',
+          'view': e.view,
+          'shown': e.shown,
+        }, topic: 'events');
+      }),
+    );
+
     // Wake-word state, likewise: no wireName, so the generic feed skips it.
     //
     // The admin shows the same wake-word panel as the device's own settings
@@ -225,6 +301,10 @@ class RemoteManager extends Manager {
 
     _subscriptions.add(
       bus.on<SettingChanged>().listen((e) {
+        if (e.key == defs.remoteTls.key) {
+          _scheduleTlsRestart();
+          return;
+        }
         // Losing remote access is the one settings change nobody can diagnose
         // afterwards from here, because the log this writes to is served by
         // the very server it just switched off. At warn so it also reaches
@@ -281,7 +361,15 @@ class RemoteManager extends Manager {
   /// password or not — its own first step is to set one.
   bool get _setupMode => _settings.get(defs.startUrl).isEmpty;
 
-  Future<void> _sync() async {
+  Future<void> _sync() {
+    final next = (_syncQueue ?? Future<void>.value()).then((_) => _syncNow());
+    _syncQueue = next.catchError((Object e) {
+      log.error(name, 'Server configuration failed: $e');
+    });
+    return next;
+  }
+
+  Future<void> _syncNow() async {
     final enabled = _settings.get(defs.remoteEnabled);
     final hasPassword = _settings.get(defs.remotePassword).isNotEmpty;
     final port = _settings.get(defs.remotePort).toInt();
@@ -290,13 +378,13 @@ class RemoteManager extends Manager {
       await _start();
     } else if (!wantRunning && _server != null) {
       await _stop();
-    } else if (wantRunning && _server != null && _server!.port != port) {
-      // The port changed; only that warrants a restart. A password set or
-      // changed while serving (the onboarding wizard's first step sets
-      // one, from this very server) used to restart it too, which cut the
-      // reply to the request that set it: the browser saw a failed fetch,
-      // stayed on the password step, and the next press was refused as
-      // "setup already done".
+    } else if (wantRunning &&
+        _server != null &&
+        (_server!.port != port ||
+            _runningTls != _settings.get(defs.remoteTls) ||
+            (_runningTls && _renewed))) {
+      // Only endpoint or certificate changes restart the listener. Password
+      // changes must finish without interrupting the onboarding response.
       await _stop();
       await _start();
     }
@@ -315,16 +403,50 @@ class RemoteManager extends Manager {
   Future<void> _start() async {
     final port = _settings.get(defs.remotePort).toInt();
     try {
-      _server = await shelf_io.serve(
-        const Pipeline().addHandler(_route),
-        InternetAddress.anyIPv4,
-        port,
+      final tls = _settings.get(defs.remoteTls);
+      final context = tls
+          ? (await _settings.tls.load()).securityContext()
+          : null;
+      _server = context == null
+          ? await HttpServer.bind(InternetAddress.anyIPv4, port)
+          : await HttpServer.bindSecure(InternetAddress.anyIPv4, port, context);
+      _server!.listen(
+        _handleHttpRequest,
+        onError: (Object error) {
+          log.debug(name, 'Connection refused: $error');
+        },
       );
+      _runningTls = tls;
+      _renewed = false;
       _startError = null;
       log.info(name, 'listening on :$port');
     } catch (e) {
       _startError = 'Could not listen on port $port: $e';
       log.error(name, 'failed to start on :$port: $e');
+    }
+  }
+
+  Future<void> _handleHttpRequest(HttpRequest request) async {
+    final authorization = request.headers.value(
+      HttpHeaders.authorizationHeader,
+    );
+    final token = authorization?.startsWith('Bearer ') == true
+        ? authorization!.substring(7)
+        : null;
+    // Unauthenticated slow uploads must not delay a listener change.
+    final mutating =
+        (request.method == 'POST' || request.method == 'PATCH') &&
+        (_setupMode || _auth.validate(token));
+    if (mutating) _activeMutations++;
+    try {
+      await shelf_io.handleRequest(
+        request,
+        const Pipeline().addHandler(_route),
+      );
+    } catch (e) {
+      log.debug(name, 'Connection ended: $e');
+    } finally {
+      if (mutating) _activeMutations--;
     }
   }
 
@@ -509,65 +631,7 @@ class RemoteManager extends Manager {
       return _json(200, (r.data as Map?)?.cast<String, Object?>() ?? {});
     }
 
-    // The intercom's wire: who this kiosk is to another (public, so the
-    // roster can say Ready or Different key), a call or broadcast coming
-    // in, the answer going back and the audio socket. The intercom manager
-    // checks the token every one of them carries, signed with the shared
-    // intercom key, so none of these needs an admin token.
-    if (path == 'api/intercom/identity' && request.method == 'GET') {
-      final ip = _clientIp(request);
-      final last = _identityAt[ip];
-      final now = DateTime.now();
-      if (last != null && now.difference(last) < const Duration(seconds: 1)) {
-        return _json(429, {'error': 'too many probes'});
-      }
-      _identityAt[ip] = now;
-      final r = await commands.execute('intercomIdentity', const {});
-      return r.ok
-          ? _json(200, (r.data as Map).cast<String, Object?>())
-          : _json(503, {'error': r.error});
-    }
-    if (path == 'api/intercom/call' && request.method == 'POST') {
-      final body = await _body(request);
-      if (body == null) return _json(400, {'error': 'invalid JSON'});
-      final r = await commands.execute('intercomIncoming', {
-        ...body,
-        'token': _bearerToken(request),
-        'address': _clientIp(request),
-      });
-      if (!r.ok) return _json(400, r.toJson());
-      final data = (r.data as Map?)?.cast<String, Object?>() ?? const {};
-      final code = data['code'];
-      return _json(code is int ? code : 200, data);
-    }
-    if (path.startsWith('api/intercom/call/') && request.method == 'POST') {
-      final body = await _body(request);
-      if (body == null) return _json(400, {'error': 'invalid JSON'});
-      final r = await commands.execute('intercomSignal', {
-        ...body,
-        'call': path.substring('api/intercom/call/'.length),
-        'token': _bearerToken(request),
-        'address': _clientIp(request),
-      });
-      return _json(r.ok ? 200 : 403, r.toJson());
-    }
-    if (path.startsWith('api/intercom/audio/')) {
-      final callId = path.substring('api/intercom/audio/'.length);
-      final verified = await commands.execute('intercomVerify', {
-        'call': callId,
-        'token': request.url.queryParameters['token'],
-      });
-      if (!verified.ok) return _json(403, {'error': 'refused'});
-      return webSocketHandler((WebSocketChannel channel, String? protocol) {
-        // Handed over whole: the manager reads and writes the frames,
-        // binary voice and text control alike. In-process, so an object
-        // rides the command's parameters where the wire never sees it.
-        commands.execute('intercomAttachSocket', {
-          'call': callId,
-          'channel': channel,
-        });
-      })(request);
-    }
+    if (path.startsWith('api/intercom/')) return _intercomRoutes(request);
 
     if (!path.startsWith('api/')) return Response.notFound('not found');
 
@@ -742,6 +806,7 @@ class RemoteManager extends Manager {
     final details = await commands.execute('getDeviceDetails', const {});
     final screenOn = await commands.execute('isScreenOn', const {});
     final brightness = await commands.execute('getBrightness', const {});
+    final link = await commands.execute('getNetworkLink', const {});
     final info = (device.data as Map?)?.cast<String, Object?>() ?? const {};
     final det = (details.data as Map?)?.cast<String, Object?>() ?? const {};
     return _json(200, {
@@ -762,6 +827,11 @@ class RemoteManager extends Manager {
       'ram': det['ram'],
       'storage': det['storage'],
       'cpu': {'usage': info['cpu'], 'temp': info['temp']},
+      // The system WebView updates itself out from under the app, so it is
+      // the first suspect when one panel renders unlike its neighbors.
+      'webview': det['webview'],
+      // Null while offline. Wi-Fi adds signal, link speed and frequency.
+      'link': link.ok ? link.data : null,
       // Seconds. `network` is null while offline; its clock starts at app
       // start at the earliest (see DeviceDetails.uptime).
       'uptime': info['uptime'],
@@ -780,8 +850,9 @@ class RemoteManager extends Manager {
   /// "Screen off" or "Screen on" by what the panel is doing, and a tile
   /// born saying one of them before anyone asked would be guessing. Live
   /// changes reach the client through the event feed (screenon/screenoff,
-  /// screensaverstart/screensaverstop, cameraview); this is the snapshot
-  /// they diff against.
+  /// screensaverstart/screensaverstop, cameraview, and fullscreen-view
+  /// messages for Now Playing and the intercom screens); this is the
+  /// snapshot they diff against.
   Future<Map<String, Object?>> _deviceState() async {
     final device = await commands.execute('getDeviceInfo', const {});
     final brightness = await commands.execute('getBrightness', const {});
@@ -794,6 +865,8 @@ class RemoteManager extends Manager {
       'screenOn': screenOn.ok ? screenOn.data as bool? : null,
       'screensaverActive': screensaver.ok ? screensaver.data as bool? : null,
       'cameraView': cameraView.ok ? cameraView.data : null,
+      'nowPlayingShown': _fullscreenViews.contains('nowPlaying'),
+      'intercomShown': _fullscreenViews.contains('intercom'),
       'currentUrl': _currentUrl,
     };
   }
@@ -877,6 +950,12 @@ class RemoteManager extends Manager {
   }
 
   Future<Response> _command(Request request, String commandName) async {
+    if (commandName == 'importTlsCertificate' && !_runningTls) {
+      return _json(400, {
+        'ok': false,
+        'error': 'Enable HTTPS before importing a private key remotely.',
+      });
+    }
     if (_deviceOnly.contains(commandName)) {
       return _json(403, {'error': 'answered on the kiosk itself'});
     }
@@ -911,9 +990,6 @@ class RemoteManager extends Manager {
 
   /// One invitation per client every few seconds: the endpoint is public.
   final _inviteAt = <String, DateTime>{};
-
-  /// One intercom identity probe per client a second, same reason.
-  final _identityAt = <String, DateTime>{};
 
   /// The id of the leader this kiosk follows or null.
   String? get _followedLeaderId {
@@ -1061,6 +1137,7 @@ class RemoteManager extends Manager {
       channel.stream.listen(
         (raw) async {
           Object? id;
+          var mutating = false;
           try {
             if (!_auth.validate(token)) {
               await channel.sink.close(1008, 'Session expired');
@@ -1068,6 +1145,8 @@ class RemoteManager extends Manager {
             }
             final msg = jsonDecode(raw as String) as Map<String, dynamic>;
             id = msg['id'];
+            mutating = msg['type'] == 'command' || msg['type'] == 'settings';
+            if (mutating) _activeMutations++;
             if (msg['type'] == 'ping') {
               _send(channel, {'type': 'pong'});
               return;
@@ -1109,7 +1188,8 @@ class RemoteManager extends Manager {
             }
             if (msg['type'] != 'command' ||
                 msg['name'] is! String ||
-                _deviceOnly.contains(msg['name'])) {
+                _deviceOnly.contains(msg['name']) ||
+                (msg['name'] == 'importTlsCertificate' && !_runningTls)) {
               _send(channel, {
                 'type': 'result',
                 'id': id,
@@ -1136,6 +1216,8 @@ class RemoteManager extends Manager {
               'error': 'Invalid request',
             });
             log.debug(name, 'bad ws message: $e');
+          } finally {
+            if (mutating) _activeMutations--;
           }
         },
         onDone: remove,
@@ -1463,7 +1545,10 @@ class RemoteManager extends Manager {
   );
 
   @override
-  Future<void> dispose() {
+  Future<void> dispose() async {
+    _tlsRestart?.cancel();
+    _certificateCheck?.cancel();
+    await _syncQueue;
     _statsTimer?.cancel();
     _observations.dispose();
     for (final subscription in _subscriptions) {

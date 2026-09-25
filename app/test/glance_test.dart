@@ -131,6 +131,49 @@ void main() {
     });
   });
 
+  group('blank values (#691)', () {
+    test('an empty state is blank, a missing reading is not', () {
+      // No reading yet: the row keeps its chip until one lands.
+      expect(glanceValueBlank(entity('sensor.alert')), isFalse);
+      expect(glanceValueBlank(entity('sensor.alert', state: '')), isTrue);
+      expect(glanceValueBlank(entity('sensor.alert', state: '  ')), isTrue);
+      expect(
+        glanceValueBlank(entity('sensor.alert', state: 'Gate left open')),
+        isFalse,
+      );
+      // Unknown and unavailable still read.
+      expect(
+        glanceValueBlank(entity('sensor.alert', state: 'unknown')),
+        isFalse,
+      );
+      expect(
+        glanceValueBlank(entity('sensor.alert', state: 'unavailable')),
+        isFalse,
+      );
+    });
+
+    test('an attribute chip is blank while the attribute is empty or '
+        'missing', () {
+      const alert = GlanceEntity(
+        entityId: 'sensor.alert',
+        name: 'Alert',
+        attribute: 'message',
+      );
+      expect(glanceValueBlank(alert.merge(state: 'on')), isTrue);
+      expect(
+        glanceValueBlank(alert.merge(state: 'on', attributeValue: '')),
+        isTrue,
+      );
+      expect(
+        glanceValueBlank(
+          alert.merge(state: 'on', attributeValue: 'Laundry done'),
+        ),
+        isFalse,
+      );
+      expect(glanceValueBlank(alert.merge(state: 'unavailable')), isFalse);
+    });
+  });
+
   group('attribute display (#132)', () {
     GlanceEntity weather({String? value, String? state}) => GlanceEntity(
       entityId: 'weather.home',

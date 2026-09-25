@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'weather_mood_renderer.dart';
+import 'weather_mood_information.dart';
 
 import '../app_container.dart';
 import '../core/events.dart';
@@ -19,21 +21,59 @@ bool weatherMoodNight(String? sun, DateTime localTime) => switch (sun) {
   _ => localTime.hour < 6 || localTime.hour >= 18,
 };
 
+/// Warmth peaks near the horizon and fades into the existing day/night scenes.
+double weatherMoodTwilight(
+  String? sun,
+  DateTime localTime, {
+  double? elevation,
+}) {
+  final validSun = sun == 'above_horizon' || sun == 'below_horizon';
+  if (validSun &&
+      elevation != null &&
+      elevation.isFinite &&
+      elevation.abs() <= 90) {
+    final fade = ((elevation.abs() - 2) / 4).clamp(0.0, 1.0);
+    return 1 - fade * fade * (3 - 2 * fade);
+  }
+  // Without elevation, use one hour around the local 6 AM / 6 PM fallback.
+  // A valid sun state still prevents a warm scene in the wrong half of the day.
+  final minutes =
+      localTime.hour * 60 + localTime.minute + localTime.second / 60;
+  final morning = (minutes - 360).abs();
+  final evening = (minutes - 1080).abs();
+  final distance = morning < evening ? morning : evening;
+  if (validSun &&
+      weatherMoodNight(sun, localTime) != weatherMoodNight(null, localTime)) {
+    return 0;
+  }
+  final fade = ((distance - 10) / 20).clamp(0.0, 1.0);
+  return 1 - fade * fade * (3 - 2 * fade);
+}
+
 bool weatherMoodHasScene(SettingsManager settings) =>
     settings.get(defs.screensaverWeatherPreview) ||
     settings.get(defs.screensaverWeatherEntity).trim().isNotEmpty;
 
-({String condition, bool night}) weatherMoodScene(
+({String condition, bool night, double twilight}) weatherMoodScene(
   SettingsManager settings,
   String condition,
   String? sun,
-  DateTime localTime,
-) => settings.get(defs.screensaverWeatherPreview)
+  DateTime localTime, {
+  double? elevation,
+}) => settings.get(defs.screensaverWeatherPreview)
     ? (
         condition: settings.get(defs.screensaverWeatherPreviewCondition),
         night: settings.get(defs.screensaverWeatherPreviewPeriod) == 'night',
+        twilight:
+            settings.get(defs.screensaverWeatherPreviewPeriod) == 'twilight'
+            ? 1.0
+            : 0.0,
       )
-    : (condition: condition, night: weatherMoodNight(sun, localTime));
+    : (
+        condition: condition,
+        night: weatherMoodNight(sun, localTime),
+        twilight: weatherMoodTwilight(sun, localTime, elevation: elevation),
+      );
 
 const weatherMoodConditions = {
   'sunny',
@@ -71,15 +111,45 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
   int _generation = 0;
   String _condition = 'exceptional';
   String? _sun;
+  double? _sunElevation;
+  WeatherMoodReadings _readings = WeatherMoodReadings();
+  Map<String, String> _translations = const {};
   bool _screenOn = true;
   bool _foreground = true;
   bool _immediate = false;
+  // The scene stays black until the first weather reaches it and its
+  // first full frame is ready, so it never morphs out of a placeholder.
+  bool _dataReady = false, _revealed = false;
+  // Flutter switches from its image view back to its own surface once the
+  // dashboard stops rendering behind the screensaver, and that switch can
+  // show one blank frame. Revealing only after it keeps that frame black.
+  bool _sceneDone = false, _surfaceSettled = false;
+  Timer? _surfaceTimer;
+  bool _gotEntity = false, _gotSun = false;
+  int _revealToken = 0;
+  Timer? _sunGrace, _revealTimeout;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     _foreground = Lifecycle.onScreen;
+    // Previews and missing entities have nothing to wait for.
+    _dataReady =
+        widget.container.settings.get(defs.screensaverWeatherPreview) ||
+        widget.container.settings
+            .get(defs.screensaverWeatherEntity)
+            .trim()
+            .isEmpty;
+    // Without Home Assistant, the neutral scene appears after a moment.
+    _revealTimeout = Timer(const Duration(seconds: 4), () {
+      if (mounted && !_revealed) setState(() => _revealed = true);
+    });
+    final frozen = widget.container.browser.renderingFrozenState;
+    frozen.addListener(_dashboardFrozen);
+    // Without a dashboard to pause there is no switch to wait for.
+    _surfaceTimer = Timer(const Duration(seconds: 2), _settleSurface);
+    _dashboardFrozen();
     _screenOn = widget.container.screen.isScreenOn;
     _screen = widget.container.bus.on<ScreenStateChanged>().listen((event) {
       _screenOn = event.on;
@@ -101,6 +171,12 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
         unawaited(_update(immediate: true));
       } else if (event.key == defs.screensaverWeatherLightning.key) {
         unawaited(_update());
+      } else if (event.key.startsWith('screensaver.weather_') ||
+          event.key.startsWith('screensaver.glance_')) {
+        if (event.key == defs.screensaverWeatherBar.key) {
+          unawaited(_loadTranslations());
+        }
+        setState(() {});
       }
     });
     _clock = Timer.periodic(
@@ -108,6 +184,15 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
       (_) => unawaited(_update()),
     );
     unawaited(_subscribe());
+    unawaited(_loadTranslations());
+  }
+
+  Future<void> _loadTranslations() async {
+    if (!widget.container.settings.get(defs.screensaverWeatherBar)) return;
+    final translations = await widget.container.homeAssistant.stateTranslations(
+      'weather',
+    );
+    if (mounted) setState(() => _translations = translations);
   }
 
   Future<void> _subscribe({bool reset = false}) async {
@@ -120,6 +205,8 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
     if (reset) {
       _condition = 'exceptional';
       _sun = null;
+      _sunElevation = null;
+      _readings = WeatherMoodReadings();
       unawaited(_update());
     }
     final entity = widget.container.settings
@@ -133,10 +220,33 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
         final value = state['state'];
         if (id == 'sun.sun') {
           if (value is String) _sun = value;
-        } else if (id == entity && weatherMoodConditions.contains(value)) {
-          _condition = value as String;
+          final attrs = state['attributes'];
+          if (_sun != 'above_horizon' && _sun != 'below_horizon') {
+            _sunElevation = null;
+          } else if (attrs is Map && attrs.containsKey('elevation')) {
+            final elevation = attrs['elevation'];
+            _sunElevation = elevation is num && elevation.isFinite
+                ? elevation.toDouble()
+                : null;
+          }
+        } else if (id == entity) {
+          _readings.update(state);
+          if (weatherMoodConditions.contains(value)) {
+            _condition = value as String;
+          }
         }
-        unawaited(_update());
+        if (_dataReady) {
+          unawaited(_update());
+          return;
+        }
+        if (id == 'sun.sun') _gotSun = true;
+        if (id == entity) _gotEntity = true;
+        if (_gotEntity && _gotSun) {
+          _markDataReady();
+        } else if (_gotEntity) {
+          // The sun usually follows at once; not every install has one.
+          _sunGrace ??= Timer(const Duration(seconds: 1), _markDataReady);
+        }
       },
     );
     if (!mounted || generation != _generation) {
@@ -147,6 +257,7 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
     void retry() {
       if (!mounted || generation != _generation) return;
       _sun = null;
+      _sunElevation = null;
       unawaited(_update());
       _retry?.cancel();
       _retry = Timer(
@@ -160,6 +271,44 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
     } else {
       live.onClosed = retry;
     }
+  }
+
+  /// The first real weather lands at once instead of transitioning from
+  /// the placeholder scene.
+  void _markDataReady() {
+    if (!mounted || _dataReady) return;
+    _sunGrace?.cancel();
+    _dataReady = true;
+    _revealToken++;
+    unawaited(_update(immediate: true));
+  }
+
+  void _sceneFinished(int token) {
+    // A placeholder scene finishing before the weather arrives carries an
+    // older token, or arrives while the data is still missing.
+    if (!mounted || token != _revealToken || !_dataReady) return;
+    _sceneDone = true;
+    _maybeReveal();
+  }
+
+  void _dashboardFrozen() {
+    if (!mounted || _surfaceSettled) return;
+    if (widget.container.browser.renderingFrozenState.value) {
+      // The switch completes within a couple of frames of the freeze.
+      _surfaceTimer?.cancel();
+      _surfaceTimer = Timer(const Duration(milliseconds: 250), _settleSurface);
+    }
+  }
+
+  void _settleSurface() {
+    if (!mounted) return;
+    _surfaceSettled = true;
+    _maybeReveal();
+  }
+
+  void _maybeReveal() {
+    if (_revealed || !_sceneDone || !_surfaceSettled) return;
+    setState(() => _revealed = true);
   }
 
   Future<void> _update({bool immediate = false}) async {
@@ -185,6 +334,12 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
     _screen?.cancel();
     _retry?.cancel();
     _clock?.cancel();
+    _sunGrace?.cancel();
+    _revealTimeout?.cancel();
+    _surfaceTimer?.cancel();
+    widget.container.browser.renderingFrozenState.removeListener(
+      _dashboardFrozen,
+    );
     unawaited(_live?.close());
     super.dispose();
   }
@@ -217,22 +372,67 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
       _condition,
       _sun,
       DateTime.now(),
+      elevation: _sunElevation,
     );
-    return WeatherMoodRenderer(
-      condition: scene.condition,
-      night: scene.night,
-      lightning: widget.container.settings.get(
-        defs.screensaverWeatherLightning,
-      ),
-      active: _screenOn && _foreground,
-      immediate: _immediate,
-      lowPower:
-          widget.container.device.abis.isNotEmpty &&
-          !widget.container.device.abis.any((abi) => abi.contains('64')),
-      onError: (error) => widget.container.log.warn(
-        'screensaver',
-        'Weather Mood renderer stopped: $error',
-      ),
+    final blur = widget.container.settings
+        .get(defs.screensaverWeatherBlur)
+        .toDouble()
+        .clamp(0.0, 30.0);
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        ClipRect(
+          child: ImageFiltered(
+            enabled: blur > 0,
+            imageFilter: ui.ImageFilter.blur(
+              sigmaX: blur,
+              sigmaY: blur,
+              tileMode: TileMode.clamp,
+            ),
+            child: WeatherMoodRenderer(
+              condition: scene.condition,
+              night: scene.night,
+              twilight: scene.twilight,
+              lightning: widget.container.settings.get(
+                defs.screensaverWeatherLightning,
+              ),
+              active: _screenOn && _foreground,
+              immediate: _immediate,
+              revealed: _revealed,
+              revealToken: _revealToken,
+              onReady: _sceneFinished,
+              lowPower:
+                  widget.container.device.abis.isNotEmpty &&
+                  !widget.container.device.abis.any(
+                    (abi) => abi.contains('64'),
+                  ),
+              onError: (error) => widget.container.log.warn(
+                'screensaver',
+                'Weather Mood renderer stopped: $error',
+              ),
+            ),
+          ),
+        ),
+        // Black until the scene is ready, then a quick fade into it. The
+        // clock and weather chips join the scene, so the screen stays fully
+        // black through the surface switch.
+        IgnorePointer(
+          child: AnimatedOpacity(
+            opacity: _revealed ? 0 : 1,
+            duration: const Duration(milliseconds: 350),
+            child: const ColoredBox(color: Colors.black),
+          ),
+        ),
+        AnimatedOpacity(
+          opacity: _revealed ? 1 : 0,
+          duration: const Duration(milliseconds: 350),
+          child: WeatherMoodInformation(
+            container: widget.container,
+            readings: _readings,
+            translations: _translations,
+          ),
+        ),
+      ],
     );
   }
 }

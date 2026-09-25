@@ -102,6 +102,7 @@ Tap the **Stream URL** or **ONVIF URL** field below **Port** to copy it. Only th
 | Motion analysis while streaming | on | Turning this off pauses camera detection during streaming and takes snapshots from video frames. The notice under Resolution lists any additional sizes this allows. |
 | Frame rate | 10 fps | Target rate from 5 to 30 fps. Actual delivery depends on the hardware and lighting. |
 | Bitrate | 500 kbps | Target H.264 bitrate from 100 to 8000 kbps. |
+| Encrypt stream | off | Encrypt commands, video and audio with RTSPS and ONVIF HTTPS on the selected streaming port. Requires a compatible client. |
 | Include microphone audio | off | Add 16 kHz mono AAC audio at 32 kbps. Continues when Voice Satellite is muted or Lockdown Mode is on. |
 | Require authentication | off | Reveals Username and Password. Both must be set before an authenticated listener starts. |
 
@@ -169,5 +170,17 @@ The remote admin's Camera tab mirrors every setting available on the device and 
 ## Privacy
 
 * Motion analysis happens entirely locally on the device. Motion frames are never stored or transmitted; only the fact that motion occurred leaves the app.
-* Snapshots go to Home Assistant over ESPHome and to authorized remote admin clients. RTSP video is available only when enabled and requested by a viewer. RTSP traffic is not encrypted, even with authentication enabled.
+* Snapshots go to Home Assistant over ESPHome and to authorized remote admin clients. RTSP video is available only when enabled and requested by a viewer. Plain RTSP traffic is not encrypted, even with authentication enabled. Enable **Encrypt stream** to use RTSPS.
 * The **Enable webcam access** setting located under Web Content is completely unrelated. That setting governs whether the dashboard web page itself may use the camera, not this specific feature.
+
+## Encrypted streaming
+
+In RTSP mode, **Encrypt stream** under **Camera > RTSP & ONVIF Streaming** changes the stream URL to `rtsps://DEVICE_IP:8554/camera`, using your configured port. Commands and interleaved video and audio all travel through TLS. Keep the viewer configured for TCP. Authentication remains a separate setting. Without authentication, anyone who can connect can still request the encrypted stream.
+
+VLC 3.0.x supports the unencrypted RTSP stream but cannot open RTSPS URLs. See [TLS viewer compatibility](tls.md#camera-streaming) for an encrypted playback example with FFplay.
+
+HTTPS and RTSPS use the same certificate. Manage it under **Device > TLS**, even when remote administration is off. Clients must support RTSPS and trust the certificate or verify its fingerprint. Certificate renewal or replacement disconnects encrypted viewers so they can reconnect with the new certificate. A certificate failure stops encrypted streaming instead of falling back to RTSP.
+
+In ONVIF mode, the same switch enables HTTPS for the ONVIF service and RTSPS for its media stream. Both use the configured ONVIF port, 8080 by default. Discovery advertises the HTTPS service address. WS-Discovery metadata remains unencrypted on UDP port 3702. The viewer must support HTTPS ONVIF and RTSPS and accept the device certificate. RTSP tunneling over HTTP or HTTPS is not supported. The stream status and copied URL show the active protocol.
+
+See [TLS encryption](tls.md) for the feature switches and certificate lifecycle.

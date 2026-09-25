@@ -28,15 +28,23 @@ The **Widgets** configuration group sits directly beneath the mode settings, all
 
 ### Weather Mood
 
-Choose **Weather Mood** and open its subpage to pick a Home Assistant `weather.*` entity. Animated skies follow all 15 Home Assistant weather conditions, including rain, snow, fog, hail, wind and thunderstorms. The scene changes between day and night using `sun.sun`. If that entity is unavailable, local time supplies daytime from 6 AM to 6 PM.
+Choose **Weather Mood** and open its subpage to pick a Home Assistant `weather.*` entity. Animated skies follow all 15 Home Assistant weather conditions, including rain, snow, fog, hail, wind and thunderstorms. The scene changes between day, dawn/dusk and night using `sun.sun`. Soft peach tones fade in near the horizon while the upper sky stays blue. The warmth reaches full strength between -2 and +2 degrees and fades out at -6 and +6 degrees. If elevation is unavailable, local time supplies dawn/dusk from 5:30 to 6:30 AM and 5:30 to 6:30 PM. The sun state still controls day and night when available. Otherwise daytime runs from 6 AM to 6 PM.
 
-Weather Mood displays only the animated scene. Add a weather widget under **Widgets** to show weather information. All widget types can use any corner and At a Glance pills remain available. Outside preview mode, if no weather entity is selected for Weather Mood, a black screen asks you to select one in its settings. Widgets and At a Glance stay hidden until an entity is selected.
+Use **Scene blur** in the main group to soften the weather scene from 0 to 30 pixels. The clock, weather chips, widgets and At a Glance pills stay sharp.
+
+Weather Mood starts with only the animated scene. Its **Clock** and **Weather information** groups add optional information directly to the scene. All widget types and At a Glance pills remain available. Outside preview mode, if no weather entity is selected for Weather Mood, a black screen asks you to select one in its settings. The clock, weather chips, widgets and At a Glance stay hidden until an entity is selected.
+
+Turn on **Enable clock** to reveal **Font Family**, **Font weight**, **24-hour clock**, **Show date**, **Clock size**, **Clock color** and **Text drop shadow**. The clock uses the same digital face and defaults as the Clock screensaver, with a drop shadow enabled for readability. These settings belong to Weather Mood and do not change the Clock screensaver.
+
+Weather information appears as chips over the scene. A chip at the bottom left shows the conditions icon, temperature and conditions. Each reading gets a matching chip at the bottom right with its icon, title and value. The chips default to white text with a drop shadow on glass that bends the scene behind them at its edges, so they take on the colors of every sky. Devices that do not use the Impeller renderer show tinted chips instead.
+
+Turn on **Enable weather bar** to show the selected entity's temperature and conditions along the bottom, with humidity, wind speed and visibility when available. Set **Location name** to add a place name, enable **Feels like** or **Feels like only** for the apparent temperature and switch individual readings off as needed. **Text scale**, **Text color**, **Background opacity** and **Text drop shadow** control the chips. Background opacity sets how dark the glass is, down to text alone at 0%. On narrow screens the reading chips move above the main chip and wrap as needed. At a Glance pills and bottom corner widgets sit above the chips. Preview scenes leave the readings tied to live weather. No readings appear until the entity reports valid weather.
 
 The **Weather Preview** group on the device and in Remote Admin lets you try any scene. Turn on **Enable weather preview** to reveal **Weather type** and **Time of day**. The active Weather Mood screensaver changes immediately to your selection, including when no weather entity is configured. Turn preview off to follow Home Assistant again. Preview changes only the animated background, so weather widgets continue showing their own entity readings. Preview settings stay local to each kiosk.
 
-Turn off **Lightning flashes** to keep thunderstorm clouds and rain without the flashes. The renderer uses Flutter GPU shaders and canvas drawing from bundled assets. It pauses when the display turns off or the app goes into the background and respects reduced motion. If weather data becomes unavailable, the scene retains its last known condition. Before the first valid reading it shows a neutral cloudy sky.
+Turn off **Lightning flashes** to keep thunderstorm clouds and rain without the flashes. Rainy scenes add drops that land on the glass in front of the sky, rest and sometimes slide down leaving a wet trail. Heavier rain brings more of them. The renderer uses Flutter GPU shaders and canvas drawing from bundled assets. Clouds render a few rows at a time across several frames and fade from one cloud image to the next, so older devices keep a steady frame rate. Each cloud image slides along with the wind until the next one is ready, low clouds faster than high ones, so moving clouds glide instead of jumping. It pauses when the display turns off or the app goes into the background and respects reduced motion. If weather data becomes unavailable, the scene retains its last known condition. Before the first valid reading it shows a neutral cloudy sky.
 
-Older devices use fewer cloud samples and a smaller cloud image that adjusts when frames remain slow. The renderer caches the sky at the display's resolution and updates clouds up to five times per second. Precipitation, twinkling stars and lightning animate separately at up to 20 frames per second. This reduces repeated GPU work while keeping the sun, moon and stars sharp. Weather Preview changes refresh the background immediately.
+Older devices use fewer cloud samples and a smaller cloud image that adjusts when frames remain slow. The renderer caches the sky at the display's resolution and renders a fresh cloud image about once a second, twice as often in full wind. Precipitation, twinkling stars and lightning animate separately at up to 20 frames per second. This reduces repeated GPU work while keeping the sun, moon and stars sharp. Weather Preview changes refresh the background immediately.
 
 ### Dim
 
@@ -193,6 +201,8 @@ Displays a single Home Assistant entity in a display corner over any mode except
 | Corner | First free corner | Displays in the first available corner. |
 | Color | White | Applies to icon, value, and label text. |
 | Show name | On | Disabling this hides the bottom label, displaying only the icon and value. |
+
+The widget hides completely, vignette included, while the value is blank. A text sensor that clears when an alert ends takes the widget with it and brings it back with the next alert. Unknown and Unavailable still display.
 
 Entity formatting matches At a Glance rules: custom Home Assistant icons display when set (falling back to domain defaults), numeric states round to configured precision with units, and state strings convert to clean text. Values update in real time over a live Home Assistant subscription and persist through brief network drops.
 

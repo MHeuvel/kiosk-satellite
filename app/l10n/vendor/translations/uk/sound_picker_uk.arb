@@ -1,0 +1,18 @@
+{
+  "@@locale": "uk",
+  "intercomBuiltinChime": "Вбудований сигнал",
+  "intercomMissingFile": "{file} (відсутній)",
+  "intercomAddSound": "Додати звук",
+  "intercomCopySoundHelp": "Скопіювати звуковий файл із цього пристрою в папку звуків.",
+  "intercomUploadSoundHelp": "Завантажити звуковий файл із цього комп'ютера в папку звуків.",
+  "intercomUpload": "Завантажити",
+  "intercomUploading": "Завантаження…",
+  "intercomUnsupportedSound": "Непідтримуваний формат звуку",
+  "intercomChooseSound": "Непідтримуваний формат звуку: виберіть файл MP3, OGG, WAV, FLAC, M4A або AAC.",
+  "intercomCopyFailed": "Не вдалося скопіювати файл",
+  "intercomUploadFailed": "Помилка завантаження: {error}",
+  "intercomSaveFailed": "Не збережено: {error}",
+  "intercomSoundFilename": "Введіть назву файлу, а не шлях.",
+  "intercomSoundFormats": "Виберіть файл MP3, OGG, WAV, FLAC, M4A або AAC.",
+  "intercomBuiltinRing": "Вбудований дзвінок"
+}

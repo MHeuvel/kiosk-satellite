@@ -1,0 +1,15 @@
+{
+  "@@locale": "uk",
+  "fleetFleetManagementNeedsTheRemoteAdmin": "Для керування групою потрібне віддалене адміністрування",
+  "fleetKiosksFindEachOtherThroughItTurnOnRemote": "Кіоски знаходять один одного через нього. Увімкніть \"Віддалене керування\" та \"Пошук інших кіосків\" у розділі \"Пристрій\", а потім поверніться.",
+  "fleetLeadThisFleet": "Керувати цією групою",
+  "fleetSyncThisKioskSSettingsToItsFollowersRequires": "Синхронізувати налаштування цього кіоска з підпорядкованими. Вимагає однакової версії програми на всіх кіосках.",
+  "fleetAKioskThatFollowsALeaderCannotLead": "Підпорядкований кіоск не може бути головним.",
+  "fleetFollowers": "Підпорядковані кіоски",
+  "fleetProfiles": "Профілі",
+  "fleetLeader": "Головний пристрій",
+  "fleetLearnWhichSettingsSyncAndWhichDoNotIn": "Дізнайтеся, які налаштування синхронізуються, а які ні, у ",
+  "fleetFleetManagementDocumentation": "документації з керування групою",
+  "fleetMore": "Більше",
+  "fleetSearchFollowers": "Кіоски під керуванням цього пристрою, їх стан та можливість додавання."
+}

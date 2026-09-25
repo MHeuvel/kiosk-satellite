@@ -1,0 +1,429 @@
+{
+  "@@locale": "en",
+  "tlsTLS": "TLS",
+  "@tlsTLS": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsConnectionEncryptionAndCertificates": "Connection encryption and certificates",
+  "@tlsConnectionEncryptionAndCertificates": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsCertificateType": "Certificate type",
+  "@tlsCertificateType": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsImported": "Imported",
+  "@tlsImported": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsSelfSigned": "Self-signed",
+  "@tlsSelfSigned": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsExpires": "Expires",
+  "@tlsExpires": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsSHA256Fingerprint": "SHA-256 fingerprint",
+  "@tlsSHA256Fingerprint": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsCertificateExpiredRenewOrImportAReplacement": "Certificate expired. Renew or import a replacement.",
+  "@tlsCertificateExpiredRenewOrImportAReplacement": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsCopyPublicCertificate": "Copy public certificate",
+  "@tlsCopyPublicCertificate": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsDownloadPublicCertificate": "Download public certificate",
+  "@tlsDownloadPublicCertificate": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsUseThisCertificateInBrowsersAndStreamingClients": "Use this certificate in browsers and streaming clients.",
+  "@tlsUseThisCertificateInBrowsersAndStreamingClients": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsRenewCertificate": "Renew certificate",
+  "@tlsRenewCertificate": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsKeepTheCurrentPrivateKeyAndUpdateTheCertificateDates": "Keep the current private key and update the certificate dates.",
+  "@tlsKeepTheCurrentPrivateKeyAndUpdateTheCertificateDates": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsImportCertificate": "Import certificate",
+  "@tlsImportCertificate": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsUseACertificateIssuedForThisDevice": "Use a certificate issued for this device.",
+  "@tlsUseACertificateIssuedForThisDevice": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsReplaceCertificate": "Replace certificate",
+  "@tlsReplaceCertificate": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsGenerateANewPrivateKeyAndSelfSignedCertificate": "Generate a new private key and self-signed certificate.",
+  "@tlsGenerateANewPrivateKeyAndSelfSignedCertificate": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsGenerateANewPrivateKeyAndCertificateActiveEncryptedConnectionsWillCloseBrowsersMayAskYouToAcceptTheNewCertificate": "Generate a new private key and certificate? Active encrypted connections will close. Browsers may ask you to accept the new certificate.",
+  "@tlsGenerateANewPrivateKeyAndCertificateActiveEncryptedConnectionsWillCloseBrowsersMayAskYouToAcceptTheNewCertificate": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsPasteThePEMCertificateChainAndItsUnencryptedPrivateKeyTheyAreValidatedBeforeReplacingTheCurrentCertificate": "Paste the PEM certificate chain and its unencrypted private key. They are validated before replacing the current certificate.",
+  "@tlsPasteThePEMCertificateChainAndItsUnencryptedPrivateKeyTheyAreValidatedBeforeReplacingTheCurrentCertificate": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsCertificateChainPEM": "Certificate chain (PEM)",
+  "@tlsCertificateChainPEM": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsPrivateKeyPEM": "Private key (PEM)",
+  "@tlsPrivateKeyPEM": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsThisFieldIsRequired": "This field is required.",
+  "@tlsThisFieldIsRequired": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsReplace": "Replace",
+  "@tlsReplace": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsRenew": "Renew",
+  "@tlsRenew": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsEnableHTTPSBeforeImportingAPrivateKeyRemotely": "Enable HTTPS before importing a private key remotely.",
+  "@tlsEnableHTTPSBeforeImportingAPrivateKeyRemotely": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsCertificateOperationFailed": "Certificate operation failed.",
+  "@tlsCertificateOperationFailed": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsChangeConnectionProtocol": "Change connection protocol",
+  "@tlsChangeConnectionProtocol": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Confirmation before changing the remote administration protocol."
+  },
+  "tlsConnectionProtocolHelp": "The current remote connection will close. Reconnect using the address below. You may need to sign in again.",
+  "@tlsConnectionProtocolHelp": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Confirmation before changing the remote administration protocol."
+  },
+  "tlsConfirm": "Confirm",
+  "@tlsConfirm": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Confirmation before changing the remote administration protocol."
+  },
+  "tlsCertificateManagement": "Certificate Management",
+  "@tlsCertificateManagement": {
+    "context": "Settings:Device:TLS",
+    "description": "TLS encryption setting, certificate action or help text.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > TLS"
+      ],
+      "remoteAdmin": [
+        "Device > TLS"
+      ]
+    }
+  },
+  "tlsServerCertificateRequired": "Use a server certificate, not a CA certificate.",
+  "@tlsServerCertificateRequired": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsServerAuthenticationRequired": "Certificate does not allow server authentication.",
+  "@tlsServerAuthenticationRequired": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsKeyAlgorithmRequired": "Use an EC or RSA private key.",
+  "@tlsKeyAlgorithmRequired": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsKeyMismatch": "Certificate and private key do not match.",
+  "@tlsKeyMismatch": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsMaterialTooLarge": "Certificate or key is too large.",
+  "@tlsMaterialTooLarge": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsPemCertificatesRequired": "Expected PEM certificates.",
+  "@tlsPemCertificatesRequired": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsCertificateMissing": "No certificate found.",
+  "@tlsCertificateMissing": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsUnencryptedKeyRequired": "Use an unencrypted PEM private key.",
+  "@tlsUnencryptedKeyRequired": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsHostnameRequired": "A hostname or IP address is required.",
+  "@tlsHostnameRequired": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsIssuerRenewalRequired": "Import a renewed certificate from its issuer.",
+  "@tlsIssuerRenewalRequired": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsStoredIdentityDamaged": "Stored TLS identity is damaged.",
+  "@tlsStoredIdentityDamaged": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  },
+  "tlsExpiredCertificate": "The TLS certificate has expired. Renew or import its replacement.",
+  "@tlsExpiredCertificate": {
+    "context": "Settings:Device:TLS",
+    "description": "Certificate validation or management error shown on the device and in remote administration."
+  }
+}

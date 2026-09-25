@@ -1,0 +1,8 @@
+{
+  "@@locale": "uk",
+  "settingIntercomTalkModeTitle": "Режим розмови",
+  "settingIntercomTalkModeDescription": "«Натисніть і говоріть» (Push to talk) передає звук, доки утримується кнопка. «Вільні руки» тримає мікрофон відкритим протягом усього виклику.",
+  "intercomOptionTalkPtt": "Натисніть і говоріть (PTT)",
+  "intercomOptionTalkHandsfree": "Вільні руки",
+  "intercomTalkSection": "Розмова"
+}

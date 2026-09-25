@@ -620,9 +620,15 @@ class DateBox extends StatelessWidget {
 /// generic error. 260 wide at the end of a row; stacked under the name on
 /// a tight pane it fills the row. The remote's .copy-box is the same.
 class CopyBox extends StatefulWidget {
-  const CopyBox({super.key, required this.value, this.placeholder = 'Not set'});
+  const CopyBox({
+    super.key,
+    required this.value,
+    this.placeholder = 'Not set',
+    this.multiline = false,
+  });
 
   final String value;
+  final bool multiline;
 
   /// Shown in muted text while [value] is empty. Nothing to copy then.
   final String placeholder;
@@ -673,8 +679,10 @@ class _CopyBoxState extends State<CopyBox> {
             Expanded(
               child: Text(
                 empty ? widget.placeholder : widget.value,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+                maxLines: widget.multiline ? null : 1,
+                overflow: widget.multiline
+                    ? TextOverflow.visible
+                    : TextOverflow.ellipsis,
                 style: empty
                     ? theme.textTheme.bodyMedium?.copyWith(
                         color: scheme.onSurfaceVariant,

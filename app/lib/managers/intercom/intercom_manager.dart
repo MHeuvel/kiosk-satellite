@@ -1,16 +1,20 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math' show Random, sqrt;
 import 'dart:typed_data';
 
 import 'package:crypto/crypto.dart' show sha256;
 import 'package:flutter/foundation.dart' show ValueNotifier;
 import 'package:http/http.dart' as http;
+import 'package:shelf/shelf_io.dart' as shelf_io;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:web_socket_channel/io.dart';
 
 import '../../core/command_registry.dart';
 import '../../core/events.dart';
+import '../../core/kiosk_http_client.dart';
 import '../../core/manager.dart';
 import '../audio/mic_hub.dart';
 import '../notifications/notification_sounds.dart';
@@ -18,6 +22,7 @@ import '../remote/auth.dart';
 import '../settings/definitions.dart' as defs;
 import '../settings/settings_manager.dart';
 import 'intercom_audio.dart';
+import 'intercom_routes.dart';
 
 /// One kiosk on the roster, with what its identity probe said.
 class IntercomKiosk {
@@ -27,6 +32,7 @@ class IntercomKiosk {
     required this.address,
     required this.port,
     required this.version,
+    this.tls = false,
   });
 
   final String id;
@@ -34,6 +40,16 @@ class IntercomKiosk {
   String address;
   int port;
   String version;
+  bool tls;
+  int? intercomPort;
+  bool? intercomTls;
+  int get callPort => intercomPort ?? port;
+  bool get callTls => intercomTls ?? tls;
+  String get callUrl => Uri(
+    scheme: callTls ? 'https' : 'http',
+    host: address,
+    port: callPort,
+  ).toString();
 
   /// Whether the kiosk is discovered or remains in the saved fleet.
   bool heard = true;
@@ -45,21 +61,23 @@ class IntercomKiosk {
   DateTime? probedAt;
   bool probeFailed = false;
 
-  String get url => Uri(scheme: 'http', host: address, port: port).toString();
+  String get url =>
+      Uri(scheme: tls ? 'https' : 'http', host: address, port: port).toString();
 
-  /// ready, off, key, dnd, unreachable, offline, unknown. Unreachable is
+  /// ready, off, key, tls, dnd, unreachable, offline, unknown. Unreachable is
   /// a known kiosk whose admin port does not answer.
-  String status(String ourFingerprint) {
+  String status(String ourFingerprint, {bool encrypted = false}) {
     if (!heard) return 'offline';
     if (enabled == null) return probeFailed ? 'unreachable' : 'unknown';
     if (enabled == false) return 'off';
     if (keyFingerprint != ourFingerprint) return 'key';
+    if (callTls != encrypted) return 'tls';
     if (dnd) return 'dnd';
     return 'ready';
   }
 
-  Map<String, Object?> toJson(String ourFingerprint) {
-    final s = status(ourFingerprint);
+  Map<String, Object?> toJson(String ourFingerprint, {bool encrypted = false}) {
+    final s = status(ourFingerprint, encrypted: encrypted);
     return {
       'id': id,
       'name': name,
@@ -71,6 +89,7 @@ class IntercomKiosk {
         'ready' => 'Ready',
         'off' => 'Intercom off',
         'key' => 'Different key',
+        'tls' => 'Encryption mismatch',
         'dnd' => 'Do not disturb',
         'unreachable' => 'Unreachable',
         'offline' => 'Offline',
@@ -190,7 +209,8 @@ class _Link {
 /// on the kiosk picked; Announce to all talks to every ready kiosk at once,
 /// one way, and Home Assistant's announce action does the same with a
 /// spoken message. Both
-/// signaling and voice ride the other kiosk's remote admin port: three
+/// signaling and voice use a dedicated listener advertised by the admin
+/// identity route. Its HTTPS setting is independent. Three
 /// REST routes before the bearer gate, verified with a token signed by the
 /// shared intercom key, and one WebSocket per call carrying raw 16 kHz
 /// PCM16 chunks both ways, straight from the microphone hub. Playback
@@ -215,14 +235,80 @@ class IntercomManager extends Manager {
   IntercomManager(super.bus, super.commands, super.log, this._settings);
 
   final SettingsManager _settings;
+  HttpServer? _server;
+  Future<void>? _listenerQueue;
+  bool _listenerTls = false;
+  bool _disposed = false;
+  bool _certificateChanged = false;
+  late final _routes = IntercomRoutes(
+    commands,
+    requiresTls: () => _settings.get(defs.intercomTls),
+  );
+
+  Future<void> _syncListener() {
+    final next = (_listenerQueue ?? Future<void>.value()).then((_) async {
+      final tls = _settings.get(defs.intercomTls);
+      final running = !_disposed && enabled && available;
+      if (_server != null &&
+          (!running || tls != _listenerTls || (tls && _certificateChanged))) {
+        await _finish('ended');
+        final old = _server;
+        _server = null;
+        await old?.close(force: true);
+      }
+      _certificateChanged = false;
+      if (!running || _server != null) return;
+      try {
+        final context = tls
+            ? (await _settings.tls.load()).securityContext()
+            : null;
+        _server = context == null
+            ? await HttpServer.bind(InternetAddress.anyIPv4, 0)
+            : await HttpServer.bindSecure(InternetAddress.anyIPv4, 0, context);
+        _listenerTls = tls;
+        _server!.listen(
+          (request) async {
+            try {
+              await shelf_io.handleRequest(request, _routes.call);
+            } catch (e) {
+              log.debug(name, 'Intercom connection ended: $e');
+            }
+          },
+          onError: (Object e) {
+            log.debug(name, 'Intercom connection refused: $e');
+          },
+        );
+      } catch (e) {
+        log.error(name, 'Could not start intercom listener: $e');
+      }
+    });
+    _listenerQueue = next.catchError((Object e) {
+      log.error(name, 'Intercom listener configuration failed: $e');
+    });
+    return _listenerQueue!;
+  }
 
   @override
   String get name => 'intercom';
 
   /// Swapped for fakes in tests.
-  http.Client Function() clientFactory = http.Client.new;
-  WebSocketChannel Function(Uri uri) socketFactory = (uri) =>
-      WebSocketChannel.connect(uri);
+  http.Client Function()? _clientFactory;
+  http.Client Function() get clientFactory => _clientFactory ?? http.Client.new;
+  set clientFactory(http.Client Function() factory) => _clientFactory = factory;
+  http.Client _peerClient() => _clientFactory?.call() ?? kioskPeerClient();
+  late WebSocketChannel Function(Uri uri) socketFactory = (uri) {
+    final client = kioskPeerHttpClient(requireTls: uri.scheme == 'wss');
+    final channel = IOWebSocketChannel.connect(
+      uri,
+      customClient: client,
+      connectTimeout: const Duration(seconds: 6),
+    );
+    channel.ready.then(
+      (_) => client.close(),
+      onError: (Object _) => client.close(force: true),
+    );
+    return channel;
+  };
   IntercomAudio audio = IntercomAudio();
   MicHub micHub = MicHub.instance;
   Future<bool> Function() micPermission = () async =>
@@ -275,6 +361,33 @@ class IntercomManager extends Manager {
   /// off, so every opener and every closer meet at one place, the way the
   /// app launcher's [visible] works.
   final rosterVisible = ValueNotifier<bool>(false);
+
+  /// The states the full screen call card shows in, its last words
+  /// included.
+  static const callScreenStates = {
+    'calling',
+    'ringing',
+    'in_call',
+    'broadcasting',
+    'listening',
+    'ended',
+  };
+
+  /// Whether the roster or the call card fills the kiosk screen. An
+  /// announcement from Home Assistant has a card of its own.
+  bool get screenShown =>
+      rosterVisible.value ||
+      (callScreenStates.contains(_state) &&
+          !(_call?.automated == true && _call?.outgoing != true));
+  bool _screenShown = false;
+
+  void _syncScreenShown() {
+    final shown = screenShown;
+    if (shown == _screenShown) return;
+    _screenShown = shown;
+    bus.publish(FullscreenViewChanged(view: 'intercom', shown: shown));
+  }
+
   final _links = <String, _Link>{};
   final _kiosks = <String, IntercomKiosk>{};
   String _selfId = '';
@@ -371,7 +484,14 @@ class IntercomManager extends Manager {
         }
       }),
     );
+    rosterVisible.addListener(_syncScreenShown);
     _subs.add(bus.on<FleetChanged>().listen((_) => _readFleet()));
+    _subs.add(
+      bus.on<TlsIdentityChanged>().listen((_) {
+        _certificateChanged = true;
+        unawaited(_syncListener());
+      }),
+    );
     // An abandoned roster gives way to the screensaver, as the launcher
     // does.
     _subs.add(
@@ -384,7 +504,10 @@ class IntercomManager extends Manager {
         if (e.key == defs.lockdownEnabled.key && e.value == true) {
           rosterVisible.value = false;
         }
-        if (e.key == defs.intercomEnabled.key) {
+        if (e.key == defs.intercomTls.key) {
+          unawaited(_syncListener());
+          _changed();
+        } else if (e.key == defs.intercomEnabled.key) {
           if (e.value != true) rosterVisible.value = false;
           unawaited(_onEnabledChanged());
         } else if (e.key == defs.intercomVolume.key) {
@@ -410,6 +533,8 @@ class IntercomManager extends Manager {
 
   @override
   Future<void> dispose() async {
+    _disposed = true;
+    await _syncListener();
     _remoteRosterTimer?.cancel();
     micHub.browserCapturing.removeListener(_onBrowserCapture);
     for (final s in _subs) {
@@ -423,6 +548,7 @@ class IntercomManager extends Manager {
   }
 
   Future<void> _onEnabledChanged() async {
+    await _syncListener();
     if (enabled) {
       await _ensureKey();
       unawaited(_probeAll(force: true));
@@ -480,9 +606,11 @@ class IntercomManager extends Manager {
             address: '${d['address'] ?? ''}',
             port: (d['port'] as num?)?.toInt() ?? 2324,
             version: '${d['version'] ?? ''}',
+            tls: d['tls'] == true,
           );
         } else {
-          if (k.address != '${d['address'] ?? ''}' ||
+          if (k.tls != (d['tls'] == true) ||
+              k.address != '${d['address'] ?? ''}' ||
               k.port != ((d['port'] as num?)?.toInt() ?? k.port)) {
             k
               ..enabled = null
@@ -491,6 +619,7 @@ class IntercomManager extends Manager {
               ..probeFailed = false;
           }
           k
+            ..tls = d['tls'] == true
             ..name = '${d['name'] ?? ''}'
             ..address = '${d['address'] ?? ''}'
             ..port = (d['port'] as num?)?.toInt() ?? k.port
@@ -502,6 +631,7 @@ class IntercomManager extends Manager {
     for (final k in _kiosks.values) {
       if (!heard.contains(k.id)) k.heard = false;
     }
+    await _syncListener();
     _changed();
     if (enabled) unawaited(_probeAll());
   }
@@ -544,6 +674,7 @@ class IntercomManager extends Manager {
     final url = k.url;
     final res = await _get('$url/api/intercom/identity', timeout: probeTimeout);
     if (k.url != url) return;
+    if (res?.statusCode == 429) return;
     k.probedAt = DateTime.now();
     final data = _jsonOf(res);
     if (res == null || res.statusCode != 200 || data == null) {
@@ -555,6 +686,18 @@ class IntercomManager extends Manager {
         k.enabled = false;
       }
       return;
+    }
+    final endpoint = data['endpoint'];
+    if (endpoint is Map &&
+        endpoint['port'] is int &&
+        (endpoint['port'] as int) > 0 &&
+        (endpoint['port'] as int) <= 65535 &&
+        endpoint['tls'] is bool) {
+      k.intercomPort = endpoint['port'] as int;
+      k.intercomTls = endpoint['tls'] as bool;
+    } else {
+      k.intercomPort = null;
+      k.intercomTls = null;
     }
     k.probeFailed = false;
     k.enabled = data['enabled'] == true;
@@ -588,9 +731,13 @@ class IntercomManager extends Manager {
         .firstOrNull;
   }
 
+  bool get _encrypted => _settings.get(defs.intercomTls);
+  static const _encryptionMismatch =
+      'Encryption mismatch. Enable Encrypt communications on all kiosks in the call.';
+
   List<IntercomKiosk> get _ready => [
     for (final k in _kiosks.values)
-      if (k.status(keyFingerprint) == 'ready') k,
+      if (k.status(keyFingerprint, encrypted: _encrypted) == 'ready') k,
   ];
 
   // ── Status ─────────────────────────────────────────────────────────
@@ -608,12 +755,14 @@ class IntercomManager extends Manager {
     'self': {'id': _selfId, 'name': _selfName},
     'call': _call?.toJson(),
     'kiosks':
-        [for (final k in _kiosks.values..toList()) k.toJson(keyFingerprint)]
-          ..sort(
-            (a, b) => '${a['name']}'.toLowerCase().compareTo(
-              '${b['name']}'.toLowerCase(),
-            ),
+        [
+          for (final k in _kiosks.values..toList())
+            k.toJson(keyFingerprint, encrypted: _encrypted),
+        ]..sort(
+          (a, b) => '${a['name']}'.toLowerCase().compareTo(
+            '${b['name']}'.toLowerCase(),
           ),
+        ),
   };
 
   /// The talk mode this kiosk calls with. Hands free leans on the device's
@@ -931,7 +1080,9 @@ class IntercomManager extends Manager {
             'id': _selfId,
             'name': _selfName,
             'version': _selfVersion,
-            'enabled': enabled && available,
+            'enabled': enabled && available && _server != null,
+            if (_server != null)
+              'endpoint': {'port': _server!.port, 'tls': _listenerTls},
             'key': keyFingerprint,
             'dnd': dnd,
           }),
@@ -1002,6 +1153,9 @@ class IntercomManager extends Manager {
   Future<CommandResult> _place(IntercomKiosk k) async {
     if (!enabled) return const CommandResult.fail('intercom is off');
     if (!available) return const CommandResult.fail('needs the remote admin');
+    if (_server == null) {
+      return const CommandResult.fail('intercom listener unavailable');
+    }
     if (_busy) {
       // Reply from a broadcast: leave it, then call.
       if (_state == 'listening') {
@@ -1009,6 +1163,11 @@ class IntercomManager extends Manager {
       } else {
         return const CommandResult.fail('already in a call');
       }
+    }
+    await _probe(k);
+    if (k.callTls != _encrypted) {
+      _changed();
+      return const CommandResult.fail(_encryptionMismatch);
     }
     _holdTimer?.cancel();
     _missedTimer?.cancel();
@@ -1023,7 +1182,7 @@ class IntercomManager extends Manager {
     _setState('calling');
     log.info(name, 'calling ${k.name}');
     final res = await _post(
-      '${k.url}/api/intercom/call',
+      '${k.callUrl}/api/intercom/call',
       {'call': id, 'kind': 'call', 'from': _selfInfo()},
       token: _tokens.issueToken(
         ttl: const Duration(seconds: 60),
@@ -1054,11 +1213,22 @@ class IntercomManager extends Manager {
   Future<CommandResult> _broadcast() async {
     if (!enabled) return const CommandResult.fail('intercom is off');
     if (!available) return const CommandResult.fail('needs the remote admin');
+    if (_server == null) {
+      return const CommandResult.fail('intercom listener unavailable');
+    }
     if (_busy) return const CommandResult.fail('already in a call');
     await _readFleet();
     await _probeAll();
     final targets = _ready;
-    if (targets.isEmpty) return const CommandResult.fail('no kiosk is ready');
+    if (targets.isEmpty) {
+      return CommandResult.fail(
+        _kiosks.values.any(
+              (k) => k.status(keyFingerprint, encrypted: _encrypted) == 'tls',
+            )
+            ? _encryptionMismatch
+            : 'no kiosk is ready',
+      );
+    }
     if (!await _openMic()) return CommandResult.fail(_micReason);
     return _startBroadcast(targets);
   }
@@ -1127,6 +1297,7 @@ class IntercomManager extends Manager {
     'off' => 'intercom off',
     'refused' => 'announcements off',
     'key' => 'a different key',
+    'tls' => _encryptionMismatch,
     'unreachable' => 'unreachable',
     'left' => 'done',
     _ => status,
@@ -1298,7 +1469,7 @@ class IntercomManager extends Manager {
     final base = _haBase;
     final token = _settings.get(defs.haToken);
     if (base.isEmpty || token.isEmpty) return null;
-    final states = await _get('$base/api/states', token: token);
+    final states = await _get('$base/api/states', token: token, external: true);
     if (states == null || states.statusCode != 200) return null;
     Object? list;
     try {
@@ -1340,10 +1511,12 @@ class IntercomManager extends Manager {
         return null;
       }
     }
-    final res = await _post('$base/api/tts_get_url', {
-      'engine_id': engine,
-      'message': message,
-    }, token: token);
+    final res = await _post(
+      '$base/api/tts_get_url',
+      {'engine_id': engine, 'message': message},
+      token: token,
+      external: true,
+    );
     final data = _jsonOf(res);
     final url = data?['url'];
     if (res == null || res.statusCode != 200 || url is! String) {
@@ -1384,8 +1557,12 @@ class IntercomManager extends Manager {
   }
 
   Future<void> _inviteBroadcast(IntercomCall c, IntercomKiosk k) async {
+    if (k.callTls != _encrypted) {
+      c.targets[k.id]?['status'] = 'tls';
+      return;
+    }
     final res = await _post(
-      '${k.url}/api/intercom/call',
+      '${k.callUrl}/api/intercom/call',
       {'call': c.id, 'kind': 'broadcast', 'from': _selfInfo()},
       token: _tokens.issueToken(
         ttl: const Duration(seconds: 60),
@@ -1403,21 +1580,43 @@ class IntercomManager extends Manager {
     if (st != 'listening') return;
     final ok = await _connect(k, c.id);
     if (_call != c) return;
-    if (!ok) c.targets[k.id]?['status'] = 'unreachable';
+    if (!ok && c.targets[k.id]?['status'] != 'tls') {
+      c.targets[k.id]?['status'] = 'unreachable';
+    }
   }
 
   /// Opens the audio socket to a kiosk that answered.
   Future<bool> _connect(IntercomKiosk k, String callId) async {
+    if (k.callTls != _encrypted) {
+      final c = _call;
+      if (c?.id == callId) {
+        if (c!.kind == 'broadcast') {
+          c.targets[k.id]?['status'] = 'tls';
+        } else {
+          await _finish('tls');
+        }
+      }
+      return false;
+    }
     final token = _tokens.issueToken(
       ttl: const Duration(seconds: 60),
       claims: {'intercom': callId, 'from': _selfId, 'n': _nonce()},
     );
-    final uri = Uri.parse(
-      'ws://${k.address}:${k.port}/api/intercom/audio/$callId?token=$token',
+    final encrypted = k.callTls;
+    final uri = Uri(
+      scheme: encrypted ? 'wss' : 'ws',
+      host: k.address,
+      port: k.callPort,
+      path: '/api/intercom/audio/$callId',
+      queryParameters: {'token': token},
     );
     try {
       final channel = socketFactory(uri);
       await channel.ready.timeout(requestTimeout);
+      if (_call?.id != callId || !_active || encrypted != _encrypted) {
+        await channel.sink.close();
+        return false;
+      }
       await _attach(channel, k.id);
       return true;
     } catch (e) {
@@ -1439,6 +1638,9 @@ class IntercomManager extends Manager {
     if (!_verifyToken('${p['token'] ?? ''}', callId)) {
       return CommandResult.ok({'status': 'key', 'code': 403});
     }
+    if ((from['tls'] == true) != _encrypted) {
+      return CommandResult.ok({'status': 'tls', 'code': 409});
+    }
     // Accept announcements off refuses Announce to all. Lockdown Mode
     // and Do not disturb refuse everything.
     if (kind == 'broadcast' &&
@@ -1454,6 +1656,7 @@ class IntercomManager extends Manager {
       'address': '${p['address'] ?? from['address'] ?? ''}',
       'port': (from['port'] as num?)?.toInt() ?? 2324,
       'version': '${from['version'] ?? ''}',
+      if (from['tls'] == true) 'tls': true,
     };
     _holdTimer?.cancel();
     _missedTimer?.cancel();
@@ -1521,6 +1724,9 @@ class IntercomManager extends Manager {
     _armConnectTimeout();
     final ok = await _signalPeer('answer');
     if (!ok && _call == c) {
+      if (c.reason == 'tls') {
+        return const CommandResult.fail(_encryptionMismatch);
+      }
       await _finish('unreachable');
       return const CommandResult.fail('the caller did not answer');
     }
@@ -1564,7 +1770,7 @@ class IntercomManager extends Manager {
         await _startPlayback();
         unawaited(() async {
           final ok = await _connect(k, c.id);
-          if (!ok && _call == c) await _finish('failed');
+          if (!ok && _call == c && c.reason != 'tls') await _finish('failed');
         }());
         return const CommandResult.ok();
       case 'decline':
@@ -1587,7 +1793,7 @@ class IntercomManager extends Manager {
     final c = _call;
     if (c == null) return false;
     final url = Uri(
-      scheme: 'http',
+      scheme: c.peer['tls'] == true ? 'https' : 'http',
       host: '${c.peer['address']}',
       port: (c.peer['port'] as num).toInt(),
       path: '/api/intercom/call/${c.id}',
@@ -1600,6 +1806,9 @@ class IntercomManager extends Manager {
         claims: {'intercom': c.id, 'from': _selfId, 'n': _nonce()},
       ),
     );
+    if (_jsonOf(res)?['status'] == 'tls' && _call == c) {
+      await _finish('tls');
+    }
     return res != null && res.statusCode == 200;
   }
 
@@ -1950,6 +2159,7 @@ class IntercomManager extends Manager {
         ),
       );
     }
+    _syncScreenShown();
     if (notify) _changed();
   }
 
@@ -1961,6 +2171,7 @@ class IntercomManager extends Manager {
     'dnd' => 'do not disturb',
     'off' => 'its intercom is off',
     'key' => 'a different intercom key',
+    'tls' => _encryptionMismatch,
     'no_answer' => 'no answer',
     'missed' => 'missed',
     'unreachable' => 'did not answer',
@@ -1997,16 +2208,19 @@ class IntercomManager extends Manager {
     'id': _selfId,
     'name': _selfName,
     'address': _selfAddress,
-    'port': _selfPort,
+    'port': _server?.port ?? _selfPort,
     'version': _selfVersion,
+    if (_server != null ? _listenerTls : _settings.get(defs.remoteTls))
+      'tls': true,
   };
 
   Map<String, Object?> _peerOf(IntercomKiosk k) => {
     'id': k.id,
     'name': k.name,
     'address': k.address,
-    'port': k.port,
+    'port': k.callPort,
     'version': k.version,
+    if (k.callTls) 'tls': true,
   };
 
   // ── HTTP ───────────────────────────────────────────────────────────
@@ -2015,8 +2229,9 @@ class IntercomManager extends Manager {
     String url, {
     Duration? timeout,
     String? token,
+    bool external = false,
   }) async {
-    final client = clientFactory();
+    final client = external ? clientFactory() : _peerClient();
     try {
       return await client
           .get(
@@ -2036,18 +2251,24 @@ class IntercomManager extends Manager {
     String url,
     Map<String, Object?> body, {
     required String token,
+    bool external = false,
   }) async {
-    final client = clientFactory();
+    // Discovery can use HTTP, but credentials and call data must not downgrade.
+    if (!external && _encrypted && Uri.parse(url).scheme != 'https') {
+      return http.Response(jsonEncode({'status': 'tls'}), 409);
+    }
+    final client = external ? clientFactory() : _peerClient();
     try {
+      final request = http.Request('POST', Uri.parse(url))
+        ..followRedirects = external
+        ..headers.addAll({
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        })
+        ..body = jsonEncode(body);
       return await client
-          .post(
-            Uri.parse(url),
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer $token',
-            },
-            body: jsonEncode(body),
-          )
+          .send(request)
+          .then(http.Response.fromStream)
           .timeout(requestTimeout);
     } catch (e) {
       log.debug(name, 'POST $url: $e');

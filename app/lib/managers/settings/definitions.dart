@@ -260,6 +260,7 @@ const Map<String, String> subpageHints = {
   'Kiosk Satellite Service':
       'Status, what keeps it running, required permissions',
   'Remote Administration': 'Manage this kiosk from a browser on your network',
+  'TLS': 'Connection encryption and certificates',
   'Updates': 'Where the app looks for new releases',
   'Shizuku': 'Connection, Android permissions and setup',
   'Optional update helper': 'Silent update status, ADB setup and instructions',
@@ -901,6 +902,25 @@ const clapStrictness = SettingDef<String>(
       'noise false-triggers.',
   category: 'Gestures',
 );
+
+const handGestureHoldSeconds = SettingDef<num>(
+  key: 'gestures.hand_hold_seconds',
+  type: SettingType.number,
+  defaultValue: 1,
+  min: 0,
+  max: 3,
+  step: 0.5,
+  unit: 's',
+  normalizer: normalizeHandGestureHold,
+  title: 'Hold duration',
+  description:
+      'Hold the same finger gesture for this long before its action runs. '
+      'Increase this to reduce accidental triggers.',
+  category: 'Gestures',
+);
+
+Object normalizeHandGestureHold(Object value) =>
+    value is num && value.isFinite ? (value.clamp(0, 3) * 2).round() / 2 : 0;
 
 // The quick-actions escape hatch (issue #64): a wall-mounted kiosk in
 // lockdown still wants "back to the dashboard" and "show the camera" to
@@ -1744,7 +1764,7 @@ const screensaverWeatherEntity = SettingDef<String>(
   defaultValue: '',
   title: 'Weather entity',
   description:
-      'The Home Assistant weather entity that controls the animated scene. Day and night follow sun.sun, with local time as a fallback.',
+      'The Home Assistant weather entity that controls the animated scene. Day, dawn/dusk and night follow sun.sun, with local time as a fallback.',
   category: 'Screensaver',
   section: 'Weather Mood screensaver',
   subpage: 'Weather Mood screensaver',
@@ -1763,6 +1783,278 @@ const screensaverWeatherLightning = SettingDef<bool>(
   subpage: 'Weather Mood screensaver',
   dependsOn: 'screensaver.mode',
   dependsOnValue: 'weather_mood',
+);
+
+const screensaverWeatherBlur = SettingDef<num>(
+  key: 'screensaver.weather_blur',
+  type: SettingType.number,
+  defaultValue: 0,
+  title: 'Scene blur',
+  description:
+      'Soften the animated weather scene while keeping the clock, weather bar and widgets sharp.',
+  category: 'Screensaver',
+  section: 'Weather Mood screensaver',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.mode',
+  dependsOnValue: 'weather_mood',
+  min: 0,
+  max: 30,
+  step: 1,
+  unit: 'px',
+);
+
+const screensaverWeatherClock = SettingDef<bool>(
+  key: 'screensaver.weather_clock',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: "Enable clock",
+  description: "Show a digital clock over the weather scene.",
+  category: 'Screensaver',
+  section: 'Clock',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.mode',
+  dependsOnValue: 'weather_mood',
+);
+
+const screensaverWeatherClockFont = SettingDef<String>(
+  key: 'screensaver.weather_clock_font',
+  type: SettingType.select,
+  defaultValue: 'rubik',
+  title: 'Font Family',
+  description: 'The typeface the clock is drawn in.',
+  category: 'Screensaver',
+  section: 'Clock',
+  subpage: 'Weather Mood screensaver',
+  options: fontFamilyOptions,
+  optionLabels: fontFamilyLabels,
+  dependsOn: 'screensaver.weather_clock',
+);
+
+const screensaverWeatherClockFontWeight = SettingDef<String>(
+  key: 'screensaver.weather_clock_font_weight',
+  type: SettingType.select,
+  defaultValue: 'default',
+  title: 'Font weight',
+  description:
+      "How heavy the clock's digits are drawn. Default is each face's own "
+      'weight.',
+  category: 'Screensaver',
+  section: 'Clock',
+  subpage: 'Weather Mood screensaver',
+  options: fontWeightOptions,
+  optionLabels: fontWeightLabels,
+  dependsOn: 'screensaver.weather_clock',
+);
+
+const screensaverWeatherClock24h = SettingDef<bool>(
+  key: 'screensaver.weather_clock_24h',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: '24-hour clock',
+  description: 'Show a 24-hour time instead of AM/PM.',
+  category: 'Screensaver',
+  section: 'Clock',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.weather_clock',
+);
+
+const screensaverWeatherClockDate = SettingDef<bool>(
+  key: 'screensaver.weather_clock_show_date',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Show date',
+  description: 'Show the weekday and date under the clock.',
+  category: 'Screensaver',
+  section: 'Clock',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.weather_clock',
+);
+
+const screensaverWeatherClockScale = SettingDef<num>(
+  key: 'screensaver.weather_clock_scale',
+  type: SettingType.number,
+  defaultValue: 100,
+  title: 'Clock size',
+  description: 'Scale the clock from 50 to 300 percent for this screen.',
+  category: 'Screensaver',
+  section: 'Clock',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.weather_clock',
+  min: 50,
+  max: 300,
+  step: 5,
+  unit: '%',
+);
+
+const screensaverWeatherClockColor = SettingDef<String>(
+  key: 'screensaver.weather_clock_color',
+  type: SettingType.string,
+  // Stored as "r,g,b"; both UIs render a real color picker for it.
+  defaultValue: '250,250,250',
+  title: 'Clock color',
+  description: 'The color of the clock text.',
+  category: 'Screensaver',
+  section: 'Clock',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.weather_clock',
+);
+
+const screensaverWeatherClockShadow = SettingDef<bool>(
+  key: 'screensaver.weather_clock_shadow',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: "Text drop shadow",
+  description:
+      "Add a drop shadow to text for readability over the weather scene.",
+  category: 'Screensaver',
+  section: 'Clock',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.weather_clock',
+);
+
+const screensaverWeatherBar = SettingDef<bool>(
+  key: 'screensaver.weather_bar',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: "Enable weather bar",
+  description: "Show live weather information along the bottom of the screen.",
+  category: 'Screensaver',
+  section: 'Weather information',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.mode',
+  dependsOnValue: 'weather_mood',
+);
+
+const screensaverWeatherBarScale = SettingDef<num>(
+  key: 'screensaver.weather_bar_scale',
+  type: SettingType.number,
+  defaultValue: 100,
+  title: "Text scale",
+  description: "Scale the weather information from 50 to 200 percent.",
+  category: 'Screensaver',
+  section: 'Weather information',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.weather_bar',
+
+  min: 50,
+  max: 200,
+  step: 5,
+  unit: '%',
+);
+
+const screensaverWeatherBarColor = SettingDef<String>(
+  key: 'screensaver.weather_bar_color',
+  type: SettingType.string,
+  defaultValue: '255,255,255',
+  title: "Text color",
+  description: "The color of the weather information.",
+  category: 'Screensaver',
+  section: 'Weather information',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.weather_bar',
+);
+
+const screensaverWeatherBarOpacity = SettingDef<num>(
+  key: 'screensaver.weather_bar_opacity',
+  type: SettingType.number,
+  defaultValue: 60,
+  title: "Background opacity",
+  description: "Darken the bottom bar to keep weather information readable.",
+  category: 'Screensaver',
+  section: 'Weather information',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.weather_bar',
+
+  min: 0,
+  max: 100,
+  step: 5,
+  unit: '%',
+);
+
+const screensaverWeatherBarShadow = SettingDef<bool>(
+  key: 'screensaver.weather_bar_shadow',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: "Text drop shadow",
+  description:
+      "Add a drop shadow to text for readability over the weather scene.",
+  category: 'Screensaver',
+  section: 'Weather information',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.weather_bar',
+);
+
+const screensaverWeatherBarLocation = SettingDef<String>(
+  key: 'screensaver.weather_bar_location',
+  type: SettingType.string,
+  defaultValue: '',
+  title: "Location name",
+  description: "Leave empty to hide the location line.",
+  category: 'Screensaver',
+  section: 'Weather information',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.weather_bar',
+);
+
+const screensaverWeatherBarFeelsLike = SettingDef<bool>(
+  key: 'screensaver.weather_bar_feels_like',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: "Feels like",
+  description:
+      "Show the apparent temperature instead of the actual temperature when available.",
+  category: 'Screensaver',
+  section: 'Weather information',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.weather_bar',
+);
+
+const screensaverWeatherBarForecast = SettingDef<bool>(
+  key: 'screensaver.weather_bar_forecast',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: "Forecast",
+  description: "The conditions, with a matching icon.",
+  category: 'Screensaver',
+  section: 'Weather information',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.weather_bar',
+);
+
+const screensaverWeatherBarHumidity = SettingDef<bool>(
+  key: 'screensaver.weather_bar_humidity',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: "Humidity",
+  description: "Show humidity when the weather entity reports it.",
+  category: 'Screensaver',
+  section: 'Weather information',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.weather_bar',
+);
+
+const screensaverWeatherBarWind = SettingDef<bool>(
+  key: 'screensaver.weather_bar_wind',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: "Wind speed",
+  description: "Show wind speed when the weather entity reports it.",
+  category: 'Screensaver',
+  section: 'Weather information',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.weather_bar',
+);
+
+const screensaverWeatherBarVisibility = SettingDef<bool>(
+  key: 'screensaver.weather_bar_visibility',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: "Visibility",
+  description: "Show visibility when the weather entity reports it.",
+  category: 'Screensaver',
+  section: 'Weather information',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.weather_bar',
 );
 
 const screensaverWeatherPreview = SettingDef<bool>(
@@ -1830,14 +2122,14 @@ const screensaverWeatherPreviewPeriod = SettingDef<String>(
   type: SettingType.select,
   defaultValue: 'day',
   title: 'Time of day',
-  description: 'Choose the day or night version of the scene.',
+  description: 'Choose the day, dawn/dusk or night version of the scene.',
   category: 'Screensaver',
   section: 'Weather Preview',
   subpage: 'Weather Mood screensaver',
   dependsOn: 'screensaver.weather_preview',
   perDevice: true,
-  options: ['day', 'night'],
-  optionLabels: {'day': 'Day', 'night': 'Night'},
+  options: ['day', 'twilight', 'night'],
+  optionLabels: {'day': 'Day', 'twilight': 'Dawn/Dusk', 'night': 'Night'},
 );
 
 // ── Black (mode: black) ──
@@ -4200,6 +4492,20 @@ const cameraStreamingProtocol = SettingDef<String>(
   optionLabels: {'rtsp': 'RTSP', 'onvif': 'ONVIF'},
 );
 
+const cameraRtspTls = SettingDef<bool>(
+  key: 'camera.rtsp.tls',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Encrypt stream',
+  description:
+      'Use TLS to encrypt video and audio. Requires a compatible viewer.',
+  category: 'Camera',
+  section: 'TLS',
+  subpage: 'RTSP & ONVIF Streaming',
+  dependsOn: 'camera.rtsp.enabled',
+  perDevice: true,
+);
+
 const cameraRtspPort = SettingDef<num>(
   key: 'camera.rtsp.port',
   type: SettingType.number,
@@ -4311,7 +4617,7 @@ const cameraRtspAuth = SettingDef<bool>(
   defaultValue: false,
   title: 'Require authentication',
   description:
-      'Require a username and password to view the stream. Streaming traffic is not encrypted.',
+      'Require a username and password to view the stream. Authentication does not enable encryption.',
   category: 'Camera',
   section: 'RTSP & ONVIF Streaming',
   subpage: 'RTSP & ONVIF Streaming',
@@ -6957,6 +7263,19 @@ const remoteEnabled = SettingDef<bool>(
   perDevice: true,
 );
 
+const remoteTls = SettingDef<bool>(
+  key: 'remote.tls',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Use HTTPS',
+  description:
+      'Encrypt the remote admin, API and WebSocket. Your browser may ask you to accept the device certificate.',
+  category: 'Device',
+  section: 'Remote Administration',
+  subpage: 'Remote Administration',
+  perDevice: true,
+);
+
 const remotePort = SettingDef<num>(
   key: 'remote.port',
   type: SettingType.number,
@@ -7101,6 +7420,19 @@ const intercomEnabled = SettingDef<bool>(
   title: 'Enable intercom',
   description: 'Call the other kiosks on this network and take their calls.',
   category: 'Intercom',
+);
+
+const intercomTls = SettingDef<bool>(
+  key: 'intercom.tls',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Encrypt communications',
+  description:
+      'Use TLS to encrypt intercom calls between kiosks. All kiosks in the call need this enabled.',
+  category: 'Intercom',
+  section: 'TLS',
+  dependsOn: 'intercom.enabled',
+  perDevice: true,
 );
 
 /// The shared secret every kiosk on the intercom holds: made on the first
@@ -7348,6 +7680,8 @@ const fleetDefaultExcluded = {
   'screen.orientation',
   // The intercom volume: every speaker is its own, like the other volumes.
   'intercom.volume',
+  // The answer mode carries Do not disturb, which each room sets for itself.
+  'intercom.answer_mode',
 };
 
 /// What [fleetDefaultExcluded] used to be, oldest first: a profile still on
@@ -7449,6 +7783,40 @@ const fleetFormerDefaultExcluded = <Set<String>>[
     'camera.snapshot_resolution',
     'browser.cutout_mode',
     'screen.orientation',
+  },
+  // Before the intercom answer mode joined (2026.9.80).
+  {
+    'browser.zoom',
+    'screensaver.website_zoom',
+    'screensaver.clock_scale',
+    'screensaver.widget_scale',
+    'screensaver.immich_metadata_scale',
+    'screensaver.glance_scale',
+    'face.preview_scale',
+    'sendspin.player_size',
+    'screen.default_brightness',
+    'screen.adaptive_min_brightness',
+    'screen.adaptive_max_brightness',
+    'screen.adaptive_dark_lux',
+    'screen.adaptive_bright_lux',
+    'screensaver.brightness_level',
+    'screensaver.dim_level',
+    'audio.media_volume',
+    'audio.assistant_volume',
+    'notifications.volume',
+    'ha.tap_sound_volume',
+    'screensaver.gallery_items',
+    'screensaver.local_folder',
+    'screensaver.clock_background',
+    'notifications.chime_file',
+    'launcher.apps',
+    'motion.sensitivity',
+    'motion.fps',
+    'face.sensitivity',
+    'camera.snapshot_resolution',
+    'browser.cutout_mode',
+    'screen.orientation',
+    'intercom.volume',
   },
 ];
 
@@ -7790,6 +8158,7 @@ const List<SettingDef<Object>> allSettings = [
   kioskDisableGestures,
   gestureMappings,
   clapStrictness,
+  handGestureHoldSeconds,
   kioskAllowDrawer,
   kioskAllowDashboard,
   kioskAllowHaKiosk,
@@ -7867,6 +8236,26 @@ const List<SettingDef<Object>> allSettings = [
   screensaverMode,
   screensaverWeatherEntity,
   screensaverWeatherLightning,
+  screensaverWeatherBlur,
+  screensaverWeatherClock,
+  screensaverWeatherClockFont,
+  screensaverWeatherClockFontWeight,
+  screensaverWeatherClock24h,
+  screensaverWeatherClockDate,
+  screensaverWeatherClockScale,
+  screensaverWeatherClockColor,
+  screensaverWeatherClockShadow,
+  screensaverWeatherBar,
+  screensaverWeatherBarScale,
+  screensaverWeatherBarColor,
+  screensaverWeatherBarOpacity,
+  screensaverWeatherBarShadow,
+  screensaverWeatherBarLocation,
+  screensaverWeatherBarFeelsLike,
+  screensaverWeatherBarForecast,
+  screensaverWeatherBarHumidity,
+  screensaverWeatherBarWind,
+  screensaverWeatherBarVisibility,
   screensaverWeatherPreview,
   screensaverWeatherPreviewCondition,
   screensaverWeatherPreviewPeriod,
@@ -8022,6 +8411,7 @@ const List<SettingDef<Object>> allSettings = [
   cameraRtspPassword,
   cameraRtspDateTime,
   cameraRtspDateTimeBackground,
+  cameraRtspTls,
   screensaverScheduleEnabled,
   screensaverSchedule,
   wakeWordEnabled,
@@ -8172,6 +8562,7 @@ const List<SettingDef<Object>> allSettings = [
   serviceCpuAwake,
   remoteEnabled,
   remotePort,
+  remoteTls,
   remotePassword,
   remoteFleetDiscovery,
   updateSource,
@@ -8200,4 +8591,5 @@ const List<SettingDef<Object>> allSettings = [
   intercomRingSound,
   intercomAcceptAnnouncements,
   intercomTalkMode,
+  intercomTls,
 ];

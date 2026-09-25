@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/command_registry.dart';
 import '../../core/events.dart';
+import '../../core/tls_identity.dart';
 import '../../core/manager.dart';
 import '../device_camera/camera_resolutions.dart';
 import 'definitions.dart';
@@ -18,6 +19,7 @@ class SettingsManager extends Manager {
   String get name => 'settings';
 
   late SharedPreferences _prefs;
+  late final tls = TlsIdentity(this);
 
   /// Live renderer names, supplied by the plugin runtime without persisting HTML.
   Map<String, String> Function() pluginScreensavers = () => const {};
@@ -416,6 +418,12 @@ class SettingsManager extends Manager {
     final normalizer = def.normalizer;
     if (normalizer != null) value = normalizer(value as Object) as T;
     final previous = get(def);
+    if (value == true &&
+        (def.key == remoteTls.key ||
+            def.key == cameraRtspTls.key ||
+            def.key == intercomTls.key)) {
+      (await tls.load()).securityContext();
+    }
     switch (value) {
       case final bool v:
         await _prefs.setBool(_prefix + def.key, v);

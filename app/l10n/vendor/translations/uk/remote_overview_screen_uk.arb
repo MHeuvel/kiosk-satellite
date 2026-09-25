@@ -1,0 +1,12 @@
+{
+  "@@locale": "uk",
+  "overviewNoScreenshot": "Немає знімка екрана",
+  "overviewStill": "Статичний",
+  "overviewLive": "Наживо",
+  "overviewFullSize": "Повний розмір",
+  "overviewLiveInterval": "Наживо, кожні 5 секунд",
+  "overviewTaken": "Зроблено {age}",
+  "overviewCameraViewNamed": "Вигляд камери: {name}",
+  "overviewCameraView": "Вигляд камери",
+  "overviewScreenOffState": "Екран вимкнено"
+}

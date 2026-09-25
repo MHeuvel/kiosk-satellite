@@ -16,5 +16,7 @@
   "intercomRegenerate": "Neu generieren",
   "intercomKeyChanged": "Schlüssel geändert",
   "intercomNotSet": "Nicht eingerichtet",
-  "intercomOpen": "Öffnen"
+  "intercomOpen": "Öffnen",
+  "settingIntercomTlsTitle": "Kommunikation verschlüsseln",
+  "settingIntercomTlsDescription": "Verschlüsselt Gegensprechanrufe zwischen Kiosken mit TLS. Diese Option muss auf allen Kiosken im Anruf aktiviert sein."
 }

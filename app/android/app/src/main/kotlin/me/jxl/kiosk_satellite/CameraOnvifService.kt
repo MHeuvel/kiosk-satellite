@@ -26,6 +26,7 @@ class CameraOnvifService(
     private val firmware: String,
     private val networkInfo: (String) -> NetworkInfo? = ::networkInfoFor,
     deviceName: String = "Kiosk Satellite",
+    private val tls: Boolean = false,
 ) {
     data class Response(val status: String, val body: String)
     data class NetworkInfo(val name: String, val enabled: Boolean, val hardwareAddress: String?, val mtu: Int?)
@@ -61,7 +62,7 @@ class CameraOnvifService(
         if (name != "GetSystemDateAndTime" && !authenticated(envelope)) {
             return fault("ter:NotAuthorized", "Authentication required", "400 Bad Request")
         }
-        val base = "http://${xml(host)}:$port/onvif"
+        val base = "${if (tls) "https" else "http"}://${xml(host)}:$port/onvif"
         val profileToken = operation.child(MEDIA, "ProfileToken")?.textContent
         if (name in listOf("GetProfile", "GetStreamUri") && profileToken != "camera") {
             return fault("ter:InvalidArgVal", "Unknown profile token", subcode = "ter:NoProfile")
@@ -95,7 +96,7 @@ class CameraOnvifService(
                     "<tt:RemoteDiscovery>false</tt:RemoteDiscovery><tt:SystemBackup>false</tt:SystemBackup>" +
                     "<tt:SystemLogging>false</tt:SystemLogging><tt:FirmwareUpgrade>false</tt:FirmwareUpgrade>" +
                     "<tt:SupportedVersions><tt:Major>2</tt:Major><tt:Minor>0</tt:Minor></tt:SupportedVersions></tt:System>" +
-                    "<tt:Security><tt:TLS1.1>false</tt:TLS1.1><tt:TLS1.2>false</tt:TLS1.2>" +
+                    "<tt:Security><tt:TLS1.1>false</tt:TLS1.1><tt:TLS1.2>$tls</tt:TLS1.2>" +
                     "<tt:OnboardKeyGeneration>false</tt:OnboardKeyGeneration><tt:AccessPolicyConfig>false</tt:AccessPolicyConfig>" +
                     "<tt:X.509Token>false</tt:X.509Token><tt:SAMLToken>false</tt:SAMLToken>" +
                     "<tt:KerberosToken>false</tt:KerberosToken><tt:RELToken>false</tt:RELToken></tt:Security></tt:Device>" else "") +
@@ -121,7 +122,7 @@ class CameraOnvifService(
                 if (setup?.child(SCHEMA, "Stream")?.textContent != "RTP-Unicast" || transport != "RTSP") {
                     return fault("ter:InvalidArgVal", "Use RTP-Unicast with RTSP transport", subcode = "ter:InvalidStreamSetup")
                 }
-                "<trt:MediaUri><tt:Uri>rtsp://${xml(host)}:$port/camera</tt:Uri>" +
+                "<trt:MediaUri><tt:Uri>${if (tls) "rtsps" else "rtsp"}://${xml(host)}:$port/camera</tt:Uri>" +
                     "<tt:InvalidAfterConnect>false</tt:InvalidAfterConnect><tt:InvalidAfterReboot>false</tt:InvalidAfterReboot>" +
                     "<tt:Timeout>PT0S</tt:Timeout></trt:MediaUri>"
             }
@@ -215,7 +216,7 @@ class CameraOnvifService(
             "<tds:Version><tt:Major>2</tt:Major><tt:Minor>0</tt:Minor></tds:Version></tds:Service>"
 
     private fun deviceCapabilities() = "<tds:Capabilities><tds:Network IPFilter=\"false\" ZeroConfiguration=\"false\" IPVersion6=\"false\" DynDNS=\"false\"/>" +
-        "<tds:Security UsernameToken=\"true\" HttpDigest=\"false\"/><tds:System DiscoveryResolve=\"false\" DiscoveryBye=\"true\" RemoteDiscovery=\"false\"/>" +
+        "<tds:Security TLS1.2=\"$tls\" UsernameToken=\"true\" HttpDigest=\"false\"/><tds:System DiscoveryResolve=\"false\" DiscoveryBye=\"true\" RemoteDiscovery=\"false\"/>" +
         "</tds:Capabilities>"
 
     private fun mediaCapabilities() = "<trt:Capabilities SnapshotUri=\"false\"><trt:ProfileCapabilities MaximumNumberOfProfiles=\"1\"/>" +

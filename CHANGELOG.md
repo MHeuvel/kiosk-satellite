@@ -2,6 +2,94 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Fixed
+- **Pages opened over the dashboard get the microphone, camera and autoplay.** A page opened with `open_url`, a tapped link, the "Open a web page" gesture or a rotation pass was refused the microphone and camera every time and could not play sound until someone tapped it. A call page opened this way could not send the room's audio. These pages now follow the same Web Content settings as the dashboard: Enable microphone access, Enable webcam access and Autoplay audio and video (#700).
+
+## v2026.9.82 - 2026-09-25
+
+### Added
+- **More device facts in `/api/health`.** The health endpoint now reports the system WebView package and version, the network link type with the Wi-Fi signal, link speed and frequency, the time since the device booted and the screen orientation and rotation. The Wi-Fi fields need no location permission and leave out the network name. The new `getNetworkLink` command returns the same link details (#696).
+
+### Changed
+- **Wind driven clouds glide in Weather Mood.** Clouds render a new image about once a second and used to fade from one position to the next, which looked like a slideshow whenever they moved fast. Each cloud image now slides along with the wind on every frame until the next one is ready, low clouds faster than high ones.
+- **Steadier Weather Mood frame pacing on 32-bit devices.** Clouds render a small piece on every frame again instead of a larger piece on every other frame. The heavy frames reached the screen unevenly, which showed as judder in moving clouds.
+- **More open skies in more Weather Mood scenes.** The Rainy, Snowy and Windy with clouds scenes have about a quarter less cloud cover, like Cloudy. Pouring and Snowy with rain keep their full cover.
+- **A fuller sky in the Windy scene.** The two cloud lanes above the weather chips each carry a second cloud, so one drifts in as the other leaves.
+- **Lighter fair weather clouds in Weather Mood.** Cloudy, Partly cloudy, Windy and Windy with clouds looked dark enough to rain, with slate gray undersides and gray cloud centers. Dry skies without storm darkness now keep light, white and soft gray clouds however much of the sky they cover. Rain, snow, hail, fog and storms keep their heavier shading.
+
+### Fixed
+- **Only adb can provision a kiosk.** Any app on the device could send the `ks.provision` intent and change any setting, including turning on the remote admin with a password of its choosing. Provisioning now goes to `.ProvisionActivity`, which Android opens only for the adb shell. `.MainActivity` ignores the extra and logs a warning. Scripts that provision over adb need the new activity name. See the [Remote API](docs/remote-api.md) guide (#695).
+- **Immich Media shows every photo before repeating one.** Each screensaver session used to shuffle the whole playlist again and start from the top, so a frame that goes in and out of the screensaver all day kept bringing back photos it had already shown while most of the library never came up. Sessions now pick up where the last one stopped and show the photos not yet seen first. Once every photo has had its turn the order is shuffled again and a new pass begins. New uploads join the current pass at random spots. With Shuffle off, the slideshow resumes where it stopped instead of starting over at the newest photo (#699).
+- **Clouds no longer go missing in Partly cloudy and Windy.** Wind could carry the clouds out of view for minutes, and a calm scene after a windy one could stay empty until the next screensaver. Each cloud now comes back at the other edge as soon as it leaves, and clouds glide back to their usual spots once the wind drops.
+- **Weather Mood clouds no longer reset while quality adjusts.** When a device lowered the cloud resolution to keep up, the clouds vanished and faded back in.
+- **Lightning no longer drops Weather Mood to a few frames per second.** On devices that run Impeller on OpenGL ES, such as the Echo Show 8, every strike slowed the scene for up to three seconds. The bolt now uses an additive blend that looks the same over storm clouds.
+- **Screensavers no longer freeze the app with the Impeller renderer on OpenGL ES.** Since v2026.9.81, starting a screensaver over a dashboard could stop the app from drawing for good on devices that run Impeller on OpenGL ES, such as the Echo Show 8 and the Meta Portal Go. The log filled with EGL_BAD_ACCESS errors. The fix for the Weather Mood start flash briefly hid Flutter's surface and brought it back after Flutter had resumed, which rebuilt the renderer on the wrong thread. The surface now comes back while Flutter is still paused.
+
+## v2026.9.81 - 2026-09-24
+
+### Added
+- **The Overview screenshot follows Now Playing and the intercom.** The remote admin takes a fresh screenshot when the Now Playing view or the intercom's Call a kiosk or call screen opens or closes, the way it already did for the screensaver and camera views. A Now playing or Intercom badge sits at the top right of the screenshot while either one fills the screen.
+
+### Fixed
+- **The ADB update helper no longer fills storage on Android 10 and older.** Android kept every downloaded update open after the helper deleted it, so each update held on to about 190 MB of storage until the helper stopped or the device restarted. The helper now releases each update file before deleting it.
+- **Screenshots match the screen again.** Since v2026.9.78 the remote admin preview and the Screenshot camera could miss live video and show dashboards with squashed or shifted cards. On Android 16 the capture mistook the dashboard for a hidden one, the copy failed and the app fell back to the WebView's own page capture. Screenshots now always copy the window, which holds the dashboard with its video, and fill any transparent area from Flutter's surface, which is where Weather Mood draws once the dashboard is hidden.
+- **Weather Mood starts on the right scene.** The screensaver no longer spends its first seconds morphing from a placeholder scene into the current weather, with clouds from another condition and a drifting sun. The screen stays black until the first weather and sun readings arrive and the clouds are ready, then the scene, clock and weather chips fade in together. A frame from the previous screensaver no longer flashes about a second in, when the dashboard stops rendering behind it.
+
+## v2026.9.80 - 2026-09-24
+
+### Changed
+- **microWakeWord uses about a third of the CPU it did.** The whole audio frontend now runs in native code, with results identical to before. On an Echo Show 8 the wake word thread dropped from 5.7% to 2.1% of a CPU core while listening.
+- **vsWakeWord listening is lighter.** Audio features are computed natively straight from the audio buffer, and the silence check only runs when a wake word matches. On an Echo Show 8 each 80 ms of audio takes 18% less processing, with identical detections.
+- **Weather information chips in Weather Mood.** The full-width weather bar is now a set of chips floating over the scene. A chip at the bottom left shows the conditions icon, temperature and conditions. Each reading gets a matching chip at the bottom right with its icon, title and value. All chips share one height in the style of the At a Glance pills. The chips are glass: the scene behind them bends at their rounded edges like a lens under a bright rim of light, so they take on the colors of every sky from day to dusk to night. Devices without the Impeller renderer show tinted chips instead. Background opacity sets how dark the glass is and defaults to 60%. Text drop shadow is now on by default. On narrow screens the reading chips sit above the main chip and wrap as needed.
+- **Cleaner clouds on 32-bit devices.** Weather Mood clouds on low-power devices such as the Echo Show 8 no longer look grainy or dirty. Each pixel now spreads its cloud samples evenly instead of at random, which leaves only fine noise that a slightly wider smoothing removes, at no extra cost.
+- **Weather Mood uses less CPU on 32-bit devices.** Clouds render on every other frame instead of every frame, which halves the offscreen passes that Mali graphics drivers charge a fixed CPU cost for. On an Echo Show 8 with the Impeller renderer, cloudy scenes dropped from about 65% to 47% of a core with the same frame rate. Glass chips share one read of the scene behind them, and devices without backdrop shaders show plain tinted chips instead of a per-frame blur.
+- **More open skies in the Cloudy scene.** Weather Mood's Cloudy scene has a quarter less cloud cover, so more of the sky shows between the clouds.
+- **Immich Media leaves out archived media.** Photos and videos archived in Immich no longer show in the slideshow, including ones inside a selected album. Immich keeps archived media out of the timeline, and the screensaver now does the same.
+
+### Fixed
+- **The setup QR scanner's Flip camera button is translated.** It showed in English in Spanish, German and French.
+- **Blank values hide the entity widget and At a Glance chips.** A text sensor with no value showed "…", over a corner vignette on the entity widget. The entity widget now disappears completely and its At a Glance chip drops out of the row while the state, or the chosen attribute, is blank. Both return with the next value.
+- **Do not disturb no longer follows the fleet leader.** Turning on Do not disturb on a leader put every follower on Do not disturb too, because the intercom answer mode synced with the Intercom category. The answer mode now joins the settings new profiles leave out, and profiles whose exclusions were never edited pick it up automatically. Add **Answer mode** back to a profile to share it across the fleet.
+- **Weather Mood no longer restarts the app in a loop on the Meta Portal Go.** Cloud images could render in one long GPU draw when the screensaver started. On a busy Portal Go that draw ran long enough for the graphics driver to reset the GPU and close the app, and each relaunch did it again about 17 seconds later. Clouds now always render in small pieces and fade in over the sky.
+
+## v2026.9.79 - 2026-09-24
+
+### Added
+- **Ukrainian localization.** Українська is available during onboarding and in Settings on the device and in Remote Admin. All 3,318 current messages are translated. Localization Credits lists kdinya with a GitHub profile link.
+- **Rain on the glass in Weather Mood.** Rainy, pouring, snowy-rainy and thunderstorm scenes show drops landing on the glass in front of the sky. Drops vary in outline and proportion, including a few that have run together. Larger drops slide down and leave a wet trail with small beads behind. Heavier rain brings more drops, and they catch the light of lightning flashes. Falling rain is lighter to make room for them.
+
+### Changed
+- **Weather Mood runs smoothly on older devices.** Clouds now render a few rows per frame and crossfade between cloud images, so no single frame stalls while a whole cloud layer renders. Frames follow the display's refresh rate for even motion. The number of rows per frame adapts to what each device sustains, and cloud resolution drops only as a last resort. The Meta Portal Go went from 3 to 8 frames per second to a steady 30 with full-quality clouds. The Echo Show 8 no longer freezes for 140 ms several times per second. Cached skies, batched snow and hail and a lighter cloud shader reduce the work on every device.
+- **Smoother clouds on low-power devices.** Clouds on 32-bit devices no longer show a grainy texture.
+- **A more realistic sun in Weather Mood.** The sun is a larger overexposed disk that fades into a bright bloom without a hard edge, with a paler sky around it. Dawn and dusk keep their warm tones.
+- **Livelier clear skies in Weather Mood.** Fewer, softer and more visible motes float in clear weather, spread evenly across the sky. Each one glows for a few seconds, fades away and reappears somewhere else. Motes fade out near the sun instead of competing with it.
+
+### Fixed
+- **The Weather Mood bar edge follows its opacity.** The thin line along the top of the weather bar now fades with the Background opacity slider instead of staying visible over a transparent bar.
+- **Rain icons in the weather bar and Weather widget.** Rainy and pouring conditions show the rain cloud icons Home Assistant uses instead of an umbrella.
+
+## v2026.9.78 - 2026-09-23
+
+### Added
+- **Optional TLS encryption.** Protect remote administration, the API, WebSockets, ONVIF services and RTSP video and audio with a shared device certificate. Each feature has its own encryption switch, including independent intercom encryption. Intercom refuses calls between kiosks with different encryption settings and skips incompatible announcement targets. Manage certificates under Device > TLS. Remote Administration protocol changes show a copyable address and require confirmation before reconnecting. Fleet and intercom connections work with self-signed certificates automatically. Private keys stay encrypted on the device and are excluded from configuration exports and fleet synchronization (#672). Certificate controls, dialogs, errors and encryption guidance are localized in English, German, Spanish and French.
+- **Adjustable hand gesture hold duration.** Require the same finger gesture for 0.5 to 3 seconds to reduce accidental triggers in busy rooms. The default is 1 second, with Instant available for immediate actions. The new Hand Gestures group appears below Clapper on the device and in Remote Admin. The Hand Gesture Tester shows confirmation progress. All new controls and feedback are localized in English, German, Spanish and French.
+- **Set brightness through ESPHome actions.** The new `set_brightness` and `set_screensaver_brightness` actions accept a brightness percentage from 0 to 100, including 0% for devices that can turn off their backlight. They update Default brightness or the screensaver brightness level and require adaptive brightness to be off (#670).
+- **Dawn and dusk in Weather Mood.** A third time-of-day variant keeps blue skies overhead with a soft peach horizon, a lower warm sun and subtle warm cloud lighting across every weather type. It follows solar elevation near sunrise and sunset, falls back to local time and is available in Weather Preview in all supported languages.
+- **A built-in clock for Weather Mood.** The Clock group shows the digital Clock screensaver face over the weather scene and is enabled by default. Its independent font family, font weight, 24-hour format, date, size and color controls use the same defaults as the Clock screensaver. Text drop shadow helps the digits stand out against the sky.
+- **A weather information bar for Weather Mood.** Weather information shows live readings from the selected weather entity along the bottom and is enabled by default. Control text scale, color, background opacity, shadow, location name and optional weather readings. The bar adapts to narrow screens and leaves room for widgets and At a Glance pills. All new controls are available on the device and in Remote Admin in English, Spanish, German and French.
+
+### Changed
+- **Clarify encrypted streaming compatibility.** Camera and TLS documentation explain that VLC 3.0.x cannot open RTSPS streams and include an FFplay example for encrypted playback.
+- **Scan setup QR codes with the front camera.** The token scanner opens the front camera by default and includes a Flip camera button for switching between front and back. Devices with only a rear camera fall back to it and the flashlight control is disabled when the selected camera has no flash (#668).
+- **Clearer weather temperatures and larger widget details.** The Weather widget shows the apparent temperature on a separate localized Feels like line. Its Feels like only option labels the apparent reading beneath its value. The Weather Mood bar uses a single temperature and its Feels like toggle substitutes the apparent reading when available. Weather widget conditions, readings and icons are larger relative to the temperature and the Clock widget date is larger.
+- **Weather Mood is easier to read.** Partly cloudy scenes have slightly more cloud coverage and soft silver linings from the sun or moon. The sun and moon sit farther right and the moon has a soft bloom. The sun is larger with the same soft edges. The clock and date sit closer together and use the same color. The weather readings form a group at the right edge of the bar, with wider gaps that adapt to the screen width. Larger titles sit centered above their readings and use fully opaque text. The bar defaults to white text without a drop shadow over a 50% opaque black background and uses reduced vertical padding. A localized Scene blur slider softens only the animated background.
+
+### Fixed
+- **Visible intercom push-to-talk control.** Use a solid teal fill so the idle button stays distinct from the light background. Holding it switches to a teal-tinted fill with a stronger outline and a soft glow.
+- **Fresh screenshots show Weather Mood.** Overview captures Flutter's active surface after the dashboard stops rendering behind Weather Mood. Refreshing the preview no longer returns a black image while the screensaver remains visible on the device.
+
 ## v2026.9.77 - 2026-09-22
 
 ### Changed

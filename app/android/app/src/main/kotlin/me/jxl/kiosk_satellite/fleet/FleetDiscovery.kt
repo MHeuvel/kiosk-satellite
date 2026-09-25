@@ -97,6 +97,7 @@ class FleetDiscovery(
         val port: Int,
         val seenAt: Long,
         val host: String = "",
+        val tls: Boolean = false,
     ) {
         fun toMap(): Map<String, Any?> = mapOf(
             "id" to id,
@@ -104,6 +105,7 @@ class FleetDiscovery(
             "version" to version,
             "address" to address,
             "port" to port,
+            "tls" to tls,
         )
     }
 
@@ -171,6 +173,7 @@ class FleetDiscovery(
 
     private var name: String = ""
     private var port: Int = 0
+    @Volatile private var tls = false
     /** The label this kiosk answers to as `<hostname>.local`; empty for none. */
     @Volatile private var hostname: String = ""
     /** Whether the service records go out and the others are listened for. */
@@ -208,9 +211,10 @@ class FleetDiscovery(
         }
     }
 
-    fun start(name: String, port: Int, hostname: String = "", fleet: Boolean = true) {
+    fun start(name: String, port: Int, hostname: String = "", fleet: Boolean = true, tls: Boolean = false) {
         this.name = name.ifBlank { Build.MODEL ?: "Kiosk Satellite" }
         this.port = port
+        this.tls = tls
         if (this.hostname != hostname) hostClash = ""
         this.hostname = hostname.lowercase()
         hostNeedle = if (this.hostname.isEmpty()) ByteArray(0)
@@ -378,6 +382,7 @@ class FleetDiscovery(
             port = port,
             seenAt = System.currentTimeMillis(),
             host = hostname,
+            tls = tls,
         )
         return Snapshot(self, list, listening && running, hostClash)
     }
@@ -519,6 +524,7 @@ class FleetDiscovery(
                         port = entries["port"]?.toIntOrNull() ?: record.first,
                         seenAt = now,
                         host = entries["host"]?.lowercase() ?: "",
+                        tls = entries["tls"] == "1",
                     )
                     val before = peers[peerId]
                     peers[peerId] = peer
@@ -680,7 +686,8 @@ class FleetDiscovery(
             body.name(instance); body.u16(TYPE_TXT); body.u16(0x8001); body.u32(ttl)
             body.lengthPrefixed { t ->
                 val entries = listOf("id=$id", "name=$name", "version=$version", "port=$port") +
-                    (if (hostname.isEmpty()) emptyList() else listOf("host=$hostname"))
+                    (if (hostname.isEmpty()) emptyList() else listOf("host=$hostname")) +
+                    (if (tls) listOf("tls=1") else emptyList())
                 for (entry in entries) {
                     // A TXT entry is at most 255 bytes; a name past that is cut.
                     val bytes = entry.toByteArray(Charsets.UTF_8).take(255).toByteArray()

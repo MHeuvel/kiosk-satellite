@@ -1,0 +1,14 @@
+{
+  "@@locale": "uk",
+  "screensaverNoPhotos": "Фотографії не вибрано. Оберіть їх у Налаштуваннях.",
+  "screensaverNoFolder": "Папку не вибрано. Оберіть її у Налаштуваннях.",
+  "screensaverFolderEmpty": "У папці {folder} немає фото чи відео",
+  "screensaverFolderUnreadable": "Не вдалося прочитати {folder}. Чи надано дозвіл на доступ до медіафайлів?",
+  "screensaverReadPhotosFailed": "Не вдалося прочитати фотографії.",
+  "screensaverImmichNotReady": "Immich не підключено. Перевірте його в Налаштуваннях.",
+  "screensaverNoMediaMatch": "Жоден медіафайл не відповідає джерелу та фільтрам.",
+  "screensaverNoMediaSource": "Немає медіафайлів у вибраному джерелі.",
+  "screensaverImmichUnreachable": "Не вдалося з'єднатися із сервером Immich.",
+  "screensaverRetryNotice": "{error} Автоматичний повтор спроби.",
+  "screensaverVideosTooLarge": "Усі відео в цьому списку завеликі для відтворення на цьому пристрої."
+}

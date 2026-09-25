@@ -1,0 +1,9 @@
+{
+  "@@locale": "uk",
+  "mediaCacheTitle": "Кеш обкладинок альбомів",
+  "mediaCacheReadFailed": "Не вдалося прочитати розмір кешу.",
+  "mediaCacheClearFailed": "Не вдалося очистити кеш.",
+  "mediaCacheChecking": "Перевірка розміру кешу...",
+  "mediaCacheClearing": "Очищення...",
+  "mediaCacheUsage": "Використано {used} з {limit}. Мініатюри черги кешуються автоматично."
+}

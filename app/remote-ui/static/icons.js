@@ -131,6 +131,7 @@ export const SUBPAGE_ICONS = {
     + 'M3 18l1.5 1.5 3-3"/><path d="M11 6h10M11 12h10M11 18h10"/>'),
   // Device.
   'Kiosk Satellite Service': svg('<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>'),
+  'TLS': svg('<rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><path d="M12 14v3"/>'),
   'Remote Administration': svg('<rect x="3" y="4" width="18" height="12" rx="2"/>'
     + '<path d="M8 20h8m-4-4v4"/>'),
   'Updates': svg('<path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v5h-5"/>'

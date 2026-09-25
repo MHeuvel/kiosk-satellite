@@ -1,0 +1,17 @@
+{
+  "@@locale": "uk",
+  "settingSendspinShowPlayerTitle": "Показувати плаваючий плеєр",
+  "settingSendspinShowPlayerDescription": "Поки грає музика, показувати невелике вікно відтворення поверх панелі керування з обкладинкою, відомостями про трек і прогресом. Перетягніть його будь-куди; положення запам'ятовується.",
+  "settingSendspinPlayerSizeTitle": "Розмір плеєра",
+  "settingSendspinPlayerSizeDescription": "«Компактний» - це маленьке непомітне вікно відтворення. «Великий з елементами керування» додає кнопки «Попередній», «Відтворити/Пауза» та «Наступний», розмірені під дотик, які керують усією групою відтворення.",
+  "settingSendspinPausedHideMinutesTitle": "Ховати призупинений плеєр за",
+  "settingSendspinPausedHideMinutesDescription": "Як довго призупинений плеєр залишається на екрані. Стосується як плаваючого плеєра, так і режиму «Зараз грає».",
+  "settingSendspinDismissKeepsPlayingTitle": "Продовжувати відтворення після згортання",
+  "settingSendspinDismissKeepsPlayingDescription": "Зсув плаваючого плеєра жестом ховає його, не зупиняючи музику.",
+  "settingSendspinPlayerShortcutTitle": "Показувати в меню кіоска",
+  "settingSendspinPlayerShortcutDescription": "Додати пункт до меню кіоска, який показує або ховає плаваючий плеєр. УВАГА: якщо нічого не відтворюється або в цього плеєра немає черги, він не з'явиться.",
+  "mediaFloatingPage": "Плаваючий плеєр",
+  "mediaFloatingHint": "Невелика картка поверх панелі керування",
+  "mediaCompact": "Компактний",
+  "mediaLargeControls": "Великий з елементами керування"
+}

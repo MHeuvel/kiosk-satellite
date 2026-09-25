@@ -23,5 +23,11 @@ const localizationCredits = <String, List<Map<String, String>>>{
       "name": "Limoniak",
       "login": "Limoniak"
     }
+  ],
+  "uk": [
+    {
+      "name": "kdinya",
+      "login": "kdinya"
+    }
   ]
 };

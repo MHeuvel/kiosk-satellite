@@ -12,6 +12,7 @@ import '../settings/definitions.dart' as defs;
 import '../settings/settings_manager.dart';
 import 'clap_detector.dart';
 import 'gesture_mappings.dart';
+import 'hand_gesture_hold.dart';
 
 /// Configurable gestures (issue #99): the action half.
 ///
@@ -38,8 +39,8 @@ import 'gesture_mappings.dart';
 /// elsewhere (the motion camera's palm detector and hand landmark model,
 /// run by [MotionManager] while a fingers mapping exists): every report
 /// says how many fingers the hand shows, and a mapping fires the first
-/// time its count is seen, then re-arms when the count changes or the
-/// hand goes. Like claps, a hand seen during a voice interaction fires
+/// time its count meets the configured hold. It re-arms when the count
+/// changes or the hand goes. Like claps, a hand seen during a voice interaction fires
 /// nothing: the camera is idled for the turn's span on the motion side,
 /// and a report still crossing at its start is ignored here.
 class GesturesManager extends Manager {
@@ -50,6 +51,7 @@ class GesturesManager extends Manager {
     this._settings, {
     Stream<Uint8List> Function()? micStream,
     Future<PermissionOutcome> Function()? micPermission,
+    this.handClock,
   }) : _micStream = micStream ?? (() => MicHub.instance.stream()),
        _micPermission =
            micPermission ?? (() => requestOsPermission(Permission.microphone));
@@ -57,10 +59,16 @@ class GesturesManager extends Manager {
   final SettingsManager _settings;
   final Stream<Uint8List> Function() _micStream;
   final Future<PermissionOutcome> Function() _micPermission;
+  final Duration Function()? handClock;
+  final _handStopwatch = Stopwatch()..start();
+  final _handHold = HandGestureHold();
 
   StreamSubscription<GestureDetected>? _sub;
   StreamSubscription<PalmDetected>? _palmSub;
   StreamSubscription<Uint8List>? _micSub;
+  StreamSubscription<SettingChanged>? _settingsSub;
+  StreamSubscription<WakeWordStateChanged>? _wakeStateSub;
+  StreamSubscription<ScreenStateChanged>? _screenSub;
 
   /// Finger mappings that fired for the count being shown.
   final _palmFired = <String>{};
@@ -105,7 +113,15 @@ class GesturesManager extends Manager {
     _sub = bus.on<GestureDetected>().listen(_onGesture);
     _palmSub = bus.on<PalmDetected>().listen(_onPalms);
 
-    bus.on<SettingChanged>().listen((e) {
+    _settingsSub = bus.on<SettingChanged>().listen((e) {
+      if (e.key == defs.gestureMappings.key ||
+          e.key == defs.handGestureHoldSeconds.key ||
+          e.key == defs.cameraEnabled.key ||
+          e.key == defs.lockdownEnabled.key ||
+          e.key == defs.kioskEnabled.key ||
+          e.key == defs.kioskDisableGestures.key) {
+        _resetHand();
+      }
       if (e.key == defs.gestureMappings.key ||
           e.key == defs.clapStrictness.key ||
           e.key == defs.lockdownEnabled.key ||
@@ -116,9 +132,10 @@ class GesturesManager extends Manager {
       }
     });
 
-    bus.on<WakeWordStateChanged>().listen((e) {
+    _wakeStateSub = bus.on<WakeWordStateChanged>().listen((e) {
       final startedTurn = !e.active && !_voiceTurn;
       _voiceTurn = !e.active;
+      if (startedTurn) _resetHand();
       // The turn's audio must not linger as half a clap sequence, and the
       // world after TTS played is acoustically new — start clean.
       if (startedTurn) _detector.reset();
@@ -128,12 +145,20 @@ class GesturesManager extends Manager {
       }
     });
 
+    _screenSub = bus.on<ScreenStateChanged>().listen((e) {
+      if (!e.on) _resetHand();
+    });
+
     await _syncClapper();
   }
 
   @override
   Future<void> dispose() async {
     _micRetry?.cancel();
+    await _settingsSub?.cancel();
+    await _wakeStateSub?.cancel();
+    await _screenSub?.cancel();
+    _resetHand();
     await _micSub?.cancel();
     await _palmSub?.cancel();
     await _sub?.cancel();
@@ -146,27 +171,37 @@ class GesturesManager extends Manager {
       !(_settings.get(defs.kioskEnabled) &&
           _settings.get(defs.kioskDisableGestures));
 
-  /// A hand report. Each fingers mapping fires the first time its count
-  /// is read, and re-arms when the count changes or the hand goes. A
-  /// hand seen during a voice interaction fires nothing, and the report
-  /// still re-arms (the motion side reports the hand gone at the pause).
+  void _resetHand() {
+    _handHold.reset();
+    _palmFired.clear();
+  }
+
+  /// A hold can finish only on a fresh matching camera report.
   void _onPalms(PalmDetected e) {
-    if (!_armed) return;
-    // One look: the count shown fires its mapping the first time it is
-    // read (the user's call, over agreement between looks).
-    bool steady(int count) => e.fingers == count;
+    if (!_armed || _voiceTurn) {
+      _resetHand();
+      return;
+    }
+    final previousCount = _handHold.count;
+    final ready = _handHold.update(
+      hands: e.hands,
+      fingers: e.fingers,
+      now: handClock?.call() ?? _handStopwatch.elapsed,
+      hold: Duration(
+        milliseconds: (_settings.get(defs.handGestureHoldSeconds) * 1000)
+            .round(),
+      ),
+    );
+    if (_handHold.count != previousCount) _palmFired.clear();
     final mappings = decodeGestureMappings(_settings.get(defs.gestureMappings));
     for (final m in mappings) {
       if (m.triggerType != 'fingers') continue;
       final wanted = (m.trigger['fingers'] as num?)?.toInt() ?? 5;
-      if (e.hands > 0 && steady(wanted)) {
-        if (_voiceTurn) continue;
+      if (ready && _handHold.count == wanted) {
         if (_palmFired.add(m.id)) {
           log.info(name, 'detected a hand showing $wanted finger(s)');
           bus.publish(GestureDetected(id: m.id));
         }
-      } else if (e.hands == 0 || e.fingers != wanted) {
-        _palmFired.remove(m.id);
       }
     }
   }

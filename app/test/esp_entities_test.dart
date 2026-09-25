@@ -274,6 +274,108 @@ void main() {
 
   tearDown(() => surface.detach());
 
+  group('ESPHome set_brightness', () {
+    test('advertises a percentage argument and action responses', () {
+      final action = surface.buildServices().singleWhere(
+        (service) => service['name'] == 'set_brightness',
+      );
+      expect(action['supportsResponse'], isTrue);
+      expect(action['args'], [
+        {'name': 'brightness', 'type': 'float'},
+      ]);
+    });
+
+    test('accepts zero, fractional percentages and full brightness', () async {
+      for (final brightness in [0, 0.5, 42, 100]) {
+        executed.clear();
+        expect(
+          await surface.handleService('set_brightness', {
+            'brightness': brightness,
+          }),
+          isEmpty,
+        );
+        expect(executed.single.$1, 'setBrightness');
+        expect(executed.single.$2, {'level': brightness / 100.0});
+      }
+    });
+
+    test('refuses while adaptive brightness is on', () async {
+      await settings.set(defs.adaptiveBrightness, true);
+      final defaultLevel = settings.get(defs.defaultBrightness);
+      final maximum = settings.get(defs.adaptiveMaxBrightness);
+      for (final brightness in [0, 50, 100]) {
+        await expectLater(
+          surface.handleService('set_brightness', {'brightness': brightness}),
+          throwsA(
+            isA<StateError>().having(
+              (error) => error.message,
+              'message',
+              contains('Turn off adaptive brightness'),
+            ),
+          ),
+        );
+      }
+      expect(executed, isEmpty);
+      expect(settings.get(defs.adaptiveBrightness), isTrue);
+      expect(settings.get(defs.defaultBrightness), defaultLevel);
+      expect(settings.get(defs.adaptiveMaxBrightness), maximum);
+      await settings.set(defs.adaptiveBrightness, false);
+      await surface.handleService('set_brightness', {'brightness': 0});
+      expect(executed.single.$1, 'setBrightness');
+      expect(executed.single.$2, {'level': 0.0});
+    });
+
+    test('rejects missing, nonnumeric and out of range values', () async {
+      for (final args in <Map<String, Object?>>[
+        {},
+        for (final value in [
+          null,
+          '0',
+          false,
+          -1,
+          101,
+          double.nan,
+          double.infinity,
+          double.negativeInfinity,
+        ])
+          {'brightness': value},
+      ]) {
+        await expectLater(
+          surface.handleService('set_brightness', args),
+          throwsA(isA<StateError>()),
+        );
+      }
+      expect(executed, isEmpty);
+    });
+
+    test('reports command failures to the calling automation', () async {
+      final failingCommands = CommandRegistry(log);
+      final failingSurface = EspEntitySurface(
+        bus,
+        failingCommands,
+        log,
+        settings,
+      );
+      failingCommands.register(
+        Command(
+          name: 'setBrightness',
+          description: 'refused brightness write',
+          handler: (_) async => const CommandResult.fail('brightness refused'),
+        ),
+      );
+      await expectLater(
+        failingSurface.handleService('set_brightness', {'brightness': 0}),
+        throwsA(
+          isA<StateError>().having(
+            (error) => error.message,
+            'message',
+            'brightness refused',
+          ),
+        ),
+      );
+    });
+  });
+
   test('picker groups honor categories before the entity type', () {
     expect(
       EspEntitySurface.categoryLabel({'type': 'switch', 'category': 1}),
@@ -307,6 +409,87 @@ void main() {
     );
     await Future<void>.delayed(const Duration(milliseconds: 80));
   }
+
+  group('ESPHome set_screensaver_brightness', () {
+    test('advertises a percentage argument and action responses', () {
+      final action = surface.buildServices().singleWhere(
+        (service) => service['name'] == 'set_screensaver_brightness',
+      );
+      expect(action['supportsResponse'], isTrue);
+      expect(action['args'], [
+        {'name': 'brightness', 'type': 'float'},
+      ]);
+    });
+
+    test('saves zero, fractional percentages and full brightness', () async {
+      final defaultLevel = settings.get(defs.defaultBrightness);
+      await surface.build();
+      await attach();
+      executed.clear();
+      for (final brightness in [0, 0.5, 42, 100]) {
+        pushed.clear();
+        expect(
+          await surface.handleService('set_screensaver_brightness', {
+            'brightness': brightness,
+          }),
+          isEmpty,
+        );
+        await pumpEventQueue();
+        expect(settings.get(defs.screensaverBrightnessLevel), brightness / 100);
+        expect(
+          pushed,
+          contains(('screensaver_brightness_level', brightness.round())),
+        );
+      }
+      expect(settings.get(defs.defaultBrightness), defaultLevel);
+      expect(settings.get(defs.screensaverBrightnessEnabled), isFalse);
+      expect(executed, isEmpty);
+    });
+
+    test('refuses while adaptive brightness is on', () async {
+      await settings.set(defs.adaptiveBrightness, true);
+      for (final brightness in [0, 50, 100]) {
+        await expectLater(
+          surface.handleService('set_screensaver_brightness', {
+            'brightness': brightness,
+          }),
+          throwsA(isA<StateError>()),
+        );
+      }
+      expect(settings.get(defs.screensaverBrightnessLevel), 0.4);
+      expect(settings.get(defs.adaptiveBrightness), isTrue);
+      expect(executed, isEmpty);
+      await settings.set(defs.adaptiveBrightness, false);
+      await surface.handleService('set_screensaver_brightness', {
+        'brightness': 0,
+      });
+      expect(settings.get(defs.screensaverBrightnessLevel), 0);
+    });
+
+    test('rejects missing, nonnumeric and out of range values', () async {
+      for (final args in <Map<String, Object?>>[
+        {},
+        for (final value in [
+          null,
+          '0',
+          false,
+          -1,
+          101,
+          double.nan,
+          double.infinity,
+          double.negativeInfinity,
+        ])
+          {'brightness': value},
+      ]) {
+        await expectLater(
+          surface.handleService('set_screensaver_brightness', args),
+          throwsA(isA<StateError>()),
+        );
+      }
+      expect(settings.get(defs.screensaverBrightnessLevel), 0.4);
+      expect(executed, isEmpty);
+    });
+  });
 
   test(
     'plugin scalar states replay on attach and honor exclusions and commands',

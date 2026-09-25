@@ -13,6 +13,9 @@
 
          This Theme is only used starting with V2 of Flutter's Android embedding. -->
     <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
-        <item name="android:windowBackground">?android:colorBackground</item>
+        <!-- Black, like the kiosk itself: the window shows through for a
+             frame or two while Flutter switches between its image view and
+             its SurfaceView, and a light background would flash. -->
+        <item name="android:windowBackground">@android:color/black</item>
     </style>
 </resources>

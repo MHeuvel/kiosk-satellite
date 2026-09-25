@@ -1,0 +1,14 @@
+{
+  "@@locale": "uk",
+  "settingScreensaverDismissOnProximityTitle": "Вихід за наближенням",
+  "settingScreensaverDismissOnProximityDescription": "Відстежувати датчик наближення під час заставки та активувати екран при наближенні об'єкта. Пристрої лише з датчиками для дзвінків (\"palm\", \"touch\") не підтримуються.",
+  "settingScreensaverDismissOnProximityScreenOffOnlyTitle": "Лише коли екран вимкнено",
+  "settingScreensaverDismissOnProximityScreenOffOnlyDescription": "Залишати заставку видимою, коли щось наближається при увімкненому екрані. Після вимкнення екрана виявлення активує панель. Дотик все одно закриває заставку.",
+  "settingScreensaverPostponeOnProximityTitle": "Відкладати заставку при наближенні",
+  "settingScreensaverPostponeOnProximityDescription": "Відкладати запуск заставки, доки щось перебуває поруч із датчиком.",
+  "screensaverDetectionProximityPage": "Виявлення наближення",
+  "screensaverDetectionProximityHint": "Закриття або відкладання заставки за датчиком наближення",
+  "screensaverDetectionNoProximity": "Недоступно на цьому пристрої: відсутній датчик наближення.",
+  "screensaverDetectionSensor": "Датчик",
+  "screensaverDetectionSensorHelp": "Тип датчика, про який повідомляє пристрій. Датчик для дзвінків з назвою \"palm\" або \"touch\" не працюватиме."
+}

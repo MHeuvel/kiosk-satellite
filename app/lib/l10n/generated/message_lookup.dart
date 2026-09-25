@@ -438,6 +438,7 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'gestureReadingHand' => strings.gestureReadingHand,
       'gestureNoFingers' => strings.gestureNoFingers,
       'gestureTesterSearch' => strings.gestureTesterSearch,
+      'gestureHoldConfirmed' => strings.gestureHoldConfirmed,
       'gestureHaServiceKind' => strings.gestureHaServiceKind,
       'gestureHaScriptKind' => strings.gestureHaScriptKind,
       'gestureHaAutomationKind' => strings.gestureHaAutomationKind,
@@ -547,6 +548,9 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'intercomMissedcall' => strings.intercomMissedcall,
       'intercomListening' => strings.intercomListening,
       'intercomAnnouncementsoff' => strings.intercomAnnouncementsoff,
+      'intercomEncryptionMismatch' => strings.intercomEncryptionMismatch,
+      'intercomEncryptionMismatchHelp' =>
+        strings.intercomEncryptionMismatchHelp,
       'kioskBackClose' => strings.kioskBackClose,
       'kioskBackAgain' => strings.kioskBackAgain,
       'kioskHoldOn' => strings.kioskHoldOn,
@@ -1098,6 +1102,9 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingCameraRtspDateTimeBackgroundTitle,
       'settingCameraRtspDateTimeBackgroundDescription' =>
         strings.settingCameraRtspDateTimeBackgroundDescription,
+      'settingCameraRtspTlsTitle' => strings.settingCameraRtspTlsTitle,
+      'settingCameraRtspTlsDescription' =>
+        strings.settingCameraRtspTlsDescription,
       'cameraStreamsNameRequired' => strings.cameraStreamsNameRequired,
       'cameraStreamsBaseUrlRequired' => strings.cameraStreamsBaseUrlRequired,
       'cameraStreamsServerNotFound' => strings.cameraStreamsServerNotFound,
@@ -1397,6 +1404,8 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'deviceByNameHelp' => strings.deviceByNameHelp,
       'devicePasswordNeeded' => strings.devicePasswordNeeded,
       'deviceServerStopped' => strings.deviceServerStopped,
+      'settingRemoteTlsTitle' => strings.settingRemoteTlsTitle,
+      'settingRemoteTlsDescription' => strings.settingRemoteTlsDescription,
       'settingServiceCpuAwakeTitle' => strings.settingServiceCpuAwakeTitle,
       'settingServiceCpuAwakeDescription' =>
         strings.settingServiceCpuAwakeDescription,
@@ -1490,6 +1499,58 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'shizukuConnectionFailed' => strings.shizukuConnectionFailed,
       'shizukuHelperNotConnected' => strings.shizukuHelperNotConnected,
       'shizukuHelperUnavailable' => strings.shizukuHelperUnavailable,
+      'tlsTLS' => strings.tlsTLS,
+      'tlsConnectionEncryptionAndCertificates' =>
+        strings.tlsConnectionEncryptionAndCertificates,
+      'tlsCertificateType' => strings.tlsCertificateType,
+      'tlsImported' => strings.tlsImported,
+      'tlsSelfSigned' => strings.tlsSelfSigned,
+      'tlsExpires' => strings.tlsExpires,
+      'tlsSHA256Fingerprint' => strings.tlsSHA256Fingerprint,
+      'tlsCertificateExpiredRenewOrImportAReplacement' =>
+        strings.tlsCertificateExpiredRenewOrImportAReplacement,
+      'tlsCopyPublicCertificate' => strings.tlsCopyPublicCertificate,
+      'tlsDownloadPublicCertificate' => strings.tlsDownloadPublicCertificate,
+      'tlsUseThisCertificateInBrowsersAndStreamingClients' =>
+        strings.tlsUseThisCertificateInBrowsersAndStreamingClients,
+      'tlsRenewCertificate' => strings.tlsRenewCertificate,
+      'tlsKeepTheCurrentPrivateKeyAndUpdateTheCertificateDates' =>
+        strings.tlsKeepTheCurrentPrivateKeyAndUpdateTheCertificateDates,
+      'tlsImportCertificate' => strings.tlsImportCertificate,
+      'tlsUseACertificateIssuedForThisDevice' =>
+        strings.tlsUseACertificateIssuedForThisDevice,
+      'tlsReplaceCertificate' => strings.tlsReplaceCertificate,
+      'tlsGenerateANewPrivateKeyAndSelfSignedCertificate' =>
+        strings.tlsGenerateANewPrivateKeyAndSelfSignedCertificate,
+      'tlsGenerateANewPrivateKeyAndCertificateActiveEncryptedConnectionsWillCloseBrowsersMayAskYouToAcceptTheNewCertificate' =>
+        strings.tlsGenerateANewPrivateKeyAndCertificateActiveEncryptedConnectionsWillCloseBrowsersMayAskYouToAcceptTheNewCertificate,
+      'tlsPasteThePEMCertificateChainAndItsUnencryptedPrivateKeyTheyAreValidatedBeforeReplacingTheCurrentCertificate' =>
+        strings.tlsPasteThePEMCertificateChainAndItsUnencryptedPrivateKeyTheyAreValidatedBeforeReplacingTheCurrentCertificate,
+      'tlsCertificateChainPEM' => strings.tlsCertificateChainPEM,
+      'tlsPrivateKeyPEM' => strings.tlsPrivateKeyPEM,
+      'tlsThisFieldIsRequired' => strings.tlsThisFieldIsRequired,
+      'tlsReplace' => strings.tlsReplace,
+      'tlsRenew' => strings.tlsRenew,
+      'tlsEnableHTTPSBeforeImportingAPrivateKeyRemotely' =>
+        strings.tlsEnableHTTPSBeforeImportingAPrivateKeyRemotely,
+      'tlsCertificateOperationFailed' => strings.tlsCertificateOperationFailed,
+      'tlsChangeConnectionProtocol' => strings.tlsChangeConnectionProtocol,
+      'tlsConnectionProtocolHelp' => strings.tlsConnectionProtocolHelp,
+      'tlsConfirm' => strings.tlsConfirm,
+      'tlsCertificateManagement' => strings.tlsCertificateManagement,
+      'tlsServerCertificateRequired' => strings.tlsServerCertificateRequired,
+      'tlsServerAuthenticationRequired' =>
+        strings.tlsServerAuthenticationRequired,
+      'tlsKeyAlgorithmRequired' => strings.tlsKeyAlgorithmRequired,
+      'tlsKeyMismatch' => strings.tlsKeyMismatch,
+      'tlsMaterialTooLarge' => strings.tlsMaterialTooLarge,
+      'tlsPemCertificatesRequired' => strings.tlsPemCertificatesRequired,
+      'tlsCertificateMissing' => strings.tlsCertificateMissing,
+      'tlsUnencryptedKeyRequired' => strings.tlsUnencryptedKeyRequired,
+      'tlsHostnameRequired' => strings.tlsHostnameRequired,
+      'tlsIssuerRenewalRequired' => strings.tlsIssuerRenewalRequired,
+      'tlsStoredIdentityDamaged' => strings.tlsStoredIdentityDamaged,
+      'tlsExpiredCertificate' => strings.tlsExpiredCertificate,
       'deviceHelperPage' => strings.deviceHelperPage,
       'deviceHelperStatus' => strings.deviceHelperStatus,
       'deviceHelperError' => strings.deviceHelperError,
@@ -1740,6 +1801,12 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'gestureTouchHelp' => strings.gestureTouchHelp,
       'gestureClapper' => strings.gestureClapper,
       'gestureReadFailed' => strings.gestureReadFailed,
+      'gestureHandGestures' => strings.gestureHandGestures,
+      'settingHandGestureHoldSecondsTitle' =>
+        strings.settingHandGestureHoldSecondsTitle,
+      'settingHandGestureHoldSecondsDescription' =>
+        strings.settingHandGestureHoldSecondsDescription,
+      'gestureHoldInstant' => strings.gestureHoldInstant,
       'settingHaHoldModeTitle' => strings.settingHaHoldModeTitle,
       'settingHaHoldModeDescription' => strings.settingHaHoldModeDescription,
       'settingHaHoldReleaseMinutesTitle' =>
@@ -1954,6 +2021,8 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'intercomKeyChanged' => strings.intercomKeyChanged,
       'intercomNotSet' => strings.intercomNotSet,
       'intercomOpen' => strings.intercomOpen,
+      'settingIntercomTlsTitle' => strings.settingIntercomTlsTitle,
+      'settingIntercomTlsDescription' => strings.settingIntercomTlsDescription,
       'intercomKiosks' => strings.intercomKiosks,
       'intercomRosterHelp' => strings.intercomRosterHelp,
       'intercomNoOther' => strings.intercomNoOther,
@@ -3270,6 +3339,43 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'screensaverWeatherPreviewDay' => strings.screensaverWeatherPreviewDay,
       'screensaverWeatherPreviewNight' =>
         strings.screensaverWeatherPreviewNight,
+      'settingScreensaverWeatherClockTitle' =>
+        strings.settingScreensaverWeatherClockTitle,
+      'settingScreensaverWeatherClockDescription' =>
+        strings.settingScreensaverWeatherClockDescription,
+      'screensaverWeatherTextShadowDescription' =>
+        strings.screensaverWeatherTextShadowDescription,
+      'screensaverWeatherBarGroup' => strings.screensaverWeatherBarGroup,
+      'settingScreensaverWeatherBarTitle' =>
+        strings.settingScreensaverWeatherBarTitle,
+      'settingScreensaverWeatherBarDescription' =>
+        strings.settingScreensaverWeatherBarDescription,
+      'settingScreensaverWeatherBarScaleTitle' =>
+        strings.settingScreensaverWeatherBarScaleTitle,
+      'settingScreensaverWeatherBarScaleDescription' =>
+        strings.settingScreensaverWeatherBarScaleDescription,
+      'settingScreensaverWeatherBarColorTitle' =>
+        strings.settingScreensaverWeatherBarColorTitle,
+      'settingScreensaverWeatherBarColorDescription' =>
+        strings.settingScreensaverWeatherBarColorDescription,
+      'settingScreensaverWeatherBarOpacityTitle' =>
+        strings.settingScreensaverWeatherBarOpacityTitle,
+      'settingScreensaverWeatherBarOpacityDescription' =>
+        strings.settingScreensaverWeatherBarOpacityDescription,
+      'screensaverWeatherBarHumidityDescription' =>
+        strings.screensaverWeatherBarHumidityDescription,
+      'screensaverWeatherBarWindDescription' =>
+        strings.screensaverWeatherBarWindDescription,
+      'screensaverWeatherBarVisibilityDescription' =>
+        strings.screensaverWeatherBarVisibilityDescription,
+      'settingScreensaverWeatherBlurTitle' =>
+        strings.settingScreensaverWeatherBlurTitle,
+      'settingScreensaverWeatherBlurDescription' =>
+        strings.settingScreensaverWeatherBlurDescription,
+      'screensaverWeatherPreviewTwilight' =>
+        strings.screensaverWeatherPreviewTwilight,
+      'screensaverWeatherBarFeelsLikeDescription' =>
+        strings.screensaverWeatherBarFeelsLikeDescription,
       'settingScreensaverWebsiteUrlTitle' =>
         strings.settingScreensaverWebsiteUrlTitle,
       'settingScreensaverWebsiteUrlDescription' =>
@@ -3614,6 +3720,7 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'setupGrantPermissions' => strings.setupGrantPermissions,
       'setupRequestingPermissions' => strings.setupRequestingPermissions,
       'setupPermissionsRequested' => strings.setupPermissionsRequested,
+      'setupQrFlipCamera' => strings.setupQrFlipCamera,
       'setupQrCameraFailed' => strings.setupQrCameraFailed,
       'setupQrTitle' => strings.setupQrTitle,
       'setupQrHelp' => strings.setupQrHelp,

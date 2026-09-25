@@ -1645,6 +1645,19 @@ class UiStringsEs extends UiStrings {
       'Muestra en tiempo real los dedos que detecta la cámara.';
 
   @override
+  String get gestureHoldConfirmed => 'Gesto confirmado';
+
+  @override
+  String gestureHoldProgress(String progress) {
+    return 'Progreso del gesto: $progress';
+  }
+
+  @override
+  String gestureTesterHoldDuration(String duration) {
+    return 'Tiempo de espera: $duration';
+  }
+
+  @override
   String get gestureHaServiceKind => 'Servicio de Home Assistant';
 
   @override
@@ -2088,6 +2101,13 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get intercomAnnouncementsoff => 'Anuncios desactivados';
+
+  @override
+  String get intercomEncryptionMismatch => 'El cifrado no coincide';
+
+  @override
+  String get intercomEncryptionMismatchHelp =>
+      'El cifrado no coincide. Activa Cifrar comunicaciones en todos los kioscos de la llamada.';
 
   @override
   String get kioskBackClose => 'Pulsa Atrás de nuevo para cerrar la aplicación';
@@ -3985,7 +4005,7 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get settingCameraRtspAuthDescription =>
-      'Exige un nombre de usuario y una contraseña para ver la transmisión. El tráfico de la transmisión no está cifrado.';
+      'Requiere un nombre de usuario y una contraseña para ver la transmisión. La autenticación no activa el cifrado.';
 
   @override
   String get settingCameraRtspUsernameTitle => 'Nombre de usuario';
@@ -4073,6 +4093,13 @@ class UiStringsEs extends UiStrings {
   @override
   String get settingCameraRtspDateTimeBackgroundDescription =>
       'Agrega un fondo negro detrás de la fecha y hora para facilitar la lectura.';
+
+  @override
+  String get settingCameraRtspTlsTitle => 'Cifrar transmisión';
+
+  @override
+  String get settingCameraRtspTlsDescription =>
+      'Usa TLS para cifrar el video y el audio. Requiere un visor compatible.';
 
   @override
   String get cameraStreamsNameRequired => 'Escribe un nombre.';
@@ -5081,6 +5108,13 @@ class UiStringsEs extends UiStrings {
   }
 
   @override
+  String get settingRemoteTlsTitle => 'Usar HTTPS';
+
+  @override
+  String get settingRemoteTlsDescription =>
+      'Cifra la administración remota, la API y WebSocket. El navegador puede pedirte que aceptes el certificado del dispositivo.';
+
+  @override
   String get settingServiceCpuAwakeTitle =>
       'Mantener la CPU activa con la pantalla apagada';
 
@@ -5406,6 +5440,154 @@ class UiStringsEs extends UiStrings {
   @override
   String get shizukuHelperUnavailable =>
       'El asistente de Shizuku no está disponible';
+
+  @override
+  String get tlsTLS => 'TLS';
+
+  @override
+  String get tlsConnectionEncryptionAndCertificates =>
+      'Cifrado de conexiones y certificados';
+
+  @override
+  String get tlsCertificateType => 'Tipo de certificado';
+
+  @override
+  String get tlsImported => 'Importado';
+
+  @override
+  String get tlsSelfSigned => 'Autofirmado';
+
+  @override
+  String get tlsExpires => 'Caduca';
+
+  @override
+  String get tlsSHA256Fingerprint => 'Huella digital SHA-256';
+
+  @override
+  String get tlsCertificateExpiredRenewOrImportAReplacement =>
+      'El certificado ha caducado. Renuévalo o importa uno nuevo.';
+
+  @override
+  String get tlsCopyPublicCertificate => 'Copiar certificado público';
+
+  @override
+  String get tlsDownloadPublicCertificate => 'Descargar certificado público';
+
+  @override
+  String get tlsUseThisCertificateInBrowsersAndStreamingClients =>
+      'Usa este certificado en navegadores y clientes de streaming.';
+
+  @override
+  String get tlsRenewCertificate => 'Renovar certificado';
+
+  @override
+  String get tlsKeepTheCurrentPrivateKeyAndUpdateTheCertificateDates =>
+      'Conserva la clave privada actual y actualiza las fechas del certificado.';
+
+  @override
+  String get tlsImportCertificate => 'Importar certificado';
+
+  @override
+  String get tlsUseACertificateIssuedForThisDevice =>
+      'Usa un certificado emitido para este dispositivo.';
+
+  @override
+  String get tlsReplaceCertificate => 'Reemplazar certificado';
+
+  @override
+  String get tlsGenerateANewPrivateKeyAndSelfSignedCertificate =>
+      'Genera una nueva clave privada y un certificado autofirmado.';
+
+  @override
+  String
+  get tlsGenerateANewPrivateKeyAndCertificateActiveEncryptedConnectionsWillCloseBrowsersMayAskYouToAcceptTheNewCertificate =>
+      '¿Generar una nueva clave privada y un certificado? Las conexiones cifradas activas se cerrarán. Los navegadores pueden pedirte que aceptes el nuevo certificado.';
+
+  @override
+  String
+  get tlsPasteThePEMCertificateChainAndItsUnencryptedPrivateKeyTheyAreValidatedBeforeReplacingTheCurrentCertificate =>
+      'Pega la cadena de certificados PEM y su clave privada sin cifrar. Se validarán antes de reemplazar el certificado actual.';
+
+  @override
+  String get tlsCertificateChainPEM => 'Cadena de certificados (PEM)';
+
+  @override
+  String get tlsPrivateKeyPEM => 'Clave privada (PEM)';
+
+  @override
+  String get tlsThisFieldIsRequired => 'Este campo es obligatorio.';
+
+  @override
+  String get tlsReplace => 'Reemplazar';
+
+  @override
+  String get tlsRenew => 'Renovar';
+
+  @override
+  String get tlsEnableHTTPSBeforeImportingAPrivateKeyRemotely =>
+      'Activa HTTPS antes de importar una clave privada de forma remota.';
+
+  @override
+  String get tlsCertificateOperationFailed =>
+      'La operación con el certificado ha fallado.';
+
+  @override
+  String get tlsChangeConnectionProtocol => 'Cambiar protocolo de conexión';
+
+  @override
+  String get tlsConnectionProtocolHelp =>
+      'La conexión remota actual se cerrará. Vuelve a conectarte con la dirección que aparece abajo. Es posible que debas iniciar sesión de nuevo.';
+
+  @override
+  String get tlsConfirm => 'Confirmar';
+
+  @override
+  String get tlsCertificateManagement => 'Gestión de certificados';
+
+  @override
+  String get tlsServerCertificateRequired =>
+      'Usa un certificado de servidor, no un certificado de una autoridad de certificación.';
+
+  @override
+  String get tlsServerAuthenticationRequired =>
+      'El certificado no permite la autenticación de servidor.';
+
+  @override
+  String get tlsKeyAlgorithmRequired => 'Usa una clave privada EC o RSA.';
+
+  @override
+  String get tlsKeyMismatch =>
+      'El certificado y la clave privada no coinciden.';
+
+  @override
+  String get tlsMaterialTooLarge =>
+      'El certificado o la clave son demasiado grandes.';
+
+  @override
+  String get tlsPemCertificatesRequired => 'Se esperaban certificados PEM.';
+
+  @override
+  String get tlsCertificateMissing => 'No se encontró ningún certificado.';
+
+  @override
+  String get tlsUnencryptedKeyRequired =>
+      'Usa una clave privada PEM sin cifrar.';
+
+  @override
+  String get tlsHostnameRequired =>
+      'Se requiere un nombre de host o una dirección IP.';
+
+  @override
+  String get tlsIssuerRenewalRequired =>
+      'Importa un certificado renovado por su emisor.';
+
+  @override
+  String get tlsStoredIdentityDamaged =>
+      'La identidad TLS almacenada está dañada.';
+
+  @override
+  String get tlsExpiredCertificate =>
+      'El certificado TLS ha caducado. Renuévalo o importa uno nuevo.';
 
   @override
   String get deviceHelperPage => 'Asistente de actualización opcional';
@@ -6286,6 +6468,24 @@ class UiStringsEs extends UiStrings {
   String get gestureReadFailed => 'No se pudo leer la configuración.';
 
   @override
+  String get gestureHandGestures => 'Gestos de la mano';
+
+  @override
+  String get settingHandGestureHoldSecondsTitle => 'Tiempo de espera';
+
+  @override
+  String get settingHandGestureHoldSecondsDescription =>
+      'Mantén el mismo gesto de los dedos durante este tiempo antes de ejecutar la acción. Auméntalo para reducir las activaciones accidentales.';
+
+  @override
+  String get gestureHoldInstant => 'Al instante';
+
+  @override
+  String gestureHoldSeconds(String seconds) {
+    return '$seconds s';
+  }
+
+  @override
   String get settingHaHoldModeTitle => 'Modo de pausa';
 
   @override
@@ -6932,11 +7132,18 @@ class UiStringsEs extends UiStrings {
   String get intercomOpen => 'Abrir';
 
   @override
+  String get settingIntercomTlsTitle => 'Cifrar comunicaciones';
+
+  @override
+  String get settingIntercomTlsDescription =>
+      'Usa TLS para cifrar las llamadas de intercomunicación entre kioscos. Todos los kioscos de la llamada deben tener esta opción activada.';
+
+  @override
   String get intercomKiosks => 'Kioskos';
 
   @override
   String get intercomRosterHelp =>
-      'Kioskos encontrados y miembros guardados de la flota. Un kiosko está listo cuando se puede conectar con él, tiene el intercomunicador activado y usa la misma clave.';
+      'Kioscos detectados y miembros guardados de la flota. Un kiosco está listo cuando es accesible, tiene la intercomunicación activada y usa la misma clave y los mismos ajustes de cifrado.';
 
   @override
   String get intercomNoOther => 'No se encontraron otros kioskos';
@@ -10068,7 +10275,7 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get settingScreensaverWeatherEntityDescription =>
-      'La entidad meteorológica de Home Assistant que controla la escena animada. El día y la noche siguen a sun.sun, con la hora local como alternativa.';
+      'La entidad meteorológica de Home Assistant que controla la escena animada. El día, el amanecer/atardecer y la noche siguen sun.sun, con la hora local como alternativa.';
 
   @override
   String get settingScreensaverWeatherLightningTitle =>
@@ -10105,7 +10312,7 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get settingScreensaverWeatherPreviewPeriodDescription =>
-      'Selecciona la versión diurna o nocturna de la escena.';
+      'Elige la versión de día, amanecer/atardecer o noche de la escena.';
 
   @override
   String get screensaverWeatherPreviewSunny => 'Despejado';
@@ -10154,6 +10361,74 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get screensaverWeatherPreviewNight => 'Noche';
+
+  @override
+  String get settingScreensaverWeatherClockTitle => 'Activar reloj';
+
+  @override
+  String get settingScreensaverWeatherClockDescription =>
+      'Mostrar un reloj digital sobre la escena meteorológica.';
+
+  @override
+  String get screensaverWeatherTextShadowDescription =>
+      'Añadir una sombra al texto para facilitar su lectura sobre la escena meteorológica.';
+
+  @override
+  String get screensaverWeatherBarGroup => 'Información meteorológica';
+
+  @override
+  String get settingScreensaverWeatherBarTitle => 'Activar barra del tiempo';
+
+  @override
+  String get settingScreensaverWeatherBarDescription =>
+      'Mostrar información meteorológica en tiempo real en la parte inferior de la pantalla.';
+
+  @override
+  String get settingScreensaverWeatherBarScaleTitle => 'Escala del texto';
+
+  @override
+  String get settingScreensaverWeatherBarScaleDescription =>
+      'Ajustar la información meteorológica entre el 50 y el 200 por ciento.';
+
+  @override
+  String get settingScreensaverWeatherBarColorTitle => 'Color del texto';
+
+  @override
+  String get settingScreensaverWeatherBarColorDescription =>
+      'El color de la información meteorológica.';
+
+  @override
+  String get settingScreensaverWeatherBarOpacityTitle => 'Opacidad del fondo';
+
+  @override
+  String get settingScreensaverWeatherBarOpacityDescription =>
+      'Oscurecer la barra inferior para facilitar la lectura de la información meteorológica.';
+
+  @override
+  String get screensaverWeatherBarHumidityDescription =>
+      'Mostrar la humedad cuando la entidad meteorológica la proporcione.';
+
+  @override
+  String get screensaverWeatherBarWindDescription =>
+      'Mostrar la velocidad del viento cuando la entidad meteorológica la proporcione.';
+
+  @override
+  String get screensaverWeatherBarVisibilityDescription =>
+      'Mostrar la visibilidad cuando la entidad meteorológica la proporcione.';
+
+  @override
+  String get settingScreensaverWeatherBlurTitle => 'Desenfoque de la escena';
+
+  @override
+  String get settingScreensaverWeatherBlurDescription =>
+      'Suavizar la escena meteorológica animada manteniendo nítidos el reloj, la barra del tiempo y los widgets.';
+
+  @override
+  String get screensaverWeatherPreviewTwilight => 'Amanecer/Atardecer';
+
+  @override
+  String get screensaverWeatherBarFeelsLikeDescription =>
+      'Muestra la sensación térmica en lugar de la temperatura real cuando está disponible.';
 
   @override
   String get settingScreensaverWebsiteUrlTitle => 'URL del sitio web';
@@ -10305,14 +10580,14 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get screensaverOverlayFeelsLikeHelp =>
-      'Muestra la sensación térmica después de la temperatura real: \"30° / 33°\".';
+      'Muestra la sensación térmica en una línea etiquetada debajo de la temperatura real.';
 
   @override
   String get screensaverOverlayFeelsLikeOnly => 'Solo sensación térmica';
 
   @override
   String get screensaverOverlayFeelsLikeOnlyHelp =>
-      'Muestra la sensación térmica en lugar de la temperatura real.';
+      'Muestra la sensación térmica con su etiqueta en lugar de la temperatura real.';
 
   @override
   String get screensaverOverlayForecast => 'Pronóstico';
@@ -10329,6 +10604,11 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get screensaverOverlayVisibility => 'Visibilidad';
+
+  @override
+  String screensaverWeatherFeelsLikeValue(String temperature) {
+    return 'Sensación térmica: $temperature';
+  }
 
   @override
   String get settingScreensaverWidgetsTitle => 'Widgets';
@@ -11199,6 +11479,9 @@ class UiStringsEs extends UiStrings {
   @override
   String get setupPermissionsRequested =>
       'Permisos solicitados en el dispositivo';
+
+  @override
+  String get setupQrFlipCamera => 'Cambiar de cámara';
 
   @override
   String get setupQrCameraFailed => 'No se pudo iniciar la cámara.';

@@ -19,7 +19,7 @@ The settings page is organized into five main sections: Server Connection, Media
 | Media | Cache media locally | on | Stores previews on the device for faster loading. |
 | Media | Cache size (items) | 500 | Automatically purges the oldest cached files when full. Current usage displays beneath this field. |
 | Slideshow | Seconds per image | 10 | Sets photo display duration. Videos ignore this setting and play through to completion. |
-| Slideshow | Shuffle | off | Displays media in random order instead of the server default (newest first). |
+| Slideshow | Shuffle | off | Displays media in random order instead of the server default (newest first). Each session picks up where the last one stopped, so every item shows once before any repeats. |
 | Slideshow | Transition | Crossfade | Options include none, crossfade, slide, zoom, Ken Burns, or random. |
 | Slideshow | Fill the screen | Smart | Controls how aggressively photos are cropped to fit the screen. |
 | Slideshow | Pair portrait photos | on | Displays two portrait photos side by side in landscape mode. |
@@ -42,7 +42,7 @@ Your playlist refreshes from the server every time the screensaver starts. Any n
 
 ## Filters
 
-A full phone backup often contains receipts, documents, and screenshots alongside family memories. The **Filters** settings let you refine your source media so your screen displays only what belongs on a photo frame. Every active filter must be satisfied for a photo to appear, and photos are never duplicated.
+A full phone backup often contains receipts, documents, and screenshots alongside family memories. The **Filters** settings let you refine your source media so your screen displays only what belongs on a photo frame. Every active filter must be satisfied for a photo to appear, and photos are never duplicated. Archived media never appears, even inside a selected album, since Immich keeps it out of the timeline too.
 
 * **People:** Displays media containing any of the selected individuals. Tap the row to select recognized people from your Immich library. Be sure to name your recognized face clusters in Immich first, as unnamed clusters will not appear in the picker. Individuals you have hidden in Immich will appear marked as **Hidden** with a struck out eye icon. Hiding someone in Immich only removes them from Immich's internal views, so both filters still work as expected.
 * **Exclude people:** Automatically skips any media containing the specified people, regardless of who else is in the shot. Because Immich cannot perform this check directly, the kiosk requests person data for each asset and filters out matches locally.

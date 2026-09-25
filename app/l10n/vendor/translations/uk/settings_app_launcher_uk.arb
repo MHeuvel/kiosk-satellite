@@ -1,0 +1,10 @@
+{
+  "@@locale": "uk",
+  "settingLauncherEnabledTitle": "Увімкнути запуск застосунків",
+  "settingLauncherEnabledDescription": "Відкривати вибраний набір встановлених застосунків із кіоска.",
+  "settingLauncherAppsDescription": "Застосунки, які пропонує запуск.",
+  "settingLauncherAutoReturnTitle": "Повертатися автоматично",
+  "settingLauncherAutoReturnDescription": "Повертатися до кіоска, якщо інший застосунок певний час не використовується.",
+  "settingLauncherAutoReturnSecondsTitle": "Повертатися через (секунд)",
+  "settingLauncherAutoReturnSecondsDescription": "Час без взаємодії в іншому застосунку до повернення кіоска."
+}

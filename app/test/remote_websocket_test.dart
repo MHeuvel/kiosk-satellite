@@ -304,6 +304,24 @@ void main() {
     expect((await event)['event'], 'screenon');
   });
 
+  test('full screen views reach event subscribers and the snapshot', () async {
+    bus.publish(const FullscreenViewChanged(view: 'intercom', shown: true));
+    await pumpEventQueue();
+    final client = await connect();
+    final state = await matching(client.messages, (m) => m['type'] == 'state');
+    expect((state['device'] as Map)['intercomShown'], true);
+    expect((state['device'] as Map)['nowPlayingShown'], false);
+    await subscribe(client, ['events']);
+    final view = matching(
+      client.messages,
+      (m) => m['type'] == 'fullscreen-view',
+    );
+    bus.publish(const FullscreenViewChanged(view: 'nowPlaying', shown: true));
+    final message = await view;
+    expect(message['view'], 'nowPlaying');
+    expect(message['shown'], true);
+  });
+
   test(
     'concurrent commands keep IDs and settings use the same validator',
     () async {

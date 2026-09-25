@@ -768,6 +768,17 @@ export async function loadGestures() {
     clapperCard.appendChild(settingRow(strictness));
     root.appendChild(clapperCard);
   }
+  const hold = settings.find((s) => s.key === 'gestures.hand_hold_seconds');
+  if (hold) {
+    const heading = document.createElement('h2');
+    heading.className = 'card-title';
+    heading.textContent = gestureText('Hand Gestures');
+    root.appendChild(heading);
+    const group = document.createElement('div');
+    group.className = 'card';
+    group.appendChild(settingRow(hold));
+    root.appendChild(group);
+  }
 }
 
 /* ---- Settings ---- */

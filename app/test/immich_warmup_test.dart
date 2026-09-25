@@ -233,6 +233,97 @@ void main() {
     },
   );
 
+  group('laps (issue #699)', () {
+    test('a start leads with what earlier sessions did not show, and the '
+        'next lap starts once everything had its turn', () async {
+      await build(extra: {'ks.screensaver.immich_shuffle': true});
+      library = [for (var i = 0; i < 30; i++) 'p$i'];
+      final seen = <String>[];
+      // Short sessions of four slides each, the way a frame that keeps
+      // being woken sees the slideshow.
+      for (var session = 0; session < 7; session++) {
+        final order = await immich.startOrder();
+        for (final asset in order.take(4)) {
+          immich.markShown(asset);
+          seen.add(asset.id);
+        }
+      }
+      expect(seen.sublist(0, 28).toSet(), hasLength(28));
+      // Two left in the lap: the start leads with them, and showing them
+      // ends the lap.
+      final order = await immich.startOrder();
+      final rest = library.toSet().difference(seen.toSet());
+      expect(ids(order.take(2).toList()).toSet(), rest);
+      for (final asset in order.take(2)) {
+        immich.markShown(asset);
+      }
+      final lap = ids(await immich.startOrder());
+      expect(lap.toSet(), library.toSet());
+      expect(listings, 1);
+    });
+
+    test(
+      'without shuffle a start picks up where the last one stopped',
+      () async {
+        await build();
+        library = ['a', 'b', 'c', 'd'];
+        final first = await immich.startOrder();
+        immich.markShown(first[0]);
+        immich.markShown(first[1]);
+        expect(ids(await immich.startOrder()), ['c', 'd', 'a', 'b']);
+      },
+    );
+
+    test('a refreshed listing keeps the progress and deals new uploads '
+        'into the rest of the lap', () async {
+      await build(extra: {'ks.screensaver.immich_shuffle': true});
+      library = [for (var i = 0; i < 10; i++) 'p$i'];
+      final first = await immich.startOrder();
+      for (final asset in first.take(3)) {
+        immich.markShown(asset);
+      }
+      final shown = ids(first.take(3).toList()).toSet();
+      library = [
+        for (final id in library)
+          if (id != first[5].id) id,
+        'new',
+      ];
+      now = now.add(ImmichManager.playlistTtl + const Duration(seconds: 1));
+      await immich.startOrder();
+      await until(() => listings == 2);
+      final order = ids(await immich.startOrder());
+      expect(order.toSet(), library.toSet());
+      expect(order.sublist(order.length - 3).toSet(), shown);
+      expect(order.take(order.length - 3), contains('new'));
+    });
+
+    test(
+      'a filter change starts the lap over, a fresh listing does not',
+      () async {
+        await build();
+        library = ['a', 'b', 'c'];
+        immich.markShown((await immich.startOrder()).first);
+        expect(ids(await immich.startOrder(fresh: true)), ['b', 'c', 'a']);
+        await settings.set(defs.screensaverImmichFavoritesOnly, true);
+        await Future<void>.delayed(Duration.zero);
+        expect(ids(await immich.startOrder()), ['a', 'b', 'c']);
+      },
+    );
+
+    test('a start readied before a photo showed is dropped', () async {
+      await build();
+      bus.publish(
+        ScreensaverCountdownChanged(
+          due: now.add(const Duration(seconds: 10)),
+          mode: 'immich',
+        ),
+      );
+      await until(() => thumbnails['a'] == 1);
+      immich.markShown(const ImmichAsset(id: 'a', isVideo: false));
+      expect(ids(await immich.startOrder()), ['b', 'c', 'a']);
+    });
+  });
+
   test('a fresh start lists again and drops the readied photo', () async {
     await build();
     bus.publish(

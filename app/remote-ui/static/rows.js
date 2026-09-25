@@ -1,4 +1,5 @@
-import { esphomeText, launcherText } from './localization.js';
+import { confirmRemoteProtocol } from './tls.js';
+import { esphomeText, launcherText, messageLanguage } from './localization.js';
 import { intercomError, mediaText, cameraText, cameraError, deviceText, haText, screensaverText, screensaverError, t } from './localization.js';
 import { watchUpdates } from './live.js';
 import {
@@ -1142,10 +1143,10 @@ export function settingRow(s) {
           config.location === true, screensaverText("The place's name over the temperature."));
         refs.feelsLike = cameraToggle(screensaverText('Feels like'),
           config.feels_like === true,
-          screensaverText('The apparent temperature after the real one, "30° / 33°".'));
+          screensaverText('Show the apparent temperature on a labeled line below the actual temperature.'));
         refs.feelsLikeOnly = cameraToggle(screensaverText('Feels like only'),
           config.feels_like_only === true,
-          screensaverText("The apparent temperature in the real one's place."));
+          screensaverText("Show the apparent temperature with a Feels like label instead of the actual temperature."));
         refs.forecast = cameraToggle(screensaverText('Forecast'),
           config.forecast === true, screensaverText('The conditions, with a matching icon.'));
         refs.humidity = cameraToggle(screensaverText('Humidity'), config.humidity === true);
@@ -1468,6 +1469,12 @@ export function settingRow(s) {
   // shows. Label updates live; the value saves once, on release.
   if (s.type === 'number' && s.min != null && s.max != null) {
     const label = (v) => {
+      if (s.key === 'gestures.hand_hold_seconds') {
+        return Number(v) === 0 ? t('gestureHoldInstant')
+          : t('gestureHoldSeconds', {seconds: new Intl.NumberFormat(messageLanguage(), {
+            maximumFractionDigits: 1,
+          }).format(v)});
+      }
       // Hold mode's auto-release reads as a clock: 0 is "Never" and 90 is
       // "1 h 30 min". Kept identical to the device's copy.
       if (s.key === 'ha.hold_release_minutes') {
@@ -1520,6 +1527,16 @@ export function settingRow(s) {
     const lbl = document.createElement('label'); lbl.className = 'switch';
     const cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = !!s.value;
     cb.addEventListener('change', async () => {
+      if (s.key === 'remote.tls') {
+        const wanted = cb.checked;
+        cb.checked = !!s.value;
+        cb.disabled = true;
+        try {
+          if (!await confirmRemoteProtocol(wanted)) return;
+          await save(wanted);
+        } finally { cb.disabled = false; }
+        return;
+      }
       // The one switch here that takes away the thing you are using. Nothing
       // on this page can undo it, because this page is what it serves.
       if (s.key === 'remote.enabled' && !cb.checked) {

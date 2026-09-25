@@ -7,7 +7,7 @@ import { renderMicLevel } from './audio.js';
 import { $, api, logout, state } from './core.js';
 import { appendLine, logView, updateConsoleMeta } from './logs.js';
 import { showLightLevel } from './notices.js';
-import { applyQuickEvent, applyQuickState, loadScreenshot, quickStateOf } from './panels.js';
+import { applyFullscreenView, applyQuickEvent, applyQuickState, loadScreenshot, quickStateOf } from './panels.js';
 import { loadVsPermissions, renderVsControls } from './vs.js';
 import { modalShell, paintRange } from './widgets.js';
 
@@ -160,6 +160,13 @@ export function connectWs() {
       document.dispatchEvent(new CustomEvent('ks-event',
         { detail: { event: msg.event, data: msg.data } }));
     }
+    // Now Playing or the intercom took over the screen or left it: the
+    // badge says which, and the screenshot follows like the events above.
+    else if (msg.type === 'fullscreen-view') {
+      if (!snapshotSeen) movedFirst[msg.view] = true;
+      applyFullscreenView(msg.view, msg.shown === true);
+      queueScreenshotRefresh();
+    }
     // The device's own settings screen updates live off the same event; this
     // panel has to as well, or the two disagree about the same device.
     else if (msg.type === 'wakeword-state') {
@@ -172,10 +179,11 @@ export function connectWs() {
     else if (msg.type === 'micLevel') renderMicLevel(msg.rms);
   };
 }
-/* The screenshot after a screen, screensaver or camera view change: one
-   capture a second after the last event (a dismiss lights the panel,
-   stops the screensaver and redraws the page as three events in a row),
-   giving the panel time to settle into what it will actually show. Not
+/* The screenshot after a screen, screensaver, camera view, Now Playing or
+   intercom change: one capture a second after the last event (a dismiss
+   lights the panel, stops the screensaver and redraws the page as three
+   events in a row), giving the panel time to settle into what it will
+   actually show. Not
    from a hidden tab: nobody is looking, and each capture makes the
    tablet read back and encode its screen. */
 let screenshotTimer = null;

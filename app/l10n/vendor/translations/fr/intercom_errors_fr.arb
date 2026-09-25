@@ -18,5 +18,7 @@
   "intercomCallerNoAnswer": "l'appelant n'a pas répondu",
   "intercomMissedcall": "Appel manqué",
   "intercomListening": "En écoute",
-  "intercomAnnouncementsoff": "Annonces désactivées"
+  "intercomAnnouncementsoff": "Annonces désactivées",
+  "intercomEncryptionMismatch": "Chiffrement incompatible",
+  "intercomEncryptionMismatchHelp": "Les paramètres de chiffrement ne correspondent pas. Activez Chiffrer les communications sur tous les kiosques participant à l’appel."
 }

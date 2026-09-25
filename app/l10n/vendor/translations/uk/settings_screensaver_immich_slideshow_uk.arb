@@ -1,0 +1,18 @@
+{
+  "@@locale": "uk",
+  "settingScreensaverImmichIntervalTitle": "Секунд на зображення",
+  "settingScreensaverImmichIntervalDescription": "Скільки часу кожне зображення показується перед наступним. Відео відтворюються повністю.",
+  "settingScreensaverImmichShuffleTitle": "Випадковий порядок",
+  "settingScreensaverImmichShuffleDescription": "Показувати медіа у випадковому порядку.",
+  "settingScreensaverImmichTransitionTitle": "Перехід",
+  "settingScreensaverImmichTransitionDescription": "Як один елемент змінює інший.",
+  "settingScreensaverImmichFillTitle": "Заповнювати екран",
+  "settingScreensaverImmichFillDescription": "Вимкнено залишає фото повністю між чорними смугами. Розумне збільшує фото, близькі за пропорціями до екрана, розміщуючи решту на розмитому фоні. Завжди масштабує кожне фото, обрізаючи зайве.",
+  "settingScreensaverImmichPairPortraitTitle": "Об'єднувати портретні фото",
+  "settingScreensaverImmichPairPortraitDescription": "Показувати два портретні фото поруч, щоб заповнити екран.",
+  "settingScreensaverImmichPairLandscapeTitle": "Об'єднувати альбомні фото",
+  "settingScreensaverImmichPairLandscapeDescription": "Показувати два альбомні фото одне над іншим, щоб заповнити вертикальний екран.",
+  "settingScreensaverImmichEdgeTapsTitle": "Торкання країв для зміни слайдів",
+  "settingScreensaverImmichEdgeTapsDescription": "Торкання лівої або правої п'ятої частини екрана показує попередній або наступний слайд замість закриття заставки.",
+  "screensaverMediaSlideshow": "Слайд-шоу"
+}

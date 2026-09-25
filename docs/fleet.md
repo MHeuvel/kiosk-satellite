@@ -80,6 +80,7 @@ Settings that scale the UI, control screen brightness, or manage volume often de
 | `browser.cutout_mode` Display cutout | Screen & Audio |
 | `screen.orientation` Screen orientation | Screen & Audio |
 | `intercom.volume` Intercom volume | Screen & Audio |
+| `intercom.answer_mode` Answer mode, which carries Do not disturb | Intercom |
 
 ## How the Sync Runs
 
@@ -107,8 +108,9 @@ Certain settings remain unique to each kiosk regardless of the profile configura
 | Identity | `device.name`, `device.hostname`, `esphome.node_name`, `esphome.mac_override`, `esphome.real_mac`, `btproxy.key`, `sendspin.client_id`, `sendspin.local_player_name`, `ha.satellite_entity` |
 | Shizuku | `shizuku.install_updates` |
 | Interface language | `ui.language` |
-| Remote admin & fleet | `remote.enabled`, `remote.port`, `remote.password`, `remote.fleet_discovery`, `fleet.*` |
-| Hardware picks | `camera.device`, `camera.rtsp.resolution`, `camera.rtsp.analysis`, `motion.camera`, `audio.mic_device`, `audio.speaker_device`, `audio.mic_channel`, `audio.mic_source`, `audio.mic_echo_cancellation`, `audio.mic_gain_db`, `audio.mic_agc`, `audio.mic_noise_suppression`, `audio.mic_capture_format`, `render.disable_impeller`, `render.legacy_webview`, `ui.scale`, `screen.ambient_display` |
+| Remote admin & fleet | `remote.enabled`, `remote.port`, `remote.tls`, `remote.password`, `remote.fleet_discovery`, `fleet.*` |
+| Intercom encryption | `intercom.tls` |
+| Hardware picks | `camera.device`, `camera.rtsp.tls`, `camera.rtsp.resolution`, `camera.rtsp.analysis`, `motion.camera`, `audio.mic_device`, `audio.speaker_device`, `audio.mic_channel`, `audio.mic_source`, `audio.mic_echo_cancellation`, `audio.mic_gain_db`, `audio.mic_agc`, `audio.mic_noise_suppression`, `audio.mic_capture_format`, `render.disable_impeller`, `render.legacy_webview`, `ui.scale`, `screen.ambient_display` |
 | Followed player | `sendspin.player`, `sendspin.player_source`, `sendspin.player_name` |
 | Weather preview | `screensaver.weather_preview`, `screensaver.weather_preview_condition`, `screensaver.weather_preview_period` |
 | Voice Satellite chimes | `voice_chimes.wake`, `voice_chimes.done`, `voice_chimes.error`, `voice_chimes.alert`, `voice_chimes.announce` |
@@ -137,3 +139,13 @@ The status response includes `rosterRevision` on releases that support the direc
 For manual invitations, call `fleetLookup` with `{address, port}` to verify the target. It returns the kiosk identity and normalized endpoint without saving a member. Pass its `id`, `address` and `port` to `fleetInvite` with the chosen `profile`. The leader verifies the identity again before sending the invitation. Omitting `address` keeps the discovered or saved address path.
 
 A fleet token also grants access to `getUpdateStatus`, `checkUpdateNow`, `installUpdate` and `installUploadedApk` under `/api/commands/` and to `POST /api/update/upload`, but nothing else. Both pages utilize commands like: `fleetStatus`, `fleetCandidates`, `fleetInvite`, `fleetSetProfile`, `fleetDeleteProfile`, `fleetAssignProfile`, `fleetSyncable`, `fleetRemove`, `fleetSyncNow`, `fleetUpdate`, `fleetInstallUploaded`, and `fleetLeave`. Note that `fleetAccept` and `fleetDecline` are rejected if sent over the remote API. The WebSocket broadcast includes a `fleetsync` event upon any change.
+
+## Encrypted kiosk connections
+
+Enable **Use HTTPS** under **Device > Remote Administration** on each kiosk you want to encrypt. Existing HTTP kiosks can stay in the same fleet. Discovery and saved fleet directories carry the protocol for each member.
+
+Fleet and intercom connections accept the device's self-signed certificate automatically. There is no certificate pairing or trust list to maintain. These connections encrypt traffic without verifying the peer certificate. Existing fleet tokens and intercom keys still control access. Home Assistant connections and external downloads keep their existing certificate checks.
+
+Renewing, replacing or importing a certificate does not require updating other kiosks. TLS preferences and private keys stay on each device. Fleet synchronization never copies them.
+
+See [TLS encryption](tls.md) for independent admin, camera and intercom settings.

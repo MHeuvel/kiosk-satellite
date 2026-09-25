@@ -15,5 +15,10 @@
   "gestureAddHelp": "Elige un gesto y la acción que ejecuta.",
   "gestureTouchHelp": "Los gestos se detectan sin bloquearlos: los toques también llegan al panel de control. Usar esquinas y varios dedos evita activar sus controles por accidente.",
   "gestureClapper": "Control por palmadas",
-  "gestureReadFailed": "No se pudo leer la configuración."
+  "gestureReadFailed": "No se pudo leer la configuración.",
+  "gestureHandGestures": "Gestos de la mano",
+  "settingHandGestureHoldSecondsTitle": "Tiempo de espera",
+  "settingHandGestureHoldSecondsDescription": "Mantén el mismo gesto de los dedos durante este tiempo antes de ejecutar la acción. Auméntalo para reducir las activaciones accidentales.",
+  "gestureHoldInstant": "Al instante",
+  "gestureHoldSeconds": "{seconds} s"
 }

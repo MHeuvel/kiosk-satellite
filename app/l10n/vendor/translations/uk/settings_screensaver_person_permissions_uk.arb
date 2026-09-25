@@ -1,0 +1,16 @@
+{
+  "@@locale": "uk",
+  "screensaverDetectionPermissions": "Необхідні системні дозволи",
+  "screensaverDetectionLogAccess": "Доступ до журналів",
+  "screensaverDetectionChecking": "Перевірка...",
+  "screensaverDetectionReadable": "Датчик присутності пристрою можна зчитувати.",
+  "screensaverDetectionRestartRequired": "Надано. Перезапустіть Kiosk Satellite, щоб застосувати.",
+  "screensaverDetectionGrantHelp": "Цей дозвіл можна надати лише через ADB. Повна команда наведена в документації Meta Portal. Після цього перезапустіть Kiosk Satellite.",
+  "screensaverDetectionGrantRemoteHelp": "Цей дозвіл можна надати лише через ADB. Нижче наведено готову для копіювання команду. Після цього перезапустіть Kiosk Satellite.",
+  "screensaverDetectionGranted": "Надано",
+  "screensaverDetectionMissing": "Відсутній",
+  "screensaverDetectionRestart": "Перезапустити",
+  "screensaverDetectionRestartRemote": "Перезапустити на пристрої",
+  "screensaverDetectionLogRestart": "Доступ до журналів надано, але він набуде чинності після перезапуску Kiosk Satellite.",
+  "screensaverDetectionLogMissing": "Доступ до журналів не надано."
+}

@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 
 import '../../core/command_registry.dart';
 import '../../core/events.dart';
+import '../../core/kiosk_http_client.dart';
 import '../../core/manager.dart';
 import '../gestures/gesture_mappings.dart';
 import '../settings/definitions.dart' as defs;
@@ -176,6 +177,7 @@ class Follower {
     int? addedAt,
     this.lastSyncAt = 0,
     this.version = '',
+    this.tls = false,
   }) : addedAt = addedAt ?? DateTime.now().millisecondsSinceEpoch;
 
   final String id;
@@ -200,6 +202,7 @@ class Follower {
   final int addedAt;
   int lastSyncAt;
   String version;
+  bool tls;
 
   // What the last poll learned. Not persisted.
   bool online = false;
@@ -216,7 +219,8 @@ class Follower {
   /// own count, so the poll never overwrites it.
   double? sending;
 
-  String get url => Uri(scheme: 'http', host: address, port: port).toString();
+  String get url =>
+      Uri(scheme: tls ? 'https' : 'http', host: address, port: port).toString();
 
   static Follower? fromJson(Object? raw) {
     if (raw is! Map) return null;
@@ -235,6 +239,7 @@ class Follower {
       addedAt: (raw['addedAt'] as num?)?.toInt(),
       lastSyncAt: (raw['lastSyncAt'] as num?)?.toInt() ?? 0,
       version: '${raw['version'] ?? ''}',
+      tls: raw['tls'] == true,
     );
   }
 
@@ -243,6 +248,7 @@ class Follower {
     'name': name,
     'address': address,
     'port': port,
+    if (tls) 'tls': true,
     if (token != null) 'token': token,
     if (invite != null) 'invite': invite,
     if (profile != null) 'profile': profile,
@@ -276,7 +282,7 @@ class FleetSyncManager extends Manager {
   String get name => 'fleetsync';
 
   /// Swapped for a fake in tests.
-  http.Client Function() clientFactory = http.Client.new;
+  http.Client Function() clientFactory = kioskPeerClient;
 
   /// How long one call to another kiosk may take. A kiosk on the list is on
   /// the same network, so anything past this is a kiosk that is not there.
@@ -634,7 +640,7 @@ class FleetSyncManager extends Manager {
     if (!leading || !enabled || _ticking) return;
     _ticking = true;
     try {
-      if (_selfId.isEmpty) await _readSelf();
+      await _readSelf();
       final peers = await _peers();
       final before = jsonEncode([for (final f in _followers) f.toJson()]);
       var changed = false;
@@ -646,11 +652,14 @@ class FleetSyncManager extends Manager {
           final port = (peer['port'] as num?)?.toInt() ?? f.port;
           final version = '${peer['version'] ?? f.version}';
           final peerName = '${peer['name'] ?? f.name}';
-          if (address != f.address ||
+          final tls = peer['tls'] == true;
+          if (tls != f.tls ||
+              address != f.address ||
               port != f.port ||
               version != f.version ||
               peerName != f.name) {
             f
+              ..tls = tls
               ..address = address
               ..port = port
               ..version = version
@@ -786,6 +795,7 @@ class FleetSyncManager extends Manager {
             version: f.version,
             address: f.address,
             port: f.port,
+            tls: f.tls,
           ),
     ]..sort((a, b) => a.id.compareTo(b.id));
     final devices = [for (final member in members) member.toDirectory()];
@@ -1026,7 +1036,7 @@ class FleetSyncManager extends Manager {
           quiet: true,
           handler: (_) async {
             _watchedUntil = DateTime.now().add(const Duration(seconds: 90));
-            if (_selfId.isEmpty) await _readSelf();
+            await _readSelf();
             return CommandResult.ok(status());
           },
         ),
@@ -1253,7 +1263,7 @@ class FleetSyncManager extends Manager {
               'whether it leads and whom it follows.',
           quiet: true,
           handler: (_) async {
-            if (_selfId.isEmpty) await _readSelf();
+            await _readSelf();
             return CommandResult.ok({
               'id': _selfId,
               'name': _selfName,
@@ -1371,7 +1381,7 @@ class FleetSyncManager extends Manager {
           () async {
             final p = e.value;
             final url = Uri(
-              scheme: 'http',
+              scheme: p['tls'] == true ? 'https' : 'http',
               host: '${p['address']}',
               port: (p['port'] as num).toInt(),
             ).toString();
@@ -1386,6 +1396,7 @@ class FleetSyncManager extends Manager {
               'name': p['name'],
               'address': p['address'],
               'port': p['port'],
+              if (p['tls'] == true) 'tls': true,
               'version': p['version'],
               'follows': identity?['follows'],
               'leader': identity?['leader'] == true,
@@ -1431,8 +1442,22 @@ class FleetSyncManager extends Manager {
     if (_selfId.isEmpty) {
       return ('This kiosk identity is not ready yet. Try again.', null);
     }
-    final url = Uri(scheme: 'http', host: ip.address, port: number);
-    final probe = await _get('$url/api/fleet/identity');
+    final discovered = (await _peers()).values
+        .where((p) => p['address'] == ip.address && p['port'] == number)
+        .firstOrNull;
+    var secure = discovered?['tls'] == true;
+    final url = Uri(
+      scheme: secure ? 'https' : 'http',
+      host: ip.address,
+      port: number,
+    );
+    var probe = await _get('$url/api/fleet/identity');
+    // Manual lookup can reach an encrypted kiosk before discovery sees it.
+    // Only this public identity probe retries with a different protocol.
+    if (probe == null && !secure) {
+      probe = await _get('${url.replace(scheme: 'https')}/api/fleet/identity');
+      secure = probe != null;
+    }
     if (probe == null) return ('That kiosk did not answer', null);
     if (probe.statusCode != 200) {
       return (
@@ -1473,6 +1498,7 @@ class FleetSyncManager extends Manager {
         'port': number,
         'supported': true,
         'manual': true,
+        if (secure) 'tls': true,
       },
     );
   }
@@ -1508,7 +1534,11 @@ class FleetSyncManager extends Manager {
     final peer = found!;
     final host = peer['address'] as String;
     final adminPort = peer['port'] as int;
-    final url = Uri(scheme: 'http', host: host, port: adminPort);
+    final url = Uri(
+      scheme: peer['tls'] == true ? 'https' : 'http',
+      host: host,
+      port: adminPort,
+    );
     final nonce = _nonce();
     final res = await _post('$url/api/fleet/invite', {
       'invite': nonce,
@@ -1517,6 +1547,7 @@ class FleetSyncManager extends Manager {
         'name': _selfName,
         'version': _selfVersion,
         'port': _settings.get(defs.remotePort).toInt(),
+        if (_settings.get(defs.remoteTls)) 'tls': true,
       },
     });
     final body = _jsonOf(res);
@@ -1534,6 +1565,7 @@ class FleetSyncManager extends Manager {
           port: adminPort,
         );
     f
+      ..tls = peer['tls'] == true
       ..name = '${peer['name'] ?? f.name}'
       ..address = host
       ..port = adminPort
@@ -1891,7 +1923,7 @@ class FleetSyncManager extends Manager {
     final identity = _jsonOf(
       await _get(
         Uri(
-          scheme: 'http',
+          scheme: leaderRaw['tls'] == true ? 'https' : 'http',
           host: address,
           port: port,
           path: '/api/fleet/identity',
@@ -1909,6 +1941,7 @@ class FleetSyncManager extends Manager {
       'id': leaderId,
       'name': '${leaderRaw['name'] ?? identity['name'] ?? address}',
       'version': '${leaderRaw['version'] ?? identity['version'] ?? ''}',
+      if (leaderRaw['tls'] == true) 'tls': true,
       'address': address,
       'port': port,
     };

@@ -1,3 +1,4 @@
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -11,6 +12,7 @@ import 'package:kiosk_satellite/ui/kit.dart';
 import 'package:kiosk_satellite/ui/screensaver_view.dart';
 import 'package:kiosk_satellite/ui/weather_mood_screensaver.dart';
 import 'package:kiosk_satellite/ui/weather_mood_renderer.dart';
+import 'package:kiosk_satellite/ui/weather_mood_information.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -32,6 +34,8 @@ void main() {
           'ks.screensaver.widgets':
               '[{"type":"clock","position":"top_left","config":{}}]',
           'ks.screensaver.glance_enabled': true,
+          'ks.screensaver.weather_clock': true,
+          'ks.screensaver.weather_bar': true,
         });
         final container = AppContainer();
         await container.settings.init();
@@ -74,6 +78,56 @@ void main() {
     );
   }
 
+  testWidgets('scene blur updates live and keeps information sharp', (
+    tester,
+  ) async {
+    SharedPreferences.setMockInitialValues({
+      'ks.screensaver.weather_preview': true,
+      'ks.screensaver.weather_clock': true,
+    });
+    final c = AppContainer();
+    await c.settings.init();
+    await tester.pumpWidget(
+      MaterialApp(home: WeatherMoodScreensaver(container: c)),
+    );
+    await tester.pump();
+    expect(
+      tester.widget<ImageFiltered>(find.byType(ImageFiltered)).enabled,
+      false,
+    );
+    await c.settings.set(defs.screensaverWeatherBlur, 12);
+    await tester.pump();
+    await tester.pump();
+    final filter = tester.widget<ImageFiltered>(find.byType(ImageFiltered));
+    expect(filter.enabled, true);
+    expect(
+      filter.imageFilter,
+      ui.ImageFilter.blur(sigmaX: 12, sigmaY: 12, tileMode: TileMode.clamp),
+    );
+    expect(
+      find.descendant(
+        of: find.byType(ImageFiltered),
+        matching: find.byType(WeatherMoodRenderer),
+      ),
+      findsOneWidget,
+    );
+    expect(
+      find.descendant(
+        of: find.byType(ImageFiltered),
+        matching: find.byType(WeatherMoodInformation),
+      ),
+      findsNothing,
+    );
+    await c.settings.set(defs.screensaverWeatherBlur, 0);
+    await tester.pump();
+    await tester.pump();
+    expect(
+      tester.widget<ImageFiltered>(find.byType(ImageFiltered)).enabled,
+      false,
+    );
+    await tester.pumpWidget(const SizedBox.shrink());
+  });
+
   test('sun state overrides local time and missing sun uses 6 AM to 6 PM', () {
     expect(weatherMoodNight('above_horizon', DateTime(2026, 9, 21, 23)), false);
     expect(weatherMoodNight('below_horizon', DateTime(2026, 9, 21, 12)), true);
@@ -83,6 +137,56 @@ void main() {
       expect(weatherMoodNight(sun, DateTime(2026, 9, 21, 17, 59)), false);
       expect(weatherMoodNight(sun, DateTime(2026, 9, 21, 18)), true);
     }
+  });
+
+  test('dawn and dusk follow elevation and fall back safely to local time', () {
+    final noon = DateTime(2026, 9, 23, 12);
+    for (final elevation in [-90.0, -6.0, 6.0, 90.0]) {
+      expect(
+        weatherMoodTwilight('above_horizon', noon, elevation: elevation),
+        0,
+      );
+    }
+    for (final elevation in [-2.0, 0.0, 2.0]) {
+      expect(
+        weatherMoodTwilight('below_horizon', noon, elevation: elevation),
+        1,
+      );
+    }
+    expect(weatherMoodTwilight('above_horizon', noon, elevation: 4), .5);
+    expect(weatherMoodTwilight('below_horizon', noon, elevation: -4), .5);
+    for (final hour in [6, 18]) {
+      final horizon = DateTime(2026, 9, 23, hour);
+      for (final sun in [null, 'unknown', 'unavailable']) {
+        expect(weatherMoodTwilight(sun, horizon, elevation: 70), 1);
+      }
+      expect(
+        weatherMoodTwilight(
+          null,
+          horizon.subtract(const Duration(minutes: 30)),
+        ),
+        0,
+      );
+      expect(
+        weatherMoodTwilight(null, horizon.add(const Duration(minutes: 30))),
+        0,
+      );
+      expect(
+        weatherMoodTwilight(null, horizon.add(const Duration(minutes: 20))),
+        .5,
+      );
+    }
+    for (final elevation in [null, double.nan, double.infinity, 200.0]) {
+      expect(
+        weatherMoodTwilight('above_horizon', noon, elevation: elevation),
+        0,
+      );
+    }
+    expect(
+      weatherMoodTwilight('above_horizon', DateTime(2026, 9, 23, 18, 10)),
+      0,
+    );
+    expect(weatherMoodTwilight(null, DateTime(2026, 9, 23, 23, 59)), 0);
   });
 
   test('Weather Mood supports every widget type', () {
@@ -112,8 +216,24 @@ void main() {
         expect(weatherMoodScene(settings, 'rainy', 'above_horizon', noon), (
           condition: condition,
           night: true,
+          twilight: 0.0,
         ));
       }
+      await settings.set(defs.screensaverWeatherPreviewPeriod, 'twilight');
+      expect(
+        weatherMoodScene(
+          settings,
+          'rainy',
+          'below_horizon',
+          noon,
+          elevation: -30,
+        ).twilight,
+        1,
+      );
+      expect(
+        weatherMoodScene(settings, 'rainy', 'below_horizon', noon).night,
+        false,
+      );
       await settings.set(defs.screensaverWeatherPreviewPeriod, 'day');
       expect(
         weatherMoodScene(settings, 'rainy', 'below_horizon', noon).night,
@@ -126,6 +246,7 @@ void main() {
       expect(weatherMoodScene(settings, 'snowy', 'below_horizon', noon), (
         condition: 'snowy',
         night: true,
+        twilight: 0.0,
       ));
     },
   );
@@ -154,6 +275,8 @@ void main() {
       expect(find.text('Weather Preview'), findsOneWidget);
       expect(find.text('Weather type'), findsNothing);
       expect(find.text('Time of day'), findsNothing);
+      await tester.ensureVisible(find.text('Enable weather preview'));
+      await tester.pumpAndSettle();
       await tester.tap(find.text('Enable weather preview'));
       await tester.pumpAndSettle();
       expect(find.text('Weather type'), findsOneWidget);
@@ -161,10 +284,13 @@ void main() {
       for (final choice in [
         (defs.screensaverWeatherPreviewCondition, 'Snow', 'snowy'),
         (defs.screensaverWeatherPreviewPeriod, 'Night', 'night'),
+        (defs.screensaverWeatherPreviewPeriod, 'Dawn/Dusk', 'twilight'),
       ]) {
         final row = find.byWidgetPredicate(
           (widget) => widget is SettingTile && widget.def.key == choice.$1.key,
         );
+        await tester.ensureVisible(row);
+        await tester.pumpAndSettle();
         await tester.tap(
           find.descendant(
             of: row,
@@ -176,6 +302,8 @@ void main() {
         await tester.pumpAndSettle();
         expect(container.settings.get(choice.$1), choice.$3);
       }
+      await tester.ensureVisible(find.text('Enable weather preview'));
+      await tester.pumpAndSettle();
       await tester.tap(find.text('Enable weather preview'));
       await tester.pumpAndSettle();
       expect(find.text('Weather type'), findsNothing);
@@ -187,7 +315,7 @@ void main() {
       );
       expect(
         container.settings.get(defs.screensaverWeatherPreviewPeriod),
-        'night',
+        'twilight',
       );
       await tester.pumpWidget(const SizedBox.shrink());
     },

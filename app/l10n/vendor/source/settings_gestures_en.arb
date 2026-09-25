@@ -216,5 +216,75 @@
         "Gestures"
       ]
     }
+  },
+  "gestureHandGestures": "Hand Gestures",
+  "@gestureHandGestures": {
+    "context": "Settings > Gestures > Hand Gestures",
+    "description": "Hand gesture hold setting or confirmation feedback.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gestures"
+      ],
+      "remoteAdmin": [
+        "Gestures > Hand Gestures"
+      ]
+    }
+  },
+  "settingHandGestureHoldSecondsTitle": "Hold duration",
+  "@settingHandGestureHoldSecondsTitle": {
+    "context": "Settings > Gestures > Hand Gestures",
+    "description": "Hand gesture hold setting or confirmation feedback.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gestures"
+      ],
+      "remoteAdmin": [
+        "Gestures > Hand Gestures"
+      ]
+    }
+  },
+  "settingHandGestureHoldSecondsDescription": "Hold the same finger gesture for this long before its action runs. Increase this to reduce accidental triggers.",
+  "@settingHandGestureHoldSecondsDescription": {
+    "context": "Settings > Gestures > Hand Gestures",
+    "description": "Hand gesture hold setting or confirmation feedback.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gestures"
+      ],
+      "remoteAdmin": [
+        "Gestures > Hand Gestures"
+      ]
+    }
+  },
+  "gestureHoldInstant": "Instant",
+  "@gestureHoldInstant": {
+    "context": "Settings > Gestures > Hand Gestures",
+    "description": "Hand gesture hold setting or confirmation feedback.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gestures"
+      ],
+      "remoteAdmin": [
+        "Gestures > Hand Gestures"
+      ]
+    }
+  },
+  "gestureHoldSeconds": "{seconds} s",
+  "@gestureHoldSeconds": {
+    "context": "Settings > Gestures > Hand Gestures",
+    "description": "Hand gesture hold setting or confirmation feedback.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Hand Gestures"
+      ],
+      "remoteAdmin": [
+        "Gestures > Hand Gestures"
+      ]
+    },
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
   }
 }

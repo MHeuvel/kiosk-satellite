@@ -10,9 +10,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
+import android.hardware.display.DisplayManager
 import android.net.ConnectivityManager
 import android.os.BatteryManager
 import android.net.Network
+import android.net.NetworkCapabilities
+import android.net.wifi.WifiManager
 import android.os.Build
 import android.os.Environment
 import android.os.Handler
@@ -25,6 +28,8 @@ import android.system.Os
 import android.system.OsConstants
 import android.system.StructTimeval
 import android.util.DisplayMetrics
+import android.view.Display
+import android.view.Surface
 import android.view.WindowManager
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodChannel
@@ -134,6 +139,7 @@ class DeviceDetails(
 ) {
     private val channel = MethodChannel(messenger, "kiosk_satellite/device_details")
     private val cpuWorker = MethodWorker("ks-cpu")
+    private val linkWorker = MethodWorker("ks-link")
 
     /**
      * When the current default network came up, on the elapsedRealtime clock,
@@ -246,6 +252,10 @@ class DeviceDetails(
                 // history: the full read walks storage, the screen and the
                 // WebView to answer a question asked every few seconds.
                 "ram" -> result.success(ram())
+                // The default network's transport and, on Wi-Fi, its signal.
+                // Binder calls into system_server, so off the main thread:
+                // a stalled system server must not cost the UI a frame.
+                "link" -> linkWorker.read(result) { link() }
                 else -> result.notImplemented()
             }
         }
@@ -253,6 +263,7 @@ class DeviceDetails(
 
     fun dispose() {
         cpuWorker.shutdown()
+        linkWorker.shutdown()
         channel.setMethodCallHandler(null)
         try {
             context.unregisterReceiver(aclReceiver)
@@ -278,9 +289,10 @@ class DeviceDetails(
     }
 
     /**
-     * Seconds this process has been alive (`app`) and seconds since the
-     * default network last came up (`network`, `null` while offline). The
-     * app clock is elapsedRealtime, so a wall-clock change cannot bend it.
+     * Seconds this process has been alive (`app`), seconds since the device
+     * booted (`device`) and seconds since the default network last came up
+     * (`network`, `null` while offline). The app and device clocks are
+     * elapsedRealtime, so a wall-clock change cannot bend them.
      *
      * The network number prefers the kernel's own timestamp on the default
      * interface's IP address (see [addressAgeSeconds]): the kernel stamps
@@ -311,6 +323,7 @@ class DeviceDetails(
         return mapOf(
             "app" to
                 (SystemClock.elapsedRealtime() - Process.getStartElapsedRealtime()) / 1000,
+            "device" to SystemClock.elapsedRealtime() / 1000,
             "network" to network,
             "networkSource" to source,
         )
@@ -649,24 +662,84 @@ class DeviceDetails(
         )
     }
 
-    private fun screen(): Map<String, Any> {
+    /**
+     * The panel's size, density and how it sits. `rotation` is the display's
+     * turn from its natural orientation in degrees, which the size alone
+     * cannot say: a panel mounted sideways reads landscape at 90.
+     */
+    private fun screen(): Map<String, Any?> {
         val wm = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        val (width, height, density) = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             // maximumWindowMetrics, not currentWindowMetrics: the latter needs a
             // visual (Activity) context and throws from the application context
             // this now runs in. The maximum bounds are the full display — the
             // right answer for a fullscreen kiosk anyway.
             val b = wm.maximumWindowMetrics.bounds
-            mapOf(
-                "width" to b.width(),
-                "height" to b.height(),
-                "density" to context.resources.displayMetrics.density,
-            )
+            Triple(b.width(), b.height(), context.resources.displayMetrics.density)
         } else {
             @Suppress("DEPRECATION")
             val dm = DisplayMetrics().also { wm.defaultDisplay.getRealMetrics(it) }
-            mapOf("width" to dm.widthPixels, "height" to dm.heightPixels, "density" to dm.density)
+            Triple(dm.widthPixels, dm.heightPixels, dm.density)
         }
+        return mapOf(
+            "width" to width,
+            "height" to height,
+            "density" to density,
+            "orientation" to if (width >= height) "landscape" else "portrait",
+            "rotation" to rotation(),
+        )
+    }
+
+    /** The default display's rotation in degrees, or null where it cannot
+     *  be read. DisplayManager rather than the context's display, which an
+     *  application context does not have. */
+    private fun rotation(): Int? = try {
+        val dm = context.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
+        when (dm.getDisplay(Display.DEFAULT_DISPLAY)?.rotation) {
+            Surface.ROTATION_0 -> 0
+            Surface.ROTATION_90 -> 90
+            Surface.ROTATION_180 -> 180
+            Surface.ROTATION_270 -> 270
+            else -> null
+        }
+    } catch (e: Exception) {
+        null
+    }
+
+    /**
+     * The default network's transport, or null while offline. On Wi-Fi it
+     * adds the signal (`rssi`, dBm), the negotiated link speed (`speedMbps`)
+     * and the channel frequency (`frequencyMhz`, which says 2.4 or 5 GHz).
+     * Android treats none of those as location data, so ACCESS_WIFI_STATE
+     * covers them. The SSID and BSSID need a location grant and are left
+     * out. Wi-Fi is checked before VPN because a VPN over Wi-Fi carries both
+     * transports, and the radio is what explains a panel that drops out.
+     * A value Android reports as unknown comes back null.
+     */
+    private fun link(): Map<String, Any?>? {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = cm.activeNetwork ?: return null
+        val caps = cm.getNetworkCapabilities(network) ?: return null
+        val type = when {
+            caps.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> "ethernet"
+            caps.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> "wifi"
+            caps.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> "cellular"
+            caps.hasTransport(NetworkCapabilities.TRANSPORT_VPN) -> "vpn"
+            else -> "other"
+        }
+        if (type != "wifi") return mapOf("type" to type)
+        // Deprecated at API 31 in favor of the callback's TransportInfo, but
+        // still answered, and the one read that works from API 24 up.
+        @Suppress("DEPRECATION")
+        val info = (context.applicationContext.getSystemService(Context.WIFI_SERVICE)
+            as? WifiManager)?.connectionInfo
+        return mapOf(
+            "type" to type,
+            // -127 is WifiInfo.INVALID_RSSI.
+            "rssi" to info?.rssi?.takeIf { it in -126..-1 },
+            "speedMbps" to info?.linkSpeed?.takeIf { it > 0 },
+            "frequencyMhz" to info?.frequency?.takeIf { it > 0 },
+        )
     }
 
     /**

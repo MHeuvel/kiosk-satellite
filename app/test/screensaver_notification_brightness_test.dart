@@ -3,6 +3,7 @@ import 'package:kiosk_satellite/core/command_registry.dart';
 import 'package:kiosk_satellite/core/event_bus.dart';
 import 'package:kiosk_satellite/core/events.dart';
 import 'package:kiosk_satellite/core/logging.dart';
+import 'package:kiosk_satellite/managers/btproxy/esp_entities.dart';
 import 'package:kiosk_satellite/managers/screensaver/screensaver_manager.dart';
 import 'package:kiosk_satellite/managers/settings/definitions.dart' as defs;
 import 'package:kiosk_satellite/managers/settings/settings_manager.dart';
@@ -61,6 +62,30 @@ void main() {
     bus.publish(NotificationsChanged(count: count));
     await pumpEventQueue();
   }
+
+  test(
+    'ESPHome updates an active screensaver to zero and restores on exit',
+    () async {
+      await build({
+        'ks.screensaver.enabled': true,
+        'ks.screensaver.mode': 'clock',
+        'ks.screensaver.brightness_enabled': true,
+        'ks.screensaver.brightness_level': 0.2,
+      });
+      await saver.start();
+      final surface = EspEntitySurface(bus, commands, Logger(), settings);
+      await surface.handleService('set_screensaver_brightness', {
+        'brightness': 0,
+      });
+      await pumpEventQueue();
+      expect(levels, [0.2, 0.0]);
+      expect(saver.isActive, isTrue);
+      expect(settings.get(defs.screensaverBrightnessEnabled), isTrue);
+      await saver.stop();
+      expect(levels.last, 0.8);
+      await saver.dispose();
+    },
+  );
 
   test('a notification lifts a dimmed content mode, and the last one lets '
       'it back down', () async {

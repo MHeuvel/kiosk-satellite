@@ -1,0 +1,22 @@
+{
+  "@@locale": "uk",
+  "settingScreensaverDismissOnPersonTitle": "Вихід при виявленні людини",
+  "settingScreensaverDismissOnPersonDescription": "Зчитувати дані датчика присутності пристрою під час заставки та активувати екран, коли перед ним з'являється людина. Потрібен дозвіл на доступ до журналів нижче.",
+  "settingScreensaverDismissOnPersonScreenOffOnlyTitle": "Лише коли екран вимкнено",
+  "settingScreensaverDismissOnPersonScreenOffOnlyDescription": "Залишати заставку видимою, коли хтось підходить при увімкненому екрані. Після вимкнення екрана виявлення активує панель. Дотик все одно закриває заставку.",
+  "settingScreensaverPostponeOnPersonTitle": "Відкладати заставку при виявленні людини",
+  "settingScreensaverPostponeOnPersonDescription": "Відкладати запуск заставки, доки перед пристроєм хтось є.",
+  "screensaverDetectionPersonPage": "Виявлення людей",
+  "screensaverDetectionPersonHint": "Закриття або відкладання заставки за датчиком присутності",
+  "screensaverDetectionOccupancy": "Присутність",
+  "screensaverDetectionStatusUnavailable": "Статус недоступний.",
+  "screensaverDetectionOff": "Вимкнено.",
+  "screensaverDetectionStarting": "Запуск...",
+  "screensaverDetectionWaiting": "Очікування першого сигналу. Датчик повідомляє кожні 30 секунд, поки хтось перебуває в полі зору.",
+  "screensaverDetectionLastHeartbeat": "Останній сигнал {ago}.",
+  "screensaverDetectionSecondsAgo": "{count} с тому",
+  "screensaverDetectionMinutesAgo": "{count} хв тому",
+  "screensaverDetectionHoursAgo": "{count} год тому",
+  "screensaverDetectionDetected": "Виявлено",
+  "screensaverDetectionClear": "Вільно"
+}

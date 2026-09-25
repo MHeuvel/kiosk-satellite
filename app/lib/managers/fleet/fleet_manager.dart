@@ -18,6 +18,7 @@ class FleetDevice {
     required this.address,
     required this.port,
     this.self = false,
+    this.tls = false,
   });
 
   final String id;
@@ -28,9 +29,11 @@ class FleetDevice {
 
   /// Whether this is the device the list was read from.
   final bool self;
+  final bool tls;
 
   /// Where its remote admin answers.
-  String get url => Uri(scheme: 'http', host: address, port: port).toString();
+  String get url =>
+      Uri(scheme: tls ? 'https' : 'http', host: address, port: port).toString();
 
   static FleetDevice? fromMap(Map<Object?, Object?>? raw, {bool self = false}) {
     if (raw == null) return null;
@@ -44,6 +47,7 @@ class FleetDevice {
       address: address,
       port: port.toInt(),
       self: self,
+      tls: raw['tls'] == true,
     );
   }
 
@@ -53,6 +57,7 @@ class FleetDevice {
     'version': version,
     'address': address,
     'port': port,
+    if (tls) 'tls': true,
     'url': url,
     'self': self,
   };
@@ -64,6 +69,7 @@ class FleetDevice {
     'version': version,
     'address': address,
     'port': port,
+    if (tls) 'tls': true,
   };
 
   static FleetDevice? directoryEntry(Object? raw) {
@@ -148,7 +154,7 @@ class FleetManager extends Manager {
   /// server.
   String? get hostUrl => !serving || hostname.isEmpty
       ? null
-      : 'http://$hostname.local:${_settings.get(defs.remotePort).toInt()}';
+      : '${_settings.get(defs.remoteTls) ? 'https' : 'http'}://$hostname.local:${_settings.get(defs.remotePort).toInt()}';
 
   /// Whether the native announcer should run at all: for the fleet, for
   /// the hostname, or both.
@@ -203,6 +209,7 @@ class FleetManager extends Manager {
         if (e.key == defs.remoteEnabled.key ||
             e.key == defs.remotePassword.key ||
             e.key == defs.remotePort.key ||
+            e.key == defs.remoteTls.key ||
             e.key == defs.remoteFleetDiscovery.key ||
             e.key == defs.deviceName.key ||
             e.key == defs.deviceHostname.key) {
@@ -260,6 +267,7 @@ class FleetManager extends Manager {
     final args = {
       'name': _settings.get(defs.deviceName),
       'port': _settings.get(defs.remotePort).toInt(),
+      if (_settings.get(defs.remoteTls)) 'tls': true,
       'hostname': host,
       'fleet': enabled,
     };

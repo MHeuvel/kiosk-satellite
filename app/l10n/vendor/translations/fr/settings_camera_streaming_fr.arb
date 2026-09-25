@@ -19,7 +19,7 @@
   "settingCameraRtspAudioTitle": "Inclure l'audio du microphone",
   "settingCameraRtspAudioDescription": "Inclure l'audio du microphone dans le flux caméra. Partage vos paramètres de microphone. ATTENTION : utilisation accrue du CPU.",
   "settingCameraRtspAuthTitle": "Exiger une authentification",
-  "settingCameraRtspAuthDescription": "Exiger un nom d'utilisateur et un mot de passe pour visionner le flux. Le trafic de diffusion n'est pas chiffré.",
+  "settingCameraRtspAuthDescription": "Exige un nom d’utilisateur et un mot de passe pour regarder le flux. L’authentification n’active pas le chiffrement.",
   "settingCameraRtspUsernameTitle": "Nom d'utilisateur",
   "settingCameraRtspUsernameDescription": "Nom d'utilisateur pour les clients de diffusion.",
   "settingCameraRtspPasswordTitle": "Mot de passe",
@@ -42,5 +42,7 @@
   "settingCameraRtspDateTimeTitle": "Afficher la date et l'heure",
   "settingCameraRtspDateTimeDescription": "Afficher la date et l'heure de l'appareil dans le coin supérieur gauche de la vidéo, selon son format de date et son réglage 12/24 heures.",
   "settingCameraRtspDateTimeBackgroundTitle": "Fond noir",
-  "settingCameraRtspDateTimeBackgroundDescription": "Ajouter un fond noir derrière la date et l'heure pour une meilleure visibilité."
+  "settingCameraRtspDateTimeBackgroundDescription": "Ajouter un fond noir derrière la date et l'heure pour une meilleure visibilité.",
+  "settingCameraRtspTlsTitle": "Chiffrer le flux",
+  "settingCameraRtspTlsDescription": "Utilise TLS pour chiffrer la vidéo et l’audio. Nécessite un lecteur compatible."
 }

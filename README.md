@@ -44,9 +44,11 @@
 
 <p align="center">
   <a href="assets/screenshots/screensaver-np.png"><img src="assets/screenshots/screensaver-np.png" alt="Settings in Kiosk Satellite" width="650" /></a>
+  <a href="assets/screenshots/clock_flip.png"><img src="assets/screenshots/clock_flip.png" alt="Flip Clock Screensaver in  Kiosk Satellite" width="320" /></a>
+  <a href="assets/screenshots/weather_cloudy.png"><img src="assets/screenshots/weather_cloudy.png" alt="Weather Mood Screensaver in Kiosk Satellite" width="320" /></a>
 </p>
 
-&bull; **Screensavers:** [Immich albums](https://kiosksatellite.com/docs/immich/), local photos and clocks, with motion, face or presence detection to wake the kiosk.
+&bull; **Screensavers:** [Immich albums](https://kiosksatellite.com/docs/immich/), local photos, clocks and weather mood, with motion, face or presence detection to wake the kiosk.
 
 &bull; **Home Assistant integration:** The built-in [ESPHome connection](https://kiosksatellite.com/docs/esphome/) exposes screen controls, volume and device sensors. An optional Bluetooth proxy relays nearby Bluetooth devices to Home Assistant.
 
@@ -93,7 +95,7 @@ For voice control, install [Voice Satellite](https://github.com/jxlarrea/voice-s
 
 &bull; **Kiosk setup:** [Lockdown](https://kiosksatellite.com/docs/kiosk/), [home launcher](https://kiosksatellite.com/docs/home-launcher/), [gestures](https://kiosksatellite.com/docs/gestures/), [optimizations](https://kiosksatellite.com/docs/optimizations/), [permissions](https://kiosksatellite.com/docs/permissions/), [Shizuku](https://kiosksatellite.com/docs/shizuku/) and [updates](https://kiosksatellite.com/docs/updates/).
 
-&bull; **Automation and management:** [ESPHome](https://kiosksatellite.com/docs/esphome/), [fleet management](https://kiosksatellite.com/docs/fleet/), [Remote API](https://kiosksatellite.com/docs/remote-api/) and [JavaScript API](https://kiosksatellite.com/docs/js-api/).
+&bull; **Automation and management:** [ESPHome](https://kiosksatellite.com/docs/esphome/), [fleet management](https://kiosksatellite.com/docs/fleet/), [Remote API](https://kiosksatellite.com/docs/remote-api/), [TLS encryption](https://kiosksatellite.com/docs/tls/) and [JavaScript API](https://kiosksatellite.com/docs/js-api/).
 
 &bull; **Device guides:** [Amazon Fire tablets](https://kiosksatellite.com/docs/fire/) and [Meta Portal](https://kiosksatellite.com/docs/portal/).
 

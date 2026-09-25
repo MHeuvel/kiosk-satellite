@@ -1,0 +1,20 @@
+{
+  "@@locale": "uk",
+  "settingScreensaverCameraViewsTitle": "Вигляди камер",
+  "settingScreensaverCameraViewsDescription": "Вигляди камер, які показує заставка, у цьому порядку.",
+  "settingScreensaverCameraViewSecondsTitle": "Секунд на вигляд камери",
+  "settingScreensaverCameraViewSecondsDescription": "Скільки часу кожен вигляд залишається на екрані перед наступним. Якщо вибрано один вигляд, ротація не відбувається.",
+  "settingScreensaverCameraMuteTitle": "Вимкнути звук для всіх",
+  "settingScreensaverCameraMuteDescription": "Вимикає звук для всіх виглядів, навіть для однієї камери.",
+  "screensaverMediaCameraPage": "Заставка трансляцій камер",
+  "screensaverMediaCameraHint": "Вигляди для показу, секунд на вигляд, звук",
+  "screensaverMediaNoCameras": "Жоден вигляд ще не містить камер. Додайте камеру в меню Потоки камер.",
+  "screensaverMediaNoCamerasRemote": "Жоден вигляд ще не містить камер",
+  "screensaverMediaAddCameras": "Додайте камеру в меню Потоки камер.",
+  "screensaverMediaNoViews": "Ще немає. Виберіть вигляди, які циклічно змінюватиме заставка.",
+  "screensaverMediaRotation": "У ротації (перетягніть для зміни порядку)",
+  "screensaverMediaAvailable": "Доступні",
+  "screensaverMediaOneCamera": "{count} камера",
+  "screensaverMediaCameras": "{count} камер",
+  "screensaverMediaPosition": "Позиція {index} · {cameras}"
+}

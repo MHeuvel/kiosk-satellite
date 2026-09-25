@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../app_container.dart';
 import '../l10n/messages.dart';
 import '../core/events.dart';
+import '../managers/intercom/intercom_manager.dart' show IntercomManager;
 import '../managers/settings/definitions.dart' as defs;
 import 'kit.dart';
 import 'settings_search.dart';
@@ -124,7 +125,7 @@ class _IntercomSettingsPanelState extends State<IntercomSettingsPanel> {
                 HintRow(
                   intercomText(
                     context,
-                    "Discovered kiosks and saved fleet members. A kiosk is ready when it is reachable with intercom on and the same key.",
+                    "Discovered kiosks and saved fleet members. A kiosk is ready when it is reachable with intercom on, the same key and matching encryption settings.",
                   ),
                 ),
               ],
@@ -207,7 +208,7 @@ Color intercomStatusColor(BuildContext context, String status) {
   final theme = Theme.of(context);
   return switch (status) {
     'ready' => theme.brightness == Brightness.dark ? ksSage : ksSageOnLight,
-    'key' || 'unreachable' => theme.colorScheme.tertiary,
+    'key' || 'tls' || 'unreachable' => theme.colorScheme.tertiary,
     _ => theme.colorScheme.onSurfaceVariant,
   };
 }
@@ -1088,14 +1089,7 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
   Map<String, Object?> get _peer =>
       (_call['peer'] as Map?)?.cast<String, Object?>() ?? const {};
 
-  static const _shown = {
-    'calling',
-    'ringing',
-    'in_call',
-    'broadcasting',
-    'listening',
-    'ended',
-  };
+  static const _shown = IntercomManager.callScreenStates;
 
   @override
   void initState() {
@@ -1213,6 +1207,10 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
     'dnd' => intercomText(context, "Do not disturb"),
     'off' => intercomText(context, "Its intercom is off"),
     'key' => intercomText(context, "Different intercom key"),
+    'tls' => intercomText(
+      context,
+      'Encryption mismatch. Enable Encrypt communications on all kiosks in the call.',
+    ),
     'no_answer' => intercomText(context, "No answer"),
     'unreachable' => intercomText(context, "Did not answer"),
     'failed' => intercomText(context, "The voice link failed"),
@@ -1788,8 +1786,8 @@ class _Disc extends StatelessWidget {
 }
 
 /// Push to talk: one wide pill held down for as long as the kiosk should
-/// send. Held, it fills primary with a soft ring around it; the line
-/// under the name says who hears you.
+/// send. Idle, it fills primary. Held, it uses a tinted fill, outline and
+/// soft ring. The line under the name says who hears you.
 class _TalkPill extends StatelessWidget {
   const _TalkPill({
     required this.held,
@@ -1808,7 +1806,7 @@ class _TalkPill extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    final fg = held ? scheme.onPrimary : scheme.onSurface;
+    final fg = held ? scheme.onPrimaryContainer : scheme.onPrimary;
     return Listener(
       onPointerDown: (_) => onDown(),
       onPointerUp: (_) => onUp(),
@@ -1818,9 +1816,9 @@ class _TalkPill extends StatelessWidget {
         width: width,
         height: compact ? 60 : 96,
         decoration: BoxDecoration(
-          color: held ? scheme.primary : scheme.surfaceContainerHighest,
+          color: held ? scheme.primaryContainer : scheme.primary,
           borderRadius: BorderRadius.circular(999),
-          border: held ? null : Border.all(color: scheme.outlineVariant),
+          border: held ? Border.all(color: scheme.primary) : null,
           boxShadow: held
               ? [
                   BoxShadow(

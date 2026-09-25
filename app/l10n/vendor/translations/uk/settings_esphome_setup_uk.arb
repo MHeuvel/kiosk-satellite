@@ -1,0 +1,19 @@
+{
+  "@@locale": "uk",
+  "settingEsphomeEnabledTitle": "Увімкнути ESPHome",
+  "settingEsphomeEnabledDescription": "Надавати цей кіоск для Home Assistant як пристрій ESPHome: його датчики та елементи керування як нативні сутності. Виявляється автоматично.",
+  "settingEsphomeEntitiesTitle": "Експортувати сутності кіоска",
+  "settingEsphomeEntitiesDescription": "Надавати датчики та елементи керування цього пристрою як сутності ESPHome.",
+  "settingEsphomeExcludedEntitiesTitle": "Виключені сутності",
+  "settingEsphomeExcludedEntitiesDescription": "Виберіть сутності, які слід виключити з Home Assistant. Усі інші доступні сутності будуть надані. Збереження перепідключає ESPHome.",
+  "settingEsphomeNodeNameTitle": "Назва вузла",
+  "settingEsphomeNodeNameDescription": "Називає цей кіоск у мережі, а Home Assistant формує назви дій на її основі. Перейменування перейменовує ці дії.",
+  "settingEsphomeNodeNamePlaceholder": "Встановлюється під час першого запуску",
+  "settingBtproxyKeyTitle": "Ключ шифрування",
+  "settingBtproxyKeyDescription": "Вставте цей ключ у Home Assistant, коли він запитає ключ шифрування. Генерується автоматично під час першого запуску.",
+  "settingBtproxyKeyPlaceholder": "Генерується під час першого запуску",
+  "settingBtproxyPortTitle": "Порт API",
+  "settingBtproxyPortDescription": "Порт, до якого підключається Home Assistant. Залиште порожнім для стандарту ESPHome: 6053.",
+  "esphomeStartFailed": "Не вдалося запустити сервер ESPHome: {error}",
+  "esphomeExcludedInvalid": "Виберіть список ідентифікаторів сутностей."
+}
