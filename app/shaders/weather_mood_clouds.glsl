@@ -23,10 +23,15 @@
       float backlight=.18+.82*exp(-sunDistance*sunDistance/.65);
       float twilightLight=twilight*(.20+.45*exp(-sunDistance*sunDistance/.65));
       float fairAmbient=(1.-smoothstep(.10,.40,weather.x))*.75;
+      // Dry skies without storm darkness keep light, fair weather clouds,
+      // however much of the sky they cover. Rain, snow, hail, fog and
+      // storms keep their heavier shading.
+      float fair=(1.-wet)*(1.-snowfall)*(1.-effects.w)*(1.-fog)*(1.-smoothstep(.20,.50,storm));
+      fairAmbient=max(fairAmbient,.5*fair);
       // Every lighting tint scales each sample the same way, so apply the
       // product once after the loop instead of on every sample.
       // Backlit interiors stay shaded so thin edges can catch the light.
-      vec3 tint=vec3(1.-fairCloud*backlight*.26);
+      vec3 tint=vec3(1.-fairCloud*backlight*mix(.26,.14,fair));
       tint*=mix(vec3(1.),vec3(.48,.56,.66),wet*.7);
       tint*=mix(vec3(1.),vec3(.185,.195,.215),night);
       tint*=mix(vec3(1.),vec3(1.04,.83,.71),twilightLight);
@@ -50,7 +55,7 @@
           float d=density(p);
           if(d>.005) {
             float shade=density(p+sunDir*.26);
-            float light=exp(-shade*1.9);
+            float light=exp(-shade*mix(1.9,1.45,fair));
             vec3 ambient=mix(vec3(.30,.38,.49),vec3(.59,.65,.72),smoothstep(1.2,2.5,p.y));
             ambient=mix(ambient,vec3(.68,.73,.79),fairAmbient);
             vec3 direct=vec3(1.0,.94,.83)*light*.56;

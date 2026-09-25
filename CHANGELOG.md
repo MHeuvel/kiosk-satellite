@@ -12,6 +12,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 - **Steadier Weather Mood frame pacing on 32-bit devices.** Clouds render a small piece on every frame again instead of a larger piece on every other frame. The heavy frames reached the screen unevenly, which showed as judder in moving clouds.
 - **More open skies in more Weather Mood scenes.** The Rainy, Snowy and Windy with clouds scenes have about a quarter less cloud cover, like Cloudy. Pouring and Snowy with rain keep their full cover.
 - **A fuller sky in the Windy scene.** The two cloud lanes above the weather chips each carry a second cloud, so one drifts in as the other leaves.
+- **Lighter fair weather clouds in Weather Mood.** Cloudy, Partly cloudy, Windy and Windy with clouds looked dark enough to rain, with slate gray undersides and gray cloud centers. Dry skies without storm darkness now keep light, white and soft gray clouds however much of the sky they cover. Rain, snow, hail, fog and storms keep their heavier shading.
 
 ### Fixed
 - **Only adb can provision a kiosk.** Any app on the device could send the `ks.provision` intent and change any setting, including turning on the remote admin with a password of its choosing. Provisioning now goes to `.ProvisionActivity`, which Android opens only for the adb shell. `.MainActivity` ignores the extra and logs a warning. Scripts that provision over adb need the new activity name. See the [Remote API](docs/remote-api.md) guide (#695).
