@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Fixed
+- **Pages opened over the dashboard get the microphone, camera and autoplay.** A page opened with `open_url`, a tapped link, the "Open a web page" gesture or a rotation pass was refused the microphone and camera every time and could not play sound until someone tapped it. A call page opened this way could not send the room's audio. These pages now follow the same Web Content settings as the dashboard: Enable microphone access, Enable webcam access and Autoplay audio and video (#700).
+
 ## v2026.9.82 - 2026-09-25
 
 ### Added
