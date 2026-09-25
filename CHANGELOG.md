@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Fixed
+- **Screensavers no longer freeze the app with the Impeller renderer on OpenGL ES.** Since v2026.9.81, starting a screensaver over a dashboard could stop the app from drawing for good on devices that run Impeller on OpenGL ES, such as the Echo Show 8 and the Meta Portal Go. The log filled with EGL_BAD_ACCESS errors. The fix for the Weather Mood start flash briefly hid Flutter's surface and brought it back after Flutter had resumed, which rebuilt the renderer on the wrong thread. The surface now comes back while Flutter is still paused.
+
 ## v2026.9.82 - 2026-09-25
 
 ### Added

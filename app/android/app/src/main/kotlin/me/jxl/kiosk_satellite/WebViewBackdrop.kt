@@ -4,6 +4,7 @@ import android.app.Activity
 import android.graphics.Color
 import android.graphics.Rect
 import android.graphics.drawable.ColorDrawable
+import android.view.SurfaceHolder
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
@@ -18,7 +19,8 @@ class WebViewBackdrop(activity: Activity) : ViewTreeObserver.OnPreDrawListener {
     private val viewport = Rect()
     private val pageBounds = Rect()
     private var hidden: FlutterImageView? = null
-    private var staleSurface: FlutterSurfaceView? = null
+    private var discarded: FlutterSurfaceView? = null
+    private var pending: Pair<FlutterSurfaceView, SurfaceHolder.Callback>? = null
     private var backedPage: WebView? = null
 
     init {
@@ -69,21 +71,49 @@ class WebViewBackdrop(activity: Activity) : ViewTreeObserver.OnPreDrawListener {
      * such as the end of the previous screensaver. When Flutter switches
      * back, it drops the image view as soon as the surface's first frame is
      * submitted, which can be a refresh before that frame is on screen, so
-     * the old frame flashed. Hiding the surface while it is covered discards
-     * that buffer; shown again, it starts empty behind the image view.
-     * Flutter ignores the surface being destroyed and recreated while it is
-     * paused, and connects to the new one when it resumes.
+     * the old frame flashed. Hiding the surface for a moment once the
+     * dashboard covers it discards that buffer, and the surface Android
+     * creates again starts empty.
+     *
+     * The surface must be back before Flutter resumes. A paused Flutter
+     * ignores the surface going away and coming back and later only swaps
+     * to it. Resumed without a surface, it would tear down and rebuild its
+     * renderer when one appears, and with the dashboard on screen that
+     * teardown runs on the main thread, which leaves Impeller's OpenGL ES
+     * context stuck there (see [MainThreadEgl]) and Flutter never draws
+     * again.
      */
     private fun discardStaleSurface(flutter: FlutterView?, covered: Boolean) {
         val surface = flutter?.let { findSurface(it) } ?: return
-        if (covered && staleSurface !== surface) {
-            staleSurface?.visibility = View.VISIBLE
-            surface.visibility = View.INVISIBLE
-            staleSurface = surface
-        } else if (!covered && staleSurface != null) {
-            staleSurface?.visibility = View.VISIBLE
-            staleSurface = null
+        if (!covered) {
+            discarded = null
+            restore(surface)
+            return
         }
+        if (discarded === surface) return
+        discarded = surface
+        // Without a surface there is no old buffer, and no destroy callback
+        // would ever bring the view back.
+        if (surface.holder.surface?.isValid != true) return
+        val callback = object : SurfaceHolder.Callback {
+            override fun surfaceCreated(holder: SurfaceHolder) {}
+            override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {}
+            override fun surfaceDestroyed(holder: SurfaceHolder) {
+                surface.post { restore(surface) }
+            }
+        }
+        surface.holder.addCallback(callback)
+        pending = surface to callback
+        surface.visibility = View.INVISIBLE
+    }
+
+    private fun restore(surface: FlutterSurfaceView) {
+        pending?.let { (view, callback) ->
+            view.holder.removeCallback(callback)
+            if (view !== surface) view.visibility = View.VISIBLE
+        }
+        pending = null
+        if (surface.visibility != View.VISIBLE) surface.visibility = View.VISIBLE
     }
 
     private fun findSurface(view: View): FlutterSurfaceView? {
@@ -138,8 +168,12 @@ class WebViewBackdrop(activity: Activity) : ViewTreeObserver.OnPreDrawListener {
         }
         hidden?.let(::reveal)
         hidden = null
-        staleSurface?.visibility = View.VISIBLE
-        staleSurface = null
+        pending?.let { (view, callback) ->
+            view.holder.removeCallback(callback)
+            view.visibility = View.VISIBLE
+        }
+        pending = null
+        discarded = null
         backedPage = null
     }
 }
