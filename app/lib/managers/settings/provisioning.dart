@@ -5,16 +5,15 @@ import 'package:flutter/services.dart';
 import '../../core/logging.dart';
 import 'settings_manager.dart';
 
-/// Provisioning via Android launch-intent extras — configure a device from
-/// adb or an MDM without touching the UI:
+/// Provisioning via an Android intent extra: configure a device from adb
+/// without touching the UI:
 ///
-///   adb shell am start -n me.jxl.kiosk_satellite/.MainActivity \
+///   adb shell am start -n me.jxl.kiosk_satellite/.ProvisionActivity \
 ///     --es ks.provision '{"remote.enabled":true,"remote.password":"..."}'
 ///
 /// Keys/values are the same JSON the remote API's settings import accepts.
-///
-/// TODO(security): gate behind a "provisioning allowed" setting (or
-/// first-run-only) before release — any app on the device can send intents.
+/// ProvisionActivity requires android.permission.DUMP, which only the adb
+/// shell holds, so no other app on the device can send a payload (#695).
 class ProvisioningChannel {
   ProvisioningChannel(this._settings, this._log);
 

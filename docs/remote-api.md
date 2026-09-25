@@ -20,9 +20,14 @@ the left edge → Settings),
 or an Android provisioning intent:
 
 ```sh
-adb shell am start -n me.jxl.kiosk_satellite/.MainActivity \
+adb shell am start -n me.jxl.kiosk_satellite/.ProvisionActivity \
   --es ks.provision '"{\"remote.enabled\":true,\"remote.password\":\"secret\"}"'
 ```
+
+The payload takes any setting, in the same JSON the settings import
+accepts. Only the adb shell can send it: Android refuses the intent from
+other apps on the device. Older builds took the extra on
+`.MainActivity`, which now ignores it.
 
 ## Reaching a kiosk by name
 

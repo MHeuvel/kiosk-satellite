@@ -7,6 +7,9 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ### Added
 - **More device facts in `/api/health`.** The health endpoint now reports the system WebView package and version, the network link type with the Wi-Fi signal, link speed and frequency, the time since the device booted and the screen orientation and rotation. The Wi-Fi fields need no location permission and leave out the network name. The new `getNetworkLink` command returns the same link details (#696).
 
+### Fixed
+- **Only adb can provision a kiosk.** Any app on the device could send the `ks.provision` intent and change any setting, including turning on the remote admin with a password of its choosing. Provisioning now goes to `.ProvisionActivity`, which Android opens only for the adb shell. `.MainActivity` ignores the extra and logs a warning. Scripts that provision over adb need the new activity name. See the [Remote API](docs/remote-api.md) guide (#695).
+
 ## v2026.9.81 - 2026-09-24
 
 ### Added
