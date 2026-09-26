@@ -228,6 +228,11 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
   /// the user is mid-interaction.
   bool _voiceTurn = false;
   bool _restoreNowPlaying = false;
+
+  /// A launch on play that a voice turn or page interaction refused. Music
+  /// asked for by voice starts mid-turn, so the launch waits for the turn
+  /// to end instead of being dropped (issue #718).
+  bool _launchOnPlayPending = false;
   Future<void>? _interactionStop;
   bool _cameraViewActive = false;
   double? _savedBrightness;
@@ -425,6 +430,7 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     bus.on<SendspinNowPlayingChanged>().listen((e) {
       final startedPlaying = e.playing && !_sendspinPlaying;
       _sendspinPlaying = e.playing;
+      if (!e.playing) _launchOnPlayPending = false;
       final changed = _sendspinNowPlaying != e.active;
       _sendspinNowPlaying = e.active;
       _syncNowPlayingShown();
@@ -437,12 +443,14 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
       // Launch on play (sendspin.fullscreen_on_play): playback starting
       // is the cue for the music display, not the idle clock. start()
       // keeps every refusal it has for a timed start (hold mode, a
-      // voice turn, another app in front, lockdown).
+      // voice turn, another app in front, lockdown). A voice turn or page
+      // interaction only defers it: the launch runs once they end.
       if (startedPlaying &&
           allowsNowPlaying &&
           _settings.get(defs.sendspinFullscreen) &&
           _settings.get(defs.sendspinFullscreenOnPlay)) {
         log.info(name, 'Now Playing launched by playback');
+        _launchOnPlayPending = _paused || _voiceTurn;
         unawaited(start());
       }
     });
@@ -1009,13 +1017,18 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
   }
 
   Future<void> _restoreAfterInteraction() async {
-    if (!_restoreNowPlaying) return;
+    if (!_restoreNowPlaying && !_launchOnPlayPending) return;
     // Dismissal may still be thawing the dashboard or restoring brightness.
     // Let it finish before bringing the player back over the page.
     await _interactionStop;
-    if (!_restoreNowPlaying || _paused || _voiceTurn) return;
+    if (!_restoreNowPlaying && !_launchOnPlayPending) return;
+    if (_paused || _voiceTurn) return;
+    final launch =
+        _restoreNowPlaying ||
+        (_sendspinPlaying && _settings.get(defs.sendspinFullscreenOnPlay));
     _restoreNowPlaying = false;
-    if (!_nowPlayingTakeover) return;
+    _launchOnPlayPending = false;
+    if (!launch || !_nowPlayingTakeover) return;
     _cancelIdleTimer();
     await start();
     if (!_active) _resetIdleTimer();
@@ -1507,8 +1520,10 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
   }
 
   Future<void> stop() async {
-    // An explicit dismissal also cancels a player waiting to return.
+    // An explicit dismissal also cancels a player waiting to return or
+    // to launch.
     _restoreNowPlaying = false;
+    _launchOnPlayPending = false;
     if (!_active) return;
     _active = false;
     _nowPlayingShared = false;

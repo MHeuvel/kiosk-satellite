@@ -5,6 +5,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ## Unreleased
 
 ### Fixed
+- **Music asked for by voice now opens Now Playing.** With Launch Now Playing when music starts playing on, music that a voice command started began playing while the voice turn still held the screen, so the launch was refused and never tried again (#718). The launch now waits for the voice turn to end and opens Now Playing then, as long as the music is still playing.
 - **Home Assistant shows when the Bluetooth proxy scans actively.** In Auto mode Home Assistant switches a proxy to active scanning for short windows and back. The proxy took the new mode without telling Home Assistant, so the scanner still read "Auto (passive)" during those windows. It now reports each change, like an ESPHome proxy does.
 
 ## v2026.9.85 - 2026-09-26
