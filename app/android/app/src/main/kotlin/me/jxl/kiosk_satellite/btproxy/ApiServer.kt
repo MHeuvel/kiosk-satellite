@@ -814,6 +814,11 @@ internal class ApiServer(
                         } else {
                             scannerMode = requested
                             if (hasAdvertisementSubscribers()) backend.onScanDemand(requested)
+                            // A running scanner takes the new mode without a
+                            // restart, so the engine reports nothing. Answer
+                            // like ESPHome does, or HA shows "passive" through
+                            // every Auto mode active window.
+                            reportScannerState(scannerState, requested)
                         }
                     }
                     Msg.SUBSCRIBE_STATES_REQUEST -> {

@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Fixed
+- **Home Assistant shows when the Bluetooth proxy scans actively.** In Auto mode Home Assistant switches a proxy to active scanning for short windows and back. The proxy took the new mode without telling Home Assistant, so the scanner still read "Auto (passive)" during those windows. It now reports each change, like an ESPHome proxy does.
+
 ## v2026.9.85 - 2026-09-26
 
 ### Added
