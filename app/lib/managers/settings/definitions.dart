@@ -6206,7 +6206,7 @@ const sendspinPlayerSize = SettingDef<String>(
   section: 'Floating Player',
   options: ['compact', 'large'],
   optionLabels: {'compact': 'Compact', 'large': 'Large with controls'},
-  dependsOn: 'sendspin.show_player',
+  dependsOn: 'sendspin.player_active',
 );
 
 const sendspinPausedHideMinutes = SettingDef<num>(
@@ -6224,7 +6224,7 @@ const sendspinPausedHideMinutes = SettingDef<num>(
   max: 10,
   step: 1,
   unit: 'min',
-  dependsOn: 'sendspin.show_player',
+  dependsOn: 'sendspin.player_active',
 );
 
 const sendspinDismissKeepsPlaying = SettingDef<bool>(
