@@ -493,6 +493,9 @@ class BrowserManager extends Manager with WidgetsBindingObserver {
             if (target.isEmpty) {
               return const CommandResult.fail('no Start URL configured');
             }
+            // Nobody touched the screen, so without this the next rotation
+            // tick navigates straight back off the page (issue #719).
+            await commands.execute('haPauseRotation', const {});
             await loadUrl(target);
             return const CommandResult.ok();
           },

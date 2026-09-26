@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Fixed
+- **Go to dashboard now holds the page with view rotation on.** The ESPHome Go to dashboard button loaded the start page, but nothing paused rotation, so the next rotation step navigated straight back off it (#719). It now pauses rotation for the Pause rotation on interaction window, like the Dashboard view select and a touch do.
+
 ## v2026.9.86 - 2026-09-26
 
 ### Fixed

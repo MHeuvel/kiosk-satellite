@@ -368,6 +368,18 @@ class HomeAssistantManager extends Manager {
       )
       ..register(
         Command(
+          name: 'haPauseRotation',
+          description:
+              'Hold dashboard view rotation on the current page for the '
+              'touch pause window, as a touch would.',
+          handler: (_) async {
+            _pauseRotationForTouch();
+            return const CommandResult.ok();
+          },
+        ),
+      )
+      ..register(
+        Command(
           name: 'haCallService',
           description:
               'Call a Home Assistant service (covers scripts, scenes and '
