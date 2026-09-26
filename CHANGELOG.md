@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.9.86 - 2026-09-26
 
 ### Fixed
 - **Turning off the floating player no longer hides its other settings.** Switching off Show the floating player also hid Player size and Hide the paused player after, but both still apply: the kiosk menu entry and the gesture can still bring the player up, and the paused hold also keeps a paused Now Playing view on screen. They now stay visible whenever the Sendspin player is on.
