@@ -102,7 +102,8 @@ class GradientBar extends BarStyle {
     required this.colors,
     this.stops,
     this.glowColors,
-    this.height = 4,
+    // Thicker at rest than Voice Satellite's 4 px, which read as a hairline.
+    this.height = 6,
     this.glowStrip = 8,
   });
 
@@ -164,7 +165,9 @@ class AssistSkin {
     this.font = 'Rubik',
     this.blur = 6,
     this.chatBottom = 72,
-    this.chatBottomReactive = 120,
+    // Closer to the reactive bar than Voice Satellite's 120, still clear of
+    // it at full stretch.
+    this.chatBottomReactive = 88,
     this.gap = 8,
     this.centered = false,
     this.msgMaxWidth = 0.85,
@@ -367,7 +370,7 @@ final assistSkins = <AssistSkin>[
     bar: GradientBar(
       colors: _defaultBar,
       glowColors: _defaultGlow,
-      height: 6,
+      height: 8,
       glowStrip: 12,
     ),
   ),

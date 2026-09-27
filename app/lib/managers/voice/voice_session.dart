@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'dart:math' as math;
 import 'dart:typed_data';
 
 import 'assist_view.dart';
+import 'reactive_level.dart';
 
 /// The ESPHome voice assistant events (api.proto VoiceAssistantEvent).
 abstract final class VaEvent {
@@ -313,7 +313,7 @@ class VoiceSession {
 
   void _onChunk(int gen, Uint8List pcm) {
     if (gen != _gen) return;
-    onLevel(speechLevel(pcm));
+    onLevel(_levels.mic(pcm));
     if (_sending) {
       unawaited(link.audio(pcm));
       return;
@@ -346,20 +346,9 @@ class VoiceSession {
     await mic.close();
   }
 
-  /// The bar's level from one chunk of 16 kHz PCM16: mean amplitude with
-  /// the gain and curve Voice Satellite's analyser uses for the microphone.
-  static double speechLevel(Uint8List pcm) {
-    final samples = pcm.length ~/ 2;
-    if (samples == 0) return 0;
-    final data = ByteData.sublistView(pcm);
-    var sum = 0.0;
-    for (var i = 0; i < samples; i++) {
-      sum += data.getInt16(i * 2, Endian.little).abs();
-    }
-    final mean = sum / samples / 32768.0;
-    final level = math.pow(mean * 7.5, 0.6).toDouble();
-    return level < 0.06 ? 0 : level.clamp(0.0, 1.0);
-  }
+  /// The bar's level from the microphone and the playback, mapped as
+  /// Voice Satellite's analyser does.
+  final _levels = ReactiveLevel();
 
   // ── Home Assistant's side ──────────────────────────────────────────────
 
@@ -551,7 +540,7 @@ class VoiceSession {
 
   /// The playback level of the sound playing now, for the bar.
   void onSoundLevel(String id, double level) {
-    if (id == _playId) onLevel(level);
+    if (id == _playId) onLevel(_levels.playback(level));
   }
 
   /// Where the sound playing now was, and when that was reported.
