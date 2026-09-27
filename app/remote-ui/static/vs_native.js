@@ -239,6 +239,7 @@ export async function renderNativeVs(root, byKey) {
       }
       wake.querySelectorAll(':scope > .card').forEach((c) => { if (!c.children.length) c.remove(); });
       wake.prepend(first);
+      if (!wake.querySelector('#vsCustomModels')) wake.append(...customModelsGroup());
     }
     const reactive = panel('Appearance')?.querySelector('[data-key="voice.reactive_bar"]');
     if (reactive) {
@@ -285,6 +286,146 @@ export async function renderNativeVs(root, byKey) {
   back.appendChild(row);
   const perms = root.querySelector('#permsCard');
   if (perms) perms.before(back); else root.appendChild(back);
+}
+
+/* ---- Custom Models ----
+   The wake word models added to the kiosk, as on the device: the list with
+   a delete button each, Add models (the files go up one by one, then the
+   kiosk checks them together) and the documentation. A fleet follower
+   whose leader syncs Voice Satellite shows the list only. */
+const CUSTOM_DOCS = 'https://github.com/jxlarrea/kiosk-satellite/blob/main/docs/custom-wake-words.md';
+const ENGINE_LABELS = { microwakeword: 'microWakeWord', openwakeword: 'openWakeWord', vswakeword: 'vsWakeWord' };
+
+function customModelsGroup() {
+  const h = document.createElement('h2');
+  h.className = 'card-title';
+  h.textContent = voiceText('Custom Models');
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.id = 'vsCustomModels';
+  card.dataset.searchId = 'x:vs_custom_models';
+  const list = document.createElement('div');
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.multiple = true;
+  input.accept = '.json,.tflite,.onnx';
+  input.hidden = true;
+  const add = voiceRow('Add models',
+    'Pick the files of one or more models. They show up in Wake word 1 and 2 above.');
+  add.lastElementChild.remove();
+  const addBtn = document.createElement('button');
+  addBtn.className = 'btn-ghost';
+  addBtn.textContent = voiceText('Add');
+  addBtn.addEventListener('click', () => input.click());
+  add.append(addBtn, input);
+  const managed = readOnlyRow('', voiceText('The fleet leader manages the custom models on this kiosk.'), '', false);
+  const docs = document.createElement('a');
+  docs.className = 'row';
+  docs.style.cssText = 'color:inherit; text-decoration:none';
+  docs.href = CUSTOM_DOCS;
+  docs.target = '_blank';
+  docs.rel = 'noopener noreferrer';
+  const docsRow = voiceRow('How to add custom models',
+    'The files each engine needs and where the models come from.');
+  docsRow.lastElementChild.remove();
+  docs.append(...docsRow.childNodes);
+  const icon = document.createElement('span');
+  icon.className = 'icon-btn';
+  icon.setAttribute('aria-hidden', 'true');
+  icon.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M21 3 10 14M10 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5"/></svg>';
+  docs.appendChild(icon);
+  managed.style.display = 'none';
+  card.append(list, add, managed, docs);
+
+  let busy = false;
+  const refresh = async () => {
+    let data = {};
+    try {
+      const r = await cmd('customWakeModels', {});
+      if (r.ok) data = r.data || {};
+    } catch (_) {}
+    if (!card.isConnected) return;
+    const models = Array.isArray(data.models) ? data.models : [];
+    // Rows set their own display, which the hidden attribute loses to.
+    add.style.display = data.managed === true ? 'none' : '';
+    managed.style.display = data.managed === true ? '' : 'none';
+    list.replaceChildren();
+    if (!models.length) {
+      list.appendChild(readOnlyRow('', voiceText('No custom models yet.'), '', false));
+    }
+    for (const m of models) {
+      const label = ENGINE_LABELS[m.engine] || m.engine;
+      const files = (m.files || []).map((f) => f.name).join(', ');
+      const desc = m.engine === data.engine ? `${label}. ${files}`
+        : `${label}, ${voiceText('not the engine in use')}. ${files}`;
+      const row = readOnlyRow(`${m.wakeWord}`, desc, '', false);
+      row.lastElementChild.remove();
+      if (data.managed !== true) {
+        const del = document.createElement('button');
+        del.className = 'btn-ghost';
+        del.textContent = voiceText('Delete');
+        del.addEventListener('click', async () => {
+          const pick = await messageBox({
+            title: voiceText('Delete this model?'),
+            message: `${m.wakeWord}`,
+            buttons: ['Cancel', 'Delete'],
+            buttonText: voiceText,
+          });
+          if (pick !== 'Delete') return;
+          const r = await cmd('deleteCustomWakeModel', { engine: m.engine, id: m.id }).catch(() => null);
+          if (!r?.ok) showToast({ title: voiceText('The model was not deleted.'), message: r?.error || '', kind: 'error' });
+          refresh();
+        });
+        row.appendChild(del);
+      }
+      list.appendChild(row);
+    }
+  };
+
+  input.addEventListener('change', async () => {
+    const files = [...input.files];
+    input.value = '';
+    if (!files.length || busy) return;
+    busy = true;
+    addBtn.disabled = true;
+    const label = addBtn.textContent;
+    try {
+      for (const [i, file] of files.entries()) {
+        addBtn.textContent = `${i + 1}/${files.length}`;
+        const res = await api(`/api/voice/wake-models/upload?name=${encodeURIComponent(file.name)}`,
+          { method: 'POST', body: file });
+        const body = await res.json().catch(() => ({}));
+        if (!res.ok || body.ok === false) {
+          await cmd('commitCustomWakeModels', {}).catch(() => null);
+          throw new Error(`${file.name}: ${body.error || res.status}`);
+        }
+      }
+      const r = await cmd('commitCustomWakeModels', {}, { timeoutMs: 120000 });
+      const rejected = r.data?.rejected || [];
+      const added = r.data?.added || [];
+      if (!r.ok) throw new Error(r.error || '');
+      if (rejected.length) {
+        showToast({
+          title: added.length ? voiceText('Some files were not added.') : voiceText('The models were not added.'),
+          message: [...new Set(rejected.map((f) => `${f.file}: ${f.reason}`))].join('\n'),
+          kind: 'error',
+          sticky: true,
+        });
+      } else {
+        showToast({ title: voiceText('Models added.'), kind: 'success' });
+      }
+    } catch (e) {
+      showToast({ title: voiceText('The models were not added.'), message: `${e.message || e}`, kind: 'error', sticky: true });
+    } finally {
+      busy = false;
+      addBtn.disabled = false;
+      addBtn.textContent = label;
+      refresh();
+    }
+  });
+  watchUpdates(['wake-models'], refresh, { owner: card });
+  refresh();
+  return [h, card];
 }
 
 /* The notice at the top of the page while the dashboard still runs the

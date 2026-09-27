@@ -3,11 +3,13 @@ import 'dart:math' as math;
 import 'dart:typed_data';
 
 import 'package:onnxruntime/onnxruntime.dart';
+import 'package:tflite_flutter/tflite_flutter.dart';
 
 import '../vsww/ort_init.dart';
 import '../vsww/ort_tensor_io.dart';
 import '../vsww/ort_float_runner.dart';
 import 'oww_gate.dart';
+import 'oww_model_store.dart' show isTfliteModel;
 import 'oww_pipeline.dart';
 import 'oww_session_loader.dart';
 import '../wake_msg.dart';
@@ -45,17 +47,28 @@ void owwIsolateEntry(SendPort mainPort) {
 }
 
 class _Kw {
-  _Kw(this.id, this.wakeWord, this.session, this.inputName, this.gate,
-      {this.isStop = false});
+  _Kw(
+    this.id,
+    this.wakeWord,
+    this.gate, {
+    this.session,
+    this.interpreter,
+    this.isStop = false,
+  });
   final String id;
   final String wakeWord;
   final nearMiss = NearMissTracker();
-  final OrtSession session;
-  final String inputName;
+
+  /// The classifier: an ONNX session, or a LiteRT interpreter for a
+  /// `.tflite` one. Both take the same 16 x 96 embedding window.
+  final OrtSession? session;
+  final Interpreter? interpreter;
   final OwwGate gate;
   final bool isStop;
 
   OrtFloatRunner? runner;
+  late final Tensor? tfInput = interpreter?.getInputTensor(0);
+  late final Tensor? tfOutput = interpreter?.getOutputTensor(0);
 }
 
 class _OwwWorker {
@@ -116,25 +129,38 @@ class _OwwWorker {
       final emb = load(msg['embedding'] as Uint8List);
       _pipeline = OwwPipeline(melSession: mel, embeddingSession: emb);
       _runOptions = OrtRunOptions();
-      _clsInput = ReusableInputTensor.create(
-          [1, OwwPipeline.embeddingWindow, OwwPipeline.embeddingDim]);
+      _clsInput = ReusableInputTensor.create([
+        1,
+        OwwPipeline.embeddingWindow,
+        OwwPipeline.embeddingDim,
+      ]);
 
       for (final md in (msg['models'] as List)) {
-        final session = load(md['onnx'] as Uint8List);
+        final bytes = md['model'] as Uint8List;
         final cutoff = (md['cutoff'] as num).toDouble();
         final isStop = md['stop'] == true;
-        _kws.add(_Kw(
-          md['id'] as String,
-          md['wakeWord'] as String,
-          session,
-          session.inputNames.first,
-          OwwGate(cutoff: cutoff),
-          isStop: isStop,
-        ));
+        final tflite = isTfliteModel(bytes);
+        try {
+          _kws.add(
+            _Kw(
+              md['id'] as String,
+              md['wakeWord'] as String,
+              OwwGate(cutoff: cutoff),
+              session: tflite ? null : load(bytes),
+              interpreter: tflite ? loadOwwTflite(bytes) : null,
+              isStop: isStop,
+            ),
+          );
+        } catch (e) {
+          _log('error', 'model "${md['id']}" not loaded: $e');
+          continue;
+        }
         _log(
-            'info',
-            'loaded "${md['id']}"${isStop ? ' (stop classifier)' : ''} '
-            '(cutoff ${cutoff.toStringAsFixed(3)})');
+          'info',
+          'loaded "${md['id']}"${tflite ? ' (tflite)' : ''}'
+              '${isStop ? ' (stop classifier)' : ''} '
+              '(cutoff ${cutoff.toStringAsFixed(3)})',
+        );
       }
       if (_kws.isEmpty) {
         _main.send({'type': WakeMsg.error, 'message': 'no models loaded'});
@@ -216,6 +242,7 @@ class _OwwWorker {
     // Every classifier scores the same window, so it is written once into the
     // shared persistent input tensor.
     _clsInput!.write(window);
+    _windowBytes = Uint8List.sublistView(window);
 
     for (final k in _kws) {
       // Stop classifier runs while armed, or while a tester watches it.
@@ -260,14 +287,18 @@ class _OwwWorker {
       if (_tester) continue;
 
       if (k.isStop) {
-        _log('info',
-            'stop word detected (${trigger.name}, score ${probability.toStringAsFixed(3)})');
+        _log(
+          'info',
+          'stop word detected (${trigger.name}, score ${probability.toStringAsFixed(3)})',
+        );
         _main.send({'type': WakeMsg.detection, 'id': k.id, 'stop': true});
         return;
       }
 
-      _log('info',
-          'detected "${k.id}" (${trigger.name}, score ${probability.toStringAsFixed(3)})');
+      _log(
+        'info',
+        'detected "${k.id}" (${trigger.name}, score ${probability.toStringAsFixed(3)})',
+      );
       _detected = true;
       _main.send({
         'type': WakeMsg.detection,
@@ -285,9 +316,18 @@ class _OwwWorker {
     }
   }
 
+  /// The window the classifiers score this chunk, as bytes for LiteRT.
+  Uint8List? _windowBytes;
+
   double? _classify(_Kw k) {
     try {
-      k.runner ??= OrtFloatRunner(k.session, _runOptions!, _clsInput!);
+      final interpreter = k.interpreter;
+      if (interpreter != null) {
+        k.tfInput!.data = _windowBytes!;
+        interpreter.invoke();
+        return Float32List.sublistView(k.tfOutput!.data)[0];
+      }
+      k.runner ??= OrtFloatRunner(k.session!, _runOptions!, _clsInput!);
       return k.runner!.run()[0];
     } catch (e) {
       _log('warn', 'inference error: $e');
@@ -349,6 +389,7 @@ class _OwwWorker {
     _stopped = true;
     for (final k in _kws) {
       k.runner?.release();
+      k.interpreter?.close();
     }
     _pipeline?.dispose();
     _pipeline = null;
@@ -362,5 +403,29 @@ class _OwwWorker {
     _runOptions?.release();
     _runOptions = null;
     _main.send({'type': WakeMsg.stopped});
+  }
+}
+
+/// A `.tflite` openWakeWord classifier on LiteRT, checked to take the
+/// 16 x 96 float embedding window and give one float probability. Shared
+/// with the upload check, which loads a model before accepting it.
+Interpreter loadOwwTflite(Uint8List bytes) {
+  final interpreter = Interpreter.fromBuffer(bytes);
+  try {
+    final input = interpreter.getInputTensor(0);
+    final output = interpreter.getOutputTensor(0);
+    final elements = input.shape.fold<int>(1, (a, b) => a * b);
+    if (input.type != TensorType.float32 ||
+        elements != OwwPipeline.embeddingWindow * OwwPipeline.embeddingDim ||
+        output.type != TensorType.float32) {
+      throw StateError(
+        'not an openWakeWord classifier (input ${input.shape} '
+        '${input.type.name}, output ${output.shape} ${output.type.name})',
+      );
+    }
+    return interpreter;
+  } catch (_) {
+    interpreter.close();
+    rethrow;
   }
 }

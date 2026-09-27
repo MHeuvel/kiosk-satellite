@@ -14,6 +14,7 @@ import '../wake_word/engine.dart';
 import '../wake_word/wake_word_manager.dart';
 import 'assist_view.dart';
 import 'chat_log.dart';
+import 'custom_wake_models.dart';
 import 'ha_socket.dart';
 import 'migration.dart';
 import 'remote_speaker.dart';
@@ -163,6 +164,17 @@ class VoiceManager extends Manager {
   /// The custom wake words Home Assistant offered on its last request.
   List<ExternalWakeWord> _external = const [];
 
+  /// The custom models added to the kiosk.
+  late final CustomWakeModels _custom = CustomWakeModels(
+    onChanged: _customChanged,
+    log: (line) => log.info(name, line),
+  );
+
+  /// The wake words last offered to Home Assistant, to tell when its
+  /// selects need the list again.
+  String _offeredSent = '';
+  Timer? _selectsTimer;
+
   /// Whether this manager configured the wake word engine (so it may release
   /// it); never on the dashboard runtime.
   bool _ownsWakeWord = false;
@@ -289,6 +301,8 @@ class VoiceManager extends Manager {
               e.key == defs.voiceStopWord.key) {
             unawaited(_sync());
           }
+          // Another engine offers other wake words.
+          if (e.key == defs.voiceWakeWordEngine.key) _refreshSelects();
           if (e.key == defs.voiceMuteTimers.key && _ringing.isNotEmpty) {
             _pushAlert();
           }
@@ -587,7 +601,236 @@ class VoiceManager extends Manager {
       );
 
     _registerMigrationCommands();
+    _registerCustomModelCommands();
+    await _custom.init();
     await _sync();
+  }
+
+  // ── custom models ──────────────────────────────────────────────────────
+
+  void _customChanged() {
+    bus.publish(const RemoteStatusChanged('wake-models'));
+    unawaited(_sync());
+    _refreshSelects();
+  }
+
+  String _offeredSignature() => [
+    for (final w in offeredWakeWords(
+      _engine,
+      external: _external,
+      custom: _custom.models,
+    ))
+      '${w.id}=${w.phrase}',
+  ].join('|');
+
+  /// Home Assistant reads the wake words for its selects only when it asks
+  /// the kiosk for its configuration, which it does as the ESPHome entry
+  /// sets up. When the list changed (a custom model, another engine), the
+  /// entry is reloaded so the selects offer what the kiosk has now.
+  void _refreshSelects() {
+    _selectsTimer?.cancel();
+    _selectsTimer = Timer(const Duration(seconds: 2), () {
+      final satellite = homeAssistant.value.satelliteEntity;
+      if (!enabled || satellite.isEmpty || _offeredSent.isEmpty) return;
+      if (_offeredSignature() == _offeredSent) return;
+      unawaited(_reloadEsphomeEntry(satellite));
+    });
+  }
+
+  /// A follower whose leader syncs Voice Satellite: its custom models are
+  /// the leader's, kept in step by the fleet, so they are not changed here.
+  Future<bool> _modelsManaged() async {
+    final r = await commands.execute('fleetStatus', const {});
+    final following = r.ok && r.data is Map
+        ? (r.data as Map)['following']
+        : null;
+    final keys = following is Map ? following['syncedKeys'] : null;
+    return keys is List && keys.contains(defs.voiceWakeWordEngine.key);
+  }
+
+  String? _offeredName(Map<String, Object?> model) {
+    final engine = voiceEngines[model['engine']];
+    if (engine == null) return null;
+    for (final w in offeredWakeWords(
+      engine,
+      external: _external,
+      custom: _custom.models,
+    )) {
+      if (w.id == model['id']) return w.phrase;
+    }
+    return null;
+  }
+
+  static const _managedError =
+      'The fleet leader manages the custom models on this kiosk.';
+
+  void _registerCustomModelCommands() {
+    CommandResult fail(Object e) =>
+        CommandResult.fail(e is StateError ? e.message : '$e');
+    commands
+      ..register(
+        Command(
+          name: 'customWakeModels',
+          description:
+              'The custom wake word models on this kiosk, with the engine in '
+              'use',
+          quiet: true,
+          handler: (_) async => CommandResult.ok({
+            'models': [
+              // Named as Home Assistant's selects offer them.
+              for (final m in _custom.describe())
+                {...m, 'wakeWord': _offeredName(m) ?? m['wakeWord']},
+            ],
+            'engine': _settings.get(defs.voiceWakeWordEngine),
+            'managed': await _modelsManaged(),
+          }),
+        ),
+      )
+      ..register(
+        Command(
+          name: 'stageCustomWakeModel',
+          description:
+              'One file of a custom wake word upload, before '
+              'commitCustomWakeModels checks them together.',
+          params: const {'name': 'the file name', 'stream': 'the body'},
+          quiet: true,
+          handler: (p) async {
+            final body = p['stream'];
+            if (body is! Stream<List<int>>) {
+              return const CommandResult.fail('no body');
+            }
+            if (await _modelsManaged()) {
+              await body.drain<void>();
+              return const CommandResult.fail(_managedError);
+            }
+            try {
+              await _custom.stage(
+                '${p['name'] ?? ''}',
+                body,
+                (p['length'] as num?)?.toInt(),
+              );
+              return const CommandResult.ok();
+            } catch (e) {
+              return fail(e);
+            }
+          },
+        ),
+      )
+      ..register(
+        Command(
+          name: 'addCustomWakeModelFiles',
+          description:
+              'Add custom wake word models from files on the device, checked '
+              'together.',
+          params: const {'paths': 'the files'},
+          handler: (p) async {
+            final paths = p['paths'];
+            if (paths is! List) return const CommandResult.fail('no paths');
+            if (await _modelsManaged()) {
+              return const CommandResult.fail(_managedError);
+            }
+            try {
+              for (final path in paths) {
+                await _custom.stageCopy('$path');
+              }
+            } catch (e) {
+              await _custom.commit();
+              return fail(e);
+            }
+            return CommandResult.ok(await _custom.commit());
+          },
+        ),
+      )
+      ..register(
+        Command(
+          name: 'commitCustomWakeModels',
+          description:
+              'Check the uploaded custom wake word files and keep the models '
+              'that work.',
+          handler: (_) async => CommandResult.ok(await _custom.commit()),
+        ),
+      )
+      ..register(
+        Command(
+          name: 'deleteCustomWakeModel',
+          description: 'Delete a custom wake word model.',
+          params: const {
+            'engine': 'microwakeword, openwakeword or vswakeword',
+            'id': 'the model',
+          },
+          handler: (p) async {
+            if (await _modelsManaged()) {
+              return const CommandResult.fail(_managedError);
+            }
+            return await _custom.delete(
+                  '${p['engine'] ?? ''}',
+                  '${p['id'] ?? ''}',
+                )
+                ? const CommandResult.ok()
+                : const CommandResult.fail('no such model');
+          },
+        ),
+      )
+      ..register(
+        Command(
+          name: 'customWakeModelsManifest',
+          description:
+              'Every custom wake word file with its SHA-256, for the fleet',
+          quiet: true,
+          handler: (_) async =>
+              CommandResult.ok({'files': await _custom.manifest()}),
+        ),
+      )
+      ..register(
+        Command(
+          name: 'customWakeModelPath',
+          description: 'Where a custom wake word file is, for the fleet',
+          params: const {'path': 'folder/name'},
+          quiet: true,
+          handler: (p) async {
+            final file = await _custom.file('${p['path'] ?? ''}');
+            return file == null
+                ? const CommandResult.fail('no such file')
+                : CommandResult.ok({'path': file.path});
+          },
+        ),
+      )
+      ..register(
+        Command(
+          name: 'receiveCustomWakeModelFile',
+          description: 'A custom wake word file from the fleet leader.',
+          params: const {'path': 'folder/name', 'stream': 'the body'},
+          quiet: true,
+          handler: (p) async {
+            final body = p['stream'];
+            if (body is! Stream<List<int>>) {
+              return const CommandResult.fail('no body');
+            }
+            try {
+              await _custom.receive(
+                '${p['path'] ?? ''}',
+                body,
+                (p['length'] as num?)?.toInt(),
+              );
+              return const CommandResult.ok();
+            } catch (e) {
+              return fail(e);
+            }
+          },
+        ),
+      )
+      ..register(
+        Command(
+          name: 'removeCustomWakeModelFile',
+          description: 'Remove a custom wake word file the leader dropped.',
+          params: const {'path': 'folder/name'},
+          quiet: true,
+          handler: (p) async {
+            await _custom.remove('${p['path'] ?? ''}');
+            return const CommandResult.ok();
+          },
+        ),
+      );
   }
 
   // ── migration ──────────────────────────────────────────────────────────
@@ -976,6 +1219,7 @@ class VoiceManager extends Manager {
       noiseGate: _settings.get(defs.voiceNoiseGate),
       stopWord: _settings.get(defs.voiceStopWord),
       external: _external,
+      custom: _custom.models,
     );
     _ownsWakeWord = true;
     await _wakeWord.configure(config, source: 'native satellite');
@@ -1170,7 +1414,12 @@ class VoiceManager extends Manager {
     List<Map<Object?, Object?>> external,
   ) async {
     _external = [for (final raw in external) ?ExternalWakeWord.fromMap(raw)];
-    final offered = offeredWakeWords(_engine, external: _external);
+    final offered = offeredWakeWords(
+      _engine,
+      external: _external,
+      custom: _custom.models,
+    );
+    _offeredSent = _offeredSignature();
     final ids = {for (final w in offered) w.id};
     final active = [
       for (final id in _activeIds())
@@ -1774,6 +2023,8 @@ class VoiceManager extends Manager {
   Future<void> dispose() async {
     homeAssistant.removeListener(_announceStatus);
     _speaker.dispose();
+    _custom.dispose();
+    _selectsTimer?.cancel();
     for (final sub in _subs) {
       await sub.cancel();
     }

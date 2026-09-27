@@ -1258,12 +1258,17 @@ class WakeWordManager extends Manager
               }).toList();
               double maxRaw = 0, maxScore = 0;
               var fired = 0;
+              // Each model's best score in the window: several classifiers
+              // listen at once, and one firing says nothing of the others.
+              final byModel = <String, double>{};
               for (final m in inWin) {
                 final raw = (m['raw'] as num?)?.toDouble() ?? 0;
                 final sc = (m['score'] as num?)?.toDouble() ?? 0;
                 if (raw > maxRaw) maxRaw = raw;
                 if (sc > maxScore) maxScore = sc;
                 if (m['fired'] == true) fired++;
+                final id = '${m['id']}';
+                if (sc > (byModel[id] ?? -1)) byModel[id] = sc;
               }
               perClip.add({
                 'clipStartMs': w['startMs'],
@@ -1271,6 +1276,7 @@ class WakeWordManager extends Manager
                 'maxRaw': maxRaw,
                 'maxScore': maxScore,
                 'fired': fired,
+                'models': byModel,
               });
             }
             return CommandResult.ok({
@@ -1280,7 +1286,8 @@ class WakeWordManager extends Manager
               'telemetrySamples': samples.length,
               'firedAtMs': [
                 for (final m in samples)
-                  if (m['fired'] == true) (m['t'] as num).toInt() - startMs,
+                  if (m['fired'] == true && (m['t'] as num).toInt() >= startMs)
+                    (m['t'] as num).toInt() - startMs,
               ],
               'clips': perClip,
             });

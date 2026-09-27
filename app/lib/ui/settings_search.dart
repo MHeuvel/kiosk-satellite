@@ -415,6 +415,14 @@ const List<SettingsSearchEntry> handBuiltSearchEntries = [
   ),
   SettingsSearchEntry(
     category: 'Voice Satellite',
+    title: 'Custom Models',
+    description: 'Add your own wake word models for any engine.',
+    anchorId: 'x:vs_custom_models',
+    subpage: 'Wake Word',
+    voiceRuntime: 'native',
+  ),
+  SettingsSearchEntry(
+    category: 'Voice Satellite',
     title: 'Wake word 2',
     description: 'A second wake word, answered by Assistant 2.',
     anchorId: 'x:vs_wake',

@@ -53,6 +53,7 @@ import 'fleet_settings.dart';
 import 'camera_views_picker.dart';
 import 'import_options_dialog.dart';
 import 'intercom_settings.dart';
+import 'custom_wake_models.dart';
 import 'kit.dart';
 import 'time_picker.dart';
 import 'media_picker.dart';
@@ -3590,6 +3591,7 @@ class _CategoryContentState extends State<_CategoryContent> {
             ),
             const SizedBox(height: Ks.cardGap),
             _vsDetectionCard(container),
+            CustomWakeModelsGroup(container: container),
           ];
         case 'Appearance':
           return sectioned(

@@ -121,6 +121,8 @@ Plugin Manager stays entirely local. Runtime chart data, history and plugin enti
 
 Gestures assigned to plugin actions also stay local, even when the profile includes Gestures. The leader omits them from its payload and the follower ignores any received plugin actions while preserving its own. A local plugin gesture takes precedence if an incoming ordinary gesture has the same ID. Adding, editing or removing a local plugin gesture does not mark the follower out of sync. Other gesture mappings still follow the profile.
 
+Custom wake word models are the exception: a leader passes its models to every follower whose profile syncs Voice Satellite, and those followers mirror the leader's set. See [Custom Wake Word Models](custom-wake-words.md).
+
 Files referenced by settings (like notification chimes, gallery photos, or local media folders) do not sync; only their file paths travel. If a follower lacks the corresponding file, it defaults back just as it would for a missing local file. The Voice Satellite selection lives on the page itself and also stays strictly local to the kiosk.
 
 ## Remote API

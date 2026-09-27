@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kiosk_satellite/app_container.dart';
+import 'package:kiosk_satellite/core/command_registry.dart';
 import 'package:kiosk_satellite/managers/audio/mic_level_monitor.dart';
 import 'package:kiosk_satellite/managers/settings/definitions.dart';
 import 'package:kiosk_satellite/ui/kit.dart';
@@ -1215,6 +1216,54 @@ void main() {
       }
       expect(find.text(voiceMute.title), findsOneWidget);
       expect(find.text('Status'), findsOneWidget);
+
+      await drain(tester);
+    });
+
+    testWidgets('the Wake Word page lists the custom models', (tester) async {
+      await boot(runtime: 'native');
+      await container.settings.set(voiceEnabled, true);
+      container.commands.register(
+        Command(
+          name: 'customWakeModels',
+          description: 'stub',
+          handler: (_) async => const CommandResult.ok({
+            'engine': 'vswakeword',
+            'managed': false,
+            'models': [
+              {
+                'engine': 'openwakeword',
+                'id': 'hey_computer',
+                'wakeWord': 'Hey Computer',
+                'files': [
+                  {'name': 'hey_computer.tflite', 'size': 1},
+                ],
+              },
+            ],
+          }),
+        ),
+      );
+      tester.view.physicalSize = const Size(500, 3200);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+      await tester.pumpWidget(
+        MaterialApp(home: SettingsScreen(container: container)),
+      );
+      await settle(tester);
+      await tester.tap(find.text('Voice Satellite').first);
+      await settle(tester);
+      await tester.tap(find.widgetWithText(ListTile, 'Wake Word'));
+      await settle(tester);
+
+      expect(find.text('Custom Models'), findsOneWidget);
+      expect(find.text('Hey Computer'), findsOneWidget);
+      expect(find.textContaining('not the engine in use'), findsOneWidget);
+      expect(find.text('Add models'), findsOneWidget);
+      expect(find.text('How to add custom models'), findsOneWidget);
+      // The dashboard runtime's self-heal has no row here.
+      expect(find.text(wakeWordResumeTimeoutSeconds.title), findsNothing);
+      // Native bundles the int8 build only: nothing to prefer.
+      expect(find.text(wakeWordPreferFp32.title), findsNothing);
 
       await drain(tester);
     });

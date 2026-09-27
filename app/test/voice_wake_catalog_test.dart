@@ -17,14 +17,19 @@ void main() {
         final path = Uri.parse(url).path.replaceFirst('/', '');
         expect(File(path).existsSync(), isTrue, reason: '$engine $id: $path');
         if (engine == WakeWordEngineType.microWakeWord) {
-          expect(File(path.replaceAll('.json', '.tflite')).existsSync(), isTrue);
+          expect(
+            File(path.replaceAll('.json', '.tflite')).existsSync(),
+            isTrue,
+          );
         }
         if (engine == WakeWordEngineType.vsWakeWord) {
+          // The int8 build only: no fp32 weights ship.
           final onnx = path.replaceAll('.json', '.onnx');
-          expect(File(onnx).existsSync(), isTrue);
+          expect(File(onnx).existsSync(), isFalse, reason: onnx);
           expect(
-            File(onnx.replaceFirst('vswakeword/', 'vswakeword/int8/'))
-                .existsSync(),
+            File(
+              onnx.replaceFirst('vswakeword/', 'vswakeword/int8/'),
+            ).existsSync(),
             isTrue,
           );
         }
@@ -111,7 +116,9 @@ void main() {
   test('tool names and results read like Voice Satellite', () {
     expect(humanizeToolName('HassTurnOn'), 'Turn on');
     expect(
-      humanizeToolName('voice-satellite-card-weather-forecast__get_weather_forecast'),
+      humanizeToolName(
+        'voice-satellite-card-weather-forecast__get_weather_forecast',
+      ),
       'Get weather forecast',
     );
     expect(humanizeToolName('search_images'), 'Search images');
@@ -138,5 +145,68 @@ void main() {
     expect(digest.results.single.kind, 'weather');
     expect(digest.answer, 'Sunny.');
     expect(stripSentimentTags('[happy] Sure thing!'), 'Sure thing!');
+  });
+
+  group('custom models on the kiosk', () {
+    const onnx = CustomWakeWord(
+      engine: WakeWordEngineType.openWakeWord,
+      id: 'hey_computer',
+      phrase: 'Hey Computer',
+      url: 'file:///models/openwakeword/hey_computer.onnx',
+    );
+
+    test('are offered with their own engine only', () {
+      final oww = offeredWakeWords(
+        WakeWordEngineType.openWakeWord,
+        custom: const [onnx],
+      );
+      expect(oww.last.id, 'hey_computer');
+      expect(oww.last.manifestUrl, onnx.url);
+      expect(
+        offeredWakeWords(
+          WakeWordEngineType.vsWakeWord,
+          custom: const [onnx],
+        ).map((w) => w.id),
+        isNot(contains('hey_computer')),
+      );
+    });
+
+    test('replace a bundled model of the same id', () {
+      const mine = CustomWakeWord(
+        engine: WakeWordEngineType.microWakeWord,
+        id: 'hey_luna',
+        phrase: 'Hey Luna',
+        url: 'file:///models/microwakeword/hey_luna.json',
+      );
+      final offered = offeredWakeWords(
+        WakeWordEngineType.microWakeWord,
+        custom: const [mine],
+      );
+      expect(
+        offered.where((w) => w.id == 'hey_luna').single.manifestUrl,
+        mine.url,
+      );
+    });
+
+    test('never share a name, Home Assistant tells them apart by it', () {
+      const again = CustomWakeWord(
+        engine: WakeWordEngineType.vsWakeWord,
+        id: 'luna_v2',
+        phrase: 'Hey Luna',
+        url: 'file:///models/vswakeword/luna_v2.json',
+      );
+      const third = CustomWakeWord(
+        engine: WakeWordEngineType.vsWakeWord,
+        id: 'hey_luna_',
+        phrase: 'Hey Luna',
+        url: 'file:///models/vswakeword/hey_luna_.json',
+      );
+      final names = offeredWakeWords(
+        WakeWordEngineType.vsWakeWord,
+        custom: const [again, third],
+      ).map((w) => w.phrase).toList();
+      expect(names.toSet().length, names.length);
+      expect(names, containsAll(['Hey Luna', 'Luna V2', 'Hey Luna 2']));
+    });
   });
 }

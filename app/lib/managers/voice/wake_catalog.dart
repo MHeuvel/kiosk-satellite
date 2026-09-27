@@ -2,8 +2,9 @@ import '../wake_word/engine.dart';
 import '../wake_word/model_source.dart';
 
 /// The wake words native Voice Satellite can listen for: the models bundled
-/// with the app per engine, plus the microWakeWord models Home Assistant
-/// offers from its `config/custom_wake_words` folder.
+/// with the app per engine, the microWakeWord models Home Assistant offers
+/// from its `config/custom_wake_words` folder and the custom models added to
+/// the kiosk itself.
 ///
 /// The tables here are Voice Satellite's own (its wake-word module and the
 /// vsWakeWord and openWakeWord sensitivity modules), ported so a kiosk needs
@@ -82,7 +83,7 @@ String wakeWordPhraseFor(String id) =>
         .map((w) => '${w[0].toUpperCase()}${w.substring(1)}')
         .join(' ');
 
-String _folder(WakeWordEngineType engine) => switch (engine) {
+String engineFolder(WakeWordEngineType engine) => switch (engine) {
   WakeWordEngineType.vsWakeWord => 'vswakeword',
   WakeWordEngineType.microWakeWord => 'microwakeword',
   WakeWordEngineType.openWakeWord => 'openwakeword',
@@ -93,7 +94,7 @@ String _folder(WakeWordEngineType engine) => switch (engine) {
 /// itself for openWakeWord, which ships no manifest.
 String bundledModelManifest(WakeWordEngineType engine, String id) {
   final ext = engine == WakeWordEngineType.openWakeWord ? 'onnx' : 'json';
-  return bundledModelUrl('assets/wake_words/${_folder(engine)}/$id.$ext');
+  return bundledModelUrl('assets/wake_words/${engineFolder(engine)}/$id.$ext');
 }
 
 /// A microWakeWord model Home Assistant offers from config/custom_wake_words.
@@ -128,6 +129,23 @@ class ExternalWakeWord {
   }
 }
 
+/// A custom model added to the kiosk: its engine, id (the file name), the
+/// phrase it answers to and its model's `file://` URL, the manifest for
+/// microWakeWord and vsWakeWord, the classifier for openWakeWord.
+class CustomWakeWord {
+  const CustomWakeWord({
+    required this.engine,
+    required this.id,
+    required this.phrase,
+    required this.url,
+  });
+
+  final WakeWordEngineType engine;
+  final String id;
+  final String phrase;
+  final String url;
+}
+
 /// A wake word the kiosk can offer: id, phrase and where its model is.
 class OfferedWakeWord {
   const OfferedWakeWord(this.id, this.phrase, this.manifestUrl);
@@ -136,21 +154,31 @@ class OfferedWakeWord {
   final String manifestUrl;
 }
 
-/// Everything the engine can listen for right now: its bundled models, and
-/// for microWakeWord the custom ones Home Assistant offered (their ids win
-/// over a bundled model of the same id: the user put that file there).
+/// Everything the engine can listen for right now: its bundled models, for
+/// microWakeWord the custom ones Home Assistant offered, then the custom
+/// models added to the kiosk for this engine. A custom id wins over a
+/// bundled model of the same id (the user put that file there), and the
+/// kiosk's own over Home Assistant's.
 List<OfferedWakeWord> offeredWakeWords(
   WakeWordEngineType engine, {
   List<ExternalWakeWord> external = const [],
+  List<CustomWakeWord> custom = const [],
 }) {
-  final custom = engine == WakeWordEngineType.microWakeWord
+  final local = [
+    for (final w in custom)
+      if (w.engine == engine) w,
+  ];
+  final localIds = {for (final w in local) w.id};
+  final fromHa = engine == WakeWordEngineType.microWakeWord
       ? [
           for (final w in external)
-            if (w.modelType.isEmpty || w.modelType == 'micro') w,
+            if ((w.modelType.isEmpty || w.modelType == 'micro') &&
+                !localIds.contains(w.id))
+              w,
         ]
       : const <ExternalWakeWord>[];
-  final customIds = {for (final w in custom) w.id};
-  return [
+  final customIds = {...localIds, for (final w in fromHa) w.id};
+  final offered = [
     for (final id in bundledWakeWords[engine] ?? const <String>[])
       if (!customIds.contains(id))
         OfferedWakeWord(
@@ -158,8 +186,23 @@ List<OfferedWakeWord> offeredWakeWords(
           wakeWordPhraseFor(id),
           bundledModelManifest(engine, id),
         ),
-    for (final w in custom) OfferedWakeWord(w.id, w.wakeWord, w.url),
+    for (final w in fromHa) OfferedWakeWord(w.id, w.wakeWord, w.url),
   ];
+  // Home Assistant tells the wake words apart by name, in its selects and
+  // when it picks pipeline 1 or 2 by the phrase heard: a custom model named
+  // like one already offered goes by its file name instead.
+  final taken = {for (final w in offered) w.phrase.toLowerCase()};
+  for (final w in local) {
+    var phrase = w.phrase;
+    if (taken.contains(phrase.toLowerCase())) phrase = wakeWordPhraseFor(w.id);
+    final base = phrase;
+    for (var n = 2; taken.contains(phrase.toLowerCase()); n++) {
+      phrase = '$base $n';
+    }
+    taken.add(phrase.toLowerCase());
+    offered.add(OfferedWakeWord(w.id, phrase, w.url));
+  }
+  return offered;
 }
 
 // ── Sensitivity (Voice Satellite's vsWakeWord and openWakeWord policy) ───
@@ -199,8 +242,9 @@ WakeWordConfig buildWakeConfig({
   required bool noiseGate,
   required bool stopWord,
   List<ExternalWakeWord> external = const [],
+  List<CustomWakeWord> custom = const [],
 }) {
-  final offered = offeredWakeWords(engine, external: external);
+  final offered = offeredWakeWords(engine, external: external, custom: custom);
   final byId = {for (final w in offered) w.id: w};
   final picked = <OfferedWakeWord>[for (final id in activeIds) ?byId[id]];
   final unique = <String, OfferedWakeWord>{for (final w in picked) w.id: w};

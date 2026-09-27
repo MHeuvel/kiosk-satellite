@@ -9,6 +9,15 @@ import 'package:path_provider/path_provider.dart';
 import '../model_source.dart';
 import 'onnx_ir.dart';
 
+/// Whether [bytes] are a TFLite flatbuffer (`TFL3` after the root offset)
+/// rather than an ONNX protobuf: an openWakeWord classifier comes as either.
+bool isTfliteModel(Uint8List bytes) =>
+    bytes.length > 8 &&
+    bytes[4] == 0x54 &&
+    bytes[5] == 0x46 &&
+    bytes[6] == 0x4C &&
+    bytes[7] == 0x33;
+
 /// openWakeWord's three ONNX stages. The first two are shared by every wake
 /// word; only the classifier is per-model.
 class OwwSharedModels {
@@ -49,7 +58,12 @@ class OwwModelStore {
   }
 
   /// mel + embedding, fetched once per base URL and reused across wake words.
+  /// A custom classifier on the kiosk has no shared models beside it: it
+  /// runs on the bundled ones, which every openWakeWord model is trained on.
   Future<OwwSharedModels> shared(String modelUrl) async {
+    if (isLocalModel(modelUrl)) {
+      modelUrl = bundledModelUrl('assets/wake_words/openwakeword/x.onnx');
+    }
     final base = baseOf(modelUrl);
     final cached = _shared;
     if (cached != null && _sharedBase == base) return cached;
@@ -61,20 +75,21 @@ class OwwModelStore {
     return _shared!;
   }
 
-  /// Fetch an .onnx, from disk when we have it, and make it loadable by the
-  /// bundled runtime (see [downgradeIrVersion]).
+  /// Fetch a classifier, from disk when we have it, and make an ONNX one
+  /// loadable by the bundled runtime (see [downgradeIrVersion]).
   Future<Uint8List> fetchModel(String url) async {
     final dir = await _cacheDir();
     final key = sha256.convert(utf8.encode(url)).toString().substring(0, 24);
     final file = File('${dir.path}/$key.onnx');
     Uint8List bytes;
-    if (isBundledModel(url)) {
+    if (isStoredModel(url)) {
       bytes = await readModelBytes(url);
     } else if (await file.exists() && await file.length() > 0) {
       bytes = await file.readAsBytes();
     } else {
-      final resp =
-          await http.get(Uri.parse(url)).timeout(const Duration(seconds: 60));
+      final resp = await http
+          .get(Uri.parse(url))
+          .timeout(const Duration(seconds: 60));
       if (resp.statusCode != 200) {
         throw StateError('onnx HTTP ${resp.statusCode}: $url');
       }
@@ -84,6 +99,8 @@ class OwwModelStore {
     // Patch a copy each load rather than rewriting the cache file: the cache
     // should hold what the server served, so a future runtime that supports
     // IR 10 natively gets the original.
+    // A TFLite classifier is not ONNX: nothing to patch.
+    if (isTfliteModel(bytes)) return bytes;
     final patched = Uint8List.fromList(bytes);
     downgradeIrVersion(patched);
     return patched;

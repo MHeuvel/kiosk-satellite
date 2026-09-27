@@ -44,17 +44,22 @@ class VswwModelStore {
       timeout: const Duration(seconds: 20),
     );
     final manifest = VswwManifest.fromJson(
-        jsonDecode(manifestJson) as Map<String, dynamic>);
+      jsonDecode(manifestJson) as Map<String, dynamic>,
+    );
     if (!manifest.isCtc) {
       throw StateError('unsupported vsWakeWord format: ${manifest.format}');
     }
 
     final onnxUrl = _onnxUrlFor(manifestUrl);
-    if (preferInt8) {
+    // The app bundles the int8 build only: the fp32 files would add 8 MB
+    // for a drift of about 2% in confidence.
+    final bundled = isBundledModel(manifestUrl);
+    if (preferInt8 || bundled) {
       try {
         final bytes = await _fetchOnnxCached(_int8UrlFor(onnxUrl));
         return VswwModel(manifest, manifestJson, bytes, 'int8');
       } catch (_) {
+        if (bundled) rethrow;
         // No int8 sibling on this server (or it failed to load): fp32 is
         // always the safe answer, and the browser runner requires it anyway.
       }
@@ -89,15 +94,19 @@ class VswwModelStore {
   }
 
   Future<Uint8List> _fetchOnnxCached(String onnxUrl) async {
-    if (isBundledModel(onnxUrl)) return readModelBytes(onnxUrl);
+    if (isStoredModel(onnxUrl)) return readModelBytes(onnxUrl);
     final dir = await _cacheDir();
-    final key = sha256.convert(utf8.encode(onnxUrl)).toString().substring(0, 24);
+    final key = sha256
+        .convert(utf8.encode(onnxUrl))
+        .toString()
+        .substring(0, 24);
     final file = File('${dir.path}/$key.onnx');
     if (await file.exists() && await file.length() > 0) {
       return file.readAsBytes();
     }
-    final resp =
-        await http.get(Uri.parse(onnxUrl)).timeout(const Duration(seconds: 60));
+    final resp = await http
+        .get(Uri.parse(onnxUrl))
+        .timeout(const Duration(seconds: 60));
     if (resp.statusCode != 200) {
       throw StateError('onnx HTTP ${resp.statusCode}: $onnxUrl');
     }

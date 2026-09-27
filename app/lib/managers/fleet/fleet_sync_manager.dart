@@ -199,6 +199,10 @@ class Follower {
   /// removed or invited again.
   bool declined;
 
+  /// The leader's custom wake word models this kiosk last matched, by their
+  /// hash. Not saved: after a restart one comparison sets it again.
+  String? wakeModelsRevision;
+
   final int addedAt;
   int lastSyncAt;
   String version;
@@ -409,6 +413,15 @@ class FleetSyncManager extends Manager {
     _register();
 
     _subs.add(bus.on<SettingChanged>().listen(_onSettingChanged));
+    // The leader's custom wake word models changed: pass them on soon, as
+    // a setting change is.
+    _subs.add(
+      bus.on<RemoteStatusChanged>().listen((e) {
+        if (e.topic != 'wake-models' || !leading) return;
+        _bump?.cancel();
+        _bump = Timer(const Duration(seconds: 2), _scheduleTick);
+      }),
+    );
     // A kiosk coming back on the network is the moment to look again.
     _subs.add(
       bus.on<FleetChanged>().listen((_) {
@@ -644,6 +657,11 @@ class FleetSyncManager extends Manager {
       final peers = await _peers();
       final before = jsonEncode([for (final f in _followers) f.toJson()]);
       var changed = false;
+      // The leader's custom wake word models, read once per tick. Null when
+      // they could not be read: a failed read must never look like an empty
+      // set, which would clear every follower's models.
+      Map<String, String>? models;
+      var modelsRead = false;
       for (final f in _followers) {
         if (only != null && f.id != only) continue;
         final peer = peers[f.id];
@@ -685,6 +703,15 @@ class FleetSyncManager extends Manager {
         }
         if (force || f.dirty || f.appliedRevision != fingerprintFor(f)) {
           changed = await _push(f) || changed;
+        }
+        if (f.error == null && f.token != null) {
+          if (!modelsRead) {
+            models = await _wakeModels();
+            modelsRead = true;
+          }
+          if (models != null) {
+            changed = await _syncWakeModels(f, models) || changed;
+          }
         }
       }
       if (changed ||
@@ -895,6 +922,89 @@ class FleetSyncManager extends Manager {
       '($applied changed)',
     );
     return true;
+  }
+
+  /// The leader's custom wake word files with their SHA-256, by
+  /// `folder/name`.
+  Future<Map<String, String>?> _wakeModels() async {
+    final r = await commands.execute('customWakeModelsManifest', const {});
+    final files = r.ok && r.data is Map ? (r.data as Map)['files'] : null;
+    return files is Map
+        ? {for (final e in files.entries) '${e.key}': '${e.value}'}
+        : null;
+  }
+
+  /// Followers mirror the leader's custom wake word models while their
+  /// profile syncs Voice Satellite: what is missing or different is sent,
+  /// what the leader does not have is removed. Compared by hash, so an
+  /// unchanged set costs one request per follower until the leader's
+  /// changes, and a follower that was away catches up on its next tick.
+  Future<bool> _syncWakeModels(Follower f, Map<String, String> mine) async {
+    if (!profileFor(f).categories.contains('Voice Satellite')) return false;
+    final revision = fingerprintOf(mine);
+    if (f.wakeModelsRevision == revision) return false;
+    final res = await _get('${f.url}/api/fleet/wake-models', token: f.token);
+    final body = _jsonOf(res);
+    final data = body?['data'];
+    // A follower without the route runs an older build: its version check
+    // holds it anyway until it updates.
+    if (res?.statusCode != 200 || data is! Map || data['files'] is! Map) {
+      return false;
+    }
+    final theirs = {
+      for (final e in (data['files'] as Map).entries) '${e.key}': '${e.value}',
+    };
+    for (final e in mine.entries) {
+      if (theirs[e.key] == e.value) continue;
+      final path = await commands.execute('customWakeModelPath', {
+        'path': e.key,
+      });
+      final local = path.ok && path.data is Map
+          ? (path.data as Map)['path']
+          : null;
+      if (local is! String) continue;
+      final sent = await _upload(
+        '${f.url}/api/fleet/wake-models?path=${Uri.encodeQueryComponent(e.key)}',
+        File(local),
+        token: f.token,
+        method: 'PUT',
+        contentType: 'application/octet-stream',
+      );
+      if (sent?.statusCode != 200) {
+        f.error = 'Could not send the wake word model ${e.key.split('/').last}';
+        log.warn(name, '${f.name}: ${f.error} (${sent?.statusCode})');
+        return true;
+      }
+    }
+    for (final path in theirs.keys) {
+      if (mine.containsKey(path)) continue;
+      await _delete(
+        '${f.url}/api/fleet/wake-models?path=${Uri.encodeQueryComponent(path)}',
+        token: f.token,
+      );
+    }
+    f.wakeModelsRevision = revision;
+    log.info(
+      name,
+      'wake word models in step on ${f.name} (${mine.length} files)',
+    );
+    return false;
+  }
+
+  Future<void> _delete(String url, {String? token}) async {
+    final client = clientFactory();
+    try {
+      await client
+          .delete(
+            Uri.parse(url),
+            headers: {if (token != null) 'Authorization': 'Bearer $token'},
+          )
+          .timeout(requestTimeout);
+    } catch (e) {
+      log.debug(name, 'DELETE $url: $e');
+    } finally {
+      client.close();
+    }
   }
 
   /// Keep followers on this version: a follower behind this kiosk that is
@@ -2379,13 +2489,15 @@ class FleetSyncManager extends Manager {
     File file, {
     String? token,
     void Function(double fraction)? onProgress,
+    String method = 'POST',
+    String contentType = 'application/vnd.android.package-archive',
   }) async {
     final client = clientFactory();
     try {
       final length = await file.length();
-      final request = http.StreamedRequest('POST', Uri.parse(url))
+      final request = http.StreamedRequest(method, Uri.parse(url))
         ..contentLength = length
-        ..headers['Content-Type'] = 'application/vnd.android.package-archive';
+        ..headers['Content-Type'] = contentType;
       if (token != null) request.headers['Authorization'] = 'Bearer $token';
       var done = 0;
       final counted = onProgress == null || length == 0

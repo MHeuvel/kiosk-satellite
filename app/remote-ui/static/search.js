@@ -142,6 +142,8 @@ export const SEARCH_EXTRAS = [
   { tab: 'voicesatellite', title: 'Text scale', runtime: 'dashboard', sub: 'Appearance',
     desc: 'The size of the overlay text.' },
   // Native Voice Satellite's hand-built rows (vs_native.js).
+  { tab: 'voicesatellite', title: 'Custom Models', sub: 'Wake Word', runtime: 'native',
+    desc: 'Add your own wake word models for any engine.', anchor: 'x:vs_custom_models' },
   { tab: 'voicesatellite', title: 'Status', runtime: 'native',
     desc: 'Whether Voice Satellite is listening and how Home Assistant knows this kiosk.' },
   { tab: 'voicesatellite', title: 'Assistant 1', sub: 'Assistant', runtime: 'native',

@@ -749,6 +749,32 @@ class RemoteManager extends Manager {
           'length': request.contentLength,
         });
         return _json(r.ok ? 200 : 400, r.toJson());
+      // A custom wake word file, the raw body, into the staging folder.
+      // commitCustomWakeModels then checks the upload's files together.
+      case ('POST', 'api/voice/wake-models/upload'):
+        final r = await commands.execute('stageCustomWakeModel', {
+          'name': request.url.queryParameters['name'] ?? '',
+          'stream': request.read(),
+          'length': request.contentLength,
+        });
+        return _json(r.ok ? 200 : 400, r.toJson());
+      // The fleet leader's side of the custom wake word models: what this
+      // kiosk has, a file to keep and a file to drop.
+      case ('GET', 'api/fleet/wake-models'):
+        final r = await commands.execute('customWakeModelsManifest', const {});
+        return _json(r.ok ? 200 : 400, r.toJson());
+      case ('PUT', 'api/fleet/wake-models'):
+        final r = await commands.execute('receiveCustomWakeModelFile', {
+          'path': request.url.queryParameters['path'] ?? '',
+          'stream': request.read(),
+          'length': request.contentLength,
+        });
+        return _json(r.ok ? 200 : 400, r.toJson());
+      case ('DELETE', 'api/fleet/wake-models'):
+        final r = await commands.execute('removeCustomWakeModelFile', {
+          'path': request.url.queryParameters['path'] ?? '',
+        });
+        return _json(r.ok ? 200 : 400, r.toJson());
     }
 
     // POST /api/commands/<name>
@@ -981,6 +1007,7 @@ class RemoteManager extends Manager {
     'api/fleet/apply',
     'api/fleet/leave',
     'api/fleet/roster',
+    'api/fleet/wake-models',
     'api/commands/getUpdateStatus',
     'api/commands/checkUpdateNow',
     'api/commands/installUpdate',

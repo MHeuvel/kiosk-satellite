@@ -4945,7 +4945,8 @@ const wakeWordEnabled = SettingDef<bool>(
 
 /// Kiosk Satellite fetches the quantized `int8/` model siblings by default
 /// (~35% faster inference, same manifest and thresholds). This opts back into
-/// the original fp32 files for users who want zero quantization drift.
+/// the original fp32 files the integration serves, for users who want zero
+/// quantization drift. Native Voice Satellite bundles the int8 build only.
 const wakeWordPreferFp32 = SettingDef<bool>(
   key: 'wake_word.prefer_fp32',
   type: SettingType.boolean,
@@ -4956,7 +4957,8 @@ const wakeWordPreferFp32 = SettingDef<bool>(
       'more CPU usage while listening to avoid about 2% confidence drift.',
   category: 'Voice Satellite',
   subpage: 'Wake Word',
-  dependsOn: 'wake_word.enabled',
+  dependsOn: 'voice.runtime',
+  dependsOnValue: 'dashboard',
 );
 
 const wakeWordBackground = SettingDef<bool>(
