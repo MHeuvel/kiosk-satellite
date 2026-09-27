@@ -137,8 +137,13 @@ class WakeWordManager extends Manager
     }
   }
 
+  /// Voice interactions from the dashboard's Voice Satellite or the native
+  /// one: either can bring the kiosk forward and send it back after.
   void _onBackgroundInteraction(VoiceInteractionChanged event) {
-    if (event.source != InteractionSource.page) return;
+    if (event.source != InteractionSource.page &&
+        event.source != InteractionSource.native) {
+      return;
+    }
     if (event.active) {
       _pageInteractions.add(event.reason);
       _backgroundReturnTimer?.cancel();

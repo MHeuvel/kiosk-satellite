@@ -308,6 +308,7 @@ void main() {
       'follow-up',
       'overlapping media',
       'timer only',
+      'native wake word',
     ]) {
       test('return to previous app: $scenario', () async {
         await settings.set(
@@ -349,7 +350,10 @@ void main() {
               VoiceInteractionChanged(
                 active: active,
                 reason: reason,
-                source: InteractionSource.page,
+                // The native satellite reports its turns as its own.
+                source: scenario == 'native wake word'
+                    ? InteractionSource.native
+                    : InteractionSource.page,
               ),
             );
             await Future<void>.delayed(Duration.zero);
@@ -360,7 +364,7 @@ void main() {
                 ? AppLifecycleState.resumed
                 : AppLifecycleState.paused,
           );
-          if (scenario == 'wake word') {
+          if (scenario == 'wake word' || scenario == 'native wake word') {
             await commands.execute('simulateWakeWord', const {});
           } else {
             await commands.execute('bringToFront', {
@@ -406,6 +410,7 @@ void main() {
           await Future<void>.delayed(const Duration(milliseconds: 350));
           final shouldReturn = const {
             'wake word',
+            'native wake word',
             'announcement',
             'ask_question',
             'start_conversation',
