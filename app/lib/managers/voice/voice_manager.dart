@@ -361,6 +361,7 @@ class VoiceManager extends Manager {
                 'images, featured or videos',
             'data': 'optional tool result for that panel',
             'seconds': 'how long it stays (default 5)',
+            'level': 'the bar level it shows, 0..1 (default 0.5)',
           },
           handler: (p) async {
             if (_session.busy) {
@@ -381,7 +382,10 @@ class VoiceManager extends Manager {
             final seconds = (p['seconds'] as num?)?.toInt() ?? 5;
             _previewTimer?.cancel();
             _onView(shown);
-            level.value = 0.5;
+            level.value = ((p['level'] as num?)?.toDouble() ?? 0.5).clamp(
+              0.0,
+              1.0,
+            );
             _previewTimer = Timer(Duration(seconds: seconds.clamp(1, 120)), () {
               if (view.value.answer == _previewView.answer) {
                 _onView(AssistView.hidden);

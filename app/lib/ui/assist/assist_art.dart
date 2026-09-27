@@ -549,7 +549,9 @@ class _BarPainter extends CustomPainter {
       strip,
       Paint()
         ..color = _cyan.withValues(alpha: alpha)
-        ..maskFilter = MaskFilter.blur(BlurStyle.normal, radius / 2),
+        // A drop-shadow's length is its standard deviation, not a blur
+        // radius twice it as box-shadow's is.
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, radius),
     );
     canvas.drawRRect(strip, Paint()..shader = gradient);
     if (!reactive) return;
@@ -606,11 +608,12 @@ class _BarPainter extends CustomPainter {
     };
     final angle = 2 * math.pi * ((t / period) % 1.0);
     // drop-shadow(0 0 6px violet .7) drop-shadow(0 0 2px blue .5); the
-    // first is 4 px while processing.
+    // first is 4 px while processing. A drop-shadow's length is its
+    // standard deviation (box-shadow's blur radius is twice it).
     final first = mode == ArtMode.thinking ? 4.0 : 6.0;
     final line = screen.deflate(2.5);
-    EdgeGlow.frame(canvas, line, 5, _violet.withValues(alpha: 0.7), first / 2);
-    EdgeGlow.frame(canvas, line, 5, _blue.withValues(alpha: 0.5), 1);
+    EdgeGlow.frame(canvas, line, 5, _violet.withValues(alpha: 0.7), first);
+    EdgeGlow.frame(canvas, line, 5, _blue.withValues(alpha: 0.5), 2);
     // conic-gradient(from angle, ...): CSS starts at the top, Flutter's
     // sweep at the right.
     drawRing(
@@ -633,15 +636,40 @@ class _BarPainter extends CustomPainter {
     final opacity = lvl;
     if (opacity <= 0) return;
     // ::after inset shadows (the outer ones fall off screen): blue 7 px,
-    // violet 16 px over it.
-    EdgeGlow.inset(canvas, screen, _blue.withValues(alpha: 0.45 * opacity), 7);
-    EdgeGlow.inset(
-      canvas,
-      screen,
-      _violet.withValues(alpha: 0.6 * opacity),
-      16,
-    );
+    // violet 16 px over it. The frame's drop-shadow filter applies to the
+    // ::after too, so each glow casts its own violet and blue shadow under
+    // it: a wider, fainter copy of the glow (a blurred Gaussian edge is a
+    // wider Gaussian edge).
+    for (final (color, alpha, blur) in [
+      (_blue, 0.45, 7.0),
+      (_violet, 0.6, 16.0),
+    ]) {
+      final sigma = blur / 2;
+      EdgeGlow.inset(
+        canvas,
+        screen,
+        _violet.withValues(alpha: 0.7 * alpha * opacity),
+        2 * _widen(sigma, first),
+      );
+      EdgeGlow.inset(
+        canvas,
+        screen,
+        _blue.withValues(alpha: 0.5 * alpha * opacity),
+        2 * _widen(sigma, 2),
+      );
+      EdgeGlow.inset(
+        canvas,
+        screen,
+        color.withValues(alpha: alpha * opacity),
+        blur,
+      );
+    }
   }
+
+  /// A Gaussian edge of [sigma] blurred again by [by]: one of their
+  /// combined width.
+  static double _widen(double sigma, double by) =>
+      math.sqrt(sigma * sigma + by * by);
 
   // ── Retro Terminal ────────────────────────────────────────────────────
 
@@ -666,12 +694,13 @@ class _BarPainter extends CustomPainter {
         alpha = keyframes(t, 2, const [(0, 0.4), (0.5, 0.8), (1, 0.4)]);
     }
     final line = outer.deflate(1);
+    // drop-shadow(0 0 r green a): r is the standard deviation.
     EdgeGlow.frame(
       canvas,
       line,
       2,
       _green.withValues(alpha: alpha * opacity),
-      radius / 2,
+      radius,
     );
     if (mode == ArtMode.thinking || reactive) {
       EdgeGlow.inset(
@@ -691,7 +720,22 @@ class _BarPainter extends CustomPainter {
     final l = lvl;
     if (l <= 0) return;
     // ::after on the border box: 0 0 20px green .8 out, inset 0 0 36px
-    // green .28 in, at the level's opacity.
+    // green .28 in, at the level's opacity. The frame's pulsing
+    // drop-shadow applies to the ::after too, so each glow casts a wider
+    // green copy of itself under it.
+    final shadow = alpha * opacity;
+    EdgeGlow.outer(
+      canvas,
+      outer,
+      _green.withValues(alpha: shadow * 0.8 * l),
+      2 * _widen(10, radius),
+    );
+    EdgeGlow.inset(
+      canvas,
+      outer,
+      _green.withValues(alpha: shadow * 0.28 * l),
+      2 * _widen(18, radius),
+    );
     EdgeGlow.outer(canvas, outer, _green.withValues(alpha: 0.8 * l), 20);
     EdgeGlow.inset(canvas, outer, _green.withValues(alpha: 0.28 * l), 36);
   }
