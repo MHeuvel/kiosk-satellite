@@ -206,12 +206,7 @@ const _categories = <(String, String, Object, String)>[
     'assets/svg/home-assistant.svg',
     'Connection, dashboard, kiosk mode',
   ),
-  (
-    'Voice Satellite',
-    'Voice Satellite',
-    Icons.graphic_eq_outlined,
-    'Wake word, background listening',
-  ),
+  // ESPHome first: native Voice Satellite runs on its device.
   (
     'ESPHome',
     'ESPHome',
@@ -219,6 +214,12 @@ const _categories = <(String, String, Object, String)>[
     // ESPHome mark, not a Material glyph.
     'assets/svg/esphome.svg',
     'Native entities and Bluetooth proxy',
+  ),
+  (
+    'Voice Satellite',
+    'Voice Satellite',
+    Icons.graphic_eq_outlined,
+    'Wake word, background listening',
   ),
   (
     'Screen & Audio',

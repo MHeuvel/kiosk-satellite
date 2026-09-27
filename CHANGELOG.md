@@ -9,6 +9,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 - **Custom wake word models.** A new Custom Models group on the Voice Satellite Wake Word page adds your own models to the kiosk, from the device or the remote admin: microWakeWord (`.json` and `.tflite`), vsWakeWord (`.json` and `.onnx`) and openWakeWord in either `.onnx` or `.tflite`. Each model is checked before it is kept, then shows up in Wake word 1 and 2 next to the built in ones. A fleet leader passes its models to followers whose profile syncs Voice Satellite, and the followers mirror its set. Switching the wake word engine now updates those lists right away too.
 
 ### Changed
+- **ESPHome comes before Voice Satellite in Settings.** Native Voice Satellite runs on the kiosk's ESPHome device, so ESPHome now leads the Home Assistant group on the device and in the remote admin.
 - **A smaller download.** Native Voice Satellite bundles only the int8 build of the vsWakeWord models, which saves 8 MB. Prefer fp32 vsWakeWord models now shows only while the Voice Satellite integration runs on the dashboard, where it still applies.
 - **Slideshow videos pause while the screen is off.** The Local, Gallery and Immich slideshows already held their photos with the screen off, but a video on screen kept decoding. It now pauses and plays on when the screen comes back.
 
