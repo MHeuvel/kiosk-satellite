@@ -313,7 +313,10 @@ class VoiceSession {
 
   void _onChunk(int gen, Uint8List pcm) {
     if (gen != _gen) return;
-    onLevel(_levels.mic(pcm));
+    // Dark until the command is being heard: the mic before that picks up
+    // the chime and the speaker draining, as Voice Satellite pins its level
+    // at 0 through the wait.
+    onLevel(_sending ? _levels.mic(pcm) : 0);
     if (_sending) {
       unawaited(link.audio(pcm));
       return;
@@ -607,7 +610,9 @@ class VoiceSession {
         phase: AssistPhase.listening,
         earlier: [..._view.earlier, if (!turn.isEmpty) turn],
         results: _view.results,
-        reactive: false,
+        // The reactive layout holds through the handoff, so the lines on
+        // screen do not drop and come back up.
+        reactive: true,
       ),
     );
     await _startRun(
@@ -631,9 +636,14 @@ class VoiceSession {
     _phase = _Phase.announcing;
     onTrace?.call('announcement', text: announcement.text);
     onBusy(true, 'announcement');
+    // A passive announcement stands centered. One that expects a reply
+    // (start_conversation, ask_question) is the assistant's line in the
+    // chat's own layout, as Voice Satellite draws them.
     _show(
       AssistView(
-        phase: AssistPhase.announcement,
+        phase: announcement.startConversation
+            ? AssistPhase.speaking
+            : AssistPhase.announcement,
         answer: announcement.text,
         reactive: !options().remoteSpeech,
       ),
@@ -676,18 +686,33 @@ class VoiceSession {
     await link.finished();
     if (gen != _gen) return;
     if (announcement.startConversation) {
+      // The same handoff as a follow-up: its delay, and its chime only when
+      // the follow-up chime is on.
+      final opts = options();
+      if (opts.followupDelayMs > 0) {
+        await Future<void>.delayed(
+          Duration(milliseconds: opts.followupDelayMs),
+        );
+        if (gen != _gen) return;
+      }
       _phrase = '';
       _wokeAt = _now();
       _phase = _Phase.starting;
       onBusy(true, 'voice');
+      // The question stays on screen above the reply, as a follow-up keeps
+      // the turn before it.
       _show(
         AssistView(
           phase: AssistPhase.listening,
-          answer: announcement.text,
-          reactive: false,
+          earlier: [AssistTurn(answer: announcement.text)],
+          reactive: true,
         ),
       );
-      await _startRun(gen, chime: options().wakeSound, keepPreRoll: false);
+      await _startRun(
+        gen,
+        chime: opts.followupChime && opts.wakeSound,
+        keepPreRoll: false,
+      );
       return;
     }
     await _finish(

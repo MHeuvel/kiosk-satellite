@@ -462,11 +462,22 @@ void main() {
         ),
       );
       async.flushMicrotasks();
+      // The assistant's line in the chat layout, not a centered
+      // announcement.
+      expect(h.view.phase, AssistPhase.speaking);
+      expect(h.view.answer, 'Close the garage?');
       h.session.onSoundEnded(h.player.lastId);
       async.flushMicrotasks();
       expect(h.link.finishedCount, 1);
       expect(h.link.requests.single, (true, ''));
       expect(h.view.phase, AssistPhase.listening);
+      // The question moves above, the reply and its answer come under it.
+      expect(h.view.earlier.single.answer, 'Close the garage?');
+      expect(h.view.answer, isEmpty);
+      // A follow-up's handoff: no chime with the follow-up chime off, and
+      // the layout stays put.
+      expect(h.player.chimes, isEmpty);
+      expect(h.view.reactive, isTrue);
       expect(h.busy_.last, (true, 'voice'));
     });
   });
